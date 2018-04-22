@@ -10,12 +10,14 @@ int main(int, char**){
   Window window("Isometric Engine", 800, 600);
   Map map(window.getSDLRenderer(), window.getSDLWindow());
 
+
+  int cameraoffset_x = -20;
+  int cameraoffset_y = -20;
+  float zoom = 1.0;
+  bool fullscreen = false;
+
+  // Gameloop
   while (!window.isClosed()){
-
-    int cameraoffset_x = -20;
-    int cameraoffset_y = -20;
-    float zoom = 1;
-
     // Clear the renderer each frame
     SDL_RenderClear(window.getSDLRenderer());
 
@@ -33,25 +35,44 @@ int main(int, char**){
         break;
 
       case SDL_KEYDOWN:
-        printf("BUTTON PRESSED\n");
         switch (event.key.keysym.sym) {
         case SDLK_ESCAPE:
           window.close();
           break;
         case SDLK_g:
           map.toggleGrid();
-          printf("GSPRESSED\n");
+          printf("Toggle Grid\n");
           break;
         case SDLK_LEFT:
-          printf("LEFT BUTTON PRESSED\n");
+          cameraoffset_x += 4;
           break;
+        case SDLK_RIGHT:
+          cameraoffset_x -= 4;
+          break;
+        case SDLK_UP:
+          cameraoffset_y += 4;
+          break;
+        case SDLK_DOWN:
+          cameraoffset_y -= 4;
+          break;
+        case SDLK_f:
+          fullscreen = !fullscreen;
+
+          if (fullscreen)
+          {
+            SDL_SetWindowFullscreen(window.getSDLWindow(), SDL_WINDOW_FULLSCREEN);
+          }
+          else
+          {
+            SDL_SetWindowFullscreen(window.getSDLWindow(), 0);
+          }
         }
       default:
-        break;
+      break;
       }
     }
 
-
+    // render the tilemap
     map.render(cameraoffset_x, cameraoffset_y, zoom);
 
     // Render the Frame
@@ -59,8 +80,6 @@ int main(int, char**){
 
   }
   return 0;
-  
-  
 }
 
 

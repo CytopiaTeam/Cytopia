@@ -1,5 +1,5 @@
-#ifndef SPRITE_HPP_
-#define SPRITE_HPP_
+#ifndef SPRITE_HXX_
+#define SPRITE_HXX_
 
 
 #include <string>
@@ -8,7 +8,6 @@
 #include "SDL.h"
 #include "SDL_image.h"
 
-//#include "global.hpp"
 #include "texture.hxx"
 
 const int TILE_SIZE = 32; // All Sprites are 32 x 32

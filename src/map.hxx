@@ -1,5 +1,5 @@
-#ifndef MAP_HPP_
-#define MAP_HPP_
+#ifndef MAP_HXX_
+#define MAP_HXX_
 
 
 #include <string>
@@ -15,6 +15,10 @@
 class Map
 {
 public:
+
+  int _width = 16;
+  int _height = 16;
+
   Map(SDL_Renderer *renderer, SDL_Window *window);
   virtual ~Map();
 
@@ -42,8 +46,6 @@ public:
   std::vector<Sprite*> _tiles;
   std::vector<Sprite*> _grid;
 
-  int _width;
-  int _height;
   int mmap[16][16];
 
 private:
@@ -56,4 +58,4 @@ private:
 };
 
 
-#endif /* MAP_HPP_ */
+#endif 

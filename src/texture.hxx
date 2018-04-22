@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef TEXTURE_HPP_
-#define TEXTURE_HPP_
+#ifndef TEXTURE_HXX_
+#define TEXTURE_HXX_
 
 
 #include <iostream>

@@ -13,8 +13,7 @@ Map::Map(SDL_Renderer* renderer, SDL_Window *window)
 
 
 
-  _width = 16;
-  _height = 16;
+
 
   int tilesize = 32;
 
