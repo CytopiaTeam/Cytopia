@@ -48,9 +48,11 @@ Map::Map(SDL_Renderer* renderer, SDL_Window *window)
 
 
   int i = 0;
-  for (int y = 0; y<_width; y++)
+  
+  // TODO: Create Spritgroups for bigger tiles (4x4 tiles) and implement draworder algorithm
+  for (int x = 0; x<_width; x++)
   {
-    for (int x = 0; x<_height; x++)
+    for (int y = _height; y>=0; y--)
     {
       Sprite *tile = nullptr;
       Sprite *grid = nullptr;
