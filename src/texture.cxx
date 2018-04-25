@@ -24,19 +24,19 @@ SDL_Texture *loadTexture(std::string file, SDL_Renderer *renderer, bool colorkey
 }
 
 
-void renderTexture(SDL_Texture *texture, SDL_Renderer *renderer, int x, int y, int w, int h)
+void renderTexture(SDL_Texture *texture, SDL_Renderer *renderer, Point tileScreenCoords, int w, int h)
 {
   SDL_Rect dst;
-  dst.x = x;
-  dst.y = y;
+  dst.x = tileScreenCoords.x;
+  dst.y = tileScreenCoords.y;
   dst.w = w;
   dst.h = h;
   SDL_RenderCopy(renderer, texture, nullptr, &dst);
 }
 
-void renderTexture(SDL_Texture *texture, SDL_Renderer *renderer, int x, int y)
+void renderTexture(SDL_Texture *texture, SDL_Renderer *renderer, Point tileScreenCoords)
 {
   int w, h;
   SDL_QueryTexture(texture, NULL, NULL, &w, &h);
-  renderTexture(texture, renderer, x, y, w, h);
+  renderTexture(texture, renderer, tileScreenCoords, w, h);
 }

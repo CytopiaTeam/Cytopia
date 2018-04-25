@@ -3,13 +3,10 @@
 
 
 
+
 Map::Map(SDL_Renderer* renderer, SDL_Window *window)
 {
 
-  _maxXTile = 0;
-  _minXTile = 0;
-  _maxYTile = 0;
-  _minYTile = 0;
 
 
 
@@ -48,15 +45,17 @@ Map::Map(SDL_Renderer* renderer, SDL_Window *window)
 
 
   int i = 0;
-  
-  // TODO: Create Spritgroups for bigger tiles (4x4 tiles) and implement draworder algorithm
   for (int x = 0; x<_width; x++)
   {
-    for (int y = _height; y>=0; y--)
+    for (int y = _height; y >= 0; y--)
     {
       Sprite *tile = nullptr;
       Sprite *grid = nullptr;
+
       tile = new Sprite("resources/images/city/grass.png", x, y, renderer, window);
+      if ((x == 1) && (y == 1))
+        tile = new Sprite("resources/images/city/house.png", x, y, renderer, window);
+        
       grid = new Sprite("resources/images/city/grid.png", x, y, renderer, window);
       // TODO: Iterate through map file and draw different tiles for each space
       
@@ -123,72 +122,33 @@ void Map::render(int cameraoffset_x, int cameraoffset_y, float zoom)
   }
 }
 
-
-
-
-
-
-
-
-
-float Map::getMaxPixelX(float zoom)
+Point Map::getMaxScreenCoords(float zoom)
 {
-  return _tiles[_maxXTile]->getPixelX(0, 0, zoom);
+  Point MaxPixelCoords = _tiles[_maxXTile]->getTileScreenCoordinates(0, 0, zoom);
+  return MaxPixelCoords;
 }
 
-float Map::getMinPixelX(float zoom)
+Point Map::getMinScreenCoords(float zoom)
 {
-  return _tiles[_minXTile]->getPixelX(0, 0, zoom);
-}
-
-float Map::getMaxPixelY(float zoom)
-{
-  return _tiles[_maxYTile]->getPixelY(0, 0, zoom);
-}
-
-float Map::getMinPixelY(float zoom)
-{
-  return _tiles[_minYTile]->getPixelY(0, 0, zoom);
-}
-
-float Map::getIsoX(float x, float y, int cameraoffset_x, int cameraoffset_y, float zoom)
-{
-  float pos_x = (x + cameraoffset_x + 2.0*(y + cameraoffset_y)) / (TILE_SIZE*zoom) - 1.5;
-  return pos_x;
-}
-
-float Map::getIsoY(float x, float y, int cameraoffset_x, int cameraoffset_y, float zoom)
-{
-  float pos_y = (x + cameraoffset_x - 2.0*(y + cameraoffset_y)) / (TILE_SIZE*zoom) + 1.5;
-  return pos_y;
+  Point MaxPixelCoords = _tiles[_minXTile]->getTileScreenCoordinates(0, 0, zoom);
+  return MaxPixelCoords;
 }
 
 /// convert screen point to Iso Coordinates
-int Map::getIsoCoordinateX(float x, float y, int cameraoffset_x, int cameraoffset_y, float zoom)
+Point Map::getIsoCoords(Point mouseCoords, int cameraoffset_x, int cameraoffset_y, float zoom)
 {
-  float pos_x = getIsoX(x, y, cameraoffset_x, cameraoffset_y, zoom);
-  return std::floor(pos_x);
+  Point isoCoords;
+  isoCoords.x = (mouseCoords.x + cameraoffset_x + 2.0*(mouseCoords.y + cameraoffset_y)) / (TILE_SIZE*zoom) - 1.5;
+  isoCoords.y = (mouseCoords.x + cameraoffset_x - 2.0*(mouseCoords.y + cameraoffset_y)) / (TILE_SIZE*zoom) + 1.5;
+  return isoCoords;
 }
 
-/// convert screen point to Iso Coordinates
-int Map::getIsoCoordinateY(float x, float y, int cameraoffset_x, int cameraoffset_y, float zoom)
+Point Map::getScreenCoords(Point isoCoords, int cameraoffset_x, int cameraoffset_y, float zoom)
 {
-  float pos_y = getIsoY(x, y, cameraoffset_x, cameraoffset_y, zoom);
-  return std::floor(pos_y);
+  Point screenCoords;
+  screenCoords.x = (TILE_SIZE*zoom * isoCoords.x * 0.5) + (TILE_SIZE*zoom * isoCoords.y * 0.5) - cameraoffset_x;
+  screenCoords.y = ((TILE_SIZE*zoom * isoCoords.x * 0.25) - (TILE_SIZE*zoom * isoCoords.y * 0.25)) - cameraoffset_y;
+
+  return screenCoords;
 }
 
-float Map::getPixelX(float x, float y, int cameraoffset_x, int cameraoffset_y, float zoom)
-{
-  float pixel_x = 0;
-  pixel_x = (TILE_SIZE*zoom * x * 0.5) + (TILE_SIZE*zoom * y * 0.5) - cameraoffset_x;
-
-  return pixel_x;
-}
-
-float Map::getPixelY(float x, float y, int cameraoffset_x, int cameraoffset_y, float zoom)
-{
-  float pixel_y = 0;
-  pixel_y = ((TILE_SIZE*zoom * x * 0.25) - (TILE_SIZE*zoom * y * 0.25)) - cameraoffset_y;
-
-  return pixel_y;
-}

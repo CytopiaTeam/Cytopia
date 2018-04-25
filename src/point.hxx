@@ -10,6 +10,9 @@ public:
   Point(int xVal = 0, int yVal=0);
   virtual ~Point();
 
+  // set point to Coordinates
+  void setCoords(int xVal, int yVal);
+
   int x;
   int y;
 

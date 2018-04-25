@@ -13,13 +13,7 @@ Sprite::Sprite(std::string filename, int x, int y, SDL_Renderer *renderer, SDL_W
   _renderer = renderer;
   _window = window;
 
-  setPosX(x);
-  setPosY(y);
-
-  setDestX(x);
-  setDestY(y);
-
-  setMoving(false);
+  setTileIsoCoordinates(x, y);
 }
 
 Sprite::~Sprite()
@@ -29,11 +23,9 @@ Sprite::~Sprite()
 
 void Sprite::render(int cameraoffset_x, int cameraoffset_y, float zoom, int height)
 {
-  float pixel_x = 0;
-  float pixel_y = 0;
 
-  pixel_y = getPixelY(cameraoffset_x, cameraoffset_y, zoom) - height;
-  pixel_x = getPixelX(cameraoffset_x, cameraoffset_y, zoom);
+  Point tileScreenCoords = getTileScreenCoordinates(cameraoffset_x, cameraoffset_y, zoom);
+  tileScreenCoords.y -= height;
 
   //Render only whats visible
   const int offscreen_tolerance = 3 * TILE_SIZE*zoom;
@@ -41,32 +33,27 @@ void Sprite::render(int cameraoffset_x, int cameraoffset_y, float zoom, int heig
   int screen_height;
   SDL_GetWindowSize(_window, &screen_width, &screen_height);
 
-  if ((pixel_x >= 0 - offscreen_tolerance) ||
-    (pixel_x + TILE_SIZE * zoom <= screen_width + offscreen_tolerance) ||
-    (pixel_y >= 0 - offscreen_tolerance) ||
-    (pixel_y + TILE_SIZE * zoom <= screen_height + offscreen_tolerance))
+  if ((tileScreenCoords.x >= 0 - offscreen_tolerance) ||
+    (tileScreenCoords.x + TILE_SIZE * zoom <= screen_width + offscreen_tolerance) ||
+    (tileScreenCoords.y >= 0 - offscreen_tolerance) ||
+    (tileScreenCoords.y + TILE_SIZE * zoom <= screen_height + offscreen_tolerance))
   {
-    renderTexture(_texture, _renderer, pixel_x, pixel_y, TILE_SIZE*zoom, TILE_SIZE*zoom);
+    renderTexture(_texture, _renderer, tileScreenCoords, TILE_SIZE*zoom, TILE_SIZE*zoom);
   }
 }
 
-float Sprite::getPixelX(int cameraoffset_x, int cameraoffset_y, float zoom)
+Point Sprite::getTileScreenCoordinates(int cameraoffset_x, int cameraoffset_y, float zoom)
 {
-  float pixel_x = 0;
-  pixel_x = (TILE_SIZE*zoom * getPosX() * 0.5) + (TILE_SIZE*zoom * getPosY() * 0.5) - cameraoffset_x;
+  Point Coords;
+  Coords.x = (TILE_SIZE*zoom * getTileIsoCoordinates().x * 0.5) + (TILE_SIZE*zoom * getTileIsoCoordinates().y * 0.5) - cameraoffset_x;
+  Coords.y = ((TILE_SIZE*zoom * getTileIsoCoordinates().x * 0.25) - (TILE_SIZE*zoom * getTileIsoCoordinates().y * 0.25)) - cameraoffset_y;
 
-  return pixel_x;
+  return Coords;
 }
 
-float Sprite::getPixelY(int cameraoffset_x, int cameraoffset_y, float zoom)
+int Sprite::getZOrder()
 {
-  float pixel_y = 0;
-  pixel_y = ((TILE_SIZE*zoom * getPosX() * 0.25) - (TILE_SIZE*zoom * getPosY() * 0.25)) - cameraoffset_y;
-
-  return pixel_y;
-}
-
-float Sprite::getZOrder()
-{
-  return getPixelY(0, 0);
+   // TODO: Implement...
+  Point TileCoords = getTileScreenCoordinates(0, 0);
+  return TileCoords.y;
 }

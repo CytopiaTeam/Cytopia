@@ -9,8 +9,8 @@
 //#include "yaml-cpp/yaml.h"
 #include "SDL.h"
 
-#include "Sprite.hxx"
-
+#include "sprite.hxx"
+#include "point.hxx"
 
 class Map
 {
@@ -26,19 +26,12 @@ public:
 
   void render(int cameraoffset_x, int cameraoffset_y, float zoom = 1);
 
-  float getMaxPixelY(float zoom = 1.0);
-  float getMinPixelY(float zoom = 1.0);
-  float getMaxPixelX(float zoom = 1.0);
-  float getMinPixelX(float zoom = 1.0);
+  Point getMaxScreenCoords(float zoom = 1.0);
+  Point getMinScreenCoords(float zoom = 1.0);
 
-  float getIsoX(float x, float y, int cameraoffset_x, int cameraoffset_y, float zoom = 1.0);
-  float getIsoY(float x, float y, int cameraoffset_x, int cameraoffset_y, float zoom = 1.0);
+  Point getIsoCoords(Point mouseCoords, int cameraoffset_x, int cameraoffset_y, float zoom = 1.0);
+  Point getScreenCoords(Point isoCoords, int cameraoffset_x = 0, int cameraoffset_y = 0, float zoom = 1.0);
 
-  int getIsoCoordinateX(float x, float y, int cameraoffset_x, int cameraoffset_y, float zoom = 1.0);
-  int getIsoCoordinateY(float x, float y, int cameraoffset_x, int cameraoffset_y, float zoom = 1.0);
-
-  float getPixelX(float x, float y, int cameraoffset_x = 0, int cameraoffset_y = 0, float zoom = 1.0);
-  float getPixelY(float x, float y, int cameraoffset_x = 0, int cameraoffset_y = 0, float zoom = 1.0);
 
   bool getDrawGrid() { return _drawGrid; }
   void toggleGrid() { _drawGrid = !_drawGrid; }
@@ -51,10 +44,11 @@ public:
 private:
   bool _drawGrid = false;
 
-  int _maxXTile;
-  int _minXTile;
-  int _maxYTile;
-  int _minYTile;
+  int _maxXTile = 0;
+  int _minXTile = 0;
+  int _maxYTile = 0;
+  int _minYTile = 0;
+
 };
 
 

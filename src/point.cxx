@@ -10,3 +10,10 @@ Point::~Point()
 {
 
 }
+
+void Point::setCoords(int xVal, int yVal)
+{
+  x = xVal;
+  y = yVal;
+
+}

@@ -9,6 +9,7 @@
 #include "SDL_image.h"
 
 #include "texture.hxx"
+#include "point.hxx";
 
 const int TILE_SIZE = 32; // All Sprites are 32 x 32
 
@@ -23,71 +24,26 @@ public:
   SDL_Window *_window;
 
 private:
-  int _pos_x;
-  int _pos_y;
-
-  bool _moving;
-  int _dest_x;
-  int _dest_y;
+  Point _position;
+  Point _isoCoords;
 
 public:
   void render(int cameraoffset_x, int cameraoffset_y, float zoom = 1.0, int height = 0.);
+  int getZOrder();
 
-  float getPixelX(int cameraoffset_x, int cameraoffset_y, float zoom = 1.0);
-  float getPixelY(int cameraoffset_x, int cameraoffset_y, float zoom = 1.0);
+  Point getTileScreenCoordinates(int cameraoffset_x, int cameraoffset_y, float zoom = 1.0);
 
-  float getZOrder();
-
-  int getPosX() const
+  
+  Point getTileIsoCoordinates() const
   {
-    return _pos_x;
+    return _isoCoords;
   }
 
-  void setPosX(int posx)
+  void setTileIsoCoordinates(int posX, int posY)
   {
-    _pos_x = posx;
+    _isoCoords.x = posX;
+    _isoCoords.y = posY;
   }
-
-  int getPosY() const
-  {
-    return _pos_y;
-  }
-
-  void setPosY(int posy)
-  {
-    _pos_y = posy;
-  }
-
-  int getDestX() const
-  {
-    return _dest_x;
-  }
-
-  void setDestX(int destx)
-  {
-    _dest_x = destx;
-  }
-
-  int getDestY() const
-  {
-    return _dest_y;
-  }
-
-  void setDestY(int desty)
-  {
-    _dest_y = desty;
-  }
-
-  bool isMoving() const
-  {
-    return _moving;
-  }
-
-  void setMoving(bool moving)
-  {
-    _moving = moving;
-  }
-
 };
 
 
