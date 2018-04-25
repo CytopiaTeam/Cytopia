@@ -163,12 +163,14 @@ float Map::getIsoY(float x, float y, int cameraoffset_x, int cameraoffset_y, flo
   return pos_y;
 }
 
+/// convert screen point to Iso Coordinates
 int Map::getIsoCoordinateX(float x, float y, int cameraoffset_x, int cameraoffset_y, float zoom)
 {
   float pos_x = getIsoX(x, y, cameraoffset_x, cameraoffset_y, zoom);
   return std::floor(pos_x);
 }
 
+/// convert screen point to Iso Coordinates
 int Map::getIsoCoordinateY(float x, float y, int cameraoffset_x, int cameraoffset_y, float zoom)
 {
   float pos_y = getIsoY(x, y, cameraoffset_x, cameraoffset_y, zoom);
