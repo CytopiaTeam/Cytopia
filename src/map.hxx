@@ -18,6 +18,7 @@ public:
 
   int _width = 16;
   int _height = 16;
+  int mmap[16][16];
 
   Map(SDL_Renderer *renderer, SDL_Window *window);
   virtual ~Map();
@@ -31,24 +32,22 @@ public:
   Point getMaxScreenCoords();
   Point getMinScreenCoords();
 
-  Point getIsoCoords(Point mouseCoords, bool calcWithoutOffset = false);
-  Point getScreenCoords(Point isoCoords, bool calcWithoutOffset = false);
+  Point getIsoCoords(Point screenCoordinates, bool calcWithoutOffset = false);
+  Point getScreenCoords(Point isoCoordinates, bool calcWithoutOffset = false);
 
   Point getCameraOffset();
-  void Map::setCameraOffset(Point offset) { _cameraOffset = offset; };
+  void Map::setCameraOffset(Point offset);
 
   bool Map::checkBoundaries(Point isoCoordinates);
 
-  float Map::getZoomLevel() { return _zoom; };
-  void Map::setZoomLevel(float zoomLevel) { _zoom = zoomLevel; };
+  float Map::getZoomLevel();
+  void Map::setZoomLevel(float zoomLevel);
 
-  bool getDrawGrid() { return _drawGrid; }
-  void toggleGrid() { _drawGrid = !_drawGrid; }
+  void toggleGrid();
 
   std::vector<Sprite*> _tiles;
   std::vector<Sprite*> _grid;
 
-  int mmap[16][16];
 
 private:
   bool _drawGrid = false;

@@ -16,7 +16,7 @@ const int TILE_SIZE = 32; // All Sprites are 32 x 32
 class Sprite
 {
 public:
-  Sprite(std::string filename, int x, int y, SDL_Renderer *renderer, SDL_Window *window);
+  Sprite(std::string filename, Point coords, SDL_Renderer *renderer, SDL_Window *window);
   virtual ~Sprite();
 
   SDL_Texture *_texture;
@@ -29,21 +29,11 @@ private:
 
 public:
   void render(Point cameraOffset, float zoom = 1.0, int height = 0.);
-  int getZOrder();
 
   Point getTileScreenCoordinates(Point cameraOffset, float zoom = 1.0);
-
-  
-  Point getTileIsoCoordinates() const
-  {
-    return _isoCoords;
-  }
-
-  void setTileIsoCoordinates(int posX, int posY)
-  {
-    _isoCoords.x = posX;
-    _isoCoords.y = posY;
-  }
+  Point getTileIsoCoordinates();
+  void setTileIsoCoordinates(Point isoCoords);
+  int getZOrder();
 };
 
 

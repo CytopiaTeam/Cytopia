@@ -1,7 +1,7 @@
 #include "sprite.hxx"
 
 
-Sprite::Sprite(std::string filename, int x, int y, SDL_Renderer *renderer, SDL_Window *window)
+Sprite::Sprite(std::string filename, Point isoCoords, SDL_Renderer *renderer, SDL_Window *window)
 {
 
   _texture = nullptr;
@@ -13,19 +13,19 @@ Sprite::Sprite(std::string filename, int x, int y, SDL_Renderer *renderer, SDL_W
   _renderer = renderer;
   _window = window;
 
-  setTileIsoCoordinates(x, y);
+  _isoCoords = isoCoords;
 }
 
 Sprite::~Sprite()
 {
-  //Destructor necessary?
+
 }
 
 void Sprite::render(Point cameraOffset, float zoom, int height)
 {
 
   Point tileScreenCoords = getTileScreenCoordinates(cameraOffset, zoom);
-  tileScreenCoords.y -= height;
+  tileScreenCoords.setY(tileScreenCoords.getY() + height);
 
   //Render only whats visible
   const int offscreen_tolerance = 3 * TILE_SIZE*zoom;
@@ -33,10 +33,10 @@ void Sprite::render(Point cameraOffset, float zoom, int height)
   int screen_height;
   SDL_GetWindowSize(_window, &screen_width, &screen_height);
 
-  if ((tileScreenCoords.x >= 0 - offscreen_tolerance) ||
-    (tileScreenCoords.x + TILE_SIZE * zoom <= screen_width + offscreen_tolerance) ||
-    (tileScreenCoords.y >= 0 - offscreen_tolerance) ||
-    (tileScreenCoords.y + TILE_SIZE * zoom <= screen_height + offscreen_tolerance))
+  if ((tileScreenCoords.getX() >= 0 - offscreen_tolerance) ||
+    (tileScreenCoords.getX() + TILE_SIZE * zoom <= screen_width + offscreen_tolerance) ||
+    (tileScreenCoords.getY() >= 0 - offscreen_tolerance) ||
+    (tileScreenCoords.getY() + TILE_SIZE * zoom <= screen_height + offscreen_tolerance))
   {
     renderTexture(_texture, _renderer, tileScreenCoords, TILE_SIZE*zoom, TILE_SIZE*zoom);
   }
@@ -44,15 +44,28 @@ void Sprite::render(Point cameraOffset, float zoom, int height)
 
 Point Sprite::getTileScreenCoordinates(Point cameraOffset, float zoom)
 {
-  Point Coords;
-  Coords.x = (TILE_SIZE*zoom * getTileIsoCoordinates().x * 0.5) + (TILE_SIZE*zoom * getTileIsoCoordinates().y * 0.5) - cameraOffset.x;
-  Coords.y = ((TILE_SIZE*zoom * getTileIsoCoordinates().x * 0.25) - (TILE_SIZE*zoom * getTileIsoCoordinates().y * 0.25)) - cameraOffset.y;
+  Point tileScreenCoords;
+  int x, y;
 
-  return Coords;
+  x = (TILE_SIZE*zoom * _isoCoords.getX() * 0.5) + (TILE_SIZE*zoom * _isoCoords.getY() * 0.5) - cameraOffset.getX();
+  y = ((TILE_SIZE*zoom * _isoCoords.getX() * 0.25) - (TILE_SIZE*zoom * _isoCoords.getY() * 0.25)) - cameraOffset.getY();
+
+  tileScreenCoords.setCoords(x, y);
+  return tileScreenCoords;
 }
 
 int Sprite::getZOrder()
 {
    // TODO: Implement...
   return 0;
+}
+
+void Sprite::setTileIsoCoordinates(Point isoCoords)
+{
+  _isoCoords = isoCoords;
+}
+
+Point Sprite::getTileIsoCoordinates()
+{
+  return _isoCoords;
 }

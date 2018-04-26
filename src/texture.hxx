@@ -12,7 +12,7 @@
 
 #include "point.hxx"
 
-SDL_Texture *loadTexture(std::string file, SDL_Renderer *renderer, bool colorkey = true);
+SDL_Texture *loadTexture(std::string file, SDL_Renderer *renderer, bool colorkey = false);
 
 void renderTexture(SDL_Texture *texture, SDL_Renderer *renderer, Point tileScreenCoords, int w, int h);
 void renderTexture(SDL_Texture *texture, SDL_Renderer *renderer, Point tileScreenCoords);

@@ -46,11 +46,11 @@ Map::Map(SDL_Renderer* renderer, SDL_Window *window)
       Sprite *tile = nullptr;
       Sprite *grid = nullptr;
 
-      tile = new Sprite("resources/images/city/grass.png", x, y, renderer, window);
+      tile = new Sprite("resources/images/city/grass.png", Point(x, y), renderer, window);
       if ((x == 1) && (y == 1))
-        tile = new Sprite("resources/images/city/house.png", x, y, renderer, window);
+        tile = new Sprite("resources/images/city/house.png", Point(x, y), renderer, window);
         
-      grid = new Sprite("resources/images/city/grid.png", x, y, renderer, window);
+      grid = new Sprite("resources/images/city/grid.png", Point(x, y), renderer, window);
       // TODO: Iterate through map file and draw different tiles for each space
       
       _tiles.push_back(tile);
@@ -118,58 +118,66 @@ void Map::render()
 
 Point Map::getMaxScreenCoords()
 {
-  Point MaxPixelCoords = _tiles[_maxXTile]->getTileScreenCoordinates(_zoom);
+  Point MaxPixelCoords = _tiles[_maxXTile]->getTileScreenCoordinates(_cameraOffset, _zoom);
   return MaxPixelCoords;
 }
 
 Point Map::getMinScreenCoords()
 {
   // should be calculated for offset 0 ?
-  Point MaxPixelCoords = _tiles[_minXTile]->getTileScreenCoordinates(_zoom);
+  Point MaxPixelCoords = _tiles[_minXTile]->getTileScreenCoordinates(_cameraOffset, _zoom);
   return MaxPixelCoords;
 }
 
 /// convert Screen Coordinates to Iso Coordinates
-Point Map::getIsoCoords(Point screenCoords, bool calcWithoutOffset)
+Point Map::getIsoCoords(Point screenCoordinates, bool calcWithoutOffset)
 {
-  Point isoCoords;
+  Point isoCoordinates;
+  int x, y;
 
   if (calcWithoutOffset)
   {
-    isoCoords.x = (screenCoords.x + 2.0*(screenCoords.y)) / (TILE_SIZE*_zoom) - 1.5;
-    isoCoords.y = (screenCoords.x - 2.0*(screenCoords.y)) / (TILE_SIZE*_zoom) + 1.5;
+    x = (screenCoordinates.getX() + 2.0*(screenCoordinates.getY())) / (TILE_SIZE*_zoom) - 1.5;
+    y = (screenCoordinates.getX() - 2.0*(screenCoordinates.getY())) / (TILE_SIZE*_zoom) + 1.5;
   }
   else
   {
-    isoCoords.x = (screenCoords.x + _cameraOffset.x + 2.0*(screenCoords.y + _cameraOffset.y)) / (TILE_SIZE*_zoom) - 1.5;
-    isoCoords.y = (screenCoords.x + _cameraOffset.x - 2.0*(screenCoords.y + _cameraOffset.y)) / (TILE_SIZE*_zoom) + 1.5;
+    x = (screenCoordinates.getX() + _cameraOffset.getX() + 2.0*(screenCoordinates.getY() + _cameraOffset.getY())) / (TILE_SIZE*_zoom) - 1.5;
+    y = (screenCoordinates.getX() + _cameraOffset.getX() - 2.0*(screenCoordinates.getY() + _cameraOffset.getY())) / (TILE_SIZE*_zoom) + 1.5;
   }
-  return isoCoords;
+  isoCoordinates.setCoords(x, y);
+  return isoCoordinates;
 }
 
 /// convert Iso Coordinates to Screen Coordinates
-Point Map::getScreenCoords(Point isoCoords, bool calcWithoutOffset)
+Point Map::getScreenCoords(Point isoCoordinates, bool calcWithoutOffset)
 {
-  Point screenCoords;
+  Point screenCoordinates;
+  int x, y;
 
   if (calcWithoutOffset)
   {
-    screenCoords.x = (TILE_SIZE*_zoom * isoCoords.x * 0.5) + (TILE_SIZE*_zoom * isoCoords.y * 0.5);
-    screenCoords.y = ((TILE_SIZE*_zoom * isoCoords.x * 0.25) - (TILE_SIZE*_zoom * isoCoords.y * 0.25));
+    x = (TILE_SIZE*_zoom * isoCoordinates.getX() * 0.5) + (TILE_SIZE*_zoom * isoCoordinates.getY() * 0.5);
+    y = (TILE_SIZE*_zoom * isoCoordinates.getX() * 0.25) - (TILE_SIZE*_zoom * isoCoordinates.getY() * 0.25);
   }
   else
   {
-    screenCoords.x = (TILE_SIZE*_zoom * isoCoords.x * 0.5) + (TILE_SIZE*_zoom * isoCoords.y * 0.5) - _cameraOffset.x;
-    screenCoords.y = ((TILE_SIZE*_zoom * isoCoords.x * 0.25) - (TILE_SIZE*_zoom * isoCoords.y * 0.25)) - _cameraOffset.y;
+    x = (TILE_SIZE*_zoom * isoCoordinates.getX() * 0.5) + (TILE_SIZE*_zoom * isoCoordinates.getY() * 0.5) - _cameraOffset.getX();
+    y = ((TILE_SIZE*_zoom * isoCoordinates.getX() * 0.25) - (TILE_SIZE*_zoom * isoCoordinates.getY() * 0.25)) - _cameraOffset.getY();
   }
-  return screenCoords;
+  screenCoordinates.setCoords(x, y);
+  return screenCoordinates;
 }
 
 void Map::centerScreenOnPoint(Point isoCoordinates)
 {
   Point screenCoordinates = getScreenCoords(isoCoordinates, true);
-  _cameraOffset.x = (screenCoordinates.x + (TILE_SIZE*_zoom)*0.5) - _screen_width * 0.5;
-  _cameraOffset.y = (screenCoordinates.y + (TILE_SIZE*_zoom)*0.75) - _screen_height * 0.5;
+  int x, y;
+
+  x = (screenCoordinates.getX() + (TILE_SIZE*_zoom)*0.5) - _screen_width * 0.5;
+  y = (screenCoordinates.getY() + (TILE_SIZE*_zoom)*0.75) - _screen_height * 0.5;
+  
+  _cameraOffset.setCoords(x, y);
 }
 
 Point Map::getCameraOffset() 
@@ -181,8 +189,28 @@ Point Map::getCameraOffset()
 
 bool Map::checkBoundaries(Point isoCoordinates)
 {
-  if ((isoCoordinates.x >= 0 && isoCoordinates.x <= _width) && (isoCoordinates.y >= 0 && isoCoordinates.y <= _height))
+  if ((isoCoordinates.getX() >= 0 && isoCoordinates.getX() <= _width) && (isoCoordinates.getY() >= 0 && isoCoordinates.getY() <= _height))
     return true;
   else
     return false;
+}
+
+void Map::toggleGrid()
+{ 
+  _drawGrid = !_drawGrid;
+}
+
+float Map::getZoomLevel() 
+{ 
+  return _zoom; 
+}
+
+void Map::setZoomLevel(float zoomLevel) 
+{ 
+  _zoom = zoomLevel; 
+}
+
+void Map::setCameraOffset(Point offset) 
+{ 
+  _cameraOffset = offset; 
 }

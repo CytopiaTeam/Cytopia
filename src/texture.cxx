@@ -27,8 +27,8 @@ SDL_Texture *loadTexture(std::string file, SDL_Renderer *renderer, bool colorkey
 void renderTexture(SDL_Texture *texture, SDL_Renderer *renderer, Point tileScreenCoords, int w, int h)
 {
   SDL_Rect dst;
-  dst.x = tileScreenCoords.x;
-  dst.y = tileScreenCoords.y;
+  dst.x = tileScreenCoords.getX();
+  dst.y = tileScreenCoords.getY();
   dst.w = w;
   dst.h = h;
   SDL_RenderCopy(renderer, texture, nullptr, &dst);

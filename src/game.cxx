@@ -10,8 +10,6 @@ int main(int, char**){
 
   int screen_height = 800;
   int screen_width = 600;
-  int cameraoffset_x = 0;
-  int cameraoffset_y = 0;
   float zoom = 1.0;
   bool fullscreen = false;
 
@@ -45,18 +43,6 @@ int main(int, char**){
             map.toggleGrid();
             printf("Toggle Grid\n");
             break;
-          case SDLK_LEFT:
-            cameraoffset_x += 4;
-            break;
-          case SDLK_RIGHT:
-            cameraoffset_x -= 4;
-            break;
-          case SDLK_UP:
-            cameraoffset_y += 4;
-            break;
-          case SDLK_DOWN:
-            cameraoffset_y -= 4;
-            break;
           case SDLK_f:
             fullscreen = !fullscreen;
 
@@ -75,7 +61,7 @@ int main(int, char**){
         if (event.button.button == SDL_BUTTON_LEFT)
         {
           clickCoords = map.getIsoCoords(mouseCoords);
-          printf("CLICKED - Iso Coords: %d , %d\n", clickCoords.x, clickCoords.y);
+          printf("CLICKED - Iso Coords: %d , %d\n", clickCoords.getX(), clickCoords.getY());
         }
         if (event.button.button == SDL_BUTTON_RIGHT)
         {
