@@ -17,7 +17,7 @@ int main(int, char**){
 
   Window window("Isometric Engine", screen_height, screen_width);
   Map map(window.getSDLRenderer(), window.getSDLWindow());
-  Point clickCoords, centerScreenCoords, mouseCoords;
+  Point clickCoords, centerIsoCoords, mouseCoords;
   SDL_Event event;
   
 
@@ -25,6 +25,7 @@ int main(int, char**){
   while (!window.isClosed()){
     // Clear the renderer each frame
     SDL_RenderClear(window.getSDLRenderer());
+    zoom = map.getZoomLevel();
 
     if (SDL_PollEvent(&event))
     {
@@ -73,16 +74,13 @@ int main(int, char**){
         mouseCoords.setCoords(event.button.x, event.button.y);
         if (event.button.button == SDL_BUTTON_LEFT)
         {
-          clickCoords = map.getIsoCoords(mouseCoords, cameraoffset_x, cameraoffset_y, zoom);
+          clickCoords = map.getIsoCoords(mouseCoords);
           printf("CLICKED - Iso Coords: %d , %d\n", clickCoords.x, clickCoords.y);
         }
         if (event.button.button == SDL_BUTTON_RIGHT)
         {
-          clickCoords = map.getIsoCoords(mouseCoords, cameraoffset_x, cameraoffset_y, zoom);
-          centerScreenCoords = map.getScreenCoords(clickCoords, 0, 0, zoom);
- 
-          cameraoffset_x = (centerScreenCoords.x + (TILE_SIZE*zoom)*0.5) - screen_height * 0.5;
-          cameraoffset_y = (centerScreenCoords.y + (TILE_SIZE*zoom)*0.75) - screen_width * 0.5;
+          centerIsoCoords = map.getIsoCoords(mouseCoords);
+          map.centerScreenOnPoint(centerIsoCoords);
         }
         break;
       case SDL_MOUSEWHEEL:
@@ -90,14 +88,9 @@ int main(int, char**){
         {
           if (zoom < 2.0)
           {
-            // TODO: Fix zooming bug
-            //point2 = map.getScreenCoords(centerCoords, 0, 0, zoom);
-            //centerScreenCoords = map.getScreenCoords(map.getIsoCoords(centerScreenCoords, cameraoffset_x, cameraoffset_y, zoom), 0, 0, zoom);
-
             zoom += 0.25;
-
-            cameraoffset_x = (centerScreenCoords.x + (TILE_SIZE*zoom)*0.5) - screen_width * 0.5;
-            cameraoffset_y = (centerScreenCoords.y + (TILE_SIZE*zoom)*0.75) - screen_height * 0.5;
+            map.setZoomLevel(zoom);
+            map.centerScreenOnPoint(centerIsoCoords);
           }
         }
         else if (event.wheel.y < 0)
@@ -105,9 +98,8 @@ int main(int, char**){
           if (zoom > 0.5)
           {
             zoom -= 0.25;
-
-            cameraoffset_x = (centerScreenCoords.x + (TILE_SIZE*zoom)*0.5) - screen_width * 0.5;
-            cameraoffset_y = (centerScreenCoords.y + (TILE_SIZE*zoom)*0.75) - screen_height * 0.5;
+            map.setZoomLevel(zoom);
+            map.centerScreenOnPoint(centerIsoCoords);
           }
         }
         break;
@@ -117,7 +109,7 @@ int main(int, char**){
     }
 
     // render the tilemap
-    map.render(cameraoffset_x, cameraoffset_y, zoom);
+    map.render();
 
     // Render the Frame
     SDL_RenderPresent(window.getSDLRenderer());

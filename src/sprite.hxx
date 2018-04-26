@@ -9,7 +9,7 @@
 #include "SDL_image.h"
 
 #include "texture.hxx"
-#include "point.hxx";
+#include "point.hxx"
 
 const int TILE_SIZE = 32; // All Sprites are 32 x 32
 
@@ -28,10 +28,10 @@ private:
   Point _isoCoords;
 
 public:
-  void render(int cameraoffset_x, int cameraoffset_y, float zoom = 1.0, int height = 0.);
+  void render(Point cameraOffset, float zoom = 1.0, int height = 0.);
   int getZOrder();
 
-  Point getTileScreenCoordinates(int cameraoffset_x, int cameraoffset_y, float zoom = 1.0);
+  Point getTileScreenCoordinates(Point cameraOffset, float zoom = 1.0);
 
   
   Point getTileIsoCoordinates() const

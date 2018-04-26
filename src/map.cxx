@@ -6,15 +6,9 @@
 
 Map::Map(SDL_Renderer* renderer, SDL_Window *window)
 {
-
-
-
-
-
-
   int tilesize = 32;
 
-
+  SDL_GetWindowSize(window, &_screen_width, &_screen_height);
   // 16 x 16 height for further tests
 
   const int height = 16;
@@ -98,17 +92,17 @@ void Map::parseMapFile()
   // TODO: load Map from FIle. Coordinates, Height, Tile
 }
 
-void Map::render(int cameraoffset_x, int cameraoffset_y, float zoom)
+void Map::render()
 {
   int i = 0;
   int y = 0;
   int x = 0;
   for (std::vector<Sprite*>::iterator it = _tiles.begin(); it != _tiles.end(); ++it)
   {
-    (*it)->render(cameraoffset_x, cameraoffset_y, zoom, 0);
+    (*it)->render(_cameraOffset, _zoom, 0);
     if (_drawGrid)
     {
-      _grid[i]->render(cameraoffset_x, cameraoffset_y, zoom, 0);
+      _grid[i]->render(_cameraOffset, _zoom, 0);
       i++;
     }
 
@@ -122,33 +116,63 @@ void Map::render(int cameraoffset_x, int cameraoffset_y, float zoom)
   }
 }
 
-Point Map::getMaxScreenCoords(float zoom)
+Point Map::getMaxScreenCoords()
 {
-  Point MaxPixelCoords = _tiles[_maxXTile]->getTileScreenCoordinates(0, 0, zoom);
+  Point MaxPixelCoords = _tiles[_maxXTile]->getTileScreenCoordinates(_zoom);
   return MaxPixelCoords;
 }
 
-Point Map::getMinScreenCoords(float zoom)
+Point Map::getMinScreenCoords()
 {
-  Point MaxPixelCoords = _tiles[_minXTile]->getTileScreenCoordinates(0, 0, zoom);
+  // should be calculated for offset 0 ?
+  Point MaxPixelCoords = _tiles[_minXTile]->getTileScreenCoordinates(_zoom);
   return MaxPixelCoords;
 }
 
-/// convert screen point to Iso Coordinates
-Point Map::getIsoCoords(Point mouseCoords, int cameraoffset_x, int cameraoffset_y, float zoom)
+/// convert Screen Coordinates to Iso Coordinates
+Point Map::getIsoCoords(Point screenCoords, bool calcWithoutOffset)
 {
   Point isoCoords;
-  isoCoords.x = (mouseCoords.x + cameraoffset_x + 2.0*(mouseCoords.y + cameraoffset_y)) / (TILE_SIZE*zoom) - 1.5;
-  isoCoords.y = (mouseCoords.x + cameraoffset_x - 2.0*(mouseCoords.y + cameraoffset_y)) / (TILE_SIZE*zoom) + 1.5;
+
+  if (calcWithoutOffset)
+  {
+    isoCoords.x = (screenCoords.x + 2.0*(screenCoords.y)) / (TILE_SIZE*_zoom) - 1.5;
+    isoCoords.y = (screenCoords.x - 2.0*(screenCoords.y)) / (TILE_SIZE*_zoom) + 1.5;
+  }
+  else
+  {
+    isoCoords.x = (screenCoords.x + _cameraOffset.x + 2.0*(screenCoords.y + _cameraOffset.y)) / (TILE_SIZE*_zoom) - 1.5;
+    isoCoords.y = (screenCoords.x + _cameraOffset.x - 2.0*(screenCoords.y + _cameraOffset.y)) / (TILE_SIZE*_zoom) + 1.5;
+  }
   return isoCoords;
 }
 
-Point Map::getScreenCoords(Point isoCoords, int cameraoffset_x, int cameraoffset_y, float zoom)
+/// convert Iso Coordinates to Screen Coordinates
+Point Map::getScreenCoords(Point isoCoords, bool calcWithoutOffset)
 {
   Point screenCoords;
-  screenCoords.x = (TILE_SIZE*zoom * isoCoords.x * 0.5) + (TILE_SIZE*zoom * isoCoords.y * 0.5) - cameraoffset_x;
-  screenCoords.y = ((TILE_SIZE*zoom * isoCoords.x * 0.25) - (TILE_SIZE*zoom * isoCoords.y * 0.25)) - cameraoffset_y;
 
+  if (calcWithoutOffset)
+  {
+    screenCoords.x = (TILE_SIZE*_zoom * isoCoords.x * 0.5) + (TILE_SIZE*_zoom * isoCoords.y * 0.5);
+    screenCoords.y = ((TILE_SIZE*_zoom * isoCoords.x * 0.25) - (TILE_SIZE*_zoom * isoCoords.y * 0.25));
+  }
+  else
+  {
+    screenCoords.x = (TILE_SIZE*_zoom * isoCoords.x * 0.5) + (TILE_SIZE*_zoom * isoCoords.y * 0.5) - _cameraOffset.x;
+    screenCoords.y = ((TILE_SIZE*_zoom * isoCoords.x * 0.25) - (TILE_SIZE*_zoom * isoCoords.y * 0.25)) - _cameraOffset.y;
+  }
   return screenCoords;
 }
 
+void Map::centerScreenOnPoint(Point isoCoordinates)
+{
+  Point screenCoordinates = getScreenCoords(isoCoordinates, true);
+  _cameraOffset.x = (screenCoordinates.x + (TILE_SIZE*_zoom)*0.5) - _screen_width * 0.5;
+  _cameraOffset.y = (screenCoordinates.y + (TILE_SIZE*_zoom)*0.75) - _screen_height * 0.5;
+}
+
+Point Map::getCameraOffset() 
+{ 
+  return _cameraOffset; 
+}

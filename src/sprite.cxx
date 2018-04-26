@@ -21,10 +21,10 @@ Sprite::~Sprite()
   //Destructor necessary?
 }
 
-void Sprite::render(int cameraoffset_x, int cameraoffset_y, float zoom, int height)
+void Sprite::render(Point cameraOffset, float zoom, int height)
 {
 
-  Point tileScreenCoords = getTileScreenCoordinates(cameraoffset_x, cameraoffset_y, zoom);
+  Point tileScreenCoords = getTileScreenCoordinates(cameraOffset, zoom);
   tileScreenCoords.y -= height;
 
   //Render only whats visible
@@ -42,11 +42,11 @@ void Sprite::render(int cameraoffset_x, int cameraoffset_y, float zoom, int heig
   }
 }
 
-Point Sprite::getTileScreenCoordinates(int cameraoffset_x, int cameraoffset_y, float zoom)
+Point Sprite::getTileScreenCoordinates(Point cameraOffset, float zoom)
 {
   Point Coords;
-  Coords.x = (TILE_SIZE*zoom * getTileIsoCoordinates().x * 0.5) + (TILE_SIZE*zoom * getTileIsoCoordinates().y * 0.5) - cameraoffset_x;
-  Coords.y = ((TILE_SIZE*zoom * getTileIsoCoordinates().x * 0.25) - (TILE_SIZE*zoom * getTileIsoCoordinates().y * 0.25)) - cameraoffset_y;
+  Coords.x = (TILE_SIZE*zoom * getTileIsoCoordinates().x * 0.5) + (TILE_SIZE*zoom * getTileIsoCoordinates().y * 0.5) - cameraOffset.x;
+  Coords.y = ((TILE_SIZE*zoom * getTileIsoCoordinates().x * 0.25) - (TILE_SIZE*zoom * getTileIsoCoordinates().y * 0.25)) - cameraOffset.y;
 
   return Coords;
 }
@@ -54,6 +54,5 @@ Point Sprite::getTileScreenCoordinates(int cameraoffset_x, int cameraoffset_y, f
 int Sprite::getZOrder()
 {
    // TODO: Implement...
-  Point TileCoords = getTileScreenCoordinates(0, 0);
-  return TileCoords.y;
+  return 0;
 }

@@ -24,14 +24,21 @@ public:
 
   void parseMapFile();
 
-  void render(int cameraoffset_x, int cameraoffset_y, float zoom = 1);
+  void render();
 
-  Point getMaxScreenCoords(float zoom = 1.0);
-  Point getMinScreenCoords(float zoom = 1.0);
+  void Map::centerScreenOnPoint(Point isoCoordinates);
 
-  Point getIsoCoords(Point mouseCoords, int cameraoffset_x, int cameraoffset_y, float zoom = 1.0);
-  Point getScreenCoords(Point isoCoords, int cameraoffset_x = 0, int cameraoffset_y = 0, float zoom = 1.0);
+  Point getMaxScreenCoords();
+  Point getMinScreenCoords();
 
+  Point getIsoCoords(Point mouseCoords, bool calcWithoutOffset = false);
+  Point getScreenCoords(Point isoCoords, bool calcWithoutOffset = false);
+
+   Point getCameraOffset();
+  void Map::setCameraOffset(Point offset) { _cameraOffset = offset; };
+
+  float Map::getZoomLevel() { return _zoom; };
+  void Map::setZoomLevel(float zoomLevel) { _zoom = zoomLevel; };
 
   bool getDrawGrid() { return _drawGrid; }
   void toggleGrid() { _drawGrid = !_drawGrid; }
@@ -49,6 +56,13 @@ private:
   int _maxYTile = 0;
   int _minYTile = 0;
 
+  int _screen_width;
+  int _screen_height;
+
+
+  float _zoom = 1.0;
+  Point _cameraOffset;
+  Point _centerScreenCoords;
 };
 
 
