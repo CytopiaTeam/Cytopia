@@ -34,8 +34,10 @@ public:
   Point getIsoCoords(Point mouseCoords, bool calcWithoutOffset = false);
   Point getScreenCoords(Point isoCoords, bool calcWithoutOffset = false);
 
-   Point getCameraOffset();
+  Point getCameraOffset();
   void Map::setCameraOffset(Point offset) { _cameraOffset = offset; };
+
+  bool Map::checkBoundaries(Point isoCoordinates);
 
   float Map::getZoomLevel() { return _zoom; };
   void Map::setZoomLevel(float zoomLevel) { _zoom = zoomLevel; };

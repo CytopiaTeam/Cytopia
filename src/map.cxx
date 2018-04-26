@@ -176,3 +176,13 @@ Point Map::getCameraOffset()
 { 
   return _cameraOffset; 
 }
+
+// Check if Point is with map boundaries
+
+bool Map::checkBoundaries(Point isoCoordinates)
+{
+  if ((isoCoordinates.x >= 0 && isoCoordinates.x <= _width) && (isoCoordinates.y >= 0 && isoCoordinates.y <= _height))
+    return true;
+  else
+    return false;
+}

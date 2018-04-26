@@ -80,7 +80,10 @@ int main(int, char**){
         if (event.button.button == SDL_BUTTON_RIGHT)
         {
           centerIsoCoords = map.getIsoCoords(mouseCoords);
-          map.centerScreenOnPoint(centerIsoCoords);
+          if (map.checkBoundaries(centerIsoCoords))
+          {
+            map.centerScreenOnPoint(centerIsoCoords);
+          }
         }
         break;
       case SDL_MOUSEWHEEL:
