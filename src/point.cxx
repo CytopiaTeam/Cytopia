@@ -6,8 +6,8 @@ Point::Point()
   _y = 0;
 }
 
-Point::Point(int x, int y) :
-  _x(x), _y(y)
+Point::Point(int x, int y, int height) :
+  _x(x), _y(y), _height(height)
 {
 
 }
@@ -18,7 +18,7 @@ Point::~Point()
 }
 
 
-void Point::setCoords(int x, int y)
+void Point::setCoords(int x, int y, int height)
 {
   _x = x;
   _y = y;
@@ -34,6 +34,11 @@ void Point::setY(int y)
   _y = y;
 }
 
+void Point::setHeight(int height)
+{
+  _height = height;
+}
+
 int Point::getX()
 {
   return _x;
@@ -42,4 +47,9 @@ int Point::getX()
 int Point::getY()
 {
   return _y;
+}
+
+int Point::getHeight()
+{
+  return _height;
 }
