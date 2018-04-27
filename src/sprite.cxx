@@ -23,9 +23,14 @@ Sprite::~Sprite()
 
 void Sprite::render(Point cameraOffset, float zoom, int height)
 {
-
   Point tileScreenCoords = getTileScreenCoordinates(cameraOffset, zoom);
-  tileScreenCoords.setY(tileScreenCoords.getY() + height);
+
+  if ( _isoCoords.getHeight() > 0 )
+  {
+    _heightOffset = _heightOffset * _isoCoords.getHeight();
+    tileScreenCoords.setY(tileScreenCoords.getY() - (TILE_SIZE - _heightOffset)*zoom); 
+    tileScreenCoords.setX(tileScreenCoords.getX());
+  }
 
   //Render only whats visible
   const int offscreen_tolerance = 3 * TILE_SIZE*zoom;
@@ -33,10 +38,10 @@ void Sprite::render(Point cameraOffset, float zoom, int height)
   int screen_height;
   SDL_GetWindowSize(_window, &screen_width, &screen_height);
 
-  if ((tileScreenCoords.getX() >= 0 - offscreen_tolerance) ||
-    (tileScreenCoords.getX() + TILE_SIZE * zoom <= screen_width + offscreen_tolerance) ||
-    (tileScreenCoords.getY() >= 0 - offscreen_tolerance) ||
-    (tileScreenCoords.getY() + TILE_SIZE * zoom <= screen_height + offscreen_tolerance))
+  if (( tileScreenCoords.getX() >= 0 - offscreen_tolerance ) ||
+      ( tileScreenCoords.getX() + TILE_SIZE * zoom <= screen_width + offscreen_tolerance ) ||
+      ( tileScreenCoords.getY() >= 0 - offscreen_tolerance ) ||
+      ( tileScreenCoords.getY() + TILE_SIZE * zoom <= screen_height + offscreen_tolerance ))
   {
     renderTexture(_texture, _renderer, tileScreenCoords, TILE_SIZE*zoom, TILE_SIZE*zoom);
   }

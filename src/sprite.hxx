@@ -27,6 +27,8 @@ private:
   Point _position;
   Point _isoCoords;
 
+  int _heightOffset = 19; // height offset - 19 pixels by trial and error.
+
 public:
   void render(Point cameraOffset, float zoom = 1.0, int height = 0.);
 
