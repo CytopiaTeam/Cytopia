@@ -11,6 +11,8 @@
 
 #include "sprite.hxx"
 #include "point.hxx"
+#include "vectorMatrix.hxx"
+
 
 class Map
 {
@@ -29,41 +31,31 @@ public:
 
   void Map::centerScreenOnPoint(Point isoCoordinates);
 
-  Point getMaxScreenCoords();
-  Point getMinScreenCoords();
-
   Point getIsoCoords(Point screenCoordinates, bool calcWithoutOffset = false);
   Point getScreenCoords(Point isoCoordinates, bool calcWithoutOffset = false);
 
   Point getCameraOffset();
-  void Map::setCameraOffset(Point offset);
+  void setCameraOffset(Point offset);
 
-  bool Map::checkBoundaries(Point isoCoordinates);
+  bool checkBoundaries(Point isoCoordinates);
 
-  float Map::getZoomLevel();
-  void Map::setZoomLevel(float zoomLevel);
+  float getZoomLevel();
+  void setZoomLevel(float zoomLevel);
 
   void toggleGrid();
-
-  std::vector<Sprite*> _tiles;
-  std::vector<Sprite*> _grid;
-
 
 private:
   bool _drawGrid = false;
 
-  int _maxXTile = 0;
-  int _minXTile = 0;
-  int _maxYTile = 0;
-  int _minYTile = 0;
-
   int _screen_width;
   int _screen_height;
-
 
   float _zoom = 1.0;
   Point _cameraOffset;
   Point _centerScreenCoords;
+
+  vectorMatrix _floorTilesMatrix;
+  vectorMatrix _gridTilesMatrix;
 };
 
 

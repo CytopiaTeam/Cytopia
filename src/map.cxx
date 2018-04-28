@@ -1,13 +1,11 @@
 #include "map.hxx"
 
-
-
-
-
 Map::Map(SDL_Renderer* renderer, SDL_Window *window)
 {
   int tilesize = 32;
-
+  _floorTilesMatrix = vectorMatrix(_width, _height);
+  _gridTilesMatrix = vectorMatrix(_width, _height);
+  
   SDL_GetWindowSize(window, &_screen_width, &_screen_height);
   // 16 x 16 height for further tests
 
@@ -38,7 +36,6 @@ Map::Map(SDL_Renderer* renderer, SDL_Window *window)
 
 
 
-  int i = 0;
   for (int x = 0; x<_width; x++)
   {
     for (int y = _height; y >= 0; y--)
@@ -53,30 +50,9 @@ Map::Map(SDL_Renderer* renderer, SDL_Window *window)
       grid = new Sprite("resources/images/city/grid.png", Point(x, y), renderer, window);
       // TODO: Iterate through map file and draw different tiles for each space
       
-      _tiles.push_back(tile);
-      _grid.push_back(grid);
+      _floorTilesMatrix.addSprite(x, y, tile);
+      _gridTilesMatrix.addSprite(x, y, grid);
     
-      if ((x == 0) && (y == 0))
-      {
-        _minXTile = i;
-      }
-
-      else if ((x == _width - 1) && (y == _height - 1))
-      {
-        _maxXTile = i;
-      }
-
-      else if ((x == 0) && (y == _height - 1))
-      {
-        _minYTile = i;
-      }
-
-      else if ((x == _width - 1) && (y == 0))
-      {
-        _maxYTile = i;
-      }
-
-      i++;
     }
   }
 }
@@ -97,37 +73,21 @@ void Map::render()
   int i = 0;
   int y = 0;
   int x = 0;
-  for (std::vector<Sprite*>::iterator it = _tiles.begin(); it != _tiles.end(); ++it)
+
+  for (int x = 0; x < _width; x++)
   {
-    (*it)->render(_cameraOffset, _zoom, 0);
-    if (_drawGrid)
+    for (int y = _height; y >= 0; y--)
     {
-      _grid[i]->render(_cameraOffset, _zoom, 0);
-      i++;
-    }
+      if (_floorTilesMatrix.getSprite(x, y) != nullptr)
+        _floorTilesMatrix.getSprite(x, y)->render(_cameraOffset, _zoom);
 
-    x++;
-    if (x == _width)
-    {
-      y++;
-      x = 0;
+      if ( _drawGrid )
+        if (_gridTilesMatrix.getSprite(x, y) != nullptr)
+          _gridTilesMatrix.getSprite(x, y)->render(_cameraOffset, _zoom);
     }
-
   }
 }
 
-Point Map::getMaxScreenCoords()
-{
-  Point MaxPixelCoords = _tiles[_maxXTile]->getTileScreenCoordinates(_cameraOffset, _zoom);
-  return MaxPixelCoords;
-}
-
-Point Map::getMinScreenCoords()
-{
-  // should be calculated for offset 0 ?
-  Point MaxPixelCoords = _tiles[_minXTile]->getTileScreenCoordinates(_cameraOffset, _zoom);
-  return MaxPixelCoords;
-}
 
 /// convert Screen Coordinates to Iso Coordinates
 Point Map::getIsoCoords(Point screenCoordinates, bool calcWithoutOffset)
@@ -155,7 +115,7 @@ Point Map::getScreenCoords(Point isoCoordinates, bool calcWithoutOffset)
   Point screenCoordinates;
   int x, y;
 
-  if (calcWithoutOffset)
+  if ( calcWithoutOffset )
   {
     x = (TILE_SIZE*_zoom * isoCoordinates.getX() * 0.5) + (TILE_SIZE*_zoom * isoCoordinates.getY() * 0.5);
     y = (TILE_SIZE*_zoom * isoCoordinates.getX() * 0.25) - (TILE_SIZE*_zoom * isoCoordinates.getY() * 0.25);
@@ -189,7 +149,7 @@ Point Map::getCameraOffset()
 
 bool Map::checkBoundaries(Point isoCoordinates)
 {
-  if ((isoCoordinates.getX() >= 0 && isoCoordinates.getX() <= _width) && (isoCoordinates.getY() >= 0 && isoCoordinates.getY() <= _height))
+  if ( (isoCoordinates.getX() >= 0 && isoCoordinates.getX() <= _width) && (isoCoordinates.getY() >= 0 && isoCoordinates.getY() <= _height) )
     return true;
   else
     return false;

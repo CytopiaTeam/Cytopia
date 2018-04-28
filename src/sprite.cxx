@@ -21,7 +21,7 @@ Sprite::~Sprite()
 
 }
 
-void Sprite::render(Point cameraOffset, float zoom, int height)
+void Sprite::render(Point cameraOffset, float zoom)
 {
   Point tileScreenCoords = getTileScreenCoordinates(cameraOffset, zoom);
 
