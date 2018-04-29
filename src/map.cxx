@@ -36,7 +36,7 @@ Map::Map(SDL_Renderer* renderer, SDL_Window *window)
 
 
 
-  for (int x = 0; x<_width; x++)
+  for (int x = 0; x <= _width; x++)
   {
     for (int y = _height; y >= 0; y--)
     {
@@ -74,7 +74,7 @@ void Map::render()
   int y = 0;
   int x = 0;
 
-  for (int x = 0; x < _width; x++)
+  for (int x = 0; x <= _width; x++)
   {
     for (int y = _height; y >= 0; y--)
     {
