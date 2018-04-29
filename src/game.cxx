@@ -1,9 +1,4 @@
-#include <iostream>
-#include "SDL.h"
-#include "window.hxx"
-#include "sprite.hxx"
-#include "map.hxx"
-#include "point.hxx"
+#include "game.hxx"
 
 
 int main(int, char**){
@@ -14,7 +9,7 @@ int main(int, char**){
   bool fullscreen = false;
 
   Window window("Isometric Engine", screen_height, screen_width);
-  Map map(window.getSDLRenderer(), window.getSDLWindow());
+  Engine engine(window.getSDLRenderer(), window.getSDLWindow());
   Point clickCoords, centerIsoCoords, mouseCoords;
   SDL_Event event;
   
@@ -23,9 +18,9 @@ int main(int, char**){
   while (!window.isClosed()){
     // Clear the renderer each frame
     SDL_RenderClear(window.getSDLRenderer());
-    zoom = map.getZoomLevel();
+    zoom = engine.getZoomLevel();
 
-    if (SDL_PollEvent(&event))
+    if ( SDL_PollEvent(&event) )
     {
       switch (event.type)
       {
@@ -40,18 +35,18 @@ int main(int, char**){
             window.close();
             break;
           case SDLK_0:
-            map.toggleLayer(Map::LAYER_GRID);
+            engine.toggleLayer(Engine::LAYER_GRID);
             break;
           case SDLK_1:
-            map.toggleLayer(Map::LAYER_FLOOR);
+            engine.toggleLayer(Engine::LAYER_FLOOR);
             break;
           case SDLK_2:
-            map.toggleLayer(Map::LAYER_BUILDINGS);
+            engine.toggleLayer(Engine::LAYER_BUILDINGS);
             break;
           case SDLK_f:
             fullscreen = !fullscreen;
 
-            if (fullscreen)
+            if ( fullscreen )
             {
               SDL_SetWindowFullscreen(window.getSDLWindow(), SDL_WINDOW_FULLSCREEN);
             }
@@ -63,38 +58,41 @@ int main(int, char**){
         }
       case SDL_MOUSEBUTTONDOWN:
         mouseCoords.setCoords(event.button.x, event.button.y);
-        if (event.button.button == SDL_BUTTON_LEFT)
+        if ( event.button.button == SDL_BUTTON_LEFT )
         {
-          clickCoords = map.getIsoCoords(mouseCoords);
-          printf("CLICKED - Iso Coords: %d , %d\n", clickCoords.getX(), clickCoords.getY());
-          map.findNeighbors(clickCoords);
-        }
-        if (event.button.button == SDL_BUTTON_RIGHT)
-        {
-          centerIsoCoords = map.getIsoCoords(mouseCoords);
-          if (map.checkBoundaries(centerIsoCoords))
+          if ( engine.checkBoundaries(centerIsoCoords) )
           {
-            map.centerScreenOnPoint(centerIsoCoords);
+            clickCoords = engine.getIsoCoords(mouseCoords);
+            printf("CLICKED - Iso Coords: %d , %d\n", clickCoords.getX(), clickCoords.getY());
+            engine.findNeighbors(clickCoords);
+          }
+        }
+        if ( event.button.button == SDL_BUTTON_RIGHT )
+        {
+          centerIsoCoords = engine.getIsoCoords(mouseCoords);
+          if ( engine.checkBoundaries(centerIsoCoords) )
+          {
+            engine.centerScreenOnPoint(centerIsoCoords);
           }
         }
         break;
       case SDL_MOUSEWHEEL:
-        if (event.wheel.y > 0)
+        if ( event.wheel.y > 0 )
         {
-          if (zoom < 2.0)
+          if ( zoom < 2.0 )
           {
             zoom += 0.25;
-            map.setZoomLevel(zoom);
-            map.centerScreenOnPoint(centerIsoCoords);
+            engine.setZoomLevel(zoom);
+            engine.centerScreenOnPoint(centerIsoCoords);
           }
         }
-        else if (event.wheel.y < 0)
+        else if ( event.wheel.y < 0 )
         {
-          if (zoom > 0.5)
+          if ( zoom > 0.5 )
           {
             zoom -= 0.25;
-            map.setZoomLevel(zoom);
-            map.centerScreenOnPoint(centerIsoCoords);
+            engine.setZoomLevel(zoom);
+            engine.centerScreenOnPoint(centerIsoCoords);
           }
         }
         break;
@@ -104,7 +102,7 @@ int main(int, char**){
     }
 
     // render the tilemap
-    map.render();
+    engine.render();
 
     // Render the Frame
     SDL_RenderPresent(window.getSDLRenderer());
