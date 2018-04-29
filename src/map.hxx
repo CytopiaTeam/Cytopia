@@ -33,6 +33,7 @@ public:
 
   Point getIsoCoords(Point screenCoordinates, bool calcWithoutOffset = false);
   Point getScreenCoords(Point isoCoordinates, bool calcWithoutOffset = false);
+  void Map::findNeighbors(Point isoCoords);
 
   Point getCameraOffset();
   void setCameraOffset(Point offset);

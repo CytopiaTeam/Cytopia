@@ -6,9 +6,10 @@ vectorMatrix::vectorMatrix()
 }
 
 vectorMatrix::vectorMatrix(int columns, int rows)
-  : matrix(rows+1, std::vector<Sprite*>(columns+1))
+  : _matrix(rows+1, std::vector<Sprite*>(columns+1))
 {
-
+  _columns = columns + 1;
+  _rows = rows + 1;
 }
 
 vectorMatrix::~vectorMatrix()
@@ -19,24 +20,60 @@ vectorMatrix::~vectorMatrix()
 
 void vectorMatrix::resizeMatrix(int rows, int columns)
 {
-  matrix.resize(rows + 1);
-  for (auto &it : matrix)
+  _columns = columns + 1;
+  _rows = rows + 1;
+
+  _matrix.resize(_rows);
+  for (auto &it : _matrix)
   {
-    it.resize(columns + 1);
+    it.resize(_columns);
   }
 }
 
 void vectorMatrix::addSprite(int x, int y, Sprite* sprite)
 {
-  matrix[x][y] = sprite;
+  _matrix[x][y] = sprite;
 }
 
 Sprite* vectorMatrix::getSprite(int x, int y)
 {
-  return matrix[x][y];
+  return _matrix[x][y];
 }
 
 void vectorMatrix::removeSprite(int x, int y)
 {
-  matrix[x][y] = nullptr;
+  _matrix[x][y] = nullptr;
+}
+
+std::vector<Sprite*> vectorMatrix::findNeighbors(int x, int y)
+{
+  std::vector<Sprite*> neighbors;
+  _neighborCount = 0;
+
+  for (int rowIterator = -1; rowIterator <= 1; rowIterator++)
+  {
+    int currentRow = x + rowIterator;
+
+    for (int columnIterator = -1; columnIterator <= 1; columnIterator++)
+    {
+      int currentColumn = y + columnIterator;
+
+      // check if the neighbor is within bounds of the tilemap
+      if ( currentRow >= 0 && currentRow < _rows && currentColumn >= 0 && currentColumn < _columns && !(currentRow == x && currentColumn == y) )
+      { 
+        _neighborCount++;
+  
+        // Debug output
+        printf ("%d Neighbors at: %d, %d\n", _neighborCount, currentRow, currentColumn);
+
+        if ( _matrix[currentRow][currentColumn] != nullptr )
+          neighbors.push_back(_matrix[currentRow][currentColumn]);
+        }
+        else
+        {
+          neighbors.push_back(nullptr);
+        }
+    }
+  }
+  return neighbors;
 }

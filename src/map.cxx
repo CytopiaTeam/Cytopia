@@ -174,3 +174,8 @@ void Map::setCameraOffset(Point offset)
 { 
   _cameraOffset = offset; 
 }
+
+void Map::findNeighbors(Point isoCoords)
+{
+  _floorTilesMatrix.findNeighbors(isoCoords.getX(), isoCoords.getY());
+}

@@ -62,6 +62,7 @@ int main(int, char**){
         {
           clickCoords = map.getIsoCoords(mouseCoords);
           printf("CLICKED - Iso Coords: %d , %d\n", clickCoords.getX(), clickCoords.getY());
+          map.findNeighbors(clickCoords);
         }
         if (event.button.button == SDL_BUTTON_RIGHT)
         {
