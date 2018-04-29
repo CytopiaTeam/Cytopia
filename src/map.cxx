@@ -5,7 +5,14 @@ Map::Map(SDL_Renderer* renderer, SDL_Window *window)
   int tilesize = 32;
   _floorTilesMatrix = vectorMatrix(_width, _height);
   _gridTilesMatrix = vectorMatrix(_width, _height);
-  
+  _buildingsTilesMatrix = vectorMatrix(_width, _height);
+
+
+
+  // Default: Floor and Buildings are drawn
+  _activeLayers = LAYER_FLOOR | LAYER_BUILDINGS;
+
+
   SDL_GetWindowSize(window, &_screen_width, &_screen_height);
   // 16 x 16 height for further tests
 
@@ -42,17 +49,19 @@ Map::Map(SDL_Renderer* renderer, SDL_Window *window)
     {
       Sprite *tile = nullptr;
       Sprite *grid = nullptr;
-
-      tile = new Sprite("resources/images/city/grass.png", Point(x, y), renderer, window);
-      if ((x == 1) && (y == 1))
-        tile = new Sprite("resources/images/city/house.png", Point(x, y), renderer, window);
-        
+      Sprite *building = nullptr;
+      
+      tile = new Sprite("resources/images/city/floor.png", Point(x, y), renderer, window);
+    
       grid = new Sprite("resources/images/city/grid.png", Point(x, y), renderer, window);
-      // TODO: Iterate through map file and draw different tiles for each space
+      
+      
+      if ( (x == 1) && (y == 1) )
+        building = new Sprite("resources/images/city/house.png", Point(x, y), renderer, window);
       
       _floorTilesMatrix.addSprite(x, y, tile);
       _gridTilesMatrix.addSprite(x, y, grid);
-    
+      _buildingsTilesMatrix.addSprite(x, y, building);
     }
   }
 }
@@ -78,12 +87,24 @@ void Map::render()
   {
     for (int y = _height; y >= 0; y--)
     {
-      if (_floorTilesMatrix.getSprite(x, y) != nullptr)
-        _floorTilesMatrix.getSprite(x, y)->render(_cameraOffset, _zoom);
-
-      if ( _drawGrid )
-        if (_gridTilesMatrix.getSprite(x, y) != nullptr)
+      // Layer 0 - floor
+      if ( _activeLayers & LAYER_FLOOR )
+      {
+        if ( _floorTilesMatrix.getSprite(x, y) != nullptr )
+          _floorTilesMatrix.getSprite(x, y)->render(_cameraOffset, _zoom);
+      }
+      // Layer 1 - grid
+      if ( _activeLayers & LAYER_GRID )
+      {
+        if ( _gridTilesMatrix.getSprite(x, y) != nullptr )
           _gridTilesMatrix.getSprite(x, y)->render(_cameraOffset, _zoom);
+      }
+      // Layer 2 - Buildings
+      if ( _activeLayers & LAYER_BUILDINGS )
+      {
+        if ( _buildingsTilesMatrix.getSprite(x, y) != nullptr )
+          _buildingsTilesMatrix.getSprite(x, y)->render(_cameraOffset, _zoom);
+      }
     }
   }
 }
@@ -155,11 +176,6 @@ bool Map::checkBoundaries(Point isoCoordinates)
     return false;
 }
 
-void Map::toggleGrid()
-{ 
-  _drawGrid = !_drawGrid;
-}
-
 float Map::getZoomLevel() 
 { 
   return _zoom; 
@@ -178,4 +194,23 @@ void Map::setCameraOffset(Point offset)
 void Map::findNeighbors(Point isoCoords)
 {
   _floorTilesMatrix.findNeighbors(isoCoords.getX(), isoCoords.getY());
+}
+
+void Map::enableLayer(unsigned int layer)
+{
+  // Turn on by using bitwise OR
+  _activeLayers |= layer;
+}
+
+void Map::disableLayer(unsigned int layer)
+{
+  // Turn off by using bitwise AND with inversed pattern
+  _activeLayers &= ~layer;
+}
+
+
+void Map::toggleLayer(unsigned int layer)
+{
+  // Toggle bitmask by using bitmask XOR
+  _activeLayers ^= layer;
 }

@@ -39,9 +39,14 @@ int main(int, char**){
           case SDLK_ESCAPE:
             window.close();
             break;
-          case SDLK_g:
-            map.toggleGrid();
-            printf("Toggle Grid\n");
+          case SDLK_0:
+            map.toggleLayer(Map::LAYER_GRID);
+            break;
+          case SDLK_1:
+            map.toggleLayer(Map::LAYER_FLOOR);
+            break;
+          case SDLK_2:
+            map.toggleLayer(Map::LAYER_BUILDINGS);
             break;
           case SDLK_f:
             fullscreen = !fullscreen;

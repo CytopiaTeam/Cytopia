@@ -43,11 +43,12 @@ public:
   float getZoomLevel();
   void setZoomLevel(float zoomLevel);
 
-  void toggleGrid();
+  void enableLayer(unsigned int layer);
+  void disableLayer(unsigned int layer);
+  void toggleLayer(unsigned int layer);
+
 
 private:
-  bool _drawGrid = false;
-
   int _screen_width;
   int _screen_height;
 
@@ -57,6 +58,19 @@ private:
 
   vectorMatrix _floorTilesMatrix;
   vectorMatrix _gridTilesMatrix;
+  vectorMatrix _buildingsTilesMatrix;
+
+public:
+  enum Layers : unsigned int
+  {
+    LAYER_FLOOR       = 1u<<0,
+    LAYER_BUILDINGS   = 1u<<1,
+    LAYER_GRID        = 1u<<2
+  };
+
+private:
+  unsigned int _activeLayers;
+
 };
 
 
