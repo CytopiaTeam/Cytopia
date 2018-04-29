@@ -58,11 +58,11 @@ int main(int, char**){
         }
       case SDL_MOUSEBUTTONDOWN:
         mouseCoords.setCoords(event.button.x, event.button.y);
+        clickCoords = engine.getIsoCoords(mouseCoords);
         if ( event.button.button == SDL_BUTTON_LEFT )
         {
-          if ( engine.checkBoundaries(centerIsoCoords) )
+          if ( engine.checkBoundaries(clickCoords) )
           {
-            clickCoords = engine.getIsoCoords(mouseCoords);
             printf("CLICKED - Iso Coords: %d , %d\n", clickCoords.getX(), clickCoords.getY());
             engine.findNeighbors(clickCoords);
           }
