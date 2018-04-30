@@ -68,7 +68,7 @@ int main(int, char**){
           {
             printf("CLICKED - Iso Coords: %d , %d\n", clickCoords.getX(), clickCoords.getY());
             engine.findNeighbors(clickCoords);
-            engine.selectTile(clickCoords);
+            engine.increaseHeight(clickCoords);
           }
         }
         if ( event.button.button == SDL_BUTTON_RIGHT )

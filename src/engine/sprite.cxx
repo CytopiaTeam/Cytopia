@@ -74,3 +74,8 @@ Point Sprite::getTileIsoCoordinates()
 {
   return _isoCoords;
 }
+
+void Sprite::setHeight(int height)
+{
+  _isoCoords.setHeight(height);
+}

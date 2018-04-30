@@ -56,7 +56,7 @@ Engine::Engine(SDL_Renderer* renderer, SDL_Window *window)
       Sprite *grid = nullptr;
       Sprite *building = nullptr;
       
-      tile = new Sprite("resources/images/floor/grass.png", Point(x, y), renderer, window);
+      tile = new Sprite("resources/images/floor/floor.png", Point(x, y), renderer, window);
       grid = new Sprite("resources/images/selection/grid.png", Point(x, y), renderer, window);
       
       if ( (x == 1) && (y == 1) )
@@ -200,9 +200,9 @@ void Engine::setCameraOffset(Point offset)
   _cameraOffset = offset; 
 }
 
-void Engine::findNeighbors(Point isoCoords)
+std::vector<Sprite*> Engine::findNeighbors(Point isoCoords)
 {
-  _floorTilesMatrix.findNeighbors(isoCoords.getX(), isoCoords.getY());
+  return _floorTilesMatrix.findNeighbors(isoCoords.getX(), isoCoords.getY());
 }
 
 void Engine::enableLayer(unsigned int layer)
@@ -224,10 +224,41 @@ void Engine::toggleLayer(unsigned int layer)
   _activeLayers ^= layer;
 }
 
-void Engine::selectTile(Point isoCoordinates)
+void Engine::increaseHeight(Point isoCoordinates)
 {
   _selectedTilesMatrix.clearMatrix();
   Sprite *selection = nullptr;
-  selection = new Sprite("resources/images/selection/selectedTile.png", isoCoordinates, _renderer, _window);
-  _selectedTilesMatrix.addSprite(isoCoordinates.getX(), isoCoordinates.getY(), selection);
+  Point coords;
+
+  int tileHeight = _floorTilesMatrix.getSprite(isoCoordinates.getX(), isoCoordinates.getY())->getTileIsoCoordinates().getHeight();
+
+  selection = new Sprite("resources/images/floor/floor.png", coords, _renderer, _window);
+  _floorTilesMatrix.addSprite(isoCoordinates.getX(), isoCoordinates.getY(), selection);
+
+
+
+  _floorTilesMatrix.getSprite(isoCoordinates.getX(), isoCoordinates.getY())->setHeight(tileHeight + 1);
+
+  std::vector<Sprite*> neighbors = findNeighbors(isoCoordinates);
+
+  // TODO: floor surroundings must be drawn in the floor tilematrix, not in the selection
+  for (int i=0; i < neighbors.size(); i++)
+  {
+    if ( neighbors[i] != nullptr )
+    {
+      coords = neighbors[i]->getTileIsoCoordinates();
+      if (coords.getHeight() != tileHeight + 1)
+      {
+        selection = new Sprite("resources/images/floor/floor_"+std::to_string(i)+".png", coords, _renderer, _window);
+        _floorTilesMatrix.addSprite(coords.getX(), coords.getY(), selection);
+      }
+      else
+      {
+
+      selection = new Sprite("resources/images/floor/floor.png", coords, _renderer, _window);
+      _floorTilesMatrix.addSprite(coords.getX(), coords.getY(), selection);
+      }
+
+    }
+  }
 }

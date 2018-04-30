@@ -27,7 +27,7 @@ private:
   Point _position;
   Point _isoCoords;
 
-  int _heightOffset = 19; // height offset - 19 pixels by trial and error.
+  int _heightOffset = 20; // height offset - 20 pixels by trial and error.
 
 public:
   void render(Point cameraOffset, float zoom = 1.0);
@@ -35,6 +35,7 @@ public:
   Point getTileScreenCoordinates(Point cameraOffset, float zoom = 1.0);
   Point getTileIsoCoordinates();
   void setTileIsoCoordinates(Point isoCoords);
+  void setHeight(int height);
   int getZOrder();
 };
 
