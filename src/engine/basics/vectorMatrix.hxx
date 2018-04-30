@@ -11,6 +11,8 @@ public:
   void vectorMatrix::resizeMatrix(int rows, int columns);
   void addSprite(int row, int column, Sprite* sprite);
   void removeSprite(int x, int y);
+  void vectorMatrix::clearMatrix();
+
   std::vector<Sprite*> vectorMatrix::findNeighbors(int x, int y);
   Sprite* getSprite(int x, int y);
 

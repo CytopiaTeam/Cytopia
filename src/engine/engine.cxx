@@ -3,9 +3,14 @@
 Engine::Engine(SDL_Renderer* renderer, SDL_Window *window)
 {
   int tilesize = 32;
+  
+  _renderer = renderer;
+  _window = window;
+  
   _floorTilesMatrix = vectorMatrix(_width, _height);
   _gridTilesMatrix = vectorMatrix(_width, _height);
   _buildingsTilesMatrix = vectorMatrix(_width, _height);
+  _selectedTilesMatrix = vectorMatrix(_width, _height);
 
 
 
@@ -102,6 +107,12 @@ void Engine::render()
       {
         if ( _buildingsTilesMatrix.getSprite(x, y) != nullptr )
           _buildingsTilesMatrix.getSprite(x, y)->render(_cameraOffset, _zoom);
+      }
+      // Layer 3 - Selection
+      if (_activeLayers & LAYER_SELECTION)
+      {
+        if (_selectedTilesMatrix.getSprite(x, y) != nullptr)
+          _selectedTilesMatrix.getSprite(x, y)->render(_cameraOffset, _zoom);
       }
     }
   }
@@ -211,4 +222,12 @@ void Engine::toggleLayer(unsigned int layer)
 {
   // Toggle bitmask by using bitmask XOR
   _activeLayers ^= layer;
+}
+
+void Engine::selectTile(Point isoCoordinates)
+{
+  _selectedTilesMatrix.clearMatrix();
+  Sprite *selection = nullptr;
+  selection = new Sprite("resources/images/selection/selectedTile.png", isoCoordinates, _renderer, _window);
+  _selectedTilesMatrix.addSprite(isoCoordinates.getX(), isoCoordinates.getY(), selection);
 }

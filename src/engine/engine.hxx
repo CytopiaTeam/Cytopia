@@ -46,9 +46,12 @@ public:
   void enableLayer(unsigned int layer);
   void disableLayer(unsigned int layer);
   void toggleLayer(unsigned int layer);
-
+  void selectTile(Point isoCoordinates);
 
 private:
+  SDL_Renderer *_renderer;
+  SDL_Window *_window;
+
   int _screen_width;
   int _screen_height;
 
@@ -59,13 +62,16 @@ private:
   vectorMatrix _floorTilesMatrix;
   vectorMatrix _gridTilesMatrix;
   vectorMatrix _buildingsTilesMatrix;
+  vectorMatrix _selectedTilesMatrix;
+
 
 public:
   enum Layers : unsigned int
   {
     LAYER_FLOOR       = 1u<<0,
     LAYER_BUILDINGS   = 1u<<1,
-    LAYER_GRID        = 1u<<2
+    LAYER_GRID        = 1u<<2,
+    LAYER_SELECTION   = 1u<<3
   };
 
 private:

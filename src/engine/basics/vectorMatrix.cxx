@@ -45,6 +45,18 @@ void vectorMatrix::removeSprite(int x, int y)
   _matrix[x][y] = nullptr;
 }
 
+void vectorMatrix::clearMatrix()
+{
+  // CLear it!
+  for (int x = 0; x < _rows; x++)
+  {
+    for (int y = 0; y < _columns; y++)
+    {
+      removeSprite(x, y);
+    }
+  }
+}
+
 std::vector<Sprite*> vectorMatrix::findNeighbors(int x, int y)
 {
   std::vector<Sprite*> neighbors;
