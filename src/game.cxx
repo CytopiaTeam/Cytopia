@@ -67,7 +67,7 @@ int main(int, char**){
           if ( engine.checkBoundaries(clickCoords) )
           {
             printf("CLICKED - Iso Coords: %d , %d\n", clickCoords.getX(), clickCoords.getY());
-            engine.findNeighbors(clickCoords);
+            //engine.findNeighbors(clickCoords);
             engine.increaseHeight(clickCoords);
           }
         }

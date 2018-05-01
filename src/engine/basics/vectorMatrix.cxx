@@ -109,7 +109,7 @@ std::vector<Sprite*> vectorMatrix::findNeighbors(int x, int y)
   }
 
 
-  std::vector<Cell*> vectorMatrix::setCellNeighbors(int x, int y)
+  std::vector<Cell*> vectorMatrix::getCellNeighbors(int x, int y)
   {
     std::vector<Cell*> neighbors;
     _neighborCount = 0;
@@ -127,9 +127,6 @@ std::vector<Sprite*> vectorMatrix::findNeighbors(int x, int y)
         {
           _neighborCount++;
 
-          // Debug output
-          printf("%d Neighbors at: %d, %d\n", _neighborCount, currentRow, currentColumn);
-
           if (_cellMatrix[currentRow][currentColumn] != nullptr)
             neighbors.push_back(_cellMatrix[currentRow][currentColumn]);
         }
@@ -140,4 +137,19 @@ std::vector<Sprite*> vectorMatrix::findNeighbors(int x, int y)
       }
     }
     return neighbors;
+  }
+
+
+  void vectorMatrix::initCells()
+  {
+
+    for (int x = 0; x < _rows; x++)
+    {
+      for (int y = 0; y < _columns; y++)
+      {
+        _cellMatrix[x][y]->setNeighbors(getCellNeighbors(x, y));
+      }
+    }
+
+
   }

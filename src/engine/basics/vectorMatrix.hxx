@@ -17,8 +17,8 @@ public:
   // CELL
   void addCell(int row, int column, Cell* cell);
   Cell* getCell(int x, int y);
-  std::vector<Cell*> setCellNeighbors(int x, int y);
-
+  std::vector<Cell*> getCellNeighbors(int x, int y);
+  void initCells();
 
   std::vector<Sprite*> vectorMatrix::findNeighbors(int x, int y);
   Sprite* getSprite(int x, int y);

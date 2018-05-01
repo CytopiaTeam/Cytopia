@@ -66,7 +66,7 @@ Engine::Engine(SDL_Renderer* renderer, SDL_Window *window)
         building = new Sprite("resources/images/buildings/house.png", Point(x, y), renderer, window);
       
       // Cells
-      Cell* mapCell = new Cell(Point(x, y), tile);
+      Cell* mapCell = new Cell(Point(x, y), tile, _renderer, _window);
       _floorCellMatrix.addCell(x, y, mapCell);
 
 
@@ -75,7 +75,12 @@ Engine::Engine(SDL_Renderer* renderer, SDL_Window *window)
       _buildingsTilesMatrix.addSprite(x, y, building);
     }
   }
+
+  _floorCellMatrix.initCells();
+
 }
+
+
 
 Engine::~Engine()
 {
@@ -234,7 +239,7 @@ void Engine::toggleLayer(unsigned int layer)
   _activeLayers ^= layer;
 }
 
-void Engine::increaseHeight(Point isoCoordinates)
+void Engine::increaseOLDHeight(Point isoCoordinates)
 {
   _selectedTilesMatrix.clearMatrix();
   Sprite *selection = nullptr;
@@ -271,4 +276,9 @@ void Engine::increaseHeight(Point isoCoordinates)
 
     }
   }
+}
+
+void Engine::increaseHeight(Point isoCoordinates)
+{
+  _floorCellMatrix.getCell(isoCoordinates.getX(), isoCoordinates.getY())->increaseHeight(1);
 }
