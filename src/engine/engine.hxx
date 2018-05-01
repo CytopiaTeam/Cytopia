@@ -10,6 +10,7 @@
 #include "SDL2/SDL.h"
 
 #include "sprite.hxx"
+#include "cell.hxx"
 #include "basics/point.hxx"
 #include "basics/vectorMatrix.hxx"
 
@@ -63,6 +64,9 @@ private:
   vectorMatrix _gridTilesMatrix;
   vectorMatrix _buildingsTilesMatrix;
   vectorMatrix _selectedTilesMatrix;
+
+  // Cells
+  vectorMatrix _floorCellMatrix;
 
 
 public:

@@ -11,6 +11,8 @@ Engine::Engine(SDL_Renderer* renderer, SDL_Window *window)
   _gridTilesMatrix = vectorMatrix(_width, _height);
   _buildingsTilesMatrix = vectorMatrix(_width, _height);
   _selectedTilesMatrix = vectorMatrix(_width, _height);
+  
+  _floorCellMatrix = vectorMatrix(_width, _height);
 
 
 
@@ -55,6 +57,7 @@ Engine::Engine(SDL_Renderer* renderer, SDL_Window *window)
       Sprite *tile = nullptr;
       Sprite *grid = nullptr;
       Sprite *building = nullptr;
+
       
       tile = new Sprite("resources/images/floor/floor.png", Point(x, y), renderer, window);
       grid = new Sprite("resources/images/selection/grid.png", Point(x, y), renderer, window);
@@ -62,6 +65,11 @@ Engine::Engine(SDL_Renderer* renderer, SDL_Window *window)
       if ( (x == 1) && (y == 1) )
         building = new Sprite("resources/images/buildings/house.png", Point(x, y), renderer, window);
       
+      // Cells
+      Cell* mapCell = new Cell(Point(x, y), tile);
+      _floorCellMatrix.addCell(x, y, mapCell);
+
+
       _floorTilesMatrix.addSprite(x, y, tile);
       _gridTilesMatrix.addSprite(x, y, grid);
       _buildingsTilesMatrix.addSprite(x, y, building);
@@ -93,8 +101,10 @@ void Engine::render()
       // Layer 0 - floor
       if ( _activeLayers & LAYER_FLOOR )
       {
-        if ( _floorTilesMatrix.getSprite(x, y) != nullptr )
-          _floorTilesMatrix.getSprite(x, y)->render(_cameraOffset, _zoom);
+        //if ( _floorTilesMatrix.getSprite(x, y) != nullptr )
+        //  _floorTilesMatrix.getSprite(x, y)->render(_cameraOffset, _zoom);
+
+        _floorCellMatrix.getCell(x, y)->renderCell(_cameraOffset, _zoom);
       }
       // Layer 1 - grid
       if ( _activeLayers & LAYER_GRID )
