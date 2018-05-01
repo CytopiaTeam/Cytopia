@@ -24,6 +24,7 @@ public:
 
   void setNeighbors(std::vector<Cell*> neighbors);
   void drawSurroundingTiles(Point isoCoordinates);
+  void determineTile();
 
   void increaseHeight(int height);
 
@@ -36,6 +37,8 @@ private:
   std::vector<Cell*> _neighbors;
   SDL_Renderer* _renderer;
   SDL_Window* _window;
+
+  bool hasElevatedNeighbors();
 };
 
 
