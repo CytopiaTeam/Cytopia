@@ -96,6 +96,9 @@ void Cell::drawSurroundingTiles(Point isoCoordinates)
     _sprite = new Sprite("resources/images/floor/floor.png", _sprite->getTileIsoCoordinates(), _renderer, _window);
   }
 
+
+
+
 }
 
 void Cell::increaseHeight(int height)
@@ -129,6 +132,7 @@ bool Cell::hasElevatedNeighbors()
 void Cell::determineTile()
 {
 
+  int numberOfNeighbors = 1;
   int tileHeight = getSprite()->getTileIsoCoordinates().getHeight();
 
   for (int i = 0; i < _neighbors.size(); i++)
@@ -140,34 +144,41 @@ void Cell::determineTile()
       {
 
         if (i == 0)
-          _position = BOTTOM | LEFT;
+          _position |= BOTTOM_LEFT;
         if (i == 1)
           _position |= LEFT;
         if (i == 2)
-          _position = TOP | LEFT;
+          _position |= TOP_LEFT;
         if (i == 3)
           _position |= BOTTOM;
-        if (i == 4)
+        //if (i == 4)
           // TODO: Center Tile. When the cell array is implemented and it's at the map boundaries, a solid rock tile should be drawn here.
         if (i == 5)
           _position |= TOP;
         if (i == 6)
-          _position = BOTTOM | RIGHT;
+          _position |= BOTTOM_RIGHT;
         if (i == 7)
           _position |= RIGHT;
         if (i == 8)
-          _position = TOP | RIGHT;
+          _position |= TOP_RIGHT;
 
+        numberOfNeighbors++;
       }
     }
   }
 
 
+  // elevation !!!!!!!!!!!
+
   auto it = tileIdToPosition.find(_position);
 
   if (it != tileIdToPosition.end())
   {
-    _tileID =  it->second;
+    _tileID = it->second;
+  }
+  else
+  {
+    // else elevate!
   }
 
   if (_tileID != -1)
@@ -178,6 +189,9 @@ void Cell::determineTile()
   {
     _sprite = new Sprite("resources/images/floor/floor.png", getSprite()->getTileIsoCoordinates(), _renderer, _window);
   }
+
+  // elevation !!!!!!!!!!!
+
 
 
 }

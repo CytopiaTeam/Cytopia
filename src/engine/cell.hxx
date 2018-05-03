@@ -53,29 +53,55 @@ private:
   // 1 X 7
   // 0 3 6
 
-  enum positions : unsigned char{
+  enum positions : unsigned int{
        TOP = 0x1,
        BOTTOM = 0x2,
        LEFT = 0x4,
-       RIGHT = 0x8
+       RIGHT = 0x8,
+       TOP_LEFT = 0x10,
+       TOP_RIGHT = 0x20,
+       BOTTOM_LEFT = 0x40,
+       BOTTOM_RIGHT = 0x80,
   };
 
-  unsigned char _position;
+  unsigned int _position;
 
 
   // Map elvated tiles to tile ID.
   // not found means we can't draw a keytile, so elevate this tile!
-  std::map<unsigned char, int> tileIdToPosition =
+  std::map<unsigned int, int> tileIdToPosition =
   {
     {TOP, 3},
     {BOTTOM, 5},
     {RIGHT, 1},
     {LEFT, 7},
-    {BOTTOM | RIGHT, 2},
-    {BOTTOM | LEFT, 8},
-    {TOP | RIGHT, 0},
-    {TOP | LEFT, 6},
-    {TOP | LEFT, 6},
+    {BOTTOM_RIGHT, 2},
+    {BOTTOM_LEFT, 8},
+    {TOP_RIGHT, 0},
+    {TOP_LEFT, 6},
+
+    // correct
+    {TOP_LEFT | TOP_RIGHT, 3},
+    {(TOP_LEFT | TOP), 3},
+    {(TOP_RIGHT | TOP), 3},
+
+    {BOTTOM_LEFT | BOTTOM_RIGHT, 5},
+    {BOTTOM_LEFT | BOTTOM, 5},
+    {BOTTOM_RIGHT | BOTTOM, 5},
+    
+    {(BOTTOM_LEFT | TOP_LEFT), 7},
+    {(BOTTOM_LEFT | LEFT), 7},
+    {(TOP_LEFT | LEFT), 7},
+
+    {BOTTOM_RIGHT | TOP_RIGHT, 1},
+    {BOTTOM_RIGHT | RIGHT, 1},
+    {TOP_RIGHT | RIGHT, 1},
+
+    {TOP | TOP_LEFT | LEFT, 9},
+    {TOP |TOP_RIGHT | RIGHT, 10},
+    {BOTTOM |BOTTOM_RIGHT | RIGHT, 2},
+    {BOTTOM |BOTTOM_LEFT | LEFT, 11},
+
 
   };
 
