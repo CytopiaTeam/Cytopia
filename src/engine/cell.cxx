@@ -12,7 +12,13 @@ Cell::Cell(Point isoCoordinates, Sprite* sprite, SDL_Renderer* renderer, SDL_Win
 
   _renderer = renderer;
   _window = window;
+
+  _tileID = -1;
+  _position = 0;
+
   // if it's a floor cell, draw sprite based on neighbor tile height
+
+
 
 
 
@@ -86,6 +92,7 @@ void Cell::drawSurroundingTiles(Point isoCoordinates)
   }
   if (numElevatedNeighbors >= 1)
   {
+    // TODO: Check if this should be handled here or below.
     _sprite = new Sprite("resources/images/floor/floor.png", _sprite->getTileIsoCoordinates(), _renderer, _window);
   }
 
@@ -133,38 +140,43 @@ void Cell::determineTile()
       {
 
         if (i == 0)
-          _sprite = new Sprite("resources/images/floor/floor_8.png", getSprite()->getTileIsoCoordinates(), _renderer, _window);
-
-
+          _position = BOTTOM | LEFT;
         if (i == 1)
-          _sprite = new Sprite("resources/images/floor/floor_7.png", getSprite()->getTileIsoCoordinates(), _renderer, _window);
-
-        
+          _position |= LEFT;
         if (i == 2)
-        _sprite = new Sprite("resources/images/floor/floor_6.png", getSprite()->getTileIsoCoordinates(), _renderer, _window);
-
+          _position = TOP | LEFT;
         if (i == 3)
-        _sprite = new Sprite("resources/images/floor/floor_5.png", getSprite()->getTileIsoCoordinates(), _renderer, _window);
-
+          _position |= BOTTOM;
+        if (i == 4)
+          // TODO: Center Tile. When the cell array is implemented and it's at the map boundaries, a solid rock tile should be drawn here.
         if (i == 5)
-        _sprite = new Sprite("resources/images/floor/floor_3.png", getSprite()->getTileIsoCoordinates(), _renderer, _window);
-
+          _position |= TOP;
         if (i == 6)
-          _sprite = new Sprite("resources/images/floor/floor_2.png", getSprite()->getTileIsoCoordinates(), _renderer, _window);
-
+          _position = BOTTOM | RIGHT;
         if (i == 7)
-          _sprite = new Sprite("resources/images/floor/floor_1.png", getSprite()->getTileIsoCoordinates(), _renderer, _window);
-
+          _position |= RIGHT;
         if (i == 8)
-          _sprite = new Sprite("resources/images/floor/floor_0.png", getSprite()->getTileIsoCoordinates(), _renderer, _window);
-
-
-        //_sprite = new Sprite("resources/images/floor/floor_" + std::to_string(i) + ".png", getSprite()->getTileIsoCoordinates(), _renderer, _window);
-
-        printf("Point %d, %d is elevated!\n", coords.getX(), coords.getY());
+          _position = TOP | RIGHT;
 
       }
     }
+  }
+
+
+  auto it = tileIdToPosition.find(_position);
+
+  if (it != tileIdToPosition.end())
+  {
+    _tileID =  it->second;
+  }
+
+  if (_tileID != -1)
+  {
+    _sprite = new Sprite("resources/images/floor/floor_" + std::to_string(_tileID) + ".png", getSprite()->getTileIsoCoordinates(), _renderer, _window);
+  }
+  else // no neighbors found
+  {
+    _sprite = new Sprite("resources/images/floor/floor.png", getSprite()->getTileIsoCoordinates(), _renderer, _window);
   }
 
 

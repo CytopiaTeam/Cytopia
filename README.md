@@ -13,5 +13,3 @@ Neighbor Height matrix
 2 5 8  
 1 X 7
 0 3 6
-  
-   
