@@ -173,6 +173,17 @@ Point Engine::getScreenCoords(Point isoCoordinates, bool calcWithoutOffset)
   return screenCoordinates;
 }
 
+void Engine::centerScreenOnMap()
+{
+  Point screenCoordinates = getScreenCoords(Point(_width / 2, _height /2), true);
+  int x, y;
+
+  x = (screenCoordinates.getX() + (TILE_SIZE*_zoom)*0.5) - _screen_width * 0.5;
+  y = (screenCoordinates.getY() + (TILE_SIZE*_zoom)*0.75) - _screen_height * 0.5;
+
+  _cameraOffset.setCoords(x, y);
+}
+
 void Engine::centerScreenOnPoint(Point isoCoordinates)
 {
   Point screenCoordinates = getScreenCoords(isoCoordinates, true);

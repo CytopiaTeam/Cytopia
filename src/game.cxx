@@ -13,6 +13,7 @@ int main(int, char**){
   Point clickCoords, centerIsoCoords, mouseCoords;
   SDL_Event event;
   
+  engine.centerScreenOnMap();
 
   // Gameloop
   while (!window.isClosed()){
@@ -69,7 +70,7 @@ int main(int, char**){
         {
           if ( engine.checkBoundaries(clickCoords) )
           {
-            if (editMode)
+            if ( editMode )
               engine.increaseHeight(clickCoords);
             else
               printf("CLICKED - Iso Coords: %d , %d\n", clickCoords.getX(), clickCoords.getY());

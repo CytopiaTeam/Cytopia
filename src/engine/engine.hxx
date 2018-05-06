@@ -31,7 +31,8 @@ public:
   void render();
 
   void centerScreenOnPoint(Point isoCoordinates);
-
+  void centerScreenOnMap();
+  
   Point getIsoCoords(Point screenCoordinates, bool calcWithoutOffset = false);
   Point getScreenCoords(Point isoCoordinates, bool calcWithoutOffset = false);
   std::vector<Sprite*> findNeighbors(Point isoCoords);
