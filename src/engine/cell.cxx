@@ -43,7 +43,6 @@ void Cell::renderCell(Point cameraOffset, float zoom)
   _sprite->render(cameraOffset, zoom);
 }
 
-
 void Cell::drawSurroundingTiles(Point isoCoordinates)
 {
   Sprite* tile;

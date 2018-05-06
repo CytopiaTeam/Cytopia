@@ -124,15 +124,14 @@ void Engine::render()
           _buildingsTilesMatrix.getSprite(x, y)->render(_cameraOffset, _zoom);
       }
       // Layer 3 - Selection
-      if (_activeLayers & LAYER_SELECTION)
+      if ( _activeLayers & LAYER_SELECTION )
       {
-        if (_selectedTilesMatrix.getSprite(x, y) != nullptr)
+        if ( _selectedTilesMatrix.getSprite(x, y) != nullptr )
           _selectedTilesMatrix.getSprite(x, y)->render(_cameraOffset, _zoom);
       }
     }
   }
 }
-
 
 /// convert Screen Coordinates to Iso Coordinates
 Point Engine::getIsoCoords(Point screenCoordinates, bool calcWithoutOffset)
