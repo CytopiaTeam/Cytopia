@@ -8,6 +8,7 @@ vectorMatrix::vectorMatrix()
 vectorMatrix::vectorMatrix(int columns, int rows)
   : _matrix(rows+1, std::vector<Sprite*>(columns+1))
 {
+  resizeMatrix(columns, rows);
   _columns = columns + 1;
   _rows = rows + 1;
 }
@@ -24,7 +25,14 @@ void vectorMatrix::resizeMatrix(int rows, int columns)
   _rows = rows + 1;
 
   _matrix.resize(_rows);
+  _cellMatrix.resize(_rows);
+
   for (auto &it : _matrix)
+  {
+    it.resize(_columns);
+  }
+
+  for (auto &it : _cellMatrix)
   {
     it.resize(_columns);
   }
@@ -71,21 +79,77 @@ std::vector<Sprite*> vectorMatrix::findNeighbors(int x, int y)
       int currentColumn = y + columnIterator;
 
       // check if the neighbor is within bounds of the tilemap
-      if ( currentRow >= 0 && currentRow < _rows && currentColumn >= 0 && currentColumn < _columns && !(currentRow == x && currentColumn == y) )
-      { 
+      if (currentRow >= 0 && currentRow < _rows && currentColumn >= 0 && currentColumn < _columns && !(currentRow == x && currentColumn == y))
+      {
         _neighborCount++;
-  
-        // Debug output
-        printf ("%d Neighbors at: %d, %d\n", _neighborCount, currentRow, currentColumn);
 
-        if ( _matrix[currentRow][currentColumn] != nullptr )
+        // Debug output
+        printf("%d Neighbors at: %d, %d\n", _neighborCount, currentRow, currentColumn);
+
+        if (_matrix[currentRow][currentColumn] != nullptr)
           neighbors.push_back(_matrix[currentRow][currentColumn]);
+      }
+      else
+      {
+        neighbors.push_back(nullptr);
+      }
+    }
+  }
+  return neighbors;
+}
+
+  void vectorMatrix::addCell(int x, int y, Cell* cell)
+  {
+    _cellMatrix[x][y] = cell;
+  }
+
+  Cell* vectorMatrix::getCell(int x, int y)
+  {
+    return _cellMatrix[x][y];
+  }
+
+
+  std::vector<Cell*> vectorMatrix::getCellNeighbors(int x, int y)
+  {
+    std::vector<Cell*> neighbors;
+    _neighborCount = 0;
+
+    for (int rowIterator = -1; rowIterator <= 1; rowIterator++)
+    {
+      int currentRow = x + rowIterator;
+
+      for (int columnIterator = -1; columnIterator <= 1; columnIterator++)
+      {
+        int currentColumn = y + columnIterator;
+
+        // check if the neighbor is within bounds of the tilemap
+        if (currentRow >= 0 && currentRow < _rows && currentColumn >= 0 && currentColumn < _columns && !(currentRow == x && currentColumn == y))
+        {
+          _neighborCount++;
+
+          if (_cellMatrix[currentRow][currentColumn] != nullptr)
+            neighbors.push_back(_cellMatrix[currentRow][currentColumn]);
         }
         else
         {
           neighbors.push_back(nullptr);
         }
+      }
     }
+    return neighbors;
   }
-  return neighbors;
-}
+
+
+  void vectorMatrix::initCells()
+  {
+
+    for (int x = 0; x < _rows; x++)
+    {
+      for (int y = 0; y < _columns; y++)
+      {
+        _cellMatrix[x][y]->setNeighbors(getCellNeighbors(x, y));
+      }
+    }
+
+
+  }

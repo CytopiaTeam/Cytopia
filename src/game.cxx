@@ -46,6 +46,9 @@ int main(int, char**){
           case SDLK_3:
             engine.toggleLayer(Engine::LAYER_SELECTION);
             break;
+          case SDLK_e:
+            editMode = !editMode;
+            break;
           case SDLK_f:
             fullscreen = !fullscreen;
 
@@ -66,9 +69,10 @@ int main(int, char**){
         {
           if ( engine.checkBoundaries(clickCoords) )
           {
-            printf("CLICKED - Iso Coords: %d , %d\n", clickCoords.getX(), clickCoords.getY());
-            engine.findNeighbors(clickCoords);
-            engine.selectTile(clickCoords);
+            if (editMode)
+              engine.increaseHeight(clickCoords);
+            else
+              printf("CLICKED - Iso Coords: %d , %d\n", clickCoords.getX(), clickCoords.getY());
           }
         }
         if ( event.button.button == SDL_BUTTON_RIGHT )

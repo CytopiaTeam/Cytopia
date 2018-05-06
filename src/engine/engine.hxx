@@ -10,6 +10,7 @@
 #include "SDL2/SDL.h"
 
 #include "sprite.hxx"
+#include "cell.hxx"
 #include "basics/point.hxx"
 #include "basics/vectorMatrix.hxx"
 
@@ -33,7 +34,7 @@ public:
 
   Point getIsoCoords(Point screenCoordinates, bool calcWithoutOffset = false);
   Point getScreenCoords(Point isoCoordinates, bool calcWithoutOffset = false);
-  void findNeighbors(Point isoCoords);
+  std::vector<Sprite*> findNeighbors(Point isoCoords);
 
   Point getCameraOffset();
   void setCameraOffset(Point offset);
@@ -46,7 +47,8 @@ public:
   void enableLayer(unsigned int layer);
   void disableLayer(unsigned int layer);
   void toggleLayer(unsigned int layer);
-  void selectTile(Point isoCoordinates);
+  void increaseHeight(Point isoCoordinates);
+  void decreaseHeight(Point isoCoordinates);
 
 private:
   SDL_Renderer *_renderer;
@@ -63,6 +65,9 @@ private:
   vectorMatrix _gridTilesMatrix;
   vectorMatrix _buildingsTilesMatrix;
   vectorMatrix _selectedTilesMatrix;
+
+  // Cells
+  vectorMatrix _floorCellMatrix;
 
 
 public:

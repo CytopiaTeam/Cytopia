@@ -11,6 +11,8 @@ Engine::Engine(SDL_Renderer* renderer, SDL_Window *window)
   _gridTilesMatrix = vectorMatrix(_width, _height);
   _buildingsTilesMatrix = vectorMatrix(_width, _height);
   _selectedTilesMatrix = vectorMatrix(_width, _height);
+  
+  _floorCellMatrix = vectorMatrix(_width, _height);
 
 
 
@@ -55,19 +57,30 @@ Engine::Engine(SDL_Renderer* renderer, SDL_Window *window)
       Sprite *tile = nullptr;
       Sprite *grid = nullptr;
       Sprite *building = nullptr;
+
       
-      tile = new Sprite("resources/images/floor/grass.png", Point(x, y), renderer, window);
+      tile = new Sprite("resources/images/floor/floor.png", Point(x, y), renderer, window);
       grid = new Sprite("resources/images/selection/grid.png", Point(x, y), renderer, window);
       
       if ( (x == 1) && (y == 1) )
         building = new Sprite("resources/images/buildings/house.png", Point(x, y), renderer, window);
       
+      // Cells
+      Cell* mapCell = new Cell(Point(x, y), tile, _renderer, _window);
+      _floorCellMatrix.addCell(x, y, mapCell);
+
+
       _floorTilesMatrix.addSprite(x, y, tile);
       _gridTilesMatrix.addSprite(x, y, grid);
       _buildingsTilesMatrix.addSprite(x, y, building);
     }
   }
+
+  _floorCellMatrix.initCells();
+
 }
+
+
 
 Engine::~Engine()
 {
@@ -93,8 +106,10 @@ void Engine::render()
       // Layer 0 - floor
       if ( _activeLayers & LAYER_FLOOR )
       {
-        if ( _floorTilesMatrix.getSprite(x, y) != nullptr )
-          _floorTilesMatrix.getSprite(x, y)->render(_cameraOffset, _zoom);
+        //if ( _floorTilesMatrix.getSprite(x, y) != nullptr )
+        //  _floorTilesMatrix.getSprite(x, y)->render(_cameraOffset, _zoom);
+
+        _floorCellMatrix.getCell(x, y)->renderCell(_cameraOffset, _zoom);
       }
       // Layer 1 - grid
       if ( _activeLayers & LAYER_GRID )
@@ -200,9 +215,9 @@ void Engine::setCameraOffset(Point offset)
   _cameraOffset = offset; 
 }
 
-void Engine::findNeighbors(Point isoCoords)
+std::vector<Sprite*> Engine::findNeighbors(Point isoCoords)
 {
-  _floorTilesMatrix.findNeighbors(isoCoords.getX(), isoCoords.getY());
+  return _floorTilesMatrix.findNeighbors(isoCoords.getX(), isoCoords.getY());
 }
 
 void Engine::enableLayer(unsigned int layer)
@@ -224,10 +239,7 @@ void Engine::toggleLayer(unsigned int layer)
   _activeLayers ^= layer;
 }
 
-void Engine::selectTile(Point isoCoordinates)
+void Engine::increaseHeight(Point isoCoordinates)
 {
-  _selectedTilesMatrix.clearMatrix();
-  Sprite *selection = nullptr;
-  selection = new Sprite("resources/images/selection/selectedTile.png", isoCoordinates, _renderer, _window);
-  _selectedTilesMatrix.addSprite(isoCoordinates.getX(), isoCoordinates.getY(), selection);
+  _floorCellMatrix.getCell(isoCoordinates.getX(), isoCoordinates.getY())->increaseHeight(1);
 }
