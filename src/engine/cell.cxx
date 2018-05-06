@@ -69,7 +69,8 @@ void Cell::drawSurroundingTiles(Point isoCoordinates)
 void Cell::increaseHeight(int height)
 {
   int tileHeight = _sprite->getTileIsoCoordinates().getHeight();
-  _sprite->setHeight(tileHeight + 1);
+  _sprite->setHeight(1); // TODO: just one level is working now
+  //_sprite->setHeight(tileHeight + 1);
   drawSurroundingTiles(_sprite->getTileIsoCoordinates());
 
 }
@@ -129,8 +130,6 @@ void Cell::determineTile()
   }
 
 
-  // elevation !!!!!!!!!!!
-
   auto keyTileID = keyTileMap.find(_position);
 
   if (keyTileID != keyTileMap.end())
@@ -144,14 +143,11 @@ void Cell::determineTile()
   }
 
   // special case: if both opposite neighbors are elevated, the center tile also gets elevated
-  if ( ((_position & LEFT) && (_position & RIGHT)) || ((_position & TOP) && (_position & BOTTOM)))
+  if ( ((_position & LEFT) && (_position & RIGHT))  || ((_position & TOP) && (_position & BOTTOM)) || _tileID == -1)
   {
     increaseHeight(1);
     _tileID = 14;
-    printf("Position %d\n", _position);
   }
 
   _sprite = new Sprite("resources/images/floor/floor_" + std::to_string(_tileID) + ".png", getSprite()->getTileIsoCoordinates(), _renderer, _window);
-
-  // elevation !!!!!!!!!!!
 }

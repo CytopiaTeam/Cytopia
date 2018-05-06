@@ -67,11 +67,11 @@ private:
        ELEVATE = RIGHT | LEFT
   };
 
+
   unsigned int _position;
 
 
-  // Map elvated tiles to tile ID.
-  // not found means we can't draw a keytile, so elevate this tile!
+  // Map neighbor tile combinations to tile ID for keytiles.
   std::map<unsigned int, int> keyTileMap =
   {
     { NOTHING, 14 },
@@ -84,41 +84,45 @@ private:
     { TOP_RIGHT, 0 },
     { TOP_LEFT, 6 },
 
-    { TOP_LEFT | TOP_RIGHT, 3 },
     { TOP | TOP_LEFT, 3 },
     { TOP | TOP_RIGHT, 3 },
     { TOP | TOP_RIGHT | TOP_LEFT, 3 },
+    { TOP_LEFT | TOP_RIGHT, 3 },
 
-    { BOTTOM_LEFT | BOTTOM_RIGHT, 5 },
     { BOTTOM | BOTTOM_LEFT, 5 },
     { BOTTOM | BOTTOM_RIGHT, 5 },
     { BOTTOM | BOTTOM_RIGHT | BOTTOM_LEFT, 5 },
-    
-    { TOP_LEFT | BOTTOM_LEFT, 7},
+    { BOTTOM_LEFT | BOTTOM_RIGHT, 5 },
+  
     { LEFT | BOTTOM_LEFT, 7},
     { LEFT | TOP_LEFT, 7},
     { LEFT | TOP_LEFT | BOTTOM_LEFT, 7},
+    { TOP_LEFT | BOTTOM_LEFT, 7},
 
-    { BOTTOM_RIGHT | TOP_RIGHT, 1 },
-    { BOTTOM_RIGHT | RIGHT, 1 },
-    { TOP_RIGHT | RIGHT, 1 },
+    { RIGHT | BOTTOM_RIGHT, 1 },
+    { RIGHT | TOP_RIGHT, 1 },
     { RIGHT | TOP_RIGHT | BOTTOM_RIGHT, 1 },
+    { BOTTOM_RIGHT | TOP_RIGHT, 1 },
 
     { TOP | LEFT, 9 },
-    { TOP | LEFT | BOTTOM_LEFT, 9 },
+    { TOP | LEFT | BOTTOM_LEFT, 9 }, 
     { TOP | LEFT | TOP_RIGHT, 9 },
+    { TOP | LEFT | BOTTOM_LEFT | TOP_RIGHT, 9 },
     { TOP | LEFT | TOP_LEFT, 9 },
     { TOP | LEFT | TOP_LEFT | TOP_RIGHT, 9 },
     { TOP | LEFT | TOP_LEFT | BOTTOM_LEFT, 9 },
     { TOP | LEFT | TOP_LEFT | BOTTOM_LEFT | TOP_RIGHT, 9 },
-    
+    { TOP | LEFT | TOP_RIGHT | TOP_RIGHT, 9 },
+
     { TOP | RIGHT, 10 },
     { TOP | RIGHT | BOTTOM_RIGHT, 10 },
     { TOP | RIGHT | TOP_LEFT, 10 },
+    { TOP | RIGHT | BOTTOM_RIGHT | TOP_LEFT, 10 },
     { TOP | RIGHT | TOP_RIGHT, 10 },
     { TOP | RIGHT | TOP_RIGHT | TOP_LEFT, 10 },
     { TOP | RIGHT | TOP_RIGHT | BOTTOM_RIGHT, 10 },
     { TOP | RIGHT | TOP_RIGHT | TOP_LEFT | BOTTOM_RIGHT, 10 },
+    { TOP | RIGHT | TOP_LEFT | BOTTOM_RIGHT, 10 },
 
     { BOTTOM | RIGHT, 13 },
     { BOTTOM | RIGHT | TOP_RIGHT, 13 },
@@ -127,7 +131,9 @@ private:
     { BOTTOM | RIGHT | BOTTOM_RIGHT | BOTTOM_LEFT , 13 },
     { BOTTOM | RIGHT | BOTTOM_RIGHT | TOP_RIGHT , 13 },
     { BOTTOM | RIGHT | BOTTOM_RIGHT | BOTTOM_LEFT | TOP_RIGHT , 13 },
-    
+    { BOTTOM | RIGHT | BOTTOM_LEFT | TOP_RIGHT, 13 }, 
+    { BOTTOM | BOTTOM_LEFT | TOP_RIGHT, 13 }, 
+
     { BOTTOM | LEFT, 11 },
     { BOTTOM | LEFT | TOP_LEFT, 11 },
     { BOTTOM | LEFT | BOTTOM_RIGHT, 11 },
@@ -135,10 +141,23 @@ private:
     { BOTTOM | LEFT | BOTTOM_LEFT | TOP_LEFT, 11 },
     { BOTTOM | LEFT | BOTTOM_LEFT | BOTTOM_RIGHT, 11 },
     { BOTTOM | LEFT | BOTTOM_LEFT | TOP_LEFT | BOTTOM_RIGHT, 11 },
+    { BOTTOM | LEFT | TOP_LEFT | BOTTOM_RIGHT, 11},
+    { BOTTOM | LEFT | BOTTOM_RIGHT | TOP_LEFT, 11 },
 
     //diagonal tiles - insert a block
     { TOP_LEFT | BOTTOM_RIGHT, 4},
     { BOTTOM_LEFT | TOP_RIGHT, 4},
+
+
+    // special cases - elevate the tile
+    { RIGHT | BOTTOM_LEFT, -1},
+    { RIGHT | TOP_LEFT, -1},
+    { LEFT | BOTTOM_RIGHT, -1},
+    { LEFT | TOP_RIGHT, -1},
+    { TOP | BOTTOM_LEFT, -1},
+    { TOP | BOTTOM_RIGHT, -1},
+    { BOTTOM | TOP_LEFT, -1},
+    { BOTTOM | TOP_RIGHT, -1}
 
   };
 };
