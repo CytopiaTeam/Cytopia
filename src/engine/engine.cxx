@@ -239,45 +239,6 @@ void Engine::toggleLayer(unsigned int layer)
   _activeLayers ^= layer;
 }
 
-void Engine::increaseOLDHeight(Point isoCoordinates)
-{
-  _selectedTilesMatrix.clearMatrix();
-  Sprite *selection = nullptr;
-  Point coords;
-
-  int tileHeight = _floorTilesMatrix.getSprite(isoCoordinates.getX(), isoCoordinates.getY())->getTileIsoCoordinates().getHeight();
-
-  selection = new Sprite("resources/images/floor/floor.png", coords, _renderer, _window);
-  _floorTilesMatrix.addSprite(isoCoordinates.getX(), isoCoordinates.getY(), selection);
-
-
-
-  _floorTilesMatrix.getSprite(isoCoordinates.getX(), isoCoordinates.getY())->setHeight(tileHeight + 1);
-
-  std::vector<Sprite*> neighbors = findNeighbors(isoCoordinates);
-
-  // TODO: floor surroundings must be drawn in the floor tilematrix, not in the selection
-  for (int i=0; i < neighbors.size(); i++)
-  {
-    if ( neighbors[i] != nullptr )
-    {
-      coords = neighbors[i]->getTileIsoCoordinates();
-      if (coords.getHeight() != tileHeight + 1)
-      {
-        selection = new Sprite("resources/images/floor/floor_"+std::to_string(i)+".png", coords, _renderer, _window);
-        _floorTilesMatrix.addSprite(coords.getX(), coords.getY(), selection);
-      }
-      else
-      {
-
-      selection = new Sprite("resources/images/floor/floor.png", coords, _renderer, _window);
-      _floorTilesMatrix.addSprite(coords.getX(), coords.getY(), selection);
-      }
-
-    }
-  }
-}
-
 void Engine::increaseHeight(Point isoCoordinates)
 {
   _floorCellMatrix.getCell(isoCoordinates.getX(), isoCoordinates.getY())->increaseHeight(1);

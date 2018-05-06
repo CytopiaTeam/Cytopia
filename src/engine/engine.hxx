@@ -48,7 +48,7 @@ public:
   void disableLayer(unsigned int layer);
   void toggleLayer(unsigned int layer);
   void increaseHeight(Point isoCoordinates);
-  void increaseOLDHeight(Point isoCoordinates);
+  void decreaseHeight(Point isoCoordinates);
 
 private:
   SDL_Renderer *_renderer;

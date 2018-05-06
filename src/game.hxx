@@ -12,4 +12,7 @@
 #include "engine/engine.hxx"
 #include "engine/basics/point.hxx"
 
+
+bool editMode;
+
 #endif
