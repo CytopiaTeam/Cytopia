@@ -13,15 +13,8 @@ Cell::Cell(Point isoCoordinates, Sprite* sprite, SDL_Renderer* renderer, SDL_Win
   _renderer = renderer;
   _window = window;
 
-  _tileID = -1;
+  _tileID = 14;
   _position = 0;
-
-  // if it's a floor cell, draw sprite based on neighbor tile height
-
-
-
-
-
 }
 
 Cell::~Cell()
@@ -53,52 +46,24 @@ void Cell::renderCell(Point cameraOffset, float zoom)
 
 void Cell::drawSurroundingTiles(Point isoCoordinates)
 {
-
-  // Check for surrounding tiles everytime we render
-  Point coords;
   Sprite* tile;
 
   int numElevatedNeighbors = 0;
-
   int tileHeight = getSprite()->getTileIsoCoordinates().getHeight();
-
-  printf("Count neighbors: %d", _neighbors.size());
-
 
   for (int i = 0; i < _neighbors.size(); i++)
   {
     if (_neighbors[i] != nullptr)
     {
-      coords = _neighbors[i]->getSprite()->getTileIsoCoordinates();
 
         _neighbors[i]->determineTile();
-  
-      if (coords.getHeight() == tileHeight )
-      {
-        numElevatedNeighbors++;
-        tile = new Sprite("resources/images/floor/floor.png", coords, _renderer, _window);
-        printf("Found elevated tile at %d,%d\n", coords.getX(), coords.getY());
-        _neighbors[i]->setSprite(tile);
-      }
-      else
-      {
-        //tile = new Sprite("resources/images/floor/floor_" + std::to_string(i) + ".png", coords, _renderer, _window);
 
-      }
-      //printf("Setting tile %d to coord %d,%d\n", i, coords.getX(), coords.getY());
-        
 
     }
   }
-  if (numElevatedNeighbors >= 1)
-  {
-    // TODO: Check if this should be handled here or below.
-    _sprite = new Sprite("resources/images/floor/floor.png", _sprite->getTileIsoCoordinates(), _renderer, _window);
-  }
 
-
-
-
+  // call for this tile too. 
+  determineTile();
 }
 
 void Cell::increaseHeight(int height)
@@ -131,18 +96,16 @@ bool Cell::hasElevatedNeighbors()
 
 void Cell::determineTile()
 {
-
-  int numberOfNeighbors = 1;
+  _position = 0;
   int tileHeight = getSprite()->getTileIsoCoordinates().getHeight();
 
-  for (int i = 0; i < _neighbors.size(); i++)
+  for (int i = 0; i < _neighbors.size(); i++) //determine TileID
   {
     if (_neighbors[i] != nullptr)
     {
       Point coords = _neighbors[i]->getSprite()->getTileIsoCoordinates();
-      if (coords.getHeight() > tileHeight)
+      if ( coords.getHeight() > tileHeight )
       {
-
         if (i == 0)
           _position |= BOTTOM_LEFT;
         if (i == 1)
@@ -151,8 +114,6 @@ void Cell::determineTile()
           _position |= TOP_LEFT;
         if (i == 3)
           _position |= BOTTOM;
-        //if (i == 4)
-          // TODO: Center Tile. When the cell array is implemented and it's at the map boundaries, a solid rock tile should be drawn here.
         if (i == 5)
           _position |= TOP;
         if (i == 6)
@@ -161,37 +122,36 @@ void Cell::determineTile()
           _position |= RIGHT;
         if (i == 8)
           _position |= TOP_RIGHT;
-
-        numberOfNeighbors++;
       }
+      // Enable for Cell Debugging output
+      //printf("I am %d, %d the neighbor of %d, %d and my position is %d\nMy Height is %d while my neighbors height is %d \n", getSprite()->getTileIsoCoordinates().getX(), getSprite()->getTileIsoCoordinates().getY(), _neighbors[i]->getSprite()->getTileIsoCoordinates().getX(), _neighbors[i]->getSprite()->getTileIsoCoordinates().getY(), _position, tileHeight, coords.getHeight());
     }
   }
 
 
   // elevation !!!!!!!!!!!
 
-  auto it = tileIdToPosition.find(_position);
+  auto keyTileID = keyTileMap.find(_position);
 
-  if (it != tileIdToPosition.end())
+  if (keyTileID != keyTileMap.end())
   {
-    _tileID = it->second;
+    _tileID = keyTileID->second;
   }
   else
   {
-    // else elevate!
+    // For debugging purposes
+    printf("WARNING: Tile combination at %d, %d is not in the map!", getSprite()->getTileIsoCoordinates().getX(), getSprite()->getTileIsoCoordinates().getY());
   }
 
-  if (_tileID != -1)
+  // special case: if both opposite neighbors are elevated, the center tile also gets elevated
+  if ( ((_position & LEFT) && (_position & RIGHT)) || ((_position & TOP) && (_position & BOTTOM)))
   {
-    _sprite = new Sprite("resources/images/floor/floor_" + std::to_string(_tileID) + ".png", getSprite()->getTileIsoCoordinates(), _renderer, _window);
+    increaseHeight(1);
+    _tileID = 14;
+    printf("Position %d\n", _position);
   }
-  else // no neighbors found
-  {
-    _sprite = new Sprite("resources/images/floor/floor.png", getSprite()->getTileIsoCoordinates(), _renderer, _window);
-  }
+
+  _sprite = new Sprite("resources/images/floor/floor_" + std::to_string(_tileID) + ".png", getSprite()->getTileIsoCoordinates(), _renderer, _window);
 
   // elevation !!!!!!!!!!!
-
-
-
 }
