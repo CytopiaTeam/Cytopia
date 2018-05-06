@@ -115,6 +115,7 @@ int main(int, char**){
 
     // Render the Frame
     SDL_RenderPresent(window.getSDLRenderer());
+    SDL_Delay(1);
   }
   return 0;
 }
