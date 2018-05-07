@@ -106,22 +106,17 @@ void Cell::determineTile()
       Point coords = _neighbors[i]->getSprite()->getTileIsoCoordinates();
       if ( coords.getHeight() > tileHeight )
       {
-        if ( i == 0 )
-          _elevatedTilePosition |= ELEVATED_BOTTOM_LEFT;
-        if ( i == 1 )
-          _elevatedTilePosition |= ELEVATED_LEFT;
-        if ( i == 2 )
-          _elevatedTilePosition |= ELEVATED_TOP_LEFT;
-        if ( i == 3 )
-          _elevatedTilePosition |= ELEVATED_BOTTOM;
-        if ( i == 5 )
-          _elevatedTilePosition |= ELEVATED_TOP;
-        if ( i == 6 )
-          _elevatedTilePosition |= ELEVATED_BOTTOM_RIGHT;
-        if ( i == 7 )
-          _elevatedTilePosition |= ELEVATED_RIGHT;
-        if ( i == 8 )
-          _elevatedTilePosition |= ELEVATED_TOP_RIGHT;
+        switch (i)
+        {
+          case 0: _elevatedTilePosition |= ELEVATED_BOTTOM_LEFT; break;
+          case 1: _elevatedTilePosition |= ELEVATED_LEFT; break;
+          case 2: _elevatedTilePosition |= ELEVATED_TOP_LEFT; break;
+          case 3: _elevatedTilePosition |= ELEVATED_BOTTOM; break;
+          case 5: _elevatedTilePosition |= ELEVATED_TOP; break;
+          case 6: _elevatedTilePosition |= ELEVATED_BOTTOM_RIGHT; break;
+          case 7: _elevatedTilePosition |= ELEVATED_RIGHT; break;
+          case 8: _elevatedTilePosition |= ELEVATED_TOP_RIGHT; break;
+        }
       }
     }
   }
