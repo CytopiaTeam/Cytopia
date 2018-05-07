@@ -25,10 +25,9 @@ void Sprite::render(Point cameraOffset, float zoom)
 {
   Point tileScreenCoords = getTileScreenCoordinates(cameraOffset, zoom);
 
-  if ( _isoCoords.getHeight() > 0 )
+  if (_isoCoords.getHeight() > 0)
   {
-    _heightOffset = _heightOffset * _isoCoords.getHeight();
-    tileScreenCoords.setY(tileScreenCoords.getY() - (TILE_SIZE - _heightOffset)*zoom); 
+    tileScreenCoords.setY(tileScreenCoords.getY() - ((TILE_SIZE - _heightOffset) * _isoCoords.getHeight())*zoom); 
   }
 
   //Render only whats visible

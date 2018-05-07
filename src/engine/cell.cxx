@@ -55,6 +55,12 @@ void Cell::drawSurroundingTiles(Point isoCoordinates)
     if ( _neighbors[i] != nullptr )
     {
       _neighbors[i]->determineTile();
+
+      // there can't be a height difference greater then 1 between two map cells.
+      if ((tileHeight - _neighbors[i]->getSprite()->getTileIsoCoordinates().getHeight()) > 1 && i % 2)
+      {
+        _neighbors[i]->increaseHeight(1);
+      }
     }
   }
   // call for this tile too. 
@@ -64,11 +70,9 @@ void Cell::drawSurroundingTiles(Point isoCoordinates)
 void Cell::increaseHeight(int height)
 {
   int tileHeight = _sprite->getTileIsoCoordinates().getHeight();
-  _sprite->setHeight(1); // TODO: just one level is working now
-  //_sprite->setHeight(tileHeight + 1);
+  _sprite->setHeight(tileHeight + 1);
   drawSurroundingTiles(_sprite->getTileIsoCoordinates());
 }
-
 
 bool Cell::hasElevatedNeighbors()
 {
@@ -122,7 +126,6 @@ void Cell::determineTile()
     }
   }
 
-
   auto keyTileID = keyTileMap.find(_elevatedTilePosition);
 
   if ( keyTileID != keyTileMap.end() )
@@ -131,9 +134,9 @@ void Cell::determineTile()
   }
 
   // special case: if both opposite neighbors are elevated, the center tile also gets elevated
-  if ( ((_elevatedTilePosition & ELEVATED_LEFT) && (_elevatedTilePosition & ELEVATED_RIGHT))  
-    || ((_elevatedTilePosition & ELEVATED_TOP) && (_elevatedTilePosition & ELEVATED_BOTTOM)) 
-    || _tileID == -1)
+  if ( ((_elevatedTilePosition & ELEVATED_LEFT) && (_elevatedTilePosition & ELEVATED_RIGHT)) ||
+       ((_elevatedTilePosition & ELEVATED_TOP) && (_elevatedTilePosition & ELEVATED_BOTTOM)) ||
+       _tileID == -1)
   {
     increaseHeight(1);
     _tileID = 14;

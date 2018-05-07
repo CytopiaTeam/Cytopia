@@ -200,8 +200,6 @@ Point Engine::getCameraOffset()
   return _cameraOffset; 
 }
 
-// Check if Point is with map boundaries
-
 bool Engine::checkBoundaries(Point isoCoordinates)
 {
   if ( (isoCoordinates.getX() >= 0 && isoCoordinates.getX() <= _width) && (isoCoordinates.getY() >= 0 && isoCoordinates.getY() <= _height) )
@@ -241,7 +239,6 @@ void Engine::disableLayer(unsigned int layer)
   // Turn off by using bitwise AND with inversed pattern
   _activeLayers &= ~layer;
 }
-
 
 void Engine::toggleLayer(unsigned int layer)
 {
