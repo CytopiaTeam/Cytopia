@@ -10,13 +10,14 @@
 
 #include "texture.hxx"
 #include "basics/point.hxx"
+#include "basics/resources.hxx"
 
 const int TILE_SIZE = 32; // All Sprites are 32 x 32
 
 class Sprite
 {
 public:
-  Sprite(std::string filename, Point coords, SDL_Renderer *renderer, SDL_Window *window);
+  Sprite(std::string filename, Point coords);
   virtual ~Sprite();
 
   SDL_Texture *_texture;

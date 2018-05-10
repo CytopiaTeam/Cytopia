@@ -6,7 +6,7 @@
 #include "SDL2/SDL.h"
 
 #include "sprite.hxx"
-
+#include "basics\resources.hxx"
 
 
 class Window {
@@ -16,11 +16,6 @@ class Window {
     
     inline bool isClosed() const { return _closed; }
     void close() { _closed = true; }
-
-
-    SDL_Renderer* getSDLRenderer();
-    SDL_Window* getSDLWindow();
-
 
   private:
     bool init();

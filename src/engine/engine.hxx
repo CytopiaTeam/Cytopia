@@ -1,5 +1,5 @@
-#ifndef MAP_HXX_
-#define MAP_HXX_
+#ifndef ENGINE_HXX_
+#define ENGINE_HXX_
 
 
 #include <string>
@@ -13,6 +13,7 @@
 #include "cell.hxx"
 #include "basics/point.hxx"
 #include "basics/vectorMatrix.hxx"
+#include "basics/resources.hxx"
 
 
 class Engine
@@ -23,7 +24,7 @@ public:
   int _height = 16;
   int mmap[16][16];
 
-  Engine(SDL_Renderer *renderer, SDL_Window *window);
+  Engine();
   virtual ~Engine();
 
   void parseMapFile();

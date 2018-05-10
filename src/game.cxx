@@ -9,16 +9,19 @@ int main(int, char**){
   bool fullscreen = false;
 
   Window window("Isometric Engine", screen_height, screen_width);
-  Engine engine(window.getSDLRenderer(), window.getSDLWindow());
+  Engine engine;
   Point clickCoords, centerIsoCoords, mouseCoords;
   SDL_Event event;
-  
+
+  _renderer = Resources::getRenderer();
+  _window = Resources::getWindow();
+
   engine.centerScreenOnMap();
 
   // Gameloop
   while (!window.isClosed()){
     // Clear the renderer each frame
-    SDL_RenderClear(window.getSDLRenderer());
+    SDL_RenderClear(_renderer);
     zoom = engine.getZoomLevel();
 
     if ( SDL_PollEvent(&event) )
@@ -55,11 +58,11 @@ int main(int, char**){
 
             if ( fullscreen )
             {
-              SDL_SetWindowFullscreen(window.getSDLWindow(), SDL_WINDOW_FULLSCREEN);
+              SDL_SetWindowFullscreen(_window, SDL_WINDOW_FULLSCREEN);
             }
             else
             {
-              SDL_SetWindowFullscreen(window.getSDLWindow(), 0);
+              SDL_SetWindowFullscreen(_window, 0);
             }
             break;
         }
@@ -114,7 +117,7 @@ int main(int, char**){
     engine.render();
 
     // Render the Frame
-    SDL_RenderPresent(window.getSDLRenderer());
+    SDL_RenderPresent(_renderer);
     SDL_Delay(1);
   }
   return 0;

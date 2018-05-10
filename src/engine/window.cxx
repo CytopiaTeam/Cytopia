@@ -4,7 +4,6 @@ Window::Window(const std::string &title, int width, int height) :
 _title(title), _width(width), _height(height)
 {
   _closed = !init();
-
 }
 
 Window::~Window()
@@ -24,13 +23,12 @@ bool Window::init()
     
   }
   
-  _window = SDL_CreateWindow(
-      _title.c_str(),
-      SDL_WINDOWPOS_CENTERED,
-      SDL_WINDOWPOS_CENTERED,
-      _width, _height,
-      0
-  );
+  _window = SDL_CreateWindow(_title.c_str(),
+                             SDL_WINDOWPOS_CENTERED,
+                             SDL_WINDOWPOS_CENTERED,
+                             _width, _height,
+                             0
+                            );
   
   if ( _window == nullptr )
   {
@@ -45,15 +43,8 @@ bool Window::init()
 	  printf("Failed to create Renderer!");
   }
 
+  Resources::setWindow(_window);
+  Resources::setRenderer(_renderer);
+
   return true;
-}
-
-SDL_Renderer* Window::getSDLRenderer() 
-{ 
-  return _renderer; 
-}
-
-SDL_Window* Window::getSDLWindow() 
-{ 
-  return _window; 
 }

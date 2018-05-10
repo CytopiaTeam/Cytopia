@@ -1,17 +1,11 @@
 #include "sprite.hxx"
 
 
-Sprite::Sprite(std::string filename, Point isoCoords, SDL_Renderer *renderer, SDL_Window *window)
+Sprite::Sprite(std::string filename, Point isoCoords)
 {
-
-  _texture = nullptr;
-  _renderer = nullptr;
-  _window = nullptr;
-
-  _texture = loadTexture(filename, renderer, true);
-
-  _renderer = renderer;
-  _window = window;
+  _renderer = Resources::getRenderer();
+  _window = Resources::getWindow();
+  _texture = loadTexture(filename, _renderer, true);
 
   _isoCoords = isoCoords;
 }

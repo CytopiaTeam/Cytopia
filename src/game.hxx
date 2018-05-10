@@ -11,8 +11,11 @@
 #include "engine/sprite.hxx"
 #include "engine/engine.hxx"
 #include "engine/basics/point.hxx"
+#include "engine/basics/resources.hxx"
 
 
 bool editMode;
+SDL_Renderer* _renderer;
+SDL_Window* _window;
 
 #endif
