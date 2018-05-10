@@ -1,8 +1,7 @@
 #ifndef RESOURCES_HXX_
 #define RESOURCES_HXX_
 
-#include "SDL2/sdl.h"
-
+#include "SDL2/SDL.h"
 
 class Resources
 {
