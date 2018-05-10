@@ -2,6 +2,8 @@ set (PROJECT_NAME "Isometric Engine")
 set (CMAKE_CXX_STANDARD 11)
 set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake_modules/")
 
+cmake_minimum_required(VERSION 3.9)
+
 if ( UNIX )
   find_package(SDL2 REQUIRED)
   find_package(SDL2_image REQUIRED)
@@ -11,8 +13,6 @@ if ( UNIX )
     include_directories(${SDL2_IMAGE_INCLUDE_DIR})
   endif ()
 else()
-  set (SDL2_DIR ${CMAKE_CURRENT_SOURCE_DIR}/sdl)
-
   set (SDL2_LIBRARY "${CMAKE_CURRENT_SOURCE_DIR}/sdl/lib/x64/SDL2.lib;${CMAKE_CURRENT_SOURCE_DIR}/sdl/lib/x64/SDL2main.lib")
   set (SDL2_IMAGE_LIBRARY "${CMAKE_CURRENT_SOURCE_DIR}/sdl/lib/x64/SDL2_image.lib")
 
