@@ -14,6 +14,8 @@ Engine::Engine()
   
   _floorCellMatrix = vectorMatrix(_width, _height);
 
+  _zoom = Resources::getZoomLevel();
+
 
 
   // Default: Floor and Buildings are drawn
@@ -99,6 +101,9 @@ void Engine::render()
   int y = 0;
   int x = 0;
 
+  _cameraOffset = Resources::getCameraOffset();
+  _zoom = Resources::getZoomLevel();
+
   for (int x = 0; x <= _width; x++)
   {
     for (int y = _height; y >= 0; y--)
@@ -108,26 +113,26 @@ void Engine::render()
       {
         //if ( _floorTilesMatrix.getSprite(x, y) != nullptr )
         //  _floorTilesMatrix.getSprite(x, y)->render(_cameraOffset, _zoom);
-
-        _floorCellMatrix.getCell(x, y)->renderCell(_cameraOffset, _zoom);
+        // TODO: Use cell class for everything instead of direct sprite rendering!
+        _floorCellMatrix.getCell(x, y)->renderCell();
       }
       // Layer 1 - grid
       if ( _activeLayers & LAYER_GRID )
       {
         if ( _gridTilesMatrix.getSprite(x, y) != nullptr )
-          _gridTilesMatrix.getSprite(x, y)->render(_cameraOffset, _zoom);
+          _gridTilesMatrix.getSprite(x, y)->render();
       }
       // Layer 2 - Buildings
       if ( _activeLayers & LAYER_BUILDINGS )
       {
         if ( _buildingsTilesMatrix.getSprite(x, y) != nullptr )
-          _buildingsTilesMatrix.getSprite(x, y)->render(_cameraOffset, _zoom);
+          _buildingsTilesMatrix.getSprite(x, y)->render();
       }
       // Layer 3 - Selection
       if ( _activeLayers & LAYER_SELECTION )
       {
         if ( _selectedTilesMatrix.getSprite(x, y) != nullptr )
-          _selectedTilesMatrix.getSprite(x, y)->render(_cameraOffset, _zoom);
+          _selectedTilesMatrix.getSprite(x, y)->render();
       }
     }
   }
@@ -138,6 +143,9 @@ Point Engine::getIsoCoords(Point screenCoordinates, bool calcWithoutOffset)
 {
   Point isoCoordinates;
   int x, y;
+  _cameraOffset = Resources::getCameraOffset();
+  _zoom = Resources::getZoomLevel();
+
 
   if ( calcWithoutOffset )
   {
@@ -158,6 +166,9 @@ Point Engine::getScreenCoords(Point isoCoordinates, bool calcWithoutOffset)
 {
   Point screenCoordinates;
   int x, y;
+  _cameraOffset = Resources::getCameraOffset();
+  _zoom = Resources::getZoomLevel();
+
 
   if ( calcWithoutOffset )
   {
@@ -177,27 +188,25 @@ void Engine::centerScreenOnMap()
 {
   Point screenCoordinates = getScreenCoords(Point(_width / 2, _height /2), true);
   int x, y;
+  _zoom = Resources::getZoomLevel();
+
 
   x = (screenCoordinates.getX() + (TILE_SIZE*_zoom)*0.5) - _screen_width * 0.5;
   y = (screenCoordinates.getY() + (TILE_SIZE*_zoom)*0.75) - _screen_height * 0.5;
 
-  _cameraOffset.setCoords(x, y);
+  Resources::setCameraOffset(Point(x, y));
 }
 
 void Engine::centerScreenOnPoint(Point isoCoordinates)
 {
   Point screenCoordinates = getScreenCoords(isoCoordinates, true);
   int x, y;
+  _zoom = Resources::getZoomLevel();
 
   x = (screenCoordinates.getX() + (TILE_SIZE*_zoom)*0.5) - _screen_width * 0.5;
   y = (screenCoordinates.getY() + (TILE_SIZE*_zoom)*0.75) - _screen_height * 0.5;
   
-  _cameraOffset.setCoords(x, y);
-}
-
-Point Engine::getCameraOffset()
-{ 
-  return _cameraOffset; 
+  Resources::setCameraOffset(Point(x, y));
 }
 
 bool Engine::checkBoundaries(Point isoCoordinates)
@@ -206,21 +215,6 @@ bool Engine::checkBoundaries(Point isoCoordinates)
     return true;
   else
     return false;
-}
-
-float Engine::getZoomLevel()
-{ 
-  return _zoom; 
-}
-
-void Engine::setZoomLevel(float zoomLevel)
-{ 
-  _zoom = zoomLevel; 
-}
-
-void Engine::setCameraOffset(Point offset)
-{ 
-  _cameraOffset = offset; 
 }
 
 std::vector<Sprite*> Engine::findNeighbors(Point isoCoords)

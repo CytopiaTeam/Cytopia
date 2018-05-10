@@ -37,10 +37,10 @@ void Cell::setNeighbors(std::vector<Cell*> neighbors)
   _neighbors = neighbors;
 }
 
-void Cell::renderCell(Point cameraOffset, float zoom)
+void Cell::renderCell()
 {
 
-  _sprite->render(cameraOffset, zoom);
+  _sprite->render();
 }
 
 void Cell::drawSurroundingTiles(Point isoCoordinates)

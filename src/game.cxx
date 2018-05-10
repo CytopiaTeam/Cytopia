@@ -5,8 +5,8 @@ int main(int, char**){
 
   int screen_height = 800;
   int screen_width = 600;
-  float zoom = 1.0;
   bool fullscreen = false;
+  float zoom;
 
   Window window("Isometric Engine", screen_height, screen_width);
   Engine engine;
@@ -22,7 +22,7 @@ int main(int, char**){
   while (!window.isClosed()){
     // Clear the renderer each frame
     SDL_RenderClear(_renderer);
-    zoom = engine.getZoomLevel();
+    zoom = Resources::getZoomLevel();
 
     if ( SDL_PollEvent(&event) )
     {
@@ -93,8 +93,7 @@ int main(int, char**){
         {
           if ( zoom < 2.0 )
           {
-            zoom += 0.25;
-            engine.setZoomLevel(zoom);
+            Resources::setZoomLevel(zoom + 0.25);
             engine.centerScreenOnPoint(centerIsoCoords);
           }
         }
@@ -102,8 +101,7 @@ int main(int, char**){
         {
           if ( zoom > 0.5 )
           {
-            zoom -= 0.25;
-            engine.setZoomLevel(zoom);
+            Resources::setZoomLevel(zoom - 0.25);
             engine.centerScreenOnPoint(centerIsoCoords);
           }
         }

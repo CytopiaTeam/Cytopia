@@ -30,10 +30,14 @@ private:
 
   int _heightOffset = 20; // height offset - 20 pixels by trial and error.
 
-public:
-  void render(Point cameraOffset, float zoom = 1.0);
+  float _zoomLevel;
+  Point _cameraOffset;
 
-  Point getTileScreenCoordinates(Point cameraOffset, float zoom = 1.0);
+public:
+  void render();
+
+  //Point getTileScreenCoordinates(Point cameraOffset, float zoom = 1.0);
+  Point getTileScreenCoordinates();
   Point getTileIsoCoordinates();
   void setTileIsoCoordinates(Point isoCoords);
   void setHeight(int height);

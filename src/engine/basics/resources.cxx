@@ -1,10 +1,10 @@
 #include "resources.hxx"
 
 // Instantiate static variables
-SDL_Renderer* Resources::_renderer;
-SDL_Window* Resources::_window;
+SDL_Renderer* Resources::_renderer = nullptr;
+SDL_Window* Resources::_window = nullptr;
 float Resources::_zoomLevel = 1.0;
-int Resources::_cameraOffset;
+Point Resources::_cameraOffset;
 
 
 Resources::Resources()
@@ -38,12 +38,12 @@ void Resources::setWindow(SDL_Window* window)
   _window = window;
 }
 
-int Resources::getCameraOffset()
+Point Resources::getCameraOffset()
 {
   return _cameraOffset;
 }
 
-void Resources::setCameraOffset(int cameraOffset)
+void Resources::setCameraOffset(Point cameraOffset)
 {
   _cameraOffset = cameraOffset;
 }

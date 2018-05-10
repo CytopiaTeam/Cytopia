@@ -38,13 +38,7 @@ public:
   Point getScreenCoords(Point isoCoordinates, bool calcWithoutOffset = false);
   std::vector<Sprite*> findNeighbors(Point isoCoords);
 
-  Point getCameraOffset();
-  void setCameraOffset(Point offset);
-
   bool checkBoundaries(Point isoCoordinates);
-
-  float getZoomLevel();
-  void setZoomLevel(float zoomLevel);
 
   void enableLayer(unsigned int layer);
   void disableLayer(unsigned int layer);

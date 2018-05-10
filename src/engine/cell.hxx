@@ -7,9 +7,9 @@
 #include "SDL2/SDL.h"
 
 
-#include "sprite.hxx";
-#include "basics/point.hxx";
-#include "basics/resources.hxx";
+#include "sprite.hxx"
+#include "basics/point.hxx"
+#include "basics/resources.hxx"
 
 
 class Cell
@@ -22,7 +22,7 @@ public:
   void setSprite(Sprite* sprite);
   Sprite* getSprite();
 
-  void renderCell(Point cameraOffset, float zoom);
+  void renderCell();
 
   void setNeighbors(std::vector<Cell*> neighbors);
   void drawSurroundingTiles(Point isoCoordinates);

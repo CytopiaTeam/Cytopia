@@ -2,12 +2,11 @@
 #define RESOURCES_HXX_
 
 #include "SDL2/SDL.h"
+#include "point.hxx"
 
 class Resources
 {
-
 public:
-
   static SDL_Renderer* getRenderer();
   static void setRenderer(SDL_Renderer* renderer);
   static SDL_Window* getWindow();
@@ -15,8 +14,8 @@ public:
 
   static float getZoomLevel();
   static void setZoomLevel(float zoomLevel);
-  static int getCameraOffset();
-  static void setCameraOffset(int cameraOffset);
+  static Point getCameraOffset();
+  static void setCameraOffset(Point cameraOffset);
 
 private:
   Resources();
@@ -26,7 +25,7 @@ private:
   static SDL_Window* _window;
 
   static float _zoomLevel;
-  static int _cameraOffset;
+  static Point _cameraOffset;
 };
 
 #endif
