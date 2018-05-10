@@ -15,3 +15,9 @@ before_script:
 script:
   - cmake --build .
   - cppcheck --quiet --error-exitcode=1 .
+
+addons:
+  apt:
+    packages:
+      - libsdl2-dev
+      - libsdl2-image-dev
