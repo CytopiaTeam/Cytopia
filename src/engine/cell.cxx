@@ -39,8 +39,8 @@ void Cell::setNeighbors(std::vector<Cell*> neighbors)
 
 void Cell::renderCell()
 {
-
-  _sprite->render();
+  if (_sprite != nullptr)
+    _sprite->render();
 }
 
 void Cell::drawSurroundingTiles(Point isoCoordinates)

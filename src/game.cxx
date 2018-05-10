@@ -6,23 +6,20 @@ int main(int, char**){
   int screen_height = 800;
   int screen_width = 600;
   bool fullscreen = false;
-  float zoom;
 
   Window window("Isometric Engine", screen_height, screen_width);
   Engine engine;
-  Point clickCoords, centerIsoCoords, mouseCoords;
+  Point clickCoords, mouseCoords;
   SDL_Event event;
 
   _renderer = Resources::getRenderer();
   _window = Resources::getWindow();
 
-  engine.centerScreenOnMap();
+  //engine.centerScreenOnMap();
 
   // Gameloop
   while (!window.isClosed()){
-    // Clear the renderer each frame
     SDL_RenderClear(_renderer);
-    zoom = Resources::getZoomLevel();
 
     if ( SDL_PollEvent(&event) )
     {
@@ -81,29 +78,17 @@ int main(int, char**){
         }
         if ( event.button.button == SDL_BUTTON_RIGHT )
         {
-          centerIsoCoords = Resources::convertScreenToIsoCoordinates(mouseCoords);
-          if ( engine.checkBoundaries(centerIsoCoords) )
-          {
-            engine.centerScreenOnPoint(centerIsoCoords);
-          }
+          engine.centerScreenOnPoint(clickCoords);
         }
         break;
       case SDL_MOUSEWHEEL:
         if ( event.wheel.y > 0 )
         {
-          if ( zoom < 2.0 )
-          {
-            Resources::setZoomLevel(zoom + 0.25);
-            engine.centerScreenOnPoint(centerIsoCoords);
-          }
+          engine.increaseZoomLevel();
         }
         else if ( event.wheel.y < 0 )
         {
-          if ( zoom > 0.5 )
-          {
-            Resources::setZoomLevel(zoom - 0.25);
-            engine.centerScreenOnPoint(centerIsoCoords);
-          }
+          engine.decreaseZoomLevel();
         }
         break;
       default:

@@ -87,13 +87,13 @@ void Sprite::loadTexture(std::string file, bool colorkey)
 
   if ( loadedImage != nullptr )
   {
-    if (colorkey)
+    if ( colorkey )
     {
       SDL_SetColorKey(loadedImage, SDL_TRUE, SDL_MapRGB(loadedImage->format, 0, 0xFF, 0xFF));	//Cyan.
     }
     _texture = SDL_CreateTextureFromSurface(_renderer, loadedImage);
     SDL_FreeSurface(loadedImage);
-    if (_texture == nullptr)
+    if ( _texture == nullptr )
       printf("Renderer could not be created! SDL Error: %s\n", SDL_GetError());
   }
   else

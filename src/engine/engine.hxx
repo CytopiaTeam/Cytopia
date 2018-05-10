@@ -44,6 +44,8 @@ public:
   void toggleLayer(unsigned int layer);
   void increaseHeight(Point isoCoordinates);
   void decreaseHeight(Point isoCoordinates);
+  void increaseZoomLevel();
+  void decreaseZoomLevel();
 
 private:
   SDL_Renderer *_renderer;
@@ -52,9 +54,9 @@ private:
   int _screen_width;
   int _screen_height;
 
-  float _zoomLevel = 1.0;
+  float _zoomLevel;
   Point _cameraOffset;
-  Point _centerScreenCoords;
+  Point _centerIsoCoordinates;
 
   vectorMatrix _floorTilesMatrix;
   vectorMatrix _gridTilesMatrix;
