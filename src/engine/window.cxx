@@ -47,3 +47,13 @@ bool Window::init()
 
   return true;
 }
+
+SDL_Renderer* Window::getSDLRenderer() 
+{ 
+  return _renderer; 
+}
+
+SDL_Window* Window::getSDLWindow() 
+{ 
+  return _window; 
+}
