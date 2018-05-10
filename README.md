@@ -1,4 +1,6 @@
-# IsometricEngine !https://travis-ci.org/JimmySnails/IsometricEngine.svg?branch=master!:https://travis-ci.org/JimmySnails/IsometricEngine
+# IsometricEngine  
+[![Build Status](https://travis-ci.org/JimmySnails/IsometricEngine.svg?branch=master)](https://travis-ci.org/JimmySnails/IsometricEngine)
+
 
 An SDL2 based, isometric rendering engine.
 
