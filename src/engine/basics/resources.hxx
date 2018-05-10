@@ -21,7 +21,7 @@ public:
 
   // Public functions
   static Point convertScreenToIsoCoordinates(Point screenCoordinates, bool calcWithoutOffset = false);
-  static Point Resources::convertIsoToScreenCoordinates(Point isoCoordinates, bool calcWithoutOffset = false);
+  static Point convertIsoToScreenCoordinates(Point isoCoordinates, bool calcWithoutOffset = false);
 
 
 private:

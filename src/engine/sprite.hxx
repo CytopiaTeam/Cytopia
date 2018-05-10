@@ -8,7 +8,6 @@
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_image.h"
 
-#include "texture.hxx"
 #include "basics/point.hxx"
 #include "basics/resources.hxx"
 
@@ -20,9 +19,9 @@ public:
   Sprite(std::string filename, Point coords);
   virtual ~Sprite();
 
-  SDL_Texture *_texture;
-  SDL_Renderer *_renderer;
-  SDL_Window *_window;
+  SDL_Texture* _texture;
+  SDL_Renderer* _renderer;
+  SDL_Window* _window;
 
 private:
   Point _position;
@@ -42,6 +41,12 @@ public:
   void setTileIsoCoordinates(Point isoCoords);
   void setHeight(int height);
   int getZOrder();
+
+private:
+  void loadTexture(std::string file, bool colorkey = false);
+  void renderTexture(Point tileScreenCoords, int w, int h);
+  void renderTexture(Point tileScreenCoords);
+
 };
 
 
