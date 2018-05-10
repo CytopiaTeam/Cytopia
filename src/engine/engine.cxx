@@ -14,7 +14,7 @@ Engine::Engine()
   
   _floorCellMatrix = vectorMatrix(_width, _height);
 
-  _zoom = Resources::getZoomLevel();
+  _zoomLevel = Resources::getZoomLevel();
 
 
 
@@ -102,7 +102,7 @@ void Engine::render()
   int x = 0;
 
   _cameraOffset = Resources::getCameraOffset();
-  _zoom = Resources::getZoomLevel();
+  _zoomLevel = Resources::getZoomLevel();
 
   for (int x = 0; x <= _width; x++)
   {
@@ -138,73 +138,27 @@ void Engine::render()
   }
 }
 
-/// convert Screen Coordinates to Iso Coordinates
-Point Engine::getIsoCoords(Point screenCoordinates, bool calcWithoutOffset)
-{
-  Point isoCoordinates;
-  int x, y;
-  _cameraOffset = Resources::getCameraOffset();
-  _zoom = Resources::getZoomLevel();
-
-
-  if ( calcWithoutOffset )
-  {
-    x = (screenCoordinates.getX() + 2.0*(screenCoordinates.getY())) / (TILE_SIZE*_zoom) - 1.5;
-    y = (screenCoordinates.getX() - 2.0*(screenCoordinates.getY())) / (TILE_SIZE*_zoom) + 1.5;
-  }
-  else
-  {
-    x = (screenCoordinates.getX() + _cameraOffset.getX() + 2.0*(screenCoordinates.getY() + _cameraOffset.getY())) / (TILE_SIZE*_zoom) - 1.5;
-    y = (screenCoordinates.getX() + _cameraOffset.getX() - 2.0*(screenCoordinates.getY() + _cameraOffset.getY())) / (TILE_SIZE*_zoom) + 1.5;
-  }
-  isoCoordinates.setCoords(x, y);
-  return isoCoordinates;
-}
-
-/// convert Iso Coordinates to Screen Coordinates
-Point Engine::getScreenCoords(Point isoCoordinates, bool calcWithoutOffset)
-{
-  Point screenCoordinates;
-  int x, y;
-  _cameraOffset = Resources::getCameraOffset();
-  _zoom = Resources::getZoomLevel();
-
-
-  if ( calcWithoutOffset )
-  {
-    x = (TILE_SIZE*_zoom * isoCoordinates.getX() * 0.5) + (TILE_SIZE*_zoom * isoCoordinates.getY() * 0.5);
-    y = (TILE_SIZE*_zoom * isoCoordinates.getX() * 0.25) - (TILE_SIZE*_zoom * isoCoordinates.getY() * 0.25);
-  }
-  else
-  {
-    x = (TILE_SIZE*_zoom * isoCoordinates.getX() * 0.5) + (TILE_SIZE*_zoom * isoCoordinates.getY() * 0.5) - _cameraOffset.getX();
-    y = ((TILE_SIZE*_zoom * isoCoordinates.getX() * 0.25) - (TILE_SIZE*_zoom * isoCoordinates.getY() * 0.25)) - _cameraOffset.getY();
-  }
-  screenCoordinates.setCoords(x, y);
-  return screenCoordinates;
-}
-
 void Engine::centerScreenOnMap()
 {
-  Point screenCoordinates = getScreenCoords(Point(_width / 2, _height /2), true);
+  Point screenCoordinates = Resources::convertIsoToScreenCoordinates(Point(_width / 2, _height /2), true);
   int x, y;
-  _zoom = Resources::getZoomLevel();
+  _zoomLevel = Resources::getZoomLevel();
 
 
-  x = (screenCoordinates.getX() + (TILE_SIZE*_zoom)*0.5) - _screen_width * 0.5;
-  y = (screenCoordinates.getY() + (TILE_SIZE*_zoom)*0.75) - _screen_height * 0.5;
+  x = (screenCoordinates.getX() + (TILE_SIZE*_zoomLevel)*0.5) - _screen_width * 0.5;
+  y = (screenCoordinates.getY() + (TILE_SIZE*_zoomLevel)*0.75) - _screen_height * 0.5;
 
   Resources::setCameraOffset(Point(x, y));
 }
 
 void Engine::centerScreenOnPoint(Point isoCoordinates)
 {
-  Point screenCoordinates = getScreenCoords(isoCoordinates, true);
+  Point screenCoordinates = Resources::convertIsoToScreenCoordinates(isoCoordinates, true);
   int x, y;
-  _zoom = Resources::getZoomLevel();
+  _zoomLevel = Resources::getZoomLevel();
 
-  x = (screenCoordinates.getX() + (TILE_SIZE*_zoom)*0.5) - _screen_width * 0.5;
-  y = (screenCoordinates.getY() + (TILE_SIZE*_zoom)*0.75) - _screen_height * 0.5;
+  x = (screenCoordinates.getX() + (TILE_SIZE*_zoomLevel)*0.5) - _screen_width * 0.5;
+  y = (screenCoordinates.getY() + (TILE_SIZE*_zoomLevel)*0.75) - _screen_height * 0.5;
   
   Resources::setCameraOffset(Point(x, y));
 }

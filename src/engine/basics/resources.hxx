@@ -17,6 +17,13 @@ public:
   static Point getCameraOffset();
   static void setCameraOffset(Point cameraOffset);
 
+  static int getTileSize();
+
+  // Public functions
+  static Point convertScreenToIsoCoordinates(Point screenCoordinates, bool calcWithoutOffset = false);
+  static Point Resources::convertIsoToScreenCoordinates(Point isoCoordinates, bool calcWithoutOffset = false);
+
+
 private:
   Resources();
   ~Resources();
@@ -26,6 +33,8 @@ private:
 
   static float _zoomLevel;
   static Point _cameraOffset;
+
+  static const int _TILE_SIZE;
 };
 
 #endif

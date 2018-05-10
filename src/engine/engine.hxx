@@ -34,7 +34,6 @@ public:
   void centerScreenOnPoint(Point isoCoordinates);
   void centerScreenOnMap();
   
-  Point getIsoCoords(Point screenCoordinates, bool calcWithoutOffset = false);
   Point getScreenCoords(Point isoCoordinates, bool calcWithoutOffset = false);
   std::vector<Sprite*> findNeighbors(Point isoCoords);
 
@@ -53,7 +52,7 @@ private:
   int _screen_width;
   int _screen_height;
 
-  float _zoom = 1.0;
+  float _zoomLevel = 1.0;
   Point _cameraOffset;
   Point _centerScreenCoords;
 

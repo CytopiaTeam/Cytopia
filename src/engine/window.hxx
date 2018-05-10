@@ -6,7 +6,7 @@
 #include "SDL2/SDL.h"
 
 #include "sprite.hxx"
-#include "basics\resources.hxx"
+#include "basics/resources.hxx"
 
 
 class Window {
