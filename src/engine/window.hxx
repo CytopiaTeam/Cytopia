@@ -18,8 +18,8 @@ class Window {
     void close() { _closed = true; }
 
 
-    SDL_Renderer* Window::getSDLRenderer() { return _renderer; }
-    SDL_Window* Window::getSDLWindow() { return _window; }
+    SDL_Renderer* getSDLRenderer();
+    SDL_Window* getSDLWindow();
 
 
   private:

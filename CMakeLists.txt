@@ -1,11 +1,31 @@
-SET (PROJECT_NAME "isotest")
+set (PROJECT_NAME "IsometricEngine")
+set (CMAKE_CXX_STANDARD 11)
+set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake_modules/")
 
-set (SDL2_DIR ${CMAKE_CURRENT_SOURCE_DIR}/sdl)
+cmake_minimum_required(VERSION 3.9)
 
-set(SDL2_LIBRARIES "${CMAKE_CURRENT_SOURCE_DIR}/sdl/lib/x64/SDL2.lib;${CMAKE_CURRENT_SOURCE_DIR}/sdl/lib/x64/SDL2main.lib")
-set(SDL2_IMAGE_LIBRARIES "${CMAKE_CURRENT_SOURCE_DIR}/sdl/lib/x64/SDL2_image.lib")
+if ( UNIX )
+  find_package(SDL2 REQUIRED)
+  find_package(SDL2_image REQUIRED)
+  find_package(SDL2_ttf REQUIRED)
 
-set(SDL2_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/sdl/include")
+  if ( SDL2_FOUND AND SDL2_IMAGE_FOUND)
+    include_directories(${SDL2_INCLUDE_DIR})
+    include_directories(${SDL2_IMAGE_INCLUDE_DIR})
+    include_directories(${SDL2_TTF_INCLUDE_DIR})
+  endif ()
+  
+else()
+  set (SDL2_LIBRARY "${CMAKE_CURRENT_SOURCE_DIR}/sdl/lib/x64/SDL2.lib;${CMAKE_CURRENT_SOURCE_DIR}/sdl/lib/x64/SDL2main.lib")
+  set (SDL2_IMAGE_LIBRARY "${CMAKE_CURRENT_SOURCE_DIR}/sdl/lib/x64/SDL2_image.lib")
+  set (SDL2_TTF_LIBRARY "${CMAKE_CURRENT_SOURCE_DIR}/sdl/lib/x64/SDL2_ttf.lib")
+
+  set (SDL2_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/sdl/include")
+  
+  # set startup project for Visual Studio Builds
+  set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ${PROJECT_NAME})
+endif()
+
 
 
 file (GLOB_RECURSE ISOENGINE_SOURCES "src/*.cxx")
@@ -13,5 +33,5 @@ file (GLOB_RECURSE ISOENGINE_INCLUDES "src/*.hxx")
 
 
 add_executable (${PROJECT_NAME} ${ISOENGINE_SOURCES})
-include_directories (${SDL2_INCLUDE_DIRS} ${SDL2IMAGE_INCLUDE_DIRS} ${ISOENGINE_INCLUDES} )
-target_link_libraries (${PROJECT_NAME} ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES} )
+include_directories (${SDL2_INCLUDE_DIR} ${SDL2IMAGE_INCLUDE_DIR} ${ISOENGINE_INCLUDES} )
+target_link_libraries (${PROJECT_NAME} ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARY} )
