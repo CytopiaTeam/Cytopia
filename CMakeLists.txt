@@ -1,4 +1,6 @@
 SET (PROJECT_NAME "isotest")
+set (CMAKE_CXX_STANDARD 11)
+
 
 set (SDL2_DIR ${CMAKE_CURRENT_SOURCE_DIR}/sdl)
 
