@@ -9,10 +9,10 @@ public:
   vectorMatrix(int columns, int rows);
   ~vectorMatrix();
   
-  void vectorMatrix::resizeMatrix(int rows, int columns);
+  void resizeMatrix(int rows, int columns);
   void addSprite(int row, int column, Sprite* sprite);
   void removeSprite(int x, int y);
-  void vectorMatrix::clearMatrix();
+  void clearMatrix();
 
   // CELL
   void addCell(int row, int column, Cell* cell);
@@ -20,7 +20,7 @@ public:
   std::vector<Cell*> getCellNeighbors(int x, int y);
   void initCells();
 
-  std::vector<Sprite*> vectorMatrix::findNeighbors(int x, int y);
+  std::vector<Sprite*> findNeighbors(int x, int y);
   Sprite* getSprite(int x, int y);
 
 private:
