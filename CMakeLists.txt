@@ -6,7 +6,7 @@ if ( UNIX )
   find_package(SDL2 REQUIRED)
   find_package(SDL2_image REQUIRED)
 
-  if ( SDL2_FOUND AND SDL2_IMAGE_FOUND FOUND)
+  if ( SDL2_FOUND AND SDL2_IMAGE_FOUND)
     include_directories(${SDL2_INCLUDE_DIR})
     include_directories(${SDL2_IMAGE_INCLUDE_DIR})
   endif ()
