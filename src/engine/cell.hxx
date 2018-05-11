@@ -17,10 +17,13 @@ class Cell
 public:
   Cell();
   Cell(Point isoCoordinates, Sprite* sprite);
+  Cell(Point isoCoordinates, int tileID);
   ~Cell();
 
   void setSprite(Sprite* sprite);
   Sprite* getSprite();
+
+  Point getCoordinates();
 
   void renderCell();
 
@@ -30,6 +33,7 @@ public:
 
   void increaseHeight(int height);
 
+  void setTileID(int tileID);
 
 
 private:
@@ -42,7 +46,7 @@ private:
 
   bool hasElevatedNeighbors();
 
-
+  int _heightOffset = 20; // Offset for Y Coordinate between two height levels
   int _tileID;
 
   // Bitmask for neighbor positions

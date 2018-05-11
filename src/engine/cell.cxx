@@ -13,9 +13,27 @@ Cell::Cell(Point isoCoordinates, Sprite* sprite)
   _renderer = Resources::getRenderer();
   _window = Resources::getWindow();
 
-  _tileID = 14;
+  // TODO: Sprites are partially handled via tileID. This should be read from a json file in the resources directory.  
+  _tileID = 14; 
   _elevatedTilePosition = 0;
+  setTileID(_tileID);
 }
+
+Cell::Cell(Point isoCoordinates, int tileID)
+{
+  _sprite = nullptr;
+  _coordinates = isoCoordinates;
+
+  _renderer = Resources::getRenderer();
+  _window = Resources::getWindow();
+
+  // TODO: handle sprites in this class. initialize with tile id.  
+  _tileID = 14;
+
+  _elevatedTilePosition = 0;
+  setTileID(_tileID);
+}
+
 
 Cell::~Cell()
 {
@@ -40,7 +58,16 @@ void Cell::setNeighbors(std::vector<Cell*> neighbors)
 void Cell::renderCell()
 {
   if (_sprite != nullptr)
+  {
+    // TODO: Is this necessary?
+    _sprite->setTileIsoCoordinates(_coordinates);
     _sprite->render();
+  }
+}
+
+Point Cell::getCoordinates()
+{
+  return _coordinates;
 }
 
 void Cell::drawSurroundingTiles(Point isoCoordinates)
@@ -48,7 +75,7 @@ void Cell::drawSurroundingTiles(Point isoCoordinates)
   Sprite* tile;
 
   int numElevatedNeighbors = 0;
-  int tileHeight = getSprite()->getTileIsoCoordinates().getHeight();
+  int tileHeight = _coordinates.getHeight();
 
   for (int i = 0; i < _neighbors.size(); i++)
   {
@@ -57,7 +84,7 @@ void Cell::drawSurroundingTiles(Point isoCoordinates)
       _neighbors[i]->determineTile();
 
       // there can't be a height difference greater then 1 between two map cells.
-      if ((tileHeight - _neighbors[i]->getSprite()->getTileIsoCoordinates().getHeight()) > 1 && i % 2)
+      if ((tileHeight - _neighbors[i]->getCoordinates().getHeight()) > 1 && i % 2)
       {
         _neighbors[i]->increaseHeight(1);
       }
@@ -69,23 +96,22 @@ void Cell::drawSurroundingTiles(Point isoCoordinates)
 
 void Cell::increaseHeight(int height)
 {
-  int tileHeight = _sprite->getTileIsoCoordinates().getHeight();
-  _sprite->setHeight(tileHeight + 1);
-  drawSurroundingTiles(_sprite->getTileIsoCoordinates());
+  _coordinates.setHeight(_coordinates.getHeight() + 1);
+  drawSurroundingTiles(_coordinates);
 }
 
 bool Cell::hasElevatedNeighbors()
 {
   bool elevatedNeighbors = false;
 
-  int tileHeight = getSprite()->getTileIsoCoordinates().getHeight();
+  int tileHeight = _coordinates.getHeight();
 
   for (int i = 0; i < _neighbors.size(); i++)
   {
     if ( _neighbors[i] != nullptr )
     {
-      Point coords = _neighbors[i]->getSprite()->getTileIsoCoordinates();
-      if ( coords.getHeight() == tileHeight )
+      //Point coords = _neighbors[i]->getSprite()->getTileIsoCoordinates();
+      if ( _coordinates.getHeight() == tileHeight )
       {
         elevatedNeighbors = true;
       }
@@ -97,14 +123,15 @@ bool Cell::hasElevatedNeighbors()
 void Cell::determineTile()
 {
   _elevatedTilePosition = 0;
-  int tileHeight = getSprite()->getTileIsoCoordinates().getHeight();
+  int tileHeight = _coordinates.getHeight();
 
   for (int i = 0; i < _neighbors.size(); i++) //determine TileID
   {
     if ( _neighbors[i] != nullptr )
     {
-      Point coords = _neighbors[i]->getSprite()->getTileIsoCoordinates();
-      if ( coords.getHeight() > tileHeight )
+      //if (coords.getHeight() > tileHeight)
+      //Point coords = _neighbors[i]->getSprite()->getTileIsoCoordinates();
+      if ( _neighbors[i]->getCoordinates().getHeight() > tileHeight )
       {
         switch (i)
         {
@@ -137,5 +164,13 @@ void Cell::determineTile()
     _tileID = 14;
   }
 
-  _sprite = new Sprite("resources/images/floor/floor_" + std::to_string(_tileID) + ".png", getSprite()->getTileIsoCoordinates());
+  //_sprite->changeSprite("resources/images/floor/floor_" + std::to_string(_tileID) + ".png");
+  _sprite = new Sprite("resources/images/floor/floor_" + std::to_string(_tileID) + ".png", _coordinates);
+}
+
+void Cell::setTileID(int tileID)
+{
+  _tileID = tileID;
+  //_sprite->changeSprite("resources/images/floor/floor_" + std::to_string(_tileID) + ".png");
+  _sprite = new Sprite("resources/images/floor/floor_" + std::to_string(_tileID) + ".png", _coordinates);
 }

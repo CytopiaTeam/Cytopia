@@ -65,6 +65,7 @@ int Resources::getTileSize()
 
 Point Resources::convertScreenToIsoCoordinates(Point screenCoordinates, bool calcWithoutOffset)
 {
+  // TODO: Bug: This does not work for tiles with increased height right now.
   int x, y;
 
   if (calcWithoutOffset)
@@ -84,6 +85,9 @@ Point Resources::convertIsoToScreenCoordinates(Point isoCoordinates, bool calcWi
 {
   int x, y;
 
+  int height = isoCoordinates.getHeight();
+  int heightOffset = 20;
+
   if (calcWithoutOffset)
   {
     x = (_TILE_SIZE * _zoomLevel * isoCoordinates.getX() * 0.5)  + (_TILE_SIZE * _zoomLevel * isoCoordinates.getY() * 0.5);
@@ -93,6 +97,11 @@ Point Resources::convertIsoToScreenCoordinates(Point isoCoordinates, bool calcWi
   {
     x = (_TILE_SIZE * _zoomLevel * isoCoordinates.getX() * 0.5)  + (_TILE_SIZE * _zoomLevel * isoCoordinates.getY() * 0.5)  - _cameraOffset.getX();
     y = (_TILE_SIZE * _zoomLevel * isoCoordinates.getX() * 0.25) - (_TILE_SIZE * _zoomLevel * isoCoordinates.getY() * 0.25) - _cameraOffset.getY();
+  }
+  
+  if (height > 0)
+  {
+    y = (y - ((_TILE_SIZE - heightOffset) * height * _zoomLevel));
   }
   return Point (x, y);
 }

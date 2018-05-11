@@ -24,8 +24,8 @@ public:
   SDL_Window* _window;
 
 private:
-  Point _position;
-  Point _isoCoords;
+  Point _isoCoordinates;
+  Point _screenCoordinates;
 
   int _heightOffset = 20; // height offset - 20 pixels by trial and error.
 
@@ -36,11 +36,8 @@ public:
   void render();
 
   //Point getTileScreenCoordinates(Point cameraOffset, float zoom = 1.0);
-  Point getTileScreenCoordinates();
-  Point getTileIsoCoordinates();
   void setTileIsoCoordinates(Point isoCoords);
-  void setHeight(int height);
-  int getZOrder();
+  void changeSprite(std::string filename);
 
 private:
   void loadTexture(std::string file, bool colorkey = false);

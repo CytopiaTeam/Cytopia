@@ -48,6 +48,7 @@ int main(int, char**){
             engine.toggleLayer(Engine::LAYER_SELECTION);
             break;
           case SDLK_e:
+            printf("Toggling Edit Mode\n");
             editMode = !editMode;
             break;
           case SDLK_f:

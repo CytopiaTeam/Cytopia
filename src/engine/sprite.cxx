@@ -1,31 +1,27 @@
 #include "sprite.hxx"
 
 
-Sprite::Sprite(std::string filename, Point isoCoords)
+Sprite::Sprite(std::string filename, Point isoCoordinates)
 {
   _renderer = Resources::getRenderer();
   _window = Resources::getWindow();
-  
+  _texture = nullptr;
+
   loadTexture(filename, true);
-  _isoCoords = isoCoords;
+  _isoCoordinates = isoCoordinates;
+  _screenCoordinates = Resources::convertIsoToScreenCoordinates(isoCoordinates);
 }
 
 Sprite::~Sprite()
 {
-
+  SDL_DestroyTexture(_texture);
 }
 
 void Sprite::render()
 {
   _zoomLevel = Resources::getZoomLevel();
   _cameraOffset = Resources::getCameraOffset();
-  
-  Point tileScreenCoords = getTileScreenCoordinates();
-
-  if (_isoCoords.getHeight() > 0)
-  {
-    tileScreenCoords.setY(tileScreenCoords.getY() - ((TILE_SIZE - _heightOffset) * _isoCoords.getHeight())*_zoomLevel); 
-  }
+  _screenCoordinates = Resources::convertIsoToScreenCoordinates(_isoCoordinates);
 
   //Render only whats visible
   const int offscreen_tolerance = 3 * TILE_SIZE * _zoomLevel;
@@ -33,49 +29,19 @@ void Sprite::render()
   int screen_height;
   SDL_GetWindowSize(_window, &screen_width, &screen_height);
 
-  if (( tileScreenCoords.getX() >= 0 - offscreen_tolerance ) 
-  ||  ( tileScreenCoords.getX() + TILE_SIZE * _zoomLevel <= screen_width + offscreen_tolerance ) 
-  ||  ( tileScreenCoords.getY() >= 0 - offscreen_tolerance ) 
-  ||  ( tileScreenCoords.getY() + TILE_SIZE * _zoomLevel <= screen_height + offscreen_tolerance ))
+  if (( _screenCoordinates.getX() >= 0 - offscreen_tolerance )
+  ||  ( _screenCoordinates.getX() + TILE_SIZE * _zoomLevel <= screen_width + offscreen_tolerance )
+  ||  ( _screenCoordinates.getY() >= 0 - offscreen_tolerance )
+  ||  ( _screenCoordinates.getY() + TILE_SIZE * _zoomLevel <= screen_height + offscreen_tolerance ))
   {
     // TODO: w and h parameter might change for sprites that consist of multiple tiles
-    renderTexture(tileScreenCoords, TILE_SIZE * _zoomLevel, TILE_SIZE * _zoomLevel);
+    renderTexture(_screenCoordinates, TILE_SIZE * _zoomLevel, TILE_SIZE * _zoomLevel);
   }
-}
-
-Point Sprite::getTileScreenCoordinates()
-{
-  Point tileScreenCoords;
-  int x, y;
-  _zoomLevel = Resources::getZoomLevel();
-  _cameraOffset = Resources::getCameraOffset();
-
-  x = (TILE_SIZE * _zoomLevel * _isoCoords.getX() * 0.5) + (TILE_SIZE * _zoomLevel * _isoCoords.getY() * 0.5) - _cameraOffset.getX();
-  y = ((TILE_SIZE * _zoomLevel * _isoCoords.getX() * 0.25) - (TILE_SIZE * _zoomLevel * _isoCoords.getY() * 0.25)) - _cameraOffset.getY();
-
-  tileScreenCoords.setCoords(x, y);
-  return tileScreenCoords;
-}
-
-int Sprite::getZOrder()
-{
-   // TODO: Implement...
-  return 0;
 }
 
 void Sprite::setTileIsoCoordinates(Point isoCoords)
 {
-  _isoCoords = isoCoords;
-}
-
-Point Sprite::getTileIsoCoordinates()
-{
-  return _isoCoords;
-}
-
-void Sprite::setHeight(int height)
-{
-  _isoCoords.setHeight(height);
+  _isoCoordinates = isoCoords;
 }
 
 
@@ -83,7 +49,7 @@ void Sprite::setHeight(int height)
 void Sprite::loadTexture(std::string file, bool colorkey)
 {
   SDL_Surface* loadedImage = IMG_Load(file.c_str());
-  _texture = nullptr;
+  //_texture = nullptr
 
   if ( loadedImage != nullptr )
   {
@@ -103,8 +69,8 @@ void Sprite::loadTexture(std::string file, bool colorkey)
 void Sprite::renderTexture(Point tileScreenCoords, int w, int h)
 {
   SDL_Rect dst;
-  dst.x = tileScreenCoords.getX();
-  dst.y = tileScreenCoords.getY();
+  dst.x = _screenCoordinates.getX();
+  dst.y = _screenCoordinates.getY();
   dst.w = w;
   dst.h = h;
   SDL_RenderCopy(_renderer, _texture, nullptr, &dst);
@@ -114,5 +80,11 @@ void Sprite::renderTexture(Point tileScreenCoords)
 {
   int w, h;
   SDL_QueryTexture(_texture, NULL, NULL, &w, &h);
-  renderTexture(tileScreenCoords, w, h);
+  renderTexture(_screenCoordinates, w, h);
+}
+
+
+void Sprite::changeSprite(std::string filename)
+{
+ // TODO: Implement texture streaming.
 }

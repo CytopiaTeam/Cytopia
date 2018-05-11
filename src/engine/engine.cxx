@@ -69,7 +69,9 @@ Engine::Engine()
         building = new Sprite("resources/images/buildings/house.png", Point(x, y));
       
       // Cells
-      Cell* mapCell = new Cell(Point(x, y), tile);
+      //Cell* mapCell = new Cell(Point(x, y), tile);
+      // TODO Cell Class without tileID -> default = floor, read from filelist
+      Cell* mapCell = new Cell(Point(x, y), 14);
       _floorCellMatrix.addCell(x, y, mapCell);
 
 
@@ -110,13 +112,10 @@ void Engine::render()
       // Layer 0 - floor
       if ( _activeLayers & LAYER_FLOOR )
       {
-        //if ( _floorTilesMatrix.getSprite(x, y) != nullptr )
-        //  _floorTilesMatrix.getSprite(x, y)->render(_cameraOffset, _zoom);
-        // TODO: Use cell class for everything instead of direct sprite rendering!
         _floorCellMatrix.getCell(x, y)->renderCell();
       }
       // Layer 1 - grid
-      if ( _activeLayers & LAYER_GRID )
+/*      if ( _activeLayers & LAYER_GRID )
       {
         if ( _gridTilesMatrix.getSprite(x, y) != nullptr )
           _gridTilesMatrix.getSprite(x, y)->render();
@@ -132,7 +131,7 @@ void Engine::render()
       {
         if ( _selectedTilesMatrix.getSprite(x, y) != nullptr )
           _selectedTilesMatrix.getSprite(x, y)->render();
-      }
+      }   */
     }
   }
 }
@@ -210,7 +209,6 @@ void Engine::decreaseZoomLevel()
     centerScreenOnPoint(_centerIsoCoordinates);
   }
 }
-
 
 void Engine::centerScreenOnMap()
 {
