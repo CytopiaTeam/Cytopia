@@ -1,27 +1,28 @@
+#ifndef CELL_HXX_
+#define CELL_HXX_
+
 #include <vector>
 #include <map>
 
 #include "SDL2/SDL.h"
 
 
-#include "basics/point.hxx";
-#include "sprite.hxx";
-
-#ifndef CELL_HXX_
-#define CELL_HXX_
+#include "sprite.hxx"
+#include "basics/point.hxx"
+#include "basics/resources.hxx"
 
 
 class Cell
 {
 public:
   Cell();
-  Cell(Point isoCoordinates, Sprite* sprite, SDL_Renderer* renderer, SDL_Window* window);
+  Cell(Point isoCoordinates, Sprite* sprite);
   ~Cell();
 
   void setSprite(Sprite* sprite);
   Sprite* getSprite();
 
-  void renderCell(Point cameraOffset, float zoom);
+  void renderCell();
 
   void setNeighbors(std::vector<Cell*> neighbors);
   void drawSurroundingTiles(Point isoCoordinates);

@@ -1,5 +1,5 @@
-#ifndef MAP_HXX_
-#define MAP_HXX_
+#ifndef ENGINE_HXX_
+#define ENGINE_HXX_
 
 
 #include <string>
@@ -13,6 +13,7 @@
 #include "cell.hxx"
 #include "basics/point.hxx"
 #include "basics/vectorMatrix.hxx"
+#include "basics/resources.hxx"
 
 
 class Engine
@@ -23,7 +24,7 @@ public:
   int _height = 16;
   int mmap[16][16];
 
-  Engine(SDL_Renderer *renderer, SDL_Window *window);
+  Engine();
   virtual ~Engine();
 
   void parseMapFile();
@@ -33,23 +34,18 @@ public:
   void centerScreenOnPoint(Point isoCoordinates);
   void centerScreenOnMap();
   
-  Point getIsoCoords(Point screenCoordinates, bool calcWithoutOffset = false);
   Point getScreenCoords(Point isoCoordinates, bool calcWithoutOffset = false);
   std::vector<Sprite*> findNeighbors(Point isoCoords);
 
-  Point getCameraOffset();
-  void setCameraOffset(Point offset);
-
   bool checkBoundaries(Point isoCoordinates);
-
-  float getZoomLevel();
-  void setZoomLevel(float zoomLevel);
 
   void enableLayer(unsigned int layer);
   void disableLayer(unsigned int layer);
   void toggleLayer(unsigned int layer);
   void increaseHeight(Point isoCoordinates);
   void decreaseHeight(Point isoCoordinates);
+  void increaseZoomLevel();
+  void decreaseZoomLevel();
 
 private:
   SDL_Renderer *_renderer;
@@ -58,9 +54,9 @@ private:
   int _screen_width;
   int _screen_height;
 
-  float _zoom = 1.0;
+  float _zoomLevel;
   Point _cameraOffset;
-  Point _centerScreenCoords;
+  Point _centerIsoCoordinates;
 
   vectorMatrix _floorTilesMatrix;
   vectorMatrix _gridTilesMatrix;

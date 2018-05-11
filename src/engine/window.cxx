@@ -4,7 +4,7 @@ Window::Window(const std::string &title, int width, int height) :
 _title(title), _width(width), _height(height)
 {
   _closed = !init();
-
+  _isFullScreen = false;
 }
 
 Window::~Window()
@@ -12,7 +12,6 @@ Window::~Window()
   SDL_DestroyRenderer(_renderer);
   SDL_DestroyWindow(_window);
   SDL_Quit();
-  
 }
 
 bool Window::init()
@@ -21,16 +20,14 @@ bool Window::init()
   {
     printf("Failed to Init SDL");
     return 0;
-    
   }
   
-  _window = SDL_CreateWindow(
-      _title.c_str(),
-      SDL_WINDOWPOS_CENTERED,
-      SDL_WINDOWPOS_CENTERED,
-      _width, _height,
-      0
-  );
+  _window = SDL_CreateWindow(_title.c_str(),
+                             SDL_WINDOWPOS_CENTERED,
+                             SDL_WINDOWPOS_CENTERED,
+                             _width, _height,
+                             0
+                            );
   
   if ( _window == nullptr )
   {
@@ -45,15 +42,22 @@ bool Window::init()
 	  printf("Failed to create Renderer!");
   }
 
+  Resources::setWindow(_window);
+  Resources::setRenderer(_renderer);
+
   return true;
 }
 
-SDL_Renderer* Window::getSDLRenderer() 
-{ 
-  return _renderer; 
-}
+void Window::toggleFullScreen()
+{
+  _isFullScreen = !_isFullScreen;
 
-SDL_Window* Window::getSDLWindow() 
-{ 
-  return _window; 
+  if (_isFullScreen)
+  {
+    SDL_SetWindowFullscreen(_window, SDL_WINDOW_FULLSCREEN);
+  }
+  else
+  {
+    SDL_SetWindowFullscreen(_window, 0);
+  }
 }

@@ -5,21 +5,21 @@ int main(int, char**){
 
   int screen_height = 800;
   int screen_width = 600;
-  float zoom = 1.0;
   bool fullscreen = false;
 
   Window window("Isometric Engine", screen_height, screen_width);
-  Engine engine(window.getSDLRenderer(), window.getSDLWindow());
-  Point clickCoords, centerIsoCoords, mouseCoords;
+  Engine engine;
+  Point clickCoords, mouseCoords;
   SDL_Event event;
-  
-  engine.centerScreenOnMap();
+
+  _renderer = Resources::getRenderer();
+  _window = Resources::getWindow();
+
+  //engine.centerScreenOnMap();
 
   // Gameloop
   while (!window.isClosed()){
-    // Clear the renderer each frame
-    SDL_RenderClear(window.getSDLRenderer());
-    zoom = engine.getZoomLevel();
+    SDL_RenderClear(_renderer);
 
     if ( SDL_PollEvent(&event) )
     {
@@ -51,21 +51,12 @@ int main(int, char**){
             editMode = !editMode;
             break;
           case SDLK_f:
-            fullscreen = !fullscreen;
-
-            if ( fullscreen )
-            {
-              SDL_SetWindowFullscreen(window.getSDLWindow(), SDL_WINDOW_FULLSCREEN);
-            }
-            else
-            {
-              SDL_SetWindowFullscreen(window.getSDLWindow(), 0);
-            }
+            window.toggleFullScreen();
             break;
         }
       case SDL_MOUSEBUTTONDOWN:
         mouseCoords.setCoords(event.button.x, event.button.y);
-        clickCoords = engine.getIsoCoords(mouseCoords);
+        clickCoords = Resources::convertScreenToIsoCoordinates(mouseCoords);
         if ( event.button.button == SDL_BUTTON_LEFT )
         {
           if ( engine.checkBoundaries(clickCoords) )
@@ -78,31 +69,17 @@ int main(int, char**){
         }
         if ( event.button.button == SDL_BUTTON_RIGHT )
         {
-          centerIsoCoords = engine.getIsoCoords(mouseCoords);
-          if ( engine.checkBoundaries(centerIsoCoords) )
-          {
-            engine.centerScreenOnPoint(centerIsoCoords);
-          }
+          engine.centerScreenOnPoint(clickCoords);
         }
         break;
       case SDL_MOUSEWHEEL:
         if ( event.wheel.y > 0 )
         {
-          if ( zoom < 2.0 )
-          {
-            zoom += 0.25;
-            engine.setZoomLevel(zoom);
-            engine.centerScreenOnPoint(centerIsoCoords);
-          }
+          engine.increaseZoomLevel();
         }
         else if ( event.wheel.y < 0 )
         {
-          if ( zoom > 0.5 )
-          {
-            zoom -= 0.25;
-            engine.setZoomLevel(zoom);
-            engine.centerScreenOnPoint(centerIsoCoords);
-          }
+          engine.decreaseZoomLevel();
         }
         break;
       default:
@@ -114,7 +91,7 @@ int main(int, char**){
     engine.render();
 
     // Render the Frame
-    SDL_RenderPresent(window.getSDLRenderer());
+    SDL_RenderPresent(_renderer);
     SDL_Delay(1);
   }
   return 0;

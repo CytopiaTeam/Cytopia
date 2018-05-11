@@ -6,7 +6,7 @@
 #include "SDL2/SDL.h"
 
 #include "sprite.hxx"
-
+#include "basics/resources.hxx"
 
 
 class Window {
@@ -17,10 +17,7 @@ class Window {
     inline bool isClosed() const { return _closed; }
     void close() { _closed = true; }
 
-
-    SDL_Renderer* getSDLRenderer();
-    SDL_Window* getSDLWindow();
-
+    void toggleFullScreen();
 
   private:
     bool init();
@@ -29,13 +26,12 @@ class Window {
     std::string _title;
     int _width = 800;
     int _height = 600;
-
+    bool _isFullScreen;
     
     bool _closed = false;
 
     SDL_Window *_window = nullptr;
 	  SDL_Renderer *_renderer = nullptr;
-  
 };
 
 

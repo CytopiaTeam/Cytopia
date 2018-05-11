@@ -5,13 +5,13 @@ Cell::Cell()
 
 }
 
-Cell::Cell(Point isoCoordinates, Sprite* sprite, SDL_Renderer* renderer, SDL_Window* window)
+Cell::Cell(Point isoCoordinates, Sprite* sprite)
 {
   _sprite = sprite;
   _coordinates = isoCoordinates;
 
-  _renderer = renderer;
-  _window = window;
+  _renderer = Resources::getRenderer();
+  _window = Resources::getWindow();
 
   _tileID = 14;
   _elevatedTilePosition = 0;
@@ -37,10 +37,10 @@ void Cell::setNeighbors(std::vector<Cell*> neighbors)
   _neighbors = neighbors;
 }
 
-void Cell::renderCell(Point cameraOffset, float zoom)
+void Cell::renderCell()
 {
-
-  _sprite->render(cameraOffset, zoom);
+  if (_sprite != nullptr)
+    _sprite->render();
 }
 
 void Cell::drawSurroundingTiles(Point isoCoordinates)
@@ -137,5 +137,5 @@ void Cell::determineTile()
     _tileID = 14;
   }
 
-  _sprite = new Sprite("resources/images/floor/floor_" + std::to_string(_tileID) + ".png", getSprite()->getTileIsoCoordinates(), _renderer, _window);
+  _sprite = new Sprite("resources/images/floor/floor_" + std::to_string(_tileID) + ".png", getSprite()->getTileIsoCoordinates());
 }

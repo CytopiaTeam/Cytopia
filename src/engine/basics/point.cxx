@@ -17,7 +17,6 @@ Point::~Point()
 
 }
 
-
 void Point::setCoords(int x, int y, int height)
 {
   _x = x;
