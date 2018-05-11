@@ -5,30 +5,17 @@ Cell::Cell()
 
 }
 
-Cell::Cell(Point isoCoordinates, Sprite* sprite)
-{
-  _sprite = sprite;
-  _coordinates = isoCoordinates;
-
-  _renderer = Resources::getRenderer();
-  _window = Resources::getWindow();
-
-  // TODO: Sprites are partially handled via tileID. This should be read from a json file in the resources directory.  
-  _tileID = 14; 
-  _elevatedTilePosition = 0;
-  setTileID(_tileID);
-}
-
 Cell::Cell(Point isoCoordinates, int tileID)
 {
   _sprite = nullptr;
-  _coordinates = isoCoordinates;
+  _isoCoordinates = isoCoordinates;
 
   _renderer = Resources::getRenderer();
   _window = Resources::getWindow();
 
   // TODO: handle sprites in this class. initialize with tile id.  
   _tileID = 14;
+
 
   _elevatedTilePosition = 0;
   setTileID(_tileID);
@@ -59,23 +46,20 @@ void Cell::renderCell()
 {
   if (_sprite != nullptr)
   {
-    // TODO: Is this necessary?
-    _sprite->setTileIsoCoordinates(_coordinates);
+    _sprite->setTileIsoCoordinates(_isoCoordinates);
     _sprite->render();
   }
 }
 
 Point Cell::getCoordinates()
 {
-  return _coordinates;
+  return _isoCoordinates;
 }
 
 void Cell::drawSurroundingTiles(Point isoCoordinates)
 {
-  Sprite* tile;
-
   int numElevatedNeighbors = 0;
-  int tileHeight = _coordinates.getHeight();
+  int tileHeight = _isoCoordinates.getHeight();
 
   for (int i = 0; i < _neighbors.size(); i++)
   {
@@ -84,9 +68,17 @@ void Cell::drawSurroundingTiles(Point isoCoordinates)
       _neighbors[i]->determineTile();
 
       // there can't be a height difference greater then 1 between two map cells.
-      if ((tileHeight - _neighbors[i]->getCoordinates().getHeight()) > 1 && i % 2)
+      if ( tileHeight - _neighbors[i]->getCoordinates().getHeight() > 1 
+      &&   Resources::getTerrainEditMode() == Resources::TERRAIN_RAISE
+      &&   i % 2 )
       {
-        _neighbors[i]->increaseHeight(1);
+        _neighbors[i]->increaseHeight();
+      }
+      if (  tileHeight - _neighbors[i]->getCoordinates().getHeight() < -1 
+      &&    Resources::getTerrainEditMode() == Resources::TERRAIN_LOWER
+      &&    i % 2) 
+      {
+        _neighbors[i]->decreaseHeight();
       }
     }
   }
@@ -94,24 +86,39 @@ void Cell::drawSurroundingTiles(Point isoCoordinates)
   determineTile();
 }
 
-void Cell::increaseHeight(int height)
+void Cell::increaseHeight()
 {
-  _coordinates.setHeight(_coordinates.getHeight() + 1);
-  drawSurroundingTiles(_coordinates);
+  int height = _isoCoordinates.getHeight();
+
+  if ( height < _maxCellHeight )
+  {
+    _isoCoordinates.setHeight(_isoCoordinates.getHeight() + 1);
+    drawSurroundingTiles(_isoCoordinates);
+  }
+}
+
+void Cell::decreaseHeight()
+{
+  int height = _isoCoordinates.getHeight();
+  
+  if ( height > 0 )
+  {
+    _isoCoordinates.setHeight(height - 1);
+    drawSurroundingTiles(_isoCoordinates);
+  }
 }
 
 bool Cell::hasElevatedNeighbors()
 {
   bool elevatedNeighbors = false;
 
-  int tileHeight = _coordinates.getHeight();
+  int tileHeight = _isoCoordinates.getHeight();
 
   for (int i = 0; i < _neighbors.size(); i++)
   {
     if ( _neighbors[i] != nullptr )
     {
-      //Point coords = _neighbors[i]->getSprite()->getTileIsoCoordinates();
-      if ( _coordinates.getHeight() == tileHeight )
+      if ( _isoCoordinates.getHeight() == tileHeight )
       {
         elevatedNeighbors = true;
       }
@@ -123,14 +130,12 @@ bool Cell::hasElevatedNeighbors()
 void Cell::determineTile()
 {
   _elevatedTilePosition = 0;
-  int tileHeight = _coordinates.getHeight();
+  int tileHeight = _isoCoordinates.getHeight();
 
   for (int i = 0; i < _neighbors.size(); i++) //determine TileID
   {
     if ( _neighbors[i] != nullptr )
     {
-      //if (coords.getHeight() > tileHeight)
-      //Point coords = _neighbors[i]->getSprite()->getTileIsoCoordinates();
       if ( _neighbors[i]->getCoordinates().getHeight() > tileHeight )
       {
         switch (i)
@@ -156,21 +161,39 @@ void Cell::determineTile()
   }
 
   // special case: if both opposite neighbors are elevated, the center tile also gets elevated
-  if ( ((_elevatedTilePosition & ELEVATED_LEFT) && (_elevatedTilePosition & ELEVATED_RIGHT)) ||
-       ((_elevatedTilePosition & ELEVATED_TOP) && (_elevatedTilePosition & ELEVATED_BOTTOM)) ||
-       _tileID == -1)
+  if ((( (_elevatedTilePosition & ELEVATED_LEFT) && (_elevatedTilePosition & ELEVATED_RIGHT) )
+  ||   ( (_elevatedTilePosition & ELEVATED_TOP) && (_elevatedTilePosition & ELEVATED_BOTTOM) )
+  ||      _tileID == -1 )
+  &&      Resources::getTerrainEditMode() == Resources::TERRAIN_RAISE)
   {
-    increaseHeight(1);
+    increaseHeight();
     _tileID = 14;
   }
 
-  //_sprite->changeSprite("resources/images/floor/floor_" + std::to_string(_tileID) + ".png");
-  _sprite = new Sprite("resources/images/floor/floor_" + std::to_string(_tileID) + ".png", _coordinates);
+  if ((( (_elevatedTilePosition & ELEVATED_LEFT) && (_elevatedTilePosition & ELEVATED_RIGHT) )
+  || (   (_elevatedTilePosition & ELEVATED_TOP)  && (_elevatedTilePosition & ELEVATED_BOTTOM) )
+  ||      _tileID == -1 )
+  &&      Resources::getTerrainEditMode() == Resources::TERRAIN_LOWER)
+  {
+    for (int i = 0; i < _neighbors.size(); i++) //determine TileID
+    {
+      if ( _neighbors[i] != nullptr )
+      {
+        if ( _neighbors[i]->getCoordinates().getHeight() > tileHeight )
+        {
+          _neighbors[i]->decreaseHeight();
+        }
+      }
+    }
+    _tileID = 14;
+  }
+  _sprite = new Sprite("resources/images/floor/floor_" + std::to_string(_tileID) + ".png", _isoCoordinates);
 }
 
 void Cell::setTileID(int tileID)
 {
   _tileID = tileID;
-  //_sprite->changeSprite("resources/images/floor/floor_" + std::to_string(_tileID) + ".png");
-  _sprite = new Sprite("resources/images/floor/floor_" + std::to_string(_tileID) + ".png", _coordinates);
+  _sprite = new Sprite("resources/images/floor/floor_" + std::to_string(_tileID) + ".png", _isoCoordinates);
 }
+
+

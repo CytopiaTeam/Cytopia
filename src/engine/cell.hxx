@@ -16,7 +16,6 @@ class Cell
 {
 public:
   Cell();
-  Cell(Point isoCoordinates, Sprite* sprite);
   Cell(Point isoCoordinates, int tileID);
   ~Cell();
 
@@ -31,13 +30,13 @@ public:
   void drawSurroundingTiles(Point isoCoordinates);
   void determineTile();
 
-  void increaseHeight(int height);
+  void increaseHeight();
+  void decreaseHeight();
 
   void setTileID(int tileID);
 
-
 private:
-  Point _coordinates;
+  Point _isoCoordinates;
   Sprite* _sprite;
 
   std::vector<Cell*> _neighbors;
@@ -48,6 +47,7 @@ private:
 
   int _heightOffset = 20; // Offset for Y Coordinate between two height levels
   int _tileID;
+  int _maxCellHeight = 32;
 
   // Bitmask for neighbor positions
   // [ T B L R ]
@@ -58,6 +58,7 @@ private:
   // 1 X 7
   // 0 3 6
 
+  
   enum elevatedTilePosition : unsigned int{
        NO_NEIGHBORS = 0x0,
        ELEVATED_TOP = 0x1,

@@ -6,6 +6,7 @@ SDL_Window* Resources::_window = nullptr;
 float Resources::_zoomLevel = 1.0;
 Point Resources::_cameraOffset;
 const int Resources::_TILE_SIZE = 32;
+int Resources::_terrainEditMode = Resources::NO_TERRAIN_EDIT;
 
 Resources::Resources()
 {
@@ -24,7 +25,6 @@ SDL_Renderer* Resources::getRenderer()
 
 void Resources::setRenderer(SDL_Renderer* renderer)
 {
-  //SDL_Renderer* Resources::_renderer;
   _renderer = renderer;
 }
 
@@ -106,3 +106,12 @@ Point Resources::convertIsoToScreenCoordinates(Point isoCoordinates, bool calcWi
   return Point (x, y);
 }
 
+void Resources::setTerrainEditMode(int editMode)
+{
+  _terrainEditMode = editMode;
+}
+
+int Resources::getTerrainEditMode()
+{
+  return _terrainEditMode;
+}

@@ -98,7 +98,6 @@ void Engine::parseMapFile()
 
 void Engine::render()
 {
-  int i = 0;
   int y = 0;
   int x = 0;
 
@@ -185,7 +184,14 @@ void Engine::toggleLayer(unsigned int layer)
 
 void Engine::increaseHeight(Point isoCoordinates)
 {
-  _floorCellMatrix.getCell(isoCoordinates.getX(), isoCoordinates.getY())->increaseHeight(1);
+  Resources::setTerrainEditMode(Resources::TERRAIN_RAISE);
+  _floorCellMatrix.getCell(isoCoordinates.getX(), isoCoordinates.getY())->increaseHeight();
+}
+
+void Engine::decreaseHeight(Point isoCoordinates)
+{
+  Resources::setTerrainEditMode(Resources::TERRAIN_LOWER);
+  _floorCellMatrix.getCell(isoCoordinates.getX(), isoCoordinates.getY())->decreaseHeight();
 }
 
 void Engine::increaseZoomLevel()
@@ -222,3 +228,4 @@ void Engine::centerScreenOnMap()
 
   Resources::setCameraOffset(Point(x, y));
 }
+

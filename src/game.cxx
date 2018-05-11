@@ -70,7 +70,10 @@ int main(int, char**){
         }
         if ( event.button.button == SDL_BUTTON_RIGHT )
         {
-          engine.centerScreenOnPoint(clickCoords);
+          if (editMode)
+            engine.decreaseHeight(clickCoords);
+          else
+            engine.centerScreenOnPoint(clickCoords);
         }
         break;
       case SDL_MOUSEWHEEL:

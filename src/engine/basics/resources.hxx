@@ -23,6 +23,18 @@ public:
   static Point convertScreenToIsoCoordinates(Point screenCoordinates, bool calcWithoutOffset = false);
   static Point convertIsoToScreenCoordinates(Point isoCoordinates, bool calcWithoutOffset = false);
 
+  static void setTerrainEditMode(int editMode);
+  static int getTerrainEditMode();
+
+  enum terrainEditMode : int
+  {
+    NO_TERRAIN_EDIT,
+    TERRAIN_RAISE,
+    TERRAIN_LOWER
+  };
+
+  static int _terrainEditMode;
+
 
 private:
   Resources();

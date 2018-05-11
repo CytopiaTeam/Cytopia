@@ -66,7 +66,6 @@ private:
   // Cells
   vectorMatrix _floorCellMatrix;
 
-
 public:
   enum Layers : unsigned int
   {
@@ -76,8 +75,10 @@ public:
     LAYER_SELECTION   = 1u<<3
   };
 
+
 private:
   unsigned int _activeLayers;
+
 
 };
 
