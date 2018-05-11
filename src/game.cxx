@@ -51,16 +51,7 @@ int main(int, char**){
             editMode = !editMode;
             break;
           case SDLK_f:
-            fullscreen = !fullscreen;
-
-            if ( fullscreen )
-            {
-              SDL_SetWindowFullscreen(_window, SDL_WINDOW_FULLSCREEN);
-            }
-            else
-            {
-              SDL_SetWindowFullscreen(_window, 0);
-            }
+            window.toggleFullScreen();
             break;
         }
       case SDL_MOUSEBUTTONDOWN:

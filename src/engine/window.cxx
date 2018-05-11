@@ -4,6 +4,8 @@ Window::Window(const std::string &title, int width, int height) :
 _title(title), _width(width), _height(height)
 {
   _closed = !init();
+  _isFullScreen = false;
+
 }
 
 Window::~Window()
@@ -47,4 +49,18 @@ bool Window::init()
   Resources::setRenderer(_renderer);
 
   return true;
+}
+
+void Window::toggleFullScreen()
+{
+  _isFullScreen = !_isFullScreen;
+
+  if (_isFullScreen)
+  {
+    SDL_SetWindowFullscreen(_window, SDL_WINDOW_FULLSCREEN);
+  }
+  else
+  {
+    SDL_SetWindowFullscreen(_window, 0);
+  }
 }
