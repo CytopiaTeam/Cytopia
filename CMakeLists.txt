@@ -1,4 +1,5 @@
 set (PROJECT_NAME "IsometricEngine")
+set (TARGET "IsometricEngine")
 set (CMAKE_CXX_STANDARD 11)
 set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake_modules/")
 
@@ -21,17 +22,25 @@ else()
   set (SDL2_TTF_LIBRARY "${CMAKE_CURRENT_SOURCE_DIR}/sdl/lib/x64/SDL2_ttf.lib")
 
   set (SDL2_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/sdl/include")
-  
-  # set startup project for Visual Studio Builds
-  set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ${PROJECT_NAME})
 endif()
-
 
 
 file (GLOB_RECURSE ISOENGINE_SOURCES "src/*.cxx")
 file (GLOB_RECURSE ISOENGINE_INCLUDES "src/*.hxx")
 
 
-add_executable (${PROJECT_NAME} ${ISOENGINE_SOURCES})
+add_executable (${TARGET} ${ISOENGINE_SOURCES})
 include_directories (${SDL2_INCLUDE_DIR} ${SDL2IMAGE_INCLUDE_DIR} ${ISOENGINE_INCLUDES} )
-target_link_libraries (${PROJECT_NAME} ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARY} )
+target_link_libraries (${TARGET} ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARY} )
+
+
+add_custom_command(TARGET ${TARGET} PRE_BUILD
+                   COMMAND ${CMAKE_COMMAND} -E copy_directory
+                   ${CMAKE_SOURCE_DIR}/resources $<TARGET_FILE_DIR:${TARGET}>/resources)
+
+if ( WIN32 )
+  # set startup project for Visual Studio Builds
+  set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ${PROJECT_NAME})
+  # set Visual Studio working directory to the Configuration directory
+  set_target_properties(${TARGET} PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/$(Configuration)")
+endif ()
