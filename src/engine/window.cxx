@@ -5,7 +5,6 @@ _title(title), _width(width), _height(height)
 {
   _closed = !init();
   _isFullScreen = false;
-
 }
 
 Window::~Window()
@@ -13,7 +12,6 @@ Window::~Window()
   SDL_DestroyRenderer(_renderer);
   SDL_DestroyWindow(_window);
   SDL_Quit();
-  
 }
 
 bool Window::init()
@@ -22,7 +20,6 @@ bool Window::init()
   {
     printf("Failed to Init SDL");
     return 0;
-    
   }
   
   _window = SDL_CreateWindow(_title.c_str(),
