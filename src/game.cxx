@@ -1,7 +1,9 @@
 #include "game.hxx"
 
 
-int main(int, char**){
+int main(int, char**)
+{
+  Resources::readJSONFile();
 
   int screen_height = 800;
   int screen_width = 600;
@@ -14,9 +16,7 @@ int main(int, char**){
 
   _renderer = Resources::getRenderer();
   _window = Resources::getWindow();
-
-  //engine.centerScreenOnMap();
-
+  
   // Gameloop
   while (!window.isClosed()){
     SDL_RenderClear(_renderer);
@@ -47,12 +47,17 @@ int main(int, char**){
           case SDLK_3:
             engine.toggleLayer(Engine::LAYER_SELECTION);
             break;
+          case SDLK_j:
+            Resources::generateJSONFile();
+            break;
           case SDLK_e:
             printf("Toggling Edit Mode\n");
             editMode = !editMode;
             break;
           case SDLK_f:
-            window.toggleFullScreen();
+            std::string filename = Resources::getTileDataFromJSON("terrain", 12, "filename");
+            std::cout << "i load" << filename << std::endl;
+            //window.toggleFullScreen();
             break;
         }
       case SDL_MOUSEBUTTONDOWN:

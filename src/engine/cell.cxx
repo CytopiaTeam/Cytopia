@@ -187,13 +187,15 @@ void Cell::determineTile()
     }
     _tileID = 14;
   }
-  _sprite = new Sprite("resources/images/floor/floor_" + std::to_string(_tileID) + ".png", _isoCoordinates);
+  std::string filename = Resources::getTileDataFromJSON("terrain", _tileID, "filename");
+  _sprite = new Sprite(filename, _isoCoordinates);
 }
 
 void Cell::setTileID(int tileID)
 {
   _tileID = tileID;
-  _sprite = new Sprite("resources/images/floor/floor_" + std::to_string(_tileID) + ".png", _isoCoordinates);
+  std::string filename = Resources::getTileDataFromJSON("terrain", _tileID, "filename");
+  _sprite = new Sprite(filename, _isoCoordinates);
 }
 
 

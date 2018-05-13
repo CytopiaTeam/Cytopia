@@ -1,0 +1,56 @@
+{
+    "buildings": {
+        "20": {
+            "filename": "resources/images/buildings/house.png",
+            "type": "building",
+            "zone": "residential"
+        }
+    },
+    "terrain": {
+        "0": {
+            "filename": "resources/images/floor/floor_0.png"
+        },
+        "1": {
+            "filename": "resources/images/floor/floor_1.png"
+        },
+        "10": {
+            "filename": "resources/images/floor/floor_10.png"
+        },
+        "11": {
+            "filename": "resources/images/floor/floor_11.png"
+        },
+        "12": {
+            "filename": "resources/images/floor/floor_12.png"
+        },
+        "13": {
+            "filename": "resources/images/floor/floor_13.png"
+        },
+        "14": {
+            "filename": "resources/images/floor/floor_14.png"
+        },
+        "2": {
+            "filename": "resources/images/floor/floor_2.png"
+        },
+        "3": {
+            "filename": "resources/images/floor/floor_3.png"
+        },
+        "4": {
+            "filename": "resources/images/floor/floor_4.png"
+        },
+        "5": {
+            "filename": "resources/images/floor/floor_5.png"
+        },
+        "6": {
+            "filename": "resources/images/floor/floor_6.png"
+        },
+        "7": {
+            "filename": "resources/images/floor/floor_7.png"
+        },
+        "8": {
+            "filename": "resources/images/floor/floor_8.png"
+        },
+        "9": {
+            "filename": "resources/images/floor/floor_9.png"
+        }
+    }
+}

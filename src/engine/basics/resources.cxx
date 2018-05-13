@@ -1,5 +1,6 @@
 #include "resources.hxx"
 
+
 // Instantiate static variables
 SDL_Renderer* Resources::_renderer = nullptr;
 SDL_Window* Resources::_window = nullptr;
@@ -7,6 +8,8 @@ float Resources::_zoomLevel = 1.0;
 Point Resources::_cameraOffset;
 const int Resources::_TILE_SIZE = 32;
 int Resources::_terrainEditMode = Resources::NO_TERRAIN_EDIT;
+json Resources::_json;
+
 
 Resources::Resources()
 {
@@ -115,3 +118,65 @@ int Resources::getTerrainEditMode()
 {
   return _terrainEditMode;
 }
+
+// Temporary function that writes a json file and will be removed later (for debug purposes only)
+void Resources::generateJSONFile()
+{
+  json tileIDJSON;
+
+  tileIDJSON["terrain"]["0"]["filename"] = std::string("resources/images/floor/floor_0.png");
+  tileIDJSON["terrain"]["1"]["filename"] = std::string("resources/images/floor/floor_1.png");
+  tileIDJSON["terrain"]["2"]["filename"] = std::string("resources/images/floor/floor_2.png");
+  tileIDJSON["terrain"]["3"]["filename"] = std::string("resources/images/floor/floor_3.png");
+  tileIDJSON["terrain"]["4"]["filename"] = std::string("resources/images/floor/floor_4.png");
+  tileIDJSON["terrain"]["5"]["filename"] = std::string("resources/images/floor/floor_5.png");
+  tileIDJSON["terrain"]["6"]["filename"] = std::string("resources/images/floor/floor_6.png");
+  tileIDJSON["terrain"]["7"]["filename"] = std::string("resources/images/floor/floor_7.png");
+  tileIDJSON["terrain"]["8"]["filename"] = std::string("resources/images/floor/floor_8.png");
+  tileIDJSON["terrain"]["9"]["filename"] = std::string("resources/images/floor/floor_9.png");
+  tileIDJSON["terrain"]["10"]["filename"] = std::string("resources/images/floor/floor_10.png");
+  tileIDJSON["terrain"]["11"]["filename"] = std::string("resources/images/floor/floor_11.png");
+  tileIDJSON["terrain"]["12"]["filename"] = std::string("resources/images/floor/floor_12.png");
+  tileIDJSON["terrain"]["13"]["filename"] = std::string("resources/images/floor/floor_13.png");
+  tileIDJSON["terrain"]["14"]["filename"] = std::string("resources/images/floor/floor_14.png");
+
+  tileIDJSON["buildings"]["20"]["filename"] = std::string("resources/images/buildings/house.png");
+  tileIDJSON["buildings"]["20"]["type"] = "building";
+  tileIDJSON["buildings"]["20"]["zone"] = "residential";
+
+  std::ofstream myJsonFile("resources/tileList.json");
+  if (myJsonFile.is_open())
+  {
+
+  myJsonFile << std::setw(4) << tileIDJSON << std::endl;
+  myJsonFile.close();
+  }
+  else
+  {
+    printf("ERROR: Couldn't write file \"resources/tileList.json\"");
+  }
+}
+
+std::string Resources::getTileDataFromJSON(std::string tileType, int tileID, std::string attribute)
+{
+  for (json::iterator it = _json.begin(); it != _json.end(); ++it) 
+  {
+    if ( it.key() == tileType ) 
+    {
+      // Debug Output for json file
+      
+      // This retrieves more then just the filename value
+      std::string retrievedFileName = _json[it.key()][std::to_string(tileID)]["filename"].get<std::string>();
+      //std::cout << "Retrieved Filename of Tile " << tileID << std::endl << "\t" << retrievedFileName;
+      return retrievedFileName;
+    }
+  }
+}
+
+void Resources::readJSONFile()
+{
+  std::ifstream i("resources/tileList.json");
+  i >> _json;
+}
+
+

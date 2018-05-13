@@ -1,8 +1,17 @@
 #ifndef RESOURCES_HXX_
 #define RESOURCES_HXX_
 
+#include <fstream>
+#include <iostream>
+
 #include "SDL2/SDL.h"
 #include "point.hxx"
+#include "../ThirdParty/json.hxx"
+
+
+// Namespace from json library - https://github.com/nlohmann/json
+using json = nlohmann::json;
+
 
 class Resources
 {
@@ -26,6 +35,11 @@ public:
   static void setTerrainEditMode(int editMode);
   static int getTerrainEditMode();
 
+  // JSON Functions
+  static void generateJSONFile();
+  static std::string getTileDataFromJSON(std::string tileType, int tileID, std::string attributes);
+  static void readJSONFile();
+
   enum terrainEditMode : int
   {
     NO_TERRAIN_EDIT,
@@ -47,6 +61,8 @@ private:
   static Point _cameraOffset;
 
   static const int _TILE_SIZE;
+
+  static json _json;
 };
 
 #endif
