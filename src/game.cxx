@@ -55,9 +55,7 @@ int main(int, char**)
             editMode = !editMode;
             break;
           case SDLK_f:
-            std::string filename = Resources::getTileDataFromJSON("terrain", 12, "filename");
-            std::cout << "i load" << filename << std::endl;
-            //window.toggleFullScreen();
+            window.toggleFullScreen();
             break;
         }
       case SDL_MOUSEBUTTONDOWN:
