@@ -5,6 +5,9 @@ compiler:
   - gcc
   - clang
 
+env:
+  - COMPILER=g++-4.9
+  
 # scripts to run before build
 before_script:
   - mkdir build
@@ -24,3 +27,4 @@ addons:
       - libsdl2-image-dev
       - libsdl2-ttf-dev
       - cppcheck
+      - g++4.9
