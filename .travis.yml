@@ -1,30 +1,50 @@
 language: cpp
+dist: trusty
+sudo: required
+group: edge
 
-# compilers to add to build matrix
-compiler:
-  - gcc
-  - clang
+matrix:
+  include:
 
-env:
-  - COMPILER=g++-4.9
-  
-# scripts to run before build
+  # gcc build
+  - os: linux
+    compiler: gcc
+    env: 
+      - COMPILER=g++-5
+      - C_COMPILER=gcc-5
+
+  # clang build
+  - os: linux
+    compiler: clang
+    env:
+      - COMPILER=clang++-5.0
+
+
 before_script:
   - mkdir build
   - cd build
   - cmake ..
 
-# build app, and run tests (ie make & make test)
 script:
+  # make sure CXX is correctly set
+  - sudo unlink /usr/bin/gcc && sudo ln -s /usr/bin/gcc-5 /usr/bin/gcc
+  - sudo unlink /usr/bin/g++ && sudo ln -s /usr/bin/g++-5 /usr/bin/g++
+  - gcc --version
+  - g++ --version
+  - if [[ "${COMPILER}" != "" ]]; then export CXX=${COMPILER}; fi
+  - if [[ "${C_COMPILER}" != "" ]]; then export CC=${COMPILER}; fi
   - cmake --build .
   - cppcheck --force --quiet --error-exitcode=1 .
 
 addons:
   apt:
+    sources: 
+      - ubuntu-toolchain-r-test
     packages:
       - cmake
       - libsdl2-dev
       - libsdl2-image-dev
       - libsdl2-ttf-dev
       - cppcheck
-      - g++4.9
+      - gcc-5
+      - g++-5
