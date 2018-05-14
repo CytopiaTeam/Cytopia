@@ -5,20 +5,18 @@ Cell::Cell()
 
 }
 
-Cell::Cell(Point isoCoordinates, int tileID)
+Cell::Cell(Point isoCoordinates)
 {
-  _sprite = nullptr;
   _isoCoordinates = isoCoordinates;
 
   _renderer = Resources::getRenderer();
   _window = Resources::getWindow();
 
-  // TODO: handle sprites in this class. initialize with tile id.  
+  // Default Floor sprite has tileID 14
   _tileID = 14;
 
-
   _elevatedTilePosition = 0;
-  setTileID(_tileID);
+  _sprite = new Sprite(_tileID, _isoCoordinates);
 }
 
 
@@ -187,15 +185,16 @@ void Cell::determineTile()
     }
     _tileID = 14;
   }
-  std::string filename = Resources::getTileDataFromJSON("terrain", _tileID, "filename");
-  _sprite = new Sprite(filename, _isoCoordinates);
+  _sprite->changeTexture(_tileID);
 }
 
 void Cell::setTileID(int tileID)
 {
+  _sprite->changeTexture(_tileID);
+  // -----------------------------
+  // REMOVE THIS COMMENTS
+  // 35 MB Ram before without any terrain raising
   _tileID = tileID;
-  std::string filename = Resources::getTileDataFromJSON("terrain", _tileID, "filename");
-  _sprite = new Sprite(filename, _isoCoordinates);
 }
 
 

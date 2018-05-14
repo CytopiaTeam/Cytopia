@@ -3,7 +3,6 @@
 
 #include <vector>
 #include <map>
-#include <string>
 
 #include "SDL2/SDL.h"
 
@@ -17,7 +16,7 @@ class Cell
 {
 public:
   Cell();
-  Cell(Point isoCoordinates, int tileID);
+  Cell(Point isoCoordinates);
   ~Cell();
 
   void setSprite(Sprite* sprite);

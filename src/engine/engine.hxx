@@ -1,15 +1,9 @@
 #ifndef ENGINE_HXX_
 #define ENGINE_HXX_
 
-
-#include <string>
-#include <cmath>
-#include <vector>
-
-//#include "yaml-cpp/yaml.h"
 #include "SDL2/SDL.h"
 
-#include "sprite.hxx"
+#include "textureManager.hxx"
 #include "cell.hxx"
 #include "basics/point.hxx"
 #include "basics/vectorMatrix.hxx"
@@ -19,26 +13,21 @@
 class Engine
 {
 public:
+  Engine();
+  virtual ~Engine() { };
 
+  // Map Size
   int _width = 16;
   int _height = 16;
-  int mmap[16][16];
-
-  Engine();
-  virtual ~Engine();
 
   void parseMapFile();
 
+  /**Renders each Map Cell
+  */
   void render();
 
-  void centerScreenOnPoint(Point isoCoordinates);
-  void centerScreenOnMap();
-  
-  Point getScreenCoords(Point isoCoordinates, bool calcWithoutOffset = false);
-  std::vector<Sprite*> findNeighbors(Point isoCoords);
-
   bool checkBoundaries(Point isoCoordinates);
-
+  void centerScreenOnPoint(Point isoCoordinates);
   void enableLayer(unsigned int layer);
   void disableLayer(unsigned int layer);
   void toggleLayer(unsigned int layer);
@@ -53,19 +42,18 @@ private:
 
   int _screen_width;
   int _screen_height;
+  int TILE_SIZE;
 
   float _zoomLevel;
   Point _cameraOffset;
   Point _centerIsoCoordinates;
 
-  vectorMatrix _floorTilesMatrix;
-  vectorMatrix _gridTilesMatrix;
-  vectorMatrix _buildingsTilesMatrix;
-  vectorMatrix _selectedTilesMatrix;
-
   // Cells
   vectorMatrix _floorCellMatrix;
 
+  unsigned int _activeLayers;
+
+  // Layer ENUM
 public:
   enum Layers : unsigned int
   {
@@ -74,13 +62,6 @@ public:
     LAYER_GRID        = 1u<<2,
     LAYER_SELECTION   = 1u<<3
   };
-
-
-private:
-  unsigned int _activeLayers;
-
-
 };
-
 
 #endif 
