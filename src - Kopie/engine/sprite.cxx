@@ -52,15 +52,16 @@ void Sprite::renderTexture(int w, int h)
 {
   bool drawBorder = false;
 
-  _destRect.x = _screenCoordinates.getX();
-  _destRect.y = _screenCoordinates.getY();
-  _destRect.w = w;
-  _destRect.h = h;
-  SDL_RenderCopy(_renderer, _texture, nullptr, &_destRect);
+  SDL_Rect destRect;
+  destRect.x = _screenCoordinates.getX();
+  destRect.y = _screenCoordinates.getY();
+  destRect.w = w;
+  destRect.h = h;
+  SDL_RenderCopy(_renderer, _texture, nullptr, &destRect);
 
   if (drawBorder == true)
   {
-    SDL_RenderDrawRect(_renderer, &_destRect);
+    SDL_RenderDrawRect(_renderer, &destRect);
   }
 }
 
@@ -81,5 +82,5 @@ SDL_Rect Sprite::textureInformation()
   spriteInformation.x = _screenCoordinates.getX();
   spriteInformation.y = _screenCoordinates.getY();
   
-  return _destRect;
+  return spriteInformation;
 }

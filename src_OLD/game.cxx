@@ -10,7 +10,7 @@ int main(int, char**)
   bool fullscreen = false;
 
   Window window("Isometric Engine", screen_height, screen_width);
-  Engine engine;
+  Engine& engine = Engine::Instance();
   Point clickCoords, mouseCoords;
   SDL_Event event;
 
@@ -68,7 +68,7 @@ int main(int, char**)
             if (editMode)
               engine.increaseHeight(clickCoords);
             else
-              engine.clickCell(mouseCoords);
+              //engine.findCellAtCoords(mouseCoords);
               printf("CLICKED - Iso Coords: %d , %d\n", clickCoords.getX(), clickCoords.getY());
           }
         }

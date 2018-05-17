@@ -196,138 +196,78 @@ void Cell::setTileID(int tileID)
 
 
 bool Cell::isInCell(Point clickedCoords)
-{
 
+{
   Point screenCoordinates = Resources::convertIsoToScreenCoordinates(_isoCoordinates);
+  bool isClicked = false;
 
   float _zoomLevel = Resources::getZoomLevel();
   float tilesize = 32 * _zoomLevel;
 
-  // is already centered??!! if not here are the calculatons
-  int centerX = screenCoordinates.getX() + (tilesize * 0.5);
-  int centerY = screenCoordinates.getY() + (tilesize * 0.75 );
+  // calculate the center of the cell
+  int cellCenterX = screenCoordinates.getX() + (tilesize * 0.5);
+  int cellCenterY = screenCoordinates.getY() + (tilesize * 0.25);
+    
+  int distanceX = abs((clickedCoords.getX()) - cellCenterX) ;
+  int distanceY = abs((clickedCoords.getY()) - cellCenterY) ;
 
-  int dx = abs((clickedCoords.getX()) - centerX);
-  int dy = abs((clickedCoords.getY()) - centerY);
-
-  float calc = (dx / (tilesize * 0.5 )) + (dy / (tilesize * 0.25 ));
-  if (calc <= 1.0) {
-
-    std::cout << "--------------------" << std::endl;
-    std::cout << "Calculated : " << calc << " My zoomlevel = " << _zoomLevel << std::endl;
-    std::cout << "dx, dy : " << dx << " , " << dy << std::endl;
-    std::cout << "Calculated dx value: " << (dx / (tilesize)) << std::endl;
-    std::cout << "Calculated dx value: " << (dy / (tilesize)) << std::endl;
+  // Bug: Overlapping tile either triggers both tiles or returns 0,0
+  if ((distanceX / (tilesize * 0.5)) + (distanceY / (tilesize * 0.25)) <= 1.0)
+  {
+    std::cout << "I AM CLICKED !!!!!!!!!!!!!!!!!";
     std::cout << "My ISO Coordinates are: " << _isoCoordinates.getX() << " , " << _isoCoordinates.getY() << std::endl;
-    std::cout << "My SCREEN Coordinates are: " << screenCoordinates.getX() << " , " << screenCoordinates.getY() <<
-      "\t and my Center = " << centerX << " , " << centerY << std::endl;
-    std::cout << "My CLICKED Coordinates are: " << clickedCoords.getX() << " , " << clickedCoords.getY() << std::endl;
 
     return true;
   }
-
- 
+  return isClicked;
 }
 
-
-// WORKING IMPLEMENTATION !!!!!!!!!!!!!!!!!!!!!!!
-bool Cell::isInRect(Point clickedCoords)
+bool Cell::checkCell(Point clickedCoords)
 {
-  SDL_Rect myRect = _sprite->textureInformation();
-  Point foundCoordinates;
-  //int x = clickedCoords.getX();
-  //int y = clickedCoords.getY();
+  Point screenCoordinates = Resources::convertIsoToScreenCoordinates(_isoCoordinates);
+  float _zoomLevel = Resources::getZoomLevel();
+  float tilesize = 32 * _zoomLevel;
 
-  float zoomLevel = Resources::getZoomLevel();
-  myRect.x *= zoomLevel;
-  myRect.y *= zoomLevel;
-  int x = clickedCoords.getX() ;
-  int y = clickedCoords.getY() ;
+  // is already centered??!! if not here are the calculatons
+  int centerX = screenCoordinates.getX() + (tilesize * 0.5 * _zoomLevel);
 
-  int pixelX = x - myRect.x;
-  int pixelY = y - myRect.y;
-
-  if (x >= myRect.x && x < (myRect.x + myRect.w))
-  {
-
-    /* Check Y coordinate is within rectangle range */
-    if (y >= myRect.y && y < (myRect.y + myRect.h))
-    {
-      std::cout << "PixelXY !!! " << pixelX << " , " << pixelY << std::endl;
-      //std::cout << "CLICKED !!! " << clickedCoords.getX() << " , " << clickedCoords.getY() << std::endl;
-      //std::cout << "RECT !!! " << myRect.x << " , " << myRect.y << std::endl;
-
-      //std::cout << "My TileID = " << _tileID << std::endl;
-      //std::cout << "TEST: " << (int)TextureManager::Instance().GetPixelColor(_tileID, pixelX, pixelY).a << std::endl;
-
-  SDL_Surface* surface = TextureManager::Instance().getSurface(_tileID);
-
-  if (surface == nullptr)
-    std::cerr << "OIS ORSCH" << std::endl;
-
-  // ------- Surface alpha
-
-
-  //SDL_PixelFormat* pixelFormat = surface->format;
-  int bpp = surface->format->BytesPerPixel;
-  Uint8* p = (Uint8*)surface->pixels + pixelX * surface->pitch + pixelX * bpp;
-  // ! here the game crashes
-  //Uint32 pixelColor = { 0x00, 0x00, 0x00, SDL_ALPHA_OPAQUE };
-  //Uint32 pixelColor = *p;
-  Uint8*	pPixel = (Uint8*)surface->pixels + pixelY * surface->pitch + pixelY * bpp;
-  Uint32	pixelColor = (Uint32)pPixel;
+  int centerY = screenCoordinates.getY() + (tilesize * 0.75  * _zoomLevel);
 
 
 
-  // get the RGBA values
+  int dx = abs((clickedCoords.getX()) - centerX);
 
-  SDL_Color Color = { 0x00, 0x00, 0x00, SDL_ALPHA_OPAQUE };
-  Uint8 red, green, blue, alpha;
-
-  // this function fails, sometimes the game crashes here
-  SDL_GetRGBA(pixelColor, surface->format, &Color.r, &Color.g, &Color.b, &Color.a);
-
-  // ---------------
+  int dy = abs((clickedCoords.getY()) - centerY);
 
 
-    //std::cout << "BEFORE ALPHA CHECK!!! " << _isoCoordinates.getX() << " , " << _isoCoordinates.getY() << std::endl;
-       //std::cout << "Pixel Color Red detected = " << (int)Color.r << std::endl;  
-      //std::cout << "Pixel Alpha detected = " << (int)Color.a << std::endl;
-      if (TextureManager::Instance().GetPixelColor(_tileID, pixelX, pixelY).a != SDL_ALPHA_TRANSPARENT)
-      //if (! TextureManager::Instance().isPixelTransparent(_tileID, x, y))
-      {
+
+  float calc = (dx / (tilesize * 0.5 )) + (dy / (tilesize * 0.25 ));
+
+  if (calc <= 1.0) {
 
 
-      /* X and Y is inside the rectangle */
-      //std::cout << "my tile height = " << myRect.h << std::endl;
 
-        // ATTENTION !!!!!!!! THIS COORDINATES ARE CORRECT !!!!!!!!!!!
-      std::cout << "ALPHA TRUE!!! " << _isoCoordinates.getX() << " , " << _isoCoordinates.getY() << std::endl;
-      return 1;
-      }
-    }
+    std::cout << "--------------------" << std::endl;
+
+    std::cout << "Calculated : " << calc << " My zoomlevel = " << _zoomLevel << std::endl;
+
+    std::cout << "dx, dy : " << dx << " , " << dy << std::endl;
+
+    std::cout << "Calculated dx value: " << (dx / (tilesize)) << std::endl;
+
+    std::cout << "Calculated dx value: " << (dy / (tilesize)) << std::endl;
+
+    std::cout << "My ISO Coordinates are: " << _isoCoordinates.getX() << " , " << _isoCoordinates.getY() << std::endl;
+
+    std::cout << "My SCREEN Coordinates are: " << screenCoordinates.getX() << " , " << screenCoordinates.getY() <<
+
+      "\t and my Center = " << centerX << " , " << centerY << std::endl;
+
+    std::cout << "My CLICKED Coordinates are: " << clickedCoords.getX() << " , " << clickedCoords.getY() << std::endl;
+
+
+
+    return true;
 
   }
-
-  // Shorter version !!!
-  /*return (x >= r->x) && (y >= r->y) &&
-    (x < r->x + r->w) && (y < r->y + r->h);*/
-
-}
-
-
-int Cell::getZ()
-{
-  return _z;
-}
-
-
-void Cell::setZ(int z)
-{
-  _z = z;
-}
-
-int Cell::getTileID()
-{
-  return _tileID;
 }

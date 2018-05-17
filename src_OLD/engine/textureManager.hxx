@@ -30,15 +30,7 @@ public:
   */
   SDL_Texture* getTexture(int tileID);
 
-  SDL_Surface * getSurface(int tileID);
-
-  SDL_Color GetPixelColor(int tileID,  int X, int Y);
-
-  bool isPixelTransparent(int tileID, int X, int Y);
-
   std::unordered_map<int, SDL_Texture*> _textureMap;
-  /** Keep surfaces in map for collision detection when selecting tiles*/
-  std::unordered_map<int, SDL_Surface*> _surfaceMap;
 
 private:
   TextureManager();

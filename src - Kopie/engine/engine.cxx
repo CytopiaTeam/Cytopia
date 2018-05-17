@@ -150,56 +150,31 @@ void Engine::clickCell(Point clickedCoords)
 
         // NEW
       Cell* currentCell = _floorCellMatrix.getCell(x, y);
-      //_zoomLevel = 1;
 
       SDL_Rect spriteRect = currentCell->getSprite()->textureInformation();
       float zoomLevel = Resources::getZoomLevel();
-      int offsetX = Resources::getCameraOffset().getX();
-      int offsetY = Resources::getCameraOffset().getX();
+        //int x = clickedCoords.getX();
+        //int y = clickedCoords.getY();
 
-      int clickedX = clickedCoords.getX() ;
-      int clickedY = clickedCoords.getY() ;
-      //int clickedX = clickedCoords.getX() *_zoomLevel ;
-      //int clickedY = clickedCoords.getY() *_zoomLevel ;
-      //int clickedX = clickedCoords.getX() *_zoomLevel +_cameraOffset.getX();
-      //int clickedY = clickedCoords.getY() *_zoomLevel + _cameraOffset.getY();
 
-      int spriteX = spriteRect.x;
-      int spriteY = spriteRect.y;
 
-      //int spriteX = spriteRect.x * _zoomLevel;
-      //int spriteY = spriteRect.y * _zoomLevel;
-      //int spriteX = spriteRect.x + offsetX;
-      //int spriteY = spriteRect.y + offsetY;
-
-        if (clickedX >= spriteX && clickedX < (spriteX + spriteRect.w))
+        if (clickedCoords.getX() >= spriteRect.x && clickedCoords.getX() < (spriteRect.x + spriteRect.w))
         {
 
           /* Check Y coordinate is within rectangle range */
-          if (clickedY >= spriteY && clickedY < (spriteY + spriteRect.h))
+          if (clickedCoords.getY() >= spriteRect.y && clickedCoords.getY() < (spriteRect.y + spriteRect.h))
           {
 
-            //spriteRect.x *= zoomLevel;
-            //spriteRect.y *= zoomLevel;
+            spriteRect.x *= zoomLevel;
+            spriteRect.y *= zoomLevel;
 
 
-            //int pixelX = clickedX - spriteX;
-            //int pixelY = clickedY - spriteY;
-            int pixelX = (clickedX - spriteX );
-            int pixelY = (clickedY - spriteY );
-            pixelX /= _zoomLevel;
-            pixelY /= _zoomLevel;
-
-
-            //pixelY /= _zoomLevel;
-            //pixelX /= _zoomLevel;
+            int pixelX = clickedCoords.getX() - spriteRect.x;
+            int pixelY = clickedCoords.getY() - spriteRect.y;
 
             std::cout << "pixelXY " << pixelX << pixelY << std::endl;
  //           std::cout << "PixelXY !!! " << pixelX << " , " << pixelY << std::endl;
             //std::cout << "CLICKED !!! " << clickedCoords.getX() << " , " << clickedCoords.getY() << std::endl;
-            //foundCoordinates = currentCell->getCoordinates();
-            //std::cout << "INSIDE !!! " << foundCoordinates.getX() << " , " << foundCoordinates.getY() << std::endl;
-            //std::cout << "INSIDE !!! " << currentCell->getCoordinates().getX() << " , " << currentCell->getCoordinates().getY() << std::endl;
             //std::cout << "RECT !!! " << myRect.x << " , " << myRect.y << std::endl;
 
             //std::cout << "My TileID = " << _tileID << std::endl;
@@ -219,9 +194,7 @@ void Engine::clickCell(Point clickedCoords)
             // ! here the game crashes
             //Uint32 pixelColor = { 0x00, 0x00, 0x00, SDL_ALPHA_OPAQUE };
             //Uint32 pixelColor = *p;
-            int pitch = surface->pitch ;
-            //int pitch = surface->pitch * _zoomLevel;
-            Uint8*	pPixel = (Uint8*)surface->pixels + pixelY * pitch + pixelY * bpp;
+            Uint8*	pPixel = (Uint8*)surface->pixels + pixelY * surface->pitch + pixelY * bpp;
             Uint32	pixelColor = (Uint32)pPixel;
 
 
@@ -232,7 +205,7 @@ void Engine::clickCell(Point clickedCoords)
             Uint8 red, green, blue, alpha;
 
             // this function fails, sometimes the game crashes here
-            //SDL_GetRGBA(pixelColor, surface->format, &Color.r, &Color.g, &Color.b, &Color.a);
+            SDL_GetRGBA(pixelColor, surface->format, &Color.r, &Color.g, &Color.b, &Color.a);
 
             // ---------------
 

@@ -13,8 +13,16 @@
 class Engine
 {
 public:
-  Engine();
-  virtual ~Engine() { };
+  // Singleton
+  static Engine& Instance() {
+    static Engine instance;
+    return instance;
+  }
+
+  // Disable copy and assignemnt operators
+  Engine(Engine const&) = delete;
+  Engine& operator=(Engine const&) = delete;
+
 
   // Map Size
   int _width = 16;
@@ -31,13 +39,22 @@ public:
   void enableLayer(unsigned int layer);
   void disableLayer(unsigned int layer);
   void toggleLayer(unsigned int layer);
-  void increaseHeight(Point isoCoordinates);
-  void decreaseHeight(Point isoCoordinates);
+  /** Increases height of a tile at given screen coordinates.
+  */
+  void increaseHeight(Point mouseClickCoordinates);
+  /** Decreases height of a tile at given screen coordinates.
+  */
+  void decreaseHeight(Point mouseClickCoordinates);
   void increaseZoomLevel();
   void decreaseZoomLevel();
 
-  void clickCell(Point screenCoordinates);
+  /** Retrieves "real iso coordinates" with tileheight taken into account */
+  Point findCellAtCoords(Point screenCoordinates);
+
 private:
+  Engine();
+  virtual ~Engine() { };
+
   SDL_Renderer *_renderer;
   SDL_Window *_window;
 

@@ -18,16 +18,11 @@ public:
   void render();
   void setTileIsoCoordinates(Point isoCoords);
   void changeTexture(int tileID);
-  SDL_Rect Sprite::textureInformation();
-  
 
 private:
   SDL_Texture* _texture;
   SDL_Renderer* _renderer;
   SDL_Window* _window;
-  SDL_Surface* surface;
-
-  SDL_Rect _destRect;
 
   Point _isoCoordinates;
   Point _screenCoordinates;

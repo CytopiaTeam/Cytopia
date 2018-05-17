@@ -27,8 +27,6 @@ private:
   SDL_Window* _window;
   SDL_Surface* surface;
 
-  SDL_Rect _destRect;
-
   Point _isoCoordinates;
   Point _screenCoordinates;
 

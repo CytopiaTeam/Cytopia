@@ -35,16 +35,10 @@ public:
   void decreaseHeight();
 
   void setTileID(int tileID);
-  int getTileID();
 
   /** Check if given coordinates are in Cell */
   bool isInCell(Point clickedCoords);
-  bool isInRect(Point clickedCoords);
-
-  /** Sets the Z Coordinate (Drawing Order)*/
-  void setZ(int z);
-  /** Gets the Z Coordinate (Drawing Order)*/
-  int getZ();
+  bool checkCell(Point clickedCoords);
 
 private:
   Point _isoCoordinates;
@@ -59,8 +53,6 @@ private:
   int _heightOffset = 20; // Offset for Y Coordinate between two height levels
   int _tileID;
   int _maxCellHeight = 32;
-
-  int _z;
 
   // Bitmask for neighbor positions
   // [ T B L R ]
