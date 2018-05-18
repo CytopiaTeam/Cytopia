@@ -17,8 +17,8 @@ public:
   virtual ~Engine() { };
 
   // Map Size
-  int _width = 16;
-  int _height = 16;
+  int _width = 256;
+  int _height = 256;
 
   void parseMapFile();
 

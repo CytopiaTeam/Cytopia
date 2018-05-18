@@ -3,6 +3,10 @@
 
 int main(int, char**)
 {
+  Uint64 NOW = SDL_GetPerformanceCounter();
+  Uint64 LAST = 0;
+  double deltaTime = 0;
+
   Resources::readJSONFile();
 
   int screen_height = 800;
@@ -20,6 +24,7 @@ int main(int, char**)
   // Gameloop
   while (!window.isClosed()){
     SDL_RenderClear(_renderer);
+
 
     if ( SDL_PollEvent(&event) )
     {
@@ -68,8 +73,17 @@ int main(int, char**)
             if (editMode)
               engine.increaseHeight(clickCoords);
             else
+
+              LAST = NOW;
+            NOW = SDL_GetPerformanceCounter();
               engine.clickCell(mouseCoords);
-              printf("CLICKED - Iso Coords: %d , %d\n", clickCoords.getX(), clickCoords.getY());
+              LAST = NOW;
+              NOW = SDL_GetPerformanceCounter();
+
+              deltaTime = (double)((NOW - LAST) * 1000 / SDL_GetPerformanceFrequency());
+            std::cout << "Took: " << deltaTime << "ms" << std::endl;
+            
+            printf("CLICKED - Iso Coords: %d , %d\n", clickCoords.getX(), clickCoords.getY());
           }
         }
         if ( event.button.button == SDL_BUTTON_RIGHT )

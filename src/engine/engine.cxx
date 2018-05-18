@@ -136,21 +136,14 @@ void Engine::decreaseZoomLevel()
 
 void Engine::clickCell(Point clickedCoords)
 {
-  Point foundCoordinates;
+  Point foundCoordinates = Point(-1, -1);
+ 
+  // check all cells of the map to find the clicked point
   for (int x = 0; x <= _width; x++)
   {
     for (int y = _height; y >= 0; y--)
     {
-        //_floorCellMatrix.getCell(x, y)->isInCell(clickedCoords);
-        //_floorCellMatrix.getCell(x, y)->isInRect(clickedCoords);
-
-        // get all found cells and use the coordinates of the one with the highest z-order !
-
-
-
-        // NEW
       Cell* currentCell = _floorCellMatrix.getCell(x, y);
-      //_zoomLevel = 1;
 
       SDL_Rect spriteRect = currentCell->getSprite()->textureInformation();
       float zoomLevel = Resources::getZoomLevel();
@@ -159,107 +152,55 @@ void Engine::clickCell(Point clickedCoords)
 
       int clickedX = clickedCoords.getX() ;
       int clickedY = clickedCoords.getY() ;
-      //int clickedX = clickedCoords.getX() *_zoomLevel ;
-      //int clickedY = clickedCoords.getY() *_zoomLevel ;
-      //int clickedX = clickedCoords.getX() *_zoomLevel +_cameraOffset.getX();
-      //int clickedY = clickedCoords.getY() *_zoomLevel + _cameraOffset.getY();
 
       int spriteX = spriteRect.x;
       int spriteY = spriteRect.y;
 
-      //int spriteX = spriteRect.x * _zoomLevel;
-      //int spriteY = spriteRect.y * _zoomLevel;
-      //int spriteX = spriteRect.x + offsetX;
-      //int spriteY = spriteRect.y + offsetY;
+      if ( clickedX >= spriteX && clickedX < spriteX + spriteRect.w  
+      &&   clickedY >= spriteY && clickedY < spriteY + spriteRect.h )
+      {
+        // Calculate the position of the clicked pixel within the surface
+        int pixelX = (clickedX - spriteX );
+        int pixelY = (clickedY - spriteY );
+        // "un-zoom" the positon to match the un-adjusted surface
+        pixelX /= _zoomLevel;
+        pixelY /= _zoomLevel;
 
-        if (clickedX >= spriteX && clickedX < (spriteX + spriteRect.w))
+        SDL_Surface* surface = TextureManager::Instance().getSurface(currentCell->getTileID());
+
+        if (surface != nullptr)
         {
 
-          /* Check Y coordinate is within rectangle range */
-          if (clickedY >= spriteY && clickedY < (spriteY + spriteRect.h))
-          {
-
-            //spriteRect.x *= zoomLevel;
-            //spriteRect.y *= zoomLevel;
+          // ------- Surface alpha
 
 
-            //int pixelX = clickedX - spriteX;
-            //int pixelY = clickedY - spriteY;
-            int pixelX = (clickedX - spriteX );
-            int pixelY = (clickedY - spriteY );
-            pixelX /= _zoomLevel;
-            pixelY /= _zoomLevel;
+          //SDL_PixelFormat* pixelFormat = surface->format;
+          int bpp = surface->format->BytesPerPixel;
+          Uint8* p = (Uint8*)surface->pixels + pixelX * surface->pitch + pixelX * bpp;
+          // ! here the game crashes
+          //Uint32 pixelColor = { 0x00, 0x00, 0x00, SDL_ALPHA_OPAQUE };
+          //Uint32 pixelColor = *p;
+          int pitch = surface->pitch ;
+          //int pitch = surface->pitch * _zoomLevel;
+          Uint8*	pPixel = (Uint8*)surface->pixels + pixelY * pitch + pixelY * bpp;
+          Uint32	pixelColor = (Uint32)pPixel;
 
-
-            //pixelY /= _zoomLevel;
-            //pixelX /= _zoomLevel;
-
-            std::cout << "pixelXY " << pixelX << pixelY << std::endl;
- //           std::cout << "PixelXY !!! " << pixelX << " , " << pixelY << std::endl;
-            //std::cout << "CLICKED !!! " << clickedCoords.getX() << " , " << clickedCoords.getY() << std::endl;
-            //foundCoordinates = currentCell->getCoordinates();
-            //std::cout << "INSIDE !!! " << foundCoordinates.getX() << " , " << foundCoordinates.getY() << std::endl;
-            //std::cout << "INSIDE !!! " << currentCell->getCoordinates().getX() << " , " << currentCell->getCoordinates().getY() << std::endl;
-            //std::cout << "RECT !!! " << myRect.x << " , " << myRect.y << std::endl;
-
-            //std::cout << "My TileID = " << _tileID << std::endl;
-            //std::cout << "TEST: " << (int)TextureManager::Instance().GetPixelColor(_tileID, pixelX, pixelY).a << std::endl;
-
-            SDL_Surface* surface = TextureManager::Instance().getSurface(currentCell->getTileID());
-
-            if (surface == nullptr)
-              std::cerr << "No Surface Found! This should not happen!" << std::endl;
-
-            // ------- Surface alpha
-
-
-            //SDL_PixelFormat* pixelFormat = surface->format;
-            int bpp = surface->format->BytesPerPixel;
-            Uint8* p = (Uint8*)surface->pixels + pixelX * surface->pitch + pixelX * bpp;
-            // ! here the game crashes
-            //Uint32 pixelColor = { 0x00, 0x00, 0x00, SDL_ALPHA_OPAQUE };
-            //Uint32 pixelColor = *p;
-            int pitch = surface->pitch ;
-            //int pitch = surface->pitch * _zoomLevel;
-            Uint8*	pPixel = (Uint8*)surface->pixels + pixelY * pitch + pixelY * bpp;
-            Uint32	pixelColor = (Uint32)pPixel;
-
-
-
-            // get the RGBA values
-
-            SDL_Color Color = { 0x00, 0x00, 0x00, SDL_ALPHA_OPAQUE };
-            Uint8 red, green, blue, alpha;
-
-            // this function fails, sometimes the game crashes here
-            //SDL_GetRGBA(pixelColor, surface->format, &Color.r, &Color.g, &Color.b, &Color.a);
-
-            // ---------------
-
-
-            //std::cout << "BEFORE ALPHA CHECK!!! " << _isoCoordinates.getX() << " , " << _isoCoordinates.getY() << std::endl;
-            //std::cout << "Pixel Color Red detected = " << (int)Color.r << std::endl;  
-            //std::cout << "Pixel Alpha detected = " << (int)Color.a << std::endl;
-            if (TextureManager::Instance().GetPixelColor(currentCell->getTileID(), pixelX, pixelY).a != SDL_ALPHA_TRANSPARENT)
-              //if (! TextureManager::Instance().isPixelTransparent(_tileID, x, y))
-            {
-
-
-              /* X and Y is inside the rectangle */
-              //std::cout << "my tile height = " << myRect.h << std::endl;
-
-              // Find the tile that's rendered in the front (top Z Order)
-              if (foundCoordinates.getZ() < currentCell->getCoordinates().getZ())
-              {
-                foundCoordinates = currentCell->getCoordinates();
-              }
-            }
-          }
-
+          SDL_Color Color = { 0x00, 0x00, 0x00, SDL_ALPHA_OPAQUE };
+          Uint8 red, green, blue, alpha;
         }
 
-        // NEW 
+        // Check if the clicked Sprite is not transparent (we hit a point within the pixel)
+        if (TextureManager::Instance().GetPixelColor(currentCell->getTileID(), pixelX, pixelY).a != SDL_ALPHA_TRANSPARENT)
+        {
+          if (foundCoordinates.getZ() < currentCell->getCoordinates().getZ())
+          {
+            foundCoordinates = currentCell->getCoordinates();
+          }
+        }
+      }
     }
   }
-  std::cout << "The Cell, that was clicked is " << foundCoordinates.getX() << " , " << foundCoordinates.getY() << std::endl;
+  // Check if the found sprite is still within the map (e.g. hitbox of the sprite is bigger then the tile and outside of the map)
+  if (checkBoundaries(foundCoordinates))
+    std::cout << "The Cell, that was clicked is " << foundCoordinates.getX() << " , " << foundCoordinates.getY() << std::endl;
 }
