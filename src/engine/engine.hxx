@@ -13,7 +13,8 @@
 class Engine
 {
 public:
-  // Singleton
+
+  /// Retrieves Instance of Singleton class Texture Manager
   static Engine& Instance() {
     static Engine instance;
     return instance;
@@ -22,14 +23,14 @@ public:
   // Disable copy and assignemnt operators
   Engine(Engine const&) = delete;
   Engine& operator=(Engine const&) = delete;
+
   // Map Size
   int _width = 16;
   int _height = 16;
 
   void parseMapFile();
 
-  /**Renders each Map Cell
-  */
+  /** Renders the sprites in each Map Cell */
   void render();
 
   bool checkBoundaries(Point isoCoordinates);

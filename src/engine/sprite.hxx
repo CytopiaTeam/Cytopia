@@ -25,14 +25,15 @@ private:
   SDL_Texture* _texture;
   SDL_Renderer* _renderer;
   SDL_Window* _window;
-  SDL_Surface* surface;
-
   SDL_Rect _destRect;
 
   Point _isoCoordinates;
   Point _screenCoordinates;
 
+
+  /** Renders texture using the _destRect struct and takes the zoomLevel into account */ 
   void renderTexture(int w, int h);
+  /** Renders texture using the textures original width and height without zoomLevel */ 
   void renderTexture();
 };
 

@@ -50,18 +50,11 @@ void Sprite::changeTexture(int tileID)
 
 void Sprite::renderTexture(int w, int h)
 {
-  bool drawBorder = false;
-
   _destRect.x = _screenCoordinates.getX();
   _destRect.y = _screenCoordinates.getY();
   _destRect.w = w;
   _destRect.h = h;
   SDL_RenderCopy(_renderer, _texture, nullptr, &_destRect);
-
-  if (drawBorder == true)
-  {
-    SDL_RenderDrawRect(_renderer, &_destRect);
-  }
 }
 
 void Sprite::renderTexture()
@@ -73,13 +66,5 @@ void Sprite::renderTexture()
 
 SDL_Rect Sprite::textureInformation()
 {
-  int width, height;
-  SDL_Rect spriteInformation;
-  SDL_QueryTexture(_texture, NULL, NULL, &width, &height);
-  spriteInformation.w = width;
-  spriteInformation.h = height;
-  spriteInformation.x = _screenCoordinates.getX();
-  spriteInformation.y = _screenCoordinates.getY();
-  
   return _destRect;
 }

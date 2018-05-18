@@ -9,8 +9,7 @@ TextureManager::TextureManager()
 void TextureManager::loadTexture(int tileID, bool colorKey) 
 {
   std::string fileName = Resources::getTileDataFromJSON("terrain", tileID, "filename");
-  SDL_Surface* loadedImage = nullptr;
-  loadedImage = IMG_Load(fileName.c_str());
+  SDL_Surface* loadedImage = IMG_Load(fileName.c_str());
 
   if ( loadedImage != nullptr )
   {
@@ -23,14 +22,15 @@ void TextureManager::loadTexture(int tileID, bool colorKey)
     if ( _texture != nullptr )
       _textureMap[tileID] = _texture;
     else
-      std::cerr << "ERROR: Renderer could not be created! SDL Error: %s\n\t" << SDL_GetError();
+      std::cerr << "ERROR: Renderer could not be created! SDL Error: %s\n\t" << SDL_GetError() << std::endl;
   }
   else
-    std::cerr << "ERROR : Couldn't load Texture from file : " << fileName << std::endl << "\t" << IMG_GetError();
+    std::cerr << "ERROR : Couldn't load Texture from file : " << fileName << std::endl << "\t" << IMG_GetError() << std::endl;
 }
 
 SDL_Texture* TextureManager::getTexture(int tileID)
 {
+  // If the texture isn't in the map, load it first.
   if (! _textureMap.count(tileID))
   {
     loadTexture(tileID);
@@ -40,25 +40,24 @@ SDL_Texture* TextureManager::getTexture(int tileID)
 
 SDL_Surface* TextureManager::getSurface(int tileID)
 {
-  if (_surfaceMap[tileID] != nullptr)
+  // If the surface isn't in the map, load the texture first.
+  if (!_textureMap.count(tileID))
   {
-    return _surfaceMap[tileID];
+    loadTexture(tileID);
   }
-  else
-    std::cerr << "EMPTY SURFACE at TILE ID " << tileID << std::endl;
+  return _surfaceMap[tileID];
 }
 
 SDL_Color TextureManager::GetPixelColor(int tileID, int X, int Y)
 {
-  SDL_Surface* pSurface = _surfaceMap[tileID];
-  SDL_UnlockSurface(pSurface);
-  int      Bpp = pSurface->format->BytesPerPixel;
-  Uint8*   pPixel = (Uint8*)pSurface->pixels + Y * pSurface->pitch+ X * Bpp ;
+  SDL_Surface* surface = _surfaceMap[tileID];
+  int Bpp = surface->format->BytesPerPixel;
+  Uint8* p = (Uint8*)surface->pixels + Y * surface->pitch + X * Bpp ;
     
-  Uint32 pixelColor;
-  Uint32 PixelColor = *(Uint32*)pPixel;
+  Uint32 pixel = *(Uint32*)p;
 
   SDL_Color Color = { 0, 0, 0, SDL_ALPHA_TRANSPARENT };
-  SDL_GetRGBA(PixelColor, pSurface->format, &Color.r, &Color.g, &Color.b, &Color.a);
+  SDL_GetRGBA(pixel, surface->format, &Color.r, &Color.g, &Color.b, &Color.a);
+  
   return Color;
 }
