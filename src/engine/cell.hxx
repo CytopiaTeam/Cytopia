@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <map>
+#include <cmath>
 
 #include "SDL2/SDL.h"
 
@@ -34,6 +35,7 @@ public:
   void decreaseHeight();
 
   void setTileID(int tileID);
+  int getTileID();
 
 private:
   Point _isoCoordinates;
@@ -49,15 +51,17 @@ private:
   int _tileID;
   int _maxCellHeight = 32;
 
-  // Bitmask for neighbor positions
-  // [ T B L R ]
-  // [ 0 0 0 0 ]
+  int _z;
 
-  // Our neighbor tiles look like this
-  // 2 5 8  
-  // 1 X 7
-  // 0 3 6
+  /** Enum (bitmask) for mapping neighbor tile positions
+  * [ T B L R TL TR BL BR ]
+  * [ 0 0 0 0  0  0  0  0 ]
 
+  * Our neighbor tiles look like this
+  * 2 5 8  
+  * 1 X 7
+  * 0 3 6
+  */
   
   enum elevatedTilePosition : unsigned int{
        NO_NEIGHBORS = 0x0,
@@ -71,11 +75,11 @@ private:
        ELEVATED_BOTTOM_RIGHT = 0x80,
   };
 
-
+  /** UInt to elevate store tile position in */
   unsigned int _elevatedTilePosition;
 
 
-  // Map neighbor tile combinations to tile ID for keytiles.
+  /** Map neighbor tile combinations to tile ID for terrain keytiles. */
   std::map<unsigned int, int> keyTileMap =
   {
     { NO_NEIGHBORS, 14 },

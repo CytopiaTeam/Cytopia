@@ -1,5 +1,5 @@
 #include "resources.hxx"
-
+#include "../engine.hxx"
 
 // Instantiate static variables
 SDL_Renderer* Resources::_renderer = nullptr;
@@ -66,22 +66,9 @@ int Resources::getTileSize()
   return _TILE_SIZE;
 }
 
-Point Resources::convertScreenToIsoCoordinates(Point screenCoordinates, bool calcWithoutOffset)
+Point Resources::convertScreenToIsoCoordinates(Point screenCoordinates)
 {
-  // TODO: Bug: This does not work for tiles with increased height right now.
-  int x, y;
-
-  if (calcWithoutOffset)
-  {
-    x = (screenCoordinates.getX() + 2.0 * (screenCoordinates.getY())) / (_TILE_SIZE * _zoomLevel) - 1.5;
-    y = (screenCoordinates.getX() - 2.0 * (screenCoordinates.getY())) / (_TILE_SIZE * _zoomLevel) + 1.5;
-  }
-  else
-  {
-    x = (screenCoordinates.getX() + _cameraOffset.getX() + 2.0 * (screenCoordinates.getY() + _cameraOffset.getY())) / (_TILE_SIZE * _zoomLevel) - 1.5;
-    y = (screenCoordinates.getX() + _cameraOffset.getX() - 2.0 * (screenCoordinates.getY() + _cameraOffset.getY())) / (_TILE_SIZE * _zoomLevel) + 1.5;
-  }
-  return Point (x, y);
+  return Engine::Instance().findCellAt(screenCoordinates);
 }
 
 Point Resources::convertIsoToScreenCoordinates(Point isoCoordinates, bool calcWithoutOffset)
@@ -163,14 +150,11 @@ std::string Resources::getTileDataFromJSON(std::string tileType, int tileID, std
   {
     if ( it.key() == tileType ) 
     {
-      // Debug Output for json file
-      
-      // This retrieves more then just the filename value
-      std::string retrievedFileName = _json[it.key()][std::to_string(tileID)]["filename"].get<std::string>();
-      //std::cout << "Retrieved Filename of Tile " << tileID << std::endl << "\t" << retrievedFileName;
-      return retrievedFileName;
+      // more json stuff later...
     }
   }
+  std::string retrievedFileName = _json[tileType][std::to_string(tileID)]["filename"].get<std::string>();
+  return retrievedFileName;
 }
 
 void Resources::readJSONFile()

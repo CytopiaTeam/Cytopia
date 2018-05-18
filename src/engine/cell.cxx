@@ -191,10 +191,10 @@ void Cell::determineTile()
 void Cell::setTileID(int tileID)
 {
   _sprite->changeTexture(_tileID);
-  // -----------------------------
-  // REMOVE THIS COMMENTS
-  // 35 MB Ram before without any terrain raising
   _tileID = tileID;
 }
 
-
+int Cell::getTileID()
+{
+  return _tileID;
+}

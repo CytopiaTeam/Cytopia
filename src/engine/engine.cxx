@@ -20,12 +20,15 @@ Engine::Engine()
   _centerIsoCoordinates = Point(_width / 2, _height / 2);
   centerScreenOnPoint(_centerIsoCoordinates);
 
+  int z = 0;
+
   // initialize cell Matrix
   for (int x = 0; x <= _width; x++)
   {
     for (int y = _height; y >= 0; y--)
     {
-      Cell* mapCell = new Cell(Point(x, y));
+      z++;
+      Cell* mapCell = new Cell(Point(x, y, z));
       _floorCellMatrix.addCell(x, y, mapCell);
     }
   }
@@ -128,5 +131,62 @@ void Engine::decreaseZoomLevel()
   {
     Resources::setZoomLevel(_zoomLevel - 0.25);
     centerScreenOnPoint(_centerIsoCoordinates);
+  }
+}
+
+Point Engine::findCellAt(Point screenCoordinates)
+{
+  Point foundCoordinates = Point(-1, -1);
+ 
+  // check all cells of the map to find the clicked point
+  for (int x = 0; x <= _width; x++)
+  {
+    for (int y = _height; y >= 0; y--)
+    {
+      Cell* currentCell = _floorCellMatrix.getCell(x, y);
+
+      SDL_Rect spriteRect = currentCell->getSprite()->textureInformation();
+      float zoomLevel = Resources::getZoomLevel();
+      int offsetX = Resources::getCameraOffset().getX();
+      int offsetY = Resources::getCameraOffset().getX();
+
+      int clickedX = screenCoordinates.getX() ;
+      int clickedY = screenCoordinates.getY() ;
+
+      int spriteX = spriteRect.x;
+      int spriteY = spriteRect.y;
+
+      if ( clickedX >= spriteX && clickedX < spriteX + spriteRect.w  
+      &&   clickedY >= spriteY && clickedY < spriteY + spriteRect.h )
+      {
+        // Calculate the position of the clicked pixel within the surface
+        int pixelX = (clickedX - spriteX );
+        int pixelY = (clickedY - spriteY );
+        // "un-zoom" the positon to match the un-adjusted surface
+        pixelX /= _zoomLevel;
+        pixelY /= _zoomLevel;
+
+        SDL_Surface* surface = TextureManager::Instance().getSurface(currentCell->getTileID());
+
+        // Check if the clicked Sprite is not transparent (we hit a point within the pixel)
+        if (TextureManager::Instance().GetPixelColor(currentCell->getTileID(), pixelX, pixelY).a != SDL_ALPHA_TRANSPARENT)
+        {
+          if (foundCoordinates.getZ() < currentCell->getCoordinates().getZ())
+          {
+            foundCoordinates = currentCell->getCoordinates();
+          }
+        }
+      }
+    }
+  }
+  // Check if the found sprite is still within the map (e.g. hitbox of the sprite is bigger then the tile and outside of the map)
+  if (checkBoundaries(foundCoordinates))
+    return foundCoordinates;
+  else
+  {
+    std::cerr << "ERROR: The function findCellAt(Point screenCoordinates) did not find a cell at "
+      << screenCoordinates.getX() << ", " << screenCoordinates.getY() << std::endl
+      << "\tPlease submit a bugreport.";
+    return Point (0, 0);
   }
 }

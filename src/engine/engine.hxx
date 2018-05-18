@@ -13,8 +13,16 @@
 class Engine
 {
 public:
-  Engine();
-  virtual ~Engine() { };
+
+  /// Retrieves Instance of Singleton class Texture Manager
+  static Engine& Instance() {
+    static Engine instance;
+    return instance;
+  }
+
+  // Disable copy and assignemnt operators
+  Engine(Engine const&) = delete;
+  Engine& operator=(Engine const&) = delete;
 
   // Map Size
   int _width = 16;
@@ -22,8 +30,7 @@ public:
 
   void parseMapFile();
 
-  /**Renders each Map Cell
-  */
+  /** Renders the sprites in each Map Cell */
   void render();
 
   bool checkBoundaries(Point isoCoordinates);
@@ -31,12 +38,24 @@ public:
   void enableLayer(unsigned int layer);
   void disableLayer(unsigned int layer);
   void toggleLayer(unsigned int layer);
+  /** Increases height of a tile at given iso coordinates.
+  */
   void increaseHeight(Point isoCoordinates);
+  /** Decreases height of a tile at given iso coordinates.
+  */
   void decreaseHeight(Point isoCoordinates);
   void increaseZoomLevel();
   void decreaseZoomLevel();
 
+  /** Returns a Cell at given screen coordinates, determined by pixel collison and Z-Order
+  * @param screenCoordinates   Point Oject - Mouseclick coordinates in screen Format
+  * @return Isocoordinates of the tile that has been found
+  **/
+  Point findCellAt(Point screenCoordinates);
 private:
+  Engine();
+  virtual ~Engine() { };
+
   SDL_Renderer *_renderer;
   SDL_Window *_window;
 

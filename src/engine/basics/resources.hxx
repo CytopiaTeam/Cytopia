@@ -12,6 +12,8 @@
 // Namespace from json library - https://github.com/nlohmann/json
 using json = nlohmann::json;
 
+//forward declare Engine class (prevent cross includes)
+class Engine;
 
 class Resources
 {
@@ -29,7 +31,7 @@ public:
   static int getTileSize();
 
   // Public functions
-  static Point convertScreenToIsoCoordinates(Point screenCoordinates, bool calcWithoutOffset = false);
+  static Point convertScreenToIsoCoordinates(Point screenCoordinates);
   static Point convertIsoToScreenCoordinates(Point isoCoordinates, bool calcWithoutOffset = false);
 
   static void setTerrainEditMode(int editMode);

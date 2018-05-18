@@ -50,12 +50,11 @@ void Sprite::changeTexture(int tileID)
 
 void Sprite::renderTexture(int w, int h)
 {
-  SDL_Rect destRect;
-  destRect.x = _screenCoordinates.getX();
-  destRect.y = _screenCoordinates.getY();
-  destRect.w = w;
-  destRect.h = h;
-  SDL_RenderCopy(_renderer, _texture, nullptr, &destRect);
+  _destRect.x = _screenCoordinates.getX();
+  _destRect.y = _screenCoordinates.getY();
+  _destRect.w = w;
+  _destRect.h = h;
+  SDL_RenderCopy(_renderer, _texture, nullptr, &_destRect);
 }
 
 void Sprite::renderTexture()
@@ -63,4 +62,9 @@ void Sprite::renderTexture()
   int width, height;
   SDL_QueryTexture(_texture, NULL, NULL, &width, &height);
   renderTexture(width, height);
+}
+
+SDL_Rect Sprite::textureInformation()
+{
+  return _destRect;
 }
