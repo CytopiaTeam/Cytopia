@@ -12,6 +12,8 @@
 // Namespace from json library - https://github.com/nlohmann/json
 using json = nlohmann::json;
 
+//forward declare Engine class (prevent cross includes)
+class Engine;
 
 class Resources
 {

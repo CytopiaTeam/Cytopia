@@ -13,12 +13,18 @@
 class Engine
 {
 public:
-  Engine();
-  virtual ~Engine() { };
+  // Singleton
+  static Engine& Instance() {
+    static Engine instance;
+    return instance;
+  }
 
+  // Disable copy and assignemnt operators
+  Engine(Engine const&) = delete;
+  Engine& operator=(Engine const&) = delete;
   // Map Size
-  int _width = 256;
-  int _height = 256;
+  int _width = 16;
+  int _height = 16;
 
   void parseMapFile();
 
@@ -31,7 +37,11 @@ public:
   void enableLayer(unsigned int layer);
   void disableLayer(unsigned int layer);
   void toggleLayer(unsigned int layer);
+  /** Increases height of a tile at given iso coordinates.
+  */
   void increaseHeight(Point isoCoordinates);
+  /** Decreases height of a tile at given iso coordinates.
+  */
   void decreaseHeight(Point isoCoordinates);
   void increaseZoomLevel();
   void decreaseZoomLevel();
@@ -42,6 +52,9 @@ public:
   **/
   Point findCellAt(Point screenCoordinates);
 private:
+  Engine();
+  virtual ~Engine() { };
+
   SDL_Renderer *_renderer;
   SDL_Window *_window;
 

@@ -14,7 +14,7 @@ int main(int, char**)
   bool fullscreen = false;
 
   Window window("Isometric Engine", screen_height, screen_width);
-  Engine engine;
+  Engine& engine = Engine::Instance();
   Point clickCoords, mouseCoords;
   SDL_Event event;
 
@@ -63,8 +63,12 @@ int main(int, char**)
             window.toggleFullScreen();
             break;
         }
+        break;
       case SDL_MOUSEBUTTONDOWN:
         mouseCoords.setCoords(event.button.x, event.button.y);
+        LAST = NOW;
+        NOW = SDL_GetPerformanceCounter();
+
         clickCoords = Resources::convertScreenToIsoCoordinates(mouseCoords);
         if ( event.button.button == SDL_BUTTON_LEFT )
         {
@@ -73,17 +77,7 @@ int main(int, char**)
             if (editMode)
               engine.increaseHeight(clickCoords);
             else
-
-              LAST = NOW;
-            NOW = SDL_GetPerformanceCounter();
-              engine.findCellAt(mouseCoords);
-              LAST = NOW;
-              NOW = SDL_GetPerformanceCounter();
-
-              deltaTime = (double)((NOW - LAST) * 1000 / SDL_GetPerformanceFrequency());
-            std::cout << "Took: " << deltaTime << "ms" << std::endl;
-            
-            printf("CLICKED - Iso Coords: %d , %d\n", clickCoords.getX(), clickCoords.getY());
+              printf("CLICKED - Iso Coords: %d , %d\n", clickCoords.getX(), clickCoords.getY());
           }
         }
         if ( event.button.button == SDL_BUTTON_RIGHT )

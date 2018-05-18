@@ -168,27 +168,6 @@ Point Engine::findCellAt(Point screenCoordinates)
 
         SDL_Surface* surface = TextureManager::Instance().getSurface(currentCell->getTileID());
 
-        if (surface != nullptr)
-        {
-
-          // ------- Surface alpha
-
-
-          //SDL_PixelFormat* pixelFormat = surface->format;
-          int bpp = surface->format->BytesPerPixel;
-          Uint8* p = (Uint8*)surface->pixels + pixelX * surface->pitch + pixelX * bpp;
-          // ! here the game crashes
-          //Uint32 pixelColor = { 0x00, 0x00, 0x00, SDL_ALPHA_OPAQUE };
-          //Uint32 pixelColor = *p;
-          //int pitch = surface->pitch ;
-          //int pitch = surface->pitch * _zoomLevel;
-          //Uint8*	pPixel = (Uint8*)surface->pixels + pixelY * pitch + pixelY * bpp;
-          //Uint32	pixelColor = (Uint32)pPixel;
-
-          SDL_Color Color = { 0x00, 0x00, 0x00, SDL_ALPHA_OPAQUE };
-          Uint8 red, green, blue, alpha;
-        }
-
         // Check if the clicked Sprite is not transparent (we hit a point within the pixel)
         if (TextureManager::Instance().GetPixelColor(currentCell->getTileID(), pixelX, pixelY).a != SDL_ALPHA_TRANSPARENT)
         {

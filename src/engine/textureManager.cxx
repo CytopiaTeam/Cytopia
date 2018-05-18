@@ -19,7 +19,6 @@ void TextureManager::loadTexture(int tileID, bool colorKey)
 
     _surfaceMap[tileID] = loadedImage;
     SDL_Texture* _texture = SDL_CreateTextureFromSurface(_renderer, loadedImage);
-    //SDL_FreeSurface(loadedImage);
 
     if ( _texture != nullptr )
       _textureMap[tileID] = _texture;
@@ -49,7 +48,6 @@ SDL_Surface* TextureManager::getSurface(int tileID)
     std::cerr << "EMPTY SURFACE at TILE ID " << tileID << std::endl;
 }
 
-
 SDL_Color TextureManager::GetPixelColor(int tileID, int X, int Y)
 {
   SDL_Surface* pSurface = _surfaceMap[tileID];
@@ -63,50 +61,4 @@ SDL_Color TextureManager::GetPixelColor(int tileID, int X, int Y)
   SDL_Color Color = { 0, 0, 0, SDL_ALPHA_TRANSPARENT };
   SDL_GetRGBA(PixelColor, pSurface->format, &Color.r, &Color.g, &Color.b, &Color.a);
   return Color;
-}
-
-
-// THIS WORKS!!!!!!!!!!!!!!
-bool TextureManager::isPixelTransparent(int tileID, int ScreenX, int ScreenY)
-{
-
-  SDL_Texture* tex = _textureMap[tileID];
-
-  // texture rect
-  int width, height;
-  SDL_Rect spriteInformation;
-  SDL_QueryTexture(_textureMap[tileID], NULL, NULL, &width, &height);
-  
-  int X = ScreenX;
-  int Y = ScreenY;
-  //int X = ScreenX - spriteInformation.x;
-  //int Y = ScreenY - spriteInformation.y;
-  
-  //std::cout << "X = " << X << "and rect X = " << spriteInformation.x << std::endl;
-  //std::cout << "Y = " << X << "and rect Y = " << spriteInformation.y <<  std::endl;
-
-  //int x = clickedCoords.getX();
-  //int y = clickedCoords.getY();
-
-  SDL_Surface* pSurface = _surfaceMap[tileID];
-
-  //if (x >= myRect.x && x < (myRect.x + myRect.w))
-
-  int      Bpp = pSurface->format->BytesPerPixel;
-  Uint8*   pPixel = (Uint8*)pSurface->pixels + Y * pSurface->pitch + X * Bpp;
-
-  Uint32 PixelColor = *(Uint32*)pPixel;
-
-  SDL_Color Color = { 0, 0, 0, 0 };
-  Uint8 Alpha = SDL_ALPHA_OPAQUE;
-
-  SDL_GetRGBA(PixelColor, pSurface->format, &Color.r, &Color.g, &Color.b, &Alpha);
-
-  std::cout << "Pixel Color = " << (int)Color.r << "," << (int)Color.g << "," << (int)Color.b << std::endl ;
-  std::cout << "Pixel Alpha detected = " << (int)Alpha << std::endl;
-
-  if (Color.a == SDL_ALPHA_TRANSPARENT)
-    return true;
-  else
-    return false;
 }

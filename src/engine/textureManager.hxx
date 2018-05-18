@@ -15,7 +15,7 @@ class TextureManager
 {
 public:
 
-  // Singleton
+  /// Retrieves Instance of Singleton class Texture Manager
   static TextureManager& Instance() {
     static TextureManager instance;
     return instance;
@@ -30,9 +30,8 @@ public:
 
   SDL_Surface * getSurface(int tileID);
 
+  /** Retrieves Color of a specific tileID at coordinates with the texture */
   SDL_Color GetPixelColor(int tileID,  int X, int Y);
-
-  bool isPixelTransparent(int tileID, int X, int Y);
 
   std::unordered_map<int, SDL_Texture*> _textureMap;
   /** Keep surfaces in map for collision detection when selecting tiles*/
