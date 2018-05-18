@@ -18,7 +18,7 @@ public:
   void render();
   void setTileIsoCoordinates(Point isoCoords);
   void changeTexture(int tileID);
-  SDL_Rect Sprite::textureInformation();
+  SDL_Rect textureInformation();
   
 
 private:
