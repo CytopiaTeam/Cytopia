@@ -36,7 +36,11 @@ public:
   void increaseZoomLevel();
   void decreaseZoomLevel();
 
-  void clickCell(Point screenCoordinates);
+  /** Returns a Cell at given screen coordinates, determined by pixel collison and Z-Order
+  * @param screenCoordinates   Point Oject - Mouseclick coordinates in screen Format
+  * @return Isocoordinates of the tile that has been found
+  **/
+  Point findCellAt(Point screenCoordinates);
 private:
   SDL_Renderer *_renderer;
   SDL_Window *_window;

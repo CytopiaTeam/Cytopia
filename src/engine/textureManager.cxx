@@ -55,25 +55,13 @@ SDL_Color TextureManager::GetPixelColor(int tileID, int X, int Y)
   SDL_Surface* pSurface = _surfaceMap[tileID];
   SDL_UnlockSurface(pSurface);
   int      Bpp = pSurface->format->BytesPerPixel;
-  //int pitch = pSurface->pitch;
-  //int pitch = pSurface->pitch;
-  //pSurface->pitch *= Resources::getZoomLevel();
-  //pSurface->h *= Resources::getZoomLevel();
-  //pSurface->w *= Resources::getZoomLevel();
-  //pSurface->clip_rect.h *= Resources::getZoomLevel();
-  //pSurface->clip_rect.w *= Resources::getZoomLevel();
-  //pSurface->format->BitsPerPixel *= Resources::getZoomLevel();
   Uint8*   pPixel = (Uint8*)pSurface->pixels + Y * pSurface->pitch+ X * Bpp ;
     
   Uint32 pixelColor;
-
-  //Uint8 *colors = (Uint8*)&getPixel; // Note the &
-
   Uint32 PixelColor = *(Uint32*)pPixel;
 
   SDL_Color Color = { 0, 0, 0, SDL_ALPHA_TRANSPARENT };
   SDL_GetRGBA(PixelColor, pSurface->format, &Color.r, &Color.g, &Color.b, &Color.a);
-  std::cout << "aaaa";
   return Color;
 }
 

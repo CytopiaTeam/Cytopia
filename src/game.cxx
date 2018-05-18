@@ -76,7 +76,7 @@ int main(int, char**)
 
               LAST = NOW;
             NOW = SDL_GetPerformanceCounter();
-              engine.clickCell(mouseCoords);
+              engine.findCellAt(mouseCoords);
               LAST = NOW;
               NOW = SDL_GetPerformanceCounter();
 

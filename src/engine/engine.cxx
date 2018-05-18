@@ -134,7 +134,7 @@ void Engine::decreaseZoomLevel()
   }
 }
 
-void Engine::clickCell(Point clickedCoords)
+Point Engine::findCellAt(Point screenCoordinates)
 {
   Point foundCoordinates = Point(-1, -1);
  
@@ -150,8 +150,8 @@ void Engine::clickCell(Point clickedCoords)
       int offsetX = Resources::getCameraOffset().getX();
       int offsetY = Resources::getCameraOffset().getX();
 
-      int clickedX = clickedCoords.getX() ;
-      int clickedY = clickedCoords.getY() ;
+      int clickedX = screenCoordinates.getX() ;
+      int clickedY = screenCoordinates.getY() ;
 
       int spriteX = spriteRect.x;
       int spriteY = spriteRect.y;
@@ -180,10 +180,10 @@ void Engine::clickCell(Point clickedCoords)
           // ! here the game crashes
           //Uint32 pixelColor = { 0x00, 0x00, 0x00, SDL_ALPHA_OPAQUE };
           //Uint32 pixelColor = *p;
-          int pitch = surface->pitch ;
+          //int pitch = surface->pitch ;
           //int pitch = surface->pitch * _zoomLevel;
-          Uint8*	pPixel = (Uint8*)surface->pixels + pixelY * pitch + pixelY * bpp;
-          Uint32	pixelColor = (Uint32)pPixel;
+          //Uint8*	pPixel = (Uint8*)surface->pixels + pixelY * pitch + pixelY * bpp;
+          //Uint32	pixelColor = (Uint32)pPixel;
 
           SDL_Color Color = { 0x00, 0x00, 0x00, SDL_ALPHA_OPAQUE };
           Uint8 red, green, blue, alpha;
@@ -202,5 +202,12 @@ void Engine::clickCell(Point clickedCoords)
   }
   // Check if the found sprite is still within the map (e.g. hitbox of the sprite is bigger then the tile and outside of the map)
   if (checkBoundaries(foundCoordinates))
-    std::cout << "The Cell, that was clicked is " << foundCoordinates.getX() << " , " << foundCoordinates.getY() << std::endl;
+    return foundCoordinates;
+  else
+  {
+    std::cerr << "ERROR: The function findCellAt(Point screenCoordinates) did not find a cell at "
+      << screenCoordinates.getX() << ", " << screenCoordinates.getY() << std::endl
+      << "\tPlease submit a bugreport.";
+    return Point (0, 0);
+  }
 }
