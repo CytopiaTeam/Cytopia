@@ -66,20 +66,9 @@ int Resources::getTileSize()
   return _TILE_SIZE;
 }
 
-Point Resources::convertScreenToIsoCoordinates(Point screenCoordinates, bool calcWithoutOffset)
+Point Resources::convertScreenToIsoCoordinates(Point screenCoordinates)
 {
-  Point isoCoordinates;
-
-  if (calcWithoutOffset)
-  {
-    isoCoordinates.setX((screenCoordinates.getX() + 2.0 * (screenCoordinates.getY())) / (_TILE_SIZE * _zoomLevel) - 1.5);
-    isoCoordinates.setY((screenCoordinates.getX() - 2.0 * (screenCoordinates.getY())) / (_TILE_SIZE * _zoomLevel) + 1.5);
-  }
-  else
-  {
-    isoCoordinates = Engine::Instance().findCellAt(screenCoordinates);
-  }
-  return isoCoordinates;
+  return Engine::Instance().findCellAt(screenCoordinates);
 }
 
 Point Resources::convertIsoToScreenCoordinates(Point isoCoordinates, bool calcWithoutOffset)
