@@ -269,13 +269,13 @@ bool Cell::isInRect(Point clickedCoords)
 
 
   //SDL_PixelFormat* pixelFormat = surface->format;
-  int bpp = surface->format->BytesPerPixel;
-  Uint8* p = (Uint8*)surface->pixels + pixelX * surface->pitch + pixelX * bpp;
+  //int bpp = surface->format->BytesPerPixel;
+  //Uint8* p = (Uint8*)surface->pixels + pixelX * surface->pitch + pixelX * bpp;
   // ! here the game crashes
   //Uint32 pixelColor = { 0x00, 0x00, 0x00, SDL_ALPHA_OPAQUE };
   //Uint32 pixelColor = *p;
-  Uint8*	pPixel = (Uint8*)surface->pixels + pixelY * surface->pitch + pixelY * bpp;
-  Uint32	pixelColor = (Uint32)pPixel;
+  //Uint8*	pPixel = (Uint8*)surface->pixels + pixelY * surface->pitch + pixelY * bpp;
+  //Uint32	pixelColor = (Uint32)pPixel;
 
 
 
@@ -285,7 +285,7 @@ bool Cell::isInRect(Point clickedCoords)
   Uint8 red, green, blue, alpha;
 
   // this function fails, sometimes the game crashes here
-  SDL_GetRGBA(pixelColor, surface->format, &Color.r, &Color.g, &Color.b, &Color.a);
+  //SDL_GetRGBA(pixelColor, surface->format, &Color.r, &Color.g, &Color.b, &Color.a);
 
   // ---------------
 

@@ -25,9 +25,7 @@ public:
   TextureManager(TextureManager const&) = delete;
   TextureManager& operator=(TextureManager const&) = delete;
 
-  /**
-  retrieves texture for a tileID
-  */
+  /** retrieves texture for a tileID */
   SDL_Texture* getTexture(int tileID);
 
   SDL_Surface * getSurface(int tileID);
