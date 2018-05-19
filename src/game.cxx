@@ -6,7 +6,7 @@ int main(int, char**)
   LOG().timerStart();
   Resources::init();
 
-  Window window("Isometric Engine");
+  WindowManager window("Isometric Engine");
   Engine& engine = Engine::Instance();
   LOG().timerEnd();
   LOG() << "Tile Matrix initialized";
@@ -84,7 +84,6 @@ int main(int, char**)
             if (editMode)
               engine.increaseHeight(clickCoords);
             else
-              //LOG() << "CLICKED - Iso Coords: %d , %d\n";
               LOG() << "CLICKED - Iso Coords: " << clickCoords.getX() << ", " << clickCoords.getY();
           }
         }

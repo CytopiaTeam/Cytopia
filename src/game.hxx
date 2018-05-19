@@ -7,12 +7,11 @@
 
 #include "SDL2/SDL.h"
 
-#include "engine/window.hxx"
-#include "engine/sprite.hxx"
+#include "engine/windowManager.hxx"
 #include "engine/engine.hxx"
 #include "engine/basics/point.hxx"
 #include "engine/basics/resources.hxx"
-//#include "engine/basics/log.hxx"
+#include "engine/basics/log.hxx"
 
 
 bool editMode;
