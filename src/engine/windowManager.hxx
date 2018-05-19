@@ -9,10 +9,10 @@
 #include "basics/resources.hxx"
 
 
-class Window {
+class WindowManager {
   public:
-    Window(const std::string &title);
-    ~Window();
+    WindowManager(const std::string &title);
+    ~WindowManager();
     
     inline bool isClosed() const { return _closed; }
     void close() { _closed = true; }

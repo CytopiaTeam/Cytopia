@@ -24,10 +24,6 @@ public:
   Engine(Engine const&) = delete;
   Engine& operator=(Engine const&) = delete;
 
-  // Map Size
-  int _width = 16;
-  int _height = 16;
-
   void parseMapFile();
 
   /** Renders the sprites in each Map Cell */

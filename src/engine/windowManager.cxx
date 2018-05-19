@@ -1,6 +1,6 @@
-#include "window.hxx"
+#include "windowManager.hxx"
 
-Window::Window(const std::string &title)
+WindowManager::WindowManager(const std::string &title)
 {
   _title = title;
   _width = Resources::settings.screenWidth;
@@ -8,14 +8,14 @@ Window::Window(const std::string &title)
   _closed = !init();
 }
 
-Window::~Window()
+WindowManager::~WindowManager()
 {
   SDL_DestroyRenderer(_renderer);
   SDL_DestroyWindow(_window);
   SDL_Quit();
 }
 
-bool Window::init()
+bool WindowManager::init()
 {
   if ( SDL_Init(SDL_INIT_VIDEO != 0) )
   {
@@ -49,7 +49,7 @@ bool Window::init()
   return true;
 }
 
-void Window::toggleFullScreen()
+void WindowManager::toggleFullScreen()
 {
   Resources::settings.fullScreen = !Resources::settings.fullScreen;
 

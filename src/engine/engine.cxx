@@ -6,13 +6,14 @@ Engine::Engine()
   
   _renderer = Resources::getRenderer();
   _window = Resources::getWindow();
+  _map_size = Resources::settings.mapSize;
+
   _floorCellMatrix = vectorMatrix(_map_size, _map_size);
   _zoomLevel = Resources::getZoomLevel();
 
   // Default: Floor and Buildings are drawn
   _activeLayers = LAYER_FLOOR | LAYER_BUILDINGS;
 
-  _map_size = Resources::settings.mapSize;
   _screen_height = Resources::settings.screenHeight;
   _screen_width = Resources::settings.screenWidth;
 

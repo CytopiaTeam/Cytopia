@@ -1,0 +1,13 @@
+{
+    "Game": {
+        "MapSize": 32
+    },
+    "Graphics": {
+        "FullScreen": false,
+        "Resolution": {
+            "Height": 600,
+            "Width": 800
+        },
+        "VSYNC": false
+    }
+}
