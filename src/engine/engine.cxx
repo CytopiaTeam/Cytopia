@@ -6,26 +6,26 @@ Engine::Engine()
   
   _renderer = Resources::getRenderer();
   _window = Resources::getWindow();
-    
-  _floorCellMatrix = vectorMatrix(_width, _height);
+  _floorCellMatrix = vectorMatrix(_map_size, _map_size);
   _zoomLevel = Resources::getZoomLevel();
 
   // Default: Floor and Buildings are drawn
   _activeLayers = LAYER_FLOOR | LAYER_BUILDINGS;
 
-
-  SDL_GetWindowSize(_window, &_screen_width, &_screen_height);
+  _map_size = Resources::settings.mapSize;
+  _screen_height = Resources::settings.screenHeight;
+  _screen_width = Resources::settings.screenWidth;
 
   // set camera to map center
-  _centerIsoCoordinates = Point(_width / 2, _height / 2);
+  _centerIsoCoordinates = Point(_map_size / 2, _map_size / 2);
   centerScreenOnPoint(_centerIsoCoordinates);
 
   int z = 0;
 
   // initialize cell Matrix
-  for (int x = 0; x <= _width; x++)
+  for (int x = 0; x <= _map_size; x++)
   {
-    for (int y = _height; y >= 0; y--)
+    for (int y = _map_size; y >= 0; y--)
     {
       z++;
       Cell* mapCell = new Cell(Point(x, y, z));
@@ -45,9 +45,9 @@ void Engine::render()
   int y = 0;
   int x = 0;
 
-  for (int x = 0; x <= _width; x++)
+  for (int x = 0; x <= _map_size; x++)
   {
-    for (int y = _height; y >= 0; y--)
+    for (int y = _map_size; y >= 0; y--)
     {
       // Layer 0 - floor
       if ( _activeLayers & LAYER_FLOOR )
@@ -76,7 +76,7 @@ void Engine::centerScreenOnPoint(Point isoCoordinates)
 
 bool Engine::checkBoundaries(Point isoCoordinates)
 {
-  if ( (isoCoordinates.getX() >= 0 && isoCoordinates.getX() <= _width) && (isoCoordinates.getY() >= 0 && isoCoordinates.getY() <= _height) )
+  if ( (isoCoordinates.getX() >= 0 && isoCoordinates.getX() <= _map_size) && (isoCoordinates.getY() >= 0 && isoCoordinates.getY() <= _map_size) )
     return true;
   else
     return false;
@@ -139,9 +139,9 @@ Point Engine::findCellAt(Point screenCoordinates)
   Point foundCoordinates = Point(-1, -1);
  
   // check all cells of the map to find the clicked point
-  for (int x = 0; x <= _width; x++)
+  for (int x = 0; x <= _map_size; x++)
   {
-    for (int y = _height; y >= 0; y--)
+    for (int y = _map_size; y >= 0; y--)
     {
       Cell* currentCell = _floorCellMatrix.getCell(x, y);
 

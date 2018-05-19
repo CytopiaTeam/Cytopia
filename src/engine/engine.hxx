@@ -59,6 +59,7 @@ private:
   SDL_Renderer *_renderer;
   SDL_Window *_window;
 
+  int _map_size;
   int _screen_width;
   int _screen_height;
   int TILE_SIZE;

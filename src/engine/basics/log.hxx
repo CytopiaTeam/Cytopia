@@ -8,7 +8,7 @@
 #include <chrono>
 #include <sstream>
 
-#include "SDL2\SDL.h"
+#include "SDL2/SDL.h"
 
 enum logType {
   LOG_INFO,

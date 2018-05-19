@@ -4,13 +4,9 @@
 int main(int, char**)
 {
   LOG().timerStart();
-  Resources::readJSONFile();
+  Resources::init();
 
-  int screen_height = 800;
-  int screen_width = 600;
-  bool fullscreen = false;
-
-  Window window("Isometric Engine", screen_height, screen_width);
+  Window window("Isometric Engine");
   Engine& engine = Engine::Instance();
   LOG().timerEnd();
   LOG() << "Tile Matrix initialized";
@@ -56,7 +52,13 @@ int main(int, char**)
             engine.toggleLayer(Engine::LAYER_SELECTION);
             break;
           
+          case SDLK_w:
+            // just for debug 
+            Resources::generateINIFile();
+            break;
+
           case SDLK_j:
+            // just for debug 
             Resources::generateJSONFile();
             break;
           

@@ -1,10 +1,11 @@
 #include "window.hxx"
 
-Window::Window(const std::string &title, int width, int height) :
-_title(title), _width(width), _height(height)
+Window::Window(const std::string &title)
 {
+  _title = title;
+  _width = Resources::settings.screenWidth;
+  _height = Resources::settings.screenHeight;
   _closed = !init();
-  _isFullScreen = false;
 }
 
 Window::~Window()
@@ -50,9 +51,9 @@ bool Window::init()
 
 void Window::toggleFullScreen()
 {
-  _isFullScreen = !_isFullScreen;
+  Resources::settings.fullScreen = !Resources::settings.fullScreen;
 
-  if (_isFullScreen)
+  if (Resources::settings.fullScreen)
   {
     SDL_SetWindowFullscreen(_window, SDL_WINDOW_FULLSCREEN);
   }

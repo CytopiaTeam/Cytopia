@@ -17,6 +17,7 @@ class Engine;
 class Resources
 {
 public:
+  static void init();
   static SDL_Renderer* getRenderer();
   static void setRenderer(SDL_Renderer* renderer);
   static SDL_Window* getWindow();
@@ -39,7 +40,9 @@ public:
   // JSON Functions
   static void generateJSONFile();
   static std::string getTileDataFromJSON(std::string tileType, int tileID, std::string attributes);
-  static void readJSONFile();
+  static void readTileListFile();
+
+  static void generateINIFile();
 
   enum terrainEditMode : int
   {
@@ -50,10 +53,20 @@ public:
 
   static int _terrainEditMode;
 
+  typedef struct
+  {
+    int screenWidth;
+    int screenHeight;
+    bool vSync;
+    bool fullScreen;
+    int mapSize;
+  }Settings;
+
+  static Settings settings;
 
 private:
-  Resources();
-  ~Resources();
+  Resources() { };
+  ~Resources() { };
 
   static SDL_Renderer* _renderer;
   static SDL_Window* _window;
@@ -64,6 +77,10 @@ private:
   static const int _TILE_SIZE;
 
   static json _json;
+  static json _iniFile;
+
+  static void readINIFile();
+
 };
 
 #endif

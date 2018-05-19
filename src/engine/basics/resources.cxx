@@ -9,16 +9,14 @@ Point Resources::_cameraOffset;
 const int Resources::_TILE_SIZE = 32;
 int Resources::_terrainEditMode = Resources::NO_TERRAIN_EDIT;
 json Resources::_json;
+json Resources::_iniFile;
+Resources::Settings Resources::settings;
 
 
-Resources::Resources()
+void Resources::init()
 {
-
-}
-
-Resources::~Resources()
-{
-
+  readINIFile();
+  readTileListFile();
 }
 
 SDL_Renderer* Resources::getRenderer()
@@ -157,8 +155,62 @@ std::string Resources::getTileDataFromJSON(std::string tileType, int tileID, std
   return retrievedFileName;
 }
 
-void Resources::readJSONFile()
+void Resources::readTileListFile()
 {
-  std::ifstream i("resources/tileList.json");
+  std::string tileListFile = "resources/tileList.json";
+  std::ifstream i(tileListFile);
+  if (i.fail())
+  {
+    LOG(LOG_ERROR) << "File " << tileListFile << " does not exist! Cannot load settings from INI File!";
+    // Application should quit here, without settings from the tileList file we can't continue
+    return;
+  }
+
   i >> _json;
+}
+
+// Ini File Handling
+
+void Resources::generateINIFile()
+{
+  json iniFile;
+
+  iniFile["Graphics"]["Resolution"]["Width"] = 800;
+  iniFile["Graphics"]["Resolution"]["Height"] = 600;
+  iniFile["Graphics"]["VSYNC"] = false;
+  iniFile["Graphics"]["FullScreen"] = false;
+  iniFile["Game"]["MapSize"] = 32;
+
+  std::ofstream myJsonFile("resources/settings.json");
+
+  if (myJsonFile.is_open())
+  {
+    myJsonFile << std::setw(4) << iniFile << std::endl;
+    myJsonFile.close();
+  }
+  else
+  {
+    printf("ERROR: Couldn't write file \"resources/iniFile.json\"");
+  }
+}
+
+void Resources::readINIFile()
+{
+  std::string iniFileName = "resources/settings.json";
+  std::ifstream i(iniFileName);
+  if (i.fail())
+  {
+    LOG(LOG_ERROR) << "File " << iniFileName << " does not exist! Cannot load settings from INI File!";
+    // Application should quit here, without settings from the ini file we can't continue
+    return;
+  }
+
+  i >> _iniFile;
+
+  settings.screenWidth = _iniFile["Graphics"]["Resolution"]["Width"].get<int>();
+  settings.screenHeight = _iniFile["Graphics"]["Resolution"]["Height"].get<int>();
+  settings.vSync = _iniFile["Graphics"]["VSYNC"].get<bool>();
+  settings.fullScreen = _iniFile["Graphics"]["FullScreen"].get<bool>();
+  settings.mapSize = _iniFile["Game"]["MapSize"].get<int>();
+
 }

@@ -25,8 +25,8 @@ void Sprite::render()
   _screenCoordinates = Resources::convertIsoToScreenCoordinates(_isoCoordinates);
 
   int offscreenTolerance = 3 * TILE_SIZE * _zoomLevel;
-  int screen_width, screen_height;
-  SDL_GetWindowSize(_window, &screen_width, &screen_height);
+  int screen_width = Resources::settings.screenWidth; 
+  int screen_height = Resources::settings.screenHeight;
 
   //Render only whats visible
   if (( _screenCoordinates.getX() >= 0 - offscreenTolerance )
