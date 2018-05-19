@@ -140,7 +140,7 @@ void Resources::generateJSONFile()
   }
   else
   {
-    printf("ERROR: Couldn't write file \"resources/tileList.json\"");
+    LOG(LOG_ERROR) << "Couldn't write file \"resources/tileList.json\"";
   }
 }
 
@@ -162,5 +162,3 @@ void Resources::readJSONFile()
   std::ifstream i("resources/tileList.json");
   i >> _json;
 }
-
-

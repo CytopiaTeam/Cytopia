@@ -2,12 +2,11 @@
 #define RESOURCES_HXX_
 
 #include <fstream>
-#include <iostream>
 
 #include "SDL2/SDL.h"
 #include "point.hxx"
 #include "../../ThirdParty/json.hxx"
-
+#include "log.hxx"
 
 // Namespace from json library - https://github.com/nlohmann/json
 using json = nlohmann::json;
@@ -68,3 +67,4 @@ private:
 };
 
 #endif
+

@@ -3,6 +3,7 @@
 
 int main(int, char**)
 {
+  LOG().timerStart();
   Resources::readJSONFile();
 
   int screen_height = 800;
@@ -11,9 +12,12 @@ int main(int, char**)
 
   Window window("Isometric Engine", screen_height, screen_width);
   Engine& engine = Engine::Instance();
+  LOG().timerEnd();
+  LOG() << "Tile Matrix initialized";
+
   Point clickCoords, mouseCoords;
   SDL_Event event;
-
+  
   _renderer = Resources::getRenderer();
   _window = Resources::getWindow();
   
@@ -57,7 +61,7 @@ int main(int, char**)
             break;
           
           case SDLK_e:
-            printf("Toggling Edit Mode\n");
+            LOG() << "Toggling Edit Mode\n";
             editMode = !editMode;
             break;
    
@@ -78,7 +82,8 @@ int main(int, char**)
             if (editMode)
               engine.increaseHeight(clickCoords);
             else
-              printf("CLICKED - Iso Coords: %d , %d\n", clickCoords.getX(), clickCoords.getY());
+              //LOG() << "CLICKED - Iso Coords: %d , %d\n";
+              LOG() << "CLICKED - Iso Coords: " << clickCoords.getX() << ", " << clickCoords.getY();
           }
         }
         else if ( event.button.button == SDL_BUTTON_RIGHT )

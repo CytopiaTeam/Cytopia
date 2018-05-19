@@ -179,14 +179,5 @@ Point Engine::findCellAt(Point screenCoordinates)
       }
     }
   }
-  // Check if the found sprite is still within the map (e.g. hitbox of the sprite is bigger then the tile and outside of the map)
-  if (checkBoundaries(foundCoordinates))
-    return foundCoordinates;
-  else
-  {
-    std::cerr << "ERROR: The function findCellAt(Point screenCoordinates) did not find a cell at "
-      << screenCoordinates.getX() << ", " << screenCoordinates.getY() << std::endl
-      << "\tPlease submit a bugreport.";
-    return Point (0, 0);
-  }
+  return foundCoordinates;
 }

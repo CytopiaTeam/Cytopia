@@ -18,7 +18,7 @@ bool Window::init()
 {
   if ( SDL_Init(SDL_INIT_VIDEO != 0) )
   {
-    printf("Failed to Init SDL");
+    LOG(LOG_ERROR) << "Failed to Init SDL\nSDL Error:" << SDL_GetError();
     return 0;
   }
   
@@ -31,7 +31,7 @@ bool Window::init()
   
   if ( _window == nullptr )
   {
-    printf("Failed to Init SDL");
+    LOG(LOG_ERROR) << "Failed to Init SDL\nSDL Error:" << SDL_GetError();
     return 0;
   }
 
@@ -39,7 +39,7 @@ bool Window::init()
 
   if ( _renderer == nullptr )
   {
-	  printf("Failed to create Renderer!");
+	  LOG(LOG_ERROR) << "Failed to create Renderer!\nSDL Error:" << SDL_GetError();
   }
 
   Resources::setWindow(_window);

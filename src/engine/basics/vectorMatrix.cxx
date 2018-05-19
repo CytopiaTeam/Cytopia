@@ -83,9 +83,6 @@ std::vector<Sprite*> vectorMatrix::findNeighbors(int x, int y)
       {
         _neighborCount++;
 
-        // Debug output
-        printf("%d Neighbors at: %d, %d\n", _neighborCount, currentRow, currentColumn);
-
         if ( _matrix[currentRow][currentColumn] != nullptr )
           neighbors.push_back(_matrix[currentRow][currentColumn]);
       }

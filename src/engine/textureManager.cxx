@@ -22,10 +22,10 @@ void TextureManager::loadTexture(int tileID, bool colorKey)
     if ( _texture != nullptr )
       _textureMap[tileID] = _texture;
     else
-      std::cerr << "ERROR: Renderer could not be created! SDL Error: %s\n\t" << SDL_GetError() << std::endl;
+      LOG(LOG_ERROR) << "Renderer could not be created! SDL Error: " << SDL_GetError();
   }
   else
-    std::cerr << "ERROR : Couldn't load Texture from file : " << fileName << std::endl << "\t" << IMG_GetError() << std::endl;
+    LOG(LOG_ERROR) << "Could not load Texture from file " << fileName << "\nSDL_IMAGE Error: " << IMG_GetError();
 }
 
 SDL_Texture* TextureManager::getTexture(int tileID)

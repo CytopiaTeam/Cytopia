@@ -12,6 +12,7 @@
 #include "engine/engine.hxx"
 #include "engine/basics/point.hxx"
 #include "engine/basics/resources.hxx"
+//#include "engine/basics/log.hxx"
 
 
 bool editMode;
