@@ -105,6 +105,7 @@ std::vector<Sprite*> vectorMatrix::findNeighbors(int x, int y)
   std::vector<Cell*> vectorMatrix::getCellNeighbors(int x, int y)
   {
     std::vector<Cell*> neighbors;
+    neighbors.reserve(8);
 
     for (int rowIterator = -1; rowIterator <= 1; rowIterator++)
     {
