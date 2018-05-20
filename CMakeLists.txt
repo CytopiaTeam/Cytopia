@@ -3,6 +3,24 @@ set (TARGET "IsometricEngine")
 set (CMAKE_CXX_STANDARD 11)
 set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake_modules/")
 
+find_package(Doxygen)
+
+# own target for Doxygen builds
+if ( DOXYGEN_FOUND )
+  set (DoxyFile_src ${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile)
+  set (DoxyFile ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile)
+  configure_file(${DoxyFile_src} ${DoxyFile} @ONLY)
+
+  
+  message("Doxygen build started.")
+  add_custom_target(
+    doc
+    COMMAND ${DOXYGEN_EXECUTABLE} ${DoxyFile}
+    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+    VERBATIM
+  )
+endif()
+
 cmake_minimum_required(VERSION 3.9)
 
 if ( UNIX )

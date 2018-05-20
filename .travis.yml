@@ -3,6 +3,10 @@ dist: trusty
 sudo: required
 group: edge
 
+env:
+  global:
+    - GITHUB_REPO: JimmySnails/IsometricEngine
+
 matrix:
   include:
 
@@ -35,6 +39,7 @@ script:
   - if [[ "${C_COMPILER}" != "" ]]; then export CC=${COMPILER}; fi
   - cmake --build .
   - cppcheck --force --quiet --error-exitcode=1 .
+  - if [ "$TRAVIS_BRANCH" = "master" -a "$COMPILER" = "g++-5" ]; then cmake --build . --target doc; fi
 
 addons:
   apt:
@@ -48,3 +53,18 @@ addons:
       - cppcheck
       - gcc-5
       - g++-5
+      - doxygen
+      - graphviz
+
+  
+      
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GH_REPO_TOKEN
+  # repo: $GITHUB_REPO
+  # local_dir: html
+  verbose: true
+  on:
+    condition: $COMPILER = "g++-5"
+    branch: master
