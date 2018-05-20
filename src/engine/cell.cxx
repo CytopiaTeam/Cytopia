@@ -31,7 +31,6 @@ Sprite* Cell::getSprite()
 void Cell::setNeighbors(std::vector<Cell*> neighbors)
 {
   _neighbors = std::move(neighbors);
-  //_neighbors = neighbors;
 }
 
 void Cell::renderCell()

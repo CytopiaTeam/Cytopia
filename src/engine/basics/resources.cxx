@@ -78,18 +78,18 @@ Point Resources::convertIsoToScreenCoordinates(Point isoCoordinates, bool calcWi
 
   if (calcWithoutOffset)
   {
-    x = (_TILE_SIZE * _zoomLevel * isoCoordinates.getX() * 0.5)  + (_TILE_SIZE * _zoomLevel * isoCoordinates.getY() * 0.5);
-    y = (_TILE_SIZE * _zoomLevel * isoCoordinates.getX() * 0.25) - (_TILE_SIZE * _zoomLevel * isoCoordinates.getY() * 0.25);
+    x = static_cast<int>((_TILE_SIZE * _zoomLevel * isoCoordinates.getX() * 0.5)  + (_TILE_SIZE * _zoomLevel * isoCoordinates.getY() * 0.5));
+    y = static_cast<int>((_TILE_SIZE * _zoomLevel * isoCoordinates.getX() * 0.25) - (_TILE_SIZE * _zoomLevel * isoCoordinates.getY() * 0.25));
   }
   else
   {
-    x = (_TILE_SIZE * _zoomLevel * isoCoordinates.getX() * 0.5)  + (_TILE_SIZE * _zoomLevel * isoCoordinates.getY() * 0.5)  - _cameraOffset.getX();
-    y = (_TILE_SIZE * _zoomLevel * isoCoordinates.getX() * 0.25) - (_TILE_SIZE * _zoomLevel * isoCoordinates.getY() * 0.25) - _cameraOffset.getY();
+    x = static_cast<int>((_TILE_SIZE * _zoomLevel * isoCoordinates.getX() * 0.5)  + (_TILE_SIZE * _zoomLevel * isoCoordinates.getY() * 0.5)  - _cameraOffset.getX());
+    y = static_cast<int>((_TILE_SIZE * _zoomLevel * isoCoordinates.getX() * 0.25) - (_TILE_SIZE * _zoomLevel * isoCoordinates.getY() * 0.25) - _cameraOffset.getY());
   }
   
   if (height > 0)
   {
-    y = (y - ((_TILE_SIZE - heightOffset) * height * _zoomLevel));
+    y = static_cast<int>(y - ((_TILE_SIZE - heightOffset) * height * _zoomLevel));
   }
   return Point (x, y);
 }

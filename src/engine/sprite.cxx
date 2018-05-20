@@ -19,21 +19,20 @@ Sprite::~Sprite()
 
 void Sprite::render()
 {
-  float _zoomLevel = Resources::getZoomLevel();
-  int TILE_SIZE = Resources::getTileSize();
+  int tileSize = static_cast<int>(Resources::getTileSize() * Resources::getZoomLevel());
   _screenCoordinates = Resources::convertIsoToScreenCoordinates(_isoCoordinates);
 
-  int offscreenTolerance = 3 * TILE_SIZE * _zoomLevel;
+  int offscreenTolerance = static_cast<int>(3 * tileSize);
   int screen_width = Resources::settings.screenWidth; 
   int screen_height = Resources::settings.screenHeight;
 
   //Render only whats visible
   if (( _screenCoordinates.getX() >= 0 - offscreenTolerance )
-  ||  ( _screenCoordinates.getX() + TILE_SIZE * _zoomLevel <= screen_width + offscreenTolerance )
+  ||  ( _screenCoordinates.getX() + tileSize <= screen_width + offscreenTolerance )
   ||  ( _screenCoordinates.getY() >= 0 - offscreenTolerance )
-  ||  ( _screenCoordinates.getY() + TILE_SIZE * _zoomLevel <= screen_height + offscreenTolerance ))
+  ||  ( _screenCoordinates.getY() + tileSize <= screen_height + offscreenTolerance ))
   {
-    renderTexture(TILE_SIZE * _zoomLevel, TILE_SIZE * _zoomLevel);
+    renderTexture(tileSize, tileSize);
   }
 }
 

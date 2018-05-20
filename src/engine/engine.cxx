@@ -65,8 +65,8 @@ void Engine::centerScreenOnPoint(Point isoCoordinates)
     int x, y;
     _zoomLevel = Resources::getZoomLevel();
 
-    x = (screenCoordinates.getX() + (TILE_SIZE*_zoomLevel)*0.5) - _screen_width * 0.5;
-    y = (screenCoordinates.getY() + (TILE_SIZE*_zoomLevel)*0.75) - _screen_height * 0.5;
+    x = static_cast<int>((screenCoordinates.getX() + (TILE_SIZE*_zoomLevel)*0.5) - _screen_width * 0.5);
+    y = static_cast<int>((screenCoordinates.getY() + (TILE_SIZE*_zoomLevel)*0.75) - _screen_height * 0.5);
   
     Resources::setCameraOffset(Point(x, y));
   }
@@ -114,9 +114,9 @@ void Engine::increaseZoomLevel()
 {
   _zoomLevel = Resources::getZoomLevel();
 
-  if (_zoomLevel < 2.0)
+  if (_zoomLevel < 2.0f)
   {
-    Resources::setZoomLevel(_zoomLevel + 0.25);
+    Resources::setZoomLevel(_zoomLevel + 0.25f);
     centerScreenOnPoint(_centerIsoCoordinates);
   }
 }
@@ -125,9 +125,9 @@ void Engine::decreaseZoomLevel()
 {
   _zoomLevel = Resources::getZoomLevel();
 
-  if (_zoomLevel > 0.5)
+  if (_zoomLevel > 0.5f)
   {
-    Resources::setZoomLevel(_zoomLevel - 0.25);
+    Resources::setZoomLevel(_zoomLevel - 0.25f);
     centerScreenOnPoint(_centerIsoCoordinates);
   }
 }
@@ -158,8 +158,8 @@ Point Engine::findCellAt(Point screenCoordinates)
         int pixelX = (clickedX - spriteX );
         int pixelY = (clickedY - spriteY );
         // "un-zoom" the positon to match the un-adjusted surface
-        pixelX /= _zoomLevel;
-        pixelY /= _zoomLevel;
+        pixelX = static_cast<int>(pixelX / _zoomLevel);
+        pixelY = static_cast<int>(pixelY / _zoomLevel);
 
         // Check if the clicked Sprite is not transparent (we hit a point within the pixel)
         if (TextureManager::Instance().GetPixelColor(currentCell->getTileID(), pixelX, pixelY).a != SDL_ALPHA_TRANSPARENT)
