@@ -12,7 +12,9 @@
 #include "basics/point.hxx"
 #include "basics/resources.hxx"
 
-
+/** @brief Class that holds map cells
+ * Each tile is represented by the map cell class.   
+ */
 class Cell
 {
 public:
@@ -20,21 +22,42 @@ public:
   explicit Cell(Point isoCoordinates);
   ~Cell();
 
-  void setSprite(Sprite* sprite);
+  /** @brief get Sprite
+    * get the Sprite* object for this cell
+    * @see Sprite
+    */
   Sprite* getSprite();
 
+  /// get iso coordinates of this cell
   Point getCoordinates();
 
+  /// add the cell to the renderer
   void renderCell();
 
+  /// Sets the neighbors of this cell for fast access
   void setNeighbors(std::vector<Cell*> neighbors);
-  void drawSurroundingTiles(Point isoCoordinates);
-  void determineTile();
 
+  /** @brief Increase Height
+    * Increases the height of this map cell and checks which
+    * tileID must be drawn for each neighbor
+    */
   void increaseHeight();
+  /** @brief Decrease Height 
+    * Decreases the height of this map cell and checks which 
+    * tileID must be drawn for each neighbor
+    */
   void decreaseHeight();
 
+  /** @brief set Tile ID 
+    * Change the texture of the map cell to a specific tile id
+    * @see Resources#readTileListFile
+    * @param tileID The tileID that should be rendered for this map cell
+    */
   void setTileID(int tileID);
+  /** @brief get Tile ID
+    * Retrieves the current Tile ID of this map cell
+    * @return Returns the current Tile ID as Integer
+    */
   int getTileID();
 
 private:
@@ -49,15 +72,27 @@ private:
   int _tileID;
   int _maxCellHeight = 32;
 
-  /** Enum (bitmask) for mapping neighbor tile positions
-  * [ T B L R TL TR BL BR ]
-  * [ 0 0 0 0  0  0  0  0 ]
+  /** \brief: determine which tile ID should be drawn for this cell
+    * Checks all the neighbors and determines the tile ID of this mapcell according to it's
+    * elevated / lowered neighbors.
+    */
+  void determineTile();
 
-  * Our neighbor tiles look like this
-  * 2 5 8  
-  * 1 X 7
-  * 0 3 6
+  /** \brief set tileID for each neighbor
+    * After a cell is raised / lowered, each neighbor must check which tileID it should have
+    * @see Cell#drawSurroundingTiles
   */
+  void drawSurroundingTiles(Point isoCoordinates);
+  
+  /** Enum (bitmask) for mapping neighbor tile positions
+    * [ T B L R TL TR BL BR ]
+    * [ 0 0 0 0  0  0  0  0 ]
+
+    * Our neighbor tiles look like this
+    * 2 5 8  
+    * 1 X 7
+    * 0 3 6
+    */
   
   enum elevatedTilePosition : unsigned int{
        NO_NEIGHBORS = 0x0,
