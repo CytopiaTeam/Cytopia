@@ -5,7 +5,6 @@
 
 #include "textureManager.hxx"
 #include "cell.hxx"
-#include "cell.hxx"
 #include "basics/point.hxx"
 #include "basics/vectorMatrix.hxx"
 #include "basics/resources.hxx"

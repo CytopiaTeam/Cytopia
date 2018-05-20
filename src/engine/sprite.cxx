@@ -1,6 +1,6 @@
 #include "sprite.hxx"
 
-Sprite::Sprite(int tileID, Point isoCoordinates) : _tileID(), _isoCoordinates() 
+Sprite::Sprite(int tileID, Point isoCoordinates) : _tileID(tileID), _isoCoordinates(isoCoordinates) 
 {
   _renderer = Resources::getRenderer();
   _window = Resources::getWindow();

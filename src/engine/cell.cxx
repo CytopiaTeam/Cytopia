@@ -5,7 +5,7 @@ Cell::Cell()
 
 }
 
-Cell::Cell(Point isoCoordinates) : _isoCoordinates()
+Cell::Cell(Point isoCoordinates) : _isoCoordinates(isoCoordinates)
 {
   _renderer = Resources::getRenderer();
   _window = Resources::getWindow();
@@ -21,11 +21,6 @@ Cell::Cell(Point isoCoordinates) : _isoCoordinates()
 Cell::~Cell()
 {
 
-}
-
-void Cell::setSprite(Sprite* sprite)
-{
-  _sprite = sprite;
 }
 
 Sprite* Cell::getSprite()
