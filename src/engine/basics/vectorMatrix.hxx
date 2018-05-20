@@ -28,5 +28,4 @@ private:
   std::vector< std::vector<Cell*> > _cellMatrix;
   int _columns;
   int _rows;
-  int _neighborCount;
 };

@@ -43,9 +43,6 @@ void Engine::parseMapFile()
 
 void Engine::render()
 {
-  int y = 0;
-  int x = 0;
-
   for (int x = 0; x <= _map_size; x++)
   {
     for (int y = _map_size; y >= 0; y--)
@@ -147,9 +144,6 @@ Point Engine::findCellAt(Point screenCoordinates)
       Cell* currentCell = _floorCellMatrix.getCell(x, y);
 
       SDL_Rect spriteRect = currentCell->getSprite()->textureInformation();
-      float zoomLevel = Resources::getZoomLevel();
-      int offsetX = Resources::getCameraOffset().getX();
-      int offsetY = Resources::getCameraOffset().getX();
 
       int clickedX = screenCoordinates.getX() ;
       int clickedY = screenCoordinates.getY() ;
@@ -166,8 +160,6 @@ Point Engine::findCellAt(Point screenCoordinates)
         // "un-zoom" the positon to match the un-adjusted surface
         pixelX /= _zoomLevel;
         pixelY /= _zoomLevel;
-
-        SDL_Surface* surface = TextureManager::Instance().getSurface(currentCell->getTileID());
 
         // Check if the clicked Sprite is not transparent (we hit a point within the pixel)
         if (TextureManager::Instance().GetPixelColor(currentCell->getTileID(), pixelX, pixelY).a != SDL_ALPHA_TRANSPARENT)

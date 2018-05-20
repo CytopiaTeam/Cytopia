@@ -12,7 +12,7 @@
 class Sprite
 {
 public:
-  Sprite(int tileID, Point coords);
+  Sprite(int tileID,  Point coords);
   virtual ~Sprite();
 
   void render();
@@ -29,7 +29,7 @@ private:
 
   Point _isoCoordinates;
   Point _screenCoordinates;
-
+  int _tileID;
 
   /** Renders texture using the _destRect struct and takes the zoomLevel into account */ 
   void renderTexture(int w, int h);

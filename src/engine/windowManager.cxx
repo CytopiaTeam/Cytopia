@@ -1,8 +1,8 @@
 #include "windowManager.hxx"
 
-WindowManager::WindowManager(const std::string &title)
+WindowManager::WindowManager(const std::string &title) : _title()
 {
-  _title = title;
+  //_title = title;
   _width = Resources::settings.screenWidth;
   _height = Resources::settings.screenHeight;
   _closed = !init();

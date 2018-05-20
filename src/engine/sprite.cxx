@@ -1,12 +1,11 @@
 #include "sprite.hxx"
 
-Sprite::Sprite(int tileID, Point isoCoordinates)
+Sprite::Sprite(int tileID, Point isoCoordinates) : _tileID(), _isoCoordinates() 
 {
   _renderer = Resources::getRenderer();
   _window = Resources::getWindow();
   
 
-  _isoCoordinates = isoCoordinates;
   _screenCoordinates = Resources::convertIsoToScreenCoordinates(isoCoordinates);
 
   _texture = TextureManager::Instance().getTexture(tileID);

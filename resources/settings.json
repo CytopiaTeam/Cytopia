@@ -1,6 +1,6 @@
 {
     "Game": {
-        "MapSize": 32
+        "MapSize": 128
     },
     "Graphics": {
         "FullScreen": false,

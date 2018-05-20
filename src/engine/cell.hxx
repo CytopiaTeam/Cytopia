@@ -17,7 +17,7 @@ class Cell
 {
 public:
   Cell();
-  Cell(Point isoCoordinates);
+  explicit Cell(Point isoCoordinates);
   ~Cell();
 
   void setSprite(Sprite* sprite);
@@ -45,13 +45,9 @@ private:
   SDL_Renderer* _renderer;
   SDL_Window* _window;
 
-  bool hasElevatedNeighbors();
-
   int _heightOffset = 20; // Offset for Y Coordinate between two height levels
   int _tileID;
   int _maxCellHeight = 32;
-
-  int _z;
 
   /** Enum (bitmask) for mapping neighbor tile positions
   * [ T B L R TL TR BL BR ]

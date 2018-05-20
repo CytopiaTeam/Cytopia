@@ -5,10 +5,8 @@ Cell::Cell()
 
 }
 
-Cell::Cell(Point isoCoordinates)
+Cell::Cell(Point isoCoordinates) : _isoCoordinates()
 {
-  _isoCoordinates = isoCoordinates;
-
   _renderer = Resources::getRenderer();
   _window = Resources::getWindow();
 
@@ -56,7 +54,6 @@ Point Cell::getCoordinates()
 
 void Cell::drawSurroundingTiles(Point isoCoordinates)
 {
-  int numElevatedNeighbors = 0;
   int tileHeight = _isoCoordinates.getHeight();
 
   for (int i = 0; i < _neighbors.size(); i++)
@@ -104,25 +101,6 @@ void Cell::decreaseHeight()
     _isoCoordinates.setHeight(height - 1);
     drawSurroundingTiles(_isoCoordinates);
   }
-}
-
-bool Cell::hasElevatedNeighbors()
-{
-  bool elevatedNeighbors = false;
-
-  int tileHeight = _isoCoordinates.getHeight();
-
-  for (int i = 0; i < _neighbors.size(); i++)
-  {
-    if ( _neighbors[i] != nullptr )
-    {
-      if ( _isoCoordinates.getHeight() == tileHeight )
-      {
-        elevatedNeighbors = true;
-      }
-    }
-  }
-  return elevatedNeighbors;
 }
 
 void Cell::determineTile()
@@ -173,7 +151,7 @@ void Cell::determineTile()
   ||      _tileID == -1 )
   &&      Resources::getTerrainEditMode() == Resources::TERRAIN_LOWER)
   {
-    for (int i = 0; i < _neighbors.size(); i++) //determine TileID
+    for (int i = 0; i < _neighbors.size(); i++)
     {
       if ( _neighbors[i] != nullptr )
       {

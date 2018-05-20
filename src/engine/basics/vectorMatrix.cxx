@@ -11,7 +11,7 @@ vectorMatrix::vectorMatrix(int columns, int rows)
   resizeMatrix(columns, rows);
   _columns = columns + 1;
   _rows = rows + 1;
-}
+} 
 
 vectorMatrix::~vectorMatrix()
 {
@@ -68,7 +68,6 @@ void vectorMatrix::clearMatrix()
 std::vector<Sprite*> vectorMatrix::findNeighbors(int x, int y)
 {
   std::vector<Sprite*> neighbors;
-  _neighborCount = 0;
 
   for (int rowIterator = -1; rowIterator <= 1; rowIterator++)
   {
@@ -81,8 +80,6 @@ std::vector<Sprite*> vectorMatrix::findNeighbors(int x, int y)
       // check if the neighbor is within bounds of the tilemap
       if ( currentRow >= 0 && currentRow < _rows && currentColumn >= 0 && currentColumn < _columns && !(currentRow == x && currentColumn == y) )
       {
-        _neighborCount++;
-
         if ( _matrix[currentRow][currentColumn] != nullptr )
           neighbors.push_back(_matrix[currentRow][currentColumn]);
       }
@@ -108,7 +105,6 @@ std::vector<Sprite*> vectorMatrix::findNeighbors(int x, int y)
   std::vector<Cell*> vectorMatrix::getCellNeighbors(int x, int y)
   {
     std::vector<Cell*> neighbors;
-    _neighborCount = 0;
 
     for (int rowIterator = -1; rowIterator <= 1; rowIterator++)
     {
@@ -121,8 +117,6 @@ std::vector<Sprite*> vectorMatrix::findNeighbors(int x, int y)
         // check if the neighbor is within bounds of the tilemap
         if ( currentRow >= 0 && currentRow < _rows && currentColumn >= 0 && currentColumn < _columns && !(currentRow == x && currentColumn == y) )
         {
-          _neighborCount++;
-
           if ( _cellMatrix[currentRow][currentColumn] != nullptr )
             neighbors.push_back(_cellMatrix[currentRow][currentColumn]);
         }

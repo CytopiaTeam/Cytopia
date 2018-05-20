@@ -11,7 +11,7 @@
 
 class WindowManager {
   public:
-    WindowManager(const std::string &title);
+    explicit WindowManager(const std::string &title);
     ~WindowManager();
     
     inline bool isClosed() const { return _closed; }
@@ -26,7 +26,6 @@ class WindowManager {
     std::string _title;
     int _width = 800;
     int _height = 600;
-    bool _isFullScreen;
     
     bool _closed = false;
 
