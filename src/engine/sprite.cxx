@@ -14,7 +14,7 @@ Sprite::Sprite(int tileID, Point isoCoordinates) : _tileID(tileID), _isoCoordina
 
 Sprite::~Sprite()
 {
-  SDL_DestroyTexture(_texture);
+
 }
 
 void Sprite::render()
