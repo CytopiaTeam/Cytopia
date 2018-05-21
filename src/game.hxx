@@ -3,6 +3,10 @@
 
 #pragma once
 
+#ifndef VERSION
+  #define VERSION 0
+#endif
+
 #include <iostream>
 
 #include "SDL2/SDL.h"

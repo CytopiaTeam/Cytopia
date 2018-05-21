@@ -3,6 +3,7 @@
 
 int main(int, char**)
 {
+  LOG() << VERSION;
   LOG().timerStart();
   Resources::init();
 

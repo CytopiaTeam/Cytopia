@@ -2,6 +2,7 @@ set (PROJECT_NAME "IsometricEngine")
 set (TARGET "IsometricEngine")
 set (CMAKE_CXX_STANDARD 11)
 set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake_modules/")
+set (VERSION "${PROJECT_NAME} 0.1 alpha build")
 
 find_package(Doxygen)
 
@@ -62,3 +63,5 @@ if ( WIN32 )
   # set Visual Studio working directory to the Configuration directory
   set_target_properties(${TARGET} PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/$(Configuration)")
 endif ()
+
+add_definitions(-DVERSION="${VERSION}")
