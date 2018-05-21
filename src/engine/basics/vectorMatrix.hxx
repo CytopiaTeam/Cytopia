@@ -24,8 +24,12 @@ public:
   Sprite* getSprite(int x, int y);
 
 private:
-  std::vector< std::vector<Sprite*> > _matrix;
-  std::vector< std::vector<Cell*> > _cellMatrix;
+  //std::vector< std::vector<Sprite*> > _matrix;
+  std::vector<Sprite*> _matrix;
+  std::vector<Cell*> _cellMatrix;
+
+  //std::vector< std::vector<Cell*> > _cellMatrix;
+  //std::vector< std::vector<Cell*> > _cellMatrix;
   int _columns;
   int _rows;
 };

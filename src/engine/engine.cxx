@@ -24,17 +24,18 @@ Engine::Engine()
   int z = 0;
 
   // initialize cell Matrix
-  for (int x = 0; x <= _map_size; x++)
-  {
-    for (int y = _map_size; y >= 0; y--)
-    {
-      z++;
-      Cell* mapCell = new Cell(Point(x, y, z));
-      _floorCellMatrix.addCell(x, y, mapCell);
-    }
-  }
+  //for (int x = 0; x <= _map_size; x++)
+  //{
+  //  for (int y = _map_size; y >= 0; y--)
+  //  {
+  //    z++;
+  //    Cell* mapCell = new Cell(Point(x, y, z));
+  //    _floorCellMatrix.addCell(x, y, mapCell);
+  //  }
+  //}
   _floorCellMatrix.initCells();
 }
+
 
 void Engine::parseMapFile()
 {
