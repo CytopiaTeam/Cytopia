@@ -169,6 +169,47 @@ void Resources::readTileListFile()
   i >> _json;
 }
 
+// User Interface Sprites
+
+
+void Resources::generateUITextureFile()
+{
+  json iniFile;
+
+  iniFile["Graphics"]["Resolution"]["Width"] = 800;
+  iniFile["Graphics"]["Resolution"]["Height"] = 600;
+  iniFile["Graphics"]["VSYNC"] = false;
+  iniFile["Graphics"]["FullScreen"] = false;
+  iniFile["Game"]["MapSize"] = 32;
+
+  std::ofstream myJsonFile("resources/settings.json");
+
+  if (myJsonFile.is_open())
+  {
+    myJsonFile << std::setw(4) << iniFile << std::endl;
+    myJsonFile.close();
+  }
+  else
+  {
+    printf("ERROR: Couldn't write file \"resources/UITextureList.json\"");
+  }
+}
+
+void Resources::readUITextureListFile()
+{
+  std::string tileListFile = "resources/UITextureList.json";
+  std::ifstream i(tileListFile);
+  if (i.fail())
+  {
+    LOG(LOG_ERROR) << "File " << tileListFile << " does not exist! Cannot load settings from INI File!";
+    // Application should quit here, without settings from the tileList file we can't continue
+    return;
+  }
+
+  i >> _json;
+}
+
+
 // Ini File Handling
 
 void Resources::generateINIFile()

@@ -1,5 +1,5 @@
 #include "game.hxx"
-
+#include "engine/ui/texture.hxx"
 
 int main(int, char**)
 {
@@ -18,6 +18,9 @@ int main(int, char**)
   _renderer = Resources::getRenderer();
   _window = Resources::getWindow();
   
+
+
+
   // Gameloop
   while (!window.isClosed()){
     SDL_RenderClear(_renderer);
@@ -115,6 +118,15 @@ int main(int, char**)
 
     // render the tilemap
     engine.render();
+
+
+
+    // UI Stuff
+
+    Texture texture;
+    texture.changeTexture(12);
+    texture.render();
+    // ----------
 
     // Render the Frame
     SDL_RenderPresent(_renderer);
