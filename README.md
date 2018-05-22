@@ -7,6 +7,8 @@ The projects goal is to create a citybuilding game with similiar style to SimCit
 
 For code documentation see the projects [Doxygen Documentation](https://jimmysnails.github.io/IsometricEngine/build/html/index.html).
 
+If you have questions or if you want to join the project, visit the [Projects Discord Server](https://discord.gg/qwa2H3G) 
+
 #### Key Features:
   - Different zoom levels
   - Relocate camera via rightclick
