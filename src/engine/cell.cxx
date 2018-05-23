@@ -7,9 +7,6 @@ Cell::Cell()
 
 Cell::Cell(Point isoCoordinates) : _isoCoordinates(isoCoordinates)
 {
-  _renderer = Resources::getRenderer();
-  _window = Resources::getWindow();
-
   // Default Floor sprite has tileID 14
   _tileID = 14;
 
@@ -124,9 +121,9 @@ void Cell::determineTile()
     }
   }
 
-  auto keyTileID = keyTileMap.find(_elevatedTilePosition);
+  auto keyTileID = Resources::keyTileMap.find(_elevatedTilePosition);
 
-  if ( keyTileID != keyTileMap.end() )
+  if ( keyTileID != Resources::keyTileMap.end() )
   {
     _tileID = keyTileID->second;
   }

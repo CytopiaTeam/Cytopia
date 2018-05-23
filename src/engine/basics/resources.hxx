@@ -2,6 +2,7 @@
 #define RESOURCES_HXX_
 
 #include <fstream>
+#include <unordered_map>
 
 #include "SDL2/SDL.h"
 #include "point.hxx"
@@ -10,6 +11,19 @@
 
 // Namespace from json library - https://github.com/nlohmann/json
 using json = nlohmann::json;
+
+enum elevatedTilePosition : unsigned int {
+  NO_NEIGHBORS = 0x0,
+  ELEVATED_TOP = 0x1,
+  ELEVATED_BOTTOM = 0x2,
+  ELEVATED_LEFT = 0x4,
+  ELEVATED_RIGHT = 0x8,
+  ELEVATED_TOP_LEFT = 0x10,
+  ELEVATED_TOP_RIGHT = 0x20,
+  ELEVATED_BOTTOM_LEFT = 0x40,
+  ELEVATED_BOTTOM_RIGHT = 0x80,
+};
+
 
 //forward declare Engine class (prevent cross includes)
 class Engine;
@@ -81,6 +95,9 @@ private:
 
   static void readINIFile();
 
+public:
+  
+  static std::unordered_map<unsigned int, int> keyTileMap;
 };
 
 #endif
