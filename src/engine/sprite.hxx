@@ -13,7 +13,7 @@ class Sprite
 {
 public:
   Sprite(int tileID,  Point coords);
-  virtual ~Sprite();
+  virtual ~Sprite() = default;
 
   void render();
   void setTileIsoCoordinates(Point isoCoords);

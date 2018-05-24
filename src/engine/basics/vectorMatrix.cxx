@@ -1,20 +1,10 @@
 #include "vectorMatrix.hxx"
 
-vectorMatrix::vectorMatrix()
-{
-
-}
-
 vectorMatrix::vectorMatrix(int columns, int rows)
   : _cellMatrix((columns+1) * (rows+1)), _columns(columns+1), _rows(rows+1)
 {
   _cellMatrix.reserve(_rows * _columns);
 } 
-
-vectorMatrix::~vectorMatrix()
-{
-
-}
 
 void vectorMatrix::resizeMatrix(int rows, int columns)
 {

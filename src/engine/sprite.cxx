@@ -11,12 +11,6 @@ Sprite::Sprite(int tileID, Point isoCoordinates) : _tileID(tileID), _isoCoordina
   _texture = TextureManager::Instance().getTexture(tileID);
 }
 
-
-Sprite::~Sprite()
-{
-
-}
-
 void Sprite::render()
 {
   int tileSize = static_cast<int>(Resources::getTileSize() * Resources::getZoomLevel());

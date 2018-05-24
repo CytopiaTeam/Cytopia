@@ -5,9 +5,9 @@
 class vectorMatrix
 {
 public:
-  vectorMatrix();
+  vectorMatrix() = default;
   vectorMatrix(int columns, int rows);
-  ~vectorMatrix();
+  ~vectorMatrix() = default;
   
   void resizeMatrix(int rows, int columns);
 

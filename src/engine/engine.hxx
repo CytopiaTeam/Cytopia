@@ -50,7 +50,7 @@ public:
   Point findCellAt(Point screenCoordinates);
 private:
   Engine();
-  virtual ~Engine() { };
+  virtual ~Engine() = default;
 
   SDL_Renderer *_renderer;
   SDL_Window *_window;
