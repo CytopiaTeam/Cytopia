@@ -77,7 +77,6 @@ int main(int, char**)
       case SDL_MOUSEBUTTONDOWN:
         mouseCoords.setCoords(event.button.x, event.button.y);
         clickCoords = Resources::convertScreenToIsoCoordinates(mouseCoords);
-        LOG().timerStart();
         if ( event.button.button == SDL_BUTTON_LEFT )
         {
           if ( engine.checkBoundaries(clickCoords) )
@@ -95,7 +94,6 @@ int main(int, char**)
           else
             engine.centerScreenOnPoint(clickCoords);
         }
-        LOG().timerEnd();
         break;
       
       case SDL_MOUSEWHEEL:
