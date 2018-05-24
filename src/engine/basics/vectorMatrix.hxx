@@ -5,27 +5,22 @@
 class vectorMatrix
 {
 public:
-  vectorMatrix();
+  vectorMatrix() = default;
   vectorMatrix(int columns, int rows);
-  ~vectorMatrix();
+  ~vectorMatrix() = default;
   
   void resizeMatrix(int rows, int columns);
-  void addSprite(int row, int column, Sprite* sprite);
-  void removeSprite(int x, int y);
-  void clearMatrix();
 
   // CELL
-  void addCell(int row, int column, Cell* cell);
-  Cell* getCell(int x, int y);
-  std::vector<Cell*> getCellNeighbors(int x, int y);
+  void addCell(int x, int y, int z) { _cellMatrix[x * _columns + y] = std::shared_ptr<Cell>(new Cell(Point(x, y, z))); };
+  std::shared_ptr<Cell> getCell(int x, int y) { return _cellMatrix[x * _columns + y]; };
+  std::vector<std::shared_ptr<Cell>> getCellNeighbors(int x, int y);
   void initCells();
 
-  std::vector<Sprite*> findNeighbors(int x, int y);
-  Sprite* getSprite(int x, int y);
 
 private:
-  std::vector< std::vector<Sprite*> > _matrix;
-  std::vector< std::vector<Cell*> > _cellMatrix;
+  std::vector<std::shared_ptr<Cell> > _cellMatrix;
+  
   int _columns;
   int _rows;
 };

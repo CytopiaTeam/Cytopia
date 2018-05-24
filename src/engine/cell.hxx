@@ -6,7 +6,6 @@
 
 #include "SDL2/SDL.h"
 
-
 #include "sprite.hxx"
 #include "basics/point.hxx"
 #include "basics/resources.hxx"
@@ -17,53 +16,57 @@
 class Cell
 {
 public:
-  Cell();
   explicit Cell(Point isoCoordinates);
-  ~Cell();
+  ~Cell() = default;
 
   /** @brief get Sprite
     * get the Sprite* object for this cell
     * @see Sprite
     */
-  Sprite* getSprite();
+  std::shared_ptr<Sprite> getSprite() { return _sprite; };
 
   /// get iso coordinates of this cell
-  Point getCoordinates();
+  Point getCoordinates() { return _isoCoordinates; };
+
+  /** @brief get Tile ID
+    * Retrieves the current Tile ID of this map cell
+    * @return Returns the current Tile ID as Integer
+    */ 
+  int getTileID() { return _tileID; };
+
+  /** @brief set Tile ID
+  * Change the texture of the map cell to a specific tile id
+  * @see Resources#readTileListFile
+  * @param tileID The tileID that should be rendered for this map cell
+  */
+  inline void setTileID(int tileID) {
+    _sprite->changeTexture(_tileID);
+    _tileID = tileID;
+  };
 
   /// add the cell to the renderer
   void renderCell();
 
   /// Sets the neighbors of this cell for fast access
-  void setNeighbors(std::vector<Cell*> neighbors);
+  void setNeighbors(std::vector<std::shared_ptr<Cell>> neighbors);
 
   /** @brief Increase Height
     * Increases the height of this map cell and checks which
     * tileID must be drawn for each neighbor
     */
   void increaseHeight();
+
   /** @brief Decrease Height 
     * Decreases the height of this map cell and checks which 
     * tileID must be drawn for each neighbor
     */
   void decreaseHeight();
 
-  /** @brief set Tile ID 
-    * Change the texture of the map cell to a specific tile id
-    * @see Resources#readTileListFile
-    * @param tileID The tileID that should be rendered for this map cell
-    */
-  void setTileID(int tileID);
-  /** @brief get Tile ID
-    * Retrieves the current Tile ID of this map cell
-    * @return Returns the current Tile ID as Integer
-    */
-  int getTileID();
-
 private:
   Point _isoCoordinates;
-  Sprite* _sprite;
+  std::shared_ptr<Sprite> _sprite;
 
-  std::vector<Cell*> _neighbors;
+  std::vector<std::shared_ptr<Cell>> _neighbors;
   SDL_Renderer* _renderer;
   SDL_Window* _window;
 

@@ -1,73 +1,50 @@
 #include "cell.hxx"
 
-Cell::Cell()
+Cell::Cell(Point isoCoordinates) : _isoCoordinates(isoCoordinates), _tileID(14), _elevatedTilePosition(0)
 {
-
+  _sprite = std::shared_ptr<Sprite>(new Sprite(_tileID, _isoCoordinates));
 }
 
-Cell::Cell(Point isoCoordinates) : _isoCoordinates(isoCoordinates)
+void Cell::setNeighbors(std::vector<std::shared_ptr<Cell>> neighbors)
 {
-  // Default Floor sprite has tileID 14
-  _tileID = 14;
-
-  _elevatedTilePosition = 0;
-  _sprite = new Sprite(_tileID, _isoCoordinates);
-}
-
-
-Cell::~Cell()
-{
-
-}
-
-Sprite* Cell::getSprite()
-{
-  return _sprite;
-}
-
-void Cell::setNeighbors(std::vector<Cell*> neighbors)
-{
-  _neighbors = std::move(neighbors);
+  _neighbors = neighbors;
 }
 
 void Cell::renderCell()
 {
-  if (_sprite != nullptr)
+  if (_sprite )
   {
     _sprite->setTileIsoCoordinates(_isoCoordinates);
     _sprite->render();
   }
 }
 
-Point Cell::getCoordinates()
-{
-  return _isoCoordinates;
-}
-
 void Cell::drawSurroundingTiles(Point isoCoordinates)
 {
   int tileHeight = _isoCoordinates.getHeight();
+  int i = 0;
 
-  for (int i = 0; i < _neighbors.size(); i++)
+  for (auto it : _neighbors)
   {
-    if ( _neighbors[i] != nullptr )
+    if ( it  )
     {
-      _neighbors[i]->determineTile();
+      it->determineTile();
 
       // there can't be a height difference greater then 1 between two map cells.
-      if ( tileHeight - _neighbors[i]->getCoordinates().getHeight() > 1 
+      if ( tileHeight - it->getCoordinates().getHeight() > 1 
       &&   Resources::getTerrainEditMode() == Resources::TERRAIN_RAISE
       &&   i % 2 )
       {
         _neighbors[i]->increaseHeight();
       }
-      if (  tileHeight - _neighbors[i]->getCoordinates().getHeight() < -1 
+      if (  tileHeight - it->getCoordinates().getHeight() < -1 
       &&    Resources::getTerrainEditMode() == Resources::TERRAIN_LOWER
       &&    i % 2) 
       {
-        _neighbors[i]->decreaseHeight();
+        it->decreaseHeight();
       }
     }
+    i++;
   }
   // call for this tile too. 
   determineTile();
@@ -100,9 +77,11 @@ void Cell::determineTile()
   _elevatedTilePosition = 0;
   int tileHeight = _isoCoordinates.getHeight();
 
+
+
   for (int i = 0; i < _neighbors.size(); i++) //determine TileID
   {
-    if ( _neighbors[i] != nullptr )
+    if ( _neighbors[i] )
     {
       if ( _neighbors[i]->getCoordinates().getHeight() > tileHeight )
       {
@@ -129,42 +108,34 @@ void Cell::determineTile()
   }
 
   // special case: if both opposite neighbors are elevated, the center tile also gets elevated
-  if ((( (_elevatedTilePosition & ELEVATED_LEFT) && (_elevatedTilePosition & ELEVATED_RIGHT) )
-  ||   ( (_elevatedTilePosition & ELEVATED_TOP) && (_elevatedTilePosition & ELEVATED_BOTTOM) )
-  ||      _tileID == -1 )
-  &&      Resources::getTerrainEditMode() == Resources::TERRAIN_RAISE)
-  {
-    increaseHeight();
-    _tileID = 14;
-  }
+  constexpr auto LEFT_and_RIGHT = ELEVATED_LEFT | ELEVATED_RIGHT;
+  constexpr auto TOP_and_BOTTOM = ELEVATED_TOP | ELEVATED_BOTTOM;
 
-  if ((( (_elevatedTilePosition & ELEVATED_LEFT) && (_elevatedTilePosition & ELEVATED_RIGHT) )
-  || (   (_elevatedTilePosition & ELEVATED_TOP)  && (_elevatedTilePosition & ELEVATED_BOTTOM) )
+  if (( (_elevatedTilePosition & LEFT_and_RIGHT) == LEFT_and_RIGHT )
+  ||  ( (_elevatedTilePosition & TOP_and_BOTTOM) == TOP_and_BOTTOM )
   ||      _tileID == -1 )
-  &&      Resources::getTerrainEditMode() == Resources::TERRAIN_LOWER)
   {
-    for (int i = 0; i < _neighbors.size(); i++)
+    if ( Resources::getTerrainEditMode() == Resources::TERRAIN_RAISE )
     {
-      if ( _neighbors[i] != nullptr )
+      increaseHeight();
+     _tileID = 14;
+    }
+
+    else if (Resources::getTerrainEditMode() == Resources::TERRAIN_LOWER)
+    {
+      for (int i = 0; i < _neighbors.size(); i++)
       {
-        if ( _neighbors[i]->getCoordinates().getHeight() > tileHeight )
+        if (_neighbors[i])
         {
-          _neighbors[i]->decreaseHeight();
+          if (_neighbors[i]->getCoordinates().getHeight() > tileHeight)
+          {
+            _neighbors[i]->decreaseHeight();
+          }
         }
       }
+      _tileID = 14;
     }
-    _tileID = 14;
   }
-  _sprite->changeTexture(_tileID);
-}
 
-void Cell::setTileID(int tileID)
-{
   _sprite->changeTexture(_tileID);
-  _tileID = tileID;
-}
-
-int Cell::getTileID()
-{
-  return _tileID;
 }

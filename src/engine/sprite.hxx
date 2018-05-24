@@ -13,12 +13,12 @@ class Sprite
 {
 public:
   Sprite(int tileID,  Point coords);
-  virtual ~Sprite();
+  virtual ~Sprite() = default;
 
   void render();
-  void setTileIsoCoordinates(Point isoCoords);
-  void changeTexture(int tileID);
-  SDL_Rect textureInformation();
+  void setTileIsoCoordinates(Point isoCoords) { _isoCoordinates = isoCoords; };
+  void changeTexture(int tileID) { _texture = TextureManager::Instance().getTexture(tileID); };
+  SDL_Rect getTextureInformation() { return _destRect; };
   
 
 private:

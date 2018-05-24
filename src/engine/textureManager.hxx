@@ -40,7 +40,7 @@ public:
 
 private:
   TextureManager();
-  ~TextureManager() { };
+  ~TextureManager() = default;  
 
   SDL_Renderer* _renderer;
   SDL_Window* _window;

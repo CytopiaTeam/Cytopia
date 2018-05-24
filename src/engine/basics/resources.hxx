@@ -12,7 +12,8 @@
 // Namespace from json library - https://github.com/nlohmann/json
 using json = nlohmann::json;
 
-enum elevatedTilePosition : unsigned int {
+enum elevatedTilePosition : unsigned int 
+{
   NO_NEIGHBORS = 0x0,
   ELEVATED_TOP = 0x1,
   ELEVATED_BOTTOM = 0x2,
@@ -24,6 +25,13 @@ enum elevatedTilePosition : unsigned int {
   ELEVATED_BOTTOM_RIGHT = 0x80,
 };
 
+enum layers : unsigned int
+{
+  LAYER_FLOOR = 1u << 0,
+  LAYER_BUILDINGS = 1u << 1,
+  LAYER_GRID = 1u << 2,
+  LAYER_SELECTION = 1u << 3
+};
 
 //forward declare Engine class (prevent cross includes)
 class Engine;

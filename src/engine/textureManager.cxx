@@ -11,7 +11,7 @@ void TextureManager::loadTexture(int tileID, bool colorKey)
   std::string fileName = Resources::getTileDataFromJSON("terrain", tileID, "filename");
   SDL_Surface* loadedImage = IMG_Load(fileName.c_str());
 
-  if ( loadedImage != nullptr )
+  if ( loadedImage )
   {
     if ( colorKey )
       SDL_SetColorKey(loadedImage, SDL_TRUE, SDL_MapRGB(loadedImage->format, 0, 0xFF, 0xFF));	
@@ -19,7 +19,7 @@ void TextureManager::loadTexture(int tileID, bool colorKey)
     _surfaceMap[tileID] = loadedImage;
     SDL_Texture* _texture = SDL_CreateTextureFromSurface(_renderer, loadedImage);
 
-    if ( _texture != nullptr )
+    if ( _texture )
       _textureMap[tileID] = _texture;
     else
       LOG(LOG_ERROR) << "Renderer could not be created! SDL Error: " << SDL_GetError();

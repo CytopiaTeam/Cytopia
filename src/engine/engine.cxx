@@ -29,8 +29,11 @@ Engine::Engine()
     for (int y = _map_size; y >= 0; y--)
     {
       z++;
-      Cell* mapCell = new Cell(Point(x, y, z));
-      _floorCellMatrix.addCell(x, y, mapCell);
+      //Cell* mapCell = new Cell(Point(x, y, z));
+      
+      _floorCellMatrix.addCell(x, y, z);
+      //_floorCellMatrix.addCell(std::shared_ptr<Cell>(new Cell(Point(x, y, z)));
+
     }
   }
   _floorCellMatrix.initCells();
@@ -74,28 +77,11 @@ void Engine::centerScreenOnPoint(Point isoCoordinates)
 
 bool Engine::checkBoundaries(Point isoCoordinates)
 {
-  if ( (isoCoordinates.getX() >= 0 && isoCoordinates.getX() <= _map_size) && (isoCoordinates.getY() >= 0 && isoCoordinates.getY() <= _map_size) )
+  if (( isoCoordinates.getX() >= 0 && isoCoordinates.getX() <= _map_size ) 
+  && (  isoCoordinates.getY() >= 0 && isoCoordinates.getY() <= _map_size ))
     return true;
   else
     return false;
-}
-
-void Engine::enableLayer(unsigned int layer)
-{
-  // Turn on by using bitwise OR
-  _activeLayers |= layer;
-}
-
-void Engine::disableLayer(unsigned int layer)
-{
-  // Turn off by using bitwise AND with inversed pattern
-  _activeLayers &= ~layer;
-}
-
-void Engine::toggleLayer(unsigned int layer)
-{
-  // Toggle bitmask by using bitmask XOR
-  _activeLayers ^= layer;
 }
 
 void Engine::increaseHeight(Point isoCoordinates)
@@ -141,9 +127,9 @@ Point Engine::findCellAt(Point screenCoordinates)
   {
     for (int y = _map_size; y >= 0; y--)
     {
-      Cell* currentCell = _floorCellMatrix.getCell(x, y);
+      std::shared_ptr<Cell> currentCell = _floorCellMatrix.getCell(x, y);
 
-      SDL_Rect spriteRect = currentCell->getSprite()->textureInformation();
+      SDL_Rect spriteRect = currentCell->getSprite()->getTextureInformation();
 
       int clickedX = screenCoordinates.getX() ;
       int clickedY = screenCoordinates.getY() ;

@@ -4,17 +4,8 @@ Sprite::Sprite(int tileID, Point isoCoordinates) : _tileID(tileID), _isoCoordina
 {
   _renderer = Resources::getRenderer();
   _window = Resources::getWindow();
-  
-
   _screenCoordinates = Resources::convertIsoToScreenCoordinates(isoCoordinates);
-
   _texture = TextureManager::Instance().getTexture(tileID);
-}
-
-
-Sprite::~Sprite()
-{
-
 }
 
 void Sprite::render()
@@ -36,16 +27,6 @@ void Sprite::render()
   }
 }
 
-void Sprite::setTileIsoCoordinates(Point isoCoords)
-{
-  _isoCoordinates = isoCoords;
-}
-
-void Sprite::changeTexture(int tileID)
-{
-  _texture = TextureManager::Instance().getTexture(tileID);
-}
-
 void Sprite::renderTexture(int w, int h)
 {
   _destRect.x = _screenCoordinates.getX();
@@ -62,7 +43,3 @@ void Sprite::renderTexture()
   renderTexture(width, height);
 }
 
-SDL_Rect Sprite::textureInformation()
-{
-  return _destRect;
-}

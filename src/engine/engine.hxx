@@ -31,9 +31,28 @@ public:
 
   bool checkBoundaries(Point isoCoordinates);
   void centerScreenOnPoint(Point isoCoordinates);
-  void enableLayer(unsigned int layer);
-  void disableLayer(unsigned int layer);
-  void toggleLayer(unsigned int layer);
+
+  /** \brief Enable Drawing Layer
+    * Enable Drawing Layer (use bitwise OR to add layer)
+    * @param bitmapped Uint from enum "Layers"
+    * @see Resources#Layers
+    */
+  void enableLayer(unsigned int layer) { _activeLayers |= layer; };
+
+  /** \brief Disable Drawing Layer
+  * Disable Drawing Layer ( Turned off by using bitwise AND with inversed pattern)
+  * @param bitmapped Uint from enum "Layers"
+  * @see Resources#Layers
+  */
+  void disableLayer(unsigned int layer) { _activeLayers &= ~layer; };
+  
+  /** \brief Toggle Drawing Layer
+  * Toggle Drawing Layer (use bitwise XOR to toggle layer)
+  * @param bitmapped Uint from enum "Layers"
+  * @see Resources#Layers
+  */
+  void toggleLayer(unsigned int layer) { _activeLayers ^= layer; };
+
   /** Increases height of a tile at given iso coordinates.
   */
   void increaseHeight(Point isoCoordinates);
@@ -50,7 +69,7 @@ public:
   Point findCellAt(Point screenCoordinates);
 private:
   Engine();
-  virtual ~Engine() { };
+  virtual ~Engine() = default;
 
   SDL_Renderer *_renderer;
   SDL_Window *_window;
@@ -64,20 +83,12 @@ private:
   Point _cameraOffset;
   Point _centerIsoCoordinates;
 
-  // Cells
+  /// vectorMatrix that holds shared_ptr Cell objects
   vectorMatrix _floorCellMatrix;
 
+  /// Uint for storing a bitmask (Layers Enum)
   unsigned int _activeLayers;
 
-  // Layer ENUM
-public:
-  enum Layers : unsigned int
-  {
-    LAYER_FLOOR       = 1u<<0,
-    LAYER_BUILDINGS   = 1u<<1,
-    LAYER_GRID        = 1u<<2,
-    LAYER_SELECTION   = 1u<<3
-  };
 };
 
 #endif 
