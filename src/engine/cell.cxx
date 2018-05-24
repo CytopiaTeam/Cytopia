@@ -108,9 +108,11 @@ void Cell::determineTile()
   }
 
   // special case: if both opposite neighbors are elevated, the center tile also gets elevated
+  constexpr auto LEFT_and_RIGHT = ELEVATED_LEFT | ELEVATED_RIGHT;
+  constexpr auto TOP_and_BOTTOM = ELEVATED_TOP | ELEVATED_BOTTOM;
 
-  if (( (_elevatedTilePosition & ELEVATED_LEFT) && (_elevatedTilePosition & ELEVATED_RIGHT) )
-  ||  ( (_elevatedTilePosition & ELEVATED_TOP) && (_elevatedTilePosition & ELEVATED_BOTTOM) )
+  if (( (_elevatedTilePosition & LEFT_and_RIGHT) == LEFT_and_RIGHT )
+  ||  ( (_elevatedTilePosition & TOP_and_BOTTOM) == TOP_and_BOTTOM )
   ||      _tileID == -1 )
   {
     if ( Resources::getTerrainEditMode() == Resources::TERRAIN_RAISE )
