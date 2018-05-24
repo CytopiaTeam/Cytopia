@@ -1,10 +1,5 @@
 #include "cell.hxx"
 
-Cell::Cell()
-{
-
-}
-
 Cell::Cell(Point isoCoordinates) : _isoCoordinates(isoCoordinates)
 {
   // Default Floor sprite has tileID 14
@@ -12,12 +7,6 @@ Cell::Cell(Point isoCoordinates) : _isoCoordinates(isoCoordinates)
 
   _elevatedTilePosition = 0;
   _sprite = new Sprite(_tileID, _isoCoordinates);
-}
-
-
-Cell::~Cell()
-{
-
 }
 
 Sprite* Cell::getSprite()

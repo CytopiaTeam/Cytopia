@@ -17,9 +17,8 @@
 class Cell
 {
 public:
-  Cell();
   explicit Cell(Point isoCoordinates);
-  ~Cell();
+  ~Cell() { };
 
   /** @brief get Sprite
     * get the Sprite* object for this cell
