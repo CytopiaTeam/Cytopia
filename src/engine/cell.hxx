@@ -34,7 +34,7 @@ public:
   void renderCell();
 
   /// Sets the neighbors of this cell for fast access
-  void setNeighbors(std::vector<Cell*> neighbors);
+  void setNeighbors(std::vector<std::shared_ptr<Cell>> neighbors);
 
   /** @brief Increase Height
     * Increases the height of this map cell and checks which
@@ -63,7 +63,7 @@ private:
   Point _isoCoordinates;
   Sprite* _sprite;
 
-  std::vector<Cell*> _neighbors;
+  std::vector<std::shared_ptr<Cell>> _neighbors;
   SDL_Renderer* _renderer;
   SDL_Window* _window;
 

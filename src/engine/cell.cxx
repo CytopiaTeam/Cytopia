@@ -25,7 +25,7 @@ Sprite* Cell::getSprite()
   return _sprite;
 }
 
-void Cell::setNeighbors(std::vector<Cell*> neighbors)
+void Cell::setNeighbors(std::vector<std::shared_ptr<Cell>> neighbors)
 {
   _neighbors = std::move(neighbors);
 }
@@ -99,6 +99,8 @@ void Cell::determineTile()
 {
   _elevatedTilePosition = 0;
   int tileHeight = _isoCoordinates.getHeight();
+
+
 
   for (int i = 0; i < _neighbors.size(); i++) //determine TileID
   {
