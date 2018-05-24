@@ -6,7 +6,6 @@
 
 #include "SDL2/SDL.h"
 
-
 #include "sprite.hxx"
 #include "basics/point.hxx"
 #include "basics/resources.hxx"
@@ -24,10 +23,26 @@ public:
     * get the Sprite* object for this cell
     * @see Sprite
     */
-  std::shared_ptr<Sprite> getSprite();
+  std::shared_ptr<Sprite> getSprite() { return _sprite; };
 
   /// get iso coordinates of this cell
-  Point getCoordinates();
+  Point getCoordinates() { return _isoCoordinates; };
+
+  /** @brief get Tile ID
+    * Retrieves the current Tile ID of this map cell
+    * @return Returns the current Tile ID as Integer
+    */ 
+  int getTileID() { return _tileID; };
+
+  /** @brief set Tile ID
+  * Change the texture of the map cell to a specific tile id
+  * @see Resources#readTileListFile
+  * @param tileID The tileID that should be rendered for this map cell
+  */
+  inline void setTileID(int tileID) {
+    _sprite->changeTexture(_tileID);
+    _tileID = tileID;
+  };
 
   /// add the cell to the renderer
   void renderCell();
@@ -40,23 +55,12 @@ public:
     * tileID must be drawn for each neighbor
     */
   void increaseHeight();
+
   /** @brief Decrease Height 
     * Decreases the height of this map cell and checks which 
     * tileID must be drawn for each neighbor
     */
   void decreaseHeight();
-
-  /** @brief set Tile ID 
-    * Change the texture of the map cell to a specific tile id
-    * @see Resources#readTileListFile
-    * @param tileID The tileID that should be rendered for this map cell
-    */
-  void setTileID(int tileID);
-  /** @brief get Tile ID
-    * Retrieves the current Tile ID of this map cell
-    * @return Returns the current Tile ID as Integer
-    */
-  int getTileID();
 
 private:
   Point _isoCoordinates;

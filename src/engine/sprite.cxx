@@ -27,16 +27,6 @@ void Sprite::render()
   }
 }
 
-void Sprite::setTileIsoCoordinates(Point isoCoords)
-{
-  _isoCoordinates = isoCoords;
-}
-
-void Sprite::changeTexture(int tileID)
-{
-  _texture = TextureManager::Instance().getTexture(tileID);
-}
-
 void Sprite::renderTexture(int w, int h)
 {
   _destRect.x = _screenCoordinates.getX();
@@ -53,7 +43,3 @@ void Sprite::renderTexture()
   renderTexture(width, height);
 }
 
-SDL_Rect Sprite::textureInformation()
-{
-  return _destRect;
-}

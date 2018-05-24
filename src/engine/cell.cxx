@@ -5,11 +5,6 @@ Cell::Cell(Point isoCoordinates) : _isoCoordinates(isoCoordinates), _tileID(14),
   _sprite = std::shared_ptr<Sprite>(new Sprite(_tileID, _isoCoordinates));
 }
 
-std::shared_ptr<Sprite> Cell::getSprite()
-{
-  return _sprite;
-}
-
 void Cell::setNeighbors(std::vector<std::shared_ptr<Cell>> neighbors)
 {
   _neighbors = std::move(neighbors);
@@ -22,11 +17,6 @@ void Cell::renderCell()
     _sprite->setTileIsoCoordinates(_isoCoordinates);
     _sprite->render();
   }
-}
-
-Point Cell::getCoordinates()
-{
-  return _isoCoordinates;
 }
 
 void Cell::drawSurroundingTiles(Point isoCoordinates)
@@ -143,15 +133,4 @@ void Cell::determineTile()
     _tileID = 14;
   }
   _sprite->changeTexture(_tileID);
-}
-
-void Cell::setTileID(int tileID)
-{
-  _sprite->changeTexture(_tileID);
-  _tileID = tileID;
-}
-
-int Cell::getTileID()
-{
-  return _tileID;
 }

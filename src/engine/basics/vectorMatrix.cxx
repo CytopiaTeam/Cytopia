@@ -6,63 +6,41 @@ vectorMatrix::vectorMatrix(int columns, int rows)
   _cellMatrix.reserve(_rows * _columns);
 } 
 
-void vectorMatrix::resizeMatrix(int rows, int columns)
+std::vector<std::shared_ptr<Cell>> vectorMatrix::getCellNeighbors(int x, int y)
 {
+  std::vector<std::shared_ptr<Cell>> neighbors;
+  neighbors.reserve(9);
 
-  _cellMatrix.resize(_rows);
+  for (int rowIterator = -1; rowIterator <= 1; rowIterator++)
+  {
+    int currentRow = x + rowIterator;
 
-  //for (auto &it : _cellMatrix)
-  //{
-  //  it.resize(_columns);
-  //}
+    for (int columnIterator = -1; columnIterator <= 1; columnIterator++)
+    {
+      int currentColumn = y + columnIterator;
+
+      // check if the neighbor is within bounds of the tilemap
+      if ( currentRow >= 0 && currentRow < _rows && currentColumn >= 0 && currentColumn < _columns && !(currentRow == x && currentColumn == y) )
+      {
+        if ( _cellMatrix[currentRow * _columns + currentColumn] != nullptr )
+          neighbors.push_back(_cellMatrix[currentRow * _columns + currentColumn]);
+      }
+      else
+      {
+        neighbors.push_back(nullptr);
+      }
+    }
+  }
+  return neighbors;
 }
 
-  void vectorMatrix::addCell(int x, int y,int z)
+void vectorMatrix::initCells()
+{
+  for (int x = 0; x < _rows; x++)
   {
-    std::shared_ptr<Cell> cellPtr(new Cell(Point(x, y, z)));
-    _cellMatrix[x * _columns + y]= (cellPtr);
-  }
-
-  std::shared_ptr<Cell> vectorMatrix::getCell(int x, int y)
-  {
-    return _cellMatrix[x * _columns + y];
-  }
-
-  std::vector<std::shared_ptr<Cell>> vectorMatrix::getCellNeighbors(int x, int y)
-  {
-    std::vector<std::shared_ptr<Cell>> neighbors;
-    neighbors.reserve(9);
-
-    for (int rowIterator = -1; rowIterator <= 1; rowIterator++)
+    for (int y = 0; y < _columns; y++)
     {
-      int currentRow = x + rowIterator;
-
-      for (int columnIterator = -1; columnIterator <= 1; columnIterator++)
-      {
-        int currentColumn = y + columnIterator;
-
-        // check if the neighbor is within bounds of the tilemap
-        if ( currentRow >= 0 && currentRow < _rows && currentColumn >= 0 && currentColumn < _columns && !(currentRow == x && currentColumn == y) )
-        {
-          if ( _cellMatrix[currentRow * _columns + currentColumn] != nullptr )
-            neighbors.push_back(_cellMatrix[currentRow * _columns + currentColumn]);
-        }
-        else
-        {
-          neighbors.push_back(nullptr);
-        }
-      }
-    }
-    return neighbors;
-  }
-
-  void vectorMatrix::initCells()
-  {
-    for (int x = 0; x < _rows; x++)
-    {
-      for (int y = 0; y < _columns; y++)
-      {
-        _cellMatrix[x * _columns + y]->setNeighbors(getCellNeighbors(x, y));
-      }
+      _cellMatrix[x * _columns + y]->setNeighbors(getCellNeighbors(x, y));
     }
   }
+}

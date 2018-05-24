@@ -38,19 +38,19 @@ int main(int, char**)
             break;
           
           case SDLK_0:
-            engine.toggleLayer(Engine::LAYER_GRID);
+            engine.toggleLayer(LAYER_GRID);
             break;
           
           case SDLK_1:
-            engine.toggleLayer(Engine::LAYER_FLOOR);
+            engine.toggleLayer(LAYER_FLOOR);
             break;
           
           case SDLK_2:
-            engine.toggleLayer(Engine::LAYER_BUILDINGS);
+            engine.toggleLayer(LAYER_BUILDINGS);
             break;
           
           case SDLK_3:
-            engine.toggleLayer(Engine::LAYER_SELECTION);
+            engine.toggleLayer(LAYER_SELECTION);
             break;
           
           case SDLK_w:

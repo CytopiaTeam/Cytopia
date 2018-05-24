@@ -77,28 +77,11 @@ void Engine::centerScreenOnPoint(Point isoCoordinates)
 
 bool Engine::checkBoundaries(Point isoCoordinates)
 {
-  if ( (isoCoordinates.getX() >= 0 && isoCoordinates.getX() <= _map_size) && (isoCoordinates.getY() >= 0 && isoCoordinates.getY() <= _map_size) )
+  if (( isoCoordinates.getX() >= 0 && isoCoordinates.getX() <= _map_size ) 
+  && (  isoCoordinates.getY() >= 0 && isoCoordinates.getY() <= _map_size ))
     return true;
   else
     return false;
-}
-
-void Engine::enableLayer(unsigned int layer)
-{
-  // Turn on by using bitwise OR
-  _activeLayers |= layer;
-}
-
-void Engine::disableLayer(unsigned int layer)
-{
-  // Turn off by using bitwise AND with inversed pattern
-  _activeLayers &= ~layer;
-}
-
-void Engine::toggleLayer(unsigned int layer)
-{
-  // Toggle bitmask by using bitmask XOR
-  _activeLayers ^= layer;
 }
 
 void Engine::increaseHeight(Point isoCoordinates)
@@ -146,7 +129,7 @@ Point Engine::findCellAt(Point screenCoordinates)
     {
       std::shared_ptr<Cell> currentCell = _floorCellMatrix.getCell(x, y);
 
-      SDL_Rect spriteRect = currentCell->getSprite()->textureInformation();
+      SDL_Rect spriteRect = currentCell->getSprite()->getTextureInformation();
 
       int clickedX = screenCoordinates.getX() ;
       int clickedY = screenCoordinates.getY() ;
