@@ -24,7 +24,7 @@ public:
     * get the Sprite* object for this cell
     * @see Sprite
     */
-  Sprite* getSprite();
+  std::shared_ptr<Sprite> getSprite();
 
   /// get iso coordinates of this cell
   Point getCoordinates();
@@ -60,7 +60,7 @@ public:
 
 private:
   Point _isoCoordinates;
-  Sprite* _sprite;
+  std::shared_ptr<Sprite> _sprite;
 
   std::vector<std::shared_ptr<Cell>> _neighbors;
   SDL_Renderer* _renderer;

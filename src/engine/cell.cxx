@@ -6,10 +6,11 @@ Cell::Cell(Point isoCoordinates) : _isoCoordinates(isoCoordinates)
   _tileID = 14;
 
   _elevatedTilePosition = 0;
-  _sprite = new Sprite(_tileID, _isoCoordinates);
+  _sprite = std::shared_ptr<Sprite>(new Sprite(_tileID, _isoCoordinates));
+
 }
 
-Sprite* Cell::getSprite()
+std::shared_ptr<Sprite> Cell::getSprite()
 {
   return _sprite;
 }
