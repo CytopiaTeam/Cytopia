@@ -22,27 +22,29 @@ void Cell::renderCell()
 void Cell::drawSurroundingTiles(Point isoCoordinates)
 {
   int tileHeight = _isoCoordinates.getHeight();
+  int i = 0;
 
-  for (int i = 0; i < _neighbors.size(); i++)
+  for (auto it : _neighbors)
   {
-    if ( _neighbors[i] )
+    if ( it  )
     {
-      _neighbors[i]->determineTile();
+      it->determineTile();
 
       // there can't be a height difference greater then 1 between two map cells.
-      if ( tileHeight - _neighbors[i]->getCoordinates().getHeight() > 1 
+      if ( tileHeight - it->getCoordinates().getHeight() > 1 
       &&   Resources::getTerrainEditMode() == Resources::TERRAIN_RAISE
       &&   i % 2 )
       {
         _neighbors[i]->increaseHeight();
       }
-      if (  tileHeight - _neighbors[i]->getCoordinates().getHeight() < -1 
+      if (  tileHeight - it->getCoordinates().getHeight() < -1 
       &&    Resources::getTerrainEditMode() == Resources::TERRAIN_LOWER
       &&    i % 2) 
       {
-        _neighbors[i]->decreaseHeight();
+        it->decreaseHeight();
       }
     }
+    i++;
   }
   // call for this tile too. 
   determineTile();
