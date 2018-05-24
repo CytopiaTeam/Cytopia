@@ -106,31 +106,32 @@ void Cell::determineTile()
   }
 
   // special case: if both opposite neighbors are elevated, the center tile also gets elevated
-  if ((( (_elevatedTilePosition & ELEVATED_LEFT) && (_elevatedTilePosition & ELEVATED_RIGHT) )
-  ||   ( (_elevatedTilePosition & ELEVATED_TOP) && (_elevatedTilePosition & ELEVATED_BOTTOM) )
-  ||      _tileID == -1 )
-  &&      Resources::getTerrainEditMode() == Resources::TERRAIN_RAISE)
-  {
-    increaseHeight();
-    _tileID = 14;
-  }
 
-  if ((( (_elevatedTilePosition & ELEVATED_LEFT) && (_elevatedTilePosition & ELEVATED_RIGHT) )
-  || (   (_elevatedTilePosition & ELEVATED_TOP)  && (_elevatedTilePosition & ELEVATED_BOTTOM) )
+  if (( (_elevatedTilePosition & ELEVATED_LEFT) && (_elevatedTilePosition & ELEVATED_RIGHT) )
+  ||  ( (_elevatedTilePosition & ELEVATED_TOP) && (_elevatedTilePosition & ELEVATED_BOTTOM) )
   ||      _tileID == -1 )
-  &&      Resources::getTerrainEditMode() == Resources::TERRAIN_LOWER)
   {
-    for (int i = 0; i < _neighbors.size(); i++)
+    if ( Resources::getTerrainEditMode() == Resources::TERRAIN_RAISE )
     {
-      if ( _neighbors[i] )
+      increaseHeight();
+     _tileID = 14;
+    }
+
+    else if (Resources::getTerrainEditMode() == Resources::TERRAIN_LOWER)
+    {
+      for (int i = 0; i < _neighbors.size(); i++)
       {
-        if ( _neighbors[i]->getCoordinates().getHeight() > tileHeight )
+        if (_neighbors[i])
         {
-          _neighbors[i]->decreaseHeight();
+          if (_neighbors[i]->getCoordinates().getHeight() > tileHeight)
+          {
+            _neighbors[i]->decreaseHeight();
+          }
         }
       }
+      _tileID = 14;
     }
-    _tileID = 14;
   }
+
   _sprite->changeTexture(_tileID);
 }
