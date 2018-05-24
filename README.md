@@ -23,11 +23,13 @@ If you have questions or if you want to join the project, visit the [Projects Di
   
 #### Prerequisites
 
- SDL 1.2.5 or later
+ SDL 2
+ 
   http://www.libsdl.org
   http://www.libsdl.org/projects/SDL_image/
  
  CMake 3.9 or later
+ 
   https://cmake.org/
 
 #### Build instructions:
