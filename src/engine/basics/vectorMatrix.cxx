@@ -22,7 +22,7 @@ std::vector<std::shared_ptr<Cell>> vectorMatrix::getCellNeighbors(int x, int y)
       // check if the neighbor is within bounds of the tilemap
       if ( currentRow >= 0 && currentRow < _rows && currentColumn >= 0 && currentColumn < _columns && !(currentRow == x && currentColumn == y) )
       {
-        if ( _cellMatrix[currentRow * _columns + currentColumn] != nullptr )
+        if ( _cellMatrix[currentRow * _columns + currentColumn] )
           neighbors.push_back(_cellMatrix[currentRow * _columns + currentColumn]);
       }
       else

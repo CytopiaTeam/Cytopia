@@ -7,12 +7,12 @@ Cell::Cell(Point isoCoordinates) : _isoCoordinates(isoCoordinates), _tileID(14),
 
 void Cell::setNeighbors(std::vector<std::shared_ptr<Cell>> neighbors)
 {
-  _neighbors = std::move(neighbors);
+  _neighbors = neighbors;
 }
 
 void Cell::renderCell()
 {
-  if (_sprite != nullptr)
+  if (_sprite )
   {
     _sprite->setTileIsoCoordinates(_isoCoordinates);
     _sprite->render();
@@ -25,7 +25,7 @@ void Cell::drawSurroundingTiles(Point isoCoordinates)
 
   for (int i = 0; i < _neighbors.size(); i++)
   {
-    if ( _neighbors[i] != nullptr )
+    if ( _neighbors[i] )
     {
       _neighbors[i]->determineTile();
 
@@ -79,7 +79,7 @@ void Cell::determineTile()
 
   for (int i = 0; i < _neighbors.size(); i++) //determine TileID
   {
-    if ( _neighbors[i] != nullptr )
+    if ( _neighbors[i] )
     {
       if ( _neighbors[i]->getCoordinates().getHeight() > tileHeight )
       {
@@ -122,7 +122,7 @@ void Cell::determineTile()
   {
     for (int i = 0; i < _neighbors.size(); i++)
     {
-      if ( _neighbors[i] != nullptr )
+      if ( _neighbors[i] )
       {
         if ( _neighbors[i]->getCoordinates().getHeight() > tileHeight )
         {
