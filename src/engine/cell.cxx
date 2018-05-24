@@ -1,13 +1,8 @@
 #include "cell.hxx"
 
-Cell::Cell(Point isoCoordinates) : _isoCoordinates(isoCoordinates)
+Cell::Cell(Point isoCoordinates) : _isoCoordinates(isoCoordinates), _tileID(14), _elevatedTilePosition(0)
 {
-  // Default Floor sprite has tileID 14
-  _tileID = 14;
-
-  _elevatedTilePosition = 0;
   _sprite = std::shared_ptr<Sprite>(new Sprite(_tileID, _isoCoordinates));
-
 }
 
 std::shared_ptr<Sprite> Cell::getSprite()

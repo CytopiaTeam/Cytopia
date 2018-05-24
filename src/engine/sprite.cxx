@@ -4,10 +4,7 @@ Sprite::Sprite(int tileID, Point isoCoordinates) : _tileID(tileID), _isoCoordina
 {
   _renderer = Resources::getRenderer();
   _window = Resources::getWindow();
-  
-
   _screenCoordinates = Resources::convertIsoToScreenCoordinates(isoCoordinates);
-
   _texture = TextureManager::Instance().getTexture(tileID);
 }
 

@@ -8,11 +8,11 @@
 class Point
 {
 public:
-  Point();
-  Point(int x, int y);
-  Point(int x, int y, int z);
-  Point(int x, int y, int z, int height);
-  ~Point();
+  Point() : _x(0), _y(0), _z(0), _height(0) { };
+  Point(int x, int y) : _x(x), _y(y), _z(0), _height(0) { } ;
+  Point(int x, int y, int z) : _x(x), _y(y), _z(z), _height(0) { };
+  Point(int x, int y, int z, int height) : _x(x), _y(y), _z(z), _height(height) { };
+  ~Point() = default;
 
   // set point to Coordinates
   void setCoords(int x, int y, int height = 0);
