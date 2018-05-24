@@ -6,9 +6,16 @@ vectorMatrix::vectorMatrix()
 }
 
 vectorMatrix::vectorMatrix(int columns, int rows)
-  : _cellMatrix((columns+1) * (rows+1)), _columns(columns+1), _rows(rows+1)
+  : _cellMatrix((columns+1) * (rows+1))
+  //: _cellMatrix(rows+1, std::vector<std::shared_ptr<Cell>>(columns+1))
 {
+  _columns = columns + 1;
+  _rows = rows + 1;
+  //_cellMatrix(_rows * _columns);
+  //_cellMatrix.resize(_rows * _columns);
   _cellMatrix.reserve(_rows * _columns);
+  //resizeMatrix(columns, rows);
+  
 } 
 
 vectorMatrix::~vectorMatrix()
@@ -42,13 +49,14 @@ void vectorMatrix::resizeMatrix(int rows, int columns)
   {
     std::vector<std::shared_ptr<Cell>> neighbors;
     neighbors.reserve(9);
-
+    int z = 0;
     for (int rowIterator = -1; rowIterator <= 1; rowIterator++)
     {
       int currentRow = x + rowIterator;
 
       for (int columnIterator = -1; columnIterator <= 1; columnIterator++)
-      {
+      { 
+        z++;
         int currentColumn = y + columnIterator;
 
         // check if the neighbor is within bounds of the tilemap
@@ -72,6 +80,8 @@ void vectorMatrix::resizeMatrix(int rows, int columns)
     {
       for (int y = 0; y < _columns; y++)
       {
+        if (x == 1 && y == 64)
+          LOG() << "HERE";
         _cellMatrix[x * _columns + y]->setNeighbors(getCellNeighbors(x, y));
       }
     }
