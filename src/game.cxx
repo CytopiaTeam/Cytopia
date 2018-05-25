@@ -1,5 +1,5 @@
 #include "game.hxx"
-#include "engine/ui/texture.hxx"
+#include "engine/ui/button.hxx"
 
 int main(int, char**)
 {
@@ -17,6 +17,7 @@ int main(int, char**)
   
   _renderer = Resources::getRenderer();
   _window = Resources::getWindow();
+
   
 
 
@@ -63,7 +64,7 @@ int main(int, char**)
 
           case SDLK_j:
             // just for debug 
-            Resources::generateJSONFile();
+            Resources::generateUITextureFile();
             break;
           
           case SDLK_e:
@@ -123,9 +124,9 @@ int main(int, char**)
 
     // UI Stuff
 
-    Texture texture;
-    texture.changeTexture(12);
-    texture.render();
+    Button button(50, 50, 10);
+    //button.changeTexture(12);
+    button.render();
     // ----------
 
     // Render the Frame

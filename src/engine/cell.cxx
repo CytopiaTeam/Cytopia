@@ -124,9 +124,9 @@ void Cell::determineTile()
     }
   }
 
-  auto keyTileID = keyTileMap.find(_elevatedTilePosition);
+  auto keyTileID = Resources::keyTileMap.find(_elevatedTilePosition);
 
-  if ( keyTileID != keyTileMap.end() )
+  if ( keyTileID != Resources::keyTileMap.end() )
   {
     _tileID = keyTileID->second;
   }

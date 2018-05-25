@@ -5,14 +5,16 @@
 #include "../engine/textureManager.hxx"
 #include "../log.hxx"
 
-class Texture
+class UiBasics
 {
 public:
   //Initializes variables
-  Texture();
+  UiBasics();
+  UiBasics(int x, int y, int uiSpriteID);
+
 
   //Deallocates memory
-  ~Texture() { };
+  ~UiBasics() { };
 
   void loadFile(std::string &filePath);
 
@@ -25,6 +27,7 @@ public:
 
   void renderTexture();
 
+  Point _screenCoordinates;
 private:
   SDL_Texture * _texture;
   SDL_Renderer* _renderer;
@@ -32,7 +35,6 @@ private:
   SDL_Rect _destRect;
 
   Point _isoCoordinates;
-  Point _screenCoordinates;
   int _uiID;
 
 };
