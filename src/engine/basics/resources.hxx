@@ -54,6 +54,7 @@ public:
   // JSON Functions
   static void generateJSONFile();
   static std::string getTileDataFromJSON(std::string tileType, int tileID, std::string attributes);
+  static std::string getSpriteDataFromJSON(std::string uiType, int uiSpriteID, std::string attributes);
   static void readTileListFile();
 
   static void generateINIFile();
@@ -94,6 +95,7 @@ private:
 
   static json _json;
   static json _iniFile;
+  static json _uiTextureFile;
 
   static void readINIFile();
 

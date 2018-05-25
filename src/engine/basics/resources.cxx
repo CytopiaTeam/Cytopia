@@ -10,6 +10,7 @@ const int Resources::_TILE_SIZE = 32;
 int Resources::_terrainEditMode = Resources::NO_TERRAIN_EDIT;
 json Resources::_json;
 json Resources::_iniFile;
+json Resources::_uiTextureFile;
 Resources::Settings Resources::settings;
 
 
@@ -260,6 +261,19 @@ std::string Resources::getTileDataFromJSON(std::string tileType, int tileID, std
   return retrievedFileName;
 }
 
+std::string Resources::getSpriteDataFromJSON(std::string uiType, int uiSpriteID, std::string attribute)
+{
+  for (json::iterator it = _uiTextureFile.begin(); it != _uiTextureFile.end(); ++it)
+  {
+    if (it.key() == uiType)
+    {
+      // more json stuff later...
+    }
+  }
+  std::string retrievedFileName = _uiTextureFile[uiType][std::to_string(uiSpriteID)]["filename"].get<std::string>();
+  return retrievedFileName;
+}
+
 void Resources::readTileListFile()
 {
   std::string tileListFile = "resources/tileList.json";
@@ -281,7 +295,8 @@ void Resources::generateUITextureFile()
 {
   json uiTextureFile;
 
-  uiTextureFile["Button"]["0"]["filename"] = std::string("resources/images/floor/floor_0.png");
+  uiTextureFile["button"]["0"]["filename"] = std::string("resources/images/ui/buttons/build.png");
+  uiTextureFile["button"]["0"]["filename"] = std::string("resources/images/ui/buttons/build.png");
 
   std::ofstream myJsonFile("resources/UITextureList.json");
 
@@ -307,7 +322,7 @@ void Resources::readUITextureListFile()
     return;
   }
 
-  i >> _json;
+  i >> _uiTextureFile;
 }
 
 

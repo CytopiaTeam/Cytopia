@@ -11,7 +11,7 @@ UiBasics::UiBasics(int x, int y, int uiSpriteID) : _screenCoordinates(Point(x,y)
 {
   _renderer = Resources::getRenderer();
   _window = Resources::getWindow();
-  _texture = TextureManager::Instance().getTexture(uiSpriteID);
+  _texture = TextureManager::Instance().getUITexture(uiSpriteID);
 
   //Point _screenCoordinates = Point(90, 90);
 }
@@ -26,7 +26,7 @@ void UiBasics::render()
 
 void UiBasics::changeTexture(int tileID)
 {
-  _texture = TextureManager::Instance().getTexture(tileID);
+  _texture = TextureManager::Instance().getUITexture(tileID);
 }
 
 void UiBasics::renderTexture(int w, int h)

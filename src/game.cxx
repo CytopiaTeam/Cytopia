@@ -6,7 +6,7 @@ int main(int, char**)
   LOG() << VERSION;
   LOG().timerStart();
   Resources::init();
-
+  //Resources::generateUITextureFile();
   WindowManager window("Isometric Engine");
   Engine& engine = Engine::Instance();
   LOG().timerEnd();
@@ -124,7 +124,7 @@ int main(int, char**)
 
     // UI Stuff
 
-    Button button(50, 50, 10);
+    Button button(50, 50, 0);
     //button.changeTexture(12);
     button.render();
     // ----------
