@@ -1,4 +1,7 @@
 #include "game.hxx"
+
+// just temporary includes... ui will be handled elsewhere
+
 #include "engine/ui/button.hxx"
 
 int main(int, char**)
@@ -6,14 +9,16 @@ int main(int, char**)
   LOG() << VERSION;
   LOG().timerStart();
   Resources::init();
-  //Resources::generateUITextureFile();
+
   WindowManager window("Isometric Engine");
   Engine& engine = Engine::Instance();
+
   LOG().timerEnd();
   LOG() << "Tile Matrix initialized";
 
   Point clickCoords, mouseCoords;
   SDL_Event event;
+  EventManager evManager = EventManager();
   
   _renderer = Resources::getRenderer();
   _window = Resources::getWindow();
@@ -79,6 +84,14 @@ int main(int, char**)
         break;
  
       case SDL_MOUSEBUTTONDOWN:
+        // hacky event handling for now
+        if (evManager.checkEvents(event))
+        {
+          // events are handled -> done
+          break;
+        }
+        
+
         mouseCoords.setCoords(event.button.x, event.button.y);
         clickCoords = Resources::convertScreenToIsoCoordinates(mouseCoords);
 

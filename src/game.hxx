@@ -7,12 +7,12 @@
   #define VERSION 0
 #endif
 
-#include <iostream>
-
 #include "SDL2/SDL.h"
 
 #include "engine/windowManager.hxx"
 #include "engine/engine.hxx"
+#include "engine/eventManager.hxx"
+#include "engine/uiManager.hxx"
 #include "engine/basics/point.hxx"
 #include "engine/basics/resources.hxx"
 #include "engine/basics/log.hxx"

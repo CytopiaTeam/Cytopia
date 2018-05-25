@@ -1,13 +1,13 @@
-#include "uiBasics.hxx"
+#include "uiElement.hxx"
 
-UiBasics::UiBasics()
+UiElement::UiElement()
 {
   _renderer = Resources::getRenderer();
   _window = Resources::getWindow();
   //Point _screenCoordinates = Point(90, 90);
 }
 
-UiBasics::UiBasics(int x, int y, int uiSpriteID) : _screenCoordinates(Point(x,y))
+UiElement::UiElement(int x, int y, int uiSpriteID) : _screenCoordinates(Point(x,y))
 {
   _renderer = Resources::getRenderer();
   _window = Resources::getWindow();
@@ -16,7 +16,7 @@ UiBasics::UiBasics(int x, int y, int uiSpriteID) : _screenCoordinates(Point(x,y)
   //Point _screenCoordinates = Point(90, 90);
 }
 
-void UiBasics::render()
+void UiElement::render()
 {
   int screen_width = Resources::settings.screenWidth;
   int screen_height = Resources::settings.screenHeight;
@@ -24,12 +24,12 @@ void UiBasics::render()
   renderTexture();
 }
 
-void UiBasics::changeTexture(int tileID)
+void UiElement::changeTexture(int tileID)
 {
   _texture = TextureManager::Instance().getUITexture(tileID);
 }
 
-void UiBasics::renderTexture(int w, int h)
+void UiElement::renderTexture(int w, int h)
 {
   _destRect.x = _screenCoordinates.getX();
   _destRect.y = _screenCoordinates.getY();
@@ -38,7 +38,7 @@ void UiBasics::renderTexture(int w, int h)
   SDL_RenderCopy(_renderer, _texture, nullptr, &_destRect);
 }
 
-void UiBasics::renderTexture()
+void UiElement::renderTexture()
 {
   int width, height;
   SDL_QueryTexture(_texture, NULL, NULL, &width, &height);

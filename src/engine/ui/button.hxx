@@ -1,9 +1,15 @@
-#include "uiBasics.hxx"
+#ifndef BUTTON_HXX_
+#define BUTTON_HXX_
 
-class Button : public UiBasics
+
+#include "uiElement.hxx"
+
+class Button : public UiElement
 {
 public:
   Button(int x, int y, int uiSpriteID);
   ~Button() = default;
 
 };
+
+#endif

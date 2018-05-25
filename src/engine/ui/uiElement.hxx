@@ -1,3 +1,6 @@
+#ifndef UIELEMENT_HXX_
+#define UIELEMENT_HXX_
+
 #include <string>
 #include "SDL2/SDL.h"
 #include "../basics/point.hxx"
@@ -5,16 +8,16 @@
 #include "../engine/textureManager.hxx"
 #include "../log.hxx"
 
-class UiBasics
+class UiElement
 {
 public:
   //Initializes variables
-  UiBasics();
-  UiBasics(int x, int y, int uiSpriteID);
+  UiElement();
+  UiElement(int x, int y, int uiSpriteID);
 
 
   //Deallocates memory
-  ~UiBasics() { };
+  ~UiElement() { };
 
   void loadFile(std::string &filePath);
 
@@ -38,3 +41,5 @@ private:
   int _uiID;
 
 };
+
+#endif
