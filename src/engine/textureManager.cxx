@@ -28,6 +28,28 @@ void TextureManager::loadTexture(int tileID, bool colorKey)
     LOG(LOG_ERROR) << "Could not load Texture from file " << fileName << "\nSDL_IMAGE Error: " << IMG_GetError();
 }
 
+void TextureManager::loadUITexture(int uiSpriteID, bool colorKey)
+{
+  std::string fileName = Resources::getSpriteDataFromJSON("button", uiSpriteID, "filename");
+  SDL_Surface* loadedImage = IMG_Load(fileName.c_str());
+
+  if ( loadedImage )
+  {
+    if ( colorKey )
+      SDL_SetColorKey(loadedImage, SDL_TRUE, SDL_MapRGB(loadedImage->format, 0, 0xFF, 0xFF));
+
+    _uiSurfaceMap[uiSpriteID] = loadedImage;
+    SDL_Texture* _texture = SDL_CreateTextureFromSurface(_renderer, loadedImage);
+
+    if ( _texture != nullptr )
+      _uiTextureMap[uiSpriteID] = _texture;
+    else
+      LOG(LOG_ERROR) << "Renderer could not be created! SDL Error: " << SDL_GetError();
+  }
+  else
+    LOG(LOG_ERROR) << "Could not load Texture from file " << fileName << "\nSDL_IMAGE Error: " << IMG_GetError();
+}
+
 SDL_Texture* TextureManager::getTexture(int tileID)
 {
   // If the texture isn't in the map, load it first.
@@ -36,6 +58,16 @@ SDL_Texture* TextureManager::getTexture(int tileID)
     loadTexture(tileID);
   }
   return _textureMap[tileID];
+}
+
+SDL_Texture* TextureManager::getUITexture(int tileID)
+{
+  // If the texture isn't in the map, load it first.
+  if (! _uiTextureMap.count(tileID))
+  {
+    loadUITexture(tileID);
+  }
+  return _uiTextureMap[tileID];
 }
 
 SDL_Surface* TextureManager::getSurface(int tileID)

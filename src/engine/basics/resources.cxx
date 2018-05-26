@@ -10,8 +10,9 @@ const int Resources::_TILE_SIZE = 32;
 int Resources::_terrainEditMode = Resources::NO_TERRAIN_EDIT;
 json Resources::_json;
 json Resources::_iniFile;
+json Resources::_uiTextureFile;
 Resources::Settings Resources::settings;
-
+bool Resources::editMode = false;
 
 
 /** Enum (bitmask) for mapping neighbor tile positions
@@ -116,6 +117,10 @@ void Resources::init()
 {
   readINIFile();
   readTileListFile();
+  readUITextureListFile();
+
+
+
 }
 
 SDL_Renderer* Resources::getRenderer()
@@ -254,6 +259,19 @@ std::string Resources::getTileDataFromJSON(std::string tileType, int tileID, std
   return retrievedFileName;
 }
 
+std::string Resources::getSpriteDataFromJSON(std::string uiType, int uiSpriteID, std::string attribute)
+{
+  for (json::iterator it = _uiTextureFile.begin(); it != _uiTextureFile.end(); ++it)
+  {
+    if (it.key() == uiType)
+    {
+      // more json stuff later...
+    }
+  }
+  std::string retrievedFileName = _uiTextureFile[uiType][std::to_string(uiSpriteID)]["filename"].get<std::string>();
+  return retrievedFileName;
+}
+
 void Resources::readTileListFile()
 {
   std::string tileListFile = "resources/tileList.json";
@@ -267,6 +285,44 @@ void Resources::readTileListFile()
 
   i >> _json;
 }
+
+// User Interface Sprites
+
+
+void Resources::generateUITextureFile()
+{
+  json uiTextureFile;
+
+  uiTextureFile["button"]["0"]["filename"] = std::string("resources/images/ui/buttons/build.png");
+  uiTextureFile["button"]["0"]["filename"] = std::string("resources/images/ui/buttons/build.png");
+
+  std::ofstream myJsonFile("resources/UITextureList.json");
+
+  if (myJsonFile.is_open())
+  {
+    myJsonFile << std::setw(4) << uiTextureFile << std::endl;
+    myJsonFile.close();
+  }
+  else
+  {
+    printf("ERROR: Couldn't write file \"resources/UITextureList.json\"");
+  }
+}
+
+void Resources::readUITextureListFile()
+{
+  std::string uiTextureFile = "resources/UITextureList.json";
+  std::ifstream i(uiTextureFile);
+  if (i.fail())
+  {
+    LOG(LOG_ERROR) << "File " << uiTextureFile << " does not exist! Cannot load settings from INI File!";
+    // Application should quit here, without settings from the tileList file we can't continue
+    return;
+  }
+
+  i >> _uiTextureFile;
+}
+
 
 // Ini File Handling
 

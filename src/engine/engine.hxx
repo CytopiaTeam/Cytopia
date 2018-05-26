@@ -89,6 +89,15 @@ private:
   /// Uint for storing a bitmask (Layers Enum)
   unsigned int _activeLayers;
 
+  // Layer ENUM
+public:
+  enum Layers : unsigned int
+  {
+    LAYER_FLOOR       = 1u<<0,
+    LAYER_BUILDINGS   = 1u<<1,
+    LAYER_GRID        = 1u<<2,
+    LAYER_SELECTION   = 1u<<3
+  };
 };
 
 #endif 

@@ -14,6 +14,10 @@ int main(int, char**)
 
   Point clickCoords, mouseCoords;
   SDL_Event event;
+  EventManager evManager = EventManager();
+
+  UIManager& uiManager = UIManager::Instance();
+  uiManager.init();
   
   _renderer = Resources::getRenderer();
   _window = Resources::getWindow();
@@ -38,19 +42,19 @@ int main(int, char**)
             break;
           
           case SDLK_0:
-            engine.toggleLayer(LAYER_GRID);
+            engine.toggleLayer(Engine::LAYER_GRID);
             break;
           
           case SDLK_1:
-            engine.toggleLayer(LAYER_FLOOR);
+            engine.toggleLayer(Engine::LAYER_FLOOR);
             break;
           
           case SDLK_2:
-            engine.toggleLayer(LAYER_BUILDINGS);
+            engine.toggleLayer(Engine::LAYER_BUILDINGS);
             break;
           
           case SDLK_3:
-            engine.toggleLayer(LAYER_SELECTION);
+            engine.toggleLayer(Engine::LAYER_SELECTION);
             break;
           
           case SDLK_w:
@@ -60,14 +64,9 @@ int main(int, char**)
 
           case SDLK_j:
             // just for debug 
-            Resources::generateJSONFile();
+            Resources::generateUITextureFile();
             break;
           
-          case SDLK_e:
-            LOG() << "Toggling Edit Mode\n";
-            editMode = !editMode;
-            break;
-   
           case SDLK_f:
             window.toggleFullScreen();
             break;
@@ -75,13 +74,21 @@ int main(int, char**)
         break;
  
       case SDL_MOUSEBUTTONDOWN:
+        // hacky event handling for now
+        if (evManager.checkEvents(event))
+        {
+          // events are handled -> done
+          break;
+        }
+        
+
         mouseCoords.setCoords(event.button.x, event.button.y);
         clickCoords = Resources::convertScreenToIsoCoordinates(mouseCoords);
         if ( event.button.button == SDL_BUTTON_LEFT )
         {
           if ( engine.checkBoundaries(clickCoords) )
           {
-            if (editMode)
+            if (Resources::getEditMode())
               engine.increaseHeight(clickCoords);
             else
               LOG() << "CLICKED - Iso Coords: " << clickCoords.getX() << ", " << clickCoords.getY();
@@ -89,7 +96,7 @@ int main(int, char**)
         }
         else if ( event.button.button == SDL_BUTTON_RIGHT )
         {
-          if (editMode)
+          if (Resources::getEditMode())
             engine.decreaseHeight(clickCoords);
           else
             engine.centerScreenOnPoint(clickCoords);
@@ -114,6 +121,8 @@ int main(int, char**)
 
     // render the tilemap
     engine.render();
+
+    uiManager.drawUI();
 
     // Render the Frame
     SDL_RenderPresent(_renderer);

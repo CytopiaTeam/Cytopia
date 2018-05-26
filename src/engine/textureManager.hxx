@@ -28,6 +28,7 @@ public:
 
   /** retrieves texture for a tileID */
   SDL_Texture* getTexture(int tileID);
+  SDL_Texture* getUITexture(int tileID);
 
   SDL_Surface * getSurface(int tileID);
 
@@ -35,12 +36,14 @@ public:
   SDL_Color GetPixelColor(int tileID,  int X, int Y);
 
   std::unordered_map<int, SDL_Texture*> _textureMap;
+  std::unordered_map<int, SDL_Texture*> _uiTextureMap;
   /** Keep surfaces in map for collision detection when selecting tiles*/
   std::unordered_map<int, SDL_Surface*> _surfaceMap;
+  std::unordered_map<int, SDL_Surface*> _uiSurfaceMap;
 
 private:
   TextureManager();
-  ~TextureManager() = default;  
+  ~TextureManager() { };
 
   SDL_Renderer* _renderer;
   SDL_Window* _window;
@@ -51,6 +54,7 @@ private:
   If colorkey is set - Use Magic Pink for transparency
   */
   void loadTexture(int tileID, bool colorKey = false);
+  void loadUITexture(int uiSpriteID, bool colorKey = false);
 };
 
 #endif

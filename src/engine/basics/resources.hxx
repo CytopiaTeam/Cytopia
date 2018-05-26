@@ -25,13 +25,6 @@ enum elevatedTilePosition : unsigned int
   ELEVATED_BOTTOM_RIGHT = 0x80,
 };
 
-enum layers : unsigned int
-{
-  LAYER_FLOOR = 1u << 0,
-  LAYER_BUILDINGS = 1u << 1,
-  LAYER_GRID = 1u << 2,
-  LAYER_SELECTION = 1u << 3
-};
 
 //forward declare Engine class (prevent cross includes)
 class Engine;
@@ -62,9 +55,15 @@ public:
   // JSON Functions
   static void generateJSONFile();
   static std::string getTileDataFromJSON(std::string tileType, int tileID, std::string attributes);
+  static std::string getSpriteDataFromJSON(std::string uiType, int uiSpriteID, std::string attributes);
   static void readTileListFile();
 
   static void generateINIFile();
+  static void generateUITextureFile();
+  static void readUITextureListFile();
+
+  static void toggleEditMode() { editMode = !editMode; }
+  static bool getEditMode() { return editMode; }
 
   enum terrainEditMode : int
   {
@@ -100,8 +99,11 @@ private:
 
   static json _json;
   static json _iniFile;
+  static json _uiTextureFile;
 
   static void readINIFile();
+
+  static bool editMode;
 
 public:
   

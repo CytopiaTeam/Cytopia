@@ -1,3 +1,6 @@
+#ifndef VECTORMATRIX_HXX_
+#define VECTORMATRIX_HXX_
+
 #include <vector>
 #include "../sprite.hxx"
 #include "../cell.hxx"
@@ -24,3 +27,5 @@ private:
   int _columns;
   int _rows;
 };
+
+#endif
