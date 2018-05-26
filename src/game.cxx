@@ -19,6 +19,9 @@ int main(int, char**)
   Point clickCoords, mouseCoords;
   SDL_Event event;
   EventManager evManager = EventManager();
+
+  UIManager uiManager;
+  uiManager.init();
   
   _renderer = Resources::getRenderer();
   _window = Resources::getWindow();
@@ -133,14 +136,9 @@ int main(int, char**)
     // render the tilemap
     engine.render();
 
+    uiManager.drawUI();
 
-
-    // UI Stuff
-
-    Button button(50, 50, 0);
-    //button.changeTexture(12);
-    button.render();
-    // ----------
+    
 
     // Render the Frame
     SDL_RenderPresent(_renderer);

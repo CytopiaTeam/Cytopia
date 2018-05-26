@@ -6,7 +6,7 @@
 #include "../basics/point.hxx"
 #include "../basics/resources.hxx"
 #include "../textureManager.hxx"
-#include "../log.hxx"
+#include "../basics/log.hxx"
 
 class UiElement
 {
