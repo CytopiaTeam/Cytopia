@@ -5,7 +5,7 @@
 #include "SDL2/SDL.h"
 #include "../basics/point.hxx"
 #include "../basics/resources.hxx"
-#include "../engine/textureManager.hxx"
+#include "../textureManager.hxx"
 #include "../log.hxx"
 
 class UiElement
@@ -19,10 +19,7 @@ public:
   //Deallocates memory
   ~UiElement() { };
 
-  void loadFile(std::string &filePath);
-
   //Renders texture at given point
-  //void render(int x, int y, SDL_Rect* clip = NULL, double angle = 0.0, SDL_Point* center = NULL, SDL_RendererFlip flip = SDL_FLIP_NONE);
   void render();
   void changeTexture(int tileID);
 
