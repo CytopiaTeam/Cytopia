@@ -26,6 +26,7 @@ public:
   void renderTexture(int w, int h);
 
   void renderTexture();
+  bool isClicked(int x, int y);
 
   Point _screenCoordinates;
 private:

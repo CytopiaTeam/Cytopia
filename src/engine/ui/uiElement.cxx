@@ -44,3 +44,14 @@ void UiElement::renderTexture()
   SDL_QueryTexture(_texture, NULL, NULL, &width, &height);
   renderTexture(width, height);
 }
+
+bool UiElement::isClicked(int x, int y)
+{
+  if (x > _destRect.x && x < _destRect.x + _destRect.w
+  &&  y > _destRect.y && y < _destRect.y + _destRect.h)
+  {
+    LOG() << "uiELEMENT is clicked!";
+    return true;
+  }
+  return false;
+}

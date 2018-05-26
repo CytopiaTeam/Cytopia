@@ -9,6 +9,8 @@ class Button : public UiElement
 public:
   Button(int x, int y, int uiSpriteID);
   ~Button() = default;
+  bool getClickedUiElement(int x, int y);
+
 
 };
 

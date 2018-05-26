@@ -2,6 +2,8 @@
 
 #include "SDL2/SDL.h"
 
+#include "uiManager.hxx"
+
 class EventManager
 {
 public:
@@ -10,6 +12,6 @@ public:
 
 
   bool checkEvents(SDL_Event &event);
-
-
+private:
+  UIManager& uiManager = UIManager::Instance();
 };

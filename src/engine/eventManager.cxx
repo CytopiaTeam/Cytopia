@@ -19,7 +19,9 @@ bool EventManager::checkEvents(SDL_Event &event)
       if (event.button.button == SDL_BUTTON_LEFT)
       {
         // check for UI collision here first
-        handled = true;
+        // event.button.x, event.button.y)
+        if (uiManager.checkClick(event.button.x, event.button.y))
+          handled = true;
       }
       break;
     default:

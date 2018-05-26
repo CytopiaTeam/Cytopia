@@ -20,7 +20,7 @@ int main(int, char**)
   SDL_Event event;
   EventManager evManager = EventManager();
 
-  UIManager uiManager;
+  UIManager& uiManager = UIManager::Instance();
   uiManager.init();
   
   _renderer = Resources::getRenderer();
@@ -91,6 +91,7 @@ int main(int, char**)
         if (evManager.checkEvents(event))
         {
           // events are handled -> done
+          LOG() << "HANDLED";
           break;
         }
         
