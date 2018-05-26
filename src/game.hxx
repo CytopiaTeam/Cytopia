@@ -18,7 +18,6 @@
 #include "engine/basics/log.hxx"
 
 
-bool editMode;
 SDL_Renderer* _renderer;
 SDL_Window* _window;
 

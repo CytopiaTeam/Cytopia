@@ -75,11 +75,6 @@ int main(int, char**)
             Resources::generateUITextureFile();
             break;
           
-          case SDLK_e:
-            LOG() << "Toggling Edit Mode\n";
-            editMode = !editMode;
-            break;
-   
           case SDLK_f:
             window.toggleFullScreen();
             break;
@@ -103,7 +98,7 @@ int main(int, char**)
         {
           if ( engine.checkBoundaries(clickCoords) )
           {
-            if (editMode)
+            if (Resources::getEditMode())
               engine.increaseHeight(clickCoords);
             else
               LOG() << "CLICKED - Iso Coords: " << clickCoords.getX() << ", " << clickCoords.getY();
@@ -111,7 +106,7 @@ int main(int, char**)
         }
         else if ( event.button.button == SDL_BUTTON_RIGHT )
         {
-          if (editMode)
+          if (Resources::getEditMode())
             engine.decreaseHeight(clickCoords);
           else
             engine.centerScreenOnPoint(clickCoords);

@@ -12,7 +12,7 @@ json Resources::_json;
 json Resources::_iniFile;
 json Resources::_uiTextureFile;
 Resources::Settings Resources::settings;
-
+bool Resources::editMode = false;
 
 
 /** Enum (bitmask) for mapping neighbor tile positions

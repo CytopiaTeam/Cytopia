@@ -21,7 +21,10 @@ bool EventManager::checkEvents(SDL_Event &event)
         // check for UI collision here first
         // event.button.x, event.button.y)
         if (uiManager.checkClick(event.button.x, event.button.y))
+        {
+          Resources::toggleEditMode();
           handled = true;
+        }
       }
       break;
     default:

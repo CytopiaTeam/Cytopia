@@ -61,6 +61,9 @@ public:
   static void generateUITextureFile();
   static void readUITextureListFile();
 
+  static void toggleEditMode() { editMode = !editMode; }
+  static bool getEditMode() { return editMode; }
+
   enum terrainEditMode : int
   {
     NO_TERRAIN_EDIT,
@@ -98,6 +101,8 @@ private:
   static json _uiTextureFile;
 
   static void readINIFile();
+
+  static bool editMode;
 
 public:
   
