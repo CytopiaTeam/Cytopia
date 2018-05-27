@@ -10,15 +10,6 @@ void Cell::setNeighbors(std::vector<std::shared_ptr<Cell>> neighbors)
   _neighbors = neighbors;
 }
 
-void Cell::renderCell()
-{
-  if (_sprite )
-  {
-    _sprite->setTileIsoCoordinates(_isoCoordinates);
-    _sprite->render();
-  }
-}
-
 void Cell::drawSurroundingTiles(Point isoCoordinates)
 {
   int tileHeight = _isoCoordinates.getHeight();
@@ -37,9 +28,9 @@ void Cell::drawSurroundingTiles(Point isoCoordinates)
       {
         _neighbors[i]->increaseHeight();
       }
-      if (  tileHeight - it->getCoordinates().getHeight() < -1 
-      &&    Resources::getTerrainEditMode() == Resources::TERRAIN_LOWER
-      &&    i % 2) 
+      if ( tileHeight - it->getCoordinates().getHeight() < -1 
+      &&   Resources::getTerrainEditMode() == Resources::TERRAIN_LOWER
+      &&   i % 2 ) 
       {
         it->decreaseHeight();
       }
@@ -58,6 +49,7 @@ void Cell::increaseHeight()
   {
     _isoCoordinates.setHeight(_isoCoordinates.getHeight() + 1);
     drawSurroundingTiles(_isoCoordinates);
+    _sprite->setTileIsoCoordinates(_isoCoordinates);
   }
 }
 
@@ -69,6 +61,7 @@ void Cell::decreaseHeight()
   {
     _isoCoordinates.setHeight(height - 1);
     drawSurroundingTiles(_isoCoordinates);
+    _sprite->setTileIsoCoordinates(_isoCoordinates);
   }
 }
 

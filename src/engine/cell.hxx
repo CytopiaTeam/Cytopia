@@ -39,14 +39,11 @@ public:
   * @see Resources#readTileListFile
   * @param tileID The tileID that should be rendered for this map cell
   */
-  inline void setTileID(int tileID) {
+  void setTileID(int tileID) {
     _sprite->changeTexture(_tileID);
     _tileID = tileID;
   };
-
-  /// add the cell to the renderer
-  void renderCell();
-
+  
   /// Sets the neighbors of this cell for fast access
   void setNeighbors(std::vector<std::shared_ptr<Cell>> neighbors);
 

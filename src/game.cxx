@@ -5,7 +5,6 @@ int main(int, char**)
 {
   LOG() << VERSION;
   LOG().timerStart();
-  Resources::generateINIFile();
   Resources::init();
   
 

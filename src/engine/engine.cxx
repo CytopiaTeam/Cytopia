@@ -8,7 +8,7 @@ Engine::Engine()
   _window = Resources::getWindow();
   _map_size = Resources::settings.mapSize;
 
-  _floorCellMatrix = vectorMatrix(_map_size, _map_size);
+  _mapCellMatrix = vectorMatrix(_map_size, _map_size);
   _zoomLevel = Resources::getZoomLevel();
 
   // Default: Floor and Buildings are drawn
@@ -20,23 +20,6 @@ Engine::Engine()
   // set camera to map center
   _centerIsoCoordinates = Point(_map_size / 2, _map_size / 2);
   centerScreenOnPoint(_centerIsoCoordinates);
-
-  int z = 0;
-
-  // initialize cell Matrix
-  for (int x = 0; x <= _map_size; x++)
-  {
-    for (int y = _map_size; y >= 0; y--)
-    {
-      z++;
-      //Cell* mapCell = new Cell(Point(x, y, z));
-      
-      _floorCellMatrix.addCell(x, y, z);
-      //_floorCellMatrix.addCell(std::shared_ptr<Cell>(new Cell(Point(x, y, z)));
-
-    }
-  }
-  _floorCellMatrix.initCells();
 }
 
 void Engine::parseMapFile()
@@ -46,15 +29,13 @@ void Engine::parseMapFile()
 
 void Engine::render()
 {
-  for (int x = 0; x <= _map_size; x++)
+  int mapSize = Resources::settings.mapSize;
+
+  for (int x = 0; x <= mapSize; x++)
   {
-    for (int y = _map_size; y >= 0; y--)
+    for (int y = mapSize; y >= 0; y--)
     {
-      // Layer 0 - floor
-      if ( _activeLayers & LAYER_FLOOR )
-      {
-        _floorCellMatrix.getCell(x, y)->renderCell();
-      }
+      _mapCellMatrix.getCell(x, y)->getSprite()->render();
     }
   }
 }
@@ -87,13 +68,13 @@ bool Engine::checkBoundaries(Point isoCoordinates)
 void Engine::increaseHeight(Point isoCoordinates)
 {
   Resources::setTerrainEditMode(Resources::TERRAIN_RAISE);
-  _floorCellMatrix.getCell(isoCoordinates.getX(), isoCoordinates.getY())->increaseHeight();
+  _mapCellMatrix.getCell(isoCoordinates.getX(), isoCoordinates.getY())->increaseHeight();
 }
 
 void Engine::decreaseHeight(Point isoCoordinates)
 {
   Resources::setTerrainEditMode(Resources::TERRAIN_LOWER);
-  _floorCellMatrix.getCell(isoCoordinates.getX(), isoCoordinates.getY())->decreaseHeight();
+  _mapCellMatrix.getCell(isoCoordinates.getX(), isoCoordinates.getY())->decreaseHeight();
 }
 
 void Engine::increaseZoomLevel()
@@ -127,7 +108,7 @@ Point Engine::findCellAt(Point screenCoordinates)
   {
     for (int y = _map_size; y >= 0; y--)
     {
-      std::shared_ptr<Cell> currentCell = _floorCellMatrix.getCell(x, y);
+      std::shared_ptr<Cell> currentCell = _mapCellMatrix.getCell(x, y);
 
       SDL_Rect spriteRect = currentCell->getSprite()->getTextureInformation();
 

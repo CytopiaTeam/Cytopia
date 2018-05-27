@@ -20,6 +20,8 @@ public:
   std::vector<std::shared_ptr<Cell>> getCellNeighbors(int x, int y);
   void initCells();
 
+  void renderMatrix();
+
 
 private:
   std::vector<std::shared_ptr<Cell> > _cellMatrix;

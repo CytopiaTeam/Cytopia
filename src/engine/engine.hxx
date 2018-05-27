@@ -84,7 +84,7 @@ private:
   Point _centerIsoCoordinates;
 
   /// vectorMatrix that holds shared_ptr Cell objects
-  vectorMatrix _floorCellMatrix;
+  vectorMatrix _mapCellMatrix;
 
   /// Uint for storing a bitmask (Layers Enum)
   unsigned int _activeLayers;
