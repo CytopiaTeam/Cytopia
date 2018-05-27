@@ -6,7 +6,7 @@ SDL_Renderer* Resources::_renderer = nullptr;
 SDL_Window* Resources::_window = nullptr;
 float Resources::_zoomLevel = 1.0;
 Point Resources::_cameraOffset;
-const int Resources::_TILE_SIZE = 32;
+const int Resources::_tileSize = 32;
 int Resources::_terrainEditMode = Resources::NO_TERRAIN_EDIT;
 json Resources::_json;
 json Resources::_iniFile;
@@ -118,54 +118,6 @@ void Resources::init()
   readINIFile();
   readTileListFile();
   readUITextureListFile();
-
-
-
-}
-
-SDL_Renderer* Resources::getRenderer()
-{
-  return _renderer;
-}
-
-void Resources::setRenderer(SDL_Renderer* renderer)
-{
-  _renderer = renderer;
-}
-
-SDL_Window* Resources::getWindow()
-{
-  return _window;
-}
-
-void Resources::setWindow(SDL_Window* window)
-{
-  _window = window;
-}
-
-Point Resources::getCameraOffset()
-{
-  return _cameraOffset;
-}
-
-void Resources::setCameraOffset(Point cameraOffset)
-{
-  _cameraOffset = cameraOffset;
-}
-
-float Resources::getZoomLevel()
-{
-  return _zoomLevel;
-}
-
-void Resources::setZoomLevel(float zoomLevel)
-{
-  _zoomLevel = zoomLevel;
-}
-
-int Resources::getTileSize()
-{
-  return _TILE_SIZE;
 }
 
 Point Resources::convertScreenToIsoCoordinates(Point screenCoordinates)
@@ -182,30 +134,20 @@ Point Resources::convertIsoToScreenCoordinates(Point isoCoordinates, bool calcWi
 
   if (calcWithoutOffset)
   {
-    x = static_cast<int>((_TILE_SIZE * _zoomLevel * isoCoordinates.getX() * 0.5)  + (_TILE_SIZE * _zoomLevel * isoCoordinates.getY() * 0.5));
-    y = static_cast<int>((_TILE_SIZE * _zoomLevel * isoCoordinates.getX() * 0.25) - (_TILE_SIZE * _zoomLevel * isoCoordinates.getY() * 0.25));
+    x = static_cast<int>((_tileSize * _zoomLevel * isoCoordinates.getX() * 0.5)  + (_tileSize * _zoomLevel * isoCoordinates.getY() * 0.5));
+    y = static_cast<int>((_tileSize * _zoomLevel * isoCoordinates.getX() * 0.25) - (_tileSize * _zoomLevel * isoCoordinates.getY() * 0.25));
   }
   else
   {
-    x = static_cast<int>((_TILE_SIZE * _zoomLevel * isoCoordinates.getX() * 0.5)  + (_TILE_SIZE * _zoomLevel * isoCoordinates.getY() * 0.5)  - _cameraOffset.getX());
-    y = static_cast<int>((_TILE_SIZE * _zoomLevel * isoCoordinates.getX() * 0.25) - (_TILE_SIZE * _zoomLevel * isoCoordinates.getY() * 0.25) - _cameraOffset.getY());
+    x = static_cast<int>((_tileSize * _zoomLevel * isoCoordinates.getX() * 0.5)  + (_tileSize * _zoomLevel * isoCoordinates.getY() * 0.5)  - _cameraOffset.getX());
+    y = static_cast<int>((_tileSize * _zoomLevel * isoCoordinates.getX() * 0.25) - (_tileSize * _zoomLevel * isoCoordinates.getY() * 0.25) - _cameraOffset.getY());
   }
   
   if (height > 0)
   {
-    y = static_cast<int>(y - ((_TILE_SIZE - heightOffset) * height * _zoomLevel));
+    y = static_cast<int>(y - ((_tileSize - heightOffset) * height * _zoomLevel));
   }
   return Point (x, y);
-}
-
-void Resources::setTerrainEditMode(int editMode)
-{
-  _terrainEditMode = editMode;
-}
-
-int Resources::getTerrainEditMode()
-{
-  return _terrainEditMode;
 }
 
 // Temporary function that writes a json file and will be removed later (for debug purposes only)
