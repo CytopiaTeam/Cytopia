@@ -158,6 +158,8 @@ public:
     bool vSync;
     bool fullScreen;
     int mapSize;
+    std::string uiDataJSONFile;
+    std::string tileDataJSONFile;
   }Settings;
 
   static Settings settings;

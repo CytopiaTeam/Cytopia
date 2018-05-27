@@ -5,7 +5,9 @@ int main(int, char**)
 {
   LOG() << VERSION;
   LOG().timerStart();
+  Resources::generateINIFile();
   Resources::init();
+  
 
   WindowManager window("Isometric Engine");
   Engine& engine = Engine::Instance();

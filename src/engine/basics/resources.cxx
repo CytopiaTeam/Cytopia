@@ -175,7 +175,7 @@ void Resources::generateJSONFile()
   tileIDJSON["buildings"]["20"]["type"] = "building";
   tileIDJSON["buildings"]["20"]["zone"] = "residential";
 
-  std::ofstream myJsonFile("resources/tileList.json");
+  std::ofstream myJsonFile(settings.tileDataJSONFile);
   if (myJsonFile.is_open())
   {
 
@@ -184,7 +184,7 @@ void Resources::generateJSONFile()
   }
   else
   {
-    LOG(LOG_ERROR) << "Couldn't write file \"resources/tileList.json\"";
+    LOG(LOG_ERROR) << "Couldn't write file " << settings.tileDataJSONFile;
   }
 }
 
@@ -216,11 +216,10 @@ std::string Resources::getSpriteDataFromJSON(std::string uiType, int uiSpriteID,
 
 void Resources::readTileListFile()
 {
-  std::string tileListFile = "resources/tileList.json";
-  std::ifstream i(tileListFile);
+  std::ifstream i(settings.tileDataJSONFile);
   if (i.fail())
   {
-    LOG(LOG_ERROR) << "File " << tileListFile << " does not exist! Cannot load settings from INI File!";
+    LOG(LOG_ERROR) << "File " << settings.tileDataJSONFile << " does not exist! Cannot load settings from INI File!";
     // Application should quit here, without settings from the tileList file we can't continue
     return;
   }
@@ -238,11 +237,11 @@ void Resources::generateUITextureFile()
   uiTextureFile["button"]["0"]["filename"] = std::string("resources/images/ui/buttons/build.png");
   uiTextureFile["button"]["0"]["filename"] = std::string("resources/images/ui/buttons/build.png");
 
-  std::ofstream myJsonFile("resources/UITextureList.json");
+  std::ofstream myJsonFile(settings.uiDataJSONFile);
 
   if (myJsonFile.is_open())
   {
-    myJsonFile << std::setw(4) << uiTextureFile << std::endl;
+    myJsonFile << std::setw(4) << settings.uiDataJSONFile << std::endl;
     myJsonFile.close();
   }
   else
@@ -253,11 +252,10 @@ void Resources::generateUITextureFile()
 
 void Resources::readUITextureListFile()
 {
-  std::string uiTextureFile = "resources/UITextureList.json";
-  std::ifstream i(uiTextureFile);
+  std::ifstream i(settings.uiDataJSONFile);
   if (i.fail())
   {
-    LOG(LOG_ERROR) << "File " << uiTextureFile << " does not exist! Cannot load settings from INI File!";
+    LOG(LOG_ERROR) << "File " << settings.uiDataJSONFile << " does not exist! Cannot load settings from INI File!";
     // Application should quit here, without settings from the tileList file we can't continue
     return;
   }
@@ -277,6 +275,8 @@ void Resources::generateINIFile()
   iniFile["Graphics"]["VSYNC"] = false;
   iniFile["Graphics"]["FullScreen"] = false;
   iniFile["Game"]["MapSize"] = 32;
+  iniFile["ConfigFiles"]["UIDataJSONFile"] = "resources/data/UIData.json";
+  iniFile["ConfigFiles"]["TileDataJSONFile"] = "resources/data/TileData.json";
 
   std::ofstream myJsonFile("resources/settings.json");
 
@@ -309,5 +309,7 @@ void Resources::readINIFile()
   settings.vSync = _iniFile["Graphics"]["VSYNC"].get<bool>();
   settings.fullScreen = _iniFile["Graphics"]["FullScreen"].get<bool>();
   settings.mapSize = _iniFile["Game"]["MapSize"].get<int>();
+  settings.uiDataJSONFile = _iniFile["ConfigFiles"]["UIDataJSONFile"].get<std::string>();
+  settings.tileDataJSONFile = _iniFile["ConfigFiles"]["TileDataJSONFile"].get<std::string>();
 
 }

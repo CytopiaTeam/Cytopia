@@ -1,4 +1,8 @@
 {
+    "ConfigFiles": {
+        "TileDataJSONFile": "resources/UIData.json",
+        "UIDataJSONFile": "resources/TileData.json"
+    },
     "Game": {
         "MapSize": 128
     },
