@@ -4,6 +4,7 @@ vectorMatrix::vectorMatrix(int columns, int rows)
   : _cellMatrix((columns+1) * (rows+1)), _columns(columns+1), _rows(rows+1)
 {
   _cellMatrix.reserve(_rows * _columns);
+  initCells();
 } 
 
 std::vector<std::shared_ptr<Cell>> vectorMatrix::getCellNeighbors(int x, int y)
@@ -36,11 +37,22 @@ std::vector<std::shared_ptr<Cell>> vectorMatrix::getCellNeighbors(int x, int y)
 
 void vectorMatrix::initCells()
 {
-  for (int x = 0; x < _rows; x++)
+
+  // initialize cell Matrix
+  int z = 0;
+  for (int x = 0; x <= Resources::settings.mapSize; x++)
   {
-    for (int y = 0; y < _columns; y++)
+    for (int y = Resources::settings.mapSize; y >= 0; y--)
     {
-      _cellMatrix[x * _columns + y]->setNeighbors(getCellNeighbors(x, y));
+      z++;
+      _cellMatrix[x * _columns + y] = std::shared_ptr<Cell>(new Cell(Point(x, y, z)));
     }
+  }
+
+  // neighbors must be set after all the cells are there
+  for (auto &it : _cellMatrix)
+  {
+   it->setNeighbors(getCellNeighbors(it->getCoordinates().getX(), it->getCoordinates().getY()));
+
   }
 }
