@@ -163,38 +163,36 @@ void vectorMatrix::determineTile(Point isoCoordinates)
 
   auto keyTileID = Resources::keyTileMap.find(_elevatedTilePosition);
 
-  if (keyTileID != Resources::keyTileMap.end() && keyTileID->second != -1)
+  if (keyTileID != Resources::keyTileMap.end())
   {
-    currentCell->setTileID(keyTileID->second);
-  }
-
-  // special case: if both opposite neighbors are elevated, the center tile also gets elevated
-  constexpr auto LEFT_and_RIGHT = ELEVATED_LEFT | ELEVATED_RIGHT;
-  constexpr auto TOP_and_BOTTOM = ELEVATED_TOP | ELEVATED_BOTTOM;
-
-  if (((_elevatedTilePosition & LEFT_and_RIGHT) == LEFT_and_RIGHT)
-    || ((_elevatedTilePosition & TOP_and_BOTTOM) == TOP_and_BOTTOM)
-    || currentCell->getTileID() == -1)
-  {
-    if (Resources::getTerrainEditMode() == Resources::TERRAIN_RAISE)
+    // special case: if both opposite neighbors are elevated, the center tile also gets elevated
+    if (keyTileID->second == -1)
     {
-      increaseHeight(currentCell->getCoordinates());
-    }
-
-    else if (Resources::getTerrainEditMode() == Resources::TERRAIN_LOWER)
-    {
-      for (int i = 0; i < currentCell->_neighbors.size(); i++)
+      if (Resources::getTerrainEditMode() == Resources::TERRAIN_RAISE)
       {
-        if (currentCell->_neighbors[i])
+
+        increaseHeight(currentCell->getCoordinates());
+        //increaseHeight(currentCell->getCoordinates());
+      }
+
+      else if (Resources::getTerrainEditMode() == Resources::TERRAIN_LOWER)
+      {
+        for (int i = 0; i < currentCell->_neighbors.size(); i++)
         {
-          if (currentCell->_neighbors[i]->getCoordinates().getHeight() > tileHeight)
+          if (currentCell->_neighbors[i])
           {
-            // TODO ! Move Function to matrix class
-            currentCell->_neighbors[i]->decreaseHeight();
+            if (currentCell->_neighbors[i]->getCoordinates().getHeight() > tileHeight)
+            {
+              // TODO ! Move Function to matrix class
+              currentCell->_neighbors[i]->decreaseHeight();
+            }
           }
         }
       }
+      currentCell->setTileID(14);
     }
+    else
+     currentCell->setTileID(keyTileID->second);
   }
 
   // !!! Already changes sprite in setTileID !!!
