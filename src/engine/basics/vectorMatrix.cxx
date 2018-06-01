@@ -57,3 +57,146 @@ void vectorMatrix::initCells()
     it->setNeighbors(getCellNeighbors(it->getCoordinates().getX(), it->getCoordinates().getY()));
   }
 }
+
+void vectorMatrix::increaseHeight(Point isoCoordinates)
+{
+  int height = _cellMatrix[isoCoordinates.getX() * _columns + isoCoordinates.getY()]->getCoordinates().getHeight();
+
+  // maxCellHeight must be in resources !!
+  if (height < 32)
+  {
+    height += 1;
+    isoCoordinates.setHeight(height);
+    _cellMatrix[isoCoordinates.getX() * _columns + isoCoordinates.getY()]->increaseHeight();
+    //_cellMatrix[isoCoordinates.getX() * _columns + isoCoordinates.getY()]->getSprite()->setTileIsoCoordinates(isoCoordinates);
+    drawSurroundingTiles(_cellMatrix[isoCoordinates.getX() * _columns + isoCoordinates.getY()]->getCoordinates());
+    //drawSurroundingTiles(isoCoordinates);
+  }
+}
+
+
+
+void vectorMatrix::drawSurroundingTiles(Point isoCoordinates)
+{
+  int tileHeight = _cellMatrix[isoCoordinates.getX() * _columns + isoCoordinates.getY()]->getCoordinates().getHeight();
+  //int tileHeight = _isoCoordinates.getHeight();
+  int i = 0;
+  int x = isoCoordinates.getX();
+  int y = isoCoordinates.getY();
+
+  std::pair<int, int> adjs[9] = {
+    std::make_pair(x - 1, y - 1),    // 6 = 2^6 = 64  = BOTTOM LEFT
+    std::make_pair(x - 1, y),        // 2 = 2^2 = 4   = LEFT
+    std::make_pair(x - 1, y + 1),    // 4 = 2^4 = 16  = TOP LEFT
+    std::make_pair(x, y - 1),        // 1 = 2^1 = 2   = BOTTOM
+    std::make_pair(x, y),            // center
+    std::make_pair(x, y + 1),        // 0 = 2^0 = 1   = TOP 
+    std::make_pair(x + 1, y - 1),     // 7 = 2^7 = 128 = BOTTOM RIGHT
+    std::make_pair(x + 1, y),        // 3 = 2^3 = 8   = RIGHT
+    std::make_pair(x + 1, y + 1)    // 5 = 2^5 = 32  = TOP RIGHT
+  };
+
+  for (auto it : adjs)
+  {
+    if (it.first >= 0 && it.first < _rows && it.second >= 0 && it.second < _columns)
+    {
+
+      if (_cellMatrix[it.first * _columns + it.second] && !(it.first == x && it.second == y) )
+      {
+        Point currentCoords = _cellMatrix[it.first * _columns + it.second]->getCoordinates();
+
+        // there can't be a height difference greater then 1 between two map cells.
+        if (tileHeight - _cellMatrix[it.first * _columns + it.second]->getCoordinates().getHeight() > 1
+          && Resources::getTerrainEditMode() == Resources::TERRAIN_RAISE
+          &&   i % 2)
+        {
+          increaseHeight(currentCoords);
+          //_cellMatrix[it.first * _columns + it.second]->increaseHeight();
+        }
+        if (tileHeight - _cellMatrix[it.first * _columns + it.second]->getCoordinates().getHeight() < -1
+          && Resources::getTerrainEditMode() == Resources::TERRAIN_LOWER
+          &&   i % 2)
+        {
+          increaseHeight(currentCoords);
+          //_cellMatrix[it.first * _columns + it.second]->decreaseHeight();
+        }
+        determineTile(_cellMatrix[it.first * _columns + it.second]->getCoordinates());
+        //_cellMatrix[it.first * _columns + it.second]->determineTile();
+      }
+    }
+    i++;
+  }
+  // call for this tile too. 
+  determineTile(isoCoordinates);
+  //_cellMatrix[isoCoordinates.getX() * _columns + isoCoordinates.getY()]->determineTile();
+}
+
+
+// WIP must be ported to vectorMatrix class too.
+void vectorMatrix::determineTile(Point isoCoordinates)
+{
+  unsigned int _elevatedTilePosition = 0;
+  int tileHeight = isoCoordinates.getHeight();
+
+  std::shared_ptr<Cell> currentCell = _cellMatrix[isoCoordinates.getX() * _columns + isoCoordinates.getY()];
+
+  for (int i = 0; i < currentCell->_neighbors.size(); i++) //determine TileID
+  {
+    if (currentCell->_neighbors[i])
+    {
+      if (currentCell->_neighbors[i]->getCoordinates().getHeight() > tileHeight)
+      {
+        switch (i)
+        {
+        case 0: _elevatedTilePosition |= ELEVATED_BOTTOM_LEFT; break;
+        case 1: _elevatedTilePosition |= ELEVATED_LEFT; break;
+        case 2: _elevatedTilePosition |= ELEVATED_TOP_LEFT; break;
+        case 3: _elevatedTilePosition |= ELEVATED_BOTTOM; break;
+        case 5: _elevatedTilePosition |= ELEVATED_TOP; break;
+        case 6: _elevatedTilePosition |= ELEVATED_BOTTOM_RIGHT; break;
+        case 7: _elevatedTilePosition |= ELEVATED_RIGHT; break;
+        case 8: _elevatedTilePosition |= ELEVATED_TOP_RIGHT; break;
+        }
+      }
+    }
+  }
+
+  auto keyTileID = Resources::keyTileMap.find(_elevatedTilePosition);
+
+  if (keyTileID != Resources::keyTileMap.end() && keyTileID->second != -1)
+  {
+    currentCell->setTileID(keyTileID->second);
+  }
+
+  // special case: if both opposite neighbors are elevated, the center tile also gets elevated
+  constexpr auto LEFT_and_RIGHT = ELEVATED_LEFT | ELEVATED_RIGHT;
+  constexpr auto TOP_and_BOTTOM = ELEVATED_TOP | ELEVATED_BOTTOM;
+
+  if (((_elevatedTilePosition & LEFT_and_RIGHT) == LEFT_and_RIGHT)
+    || ((_elevatedTilePosition & TOP_and_BOTTOM) == TOP_and_BOTTOM)
+    || currentCell->getTileID() == -1)
+  {
+    if (Resources::getTerrainEditMode() == Resources::TERRAIN_RAISE)
+    {
+      increaseHeight(currentCell->getCoordinates());
+    }
+
+    else if (Resources::getTerrainEditMode() == Resources::TERRAIN_LOWER)
+    {
+      for (int i = 0; i < currentCell->_neighbors.size(); i++)
+      {
+        if (currentCell->_neighbors[i])
+        {
+          if (currentCell->_neighbors[i]->getCoordinates().getHeight() > tileHeight)
+          {
+            // TODO ! Move Function to matrix class
+            currentCell->_neighbors[i]->decreaseHeight();
+          }
+        }
+      }
+    }
+  }
+
+  // !!! Already changes sprite in setTileID !!!
+  currentCell->getSprite()->changeTexture(currentCell->getTileID());
+}

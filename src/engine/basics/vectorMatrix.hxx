@@ -21,8 +21,9 @@ public:
   void initCells();
 
   void renderMatrix();
-
-
+  void drawSurroundingTiles(Point isoCoordinates);
+  void increaseHeight(Point isoCoordinates);
+  void determineTile(Point isoCoordinates);
 private:
   std::vector<std::shared_ptr<Cell> > _cellMatrix;
   

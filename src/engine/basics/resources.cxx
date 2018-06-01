@@ -111,6 +111,10 @@ std::unordered_map<unsigned int, int> Resources::keyTileMap =
   { ELEVATED_BOTTOM | ELEVATED_TOP_LEFT, -1 },
   { ELEVATED_BOTTOM | ELEVATED_TOP_RIGHT, -1 },
 
+  // Missing
+  // TOP LEFT - RIGHT
+  // TOP LEFT - BOTTOM - RIGHT - BOTTOM RIGHT
+
 };
 
 void Resources::init()
