@@ -68,7 +68,8 @@ bool Engine::checkBoundaries(Point isoCoordinates)
 void Engine::increaseHeight(Point isoCoordinates)
 {
   Resources::setTerrainEditMode(Resources::TERRAIN_RAISE);
-  _mapCellMatrix.getCell(isoCoordinates.getX(), isoCoordinates.getY())->increaseHeight();
+  _mapCellMatrix.increaseHeight(isoCoordinates);
+  ////_mapCellMatrix.drawSurroundingTiles(isoCoordinates);
 }
 
 void Engine::decreaseHeight(Point isoCoordinates)

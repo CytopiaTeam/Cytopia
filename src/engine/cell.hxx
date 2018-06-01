@@ -63,7 +63,6 @@ private:
   Point _isoCoordinates;
   std::shared_ptr<Sprite> _sprite;
 
-  std::vector<std::shared_ptr<Cell>> _neighbors;
   SDL_Renderer* _renderer;
   SDL_Window* _window;
 
@@ -71,6 +70,8 @@ private:
   int _tileID;
   int _maxCellHeight = 32;
 
+public:
+  std::vector<std::shared_ptr<Cell>> _neighbors;
   /** \brief: determine which tile ID should be drawn for this cell
     * Checks all the neighbors and determines the tile ID of this mapcell according to it's
     * elevated / lowered neighbors.
