@@ -223,8 +223,12 @@ void Resources::readTileListFile()
     // Application should quit here, without settings from the tileList file we can't continue
     return;
   }
-
-  i >> _json;
+  
+  // check if json file can be parsed
+  _json = json::parse(i, nullptr, false);
+  if (_json.is_discarded())
+    LOG(LOG_ERROR) << "Error parsing JSON File " << settings.tileDataJSONFile;
+  
 }
 
 // User Interface Sprites
@@ -260,7 +264,11 @@ void Resources::readUITextureListFile()
     return;
   }
 
-  i >> _uiTextureFile;
+  // check if json file can be parsed
+  _uiTextureFile = json::parse(i, nullptr, false);
+  if (_uiTextureFile.is_discarded())
+    LOG(LOG_ERROR) << "Error parsing JSON File " << settings.uiDataJSONFile;
+
 }
 
 
@@ -302,7 +310,10 @@ void Resources::readINIFile()
     return;
   }
 
-  i >> _iniFile;
+  // check if json file can be parsed
+  _iniFile = json::parse(i, nullptr, false);
+  if (_iniFile.is_discarded())
+    LOG(LOG_ERROR) << "Error parsing JSON File " << iniFileName;
 
   settings.screenWidth = _iniFile["Graphics"]["Resolution"]["Width"].get<int>();
   settings.screenHeight = _iniFile["Graphics"]["Resolution"]["Height"].get<int>();
