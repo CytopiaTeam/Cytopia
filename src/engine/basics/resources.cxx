@@ -197,6 +197,12 @@ std::string Resources::getTileDataFromJSON(std::string tileType, int tileID, std
       // more json stuff later...
     }
   }
+
+  if (_json[tileType][std::to_string(tileID)]["filename"].is_null() )
+  {
+    LOG(LOG_ERROR) << "Can't retrieve filename from " << settings.tileDataJSONFile << " for ID " << tileID;
+    // Application should quit here.
+  }
   std::string retrievedFileName = _json[tileType][std::to_string(tileID)]["filename"].get<std::string>();
   return retrievedFileName;
 }
@@ -210,6 +216,10 @@ std::string Resources::getSpriteDataFromJSON(std::string uiType, int uiSpriteID,
       // more json stuff later...
     }
   }
+  if ( _uiTextureFile[uiType][std::to_string(uiSpriteID)]["filename"].is_null() )
+  {
+    LOG(LOG_ERROR) << "Can't retrieve filename from " << settings.uiDataJSONFile << "for ID " << uiSpriteID;
+  }
   std::string retrievedFileName = _uiTextureFile[uiType][std::to_string(uiSpriteID)]["filename"].get<std::string>();
   return retrievedFileName;
 }
@@ -220,7 +230,7 @@ void Resources::readTileListFile()
   if (i.fail())
   {
     LOG(LOG_ERROR) << "File " << settings.tileDataJSONFile << " does not exist! Cannot load settings from INI File!";
-    // Application should quit here, without settings from the tileList file we can't continue
+    // Application should quit here, without textureData from the tileList file we can't continue
     return;
   }
   
@@ -232,7 +242,6 @@ void Resources::readTileListFile()
 }
 
 // User Interface Sprites
-
 
 void Resources::generateUITextureFile()
 {
@@ -260,7 +269,7 @@ void Resources::readUITextureListFile()
   if (i.fail())
   {
     LOG(LOG_ERROR) << "File " << settings.uiDataJSONFile << " does not exist! Cannot load settings from INI File!";
-    // Application should quit here, without settings from the tileList file we can't continue
+    // Application should quit here, without textureData we can't continue
     return;
   }
 
