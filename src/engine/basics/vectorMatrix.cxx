@@ -68,9 +68,7 @@ void vectorMatrix::increaseHeight(Point isoCoordinates)
     height += 1;
     isoCoordinates.setHeight(height);
     _cellMatrix[isoCoordinates.getX() * _columns + isoCoordinates.getY()]->increaseHeight();
-    //_cellMatrix[isoCoordinates.getX() * _columns + isoCoordinates.getY()]->getSprite()->setTileIsoCoordinates(isoCoordinates);
     drawSurroundingTiles(_cellMatrix[isoCoordinates.getX() * _columns + isoCoordinates.getY()]->getCoordinates());
-    //drawSurroundingTiles(isoCoordinates);
   }
 }
 
@@ -101,7 +99,7 @@ void vectorMatrix::drawSurroundingTiles(Point isoCoordinates)
     if (it.first >= 0 && it.first < _rows && it.second >= 0 && it.second < _columns)
     {
 
-      if (_cellMatrix[it.first * _columns + it.second] && !(it.first == x && it.second == y) )
+      if (_cellMatrix[it.first * _columns + it.second])
       {
         Point currentCoords = _cellMatrix[it.first * _columns + it.second]->getCoordinates();
 
@@ -113,7 +111,7 @@ void vectorMatrix::drawSurroundingTiles(Point isoCoordinates)
           increaseHeight(currentCoords);
           //_cellMatrix[it.first * _columns + it.second]->increaseHeight();
         }
-        if (tileHeight - _cellMatrix[it.first * _columns + it.second]->getCoordinates().getHeight() < -1
+        else if (tileHeight - _cellMatrix[it.first * _columns + it.second]->getCoordinates().getHeight() < -1
           && Resources::getTerrainEditMode() == Resources::TERRAIN_LOWER
           &&   i % 2)
         {
@@ -127,7 +125,7 @@ void vectorMatrix::drawSurroundingTiles(Point isoCoordinates)
     i++;
   }
   // call for this tile too. 
-  determineTile(isoCoordinates);
+  //determineTile(isoCoordinates);
   //_cellMatrix[isoCoordinates.getX() * _columns + isoCoordinates.getY()]->determineTile();
 }
 
@@ -136,9 +134,10 @@ void vectorMatrix::drawSurroundingTiles(Point isoCoordinates)
 void vectorMatrix::determineTile(Point isoCoordinates)
 {
   unsigned int _elevatedTilePosition = 0;
-  int tileHeight = isoCoordinates.getHeight();
-
   std::shared_ptr<Cell> currentCell = _cellMatrix[isoCoordinates.getX() * _columns + isoCoordinates.getY()];
+  int tileHeight = currentCell->getCoordinates().getHeight();
+  //int tileHeight = isoCoordinates.getHeight();
+  int newTileID = -2; // set to -2 to determine if it's necessary to set a new tile ID
 
   for (int i = 0; i < currentCell->_neighbors.size(); i++) //determine TileID
   {
@@ -163,16 +162,27 @@ void vectorMatrix::determineTile(Point isoCoordinates)
 
   auto keyTileID = Resources::keyTileMap.find(_elevatedTilePosition);
 
+
   if (keyTileID != Resources::keyTileMap.end())
   {
+    newTileID = keyTileID->second;
+  }
     // special case: if both opposite neighbors are elevated, the center tile also gets elevated
-    if (keyTileID->second == -1)
+    constexpr auto LEFT_and_RIGHT = ELEVATED_LEFT | ELEVATED_RIGHT;
+    constexpr auto TOP_and_BOTTOM = ELEVATED_TOP | ELEVATED_BOTTOM;
+
+    // LEFT-RIGHT / TOP-BOTTOM combinations are handled here because there are too many possible combinations
+    // check if it could help to also handle the other diagobal combinations here too.
+    if (((_elevatedTilePosition & LEFT_and_RIGHT) == LEFT_and_RIGHT)
+      || ((_elevatedTilePosition & TOP_and_BOTTOM) == TOP_and_BOTTOM)
+      || newTileID == -1)
     {
       if (Resources::getTerrainEditMode() == Resources::TERRAIN_RAISE)
       {
-
-        increaseHeight(currentCell->getCoordinates());
         //increaseHeight(currentCell->getCoordinates());
+        //increaseHeight(isoCoordinates);
+        //currentCell->increaseHeight();
+        increaseHeight(currentCell->getCoordinates());
       }
 
       else if (Resources::getTerrainEditMode() == Resources::TERRAIN_LOWER)
@@ -189,12 +199,15 @@ void vectorMatrix::determineTile(Point isoCoordinates)
           }
         }
       }
-      currentCell->setTileID(14);
+      // Tile gets elevated, so tile id must be 14
+      newTileID = 14;
     }
+
+    if (newTileID != -2)
+      currentCell->setTileID(newTileID);
     else
-     currentCell->setTileID(keyTileID->second);
-  }
+      LOG(LOG_ERROR) << "It seems there is no combination for bitmask: " << _elevatedTilePosition;
 
   // !!! Already changes sprite in setTileID !!!
-  currentCell->getSprite()->changeTexture(currentCell->getTileID());
+  //currentCell->getSprite()->changeTexture(currentCell->getTileID());
 }
