@@ -62,8 +62,7 @@ void vectorMatrix::increaseHeight(Point isoCoordinates)
 {
   int height = _cellMatrix[isoCoordinates.getX() * _columns + isoCoordinates.getY()]->getCoordinates().getHeight();
 
-  // maxCellHeight must be in resources !!
-  if (height < 32)
+  if (height < Resources::settings.maxElevationHeight)
   {
     height += 1;
     isoCoordinates.setHeight(height);

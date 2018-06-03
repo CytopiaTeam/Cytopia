@@ -158,6 +158,7 @@ public:
     bool vSync;
     bool fullScreen;
     int mapSize;
+    int maxElevationHeight;
     std::string uiDataJSONFile;
     std::string tileDataJSONFile;
   }Settings;

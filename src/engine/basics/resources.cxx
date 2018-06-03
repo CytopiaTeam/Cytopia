@@ -298,7 +298,8 @@ void Resources::generateINIFile()
   iniFile["Graphics"]["Resolution"]["Height"] = 600;
   iniFile["Graphics"]["VSYNC"] = false;
   iniFile["Graphics"]["FullScreen"] = false;
-  iniFile["Game"]["MapSize"] = 32;
+  iniFile["Game"]["MapSize"] = 128;
+  iniFile["Game"]["MaxElevationHeight"] = 32;
   iniFile["ConfigFiles"]["UIDataJSONFile"] = "resources/data/UIData.json";
   iniFile["ConfigFiles"]["TileDataJSONFile"] = "resources/data/TileData.json";
 
@@ -311,7 +312,7 @@ void Resources::generateINIFile()
   }
   else
   {
-    printf("ERROR: Couldn't write file \"resources/iniFile.json\"");
+    printf("ERROR: Couldn't write file \"resources/settings.json\"");
   }
 }
 
@@ -336,6 +337,7 @@ void Resources::readINIFile()
   settings.vSync = _iniFile["Graphics"]["VSYNC"].get<bool>();
   settings.fullScreen = _iniFile["Graphics"]["FullScreen"].get<bool>();
   settings.mapSize = _iniFile["Game"]["MapSize"].get<int>();
+  settings.maxElevationHeight = _iniFile["Game"]["MaxElevationHeight"].get<int>();
   settings.uiDataJSONFile = _iniFile["ConfigFiles"]["UIDataJSONFile"].get<std::string>();
   settings.tileDataJSONFile = _iniFile["ConfigFiles"]["TileDataJSONFile"].get<std::string>();
 
