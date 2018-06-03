@@ -138,27 +138,7 @@ void vectorMatrix::determineTile(Point isoCoordinates)
   //int tileHeight = isoCoordinates.getHeight();
   int newTileID = -2; // set to -2 to determine if it's necessary to set a new tile ID
 
-  for (int i = 0; i < currentCell->_neighbors.size(); i++) //determine TileID
-  {
-    if (currentCell->_neighbors[i])
-    {
-      if (currentCell->_neighbors[i]->getCoordinates().getHeight() > tileHeight)
-      {
-        switch (i)
-        {
-        case 0: _elevatedTilePosition |= ELEVATED_BOTTOM_LEFT; break;
-        case 1: _elevatedTilePosition |= ELEVATED_LEFT; break;
-        case 2: _elevatedTilePosition |= ELEVATED_TOP_LEFT; break;
-        case 3: _elevatedTilePosition |= ELEVATED_BOTTOM; break;
-        case 5: _elevatedTilePosition |= ELEVATED_TOP; break;
-        case 6: _elevatedTilePosition |= ELEVATED_BOTTOM_RIGHT; break;
-        case 7: _elevatedTilePosition |= ELEVATED_RIGHT; break;
-        case 8: _elevatedTilePosition |= ELEVATED_TOP_RIGHT; break;
-        }
-      }
-    }
-  }
-
+  _elevatedTilePosition = getElevatedNeighborBitmask(isoCoordinates.getX(), isoCoordinates.getY());
   auto keyTileID = Resources::keyTileMap.find(_elevatedTilePosition);
 
 
@@ -209,4 +189,34 @@ void vectorMatrix::determineTile(Point isoCoordinates)
 
   // !!! Already changes sprite in setTileID !!!
   //currentCell->getSprite()->changeTexture(currentCell->getTileID());
+}
+
+unsigned int vectorMatrix::getElevatedNeighborBitmask(int x, int y)
+{
+  unsigned int bitmask = 0;
+
+  std::pair<int, int> adjs[8] = { 
+    std::make_pair(x, y + 1),        // 0 = 2^0 = 1   = TOP 
+    std::make_pair(x, y - 1),        // 1 = 2^1 = 2   = BOTTOM
+    std::make_pair(x - 1, y),        // 2 = 2^2 = 4   = LEFT
+    std::make_pair(x + 1, y),        // 3 = 2^3 = 8   = RIGHT
+    std::make_pair(x - 1, y + 1),    // 4 = 2^4 = 16  = TOP LEFT
+    std::make_pair(x + 1, y + 1),    // 5 = 2^5 = 32  = TOP RIGHT
+    std::make_pair(x - 1, y - 1),    // 6 = 2^6 = 64  = BOTTOM LEFT
+    std::make_pair(x + 1, y - 1)     // 7 = 2^7 = 128 = BOTTOM RIGHT
+  };
+
+  int i = 0;
+  for (auto it : adjs)
+  {
+    if (_cellMatrix[it.first * _columns + it.second]->getCoordinates().getHeight() > _cellMatrix[x *_columns + y]->getCoordinates().getHeight()
+      && _cellMatrix[it.first * _columns + it.second])
+    {
+      // for each found tile add 2 ^ i to the bitmask
+      bitmask |= static_cast<unsigned int>(std::pow(2, i));
+    }
+    i++;
+  }
+  //LOG() << "returning: " << bitmask;
+  return bitmask;
 }

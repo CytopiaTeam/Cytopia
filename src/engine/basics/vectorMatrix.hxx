@@ -24,6 +24,8 @@ public:
   void drawSurroundingTiles(Point isoCoordinates);
   void increaseHeight(Point isoCoordinates);
   void determineTile(Point isoCoordinates);
+  unsigned int getElevatedNeighborBitmask(int x, int y);
+
 private:
   std::vector<std::shared_ptr<Cell> > _cellMatrix;
   
