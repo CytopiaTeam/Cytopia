@@ -40,7 +40,7 @@ public:
   * @param tileID The tileID that should be rendered for this map cell
   */
   void setTileID(int tileID) {
-    _sprite->changeTexture(_tileID);
+    _sprite->changeTexture(tileID);
     _tileID = tileID;
   };
   
