@@ -4,7 +4,8 @@
         "UIDataJSONFile": "resources/data/UIData.json"
     },
     "Game": {
-        "MapSize": 128
+        "MapSize": 128,
+        "MaxElevationHeight": 32
     },
     "Graphics": {
         "FullScreen": false,
