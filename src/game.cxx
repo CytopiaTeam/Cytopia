@@ -71,6 +71,15 @@ int main(int, char**)
           case SDLK_f:
             window.toggleFullScreen();
             break;
+          case SDLK_b:
+            LOG() << "Starting elevation Benchmark!";
+            LOG().timerStart();
+            for (int i = 0; i <= Resources::settings.maxElevationHeight; i++)
+            {
+              engine.increaseHeight(Point(64, 64));
+            }
+            LOG().timerEnd();
+
         }
         break;
  
