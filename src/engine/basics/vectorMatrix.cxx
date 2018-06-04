@@ -62,11 +62,24 @@ void vectorMatrix::increaseHeight(Point isoCoordinates)
 {
   int height = _cellMatrix[isoCoordinates.getX() * _columns + isoCoordinates.getY()]->getCoordinates().getHeight();
 
-  if (height < Resources::settings.maxElevationHeight)
+  if ( height < Resources::settings.maxElevationHeight )
   {
     height += 1;
     isoCoordinates.setHeight(height);
     _cellMatrix[isoCoordinates.getX() * _columns + isoCoordinates.getY()]->increaseHeight();
+    drawSurroundingTiles(_cellMatrix[isoCoordinates.getX() * _columns + isoCoordinates.getY()]->getCoordinates());
+  }
+}
+
+void vectorMatrix::decreaseHeight(Point isoCoordinates)
+{
+  int height = _cellMatrix[isoCoordinates.getX() * _columns + isoCoordinates.getY()]->getCoordinates().getHeight();
+
+  if ( height > 0 )
+  {
+    height -= 1;
+    isoCoordinates.setHeight(height);
+    _cellMatrix[isoCoordinates.getX() * _columns + isoCoordinates.getY()]->decreaseHeight();
     drawSurroundingTiles(_cellMatrix[isoCoordinates.getX() * _columns + isoCoordinates.getY()]->getCoordinates());
   }
 }
@@ -114,7 +127,7 @@ void vectorMatrix::drawSurroundingTiles(Point isoCoordinates)
           && Resources::getTerrainEditMode() == Resources::TERRAIN_LOWER
           &&   i % 2)
         {
-          increaseHeight(currentCoords);
+          decreaseHeight(currentCoords);
           //_cellMatrix[it.first * _columns + it.second]->decreaseHeight();
         }
         determineTile(_cellMatrix[it.first * _columns + it.second]->getCoordinates());
@@ -142,7 +155,25 @@ void vectorMatrix::determineTile(Point isoCoordinates)
   auto keyTileID = Resources::keyTileMap.find(_elevatedTilePosition);
 
 
-  if (keyTileID != Resources::keyTileMap.end())
+  // ** create function for returning neighbor coordinates..
+  int x = isoCoordinates.getX();
+  int y = isoCoordinates.getY();
+
+  std::pair<int, int> adjs[9] = {
+    std::make_pair(x - 1, y - 1),    // 6 = 2^6 = 64  = BOTTOM LEFT
+    std::make_pair(x - 1, y),        // 2 = 2^2 = 4   = LEFT
+    std::make_pair(x - 1, y + 1),    // 4 = 2^4 = 16  = TOP LEFT
+    std::make_pair(x, y - 1),        // 1 = 2^1 = 2   = BOTTOM
+    std::make_pair(x, y),            // center
+    std::make_pair(x, y + 1),        // 0 = 2^0 = 1   = TOP 
+    std::make_pair(x + 1, y - 1),     // 7 = 2^7 = 128 = BOTTOM RIGHT
+    std::make_pair(x + 1, y),        // 3 = 2^3 = 8   = RIGHT
+    std::make_pair(x + 1, y + 1)    // 5 = 2^5 = 32  = TOP RIGHT
+  };
+
+  // ***********++
+
+  if ( keyTileID != Resources::keyTileMap.end() )
   {
     newTileID = keyTileID->second;
   }
@@ -158,22 +189,18 @@ void vectorMatrix::determineTile(Point isoCoordinates)
     {
       if (Resources::getTerrainEditMode() == Resources::TERRAIN_RAISE)
       {
-        //increaseHeight(currentCell->getCoordinates());
-        //increaseHeight(isoCoordinates);
-        //currentCell->increaseHeight();
         increaseHeight(currentCell->getCoordinates());
       }
 
       else if (Resources::getTerrainEditMode() == Resources::TERRAIN_LOWER)
       {
-        for (int i = 0; i < currentCell->_neighbors.size(); i++)
+        for (auto it : adjs)
         {
-          if (currentCell->_neighbors[i])
+          if (_cellMatrix[it.first * _columns + it.second])
           {
-            if (currentCell->_neighbors[i]->getCoordinates().getHeight() > tileHeight)
+            if (_cellMatrix[it.first * _columns + it.second]->getCoordinates().getHeight() > tileHeight)
             {
-              // TODO ! Move Function to matrix class
-              currentCell->_neighbors[i]->decreaseHeight();
+              decreaseHeight(_cellMatrix[it.first * _columns + it.second]->getCoordinates());
             }
           }
         }
@@ -186,9 +213,6 @@ void vectorMatrix::determineTile(Point isoCoordinates)
       currentCell->setTileID(newTileID);
     else
       LOG(LOG_ERROR) << "It seems there is no combination for bitmask: " << _elevatedTilePosition;
-
-  // !!! Already changes sprite in setTileID !!!
-  //currentCell->getSprite()->changeTexture(currentCell->getTileID());
 }
 
 unsigned int vectorMatrix::getElevatedNeighborBitmask(int x, int y)

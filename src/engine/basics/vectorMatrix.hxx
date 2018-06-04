@@ -23,6 +23,7 @@ public:
   void renderMatrix();
   void drawSurroundingTiles(Point isoCoordinates);
   void increaseHeight(Point isoCoordinates);
+  void decreaseHeight(Point isoCoordinates);
   void determineTile(Point isoCoordinates);
   unsigned int getElevatedNeighborBitmask(int x, int y);
 

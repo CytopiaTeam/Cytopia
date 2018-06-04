@@ -75,7 +75,8 @@ void Engine::increaseHeight(Point isoCoordinates)
 void Engine::decreaseHeight(Point isoCoordinates)
 {
   Resources::setTerrainEditMode(Resources::TERRAIN_LOWER);
-  _mapCellMatrix.getCell(isoCoordinates.getX(), isoCoordinates.getY())->decreaseHeight();
+  _mapCellMatrix.decreaseHeight(isoCoordinates);
+  //_mapCellMatrix.getCell(isoCoordinates.getX(), isoCoordinates.getY())->decreaseHeight();
 }
 
 void Engine::increaseZoomLevel()
