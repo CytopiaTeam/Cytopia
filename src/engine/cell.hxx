@@ -35,7 +35,7 @@ public:
   int getTileID() { return _tileID; };
 
   /** @brief set Tile ID
-  * Change the texture of the map cell to a specific tile id
+  * Change the texture of the map cell to a specific tile id and changes the texture of the cells sprite
   * @see Resources#readTileListFile
   * @param tileID The tileID that should be rendered for this map cell
   */
@@ -44,20 +44,17 @@ public:
     _tileID = tileID;
   };
   
-  /// Sets the neighbors of this cell for fast access
-  void setNeighbors(std::vector<std::shared_ptr<Cell>> neighbors);
-
   /** @brief Increase Height
-    * Increases the height of this map cell and checks which
-    * tileID must be drawn for each neighbor
+    * Increases the height of the cell and its sprite
+    * This function should not be called directly, but only from where the neighboring cells slopes are determined
     */
-  void increaseHeight();
+  void increaseHeightOfCell();
 
   /** @brief Decrease Height 
-    * Decreases the height of this map cell and checks which 
-    * tileID must be drawn for each neighbor
+    * Decreases the height of the cell and its sprite
+    * This function should not be called directly, but only from where the neighboring cells slopes are determined
     */
-  void decreaseHeight();
+  void decreaseHeightOfCell();
 
 private:
   Point _isoCoordinates;
@@ -70,22 +67,6 @@ private:
   int _tileID;
   int _maxCellHeight = 32;
 
-public:
-  std::vector<std::shared_ptr<Cell>> _neighbors;
-  /** \brief: determine which tile ID should be drawn for this cell
-    * Checks all the neighbors and determines the tile ID of this mapcell according to it's
-    * elevated / lowered neighbors.
-    */
-  void determineTile();
-
-  /** \brief set tileID for each neighbor
-    * After a cell is raised / lowered, each neighbor must check which tileID it should have
-    * @see Cell#drawSurroundingTiles
-  */
-  void drawSurroundingTiles(Point isoCoordinates);
-  
-  /** UInt to elevate store tile position in */
-  unsigned int _elevatedTilePosition;
 };
 
 

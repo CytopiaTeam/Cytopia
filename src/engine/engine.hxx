@@ -53,12 +53,22 @@ public:
   */
   void toggleLayer(unsigned int layer) { _activeLayers ^= layer; };
 
-  /** Increases height of a tile at given iso coordinates.
+  /** @brief Increase Height
+  * Increases the height of the given map cell 
+  * Calls the according function of the vectorMatrix object that holds the terrain cell and draws the slopes
+  * @param isoCoordinates the isometric coordinates of the map cell that should be raised
+  * @see vectorMatrix#increaseHeightOfCell
   */
-  void increaseHeight(Point isoCoordinates);
-  /** Decreases height of a tile at given iso coordinates.
+  void increaseHeightOfCell(Point isoCoordinates);
+
+  /** @brief Decrease Height
+  * Decreases the height of the given map cell
+  * Calls the according function of the vectorMatrix object that holds the terrain cell and draws the slopes.
+  * @param isoCoordinates the isometric coordinates of the map cell that should be lowered
+  * @see vectorMatrix#decreaseHeightOfCell
   */
-  void decreaseHeight(Point isoCoordinates);
+  void decreaseHeightOfCell(Point isoCoordinates);
+
   void increaseZoomLevel();
   void decreaseZoomLevel();
 
