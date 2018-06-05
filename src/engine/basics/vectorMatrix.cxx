@@ -45,7 +45,9 @@ void vectorMatrix::initCells()
     for (int y = Resources::settings.mapSize; y >= 0; y--)
     {
       z++;
-      _cellMatrix[x * _columns + y] = std::shared_ptr<Cell>(new Cell(Point(x, y, z)));
+      //_cellMatrix.emplace(_cellMatrix.begin() + x * _columns + y,std::make_unique<Cell>(Point(x, y, z)));
+      _cellMatrix[x * _columns + y] = std::make_shared<Cell>(Cell(Point(x, y, z)));
+      //_cellMatrix[x * _columns + y] = std::shared_ptr<Cell>(new Cell(Point(x, y, z)));
     }
   }
 }
@@ -99,23 +101,22 @@ void vectorMatrix::drawSurroundingTiles(Point isoCoordinates)
 
   for (auto it : adjs)
   {
-    if (it.first >= 0 && it.first < _rows && it.second >= 0 && it.second < _columns)
+    if ( it.first >= 0 && it.first < _rows && it.second >= 0 && it.second < _columns )
     {
-
-      if (_cellMatrix[it.first * _columns + it.second])
+      if ( _cellMatrix[it.first * _columns + it.second] )
       {
         Point currentCoords = _cellMatrix[it.first * _columns + it.second]->getCoordinates();
 
         // there can't be a height difference greater then 1 between two map cells.
-        if (tileHeight - _cellMatrix[it.first * _columns + it.second]->getCoordinates().getHeight() > 1
-          && Resources::getTerrainEditMode() == Resources::TERRAIN_RAISE
-          &&   i % 2)
+        if ( tileHeight - _cellMatrix[it.first * _columns + it.second]->getCoordinates().getHeight() > 1
+        &&   Resources::getTerrainEditMode() == Resources::TERRAIN_RAISE
+        &&   i % 2 )
         {
           increaseHeightOfCell(currentCoords);
         }
-        else if (tileHeight - _cellMatrix[it.first * _columns + it.second]->getCoordinates().getHeight() < -1
-          && Resources::getTerrainEditMode() == Resources::TERRAIN_LOWER
-          &&   i % 2)
+        else if ( tileHeight - _cellMatrix[it.first * _columns + it.second]->getCoordinates().getHeight() < -1
+        &&        Resources::getTerrainEditMode() == Resources::TERRAIN_LOWER
+        &&        i % 2 )
         {
           decreaseHeightOfCell(currentCoords);
         }
@@ -169,11 +170,11 @@ void vectorMatrix::determineTile(Point isoCoordinates)
   || (  _elevatedTilePosition & TOP_and_BOTTOM) == TOP_and_BOTTOM
   ||    newTileID == -1 )
   {
-    if (Resources::getTerrainEditMode() == Resources::TERRAIN_RAISE)
+    if ( Resources::getTerrainEditMode() == Resources::TERRAIN_RAISE )
     {
       increaseHeightOfCell(currentCell->getCoordinates());
     }
-    else if (Resources::getTerrainEditMode() == Resources::TERRAIN_LOWER)
+    else if ( Resources::getTerrainEditMode() == Resources::TERRAIN_LOWER )
     {
       for (auto it : adjs)
       {
@@ -188,7 +189,7 @@ void vectorMatrix::determineTile(Point isoCoordinates)
     newTileID = 14;
   }
 
-  if (newTileID != -2)
+  if ( newTileID != -2 )
     currentCell->setTileID(newTileID);
   else
     LOG(LOG_ERROR) << "It seems there is no combination for bitmask: " << _elevatedTilePosition;

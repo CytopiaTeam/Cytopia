@@ -24,6 +24,7 @@ public:
     * @see Sprite
     */
   std::shared_ptr<Sprite> getSprite() { return _sprite; };
+  //const Sprite& getSprite() const { return *_sprite; };
 
   /// get iso coordinates of this cell
   Point getCoordinates() { return _isoCoordinates; };
