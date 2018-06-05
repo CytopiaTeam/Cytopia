@@ -127,12 +127,12 @@ void Resources::init()
   readUITextureListFile();
 }
 
-Point Resources::convertScreenToIsoCoordinates(Point screenCoordinates)
+Point Resources::convertScreenToIsoCoordinates(const Point& screenCoordinates)
 {
   return Engine::Instance().findCellAt(screenCoordinates);
 }
 
-Point Resources::convertIsoToScreenCoordinates(Point isoCoordinates, bool calcWithoutOffset)
+Point Resources::convertIsoToScreenCoordinates(const Point& isoCoordinates, bool calcWithoutOffset)
 {
   int x, y;
 

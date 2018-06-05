@@ -116,7 +116,7 @@ public:
     * \returns Point() - object containing the isometric coordinates of the tile that matches the screen coordinates
     * @param Point() screenCoordinates - object containing screen space coordinates
     */
-  static Point convertScreenToIsoCoordinates(Point screenCoordinates);
+  static Point convertScreenToIsoCoordinates(const Point& screenCoordinates);
   
   /** \brief converts coordinates from isometric to screen space
     * The given isometric coordinates (which contain height information) are converted to the screen coordinates. The coordinates represent the x, y position of the
@@ -126,7 +126,7 @@ public:
     * @param Point() isoCoordinates - object containing isometric coordinates 
     * @param bool calcWithoutOffset - optional parameter to calculate screenspace coordinates without zoomLevel and cameraOffset taken into account 
     */
-  static Point convertIsoToScreenCoordinates(Point isoCoordinates, bool calcWithoutOffset = false);
+  static Point convertIsoToScreenCoordinates(const Point& isoCoordinates, bool calcWithoutOffset = false);
 
 
   // JSON Functions

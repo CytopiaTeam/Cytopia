@@ -29,8 +29,8 @@ public:
   /** Renders the sprites in each Map Cell */
   void render();
 
-  bool checkBoundaries(Point isoCoordinates);
-  void centerScreenOnPoint(Point isoCoordinates);
+  bool checkBoundaries(const Point& isoCoordinates);
+  void centerScreenOnPoint(const Point& isoCoordinates);
 
   /** \brief Enable Drawing Layer
     * Enable Drawing Layer (use bitwise OR to add layer)
@@ -59,7 +59,7 @@ public:
   * @param isoCoordinates the isometric coordinates of the map cell that should be raised
   * @see vectorMatrix#increaseHeightOfCell
   */
-  void increaseHeight(Point isoCoordinates);
+  void increaseHeight(const Point& isoCoordinates);
 
   /** @brief Decrease Height
   * Decreases the height of the given map cell
@@ -67,7 +67,7 @@ public:
   * @param isoCoordinates the isometric coordinates of the map cell that should be lowered
   * @see vectorMatrix#decreaseHeightOfCell
   */
-  void decreaseHeight(Point isoCoordinates);
+  void decreaseHeight(const Point& isoCoordinates);
 
   void increaseZoomLevel();
   void decreaseZoomLevel();
@@ -76,7 +76,7 @@ public:
   * @param screenCoordinates   Point Oject - Mouseclick coordinates in screen Format
   * @return Isocoordinates of the tile that has been found
   **/
-  Point findCellAt(Point screenCoordinates);
+  Point findCellAt(const Point& screenCoordinates);
 private:
   Engine();
   virtual ~Engine() = default;
@@ -87,7 +87,7 @@ private:
   int _map_size;
   int _screen_width;
   int _screen_height;
-  int TILE_SIZE;
+  int _tileSize;
 
   float _zoomLevel;
   Point _cameraOffset;
