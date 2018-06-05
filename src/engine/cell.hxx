@@ -16,7 +16,7 @@
 class Cell
 {
 public:
-  explicit Cell(Point isoCoordinates);
+  explicit Cell(const Point& isoCoordinates);
   ~Cell() = default;
 
   /** @brief get Sprite
@@ -49,13 +49,13 @@ public:
     * Increases the height of the cell and its sprite
     * This function should not be called directly, but only from where the neighboring cells slopes are determined
     */
-  void increaseHeightOfCell();
+  void increaseHeight();
 
   /** @brief Decrease Height 
     * Decreases the height of the cell and its sprite
     * This function should not be called directly, but only from where the neighboring cells slopes are determined
     */
-  void decreaseHeightOfCell();
+  void decreaseHeight();
 
 private:
   Point _isoCoordinates;

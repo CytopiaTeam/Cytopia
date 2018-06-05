@@ -76,7 +76,7 @@ int main(int, char**)
             LOG().timerStart();
             for (int i = 0; i <= Resources::settings.maxElevationHeight; i++)
             {
-              engine.increaseHeightOfCell(Point(64, 64));
+              engine.increaseHeight(Point(64, 64));
             }
             LOG().timerEnd();
 
@@ -99,7 +99,7 @@ int main(int, char**)
           if ( engine.checkBoundaries(clickCoords) )
           {
             if (Resources::getEditMode())
-              engine.increaseHeightOfCell(clickCoords);
+              engine.increaseHeight(clickCoords);
             else
               LOG() << "CLICKED - Iso Coords: " << clickCoords.getX() << ", " << clickCoords.getY();
           }
@@ -107,7 +107,7 @@ int main(int, char**)
         else if ( event.button.button == SDL_BUTTON_RIGHT )
         {
           if (Resources::getEditMode())
-            engine.decreaseHeightOfCell(clickCoords);
+            engine.decreaseHeight(clickCoords);
           else
             engine.centerScreenOnPoint(clickCoords);
         }

@@ -30,16 +30,16 @@ public:
   void setHeight(int height) { _height = height; };
 
   /** Gets the X Coordinate*/
-  int getX() { return _x; };
+  int getX() const { return _x; };
   
   /** Gets the Y Coordinate*/
-  int getY() { return _y; };
+  int getY() const { return _y; };
 
   /** Gets the Z Coordinate (Drawing Order)*/
-  int getZ() { return _z; };
+  int getZ() const  { return _z; };
   
   /** Gets the Heightlevel (Tileheight)*/
-  int getHeight() { return _height; };
+  int getHeight() const { return _height; };
 
 private:
   int _x, _y, _z, _height;

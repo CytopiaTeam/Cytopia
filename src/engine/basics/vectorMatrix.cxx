@@ -47,40 +47,35 @@ void vectorMatrix::initCells()
       z++;
       //_cellMatrix.emplace(_cellMatrix.begin() + x * _columns + y,std::make_unique<Cell>(Point(x, y, z)));
       _cellMatrix[x * _columns + y] = std::make_shared<Cell>(Cell(Point(x, y, z)));
-      //_cellMatrix[x * _columns + y] = std::shared_ptr<Cell>(new Cell(Point(x, y, z)));
     }
   }
 }
 
-void vectorMatrix::increaseHeightOfCell(Point isoCoordinates)
+void vectorMatrix::increaseHeight (const Point& isoCoordinates)
 {
   int height = _cellMatrix[isoCoordinates.getX() * _columns + isoCoordinates.getY()]->getCoordinates().getHeight();
 
   if ( height < Resources::settings.maxElevationHeight )
   {
-    height += 1;
-    isoCoordinates.setHeight(height);
-    _cellMatrix[isoCoordinates.getX() * _columns + isoCoordinates.getY()]->increaseHeightOfCell();
+    _cellMatrix[isoCoordinates.getX() * _columns + isoCoordinates.getY()]->increaseHeight();
     drawSurroundingTiles(_cellMatrix[isoCoordinates.getX() * _columns + isoCoordinates.getY()]->getCoordinates());
   }
 }
 
-void vectorMatrix::decreaseHeightOfCell(Point isoCoordinates)
+void vectorMatrix::decreaseHeight(const Point& isoCoordinates)
 {
   int height = _cellMatrix[isoCoordinates.getX() * _columns + isoCoordinates.getY()]->getCoordinates().getHeight();
 
   if ( height > 0 )
   {
-    height -= 1;
-    isoCoordinates.setHeight(height);
-    _cellMatrix[isoCoordinates.getX() * _columns + isoCoordinates.getY()]->decreaseHeightOfCell();
+    _cellMatrix[isoCoordinates.getX() * _columns + isoCoordinates.getY()]->decreaseHeight();
     drawSurroundingTiles(_cellMatrix[isoCoordinates.getX() * _columns + isoCoordinates.getY()]->getCoordinates());
   }
 }
 
 
 
-void vectorMatrix::drawSurroundingTiles(Point isoCoordinates)
+void vectorMatrix::drawSurroundingTiles(const Point& isoCoordinates)
 {
   int tileHeight = _cellMatrix[isoCoordinates.getX() * _columns + isoCoordinates.getY()]->getCoordinates().getHeight();
   int i = 0;
@@ -112,13 +107,13 @@ void vectorMatrix::drawSurroundingTiles(Point isoCoordinates)
         &&   Resources::getTerrainEditMode() == Resources::TERRAIN_RAISE
         &&   i % 2 )
         {
-          increaseHeightOfCell(currentCoords);
+          increaseHeight(currentCoords);
         }
         else if ( tileHeight - _cellMatrix[it.first * _columns + it.second]->getCoordinates().getHeight() < -1
         &&        Resources::getTerrainEditMode() == Resources::TERRAIN_LOWER
         &&        i % 2 )
         {
-          decreaseHeightOfCell(currentCoords);
+          decreaseHeight(currentCoords);
         }
         determineTile(_cellMatrix[it.first * _columns + it.second]->getCoordinates());
       }
@@ -128,15 +123,11 @@ void vectorMatrix::drawSurroundingTiles(Point isoCoordinates)
 }
 
 
-void vectorMatrix::determineTile(Point isoCoordinates)
+void vectorMatrix::determineTile(const Point& isoCoordinates)
 {
   unsigned int _elevatedTilePosition = 0;
-  std::shared_ptr<Cell> currentCell = _cellMatrix[isoCoordinates.getX() * _columns + isoCoordinates.getY()];
-  int tileHeight = currentCell->getCoordinates().getHeight();
+  int tileHeight = _cellMatrix[isoCoordinates.getX() * _columns + isoCoordinates.getY()]->getCoordinates().getHeight();
   int newTileID = -2; // set to -2 to determine if it's necessary to set a new tile ID
-
-  _elevatedTilePosition = getElevatedNeighborBitmask(isoCoordinates);
-  auto keyTileID = Resources::keyTileMap.find(_elevatedTilePosition);
 
 
   // ** create function for returning neighbor coordinates..
@@ -156,6 +147,9 @@ void vectorMatrix::determineTile(Point isoCoordinates)
   };
 
 
+  _elevatedTilePosition = getElevatedNeighborBitmask(isoCoordinates);
+  auto keyTileID = Resources::keyTileMap.find(_elevatedTilePosition);
+
   if ( keyTileID != Resources::keyTileMap.end() )
   {
     newTileID = keyTileID->second;
@@ -172,7 +166,7 @@ void vectorMatrix::determineTile(Point isoCoordinates)
   {
     if ( Resources::getTerrainEditMode() == Resources::TERRAIN_RAISE )
     {
-      increaseHeightOfCell(currentCell->getCoordinates());
+      increaseHeight(_cellMatrix[isoCoordinates.getX() * _columns + isoCoordinates.getY()]->getCoordinates());
     }
     else if ( Resources::getTerrainEditMode() == Resources::TERRAIN_LOWER )
     {
@@ -181,7 +175,7 @@ void vectorMatrix::determineTile(Point isoCoordinates)
         if ( _cellMatrix[it.first * _columns + it.second]->getCoordinates().getHeight() > tileHeight
         &&   _cellMatrix[it.first * _columns + it.second] )
         {
-          decreaseHeightOfCell(_cellMatrix[it.first * _columns + it.second]->getCoordinates());
+          decreaseHeight(_cellMatrix[it.first * _columns + it.second]->getCoordinates());
         }
       }
     }
@@ -190,12 +184,16 @@ void vectorMatrix::determineTile(Point isoCoordinates)
   }
 
   if ( newTileID != -2 )
-    currentCell->setTileID(newTileID);
+  {
+    _cellMatrix[isoCoordinates.getX() * _columns + isoCoordinates.getY()]->setTileID(newTileID);
+  }
   else
+  {
     LOG(LOG_ERROR) << "It seems there is no combination for bitmask: " << _elevatedTilePosition;
+  }
 }
 
-unsigned int vectorMatrix::getElevatedNeighborBitmask(Point isoCoordinates)
+unsigned int vectorMatrix::getElevatedNeighborBitmask(const Point& isoCoordinates)
 {
   unsigned int bitmask = 0;
   int x = isoCoordinates.getX();
@@ -225,4 +223,38 @@ unsigned int vectorMatrix::getElevatedNeighborBitmask(Point isoCoordinates)
     i++;
   }
   return bitmask;
+}
+
+
+std::vector<std::shared_ptr<Cell> > vectorMatrix::getNeighbors(const Point &isoCoordinates)
+{
+  int x = isoCoordinates.getX();
+  int y = isoCoordinates.getY();
+
+  std::vector<std::shared_ptr<Cell> > neighborCoordinates;
+  neighborCoordinates.reserve(9);
+
+  std::pair<int, int> adjecantCellCoordinates[9] = {
+    std::make_pair(x - 1, y - 1),    // 6 = 2^6 = 64  = BOTTOM LEFT
+    std::make_pair(x - 1, y),        // 2 = 2^2 = 4   = LEFT
+    std::make_pair(x - 1, y + 1),    // 4 = 2^4 = 16  = TOP LEFT
+    std::make_pair(x, y - 1),        // 1 = 2^1 = 2   = BOTTOM
+    std::make_pair(x, y),            // center
+    std::make_pair(x, y + 1),        // 0 = 2^0 = 1   = TOP 
+    std::make_pair(x + 1, y - 1),     // 7 = 2^7 = 128 = BOTTOM RIGHT
+    std::make_pair(x + 1, y),        // 3 = 2^3 = 8   = RIGHT
+    std::make_pair(x + 1, y + 1)    // 5 = 2^5 = 32  = TOP RIGHT
+  };
+
+  for (auto it : adjecantCellCoordinates)
+  {
+
+    if (it.first >= 0 && it.first < _rows && it.second >= 0 && it.second < _columns)
+      neighborCoordinates.push_back(_cellMatrix[it.first * _columns + it.second]);
+    else
+      neighborCoordinates.push_back(nullptr);
+    //LOG() << "a";
+  }
+
+  return neighborCoordinates;
 }

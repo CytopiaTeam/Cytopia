@@ -27,14 +27,14 @@ public:
     * necessary. 
     * @param isoCoordinates the isometric coordinates of the tile that should be elevated
     */
-  void increaseHeightOfCell(Point isoCoordinates);
+  void increaseHeight(const Point &isoCoordinates);
 
   /** \brief Decrease Height
     * Decreases the height of the cell and checks the surrounding tiles. Either draw a slope sprite or lower the tile if
     * necessary.
     * @param isoCoordinates the isometric coordinates of the tile that should be elevated
     */
-  void decreaseHeightOfCell(Point isoCoordinates);
+  void decreaseHeight(const Point& isoCoordinates);
   
   /** \brief set tileID for each neighbor of given coordinates
     * After a cell is raised / lowered, each neighbor must check which tileID it should have
@@ -42,7 +42,7 @@ public:
     * @param The isocoordinates of the cell that should have all of it's neighbors checked.
     * @see Cell#drawSurroundingTiles
     */
-  void drawSurroundingTiles(Point isoCoordinates);
+  void drawSurroundingTiles(const Point& isoCoordinates);
   
   /** \brief: determine which tile ID should be drawn for this cell
     * Checks all the neighbors and determines the tile ID of this mapcell according to it's
@@ -51,7 +51,7 @@ public:
     * @param isoCoordinates the isometric coordinates of the cell whose tile ID should be determined.
     * @see vectorMatrix#drawSurroundingTiles
     */
-  void determineTile(Point isoCoordinates);
+  void determineTile(const Point& isoCoordinates);
 
   /** \brief Get elevated neighbor positions in a bitmask
     * Checks all neighboring tiles and returns the elevated neighbors in a bitmask: 
@@ -60,7 +60,9 @@ public:
     * @param isoCoordinates isometric coordinates of the tile whose neighbors should be retrieved
     * @returns  Uint that stores the elevated neighbor tiles
   ´ */
-  unsigned int getElevatedNeighborBitmask(Point isoCoordinates);
+  unsigned int getElevatedNeighborBitmask(const Point& isoCoordinates);
+
+    std::vector<std::shared_ptr<Cell>> getNeighbors(const Point& isoCoordinates);
 
 private:
   std::vector<std::shared_ptr<Cell> > _cellMatrix;
