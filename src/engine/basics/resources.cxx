@@ -195,7 +195,7 @@ void Resources::generateJSONFile()
   }
 }
 
-std::string Resources::getTileDataFromJSON(std::string tileType, int tileID, std::string attribute)
+std::string Resources::getTileDataFromJSON(const std::string& tileType, int tileID, const std::string& attribute)
 {
   for (json::iterator it = _json.begin(); it != _json.end(); ++it) 
   {
@@ -214,7 +214,7 @@ std::string Resources::getTileDataFromJSON(std::string tileType, int tileID, std
   return retrievedFileName;
 }
 
-std::string Resources::getSpriteDataFromJSON(std::string uiType, int uiSpriteID, std::string attribute)
+std::string Resources::getSpriteDataFromJSON(const std::string& uiType, int uiSpriteID, const std::string& attribute)
 {
   for (json::iterator it = _uiTextureFile.begin(); it != _uiTextureFile.end(); ++it)
   {
