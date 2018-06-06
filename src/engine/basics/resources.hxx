@@ -132,11 +132,7 @@ public:
   // JSON Functions
   static void generateJSONFile();
   static std::string getTileDataFromJSON(const std::string& tileType, int tileID, const std::string& attributes);
-<<<<<<< HEAD
   static std::string getSpriteDataFromJSON(const std::string& uiType, int uiSpriteID, const std::string& attributes);
-=======
-  static std::string getSpriteDataFromJSON(const std::string& uiType, int uiSpriteID, const std::string&  attributes);
->>>>>>> a9aed1a3044c4d42d4803fb728332658bb27d924
   static void readTileListFile();
 
   static void generateINIFile();
@@ -195,4 +191,3 @@ public:
 };
 
 #endif
-
