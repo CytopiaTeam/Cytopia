@@ -214,11 +214,14 @@ unsigned int vectorMatrix::getElevatedNeighborBitmask(const Point& isoCoordinate
   int i = 0;
   for (auto it : adjs)
   {
-    if ( _cellMatrix[it.first * _columns + it.second]->getCoordinates().getHeight() > _cellMatrix[x *_columns + y]->getCoordinates().getHeight()
-    &&   _cellMatrix[it.first * _columns + it.second] )
+    if (it.first >= 0 && it.first < _rows && it.second >= 0 && it.second < _columns)
     {
-      // for each found tile add 2 ^ i to the bitmask
-      bitmask |= static_cast<unsigned int>(std::pow(2, i));
+      if ( _cellMatrix[it.first * _columns + it.second]->getCoordinates().getHeight() > _cellMatrix[x *_columns + y]->getCoordinates().getHeight()
+      &&   _cellMatrix[it.first * _columns + it.second] )
+      {
+        // for each found tile add 2 ^ i to the bitmask
+        bitmask |= static_cast<unsigned int>(std::pow(2, i));
+      }
     }
     i++;
   }
