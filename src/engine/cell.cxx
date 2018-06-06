@@ -2,10 +2,10 @@
 
 Cell::Cell(const Point& isoCoordinates) : _isoCoordinates(isoCoordinates), _tileID(14)
 {
-  _sprite = std::make_shared<Sprite>(Sprite(_tileID, _isoCoordinates)) ;
+  _sprite = std::make_shared<Sprite>(_tileID, _isoCoordinates);
 }
 
-void Cell::increaseHeight()
+void Cell::increaseHeightOfCell()
 {
   int height = _isoCoordinates.getHeight();
 
@@ -16,7 +16,7 @@ void Cell::increaseHeight()
   }
 }
 
-void Cell::decreaseHeight()
+void Cell::decreaseHeightOfCell()
 {
   int height = _isoCoordinates.getHeight();
   

@@ -59,7 +59,7 @@ public:
   * @param isoCoordinates the isometric coordinates of the map cell that should be raised
   * @see vectorMatrix#increaseHeightOfCell
   */
-  void increaseHeight(const Point& isoCoordinates);
+  void increaseHeightOfCell(const Point& isoCoordinates);
 
   /** @brief Decrease Height
   * Decreases the height of the given map cell
@@ -67,7 +67,7 @@ public:
   * @param isoCoordinates the isometric coordinates of the map cell that should be lowered
   * @see vectorMatrix#decreaseHeightOfCell
   */
-  void decreaseHeight(const Point& isoCoordinates);
+  void decreaseHeightOfCell(const Point& isoCoordinates);
 
   void increaseZoomLevel();
   void decreaseZoomLevel();

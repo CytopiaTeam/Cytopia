@@ -49,13 +49,13 @@ public:
     * Increases the height of the cell and its sprite
     * This function should not be called directly, but only from where the neighboring cells slopes are determined
     */
-  void increaseHeight();
+  void increaseHeightOfCell();
 
   /** @brief Decrease Height 
     * Decreases the height of the cell and its sprite
     * This function should not be called directly, but only from where the neighboring cells slopes are determined
     */
-  void decreaseHeight();
+  void decreaseHeightOfCell();
 
 private:
   Point _isoCoordinates;

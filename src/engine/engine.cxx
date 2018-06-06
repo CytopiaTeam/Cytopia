@@ -65,16 +65,16 @@ bool Engine::checkBoundaries(const Point& isoCoordinates)
     return false;
 }
 
-void Engine::increaseHeight(const Point& isoCoordinates)
+void Engine::increaseHeightOfCell(const Point& isoCoordinates)
 {
   Resources::setTerrainEditMode(Resources::TERRAIN_RAISE);
-  _mapCellMatrix.increaseHeight(isoCoordinates);
+  _mapCellMatrix.increaseHeightOfCell(isoCoordinates);
 }
 
-void Engine::decreaseHeight(const Point& isoCoordinates)
+void Engine::decreaseHeightOfCell(const Point& isoCoordinates)
 {
   Resources::setTerrainEditMode(Resources::TERRAIN_LOWER);
-  _mapCellMatrix.decreaseHeight(isoCoordinates);
+  _mapCellMatrix.decreaseHeightOfCell(isoCoordinates);
 }
 
 void Engine::increaseZoomLevel()
