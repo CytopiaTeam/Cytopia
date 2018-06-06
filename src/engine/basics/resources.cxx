@@ -24,7 +24,7 @@ bool Resources::editMode = false;
 * 1 X 7
 * 0 3 6
 */
-std::unordered_map<unsigned int, int> Resources::keyTileMap = 
+std::unordered_map<unsigned int, int> Resources::slopeTileIDMap = 
 {
   { NO_NEIGHBORS, 14 },
   { ELEVATED_TOP, 3 },
@@ -214,7 +214,7 @@ std::string Resources::getTileDataFromJSON(const std::string& tileType, int tile
   return retrievedFileName;
 }
 
-std::string Resources::getSpriteDataFromJSON(const std::string& uiType, int uiSpriteID, const std::string& attribute)
+std::string Resources::getUISpriteDataFromJSON(const std::string& uiType, int uiSpriteID, const std::string& attribute)
 {
   for (json::iterator it = _uiTextureFile.begin(); it != _uiTextureFile.end(); ++it)
   {

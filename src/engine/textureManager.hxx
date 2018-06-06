@@ -27,10 +27,11 @@ public:
   TextureManager& operator=(TextureManager const&) = delete;
 
   /** retrieves texture for a tileID */
-  SDL_Texture* getTexture(int tileID);
-  SDL_Texture* getUITexture(int tileID);
+  SDL_Texture* getTileTexture(int tileID);
+  SDL_Texture* getUITexture(int uiSpriteID);
 
-  SDL_Surface * getSurface(int tileID);
+  SDL_Surface * getTileSurface(int tileID);
+  SDL_Surface * getUISurface(int uiSpriteID);
 
   /** Retrieves Color of a specific tileID at coordinates with the texture */
   SDL_Color GetPixelColor(int tileID,  int X, int Y);
@@ -43,8 +44,8 @@ public:
   std::unordered_map<int, SDL_Surface*> _uiSurfaceMap;
 
 private:
-  TextureManager();
-  ~TextureManager() { };
+  TextureManager() = default;
+  ~TextureManager() = default;
 
   SDL_Renderer* _renderer;
   SDL_Window* _window;
@@ -52,7 +53,7 @@ private:
   /** Load Texture in to Texture Map, if an entry for this tile ID does not yet exist.
   Keep in Mind that the texture id is unique and there can't be two textures with the same id.
 
-  If colorkey is set - Use Magic Pink for transparency
+  If colorkey is set - Use Magic Pink (255,255,0) for transparency
   */
   void loadTexture(int tileID, bool colorKey = false);
   void loadUITexture(int uiSpriteID, bool colorKey = false);

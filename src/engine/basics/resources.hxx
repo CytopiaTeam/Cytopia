@@ -132,12 +132,10 @@ public:
   // JSON Functions
   static void generateJSONFile();
   static std::string getTileDataFromJSON(const std::string& tileType, int tileID, const std::string& attributes);
-  static std::string getSpriteDataFromJSON(const std::string& uiType, int uiSpriteID, const std::string& attributes);
-  static void readTileListFile();
+  static std::string getUISpriteDataFromJSON(const std::string& uiType, int uiSpriteID, const std::string& attributes);
 
   static void generateINIFile();
   static void generateUITextureFile();
-  static void readUITextureListFile();
 
   static void toggleEditMode() { editMode = !editMode; }
   static bool getEditMode() { return editMode; }
@@ -181,13 +179,16 @@ private:
   static json _iniFile;
   static json _uiTextureFile;
 
+  // read JSON FIles
   static void readINIFile();
+  static void readTileListFile();
+  static void readUITextureListFile();
 
   static bool editMode;
 
 public:
   
-  static std::unordered_map<unsigned int, int> keyTileMap;
+  static std::unordered_map<unsigned int, int> slopeTileIDMap;
 };
 
 #endif

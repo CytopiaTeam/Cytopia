@@ -1,11 +1,5 @@
 #include "textureManager.hxx"
 
-TextureManager::TextureManager()
-{
-  _renderer = Resources::getRenderer();
-  _window = Resources::getWindow();
-}
-
 void TextureManager::loadTexture(int tileID, bool colorKey) 
 {
   std::string fileName = Resources::getTileDataFromJSON("terrain", tileID, "filename");
@@ -14,10 +8,10 @@ void TextureManager::loadTexture(int tileID, bool colorKey)
   if ( loadedImage )
   {
     if ( colorKey )
-      SDL_SetColorKey(loadedImage, SDL_TRUE, SDL_MapRGB(loadedImage->format, 0, 0xFF, 0xFF));	
+      SDL_SetColorKey(loadedImage, SDL_TRUE, SDL_MapRGB(loadedImage->format, 0xFF, 0, 0xFF));	
 
     _surfaceMap[tileID] = loadedImage;
-    SDL_Texture* _texture = SDL_CreateTextureFromSurface(_renderer, loadedImage);
+    SDL_Texture* _texture = SDL_CreateTextureFromSurface(Resources::getRenderer(), loadedImage);
 
     if ( _texture )
       _textureMap[tileID] = _texture;
@@ -30,16 +24,16 @@ void TextureManager::loadTexture(int tileID, bool colorKey)
 
 void TextureManager::loadUITexture(int uiSpriteID, bool colorKey)
 {
-  std::string fileName = Resources::getSpriteDataFromJSON("button", uiSpriteID, "filename");
+  std::string fileName = Resources::getUISpriteDataFromJSON("button", uiSpriteID, "filename");
   SDL_Surface* loadedImage = IMG_Load(fileName.c_str());
 
   if ( loadedImage )
   {
     if ( colorKey )
-      SDL_SetColorKey(loadedImage, SDL_TRUE, SDL_MapRGB(loadedImage->format, 0, 0xFF, 0xFF));
+      SDL_SetColorKey(loadedImage, SDL_TRUE, SDL_MapRGB(loadedImage->format, 0xFF, 0, 0xFF));
 
     _uiSurfaceMap[uiSpriteID] = loadedImage;
-    SDL_Texture* _texture = SDL_CreateTextureFromSurface(_renderer, loadedImage);
+    SDL_Texture* _texture = SDL_CreateTextureFromSurface(Resources::getRenderer(), loadedImage);
 
     if ( _texture != nullptr )
       _uiTextureMap[uiSpriteID] = _texture;
@@ -50,7 +44,7 @@ void TextureManager::loadUITexture(int uiSpriteID, bool colorKey)
     LOG(LOG_ERROR) << "Could not load Texture from file " << fileName << "\nSDL_IMAGE Error: " << IMG_GetError();
 }
 
-SDL_Texture* TextureManager::getTexture(int tileID)
+SDL_Texture* TextureManager::getTileTexture(int tileID)
 {
   // If the texture isn't in the map, load it first.
   if (! _textureMap.count(tileID))
@@ -70,7 +64,7 @@ SDL_Texture* TextureManager::getUITexture(int tileID)
   return _uiTextureMap[tileID];
 }
 
-SDL_Surface* TextureManager::getSurface(int tileID)
+SDL_Surface* TextureManager::getTileSurface(int tileID)
 {
   // If the surface isn't in the map, load the texture first.
   if (!_textureMap.count(tileID))
@@ -78,6 +72,16 @@ SDL_Surface* TextureManager::getSurface(int tileID)
     loadTexture(tileID);
   }
   return _surfaceMap[tileID];
+}
+
+SDL_Surface* TextureManager::getUISurface(int uiSpriteID)
+{
+  // If the surface isn't in the map, load the texture first.
+  if (!_textureMap.count(uiSpriteID))
+  {
+    loadTexture(uiSpriteID);
+  }
+  return _surfaceMap[uiSpriteID];
 }
 
 SDL_Color TextureManager::GetPixelColor(int tileID, int X, int Y)

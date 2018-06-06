@@ -116,9 +116,9 @@ void vectorMatrix::determineTileIDOfCell(const Point& isoCoordinates)
 
 
   _elevatedTilePosition = getElevatedNeighborBitmask(isoCoordinates);
-  auto keyTileID = Resources::keyTileMap.find(_elevatedTilePosition);
+  auto keyTileID = Resources::slopeTileIDMap.find(_elevatedTilePosition);
 
-  if ( keyTileID != Resources::keyTileMap.end() )
+  if ( keyTileID != Resources::slopeTileIDMap.end() )
   {
     newTileID = keyTileID->second;
   }
