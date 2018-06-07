@@ -96,7 +96,7 @@ int main(int, char**)
         clickCoords = Resources::convertScreenToIsoCoordinates(mouseCoords);
         if ( event.button.button == SDL_BUTTON_LEFT )
         {
-          if ( engine.checkBoundaries(clickCoords) )
+          if ( engine.isPointWithinBoundaries(clickCoords) )
           {
             if (Resources::getEditMode())
               engine.increaseHeightOfCell(clickCoords);

@@ -42,7 +42,7 @@ void Engine::render()
 
 void Engine::centerScreenOnPoint(const Point& isoCoordinates)
 {
-  if (checkBoundaries(isoCoordinates))
+  if (isPointWithinBoundaries(isoCoordinates))
   {
     _centerIsoCoordinates = isoCoordinates;
     Point screenCoordinates = Resources::convertIsoToScreenCoordinates(isoCoordinates, true);
@@ -56,7 +56,7 @@ void Engine::centerScreenOnPoint(const Point& isoCoordinates)
   }
 }
 
-bool Engine::checkBoundaries(const Point& isoCoordinates)
+bool Engine::isPointWithinBoundaries(const Point& isoCoordinates)
 {
   if (( isoCoordinates.getX() >= 0 && isoCoordinates.getX() <= _map_size ) 
   && (  isoCoordinates.getY() >= 0 && isoCoordinates.getY() <= _map_size ))
