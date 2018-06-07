@@ -2,7 +2,7 @@
 
 Engine::Engine()
 {
-   TILE_SIZE = Resources::getTileSize();
+   _tileSize = Resources::getTileSize();
   
   _renderer = Resources::getRenderer();
   _window = Resources::getWindow();
@@ -40,23 +40,23 @@ void Engine::render()
   }
 }
 
-void Engine::centerScreenOnPoint(Point isoCoordinates)
+void Engine::centerScreenOnPoint(const Point& isoCoordinates)
 {
-  if (checkBoundaries(isoCoordinates))
+  if (isPointWithinBoundaries(isoCoordinates))
   {
     _centerIsoCoordinates = isoCoordinates;
     Point screenCoordinates = Resources::convertIsoToScreenCoordinates(isoCoordinates, true);
     int x, y;
     _zoomLevel = Resources::getZoomLevel();
 
-    x = static_cast<int>((screenCoordinates.getX() + (TILE_SIZE*_zoomLevel)*0.5) - _screen_width * 0.5);
-    y = static_cast<int>((screenCoordinates.getY() + (TILE_SIZE*_zoomLevel)*0.75) - _screen_height * 0.5);
+    x = static_cast<int>((screenCoordinates.getX() + (_tileSize*_zoomLevel)*0.5) - _screen_width * 0.5);
+    y = static_cast<int>((screenCoordinates.getY() + (_tileSize*_zoomLevel)*0.75) - _screen_height * 0.5);
   
     Resources::setCameraOffset(Point(x, y));
   }
 }
 
-bool Engine::checkBoundaries(Point isoCoordinates)
+bool Engine::isPointWithinBoundaries(const Point& isoCoordinates)
 {
   if (( isoCoordinates.getX() >= 0 && isoCoordinates.getX() <= _map_size ) 
   && (  isoCoordinates.getY() >= 0 && isoCoordinates.getY() <= _map_size ))
@@ -65,16 +65,16 @@ bool Engine::checkBoundaries(Point isoCoordinates)
     return false;
 }
 
-void Engine::increaseHeight(Point isoCoordinates)
+void Engine::increaseHeightOfCell(const Point& isoCoordinates)
 {
   Resources::setTerrainEditMode(Resources::TERRAIN_RAISE);
-  _mapCellMatrix.getCell(isoCoordinates.getX(), isoCoordinates.getY())->increaseHeight();
+  _mapCellMatrix.increaseHeightOfCell(isoCoordinates);
 }
 
-void Engine::decreaseHeight(Point isoCoordinates)
+void Engine::decreaseHeightOfCell(const Point& isoCoordinates)
 {
   Resources::setTerrainEditMode(Resources::TERRAIN_LOWER);
-  _mapCellMatrix.getCell(isoCoordinates.getX(), isoCoordinates.getY())->decreaseHeight();
+  _mapCellMatrix.decreaseHeightOfCell(isoCoordinates);
 }
 
 void Engine::increaseZoomLevel()
@@ -99,7 +99,7 @@ void Engine::decreaseZoomLevel()
   }
 }
 
-Point Engine::findCellAt(Point screenCoordinates)
+Point Engine::findCellAt(const Point& screenCoordinates)
 {
   Point foundCoordinates = Point(-1, -1);
  

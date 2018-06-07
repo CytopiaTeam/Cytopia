@@ -24,7 +24,7 @@ bool Resources::editMode = false;
 * 1 X 7
 * 0 3 6
 */
-std::unordered_map<unsigned int, int> Resources::keyTileMap = 
+std::unordered_map<unsigned int, int> Resources::slopeTileIDMap = 
 {
   { NO_NEIGHBORS, 14 },
   { ELEVATED_TOP, 3 },
@@ -111,6 +111,13 @@ std::unordered_map<unsigned int, int> Resources::keyTileMap =
   { ELEVATED_BOTTOM | ELEVATED_TOP_LEFT, -1 },
   { ELEVATED_BOTTOM | ELEVATED_TOP_RIGHT, -1 },
 
+  { ELEVATED_LEFT | ELEVATED_RIGHT, -1 },
+  { ELEVATED_TOP | ELEVATED_BOTTOM, -1 },
+
+  // Missing
+  // TOP LEFT - RIGHT
+  // TOP LEFT - BOTTOM - RIGHT - BOTTOM RIGHT
+
 };
 
 void Resources::init()
@@ -120,12 +127,12 @@ void Resources::init()
   readUITextureListFile();
 }
 
-Point Resources::convertScreenToIsoCoordinates(Point screenCoordinates)
+Point Resources::convertScreenToIsoCoordinates(const Point& screenCoordinates)
 {
   return Engine::Instance().findCellAt(screenCoordinates);
 }
 
-Point Resources::convertIsoToScreenCoordinates(Point isoCoordinates, bool calcWithoutOffset)
+Point Resources::convertIsoToScreenCoordinates(const Point& isoCoordinates, bool calcWithoutOffset)
 {
   int x, y;
 
@@ -188,7 +195,7 @@ void Resources::generateJSONFile()
   }
 }
 
-std::string Resources::getTileDataFromJSON(std::string tileType, int tileID, std::string attribute)
+std::string Resources::getTileDataFromJSON(const std::string& tileType, int tileID, const std::string& attribute)
 {
   for (json::iterator it = _json.begin(); it != _json.end(); ++it) 
   {
@@ -207,7 +214,7 @@ std::string Resources::getTileDataFromJSON(std::string tileType, int tileID, std
   return retrievedFileName;
 }
 
-std::string Resources::getSpriteDataFromJSON(std::string uiType, int uiSpriteID, std::string attribute)
+std::string Resources::getUISpriteDataFromJSON(const std::string& uiType, int uiSpriteID, const std::string& attribute)
 {
   for (json::iterator it = _uiTextureFile.begin(); it != _uiTextureFile.end(); ++it)
   {
@@ -291,7 +298,8 @@ void Resources::generateINIFile()
   iniFile["Graphics"]["Resolution"]["Height"] = 600;
   iniFile["Graphics"]["VSYNC"] = false;
   iniFile["Graphics"]["FullScreen"] = false;
-  iniFile["Game"]["MapSize"] = 32;
+  iniFile["Game"]["MapSize"] = 128;
+  iniFile["Game"]["MaxElevationHeight"] = 32;
   iniFile["ConfigFiles"]["UIDataJSONFile"] = "resources/data/UIData.json";
   iniFile["ConfigFiles"]["TileDataJSONFile"] = "resources/data/TileData.json";
 
@@ -304,7 +312,7 @@ void Resources::generateINIFile()
   }
   else
   {
-    printf("ERROR: Couldn't write file \"resources/iniFile.json\"");
+    printf("ERROR: Couldn't write file \"resources/settings.json\"");
   }
 }
 
@@ -329,6 +337,7 @@ void Resources::readINIFile()
   settings.vSync = _iniFile["Graphics"]["VSYNC"].get<bool>();
   settings.fullScreen = _iniFile["Graphics"]["FullScreen"].get<bool>();
   settings.mapSize = _iniFile["Game"]["MapSize"].get<int>();
+  settings.maxElevationHeight = _iniFile["Game"]["MaxElevationHeight"].get<int>();
   settings.uiDataJSONFile = _iniFile["ConfigFiles"]["UIDataJSONFile"].get<std::string>();
   settings.tileDataJSONFile = _iniFile["ConfigFiles"]["TileDataJSONFile"].get<std::string>();
 

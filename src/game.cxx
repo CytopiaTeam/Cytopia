@@ -71,6 +71,15 @@ int main(int, char**)
           case SDLK_f:
             window.toggleFullScreen();
             break;
+          case SDLK_b:
+            LOG() << "Starting elevation Benchmark!";
+            LOG().timerStart();
+            for (int i = 0; i <= Resources::settings.maxElevationHeight; i++)
+            {
+              engine.increaseHeightOfCell(Point(64, 64));
+            }
+            LOG().timerEnd();
+
         }
         break;
  
@@ -87,10 +96,10 @@ int main(int, char**)
         clickCoords = Resources::convertScreenToIsoCoordinates(mouseCoords);
         if ( event.button.button == SDL_BUTTON_LEFT )
         {
-          if ( engine.checkBoundaries(clickCoords) )
+          if ( engine.isPointWithinBoundaries(clickCoords) )
           {
             if (Resources::getEditMode())
-              engine.increaseHeight(clickCoords);
+              engine.increaseHeightOfCell(clickCoords);
             else
               LOG() << "CLICKED - Iso Coords: " << clickCoords.getX() << ", " << clickCoords.getY();
           }
@@ -98,7 +107,7 @@ int main(int, char**)
         else if ( event.button.button == SDL_BUTTON_RIGHT )
         {
           if (Resources::getEditMode())
-            engine.decreaseHeight(clickCoords);
+            engine.decreaseHeightOfCell(clickCoords);
           else
             engine.centerScreenOnPoint(clickCoords);
         }
