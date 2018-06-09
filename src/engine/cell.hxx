@@ -28,6 +28,10 @@ public:
 
   /// get iso coordinates of this cell
   Point getCoordinates() { return _isoCoordinates; };
+  void setCoordinates(Point isoCoordinates) { 
+   _isoCoordinates = isoCoordinates; 
+  _sprite->setTileIsoCoordinates(_isoCoordinates);
+  };
 
   /** @brief get Tile ID
     * Retrieves the current Tile ID of this map cell

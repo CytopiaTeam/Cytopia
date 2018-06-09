@@ -58,6 +58,10 @@ int main(int, char**)
             engine.toggleLayer(Engine::LAYER_SELECTION);
             break;
           
+          case SDLK_r:
+            engine.rotateMap();
+            break;
+
           case SDLK_w:
             // just for debug 
             Resources::generateINIFile();

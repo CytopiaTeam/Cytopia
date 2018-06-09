@@ -87,6 +87,8 @@ public:
     * @return Isocoordinates of the tile that has been found
     */
   Point findCellAt(const Point& screenCoordinates);
+
+  void rotateMap();
 private:
   Engine();
   virtual ~Engine() = default;
