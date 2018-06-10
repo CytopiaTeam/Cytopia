@@ -336,7 +336,7 @@ void Resources::readINIFile()
   settings.screenHeight = _iniFile["Graphics"]["Resolution"]["Height"].get<int>();
   settings.vSync = _iniFile["Graphics"]["VSYNC"].get<bool>();
   settings.fullScreen = _iniFile["Graphics"]["FullScreen"].get<bool>();
-  settings.mapSize = _iniFile["Game"]["MapSize"].get<int>();
+  settings.mapSize = _iniFile["Game"]["MapSize"].get<int>() - 1;
   settings.maxElevationHeight = _iniFile["Game"]["MaxElevationHeight"].get<int>();
   settings.uiDataJSONFile = _iniFile["ConfigFiles"]["UIDataJSONFile"].get<std::string>();
   settings.tileDataJSONFile = _iniFile["ConfigFiles"]["TileDataJSONFile"].get<std::string>();
