@@ -53,7 +53,7 @@ bool UiElement::isClicked(int x, int y)
 }
 
 
-void UiElement::createTextTexture(std::string &textureText, SDL_Color textColor)
+void UiElement::createTextTexture(const std::string &textureText, const SDL_Color& textColor)
 {
   _font = TTF_OpenFont("resources/fonts/arcadeclassics.ttf", 20);
 

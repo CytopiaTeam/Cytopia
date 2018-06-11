@@ -17,7 +17,7 @@ void UIManager::init()
   //std::shared_ptr<Button> button_construct = std::shared_ptr<Button>(new Button(x, y, 0));
 
   _uiElements.push_back(std::make_shared<UiElement> (Button(x, y, 0)));
-  _uiElements.push_back(std::make_shared<UiElement> (Text(20, 20, std::string("Awesome UI Text!"))));
+  _uiElements.push_back(std::make_shared<UiElement> (Text(20, 20, "Awesome UI Text!")));
 }
 
 void UIManager::drawUI()
