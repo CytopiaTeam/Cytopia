@@ -27,7 +27,7 @@ public:
   void renderTexture(int w, int h);
  
   // TTF Implementation
-  void createTextTexture(std::string &textureText, SDL_Color textColor);
+  void createTextTexture(const std::string& textureText, const SDL_Color& textColor);
 
 
   void renderTexture();

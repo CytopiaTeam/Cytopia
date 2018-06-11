@@ -7,7 +7,7 @@
 class Text : public UiElement
 {
 public:
-  Text(int x, int y, std::string& text);
+  Text(int x, int y, const std::string& text);
   ~Text() = default;
 
 };
