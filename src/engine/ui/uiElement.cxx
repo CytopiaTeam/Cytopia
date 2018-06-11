@@ -1,19 +1,13 @@
 #include "uiElement.hxx"
 
-UiElement::UiElement()
-{
-  _renderer = Resources::getRenderer();
-  _window = Resources::getWindow();
-  //Point _screenCoordinates = Point(90, 90);
-}
-
 UiElement::UiElement(int x, int y, int uiSpriteID) : _screenCoordinates(Point(x,y))
 {
-  _renderer = Resources::getRenderer();
-  _window = Resources::getWindow();
   _texture = TextureManager::Instance().getUITexture(uiSpriteID);
+}
 
-  //Point _screenCoordinates = Point(90, 90);
+UiElement::UiElement(int x, int y, std::string text) : _screenCoordinates(Point(x, y))
+{
+  createTextTexture(text, SDL_Color{ 255,255,255 });
 }
 
 void UiElement::render()
@@ -42,7 +36,10 @@ void UiElement::renderTexture()
 {
   int width, height;
   SDL_QueryTexture(_texture, NULL, NULL, &width, &height);
-  renderTexture(width, height);
+  if (_texture)
+  {
+    renderTexture(width, height);
+  }
 }
 
 bool UiElement::isClicked(int x, int y)
@@ -53,4 +50,40 @@ bool UiElement::isClicked(int x, int y)
     return true;
   }
   return false;
+}
+
+
+void UiElement::createTextTexture(std::string &textureText, SDL_Color textColor)
+{
+  _font = TTF_OpenFont("resources/fonts/arcadeclassics.ttf", 20);
+
+  if ( ! _font )
+  {
+    LOG(LOG_ERROR) << "Failed to load font!\n" << TTF_GetError();
+  }
+
+  //Render text surface
+  SDL_Surface* textSurface = TTF_RenderText_Solid(_font, textureText.c_str(), textColor);
+  if ( textSurface )
+  {
+    _texture = SDL_CreateTextureFromSurface(_renderer, textSurface);
+
+    if ( _texture )
+    {
+      _width = textSurface->w;
+      _height = textSurface->h;
+    }
+    else
+    {
+      LOG(LOG_ERROR) << "Failed to create texture from text surface!\n" << SDL_GetError();
+    }
+    //Delete no longer needed surface
+    SDL_FreeSurface(textSurface);
+  }
+  else
+  {
+    LOG(LOG_ERROR) << "Failed to create text surface!\n" << TTF_GetError();
+  }
+
+  TTF_CloseFont(_font);
 }
