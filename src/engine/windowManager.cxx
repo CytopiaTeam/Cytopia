@@ -11,14 +11,23 @@ WindowManager::~WindowManager()
 {
   SDL_DestroyRenderer(_renderer);
   SDL_DestroyWindow(_window);
+  TTF_Quit();
   SDL_Quit();
 }
 
 bool WindowManager::init()
 {
+  // Initialize SDL
   if ( SDL_Init(SDL_INIT_VIDEO != 0) )
   {
     LOG(LOG_ERROR) << "Failed to Init SDL\nSDL Error:" << SDL_GetError();
+    return 0;
+  }
+
+  // Initialize SDL_TTF
+  if (TTF_Init() == -1)
+  {
+    LOG(LOG_ERROR) << "Failed to Init SDL_TTF\nSDL Error:" << TTF_GetError();
     return 0;
   }
   

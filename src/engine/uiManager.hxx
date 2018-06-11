@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "ui/uiElement.hxx"
+#include "ui/text.hxx"
 #include "ui/button.hxx"
 #include "basics/resources.hxx"
 
@@ -26,7 +27,7 @@ public:
 private:
   UIManager();
   ~UIManager() = default;
-  std::vector<std::shared_ptr<UiElement> > _uiButtons;
+  std::vector<std::shared_ptr<UiElement> > _uiElements;
 };
 
 #endif
