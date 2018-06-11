@@ -16,7 +16,7 @@ void UIManager::init()
   int y = Resources::settings.screenHeight - 64 - 16;
   //std::shared_ptr<Button> button_construct = std::shared_ptr<Button>(new Button(x, y, 0));
 
-  _uiButtons.push_back(std::shared_ptr<Button> (new Button(x, y, 0)));
+  _uiButtons.push_back(std::shared_ptr<UiElement> (new Button(x, y, 0)));
 }
 
 void UIManager::drawUI()
@@ -31,10 +31,13 @@ bool UIManager::checkClick(int x, int y)
 {
   for (auto it : _uiButtons)
   {
-    if (it->getClickedUiElement(x, y))
-    {
-      return true;
+    if (auto buttonPtr = std::dynamic_pointer_cast<Button>(it)) {
+      if (buttonPtr->getClickedUiElement(x, y))
+      {
+        return true;
+      }
     }
+
   }
   return false;
 }

@@ -26,7 +26,7 @@ public:
 private:
   UIManager();
   ~UIManager() = default;
-  std::vector<std::shared_ptr<Button> > _uiButtons;
+  std::vector<std::shared_ptr<UiElement> > _uiButtons;
 };
 
 #endif
