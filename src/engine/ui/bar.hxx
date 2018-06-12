@@ -1,5 +1,5 @@
 
-Bar::Bar(int x, int y, std::string& text) : UiElement(x, y, text)
+Bar::Bar(int x, int y, int w, int h) : UiElement(x, y, w, h)
 {
 
 }

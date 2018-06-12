@@ -18,19 +18,21 @@ public:
   UiElement() = default;
   UiElement(int x, int y, int uiSpriteID);
   UiElement(int x, int y, std::string text);
+  UiElement(int x, int y, int w, int h);
   virtual ~UiElement() = default;
 
   //Renders texture at given point
   void render();
   void changeTexture(int tileID);
 
-  void renderTexture(int w, int h);
  
   // TTF Implementation
   void createTextTexture(const std::string& textureText, const SDL_Color& textColor);
 
+  void drawRectTexture();
 
-  void renderTexture();
+  bool getClickedUiElement(int x, int y);
+
   bool isClicked(int x, int y);
 
   Point _screenCoordinates;
@@ -47,6 +49,8 @@ private:
   Uint8 _color;
   int _width, _height;
 
+  void renderTexture();
+  void renderTexture(int w, int h);
 };
 
 #endif
