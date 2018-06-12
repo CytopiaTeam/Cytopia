@@ -4,12 +4,11 @@
 
 #include "uiElement.hxx"
 
-class Button : public UiElement
+class ButtonText : public UiElement
 {
 public:
-  Button(int x, int y, int uiSpriteID);
-  ~Button() = default;
-  bool getClickedUiElement(int x, int y);
+  ButtonText(int x, int y, int uiSpriteID);
+  ~ButtonText() = default;
 
 
 };

@@ -10,6 +10,12 @@ UiElement::UiElement(int x, int y, std::string text) : _screenCoordinates(Point(
   createTextTexture(text, SDL_Color{ 255,255,255 });
 }
 
+UiElement::UiElement(int x, int y, int w, int h) : _screenCoordinates(Point(x, y)), _width(w), _height(h)
+{
+
+}
+
+
 void UiElement::render()
 {
   int screen_width = Resources::settings.screenWidth;
@@ -86,4 +92,18 @@ void UiElement::createTextTexture(const std::string &textureText, const SDL_Colo
   }
 
   TTF_CloseFont(_font);
+}
+
+void UiElement::drawRectTexture()
+{
+
+}
+
+bool UiElement::getClickedUiElement(int x, int y)
+{
+  if (isClicked(x, y))
+  {
+    return true;
+  }
+  return false;
 }
