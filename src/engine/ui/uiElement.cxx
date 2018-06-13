@@ -7,7 +7,7 @@ UiElement::UiElement(int x, int y, int uiSpriteID) : _screenCoordinates(Point(x,
 
 UiElement::UiElement(int x, int y, std::string text) : _screenCoordinates(Point(x, y))
 {
-  createTextTexture(text, SDL_Color{ 255,255,255 });
+  createTextTexture(text, _color);
 }
 
 UiElement::UiElement(int x, int y, int w, int h) : _screenCoordinates(Point(x, y)), _width(w), _height(h)
@@ -94,9 +94,14 @@ void UiElement::createTextTexture(const std::string &textureText, const SDL_Colo
   TTF_CloseFont(_font);
 }
 
-void UiElement::drawRectTexture()
+void UiElement::drawSolidRect(SDL_Rect& rect)
 {
+  _destRect = rect;
+  SDL_Surface* surface = SDL_CreateRGBSurface(0, _destRect.w, _destRect.h, 32, 0, 0, 0, 0);;
 
+  // Use NULL to fill whole surface with color
+  SDL_FillRect(surface, NULL, SDL_MapRGB(surface->format, 255,12,12));
+  _texture = SDL_CreateTextureFromSurface(_renderer, surface);
 }
 
 bool UiElement::getClickedUiElement(int x, int y)
