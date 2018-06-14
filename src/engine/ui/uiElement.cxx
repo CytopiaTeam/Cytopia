@@ -7,7 +7,7 @@ UiElement::UiElement(int x, int y, int uiSpriteID) : _screenCoordinates(Point(x,
 
 UiElement::UiElement(int x, int y, std::string text) : _screenCoordinates(Point(x, y))
 {
-  createTextTexture(text, _color);
+  drawText(text, _color);
 }
 
 UiElement::UiElement(int x, int y, int w, int h) : _screenCoordinates(Point(x, y)), _width(w), _height(h)
@@ -18,10 +18,10 @@ UiElement::UiElement(int x, int y, int w, int h) : _screenCoordinates(Point(x, y
 
 void UiElement::render()
 {
-  int screen_width = Resources::settings.screenWidth;
-  int screen_height = Resources::settings.screenHeight;
-
-  renderTexture();
+  if (isVisible())
+  {
+    renderTexture();
+  }
 }
 
 void UiElement::changeTexture(int tileID)
@@ -59,7 +59,7 @@ bool UiElement::isClicked(int x, int y)
 }
 
 
-void UiElement::createTextTexture(const std::string &textureText, const SDL_Color& textColor)
+void UiElement::drawText(const std::string &textureText, const SDL_Color& textColor)
 {
   _font = TTF_OpenFont("resources/fonts/arcadeclassics.ttf", 20);
 
@@ -68,35 +68,32 @@ void UiElement::createTextTexture(const std::string &textureText, const SDL_Colo
     LOG(LOG_ERROR) << "Failed to load font!\n" << TTF_GetError();
   }
 
-  //Render text surface
   SDL_Surface* textSurface = TTF_RenderText_Solid(_font, textureText.c_str(), textColor);
   if ( textSurface )
   {
     _width = textSurface->w;
     _height = textSurface->h;
 
+    // If there's already an existing surface (like a button) blit the text to it.
     if (_surface)
     {
-      //SDL_Rect textLocation = { _screenCoordinates.getX(), _screenCoordinates.getY(), 20, 20 };
+      // Center the text in the surface
       SDL_Rect textLocation = { 0, 0, 0, 0 };
       textLocation.x = (_surface->w / 2) - (_width / 2);
       textLocation.y = (_surface->h / 2) - (_height / 2);
-      //textLocation.y += ((textLocation.h - _height) / 6);
-      //textLocation.h -= (_rect.y - rect.y);
-      //SDL_BlitSurface(_surface, &textLocation, textSurface, &textLocation);
       SDL_BlitSurface(textSurface, NULL, _surface, &textLocation);
       _texture = SDL_CreateTextureFromSurface(_renderer, _surface);
 
       return;
     }
-    _texture = SDL_CreateTextureFromSurface(_renderer, textSurface);
-
-    if ( _texture )
-    {
-      _width = textSurface->w;
-      _height = textSurface->h;
-    }
+    // else just create a new text texture
     else
+    {
+      _texture = SDL_CreateTextureFromSurface(_renderer, textSurface);
+    }
+
+
+    if ( ! _texture )
     {
       LOG(LOG_ERROR) << "Failed to create texture from text surface!\n" << SDL_GetError();
     }
@@ -117,7 +114,7 @@ void UiElement::drawSolidRect(SDL_Rect& rect)
   _surface = SDL_CreateRGBSurface(0, _destRect.w, _destRect.h, 32, 0, 0, 0, 0);;
 
   // Use NULL to fill whole surface with color
-  SDL_FillRect(_surface, NULL, SDL_MapRGB(_surface->format, 255,12,12));
+  SDL_FillRect(_surface, NULL, SDL_MapRGB(_surface->format, 128,128,128));
   _texture = SDL_CreateTextureFromSurface(_renderer, _surface);
 }
 
@@ -128,4 +125,9 @@ bool UiElement::getClickedUiElement(int x, int y)
     return true;
   }
   return false;
+}
+
+bool UiElement::isVisible()
+{
+  return _visible;
 }
