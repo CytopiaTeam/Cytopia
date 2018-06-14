@@ -27,7 +27,7 @@ public:
 
  
   // TTF Implementation
-  void createTextTexture(const std::string& textureText, const SDL_Color& textColor);
+  void drawText(const std::string& textureText, const SDL_Color& textColor);
 
   void drawSolidRect(SDL_Rect& rect);
 
@@ -38,6 +38,7 @@ public:
   bool getClickedUiElement(int x, int y);
 
   bool isClicked(int x, int y);
+  bool isVisible();
 
   Point _screenCoordinates;
 private:
@@ -50,9 +51,10 @@ private:
   SDL_Surface* _surface = nullptr;
 
   Point _isoCoordinates;
-  int _uiID;
   SDL_Color _color = SDL_Color{ 255,255,255 };
+  int _uiID;
   int _width, _height;
+  bool _visible = true;
 
   void renderTexture();
   void renderTexture(int w, int h);
