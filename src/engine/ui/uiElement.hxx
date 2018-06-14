@@ -47,6 +47,7 @@ private:
   TTF_Font* _font;
 
   SDL_Rect _destRect;
+  SDL_Surface* _surface = nullptr;
 
   Point _isoCoordinates;
   int _uiID;

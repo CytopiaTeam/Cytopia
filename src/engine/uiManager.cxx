@@ -18,7 +18,7 @@ void UIManager::init()
 
   _uiElements.push_back(std::make_shared<UiElement> (ButtonImage(x, y, 0)));
   _uiElements.push_back(std::make_shared<UiElement> (Text(20, 20, "Awesome UI Text!")));
-  _uiElements.push_back(std::make_shared<UiElement> (ButtonText(120, 120, 140, 60)));
+  _uiElements.push_back(std::make_shared<UiElement> (ButtonText(230, 230, 140, 60)));
 }
 
 void UIManager::drawUI()
