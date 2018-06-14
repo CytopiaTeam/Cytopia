@@ -10,6 +10,7 @@ public:
   ButtonText(int x, int y, int w, int h);
   ~ButtonText() = default;
 
+  void addLabel(const std::string & text);
 
 };
 

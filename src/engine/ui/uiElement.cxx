@@ -72,6 +72,23 @@ void UiElement::createTextTexture(const std::string &textureText, const SDL_Colo
   SDL_Surface* textSurface = TTF_RenderText_Solid(_font, textureText.c_str(), textColor);
   if ( textSurface )
   {
+    _width = textSurface->w;
+    _height = textSurface->h;
+
+    if (_surface)
+    {
+      //SDL_Rect textLocation = { _screenCoordinates.getX(), _screenCoordinates.getY(), 20, 20 };
+      SDL_Rect textLocation = { 0, 0, 0, 0 };
+      textLocation.x = (_surface->w / 2) - (_width / 2);
+      textLocation.y = (_surface->h / 2) - (_height / 2);
+      //textLocation.y += ((textLocation.h - _height) / 6);
+      //textLocation.h -= (_rect.y - rect.y);
+      //SDL_BlitSurface(_surface, &textLocation, textSurface, &textLocation);
+      SDL_BlitSurface(textSurface, NULL, _surface, &textLocation);
+      _texture = SDL_CreateTextureFromSurface(_renderer, _surface);
+
+      return;
+    }
     _texture = SDL_CreateTextureFromSurface(_renderer, textSurface);
 
     if ( _texture )
@@ -97,11 +114,11 @@ void UiElement::createTextTexture(const std::string &textureText, const SDL_Colo
 void UiElement::drawSolidRect(SDL_Rect& rect)
 {
   _destRect = rect;
-  SDL_Surface* surface = SDL_CreateRGBSurface(0, _destRect.w, _destRect.h, 32, 0, 0, 0, 0);;
+  _surface = SDL_CreateRGBSurface(0, _destRect.w, _destRect.h, 32, 0, 0, 0, 0);;
 
   // Use NULL to fill whole surface with color
-  SDL_FillRect(surface, NULL, SDL_MapRGB(surface->format, 255,12,12));
-  _texture = SDL_CreateTextureFromSurface(_renderer, surface);
+  SDL_FillRect(_surface, NULL, SDL_MapRGB(_surface->format, 255,12,12));
+  _texture = SDL_CreateTextureFromSurface(_renderer, _surface);
 }
 
 bool UiElement::getClickedUiElement(int x, int y)
