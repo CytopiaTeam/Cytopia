@@ -18,7 +18,18 @@ void UIManager::init()
 
   _uiElements.push_back(std::make_shared<UiElement> (ButtonImage(x, y, 0)));
   _uiElements.push_back(std::make_shared<UiElement> (Text(20, 20, "Awesome UI Text!")));
-  _uiElements.push_back(std::make_shared<UiElement> (ButtonText(230, 230, 140, 60)));
+  _uiElements.push_back(std::make_shared<UiElement> (ButtonText(230, 230, 140, 60, 1)));
+
+  for (std::shared_ptr<UiElement> it : _uiElements)
+  {
+    int groupID = it->getGroupID();
+    if (groupID != 0)
+    {
+      _group[groupID] = it;
+      it->setVisibility(false);
+    }
+  }
+
 }
 
 void UIManager::drawUI()
@@ -39,7 +50,19 @@ bool UIManager::checkClick(int x, int y)
         return true;
       }
     }
-
   }
   return false;
+}
+
+void UIManager::addToGroup(int groupID, std::shared_ptr<UiElement> uiElement)
+{
+  //_group.insert(groupID, uiElement);
+  for (std::shared_ptr<UiElement> it : _uiElements)
+  {
+    if (it->getGroupID() != 0)
+    {
+      _group[groupID] = it;
+    }
+  }
+  //_group.
 }
