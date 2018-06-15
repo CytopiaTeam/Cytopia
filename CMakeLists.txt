@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 3.9 FATAL_ERROR)
 
-set (PROJECT_NAME "IsometricEngine")
+project(
+  # this will be the ${PROJECT_NAME}
+  IsometricEngine
+)
+
 set (TARGET "IsometricEngine")
 set (CMAKE_CXX_STANDARD 11)
 set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake_modules/")
