@@ -10,7 +10,6 @@ project(
 )
 
 set (TARGET "IsometricEngine")
-set (CMAKE_CXX_STANDARD 11)
 set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake_modules/")
 
 find_package(Doxygen)
@@ -39,12 +38,19 @@ find_package(SDL2_ttf REQUIRED)
 file (GLOB_RECURSE ISOENGINE_SOURCES "src/*.cxx")
 
 add_executable (${TARGET} ${ISOENGINE_SOURCES})
+
 target_link_libraries (
   ${TARGET}
   PRIVATE
     SDL::SDL2main
     SDL::SDL2_image
     SDL::SDL2_ttf
+)
+
+target_compile_features(
+  ${PROJECT_NAME}
+  PRIVATE
+    cxx_std_11
 )
 
 add_custom_command(TARGET ${TARGET} PRE_BUILD
