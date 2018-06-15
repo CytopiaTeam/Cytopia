@@ -31,33 +31,21 @@ if ( DOXYGEN_FOUND )
   )
 endif()
 
-if ( UNIX )
-  find_package(SDL2 REQUIRED)
-  find_package(SDL2_image REQUIRED)
-  find_package(SDL2_ttf REQUIRED)
-
-  if ( SDL2_FOUND AND SDL2_IMAGE_FOUND)
-    include_directories(${SDL2_INCLUDE_DIR})
-    include_directories(${SDL2_IMAGE_INCLUDE_DIR})
-    include_directories(${SDL2_TTF_INCLUDE_DIR})
-  endif ()
-  
-else()
-  set (SDL2_LIBRARY "${CMAKE_CURRENT_SOURCE_DIR}/sdl/lib/x64/SDL2.lib;${CMAKE_CURRENT_SOURCE_DIR}/sdl/lib/x64/SDL2main.lib")
-  set (SDL2_IMAGE_LIBRARY "${CMAKE_CURRENT_SOURCE_DIR}/sdl/lib/x64/SDL2_image.lib")
-  set (SDL2_TTF_LIBRARY "${CMAKE_CURRENT_SOURCE_DIR}/sdl/lib/x64/SDL2_ttf.lib")
-
-  set (SDL2_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/sdl/include")
-endif()
-
+# find all required dependences - if these fail the build will not continue
+find_package(SDL2 REQUIRED)
+find_package(SDL2_image REQUIRED)
+find_package(SDL2_ttf REQUIRED)
 
 file (GLOB_RECURSE ISOENGINE_SOURCES "src/*.cxx")
 
-
 add_executable (${TARGET} ${ISOENGINE_SOURCES})
-include_directories (${SDL2_INCLUDE_DIR} ${SDL2IMAGE_INCLUDE_DIR} ${SDL2_TTF_INCLUDE_DIR} )
-target_link_libraries (${TARGET} ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARY} ${SDL2_TTF_LIBRARY})
-
+target_link_libraries (
+  ${TARGET}
+  PRIVATE
+    SDL::SDL2main
+    SDL::SDL2_image
+    SDL::SDL2_ttf
+)
 
 add_custom_command(TARGET ${TARGET} PRE_BUILD
                    COMMAND ${CMAKE_COMMAND} -E copy_directory
