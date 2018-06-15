@@ -3,12 +3,13 @@ cmake_minimum_required(VERSION 3.9 FATAL_ERROR)
 project(
   # this will be the ${PROJECT_NAME}
   IsometricEngine
+  # this will provide ${PROJECT_VERSION}
+  VERSION 0.0.2
 )
 
 set (TARGET "IsometricEngine")
 set (CMAKE_CXX_STANDARD 11)
 set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake_modules/")
-set (VERSION "${PROJECT_NAME} 0.2 alpha build")
 
 find_package(Doxygen)
 
@@ -67,4 +68,4 @@ if ( WIN32 )
   set_target_properties(${TARGET} PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/$(Configuration)")
 endif ()
 
-add_definitions(-DVERSION="${VERSION}")
+add_definitions(-DVERSION="${PROJECT_NAME} ${PROJECT_VERSION} alpha build")
