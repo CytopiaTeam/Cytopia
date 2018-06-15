@@ -51,7 +51,7 @@ add_custom_command(TARGET ${TARGET} PRE_BUILD
                    COMMAND ${CMAKE_COMMAND} -E copy_directory
                    ${CMAKE_SOURCE_DIR}/resources $<TARGET_FILE_DIR:${TARGET}>/resources)
 
-if ( WIN32 )
+if ( MSVC )
   # set startup project for Visual Studio Builds
   set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ${PROJECT_NAME})
   # set Visual Studio working directory to the Configuration directory
