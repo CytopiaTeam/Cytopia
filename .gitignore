@@ -1,0 +1,5 @@
+# ignore CLion generated directory
+.idea
+
+# ignore build directories
+cmake-build-*
