@@ -54,6 +54,15 @@ find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)
 find_package(SDL2_ttf REQUIRED)
 
+if(MINGW)
+  target_link_libraries(
+    ${PROJECT_NAME}
+    PRIVATE
+      # need to link with mingw32 before SDL2
+      mingw32
+  )
+endif()
+
 # link the libraries that we've found
 target_link_libraries(
   ${PROJECT_NAME}
