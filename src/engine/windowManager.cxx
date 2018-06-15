@@ -16,7 +16,8 @@ WindowManager::~WindowManager()
 
 bool WindowManager::init()
 {
-  if ( SDL_Init(SDL_INIT_VIDEO != 0) )
+  // Initialize SDL
+  if ( SDL_Init(SDL_INIT_VIDEO) != 0 )
   {
     LOG(LOG_ERROR) << "Failed to Init SDL\nSDL Error:" << SDL_GetError();
     return 0;
