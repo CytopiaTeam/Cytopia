@@ -9,7 +9,6 @@ project(
   LANGUAGES CXX
 )
 
-set (TARGET "IsometricEngine")
 set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake_modules/")
 
 find_package(Doxygen)
@@ -37,10 +36,10 @@ find_package(SDL2_ttf REQUIRED)
 
 file (GLOB_RECURSE ISOENGINE_SOURCES "src/*.cxx")
 
-add_executable (${TARGET} ${ISOENGINE_SOURCES})
+add_executable (${PROJECT_NAME} ${ISOENGINE_SOURCES})
 
 target_link_libraries (
-  ${TARGET}
+  ${PROJECT_NAME}
   PRIVATE
     SDL::SDL2main
     SDL::SDL2_image
@@ -59,13 +58,13 @@ target_compile_definitions(
     VERSION="${PROJECT_NAME} ${PROJECT_VERSION} alpha build"
 )
 
-add_custom_command(TARGET ${TARGET} PRE_BUILD
+add_custom_command(TARGET ${PROJECT_NAME} PRE_BUILD
                    COMMAND ${CMAKE_COMMAND} -E copy_directory
-                   ${CMAKE_SOURCE_DIR}/resources $<TARGET_FILE_DIR:${TARGET}>/resources)
+                   ${CMAKE_SOURCE_DIR}/resources $<TARGET_FILE_DIR:${PROJECT_NAME}>/resources)
 
 if ( MSVC )
   # set startup project for Visual Studio Builds
   set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ${PROJECT_NAME})
   # set Visual Studio working directory to the Configuration directory
-  set_target_properties(${TARGET} PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/$(Configuration)")
+  set_target_properties(${PROJECT_NAME} PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/$(Configuration)")
 endif ()
