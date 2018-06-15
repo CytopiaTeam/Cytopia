@@ -1,3 +1,5 @@
+cmake_minimum_required(VERSION 3.3)
+
 set (PROJECT_NAME "IsometricEngine")
 set (TARGET "IsometricEngine")
 set (CMAKE_CXX_STANDARD 11)
@@ -21,8 +23,6 @@ if ( DOXYGEN_FOUND )
     VERBATIM
   )
 endif()
-
-cmake_minimum_required(VERSION 3.3)
 
 if ( UNIX )
   find_package(SDL2 REQUIRED)
