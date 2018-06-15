@@ -13,10 +13,41 @@ project(
 # add the path to our custom find modules
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake_modules/")
 
-file(GLOB_RECURSE ISOENGINE_SOURCES "src/*.cxx")
-
 # create a new executable with the same name as the project
-add_executable(${PROJECT_NAME} ${ISOENGINE_SOURCES})
+add_executable(${PROJECT_NAME}
+  src/engine/basics/log.hxx
+  src/engine/basics/point.cxx
+  src/engine/basics/point.hxx
+  src/engine/basics/resources.cxx
+  src/engine/basics/resources.hxx
+  src/engine/basics/vectorMatrix.cxx
+  src/engine/basics/vectorMatrix.hxx
+  src/engine/ui/bar.cxx
+  src/engine/ui/bar.hxx
+  src/engine/ui/button.cxx
+  src/engine/ui/button.hxx
+  src/engine/ui/panel.cxx
+  src/engine/ui/panel.hxx
+  src/engine/ui/uiElement.cxx
+  src/engine/ui/uiElement.hxx
+  src/engine/cell.cxx
+  src/engine/cell.hxx
+  src/engine/engine.cxx
+  src/engine/engine.hxx
+  src/engine/eventManager.cxx
+  src/engine/eventManager.hxx
+  src/engine/sprite.cxx
+  src/engine/sprite.hxx
+  src/engine/textureManager.cxx
+  src/engine/textureManager.hxx
+  src/engine/uiManager.cxx
+  src/engine/uiManager.hxx
+  src/engine/windowManager.cxx
+  src/engine/windowManager.hxx
+  src/ThirdParty/json.hxx
+  src/game.cxx
+  src/game.hxx
+)
 
 # find all required dependences - if these fail the build will not continue
 find_package(SDL2 REQUIRED)
