@@ -5,6 +5,8 @@ project(
   IsometricEngine
   # this will provide ${PROJECT_VERSION}
   VERSION 0.0.2
+  # we are using C++
+  LANGUAGES CXX
 )
 
 set (TARGET "IsometricEngine")
