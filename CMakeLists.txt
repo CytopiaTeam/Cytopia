@@ -53,6 +53,12 @@ target_compile_features(
     cxx_std_11
 )
 
+target_compile_definitions(
+  ${PROJECT_NAME}
+  PRIVATE
+    VERSION="${PROJECT_NAME} ${PROJECT_VERSION} alpha build"
+)
+
 add_custom_command(TARGET ${TARGET} PRE_BUILD
                    COMMAND ${CMAKE_COMMAND} -E copy_directory
                    ${CMAKE_SOURCE_DIR}/resources $<TARGET_FILE_DIR:${TARGET}>/resources)
@@ -63,5 +69,3 @@ if ( MSVC )
   # set Visual Studio working directory to the Configuration directory
   set_target_properties(${TARGET} PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/$(Configuration)")
 endif ()
-
-add_definitions(-DVERSION="${PROJECT_NAME} ${PROJECT_VERSION} alpha build")
