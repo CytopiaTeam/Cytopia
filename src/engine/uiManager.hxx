@@ -25,10 +25,15 @@ public:
   void drawUI();
   bool checkClick(int x, int y);
 
+  void addToGroup(int groupID, std::shared_ptr<UiElement> uiElement);
+
 private:
   UIManager();
   ~UIManager() = default;
   std::vector<std::shared_ptr<UiElement> > _uiElements;
+  /// vector that contains UI Elements of a group
+  std::unordered_map<int, std::shared_ptr<UiElement> > _group;
+  //std::vector<std::vector<std::shared_ptr<UiElement> > > _group;
 };
 
 #endif

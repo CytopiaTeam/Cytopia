@@ -75,7 +75,7 @@ void UiElement::drawText(const std::string &textureText, const SDL_Color& textCo
     _height = textSurface->h;
 
     // If there's already an existing surface (like a button) blit the text to it.
-    if (_surface)
+    if ( _surface )
     {
       // Center the text in the surface
       SDL_Rect textLocation = { 0, 0, 0, 0 };
@@ -108,19 +108,19 @@ void UiElement::drawText(const std::string &textureText, const SDL_Color& textCo
   TTF_CloseFont(_font);
 }
 
-void UiElement::drawSolidRect(SDL_Rect& rect)
+void UiElement::drawSolidRect(SDL_Rect& rect, const SDL_Color& color)
 {
   _destRect = rect;
   _surface = SDL_CreateRGBSurface(0, _destRect.w, _destRect.h, 32, 0, 0, 0, 0);;
 
   // Use NULL to fill whole surface with color
-  SDL_FillRect(_surface, NULL, SDL_MapRGB(_surface->format, 128,128,128));
+  SDL_FillRect(_surface, NULL, SDL_MapRGB(_surface->format, color.r, color.g, color.b));
   _texture = SDL_CreateTextureFromSurface(_renderer, _surface);
 }
 
 bool UiElement::getClickedUiElement(int x, int y)
 {
-  if (isClicked(x, y))
+  if ( isClicked(x, y) )
   {
     return true;
   }

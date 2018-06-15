@@ -29,7 +29,7 @@ public:
   // TTF Implementation
   void drawText(const std::string& textureText, const SDL_Color& textColor);
 
-  void drawSolidRect(SDL_Rect& rect);
+  void drawSolidRect(SDL_Rect& rect, const SDL_Color& color);
 
   /** \brief checks if the current UI Element is clicked
     * if the derived object provides an isClicked() method, handle click events here
@@ -39,6 +39,10 @@ public:
 
   bool isClicked(int x, int y);
   bool isVisible();
+  void setVisibility(bool visibility) { _visible = visibility; };
+
+  int getGroupID() { return _groupID; };
+  void setGroupID(int groupID) { _groupID = groupID; };
 
   Point _screenCoordinates;
 private:
@@ -54,6 +58,7 @@ private:
   SDL_Color _color = SDL_Color{ 255,255,255 };
   int _uiID;
   int _width, _height;
+  int _groupID = 0;
   bool _visible = true;
 
   void renderTexture();

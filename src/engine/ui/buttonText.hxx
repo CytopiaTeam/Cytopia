@@ -8,6 +8,7 @@ class ButtonText : public UiElement
 {
 public:
   ButtonText(int x, int y, int w, int h);
+  ButtonText(int x, int y, int w, int h, int groupID);
   ~ButtonText() = default;
 
   void addLabel(const std::string & text);
