@@ -17,6 +17,8 @@ void UIManager::init()
   //std::shared_ptr<Button> button_construct = std::shared_ptr<Button>(new Button(x, y, 0));
 
   _uiElements.push_back(std::make_shared<UiElement> (ButtonImage(x, y, 0)));
+  _uiElements.push_back(std::make_shared<UiElement> (ButtonImage(x-22, y-40, 1)));
+  _uiElements.push_back(std::make_shared<UiElement> (ButtonImage(x+22, y-40, 2)));
   _uiElements.push_back(std::make_shared<UiElement> (Text(20, 20, "Awesome UI Text!")));
   _uiElements.push_back(std::make_shared<UiElement> (ButtonText(230, 230, 140, 60, 1)));
 
@@ -56,13 +58,5 @@ bool UIManager::checkClick(int x, int y)
 
 void UIManager::addToGroup(int groupID, std::shared_ptr<UiElement> uiElement)
 {
-  //_group.insert(groupID, uiElement);
-  for (std::shared_ptr<UiElement> it : _uiElements)
-  {
-    if (it->getGroupID() != 0)
-    {
-      _group[groupID] = it;
-    }
-  }
-  //_group.
+  _group[groupID] = uiElement;
 }
