@@ -32,8 +32,22 @@ If you have questions or if you want to join the project, visit the [Projects Di
  
   https://cmake.org/
 
-#### Build instructions:
- - cmake <PATH_TO_REPOSITORY>
- - cmake --build .
+#### Build instructions
+
+This project uses [CMake](https://cmake.org) to manage the build.
+Please make sure you have installed at least version 3.9 or later.
+To build the project, create a new build directory, then:
+
+    cmake <PATH_TO_REPOSITORY>
+
+This will configure the build.
+If any dependencies are missing, you will receive an error here.
+If you are using Windows and have manually installed SDL2, you will need to update your PATH environment variable to point to it.
+
+Once the build is configured, you can then compile it using:
+
+    cmake --build .
+
+#### Work-in-Progress Screenshot
 
 ![alt text](https://raw.githubusercontent.com/JimmySnails/IsometricEngine/master/images/Screenshot1.png)

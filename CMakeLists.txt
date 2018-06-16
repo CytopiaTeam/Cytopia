@@ -1,19 +1,107 @@
-set (PROJECT_NAME "IsometricEngine")
-set (TARGET "IsometricEngine")
-set (CMAKE_CXX_STANDARD 11)
-set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake_modules/")
-set (VERSION "${PROJECT_NAME} 0.2 alpha build")
+cmake_minimum_required(VERSION 3.9 FATAL_ERROR)
 
+# create the cmake project
+project(
+  # this will be the ${PROJECT_NAME}
+  IsometricEngine
+  # this will provide ${PROJECT_VERSION}
+  VERSION 0.0.2
+  # we are using C++
+  LANGUAGES CXX
+)
+
+# add the path to our custom find modules
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake_modules/")
+
+# create a new executable with the same name as the project
+add_executable(${PROJECT_NAME}
+  src/engine/basics/log.hxx
+  src/engine/basics/point.cxx
+  src/engine/basics/point.hxx
+  src/engine/basics/resources.cxx
+  src/engine/basics/resources.hxx
+  src/engine/basics/vectorMatrix.cxx
+  src/engine/basics/vectorMatrix.hxx
+  src/engine/ui/bar.cxx
+  src/engine/ui/bar.hxx
+  src/engine/ui/button.cxx
+  src/engine/ui/button.hxx
+  src/engine/ui/panel.cxx
+  src/engine/ui/panel.hxx
+  src/engine/ui/uiElement.cxx
+  src/engine/ui/uiElement.hxx
+  src/engine/cell.cxx
+  src/engine/cell.hxx
+  src/engine/engine.cxx
+  src/engine/engine.hxx
+  src/engine/eventManager.cxx
+  src/engine/eventManager.hxx
+  src/engine/sprite.cxx
+  src/engine/sprite.hxx
+  src/engine/textureManager.cxx
+  src/engine/textureManager.hxx
+  src/engine/uiManager.cxx
+  src/engine/uiManager.hxx
+  src/engine/windowManager.cxx
+  src/engine/windowManager.hxx
+  src/ThirdParty/json.hxx
+  src/game.cxx
+  src/game.hxx
+)
+
+# find all required dependences - if these fail the build will not continue
+find_package(SDL2 REQUIRED)
+find_package(SDL2_image REQUIRED)
+find_package(SDL2_ttf REQUIRED)
+
+if(MINGW)
+  target_link_libraries(
+    ${PROJECT_NAME}
+    PRIVATE
+      # need to link with mingw32 before SDL2
+      mingw32
+  )
+endif()
+
+# link the libraries that we've found
+target_link_libraries(
+  ${PROJECT_NAME}
+  PRIVATE
+    SDL::SDL2main
+    SDL::SDL2_image
+    SDL::SDL2_ttf
+)
+
+target_compile_features(
+  ${PROJECT_NAME}
+  PRIVATE
+    # enable C++11
+    cxx_std_11
+)
+
+target_compile_definitions(
+  ${PROJECT_NAME}
+  PRIVATE
+    # pass the version string via the compiler
+    VERSION="${PROJECT_NAME} ${PROJECT_VERSION} alpha build"
+)
+
+# copy the resources to the compiled directory
+add_custom_command(
+  TARGET ${PROJECT_NAME} PRE_BUILD
+  COMMAND
+    ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/resources $<TARGET_FILE_DIR:${PROJECT_NAME}>/resources
+)
+
+# use Doxygen to generate the documentation
 find_package(Doxygen)
 
-# own target for Doxygen builds
-if ( DOXYGEN_FOUND )
+if(DOXYGEN_FOUND)
   set (DoxyFile_src ${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile)
   set (DoxyFile ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile)
   configure_file(${DoxyFile_src} ${DoxyFile} @ONLY)
 
-  
-  message("Doxygen build started.")
+  message(STATUS "${PROJECT_NAME}: You can build the documentation with the doc target.")
   add_custom_target(
     doc
     COMMAND ${DOXYGEN_EXECUTABLE} ${DoxyFile}
@@ -22,45 +110,18 @@ if ( DOXYGEN_FOUND )
   )
 endif()
 
-cmake_minimum_required(VERSION 3.3)
-
-if ( UNIX )
-  find_package(SDL2 REQUIRED)
-  find_package(SDL2_image REQUIRED)
-  find_package(SDL2_ttf REQUIRED)
-
-  if ( SDL2_FOUND AND SDL2_IMAGE_FOUND)
-    include_directories(${SDL2_INCLUDE_DIR})
-    include_directories(${SDL2_IMAGE_INCLUDE_DIR})
-    include_directories(${SDL2_TTF_INCLUDE_DIR})
-  endif ()
-  
-else()
-  set (SDL2_LIBRARY "${CMAKE_CURRENT_SOURCE_DIR}/sdl/lib/x64/SDL2.lib;${CMAKE_CURRENT_SOURCE_DIR}/sdl/lib/x64/SDL2main.lib")
-  set (SDL2_IMAGE_LIBRARY "${CMAKE_CURRENT_SOURCE_DIR}/sdl/lib/x64/SDL2_image.lib")
-  set (SDL2_TTF_LIBRARY "${CMAKE_CURRENT_SOURCE_DIR}/sdl/lib/x64/SDL2_ttf.lib")
-
-  set (SDL2_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/sdl/include")
-endif()
-
-
-file (GLOB_RECURSE ISOENGINE_SOURCES "src/*.cxx")
-
-
-add_executable (${TARGET} ${ISOENGINE_SOURCES})
-include_directories (${SDL2_INCLUDE_DIR} ${SDL2IMAGE_INCLUDE_DIR} ${SDL2_TTF_INCLUDE_DIR} )
-target_link_libraries (${TARGET} ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARY} ${SDL2_TTF_LIBRARY})
-
-
-add_custom_command(TARGET ${TARGET} PRE_BUILD
-                   COMMAND ${CMAKE_COMMAND} -E copy_directory
-                   ${CMAKE_SOURCE_DIR}/resources $<TARGET_FILE_DIR:${TARGET}>/resources)
-
-if ( WIN32 )
+if(MSVC)
   # set startup project for Visual Studio Builds
-  set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ${PROJECT_NAME})
-  # set Visual Studio working directory to the Configuration directory
-  set_target_properties(${TARGET} PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/$(Configuration)")
-endif ()
+  set_property(
+    DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    PROPERTY
+      VS_STARTUP_PROJECT ${PROJECT_NAME}
+  )
 
-add_definitions(-DVERSION="${VERSION}")
+  # set Visual Studio working directory to the Configuration directory
+  set_target_properties(
+    ${PROJECT_NAME}
+    PROPERTIES
+      VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/$(Configuration)"
+  )
+endif()
