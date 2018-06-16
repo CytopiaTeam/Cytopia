@@ -20,9 +20,24 @@ bool EventManager::checkEvents(SDL_Event &event)
       {
         // check for UI collision here first
         // event.button.x, event.button.y)
-        if (uiManager.checkClick(event.button.x, event.button.y))
+        int actionID = uiManager.getClickAction(event.button.x, event.button.y);
+        if (actionID)
         {
-          Resources::toggleEditMode();
+          switch (actionID)
+          {
+            case 1:
+              LOG() << "Toggle Menu";
+              break;
+            case 2:
+              Resources::toggleEditMode();
+              break;
+            case 3:
+              Resources::toggleEditMode();
+              break;
+            default:
+              handled = false;
+              break;
+          }
           handled = true;
         }
       }

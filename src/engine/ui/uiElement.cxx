@@ -118,15 +118,6 @@ void UiElement::drawSolidRect(SDL_Rect& rect, const SDL_Color& color)
   _texture = SDL_CreateTextureFromSurface(_renderer, _surface);
 }
 
-bool UiElement::getClickedUiElement(int x, int y)
-{
-  if ( isClicked(x, y) )
-  {
-    return true;
-  }
-  return false;
-}
-
 bool UiElement::isVisible()
 {
   return _visible;

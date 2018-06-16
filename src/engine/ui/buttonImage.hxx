@@ -7,7 +7,7 @@
 class ButtonImage : public UiElement
 {
 public:
-  ButtonImage(int x, int y, int uiSpriteID);
+  ButtonImage(int x, int y, int uiSpriteID, int actionID);
   ~ButtonImage() = default;
 
 

@@ -35,8 +35,6 @@ public:
     * if the derived object provides an isClicked() method, handle click events here
     * @param x, y coordinates of the mouseclick
     */
-  bool getClickedUiElement(int x, int y);
-
   bool isClicked(int x, int y);
   bool isVisible();
   void setVisibility(bool visibility) { _visible = visibility; };
@@ -44,6 +42,8 @@ public:
   int getGroupID() { return _groupID; };
   void setGroupID(int groupID) { _groupID = groupID; };
 
+  int getAction() { return _action; };
+  void setAction(int action) { _action = action; };
   Point _screenCoordinates;
 private:
   SDL_Texture * _texture = nullptr;
@@ -60,6 +60,8 @@ private:
   int _width, _height;
   int _groupID = 0;
   bool _visible = true;
+
+  int _action = 0;
 
   void renderTexture();
   void renderTexture(int w, int h);
