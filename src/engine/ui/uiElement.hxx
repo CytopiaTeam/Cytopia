@@ -48,6 +48,8 @@ public:
   int getActionID() { return _actionID; };
   void setActionID(int actionID) { _actionID = actionID; };
 
+  std::string& getUiElementType() { return _uiElementType; };
+
 private:
   SDL_Texture * _texture = nullptr;
   SDL_Renderer* _renderer = Resources::getRenderer();
@@ -60,6 +62,8 @@ private:
   Point _screenCoordinates;
 
   SDL_Color _color = SDL_Color{ 255,255,255 };
+
+  std::string _uiElementType = "";
 
   int _uiID;
   int _width, _height;

@@ -68,6 +68,11 @@ int main(int, char**)
             Resources::generateUITextureFile();
             break;
           
+          case SDLK_u:
+            // just for debug 
+            Resources::generateUILayoutFile();
+            break;
+          
           case SDLK_f:
             window.toggleFullScreen();
             break;

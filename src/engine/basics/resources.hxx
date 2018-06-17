@@ -133,12 +133,18 @@ public:
   static void generateJSONFile();
   static std::string getTileDataFromJSON(const std::string& tileType, int tileID, const std::string& attributes);
   static std::string getUISpriteDataFromJSON(const std::string& uiType, int uiSpriteID, const std::string& attributes);
+  static void readUILayoutFile();
+  static json getUILayoutJSONObject() { return _uiLayout; };
 
   static void generateINIFile();
   static void generateUITextureFile();
+  static void generateUILayoutFile();
+
+
 
   static void toggleEditMode() { editMode = !editMode; }
   static bool getEditMode() { return editMode; }
+
 
   enum terrainEditMode : int
   {
@@ -159,6 +165,7 @@ public:
     int maxElevationHeight;
     std::string uiDataJSONFile;
     std::string tileDataJSONFile;
+    std::string uiLayoutJSONFile;
   }Settings;
 
   static Settings settings;
@@ -178,6 +185,7 @@ private:
   static json _json;
   static json _iniFile;
   static json _uiTextureFile;
+  static json _uiLayout;
 
   // read JSON FIles
   static void readINIFile();

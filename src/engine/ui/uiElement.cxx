@@ -1,6 +1,6 @@
 #include "uiElement.hxx"
 
-UiElement::UiElement(int x, int y, int uiSpriteID, int groupID, int actionID, int parentOfGroup) : _screenCoordinates(Point(x,y)), _groupID(groupID), _actionID(actionID), _parentOf(parentOfGroup)
+UiElement::UiElement(int x, int y, int uiSpriteID, int groupID, int actionID, int parentOfGroup) : _screenCoordinates(Point(x,y)), _groupID(groupID), _actionID(actionID), _parentOf(parentOfGroup), _uiElementType("ImageButton")
 {
   _texture = TextureManager::Instance().getUITexture(uiSpriteID);
 }

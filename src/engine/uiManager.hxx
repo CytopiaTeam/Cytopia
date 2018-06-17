@@ -9,6 +9,8 @@
 #include "ui/buttonText.hxx"
 #include "basics/resources.hxx"
 
+#include "../ThirdParty/json.hxx"
+
 class UIManager
 {
 public:
