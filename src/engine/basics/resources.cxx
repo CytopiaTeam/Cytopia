@@ -306,6 +306,21 @@ void Resources::generateUILayoutFile()
   uiLayoutFile[2]["TooltipText"] = "Lower Terrain";
   uiLayoutFile[2]["Layout"] = "BottomMenuExpansionGroup";
 
+  uiLayoutFile[3]["Type"] = "Text";
+  uiLayoutFile[3]["Text"] = "Awesome Text";
+  uiLayoutFile[3]["Position_x"] = 20;
+  uiLayoutFile[3]["Position_y"] = 20;
+  uiLayoutFile[3]["GroupID"] = 0;
+
+  uiLayoutFile[4]["Type"] = "TextButton";
+  uiLayoutFile[4]["Text"] = "Awesome Button";
+  uiLayoutFile[4]["Position_x"] = 200;
+  uiLayoutFile[4]["Position_y"] = 200;
+  uiLayoutFile[4]["Width"] = 140;
+  uiLayoutFile[4]["Height"] = 60;
+  uiLayoutFile[4]["ActionID"] = 4;
+  uiLayoutFile[4]["GroupID"] = 0;
+  uiLayoutFile[4]["ParentOfGroup"] = 0;
 
   std::ofstream myJsonFile(settings.uiLayoutJSONFile);
 
