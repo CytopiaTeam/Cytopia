@@ -1,27 +1,23 @@
 #include "uiElement.hxx"
 
-UiElement::UiElement(int x, int y, int uiSpriteID) : _screenCoordinates(Point(x,y))
+UiElement::UiElement(int x, int y, int uiSpriteID, int groupID, int actionID, int parentOfGroup) : _screenCoordinates(Point(x,y)), _groupID(groupID), _actionID(actionID), _parentOf(parentOfGroup)
 {
   _texture = TextureManager::Instance().getUITexture(uiSpriteID);
 }
 
-UiElement::UiElement(int x, int y, std::string text) : _screenCoordinates(Point(x, y))
+UiElement::UiElement(int x, int y, const std::string& text, int groupID, int actionID, int parentOfGroup) : _screenCoordinates(Point(x, y))
 {
   drawText(text, _color);
 }
 
-UiElement::UiElement(int x, int y, int w, int h) : _screenCoordinates(Point(x, y)), _width(w), _height(h)
+UiElement::UiElement(int x, int y, int w, int h, int groupID, int actionID, int parentOfGroup) : _screenCoordinates(Point(x, y)), _width(w), _height(h)
 {
 
 }
 
-
 void UiElement::render()
 {
-  if (isVisible())
-  {
-    renderTexture();
-  }
+  renderTexture();
 }
 
 void UiElement::changeTexture(int tileID)
@@ -50,8 +46,8 @@ void UiElement::renderTexture()
 
 bool UiElement::isClicked(int x, int y)
 {
-  if (x > _destRect.x && x < _destRect.x + _destRect.w
-  &&  y > _destRect.y && y < _destRect.y + _destRect.h)
+  if ( x > _destRect.x && x < _destRect.x + _destRect.w
+  &&   y > _destRect.y && y < _destRect.y + _destRect.h )
   {
     return true;
   }
@@ -118,7 +114,3 @@ void UiElement::drawSolidRect(SDL_Rect& rect, const SDL_Color& color)
   _texture = SDL_CreateTextureFromSurface(_renderer, _surface);
 }
 
-bool UiElement::isVisible()
-{
-  return _visible;
-}

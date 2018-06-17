@@ -21,8 +21,12 @@ public:
 
   void init();
   void drawUI();
-  int getClickAction(int x, int y);
+  std::shared_ptr<UiElement> getClickedUIElement(int x, int y);
 
+  void toggleGroupVisibility(int groupID);
+  void enableGroupVisibility(int groupID);
+  void disableGroupVisibility(int groupID);
+  
 
   void addToGroup(int groupID, std::shared_ptr<UiElement> uiElement);
 

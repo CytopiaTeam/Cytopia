@@ -20,12 +20,13 @@ bool EventManager::checkEvents(SDL_Event &event)
       {
         // check for UI collision here first
         // event.button.x, event.button.y)
-        int actionID = uiManager.getClickAction(event.button.x, event.button.y);
-        if (actionID)
+        std::shared_ptr<UiElement > clickedElement = uiManager.getClickedUIElement(event.button.x, event.button.y);
+        if (clickedElement)
         {
-          switch (actionID)
+          switch (clickedElement->getActionID())
           {
             case 1:
+              UIManager::Instance().toggleGroupVisibility(clickedElement->getParentID());
               LOG() << "Toggle Menu";
               break;
             case 2:

@@ -16,16 +16,16 @@ class UiElement
 public:
   //Initializes variables
   UiElement() = default;
-  UiElement(int x, int y, int uiSpriteID);
-  UiElement(int x, int y, std::string text);
-  UiElement(int x, int y, int w, int h);
+  UiElement(int x, int y, int uiSpriteID, int groupID, int actionID, int parentOfGroup);
+  UiElement(int x, int y, const std::string& text, int groupID, int actionID, int parentOfGroup);
+  UiElement(int x, int y, int w, int h, int groupID, int actionID, int parentOfGroup);
   virtual ~UiElement() = default;
 
   //Renders texture at given point
   void render();
   void changeTexture(int tileID);
 
- 
+
   // TTF Implementation
   void drawText(const std::string& textureText, const SDL_Color& textColor);
 
@@ -36,15 +36,18 @@ public:
     * @param x, y coordinates of the mouseclick
     */
   bool isClicked(int x, int y);
-  bool isVisible();
+
+  bool isVisible() { return _visible; };
   void setVisibility(bool visibility) { _visible = visibility; };
 
   int getGroupID() { return _groupID; };
   void setGroupID(int groupID) { _groupID = groupID; };
 
-  int getAction() { return _action; };
-  void setAction(int action) { _action = action; };
-  Point _screenCoordinates;
+  int getParentID() { return _parentOf; };
+
+  int getActionID() { return _actionID; };
+  void setActionID(int actionID) { _actionID = actionID; };
+
 private:
   SDL_Texture * _texture = nullptr;
   SDL_Renderer* _renderer = Resources::getRenderer();
@@ -54,14 +57,16 @@ private:
   SDL_Rect _destRect;
   SDL_Surface* _surface = nullptr;
 
-  Point _isoCoordinates;
+  Point _screenCoordinates;
+
   SDL_Color _color = SDL_Color{ 255,255,255 };
+
   int _uiID;
   int _width, _height;
-  int _groupID = 0;
   bool _visible = true;
-
-  int _action = 0;
+  int _groupID = 0;
+  int _actionID = 0;
+  int _parentOf = 0;
 
   void renderTexture();
   void renderTexture(int w, int h);
