@@ -8,7 +8,7 @@ int main(int, char**)
   Resources::init();
   
 
-  WindowManager window("Isometric Engine");
+
   Engine& engine = Engine::Instance();
   LOG().timerEnd();
   LOG() << "Tile Matrix initialized";
@@ -24,7 +24,8 @@ int main(int, char**)
   _window = Resources::getWindow();
   
   // Gameloop
-  while (!window.isClosed()){
+  while ( engine.gameIsRunning() )
+  {
     SDL_RenderClear(_renderer);
 
     if ( SDL_PollEvent(&event) )
@@ -32,14 +33,16 @@ int main(int, char**)
       switch (event.type)
       {
       case SDL_QUIT:
-        window.close();
+        engine.quitGame();
         break;
 
       case SDL_KEYDOWN:
         switch (event.key.keysym.sym) 
         {
           case SDLK_ESCAPE:
-            window.close();
+            //window.close();
+            engine.quitGame();
+            uiManager.toggleGroupVisibility(2);
             break;
           
           case SDLK_0:
@@ -74,7 +77,7 @@ int main(int, char**)
             break;
           
           case SDLK_f:
-            window.toggleFullScreen();
+            engine.toggleFullScreen();
             break;
           case SDLK_b:
             LOG() << "Starting elevation Benchmark!";

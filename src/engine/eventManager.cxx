@@ -1,6 +1,3 @@
-#ifndef EVENTMANAGER_HXX_
-#define EVENTMANAGER_HXX_
-
 #include "eventManager.hxx"
 
 EventManager::EventManager() 
@@ -49,6 +46,9 @@ bool EventManager::checkEvents(SDL_Event &event)
                 Resources::setTerrainEditMode(Resources::TERRAIN_LOWER); 
               }
               break;
+            case 4:
+              Engine::Instance().quitGame();
+              break;
             default:
               handled = false;
               break;
@@ -64,5 +64,3 @@ bool EventManager::checkEvents(SDL_Event &event)
   // return if the event was handled here
   return handled;
 }
-
-#endif

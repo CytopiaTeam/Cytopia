@@ -22,11 +22,6 @@ Engine::Engine()
   centerScreenOnPoint(_centerIsoCoordinates);
 }
 
-void Engine::parseMapFile()
-{
-  // TODO: load Map from FIle. Coordinates, Height, Tile
-}
-
 void Engine::render()
 {
   int mapSize = Resources::settings.mapSize;

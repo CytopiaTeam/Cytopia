@@ -95,8 +95,8 @@ std::shared_ptr<UiElement> UIManager::getClickedUIElement(int x, int y)
   for (std::shared_ptr<UiElement> it : _uiElements)
   {
     if( it->getActionID() != 0 && it->isVisible() == true) 
-    {
       if( it->isClicked(x, y) )
+    {
       {
         return it;
       }
