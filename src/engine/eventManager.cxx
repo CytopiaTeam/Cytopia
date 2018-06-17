@@ -30,10 +30,24 @@ bool EventManager::checkEvents(SDL_Event &event)
               LOG() << "Toggle Menu";
               break;
             case 2:
-              Resources::toggleEditMode();
+              if ( Resources::getTerrainEditMode() == Resources::TERRAIN_RAISE )
+              {
+                Resources::setTerrainEditMode(Resources::NO_TERRAIN_EDIT);
+              }
+              else
+              {
+                Resources::setTerrainEditMode(Resources::TERRAIN_RAISE);
+              }
               break;
             case 3:
-              Resources::toggleEditMode();
+              if ( Resources::getTerrainEditMode() == Resources::TERRAIN_LOWER )
+              {
+                Resources::setTerrainEditMode(Resources::NO_TERRAIN_EDIT); 
+              }
+              else
+              {
+                Resources::setTerrainEditMode(Resources::TERRAIN_LOWER); 
+              }
               break;
             default:
               handled = false;

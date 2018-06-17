@@ -103,18 +103,19 @@ int main(int, char**)
         {
           if ( engine.isPointWithinBoundaries(clickCoords) )
           {
-            if (Resources::getEditMode())
+            if (Resources::getTerrainEditMode() == Resources::TERRAIN_RAISE)  
               engine.increaseHeightOfCell(clickCoords);
+            else if (Resources::getTerrainEditMode() == Resources::TERRAIN_LOWER)
+            {
+              engine.decreaseHeightOfCell(clickCoords);
+            }
             else
               LOG() << "CLICKED - Iso Coords: " << clickCoords.getX() << ", " << clickCoords.getY();
           }
         }
         else if ( event.button.button == SDL_BUTTON_RIGHT )
         {
-          if (Resources::getEditMode())
-            engine.decreaseHeightOfCell(clickCoords);
-          else
-            engine.centerScreenOnPoint(clickCoords);
+          engine.centerScreenOnPoint(clickCoords);
         }
         break;
       

@@ -13,7 +13,6 @@ json Resources::_iniFile;
 json Resources::_uiTextureFile;
 json Resources::_uiLayout;
 Resources::Settings Resources::settings;
-bool Resources::editMode = false;
 
 
 /** Enum (bitmask) for mapping neighbor tile positions
@@ -348,7 +347,9 @@ void Resources::readUILayoutFile()
   // check if json file can be parsed
   _uiLayout = json::parse(i, nullptr, false);
   if (_uiLayout.is_discarded())
+  {
     LOG(LOG_ERROR) << "Error parsing JSON File " << settings.uiLayoutJSONFile;
+  }
 
 }
 
@@ -365,7 +366,9 @@ void Resources::readUITextureListFile()
   // check if json file can be parsed
   _uiTextureFile = json::parse(i, nullptr, false);
   if (_uiTextureFile.is_discarded())
+  {
     LOG(LOG_ERROR) << "Error parsing JSON File " << settings.uiDataJSONFile;
+  }
 
 }
 
@@ -412,7 +415,9 @@ void Resources::readINIFile()
   // check if json file can be parsed
   _iniFile = json::parse(i, nullptr, false);
   if (_iniFile.is_discarded())
+  {
     LOG(LOG_ERROR) << "Error parsing JSON File " << iniFileName;
+  }
 
   settings.screenWidth = _iniFile["Graphics"]["Resolution"]["Width"].get<int>();
   settings.screenHeight = _iniFile["Graphics"]["Resolution"]["Height"].get<int>();

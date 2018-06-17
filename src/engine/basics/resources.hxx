@@ -142,9 +142,6 @@ public:
 
 
 
-  static void toggleEditMode() { editMode = !editMode; }
-  static bool getEditMode() { return editMode; }
-
 
   enum terrainEditMode : int
   {
@@ -191,8 +188,6 @@ private:
   static void readINIFile();
   static void readTileListFile();
   static void readUITextureListFile();
-
-  static bool editMode;
 
 public:
   
