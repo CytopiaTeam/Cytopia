@@ -39,7 +39,7 @@ void UIManager::init()
         {
           int spriteID = uiLayout[id]["SpriteID"].get<int>() ;
 
-          _uiElements.push_back(std::make_shared<UiElement>(ButtonImage(x, y, spriteID, groupID, actionID, parentOf)));
+          _uiElements.push_back(std::make_shared<UiElement>(Button(x, y, spriteID, groupID, actionID, parentOf)));
           break;
         }
 
@@ -49,7 +49,7 @@ void UIManager::init()
           int w = uiLayout[id]["Width"].get<int>();
           int h = uiLayout[id]["Height"].get<int>();
 
-         _uiElements.push_back(std::make_shared<UiElement> (ButtonText(x, y, w, h, text, groupID, actionID, parentOf)));
+         _uiElements.push_back(std::make_shared<UiElement> (Button(x, y, w, h, text, groupID, actionID, parentOf)));
           break;
         }
         else if (it.value() == "Text")

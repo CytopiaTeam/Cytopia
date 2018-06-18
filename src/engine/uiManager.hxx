@@ -5,8 +5,7 @@
 
 #include "ui/uiElement.hxx"
 #include "ui/text.hxx"
-#include "ui/buttonImage.hxx"
-#include "ui/buttonText.hxx"
+#include "ui/button.hxx"
 #include "basics/resources.hxx"
 
 #include "../ThirdParty/json.hxx"
