@@ -18,10 +18,10 @@ void Sprite::render()
   int screen_height = Resources::settings.screenHeight;
 
   //Render only whats visible
-  if (( _screenCoordinates.getX() >= 0 - offscreenTolerance )
-  ||  ( _screenCoordinates.getX() + tileSize <= screen_width + offscreenTolerance )
-  ||  ( _screenCoordinates.getY() >= 0 - offscreenTolerance )
-  ||  ( _screenCoordinates.getY() + tileSize <= screen_height + offscreenTolerance ))
+  if (( _screenCoordinates.x >= 0 - offscreenTolerance )
+  ||  ( _screenCoordinates.x + tileSize <= screen_width + offscreenTolerance )
+  ||  ( _screenCoordinates.y >= 0 - offscreenTolerance )
+  ||  ( _screenCoordinates.y + tileSize <= screen_height + offscreenTolerance ))
   {
     renderTexture(tileSize, tileSize);
   }
@@ -29,8 +29,8 @@ void Sprite::render()
 
 void Sprite::renderTexture(int w, int h)
 {
-  _destRect.x = _screenCoordinates.getX();
-  _destRect.y = _screenCoordinates.getY();
+  _destRect.x = _screenCoordinates.x;
+  _destRect.y = _screenCoordinates.y;
   _destRect.w = w;
   _destRect.h = h;
   SDL_RenderCopy(_renderer, _texture, nullptr, &_destRect);

@@ -7,22 +7,22 @@ Cell::Cell(const Point& isoCoordinates) : _isoCoordinates(isoCoordinates), _tile
 
 void Cell::increaseHeightOfCell()
 {
-  int height = _isoCoordinates.getHeight();
+  int height = _isoCoordinates.height;
 
   if ( height < _maxCellHeight )
   {
-    _isoCoordinates.setHeight(_isoCoordinates.getHeight() + 1);
+    _isoCoordinates.height++;
     _sprite->setTileIsoCoordinates(_isoCoordinates);
   }
 }
 
 void Cell::decreaseHeightOfCell()
 {
-  int height = _isoCoordinates.getHeight();
+  int height = _isoCoordinates.height;
   
   if ( height > 0 )
   {
-    _isoCoordinates.setHeight(height - 1);
+    _isoCoordinates.height--;
     _sprite->setTileIsoCoordinates(_isoCoordinates);
   }
 }

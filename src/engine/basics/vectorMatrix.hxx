@@ -12,7 +12,7 @@ public:
   vectorMatrix(int columns, int rows);
   ~vectorMatrix() = default;
   
-  void addCell(int x, int y, int z) { _cellMatrix[x * _columns + y] = std::make_shared<Cell>(Point(x, y, z)); };
+  void addCell(int x, int y, int z) { _cellMatrix[x * _columns + y] = std::make_shared<Cell>(Point{x, y, z, 0}); };
   std::shared_ptr<Cell> getCell(int x, int y) { return _cellMatrix[x * _columns + y]; };
 
   /** \brief Initialize the vecotrMatrix with cell objects
@@ -40,7 +40,7 @@ public:
     * [ 0 0 0 0  0  0  0  0 ]
     * @param isoCoordinates isometric coordinates of the tile whose neighbors should be retrieved
     * @returns  Uint that stores the elevated neighbor tiles
-  ´ */
+  ï¿½ */
   unsigned int getElevatedNeighborBitmask(const Point& isoCoordinates);
 
   /**\brief Get neighbor Cell Objects

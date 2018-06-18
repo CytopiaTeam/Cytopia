@@ -16,7 +16,6 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake_modules/")
 # create a new executable with the same name as the project
 add_executable(${PROJECT_NAME}
   src/engine/basics/log.hxx
-  src/engine/basics/point.cxx
   src/engine/basics/point.hxx
   src/engine/basics/resources.cxx
   src/engine/basics/resources.hxx

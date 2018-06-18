@@ -18,7 +18,7 @@ Engine::Engine()
   _screen_width = Resources::settings.screenWidth;
 
   // set camera to map center
-  _centerIsoCoordinates = Point(_map_size / 2, _map_size / 2);
+  _centerIsoCoordinates = Point{_map_size / 2, _map_size / 2, 0, 0};
   centerScreenOnPoint(_centerIsoCoordinates);
 }
 
@@ -44,17 +44,17 @@ void Engine::centerScreenOnPoint(const Point& isoCoordinates)
     int x, y;
     _zoomLevel = Resources::getZoomLevel();
 
-    x = static_cast<int>((screenCoordinates.getX() + (_tileSize*_zoomLevel)*0.5) - _screen_width * 0.5);
-    y = static_cast<int>((screenCoordinates.getY() + (_tileSize*_zoomLevel)*0.75) - _screen_height * 0.5);
+    x = static_cast<int>((screenCoordinates.x + (_tileSize*_zoomLevel)*0.5) - _screen_width * 0.5);
+    y = static_cast<int>((screenCoordinates.y + (_tileSize*_zoomLevel)*0.75) - _screen_height * 0.5);
   
-    Resources::setCameraOffset(Point(x, y));
+    Resources::setCameraOffset(Point{x, y, 0, 0});
   }
 }
 
 bool Engine::isPointWithinBoundaries(const Point& isoCoordinates)
 {
-  if (( isoCoordinates.getX() >= 0 && isoCoordinates.getX() <= _map_size ) 
-  && (  isoCoordinates.getY() >= 0 && isoCoordinates.getY() <= _map_size ))
+  if (( isoCoordinates.x >= 0 && isoCoordinates.x <= _map_size )
+  && (  isoCoordinates.y >= 0 && isoCoordinates.y <= _map_size ))
     return true;
   else
     return false;
@@ -96,7 +96,7 @@ void Engine::decreaseZoomLevel()
 
 Point Engine::findCellAt(const Point& screenCoordinates)
 {
-  Point foundCoordinates = Point(-1, -1);
+  Point foundCoordinates {-1, -1, 0, 0};
  
   // check all cells of the map to find the clicked point
   for (int x = 0; x <= _map_size; x++)
@@ -107,8 +107,8 @@ Point Engine::findCellAt(const Point& screenCoordinates)
 
       SDL_Rect spriteRect = currentCell->getSprite()->getTextureInformation();
 
-      int clickedX = screenCoordinates.getX() ;
-      int clickedY = screenCoordinates.getY() ;
+      int clickedX = screenCoordinates.x ;
+      int clickedY = screenCoordinates.y ;
 
       int spriteX = spriteRect.x;
       int spriteY = spriteRect.y;
@@ -126,7 +126,7 @@ Point Engine::findCellAt(const Point& screenCoordinates)
         // Check if the clicked Sprite is not transparent (we hit a point within the pixel)
         if (TextureManager::Instance().GetPixelColor(currentCell->getTileID(), pixelX, pixelY).a != SDL_ALPHA_TRANSPARENT)
         {
-          if (foundCoordinates.getZ() < currentCell->getCoordinates().getZ())
+          if (foundCoordinates.z < currentCell->getCoordinates().z)
           {
             foundCoordinates = currentCell->getCoordinates();
           }

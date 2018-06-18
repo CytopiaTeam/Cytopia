@@ -84,7 +84,7 @@ int main(int, char**)
             LOG().timerStart();
             for (int i = 0; i <= Resources::settings.maxElevationHeight; i++)
             {
-              engine.increaseHeightOfCell(Point(64, 64));
+              engine.increaseHeightOfCell(Point{64, 64, 0, 0});
             }
             LOG().timerEnd();
 
@@ -100,7 +100,7 @@ int main(int, char**)
         }
         
 
-        mouseCoords.setCoords(event.button.x, event.button.y);
+        mouseCoords = Point{event.button.x, event.button.y, 0, 0};
         clickCoords = Resources::convertScreenToIsoCoordinates(mouseCoords);
         if ( event.button.button == SDL_BUTTON_LEFT )
         {
@@ -113,7 +113,7 @@ int main(int, char**)
               engine.decreaseHeightOfCell(clickCoords);
             }
             else
-              LOG() << "CLICKED - Iso Coords: " << clickCoords.getX() << ", " << clickCoords.getY();
+              LOG() << "CLICKED - Iso Coords: " << clickCoords.x << ", " << clickCoords.y;
           }
         }
         else if ( event.button.button == SDL_BUTTON_RIGHT )
