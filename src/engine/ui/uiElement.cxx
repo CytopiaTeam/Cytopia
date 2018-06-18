@@ -1,16 +1,16 @@
 #include "uiElement.hxx"
 
-UiElement::UiElement(int x, int y, int uiSpriteID, int groupID, int actionID, int parentOfGroup) : _screenCoordinates(Point(x,y)), _groupID(groupID), _actionID(actionID), _parentOf(parentOfGroup), _uiElementType("ImageButton")
+UiElement::UiElement(int x, int y, int uiSpriteID, int groupID, int actionID, int parentOfGroup) : _screenCoordinates({x, y, 0, 0}), _groupID(groupID), _actionID(actionID), _parentOf(parentOfGroup), _uiElementType("ImageButton")
 {
   _texture = TextureManager::Instance().getUITexture(uiSpriteID);
 }
 
-UiElement::UiElement(int x, int y, const std::string& text, int groupID, int actionID, int parentOfGroup) : _screenCoordinates(Point(x, y))
+UiElement::UiElement(int x, int y, const std::string& text, int groupID, int actionID, int parentOfGroup) : _screenCoordinates({x, y, 0, 0})
 {
   drawText(text, _color);
 }
 
-UiElement::UiElement(int x, int y, int w, int h, int groupID, int actionID, int parentOfGroup) : _screenCoordinates(Point(x, y)), _width(w), _height(h)
+UiElement::UiElement(int x, int y, int w, int h, int groupID, int actionID, int parentOfGroup) : _screenCoordinates({x, y, 0, 0}), _width(w), _height(h)
 {
 
 }
@@ -27,8 +27,8 @@ void UiElement::changeTexture(int tileID)
 
 void UiElement::renderTexture(int w, int h)
 {
-  _destRect.x = _screenCoordinates.getX();
-  _destRect.y = _screenCoordinates.getY();
+  _destRect.x = _screenCoordinates.x;
+  _destRect.y = _screenCoordinates.y;
   _destRect.w = w;
   _destRect.h = h;
   SDL_RenderCopy(_renderer, _texture, nullptr, &_destRect);

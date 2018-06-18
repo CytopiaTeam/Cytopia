@@ -137,25 +137,26 @@ Point Resources::convertIsoToScreenCoordinates(const Point& isoCoordinates, bool
 {
   int x, y;
 
-  int height = isoCoordinates.getHeight();
+  int height = isoCoordinates.height;
   int heightOffset = 20;
 
   if (calcWithoutOffset)
   {
-    x = static_cast<int>((_tileSize * _zoomLevel * isoCoordinates.getX() * 0.5)  + (_tileSize * _zoomLevel * isoCoordinates.getY() * 0.5));
-    y = static_cast<int>((_tileSize * _zoomLevel * isoCoordinates.getX() * 0.25) - (_tileSize * _zoomLevel * isoCoordinates.getY() * 0.25));
+    x = static_cast<int>((_tileSize * _zoomLevel * isoCoordinates.x * 0.5)  + (_tileSize * _zoomLevel * isoCoordinates.y * 0.5));
+    y = static_cast<int>((_tileSize * _zoomLevel * isoCoordinates.x * 0.25) - (_tileSize * _zoomLevel * isoCoordinates.y * 0.25));
   }
   else
   {
-    x = static_cast<int>((_tileSize * _zoomLevel * isoCoordinates.getX() * 0.5)  + (_tileSize * _zoomLevel * isoCoordinates.getY() * 0.5)  - _cameraOffset.getX());
-    y = static_cast<int>((_tileSize * _zoomLevel * isoCoordinates.getX() * 0.25) - (_tileSize * _zoomLevel * isoCoordinates.getY() * 0.25) - _cameraOffset.getY());
+    x = static_cast<int>((_tileSize * _zoomLevel * isoCoordinates.x * 0.5)  + (_tileSize * _zoomLevel * isoCoordinates.y * 0.5)  - _cameraOffset.x);
+    y = static_cast<int>((_tileSize * _zoomLevel * isoCoordinates.x * 0.25) - (_tileSize * _zoomLevel * isoCoordinates.y * 0.25) - _cameraOffset.y);
   }
   
   if (height > 0)
   {
     y = static_cast<int>(y - ((_tileSize - heightOffset) * height * _zoomLevel));
   }
-  return Point (x, y);
+
+  return {x, y, 0, 0};
 }
 
 // Temporary function that writes a json file and will be removed later (for debug purposes only)
