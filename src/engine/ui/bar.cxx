@@ -1,9 +1,6 @@
-#include "uiElement.hxx"
+#include "bar.hxx"
 
-class Bar : public UiElement
+Bar::Bar(int x, int y, int w, int h, int groupID) : UiElement(x, y, w, h, groupID, 0, 0)
 {
-public:
-  Bar(int x, int y, std::string& text);
-  ~Bar() = default;
 
-};
+}

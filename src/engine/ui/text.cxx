@@ -4,4 +4,3 @@ Text::Text(int x, int y, const std::string& text, int groupID, int actionID, int
 {
 
 }
-

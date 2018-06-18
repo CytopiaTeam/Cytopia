@@ -102,7 +102,7 @@ std::shared_ptr<UiElement> UIManager::getClickedUIElement(int x, int y)
       }
     }
   }
-  return 0;
+  return nullptr;
 }
 
 void UIManager::addToGroup(int groupID, std::shared_ptr<UiElement> uiElement)
