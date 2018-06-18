@@ -11,8 +11,8 @@ int Resources::_terrainEditMode = Resources::NO_TERRAIN_EDIT;
 json Resources::_json;
 json Resources::_iniFile;
 json Resources::_uiTextureFile;
+json Resources::_uiLayout;
 Resources::Settings Resources::settings;
-bool Resources::editMode = false;
 
 
 /** Enum (bitmask) for mapping neighbor tile positions
@@ -125,6 +125,7 @@ void Resources::init()
   readINIFile();
   readTileListFile();
   readUITextureListFile();
+  readUILayoutFile();
 }
 
 Point Resources::convertScreenToIsoCoordinates(const Point& screenCoordinates)
@@ -261,13 +262,95 @@ void Resources::generateUITextureFile()
 
   if (myJsonFile.is_open())
   {
-    myJsonFile << std::setw(4) << settings.uiDataJSONFile << std::endl;
+    myJsonFile << std::setw(4) << uiTextureFile << std::endl;
     myJsonFile.close();
   }
   else
   {
-    printf("ERROR: Couldn't write file \"resources/UITextureList.json\"");
+    LOG(LOG_ERROR) << "Could not write file " << settings.uiDataJSONFile;
   }
+}
+
+void Resources::generateUILayoutFile()
+{
+  json uiLayoutFile;
+
+  uiLayoutFile[0]["Type"] = "ImageButton";
+  uiLayoutFile[0]["Position_x"] = 400;
+  uiLayoutFile[0]["Position_y"] = 520;
+  uiLayoutFile[0]["SpriteID"] = 0;
+  uiLayoutFile[0]["ActionID"] = 1;
+  uiLayoutFile[0]["GroupID"] = 0;
+  uiLayoutFile[0]["ParentOfGroup"] = 1;
+  uiLayoutFile[0]["TooltipText"] = "Construction";
+  uiLayoutFile[0]["Layout"] = "BottomMenu";
+
+  uiLayoutFile[1]["Type"] = "ImageButton";
+  uiLayoutFile[1]["Position_x"] = 380;
+  uiLayoutFile[1]["Position_y"] = 470;
+  uiLayoutFile[1]["SpriteID"] = 1;
+  uiLayoutFile[1]["ActionID"] = 2;
+  uiLayoutFile[1]["GroupID"] = 1;
+  uiLayoutFile[1]["ParentOfGroup"] = 0;
+  uiLayoutFile[1]["TooltipText"] = "Raise Terrain";
+  uiLayoutFile[1]["Layout"] = "BottomMenuExpansionGroup";
+
+  uiLayoutFile[2]["Type"] = "ImageButton";
+  uiLayoutFile[2]["Position_x"] = 420;
+  uiLayoutFile[2]["Position_y"] = 470;
+  uiLayoutFile[2]["SpriteID"] = 2;
+  uiLayoutFile[2]["ActionID"] = 3;
+  uiLayoutFile[2]["GroupID"] = 1;
+  uiLayoutFile[2]["ParentOfGroup"] = 0;
+  uiLayoutFile[2]["TooltipText"] = "Lower Terrain";
+  uiLayoutFile[2]["Layout"] = "BottomMenuExpansionGroup";
+
+  uiLayoutFile[3]["Type"] = "Text";
+  uiLayoutFile[3]["Text"] = "Awesome Text";
+  uiLayoutFile[3]["Position_x"] = 20;
+  uiLayoutFile[3]["Position_y"] = 20;
+  uiLayoutFile[3]["GroupID"] = 0;
+
+  uiLayoutFile[4]["Type"] = "TextButton";
+  uiLayoutFile[4]["Text"] = "Awesome Button";
+  uiLayoutFile[4]["Position_x"] = 200;
+  uiLayoutFile[4]["Position_y"] = 200;
+  uiLayoutFile[4]["Width"] = 140;
+  uiLayoutFile[4]["Height"] = 60;
+  uiLayoutFile[4]["ActionID"] = 4;
+  uiLayoutFile[4]["GroupID"] = 0;
+  uiLayoutFile[4]["ParentOfGroup"] = 0;
+
+  std::ofstream myJsonFile(settings.uiLayoutJSONFile);
+
+  if (myJsonFile.is_open())
+  {
+    myJsonFile << std::setw(4) << uiLayoutFile << std::endl;
+    myJsonFile.close();
+  }
+  else
+  {
+    LOG(LOG_ERROR) << "Could not write file " << settings.uiLayoutJSONFile;
+  }
+}
+
+void Resources::readUILayoutFile()
+{
+  std::ifstream i(settings.uiLayoutJSONFile);
+  if (i.fail())
+  {
+    LOG(LOG_ERROR) << "File " << settings.uiLayoutJSONFile << " does not exist! Cannot load settings from INI File!";
+    // Application should quit here, without textureData we can't continue
+    return;
+  }
+
+  // check if json file can be parsed
+  _uiLayout = json::parse(i, nullptr, false);
+  if (_uiLayout.is_discarded())
+  {
+    LOG(LOG_ERROR) << "Error parsing JSON File " << settings.uiLayoutJSONFile;
+  }
+
 }
 
 void Resources::readUITextureListFile()
@@ -283,7 +366,9 @@ void Resources::readUITextureListFile()
   // check if json file can be parsed
   _uiTextureFile = json::parse(i, nullptr, false);
   if (_uiTextureFile.is_discarded())
+  {
     LOG(LOG_ERROR) << "Error parsing JSON File " << settings.uiDataJSONFile;
+  }
 
 }
 
@@ -330,7 +415,9 @@ void Resources::readINIFile()
   // check if json file can be parsed
   _iniFile = json::parse(i, nullptr, false);
   if (_iniFile.is_discarded())
+  {
     LOG(LOG_ERROR) << "Error parsing JSON File " << iniFileName;
+  }
 
   settings.screenWidth = _iniFile["Graphics"]["Resolution"]["Width"].get<int>();
   settings.screenHeight = _iniFile["Graphics"]["Resolution"]["Height"].get<int>();
@@ -340,5 +427,6 @@ void Resources::readINIFile()
   settings.maxElevationHeight = _iniFile["Game"]["MaxElevationHeight"].get<int>();
   settings.uiDataJSONFile = _iniFile["ConfigFiles"]["UIDataJSONFile"].get<std::string>();
   settings.tileDataJSONFile = _iniFile["ConfigFiles"]["TileDataJSONFile"].get<std::string>();
+  settings.uiLayoutJSONFile = _iniFile["ConfigFiles"]["UILayoutJSONFile"].get<std::string>();
 
 }

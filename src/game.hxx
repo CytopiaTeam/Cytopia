@@ -9,7 +9,7 @@
 
 #include "SDL2/SDL.h"
 
-#include "engine/windowManager.hxx"
+
 #include "engine/engine.hxx"
 #include "engine/eventManager.hxx"
 #include "engine/uiManager.hxx"

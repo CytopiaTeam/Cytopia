@@ -2,6 +2,12 @@
     "button": {
         "0": {
             "filename": "resources/images/ui/buttons/build.png"
+        },
+        "1": {
+            "filename": "resources/images/ui/buttons/raise_terrain.png"
+        },
+        "2": {
+            "filename": "resources/images/ui/buttons/lower_terrain.png"
         }
     }
 }

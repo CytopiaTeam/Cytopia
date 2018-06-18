@@ -1,15 +1,15 @@
 #include "button.hxx"
 
-Button::Button(int x, int y, int uiSpriteID) : UiElement(x, y, uiSpriteID)
-{
 
-}
 
-bool Button::getClickedUiElement(int x, int y)
+Button::Button(int x, int y, int w, int h, const std::string& text, int groupID, int actionID, int parentOfGroup) : UiElement(x, y, w, h, groupID, actionID, parentOfGroup)
 {
-  if (isClicked(x, y))
-  {
-    return true;
-  }
-  return false;
+  SDL_Rect rect;
+  rect.x = x;
+  rect.y = y;
+  rect.w = w;
+  rect.h = h;
+
+  drawSolidRect(rect, SDL_Color{ 128, 128, 128 });
+  drawText(text, SDL_Color{ 255,255,255 });
 }

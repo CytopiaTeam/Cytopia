@@ -1,6 +1,3 @@
-#ifndef EVENTMANAGER_HXX_
-#define EVENTMANAGER_HXX_
-
 #include "eventManager.hxx"
 
 EventManager::EventManager() 
@@ -20,9 +17,42 @@ bool EventManager::checkEvents(SDL_Event &event)
       {
         // check for UI collision here first
         // event.button.x, event.button.y)
-        if (uiManager.checkClick(event.button.x, event.button.y))
+        std::shared_ptr<UiElement > clickedElement = uiManager.getClickedUIElement(event.button.x, event.button.y);
+        if (clickedElement)
         {
-          Resources::toggleEditMode();
+          switch (clickedElement->getActionID())
+          {
+            case 1:
+              UIManager::Instance().toggleGroupVisibility(clickedElement->getParentID());
+              LOG() << "Toggle Menu";
+              break;
+            case 2:
+              if ( Resources::getTerrainEditMode() == Resources::TERRAIN_RAISE )
+              {
+                Resources::setTerrainEditMode(Resources::NO_TERRAIN_EDIT);
+              }
+              else
+              {
+                Resources::setTerrainEditMode(Resources::TERRAIN_RAISE);
+              }
+              break;
+            case 3:
+              if ( Resources::getTerrainEditMode() == Resources::TERRAIN_LOWER )
+              {
+                Resources::setTerrainEditMode(Resources::NO_TERRAIN_EDIT); 
+              }
+              else
+              {
+                Resources::setTerrainEditMode(Resources::TERRAIN_LOWER); 
+              }
+              break;
+            case 4:
+              Engine::Instance().quitGame();
+              break;
+            default:
+              handled = false;
+              break;
+          }
           handled = true;
         }
       }
@@ -34,5 +64,3 @@ bool EventManager::checkEvents(SDL_Event &event)
   // return if the event was handled here
   return handled;
 }
-
-#endif

@@ -4,13 +4,14 @@ WindowManager::WindowManager(const std::string &title) : _title(title)
 {
   _width = Resources::settings.screenWidth;
   _height = Resources::settings.screenHeight;
-  _closed = !init();
+  _running = init();
 }
 
 WindowManager::~WindowManager()
 {
   SDL_DestroyRenderer(_renderer);
   SDL_DestroyWindow(_window);
+  TTF_Quit();
   SDL_Quit();
 }
 
@@ -20,7 +21,14 @@ bool WindowManager::init()
   if ( SDL_Init(SDL_INIT_VIDEO) != 0 )
   {
     LOG(LOG_ERROR) << "Failed to Init SDL\nSDL Error:" << SDL_GetError();
-    return 0;
+    return false;
+  }
+
+  // Initialize SDL_TTF
+  if (TTF_Init() == -1)
+  {
+    LOG(LOG_ERROR) << "Failed to Init SDL_TTF\nSDL Error:" << TTF_GetError();
+    return false;
   }
   
   _window = SDL_CreateWindow(_title.c_str(),
@@ -33,7 +41,7 @@ bool WindowManager::init()
   if ( _window == nullptr )
   {
     LOG(LOG_ERROR) << "Failed to Init SDL\nSDL Error:" << SDL_GetError();
-    return 0;
+    return false;
   }
 
   _renderer = SDL_CreateRenderer(_window, -1, SDL_RENDERER_ACCELERATED);

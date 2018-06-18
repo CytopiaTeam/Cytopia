@@ -1,0 +1,53 @@
+[
+    {
+        "ActionID": 1,
+        "GroupID": 0,
+        "Layout": "BottomMenu",
+        "ParentOfGroup": 1,
+        "Position_x": 400,
+        "Position_y": 520,
+        "SpriteID": 0,
+        "TooltipText": "Construction",
+        "Type": "ImageButton"
+    },
+    {
+        "ActionID": 2,
+        "GroupID": 1,
+        "Layout": "BottomMenuExpansionGroup",
+        "ParentOfGroup": 0,
+        "Position_x": 380,
+        "Position_y": 470,
+        "SpriteID": 1,
+        "TooltipText": "Raise Terrain",
+        "Type": "ImageButton"
+    },
+    {
+        "ActionID": 3,
+        "GroupID": 1,
+        "Layout": "BottomMenuExpansionGroup",
+        "ParentOfGroup": 0,
+        "Position_x": 420,
+        "Position_y": 470,
+        "SpriteID": 2,
+        "TooltipText": "Lower Terrain",
+        "Type": "ImageButton"
+    },
+    {
+        "GroupID": 0,
+        "Position_x": 20,
+        "Position_y": 20,
+        "Text": "Awesome Text",
+        "Type": "Text"
+    },
+    {
+        "ActionID": 4,
+        "GroupID": 0,
+        "Height": 60,
+        "ParentOfGroup": 0,
+        "Position_x": 200,
+        "Position_y": 200,
+        "Text": "Text Button",
+        "Type": "TextButton",
+        "Width": 140
+    }
+]

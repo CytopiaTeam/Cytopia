@@ -4,8 +4,11 @@
 #include <vector>
 
 #include "ui/uiElement.hxx"
+#include "ui/text.hxx"
 #include "ui/button.hxx"
 #include "basics/resources.hxx"
+
+#include "../ThirdParty/json.hxx"
 
 class UIManager
 {
@@ -17,16 +20,19 @@ public:
     return instance;
   }
 
-
-
   void init();
   void drawUI();
-  bool checkClick(int x, int y);
+  std::shared_ptr<UiElement> getClickedUIElement(int x, int y);
+
+  void toggleGroupVisibility(int groupID);
+
+  void addToGroup(int groupID, std::shared_ptr<UiElement> uiElement);
 
 private:
-  UIManager();
+  UIManager() = default;
   ~UIManager() = default;
-  std::vector<std::shared_ptr<Button> > _uiButtons;
+  std::vector<std::shared_ptr<UiElement> > _uiElements;
+  std::unordered_map<int, std::shared_ptr<UiElement> > _group;
 };
 
 #endif

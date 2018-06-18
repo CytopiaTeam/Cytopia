@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include "SDL2/SDL.h"
+#include "SDL2/SDL_ttf.h"
 
 #include "sprite.hxx"
 #include "basics/resources.hxx"
@@ -11,11 +12,12 @@
 
 class WindowManager {
   public:
+    WindowManager() = default;
     explicit WindowManager(const std::string &title);
     ~WindowManager();
     
-    inline bool isClosed() const { return _closed; }
-    void close() { _closed = true; }
+    inline bool isRunning() const { return _running; }
+    void close() { _running = false; }
 
     void toggleFullScreen();
 
@@ -27,7 +29,7 @@ class WindowManager {
     int _width = 800;
     int _height = 600;
     
-    bool _closed = false;
+    bool _running = true;
 
     SDL_Window *_window = nullptr;
 	  SDL_Renderer *_renderer = nullptr;

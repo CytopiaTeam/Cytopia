@@ -3,12 +3,12 @@
 
 #include "SDL2/SDL.h"
 
+#include "windowManager.hxx"
 #include "textureManager.hxx"
 #include "cell.hxx"
 #include "basics/point.hxx"
 #include "basics/vectorMatrix.hxx"
 #include "basics/resources.hxx"
-
 
 class Engine
 {
@@ -23,8 +23,6 @@ public:
   // Disable copy and assignemnt operators
   Engine(Engine const&) = delete;
   Engine& operator=(Engine const&) = delete;
-
-  void parseMapFile();
 
   /** Renders the sprites in each Map Cell */
   void render();
@@ -87,9 +85,16 @@ public:
     * @return Isocoordinates of the tile that has been found
     */
   Point findCellAt(const Point& screenCoordinates);
+
+  bool gameIsRunning() { return _windowmanager.isRunning(); };
+
+  void quitGame() { _windowmanager.close(); };
+  void toggleFullScreen() { _windowmanager.toggleFullScreen(); };
 private:
   Engine();
   virtual ~Engine() = default;
+
+  WindowManager _windowmanager = WindowManager("Isometric Engine");
 
   SDL_Renderer *_renderer;
   SDL_Window *_window;
