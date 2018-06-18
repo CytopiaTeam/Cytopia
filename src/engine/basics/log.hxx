@@ -5,58 +5,59 @@
 #ifndef LOG_HXX_
 #define LOG_HXX_
 
-
 #include <iostream>
 #include <chrono>
 #include <sstream>
 
 #include "SDL2/SDL.h"
 
-enum logType {
+enum logType
+{
   LOG_INFO,
   LOG_ERROR
 };
 
-class LOG {
+class LOG
+{
 public:
-  LOG() 
+  LOG()
   {
     logMessage << getTimeStamp();
     logMessage << " - ";
   }
 
-  LOG(logType type) 
+  LOG(logType type)
   {
     _logType = type;
     logMessage << getTimeStamp();
-  
+
     if (_logType == LOG_ERROR)
       logMessage << " - ERROR - ";
     else
       logMessage << " - ";
   }
 
-  ~LOG() {
-    if ( active )
+  ~LOG()
+  {
+    if (active)
       std::cout << std::endl;
-    
+
     logMessage << " - ";
     active = false;
   }
 
-  template<class T>
-  LOG &operator<<(const T &msg) 
+  template <class T> LOG &operator<<(const T &msg)
   {
     logMessage << msg;
     std::cout << logMessage.str();
 
-    if ( _logType == LOG_ERROR )
+    if (_logType == LOG_ERROR)
       writeErrorLog(logMessage.str());
 
     // make sure the stringstream is clean before the operator is called again.
     logMessage.str(std::string());
     active = true;
-    
+
     return *this;
   }
 
@@ -65,14 +66,13 @@ private:
   logType _logType = LOG_INFO;
   std::ostringstream logMessage;
 
-
   /** Gets formatted TimeStamp 
   * @return std::string containing current TimeStamp*/
   inline std::string getTimeStamp()
   {
     std::time_t now = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
 
-    char buf[100] = { 0 };
+    char buf[100] = {0};
     std::strftime(buf, sizeof(buf), "%b %d %H:%M:%S", std::localtime(&now));
     return buf;
   }
@@ -89,10 +89,23 @@ private:
   }
 
   /** Timer Struct which holds static variables */
-  struct Timer {
-    static Uint64& nowTime() { static Uint64 now; return now; }
-    static Uint64& lastTime() { static Uint64 last; return last; }
-    static double& deltaTime() { static double deltaTime; return deltaTime; }
+  struct Timer
+  {
+    static Uint64 &nowTime()
+    {
+      static Uint64 now;
+      return now;
+    }
+    static Uint64 &lastTime()
+    {
+      static Uint64 last;
+      return last;
+    }
+    static double &deltaTime()
+    {
+      static double deltaTime;
+      return deltaTime;
+    }
   };
 
 public:
@@ -100,7 +113,7 @@ public:
   {
     Timer timer;
     timer.nowTime() = SDL_GetPerformanceCounter();
-    timer.lastTime()  = timer.nowTime();
+    timer.lastTime() = timer.nowTime();
   }
 
   static inline void timerEnd()
@@ -115,4 +128,4 @@ public:
   }
 };
 
-#endif 
+#endif

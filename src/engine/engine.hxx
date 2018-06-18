@@ -13,32 +13,32 @@
 class Engine
 {
 public:
-
   /// Retrieves Instance of Singleton class Texture Manager
-  static Engine& Instance() {
+  static Engine &Instance()
+  {
     static Engine instance;
     return instance;
   }
 
   // Disable copy and assignemnt operators
-  Engine(Engine const&) = delete;
-  Engine& operator=(Engine const&) = delete;
+  Engine(Engine const &) = delete;
+  Engine &operator=(Engine const &) = delete;
 
   /** Renders the sprites in each Map Cell */
   void render();
- 
+
   /** \brief Check if given coordinates are within boundaries
     * Checks if coordinates are within map boundaries
     * @param Point object - coordinates to check
     * @return bool - true if coordinates are inside the map bounds.
     */
-  bool isPointWithinBoundaries(const Point& isoCoordinates);
+  bool isPointWithinBoundaries(const Point &isoCoordinates);
 
   /** \brief Centers camera on given isometric coordinates
   * Centers the camera on the given isometric coordinates.
   * @param Point object - coordinates to center the camera on
   */
-  void centerScreenOnPoint(const Point& isoCoordinates);
+  void centerScreenOnPoint(const Point &isoCoordinates);
 
   /** \brief Enable Drawing Layer
     * Enable Drawing Layer (use bitwise OR to add layer)
@@ -53,7 +53,7 @@ public:
     * @see Resources#Layers
     */
   void disableLayer(unsigned int layer) { _activeLayers &= ~layer; };
-  
+
   /** \brief Toggle Drawing Layer
     * Toggle Drawing Layer (use bitwise XOR to toggle layer)
     * @param bitmapped Uint from enum "Layers"
@@ -67,7 +67,7 @@ public:
     * @param isoCoordinates the isometric coordinates of the map cell that should be raised
     * @see vectorMatrix#increaseHeightOfCell
     */
-  void increaseHeightOfCell(const Point& isoCoordinates);
+  void increaseHeightOfCell(const Point &isoCoordinates);
 
   /** @brief Decrease Height
     * Decreases the height of the given map cell
@@ -75,7 +75,7 @@ public:
     * @param isoCoordinates the isometric coordinates of the map cell that should be lowered
     * @see vectorMatrix#decreaseHeightOfCell
     */
-  void decreaseHeightOfCell(const Point& isoCoordinates);
+  void decreaseHeightOfCell(const Point &isoCoordinates);
 
   void increaseZoomLevel();
   void decreaseZoomLevel();
@@ -84,7 +84,7 @@ public:
     * @param screenCoordinates   Point Oject - Mouseclick coordinates in screen Format
     * @return Isocoordinates of the tile that has been found
     */
-  Point findCellAt(const Point& screenCoordinates);
+  Point findCellAt(const Point &screenCoordinates);
 
   bool gameIsRunning() { return _windowmanager.isRunning(); };
 
@@ -118,11 +118,11 @@ private:
 public:
   enum Layers : unsigned int
   {
-    LAYER_FLOOR       = 1u<<0,
-    LAYER_BUILDINGS   = 1u<<1,
-    LAYER_GRID        = 1u<<2,
-    LAYER_SELECTION   = 1u<<3
+    LAYER_FLOOR = 1u << 0,
+    LAYER_BUILDINGS = 1u << 1,
+    LAYER_GRID = 1u << 2,
+    LAYER_SELECTION = 1u << 3
   };
 };
 
-#endif 
+#endif

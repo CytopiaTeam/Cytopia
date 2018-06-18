@@ -16,7 +16,7 @@
 class Cell
 {
 public:
-  explicit Cell(const Point& isoCoordinates);
+  explicit Cell(const Point &isoCoordinates);
   ~Cell() = default;
 
   /** @brief get Sprite
@@ -32,7 +32,7 @@ public:
   /** @brief get Tile ID
     * Retrieves the current Tile ID of this map cell
     * @return Returns the current Tile ID as Integer
-    */ 
+    */
   int getTileID() { return _tileID; };
 
   /** @brief set Tile ID
@@ -40,11 +40,12 @@ public:
   * @see Resources#readTileListFile
   * @param tileID The tileID that should be rendered for this map cell
   */
-  void setTileID(int tileID) {
+  void setTileID(int tileID)
+  {
     _sprite->changeTexture(tileID);
     _tileID = tileID;
   };
-  
+
   /** @brief Increase Height
     * Increases the height of the cell and its sprite
     * This function should not be called directly, but only from where the neighboring cells slopes are determined
@@ -61,14 +62,12 @@ private:
   Point _isoCoordinates;
   std::shared_ptr<Sprite> _sprite;
 
-  SDL_Renderer* _renderer;
-  SDL_Window* _window;
+  SDL_Renderer *_renderer;
+  SDL_Window *_window;
 
   int _heightOffset = 20; // Offset for Y Coordinate between two height levels
   int _tileID;
   int _maxCellHeight = 32;
-
 };
-
 
 #endif

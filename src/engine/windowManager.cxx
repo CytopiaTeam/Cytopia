@@ -18,7 +18,7 @@ WindowManager::~WindowManager()
 bool WindowManager::init()
 {
   // Initialize SDL
-  if ( SDL_Init(SDL_INIT_VIDEO) != 0 )
+  if (SDL_Init(SDL_INIT_VIDEO) != 0)
   {
     LOG(LOG_ERROR) << "Failed to Init SDL\nSDL Error:" << SDL_GetError();
     return false;
@@ -30,15 +30,10 @@ bool WindowManager::init()
     LOG(LOG_ERROR) << "Failed to Init SDL_TTF\nSDL Error:" << TTF_GetError();
     return false;
   }
-  
-  _window = SDL_CreateWindow(_title.c_str(),
-                             SDL_WINDOWPOS_CENTERED,
-                             SDL_WINDOWPOS_CENTERED,
-                             _width, _height,
-                             0
-                            );
-  
-  if ( _window == nullptr )
+
+  _window = SDL_CreateWindow(_title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, _width, _height, 0);
+
+  if (_window == nullptr)
   {
     LOG(LOG_ERROR) << "Failed to Init SDL\nSDL Error:" << SDL_GetError();
     return false;
@@ -46,9 +41,9 @@ bool WindowManager::init()
 
   _renderer = SDL_CreateRenderer(_window, -1, SDL_RENDERER_ACCELERATED);
 
-  if ( _renderer == nullptr )
+  if (_renderer == nullptr)
   {
-	  LOG(LOG_ERROR) << "Failed to create Renderer!\nSDL Error:" << SDL_GetError();
+    LOG(LOG_ERROR) << "Failed to create Renderer!\nSDL Error:" << SDL_GetError();
   }
 
   Resources::setWindow(_window);

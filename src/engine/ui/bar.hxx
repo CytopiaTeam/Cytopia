@@ -8,7 +8,6 @@ class Bar : public UiElement
 public:
   Bar(int x, int y, int w, int h, int groupID = 0);
   ~Bar() = default;
-
 };
 
 #endif

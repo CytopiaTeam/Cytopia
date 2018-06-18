@@ -10,14 +10,13 @@
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_ttf.h"
 
-
 class UiElement
 {
 public:
   //Initializes variables
   UiElement() = default;
   UiElement(int x, int y, int uiSpriteID, int groupID, int actionID, int parentOfGroup);
-  UiElement(int x, int y, const std::string& text, int groupID, int actionID, int parentOfGroup);
+  UiElement(int x, int y, const std::string &text, int groupID, int actionID, int parentOfGroup);
   UiElement(int x, int y, int w, int h, int groupID, int actionID, int parentOfGroup);
   virtual ~UiElement() = default;
 
@@ -25,11 +24,10 @@ public:
   void render();
   void changeTexture(int tileID);
 
-
   // TTF Implementation
-  void drawText(const std::string& textureText, const SDL_Color& textColor);
+  void drawText(const std::string &textureText, const SDL_Color &textColor);
 
-  void drawSolidRect(SDL_Rect& rect, const SDL_Color& color);
+  void drawSolidRect(SDL_Rect &rect, const SDL_Color &color);
 
   /** \brief checks if the current UI Element is clicked
     * if the derived object provides an isClicked() method, handle click events here
@@ -48,20 +46,20 @@ public:
   int getActionID() { return _actionID; };
   void setActionID(int actionID) { _actionID = actionID; };
 
-  std::string& getUiElementType() { return _uiElementType; };
+  std::string &getUiElementType() { return _uiElementType; };
 
 private:
-  SDL_Texture * _texture = nullptr;
-  SDL_Renderer* _renderer = Resources::getRenderer();
-  SDL_Window* _window = Resources::getWindow();
-  TTF_Font* _font;
+  SDL_Texture *_texture = nullptr;
+  SDL_Renderer *_renderer = Resources::getRenderer();
+  SDL_Window *_window = Resources::getWindow();
+  TTF_Font *_font;
 
   SDL_Rect _destRect;
-  SDL_Surface* _surface = nullptr;
+  SDL_Surface *_surface = nullptr;
 
   Point _screenCoordinates;
 
-  SDL_Color _color = SDL_Color{ 255,255,255 };
+  SDL_Color _color = SDL_Color{255, 255, 255};
 
   std::string _uiElementType = "";
 

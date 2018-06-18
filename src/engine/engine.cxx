@@ -2,8 +2,8 @@
 
 Engine::Engine()
 {
-   _tileSize = Resources::getTileSize();
-  
+  _tileSize = Resources::getTileSize();
+
   _renderer = Resources::getRenderer();
   _window = Resources::getWindow();
   _map_size = Resources::settings.mapSize;
@@ -35,7 +35,7 @@ void Engine::render()
   }
 }
 
-void Engine::centerScreenOnPoint(const Point& isoCoordinates)
+void Engine::centerScreenOnPoint(const Point &isoCoordinates)
 {
   if (isPointWithinBoundaries(isoCoordinates))
   {
@@ -44,29 +44,28 @@ void Engine::centerScreenOnPoint(const Point& isoCoordinates)
     int x, y;
     _zoomLevel = Resources::getZoomLevel();
 
-    x = static_cast<int>((screenCoordinates.x + (_tileSize*_zoomLevel)*0.5) - _screen_width * 0.5);
-    y = static_cast<int>((screenCoordinates.y + (_tileSize*_zoomLevel)*0.75) - _screen_height * 0.5);
-  
+    x = static_cast<int>((screenCoordinates.x + (_tileSize * _zoomLevel) * 0.5) - _screen_width * 0.5);
+    y = static_cast<int>((screenCoordinates.y + (_tileSize * _zoomLevel) * 0.75) - _screen_height * 0.5);
+
     Resources::setCameraOffset(Point{x, y, 0, 0});
   }
 }
 
-bool Engine::isPointWithinBoundaries(const Point& isoCoordinates)
+bool Engine::isPointWithinBoundaries(const Point &isoCoordinates)
 {
-  if (( isoCoordinates.x >= 0 && isoCoordinates.x <= _map_size )
-  && (  isoCoordinates.y >= 0 && isoCoordinates.y <= _map_size ))
+  if ((isoCoordinates.x >= 0 && isoCoordinates.x <= _map_size) && (isoCoordinates.y >= 0 && isoCoordinates.y <= _map_size))
     return true;
   else
     return false;
 }
 
-void Engine::increaseHeightOfCell(const Point& isoCoordinates)
+void Engine::increaseHeightOfCell(const Point &isoCoordinates)
 {
   Resources::setTerrainEditMode(Resources::TERRAIN_RAISE);
   _mapCellMatrix.increaseHeightOfCell(isoCoordinates);
 }
 
-void Engine::decreaseHeightOfCell(const Point& isoCoordinates)
+void Engine::decreaseHeightOfCell(const Point &isoCoordinates)
 {
   Resources::setTerrainEditMode(Resources::TERRAIN_LOWER);
   _mapCellMatrix.decreaseHeightOfCell(isoCoordinates);
@@ -94,10 +93,10 @@ void Engine::decreaseZoomLevel()
   }
 }
 
-Point Engine::findCellAt(const Point& screenCoordinates)
+Point Engine::findCellAt(const Point &screenCoordinates)
 {
-  Point foundCoordinates {-1, -1, 0, 0};
- 
+  Point foundCoordinates{-1, -1, 0, 0};
+
   // check all cells of the map to find the clicked point
   for (int x = 0; x <= _map_size; x++)
   {
@@ -107,18 +106,17 @@ Point Engine::findCellAt(const Point& screenCoordinates)
 
       SDL_Rect spriteRect = currentCell->getSprite()->getTextureInformation();
 
-      int clickedX = screenCoordinates.x ;
-      int clickedY = screenCoordinates.y ;
+      int clickedX = screenCoordinates.x;
+      int clickedY = screenCoordinates.y;
 
       int spriteX = spriteRect.x;
       int spriteY = spriteRect.y;
 
-      if ( clickedX >= spriteX && clickedX < spriteX + spriteRect.w  
-      &&   clickedY >= spriteY && clickedY < spriteY + spriteRect.h )
+      if (clickedX >= spriteX && clickedX < spriteX + spriteRect.w && clickedY >= spriteY && clickedY < spriteY + spriteRect.h)
       {
         // Calculate the position of the clicked pixel within the surface
-        int pixelX = (clickedX - spriteX );
-        int pixelY = (clickedY - spriteY );
+        int pixelX = (clickedX - spriteX);
+        int pixelY = (clickedY - spriteY);
         // "un-zoom" the positon to match the un-adjusted surface
         pixelX = static_cast<int>(pixelX / _zoomLevel);
         pixelY = static_cast<int>(pixelY / _zoomLevel);

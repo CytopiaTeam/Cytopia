@@ -9,30 +9,28 @@
 #include "sprite.hxx"
 #include "basics/resources.hxx"
 
+class WindowManager
+{
+public:
+  WindowManager() = default;
+  explicit WindowManager(const std::string &title);
+  ~WindowManager();
 
-class WindowManager {
-  public:
-    WindowManager() = default;
-    explicit WindowManager(const std::string &title);
-    ~WindowManager();
-    
-    inline bool isRunning() const { return _running; }
-    void close() { _running = false; }
+  inline bool isRunning() const { return _running; }
+  void close() { _running = false; }
 
-    void toggleFullScreen();
+  void toggleFullScreen();
 
-  private:
-    bool init();
-      
-  private:
-    std::string _title;
-    int _width = 800;
-    int _height = 600;
-    
-    bool _running = true;
+private:
+  bool init();
 
-    SDL_Window *_window = nullptr;
-	  SDL_Renderer *_renderer = nullptr;
+private:
+  std::string _title;
+  int _width = 800;
+  int _height = 600;
+
+  bool _running = true;
+
+  SDL_Window *_window = nullptr;
+  SDL_Renderer *_renderer = nullptr;
 };
-
-

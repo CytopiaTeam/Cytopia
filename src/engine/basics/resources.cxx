@@ -2,8 +2,8 @@
 #include "../engine.hxx"
 
 // Instantiate static variables
-SDL_Renderer* Resources::_renderer = nullptr;
-SDL_Window* Resources::_window = nullptr;
+SDL_Renderer *Resources::_renderer = nullptr;
+SDL_Window *Resources::_window = nullptr;
 float Resources::_zoomLevel = 1.0;
 Point Resources::_cameraOffset;
 const int Resources::_tileSize = 32;
@@ -14,7 +14,6 @@ json Resources::_uiTextureFile;
 json Resources::_uiLayout;
 Resources::Settings Resources::settings;
 
-
 /** Enum (bitmask) for mapping neighbor tile positions
 * [ T B L R TL TR BL BR ]
 * [ 0 0 0 0  0  0  0  0 ]
@@ -24,99 +23,97 @@ Resources::Settings Resources::settings;
 * 1 X 7
 * 0 3 6
 */
-std::unordered_map<unsigned int, int> Resources::slopeTileIDMap = 
-{
-  { NO_NEIGHBORS, 14 },
-  { ELEVATED_TOP, 3 },
-  { ELEVATED_BOTTOM, 5 },
-  { ELEVATED_RIGHT, 1 },
-  { ELEVATED_LEFT, 7 },
-  { ELEVATED_BOTTOM_RIGHT, 2 },
-  { ELEVATED_BOTTOM_LEFT, 8 },
-  { ELEVATED_TOP_RIGHT, 0 },
-  { ELEVATED_TOP_LEFT, 6 },
+std::unordered_map<unsigned int, int> Resources::slopeTileIDMap = {
+    {NO_NEIGHBORS, 14},
+    {ELEVATED_TOP, 3},
+    {ELEVATED_BOTTOM, 5},
+    {ELEVATED_RIGHT, 1},
+    {ELEVATED_LEFT, 7},
+    {ELEVATED_BOTTOM_RIGHT, 2},
+    {ELEVATED_BOTTOM_LEFT, 8},
+    {ELEVATED_TOP_RIGHT, 0},
+    {ELEVATED_TOP_LEFT, 6},
 
-  { ELEVATED_TOP | ELEVATED_TOP_LEFT, 3 },
-  { ELEVATED_TOP | ELEVATED_TOP_RIGHT, 3 },
-  { ELEVATED_TOP | ELEVATED_TOP_RIGHT | ELEVATED_TOP_LEFT, 3 },
-  { ELEVATED_TOP_LEFT | ELEVATED_TOP_RIGHT, 3 },
+    {ELEVATED_TOP | ELEVATED_TOP_LEFT, 3},
+    {ELEVATED_TOP | ELEVATED_TOP_RIGHT, 3},
+    {ELEVATED_TOP | ELEVATED_TOP_RIGHT | ELEVATED_TOP_LEFT, 3},
+    {ELEVATED_TOP_LEFT | ELEVATED_TOP_RIGHT, 3},
 
-  { ELEVATED_BOTTOM | ELEVATED_BOTTOM_LEFT, 5 },
-  { ELEVATED_BOTTOM | ELEVATED_BOTTOM_RIGHT, 5 },
-  { ELEVATED_BOTTOM | ELEVATED_BOTTOM_RIGHT | ELEVATED_BOTTOM_LEFT, 5 },
-  { ELEVATED_BOTTOM_LEFT | ELEVATED_BOTTOM_RIGHT, 5 },
+    {ELEVATED_BOTTOM | ELEVATED_BOTTOM_LEFT, 5},
+    {ELEVATED_BOTTOM | ELEVATED_BOTTOM_RIGHT, 5},
+    {ELEVATED_BOTTOM | ELEVATED_BOTTOM_RIGHT | ELEVATED_BOTTOM_LEFT, 5},
+    {ELEVATED_BOTTOM_LEFT | ELEVATED_BOTTOM_RIGHT, 5},
 
-  { ELEVATED_LEFT | ELEVATED_BOTTOM_LEFT, 7 },
-  { ELEVATED_LEFT | ELEVATED_TOP_LEFT, 7 },
-  { ELEVATED_LEFT | ELEVATED_TOP_LEFT | ELEVATED_BOTTOM_LEFT, 7 },
-  { ELEVATED_TOP_LEFT | ELEVATED_BOTTOM_LEFT, 7 },
+    {ELEVATED_LEFT | ELEVATED_BOTTOM_LEFT, 7},
+    {ELEVATED_LEFT | ELEVATED_TOP_LEFT, 7},
+    {ELEVATED_LEFT | ELEVATED_TOP_LEFT | ELEVATED_BOTTOM_LEFT, 7},
+    {ELEVATED_TOP_LEFT | ELEVATED_BOTTOM_LEFT, 7},
 
-  { ELEVATED_RIGHT | ELEVATED_BOTTOM_RIGHT, 1 },
-  { ELEVATED_RIGHT | ELEVATED_TOP_RIGHT, 1 },
-  { ELEVATED_RIGHT | ELEVATED_TOP_RIGHT | ELEVATED_BOTTOM_RIGHT, 1 },
-  { ELEVATED_BOTTOM_RIGHT | ELEVATED_TOP_RIGHT, 1 },
+    {ELEVATED_RIGHT | ELEVATED_BOTTOM_RIGHT, 1},
+    {ELEVATED_RIGHT | ELEVATED_TOP_RIGHT, 1},
+    {ELEVATED_RIGHT | ELEVATED_TOP_RIGHT | ELEVATED_BOTTOM_RIGHT, 1},
+    {ELEVATED_BOTTOM_RIGHT | ELEVATED_TOP_RIGHT, 1},
 
-  { ELEVATED_TOP | ELEVATED_LEFT, 9 },
-  { ELEVATED_TOP | ELEVATED_LEFT | ELEVATED_BOTTOM_LEFT, 9 },
-  { ELEVATED_TOP | ELEVATED_LEFT | ELEVATED_TOP_RIGHT, 9 },
-  { ELEVATED_TOP | ELEVATED_LEFT | ELEVATED_BOTTOM_LEFT | ELEVATED_TOP_RIGHT, 9 },
-  { ELEVATED_TOP | ELEVATED_LEFT | ELEVATED_TOP_LEFT, 9 },
-  { ELEVATED_TOP | ELEVATED_LEFT | ELEVATED_TOP_LEFT | ELEVATED_TOP_RIGHT, 9 },
-  { ELEVATED_TOP | ELEVATED_LEFT | ELEVATED_TOP_LEFT | ELEVATED_BOTTOM_LEFT, 9 },
-  { ELEVATED_TOP | ELEVATED_LEFT | ELEVATED_TOP_LEFT | ELEVATED_BOTTOM_LEFT | ELEVATED_TOP_RIGHT, 9 },
-  { ELEVATED_TOP | ELEVATED_LEFT | ELEVATED_TOP_RIGHT | ELEVATED_TOP_RIGHT, 9 },
+    {ELEVATED_TOP | ELEVATED_LEFT, 9},
+    {ELEVATED_TOP | ELEVATED_LEFT | ELEVATED_BOTTOM_LEFT, 9},
+    {ELEVATED_TOP | ELEVATED_LEFT | ELEVATED_TOP_RIGHT, 9},
+    {ELEVATED_TOP | ELEVATED_LEFT | ELEVATED_BOTTOM_LEFT | ELEVATED_TOP_RIGHT, 9},
+    {ELEVATED_TOP | ELEVATED_LEFT | ELEVATED_TOP_LEFT, 9},
+    {ELEVATED_TOP | ELEVATED_LEFT | ELEVATED_TOP_LEFT | ELEVATED_TOP_RIGHT, 9},
+    {ELEVATED_TOP | ELEVATED_LEFT | ELEVATED_TOP_LEFT | ELEVATED_BOTTOM_LEFT, 9},
+    {ELEVATED_TOP | ELEVATED_LEFT | ELEVATED_TOP_LEFT | ELEVATED_BOTTOM_LEFT | ELEVATED_TOP_RIGHT, 9},
+    {ELEVATED_TOP | ELEVATED_LEFT | ELEVATED_TOP_RIGHT | ELEVATED_TOP_RIGHT, 9},
 
-  { ELEVATED_TOP | ELEVATED_RIGHT, 10 },
-  { ELEVATED_TOP | ELEVATED_RIGHT | ELEVATED_BOTTOM_RIGHT, 10 },
-  { ELEVATED_TOP | ELEVATED_RIGHT | ELEVATED_TOP_LEFT, 10 },
-  { ELEVATED_TOP | ELEVATED_RIGHT | ELEVATED_BOTTOM_RIGHT | ELEVATED_TOP_LEFT, 10 },
-  { ELEVATED_TOP | ELEVATED_RIGHT | ELEVATED_TOP_RIGHT, 10 },
-  { ELEVATED_TOP | ELEVATED_RIGHT | ELEVATED_TOP_RIGHT | ELEVATED_TOP_LEFT, 10 },
-  { ELEVATED_TOP | ELEVATED_RIGHT | ELEVATED_TOP_RIGHT | ELEVATED_BOTTOM_RIGHT, 10 },
-  { ELEVATED_TOP | ELEVATED_RIGHT | ELEVATED_TOP_RIGHT | ELEVATED_TOP_LEFT | ELEVATED_BOTTOM_RIGHT, 10 },
-  { ELEVATED_TOP | ELEVATED_RIGHT | ELEVATED_TOP_LEFT | ELEVATED_BOTTOM_RIGHT, 10 },
+    {ELEVATED_TOP | ELEVATED_RIGHT, 10},
+    {ELEVATED_TOP | ELEVATED_RIGHT | ELEVATED_BOTTOM_RIGHT, 10},
+    {ELEVATED_TOP | ELEVATED_RIGHT | ELEVATED_TOP_LEFT, 10},
+    {ELEVATED_TOP | ELEVATED_RIGHT | ELEVATED_BOTTOM_RIGHT | ELEVATED_TOP_LEFT, 10},
+    {ELEVATED_TOP | ELEVATED_RIGHT | ELEVATED_TOP_RIGHT, 10},
+    {ELEVATED_TOP | ELEVATED_RIGHT | ELEVATED_TOP_RIGHT | ELEVATED_TOP_LEFT, 10},
+    {ELEVATED_TOP | ELEVATED_RIGHT | ELEVATED_TOP_RIGHT | ELEVATED_BOTTOM_RIGHT, 10},
+    {ELEVATED_TOP | ELEVATED_RIGHT | ELEVATED_TOP_RIGHT | ELEVATED_TOP_LEFT | ELEVATED_BOTTOM_RIGHT, 10},
+    {ELEVATED_TOP | ELEVATED_RIGHT | ELEVATED_TOP_LEFT | ELEVATED_BOTTOM_RIGHT, 10},
 
-  { ELEVATED_BOTTOM | ELEVATED_RIGHT, 13 },
-  { ELEVATED_BOTTOM | ELEVATED_RIGHT | ELEVATED_TOP_RIGHT, 13 },
-  { ELEVATED_BOTTOM | ELEVATED_RIGHT | ELEVATED_BOTTOM_LEFT, 13 },
-  { ELEVATED_BOTTOM | ELEVATED_RIGHT | ELEVATED_BOTTOM_RIGHT, 13 },
-  { ELEVATED_BOTTOM | ELEVATED_RIGHT | ELEVATED_BOTTOM_RIGHT | ELEVATED_BOTTOM_LEFT , 13 },
-  { ELEVATED_BOTTOM | ELEVATED_RIGHT | ELEVATED_BOTTOM_RIGHT | ELEVATED_TOP_RIGHT , 13 },
-  { ELEVATED_BOTTOM | ELEVATED_RIGHT | ELEVATED_BOTTOM_RIGHT | ELEVATED_BOTTOM_LEFT | ELEVATED_TOP_RIGHT , 13 },
-  { ELEVATED_BOTTOM | ELEVATED_RIGHT | ELEVATED_BOTTOM_LEFT | ELEVATED_TOP_RIGHT, 13 },
-  { ELEVATED_BOTTOM | ELEVATED_BOTTOM_LEFT | ELEVATED_TOP_RIGHT, 13 },
+    {ELEVATED_BOTTOM | ELEVATED_RIGHT, 13},
+    {ELEVATED_BOTTOM | ELEVATED_RIGHT | ELEVATED_TOP_RIGHT, 13},
+    {ELEVATED_BOTTOM | ELEVATED_RIGHT | ELEVATED_BOTTOM_LEFT, 13},
+    {ELEVATED_BOTTOM | ELEVATED_RIGHT | ELEVATED_BOTTOM_RIGHT, 13},
+    {ELEVATED_BOTTOM | ELEVATED_RIGHT | ELEVATED_BOTTOM_RIGHT | ELEVATED_BOTTOM_LEFT, 13},
+    {ELEVATED_BOTTOM | ELEVATED_RIGHT | ELEVATED_BOTTOM_RIGHT | ELEVATED_TOP_RIGHT, 13},
+    {ELEVATED_BOTTOM | ELEVATED_RIGHT | ELEVATED_BOTTOM_RIGHT | ELEVATED_BOTTOM_LEFT | ELEVATED_TOP_RIGHT, 13},
+    {ELEVATED_BOTTOM | ELEVATED_RIGHT | ELEVATED_BOTTOM_LEFT | ELEVATED_TOP_RIGHT, 13},
+    {ELEVATED_BOTTOM | ELEVATED_BOTTOM_LEFT | ELEVATED_TOP_RIGHT, 13},
 
-  { ELEVATED_BOTTOM | ELEVATED_LEFT, 11 },
-  { ELEVATED_BOTTOM | ELEVATED_LEFT | ELEVATED_TOP_LEFT, 11 },
-  { ELEVATED_BOTTOM | ELEVATED_LEFT | ELEVATED_BOTTOM_RIGHT, 11 },
-  { ELEVATED_BOTTOM | ELEVATED_LEFT | ELEVATED_BOTTOM_LEFT, 11 },
-  { ELEVATED_BOTTOM | ELEVATED_LEFT | ELEVATED_BOTTOM_LEFT | ELEVATED_TOP_LEFT, 11 },
-  { ELEVATED_BOTTOM | ELEVATED_LEFT | ELEVATED_BOTTOM_LEFT | ELEVATED_BOTTOM_RIGHT, 11 },
-  { ELEVATED_BOTTOM | ELEVATED_LEFT | ELEVATED_BOTTOM_LEFT | ELEVATED_TOP_LEFT | ELEVATED_BOTTOM_RIGHT, 11 },
-  { ELEVATED_BOTTOM | ELEVATED_LEFT | ELEVATED_TOP_LEFT | ELEVATED_BOTTOM_RIGHT, 11 },
-  { ELEVATED_BOTTOM | ELEVATED_LEFT | ELEVATED_BOTTOM_RIGHT | ELEVATED_TOP_LEFT, 11 },
+    {ELEVATED_BOTTOM | ELEVATED_LEFT, 11},
+    {ELEVATED_BOTTOM | ELEVATED_LEFT | ELEVATED_TOP_LEFT, 11},
+    {ELEVATED_BOTTOM | ELEVATED_LEFT | ELEVATED_BOTTOM_RIGHT, 11},
+    {ELEVATED_BOTTOM | ELEVATED_LEFT | ELEVATED_BOTTOM_LEFT, 11},
+    {ELEVATED_BOTTOM | ELEVATED_LEFT | ELEVATED_BOTTOM_LEFT | ELEVATED_TOP_LEFT, 11},
+    {ELEVATED_BOTTOM | ELEVATED_LEFT | ELEVATED_BOTTOM_LEFT | ELEVATED_BOTTOM_RIGHT, 11},
+    {ELEVATED_BOTTOM | ELEVATED_LEFT | ELEVATED_BOTTOM_LEFT | ELEVATED_TOP_LEFT | ELEVATED_BOTTOM_RIGHT, 11},
+    {ELEVATED_BOTTOM | ELEVATED_LEFT | ELEVATED_TOP_LEFT | ELEVATED_BOTTOM_RIGHT, 11},
+    {ELEVATED_BOTTOM | ELEVATED_LEFT | ELEVATED_BOTTOM_RIGHT | ELEVATED_TOP_LEFT, 11},
 
-  //diagonal tiles - insert a block
-  { ELEVATED_TOP_LEFT | ELEVATED_BOTTOM_RIGHT, 4 },
-  { ELEVATED_BOTTOM_LEFT | ELEVATED_TOP_RIGHT, 4 },
+    //diagonal tiles - insert a block
+    {ELEVATED_TOP_LEFT | ELEVATED_BOTTOM_RIGHT, 4},
+    {ELEVATED_BOTTOM_LEFT | ELEVATED_TOP_RIGHT, 4},
 
+    // special cases - elevate the tile
+    {ELEVATED_RIGHT | ELEVATED_BOTTOM_LEFT, -1},
+    {ELEVATED_RIGHT | ELEVATED_TOP_LEFT, -1},
+    {ELEVATED_LEFT | ELEVATED_BOTTOM_RIGHT, -1},
+    {ELEVATED_LEFT | ELEVATED_TOP_RIGHT, -1},
+    {ELEVATED_TOP | ELEVATED_BOTTOM_LEFT, -1},
+    {ELEVATED_TOP | ELEVATED_BOTTOM_RIGHT, -1},
+    {ELEVATED_BOTTOM | ELEVATED_TOP_LEFT, -1},
+    {ELEVATED_BOTTOM | ELEVATED_TOP_RIGHT, -1},
 
-  // special cases - elevate the tile
-  { ELEVATED_RIGHT | ELEVATED_BOTTOM_LEFT, -1 },
-  { ELEVATED_RIGHT | ELEVATED_TOP_LEFT, -1 },
-  { ELEVATED_LEFT | ELEVATED_BOTTOM_RIGHT, -1 },
-  { ELEVATED_LEFT | ELEVATED_TOP_RIGHT, -1 },
-  { ELEVATED_TOP | ELEVATED_BOTTOM_LEFT, -1 },
-  { ELEVATED_TOP | ELEVATED_BOTTOM_RIGHT, -1 },
-  { ELEVATED_BOTTOM | ELEVATED_TOP_LEFT, -1 },
-  { ELEVATED_BOTTOM | ELEVATED_TOP_RIGHT, -1 },
+    {ELEVATED_LEFT | ELEVATED_RIGHT, -1},
+    {ELEVATED_TOP | ELEVATED_BOTTOM, -1},
 
-  { ELEVATED_LEFT | ELEVATED_RIGHT, -1 },
-  { ELEVATED_TOP | ELEVATED_BOTTOM, -1 },
-
-  // Missing
-  // TOP LEFT - RIGHT
-  // TOP LEFT - BOTTOM - RIGHT - BOTTOM RIGHT
+    // Missing
+    // TOP LEFT - RIGHT
+    // TOP LEFT - BOTTOM - RIGHT - BOTTOM RIGHT
 
 };
 
@@ -128,12 +125,12 @@ void Resources::init()
   readUILayoutFile();
 }
 
-Point Resources::convertScreenToIsoCoordinates(const Point& screenCoordinates)
+Point Resources::convertScreenToIsoCoordinates(const Point &screenCoordinates)
 {
   return Engine::Instance().findCellAt(screenCoordinates);
 }
 
-Point Resources::convertIsoToScreenCoordinates(const Point& isoCoordinates, bool calcWithoutOffset)
+Point Resources::convertIsoToScreenCoordinates(const Point &isoCoordinates, bool calcWithoutOffset)
 {
   int x, y;
 
@@ -142,15 +139,17 @@ Point Resources::convertIsoToScreenCoordinates(const Point& isoCoordinates, bool
 
   if (calcWithoutOffset)
   {
-    x = static_cast<int>((_tileSize * _zoomLevel * isoCoordinates.x * 0.5)  + (_tileSize * _zoomLevel * isoCoordinates.y * 0.5));
+    x = static_cast<int>((_tileSize * _zoomLevel * isoCoordinates.x * 0.5) + (_tileSize * _zoomLevel * isoCoordinates.y * 0.5));
     y = static_cast<int>((_tileSize * _zoomLevel * isoCoordinates.x * 0.25) - (_tileSize * _zoomLevel * isoCoordinates.y * 0.25));
   }
   else
   {
-    x = static_cast<int>((_tileSize * _zoomLevel * isoCoordinates.x * 0.5)  + (_tileSize * _zoomLevel * isoCoordinates.y * 0.5)  - _cameraOffset.x);
-    y = static_cast<int>((_tileSize * _zoomLevel * isoCoordinates.x * 0.25) - (_tileSize * _zoomLevel * isoCoordinates.y * 0.25) - _cameraOffset.y);
+    x = static_cast<int>((_tileSize * _zoomLevel * isoCoordinates.x * 0.5) + (_tileSize * _zoomLevel * isoCoordinates.y * 0.5) -
+                         _cameraOffset.x);
+    y = static_cast<int>((_tileSize * _zoomLevel * isoCoordinates.x * 0.25) - (_tileSize * _zoomLevel * isoCoordinates.y * 0.25) -
+                         _cameraOffset.y);
   }
-  
+
   if (height > 0)
   {
     y = static_cast<int>(y - ((_tileSize - heightOffset) * height * _zoomLevel));
@@ -188,8 +187,8 @@ void Resources::generateJSONFile()
   if (myJsonFile.is_open())
   {
 
-  myJsonFile << std::setw(4) << tileIDJSON << std::endl;
-  myJsonFile.close();
+    myJsonFile << std::setw(4) << tileIDJSON << std::endl;
+    myJsonFile.close();
   }
   else
   {
@@ -197,17 +196,17 @@ void Resources::generateJSONFile()
   }
 }
 
-std::string Resources::getTileDataFromJSON(const std::string& tileType, int tileID, const std::string& attribute)
+std::string Resources::getTileDataFromJSON(const std::string &tileType, int tileID, const std::string &attribute)
 {
-  for (json::iterator it = _json.begin(); it != _json.end(); ++it) 
+  for (json::iterator it = _json.begin(); it != _json.end(); ++it)
   {
-    if ( it.key() == tileType ) 
+    if (it.key() == tileType)
     {
       // more json stuff later...
     }
   }
 
-  if (_json[tileType][std::to_string(tileID)]["filename"].is_null() )
+  if (_json[tileType][std::to_string(tileID)]["filename"].is_null())
   {
     LOG(LOG_ERROR) << "Can't retrieve filename from " << settings.tileDataJSONFile << " for ID " << tileID;
     // Application should quit here.
@@ -216,7 +215,7 @@ std::string Resources::getTileDataFromJSON(const std::string& tileType, int tile
   return retrievedFileName;
 }
 
-std::string Resources::getUISpriteDataFromJSON(const std::string& uiType, int uiSpriteID, const std::string& attribute)
+std::string Resources::getUISpriteDataFromJSON(const std::string &uiType, int uiSpriteID, const std::string &attribute)
 {
   for (json::iterator it = _uiTextureFile.begin(); it != _uiTextureFile.end(); ++it)
   {
@@ -225,7 +224,7 @@ std::string Resources::getUISpriteDataFromJSON(const std::string& uiType, int ui
       // more json stuff later...
     }
   }
-  if ( _uiTextureFile[uiType][std::to_string(uiSpriteID)]["filename"].is_null() )
+  if (_uiTextureFile[uiType][std::to_string(uiSpriteID)]["filename"].is_null())
   {
     LOG(LOG_ERROR) << "Can't retrieve filename from " << settings.uiDataJSONFile << "for ID " << uiSpriteID;
   }
@@ -242,12 +241,11 @@ void Resources::readTileListFile()
     // Application should quit here, without textureData from the tileList file we can't continue
     return;
   }
-  
+
   // check if json file can be parsed
   _json = json::parse(i, nullptr, false);
   if (_json.is_discarded())
     LOG(LOG_ERROR) << "Error parsing JSON File " << settings.tileDataJSONFile;
-  
 }
 
 // User Interface Sprites
@@ -351,7 +349,6 @@ void Resources::readUILayoutFile()
   {
     LOG(LOG_ERROR) << "Error parsing JSON File " << settings.uiLayoutJSONFile;
   }
-
 }
 
 void Resources::readUITextureListFile()
@@ -370,9 +367,7 @@ void Resources::readUITextureListFile()
   {
     LOG(LOG_ERROR) << "Error parsing JSON File " << settings.uiDataJSONFile;
   }
-
 }
-
 
 // Ini File Handling
 
@@ -429,5 +424,4 @@ void Resources::readINIFile()
   settings.uiDataJSONFile = _iniFile["ConfigFiles"]["UIDataJSONFile"].get<std::string>();
   settings.tileDataJSONFile = _iniFile["ConfigFiles"]["TileDataJSONFile"].get<std::string>();
   settings.uiLayoutJSONFile = _iniFile["ConfigFiles"]["UILayoutJSONFile"].get<std::string>();
-
 }

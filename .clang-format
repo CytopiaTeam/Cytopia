@@ -1,0 +1,12 @@
+﻿AllowShortIfStatementsOnASingleLine: 'false'
+BreakBeforeBraces: Allman
+Cpp11BracedListStyle: 'true'
+ColumnLimit: '130'
+IndentWidth: '2'
+Language: Cpp
+ReflowComments: 'false'
+SortIncludes: 'false'
+SpaceBeforeParens: ControlStatements
+SpaceInEmptyParentheses: 'false'
+SpacesInParentheses: 'false'
+Standard: Cpp11

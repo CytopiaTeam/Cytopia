@@ -13,9 +13,9 @@
 class UIManager
 {
 public:
-
   /// Retrieves Instance of Singleton class Texture Manager
-  static UIManager& Instance() {
+  static UIManager &Instance()
+  {
     static UIManager instance;
     return instance;
   }
@@ -31,8 +31,8 @@ public:
 private:
   UIManager() = default;
   ~UIManager() = default;
-  std::vector<std::shared_ptr<UiElement> > _uiElements;
-  std::unordered_map<int, std::shared_ptr<UiElement> > _group;
+  std::vector<std::shared_ptr<UiElement>> _uiElements;
+  std::unordered_map<int, std::shared_ptr<UiElement>> _group;
 };
 
 #endif
