@@ -48,6 +48,15 @@ Once the build is configured, you can then compile it using:
 
     cmake --build .
 
+#### Coding guidelines
+
+Please use the clang-format (.clang-format file is provided in the root of the repository), if you want to contribute in order to format your code according to our coding guidelines.
+
+If you are on a linux system, you can use:
+
+    find . -regex '.*\.\(hxx\|cxx\)' -not -path '*/ThirdParty/*' -exec clang-format -style=file -i {} \;  
+
+
 #### Work-in-Progress Screenshot
 
 ![alt text](https://raw.githubusercontent.com/JimmySnails/IsometricEngine/master/images/Screenshot1.png)
