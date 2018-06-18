@@ -3,8 +3,6 @@
 #ifndef POINT_HXX_
 #define POINT_HXX_
 
-//#include "resources.hxx"
-
 class Point
 {
 public:
