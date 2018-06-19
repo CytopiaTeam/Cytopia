@@ -128,15 +128,10 @@ public:
   static Point convertIsoToScreenCoordinates(const Point &isoCoordinates, bool calcWithoutOffset = false);
 
   // JSON Functions
-  static void generateJSONFile();
   static std::string getTileDataFromJSON(const std::string &tileType, int tileID, const std::string &attributes);
   static std::string getUISpriteDataFromJSON(const std::string &uiType, int uiSpriteID, const std::string &attributes);
   static void readUILayoutFile();
   static json getUILayoutJSONObject() { return _uiLayout; };
-
-  static void generateINIFile();
-  static void generateUITextureFile();
-  static void generateUILayoutFile();
 
   enum terrainEditMode : int
   {

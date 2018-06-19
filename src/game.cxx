@@ -59,21 +59,6 @@ int main(int, char **)
           engine.toggleLayer(Engine::LAYER_SELECTION);
           break;
 
-        case SDLK_w:
-          // just for debug
-          Resources::generateINIFile();
-          break;
-
-        case SDLK_j:
-          // just for debug
-          Resources::generateUITextureFile();
-          break;
-
-        case SDLK_u:
-          // just for debug
-          Resources::generateUILayoutFile();
-          break;
-
         case SDLK_f:
           engine.toggleFullScreen();
           break;
