@@ -13,6 +13,7 @@ WindowManager::~WindowManager()
   SDL_DestroyWindow(_window);
   TTF_Quit();
   SDL_Quit();
+  Mix_Quit();
 }
 
 bool WindowManager::init()

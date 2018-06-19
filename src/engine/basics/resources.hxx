@@ -149,12 +149,17 @@ public:
 
   typedef struct
   {
+    int mapSize;
     int screenWidth;
     int screenHeight;
+    int maxElevationHeight;
     bool vSync;
     bool fullScreen;
-    int mapSize;
-    int maxElevationHeight;
+    int musicVolume;
+    int soundEffectsVolume;
+    bool playMusic;
+    bool playSoundEffects;
+    bool stereo;
     std::string uiDataJSONFile;
     std::string tileDataJSONFile;
     std::string uiLayoutJSONFile;
