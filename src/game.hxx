@@ -12,6 +12,7 @@
 #include "engine/engine.hxx"
 #include "engine/eventManager.hxx"
 #include "engine/uiManager.hxx"
+#include "engine/audioMixer.hxx"
 #include "engine/basics/point.hxx"
 #include "engine/basics/resources.hxx"
 #include "engine/basics/log.hxx"

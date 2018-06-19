@@ -31,6 +31,12 @@ bool WindowManager::init()
     return false;
   }
 
+  if (Mix_Init(MIX_INIT_MP3) == -1) 
+  {
+    LOG(LOG_ERROR) << "Failed to Init SDL_TTF\nSDL Error:" << Mix_GetError();
+    return false;
+  }
+
   _window = SDL_CreateWindow(_title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, _width, _height, 0);
 
   if (_window == nullptr)

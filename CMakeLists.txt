@@ -29,6 +29,8 @@ add_executable(${PROJECT_NAME}
   src/engine/ui/text.hxx
   src/engine/ui/uiElement.cxx
   src/engine/ui/uiElement.hxx
+  src/engine/audioMixer.cxx
+  src/engine/audioMixer.hxx
   src/engine/cell.cxx
   src/engine/cell.hxx
   src/engine/engine.cxx
@@ -52,6 +54,7 @@ add_executable(${PROJECT_NAME}
 find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)
 find_package(SDL2_ttf REQUIRED)
+find_package(SDL2_mixer REQUIRED)
 
 if(MINGW)
   target_link_libraries(
@@ -69,6 +72,7 @@ target_link_libraries(
     SDL::SDL2main
     SDL::SDL2_image
     SDL::SDL2_ttf
+    SDL::SDL2_mixer
 )
 
 target_compile_features(
