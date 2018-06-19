@@ -40,7 +40,7 @@ if(SDL2_MIXER_INCLUDE_DIR AND SDL2_MIXER_LIBRARY)
 endif()
 
 # Ensure that everything was found correctly.
-# This will also set SDL2_ttf_FOUND to true/false.
+# This will also set SDL2_mixer_FOUND to true/false.
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(
   SDL2_mixer
