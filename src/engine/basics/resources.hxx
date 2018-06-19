@@ -154,7 +154,7 @@ public:
     int soundEffectsVolume;
     bool playMusic;
     bool playSoundEffects;
-    bool stereo;
+    int audioChannels;
     std::string uiDataJSONFile;
     std::string tileDataJSONFile;
     std::string uiLayoutJSONFile;

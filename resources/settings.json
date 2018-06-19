@@ -11,8 +11,8 @@
     "Audio": {
         "PlayMusic": true,
         "PlaySoundEffects": true,
-        "Stereo": true,
-        "MusicVolume": 100,
+        "AudioChannels": 2,
+        "MusicVolume": 10,
         "SoundEffectsVolume": 100
     },
     "Graphics": {

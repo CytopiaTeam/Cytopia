@@ -276,7 +276,7 @@ void Resources::readINIFile()
   settings.uiLayoutJSONFile = _iniFile["ConfigFiles"]["UILayoutJSONFile"].get<std::string>();
   settings.playMusic = _iniFile["Audio"]["PlayMusic"].get<bool>();
   settings.playSoundEffects = _iniFile["Audio"]["PlaySoundEffects"].get<bool>();
-  settings.stereo = _iniFile["Audio"]["Stereo"].get<bool>();
+  settings.audioChannels = _iniFile["Audio"]["AudioChannels"].get<int>();
   settings.musicVolume = _iniFile["Audio"]["MusicVolume"].get<int>();
   settings.soundEffectsVolume = _iniFile["Audio"]["SoundEffectsVolume"].get<int>();
 }

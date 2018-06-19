@@ -10,6 +10,8 @@ public:
   AudioMixer();
   ~AudioMixer() = default;
 
+  void setVolume(int volume);
+
 };
 
 #endif
