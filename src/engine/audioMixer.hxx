@@ -2,6 +2,7 @@
 #define AUDIOMIXER_HXX_
 
 #include "audio/music.hxx"
+#include "audio/soundEffect.hxx"
 #include "basics/resources.hxx"
 
 #include "SDL2/SDL.h"
@@ -16,12 +17,11 @@ public:
   void setMusicVolume(int volume);
   void setSoundEffectVolume(int volume);
   void playMusic();
-  
+
   void mute();
 
 private:
   std::vector<std::shared_ptr<Music>> musicObjects;
-
 };
 
 #endif

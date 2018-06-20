@@ -1,11 +1,6 @@
 #include "music.hxx"
 //#include "basics\resources.hxx"
 
-Music::Music()
-{
-
-}
-
 Music::~Music()
 {
   if (_music)
@@ -14,14 +9,13 @@ Music::~Music()
   }
 }
 
-void Music::loadMusic(const std::string &filename)
+void Music::loadFile(const std::string &filename)
 {
   _music = Mix_LoadMUS(filename.c_str());
   if (!_music)
   {
     LOG(LOG_ERROR) << "Failed to load audio file " << filename << "\n" << Mix_GetError();
   }
-
 }
 
 void Music::play(int loops)
@@ -33,14 +27,14 @@ void Music::play(int loops)
       // stop the music playback first to start from the beginning
       stop();
 
-      if ( Mix_PlayMusic(_music, loops) == -1)
+      if (Mix_PlayMusic(_music, loops) == -1)
       {
         LOG(LOG_ERROR) << "Failed to play music!\n" << Mix_GetError();
       }
     }
     else
     {
-      LOG(LOG_ERROR) << "No music file loaded but play() is called!\n";
+      LOG(LOG_ERROR) << "No music file is loaded but the function play() has been called!\n";
     }
   }
 }

@@ -31,6 +31,8 @@ add_executable(${PROJECT_NAME}
   src/engine/ui/uiElement.hxx
   src/engine/audio/music.cxx
   src/engine/audio/music.hxx
+  src/engine/audio/soundEffect.cxx
+  src/engine/audio/soundEffect.hxx
   src/engine/audioMixer.cxx
   src/engine/audioMixer.hxx
   src/engine/cell.cxx
