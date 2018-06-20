@@ -32,7 +32,7 @@ bool WindowManager::init()
     return false;
   }
 
-  if (Mix_Init(MIX_INIT_MP3) == -1)
+  if (Mix_Init(MIX_INIT_MP3) == -1) 
   {
     LOG(LOG_ERROR) << "Failed to Init SDL_Mixer\nSDL Error:" << Mix_GetError();
     return false;

@@ -210,6 +210,7 @@ void Resources::readTileListFile()
     LOG(LOG_ERROR) << "Error parsing JSON File " << settings.tileDataJSONFile;
 }
 
+
 void Resources::readUILayoutFile()
 {
   std::ifstream i(settings.uiLayoutJSONFile);
