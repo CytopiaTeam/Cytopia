@@ -1,7 +1,6 @@
 #ifndef RESOURCES_HXX_
 #define RESOURCES_HXX_
 
-#include <fstream>
 #include <unordered_map>
 
 #include "SDL2/SDL.h"

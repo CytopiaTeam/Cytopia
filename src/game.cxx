@@ -20,6 +20,7 @@ int main(int, char **)
   _renderer = Resources::getRenderer();
   _window = Resources::getWindow();
   AudioMixer audiomixer;
+  audiomixer.playMusic();
 
   // Gameloop
   while (engine.gameIsRunning())
