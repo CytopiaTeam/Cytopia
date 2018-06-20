@@ -3,8 +3,6 @@
 
 Music::Music()
 {
-  //Mix_FreeMusic(music);
-  LOG() << "CTr";
 
 }
 
@@ -34,11 +32,14 @@ void Music::play(int loops)
   {
     if (_music)
     {
-      Mix_PlayMusic(_music, loops);
+      if (! Mix_PlayMusic(_music, loops))
+      {
+        LOG(LOG_ERROR) << "Failed to play music!\n" << Mix_GetError();
+      }
     }
     else
     {
-      LOG(LOG_ERROR) << "No music file loaded but play() is called!";
+      LOG(LOG_ERROR) << "No music file loaded but play() is called!\n";
     }
   }
 }
