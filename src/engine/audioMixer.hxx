@@ -15,6 +15,9 @@ public:
 
   void setVolume(int volume);
   void playMusic();
+  
+private:
+  std::vector<std::shared_ptr<Music>> musicObjects;
 
 };
 
