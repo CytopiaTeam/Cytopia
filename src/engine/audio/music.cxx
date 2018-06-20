@@ -70,3 +70,13 @@ void Music::resume()
     Mix_ResumeMusic();
   }
 }
+
+bool Music::isPlaying()
+{
+  if (Resources::settings.playMusic)
+  {
+    // returns amount of playing audiochannels
+    return Mix_Playing(-1) != 0;
+  }
+  return false;
+}

@@ -43,9 +43,14 @@ public:
     */
   void resume();
 
+  /**
+  * Checks if this audio object is currently playing and music.
+  * @returns bool is music playing
+  */
+  bool isPlaying();
+
 private:
   Mix_Music* _music = nullptr;
-
 };
 
 #endif
