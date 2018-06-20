@@ -13,9 +13,12 @@ public:
   AudioMixer();
   ~AudioMixer() = default;
 
-  void setVolume(int volume);
+  void setMusicVolume(int volume);
+  void setSoundEffectVolume(int volume);
   void playMusic();
   
+  void mute();
+
 private:
   std::vector<std::shared_ptr<Music>> musicObjects;
 
