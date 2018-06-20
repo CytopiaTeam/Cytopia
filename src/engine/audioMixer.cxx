@@ -17,7 +17,9 @@ void AudioMixer::setVolume(int volume)
 
 void AudioMixer::playMusic()
 {
-  Music themeMusic;
-  themeMusic.loadMusic("resources/audio/music/Theme - Easy Listening.mp3");
-  themeMusic.play(-1);
+  std::shared_ptr<Music> themeMusic (new Music);
+  musicObjects.push_back(themeMusic);
+
+  musicObjects[0]->loadMusic("resources/audio/music/Theme - Easy Listening.mp3");
+  musicObjects[0]->play(-1);
 }

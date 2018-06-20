@@ -28,6 +28,21 @@ public:
     */
   void play(int loops);
 
+  /**
+    * Stops the music
+    */
+  void stop();
+
+  /**
+    * Pauses the music
+    */
+  void pause();
+
+  /**
+    * Resumes the music
+    */
+  void resume();
+
 private:
   Mix_Music* _music = nullptr;
 
