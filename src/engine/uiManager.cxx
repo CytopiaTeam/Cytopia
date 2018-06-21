@@ -11,7 +11,7 @@ void UIManager::init()
 
   for (size_t id = 0; id < uiLayout.size(); id++)
   {
-    for (auto it : json::iterator_wrapper(uiLayout[id]))
+    for (auto it : uiLayout[id].items())
     {
 
       if (it.key() == "Type")
