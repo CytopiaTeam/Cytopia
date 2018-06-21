@@ -1,6 +1,14 @@
-#include "game.hxx"
+#include "SDL2/SDL.h"
 
-int main(int, char **)
+#include "engine/engine.hxx"
+#include "engine/eventManager.hxx"
+#include "engine/uiManager.hxx"
+#include "engine/audioMixer.hxx"
+#include "engine/basics/point.hxx"
+#include "engine/basics/resources.hxx"
+#include "engine/basics/log.hxx"
+
+void run()
 {
   LOG() << VERSION;
   LOG().timerStart();
@@ -17,8 +25,8 @@ int main(int, char **)
   UIManager &uiManager = UIManager::Instance();
   uiManager.init();
 
-  _renderer = Resources::getRenderer();
-  _window = Resources::getWindow();
+  auto *_renderer = Resources::getRenderer();
+  auto *_window = Resources::getWindow();
   AudioMixer audiomixer;
   audiomixer.playMusic();
 
@@ -129,5 +137,4 @@ int main(int, char **)
     SDL_RenderPresent(_renderer);
     SDL_Delay(1);
   }
-  return 0;
 }

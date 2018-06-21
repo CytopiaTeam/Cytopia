@@ -50,6 +50,7 @@ add_executable(${PROJECT_NAME}
   src/ThirdParty/json.hxx
   src/game.cxx
   src/game.hxx
+  src/main.cxx
 )
 
 # find all required dependences - if these fail the build will not continue
