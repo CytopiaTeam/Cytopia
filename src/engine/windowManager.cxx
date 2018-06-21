@@ -13,6 +13,7 @@ WindowManager::~WindowManager()
   SDL_DestroyWindow(_window);
   TTF_Quit();
   SDL_Quit();
+  Mix_Quit();
 }
 
 bool WindowManager::init()
@@ -28,6 +29,12 @@ bool WindowManager::init()
   if (TTF_Init() == -1)
   {
     LOG(LOG_ERROR) << "Failed to Init SDL_TTF\nSDL Error:" << TTF_GetError();
+    return false;
+  }
+
+  if (Mix_Init(MIX_INIT_MP3) == -1)
+  {
+    LOG(LOG_ERROR) << "Failed to Init SDL_Mixer\nSDL Error:" << Mix_GetError();
     return false;
   }
 

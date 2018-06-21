@@ -6,7 +6,9 @@
 #define LOG_HXX_
 
 #include <iostream>
+#include <ctime>
 #include <chrono>
+#include <fstream>
 #include <sstream>
 
 #include "SDL2/SDL.h"

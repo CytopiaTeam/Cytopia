@@ -8,6 +8,13 @@
         "MapSize": 128,
         "MaxElevationHeight": 32
     },
+    "Audio": {
+        "PlayMusic": true,
+        "PlaySoundEffects": true,
+        "AudioChannels": 2,
+        "MusicVolume": 10,
+        "SoundEffectsVolume": 100
+    },
     "Graphics": {
         "FullScreen": false,
         "Resolution": {

@@ -158,44 +158,6 @@ Point Resources::convertIsoToScreenCoordinates(const Point &isoCoordinates, bool
   return {x, y, 0, 0};
 }
 
-// Temporary function that writes a json file and will be removed later (for debug purposes only)
-void Resources::generateJSONFile()
-{
-  json tileIDJSON;
-
-  tileIDJSON["terrain"]["0"]["filename"] = std::string("resources/images/floor/floor_0.png");
-  tileIDJSON["terrain"]["1"]["filename"] = std::string("resources/images/floor/floor_1.png");
-  tileIDJSON["terrain"]["2"]["filename"] = std::string("resources/images/floor/floor_2.png");
-  tileIDJSON["terrain"]["3"]["filename"] = std::string("resources/images/floor/floor_3.png");
-  tileIDJSON["terrain"]["4"]["filename"] = std::string("resources/images/floor/floor_4.png");
-  tileIDJSON["terrain"]["5"]["filename"] = std::string("resources/images/floor/floor_5.png");
-  tileIDJSON["terrain"]["6"]["filename"] = std::string("resources/images/floor/floor_6.png");
-  tileIDJSON["terrain"]["7"]["filename"] = std::string("resources/images/floor/floor_7.png");
-  tileIDJSON["terrain"]["8"]["filename"] = std::string("resources/images/floor/floor_8.png");
-  tileIDJSON["terrain"]["9"]["filename"] = std::string("resources/images/floor/floor_9.png");
-  tileIDJSON["terrain"]["10"]["filename"] = std::string("resources/images/floor/floor_10.png");
-  tileIDJSON["terrain"]["11"]["filename"] = std::string("resources/images/floor/floor_11.png");
-  tileIDJSON["terrain"]["12"]["filename"] = std::string("resources/images/floor/floor_12.png");
-  tileIDJSON["terrain"]["13"]["filename"] = std::string("resources/images/floor/floor_13.png");
-  tileIDJSON["terrain"]["14"]["filename"] = std::string("resources/images/floor/floor_14.png");
-
-  tileIDJSON["buildings"]["20"]["filename"] = std::string("resources/images/buildings/house.png");
-  tileIDJSON["buildings"]["20"]["type"] = "building";
-  tileIDJSON["buildings"]["20"]["zone"] = "residential";
-
-  std::ofstream myJsonFile(settings.tileDataJSONFile);
-  if (myJsonFile.is_open())
-  {
-
-    myJsonFile << std::setw(4) << tileIDJSON << std::endl;
-    myJsonFile.close();
-  }
-  else
-  {
-    LOG(LOG_ERROR) << "Couldn't write file " << settings.tileDataJSONFile;
-  }
-}
-
 std::string Resources::getTileDataFromJSON(const std::string &tileType, int tileID, const std::string &attribute)
 {
   for (json::iterator it = _json.begin(); it != _json.end(); ++it)
@@ -248,91 +210,6 @@ void Resources::readTileListFile()
     LOG(LOG_ERROR) << "Error parsing JSON File " << settings.tileDataJSONFile;
 }
 
-// User Interface Sprites
-
-void Resources::generateUITextureFile()
-{
-  json uiTextureFile;
-
-  uiTextureFile["button"]["0"]["filename"] = std::string("resources/images/ui/buttons/build.png");
-  uiTextureFile["button"]["0"]["filename"] = std::string("resources/images/ui/buttons/build.png");
-
-  std::ofstream myJsonFile(settings.uiDataJSONFile);
-
-  if (myJsonFile.is_open())
-  {
-    myJsonFile << std::setw(4) << uiTextureFile << std::endl;
-    myJsonFile.close();
-  }
-  else
-  {
-    LOG(LOG_ERROR) << "Could not write file " << settings.uiDataJSONFile;
-  }
-}
-
-void Resources::generateUILayoutFile()
-{
-  json uiLayoutFile;
-
-  uiLayoutFile[0]["Type"] = "ImageButton";
-  uiLayoutFile[0]["Position_x"] = 400;
-  uiLayoutFile[0]["Position_y"] = 520;
-  uiLayoutFile[0]["SpriteID"] = 0;
-  uiLayoutFile[0]["ActionID"] = 1;
-  uiLayoutFile[0]["GroupID"] = 0;
-  uiLayoutFile[0]["ParentOfGroup"] = 1;
-  uiLayoutFile[0]["TooltipText"] = "Construction";
-  uiLayoutFile[0]["Layout"] = "BottomMenu";
-
-  uiLayoutFile[1]["Type"] = "ImageButton";
-  uiLayoutFile[1]["Position_x"] = 380;
-  uiLayoutFile[1]["Position_y"] = 470;
-  uiLayoutFile[1]["SpriteID"] = 1;
-  uiLayoutFile[1]["ActionID"] = 2;
-  uiLayoutFile[1]["GroupID"] = 1;
-  uiLayoutFile[1]["ParentOfGroup"] = 0;
-  uiLayoutFile[1]["TooltipText"] = "Raise Terrain";
-  uiLayoutFile[1]["Layout"] = "BottomMenuExpansionGroup";
-
-  uiLayoutFile[2]["Type"] = "ImageButton";
-  uiLayoutFile[2]["Position_x"] = 420;
-  uiLayoutFile[2]["Position_y"] = 470;
-  uiLayoutFile[2]["SpriteID"] = 2;
-  uiLayoutFile[2]["ActionID"] = 3;
-  uiLayoutFile[2]["GroupID"] = 1;
-  uiLayoutFile[2]["ParentOfGroup"] = 0;
-  uiLayoutFile[2]["TooltipText"] = "Lower Terrain";
-  uiLayoutFile[2]["Layout"] = "BottomMenuExpansionGroup";
-
-  uiLayoutFile[3]["Type"] = "Text";
-  uiLayoutFile[3]["Text"] = "Awesome Text";
-  uiLayoutFile[3]["Position_x"] = 20;
-  uiLayoutFile[3]["Position_y"] = 20;
-  uiLayoutFile[3]["GroupID"] = 0;
-
-  uiLayoutFile[4]["Type"] = "TextButton";
-  uiLayoutFile[4]["Text"] = "Awesome Button";
-  uiLayoutFile[4]["Position_x"] = 200;
-  uiLayoutFile[4]["Position_y"] = 200;
-  uiLayoutFile[4]["Width"] = 140;
-  uiLayoutFile[4]["Height"] = 60;
-  uiLayoutFile[4]["ActionID"] = 4;
-  uiLayoutFile[4]["GroupID"] = 0;
-  uiLayoutFile[4]["ParentOfGroup"] = 0;
-
-  std::ofstream myJsonFile(settings.uiLayoutJSONFile);
-
-  if (myJsonFile.is_open())
-  {
-    myJsonFile << std::setw(4) << uiLayoutFile << std::endl;
-    myJsonFile.close();
-  }
-  else
-  {
-    LOG(LOG_ERROR) << "Could not write file " << settings.uiLayoutJSONFile;
-  }
-}
-
 void Resources::readUILayoutFile()
 {
   std::ifstream i(settings.uiLayoutJSONFile);
@@ -369,34 +246,6 @@ void Resources::readUITextureListFile()
   }
 }
 
-// Ini File Handling
-
-void Resources::generateINIFile()
-{
-  json iniFile;
-
-  iniFile["Graphics"]["Resolution"]["Width"] = 800;
-  iniFile["Graphics"]["Resolution"]["Height"] = 600;
-  iniFile["Graphics"]["VSYNC"] = false;
-  iniFile["Graphics"]["FullScreen"] = false;
-  iniFile["Game"]["MapSize"] = 128;
-  iniFile["Game"]["MaxElevationHeight"] = 32;
-  iniFile["ConfigFiles"]["UIDataJSONFile"] = "resources/data/UIData.json";
-  iniFile["ConfigFiles"]["TileDataJSONFile"] = "resources/data/TileData.json";
-
-  std::ofstream myJsonFile("resources/settings.json");
-
-  if (myJsonFile.is_open())
-  {
-    myJsonFile << std::setw(4) << iniFile << std::endl;
-    myJsonFile.close();
-  }
-  else
-  {
-    printf("ERROR: Couldn't write file \"resources/settings.json\"");
-  }
-}
-
 void Resources::readINIFile()
 {
   std::string iniFileName = "resources/settings.json";
@@ -424,4 +273,9 @@ void Resources::readINIFile()
   settings.uiDataJSONFile = _iniFile["ConfigFiles"]["UIDataJSONFile"].get<std::string>();
   settings.tileDataJSONFile = _iniFile["ConfigFiles"]["TileDataJSONFile"].get<std::string>();
   settings.uiLayoutJSONFile = _iniFile["ConfigFiles"]["UILayoutJSONFile"].get<std::string>();
+  settings.playMusic = _iniFile["Audio"]["PlayMusic"].get<bool>();
+  settings.playSoundEffects = _iniFile["Audio"]["PlaySoundEffects"].get<bool>();
+  settings.audioChannels = _iniFile["Audio"]["AudioChannels"].get<int>();
+  settings.musicVolume = _iniFile["Audio"]["MusicVolume"].get<int>();
+  settings.soundEffectsVolume = _iniFile["Audio"]["SoundEffectsVolume"].get<int>();
 }

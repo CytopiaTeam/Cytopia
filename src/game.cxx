@@ -19,6 +19,8 @@ int main(int, char **)
 
   _renderer = Resources::getRenderer();
   _window = Resources::getWindow();
+  AudioMixer audiomixer;
+  audiomixer.playMusic();
 
   // Gameloop
   while (engine.gameIsRunning())
@@ -56,21 +58,6 @@ int main(int, char **)
 
         case SDLK_3:
           engine.toggleLayer(Engine::LAYER_SELECTION);
-          break;
-
-        case SDLK_w:
-          // just for debug
-          Resources::generateINIFile();
-          break;
-
-        case SDLK_j:
-          // just for debug
-          Resources::generateUITextureFile();
-          break;
-
-        case SDLK_u:
-          // just for debug
-          Resources::generateUILayoutFile();
           break;
 
         case SDLK_f:
