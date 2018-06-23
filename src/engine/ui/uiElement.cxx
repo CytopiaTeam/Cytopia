@@ -18,7 +18,7 @@ UiElement::UiElement(int x, int y, int w, int h, int groupID, int actionID, int 
 {
 }
 
-void UiElement::render() { renderTexture(); }
+void UiElement::draw() { renderTexture(); }
 
 void UiElement::changeTexture(int tileID) { _texture = TextureManager::Instance().getUITexture(tileID); }
 

@@ -85,7 +85,7 @@ void UIManager::drawUI()
   {
     if (it->isVisible())
     {
-      it->render();
+      it->draw();
     }
   }
 }

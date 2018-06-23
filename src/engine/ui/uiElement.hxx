@@ -21,7 +21,7 @@ public:
   virtual ~UiElement() = default;
 
   //Renders texture at given point
-  void render();
+  void draw();
   void changeTexture(int tileID);
 
   // TTF Implementation
