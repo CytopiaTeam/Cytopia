@@ -11,4 +11,13 @@ Button::Button(int x, int y, int w, int h, const std::string &text, int groupID,
 
   drawSolidRect(rect, SDL_Color{128, 128, 128});
   drawText(text, SDL_Color{255, 255, 255});
+
+
+}
+
+void Button::draw()
+{
+  // render the buttons texture if available
+  renderTexture();
+
 }

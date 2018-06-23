@@ -18,7 +18,13 @@ UiElement::UiElement(int x, int y, int w, int h, int groupID, int actionID, int 
 {
 }
 
-void UiElement::draw() { renderTexture(); }
+void UiElement::draw() 
+{ 
+  if (_texture)
+  {
+    renderTexture(); 
+  }
+}
 
 void UiElement::changeTexture(int tileID) { _texture = TextureManager::Instance().getUITexture(tileID); }
 
@@ -34,8 +40,8 @@ void UiElement::renderTexture(int w, int h)
 void UiElement::renderTexture()
 {
   int width, height;
-  SDL_QueryTexture(_texture, NULL, NULL, &width, &height);
   if (_texture)
+  SDL_QueryTexture(_texture, NULL, NULL, &width, &height);
   {
     renderTexture(width, height);
   }

@@ -14,14 +14,14 @@ class UiElement
 {
 public:
   //Initializes variables
-  UiElement() = default;
+  //UiElement() = default;
   UiElement(int x, int y, int uiSpriteID, int groupID, int actionID, int parentOfGroup);
   UiElement(int x, int y, const std::string &text, int groupID, int actionID, int parentOfGroup);
   UiElement(int x, int y, int w, int h, int groupID, int actionID, int parentOfGroup);
   virtual ~UiElement() = default;
 
   //Renders texture at given point
-  void draw();
+  virtual void draw();
   void changeTexture(int tileID);
 
   // TTF Implementation
@@ -70,8 +70,11 @@ private:
   int _actionID = 0;
   int _parentOf = 0;
 
-  void renderTexture();
   void renderTexture(int w, int h);
+
+protected:
+
+  void renderTexture();
 };
 
 #endif
