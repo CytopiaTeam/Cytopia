@@ -28,6 +28,7 @@ public:
   void drawText(const std::string &textureText, const SDL_Color &textColor);
 
   void drawSolidRect(SDL_Rect &rect, const SDL_Color &color);
+  void drawLine(int x1, int y1, int x2, int y2, const SDL_Color &color);
 
   /** \brief checks if the current UI Element is clicked
     * if the derived object provides an isClicked() method, handle click events here
@@ -64,7 +65,8 @@ private:
   std::string _uiElementType = "";
 
   int _uiID;
-  int _width, _height;
+  int _width = 0;
+  int _height = 0;
   bool _visible = true;
   int _groupID = 0;
   int _actionID = 0;

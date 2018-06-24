@@ -68,8 +68,11 @@ void UiElement::drawText(const std::string &textureText, const SDL_Color &textCo
   SDL_Surface *textSurface = TTF_RenderText_Solid(_font, textureText.c_str(), textColor);
   if (textSurface)
   {
-    _width = textSurface->w;
-    _height = textSurface->h;
+    if (_width == 0 && _height == 0)
+    {
+      _width = textSurface->w;
+      _height = textSurface->h;
+    }
 
     // If there's already an existing surface (like a button) blit the text to it.
     if (_surface)
@@ -106,11 +109,16 @@ void UiElement::drawText(const std::string &textureText, const SDL_Color &textCo
 
 void UiElement::drawSolidRect(SDL_Rect &rect, const SDL_Color &color)
 {
-  _destRect = rect;
-  _surface = SDL_CreateRGBSurface(0, _destRect.w, _destRect.h, 32, 0, 0, 0, 0);
-  ;
 
-  // Use NULL to fill whole surface with color
-  SDL_FillRect(_surface, NULL, SDL_MapRGB(_surface->format, color.r, color.g, color.b));
-  _texture = SDL_CreateTextureFromSurface(_renderer, _surface);
+  SDL_Renderer* renderer = Resources::getRenderer();
+  SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, SDL_ALPHA_OPAQUE);
+  SDL_RenderFillRect(renderer, &rect);
+
+}
+
+void UiElement::drawLine(int x1, int y1, int x2, int y2, const SDL_Color &color)
+{
+  SDL_Renderer* renderer = Resources::getRenderer();
+  SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, SDL_ALPHA_OPAQUE);
+  SDL_RenderDrawLine(renderer, x1, y1, x2, y2);
 }

@@ -13,6 +13,10 @@ public:
   ~Button() = default;
 
   virtual void draw();
+
+private:
+  SDL_Rect rect;
+
 };
 
 #endif

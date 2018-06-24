@@ -3,13 +3,11 @@
 Button::Button(int x, int y, int w, int h, const std::string &text, int groupID, int actionID, int parentOfGroup)
     : UiElement(x, y, w, h, groupID, actionID, parentOfGroup)
 {
-  SDL_Rect rect;
   rect.x = x;
   rect.y = y;
   rect.w = w;
   rect.h = h;
 
-  drawSolidRect(rect, SDL_Color{128, 128, 128});
   drawText(text, SDL_Color{255, 255, 255});
 
 
@@ -18,6 +16,33 @@ Button::Button(int x, int y, int w, int h, const std::string &text, int groupID,
 void Button::draw()
 {
   // render the buttons texture if available
-  renderTexture();
 
+  Uint8 bgColor = 128;
+  Uint8 bgColorFrame = 150;
+  Uint8 bgColorFrameShade = 172;
+  Uint8 bgColorBottomFrame = 106;
+  Uint8 bgColorBottomFrameShade = 84;
+  
+  SDL_Color color = { 128, 128, 128 };
+  SDL_Color color_temp = { 128, 128, 128 };
+
+  SDL_Rect buttonrect = rect;
+
+  //rect.x = rect.x+3;
+  //rect.y = rect.y+3;
+  //rect.w = rect.w-3;
+  //rect.h = rect.h-3;
+
+  
+  drawSolidRect(rect, SDL_Color{ bgColorFrameShade, bgColorFrameShade, bgColorFrameShade });
+  drawSolidRect(SDL_Rect{ rect.x + 2, rect.y + 2, rect.w - 4, rect.h - 4 }, SDL_Color{ bgColorFrame, bgColorFrame, bgColorFrame });
+  drawSolidRect(SDL_Rect{ rect.x + 4, rect.y + 4, rect.w - 8, rect.h - 8 }, SDL_Color{ bgColor, bgColor, bgColor });
+  // bottom color
+  drawSolidRect(SDL_Rect{ rect.x + 4, (rect.y + rect.h) - 4, rect.w - 4, 4 }, SDL_Color{ bgColorBottomFrame, bgColorBottomFrame, bgColorBottomFrame });
+  drawSolidRect(SDL_Rect{ (rect.x + rect.w) - 4, rect.y+4, 4, rect.h - 4 }, SDL_Color{ bgColorBottomFrame, bgColorBottomFrame, bgColorBottomFrame });
+  // bottom color shade
+  drawSolidRect(SDL_Rect{ rect.x + 2, (rect.y + rect.h) - 2, rect.w - 2, 2 }, SDL_Color{ bgColorBottomFrameShade, bgColorBottomFrameShade, bgColorBottomFrameShade });
+  drawSolidRect(SDL_Rect{ (rect.x + rect.w) - 2, rect.y+2, 2, rect.h - 2 }, SDL_Color{ bgColorBottomFrameShade, bgColorBottomFrameShade, bgColorBottomFrameShade });
+  renderTexture();
+  
 }
