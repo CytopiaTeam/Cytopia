@@ -5,21 +5,140 @@ EventManager::EventManager()
   // Implement event handling here
 }
 
-bool EventManager::checkEvents(SDL_Event &event)
+void EventManager::checkEvents(SDL_Event &event, Engine &engine)
 {
   bool handled = false;
   // check for UI events first
+  Point mouseCoords;
+  Point clickCoords;
+
+  if (SDL_PollEvent(&event))
+  {
+  // check ui events first before checking any game event
+  if (!handleUIEvents(event))
+  {
+    switch (event.type)
+    {
+
+    case SDL_QUIT:
+      engine.quitGame();
+      break;
+
+    case SDL_KEYDOWN:
+      switch (event.key.keysym.sym)
+      {
+      case SDLK_ESCAPE:
+        uiManager.toggleGroupVisibility(2);
+        break;
+
+      case SDLK_0:
+        engine.toggleLayer(Engine::LAYER_GRID);
+        break;
+
+      case SDLK_1:
+        engine.toggleLayer(Engine::LAYER_FLOOR);
+        break;
+
+      case SDLK_2:
+        engine.toggleLayer(Engine::LAYER_BUILDINGS);
+        break;
+
+      case SDLK_3:
+        engine.toggleLayer(Engine::LAYER_SELECTION);
+        break;
+
+      case SDLK_f:
+        engine.toggleFullScreen();
+        break;
+      case SDLK_b:
+        LOG() << "Starting elevation Benchmark!";
+        LOG().timerStart();
+        for (int i = 0; i <= Resources::settings.maxElevationHeight; i++)
+        {
+          engine.increaseHeightOfCell(Point{ 64, 64, 0, 0 });
+        }
+        LOG().timerEnd();
+      }
+      break;
+
+      case SDL_MOUSEBUTTONDOWN:
+        // hacky event handling for now
+
+
+        mouseCoords = Point{ event.button.x, event.button.y, 0, 0 };
+        clickCoords = Resources::convertScreenToIsoCoordinates(mouseCoords);
+        if (event.button.button == SDL_BUTTON_LEFT)
+        {
+          if (engine.isPointWithinBoundaries(clickCoords))
+          {
+            if (Resources::getTerrainEditMode() == Resources::TERRAIN_RAISE)
+              engine.increaseHeightOfCell(clickCoords);
+            else if (Resources::getTerrainEditMode() == Resources::TERRAIN_LOWER)
+            {
+              engine.decreaseHeightOfCell(clickCoords);
+            }
+            else
+              LOG() << "CLICKED - Iso Coords: " << clickCoords.x << ", " << clickCoords.y;
+          }
+        }
+        else if (event.button.button == SDL_BUTTON_RIGHT)
+        {
+          engine.centerScreenOnPoint(clickCoords);
+        }
+        break;
+
+      case SDL_MOUSEWHEEL:
+        if (event.wheel.y > 0)
+        {
+          engine.increaseZoomLevel();
+        }
+        else if (event.wheel.y < 0)
+        {
+          engine.decreaseZoomLevel();
+        }
+        break;
+
+      default:
+        break;
+      }
+    }
+
+
+  }
+
+
+}
+
+bool EventManager::handleUIEvents(SDL_Event &event)
+{
+  bool handled = false;
+
+  std::shared_ptr<UiElement> clickedElement = uiManager.getClickedUIElement(event.button.x, event.button.y);
 
   switch (event.type)
   {
+  case SDL_MOUSEMOTION:
+    if (clickedElement)
+    {
+      clickedElement->mouseHover();
+    }
   case SDL_MOUSEBUTTONDOWN:
     if (event.button.button == SDL_BUTTON_LEFT)
     {
-      // check for UI collision here first
-      // event.button.x, event.button.y)
-      std::shared_ptr<UiElement> clickedElement = uiManager.getClickedUIElement(event.button.x, event.button.y);
+      LOG() << "Mouse down";
       if (clickedElement)
       {
+        clickedElement->mousePressed();
+      }
+    }
+    break;
+  case SDL_MOUSEBUTTONUP:
+    if (event.button.button == SDL_BUTTON_LEFT)
+    {
+      LOG() << "Mouse up";
+      if (clickedElement)
+      {
+        clickedElement->mouseReleased();
         switch (clickedElement->getActionID())
         {
         case 0:

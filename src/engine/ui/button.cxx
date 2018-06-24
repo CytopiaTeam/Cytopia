@@ -40,5 +40,22 @@ void Button::draw()
   drawSolidRect(SDL_Rect{ rect.x + 2, (rect.y + rect.h) - 2, rect.w - 2, 2 }, SDL_Color{ bgColorBottomFrameShade, bgColorBottomFrameShade, bgColorBottomFrameShade });
   drawSolidRect(SDL_Rect{ (rect.x + rect.w) - 2, rect.y+2, 2, rect.h - 2 }, SDL_Color{ bgColorBottomFrameShade, bgColorBottomFrameShade, bgColorBottomFrameShade });
   renderTexture();
-  
+
+}
+
+void Button::mousePressed()
+{
+  isPressed = true;
+  LOG() << "Pressed" << isPressed;
+}
+
+void Button::mouseReleased()
+{
+  isPressed = false;
+  LOG() << "Pressed" << isPressed;
+}
+
+void Button::mouseHover(bool hovering)
+{
+  isMouseOver = hovering;
 }

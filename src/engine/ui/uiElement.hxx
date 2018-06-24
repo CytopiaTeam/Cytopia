@@ -22,6 +22,10 @@ public:
 
   //Renders texture at given point
   virtual void draw();
+  virtual void mousePressed() {};
+  virtual void mouseReleased() {};
+  virtual void mouseHover() {};
+
   void changeTexture(int tileID);
 
   // TTF Implementation
@@ -72,8 +76,6 @@ private:
   int _groupID = 0;
   int _actionID = 0;
   int _parentOf = 0;
-
-  void renderTexture(int w, int h);
 
 protected:
 

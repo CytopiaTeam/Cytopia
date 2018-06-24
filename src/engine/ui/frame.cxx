@@ -11,8 +11,6 @@ Frame::Frame(int x, int y, int w, int h, int groupID, int actionID, int parentOf
 
 void Frame::draw()
 {
-  // render the buttons texture if available
-
   Uint8 bgColor = 128;
   Uint8 bgColorFrame = 150;
   Uint8 bgColorFrameShade = 172;

@@ -12,10 +12,12 @@ public:
   EventManager();
   ~EventManager() = default;
 
-  bool checkEvents(SDL_Event &event);
+  void checkEvents(SDL_Event &event, Engine &engine);
 
 private:
   UIManager &uiManager = UIManager::Instance();
+  bool handleUIEvents(SDL_Event& event);
+
 };
 
 #endif
