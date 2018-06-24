@@ -120,7 +120,7 @@ bool EventManager::handleUIEvents(SDL_Event &event)
   case SDL_MOUSEMOTION:
     if (clickedElement)
     {
-      clickedElement->mouseHover();
+      clickedElement->mouseHover(true);
     }
   case SDL_MOUSEBUTTONDOWN:
     if (event.button.button == SDL_BUTTON_LEFT)

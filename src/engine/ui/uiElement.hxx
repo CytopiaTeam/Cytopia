@@ -24,7 +24,7 @@ public:
   virtual void draw();
   virtual void mousePressed() {};
   virtual void mouseReleased() {};
-  virtual void mouseHover() {};
+  virtual void mouseHover(bool hovering) {};
 
   void changeTexture(int tileID);
 

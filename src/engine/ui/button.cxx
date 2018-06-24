@@ -16,15 +16,34 @@ Button::Button(int x, int y, int w, int h, const std::string &text, int groupID,
 void Button::draw()
 {
   // render the buttons texture if available
+  Uint8 bgColor, bgColorFrame, bgColorFrameShade, bgColorBottomFrame, bgColorBottomFrameShade;
 
-  Uint8 bgColor = 128;
-  Uint8 bgColorFrame = 150;
-  Uint8 bgColorFrameShade = 172;
-  Uint8 bgColorBottomFrame = 106;
-  Uint8 bgColorBottomFrameShade = 84;
-  
-  SDL_Color color = { 128, 128, 128 };
-  SDL_Color color_temp = { 128, 128, 128 };
+  if (isPressed)
+  {
+    bgColor = 78;
+    bgColorFrame = 100;
+    bgColorFrameShade = 122;
+    bgColorBottomFrame = 56;
+    bgColorBottomFrameShade = 34;
+
+  }
+  else if (isMouseOver)
+  {
+    bgColor = 228;
+    bgColorFrame = 250;
+    bgColorFrameShade = 255;
+    bgColorBottomFrame = 206;
+    bgColorBottomFrameShade = 184;
+  }
+  else
+  {
+    bgColor = 128;
+    bgColorFrame = 150;
+    bgColorFrameShade = 172;
+    bgColorBottomFrame = 106;
+    bgColorBottomFrameShade = 84;
+  }
+
 
   SDL_Rect buttonrect = rect;
     
