@@ -5,16 +5,17 @@ UiElement::UiElement(int x, int y, int uiSpriteID, int groupID, int actionID, in
       _uiElementType("ImageButton")
 {
   _texture = TextureManager::Instance().getUITexture(uiSpriteID);
+  SDL_QueryTexture(_texture, NULL, NULL, &_width, &_height);
 }
 
 UiElement::UiElement(int x, int y, const std::string &text, int groupID, int actionID, int parentOfGroup)
-    : _screenCoordinates({x, y, 0, 0})
+    : _screenCoordinates({x, y, 0, 0}), _groupID(groupID), _actionID(actionID), _parentOf(parentOfGroup)
 {
   drawText(text, _color);
 }
 
 UiElement::UiElement(int x, int y, int w, int h, int groupID, int actionID, int parentOfGroup)
-    : _screenCoordinates({x, y, 0, 0}), _width(w), _height(h)
+    : _screenCoordinates({x, y, 0, 0}), _width(w), _height(h), _groupID(groupID), _actionID(actionID), _parentOf(parentOfGroup)
 {
 }
 
@@ -28,29 +29,23 @@ void UiElement::draw()
 
 void UiElement::changeTexture(int tileID) { _texture = TextureManager::Instance().getUITexture(tileID); }
 
-void UiElement::renderTexture(int w, int h)
-{
-  _destRect.x = _screenCoordinates.x;
-  _destRect.y = _screenCoordinates.y;
-  _destRect.w = w;
-  _destRect.h = h;
-  SDL_RenderCopy(_renderer, _texture, nullptr, &_destRect);
-}
-
 void UiElement::renderTexture()
 {
-  int width, height;
   if (_texture)
-  SDL_QueryTexture(_texture, NULL, NULL, &width, &height);
   {
-    renderTexture(width, height);
+    _destRect.x = _screenCoordinates.x;
+    _destRect.y = _screenCoordinates.y;
+    _destRect.w = _width;
+    _destRect.h = _height;
+    SDL_RenderCopy(_renderer, _texture, nullptr, &_destRect);
   }
 }
 
 bool UiElement::isClicked(int x, int y)
 {
-  if (x > _destRect.x && x < _destRect.x + _destRect.w && y > _destRect.y && y < _destRect.y + _destRect.h)
+  if (x > _screenCoordinates.x && x < _screenCoordinates.x + _width && y > _screenCoordinates.y && y < _screenCoordinates.y + _height)
   {
+    LOG() << "CLICKED";
     return true;
   }
   return false;
@@ -112,7 +107,7 @@ void UiElement::drawText(const std::string &textureText, const SDL_Color &textCo
   TTF_CloseFont(_font);
 }
 
-void UiElement::drawSolidRect(SDL_Rect &rect, const SDL_Color &color)
+void UiElement::drawSolidRect(SDL_Rect rect, const SDL_Color &color)
 {
 
   SDL_Renderer* renderer = Resources::getRenderer();

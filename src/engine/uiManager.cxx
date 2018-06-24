@@ -20,15 +20,26 @@ void UIManager::init()
         {
           groupID = uiLayout[id]["GroupID"].get<int>();
         }
-
+        else
+        {
+          groupID = 0;
+        }
         if (!uiLayout[id]["ParentOfGroup"].is_null())
         {
           parentOf = uiLayout[id]["ParentOfGroup"].get<int>();
         }
+        else
+        {
+          parentOf = 0;
+        }
 
-        if (!uiLayout[id]["ParentOfGroup"].is_null())
+        if (!uiLayout[id]["ActionID"].is_null())
         {
           actionID = uiLayout[id]["ActionID"].get<int>();
+        }
+        else
+        {
+          actionID = 0;
         }
 
         x = uiLayout[id]["Position_x"].get<int>();
@@ -47,7 +58,6 @@ void UIManager::init()
           std::string text = uiLayout[id]["Text"].get<std::string>();
           int w = uiLayout[id]["Width"].get<int>();
           int h = uiLayout[id]["Height"].get<int>();
-
           _uiElements.push_back(std::make_shared<Button>(Button(x, y, w, h, text, groupID, actionID, parentOf)));
           break;
         }

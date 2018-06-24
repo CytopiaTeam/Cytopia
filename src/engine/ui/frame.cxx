@@ -25,12 +25,7 @@ void Frame::draw()
 
   SDL_Rect buttonrect = rect;
 
-  //rect.x = rect.x+3;
-  //rect.y = rect.y+3;
-  //rect.w = rect.w-3;
-  //rect.h = rect.h-3;
-
-  
+ 
   drawSolidRect(rect, SDL_Color{ bgColorFrame, bgColorFrame, bgColorFrame });
   drawSolidRect(SDL_Rect{ rect.x + 2, rect.y + 2, rect.w - 4, rect.h - 4 }, SDL_Color{ bgColorFrameShade, bgColorFrameShade, bgColorFrameShade });
   drawSolidRect(SDL_Rect{ rect.x + 4, rect.y + 4, rect.w - 8, rect.h - 8 }, SDL_Color{ bgColorFrame, bgColorFrame, bgColorFrame });
