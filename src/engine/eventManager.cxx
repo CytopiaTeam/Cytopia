@@ -22,9 +22,11 @@ bool EventManager::checkEvents(SDL_Event &event)
       {
         switch (clickedElement->getActionID())
         {
+        case 0:
+          handled = true;
+          break;
         case 1:
           UIManager::Instance().toggleGroupVisibility(clickedElement->getParentID());
-          LOG() << "Toggle Menu";
           break;
         case 2:
           if (Resources::getTerrainEditMode() == Resources::TERRAIN_RAISE)

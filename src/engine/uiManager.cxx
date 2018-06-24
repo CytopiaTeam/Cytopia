@@ -112,17 +112,17 @@ void UIManager::drawUI()
 
 std::shared_ptr<UiElement> UIManager::getClickedUIElement(int x, int y)
 {
+  std::shared_ptr<UiElement> clickedElement = nullptr;
+
   for (std::shared_ptr<UiElement> it : _uiElements)
   {
-    if (it->getActionID() != 0 && it->isVisible() == true)
-      if (it->isClicked(x, y))
-      {
-        {
-          return it;
-        }
-      }
+    if (it->isClicked(x, y))
+    {
+      if (it->getActionID() != -1 && it->isVisible() == true)
+        clickedElement = it;
+    }
   }
-  return nullptr;
+  return clickedElement;
 }
 
 void UIManager::addToGroup(int groupID, std::shared_ptr<UiElement> uiElement) { _group[groupID] = uiElement; }
