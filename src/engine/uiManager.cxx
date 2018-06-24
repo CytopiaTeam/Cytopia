@@ -110,6 +110,29 @@ void UIManager::drawUI()
   }
 }
 
+void UIManager::setButtonState()
+{
+  int x, y;
+  SDL_GetMouseState(&x, &y);
+  for (std::shared_ptr<UiElement> it : _uiElements)
+  {
+    if (it->isClicked(x, y))
+    {
+      if (SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_LEFT))
+       {
+        it->mousePressed(true);
+      }
+      else
+      it->mouseHover(true);
+    }
+    else
+    {
+      it->mousePressed(false);
+      it->mouseHover(false);
+    }
+  }
+}
+
 std::shared_ptr<UiElement> UIManager::getClickedUIElement(int x, int y)
 {
   std::shared_ptr<UiElement> clickedElement = nullptr;

@@ -22,8 +22,7 @@ public:
 
   //Renders texture at given point
   virtual void draw();
-  virtual void mousePressed() {};
-  virtual void mouseReleased() {};
+  virtual void mousePressed(bool isPressed) {};
   virtual void mouseHover(bool hovering) {};
 
   void changeTexture(int tileID);

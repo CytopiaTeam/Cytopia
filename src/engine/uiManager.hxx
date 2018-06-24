@@ -29,6 +29,8 @@ public:
 
   void addToGroup(int groupID, std::shared_ptr<UiElement> uiElement);
 
+  void setButtonState();
+
 private:
   UIManager() = default;
   ~UIManager() = default;

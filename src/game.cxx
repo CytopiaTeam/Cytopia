@@ -40,6 +40,7 @@ void run()
     engine.render();
     
     // render the ui
+    uiManager.setButtonState();
     uiManager.drawUI();
 
     // reset renderer color back to black

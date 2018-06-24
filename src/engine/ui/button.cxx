@@ -18,7 +18,7 @@ void Button::draw()
   // render the buttons texture if available
   Uint8 bgColor, bgColorFrame, bgColorFrameShade, bgColorBottomFrame, bgColorBottomFrameShade;
 
-  if (isPressed)
+  if (_isPressed)
   {
     bgColor = 78;
     bgColorFrame = 100;
@@ -27,7 +27,7 @@ void Button::draw()
     bgColorBottomFrameShade = 34;
 
   }
-  else if (isMouseOver)
+  else if (_isMouseOver)
   {
     bgColor = 228;
     bgColorFrame = 250;
@@ -62,19 +62,12 @@ void Button::draw()
 
 }
 
-void Button::mousePressed()
+void Button::mousePressed(bool isPressed)
 {
-  isPressed = true;
-  LOG() << "Pressed" << isPressed;
-}
-
-void Button::mouseReleased()
-{
-  isPressed = false;
-  LOG() << "Pressed" << isPressed;
+  _isPressed = isPressed;
 }
 
 void Button::mouseHover(bool hovering)
 {
-  isMouseOver = hovering;
+  _isMouseOver = hovering;
 }

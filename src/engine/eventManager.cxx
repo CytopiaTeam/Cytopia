@@ -62,9 +62,6 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       break;
 
       case SDL_MOUSEBUTTONDOWN:
-        // hacky event handling for now
-
-
         mouseCoords = Point{ event.button.x, event.button.y, 0, 0 };
         clickCoords = Resources::convertScreenToIsoCoordinates(mouseCoords);
         if (event.button.button == SDL_BUTTON_LEFT)
@@ -102,43 +99,21 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         break;
       }
     }
-
-
   }
-
-
 }
 
 bool EventManager::handleUIEvents(SDL_Event &event)
 {
   bool handled = false;
-
   std::shared_ptr<UiElement> clickedElement = uiManager.getClickedUIElement(event.button.x, event.button.y);
 
   switch (event.type)
   {
-  case SDL_MOUSEMOTION:
-    if (clickedElement)
-    {
-      clickedElement->mouseHover(true);
-    }
-  case SDL_MOUSEBUTTONDOWN:
-    if (event.button.button == SDL_BUTTON_LEFT)
-    {
-      LOG() << "Mouse down";
-      if (clickedElement)
-      {
-        clickedElement->mousePressed();
-      }
-    }
-    break;
   case SDL_MOUSEBUTTONUP:
     if (event.button.button == SDL_BUTTON_LEFT)
     {
-      LOG() << "Mouse up";
       if (clickedElement)
       {
-        clickedElement->mouseReleased();
         switch (clickedElement->getActionID())
         {
         case 0:
