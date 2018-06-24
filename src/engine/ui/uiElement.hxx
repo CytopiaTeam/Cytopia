@@ -26,6 +26,7 @@ public:
 
   // TTF Implementation
   void drawText(const std::string &textureText, const SDL_Color &textColor);
+  void drawTextAt(int x, int y, const std::string &textureText, const SDL_Color &textColor);
 
   void drawSolidRect(SDL_Rect &rect, const SDL_Color &color);
   void drawLine(int x1, int y1, int x2, int y2, const SDL_Color &color);

@@ -25,6 +25,8 @@ add_executable(${PROJECT_NAME}
   src/engine/ui/bar.hxx
   src/engine/ui/button.cxx
   src/engine/ui/button.hxx
+  src/engine/ui/frame.cxx
+  src/engine/ui/frame.hxx
   src/engine/ui/text.cxx
   src/engine/ui/text.hxx
   src/engine/ui/uiElement.cxx

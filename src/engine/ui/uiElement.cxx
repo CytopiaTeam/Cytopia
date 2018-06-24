@@ -56,6 +56,11 @@ bool UiElement::isClicked(int x, int y)
   return false;
 }
 
+void UiElement::drawTextAt(int x, int y, const std::string &textureText, const SDL_Color &textColor)
+{
+
+}
+
 void UiElement::drawText(const std::string &textureText, const SDL_Color &textColor)
 {
   _font = TTF_OpenFont("resources/fonts/arcadeclassics.ttf", 20);

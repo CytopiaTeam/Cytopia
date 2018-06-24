@@ -5,6 +5,7 @@
 
 #include "ui/uiElement.hxx"
 #include "ui/text.hxx"
+#include "ui/frame.hxx"
 #include "ui/button.hxx"
 #include "basics/resources.hxx"
 
