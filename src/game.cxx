@@ -47,8 +47,6 @@ void run()
         switch (event.key.keysym.sym)
         {
         case SDLK_ESCAPE:
-          //window.close();
-          engine.quitGame();
           uiManager.toggleGroupVisibility(2);
           break;
 
@@ -130,8 +128,12 @@ void run()
 
     // render the tilemap
     engine.render();
-
+    
+    // render the ui
     uiManager.drawUI();
+
+    // reset renderer color back to black
+    SDL_SetRenderDrawColor(_renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
 
     // Render the Frame
     SDL_RenderPresent(_renderer);

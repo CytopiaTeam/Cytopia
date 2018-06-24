@@ -45,7 +45,6 @@ bool UiElement::isClicked(int x, int y)
 {
   if (x > _screenCoordinates.x && x < _screenCoordinates.x + _width && y > _screenCoordinates.y && y < _screenCoordinates.y + _height)
   {
-    LOG() << "CLICKED";
     return true;
   }
   return false;

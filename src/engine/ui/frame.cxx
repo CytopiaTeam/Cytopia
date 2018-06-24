@@ -7,7 +7,6 @@ Frame::Frame(int x, int y, int w, int h, int groupID, int actionID, int parentOf
   rect.y = y;
   rect.w = w;
   rect.h = h;
-  LOG() << "Framed!";
 }
 
 void Frame::draw()
