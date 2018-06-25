@@ -122,6 +122,7 @@ void UIManager::setButtonState()
         it->mousePressed(true);
       }
       else
+      it->mousePressed(false);
       it->mouseHover(true);
     }
     else
