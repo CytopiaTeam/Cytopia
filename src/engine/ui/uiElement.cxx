@@ -27,7 +27,7 @@ void UiElement::draw()
   }
 }
 
-void UiElement::changeTexture(int tileID) { _texture = TextureManager::Instance().getUITexture(tileID); }
+void UiElement::changeTexture(int uiSpriteID) { _texture = TextureManager::Instance().getUITexture(uiSpriteID); }
 
 void UiElement::renderTexture()
 {
@@ -56,7 +56,7 @@ bool UiElement::isClicked(int x, int y)
   return false;
 }
 
-void UiElement::drawText(const std::string &textureText, const SDL_Color &textColor)
+void UiElement::drawText(const std::string &text, const SDL_Color &textColor)
 {
   _font = TTF_OpenFont("resources/fonts/arcadeclassics.ttf", 20);
 
@@ -65,7 +65,7 @@ void UiElement::drawText(const std::string &textureText, const SDL_Color &textCo
     LOG(LOG_ERROR) << "Failed to load font!\n" << TTF_GetError();
   }
 
-  SDL_Surface *textSurface = TTF_RenderText_Solid(_font, textureText.c_str(), textColor);
+  SDL_Surface *textSurface = TTF_RenderText_Solid(_font, text.c_str(), textColor);
   if (textSurface)
   {
     // If there's already an existing surface (like a button) blit the text to it.

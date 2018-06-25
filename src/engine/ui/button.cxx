@@ -9,8 +9,6 @@ Button::Button(int x, int y, int w, int h, const std::string &text, int groupID,
   rect.h = h;
 
   drawText(text, SDL_Color{255, 255, 255});
-
-
 }
 
 void Button::draw()
