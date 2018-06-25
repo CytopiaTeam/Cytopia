@@ -10,8 +10,18 @@ public:
       : UiElement(x, y, uiSpriteID, groupID, actionID, parentOfGroup){};
   Button(int x, int y, int w, int h, const std::string &text, int groupID = 0, int actionID = 0, int parentOfGroup = 0);
 
-  //ButtonImage(int x, int y, int uiSpriteID, int groupID, int actionID, int parentOfGroup);
   ~Button() = default;
+
+  virtual void draw();
+
+  virtual void mousePressed(bool isPressed);
+  virtual void mouseHover(bool hovering);
+
+private:
+  SDL_Rect rect;
+
+  bool _isPressed = false;
+  bool _isMouseOver = false;
 };
 
 #endif

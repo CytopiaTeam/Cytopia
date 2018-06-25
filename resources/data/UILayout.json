@@ -33,6 +33,14 @@
         "Type": "ImageButton"
     },
     {
+        "GroupID": 2,
+        "Height": 400,
+        "Position_x": 250,
+        "Position_y": 100,
+        "Type": "Frame",
+        "Width": 300
+    },
+    {
         "GroupID": 0,
         "Position_x": 20,
         "Position_y": 20,
@@ -40,14 +48,25 @@
         "Type": "Text"
     },
     {
-        "ActionID": 4,
-        "GroupID": 0,
-        "Height": 60,
+        "ActionID": 5,
+        "GroupID": 2,
+        "Height": 40,
         "ParentOfGroup": 0,
-        "Position_x": 200,
+        "Position_x": 300,
         "Position_y": 200,
-        "Text": "Text Button",
+        "Text": "Settings",
         "Type": "TextButton",
-        "Width": 140
+        "Width": 200
+    },
+    {
+        "ActionID": 4,
+        "GroupID": 2,
+        "Height": 40,
+        "ParentOfGroup": 0,
+        "Position_x": 300,
+        "Position_y": 300,
+        "Text": "Quit Game",
+        "Type": "TextButton",
+        "Width": 200
     }
 ]

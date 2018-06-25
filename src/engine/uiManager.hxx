@@ -5,6 +5,7 @@
 
 #include "ui/uiElement.hxx"
 #include "ui/text.hxx"
+#include "ui/frame.hxx"
 #include "ui/button.hxx"
 #include "basics/resources.hxx"
 
@@ -27,6 +28,8 @@ public:
   void toggleGroupVisibility(int groupID);
 
   void addToGroup(int groupID, std::shared_ptr<UiElement> uiElement);
+
+  void setButtonState();
 
 private:
   UIManager() = default;
