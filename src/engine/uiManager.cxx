@@ -74,7 +74,6 @@ void UIManager::init()
         else if (it.value() == "Text")
         {
           std::string text = uiLayout[id]["Text"].get<std::string>();
-
           _uiElements.push_back(std::make_shared<Text>(Text(x, y, text, groupID, actionID, parentOf)));
           break;
         }

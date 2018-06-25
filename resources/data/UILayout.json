@@ -41,6 +41,13 @@
         "Width": 300
     },
     {
+        "GroupID": 0,
+        "Position_x": 20,
+        "Position_y": 20,
+        "Text": "Awesome Text",
+        "Type": "Text"
+    },
+    {
         "ActionID": 5,
         "GroupID": 2,
         "Height": 40,

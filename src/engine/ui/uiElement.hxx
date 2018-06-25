@@ -29,7 +29,6 @@ public:
 
   // TTF Implementation
   void drawText(const std::string &textureText, const SDL_Color &textColor);
-  void drawTextAt(int x, int y, const std::string &textureText, const SDL_Color &textColor);
 
   void drawSolidRect(SDL_Rect rect, const SDL_Color &color);
   void drawLine(int x1, int y1, int x2, int y2, const SDL_Color &color);
@@ -59,22 +58,20 @@ private:
   SDL_Window *_window = Resources::getWindow();
   TTF_Font *_font;
 
-  SDL_Rect _destRect;
+  SDL_Rect _uiElementRect { 0,0,0,0 };
+  SDL_Rect _textRect { 0,0,0,0 };
   SDL_Surface *_surface = nullptr;
-
-  Point _screenCoordinates;
 
   SDL_Color _color = SDL_Color{255, 255, 255};
 
   std::string _uiElementType = "";
 
   int _uiID;
-  int _width = 0;
-  int _height = 0;
-  bool _visible = true;
   int _groupID = 0;
   int _actionID = 0;
   int _parentOf = 0;
+  bool _visible = true;
+  bool _textBlittedToTexture = false;
 
 protected:
 
