@@ -25,12 +25,16 @@ void TextureManager::loadTexture(int tileID, bool colorKey)
 void TextureManager::loadUITexture(int uiSpriteID, bool colorKey)
 {
   std::string fileName = Resources::getUISpriteDataFromJSON("button", uiSpriteID, "filename");
+  std::string fileNameHover = Resources::getUISpriteDataFromJSON("button", uiSpriteID, "textureHover");
+  std::string fileNamePressed = Resources::getUISpriteDataFromJSON("button", uiSpriteID, "texturePressed");
   SDL_Surface *loadedImage = IMG_Load(fileName.c_str());
 
   if (loadedImage)
   {
     if (colorKey)
+    {
       SDL_SetColorKey(loadedImage, SDL_TRUE, SDL_MapRGB(loadedImage->format, 0xFF, 0, 0xFF));
+    }
 
     _uiSurfaceMap[uiSpriteID] = loadedImage;
     SDL_Texture *_texture = SDL_CreateTextureFromSurface(Resources::getRenderer(), loadedImage);
@@ -39,6 +43,49 @@ void TextureManager::loadUITexture(int uiSpriteID, bool colorKey)
       _uiTextureMap[uiSpriteID] = _texture;
     else
       LOG(LOG_ERROR) << "Renderer could not be created! SDL Error: " << SDL_GetError();
+
+    // Load hover / clicked textures if they are available.
+
+    SDL_FreeSurface(loadedImage);
+
+    if (!fileNameHover.empty())
+    {
+      SDL_Surface *loadedImage = IMG_Load(fileNameHover.c_str());
+      if (loadedImage)
+      {
+        if (colorKey)
+        {
+          SDL_SetColorKey(loadedImage, SDL_TRUE, SDL_MapRGB(loadedImage->format, 0xFF, 0, 0xFF));
+        }
+        
+        SDL_Texture *_texture = SDL_CreateTextureFromSurface(Resources::getRenderer(), loadedImage);
+        
+        if (_texture != nullptr)
+          _uiTextureMapHover[uiSpriteID] = _texture;
+        else
+          LOG(LOG_ERROR) << "Renderer could not be created! SDL Error: " << SDL_GetError();
+        SDL_FreeSurface(loadedImage);
+      }
+    }
+    if (!fileNamePressed.empty())
+    {
+      SDL_Surface *loadedImage = IMG_Load(fileNamePressed.c_str());
+      if (loadedImage)
+      {
+        if (colorKey)
+        {
+          SDL_SetColorKey(loadedImage, SDL_TRUE, SDL_MapRGB(loadedImage->format, 0xFF, 0, 0xFF));
+        }
+         
+        SDL_Texture *_texture = SDL_CreateTextureFromSurface(Resources::getRenderer(), loadedImage);
+        
+        if (_texture != nullptr)
+          _uiTextureMapPressed[uiSpriteID] = _texture;
+        else
+          LOG(LOG_ERROR) << "Renderer could not be created! SDL Error: " << SDL_GetError();
+        SDL_FreeSurface(loadedImage);
+      }
+    }
   }
   else
     LOG(LOG_ERROR) << "Could not load Texture from file " << fileName << "\nSDL_IMAGE Error: " << IMG_GetError();
@@ -54,14 +101,39 @@ SDL_Texture *TextureManager::getTileTexture(int tileID)
   return _textureMap[tileID];
 }
 
-SDL_Texture *TextureManager::getUITexture(int tileID)
+SDL_Texture *TextureManager::getUITexture(int uiSpriteID, int buttonState)
 {
-  // If the texture isn't in the map, load it first.
-  if (!_uiTextureMap.count(tileID))
+  if (!_uiTextureMap.count(uiSpriteID))
   {
-    loadUITexture(tileID);
+    loadUITexture(uiSpriteID);
   }
-  return _uiTextureMap[tileID];
+
+  switch (buttonState)
+  {
+    case HOVERING:
+      if (_uiTextureMapHover.count(uiSpriteID))
+      {
+        return _uiTextureMapHover[uiSpriteID];
+      }
+      else
+      {
+        return _uiTextureMap[uiSpriteID];
+      }
+    case CLICKED:
+      if (_uiTextureMapPressed.count(uiSpriteID))
+      {
+        return _uiTextureMapPressed[uiSpriteID];
+      }
+      else
+      {
+       return _uiTextureMap[uiSpriteID];
+      }
+      return nullptr;
+    default:
+       return _uiTextureMap[uiSpriteID];
+
+  }
+  // If the texture isn't in the map, load it first.
 }
 
 SDL_Surface *TextureManager::getTileSurface(int tileID)

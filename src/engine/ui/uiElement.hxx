@@ -40,10 +40,10 @@ public:
   virtual void mouseHover(bool isHovering) {};
 
   /** \brief Change the Texture of the button
-    * Changes the texture. Texture ID is mapped to a texture from resources/data/UIData.json
-    * @param uiSpriteID UI Texture ID 
+    * Changes the texture. 
+    * @param texture A texture in SDL_Texture* format
     */
-  void changeTexture(int uiSpriteID);
+  void UiElement::changeTexture(SDL_Texture* texture) { _texture = texture; };
 
   /** \brief Draws a text string to the screen
     * Draws a text string to the screen. This could either be a standalone text, a text on another texture
@@ -104,6 +104,9 @@ public:
   */
   int getActionID() { return _actionID; };
 
+  void changeButtonState(int state);
+  int getButtonState() { return _buttonState; };
+
 private:
   SDL_Texture *_texture = nullptr;
   SDL_Renderer *_renderer = Resources::getRenderer();
@@ -121,12 +124,17 @@ private:
 
   std::string _uiElementType = "";
 
+  int _buttonState = TextureManager::ACTIVE;
+
+  /// set to -1 for no sprite texture
+  int _uiSpriteID = -1;
   int _uiID;
   int _groupID = 0;
   int _actionID = 0;
   int _parentOf = 0;
   bool _visible = true;
   bool _textBlittedToTexture = false;
+
 
 protected:
 

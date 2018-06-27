@@ -115,20 +115,20 @@ void UIManager::setButtonState()
   SDL_GetMouseState(&x, &y);
   for (std::shared_ptr<UiElement> it : _uiElements)
   {
-    if (it->isClicked(x, y))
+    if (it->isClicked(x, y) && it->isVisible())
     {
       if (SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_LEFT))
        {
-        it->mousePressed(true);
+        it->changeButtonState(TextureManager::CLICKED);
       }
       else
-      it->mousePressed(false);
-      it->mouseHover(true);
+      {
+        it->changeButtonState(TextureManager::HOVERING);
+      }
     }
     else
     {
-      it->mousePressed(false);
-      it->mouseHover(false);
+      it->changeButtonState(TextureManager::ACTIVE);
     }
   }
 }

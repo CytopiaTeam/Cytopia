@@ -16,7 +16,7 @@ void Button::draw()
   // render the buttons texture if available
   Uint8 bgColor, bgColorFrame, bgColorFrameShade, bgColorBottomFrame, bgColorBottomFrameShade;
 
-  if (_isPressed)
+  if (getButtonState() == TextureManager::CLICKED)
   {
     bgColor = 78;
     bgColorFrame = 100;
@@ -25,7 +25,7 @@ void Button::draw()
     bgColorBottomFrameShade = 34;
 
   }
-  else if (_isMouseOver)
+  else if (getButtonState() == TextureManager::HOVERING)
   {
     bgColor = 228;
     bgColorFrame = 250;
@@ -59,6 +59,8 @@ void Button::draw()
   renderTexture();
 
 }
+
+
 
 void Button::mousePressed(bool isPressed)
 {

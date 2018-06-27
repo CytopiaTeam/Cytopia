@@ -2,9 +2,9 @@
 
 UiElement::UiElement(int x, int y, int uiSpriteID, int groupID, int actionID, int parentOfGroup)
     : _uiElementRect({ x, y, 0, 0 }), _groupID(groupID), _actionID(actionID), _parentOf(parentOfGroup),
-      _uiElementType("ImageButton")
+      _uiSpriteID(uiSpriteID)
 {
-  _texture = TextureManager::Instance().getUITexture(uiSpriteID);
+  _texture = TextureManager::Instance().getUITexture(_uiSpriteID, TextureManager::ACTIVE);
   SDL_QueryTexture(_texture, NULL, NULL, &_uiElementRect.w, &_uiElementRect.h);
 }
 
@@ -27,7 +27,14 @@ void UiElement::draw()
   }
 }
 
-void UiElement::changeTexture(int uiSpriteID) { _texture = TextureManager::Instance().getUITexture(uiSpriteID); }
+void UiElement::changeButtonState(int state)
+{
+  if (_uiSpriteID != -1 && _buttonState != state)
+  {
+    changeTexture(TextureManager::Instance().getUITexture(_uiSpriteID, state));
+  }
+ _buttonState = state;
+}
 
 void UiElement::renderTexture()
 {
@@ -85,7 +92,7 @@ void UiElement::drawText(const std::string &text, const SDL_Color &textColor)
     // else just create a new text texture
     else
     {
-    _texture = SDL_CreateTextureFromSurface(_renderer, textSurface);
+      _texture = SDL_CreateTextureFromSurface(_renderer, textSurface);
  
     // no surface exists but some shape has been drawn for that ui element
       SDL_QueryTexture(_texture, NULL, NULL, &_textRect.w, &_textRect.h);

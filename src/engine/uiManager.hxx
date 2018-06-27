@@ -8,6 +8,7 @@
 #include "ui/frame.hxx"
 #include "ui/button.hxx"
 #include "basics/resources.hxx"
+#include "textureManager.hxx"
 
 #include "../ThirdParty/json.hxx"
 

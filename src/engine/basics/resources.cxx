@@ -179,6 +179,8 @@ std::string Resources::getTileDataFromJSON(const std::string &tileType, int tile
 
 std::string Resources::getUISpriteDataFromJSON(const std::string &uiType, int uiSpriteID, const std::string &attribute)
 {
+  std::string retrievedFileName;
+
   for (json::iterator it = _uiTextureFile.begin(); it != _uiTextureFile.end(); ++it)
   {
     if (it.key() == uiType)
@@ -186,11 +188,20 @@ std::string Resources::getUISpriteDataFromJSON(const std::string &uiType, int ui
       // more json stuff later...
     }
   }
-  if (_uiTextureFile[uiType][std::to_string(uiSpriteID)]["filename"].is_null())
+  if (_uiTextureFile[uiType][std::to_string(uiSpriteID)][attribute].is_null())
   {
-    LOG(LOG_ERROR) << "Can't retrieve filename from " << settings.uiDataJSONFile << "for ID " << uiSpriteID;
+
+    if (attribute == "filename")
+    {
+      LOG(LOG_ERROR) << "Can't retrieve attribute " << attribute << " from " << settings.uiDataJSONFile << " for ID " << uiSpriteID;
+    }
+    return {};
   }
-  std::string retrievedFileName = _uiTextureFile[uiType][std::to_string(uiSpriteID)]["filename"].get<std::string>();
+  else
+  {
+    retrievedFileName = _uiTextureFile[uiType][std::to_string(uiSpriteID)][attribute].get<std::string>();
+  }
+  
   return retrievedFileName;
 }
 

@@ -1,7 +1,9 @@
 {
     "button": {
         "0": {
-            "filename": "resources/images/ui/buttons/build.png"
+            "filename": "resources/images/ui/buttons/Construction Menu.png",
+            "texturePressed": "resources/images/ui/buttons/Construction Menu pressed.png",
+            "textureHover": "resources/images/ui/buttons/Construction Menu hover.png"
         },
         "1": {
             "filename": "resources/images/ui/buttons/raise_terrain.png"
