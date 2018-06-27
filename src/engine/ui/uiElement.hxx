@@ -43,7 +43,7 @@ public:
     * Changes the texture. 
     * @param texture A texture in SDL_Texture* format
     */
-  void UiElement::changeTexture(SDL_Texture *texture) { _texture = texture; };
+  void changeTexture(SDL_Texture *texture) { _texture = texture; };
 
   /** \brief Draws a text string to the screen
     * Draws a text string to the screen. This could either be a standalone text, a text on another texture
