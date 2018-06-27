@@ -35,10 +35,10 @@ void run()
     SDL_RenderClear(_renderer);
 
     evManager.checkEvents(event, engine);
- 
+
     // render the tilemap
     engine.render();
-    
+
     // render the ui
     uiManager.setButtonState();
     uiManager.drawUI();

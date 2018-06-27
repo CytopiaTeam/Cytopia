@@ -1,15 +1,14 @@
 #include "uiElement.hxx"
 
 UiElement::UiElement(int x, int y, int uiSpriteID, int groupID, int actionID, int parentOfGroup)
-    : _uiElementRect({ x, y, 0, 0 }), _groupID(groupID), _actionID(actionID), _parentOf(parentOfGroup),
-      _uiSpriteID(uiSpriteID)
+    : _uiElementRect({x, y, 0, 0}), _groupID(groupID), _actionID(actionID), _parentOf(parentOfGroup), _uiSpriteID(uiSpriteID)
 {
   _texture = TextureManager::Instance().getUITexture(_uiSpriteID, TextureManager::ACTIVE);
   SDL_QueryTexture(_texture, NULL, NULL, &_uiElementRect.w, &_uiElementRect.h);
 }
 
 UiElement::UiElement(int x, int y, const std::string &text, int groupID, int actionID, int parentOfGroup)
-    : _uiElementRect({ x, y, 0, 0 }), _groupID(groupID), _actionID(actionID), _parentOf(parentOfGroup)
+    : _uiElementRect({x, y, 0, 0}), _groupID(groupID), _actionID(actionID), _parentOf(parentOfGroup)
 {
   drawText(text, _color);
 }
@@ -19,11 +18,11 @@ UiElement::UiElement(int x, int y, int w, int h, int groupID, int actionID, int 
 {
 }
 
-void UiElement::draw() 
-{ 
+void UiElement::draw()
+{
   if (_texture)
   {
-    renderTexture(); 
+    renderTexture();
   }
 }
 
@@ -33,7 +32,7 @@ void UiElement::changeButtonState(int state)
   {
     changeTexture(TextureManager::Instance().getUITexture(_uiSpriteID, state));
   }
- _buttonState = state;
+  _buttonState = state;
 }
 
 void UiElement::renderTexture()
@@ -56,7 +55,8 @@ void UiElement::renderTexture()
 
 bool UiElement::isClicked(int x, int y)
 {
-  if (x > _uiElementRect.x && x < _uiElementRect.x + _uiElementRect.w && y > _uiElementRect.y && y < _uiElementRect.y + _uiElementRect.h)
+  if (x > _uiElementRect.x && x < _uiElementRect.x + _uiElementRect.w && y > _uiElementRect.y &&
+      y < _uiElementRect.y + _uiElementRect.h)
   {
     return true;
   }
@@ -93,10 +93,10 @@ void UiElement::drawText(const std::string &text, const SDL_Color &textColor)
     else
     {
       _texture = SDL_CreateTextureFromSurface(_renderer, textSurface);
- 
-    // no surface exists but some shape has been drawn for that ui element
+
+      // no surface exists but some shape has been drawn for that ui element
       SDL_QueryTexture(_texture, NULL, NULL, &_textRect.w, &_textRect.h);
-      
+
       if (_uiElementRect.w != 0)
       {
         int textWidth, textHeight;
@@ -129,14 +129,14 @@ void UiElement::drawText(const std::string &text, const SDL_Color &textColor)
 
 void UiElement::drawSolidRect(SDL_Rect rect, const SDL_Color &color)
 {
-  SDL_Renderer* renderer = Resources::getRenderer();
+  SDL_Renderer *renderer = Resources::getRenderer();
   SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, SDL_ALPHA_OPAQUE);
   SDL_RenderFillRect(renderer, &rect);
 }
 
 void UiElement::drawLine(int x1, int y1, int x2, int y2, const SDL_Color &color)
 {
-  SDL_Renderer* renderer = Resources::getRenderer();
+  SDL_Renderer *renderer = Resources::getRenderer();
   SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, SDL_ALPHA_OPAQUE);
   SDL_RenderDrawLine(renderer, x1, y1, x2, y2);
 }

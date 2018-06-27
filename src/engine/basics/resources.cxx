@@ -193,7 +193,8 @@ std::string Resources::getUISpriteDataFromJSON(const std::string &uiType, int ui
 
     if (attribute == "filename")
     {
-      LOG(LOG_ERROR) << "Can't retrieve attribute " << attribute << " from " << settings.uiDataJSONFile << " for ID " << uiSpriteID;
+      LOG(LOG_ERROR) << "Can't retrieve attribute " << attribute << " from " << settings.uiDataJSONFile << " for ID "
+                     << uiSpriteID;
     }
     return {};
   }
@@ -201,7 +202,7 @@ std::string Resources::getUISpriteDataFromJSON(const std::string &uiType, int ui
   {
     retrievedFileName = _uiTextureFile[uiType][std::to_string(uiSpriteID)][attribute].get<std::string>();
   }
-  
+
   return retrievedFileName;
 }
 

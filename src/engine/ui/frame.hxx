@@ -14,7 +14,6 @@ public:
 
 private:
   SDL_Rect rect;
-
 };
 
 #endif

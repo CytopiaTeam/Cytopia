@@ -118,7 +118,7 @@ void UIManager::setButtonState()
     if (it->isClicked(x, y) && it->isVisible())
     {
       if (SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_LEFT))
-       {
+      {
         it->changeButtonState(TextureManager::CLICKED);
       }
       else

@@ -57,9 +57,9 @@ void TextureManager::loadUITexture(int uiSpriteID, bool colorKey)
         {
           SDL_SetColorKey(loadedImage, SDL_TRUE, SDL_MapRGB(loadedImage->format, 0xFF, 0, 0xFF));
         }
-        
+
         SDL_Texture *_texture = SDL_CreateTextureFromSurface(Resources::getRenderer(), loadedImage);
-        
+
         if (_texture != nullptr)
           _uiTextureMapHover[uiSpriteID] = _texture;
         else
@@ -76,9 +76,9 @@ void TextureManager::loadUITexture(int uiSpriteID, bool colorKey)
         {
           SDL_SetColorKey(loadedImage, SDL_TRUE, SDL_MapRGB(loadedImage->format, 0xFF, 0, 0xFF));
         }
-         
+
         SDL_Texture *_texture = SDL_CreateTextureFromSurface(Resources::getRenderer(), loadedImage);
-        
+
         if (_texture != nullptr)
           _uiTextureMapPressed[uiSpriteID] = _texture;
         else
@@ -110,28 +110,27 @@ SDL_Texture *TextureManager::getUITexture(int uiSpriteID, int buttonState)
 
   switch (buttonState)
   {
-    case HOVERING:
-      if (_uiTextureMapHover.count(uiSpriteID))
-      {
-        return _uiTextureMapHover[uiSpriteID];
-      }
-      else
-      {
-        return _uiTextureMap[uiSpriteID];
-      }
-    case CLICKED:
-      if (_uiTextureMapPressed.count(uiSpriteID))
-      {
-        return _uiTextureMapPressed[uiSpriteID];
-      }
-      else
-      {
-       return _uiTextureMap[uiSpriteID];
-      }
-      return nullptr;
-    default:
-       return _uiTextureMap[uiSpriteID];
-
+  case HOVERING:
+    if (_uiTextureMapHover.count(uiSpriteID))
+    {
+      return _uiTextureMapHover[uiSpriteID];
+    }
+    else
+    {
+      return _uiTextureMap[uiSpriteID];
+    }
+  case CLICKED:
+    if (_uiTextureMapPressed.count(uiSpriteID))
+    {
+      return _uiTextureMapPressed[uiSpriteID];
+    }
+    else
+    {
+      return _uiTextureMap[uiSpriteID];
+    }
+    return nullptr;
+  default:
+    return _uiTextureMap[uiSpriteID];
   }
   // If the texture isn't in the map, load it first.
 }

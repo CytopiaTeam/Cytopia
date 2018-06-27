@@ -26,24 +26,24 @@ public:
     * Renders the texture of the Ui Element. Function is over
     */
   virtual void draw();
- 
+
   /** \brief Set the button pressed event
     * Sets the mouse button pressed state. 
     * @param isPressed set button pressed state to true / false
-    */  
-  virtual void mousePressed(bool isPressed) {};
-  
+    */
+  virtual void mousePressed(bool isPressed){};
+
   /** \brief Set the mouse hover event
     * Sets the mouse hover state. 
     * @param isHovering set mouse hover state to true / false
     */
-  virtual void mouseHover(bool isHovering) {};
+  virtual void mouseHover(bool isHovering){};
 
   /** \brief Change the Texture of the button
     * Changes the texture. 
     * @param texture A texture in SDL_Texture* format
     */
-  void UiElement::changeTexture(SDL_Texture* texture) { _texture = texture; };
+  void UiElement::changeTexture(SDL_Texture *texture) { _texture = texture; };
 
   /** \brief Draws a text string to the screen
     * Draws a text string to the screen. This could either be a standalone text, a text on another texture
@@ -79,7 +79,7 @@ public:
     * @return Visibility of the UI Element.
     */
   bool isVisible() { return _visible; };
-  
+
   /** \brief Sets the UI Elements visibility.
   * Set the UI Elements visibility.
   * @param Visibility of the UI Element.
@@ -114,13 +114,13 @@ private:
   TTF_Font *_font;
 
   /// This rect represents the whole ui element
-  SDL_Rect _uiElementRect { 0,0,0,0 };
+  SDL_Rect _uiElementRect{0, 0, 0, 0};
   /// This rect represents the text texture only
-  SDL_Rect _textRect { 0,0,0,0 };
+  SDL_Rect _textRect{0, 0, 0, 0};
 
   SDL_Surface *_surface = nullptr;
 
-  SDL_Color _color {255, 255, 255};
+  SDL_Color _color{255, 255, 255};
 
   std::string _uiElementType = "";
 
@@ -135,9 +135,7 @@ private:
   bool _visible = true;
   bool _textBlittedToTexture = false;
 
-
 protected:
-
   void renderTexture();
 };
 

@@ -17,14 +17,11 @@ public:
   virtual void mousePressed(bool isPressed);
   virtual void mouseHover(bool hovering);
 
-
 private:
   SDL_Rect rect;
 
   bool _isPressed = false;
   bool _isMouseOver = false;
-
-
 };
 
 #endif

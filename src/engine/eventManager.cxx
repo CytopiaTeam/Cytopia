@@ -14,55 +14,55 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
 
   if (SDL_PollEvent(&event))
   {
-  // check ui events first before checking any game event
-  if (!handleUIEvents(event))
-  {
-    switch (event.type)
+    // check ui events first before checking any game event
+    if (!handleUIEvents(event))
     {
-
-    case SDL_QUIT:
-      engine.quitGame();
-      break;
-
-    case SDL_KEYDOWN:
-      switch (event.key.keysym.sym)
+      switch (event.type)
       {
-      case SDLK_ESCAPE:
-        uiManager.toggleGroupVisibility(2);
+
+      case SDL_QUIT:
+        engine.quitGame();
         break;
 
-      case SDLK_0:
-        engine.toggleLayer(Engine::LAYER_GRID);
-        break;
-
-      case SDLK_1:
-        engine.toggleLayer(Engine::LAYER_FLOOR);
-        break;
-
-      case SDLK_2:
-        engine.toggleLayer(Engine::LAYER_BUILDINGS);
-        break;
-
-      case SDLK_3:
-        engine.toggleLayer(Engine::LAYER_SELECTION);
-        break;
-
-      case SDLK_f:
-        engine.toggleFullScreen();
-        break;
-      case SDLK_b:
-        LOG() << "Starting elevation Benchmark!";
-        LOG().timerStart();
-        for (int i = 0; i <= Resources::settings.maxElevationHeight; i++)
+      case SDL_KEYDOWN:
+        switch (event.key.keysym.sym)
         {
-          engine.increaseHeightOfCell(Point{ 64, 64, 0, 0 });
+        case SDLK_ESCAPE:
+          uiManager.toggleGroupVisibility(2);
+          break;
+
+        case SDLK_0:
+          engine.toggleLayer(Engine::LAYER_GRID);
+          break;
+
+        case SDLK_1:
+          engine.toggleLayer(Engine::LAYER_FLOOR);
+          break;
+
+        case SDLK_2:
+          engine.toggleLayer(Engine::LAYER_BUILDINGS);
+          break;
+
+        case SDLK_3:
+          engine.toggleLayer(Engine::LAYER_SELECTION);
+          break;
+
+        case SDLK_f:
+          engine.toggleFullScreen();
+          break;
+        case SDLK_b:
+          LOG() << "Starting elevation Benchmark!";
+          LOG().timerStart();
+          for (int i = 0; i <= Resources::settings.maxElevationHeight; i++)
+          {
+            engine.increaseHeightOfCell(Point{64, 64, 0, 0});
+          }
+          LOG().timerEnd();
         }
-        LOG().timerEnd();
-      }
-      break;
+        break;
 
       case SDL_MOUSEBUTTONDOWN:
-        mouseCoords = Point{ event.button.x, event.button.y, 0, 0 };
+        mouseCoords = Point{event.button.x, event.button.y, 0, 0};
         clickCoords = Resources::convertScreenToIsoCoordinates(mouseCoords);
         if (event.button.button == SDL_BUTTON_LEFT)
         {
