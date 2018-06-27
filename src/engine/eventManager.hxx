@@ -17,6 +17,8 @@ public:
 private:
   UIManager &uiManager = UIManager::Instance();
   bool handleUIEvents(SDL_Event &event);
+
+  bool isHandlingMouseEvents = false;
 };
 
 #endif

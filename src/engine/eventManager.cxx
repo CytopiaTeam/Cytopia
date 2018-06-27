@@ -15,7 +15,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
   if (SDL_PollEvent(&event))
   {
     // check ui events first before checking any game event
-    if (!handleUIEvents(event))
+    if (!handleUIEvents(event) && !isHandlingMouseEvents)
     {
       switch (event.type)
       {
@@ -109,7 +109,15 @@ bool EventManager::handleUIEvents(SDL_Event &event)
 
   switch (event.type)
   {
+  case SDL_MOUSEBUTTONDOWN:
+    if (event.button.button == SDL_BUTTON_LEFT && clickedElement)
+    {
+      isHandlingMouseEvents = true;
+    }
+    break;
   case SDL_MOUSEBUTTONUP:
+    isHandlingMouseEvents = false;
+
     if (event.button.button == SDL_BUTTON_LEFT)
     {
       if (clickedElement)

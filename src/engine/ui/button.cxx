@@ -60,4 +60,3 @@ void Button::draw()
                 SDL_Color{bgColorBottomFrameShade, bgColorBottomFrameShade, bgColorBottomFrameShade});
   renderTexture();
 }
-
