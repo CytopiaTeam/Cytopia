@@ -14,9 +14,6 @@ public:
 
   virtual void draw();
 
-  virtual void mousePressed(bool isPressed);
-  virtual void mouseHover(bool hovering);
-
 private:
   SDL_Rect rect;
 

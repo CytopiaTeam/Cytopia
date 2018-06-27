@@ -27,18 +27,6 @@ public:
     */
   virtual void draw();
 
-  /** \brief Set the button pressed event
-    * Sets the mouse button pressed state. 
-    * @param isPressed set button pressed state to true / false
-    */
-  virtual void mousePressed(bool isPressed){};
-
-  /** \brief Set the mouse hover event
-    * Sets the mouse hover state. 
-    * @param isHovering set mouse hover state to true / false
-    */
-  virtual void mouseHover(bool isHovering){};
-
   /** \brief Change the Texture of the button
     * Changes the texture. 
     * @param texture A texture in SDL_Texture* format
@@ -104,7 +92,18 @@ public:
   */
   int getActionID() { return _actionID; };
 
+  /** \brief Set the button state
+  * Sets the mouse button pressed state. 
+  * @param state enum buttonstate
+  * @see TextureManager::buttonState
+  */
   void changeButtonState(int state);
+
+  /** \brief Get the button state
+  * Get the current mouse button pressed state.
+  * @return state enum buttonstate
+  * @see TextureManager::buttonState
+  */
   int getButtonState() { return _buttonState; };
 
 private:

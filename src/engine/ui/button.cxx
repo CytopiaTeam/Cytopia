@@ -61,6 +61,3 @@ void Button::draw()
   renderTexture();
 }
 
-void Button::mousePressed(bool isPressed) { _isPressed = isPressed; }
-
-void Button::mouseHover(bool hovering) { _isMouseOver = hovering; }
