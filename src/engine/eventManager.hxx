@@ -3,6 +3,7 @@
 
 #include "SDL2/SDL.h"
 
+#include "basics/timer.hxx"
 #include "uiManager.hxx"
 #include "engine.hxx"
 

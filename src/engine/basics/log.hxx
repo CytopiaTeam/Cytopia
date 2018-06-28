@@ -6,12 +6,14 @@
 #define LOG_HXX_
 
 #include <iostream>
-#include <ctime>
 #include <chrono>
+#include <ctime>
 #include <fstream>
 #include <sstream>
 
 #include "SDL2/SDL.h"
+
+#include "timer.hxx"
 
 enum logType
 {
@@ -88,45 +90,6 @@ private:
     std::ofstream ofs(filePath.c_str(), std::ios_base::out | std::ios_base::app);
     ofs << getTimeStamp() << '\t' << logMessage << '\n';
     ofs.close();
-  }
-
-  /** Timer Struct which holds static variables */
-  struct Timer
-  {
-    static Uint64 &nowTime()
-    {
-      static Uint64 now;
-      return now;
-    }
-    static Uint64 &lastTime()
-    {
-      static Uint64 last;
-      return last;
-    }
-    static double &deltaTime()
-    {
-      static double deltaTime;
-      return deltaTime;
-    }
-  };
-
-public:
-  static inline void timerStart()
-  {
-    Timer timer;
-    timer.nowTime() = SDL_GetPerformanceCounter();
-    timer.lastTime() = timer.nowTime();
-  }
-
-  static inline void timerEnd()
-  {
-    Timer timer;
-    timer.lastTime() = timer.nowTime();
-    timer.nowTime() = SDL_GetPerformanceCounter();
-
-    timer.deltaTime() = (double)((timer.nowTime() - timer.lastTime()) * 1000 / SDL_GetPerformanceFrequency());
-
-    LOG() << timer.deltaTime() << "ms have passed.";
   }
 };
 

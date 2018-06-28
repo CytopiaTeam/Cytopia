@@ -10,13 +10,14 @@
 
 void run()
 {
+  Timer benchmarkTimer;
   LOG() << VERSION;
-  LOG().timerStart();
   Resources::init();
 
+  benchmarkTimer.start();
   Engine &engine = Engine::Instance();
-  LOG().timerEnd();
-  LOG() << "Tile Matrix initialized";
+  benchmarkTimer.stop();
+  LOG() << "Tile Matrix initialized in " << benchmarkTimer.getDeltaTime() << "ms";
 
   SDL_Event event;
   EventManager evManager = EventManager();

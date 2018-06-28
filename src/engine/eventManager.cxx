@@ -52,12 +52,14 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           break;
         case SDLK_b:
           LOG() << "Starting elevation Benchmark!";
-          LOG().timerStart();
+          Timer benchmarkTimer;
+          benchmarkTimer.start();
           for (int i = 0; i <= Resources::settings.maxElevationHeight; i++)
           {
             engine.increaseHeightOfCell(Point{64, 64, 0, 0});
           }
-          LOG().timerEnd();
+          benchmarkTimer.stop();
+          LOG() << "Done. Elevation took " << benchmarkTimer.getDeltaTime() << "ms";
         }
         break;
 
