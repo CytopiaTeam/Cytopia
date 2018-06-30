@@ -1,5 +1,6 @@
 [
     {
+        "Type": "ImageButton",
         "ActionID": 1,
         "GroupID": 0,
         "Layout": "BottomMenu",
@@ -7,10 +8,10 @@
         "Position_x": 400,
         "Position_y": 520,
         "SpriteID": 0,
-        "TooltipText": "Construction",
-        "Type": "ImageButton"
+        "TooltipText": "Construction"
     },
     {
+        "Type": "ImageButton",
         "ActionID": 2,
         "GroupID": 1,
         "Layout": "BottomMenuExpansionGroup",
@@ -18,10 +19,10 @@
         "Position_x": 380,
         "Position_y": 470,
         "SpriteID": 1,
-        "TooltipText": "Raise Terrain",
-        "Type": "ImageButton"
+        "TooltipText": "Raise Terrain"
     },
     {
+        "Type": "ImageButton",
         "ActionID": 3,
         "GroupID": 1,
         "Layout": "BottomMenuExpansionGroup",
@@ -29,8 +30,7 @@
         "Position_x": 420,
         "Position_y": 470,
         "SpriteID": 2,
-        "TooltipText": "Lower Terrain",
-        "Type": "ImageButton"
+        "TooltipText": "Lower Terrain"
     },
     {
         "GroupID": 2,
@@ -41,24 +41,18 @@
         "Width": 300
     },
     {
-        "GroupID": 0,
-        "Position_x": 20,
-        "Position_y": 20,
-        "Text": "Awesome Text",
-        "Type": "Text"
-    },
-    {
-        "ActionID": 5,
+        "Type": "TextButton",
+        "ActionID": 1,
         "GroupID": 2,
         "Height": 40,
-        "ParentOfGroup": 0,
+        "ParentOfGroup": 3,
         "Position_x": 300,
         "Position_y": 200,
         "Text": "Settings",
-        "Type": "TextButton",
         "Width": 200
     },
     {
+        "Type": "TextButton",
         "ActionID": 4,
         "GroupID": 2,
         "Height": 40,
@@ -66,7 +60,43 @@
         "Position_x": 300,
         "Position_y": 300,
         "Text": "Quit Game",
-        "Type": "TextButton",
         "Width": 200
+    },
+    {
+        "Type": "Frame",
+        "GroupID": 3,
+        "Height": 400,
+        "Position_x": 250,
+        "Position_y": 100,
+        "Width": 300
+    },
+    {
+        "Type": "Text",
+        "GroupID": 3,
+        "Position_x": 370,
+        "Position_y": 130,
+        "Text": "Settings"
+    },
+    {
+        "Type": "TextButton",
+        "ActionID": 1,
+        "GroupID": 3,
+        "Height": 30,
+        "ParentOfGroup": 3,
+        "Position_x": 270,
+        "Position_y": 450,
+        "Text": "OK",
+        "Width": 100
+    },
+    {
+        "Type": "TextButton",
+        "ActionID": 1,
+        "GroupID": 3,
+        "Height": 30,
+        "ParentOfGroup": 3,
+        "Position_x": 430,
+        "Position_y": 450,
+        "Text": "Cancel",
+        "Width": 100
     }
 ]
