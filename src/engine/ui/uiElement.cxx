@@ -73,6 +73,10 @@ void UiElement::drawText(const std::string &text, const SDL_Color &textColor)
     LOG(LOG_ERROR) << "Failed to load font!\n" << TTF_GetError();
   }
 
+  // destroy texture first to prevent memleaks
+  if (_texture)
+    SDL_DestroyTexture(_texture);
+
   SDL_Surface *textSurface = TTF_RenderText_Solid(_font, text.c_str(), textColor);
   if (textSurface)
   {

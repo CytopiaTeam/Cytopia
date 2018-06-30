@@ -7,18 +7,17 @@
 class Tooltip : public UiElement
 {
 public:
-  //Tooltip();
-  Tooltip();
-
+  Tooltip() : UiElement(0, 0, 0, 0, -1, 0, 0, "") { };
   ~Tooltip() = default;
 
   void setText(const std::string &text);
   virtual void draw();
-  void startTimer();
+  void startTimer() { _tooltipTimer.start(); }
 
-  Timer tooltipTimer;
+
 
 private:
+  Timer _tooltipTimer;
   std::string _toolTipText;
 };
 
