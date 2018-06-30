@@ -8,7 +8,7 @@ class Tooltip : public UiElement
 {
 public:
   //Tooltip();
-  Tooltip::Tooltip();
+  Tooltip();
 
   ~Tooltip() = default;
 
