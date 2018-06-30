@@ -17,9 +17,10 @@ class UiElement
 {
 public:
   //Initializes variables
-  UiElement(int x, int y, int uiSpriteID, int groupID, int actionID, int parentOfGroup);
-  UiElement(int x, int y, const std::string &text, int groupID, int actionID, int parentOfGroup);
-  UiElement(int x, int y, int w, int h, int groupID, int actionID, int parentOfGroup);
+  UiElement(int x, int y);
+  UiElement(int x, int y, int uiSpriteID, int groupID, int actionID, int parentOfGroup, const std::string &tooltipText);
+  UiElement(int x, int y, const std::string &text, int groupID, int actionID, int parentOfGroup, const std::string &tooltipText);
+  UiElement(int x, int y, int w, int h, int groupID, int actionID, int parentOfGroup, const std::string &tooltipText);
   virtual ~UiElement() = default;
 
   /** \brief Draw the UI Element and/or render it's textures to the screen
@@ -40,6 +41,25 @@ public:
     * @param textColor Color that should be used for the text in SDL_Color format
     */
   void drawText(const std::string &text, const SDL_Color &textColor);
+
+  void drawTextFrame();
+
+  /** \brief Sets the x,y position of this ui element
+    * Sets the x,y position of the ui element
+    * @param x the new x coordinate of the ui element
+    * @param y the new y coordinate of the ui element
+    */
+  void setPosition(int x, int y)
+  {
+    _uiElementRect.x = x;
+    _uiElementRect.y = y;
+  };
+
+  /** \brief Get the position and the size of this ui element
+    * Gets the position and the size of this ui element
+    * @return Position and size as SDL_Rect
+    */
+  SDL_Rect getUiElementRect() { return _uiElementRect; };
 
   /** \brief Draws a filled rectangle to the screen.
     * Draws a filled rectangle to the screen.
@@ -106,6 +126,9 @@ public:
   */
   int getButtonState() { return _buttonState; };
 
+  void setTooltipText(const std::string &text) { _tooltipText = text; };
+  std::string getTooltipText() { return _tooltipText; };
+
 private:
   SDL_Texture *_texture = nullptr;
   SDL_Renderer *_renderer = Resources::getRenderer();
@@ -121,7 +144,7 @@ private:
 
   SDL_Color _color{255, 255, 255};
 
-  std::string _uiElementType = "";
+  std::string _tooltipText = "";
 
   int _buttonState = TextureManager::ACTIVE;
 

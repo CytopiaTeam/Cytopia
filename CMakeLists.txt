@@ -31,6 +31,8 @@ add_executable(${PROJECT_NAME}
   src/engine/ui/frame.hxx
   src/engine/ui/text.cxx
   src/engine/ui/text.hxx
+  src/engine/ui/tooltip.cxx
+  src/engine/ui/tooltip.hxx
   src/engine/ui/uiElement.cxx
   src/engine/ui/uiElement.hxx
   src/engine/audio/music.cxx

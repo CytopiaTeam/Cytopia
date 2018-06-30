@@ -12,14 +12,14 @@ public:
   Timer() = default;
   ~Timer() = default;
 
-  double getDeltaTime() { return deltaTime; };
+  double getDeltaTime();
   void start();
-  void stop();
+  void reset();
 
 private:
-  Uint64 now;
-  Uint64 last;
-  double deltaTime;
+  Uint64 now = 0;
+  Uint64 last = 0;
+  double deltaTime = 0;
 };
 
 #endif

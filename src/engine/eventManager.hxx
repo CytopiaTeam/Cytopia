@@ -4,6 +4,7 @@
 #include "SDL2/SDL.h"
 
 #include "basics/timer.hxx"
+#include "ui/tooltip.hxx"
 #include "uiManager.hxx"
 #include "engine.hxx"
 
@@ -20,6 +21,7 @@ private:
   bool handleUIEvents(SDL_Event &event);
 
   bool isHandlingMouseEvents = false;
+  std::shared_ptr<Tooltip> _tooltip = UIManager::Instance().getToolTipObject();
 };
 
 #endif

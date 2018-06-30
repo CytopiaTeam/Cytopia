@@ -16,7 +16,6 @@ void run()
 
   benchmarkTimer.start();
   Engine &engine = Engine::Instance();
-  benchmarkTimer.stop();
   LOG() << "Tile Matrix initialized in " << benchmarkTimer.getDeltaTime() << "ms";
 
   SDL_Event event;

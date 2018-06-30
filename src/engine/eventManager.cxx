@@ -58,7 +58,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           {
             engine.increaseHeightOfCell(Point{64, 64, 0, 0});
           }
-          benchmarkTimer.stop();
+          benchmarkTimer.reset();
           LOG() << "Done. Elevation took " << benchmarkTimer.getDeltaTime() << "ms";
         }
         break;
@@ -111,6 +111,28 @@ bool EventManager::handleUIEvents(SDL_Event &event)
 
   switch (event.type)
   {
+  case SDL_MOUSEMOTION:
+    if (clickedElement)
+    {
+      if (!clickedElement->getTooltipText().empty())
+      {
+
+        _tooltip->setText(clickedElement->getTooltipText());
+        _tooltip->setPosition(event.button.x - _tooltip->getUiElementRect().w / 2,
+                              event.button.y - _tooltip->getUiElementRect().h);
+        _tooltip->setVisibility(true);
+        _tooltip->startTimer();
+      }
+      else
+      {
+        _tooltip->setVisibility(false);
+      }
+    }
+    else
+    {
+      _tooltip->setVisibility(false);
+    }
+    break;
   case SDL_MOUSEBUTTONDOWN:
     if (event.button.button == SDL_BUTTON_LEFT && clickedElement)
     {

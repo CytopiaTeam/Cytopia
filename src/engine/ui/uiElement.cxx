@@ -1,20 +1,22 @@
 #include "uiElement.hxx"
 
-UiElement::UiElement(int x, int y, int uiSpriteID, int groupID, int actionID, int parentOfGroup)
-    : _uiElementRect({x, y, 0, 0}), _groupID(groupID), _actionID(actionID), _parentOf(parentOfGroup), _uiSpriteID(uiSpriteID)
+UiElement::UiElement(int x, int y, int uiSpriteID, int groupID, int actionID, int parentOfGroup, const std::string &tooltipText)
+    : _uiElementRect({x, y, 0, 0}), _groupID(groupID), _actionID(actionID), _parentOf(parentOfGroup), _uiSpriteID(uiSpriteID),
+      _tooltipText(tooltipText)
 {
   _texture = TextureManager::Instance().getUITexture(_uiSpriteID, TextureManager::ACTIVE);
   SDL_QueryTexture(_texture, NULL, NULL, &_uiElementRect.w, &_uiElementRect.h);
 }
 
-UiElement::UiElement(int x, int y, const std::string &text, int groupID, int actionID, int parentOfGroup)
-    : _uiElementRect({x, y, 0, 0}), _groupID(groupID), _actionID(actionID), _parentOf(parentOfGroup)
+UiElement::UiElement(int x, int y, const std::string &text, int groupID, int actionID, int parentOfGroup,
+                     const std::string &tooltipText)
+    : _uiElementRect({x, y, 0, 0}), _groupID(groupID), _actionID(actionID), _parentOf(parentOfGroup), _tooltipText(tooltipText)
 {
   drawText(text, _color);
 }
 
-UiElement::UiElement(int x, int y, int w, int h, int groupID, int actionID, int parentOfGroup)
-    : _uiElementRect({x, y, w, h}), _groupID(groupID), _actionID(actionID), _parentOf(parentOfGroup)
+UiElement::UiElement(int x, int y, int w, int h, int groupID, int actionID, int parentOfGroup, const std::string &tooltipText)
+    : _uiElementRect({x, y, w, h}), _groupID(groupID), _actionID(actionID), _parentOf(parentOfGroup), _tooltipText(tooltipText)
 {
 }
 
@@ -48,7 +50,6 @@ void UiElement::renderTexture()
     {
       destRect = _uiElementRect;
     }
-
     SDL_RenderCopy(_renderer, _texture, nullptr, &destRect);
   }
 }
@@ -109,6 +110,7 @@ void UiElement::drawText(const std::string &text, const SDL_Color &textColor)
       {
         _textRect.x = _uiElementRect.x;
         _textRect.y = _uiElementRect.y;
+        _uiElementRect = _textRect;
       }
     }
 
@@ -125,6 +127,15 @@ void UiElement::drawText(const std::string &text, const SDL_Color &textColor)
   }
 
   TTF_CloseFont(_font);
+}
+
+void UiElement::drawTextFrame()
+{
+  SDL_Rect textFrameRect = _textRect;
+  textFrameRect.x = textFrameRect.x - 10;
+  textFrameRect.w = textFrameRect.w + 20;
+  drawSolidRect(textFrameRect, SDL_Color{150, 150, 150});
+  drawSolidRect({textFrameRect.x + 1, textFrameRect.y + 1, textFrameRect.w - 2, textFrameRect.h - 2}, SDL_Color{128, 128, 128});
 }
 
 void UiElement::drawSolidRect(SDL_Rect rect, const SDL_Color &color)

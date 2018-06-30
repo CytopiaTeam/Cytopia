@@ -3,10 +3,12 @@
 void UIManager::init()
 {
   nlohmann::json uiLayout = Resources::getUILayoutJSONObject();
+  Timer UITimer;
 
   int parentOf = 0;
   int actionID = 0;
   int groupID = 0;
+  std::string tooltipText = "";
   int x, y;
 
   for (size_t id = 0; id < uiLayout.size(); id++)
@@ -16,6 +18,14 @@ void UIManager::init()
 
       if (it.key() == "Type")
       {
+        if (!uiLayout[id]["TooltipText"].is_null())
+        {
+          tooltipText = uiLayout[id]["TooltipText"].get<std::string>();
+        }
+        else
+        {
+          tooltipText = "";
+        }
         if (!uiLayout[id]["GroupID"].is_null())
         {
           groupID = uiLayout[id]["GroupID"].get<int>();
@@ -49,7 +59,7 @@ void UIManager::init()
         {
           int spriteID = uiLayout[id]["SpriteID"].get<int>();
 
-          _uiElements.push_back(std::make_shared<Button>(Button(x, y, spriteID, groupID, actionID, parentOf)));
+          _uiElements.push_back(std::make_shared<Button>(Button(x, y, spriteID, groupID, actionID, parentOf, tooltipText)));
           break;
         }
 
@@ -58,7 +68,7 @@ void UIManager::init()
           std::string text = uiLayout[id]["Text"].get<std::string>();
           int w = uiLayout[id]["Width"].get<int>();
           int h = uiLayout[id]["Height"].get<int>();
-          _uiElements.push_back(std::make_shared<Button>(Button(x, y, w, h, text, groupID, actionID, parentOf)));
+          _uiElements.push_back(std::make_shared<Button>(Button(x, y, w, h, text, groupID, actionID, parentOf, tooltipText)));
           break;
         }
 
@@ -67,14 +77,14 @@ void UIManager::init()
           int w = uiLayout[id]["Width"].get<int>();
           int h = uiLayout[id]["Height"].get<int>();
 
-          _uiElements.push_back(std::make_shared<Frame>(Frame(x, y, w, h, groupID, actionID, parentOf)));
+          _uiElements.push_back(std::make_shared<Frame>(Frame(x, y, w, h, groupID, actionID, parentOf, tooltipText)));
           break;
         }
 
         else if (it.value() == "Text")
         {
           std::string text = uiLayout[id]["Text"].get<std::string>();
-          _uiElements.push_back(std::make_shared<Text>(Text(x, y, text, groupID, actionID, parentOf)));
+          _uiElements.push_back(std::make_shared<Text>(Text(x, y, text, groupID, actionID, parentOf, tooltipText)));
           break;
         }
         else
@@ -96,6 +106,8 @@ void UIManager::init()
       it->setVisibility(false);
     }
   }
+
+  _tooltip->setVisibility(false);
 }
 
 void UIManager::drawUI()
@@ -106,6 +118,10 @@ void UIManager::drawUI()
     {
       it->draw();
     }
+  }
+  if (_tooltip->isVisible())
+  {
+    _tooltip->draw();
   }
 }
 
