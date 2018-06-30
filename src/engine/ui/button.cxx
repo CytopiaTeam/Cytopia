@@ -19,11 +19,11 @@ void Button::draw()
 
   if (getButtonState() == TextureManager::CLICKED)
   {
-    bgColor = 78;
-    bgColorFrame = 100;
-    bgColorFrameShade = 122;
-    bgColorBottomFrame = 56;
-    bgColorBottomFrameShade = 34;
+    bgColor = 128;
+    bgColorFrame = 106;
+    bgColorFrameShade = 84;
+    bgColorBottomFrame = 150;
+    bgColorBottomFrameShade = 172;
   }
   else if (getButtonState() == TextureManager::HOVERING)
   {
