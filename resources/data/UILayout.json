@@ -78,6 +78,12 @@
         "Text": "Settings"
     },
     {
+        "Type": "Checkbox",
+        "GroupID": 3,
+        "Position_x": 290,
+        "Position_y": 190
+    },
+    {
         "Type": "TextButton",
         "ActionID": 1,
         "GroupID": 3,

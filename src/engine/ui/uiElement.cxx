@@ -4,7 +4,7 @@ UiElement::UiElement(int x, int y, int uiSpriteID, int groupID, int actionID, in
     : _uiElementRect({x, y, 0, 0}), _groupID(groupID), _actionID(actionID), _parentOf(parentOfGroup), _uiSpriteID(uiSpriteID),
       _tooltipText(tooltipText)
 {
-  _texture = TextureManager::Instance().getUITexture(_uiSpriteID, TextureManager::ACTIVE);
+  _texture = TextureManager::Instance().getUITexture(_uiSpriteID, TextureManager::DEFAULT);
   SDL_QueryTexture(_texture, NULL, NULL, &_uiElementRect.w, &_uiElementRect.h);
 }
 

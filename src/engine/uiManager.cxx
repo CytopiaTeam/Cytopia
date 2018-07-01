@@ -87,6 +87,13 @@ void UIManager::init()
           _uiElements.push_back(std::make_shared<Text>(Text(x, y, text, groupID, actionID, parentOf, tooltipText)));
           break;
         }
+
+        else if (it.value() == "Checkbox")
+        {
+          _uiElements.push_back(std::make_shared<Checkbox>(Checkbox(x, y, groupID, tooltipText)));
+          break;
+        }
+
         else
         {
           LOG(LOG_ERROR) << "Error in JSON File " << Resources::settings.uiLayoutJSONFile
@@ -131,20 +138,46 @@ void UIManager::setButtonState()
   SDL_GetMouseState(&x, &y);
   for (std::shared_ptr<UiElement> it : _uiElements)
   {
-    if (it->isClicked(x, y) && it->isVisible())
+    if (it->isClicked(x, y))
     {
-      if (SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_LEFT))
+
+      if (it->isToogleButton())
       {
-        it->changeButtonState(TextureManager::CLICKED);
+        if (SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_LEFT) && _mouseHeldDown == false)
+        {
+          if (it->getButtonState() == TextureManager::TOGGLED)
+            it->changeButtonState(TextureManager::DEFAULT);
+          else
+            it->changeButtonState(TextureManager::TOGGLED);
+
+          _mouseHeldDown = true;
+        }
+        else if (!SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_LEFT))
+        {
+          _mouseHeldDown = false;
+        }
       }
       else
       {
-        it->changeButtonState(TextureManager::HOVERING);
+        if (it->isVisible())
+        {
+          if (SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_LEFT))
+          {
+            it->changeButtonState(TextureManager::CLICKED);
+          }
+          else
+          {
+            it->changeButtonState(TextureManager::HOVERING);
+          }
+        }
       }
     }
     else
     {
-      it->changeButtonState(TextureManager::ACTIVE);
+      if (!it->isToogleButton())
+      {
+        it->changeButtonState(TextureManager::DEFAULT);
+      }
     }
   }
 }

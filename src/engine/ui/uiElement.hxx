@@ -126,6 +126,9 @@ public:
   */
   int getButtonState() { return _buttonState; };
 
+  void setToggleButton(bool toggleable) { _toggleButton = toggleable; };
+  bool isToogleButton() { return _toggleButton; };
+
   void setTooltipText(const std::string &text) { _tooltipText = text; };
   std::string getTooltipText() { return _tooltipText; };
 
@@ -146,7 +149,7 @@ private:
 
   std::string _tooltipText = "";
 
-  int _buttonState = TextureManager::ACTIVE;
+  int _buttonState = TextureManager::DEFAULT;
 
   /// set to -1 for no sprite texture
   int _uiSpriteID = -1;
@@ -155,6 +158,9 @@ private:
   int _actionID = 0;
   int _parentOf = 0;
   bool _visible = true;
+
+  /// is this a toggle button
+  bool _toggleButton = false;
   bool _textBlittedToTexture = false;
 
 protected:

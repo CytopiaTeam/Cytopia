@@ -27,7 +27,7 @@ public:
 
   /** retrieves texture for a tileID */
   SDL_Texture *getTileTexture(int tileID);
-  SDL_Texture *getUITexture(int uiSpriteID, int buttonState = ACTIVE);
+  SDL_Texture *getUITexture(int uiSpriteID, int buttonState = TOGGLED);
 
   SDL_Surface *getTileSurface(int tileID);
   SDL_Surface *getUISurface(int uiSpriteID);
@@ -46,9 +46,11 @@ public:
 
   enum buttonState
   {
-    ACTIVE,
+    DEFAULT,
     HOVERING,
-    CLICKED
+    CLICKED,
+    TOGGLED,
+    DISABLED
   };
 
 private:

@@ -7,6 +7,7 @@
 #include "ui/frame.hxx"
 #include "ui/text.hxx"
 #include "ui/tooltip.hxx"
+#include "ui/checkbox.hxx"
 #include "ui/uiElement.hxx"
 #include "basics/resources.hxx"
 #include "basics/timer.hxx"
@@ -42,6 +43,8 @@ private:
   std::unordered_map<int, std::shared_ptr<UiElement>> _group;
 
   std::shared_ptr<Tooltip> _tooltip = std::make_shared<Tooltip>();
+
+  bool _mouseHeldDown = false;
 };
 
 #endif

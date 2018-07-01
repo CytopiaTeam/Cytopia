@@ -1,22 +1,21 @@
-#include "button.hxx"
+#include "checkbox.hxx"
 
-Button::Button(int x, int y, int w, int h, const std::string &text, int groupID, int actionID, int parentOfGroup,
-               const std::string &tooltipText)
-    : UiElement(x, y, w, h, groupID, actionID, parentOfGroup, tooltipText)
+Checkbox::Checkbox(int x, int y, int groupID, const std::string &tooltipText)
+    : UiElement(x, y, 20, 20, groupID, 0, 0, tooltipText)
 {
   rect.x = x;
   rect.y = y;
-  rect.w = w;
-  rect.h = h;
-
-  drawText(text, SDL_Color{255, 255, 255});
+  rect.w = 20;
+  rect.h = 20;
+  // checkbox is always a togglebutton
+  setToggleButton(true);
 }
 
-void Button::draw()
+void Checkbox::draw()
 {
   Uint8 bgColor, bgColorFrame, bgColorFrameShade, bgColorBottomFrame, bgColorBottomFrameShade;
 
-  if (getButtonState() == TextureManager::CLICKED || getButtonState() == TextureManager::TOGGLED)
+  if (getButtonState() == TextureManager::TOGGLED)
   {
     bgColor = 128;
     bgColorFrame = 106;
@@ -41,6 +40,9 @@ void Button::draw()
     bgColorBottomFrameShade = 84;
   }
 
+  SDL_Color color = {128, 128, 128};
+  SDL_Color color_temp = {128, 128, 128};
+
   // top frame
   drawSolidRect(rect, SDL_Color{bgColorFrameShade, bgColorFrameShade, bgColorFrameShade});
   drawSolidRect(SDL_Rect{rect.x + 2, rect.y + 2, rect.w - 4, rect.h - 4}, SDL_Color{bgColorFrame, bgColorFrame, bgColorFrame});
@@ -57,6 +59,8 @@ void Button::draw()
   drawSolidRect(SDL_Rect{(rect.x + rect.w) - 2, rect.y + 2, 2, rect.h - 2},
                 SDL_Color{bgColorBottomFrameShade, bgColorBottomFrameShade, bgColorBottomFrameShade});
 
-  // render the buttons texture if available
-  renderTexture();
+  if (getButtonState() == TextureManager::TOGGLED)
+  {
+    drawSolidRect(SDL_Rect{(rect.x + 7), rect.y + 7, rect.w - 13, rect.h - 13}, SDL_Color{84, 84, 84});
+  }
 }
