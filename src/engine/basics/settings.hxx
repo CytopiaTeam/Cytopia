@@ -19,7 +19,8 @@ public:
   Settings();
   ~Settings() = default;
 
-  void readINIFile();
+  void readFile();
+  void writeFile();
 
   typedef struct
   {
@@ -42,8 +43,8 @@ public:
   SettingsStruct settings;
 
 private:
-  json _iniFile;
-  std::string iniFileName = "resources/settings.json";
+  json _settingsJSONObject;
+  std::string settingsFileName = "resources/settings.json";
 };
 
 #endif
