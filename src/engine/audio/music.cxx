@@ -20,7 +20,7 @@ void Music::loadFile(const std::string &filename)
 
 void Music::play(int loops)
 {
-  if (Resources::settings.playMusic)
+  if (settings.settings.playMusic)
   {
     if (_music)
     {
@@ -41,7 +41,7 @@ void Music::play(int loops)
 
 void Music::stop()
 {
-  if (Resources::settings.playMusic)
+  if (settings.settings.playMusic)
   {
     // Reset the music file to the beginning
     Mix_HookMusic(NULL, NULL);
@@ -51,7 +51,7 @@ void Music::stop()
 
 void Music::pause()
 {
-  if (Resources::settings.playMusic)
+  if (settings.settings.playMusic)
   {
     Mix_PauseMusic();
   }
@@ -59,7 +59,7 @@ void Music::pause()
 
 void Music::resume()
 {
-  if (Resources::settings.playMusic)
+  if (settings.settings.playMusic)
   {
     Mix_ResumeMusic();
   }
@@ -67,7 +67,7 @@ void Music::resume()
 
 bool Music::isPlaying()
 {
-  if (Resources::settings.playMusic)
+  if (settings.settings.playMusic)
   {
     // returns amount of playing audiochannels
     return Mix_Playing(-1) != 0;

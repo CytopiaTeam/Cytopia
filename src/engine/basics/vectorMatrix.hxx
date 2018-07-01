@@ -4,6 +4,7 @@
 #include <vector>
 #include "../sprite.hxx"
 #include "../cell.hxx"
+#include "settings.hxx"
 
 class vectorMatrix
 {

@@ -84,6 +84,12 @@
         "Position_y": 190
     },
     {
+        "Type": "Checkbox",
+        "GroupID": 3,
+        "Position_x": 330,
+        "Position_y": 190
+    },
+    {
         "Type": "TextButton",
         "ActionID": 1,
         "GroupID": 3,

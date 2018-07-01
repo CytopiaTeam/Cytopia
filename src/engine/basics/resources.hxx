@@ -5,6 +5,7 @@
 
 #include "SDL2/SDL.h"
 #include "point.hxx"
+#include "settings.hxx"
 #include "../../ThirdParty/json.hxx"
 #include "log.hxx"
 
@@ -141,26 +142,6 @@ public:
 
   static int _terrainEditMode;
 
-  typedef struct
-  {
-    int mapSize;
-    int screenWidth;
-    int screenHeight;
-    int maxElevationHeight;
-    bool vSync;
-    bool fullScreen;
-    int musicVolume;
-    int soundEffectsVolume;
-    bool playMusic;
-    bool playSoundEffects;
-    int audioChannels;
-    std::string uiDataJSONFile;
-    std::string tileDataJSONFile;
-    std::string uiLayoutJSONFile;
-  } Settings;
-
-  static Settings settings;
-
 private:
   Resources(){};
   ~Resources(){};
@@ -174,12 +155,10 @@ private:
   static const int _tileSize;
 
   static json _json;
-  static json _iniFile;
   static json _uiTextureFile;
   static json _uiLayout;
 
   // read JSON FIles
-  static void readINIFile();
   static void readTileListFile();
   static void readUITextureListFile();
 

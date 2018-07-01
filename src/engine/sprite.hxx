@@ -7,6 +7,7 @@
 #include "textureManager.hxx"
 #include "basics/point.hxx"
 #include "basics/resources.hxx"
+#include "basics/settings.hxx"
 
 class Sprite
 {

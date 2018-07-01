@@ -54,7 +54,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           LOG() << "Starting elevation Benchmark!";
           Timer benchmarkTimer;
           benchmarkTimer.start();
-          for (int i = 0; i <= Resources::settings.maxElevationHeight; i++)
+          for (int i = 0; i <= Settings::Instance().settings.maxElevationHeight; i++)
           {
             engine.increaseHeightOfCell(Point{64, 64, 0, 0});
           }

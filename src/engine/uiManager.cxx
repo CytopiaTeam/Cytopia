@@ -96,7 +96,7 @@ void UIManager::init()
 
         else
         {
-          LOG(LOG_ERROR) << "Error in JSON File " << Resources::settings.uiLayoutJSONFile
+          LOG(LOG_ERROR) << "Error in JSON File " << Settings::Instance().settings.uiLayoutJSONFile
                          << "\nno matching ui element type for value " << it.value();
         }
       }

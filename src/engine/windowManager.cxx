@@ -2,8 +2,8 @@
 
 WindowManager::WindowManager(const std::string &title) : _title(title)
 {
-  _width = Resources::settings.screenWidth;
-  _height = Resources::settings.screenHeight;
+  _width = Settings::Instance().settings.screenWidth;
+  _height = Settings::Instance().settings.screenHeight;
   _running = init();
 }
 
@@ -36,9 +36,9 @@ bool WindowManager::init()
 
 void WindowManager::toggleFullScreen()
 {
-  Resources::settings.fullScreen = !Resources::settings.fullScreen;
+  Settings::Instance().settings.fullScreen = !Settings::Instance().settings.fullScreen;
 
-  if (Resources::settings.fullScreen)
+  if (Settings::Instance().settings.fullScreen)
   {
     SDL_SetWindowFullscreen(_window, SDL_WINDOW_FULLSCREEN);
   }

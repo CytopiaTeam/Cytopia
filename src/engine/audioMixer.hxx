@@ -3,7 +3,7 @@
 
 #include "audio/music.hxx"
 #include "audio/soundEffect.hxx"
-#include "basics/resources.hxx"
+#include "basics/settings.hxx"
 
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_mixer.h"

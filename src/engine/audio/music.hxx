@@ -5,6 +5,7 @@
 
 #include "../basics/log.hxx"
 #include "../basics/resources.hxx"
+#include "../basics/settings.hxx"
 
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_mixer.h"
@@ -54,6 +55,7 @@ public:
 
 private:
   Mix_Music *_music = nullptr;
+  Settings settings = Settings::Instance();
 };
 
 #endif

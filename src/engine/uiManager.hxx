@@ -10,6 +10,7 @@
 #include "ui/checkbox.hxx"
 #include "ui/uiElement.hxx"
 #include "basics/resources.hxx"
+#include "basics/settings.hxx"
 #include "basics/timer.hxx"
 #include "textureManager.hxx"
 

@@ -9,6 +9,7 @@
 
 #include "sprite.hxx"
 #include "basics/resources.hxx"
+#include "basics/settings.hxx"
 
 class WindowManager
 {

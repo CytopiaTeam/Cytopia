@@ -12,9 +12,9 @@ void vectorMatrix::initCells()
   int z = 0;
 
   // cells need to be created at the correct vector "coordinates", or else the Z-Order will be broken
-  for (int x = 0; x <= Resources::settings.mapSize; x++)
+  for (int x = 0; x <= Settings::Instance().settings.mapSize; x++)
   {
-    for (int y = Resources::settings.mapSize; y >= 0; y--)
+    for (int y = Settings::Instance().settings.mapSize; y >= 0; y--)
     {
       z++;
       //_cellMatrix.emplace(_cellMatrix.begin() + x * _columns + y,std::make_unique<Cell>(Point(x, y, z)));
@@ -27,7 +27,7 @@ void vectorMatrix::increaseHeightOfCell(const Point &isoCoordinates)
 {
   int height = _cellMatrix[isoCoordinates.x * _columns + isoCoordinates.y]->getCoordinates().height;
 
-  if (height < Resources::settings.maxElevationHeight)
+  if (height < Settings::Instance().settings.maxElevationHeight)
   {
     _cellMatrix[isoCoordinates.x * _columns + isoCoordinates.y]->increaseHeightOfCell();
     drawSurroundingTiles(_cellMatrix[isoCoordinates.x * _columns + isoCoordinates.y]->getCoordinates());

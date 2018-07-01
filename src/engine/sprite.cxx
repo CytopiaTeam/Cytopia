@@ -14,8 +14,8 @@ void Sprite::render()
   _screenCoordinates = Resources::convertIsoToScreenCoordinates(_isoCoordinates);
 
   int offscreenTolerance = static_cast<int>(3 * tileSize);
-  int screen_width = Resources::settings.screenWidth;
-  int screen_height = Resources::settings.screenHeight;
+  int screen_width = Settings::Instance().settings.screenWidth;
+  int screen_height = Settings::Instance().settings.screenHeight;
 
   //Render only whats visible
   if ((_screenCoordinates.x >= 0 - offscreenTolerance) ||

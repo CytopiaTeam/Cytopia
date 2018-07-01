@@ -2,20 +2,20 @@
 
 AudioMixer::AudioMixer()
 {
-  Mix_OpenAudio(44100, AUDIO_S16SYS, Resources::settings.audioChannels, 1024);
-  setMusicVolume(Resources::settings.musicVolume);
+  Mix_OpenAudio(44100, AUDIO_S16SYS, Settings::Instance().settings.audioChannels, 1024);
+  setMusicVolume(Settings::Instance().settings.musicVolume);
 }
 
 void AudioMixer::setMusicVolume(int volume)
 {
   Mix_VolumeMusic(volume);
-  Resources::settings.musicVolume = volume;
+  Settings::Instance().settings.musicVolume = volume;
 }
 
 void AudioMixer::setSoundEffectVolume(int volume)
 {
   //Mix_VolumeMusic(volume);
-  Resources::settings.soundEffectsVolume = volume;
+  Settings::Instance().settings.soundEffectsVolume = volume;
 }
 
 void AudioMixer::playMusic()
@@ -35,7 +35,7 @@ void AudioMixer::mute()
   for (auto it : musicObjects)
   {
     it->stop();
-    Resources::settings.playMusic = false;
-    Resources::settings.playSoundEffects = false;
+    Settings::Instance().settings.playMusic = false;
+    Settings::Instance().settings.playSoundEffects = false;
   }
 }

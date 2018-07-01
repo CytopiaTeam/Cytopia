@@ -9,6 +9,7 @@
 #include "basics/point.hxx"
 #include "basics/vectorMatrix.hxx"
 #include "basics/resources.hxx"
+#include "basics/settings.hxx"
 
 class Engine
 {

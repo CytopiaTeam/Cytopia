@@ -9,10 +9,8 @@ Point Resources::_cameraOffset;
 const int Resources::_tileSize = 32;
 int Resources::_terrainEditMode = Resources::NO_TERRAIN_EDIT;
 json Resources::_json;
-json Resources::_iniFile;
 json Resources::_uiTextureFile;
 json Resources::_uiLayout;
-Resources::Settings Resources::settings;
 
 /** Enum (bitmask) for mapping neighbor tile positions
 * [ T B L R TL TR BL BR ]
@@ -119,7 +117,6 @@ std::unordered_map<unsigned int, int> Resources::slopeTileIDMap = {
 
 void Resources::init()
 {
-  readINIFile();
   readTileListFile();
   readUITextureListFile();
   readUILayoutFile();
@@ -170,7 +167,7 @@ std::string Resources::getTileDataFromJSON(const std::string &tileType, int tile
 
   if (_json[tileType][std::to_string(tileID)]["filename"].is_null())
   {
-    LOG(LOG_ERROR) << "Can't retrieve filename from " << settings.tileDataJSONFile << " for ID " << tileID;
+    LOG(LOG_ERROR) << "Can't retrieve filename from " << Settings::Instance().settings.tileDataJSONFile << " for ID " << tileID;
     // Application should quit here.
   }
   std::string retrievedFileName = _json[tileType][std::to_string(tileID)]["filename"].get<std::string>();
@@ -193,8 +190,8 @@ std::string Resources::getUISpriteDataFromJSON(const std::string &uiType, int ui
 
     if (attribute == "filename")
     {
-      LOG(LOG_ERROR) << "Can't retrieve attribute " << attribute << " from " << settings.uiDataJSONFile << " for ID "
-                     << uiSpriteID;
+      LOG(LOG_ERROR) << "Can't retrieve attribute " << attribute << " from " << Settings::Instance().settings.uiDataJSONFile
+                     << " for ID " << uiSpriteID;
     }
     return {};
   }
@@ -208,10 +205,11 @@ std::string Resources::getUISpriteDataFromJSON(const std::string &uiType, int ui
 
 void Resources::readTileListFile()
 {
-  std::ifstream i(settings.tileDataJSONFile);
+  std::ifstream i(Settings::Instance().settings.tileDataJSONFile);
   if (i.fail())
   {
-    LOG(LOG_ERROR) << "File " << settings.tileDataJSONFile << " does not exist! Cannot load settings from INI File!";
+    LOG(LOG_ERROR) << "File " << Settings::Instance().settings.tileDataJSONFile
+                   << " does not exist! Cannot load settings from INI File!";
     // Application should quit here, without textureData from the tileList file we can't continue
     return;
   }
@@ -219,15 +217,16 @@ void Resources::readTileListFile()
   // check if json file can be parsed
   _json = json::parse(i, nullptr, false);
   if (_json.is_discarded())
-    LOG(LOG_ERROR) << "Error parsing JSON File " << settings.tileDataJSONFile;
+    LOG(LOG_ERROR) << "Error parsing JSON File " << Settings::Instance().settings.tileDataJSONFile;
 }
 
 void Resources::readUILayoutFile()
 {
-  std::ifstream i(settings.uiLayoutJSONFile);
+  std::ifstream i(Settings::Instance().settings.uiLayoutJSONFile);
   if (i.fail())
   {
-    LOG(LOG_ERROR) << "File " << settings.uiLayoutJSONFile << " does not exist! Cannot load settings from INI File!";
+    LOG(LOG_ERROR) << "File " << Settings::Instance().settings.uiLayoutJSONFile
+                   << " does not exist! Cannot load settings from INI File!";
     // Application should quit here, without textureData we can't continue
     return;
   }
@@ -236,16 +235,17 @@ void Resources::readUILayoutFile()
   _uiLayout = json::parse(i, nullptr, false);
   if (_uiLayout.is_discarded())
   {
-    LOG(LOG_ERROR) << "Error parsing JSON File " << settings.uiLayoutJSONFile;
+    LOG(LOG_ERROR) << "Error parsing JSON File " << Settings::Instance().settings.uiLayoutJSONFile;
   }
 }
 
 void Resources::readUITextureListFile()
 {
-  std::ifstream i(settings.uiDataJSONFile);
+  std::ifstream i(Settings::Instance().settings.uiDataJSONFile);
   if (i.fail())
   {
-    LOG(LOG_ERROR) << "File " << settings.uiDataJSONFile << " does not exist! Cannot load settings from INI File!";
+    LOG(LOG_ERROR) << "File " << Settings::Instance().settings.uiDataJSONFile
+                   << " does not exist! Cannot load settings from INI File!";
     // Application should quit here, without textureData we can't continue
     return;
   }
@@ -254,40 +254,6 @@ void Resources::readUITextureListFile()
   _uiTextureFile = json::parse(i, nullptr, false);
   if (_uiTextureFile.is_discarded())
   {
-    LOG(LOG_ERROR) << "Error parsing JSON File " << settings.uiDataJSONFile;
+    LOG(LOG_ERROR) << "Error parsing JSON File " << Settings::Instance().settings.uiDataJSONFile;
   }
-}
-
-void Resources::readINIFile()
-{
-  std::string iniFileName = "resources/settings.json";
-  std::ifstream i(iniFileName);
-  if (i.fail())
-  {
-    LOG(LOG_ERROR) << "File " << iniFileName << " does not exist! Cannot load settings from INI File!";
-    // Application should quit here, without settings from the ini file we can't continue
-    return;
-  }
-
-  // check if json file can be parsed
-  _iniFile = json::parse(i, nullptr, false);
-  if (_iniFile.is_discarded())
-  {
-    LOG(LOG_ERROR) << "Error parsing JSON File " << iniFileName;
-  }
-
-  settings.screenWidth = _iniFile["Graphics"]["Resolution"]["Width"].get<int>();
-  settings.screenHeight = _iniFile["Graphics"]["Resolution"]["Height"].get<int>();
-  settings.vSync = _iniFile["Graphics"]["VSYNC"].get<bool>();
-  settings.fullScreen = _iniFile["Graphics"]["FullScreen"].get<bool>();
-  settings.mapSize = _iniFile["Game"]["MapSize"].get<int>();
-  settings.maxElevationHeight = _iniFile["Game"]["MaxElevationHeight"].get<int>();
-  settings.uiDataJSONFile = _iniFile["ConfigFiles"]["UIDataJSONFile"].get<std::string>();
-  settings.tileDataJSONFile = _iniFile["ConfigFiles"]["TileDataJSONFile"].get<std::string>();
-  settings.uiLayoutJSONFile = _iniFile["ConfigFiles"]["UILayoutJSONFile"].get<std::string>();
-  settings.playMusic = _iniFile["Audio"]["PlayMusic"].get<bool>();
-  settings.playSoundEffects = _iniFile["Audio"]["PlaySoundEffects"].get<bool>();
-  settings.audioChannels = _iniFile["Audio"]["AudioChannels"].get<int>();
-  settings.musicVolume = _iniFile["Audio"]["MusicVolume"].get<int>();
-  settings.soundEffectsVolume = _iniFile["Audio"]["SoundEffectsVolume"].get<int>();
 }
