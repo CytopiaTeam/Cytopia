@@ -67,10 +67,15 @@ void UIManager::init()
       }
       if (uiLayout[it.key()][id]["Type"] == "Text")
       {
+        _uiElements.push_back(std::make_shared<Text>(Text(x, y, text, groupID, actionID, parentOf, tooltipText)));
       }
       if (uiLayout[it.key()][id]["Type"] == "Frame")
       {
         _uiElements.push_back(std::make_shared<Frame>(Frame(x, y, w, h, groupID, actionID, parentOf, tooltipText)));
+      }
+      if (uiLayout[it.key()][id]["Type"] == "Checkbox")
+      {
+        _uiElements.push_back(std::make_shared<Checkbox>(Checkbox(x, y, groupID, tooltipText)));
       }
     }
   }
