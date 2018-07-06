@@ -1,114 +1,107 @@
-[
+{
+  "BottomBar": [
     {
-        "Type": "ImageButton",
-        "ActionID": 1,
-        "GroupID": 0,
-        "Layout": "BottomMenu",
-        "ParentOfGroup": 1,
-        "Position_x": 400,
-        "Position_y": 520,
-        "SpriteID": 0,
-        "TooltipText": "Construction"
-    },
-    {
-        "Type": "ImageButton",
-        "ActionID": 2,
-        "GroupID": 1,
-        "Layout": "BottomMenuExpansionGroup",
-        "ParentOfGroup": 0,
-        "Position_x": 380,
-        "Position_y": 470,
-        "SpriteID": 1,
-        "TooltipText": "Raise Terrain"
-    },
-    {
-        "Type": "ImageButton",
-        "ActionID": 3,
-        "GroupID": 1,
-        "Layout": "BottomMenuExpansionGroup",
-        "ParentOfGroup": 0,
-        "Position_x": 420,
-        "Position_y": 470,
-        "SpriteID": 2,
-        "TooltipText": "Lower Terrain"
-    },
-    {
-        "GroupID": 2,
-        "Height": 400,
-        "Position_x": 250,
-        "Position_y": 100,
-        "Type": "Frame",
-        "Width": 300
-    },
-    {
-        "Type": "TextButton",
-        "ActionID": 1,
-        "GroupID": 2,
-        "Height": 40,
-        "ParentOfGroup": 3,
-        "Position_x": 300,
-        "Position_y": 200,
-        "Text": "Settings",
-        "Width": 200
-    },
-    {
-        "Type": "TextButton",
-        "ActionID": 4,
-        "GroupID": 2,
-        "Height": 40,
-        "ParentOfGroup": 0,
-        "Position_x": 300,
-        "Position_y": 300,
-        "Text": "Quit Game",
-        "Width": 200
-    },
-    {
-        "Type": "Frame",
-        "GroupID": 3,
-        "Height": 400,
-        "Position_x": 250,
-        "Position_y": 100,
-        "Width": 300
-    },
-    {
-        "Type": "Text",
-        "GroupID": 3,
-        "Position_x": 370,
-        "Position_y": 130,
-        "Text": "Settings"
-    },
-    {
-        "Type": "Checkbox",
-        "GroupID": 3,
-        "Position_x": 290,
-        "Position_y": 190
-    },
-    {
-        "Type": "Checkbox",
-        "GroupID": 3,
-        "Position_x": 330,
-        "Position_y": 190
-    },
-    {
-        "Type": "TextButton",
-        "ActionID": 1,
-        "GroupID": 3,
-        "Height": 30,
-        "ParentOfGroup": 3,
-        "Position_x": 270,
-        "Position_y": 450,
-        "Text": "OK",
-        "Width": 100
-    },
-    {
-        "Type": "TextButton",
-        "ActionID": 1,
-        "GroupID": 3,
-        "Height": 30,
-        "ParentOfGroup": 3,
-        "Position_x": 430,
-        "Position_y": 450,
-        "Text": "Cancel",
-        "Width": 100
+      "Type": "ImageButton",
+      "SpriteID": 0,
+      "Position_x": 400,
+      "Position_y": 520,
+      "ParentOfGroup": "ConstructionSubMenu",
+      "ActionID": 1,
+      "Layout": "BottomMenu",
+      "TooltipText": "Construction"
     }
-]
+  ],
+  "ConstructionSubMenu": [
+    {
+      "Type": "ImageButton",
+      "SpriteID": 1,
+      "Position_x": 380,
+      "Position_y": 470,
+      "ActionID": 2,
+      "Layout": "BottomMenuExpansionGroup",
+      "TooltipText": "Raise Terrain"
+    },
+    {
+      "Type": "ImageButton",
+      "SpriteID": 2,
+      "Position_x": 420,
+      "Position_y": 470,
+      "ActionID": 3,
+      "Layout": "BottomMenuExpansionGroup",
+      "TooltipText": "Lower Terrain"
+    }
+  ],
+  "PauseMenu": [
+    {
+      "Type": "Frame",
+      "Position_x": 250,
+      "Position_y": 100,
+      "Width": 300,
+      "Height": 400
+    },
+    {
+      "Type": "TextButton",
+      "Text": "Settings",
+      "Position_x": 300,
+      "Position_y": 200,
+      "Width": 200,
+      "Height": 40,
+      "ParentOfGroup": "SettingsMenu",
+      "ActionID": 1
+    },
+    {
+      "Type": "TextButton",
+      "Text": "Quit Game",
+      "Position_x": 300,
+      "Position_y": 300,
+      "Width": 200,
+      "Height": 40,
+      "ActionID": 4
+    }
+  ],
+  "SettingsMenu": [
+    {
+      "Type": "Frame",
+      "Position_x": 250,
+      "Position_y": 100,
+      "Width": 300,
+      "Height": 400
+    },
+    {
+      "Type": "Text",
+      "Text": "Settings",
+      "Position_x": 370,
+      "Position_y": 130
+    },
+    {
+      "Type": "Checkbox",
+      "Position_x": 290,
+      "Position_y": 190
+    },
+    {
+      "Type": "Checkbox",
+      "Position_x": 330,
+      "Position_y": 190
+    },
+    {
+      "Type": "TextButton",
+      "Text": "OK",
+      "Position_x": 270,
+      "Position_y": 450,
+      "Width": 100,
+      "Height": 30,
+      "ParentOfGroup": "SettingsMenu",
+      "ActionID": 1
+    },
+    {
+      "Type": "TextButton",
+      "Text": "Cancel",
+      "Position_x": 430,
+      "Position_y": 450,
+      "Width": 100,
+      "Height": 30,
+      "ParentOfGroup": "SettingsMenu",
+      "ActionID": 1
+    }
+  ]
+}

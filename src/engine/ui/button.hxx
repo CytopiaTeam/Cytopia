@@ -6,11 +6,11 @@
 class Button : public UiElement
 {
 public:
-  Button(int x, int y, int uiSpriteID, int groupID = 0, int actionID = 0, int parentOfGroup = 0,
+  Button(int x, int y, int uiSpriteID, const std::string &groupID = "", int actionID = 0, const std::string &parentOfGroup = "",
          const std::string &tooltipText = "")
       : UiElement(x, y, uiSpriteID, groupID, actionID, parentOfGroup, tooltipText){};
-  Button(int x, int y, int w, int h, const std::string &text, int groupID = 0, int actionID = 0, int parentOfGroup = 0,
-         const std::string &tooltipText = "");
+  Button(int x, int y, int w, int h, const std::string &text, const std::string &groupID = "", int actionID = 0,
+         const std::string &parentOfGroup = "", const std::string &tooltipText = "");
 
   ~Button() = default;
 

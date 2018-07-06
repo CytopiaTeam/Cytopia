@@ -31,7 +31,7 @@ public:
   std::shared_ptr<UiElement> getClickedUIElement(int x, int y);
   std::shared_ptr<Tooltip> getToolTipObject() { return _tooltip; };
 
-  void toggleGroupVisibility(int groupID);
+  void toggleGroupVisibility(const std::string &groupID);
 
   void addToGroup(int groupID, std::shared_ptr<UiElement> uiElement);
 

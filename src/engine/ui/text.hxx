@@ -6,7 +6,7 @@
 class Text : public UiElement
 {
 public:
-  Text(int x, int y, const std::string &text, int groupID = 0, int actionID = 0, int parentOfGroup = 0,
-       const std::string &tooltipText = "");
+  Text(int x, int y, const std::string &text, const std::string &groupID = "", int actionID = 0,
+       const std::string &parentOfGroup = "", const std::string &tooltipText = "");
   ~Text() = default;
 };

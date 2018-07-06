@@ -28,7 +28,8 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         switch (event.key.keysym.sym)
         {
         case SDLK_ESCAPE:
-          uiManager.toggleGroupVisibility(2);
+          // TODO: Toggle last opened menu or settings menu if nothing is open
+          uiManager.toggleGroupVisibility("PauseMenu");
           break;
 
         case SDLK_0:

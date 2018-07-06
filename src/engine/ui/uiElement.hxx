@@ -18,9 +18,12 @@ class UiElement
 public:
   //Initializes variables
   UiElement(int x, int y);
-  UiElement(int x, int y, int uiSpriteID, int groupID, int actionID, int parentOfGroup, const std::string &tooltipText);
-  UiElement(int x, int y, const std::string &text, int groupID, int actionID, int parentOfGroup, const std::string &tooltipText);
-  UiElement(int x, int y, int w, int h, int groupID, int actionID, int parentOfGroup, const std::string &tooltipText);
+  UiElement(int x, int y, int uiSpriteID, const std::string &groupID, int actionID, const std::string &parentOfGroup,
+            const std::string &tooltipText);
+  UiElement(int x, int y, const std::string &text, const std::string &groupID, int actionID, const std::string &parentOfGroup,
+            const std::string &tooltipText);
+  UiElement(int x, int y, int w, int h, const std::string &groupID, int actionID, const std::string &parentOfGroup,
+            const std::string &tooltipText);
   virtual ~UiElement() = default;
 
   /** \brief Draw the UI Element and/or render it's textures to the screen
@@ -98,13 +101,13 @@ public:
   * Retrieves the ID of the group the UI Elements belongs to.
   * @return The group ID as int
   */
-  int getGroupID() { return _groupID; };
+  std::string getGroupID() { return _groupID; };
 
   /** \brief Get the ParentOf ID of the UI Element.
   * Retrieves the ID of the group that the UI Elements the parent of.
   * @return The parentOf ID as int
   */
-  int getParentID() { return _parentOf; };
+  std::string getParentID() { return _parentOf; };
 
   /** \brief Get the Action ID of the UI Element.
   * Retrieves the ID of the action the UI Element should execute when it's clicked.
@@ -154,9 +157,9 @@ private:
   /// set to -1 for no sprite texture
   int _uiSpriteID = -1;
   int _uiID;
-  int _groupID = 0;
+  std::string _groupID = "";
   int _actionID = 0;
-  int _parentOf = 0;
+  std::string _parentOf = "";
   bool _visible = true;
 
   /// is this a toggle button
