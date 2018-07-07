@@ -6,7 +6,7 @@
 class Checkbox : public UiElement
 {
 public:
-  Checkbox(int x, int y, const std::string &groupID);
+  Checkbox(int x, int y);
   ~Checkbox() = default;
 
   SDL_Rect rect;

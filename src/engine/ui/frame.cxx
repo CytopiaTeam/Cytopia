@@ -1,7 +1,7 @@
 #include "frame.hxx"
 
-Frame::Frame(int x, int y, int w, int h, const std::string &groupID, int actionID, const std::string &parentOfGroup)
-    : UiElement(x, y, w, h, groupID, actionID, parentOfGroup)
+Frame::Frame(int x, int y, int w, int h)
+    : UiElement(x, y, w, h)
 {
   rect.x = x;
   rect.y = y;

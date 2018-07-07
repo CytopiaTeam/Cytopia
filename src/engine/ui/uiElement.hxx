@@ -18,9 +18,9 @@ class UiElement
 public:
   //Initializes variables
   UiElement(int x, int y);
-  UiElement(int x, int y, int uiSpriteID, const std::string &groupID, int actionID, const std::string &parentOfGroup);
-  UiElement(int x, int y, const std::string &text, const std::string &groupID, int actionID, const std::string &parentOfGroup);
-  UiElement(int x, int y, int w, int h, const std::string &groupID, int actionID, const std::string &parentOfGroup);
+  UiElement(int x, int y, int uiSpriteID);
+  UiElement(int x, int y, const std::string &text);
+  UiElement(int x, int y, int w, int h);
   virtual ~UiElement() = default;
 
   /** \brief Draw the UI Element and/or render it's textures to the screen
@@ -94,20 +94,46 @@ public:
   */
   void setVisibility(bool visibility) { _visible = visibility; };
 
+  /** \brief Set the Group ID (name) of the UI Element.
+  * Sets the Name of the group the UI Elements belongs to.
+  * Group ID Name must be the same as used for groups in the UI Layout JSON File.
+  * @param The name of the group the element nbelongs to as string
+  */
+  void setGroupID(const std::string& groupName) { _groupName = groupName; };
+  
   /** \brief Get the Group ID of the UI Element.
   * Retrieves the ID of the group the UI Elements belongs to.
-  * @return The group ID as int
+  * Group ID Name must be the same as used for groups in the UI Layout JSON File.
+  * @return The name of the group the element nbelongs to as string
   */
-  std::string getGroupID() { return _groupID; };
+  std::string getGroupID() { return _groupName; };
+
+  /** \brief Set the ParentOf ID of the UI Element.
+  * Retrieves the ID of the group that the UI Element is the parent of.
+  * Group ID Name must be the same as used for groups in the UI Layout JSON File.
+  * For more details see our github wiki page
+  * @param The parentOf ID as string
+  */
+  void setParentID(const std::string& parentOf) { _parentOf = parentOf; };
 
   /** \brief Get the ParentOf ID of the UI Element.
-  * Retrieves the ID of the group that the UI Elements the parent of.
-  * @return The parentOf ID as int
+  * Retrieves the ID of the group that the UI Element is the parent of. 
+  * Group ID Name must be the same as used for groups in the UI Layout JSON File.
+  * For more details see our github wiki page
+  * @return The parentOf ID as string
   */
   std::string getParentID() { return _parentOf; };
 
+  /** \brief Set the Action ID of the UI Element.
+  * Sets the ID of the action the UI Element should execute when it's clicked.
+  * For more details see our github wiki page
+  * @param The Action ID as int
+  */
+  void setActionID(int actionID) { _actionID = actionID; };
+
   /** \brief Get the Action ID of the UI Element.
   * Retrieves the ID of the action the UI Element should execute when it's clicked.
+  * For more details see our github wiki page
   * @return The Action ID as int
   */
   int getActionID() { return _actionID; };
@@ -154,7 +180,7 @@ private:
   /// set to -1 for no sprite texture
   int _uiSpriteID = -1;
   int _uiID;
-  std::string _groupID = "";
+  std::string _groupName = "";
   int _actionID = 0;
   std::string _parentOf = "";
   bool _visible = true;

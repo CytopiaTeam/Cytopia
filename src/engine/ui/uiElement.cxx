@@ -1,21 +1,20 @@
 #include "uiElement.hxx"
 
-UiElement::UiElement(int x, int y, int uiSpriteID, const std::string &groupID, int actionID, const std::string &parentOfGroup)
-    : _uiElementRect({x, y, 0, 0}), _groupID(groupID), _actionID(actionID), _parentOf(parentOfGroup), _uiSpriteID(uiSpriteID)
+UiElement::UiElement(int x, int y, int uiSpriteID)
+    : _uiElementRect({x, y, 0, 0}), _uiSpriteID(uiSpriteID)
 {
   _texture = TextureManager::Instance().getUITexture(_uiSpriteID, TextureManager::DEFAULT);
   SDL_QueryTexture(_texture, NULL, NULL, &_uiElementRect.w, &_uiElementRect.h);
 }
 
-UiElement::UiElement(int x, int y, const std::string &text, const std::string &groupID, int actionID,
-                     const std::string &parentOfGroup)
-    : _uiElementRect({x, y, 0, 0}), _groupID(groupID), _actionID(actionID), _parentOf(parentOfGroup)
+UiElement::UiElement(int x, int y, const std::string &text)
+    : _uiElementRect({x, y, 0, 0})
 {
   drawText(text, _color);
 }
 
-UiElement::UiElement(int x, int y, int w, int h, const std::string &groupID, int actionID, const std::string &parentOfGroup)
-    : _uiElementRect({x, y, w, h}), _groupID(groupID), _actionID(actionID), _parentOf(parentOfGroup)
+UiElement::UiElement(int x, int y, int w, int h)
+    : _uiElementRect({x, y, w, h})
 {
 }
 

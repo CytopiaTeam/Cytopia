@@ -6,7 +6,7 @@
 class Bar : public UiElement
 {
 public:
-  Bar(int x, int y, int w, int h, const std::string &groupID = "");
+  Bar(int x, int y, int w, int h);
   ~Bar() = default;
 };
 
