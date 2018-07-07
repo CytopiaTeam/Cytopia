@@ -121,10 +121,28 @@ public:
   */
   int getButtonState() { return _buttonState; };
 
+  /** \brief Set the button mode to toggleButton
+  * Set the button mode to toggle button, which means it stays pressed when its clicked.
+  * @param toggleable if this is button a togglebutton as bool
+  */
   void setToggleButton(bool toggleable) { _toggleButton = toggleable; };
+
+  /** \brief Get the button mode (check if it is a toggleButton)
+  * Get the button mode (wether this is a toggle button or not), which means it stays pressed when its clicked.
+  * @return toggleable if this is button a togglebutton as bool
+  */
   bool isToogleButton() { return _toggleButton; };
 
+  /** \brief Set the uiElements tooltip text
+  * Set the tooltip text for this ui element. Tooltip is shown when hovering over a ui Element.
+  * @param tooltiptext as string
+  */
   void setTooltipText(const std::string &text) { _tooltipText = text; };
+
+  /** \brief Get the uiElements tooltip text
+  * Get the tooltip text for this ui element. Tooltip is shown when hovering over a ui Element.
+  * @return tooltiptext as string
+  */
   std::string getTooltipText() { return _tooltipText; };
 
 private:
