@@ -8,7 +8,7 @@ UiElement::UiElement(const SDL_Rect &uiElementRect, int uiSpriteID) : _uiElement
 
 UiElement::UiElement(const SDL_Rect &uiElementRect, const std::string &text) : _uiElementRect(uiElementRect)
 {
-  drawText(text, _color);
+
 }
 
 UiElement::UiElement(const SDL_Rect &uiElementRect) : _uiElementRect(uiElementRect) {}
