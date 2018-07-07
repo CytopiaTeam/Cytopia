@@ -17,10 +17,9 @@ class UiElement
 {
 public:
   //Initializes variables
-  UiElement(int x, int y);
-  UiElement(int x, int y, int uiSpriteID);
-  UiElement(int x, int y, const std::string &text);
-  UiElement(int x, int y, int w, int h);
+  UiElement(const SDL_Rect &uiElementRect, int uiSpriteID);
+  UiElement(const SDL_Rect &uiElementRect, const std::string &text);
+  UiElement(const SDL_Rect &uiElementRect);
   virtual ~UiElement() = default;
 
   /** \brief Draw the UI Element and/or render it's textures to the screen
@@ -28,7 +27,7 @@ public:
     */
   virtual void draw();
 
-    /** \brief Sets the x,y position of this ui element
+  /** \brief Sets the x,y position of this ui element
     * Sets the x,y position of the ui element
     * @param x the new x coordinate of the ui element
     * @param y the new y coordinate of the ui element
@@ -68,8 +67,8 @@ public:
   * Group ID Name must be the same as used for groups in the UI Layout JSON File.
   * @param The name of the group the element nbelongs to as string
   */
-  void setGroupID(const std::string& groupName) { _groupName = groupName; };
-  
+  void setGroupID(const std::string &groupName) { _groupName = groupName; };
+
   /** \brief Get the Group ID of the UI Element.
   * Retrieves the ID of the group the UI Elements belongs to.
   * Group ID Name must be the same as used for groups in the UI Layout JSON File.
@@ -83,7 +82,7 @@ public:
   * For more details see our github wiki page
   * @param The parentOf ID as string
   */
-  void setParentID(const std::string& parentOf) { _parentOf = parentOf; };
+  void setParentID(const std::string &parentOf) { _parentOf = parentOf; };
 
   /** \brief Get the ParentOf ID of the UI Element.
   * Retrieves the ID of the group that the UI Element is the parent of. 

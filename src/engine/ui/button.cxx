@@ -1,12 +1,8 @@
 #include "button.hxx"
 
-Button::Button(int x, int y, int w, int h, const std::string &text)
-    : UiElement(x, y, w, h)
+Button::Button(const SDL_Rect &uiElementRect, const std::string &text) : UiElement(uiElementRect)
 {
-  rect.x = x;
-  rect.y = y;
-  rect.w = w;
-  rect.h = h;
+  rect = uiElementRect;
 
   drawText(text, SDL_Color{255, 255, 255});
 }

@@ -1,22 +1,17 @@
 #include "uiElement.hxx"
 
-UiElement::UiElement(int x, int y, int uiSpriteID)
-    : _uiElementRect({x, y, 0, 0}), _uiSpriteID(uiSpriteID)
+UiElement::UiElement(const SDL_Rect &uiElementRect, int uiSpriteID) : _uiElementRect(uiElementRect), _uiSpriteID(uiSpriteID)
 {
   _texture = TextureManager::Instance().getUITexture(_uiSpriteID, TextureManager::DEFAULT);
   SDL_QueryTexture(_texture, NULL, NULL, &_uiElementRect.w, &_uiElementRect.h);
 }
 
-UiElement::UiElement(int x, int y, const std::string &text)
-    : _uiElementRect({x, y, 0, 0})
+UiElement::UiElement(const SDL_Rect &uiElementRect, const std::string &text) : _uiElementRect(uiElementRect)
 {
   drawText(text, _color);
 }
 
-UiElement::UiElement(int x, int y, int w, int h)
-    : _uiElementRect({x, y, w, h})
-{
-}
+UiElement::UiElement(const SDL_Rect &uiElementRect) : _uiElementRect(uiElementRect) {}
 
 void UiElement::draw()
 {
@@ -138,8 +133,8 @@ void UiElement::drawTextFrame()
     SDL_Rect textFrameRect = _textRect;
     textFrameRect.x = textFrameRect.x - 10;
     textFrameRect.w = textFrameRect.w + 20;
-    drawSolidRect(textFrameRect, SDL_Color{ 150, 150, 150 });
-    drawSolidRect({ textFrameRect.x + 1, textFrameRect.y + 1, textFrameRect.w - 2, textFrameRect.h - 2 }, SDL_Color{ 128, 128, 128 });
+    drawSolidRect(textFrameRect, SDL_Color{150, 150, 150});
+    drawSolidRect({textFrameRect.x + 1, textFrameRect.y + 1, textFrameRect.w - 2, textFrameRect.h - 2}, SDL_Color{128, 128, 128});
   }
 }
 

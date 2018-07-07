@@ -6,9 +6,8 @@
 class Button : public UiElement
 {
 public:
-  Button(int x, int y, int uiSpriteID)
-      : UiElement(x, y, uiSpriteID){};
-  Button(int x, int y, int w, int h, const std::string &text);
+  Button(const SDL_Rect &uiElementRect, int uiSpriteID) : UiElement(uiElementRect, uiSpriteID){};
+  Button(const SDL_Rect &uiElementRect, const std::string &text);
 
   ~Button() = default;
 

@@ -1,3 +1,3 @@
 #include "bar.hxx"
 
-Bar::Bar(int x, int y, int w, int h) : UiElement(x, y, w, h) {}
+Bar::Bar(const SDL_Rect &uiElementRect) : UiElement(uiElementRect) {}

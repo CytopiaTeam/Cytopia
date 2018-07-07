@@ -6,7 +6,7 @@
 class Frame : public UiElement
 {
 public:
-  Frame(int x, int y, int w, int h);
+  Frame(const SDL_Rect &uiElementRect);
 
   ~Frame() = default;
 

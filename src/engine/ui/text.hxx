@@ -6,6 +6,6 @@
 class Text : public UiElement
 {
 public:
-  Text(int x, int y, const std::string &text);
+  Text(const SDL_Rect &uiElementRect, const std::string &text);
   ~Text() = default;
 };

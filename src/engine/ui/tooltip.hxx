@@ -7,7 +7,7 @@
 class Tooltip : public UiElement
 {
 public:
-  Tooltip() : UiElement(0, 0, 0, 0){};
+  Tooltip() : UiElement(SDL_Rect{0, 0, 0, 0}){};
   ~Tooltip() = default;
 
   void setText(const std::string &text);

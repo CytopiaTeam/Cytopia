@@ -1,13 +1,6 @@
 #include "frame.hxx"
 
-Frame::Frame(int x, int y, int w, int h)
-    : UiElement(x, y, w, h)
-{
-  rect.x = x;
-  rect.y = y;
-  rect.w = w;
-  rect.h = h;
-}
+Frame::Frame(const SDL_Rect &uiElementRect) : UiElement(uiElementRect) { rect = uiElementRect; }
 
 void Frame::draw()
 {

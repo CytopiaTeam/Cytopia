@@ -1,9 +1,8 @@
 #include "checkbox.hxx"
 
-Checkbox::Checkbox(int x, int y) : UiElement(x, y, 20, 20)
+Checkbox::Checkbox(const SDL_Rect &uiElementRect) : UiElement(SDL_Rect{uiElementRect.x, uiElementRect.y, 20, 20})
 {
-  rect.x = x;
-  rect.y = y;
+  rect = uiElementRect;
   rect.w = 20;
   rect.h = 20;
   // checkbox is always a togglebutton

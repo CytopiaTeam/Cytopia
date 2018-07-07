@@ -1,6 +1,3 @@
 #include "text.hxx"
 
-Text::Text(int x, int y, const std::string &text)
-    : UiElement(x, y, text)
-{
-}
+Text::Text(const SDL_Rect &uiElementRect, const std::string &text) : UiElement(uiElementRect, text) {}

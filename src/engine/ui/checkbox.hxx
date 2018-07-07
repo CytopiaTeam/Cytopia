@@ -6,7 +6,7 @@
 class Checkbox : public UiElement
 {
 public:
-  Checkbox(int x, int y);
+  Checkbox(const SDL_Rect &uiElementRect);
   ~Checkbox() = default;
 
   SDL_Rect rect;

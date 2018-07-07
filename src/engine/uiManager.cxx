@@ -24,6 +24,8 @@ void UIManager::init()
         std::string parentOf;
         std::string tooltipText = "";
         std::string text = "";
+
+        SDL_Rect elementRect = {0, 0, 0, 0};
         int x = 0;
         int y = 0;
         int w = 0;
@@ -31,16 +33,16 @@ void UIManager::init()
         int spriteID = 0;
 
         // Each element must have x and y values
-        x = uiLayout[it.key()][id]["Position_x"].get<int>();
-        y = uiLayout[it.key()][id]["Position_y"].get<int>();
+        elementRect.x = uiLayout[it.key()][id]["Position_x"].get<int>();
+        elementRect.y = uiLayout[it.key()][id]["Position_y"].get<int>();
 
         if (!uiLayout[it.key()][id]["Width"].is_null())
         {
-          w = uiLayout[it.key()][id]["Width"].get<int>();
+          elementRect.w = uiLayout[it.key()][id]["Width"].get<int>();
         }
         if (!uiLayout[it.key()][id]["Height"].is_null())
         {
-          h = uiLayout[it.key()][id]["Height"].get<int>();
+          elementRect.h = uiLayout[it.key()][id]["Height"].get<int>();
         }
         if (!uiLayout[it.key()][id]["SpriteID"].is_null())
         {
@@ -67,23 +69,23 @@ void UIManager::init()
         // Create the ui elements
         if (uiLayout[it.key()][id]["Type"] == "ImageButton")
         {
-          uiElement = std::make_shared<Button>(Button(x, y, spriteID));
+          uiElement = std::make_shared<Button>(Button(elementRect, spriteID));
         }
         if (uiLayout[it.key()][id]["Type"] == "TextButton")
         {
-          uiElement = std::make_shared<Button>(Button(x, y, w, h, text));
+          uiElement = std::make_shared<Button>(Button(elementRect, text));
         }
         if (uiLayout[it.key()][id]["Type"] == "Text")
         {
-          uiElement = std::make_shared<Text>(Text(x, y, text));
+          uiElement = std::make_shared<Text>(Text(elementRect, text));
         }
         if (uiLayout[it.key()][id]["Type"] == "Frame")
         {
-          uiElement = std::make_shared<Frame>(Frame(x, y, w, h));
+          uiElement = std::make_shared<Frame>(Frame(elementRect));
         }
         if (uiLayout[it.key()][id]["Type"] == "Checkbox")
         {
-          uiElement = std::make_shared<Checkbox>(Checkbox(x, y ));
+          uiElement = std::make_shared<Checkbox>(Checkbox(elementRect));
         }
 
         uiElement->setVisibility(visible);
