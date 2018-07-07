@@ -133,11 +133,14 @@ void UiElement::drawText(const std::string &text, const SDL_Color &textColor)
 
 void UiElement::drawTextFrame()
 {
-  SDL_Rect textFrameRect = _textRect;
-  textFrameRect.x = textFrameRect.x - 10;
-  textFrameRect.w = textFrameRect.w + 20;
-  drawSolidRect(textFrameRect, SDL_Color{150, 150, 150});
-  drawSolidRect({textFrameRect.x + 1, textFrameRect.y + 1, textFrameRect.w - 2, textFrameRect.h - 2}, SDL_Color{128, 128, 128});
+  if (_textRect.w != 0 && _textRect.h != 0)
+  {
+    SDL_Rect textFrameRect = _textRect;
+    textFrameRect.x = textFrameRect.x - 10;
+    textFrameRect.w = textFrameRect.w + 20;
+    drawSolidRect(textFrameRect, SDL_Color{ 150, 150, 150 });
+    drawSolidRect({ textFrameRect.x + 1, textFrameRect.y + 1, textFrameRect.w - 2, textFrameRect.h - 2 }, SDL_Color{ 128, 128, 128 });
+  }
 }
 
 void UiElement::drawSolidRect(SDL_Rect rect, const SDL_Color &color)

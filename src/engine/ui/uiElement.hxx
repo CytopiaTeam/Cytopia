@@ -28,23 +28,7 @@ public:
     */
   virtual void draw();
 
-  /** \brief Change the Texture of the button
-    * Changes the texture. 
-    * @param texture A texture in SDL_Texture* format
-    */
-  void changeTexture(SDL_Texture *texture) { _texture = texture; };
-
-  /** \brief Draws a text string to the screen
-    * Draws a text string to the screen. This could either be a standalone text, a text on another texture
-    * or a text on a GUI Element drawn with shape functions.
-    * @param text Text to draw 
-    * @param textColor Color that should be used for the text in SDL_Color format
-    */
-  void drawText(const std::string &text, const SDL_Color &textColor);
-
-  void drawTextFrame();
-
-  /** \brief Sets the x,y position of this ui element
+    /** \brief Sets the x,y position of this ui element
     * Sets the x,y position of the ui element
     * @param x the new x coordinate of the ui element
     * @param y the new y coordinate of the ui element
@@ -60,21 +44,6 @@ public:
     * @return Position and size as SDL_Rect
     */
   SDL_Rect getUiElementRect() { return _uiElementRect; };
-
-  /** \brief Draws a filled rectangle to the screen.
-    * Draws a filled rectangle to the screen.
-    * @param rect the coordinates of the shape to draw in SDL_Rect format.
-    * @param color The color for the rectangle.
-    */
-  void drawSolidRect(SDL_Rect rect, const SDL_Color &color);
-
-  /** \brief Draws a line to the screen.
-    * Draws a line to the screen.
-    * @param x1, y1 The lines starting point.
-    * @param x2, y2 The lines ending point.
-    * @param color The color of the line.
-    */
-  void drawLine(int x1, int y1, int x2, int y2, const SDL_Color &color);
 
   /** \brief Checks if the current UI Element is clicked
     * Check if the coordinates match the ones stored in _uiElementRect
@@ -191,6 +160,40 @@ private:
 
 protected:
   void renderTexture();
+
+  /** \brief Draws a filled rectangle to the screen.
+  * Draws a filled rectangle to the screen.
+  * @param rect the coordinates of the shape to draw in SDL_Rect format.
+  * @param color The color for the rectangle.
+  */
+  void drawSolidRect(SDL_Rect rect, const SDL_Color &color);
+
+  /** \brief Draws a line to the screen.
+  * Draws a line to the screen.
+  * @param x1, y1 The lines starting point.
+  * @param x2, y2 The lines ending point.
+  * @param color The color of the line.
+  */
+  void drawLine(int x1, int y1, int x2, int y2, const SDL_Color &color);
+
+  /** \brief Draws a text string to the screen
+  * Draws a text string to the screen. This could either be a standalone text, a text on another texture
+  * or a text on a GUI Element drawn with shape functions.
+  * @param text Text to draw
+  * @param textColor Color that should be used for the text in SDL_Color format
+  */
+  void drawText(const std::string &text, const SDL_Color &textColor);
+
+  /** \brief Draws a frame around a textfield
+  * Draws a frame around around an existing textfield. This function cannot be used without an existing textfield.
+  */
+  void drawTextFrame();
+
+  /** \brief Change the Texture of the button
+  * Changes the texture.
+  * @param texture A texture in SDL_Texture* format
+  */
+  void changeTexture(SDL_Texture *texture) { _texture = texture; };
 };
 
 #endif
