@@ -2,8 +2,6 @@
 
 UiElement::UiElement(const SDL_Rect &uiElementRect, int uiSpriteID) : _uiElementRect(uiElementRect), _uiSpriteID(uiSpriteID)
 {
-  _texture = TextureManager::Instance().getUITexture(_uiSpriteID, TextureManager::DEFAULT);
-  SDL_QueryTexture(_texture, NULL, NULL, &_uiElementRect.w, &_uiElementRect.h);
 }
 
 UiElement::UiElement(const SDL_Rect &uiElementRect, const std::string &text) : _uiElementRect(uiElementRect)
@@ -19,6 +17,13 @@ void UiElement::draw()
   {
     renderTexture();
   }
+}
+
+void UiElement::setSpriteID(int uiSpriteID)
+{
+  _uiSpriteID = uiSpriteID;
+  _texture = TextureManager::Instance().getUITexture(_uiSpriteID, TextureManager::DEFAULT);
+  SDL_QueryTexture(_texture, NULL, NULL, &_uiElementRect.w, &_uiElementRect.h);
 }
 
 void UiElement::changeButtonState(int state)

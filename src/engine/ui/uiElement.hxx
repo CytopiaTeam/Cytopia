@@ -144,6 +144,13 @@ public:
   */
   std::string getTooltipText() { return _tooltipText; };
 
+  /** \brief Set the uiElements sprite ID
+  * Set the sprite ID this ui element. The texture will be retrieved from the textureManager for the according ID.
+  * spriteIDs are mapped to image files in the UIData.json File in the resources/data dir.
+  * @param spriteID that should be used for this element as int.
+  */
+  void setSpriteID(int uiSpriteID);
+
 private:
   SDL_Texture *_texture = nullptr;
   SDL_Renderer *_renderer = Resources::getRenderer();
