@@ -18,12 +18,9 @@ class UiElement
 public:
   //Initializes variables
   UiElement(int x, int y);
-  UiElement(int x, int y, int uiSpriteID, const std::string &groupID, int actionID, const std::string &parentOfGroup,
-            const std::string &tooltipText);
-  UiElement(int x, int y, const std::string &text, const std::string &groupID, int actionID, const std::string &parentOfGroup,
-            const std::string &tooltipText);
-  UiElement(int x, int y, int w, int h, const std::string &groupID, int actionID, const std::string &parentOfGroup,
-            const std::string &tooltipText);
+  UiElement(int x, int y, int uiSpriteID, const std::string &groupID, int actionID, const std::string &parentOfGroup);
+  UiElement(int x, int y, const std::string &text, const std::string &groupID, int actionID, const std::string &parentOfGroup);
+  UiElement(int x, int y, int w, int h, const std::string &groupID, int actionID, const std::string &parentOfGroup);
   virtual ~UiElement() = default;
 
   /** \brief Draw the UI Element and/or render it's textures to the screen

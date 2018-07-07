@@ -6,8 +6,7 @@
 class Frame : public UiElement
 {
 public:
-  Frame(int x, int y, int w, int h, const std::string &groupID = "", int actionID = 0, const std::string &parentOfGroup = "",
-        const std::string &tooltipText = "");
+  Frame(int x, int y, int w, int h, const std::string &groupID = "", int actionID = 0, const std::string &parentOfGroup = "");
 
   ~Frame() = default;
 

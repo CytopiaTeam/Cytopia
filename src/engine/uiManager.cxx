@@ -9,15 +9,15 @@ void UIManager::init()
   {
     std::string groupID;
     groupID = it.key();
-    
+
     bool visible = false;
-    
+
     for (size_t id = 0; id < uiLayout[it.key()].size(); id++)
     {
 
       if (!uiLayout[it.key()][id]["groupVisibility"].is_null())
         visible = uiLayout[it.key()][id]["groupVisibility"].get<bool>();
-      
+
       if (!uiLayout[it.key()][id]["Type"].is_null())
       {
         int actionID = 0;
@@ -66,32 +66,37 @@ void UIManager::init()
         // Create the ui elements
         if (uiLayout[it.key()][id]["Type"] == "ImageButton")
         {
-          std::shared_ptr<Button> button = std::make_shared<Button>(Button(x, y, spriteID, groupID, actionID, parentOf, tooltipText));
+          std::shared_ptr<Button> button = std::make_shared<Button>(Button(x, y, spriteID, groupID, actionID, parentOf));
           button->setVisibility(visible);
+          button->setTooltipText(tooltipText);
           _uiElements.emplace_back(button);
         }
         if (uiLayout[it.key()][id]["Type"] == "TextButton")
         {
-          std::shared_ptr<Button> button = std::make_shared<Button>(Button(x, y, w, h, text, groupID, actionID, parentOf, tooltipText));
+          std::shared_ptr<Button> button = std::make_shared<Button>(Button(x, y, w, h, text, groupID, actionID, parentOf));
           button->setVisibility(visible);
+          button->setTooltipText(tooltipText);
           _uiElements.emplace_back(button);
         }
         if (uiLayout[it.key()][id]["Type"] == "Text")
         {
-          std::shared_ptr<Text> textElement = std::make_shared<Text>(Text(x, y, text, groupID, actionID, parentOf, tooltipText));
+          std::shared_ptr<Text> textElement = std::make_shared<Text>(Text(x, y, text, groupID, actionID, parentOf));
           textElement->setVisibility(visible);
+          textElement->setTooltipText(tooltipText);
           _uiElements.emplace_back(textElement);
         }
         if (uiLayout[it.key()][id]["Type"] == "Frame")
         {
-          std::shared_ptr<Frame> frame = std::make_shared<Frame>(Frame(x, y, w, h, groupID, actionID, parentOf, tooltipText));
+          std::shared_ptr<Frame> frame = std::make_shared<Frame>(Frame(x, y, w, h, groupID, actionID, parentOf));
           frame->setVisibility(visible);
+          frame->setTooltipText(tooltipText);
           _uiElements.emplace_back(frame);
         }
         if (uiLayout[it.key()][id]["Type"] == "Checkbox")
         {
-          std::shared_ptr<Checkbox> checkbox = std::make_shared<Checkbox>(Checkbox(x, y, groupID, tooltipText));
+          std::shared_ptr<Checkbox> checkbox = std::make_shared<Checkbox>(Checkbox(x, y, groupID));
           checkbox->setVisibility(visible);
+          checkbox->setTooltipText(tooltipText);
           _uiElements.emplace_back(checkbox);
         }
       }

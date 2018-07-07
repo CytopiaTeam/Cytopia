@@ -1,8 +1,8 @@
 #include "button.hxx"
 
 Button::Button(int x, int y, int w, int h, const std::string &text, const std::string &groupID, int actionID,
-               const std::string &parentOfGroup, const std::string &tooltipText)
-    : UiElement(x, y, w, h, groupID, actionID, parentOfGroup, tooltipText)
+               const std::string &parentOfGroup)
+    : UiElement(x, y, w, h, groupID, actionID, parentOfGroup)
 {
   rect.x = x;
   rect.y = y;

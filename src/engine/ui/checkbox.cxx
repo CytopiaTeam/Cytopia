@@ -1,7 +1,6 @@
 #include "checkbox.hxx"
 
-Checkbox::Checkbox(int x, int y, const std::string &groupID, const std::string &tooltipText)
-    : UiElement(x, y, 20, 20, groupID, 0, "", tooltipText)
+Checkbox::Checkbox(int x, int y, const std::string &groupID) : UiElement(x, y, 20, 20, groupID, 0, "")
 {
   rect.x = x;
   rect.y = y;

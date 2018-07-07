@@ -1,8 +1,7 @@
 #include "frame.hxx"
 
-Frame::Frame(int x, int y, int w, int h, const std::string &groupID, int actionID, const std::string &parentOfGroup,
-             const std::string &tooltipText)
-    : UiElement(x, y, w, h, groupID, actionID, parentOfGroup, tooltipText)
+Frame::Frame(int x, int y, int w, int h, const std::string &groupID, int actionID, const std::string &parentOfGroup)
+    : UiElement(x, y, w, h, groupID, actionID, parentOfGroup)
 {
   rect.x = x;
   rect.y = y;
