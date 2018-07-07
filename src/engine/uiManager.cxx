@@ -63,42 +63,34 @@ void UIManager::init()
           text = uiLayout[it.key()][id]["Text"].get<std::string>();
         }
 
+        std::shared_ptr<UiElement> uiElement;
         // Create the ui elements
         if (uiLayout[it.key()][id]["Type"] == "ImageButton")
         {
-          std::shared_ptr<Button> button = std::make_shared<Button>(Button(x, y, spriteID, groupID, actionID, parentOf));
-          button->setVisibility(visible);
-          button->setTooltipText(tooltipText);
-          _uiElements.emplace_back(button);
+          uiElement = std::make_shared<Button>(Button(x, y, spriteID, groupID, actionID, parentOf));
         }
         if (uiLayout[it.key()][id]["Type"] == "TextButton")
         {
-          std::shared_ptr<Button> button = std::make_shared<Button>(Button(x, y, w, h, text, groupID, actionID, parentOf));
-          button->setVisibility(visible);
-          button->setTooltipText(tooltipText);
-          _uiElements.emplace_back(button);
+          uiElement = std::make_shared<Button>(Button(x, y, w, h, text, groupID, actionID, parentOf));
         }
         if (uiLayout[it.key()][id]["Type"] == "Text")
         {
-          std::shared_ptr<Text> textElement = std::make_shared<Text>(Text(x, y, text, groupID, actionID, parentOf));
-          textElement->setVisibility(visible);
-          textElement->setTooltipText(tooltipText);
-          _uiElements.emplace_back(textElement);
+          uiElement = std::make_shared<Text>(Text(x, y, text, groupID, actionID, parentOf));
         }
         if (uiLayout[it.key()][id]["Type"] == "Frame")
         {
-          std::shared_ptr<Frame> frame = std::make_shared<Frame>(Frame(x, y, w, h, groupID, actionID, parentOf));
-          frame->setVisibility(visible);
-          frame->setTooltipText(tooltipText);
-          _uiElements.emplace_back(frame);
+          uiElement = std::make_shared<Frame>(Frame(x, y, w, h, groupID, actionID, parentOf));
         }
         if (uiLayout[it.key()][id]["Type"] == "Checkbox")
         {
-          std::shared_ptr<Checkbox> checkbox = std::make_shared<Checkbox>(Checkbox(x, y, groupID));
-          checkbox->setVisibility(visible);
-          checkbox->setTooltipText(tooltipText);
-          _uiElements.emplace_back(checkbox);
+          uiElement = std::make_shared<Checkbox>(Checkbox(x, y, groupID));
         }
+
+        uiElement->setVisibility(visible);
+        uiElement->setTooltipText(tooltipText);
+
+        // store the element in a vector
+        _uiElements.emplace_back(uiElement);
       }
     }
   }
