@@ -8,85 +8,93 @@ void UIManager::init()
   for (auto it : uiLayout.items())
   {
     std::string groupID;
-
     groupID = it.key();
+    
+    bool visible = false;
+    
     for (size_t id = 0; id < uiLayout[it.key()].size(); id++)
     {
 
-      int actionID = 0;
-      std::string parentOf;
-      std::string tooltipText = "";
-      std::string text = "";
-      int x = 0;
-      int y = 0;
-      int w = 0;
-      int h = 0;
-      int spriteID = 0;
+      if (!uiLayout[it.key()][id]["groupVisibility"].is_null())
+        visible = uiLayout[it.key()][id]["groupVisibility"].get<bool>();
+      
+      if (!uiLayout[it.key()][id]["Type"].is_null())
+      {
+        int actionID = 0;
+        std::string parentOf;
+        std::string tooltipText = "";
+        std::string text = "";
+        int x = 0;
+        int y = 0;
+        int w = 0;
+        int h = 0;
+        int spriteID = 0;
 
-      // Each element must have x and y values
-      x = uiLayout[it.key()][id]["Position_x"].get<int>();
-      y = uiLayout[it.key()][id]["Position_y"].get<int>();
+        // Each element must have x and y values
+        x = uiLayout[it.key()][id]["Position_x"].get<int>();
+        y = uiLayout[it.key()][id]["Position_y"].get<int>();
 
-      if (!uiLayout[it.key()][id]["Width"].is_null())
-      {
-        w = uiLayout[it.key()][id]["Width"].get<int>();
-      }
-      if (!uiLayout[it.key()][id]["Height"].is_null())
-      {
-        h = uiLayout[it.key()][id]["Height"].get<int>();
-      }
-      if (!uiLayout[it.key()][id]["SpriteID"].is_null())
-      {
-        spriteID = uiLayout[it.key()][id]["SpriteID"].get<int>();
-      }
-      if (!uiLayout[it.key()][id]["TooltipText"].is_null())
-      {
-        tooltipText = uiLayout[it.key()][id]["TooltipText"].get<std::string>();
-      }
-      if (!uiLayout[it.key()][id]["ParentOfGroup"].is_null())
-      {
-        parentOf = uiLayout[it.key()][id]["ParentOfGroup"].get<std::string>();
-      }
-      if (!uiLayout[it.key()][id]["ActionID"].is_null())
-      {
-        actionID = uiLayout[it.key()][id]["ActionID"].get<int>();
-      }
-      if (!uiLayout[it.key()][id]["Text"].is_null())
-      {
-        text = uiLayout[it.key()][id]["Text"].get<std::string>();
-      }
+        if (!uiLayout[it.key()][id]["Width"].is_null())
+        {
+          w = uiLayout[it.key()][id]["Width"].get<int>();
+        }
+        if (!uiLayout[it.key()][id]["Height"].is_null())
+        {
+          h = uiLayout[it.key()][id]["Height"].get<int>();
+        }
+        if (!uiLayout[it.key()][id]["SpriteID"].is_null())
+        {
+          spriteID = uiLayout[it.key()][id]["SpriteID"].get<int>();
+        }
+        if (!uiLayout[it.key()][id]["TooltipText"].is_null())
+        {
+          tooltipText = uiLayout[it.key()][id]["TooltipText"].get<std::string>();
+        }
+        if (!uiLayout[it.key()][id]["ParentOfGroup"].is_null())
+        {
+          parentOf = uiLayout[it.key()][id]["ParentOfGroup"].get<std::string>();
+        }
+        if (!uiLayout[it.key()][id]["ActionID"].is_null())
+        {
+          actionID = uiLayout[it.key()][id]["ActionID"].get<int>();
+        }
+        if (!uiLayout[it.key()][id]["Text"].is_null())
+        {
+          text = uiLayout[it.key()][id]["Text"].get<std::string>();
+        }
 
-      // Create the ui elements
-      if (uiLayout[it.key()][id]["Type"] == "ImageButton")
-      {
-        _uiElements.push_back(std::make_shared<Button>(Button(x, y, spriteID, groupID, actionID, parentOf, tooltipText)));
+        // Create the ui elements
+        if (uiLayout[it.key()][id]["Type"] == "ImageButton")
+        {
+          std::shared_ptr<Button> button = std::make_shared<Button>(Button(x, y, spriteID, groupID, actionID, parentOf, tooltipText));
+          button->setVisibility(visible);
+          _uiElements.emplace_back(button);
+        }
+        if (uiLayout[it.key()][id]["Type"] == "TextButton")
+        {
+          std::shared_ptr<Button> button = std::make_shared<Button>(Button(x, y, w, h, text, groupID, actionID, parentOf, tooltipText));
+          button->setVisibility(visible);
+          _uiElements.emplace_back(button);
+        }
+        if (uiLayout[it.key()][id]["Type"] == "Text")
+        {
+          std::shared_ptr<Text> textElement = std::make_shared<Text>(Text(x, y, text, groupID, actionID, parentOf, tooltipText));
+          textElement->setVisibility(visible);
+          _uiElements.emplace_back(textElement);
+        }
+        if (uiLayout[it.key()][id]["Type"] == "Frame")
+        {
+          std::shared_ptr<Frame> frame = std::make_shared<Frame>(Frame(x, y, w, h, groupID, actionID, parentOf, tooltipText));
+          frame->setVisibility(visible);
+          _uiElements.emplace_back(frame);
+        }
+        if (uiLayout[it.key()][id]["Type"] == "Checkbox")
+        {
+          std::shared_ptr<Checkbox> checkbox = std::make_shared<Checkbox>(Checkbox(x, y, groupID, tooltipText));
+          checkbox->setVisibility(visible);
+          _uiElements.emplace_back(checkbox);
+        }
       }
-      if (uiLayout[it.key()][id]["Type"] == "TextButton")
-      {
-        _uiElements.push_back(std::make_shared<Button>(Button(x, y, w, h, text, groupID, actionID, parentOf, tooltipText)));
-      }
-      if (uiLayout[it.key()][id]["Type"] == "Text")
-      {
-        _uiElements.push_back(std::make_shared<Text>(Text(x, y, text, groupID, actionID, parentOf, tooltipText)));
-      }
-      if (uiLayout[it.key()][id]["Type"] == "Frame")
-      {
-        _uiElements.push_back(std::make_shared<Frame>(Frame(x, y, w, h, groupID, actionID, parentOf, tooltipText)));
-      }
-      if (uiLayout[it.key()][id]["Type"] == "Checkbox")
-      {
-        _uiElements.push_back(std::make_shared<Checkbox>(Checkbox(x, y, groupID, tooltipText)));
-      }
-    }
-  }
-
-  //// set all ui elements that are not in the group 0 to invisible.
-  for (std::shared_ptr<UiElement> it : _uiElements)
-  {
-    if (!(it->getGroupID() == "BottomBar"))
-    {
-      //_group[groupID] = it;
-      it->setVisibility(false);
     }
   }
 
