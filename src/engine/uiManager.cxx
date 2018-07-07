@@ -30,7 +30,7 @@ void UIManager::init()
         int y = 0;
         int w = 0;
         int h = 0;
-        int spriteID = 0;
+        int spriteID = -1;
 
         // Each element must have x and y values
         elementRect.x = uiLayout[it.key()][id]["Position_x"].get<int>();
@@ -69,15 +69,18 @@ void UIManager::init()
         // Create the ui elements
         if (uiLayout[it.key()][id]["Type"] == "ImageButton")
         {
-          uiElement = std::make_shared<Button>(Button(elementRect, spriteID));
+          uiElement = std::make_shared<Button>(Button(elementRect));
+          uiElement->setSpriteID(spriteID);
         }
         if (uiLayout[it.key()][id]["Type"] == "TextButton")
         {
-          uiElement = std::make_shared<Button>(Button(elementRect, text));
+          uiElement = std::make_shared<Button>(Button(elementRect));
+          uiElement->setText(text);
         }
         if (uiLayout[it.key()][id]["Type"] == "Text")
         {
-          uiElement = std::make_shared<Text>(Text(elementRect, text));
+          uiElement = std::make_shared<Text>(Text(elementRect));
+          uiElement->setText(text);
         }
         if (uiLayout[it.key()][id]["Type"] == "Frame")
         {

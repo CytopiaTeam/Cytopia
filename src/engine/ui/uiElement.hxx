@@ -17,7 +17,6 @@ class UiElement
 {
 public:
   //Initializes variables
-  UiElement(const SDL_Rect &uiElementRect, int uiSpriteID);
   UiElement(const SDL_Rect &uiElementRect, const std::string &text);
   UiElement(const SDL_Rect &uiElementRect);
   virtual ~UiElement() = default;
@@ -151,6 +150,8 @@ public:
   */
   void setSpriteID(int uiSpriteID);
 
+  void setText(const std::string& text);
+
 private:
   SDL_Texture *_texture = nullptr;
   SDL_Renderer *_renderer = Resources::getRenderer();
@@ -166,18 +167,19 @@ private:
 
   SDL_Color _color{255, 255, 255};
 
-  std::string _tooltipText = "";
 
   int _buttonState = TextureManager::DEFAULT;
 
   /// set to -1 for no sprite texture
   int _uiSpriteID = -1;
   int _uiID;
-  std::string _groupName = "";
   int _actionID = 0;
-  std::string _parentOf = "";
   bool _visible = true;
 
+  std::string _tooltipText = "";
+  std::string _parentOf = "";
+  std::string _groupName = "";
+  std::string _text = "";
   /// is this a toggle button
   bool _toggleButton = false;
   bool _textBlittedToTexture = false;

@@ -6,9 +6,7 @@
 class Button : public UiElement
 {
 public:
-  Button(const SDL_Rect &uiElementRect, int uiSpriteID) : UiElement(uiElementRect, uiSpriteID){ setSpriteID(uiSpriteID);  };
-  Button(const SDL_Rect &uiElementRect, const std::string &text);
-
+  Button(const SDL_Rect &uiElementRect);
   ~Button() = default;
 
   virtual void draw();
