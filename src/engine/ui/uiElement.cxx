@@ -1,10 +1,5 @@
 #include "uiElement.hxx"
 
-UiElement::UiElement(const SDL_Rect &uiElementRect, const std::string &text) : _uiElementRect(uiElementRect)
-{
-
-}
-
 UiElement::UiElement(const SDL_Rect &uiElementRect) : _uiElementRect(uiElementRect) {}
 
 void UiElement::draw()
@@ -58,10 +53,10 @@ bool UiElement::isClicked(int x, int y)
   return false;
 }
 
-void UiElement::setText(const std::string& text)
+void UiElement::setText(const std::string &text)
 {
   _text = text;
-  drawText(_text, SDL_Color{ 255,255,255 });
+  drawText(_text, SDL_Color{255, 255, 255});
 }
 
 void UiElement::drawText(const std::string &text, const SDL_Color &textColor)

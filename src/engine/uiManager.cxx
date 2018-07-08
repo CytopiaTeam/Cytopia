@@ -16,7 +16,9 @@ void UIManager::init()
     {
 
       if (!uiLayout[it.key()][id]["groupVisibility"].is_null())
+      {
         visible = uiLayout[it.key()][id]["groupVisibility"].get<bool>();
+      }
 
       if (!uiLayout[it.key()][id]["Type"].is_null())
       {
@@ -89,6 +91,11 @@ void UIManager::init()
         if (uiLayout[it.key()][id]["Type"] == "Checkbox")
         {
           uiElement = std::make_shared<Checkbox>(Checkbox(elementRect));
+        }
+        if (uiLayout[it.key()][id]["Type"] == "ComboBox")
+        {
+          uiElement = std::make_shared<ComboBox>(ComboBox(elementRect));
+          uiElement->setText(text);
         }
 
         uiElement->setVisibility(visible);

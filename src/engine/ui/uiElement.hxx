@@ -17,7 +17,6 @@ class UiElement
 {
 public:
   //Initializes variables
-  UiElement(const SDL_Rect &uiElementRect, const std::string &text);
   UiElement(const SDL_Rect &uiElementRect);
   virtual ~UiElement() = default;
 
@@ -150,7 +149,7 @@ public:
   */
   void setSpriteID(int uiSpriteID);
 
-  void setText(const std::string& text);
+  void setText(const std::string &text);
 
 private:
   SDL_Texture *_texture = nullptr;
@@ -166,7 +165,6 @@ private:
   SDL_Surface *_surface = nullptr;
 
   SDL_Color _color{255, 255, 255};
-
 
   int _buttonState = TextureManager::DEFAULT;
 

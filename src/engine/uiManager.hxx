@@ -8,6 +8,7 @@
 #include "ui/text.hxx"
 #include "ui/tooltip.hxx"
 #include "ui/checkbox.hxx"
+#include "ui/combobox.hxx"
 #include "ui/uiElement.hxx"
 #include "basics/resources.hxx"
 #include "basics/settings.hxx"
