@@ -151,6 +151,8 @@ public:
 
   void setText(const std::string &text);
 
+  void drawButtonFrame(SDL_Rect rect, bool isHighlightable = true);
+
 private:
   SDL_Texture *_texture = nullptr;
   SDL_Renderer *_renderer = Resources::getRenderer();
