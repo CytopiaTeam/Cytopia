@@ -129,7 +129,7 @@ public:
 
   // JSON Functions
   static std::string getTileDataFromJSON(const std::string &tileType, int tileID, const std::string &attributes);
-  static std::string getUISpriteDataFromJSON(const std::string &uiType, int uiSpriteID, const std::string &attributes);
+  static std::string getUISpriteDataFromJSON(const std::string &uiType, int uiSpriteID, const std::string &attribute);
   static void readUILayoutFile();
   static json getUILayoutJSONObject() { return _uiLayout; };
 
