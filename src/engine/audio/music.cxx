@@ -44,7 +44,7 @@ void Music::stop()
   if (settings.settings.playMusic)
   {
     // Reset the music file to the beginning
-    Mix_HookMusic(NULL, NULL);
+    Mix_HookMusic(nullptr, nullptr);
     Mix_HaltMusic();
   }
 }
