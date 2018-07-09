@@ -1,11 +1,11 @@
+#include <utility>
 #include "uiManager.hxx"
 
 void UIManager::init()
 {
   nlohmann::json uiLayout = Resources::getUILayoutJSONObject();
-  Timer UITimer;
 
-  for (auto it : uiLayout.items())
+  for (const auto &it : uiLayout.items())
   {
     std::string groupID;
     groupID = it.key();
@@ -24,14 +24,10 @@ void UIManager::init()
       {
         int actionID = 0;
         std::string parentOf;
-        std::string tooltipText = "";
-        std::string text = "";
+        std::string tooltipText;
+        std::string text;
 
         SDL_Rect elementRect = {0, 0, 0, 0};
-        int x = 0;
-        int y = 0;
-        int w = 0;
-        int h = 0;
         int spriteID = -1;
 
         // Each element must have x and y values
@@ -115,7 +111,7 @@ void UIManager::init()
 
 void UIManager::drawUI()
 {
-  for (auto it : _uiElements)
+  for (const auto &it : _uiElements)
   {
     if (it->isVisible())
     {
@@ -132,14 +128,14 @@ void UIManager::setButtonState()
 {
   int x, y;
   SDL_GetMouseState(&x, &y);
-  for (std::shared_ptr<UiElement> it : _uiElements)
+  for (const std::shared_ptr<UiElement> &it : _uiElements)
   {
     if (it->isClicked(x, y))
     {
 
       if (it->isToogleButton())
       {
-        if (SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_LEFT) && _mouseHeldDown == false)
+        if (SDL_GetMouseState(nullptr, nullptr) & SDL_BUTTON(SDL_BUTTON_LEFT) && !_mouseHeldDown)
         {
           if (it->getButtonState() == TextureManager::TOGGLED)
             it->changeButtonState(TextureManager::DEFAULT);
@@ -148,7 +144,7 @@ void UIManager::setButtonState()
 
           _mouseHeldDown = true;
         }
-        else if (!SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_LEFT))
+        else if (!SDL_GetMouseState(nullptr, nullptr) & SDL_BUTTON(SDL_BUTTON_LEFT))
         {
           _mouseHeldDown = false;
         }
@@ -157,7 +153,7 @@ void UIManager::setButtonState()
       {
         if (it->isVisible())
         {
-          if (SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_LEFT))
+          if (SDL_GetMouseState(nullptr, nullptr) & SDL_BUTTON(SDL_BUTTON_LEFT))
           {
             it->changeButtonState(TextureManager::CLICKED);
           }
@@ -182,22 +178,22 @@ std::shared_ptr<UiElement> UIManager::getClickedUIElement(int x, int y)
 {
   std::shared_ptr<UiElement> clickedElement = nullptr;
 
-  for (std::shared_ptr<UiElement> it : _uiElements)
+  for (const std::shared_ptr<UiElement> &it : _uiElements)
   {
     if (it->isClicked(x, y))
     {
-      if (it->getActionID() != -1 && it->isVisible() == true)
+      if (it->getActionID() != -1 && it->isVisible())
         clickedElement = it;
     }
   }
   return clickedElement;
 }
 
-void UIManager::addToGroup(int groupID, std::shared_ptr<UiElement> uiElement) { _group[groupID] = uiElement; }
+void UIManager::addToGroup(int groupID, std::shared_ptr<UiElement> uiElement) { _group[groupID] = std::move(uiElement); }
 
 void UIManager::toggleGroupVisibility(const std::string &groupID)
 {
-  for (std::shared_ptr<UiElement> it : _uiElements)
+  for (const std::shared_ptr<UiElement> &it : _uiElements)
   {
     if (it->getGroupID() == groupID)
     {

@@ -12,7 +12,7 @@
 class EventManager
 {
 public:
-  EventManager();
+  EventManager() = default;
   ~EventManager() = default;
 
   void checkEvents(SDL_Event &event, Engine &engine);

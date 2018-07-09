@@ -48,6 +48,6 @@ void run()
 
     // Render the Frame
     SDL_RenderPresent(_renderer);
-    SDL_Delay(1);
+//SDL_Delay(1);
   }
 }

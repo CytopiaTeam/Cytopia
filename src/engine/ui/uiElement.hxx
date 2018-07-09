@@ -166,13 +166,10 @@ private:
 
   SDL_Surface *_surface = nullptr;
 
-  SDL_Color _color{255, 255, 255};
-
   int _buttonState = TextureManager::DEFAULT;
 
   /// set to -1 for no sprite texture
   int _uiSpriteID = -1;
-  int _uiID;
   int _actionID = 0;
   bool _visible = true;
 
