@@ -15,7 +15,7 @@ class WindowManager
 {
 public:
   WindowManager() = default;
-  explicit WindowManager(const std::string &title);
+  explicit WindowManager(std::string title);
   ~WindowManager();
 
   inline bool isRunning() const { return _running; }

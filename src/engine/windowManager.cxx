@@ -1,6 +1,6 @@
 #include "windowManager.hxx"
 
-WindowManager::WindowManager(const std::string &title) : _title(title)
+WindowManager::WindowManager(std::string title) : _title(std::move(title))
 {
   _width = Settings::Instance().settings.screenWidth;
   _height = Settings::Instance().settings.screenHeight;

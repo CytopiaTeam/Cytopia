@@ -17,7 +17,7 @@ class UiElement
 {
 public:
   //Initializes variables
-  UiElement(const SDL_Rect &uiElementRect);
+  UiElement(SDL_Rect uiElementRect);
   virtual ~UiElement() = default;
 
   /** \brief Draw the UI Element and/or render it's textures to the screen

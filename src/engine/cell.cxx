@@ -1,6 +1,6 @@
 #include "cell.hxx"
 
-Cell::Cell(const Point &isoCoordinates) : _isoCoordinates(isoCoordinates), _tileID(14)
+Cell::Cell(Point isoCoordinates) : _isoCoordinates(std::move(isoCoordinates)), _tileID(14)
 {
   _sprite = std::make_shared<Sprite>(_tileID, _isoCoordinates);
 }

@@ -16,7 +16,7 @@
 class Cell
 {
 public:
-  explicit Cell(const Point &isoCoordinates);
+  explicit Cell(Point isoCoordinates);
   ~Cell() = default;
 
   /** @brief get Sprite
