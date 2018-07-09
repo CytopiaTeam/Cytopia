@@ -176,8 +176,6 @@ std::string Resources::getTileDataFromJSON(const std::string &tileType, int tile
 
 std::string Resources::getUISpriteDataFromJSON(const std::string &uiType, int uiSpriteID, const std::string &attribute)
 {
-  std::string retrievedFileName;
-
   for (json::iterator it = _uiTextureFile.begin(); it != _uiTextureFile.end(); ++it)
   {
     if (it.key() == uiType)
@@ -195,12 +193,8 @@ std::string Resources::getUISpriteDataFromJSON(const std::string &uiType, int ui
     }
     return {};
   }
-  else
-  {
-    retrievedFileName = _uiTextureFile[uiType][std::to_string(uiSpriteID)][attribute].get<std::string>();
-  }
 
-  return retrievedFileName;
+  return _uiTextureFile[uiType][std::to_string(uiSpriteID)][attribute].get<std::string>();;
 }
 
 void Resources::readTileListFile()
