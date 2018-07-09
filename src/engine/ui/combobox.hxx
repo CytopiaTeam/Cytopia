@@ -7,9 +7,9 @@ class ComboBox : public UiElement
 {
 public:
   ComboBox(const SDL_Rect &uiElementRect);
-  ~ComboBox() = default;
+  ~ComboBox() override = default;
 
-  virtual void draw();
+  void draw() override;
 
 private:
   SDL_Rect rect;

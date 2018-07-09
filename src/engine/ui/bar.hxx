@@ -7,7 +7,7 @@ class Bar : public UiElement
 {
 public:
   Bar(const SDL_Rect &uiElementRect);
-  ~Bar() = default;
+  ~Bar() override = default;
 };
 
 #endif

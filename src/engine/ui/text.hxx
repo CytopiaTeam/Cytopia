@@ -7,5 +7,5 @@ class Text : public UiElement
 {
 public:
   Text(const SDL_Rect &uiElementRect);
-  ~Text() = default;
+  ~Text() override = default;
 };

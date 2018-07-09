@@ -7,9 +7,9 @@ class Button : public UiElement
 {
 public:
   Button(const SDL_Rect &uiElementRect);
-  ~Button() = default;
+  ~Button() override = default;
 
-  virtual void draw();
+  void draw() override;
 
 private:
   SDL_Rect rect;
