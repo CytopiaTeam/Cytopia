@@ -64,7 +64,7 @@ void ComboBox::draw()
   menuRect.y = rect.y + rect.h;
   menuRect.h = 100;
 
-  if (isMenuOpened == true)
+  if (isMenuOpened)
   {
 
     // top frame

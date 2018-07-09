@@ -53,10 +53,7 @@ void Engine::centerScreenOnPoint(const Point &isoCoordinates)
 
 bool Engine::isPointWithinBoundaries(const Point &isoCoordinates)
 {
-  if ((isoCoordinates.x >= 0 && isoCoordinates.x <= _map_size) && (isoCoordinates.y >= 0 && isoCoordinates.y <= _map_size))
-    return true;
-  else
-    return false;
+  return (isoCoordinates.x >= 0 && isoCoordinates.x <= _map_size) && (isoCoordinates.y >= 0 && isoCoordinates.y <= _map_size);
 }
 
 void Engine::increaseHeightOfCell(const Point &isoCoordinates)
