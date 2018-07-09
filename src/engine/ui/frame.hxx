@@ -8,9 +8,9 @@ class Frame : public UiElement
 public:
   Frame(const SDL_Rect &uiElementRect);
 
-  ~Frame() = default;
+  ~Frame() override = default;
 
-  virtual void draw();
+  void draw() override;
 
 private:
   SDL_Rect rect;

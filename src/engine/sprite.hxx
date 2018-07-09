@@ -12,7 +12,7 @@
 class Sprite
 {
 public:
-  Sprite(int tileID, Point coords);
+  Sprite(int tileID, Point isoCoordinates);
   virtual ~Sprite() = default;
 
   void render();

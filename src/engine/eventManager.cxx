@@ -1,13 +1,7 @@
 #include "eventManager.hxx"
 
-EventManager::EventManager()
-{
-  // Implement event handling here
-}
-
 void EventManager::checkEvents(SDL_Event &event, Engine &engine)
 {
-  bool handled = false;
   // check for UI events first
   Point mouseCoords;
   Point clickCoords;
@@ -61,9 +55,9 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           }
           benchmarkTimer.reset();
           LOG() << "Done. Elevation took " << benchmarkTimer.getDeltaTime() << "ms";
+          break;
         }
         break;
-
       case SDL_MOUSEBUTTONDOWN:
         mouseCoords = Point{event.button.x, event.button.y, 0, 0};
         clickCoords = Resources::convertScreenToIsoCoordinates(mouseCoords);
@@ -150,7 +144,6 @@ bool EventManager::handleUIEvents(SDL_Event &event)
         switch (clickedElement->getActionID())
         {
         case 0:
-          handled = true;
           break;
         case 1:
           UIManager::Instance().toggleGroupVisibility(clickedElement->getParentID());
@@ -179,7 +172,6 @@ bool EventManager::handleUIEvents(SDL_Event &event)
           Engine::Instance().quitGame();
           break;
         default:
-          handled = false;
           break;
         }
         handled = true;

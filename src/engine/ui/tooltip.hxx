@@ -8,10 +8,10 @@ class Tooltip : public UiElement
 {
 public:
   Tooltip() : UiElement(SDL_Rect{0, 0, 0, 0}){};
-  ~Tooltip() = default;
+  ~Tooltip() override = default;
 
   void setText(const std::string &text);
-  virtual void draw();
+  void draw() override;
   void startTimer() { _tooltipTimer.start(); }
 
 private:

@@ -7,10 +7,10 @@ class Checkbox : public UiElement
 {
 public:
   Checkbox(const SDL_Rect &uiElementRect);
-  ~Checkbox() = default;
+  ~Checkbox() override = default;
 
   SDL_Rect rect;
-  virtual void draw();
+  void draw() override;
 
 private:
   bool checked = false;

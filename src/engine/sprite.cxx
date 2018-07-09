@@ -38,6 +38,6 @@ void Sprite::renderTexture(int w, int h)
 void Sprite::renderTexture()
 {
   int width, height;
-  SDL_QueryTexture(_texture, NULL, NULL, &width, &height);
+  SDL_QueryTexture(_texture, nullptr, nullptr, &width, &height);
   renderTexture(width, height);
 }

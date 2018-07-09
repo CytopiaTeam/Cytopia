@@ -1,6 +1,6 @@
 #include "uiElement.hxx"
 
-UiElement::UiElement(const SDL_Rect &uiElementRect) : _uiElementRect(uiElementRect) {}
+UiElement::UiElement(SDL_Rect uiElementRect) : _uiElementRect(std::move(uiElementRect)) {}
 
 void UiElement::draw()
 {
@@ -14,7 +14,7 @@ void UiElement::setSpriteID(int uiSpriteID)
 {
   _uiSpriteID = uiSpriteID;
   _texture = TextureManager::Instance().getUITexture(_uiSpriteID, TextureManager::DEFAULT);
-  SDL_QueryTexture(_texture, NULL, NULL, &_uiElementRect.w, &_uiElementRect.h);
+  SDL_QueryTexture(_texture, nullptr, nullptr, &_uiElementRect.w, &_uiElementRect.h);
 }
 
 void UiElement::changeButtonState(int state)
@@ -31,7 +31,7 @@ void UiElement::renderTexture()
   if (_texture)
   {
     SDL_Rect destRect;
-    if (_textRect.w != 0 && _textBlittedToTexture == false)
+    if (_textRect.w != 0 && !_textBlittedToTexture)
     {
       destRect = _textRect;
     }
@@ -45,12 +45,8 @@ void UiElement::renderTexture()
 
 bool UiElement::isClicked(int x, int y)
 {
-  if (x > _uiElementRect.x && x < _uiElementRect.x + _uiElementRect.w && y > _uiElementRect.y &&
-      y < _uiElementRect.y + _uiElementRect.h)
-  {
-    return true;
-  }
-  return false;
+  return x > _uiElementRect.x && x < _uiElementRect.x + _uiElementRect.w && y > _uiElementRect.y &&
+    y < _uiElementRect.y + _uiElementRect.h;
 }
 
 void UiElement::setText(const std::string &text)
@@ -83,7 +79,7 @@ void UiElement::drawText(const std::string &text, const SDL_Color &textColor)
       _textRect.y = (_surface->h / 2) - (_textRect.h / 2);
       _textRect.w = _surface->w;
       _textRect.h = _surface->h;
-      SDL_BlitSurface(textSurface, NULL, _surface, &_textRect);
+      SDL_BlitSurface(textSurface, nullptr, _surface, &_textRect);
       _texture = SDL_CreateTextureFromSurface(_renderer, _surface);
       _textBlittedToTexture = true;
 
@@ -95,12 +91,12 @@ void UiElement::drawText(const std::string &text, const SDL_Color &textColor)
       _texture = SDL_CreateTextureFromSurface(_renderer, textSurface);
 
       // no surface exists but some shape has been drawn for that ui element
-      SDL_QueryTexture(_texture, NULL, NULL, &_textRect.w, &_textRect.h);
+      SDL_QueryTexture(_texture, nullptr, nullptr, &_textRect.w, &_textRect.h);
 
       if (_uiElementRect.w != 0)
       {
         int textWidth, textHeight;
-        SDL_QueryTexture(_texture, NULL, NULL, &textWidth, &textHeight);
+        SDL_QueryTexture(_texture, nullptr, nullptr, &textWidth, &textHeight);
         _textRect.x = _uiElementRect.x + (_uiElementRect.w / 2) - (_textRect.w / 2);
         _textRect.y = _uiElementRect.y + (_uiElementRect.h / 2) - (_textRect.h / 2);
       }
@@ -158,7 +154,7 @@ void UiElement::drawButtonFrame(SDL_Rect rect, bool isHighlightable)
 {
   Uint8 bgColor, bgColorFrame, bgColorFrameShade, bgColorBottomFrame, bgColorBottomFrameShade;
 
-  if ((getButtonState() == TextureManager::CLICKED || getButtonState() == TextureManager::TOGGLED) && isHighlightable == true)
+  if ((getButtonState() == TextureManager::CLICKED || getButtonState() == TextureManager::TOGGLED) && isHighlightable)
   {
     bgColor = 128;
     bgColorFrame = 106;
@@ -166,7 +162,7 @@ void UiElement::drawButtonFrame(SDL_Rect rect, bool isHighlightable)
     bgColorBottomFrame = 150;
     bgColorBottomFrameShade = 172;
   }
-  else if ((getButtonState() == TextureManager::HOVERING) && isHighlightable == true)
+  else if ((getButtonState() == TextureManager::HOVERING) && isHighlightable)
   {
     bgColor = 228;
     bgColorFrame = 250;
