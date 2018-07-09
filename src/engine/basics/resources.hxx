@@ -143,8 +143,8 @@ public:
   static int _terrainEditMode;
 
 private:
-  Resources(){};
-  ~Resources(){};
+  Resources() = default;
+  ~Resources() = default;
 
   static SDL_Renderer *_renderer;
   static SDL_Window *_window;
