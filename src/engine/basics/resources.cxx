@@ -194,7 +194,7 @@ std::string Resources::getUISpriteDataFromJSON(const std::string &uiType, int ui
     return {};
   }
 
-  return _uiTextureFile[uiType][std::to_string(uiSpriteID)][attribute].get<std::string>();;
+  return _uiTextureFile[uiType][std::to_string(uiSpriteID)][attribute].get<std::string>();
 }
 
 void Resources::readTileListFile()

@@ -53,7 +53,6 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           {
             engine.increaseHeightOfCell(Point{64, 64, 0, 0});
           }
-          benchmarkTimer.reset();
           LOG() << "Done. Elevation took " << benchmarkTimer.getDeltaTime() << "ms";
           break;
         }

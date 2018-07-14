@@ -46,7 +46,7 @@ void UiElement::renderTexture()
 bool UiElement::isClicked(int x, int y)
 {
   return x > _uiElementRect.x && x < _uiElementRect.x + _uiElementRect.w && y > _uiElementRect.y &&
-    y < _uiElementRect.y + _uiElementRect.h;
+         y < _uiElementRect.y + _uiElementRect.h;
 }
 
 void UiElement::setText(const std::string &text)
@@ -179,18 +179,18 @@ void UiElement::drawButtonFrame(SDL_Rect rect, bool isHighlightable)
     bgColorBottomFrameShade = 84;
   }
 
-  drawSolidRect(rect, SDL_Color{ bgColorFrameShade, bgColorFrameShade, bgColorFrameShade });
-  drawSolidRect(SDL_Rect{ rect.x + 2, rect.y + 2, rect.w - 4, rect.h - 4 }, SDL_Color{ bgColorFrame, bgColorFrame, bgColorFrame });
+  drawSolidRect(rect, SDL_Color{bgColorFrameShade, bgColorFrameShade, bgColorFrameShade});
+  drawSolidRect(SDL_Rect{rect.x + 2, rect.y + 2, rect.w - 4, rect.h - 4}, SDL_Color{bgColorFrame, bgColorFrame, bgColorFrame});
   // background
-  drawSolidRect(SDL_Rect{ rect.x + 4, rect.y + 4, rect.w - 8, rect.h - 8 }, SDL_Color{ bgColor, bgColor, bgColor });
+  drawSolidRect(SDL_Rect{rect.x + 4, rect.y + 4, rect.w - 8, rect.h - 8}, SDL_Color{bgColor, bgColor, bgColor});
   // bottom frame
-  drawSolidRect(SDL_Rect{ rect.x + 4, (rect.y + rect.h) - 4, rect.w - 4, 4 },
-    SDL_Color{ bgColorBottomFrame, bgColorBottomFrame, bgColorBottomFrame });
-  drawSolidRect(SDL_Rect{ (rect.x + rect.w) - 4, rect.y + 4, 4, rect.h - 4 },
-    SDL_Color{ bgColorBottomFrame, bgColorBottomFrame, bgColorBottomFrame });
+  drawSolidRect(SDL_Rect{rect.x + 4, (rect.y + rect.h) - 4, rect.w - 4, 4},
+                SDL_Color{bgColorBottomFrame, bgColorBottomFrame, bgColorBottomFrame});
+  drawSolidRect(SDL_Rect{(rect.x + rect.w) - 4, rect.y + 4, 4, rect.h - 4},
+                SDL_Color{bgColorBottomFrame, bgColorBottomFrame, bgColorBottomFrame});
   // bottom frame shade
-  drawSolidRect(SDL_Rect{ rect.x + 2, (rect.y + rect.h) - 2, rect.w - 2, 2 },
-    SDL_Color{ bgColorBottomFrameShade, bgColorBottomFrameShade, bgColorBottomFrameShade });
-  drawSolidRect(SDL_Rect{ (rect.x + rect.w) - 2, rect.y + 2, 2, rect.h - 2 },
-    SDL_Color{ bgColorBottomFrameShade, bgColorBottomFrameShade, bgColorBottomFrameShade });
+  drawSolidRect(SDL_Rect{rect.x + 2, (rect.y + rect.h) - 2, rect.w - 2, 2},
+                SDL_Color{bgColorBottomFrameShade, bgColorBottomFrameShade, bgColorBottomFrameShade});
+  drawSolidRect(SDL_Rect{(rect.x + rect.w) - 2, rect.y + 2, 2, rect.h - 2},
+                SDL_Color{bgColorBottomFrameShade, bgColorBottomFrameShade, bgColorBottomFrameShade});
 }

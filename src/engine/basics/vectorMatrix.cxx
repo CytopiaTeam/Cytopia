@@ -1,5 +1,22 @@
 #include "vectorMatrix.hxx"
 
+constexpr struct
+{
+  int x;
+  int y;
+
+} adjecantCellOffsets[9] = {
+    {-1, -1}, // 6 = 2^6 = 64  = BOTTOM LEFT
+    {-1, 0},  // 2 = 2^2 = 4   = LEFT
+    {-1, 1},  // 4 = 2^4 = 16  = TOP LEFT
+    {0, -1},  // 1 = 2^1 = 2   = BOTTOM
+    {0, 0},   // center
+    {0, 1},   // 0 = 2^0 = 1   = TOP
+    {1, -1},  // 7 = 2^7 = 128 = BOTTOM RIGHT
+    {1, 0},   // 3 = 2^3 = 8   = RIGHT
+    {1, 1}    // 5 = 2^5 = 32  = TOP RIGHT
+};
+
 vectorMatrix::vectorMatrix(int columns, int rows)
     : _cellMatrix((columns + 1) * (rows + 1)), _columns(columns + 1), _rows(rows + 1)
 {
@@ -51,39 +68,31 @@ void vectorMatrix::drawSurroundingTiles(const Point &isoCoordinates)
   int i = 0;
   int x = isoCoordinates.x;
   int y = isoCoordinates.y;
+  int currentX, currentY;
 
-  std::pair<int, int> adjs[9] = {
-      std::make_pair(x - 1, y - 1), // 6 = 2^6 = 64  = BOTTOM LEFT
-      std::make_pair(x - 1, y),     // 2 = 2^2 = 4   = LEFT
-      std::make_pair(x - 1, y + 1), // 4 = 2^4 = 16  = TOP LEFT
-      std::make_pair(x, y - 1),     // 1 = 2^1 = 2   = BOTTOM
-      std::make_pair(x, y),         // center
-      std::make_pair(x, y + 1),     // 0 = 2^0 = 1   = TOP
-      std::make_pair(x + 1, y - 1), // 7 = 2^7 = 128 = BOTTOM RIGHT
-      std::make_pair(x + 1, y),     // 3 = 2^3 = 8   = RIGHT
-      std::make_pair(x + 1, y + 1)  // 5 = 2^5 = 32  = TOP RIGHT
-  };
-
-  for (auto it : adjs)
+  for (auto it : adjecantCellOffsets)
   {
-    if (it.first >= 0 && it.first < _rows && it.second >= 0 && it.second < _columns)
+    currentX = x + it.x;
+    currentY = y + it.y;
+
+    if (currentX >= 0 && currentX < _rows && currentY >= 0 && currentY < _columns)
     {
-      if (_cellMatrix[it.first * _columns + it.second])
+      if (_cellMatrix[currentX * _columns + currentY])
       {
-        Point currentCoords = _cellMatrix[it.first * _columns + it.second]->getCoordinates();
+        Point currentCoords = _cellMatrix[currentX * _columns + currentY]->getCoordinates();
 
         // there can't be a height difference greater then 1 between two map cells.
-        if (tileHeight - _cellMatrix[it.first * _columns + it.second]->getCoordinates().height > 1 &&
+        if (tileHeight - _cellMatrix[currentX * _columns + currentY]->getCoordinates().height > 1 &&
             Resources::getTerrainEditMode() == Resources::TERRAIN_RAISE && i % 2)
         {
           increaseHeightOfCell(currentCoords);
         }
-        else if (tileHeight - _cellMatrix[it.first * _columns + it.second]->getCoordinates().height < -1 &&
+        else if (tileHeight - _cellMatrix[currentX * _columns + currentY]->getCoordinates().height < -1 &&
                  Resources::getTerrainEditMode() == Resources::TERRAIN_LOWER && i % 2)
         {
           decreaseHeightOfCell(currentCoords);
         }
-        determineTileIDOfCell(_cellMatrix[it.first * _columns + it.second]->getCoordinates());
+        determineTileIDOfCell(_cellMatrix[currentX * _columns + currentY]->getCoordinates());
       }
     }
     i++;
@@ -98,18 +107,7 @@ void vectorMatrix::determineTileIDOfCell(const Point &isoCoordinates)
 
   int x = isoCoordinates.x;
   int y = isoCoordinates.y;
-
-  std::pair<int, int> adjecantCellCoordinates[9] = {
-      std::make_pair(x - 1, y - 1), // 6 = 2^6 = 64  = BOTTOM LEFT
-      std::make_pair(x - 1, y),     // 2 = 2^2 = 4   = LEFT
-      std::make_pair(x - 1, y + 1), // 4 = 2^4 = 16  = TOP LEFT
-      std::make_pair(x, y - 1),     // 1 = 2^1 = 2   = BOTTOM
-      std::make_pair(x, y),         // center
-      std::make_pair(x, y + 1),     // 0 = 2^0 = 1   = TOP
-      std::make_pair(x + 1, y - 1), // 7 = 2^7 = 128 = BOTTOM RIGHT
-      std::make_pair(x + 1, y),     // 3 = 2^3 = 8   = RIGHT
-      std::make_pair(x + 1, y + 1)  // 5 = 2^5 = 32  = TOP RIGHT
-  };
+  int currentX, currentY;
 
   _elevatedTilePosition = getElevatedNeighborBitmask(isoCoordinates);
   auto keyTileID = Resources::slopeTileIDMap.find(_elevatedTilePosition);
@@ -133,12 +131,15 @@ void vectorMatrix::determineTileIDOfCell(const Point &isoCoordinates)
     }
     else if (Resources::getTerrainEditMode() == Resources::TERRAIN_LOWER)
     {
-      for (auto it : adjecantCellCoordinates)
+      for (auto it : adjecantCellOffsets)
       {
-        if (_cellMatrix[it.first * _columns + it.second]->getCoordinates().height > tileHeight &&
-            _cellMatrix[it.first * _columns + it.second])
+        currentX = x + it.x;
+        currentY = y + it.y;
+
+        if (_cellMatrix[currentX * _columns + currentY]->getCoordinates().height > tileHeight &&
+            _cellMatrix[currentX * _columns + currentY])
         {
-          decreaseHeightOfCell(_cellMatrix[it.first * _columns + it.second]->getCoordinates());
+          decreaseHeightOfCell(_cellMatrix[currentX * _columns + currentY]->getCoordinates());
         }
       }
     }

@@ -55,7 +55,6 @@ void ComboBox::draw()
   }
   drawSolidRect(arrowRect, color);
 
-
   // drowpdowb box
 
   bool isMenuOpened = true;
