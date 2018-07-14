@@ -226,10 +226,14 @@ void vectorMatrix::rotateMatrix()
     tempCoords[it->getCoordinates().x * _columns + it->getCoordinates().y] = it->getCoordinates();
   }
 
+  /*for (i = 0; i<D; ++i) {
+    for (j = 0; j<D; ++j) {
+      r[i][j] = t[D - j - 1][i];*/
 
-  for (int x = 0; x < _rows - 1; x++)
+
+  for (int x = 0; x < _rows ; x++)
   {
-    for (int y = 0; y < _columns - 1; y++)
+    for (int y = 0; y < _columns; y++)
     {
       // correctly rotate all elements of the matrix, but not the coordinates of the cells itself!
       // but with the elements rotated, the draw order is broken...
@@ -237,27 +241,18 @@ void vectorMatrix::rotateMatrix()
       int rotY = _columns - 1 - y;
       int rotCounterclockX = _columns - 1 - x;
 
-      //std::swap(_cellMatrix[x * _columns + y], _cellMatrix[rotY * _columns + x]);
-      //_cellMatrix[x * _columns + y]->setCoordinates(tempCoords[x * _columns + y]);
-      //_cellMatrix[rotY * _columns + x]->setCoordinates(tempCoords[rotY * _columns + x]);
-
-
-      //_cellMatrix[x * _columns + y]->setCoordinates(tempCoords[rotY * _columns + x]);
+      rotatedMatrix[x * _columns + y] = _cellMatrix[rotY * _columns + x];
+      rotatedMatrix[x * _columns + y]->setCoordinates(tempCoords[x * _columns + y]);
     }
   }
+  std::swap(_cellMatrix, rotatedMatrix);
+  printMatrix();
 }
 
 std::shared_ptr<Cell> vectorMatrix::getCell(int x, int y) 
 { 
-  //for (auto it : _cellMatrix)
-  //{
-  //  if (it->getCoordinates().x == x && it->getCoordinates().y == y)
-  //    return it;
-  //}
-  //return nullptr;
-
   return _cellMatrix[x * _columns + y];
-};
+}
 
 void vectorMatrix::renderMatrix()
 {
