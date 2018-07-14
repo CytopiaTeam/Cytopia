@@ -1,5 +1,6 @@
 #include "music.hxx"
-//#include "basics\resources.hxx"
+
+Music::Music(const std::string &fileName) { loadFile(fileName); }
 
 Music::~Music()
 {
@@ -18,7 +19,7 @@ void Music::loadFile(const std::string &filename)
   }
 }
 
-void Music::play(int loops)
+void Music::play(int loops) const
 {
   if (settings.settings.playMusic)
   {
@@ -39,7 +40,7 @@ void Music::play(int loops)
   }
 }
 
-void Music::stop()
+void Music::stop() const
 {
   if (settings.settings.playMusic)
   {
@@ -49,7 +50,7 @@ void Music::stop()
   }
 }
 
-void Music::pause()
+void Music::pause() const
 {
   if (settings.settings.playMusic)
   {
@@ -57,7 +58,7 @@ void Music::pause()
   }
 }
 
-void Music::resume()
+void Music::resume() const
 {
   if (settings.settings.playMusic)
   {
@@ -65,7 +66,7 @@ void Music::resume()
   }
 }
 
-bool Music::isPlaying()
+bool Music::isPlaying() const
 {
   if (settings.settings.playMusic)
   {

@@ -4,7 +4,6 @@
 #include <string>
 
 #include "../basics/log.hxx"
-#include "../basics/resources.hxx"
 #include "../basics/settings.hxx"
 
 #include "SDL2/SDL.h"
@@ -18,6 +17,7 @@ class Music
 {
 public:
   Music() = default;
+  Music(const std::string &fileName);
   ~Music();
 
   /** \brief Load File
@@ -30,28 +30,28 @@ public:
     * Plays the loaded music file.
     * @param loops Amount of loops the track. -1 = infinite
     */
-  void play(int loops);
+  void play(int loops) const;
 
   /** \brief stop music
     * Stops the music
     */
-  void stop();
+  void stop() const;
 
   /** \brief Pause music
     * Pauses the music
     */
-  void pause();
+  void pause() const;
 
   /** \brief Resume music
     * Resumes the music
     */
-  void resume();
+  void resume() const;
 
   /** \brief Check if music is playing
     * Checks if this audio object is currently playing music.
     * @returns bool is music playing
     */
-  bool isPlaying();
+  bool isPlaying() const;
 
 private:
   Mix_Music *_music = nullptr;

@@ -73,7 +73,7 @@ public:
     * The pixel offset that is taken into account when positoning the tiles.
     * \return Point() object containing x and y screen space coordinates
     */
-  static Point getCameraOffset() { return _cameraOffset; };
+  const static Point &getCameraOffset() { return _cameraOffset; };
 
   /** \brief set camera offset
   * The pixel offset that is taken into account when positoning the tiles.
@@ -128,10 +128,10 @@ public:
   static Point convertIsoToScreenCoordinates(const Point &isoCoordinates, bool calcWithoutOffset = false);
 
   // JSON Functions
-  static std::string getTileDataFromJSON(const std::string &tileType, int tileID, const std::string &attributes);
-  static std::string getUISpriteDataFromJSON(const std::string &uiType, int uiSpriteID, const std::string &attribute);
+  const static std::string getTileDataFromJSON(const std::string &tileType, int tileID, const std::string &attributes);
+  const static std::string getUISpriteDataFromJSON(const std::string &uiType, int uiSpriteID, const std::string &attribute);
   static void readUILayoutFile();
-  static json getUILayoutJSONObject() { return _uiLayout; };
+  const static json &getUILayoutJSONObject() { return _uiLayout; };
 
   enum terrainEditMode : int
   {

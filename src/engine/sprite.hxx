@@ -18,7 +18,7 @@ public:
   void render();
   void setTileIsoCoordinates(Point isoCoords) { _isoCoordinates = isoCoords; };
   void changeTexture(int tileID) { _texture = TextureManager::Instance().getTileTexture(tileID); };
-  SDL_Rect getTextureInformation() { return _destRect; };
+  const SDL_Rect &getTextureInformation() { return _destRect; };
 
 private:
   SDL_Texture *_texture;

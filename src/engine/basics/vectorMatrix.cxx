@@ -131,7 +131,7 @@ void vectorMatrix::determineTileIDOfCell(const Point &isoCoordinates)
     }
     else if (Resources::getTerrainEditMode() == Resources::TERRAIN_LOWER)
     {
-      for (auto it : adjecantCellOffsets)
+      for (const auto &it : adjecantCellOffsets)
       {
         currentX = x + it.x;
         currentY = y + it.y;
@@ -175,7 +175,7 @@ unsigned int vectorMatrix::getElevatedNeighborBitmask(const Point &isoCoordinate
   };
 
   int i = 0;
-  for (auto it : adjecantCellCoordinates)
+  for (const auto &it : adjecantCellCoordinates)
   {
     if (it.first >= 0 && it.first < _rows && it.second >= 0 && it.second < _columns)
     {

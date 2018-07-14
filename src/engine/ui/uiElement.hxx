@@ -40,7 +40,7 @@ public:
     * Gets the position and the size of this ui element
     * @return Position and size as SDL_Rect
     */
-  SDL_Rect getUiElementRect() { return _uiElementRect; };
+  const SDL_Rect &getUiElementRect() { return _uiElementRect; };
 
   /** \brief Checks if the current UI Element is clicked
     * Check if the coordinates match the ones stored in _uiElementRect
@@ -72,7 +72,7 @@ public:
   * Group ID Name must be the same as used for groups in the UI Layout JSON File.
   * @return The name of the group the element nbelongs to as string
   */
-  std::string getGroupID() { return _groupName; };
+  const std::string &getGroupID() { return _groupName; };
 
   /** \brief Set the ParentOf ID of the UI Element.
   * Retrieves the ID of the group that the UI Element is the parent of.
@@ -88,7 +88,7 @@ public:
   * For more details see our github wiki page
   * @return The parentOf ID as string
   */
-  std::string getParentID() { return _parentOf; };
+  const std::string &getParentID() { return _parentOf; };
 
   /** \brief Set the Action ID of the UI Element.
   * Sets the ID of the action the UI Element should execute when it's clicked.
@@ -140,7 +140,7 @@ public:
   * Get the tooltip text for this ui element. Tooltip is shown when hovering over a ui Element.
   * @return tooltiptext as string
   */
-  std::string getTooltipText() { return _tooltipText; };
+  const std::string &getTooltipText() { return _tooltipText; };
 
   /** \brief Set the uiElements sprite ID
   * Set the sprite ID this ui element. The texture will be retrieved from the textureManager for the according ID.
@@ -189,7 +189,7 @@ protected:
   * @param rect the coordinates of the shape to draw in SDL_Rect format.
   * @param color The color for the rectangle.
   */
-  void drawSolidRect(SDL_Rect rect, const SDL_Color &color);
+  void drawSolidRect(SDL_Rect rect, const SDL_Color &color) const;
 
   /** \brief Draws a line to the screen.
   * Draws a line to the screen.
@@ -197,7 +197,7 @@ protected:
   * @param x2, y2 The lines ending point.
   * @param color The color of the line.
   */
-  void drawLine(int x1, int y1, int x2, int y2, const SDL_Color &color);
+  void drawLine(int x1, int y1, int x2, int y2, const SDL_Color &color) const;
 
   /** \brief Draws a text string to the screen
   * Draws a text string to the screen. This could either be a standalone text, a text on another texture

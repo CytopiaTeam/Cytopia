@@ -26,7 +26,7 @@ public:
   //const Sprite& getSprite() const { return *_sprite; };
 
   /// get iso coordinates of this cell
-  Point getCoordinates() { return _isoCoordinates; };
+  const Point &getCoordinates() { return _isoCoordinates; };
 
   /** @brief get Tile ID
     * Retrieves the current Tile ID of this map cell

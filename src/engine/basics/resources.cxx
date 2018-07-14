@@ -155,7 +155,7 @@ Point Resources::convertIsoToScreenCoordinates(const Point &isoCoordinates, bool
   return {x, y, 0, 0};
 }
 
-std::string Resources::getTileDataFromJSON(const std::string &tileType, int tileID, const std::string &attribute)
+const std::string Resources::getTileDataFromJSON(const std::string &tileType, int tileID, const std::string &attribute)
 {
   for (json::iterator it = _json.begin(); it != _json.end(); ++it)
   {
@@ -170,11 +170,11 @@ std::string Resources::getTileDataFromJSON(const std::string &tileType, int tile
     LOG(LOG_ERROR) << "Can't retrieve filename from " << Settings::Instance().settings.tileDataJSONFile << " for ID " << tileID;
     // Application should quit here.
   }
-  std::string retrievedFileName = _json[tileType][std::to_string(tileID)]["filename"].get<std::string>();
+  const std::string &retrievedFileName = _json[tileType][std::to_string(tileID)]["filename"].get<std::string>();
   return retrievedFileName;
 }
 
-std::string Resources::getUISpriteDataFromJSON(const std::string &uiType, int uiSpriteID, const std::string &attribute)
+const std::string Resources::getUISpriteDataFromJSON(const std::string &uiType, int uiSpriteID, const std::string &attribute)
 {
   for (json::iterator it = _uiTextureFile.begin(); it != _uiTextureFile.end(); ++it)
   {

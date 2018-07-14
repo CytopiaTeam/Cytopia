@@ -16,6 +16,7 @@
 class SoundEffect
 {
 public:
+  SoundEffect(const std::string &filename);
   SoundEffect() = default;
   ~SoundEffect();
 
@@ -37,19 +38,19 @@ public:
     * @param distance The distance from the listener, from 0(near/loud) to 255(far/quiet).
     * @param loops How many loops should be played. Default: 0 (play one time)
     */
-  void play(int channel = -1, int angle = 0, int distance = 0, int loops = 0);
+  void play(int channel = -1, int angle = 0, int distance = 0, int loops = 0) const;
 
   /** \brief Stop sound effect
     * Stops the soundeffect at given channel
     * @param channel that should be stopped. Default: -1 (all channels)
     */
-  void stop(int channel = -1);
+  void stop(int channel = -1) const;
 
   /** \brief Check if a sound effect is playing
     * Checks if this audio object is currently playing.
     * @returns bool if a sound effect is playing
     */
-  bool isPlaying();
+  bool isPlaying() const;
 
 private:
   Mix_Chunk *_soundEffect = nullptr;

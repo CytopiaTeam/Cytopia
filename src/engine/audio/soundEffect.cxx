@@ -1,5 +1,7 @@
 #include "soundEffect.hxx"
 
+SoundEffect::SoundEffect(const std::string &filename) { loadFile(filename); }
+
 SoundEffect::~SoundEffect()
 {
   if (_soundEffect)
@@ -17,7 +19,7 @@ void SoundEffect::loadFile(const std::string &filename)
   }
 }
 
-void SoundEffect::play(int channel, int angle, int distance, int loops)
+void SoundEffect::play(int channel, int angle, int distance, int loops) const
 {
   if (settings.settings.playSoundEffects)
   {
@@ -46,7 +48,7 @@ void SoundEffect::play(int channel, int angle, int distance, int loops)
   }
 }
 
-void SoundEffect::stop(int channel)
+void SoundEffect::stop(int channel) const
 {
   if (settings.settings.playMusic)
   {
@@ -54,7 +56,7 @@ void SoundEffect::stop(int channel)
   }
 }
 
-bool SoundEffect::isPlaying()
+bool SoundEffect::isPlaying() const
 {
   if (settings.settings.playMusic)
   {
