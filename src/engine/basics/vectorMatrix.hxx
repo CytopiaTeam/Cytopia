@@ -54,6 +54,8 @@ public:
     */
   void getNeighbors(const Point &isoCoordinates, NeighborMatrix &result) const;
 
+  void rotateMatrix();
+
 private:
   std::vector<std::shared_ptr<Cell>> _cellMatrix;
 

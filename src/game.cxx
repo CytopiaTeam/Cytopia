@@ -10,6 +10,7 @@
 
 void run()
 {
+
   Timer benchmarkTimer;
   LOG() << VERSION;
   Resources::init();
@@ -29,9 +30,27 @@ void run()
   AudioMixer audiomixer;
   audiomixer.playMusic();
 
+  unsigned currentTick = 0;
+  unsigned lastTick = 0;
+  unsigned elapsedTicks = 0;
+
+  currentTick = lastTick = SDL_GetTicks();
+
+  unsigned fpsTimer = 0;
+  unsigned fpsFrameCount = 0;
+  unsigned fpsAccurate = 0;
+  unsigned fpsInstantaneous = 0;
+
   // Gameloop
   while (engine.gameIsRunning())
   {
+
+    lastTick = currentTick;
+    currentTick = SDL_GetTicks();
+    elapsedTicks = currentTick - lastTick;
+
+    float elapsedTime = elapsedTicks / 1000.f;
+
     SDL_RenderClear(_renderer);
 
     evManager.checkEvents(event, engine);
@@ -48,6 +67,21 @@ void run()
 
     // Render the Frame
     SDL_RenderPresent(_renderer);
-    SDL_Delay(1);
+
+    ++fpsFrameCount;
+    fpsTimer += elapsedTicks;
+    if (fpsTimer >= 10000) {
+      fpsAccurate = fpsFrameCount;
+      fpsFrameCount = 0;
+      fpsTimer = 0;
+      LOG() << "Accurate: " << fpsAccurate << "fps sampled over 1000 Frames";
+    }
+    //if (elapsedTicks)
+    //{
+    //  fpsInstantaneous = 1000 / elapsedTicks;
+    //  LOG() << "Instant: " << fpsAccurate << "fps";
+    //}
+
+    //SDL_Delay(1);
   }
 }

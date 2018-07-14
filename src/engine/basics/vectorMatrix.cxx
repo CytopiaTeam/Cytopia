@@ -213,3 +213,36 @@ void vectorMatrix::getNeighbors(const Point &isoCoordinates, NeighborMatrix &res
     ++idx;
   }
 }
+
+void vectorMatrix::rotateMatrix()
+{
+
+  std::vector<std::shared_ptr<Cell> > rotatedMatrix(_cellMatrix.size());
+  rotatedMatrix = _cellMatrix;
+  std::vector<Point> tempCoords(_cellMatrix.size());
+
+  for (auto it : _cellMatrix)
+  {
+    tempCoords[it->getCoordinates().x * _columns + it->getCoordinates().y] = it->getCoordinates();
+  }
+
+
+  for (int x = 0; x < _rows - 1; x++)
+  {
+    for (int y = 0; y < _columns - 1; y++)
+    {
+      // correctly rotate all elements of the matrix, but not the coordinates of the cells itself!
+      // but with the elements rotated, the draw order is broken...
+
+      int rotY = _columns - 1 - y;
+      int rotCounterclockX = _columns - 1 - x;
+
+      //std::swap(_cellMatrix[x * _columns + y], _cellMatrix[rotY * _columns + x]);
+      //_cellMatrix[x * _columns + y]->setCoordinates(tempCoords[x * _columns + y]);
+      //_cellMatrix[rotY * _columns + x]->setCoordinates(tempCoords[rotY * _columns + x]);
+
+
+      _cellMatrix[x * _columns + y]->setCoordinates(tempCoords[rotY * _columns + x]);
+    }
+  }
+}

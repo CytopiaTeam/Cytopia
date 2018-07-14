@@ -91,6 +91,8 @@ public:
 
   void quitGame() { _windowmanager.close(); };
   void toggleFullScreen() { _windowmanager.toggleFullScreen(); };
+
+  void rotateMap();
 private:
   Engine();
   virtual ~Engine() = default;

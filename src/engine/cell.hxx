@@ -28,6 +28,13 @@ public:
   /// get iso coordinates of this cell
   const Point &getCoordinates() { return _isoCoordinates; };
 
+  /// set iso coordinates of this cell
+  void setCoordinates(Point newCoordinates)
+  {
+    _isoCoordinates = newCoordinates;
+    _sprite->setTileIsoCoordinates(_isoCoordinates);
+  };
+
   /** @brief get Tile ID
     * Retrieves the current Tile ID of this map cell
     * @return Returns the current Tile ID as Integer

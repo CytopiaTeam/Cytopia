@@ -131,3 +131,8 @@ Point Engine::findCellAt(const Point &screenCoordinates)
   }
   return foundCoordinates;
 }
+
+void Engine::rotateMap()
+{
+  _mapCellMatrix.rotateMatrix();
+}

@@ -41,7 +41,9 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         case SDLK_3:
           engine.toggleLayer(Engine::LAYER_SELECTION);
           break;
-
+        case SDLK_r:
+          engine.rotateMap();
+          break;
         case SDLK_f:
           engine.toggleFullScreen();
           break;
