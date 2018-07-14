@@ -19,7 +19,7 @@ void run()
   LOG() << "Tile Matrix initialized in " << benchmarkTimer.getDeltaTime() << "ms";
 
   SDL_Event event;
-  EventManager evManager = EventManager();
+  EventManager evManager;
 
   UIManager &uiManager = UIManager::Instance();
   uiManager.init();
