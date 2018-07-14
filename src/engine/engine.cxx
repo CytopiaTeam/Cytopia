@@ -24,15 +24,7 @@ Engine::Engine()
 
 void Engine::render()
 {
-  int mapSize = Settings::Instance().settings.mapSize;
-
-  for (int x = 0; x <= mapSize; x++)
-  {
-    for (int y = mapSize; y >= 0; y--)
-    {
-      _mapCellMatrix.getCell(x, y)->getSprite()->render();
-    }
-  }
+  _mapCellMatrix.renderMatrix();
 }
 
 void Engine::centerScreenOnPoint(const Point &isoCoordinates)

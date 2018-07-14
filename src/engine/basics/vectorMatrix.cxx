@@ -217,10 +217,10 @@ void vectorMatrix::getNeighbors(const Point &isoCoordinates, NeighborMatrix &res
 void vectorMatrix::rotateMatrix()
 {
 
+  printMatrix();
   std::vector<std::shared_ptr<Cell> > rotatedMatrix(_cellMatrix.size());
   rotatedMatrix = _cellMatrix;
   std::vector<Point> tempCoords(_cellMatrix.size());
-
   for (auto it : _cellMatrix)
   {
     tempCoords[it->getCoordinates().x * _columns + it->getCoordinates().y] = it->getCoordinates();
@@ -242,7 +242,65 @@ void vectorMatrix::rotateMatrix()
       //_cellMatrix[rotY * _columns + x]->setCoordinates(tempCoords[rotY * _columns + x]);
 
 
-      _cellMatrix[x * _columns + y]->setCoordinates(tempCoords[rotY * _columns + x]);
+      //_cellMatrix[x * _columns + y]->setCoordinates(tempCoords[rotY * _columns + x]);
     }
+  }
+}
+
+std::shared_ptr<Cell> vectorMatrix::getCell(int x, int y) 
+{ 
+  //for (auto it : _cellMatrix)
+  //{
+  //  if (it->getCoordinates().x == x && it->getCoordinates().y == y)
+  //    return it;
+  //}
+  //return nullptr;
+
+  return _cellMatrix[x * _columns + y];
+};
+
+void vectorMatrix::renderMatrix()
+{
+  int mapSize = Settings::Instance().settings.mapSize;
+
+
+  for (int x = 0; x <= mapSize; x++)
+  {
+    for (int y = mapSize; y >= 0; y--)
+    {
+      _cellMatrix[x * _columns + y]->getSprite()->render();
+    }
+  }
+}
+
+void vectorMatrix::printMatrix()
+{
+
+  std::cout << std::endl;
+  LOG() << "Dumping Matrix Structure";
+  std::cout << std::endl;
+  std::cout << "vectorMatrix Outer Coordinates" << std::endl;
+  for (int x = 0; x<_rows; x++)  // loop 3 times for three lines
+  {
+    std::cout << " | ";
+    for (int y = 0; y<_columns; y++)  // loop for the three elements on the line
+    {
+
+      std::cout << x << ", " << y << " | ";
+    }
+    std::cout << std::endl;
+  }
+
+  
+  std::cout << "vectorMatrix Inner Coordinates" << std::endl;
+  for (int x = 0; x<_rows; x++)  // loop 3 times for three lines
+  {
+    std::cout << " | ";
+    for (int y = 0; y<_columns; y++)  // loop for the three elements on the line
+    {
+
+      std::cout <<  _cellMatrix[x * _columns + y]->getCoordinates().x << ", " << _cellMatrix[x * _columns + y]->getCoordinates().y << " | ";
+    }
+    std::cout << std::endl;
   }
 }

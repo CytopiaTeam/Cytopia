@@ -5,7 +5,7 @@
         "UILayoutJSONFile": "resources/data/UILayout.json"
     },
     "Game": {
-        "MapSize": 128,
+        "MapSize": 4,
         "MaxElevationHeight": 32
     },
     "Audio": {
