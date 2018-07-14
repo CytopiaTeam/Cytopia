@@ -41,6 +41,8 @@ add_executable(${PROJECT_NAME}
   src/engine/ui/tooltip.hxx
   src/engine/ui/uiElement.cxx
   src/engine/ui/uiElement.hxx
+  src/engine/audio/soundEffect.cxx
+  src/engine/audio/soundEffect.cxx
   src/engine/audio/music.cxx
   src/engine/audio/music.hxx
   src/engine/audioMixer.cxx
