@@ -184,7 +184,7 @@ unsigned int vectorMatrix::getElevatedNeighborBitmask(const Point &isoCoordinate
           _cellMatrix[it.first * _columns + it.second])
       {
         // for each found tile add 2 ^ i to the bitmask
-        bitmask |= static_cast<unsigned int>(std::pow(2, i));
+        bitmask |= static_cast<unsigned int>(1 << i);
       }
     }
     i++;

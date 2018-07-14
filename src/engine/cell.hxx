@@ -2,7 +2,6 @@
 #define CELL_HXX_
 
 #include <vector>
-#include <cmath>
 
 #include "SDL2/SDL.h"
 
