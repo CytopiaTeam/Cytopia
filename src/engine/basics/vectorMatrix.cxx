@@ -192,37 +192,24 @@ unsigned int vectorMatrix::getElevatedNeighborBitmask(const Point &isoCoordinate
   return bitmask;
 }
 
-std::vector<std::shared_ptr<Cell>> vectorMatrix::getNeighbors(const Point &isoCoordinates)
+void vectorMatrix::getNeighbors(const Point &isoCoordinates, NeighborMatrix &result) const
 {
-  int x = isoCoordinates.x;
-  int y = isoCoordinates.y;
-
   std::vector<std::shared_ptr<Cell>> neighborCells;
   neighborCells.reserve(9);
 
-  std::pair<int, int> adjecantCellCoordinates[9] = {
-      std::make_pair(x - 1, y - 1), // 6 = 2^6 = 64  = BOTTOM LEFT
-      std::make_pair(x - 1, y),     // 2 = 2^2 = 4   = LEFT
-      std::make_pair(x - 1, y + 1), // 4 = 2^4 = 16  = TOP LEFT
-      std::make_pair(x, y - 1),     // 1 = 2^1 = 2   = BOTTOM
-      std::make_pair(x, y),         // center
-      std::make_pair(x, y + 1),     // 0 = 2^0 = 1   = TOP
-      std::make_pair(x + 1, y - 1), // 7 = 2^7 = 128 = BOTTOM RIGHT
-      std::make_pair(x + 1, y),     // 3 = 2^3 = 8   = RIGHT
-      std::make_pair(x + 1, y + 1)  // 5 = 2^5 = 32  = TOP RIGHT
-  };
-
-  for (auto it : adjecantCellCoordinates)
+  size_t idx = 0;
+  for (const auto &it : adjecantCellOffsets)
   {
-
-    if (it.first >= 0 && it.first < _rows && it.second >= 0 && it.second < _columns)
+    int x = isoCoordinates.x + it.x;
+    int y = isoCoordinates.y + it.y;
+    if (x >= 0 && x < _rows && y >= 0 && y < _columns)
     {
-      neighborCells.push_back(_cellMatrix[it.first * _columns + it.second]);
+      result[idx] = &*_cellMatrix[x * _columns + y];
     }
     else
     {
-      neighborCells.push_back(nullptr);
+      result[idx] = nullptr;
     }
+    ++idx;
   }
-  return neighborCells;
 }

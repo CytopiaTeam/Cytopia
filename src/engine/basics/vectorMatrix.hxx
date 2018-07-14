@@ -9,6 +9,9 @@
 class vectorMatrix
 {
 public:
+  //fixed Cell* array to store neighbors.
+  using NeighborMatrix = Cell * [9];
+
   vectorMatrix() = default;
   vectorMatrix(int columns, int rows);
   ~vectorMatrix() = default;
@@ -45,10 +48,11 @@ public:
   unsigned int getElevatedNeighborBitmask(const Point &isoCoordinates);
 
   /**\brief Get neighbor Cell Objects
-    * Returns a std::vector of std::shared_ptr<Cell> of the neighboring cells of the given coordinates
+    * Stores pointers to the neighboring cells of the given coordinates in the passed parameter.
     * @param Point isoCoordinates - isometric coordinates of the tile that's neighbors should be retrieved.
+    * @param NeighborMatrix result - Pass a ref of type neighbormatrix to store the found neighbors in.
     */
-  std::vector<std::shared_ptr<Cell>> getNeighbors(const Point &isoCoordinates);
+  void getNeighbors(const Point &isoCoordinates, NeighborMatrix &result) const;
 
 private:
   std::vector<std::shared_ptr<Cell>> _cellMatrix;
