@@ -54,6 +54,12 @@ public:
     */
   void getNeighbors(const Point &isoCoordinates, NeighborMatrix &result) const;
 
+  /** \Brief Render the elements contained in the matrixx
+    * call the render() function of the sprite in the all contained Cell elements
+    * @see Sprite#render
+    */
+  void renderMatrix();
+
 private:
   std::vector<std::shared_ptr<Cell>> _cellMatrix;
 

@@ -213,3 +213,13 @@ void vectorMatrix::getNeighbors(const Point &isoCoordinates, NeighborMatrix &res
     ++idx;
   }
 }
+void vectorMatrix::renderMatrix()
+{
+  for (int x = 0; x <= Settings::Instance().settings.mapSize; x++)
+  {
+    for (int y = Settings::Instance().settings.mapSize; y >= 0; y--)
+    {
+      _cellMatrix[x * _columns + y]->getSprite()->render();
+    }
+  }
+}
