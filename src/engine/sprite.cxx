@@ -4,14 +4,21 @@ Sprite::Sprite(int tileID, Point isoCoordinates) : _tileID(tileID), _isoCoordina
 {
   _renderer = Resources::getRenderer();
   _window = Resources::getWindow();
-  _screenCoordinates = Resources::convertIsoToScreenCoordinates(isoCoordinates);
+  _isoCoordinates = isoCoordinates; 
+  _screenCoordinates = Resources::convertIsoToScreenCoordinates(_isoCoordinates);
   _texture = TextureManager::Instance().getTileTexture(tileID);
 }
+
+void Sprite::setTileIsoCoordinates(Point isoCoords) 
+{ 
+  _isoCoordinates = isoCoords; 
+  _screenCoordinates = Resources::convertIsoToScreenCoordinates(_isoCoordinates);
+}
+
 
 void Sprite::render()
 {
   int tileSize = static_cast<int>(Resources::getTileSize() * Resources::getZoomLevel());
-  _screenCoordinates = Resources::convertIsoToScreenCoordinates(_isoCoordinates);
 
   int offscreenTolerance = static_cast<int>(3 * tileSize);
   int screen_width = Settings::Instance().settings.screenWidth;

@@ -242,7 +242,11 @@ void vectorMatrix::rotateMatrix()
       int rotCounterclockX = _columns - 1 - x;
 
       rotatedMatrix[x * _columns + y] = _cellMatrix[rotY * _columns + x];
+      LOG() << "Settings " << rotatedMatrix[x * _columns + y]->getCoordinates().x << ", " << rotatedMatrix[x * _columns + y]->getCoordinates().y << ", " << rotatedMatrix[x * _columns + y]->getCoordinates().height << " to " << tempCoords[x * _columns + y].x << ", " << tempCoords[x * _columns + y].y << ", " << tempCoords[x * _columns + y].height;
+      //rotatedMatrix[x * _columns + y]->setCoordinates(tempCoords[rotY * _columns + x]);
       rotatedMatrix[x * _columns + y]->setCoordinates(tempCoords[x * _columns + y]);
+      //drawSurroundingTiles(rotatedMatrix[x * _columns + y]->getCoordinates());
+      //rotatedMatrix[x * _columns + y]->setCoordinates(_cellMatrix[rotY * _columns + x]->getCoordinates());
     }
   }
   std::swap(_cellMatrix, rotatedMatrix);
@@ -274,7 +278,7 @@ void vectorMatrix::printMatrix()
   std::cout << std::endl;
   LOG() << "Dumping Matrix Structure";
   std::cout << std::endl;
-  std::cout << "vectorMatrix Outer Coordinates" << std::endl;
+  std::cout << "vectorMatrix Outer Vector Coordinates" << std::endl;
   for (int x = 0; x<_rows; x++)  // loop 3 times for three lines
   {
     std::cout << " | ";
@@ -287,14 +291,14 @@ void vectorMatrix::printMatrix()
   }
 
   
-  std::cout << "vectorMatrix Inner Coordinates" << std::endl;
+  std::cout << "vectorMatrix Inner Cell Coordinates" << std::endl;
   for (int x = 0; x<_rows; x++)  // loop 3 times for three lines
   {
     std::cout << " | ";
     for (int y = 0; y<_columns; y++)  // loop for the three elements on the line
     {
 
-      std::cout <<  _cellMatrix[x * _columns + y]->getCoordinates().x << ", " << _cellMatrix[x * _columns + y]->getCoordinates().y << " | ";
+      std::cout <<  _cellMatrix[x * _columns + y]->getCoordinates().x << ", " << _cellMatrix[x * _columns + y]->getCoordinates().y << ", " << _cellMatrix[x * _columns + y]->getCoordinates().height << " | ";
     }
     std::cout << std::endl;
   }

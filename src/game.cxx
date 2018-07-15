@@ -74,7 +74,7 @@ void run()
       fpsAccurate = fpsFrameCount;
       fpsFrameCount = 0;
       fpsTimer = 0;
-      //LOG() << "Accurate: " << fpsAccurate << "fps sampled over 1000 Frames";
+        LOG() << "Accurate: " << fpsAccurate << "fps sampled over 1000 Frames";
     }
     //if (elapsedTicks)
     //{

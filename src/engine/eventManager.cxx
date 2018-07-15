@@ -73,7 +73,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
               engine.decreaseHeightOfCell(clickCoords);
             }
             else
-              LOG() << "CLICKED - Iso Coords: " << clickCoords.x << ", " << clickCoords.y;
+              LOG() << "CLICKED - Iso Coords: " << clickCoords.x << ", " << clickCoords.y << " and height: " << clickCoords.height;
           }
         }
         else if (event.button.button == SDL_BUTTON_RIGHT)

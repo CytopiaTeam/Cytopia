@@ -16,7 +16,7 @@ public:
   virtual ~Sprite() = default;
 
   void render();
-  void setTileIsoCoordinates(Point isoCoords) { _isoCoordinates = isoCoords; };
+  void setTileIsoCoordinates(Point isoCoords);
   void changeTexture(int tileID) { _texture = TextureManager::Instance().getTileTexture(tileID); };
   const SDL_Rect &getTextureInformation() { return _destRect; };
 

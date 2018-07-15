@@ -8,6 +8,10 @@ Engine::Engine()
   _window = Resources::getWindow();
   _map_size = Settings::Instance().settings.mapSize;
 
+  // set camera to map center
+  _centerIsoCoordinates = Point{_map_size / 2, _map_size / 2, 0, 0};
+  centerScreenOnPoint(_centerIsoCoordinates);
+
   _mapCellMatrix = vectorMatrix(_map_size, _map_size);
   _zoomLevel = Resources::getZoomLevel();
 
@@ -17,9 +21,6 @@ Engine::Engine()
   _screen_height = Settings::Instance().settings.screenHeight;
   _screen_width = Settings::Instance().settings.screenWidth;
 
-  // set camera to map center
-  _centerIsoCoordinates = Point{_map_size / 2, _map_size / 2, 0, 0};
-  centerScreenOnPoint(_centerIsoCoordinates);
 }
 
 void Engine::render()
@@ -92,7 +93,7 @@ Point Engine::findCellAt(const Point &screenCoordinates)
     for (int y = _map_size; y >= 0; y--)
     {
       std::shared_ptr<Cell> currentCell = _mapCellMatrix.getCell(x, y);
-
+      LOG() << "Cell at vector positon " << x << ", " << y << " = " << _mapCellMatrix.getCell(x, y)->getCoordinates().x << ", " << _mapCellMatrix.getCell(x, y)->getCoordinates().y;
       SDL_Rect spriteRect = currentCell->getSprite()->getTextureInformation();
 
       int clickedX = screenCoordinates.x;
