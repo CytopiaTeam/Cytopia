@@ -1,3 +1,6 @@
+#ifndef TEXT_HXX_
+#define TEXT_HXX_
+
 #include <string>
 
 #include "uiElement.hxx"
@@ -9,3 +12,5 @@ public:
   Text(const SDL_Rect &uiElementRect);
   ~Text() override = default;
 };
+
+#endif
