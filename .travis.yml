@@ -40,7 +40,7 @@ script:
   - cmake --build .
   - cppcheck --force --quiet --error-exitcode=1 .
   - if [ "$TRAVIS_BRANCH" = "master" -a "$COMPILER" = "g++-5" ]; then cmake --build . --target doc; fi
-  - cmake --build . --target package
+  - if [ "$TRAVIS_BRANCH" = "master" -a "$COMPILER" = "g++-5" ]; then cmake --build . --target package; fi
 
 addons:
   apt:
