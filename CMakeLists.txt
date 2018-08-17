@@ -13,6 +13,20 @@ project(
 # add the path to our custom find modules
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake_modules/")
 
+# Package Generator specific settings
+set(CPACK_GENERATOR "DEB")
+set(CPACK_PACKAGE_VERSION ${VERSION})
+set(CPACK_DEBIAN_PACKAGE_VERSION ${VERSION})
+set(CPACK_DEBIAN_PACKAGE_SECTION games)
+set(CPACK_PACKAGE_NAME "IsometricEngine")
+set(CPACK_PACKAGE_DESCRIPTION "Isometric Engine Tech Preview")
+set(CPACK_DEBIAN_PACKAGE_MAINTAINER "Jimmy Snails")
+set(CPACK_PACKAGING_INSTALL_PREFIX "/usr/games/IsometricEngine")
+set(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
+set(CPACK_STRIP_FILES ON)
+
+INCLUDE(CPack)
+
 # create a new executable with the same name as the project
 add_executable(${PROJECT_NAME}
   src/engine/basics/log.hxx
@@ -147,3 +161,6 @@ if(MSVC)
       VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/$(Configuration)"
   )
 endif()
+
+install(TARGETS ${PROJECT_NAME} DESTINATION .)
+install(DIRECTORY resources DESTINATION .)
