@@ -60,3 +60,8 @@ If you are on a linux system, you can use:
 #### Work-in-Progress Screenshot
 
 ![alt text](https://raw.githubusercontent.com/JimmySnails/IsometricEngine/master/images/Screenshot1.png)
+
+#### Latest build
+
+.deb Package:
+https://jimmysnails.github.io/IsometricEngine/build/build/IsometricEngine-0.1.1-Linux.deb
