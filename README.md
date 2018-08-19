@@ -64,4 +64,4 @@ If you are on a linux system, you can use:
 #### Latest build
 
 .deb Package:
-https://jimmysnails.github.io/IsometricEngine/build/build/IsometricEngine-0.1.1-Linux.deb
+https://jimmysnails.github.io/IsometricEngine/build/IsometricEngine-0.1.1-Linux.deb
