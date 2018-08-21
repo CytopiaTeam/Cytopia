@@ -155,7 +155,7 @@ SDL_Surface *TextureManager::getUISurface(int uiSpriteID)
   return _surfaceMap[uiSpriteID];
 }
 
-const SDL_Color &TextureManager::getPixelColor(int tileID, int X, int Y)
+const SDL_Color TextureManager::getPixelColor(int tileID, int X, int Y)
 {
   SDL_Surface *surface = _surfaceMap[tileID];
   int Bpp = surface->format->BytesPerPixel;

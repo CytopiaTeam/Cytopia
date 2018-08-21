@@ -33,7 +33,7 @@ public:
   SDL_Surface *getUISurface(int uiSpriteID);
 
   /** Retrieves Color of a specific tileID at coordinates with the texture */
-  const SDL_Color &getPixelColor(int tileID, int X, int Y);
+  const SDL_Color getPixelColor(int tileID, int X, int Y);
 
   std::unordered_map<int, SDL_Texture *> _textureMap;
   std::unordered_map<int, SDL_Texture *> _uiTextureMap;
