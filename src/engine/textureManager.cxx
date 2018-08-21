@@ -157,14 +157,21 @@ SDL_Surface *TextureManager::getUISurface(int uiSpriteID)
 
 const SDL_Color TextureManager::getPixelColor(int tileID, int X, int Y)
 {
-  SDL_Surface *surface = _surfaceMap[tileID];
-  int Bpp = surface->format->BytesPerPixel;
-  Uint8 *p = (Uint8 *)surface->pixels + Y * surface->pitch + X * Bpp;
+  SDL_Color Color = { 0, 0, 0, SDL_ALPHA_TRANSPARENT };
 
-  Uint32 pixel = *(Uint32 *)p;
+  if (_surfaceMap.find(tileID) != _surfaceMap.end())
+  {
+    SDL_Surface *surface = _surfaceMap[tileID];
 
-  SDL_Color Color = {0, 0, 0, SDL_ALPHA_TRANSPARENT};
-  SDL_GetRGBA(pixel, surface->format, &Color.r, &Color.g, &Color.b, &Color.a);
+    int Bpp = surface->format->BytesPerPixel;
+    Uint8 *p = (Uint8 *)surface->pixels + Y * surface->pitch + X * Bpp;
+    Uint32 pixel = *(Uint32 *)p;
 
+    SDL_GetRGBA(pixel, surface->format, &Color.r, &Color.g, &Color.b, &Color.a);
+  }
+  else
+  {
+    LOG(LOG_ERROR) << "No surface in map for tileID " << tileID;
+  }
   return Color;
 }
