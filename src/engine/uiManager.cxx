@@ -108,6 +108,8 @@ void UIManager::init()
   _tooltip->setVisibility(false);
 }
 
+void UIManager::setFPSCounterText(const std::string &fps) { _fpsCounter->setText(fps); }
+
 void UIManager::drawUI()
 {
   for (const auto &it : _uiElements)
@@ -120,6 +122,10 @@ void UIManager::drawUI()
   if (_tooltip->isVisible())
   {
     _tooltip->draw();
+  }
+  if (_showDebugMenu)
+  {
+    _fpsCounter->draw();
   }
 }
 
@@ -137,9 +143,13 @@ void UIManager::setButtonState()
         if (SDL_GetMouseState(nullptr, nullptr) & SDL_BUTTON(SDL_BUTTON_LEFT) && !_mouseHeldDown)
         {
           if (it->getButtonState() == TextureManager::TOGGLED)
+          {
             it->changeButtonState(TextureManager::DEFAULT);
+          }
           else
+          {
             it->changeButtonState(TextureManager::TOGGLED);
+          }
 
           _mouseHeldDown = true;
         }

@@ -29,6 +29,11 @@ void run()
   AudioMixer audiomixer;
   audiomixer.playMusic();
 
+  // FPS Counter variables
+  const float fpsIntervall = 1.0; // interval the fps counter is refreshed in seconds.
+  Uint32 fpsLastTime = SDL_GetTicks();
+  Uint32 fpsFrames = 0;
+
   // Gameloop
   while (engine.gameIsRunning())
   {
@@ -48,6 +53,15 @@ void run()
 
     // Render the Frame
     SDL_RenderPresent(_renderer);
-    SDL_Delay(1);
+
+    fpsFrames++;
+    if (fpsLastTime < SDL_GetTicks() - fpsIntervall * 1000)
+    {
+      fpsLastTime = SDL_GetTicks();
+      uiManager.setFPSCounterText(std::to_string(fpsFrames) + " FPS");
+      fpsFrames = 0;
+    }
+
+    //SDL_Delay(1);
   }
 }

@@ -29,6 +29,9 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         case SDLK_0:
           engine.toggleLayer(Engine::LAYER_GRID);
           break;
+        case SDLK_F11:
+          uiManager.toggleDebugMenu();
+          break;
 
         case SDLK_1:
           engine.toggleLayer(Engine::LAYER_FLOOR);

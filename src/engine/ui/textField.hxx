@@ -14,9 +14,8 @@ public:
 
   void draw() override;
 
-
 private:
-  std::vector<Text*> _texts;
+  std::vector<Text *> _texts;
 };
 
 #endif

@@ -34,9 +34,13 @@ public:
 
   void toggleGroupVisibility(const std::string &groupID);
 
+  void toggleDebugMenu() { _showDebugMenu = !_showDebugMenu; };
+
   void addToGroup(int groupID, std::shared_ptr<UiElement> uiElement);
 
   void setButtonState();
+
+  void setFPSCounterText(const std::string &fps);
 
 private:
   UIManager() = default;
@@ -45,8 +49,11 @@ private:
   std::unordered_map<int, std::shared_ptr<UiElement>> _group;
 
   std::shared_ptr<Tooltip> _tooltip = std::make_shared<Tooltip>();
+  // Text element for the FPS Counter (debug menu)
+  std::shared_ptr<Text> _fpsCounter = std::make_shared<Text>(SDL_Rect{40, 20, 0, 0});
 
   bool _mouseHeldDown = false;
+  bool _showDebugMenu = false;
 };
 
 #endif
