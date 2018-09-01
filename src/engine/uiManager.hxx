@@ -6,6 +6,7 @@
 #include "ui/button.hxx"
 #include "ui/frame.hxx"
 #include "ui/text.hxx"
+#include "ui/textField.hxx"
 #include "ui/tooltip.hxx"
 #include "ui/checkbox.hxx"
 #include "ui/combobox.hxx"
