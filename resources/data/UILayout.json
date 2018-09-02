@@ -1,7 +1,7 @@
 {
   "Test": [
     {
-      "groupVisibility": false
+      "groupVisibility": true
     },
     {
       "Type": "ComboBox",

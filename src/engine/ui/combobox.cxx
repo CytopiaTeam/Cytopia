@@ -1,6 +1,16 @@
 #include "combobox.hxx"
 
-ComboBox::ComboBox(const SDL_Rect &uiElementRect) : UiElement(uiElementRect) { rect = uiElementRect; }
+ComboBox::ComboBox(const SDL_Rect &uiElementRect) : UiElement(uiElementRect), rect(uiElementRect)
+{ 
+  menuRect = rect;
+  menuRect.y = rect.y + rect.h;
+  menuRect.h = 100;
+
+  _textField = std::make_shared<TextField>(TextField(menuRect));
+  _textField->addText("test");
+  _textField->addText("awesome element");
+  _textField->addText("one more element");
+}
 
 void ComboBox::draw()
 {
@@ -59,10 +69,7 @@ void ComboBox::draw()
 
   bool isMenuOpened = true;
 
-  SDL_Rect menuRect = rect;
-  menuRect.y = rect.y + rect.h;
-  menuRect.h = 100;
-
+  
   if (isMenuOpened)
   {
 
@@ -85,6 +92,8 @@ void ComboBox::draw()
 
     drawText("test", {255, 255, 255});
   }
+
+  _textField->draw();
 
   //render the buttons texture if available
   renderTexture();

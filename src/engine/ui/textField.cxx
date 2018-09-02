@@ -26,8 +26,7 @@ void TextField::addText(std::string text)
     
     (--_textList.end())->second->setTextPosition(xPos, yPos);
   }
-  //currRect = _textList[_textList.size()-1]->getUiElementRect();
-  LOG() << "our rect: " << currRect.x << ", " << currRect.y << " and size " << currRect.w << ", " << currRect.h;
+  LOG() << "DEBUG our rect: " << currRect.x << ", " << currRect.y << " and size " << currRect.w << ", " << currRect.h;
 }
 
 void TextField::draw() 
