@@ -5,14 +5,13 @@
 
 void TextField::addText(std::string text)
 {
-
-  _texts.push_back(new Text (text));
+  _textList.insert(std::make_pair(static_cast<int>(_textList.size()), new Text(_textFieldRect, text)));
 }
 
 void TextField::draw() 
 {
-  for (auto text : _texts)
+  for (auto text : _textList)
   {
-    text->draw();
+    text.second->draw();
   }
 }

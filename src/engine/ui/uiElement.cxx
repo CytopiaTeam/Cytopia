@@ -1,6 +1,6 @@
 #include "uiElement.hxx"
 
-UiElement::UiElement(SDL_Rect uiElementRect) : _uiElementRect(std::move(uiElementRect)) {}
+UiElement::UiElement(const SDL_Rect& uiElementRect) : _uiElementRect(uiElementRect) {}
 
 void UiElement::draw()
 {

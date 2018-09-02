@@ -8,7 +8,7 @@ class TextField : public UiElement
 {
 public:
   TextField() = default;
-  TextField(const SDL_Rect &uiElementRect) : UiElement(uiElementRect) {}
+  TextField(const SDL_Rect &uiElementRect) : UiElement(uiElementRect), _textFieldRect(uiElementRect) {}
 
   ~TextField() override = default;
 
@@ -17,7 +17,8 @@ public:
   void draw() override;
 
 private:
-  std::vector<Text *> _texts;
+  std::map<int, Text*> _textList;
+  SDL_Rect _textFieldRect;
 };
 
 #endif

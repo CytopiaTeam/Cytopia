@@ -10,7 +10,7 @@ class Text : public UiElement
 {
 public:
   Text(const SDL_Rect &uiElementRect);
-  Text(const std::string& text);
+  Text(const SDL_Rect &uiElementRect, const std::string& text);
   ~Text() override = default;
 };
 
