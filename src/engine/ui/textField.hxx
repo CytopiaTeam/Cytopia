@@ -8,7 +8,7 @@ class TextField : public UiElement
 {
 public:
   TextField() = default;
-  TextField::TextField(const SDL_Rect &uiElementRect) : UiElement(uiElementRect) {}
+  TextField(const SDL_Rect &uiElementRect) : UiElement(uiElementRect) {}
 
   ~TextField() override = default;
 
