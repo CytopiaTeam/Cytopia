@@ -161,6 +161,8 @@ public:
   void setSpriteID(int uiSpriteID);
 
   void setText(const std::string &text);
+ 
+  const std::string getText() { return _text; };
 
   void drawButtonFrame(SDL_Rect rect, bool isHighlightable = true);
 

@@ -71,6 +71,12 @@ void ComboBox::draw()
   if (isMenuOpened)
   {
 
+    bgColor = 128;
+    bgColorFrame = 150;
+    bgColorFrameShade = 172;
+    bgColorBottomFrame = 106;
+    bgColorBottomFrameShade = 84;
+
     // top frame
     drawSolidRect(menuRect, SDL_Color{bgColorFrameShade, bgColorFrameShade, bgColorFrameShade});
     drawSolidRect(SDL_Rect{menuRect.x + 2, menuRect.y + 2, menuRect.w - 4, menuRect.h - 4},
@@ -99,7 +105,7 @@ void ComboBox::draw()
 
 int ComboBox::getClickedID(int x, int y)
 {
-  LOG() << "SELECTED: " << _textField->getSeletectedID(x, y);
+  LOG() << "SELECTED: " << _textField->getSeletectedID(x, y) << _textField->getTextFromID(_textField->getSeletectedID(x, y));
   return -1;
 }
 

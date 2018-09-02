@@ -16,6 +16,8 @@ public:
 
   int getSeletectedID(int x, int y);
 
+  std::string getTextFromID(int id);
+
   void draw() override;
 
 private:

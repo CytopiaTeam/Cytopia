@@ -33,12 +33,23 @@ int TextField::getSeletectedID(int x, int y)
 {
   if (!_textList.empty())
   {
+    // pick the dimensions of the last element in the map, assuming all texts have the same height
     SDL_Rect currRect = (--_textList.end())->second->getUiElementRect();
     return ((currRect.h + y - _textFieldRect.y) / currRect.h) - 1;
   }
   
   // calculate clicked position in combobox selection from given coordinates;
   return -1;
+}
+
+std::string TextField::getTextFromID(int id)
+{
+  auto result = _textList.find(id);
+  if (result != _textList.end()) 
+  { 
+    return result->second->getText();
+  }
+  return "";
 }
 
 
