@@ -34,9 +34,7 @@ int TextField::getSeletectedID(int x, int y)
   if (!_textList.empty())
   {
     SDL_Rect currRect = (--_textList.end())->second->getUiElementRect();
-    //int yPos = _textFieldRect.y + (currRect.h * (static_cast<int>(_textList.size()) - 1));
-  int id = (currRect.h - _textFieldRect.y) / currRect.h;
-  return id;
+    return ((currRect.h + y - _textFieldRect.y) / currRect.h) - 1;
   }
   
   // calculate clicked position in combobox selection from given coordinates;
