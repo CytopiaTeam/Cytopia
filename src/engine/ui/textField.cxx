@@ -29,6 +29,21 @@ void TextField::addText(std::string text)
   LOG() << "DEBUG our rect: " << currRect.x << ", " << currRect.y << " and size " << currRect.w << ", " << currRect.h;
 }
 
+int TextField::getSeletectedID(int x, int y)
+{
+  if (!_textList.empty())
+  {
+    SDL_Rect currRect = (--_textList.end())->second->getUiElementRect();
+    //int yPos = _textFieldRect.y + (currRect.h * (static_cast<int>(_textList.size()) - 1));
+  int id = (currRect.h - _textFieldRect.y) / currRect.h;
+  return id;
+  }
+  
+  // calculate clicked position in combobox selection from given coordinates;
+  return -1;
+}
+
+
 void TextField::draw() 
 {
   for (auto text : _textList)

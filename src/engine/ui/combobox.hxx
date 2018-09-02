@@ -11,16 +11,24 @@ public:
   ~ComboBox() override = default;
 
   void draw() override;
+  int getClickedID(int x, int y) override;
+
+  // override isClicked function to check for menu too if the combobox's opened
+  bool isClicked(int x, int y) override;
+
 
 private:
-  SDL_Rect rect;
+  SDL_Rect _comboBoxRect;
   SDL_Rect menuRect;
 
 
   std::shared_ptr<TextField> _textField;
 
+  std::string activeText;
+
   bool _isPressed = false;
   bool _isMouseOver = false;
+  bool isMenuOpened = true;
 };
 
 #endif

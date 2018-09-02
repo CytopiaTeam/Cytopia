@@ -1,11 +1,12 @@
 #include "combobox.hxx"
 
-ComboBox::ComboBox(const SDL_Rect &uiElementRect) : UiElement(uiElementRect), rect(uiElementRect)
+ComboBox::ComboBox(const SDL_Rect &uiElementRect) : UiElement(uiElementRect), _comboBoxRect(uiElementRect)
 { 
-  menuRect = rect;
-  menuRect.y = rect.y + rect.h;
+  menuRect = _comboBoxRect;
+  menuRect.y = _comboBoxRect.y + _comboBoxRect.h;
   menuRect.h = 100;
 
+  activeText = "test";
   _textField = std::make_shared<TextField>(TextField(menuRect));
   _textField->addText("test");
   _textField->addText("awesome element");
@@ -42,9 +43,9 @@ void ComboBox::draw()
   }
 
   // draw the button frame
-  if (rect.w != 0 && rect.h != 0)
+  if (_comboBoxRect.w != 0 && _comboBoxRect.h != 0)
   {
-    drawButtonFrame(rect);
+    drawButtonFrame(_comboBoxRect);
   }
 
   // arrow
@@ -54,8 +55,8 @@ void ComboBox::draw()
 
   arrowRect.w = 18;
   arrowRect.h = 2;
-  arrowRect.x = rect.x + (rect.w - arrowRect.w) - 9;
-  arrowRect.y = rect.y + (rect.h / 2) - (arrowRect.w / 2) / arrowRect.h - 1;
+  arrowRect.x = _comboBoxRect.x + (_comboBoxRect.w - arrowRect.w) - 9;
+  arrowRect.y = _comboBoxRect.y + (_comboBoxRect.h / 2) - (arrowRect.w / 2) / arrowRect.h - 1;
 
   for (; arrowRect.w > 1; arrowRect.w -= 2)
   {
@@ -65,11 +66,8 @@ void ComboBox::draw()
   }
   drawSolidRect(arrowRect, color);
 
-  // drowpdowb box
 
-  bool isMenuOpened = true;
-
-  
+  // drowpdown menu
   if (isMenuOpened)
   {
 
@@ -90,11 +88,29 @@ void ComboBox::draw()
     drawSolidRect(SDL_Rect{(menuRect.x + menuRect.w) - 2, menuRect.y + 2, 2, menuRect.h - 2},
                   SDL_Color{bgColorBottomFrameShade, bgColorBottomFrameShade, bgColorBottomFrameShade});
 
-    drawText("test", {255, 255, 255});
+    drawText(activeText, {255, 255, 255});
   }
 
   _textField->draw();
 
   //render the buttons texture if available
   renderTexture();
+}
+
+int ComboBox::getClickedID(int x, int y)
+{
+  LOG() << "SELECTED: " << _textField->getSeletectedID(x, y);
+  return -1;
+}
+
+bool ComboBox::isClicked(int x, int y)
+{
+  SDL_Rect boundaries = _comboBoxRect;;
+  if (isMenuOpened)
+  {
+    boundaries.h += menuRect.h;
+  }
+
+  return x > boundaries.x && x < boundaries.x + boundaries.w && y > boundaries.y &&
+    y < boundaries.y + boundaries.h;
 }

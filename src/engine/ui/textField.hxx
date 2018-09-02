@@ -14,6 +14,8 @@ public:
 
   void addText(std::string text);
 
+  int getSeletectedID(int x, int y);
+
   void draw() override;
 
 private:
