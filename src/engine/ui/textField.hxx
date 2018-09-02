@@ -19,6 +19,7 @@ public:
 private:
   std::map<int, Text*> _textList;
   SDL_Rect _textFieldRect;
+  bool _centerText = true;
 };
 
 #endif

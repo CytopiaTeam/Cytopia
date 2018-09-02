@@ -107,7 +107,7 @@ void UIManager::init()
   std::shared_ptr<TextField> textField;
   textField = std::make_shared<TextField>(TextField(SDL_Rect{ 40,40,40,40 }));
   textField->addText("ahc");
-  textField->addText("zdf");
+  textField->addText("zdf123");
   _uiElements.emplace_back(textField);
   _tooltip->setVisibility(false);
 }

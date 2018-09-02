@@ -36,6 +36,17 @@ public:
     _uiElementRect.y = y;
   };
 
+  /** \brief Sets the x,y position of the text of this ui element
+  * Sets the x,y position of the text of this ui element
+  * @param x the new x coordinate of the text of this ui element
+  * @param y the new y coordinate of of the text of this the ui element
+  */
+  void setTextPosition(int x, int y)
+  {
+    _textRect.x = x;
+    _textRect.y = y;
+  };
+
   /** \brief Get the position and the size of this ui element
     * Gets the position and the size of this ui element
     * @return Position and size as SDL_Rect
