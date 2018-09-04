@@ -134,7 +134,7 @@ void UIManager::setButtonState()
   SDL_GetMouseState(&x, &y);
   for (const std::shared_ptr<UiElement> &it : _uiElements)
   {
-    if (it->isClicked(x, y))
+    if (it->isMouseOver(x, y))
     {
 
       if (it->isToogleButton())
@@ -188,7 +188,7 @@ std::shared_ptr<UiElement> UIManager::getClickedUIElement(int x, int y)
 
   for (const std::shared_ptr<UiElement> &it : _uiElements)
   {
-    if (it->isClicked(x, y))
+    if (it->isMouseOver(x, y))
     {
       if (it->getActionID() != -1 && it->isVisible())
         clickedElement = it;

@@ -43,10 +43,10 @@ void UiElement::renderTexture()
   }
 }
 
-bool UiElement::isClicked(int x, int y)
+bool UiElement::isMouseOver(int x, int y)
 {
   return x > _uiElementRect.x && x < _uiElementRect.x + _uiElementRect.w && y > _uiElementRect.y &&
-         y < _uiElementRect.y + _uiElementRect.h;
+    y < _uiElementRect.y + _uiElementRect.h;
 }
 
 void UiElement::setText(const std::string &text)

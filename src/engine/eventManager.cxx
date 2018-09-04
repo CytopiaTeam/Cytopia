@@ -134,6 +134,8 @@ bool EventManager::handleUIEvents(SDL_Event &event)
     if (event.button.button == SDL_BUTTON_LEFT && clickedElement)
     {
       isHandlingMouseEvents = true;
+      // tell the ui element it's clicked
+      clickedElement->clickedEvent(event.button.x, event.button.y);
     }
     break;
   case SDL_MOUSEBUTTONUP:

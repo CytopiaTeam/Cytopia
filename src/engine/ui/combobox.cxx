@@ -109,14 +109,20 @@ int ComboBox::getClickedID(int x, int y)
   return -1;
 }
 
-bool ComboBox::isClicked(int x, int y)
+void ComboBox::clickedEvent(int x, int y)
 {
+  LOG() << "called";
+  bool isClicked = false;
   SDL_Rect boundaries = _comboBoxRect;;
   if (isMenuOpened)
   {
     boundaries.h += menuRect.h;
+    _selectedID = _textField->getSeletectedID(x,y);
+    this->activeText = _textField->getTextFromID(_selectedID);
   }
 
-  return x > boundaries.x && x < boundaries.x + boundaries.w && y > boundaries.y &&
+  isClicked = x > boundaries.x && x < boundaries.x + boundaries.w && y > boundaries.y &&
     y < boundaries.y + boundaries.h;
+  
+  //return isClicked;
 }

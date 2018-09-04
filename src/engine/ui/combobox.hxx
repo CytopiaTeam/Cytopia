@@ -14,7 +14,7 @@ public:
   int getClickedID(int x, int y) override;
 
   // override isClicked function to check for menu too if the combobox's opened
-  bool isClicked(int x, int y) override;
+  void clickedEvent(int x, int y) override;
 
 
 private:
@@ -29,6 +29,7 @@ private:
   bool _isPressed = false;
   bool _isMouseOver = false;
   bool isMenuOpened = true;
+  int _selectedID = 0;
 };
 
 #endif

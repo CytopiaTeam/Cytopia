@@ -21,15 +21,15 @@ public:
   virtual ~UiElement() = default;
 
   /** \brief Draw the UI Element and/or render it's textures to the screen
-    * Renders the texture of the Ui Element. Function is over
-    */
+  * Renders the texture of the Ui Element. Function is over
+  */
   virtual void draw();
 
   /** \brief Sets the x,y position of this ui element
-    * Sets the x,y position of the ui element
-    * @param x the new x coordinate of the ui element
-    * @param y the new y coordinate of the ui element
-    */
+  * Sets the x,y position of the ui element
+  * @param x the new x coordinate of the ui element
+  * @param y the new y coordinate of the ui element
+  */
   void setPosition(int x, int y)
   {
     _uiElementRect.x = x;
@@ -48,21 +48,29 @@ public:
   };
 
   /** \brief Get the position and the size of this ui element
-    * Gets the position and the size of this ui element
-    * @return Position and size as SDL_Rect
-    */
+  * Gets the position and the size of this ui element
+  * @return Position and size as SDL_Rect
+  */
   const SDL_Rect &getUiElementRect() { return _uiElementRect; };
 
   /** \brief Checks if the current UI Element is clicked
-    * Check if the coordinates match the ones stored in _uiElementRect
-    * @param x, y coordinates of the mouseclick
-    */
-  virtual bool isClicked(int x, int y);
+  * Check if the coordinates match the ones stored in _uiElementRect
+  * @param x, y coordinates of the mouseclick
+  * @return Wether the element is clicked as bool
+  */
+  virtual void clickedEvent(int x, int y) { };
+
+  /** \brief Checks if the mouse cursor is over the current UI Element
+  * Check if the coordinates match the ones stored in _uiElementRect
+  * @param x, y coordinates of the mouseclick
+  * @return Wether the element is hovered over
+  */
+  virtual bool isMouseOver(int x, int y);
 
   /** \brief Check the UI Elements visibility.
-    * Check if the UI Element is visibile
-    * @return Visibility of the UI Element.
-    */
+  * Check if the UI Element is visibile
+  * @return Visibility of the UI Element.
+  */
   bool isVisible() { return _visible; };
 
   /** \brief Sets the UI Elements visibility.
