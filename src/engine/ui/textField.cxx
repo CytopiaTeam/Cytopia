@@ -26,7 +26,6 @@ void TextField::addText(std::string text)
     
     (--_textList.end())->second->setTextPosition(xPos, yPos);
   }
-  LOG() << "DEBUG our rect: " << currRect.x << ", " << currRect.y << " and size " << currRect.w << ", " << currRect.h;
 }
 
 int TextField::getSeletectedID(int x, int y)
@@ -55,8 +54,11 @@ std::string TextField::getTextFromID(int id)
 
 void TextField::draw() 
 {
-  for (auto text : _textList)
+  if (isVisible())
   {
-    text.second->draw();
+    for (auto text : _textList)
+    {
+      text.second->draw();
+    }
   }
 }

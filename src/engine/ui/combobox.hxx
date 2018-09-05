@@ -16,6 +16,8 @@ public:
   // override isClicked function to check for menu too if the combobox's opened
   void clickedEvent(int x, int y) override;
 
+  bool isMouseOver(int x, int y) override;
+
 
 private:
   SDL_Rect _comboBoxRect;

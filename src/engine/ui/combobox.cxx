@@ -17,30 +17,30 @@ void ComboBox::draw()
 {
   Uint8 bgColor, bgColorFrame, bgColorFrameShade, bgColorBottomFrame, bgColorBottomFrameShade;
 
-  if (getButtonState() == TextureManager::CLICKED || getButtonState() == TextureManager::TOGGLED)
-  {
-    bgColor = 128;
-    bgColorFrame = 106;
-    bgColorFrameShade = 84;
-    bgColorBottomFrame = 150;
-    bgColorBottomFrameShade = 172;
-  }
-  else if (getButtonState() == TextureManager::HOVERING)
-  {
-    bgColor = 228;
-    bgColorFrame = 250;
-    bgColorFrameShade = 255;
-    bgColorBottomFrame = 206;
-    bgColorBottomFrameShade = 184;
-  }
-  else
-  {
+  //if (getButtonState() == TextureManager::CLICKED || getButtonState() == TextureManager::TOGGLED)
+  //{
+  //  bgColor = 128;
+  //  bgColorFrame = 106;
+  //  bgColorFrameShade = 84;
+  //  bgColorBottomFrame = 150;
+  //  bgColorBottomFrameShade = 172;
+  //}
+  //else if (getButtonState() == TextureManager::HOVERING)
+  //{
+  //  bgColor = 228;
+  //  bgColorFrame = 250;
+  //  bgColorFrameShade = 255;
+  //  bgColorBottomFrame = 206;
+  //  bgColorBottomFrameShade = 184;
+  //}
+  //else
+  //{
     bgColor = 128;
     bgColorFrame = 150;
     bgColorFrameShade = 172;
     bgColorBottomFrame = 106;
     bgColorBottomFrameShade = 84;
-  }
+//  }
 
   // draw the button frame
   if (_comboBoxRect.w != 0 && _comboBoxRect.h != 0)
@@ -109,20 +109,38 @@ int ComboBox::getClickedID(int x, int y)
   return -1;
 }
 
-void ComboBox::clickedEvent(int x, int y)
+bool ComboBox::isMouseOver(int x, int y)
 {
-  LOG() << "called";
   bool isClicked = false;
+
   SDL_Rect boundaries = _comboBoxRect;;
   if (isMenuOpened)
   {
     boundaries.h += menuRect.h;
-    _selectedID = _textField->getSeletectedID(x,y);
-    this->activeText = _textField->getTextFromID(_selectedID);
   }
 
   isClicked = x > boundaries.x && x < boundaries.x + boundaries.w && y > boundaries.y &&
     y < boundaries.y + boundaries.h;
+
+  return isClicked;
+}
+
+void ComboBox::clickedEvent(int x, int y)
+{
+  SDL_Rect boundaries = _comboBoxRect;;
   
-  //return isClicked;
+  // clicked on the button
+  if (x > boundaries.x && x < boundaries.x + boundaries.w && y > boundaries.y &&
+      y < boundaries.y + boundaries.h)
+  {
+    isMenuOpened = !isMenuOpened;
+    _textField->setVisibility(!_textField->isVisible());
+    return;
+  }
+
+  if (isMenuOpened)
+  {
+    _selectedID = _textField->getSeletectedID(x,y);
+    this->activeText = _textField->getTextFromID(_selectedID);
+  }
 }
