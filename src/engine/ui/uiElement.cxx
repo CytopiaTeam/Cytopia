@@ -49,6 +49,12 @@ bool UiElement::isMouseOver(int x, int y)
     y < _uiElementRect.y + _uiElementRect.h;
 }
 
+bool UiElement::isHovering(int x, int y)
+{
+  return x > _uiElementRect.x && x < _uiElementRect.x + _uiElementRect.w && y > _uiElementRect.y &&
+    y < _uiElementRect.y + _uiElementRect.h;
+}
+
 void UiElement::setText(const std::string &text)
 {
   _text = text;

@@ -67,6 +67,15 @@ public:
   */
   virtual bool isMouseOver(int x, int y);
 
+  /** \brief Handling for the hovering event
+  * Check, if the mouse cursor is hovering over the element. virtual function to
+  * provide custom handling if necessary (e.g. Combobox) 
+  * Per default, it's the same implementation as isMouseOver
+  * @param x, y coordinates of the mouseclick
+  * @return Wether the element is hovered over
+  */
+  virtual bool isHovering(int x, int y);
+
   /** \brief Check the UI Elements visibility.
   * Check if the UI Element is visibile
   * @return Visibility of the UI Element.

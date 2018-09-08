@@ -109,6 +109,20 @@ int ComboBox::getClickedID(int x, int y)
   return -1;
 }
 
+bool ComboBox::isHovering(int x, int y)
+{
+
+  bool isClicked = false;
+
+  SDL_Rect boundaries = _comboBoxRect;;
+
+  isClicked = x > boundaries.x && x < boundaries.x + boundaries.w && y > boundaries.y &&
+    y < boundaries.y + boundaries.h;
+
+  return isClicked;
+
+}
+
 bool ComboBox::isMouseOver(int x, int y)
 {
   bool isClicked = false;

@@ -165,16 +165,16 @@ void UIManager::setButtonState()
           {
             it->changeButtonState(TextureManager::CLICKED);
           }
-          else
+          else if (it->isHovering(x, y))
           {
             it->changeButtonState(TextureManager::HOVERING);
           }
         }
       }
     }
-    else
+    if (!it->isHovering(x, y))
     {
-      if (!it->isToogleButton())
+      if (!it->isToogleButton() || !it->getButtonState() == TextureManager::DEFAULT)
       {
         it->changeButtonState(TextureManager::DEFAULT);
       }

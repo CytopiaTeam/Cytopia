@@ -17,7 +17,7 @@ public:
   void clickedEvent(int x, int y) override;
 
   bool isMouseOver(int x, int y) override;
-
+  bool isHovering(int x, int y) override;
 
 private:
   SDL_Rect _comboBoxRect;
