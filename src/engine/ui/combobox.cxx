@@ -2,17 +2,18 @@
 
 ComboBox::ComboBox(const SDL_Rect &uiElementRect) : UiElement(uiElementRect), _comboBoxRect(uiElementRect)
 { 
-  menuRect = _comboBoxRect;
-  menuRect.y = _comboBoxRect.y + _comboBoxRect.h;
+  _menuRect = _comboBoxRect;
+  _menuRect.y = _comboBoxRect.y + _comboBoxRect.h;
 
-  activeText = "test";
-  _textField = std::make_shared<TextField>(TextField(menuRect));
+  _textField = std::make_shared<TextField>(TextField(_menuRect));
   _textField->addText("test");
   _textField->addText("awesome element");
   _textField->addText("one more element");
 
+  _activeText = _textField->getTextFromID(0);
+
   //set menu to same height as textfield
-  menuRect.h = _textField->getSize().h;
+  _menuRect.h = _textField->getSize().h;
   _textField->setVisibility(false);
 }
 
@@ -52,13 +53,13 @@ void ComboBox::draw()
 
 
   // drowpdown menu
-  if (isMenuOpened)
+  if (_isMenuOpened)
   {
-    drawButtonFrame(menuRect, false);
+    drawButtonFrame(_menuRect, false);
     _textField->draw();
   }
 
-  drawText(activeText, {255, 255, 255});
+  drawText(_activeText, {255, 255, 255});
 
 
   //render the buttons texture if available
@@ -67,7 +68,7 @@ void ComboBox::draw()
 
 int ComboBox::getClickedID(int x, int y)
 {
-  return _textField->getSeletectedID(x, y);
+  return _activeID;
 }
 
 bool ComboBox::isHovering(int x, int y)
@@ -80,10 +81,10 @@ bool ComboBox::isHovering(int x, int y)
   isClicked = x > boundaries.x && x < boundaries.x + boundaries.w && y > boundaries.y &&
     y < boundaries.y + boundaries.h;
 
-  if (isMenuOpened)
+  if (_isMenuOpened)
   {
     boundaries.y += _comboBoxRect.h;
-    boundaries.h += menuRect.h - _comboBoxRect.h;
+    boundaries.h += _menuRect.h - _comboBoxRect.h;
   }
 
   return isClicked;
@@ -95,9 +96,9 @@ bool ComboBox::isMouseOver(int x, int y)
   bool isClicked = false;
 
   SDL_Rect boundaries = _comboBoxRect;;
-  if (isMenuOpened)
+  if (_isMenuOpened)
   {
-    boundaries.h += menuRect.h;
+    boundaries.h += _menuRect.h;
   }
 
   isClicked = x > boundaries.x && x < boundaries.x + boundaries.w && y > boundaries.y &&
@@ -114,14 +115,16 @@ void ComboBox::clickedEvent(int x, int y)
   if (x > boundaries.x && x < boundaries.x + boundaries.w && y > boundaries.y &&
       y < boundaries.y + boundaries.h)
   {
-    isMenuOpened = !isMenuOpened;
+    _isMenuOpened = !_isMenuOpened;
     _textField->setVisibility(!_textField->isVisible());
     return;
   }
 
-  if (isMenuOpened)
+  if (_isMenuOpened)
   {
-    _selectedID = _textField->getSeletectedID(x,y);
-    this->activeText = _textField->getTextFromID(_selectedID);
+    _activeID = _textField->getSeletectedID(x,y);
+    _activeText = _textField->getTextFromID(_activeID);
+    _isMenuOpened = false;
+    _textField->setVisibility(false);
   }
 }
