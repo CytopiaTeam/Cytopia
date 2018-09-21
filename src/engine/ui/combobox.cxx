@@ -13,6 +13,7 @@ ComboBox::ComboBox(const SDL_Rect &uiElementRect) : UiElement(uiElementRect), _c
 
   //set menu to same height as textfield
   menuRect.h = _textField->getSize().h;
+  _textField->setVisibility(false);
 }
 
 void ComboBox::draw()

@@ -30,7 +30,7 @@ private:
 
   bool _isPressed = false;
   bool _isMouseOver = false;
-  bool isMenuOpened = true;
+  bool isMenuOpened = false;
   int _selectedID = 0;
 };
 
