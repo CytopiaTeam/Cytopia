@@ -19,30 +19,11 @@ void ComboBox::draw()
 {
   Uint8 bgColor, bgColorFrame, bgColorFrameShade, bgColorBottomFrame, bgColorBottomFrameShade;
 
-  //if (getButtonState() == TextureManager::CLICKED || getButtonState() == TextureManager::TOGGLED)
-  //{
-  //  bgColor = 128;
-  //  bgColorFrame = 106;
-  //  bgColorFrameShade = 84;
-  //  bgColorBottomFrame = 150;
-  //  bgColorBottomFrameShade = 172;
-  //}
-  //else if (getButtonState() == TextureManager::HOVERING)
-  //{
-  //  bgColor = 228;
-  //  bgColorFrame = 250;
-  //  bgColorFrameShade = 255;
-  //  bgColorBottomFrame = 206;
-  //  bgColorBottomFrameShade = 184;
-  //}
-  //else
-  //{
-    bgColor = 128;
-    bgColorFrame = 150;
-    bgColorFrameShade = 172;
-    bgColorBottomFrame = 106;
-    bgColorBottomFrameShade = 84;
-//  }
+  bgColor = 128;
+  bgColorFrame = 150;
+  bgColorFrameShade = 172;
+  bgColorBottomFrame = 106;
+  bgColorBottomFrameShade = 84;
 
   // draw the button frame
   if (_comboBoxRect.w != 0 && _comboBoxRect.h != 0)
@@ -72,34 +53,12 @@ void ComboBox::draw()
   // drowpdown menu
   if (isMenuOpened)
   {
-
-    bgColor = 128;
-    bgColorFrame = 150;
-    bgColorFrameShade = 172;
-    bgColorBottomFrame = 106;
-    bgColorBottomFrameShade = 84;
-
-    // top frame
-    drawSolidRect(menuRect, SDL_Color{bgColorFrameShade, bgColorFrameShade, bgColorFrameShade});
-    drawSolidRect(SDL_Rect{menuRect.x + 2, menuRect.y + 2, menuRect.w - 4, menuRect.h - 4},
-                  SDL_Color{bgColorFrame, bgColorFrame, bgColorFrame});
-    // background
-    drawSolidRect(SDL_Rect{menuRect.x + 4, menuRect.y + 4, menuRect.w - 8, menuRect.h - 8}, SDL_Color{bgColor, bgColor, bgColor});
-    // bottom frame
-    drawSolidRect(SDL_Rect{menuRect.x + 4, (menuRect.y + menuRect.h) - 4, menuRect.w - 4, 4},
-                  SDL_Color{bgColorBottomFrame, bgColorBottomFrame, bgColorBottomFrame});
-    drawSolidRect(SDL_Rect{(menuRect.x + menuRect.w) - 4, menuRect.y + 4, 4, menuRect.h - 4},
-                  SDL_Color{bgColorBottomFrame, bgColorBottomFrame, bgColorBottomFrame});
-    // bottom frame shade
-    drawSolidRect(SDL_Rect{menuRect.x + 2, (menuRect.y + menuRect.h) - 2, menuRect.w - 2, 2},
-                  SDL_Color{bgColorBottomFrameShade, bgColorBottomFrameShade, bgColorBottomFrameShade});
-    drawSolidRect(SDL_Rect{(menuRect.x + menuRect.w) - 2, menuRect.y + 2, 2, menuRect.h - 2},
-                  SDL_Color{bgColorBottomFrameShade, bgColorBottomFrameShade, bgColorBottomFrameShade});
-
-    drawText(activeText, {255, 255, 255});
+    drawButtonFrame(menuRect, false);
+    _textField->draw();
   }
 
-  _textField->draw();
+  drawText(activeText, {255, 255, 255});
+
 
   //render the buttons texture if available
   renderTexture();
