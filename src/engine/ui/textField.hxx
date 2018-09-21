@@ -8,7 +8,7 @@ class TextField : public UiElement
 {
 public:
   TextField() = default;
-  TextField(const SDL_Rect &uiElementRect) : UiElement(uiElementRect), _textFieldRect(uiElementRect) {}
+  TextField(const SDL_Rect &uiElementRect);
 
   ~TextField() override = default;
 
@@ -17,6 +17,8 @@ public:
   int getSeletectedID(int x, int y);
 
   std::string getTextFromID(int id);
+
+  SDL_Rect getSize() { return _textFieldRect; };
 
   void draw() override;
 

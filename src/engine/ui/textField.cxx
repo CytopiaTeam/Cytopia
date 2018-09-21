@@ -3,6 +3,13 @@
 
 //TextField::TextField(const SDL_Rect &uiElementRect) : UiElement(uiElementRect) {}
 
+TextField::TextField(const SDL_Rect &uiElementRect) : UiElement(uiElementRect), _textFieldRect(uiElementRect) 
+{
+  // initialize height with zero, it'll be adjusted when the textField is filled.
+  _textFieldRect.h = 0;
+}
+
+
 void TextField::addText(std::string text)
 {
   _textList.insert(std::make_pair(static_cast<int>(_textList.size()), new Text(text)));
@@ -23,8 +30,10 @@ void TextField::addText(std::string text)
       xPos = _textFieldRect.x;
     }
     int yPos = _textFieldRect.y + (currRect.h * (static_cast<int>(_textList.size()) - 1));
-    
+ 
     (--_textList.end())->second->setTextPosition(xPos, yPos);
+
+    _textFieldRect.h += (--_textList.end())->second->getUiElementRect().h;
   }
 }
 

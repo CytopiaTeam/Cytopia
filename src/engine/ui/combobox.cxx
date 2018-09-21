@@ -4,13 +4,15 @@ ComboBox::ComboBox(const SDL_Rect &uiElementRect) : UiElement(uiElementRect), _c
 { 
   menuRect = _comboBoxRect;
   menuRect.y = _comboBoxRect.y + _comboBoxRect.h;
-  menuRect.h = 100;
 
   activeText = "test";
   _textField = std::make_shared<TextField>(TextField(menuRect));
   _textField->addText("test");
   _textField->addText("awesome element");
   _textField->addText("one more element");
+
+  //set menu to same height as textfield
+  menuRect.h = _textField->getSize().h;
 }
 
 void ComboBox::draw()
@@ -105,8 +107,7 @@ void ComboBox::draw()
 
 int ComboBox::getClickedID(int x, int y)
 {
-  LOG() << "SELECTED: " << _textField->getSeletectedID(x, y) << _textField->getTextFromID(_textField->getSeletectedID(x, y));
-  return -1;
+  return _textField->getSeletectedID(x, y);
 }
 
 bool ComboBox::isHovering(int x, int y)
@@ -118,6 +119,12 @@ bool ComboBox::isHovering(int x, int y)
 
   isClicked = x > boundaries.x && x < boundaries.x + boundaries.w && y > boundaries.y &&
     y < boundaries.y + boundaries.h;
+
+  if (isMenuOpened)
+  {
+    boundaries.y += _comboBoxRect.h;
+    boundaries.h += menuRect.h - _comboBoxRect.h;
+  }
 
   return isClicked;
 
