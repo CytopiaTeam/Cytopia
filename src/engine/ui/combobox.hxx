@@ -27,7 +27,7 @@ private:
   SDL_Rect _menuRect;
 
 
-  std::shared_ptr<TextField> _textField;
+  std::unique_ptr<TextField> _textField;
 
   std::string _activeText;
   int _activeID = 0;

@@ -1,11 +1,12 @@
 #include "combobox.hxx"
 
-ComboBox::ComboBox(const SDL_Rect &uiElementRect) : UiElement(uiElementRect), _comboBoxRect(uiElementRect)
+ComboBox::ComboBox(const SDL_Rect &uiElementRect) : UiElement(uiElementRect), _comboBoxRect(uiElementRect), _menuRect(uiElementRect)
+//, _textField(new TextField(uiElementRect))
 { 
-  _menuRect = _comboBoxRect;
   _menuRect.y = _comboBoxRect.y + _comboBoxRect.h;
 
-  _textField = std::make_shared<TextField>(TextField(_menuRect));
+  _textField = std::make_unique<TextField>(_menuRect);
+
   _textField->addText("test");
   _textField->addText("awesome element");
   _textField->addText("one more element");
