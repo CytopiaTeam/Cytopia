@@ -28,7 +28,6 @@ private:
   SDL_Rect _comboBoxRect;
   SDL_Rect _menuRect;
 
-
   std::unique_ptr<TextField> _textField;
 
   std::string _activeText;

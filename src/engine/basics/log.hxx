@@ -84,7 +84,7 @@ private:
   /** Write log message to error.log file
   * @param message to write to error logfile
   */
-  inline void writeErrorLog(const std::string& logMessage)
+  inline void writeErrorLog(const std::string &logMessage)
   {
     std::string filePath = "error.log";
     std::ofstream ofs(filePath.c_str(), std::ios_base::out | std::ios_base::app);

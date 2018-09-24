@@ -177,7 +177,7 @@ bool EventManager::handleUIEvents(SDL_Event &event)
           break;
         // Combobox
         case 5:
-          
+
           LOG() << "DEBUG: Combobox has been clicked with ID " << clickedElement->getClickedID(event.button.x, event.button.y);
         default:
           break;

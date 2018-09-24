@@ -17,7 +17,7 @@ class UiElement
 {
 public:
   //Initializes variables
-  UiElement(const SDL_Rect& uiElementRect);
+  UiElement(const SDL_Rect &uiElementRect);
   virtual ~UiElement() = default;
 
   /** \brief Draw the UI Element and/or render it's textures to the screen
@@ -58,7 +58,7 @@ public:
   * @param x, y coordinates of the mouseclick
   * @return Wether the element is clicked as bool
   */
-  virtual void clickedEvent(int x, int y) { };
+  virtual void clickedEvent(int x, int y){};
 
   /** \brief Checks if the mouse cursor is over the current UI Element
   * Check if the coordinates match the ones stored in _uiElementRect
@@ -178,7 +178,7 @@ public:
   void setSpriteID(int uiSpriteID);
 
   void setText(const std::string &text);
- 
+
   const std::string getText() { return _text; };
 
   void drawButtonFrame(SDL_Rect rect, bool isHighlightable = true);
