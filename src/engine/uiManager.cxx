@@ -66,30 +66,30 @@ void UIManager::init()
         // Create the ui elements
         if (uiLayout[it.key()][id]["Type"] == "ImageButton")
         {
-          uiElement = std::make_shared<Button>(Button(elementRect));
+          uiElement = std::make_shared<Button>(elementRect);
           uiElement->setSpriteID(spriteID);
         }
         if (uiLayout[it.key()][id]["Type"] == "TextButton")
         {
-          uiElement = std::make_shared<Button>(Button(elementRect));
+          uiElement = std::make_shared<Button>(elementRect);
           uiElement->setText(text);
         }
         if (uiLayout[it.key()][id]["Type"] == "Text")
         {
-          uiElement = std::make_shared<Text>(Text(elementRect));
+          uiElement = std::make_shared<Text>(elementRect);
           uiElement->setText(text);
         }
         if (uiLayout[it.key()][id]["Type"] == "Frame")
         {
-          uiElement = std::make_shared<Frame>(Frame(elementRect));
+          uiElement = std::make_shared<Frame>(elementRect);
         }
         if (uiLayout[it.key()][id]["Type"] == "Checkbox")
         {
-          uiElement = std::make_shared<Checkbox>(Checkbox(elementRect));
+          uiElement = std::make_shared<Checkbox>(elementRect);
         }
         if (uiLayout[it.key()][id]["Type"] == "ComboBox")
         {
-          uiElement = std::make_shared<ComboBox>(ComboBox(elementRect));
+          uiElement = std::make_shared<ComboBox>(elementRect);
           uiElement->setText(text);
         }
 
