@@ -17,41 +17,69 @@ class UiElement
 {
 public:
   //Initializes variables
-  UiElement(SDL_Rect uiElementRect);
+  UiElement(const SDL_Rect &uiElementRect);
   virtual ~UiElement() = default;
 
   /** \brief Draw the UI Element and/or render it's textures to the screen
-    * Renders the texture of the Ui Element. Function is over
-    */
+  * Renders the texture of the Ui Element. Function is over
+  */
   virtual void draw();
 
   /** \brief Sets the x,y position of this ui element
-    * Sets the x,y position of the ui element
-    * @param x the new x coordinate of the ui element
-    * @param y the new y coordinate of the ui element
-    */
+  * Sets the x,y position of the ui element
+  * @param x the new x coordinate of the ui element
+  * @param y the new y coordinate of the ui element
+  */
   void setPosition(int x, int y)
   {
     _uiElementRect.x = x;
     _uiElementRect.y = y;
   };
 
+  /** \brief Sets the x,y position of the text of this ui element
+  * Sets the x,y position of the text of this ui element
+  * @param x the new x coordinate of the text of this ui element
+  * @param y the new y coordinate of of the text of this the ui element
+  */
+  void setTextPosition(int x, int y)
+  {
+    _textRect.x = x;
+    _textRect.y = y;
+  };
+
   /** \brief Get the position and the size of this ui element
-    * Gets the position and the size of this ui element
-    * @return Position and size as SDL_Rect
-    */
+  * Gets the position and the size of this ui element
+  * @return Position and size as SDL_Rect
+  */
   const SDL_Rect &getUiElementRect() { return _uiElementRect; };
 
   /** \brief Checks if the current UI Element is clicked
-    * Check if the coordinates match the ones stored in _uiElementRect
-    * @param x, y coordinates of the mouseclick
-    */
-  bool isClicked(int x, int y);
+  * Check if the coordinates match the ones stored in _uiElementRect
+  * @param x, y coordinates of the mouseclick
+  * @return Wether the element is clicked as bool
+  */
+  virtual void clickedEvent(int x, int y){};
+
+  /** \brief Checks if the mouse cursor is over the current UI Element
+  * Check if the coordinates match the ones stored in _uiElementRect
+  * @param x, y coordinates of the mouseclick
+  * @return Wether the element is hovered over
+  */
+  virtual bool isMouseOver(int x, int y);
+
+  /** \brief Handling for the hovering event
+  * Check, if the mouse cursor is hovering over the element. virtual function to
+  * provide custom handling if necessary (e.g. Combobox) 
+  * Per default, it's the same implementation as isMouseOver
+  * @param x, y coordinates of the mouseclick
+  * @return Wether the element is hovered over
+  */
+  virtual bool isHovering(int x, int y);
 
   /** \brief Check the UI Elements visibility.
-    * Check if the UI Element is visibile
-    * @return Visibility of the UI Element.
-    */
+  * Check if the UI Element is visibile
+  * @return Visibility of the UI Element.
+  */
   bool isVisible() { return _visible; };
 
   /** \brief Sets the UI Elements visibility.
@@ -151,7 +179,16 @@ public:
 
   void setText(const std::string &text);
 
+  const std::string getText() { return _text; };
+
   void drawButtonFrame(SDL_Rect rect, bool isHighlightable = true);
+
+  /** \brief returns an ID if supported by the element
+    * If the clicked element supports it, an ID is returned.
+    * Supported elements are: ComboBox
+    * @return ID, or -2 if the element does not support it
+  */
+  virtual int getClickedID(int x, int y) { return -2; };
 
 private:
   SDL_Texture *_texture = nullptr;

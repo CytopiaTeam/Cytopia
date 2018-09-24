@@ -1,19 +1,4 @@
 {
-  "Test": [
-    {
-      "groupVisibility": false
-    },
-    {
-      "Type": "ComboBox",
-      "Position_x": 100,
-      "Position_y": 120,
-      "ActionID": 0,
-      "Width": 200,
-      "Height": 30,
-      "Text": "800 x 600",
-      "Layout": "BottomMenu"
-    }
-  ],
   "BottomBar": [
     {
       "groupVisibility": true
@@ -121,6 +106,16 @@
       "Height": 30,
       "ParentOfGroup": "SettingsMenu",
       "ActionID": 1
+    },
+    {
+      "Type": "ComboBox",
+      "Position_x": 290,
+      "Position_y": 230,
+      "ActionID": 5,
+      "Width": 200,
+      "Height": 30,
+      "Text": "800 x 600",
+      "Layout": "BottomMenu"
     }
   ]
 }

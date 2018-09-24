@@ -1,6 +1,6 @@
 #include "uiElement.hxx"
 
-UiElement::UiElement(SDL_Rect uiElementRect) : _uiElementRect(std::move(uiElementRect)) {}
+UiElement::UiElement(const SDL_Rect &uiElementRect) : _uiElementRect(uiElementRect) {}
 
 void UiElement::draw()
 {
@@ -43,7 +43,13 @@ void UiElement::renderTexture()
   }
 }
 
-bool UiElement::isClicked(int x, int y)
+bool UiElement::isMouseOver(int x, int y)
+{
+  return x > _uiElementRect.x && x < _uiElementRect.x + _uiElementRect.w && y > _uiElementRect.y &&
+         y < _uiElementRect.y + _uiElementRect.h;
+}
+
+bool UiElement::isHovering(int x, int y)
 {
   return x > _uiElementRect.x && x < _uiElementRect.x + _uiElementRect.w && y > _uiElementRect.y &&
          y < _uiElementRect.y + _uiElementRect.h;

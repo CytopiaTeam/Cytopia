@@ -44,7 +44,7 @@ public:
     * [ 0 0 0 0  0  0  0  0 ]
     * @param isoCoordinates isometric coordinates of the tile whose neighbors should be retrieved
     * @returns  Uint that stores the elevated neighbor tiles
-  � */
+    */
   unsigned int getElevatedNeighborBitmask(const Point &isoCoordinates);
 
   /**\brief Get neighbor Cell Objects

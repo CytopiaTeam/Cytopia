@@ -112,7 +112,7 @@ target_compile_features(
   ${PROJECT_NAME}
   PRIVATE
     # enable C++11
-    cxx_std_11
+    cxx_std_14
 )
 
 target_compile_definitions(

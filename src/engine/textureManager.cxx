@@ -157,7 +157,7 @@ SDL_Surface *TextureManager::getUISurface(int uiSpriteID)
 
 const SDL_Color TextureManager::getPixelColor(int tileID, int X, int Y)
 {
-  SDL_Color Color = { 0, 0, 0, SDL_ALPHA_TRANSPARENT };
+  SDL_Color Color = {0, 0, 0, SDL_ALPHA_TRANSPARENT};
 
   if (_surfaceMap.find(tileID) != _surfaceMap.end())
   {

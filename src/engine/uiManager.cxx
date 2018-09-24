@@ -66,30 +66,30 @@ void UIManager::init()
         // Create the ui elements
         if (uiLayout[it.key()][id]["Type"] == "ImageButton")
         {
-          uiElement = std::make_shared<Button>(Button(elementRect));
+          uiElement = std::make_shared<Button>(elementRect);
           uiElement->setSpriteID(spriteID);
         }
         if (uiLayout[it.key()][id]["Type"] == "TextButton")
         {
-          uiElement = std::make_shared<Button>(Button(elementRect));
+          uiElement = std::make_shared<Button>(elementRect);
           uiElement->setText(text);
         }
         if (uiLayout[it.key()][id]["Type"] == "Text")
         {
-          uiElement = std::make_shared<Text>(Text(elementRect));
+          uiElement = std::make_shared<Text>(elementRect);
           uiElement->setText(text);
         }
         if (uiLayout[it.key()][id]["Type"] == "Frame")
         {
-          uiElement = std::make_shared<Frame>(Frame(elementRect));
+          uiElement = std::make_shared<Frame>(elementRect);
         }
         if (uiLayout[it.key()][id]["Type"] == "Checkbox")
         {
-          uiElement = std::make_shared<Checkbox>(Checkbox(elementRect));
+          uiElement = std::make_shared<Checkbox>(elementRect);
         }
         if (uiLayout[it.key()][id]["Type"] == "ComboBox")
         {
-          uiElement = std::make_shared<ComboBox>(ComboBox(elementRect));
+          uiElement = std::make_shared<ComboBox>(elementRect);
           uiElement->setText(text);
         }
 
@@ -104,7 +104,6 @@ void UIManager::init()
       }
     }
   }
-
   _tooltip->setVisibility(false);
 }
 
@@ -135,7 +134,7 @@ void UIManager::setButtonState()
   SDL_GetMouseState(&x, &y);
   for (const std::shared_ptr<UiElement> &it : _uiElements)
   {
-    if (it->isClicked(x, y))
+    if (it->isMouseOver(x, y))
     {
 
       if (it->isToogleButton())
@@ -166,16 +165,16 @@ void UIManager::setButtonState()
           {
             it->changeButtonState(TextureManager::CLICKED);
           }
-          else
+          else if (it->isHovering(x, y))
           {
             it->changeButtonState(TextureManager::HOVERING);
           }
         }
       }
     }
-    else
+    if (!it->isHovering(x, y))
     {
-      if (!it->isToogleButton())
+      if (!it->isToogleButton() || !it->getButtonState() == TextureManager::DEFAULT)
       {
         it->changeButtonState(TextureManager::DEFAULT);
       }
@@ -189,7 +188,7 @@ std::shared_ptr<UiElement> UIManager::getClickedUIElement(int x, int y)
 
   for (const std::shared_ptr<UiElement> &it : _uiElements)
   {
-    if (it->isClicked(x, y))
+    if (it->isMouseOver(x, y))
     {
       if (it->getActionID() != -1 && it->isVisible())
         clickedElement = it;

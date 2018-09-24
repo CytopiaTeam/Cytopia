@@ -1,40 +1,38 @@
 #include "combobox.hxx"
 
-ComboBox::ComboBox(const SDL_Rect &uiElementRect) : UiElement(uiElementRect) { rect = uiElementRect; }
+ComboBox::ComboBox(const SDL_Rect &uiElementRect)
+    : UiElement(uiElementRect), _comboBoxRect(uiElementRect), _menuRect(uiElementRect)
+//, _textField(new TextField(uiElementRect))
+{
+  _menuRect.y = _comboBoxRect.y + _comboBoxRect.h;
+
+  _textField = std::make_unique<TextField>(_menuRect);
+
+  _textField->addText("test");
+  _textField->addText("awesome element");
+  _textField->addText("one more element");
+
+  _activeText = _textField->getTextFromID(0);
+
+  //set menu to same height as textfield
+  _menuRect.h = _textField->getSize().h;
+  _textField->setVisibility(false);
+}
 
 void ComboBox::draw()
 {
   Uint8 bgColor, bgColorFrame, bgColorFrameShade, bgColorBottomFrame, bgColorBottomFrameShade;
 
-  if (getButtonState() == TextureManager::CLICKED || getButtonState() == TextureManager::TOGGLED)
-  {
-    bgColor = 128;
-    bgColorFrame = 106;
-    bgColorFrameShade = 84;
-    bgColorBottomFrame = 150;
-    bgColorBottomFrameShade = 172;
-  }
-  else if (getButtonState() == TextureManager::HOVERING)
-  {
-    bgColor = 228;
-    bgColorFrame = 250;
-    bgColorFrameShade = 255;
-    bgColorBottomFrame = 206;
-    bgColorBottomFrameShade = 184;
-  }
-  else
-  {
-    bgColor = 128;
-    bgColorFrame = 150;
-    bgColorFrameShade = 172;
-    bgColorBottomFrame = 106;
-    bgColorBottomFrameShade = 84;
-  }
+  bgColor = 128;
+  bgColorFrame = 150;
+  bgColorFrameShade = 172;
+  bgColorBottomFrame = 106;
+  bgColorBottomFrameShade = 84;
 
   // draw the button frame
-  if (rect.w != 0 && rect.h != 0)
+  if (_comboBoxRect.w != 0 && _comboBoxRect.h != 0)
   {
-    drawButtonFrame(rect);
+    drawButtonFrame(_comboBoxRect);
   }
 
   // arrow
@@ -44,8 +42,8 @@ void ComboBox::draw()
 
   arrowRect.w = 18;
   arrowRect.h = 2;
-  arrowRect.x = rect.x + (rect.w - arrowRect.w) - 9;
-  arrowRect.y = rect.y + (rect.h / 2) - (arrowRect.w / 2) / arrowRect.h - 1;
+  arrowRect.x = _comboBoxRect.x + (_comboBoxRect.w - arrowRect.w) - 9;
+  arrowRect.y = _comboBoxRect.y + (_comboBoxRect.h / 2) - (arrowRect.w / 2) / arrowRect.h - 1;
 
   for (; arrowRect.w > 1; arrowRect.w -= 2)
   {
@@ -55,37 +53,74 @@ void ComboBox::draw()
   }
   drawSolidRect(arrowRect, color);
 
-  // drowpdowb box
-
-  bool isMenuOpened = true;
-
-  SDL_Rect menuRect = rect;
-  menuRect.y = rect.y + rect.h;
-  menuRect.h = 100;
-
-  if (isMenuOpened)
+  // drowpdown menu
+  if (_isMenuOpened)
   {
-
-    // top frame
-    drawSolidRect(menuRect, SDL_Color{bgColorFrameShade, bgColorFrameShade, bgColorFrameShade});
-    drawSolidRect(SDL_Rect{menuRect.x + 2, menuRect.y + 2, menuRect.w - 4, menuRect.h - 4},
-                  SDL_Color{bgColorFrame, bgColorFrame, bgColorFrame});
-    // background
-    drawSolidRect(SDL_Rect{menuRect.x + 4, menuRect.y + 4, menuRect.w - 8, menuRect.h - 8}, SDL_Color{bgColor, bgColor, bgColor});
-    // bottom frame
-    drawSolidRect(SDL_Rect{menuRect.x + 4, (menuRect.y + menuRect.h) - 4, menuRect.w - 4, 4},
-                  SDL_Color{bgColorBottomFrame, bgColorBottomFrame, bgColorBottomFrame});
-    drawSolidRect(SDL_Rect{(menuRect.x + menuRect.w) - 4, menuRect.y + 4, 4, menuRect.h - 4},
-                  SDL_Color{bgColorBottomFrame, bgColorBottomFrame, bgColorBottomFrame});
-    // bottom frame shade
-    drawSolidRect(SDL_Rect{menuRect.x + 2, (menuRect.y + menuRect.h) - 2, menuRect.w - 2, 2},
-                  SDL_Color{bgColorBottomFrameShade, bgColorBottomFrameShade, bgColorBottomFrameShade});
-    drawSolidRect(SDL_Rect{(menuRect.x + menuRect.w) - 2, menuRect.y + 2, 2, menuRect.h - 2},
-                  SDL_Color{bgColorBottomFrameShade, bgColorBottomFrameShade, bgColorBottomFrameShade});
-
-    drawText("test", {255, 255, 255});
+    drawButtonFrame(_menuRect, false);
+    _textField->draw();
   }
+
+  drawText(_activeText, {255, 255, 255});
 
   //render the buttons texture if available
   renderTexture();
+}
+
+int ComboBox::getClickedID(int x, int y) { return _activeID; }
+
+bool ComboBox::isHovering(int x, int y)
+{
+
+  bool isClicked = false;
+
+  SDL_Rect boundaries = _comboBoxRect;
+  ;
+
+  isClicked = x > boundaries.x && x < boundaries.x + boundaries.w && y > boundaries.y && y < boundaries.y + boundaries.h;
+
+  if (_isMenuOpened)
+  {
+    boundaries.y += _comboBoxRect.h;
+    boundaries.h += _menuRect.h - _comboBoxRect.h;
+  }
+
+  return isClicked;
+}
+
+bool ComboBox::isMouseOver(int x, int y)
+{
+  bool isClicked = false;
+
+  SDL_Rect boundaries = _comboBoxRect;
+  ;
+  if (_isMenuOpened)
+  {
+    boundaries.h += _menuRect.h;
+  }
+
+  isClicked = x > boundaries.x && x < boundaries.x + boundaries.w && y > boundaries.y && y < boundaries.y + boundaries.h;
+
+  return isClicked;
+}
+
+void ComboBox::clickedEvent(int x, int y)
+{
+  SDL_Rect boundaries = _comboBoxRect;
+  ;
+
+  // clicked on the button
+  if (x > boundaries.x && x < boundaries.x + boundaries.w && y > boundaries.y && y < boundaries.y + boundaries.h)
+  {
+    _isMenuOpened = !_isMenuOpened;
+    _textField->setVisibility(!_textField->isVisible());
+    return;
+  }
+
+  if (_isMenuOpened)
+  {
+    _activeID = _textField->getSeletectedID(x, y);
+    _activeText = _textField->getTextFromID(_activeID);
+    _isMenuOpened = false;
+    _textField->setVisibility(false);
+  }
 }
