@@ -1,6 +1,8 @@
 #ifndef COMBOBOX_HXX_
 #define COMBOBOX_HXX_
 
+#include <memory>
+
 #include "uiElement.hxx"
 #include "textField.hxx"
 
