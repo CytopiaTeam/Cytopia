@@ -156,7 +156,7 @@ public:
   * Get the button mode (wether this is a toggle button or not), which means it stays pressed when its clicked.
   * @return toggleable if this is button a togglebutton as bool
   */
-  bool isToogleButton() { return _toggleButton; };
+  bool isToggleButton() { return _toggleButton; };
 
   /** \brief Set the uiElements tooltip text
   * Set the tooltip text for this ui element. Tooltip is shown when hovering over a ui Element.

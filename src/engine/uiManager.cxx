@@ -137,7 +137,7 @@ void UIManager::setButtonState()
     if (it->isMouseOver(x, y))
     {
 
-      if (it->isToogleButton())
+      if (it->isToggleButton())
       {
         if (SDL_GetMouseState(nullptr, nullptr) & SDL_BUTTON(SDL_BUTTON_LEFT) && !_mouseHeldDown)
         {
@@ -174,7 +174,7 @@ void UIManager::setButtonState()
     }
     if (!it->isHovering(x, y))
     {
-      if (!it->isToogleButton() || !it->getButtonState() == TextureManager::DEFAULT)
+      if (!it->isToggleButton())
       {
         it->changeButtonState(TextureManager::DEFAULT);
       }
