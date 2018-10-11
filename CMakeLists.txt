@@ -38,6 +38,7 @@ add_executable(${PROJECT_NAME}
   src/engine/basics/signal.hxx
   src/engine/basics/timer.cxx
   src/engine/basics/timer.hxx
+  src/engine/basics/utils.hxx
   src/engine/basics/vectorMatrix.cxx
   src/engine/basics/vectorMatrix.hxx
   src/engine/ui/bar.cxx

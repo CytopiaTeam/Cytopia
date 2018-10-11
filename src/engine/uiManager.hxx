@@ -27,7 +27,6 @@ public:
     static UIManager instance;
     return instance;
   }
-
   void init();
   void drawUI();
   std::shared_ptr<UiElement> getClickedUIElement(int x, int y);
@@ -42,6 +41,8 @@ public:
   void setButtonState();
 
   void setFPSCounterText(const std::string &fps);
+
+  const std::vector<std::shared_ptr<UiElement>> &getAllUiElements() const { return _uiElements; };
 
 private:
   UIManager() = default;

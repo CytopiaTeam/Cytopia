@@ -6,8 +6,13 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
   Point mouseCoords;
   Point clickCoords;
 
+  // -----------------------------------------
+
+  // -----------------------------------------
+
   if (SDL_PollEvent(&event))
   {
+    dispatchUiEvents(event);
     // check ui events first before checking any game event
     if (!handleUIEvents(event) && !isHandlingMouseEvents)
     {
@@ -48,6 +53,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         case SDLK_f:
           engine.toggleFullScreen();
           break;
+
         case SDLK_b:
           LOG() << "Starting elevation Benchmark!";
           Timer benchmarkTimer;
@@ -101,9 +107,54 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
   }
 }
 
+bool EventManager::dispatchUiEvents(SDL_Event &event)
+{
+  bool handled = false;
+
+  bool mouseOverElement = false;
+
+  // the reversed draw order of the vector is  the Z-Order of the elements
+  for (const std::shared_ptr<UiElement> &it : utils::ReverseIterator(uiManager.getAllUiElements()))
+  {
+    if (it->isMouseOver(event.button.x, event.button.y) && it->getActionID() != -1 && it->isVisible())
+    {
+      mouseOverElement = true;
+      switch (event.type)
+      {
+      case SDL_MOUSEMOTION:
+        if (it != lastHoveredElement)
+        {
+          if (lastHoveredElement != nullptr)
+          {
+            lastHoveredElement->mouseLeaveEvent(event);
+          }
+          it->mouseEnterEvent(event);
+          lastHoveredElement = it;
+        }
+        break;
+      case SDL_MOUSEBUTTONDOWN:
+        it->mouseButtonDownEvent(event);
+        break;
+      case SDL_MOUSEBUTTONUP:
+        it->mouseButtonUpEvent(event);
+        break;
+      }
+      handled = true;
+      break; // break after the first element is found (Z-Order)
+    }
+  }
+  if (!mouseOverElement && lastHoveredElement != nullptr)
+  {
+    lastHoveredElement->mouseLeaveEvent(event);
+    lastHoveredElement = nullptr;
+  }
+  return handled;
+}
+
 bool EventManager::handleUIEvents(SDL_Event &event)
 {
   bool handled = false;
+
   std::shared_ptr<UiElement> clickedElement = uiManager.getClickedUIElement(event.button.x, event.button.y);
 
   switch (event.type)
@@ -137,6 +188,7 @@ bool EventManager::handleUIEvents(SDL_Event &event)
       // tell the ui element it's clicked
       clickedElement->clickedEvent(event.button.x, event.button.y);
     }
+
     break;
   case SDL_MOUSEBUTTONUP:
     isHandlingMouseEvents = false;
@@ -177,7 +229,6 @@ bool EventManager::handleUIEvents(SDL_Event &event)
           break;
         // Combobox
         case 5:
-
           LOG() << "DEBUG: Combobox has been clicked with ID " << clickedElement->getClickedID(event.button.x, event.button.y);
         default:
           break;

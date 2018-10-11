@@ -6,6 +6,7 @@
 #include "../basics/resources.hxx"
 #include "../textureManager.hxx"
 #include "../basics/log.hxx"
+#include "../basics/signal.hxx"
 
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_ttf.h"
@@ -19,6 +20,36 @@ public:
   //Initializes variables
   UiElement(const SDL_Rect &uiElementRect);
   virtual ~UiElement() = default;
+
+  // empty virtual function that can be overriden in the derived Ui Elements
+  virtual void onMouseButtonUp(){};
+  virtual void onMouseButtonDown(){};
+  virtual void onMouseEnter(){};
+  virtual void onMouseLeave(){};
+
+  void mouseButtonUpEvent(SDL_Event &event)
+  {
+    LOG() << "mouseup";
+    onMouseButtonUp();
+  }
+
+  void mouseButtonDownEvent(SDL_Event &event)
+  {
+    LOG() << "mousedown";
+    onMouseButtonDown();
+  }
+
+  void mouseEnterEvent(SDL_Event &event)
+  {
+    LOG() << "i have entered " << getText();
+    onMouseEnter();
+  }
+
+  void mouseLeaveEvent(SDL_Event &event)
+  {
+    LOG() << "i have left " << getText();
+    onMouseLeave();
+  }
 
   /** \brief Draw the UI Element and/or render it's textures to the screen
   * Renders the texture of the Ui Element. Function is over

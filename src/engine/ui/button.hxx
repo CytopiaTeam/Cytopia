@@ -11,6 +11,8 @@ public:
 
   void draw() override;
 
+  void onMouseButtonUp() override;
+
 private:
   SDL_Rect rect;
 
