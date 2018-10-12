@@ -21,35 +21,22 @@ public:
   UiElement(const SDL_Rect &uiElementRect);
   virtual ~UiElement() = default;
 
+  virtual void registerFunction(std::function<void()> &cb){};
+  virtual void registerToggleUIFunction(std::function<void(const std::string &)> &cb){};
+
   // empty virtual function that can be overriden in the derived Ui Elements
   virtual void onMouseButtonUp(){};
   virtual void onMouseButtonDown(){};
   virtual void onMouseEnter(){};
   virtual void onMouseLeave(){};
 
-  void mouseButtonUpEvent(SDL_Event &event)
-  {
-    LOG() << "mouseup";
-    onMouseButtonUp();
-  }
+  void mouseButtonUpEvent(SDL_Event &event) { onMouseButtonUp(); }
 
-  void mouseButtonDownEvent(SDL_Event &event)
-  {
-    LOG() << "mousedown";
-    onMouseButtonDown();
-  }
+  void mouseButtonDownEvent(SDL_Event &event) { onMouseButtonDown(); }
 
-  void mouseEnterEvent(SDL_Event &event)
-  {
-    LOG() << "i have entered " << getText();
-    onMouseEnter();
-  }
+  void mouseEnterEvent(SDL_Event &event) { onMouseEnter(); }
 
-  void mouseLeaveEvent(SDL_Event &event)
-  {
-    LOG() << "i have left " << getText();
-    onMouseLeave();
-  }
+  void mouseLeaveEvent(SDL_Event &event) { onMouseLeave(); }
 
   /** \brief Draw the UI Element and/or render it's textures to the screen
   * Renders the texture of the Ui Element. Function is over

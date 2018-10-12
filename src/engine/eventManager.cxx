@@ -6,10 +6,6 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
   Point mouseCoords;
   Point clickCoords;
 
-  // -----------------------------------------
-
-  // -----------------------------------------
-
   if (SDL_PollEvent(&event))
   {
     dispatchUiEvents(event);
@@ -199,11 +195,6 @@ bool EventManager::handleUIEvents(SDL_Event &event)
       {
         switch (clickedElement->getActionID())
         {
-        case 0:
-          break;
-        case 1:
-          UIManager::Instance().toggleGroupVisibility(clickedElement->getParentID());
-          break;
         case 2:
           if (Resources::getTerrainEditMode() == Resources::TERRAIN_RAISE)
           {
@@ -223,9 +214,6 @@ bool EventManager::handleUIEvents(SDL_Event &event)
           {
             Resources::setTerrainEditMode(Resources::TERRAIN_LOWER);
           }
-          break;
-        case 4:
-          Engine::Instance().quitGame();
           break;
         // Combobox
         case 5:

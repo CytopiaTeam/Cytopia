@@ -13,6 +13,12 @@ public:
 
   void onMouseButtonUp() override;
 
+  void registerFunction(std::function<void()> &cb) override;
+  void registerToggleUIFunction(std::function<void(const std::string &)> &cb) override;
+
+  Signal::Signal<void()> clickSignal;
+  Signal::Signal<void(const std::string &)> toggleGroupSignal;
+
 private:
   SDL_Rect rect;
 

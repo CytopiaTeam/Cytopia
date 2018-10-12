@@ -15,6 +15,7 @@
 #include "basics/settings.hxx"
 #include "basics/timer.hxx"
 #include "textureManager.hxx"
+#include "engine.hxx"
 
 #include "../ThirdParty/json.hxx"
 

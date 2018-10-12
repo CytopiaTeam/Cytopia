@@ -99,6 +99,16 @@ void UIManager::init()
         uiElement->setParentID(parentOf);
         uiElement->setGroupID(groupID);
 
+        if (actionID == 1)
+        {
+          uiElement->registerToggleUIFunction(Signal::slot(this, &UIManager::toggleGroupVisibility));
+        }
+
+        if (actionID == 4)
+        {
+          uiElement->registerFunction(Signal::slot(Engine::Instance(), &Engine::quitGame));
+        }
+
         // store the element in a vector
         _uiElements.emplace_back(uiElement);
       }
