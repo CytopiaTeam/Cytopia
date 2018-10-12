@@ -9,7 +9,6 @@
       "Position_x": 400,
       "Position_y": 520,
       "ParentOfGroup": "ConstructionSubMenu",
-      "ActionID": 1,
       "Layout": "BottomMenu",
       "TooltipText": "Construction"
     }
@@ -50,7 +49,6 @@
       "Width": 200,
       "Height": 40,
       "ParentOfGroup": "SettingsMenu",
-      "ActionID": 1,
       "GroupID": 2
     },
     {
@@ -94,8 +92,7 @@
       "Position_y": 450,
       "Width": 100,
       "Height": 30,
-      "ParentOfGroup": "SettingsMenu",
-      "ActionID": 1
+      "ParentOfGroup": "SettingsMenu"
     },
     {
       "Type": "TextButton",
@@ -104,8 +101,7 @@
       "Position_y": 450,
       "Width": 100,
       "Height": 30,
-      "ParentOfGroup": "SettingsMenu",
-      "ActionID": 1
+      "ParentOfGroup": "SettingsMenu"
     },
     {
       "Type": "ComboBox",

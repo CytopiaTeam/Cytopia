@@ -19,12 +19,9 @@ void Button::onMouseButtonUp()
   clickSignal.emit();
   LOG() << "Click event from button class itself was triggered";
 
-  if (getActionID() == 1)
+  if (getParentID() != "")
   {
-    if (getParentID() != "")
-    {
-      toggleGroupSignal.emit(getParentID());
-    }
+    toggleGroupSignal.emit(getParentID());
   }
 }
 

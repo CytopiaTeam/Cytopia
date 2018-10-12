@@ -99,7 +99,7 @@ void UIManager::init()
         uiElement->setParentID(parentOf);
         uiElement->setGroupID(groupID);
 
-        if (actionID == 1)
+        if (parentOf != "")
         {
           uiElement->registerToggleUIFunction(Signal::slot(this, &UIManager::toggleGroupVisibility));
         }
