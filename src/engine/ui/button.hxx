@@ -11,19 +11,22 @@ public:
 
   void draw() override;
 
-  void onMouseButtonUp() override;
+  void onMouseButtonUp(SDL_Event &event) override;
+  void onMouseButtonDown(SDL_Event &event) override;
+  void onMouseEnter(SDL_Event &event) override;
+  void onMouseLeave(SDL_Event &event) override;
 
   void registerFunction(std::function<void()> &cb) override;
   void registerToggleUIFunction(std::function<void(const std::string &)> &cb) override;
-
-  Signal::Signal<void()> clickSignal;
-  Signal::Signal<void(const std::string &)> toggleGroupSignal;
 
 private:
   SDL_Rect rect;
 
   bool _isPressed = false;
   bool _isMouseOver = false;
+
+  Signal::Signal<void()> clickSignal;
+  Signal::Signal<void(const std::string &)> toggleGroupSignal;
 };
 
 #endif
