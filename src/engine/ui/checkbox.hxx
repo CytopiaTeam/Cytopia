@@ -12,8 +12,16 @@ public:
   SDL_Rect rect;
   void draw() override;
 
+  void onMouseButtonUp(SDL_Event &event) override;
+  void onMouseButtonDown(SDL_Event &event) override;
+  void onMouseEnter(SDL_Event &event) override;
+  void onMouseLeave(SDL_Event &event) override;
+
 private:
   bool checked = false;
+
+  Signal::Signal<void()> clickSignal;
+  Signal::Signal<void(const std::string &)> toggleGroupSignal;
 };
 
 #endif
