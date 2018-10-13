@@ -21,8 +21,8 @@ public:
   UiElement(const SDL_Rect &uiElementRect);
   virtual ~UiElement() = default;
 
-  virtual void registerFunction(std::function<void()> &cb){};
-  virtual void registerToggleUIFunction(std::function<void(const std::string &)> &cb){};
+  virtual void registerFunction(std::function<void()> const &cb){};
+  virtual void registerToggleUIFunction(std::function<void(const std::string &)> const &cb){};
 
   // empty virtual function that can be overriden in the derived Ui Elements
   virtual void onMouseButtonUp(SDL_Event &event){};

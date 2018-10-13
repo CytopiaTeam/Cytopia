@@ -16,8 +16,8 @@ public:
   void onMouseEnter(SDL_Event &event) override;
   void onMouseLeave(SDL_Event &event) override;
 
-  void registerFunction(std::function<void()> &cb) override;
-  void registerToggleUIFunction(std::function<void(const std::string &)> &cb) override;
+  void registerFunction(std::function<void()> const &cb) override;
+  void registerToggleUIFunction(std::function<void(const std::string &)> const &cb) override;
 
 private:
   SDL_Rect rect;

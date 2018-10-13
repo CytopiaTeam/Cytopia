@@ -42,5 +42,5 @@ void Button::onMouseEnter(SDL_Event &event)
 
 void Button::onMouseLeave(SDL_Event &event) { changeButtonState(TextureManager::ButtonState::DEFAULT); }
 
-void Button::registerFunction(std::function<void()> &cb) { clickSignal.connect(cb); }
-void Button::registerToggleUIFunction(std::function<void(const std::string &)> &cb) { toggleGroupSignal.connect(cb); }
+void Button::registerFunction(std::function<void()> const &cb) { clickSignal.connect(cb); }
+void Button::registerToggleUIFunction(std::function<void(const std::string &)> const &cb) { toggleGroupSignal.connect(cb); }
