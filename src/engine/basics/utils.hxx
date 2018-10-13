@@ -1,6 +1,8 @@
 #ifndef UTILS_HXX_
 #define UTILS_HXX_
 
+#include <iterator>
+
 namespace utils
 {
 namespace Lib
