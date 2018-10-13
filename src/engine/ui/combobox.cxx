@@ -92,7 +92,7 @@ bool ComboBox::isMouseOver(int x, int y)
   bool isClicked = false;
 
   SDL_Rect boundaries = _comboBoxRect;
-  ;
+
   if (_isMenuOpened)
   {
     boundaries.h += _menuRect.h;
@@ -103,16 +103,18 @@ bool ComboBox::isMouseOver(int x, int y)
   return isClicked;
 }
 
-void ComboBox::clickedEvent(int x, int y)
+void ComboBox::onMouseButtonUp(SDL_Event &event)
 {
   SDL_Rect boundaries = _comboBoxRect;
-  ;
 
+  int x = event.button.x;
+  int y = event.button.y;
   // clicked on the button
   if (x > boundaries.x && x < boundaries.x + boundaries.w && y > boundaries.y && y < boundaries.y + boundaries.h)
   {
     _isMenuOpened = !_isMenuOpened;
     _textField->setVisibility(!_textField->isVisible());
+    changeButtonState(TextureManager::ButtonState::HOVERING);
     return;
   }
 
@@ -124,3 +126,28 @@ void ComboBox::clickedEvent(int x, int y)
     _textField->setVisibility(false);
   }
 }
+
+void ComboBox::onMouseButtonDown(SDL_Event &event) { changeButtonState(TextureManager::ButtonState::DEFAULT); }
+
+void ComboBox::onMouseEnter(SDL_Event &event)
+{
+  bool isClicked = false;
+  int x = event.button.x;
+  int y = event.button.y;
+
+  SDL_Rect boundaries = _comboBoxRect;
+  ;
+
+  isClicked = x > boundaries.x && x < boundaries.x + boundaries.w && y > boundaries.y && y < boundaries.y + boundaries.h;
+
+  if (_isMenuOpened)
+  {
+    boundaries.y += _comboBoxRect.h;
+    boundaries.h += _menuRect.h - _comboBoxRect.h;
+  }
+
+  //if (isClicked)
+  changeButtonState(TextureManager::ButtonState::HOVERING);
+}
+
+void ComboBox::onMouseLeave(SDL_Event &event) { changeButtonState(TextureManager::ButtonState::DEFAULT); }

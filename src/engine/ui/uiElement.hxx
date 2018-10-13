@@ -63,13 +63,6 @@ public:
   */
   const SDL_Rect &getUiElementRect() { return _uiElementRect; };
 
-  /** \brief Checks if the current UI Element is clicked
-  * Check if the coordinates match the ones stored in _uiElementRect
-  * @param x, y coordinates of the mouseclick
-  * @return Wether the element is clicked as bool
-  */
-  virtual void clickedEvent(int x, int y){};
-
   /** \brief Checks if the mouse cursor is over the current UI Element
   * Check if the coordinates match the ones stored in _uiElementRect
   * @param x, y coordinates of the mouseclick

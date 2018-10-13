@@ -104,17 +104,19 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
 bool EventManager::dispatchUiEvents(SDL_Event &event)
 {
   bool isMouseOverElement = false;
-
+  bool isHovering = false;
   // the reversed draw order of the vector is  the Z-Order of the elements
   for (const std::shared_ptr<UiElement> &it : utils::ReverseIterator(uiManager.getAllUiElements()))
   {
     if (it->isMouseOver(event.button.x, event.button.y) && it->getActionID() != -1 && it->isVisible())
     {
       isMouseOverElement = true;
+      isHovering = it->isHovering(event.button.x, event.button.y);
+
       switch (event.type)
       {
       case SDL_MOUSEMOTION:
-        if (it != lastHoveredElement)
+        if (it != lastHoveredElement && isHovering)
         {
           if (lastHoveredElement != nullptr)
           {
@@ -134,7 +136,7 @@ bool EventManager::dispatchUiEvents(SDL_Event &event)
       break; // break after the first element is found (Z-Order)
     }
   }
-  if (!isMouseOverElement && lastHoveredElement != nullptr)
+  if (!isHovering && lastHoveredElement != nullptr)
   {
     lastHoveredElement->onMouseLeave(event);
     lastHoveredElement = nullptr;
@@ -177,7 +179,7 @@ bool EventManager::handleUIEvents(SDL_Event &event)
     {
       isHandlingMouseEvents = true;
       // tell the ui element it's clicked
-      clickedElement->clickedEvent(event.button.x, event.button.y);
+      //clickedElement->clickedEvent(event.button.x, event.button.y);
     }
 
     break;

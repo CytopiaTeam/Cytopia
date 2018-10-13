@@ -12,14 +12,16 @@ public:
   ComboBox(const SDL_Rect &uiElementRect);
   ~ComboBox() override = default;
 
+  void onMouseButtonUp(SDL_Event &event) override;
+  void onMouseButtonDown(SDL_Event &event) override;
+  void onMouseEnter(SDL_Event &event) override;
+  void onMouseLeave(SDL_Event &event) override;
+
   void draw() override;
   int getClickedID(int x, int y) override;
 
   int getActiveID() { return _activeID; };
   std::string getActiveText() { return _activeText; };
-
-  // override isClicked function to check for menu too if the combobox's opened
-  void clickedEvent(int x, int y) override;
 
   bool isMouseOver(int x, int y) override;
   bool isHovering(int x, int y) override;
