@@ -111,7 +111,7 @@ bool EventManager::dispatchUiEvents(SDL_Event &event)
     if (it->isMouseOver(event.button.x, event.button.y) && it->getActionID() != -1 && it->isVisible())
     {
       isMouseOverElement = true;
-      isHovering = it->isHovering(event.button.x, event.button.y);
+      isHovering = it->isMouseOverHoverableArea(event.button.x, event.button.y);
 
       switch (event.type)
       {

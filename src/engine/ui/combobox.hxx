@@ -12,10 +12,10 @@ public:
   ComboBox(const SDL_Rect &uiElementRect);
   ~ComboBox() override = default;
 
-  void onMouseButtonUp(SDL_Event &event) override;
-  void onMouseButtonDown(SDL_Event &event) override;
-  void onMouseEnter(SDL_Event &event) override;
-  void onMouseLeave(SDL_Event &event) override;
+  void onMouseButtonUp(const SDL_Event &event) override;
+  void onMouseButtonDown(const SDL_Event &event) override;
+  void onMouseEnter(const SDL_Event &event) override;
+  void onMouseLeave(const SDL_Event &event) override;
 
   void draw() override;
   int getClickedID(int x, int y) override;
@@ -24,7 +24,7 @@ public:
   std::string getActiveText() { return _activeText; };
 
   bool isMouseOver(int x, int y) override;
-  bool isHovering(int x, int y) override;
+  bool isMouseOverHoverableArea(int x, int y) override;
 
 private:
   SDL_Rect _comboBoxRect;

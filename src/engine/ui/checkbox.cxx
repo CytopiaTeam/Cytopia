@@ -19,7 +19,7 @@ void Checkbox::draw()
   }
 }
 
-void Checkbox::onMouseButtonUp(SDL_Event &event)
+void Checkbox::onMouseButtonUp(const SDL_Event &event)
 {
   clickSignal.emit();
 
@@ -32,12 +32,12 @@ void Checkbox::onMouseButtonUp(SDL_Event &event)
   checked = !checked;
 }
 
-void Checkbox::onMouseButtonDown(SDL_Event &event)
+void Checkbox::onMouseButtonDown(const SDL_Event &event)
 {
   changeButtonState(checked ? TextureManager::ButtonState::DEFAULT : TextureManager::ButtonState::TOGGLED);
 }
 
-void Checkbox::onMouseEnter(SDL_Event &event)
+void Checkbox::onMouseEnter(const SDL_Event &event)
 {
   if (event.button.button == SDL_BUTTON_LEFT)
   {
@@ -45,7 +45,7 @@ void Checkbox::onMouseEnter(SDL_Event &event)
   }
 }
 
-void Checkbox::onMouseLeave(SDL_Event &event)
+void Checkbox::onMouseLeave(const SDL_Event &event)
 {
   if (event.button.button == SDL_BUTTON_LEFT)
   {

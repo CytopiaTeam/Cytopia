@@ -11,10 +11,10 @@ public:
 
   void draw() override;
 
-  void onMouseButtonUp(SDL_Event &event) override;
-  void onMouseButtonDown(SDL_Event &event) override;
-  void onMouseEnter(SDL_Event &event) override;
-  void onMouseLeave(SDL_Event &event) override;
+  void onMouseButtonUp(const SDL_Event &event) override;
+  void onMouseButtonDown(const SDL_Event &event) override;
+  void onMouseEnter(const SDL_Event &event) override;
+  void onMouseLeave(const SDL_Event &event) override;
 
   void registerFunction(std::function<void()> const &cb) override;
   void registerToggleUIFunction(std::function<void(const std::string &)> const &cb) override;

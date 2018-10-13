@@ -14,7 +14,7 @@ void Button::draw()
   renderTexture();
 }
 
-void Button::onMouseButtonUp(SDL_Event &event)
+void Button::onMouseButtonUp(const SDL_Event &event)
 {
   clickSignal.emit();
 
@@ -26,9 +26,9 @@ void Button::onMouseButtonUp(SDL_Event &event)
   changeButtonState(TextureManager::ButtonState::DEFAULT);
 }
 
-void Button::onMouseButtonDown(SDL_Event &event) { changeButtonState(TextureManager::ButtonState::CLICKED); }
+void Button::onMouseButtonDown(const SDL_Event &event) { changeButtonState(TextureManager::ButtonState::CLICKED); }
 
-void Button::onMouseEnter(SDL_Event &event)
+void Button::onMouseEnter(const SDL_Event &event)
 {
   if (event.button.button == SDL_BUTTON_LEFT)
   {
@@ -40,7 +40,7 @@ void Button::onMouseEnter(SDL_Event &event)
   }
 }
 
-void Button::onMouseLeave(SDL_Event &event) { changeButtonState(TextureManager::ButtonState::DEFAULT); }
+void Button::onMouseLeave(const SDL_Event &event) { changeButtonState(TextureManager::ButtonState::DEFAULT); }
 
 void Button::registerFunction(std::function<void()> const &cb) { clickSignal.connect(cb); }
 void Button::registerToggleUIFunction(std::function<void(const std::string &)> const &cb) { toggleGroupSignal.connect(cb); }

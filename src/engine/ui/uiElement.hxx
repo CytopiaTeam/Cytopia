@@ -25,10 +25,10 @@ public:
   virtual void registerToggleUIFunction(std::function<void(const std::string &)> const &cb){};
 
   // empty virtual function that can be overriden in the derived Ui Elements
-  virtual void onMouseButtonUp(SDL_Event &event){};
-  virtual void onMouseButtonDown(SDL_Event &event){};
-  virtual void onMouseEnter(SDL_Event &event){};
-  virtual void onMouseLeave(SDL_Event &event){};
+  virtual void onMouseButtonUp(const SDL_Event &event){};
+  virtual void onMouseButtonDown(const SDL_Event &event){};
+  virtual void onMouseEnter(const SDL_Event &event){};
+  virtual void onMouseLeave(const SDL_Event &event){};
 
   /** \brief Draw the UI Element and/or render it's textures to the screen
   * Renders the texture of the Ui Element. Function is over
@@ -77,7 +77,7 @@ public:
   * @param x, y coordinates of the mouseclick
   * @return Wether the element is hovered over
   */
-  virtual bool isHovering(int x, int y);
+  virtual bool isMouseOverHoverableArea(int x, int y);
 
   /** \brief Check the UI Elements visibility.
   * Check if the UI Element is visibile

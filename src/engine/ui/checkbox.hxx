@@ -12,10 +12,10 @@ public:
   SDL_Rect rect;
   void draw() override;
 
-  void onMouseButtonUp(SDL_Event &event) override;
-  void onMouseButtonDown(SDL_Event &event) override;
-  void onMouseEnter(SDL_Event &event) override;
-  void onMouseLeave(SDL_Event &event) override;
+  void onMouseButtonUp(const SDL_Event &event) override;
+  void onMouseButtonDown(const SDL_Event &event) override;
+  void onMouseEnter(const SDL_Event &event) override;
+  void onMouseLeave(const SDL_Event &event) override;
 
 private:
   bool checked = false;

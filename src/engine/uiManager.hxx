@@ -39,8 +39,6 @@ public:
 
   void addToGroup(int groupID, std::shared_ptr<UiElement> uiElement);
 
-  void setButtonState();
-
   void setFPSCounterText(const std::string &fps);
 
   const std::vector<std::shared_ptr<UiElement>> &getAllUiElements() const { return _uiElements; };

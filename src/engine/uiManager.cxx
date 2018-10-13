@@ -138,60 +138,6 @@ void UIManager::drawUI()
   }
 }
 
-void UIManager::setButtonState()
-{
-  int x, y;
-  SDL_GetMouseState(&x, &y);
-  for (const std::shared_ptr<UiElement> &it : _uiElements)
-  {
-    if (it->isMouseOver(x, y))
-    {
-
-      if (it->isToggleButton())
-      {
-        if (SDL_GetMouseState(nullptr, nullptr) & SDL_BUTTON(SDL_BUTTON_LEFT) && !_mouseHeldDown)
-        {
-          if (it->getButtonState() == TextureManager::TOGGLED)
-          {
-            it->changeButtonState(TextureManager::DEFAULT);
-          }
-          else
-          {
-            it->changeButtonState(TextureManager::TOGGLED);
-          }
-
-          _mouseHeldDown = true;
-        }
-        else if (!SDL_GetMouseState(nullptr, nullptr) & SDL_BUTTON(SDL_BUTTON_LEFT))
-        {
-          _mouseHeldDown = false;
-        }
-      }
-      else
-      {
-        if (it->isVisible())
-        {
-          if (SDL_GetMouseState(nullptr, nullptr) & SDL_BUTTON(SDL_BUTTON_LEFT))
-          {
-            it->changeButtonState(TextureManager::CLICKED);
-          }
-          else if (it->isHovering(x, y))
-          {
-            it->changeButtonState(TextureManager::HOVERING);
-          }
-        }
-      }
-    }
-    if (!it->isHovering(x, y))
-    {
-      if (!it->isToggleButton())
-      {
-        it->changeButtonState(TextureManager::DEFAULT);
-      }
-    }
-  }
-}
-
 std::shared_ptr<UiElement> UIManager::getClickedUIElement(int x, int y)
 {
   std::shared_ptr<UiElement> clickedElement = nullptr;
