@@ -118,17 +118,17 @@ bool EventManager::dispatchUiEvents(SDL_Event &event)
         {
           if (lastHoveredElement != nullptr)
           {
-            lastHoveredElement->mouseLeaveEvent(event);
+            lastHoveredElement->onMouseLeave(event);
           }
-          it->mouseEnterEvent(event);
+          it->onMouseEnter(event);
           lastHoveredElement = it;
         }
         break;
       case SDL_MOUSEBUTTONDOWN:
-        it->mouseButtonDownEvent(event);
+        it->onMouseButtonDown(event);
         break;
       case SDL_MOUSEBUTTONUP:
-        it->mouseButtonUpEvent(event);
+        it->onMouseButtonUp(event);
         break;
       }
       break; // break after the first element is found (Z-Order)
@@ -136,7 +136,7 @@ bool EventManager::dispatchUiEvents(SDL_Event &event)
   }
   if (!isMouseOverElement && lastHoveredElement != nullptr)
   {
-    lastHoveredElement->mouseLeaveEvent(event);
+    lastHoveredElement->onMouseLeave(event);
     lastHoveredElement = nullptr;
   }
   return isMouseOverElement;

@@ -44,7 +44,7 @@ public:
   std::unordered_map<int, SDL_Surface *> _surfaceMap;
   std::unordered_map<int, SDL_Surface *> _uiSurfaceMap;
 
-  enum buttonState
+  enum ButtonState
   {
     DEFAULT,
     HOVERING,

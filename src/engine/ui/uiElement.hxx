@@ -25,18 +25,10 @@ public:
   virtual void registerToggleUIFunction(std::function<void(const std::string &)> &cb){};
 
   // empty virtual function that can be overriden in the derived Ui Elements
-  virtual void onMouseButtonUp(){};
-  virtual void onMouseButtonDown(){};
-  virtual void onMouseEnter(){};
-  virtual void onMouseLeave(){};
-
-  void mouseButtonUpEvent(SDL_Event &event) { onMouseButtonUp(); }
-
-  void mouseButtonDownEvent(SDL_Event &event) { onMouseButtonDown(); }
-
-  void mouseEnterEvent(SDL_Event &event) { onMouseEnter(); }
-
-  void mouseLeaveEvent(SDL_Event &event) { onMouseLeave(); }
+  virtual void onMouseButtonUp(SDL_Event &event){};
+  virtual void onMouseButtonDown(SDL_Event &event){};
+  virtual void onMouseEnter(SDL_Event &event){};
+  virtual void onMouseLeave(SDL_Event &event){};
 
   /** \brief Draw the UI Element and/or render it's textures to the screen
   * Renders the texture of the Ui Element. Function is over
@@ -153,14 +145,14 @@ public:
   /** \brief Set the button state
   * Sets the mouse button pressed state. 
   * @param state enum buttonstate
-  * @see TextureManager::buttonState
+  * @see TextureManager::ButtonState
   */
   void changeButtonState(int state);
 
   /** \brief Get the button state
   * Get the current mouse button pressed state.
   * @return state enum buttonstate
-  * @see TextureManager::buttonState
+  * @see TextureManager::ButtonState
   */
   int getButtonState() { return _buttonState; };
 
@@ -221,7 +213,7 @@ private:
 
   SDL_Surface *_surface = nullptr;
 
-  int _buttonState = TextureManager::buttonState::DEFAULT;
+  int _buttonState = TextureManager::ButtonState::DEFAULT;
 
   /// set to -1 for no sprite texture
   int _uiSpriteID = -1;

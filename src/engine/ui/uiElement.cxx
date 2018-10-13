@@ -13,7 +13,7 @@ void UiElement::draw()
 void UiElement::setSpriteID(int uiSpriteID)
 {
   _uiSpriteID = uiSpriteID;
-  _texture = TextureManager::Instance().getUITexture(_uiSpriteID, TextureManager::buttonState::DEFAULT);
+  _texture = TextureManager::Instance().getUITexture(_uiSpriteID, TextureManager::ButtonState::DEFAULT);
   SDL_QueryTexture(_texture, nullptr, nullptr, &_uiElementRect.w, &_uiElementRect.h);
 }
 
@@ -160,7 +160,7 @@ void UiElement::drawButtonFrame(SDL_Rect rect, bool isHighlightable)
 {
   Uint8 bgColor, bgColorFrame, bgColorFrameShade, bgColorBottomFrame, bgColorBottomFrameShade;
 
-  if ((getButtonState() == TextureManager::buttonState::CLICKED || getButtonState() == TextureManager::buttonState::TOGGLED) &&
+  if ((getButtonState() == TextureManager::ButtonState::CLICKED || getButtonState() == TextureManager::ButtonState::TOGGLED) &&
       isHighlightable)
   {
     bgColor = 128;
@@ -169,7 +169,7 @@ void UiElement::drawButtonFrame(SDL_Rect rect, bool isHighlightable)
     bgColorBottomFrame = 150;
     bgColorBottomFrameShade = 172;
   }
-  else if ((getButtonState() == TextureManager::buttonState::HOVERING) && isHighlightable)
+  else if ((getButtonState() == TextureManager::ButtonState::HOVERING) && isHighlightable)
   {
     bgColor = 228;
     bgColorFrame = 250;
