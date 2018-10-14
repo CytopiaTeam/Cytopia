@@ -22,8 +22,7 @@ public:
 private:
   SDL_Rect rect;
 
-  bool _isPressed = false;
-  bool _isMouseOver = false;
+  bool _isMouseButtonDown = false;
 
   Signal::Signal<void()> clickSignal;
   Signal::Signal<void(const std::string &)> toggleGroupSignal;

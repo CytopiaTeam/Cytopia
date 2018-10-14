@@ -23,24 +23,70 @@ void Button::onMouseButtonUp(const SDL_Event &event)
     toggleGroupSignal.emit(getParentID());
   }
 
-  changeButtonState(BUTTONSTATE_DEFAULT);
+  if (!isToggleButton())
+  {
+    changeButtonState(BUTTONSTATE_DEFAULT);
+  }
+  else
+  {
+    if (!_isMouseButtonDown)
+    {
+      changeButtonState(getButtonState() == BUTTONSTATE_CLICKED ? BUTTONSTATE_DEFAULT : BUTTONSTATE_CLICKED);
+    }
+    _isMouseButtonDown = false;
+  }
 }
 
-void Button::onMouseButtonDown(const SDL_Event &event) { changeButtonState(BUTTONSTATE_CLICKED); }
-
-void Button::onMouseEnter(const SDL_Event &event)
+void Button::onMouseButtonDown(const SDL_Event &event)
 {
-  if (event.button.button == SDL_BUTTON_LEFT)
+  if (!isToggleButton())
   {
     changeButtonState(BUTTONSTATE_CLICKED);
   }
   else
   {
-    changeButtonState(BUTTONSTATE_HOVERING);
+    changeButtonState(getButtonState() == BUTTONSTATE_CLICKED ? BUTTONSTATE_DEFAULT : BUTTONSTATE_CLICKED);
+    _isMouseButtonDown = true;
   }
 }
 
-void Button::onMouseLeave(const SDL_Event &event) { changeButtonState(BUTTONSTATE_DEFAULT); }
+void Button::onMouseEnter(const SDL_Event &event)
+{
+  if (!isToggleButton())
+  {
+    if (event.button.button == SDL_BUTTON_LEFT)
+    {
+      changeButtonState(BUTTONSTATE_CLICKED);
+    }
+    else
+    {
+      changeButtonState(BUTTONSTATE_HOVERING);
+    }
+  }
+  else
+  {
+    if (event.button.button == SDL_BUTTON_LEFT)
+    {
+      changeButtonState(getButtonState() == BUTTONSTATE_CLICKED ? BUTTONSTATE_DEFAULT : BUTTONSTATE_CLICKED);
+      _isMouseButtonDown = true;
+    }
+  }
+}
+
+void Button::onMouseLeave(const SDL_Event &event)
+{
+  if (!isToggleButton())
+  {
+    changeButtonState(BUTTONSTATE_DEFAULT);
+  }
+  else
+  {
+    if (event.button.button == SDL_BUTTON_LEFT)
+    {
+      changeButtonState(getButtonState() == BUTTONSTATE_DEFAULT ? BUTTONSTATE_CLICKED : BUTTONSTATE_DEFAULT);
+    }
+  }
+}
 
 void Button::registerFunction(std::function<void()> const &cb) { clickSignal.connect(cb); }
 void Button::registerToggleUIFunction(std::function<void(const std::string &)> const &cb) { toggleGroupSignal.connect(cb); }

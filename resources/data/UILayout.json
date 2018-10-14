@@ -10,6 +10,7 @@
       "Position_y": 520,
       "ParentOfGroup": "ConstructionSubMenu",
       "Layout": "BottomMenu",
+      "ToggleButton": true,
       "TooltipText": "Construction"
     }
   ],
@@ -21,6 +22,7 @@
       "Position_y": 470,
       "ActionID": 2,
       "Layout": "BottomMenuExpansionGroup",
+      "ToggleButton": true,
       "TooltipText": "Raise Terrain"
     },
     {
@@ -30,6 +32,7 @@
       "Position_y": 470,
       "ActionID": 3,
       "Layout": "BottomMenuExpansionGroup",
+      "ToggleButton": true,
       "TooltipText": "Lower Terrain"
     }
   ],

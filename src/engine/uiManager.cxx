@@ -21,6 +21,7 @@ void UIManager::init()
 
       if (!uiLayout[it.key()][id]["Type"].is_null())
       {
+        bool toggleButton = false;
         int actionID = 0;
         std::string parentOf;
         std::string tooltipText;
@@ -48,6 +49,10 @@ void UIManager::init()
         if (!uiLayout[it.key()][id]["TooltipText"].is_null())
         {
           tooltipText = uiLayout[it.key()][id]["TooltipText"].get<std::string>();
+        }
+        if (!uiLayout[it.key()][id]["ToggleButton"].is_null())
+        {
+          toggleButton = uiLayout[it.key()][id]["ToggleButton"].get<bool>();
         }
         if (!uiLayout[it.key()][id]["ParentOfGroup"].is_null())
         {
@@ -98,6 +103,7 @@ void UIManager::init()
         uiElement->setActionID(actionID);
         uiElement->setParentID(parentOf);
         uiElement->setGroupID(groupID);
+        uiElement->setToggleButton(toggleButton);
 
         if (parentOf != "")
         {
@@ -105,11 +111,19 @@ void UIManager::init()
         }
         if (actionID == 2)
         {
-          uiElement->registerFunction([]() { Resources::getTerrainEditMode() == Resources::TERRAIN_RAISE ? Resources::setTerrainEditMode(Resources::NO_TERRAIN_EDIT) : Resources::setTerrainEditMode(Resources::TERRAIN_RAISE); });
+          uiElement->registerFunction([]() {
+            Resources::getTerrainEditMode() == Resources::TERRAIN_RAISE
+                ? Resources::setTerrainEditMode(Resources::NO_TERRAIN_EDIT)
+                : Resources::setTerrainEditMode(Resources::TERRAIN_RAISE);
+          });
         }
         if (actionID == 3)
         {
-          uiElement->registerFunction([]() { Resources::getTerrainEditMode() == Resources::TERRAIN_LOWER ? Resources::setTerrainEditMode(Resources::NO_TERRAIN_EDIT) : Resources::setTerrainEditMode(Resources::TERRAIN_LOWER); });
+          uiElement->registerFunction([]() {
+            Resources::getTerrainEditMode() == Resources::TERRAIN_LOWER
+                ? Resources::setTerrainEditMode(Resources::NO_TERRAIN_EDIT)
+                : Resources::setTerrainEditMode(Resources::TERRAIN_LOWER);
+          });
         }
         if (actionID == 4)
         {
