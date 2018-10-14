@@ -129,9 +129,6 @@ void ComboBox::onMouseButtonUp(const SDL_Event &event)
 
 void ComboBox::onMouseButtonDown(const SDL_Event &event) { changeButtonState(TextureManager::ButtonState::DEFAULT); }
 
-void ComboBox::onMouseEnter(const SDL_Event &event)
-{
-  changeButtonState(TextureManager::ButtonState::HOVERING);
-}
+void ComboBox::onMouseEnter(const SDL_Event &event) { changeButtonState(TextureManager::ButtonState::HOVERING); }
 
 void ComboBox::onMouseLeave(const SDL_Event &event) { changeButtonState(TextureManager::ButtonState::DEFAULT); }

@@ -2,20 +2,20 @@
 
 Checkbox::Checkbox(const SDL_Rect &uiElementRect) : UiElement(SDL_Rect{uiElementRect.x, uiElementRect.y, 20, 20})
 {
-  rect = uiElementRect;
-  rect.w = 20;
-  rect.h = 20;
+  _rect = uiElementRect;
+  _rect.w = 20;
+  _rect.h = 20;
   // checkbox is always a togglebutton
   setToggleButton(true);
 }
 
 void Checkbox::draw()
 {
-  drawButtonFrame(rect);
+  drawButtonFrame(_rect);
 
-  if (getButtonState() == TextureManager::TOGGLED)
+  if (getButtonState() == TextureManager::CLICKED)
   {
-    drawSolidRect(SDL_Rect{(rect.x + 7), rect.y + 7, rect.w - 13, rect.h - 13}, SDL_Color{84, 84, 84});
+    drawSolidRect(SDL_Rect{(_rect.x + 7), _rect.y + 7, _rect.w - 13, _rect.h - 13}, SDL_Color{84, 84, 84});
   }
 }
 
@@ -28,20 +28,28 @@ void Checkbox::onMouseButtonUp(const SDL_Event &event)
     toggleGroupSignal.emit(getParentID());
   }
 
-  changeButtonState(checked ? TextureManager::ButtonState::DEFAULT : TextureManager::ButtonState::TOGGLED);
-  checked = !checked;
+  if (!_isMouseButtonDown)
+  {
+    changeButtonState(getButtonState() == TextureManager::ButtonState::CLICKED ? TextureManager::ButtonState::DEFAULT
+                                                                               : TextureManager::ButtonState::CLICKED);
+  }
+  _isMouseButtonDown = false;
 }
 
 void Checkbox::onMouseButtonDown(const SDL_Event &event)
 {
-  changeButtonState(checked ? TextureManager::ButtonState::DEFAULT : TextureManager::ButtonState::TOGGLED);
+  changeButtonState(getButtonState() == TextureManager::ButtonState::CLICKED ? TextureManager::ButtonState::DEFAULT
+                                                                             : TextureManager::ButtonState::CLICKED);
+  _isMouseButtonDown = true;
 }
 
 void Checkbox::onMouseEnter(const SDL_Event &event)
 {
   if (event.button.button == SDL_BUTTON_LEFT)
   {
-    changeButtonState(checked ? TextureManager::ButtonState::DEFAULT : TextureManager::ButtonState::TOGGLED);
+    changeButtonState(getButtonState() == TextureManager::ButtonState::CLICKED ? TextureManager::ButtonState::DEFAULT
+                                                                               : TextureManager::ButtonState::CLICKED);
+    _isMouseButtonDown = true;
   }
 }
 
@@ -49,6 +57,7 @@ void Checkbox::onMouseLeave(const SDL_Event &event)
 {
   if (event.button.button == SDL_BUTTON_LEFT)
   {
-    changeButtonState(checked ? TextureManager::ButtonState::TOGGLED : TextureManager::ButtonState::DEFAULT);
+    changeButtonState(getButtonState() == TextureManager::ButtonState::DEFAULT ? TextureManager::ButtonState::CLICKED
+                                                                               : TextureManager::ButtonState::DEFAULT);
   }
 }

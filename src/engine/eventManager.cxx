@@ -9,7 +9,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
   if (SDL_PollEvent(&event))
   {
     // check ui events first before checking any game event
-    if (!dispatchUiEvents(event)  && !isHandlingMouseEvents)
+    if (!dispatchUiEvents(event) && !isHandlingMouseEvents)
     {
       switch (event.type)
       {
@@ -131,7 +131,7 @@ bool EventManager::dispatchUiEvents(SDL_Event &event)
         {
           _tooltip->setText(it->getTooltipText());
           _tooltip->setPosition(event.button.x - _tooltip->getUiElementRect().w / 2,
-            event.button.y - _tooltip->getUiElementRect().h);
+                                event.button.y - _tooltip->getUiElementRect().h);
           _tooltip->setVisibility(true);
           _tooltip->startTimer();
         }
