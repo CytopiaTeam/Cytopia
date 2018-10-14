@@ -21,7 +21,6 @@ public:
 private:
   UIManager &uiManager = UIManager::Instance();
 
-  bool isHandlingMouseEvents = false;
   std::shared_ptr<Tooltip> _tooltip = UIManager::Instance().getToolTipObject();
 
   std::shared_ptr<UiElement> lastHoveredElement = nullptr;

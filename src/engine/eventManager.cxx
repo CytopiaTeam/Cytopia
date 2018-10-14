@@ -9,7 +9,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
   if (SDL_PollEvent(&event))
   {
     // check ui events first before checking any game event
-    if (!dispatchUiEvents(event) && !isHandlingMouseEvents)
+    if (!dispatchUiEvents(event))
     {
       switch (event.type)
       {
