@@ -20,7 +20,6 @@ public:
 
 private:
   UIManager &uiManager = UIManager::Instance();
-  bool handleUIEvents(SDL_Event &event);
 
   bool isHandlingMouseEvents = false;
   std::shared_ptr<Tooltip> _tooltip = UIManager::Instance().getToolTipObject();

@@ -9,7 +9,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
   if (SDL_PollEvent(&event))
   {
     // check ui events first before checking any game event
-    if (!dispatchUiEvents(event) && !handleUIEvents(event) && !isHandlingMouseEvents)
+    if (!dispatchUiEvents(event)  && !isHandlingMouseEvents)
     {
       switch (event.type)
       {
@@ -105,6 +105,7 @@ bool EventManager::dispatchUiEvents(SDL_Event &event)
 {
   bool isMouseOverElement = false;
   bool isHovering = false;
+
   // the reversed draw order of the vector is  the Z-Order of the elements
   for (const std::shared_ptr<UiElement> &it : utils::ReverseIterator(uiManager.getAllUiElements()))
   {
@@ -125,6 +126,19 @@ bool EventManager::dispatchUiEvents(SDL_Event &event)
           it->onMouseEnter(event);
           lastHoveredElement = it;
         }
+        // handle tooltips
+        if (!it->getTooltipText().empty())
+        {
+          _tooltip->setText(it->getTooltipText());
+          _tooltip->setPosition(event.button.x - _tooltip->getUiElementRect().w / 2,
+            event.button.y - _tooltip->getUiElementRect().h);
+          _tooltip->setVisibility(true);
+          _tooltip->startTimer();
+        }
+        else
+        {
+          _tooltip->setVisibility(false);
+        }
         break;
       case SDL_MOUSEBUTTONDOWN:
         it->onMouseButtonDown(event);
@@ -136,96 +150,13 @@ bool EventManager::dispatchUiEvents(SDL_Event &event)
       break; // break after the first element is found (Z-Order)
     }
   }
+
   if (!isHovering && lastHoveredElement != nullptr)
   {
+    _tooltip->setVisibility(false);
     lastHoveredElement->onMouseLeave(event);
     lastHoveredElement = nullptr;
   }
+
   return isMouseOverElement;
-}
-
-bool EventManager::handleUIEvents(SDL_Event &event)
-{
-  bool handled = false;
-
-  std::shared_ptr<UiElement> clickedElement = uiManager.getClickedUIElement(event.button.x, event.button.y);
-
-  switch (event.type)
-  {
-  case SDL_MOUSEMOTION:
-    if (clickedElement)
-    {
-      if (!clickedElement->getTooltipText().empty())
-      {
-
-        _tooltip->setText(clickedElement->getTooltipText());
-        _tooltip->setPosition(event.button.x - _tooltip->getUiElementRect().w / 2,
-                              event.button.y - _tooltip->getUiElementRect().h);
-        _tooltip->setVisibility(true);
-        _tooltip->startTimer();
-      }
-      else
-      {
-        _tooltip->setVisibility(false);
-      }
-    }
-    else
-    {
-      _tooltip->setVisibility(false);
-    }
-    break;
-  case SDL_MOUSEBUTTONDOWN:
-    if (event.button.button == SDL_BUTTON_LEFT && clickedElement)
-    {
-      isHandlingMouseEvents = true;
-      // tell the ui element it's clicked
-      //clickedElement->clickedEvent(event.button.x, event.button.y);
-    }
-
-    break;
-  case SDL_MOUSEBUTTONUP:
-    isHandlingMouseEvents = false;
-
-    if (event.button.button == SDL_BUTTON_LEFT)
-    {
-      if (clickedElement)
-      {
-        switch (clickedElement->getActionID())
-        {
-        case 2:
-          if (Resources::getTerrainEditMode() == Resources::TERRAIN_RAISE)
-          {
-            Resources::setTerrainEditMode(Resources::NO_TERRAIN_EDIT);
-          }
-          else
-          {
-            Resources::setTerrainEditMode(Resources::TERRAIN_RAISE);
-          }
-          break;
-        case 3:
-          if (Resources::getTerrainEditMode() == Resources::TERRAIN_LOWER)
-          {
-            Resources::setTerrainEditMode(Resources::NO_TERRAIN_EDIT);
-          }
-          else
-          {
-            Resources::setTerrainEditMode(Resources::TERRAIN_LOWER);
-          }
-          break;
-        // Combobox
-        case 5:
-          LOG() << "DEBUG: Combobox has been clicked with ID " << clickedElement->getClickedID(event.button.x, event.button.y);
-        default:
-          break;
-        }
-        handled = true;
-      }
-    }
-    break;
-  default:
-    break;
-  }
-
-  // return if the event was handled here
-  return handled;
 }
