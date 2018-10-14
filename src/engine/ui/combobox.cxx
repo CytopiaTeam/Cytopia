@@ -114,7 +114,7 @@ void ComboBox::onMouseButtonUp(const SDL_Event &event)
   {
     _isMenuOpened = !_isMenuOpened;
     _textField->setVisibility(!_textField->isVisible());
-    changeButtonState(TextureManager::ButtonState::HOVERING);
+    changeButtonState(BUTTONSTATE_HOVERING);
     return;
   }
 
@@ -127,8 +127,8 @@ void ComboBox::onMouseButtonUp(const SDL_Event &event)
   }
 }
 
-void ComboBox::onMouseButtonDown(const SDL_Event &event) { changeButtonState(TextureManager::ButtonState::DEFAULT); }
+void ComboBox::onMouseButtonDown(const SDL_Event &event) { changeButtonState(BUTTONSTATE_DEFAULT); }
 
-void ComboBox::onMouseEnter(const SDL_Event &event) { changeButtonState(TextureManager::ButtonState::HOVERING); }
+void ComboBox::onMouseEnter(const SDL_Event &event) { changeButtonState(BUTTONSTATE_HOVERING); }
 
-void ComboBox::onMouseLeave(const SDL_Event &event) { changeButtonState(TextureManager::ButtonState::DEFAULT); }
+void ComboBox::onMouseLeave(const SDL_Event &event) { changeButtonState(BUTTONSTATE_DEFAULT); }

@@ -23,24 +23,24 @@ void Button::onMouseButtonUp(const SDL_Event &event)
     toggleGroupSignal.emit(getParentID());
   }
 
-  changeButtonState(TextureManager::ButtonState::DEFAULT);
+  changeButtonState(BUTTONSTATE_DEFAULT);
 }
 
-void Button::onMouseButtonDown(const SDL_Event &event) { changeButtonState(TextureManager::ButtonState::CLICKED); }
+void Button::onMouseButtonDown(const SDL_Event &event) { changeButtonState(BUTTONSTATE_CLICKED); }
 
 void Button::onMouseEnter(const SDL_Event &event)
 {
   if (event.button.button == SDL_BUTTON_LEFT)
   {
-    changeButtonState(TextureManager::ButtonState::CLICKED);
+    changeButtonState(BUTTONSTATE_CLICKED);
   }
   else
   {
-    changeButtonState(TextureManager::ButtonState::HOVERING);
+    changeButtonState(BUTTONSTATE_HOVERING);
   }
 }
 
-void Button::onMouseLeave(const SDL_Event &event) { changeButtonState(TextureManager::ButtonState::DEFAULT); }
+void Button::onMouseLeave(const SDL_Event &event) { changeButtonState(BUTTONSTATE_DEFAULT); }
 
 void Button::registerFunction(std::function<void()> const &cb) { clickSignal.connect(cb); }
 void Button::registerToggleUIFunction(std::function<void(const std::string &)> const &cb) { toggleGroupSignal.connect(cb); }

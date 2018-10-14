@@ -110,7 +110,7 @@ SDL_Texture *TextureManager::getUITexture(int uiSpriteID, int buttonState)
 
   switch (buttonState)
   {
-  case HOVERING:
+  case BUTTONSTATE_HOVERING:
     if (_uiTextureMapHover.count(uiSpriteID))
     {
       return _uiTextureMapHover[uiSpriteID];
@@ -119,7 +119,7 @@ SDL_Texture *TextureManager::getUITexture(int uiSpriteID, int buttonState)
     {
       return _uiTextureMap[uiSpriteID];
     }
-  case CLICKED:
+  case BUTTONSTATE_CLICKED:
     if (_uiTextureMapPressed.count(uiSpriteID))
     {
       return _uiTextureMapPressed[uiSpriteID];

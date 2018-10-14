@@ -206,7 +206,7 @@ private:
 
   SDL_Surface *_surface = nullptr;
 
-  int _buttonState = TextureManager::ButtonState::DEFAULT;
+  int _buttonState = BUTTONSTATE_DEFAULT;
 
   /// set to -1 for no sprite texture
   int _uiSpriteID = -1;
