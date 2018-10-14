@@ -103,7 +103,14 @@ void UIManager::init()
         {
           uiElement->registerToggleUIFunction(Signal::slot(this, &UIManager::toggleGroupVisibility));
         }
-
+        if (actionID == 2)
+        {
+          uiElement->registerFunction([]() { Resources::getTerrainEditMode() == Resources::TERRAIN_RAISE ? Resources::setTerrainEditMode(Resources::NO_TERRAIN_EDIT) : Resources::setTerrainEditMode(Resources::TERRAIN_RAISE); });
+        }
+        if (actionID == 3)
+        {
+          uiElement->registerFunction([]() { Resources::getTerrainEditMode() == Resources::TERRAIN_LOWER ? Resources::setTerrainEditMode(Resources::NO_TERRAIN_EDIT) : Resources::setTerrainEditMode(Resources::TERRAIN_LOWER); });
+        }
         if (actionID == 4)
         {
           uiElement->registerFunction(Signal::slot(Engine::Instance(), &Engine::quitGame));
