@@ -22,7 +22,7 @@ void UIManager::init()
       if (!uiLayout[it.key()][id]["Type"].is_null())
       {
         bool toggleButton = false;
-        int actionID = 0;
+        std::string actionID;
         std::string parentOf;
         std::string tooltipText;
         std::string text;
@@ -58,9 +58,9 @@ void UIManager::init()
         {
           parentOf = uiLayout[it.key()][id]["ParentOfGroup"].get<std::string>();
         }
-        if (!uiLayout[it.key()][id]["ActionID"].is_null())
+        if (!uiLayout[it.key()][id]["Action"].is_null())
         {
-          actionID = uiLayout[it.key()][id]["ActionID"].get<int>();
+          actionID = uiLayout[it.key()][id]["Action"].get<std::string>();
         }
         if (!uiLayout[it.key()][id]["Text"].is_null())
         {
@@ -109,7 +109,7 @@ void UIManager::init()
         {
           uiElement->registerToggleUIFunction(Signal::slot(this, &UIManager::toggleGroupVisibility));
         }
-        if (actionID == 2)
+        if (actionID == "RaiseTerrain")
         {
           uiElement->registerCallbackFunction([]() {
             Resources::getTerrainEditMode() == Resources::TERRAIN_RAISE
@@ -117,7 +117,7 @@ void UIManager::init()
                 : Resources::setTerrainEditMode(Resources::TERRAIN_RAISE);
           });
         }
-        if (actionID == 3)
+        else if (actionID == "LowerTerrain")
         {
           uiElement->registerCallbackFunction([]() {
             Resources::getTerrainEditMode() == Resources::TERRAIN_LOWER
@@ -125,7 +125,7 @@ void UIManager::init()
                 : Resources::setTerrainEditMode(Resources::TERRAIN_LOWER);
           });
         }
-        if (actionID == 4)
+        else if (actionID == "QuitGame")
         {
           uiElement->registerCallbackFunction(Signal::slot(Engine::Instance(), &Engine::quitGame));
         }
@@ -167,7 +167,7 @@ std::shared_ptr<UiElement> UIManager::getClickedUIElement(int x, int y)
   {
     if (it->isMouseOver(x, y))
     {
-      if (it->getActionID() != -1 && it->isVisible())
+      if (it->isVisible())
         clickedElement = it;
     }
   }
