@@ -11,6 +11,14 @@
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_image.h"
 
+enum ButtonState
+{
+  BUTTONSTATE_DEFAULT,
+  BUTTONSTATE_HOVERING,
+  BUTTONSTATE_CLICKED,
+  BUTTONSTATE_DISABLED
+};
+
 class TextureManager
 {
 public:
@@ -27,7 +35,7 @@ public:
 
   /** retrieves texture for a tileID */
   SDL_Texture *getTileTexture(int tileID);
-  SDL_Texture *getUITexture(int uiSpriteID, int buttonState = TOGGLED);
+  SDL_Texture *getUITexture(int uiSpriteID, int buttonState = BUTTONSTATE_DEFAULT);
 
   SDL_Surface *getTileSurface(int tileID);
   SDL_Surface *getUISurface(int uiSpriteID);
@@ -43,15 +51,6 @@ public:
   /** Keep surfaces in map for collision detection when selecting tiles*/
   std::unordered_map<int, SDL_Surface *> _surfaceMap;
   std::unordered_map<int, SDL_Surface *> _uiSurfaceMap;
-
-  enum buttonState
-  {
-    DEFAULT,
-    HOVERING,
-    CLICKED,
-    TOGGLED,
-    DISABLED
-  };
 
 private:
   TextureManager() = default;

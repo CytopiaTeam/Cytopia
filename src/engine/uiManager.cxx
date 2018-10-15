@@ -21,7 +21,8 @@ void UIManager::init()
 
       if (!uiLayout[it.key()][id]["Type"].is_null())
       {
-        int actionID = 0;
+        bool toggleButton = false;
+        std::string actionID;
         std::string parentOf;
         std::string tooltipText;
         std::string text;
@@ -49,13 +50,17 @@ void UIManager::init()
         {
           tooltipText = uiLayout[it.key()][id]["TooltipText"].get<std::string>();
         }
+        if (!uiLayout[it.key()][id]["ToggleButton"].is_null())
+        {
+          toggleButton = uiLayout[it.key()][id]["ToggleButton"].get<bool>();
+        }
         if (!uiLayout[it.key()][id]["ParentOfGroup"].is_null())
         {
           parentOf = uiLayout[it.key()][id]["ParentOfGroup"].get<std::string>();
         }
-        if (!uiLayout[it.key()][id]["ActionID"].is_null())
+        if (!uiLayout[it.key()][id]["Action"].is_null())
         {
-          actionID = uiLayout[it.key()][id]["ActionID"].get<int>();
+          actionID = uiLayout[it.key()][id]["Action"].get<std::string>();
         }
         if (!uiLayout[it.key()][id]["Text"].is_null())
         {
@@ -98,6 +103,32 @@ void UIManager::init()
         uiElement->setActionID(actionID);
         uiElement->setParentID(parentOf);
         uiElement->setGroupID(groupID);
+        uiElement->setToggleButton(toggleButton);
+
+        if (parentOf != "")
+        {
+          uiElement->registerToggleUIFunction(Signal::slot(this, &UIManager::toggleGroupVisibility));
+        }
+        if (actionID == "RaiseTerrain")
+        {
+          uiElement->registerCallbackFunction([]() {
+            Resources::getTerrainEditMode() == Resources::TERRAIN_RAISE
+                ? Resources::setTerrainEditMode(Resources::NO_TERRAIN_EDIT)
+                : Resources::setTerrainEditMode(Resources::TERRAIN_RAISE);
+          });
+        }
+        else if (actionID == "LowerTerrain")
+        {
+          uiElement->registerCallbackFunction([]() {
+            Resources::getTerrainEditMode() == Resources::TERRAIN_LOWER
+                ? Resources::setTerrainEditMode(Resources::NO_TERRAIN_EDIT)
+                : Resources::setTerrainEditMode(Resources::TERRAIN_LOWER);
+          });
+        }
+        else if (actionID == "QuitGame")
+        {
+          uiElement->registerCallbackFunction(Signal::slot(Engine::Instance(), &Engine::quitGame));
+        }
 
         // store the element in a vector
         _uiElements.emplace_back(uiElement);
@@ -128,60 +159,6 @@ void UIManager::drawUI()
   }
 }
 
-void UIManager::setButtonState()
-{
-  int x, y;
-  SDL_GetMouseState(&x, &y);
-  for (const std::shared_ptr<UiElement> &it : _uiElements)
-  {
-    if (it->isMouseOver(x, y))
-    {
-
-      if (it->isToggleButton())
-      {
-        if (SDL_GetMouseState(nullptr, nullptr) & SDL_BUTTON(SDL_BUTTON_LEFT) && !_mouseHeldDown)
-        {
-          if (it->getButtonState() == TextureManager::TOGGLED)
-          {
-            it->changeButtonState(TextureManager::DEFAULT);
-          }
-          else
-          {
-            it->changeButtonState(TextureManager::TOGGLED);
-          }
-
-          _mouseHeldDown = true;
-        }
-        else if (!SDL_GetMouseState(nullptr, nullptr) & SDL_BUTTON(SDL_BUTTON_LEFT))
-        {
-          _mouseHeldDown = false;
-        }
-      }
-      else
-      {
-        if (it->isVisible())
-        {
-          if (SDL_GetMouseState(nullptr, nullptr) & SDL_BUTTON(SDL_BUTTON_LEFT))
-          {
-            it->changeButtonState(TextureManager::CLICKED);
-          }
-          else if (it->isHovering(x, y))
-          {
-            it->changeButtonState(TextureManager::HOVERING);
-          }
-        }
-      }
-    }
-    if (!it->isHovering(x, y))
-    {
-      if (!it->isToggleButton())
-      {
-        it->changeButtonState(TextureManager::DEFAULT);
-      }
-    }
-  }
-}
-
 std::shared_ptr<UiElement> UIManager::getClickedUIElement(int x, int y)
 {
   std::shared_ptr<UiElement> clickedElement = nullptr;
@@ -190,7 +167,7 @@ std::shared_ptr<UiElement> UIManager::getClickedUIElement(int x, int y)
   {
     if (it->isMouseOver(x, y))
     {
-      if (it->getActionID() != -1 && it->isVisible())
+      if (it->isVisible())
         clickedElement = it;
     }
   }

@@ -15,6 +15,7 @@
 #include "basics/settings.hxx"
 #include "basics/timer.hxx"
 #include "textureManager.hxx"
+#include "engine.hxx"
 
 #include "../ThirdParty/json.hxx"
 
@@ -27,7 +28,6 @@ public:
     static UIManager instance;
     return instance;
   }
-
   void init();
   void drawUI();
   std::shared_ptr<UiElement> getClickedUIElement(int x, int y);
@@ -39,9 +39,9 @@ public:
 
   void addToGroup(int groupID, std::shared_ptr<UiElement> uiElement);
 
-  void setButtonState();
-
   void setFPSCounterText(const std::string &fps);
+
+  const std::vector<std::shared_ptr<UiElement>> &getAllUiElements() const { return _uiElements; };
 
 private:
   UIManager() = default;

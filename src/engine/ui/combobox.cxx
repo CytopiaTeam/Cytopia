@@ -68,7 +68,7 @@ void ComboBox::draw()
 
 int ComboBox::getClickedID(int x, int y) { return _activeID; }
 
-bool ComboBox::isHovering(int x, int y)
+bool ComboBox::isMouseOverHoverableArea(int x, int y)
 {
 
   bool isClicked = false;
@@ -92,7 +92,7 @@ bool ComboBox::isMouseOver(int x, int y)
   bool isClicked = false;
 
   SDL_Rect boundaries = _comboBoxRect;
-  ;
+
   if (_isMenuOpened)
   {
     boundaries.h += _menuRect.h;
@@ -103,16 +103,18 @@ bool ComboBox::isMouseOver(int x, int y)
   return isClicked;
 }
 
-void ComboBox::clickedEvent(int x, int y)
+void ComboBox::onMouseButtonUp(const SDL_Event &event)
 {
   SDL_Rect boundaries = _comboBoxRect;
-  ;
 
+  int x = event.button.x;
+  int y = event.button.y;
   // clicked on the button
   if (x > boundaries.x && x < boundaries.x + boundaries.w && y > boundaries.y && y < boundaries.y + boundaries.h)
   {
     _isMenuOpened = !_isMenuOpened;
     _textField->setVisibility(!_textField->isVisible());
+    changeButtonState(BUTTONSTATE_HOVERING);
     return;
   }
 
@@ -124,3 +126,9 @@ void ComboBox::clickedEvent(int x, int y)
     _textField->setVisibility(false);
   }
 }
+
+void ComboBox::onMouseButtonDown(const SDL_Event &event) { changeButtonState(BUTTONSTATE_DEFAULT); }
+
+void ComboBox::onMouseEnter(const SDL_Event &event) { changeButtonState(BUTTONSTATE_HOVERING); }
+
+void ComboBox::onMouseLeave(const SDL_Event &event) { changeButtonState(BUTTONSTATE_DEFAULT); }

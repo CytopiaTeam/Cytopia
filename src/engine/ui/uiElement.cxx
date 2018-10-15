@@ -13,7 +13,7 @@ void UiElement::draw()
 void UiElement::setSpriteID(int uiSpriteID)
 {
   _uiSpriteID = uiSpriteID;
-  _texture = TextureManager::Instance().getUITexture(_uiSpriteID, TextureManager::buttonState::DEFAULT);
+  _texture = TextureManager::Instance().getUITexture(_uiSpriteID, BUTTONSTATE_DEFAULT);
   SDL_QueryTexture(_texture, nullptr, nullptr, &_uiElementRect.w, &_uiElementRect.h);
 }
 
@@ -49,7 +49,7 @@ bool UiElement::isMouseOver(int x, int y)
          y < _uiElementRect.y + _uiElementRect.h;
 }
 
-bool UiElement::isHovering(int x, int y)
+bool UiElement::isMouseOverHoverableArea(int x, int y)
 {
   return x > _uiElementRect.x && x < _uiElementRect.x + _uiElementRect.w && y > _uiElementRect.y &&
          y < _uiElementRect.y + _uiElementRect.h;
@@ -160,8 +160,7 @@ void UiElement::drawButtonFrame(SDL_Rect rect, bool isHighlightable)
 {
   Uint8 bgColor, bgColorFrame, bgColorFrameShade, bgColorBottomFrame, bgColorBottomFrameShade;
 
-  if ((getButtonState() == TextureManager::buttonState::CLICKED || getButtonState() == TextureManager::buttonState::TOGGLED) &&
-      isHighlightable)
+  if (getButtonState() == BUTTONSTATE_CLICKED && isHighlightable)
   {
     bgColor = 128;
     bgColorFrame = 106;
@@ -169,7 +168,7 @@ void UiElement::drawButtonFrame(SDL_Rect rect, bool isHighlightable)
     bgColorBottomFrame = 150;
     bgColorBottomFrameShade = 172;
   }
-  else if ((getButtonState() == TextureManager::buttonState::HOVERING) && isHighlightable)
+  else if ((getButtonState() == BUTTONSTATE_HOVERING) && isHighlightable)
   {
     bgColor = 228;
     bgColorFrame = 250;

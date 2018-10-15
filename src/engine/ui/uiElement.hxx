@@ -6,6 +6,7 @@
 #include "../basics/resources.hxx"
 #include "../textureManager.hxx"
 #include "../basics/log.hxx"
+#include "../basics/signal.hxx"
 
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_ttf.h"
@@ -19,6 +20,17 @@ public:
   //Initializes variables
   UiElement(const SDL_Rect &uiElementRect);
   virtual ~UiElement() = default;
+
+  /**
+  */
+  virtual void registerCallbackFunction(std::function<void()> const &cb){};
+  virtual void registerToggleUIFunction(std::function<void(const std::string &)> const &cb){};
+
+  // empty virtual function that can be overriden in the derived Ui Elements
+  virtual void onMouseButtonUp(const SDL_Event &event){};
+  virtual void onMouseButtonDown(const SDL_Event &event){};
+  virtual void onMouseEnter(const SDL_Event &event){};
+  virtual void onMouseLeave(const SDL_Event &event){};
 
   /** \brief Draw the UI Element and/or render it's textures to the screen
   * Renders the texture of the Ui Element. Function is over
@@ -53,13 +65,6 @@ public:
   */
   const SDL_Rect &getUiElementRect() { return _uiElementRect; };
 
-  /** \brief Checks if the current UI Element is clicked
-  * Check if the coordinates match the ones stored in _uiElementRect
-  * @param x, y coordinates of the mouseclick
-  * @return Wether the element is clicked as bool
-  */
-  virtual void clickedEvent(int x, int y){};
-
   /** \brief Checks if the mouse cursor is over the current UI Element
   * Check if the coordinates match the ones stored in _uiElementRect
   * @param x, y coordinates of the mouseclick
@@ -74,7 +79,7 @@ public:
   * @param x, y coordinates of the mouseclick
   * @return Wether the element is hovered over
   */
-  virtual bool isHovering(int x, int y);
+  virtual bool isMouseOverHoverableArea(int x, int y);
 
   /** \brief Check the UI Elements visibility.
   * Check if the UI Element is visibile
@@ -123,26 +128,26 @@ public:
   * For more details see our github wiki page
   * @param The Action ID as int
   */
-  void setActionID(int actionID) { _actionID = actionID; };
+  void setActionID(const std::string& actionID) { _actionID = actionID; };
 
   /** \brief Get the Action ID of the UI Element.
   * Retrieves the ID of the action the UI Element should execute when it's clicked.
   * For more details see our github wiki page
   * @return The Action ID as int
   */
-  int getActionID() { return _actionID; };
+  const std::string& getActionID() { return _actionID; };
 
   /** \brief Set the button state
   * Sets the mouse button pressed state. 
   * @param state enum buttonstate
-  * @see TextureManager::buttonState
+  * @see TextureManager::ButtonState
   */
   void changeButtonState(int state);
 
   /** \brief Get the button state
   * Get the current mouse button pressed state.
   * @return state enum buttonstate
-  * @see TextureManager::buttonState
+  * @see TextureManager::ButtonState
   */
   int getButtonState() { return _buttonState; };
 
@@ -203,11 +208,11 @@ private:
 
   SDL_Surface *_surface = nullptr;
 
-  int _buttonState = TextureManager::buttonState::DEFAULT;
+  int _buttonState = BUTTONSTATE_DEFAULT;
 
   /// set to -1 for no sprite texture
   int _uiSpriteID = -1;
-  int _actionID = 0;
+  std::string _actionID;
   bool _visible = true;
 
   std::string _tooltipText = "";

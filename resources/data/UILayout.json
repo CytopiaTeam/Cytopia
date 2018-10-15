@@ -9,8 +9,8 @@
       "Position_x": 400,
       "Position_y": 520,
       "ParentOfGroup": "ConstructionSubMenu",
-      "ActionID": 1,
       "Layout": "BottomMenu",
+      "ToggleButton": true,
       "TooltipText": "Construction"
     }
   ],
@@ -20,8 +20,9 @@
       "SpriteID": 1,
       "Position_x": 380,
       "Position_y": 470,
-      "ActionID": 2,
+      "Action": "RaiseTerrain",
       "Layout": "BottomMenuExpansionGroup",
+      "ToggleButton": true,
       "TooltipText": "Raise Terrain"
     },
     {
@@ -29,8 +30,9 @@
       "SpriteID": 2,
       "Position_x": 420,
       "Position_y": 470,
-      "ActionID": 3,
+      "Action": "LowerTerrain",
       "Layout": "BottomMenuExpansionGroup",
+      "ToggleButton": true,
       "TooltipText": "Lower Terrain"
     }
   ],
@@ -50,7 +52,6 @@
       "Width": 200,
       "Height": 40,
       "ParentOfGroup": "SettingsMenu",
-      "ActionID": 1,
       "GroupID": 2
     },
     {
@@ -60,7 +61,7 @@
       "Position_y": 300,
       "Width": 200,
       "Height": 40,
-      "ActionID": 4
+      "Action": "QuitGame"
     }
   ],
   "SettingsMenu": [
@@ -94,8 +95,7 @@
       "Position_y": 450,
       "Width": 100,
       "Height": 30,
-      "ParentOfGroup": "SettingsMenu",
-      "ActionID": 1
+      "ParentOfGroup": "SettingsMenu"
     },
     {
       "Type": "TextButton",
@@ -104,14 +104,12 @@
       "Position_y": 450,
       "Width": 100,
       "Height": 30,
-      "ParentOfGroup": "SettingsMenu",
-      "ActionID": 1
+      "ParentOfGroup": "SettingsMenu"
     },
     {
       "Type": "ComboBox",
       "Position_x": 290,
       "Position_y": 230,
-      "ActionID": 5,
       "Width": 200,
       "Height": 30,
       "Text": "800 x 600",
