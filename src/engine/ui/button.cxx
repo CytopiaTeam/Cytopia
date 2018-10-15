@@ -80,5 +80,5 @@ void Button::onMouseLeave(const SDL_Event &event)
   }
 }
 
-void Button::registerFunction(std::function<void()> const &cb) { clickSignal.connect(cb); }
+void Button::registerCallbackFunction(std::function<void()> const &cb) { clickSignal.connect(cb); }
 void Button::registerToggleUIFunction(std::function<void(const std::string &)> const &cb) { toggleGroupSignal.connect(cb); }

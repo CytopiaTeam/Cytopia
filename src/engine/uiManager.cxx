@@ -111,7 +111,7 @@ void UIManager::init()
         }
         if (actionID == 2)
         {
-          uiElement->registerFunction([]() {
+          uiElement->registerCallbackFunction([]() {
             Resources::getTerrainEditMode() == Resources::TERRAIN_RAISE
                 ? Resources::setTerrainEditMode(Resources::NO_TERRAIN_EDIT)
                 : Resources::setTerrainEditMode(Resources::TERRAIN_RAISE);
@@ -119,7 +119,7 @@ void UIManager::init()
         }
         if (actionID == 3)
         {
-          uiElement->registerFunction([]() {
+          uiElement->registerCallbackFunction([]() {
             Resources::getTerrainEditMode() == Resources::TERRAIN_LOWER
                 ? Resources::setTerrainEditMode(Resources::NO_TERRAIN_EDIT)
                 : Resources::setTerrainEditMode(Resources::TERRAIN_LOWER);
@@ -127,7 +127,7 @@ void UIManager::init()
         }
         if (actionID == 4)
         {
-          uiElement->registerFunction(Signal::slot(Engine::Instance(), &Engine::quitGame));
+          uiElement->registerCallbackFunction(Signal::slot(Engine::Instance(), &Engine::quitGame));
         }
 
         // store the element in a vector
