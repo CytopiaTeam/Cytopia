@@ -128,14 +128,14 @@ public:
   * For more details see our github wiki page
   * @param The Action ID as int
   */
-  void setActionID(int actionID) { _actionID = actionID; };
+  void setActionID(const std::string& actionID) { _actionID = actionID; };
 
   /** \brief Get the Action ID of the UI Element.
   * Retrieves the ID of the action the UI Element should execute when it's clicked.
   * For more details see our github wiki page
   * @return The Action ID as int
   */
-  int getActionID() { return _actionID; };
+  const std::string& getActionID() { return _actionID; };
 
   /** \brief Set the button state
   * Sets the mouse button pressed state. 
@@ -212,7 +212,7 @@ private:
 
   /// set to -1 for no sprite texture
   int _uiSpriteID = -1;
-  int _actionID = 0;
+  std::string _actionID;
   bool _visible = true;
 
   std::string _tooltipText = "";
