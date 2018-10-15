@@ -52,39 +52,31 @@ void Button::onMouseButtonDown(const SDL_Event &event)
 
 void Button::onMouseEnter(const SDL_Event &event)
 {
-  if (!isToggleButton())
+  if (event.button.button == SDL_BUTTON_LEFT)
   {
-    if (event.button.button == SDL_BUTTON_LEFT)
-    {
+    if (!isToggleButton())
       changeButtonState(BUTTONSTATE_CLICKED);
-    }
     else
-    {
-      changeButtonState(BUTTONSTATE_HOVERING);
-    }
-  }
-  else
-  {
-    if (event.button.button == SDL_BUTTON_LEFT)
     {
       changeButtonState(getButtonState() == BUTTONSTATE_CLICKED ? BUTTONSTATE_DEFAULT : BUTTONSTATE_CLICKED);
       _isMouseButtonDown = true;
     }
   }
+  else if (getButtonState() != BUTTONSTATE_CLICKED)
+  {
+    changeButtonState(BUTTONSTATE_HOVERING);
+  }
 }
 
 void Button::onMouseLeave(const SDL_Event &event)
 {
-  if (!isToggleButton())
+  if (isToggleButton() && event.button.button == SDL_BUTTON_LEFT)
+  {
+    changeButtonState(getButtonState() == BUTTONSTATE_DEFAULT ? BUTTONSTATE_CLICKED : BUTTONSTATE_DEFAULT);
+  }
+  else if (getButtonState() != BUTTONSTATE_CLICKED)
   {
     changeButtonState(BUTTONSTATE_DEFAULT);
-  }
-  else
-  {
-    if (event.button.button == SDL_BUTTON_LEFT)
-    {
-      changeButtonState(getButtonState() == BUTTONSTATE_DEFAULT ? BUTTONSTATE_CLICKED : BUTTONSTATE_DEFAULT);
-    }
   }
 }
 
