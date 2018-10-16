@@ -31,6 +31,7 @@ public:
   virtual void onMouseButtonDown(const SDL_Event &event){};
   virtual void onMouseEnter(const SDL_Event &event){};
   virtual void onMouseLeave(const SDL_Event &event){};
+  virtual bool onKeyDown(const SDL_Event &event) { return false; };
 
   /** \brief Draw the UI Element and/or render it's textures to the screen
   * Renders the texture of the Ui Element. Function is over

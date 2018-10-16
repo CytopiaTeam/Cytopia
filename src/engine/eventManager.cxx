@@ -109,7 +109,14 @@ bool EventManager::dispatchUiEvents(SDL_Event &event)
   // the reversed draw order of the vector is  the Z-Order of the elements
   for (const std::shared_ptr<UiElement> &it : utils::ReverseIterator(uiManager.getAllUiElements()))
   {
-    if (it->isMouseOver(event.button.x, event.button.y) && it->isVisible())
+    if (event.type == SDL_KEYDOWN)
+    {
+      if (it->onKeyDown(event))
+      {
+        return true;
+      }
+    }
+    else if (it->isMouseOver(event.button.x, event.button.y) && it->isVisible())
     {
       isMouseOverElement = true;
       isHovering = it->isMouseOverHoverableArea(event.button.x, event.button.y);
