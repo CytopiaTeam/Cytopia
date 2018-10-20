@@ -1,13 +1,13 @@
 #include "button.hxx"
 
-Button::Button(const SDL_Rect &uiElementRect) : UiElement(uiElementRect), rect(uiElementRect) {}
+Button::Button(const SDL_Rect &uiElementRect) : UiElement(uiElementRect), _rect(uiElementRect) {}
 
 void Button::draw()
 {
-
-  if (rect.h != 0 && rect.w != 0)
+  // if the button is initialized with no dimension, don't draw a frame.
+  if (_rect.h != 0 && _rect.w != 0)
   {
-    drawButtonFrame(rect);
+    drawButtonFrame(_rect);
   }
 
   // render the buttons texture if available

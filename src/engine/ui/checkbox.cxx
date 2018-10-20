@@ -2,20 +2,18 @@
 
 Checkbox::Checkbox(const SDL_Rect &uiElementRect) : UiElement(SDL_Rect{uiElementRect.x, uiElementRect.y, 20, 20})
 {
-  _rect = uiElementRect;
-  _rect.w = 20;
-  _rect.h = 20;
   // checkbox is always a togglebutton
   setToggleButton(true);
 }
 
 void Checkbox::draw()
 {
-  drawButtonFrame(_rect);
+  drawButtonFrame(_uiElementRect);
 
   if (getButtonState() == BUTTONSTATE_CLICKED)
   {
-    drawSolidRect(SDL_Rect{(_rect.x + 7), _rect.y + 7, _rect.w - 13, _rect.h - 13}, SDL_Color{84, 84, 84});
+    drawSolidRect(SDL_Rect{(_uiElementRect.x + 7), _uiElementRect.y + 7, _uiElementRect.w - 13, _uiElementRect.h - 13},
+                  SDL_Color{84, 84, 84});
   }
 }
 

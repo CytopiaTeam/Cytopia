@@ -18,13 +18,12 @@ public:
 
   std::string getTextFromID(int id);
 
-  SDL_Rect getSize() { return _textFieldRect; };
+  SDL_Rect getSize() { return _uiElementRect; };
 
   void draw() override;
 
 private:
   std::map<int, Text *> _textList;
-  SDL_Rect _textFieldRect;
   bool _centerText = true;
 };
 

@@ -15,7 +15,7 @@ ComboBox::ComboBox(const SDL_Rect &uiElementRect)
   _activeText = _textField->getTextFromID(0);
 
   //set menu to same height as textfield
-  _menuRect.h = _textField->getSize().h;
+  _menuRect.h = _textField->getUiElementRect().h;
   _textField->setVisibility(false);
 }
 
@@ -60,7 +60,7 @@ void ComboBox::draw()
     _textField->draw();
   }
 
-  drawText(_activeText, {255, 255, 255});
+  createTextTexture(_activeText, {255, 255, 255});
 
   //render the buttons texture if available
   renderTexture();

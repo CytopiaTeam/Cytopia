@@ -12,5 +12,5 @@ void Tooltip::draw()
 void Tooltip::setText(const std::string &text)
 {
   _toolTipText.assign(text);
-  drawText(_toolTipText, SDL_Color{255, 255, 255});
+  createTextTexture(_toolTipText, SDL_Color{255, 255, 255});
 }

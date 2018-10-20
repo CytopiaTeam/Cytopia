@@ -7,13 +7,9 @@ class Frame : public UiElement
 {
 public:
   Frame(const SDL_Rect &uiElementRect);
-
   ~Frame() override = default;
 
   void draw() override;
-
-private:
-  SDL_Rect rect;
 };
 
 #endif

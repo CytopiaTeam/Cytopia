@@ -129,14 +129,14 @@ public:
   * For more details see our github wiki page
   * @param The Action ID as int
   */
-  void setActionID(const std::string& actionID) { _actionID = actionID; };
+  void setActionID(const std::string &actionID) { _actionID = actionID; };
 
   /** \brief Get the Action ID of the UI Element.
   * Retrieves the ID of the action the UI Element should execute when it's clicked.
   * For more details see our github wiki page
   * @return The Action ID as int
   */
-  const std::string& getActionID() { return _actionID; };
+  const std::string &getActionID() { return _actionID; };
 
   /** \brief Set the button state
   * Sets the mouse button pressed state. 
@@ -187,8 +187,6 @@ public:
 
   const std::string getText() { return _text; };
 
-  void drawButtonFrame(SDL_Rect rect, bool isHighlightable = true);
-
   /** \brief returns an ID if supported by the element
     * If the clicked element supports it, an ID is returned.
     * Supported elements are: ComboBox
@@ -197,13 +195,11 @@ public:
   virtual int getClickedID(int x, int y) { return -2; };
 
 private:
-  SDL_Texture *_texture = nullptr;
   SDL_Renderer *_renderer = Resources::getRenderer();
   SDL_Window *_window = Resources::getWindow();
   TTF_Font *_font;
 
   /// This rect represents the whole ui element
-  SDL_Rect _uiElementRect{0, 0, 0, 0};
   /// This rect represents the text texture only
   SDL_Rect _textRect{0, 0, 0, 0};
 
@@ -225,6 +221,9 @@ private:
   bool _textBlittedToTexture = false;
 
 protected:
+  SDL_Texture *_texture = nullptr;
+  SDL_Rect _uiElementRect{0, 0, 0, 0};
+
   void renderTexture();
 
   /** \brief Draws a filled rectangle to the screen.
@@ -248,7 +247,7 @@ protected:
   * @param text Text to draw
   * @param textColor Color that should be used for the text in SDL_Color format
   */
-  void drawText(const std::string &text, const SDL_Color &textColor);
+  void createTextTexture(const std::string &text, const SDL_Color &textColor);
 
   /** \brief Draws a frame around a textfield
   * Draws a frame around around an existing textfield. This function cannot be used without an existing textfield.
@@ -259,6 +258,10 @@ protected:
   * Changes the texture.
   * @param texture A texture in SDL_Texture* format
   */
+  void drawButtonFrame(SDL_Rect rect, bool isHighlightable = true);
+
+  void drawFrame(SDL_Rect rect);
+
   void changeTexture(SDL_Texture *texture) { _texture = texture; };
 };
 

@@ -20,7 +20,7 @@ public:
   void registerToggleUIFunction(std::function<void(const std::string &)> const &cb) override;
 
 private:
-  SDL_Rect rect;
+  SDL_Rect _rect;
 
   bool _isMouseButtonDown = false;
 
