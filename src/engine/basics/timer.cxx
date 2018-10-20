@@ -2,21 +2,43 @@
 
 void Timer::start()
 {
-  now = SDL_GetPerformanceCounter();
-  last = now;
+  _startTime = SDL_GetPerformanceCounter();
+  _endTime = _startTime;
+  _elapsedTime = 0;
+  _isActive = true;
 }
 
-void Timer::reset()
+void Timer::stop()
 {
-  last = now;
-  now = SDL_GetPerformanceCounter();
-
-  deltaTime = (double)((now - last) * 1000 / SDL_GetPerformanceFrequency());
+  _elapsedTime = (double)((SDL_GetPerformanceCounter() - _startTime) * 1000 / SDL_GetPerformanceFrequency());
+  _isActive = false;
 }
 
-double Timer::getDeltaTime()
+void Timer::pause()
 {
+  if (_isActive)
+  {
+    _elapsedTime = (double)((SDL_GetPerformanceCounter() - _startTime) * 1000 / SDL_GetPerformanceFrequency());
+    _endTime = _startTime;
+    _startTime = SDL_GetPerformanceCounter();
+    _isActive = false;
+  }
+}
 
-  deltaTime = (double)((SDL_GetPerformanceCounter() - now) * 1000 / SDL_GetPerformanceFrequency());
-  return deltaTime;
+void Timer::resume()
+{
+  if (!_isActive)
+  {
+    _startTime = SDL_GetPerformanceCounter() - (_startTime - _endTime);
+    _isActive = true;
+  }
+}
+
+double Timer::getElapsedTime()
+{
+  if (_isActive)
+  {
+    _elapsedTime = (double)((SDL_GetPerformanceCounter() - _startTime) * 1000 / SDL_GetPerformanceFrequency());
+  }
+  return _elapsedTime;
 };

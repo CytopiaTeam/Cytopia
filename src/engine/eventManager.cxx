@@ -31,7 +31,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         case SDLK_F11:
           uiManager.toggleDebugMenu();
           break;
-
+          
         case SDLK_1:
           engine.toggleLayer(Engine::LAYER_FLOOR);
           break;
@@ -56,7 +56,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           {
             engine.increaseHeightOfCell(Point{64, 64, 0, 0});
           }
-          LOG() << "Done. Elevation took " << benchmarkTimer.getDeltaTime() << "ms";
+          LOG() << "Done. Elevation took " << benchmarkTimer.getElapsedTime() << "ms";
           break;
         }
         break;
