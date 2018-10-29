@@ -7,16 +7,17 @@
 class Tooltip : public UiElement
 {
 public:
-  Tooltip() : UiElement(SDL_Rect{0, 0, 0, 0}){};
+  Tooltip();
   ~Tooltip() override = default;
 
-  void setText(const std::string &text);
   void draw() override;
-  void startTimer() { _tooltipTimer.start(); }
+  void startTimer();
+  void showTooltip();
+  void reset();
 
 private:
   Timer _tooltipTimer;
-  std::string _toolTipText;
+  bool _active = false;
 };
 
 #endif

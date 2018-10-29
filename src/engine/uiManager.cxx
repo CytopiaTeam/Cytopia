@@ -149,14 +149,12 @@ void UIManager::drawUI()
       it->draw();
     }
   }
-  if (_tooltip->isVisible())
-  {
-    _tooltip->draw();
-  }
+
   if (_showDebugMenu)
   {
     _fpsCounter->draw();
   }
+  _tooltip->draw();
 }
 
 std::shared_ptr<UiElement> UIManager::getClickedUIElement(int x, int y)
@@ -186,3 +184,14 @@ void UIManager::toggleGroupVisibility(const std::string &groupID)
     }
   }
 }
+
+void UIManager::startTooltip(SDL_Event &event, const std::string &tooltipText)
+{
+  _tooltip->setText(tooltipText);
+
+  _tooltip->setPosition(event.button.x - _tooltip->getUiElementRect().w / 2, event.button.y - _tooltip->getUiElementRect().h);
+
+  _tooltip->startTimer();
+}
+
+void UIManager::stopTooltip() { _tooltip->reset(); }

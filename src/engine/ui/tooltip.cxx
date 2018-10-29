@@ -1,16 +1,39 @@
 #include "tooltip.hxx"
 
+Tooltip::Tooltip() : UiElement(SDL_Rect{0, 0, 0, 0})
+{
+  _tooltipTimer.registerCallbackFunction(Signal::slot(this, &Tooltip::showTooltip));
+  _tooltipTimer.setTimer(1500);
+  setVisibility(false);
+}
+
 void Tooltip::draw()
 {
-  // only draw tooltip, if the mouse hovers longer then 1,5 seconds over a button.
-  if (_tooltipTimer.getDeltaTime() >= 1500)
+  if (isVisible())
   {
     drawTextFrame();
     renderTexture();
   }
 }
-void Tooltip::setText(const std::string &text)
+
+void Tooltip::startTimer()
 {
-  _toolTipText.assign(text);
-  createTextTexture(_toolTipText, SDL_Color{255, 255, 255});
+  setVisibility(false);
+  _tooltipTimer.start();
+}
+
+void Tooltip::showTooltip()
+{
+  setVisibility(true);
+  _active = true;
+}
+
+void Tooltip::reset()
+{
+  if (_active)
+  {
+    setVisibility(false);
+    _tooltipTimer.stop();
+    _active = false;
+  }
 }

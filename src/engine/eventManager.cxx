@@ -31,7 +31,6 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         case SDLK_F11:
           uiManager.toggleDebugMenu();
           break;
-          
         case SDLK_1:
           engine.toggleLayer(Engine::LAYER_FLOOR);
           break;
@@ -136,15 +135,11 @@ bool EventManager::dispatchUiEvents(SDL_Event &event)
         // handle tooltips
         if (!it->getTooltipText().empty())
         {
-          _tooltip->setText(it->getTooltipText());
-          _tooltip->setPosition(event.button.x - _tooltip->getUiElementRect().w / 2,
-                                event.button.y - _tooltip->getUiElementRect().h);
-          _tooltip->setVisibility(true);
-          _tooltip->startTimer();
+          uiManager.startTooltip(event, it->getTooltipText());
         }
         else
         {
-          _tooltip->setVisibility(false);
+          uiManager.stopTooltip();
         }
         break;
       case SDL_MOUSEBUTTONDOWN:
@@ -160,7 +155,7 @@ bool EventManager::dispatchUiEvents(SDL_Event &event)
 
   if (!isHovering && lastHoveredElement != nullptr)
   {
-    _tooltip->setVisibility(false);
+    uiManager.stopTooltip();
     lastHoveredElement->onMouseLeave(event);
     lastHoveredElement = nullptr;
   }

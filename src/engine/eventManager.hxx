@@ -21,8 +21,6 @@ public:
 private:
   UIManager &uiManager = UIManager::Instance();
 
-  std::shared_ptr<Tooltip> _tooltip = UIManager::Instance().getToolTipObject();
-
   std::shared_ptr<UiElement> lastHoveredElement = nullptr;
   bool dispatchUiEvents(SDL_Event &event);
 };

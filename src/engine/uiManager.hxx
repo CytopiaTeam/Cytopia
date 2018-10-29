@@ -18,6 +18,7 @@
 #include "engine.hxx"
 
 #include "../ThirdParty/json.hxx"
+#include "SDL2/SDL.h"
 
 class UIManager
 {
@@ -31,7 +32,6 @@ public:
   void init();
   void drawUI();
   std::shared_ptr<UiElement> getClickedUIElement(int x, int y);
-  std::shared_ptr<Tooltip> getToolTipObject() { return _tooltip; };
 
   void toggleGroupVisibility(const std::string &groupID);
 
@@ -43,15 +43,19 @@ public:
 
   const std::vector<std::shared_ptr<UiElement>> &getAllUiElements() const { return _uiElements; };
 
+  void startTooltip(SDL_Event &event, const std::string &tooltipText);
+
+  void stopTooltip();
+
 private:
   UIManager() = default;
   ~UIManager() = default;
   std::vector<std::shared_ptr<UiElement>> _uiElements;
   std::unordered_map<int, std::shared_ptr<UiElement>> _group;
 
-  std::shared_ptr<Tooltip> _tooltip = std::make_shared<Tooltip>();
+  std::unique_ptr<Tooltip> _tooltip = std::make_unique<Tooltip>();
   // Text element for the FPS Counter (debug menu)
-  std::shared_ptr<Text> _fpsCounter = std::make_shared<Text>(SDL_Rect{40, 20, 0, 0});
+  std::unique_ptr<Text> _fpsCounter = std::make_unique<Text>(SDL_Rect{40, 20, 0, 0});
 
   bool _mouseHeldDown = false;
   bool _showDebugMenu = false;
