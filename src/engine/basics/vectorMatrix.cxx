@@ -219,7 +219,7 @@ void vectorMatrix::renderMatrix()
   {
     for (int y = Settings::Instance().settings.mapSize; y >= 0; y--)
     {
-      _cellMatrix[x * _columns + y]->getSprite()->render();
+      _cellMatrix[x * _columns + y]->render();
     }
   }
 }

@@ -22,8 +22,7 @@ public:
     * get the Sprite* object for this cell
     * @see Sprite
     */
-  std::shared_ptr<Sprite> getSprite() { return _sprite; };
-  //const Sprite& getSprite() const { return *_sprite; };
+  Sprite *getSprite() { return _sprite.get(); };
 
   /// get iso coordinates of this cell
   const Point &getCoordinates() { return _isoCoordinates; };
@@ -57,9 +56,14 @@ public:
     */
   void decreaseHeightOfCell();
 
+  /** @brief Render Cell
+  * Renders the sprite object(s) of the cell
+  */
+  void render();
+
 private:
   Point _isoCoordinates;
-  std::shared_ptr<Sprite> _sprite;
+  std::unique_ptr<Sprite> _sprite;
 
   SDL_Renderer *_renderer;
   SDL_Window *_window;

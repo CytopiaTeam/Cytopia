@@ -2,7 +2,7 @@
 
 Cell::Cell(Point isoCoordinates) : _isoCoordinates(std::move(isoCoordinates)), _tileID(14)
 {
-  _sprite = std::make_shared<Sprite>(_tileID, _isoCoordinates);
+  _sprite = std::make_unique<Sprite>(_tileID, _isoCoordinates);
 }
 
 void Cell::increaseHeightOfCell()
@@ -26,3 +26,5 @@ void Cell::decreaseHeightOfCell()
     _sprite->setTileIsoCoordinates(_isoCoordinates);
   }
 }
+
+void Cell::render() { _sprite->render(); }
