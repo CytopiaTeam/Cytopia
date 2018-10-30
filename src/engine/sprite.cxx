@@ -37,13 +37,6 @@ void Sprite::render()
   }
 }
 
-void Sprite::changeTexture(int tileID)
-{
-  _texture = TextureManager::Instance().getTileTexture(tileID);
-}
-
-void Sprite::setTileIsoCoordinates(Point isoCoords) { _isoCoordinates = isoCoords; }
-
 void Sprite::updateCoordinates()
 {
   _screenCoordinates = Resources::convertIsoToScreenCoordinates(_isoCoordinates);

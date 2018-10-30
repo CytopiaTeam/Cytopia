@@ -157,21 +157,6 @@ void UIManager::drawUI()
   _tooltip->draw();
 }
 
-std::shared_ptr<UiElement> UIManager::getClickedUIElement(int x, int y)
-{
-  std::shared_ptr<UiElement> clickedElement = nullptr;
-
-  for (const std::shared_ptr<UiElement> &it : _uiElements)
-  {
-    if (it->isMouseOver(x, y))
-    {
-      if (it->isVisible())
-        clickedElement = it;
-    }
-  }
-  return clickedElement;
-}
-
 void UIManager::addToGroup(int groupID, std::shared_ptr<UiElement> uiElement) { _group[groupID] = std::move(uiElement); }
 
 void UIManager::toggleGroupVisibility(const std::string &groupID)

@@ -43,15 +43,6 @@ public:
   /** Retrieves Color of a specific tileID at coordinates with the texture */
   const SDL_Color getPixelColor(int tileID, int X, int Y);
 
-  std::unordered_map<int, SDL_Texture *> _textureMap;
-  std::unordered_map<int, SDL_Texture *> _uiTextureMap;
-  std::unordered_map<int, SDL_Texture *> _uiTextureMapHover;
-  std::unordered_map<int, SDL_Texture *> _uiTextureMapPressed;
-
-  /** Keep surfaces in map for collision detection when selecting tiles*/
-  std::unordered_map<int, SDL_Surface *> _surfaceMap;
-  std::unordered_map<int, SDL_Surface *> _uiSurfaceMap;
-
 private:
   TextureManager() = default;
   ~TextureManager() = default;
@@ -66,6 +57,15 @@ private:
   */
   void loadTexture(int tileID, bool colorKey = false);
   void loadUITexture(int uiSpriteID, bool colorKey = false);
+
+  std::unordered_map<int, SDL_Texture *> _textureMap;
+  std::unordered_map<int, SDL_Texture *> _uiTextureMap;
+  std::unordered_map<int, SDL_Texture *> _uiTextureMapHover;
+  std::unordered_map<int, SDL_Texture *> _uiTextureMapPressed;
+
+  /** Keep surfaces in map for collision detection when selecting tiles*/
+  std::unordered_map<int, SDL_Surface *> _surfaceMap;
+  std::unordered_map<int, SDL_Surface *> _uiSurfaceMap;
 };
 
 #endif

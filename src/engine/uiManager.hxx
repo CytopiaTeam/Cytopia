@@ -31,7 +31,6 @@ public:
   }
   void init();
   void drawUI();
-  std::shared_ptr<UiElement> getClickedUIElement(int x, int y);
 
   void toggleGroupVisibility(const std::string &groupID);
 
