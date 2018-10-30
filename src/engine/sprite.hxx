@@ -16,8 +16,9 @@ public:
   virtual ~Sprite() = default;
 
   void render();
-  void setTileIsoCoordinates(Point isoCoords) { _isoCoordinates = isoCoords; };
-  void changeTexture(int tileID) { _texture = TextureManager::Instance().getTileTexture(tileID); };
+  void setTileIsoCoordinates(Point isoCoords);
+  void changeTexture(int tileID);
+  void updateCoordinates();
   const SDL_Rect &getTextureInformation() { return _destRect; };
 
 private:
@@ -29,11 +30,12 @@ private:
   Point _isoCoordinates;
   Point _screenCoordinates;
   int _tileID;
+  float _zoomLevel;
+  int _tileSize;
+  int offscreenTolerance;
 
-  /** Renders texture using the _destRect struct and takes the zoomLevel into account */
-  void renderTexture(int w, int h);
-  /** Renders texture using the textures original width and height without zoomLevel */
-  void renderTexture();
+  int screen_width = Settings::Instance().settings.screenWidth;
+  int screen_height = Settings::Instance().settings.screenHeight;
 };
 
 #endif

@@ -223,3 +223,11 @@ void vectorMatrix::renderMatrix()
     }
   }
 }
+
+void vectorMatrix::updateCoordinates()
+{
+  for (auto &it : _cellMatrix)
+  {
+    it->getSprite()->updateCoordinates();
+  }
+}

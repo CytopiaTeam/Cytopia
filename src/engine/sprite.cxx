@@ -6,38 +6,47 @@ Sprite::Sprite(int tileID, Point isoCoordinates) : _tileID(tileID), _isoCoordina
   _window = Resources::getWindow();
   _screenCoordinates = Resources::convertIsoToScreenCoordinates(isoCoordinates);
   _texture = TextureManager::Instance().getTileTexture(tileID);
+  SDL_QueryTexture(_texture, nullptr, nullptr, &_destRect.w, &_destRect.h);
+  _zoomLevel = Resources::getZoomLevel();
+  _tileSize = static_cast<int>(Resources::getTileSize() * Resources::getZoomLevel());
+  offscreenTolerance = 3 * _tileSize;
+
+  // TODO: This won't work once resolution is changed.
+  screen_width = Settings::Instance().settings.screenWidth;
+  screen_height = Settings::Instance().settings.screenHeight;
 }
 
 void Sprite::render()
 {
-  int tileSize = static_cast<int>(Resources::getTileSize() * Resources::getZoomLevel());
-  _screenCoordinates = Resources::convertIsoToScreenCoordinates(_isoCoordinates);
-
-  int offscreenTolerance = static_cast<int>(3 * tileSize);
-  int screen_width = Settings::Instance().settings.screenWidth;
-  int screen_height = Settings::Instance().settings.screenHeight;
-
-  //Render only whats visible
-  if ((_screenCoordinates.x >= 0 - offscreenTolerance) ||
-      (_screenCoordinates.x + tileSize <= screen_width + offscreenTolerance) ||
-      (_screenCoordinates.y >= 0 - offscreenTolerance) || (_screenCoordinates.y + tileSize <= screen_height + offscreenTolerance))
+  if (_zoomLevel != Resources::getZoomLevel())
   {
-    renderTexture(tileSize, tileSize);
+    _zoomLevel = Resources::getZoomLevel();
+    _tileSize = static_cast<int>(Resources::getTileSize() * Resources::getZoomLevel());
+    _destRect.w = _tileSize;
+    _destRect.h = _tileSize;
+    offscreenTolerance = 3 * _tileSize;
+  }
+
+  //Render only whats visible - this doesn't work
+  if ((_screenCoordinates.x >= 0 - offscreenTolerance) ||
+      (_screenCoordinates.x + _tileSize <= screen_width + offscreenTolerance) ||
+      (_screenCoordinates.y >= 0 - offscreenTolerance) ||
+      (_screenCoordinates.y + _tileSize <= screen_height + offscreenTolerance))
+  {
+    SDL_RenderCopy(_renderer, _texture, nullptr, &_destRect);
   }
 }
 
-void Sprite::renderTexture(int w, int h)
+void Sprite::changeTexture(int tileID)
 {
-  _destRect.x = _screenCoordinates.x;
-  _destRect.y = _screenCoordinates.y;
-  _destRect.w = w;
-  _destRect.h = h;
-  SDL_RenderCopy(_renderer, _texture, nullptr, &_destRect);
+  _texture = TextureManager::Instance().getTileTexture(tileID);
 }
 
-void Sprite::renderTexture()
+void Sprite::setTileIsoCoordinates(Point isoCoords) { _isoCoordinates = isoCoords; }
+
+void Sprite::updateCoordinates()
 {
-  int width, height;
-  SDL_QueryTexture(_texture, nullptr, nullptr, &width, &height);
-  renderTexture(width, height);
+  _screenCoordinates = Resources::convertIsoToScreenCoordinates(_isoCoordinates);
+  _destRect.x = _screenCoordinates.x;
+  _destRect.y = _screenCoordinates.y;
 }

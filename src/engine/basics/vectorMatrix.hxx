@@ -60,6 +60,8 @@ public:
     */
   void renderMatrix();
 
+  void updateCoordinates();
+
 private:
   std::vector<std::shared_ptr<Cell>> _cellMatrix;
 
