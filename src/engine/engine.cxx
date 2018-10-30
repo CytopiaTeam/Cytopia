@@ -89,7 +89,7 @@ Point Engine::findCellAt(const Point &screenCoordinates)
   {
     for (int y = _map_size; y >= 0; y--)
     {
-      std::shared_ptr<Cell> currentCell = _mapCellMatrix.getCell(x, y);
+      Cell *currentCell = _mapCellMatrix.getCell(x, y);
 
       SDL_Rect spriteRect = currentCell->getSprite()->getTextureInformation();
 

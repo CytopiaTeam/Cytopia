@@ -16,8 +16,7 @@ public:
   vectorMatrix(int columns, int rows);
   ~vectorMatrix() = default;
 
-  void addCell(int x, int y, int z) { _cellMatrix[x * _columns + y] = std::make_shared<Cell>(Point{x, y, z, 0}); };
-  std::shared_ptr<Cell> getCell(int x, int y) { return _cellMatrix[x * _columns + y]; };
+  Cell *getCell(int x, int y) { return _cellMatrix[x * _columns + y]; };
 
   /** \brief Initialize the vecotrMatrix with cell objects
     * Initialize the vectorMatrix with cell objects
@@ -63,7 +62,8 @@ public:
   void updateCoordinates();
 
 private:
-  std::vector<std::shared_ptr<Cell>> _cellMatrix;
+  std::vector<Cell *> _cellMatrix;
+  std::vector<Cell *> _cellMatrixDrawingOrder;
 
   int _columns;
   int _rows;

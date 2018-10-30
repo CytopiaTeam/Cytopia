@@ -33,9 +33,8 @@ void vectorMatrix::initCells()
   {
     for (int y = Settings::Instance().settings.mapSize; y >= 0; y--)
     {
-      z++;
-      //_cellMatrix.emplace(_cellMatrix.begin() + x * _columns + y,std::make_unique<Cell>(Point(x, y, z)));
-      _cellMatrix[x * _columns + y] = std::make_shared<Cell>(Point{x, y, z, 0});
+      _cellMatrix[x * _columns + y] = new Cell(Point{x, y, z++, 0});
+      _cellMatrixDrawingOrder.push_back(_cellMatrix[x * _columns + y]);
     }
   }
 }
@@ -70,7 +69,7 @@ void vectorMatrix::drawSurroundingTiles(const Point &isoCoordinates)
   int y = isoCoordinates.y;
   int currentX, currentY;
 
-  for (auto it : adjecantCellOffsets)
+  for (const auto &it : adjecantCellOffsets)
   {
     currentX = x + it.x;
     currentY = y + it.y;
@@ -194,9 +193,6 @@ unsigned int vectorMatrix::getElevatedNeighborBitmask(const Point &isoCoordinate
 
 void vectorMatrix::getNeighbors(const Point &isoCoordinates, NeighborMatrix &result) const
 {
-  std::vector<std::shared_ptr<Cell>> neighborCells;
-  neighborCells.reserve(9);
-
   size_t idx = 0;
   for (const auto &it : adjecantCellOffsets)
   {
@@ -204,7 +200,7 @@ void vectorMatrix::getNeighbors(const Point &isoCoordinates, NeighborMatrix &res
     int y = isoCoordinates.y + it.y;
     if (x >= 0 && x < _rows && y >= 0 && y < _columns)
     {
-      result[idx] = &*_cellMatrix[x * _columns + y];
+      result[idx] = _cellMatrix[x * _columns + y];
     }
     else
     {
@@ -215,18 +211,15 @@ void vectorMatrix::getNeighbors(const Point &isoCoordinates, NeighborMatrix &res
 }
 void vectorMatrix::renderMatrix()
 {
-  for (int x = 0; x <= Settings::Instance().settings.mapSize; x++)
+  for (auto it : _cellMatrixDrawingOrder)
   {
-    for (int y = Settings::Instance().settings.mapSize; y >= 0; y--)
-    {
-      _cellMatrix[x * _columns + y]->render();
-    }
+    it->render();
   }
 }
 
 void vectorMatrix::updateCoordinates()
 {
-  for (auto &it : _cellMatrix)
+  for (auto it : _cellMatrixDrawingOrder)
   {
     it->getSprite()->updateCoordinates();
   }
