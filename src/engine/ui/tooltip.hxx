@@ -2,9 +2,16 @@
 #define TOOLTIP_HXX_
 
 #include "uiElement.hxx"
+#include "text.hxx"
 #include "../basics/timer.hxx"
 
-class Tooltip : public UiElement
+/** Tooltip class
+  * Tooltip is derived from Text, and adds some extensions to it. It is set to visible after 
+  * the timer times out.
+  * @note There should only be one tooltip object, managed by the UIManager
+  * @see UIManager#startTooltip
+*/
+class Tooltip : public Text
 {
 public:
   Tooltip();

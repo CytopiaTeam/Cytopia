@@ -1,6 +1,6 @@
 #include "tooltip.hxx"
 
-Tooltip::Tooltip() : UiElement(SDL_Rect{0, 0, 0, 0})
+Tooltip::Tooltip() : Text(SDL_Rect{0, 0, 0, 0})
 {
   _tooltipTimer.registerCallbackFunction(Signal::slot(this, &Tooltip::showTooltip));
   _tooltipTimer.setTimer(1500);
