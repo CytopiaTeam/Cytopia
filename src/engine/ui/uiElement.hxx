@@ -18,7 +18,8 @@ class UiElement
 {
 public:
   //Initializes variables
-  UiElement(const SDL_Rect &uiElementRect);
+  UiElement() = default;
+  UiElement(const SDL_Rect &uiElementRect) : _uiElementRect(uiElementRect) { };
   virtual ~UiElement() = default;
 
   /**
