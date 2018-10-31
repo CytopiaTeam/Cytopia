@@ -1,6 +1,9 @@
 #include "button.hxx"
 
-Button::Button(const SDL_Rect &uiElementRect) : UiElement(uiElementRect), _rect(uiElementRect) {}
+Button::Button(const SDL_Rect &uiElementRect) : UiElement(uiElementRect), _rect(uiElementRect)
+{
+  _buttonLabel = std::make_unique<Text>(uiElementRect);
+}
 
 void Button::draw()
 {
@@ -10,9 +13,13 @@ void Button::draw()
     drawButtonFrame(_rect);
   }
 
+  _buttonLabel->draw();
+
   // render the buttons texture if available
   renderTexture();
 }
+
+void Button::setText(const std::string &text) { _buttonLabel->setText(text); }
 
 void Button::onMouseButtonUp(const SDL_Event &event)
 {

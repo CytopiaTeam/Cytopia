@@ -24,6 +24,8 @@ public:
 
 private:
   std::map<int, Text *> _textList;
+  std::vector<Text *> _textVector;
+
   bool _centerText = true;
 };
 

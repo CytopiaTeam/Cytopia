@@ -13,27 +13,18 @@ void TextField::addText(std::string text)
 {
   _textList.insert(std::make_pair(static_cast<int>(_textList.size()), new Text(text)));
 
-  SDL_Rect currRect;
+  SDL_Rect textRect = _uiElementRect;
 
-  if (!_textList.empty())
-  {
-    currRect = (--_textList.end())->second->getUiElementRect();
+  _textVector.push_back(new Text(text));
+  textRect.h = _textVector.back()->getUiElementRect().h; // get height of text after instantiating
+  textRect.y = _uiElementRect.y + (((int)_textVector.size() - 1) * textRect.h);
 
-    int xPos;
-    if (_centerText)
-    {
-      xPos = _uiElementRect.x + (_uiElementRect.w / 2) + (currRect.x - currRect.w / 2);
-    }
-    else
-    {
-      xPos = _uiElementRect.x;
-    }
-    int yPos = _uiElementRect.y + (currRect.h * (static_cast<int>(_textList.size()) - 1));
+  // center text
+  textRect.x = _uiElementRect.x + (_uiElementRect.w / 2 - _textVector.back()->getUiElementRect().w / 2);
 
-    (--_textList.end())->second->setTextPosition(xPos, yPos);
+  _uiElementRect.h += textRect.h;
 
-    _uiElementRect.h += (--_textList.end())->second->getUiElementRect().h;
-  }
+  _textVector.back()->setPosition(textRect.x, textRect.y);
 }
 
 int TextField::getSeletectedID(int x, int y)
@@ -63,9 +54,9 @@ void TextField::draw()
 {
   if (isVisible())
   {
-    for (auto text : _textList)
+    for (auto text : _textVector)
     {
-      text.second->draw();
+      text->draw();
     }
   }
 }

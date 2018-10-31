@@ -2,6 +2,7 @@
 #define BUTTON_HXX_
 
 #include "uiElement.hxx"
+#include "text.hxx"
 
 class Button : public UiElement
 {
@@ -10,6 +11,8 @@ public:
   ~Button() override = default;
 
   void draw() override;
+
+  void setText(const std::string &text) override;
 
   void onMouseButtonUp(const SDL_Event &event) override;
   void onMouseButtonDown(const SDL_Event &event) override;
@@ -21,6 +24,8 @@ public:
 
 private:
   SDL_Rect _rect;
+
+  std::unique_ptr<Text> _buttonLabel;
 
   bool _isMouseButtonDown = false;
 
