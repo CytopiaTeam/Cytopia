@@ -16,7 +16,9 @@ Sprite::Sprite(int tileID, Point isoCoordinates) : _tileID(tileID), _isoCoordina
   screen_height = Settings::Instance().settings.screenHeight;
 }
 
-void Sprite::render()
+void Sprite::render() { SDL_RenderCopy(_renderer, _texture, nullptr, &_destRect); }
+
+void Sprite::updateCoordinates()
 {
   if (_zoomLevel != Resources::getZoomLevel())
   {
@@ -27,18 +29,6 @@ void Sprite::render()
     offscreenTolerance = 3 * _tileSize;
   }
 
-  //Render only whats visible - this doesn't work
-  if ((_screenCoordinates.x >= 0 - offscreenTolerance) ||
-      (_screenCoordinates.x + _tileSize <= screen_width + offscreenTolerance) ||
-      (_screenCoordinates.y >= 0 - offscreenTolerance) ||
-      (_screenCoordinates.y + _tileSize <= screen_height + offscreenTolerance))
-  {
-    SDL_RenderCopy(_renderer, _texture, nullptr, &_destRect);
-  }
-}
-
-void Sprite::updateCoordinates()
-{
   _screenCoordinates = Resources::convertIsoToScreenCoordinates(_isoCoordinates);
   _destRect.x = _screenCoordinates.x;
   _destRect.y = _screenCoordinates.y;

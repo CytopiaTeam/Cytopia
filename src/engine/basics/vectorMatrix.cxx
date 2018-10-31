@@ -92,6 +92,7 @@ void vectorMatrix::drawSurroundingTiles(const Point &isoCoordinates)
           decreaseHeightOfCell(currentCoords);
         }
         determineTileIDOfCell(_cellMatrix[currentX * _columns + currentY]->getCoordinates());
+        _cellMatrix[currentX * _columns + currentY]->getSprite()->updateCoordinates();
       }
     }
     i++;

@@ -66,6 +66,7 @@ void Engine::increaseZoomLevel()
   {
     Resources::setZoomLevel(_zoomLevel + 0.25f);
     centerScreenOnPoint(_centerIsoCoordinates);
+    _mapCellMatrix.updateCoordinates();
   }
 }
 
@@ -77,6 +78,7 @@ void Engine::decreaseZoomLevel()
   {
     Resources::setZoomLevel(_zoomLevel - 0.25f);
     centerScreenOnPoint(_centerIsoCoordinates);
+    _mapCellMatrix.updateCoordinates();
   }
 }
 
