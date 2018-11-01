@@ -97,6 +97,9 @@ void vectorMatrix::drawSurroundingTiles(const Point &isoCoordinates)
         }
         determineTileIDOfCell(_cellMatrix[currentX * _columns + currentY]->getCoordinates());
         _cellMatrix[currentX * _columns + currentY]->getSprite()->updateCoordinates();
+
+        _cellMatrix[currentX * _columns + currentY]->setElevationBitmask(getElevatedNeighborBitmask( _cellMatrix[currentX * _columns + currentY]->getCoordinates()));
+
       }
     }
     i++;

@@ -60,6 +60,8 @@ public:
   */
   void render();
 
+  void setElevationBitmask(unsigned int bitmask);
+
 private:
   Point _isoCoordinates;
   std::unique_ptr<Sprite> _sprite;
@@ -70,6 +72,8 @@ private:
   int _heightOffset = 20; // Offset for Y Coordinate between two height levels
   int _tileID;
   int _maxCellHeight = 32;
+
+  unsigned int _elevationBitmask = 0;
 };
 
 #endif

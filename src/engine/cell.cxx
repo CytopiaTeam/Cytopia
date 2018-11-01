@@ -30,3 +30,8 @@ void Cell::decreaseHeightOfCell()
 }
 
 void Cell::render() { _sprite->render(); }
+
+void Cell::setElevationBitmask(unsigned int bitmask)
+{
+  _elevationBitmask = bitmask;
+}
