@@ -20,12 +20,12 @@ void Tooltip::startTimer()
 {
   setVisibility(false);
   _tooltipTimer.start();
+  _active = true;
 }
 
 void Tooltip::showTooltip()
 {
   setVisibility(true);
-  _active = true;
 }
 
 void Tooltip::reset()
