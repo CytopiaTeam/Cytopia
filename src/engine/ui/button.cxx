@@ -81,7 +81,7 @@ void Button::onMouseLeave(const SDL_Event &event)
   {
     changeButtonState(getButtonState() == BUTTONSTATE_DEFAULT ? BUTTONSTATE_CLICKED : BUTTONSTATE_DEFAULT);
   }
-  else if (getButtonState() != BUTTONSTATE_CLICKED)
+  else if (getButtonState() != BUTTONSTATE_DEFAULT)
   {
     changeButtonState(BUTTONSTATE_DEFAULT);
   }
