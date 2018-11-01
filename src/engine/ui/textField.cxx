@@ -5,14 +5,24 @@
 
 TextField::TextField(const SDL_Rect &uiElementRect) : UiElement(uiElementRect)
 {
-  // initialize height with zero, it'll be adjusted when the textField is filled.
-  _uiElementRect.h = 0;
+  // initialize height with an offset of 4 so the frame doesn't overlap with the last text element
+  // this elemenets height will be adjusted accordingly when the textField is filled.
+  _uiElementRect.h = 4;
+}
+
+void TextField::draw()
+{
+  if (isVisible())
+  {
+    for (auto text : _textVector)
+    {
+      text->draw();
+    }
+  }
 }
 
 void TextField::addText(std::string text)
 {
-  _textList.insert(std::make_pair(static_cast<int>(_textList.size()), new Text(text)));
-
   SDL_Rect textRect = _uiElementRect;
 
   _textVector.push_back(new Text(text));
@@ -27,36 +37,20 @@ void TextField::addText(std::string text)
   _textVector.back()->setPosition(textRect.x, textRect.y);
 }
 
-int TextField::getSeletectedID(int x, int y)
-{
-  if (!_textList.empty())
-  {
-    // pick the dimensions of the last element in the map, assuming all texts have the same height
-    SDL_Rect currRect = (--_textList.end())->second->getUiElementRect();
-    return ((currRect.h + y - _uiElementRect.y) / currRect.h) - 1;
-  }
-
-  // calculate clicked position in combobox selection from given coordinates;
-  return -1;
-}
-
 std::string TextField::getTextFromID(int id)
 {
-  auto result = _textList.find(id);
-  if (result != _textList.end())
+  if (id < _textVector.size())
   {
-    return result->second->getText();
+    return _textVector[id]->getText();
   }
   return "";
 }
 
-void TextField::draw()
+void TextField::onMouseButtonUp(const SDL_Event &event)
 {
-  if (isVisible())
+  if (!_textVector.empty())
   {
-    for (auto text : _textVector)
-    {
-      text->draw();
-    }
+    int height = _textVector.back()->getUiElementRect().h;
+    _selectedID = ((height + event.button.y - _uiElementRect.y) / height) - 1;
   }
 }

@@ -1,6 +1,5 @@
 #include "uiElement.hxx"
 
-
 void UiElement::draw()
 {
   if (_texture)

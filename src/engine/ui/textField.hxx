@@ -14,7 +14,7 @@ public:
 
   void addText(std::string text);
 
-  int getSeletectedID(int x, int y);
+  int getSeletectedID(int x, int y) { return _selectedID; };
 
   std::string getTextFromID(int id);
 
@@ -22,11 +22,14 @@ public:
 
   void draw() override;
 
+  void onMouseButtonUp(const SDL_Event &event) override;
+
 private:
-  std::map<int, Text *> _textList;
   std::vector<Text *> _textVector;
 
   bool _centerText = true;
+
+  int _selectedID = -1;
 };
 
 #endif

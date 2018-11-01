@@ -70,13 +70,11 @@ int ComboBox::getClickedID(int x, int y) { return _activeID; }
 
 bool ComboBox::isMouseOverHoverableArea(int x, int y)
 {
-
-  bool isClicked = false;
+  bool isMouseOver = false;
 
   SDL_Rect boundaries = _comboBoxRect;
-  ;
 
-  isClicked = x > boundaries.x && x < boundaries.x + boundaries.w && y > boundaries.y && y < boundaries.y + boundaries.h;
+  isMouseOver = x > boundaries.x && x < boundaries.x + boundaries.w && y > boundaries.y && y < boundaries.y + boundaries.h;
 
   if (_isMenuOpened)
   {
@@ -84,13 +82,11 @@ bool ComboBox::isMouseOverHoverableArea(int x, int y)
     boundaries.h += _menuRect.h - _comboBoxRect.h;
   }
 
-  return isClicked;
+  return isMouseOver;
 }
 
 bool ComboBox::isMouseOver(int x, int y)
 {
-  bool isClicked = false;
-
   SDL_Rect boundaries = _comboBoxRect;
 
   if (_isMenuOpened)
@@ -98,24 +94,28 @@ bool ComboBox::isMouseOver(int x, int y)
     boundaries.h += _menuRect.h;
   }
 
-  isClicked = x > boundaries.x && x < boundaries.x + boundaries.w && y > boundaries.y && y < boundaries.y + boundaries.h;
-
-  return isClicked;
+  return x > boundaries.x && x < boundaries.x + boundaries.w && y > boundaries.y && y < boundaries.y + boundaries.h;
 }
 
 void ComboBox::onMouseButtonUp(const SDL_Event &event)
 {
-  SDL_Rect boundaries = _comboBoxRect;
-
   int x = event.button.x;
   int y = event.button.y;
-  // clicked on the button
-  if (x > boundaries.x && x < boundaries.x + boundaries.w && y > boundaries.y && y < boundaries.y + boundaries.h)
+
+  if (x > _comboBoxRect.x && x < _comboBoxRect.x + _comboBoxRect.w && y > _comboBoxRect.y &&
+      y < _comboBoxRect.y + _comboBoxRect.h)
   {
     _isMenuOpened = !_isMenuOpened;
     _textField->setVisibility(!_textField->isVisible());
     changeButtonState(BUTTONSTATE_HOVERING);
     return;
+  }
+  else
+  {
+    if (_isMenuOpened)
+    {
+      _textField->onMouseButtonUp(event); //trigger TextField onMouseButtonUp event
+    }
   }
 
   if (_isMenuOpened)
