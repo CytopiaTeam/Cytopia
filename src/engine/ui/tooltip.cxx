@@ -23,10 +23,7 @@ void Tooltip::startTimer()
   _active = true;
 }
 
-void Tooltip::showTooltip()
-{
-  setVisibility(true);
-}
+void Tooltip::showTooltip() { setVisibility(true); }
 
 void Tooltip::reset()
 {

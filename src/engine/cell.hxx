@@ -1,13 +1,12 @@
 #ifndef CELL_HXX_
 #define CELL_HXX_
 
-#include <vector>
-
 #include "SDL2/SDL.h"
+
+#include <memory>
 
 #include "sprite.hxx"
 #include "basics/point.hxx"
-#include "basics/resources.hxx"
 
 /** @brief Class that holds map cells
  * Each tile is represented by the map cell class.   

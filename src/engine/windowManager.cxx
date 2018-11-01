@@ -1,5 +1,9 @@
 #include "windowManager.hxx"
 
+#include "basics/log.hxx"
+#include "basics/resources.hxx"
+#include "basics/settings.hxx"
+
 WindowManager::WindowManager(std::string title) : _title(std::move(title))
 {
   _width = Settings::Instance().settings.screenWidth;

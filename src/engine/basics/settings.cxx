@@ -1,9 +1,13 @@
 #include "settings.hxx"
+#include "log.hxx"
+#include "../../ThirdParty/json.hxx"
 
 Settings::Settings() { readFile(); }
+using json = nlohmann::json;
 
 void Settings::readFile()
 {
+  json _settingsJSONObject;
   std::ifstream i(settingsFileName);
   if (i.fail())
   {
@@ -37,6 +41,7 @@ void Settings::readFile()
 
 void Settings::writeFile()
 {
+  json _settingsJSONObject;
   _settingsJSONObject["Graphics"]["Resolution"]["Width"] = settings.screenWidth;
   _settingsJSONObject["Graphics"]["Resolution"]["Height"] = settings.screenHeight;
   _settingsJSONObject["Graphics"]["VSYNC"] = settings.vSync;

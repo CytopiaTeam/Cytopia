@@ -1,5 +1,7 @@
 #include "cell.hxx"
 
+#include "basics/resources.hxx"
+
 Cell::Cell(Point isoCoordinates) : _isoCoordinates(std::move(isoCoordinates)), _tileID(14)
 {
   _sprite = std::make_unique<Sprite>(_tileID, _isoCoordinates);

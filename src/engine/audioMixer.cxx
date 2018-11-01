@@ -1,5 +1,7 @@
 #include "audioMixer.hxx"
 
+#include "basics/settings.hxx"
+
 AudioMixer::AudioMixer()
 {
   Mix_OpenAudio(44100, AUDIO_S16SYS, Settings::Instance().settings.audioChannels, 1024);
@@ -20,7 +22,6 @@ void AudioMixer::setSoundEffectVolume(int volume)
 
 void AudioMixer::playMusic()
 {
-
   // TODO: stored audio elements should be moved to the resources class after refactoring
   std::shared_ptr<Music> themeMusic(new Music);
   musicObjects.push_back(themeMusic);

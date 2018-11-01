@@ -3,10 +3,6 @@
 
 #include <string>
 
-#include "../basics/log.hxx"
-#include "../basics/settings.hxx"
-
-#include "SDL2/SDL.h"
 #include "SDL2/SDL_mixer.h"
 
 /** \brief Music class
@@ -55,7 +51,6 @@ public:
 
 private:
   Mix_Music *_music = nullptr;
-  Settings settings = Settings::Instance();
 };
 
 #endif

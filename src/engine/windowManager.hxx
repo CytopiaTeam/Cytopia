@@ -4,12 +4,6 @@
 #include <iostream>
 
 #include "SDL2/SDL.h"
-#include "SDL2/SDL_ttf.h"
-#include "SDL2/SDL_mixer.h"
-
-#include "sprite.hxx"
-#include "basics/resources.hxx"
-#include "basics/settings.hxx"
 
 class WindowManager
 {

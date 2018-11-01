@@ -11,13 +11,7 @@
 #include "ui/checkbox.hxx"
 #include "ui/combobox.hxx"
 #include "ui/uiElement.hxx"
-#include "basics/resources.hxx"
-#include "basics/settings.hxx"
-#include "basics/timer.hxx"
-#include "textureManager.hxx"
-#include "engine.hxx"
 
-#include "../ThirdParty/json.hxx"
 #include "SDL2/SDL.h"
 
 class UIManager

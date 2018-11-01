@@ -1,12 +1,11 @@
 #ifndef AUDIOMIXER_HXX_
 #define AUDIOMIXER_HXX_
 
+#include <vector>
+#include <memory>
+
 #include "audio/music.hxx"
 #include "audio/soundEffect.hxx"
-#include "basics/settings.hxx"
-
-#include "SDL2/SDL.h"
-#include "SDL2/SDL_mixer.h"
 
 class AudioMixer
 {

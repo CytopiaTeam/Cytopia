@@ -3,9 +3,6 @@
 
 #include <string>
 
-#include "../basics/log.hxx"
-#include "../basics/settings.hxx"
-
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_mixer.h"
 
@@ -54,7 +51,6 @@ public:
 
 private:
   Mix_Chunk *_soundEffect = nullptr;
-  Settings settings = Settings::Instance();
 };
 
 #endif

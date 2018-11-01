@@ -2,10 +2,9 @@
 #define UIELEMENT_HXX_
 
 #include <string>
-#include "../basics/point.hxx"
+
 #include "../basics/resources.hxx"
 #include "../textureManager.hxx"
-#include "../basics/log.hxx"
 #include "../basics/signal.hxx"
 
 #include "SDL2/SDL.h"

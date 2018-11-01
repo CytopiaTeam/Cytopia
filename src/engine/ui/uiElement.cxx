@@ -1,4 +1,5 @@
 #include "uiElement.hxx"
+#include "../basics/log.hxx"
 
 void UiElement::draw()
 {

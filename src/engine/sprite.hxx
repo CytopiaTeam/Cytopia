@@ -2,12 +2,8 @@
 #define SPRITE_HXX_
 
 #include "SDL2/SDL.h"
-#include "SDL2/SDL_image.h"
 
-#include "textureManager.hxx"
 #include "basics/point.hxx"
-#include "basics/resources.hxx"
-#include "basics/settings.hxx"
 
 class Sprite
 {
@@ -18,7 +14,7 @@ public:
   void render();
   void updateCoordinates();
 
-  void changeTexture(int tileID) { _texture = TextureManager::Instance().getTileTexture(tileID); }
+  void changeTexture(int tileID);
   void setTileIsoCoordinates(Point isoCoords) { _isoCoordinates = isoCoords; }
 
   const SDL_Rect &getTextureInformation() { return _destRect; };
@@ -35,9 +31,6 @@ private:
   float _zoomLevel;
   int _tileSize;
   int offscreenTolerance;
-
-  int screen_width = Settings::Instance().settings.screenWidth;
-  int screen_height = Settings::Instance().settings.screenHeight;
 };
 
 #endif

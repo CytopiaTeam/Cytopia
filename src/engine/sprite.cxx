@@ -1,5 +1,8 @@
 #include "sprite.hxx"
 
+#include "textureManager.hxx"
+#include "basics/resources.hxx"
+
 Sprite::Sprite(int tileID, Point isoCoordinates) : _tileID(tileID), _isoCoordinates(isoCoordinates)
 {
   _renderer = Resources::getRenderer();
@@ -10,10 +13,6 @@ Sprite::Sprite(int tileID, Point isoCoordinates) : _tileID(tileID), _isoCoordina
   _zoomLevel = Resources::getZoomLevel();
   _tileSize = static_cast<int>(Resources::getTileSize() * Resources::getZoomLevel());
   offscreenTolerance = 3 * _tileSize;
-
-  // TODO: This won't work once resolution is changed.
-  screen_width = Settings::Instance().settings.screenWidth;
-  screen_height = Settings::Instance().settings.screenHeight;
 }
 
 void Sprite::render() { SDL_RenderCopy(_renderer, _texture, nullptr, &_destRect); }
@@ -33,3 +32,5 @@ void Sprite::updateCoordinates()
   _destRect.x = _screenCoordinates.x;
   _destRect.y = _screenCoordinates.y;
 }
+
+void Sprite::changeTexture(int tileID) { _texture = TextureManager::Instance().getTileTexture(tileID); }

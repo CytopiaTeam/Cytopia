@@ -4,10 +4,8 @@
 #include <ctime>
 #include <chrono>
 #include <thread>
-#include <future>
 
 #include "SDL.h"
-#include "../basics/log.hxx"
 #include "../basics/signal.hxx"
 
 class Timer

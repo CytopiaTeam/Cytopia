@@ -1,5 +1,8 @@
 #include "music.hxx"
 
+#include "../basics/log.hxx"
+#include "../basics/settings.hxx"
+
 Music::Music(const std::string &fileName) { loadFile(fileName); }
 
 Music::~Music()
@@ -21,7 +24,7 @@ void Music::loadFile(const std::string &filename)
 
 void Music::play(int loops) const
 {
-  if (settings.settings.playMusic)
+  if (Settings::Instance().settings.playMusic)
   {
     if (_music)
     {
@@ -42,7 +45,7 @@ void Music::play(int loops) const
 
 void Music::stop() const
 {
-  if (settings.settings.playMusic)
+  if (Settings::Instance().settings.playMusic)
   {
     // Reset the music file to the beginning
     Mix_HookMusic(nullptr, nullptr);
@@ -52,7 +55,7 @@ void Music::stop() const
 
 void Music::pause() const
 {
-  if (settings.settings.playMusic)
+  if (Settings::Instance().settings.playMusic)
   {
     Mix_PauseMusic();
   }
@@ -60,7 +63,7 @@ void Music::pause() const
 
 void Music::resume() const
 {
-  if (settings.settings.playMusic)
+  if (Settings::Instance().settings.playMusic)
   {
     Mix_ResumeMusic();
   }
@@ -68,7 +71,7 @@ void Music::resume() const
 
 bool Music::isPlaying() const
 {
-  if (settings.settings.playMusic)
+  if (Settings::Instance().settings.playMusic)
   {
     // returns amount of playing audiochannels
     return Mix_Playing(-1) != 0;

@@ -1,5 +1,7 @@
 #include "timer.hxx"
 
+#include "../basics/log.hxx"
+
 Timer::~Timer()
 {
   _threadRunning = false;

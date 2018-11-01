@@ -5,9 +5,7 @@
 
 #include "SDL2/SDL.h"
 #include "point.hxx"
-#include "settings.hxx"
 #include "../../ThirdParty/json.hxx"
-#include "log.hxx"
 
 // Namespace from json library - https://github.com/nlohmann/json
 using json = nlohmann::json;

@@ -1,5 +1,12 @@
 #include "eventManager.hxx"
 
+#include "basics/timer.hxx"
+#include "basics/settings.hxx"
+
+#include "basics/log.hxx"
+#include "basics/utils.hxx"
+#include "ui/tooltip.hxx"
+
 void EventManager::checkEvents(SDL_Event &event, Engine &engine)
 {
   // check for UI events first

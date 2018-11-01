@@ -1,5 +1,9 @@
 #include "vectorMatrix.hxx"
 
+#include "settings.hxx"
+#include "resources.hxx"
+#include "log.hxx"
+
 constexpr struct
 {
   int x;

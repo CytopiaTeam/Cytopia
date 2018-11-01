@@ -1,5 +1,12 @@
 #include "uiManager.hxx"
 
+#include "textureManager.hxx"
+#include "engine.hxx"
+
+#include "basics/resources.hxx"
+
+#include "../ThirdParty/json.hxx"
+
 void UIManager::init()
 {
   nlohmann::json uiLayout = Resources::getUILayoutJSONObject();

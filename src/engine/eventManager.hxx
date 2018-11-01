@@ -3,12 +3,8 @@
 
 #include "SDL2/SDL.h"
 
-#include "basics/utils.hxx"
-#include "basics/timer.hxx"
-#include "basics/settings.hxx"
-#include "ui/tooltip.hxx"
-#include "uiManager.hxx"
 #include "engine.hxx"
+#include "uiManager.hxx"
 
 class EventManager
 {

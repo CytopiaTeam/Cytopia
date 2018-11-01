@@ -1,10 +1,7 @@
 #ifndef SETTINGS_HXX_
 #define SETTINGS_HXX_
 
-#include "../../ThirdParty/json.hxx"
-#include "log.hxx"
-
-using json = nlohmann::json;
+#include <string>
 
 class Settings
 {
@@ -43,7 +40,6 @@ public:
   SettingsStruct settings;
 
 private:
-  json _settingsJSONObject;
   std::string settingsFileName = "resources/settings.json";
 };
 

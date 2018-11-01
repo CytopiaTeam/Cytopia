@@ -1,5 +1,10 @@
 #include "textureManager.hxx"
 
+#include "SDL2/SDL_image.h"
+
+#include "basics/resources.hxx"
+#include "basics/log.hxx"
+
 void TextureManager::loadTexture(int tileID, bool colorKey)
 {
   std::string fileName = Resources::getTileDataFromJSON("terrain", tileID, "filename");
