@@ -4,12 +4,8 @@
 #include "SDL2/SDL.h"
 
 #include "windowManager.hxx"
-#include "textureManager.hxx"
-#include "cell.hxx"
 #include "basics/point.hxx"
 #include "basics/vectorMatrix.hxx"
-#include "basics/resources.hxx"
-#include "basics/settings.hxx"
 
 class Engine
 {
@@ -87,15 +83,16 @@ public:
     */
   Point findCellAt(const Point &screenCoordinates);
 
-  bool gameIsRunning() { return _windowmanager.isRunning(); };
+  bool isGameRunning();
 
-  void quitGame() { _windowmanager.close(); };
-  void toggleFullScreen() { _windowmanager.toggleFullScreen(); };
+  void quitGame();
+  void toggleFullScreen();
+
 private:
   Engine();
   virtual ~Engine() = default;
 
-  WindowManager _windowmanager = WindowManager("Isometric Engine");
+  WindowManager *_windowManager;
 
   SDL_Renderer *_renderer;
   SDL_Window *_window;

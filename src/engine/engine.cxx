@@ -1,7 +1,13 @@
 #include "engine.hxx"
 
+#include "basics/resources.hxx"
+#include "basics/settings.hxx"
+#include "cell.hxx"
+#include "textureManager.hxx"
+
 Engine::Engine()
 {
+  _windowManager = new WindowManager("Isometric Engine");
   _tileSize = Resources::getTileSize();
 
   _renderer = Resources::getRenderer();
@@ -123,3 +129,9 @@ Point Engine::findCellAt(const Point &screenCoordinates)
   }
   return foundCoordinates;
 }
+
+bool Engine::isGameRunning() { return _windowManager->isRunning(); };
+
+void Engine::quitGame() { _windowManager->close(); };
+
+void Engine::toggleFullScreen() { _windowManager->toggleFullScreen(); };

@@ -35,7 +35,7 @@ void run()
   Uint32 fpsFrames = 0;
 
   // Gameloop
-  while (engine.gameIsRunning())
+  while (engine.isGameRunning())
   {
     SDL_RenderClear(_renderer);
 
