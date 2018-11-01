@@ -32,6 +32,7 @@ public:
   virtual void onMouseButtonDown(const SDL_Event &event){};
   virtual void onMouseEnter(const SDL_Event &event){};
   virtual void onMouseLeave(const SDL_Event &event){};
+  virtual void onMouseMove(const SDL_Event &event){};
   virtual bool onKeyDown(const SDL_Event &event) { return false; };
 
   /** \brief Draw the UI Element and/or render it's textures to the screen
@@ -176,13 +177,6 @@ public:
   virtual void setText(const std::string &text);
 
   const std::string getText() { return _text; };
-
-  /** \brief returns an ID if supported by the element
-    * If the clicked element supports it, an ID is returned.
-    * Supported elements are: ComboBox
-    * @return ID, or -2 if the element does not support it
-  */
-  virtual int getClickedID(int x, int y) { return -2; };
 
 private:
   SDL_Renderer *_renderer = Resources::getRenderer();

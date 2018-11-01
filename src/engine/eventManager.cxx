@@ -132,6 +132,11 @@ bool EventManager::dispatchUiEvents(SDL_Event &event)
           it->onMouseEnter(event);
           lastHoveredElement = it;
         }
+        else if (isMouseOverElement)
+        {
+          it->onMouseMove(event);
+        }
+
         // handle tooltips
         if (!it->getTooltipText().empty())
         {
