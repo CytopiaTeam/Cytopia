@@ -51,6 +51,10 @@ std::string Tile::caluclateOrientation(unsigned char bitMaskElevation)
   { // RIGHT
     orientation = "w";
   }
+  else if ((elevationMask.test(4) && elevationMask.test(7)) || (elevationMask.test(5) && elevationMask.test(6)))
+  { // BOTTOM_RIGHT
+    orientation = "center";
+  }
   else if (elevationMask.test(5))
   { // TOP_LEFT
     orientation = "nw";
