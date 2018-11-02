@@ -2,6 +2,9 @@
 
 #include "SDL2/SDL_image.h"
 
+#include "../ThirdParty/json.hxx"
+
+
 #include "basics/resources.hxx"
 #include "basics/log.hxx"
 
@@ -20,6 +23,71 @@ void TextureManager::loadTexture(int tileID, bool colorKey)
 
     if (_texture)
       _textureMap[tileID] = _texture;
+    else
+      LOG(LOG_ERROR) << "Renderer could not be created! SDL Error: " << SDL_GetError();
+  }
+  else
+    LOG(LOG_ERROR) << "Could not load Texture from file " << fileName << "\nSDL_IMAGE Error: " << IMG_GetError();
+}
+
+void TextureManager::loadTextureNew(std::string type, std::string orientation, bool colorKey)
+{
+  std::string fileName;
+
+
+  // -----------------------
+  // Read JSON File.
+  // Should be read / stored during initialization
+
+  json TileDataJSON;
+
+  std::ifstream i("resources/data/TileDataNew.json");
+  if (i.fail())
+  {
+    LOG(LOG_ERROR) << "File " << "resources/data/TileDataNew.json"
+      << " does not exist! Cannot load settings from INI File!";
+    // Application should quit here, without textureData from the tileList file we can't continue
+    return;
+  }
+
+  // check if json file can be parsed
+  TileDataJSON = json::parse(i, nullptr, false);
+  if (TileDataJSON.is_discarded())
+    LOG(LOG_ERROR) << "Error parsing JSON File " << "resources/data/TileDataNew.json";
+
+  // ------------------------
+  // Parse the JSON File
+
+  size_t idx = 0;
+  while (!TileDataJSON["floor"][idx].is_null())
+  {
+    for (auto &it : TileDataJSON["floor"][idx].items())
+    {
+      if (it.key() == "orientation" && it.value() == orientation)
+      {
+        if (!TileDataJSON["floor"][idx]["image"].is_null())
+        {
+          fileName = TileDataJSON["floor"][idx]["image"].get<std::string>();
+        }
+      }
+    }
+    idx++;
+  }
+
+
+  SDL_Surface *loadedImage = IMG_Load(fileName.c_str());
+
+  if (loadedImage)
+  {
+    if (colorKey)
+      SDL_SetColorKey(loadedImage, SDL_TRUE, SDL_MapRGB(loadedImage->format, 0xFF, 0, 0xFF));
+
+    SDL_Texture *_texture = SDL_CreateTextureFromSurface(Resources::getRenderer(), loadedImage);
+
+    if (_texture)
+    {
+      // do stuff
+    }
     else
       LOG(LOG_ERROR) << "Renderer could not be created! SDL Error: " << SDL_GetError();
   }

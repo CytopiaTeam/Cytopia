@@ -1,0 +1,60 @@
+{
+  "floor": [
+    {
+      "image": "resources/images/terrain/floor_0.png",
+      "orientation": "none"
+    },
+    {
+      "image": "resources/images/terrain/floor_center.png",
+      "orientation": "center"
+    },
+    {
+      "image": "resources/images/terrain/floor_n.png",
+      "orientation": "n"
+    },
+    {
+      "image": "resources/images/terrain/floor_e.png",
+      "orientation": "e"
+    },
+    {
+      "image": "resources/images/terrain/floor_s.png",
+      "orientation": "s"
+    },
+    {
+      "image": "resources/images/terrain/floor_w.png",
+      "orientation": "w"
+    },
+    {
+      "image": "resources/images/terrain/floor_n_and_e.png",
+      "orientation": "n_and_e"
+    },
+    {
+      "image": "resources/images/terrain/floor_n_and_w.png",
+      "orientation": "n_and_w"
+    },
+    {
+      "image": "resources/images/terrain/floor_s_and_e.png",
+      "orientation": "s_and_e"
+    },
+    {
+      "image": "resources/images/terrain/floor_s_and_w.png",
+      "orientation": "s_and_w"
+    },
+    {
+      "image": "resources/images/terrain/floor_ne.png",
+      "orientation": "ne"
+    },
+    {
+      "image": "resources/images/terrain/floor_nw.png",
+      "orientation": "nw"
+    },
+    {
+      "image": "resources/images/terrain/floor_se.png",
+      "orientation": "se"
+    },
+    {
+      "image": "resources/images/terrain/floor_sw.png",
+      "orientation": "sw"
+    }
+  ]
+}

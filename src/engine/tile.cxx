@@ -1,6 +1,7 @@
 #include "tile.hxx"
 
 #include "basics/log.hxx"
+#include "textureManager.hxx"
 
 SDL_Texture * Tile::getTexture(unsigned int bitMaskElevation)
 {
@@ -19,7 +20,7 @@ void Tile::test(unsigned char bitMaskElevation)
   // check for all combinations
   if (elevationMask.none())
   { // NONE
-    direction = "";
+    direction = "none";
   }
   else if (elevationMask.test(0) && elevationMask.test(3))
   { // TOP && RIGHT
@@ -74,6 +75,8 @@ void Tile::test(unsigned char bitMaskElevation)
   {
     LOG(LOG_ERROR) << "No Combination for bitmask " << elevationMask.to_string() << " found! This should not have happened";
   }
+
+  TextureManager::Instance().loadTextureNew("floor", direction);
 }
 
 
