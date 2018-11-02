@@ -11,7 +11,6 @@ float Resources::_zoomLevel = 1.0;
 Point Resources::_cameraOffset;
 const int Resources::_tileSize = 32;
 int Resources::_terrainEditMode = Resources::NO_TERRAIN_EDIT;
-json Resources::_json;
 json Resources::_uiTextureFile;
 json Resources::_uiLayout;
 
@@ -120,7 +119,6 @@ std::unordered_map<unsigned int, int> Resources::slopeTileIDMap = {
 
 void Resources::init()
 {
-  readTileListFile();
   readUITextureListFile();
   readUILayoutFile();
 }
@@ -158,25 +156,6 @@ Point Resources::convertIsoToScreenCoordinates(const Point &isoCoordinates, bool
   return {x, y, 0, 0};
 }
 
-const std::string Resources::getTileDataFromJSON(const std::string &tileType, int tileID, const std::string &attribute)
-{
-  for (json::iterator it = _json.begin(); it != _json.end(); ++it)
-  {
-    if (it.key() == tileType)
-    {
-      // more json stuff later...
-    }
-  }
-
-  if (_json[tileType][std::to_string(tileID)]["filename"].is_null())
-  {
-    LOG(LOG_ERROR) << "Can't retrieve filename from " << Settings::Instance().settings.tileDataJSONFile << " for ID " << tileID;
-    // Application should quit here.
-  }
-  const std::string &retrievedFileName = _json[tileType][std::to_string(tileID)]["filename"].get<std::string>();
-  return retrievedFileName;
-}
-
 const std::string Resources::getUISpriteDataFromJSON(const std::string &uiType, int uiSpriteID, const std::string &attribute)
 {
   for (json::iterator it = _uiTextureFile.begin(); it != _uiTextureFile.end(); ++it)
@@ -198,23 +177,6 @@ const std::string Resources::getUISpriteDataFromJSON(const std::string &uiType, 
   }
 
   return _uiTextureFile[uiType][std::to_string(uiSpriteID)][attribute].get<std::string>();
-}
-
-void Resources::readTileListFile()
-{
-  std::ifstream i(Settings::Instance().settings.tileDataJSONFile);
-  if (i.fail())
-  {
-    LOG(LOG_ERROR) << "File " << Settings::Instance().settings.tileDataJSONFile
-                   << " does not exist! Cannot load settings from INI File!";
-    // Application should quit here, without textureData from the tileList file we can't continue
-    return;
-  }
-
-  // check if json file can be parsed
-  _json = json::parse(i, nullptr, false);
-  if (_json.is_discarded())
-    LOG(LOG_ERROR) << "Error parsing JSON File " << Settings::Instance().settings.tileDataJSONFile;
 }
 
 void Resources::readUILayoutFile()

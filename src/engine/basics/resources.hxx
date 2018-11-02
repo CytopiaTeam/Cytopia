@@ -126,7 +126,6 @@ public:
   static Point convertIsoToScreenCoordinates(const Point &isoCoordinates, bool calcWithoutOffset = false);
 
   // JSON Functions
-  const static std::string getTileDataFromJSON(const std::string &tileType, int tileID, const std::string &attributes);
   const static std::string getUISpriteDataFromJSON(const std::string &uiType, int uiSpriteID, const std::string &attribute);
   static void readUILayoutFile();
   const static json &getUILayoutJSONObject() { return _uiLayout; };
@@ -152,12 +151,10 @@ private:
 
   static const int _tileSize;
 
-  static json _json;
   static json _uiTextureFile;
   static json _uiLayout;
 
   // read JSON FIles
-  static void readTileListFile();
   static void readUITextureListFile();
 
 public:
