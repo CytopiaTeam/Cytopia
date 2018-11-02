@@ -4,7 +4,8 @@
 #include "SDL2/SDL.h"
 
 #include <memory>
-
+// TODO_ Remove this after changing type to an enum
+#include <string>
 #include "sprite.hxx"
 #include "basics/point.hxx"
 
@@ -60,7 +61,7 @@ public:
   */
   void render();
 
-  void setElevationBitmask(unsigned int bitmask);
+  void setElevationBitmask(unsigned char bitmask);
 
 private:
   Point _isoCoordinates;
@@ -73,7 +74,9 @@ private:
   int _tileID;
   int _maxCellHeight = 32;
 
-  unsigned int _elevationBitmask = 0;
+  std::string _type = "floor";
+
+  unsigned char _elevationBitmask = 0;
 };
 
 #endif

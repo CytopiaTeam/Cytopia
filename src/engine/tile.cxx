@@ -3,7 +3,7 @@
 #include "basics/log.hxx"
 #include "textureManager.hxx"
 
-SDL_Texture *Tile::getTexture(unsigned int bitMaskElevation)
+SDL_Texture *Tile::getTexture(std::string type, unsigned char bitMaskElevation)
 {
 
   //LOG() << "****** begin Bitmask: " << (int)bitMaskElevation;
@@ -71,7 +71,7 @@ SDL_Texture *Tile::getTexture(unsigned int bitMaskElevation)
     LOG(LOG_ERROR) << "No Combination for bitmask " << elevationMask.to_string() << " found! This should not have happened";
   }
 
-  return TextureManager::Instance().getTileTextureNew("floor", direction);
+  return TextureManager::Instance().getTileTextureNew(type, direction);
 }
 
 // 0 = 2^0 = 1   = TOP

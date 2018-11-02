@@ -32,7 +32,7 @@ void Sprite::refresh()
   _destRect.y = _screenCoordinates.y;
 }
 
-void Sprite::setTexture(SDL_Texture *texture) 
+void Sprite::setTexture(SDL_Texture *texture)
 {
   _texture = texture;
   SDL_QueryTexture(_texture, nullptr, nullptr, &_destRect.w, &_destRect.h);
