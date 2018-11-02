@@ -4,7 +4,7 @@
 #include "SDL2/SDL.h"
 
 #include "basics/point.hxx"
-
+#include "basics/log.hxx"
 class Sprite
 {
 public:
@@ -15,6 +15,7 @@ public:
   void updateCoordinates();
 
   void changeTexture(int tileID);
+  void setTexture(SDL_Texture *texture) { _texture = texture; };
   void setTileIsoCoordinates(Point isoCoords) { _isoCoordinates = isoCoords; }
 
   const SDL_Rect &getTextureInformation() { return _destRect; };

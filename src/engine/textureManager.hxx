@@ -30,6 +30,7 @@ public:
 
   /** retrieves texture for a tileID */
   SDL_Texture *getTileTexture(int tileID);
+  SDL_Texture *getTileTextureNew(std::string type, std::string orientation);
   SDL_Texture *getUITexture(int uiSpriteID, int buttonState = BUTTONSTATE_DEFAULT);
 
   SDL_Surface *getTileSurface(int tileID);
@@ -40,6 +41,7 @@ public:
 
   // NEW Implementation
   void loadTextureNew(std::string type, std::string orientation, bool colorKey = false);
+
 private:
   TextureManager();
   ~TextureManager() = default;
@@ -59,6 +61,9 @@ private:
   std::unordered_map<int, SDL_Texture *> _uiTextureMap;
   std::unordered_map<int, SDL_Texture *> _uiTextureMapHover;
   std::unordered_map<int, SDL_Texture *> _uiTextureMapPressed;
+
+  // Map < type, <map<orientation, Texture>>
+  std::unordered_map<std::string, std::unordered_map<std::string, SDL_Texture *>> _newTextureMap;
 
   /** Keep surfaces in map for collision detection when selecting tiles*/
   std::unordered_map<int, SDL_Surface *> _surfaceMap;

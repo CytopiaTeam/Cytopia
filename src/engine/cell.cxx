@@ -37,7 +37,8 @@ void Cell::render() { _sprite->render(); }
 void Cell::setElevationBitmask(unsigned int bitmask)
 {
   Tile tile;
-  tile.test(bitmask);
+  //tile.test(bitmask);
 
   _elevationBitmask = bitmask;
+  _sprite->setTexture(tile.getTexture(bitmask));
 }

@@ -3,14 +3,9 @@
 #include "basics/log.hxx"
 #include "textureManager.hxx"
 
-SDL_Texture * Tile::getTexture(unsigned int bitMaskElevation)
+SDL_Texture *Tile::getTexture(unsigned int bitMaskElevation)
 {
 
-  return nullptr;
-}
-
-void Tile::test(unsigned char bitMaskElevation)
-{
   //LOG() << "****** begin Bitmask: " << (int)bitMaskElevation;
   std::string direction;
 
@@ -38,22 +33,6 @@ void Tile::test(unsigned char bitMaskElevation)
   { // BOTTOM && LEFT
     direction = "s_and_e";
   }
-  else if (elevationMask.test(4))
-  { // TOP_LEFT
-    direction = "nw";
-  }
-  else if (elevationMask.test(5))
-  { // TOP_RIGHT
-    direction = "ne";
-  }
-  else if (elevationMask.test(6))
-  { // BOTTOM_LEFT
-    direction = "sw";
-  }
-  else if (elevationMask.test(7))
-  { // BOTTOM_RIGHT
-    direction = "se";
-  }
   else if (elevationMask.test(0))
   { // TOP
     direction = "n";
@@ -70,15 +49,30 @@ void Tile::test(unsigned char bitMaskElevation)
   { // RIGHT
     direction = "w";
   }
+  else if (elevationMask.test(5))
+  { // TOP_LEFT
+    direction = "nw";
+  }
+  else if (elevationMask.test(4))
+  { // TOP_RIGHT
+    direction = "ne";
+  }
+  else if (elevationMask.test(7))
+  { // BOTTOM_LEFT
+    direction = "sw";
+  }
+  else if (elevationMask.test(6))
+  { // BOTTOM_RIGHT
+    direction = "se";
+  }
 
   else
   {
     LOG(LOG_ERROR) << "No Combination for bitmask " << elevationMask.to_string() << " found! This should not have happened";
   }
 
-  TextureManager::Instance().loadTextureNew("floor", direction);
+  return TextureManager::Instance().getTileTextureNew("floor", direction);
 }
-
 
 // 0 = 2^0 = 1   = TOP
 // 1 = 2^1 = 2   = BOTTOM

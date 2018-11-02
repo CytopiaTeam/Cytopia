@@ -39,7 +39,7 @@ public:
   */
   void setTileID(int tileID)
   {
-    _sprite->changeTexture(tileID);
+    //_sprite->changeTexture(tileID);
     _tileID = tileID;
   };
 

@@ -10,8 +10,7 @@ public:
   Tile() = default;
   ~Tile() = default;
 
-  SDL_Texture* getTexture(unsigned int bitMaskElevation);
-  void test(unsigned char bitMaskElevation);
+  SDL_Texture *getTexture(unsigned int bitMaskElevation);
 
 private:
   unsigned char _bitMaskElevation = 0;
