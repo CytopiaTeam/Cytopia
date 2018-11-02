@@ -1,6 +1,9 @@
 #include "cell.hxx"
 
 #include "basics/resources.hxx"
+#include "tile.hxx"
+
+#include "basics/log.hxx"
 
 Cell::Cell(Point isoCoordinates) : _isoCoordinates(std::move(isoCoordinates)), _tileID(14)
 {
@@ -33,5 +36,8 @@ void Cell::render() { _sprite->render(); }
 
 void Cell::setElevationBitmask(unsigned int bitmask)
 {
+  Tile tile;
+  tile.test(bitmask);
+
   _elevationBitmask = bitmask;
 }

@@ -79,6 +79,8 @@ add_executable(${PROJECT_NAME}
   src/engine/sprite.hxx
   src/engine/textureManager.cxx
   src/engine/textureManager.hxx
+  src/engine/tile.cxx
+  src/engine/tile.hxx
   src/engine/uiManager.cxx
   src/engine/uiManager.hxx
   src/engine/windowManager.cxx
