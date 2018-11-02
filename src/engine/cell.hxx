@@ -63,6 +63,12 @@ public:
 
   void setElevationBitmask(unsigned char bitmask);
 
+  unsigned char getElevationBitmask() { return _elevationBitmask; };
+
+  void setType(std::string type) { _type = type; };
+
+  std::string getType() { return _type; };
+
 private:
   Point _isoCoordinates;
   std::unique_ptr<Sprite> _sprite;
