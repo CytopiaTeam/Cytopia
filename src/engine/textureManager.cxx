@@ -29,34 +29,9 @@ TextureManager::TextureManager()
   i.close();
 }
 
-void TextureManager::loadTexture(int tileID, bool colorKey)
-{
-  std::string fileName = Resources::getTileDataFromJSON("terrain", tileID, "filename");
-  SDL_Surface *loadedImage = IMG_Load(fileName.c_str());
-
-  if (loadedImage)
-  {
-    if (colorKey)
-      SDL_SetColorKey(loadedImage, SDL_TRUE, SDL_MapRGB(loadedImage->format, 0xFF, 0, 0xFF));
-
-    _surfaceMap[tileID] = loadedImage;
-    SDL_Texture *_texture = SDL_CreateTextureFromSurface(Resources::getRenderer(), loadedImage);
-
-    if (_texture)
-      _textureMap[tileID] = _texture;
-    else
-      LOG(LOG_ERROR) << "Renderer could not be created! SDL Error: " << SDL_GetError();
-  }
-  else
-    LOG(LOG_ERROR) << "Could not load Texture from file " << fileName << "\nSDL_IMAGE Error: " << IMG_GetError();
-}
-
-void TextureManager::loadTextureNew(std::string type, std::string orientation, bool colorKey)
+void TextureManager::loadTexture(std::string type, std::string orientation, bool colorKey)
 {
   std::string fileName;
-
-  // ------------------------
-  // Parse the JSON File
 
   size_t idx = 0;
   while (!tileDataJSON["floor"][idx].is_null())
@@ -165,26 +140,16 @@ void TextureManager::loadUITexture(int uiSpriteID, bool colorKey)
     LOG(LOG_ERROR) << "Could not load Texture from file " << fileName << "\nSDL_IMAGE Error: " << IMG_GetError();
 }
 
-SDL_Texture *TextureManager::getTileTextureNew(std::string type, std::string orientation)
+SDL_Texture *TextureManager::getTileTexture(std::string type, std::string orientation)
 {
   // If the texture isn't in the map, load it first.
   if (!_newTextureMap[type][orientation])
   {
-    loadTextureNew(type, orientation);
+    loadTexture(type, orientation);
   }
 
   return _newTextureMap[type][orientation];
   //return _textureMap[tileID];
-}
-
-SDL_Texture *TextureManager::getTileTexture(int tileID)
-{
-  // If the texture isn't in the map, load it first.
-  if (!_textureMap.count(tileID))
-  {
-    loadTexture(tileID);
-  }
-  return _textureMap[tileID];
 }
 
 SDL_Texture *TextureManager::getUITexture(int uiSpriteID, int buttonState)
@@ -221,17 +186,6 @@ SDL_Texture *TextureManager::getUITexture(int uiSpriteID, int buttonState)
   // If the texture isn't in the map, load it first.
 }
 
-SDL_Surface *TextureManager::getTileSurfaceNew(std::string type, std::string orientation)
-{
-  // If the surface isn't in the map, load the texture first.
-  if (!_newSurfaceMap[type][orientation])
-  {
-    loadTextureNew(type, orientation);
-  }
-
-  return _newSurfaceMap[type][orientation];
-}
-
 const SDL_Color TextureManager::getPixelColor(std::string type, std::string orientation, int X, int Y)
 {
   SDL_Color Color = {0, 0, 0, SDL_ALPHA_TRANSPARENT};
@@ -252,5 +206,3 @@ const SDL_Color TextureManager::getPixelColor(std::string type, std::string orie
   }
   return Color;
 }
-
-void loadJSONFIle() {}

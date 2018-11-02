@@ -6,7 +6,7 @@
 SDL_Texture *Tile::getTexture(std::string type, std::string orientation)
 {
 
-  return TextureManager::Instance().getTileTextureNew(type, orientation);
+  return TextureManager::Instance().getTileTexture(type, orientation);
 }
 
 std::string Tile::caluclateOrientation(unsigned char bitMaskElevation)

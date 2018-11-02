@@ -29,18 +29,11 @@ public:
   TextureManager &operator=(TextureManager const &) = delete;
 
   /** retrieves texture for a tileID */
-  SDL_Texture *getTileTexture(int tileID);
-  SDL_Texture *getTileTextureNew(std::string type, std::string orientation);
+  SDL_Texture *getTileTexture(std::string type, std::string orientation);
   SDL_Texture *getUITexture(int uiSpriteID, int buttonState = BUTTONSTATE_DEFAULT);
-
-  //SDL_Surface *getTileSurface(int tileID);
-  SDL_Surface *getTileSurfaceNew(std::string type, std::string orientation);
 
   /** Retrieves Color of a specific tileID at coordinates with the texture */
   const SDL_Color getPixelColor(std::string type, std::string orientation, int X, int Y);
-
-  // NEW Implementation
-  void loadTextureNew(std::string type, std::string orientation, bool colorKey = false);
 
 private:
   TextureManager();
@@ -54,8 +47,8 @@ private:
 
   If colorkey is set - Use Magic Pink (255,255,0) for transparency
   */
-  void loadTexture(int tileID, bool colorKey = false);
   void loadUITexture(int uiSpriteID, bool colorKey = false);
+  void loadTexture(std::string type, std::string orientation, bool colorKey = false);
 
   std::unordered_map<int, SDL_Texture *> _textureMap;
   std::unordered_map<int, SDL_Texture *> _uiTextureMap;
