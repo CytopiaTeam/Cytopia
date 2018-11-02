@@ -68,6 +68,7 @@ public:
   void setType(std::string type) { _type = type; };
 
   std::string getType() { return _type; };
+  std::string getOrientation() { return _orientation; };
 
 private:
   Point _isoCoordinates;
@@ -81,6 +82,7 @@ private:
   int _maxCellHeight = 32;
 
   std::string _type = "floor";
+  std::string _orientation = "none";
 
   unsigned char _elevationBitmask = 0;
 };

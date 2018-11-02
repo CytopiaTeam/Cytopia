@@ -10,11 +10,10 @@ public:
   Tile() = default;
   ~Tile() = default;
 
-  SDL_Texture *getTexture(std::string type, unsigned char bitMaskElevation);
+  SDL_Texture *getTexture(std::string type, std::string orientation);
+  std::string caluclateOrientation(unsigned char bitMaskElevation);
 
 private:
-  unsigned char _bitMaskElevation = 0;
-
   enum elevatedPosition : unsigned char
   {
     NO_NEIGHBORS = 0,
@@ -28,8 +27,6 @@ private:
     ELEVATED_BOTTOM_RIGHT = 80,
     ELEVATED_TOP_AND_RIGHT = 9
   };
-
-  std::bitset<8> elevationMask;
 };
 
 #endif

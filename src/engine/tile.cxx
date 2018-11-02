@@ -3,77 +3,77 @@
 #include "basics/log.hxx"
 #include "textureManager.hxx"
 
-SDL_Texture *Tile::getTexture(std::string type, unsigned char bitMaskElevation)
+SDL_Texture *Tile::getTexture(std::string type, std::string orientation)
 {
 
-  //LOG() << "****** begin Bitmask: " << (int)bitMaskElevation;
-  std::string direction;
+  return TextureManager::Instance().getTileTextureNew(type, orientation);
+}
 
-  elevationMask = bitMaskElevation;
-  //LOG() << "real bitmask: " << elevationMask.to_string();
+std::string Tile::caluclateOrientation(unsigned char bitMaskElevation)
+{
+  std::string orientation;
+  std::bitset<8> elevationMask = bitMaskElevation;
 
   // check for all combinations
   if (elevationMask.none())
   { // NONE
-    direction = "none";
+    orientation = "none";
   }
   else if (elevationMask.test(0) && elevationMask.test(3))
   { // TOP && RIGHT
-    direction = "n_and_w";
+    orientation = "n_and_w";
   }
   else if (elevationMask.test(0) && elevationMask.test(2))
   { // TOP && LEFT
-    direction = "n_and_e";
+    orientation = "n_and_e";
   }
   else if (elevationMask.test(1) && elevationMask.test(3))
   { // BOTTOM && RIGHT
-    direction = "s_and_w";
+    orientation = "s_and_w";
   }
   else if (elevationMask.test(1) && elevationMask.test(2))
   { // BOTTOM && LEFT
-    direction = "s_and_e";
+    orientation = "s_and_e";
   }
   else if (elevationMask.test(0))
   { // TOP
-    direction = "n";
+    orientation = "n";
   }
   else if (elevationMask.test(1))
   { // BOTTOM
-    direction = "s";
+    orientation = "s";
   }
   else if (elevationMask.test(2))
   { // LEFT
-    direction = "e";
+    orientation = "e";
   }
   else if (elevationMask.test(3))
   { // RIGHT
-    direction = "w";
+    orientation = "w";
   }
   else if (elevationMask.test(5))
   { // TOP_LEFT
-    direction = "nw";
+    orientation = "nw";
   }
   else if (elevationMask.test(4))
   { // TOP_RIGHT
-    direction = "ne";
+    orientation = "ne";
   }
   else if (elevationMask.test(7))
   { // BOTTOM_LEFT
-    direction = "sw";
+    orientation = "sw";
   }
   else if (elevationMask.test(6))
   { // BOTTOM_RIGHT
-    direction = "se";
+    orientation = "se";
   }
 
   else
   {
     LOG(LOG_ERROR) << "No Combination for bitmask " << elevationMask.to_string() << " found! This should not have happened";
   }
-
-  return TextureManager::Instance().getTileTextureNew(type, direction);
+  return orientation;
 }
-
 // 0 = 2^0 = 1   = TOP
 // 1 = 2^1 = 2   = BOTTOM
 // 2 = 2^2 = 4   = LEFT

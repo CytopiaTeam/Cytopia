@@ -9,7 +9,7 @@ Tile tile;
 
 Cell::Cell(Point isoCoordinates) : _isoCoordinates(std::move(isoCoordinates)), _tileID(14)
 {
-  _sprite = std::make_unique<Sprite>(tile.getTexture(_type, _elevationBitmask), _isoCoordinates);
+  _sprite = std::make_unique<Sprite>(tile.getTexture(_type, _orientation), _isoCoordinates);
 }
 
 void Cell::increaseHeightOfCell()
@@ -39,5 +39,6 @@ void Cell::render() { _sprite->render(); }
 void Cell::setElevationBitmask(unsigned char bitmask)
 {
   _elevationBitmask = bitmask;
-  _sprite->setTexture(tile.getTexture(_type, bitmask));
+  _orientation = tile.caluclateOrientation(bitmask);
+  _sprite->setTexture(tile.getTexture(_type, _orientation));
 }

@@ -33,11 +33,11 @@ public:
   SDL_Texture *getTileTextureNew(std::string type, std::string orientation);
   SDL_Texture *getUITexture(int uiSpriteID, int buttonState = BUTTONSTATE_DEFAULT);
 
-  SDL_Surface *getTileSurface(int tileID);
-  SDL_Surface *getUISurface(int uiSpriteID);
+  //SDL_Surface *getTileSurface(int tileID);
+  SDL_Surface *getTileSurfaceNew(std::string type, std::string orientation);
 
   /** Retrieves Color of a specific tileID at coordinates with the texture */
-  const SDL_Color getPixelColor(int tileID, int X, int Y);
+  const SDL_Color getPixelColor(std::string type, std::string orientation, int X, int Y);
 
   // NEW Implementation
   void loadTextureNew(std::string type, std::string orientation, bool colorKey = false);
@@ -64,6 +64,7 @@ private:
 
   // Map < type, <map<orientation, Texture>>
   std::unordered_map<std::string, std::unordered_map<std::string, SDL_Texture *>> _newTextureMap;
+  std::unordered_map<std::string, std::unordered_map<std::string, SDL_Surface *>> _newSurfaceMap;
 
   /** Keep surfaces in map for collision detection when selecting tiles*/
   std::unordered_map<int, SDL_Surface *> _surfaceMap;

@@ -78,15 +78,16 @@ void TextureManager::loadTextureNew(std::string type, std::string orientation, b
 
   if (loadedImage)
   {
+    _newSurfaceMap[type][orientation] = loadedImage;
+
     if (colorKey)
       SDL_SetColorKey(loadedImage, SDL_TRUE, SDL_MapRGB(loadedImage->format, 0xFF, 0, 0xFF));
 
-    SDL_Texture *_texture = SDL_CreateTextureFromSurface(Resources::getRenderer(), loadedImage);
+    SDL_Texture *texture = SDL_CreateTextureFromSurface(Resources::getRenderer(), loadedImage);
 
-    if (_texture)
+    if (texture)
     {
-      // do stuff
-      _newTextureMap[type][orientation] = _texture;
+      _newTextureMap[type][orientation] = texture;
     }
     else
       LOG(LOG_ERROR) << "Texture could not be created! SDL Error: " << SDL_GetError();
@@ -220,33 +221,24 @@ SDL_Texture *TextureManager::getUITexture(int uiSpriteID, int buttonState)
   // If the texture isn't in the map, load it first.
 }
 
-SDL_Surface *TextureManager::getTileSurface(int tileID)
+SDL_Surface *TextureManager::getTileSurfaceNew(std::string type, std::string orientation)
 {
   // If the surface isn't in the map, load the texture first.
-  if (!_textureMap.count(tileID))
+  if (!_newSurfaceMap[type][orientation])
   {
-    loadTexture(tileID);
+    loadTextureNew(type, orientation);
   }
-  return _surfaceMap[tileID];
+
+  return _newSurfaceMap[type][orientation];
 }
 
-SDL_Surface *TextureManager::getUISurface(int uiSpriteID)
-{
-  // If the surface isn't in the map, load the texture first.
-  if (!_textureMap.count(uiSpriteID))
-  {
-    loadTexture(uiSpriteID);
-  }
-  return _surfaceMap[uiSpriteID];
-}
-
-const SDL_Color TextureManager::getPixelColor(int tileID, int X, int Y)
+const SDL_Color TextureManager::getPixelColor(std::string type, std::string orientation, int X, int Y)
 {
   SDL_Color Color = {0, 0, 0, SDL_ALPHA_TRANSPARENT};
 
-  if (_surfaceMap.find(tileID) != _surfaceMap.end())
+  if (_newSurfaceMap[type][orientation])
   {
-    SDL_Surface *surface = _surfaceMap[tileID];
+    SDL_Surface *surface = _newSurfaceMap[type][orientation];
 
     int Bpp = surface->format->BytesPerPixel;
     Uint8 *p = (Uint8 *)surface->pixels + Y * surface->pitch + X * Bpp;
@@ -256,7 +248,7 @@ const SDL_Color TextureManager::getPixelColor(int tileID, int X, int Y)
   }
   else
   {
-    LOG(LOG_ERROR) << "No surface in map for tileID " << tileID;
+    LOG(LOG_ERROR) << "No surface in map for type " << type << " with orientation: " << orientation;
   }
   return Color;
 }

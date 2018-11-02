@@ -117,7 +117,8 @@ Point Engine::findCellAt(const Point &screenCoordinates)
         pixelY = static_cast<int>(pixelY / _zoomLevel);
 
         // Check if the clicked Sprite is not transparent (we hit a point within the pixel)
-        if (TextureManager::Instance().getPixelColor(currentCell->getTileID(), pixelX, pixelY).a != SDL_ALPHA_TRANSPARENT)
+        if (TextureManager::Instance().getPixelColor(currentCell->getType(), currentCell->getOrientation(), pixelX, pixelY).a !=
+            SDL_ALPHA_TRANSPARENT)
         {
           if (foundCoordinates.z < currentCell->getCoordinates().z)
           {
