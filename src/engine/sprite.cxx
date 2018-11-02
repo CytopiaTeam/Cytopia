@@ -3,12 +3,11 @@
 #include "textureManager.hxx"
 #include "basics/resources.hxx"
 
-Sprite::Sprite(int tileID, Point isoCoordinates) : _tileID(tileID), _isoCoordinates(isoCoordinates)
+Sprite::Sprite(SDL_Texture *texture, Point isoCoordinates) : _texture(texture), _isoCoordinates(isoCoordinates)
 {
   _renderer = Resources::getRenderer();
   _window = Resources::getWindow();
   _screenCoordinates = Resources::convertIsoToScreenCoordinates(isoCoordinates);
-  _texture = TextureManager::Instance().getTileTexture(tileID);
   SDL_QueryTexture(_texture, nullptr, nullptr, &_destRect.w, &_destRect.h);
   _zoomLevel = Resources::getZoomLevel();
   _tileSize = static_cast<int>(Resources::getTileSize() * Resources::getZoomLevel());
@@ -17,7 +16,7 @@ Sprite::Sprite(int tileID, Point isoCoordinates) : _tileID(tileID), _isoCoordina
 
 void Sprite::render() { SDL_RenderCopy(_renderer, _texture, nullptr, &_destRect); }
 
-void Sprite::updateCoordinates()
+void Sprite::refresh()
 {
   if (_zoomLevel != Resources::getZoomLevel())
   {
@@ -33,4 +32,8 @@ void Sprite::updateCoordinates()
   _destRect.y = _screenCoordinates.y;
 }
 
-void Sprite::changeTexture(int tileID) { _texture = TextureManager::Instance().getTileTexture(tileID); }
+void Sprite::setTexture(SDL_Texture *texture) 
+{
+  _texture = texture;
+  SDL_QueryTexture(_texture, nullptr, nullptr, &_destRect.w, &_destRect.h);
+};

@@ -96,7 +96,7 @@ void vectorMatrix::drawSurroundingTiles(const Point &isoCoordinates)
           decreaseHeightOfCell(currentCoords);
         }
         determineTileIDOfCell(_cellMatrix[currentX * _columns + currentY]->getCoordinates());
-        _cellMatrix[currentX * _columns + currentY]->getSprite()->updateCoordinates();
+        _cellMatrix[currentX * _columns + currentY]->getSprite()->refresh();
 
         _cellMatrix[currentX * _columns + currentY]->setElevationBitmask(
             getElevatedNeighborBitmask(_cellMatrix[currentX * _columns + currentY]->getCoordinates()));
@@ -225,10 +225,10 @@ void vectorMatrix::renderMatrix()
   }
 }
 
-void vectorMatrix::updateCoordinates()
+void vectorMatrix::refresh()
 {
   for (auto it : _cellMatrixDrawingOrder)
   {
-    it->getSprite()->updateCoordinates();
+    it->getSprite()->refresh();
   }
 }

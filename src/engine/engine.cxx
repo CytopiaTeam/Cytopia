@@ -43,7 +43,7 @@ void Engine::centerScreenOnPoint(const Point &isoCoordinates)
     y = static_cast<int>((screenCoordinates.y + (_tileSize * _zoomLevel) * 0.75) - _screen_height * 0.5);
 
     Resources::setCameraOffset(Point{x, y, 0, 0});
-    _mapCellMatrix.updateCoordinates();
+    _mapCellMatrix.refresh();
   }
 }
 
@@ -72,7 +72,7 @@ void Engine::increaseZoomLevel()
   {
     Resources::setZoomLevel(_zoomLevel + 0.25f);
     centerScreenOnPoint(_centerIsoCoordinates);
-    _mapCellMatrix.updateCoordinates();
+    _mapCellMatrix.refresh();
   }
 }
 
@@ -84,7 +84,7 @@ void Engine::decreaseZoomLevel()
   {
     Resources::setZoomLevel(_zoomLevel - 0.25f);
     centerScreenOnPoint(_centerIsoCoordinates);
-    _mapCellMatrix.updateCoordinates();
+    _mapCellMatrix.refresh();
   }
 }
 

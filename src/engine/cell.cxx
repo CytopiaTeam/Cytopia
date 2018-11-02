@@ -5,9 +5,11 @@
 
 #include "basics/log.hxx"
 
+Tile tile;
+
 Cell::Cell(Point isoCoordinates) : _isoCoordinates(std::move(isoCoordinates)), _tileID(14)
 {
-  _sprite = std::make_unique<Sprite>(_tileID, _isoCoordinates);
+  _sprite = std::make_unique<Sprite>(tile.getTexture(_elevationBitmask), _isoCoordinates);
 }
 
 void Cell::increaseHeightOfCell()
@@ -36,9 +38,6 @@ void Cell::render() { _sprite->render(); }
 
 void Cell::setElevationBitmask(unsigned int bitmask)
 {
-  Tile tile;
-  //tile.test(bitmask);
-
   _elevationBitmask = bitmask;
   _sprite->setTexture(tile.getTexture(bitmask));
 }

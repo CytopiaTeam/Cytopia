@@ -58,7 +58,7 @@ public:
     */
   void renderMatrix();
 
-  void updateCoordinates();
+  void refresh();
 
 private:
   std::vector<Cell *> _cellMatrix;

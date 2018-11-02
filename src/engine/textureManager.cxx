@@ -170,7 +170,6 @@ SDL_Texture *TextureManager::getTileTextureNew(std::string type, std::string ori
   if (!_newTextureMap[type][orientation])
   {
     loadTextureNew(type, orientation);
-    //loadTexture(tileID);
   }
 
   return _newTextureMap[type][orientation];
