@@ -1,12 +1,31 @@
 #include "textureManager.hxx"
 
 #include "SDL2/SDL_image.h"
-
 #include "../ThirdParty/json.hxx"
-
 
 #include "basics/resources.hxx"
 #include "basics/log.hxx"
+
+json tileDataJSON;
+
+TextureManager::TextureManager()
+{
+  // Read JSON File.
+  std::ifstream i("resources/data/TileDataNew.json");
+  if (i.fail())
+  {
+    LOG(LOG_ERROR) << "File " << "resources/data/TileDataNew.json"
+      << " does not exist! Cannot load settings from INI File!";
+    return;
+  }
+
+  // check if json file can be parsed
+  tileDataJSON = json::parse(i, nullptr, false);
+  if (tileDataJSON.is_discarded())
+    LOG(LOG_ERROR) << "Error parsing JSON File " << "resources/data/TileDataNew.json";
+
+  i.close();
+}
 
 void TextureManager::loadTexture(int tileID, bool colorKey)
 {
@@ -35,46 +54,26 @@ void TextureManager::loadTextureNew(std::string type, std::string orientation, b
   std::string fileName;
 
 
-  // -----------------------
-  // Read JSON File.
-  // Should be read / stored during initialization
-
-  json TileDataJSON;
-
-  std::ifstream i("resources/data/TileDataNew.json");
-  if (i.fail())
-  {
-    LOG(LOG_ERROR) << "File " << "resources/data/TileDataNew.json"
-      << " does not exist! Cannot load settings from INI File!";
-    // Application should quit here, without textureData from the tileList file we can't continue
-    return;
-  }
-
-  // check if json file can be parsed
-  TileDataJSON = json::parse(i, nullptr, false);
-  if (TileDataJSON.is_discarded())
-    LOG(LOG_ERROR) << "Error parsing JSON File " << "resources/data/TileDataNew.json";
-
   // ------------------------
   // Parse the JSON File
 
   size_t idx = 0;
-  while (!TileDataJSON["floor"][idx].is_null())
+  while (!tileDataJSON["floor"][idx].is_null())
   {
-    for (auto &it : TileDataJSON["floor"][idx].items())
+    for (auto &it : tileDataJSON["floor"][idx].items())
     {
       if (it.key() == "orientation" && it.value() == orientation)
       {
-        if (!TileDataJSON["floor"][idx]["image"].is_null())
+        if (!tileDataJSON["floor"][idx]["image"].is_null())
         {
-          fileName = TileDataJSON["floor"][idx]["image"].get<std::string>();
+          fileName = tileDataJSON["floor"][idx]["image"].get<std::string>();
         }
       }
     }
     idx++;
   }
 
-
+  return;
   SDL_Surface *loadedImage = IMG_Load(fileName.c_str());
 
   if (loadedImage)
@@ -247,4 +246,11 @@ const SDL_Color TextureManager::getPixelColor(int tileID, int X, int Y)
     LOG(LOG_ERROR) << "No surface in map for tileID " << tileID;
   }
   return Color;
+}
+
+void loadJSONFIle()
+{
+
+
+
 }

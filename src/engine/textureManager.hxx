@@ -41,7 +41,7 @@ public:
   // NEW Implementation
   void loadTextureNew(std::string type, std::string orientation, bool colorKey = false);
 private:
-  TextureManager() = default;
+  TextureManager();
   ~TextureManager() = default;
 
   SDL_Renderer *_renderer;
