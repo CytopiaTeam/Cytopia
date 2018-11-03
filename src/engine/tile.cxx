@@ -20,7 +20,7 @@ TileOrientation Tile::caluclateOrientation(unsigned char bitMaskElevation)
     orientation = TileOrientation::DEFAULT;
   }
 
-  // special cases 
+  // special cases
   else if (elevationMask.test(3) && elevationMask.test(6))
   { // BOTTOM_RIGHT
     orientation = TileOrientation::S_AND_W;
@@ -110,7 +110,6 @@ TileOrientation Tile::caluclateOrientation(unsigned char bitMaskElevation)
   { // BOTTOM_RIGHT
     orientation = TileOrientation::SE;
   }
-
 
   else
   {

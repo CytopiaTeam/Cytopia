@@ -67,22 +67,7 @@ private:
   int _columns;
   int _rows;
 
-  /** \brief set tileID for each neighbor of given coordinates
-    * After a cell is raised / lowered, each neighbor must check which tileID it should have
-    * This function should not be called directly
-    * @param The isocoordinates of the cell that should have all of it's neighbors checked.
-    * @see Cell#drawSurroundingTiles
-    */
-  void drawSurroundingTiles(const Point &isoCoordinates);
-
-  /** \brief: determine which tile ID should be drawn for this cell
-    * Checks all the neighbors and determines the tile ID of this mapcell according to it's
-    * elevated / lowered neighbors.
-    * This function should not be called directly
-    * @param isoCoordinates the isometric coordinates of the cell whose tile ID should be determined.
-    * @see vectorMatrix#drawSurroundingTiles
-    */
-  void determineTileIDOfCell(const Point &isoCoordinates);
+  void updateNeightbors(const Point &isoCoordinates);
 };
 
 #endif
