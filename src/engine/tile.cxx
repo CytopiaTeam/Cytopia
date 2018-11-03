@@ -19,6 +19,43 @@ TileOrientation Tile::caluclateOrientation(unsigned char bitMaskElevation)
   { // NONE
     orientation = TileOrientation::DEFAULT;
   }
+
+  // special cases 
+  else if (elevationMask.test(3) && elevationMask.test(6))
+  { // BOTTOM_RIGHT
+    orientation = TileOrientation::S_AND_W;
+  }
+  else if (elevationMask.test(2) && elevationMask.test(5))
+  { // BOTTOM_RIGHT
+    orientation = TileOrientation::N_AND_E;
+  }
+  else if (elevationMask.test(3) && elevationMask.test(4))
+  { // BOTTOM_RIGHT
+    orientation = TileOrientation::N_AND_W;
+  }
+  else if (elevationMask.test(2) && elevationMask.test(7))
+  { // BOTTOM_RIGHT
+    orientation = TileOrientation::S_AND_E;
+  }
+
+  else if (elevationMask.test(0) && elevationMask.test(6))
+  { // BOTTOM_RIGHT
+    orientation = TileOrientation::N_AND_E;
+  }
+  else if (elevationMask.test(1) && elevationMask.test(5))
+  { // BOTTOM_RIGHT
+    orientation = TileOrientation::S_AND_W;
+  }
+  else if (elevationMask.test(0) && elevationMask.test(7))
+  { // BOTTOM_RIGHT
+    orientation = TileOrientation::N_AND_W;
+  }
+  else if (elevationMask.test(1) && elevationMask.test(4))
+  { // BOTTOM_RIGHT
+    orientation = TileOrientation::S_AND_E;
+  }
+
+  // diagonal combinations
   else if (elevationMask.test(0) && elevationMask.test(3))
   { // TOP && RIGHT
     orientation = TileOrientation::N_AND_W;
@@ -35,6 +72,8 @@ TileOrientation Tile::caluclateOrientation(unsigned char bitMaskElevation)
   { // BOTTOM && LEFT
     orientation = TileOrientation::S_AND_E;
   }
+
+  // default directions
   else if (elevationMask.test(0))
   { // TOP
     orientation = TileOrientation::N;
@@ -71,6 +110,7 @@ TileOrientation Tile::caluclateOrientation(unsigned char bitMaskElevation)
   { // BOTTOM_RIGHT
     orientation = TileOrientation::SE;
   }
+
 
   else
   {
