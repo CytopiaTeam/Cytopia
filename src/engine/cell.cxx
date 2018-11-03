@@ -16,7 +16,7 @@ void Cell::increaseHeightOfCell()
   if (height < _maxCellHeight)
   {
     _isoCoordinates.height++;
-    _sprite->setTileIsoCoordinates(_isoCoordinates);
+    _sprite->setCoordinates(_isoCoordinates);
   }
 }
 
@@ -27,7 +27,7 @@ void Cell::decreaseHeightOfCell()
   if (height > 0)
   {
     _isoCoordinates.height--;
-    _sprite->setTileIsoCoordinates(_isoCoordinates);
+    _sprite->setCoordinates(_isoCoordinates);
   }
 }
 

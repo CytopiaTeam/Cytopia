@@ -15,7 +15,7 @@ public:
   void refresh();
 
   void setTexture(SDL_Texture *texture);
-  void setTileIsoCoordinates(Point isoCoords) { _isoCoordinates = isoCoords; }
+  void setCoordinates(Point isoCoords) { _isoCoordinates = isoCoords; }
 
   const SDL_Rect &getTextureInformation() { return _destRect; };
 
@@ -27,10 +27,9 @@ private:
 
   Point _isoCoordinates;
   Point _screenCoordinates;
-  int _tileID;
+
   float _zoomLevel;
   int _tileSize;
-  int offscreenTolerance;
 };
 
 #endif
