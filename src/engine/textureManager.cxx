@@ -208,9 +208,9 @@ const SDL_Color TextureManager::getPixelColor(TileType type, TileOrientation ori
   return Color;
 }
 
-std::string TextureManager::tileOrientationEnumToString(TileOrientation tileType)
+std::string TextureManager::tileOrientationEnumToString(TileOrientation orientation)
 {
-  switch (tileType)
+  switch (orientation)
   {
   case TileOrientation::DEFAULT:
     return "default";

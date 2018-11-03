@@ -41,6 +41,12 @@ private:
   TextureManager();
   ~TextureManager() = default;
 
+  // provide a functor to generate a hash for enum class, so it can be used in std::map
+  struct EnumClassHash
+  {
+    template <typename T> std::size_t operator()(T t) const { return static_cast<std::size_t>(t); }
+  };
+
   SDL_Renderer *_renderer;
   SDL_Window *_window;
 
@@ -52,19 +58,18 @@ private:
   void loadUITexture(int uiSpriteID, bool colorKey = false);
   void loadTexture(TileType type, TileOrientation orientation, bool colorKey = false);
 
-  std::unordered_map<int, SDL_Texture *> _textureMap;
   std::unordered_map<int, SDL_Texture *> _uiTextureMap;
   std::unordered_map<int, SDL_Texture *> _uiTextureMapHover;
   std::unordered_map<int, SDL_Texture *> _uiTextureMapPressed;
 
   // Map < type, <map<orientation, Texture>>
-  std::unordered_map<TileType, std::unordered_map<TileOrientation, SDL_Texture *>> _tileTextureMap;
+  std::unordered_map<TileType, std::unordered_map<TileOrientation, SDL_Texture *, EnumClassHash>, EnumClassHash> _tileTextureMap;
 
   /** Keep surfaces in map for collision detection when selecting tiles*/
-  std::unordered_map<TileType, std::unordered_map<TileOrientation, SDL_Surface *>> _surfaceMap;
+  std::unordered_map<TileType, std::unordered_map<TileOrientation, SDL_Surface *, EnumClassHash>, EnumClassHash> _surfaceMap;
   std::unordered_map<int, SDL_Surface *> _uiSurfaceMap;
 
-  std::string tileOrientationEnumToString(TileOrientation tileType);
+  std::string tileOrientationEnumToString(TileOrientation orientation);
   std::string tileTypesEnumToString(TileType tileType);
 };
 
