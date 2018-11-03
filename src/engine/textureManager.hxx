@@ -6,6 +6,8 @@
 
 #include "SDL2/SDL.h"
 
+#include "tile.hxx"
+
 enum ButtonState
 {
   BUTTONSTATE_DEFAULT,
@@ -29,11 +31,11 @@ public:
   TextureManager &operator=(TextureManager const &) = delete;
 
   /** retrieves texture for a tileID */
-  SDL_Texture *getTileTexture(std::string type, std::string orientation);
+  SDL_Texture *getTileTexture(TileType type, TileOrientation orientation);
   SDL_Texture *getUITexture(int uiSpriteID, int buttonState = BUTTONSTATE_DEFAULT);
 
   /** Retrieves Color of a specific tileID at coordinates with the texture */
-  const SDL_Color getPixelColor(std::string type, std::string orientation, int X, int Y);
+  const SDL_Color getPixelColor(TileType type, TileOrientation orientation, int X, int Y);
 
 private:
   TextureManager();
@@ -48,7 +50,7 @@ private:
   If colorkey is set - Use Magic Pink (255,255,0) for transparency
   */
   void loadUITexture(int uiSpriteID, bool colorKey = false);
-  void loadTexture(std::string type, std::string orientation, bool colorKey = false);
+  void loadTexture(TileType type, TileOrientation orientation, bool colorKey = false);
 
   std::unordered_map<int, SDL_Texture *> _textureMap;
   std::unordered_map<int, SDL_Texture *> _uiTextureMap;
@@ -56,12 +58,14 @@ private:
   std::unordered_map<int, SDL_Texture *> _uiTextureMapPressed;
 
   // Map < type, <map<orientation, Texture>>
-  std::unordered_map<std::string, std::unordered_map<std::string, SDL_Texture *>> _newTextureMap;
-  std::unordered_map<std::string, std::unordered_map<std::string, SDL_Surface *>> _newSurfaceMap;
+  std::unordered_map<TileType, std::unordered_map<TileOrientation, SDL_Texture *>> _tileTextureMap;
 
   /** Keep surfaces in map for collision detection when selecting tiles*/
-  std::unordered_map<int, SDL_Surface *> _surfaceMap;
+  std::unordered_map<TileType, std::unordered_map<TileOrientation, SDL_Surface *>> _surfaceMap;
   std::unordered_map<int, SDL_Surface *> _uiSurfaceMap;
+
+  std::string tileOrientationEnumToString(TileOrientation tileType);
+  std::string tileTypesEnumToString(TileType tileType);
 };
 
 #endif

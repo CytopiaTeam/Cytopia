@@ -9,6 +9,8 @@
 #include "sprite.hxx"
 #include "basics/point.hxx"
 
+#include "tile.hxx"
+
 /** @brief Class that holds map cells
  * Each tile is represented by the map cell class.   
  */
@@ -65,10 +67,10 @@ public:
 
   unsigned char getElevationBitmask() { return _elevationBitmask; };
 
-  void setType(std::string type) { _type = type; };
+  void setType(TileType type) { _type = type; };
 
-  std::string getType() { return _type; };
-  std::string getOrientation() { return _orientation; };
+  TileType getType() { return _type; };
+  TileOrientation getOrientation() { return _orientation; };
 
 private:
   Point _isoCoordinates;
@@ -81,8 +83,8 @@ private:
   int _tileID;
   int _maxCellHeight = 32;
 
-  std::string _type = "floor";
-  std::string _orientation = "none";
+  TileType _type = TileType::TERRAIN;
+  TileOrientation _orientation = TileOrientation::DEFAULT;
 
   unsigned char _elevationBitmask = 0;
 };

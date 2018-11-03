@@ -1,15 +1,12 @@
 #include "cell.hxx"
 
 #include "basics/resources.hxx"
-#include "tile.hxx"
 
 #include "basics/log.hxx"
 
-Tile tile;
-
 Cell::Cell(Point isoCoordinates) : _isoCoordinates(std::move(isoCoordinates)), _tileID(14)
 {
-  _sprite = std::make_unique<Sprite>(tile.getTexture(_type, _orientation), _isoCoordinates);
+  _sprite = std::make_unique<Sprite>(Tile::getTexture(_type, _orientation), _isoCoordinates);
 }
 
 void Cell::increaseHeightOfCell()
@@ -39,6 +36,6 @@ void Cell::render() { _sprite->render(); }
 void Cell::setElevationBitmask(unsigned char bitmask)
 {
   _elevationBitmask = bitmask;
-  _orientation = tile.caluclateOrientation(bitmask);
-  _sprite->setTexture(tile.getTexture(_type, _orientation));
+  _orientation = Tile::caluclateOrientation(bitmask);
+  _sprite->setTexture(Tile::getTexture(_type, _orientation));
 }

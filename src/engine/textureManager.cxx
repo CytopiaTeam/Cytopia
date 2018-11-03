@@ -5,6 +5,7 @@
 
 #include "basics/resources.hxx"
 #include "basics/log.hxx"
+#include "tile.hxx"
 
 json tileDataJSON;
 
@@ -25,24 +26,24 @@ TextureManager::TextureManager()
   if (tileDataJSON.is_discarded())
     LOG(LOG_ERROR) << "Error parsing JSON File "
                    << "resources/data/TileDataNew.json";
-
   i.close();
 }
 
-void TextureManager::loadTexture(std::string type, std::string orientation, bool colorKey)
+void TextureManager::loadTexture(TileType type, TileOrientation orientation, bool colorKey)
 {
   std::string fileName;
-
+  std::string typeString = tileTypesEnumToString(type);
   size_t idx = 0;
-  while (!tileDataJSON["floor"][idx].is_null())
+
+  while (!tileDataJSON[typeString][idx].is_null())
   {
-    for (auto &it : tileDataJSON["floor"][idx].items())
+    for (auto &it : tileDataJSON[typeString][idx].items())
     {
-      if (it.key() == "orientation" && it.value() == orientation)
+      if (it.key() == "orientation" && it.value() == tileOrientationEnumToString(orientation))
       {
-        if (!tileDataJSON["floor"][idx]["image"].is_null())
+        if (!tileDataJSON[typeString][idx]["image"].is_null())
         {
-          fileName = tileDataJSON["floor"][idx]["image"].get<std::string>();
+          fileName = tileDataJSON[typeString][idx]["image"].get<std::string>();
         }
       }
     }
@@ -53,7 +54,7 @@ void TextureManager::loadTexture(std::string type, std::string orientation, bool
 
   if (loadedImage)
   {
-    _newSurfaceMap[type][orientation] = loadedImage;
+    _surfaceMap[type][orientation] = loadedImage;
 
     if (colorKey)
       SDL_SetColorKey(loadedImage, SDL_TRUE, SDL_MapRGB(loadedImage->format, 0xFF, 0, 0xFF));
@@ -62,7 +63,7 @@ void TextureManager::loadTexture(std::string type, std::string orientation, bool
 
     if (texture)
     {
-      _newTextureMap[type][orientation] = texture;
+      _tileTextureMap[type][orientation] = texture;
     }
     else
       LOG(LOG_ERROR) << "Texture could not be created! SDL Error: " << SDL_GetError();
@@ -140,16 +141,15 @@ void TextureManager::loadUITexture(int uiSpriteID, bool colorKey)
     LOG(LOG_ERROR) << "Could not load Texture from file " << fileName << "\nSDL_IMAGE Error: " << IMG_GetError();
 }
 
-SDL_Texture *TextureManager::getTileTexture(std::string type, std::string orientation)
+SDL_Texture *TextureManager::getTileTexture(TileType type, TileOrientation orientation)
 {
   // If the texture isn't in the map, load it first.
-  if (!_newTextureMap[type][orientation])
+  if (!_tileTextureMap[type][orientation])
   {
     loadTexture(type, orientation);
   }
 
-  return _newTextureMap[type][orientation];
-  //return _textureMap[tileID];
+  return _tileTextureMap[type][orientation];
 }
 
 SDL_Texture *TextureManager::getUITexture(int uiSpriteID, int buttonState)
@@ -186,13 +186,13 @@ SDL_Texture *TextureManager::getUITexture(int uiSpriteID, int buttonState)
   // If the texture isn't in the map, load it first.
 }
 
-const SDL_Color TextureManager::getPixelColor(std::string type, std::string orientation, int X, int Y)
+const SDL_Color TextureManager::getPixelColor(TileType type, TileOrientation orientation, int X, int Y)
 {
   SDL_Color Color = {0, 0, 0, SDL_ALPHA_TRANSPARENT};
 
-  if (_newSurfaceMap[type][orientation])
+  if (_surfaceMap[type][orientation])
   {
-    SDL_Surface *surface = _newSurfaceMap[type][orientation];
+    SDL_Surface *surface = _surfaceMap[type][orientation];
 
     int Bpp = surface->format->BytesPerPixel;
     Uint8 *p = (Uint8 *)surface->pixels + Y * surface->pitch + X * Bpp;
@@ -202,7 +202,64 @@ const SDL_Color TextureManager::getPixelColor(std::string type, std::string orie
   }
   else
   {
-    LOG(LOG_ERROR) << "No surface in map for type " << type << " with orientation: " << orientation;
+    LOG(LOG_ERROR) << "No surface in map for type " << tileTypesEnumToString(type)
+                   << " with orientation: " << tileOrientationEnumToString(orientation);
   }
   return Color;
+}
+
+std::string TextureManager::tileOrientationEnumToString(TileOrientation tileType)
+{
+  switch (tileType)
+  {
+  case TileOrientation::DEFAULT:
+    return "default";
+  case TileOrientation::CENTER:
+    return "center";
+  case TileOrientation::N:
+    return "n";
+  case TileOrientation::E:
+    return "e";
+  case TileOrientation::S:
+    return "s";
+  case TileOrientation::W:
+    return "w";
+  case TileOrientation::NE:
+    return "ne";
+  case TileOrientation::NW:
+    return "nw";
+  case TileOrientation::SE:
+    return "se";
+  case TileOrientation::SW:
+    return "sw";
+  case TileOrientation::N_AND_E:
+    return "n_and_e";
+  case TileOrientation::N_AND_W:
+    return "n_and_w";
+  case TileOrientation::S_AND_E:
+    return "s_and_e";
+  case TileOrientation::S_AND_W:
+    return "s_and_w";
+  }
+  return "";
+}
+
+std::string TextureManager::tileTypesEnumToString(TileType tileType)
+{
+  switch (tileType)
+  {
+  case TileType::TERRAIN:
+    return "Terrain";
+  case TileType::WATER:
+    return "Water";
+  case TileType::ROAD:
+    return "Road";
+  case TileType::RESIDENTIAL:
+    return "Residential";
+  case TileType::COMMERCIAL:
+    return "Commercial";
+  case TileType::INDUSTRIAL:
+    return "Industrial";
+  }
+  return "";
 }

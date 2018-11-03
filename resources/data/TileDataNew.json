@@ -1,8 +1,8 @@
 {
-  "floor": [
+  "Terrain": [
     {
       "image": "resources/images/terrain/floor_0.png",
-      "orientation": "none"
+      "orientation": "default"
     },
     {
       "image": "resources/images/terrain/floor_center.png",

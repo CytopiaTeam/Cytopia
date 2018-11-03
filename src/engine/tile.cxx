@@ -3,73 +3,73 @@
 #include "basics/log.hxx"
 #include "textureManager.hxx"
 
-SDL_Texture *Tile::getTexture(std::string type, std::string orientation)
+SDL_Texture *Tile::getTexture(TileType type, TileOrientation orientation)
 {
 
   return TextureManager::Instance().getTileTexture(type, orientation);
 }
 
-std::string Tile::caluclateOrientation(unsigned char bitMaskElevation)
+TileOrientation Tile::caluclateOrientation(unsigned char bitMaskElevation)
 {
-  std::string orientation;
+  TileOrientation orientation;
   std::bitset<8> elevationMask = bitMaskElevation;
 
   // check for all combinations
   if (elevationMask.none())
   { // NONE
-    orientation = "none";
+    orientation = TileOrientation::DEFAULT;
   }
   else if (elevationMask.test(0) && elevationMask.test(3))
   { // TOP && RIGHT
-    orientation = "n_and_w";
+    orientation = TileOrientation::N_AND_W;
   }
   else if (elevationMask.test(0) && elevationMask.test(2))
   { // TOP && LEFT
-    orientation = "n_and_e";
+    orientation = TileOrientation::N_AND_E;
   }
   else if (elevationMask.test(1) && elevationMask.test(3))
   { // BOTTOM && RIGHT
-    orientation = "s_and_w";
+    orientation = TileOrientation::S_AND_W;
   }
   else if (elevationMask.test(1) && elevationMask.test(2))
   { // BOTTOM && LEFT
-    orientation = "s_and_e";
+    orientation = TileOrientation::S_AND_E;
   }
   else if (elevationMask.test(0))
   { // TOP
-    orientation = "n";
+    orientation = TileOrientation::N;
   }
   else if (elevationMask.test(1))
   { // BOTTOM
-    orientation = "s";
+    orientation = TileOrientation::S;
   }
   else if (elevationMask.test(2))
   { // LEFT
-    orientation = "e";
+    orientation = TileOrientation::E;
   }
   else if (elevationMask.test(3))
   { // RIGHT
-    orientation = "w";
+    orientation = TileOrientation::W;
   }
   else if ((elevationMask.test(4) && elevationMask.test(7)) || (elevationMask.test(5) && elevationMask.test(6)))
   { // BOTTOM_RIGHT
-    orientation = "center";
+    orientation = TileOrientation::CENTER;
   }
   else if (elevationMask.test(5))
   { // TOP_LEFT
-    orientation = "nw";
+    orientation = TileOrientation::NW;
   }
   else if (elevationMask.test(4))
   { // TOP_RIGHT
-    orientation = "ne";
+    orientation = TileOrientation::NE;
   }
   else if (elevationMask.test(7))
   { // BOTTOM_LEFT
-    orientation = "sw";
+    orientation = TileOrientation::SW;
   }
   else if (elevationMask.test(6))
   { // BOTTOM_RIGHT
-    orientation = "se";
+    orientation = TileOrientation::SE;
   }
 
   else
