@@ -12,7 +12,7 @@ SDL_Texture *Tile::getTexture(TileType type, TileOrientation orientation)
 TileOrientation Tile::caluclateOrientation(unsigned char bitMaskElevation)
 {
   TileOrientation orientation;
-  std::bitset<8> elevationMask = bitMaskElevation;
+  std::bitset<8> elevationMask(bitMaskElevation);
 
   // check for all combinations
   if (elevationMask.none())

@@ -70,12 +70,9 @@ void vectorMatrix::decreaseHeightOfCell(const Point &isoCoordinates)
 
 void vectorMatrix::updateNeightbors(const Point &isoCoordinates)
 {
-  unsigned int _elevatedTilePosition = 0;
-  std::bitset<8> elevationBitmask;
+  unsigned char elevationBitmask;
   int tileHeight = _cellMatrix[isoCoordinates.x * _columns + isoCoordinates.y]->getCoordinates().height;
-
-  int x = isoCoordinates.x;
-  int y = isoCoordinates.y;
+  bool raise = false;
 
   NeighborMatrix matrix;
   getNeighbors(isoCoordinates, matrix);
@@ -85,10 +82,9 @@ void vectorMatrix::updateNeightbors(const Point &isoCoordinates)
   {
     if (it)
     {
-
       elevationBitmask = getElevatedNeighborBitmask(it->getCoordinates());
       // set elevation bitmask for each neighbor
-      it->setElevationBitmask(static_cast<unsigned char>(elevationBitmask.to_ulong()));
+      it->setElevationBitmask(elevationBitmask);
 
       // there can't be a height difference greater then 1 between two map cells.
       // only increase the cardinal directions
@@ -104,16 +100,26 @@ void vectorMatrix::updateNeightbors(const Point &isoCoordinates)
         }
       }
 
-      // check if either n/s or e/w neighbors are elevated. if so, elevated the element itself
-      if ((elevationBitmask.test(0) && elevationBitmask.test(1)) || (elevationBitmask.test(2) && elevationBitmask.test(3)))
+      // those bitmask combinations require the tile to be elevated.
+      std::vector<unsigned char> bits{3, 12, 26, 38, 73, 133};
+      for (auto it : bits)
       {
-        if (Resources::getTerrainEditMode() == Resources::TERRAIN_RAISE)
+        if ((elevationBitmask & it) == it)
         {
-          increaseHeightOfCell(it->getCoordinates());
+          raise = true;
         }
-        else if (Resources::getTerrainEditMode() == Resources::TERRAIN_LOWER)
+        else
         {
-          decreaseHeightOfCell(it->getCoordinates());
+          raise = false;
+        }
+      }
+      if (raise)
+      {
+        increaseHeightOfCell(it->getCoordinates());
+
+        if (Resources::getTerrainEditMode() == Resources::TERRAIN_LOWER)
+        {
+          //decreaseHeightOfCell(it->getCoordinates());
           NeighborMatrix loweredCellNeighbors;
           getNeighbors(it->getCoordinates(), loweredCellNeighbors);
           for (const auto &it : loweredCellNeighbors)
