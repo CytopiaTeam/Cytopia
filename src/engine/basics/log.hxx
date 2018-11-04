@@ -13,8 +13,6 @@
 
 #include "SDL2/SDL.h"
 
-#include "timer.hxx"
-
 enum logType
 {
   LOG_INFO,
