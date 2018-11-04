@@ -45,13 +45,6 @@ public:
     */
   unsigned int getElevatedNeighborBitmask(const Point &isoCoordinates);
 
-  /**\brief Get neighbor Cell Objects
-    * Stores pointers to the neighboring cells of the given coordinates in the passed parameter.
-    * @param Point isoCoordinates - isometric coordinates of the tile that's neighbors should be retrieved.
-    * @param NeighborMatrix result - Pass a ref of type neighbormatrix to store the found neighbors in.
-    */
-  void getNeighbors(const Point &isoCoordinates, NeighborMatrix &result) const;
-
   /** \Brief Render the elements contained in the matrixx
     * call the render() function of the sprite in the all contained Cell elements
     * @see Sprite#render
@@ -68,6 +61,13 @@ private:
   int _rows;
 
   void updateNeightbors(const Point &isoCoordinates);
+
+  /**\brief Get neighbor Cell Objects
+    * Stores pointers to the neighboring cells of the given coordinates in the passed parameter.
+    * @param Point isoCoordinates - isometric coordinates of the tile that's neighbors should be retrieved.
+    * @param NeighborMatrix result - Pass a ref of type neighbormatrix to store the found neighbors in.
+    */
+  void getNeighbors(const Point &isoCoordinates, NeighborMatrix &result) const;
 };
 
 #endif

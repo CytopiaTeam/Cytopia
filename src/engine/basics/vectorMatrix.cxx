@@ -73,60 +73,64 @@ void vectorMatrix::updateNeightbors(const Point &isoCoordinates)
   unsigned int _elevatedTilePosition = 0;
   std::bitset<8> elevationBitmask;
   int tileHeight = _cellMatrix[isoCoordinates.x * _columns + isoCoordinates.y]->getCoordinates().height;
-  int newTileID = -2; // set to -2 to determine if it's necessary to set a new tile ID
 
   int x = isoCoordinates.x;
   int y = isoCoordinates.y;
-  int currentX, currentY;
 
   NeighborMatrix matrix;
   getNeighbors(isoCoordinates, matrix);
 
   int i = 0;
-  for (auto it : matrix)
+  for (const auto &it : matrix)
   {
-    elevationBitmask = getElevatedNeighborBitmask(it->getCoordinates());
-    // set elevation bitmask for each neighbor
-    it->setElevationBitmask(static_cast<unsigned char>(elevationBitmask.to_ulong()));
-
-    // there can't be a height difference greater then 1 between two map cells.
-
-    // ---- only increase l / r t / b tiles !!
-    if (tileHeight - it->getCoordinates().height > 1 && Resources::getTerrainEditMode() == Resources::TERRAIN_RAISE && i % 2)
+    if (it)
     {
-      increaseHeightOfCell(it->getCoordinates());
-    }
-    if (tileHeight - it->getCoordinates().height < -1 && Resources::getTerrainEditMode() == Resources::TERRAIN_LOWER && i % 2)
-    {
-      decreaseHeightOfCell(it->getCoordinates());
-    }
 
-    // check if either n/s or e/w neighbors are elevated. if so, elevated the element itself
-    if ((elevationBitmask.test(0) && elevationBitmask.test(1)) || (elevationBitmask.test(2) && elevationBitmask.test(3)))
-    {
-      if (Resources::getTerrainEditMode() == Resources::TERRAIN_RAISE)
+      elevationBitmask = getElevatedNeighborBitmask(it->getCoordinates());
+      // set elevation bitmask for each neighbor
+      it->setElevationBitmask(static_cast<unsigned char>(elevationBitmask.to_ulong()));
+
+      // there can't be a height difference greater then 1 between two map cells.
+      // only increase the cardinal directions
+      if (i % 2)
       {
-        increaseHeightOfCell(it->getCoordinates());
-      }
-      else if (Resources::getTerrainEditMode() == Resources::TERRAIN_LOWER)
-      {
-        decreaseHeightOfCell(it->getCoordinates());
-        for (const auto &it : adjecantCellOffsets)
+        if (tileHeight - it->getCoordinates().height > 1)
         {
-          currentX = x + it.x;
-          currentY = y + it.y;
+          increaseHeightOfCell(it->getCoordinates());
+        }
+        if (tileHeight - it->getCoordinates().height < -1)
+        {
+          decreaseHeightOfCell(it->getCoordinates());
+        }
+      }
 
-          if (_cellMatrix[currentX * _columns + currentY]->getCoordinates().height > tileHeight &&
-              _cellMatrix[currentX * _columns + currentY])
+      // check if either n/s or e/w neighbors are elevated. if so, elevated the element itself
+      if ((elevationBitmask.test(0) && elevationBitmask.test(1)) || (elevationBitmask.test(2) && elevationBitmask.test(3)))
+      {
+        if (Resources::getTerrainEditMode() == Resources::TERRAIN_RAISE)
+        {
+          increaseHeightOfCell(it->getCoordinates());
+        }
+        else if (Resources::getTerrainEditMode() == Resources::TERRAIN_LOWER)
+        {
+          decreaseHeightOfCell(it->getCoordinates());
+          NeighborMatrix loweredCellNeighbors;
+          getNeighbors(it->getCoordinates(), loweredCellNeighbors);
+          for (const auto &it : loweredCellNeighbors)
           {
-            decreaseHeightOfCell(_cellMatrix[currentX * _columns + currentY]->getCoordinates());
+            if (it)
+            {
+              if (it->getCoordinates().height > tileHeight)
+              {
+                decreaseHeightOfCell(it->getCoordinates());
+              }
+            }
           }
         }
       }
     }
     i++;
   }
-  // check if LEFT and RIGHT or TOP and BOTTOM is set. if true, elevate itself.
 }
 
 unsigned int vectorMatrix::getElevatedNeighborBitmask(const Point &isoCoordinates)
