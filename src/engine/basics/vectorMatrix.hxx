@@ -36,15 +36,6 @@ public:
     */
   void decreaseHeightOfCell(const Point &isoCoordinates);
 
-  /** \brief Get elevated neighbor positions in a bitmask
-    * Checks all neighboring tiles and returns the elevated neighbors in a bitmask: 
-    * [ T B L R TL TR BL BR ]
-    * [ 0 0 0 0  0  0  0  0 ]
-    * @param isoCoordinates isometric coordinates of the tile whose neighbors should be retrieved
-    * @returns  Uint that stores the elevated neighbor tiles
-    */
-  unsigned int getElevatedNeighborBitmask(const Point &isoCoordinates);
-
   /** \Brief Render the elements contained in the matrixx
     * call the render() function of the sprite in the all contained Cell elements
     * @see Sprite#render
@@ -68,6 +59,15 @@ private:
     * @param NeighborMatrix result - Pass a ref of type neighbormatrix to store the found neighbors in.
     */
   void getNeighbors(const Point &isoCoordinates, NeighborMatrix &result) const;
+
+  /** \brief Get elevated neighbor positions in a bitmask
+  * Checks all neighboring tiles and returns the elevated neighbors in a bitmask:
+  * [ BR BL TR TL  R  L  B  T ]
+  * [ 0  0  0  0   0  0  0  0 ]
+  * @param isoCoordinates isometric coordinates of the tile whose neighbors should be retrieved
+  * @returns  Uint that stores the elevated neighbor tiles
+  */
+  unsigned int getElevatedNeighborBitmask(const Point &isoCoordinates);
 };
 
 #endif
