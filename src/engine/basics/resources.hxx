@@ -126,7 +126,6 @@ public:
   static Point convertIsoToScreenCoordinates(const Point &isoCoordinates, bool calcWithoutOffset = false);
 
   // JSON Functions
-  const static std::string getUISpriteDataFromJSON(const std::string &uiType, int uiSpriteID, const std::string &attribute);
   static void readUILayoutFile();
   const static json &getUILayoutJSONObject() { return _uiLayout; };
 
@@ -153,9 +152,6 @@ private:
 
   static json _uiTextureFile;
   static json _uiLayout;
-
-  // read JSON FIles
-  static void readUITextureListFile();
 
 public:
   static std::unordered_map<unsigned int, int> slopeTileIDMap;

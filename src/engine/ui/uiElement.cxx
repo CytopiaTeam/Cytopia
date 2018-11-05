@@ -9,18 +9,22 @@ void UiElement::draw()
   }
 }
 
-void UiElement::setSpriteID(int uiSpriteID)
+void UiElement::setTextureID(const std::string &textureID)
 {
-  _uiSpriteID = uiSpriteID;
-  _texture = TextureManager::Instance().getUITexture(_uiSpriteID, BUTTONSTATE_DEFAULT);
+  _textureID = textureID;
+  SDL_Texture *texture = TextureManager::Instance().getUITexture(textureID);
+  if (texture)
+  {
+    _texture = texture;
+  }
   SDL_QueryTexture(_texture, nullptr, nullptr, &_uiElementRect.w, &_uiElementRect.h);
 }
 
 void UiElement::changeButtonState(int state)
 {
-  if (_uiSpriteID != -1 && _buttonState != state)
+  if (_buttonState != state && _textureID != "")
   {
-    changeTexture(TextureManager::Instance().getUITexture(_uiSpriteID, state));
+    changeTexture(TextureManager::Instance().getUITexture(_textureID, state));
   }
   _buttonState = state;
 }

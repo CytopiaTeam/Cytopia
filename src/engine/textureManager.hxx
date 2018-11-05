@@ -32,7 +32,7 @@ public:
 
   /** retrieves texture for a tileID */
   SDL_Texture *getTileTexture(TileType type, TileOrientation orientation);
-  SDL_Texture *getUITexture(int uiSpriteID, int buttonState = BUTTONSTATE_DEFAULT);
+  SDL_Texture *getUITexture(std::string uiElement, int buttonState = BUTTONSTATE_DEFAULT);
 
   /** Retrieves Color of a specific tileID at coordinates with the texture */
   const SDL_Color getPixelColor(TileType type, TileOrientation orientation, int X, int Y);
@@ -55,8 +55,13 @@ private:
 
   If colorkey is set - Use Magic Pink (255,255,0) for transparency
   */
-  void loadUITexture(int uiSpriteID, bool colorKey = false);
+  void loadUITexture();
   void loadTexture(TileType type, TileOrientation orientation, bool colorKey = false);
+
+  SDL_Surface *createSurfaceFromFile(std::string fileName);
+  SDL_Texture *createTextureFromSurface(SDL_Surface *surface);
+
+  std::unordered_map<std::string, std::unordered_map<std::string, SDL_Texture *>> _uiTextureMapNew;
 
   std::unordered_map<int, SDL_Texture *> _uiTextureMap;
   std::unordered_map<int, SDL_Texture *> _uiTextureMapHover;

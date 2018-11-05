@@ -7,7 +7,10 @@
 #include "basics/log.hxx"
 #include "tile.hxx"
 
+using json = nlohmann::json;
+
 json tileDataJSON;
+json uiDataJSON;
 
 TextureManager::TextureManager()
 {
@@ -27,6 +30,8 @@ TextureManager::TextureManager()
     LOG(LOG_ERROR) << "Error parsing JSON File "
                    << "resources/data/TileData.json";
   i.close();
+
+  loadUITexture();
 }
 
 void TextureManager::loadTexture(TileType type, TileOrientation orientation, bool colorKey)
@@ -72,73 +77,61 @@ void TextureManager::loadTexture(TileType type, TileOrientation orientation, boo
     LOG(LOG_ERROR) << "Could not load Texture from file " << fileName << "\nSDL_IMAGE Error: " << IMG_GetError();
 }
 
-void TextureManager::loadUITexture(int uiSpriteID, bool colorKey)
+void TextureManager::loadUITexture()
 {
-  std::string fileName = Resources::getUISpriteDataFromJSON("button", uiSpriteID, "filename");
-  std::string fileNameHover = Resources::getUISpriteDataFromJSON("button", uiSpriteID, "textureHover");
-  std::string fileNamePressed = Resources::getUISpriteDataFromJSON("button", uiSpriteID, "texturePressed");
-  SDL_Surface *loadedImage = IMG_Load(fileName.c_str());
-
-  if (loadedImage)
+  std::ifstream i("resources/data/UiData.json");
+  if (i.fail())
   {
-    if (colorKey)
+    LOG(LOG_ERROR) << "File "
+                   << "resources/data/UiData.json"
+                   << " does not exist! Cannot load settings from INI File!";
+    return;
+  }
+
+  // check if json file can be parsed
+  uiDataJSON = json::parse(i, nullptr, false);
+
+  if (uiDataJSON.is_discarded())
+  {
+    LOG(LOG_ERROR) << "Error parsing JSON File resources/data/UiData.json";
+    return;
+  }
+
+  i.close();
+
+  for (auto ita : uiDataJSON.items())
+  {
+    for (auto it = uiDataJSON[ita.key()].begin(); it != uiDataJSON[ita.key()].end(); ++it)
     {
-      SDL_SetColorKey(loadedImage, SDL_TRUE, SDL_MapRGB(loadedImage->format, 0xFF, 0, 0xFF));
-    }
-
-    _uiSurfaceMap[uiSpriteID] = loadedImage;
-    SDL_Texture *_texture = SDL_CreateTextureFromSurface(Resources::getRenderer(), loadedImage);
-
-    if (_texture != nullptr)
-      _uiTextureMap[uiSpriteID] = _texture;
-    else
-      LOG(LOG_ERROR) << "Renderer could not be created! SDL Error: " << SDL_GetError();
-
-    // Load hover / clicked textures if they are available.
-
-    SDL_FreeSurface(loadedImage);
-
-    if (!fileNameHover.empty())
-    {
-      SDL_Surface *loadedImage = IMG_Load(fileNameHover.c_str());
-      if (loadedImage)
-      {
-        if (colorKey)
-        {
-          SDL_SetColorKey(loadedImage, SDL_TRUE, SDL_MapRGB(loadedImage->format, 0xFF, 0, 0xFF));
-        }
-
-        SDL_Texture *_texture = SDL_CreateTextureFromSurface(Resources::getRenderer(), loadedImage);
-
-        if (_texture != nullptr)
-          _uiTextureMapHover[uiSpriteID] = _texture;
-        else
-          LOG(LOG_ERROR) << "Renderer could not be created! SDL Error: " << SDL_GetError();
-        SDL_FreeSurface(loadedImage);
-      }
-    }
-    if (!fileNamePressed.empty())
-    {
-      SDL_Surface *loadedImage = IMG_Load(fileNamePressed.c_str());
-      if (loadedImage)
-      {
-        if (colorKey)
-        {
-          SDL_SetColorKey(loadedImage, SDL_TRUE, SDL_MapRGB(loadedImage->format, 0xFF, 0, 0xFF));
-        }
-
-        SDL_Texture *_texture = SDL_CreateTextureFromSurface(Resources::getRenderer(), loadedImage);
-
-        if (_texture != nullptr)
-          _uiTextureMapPressed[uiSpriteID] = _texture;
-        else
-          LOG(LOG_ERROR) << "Renderer could not be created! SDL Error: " << SDL_GetError();
-        SDL_FreeSurface(loadedImage);
-      }
+      _uiTextureMapNew[ita.key()][it.key()] = createTextureFromSurface(createSurfaceFromFile(it.value()));
     }
   }
-  else
-    LOG(LOG_ERROR) << "Could not load Texture from file " << fileName << "\nSDL_IMAGE Error: " << IMG_GetError();
+}
+
+SDL_Surface *TextureManager::createSurfaceFromFile(std::string fileName)
+{
+  SDL_Surface *surface = IMG_Load(fileName.c_str());
+
+  if (surface)
+  {
+    return surface;
+  }
+
+  LOG(LOG_ERROR) << "Could not load Texture from file " << fileName << "\nSDL_IMAGE Error: " << IMG_GetError();
+  return nullptr;
+}
+
+SDL_Texture *TextureManager::createTextureFromSurface(SDL_Surface *surface)
+{
+  SDL_Texture *texture = SDL_CreateTextureFromSurface(Resources::getRenderer(), surface);
+
+  if (texture)
+  {
+    return texture;
+  }
+
+  LOG(LOG_ERROR) << "Texture could not be created! SDL Error: " << SDL_GetError();
+  return nullptr;
 }
 
 SDL_Texture *TextureManager::getTileTexture(TileType type, TileOrientation orientation)
@@ -152,45 +145,32 @@ SDL_Texture *TextureManager::getTileTexture(TileType type, TileOrientation orien
   return _tileTextureMap[type][orientation];
 }
 
-SDL_Texture *TextureManager::getUITexture(int uiSpriteID, int buttonState)
+SDL_Texture *TextureManager::getUITexture(std::string uiElement, int buttonState)
 {
-  if (!_uiTextureMap.count(uiSpriteID))
-  {
-    loadUITexture(uiSpriteID);
-  }
-
+  std::string texture;
   switch (buttonState)
   {
-  case BUTTONSTATE_HOVERING:
-    if (_uiTextureMapHover.count(uiSpriteID))
-    {
-      return _uiTextureMapHover[uiSpriteID];
-    }
-    else
-    {
-      return _uiTextureMap[uiSpriteID];
-    }
   case BUTTONSTATE_CLICKED:
-    if (_uiTextureMapPressed.count(uiSpriteID))
-    {
-      return _uiTextureMapPressed[uiSpriteID];
-    }
-    else
-    {
-      return _uiTextureMap[uiSpriteID];
-    }
-    return nullptr;
+    texture = "Texture_Clicked";
+    break;
+  case BUTTONSTATE_HOVERING:
+    texture = "Texture_Hovering";
+    break;
   default:
-    return _uiTextureMap[uiSpriteID];
+    texture = "Texture_Default";
   }
-  // If the texture isn't in the map, load it first.
+
+  if (_uiTextureMapNew[uiElement].count(texture))
+    return _uiTextureMapNew[uiElement][texture];
+
+  return _uiTextureMapNew[uiElement]["Texture_Default"];
 }
 
 const SDL_Color TextureManager::getPixelColor(TileType type, TileOrientation orientation, int X, int Y)
 {
   SDL_Color Color = {0, 0, 0, SDL_ALPHA_TRANSPARENT};
 
-  if (_surfaceMap[type][orientation])
+  if (_surfaceMap[type].count(orientation))
   {
     SDL_Surface *surface = _surfaceMap[type][orientation];
 

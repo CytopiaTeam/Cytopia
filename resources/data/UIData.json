@@ -1,15 +1,13 @@
 {
-    "button": {
-        "0": {
-            "filename": "resources/images/ui/buttons/Construction Menu.png",
-            "texturePressed": "resources/images/ui/buttons/Construction Menu pressed.png",
-            "textureHover": "resources/images/ui/buttons/Construction Menu hover.png"
-        },
-        "1": {
-            "filename": "resources/images/ui/buttons/raise_terrain.png"
-        },
-        "2": {
-            "filename": "resources/images/ui/buttons/lower_terrain.png"
-        }
-    }
+  "Button_ConstructionMenu": {
+    "Texture_Default": "resources/images/ui/buttons/Construction Menu.png",
+    "Texture_Clicked": "resources/images/ui/buttons/Construction Menu pressed.png",
+    "Texture_Hovering": "resources/images/ui/buttons/Construction Menu hover.png"
+  },
+  "Button_ConstructionMenu_RaiseTerrain": {
+    "Texture_Default": "resources/images/ui/buttons/raise_terrain.png"
+  },
+  "Button_ConstructionMenu_LowerTerrain": {
+    "Texture_Default": "resources/images/ui/buttons/lower_terrain.png"
+  }
 }
