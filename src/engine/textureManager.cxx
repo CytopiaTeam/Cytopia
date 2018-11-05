@@ -12,11 +12,11 @@ json tileDataJSON;
 TextureManager::TextureManager()
 {
   // Read JSON File.
-  std::ifstream i("resources/data/TileDataNew.json");
+  std::ifstream i("resources/data/TileData.json");
   if (i.fail())
   {
     LOG(LOG_ERROR) << "File "
-                   << "resources/data/TileDataNew.json"
+                   << "resources/data/TileData.json"
                    << " does not exist! Cannot load settings from INI File!";
     return;
   }
@@ -25,7 +25,7 @@ TextureManager::TextureManager()
   tileDataJSON = json::parse(i, nullptr, false);
   if (tileDataJSON.is_discarded())
     LOG(LOG_ERROR) << "Error parsing JSON File "
-                   << "resources/data/TileDataNew.json";
+                   << "resources/data/TileData.json";
   i.close();
 }
 
