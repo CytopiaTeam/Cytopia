@@ -39,7 +39,7 @@ public:
 
 private:
   TextureManager();
-  ~TextureManager() = default;
+  ~TextureManager();
 
   SDL_Renderer *_renderer;
   SDL_Window *_window;
@@ -52,15 +52,16 @@ private:
   void loadUITexture();
   void loadTileTextures();
 
+  /** Delete everything. should be called from the destuctor only
+  */
+  void flush();
+
   SDL_Surface *createSurfaceFromFile(const std::string &fileName);
   SDL_Texture *createTextureFromSurface(SDL_Surface *surface);
 
   std::unordered_map<std::string, std::unordered_map<std::string, SDL_Texture *>> _uiTextureMap;
 
-  // Map < type, <map<orientation, Texture>>
   std::unordered_map<std::string, SDL_Texture *> _tileTextureMap;
-
-  /** Keep surfaces in map for collision detection when selecting tiles*/
   std::unordered_map<std::string, SDL_Surface *> _surfaceMap;
 };
 

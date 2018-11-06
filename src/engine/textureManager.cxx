@@ -15,6 +15,8 @@ TextureManager::TextureManager()
   loadUITexture();
 }
 
+TextureManager::~TextureManager() { flush(); }
+
 void TextureManager::loadTileTextures()
 {
   json tileDataJSON;
@@ -42,7 +44,7 @@ void TextureManager::loadTileTextures()
   // i commit that as is, because JSON format will change anyway with the new textures.
   while (!tileDataJSON["Terrain"][idx].is_null())
   {
-    for (auto &it : tileDataJSON["Terrain"][idx].items())
+    for (const auto &it : tileDataJSON["Terrain"][idx].items())
     {
       key = "Terrain" + tileDataJSON["Terrain"][idx]["orientation"].get<std::string>();
       _surfaceMap[key] = createSurfaceFromFile(tileDataJSON["Terrain"][idx]["image"].get<std::string>());
@@ -76,39 +78,13 @@ void TextureManager::loadUITexture()
 
   i.close();
 
-  for (auto tileID : uiDataJSON.items())
+  for (const auto &tileID : uiDataJSON.items())
   {
     for (auto it = uiDataJSON[tileID.key()].begin(); it != uiDataJSON[tileID.key()].end(); ++it)
     {
       _uiTextureMap[tileID.key()][it.key()] = createTextureFromSurface(createSurfaceFromFile(it.value()));
     }
   }
-}
-
-SDL_Surface *TextureManager::createSurfaceFromFile(const std::string &fileName)
-{
-  SDL_Surface *surface = IMG_Load(fileName.c_str());
-
-  if (surface)
-  {
-    return surface;
-  }
-
-  LOG(LOG_ERROR) << "Could not load Texture from file " << fileName << "\nSDL_IMAGE Error: " << IMG_GetError();
-  return nullptr;
-}
-
-SDL_Texture *TextureManager::createTextureFromSurface(SDL_Surface *surface)
-{
-  SDL_Texture *texture = SDL_CreateTextureFromSurface(Resources::getRenderer(), surface);
-
-  if (texture)
-  {
-    return texture;
-  }
-
-  LOG(LOG_ERROR) << "Texture could not be created! SDL Error: " << SDL_GetError();
-  return nullptr;
 }
 
 SDL_Texture *TextureManager::getTileTexture(const std::string &type, const std::string &orientation)
@@ -157,4 +133,54 @@ const SDL_Color TextureManager::getPixelColor(const std::string &type, const std
     LOG(LOG_ERROR) << "No surface in map for type " << type << " with orientation: " << orientation;
   }
   return Color;
+}
+
+SDL_Surface *TextureManager::createSurfaceFromFile(const std::string &fileName)
+{
+  SDL_Surface *surface = IMG_Load(fileName.c_str());
+
+  if (surface)
+  {
+    return surface;
+  }
+
+  LOG(LOG_ERROR) << "Could not load Texture from file " << fileName << "\nSDL_IMAGE Error: " << IMG_GetError();
+  return nullptr;
+}
+
+SDL_Texture *TextureManager::createTextureFromSurface(SDL_Surface *surface)
+{
+  SDL_Texture *texture = SDL_CreateTextureFromSurface(Resources::getRenderer(), surface);
+
+  if (texture)
+  {
+    return texture;
+  }
+
+  LOG(LOG_ERROR) << "Texture could not be created! SDL Error: " << SDL_GetError();
+  return nullptr;
+}
+
+void TextureManager::flush()
+{
+  for (const auto &it : _surfaceMap)
+  {
+    SDL_FreeSurface(it.second);
+  }
+  _surfaceMap.clear();
+
+  for (const auto &it : _tileTextureMap)
+  {
+    SDL_DestroyTexture(it.second);
+  }
+  _tileTextureMap.clear();
+
+  for (const auto &it : _uiTextureMap)
+  {
+    for (const auto &ita : it.second)
+    {
+      SDL_DestroyTexture(ita.second);
+    }
+  }
+  _uiTextureMap.clear();
 }
