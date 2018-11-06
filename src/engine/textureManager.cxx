@@ -99,11 +99,11 @@ void TextureManager::loadUITexture()
 
   i.close();
 
-  for (auto ita : uiDataJSON.items())
+  for (auto tileID : uiDataJSON.items())
   {
-    for (auto it = uiDataJSON[ita.key()].begin(); it != uiDataJSON[ita.key()].end(); ++it)
+    for (auto it = uiDataJSON[tileID.key()].begin(); it != uiDataJSON[tileID.key()].end(); ++it)
     {
-      _uiTextureMapNew[ita.key()][it.key()] = createTextureFromSurface(createSurfaceFromFile(it.value()));
+      _uiTextureMapNew[tileID.key()][it.key()] = createTextureFromSurface(createSurfaceFromFile(it.value()));
     }
   }
 }

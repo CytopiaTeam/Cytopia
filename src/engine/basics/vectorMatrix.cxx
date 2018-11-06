@@ -72,7 +72,6 @@ void vectorMatrix::updateNeightbors(const Point &isoCoordinates)
 {
   unsigned char elevationBitmask;
   int tileHeight = _cellMatrix[isoCoordinates.x * _columns + isoCoordinates.y]->getCoordinates().height;
-  bool raise = false;
 
   NeighborMatrix matrix;
   getNeighbors(isoCoordinates, matrix);
@@ -82,6 +81,7 @@ void vectorMatrix::updateNeightbors(const Point &isoCoordinates)
   {
     if (it)
     {
+      bool raise = false;
       elevationBitmask = getElevatedNeighborBitmask(it->getCoordinates());
       // set elevation bitmask for each neighbor
       it->setElevationBitmask(elevationBitmask);
@@ -107,10 +107,6 @@ void vectorMatrix::updateNeightbors(const Point &isoCoordinates)
         if ((elevationBitmask & it) == it)
         {
           raise = true;
-        }
-        else
-        {
-          raise = false;
         }
       }
       if (raise)
