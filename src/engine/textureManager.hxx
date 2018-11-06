@@ -61,18 +61,13 @@ private:
   SDL_Surface *createSurfaceFromFile(std::string fileName);
   SDL_Texture *createTextureFromSurface(SDL_Surface *surface);
 
-  std::unordered_map<std::string, std::unordered_map<std::string, SDL_Texture *>> _uiTextureMapNew;
-
-  std::unordered_map<int, SDL_Texture *> _uiTextureMap;
-  std::unordered_map<int, SDL_Texture *> _uiTextureMapHover;
-  std::unordered_map<int, SDL_Texture *> _uiTextureMapPressed;
+  std::unordered_map<std::string, std::unordered_map<std::string, SDL_Texture *>> _uiTextureMap;
 
   // Map < type, <map<orientation, Texture>>
   std::unordered_map<TileType, std::unordered_map<TileOrientation, SDL_Texture *, EnumClassHash>, EnumClassHash> _tileTextureMap;
 
   /** Keep surfaces in map for collision detection when selecting tiles*/
   std::unordered_map<TileType, std::unordered_map<TileOrientation, SDL_Surface *, EnumClassHash>, EnumClassHash> _surfaceMap;
-  std::unordered_map<int, SDL_Surface *> _uiSurfaceMap;
 
   std::string tileOrientationEnumToString(TileOrientation orientation);
   std::string tileTypesEnumToString(TileType tileType);

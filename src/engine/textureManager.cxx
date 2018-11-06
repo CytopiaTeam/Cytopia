@@ -103,7 +103,7 @@ void TextureManager::loadUITexture()
   {
     for (auto it = uiDataJSON[tileID.key()].begin(); it != uiDataJSON[tileID.key()].end(); ++it)
     {
-      _uiTextureMapNew[tileID.key()][it.key()] = createTextureFromSurface(createSurfaceFromFile(it.value()));
+      _uiTextureMap[tileID.key()][it.key()] = createTextureFromSurface(createSurfaceFromFile(it.value()));
     }
   }
 }
@@ -160,10 +160,10 @@ SDL_Texture *TextureManager::getUITexture(std::string uiElement, int buttonState
     texture = "Texture_Default";
   }
 
-  if (_uiTextureMapNew[uiElement].count(texture))
-    return _uiTextureMapNew[uiElement][texture];
+  if (_uiTextureMap[uiElement].count(texture))
+    return _uiTextureMap[uiElement][texture];
 
-  return _uiTextureMapNew[uiElement]["Texture_Default"];
+  return _uiTextureMap[uiElement]["Texture_Default"];
 }
 
 const SDL_Color TextureManager::getPixelColor(TileType type, TileOrientation orientation, int X, int Y)
