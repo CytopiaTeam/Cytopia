@@ -10,7 +10,6 @@
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_ttf.h"
 
-
 /** @brief Base class for UI Elements
   * Provides functions and variables for derived user interface elements.
   */

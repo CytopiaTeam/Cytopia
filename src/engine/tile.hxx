@@ -4,48 +4,14 @@
 #include "SDL2/SDL.h"
 #include <bitset>
 
-/** Tile Types as enum
-  * @see TextureManager::tileTypesEnumToString
-*/
-enum class TileType
-{
-  TERRAIN,
-  WATER,
-  ROAD,
-  RESIDENTIAL,
-  COMMERCIAL,
-  INDUSTRIAL
-};
-
-/** Tile Types as enum
-* @see TextureManager::tileOrientationEnumToString
-*/
-enum class TileOrientation
-{
-  DEFAULT,
-  CENTER,
-  N,
-  E,
-  S,
-  W,
-  NE,
-  NW,
-  SE,
-  SW,
-  N_AND_E,
-  N_AND_W,
-  S_AND_E,
-  S_AND_W
-};
-
 class Tile
 {
 public:
   Tile() = default;
   ~Tile() = default;
 
-  static SDL_Texture *getTexture(TileType type, TileOrientation orientation);
-  static TileOrientation caluclateOrientation(unsigned char bitMaskElevation);
+  static SDL_Texture *getTexture(const std::string &type, const std::string &orientation);
+  static std::string caluclateOrientation(unsigned char bitMaskElevation);
 
 private:
   enum elevatedPosition : unsigned char

@@ -67,10 +67,10 @@ public:
 
   unsigned char getElevationBitmask() { return _elevationBitmask; };
 
-  void setType(TileType type) { _type = type; };
+  void setType(const std::string &type) { _type = type; };
 
-  TileType getType() { return _type; };
-  TileOrientation getOrientation() { return _orientation; };
+  std::string getType() { return _type; };
+  std::string getOrientation() { return _orientation; };
 
 private:
   Point _isoCoordinates;
@@ -83,8 +83,8 @@ private:
   int _tileID;
   int _maxCellHeight = 32;
 
-  TileType _type = TileType::TERRAIN;
-  TileOrientation _orientation = TileOrientation::DEFAULT;
+  std::string _type = "Terrain";
+  std::string _orientation = "default";
 
   unsigned char _elevationBitmask = 0;
 };

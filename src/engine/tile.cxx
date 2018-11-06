@@ -3,112 +3,112 @@
 #include "basics/log.hxx"
 #include "textureManager.hxx"
 
-SDL_Texture *Tile::getTexture(TileType type, TileOrientation orientation)
+SDL_Texture *Tile::getTexture(const std::string &type, const std::string &orientation)
 {
 
   return TextureManager::Instance().getTileTexture(type, orientation);
 }
 
-TileOrientation Tile::caluclateOrientation(unsigned char bitMaskElevation)
+std::string Tile::caluclateOrientation(unsigned char bitMaskElevation)
 {
-  TileOrientation orientation;
+  std::string orientation;
   std::bitset<8> elevationMask(bitMaskElevation);
 
   // check for all combinations
   if (elevationMask.none())
   { // NONE
-    orientation = TileOrientation::DEFAULT;
+    orientation = "default";
   }
 
   // special cases
   else if (elevationMask.test(3) && elevationMask.test(6))
   { // BOTTOM_RIGHT
-    orientation = TileOrientation::S_AND_W;
+    orientation = "s_and_w";
   }
   else if (elevationMask.test(2) && elevationMask.test(5))
   { // BOTTOM_RIGHT
-    orientation = TileOrientation::N_AND_E;
+    orientation = "n_and_e";
   }
   else if (elevationMask.test(3) && elevationMask.test(4))
   { // BOTTOM_RIGHT
-    orientation = TileOrientation::N_AND_W;
+    orientation = "n_and_w";
   }
   else if (elevationMask.test(2) && elevationMask.test(7))
   { // BOTTOM_RIGHT
-    orientation = TileOrientation::S_AND_E;
+    orientation = "s_and_e";
   }
 
   else if (elevationMask.test(0) && elevationMask.test(6))
   { // BOTTOM_RIGHT
-    orientation = TileOrientation::N_AND_E;
+    orientation = "n_and_e";
   }
   else if (elevationMask.test(1) && elevationMask.test(5))
   { // BOTTOM_RIGHT
-    orientation = TileOrientation::S_AND_W;
+    orientation = "s_and_w";
   }
   else if (elevationMask.test(0) && elevationMask.test(7))
   { // BOTTOM_RIGHT
-    orientation = TileOrientation::N_AND_W;
+    orientation = "n_and_w";
   }
   else if (elevationMask.test(1) && elevationMask.test(4))
   { // BOTTOM_RIGHT
-    orientation = TileOrientation::S_AND_E;
+    orientation = "s_and_e";
   }
 
   // diagonal combinations
   else if (elevationMask.test(0) && elevationMask.test(3))
   { // TOP && RIGHT
-    orientation = TileOrientation::N_AND_W;
+    orientation = "n_and_w";
   }
   else if (elevationMask.test(0) && elevationMask.test(2))
   { // TOP && LEFT
-    orientation = TileOrientation::N_AND_E;
+    orientation = "n_and_e";
   }
   else if (elevationMask.test(1) && elevationMask.test(3))
   { // BOTTOM && RIGHT
-    orientation = TileOrientation::S_AND_W;
+    orientation = "s_and_w";
   }
   else if (elevationMask.test(1) && elevationMask.test(2))
   { // BOTTOM && LEFT
-    orientation = TileOrientation::S_AND_E;
+    orientation = "s_and_e";
   }
 
   // default directions
   else if (elevationMask.test(0))
   { // TOP
-    orientation = TileOrientation::N;
+    orientation = "n";
   }
   else if (elevationMask.test(1))
   { // BOTTOM
-    orientation = TileOrientation::S;
+    orientation = "s";
   }
   else if (elevationMask.test(2))
   { // LEFT
-    orientation = TileOrientation::E;
+    orientation = "e";
   }
   else if (elevationMask.test(3))
   { // RIGHT
-    orientation = TileOrientation::W;
+    orientation = "w";
   }
   else if ((elevationMask.test(4) && elevationMask.test(7)) || (elevationMask.test(5) && elevationMask.test(6)))
   { // BOTTOM_RIGHT
-    orientation = TileOrientation::CENTER;
+    orientation = "center";
   }
   else if (elevationMask.test(5))
   { // TOP_LEFT
-    orientation = TileOrientation::NW;
+    orientation = "nw";
   }
   else if (elevationMask.test(4))
   { // TOP_RIGHT
-    orientation = TileOrientation::NE;
+    orientation = "ne";
   }
   else if (elevationMask.test(7))
   { // BOTTOM_LEFT
-    orientation = TileOrientation::SW;
+    orientation = "sw";
   }
   else if (elevationMask.test(6))
   { // BOTTOM_RIGHT
-    orientation = TileOrientation::SE;
+    orientation = "se";
   }
 
   else
