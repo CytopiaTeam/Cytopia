@@ -9,11 +9,16 @@
 
 using json = nlohmann::json;
 
-json tileDataJSON;
-json uiDataJSON;
-
 TextureManager::TextureManager()
 {
+  loadTileTextures();
+  loadUITexture();
+}
+
+void TextureManager::loadTileTextures()
+{
+  json tileDataJSON;
+
   // Read JSON File.
   std::ifstream i("resources/data/TileData.json");
   if (i.fail())
@@ -31,54 +36,26 @@ TextureManager::TextureManager()
                    << "resources/data/TileData.json";
   i.close();
 
-  loadUITexture();
-}
-
-void TextureManager::loadTexture(const std::string &type, const std::string &orientation, bool colorKey)
-{
-  std::string fileName;
-  std::string key = type + orientation;
+  std::string key;
   size_t idx = 0;
-
-  while (!tileDataJSON[type][idx].is_null())
+  // TODO: this will only work for Terrain texture
+  // i commit that as is, because JSON format will change anyway with the new textures.
+  while (!tileDataJSON["Terrain"][idx].is_null())
   {
-    for (auto &it : tileDataJSON[type][idx].items())
+    for (auto &it : tileDataJSON["Terrain"][idx].items())
     {
-      if (it.key() == "orientation" && it.value() == orientation)
-      {
-        if (!tileDataJSON[type][idx]["image"].is_null())
-        {
-          fileName = tileDataJSON[type][idx]["image"].get<std::string>();
-        }
-      }
+      key = "Terrain" + tileDataJSON["Terrain"][idx]["orientation"].get<std::string>();
+      _surfaceMap[key] = createSurfaceFromFile(tileDataJSON["Terrain"][idx]["image"].get<std::string>());
+      _tileTextureMap[key] = createTextureFromSurface(_surfaceMap[key]);
     }
     idx++;
   }
-
-  SDL_Surface *loadedImage = IMG_Load(fileName.c_str());
-
-  if (loadedImage)
-  {
-    _surfaceMap[key] = loadedImage;
-
-    if (colorKey)
-      SDL_SetColorKey(loadedImage, SDL_TRUE, SDL_MapRGB(loadedImage->format, 0xFF, 0, 0xFF));
-
-    SDL_Texture *texture = SDL_CreateTextureFromSurface(Resources::getRenderer(), loadedImage);
-
-    if (texture)
-    {
-      _tileTextureMap[key] = texture;
-    }
-    else
-      LOG(LOG_ERROR) << "Texture could not be created! SDL Error: " << SDL_GetError();
-  }
-  else
-    LOG(LOG_ERROR) << "Could not load Texture from file " << fileName << "\nSDL_IMAGE Error: " << IMG_GetError();
 }
 
 void TextureManager::loadUITexture()
 {
+  json uiDataJSON;
+
   std::ifstream i("resources/data/UiData.json");
   if (i.fail())
   {
@@ -136,15 +113,7 @@ SDL_Texture *TextureManager::createTextureFromSurface(SDL_Surface *surface)
 
 SDL_Texture *TextureManager::getTileTexture(const std::string &type, const std::string &orientation)
 {
-  std::string key = type + orientation;
-
-  // If the texture isn't in the map, load it first.
-  if (!_tileTextureMap[key])
-  {
-    loadTexture(type, orientation);
-  }
-
-  return _tileTextureMap[key];
+  return _tileTextureMap[type + orientation];
 }
 
 SDL_Texture *TextureManager::getUITexture(const std::string &uiElement, int buttonState)

@@ -50,7 +50,7 @@ private:
   If colorkey is set - Use Magic Pink (255,255,0) for transparency
   */
   void loadUITexture();
-  void loadTexture(const std::string &type, const std::string &orientation, bool colorKey = false);
+  void loadTileTextures();
 
   SDL_Surface *createSurfaceFromFile(const std::string &fileName);
   SDL_Texture *createTextureFromSurface(SDL_Surface *surface);
