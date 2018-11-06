@@ -94,7 +94,7 @@ void vectorMatrix::updateNeightbors(const Point &isoCoordinates)
         {
           increaseHeightOfCell(it->getCoordinates());
         }
-        if (tileHeight - it->getCoordinates().height < -1)
+        else if (tileHeight - it->getCoordinates().height < -1)
         {
           decreaseHeightOfCell(it->getCoordinates());
         }
