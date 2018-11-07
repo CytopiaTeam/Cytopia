@@ -5,23 +5,8 @@
 
 #include "SDL2/SDL.h"
 #include "point.hxx"
-#include "../../ThirdParty/json.hxx"
 
 // Namespace from json library - https://github.com/nlohmann/json
-using json = nlohmann::json;
-
-enum elevatedTilePosition : unsigned int
-{
-  NO_NEIGHBORS = 0x0,
-  ELEVATED_TOP = 0x1,
-  ELEVATED_BOTTOM = 0x2,
-  ELEVATED_LEFT = 0x4,
-  ELEVATED_RIGHT = 0x8,
-  ELEVATED_TOP_LEFT = 0x10,
-  ELEVATED_TOP_RIGHT = 0x20,
-  ELEVATED_BOTTOM_LEFT = 0x40,
-  ELEVATED_BOTTOM_RIGHT = 0x80,
-};
 
 //forward declare Engine class (prevent cross includes)
 class Engine;
@@ -29,7 +14,6 @@ class Engine;
 class Resources
 {
 public:
-  static void init();
 
   /** \brief get SDL Renderer
     * Returns a pointer to the SDL Renderer
@@ -125,10 +109,6 @@ public:
     */
   static Point convertIsoToScreenCoordinates(const Point &isoCoordinates, bool calcWithoutOffset = false);
 
-  // JSON Functions
-  static void readUILayoutFile();
-  const static json &getUILayoutJSONObject() { return _uiLayout; };
-
   enum terrainEditMode : int
   {
     NO_TERRAIN_EDIT,
@@ -150,11 +130,6 @@ private:
 
   static const int _tileSize;
 
-  static json _uiTextureFile;
-  static json _uiLayout;
-
-public:
-  static std::unordered_map<unsigned int, int> slopeTileIDMap;
 };
 
 #endif

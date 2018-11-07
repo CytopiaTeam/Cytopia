@@ -3,13 +3,32 @@
 #include "textureManager.hxx"
 #include "engine.hxx"
 
-#include "basics/resources.hxx"
+#include "basics/settings.hxx"
+#include "basics/log.hxx"
 
 #include "../ThirdParty/json.hxx"
 
+using json = nlohmann::json;
+
 void UIManager::init()
 {
-  nlohmann::json uiLayout = Resources::getUILayoutJSONObject();
+  json uiLayout;
+
+  std::ifstream i(Settings::Instance().settings.uiLayoutJSONFile);
+  if (i.fail())
+  {
+    LOG(LOG_ERROR) << "File " << Settings::Instance().settings.uiLayoutJSONFile
+      << " does not exist! Cannot load settings from INI File!";
+    // Application should quit here, without textureData we can't continue
+    return;
+  }
+
+  // check if json file can be parsed
+  uiLayout = json::parse(i, nullptr, false);
+  if (uiLayout.is_discarded())
+  {
+    LOG(LOG_ERROR) << "Error parsing JSON File " << Settings::Instance().settings.uiLayoutJSONFile;
+  }
 
   for (const auto &it : uiLayout.items())
   {

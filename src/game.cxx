@@ -12,7 +12,6 @@ void run()
 {
   Timer benchmarkTimer;
   LOG() << VERSION;
-  Resources::init();
 
   benchmarkTimer.start();
   Engine &engine = Engine::Instance();
