@@ -15,7 +15,7 @@ void run()
 
   benchmarkTimer.start();
   Engine &engine = Engine::Instance();
-  LOG() << "Tile Matrix initialized in " << benchmarkTimer.getElapsedTime() << "ms";
+  LOG() << "Map initialized in " << benchmarkTimer.getElapsedTime() << "ms";
 
   SDL_Event event;
   EventManager evManager;

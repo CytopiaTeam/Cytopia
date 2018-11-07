@@ -10,10 +10,9 @@ Point Resources::_cameraOffset;
 const int Resources::_tileSize = 32;
 int Resources::_terrainEditMode = Resources::NO_TERRAIN_EDIT;
 
-
 Point Resources::convertScreenToIsoCoordinates(const Point &screenCoordinates)
 {
-  return Engine::Instance().findCellAt(screenCoordinates);
+  return Engine::Instance().findNodeInMap(screenCoordinates);
 }
 
 Point Resources::convertIsoToScreenCoordinates(const Point &isoCoordinates, bool calcWithoutOffset)

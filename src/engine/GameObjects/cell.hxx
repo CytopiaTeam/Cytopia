@@ -81,7 +81,7 @@ private:
 
   int _heightOffset = 20; // Offset for Y Coordinate between two height levels
   int _tileID;
-  int _maxCellHeight = 32;
+  int _maxHeight = 32;
 
   std::string _type = "Terrain";
   std::string _orientation = "default";

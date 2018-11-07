@@ -13,7 +13,7 @@ void MapNode::increaseHeight()
 {
   int height = _isoCoordinates.height;
 
-  if (height < _maxCellHeight)
+  if (height < _maxHeight)
   {
     _isoCoordinates.height++;
     _sprite->setCoordinates(_isoCoordinates);

@@ -1,7 +1,6 @@
 #include "mapNode.hxx"
 
-#include "../basics/resources.hxx"
-#include "../basics/log.hxx"
+#include "../tile.hxx"
 
 MapNode::MapNode(Point isoCoordinates) : _isoCoordinates(std::move(isoCoordinates)), _tileID(14)
 {
@@ -12,7 +11,7 @@ void MapNode::increaseHeight()
 {
   int height = _isoCoordinates.height;
 
-  if (height < _maxCellHeight)
+  if (height < _maxHeight)
   {
     _isoCoordinates.height++;
     _sprite->setCoordinates(_isoCoordinates);

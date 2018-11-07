@@ -14,7 +14,6 @@ class Engine;
 class Resources
 {
 public:
-
   /** \brief get SDL Renderer
     * Returns a pointer to the SDL Renderer
     * \return Pointer to the SDL_Renderer
@@ -90,8 +89,8 @@ public:
   static int getTerrainEditMode() { return _terrainEditMode; };
 
   /** \brief converts screen space coordinates to isometric space coordinates.
-    * To convert screen coordinates in to isometric coordinates, all the textures inside the cells are checked, if the click is inside the bounding box of a texture
-    * and if so, another check ensures, that the click is not on a transparent pixel. The isometric coordinates of the map cell containing the texture with 
+    * To convert screen coordinates in to isometric coordinates, all the textures inside the nodes are checked, if the click is inside the bounding box of a texture
+    * and if so, another check ensures, that the click is not on a transparent pixel. The isometric coordinates of the map node containing the texture with
     * the highest Z-Level (drawing order) is returned.
     * Camera Offset and current zoomLevel is taken into account
     * \returns Point() - object containing the isometric coordinates of the tile that matches the screen coordinates
@@ -129,7 +128,6 @@ private:
   static Point _cameraOffset;
 
   static const int _tileSize;
-
 };
 
 #endif

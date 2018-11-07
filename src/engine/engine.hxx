@@ -59,17 +59,17 @@ public:
   void toggleLayer(unsigned int layer) { _activeLayers ^= layer; };
 
   /** @brief Increase Height
-    * Increases the height of the given map cell 
-    * Calls the according function of the Map object that holds the terrain cell and draws the slopes
-    * @param isoCoordinates the isometric coordinates of the map cell that should be raised
+    * Increases the height of the given map node 
+    * Calls the according function of the Map object that holds the terrain node and draws the slopes
+    * @param isoCoordinates the isometric coordinates of the map node that should be raised
     * @see Map#increaseHeight
     */
   void increaseHeight(const Point &isoCoordinates);
 
   /** @brief Decrease Height
-    * Decreases the height of the given map cell
-    * Calls the according function of the Map object that holds the terrain cell and draws the slopes.
-    * @param isoCoordinates the isometric coordinates of the map cell that should be lowered
+    * Decreases the height of the given map node
+    * Calls the according function of the Map object that holds the terrain node and draws the slopes.
+    * @param isoCoordinates the isometric coordinates of the map node that should be lowered
     * @see Map#decreaseHeight
     */
   void decreaseHeight(const Point &isoCoordinates);
@@ -81,7 +81,7 @@ public:
     * @param screenCoordinates   Point Oject - Mouseclick coordinates in screen Format
     * @return Isocoordinates of the tile that has been found
     */
-  Point findCellAt(const Point &screenCoordinates);
+  Point findNodeInMap(const Point &screenCoordinates);
 
   bool isGameRunning();
 
@@ -107,7 +107,7 @@ private:
   Point _centerIsoCoordinates;
 
   /// Map that holds shared_ptr MapNode objects
-  Map _mapCellMatrix;
+  Map _map;
 
   /// Uint for storing a bitmask (Layers Enum)
   unsigned int _activeLayers;

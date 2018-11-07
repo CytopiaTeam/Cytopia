@@ -9,7 +9,7 @@ constexpr struct
   int x;
   int y;
 
-} adjecantCellOffsets[9] = {
+} adjecantNodesOffsets[9] = {
     {-1, -1}, // 6 = 2^6 = 64  = BOTTOM LEFT
     {-1, 0},  // 2 = 2^2 = 4   = LEFT
     {-1, 1},  // 4 = 2^4 = 16  = TOP LEFT
@@ -21,8 +21,7 @@ constexpr struct
     {1, 1}    // 5 = 2^5 = 32  = TOP RIGHT
 };
 
-Map::Map(int columns, int rows)
-    : _mapNodes((columns + 1) * (rows + 1)), _columns(columns + 1), _rows(rows + 1)
+Map::Map(int columns, int rows) : _mapNodes((columns + 1) * (rows + 1)), _columns(columns + 1), _rows(rows + 1)
 {
   _mapNodes.reserve(_rows * _columns);
   initMap();
@@ -32,7 +31,7 @@ void Map::initMap()
 {
   int z = 0;
 
-  // cells need to be created at the correct vector "coordinates", or else the Z-Order will be broken
+  // nodes need to be created at the correct vector "coordinates", or else the Z-Order will be broken
   for (int x = 0; x <= Settings::Instance().settings.mapSize; x++)
   {
     for (int y = Settings::Instance().settings.mapSize; y >= 0; y--)
@@ -86,7 +85,7 @@ void Map::updateNeightbors(const Point &isoCoordinates)
       // set elevation bitmask for each neighbor
       it->setElevationBitmask(elevationBitmask);
 
-      // there can't be a height difference greater then 1 between two map cells.
+      // there can't be a height difference greater then 1 between two map nodes.
       // only increase the cardinal directions
       if (i % 2)
       {
@@ -116,9 +115,9 @@ void Map::updateNeightbors(const Point &isoCoordinates)
         if (Resources::getTerrainEditMode() == Resources::TERRAIN_LOWER)
         {
           //decreaseHeight(it->getCoordinates());
-          NeighborMatrix loweredCellNeighbors;
-          getNeighbors(it->getCoordinates(), loweredCellNeighbors);
-          for (const auto &it : loweredCellNeighbors)
+          NeighborMatrix loweredNodesNeighbors;
+          getNeighbors(it->getCoordinates(), loweredNodesNeighbors);
+          for (const auto &it : loweredNodesNeighbors)
           {
             if (it)
             {
@@ -141,7 +140,7 @@ unsigned int Map::getElevatedNeighborBitmask(const Point &isoCoordinates)
   int x = isoCoordinates.x;
   int y = isoCoordinates.y;
 
-  std::pair<int, int> adjecantCellCoordinates[8] = {
+  std::pair<int, int> adjecantNodesCoordinates[8] = {
       std::make_pair(x, y + 1),     // 0 = 2^0 = 1   = TOP
       std::make_pair(x, y - 1),     // 1 = 2^1 = 2   = BOTTOM
       std::make_pair(x - 1, y),     // 2 = 2^2 = 4   = LEFT
@@ -153,7 +152,7 @@ unsigned int Map::getElevatedNeighborBitmask(const Point &isoCoordinates)
   };
 
   int i = 0;
-  for (const auto &it : adjecantCellCoordinates)
+  for (const auto &it : adjecantNodesCoordinates)
   {
     if (it.first >= 0 && it.first < _rows && it.second >= 0 && it.second < _columns)
     {
@@ -173,7 +172,7 @@ unsigned int Map::getElevatedNeighborBitmask(const Point &isoCoordinates)
 void Map::getNeighbors(const Point &isoCoordinates, NeighborMatrix &result) const
 {
   size_t idx = 0;
-  for (const auto &it : adjecantCellOffsets)
+  for (const auto &it : adjecantNodesOffsets)
   {
     int x = isoCoordinates.x + it.x;
     int y = isoCoordinates.y + it.y;
@@ -188,7 +187,7 @@ void Map::getNeighbors(const Point &isoCoordinates, NeighborMatrix &result) cons
     ++idx;
   }
 }
-void Map::renderMatrix()
+void Map::renderMap()
 {
   for (auto it : _mapNodesInDrawingOrder)
   {

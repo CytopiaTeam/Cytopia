@@ -8,10 +8,9 @@
 
 #include "../sprite.hxx"
 #include "../basics/point.hxx"
-#include "../tile.hxx"
 
-/** @brief Class that holds map cells
- * Each tile is represented by the map cell class.   
+/** @brief Class that holds map nodes
+ * Each tile is represented by the map nodes class.
  */
 class MapNode
 {
@@ -20,24 +19,24 @@ public:
   ~MapNode() = default;
 
   /** @brief get Sprite
-    * get the Sprite* object for this cell
+    * get the Sprite* object for this nodes
     * @see Sprite
     */
   Sprite *getSprite() { return _sprite.get(); };
 
-  /// get iso coordinates of this cell
+  /// get iso coordinates of this node
   const Point &getCoordinates() { return _isoCoordinates; };
 
   /** @brief get Tile ID
-    * Retrieves the current Tile ID of this map cell
+    * Retrieves the current Tile ID of this map node
     * @return Returns the current Tile ID as Integer
     */
   int getTileID() { return _tileID; };
 
   /** @brief set Tile ID
-  * Change the texture of the map cell to a specific tile id and changes the texture of the cells sprite
+  * Change the texture of the map node to a specific tile id and changes the texture of the nodes sprite
   * @see Resources#readTileListFile
-  * @param tileID The tileID that should be rendered for this map cell
+  * @param tileID The tileID that should be rendered for this map node
   */
   void setTileID(int tileID)
   {
@@ -46,19 +45,19 @@ public:
   };
 
   /** @brief Increase Height
-    * Increases the height of the cell and its sprite
-    * This function should not be called directly, but only from where the neighboring cells slopes are determined
+    * Increases the height of the node and its sprite
+    * This function should not be called directly, but only from where the neighboring nodes slopes are determined
     */
   void increaseHeight();
 
   /** @brief Decrease Height 
-    * Decreases the height of the cell and its sprite
-    * This function should not be called directly, but only from where the neighboring cells slopes are determined
+    * Decreases the height of the node and its sprite
+    * This function should not be called directly, but only from where the neighboring nodes slopes are determined
     */
   void decreaseHeight();
 
   /** @brief Render MapNode
-  * Renders the sprite object(s) of the cell
+  * Renders the sprite object(s) of the node
   */
   void render();
 
@@ -79,7 +78,7 @@ private:
   SDL_Window *_window;
 
   int _tileID;
-  int _maxCellHeight = 32;
+  int _maxHeight = 32;
 
   std::string _type = "Terrain";
   std::string _orientation = "default";

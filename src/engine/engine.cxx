@@ -14,7 +14,7 @@ Engine::Engine()
   _window = Resources::getWindow();
   _map_size = Settings::Instance().settings.mapSize;
 
-  _mapCellMatrix = Map(_map_size, _map_size);
+  _map = Map(_map_size, _map_size);
   _zoomLevel = Resources::getZoomLevel();
 
   // Default: Floor and Buildings are drawn
@@ -28,7 +28,7 @@ Engine::Engine()
   centerScreenOnPoint(_centerIsoCoordinates);
 }
 
-void Engine::render() { _mapCellMatrix.renderMatrix(); }
+void Engine::render() { _map.renderMap(); }
 
 void Engine::centerScreenOnPoint(const Point &isoCoordinates)
 {
@@ -43,7 +43,7 @@ void Engine::centerScreenOnPoint(const Point &isoCoordinates)
     y = static_cast<int>((screenCoordinates.y + (_tileSize * _zoomLevel) * 0.75) - _screen_height * 0.5);
 
     Resources::setCameraOffset(Point{x, y, 0, 0});
-    _mapCellMatrix.refresh();
+    _map.refresh();
   }
 }
 
@@ -55,13 +55,13 @@ bool Engine::isPointWithinBoundaries(const Point &isoCoordinates)
 void Engine::increaseHeight(const Point &isoCoordinates)
 {
   Resources::setTerrainEditMode(Resources::TERRAIN_RAISE);
-  _mapCellMatrix.increaseHeight(isoCoordinates);
+  _map.increaseHeight(isoCoordinates);
 }
 
 void Engine::decreaseHeight(const Point &isoCoordinates)
 {
   Resources::setTerrainEditMode(Resources::TERRAIN_LOWER);
-  _mapCellMatrix.decreaseHeight(isoCoordinates);
+  _map.decreaseHeight(isoCoordinates);
 }
 
 void Engine::increaseZoomLevel()
@@ -72,7 +72,7 @@ void Engine::increaseZoomLevel()
   {
     Resources::setZoomLevel(_zoomLevel + 0.25f);
     centerScreenOnPoint(_centerIsoCoordinates);
-    _mapCellMatrix.refresh();
+    _map.refresh();
   }
 }
 
@@ -84,22 +84,22 @@ void Engine::decreaseZoomLevel()
   {
     Resources::setZoomLevel(_zoomLevel - 0.25f);
     centerScreenOnPoint(_centerIsoCoordinates);
-    _mapCellMatrix.refresh();
+    _map.refresh();
   }
 }
 
-Point Engine::findCellAt(const Point &screenCoordinates)
+Point Engine::findNodeInMap(const Point &screenCoordinates)
 {
   Point foundCoordinates{-1, -1, 0, 0};
 
-  // check all cells of the map to find the clicked point
+  // check all nodes of the map to find the clicked point
   for (int x = 0; x <= _map_size; x++)
   {
     for (int y = _map_size; y >= 0; y--)
     {
-      MapNode *currentCell = _mapCellMatrix.getNode(x, y);
+      MapNode *currentNode = _map.getNode(x, y);
 
-      SDL_Rect spriteRect = currentCell->getSprite()->getTextureInformation();
+      SDL_Rect spriteRect = currentNode->getSprite()->getTextureInformation();
 
       int clickedX = screenCoordinates.x;
       int clickedY = screenCoordinates.y;
@@ -117,12 +117,12 @@ Point Engine::findCellAt(const Point &screenCoordinates)
         pixelY = static_cast<int>(pixelY / _zoomLevel);
 
         // Check if the clicked Sprite is not transparent (we hit a point within the pixel)
-        if (TextureManager::Instance().getPixelColor(currentCell->getType(), currentCell->getOrientation(), pixelX, pixelY).a !=
+        if (TextureManager::Instance().getPixelColor(currentNode->getType(), currentNode->getOrientation(), pixelX, pixelY).a !=
             SDL_ALPHA_TRANSPARENT)
         {
-          if (foundCoordinates.z < currentCell->getCoordinates().z)
+          if (foundCoordinates.z < currentNode->getCoordinates().z)
           {
-            foundCoordinates = currentCell->getCoordinates();
+            foundCoordinates = currentNode->getCoordinates();
           }
         }
       }
