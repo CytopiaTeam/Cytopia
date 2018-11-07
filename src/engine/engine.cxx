@@ -68,7 +68,7 @@ void Engine::increaseZoomLevel()
 {
   _zoomLevel = Resources::getZoomLevel();
 
-  if (_zoomLevel < 2.0f)
+  if (_zoomLevel < 4.0f)
   {
     Resources::setZoomLevel(_zoomLevel + 0.25f);
     centerScreenOnPoint(_centerIsoCoordinates);
