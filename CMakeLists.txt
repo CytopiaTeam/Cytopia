@@ -43,8 +43,8 @@ add_executable(${PROJECT_NAME}
   src/engine/basics/timer.cxx
   src/engine/basics/timer.hxx
   src/engine/basics/utils.hxx
-  src/engine/basics/vectorMatrix.cxx
-  src/engine/basics/vectorMatrix.hxx
+  src/engine/GameObjects/mapNode.cxx
+  src/engine/GameObjects/mapNode.hxx
   src/engine/ui/bar.cxx
   src/engine/ui/bar.hxx
   src/engine/ui/button.cxx
@@ -69,12 +69,12 @@ add_executable(${PROJECT_NAME}
   src/engine/audio/music.hxx
   src/engine/audioMixer.cxx
   src/engine/audioMixer.hxx
-  src/engine/cell.cxx
-  src/engine/cell.hxx
   src/engine/engine.cxx
   src/engine/engine.hxx
   src/engine/eventManager.cxx
   src/engine/eventManager.hxx
+  src/engine/map.cxx
+  src/engine/map.hxx
   src/engine/sprite.cxx
   src/engine/sprite.hxx
   src/engine/textureManager.cxx

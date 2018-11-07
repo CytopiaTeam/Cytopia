@@ -1,24 +1,23 @@
-#ifndef CELL_HXX_
-#define CELL_HXX_
+#ifndef MAPNODE_HXX_
+#define MAPNODE_HXX_
 
 #include "SDL2/SDL.h"
 
 #include <memory>
-// TODO_ Remove this after changing type to an enum
 #include <string>
-#include "sprite.hxx"
-#include "basics/point.hxx"
 
-#include "tile.hxx"
+#include "../sprite.hxx"
+#include "../basics/point.hxx"
+#include "../tile.hxx"
 
 /** @brief Class that holds map cells
  * Each tile is represented by the map cell class.   
  */
-class Cell
+class MapNode
 {
 public:
-  explicit Cell(Point isoCoordinates);
-  ~Cell() = default;
+  explicit MapNode(Point isoCoordinates);
+  ~MapNode() = default;
 
   /** @brief get Sprite
     * get the Sprite* object for this cell
@@ -50,15 +49,15 @@ public:
     * Increases the height of the cell and its sprite
     * This function should not be called directly, but only from where the neighboring cells slopes are determined
     */
-  void increaseHeightOfCell();
+  void increaseHeight();
 
   /** @brief Decrease Height 
     * Decreases the height of the cell and its sprite
     * This function should not be called directly, but only from where the neighboring cells slopes are determined
     */
-  void decreaseHeightOfCell();
+  void decreaseHeight();
 
-  /** @brief Render Cell
+  /** @brief Render MapNode
   * Renders the sprite object(s) of the cell
   */
   void render();
@@ -79,7 +78,6 @@ private:
   SDL_Renderer *_renderer;
   SDL_Window *_window;
 
-  int _heightOffset = 20; // Offset for Y Coordinate between two height levels
   int _tileID;
   int _maxCellHeight = 32;
 

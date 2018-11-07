@@ -5,7 +5,7 @@
 
 #include "windowManager.hxx"
 #include "basics/point.hxx"
-#include "basics/vectorMatrix.hxx"
+#include "map.hxx"
 
 class Engine
 {
@@ -21,7 +21,7 @@ public:
   Engine(Engine const &) = delete;
   Engine &operator=(Engine const &) = delete;
 
-  /** Renders the sprites in each Map Cell */
+  /** Renders the sprites in each Map MapNode */
   void render();
 
   /** \brief Check if given coordinates are within boundaries
@@ -60,24 +60,24 @@ public:
 
   /** @brief Increase Height
     * Increases the height of the given map cell 
-    * Calls the according function of the vectorMatrix object that holds the terrain cell and draws the slopes
+    * Calls the according function of the Map object that holds the terrain cell and draws the slopes
     * @param isoCoordinates the isometric coordinates of the map cell that should be raised
-    * @see vectorMatrix#increaseHeightOfCell
+    * @see Map#increaseHeight
     */
-  void increaseHeightOfCell(const Point &isoCoordinates);
+  void increaseHeight(const Point &isoCoordinates);
 
   /** @brief Decrease Height
     * Decreases the height of the given map cell
-    * Calls the according function of the vectorMatrix object that holds the terrain cell and draws the slopes.
+    * Calls the according function of the Map object that holds the terrain cell and draws the slopes.
     * @param isoCoordinates the isometric coordinates of the map cell that should be lowered
-    * @see vectorMatrix#decreaseHeightOfCell
+    * @see Map#decreaseHeight
     */
-  void decreaseHeightOfCell(const Point &isoCoordinates);
+  void decreaseHeight(const Point &isoCoordinates);
 
   void increaseZoomLevel();
   void decreaseZoomLevel();
 
-  /** Returns a Cell at given screen coordinates, determined by pixel collison and Z-Order
+  /** Returns a MapNode at given screen coordinates, determined by pixel collison and Z-Order
     * @param screenCoordinates   Point Oject - Mouseclick coordinates in screen Format
     * @return Isocoordinates of the tile that has been found
     */
@@ -106,8 +106,8 @@ private:
   Point _cameraOffset;
   Point _centerIsoCoordinates;
 
-  /// vectorMatrix that holds shared_ptr Cell objects
-  vectorMatrix _mapCellMatrix;
+  /// Map that holds shared_ptr MapNode objects
+  Map _mapCellMatrix;
 
   /// Uint for storing a bitmask (Layers Enum)
   unsigned int _activeLayers;

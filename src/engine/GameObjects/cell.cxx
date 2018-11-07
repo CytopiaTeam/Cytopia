@@ -4,12 +4,12 @@
 
 #include "basics/log.hxx"
 
-Cell::Cell(Point isoCoordinates) : _isoCoordinates(std::move(isoCoordinates)), _tileID(14)
+MapNode::MapNode(Point isoCoordinates) : _isoCoordinates(std::move(isoCoordinates)), _tileID(14)
 {
   _sprite = std::make_unique<Sprite>(Tile::getTexture(_type, _orientation), _isoCoordinates);
 }
 
-void Cell::increaseHeightOfCell()
+void MapNode::increaseHeight()
 {
   int height = _isoCoordinates.height;
 
@@ -20,7 +20,7 @@ void Cell::increaseHeightOfCell()
   }
 }
 
-void Cell::decreaseHeightOfCell()
+void MapNode::decreaseHeight()
 {
   int height = _isoCoordinates.height;
 
@@ -31,9 +31,9 @@ void Cell::decreaseHeightOfCell()
   }
 }
 
-void Cell::render() { _sprite->render(); }
+void MapNode::render() { _sprite->render(); }
 
-void Cell::setElevationBitmask(unsigned char bitmask)
+void MapNode::setElevationBitmask(unsigned char bitmask)
 {
   _elevationBitmask = bitmask;
   _orientation = Tile::caluclateOrientation(bitmask);

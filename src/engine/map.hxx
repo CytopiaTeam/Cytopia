@@ -1,43 +1,43 @@
-#ifndef VECTORMATRIX_HXX_
-#define VECTORMATRIX_HXX_
+#ifndef MAP_HXX_
+#define MAP_HXX_
 
 #include <vector>
 
-#include "../cell.hxx"
+#include "GameObjects/mapNode.hxx"
 
-class vectorMatrix
+class Map
 {
 public:
-  //fixed Cell* array to store neighbors.
-  using NeighborMatrix = Cell * [9];
+  //fixed MapNode* array to store neighbors.
+  using NeighborMatrix = MapNode * [9];
 
-  vectorMatrix() = default;
-  vectorMatrix(int columns, int rows);
-  ~vectorMatrix() = default;
+  Map() = default;
+  Map(int columns, int rows);
+  ~Map() = default;
 
-  Cell *getCell(int x, int y) { return _cellMatrix[x * _columns + y]; };
+  MapNode *getNode(int x, int y) { return _mapNodes[x * _columns + y]; };
 
   /** \brief Initialize the vecotrMatrix with cell objects
-    * Initialize the vectorMatrix with cell objects
+    * Initialize the Map with cell objects
     */
-  void initCells();
+  void initMap();
 
   /** \brief Increase Height
     * Increases the height of the cell and checks the surrounding tiles. Either draw a slope sprite or elevate the tile if 
     * necessary. 
     * @param isoCoordinates the isometric coordinates of the tile that should be elevated
     */
-  void increaseHeightOfCell(const Point &isoCoordinates);
+  void increaseHeight(const Point &isoCoordinates);
 
   /** \brief Decrease Height
     * Decreases the height of the cell and checks the surrounding tiles. Either draw a slope sprite or lower the tile if
     * necessary.
     * @param isoCoordinates the isometric coordinates of the tile that should be elevated
     */
-  void decreaseHeightOfCell(const Point &isoCoordinates);
+  void decreaseHeight(const Point &isoCoordinates);
 
   /** \Brief Render the elements contained in the matrixx
-    * call the render() function of the sprite in the all contained Cell elements
+    * call the render() function of the sprite in the all contained MapNode elements
     * @see Sprite#render
     */
   void renderMatrix();
@@ -45,15 +45,15 @@ public:
   void refresh();
 
 private:
-  std::vector<Cell *> _cellMatrix;
-  std::vector<Cell *> _cellMatrixDrawingOrder;
+  std::vector<MapNode *> _mapNodes;
+  std::vector<MapNode *> _mapNodesInDrawingOrder;
 
   int _columns;
   int _rows;
 
   void updateNeightbors(const Point &isoCoordinates);
 
-  /**\brief Get neighbor Cell Objects
+  /**\brief Get neighbor MapNode Objects
     * Stores pointers to the neighboring cells of the given coordinates in the passed parameter.
     * @param Point isoCoordinates - isometric coordinates of the tile that's neighbors should be retrieved.
     * @param NeighborMatrix result - Pass a ref of type neighbormatrix to store the found neighbors in.

@@ -60,7 +60,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           benchmarkTimer.start();
           for (int i = 0; i <= Settings::Instance().settings.maxElevationHeight; i++)
           {
-            engine.increaseHeightOfCell(Point{64, 64, 0, 0});
+            engine.increaseHeight(Point{64, 64, 0, 0});
           }
           LOG() << "Done. Elevation took " << benchmarkTimer.getElapsedTime() << "ms";
           break;
@@ -74,10 +74,10 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           if (engine.isPointWithinBoundaries(clickCoords))
           {
             if (Resources::getTerrainEditMode() == Resources::TERRAIN_RAISE)
-              engine.increaseHeightOfCell(clickCoords);
+              engine.increaseHeight(clickCoords);
             else if (Resources::getTerrainEditMode() == Resources::TERRAIN_LOWER)
             {
-              engine.decreaseHeightOfCell(clickCoords);
+              engine.decreaseHeight(clickCoords);
             }
             else
               LOG() << "CLICKED - Iso Coords: " << clickCoords.x << ", " << clickCoords.y;

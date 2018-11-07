@@ -1,8 +1,8 @@
-#include "vectorMatrix.hxx"
+#include "map.hxx"
 
-#include "settings.hxx"
-#include "resources.hxx"
-#include "log.hxx"
+#include "basics/settings.hxx"
+#include "basics/resources.hxx"
+#include "basics/log.hxx"
 
 constexpr struct
 {
@@ -21,14 +21,14 @@ constexpr struct
     {1, 1}    // 5 = 2^5 = 32  = TOP RIGHT
 };
 
-vectorMatrix::vectorMatrix(int columns, int rows)
-    : _cellMatrix((columns + 1) * (rows + 1)), _columns(columns + 1), _rows(rows + 1)
+Map::Map(int columns, int rows)
+    : _mapNodes((columns + 1) * (rows + 1)), _columns(columns + 1), _rows(rows + 1)
 {
-  _cellMatrix.reserve(_rows * _columns);
-  initCells();
+  _mapNodes.reserve(_rows * _columns);
+  initMap();
 }
 
-void vectorMatrix::initCells()
+void Map::initMap()
 {
   int z = 0;
 
@@ -37,41 +37,41 @@ void vectorMatrix::initCells()
   {
     for (int y = Settings::Instance().settings.mapSize; y >= 0; y--)
     {
-      _cellMatrix[x * _columns + y] = new Cell(Point{x, y, z++, 0});
-      _cellMatrixDrawingOrder.push_back(_cellMatrix[x * _columns + y]);
+      _mapNodes[x * _columns + y] = new MapNode(Point{x, y, z++, 0});
+      _mapNodesInDrawingOrder.push_back(_mapNodes[x * _columns + y]);
     }
   }
 }
 
-void vectorMatrix::increaseHeightOfCell(const Point &isoCoordinates)
+void Map::increaseHeight(const Point &isoCoordinates)
 {
-  int height = _cellMatrix[isoCoordinates.x * _columns + isoCoordinates.y]->getCoordinates().height;
+  int height = _mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->getCoordinates().height;
 
   if (height < Settings::Instance().settings.maxElevationHeight)
   {
-    _cellMatrix[isoCoordinates.x * _columns + isoCoordinates.y]->increaseHeightOfCell();
-    updateNeightbors(_cellMatrix[isoCoordinates.x * _columns + isoCoordinates.y]->getCoordinates());
+    _mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->increaseHeight();
+    updateNeightbors(_mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->getCoordinates());
     // TODO call refresh properly
-    _cellMatrix[isoCoordinates.x * _columns + isoCoordinates.y]->getSprite()->refresh();
+    _mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->getSprite()->refresh();
   }
 }
 
-void vectorMatrix::decreaseHeightOfCell(const Point &isoCoordinates)
+void Map::decreaseHeight(const Point &isoCoordinates)
 {
-  int height = _cellMatrix[isoCoordinates.x * _columns + isoCoordinates.y]->getCoordinates().height;
+  int height = _mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->getCoordinates().height;
 
   if (height > 0)
   {
-    _cellMatrix[isoCoordinates.x * _columns + isoCoordinates.y]->decreaseHeightOfCell();
-    updateNeightbors(_cellMatrix[isoCoordinates.x * _columns + isoCoordinates.y]->getCoordinates());
-    _cellMatrix[isoCoordinates.x * _columns + isoCoordinates.y]->getSprite()->refresh();
+    _mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->decreaseHeight();
+    updateNeightbors(_mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->getCoordinates());
+    _mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->getSprite()->refresh();
   }
 }
 
-void vectorMatrix::updateNeightbors(const Point &isoCoordinates)
+void Map::updateNeightbors(const Point &isoCoordinates)
 {
   unsigned char elevationBitmask;
-  int tileHeight = _cellMatrix[isoCoordinates.x * _columns + isoCoordinates.y]->getCoordinates().height;
+  int tileHeight = _mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->getCoordinates().height;
 
   NeighborMatrix matrix;
   getNeighbors(isoCoordinates, matrix);
@@ -92,11 +92,11 @@ void vectorMatrix::updateNeightbors(const Point &isoCoordinates)
       {
         if (tileHeight - it->getCoordinates().height > 1)
         {
-          increaseHeightOfCell(it->getCoordinates());
+          increaseHeight(it->getCoordinates());
         }
         else if (tileHeight - it->getCoordinates().height < -1)
         {
-          decreaseHeightOfCell(it->getCoordinates());
+          decreaseHeight(it->getCoordinates());
         }
       }
 
@@ -111,11 +111,11 @@ void vectorMatrix::updateNeightbors(const Point &isoCoordinates)
       }
       if (raise)
       {
-        increaseHeightOfCell(it->getCoordinates());
+        increaseHeight(it->getCoordinates());
 
         if (Resources::getTerrainEditMode() == Resources::TERRAIN_LOWER)
         {
-          //decreaseHeightOfCell(it->getCoordinates());
+          //decreaseHeight(it->getCoordinates());
           NeighborMatrix loweredCellNeighbors;
           getNeighbors(it->getCoordinates(), loweredCellNeighbors);
           for (const auto &it : loweredCellNeighbors)
@@ -124,7 +124,7 @@ void vectorMatrix::updateNeightbors(const Point &isoCoordinates)
             {
               if (it->getCoordinates().height > tileHeight)
               {
-                decreaseHeightOfCell(it->getCoordinates());
+                decreaseHeight(it->getCoordinates());
               }
             }
           }
@@ -135,7 +135,7 @@ void vectorMatrix::updateNeightbors(const Point &isoCoordinates)
   }
 }
 
-unsigned int vectorMatrix::getElevatedNeighborBitmask(const Point &isoCoordinates)
+unsigned int Map::getElevatedNeighborBitmask(const Point &isoCoordinates)
 {
   unsigned int bitmask = 0;
   int x = isoCoordinates.x;
@@ -157,9 +157,9 @@ unsigned int vectorMatrix::getElevatedNeighborBitmask(const Point &isoCoordinate
   {
     if (it.first >= 0 && it.first < _rows && it.second >= 0 && it.second < _columns)
     {
-      if (_cellMatrix[it.first * _columns + it.second]->getCoordinates().height >
-              _cellMatrix[x * _columns + y]->getCoordinates().height &&
-          _cellMatrix[it.first * _columns + it.second])
+      if (_mapNodes[it.first * _columns + it.second]->getCoordinates().height >
+              _mapNodes[x * _columns + y]->getCoordinates().height &&
+          _mapNodes[it.first * _columns + it.second])
       {
         // for each found tile add 2 ^ i to the bitmask
         bitmask |= static_cast<unsigned int>(1 << i);
@@ -170,7 +170,7 @@ unsigned int vectorMatrix::getElevatedNeighborBitmask(const Point &isoCoordinate
   return bitmask;
 }
 
-void vectorMatrix::getNeighbors(const Point &isoCoordinates, NeighborMatrix &result) const
+void Map::getNeighbors(const Point &isoCoordinates, NeighborMatrix &result) const
 {
   size_t idx = 0;
   for (const auto &it : adjecantCellOffsets)
@@ -179,7 +179,7 @@ void vectorMatrix::getNeighbors(const Point &isoCoordinates, NeighborMatrix &res
     int y = isoCoordinates.y + it.y;
     if (x >= 0 && x < _rows && y >= 0 && y < _columns)
     {
-      result[idx] = _cellMatrix[x * _columns + y];
+      result[idx] = _mapNodes[x * _columns + y];
     }
     else
     {
@@ -188,17 +188,17 @@ void vectorMatrix::getNeighbors(const Point &isoCoordinates, NeighborMatrix &res
     ++idx;
   }
 }
-void vectorMatrix::renderMatrix()
+void Map::renderMatrix()
 {
-  for (auto it : _cellMatrixDrawingOrder)
+  for (auto it : _mapNodesInDrawingOrder)
   {
     it->render();
   }
 }
 
-void vectorMatrix::refresh()
+void Map::refresh()
 {
-  for (auto it : _cellMatrixDrawingOrder)
+  for (auto it : _mapNodesInDrawingOrder)
   {
     it->getSprite()->refresh();
   }

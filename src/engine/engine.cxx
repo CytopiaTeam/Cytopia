@@ -2,7 +2,7 @@
 
 #include "basics/resources.hxx"
 #include "basics/settings.hxx"
-#include "cell.hxx"
+#include "GameObjects/mapNode.hxx"
 #include "textureManager.hxx"
 
 Engine::Engine()
@@ -14,7 +14,7 @@ Engine::Engine()
   _window = Resources::getWindow();
   _map_size = Settings::Instance().settings.mapSize;
 
-  _mapCellMatrix = vectorMatrix(_map_size, _map_size);
+  _mapCellMatrix = Map(_map_size, _map_size);
   _zoomLevel = Resources::getZoomLevel();
 
   // Default: Floor and Buildings are drawn
@@ -52,16 +52,16 @@ bool Engine::isPointWithinBoundaries(const Point &isoCoordinates)
   return (isoCoordinates.x >= 0 && isoCoordinates.x <= _map_size) && (isoCoordinates.y >= 0 && isoCoordinates.y <= _map_size);
 }
 
-void Engine::increaseHeightOfCell(const Point &isoCoordinates)
+void Engine::increaseHeight(const Point &isoCoordinates)
 {
   Resources::setTerrainEditMode(Resources::TERRAIN_RAISE);
-  _mapCellMatrix.increaseHeightOfCell(isoCoordinates);
+  _mapCellMatrix.increaseHeight(isoCoordinates);
 }
 
-void Engine::decreaseHeightOfCell(const Point &isoCoordinates)
+void Engine::decreaseHeight(const Point &isoCoordinates)
 {
   Resources::setTerrainEditMode(Resources::TERRAIN_LOWER);
-  _mapCellMatrix.decreaseHeightOfCell(isoCoordinates);
+  _mapCellMatrix.decreaseHeight(isoCoordinates);
 }
 
 void Engine::increaseZoomLevel()
@@ -97,7 +97,7 @@ Point Engine::findCellAt(const Point &screenCoordinates)
   {
     for (int y = _map_size; y >= 0; y--)
     {
-      Cell *currentCell = _mapCellMatrix.getCell(x, y);
+      MapNode *currentCell = _mapCellMatrix.getNode(x, y);
 
       SDL_Rect spriteRect = currentCell->getSprite()->getTextureInformation();
 
