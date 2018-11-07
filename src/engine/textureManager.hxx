@@ -6,6 +6,8 @@
 
 #include "SDL2/SDL.h"
 
+#include "tile.hxx"
+
 enum ButtonState
 {
   BUTTONSTATE_DEFAULT,
@@ -29,18 +31,15 @@ public:
   TextureManager &operator=(TextureManager const &) = delete;
 
   /** retrieves texture for a tileID */
-  SDL_Texture *getTileTexture(int tileID);
-  SDL_Texture *getUITexture(int uiSpriteID, int buttonState = BUTTONSTATE_DEFAULT);
-
-  SDL_Surface *getTileSurface(int tileID);
-  SDL_Surface *getUISurface(int uiSpriteID);
+  SDL_Texture *getTileTexture(const std::string &type, const std::string &orientation = "");
+  SDL_Texture *getUITexture(const std::string &uiElement, int buttonState = BUTTONSTATE_DEFAULT);
 
   /** Retrieves Color of a specific tileID at coordinates with the texture */
-  const SDL_Color getPixelColor(int tileID, int X, int Y);
+  const SDL_Color getPixelColor(const std::string &type, const std::string &orientation, int X, int Y);
 
 private:
-  TextureManager() = default;
-  ~TextureManager() = default;
+  TextureManager();
+  ~TextureManager();
 
   SDL_Renderer *_renderer;
   SDL_Window *_window;
@@ -50,17 +49,20 @@ private:
 
   If colorkey is set - Use Magic Pink (255,255,0) for transparency
   */
-  void loadTexture(int tileID, bool colorKey = false);
-  void loadUITexture(int uiSpriteID, bool colorKey = false);
+  void loadUITexture();
+  void loadTileTextures();
 
-  std::unordered_map<int, SDL_Texture *> _textureMap;
-  std::unordered_map<int, SDL_Texture *> _uiTextureMap;
-  std::unordered_map<int, SDL_Texture *> _uiTextureMapHover;
-  std::unordered_map<int, SDL_Texture *> _uiTextureMapPressed;
+  /** Delete everything. should be called from the destuctor only
+  */
+  void flush();
 
-  /** Keep surfaces in map for collision detection when selecting tiles*/
-  std::unordered_map<int, SDL_Surface *> _surfaceMap;
-  std::unordered_map<int, SDL_Surface *> _uiSurfaceMap;
+  SDL_Surface *createSurfaceFromFile(const std::string &fileName);
+  SDL_Texture *createTextureFromSurface(SDL_Surface *surface);
+
+  std::unordered_map<std::string, std::unordered_map<std::string, SDL_Texture *>> _uiTextureMap;
+
+  std::unordered_map<std::string, SDL_Texture *> _tileTextureMap;
+  std::unordered_map<std::string, SDL_Surface *> _surfaceMap;
 };
 
 #endif

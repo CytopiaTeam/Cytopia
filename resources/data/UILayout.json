@@ -5,7 +5,7 @@
     },
     {
       "Type": "ImageButton",
-      "SpriteID": 0,
+      "SpriteID": "Button_ConstructionMenu",
       "Position_x": 400,
       "Position_y": 520,
       "ParentOfGroup": "ConstructionSubMenu",
@@ -17,7 +17,7 @@
   "ConstructionSubMenu": [
     {
       "Type": "ImageButton",
-      "SpriteID": 1,
+      "SpriteID": "Button_ConstructionMenu_RaiseTerrain",
       "Position_x": 380,
       "Position_y": 470,
       "Action": "RaiseTerrain",
@@ -27,7 +27,7 @@
     },
     {
       "Type": "ImageButton",
-      "SpriteID": 2,
+      "SpriteID": "Button_ConstructionMenu_LowerTerrain",
       "Position_x": 420,
       "Position_y": 470,
       "Action": "LowerTerrain",

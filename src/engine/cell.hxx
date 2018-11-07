@@ -4,9 +4,12 @@
 #include "SDL2/SDL.h"
 
 #include <memory>
-
+// TODO_ Remove this after changing type to an enum
+#include <string>
 #include "sprite.hxx"
 #include "basics/point.hxx"
+
+#include "tile.hxx"
 
 /** @brief Class that holds map cells
  * Each tile is represented by the map cell class.   
@@ -39,7 +42,7 @@ public:
   */
   void setTileID(int tileID)
   {
-    _sprite->changeTexture(tileID);
+    //_sprite->changeTexture(tileID);
     _tileID = tileID;
   };
 
@@ -60,6 +63,15 @@ public:
   */
   void render();
 
+  void setElevationBitmask(unsigned char bitmask);
+
+  unsigned char getElevationBitmask() { return _elevationBitmask; };
+
+  void setType(const std::string &type) { _type = type; };
+
+  std::string getType() { return _type; };
+  std::string getOrientation() { return _orientation; };
+
 private:
   Point _isoCoordinates;
   std::unique_ptr<Sprite> _sprite;
@@ -70,6 +82,11 @@ private:
   int _heightOffset = 20; // Offset for Y Coordinate between two height levels
   int _tileID;
   int _maxCellHeight = 32;
+
+  std::string _type = "Terrain";
+  std::string _orientation = "default";
+
+  unsigned char _elevationBitmask = 0;
 };
 
 #endif

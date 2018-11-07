@@ -11,7 +11,6 @@ float Resources::_zoomLevel = 1.0;
 Point Resources::_cameraOffset;
 const int Resources::_tileSize = 32;
 int Resources::_terrainEditMode = Resources::NO_TERRAIN_EDIT;
-json Resources::_json;
 json Resources::_uiTextureFile;
 json Resources::_uiLayout;
 
@@ -118,12 +117,7 @@ std::unordered_map<unsigned int, int> Resources::slopeTileIDMap = {
 
 };
 
-void Resources::init()
-{
-  readTileListFile();
-  readUITextureListFile();
-  readUILayoutFile();
-}
+void Resources::init() { readUILayoutFile(); }
 
 Point Resources::convertScreenToIsoCoordinates(const Point &screenCoordinates)
 {
@@ -158,65 +152,6 @@ Point Resources::convertIsoToScreenCoordinates(const Point &isoCoordinates, bool
   return {x, y, 0, 0};
 }
 
-const std::string Resources::getTileDataFromJSON(const std::string &tileType, int tileID, const std::string &attribute)
-{
-  for (json::iterator it = _json.begin(); it != _json.end(); ++it)
-  {
-    if (it.key() == tileType)
-    {
-      // more json stuff later...
-    }
-  }
-
-  if (_json[tileType][std::to_string(tileID)]["filename"].is_null())
-  {
-    LOG(LOG_ERROR) << "Can't retrieve filename from " << Settings::Instance().settings.tileDataJSONFile << " for ID " << tileID;
-    // Application should quit here.
-  }
-  const std::string &retrievedFileName = _json[tileType][std::to_string(tileID)]["filename"].get<std::string>();
-  return retrievedFileName;
-}
-
-const std::string Resources::getUISpriteDataFromJSON(const std::string &uiType, int uiSpriteID, const std::string &attribute)
-{
-  for (json::iterator it = _uiTextureFile.begin(); it != _uiTextureFile.end(); ++it)
-  {
-    if (it.key() == uiType)
-    {
-      // more json stuff later...
-    }
-  }
-  if (_uiTextureFile[uiType][std::to_string(uiSpriteID)][attribute].is_null())
-  {
-
-    if (attribute == "filename")
-    {
-      LOG(LOG_ERROR) << "Can't retrieve attribute " << attribute << " from " << Settings::Instance().settings.uiDataJSONFile
-                     << " for ID " << uiSpriteID;
-    }
-    return {};
-  }
-
-  return _uiTextureFile[uiType][std::to_string(uiSpriteID)][attribute].get<std::string>();
-}
-
-void Resources::readTileListFile()
-{
-  std::ifstream i(Settings::Instance().settings.tileDataJSONFile);
-  if (i.fail())
-  {
-    LOG(LOG_ERROR) << "File " << Settings::Instance().settings.tileDataJSONFile
-                   << " does not exist! Cannot load settings from INI File!";
-    // Application should quit here, without textureData from the tileList file we can't continue
-    return;
-  }
-
-  // check if json file can be parsed
-  _json = json::parse(i, nullptr, false);
-  if (_json.is_discarded())
-    LOG(LOG_ERROR) << "Error parsing JSON File " << Settings::Instance().settings.tileDataJSONFile;
-}
-
 void Resources::readUILayoutFile()
 {
   std::ifstream i(Settings::Instance().settings.uiLayoutJSONFile);
@@ -233,24 +168,5 @@ void Resources::readUILayoutFile()
   if (_uiLayout.is_discarded())
   {
     LOG(LOG_ERROR) << "Error parsing JSON File " << Settings::Instance().settings.uiLayoutJSONFile;
-  }
-}
-
-void Resources::readUITextureListFile()
-{
-  std::ifstream i(Settings::Instance().settings.uiDataJSONFile);
-  if (i.fail())
-  {
-    LOG(LOG_ERROR) << "File " << Settings::Instance().settings.uiDataJSONFile
-                   << " does not exist! Cannot load settings from INI File!";
-    // Application should quit here, without textureData we can't continue
-    return;
-  }
-
-  // check if json file can be parsed
-  _uiTextureFile = json::parse(i, nullptr, false);
-  if (_uiTextureFile.is_discarded())
-  {
-    LOG(LOG_ERROR) << "Error parsing JSON File " << Settings::Instance().settings.uiDataJSONFile;
   }
 }

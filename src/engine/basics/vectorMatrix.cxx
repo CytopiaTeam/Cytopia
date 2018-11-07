@@ -50,7 +50,9 @@ void vectorMatrix::increaseHeightOfCell(const Point &isoCoordinates)
   if (height < Settings::Instance().settings.maxElevationHeight)
   {
     _cellMatrix[isoCoordinates.x * _columns + isoCoordinates.y]->increaseHeightOfCell();
-    drawSurroundingTiles(_cellMatrix[isoCoordinates.x * _columns + isoCoordinates.y]->getCoordinates());
+    updateNeightbors(_cellMatrix[isoCoordinates.x * _columns + isoCoordinates.y]->getCoordinates());
+    // TODO call refresh properly
+    _cellMatrix[isoCoordinates.x * _columns + isoCoordinates.y]->getSprite()->refresh();
   }
 }
 
@@ -61,103 +63,75 @@ void vectorMatrix::decreaseHeightOfCell(const Point &isoCoordinates)
   if (height > 0)
   {
     _cellMatrix[isoCoordinates.x * _columns + isoCoordinates.y]->decreaseHeightOfCell();
-    drawSurroundingTiles(_cellMatrix[isoCoordinates.x * _columns + isoCoordinates.y]->getCoordinates());
+    updateNeightbors(_cellMatrix[isoCoordinates.x * _columns + isoCoordinates.y]->getCoordinates());
+    _cellMatrix[isoCoordinates.x * _columns + isoCoordinates.y]->getSprite()->refresh();
   }
 }
 
-void vectorMatrix::drawSurroundingTiles(const Point &isoCoordinates)
+void vectorMatrix::updateNeightbors(const Point &isoCoordinates)
 {
+  unsigned char elevationBitmask;
   int tileHeight = _cellMatrix[isoCoordinates.x * _columns + isoCoordinates.y]->getCoordinates().height;
+
+  NeighborMatrix matrix;
+  getNeighbors(isoCoordinates, matrix);
+
   int i = 0;
-  int x = isoCoordinates.x;
-  int y = isoCoordinates.y;
-  int currentX, currentY;
-
-  for (const auto &it : adjecantCellOffsets)
+  for (const auto &it : matrix)
   {
-    currentX = x + it.x;
-    currentY = y + it.y;
-
-    if (currentX >= 0 && currentX < _rows && currentY >= 0 && currentY < _columns)
+    if (it)
     {
-      if (_cellMatrix[currentX * _columns + currentY])
-      {
-        Point currentCoords = _cellMatrix[currentX * _columns + currentY]->getCoordinates();
+      bool raise = false;
+      elevationBitmask = getElevatedNeighborBitmask(it->getCoordinates());
+      // set elevation bitmask for each neighbor
+      it->setElevationBitmask(elevationBitmask);
 
-        // there can't be a height difference greater then 1 between two map cells.
-        if (tileHeight - _cellMatrix[currentX * _columns + currentY]->getCoordinates().height > 1 &&
-            Resources::getTerrainEditMode() == Resources::TERRAIN_RAISE && i % 2)
+      // there can't be a height difference greater then 1 between two map cells.
+      // only increase the cardinal directions
+      if (i % 2)
+      {
+        if (tileHeight - it->getCoordinates().height > 1)
         {
-          increaseHeightOfCell(currentCoords);
+          increaseHeightOfCell(it->getCoordinates());
         }
-        else if (tileHeight - _cellMatrix[currentX * _columns + currentY]->getCoordinates().height < -1 &&
-                 Resources::getTerrainEditMode() == Resources::TERRAIN_LOWER && i % 2)
+        else if (tileHeight - it->getCoordinates().height < -1)
         {
-          decreaseHeightOfCell(currentCoords);
+          decreaseHeightOfCell(it->getCoordinates());
         }
-        determineTileIDOfCell(_cellMatrix[currentX * _columns + currentY]->getCoordinates());
-        _cellMatrix[currentX * _columns + currentY]->getSprite()->updateCoordinates();
+      }
+
+      // those bitmask combinations require the tile to be elevated.
+      std::vector<unsigned char> bits{3, 12, 26, 38, 73, 133};
+      for (auto it : bits)
+      {
+        if ((elevationBitmask & it) == it)
+        {
+          raise = true;
+        }
+      }
+      if (raise)
+      {
+        increaseHeightOfCell(it->getCoordinates());
+
+        if (Resources::getTerrainEditMode() == Resources::TERRAIN_LOWER)
+        {
+          //decreaseHeightOfCell(it->getCoordinates());
+          NeighborMatrix loweredCellNeighbors;
+          getNeighbors(it->getCoordinates(), loweredCellNeighbors);
+          for (const auto &it : loweredCellNeighbors)
+          {
+            if (it)
+            {
+              if (it->getCoordinates().height > tileHeight)
+              {
+                decreaseHeightOfCell(it->getCoordinates());
+              }
+            }
+          }
+        }
       }
     }
     i++;
-  }
-}
-
-void vectorMatrix::determineTileIDOfCell(const Point &isoCoordinates)
-{
-  unsigned int _elevatedTilePosition = 0;
-  int tileHeight = _cellMatrix[isoCoordinates.x * _columns + isoCoordinates.y]->getCoordinates().height;
-  int newTileID = -2; // set to -2 to determine if it's necessary to set a new tile ID
-
-  int x = isoCoordinates.x;
-  int y = isoCoordinates.y;
-  int currentX, currentY;
-
-  _elevatedTilePosition = getElevatedNeighborBitmask(isoCoordinates);
-  auto keyTileID = Resources::slopeTileIDMap.find(_elevatedTilePosition);
-
-  if (keyTileID != Resources::slopeTileIDMap.end())
-  {
-    newTileID = keyTileID->second;
-  }
-  // special case: if both opposite neighbors are elevated, the center tile also gets elevated
-  constexpr auto LEFT_and_RIGHT = ELEVATED_LEFT | ELEVATED_RIGHT;
-  constexpr auto TOP_and_BOTTOM = ELEVATED_TOP | ELEVATED_BOTTOM;
-
-  // LEFT-RIGHT / TOP-BOTTOM combinations are handled here because there are too many possible combinations
-  // check if it could help to also handle the other diagobal combinations here too.
-  if ((_elevatedTilePosition & LEFT_and_RIGHT) == LEFT_and_RIGHT || (_elevatedTilePosition & TOP_and_BOTTOM) == TOP_and_BOTTOM ||
-      newTileID == -1)
-  {
-    if (Resources::getTerrainEditMode() == Resources::TERRAIN_RAISE)
-    {
-      increaseHeightOfCell(_cellMatrix[isoCoordinates.x * _columns + isoCoordinates.y]->getCoordinates());
-    }
-    else if (Resources::getTerrainEditMode() == Resources::TERRAIN_LOWER)
-    {
-      for (const auto &it : adjecantCellOffsets)
-      {
-        currentX = x + it.x;
-        currentY = y + it.y;
-
-        if (_cellMatrix[currentX * _columns + currentY]->getCoordinates().height > tileHeight &&
-            _cellMatrix[currentX * _columns + currentY])
-        {
-          decreaseHeightOfCell(_cellMatrix[currentX * _columns + currentY]->getCoordinates());
-        }
-      }
-    }
-    // Tile gets elevated, so tile id must be 14
-    newTileID = 14;
-  }
-
-  if (newTileID != -2)
-  {
-    _cellMatrix[isoCoordinates.x * _columns + isoCoordinates.y]->setTileID(newTileID);
-  }
-  else
-  {
-    LOG(LOG_ERROR) << "It seems there is no combination for bitmask: " << _elevatedTilePosition;
   }
 }
 
@@ -222,10 +196,10 @@ void vectorMatrix::renderMatrix()
   }
 }
 
-void vectorMatrix::updateCoordinates()
+void vectorMatrix::refresh()
 {
   for (auto it : _cellMatrixDrawingOrder)
   {
-    it->getSprite()->updateCoordinates();
+    it->getSprite()->refresh();
   }
 }

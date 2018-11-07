@@ -1,56 +1,60 @@
 {
-    "buildings": {
-        "20": {
-            "filename": "resources/images/buildings/house.png",
-            "type": "building",
-            "zone": "residential"
-        }
+  "Terrain": [
+    {
+      "image": "resources/images/terrain/floor_0.png",
+      "orientation": "default"
     },
-    "terrain": {
-        "0": {
-            "filename": "resources/images/floor/floor_0.png"
-        },
-        "1": {
-            "filename": "resources/images/floor/floor_1.png"
-        },
-        "10": {
-            "filename": "resources/images/floor/floor_10.png"
-        },
-        "11": {
-            "filename": "resources/images/floor/floor_11.png"
-        },
-        "12": {
-            "filename": "resources/images/floor/floor_12.png"
-        },
-        "13": {
-            "filename": "resources/images/floor/floor_13.png"
-        },
-        "14": {
-            "filename": "resources/images/floor/floor_14.png"
-        },
-        "2": {
-            "filename": "resources/images/floor/floor_2.png"
-        },
-        "3": {
-            "filename": "resources/images/floor/floor_3.png"
-        },
-        "4": {
-            "filename": "resources/images/floor/floor_4.png"
-        },
-        "5": {
-            "filename": "resources/images/floor/floor_5.png"
-        },
-        "6": {
-            "filename": "resources/images/floor/floor_6.png"
-        },
-        "7": {
-            "filename": "resources/images/floor/floor_7.png"
-        },
-        "8": {
-            "filename": "resources/images/floor/floor_8.png"
-        },
-        "9": {
-            "filename": "resources/images/floor/floor_9.png"
-        }
+    {
+      "image": "resources/images/terrain/floor_center.png",
+      "orientation": "center"
+    },
+    {
+      "image": "resources/images/terrain/floor_n.png",
+      "orientation": "n"
+    },
+    {
+      "image": "resources/images/terrain/floor_e.png",
+      "orientation": "e"
+    },
+    {
+      "image": "resources/images/terrain/floor_s.png",
+      "orientation": "s"
+    },
+    {
+      "image": "resources/images/terrain/floor_w.png",
+      "orientation": "w"
+    },
+    {
+      "image": "resources/images/terrain/floor_n_and_e.png",
+      "orientation": "n_and_e"
+    },
+    {
+      "image": "resources/images/terrain/floor_n_and_w.png",
+      "orientation": "n_and_w"
+    },
+    {
+      "image": "resources/images/terrain/floor_s_and_e.png",
+      "orientation": "s_and_e"
+    },
+    {
+      "image": "resources/images/terrain/floor_s_and_w.png",
+      "orientation": "s_and_w"
+    },
+    {
+      "image": "resources/images/terrain/floor_ne.png",
+      "orientation": "ne"
+    },
+    {
+      "image": "resources/images/terrain/floor_nw.png",
+      "orientation": "nw"
+    },
+    {
+      "image": "resources/images/terrain/floor_se.png",
+      "orientation": "se"
+    },
+    {
+      "image": "resources/images/terrain/floor_sw.png",
+      "orientation": "sw"
     }
+  ]
 }

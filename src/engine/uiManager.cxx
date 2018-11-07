@@ -33,9 +33,9 @@ void UIManager::init()
         std::string parentOf;
         std::string tooltipText;
         std::string text;
+        std::string textureID;
 
         SDL_Rect elementRect = {0, 0, 0, 0};
-        int spriteID = -1;
 
         // Each element must have x and y values
         elementRect.x = uiLayout[it.key()][id]["Position_x"].get<int>();
@@ -51,7 +51,7 @@ void UIManager::init()
         }
         if (!uiLayout[it.key()][id]["SpriteID"].is_null())
         {
-          spriteID = uiLayout[it.key()][id]["SpriteID"].get<int>();
+          textureID = uiLayout[it.key()][id]["SpriteID"].get<std::string>();
         }
         if (!uiLayout[it.key()][id]["TooltipText"].is_null())
         {
@@ -79,7 +79,7 @@ void UIManager::init()
         if (uiLayout[it.key()][id]["Type"] == "ImageButton")
         {
           uiElement = std::make_shared<Button>(elementRect);
-          uiElement->setSpriteID(spriteID);
+          uiElement->setTextureID(textureID);
         }
         if (uiLayout[it.key()][id]["Type"] == "TextButton")
         {

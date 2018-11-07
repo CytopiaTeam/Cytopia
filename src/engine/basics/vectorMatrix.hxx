@@ -36,29 +36,13 @@ public:
     */
   void decreaseHeightOfCell(const Point &isoCoordinates);
 
-  /** \brief Get elevated neighbor positions in a bitmask
-    * Checks all neighboring tiles and returns the elevated neighbors in a bitmask: 
-    * [ T B L R TL TR BL BR ]
-    * [ 0 0 0 0  0  0  0  0 ]
-    * @param isoCoordinates isometric coordinates of the tile whose neighbors should be retrieved
-    * @returns  Uint that stores the elevated neighbor tiles
-    */
-  unsigned int getElevatedNeighborBitmask(const Point &isoCoordinates);
-
-  /**\brief Get neighbor Cell Objects
-    * Stores pointers to the neighboring cells of the given coordinates in the passed parameter.
-    * @param Point isoCoordinates - isometric coordinates of the tile that's neighbors should be retrieved.
-    * @param NeighborMatrix result - Pass a ref of type neighbormatrix to store the found neighbors in.
-    */
-  void getNeighbors(const Point &isoCoordinates, NeighborMatrix &result) const;
-
   /** \Brief Render the elements contained in the matrixx
     * call the render() function of the sprite in the all contained Cell elements
     * @see Sprite#render
     */
   void renderMatrix();
 
-  void updateCoordinates();
+  void refresh();
 
 private:
   std::vector<Cell *> _cellMatrix;
@@ -67,22 +51,23 @@ private:
   int _columns;
   int _rows;
 
-  /** \brief set tileID for each neighbor of given coordinates
-    * After a cell is raised / lowered, each neighbor must check which tileID it should have
-    * This function should not be called directly
-    * @param The isocoordinates of the cell that should have all of it's neighbors checked.
-    * @see Cell#drawSurroundingTiles
-    */
-  void drawSurroundingTiles(const Point &isoCoordinates);
+  void updateNeightbors(const Point &isoCoordinates);
 
-  /** \brief: determine which tile ID should be drawn for this cell
-    * Checks all the neighbors and determines the tile ID of this mapcell according to it's
-    * elevated / lowered neighbors.
-    * This function should not be called directly
-    * @param isoCoordinates the isometric coordinates of the cell whose tile ID should be determined.
-    * @see vectorMatrix#drawSurroundingTiles
+  /**\brief Get neighbor Cell Objects
+    * Stores pointers to the neighboring cells of the given coordinates in the passed parameter.
+    * @param Point isoCoordinates - isometric coordinates of the tile that's neighbors should be retrieved.
+    * @param NeighborMatrix result - Pass a ref of type neighbormatrix to store the found neighbors in.
     */
-  void determineTileIDOfCell(const Point &isoCoordinates);
+  void getNeighbors(const Point &isoCoordinates, NeighborMatrix &result) const;
+
+  /** \brief Get elevated neighbor positions in a bitmask
+  * Checks all neighboring tiles and returns the elevated neighbors in a bitmask:
+  * [ BR BL TR TL  R  L  B  T ]
+  * [ 0  0  0  0   0  0  0  0 ]
+  * @param isoCoordinates isometric coordinates of the tile whose neighbors should be retrieved
+  * @returns  Uint that stores the elevated neighbor tiles
+  */
+  unsigned int getElevatedNeighborBitmask(const Point &isoCoordinates);
 };
 
 #endif

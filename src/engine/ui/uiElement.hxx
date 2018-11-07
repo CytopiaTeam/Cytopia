@@ -169,9 +169,9 @@ public:
   /** \brief Set the uiElements sprite ID
   * Set the sprite ID this ui element. The texture will be retrieved from the textureManager for the according ID.
   * spriteIDs are mapped to image files in the UIData.json File in the resources/data dir.
-  * @param spriteID that should be used for this element as int.
+  * @param spriteID that should be used for this element as std::string.
   */
-  void setSpriteID(int uiSpriteID);
+  void setTextureID(const std::string &textureID);
 
   virtual void setText(const std::string &text);
 
@@ -187,7 +187,7 @@ private:
   int _buttonState = BUTTONSTATE_DEFAULT;
 
   /// set to -1 for no sprite texture
-  int _uiSpriteID = -1;
+  std::string _textureID;
   std::string _actionID;
   bool _visible = true;
 
