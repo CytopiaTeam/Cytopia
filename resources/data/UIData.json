@@ -5,9 +5,12 @@
     "Texture_Hovering": "resources/images/ui/buttons/Construction Menu hover.png"
   },
   "Button_ConstructionMenu_RaiseTerrain": {
-    "Texture_Default": "resources/images/ui/buttons/raise_terrain.png"
+    "Texture_Default": "resources/images/ui/buttons/raiseTerrain.png"
   },
   "Button_ConstructionMenu_LowerTerrain": {
-    "Texture_Default": "resources/images/ui/buttons/lower_terrain.png"
+    "Texture_Default": "resources/images/ui/buttons/lowerTerrain.png"
+  },
+  "Button_ConstructionMenu_LevelTerrain": {
+    "Texture_Default": "resources/images/ui/buttons/levelTerrain.png"
   }
 }

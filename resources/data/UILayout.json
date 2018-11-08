@@ -34,6 +34,16 @@
       "Layout": "BottomMenuExpansionGroup",
       "ToggleButton": true,
       "TooltipText": "Lower Terrain"
+    },
+    {
+      "Type": "ImageButton",
+      "SpriteID": "Button_ConstructionMenu_LevelTerrain",
+      "Position_x": 460,
+      "Position_y": 470,
+      "Action": "LevelTerrain",
+      "Layout": "BottomMenuExpansionGroup",
+      "ToggleButton": true,
+      "TooltipText": "Level Terrain"
     }
   ],
   "PauseMenu": [
