@@ -13,20 +13,6 @@ public:
   static SDL_Texture *getTexture(const std::string &type, const std::string &orientation);
   static std::string caluclateOrientation(unsigned char bitMaskElevation);
 
-private:
-  enum elevatedPosition : unsigned char
-  {
-    NO_NEIGHBORS = 0,
-    ELEVATED_TOP = 1,
-    ELEVATED_BOTTOM = 2,
-    ELEVATED_LEFT = 4,
-    ELEVATED_RIGHT = 8,
-    ELEVATED_TOP_LEFT = 10,
-    ELEVATED_TOP_RIGHT = 20,
-    ELEVATED_BOTTOM_LEFT = 40,
-    ELEVATED_BOTTOM_RIGHT = 80,
-    ELEVATED_TOP_AND_RIGHT = 9
-  };
 };
 
 #endif
