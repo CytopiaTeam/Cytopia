@@ -7,12 +7,11 @@
 class Tile
 {
 public:
-  Tile() = default;
-  ~Tile() = default;
+  Tile() = delete;
+  ~Tile() = delete;
 
   static SDL_Texture *getTexture(const std::string &type, const std::string &orientation);
   static std::string caluclateOrientation(unsigned char bitMaskElevation);
-
 };
 
 #endif
