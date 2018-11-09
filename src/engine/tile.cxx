@@ -1,11 +1,12 @@
 #include "tile.hxx"
 
+#include <bitset>
+
 #include "basics/log.hxx"
 #include "textureManager.hxx"
 
 SDL_Texture *Tile::getTexture(const std::string &type, const std::string &orientation)
 {
-
   return TextureManager::Instance().getTileTexture(type, orientation);
 }
 

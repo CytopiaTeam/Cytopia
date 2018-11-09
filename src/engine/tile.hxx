@@ -2,7 +2,7 @@
 #define TILE_HXX_
 
 #include "SDL2/SDL.h"
-#include <bitset>
+#include <string>
 
 struct TileSetData
 {
