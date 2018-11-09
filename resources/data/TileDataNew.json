@@ -1,0 +1,62 @@
+[
+  {
+    "id": "terrain",
+    "type": "ground",
+    "tiles": {
+      "tilemap": "resources/images/terrain/terrain_tiles.png",
+      "count": 3,
+      "clip_width": 32,
+      "clip_height": 16
+    },
+    "cornerTiles": {
+      "tilemap": "resources/images/terrain/terrain_slopes.png",
+      "count": 13,
+      "clip_width": 32,
+      "clip_height": 32
+    },
+    "title": "Terrain",
+    "description": "Terrain tiles",
+    "price": 0,
+    "upkeep cost": 0,
+    "power": 0,
+    "water": 0,
+    "author": "Kingtut 101",
+    "draw ground": false
+  },
+  {
+    "id": "paved_road",
+    "type": "road",
+    "tiles": {
+      "tilemap": "resources/images/roads/paved_road.png",
+      "count": 16,
+      "clip_width": 32,
+      "clip_height": 16
+    },
+    "title": "Paved Road",
+    "description": "Paved Road",
+    "price": 10,
+    "upkeep cost": 2,
+    "power": 0,
+    "water": 0,
+    "author": "Kingtut 101",
+    "draw ground": false
+  },
+  {
+    "id": "dirt_road",
+    "type": "road",
+    "tiles": {
+      "tilemap": "resources/images/roads/dirt_road.png",
+      "count": 16,
+      "clip_width": 32,
+      "clip_height": 16
+    },
+    "title": "Dirt Road",
+    "description": "A Road, that hasn't been cleaned often",
+    "price": 3,
+    "upkeep cost": 1,
+    "power": 0,
+    "water": 0,
+    "author": "Kingtut 101",
+    "draw ground": false
+  }
+]
