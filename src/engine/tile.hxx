@@ -31,6 +31,13 @@ struct TileInformation
   bool drawGround = false; // draw ground below sprite (grass, flowers, ...)
 };
 
+enum TileMap : size_t
+{
+  DEFAULT,
+  CORNERS,
+  SLOPES
+};
+
 class Tile
 {
 public:

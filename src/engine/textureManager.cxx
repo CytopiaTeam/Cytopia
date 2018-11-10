@@ -54,10 +54,11 @@ void TextureManager::loadTileTextures()
   }
 }
 
-void TextureManager::loadTexture(const std::string &id, const std::string &fileName)
+void TextureManager::loadTexture(const std::string &id, const std::string &fileName, size_t tileMapType)
 {
-  _surfaceMapNew[id] = createSurfaceFromFile(fileName);
-  _tileTextureMapNew[id] = createTextureFromSurface(_surfaceMapNew[id]);
+  std::string key = id + std::to_string(tileMapType);
+  _surfaceMapNew[key] = createSurfaceFromFile(fileName);
+  _tileTextureMapNew[key] = createTextureFromSurface(_surfaceMapNew[key]);
 }
 
 void TextureManager::loadUITexture()
@@ -141,11 +142,13 @@ const SDL_Color TextureManager::getPixelColor(const std::string &type, const std
   return Color;
 }
 
-SDL_Texture *TextureManager::getTileTextureNew(const std::string &id)
+SDL_Texture *TextureManager::getTileTextureNew(const std::string &id, size_t tileMapType)
 {
-  if (_tileTextureMapNew.count(id))
+  std::string key = id + std::to_string(tileMapType);
+
+  if (_tileTextureMapNew.count(key))
   {
-    return _tileTextureMapNew[id];
+    return _tileTextureMapNew[key];
   }
   return nullptr;
 }

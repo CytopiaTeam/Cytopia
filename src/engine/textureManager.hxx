@@ -37,9 +37,9 @@ public:
   /** Retrieves Color of a specific tileID at coordinates with the texture */
   const SDL_Color getPixelColor(const std::string &type, const std::string &orientation, int X, int Y);
 
-  SDL_Texture *getTileTextureNew(const std::string &id);
+  SDL_Texture *getTileTextureNew(const std::string &id, size_t tileMapType = 0);
 
-  void loadTexture(const std::string &id, const std::string &fileName);
+  void loadTexture(const std::string &id, const std::string &fileName, size_t tileMapType = 0);
 
 private:
   TextureManager();

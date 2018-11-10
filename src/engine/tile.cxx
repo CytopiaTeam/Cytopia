@@ -179,7 +179,7 @@ void Tile::init()
 
     if (tileData[id].tiles.fileName != "")
     {
-      TextureManager::Instance().loadTexture(id, tileData[id].tiles.fileName);
+      TextureManager::Instance().loadTexture(id, tileData[id].tiles.fileName, TileMap::DEFAULT);
     }
 
     if (!tileDataJSON[idx]["cornerTiles"].is_null())
@@ -191,7 +191,7 @@ void Tile::init()
 
       if (tileData[id].cornerTiles.fileName != "")
       {
-        //TextureManager::Instance().loadTexture(id, tileData[id].cornerTiles.fileName);
+        TextureManager::Instance().loadTexture(id, tileData[id].cornerTiles.fileName, TileMap::CORNERS);
       }
     }
 
@@ -205,7 +205,7 @@ void Tile::init()
 
       if (tileData[id].slopeTiles.fileName != "")
       {
-        //TextureManager::Instance().loadTexture(id, tileData[id].slopeTiles.fileName);
+        TextureManager::Instance().loadTexture(id, tileData[id].slopeTiles.fileName, TileMap::SLOPES);
       }
     }
 
