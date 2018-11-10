@@ -34,16 +34,27 @@ struct TileInformation
 class Tile
 {
 public:
-  Tile() = delete;
-  ~Tile() = delete;
+  /// Retrieves Instance of Singleton class Texture Manager
+  static Tile &Instance()
+  {
+    static Tile instance;
+    return instance;
+  }
 
-  static SDL_Texture *getTexture(const std::string &type, const std::string &orientation);
-  static std::string caluclateOrientation(unsigned char bitMaskElevation);
+  // Disable copy and assignemnt operators
+  Tile(Tile const &) = delete;
+  Tile &operator=(Tile const &) = delete;
 
-  static void init();
+  SDL_Texture *getTexture(const std::string &type, const std::string &orientation);
+  std::string caluclateOrientation(unsigned char bitMaskElevation);
+
+  void init();
 
 private:
-  static std::unordered_map<std::string, TileInformation> tileData;
+  Tile();
+  ~Tile() = default;
+
+  std::unordered_map<std::string, TileInformation> tileData;
 };
 
 #endif

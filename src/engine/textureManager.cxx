@@ -54,6 +54,12 @@ void TextureManager::loadTileTextures()
   }
 }
 
+void TextureManager::loadTexture(const std::string &id, const std::string &fileName)
+{
+  _surfaceMapNew[id] = createSurfaceFromFile(fileName);
+  _tileTextureMapNew[id] = createTextureFromSurface(_surfaceMapNew[id]);
+}
+
 void TextureManager::loadUITexture()
 {
   json uiDataJSON;
@@ -133,6 +139,15 @@ const SDL_Color TextureManager::getPixelColor(const std::string &type, const std
     LOG(LOG_ERROR) << "No surface in map for type " << type << " with orientation: " << orientation;
   }
   return Color;
+}
+
+SDL_Texture *TextureManager::getTileTextureNew(const std::string &id)
+{
+  if (_tileTextureMapNew.count(id))
+  {
+    return _tileTextureMapNew[id];
+  }
+  return nullptr;
 }
 
 SDL_Surface *TextureManager::createSurfaceFromFile(const std::string &fileName)

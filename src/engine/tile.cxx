@@ -7,9 +7,9 @@
 
 #include "../ThirdParty/json.hxx"
 
-std::unordered_map<std::string, TileInformation> Tile::tileData;
-
 using json = nlohmann::json;
+
+Tile::Tile() { init(); }
 
 SDL_Texture *Tile::getTexture(const std::string &type, const std::string &orientation)
 {
@@ -135,7 +135,6 @@ std::string Tile::caluclateOrientation(unsigned char bitMaskElevation)
   return orientation;
 }
 
-
 void Tile::init()
 {
   json tileDataJSON;
@@ -178,12 +177,22 @@ void Tile::init()
     tileData[id].tiles.clippingWidth = tileDataJSON[idx]["tiles"].value("clip_width", 0);
     tileData[id].tiles.clippingHeight = tileDataJSON[idx]["tiles"].value("clip_height", 0);
 
+    if (tileData[id].tiles.fileName != "")
+    {
+      TextureManager::Instance().loadTexture(id, tileData[id].tiles.fileName);
+    }
+
     if (!tileDataJSON[idx]["cornerTiles"].is_null())
     {
       tileData[id].cornerTiles.fileName = tileDataJSON[idx]["cornerTiles"].value("fileName", "");
       tileData[id].cornerTiles.count = tileDataJSON[idx]["cornerTiles"].value("count", 1);
       tileData[id].cornerTiles.clippingWidth = tileDataJSON[idx]["cornerTiles"].value("clip_width", 0);
       tileData[id].cornerTiles.clippingHeight = tileDataJSON[idx]["cornerTiles"].value("clip_height", 0);
+
+      if (tileData[id].cornerTiles.fileName != "")
+      {
+        //TextureManager::Instance().loadTexture(id, tileData[id].cornerTiles.fileName);
+      }
     }
 
     if (!tileDataJSON[idx]["slopeTiles"].is_null())
@@ -193,7 +202,13 @@ void Tile::init()
       tileData[id].slopeTiles.count = tileDataJSON[idx]["slopeTiles"].value("count", 1);
       tileData[id].slopeTiles.clippingWidth = tileDataJSON[idx]["slopeTiles"].value("clip_width", 0);
       tileData[id].slopeTiles.clippingHeight = tileDataJSON[idx]["slopeTiles"].value("clip_height", 0);
+
+      if (tileData[id].slopeTiles.fileName != "")
+      {
+        //TextureManager::Instance().loadTexture(id, tileData[id].slopeTiles.fileName);
+      }
     }
+
     idx++;
   }
 }

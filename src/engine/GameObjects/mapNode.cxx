@@ -4,7 +4,7 @@
 
 MapNode::MapNode(Point isoCoordinates) : _isoCoordinates(std::move(isoCoordinates)), _tileID(14)
 {
-  _sprite = std::make_unique<Sprite>(Tile::getTexture(_type, _orientation), _isoCoordinates);
+  _sprite = std::make_unique<Sprite>(Tile::Instance().getTexture(_type, _orientation), _isoCoordinates);
 }
 
 void MapNode::increaseHeight()
@@ -34,6 +34,6 @@ void MapNode::render() { _sprite->render(); }
 void MapNode::setElevationBitmask(unsigned char bitmask)
 {
   _elevationBitmask = bitmask;
-  _orientation = Tile::caluclateOrientation(bitmask);
-  _sprite->setTexture(Tile::getTexture(_type, _orientation));
+  _orientation = Tile::Instance().caluclateOrientation(bitmask);
+  _sprite->setTexture(Tile::Instance().getTexture(_type, _orientation));
 }

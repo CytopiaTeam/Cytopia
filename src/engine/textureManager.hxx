@@ -37,6 +37,10 @@ public:
   /** Retrieves Color of a specific tileID at coordinates with the texture */
   const SDL_Color getPixelColor(const std::string &type, const std::string &orientation, int X, int Y);
 
+  SDL_Texture *getTileTextureNew(const std::string &id);
+
+  void loadTexture(const std::string &id, const std::string &fileName);
+
 private:
   TextureManager();
   ~TextureManager();
@@ -62,7 +66,9 @@ private:
   std::unordered_map<std::string, std::unordered_map<std::string, SDL_Texture *>> _uiTextureMap;
 
   std::unordered_map<std::string, SDL_Texture *> _tileTextureMap;
+  std::unordered_map<std::string, SDL_Texture *> _tileTextureMapNew;
   std::unordered_map<std::string, SDL_Surface *> _surfaceMap;
+  std::unordered_map<std::string, SDL_Surface *> _surfaceMapNew;
 };
 
 #endif
