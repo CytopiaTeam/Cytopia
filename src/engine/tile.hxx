@@ -2,6 +2,8 @@
 #define TILE_HXX_
 
 #include "SDL2/SDL.h"
+
+#include <unordered_map>
 #include <string>
 
 struct TileSetData
@@ -37,6 +39,11 @@ public:
 
   static SDL_Texture *getTexture(const std::string &type, const std::string &orientation);
   static std::string caluclateOrientation(unsigned char bitMaskElevation);
+
+  static void init();
+
+private:
+  static std::unordered_map<std::string, TileInformation> tileData;
 };
 
 #endif
