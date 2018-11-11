@@ -38,7 +38,6 @@ void MapNode::setElevationBitmask(unsigned char bitmask)
   _tileData = Tile::Instance().getTileData(_tileType);
   _elevationBitmask = bitmask;
   _orientationNew = Tile::Instance().caluclateOrientationNew(bitmask);
-  _sprite->setTexture(Tile::Instance().getTextureNew(_tileType, _tileMap));
   _sprite->setOrientation(_orientationNew);
 
   SDL_Rect clipRect;
@@ -54,19 +53,20 @@ void MapNode::setElevationBitmask(unsigned char bitmask)
   switch (_tileMap)
   {
   case TileMap::DEFAULT:
-    clipRect.x = _tileData->tiles.clippingWidth * _tileData->tiles.count;
-    _sprite->setClipRect({clipRect.x, 0, _tileData->tiles.clippingWidth, _tileData->tiles.clippingHeight});
+    clipRect.x = _tileData->tiles.clippingWidth;
+    _sprite->setClipRect({0, 0, _tileData->tiles.clippingWidth, _tileData->tiles.clippingHeight});
     _sprite->setSpriteCount(_tileData->tiles.count);
     break;
   case TileMap::CORNERS:
-    clipRect.x = _tileData->cornerTiles.clippingWidth * _tileData->tiles.count;
+    clipRect.x = _tileData->cornerTiles.clippingWidth * (int)_orientationNew;
     _sprite->setClipRect({clipRect.x, 0, _tileData->cornerTiles.clippingWidth, _tileData->cornerTiles.clippingHeight});
     _sprite->setSpriteCount(_tileData->cornerTiles.count);
     break;
   case TileMap::SLOPES:
-    clipRect.x = _tileData->slopeTiles.clippingWidth * _tileData->tiles.count;
+    clipRect.x = _tileData->slopeTiles.clippingWidth * (int)_orientationNew;
     _sprite->setClipRect({clipRect.x, 0, _tileData->slopeTiles.clippingWidth, _tileData->slopeTiles.clippingHeight});
     _sprite->setSpriteCount(_tileData->slopeTiles.count);
     break;
   }
+  _sprite->setTextureNew(Tile::Instance().getTextureNew(_tileType, _tileMap));
 }

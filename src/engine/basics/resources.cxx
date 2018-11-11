@@ -20,7 +20,7 @@ Point Resources::convertIsoToScreenCoordinates(const Point &isoCoordinates, bool
   int x, y;
 
   int height = isoCoordinates.height;
-  int heightOffset = 16;
+  int heightOffset = 18;
 
   if (calcWithoutOffset)
   {

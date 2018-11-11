@@ -11,11 +11,9 @@ public:
   Sprite(SDL_Texture *texture, Point isoCoordinates);
   virtual ~Sprite() = default;
 
-  void render();
   void renderNew();
   void refresh();
 
-  void setTexture(SDL_Texture *texture);
   void setClipRect(const SDL_Rect &clipRect) { _clipRect = clipRect; };
 
   void setTextureNew(SDL_Texture *texture);

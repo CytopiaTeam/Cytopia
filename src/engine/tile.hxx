@@ -41,17 +41,17 @@ enum TileMap : size_t
 enum TileSlopes : size_t
 {
   N,
+  W,
   E,
   S,
-  W,
-  NE,
   NW,
-  SE,
+  NE,
   SW,
-  N_AND_E,
+  SE,
   N_AND_W,
-  S_AND_E,
+  N_AND_E,
   S_AND_W,
+  S_AND_E,
   BETWEEN,
   DEFAULT_ORIENTATION
 };

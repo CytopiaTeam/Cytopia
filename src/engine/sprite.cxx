@@ -29,25 +29,12 @@ void Sprite::renderNew()
 
   // don't use rendercopyex
   if (_spriteCount > 1)
-    SDL_RenderCopyEx(_renderer, _texture, &_clipRect, &_destRect, 0, nullptr, SDL_FLIP_NONE);
+    SDL_RenderCopy(_renderer, _texture, &_clipRect, &_destRect);
   else
     SDL_RenderCopy(_renderer, _texture, nullptr, &_destRect);
 }
 
-void Sprite::render()
-{
-  if (_isoCoordinates.x == 30 && _isoCoordinates.y == 30)
-  {
 
-    SDL_Rect clipRect{32, 0, 32, 16};
-    //_destRect.h = 32;
-
-    //SDL_RenderCopy(_renderer, _texture, nullptr, &_destRect);
-    SDL_RenderCopyEx(_renderer, _texture, &clipRect, &_destRect, 0, nullptr, SDL_FLIP_NONE);
-  }
-  else
-    SDL_RenderCopy(_renderer, _texture, nullptr, &_destRect);
-}
 //
 //void Sprite::render(SDL_rect clipRect)
 //{
@@ -80,32 +67,23 @@ void Sprite::refresh()
   _destRect.y = _screenCoordinates.y;
 }
 
-void Sprite::setTexture(SDL_Texture *texture)
-{
-  SDL_QueryTexture(texture, nullptr, nullptr, &_destRect.w, &_destRect.h);
-
-  _texture = texture;
-  _tileSize = _destRect.w;
-  _destRect.w = static_cast<int>(_clipRect.w * _zoomLevel);
-  _destRect.h = static_cast<int>(_clipRect.h * _zoomLevel);
-
-  if (_isoCoordinates.x == 30 && _isoCoordinates.y == 30)
-  {
-    _texture = TextureManager::Instance().getTileTextureNew("paved_road");
-  }
-};
-
 void Sprite::setTextureNew(SDL_Texture *texture)
 {
   SDL_QueryTexture(texture, nullptr, nullptr, &_destRect.w, &_destRect.h);
 
   _texture = texture;
   _tileSize = _destRect.w;
-  _destRect.w = static_cast<int>(_clipRect.w * _zoomLevel);
-  _destRect.h = static_cast<int>(_clipRect.h * _zoomLevel);
 
-  if (_isoCoordinates.x == 30 && _isoCoordinates.y == 30)
+  if (_spriteCount > 1)
   {
-    _texture = TextureManager::Instance().getTileTextureNew("paved_road");
+    _destRect.w = static_cast<int>(_clipRect.w * _zoomLevel);
+    _destRect.h = static_cast<int>(_clipRect.h * _zoomLevel);
   }
+  else
+  {
+    SDL_QueryTexture(_texture, nullptr, nullptr, &_destRect.w, &_destRect.h);
+    _destRect.w = static_cast<int>(_destRect.w * _zoomLevel);
+    _destRect.h = static_cast<int>(_destRect.h * _zoomLevel);
+  }
+
 };
