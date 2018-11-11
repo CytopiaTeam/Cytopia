@@ -34,7 +34,6 @@ void Sprite::renderNew()
     SDL_RenderCopy(_renderer, _texture, nullptr, &_destRect);
 }
 
-
 //
 //void Sprite::render(SDL_rect clipRect)
 //{
@@ -85,5 +84,4 @@ void Sprite::setTextureNew(SDL_Texture *texture)
     _destRect.w = static_cast<int>(_destRect.w * _zoomLevel);
     _destRect.h = static_cast<int>(_destRect.h * _zoomLevel);
   }
-
 };

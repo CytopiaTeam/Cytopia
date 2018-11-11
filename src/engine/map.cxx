@@ -1,5 +1,6 @@
 #include "map.hxx"
 
+#include "basics/mapEdit.hxx"
 #include "basics/settings.hxx"
 #include "basics/resources.hxx"
 #include "basics/log.hxx"
@@ -111,8 +112,7 @@ void Map::updateNeightbors(const Point &isoCoordinates)
       if (raise)
       {
         increaseHeight(it->getCoordinates());
-
-        if (Resources::getTerrainEditMode() == Resources::TERRAIN_LOWER)
+        if (terrainEditMode == TerrainEdit::LOWER)
         {
           //decreaseHeight(it->getCoordinates());
           NeighborMatrix loweredNodesNeighbors;

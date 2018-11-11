@@ -1,5 +1,6 @@
 #include "engine.hxx"
 
+#include "basics/mapEdit.hxx"
 #include "basics/resources.hxx"
 #include "basics/settings.hxx"
 #include "GameObjects/mapNode.hxx"
@@ -54,13 +55,13 @@ bool Engine::isPointWithinBoundaries(const Point &isoCoordinates)
 
 void Engine::increaseHeight(const Point &isoCoordinates)
 {
-  Resources::setTerrainEditMode(Resources::TERRAIN_RAISE);
+  terrainEditMode = TerrainEdit::RAISE;
   _map.increaseHeight(isoCoordinates);
 }
 
 void Engine::decreaseHeight(const Point &isoCoordinates)
 {
-  Resources::setTerrainEditMode(Resources::TERRAIN_LOWER);
+  terrainEditMode = TerrainEdit::LOWER;
   _map.decreaseHeight(isoCoordinates);
 }
 

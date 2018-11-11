@@ -3,6 +3,7 @@
 #include "textureManager.hxx"
 #include "engine.hxx"
 
+#include "basics/mapEdit.hxx"
 #include "basics/settings.hxx"
 #include "basics/log.hxx"
 
@@ -138,20 +139,20 @@ void UIManager::init()
         if (actionID == "RaiseTerrain")
         {
           uiElement->registerCallbackFunction([]() {
-            Resources::getTerrainEditMode() == Resources::TERRAIN_RAISE
-                ? Resources::setTerrainEditMode(Resources::NO_TERRAIN_EDIT)
-                : Resources::setTerrainEditMode(Resources::TERRAIN_RAISE);
+            terrainEditMode == TerrainEdit::RAISE ? terrainEditMode = TerrainEdit::NONE : terrainEditMode = TerrainEdit::RAISE;
           });
         }
         else if (actionID == "LowerTerrain")
         {
           uiElement->registerCallbackFunction([]() {
-            Resources::getTerrainEditMode() == Resources::TERRAIN_LOWER
-                ? Resources::setTerrainEditMode(Resources::NO_TERRAIN_EDIT)
-                : Resources::setTerrainEditMode(Resources::TERRAIN_LOWER);
+            terrainEditMode == TerrainEdit::LOWER ? terrainEditMode == TerrainEdit::NONE : terrainEditMode == TerrainEdit::LOWER;
           });
         }
         else if (actionID == "QuitGame")
+        {
+          uiElement->registerCallbackFunction(Signal::slot(Engine::Instance(), &Engine::quitGame));
+        }
+        else if (actionID == "ChangeTileType_Road")
         {
           uiElement->registerCallbackFunction(Signal::slot(Engine::Instance(), &Engine::quitGame));
         }

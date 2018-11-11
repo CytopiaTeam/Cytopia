@@ -1,5 +1,6 @@
 #include "eventManager.hxx"
 
+#include "basics/mapEdit.hxx"
 #include "basics/timer.hxx"
 #include "basics/settings.hxx"
 
@@ -73,9 +74,9 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         {
           if (engine.isPointWithinBoundaries(clickCoords))
           {
-            if (Resources::getTerrainEditMode() == Resources::TERRAIN_RAISE)
+            if (terrainEditMode == TerrainEdit::RAISE)
               engine.increaseHeight(clickCoords);
-            else if (Resources::getTerrainEditMode() == Resources::TERRAIN_LOWER)
+            else if (terrainEditMode == TerrainEdit::LOWER)
             {
               engine.decreaseHeight(clickCoords);
             }
