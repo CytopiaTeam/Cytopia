@@ -16,6 +16,144 @@ SDL_Texture *Tile::getTexture(const std::string &type, const std::string &orient
   return TextureManager::Instance().getTileTexture(type, orientation);
 }
 
+SDL_Texture *Tile::getTextureNew(const std::string &id, size_t tileMapType)
+{
+  return TextureManager::Instance().getTileTextureNew(id, tileMapType);
+}
+
+TileInformation *Tile::getTileData(const std::string &id)
+{
+  if (tileData.count(id))
+  {
+    return &tileData[id];
+  }
+  else
+  {
+    LOG(LOG_ERROR) << "Non existing id is beeing accessed at Tile::getTileData(id) " << id;
+  }
+
+  return nullptr;
+}
+
+size_t Tile::caluclateOrientationNew(unsigned char bitMaskElevation)
+{
+  size_t orientation;
+  std::bitset<8> elevationMask(bitMaskElevation);
+
+  // Bits:
+  // 0 = 2^0 = 1   = TOP
+  // 1 = 2^1 = 2   = BOTTOM
+  // 2 = 2^2 = 4   = LEFT
+  // 3 = 2^3 = 8   = RIGHT
+  // 4 = 2^4 = 16  = TOP LEFT
+  // 5 = 2^5 = 32  = TOP RIGHT
+  // 6 = 2^6 = 64  = BOTTOM LEFT
+  // 7 = 2^7 = 128 = BOTTOM RIGHT
+
+  // check for all combinations
+  if (elevationMask.none())
+  { // NONE
+    orientation = TileSlopes::DEFAULT_ORIENTATION;
+  }
+
+  // special cases
+  else if (elevationMask.test(3) && elevationMask.test(6))
+  { // BOTTOM_RIGHT
+    orientation = TileSlopes::S_AND_W;
+  }
+  else if (elevationMask.test(2) && elevationMask.test(5))
+  { // BOTTOM_RIGHT
+    orientation = TileSlopes::N_AND_E;
+  }
+  else if (elevationMask.test(3) && elevationMask.test(4))
+  { // BOTTOM_RIGHT
+    orientation = TileSlopes::S_AND_W;
+  }
+  else if (elevationMask.test(2) && elevationMask.test(7))
+  { // BOTTOM_RIGHT
+    orientation = TileSlopes::S_AND_E;
+  }
+
+  else if (elevationMask.test(0) && elevationMask.test(6))
+  { // BOTTOM_RIGHT
+    orientation = TileSlopes::N_AND_E;
+  }
+  else if (elevationMask.test(1) && elevationMask.test(5))
+  { // BOTTOM_RIGHT
+    orientation = TileSlopes::S_AND_W;
+  }
+  else if (elevationMask.test(0) && elevationMask.test(7))
+  { // BOTTOM_RIGHT
+    orientation = TileSlopes::N_AND_W;
+  }
+  else if (elevationMask.test(1) && elevationMask.test(4))
+  { // BOTTOM_RIGHT
+    orientation = TileSlopes::S_AND_E;
+  }
+
+  // diagonal combinations
+  else if (elevationMask.test(0) && elevationMask.test(3))
+  { // TOP && RIGHT
+    orientation = TileSlopes::N_AND_W;
+  }
+  else if (elevationMask.test(0) && elevationMask.test(2))
+  { // TOP && LEFT
+    orientation = TileSlopes::N_AND_E;
+  }
+  else if (elevationMask.test(1) && elevationMask.test(3))
+  { // BOTTOM && RIGHT
+    orientation = TileSlopes::S_AND_W;
+  }
+  else if (elevationMask.test(1) && elevationMask.test(2))
+  { // BOTTOM && LEFT
+    orientation = TileSlopes::S_AND_E;
+  }
+
+  // default directions
+  else if (elevationMask.test(0))
+  { // TOP
+    orientation = TileSlopes::N;
+  }
+  else if (elevationMask.test(1))
+  { // BOTTOM
+    orientation = TileSlopes::S;
+  }
+  else if (elevationMask.test(2))
+  { // LEFT
+    orientation = TileSlopes::E;
+  }
+  else if (elevationMask.test(3))
+  { // RIGHT
+    orientation = TileSlopes::W;
+  }
+  else if ((elevationMask.test(4) && elevationMask.test(7)) || (elevationMask.test(5) && elevationMask.test(6)))
+  { // BOTTOM_RIGHT
+    orientation = TileSlopes::BETWEEN;
+  }
+  else if (elevationMask.test(5))
+  { // TOP_LEFT
+    orientation = TileSlopes::NW;
+  }
+  else if (elevationMask.test(4))
+  { // TOP_RIGHT
+    orientation = TileSlopes::NE;
+  }
+  else if (elevationMask.test(7))
+  { // BOTTOM_LEFT
+    orientation = TileSlopes::SW;
+  }
+  else if (elevationMask.test(6))
+  { // BOTTOM_RIGHT
+    orientation = TileSlopes::SE;
+  }
+
+  else
+  {
+    LOG(LOG_ERROR) << "No Combination for bitmask " << elevationMask.to_string() << " found! This should not have happened";
+  }
+  return orientation;
+}
+
 std::string Tile::caluclateOrientation(unsigned char bitMaskElevation)
 {
   std::string orientation;

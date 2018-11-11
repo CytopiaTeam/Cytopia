@@ -9,6 +9,8 @@
 #include "../sprite.hxx"
 #include "../basics/point.hxx"
 
+#include "../tile.hxx"
+
 /** @brief Class that holds map nodes
  * Each tile is represented by the map nodes class.
  */
@@ -81,7 +83,13 @@ private:
   int _maxHeight = 32;
 
   std::string _type = "Terrain";
+  std::string _tileType = "terrain";
   std::string _orientation = "default";
+
+  size_t _tileMap = TileMap::DEFAULT;
+  size_t _orientationNew = TileSlopes::DEFAULT_ORIENTATION;
+
+  TileInformation *_tileData;
 
   unsigned char _elevationBitmask = 0;
 };

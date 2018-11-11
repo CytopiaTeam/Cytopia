@@ -38,6 +38,24 @@ enum TileMap : size_t
   SLOPES
 };
 
+enum TileSlopes : size_t
+{
+  N,
+  E,
+  S,
+  W,
+  NE,
+  NW,
+  SE,
+  SW,
+  N_AND_E,
+  N_AND_W,
+  S_AND_E,
+  S_AND_W,
+  BETWEEN,
+  DEFAULT_ORIENTATION
+};
+
 class Tile
 {
 public:
@@ -53,7 +71,10 @@ public:
   Tile &operator=(Tile const &) = delete;
 
   SDL_Texture *getTexture(const std::string &type, const std::string &orientation);
+  SDL_Texture *getTextureNew(const std::string &id, size_t tileMapType = 0);
+  TileInformation *getTileData(const std::string &id);
   std::string caluclateOrientation(unsigned char bitMaskElevation);
+  size_t caluclateOrientationNew(unsigned char bitMaskElevation);
 
   void init();
 
@@ -62,6 +83,9 @@ private:
   ~Tile() = default;
 
   std::unordered_map<std::string, TileInformation> tileData;
+
+  // empty TileInformation struct if a non-existing ID is beeing accessed
+  TileInformation emptyTileData;
 };
 
 #endif
