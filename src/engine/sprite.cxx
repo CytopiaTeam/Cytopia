@@ -13,9 +13,11 @@ Sprite::Sprite(SDL_Texture *texture, Point isoCoordinates) : _texture(texture), 
   SDL_QueryTexture(_texture, nullptr, nullptr, &_destRect.w, &_destRect.h);
 
   _tileSize = _destRect.w; // tile is always a square
-  _destRect.w = static_cast<int>(_tileSize * _zoomLevel);
-  _destRect.h = static_cast<int>(16 * _zoomLevel);
-
+  if (_clipRect.w != 0)
+  {
+    _destRect.w = static_cast<int>(_clipRect.w * _zoomLevel);
+    _destRect.h = static_cast<int>(_clipRect.h * _zoomLevel);
+  }
   if (_isoCoordinates.x == 30 && _isoCoordinates.y == 30)
   {
     _texture = TextureManager::Instance().getTileTextureNew("paved_road");
@@ -25,6 +27,7 @@ Sprite::Sprite(SDL_Texture *texture, Point isoCoordinates) : _texture(texture), 
 void Sprite::renderNew()
 {
 
+  // don't use rendercopyex
   if (_spriteCount > 1)
     SDL_RenderCopyEx(_renderer, _texture, &_clipRect, &_destRect, 0, nullptr, SDL_FLIP_NONE);
   else
@@ -59,8 +62,17 @@ void Sprite::refresh()
   if (_zoomLevel != Resources::getZoomLevel())
   {
     _zoomLevel = Resources::getZoomLevel();
-    _destRect.w = static_cast<int>(_tileSize * _zoomLevel);
-    _destRect.h = static_cast<int>(16 * _zoomLevel);
+    if (_spriteCount > 1)
+    {
+      _destRect.w = static_cast<int>(_clipRect.w * _zoomLevel);
+      _destRect.h = static_cast<int>(_clipRect.h * _zoomLevel);
+    }
+    else
+    {
+      SDL_QueryTexture(_texture, nullptr, nullptr, &_destRect.w, &_destRect.h);
+      _destRect.w = static_cast<int>(_destRect.w * _zoomLevel);
+      _destRect.h = static_cast<int>(_destRect.h * _zoomLevel);
+    }
   }
 
   _screenCoordinates = Resources::convertIsoToScreenCoordinates(_isoCoordinates);
@@ -74,8 +86,8 @@ void Sprite::setTexture(SDL_Texture *texture)
 
   _texture = texture;
   _tileSize = _destRect.w;
-  _destRect.w = static_cast<int>(_tileSize * _zoomLevel);
-  _destRect.h = static_cast<int>(16 * _zoomLevel);
+  _destRect.w = static_cast<int>(_clipRect.w * _zoomLevel);
+  _destRect.h = static_cast<int>(_clipRect.h * _zoomLevel);
 
   if (_isoCoordinates.x == 30 && _isoCoordinates.y == 30)
   {
@@ -89,8 +101,8 @@ void Sprite::setTextureNew(SDL_Texture *texture)
 
   _texture = texture;
   _tileSize = _destRect.w;
-  _destRect.w = static_cast<int>(_tileSize * _zoomLevel);
-  _destRect.h = static_cast<int>(16 * _zoomLevel);
+  _destRect.w = static_cast<int>(_clipRect.w * _zoomLevel);
+  _destRect.h = static_cast<int>(_clipRect.h * _zoomLevel);
 
   if (_isoCoordinates.x == 30 && _isoCoordinates.y == 30)
   {

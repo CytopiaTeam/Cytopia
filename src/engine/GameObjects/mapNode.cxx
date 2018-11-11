@@ -2,7 +2,11 @@
 
 MapNode::MapNode(Point isoCoordinates) : _isoCoordinates(std::move(isoCoordinates)), _tileID(14)
 {
+  _tileData = Tile::Instance().getTileData(_tileType);
+  SDL_Rect clipRect;
+  clipRect.x = _tileData->tiles.clippingWidth * _tileData->tiles.count;
   _sprite = std::make_unique<Sprite>(Tile::Instance().getTextureNew(_tileType, _tileMap), _isoCoordinates);
+  _sprite->setClipRect({clipRect.x, 0, _tileData->tiles.clippingWidth, _tileData->tiles.clippingHeight});
 }
 
 void MapNode::increaseHeight()
@@ -37,18 +41,31 @@ void MapNode::setElevationBitmask(unsigned char bitmask)
   _sprite->setTexture(Tile::Instance().getTextureNew(_tileType, _tileMap));
   _sprite->setOrientation(_orientationNew);
 
+  SDL_Rect clipRect;
+
+  if (_orientationNew == TileSlopes::DEFAULT_ORIENTATION)
+  {
+    _tileMap = TileMap::DEFAULT;
+  }
+  else
+  {
+    _tileMap = TileMap::SLOPES;
+  }
   switch (_tileMap)
   {
   case TileMap::DEFAULT:
-    _sprite->setClipRect({0, 0, _tileData->tiles.clippingWidth, _tileData->tiles.clippingHeight});
+    clipRect.x = _tileData->tiles.clippingWidth * _tileData->tiles.count;
+    _sprite->setClipRect({clipRect.x, 0, _tileData->tiles.clippingWidth, _tileData->tiles.clippingHeight});
     _sprite->setSpriteCount(_tileData->tiles.count);
     break;
   case TileMap::CORNERS:
-    _sprite->setClipRect({0, 0, _tileData->cornerTiles.clippingWidth, _tileData->cornerTiles.clippingHeight});
+    clipRect.x = _tileData->cornerTiles.clippingWidth * _tileData->tiles.count;
+    _sprite->setClipRect({clipRect.x, 0, _tileData->cornerTiles.clippingWidth, _tileData->cornerTiles.clippingHeight});
     _sprite->setSpriteCount(_tileData->cornerTiles.count);
     break;
   case TileMap::SLOPES:
-    _sprite->setClipRect({0, 0, _tileData->slopeTiles.clippingWidth, _tileData->slopeTiles.clippingHeight});
+    clipRect.x = _tileData->slopeTiles.clippingWidth * _tileData->tiles.count;
+    _sprite->setClipRect({clipRect.x, 0, _tileData->slopeTiles.clippingWidth, _tileData->slopeTiles.clippingHeight});
     _sprite->setSpriteCount(_tileData->slopeTiles.count);
     break;
   }
