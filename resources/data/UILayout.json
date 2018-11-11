@@ -12,6 +12,16 @@
       "Layout": "BottomMenu",
       "ToggleButton": true,
       "TooltipText": "Construction"
+    },
+    {
+      "Type": "ImageButton",
+      "SpriteID": "Button_RoadsMenu",
+      "Position_x": 480,
+      "Position_y": 520,
+      "Layout": "BottomMenu",
+      "Action": "ChangeTileType_Road",
+      "ToggleButton": true,
+      "TooltipText": "Construction"
     }
   ],
   "ConstructionSubMenu": [

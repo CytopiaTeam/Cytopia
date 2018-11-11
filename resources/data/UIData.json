@@ -12,5 +12,8 @@
   },
   "Button_ConstructionMenu_LevelTerrain": {
     "Texture_Default": "resources/images/ui/buttons/levelTerrain.png"
+  },
+  "Button_RoadsMenu": {
+    "Texture_Default": "resources/images/ui/buttons/Roads Menu.png"
   }
 }
