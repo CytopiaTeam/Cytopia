@@ -10,6 +10,6 @@ enum class TerrainEdit
   DEMOLISH
 };
 
-extern TerrainEdit terrainEditMode = TerrainEdit::NONE;
+extern TerrainEdit terrainEditMode;
 
 #endif

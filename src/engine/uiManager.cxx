@@ -145,7 +145,9 @@ void UIManager::init()
         else if (actionID == "LowerTerrain")
         {
           uiElement->registerCallbackFunction([]() {
-            terrainEditMode == TerrainEdit::LOWER ? terrainEditMode == TerrainEdit::NONE : terrainEditMode == TerrainEdit::LOWER;
+            LOG() << "lowering";
+            terrainEditMode == TerrainEdit::LOWER ? terrainEditMode = TerrainEdit::NONE : terrainEditMode = TerrainEdit::LOWER;
+            LOG() << "lowering";
           });
         }
         else if (actionID == "QuitGame")
