@@ -35,9 +35,20 @@ void MapNode::render() { _sprite->renderNew(); }
 
 void MapNode::setElevationBitmask(unsigned char bitmask)
 {
-  _tileData = Tile::Instance().getTileData(_tileType);
   _elevationBitmask = bitmask;
-  _orientationNew = Tile::Instance().caluclateOrientationNew(bitmask);
+  updateTexture();
+}
+
+void MapNode::setType(const std::string &tileType)
+{
+  _tileType = tileType;
+  updateTexture();
+};
+
+void MapNode::updateTexture()
+{
+  _tileData = Tile::Instance().getTileData(_tileType);
+  _orientationNew = Tile::Instance().caluclateOrientationNew(_elevationBitmask);
   _sprite->setOrientation(_orientationNew);
 
   SDL_Rect clipRect;

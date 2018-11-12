@@ -67,9 +67,10 @@ public:
 
   unsigned char getElevationBitmask() { return _elevationBitmask; };
 
-  void setType(const std::string &type) { _type = type; };
+  void setType(const std::string &type);
 
   std::string getType() { return _type; };
+  void setTileType(const std::string &tileType) { _tileType = tileType; };
   std::string getOrientation() { return _orientation; };
 
 private:
@@ -92,6 +93,8 @@ private:
   TileInformation *_tileData;
 
   unsigned char _elevationBitmask = 0;
+
+  void updateTexture();
 };
 
 #endif

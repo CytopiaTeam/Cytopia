@@ -145,9 +145,7 @@ void UIManager::init()
         else if (actionID == "LowerTerrain")
         {
           uiElement->registerCallbackFunction([]() {
-            LOG() << "lowering";
             terrainEditMode == TerrainEdit::LOWER ? terrainEditMode = TerrainEdit::NONE : terrainEditMode = TerrainEdit::LOWER;
-            LOG() << "lowering";
           });
         }
         else if (actionID == "QuitGame")
@@ -156,7 +154,11 @@ void UIManager::init()
         }
         else if (actionID == "ChangeTileType_Road")
         {
-          uiElement->registerCallbackFunction(Signal::slot(Engine::Instance(), &Engine::quitGame));
+          uiElement->registerCallbackFunction([]() {
+
+            tileTypeEditMode == "paved_road" ? tileTypeEditMode = "" : tileTypeEditMode = "paved_road";
+            LOG() << "elsi iffi " << tileTypeEditMode;
+          });
         }
 
         // store the element in a vector

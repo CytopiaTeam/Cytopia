@@ -1,6 +1,8 @@
 #ifndef MAPEDIT_HXX_
 #define MAPEDIT_HXX_
 
+#include <string>
+
 enum class TerrainEdit
 {
   NONE,
@@ -11,5 +13,6 @@ enum class TerrainEdit
 };
 
 extern TerrainEdit terrainEditMode;
+extern std::string tileTypeEditMode;
 
 #endif

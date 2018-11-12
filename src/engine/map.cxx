@@ -134,6 +134,11 @@ void Map::updateNeightbors(const Point &isoCoordinates)
   }
 }
 
+void Map::setTileTypeOfNode(const Point &isoCoordinates, const std::string tileType)
+{
+  _mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->setTileType(tileType);
+}
+
 unsigned int Map::getElevatedNeighborBitmask(const Point &isoCoordinates)
 {
   unsigned int bitmask = 0;

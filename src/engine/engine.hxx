@@ -88,6 +88,8 @@ public:
   void quitGame();
   void toggleFullScreen();
 
+  void setTileTypeOfNode(const Point &isoCoordinates, const std::string tileType);
+
 private:
   Engine();
   virtual ~Engine() = default;

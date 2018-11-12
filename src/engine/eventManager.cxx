@@ -3,6 +3,7 @@
 #include "basics/mapEdit.hxx"
 #include "basics/timer.hxx"
 #include "basics/settings.hxx"
+#include "map.hxx"
 
 #include "basics/log.hxx"
 #include "basics/utils.hxx"
@@ -79,6 +80,10 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
             else if (terrainEditMode == TerrainEdit::LOWER)
             {
               engine.decreaseHeight(clickCoords);
+            }
+            else if (tileTypeEditMode != "")
+            {
+              engine.setTileTypeOfNode(clickCoords, tileTypeEditMode);
             }
             else
               LOG() << "CLICKED - Iso Coords: " << clickCoords.x << ", " << clickCoords.y;
