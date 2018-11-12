@@ -67,10 +67,8 @@ public:
 
   unsigned char getElevationBitmask() { return _elevationBitmask; };
 
-  void setType(const std::string &type);
-
   std::string getType() { return _type; };
-  void setTileType(const std::string &tileType) { _tileType = tileType; };
+  void setTileType(const std::string &tileType);
   std::string getOrientation() { return _orientation; };
 
 private:

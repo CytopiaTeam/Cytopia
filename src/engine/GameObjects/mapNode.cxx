@@ -1,4 +1,5 @@
 #include "mapNode.hxx"
+#include "../basics/log.hxx"
 
 MapNode::MapNode(Point isoCoordinates) : _isoCoordinates(std::move(isoCoordinates)), _tileID(14)
 {
@@ -39,7 +40,7 @@ void MapNode::setElevationBitmask(unsigned char bitmask)
   updateTexture();
 }
 
-void MapNode::setType(const std::string &tileType)
+void MapNode::setTileType(const std::string &tileType)
 {
   _tileType = tileType;
   updateTexture();
