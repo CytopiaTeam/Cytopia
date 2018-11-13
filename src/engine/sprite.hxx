@@ -8,7 +8,7 @@
 class Sprite
 {
 public:
-  Sprite(SDL_Texture *texture, Point isoCoordinates);
+  Sprite(Point isoCoordinates);
   virtual ~Sprite() = default;
 
   void renderNew();

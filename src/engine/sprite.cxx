@@ -3,25 +3,12 @@
 #include "textureManager.hxx"
 #include "basics/resources.hxx"
 
-Sprite::Sprite(SDL_Texture *texture, Point isoCoordinates) : _texture(texture), _isoCoordinates(isoCoordinates)
+Sprite::Sprite(Point isoCoordinates) : _isoCoordinates(isoCoordinates)
 {
   _renderer = Resources::getRenderer();
   _window = Resources::getWindow();
   _zoomLevel = Resources::getZoomLevel();
   _screenCoordinates = Resources::convertIsoToScreenCoordinates(isoCoordinates);
-
-  SDL_QueryTexture(_texture, nullptr, nullptr, &_destRect.w, &_destRect.h);
-
-  _tileSize = _destRect.w; // tile is always a square
-  if (_clipRect.w != 0)
-  {
-    _destRect.w = static_cast<int>(_clipRect.w * _zoomLevel);
-    _destRect.h = static_cast<int>(_clipRect.h * _zoomLevel);
-  }
-  if (_isoCoordinates.x == 30 && _isoCoordinates.y == 30)
-  {
-    _texture = TextureManager::Instance().getTileTextureNew("paved_road");
-  }
 }
 
 void Sprite::renderNew()

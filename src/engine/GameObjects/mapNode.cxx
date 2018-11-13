@@ -3,11 +3,8 @@
 
 MapNode::MapNode(Point isoCoordinates) : _isoCoordinates(std::move(isoCoordinates)), _tileID(14)
 {
-  _tileData = Tile::Instance().getTileData(_tileType);
-  SDL_Rect clipRect;
-  clipRect.x = _tileData->tiles.clippingWidth * _tileData->tiles.count;
-  _sprite = std::make_unique<Sprite>(Tile::Instance().getTextureNew(_tileType, _tileMap), _isoCoordinates);
-  _sprite->setClipRect({clipRect.x, 0, _tileData->tiles.clippingWidth, _tileData->tiles.clippingHeight});
+  _sprite = std::make_unique<Sprite>(_isoCoordinates);
+  updateTexture();
 }
 
 void MapNode::increaseHeight()
