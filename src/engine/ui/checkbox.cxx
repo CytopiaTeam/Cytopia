@@ -21,7 +21,7 @@ void Checkbox::onMouseButtonUp(const SDL_Event &event)
 {
   clickSignal.emit();
 
-  if (getParentID() != "")
+  if (!getParentID().empty())
   {
     toggleGroupSignal.emit(getParentID());
   }

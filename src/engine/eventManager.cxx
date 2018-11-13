@@ -76,17 +76,21 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           if (engine.isPointWithinBoundaries(clickCoords))
           {
             if (terrainEditMode == TerrainEdit::RAISE)
+            {
               engine.increaseHeight(clickCoords);
+            }
             else if (terrainEditMode == TerrainEdit::LOWER)
             {
               engine.decreaseHeight(clickCoords);
             }
-            else if (tileTypeEditMode != "")
+            else if (!tileTypeEditMode.empty())
             {
               engine.setTileTypeOfNode(clickCoords, tileTypeEditMode);
             }
             else
+            {
               LOG() << "CLICKED - Iso Coords: " << clickCoords.x << ", " << clickCoords.y;
+            }
           }
         }
         else if (event.button.button == SDL_BUTTON_RIGHT)

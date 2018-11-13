@@ -22,7 +22,7 @@ void UiElement::setTextureID(const std::string &textureID)
 
 void UiElement::changeButtonState(int state)
 {
-  if (_buttonState != state && _textureID != "")
+  if (_buttonState != state && !_textureID.empty())
   {
     changeTexture(TextureManager::Instance().getUITexture(_textureID, state));
   }

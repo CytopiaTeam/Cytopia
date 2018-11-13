@@ -16,9 +16,13 @@ void Sprite::renderNew()
 
   // don't use rendercopyex
   if (_spriteCount > 1)
+  {
     SDL_RenderCopy(_renderer, _texture, &_clipRect, &_destRect);
+  }
   else
+  {
     SDL_RenderCopy(_renderer, _texture, nullptr, &_destRect);
+  }
 }
 
 //

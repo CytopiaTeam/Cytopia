@@ -28,7 +28,7 @@ void TextField::draw()
   }
 }
 
-void TextField::addText(const std::string& text)
+void TextField::addText(const std::string &text)
 {
   SDL_Rect textRect = _uiElementRect;
 

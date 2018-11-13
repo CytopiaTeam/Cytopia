@@ -134,7 +134,7 @@ void Map::updateNeightbors(const Point &isoCoordinates)
   }
 }
 
-void Map::setTileTypeOfNode(const Point &isoCoordinates, const std::string& tileType)
+void Map::setTileTypeOfNode(const Point &isoCoordinates, const std::string &tileType)
 {
   _mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->setTileType(tileType);
 }

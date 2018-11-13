@@ -102,10 +102,12 @@ public:
   ProtoSignal(const CbFunction &method)
   {
     if (method)
+    {
       add_cb(method);
+    }
   }
   /// ProtoSignal destructor releases all resources associated with this signal.
-  ~ProtoSignal() {}
+  ~ProtoSignal() = default;
 
   /// Operator to add a new function or lambda as signal handler, returns a handler connection ID.
   size_t connect(const CbFunction &cb) { return add_cb(cb); }
@@ -122,7 +124,9 @@ public:
       {
         const bool continue_emission = this->invoke(collector, *slot, args...);
         if (!continue_emission)
+        {
           break;
+        }
       }
     }
     return collector.result();

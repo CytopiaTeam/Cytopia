@@ -25,7 +25,7 @@ void Button::onMouseButtonUp(const SDL_Event &event)
 {
   clickSignal.emit();
 
-  if (getParentID() != "")
+  if (!getParentID().empty())
   {
     toggleGroupSignal.emit(getParentID());
   }
@@ -62,7 +62,9 @@ void Button::onMouseEnter(const SDL_Event &event)
   if (event.button.button == SDL_BUTTON_LEFT)
   {
     if (!isToggleButton())
+    {
       changeButtonState(BUTTONSTATE_CLICKED);
+    }
     else
     {
       changeButtonState(getButtonState() == BUTTONSTATE_CLICKED ? BUTTONSTATE_DEFAULT : BUTTONSTATE_CLICKED);

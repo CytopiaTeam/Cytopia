@@ -34,8 +34,10 @@ void TextureManager::loadTileTextures()
   // check if json file can be parsed
   tileDataJSON = json::parse(i, nullptr, false);
   if (tileDataJSON.is_discarded())
+  {
     LOG(LOG_ERROR) << "Error parsing JSON File "
                    << "resources/data/TileData.json";
+  }
   i.close();
 
   std::string key;

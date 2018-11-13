@@ -132,7 +132,7 @@ void UIManager::init()
         uiElement->setGroupID(groupID);
         uiElement->setToggleButton(toggleButton);
 
-        if (parentOf != "")
+        if (!parentOf.empty())
         {
           uiElement->registerToggleUIFunction(Signal::slot(this, &UIManager::toggleGroupVisibility));
         }

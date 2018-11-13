@@ -103,12 +103,10 @@ void ComboBox::onMouseButtonUp(const SDL_Event &event)
     changeButtonState(BUTTONSTATE_HOVERING);
     return;
   }
-  else
+
+  if (_isMenuOpened)
   {
-    if (_isMenuOpened)
-    {
-      _textField->onMouseButtonUp(event); //trigger TextField onMouseButtonUp event
-    }
+    _textField->onMouseButtonUp(event); //trigger TextField onMouseButtonUp event
   }
 
   if (_isMenuOpened)

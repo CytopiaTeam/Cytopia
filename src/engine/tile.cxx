@@ -288,8 +288,10 @@ void Tile::init()
   // check if json file can be parsed
   tileDataJSON = json::parse(i, nullptr, false);
   if (tileDataJSON.is_discarded())
+  {
     LOG(LOG_ERROR) << "Error parsing JSON File "
                    << "resources/data/TileData.json";
+  }
   i.close();
 
   std::string key;
@@ -313,7 +315,7 @@ void Tile::init()
     tileData[id].tiles.clippingWidth = tileDataJSON[idx]["tiles"].value("clip_width", 0);
     tileData[id].tiles.clippingHeight = tileDataJSON[idx]["tiles"].value("clip_height", 0);
 
-    if (tileData[id].tiles.fileName != "")
+    if (!tileData[id].tiles.fileName.empty())
     {
       TextureManager::Instance().loadTexture(id, tileData[id].tiles.fileName, TileMap::DEFAULT);
     }
@@ -325,7 +327,7 @@ void Tile::init()
       tileData[id].cornerTiles.clippingWidth = tileDataJSON[idx]["cornerTiles"].value("clip_width", 0);
       tileData[id].cornerTiles.clippingHeight = tileDataJSON[idx]["cornerTiles"].value("clip_height", 0);
 
-      if (tileData[id].cornerTiles.fileName != "")
+      if (!tileData[id].cornerTiles.fileName.empty())
       {
         TextureManager::Instance().loadTexture(id, tileData[id].cornerTiles.fileName, TileMap::CORNERS);
       }
@@ -339,7 +341,7 @@ void Tile::init()
       tileData[id].slopeTiles.clippingWidth = tileDataJSON[idx]["slopeTiles"].value("clip_width", 0);
       tileData[id].slopeTiles.clippingHeight = tileDataJSON[idx]["slopeTiles"].value("clip_height", 0);
 
-      if (tileData[id].slopeTiles.fileName != "")
+      if (!tileData[id].slopeTiles.fileName.empty())
       {
         TextureManager::Instance().loadTexture(id, tileData[id].slopeTiles.fileName, TileMap::SLOPES);
       }

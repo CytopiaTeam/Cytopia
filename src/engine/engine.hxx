@@ -88,7 +88,7 @@ public:
   void quitGame();
   void toggleFullScreen();
 
-  void setTileTypeOfNode(const Point &isoCoordinates, const std::string& tileType);
+  void setTileTypeOfNode(const Point &isoCoordinates, const std::string &tileType);
 
 private:
   Engine();
