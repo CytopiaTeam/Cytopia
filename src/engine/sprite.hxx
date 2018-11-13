@@ -11,12 +11,12 @@ public:
   Sprite(Point isoCoordinates);
   virtual ~Sprite() = default;
 
-  void renderNew();
+  void render();
   void refresh();
 
   void setClipRect(const SDL_Rect &clipRect) { _clipRect = clipRect; };
 
-  void setTextureNew(SDL_Texture *texture);
+  void setTexture(SDL_Texture *texture);
   void setCoordinates(Point isoCoords) { _isoCoordinates = isoCoords; }
   void setOrientation(size_t orientation) { _orientation = orientation; };
   void setSpriteCount(size_t spriteCount) { _spriteCount = spriteCount; };
@@ -32,11 +32,11 @@ private:
   Point _isoCoordinates;
   Point _screenCoordinates;
 
-  float _zoomLevel;
-  int _tileSize;
+  float _zoomLevel = 0;
   size_t _spriteCount = 1;
 
   size_t _orientation;
+  bool _needsRefresh = false;
 };
 
 #endif

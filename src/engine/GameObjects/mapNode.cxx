@@ -29,7 +29,7 @@ void MapNode::decreaseHeight()
   }
 }
 
-void MapNode::render() { _sprite->renderNew(); }
+void MapNode::render() { _sprite->render(); }
 
 void MapNode::setElevationBitmask(unsigned char bitmask)
 {
@@ -77,5 +77,5 @@ void MapNode::updateTexture()
     _sprite->setSpriteCount(_tileData->slopeTiles.count);
     break;
   }
-  _sprite->setTextureNew(Tile::Instance().getTextureNew(_tileType, _tileMap));
+  _sprite->setTexture(Tile::Instance().getTextureNew(_tileType, _tileMap));
 }

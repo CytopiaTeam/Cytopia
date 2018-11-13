@@ -2,19 +2,18 @@
 
 #include "textureManager.hxx"
 #include "basics/resources.hxx"
+#include "basics/log.hxx"
 
 Sprite::Sprite(Point isoCoordinates) : _isoCoordinates(isoCoordinates)
 {
   _renderer = Resources::getRenderer();
   _window = Resources::getWindow();
-  _zoomLevel = Resources::getZoomLevel();
   _screenCoordinates = Resources::convertIsoToScreenCoordinates(isoCoordinates);
 }
 
-void Sprite::renderNew()
+void Sprite::render()
 {
 
-  // don't use rendercopyex
   if (_spriteCount > 1)
   {
     SDL_RenderCopy(_renderer, _texture, &_clipRect, &_destRect);
@@ -25,18 +24,9 @@ void Sprite::renderNew()
   }
 }
 
-//
-//void Sprite::render(SDL_rect clipRect)
-//{
-//
-//  SDL_Rect clipRect{ 0,0, 32,32 };
-//  SDL_RenderCopy(_renderer, _texture, nullptr, &_destRect);
-//  SDL_RenderCopyEx(_renderer, _texture, nullptr, &_destRect, 0, nullptr, SDL_FLIP_NONE);
-//}
-
 void Sprite::refresh()
 {
-  if (_zoomLevel != Resources::getZoomLevel())
+  if (_zoomLevel != Resources::getZoomLevel() || _needsRefresh)
   {
     _zoomLevel = Resources::getZoomLevel();
     if (_spriteCount > 1)
@@ -54,25 +44,13 @@ void Sprite::refresh()
 
   _screenCoordinates = Resources::convertIsoToScreenCoordinates(_isoCoordinates);
   _destRect.x = _screenCoordinates.x;
-  _destRect.y = _screenCoordinates.y;
+  _destRect.y = _screenCoordinates.y - _destRect.h;
+  _needsRefresh = false;
 }
 
-void Sprite::setTextureNew(SDL_Texture *texture)
+void Sprite::setTexture(SDL_Texture *texture)
 {
-  SDL_QueryTexture(texture, nullptr, nullptr, &_destRect.w, &_destRect.h);
-
   _texture = texture;
-  _tileSize = _destRect.w;
-
-  if (_spriteCount > 1)
-  {
-    _destRect.w = static_cast<int>(_clipRect.w * _zoomLevel);
-    _destRect.h = static_cast<int>(_clipRect.h * _zoomLevel);
-  }
-  else
-  {
-    SDL_QueryTexture(_texture, nullptr, nullptr, &_destRect.w, &_destRect.h);
-    _destRect.w = static_cast<int>(_destRect.w * _zoomLevel);
-    _destRect.h = static_cast<int>(_destRect.h * _zoomLevel);
-  }
+  _needsRefresh = true;
+  refresh();
 };
