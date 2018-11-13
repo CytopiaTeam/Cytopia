@@ -3,6 +3,7 @@
 #include "SDL2/SDL_image.h"
 #include "../ThirdParty/json.hxx"
 
+#include "basics/settings.hxx"
 #include "basics/resources.hxx"
 #include "basics/log.hxx"
 #include "tile.hxx"
@@ -22,12 +23,12 @@ void TextureManager::loadTileTextures()
   json tileDataJSON;
 
   // Read JSON File.
-  std::ifstream i("resources/data/TileData.json");
+  std::ifstream i(Settings::Instance().settings.tileDataJSONFile);
   if (i.fail())
   {
     LOG(LOG_ERROR) << "File "
-                   << "resources/data/TileData.json"
-                   << " does not exist! Cannot load settings from INI File!";
+                   << Settings::Instance().settings.tileDataJSONFile
+                   << " does not exist!";
     return;
   }
 
@@ -36,7 +37,7 @@ void TextureManager::loadTileTextures()
   if (tileDataJSON.is_discarded())
   {
     LOG(LOG_ERROR) << "Error parsing JSON File "
-                   << "resources/data/TileData.json";
+                   << Settings::Instance().settings.tileDataJSONFile;
   }
   i.close();
 
@@ -67,12 +68,12 @@ void TextureManager::loadUITexture()
 {
   json uiDataJSON;
 
-  std::ifstream i("resources/data/UiData.json");
+  std::ifstream i(Settings::Instance().settings.uiDataJSONFile);
   if (i.fail())
   {
     LOG(LOG_ERROR) << "File "
-                   << "resources/data/UiData.json"
-                   << " does not exist! Cannot load settings from INI File!";
+                   << Settings::Instance().settings.uiDataJSONFile
+                   << " does not exist!";
     return;
   }
 
@@ -81,7 +82,7 @@ void TextureManager::loadUITexture()
 
   if (uiDataJSON.is_discarded())
   {
-    LOG(LOG_ERROR) << "Error parsing JSON File resources/data/UiData.json";
+    LOG(LOG_ERROR) << "Error parsing JSON File " << Settings::Instance().settings.uiDataJSONFile;
     return;
   }
 
