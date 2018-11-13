@@ -33,7 +33,7 @@ void AudioMixer::playMusic()
 void AudioMixer::mute()
 {
   //TODO: stop all music stored in the element class after refactoring
-  for (auto it : musicObjects)
+  for (const auto& it : musicObjects)
   {
     it->stop();
     Settings::Instance().settings.playMusic = false;

@@ -42,7 +42,7 @@ public:
     */
   void renderMap();
 
-  void setTileTypeOfNode(const Point &isoCoordinates, const std::string tileType);
+  void setTileTypeOfNode(const Point &isoCoordinates, const std::string& tileType);
 
   void refresh();
 
