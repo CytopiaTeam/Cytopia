@@ -14,6 +14,8 @@
     "Texture_Default": "resources/images/ui/buttons/levelTerrain.png"
   },
   "Button_RoadsMenu": {
-    "Texture_Default": "resources/images/ui/buttons/Roads Menu.png"
+    "Texture_Default": "resources/images/ui/buttons/Roads Menu.png",
+    "Texture_Clicked": "resources/images/ui/buttons/Roads Menu pressed.png",
+    "Texture_Hovering": "resources/images/ui/buttons/Roads Menu hover.png"
   }
 }
