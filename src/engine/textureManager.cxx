@@ -26,9 +26,7 @@ void TextureManager::loadTileTextures()
   std::ifstream i(Settings::Instance().settings.tileDataJSONFile);
   if (i.fail())
   {
-    LOG(LOG_ERROR) << "File "
-                   << Settings::Instance().settings.tileDataJSONFile
-                   << " does not exist!";
+    LOG(LOG_ERROR) << "File " << Settings::Instance().settings.tileDataJSONFile << " does not exist!";
     return;
   }
 
@@ -36,8 +34,7 @@ void TextureManager::loadTileTextures()
   tileDataJSON = json::parse(i, nullptr, false);
   if (tileDataJSON.is_discarded())
   {
-    LOG(LOG_ERROR) << "Error parsing JSON File "
-                   << Settings::Instance().settings.tileDataJSONFile;
+    LOG(LOG_ERROR) << "Error parsing JSON File " << Settings::Instance().settings.tileDataJSONFile;
   }
   i.close();
 
@@ -71,9 +68,7 @@ void TextureManager::loadUITexture()
   std::ifstream i(Settings::Instance().settings.uiDataJSONFile);
   if (i.fail())
   {
-    LOG(LOG_ERROR) << "File "
-                   << Settings::Instance().settings.uiDataJSONFile
-                   << " does not exist!";
+    LOG(LOG_ERROR) << "File " << Settings::Instance().settings.uiDataJSONFile << " does not exist!";
     return;
   }
 
@@ -95,11 +90,6 @@ void TextureManager::loadUITexture()
       _uiTextureMap[tileID.key()][it.key()] = createTextureFromSurface(createSurfaceFromFile(it.value()));
     }
   }
-}
-
-SDL_Texture *TextureManager::getTileTexture(const std::string &type, const std::string &orientation)
-{
-  return _tileTextureMap[type + orientation];
 }
 
 SDL_Texture *TextureManager::getUITexture(const std::string &uiElement, int buttonState)
@@ -145,7 +135,7 @@ const SDL_Color TextureManager::getPixelColor(const std::string &type, const std
   return Color;
 }
 
-SDL_Texture *TextureManager::getTileTextureNew(const std::string &id, size_t tileMapType)
+SDL_Texture *TextureManager::getTileTexture(const std::string &id, size_t tileMapType)
 {
   std::string key = id + std::to_string(tileMapType);
 

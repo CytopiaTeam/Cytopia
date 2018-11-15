@@ -11,14 +11,9 @@ using json = nlohmann::json;
 
 Tile::Tile() { init(); }
 
-SDL_Texture *Tile::getTexture(const std::string &type, const std::string &orientation)
+SDL_Texture *Tile::getTexture(const std::string &id, size_t tileMapType)
 {
-  return TextureManager::Instance().getTileTexture(type, orientation);
-}
-
-SDL_Texture *Tile::getTextureNew(const std::string &id, size_t tileMapType)
-{
-  return TextureManager::Instance().getTileTextureNew(id, tileMapType);
+  return TextureManager::Instance().getTileTexture(id, tileMapType);
 }
 
 TileInformation *Tile::getTileData(const std::string &id)

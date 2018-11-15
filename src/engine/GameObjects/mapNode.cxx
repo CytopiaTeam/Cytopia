@@ -77,5 +77,5 @@ void MapNode::updateTexture()
     _sprite->setSpriteCount(_tileData->slopeTiles.count);
     break;
   }
-  _sprite->setTexture(Tile::Instance().getTextureNew(_tileType, _tileMap));
+  _sprite->setTexture(Tile::Instance().getTexture(_tileType, _tileMap));
 }

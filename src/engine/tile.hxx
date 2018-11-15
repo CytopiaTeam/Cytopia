@@ -70,8 +70,7 @@ public:
   Tile(Tile const &) = delete;
   Tile &operator=(Tile const &) = delete;
 
-  SDL_Texture *getTexture(const std::string &type, const std::string &orientation);
-  SDL_Texture *getTextureNew(const std::string &id, size_t tileMapType = 0);
+  SDL_Texture *getTexture(const std::string &id, size_t tileMapType = 0);
   TileInformation *getTileData(const std::string &id);
   std::string caluclateOrientation(unsigned char bitMaskElevation);
   size_t caluclateOrientationNew(unsigned char bitMaskElevation);
