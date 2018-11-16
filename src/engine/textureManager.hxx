@@ -34,9 +34,9 @@ public:
   SDL_Texture *getUITexture(const std::string &uiElement, int buttonState = BUTTONSTATE_DEFAULT);
 
   /** Retrieves Color of a specific tileID at coordinates with the texture */
-  const SDL_Color getPixelColor(const std::string &type, const std::string &orientation, int X, int Y);
 
   SDL_Texture *getTileTexture(const std::string &id, size_t tileMapType = 0);
+  SDL_Surface *getTileSurface(const std::string &id, size_t tileMapType = 0);
 
   void loadTexture(const std::string &id, const std::string &fileName, size_t tileMapType = 0);
 

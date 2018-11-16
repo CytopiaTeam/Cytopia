@@ -51,7 +51,6 @@ void Map::increaseHeight(const Point &isoCoordinates)
   {
     _mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->increaseHeight();
     updateNeightbors(_mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->getCoordinates());
-    // TODO call refresh properly
     _mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->getSprite()->refresh();
   }
 }
@@ -206,4 +205,25 @@ void Map::refresh()
   {
     it->getSprite()->refresh();
   }
+}
+
+const SDL_Color Map::getColorOfPixelInSurface(SDL_Surface *surface, int X, int Y, const SDL_Rect &clipRect)
+{
+  SDL_Color Color = {0, 0, 0, SDL_ALPHA_TRANSPARENT};
+
+  if (clipRect.w != 0)
+  {
+    X += clipRect.w;
+  }
+
+  if (surface)
+  {
+    int Bpp = surface->format->BytesPerPixel;
+    Uint8 *p = (Uint8 *)surface->pixels + Y * surface->pitch + X * Bpp;
+    Uint32 pixel = *(Uint32 *)p;
+
+    SDL_GetRGBA(pixel, surface->format, &Color.r, &Color.g, &Color.b, &Color.a);
+  }
+
+  return Color;
 }

@@ -100,7 +100,7 @@ Point Engine::findNodeInMap(const Point &screenCoordinates)
     {
       MapNode *currentNode = _map.getNode(x, y);
 
-      SDL_Rect spriteRect = currentNode->getSprite()->getTextureInformation();
+      SDL_Rect spriteRect = currentNode->getSprite()->getDestRect();
 
       int clickedX = screenCoordinates.x;
       int clickedY = screenCoordinates.y;
@@ -118,8 +118,10 @@ Point Engine::findNodeInMap(const Point &screenCoordinates)
         pixelY = static_cast<int>(pixelY / _zoomLevel);
 
         // Check if the clicked Sprite is not transparent (we hit a point within the pixel)
-        if (TextureManager::Instance().getPixelColor(currentNode->getType(), currentNode->getOrientation(), pixelX, pixelY).a !=
-            SDL_ALPHA_TRANSPARENT)
+        if (_map.getColorOfPixelInSurface(
+                    TextureManager::Instance().getTileSurface(currentNode->getTileType(), currentNode->getUsedTileMap()), pixelX,
+                    pixelY, currentNode->getSprite()->getClipRect())
+                .a != SDL_ALPHA_TRANSPARENT)
         {
           if (foundCoordinates.z < currentNode->getCoordinates().z)
           {

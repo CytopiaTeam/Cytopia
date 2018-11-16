@@ -42,6 +42,8 @@ public:
     */
   void renderMap();
 
+  const SDL_Color getColorOfPixelInSurface(SDL_Surface *surface, int X, int Y, const SDL_Rect &clipRect);
+
   void setTileTypeOfNode(const Point &isoCoordinates, const std::string &tileType);
 
   void refresh();

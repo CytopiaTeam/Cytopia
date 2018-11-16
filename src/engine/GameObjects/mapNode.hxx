@@ -68,9 +68,11 @@ public:
   unsigned char getElevationBitmask() { return _elevationBitmask; };
 
   std::string getType() { return _type; };
+  const std::string &getTileType() { return _tileType; };
   void setTileType(const std::string &tileType);
   std::string getOrientation() { return _orientation; };
-
+  size_t getUsedTileMap() { return _tileMap; };
+  //SDL_Rect getClipRect() { return _cli;
 private:
   Point _isoCoordinates;
   std::unique_ptr<Sprite> _sprite;

@@ -113,28 +113,6 @@ SDL_Texture *TextureManager::getUITexture(const std::string &uiElement, int butt
   return _uiTextureMap[uiElement]["Texture_Default"];
 }
 
-const SDL_Color TextureManager::getPixelColor(const std::string &type, const std::string &orientation, int X, int Y)
-{
-  SDL_Color Color = {0, 0, 0, SDL_ALPHA_TRANSPARENT};
-  std::string key = type + orientation;
-
-  if (_surfaceMap.count(key))
-  {
-    SDL_Surface *surface = _surfaceMap[key];
-
-    int Bpp = surface->format->BytesPerPixel;
-    Uint8 *p = (Uint8 *)surface->pixels + Y * surface->pitch + X * Bpp;
-    Uint32 pixel = *(Uint32 *)p;
-
-    SDL_GetRGBA(pixel, surface->format, &Color.r, &Color.g, &Color.b, &Color.a);
-  }
-  else
-  {
-    LOG(LOG_ERROR) << "No surface in map for type " << type << " with orientation: " << orientation;
-  }
-  return Color;
-}
-
 SDL_Texture *TextureManager::getTileTexture(const std::string &id, size_t tileMapType)
 {
   std::string key = id + std::to_string(tileMapType);
@@ -142,6 +120,16 @@ SDL_Texture *TextureManager::getTileTexture(const std::string &id, size_t tileMa
   if (_tileTextureMapNew.count(key))
   {
     return _tileTextureMapNew[key];
+  }
+  return nullptr;
+}
+
+SDL_Surface *TextureManager::getTileSurface(const std::string &id, size_t tileMapType)
+{
+  std::string key = id + std::to_string(tileMapType);
+  if (_surfaceMapNew.count(key))
+  {
+    return _surfaceMapNew[key];
   }
   return nullptr;
 }

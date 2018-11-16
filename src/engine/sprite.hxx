@@ -20,7 +20,8 @@ public:
   void setCoordinates(Point isoCoords) { _isoCoordinates = isoCoords; }
   void setOrientation(size_t orientation) { _orientation = orientation; };
   void setSpriteCount(size_t spriteCount) { _spriteCount = spriteCount; };
-  const SDL_Rect &getTextureInformation() { return _destRect; };
+  const SDL_Rect &getDestRect() { return _destRect; };
+  const SDL_Rect &getClipRect() { return _clipRect; };
 
 private:
   SDL_Texture *_texture = nullptr;
