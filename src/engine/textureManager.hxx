@@ -53,7 +53,6 @@ private:
   If colorkey is set - Use Magic Pink (255,255,0) for transparency
   */
   void loadUITexture();
-  void loadTileTextures();
 
   /** Delete everything. should be called from the destuctor only
   */
@@ -65,9 +64,7 @@ private:
   std::unordered_map<std::string, std::unordered_map<std::string, SDL_Texture *>> _uiTextureMap;
 
   std::unordered_map<std::string, SDL_Texture *> _tileTextureMap;
-  std::unordered_map<std::string, SDL_Texture *> _tileTextureMapNew;
   std::unordered_map<std::string, SDL_Surface *> _surfaceMap;
-  std::unordered_map<std::string, SDL_Surface *> _surfaceMapNew;
 };
 
 #endif

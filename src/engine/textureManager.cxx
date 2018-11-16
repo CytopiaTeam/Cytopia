@@ -10,55 +10,15 @@
 
 using json = nlohmann::json;
 
-TextureManager::TextureManager()
-{
-  loadTileTextures();
-  loadUITexture();
-}
+TextureManager::TextureManager() { loadUITexture(); }
 
 TextureManager::~TextureManager() { flush(); }
-
-void TextureManager::loadTileTextures()
-{
-  json tileDataJSON;
-
-  // Read JSON File.
-  std::ifstream i(Settings::Instance().settings.tileDataJSONFile);
-  if (i.fail())
-  {
-    LOG(LOG_ERROR) << "File " << Settings::Instance().settings.tileDataJSONFile << " does not exist!";
-    return;
-  }
-
-  // check if json file can be parsed
-  tileDataJSON = json::parse(i, nullptr, false);
-  if (tileDataJSON.is_discarded())
-  {
-    LOG(LOG_ERROR) << "Error parsing JSON File " << Settings::Instance().settings.tileDataJSONFile;
-  }
-  i.close();
-
-  std::string key;
-  size_t idx = 0;
-  // TODO: this will only work for Terrain texture
-  // i commit that as is, because JSON format will change anyway with the new textures.
-  while (!tileDataJSON["Terrain"][idx].is_null())
-  {
-    for (const auto &it : tileDataJSON["Terrain"][idx].items())
-    {
-      key = "Terrain" + tileDataJSON["Terrain"][idx]["orientation"].get<std::string>();
-      _surfaceMap[key] = createSurfaceFromFile(tileDataJSON["Terrain"][idx]["image"].get<std::string>());
-      _tileTextureMap[key] = createTextureFromSurface(_surfaceMap[key]);
-    }
-    idx++;
-  }
-}
 
 void TextureManager::loadTexture(const std::string &id, const std::string &fileName, size_t tileMapType)
 {
   std::string key = id + std::to_string(tileMapType);
-  _surfaceMapNew[key] = createSurfaceFromFile(fileName);
-  _tileTextureMapNew[key] = createTextureFromSurface(_surfaceMapNew[key]);
+  _surfaceMap[key] = createSurfaceFromFile(fileName);
+  _tileTextureMap[key] = createTextureFromSurface(_surfaceMap[key]);
 }
 
 void TextureManager::loadUITexture()
@@ -117,9 +77,9 @@ SDL_Texture *TextureManager::getTileTexture(const std::string &id, size_t tileMa
 {
   std::string key = id + std::to_string(tileMapType);
 
-  if (_tileTextureMapNew.count(key))
+  if (_tileTextureMap.count(key))
   {
-    return _tileTextureMapNew[key];
+    return _tileTextureMap[key];
   }
   return nullptr;
 }
@@ -127,9 +87,9 @@ SDL_Texture *TextureManager::getTileTexture(const std::string &id, size_t tileMa
 SDL_Surface *TextureManager::getTileSurface(const std::string &id, size_t tileMapType)
 {
   std::string key = id + std::to_string(tileMapType);
-  if (_surfaceMapNew.count(key))
+  if (_surfaceMap.count(key))
   {
-    return _surfaceMapNew[key];
+    return _surfaceMap[key];
   }
   return nullptr;
 }
