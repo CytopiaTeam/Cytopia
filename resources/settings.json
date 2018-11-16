@@ -12,7 +12,7 @@
         "PlayMusic": true,
         "PlaySoundEffects": true,
         "AudioChannels": 2,
-        "MusicVolume": 10,
+        "MusicVolume": 50,
         "SoundEffectsVolume": 100
     },
     "Graphics": {
