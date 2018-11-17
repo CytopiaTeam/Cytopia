@@ -4,6 +4,7 @@
 #include "basics/settings.hxx"
 #include "basics/resources.hxx"
 #include "basics/log.hxx"
+#include "textureManager.hxx"
 
 constexpr struct
 {
@@ -207,23 +208,61 @@ void Map::refresh()
   }
 }
 
-const SDL_Color Map::getColorOfPixelInSurface(SDL_Surface *surface, int X, int Y, const SDL_Rect &clipRect)
+SDL_Color Map::getColorOfPixelInSurface(SDL_Surface *surface, int x, int y, const SDL_Rect &clipRect) const
 {
   SDL_Color Color = {0, 0, 0, SDL_ALPHA_TRANSPARENT};
 
-  if (clipRect.w != 0)
-  {
-    X += clipRect.w;
-  }
+  x += clipRect.w;
 
   if (surface)
   {
     int Bpp = surface->format->BytesPerPixel;
-    Uint8 *p = (Uint8 *)surface->pixels + Y * surface->pitch + X * Bpp;
+    Uint8 *p = (Uint8 *)surface->pixels + y * surface->pitch + x * Bpp;
     Uint32 pixel = *(Uint32 *)p;
 
     SDL_GetRGBA(pixel, surface->format, &Color.r, &Color.g, &Color.b, &Color.a);
   }
 
   return Color;
+}
+
+Point Map::findNodeInMap(const Point &screenCoordinates, float zoomLevel) const
+{
+  Point foundCoordinates{-1, -1, 0, 0};
+
+  // check all nodes of the map to find the clicked point
+  for (auto it : _mapNodesInDrawingOrder)
+  {
+    //MapNode *it = _mapNodes[x * _columns * y];
+
+    SDL_Rect spriteRect = it->getSprite()->getDestRect();
+
+    int clickedX = screenCoordinates.x;
+    int clickedY = screenCoordinates.y;
+
+    int spriteX = spriteRect.x;
+    int spriteY = spriteRect.y;
+
+    if (clickedX >= spriteX && clickedX < spriteX + spriteRect.w && clickedY >= spriteY && clickedY < spriteY + spriteRect.h)
+    {
+      // Calculate the position of the clicked pixel within the surface
+      int pixelX = (clickedX - spriteX);
+      int pixelY = (clickedY - spriteY);
+      // "un-zoom" the positon to match the un-adjusted surface
+      pixelX = static_cast<int>(pixelX / zoomLevel);
+      pixelY = static_cast<int>(pixelY / zoomLevel);
+
+      // Check if the clicked Sprite is not transparent (we hit a point within the pixel)
+      if (getColorOfPixelInSurface(TextureManager::Instance().getTileSurface(it->getTileType(), it->getUsedTileMap()), pixelX,
+                                   pixelY, it->getSprite()->getClipRect())
+              .a != SDL_ALPHA_TRANSPARENT)
+      {
+        if (foundCoordinates.z < it->getCoordinates().z)
+        {
+          foundCoordinates = it->getCoordinates();
+        }
+      }
+    }
+  }
+  return foundCoordinates;
 }

@@ -42,7 +42,8 @@ public:
     */
   void renderMap();
 
-  const SDL_Color getColorOfPixelInSurface(SDL_Surface *surface, int X, int Y, const SDL_Rect &clipRect);
+
+  Point findNodeInMap(const Point &screenCoordinates, float zoomLevel) const;
 
   void setTileTypeOfNode(const Point &isoCoordinates, const std::string &tileType);
 
@@ -72,6 +73,8 @@ private:
   * @returns  Uint that stores the elevated neighbor tiles
   */
   unsigned int getElevatedNeighborBitmask(const Point &isoCoordinates);
+
+  SDL_Color getColorOfPixelInSurface(SDL_Surface *surface, int x, int y, const SDL_Rect &clipRect) const;
 };
 
 #endif

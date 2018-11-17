@@ -91,47 +91,7 @@ void Engine::decreaseZoomLevel()
 
 Point Engine::findNodeInMap(const Point &screenCoordinates)
 {
-  Point foundCoordinates{-1, -1, 0, 0};
-
-  // check all nodes of the map to find the clicked point
-  for (int x = 0; x <= _map_size; x++)
-  {
-    for (int y = _map_size; y >= 0; y--)
-    {
-      MapNode *currentNode = _map.getNode(x, y);
-
-      SDL_Rect spriteRect = currentNode->getSprite()->getDestRect();
-
-      int clickedX = screenCoordinates.x;
-      int clickedY = screenCoordinates.y;
-
-      int spriteX = spriteRect.x;
-      int spriteY = spriteRect.y;
-
-      if (clickedX >= spriteX && clickedX < spriteX + spriteRect.w && clickedY >= spriteY && clickedY < spriteY + spriteRect.h)
-      {
-        // Calculate the position of the clicked pixel within the surface
-        int pixelX = (clickedX - spriteX);
-        int pixelY = (clickedY - spriteY);
-        // "un-zoom" the positon to match the un-adjusted surface
-        pixelX = static_cast<int>(pixelX / _zoomLevel);
-        pixelY = static_cast<int>(pixelY / _zoomLevel);
-
-        // Check if the clicked Sprite is not transparent (we hit a point within the pixel)
-        if (_map.getColorOfPixelInSurface(
-                    TextureManager::Instance().getTileSurface(currentNode->getTileType(), currentNode->getUsedTileMap()), pixelX,
-                    pixelY, currentNode->getSprite()->getClipRect())
-                .a != SDL_ALPHA_TRANSPARENT)
-        {
-          if (foundCoordinates.z < currentNode->getCoordinates().z)
-          {
-            foundCoordinates = currentNode->getCoordinates();
-          }
-        }
-      }
-    }
-  }
-  return foundCoordinates;
+  return _map.findNodeInMap(screenCoordinates, Resources::getZoomLevel());
 }
 
 bool Engine::isGameRunning() { return _windowManager->isRunning(); };
