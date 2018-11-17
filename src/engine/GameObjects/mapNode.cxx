@@ -1,7 +1,7 @@
 #include "mapNode.hxx"
 #include "../basics/log.hxx"
 
-MapNode::MapNode(Point isoCoordinates) : _isoCoordinates(std::move(isoCoordinates)), _tileID(14)
+MapNode::MapNode(Point isoCoordinates) : _isoCoordinates(std::move(isoCoordinates))
 {
   _sprite = std::make_unique<Sprite>(_isoCoordinates);
   updateTexture();
@@ -46,12 +46,12 @@ void MapNode::setTileType(const std::string &tileType)
 void MapNode::updateTexture()
 {
   _tileData = Tile::Instance().getTileData(_tileType);
-  _orientationNew = Tile::Instance().caluclateOrientationNew(_elevationBitmask);
-  _sprite->setOrientation(_orientationNew);
+  _orientation = Tile::Instance().caluclateOrientationNew(_elevationBitmask);
+  _sprite->setOrientation(_orientation);
 
   SDL_Rect clipRect;
 
-  if (_orientationNew == TileSlopes::DEFAULT_ORIENTATION)
+  if (_orientation == TileSlopes::DEFAULT_ORIENTATION)
   {
     _tileMap = TileMap::DEFAULT;
   }
@@ -67,12 +67,12 @@ void MapNode::updateTexture()
     _sprite->setSpriteCount(_tileData->tiles.count);
     break;
   case TileMap::CORNERS:
-    clipRect.x = _tileData->cornerTiles.clippingWidth * (int)_orientationNew;
+    clipRect.x = _tileData->cornerTiles.clippingWidth * (int)_orientation;
     _sprite->setClipRect({clipRect.x, 0, _tileData->cornerTiles.clippingWidth, _tileData->cornerTiles.clippingHeight});
     _sprite->setSpriteCount(_tileData->cornerTiles.count);
     break;
   case TileMap::SLOPES:
-    clipRect.x = _tileData->slopeTiles.clippingWidth * (int)_orientationNew;
+    clipRect.x = _tileData->slopeTiles.clippingWidth * (int)_orientation;
     _sprite->setClipRect({clipRect.x, 0, _tileData->slopeTiles.clippingWidth, _tileData->slopeTiles.clippingHeight});
     _sprite->setSpriteCount(_tileData->slopeTiles.count);
     break;

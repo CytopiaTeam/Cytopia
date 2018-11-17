@@ -42,7 +42,6 @@ public:
     */
   void renderMap();
 
-
   Point findNodeInMap(const Point &screenCoordinates, float zoomLevel) const;
 
   void setTileTypeOfNode(const Point &isoCoordinates, const std::string &tileType);
