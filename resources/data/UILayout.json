@@ -18,10 +18,34 @@
       "SpriteID": "Button_RoadsMenu",
       "Position_x": 480,
       "Position_y": 520,
+      "ParentOfGroup": "RoadsSubMenu",
       "Layout": "BottomMenu",
-      "Action": "ChangeTileType_Road",
       "ToggleButton": true,
       "TooltipText": "Construction"
+    }
+  ],
+  "RoadsSubMenu": [
+    {
+      "Type": "ImageButton",
+      "SpriteID": "Button_RoadsMenu_PavedRoad",
+      "Position_x": 480,
+      "Position_y": 470,
+      "Action": "ChangeTileType",
+      "TileType": "paved_road",
+      "Layout": "BottomMenuExpansionGroup",
+      "ToggleButton": true,
+      "TooltipText": "Raise Terrain"
+    },
+    {
+      "Type": "ImageButton",
+      "SpriteID": "Button_RoadsMenu_DirtRoad",
+      "Position_x": 520,
+      "Position_y": 470,
+      "Action": "ChangeTileType",
+      "TileType" : "dirt_road",
+      "Layout": "BottomMenuExpansionGroup",
+      "ToggleButton": true,
+      "TooltipText": "Lower Terrain"
     }
   ],
   "ConstructionSubMenu": [

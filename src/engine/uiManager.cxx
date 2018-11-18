@@ -152,10 +152,15 @@ void UIManager::init()
         {
           uiElement->registerCallbackFunction(Signal::slot(Engine::Instance(), &Engine::quitGame));
         }
-        else if (actionID == "ChangeTileType_Road")
+        else if (actionID == "ChangeTileType")
         {
+          if (!uiLayout[it.key()][id]["Text"].is_null())
+          {
+            text = uiLayout[it.key()][id]["Text"].get<std::string>();
+          }
+          std::string type = uiLayout[it.key()][id].value("TileType", "");
           uiElement->registerCallbackFunction(
-              []() { tileTypeEditMode == "paved_road" ? tileTypeEditMode = "" : tileTypeEditMode = "paved_road"; });
+              [type]() { tileTypeEditMode == type ? tileTypeEditMode = "" : tileTypeEditMode = type; });
         }
 
         // store the element in a vector
