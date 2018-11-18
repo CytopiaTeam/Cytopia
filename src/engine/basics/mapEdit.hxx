@@ -14,5 +14,6 @@ enum class TerrainEdit
 
 extern TerrainEdit terrainEditMode;
 extern std::string tileTypeEditMode;
+extern bool demolishMode;
 
 #endif

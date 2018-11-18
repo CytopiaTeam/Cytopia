@@ -305,3 +305,8 @@ Point Map::findNodeInMap(const Point &screenCoordinates, float zoomLevel) const
   }
   return foundCoordinates;
 }
+
+void Map::demolishNode(const Point &isoCoordinates)
+{
+  _mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->setTileType("terrain");
+}

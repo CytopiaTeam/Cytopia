@@ -4,6 +4,9 @@
     "Texture_Clicked": "resources/images/ui/buttons/Construction Menu pressed.png",
     "Texture_Hovering": "resources/images/ui/buttons/Construction Menu hover.png"
   },
+  "Button_ConstructionMenu_Demolish": {
+    "Texture_Default": "resources/images/ui/buttons/demolish.png"
+  },
   "Button_ConstructionMenu_RaiseTerrain": {
     "Texture_Default": "resources/images/ui/buttons/raiseTerrain.png"
   },

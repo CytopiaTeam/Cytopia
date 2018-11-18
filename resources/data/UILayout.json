@@ -34,7 +34,7 @@
       "TileType": "paved_road",
       "Layout": "BottomMenuExpansionGroup",
       "ToggleButton": true,
-      "TooltipText": "Raise Terrain"
+      "TooltipText": "Paved Road"
     },
     {
       "Type": "ImageButton",
@@ -45,10 +45,20 @@
       "TileType" : "dirt_road",
       "Layout": "BottomMenuExpansionGroup",
       "ToggleButton": true,
-      "TooltipText": "Lower Terrain"
+      "TooltipText": "Dirt Road"
     }
   ],
   "ConstructionSubMenu": [
+    {
+      "Type": "ImageButton",
+      "SpriteID": "Button_ConstructionMenu_Demolish",
+      "Position_x": 340,
+      "Position_y": 470,
+      "Action": "Demolish",
+      "Layout": "BottomMenuExpansionGroup",
+      "ToggleButton": true,
+      "TooltipText": "Demolish"
+    },
     {
       "Type": "ImageButton",
       "SpriteID": "Button_ConstructionMenu_RaiseTerrain",

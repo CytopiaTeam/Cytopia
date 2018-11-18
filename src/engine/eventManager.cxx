@@ -87,6 +87,10 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
             {
               engine.setTileTypeOfNode(clickCoords, tileTypeEditMode);
             }
+            else if (demolishMode)
+            {
+              engine.demolishNode(clickCoords);
+            }
             else
             {
               LOG() << "CLICKED - Iso Coords: " << clickCoords.x << ", " << clickCoords.y;

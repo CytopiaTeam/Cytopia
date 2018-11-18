@@ -2,6 +2,7 @@
 
 #include "textureManager.hxx"
 #include "engine.hxx"
+#include "map.hxx"
 
 #include "basics/mapEdit.hxx"
 #include "basics/settings.hxx"
@@ -151,6 +152,10 @@ void UIManager::init()
         else if (actionID == "QuitGame")
         {
           uiElement->registerCallbackFunction(Signal::slot(Engine::Instance(), &Engine::quitGame));
+        }
+        else if (actionID == "Demolish")
+        {
+          uiElement->registerCallbackFunction([]() { demolishMode = !demolishMode; });
         }
         else if (actionID == "ChangeTileType")
         {

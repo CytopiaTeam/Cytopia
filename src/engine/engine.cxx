@@ -104,3 +104,5 @@ void Engine::setTileTypeOfNode(const Point &isoCoordinates, const std::string &t
 {
   _map.setTileTypeOfNode(isoCoordinates, tileType);
 }
+
+void Engine::demolishNode(const Point &isoCoordinates) { _map.demolishNode(isoCoordinates); }

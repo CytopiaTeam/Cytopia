@@ -90,6 +90,8 @@ public:
 
   void setTileTypeOfNode(const Point &isoCoordinates, const std::string &tileType);
 
+  void demolishNode(const Point &isoCoordinates);
+
 private:
   Engine();
   virtual ~Engine() = default;
