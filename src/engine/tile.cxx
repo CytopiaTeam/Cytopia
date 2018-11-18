@@ -3,6 +3,7 @@
 #include <bitset>
 
 #include "basics/log.hxx"
+#include "basics/settings.hxx"
 #include "textureManager.hxx"
 
 #include "../ThirdParty/json.hxx"
@@ -246,12 +247,10 @@ void Tile::init()
   json tileDataJSON;
 
   // Read JSON File.
-  std::ifstream i("resources/data/TileDataNew.json");
+  std::ifstream i(Settings::Instance().settings.tileDataJSONFile);
   if (i.fail())
   {
-    LOG(LOG_ERROR) << "File "
-                   << "resources/data/TileData.json"
-                   << " does not exist! Cannot load settings from INI File!";
+    LOG(LOG_ERROR) << "File " << Settings::Instance().settings.tileDataJSONFile << " does not exist!";
     return;
   }
 
@@ -259,8 +258,7 @@ void Tile::init()
   tileDataJSON = json::parse(i, nullptr, false);
   if (tileDataJSON.is_discarded())
   {
-    LOG(LOG_ERROR) << "Error parsing JSON File "
-                   << "resources/data/TileData.json";
+    LOG(LOG_ERROR) << "Error parsing JSON File " << Settings::Instance().settings.tileDataJSONFile;
   }
   i.close();
 

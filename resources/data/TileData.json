@@ -1,60 +1,74 @@
-{
-  "Terrain": [
-    {
-      "image": "resources/images/terrain/floor_0.png",
-      "orientation": "default"
+[
+  {
+    "id": "terrain",
+    "type": "ground",
+    "tiles": {
+      "fileName": "resources/images/terrain/terrain_tiles.png",
+      "count": 3,
+      "clip_width": 32,
+      "clip_height": 16
     },
-    {
-      "image": "resources/images/terrain/floor_center.png",
-      "orientation": "center"
+    "slopeTiles": {
+      "fileName": "resources/images/terrain/terrain_slopes.png",
+      "count": 13,
+      "clip_width": 32,
+      "clip_height": 32
     },
-    {
-      "image": "resources/images/terrain/floor_n.png",
-      "orientation": "n"
+    "title": "Terrain",
+    "description": "Terrain tiles",
+    "price": 0,
+    "upkeep cost": 0,
+    "power": 0,
+    "water": 0,
+    "author": "Kingtut 101",
+    "draw ground": false
+  },
+  {
+    "id": "paved_road",
+    "type": "road",
+    "tiles": {
+      "fileName": "resources/images/roads/paved_road.png",
+      "count": 16,
+      "clip_width": 32,
+      "clip_height": 16
     },
-    {
-      "image": "resources/images/terrain/floor_e.png",
-      "orientation": "e"
+    "slopeTiles": {
+      "fileName": "resources/images/roads/paved_road_slopes.png",
+      "count": 4,
+      "clip_width": 32,
+      "clip_height": 32
     },
-    {
-      "image": "resources/images/terrain/floor_s.png",
-      "orientation": "s"
+    "title": "Paved Road",
+    "description": "Paved Road",
+    "price": 10,
+    "upkeep cost": 2,
+    "power": 0,
+    "water": 0,
+    "author": "Kingtut 101",
+    "draw ground": false
+  },
+  {
+    "id": "dirt_road",
+    "type": "road",
+    "tiles": {
+      "fileName": "resources/images/roads/dirt_road.png",
+      "count": 16,
+      "clip_width": 32,
+      "clip_height": 16
     },
-    {
-      "image": "resources/images/terrain/floor_w.png",
-      "orientation": "w"
+    "slopeTiles": {
+      "fileName": "resources/images/roads/paved_road_slopes.png",
+      "count": 4,
+      "clip_width": 32,
+      "clip_height": 32
     },
-    {
-      "image": "resources/images/terrain/floor_n_and_e.png",
-      "orientation": "n_and_e"
-    },
-    {
-      "image": "resources/images/terrain/floor_n_and_w.png",
-      "orientation": "n_and_w"
-    },
-    {
-      "image": "resources/images/terrain/floor_s_and_e.png",
-      "orientation": "s_and_e"
-    },
-    {
-      "image": "resources/images/terrain/floor_s_and_w.png",
-      "orientation": "s_and_w"
-    },
-    {
-      "image": "resources/images/terrain/floor_ne.png",
-      "orientation": "ne"
-    },
-    {
-      "image": "resources/images/terrain/floor_nw.png",
-      "orientation": "nw"
-    },
-    {
-      "image": "resources/images/terrain/floor_se.png",
-      "orientation": "se"
-    },
-    {
-      "image": "resources/images/terrain/floor_sw.png",
-      "orientation": "sw"
-    }
-  ]
-}
+    "title": "Dirt Road",
+    "description": "A Road, that hasn't been cleaned often",
+    "price": 3,
+    "upkeep cost": 1,
+    "power": 0,
+    "water": 0,
+    "author": "Kingtut 101",
+    "draw ground": false
+  }
+]
