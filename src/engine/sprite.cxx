@@ -14,7 +14,7 @@ Sprite::Sprite(Point isoCoordinates) : _isoCoordinates(isoCoordinates)
 void Sprite::render()
 {
 
-  if (_spriteCount > 1)
+  if (_clipRect.w != 0)
   {
     SDL_RenderCopy(_renderer, _texture, &_clipRect, &_destRect);
   }
@@ -29,7 +29,7 @@ void Sprite::refresh()
   if (_zoomLevel != Resources::getZoomLevel() || _needsRefresh)
   {
     _zoomLevel = Resources::getZoomLevel();
-    if (_spriteCount > 1)
+    if (_clipRect.w != 0)
     {
       _destRect.w = static_cast<int>(_clipRect.w * _zoomLevel);
       _destRect.h = static_cast<int>(_clipRect.h * _zoomLevel);
