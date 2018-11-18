@@ -154,11 +154,8 @@ void UIManager::init()
         }
         else if (actionID == "ChangeTileType_Road")
         {
-          uiElement->registerCallbackFunction([]() {
-
-            tileTypeEditMode == "paved_road" ? tileTypeEditMode = "" : tileTypeEditMode = "paved_road";
-            LOG() << "elsi iffi " << tileTypeEditMode;
-          });
+          uiElement->registerCallbackFunction(
+              []() { tileTypeEditMode == "paved_road" ? tileTypeEditMode = "" : tileTypeEditMode = "paved_road"; });
         }
 
         // store the element in a vector

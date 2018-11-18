@@ -31,9 +31,10 @@ void MapNode::decreaseHeight()
 
 void MapNode::render() { _sprite->render(); }
 
-void MapNode::setElevationBitmask(unsigned char bitmask)
+void MapNode::setBitmask(unsigned char elevationBitmask, unsigned char tileTypeBitmask)
 {
-  _elevationBitmask = bitmask;
+  _elevationBitmask = elevationBitmask;
+  _tileTypeBitmask = tileTypeBitmask;
   updateTexture();
 }
 
@@ -46,7 +47,10 @@ void MapNode::setTileType(const std::string &tileType)
 void MapNode::updateTexture()
 {
   _tileData = Tile::Instance().getTileData(_tileType);
-  _orientation = Tile::Instance().caluclateOrientationNew(_elevationBitmask);
+  _orientation = Tile::Instance().caluclateSlopeOrientation(_elevationBitmask);
+  {
+    //_orientation = Tile::Instance().caluclateTileOrientation(_tileTypeBitmask);
+  }
   _sprite->setOrientation(_orientation);
 
   SDL_Rect clipRect;
@@ -54,6 +58,10 @@ void MapNode::updateTexture()
   if (_orientation == TileSlopes::DEFAULT_ORIENTATION)
   {
     _tileMap = TileMap::DEFAULT;
+    if (_tileType != "terrain")
+    {
+      _orientation = Tile::Instance().caluclateTileOrientation(_tileTypeBitmask);
+    }
   }
   else
   {
@@ -62,8 +70,15 @@ void MapNode::updateTexture()
   switch (_tileMap)
   {
   case TileMap::DEFAULT:
-    clipRect.x = _tileData->tiles.clippingWidth;
-    _sprite->setClipRect({0, 0, _tileData->tiles.clippingWidth, _tileData->tiles.clippingHeight});
+    clipRect.x = _tileData->tiles.clippingWidth * (int)_orientation;
+    if (_tileType == "terrain")
+    {
+      _sprite->setClipRect({0, 0, _tileData->tiles.clippingWidth, _tileData->tiles.clippingHeight});
+    }
+    else
+    {
+      _sprite->setClipRect({clipRect.x, 0, _tileData->tiles.clippingWidth, _tileData->tiles.clippingHeight});
+    }
     _sprite->setSpriteCount(_tileData->tiles.count);
     break;
   case TileMap::CORNERS:

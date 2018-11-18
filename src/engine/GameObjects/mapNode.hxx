@@ -46,7 +46,7 @@ public:
   */
   void render();
 
-  void setElevationBitmask(unsigned char bitmask);
+  void setBitmask(unsigned char elevationBitmask, unsigned char tileTypeBitmask);
 
   unsigned char getElevationBitmask() { return _elevationBitmask; };
 
@@ -71,6 +71,7 @@ private:
   TileInformation *_tileData;
 
   unsigned char _elevationBitmask = 0;
+  unsigned char _tileTypeBitmask = 0;
 
   void updateTexture();
 };

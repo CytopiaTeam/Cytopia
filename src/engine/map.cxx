@@ -51,7 +51,7 @@ void Map::increaseHeight(const Point &isoCoordinates)
   if (height < Settings::Instance().settings.maxElevationHeight)
   {
     _mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->increaseHeight();
-    updateNeightbors(_mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->getCoordinates());
+    updateNeighbors(_mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->getCoordinates());
     _mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->getSprite()->refresh();
   }
 }
@@ -63,12 +63,12 @@ void Map::decreaseHeight(const Point &isoCoordinates)
   if (height > 0)
   {
     _mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->decreaseHeight();
-    updateNeightbors(_mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->getCoordinates());
+    updateNeighbors(_mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->getCoordinates());
     _mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->getSprite()->refresh();
   }
 }
 
-void Map::updateNeightbors(const Point &isoCoordinates)
+void Map::updateNeighbors(const Point &isoCoordinates)
 {
   unsigned char elevationBitmask;
   int tileHeight = _mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->getCoordinates().height;
@@ -84,7 +84,7 @@ void Map::updateNeightbors(const Point &isoCoordinates)
       bool raise = false;
       elevationBitmask = getElevatedNeighborBitmask(it->getCoordinates());
       // set elevation bitmask for each neighbor
-      it->setElevationBitmask(elevationBitmask);
+      it->setBitmask(elevationBitmask, getNeighboringTilesBitmask(it->getCoordinates()));
 
       // there can't be a height difference greater then 1 between two map nodes.
       // only increase the cardinal directions
@@ -137,11 +137,12 @@ void Map::updateNeightbors(const Point &isoCoordinates)
 void Map::setTileTypeOfNode(const Point &isoCoordinates, const std::string &tileType)
 {
   _mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->setTileType(tileType);
+  updateNeighbors(isoCoordinates);
 }
 
-unsigned int Map::getElevatedNeighborBitmask(const Point &isoCoordinates)
+unsigned char Map::getElevatedNeighborBitmask(const Point &isoCoordinates)
 {
-  unsigned int bitmask = 0;
+  unsigned char bitmask = 0;
   int x = isoCoordinates.x;
   int y = isoCoordinates.y;
 
@@ -164,6 +165,44 @@ unsigned int Map::getElevatedNeighborBitmask(const Point &isoCoordinates)
       if (_mapNodes[it.first * _columns + it.second]->getCoordinates().height >
               _mapNodes[x * _columns + y]->getCoordinates().height &&
           _mapNodes[it.first * _columns + it.second])
+      {
+        // for each found tile add 2 ^ i to the bitmask
+        bitmask |= static_cast<unsigned int>(1 << i);
+      }
+    }
+    i++;
+  }
+  return bitmask;
+}
+
+unsigned char Map::getNeighboringTilesBitmask(const Point &isoCoordinates)
+{
+  unsigned char bitmask = 0;
+  int x = isoCoordinates.x;
+  int y = isoCoordinates.y;
+
+  if (_mapNodes[x * _columns + y]->getTileType() == "terrain")
+  {
+    return bitmask;
+  }
+
+  std::pair<int, int> adjecantNodesCoordinates[8] = {
+      std::make_pair(x, y + 1),     // 0 = 2^0 = 1   = TOP
+      std::make_pair(x, y - 1),     // 1 = 2^1 = 2   = BOTTOM
+      std::make_pair(x - 1, y),     // 2 = 2^2 = 4   = LEFT
+      std::make_pair(x + 1, y),     // 3 = 2^3 = 8   = RIGHT
+      std::make_pair(x - 1, y + 1), // 4 = 2^4 = 16  = TOP LEFT
+      std::make_pair(x + 1, y + 1), // 5 = 2^5 = 32  = TOP RIGHT
+      std::make_pair(x - 1, y - 1), // 6 = 2^6 = 64  = BOTTOM LEFT
+      std::make_pair(x + 1, y - 1)  // 7 = 2^7 = 128 = BOTTOM RIGHT
+  };
+
+  int i = 0;
+  for (const auto &it : adjecantNodesCoordinates)
+  {
+    if (it.first >= 0 && it.first < _rows && it.second >= 0 && it.second < _columns)
+    {
+      if (_mapNodes[it.first * _columns + it.second]->getTileType() == _mapNodes[x * _columns + y]->getTileType())
       {
         // for each found tile add 2 ^ i to the bitmask
         bitmask |= static_cast<unsigned int>(1 << i);
