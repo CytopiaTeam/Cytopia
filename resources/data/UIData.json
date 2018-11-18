@@ -4,6 +4,9 @@
     "Texture_Clicked": "resources/images/ui/buttons/Construction Menu pressed.png",
     "Texture_Hovering": "resources/images/ui/buttons/Construction Menu hover.png"
   },
+  "Button_ConstructionMenu_Water": {
+    "Texture_Default": "resources/images/ui/buttons/water.png"
+  },
   "Button_ConstructionMenu_Demolish": {
     "Texture_Default": "resources/images/ui/buttons/demolish.png"
   },

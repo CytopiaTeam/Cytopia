@@ -20,8 +20,7 @@
     "upkeep cost": 0,
     "power": 0,
     "water": 0,
-    "author": "Kingtut 101",
-    "draw ground": false
+    "author": "Kingtut 101"
   },
   {
     "id": "paved_road",
@@ -44,8 +43,7 @@
     "upkeep cost": 2,
     "power": 0,
     "water": 0,
-    "author": "Kingtut 101",
-    "draw ground": false
+    "author": "Kingtut 101"
   },
   {
     "id": "dirt_road",
@@ -69,6 +67,21 @@
     "power": 0,
     "water": 0,
     "author": "Kingtut 101",
-    "draw ground": false
+    "draw ground": true
+  },
+  {
+    "id": "water",
+    "type": "water",
+    "tiles": {
+      "fileName": "resources/images/water/terrain_water.png",
+      "count": 1
+    },
+    "title": "Water",
+    "description": "Water",
+    "price": 5,
+    "upkeep cost": 0,
+    "power": 0,
+    "water": 0,
+    "author": "Kingtut 101"
   }
 ]

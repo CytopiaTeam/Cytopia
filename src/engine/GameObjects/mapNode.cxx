@@ -48,10 +48,6 @@ void MapNode::updateTexture()
 {
   _tileData = Tile::Instance().getTileData(_tileType);
   _orientation = Tile::Instance().caluclateSlopeOrientation(_elevationBitmask);
-  {
-    //_orientation = Tile::Instance().caluclateTileOrientation(_tileTypeBitmask);
-  }
-  _sprite->setOrientation(_orientation);
 
   SDL_Rect clipRect;
 
@@ -67,6 +63,9 @@ void MapNode::updateTexture()
   {
     _tileMap = TileMap::SLOPES;
   }
+
+  _sprite->setOrientation(_orientation);
+
   switch (_tileMap)
   {
   case TileMap::DEFAULT:

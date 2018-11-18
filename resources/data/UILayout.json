@@ -88,6 +88,17 @@
       "Layout": "BottomMenuExpansionGroup",
       "ToggleButton": true,
       "TooltipText": "Level Terrain"
+    },
+    {
+      "Type": "ImageButton",
+      "SpriteID": "Button_ConstructionMenu_Water",
+      "Position_x": 500,
+      "Position_y": 470,
+      "Action": "ChangeTileType",
+      "TileType": "water",
+      "Layout": "BottomMenuExpansionGroup",
+      "ToggleButton": true,
+      "TooltipText": "Water"
     }
   ],
   "PauseMenu": [
