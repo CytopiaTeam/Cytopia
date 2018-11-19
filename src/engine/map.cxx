@@ -50,6 +50,7 @@ void Map::increaseHeight(const Point &isoCoordinates)
 
   if (height < Settings::Instance().settings.maxElevationHeight)
   {
+    demolishNode(isoCoordinates);
     _mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->increaseHeight();
     updateNeighbors(_mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->getCoordinates());
     _mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->getSprite()->refresh();
@@ -62,6 +63,7 @@ void Map::decreaseHeight(const Point &isoCoordinates)
 
   if (height > 0)
   {
+    demolishNode(isoCoordinates);
     _mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->decreaseHeight();
     updateNeighbors(_mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->getCoordinates());
     _mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->getSprite()->refresh();
@@ -83,7 +85,14 @@ void Map::updateNeighbors(const Point &isoCoordinates)
     {
       bool raise = false;
       elevationBitmask = getElevatedNeighborBitmask(it->getCoordinates());
-      // set elevation bitmask for each neighbor
+
+      // if the elevation bitmask changes (-> a new texture is drawn), demolish the tile
+      if (elevationBitmask != it->getElevationBitmask())
+      {
+        demolishNode(it->getCoordinates());
+      }
+
+      // set elevation and tile bitmask for each neighbor
       it->setBitmask(elevationBitmask, getNeighboringTilesBitmask(it->getCoordinates()));
 
       // there can't be a height difference greater then 1 between two map nodes.
@@ -92,6 +101,7 @@ void Map::updateNeighbors(const Point &isoCoordinates)
       {
         if (tileHeight - it->getCoordinates().height > 1)
         {
+
           increaseHeight(it->getCoordinates());
         }
         else if (tileHeight - it->getCoordinates().height < -1)
@@ -102,15 +112,16 @@ void Map::updateNeighbors(const Point &isoCoordinates)
 
       // those bitmask combinations require the tile to be elevated.
       std::vector<unsigned char> bits{3, 12, 26, 38, 73, 133};
-      for (auto it : bits)
+      for (auto elevationBit : bits)
       {
-        if ((elevationBitmask & it) == it)
+        if ((elevationBitmask & elevationBit) == elevationBit)
         {
           raise = true;
         }
       }
       if (raise)
       {
+
         increaseHeight(it->getCoordinates());
         if (terrainEditMode == TerrainEdit::LOWER)
         {
