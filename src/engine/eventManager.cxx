@@ -1,7 +1,9 @@
 #include "eventManager.hxx"
 
+#include "basics/mapEdit.hxx"
 #include "basics/timer.hxx"
 #include "basics/settings.hxx"
+#include "map.hxx"
 
 #include "basics/log.hxx"
 #include "basics/utils.hxx"
@@ -73,14 +75,26 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         {
           if (engine.isPointWithinBoundaries(clickCoords))
           {
-            if (Resources::getTerrainEditMode() == Resources::TERRAIN_RAISE)
+            if (terrainEditMode == TerrainEdit::RAISE)
+            {
               engine.increaseHeight(clickCoords);
-            else if (Resources::getTerrainEditMode() == Resources::TERRAIN_LOWER)
+            }
+            else if (terrainEditMode == TerrainEdit::LOWER)
             {
               engine.decreaseHeight(clickCoords);
             }
+            else if (!tileTypeEditMode.empty())
+            {
+              engine.setTileTypeOfNode(clickCoords, tileTypeEditMode);
+            }
+            else if (demolishMode)
+            {
+              engine.demolishNode(clickCoords);
+            }
             else
+            {
               LOG() << "CLICKED - Iso Coords: " << clickCoords.x << ", " << clickCoords.y;
+            }
           }
         }
         else if (event.button.button == SDL_BUTTON_RIGHT)

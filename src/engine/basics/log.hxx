@@ -34,15 +34,21 @@ public:
     logMessage << getTimeStamp();
 
     if (_logType == LOG_ERROR)
+    {
       logMessage << " - ERROR - ";
+    }
     else
+    {
       logMessage << " - ";
+    }
   }
 
   ~LOG()
   {
     if (active)
+    {
       std::cout << std::endl;
+    }
 
     logMessage << " - ";
     active = false;
@@ -54,7 +60,9 @@ public:
     std::cout << logMessage.str();
 
     if (_logType == LOG_ERROR)
+    {
       writeErrorLog(logMessage.str());
+    }
 
     // make sure the stringstream is clean before the operator is called again.
     logMessage.str(std::string());

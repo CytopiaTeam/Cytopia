@@ -1,8 +1,10 @@
 #include "map.hxx"
 
+#include "basics/mapEdit.hxx"
 #include "basics/settings.hxx"
 #include "basics/resources.hxx"
 #include "basics/log.hxx"
+#include "textureManager.hxx"
 
 constexpr struct
 {
@@ -48,9 +50,9 @@ void Map::increaseHeight(const Point &isoCoordinates)
 
   if (height < Settings::Instance().settings.maxElevationHeight)
   {
+    demolishNode(isoCoordinates);
     _mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->increaseHeight();
-    updateNeightbors(_mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->getCoordinates());
-    // TODO call refresh properly
+    updateNeighbors(_mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->getCoordinates());
     _mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->getSprite()->refresh();
   }
 }
@@ -61,13 +63,14 @@ void Map::decreaseHeight(const Point &isoCoordinates)
 
   if (height > 0)
   {
+    demolishNode(isoCoordinates);
     _mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->decreaseHeight();
-    updateNeightbors(_mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->getCoordinates());
+    updateNeighbors(_mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->getCoordinates());
     _mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->getSprite()->refresh();
   }
 }
 
-void Map::updateNeightbors(const Point &isoCoordinates)
+void Map::updateNeighbors(const Point &isoCoordinates)
 {
   unsigned char elevationBitmask;
   int tileHeight = _mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->getCoordinates().height;
@@ -82,8 +85,15 @@ void Map::updateNeightbors(const Point &isoCoordinates)
     {
       bool raise = false;
       elevationBitmask = getElevatedNeighborBitmask(it->getCoordinates());
-      // set elevation bitmask for each neighbor
-      it->setElevationBitmask(elevationBitmask);
+
+      // if the elevation bitmask changes (-> a new texture is drawn), demolish the tile
+      if (elevationBitmask != it->getElevationBitmask())
+      {
+        demolishNode(it->getCoordinates());
+      }
+
+      // set elevation and tile bitmask for each neighbor
+      it->setBitmask(elevationBitmask, getNeighboringTilesBitmask(it->getCoordinates()));
 
       // there can't be a height difference greater then 1 between two map nodes.
       // only increase the cardinal directions
@@ -91,6 +101,7 @@ void Map::updateNeightbors(const Point &isoCoordinates)
       {
         if (tileHeight - it->getCoordinates().height > 1)
         {
+
           increaseHeight(it->getCoordinates());
         }
         else if (tileHeight - it->getCoordinates().height < -1)
@@ -101,18 +112,18 @@ void Map::updateNeightbors(const Point &isoCoordinates)
 
       // those bitmask combinations require the tile to be elevated.
       std::vector<unsigned char> bits{3, 12, 26, 38, 73, 133};
-      for (auto it : bits)
+      for (auto elevationBit : bits)
       {
-        if ((elevationBitmask & it) == it)
+        if ((elevationBitmask & elevationBit) == elevationBit)
         {
           raise = true;
         }
       }
       if (raise)
       {
-        increaseHeight(it->getCoordinates());
 
-        if (Resources::getTerrainEditMode() == Resources::TERRAIN_LOWER)
+        increaseHeight(it->getCoordinates());
+        if (terrainEditMode == TerrainEdit::LOWER)
         {
           //decreaseHeight(it->getCoordinates());
           NeighborMatrix loweredNodesNeighbors;
@@ -134,9 +145,15 @@ void Map::updateNeightbors(const Point &isoCoordinates)
   }
 }
 
-unsigned int Map::getElevatedNeighborBitmask(const Point &isoCoordinates)
+void Map::setTileTypeOfNode(const Point &isoCoordinates, const std::string &tileType)
 {
-  unsigned int bitmask = 0;
+  _mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->setTileType(tileType);
+  updateNeighbors(isoCoordinates);
+}
+
+unsigned char Map::getElevatedNeighborBitmask(const Point &isoCoordinates)
+{
+  unsigned char bitmask = 0;
   int x = isoCoordinates.x;
   int y = isoCoordinates.y;
 
@@ -159,6 +176,44 @@ unsigned int Map::getElevatedNeighborBitmask(const Point &isoCoordinates)
       if (_mapNodes[it.first * _columns + it.second]->getCoordinates().height >
               _mapNodes[x * _columns + y]->getCoordinates().height &&
           _mapNodes[it.first * _columns + it.second])
+      {
+        // for each found tile add 2 ^ i to the bitmask
+        bitmask |= static_cast<unsigned int>(1 << i);
+      }
+    }
+    i++;
+  }
+  return bitmask;
+}
+
+unsigned char Map::getNeighboringTilesBitmask(const Point &isoCoordinates)
+{
+  unsigned char bitmask = 0;
+  int x = isoCoordinates.x;
+  int y = isoCoordinates.y;
+
+  if (_mapNodes[x * _columns + y]->getTileType() == "terrain")
+  {
+    return bitmask;
+  }
+
+  std::pair<int, int> adjecantNodesCoordinates[8] = {
+      std::make_pair(x, y + 1),     // 0 = 2^0 = 1   = TOP
+      std::make_pair(x, y - 1),     // 1 = 2^1 = 2   = BOTTOM
+      std::make_pair(x - 1, y),     // 2 = 2^2 = 4   = LEFT
+      std::make_pair(x + 1, y),     // 3 = 2^3 = 8   = RIGHT
+      std::make_pair(x - 1, y + 1), // 4 = 2^4 = 16  = TOP LEFT
+      std::make_pair(x + 1, y + 1), // 5 = 2^5 = 32  = TOP RIGHT
+      std::make_pair(x - 1, y - 1), // 6 = 2^6 = 64  = BOTTOM LEFT
+      std::make_pair(x + 1, y - 1)  // 7 = 2^7 = 128 = BOTTOM RIGHT
+  };
+
+  int i = 0;
+  for (const auto &it : adjecantNodesCoordinates)
+  {
+    if (it.first >= 0 && it.first < _rows && it.second >= 0 && it.second < _columns)
+    {
+      if (_mapNodes[it.first * _columns + it.second]->getTileType() == _mapNodes[x * _columns + y]->getTileType())
       {
         // for each found tile add 2 ^ i to the bitmask
         bitmask |= static_cast<unsigned int>(1 << i);
@@ -201,4 +256,68 @@ void Map::refresh()
   {
     it->getSprite()->refresh();
   }
+}
+
+SDL_Color Map::getColorOfPixelInSurface(SDL_Surface *surface, int x, int y, const SDL_Rect &clipRect) const
+{
+  SDL_Color Color = {0, 0, 0, SDL_ALPHA_TRANSPARENT};
+
+  x += clipRect.w;
+
+  if (surface)
+  {
+    int Bpp = surface->format->BytesPerPixel;
+    Uint8 *p = (Uint8 *)surface->pixels + y * surface->pitch + x * Bpp;
+    Uint32 pixel = *(Uint32 *)p;
+
+    SDL_GetRGBA(pixel, surface->format, &Color.r, &Color.g, &Color.b, &Color.a);
+  }
+
+  return Color;
+}
+
+Point Map::findNodeInMap(const Point &screenCoordinates, float zoomLevel) const
+{
+  Point foundCoordinates{-1, -1, 0, 0};
+
+  // check all nodes of the map to find the clicked point
+  for (auto it : _mapNodesInDrawingOrder)
+  {
+    //MapNode *it = _mapNodes[x * _columns * y];
+
+    SDL_Rect spriteRect = it->getSprite()->getDestRect();
+
+    int clickedX = screenCoordinates.x;
+    int clickedY = screenCoordinates.y;
+
+    int spriteX = spriteRect.x;
+    int spriteY = spriteRect.y;
+
+    if (clickedX >= spriteX && clickedX < spriteX + spriteRect.w && clickedY >= spriteY && clickedY < spriteY + spriteRect.h)
+    {
+      // Calculate the position of the clicked pixel within the surface
+      int pixelX = (clickedX - spriteX);
+      int pixelY = (clickedY - spriteY);
+      // "un-zoom" the positon to match the un-adjusted surface
+      pixelX = static_cast<int>(pixelX / zoomLevel);
+      pixelY = static_cast<int>(pixelY / zoomLevel);
+
+      // Check if the clicked Sprite is not transparent (we hit a point within the pixel)
+      if (getColorOfPixelInSurface(TextureManager::Instance().getTileSurface(it->getTileType(), it->getUsedTileMap()), pixelX,
+                                   pixelY, it->getSprite()->getClipRect())
+              .a != SDL_ALPHA_TRANSPARENT)
+      {
+        if (foundCoordinates.z < it->getCoordinates().z)
+        {
+          foundCoordinates = it->getCoordinates();
+        }
+      }
+    }
+  }
+  return foundCoordinates;
+}
+
+void Map::demolishNode(const Point &isoCoordinates)
+{
+  _mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->setTileType("terrain");
 }

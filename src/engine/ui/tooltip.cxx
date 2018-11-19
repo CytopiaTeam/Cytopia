@@ -1,6 +1,6 @@
 #include "tooltip.hxx"
 
-Tooltip::Tooltip() : Text()
+Tooltip::Tooltip()
 {
   _tooltipTimer.registerCallbackFunction(Signal::slot(this, &Tooltip::showTooltip));
   _tooltipTimer.setTimer(1500);

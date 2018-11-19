@@ -3,6 +3,7 @@
 
 #include <string>
 
+#include "../basics/mapEdit.hxx"
 #include "../basics/resources.hxx"
 #include "../textureManager.hxx"
 #include "../basics/signal.hxx"

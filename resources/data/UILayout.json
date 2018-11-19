@@ -12,9 +12,53 @@
       "Layout": "BottomMenu",
       "ToggleButton": true,
       "TooltipText": "Construction"
+    },
+    {
+      "Type": "ImageButton",
+      "SpriteID": "Button_RoadsMenu",
+      "Position_x": 480,
+      "Position_y": 520,
+      "ParentOfGroup": "RoadsSubMenu",
+      "Layout": "BottomMenu",
+      "ToggleButton": true,
+      "TooltipText": "Construction"
+    }
+  ],
+  "RoadsSubMenu": [
+    {
+      "Type": "ImageButton",
+      "SpriteID": "Button_RoadsMenu_PavedRoad",
+      "Position_x": 480,
+      "Position_y": 470,
+      "Action": "ChangeTileType",
+      "TileType": "paved_road",
+      "Layout": "BottomMenuExpansionGroup",
+      "ToggleButton": true,
+      "TooltipText": "Paved Road"
+    },
+    {
+      "Type": "ImageButton",
+      "SpriteID": "Button_RoadsMenu_DirtRoad",
+      "Position_x": 520,
+      "Position_y": 470,
+      "Action": "ChangeTileType",
+      "TileType" : "dirt_road",
+      "Layout": "BottomMenuExpansionGroup",
+      "ToggleButton": true,
+      "TooltipText": "Dirt Road"
     }
   ],
   "ConstructionSubMenu": [
+    {
+      "Type": "ImageButton",
+      "SpriteID": "Button_ConstructionMenu_Demolish",
+      "Position_x": 340,
+      "Position_y": 470,
+      "Action": "Demolish",
+      "Layout": "BottomMenuExpansionGroup",
+      "ToggleButton": true,
+      "TooltipText": "Demolish"
+    },
     {
       "Type": "ImageButton",
       "SpriteID": "Button_ConstructionMenu_RaiseTerrain",
@@ -44,6 +88,17 @@
       "Layout": "BottomMenuExpansionGroup",
       "ToggleButton": true,
       "TooltipText": "Level Terrain"
+    },
+    {
+      "Type": "ImageButton",
+      "SpriteID": "Button_ConstructionMenu_Water",
+      "Position_x": 500,
+      "Position_y": 470,
+      "Action": "ChangeTileType",
+      "TileType": "water",
+      "Layout": "BottomMenuExpansionGroup",
+      "ToggleButton": true,
+      "TooltipText": "Water"
     }
   ],
   "PauseMenu": [

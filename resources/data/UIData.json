@@ -4,6 +4,12 @@
     "Texture_Clicked": "resources/images/ui/buttons/Construction Menu pressed.png",
     "Texture_Hovering": "resources/images/ui/buttons/Construction Menu hover.png"
   },
+  "Button_ConstructionMenu_Water": {
+    "Texture_Default": "resources/images/ui/buttons/water.png"
+  },
+  "Button_ConstructionMenu_Demolish": {
+    "Texture_Default": "resources/images/ui/buttons/demolish.png"
+  },
   "Button_ConstructionMenu_RaiseTerrain": {
     "Texture_Default": "resources/images/ui/buttons/raiseTerrain.png"
   },
@@ -12,5 +18,16 @@
   },
   "Button_ConstructionMenu_LevelTerrain": {
     "Texture_Default": "resources/images/ui/buttons/levelTerrain.png"
+  },
+  "Button_RoadsMenu": {
+    "Texture_Default": "resources/images/ui/buttons/Roads Menu.png",
+    "Texture_Clicked": "resources/images/ui/buttons/Roads Menu pressed.png",
+    "Texture_Hovering": "resources/images/ui/buttons/Roads Menu hover.png"
+  },
+  "Button_RoadsMenu_PavedRoad": {
+    "Texture_Default": "resources/images/ui/buttons/paved_road.png"
+  },
+  "Button_RoadsMenu_DirtRoad": {
+    "Texture_Default": "resources/images/ui/buttons/dirt_road.png"
   }
 }

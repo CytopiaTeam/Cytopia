@@ -12,7 +12,7 @@ public:
 
   ~TextField() override = default;
 
-  void addText(std::string text);
+  void addText(const std::string &text);
 
   int getSeletectedID(int x, int y) { return _selectedID; };
 

@@ -8,28 +8,36 @@
 class Sprite
 {
 public:
-  Sprite(SDL_Texture *texture, Point isoCoordinates);
+  Sprite(Point isoCoordinates);
   virtual ~Sprite() = default;
 
   void render();
   void refresh();
 
+  void setClipRect(const SDL_Rect &clipRect) { _clipRect = clipRect; };
+
   void setTexture(SDL_Texture *texture);
   void setCoordinates(Point isoCoords) { _isoCoordinates = isoCoords; }
-
-  const SDL_Rect &getTextureInformation() { return _destRect; };
+  void setOrientation(size_t orientation) { _orientation = orientation; };
+  void setSpriteCount(size_t spriteCount) { _spriteCount = spriteCount; };
+  const SDL_Rect &getDestRect() { return _destRect; };
+  const SDL_Rect &getClipRect() { return _clipRect; };
 
 private:
   SDL_Texture *_texture = nullptr;
   SDL_Renderer *_renderer;
   SDL_Window *_window;
   SDL_Rect _destRect;
+  SDL_Rect _clipRect{0, 0, 0, 0};
 
   Point _isoCoordinates;
   Point _screenCoordinates;
 
-  float _zoomLevel;
-  int _tileSize;
+  float _zoomLevel = 0;
+  size_t _spriteCount = 1;
+
+  size_t _orientation;
+  bool _needsRefresh = false;
 };
 
 #endif

@@ -42,6 +42,11 @@ public:
     */
   void renderMap();
 
+  Point findNodeInMap(const Point &screenCoordinates, float zoomLevel) const;
+
+  void setTileTypeOfNode(const Point &isoCoordinates, const std::string &tileType);
+
+  void demolishNode(const Point &isoCoordinates);
   void refresh();
 
 private:
@@ -51,7 +56,7 @@ private:
   int _columns;
   int _rows;
 
-  void updateNeightbors(const Point &isoCoordinates);
+  void updateNeighbors(const Point &isoCoordinates);
 
   /**\brief Get neighbor MapNode Objects
     * Stores pointers to the neighboring nodes of the given coordinates in the passed parameter.
@@ -67,7 +72,18 @@ private:
   * @param isoCoordinates isometric coordinates of the tile whose neighbors should be retrieved
   * @returns  Uint that stores the elevated neighbor tiles
   */
-  unsigned int getElevatedNeighborBitmask(const Point &isoCoordinates);
+  unsigned char getElevatedNeighborBitmask(const Point &isoCoordinates);
+
+  /** \brief Get a bitmask that represents same-tile neighbors
+  * Checks all neighboring tiles and returns the elevated neighbors in a bitmask:
+  * [ BR BL TR TL  R  L  B  T ]
+  * [ 0  0  0  0   0  0  0  0 ]
+  * @param isoCoordinates isometric coordinates of the tile whose neighbors should be retrieved
+  * @returns  Uint that stores the neighbor tiles
+  */
+  unsigned char getNeighboringTilesBitmask(const Point &isoCoordinates);
+
+  SDL_Color getColorOfPixelInSurface(SDL_Surface *surface, int x, int y, const SDL_Rect &clipRect) const;
 };
 
 #endif

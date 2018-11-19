@@ -3,67 +3,32 @@
 #include "SDL2/SDL_image.h"
 #include "../ThirdParty/json.hxx"
 
+#include "basics/settings.hxx"
 #include "basics/resources.hxx"
 #include "basics/log.hxx"
 #include "tile.hxx"
 
 using json = nlohmann::json;
 
-TextureManager::TextureManager()
-{
-  loadTileTextures();
-  loadUITexture();
-}
+TextureManager::TextureManager() { loadUITexture(); }
 
 TextureManager::~TextureManager() { flush(); }
 
-void TextureManager::loadTileTextures()
+void TextureManager::loadTexture(const std::string &id, const std::string &fileName, size_t tileMapType)
 {
-  json tileDataJSON;
-
-  // Read JSON File.
-  std::ifstream i("resources/data/TileData.json");
-  if (i.fail())
-  {
-    LOG(LOG_ERROR) << "File "
-                   << "resources/data/TileData.json"
-                   << " does not exist! Cannot load settings from INI File!";
-    return;
-  }
-
-  // check if json file can be parsed
-  tileDataJSON = json::parse(i, nullptr, false);
-  if (tileDataJSON.is_discarded())
-    LOG(LOG_ERROR) << "Error parsing JSON File "
-                   << "resources/data/TileData.json";
-  i.close();
-
-  std::string key;
-  size_t idx = 0;
-  // TODO: this will only work for Terrain texture
-  // i commit that as is, because JSON format will change anyway with the new textures.
-  while (!tileDataJSON["Terrain"][idx].is_null())
-  {
-    for (const auto &it : tileDataJSON["Terrain"][idx].items())
-    {
-      key = "Terrain" + tileDataJSON["Terrain"][idx]["orientation"].get<std::string>();
-      _surfaceMap[key] = createSurfaceFromFile(tileDataJSON["Terrain"][idx]["image"].get<std::string>());
-      _tileTextureMap[key] = createTextureFromSurface(_surfaceMap[key]);
-    }
-    idx++;
-  }
+  std::string key = id + std::to_string(tileMapType);
+  _surfaceMap[key] = createSurfaceFromFile(fileName);
+  _tileTextureMap[key] = createTextureFromSurface(_surfaceMap[key]);
 }
 
 void TextureManager::loadUITexture()
 {
   json uiDataJSON;
 
-  std::ifstream i("resources/data/UiData.json");
+  std::ifstream i(Settings::Instance().settings.uiDataJSONFile);
   if (i.fail())
   {
-    LOG(LOG_ERROR) << "File "
-                   << "resources/data/UiData.json"
-                   << " does not exist! Cannot load settings from INI File!";
+    LOG(LOG_ERROR) << "File " << Settings::Instance().settings.uiDataJSONFile << " does not exist!";
     return;
   }
 
@@ -72,7 +37,7 @@ void TextureManager::loadUITexture()
 
   if (uiDataJSON.is_discarded())
   {
-    LOG(LOG_ERROR) << "Error parsing JSON File resources/data/UiData.json";
+    LOG(LOG_ERROR) << "Error parsing JSON File " << Settings::Instance().settings.uiDataJSONFile;
     return;
   }
 
@@ -85,11 +50,6 @@ void TextureManager::loadUITexture()
       _uiTextureMap[tileID.key()][it.key()] = createTextureFromSurface(createSurfaceFromFile(it.value()));
     }
   }
-}
-
-SDL_Texture *TextureManager::getTileTexture(const std::string &type, const std::string &orientation)
-{
-  return _tileTextureMap[type + orientation];
 }
 
 SDL_Texture *TextureManager::getUITexture(const std::string &uiElement, int buttonState)
@@ -113,26 +73,25 @@ SDL_Texture *TextureManager::getUITexture(const std::string &uiElement, int butt
   return _uiTextureMap[uiElement]["Texture_Default"];
 }
 
-const SDL_Color TextureManager::getPixelColor(const std::string &type, const std::string &orientation, int X, int Y)
+SDL_Texture *TextureManager::getTileTexture(const std::string &id, size_t tileMapType)
 {
-  SDL_Color Color = {0, 0, 0, SDL_ALPHA_TRANSPARENT};
-  std::string key = type + orientation;
+  std::string key = id + std::to_string(tileMapType);
 
+  if (_tileTextureMap.count(key))
+  {
+    return _tileTextureMap[key];
+  }
+  return nullptr;
+}
+
+SDL_Surface *TextureManager::getTileSurface(const std::string &id, size_t tileMapType)
+{
+  std::string key = id + std::to_string(tileMapType);
   if (_surfaceMap.count(key))
   {
-    SDL_Surface *surface = _surfaceMap[key];
-
-    int Bpp = surface->format->BytesPerPixel;
-    Uint8 *p = (Uint8 *)surface->pixels + Y * surface->pitch + X * Bpp;
-    Uint32 pixel = *(Uint32 *)p;
-
-    SDL_GetRGBA(pixel, surface->format, &Color.r, &Color.g, &Color.b, &Color.a);
+    return _surfaceMap[key];
   }
-  else
-  {
-    LOG(LOG_ERROR) << "No surface in map for type " << type << " with orientation: " << orientation;
-  }
-  return Color;
+  return nullptr;
 }
 
 SDL_Surface *TextureManager::createSurfaceFromFile(const std::string &fileName)

@@ -68,26 +68,6 @@ public:
     */
   static int getTileSize() { return _tileSize; };
 
-  /** \brief set the Terrain Edit Mode 
-    * Terrain Edit Mode must be a member of enum terrainEditMode, like:
-    *     NO_TERRAIN_EDIT
-    *     TERRAIN_RAISE
-    *     TERRAIN_LOWER
-    * @param int editMode - has to be a member of enum terrainEditMode
-    * @see Resources#terrainEditMode
-    */
-  static void setTerrainEditMode(int editMode) { _terrainEditMode = editMode; };
-
-  /** \brief get the Terrain Edit Mode
-  * Terrain Edit Mode is a member of enum terrainEditMode, like:
-  *     NO_TERRAIN_EDIT
-  *     TERRAIN_RAISE
-  *     TERRAIN_LOWER
-  * \return int editMode - a member of enum terrainEditMode
-  * @see Resources#terrainEditMode
-  */
-  static int getTerrainEditMode() { return _terrainEditMode; };
-
   /** \brief converts screen space coordinates to isometric space coordinates.
     * To convert screen coordinates in to isometric coordinates, all the textures inside the nodes are checked, if the click is inside the bounding box of a texture
     * and if so, another check ensures, that the click is not on a transparent pixel. The isometric coordinates of the map node containing the texture with
@@ -107,15 +87,6 @@ public:
     * @param bool calcWithoutOffset - optional parameter to calculate screenspace coordinates without zoomLevel and cameraOffset taken into account 
     */
   static Point convertIsoToScreenCoordinates(const Point &isoCoordinates, bool calcWithoutOffset = false);
-
-  enum terrainEditMode : int
-  {
-    NO_TERRAIN_EDIT,
-    TERRAIN_RAISE,
-    TERRAIN_LOWER
-  };
-
-  static int _terrainEditMode;
 
 private:
   Resources() = default;
