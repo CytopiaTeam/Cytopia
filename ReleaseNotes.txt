@@ -1,6 +1,17 @@
 Isometric Engine 
 
-v0.1
+v0.0.2
+- Improved User Interface Library
+- Performance Improvements
+- Audio playback and a custom theme song made by sqwdmusic
+- Tilemap support
+- Bugfixes for Terrain editing
+- Custom Textures made by Kingtut 101
+- Roads and water
+- Performance Improvements
+- Lots of improvements to code design
+
+v0.0.1
 - Basic Render Engine
 - Read inputs from SDL Keys
 - Read configuration from resources/settings.json
