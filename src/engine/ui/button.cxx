@@ -1,5 +1,5 @@
 #include "button.hxx"
-
+#include "../basics/log.hxx"
 Button::Button(const SDL_Rect &uiElementRect) : UiElement(uiElementRect), _rect(uiElementRect)
 {
   _buttonLabel = std::make_unique<Text>(uiElementRect);
@@ -41,6 +41,7 @@ void Button::onMouseButtonUp(const SDL_Event &event)
       changeButtonState(getButtonState() == BUTTONSTATE_CLICKED ? BUTTONSTATE_DEFAULT : BUTTONSTATE_CLICKED);
     }
     _isMouseButtonDown = false;
+    _isButtonToggled = !_isButtonToggled;
   }
 }
 
@@ -63,15 +64,14 @@ void Button::onMouseEnter(const SDL_Event &event)
   {
     if (!isToggleButton())
     {
-      changeButtonState(BUTTONSTATE_CLICKED);
     }
     else
     {
-      changeButtonState(getButtonState() == BUTTONSTATE_CLICKED ? BUTTONSTATE_DEFAULT : BUTTONSTATE_CLICKED);
       _isMouseButtonDown = true;
     }
+    changeButtonState(BUTTONSTATE_CLICKED);
   }
-  else if (getButtonState() != BUTTONSTATE_CLICKED)
+  else
   {
     changeButtonState(BUTTONSTATE_HOVERING);
   }
@@ -79,11 +79,12 @@ void Button::onMouseEnter(const SDL_Event &event)
 
 void Button::onMouseLeave(const SDL_Event &event)
 {
-  if (isToggleButton() && event.button.button == SDL_BUTTON_LEFT)
+  if (isToggleButton())
   {
-    changeButtonState(getButtonState() == BUTTONSTATE_DEFAULT ? BUTTONSTATE_CLICKED : BUTTONSTATE_DEFAULT);
+    changeButtonState(_isButtonToggled ? BUTTONSTATE_CLICKED : BUTTONSTATE_DEFAULT);
+    _isMouseButtonDown = false;
   }
-  else if (getButtonState() != BUTTONSTATE_DEFAULT)
+  else
   {
     changeButtonState(BUTTONSTATE_DEFAULT);
   }

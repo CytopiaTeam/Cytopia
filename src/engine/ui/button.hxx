@@ -28,6 +28,7 @@ private:
   std::unique_ptr<Text> _buttonLabel;
 
   bool _isMouseButtonDown = false;
+  bool _isButtonToggled = false;
 
   Signal::Signal<void()> clickSignal;
   Signal::Signal<void(const std::string &)> toggleGroupSignal;
