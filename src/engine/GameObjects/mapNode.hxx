@@ -64,9 +64,13 @@ private:
   int _maxHeight = 32;
 
   std::string _tileType = "terrain";
+  std::string _previousTileType = "terrain";
 
   size_t _tileMap = TileMap::DEFAULT;
   size_t _orientation = TileSlopes::DEFAULT_ORIENTATION;
+  size_t _spriteCount = 1;
+
+  int _clippingWidth = 0;
 
   TileInformation *_tileData;
 

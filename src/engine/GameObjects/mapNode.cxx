@@ -40,6 +40,7 @@ void MapNode::setBitmask(unsigned char elevationBitmask, unsigned char tileTypeB
 
 void MapNode::setTileType(const std::string &tileType)
 {
+  _previousTileType = _tileType;
   _tileType = tileType;
   updateTexture();
 };
@@ -70,26 +71,36 @@ void MapNode::updateTexture()
   {
   case TileMap::DEFAULT:
     clipRect.x = _tileData->tiles.clippingWidth * (int)_orientation;
+    _clippingWidth = _tileData->tiles.clippingWidth;
     if (_tileType == "terrain")
     {
+      clipRect.x = 0;
       _sprite->setClipRect({0, 0, _tileData->tiles.clippingWidth, _tileData->tiles.clippingHeight});
     }
     else
     {
       _sprite->setClipRect({clipRect.x, 0, _tileData->tiles.clippingWidth, _tileData->tiles.clippingHeight});
     }
-    _sprite->setSpriteCount(_tileData->tiles.count);
+    _spriteCount = _tileData->tiles.count;
     break;
   case TileMap::CORNERS:
+    _clippingWidth = _tileData->cornerTiles.clippingWidth;
     clipRect.x = _tileData->cornerTiles.clippingWidth * (int)_orientation;
     _sprite->setClipRect({clipRect.x, 0, _tileData->cornerTiles.clippingWidth, _tileData->cornerTiles.clippingHeight});
-    _sprite->setSpriteCount(_tileData->cornerTiles.count);
+    _spriteCount = _tileData->cornerTiles.count;
     break;
   case TileMap::SLOPES:
+    _clippingWidth = _tileData->slopeTiles.clippingWidth;
     clipRect.x = _tileData->slopeTiles.clippingWidth * (int)_orientation;
     _sprite->setClipRect({clipRect.x, 0, _tileData->slopeTiles.clippingWidth, _tileData->slopeTiles.clippingHeight});
-    _sprite->setSpriteCount(_tileData->slopeTiles.count);
+    _spriteCount = _tileData->slopeTiles.count;
     break;
   }
+  if (clipRect.x >= _spriteCount * _clippingWidth)
+  {
+    _tileType = _previousTileType;
+      updateTexture();
+  }
+  _sprite->setSpriteCount(_spriteCount);
   _sprite->setTexture(Tile::Instance().getTexture(_tileType, _tileMap));
 }
