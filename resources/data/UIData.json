@@ -1,4 +1,7 @@
 {
+  "Button_DebugMenu": {
+    "Texture_Default": "resources/images/ui/buttons/Debug Menu.png"
+  },
   "Button_ConstructionMenu": {
     "Texture_Default": "resources/images/ui/buttons/Construction Menu.png",
     "Texture_Clicked": "resources/images/ui/buttons/Construction Menu pressed.png",
@@ -29,5 +32,11 @@
   },
   "Button_RoadsMenu_DirtRoad": {
     "Texture_Default": "resources/images/ui/buttons/dirt_road.png"
+  },
+  "Button_PowerMenu": {
+    "Texture_Default": "resources/images/ui/buttons/Power Menu.png"
+  },
+  "Button_WaterMenu": {
+    "Texture_Default": "resources/images/ui/buttons/Water Menu.png"
   }
 }
