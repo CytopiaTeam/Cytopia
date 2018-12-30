@@ -43,7 +43,9 @@ void Sprite::refresh()
   }
 
   _screenCoordinates = Resources::convertIsoToScreenCoordinates(_isoCoordinates);
-  _destRect.x = _screenCoordinates.x;
+  // render the sprite in the middle of its bounding box so bigger than 1x1 sprites will render correctly
+  _destRect.x = _screenCoordinates.x - (_destRect.w / 2);
+  // change y coordinates with sprites height taken into account to render the sprite at its base and not at its top.
   _destRect.y = _screenCoordinates.y - _destRect.h;
   _needsRefresh = false;
 }
