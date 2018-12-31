@@ -31,23 +31,23 @@ void MapNode::decreaseHeight()
 
 void MapNode::render() { _sprite->render(); }
 
-void MapNode::setBitmask(unsigned char elevationBitmask, unsigned char tileTypeBitmask)
+void MapNode::setBitmask(unsigned char elevationBitmask, unsigned char tileIDBitmask)
 {
   _elevationBitmask = elevationBitmask;
-  _tileTypeBitmask = tileTypeBitmask;
+  _tileIDBitmask = tileIDBitmask;
   updateTexture();
 }
 
-void MapNode::setTileType(const std::string &tileType)
+void MapNode::setTileID(const std::string &tileID)
 {
-  _previousTileType = _tileType;
-  _tileType = tileType;
+  _previousTileID = _tileID;
+  _tileID = tileID;
   updateTexture();
 };
 
 void MapNode::updateTexture()
 {
-  _tileData = Tile::Instance().getTileData(_tileType);
+  _tileData = Tile::Instance().getTileData(_tileID);
   _orientation = Tile::Instance().caluclateSlopeOrientation(_elevationBitmask);
 
   SDL_Rect clipRect;
@@ -55,9 +55,9 @@ void MapNode::updateTexture()
   if (_orientation == TileSlopes::DEFAULT_ORIENTATION)
   {
     _tileMap = TileMap::DEFAULT;
-    if (_tileType != "terrain")
+    if (_tileData->type != "terrain" || _tileData->type != "road" || _tileData->type != "water")
     {
-      _orientation = Tile::Instance().caluclateTileOrientation(_tileTypeBitmask);
+      _orientation = Tile::Instance().caluclateTileOrientation(_tileIDBitmask);
     }
   }
   else
@@ -72,7 +72,7 @@ void MapNode::updateTexture()
   case TileMap::DEFAULT:
     clipRect.x = _tileData->tiles.clippingWidth * (int)_orientation;
     _clippingWidth = _tileData->tiles.clippingWidth;
-    if (_tileType == "terrain")
+    if (_tileID == "terrain")
     {
       clipRect.x = 0;
       _sprite->setClipRect({0, 0, _tileData->tiles.clippingWidth, _tileData->tiles.clippingHeight});
@@ -98,9 +98,9 @@ void MapNode::updateTexture()
   }
   if (clipRect.x >= _spriteCount * _clippingWidth)
   {
-    _tileType = _previousTileType;
-      updateTexture();
+    _tileID = _previousTileID;
+    updateTexture();
   }
   _sprite->setSpriteCount(_spriteCount);
-  _sprite->setTexture(Tile::Instance().getTexture(_tileType, _tileMap));
+  _sprite->setTexture(Tile::Instance().getTexture(_tileID, _tileMap));
 }

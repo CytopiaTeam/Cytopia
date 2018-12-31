@@ -167,7 +167,6 @@ void UIManager::init()
           uiElement->registerCallbackFunction(
               [type]() { tileTypeEditMode == type ? tileTypeEditMode = "" : tileTypeEditMode = type; });
         }
-
         // store the element in a vector
         _uiElements.emplace_back(uiElement);
       }

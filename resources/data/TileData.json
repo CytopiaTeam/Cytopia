@@ -1,7 +1,7 @@
 [
   {
     "id": "terrain",
-    "type": "ground",
+    "type": "terrain",
     "tiles": {
       "fileName": "resources/images/terrain/terrain_tiles.png",
       "count": 3,
@@ -137,7 +137,7 @@
   },
   {
     "id": "watertower",
-    "type": "water",
+    "type": "utilities",
     "tiles": {
       "fileName": "resources/images/buildings/Water/watertower.png",
       "count": 1,
@@ -154,7 +154,7 @@
   },
   {
     "id": "watertower2",
-    "type": "water",
+    "type": "utilities",
     "tiles": {
       "fileName": "resources/images/buildings/Water/watertower2.png",
       "count": 1,

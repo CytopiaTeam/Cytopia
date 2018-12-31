@@ -55,4 +55,4 @@ void Sprite::setTexture(SDL_Texture *texture)
   _texture = texture;
   _needsRefresh = true;
   refresh();
-};
+}

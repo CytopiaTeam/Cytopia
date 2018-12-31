@@ -85,7 +85,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
             }
             else if (!tileTypeEditMode.empty())
             {
-              engine.setTileTypeOfNode(clickCoords, tileTypeEditMode);
+              engine.setTileIDOfNode(clickCoords, tileTypeEditMode);
             }
             else if (demolishMode)
             {

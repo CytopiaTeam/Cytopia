@@ -44,7 +44,7 @@ public:
 
   Point findNodeInMap(const Point &screenCoordinates, float zoomLevel) const;
 
-  void setTileTypeOfNode(const Point &isoCoordinates, const std::string &tileType);
+  void setTileIDOfNode(const Point &isoCoordinates, const std::string &tileType);
 
   void demolishNode(const Point &isoCoordinates);
   void refresh();

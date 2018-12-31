@@ -50,8 +50,10 @@ public:
 
   unsigned char getElevationBitmask() { return _elevationBitmask; };
 
-  const std::string &getTileType() { return _tileType; };
-  void setTileType(const std::string &tileType);
+  const TileData *getTileData() { return _tileData; };
+
+  const std::string &getTileID() { return _tileID; };
+  void setTileID(const std::string &tileType);
   size_t getUsedTileMap() { return _tileMap; };
 
 private:
@@ -63,8 +65,8 @@ private:
 
   int _maxHeight = 32;
 
-  std::string _tileType = "terrain";
-  std::string _previousTileType = "terrain";
+  std::string _tileID = "terrain";
+  std::string _previousTileID = "terrain";
 
   size_t _tileMap = TileMap::DEFAULT;
   size_t _orientation = TileSlopes::DEFAULT_ORIENTATION;
@@ -72,10 +74,10 @@ private:
 
   int _clippingWidth = 0;
 
-  TileInformation *_tileData;
+  TileData *_tileData;
 
   unsigned char _elevationBitmask = 0;
-  unsigned char _tileTypeBitmask = 0;
+  unsigned char _tileIDBitmask = 0;
 
   void updateTexture();
 };

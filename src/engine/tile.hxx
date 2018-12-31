@@ -14,7 +14,7 @@ struct TileSetData
   int clippingHeight = 0;
 };
 
-struct TileInformation
+struct TileData
 {
   std::string id;
   std::string type;
@@ -91,7 +91,7 @@ public:
   Tile &operator=(Tile const &) = delete;
 
   SDL_Texture *getTexture(const std::string &id, size_t tileMapType = 0);
-  TileInformation *getTileData(const std::string &id);
+  TileData *getTileData(const std::string &id);
   size_t caluclateSlopeOrientation(unsigned char bitMaskElevation);
   size_t caluclateTileOrientation(unsigned char bitMaskElevation);
 
@@ -101,7 +101,7 @@ private:
   Tile();
   ~Tile() = default;
 
-  std::unordered_map<std::string, TileInformation> tileData;
+  std::unordered_map<std::string, TileData> tileData;
 };
 
 #endif

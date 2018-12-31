@@ -100,9 +100,9 @@ void Engine::quitGame() { _windowManager->close(); };
 
 void Engine::toggleFullScreen() { _windowManager->toggleFullScreen(); };
 
-void Engine::setTileTypeOfNode(const Point &isoCoordinates, const std::string &tileType)
+void Engine::setTileIDOfNode(const Point &isoCoordinates, const std::string &tileID)
 {
-  _map.setTileTypeOfNode(isoCoordinates, tileType);
+  _map.setTileIDOfNode(isoCoordinates, tileID);
 }
 
 void Engine::demolishNode(const Point &isoCoordinates) { _map.demolishNode(isoCoordinates); }

@@ -145,10 +145,17 @@ void Map::updateNeighbors(const Point &isoCoordinates)
   }
 }
 
-void Map::setTileTypeOfNode(const Point &isoCoordinates, const std::string &tileType)
+void Map::setTileIDOfNode(const Point &isoCoordinates, const std::string &tileType)
 {
-  _mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->setTileType(tileType);
-  updateNeighbors(isoCoordinates);
+  _mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->setTileID(tileType);
+
+  // only calculate bitmasks if tiles actually need them
+  if (_mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->getTileData()->type == "terrain" ||
+      _mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->getTileData()->type == "road" ||
+      _mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->getTileData()->type == "water")
+  {
+    updateNeighbors(isoCoordinates);
+  }
 }
 
 unsigned char Map::getElevatedNeighborBitmask(const Point &isoCoordinates)
@@ -192,7 +199,7 @@ unsigned char Map::getNeighboringTilesBitmask(const Point &isoCoordinates)
   int x = isoCoordinates.x;
   int y = isoCoordinates.y;
 
-  if (_mapNodes[x * _columns + y]->getTileType() == "terrain")
+  if (_mapNodes[x * _columns + y]->getTileID() == "terrain")
   {
     return bitmask;
   }
@@ -213,7 +220,7 @@ unsigned char Map::getNeighboringTilesBitmask(const Point &isoCoordinates)
   {
     if (it.first >= 0 && it.first < _rows && it.second >= 0 && it.second < _columns)
     {
-      if (_mapNodes[it.first * _columns + it.second]->getTileType() == _mapNodes[x * _columns + y]->getTileType())
+      if (_mapNodes[it.first * _columns + it.second]->getTileID() == _mapNodes[x * _columns + y]->getTileID())
       {
         // for each found tile add 2 ^ i to the bitmask
         bitmask |= static_cast<unsigned int>(1 << i);
@@ -303,7 +310,7 @@ Point Map::findNodeInMap(const Point &screenCoordinates, float zoomLevel) const
       pixelY = static_cast<int>(pixelY / zoomLevel);
 
       // Check if the clicked Sprite is not transparent (we hit a point within the pixel)
-      if (getColorOfPixelInSurface(TextureManager::Instance().getTileSurface(it->getTileType(), it->getUsedTileMap()), pixelX,
+      if (getColorOfPixelInSurface(TextureManager::Instance().getTileSurface(it->getTileID(), it->getUsedTileMap()), pixelX,
                                    pixelY, it->getSprite()->getClipRect())
               .a != SDL_ALPHA_TRANSPARENT)
       {
@@ -319,5 +326,5 @@ Point Map::findNodeInMap(const Point &screenCoordinates, float zoomLevel) const
 
 void Map::demolishNode(const Point &isoCoordinates)
 {
-  _mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->setTileType("terrain");
+  _mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->setTileID("terrain");
 }

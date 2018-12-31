@@ -17,7 +17,7 @@ SDL_Texture *Tile::getTexture(const std::string &id, size_t tileMapType)
   return TextureManager::Instance().getTileTexture(id, tileMapType);
 }
 
-TileInformation *Tile::getTileData(const std::string &id)
+TileData *Tile::getTileData(const std::string &id)
 {
   if (tileData.count(id))
   {
