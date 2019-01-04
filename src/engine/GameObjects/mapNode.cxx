@@ -43,26 +43,35 @@ void MapNode::setTileID(const std::string &tileID)
   _previousTileID = _tileID;
   _tileID = tileID;
   updateTexture();
-};
+}
 
 void MapNode::updateTexture()
 {
-  _tileData = Tile::Instance().getTileData(_tileID);
-  _orientation = Tile::Instance().caluclateSlopeOrientation(_elevationBitmask);
-
   SDL_Rect clipRect;
 
-  if (_orientation == TileSlopes::DEFAULT_ORIENTATION)
+  _tileData = Tile::Instance().getTileData(_tileID);
+  _tileMap = TileMap::DEFAULT;
+
+  // only calculate orientation for textures that adjust themselves according to elevation / other tiles of the same id
+  if (_tileData->type == "terrain" || _tileData->type == "road" || _tileData->type == "water")
   {
-    _tileMap = TileMap::DEFAULT;
-    if (_tileData->type != "terrain" || _tileData->type != "road" || _tileData->type != "water")
+    _orientation = Tile::Instance().caluclateSlopeOrientation(_elevationBitmask);
+
+    if (_orientation == TileSlopes::DEFAULT_ORIENTATION)
     {
-      _orientation = Tile::Instance().caluclateTileOrientation(_tileIDBitmask);
+      if (_tileData->type != "terrain")
+      {
+        _orientation = Tile::Instance().caluclateTileOrientation(_tileIDBitmask);
+      }
+    }
+    else
+    {
+      _tileMap = TileMap::SLOPES;
     }
   }
   else
   {
-    _tileMap = TileMap::SLOPES;
+    _orientation = TileList::TILE_DEFAULT_ORIENTATION;
   }
 
   _sprite->setOrientation(_orientation);

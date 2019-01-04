@@ -148,14 +148,7 @@ void Map::updateNeighbors(const Point &isoCoordinates)
 void Map::setTileIDOfNode(const Point &isoCoordinates, const std::string &tileType)
 {
   _mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->setTileID(tileType);
-
-  // only calculate bitmasks if tiles actually need them
-  if (_mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->getTileData()->type == "terrain" ||
-      _mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->getTileData()->type == "road" ||
-      _mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->getTileData()->type == "water")
-  {
-    updateNeighbors(isoCoordinates);
-  }
+  updateNeighbors(isoCoordinates);
 }
 
 unsigned char Map::getElevatedNeighborBitmask(const Point &isoCoordinates)
@@ -199,7 +192,7 @@ unsigned char Map::getNeighboringTilesBitmask(const Point &isoCoordinates)
   int x = isoCoordinates.x;
   int y = isoCoordinates.y;
 
-  if (_mapNodes[x * _columns + y]->getTileID() == "terrain")
+  if (_mapNodes[x * _columns + y]->getTileData()->type == "terrain")
   {
     return bitmask;
   }
