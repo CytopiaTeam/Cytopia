@@ -145,9 +145,9 @@ void Map::updateNeighbors(const Point &isoCoordinates)
   }
 }
 
-void Map::setTileIDOfNode(const Point &isoCoordinates, const std::string &tileType)
+void Map::setTileIDOfNode(const Point &isoCoordinates, const std::string &tileID)
 {
-  _mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->setTileID(tileType);
+  _mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->setTileID(tileID);
   updateNeighbors(isoCoordinates);
 }
 
