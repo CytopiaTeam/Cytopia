@@ -3,9 +3,9 @@ cmake_minimum_required(VERSION 3.9 FATAL_ERROR)
 # create the cmake project
 project(
   # this will be the ${PROJECT_NAME}
-  IsometricEngine
+  Cytopia
   # this will provide ${PROJECT_VERSION}
-  VERSION 0.0.2
+  VERSION 0.1
   # we are using C++
   LANGUAGES CXX
 )
@@ -22,10 +22,11 @@ set(CPACK_GENERATOR "DEB")
 set(CPACK_PACKAGE_VERSION ${PROJECT_VERSION})
 set(CPACK_DEBIAN_PACKAGE_VERSION ${PROJECT_VERSION})
 set(CPACK_DEBIAN_PACKAGE_SECTION games)
-set(CPACK_PACKAGE_NAME "IsometricEngine")
-set(CPACK_PACKAGE_DESCRIPTION "Isometric Engine Tech Preview")
+set(CPACK_PACKAGE_NAME ${PROJECT_VERSION})
+set(CPACK_PACKAGE_DESCRIPTION "${PROJECT_VERSION} Tech Preview")
 set(CPACK_DEBIAN_PACKAGE_MAINTAINER "Jimmy Snails")
-set(CPACK_PACKAGING_INSTALL_PREFIX "/usr/games/IsometricEngine")
+set(CPACK_DEBIAN_PACKAGE_HOMEPAGE "https://github.com/JimmySnails/IsometricEngine")
+set(CPACK_PACKAGING_INSTALL_PREFIX "/usr/games/${PROJECT_NAME}")
 set(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
 set(CPACK_STRIP_FILES ON)
 

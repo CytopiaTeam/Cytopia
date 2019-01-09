@@ -8,7 +8,7 @@
 
 Engine::Engine()
 {
-  _windowManager = new WindowManager("Isometric Engine");
+  _windowManager = new WindowManager("Cytopia");
   _tileSize = Resources::getTileSize();
 
   _renderer = Resources::getRenderer();
