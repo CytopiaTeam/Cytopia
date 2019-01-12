@@ -45,6 +45,7 @@ add_executable(${PROJECT_NAME}
   src/engine/basics/signal.hxx
   src/engine/basics/timer.cxx
   src/engine/basics/timer.hxx
+  src/engine/basics/tileData.hxx
   src/engine/basics/utils.hxx
   src/engine/GameObjects/mapNode.cxx
   src/engine/GameObjects/mapNode.hxx
