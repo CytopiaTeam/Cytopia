@@ -25,10 +25,10 @@ void TextureManager::loadUITexture()
 {
   json uiDataJSON;
 
-  std::ifstream i(Settings::Instance().settings.uiDataJSONFile);
+  std::ifstream i(Settings::instance().settings.uiDataJSONFile);
   if (i.fail())
   {
-    LOG(LOG_ERROR) << "File " << Settings::Instance().settings.uiDataJSONFile << " does not exist!";
+    LOG(LOG_ERROR) << "File " << Settings::instance().settings.uiDataJSONFile << " does not exist!";
     return;
   }
 
@@ -37,7 +37,7 @@ void TextureManager::loadUITexture()
 
   if (uiDataJSON.is_discarded())
   {
-    LOG(LOG_ERROR) << "Error parsing JSON File " << Settings::Instance().settings.uiDataJSONFile;
+    LOG(LOG_ERROR) << "Error parsing JSON File " << Settings::instance().settings.uiDataJSONFile;
     return;
   }
 

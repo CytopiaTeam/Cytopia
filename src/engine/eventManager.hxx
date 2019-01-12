@@ -15,7 +15,7 @@ public:
   void checkEvents(SDL_Event &event, Engine &engine);
 
 private:
-  UIManager &uiManager = UIManager::Instance();
+  UIManager &uiManager = UIManager::instance();
 
   std::shared_ptr<UiElement> lastHoveredElement = nullptr;
   bool dispatchUiEvents(SDL_Event &event);

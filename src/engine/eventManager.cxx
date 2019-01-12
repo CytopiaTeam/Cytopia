@@ -60,7 +60,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           LOG() << "Starting elevation Benchmark!";
           Timer benchmarkTimer;
           benchmarkTimer.start();
-          for (int i = 0; i <= Settings::Instance().settings.maxElevationHeight; i++)
+          for (int i = 0; i <= Settings::instance().settings.maxElevationHeight; i++)
           {
             engine.increaseHeight(Point{64, 64, 0, 0});
           }

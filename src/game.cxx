@@ -14,13 +14,13 @@ void run()
   LOG() << VERSION;
 
   benchmarkTimer.start();
-  Engine &engine = Engine::Instance();
+  Engine &engine = Engine::instance();
   LOG() << "Map initialized in " << benchmarkTimer.getElapsedTime() << "ms";
 
   SDL_Event event;
   EventManager evManager;
 
-  UIManager &uiManager = UIManager::Instance();
+  UIManager &uiManager = UIManager::instance();
   uiManager.init();
 
   auto *_renderer = Resources::getRenderer();

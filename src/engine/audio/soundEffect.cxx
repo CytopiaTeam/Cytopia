@@ -24,7 +24,7 @@ void SoundEffect::loadFile(const std::string &filename)
 
 void SoundEffect::play(int channel, int angle, int distance, int loops) const
 {
-  if (Settings::Instance().settings.playSoundEffects)
+  if (Settings::instance().settings.playSoundEffects)
   {
     if (_soundEffect)
     {
@@ -36,7 +36,7 @@ void SoundEffect::play(int channel, int angle, int distance, int loops) const
       }
 
       // for stereo set the position of the sound effect
-      if (Settings::Instance().settings.audioChannels == 2)
+      if (Settings::instance().settings.audioChannels == 2)
       {
         if (!Mix_SetPosition(currentChannel, angle, distance))
         {
@@ -53,7 +53,7 @@ void SoundEffect::play(int channel, int angle, int distance, int loops) const
 
 void SoundEffect::stop(int channel) const
 {
-  if (Settings::Instance().settings.playMusic)
+  if (Settings::instance().settings.playMusic)
   {
     Mix_HaltChannel(-1);
   }
@@ -61,7 +61,7 @@ void SoundEffect::stop(int channel) const
 
 bool SoundEffect::isPlaying() const
 {
-  if (Settings::Instance().settings.playMusic)
+  if (Settings::instance().settings.playMusic)
   {
     // returns amount of playing audiochannels
     return Mix_Playing(-1) != 0;

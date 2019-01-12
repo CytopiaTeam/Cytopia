@@ -34,9 +34,9 @@ void Map::initMap()
   int z = 0;
 
   // nodes need to be created at the correct vector "coordinates", or else the Z-Order will be broken
-  for (int x = 0; x <= Settings::Instance().settings.mapSize; x++)
+  for (int x = 0; x <= Settings::instance().settings.mapSize; x++)
   {
-    for (int y = Settings::Instance().settings.mapSize; y >= 0; y--)
+    for (int y = Settings::instance().settings.mapSize; y >= 0; y--)
     {
       _mapNodes[x * _columns + y] = new MapNode(Point{x, y, z++, 0});
       _mapNodesInDrawingOrder.push_back(_mapNodes[x * _columns + y]);
@@ -48,7 +48,7 @@ void Map::increaseHeight(const Point &isoCoordinates)
 {
   int height = _mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->getCoordinates().height;
 
-  if (height < Settings::Instance().settings.maxElevationHeight)
+  if (height < Settings::instance().settings.maxElevationHeight)
   {
     demolishNode(isoCoordinates);
     _mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->increaseHeight();
@@ -303,7 +303,7 @@ Point Map::findNodeInMap(const Point &screenCoordinates, float zoomLevel) const
       pixelY = static_cast<int>(pixelY / zoomLevel);
 
       // Check if the clicked Sprite is not transparent (we hit a point within the pixel)
-      if (getColorOfPixelInSurface(TextureManager::Instance().getTileSurface(it->getTileID(), it->getUsedTileMap()), pixelX,
+      if (getColorOfPixelInSurface(TextureManager::instance().getTileSurface(it->getTileID(), it->getUsedTileMap()), pixelX,
                                    pixelY, it->getSprite()->getClipRect())
               .a != SDL_ALPHA_TRANSPARENT)
       {

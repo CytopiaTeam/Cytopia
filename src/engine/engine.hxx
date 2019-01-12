@@ -10,11 +10,11 @@
 class Engine
 {
 public:
-  /// Retrieves Instance of Singleton class Texture Manager
-  static Engine &Instance()
+  /// Retrieves instance of Singleton class Engine
+  static Engine &instance()
   {
-    static Engine instance;
-    return instance;
+    static Engine engine;
+    return engine;
   }
 
   // Disable copy and assignemnt operators

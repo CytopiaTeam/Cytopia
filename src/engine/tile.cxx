@@ -10,14 +10,14 @@
 
 using json = nlohmann::json;
 
-Tile::Tile() { init(); }
+TileManager::TileManager() { init(); }
 
-SDL_Texture *Tile::getTexture(const std::string &id, size_t tileMapType)
+SDL_Texture *TileManager::getTexture(const std::string &id, size_t tileMapType)
 {
-  return TextureManager::Instance().getTileTexture(id, tileMapType);
+  return TextureManager::instance().getTileTexture(id, tileMapType);
 }
 
-TileData *Tile::getTileData(const std::string &id)
+TileData *TileManager::getTileData(const std::string &id)
 {
   if (tileData.count(id))
   {
@@ -31,7 +31,7 @@ TileData *Tile::getTileData(const std::string &id)
   return nullptr;
 }
 
-size_t Tile::caluclateSlopeOrientation(unsigned char bitMaskElevation)
+size_t TileManager::caluclateSlopeOrientation(unsigned char bitMaskElevation)
 {
   size_t orientation;
   std::bitset<8> elevationMask(bitMaskElevation);
@@ -149,7 +149,7 @@ size_t Tile::caluclateSlopeOrientation(unsigned char bitMaskElevation)
   return orientation;
 }
 
-size_t Tile::caluclateTileOrientation(unsigned char bitMaskElevation)
+size_t TileManager::caluclateTileOrientation(unsigned char bitMaskElevation)
 {
   size_t orientation;
   std::bitset<8> elevationMask(bitMaskElevation);
@@ -242,15 +242,15 @@ size_t Tile::caluclateTileOrientation(unsigned char bitMaskElevation)
   return orientation;
 }
 
-void Tile::init()
+void TileManager::init()
 {
   json tileDataJSON;
 
   // Read JSON File.
-  std::ifstream i(Settings::Instance().settings.tileDataJSONFile);
+  std::ifstream i(Settings::instance().settings.tileDataJSONFile);
   if (i.fail())
   {
-    LOG(LOG_ERROR) << "File " << Settings::Instance().settings.tileDataJSONFile << " does not exist!";
+    LOG(LOG_ERROR) << "File " << Settings::instance().settings.tileDataJSONFile << " does not exist!";
     return;
   }
 
@@ -258,7 +258,7 @@ void Tile::init()
   tileDataJSON = json::parse(i, nullptr, false);
   if (tileDataJSON.is_discarded())
   {
-    LOG(LOG_ERROR) << "Error parsing JSON File " << Settings::Instance().settings.tileDataJSONFile;
+    LOG(LOG_ERROR) << "Error parsing JSON File " << Settings::instance().settings.tileDataJSONFile;
   }
   i.close();
 
@@ -285,7 +285,7 @@ void Tile::init()
 
     if (!tileData[id].tiles.fileName.empty())
     {
-      TextureManager::Instance().loadTexture(id, tileData[id].tiles.fileName, TileMap::DEFAULT);
+      TextureManager::instance().loadTexture(id, tileData[id].tiles.fileName, TileMap::DEFAULT);
     }
 
     if (!tileDataJSON[idx]["cornerTiles"].is_null())
@@ -297,7 +297,7 @@ void Tile::init()
 
       if (!tileData[id].cornerTiles.fileName.empty())
       {
-        TextureManager::Instance().loadTexture(id, tileData[id].cornerTiles.fileName, TileMap::CORNERS);
+        TextureManager::instance().loadTexture(id, tileData[id].cornerTiles.fileName, TileMap::CORNERS);
       }
     }
 
@@ -311,7 +311,7 @@ void Tile::init()
 
       if (!tileData[id].slopeTiles.fileName.empty())
       {
-        TextureManager::Instance().loadTexture(id, tileData[id].slopeTiles.fileName, TileMap::SLOPES);
+        TextureManager::instance().loadTexture(id, tileData[id].slopeTiles.fileName, TileMap::SLOPES);
       }
     }
 

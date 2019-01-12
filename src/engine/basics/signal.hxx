@@ -162,8 +162,8 @@ struct Signal : Lib::ProtoSignal<SignalSignature, Collector>
 };
 
 /// This function creates a std::function by binding @a object to the member function pointer @a method.
-template <class Instance, class Class, class R, class... Args>
-std::function<R(Args...)> slot(Instance &object, R (Class::*method)(Args...))
+template <class instance, class Class, class R, class... Args>
+std::function<R(Args...)> slot(instance &object, R (Class::*method)(Args...))
 {
   return [&object, method](Args... args) { return (object.*method)(args...); };
 }

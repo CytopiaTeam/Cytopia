@@ -19,11 +19,11 @@ enum ButtonState
 class TextureManager
 {
 public:
-  /// Retrieves Instance of Singleton class Texture Manager
-  static TextureManager &Instance()
+  /// Retrieves instance of Singleton class Texture Manager
+  static TextureManager &instance()
   {
-    static TextureManager instance;
-    return instance;
+    static TextureManager textureManager;
+    return textureManager;
   }
 
   // Disable copy and assignemnt operators

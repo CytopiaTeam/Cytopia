@@ -76,19 +76,19 @@ enum TileList : size_t
   TILE_ALL_DIRECTIONS
 };
 
-class Tile
+class TileManager
 {
 public:
-  /// Retrieves Instance of Singleton class Texture Manager
-  static Tile &Instance()
+  /// Retrieves instance of Singleton class TileManager
+  static TileManager &instance()
   {
-    static Tile instance;
-    return instance;
+    static TileManager tileManager;
+    return tileManager;
   }
 
   // Disable copy and assignemnt operators
-  Tile(Tile const &) = delete;
-  Tile &operator=(Tile const &) = delete;
+  TileManager(TileManager const &) = delete;
+  TileManager &operator=(TileManager const &) = delete;
 
   SDL_Texture *getTexture(const std::string &id, size_t tileMapType = 0);
   TileData *getTileData(const std::string &id);
@@ -98,8 +98,8 @@ public:
   void init();
 
 private:
-  Tile();
-  ~Tile() = default;
+  TileManager();
+  ~TileManager() = default;
 
   std::unordered_map<std::string, TileData> tileData;
 };

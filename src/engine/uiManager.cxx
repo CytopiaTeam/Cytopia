@@ -16,10 +16,10 @@ void UIManager::init()
 {
   json uiLayout;
 
-  std::ifstream i(Settings::Instance().settings.uiLayoutJSONFile);
+  std::ifstream i(Settings::instance().settings.uiLayoutJSONFile);
   if (i.fail())
   {
-    LOG(LOG_ERROR) << "File " << Settings::Instance().settings.uiLayoutJSONFile
+    LOG(LOG_ERROR) << "File " << Settings::instance().settings.uiLayoutJSONFile
                    << " does not exist! Cannot load settings from INI File!";
     // Application should quit here, without textureData we can't continue
     return;
@@ -29,7 +29,7 @@ void UIManager::init()
   uiLayout = json::parse(i, nullptr, false);
   if (uiLayout.is_discarded())
   {
-    LOG(LOG_ERROR) << "Error parsing JSON File " << Settings::Instance().settings.uiLayoutJSONFile;
+    LOG(LOG_ERROR) << "Error parsing JSON File " << Settings::instance().settings.uiLayoutJSONFile;
   }
 
   for (const auto &it : uiLayout.items())
@@ -151,7 +151,7 @@ void UIManager::init()
         }
         else if (actionID == "QuitGame")
         {
-          uiElement->registerCallbackFunction(Signal::slot(Engine::Instance(), &Engine::quitGame));
+          uiElement->registerCallbackFunction(Signal::slot(Engine::instance(), &Engine::quitGame));
         }
         else if (actionID == "Demolish")
         {

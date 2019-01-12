@@ -11,7 +11,7 @@ const int Resources::_tileSize = 32;
 
 Point Resources::convertScreenToIsoCoordinates(const Point &screenCoordinates)
 {
-  return Engine::Instance().findNodeInMap(screenCoordinates);
+  return Engine::instance().findNodeInMap(screenCoordinates);
 }
 
 Point Resources::convertIsoToScreenCoordinates(const Point &isoCoordinates, bool calcWithoutOffset)

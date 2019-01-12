@@ -17,11 +17,11 @@
 class UIManager
 {
 public:
-  /// Retrieves Instance of Singleton class Texture Manager
-  static UIManager &Instance()
+  /// Retrieves instance of Singleton class UI Manager
+  static UIManager &instance()
   {
-    static UIManager instance;
-    return instance;
+    static UIManager uiManager;
+    return uiManager;
   }
   void init();
   void drawUI();

@@ -13,7 +13,7 @@ Engine::Engine()
 
   _renderer = Resources::getRenderer();
   _window = Resources::getWindow();
-  _map_size = Settings::Instance().settings.mapSize;
+  _map_size = Settings::instance().settings.mapSize;
 
   _map = Map(_map_size, _map_size);
   _zoomLevel = Resources::getZoomLevel();
@@ -21,8 +21,8 @@ Engine::Engine()
   // Default: Floor and Buildings are drawn
   _activeLayers = LAYER_FLOOR | LAYER_BUILDINGS;
 
-  _screen_height = Settings::Instance().settings.screenHeight;
-  _screen_width = Settings::Instance().settings.screenWidth;
+  _screen_height = Settings::instance().settings.screenHeight;
+  _screen_width = Settings::instance().settings.screenWidth;
 
   // set camera to map center
   _centerIsoCoordinates = Point{_map_size / 2, _map_size / 2, 0, 0};

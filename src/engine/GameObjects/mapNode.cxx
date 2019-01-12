@@ -49,19 +49,19 @@ void MapNode::updateTexture()
 {
   SDL_Rect clipRect;
 
-  _tileData = Tile::Instance().getTileData(_tileID);
+  _tileData = TileManager::instance().getTileData(_tileID);
   _tileMap = TileMap::DEFAULT;
 
   // only calculate orientation for textures that adjust themselves according to elevation / other tiles of the same id
   if (_tileData->type == "terrain" || _tileData->type == "road" || _tileData->type == "water")
   {
-    _orientation = Tile::Instance().caluclateSlopeOrientation(_elevationBitmask);
+    _orientation = TileManager::instance().caluclateSlopeOrientation(_elevationBitmask);
 
     if (_orientation == TileSlopes::DEFAULT_ORIENTATION)
     {
       if (_tileData->type != "terrain")
       {
-        _orientation = Tile::Instance().caluclateTileOrientation(_tileIDBitmask);
+        _orientation = TileManager::instance().caluclateTileOrientation(_tileIDBitmask);
       }
     }
     else
@@ -111,5 +111,5 @@ void MapNode::updateTexture()
     updateTexture();
   }
   _sprite->setSpriteCount(_spriteCount);
-  _sprite->setTexture(Tile::Instance().getTexture(_tileID, _tileMap));
+  _sprite->setTexture(TileManager::instance().getTexture(_tileID, _tileMap));
 }

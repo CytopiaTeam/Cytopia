@@ -6,11 +6,11 @@
 class Settings
 {
 public:
-  /// Retrieves Instance of Singleton class Texture Manager
-  static Settings &Instance()
+  /// Retrieves instance of Singleton class Settings
+  static Settings &instance()
   {
-    static Settings instance;
-    return instance;
+    static Settings settings;
+    return settings;
   }
 
   Settings();
