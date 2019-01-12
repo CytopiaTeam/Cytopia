@@ -176,3 +176,5 @@ endif()
 
 install(TARGETS ${PROJECT_NAME} DESTINATION .)
 install(DIRECTORY resources DESTINATION .)
+
+add_subdirectory(src/TileDataUi)
