@@ -6,7 +6,7 @@
 
 #include "SDL2/SDL.h"
 
-#include "tile.hxx"
+#include "tileManager.hxx"
 
 enum ButtonState
 {

@@ -9,7 +9,7 @@
 #include "../sprite.hxx"
 #include "../basics/point.hxx"
 
-#include "../tile.hxx"
+#include "../tileManager.hxx"
 
 /** @brief Class that holds map nodes
  * Each tile is represented by the map nodes class.

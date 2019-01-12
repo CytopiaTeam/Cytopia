@@ -6,7 +6,7 @@
 #include "basics/settings.hxx"
 #include "basics/resources.hxx"
 #include "basics/log.hxx"
-#include "tile.hxx"
+#include "tileManager.hxx"
 
 using json = nlohmann::json;
 
