@@ -15,6 +15,11 @@ set (CMAKE_INSTALL_PREFIX "../install")
 # make sure, every binary lands in the root directory
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
+# add builddtype as cached variable
+set(CMAKE_BUILD_TYPE Release CACHE STRING "Build type"  )
+set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS ${CMAKE_CONFIGURATION_TYPES} )
+message(STATUS "Build configuration: " ${CMAKE_BUILD_TYPE}) 
+
 if ( UNIX )
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 endif()
