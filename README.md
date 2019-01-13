@@ -31,8 +31,18 @@ If you have questions or if you want to join the project, visit the [Projects Di
  CMake 3.9 or later
  
   https://cmake.org/
+  
+ QT 5.9 or later (optional, needed for the TileData editor)
+ 
+  http://qt.io
 
 #### Build instructions
+
+To build the TileData editor, you will need a qt installation for your build environment. 
+
+On Windows, download and install the qt installer and select the appropriate environment during installation (e.g. mscv
+and set the environment variable Qt5_DIR to your installation directory.
+`set Qt5_DIR=D:\Qt\5.12.0\msvc2017_64`
 
 This project uses [CMake](https://cmake.org) to manage the build.
 Please make sure you have installed at least version 3.9 or later.
@@ -44,9 +54,16 @@ This will configure the build.
 If any dependencies are missing, you will receive an error here.
 If you are using Windows and have manually installed SDL2, you will need to update your PATH environment variable to point to it.
 
+Note: If you want to change your install directory (per default it's set to ../install) add the definition `-DCMAKE_INSTALL_PREFIX=/foo/bar` to your cmake call.
+
+
 Once the build is configured, you can then compile it using:
 
     cmake --build .
+    
+To install the project, 
+
+  cmake --build . --target install
 
 #### Coding guidelines
 
