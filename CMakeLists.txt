@@ -10,7 +10,7 @@ project(
   LANGUAGES CXX
 )
 
-if (UNIX)
+if ( UNIX )
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 endif()
 
@@ -101,7 +101,7 @@ find_package(SDL2_image REQUIRED)
 find_package(SDL2_ttf REQUIRED)
 find_package(SDL2_mixer REQUIRED)
 
-if(MINGW)
+if( MINGW )
   target_link_libraries(
     ${PROJECT_NAME}
     PRIVATE
@@ -123,7 +123,7 @@ target_link_libraries(
 target_compile_features(
   ${PROJECT_NAME}
   PRIVATE
-    # enable C++11
+    # enable C++14
     cxx_std_14
 )
 
@@ -141,15 +141,33 @@ add_custom_command(
     ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/resources $<TARGET_FILE_DIR:${PROJECT_NAME}>/resources
 )
 
+
+# QT5 is used for the TileData Editing tool
+find_package(Qt5 CONFIG COMPONENTS Core Widgets)
+
+if( Qt5Core_FOUND AND Qt5Widgets_FOUND)
+    message(STATUS "Found QT: ${Qt5_VERSION}")
+    add_subdirectory(src/TileDataUi)
+else()
+    message(WARNING "No QT5 found. TileEditor Tool cannot be built.") 
+    
+    if ( MSVC )
+      message("Install QT5 and set the Qt5_DIR environment variable to the approprate directory")
+      message("eg. set Qt5_DIR=D:\\Qt\\5.12.0\\msvc2017_64")
+    else()
+      message("Install Qt5 dev packages via your package manager")
+    endif()
+endif()
+
 # use Doxygen to generate the documentation
 find_package(Doxygen)
 
-if(DOXYGEN_FOUND)
+if( DOXYGEN_FOUND )
   set (DoxyFile_src ${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile)
   set (DoxyFile ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile)
   configure_file(${DoxyFile_src} ${DoxyFile} @ONLY)
 
-  message(STATUS "${PROJECT_NAME}: You can build the documentation with the doc target.")
+  message("Use target doc to build the documentation")
   add_custom_target(
     doc
     COMMAND ${DOXYGEN_EXECUTABLE} ${DoxyFile}
@@ -158,7 +176,7 @@ if(DOXYGEN_FOUND)
   )
 endif()
 
-if(MSVC)
+if( MSVC )
   # set startup project for Visual Studio Builds
   set_property(
     DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
@@ -176,5 +194,3 @@ endif()
 
 install(TARGETS ${PROJECT_NAME} DESTINATION .)
 install(DIRECTORY resources DESTINATION .)
-
-add_subdirectory(src/TileDataUi)
