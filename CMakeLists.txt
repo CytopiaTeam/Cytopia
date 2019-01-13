@@ -10,6 +10,11 @@ project(
   LANGUAGES CXX
 )
 
+# set install dir here for convenience
+set (CMAKE_INSTALL_PREFIX "../install")
+# make sure, every binary lands in the root directory
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+
 if ( UNIX )
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 endif()
@@ -194,3 +199,4 @@ endif()
 
 install(TARGETS ${PROJECT_NAME} DESTINATION .)
 install(DIRECTORY resources DESTINATION .)
+install(FILES ReleaseNotes.txt credits.txt DESTINATION .)
