@@ -1,5 +1,5 @@
 # IsometricEngine  
-[![Build Status](https://travis-ci.org/JimmySnails/IsometricEngine.svg?branch=master)](https://travis-ci.org/JimmySnails/IsometricEngine)
+[![Build Status](https://travis-ci.org/JimmySnails/Cytopia.svg?branch=master)](https://travis-ci.org/JimmySnails/Cytopia)
 
 
 An SDL2 based, isometric rendering engine.
