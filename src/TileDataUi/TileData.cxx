@@ -103,6 +103,7 @@ bool TileDataContainer::saveFile()
     return false;
   }
   file.write(doc.toJson());
+  return true;
 }
 
 //--------------------------------------------------------------------------------

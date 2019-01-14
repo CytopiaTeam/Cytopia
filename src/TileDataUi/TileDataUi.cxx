@@ -8,6 +8,7 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QDir>
+#include <QHeaderView>
 
 //--------------------------------------------------------------------------------
 
