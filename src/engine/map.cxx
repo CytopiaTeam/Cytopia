@@ -280,44 +280,81 @@ Point Map::findNodeInMap(const Point &screenCoordinates, float zoomLevel) const
 {
   Point foundCoordinates{-1, -1, 0, 0};
 
-  // check all nodes of the map to find the clicked point
-  for (auto it : _mapNodesInDrawingOrder)
+  // calculate clicked column (x coordinate) without heigh taken into account.
+  int isoX = static_cast<int>(
+      (screenCoordinates.x + Resources::getCameraOffset().x + 2.0 * (screenCoordinates.y + Resources::getCameraOffset().y)) /
+          (32 * Resources::getZoomLevel()) +
+      1);
+  int isoY = static_cast<int>(
+      (screenCoordinates.x + Resources::getCameraOffset().x - 2.0 * (screenCoordinates.y + Resources::getCameraOffset().y)) /
+      (32 * Resources::getZoomLevel()));
+
+  int y = isoY;
+
+  bool run = true;
+  // traverse a column from top to bottom (from the calculated coordinates)
+  while (isoX < Settings::instance().settings.mapSize && isoY > 0)
   {
-    //MapNode *it = _mapNodes[x * _columns * y];
-
-    SDL_Rect spriteRect = it->getSprite()->getDestRect();
-
-    int clickedX = screenCoordinates.x;
-    int clickedY = screenCoordinates.y;
-
-    int spriteX = spriteRect.x;
-    int spriteY = spriteRect.y;
-
-    if (clickedX >= spriteX && clickedX < spriteX + spriteRect.w && clickedY >= spriteY && clickedY < spriteY + spriteRect.h)
+    if (isClickWithinTile(screenCoordinates, isoX, isoY))
     {
-      // Calculate the position of the clicked pixel within the surface
-      int pixelX = (clickedX - spriteX);
-      int pixelY = (clickedY - spriteY);
-      // "un-zoom" the positon to match the un-adjusted surface
-      pixelX = static_cast<int>(pixelX / zoomLevel);
-      pixelY = static_cast<int>(pixelY / zoomLevel);
-
-      // Check if the clicked Sprite is not transparent (we hit a point within the pixel)
-      if (getColorOfPixelInSurface(TextureManager::instance().getTileSurface(it->getTileID(), it->getUsedTileMap()), pixelX,
-                                   pixelY, it->getSprite()->getClipRect())
-              .a != SDL_ALPHA_TRANSPARENT)
+      if (foundCoordinates.z < _mapNodes[isoX * _columns + isoY]->getCoordinates().z)
       {
-        if (foundCoordinates.z < it->getCoordinates().z)
-        {
-          foundCoordinates = it->getCoordinates();
-        }
+        foundCoordinates = _mapNodes[isoX * _columns + isoY]->getCoordinates();
       }
     }
+    if (isClickWithinTile(screenCoordinates, isoX - 1, isoY))
+    {
+      if (foundCoordinates.z < _mapNodes[(isoX - 1) * _columns + isoY]->getCoordinates().z)
+      {
+        foundCoordinates = _mapNodes[(isoX - 1) * _columns + isoY]->getCoordinates();
+      }
+    }
+    if (isClickWithinTile(screenCoordinates, isoX, isoY + 1))
+    {
+      if (foundCoordinates.z < _mapNodes[isoX * _columns + (isoY + 1)]->getCoordinates().z)
+      {
+        foundCoordinates = _mapNodes[isoX * _columns + (isoY + 1)]->getCoordinates();
+      }
+    }
+
+    isoX++;
+    isoY--;
   }
+
   return foundCoordinates;
 }
 
 void Map::demolishNode(const Point &isoCoordinates)
 {
   _mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->setTileID("terrain");
+}
+
+bool Map::isClickWithinTile(const Point &screenCoordinates, int isoX, int isoY) const
+{
+
+  if (isoX < 0 || isoX > Settings::instance().settings.mapSize || isoY < 0 || isoY > Settings::instance().settings.mapSize)
+  {
+    return false;
+  }
+
+  Point foundCoordinates{-1, -1, 0, 0};
+  SDL_Rect spriteRect = _mapNodes[isoX * _columns + isoY]->getSprite()->getDestRect();
+  SDL_Point clicked = {screenCoordinates.x, screenCoordinates.y};
+  if (SDL_PointInRect(&clicked, &spriteRect))
+  {
+    // Calculate the position of the clicked pixel within the surface and "un-zoom" the positon to match the un-adjusted surface
+    int pixelX = static_cast<int>((screenCoordinates.x - spriteRect.x) / Resources::getZoomLevel());
+    int pixelY = static_cast<int>((screenCoordinates.y - spriteRect.y) / Resources::getZoomLevel());
+
+    // Check if the clicked Sprite is not transparent (we hit a point within the pixel)
+    if (getColorOfPixelInSurface(TextureManager::instance().getTileSurface(_mapNodes[isoX * _columns + isoY]->getTileID(),
+                                                                           _mapNodes[isoX * _columns + isoY]->getUsedTileMap()),
+                                 pixelX, pixelY, _mapNodes[isoX * _columns + isoY]->getSprite()->getClipRect())
+            .a != SDL_ALPHA_TRANSPARENT)
+    {
+      return true;
+    }
+  }
+
+  return false;
 }

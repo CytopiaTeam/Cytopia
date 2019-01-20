@@ -3,7 +3,6 @@
 
 #include <string>
 
-
 /// min and max values for tileData
 #define TD_PRICE_MIN 1
 #define TD_PRICE_MAX 100000
@@ -18,7 +17,6 @@
 #define TD_AUTHOR_MAX_CHARS 100
 #define TD_ID_MAX_CHARS 100
 #define TD_TYPE_MAX_CHARS 40
-
 
 struct TileSetData
 {
@@ -44,6 +42,5 @@ struct TileData
   std::string author;
   bool drawGround = false; // draw ground below sprite (grass, flowers, ...)
 };
-
 
 #endif
