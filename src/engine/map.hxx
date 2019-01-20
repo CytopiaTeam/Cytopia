@@ -42,6 +42,8 @@ public:
     */
   void renderMap();
 
+  void highlightNode(const Point &isoCoordinates);
+
   Point findNodeInMap(const Point &screenCoordinates, float zoomLevel) const;
 
   void setTileIDOfNode(const Point &isoCoordinates, const std::string &tileType);
@@ -52,6 +54,8 @@ public:
 private:
   std::vector<MapNode *> _mapNodes;
   std::vector<MapNode *> _mapNodesInDrawingOrder;
+
+  MapNode *highlitNode = nullptr;
 
   int _columns;
   int _rows;

@@ -23,6 +23,8 @@ public:
   const SDL_Rect &getDestRect() { return _destRect; };
   const SDL_Rect &getClipRect() { return _clipRect; };
 
+  void highlight(bool highlight) { _highlightSprite = highlight; };
+
 private:
   SDL_Texture *_texture = nullptr;
   SDL_Renderer *_renderer;
@@ -38,6 +40,7 @@ private:
 
   size_t _orientation;
   bool _needsRefresh = false;
+  bool _highlightSprite = false;
 };
 
 #endif

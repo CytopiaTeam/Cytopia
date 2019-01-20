@@ -68,9 +68,15 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           break;
         }
         break;
+      case SDL_MOUSEMOTION:
+        mouseCoords = Point{event.button.x, event.button.y, 0, 0};
+        clickCoords = Resources::convertScreenToIsoCoordinates(mouseCoords);
+        engine.getMap()->highlightNode(clickCoords);
+        break;
       case SDL_MOUSEBUTTONDOWN:
         mouseCoords = Point{event.button.x, event.button.y, 0, 0};
         clickCoords = Resources::convertScreenToIsoCoordinates(mouseCoords);
+
         if (event.button.button == SDL_BUTTON_LEFT)
         {
           if (engine.isPointWithinBoundaries(clickCoords))

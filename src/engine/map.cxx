@@ -355,6 +355,21 @@ bool Map::isClickWithinTile(const Point &screenCoordinates, int isoX, int isoY) 
       return true;
     }
   }
-
   return false;
+}
+
+void Map::highlightNode(const Point &isoCoordinates)
+{
+  if (highlitNode != nullptr)
+  {
+    highlitNode->getSprite()->highlight(false);
+  }
+
+  int index = isoCoordinates.x * _columns + isoCoordinates.y;
+
+  if (index >= 0 && index < _mapNodes.size())
+  {
+    highlitNode = _mapNodes.at(index);
+    highlitNode->getSprite()->highlight(true);
+  }
 }

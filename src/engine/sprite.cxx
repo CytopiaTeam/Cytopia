@@ -13,6 +13,10 @@ Sprite::Sprite(Point isoCoordinates) : _isoCoordinates(isoCoordinates)
 
 void Sprite::render()
 {
+  if (_highlightSprite == true)
+  {
+    SDL_SetTextureColorMod(_texture, 150, 150, 150);
+  }
 
   if (_clipRect.w != 0)
   {
@@ -21,6 +25,11 @@ void Sprite::render()
   else
   {
     SDL_RenderCopy(_renderer, _texture, nullptr, &_destRect);
+  }
+
+  if (_highlightSprite == true)
+  {
+    SDL_SetTextureColorMod(_texture, 255, 255, 255);
   }
 }
 

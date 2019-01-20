@@ -92,6 +92,8 @@ public:
 
   void demolishNode(const Point &isoCoordinates);
 
+  Map *getMap() { return &_map; };
+
 private:
   Engine();
   virtual ~Engine() = default;
