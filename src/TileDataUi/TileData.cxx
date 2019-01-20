@@ -6,12 +6,19 @@
 
 //--------------------------------------------------------------------------------
 
-TileData *TileDataContainer::getTileData(const QString &id)
+bool TileDataContainer::hasTileData(const QString &id) const
+{
+  return tileData.contains(id);
+}
+
+//--------------------------------------------------------------------------------
+
+TileData TileDataContainer::getTileData(const QString &id) const
 {
   if ( !tileData.contains(id) )
-    return nullptr;
+    return TileData();
 
-  return &tileData[id];
+  return tileData[id];
 }
 
 //--------------------------------------------------------------------------------
@@ -22,6 +29,9 @@ QString TileDataContainer::loadFile(const QString &theFileName)
   tileData.clear();
 
   QFile file(fileName);
+  if ( !file.exists() )
+    return QString();
+
   if ( !file.open(QIODevice::ReadOnly) )
     return file.errorString();
 
@@ -117,6 +127,20 @@ QJsonObject TileDataContainer::tileSetDataToJson(const TileSetData &data)
   obj.insert("clip_height", data.clippingHeight);
 
   return obj;
+}
+
+//--------------------------------------------------------------------------------
+
+void TileDataContainer::removeTileData(const QString &id)
+{
+  tileData.remove(id);
+}
+
+//--------------------------------------------------------------------------------
+
+void TileDataContainer::addTileData(const TileData &tile)
+{
+  tileData.insert(QString::fromStdString(tile.id), tile);
 }
 
 //--------------------------------------------------------------------------------

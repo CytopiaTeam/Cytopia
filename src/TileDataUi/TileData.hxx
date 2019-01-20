@@ -14,7 +14,11 @@ class TileDataContainer : public QObject
     QString loadFile(const QString &fileName);
     bool saveFile();
 
-    TileData *getTileData(const QString &id);
+    bool hasTileData(const QString &id) const;
+    TileData getTileData(const QString &id) const;
+
+    void removeTileData(const QString &id);
+    void addTileData(const TileData &tile);
 
     using Map = QMap<QString, TileData>;
     Map::iterator begin() { return tileData.begin(); }
