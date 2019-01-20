@@ -12,6 +12,8 @@
 #include <QDir>
 #include <QHeaderView>
 
+#include <engine/basics/tileData.hxx>
+
 //--------------------------------------------------------------------------------
 
 TileDataUi::TileDataUi()
@@ -26,6 +28,15 @@ TileDataUi::TileDataUi()
   QWidget *w = new QWidget;
   ui.setupUi(w);
   splitter->addWidget(w);
+
+  ui.id->setMaxLength(TD_ID_MAX_CHARS);
+  ui.type->setMaxLength(TD_TYPE_MAX_CHARS);
+  ui.title->setMaxLength(TD_TITLE_MAX_CHARS);
+  ui.author->setMaxLength(TD_AUTHOR_MAX_CHARS);
+  ui.buildCost->setRange(TD_PRICE_MIN, TD_PRICE_MAX);
+  ui.upkeepCost->setRange(TD_UPKEEP_MIN, TD_UPKEEP_MAX);
+  ui.powerProduction->setRange(TD_POWER_MIN, TD_POWER_MAX);
+  ui.waterProduction->setRange(TD_WATER_MIN, TD_WATER_MAX);
 
   w = new QWidget;
   tilesSet.setupUi(w);
@@ -132,7 +143,31 @@ void TileDataUi::setup(Ui::TileSetDataUi &ui)
                                                   ui.fileName->text(),
                                                   tr("Images (*.png)"));
             if ( !fileName.isEmpty() )
+            {
               ui.fileName->setText(QDir::current().relativeFilePath(fileName));
+              QPixmap pix(fileName);
+              ui.origImage->setPixmap(pix);
+              ui.image->setPixmap(pix);
+              ui.width->setValue(pix.width());
+              ui.height->setValue(pix.height());
+              ui.size1->setChecked(true);
+            }
+          });
+
+  ui.origImage->hide();  // a hidden storage for the original sized pixmap
+
+  connect(ui.buttonGroup, static_cast<void(QButtonGroup::*)(QAbstractButton *)>(&QButtonGroup::buttonClicked),
+          this,
+          [ui](QAbstractButton *button)
+          {
+            QPixmap pix = *(ui.origImage->pixmap());
+            
+            if ( button == ui.size2 )
+              pix = pix.transformed(QTransform().scale(2, 2));
+            else if ( button == ui.size4 )
+              pix = pix.transformed(QTransform().scale(4, 4));
+
+            ui.image->setPixmap(pix);
           });
 }
 
@@ -317,7 +352,10 @@ void TileDataUi::fillTileSetDataWidget(const Ui::TileSetDataUi &ui, const TileSe
   ui.width->setValue(data.clippingWidth);
   ui.height->setValue(data.clippingHeight);
   ui.count->setValue(data.count);
-  ui.image->setPixmap(QPixmap(QString::fromStdString(data.fileName)));
+  QPixmap pix(QString::fromStdString(data.fileName));
+  ui.image->setPixmap(pix);
+  ui.origImage->setPixmap(pix);
+  ui.size1->setChecked(true);
 }
 
 //--------------------------------------------------------------------------------
