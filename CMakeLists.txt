@@ -16,8 +16,8 @@ set (CMAKE_INSTALL_PREFIX "../install")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
 # add builddtype as cached variable
-set(CMAKE_BUILD_TYPE Release CACHE STRING "Build type"  )
-set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS ${CMAKE_CONFIGURATION_TYPES} )
+set(CMAKE_BUILD_TYPE Release CACHE STRING "Build type")
+set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS ${CMAKE_CONFIGURATION_TYPES})
 message(STATUS "Build configuration: " ${CMAKE_BUILD_TYPE}) 
 
 if ( UNIX )
@@ -42,68 +42,74 @@ set(CPACK_STRIP_FILES ON)
 
 INCLUDE(CPack)
 
-# create a new executable with the same name as the project
-add_executable(${PROJECT_NAME}
-  src/engine/basics/log.hxx
-  src/engine/basics/mapEdit.hxx
-  src/engine/basics/mapEdit.cxx
-  src/engine/basics/point.hxx
-  src/engine/basics/resources.cxx
-  src/engine/basics/resources.hxx
-  src/engine/basics/settings.cxx
-  src/engine/basics/settings.hxx
-  src/engine/basics/signal.hxx
-  src/engine/basics/timer.cxx
-  src/engine/basics/timer.hxx
-  src/engine/basics/tileData.hxx
-  src/engine/basics/utils.hxx
-  src/engine/GameObjects/mapNode.cxx
-  src/engine/GameObjects/mapNode.hxx
-  src/engine/ui/bar.cxx
-  src/engine/ui/bar.hxx
-  src/engine/ui/button.cxx
-  src/engine/ui/button.hxx
-  src/engine/ui/combobox.cxx
-  src/engine/ui/combobox.hxx
-  src/engine/ui/checkbox.cxx
-  src/engine/ui/checkbox.hxx
-  src/engine/ui/frame.cxx
-  src/engine/ui/frame.hxx
-  src/engine/ui/text.cxx
-  src/engine/ui/text.hxx
-  src/engine/ui/textField.cxx
-  src/engine/ui/textField.hxx
-  src/engine/ui/tooltip.cxx
-  src/engine/ui/tooltip.hxx
-  src/engine/ui/uiElement.cxx
-  src/engine/ui/uiElement.hxx
-  src/engine/audio/soundEffect.cxx
-  src/engine/audio/soundEffect.cxx
-  src/engine/audio/music.cxx
-  src/engine/audio/music.hxx
-  src/engine/audioMixer.cxx
-  src/engine/audioMixer.hxx
-  src/engine/engine.cxx
-  src/engine/engine.hxx
-  src/engine/eventManager.cxx
-  src/engine/eventManager.hxx
-  src/engine/map.cxx
-  src/engine/map.hxx
-  src/engine/sprite.cxx
-  src/engine/sprite.hxx
-  src/engine/textureManager.cxx
-  src/engine/textureManager.hxx
-  src/engine/tileManager.cxx
-  src/engine/tileManager.hxx
-  src/engine/uiManager.cxx
-  src/engine/uiManager.hxx
-  src/engine/windowManager.cxx
-  src/engine/windowManager.hxx
-  src/ThirdParty/json.hxx
-  src/game.cxx
-  src/game.hxx
-  src/main.cxx
+set (SOURCES 
+src/engine/basics/log.hxx
+src/engine/basics/mapEdit.hxx
+src/engine/basics/mapEdit.cxx
+src/engine/basics/point.hxx
+src/engine/basics/resources.cxx
+src/engine/basics/resources.hxx
+src/engine/basics/settings.cxx
+src/engine/basics/settings.hxx
+src/engine/basics/signal.hxx
+src/engine/basics/timer.cxx
+src/engine/basics/timer.hxx
+src/engine/basics/tileData.hxx
+src/engine/basics/utils.hxx
+src/engine/GameObjects/mapNode.cxx
+src/engine/GameObjects/mapNode.hxx
+src/engine/ui/bar.cxx
+src/engine/ui/bar.hxx
+src/engine/ui/button.cxx
+src/engine/ui/button.hxx
+src/engine/ui/combobox.cxx
+src/engine/ui/combobox.hxx
+src/engine/ui/checkbox.cxx
+src/engine/ui/checkbox.hxx
+src/engine/ui/frame.cxx
+src/engine/ui/frame.hxx
+src/engine/ui/text.cxx
+src/engine/ui/text.hxx
+src/engine/ui/textField.cxx
+src/engine/ui/textField.hxx
+src/engine/ui/tooltip.cxx
+src/engine/ui/tooltip.hxx
+src/engine/ui/uiElement.cxx
+src/engine/ui/uiElement.hxx
+src/engine/audio/soundEffect.cxx
+src/engine/audio/soundEffect.cxx
+src/engine/audio/music.cxx
+src/engine/audio/music.hxx
+src/engine/audioMixer.cxx
+src/engine/audioMixer.hxx
+src/engine/engine.cxx
+src/engine/engine.hxx
+src/engine/eventManager.cxx
+src/engine/eventManager.hxx
+src/engine/map.cxx
+src/engine/map.hxx
+src/engine/sprite.cxx
+src/engine/sprite.hxx
+src/engine/textureManager.cxx
+src/engine/textureManager.hxx
+src/engine/tileManager.cxx
+src/engine/tileManager.hxx
+src/engine/uiManager.cxx
+src/engine/uiManager.hxx
+src/engine/windowManager.cxx
+src/engine/windowManager.hxx
+src/ThirdParty/json.hxx
+src/game.cxx
+src/game.hxx
+src/main.cxx
 )
+  
+if ( MSVC )
+  set(SOURCES ${SOURCES} ${CMAKE_CURRENT_SOURCE_DIR}/msvc/icon.rc)
+endif()
+
+# create a new executable with the same name as the project
+add_executable(${PROJECT_NAME} ${SOURCES})
 
 # find all required dependences - if these fail the build will not continue
 find_package(SDL2 REQUIRED)
@@ -200,7 +206,18 @@ if( MSVC )
     PROPERTIES
       VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/$(Configuration)"
   )
+  
+    set(SOURCES ${SOURCES} ${CMAKE_CURRENT_SOURCE_DIR}/Resource.rc)
+
+
+    # ENABLE_LANGUAGE(RC)
+    # set(SOURCES Resource.rc ${SOURCES})
+  
+
 endif()
+
+
+
 
 install(TARGETS ${PROJECT_NAME} DESTINATION .)
 install(DIRECTORY resources DESTINATION .)

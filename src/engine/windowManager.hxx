@@ -22,6 +22,7 @@ private:
 
 private:
   std::string _title;
+  const std::string windowIcon = "resources/images/app_icons/cytopia_icon.png";
   int _width = 800;
   int _height = 600;
 

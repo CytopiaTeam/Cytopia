@@ -4,6 +4,8 @@
 #include "basics/resources.hxx"
 #include "basics/settings.hxx"
 
+#include "SDL2/SDL_image.h"
+
 WindowManager::WindowManager(std::string title) : _title(std::move(title))
 {
   _width = Settings::instance().settings.screenWidth;
@@ -30,6 +32,18 @@ bool WindowManager::init()
   if (_renderer == nullptr)
   {
     LOG(LOG_ERROR) << "Failed to create Renderer!\nSDL Error:" << SDL_GetError();
+  }
+
+  SDL_Surface *icon = IMG_Load(windowIcon.c_str());
+
+  if (icon)
+  {
+    SDL_SetWindowIcon(_window, icon);
+    SDL_FreeSurface(icon);
+  }
+  else
+  {
+    LOG(LOG_ERROR) << "Could not load Texture from file " << windowIcon << "\nSDL_IMAGE Error: " << IMG_GetError();
   }
 
   Resources::setWindow(_window);
