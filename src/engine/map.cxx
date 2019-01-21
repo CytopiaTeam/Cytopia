@@ -276,7 +276,7 @@ SDL_Color Map::getColorOfPixelInSurface(SDL_Surface *surface, int x, int y, cons
   return Color;
 }
 
-Point Map::findNodeInMap(const Point &screenCoordinates, float zoomLevel) const
+Point Map::findNodeInMap(const Point &screenCoordinates) const
 {
   Point foundCoordinates{-1, -1, 0, 0};
 
@@ -288,8 +288,6 @@ Point Map::findNodeInMap(const Point &screenCoordinates, float zoomLevel) const
   int isoY = static_cast<int>(
       (screenCoordinates.x + Resources::getCameraOffset().x - 2.0 * (screenCoordinates.y + Resources::getCameraOffset().y)) /
       (32 * Resources::getZoomLevel()));
-
-  int y = isoY;
 
   bool run = true;
   // traverse a column from top to bottom (from the calculated coordinates)

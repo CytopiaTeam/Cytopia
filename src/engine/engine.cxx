@@ -91,7 +91,7 @@ void Engine::decreaseZoomLevel()
 
 Point Engine::findNodeInMap(const Point &screenCoordinates)
 {
-  return _map.findNodeInMap(screenCoordinates, Resources::getZoomLevel());
+  return _map.findNodeInMap(screenCoordinates);
 }
 
 bool Engine::isGameRunning() { return _windowManager->isRunning(); };

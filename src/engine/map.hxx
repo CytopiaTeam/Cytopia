@@ -44,7 +44,7 @@ public:
 
   void highlightNode(const Point &isoCoordinates);
 
-  Point findNodeInMap(const Point &screenCoordinates, float zoomLevel) const;
+  Point findNodeInMap(const Point &screenCoordinates) const;
 
   void setTileIDOfNode(const Point &isoCoordinates, const std::string &tileType);
 
