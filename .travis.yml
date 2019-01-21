@@ -25,6 +25,14 @@ matrix:
 
 
 before_script:
+  # Build SDL2 manually to have the latest version
+  - travis_retry curl -L https://www.libsdl.org/release/SDL2-2.0.9.tar.gz | tar xz
+  - cd SDL2-2.0.9
+  - ./configure
+  - make
+  - sudo make install
+  - cd ..
+  # Build Cytopia
   - mkdir build
   - cd build
   - cmake ..
@@ -48,7 +56,6 @@ addons:
       - ubuntu-toolchain-r-test
     packages:
       - cmake
-      - libsdl2-dev
       - libsdl2-image-dev
       - libsdl2-ttf-dev
       - libsdl2-mixer-dev
