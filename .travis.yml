@@ -59,9 +59,6 @@ addons:
       - ubuntu-toolchain-r-test
     packages:
       - cmake
-      - libsdl2-image-dev
-      - libsdl2-ttf-dev
-      - libsdl2-mixer-dev
       - cppcheck
       - gcc-5
       - g++-5
