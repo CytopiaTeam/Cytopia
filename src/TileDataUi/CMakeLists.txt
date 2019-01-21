@@ -6,8 +6,6 @@ TileData.cxx
 TileDataUi.cxx
 )
 
-set_property(TARGET ${TARGET} PROPERTY CXX_STANDARD 14)
-
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
@@ -15,6 +13,13 @@ set(CMAKE_AUTOUIC ON)
 include_directories(..)
 
 add_executable(${TARGET} ${SOURCES})
+
+target_compile_features(
+  ${TARGET}
+  PRIVATE
+    # enable C++11
+    cxx_std_11
+)
 
 target_link_libraries(${TARGET} Qt5::Widgets)
 
