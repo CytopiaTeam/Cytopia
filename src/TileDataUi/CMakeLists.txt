@@ -6,6 +6,13 @@ TileData.cxx
 TileDataUi.cxx
 )
 
+target_compile_features(
+  ${TARGET}
+  PRIVATE
+    # enable C++11
+    cxx_std_11
+)
+
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
