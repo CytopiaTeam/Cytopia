@@ -23,17 +23,28 @@
     </widget>
    </item>
    <item row="0" column="1">
-    <widget class="QLineEdit" name="id"/>
+    <widget class="QLineEdit" name="id">
+     <property name="toolTip">
+      <string>The ID of this item. Must be unique and can be referenced in the code.</string>
+     </property>
+    </widget>
    </item>
    <item row="1" column="0">
     <widget class="QLabel" name="label_2">
      <property name="text">
-      <string>Type</string>
+      <string>Category</string>
      </property>
     </widget>
    </item>
    <item row="1" column="1">
-    <widget class="QLineEdit" name="type"/>
+    <widget class="QLineEdit" name="type">
+     <property name="toolTip">
+      <string>The  category this item resides in. Categories are used for the building menu in-game and for sorting the items in the editors tree view</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
    </item>
    <item row="2" column="0" colspan="2">
     <widget class="QTabWidget" name="tabWidget">
@@ -56,7 +67,11 @@
     </widget>
    </item>
    <item row="4" column="1">
-    <widget class="QLineEdit" name="title"/>
+    <widget class="QLineEdit" name="title">
+     <property name="toolTip">
+      <string>The items title. It's shown ingame and in the editors tree-view</string>
+     </property>
+    </widget>
    </item>
    <item row="8" column="0">
     <widget class="QLabel" name="label_4">
@@ -66,7 +81,11 @@
     </widget>
    </item>
    <item row="8" column="1">
-    <widget class="QPlainTextEdit" name="description"/>
+    <widget class="QPlainTextEdit" name="description">
+     <property name="toolTip">
+      <string>Description of the item that is shown in it's details</string>
+     </property>
+    </widget>
    </item>
    <item row="9" column="0">
     <widget class="QLabel" name="label_5">
@@ -76,7 +95,11 @@
     </widget>
    </item>
    <item row="9" column="1">
-    <widget class="QLineEdit" name="author"/>
+    <widget class="QLineEdit" name="author">
+     <property name="toolTip">
+      <string>Author of this item</string>
+     </property>
+    </widget>
    </item>
    <item row="10" column="0">
     <widget class="QLabel" name="label_6">
@@ -86,7 +109,11 @@
     </widget>
    </item>
    <item row="10" column="1">
-    <widget class="QSpinBox" name="powerProduction"/>
+    <widget class="QSpinBox" name="powerProduction">
+     <property name="toolTip">
+      <string>Power production of this item. Negative values means power consumption.</string>
+     </property>
+    </widget>
    </item>
    <item row="11" column="0">
     <widget class="QLabel" name="label_7">
@@ -96,7 +123,11 @@
     </widget>
    </item>
    <item row="11" column="1">
-    <widget class="QSpinBox" name="waterProduction"/>
+    <widget class="QSpinBox" name="waterProduction">
+     <property name="toolTip">
+      <string>Water production of this item. Negative values means power consumption.</string>
+     </property>
+    </widget>
    </item>
    <item row="12" column="0">
     <widget class="QLabel" name="label_8">
@@ -106,7 +137,11 @@
     </widget>
    </item>
    <item row="12" column="1">
-    <widget class="QSpinBox" name="upkeepCost"/>
+    <widget class="QSpinBox" name="upkeepCost">
+     <property name="toolTip">
+      <string>Monthly upkeep cost</string>
+     </property>
+    </widget>
    </item>
    <item row="13" column="0">
     <widget class="QLabel" name="label_9">
@@ -116,7 +151,11 @@
     </widget>
    </item>
    <item row="13" column="1">
-    <widget class="QSpinBox" name="buildCost"/>
+    <widget class="QSpinBox" name="buildCost">
+     <property name="toolTip">
+      <string>Buildcost</string>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>

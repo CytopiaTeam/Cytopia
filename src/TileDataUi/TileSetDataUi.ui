@@ -25,7 +25,11 @@
    <item row="0" column="1">
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
-      <widget class="QLineEdit" name="fileName"/>
+      <widget class="QLineEdit" name="fileName">
+       <property name="toolTip">
+        <string>The filename of the tiles image.</string>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="QPushButton" name="fileButton">
@@ -50,7 +54,11 @@
    <item row="1" column="1">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QSpinBox" name="width"/>
+      <widget class="QSpinBox" name="width">
+       <property name="toolTip">
+        <string>Size of this element or of one tile, if the image contains multiple tiles in a tileset.</string>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="QLabel" name="label_15">
@@ -60,7 +68,11 @@
       </widget>
      </item>
      <item>
-      <widget class="QSpinBox" name="height"/>
+      <widget class="QSpinBox" name="height">
+       <property name="toolTip">
+        <string>Size of this element or of one tile, if the image contains multiple tiles in a tileset.</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
@@ -72,7 +84,11 @@
     </widget>
    </item>
    <item row="2" column="1">
-    <widget class="QSpinBox" name="count"/>
+    <widget class="QSpinBox" name="count">
+     <property name="toolTip">
+      <string>How many frames  / tiles this image contains.</string>
+     </property>
+    </widget>
    </item>
    <item row="3" column="1">
     <widget class="QLabel" name="origImage">
@@ -84,6 +100,22 @@
      </property>
      <property name="text">
       <string>image</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="1">
+    <widget class="QLabel" name="image">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="text">
+      <string>Preview image</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -126,22 +158,6 @@
       </widget>
      </item>
     </layout>
-   </item>
-   <item row="4" column="1">
-    <widget class="QLabel" name="image">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>image</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-    </widget>
    </item>
   </layout>
  </widget>
