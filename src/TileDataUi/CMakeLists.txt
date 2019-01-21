@@ -14,6 +14,13 @@ include_directories(..)
 
 add_executable(${TARGET} ${SOURCES})
 
+target_compile_features(
+  ${TARGET}
+  PRIVATE
+    # enable C++11
+    cxx_std_11
+)
+
 target_link_libraries(${TARGET} Qt5::Widgets)
 
 install (TARGETS ${TARGET} DESTINATION .)
