@@ -109,16 +109,14 @@ void UiElement::drawTextFrame()
 
 void UiElement::drawSolidRect(SDL_Rect rect, const SDL_Color &color) const
 {
-  SDL_Renderer *renderer = Resources::getRenderer();
-  SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, SDL_ALPHA_OPAQUE);
-  SDL_RenderFillRect(renderer, &rect);
+  SDL_SetRenderDrawColor(_renderer, color.r, color.g, color.b, SDL_ALPHA_OPAQUE);
+  SDL_RenderFillRect(_renderer, &rect);
 }
 
 void UiElement::drawLine(int x1, int y1, int x2, int y2, const SDL_Color &color) const
 {
-  SDL_Renderer *renderer = Resources::getRenderer();
-  SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, SDL_ALPHA_OPAQUE);
-  SDL_RenderDrawLine(renderer, x1, y1, x2, y2);
+  SDL_SetRenderDrawColor(_renderer, color.r, color.g, color.b, SDL_ALPHA_OPAQUE);
+  SDL_RenderDrawLine(_renderer, x1, y1, x2, y2);
 }
 
 void UiElement::drawButtonFrame(SDL_Rect rect, bool isHighlightable)

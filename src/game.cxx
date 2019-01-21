@@ -3,15 +3,17 @@
 #include "engine/engine.hxx"
 #include "engine/eventManager.hxx"
 #include "engine/uiManager.hxx"
+#include "engine/windowManager.hxx"
 #include "engine/audioMixer.hxx"
 #include "engine/basics/point.hxx"
-#include "engine/basics/resources.hxx"
 #include "engine/basics/log.hxx"
 
 void run()
 {
   Timer benchmarkTimer;
   LOG() << VERSION;
+
+  WindowManager::instance().setWindowTitle(VERSION);
 
   benchmarkTimer.start();
   Engine &engine = Engine::instance();
@@ -23,8 +25,6 @@ void run()
   UIManager &uiManager = UIManager::instance();
   uiManager.init();
 
-  auto *_renderer = Resources::getRenderer();
-  auto *_window = Resources::getWindow();
   AudioMixer audiomixer;
   audiomixer.playMusic();
 
@@ -36,7 +36,7 @@ void run()
   // Gameloop
   while (engine.isGameRunning())
   {
-    SDL_RenderClear(_renderer);
+    SDL_RenderClear(WindowManager::instance().getRenderer());
 
     evManager.checkEvents(event, engine);
 
@@ -47,10 +47,10 @@ void run()
     uiManager.drawUI();
 
     // reset renderer color back to black
-    SDL_SetRenderDrawColor(_renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
+    SDL_SetRenderDrawColor(WindowManager::instance().getRenderer(), 0, 0, 0, SDL_ALPHA_OPAQUE);
 
     // Render the Frame
-    SDL_RenderPresent(_renderer);
+    SDL_RenderPresent(WindowManager::instance().getRenderer());
 
     fpsFrames++;
     if (fpsLastTime < SDL_GetTicks() - fpsIntervall * 1000)

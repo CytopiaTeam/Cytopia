@@ -3,10 +3,10 @@
 #include "SDL2/SDL_image.h"
 #include "../ThirdParty/json.hxx"
 
-#include "basics/settings.hxx"
-#include "basics/resources.hxx"
-#include "basics/log.hxx"
+#include "windowManager.hxx"
 #include "tileManager.hxx"
+#include "basics/settings.hxx"
+#include "basics/log.hxx"
 
 using json = nlohmann::json;
 
@@ -109,7 +109,7 @@ SDL_Surface *TextureManager::createSurfaceFromFile(const std::string &fileName)
 
 SDL_Texture *TextureManager::createTextureFromSurface(SDL_Surface *surface)
 {
-  SDL_Texture *texture = SDL_CreateTextureFromSurface(Resources::getRenderer(), surface);
+  SDL_Texture *texture = SDL_CreateTextureFromSurface(WindowManager::instance().getRenderer(), surface);
 
   if (texture)
   {

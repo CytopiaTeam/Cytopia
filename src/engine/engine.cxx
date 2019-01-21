@@ -8,11 +8,12 @@
 
 Engine::Engine()
 {
-  _windowManager = new WindowManager("Cytopia");
+  // get renderer and initialize windowManager singleton class
+  _renderer = WindowManager::instance().getRenderer();
+  _window = WindowManager::instance().getWindow();
+
   _tileSize = Resources::getTileSize();
 
-  _renderer = Resources::getRenderer();
-  _window = Resources::getWindow();
   _map_size = Settings::instance().settings.mapSize;
 
   _map = Map(_map_size, _map_size);
@@ -89,16 +90,9 @@ void Engine::decreaseZoomLevel()
   }
 }
 
-Point Engine::findNodeInMap(const Point &screenCoordinates)
-{
-  return _map.findNodeInMap(screenCoordinates);
-}
+Point Engine::findNodeInMap(const Point &screenCoordinates) { return _map.findNodeInMap(screenCoordinates); }
 
-bool Engine::isGameRunning() { return _windowManager->isRunning(); };
-
-void Engine::quitGame() { _windowManager->close(); };
-
-void Engine::toggleFullScreen() { _windowManager->toggleFullScreen(); };
+void Engine::toggleFullScreen() { WindowManager::instance().toggleFullScreen(); };
 
 void Engine::setTileIDOfNode(const Point &isoCoordinates, const std::string &tileID)
 {

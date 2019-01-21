@@ -4,8 +4,8 @@
 #include <string>
 
 #include "../basics/mapEdit.hxx"
-#include "../basics/resources.hxx"
 #include "../textureManager.hxx"
+#include "../windowManager.hxx"
 #include "../basics/signal.hxx"
 
 #include "SDL2/SDL.h"
@@ -179,8 +179,8 @@ public:
   const std::string getText() { return _text; };
 
 private:
-  SDL_Renderer *_renderer = Resources::getRenderer();
-  SDL_Window *_window = Resources::getWindow();
+  SDL_Renderer *_renderer = WindowManager::instance().getRenderer();
+  SDL_Window *_window = WindowManager::instance().getWindow();
   TTF_Font *_font;
 
   SDL_Surface *_surface = nullptr;

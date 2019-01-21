@@ -8,25 +8,41 @@
 class WindowManager
 {
 public:
-  WindowManager() = default;
-  explicit WindowManager(std::string title);
-  ~WindowManager();
+  /// Retrieves instance of Singleton class WindowManager
+  static WindowManager &instance()
+  {
+    static WindowManager windowManager;
+    return windowManager;
+  }
 
-  inline bool isRunning() const { return _running; }
-  void close() { _running = false; }
+  // Disable copy and assignemnt operators
+  WindowManager(WindowManager const &) = delete;
+  WindowManager &operator=(WindowManager const &) = delete;
 
   void toggleFullScreen();
 
-private:
-  bool init();
+  void setWindowTitle(const std::string &title);
+
+  /** \brief get SDL Renderer
+  * Returns a pointer to the SDL Renderer
+  * \return Pointer to the SDL_Renderer
+  */
+  SDL_Renderer *getRenderer() { return _renderer; };
+
+  /** \brief get SDL Window
+  * Returns a pointer to the SDL_Window
+  * \return Pointer to the SDL_Window
+  */
+  SDL_Window *getWindow() { return _window; };
 
 private:
-  std::string _title;
+  WindowManager();
+  ~WindowManager();
+
+  std::string _title = "Cytopia";
   const std::string windowIcon = "resources/images/app_icons/cytopia_icon.png";
   int _width = 800;
   int _height = 600;
-
-  bool _running = true;
 
   SDL_Window *_window = nullptr;
   SDL_Renderer *_renderer = nullptr;

@@ -14,30 +14,6 @@ class Engine;
 class Resources
 {
 public:
-  /** \brief get SDL Renderer
-    * Returns a pointer to the SDL Renderer
-    * \return Pointer to the SDL_Renderer
-    */
-  static SDL_Renderer *getRenderer() { return _renderer; };
-
-  /** \brief set SDL Renderer
-    * Sets the SDL Renderer. Is only used once when the SDL_Renderer is created.
-    * @param renderer SDL_Renderer* to store inside the resources class.
-    */
-  static void setRenderer(SDL_Renderer *renderer) { _renderer = renderer; };
-
-  /** \brief get SDL Window
-    * Returns a pointer to the SDL_Window
-    * \return Pointer to the SDL_Window
-    */
-  static SDL_Window *getWindow() { return _window; };
-
-  /** \brief set SDL Window
-  * Sets the SDL Window. Is only used once when the SDL_Window is created.
-  * @param renderer SDL_Window* to store inside the resources class.
-  */
-  static void setWindow(SDL_Window *window) { _window = window; };
-
   /** \brief get Zoom Level
   * Gets the Zoom Level, which is used to scale the tiles.
   * \return float variable zoomLevel

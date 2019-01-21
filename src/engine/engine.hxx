@@ -83,9 +83,6 @@ public:
     */
   Point findNodeInMap(const Point &screenCoordinates);
 
-  bool isGameRunning();
-
-  void quitGame();
   void toggleFullScreen();
 
   void setTileIDOfNode(const Point &isoCoordinates, const std::string &tileType);
@@ -94,11 +91,13 @@ public:
 
   Map *getMap() { return &_map; };
 
+  bool isGameRunning() { return _running; };
+  void quitGame() { _running = false; };
+
 private:
   Engine();
   virtual ~Engine() = default;
-
-  WindowManager *_windowManager;
+  bool _running = true;
 
   SDL_Renderer *_renderer;
   SDL_Window *_window;

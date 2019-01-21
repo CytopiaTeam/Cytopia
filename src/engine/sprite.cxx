@@ -1,13 +1,14 @@
 #include "sprite.hxx"
 
 #include "textureManager.hxx"
+#include "windowManager.hxx"
 #include "basics/resources.hxx"
 #include "basics/log.hxx"
 
 Sprite::Sprite(Point isoCoordinates) : _isoCoordinates(isoCoordinates)
 {
-  _renderer = Resources::getRenderer();
-  _window = Resources::getWindow();
+  _renderer = WindowManager::instance().getRenderer();
+  _window = WindowManager::instance().getWindow();
   _screenCoordinates = Resources::convertIsoToScreenCoordinates(isoCoordinates);
 }
 

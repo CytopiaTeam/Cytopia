@@ -44,9 +44,6 @@ private:
   TextureManager();
   ~TextureManager();
 
-  SDL_Renderer *_renderer;
-  SDL_Window *_window;
-
   /** Load Texture in to Texture Map, if an entry for this tile ID does not yet exist.
   Keep in Mind that the texture id is unique and there can't be two textures with the same id.
 
