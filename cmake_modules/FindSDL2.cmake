@@ -11,7 +11,8 @@
 find_path(
   SDL2_INCLUDE_DIR
   NAMES SDL.h
-  PATH_SUFFIXES SDL2
+  PATH_SUFFIXES include include/sdl2 include/SDL2 SDL2
+  HINTS ${SDL2_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/src/ThirdParty/sdl
 )
 
 if(WIN32 AND NOT MINGW)
@@ -28,6 +29,7 @@ find_library(
   SDL2_LIBRARY
   NAMES SDL2
   PATH_SUFFIXES ${SDL2_LIBRARY_PATH_SUFFIX}
+  HINTS ${SDL2_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/src/ThirdParty/sdl
 )
 
 # Find the SDL2 library that should be linked to by executables.
@@ -35,7 +37,17 @@ find_library(
   SDL2_MAIN_LIBRARY
   NAMES SDL2main
   PATH_SUFFIXES ${SDL2_LIBRARY_PATH_SUFFIX}
+  HINTS ${SDL2_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/src/ThirdParty/sdl
 )
+
+if( WIN32 )
+  find_path(
+    SDL2_RUNTIME_LIBRARY_DIR
+    NAMES SDL2.dll
+    PATH_SUFFIXES bin lib ${SDL2_LIBRARY_PATH_SUFFIX}
+    HINTS ${SDL2_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/src/ThirdParty/sdl
+  )
+endif()
 
 if(SDL2_INCLUDE_DIR AND SDL2_LIBRARY AND SDL2_MAIN_LIBRARY)
   # Create an imported library for just the core SDL2 library.
