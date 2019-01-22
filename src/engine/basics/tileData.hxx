@@ -4,9 +4,9 @@
 #include <string>
 
 /// min and max values for tileData
-#define TD_PRICE_MIN 1
+#define TD_PRICE_MIN 0
 #define TD_PRICE_MAX 100000
-#define TD_UPKEEP_MIN 1
+#define TD_UPKEEP_MIN 0
 #define TD_UPKEEP_MAX 10000
 #define TD_POWER_MIN -100
 #define TD_POWER_MAX 1000
