@@ -1,7 +1,7 @@
 #ifndef ENGINE_HXX_
 #define ENGINE_HXX_
 
-#include "SDL2/SDL.h"
+#include <SDL.h>
 
 #include "windowManager.hxx"
 #include "basics/point.hxx"

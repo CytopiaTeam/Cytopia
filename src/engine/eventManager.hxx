@@ -1,7 +1,7 @@
 #ifndef EVENTMANAGER_HXX_
 #define EVENTMANAGER_HXX_
 
-#include "SDL2/SDL.h"
+#include <SDL.h>
 
 #include "engine.hxx"
 #include "uiManager.hxx"

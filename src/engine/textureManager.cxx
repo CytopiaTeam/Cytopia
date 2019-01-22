@@ -1,6 +1,6 @@
 #include "textureManager.hxx"
 
-#include "SDL2/SDL_image.h"
+#include <SDL_image.h>
 #include "../ThirdParty/json.hxx"
 
 #include "windowManager.hxx"

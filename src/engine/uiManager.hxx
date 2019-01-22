@@ -12,7 +12,7 @@
 #include "ui/combobox.hxx"
 #include "ui/uiElement.hxx"
 
-#include "SDL2/SDL.h"
+#include <SDL.h>
 
 class UIManager
 {
