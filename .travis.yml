@@ -26,6 +26,7 @@ matrix:
 
 before_script:
   # Build SDL2 manually to have the latest version
+  - pushd ThirdParty
   - travis_retry curl -L https://www.libsdl.org/release/SDL2-2.0.9.tar.gz | tar xz
   - pushd SDL2-* && ./configure && make && sudo make install && popd
   - travis_retry curl -L https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-2.0.14.tar.gz | tar xz
@@ -34,6 +35,7 @@ before_script:
   - pushd SDL2_image-* && ./configure && make && sudo make install && popd
   - travis_retry curl -L https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.4.tar.gz | tar xz
   - pushd SDL2_mixer-* && ./configure && make && sudo make install && popd
+  - popd
   
   # Build Cytopia
   - mkdir build
