@@ -1,11 +1,11 @@
-# IsometricEngine  
+# Cytopia
 [![Build Status](https://travis-ci.org/JimmySnails/Cytopia.svg?branch=master)](https://travis-ci.org/JimmySnails/Cytopia)
 
 
 An SDL2 based, isometric rendering engine.
-The projects goal is to create a citybuilding game with similiar style to SimCity 2000
+The projects goal is to create a citybuilding game with pixel-art style.
 
-For code documentation see the projects [Doxygen Documentation](https://jimmysnails.github.io/IsometricEngine/build/html/index.html).
+For code documentation see the projects [Doxygen Documentation](https://jimmysnails.github.io/Cytopia/build/html/index.html).
 
 If you have questions or if you want to join the project, visit the [Projects Discord Server](https://discord.gg/qwa2H3G) 
 
@@ -52,6 +52,11 @@ To build the project, create a new build directory, then:
 
 This will configure the build.
 If any dependencies are missing, you will receive an error here.
+
+On windows, please use
+    git submodule init
+in your repository to download the sdl dependencies.
+
 If you are using Windows and have manually installed SDL2, you will need to update your PATH environment variable to point to it.
 
 Note: If you want to change your install directory (per default it's set to ../install) add the definition `-DCMAKE_INSTALL_PREFIX=/foo/bar` to your cmake call.
@@ -65,6 +70,11 @@ To install the project,
 
   cmake --build . --target install
 
+Create a package (only works on debian based OS now)
+
+  cmake --build . --target package
+
+
 #### Coding guidelines
 
 Please use the clang-format (.clang-format file is provided in the root of the repository), if you want to contribute in order to format your code according to our coding guidelines.
@@ -76,9 +86,9 @@ If you are on a linux system, you can use:
 
 #### Work-in-Progress Screenshot
 
-![alt text](https://raw.githubusercontent.com/JimmySnails/IsometricEngine/master/images/Screenshot1.png)
+![alt text](https://raw.githubusercontent.com/JimmySnails/Cytopia/master/images/Screenshot1.png)
 
 #### Latest build
 
 .deb Package:
-https://jimmysnails.github.io/IsometricEngine/build/IsometricEngine-0.1.1-Linux.deb
+https://jimmysnails.github.io/IsometricEngine/build/Cytopia-0.1-Linux.deb
