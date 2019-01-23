@@ -291,7 +291,7 @@ Point Map::findNodeInMap(const Point &screenCoordinates) const
 
   bool run = true;
   // traverse a column from top to bottom (from the calculated coordinates)
-  while (isoX < Settings::instance().settings.mapSize && isoY > 0)
+  while (isoX <= Settings::instance().settings.mapSize && isoY >= 0)
   {
     if (isClickWithinTile(screenCoordinates, isoX, isoY))
     {
