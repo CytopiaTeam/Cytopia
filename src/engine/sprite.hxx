@@ -1,7 +1,7 @@
 #ifndef SPRITE_HXX_
 #define SPRITE_HXX_
 
-#include "SDL2/SDL.h"
+#include <SDL.h>
 
 #include "basics/point.hxx"
 

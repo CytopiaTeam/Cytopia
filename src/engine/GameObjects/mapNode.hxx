@@ -1,7 +1,7 @@
 #ifndef MAPNODE_HXX_
 #define MAPNODE_HXX_
 
-#include "SDL2/SDL.h"
+#include <SDL.h>
 
 #include <memory>
 #include <string>

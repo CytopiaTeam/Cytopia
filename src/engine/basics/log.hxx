@@ -11,7 +11,7 @@
 #include <fstream>
 #include <sstream>
 
-#include "SDL2/SDL.h"
+#include <SDL.h>
 
 enum logType
 {

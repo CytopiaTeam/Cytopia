@@ -32,7 +32,7 @@ set(CPACK_GENERATOR "DEB")
 set(CPACK_PACKAGE_VERSION ${PROJECT_VERSION})
 set(CPACK_DEBIAN_PACKAGE_VERSION ${PROJECT_VERSION})
 set(CPACK_DEBIAN_PACKAGE_SECTION games)
-set(CPACK_PACKAGE_NAME ${PROJECT_VERSION})
+set(CPACK_PACKAGE_NAME ${PROJECT_NAME})
 set(CPACK_PACKAGE_DESCRIPTION "${PROJECT_VERSION} Tech Preview")
 set(CPACK_DEBIAN_PACKAGE_MAINTAINER "Jimmy Snails")
 set(CPACK_DEBIAN_PACKAGE_HOMEPAGE "https://github.com/JimmySnails/Cytopia")
@@ -43,64 +43,33 @@ set(CPACK_STRIP_FILES ON)
 INCLUDE(CPack)
 
 set (SOURCES 
-src/engine/basics/log.hxx
-src/engine/basics/mapEdit.hxx
 src/engine/basics/mapEdit.cxx
-src/engine/basics/point.hxx
 src/engine/basics/resources.cxx
-src/engine/basics/resources.hxx
 src/engine/basics/settings.cxx
-src/engine/basics/settings.hxx
-src/engine/basics/signal.hxx
 src/engine/basics/timer.cxx
-src/engine/basics/timer.hxx
-src/engine/basics/tileData.hxx
-src/engine/basics/utils.hxx
 src/engine/GameObjects/mapNode.cxx
-src/engine/GameObjects/mapNode.hxx
 src/engine/ui/bar.cxx
-src/engine/ui/bar.hxx
 src/engine/ui/button.cxx
-src/engine/ui/button.hxx
 src/engine/ui/combobox.cxx
-src/engine/ui/combobox.hxx
 src/engine/ui/checkbox.cxx
-src/engine/ui/checkbox.hxx
 src/engine/ui/frame.cxx
-src/engine/ui/frame.hxx
 src/engine/ui/text.cxx
-src/engine/ui/text.hxx
 src/engine/ui/textField.cxx
-src/engine/ui/textField.hxx
 src/engine/ui/tooltip.cxx
-src/engine/ui/tooltip.hxx
 src/engine/ui/uiElement.cxx
-src/engine/ui/uiElement.hxx
 src/engine/audio/soundEffect.cxx
 src/engine/audio/soundEffect.cxx
 src/engine/audio/music.cxx
-src/engine/audio/music.hxx
 src/engine/audioMixer.cxx
-src/engine/audioMixer.hxx
 src/engine/engine.cxx
-src/engine/engine.hxx
 src/engine/eventManager.cxx
-src/engine/eventManager.hxx
 src/engine/map.cxx
-src/engine/map.hxx
 src/engine/sprite.cxx
-src/engine/sprite.hxx
 src/engine/textureManager.cxx
-src/engine/textureManager.hxx
 src/engine/tileManager.cxx
-src/engine/tileManager.hxx
 src/engine/uiManager.cxx
-src/engine/uiManager.hxx
 src/engine/windowManager.cxx
-src/engine/windowManager.hxx
-src/ThirdParty/json.hxx
 src/game.cxx
-src/game.hxx
 src/main.cxx
 )
   
@@ -117,6 +86,10 @@ find_package(SDL2_image REQUIRED)
 find_package(SDL2_ttf REQUIRED)
 find_package(SDL2_mixer REQUIRED)
 
+if (NOT SDL2_FOUND)
+message ("ABC")
+endif()
+# SDL2_DIR
 if( MINGW )
   target_link_libraries(
     ${PROJECT_NAME}
@@ -217,8 +190,25 @@ if( MSVC )
 endif()
 
 
-
-
 install(TARGETS ${PROJECT_NAME} DESTINATION .)
 install(DIRECTORY resources DESTINATION .)
 install(FILES ReleaseNotes.txt credits.txt DESTINATION .)
+
+
+#on windows, we need to deploy the SDL2 dynamic libraries
+if ( WIN32 )
+  file(GLOB SDL_RUNTIME_LIBRARIES
+  "${SDL2_RUNTIME_LIBRARY_DIR}/*.dll"
+  )
+
+  # copy the qt libraries over to the build directory so the tool can be started
+  add_custom_command(
+    TARGET ${PROJECT_NAME} POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+    ${SDL_RUNTIME_LIBRARIES}
+    $<TARGET_FILE_DIR:${PROJECT_NAME}>
+  )
+
+  #install the dynamic libraries so we have them in the deployment
+  install (FILES ${SDL_RUNTIME_LIBRARIES} DESTINATION .)
+endif()

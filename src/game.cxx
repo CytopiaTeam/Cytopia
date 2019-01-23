@@ -1,4 +1,4 @@
-#include "SDL2/SDL.h"
+#include <SDL.h>
 
 #include "engine/engine.hxx"
 #include "engine/eventManager.hxx"

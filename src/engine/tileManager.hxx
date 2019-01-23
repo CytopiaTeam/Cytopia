@@ -2,7 +2,7 @@
 #define TILEMANAGER_HXX_
 
 #include "basics/tileData.hxx"
-#include "SDL2/SDL.h"
+#include <SDL.h>
 
 #include <unordered_map>
 #include <string>

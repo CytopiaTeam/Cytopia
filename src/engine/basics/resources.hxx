@@ -3,7 +3,8 @@
 
 #include <unordered_map>
 
-#include "SDL2/SDL.h"
+#include <SDL.h>
+
 #include "point.hxx"
 
 // Namespace from json library - https://github.com/nlohmann/json

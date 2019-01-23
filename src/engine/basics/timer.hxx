@@ -5,7 +5,7 @@
 #include <chrono>
 #include <thread>
 
-#include "SDL.h"
+#include <SDL.h>
 #include "../basics/signal.hxx"
 
 class Timer
