@@ -86,10 +86,6 @@ find_package(SDL2_image REQUIRED)
 find_package(SDL2_ttf REQUIRED)
 find_package(SDL2_mixer REQUIRED)
 
-if (NOT SDL2_FOUND)
-message ("ABC")
-endif()
-# SDL2_DIR
 if( MINGW )
   target_link_libraries(
     ${PROJECT_NAME}
