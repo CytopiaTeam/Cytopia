@@ -193,8 +193,25 @@ install(FILES ReleaseNotes.txt credits.txt DESTINATION .)
 
 #on windows, we need to deploy the SDL2 dynamic libraries
 if ( WIN32 )
-  file(GLOB SDL_RUNTIME_LIBRARIES
-  "${SDL2_RUNTIME_LIBRARY_DIR}/*.dll"
+  set (SDL_RUNTIME_LIBRARIES
+  ${SDL2_RUNTIME_LIBRARY_DIR}/libFLAC-8.dll
+  ${SDL2_RUNTIME_LIBRARY_DIR}/libfreetype-6.dll
+  ${SDL2_RUNTIME_LIBRARY_DIR}/libjpeg-9.dll
+  ${SDL2_RUNTIME_LIBRARY_DIR}/libmodplug-1.dll
+  ${SDL2_RUNTIME_LIBRARY_DIR}/libmpg123-0.dll
+  ${SDL2_RUNTIME_LIBRARY_DIR}/libogg-0.dll
+  ${SDL2_RUNTIME_LIBRARY_DIR}/libopus-0.dll
+  ${SDL2_RUNTIME_LIBRARY_DIR}/libopusfile-0.dll
+  ${SDL2_RUNTIME_LIBRARY_DIR}/libpng16-16.dll
+  ${SDL2_RUNTIME_LIBRARY_DIR}/libtiff-5.dll
+  ${SDL2_RUNTIME_LIBRARY_DIR}/libvorbis-0.dll
+  ${SDL2_RUNTIME_LIBRARY_DIR}/libvorbisfile-3.dll
+  ${SDL2_RUNTIME_LIBRARY_DIR}/libwebp-7.dll
+  ${SDL2_RUNTIME_LIBRARY_DIR}/SDL2.dll
+  ${SDL2_RUNTIME_LIBRARY_DIR}/SDL2_image.dll
+  ${SDL2_RUNTIME_LIBRARY_DIR}/SDL2_mixer.dll
+  ${SDL2_RUNTIME_LIBRARY_DIR}/SDL2_ttf.dll
+  ${SDL2_RUNTIME_LIBRARY_DIR}/zlib1.dll
   )
 
   # copy the qt libraries over to the build directory so the tool can be started
