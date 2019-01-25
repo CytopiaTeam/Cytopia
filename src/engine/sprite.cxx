@@ -2,6 +2,7 @@
 
 #include "textureManager.hxx"
 #include "windowManager.hxx"
+#include "basics/isoMath.hxx"
 #include "basics/resources.hxx"
 #include "basics/log.hxx"
 
@@ -9,7 +10,7 @@ Sprite::Sprite(Point isoCoordinates) : _isoCoordinates(isoCoordinates)
 {
   _renderer = WindowManager::instance().getRenderer();
   _window = WindowManager::instance().getWindow();
-  _screenCoordinates = Resources::convertIsoToScreenCoordinates(isoCoordinates);
+  _screenCoordinates = convertIsoToScreenCoordinates(isoCoordinates);
 }
 
 void Sprite::render()
@@ -52,7 +53,7 @@ void Sprite::refresh()
     }
   }
 
-  _screenCoordinates = Resources::convertIsoToScreenCoordinates(_isoCoordinates);
+  _screenCoordinates = convertIsoToScreenCoordinates(_isoCoordinates);
   // render the sprite in the middle of its bounding box so bigger than 1x1 sprites will render correctly
   _destRect.x = _screenCoordinates.x - (_destRect.w / 2);
   // change y coordinates with sprites height taken into account to render the sprite at its base and not at its top.

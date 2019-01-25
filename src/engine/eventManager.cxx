@@ -1,5 +1,6 @@
 #include "eventManager.hxx"
 
+#include "basics/isoMath.hxx"
 #include "basics/mapEdit.hxx"
 #include "basics/timer.hxx"
 #include "basics/settings.hxx"
@@ -70,12 +71,12 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         break;
       case SDL_MOUSEMOTION:
         mouseCoords = Point{event.button.x, event.button.y, 0, 0};
-        clickCoords = Resources::convertScreenToIsoCoordinates(mouseCoords);
+        clickCoords = convertScreenToIsoCoordinates(mouseCoords);
         engine.getMap()->highlightNode(clickCoords);
         break;
       case SDL_MOUSEBUTTONDOWN:
         mouseCoords = Point{event.button.x, event.button.y, 0, 0};
-        clickCoords = Resources::convertScreenToIsoCoordinates(mouseCoords);
+        clickCoords = convertScreenToIsoCoordinates(mouseCoords);
 
         if (event.button.button == SDL_BUTTON_LEFT)
         {

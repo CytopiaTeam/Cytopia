@@ -1,5 +1,6 @@
 #include "engine.hxx"
 
+#include "basics/isoMath.hxx"
 #include "basics/mapEdit.hxx"
 #include "basics/resources.hxx"
 #include "basics/settings.hxx"
@@ -37,7 +38,7 @@ void Engine::centerScreenOnPoint(const Point &isoCoordinates)
   if (isPointWithinBoundaries(isoCoordinates))
   {
     _centerIsoCoordinates = isoCoordinates;
-    Point screenCoordinates = Resources::convertIsoToScreenCoordinates(isoCoordinates, true);
+    Point screenCoordinates = convertIsoToScreenCoordinates(isoCoordinates, true);
     int x, y;
     _zoomLevel = Resources::getZoomLevel();
 
