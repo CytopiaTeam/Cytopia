@@ -80,7 +80,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
 
         if (event.button.button == SDL_BUTTON_LEFT)
         {
-          if (engine.isPointWithinBoundaries(clickCoords))
+          if (isPointWithinMapBoundaries(clickCoords))
           {
             if (terrainEditMode == TerrainEdit::RAISE)
             {

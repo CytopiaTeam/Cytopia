@@ -40,3 +40,9 @@ Point convertScreenToIsoCoordinates(const Point &screenCoordinates)
 {
   return Engine::instance().findNodeInMap(screenCoordinates);
 }
+
+bool isPointWithinMapBoundaries(const Point &isoCoordinates)
+{
+  return (isoCoordinates.x >= 0 && isoCoordinates.x <= Settings::instance().settings.mapSize) &&
+         (isoCoordinates.y >= 0 && isoCoordinates.y <= Settings::instance().settings.mapSize);
+}

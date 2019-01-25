@@ -24,13 +24,6 @@ public:
   /** Renders the sprites in each Map MapNode */
   void render();
 
-  /** \brief Check if given coordinates are within boundaries
-    * Checks if coordinates are within map boundaries
-    * @param Point object - coordinates to check
-    * @return bool - true if coordinates are inside the map bounds.
-    */
-  bool isPointWithinBoundaries(const Point &isoCoordinates);
-
   /** \brief Centers camera on given isometric coordinates
   * Centers the camera on the given isometric coordinates.
   * @param Point object - coordinates to center the camera on

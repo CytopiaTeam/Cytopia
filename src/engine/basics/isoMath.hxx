@@ -23,4 +23,11 @@ Point convertIsoToScreenCoordinates(const Point &isoCoordinates, bool calcWithou
 */
 Point convertScreenToIsoCoordinates(const Point &screenCoordinates);
 
+/** \brief Check if given coordinates are within map boundaries
+* Checks if coordinates are within map boundaries
+* @param Point object - coordinates to check
+* @return bool - true if coordinates are inside the map bounds.
+*/
+bool isPointWithinMapBoundaries(const Point &isoCoordinates);
+
 #endif

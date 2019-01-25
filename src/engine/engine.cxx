@@ -35,7 +35,7 @@ void Engine::render() { _map.renderMap(); }
 
 void Engine::centerScreenOnPoint(const Point &isoCoordinates)
 {
-  if (isPointWithinBoundaries(isoCoordinates))
+  if (isPointWithinMapBoundaries(isoCoordinates))
   {
     _centerIsoCoordinates = isoCoordinates;
     Point screenCoordinates = convertIsoToScreenCoordinates(isoCoordinates, true);
@@ -48,11 +48,6 @@ void Engine::centerScreenOnPoint(const Point &isoCoordinates)
     Resources::setCameraOffset(Point{x, y, 0, 0});
     _map.refresh();
   }
-}
-
-bool Engine::isPointWithinBoundaries(const Point &isoCoordinates)
-{
-  return (isoCoordinates.x >= 0 && isoCoordinates.x <= _map_size) && (isoCoordinates.y >= 0 && isoCoordinates.y <= _map_size);
 }
 
 void Engine::increaseHeight(const Point &isoCoordinates)
