@@ -9,6 +9,9 @@
 class Camera
 {
 public:
+  /// the size of the default floor tiles.
+  static SDL_Point tileSize;
+  static SDL_Point cameraOffset;
   static float zoomLevel;
 
 private:

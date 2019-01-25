@@ -15,35 +15,12 @@ class Engine;
 class Resources
 {
 public:
- 
-  /** \brief get camera offset 
-    * The pixel offset that is taken into account when positoning the tiles.
-    * \return Point() object containing x and y screen space coordinates
-    */
-  const static Point &getCameraOffset() { return _cameraOffset; };
-
-  /** \brief set camera offset
-  * The pixel offset that is taken into account when positoning the tiles.
-  * @param cameraOffset Point() object containing x and y screen space coordinates
-  */
-  static void setCameraOffset(Point cameraOffset) { _cameraOffset = cameraOffset; };
-
-  /** \brief gets the size of a tile
-    * The size of a tile is always 32 by 32 pixel for now.
-    * \return int tileSize
-    */
-  static int getTileSize() { return _tileSize; };
-
 private:
   Resources() = default;
   ~Resources() = default;
 
   static SDL_Renderer *_renderer;
   static SDL_Window *_window;
-
-  static Point _cameraOffset;
-
-  static const int _tileSize;
 };
 
 #endif

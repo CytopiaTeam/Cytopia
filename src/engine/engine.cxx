@@ -14,8 +14,6 @@ Engine::Engine()
   _renderer = WindowManager::instance().getRenderer();
   _window = WindowManager::instance().getWindow();
 
-  _tileSize = Resources::getTileSize();
-
   _map_size = Settings::instance().settings.mapSize;
 
   _map = Map(_map_size, _map_size);
@@ -44,7 +42,7 @@ void Engine::centerScreenOnPoint(const Point &isoCoordinates)
     x = static_cast<int>((screenCoordinates.x + (_tileSize * Camera::zoomLevel) * 0.5) - _screen_width * 0.5);
     y = static_cast<int>((screenCoordinates.y + (_tileSize * Camera::zoomLevel) * 0.75) - _screen_height * 0.5);
 
-    Resources::setCameraOffset(Point{x, y, 0, 0});
+    Camera::cameraOffset = { x, y };
     _map.refresh();
   }
 }

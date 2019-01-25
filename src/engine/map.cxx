@@ -283,11 +283,11 @@ Point Map::findNodeInMap(const Point &screenCoordinates) const
 
   // calculate clicked column (x coordinate) without heigh taken into account.
   int isoX = static_cast<int>(
-      (screenCoordinates.x + Resources::getCameraOffset().x + 2.0 * (screenCoordinates.y + Resources::getCameraOffset().y)) /
+      (screenCoordinates.x + Camera::cameraOffset.x + 2.0 * (screenCoordinates.y + Camera::cameraOffset.y)) /
           (32 * Camera::zoomLevel) +
       1);
   int isoY = static_cast<int>(
-      (screenCoordinates.x + Resources::getCameraOffset().x - 2.0 * (screenCoordinates.y + Resources::getCameraOffset().y)) /
+      (screenCoordinates.x + Camera::cameraOffset.x - 2.0 * (screenCoordinates.y + Camera::cameraOffset.y)) /
       (32 * Camera::zoomLevel));
 
   bool run = true;
