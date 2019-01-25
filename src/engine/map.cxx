@@ -3,7 +3,6 @@
 #include "basics/camera.hxx"
 #include "basics/mapEdit.hxx"
 #include "basics/settings.hxx"
-#include "basics/resources.hxx"
 #include "basics/log.hxx"
 #include "textureManager.hxx"
 

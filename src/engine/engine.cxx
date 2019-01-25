@@ -3,7 +3,6 @@
 #include "basics/camera.hxx"
 #include "basics/isoMath.hxx"
 #include "basics/mapEdit.hxx"
-#include "basics/resources.hxx"
 #include "basics/settings.hxx"
 #include "GameObjects/mapNode.hxx"
 #include "textureManager.hxx"

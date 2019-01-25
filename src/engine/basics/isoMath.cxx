@@ -3,7 +3,6 @@
 #include "../engine.hxx"
 #include "camera.hxx"
 #include "settings.hxx"
-#include "resources.hxx"
 #include "point.hxx"
 
 Point convertIsoToScreenCoordinates(const Point &isoCoordinates, bool calcWithoutOffset)

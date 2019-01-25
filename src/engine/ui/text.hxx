@@ -4,7 +4,6 @@
 #include <string>
 
 #include "uiElement.hxx"
-#include "../basics/resources.hxx"
 
 class Text : public UiElement
 {

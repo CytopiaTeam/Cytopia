@@ -46,7 +46,6 @@ set (SOURCES
 src/engine/basics/camera.cxx
 src/engine/basics/isoMath.cxx
 src/engine/basics/mapEdit.cxx
-src/engine/basics/resources.cxx
 src/engine/basics/settings.cxx
 src/engine/basics/timer.cxx
 src/engine/GameObjects/mapNode.cxx

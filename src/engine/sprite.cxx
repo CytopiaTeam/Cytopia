@@ -4,7 +4,6 @@
 #include "windowManager.hxx"
 #include "basics/camera.hxx"
 #include "basics/isoMath.hxx"
-#include "basics/resources.hxx"
 #include "basics/log.hxx"
 
 Sprite::Sprite(Point isoCoordinates) : _isoCoordinates(isoCoordinates)
