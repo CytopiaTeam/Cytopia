@@ -1,5 +1,6 @@
 #include "engine.hxx"
 
+#include "basics/camera.hxx"
 #include "basics/isoMath.hxx"
 #include "basics/mapEdit.hxx"
 #include "basics/resources.hxx"
@@ -18,7 +19,6 @@ Engine::Engine()
   _map_size = Settings::instance().settings.mapSize;
 
   _map = Map(_map_size, _map_size);
-  _zoomLevel = Resources::getZoomLevel();
 
   // Default: Floor and Buildings are drawn
   _activeLayers = LAYER_FLOOR | LAYER_BUILDINGS;
@@ -40,10 +40,9 @@ void Engine::centerScreenOnPoint(const Point &isoCoordinates)
     _centerIsoCoordinates = isoCoordinates;
     Point screenCoordinates = convertIsoToScreenCoordinates(isoCoordinates, true);
     int x, y;
-    _zoomLevel = Resources::getZoomLevel();
 
-    x = static_cast<int>((screenCoordinates.x + (_tileSize * _zoomLevel) * 0.5) - _screen_width * 0.5);
-    y = static_cast<int>((screenCoordinates.y + (_tileSize * _zoomLevel) * 0.75) - _screen_height * 0.5);
+    x = static_cast<int>((screenCoordinates.x + (_tileSize * Camera::zoomLevel) * 0.5) - _screen_width * 0.5);
+    y = static_cast<int>((screenCoordinates.y + (_tileSize * Camera::zoomLevel) * 0.75) - _screen_height * 0.5);
 
     Resources::setCameraOffset(Point{x, y, 0, 0});
     _map.refresh();
@@ -64,11 +63,9 @@ void Engine::decreaseHeight(const Point &isoCoordinates)
 
 void Engine::increaseZoomLevel()
 {
-  _zoomLevel = Resources::getZoomLevel();
-
-  if (_zoomLevel < 4.0f)
+  if (Camera::zoomLevel < 4.0f)
   {
-    Resources::setZoomLevel(_zoomLevel + 0.25f);
+    Camera::zoomLevel += 0.25f;
     centerScreenOnPoint(_centerIsoCoordinates);
     _map.refresh();
   }
@@ -76,11 +73,9 @@ void Engine::increaseZoomLevel()
 
 void Engine::decreaseZoomLevel()
 {
-  _zoomLevel = Resources::getZoomLevel();
-
-  if (_zoomLevel > 0.5f)
+  if (Camera::zoomLevel > 0.5f)
   {
-    Resources::setZoomLevel(_zoomLevel - 0.25f);
+    Camera::zoomLevel -= 0.25f;
     centerScreenOnPoint(_centerIsoCoordinates);
     _map.refresh();
   }

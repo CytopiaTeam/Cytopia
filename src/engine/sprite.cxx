@@ -2,6 +2,7 @@
 
 #include "textureManager.hxx"
 #include "windowManager.hxx"
+#include "basics/camera.hxx"
 #include "basics/isoMath.hxx"
 #include "basics/resources.hxx"
 #include "basics/log.hxx"
@@ -37,19 +38,19 @@ void Sprite::render()
 
 void Sprite::refresh()
 {
-  if (_zoomLevel != Resources::getZoomLevel() || _needsRefresh)
+  if (_currentZoomLevel != Camera::zoomLevel || _needsRefresh)
   {
-    _zoomLevel = Resources::getZoomLevel();
+    _currentZoomLevel = Camera::zoomLevel;
     if (_clipRect.w != 0)
     {
-      _destRect.w = static_cast<int>(_clipRect.w * _zoomLevel);
-      _destRect.h = static_cast<int>(_clipRect.h * _zoomLevel);
+      _destRect.w = static_cast<int>(_clipRect.w * Camera::zoomLevel);
+      _destRect.h = static_cast<int>(_clipRect.h * Camera::zoomLevel);
     }
     else
     {
       SDL_QueryTexture(_texture, nullptr, nullptr, &_destRect.w, &_destRect.h);
-      _destRect.w = static_cast<int>(_destRect.w * _zoomLevel);
-      _destRect.h = static_cast<int>(_destRect.h * _zoomLevel);
+      _destRect.w = static_cast<int>(_destRect.w * Camera::zoomLevel);
+      _destRect.h = static_cast<int>(_destRect.h * Camera::zoomLevel);
     }
   }
 

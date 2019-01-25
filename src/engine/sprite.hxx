@@ -35,7 +35,7 @@ private:
   Point _isoCoordinates;
   Point _screenCoordinates;
 
-  float _zoomLevel = 0;
+  float _currentZoomLevel = 0;
   size_t _spriteCount = 1;
 
   size_t _orientation;

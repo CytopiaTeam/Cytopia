@@ -1,6 +1,7 @@
 #include "isoMath.hxx"
 
 #include "../engine.hxx"
+#include "camera.hxx"
 #include "settings.hxx"
 #include "resources.hxx"
 #include "point.hxx"
@@ -14,23 +15,22 @@ Point convertIsoToScreenCoordinates(const Point &isoCoordinates, bool calcWithou
 
   int _tileSize = Resources::getTileSize();
   Point _cameraOffset = Resources::getCameraOffset();
-  float _zoomLevel = Resources::getZoomLevel();
   if (calcWithoutOffset)
   {
-    x = static_cast<int>((_tileSize * _zoomLevel * isoCoordinates.x * 0.5) + (_tileSize * _zoomLevel * isoCoordinates.y * 0.5));
-    y = static_cast<int>((_tileSize * _zoomLevel * isoCoordinates.x * 0.25) - (_tileSize * _zoomLevel * isoCoordinates.y * 0.25));
+    x = static_cast<int>((_tileSize * Camera::zoomLevel * isoCoordinates.x * 0.5) + (_tileSize * Camera::zoomLevel * isoCoordinates.y * 0.5));
+    y = static_cast<int>((_tileSize * Camera::zoomLevel * isoCoordinates.x * 0.25) - (_tileSize * Camera::zoomLevel * isoCoordinates.y * 0.25));
   }
   else
   {
-    x = static_cast<int>((_tileSize * _zoomLevel * isoCoordinates.x * 0.5) + (_tileSize * _zoomLevel * isoCoordinates.y * 0.5) -
+    x = static_cast<int>((_tileSize * Camera::zoomLevel * isoCoordinates.x * 0.5) + (_tileSize * Camera::zoomLevel * isoCoordinates.y * 0.5) -
                          _cameraOffset.x);
-    y = static_cast<int>((_tileSize * _zoomLevel * isoCoordinates.x * 0.25) - (_tileSize * _zoomLevel * isoCoordinates.y * 0.25) -
+    y = static_cast<int>((_tileSize * Camera::zoomLevel * isoCoordinates.x * 0.25) - (_tileSize * Camera::zoomLevel * isoCoordinates.y * 0.25) -
                          _cameraOffset.y);
   }
 
   if (height > 0)
   {
-    y = static_cast<int>(y - ((_tileSize - heightOffset) * height * _zoomLevel));
+    y = static_cast<int>(y - ((_tileSize - heightOffset) * height * Camera::zoomLevel));
   }
 
   return {x, y, 0, 0};

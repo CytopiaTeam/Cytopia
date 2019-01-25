@@ -43,6 +43,7 @@ set(CPACK_STRIP_FILES ON)
 INCLUDE(CPack)
 
 set (SOURCES 
+src/engine/basics/camera.cxx
 src/engine/basics/isoMath.cxx
 src/engine/basics/mapEdit.cxx
 src/engine/basics/resources.cxx

@@ -15,18 +15,7 @@ class Engine;
 class Resources
 {
 public:
-  /** \brief get Zoom Level
-  * Gets the Zoom Level, which is used to scale the tiles.
-  * \return float variable zoomLevel
-  */
-  static float getZoomLevel() { return _zoomLevel; };
-
-  /** \brief set Zoom Level
-  * Sets the Zoom Level, which is used to scale the tiles.
-  * @param zoomLeve float variable zoomLevel.
-  */
-  static void setZoomLevel(float zoomLevel) { _zoomLevel = zoomLevel; };
-
+ 
   /** \brief get camera offset 
     * The pixel offset that is taken into account when positoning the tiles.
     * \return Point() object containing x and y screen space coordinates
@@ -52,7 +41,6 @@ private:
   static SDL_Renderer *_renderer;
   static SDL_Window *_window;
 
-  static float _zoomLevel;
   static Point _cameraOffset;
 
   static const int _tileSize;
