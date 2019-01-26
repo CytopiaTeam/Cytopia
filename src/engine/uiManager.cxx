@@ -1,6 +1,6 @@
 #include "uiManager.hxx"
 
-#include "textureManager.hxx"
+#include "resourcesManager.hxx"
 #include "engine.hxx"
 #include "map.hxx"
 

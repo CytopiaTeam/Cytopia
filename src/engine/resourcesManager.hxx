@@ -1,5 +1,5 @@
-#ifndef TEXTURE_MANAGER_HXX_
-#define TEXTURE_MANAGER_HXX_
+#ifndef RESOURCES_MANAGER_HXX_
+#define RESOURCES_MANAGER_HXX_
 
 #include <iostream>
 #include <unordered_map>
@@ -16,19 +16,19 @@ enum ButtonState
   BUTTONSTATE_DISABLED
 };
 
-class TextureManager
+class ResourcesManager
 {
 public:
   /// Retrieves instance of Singleton class Texture Manager
-  static TextureManager &instance()
+  static ResourcesManager &instance()
   {
-    static TextureManager textureManager;
-    return textureManager;
+    static ResourcesManager resourcesManager;
+    return resourcesManager;
   }
 
   // Disable copy and assignemnt operators
-  TextureManager(TextureManager const &) = delete;
-  TextureManager &operator=(TextureManager const &) = delete;
+  ResourcesManager(ResourcesManager const &) = delete;
+  ResourcesManager &operator=(ResourcesManager const &) = delete;
 
   /** retrieves texture for a tileID */
   SDL_Texture *getUITexture(const std::string &uiElement, int buttonState = BUTTONSTATE_DEFAULT);
@@ -41,8 +41,8 @@ public:
   void loadTexture(const std::string &id, const std::string &fileName, size_t tileMapType = 0);
 
 private:
-  TextureManager();
-  ~TextureManager();
+  ResourcesManager();
+  ~ResourcesManager();
 
   /** Load Texture in to Texture Map, if an entry for this tile ID does not yet exist.
   Keep in Mind that the texture id is unique and there can't be two textures with the same id.

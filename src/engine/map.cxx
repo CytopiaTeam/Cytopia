@@ -5,7 +5,7 @@
 #include "basics/mapEdit.hxx"
 #include "basics/settings.hxx"
 #include "basics/log.hxx"
-#include "textureManager.hxx"
+#include "resourcesManager.hxx"
 
 constexpr struct
 {
@@ -342,8 +342,8 @@ bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int is
     int pixelY = static_cast<int>((screenCoordinates.y - spriteRect.y) / Camera::zoomLevel);
 
     // Check if the clicked Sprite is not transparent (we hit a point within the pixel)
-    if (getColorOfPixelInSurface(TextureManager::instance().getTileSurface(_mapNodes[isoX * _columns + isoY]->getTileID(),
-                                                                           _mapNodes[isoX * _columns + isoY]->getUsedTileMap()),
+    if (getColorOfPixelInSurface(ResourcesManager::instance().getTileSurface(_mapNodes[isoX * _columns + isoY]->getTileID(),
+                                                                             _mapNodes[isoX * _columns + isoY]->getUsedTileMap()),
                                  pixelX, pixelY, _mapNodes[isoX * _columns + isoY]->getSprite()->getClipRect())
             .a != SDL_ALPHA_TRANSPARENT)
     {

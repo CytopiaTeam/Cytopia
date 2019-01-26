@@ -1,6 +1,6 @@
 #include "sprite.hxx"
 
-#include "textureManager.hxx"
+#include "resourcesManager.hxx"
 #include "windowManager.hxx"
 #include "basics/camera.hxx"
 #include "basics/isoMath.hxx"

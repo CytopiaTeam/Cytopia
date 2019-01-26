@@ -12,7 +12,7 @@ void UiElement::draw()
 void UiElement::setTextureID(const std::string &textureID)
 {
   _textureID = textureID;
-  SDL_Texture *texture = TextureManager::instance().getUITexture(textureID);
+  SDL_Texture *texture = ResourcesManager::instance().getUITexture(textureID);
   if (texture)
   {
     _texture = texture;
@@ -24,7 +24,7 @@ void UiElement::changeButtonState(int state)
 {
   if (_buttonState != state && !_textureID.empty())
   {
-    changeTexture(TextureManager::instance().getUITexture(_textureID, state));
+    changeTexture(ResourcesManager::instance().getUITexture(_textureID, state));
   }
   _buttonState = state;
 }

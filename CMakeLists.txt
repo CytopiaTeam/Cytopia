@@ -66,7 +66,7 @@ src/engine/engine.cxx
 src/engine/eventManager.cxx
 src/engine/map.cxx
 src/engine/sprite.cxx
-src/engine/textureManager.cxx
+src/engine/resourcesManager.cxx
 src/engine/tileManager.cxx
 src/engine/uiManager.cxx
 src/engine/windowManager.cxx

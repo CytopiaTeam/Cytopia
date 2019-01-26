@@ -4,7 +4,7 @@
 #include <string>
 
 #include "../basics/mapEdit.hxx"
-#include "../textureManager.hxx"
+#include "../resourcesManager.hxx"
 #include "../windowManager.hxx"
 #include "../basics/signal.hxx"
 
@@ -132,14 +132,14 @@ public:
   /** \brief Set the button state
   * Sets the mouse button pressed state. 
   * @param state enum buttonstate
-  * @see TextureManager::ButtonState
+  * @see ResourcesManager::ButtonState
   */
   void changeButtonState(int state);
 
   /** \brief Get the button state
   * Get the current mouse button pressed state.
   * @return state enum buttonstate
-  * @see TextureManager::ButtonState
+  * @see ResourcesManager::ButtonState
   */
   int getButtonState() { return _buttonState; };
 

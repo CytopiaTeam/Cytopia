@@ -5,7 +5,7 @@
 #include "basics/mapEdit.hxx"
 #include "basics/settings.hxx"
 #include "GameObjects/mapNode.hxx"
-#include "textureManager.hxx"
+#include "resourcesManager.hxx"
 
 Engine::Engine()
 {
