@@ -73,7 +73,16 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       case SDL_MOUSEMOTION:
         mouseCoords = {event.button.x, event.button.y};
         clickCoords = convertScreenToIsoCoordinates(mouseCoords);
-        engine.getMap()->highlightNode(clickCoords);
+        if (rightMouseButtonHeldDown)
+        {
+          Camera::cameraOffset.x += event.motion.xrel;
+          Camera::cameraOffset.y += event.motion.yrel;
+          Engine::instance().getMap()->refresh();
+        }
+        else
+        {
+          engine.getMap()->highlightNode(clickCoords);
+        }
         break;
       case SDL_MOUSEBUTTONDOWN:
         mouseCoords = {event.button.x, event.button.y};
@@ -107,10 +116,14 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         }
         else if (event.button.button == SDL_BUTTON_RIGHT)
         {
-          Camera::centerScreenOnPoint(clickCoords);
+          rightMouseButtonHeldDown = true;
         }
         break;
-
+      case SDL_MOUSEBUTTONUP:
+      {
+        rightMouseButtonHeldDown = false;
+      }
+      break;
       case SDL_MOUSEWHEEL:
         if (event.wheel.y > 0)
         {

@@ -19,6 +19,7 @@ private:
 
   std::shared_ptr<UiElement> lastHoveredElement = nullptr;
   bool dispatchUiEvents(SDL_Event &event);
+  bool rightMouseButtonHeldDown = false;
 };
 
 #endif
