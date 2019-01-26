@@ -1,4 +1,4 @@
-#include "textureManager.hxx"
+#include "resourcesManager.hxx"
 
 #include <SDL_image.h>
 #include "../ThirdParty/json.hxx"
@@ -10,18 +10,18 @@
 
 using json = nlohmann::json;
 
-TextureManager::TextureManager() { loadUITexture(); }
+ResourcesManager::ResourcesManager() { loadUITexture(); }
 
-TextureManager::~TextureManager() { flush(); }
+ResourcesManager::~ResourcesManager() { flush(); }
 
-void TextureManager::loadTexture(const std::string &id, const std::string &fileName, size_t tileMapType)
+void ResourcesManager::loadTexture(const std::string &id, const std::string &fileName, size_t tileMapType)
 {
   std::string key = id + std::to_string(tileMapType);
   _surfaceMap[key] = createSurfaceFromFile(fileName);
   _tileTextureMap[key] = createTextureFromSurface(_surfaceMap[key]);
 }
 
-void TextureManager::loadUITexture()
+void ResourcesManager::loadUITexture()
 {
   json uiDataJSON;
 
@@ -52,7 +52,7 @@ void TextureManager::loadUITexture()
   }
 }
 
-SDL_Texture *TextureManager::getUITexture(const std::string &uiElement, int buttonState)
+SDL_Texture *ResourcesManager::getUITexture(const std::string &uiElement, int buttonState)
 {
   std::string texture;
   switch (buttonState)
@@ -73,7 +73,7 @@ SDL_Texture *TextureManager::getUITexture(const std::string &uiElement, int butt
   return _uiTextureMap[uiElement]["Texture_Default"];
 }
 
-SDL_Texture *TextureManager::getTileTexture(const std::string &id, size_t tileMapType)
+SDL_Texture *ResourcesManager::getTileTexture(const std::string &id, size_t tileMapType)
 {
   std::string key = id + std::to_string(tileMapType);
 
@@ -84,7 +84,7 @@ SDL_Texture *TextureManager::getTileTexture(const std::string &id, size_t tileMa
   return nullptr;
 }
 
-SDL_Surface *TextureManager::getTileSurface(const std::string &id, size_t tileMapType)
+SDL_Surface *ResourcesManager::getTileSurface(const std::string &id, size_t tileMapType)
 {
   std::string key = id + std::to_string(tileMapType);
   if (_surfaceMap.count(key))
@@ -94,7 +94,7 @@ SDL_Surface *TextureManager::getTileSurface(const std::string &id, size_t tileMa
   return nullptr;
 }
 
-SDL_Surface *TextureManager::createSurfaceFromFile(const std::string &fileName)
+SDL_Surface *ResourcesManager::createSurfaceFromFile(const std::string &fileName)
 {
   SDL_Surface *surface = IMG_Load(fileName.c_str());
 
@@ -107,7 +107,7 @@ SDL_Surface *TextureManager::createSurfaceFromFile(const std::string &fileName)
   return nullptr;
 }
 
-SDL_Texture *TextureManager::createTextureFromSurface(SDL_Surface *surface)
+SDL_Texture *ResourcesManager::createTextureFromSurface(SDL_Surface *surface)
 {
   SDL_Texture *texture = SDL_CreateTextureFromSurface(WindowManager::instance().getRenderer(), surface);
 
@@ -120,7 +120,7 @@ SDL_Texture *TextureManager::createTextureFromSurface(SDL_Surface *surface)
   return nullptr;
 }
 
-void TextureManager::flush()
+void ResourcesManager::flush()
 {
   for (const auto &it : _surfaceMap)
   {

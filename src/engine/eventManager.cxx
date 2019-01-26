@@ -1,5 +1,7 @@
 #include "eventManager.hxx"
 
+#include "basics/camera.hxx"
+#include "basics/isoMath.hxx"
 #include "basics/mapEdit.hxx"
 #include "basics/timer.hxx"
 #include "basics/settings.hxx"
@@ -12,7 +14,7 @@
 void EventManager::checkEvents(SDL_Event &event, Engine &engine)
 {
   // check for UI events first
-  Point mouseCoords;
+  SDL_Point mouseCoords;
   Point clickCoords;
 
   if (SDL_PollEvent(&event))
@@ -69,17 +71,17 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         }
         break;
       case SDL_MOUSEMOTION:
-        mouseCoords = Point{event.button.x, event.button.y, 0, 0};
-        clickCoords = Resources::convertScreenToIsoCoordinates(mouseCoords);
+        mouseCoords = {event.button.x, event.button.y};
+        clickCoords = convertScreenToIsoCoordinates(mouseCoords);
         engine.getMap()->highlightNode(clickCoords);
         break;
       case SDL_MOUSEBUTTONDOWN:
-        mouseCoords = Point{event.button.x, event.button.y, 0, 0};
-        clickCoords = Resources::convertScreenToIsoCoordinates(mouseCoords);
+        mouseCoords = {event.button.x, event.button.y};
+        clickCoords = convertScreenToIsoCoordinates(mouseCoords);
 
         if (event.button.button == SDL_BUTTON_LEFT)
         {
-          if (engine.isPointWithinBoundaries(clickCoords))
+          if (isPointWithinMapBoundaries(clickCoords))
           {
             if (terrainEditMode == TerrainEdit::RAISE)
             {
@@ -105,18 +107,18 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         }
         else if (event.button.button == SDL_BUTTON_RIGHT)
         {
-          engine.centerScreenOnPoint(clickCoords);
+          Camera::centerScreenOnPoint(clickCoords);
         }
         break;
 
       case SDL_MOUSEWHEEL:
         if (event.wheel.y > 0)
         {
-          engine.increaseZoomLevel();
+          Camera::increaseZoomLevel();
         }
         else if (event.wheel.y < 0)
         {
-          engine.decreaseZoomLevel();
+          Camera::decreaseZoomLevel();
         }
         break;
 

@@ -43,8 +43,9 @@ set(CPACK_STRIP_FILES ON)
 INCLUDE(CPack)
 
 set (SOURCES 
+src/engine/basics/camera.cxx
+src/engine/basics/isoMath.cxx
 src/engine/basics/mapEdit.cxx
-src/engine/basics/resources.cxx
 src/engine/basics/settings.cxx
 src/engine/basics/timer.cxx
 src/engine/GameObjects/mapNode.cxx
@@ -65,7 +66,7 @@ src/engine/engine.cxx
 src/engine/eventManager.cxx
 src/engine/map.cxx
 src/engine/sprite.cxx
-src/engine/textureManager.cxx
+src/engine/resourcesManager.cxx
 src/engine/tileManager.cxx
 src/engine/uiManager.cxx
 src/engine/windowManager.cxx

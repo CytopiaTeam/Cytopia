@@ -21,22 +21,6 @@ public:
   Engine(Engine const &) = delete;
   Engine &operator=(Engine const &) = delete;
 
-  /** Renders the sprites in each Map MapNode */
-  void render();
-
-  /** \brief Check if given coordinates are within boundaries
-    * Checks if coordinates are within map boundaries
-    * @param Point object - coordinates to check
-    * @return bool - true if coordinates are inside the map bounds.
-    */
-  bool isPointWithinBoundaries(const Point &isoCoordinates);
-
-  /** \brief Centers camera on given isometric coordinates
-  * Centers the camera on the given isometric coordinates.
-  * @param Point object - coordinates to center the camera on
-  */
-  void centerScreenOnPoint(const Point &isoCoordinates);
-
   /** \brief Enable Drawing Layer
     * Enable Drawing Layer (use bitwise OR to add layer)
     * @param bitmapped Uint from enum "Layers"
@@ -74,15 +58,6 @@ public:
     */
   void decreaseHeight(const Point &isoCoordinates);
 
-  void increaseZoomLevel();
-  void decreaseZoomLevel();
-
-  /** Returns a MapNode at given screen coordinates, determined by pixel collison and Z-Order
-    * @param screenCoordinates   Point Oject - Mouseclick coordinates in screen Format
-    * @return Isocoordinates of the tile that has been found
-    */
-  Point findNodeInMap(const Point &screenCoordinates);
-
   void toggleFullScreen();
 
   void setTileIDOfNode(const Point &isoCoordinates, const std::string &tileType);
@@ -99,19 +74,6 @@ private:
   virtual ~Engine() = default;
   bool _running = true;
 
-  SDL_Renderer *_renderer;
-  SDL_Window *_window;
-
-  int _map_size;
-  int _screen_width;
-  int _screen_height;
-  int _tileSize;
-
-  float _zoomLevel;
-  Point _cameraOffset;
-  Point _centerIsoCoordinates;
-
-  /// Map that holds shared_ptr MapNode objects
   Map _map;
 
   /// Uint for storing a bitmask (Layers Enum)

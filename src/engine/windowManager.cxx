@@ -1,7 +1,6 @@
 #include "windowManager.hxx"
 
 #include "basics/log.hxx"
-#include "basics/resources.hxx"
 #include "basics/settings.hxx"
 
 #include <SDL_image.h>

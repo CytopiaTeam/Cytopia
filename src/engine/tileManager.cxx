@@ -4,7 +4,7 @@
 
 #include "basics/log.hxx"
 #include "basics/settings.hxx"
-#include "textureManager.hxx"
+#include "resourcesManager.hxx"
 
 #include "../ThirdParty/json.hxx"
 
@@ -14,7 +14,7 @@ TileManager::TileManager() { init(); }
 
 SDL_Texture *TileManager::getTexture(const std::string &id, size_t tileMapType)
 {
-  return TextureManager::instance().getTileTexture(id, tileMapType);
+  return ResourcesManager::instance().getTileTexture(id, tileMapType);
 }
 
 TileData *TileManager::getTileData(const std::string &id)
@@ -285,7 +285,7 @@ void TileManager::init()
 
     if (!tileData[id].tiles.fileName.empty())
     {
-      TextureManager::instance().loadTexture(id, tileData[id].tiles.fileName, TileMap::DEFAULT);
+      ResourcesManager::instance().loadTexture(id, tileData[id].tiles.fileName, TileMap::DEFAULT);
     }
 
     if (!tileDataJSON[idx]["cornerTiles"].is_null())
@@ -297,7 +297,7 @@ void TileManager::init()
 
       if (!tileData[id].cornerTiles.fileName.empty())
       {
-        TextureManager::instance().loadTexture(id, tileData[id].cornerTiles.fileName, TileMap::CORNERS);
+        ResourcesManager::instance().loadTexture(id, tileData[id].cornerTiles.fileName, TileMap::CORNERS);
       }
     }
 
@@ -311,7 +311,7 @@ void TileManager::init()
 
       if (!tileData[id].slopeTiles.fileName.empty())
       {
-        TextureManager::instance().loadTexture(id, tileData[id].slopeTiles.fileName, TileMap::SLOPES);
+        ResourcesManager::instance().loadTexture(id, tileData[id].slopeTiles.fileName, TileMap::SLOPES);
       }
     }
 

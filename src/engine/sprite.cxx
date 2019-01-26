@@ -1,15 +1,16 @@
 #include "sprite.hxx"
 
-#include "textureManager.hxx"
+#include "resourcesManager.hxx"
 #include "windowManager.hxx"
-#include "basics/resources.hxx"
+#include "basics/camera.hxx"
+#include "basics/isoMath.hxx"
 #include "basics/log.hxx"
 
 Sprite::Sprite(Point isoCoordinates) : _isoCoordinates(isoCoordinates)
 {
   _renderer = WindowManager::instance().getRenderer();
   _window = WindowManager::instance().getWindow();
-  _screenCoordinates = Resources::convertIsoToScreenCoordinates(isoCoordinates);
+  _screenCoordinates = convertIsoToScreenCoordinates(isoCoordinates);
 }
 
 void Sprite::render()
@@ -36,23 +37,23 @@ void Sprite::render()
 
 void Sprite::refresh()
 {
-  if (_zoomLevel != Resources::getZoomLevel() || _needsRefresh)
+  if (_currentZoomLevel != Camera::zoomLevel || _needsRefresh)
   {
-    _zoomLevel = Resources::getZoomLevel();
+    _currentZoomLevel = Camera::zoomLevel;
     if (_clipRect.w != 0)
     {
-      _destRect.w = static_cast<int>(_clipRect.w * _zoomLevel);
-      _destRect.h = static_cast<int>(_clipRect.h * _zoomLevel);
+      _destRect.w = static_cast<int>(_clipRect.w * _currentZoomLevel);
+      _destRect.h = static_cast<int>(_clipRect.h * _currentZoomLevel);
     }
     else
     {
       SDL_QueryTexture(_texture, nullptr, nullptr, &_destRect.w, &_destRect.h);
-      _destRect.w = static_cast<int>(_destRect.w * _zoomLevel);
-      _destRect.h = static_cast<int>(_destRect.h * _zoomLevel);
+      _destRect.w = static_cast<int>(_destRect.w * _currentZoomLevel);
+      _destRect.h = static_cast<int>(_destRect.h * _currentZoomLevel);
     }
   }
 
-  _screenCoordinates = Resources::convertIsoToScreenCoordinates(_isoCoordinates);
+  _screenCoordinates = convertIsoToScreenCoordinates(_isoCoordinates);
   // render the sprite in the middle of its bounding box so bigger than 1x1 sprites will render correctly
   _destRect.x = _screenCoordinates.x - (_destRect.w / 2);
   // change y coordinates with sprites height taken into account to render the sprite at its base and not at its top.

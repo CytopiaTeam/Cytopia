@@ -44,7 +44,7 @@ public:
 
   void highlightNode(const Point &isoCoordinates);
 
-  Point findNodeInMap(const Point &screenCoordinates) const;
+  Point findNodeInMap(const SDL_Point &screenCoordinates) const;
 
   void setTileIDOfNode(const Point &isoCoordinates, const std::string &tileType);
 
@@ -89,7 +89,7 @@ private:
 
   SDL_Color getColorOfPixelInSurface(SDL_Surface *surface, int x, int y, const SDL_Rect &clipRect) const;
 
-  bool isClickWithinTile(const Point &screenCoordinates, int isoX, int isoY) const;
+  bool isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int isoY) const;
 };
 
 #endif
