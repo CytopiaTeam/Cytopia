@@ -1,4 +1,5 @@
-# Cytopia
+![alt text](https://raw.githubusercontent.com/JimmySnails/Cytopia/master/resources/images/app_icons/logo_big_textured.png)
+
 [![Build Status](https://travis-ci.org/JimmySnails/Cytopia.svg?branch=master)](https://travis-ci.org/JimmySnails/Cytopia)
 
 
