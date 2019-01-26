@@ -42,14 +42,14 @@ void Sprite::refresh()
     _currentZoomLevel = Camera::zoomLevel;
     if (_clipRect.w != 0)
     {
-      _destRect.w = static_cast<int>(_clipRect.w * Camera::zoomLevel);
-      _destRect.h = static_cast<int>(_clipRect.h * Camera::zoomLevel);
+      _destRect.w = static_cast<int>(_clipRect.w * _currentZoomLevel);
+      _destRect.h = static_cast<int>(_clipRect.h * _currentZoomLevel);
     }
     else
     {
       SDL_QueryTexture(_texture, nullptr, nullptr, &_destRect.w, &_destRect.h);
-      _destRect.w = static_cast<int>(_destRect.w * Camera::zoomLevel);
-      _destRect.h = static_cast<int>(_destRect.h * Camera::zoomLevel);
+      _destRect.w = static_cast<int>(_destRect.w * _currentZoomLevel);
+      _destRect.h = static_cast<int>(_destRect.h * _currentZoomLevel);
     }
   }
 
