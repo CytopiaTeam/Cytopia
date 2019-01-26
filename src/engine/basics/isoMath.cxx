@@ -20,30 +20,23 @@ Point calculateIsoCoordinates(const Point &screenCoordinates)
 
 Point convertIsoToScreenCoordinates(const Point &isoCoordinates, bool calcWithoutOffset)
 {
-  int x, y;
+  const int heightOffset = 18;
 
-  int height = isoCoordinates.height;
-  int heightOffset = 18;
+  int zoomedTileSizeX = static_cast<int>(Camera::tileSize.x * Camera::zoomLevel);
+  int zoomedTileSizeY = static_cast<int>(Camera::tileSize.y * Camera::zoomLevel);
 
-  if (calcWithoutOffset)
+  int x = static_cast<int>(zoomedTileSizeX * isoCoordinates.x + zoomedTileSizeX * isoCoordinates.y) / 2;
+  int y = static_cast<int>(zoomedTileSizeY * isoCoordinates.x - zoomedTileSizeY * isoCoordinates.y) / 2;
+
+  if (!calcWithoutOffset)
   {
-    x = static_cast<int>((Camera::tileSize.x * Camera::zoomLevel * isoCoordinates.x * 0.5) +
-                         (Camera::tileSize.x * Camera::zoomLevel * isoCoordinates.y * 0.5));
-
-    y = static_cast<int>((Camera::tileSize.x * Camera::zoomLevel * isoCoordinates.x * 0.25) -
-                         (Camera::tileSize.x * Camera::zoomLevel * isoCoordinates.y * 0.25));
-  }
-  else
-  {
-    x = static_cast<int>((Camera::tileSize.x * Camera::zoomLevel * isoCoordinates.x * 0.5) +
-                         (Camera::tileSize.x * Camera::zoomLevel * isoCoordinates.y * 0.5) - Camera::cameraOffset.x);
-    y = static_cast<int>((Camera::tileSize.x * Camera::zoomLevel * isoCoordinates.x * 0.25) -
-                         (Camera::tileSize.x * Camera::zoomLevel * isoCoordinates.y * 0.25) - Camera::cameraOffset.y);
+    x -= Camera::cameraOffset.x;
+    y -= Camera::cameraOffset.y;
   }
 
-  if (height > 0)
+  if (isoCoordinates.height > 0)
   {
-    y = static_cast<int>(y - ((Camera::tileSize.x - heightOffset) * height * Camera::zoomLevel));
+    y = static_cast<int>(y - ((Camera::tileSize.x - heightOffset) * isoCoordinates.height * Camera::zoomLevel));
   }
 
   return {x, y, 0, 0};
