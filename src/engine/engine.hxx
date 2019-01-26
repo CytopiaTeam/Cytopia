@@ -21,9 +21,6 @@ public:
   Engine(Engine const &) = delete;
   Engine &operator=(Engine const &) = delete;
 
-  /** Renders the sprites in each Map MapNode */
-  void render();
-
   /** \brief Enable Drawing Layer
     * Enable Drawing Layer (use bitwise OR to add layer)
     * @param bitmapped Uint from enum "Layers"
@@ -77,10 +74,6 @@ private:
   virtual ~Engine() = default;
   bool _running = true;
 
-  SDL_Renderer *_renderer;
-  SDL_Window *_window;
-
-  int _map_size;
   Map _map;
 
   /// Uint for storing a bitmask (Layers Enum)

@@ -9,19 +9,13 @@
 
 Engine::Engine()
 {
-  // get renderer and initialize windowManager singleton class
-  _renderer = WindowManager::instance().getRenderer();
-  _window = WindowManager::instance().getWindow();
+  int map_size = Settings::instance().settings.mapSize;
 
-  _map_size = Settings::instance().settings.mapSize;
-
-  _map = Map(_map_size, _map_size);
+  _map = Map(map_size, map_size);
 
   // Default: Floor and Buildings are drawn
   _activeLayers = LAYER_FLOOR | LAYER_BUILDINGS;
 }
-
-void Engine::render() { _map.renderMap(); }
 
 void Engine::increaseHeight(const Point &isoCoordinates)
 {
