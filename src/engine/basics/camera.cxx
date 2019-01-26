@@ -20,9 +20,9 @@ void Camera::increaseZoomLevel()
 
 void Camera::decreaseZoomLevel()
 {
-  if (Camera::zoomLevel > 0.5f)
+  if (zoomLevel > 0.5f)
   {
-    Camera::zoomLevel -= 0.25f;
+    zoomLevel -= 0.25f;
     centerScreenOnPoint(centerIsoCoordinates);
     Engine::instance().getMap()->refresh();
   }
@@ -36,9 +36,9 @@ void Camera::centerScreenOnPoint(const Point &isoCoordinates)
     SDL_Point screenCoordinates = convertIsoToScreenCoordinates(isoCoordinates, true);
     int x, y;
 
-    x = static_cast<int>((screenCoordinates.x + (tileSize.x * Camera::zoomLevel) * 0.5) -
+    x = static_cast<int>((screenCoordinates.x + (tileSize.x * zoomLevel) * 0.5) -
                          Settings::instance().settings.screenWidth * 0.5);
-    y = static_cast<int>((screenCoordinates.y + (tileSize.x * Camera::zoomLevel) * 0.75) -
+    y = static_cast<int>((screenCoordinates.y + (tileSize.x * zoomLevel) * 0.75) -
                          Settings::instance().settings.screenHeight * 0.5);
 
     cameraOffset = {x, y};
