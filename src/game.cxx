@@ -5,6 +5,7 @@
 #include "engine/uiManager.hxx"
 #include "engine/windowManager.hxx"
 #include "engine/audioMixer.hxx"
+#include "engine/basics/camera.hxx"
 #include "engine/basics/point.hxx"
 #include "engine/basics/log.hxx"
 
@@ -18,6 +19,7 @@ void run()
   benchmarkTimer.start();
   Engine &engine = Engine::instance();
   LOG() << "Map initialized in " << benchmarkTimer.getElapsedTime() << "ms";
+  Camera::centerScreenOnMapCenter();
 
   SDL_Event event;
   EventManager evManager;

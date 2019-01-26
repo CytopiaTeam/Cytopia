@@ -1,5 +1,6 @@
 #include "eventManager.hxx"
 
+#include "basics/camera.hxx"
 #include "basics/isoMath.hxx"
 #include "basics/mapEdit.hxx"
 #include "basics/timer.hxx"
@@ -106,18 +107,18 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         }
         else if (event.button.button == SDL_BUTTON_RIGHT)
         {
-          engine.centerScreenOnPoint(clickCoords);
+          Camera::centerScreenOnPoint(clickCoords);
         }
         break;
 
       case SDL_MOUSEWHEEL:
         if (event.wheel.y > 0)
         {
-          engine.increaseZoomLevel();
+          Camera::increaseZoomLevel();
         }
         else if (event.wheel.y < 0)
         {
-          engine.decreaseZoomLevel();
+          Camera::decreaseZoomLevel();
         }
         break;
 
