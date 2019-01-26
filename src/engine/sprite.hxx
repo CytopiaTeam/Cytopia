@@ -33,7 +33,7 @@ private:
   SDL_Rect _clipRect{0, 0, 0, 0};
 
   Point _isoCoordinates;
-  Point _screenCoordinates;
+  SDL_Point _screenCoordinates;
 
   float _currentZoomLevel = 0;
   size_t _spriteCount = 1;

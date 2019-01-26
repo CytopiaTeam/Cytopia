@@ -277,7 +277,7 @@ SDL_Color Map::getColorOfPixelInSurface(SDL_Surface *surface, int x, int y, cons
   return Color;
 }
 
-Point Map::findNodeInMap(const Point &screenCoordinates) const
+Point Map::findNodeInMap(const SDL_Point &screenCoordinates) const
 {
   Point foundCoordinates{-1, -1, 0, 0};
 
@@ -324,7 +324,7 @@ void Map::demolishNode(const Point &isoCoordinates)
   _mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->setTileID("terrain");
 }
 
-bool Map::isClickWithinTile(const Point &screenCoordinates, int isoX, int isoY) const
+bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int isoY) const
 {
 
   if (isoX < 0 || isoX > Settings::instance().settings.mapSize || isoY < 0 || isoY > Settings::instance().settings.mapSize)

@@ -14,7 +14,7 @@
 void EventManager::checkEvents(SDL_Event &event, Engine &engine)
 {
   // check for UI events first
-  Point mouseCoords;
+  SDL_Point mouseCoords;
   Point clickCoords;
 
   if (SDL_PollEvent(&event))
@@ -71,12 +71,12 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         }
         break;
       case SDL_MOUSEMOTION:
-        mouseCoords = Point{event.button.x, event.button.y, 0, 0};
+        mouseCoords = {event.button.x, event.button.y};
         clickCoords = convertScreenToIsoCoordinates(mouseCoords);
         engine.getMap()->highlightNode(clickCoords);
         break;
       case SDL_MOUSEBUTTONDOWN:
-        mouseCoords = Point{event.button.x, event.button.y, 0, 0};
+        mouseCoords = {event.button.x, event.button.y};
         clickCoords = convertScreenToIsoCoordinates(mouseCoords);
 
         if (event.button.button == SDL_BUTTON_LEFT)

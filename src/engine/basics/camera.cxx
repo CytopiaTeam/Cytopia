@@ -33,7 +33,7 @@ void Camera::centerScreenOnPoint(const Point &isoCoordinates)
   if (isPointWithinMapBoundaries(isoCoordinates))
   {
     centerIsoCoordinates = isoCoordinates;
-    Point screenCoordinates = convertIsoToScreenCoordinates(isoCoordinates, true);
+    SDL_Point screenCoordinates = convertIsoToScreenCoordinates(isoCoordinates, true);
     int x, y;
 
     x = static_cast<int>((screenCoordinates.x + (tileSize.x * Camera::zoomLevel) * 0.5) -

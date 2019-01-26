@@ -5,7 +5,7 @@
 #include "settings.hxx"
 #include "point.hxx"
 
-Point calculateIsoCoordinates(const Point &screenCoordinates)
+Point calculateIsoCoordinates(const SDL_Point &screenCoordinates)
 {
   int isoX =
       static_cast<int>((screenCoordinates.x + Camera::cameraOffset.x + 2.0 * (screenCoordinates.y + Camera::cameraOffset.y)) /
@@ -18,7 +18,7 @@ Point calculateIsoCoordinates(const Point &screenCoordinates)
   return {isoX, isoY, 0, 0};
 }
 
-Point convertIsoToScreenCoordinates(const Point &isoCoordinates, bool calcWithoutOffset)
+SDL_Point convertIsoToScreenCoordinates(const Point &isoCoordinates, bool calcWithoutOffset)
 {
   const int heightOffset = 18;
 
@@ -39,12 +39,12 @@ Point convertIsoToScreenCoordinates(const Point &isoCoordinates, bool calcWithou
     y = static_cast<int>(y - ((Camera::tileSize.x - heightOffset) * isoCoordinates.height * Camera::zoomLevel));
   }
 
-  return {x, y, 0, 0};
+  return {x, y};
 }
 
-Point convertScreenToIsoCoordinates(const Point &screenCoordinates)
+Point convertScreenToIsoCoordinates(const SDL_Point &screenCoordinates)
 {
-  return Engine::instance().findNodeInMap(screenCoordinates);
+  return Engine::instance().getMap()->findNodeInMap(screenCoordinates);
 }
 
 bool isPointWithinMapBoundaries(const Point &isoCoordinates)

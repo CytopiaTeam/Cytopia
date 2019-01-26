@@ -61,12 +61,6 @@ public:
     */
   void decreaseHeight(const Point &isoCoordinates);
 
-  /** Returns a MapNode at given screen coordinates, determined by pixel collison and Z-Order
-    * @param screenCoordinates   Point Oject - Mouseclick coordinates in screen Format
-    * @return Isocoordinates of the tile that has been found
-    */
-  Point findNodeInMap(const Point &screenCoordinates);
-
   void toggleFullScreen();
 
   void setTileIDOfNode(const Point &isoCoordinates, const std::string &tileType);

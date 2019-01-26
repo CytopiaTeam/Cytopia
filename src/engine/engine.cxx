@@ -35,8 +35,6 @@ void Engine::decreaseHeight(const Point &isoCoordinates)
   _map.decreaseHeight(isoCoordinates);
 }
 
-Point Engine::findNodeInMap(const Point &screenCoordinates) { return _map.findNodeInMap(screenCoordinates); }
-
 void Engine::toggleFullScreen() { WindowManager::instance().toggleFullScreen(); };
 
 void Engine::setTileIDOfNode(const Point &isoCoordinates, const std::string &tileID)

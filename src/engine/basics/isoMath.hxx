@@ -2,6 +2,7 @@
 #define ISOMATH_HXX_
 
 #include "point.hxx"
+#include "SDL.h"
 
 // calculate clicked column (x coordinate) without heigh taken into account.
 /** \brief Calculates screen space coordinates to isometric space coordinates.
@@ -10,7 +11,7 @@
 * \returns Point() - object containing the calculated isometric coordinates of the tile that matches the screen coordinates
 * @param Point() screenCoordinates - object containing screen space coordinates
 */
-Point calculateIsoCoordinates(const Point &screenCoordinates);
+Point calculateIsoCoordinates(const SDL_Point &screenCoordinates);
 
 /** \brief converts coordinates from isometric to screen space
 * The given isometric coordinates (which contain height information) are converted to the screen coordinates. The coordinates represent the x, y position of the
@@ -20,7 +21,7 @@ Point calculateIsoCoordinates(const Point &screenCoordinates);
 * @param Point() isoCoordinates - object containing isometric coordinates
 * @param bool calcWithoutOffset - optional parameter to calculate screenspace coordinates without zoomLevel and cameraOffset taken into account
 */
-Point convertIsoToScreenCoordinates(const Point &isoCoordinates, bool calcWithoutOffset = false);
+SDL_Point convertIsoToScreenCoordinates(const Point &isoCoordinates, bool calcWithoutOffset = false);
 
 /** \brief converts screen space coordinates to isometric space coordinates.
 * To convert screen coordinates in to isometric coordinates, all the textures inside the nodes are checked, if the click is inside the bounding box of a texture
@@ -30,7 +31,7 @@ Point convertIsoToScreenCoordinates(const Point &isoCoordinates, bool calcWithou
 * \returns Point() - object containing the isometric coordinates of the tile that matches the screen coordinates
 * @param Point() screenCoordinates - object containing screen space coordinates
 */
-Point convertScreenToIsoCoordinates(const Point &screenCoordinates);
+Point convertScreenToIsoCoordinates(const SDL_Point &screenCoordinates);
 
 /** \brief Check if given coordinates are within map boundaries
 * Checks if coordinates are within map boundaries
