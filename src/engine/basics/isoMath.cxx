@@ -5,6 +5,19 @@
 #include "settings.hxx"
 #include "point.hxx"
 
+Point calculateIsoCoordinates(const Point &screenCoordinates)
+{
+  int isoX =
+      static_cast<int>((screenCoordinates.x + Camera::cameraOffset.x + 2.0 * (screenCoordinates.y + Camera::cameraOffset.y)) /
+                           (Camera::tileSize.x * Camera::zoomLevel) +
+                       1);
+  int isoY =
+      static_cast<int>((screenCoordinates.x + Camera::cameraOffset.x - 2.0 * (screenCoordinates.y + Camera::cameraOffset.y)) /
+                       (Camera::tileSize.x * Camera::zoomLevel));
+
+  return {isoX, isoY, 0, 0};
+}
+
 Point convertIsoToScreenCoordinates(const Point &isoCoordinates, bool calcWithoutOffset)
 {
   int x, y;

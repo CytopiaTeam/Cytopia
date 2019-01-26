@@ -1,6 +1,7 @@
 #include "map.hxx"
 
 #include "basics/camera.hxx"
+#include "basics/isoMath.hxx"
 #include "basics/mapEdit.hxx"
 #include "basics/settings.hxx"
 #include "basics/log.hxx"
@@ -281,13 +282,9 @@ Point Map::findNodeInMap(const Point &screenCoordinates) const
   Point foundCoordinates{-1, -1, 0, 0};
 
   // calculate clicked column (x coordinate) without heigh taken into account.
-  int isoX =
-      static_cast<int>((screenCoordinates.x + Camera::cameraOffset.x + 2.0 * (screenCoordinates.y + Camera::cameraOffset.y)) /
-                           (32 * Camera::zoomLevel) +
-                       1);
-  int isoY =
-      static_cast<int>((screenCoordinates.x + Camera::cameraOffset.x - 2.0 * (screenCoordinates.y + Camera::cameraOffset.y)) /
-                       (32 * Camera::zoomLevel));
+  Point calculatedIsoCoords = calculateIsoCoordinates(screenCoordinates);
+  int isoX = calculatedIsoCoords.x;
+  int isoY = calculatedIsoCoords.y;
 
   bool run = true;
   // traverse a column from top to bottom (from the calculated coordinates)
