@@ -50,6 +50,7 @@ void UIManager::init()
       if (!uiLayout[it.key()][id]["Type"].is_null())
       {
         bool toggleButton = false;
+        std::string uiElementID;
         std::string actionID;
         std::string parentOf;
         std::string tooltipText;
@@ -94,6 +95,10 @@ void UIManager::init()
         {
           text = uiLayout[it.key()][id]["Text"].get<std::string>();
         }
+        if (!uiLayout[it.key()][id]["ID"].is_null())
+        {
+          uiElementID = uiLayout[it.key()][id]["ID"].get<std::string>();
+        }
 
         std::shared_ptr<UiElement> uiElement;
         // Create the ui elements
@@ -132,6 +137,7 @@ void UIManager::init()
         uiElement->setParentID(parentOf);
         uiElement->setGroupID(groupID);
         uiElement->setToggleButton(toggleButton);
+        uiElement->setUIElementID(uiElementID);
 
         if (!parentOf.empty())
         {
@@ -217,3 +223,13 @@ void UIManager::startTooltip(SDL_Event &event, const std::string &tooltipText)
 }
 
 void UIManager::stopTooltip() { _tooltip->reset(); }
+
+std::shared_ptr<UiElement> UIManager::getUiElementByID(const std::string& UiElementID)
+{
+  for (auto &it : _uiElements)
+  {
+    if (it->getUiElementData().elementID == UiElementID)
+      return it;
+  }
+  return nullptr;
+}

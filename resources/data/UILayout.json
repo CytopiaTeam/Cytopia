@@ -4,6 +4,7 @@
       "groupVisibility": true
     },
     {
+      "ID": "construction menu",
       "Type": "ImageButton",
       "SpriteID": "Button_ConstructionMenu",
       "Position_x": 400,
@@ -14,6 +15,7 @@
       "TooltipText": "Construction"
     },
     {
+      "ID": "roads menu",
       "Type": "ImageButton",
       "SpriteID": "Button_RoadsMenu",
       "Position_x": 480,
@@ -24,6 +26,7 @@
       "TooltipText": "Construction"
     },
     {
+      "ID": "debug menu",
       "Type": "ImageButton",
       "SpriteID": "Button_DebugMenu",
       "Position_x": 320,
@@ -34,6 +37,7 @@
       "TooltipText": "Debug Menu"
     },
     {
+      "ID": "power menu",
       "Type": "ImageButton",
       "SpriteID": "Button_PowerMenu",
       "Position_x": 240,
@@ -44,6 +48,7 @@
       "TooltipText": "Power"
     },
     {
+      "ID": "water menu",
       "Type": "ImageButton",
       "SpriteID": "Button_WaterMenu",
       "Position_x": 160,
@@ -56,6 +61,7 @@
   ],
   "RoadsSubMenu": [
     {
+      "ID": "button build paved roads",
       "Type": "ImageButton",
       "SpriteID": "Button_RoadsMenu_PavedRoad",
       "Position_x": 480,
@@ -67,6 +73,7 @@
       "TooltipText": "Paved Road"
     },
     {
+      "ID": "button build dirt roads",
       "Type": "ImageButton",
       "SpriteID": "Button_RoadsMenu_DirtRoad",
       "Position_x": 520,
@@ -80,6 +87,7 @@
   ],
   "ConstructionSubMenu": [
     {
+      "ID": "button demolish",
       "Type": "ImageButton",
       "SpriteID": "Button_ConstructionMenu_Demolish",
       "Position_x": 340,
@@ -90,6 +98,7 @@
       "TooltipText": "Demolish"
     },
     {
+      "ID": "button raise terrain",
       "Type": "ImageButton",
       "SpriteID": "Button_ConstructionMenu_RaiseTerrain",
       "Position_x": 380,
@@ -100,6 +109,7 @@
       "TooltipText": "Raise Terrain"
     },
     {
+      "ID": "button lower terrain",
       "Type": "ImageButton",
       "SpriteID": "Button_ConstructionMenu_LowerTerrain",
       "Position_x": 420,
@@ -110,6 +120,7 @@
       "TooltipText": "Lower Terrain"
     },
     {
+      "ID": "button level terrain",
       "Type": "ImageButton",
       "SpriteID": "Button_ConstructionMenu_LevelTerrain",
       "Position_x": 460,
@@ -120,6 +131,7 @@
       "TooltipText": "Level Terrain"
     },
     {
+      "ID": "button terrain water",
       "Type": "ImageButton",
       "SpriteID": "Button_ConstructionMenu_Water",
       "Position_x": 500,
@@ -133,6 +145,7 @@
   ],
   "PowerSubMenu": [
     {
+      "ID": "button power coal plant",
       "Type": "ImageButton",
       "SpriteID": "Button_RoadsMenu_PavedRoad",
       "Position_x": 240,
@@ -146,6 +159,7 @@
   ],
   "WaterSubMenu": [
     {
+      "ID": "button water watertower",
       "Type": "ImageButton",
       "SpriteID": "Button_RoadsMenu_PavedRoad",
       "Position_x": 140,
@@ -157,6 +171,7 @@
       "TooltipText": "Water Tower"
     },
     {
+      "ID": "button water watertower 2",
       "Type": "ImageButton",
       "SpriteID": "Button_RoadsMenu_DirtRoad",
       "Position_x": 180,

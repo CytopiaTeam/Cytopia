@@ -16,6 +16,15 @@
   */
 class UiElement
 {
+protected:
+  typedef struct
+  {
+    std::string elementID;
+
+  } ElementData;
+
+  ElementData elementData;
+
 public:
   //Initializes variables
   UiElement() = default;
@@ -167,6 +176,13 @@ public:
   */
   const std::string &getTooltipText() { return _tooltipText; };
 
+  /** \brief Get the uiElements tooltip text
+  * Get the tooltip text for this ui element. Tooltip is shown when hovering over a ui Element.
+  * @return tooltiptext as string
+  */
+  void setUIElementID(const std::string& elementID) { elementData.elementID = elementID; };
+
+
   /** \brief Set the uiElements sprite ID
   * Set the sprite ID this ui element. The texture will be retrieved from the textureManager for the according ID.
   * spriteIDs are mapped to image files in the UIData.json File in the resources/data dir.
@@ -178,6 +194,8 @@ public:
 
   const std::string getText() { return _text; };
 
+  const ElementData& getUiElementData() { return elementData; };
+
 private:
   SDL_Renderer *_renderer = WindowManager::instance().getRenderer();
   SDL_Window *_window = WindowManager::instance().getWindow();
@@ -186,6 +204,7 @@ private:
   SDL_Surface *_surface = nullptr;
 
   int _buttonState = BUTTONSTATE_DEFAULT;
+
 
   /// set to -1 for no sprite texture
   std::string _textureID;
@@ -203,6 +222,8 @@ private:
 protected:
   SDL_Texture *_texture = nullptr;
   SDL_Rect _uiElementRect{0, 0, 0, 0};
+
+
 
   void renderTexture();
 
