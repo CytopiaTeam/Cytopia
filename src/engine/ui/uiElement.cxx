@@ -11,7 +11,7 @@ void UiElement::draw()
 
 void UiElement::setTextureID(const std::string &textureID)
 {
-  _textureID = textureID;
+  elementData.textureID = textureID;
   SDL_Texture *texture = ResourcesManager::instance().getUITexture(textureID);
   if (texture)
   {
@@ -22,9 +22,9 @@ void UiElement::setTextureID(const std::string &textureID)
 
 void UiElement::changeButtonState(int state)
 {
-  if (_buttonState != state && !_textureID.empty())
+  if (_buttonState != state && !elementData.textureID.empty())
   {
-    changeTexture(ResourcesManager::instance().getUITexture(_textureID, state));
+    changeTexture(ResourcesManager::instance().getUITexture(elementData.textureID, state));
   }
   _buttonState = state;
 }
@@ -51,8 +51,8 @@ bool UiElement::isMouseOverHoverableArea(int x, int y)
 
 void UiElement::setText(const std::string &text)
 {
-  _text = text;
-  createTextTexture(_text, SDL_Color{255, 255, 255});
+  elementData.text = text;
+  createTextTexture(elementData.text, SDL_Color{255, 255, 255});
 }
 
 void UiElement::createTextTexture(const std::string &text, const SDL_Color &textColor)

@@ -20,6 +20,13 @@ protected:
   typedef struct
   {
     std::string elementID;
+    std::string text;
+    std::string tooltipText;
+    std::string actionID;
+    std::string groupName;
+    std::string parentOf;
+    std::string textureID;
+    bool isToggleButton = false;
 
   } ElementData;
 
@@ -99,14 +106,7 @@ public:
   * Group ID Name must be the same as used for groups in the UI Layout JSON File.
   * @param The name of the group the element nbelongs to as string
   */
-  void setGroupID(const std::string &groupName) { _groupName = groupName; };
-
-  /** \brief Get the Group ID of the UI Element.
-  * Retrieves the ID of the group the UI Elements belongs to.
-  * Group ID Name must be the same as used for groups in the UI Layout JSON File.
-  * @return The name of the group the element nbelongs to as string
-  */
-  const std::string &getGroupID() { return _groupName; };
+  void setGroupID(const std::string &groupName) { elementData.groupName = groupName; };
 
   /** \brief Set the ParentOf ID of the UI Element.
   * Retrieves the ID of the group that the UI Element is the parent of.
@@ -114,29 +114,14 @@ public:
   * For more details see our github wiki page
   * @param The parentOf ID as string
   */
-  void setParentID(const std::string &parentOf) { _parentOf = parentOf; };
-
-  /** \brief Get the ParentOf ID of the UI Element.
-  * Retrieves the ID of the group that the UI Element is the parent of. 
-  * Group ID Name must be the same as used for groups in the UI Layout JSON File.
-  * For more details see our github wiki page
-  * @return The parentOf ID as string
-  */
-  const std::string &getParentID() { return _parentOf; };
+  void setParentID(const std::string &parentOf) { elementData.parentOf = parentOf; };
 
   /** \brief Set the Action ID of the UI Element.
   * Sets the ID of the action the UI Element should execute when it's clicked.
   * For more details see our github wiki page
   * @param The Action ID as int
   */
-  void setActionID(const std::string &actionID) { _actionID = actionID; };
-
-  /** \brief Get the Action ID of the UI Element.
-  * Retrieves the ID of the action the UI Element should execute when it's clicked.
-  * For more details see our github wiki page
-  * @return The Action ID as int
-  */
-  const std::string &getActionID() { return _actionID; };
+  void setActionID(const std::string &actionID) { elementData.actionID = actionID; };
 
   /** \brief Set the button state
   * Sets the mouse button pressed state. 
@@ -156,32 +141,19 @@ public:
   * Set the button mode to toggle button, which means it stays pressed when its clicked.
   * @param toggleable if this is button a togglebutton as bool
   */
-  void setToggleButton(bool toggleable) { _toggleButton = toggleable; };
-
-  /** \brief Get the button mode (check if it is a toggleButton)
-  * Get the button mode (wether this is a toggle button or not), which means it stays pressed when its clicked.
-  * @return toggleable if this is button a togglebutton as bool
-  */
-  bool isToggleButton() { return _toggleButton; };
+  void setToggleButton(bool toggleable) { elementData.isToggleButton = toggleable; };
 
   /** \brief Set the uiElements tooltip text
   * Set the tooltip text for this ui element. Tooltip is shown when hovering over a ui Element.
   * @param tooltiptext as string
   */
-  void setTooltipText(const std::string &text) { _tooltipText = text; };
+  void setTooltipText(const std::string &text) { elementData.tooltipText = text; };
 
   /** \brief Get the uiElements tooltip text
   * Get the tooltip text for this ui element. Tooltip is shown when hovering over a ui Element.
   * @return tooltiptext as string
   */
-  const std::string &getTooltipText() { return _tooltipText; };
-
-  /** \brief Get the uiElements tooltip text
-  * Get the tooltip text for this ui element. Tooltip is shown when hovering over a ui Element.
-  * @return tooltiptext as string
-  */
-  void setUIElementID(const std::string& elementID) { elementData.elementID = elementID; };
-
+  void setUIElementID(const std::string &elementID) { elementData.elementID = elementID; };
 
   /** \brief Set the uiElements sprite ID
   * Set the sprite ID this ui element. The texture will be retrieved from the textureManager for the according ID.
@@ -192,9 +164,7 @@ public:
 
   virtual void setText(const std::string &text);
 
-  const std::string getText() { return _text; };
-
-  const ElementData& getUiElementData() { return elementData; };
+  const ElementData &getUiElementData() const { return elementData; };
 
 private:
   SDL_Renderer *_renderer = WindowManager::instance().getRenderer();
@@ -205,25 +175,14 @@ private:
 
   int _buttonState = BUTTONSTATE_DEFAULT;
 
-
-  /// set to -1 for no sprite texture
-  std::string _textureID;
-  std::string _actionID;
   bool _visible = true;
 
-  std::string _tooltipText = "";
-  std::string _parentOf = "";
-  std::string _groupName = "";
-  std::string _text = "";
-  /// is this a toggle button
-  bool _toggleButton = false;
+  /// workaround to find out, if we have a "clean" texture, or if there's text on it
   bool _textBlittedToTexture = false;
 
 protected:
   SDL_Texture *_texture = nullptr;
   SDL_Rect _uiElementRect{0, 0, 0, 0};
-
-
 
   void renderTexture();
 

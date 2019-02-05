@@ -51,7 +51,7 @@ std::string TextField::getTextFromID(int id)
 {
   if (id < _textVector.size())
   {
-    return _textVector[id]->getText();
+    return _textVector[id]->getUiElementData().text;
   }
   return "";
 }

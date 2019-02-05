@@ -206,7 +206,7 @@ void UIManager::toggleGroupVisibility(const std::string &groupID)
 {
   for (const std::shared_ptr<UiElement> &it : _uiElements)
   {
-    if (it->getGroupID() == groupID)
+    if (it->getUiElementData().groupName == groupID)
     {
       it->setVisibility(!it->isVisible());
     }
@@ -224,7 +224,7 @@ void UIManager::startTooltip(SDL_Event &event, const std::string &tooltipText)
 
 void UIManager::stopTooltip() { _tooltip->reset(); }
 
-std::shared_ptr<UiElement> UIManager::getUiElementByID(const std::string& UiElementID)
+std::shared_ptr<UiElement> UIManager::getUiElementByID(const std::string &UiElementID)
 {
   for (auto &it : _uiElements)
   {

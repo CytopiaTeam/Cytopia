@@ -25,12 +25,12 @@ void Button::onMouseButtonUp(const SDL_Event &event)
 {
   clickSignal.emit();
 
-  if (!getParentID().empty())
+  if (!elementData.parentOf.empty())
   {
-    toggleGroupSignal.emit(getParentID());
+    toggleGroupSignal.emit(elementData.parentOf);
   }
 
-  if (!isToggleButton())
+  if (!elementData.isToggleButton)
   {
     changeButtonState(BUTTONSTATE_DEFAULT);
   }
@@ -47,7 +47,7 @@ void Button::onMouseButtonUp(const SDL_Event &event)
 
 void Button::onMouseButtonDown(const SDL_Event &event)
 {
-  if (!isToggleButton())
+  if (!elementData.isToggleButton)
   {
     changeButtonState(BUTTONSTATE_CLICKED);
   }
@@ -62,7 +62,7 @@ void Button::onMouseEnter(const SDL_Event &event)
 {
   if (event.button.button == SDL_BUTTON_LEFT)
   {
-    if (!isToggleButton())
+    if (!elementData.isToggleButton)
     {
     }
     else
@@ -79,7 +79,7 @@ void Button::onMouseEnter(const SDL_Event &event)
 
 void Button::onMouseLeave(const SDL_Event &event)
 {
-  if (isToggleButton())
+  if (elementData.isToggleButton)
   {
     changeButtonState(_isButtonToggled ? BUTTONSTATE_CLICKED : BUTTONSTATE_DEFAULT);
     _isMouseButtonDown = false;

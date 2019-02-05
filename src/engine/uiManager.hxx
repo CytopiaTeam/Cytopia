@@ -36,7 +36,7 @@ public:
 
   const std::vector<std::shared_ptr<UiElement>> &getAllUiElements() const { return _uiElements; };
 
-  std::shared_ptr<UiElement> getUiElementByID(const std::string& UiElement);
+  std::shared_ptr<UiElement> getUiElementByID(const std::string &UiElement);
   void startTooltip(SDL_Event &event, const std::string &tooltipText);
 
   void stopTooltip();

@@ -180,9 +180,9 @@ bool EventManager::dispatchUiEvents(SDL_Event &event)
         }
 
         // handle tooltips
-        if (!it->getTooltipText().empty())
+        if (!it->getUiElementData().tooltipText.empty())
         {
-          uiManager.startTooltip(event, it->getTooltipText());
+          uiManager.startTooltip(event, it->getUiElementData().tooltipText);
         }
         else
         {
