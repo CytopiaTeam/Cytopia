@@ -50,6 +50,7 @@ void UIManager::init()
       if (!uiLayout[it.key()][id]["Type"].is_null())
       {
         bool toggleButton = false;
+        bool drawFrame = false;
         std::string uiElementID;
         std::string actionID;
         std::string parentOf;
@@ -99,6 +100,10 @@ void UIManager::init()
         {
           uiElementID = uiLayout[it.key()][id]["ID"].get<std::string>();
         }
+        if (!uiLayout[it.key()][id]["DrawFrame"].is_null())
+        {
+          drawFrame = uiLayout[it.key()][id]["DrawFrame"].get<bool>();
+        }
 
         std::shared_ptr<UiElement> uiElement;
         // Create the ui elements
@@ -138,6 +143,7 @@ void UIManager::init()
         uiElement->setGroupID(groupID);
         uiElement->setToggleButton(toggleButton);
         uiElement->setUIElementID(uiElementID);
+        uiElement->drawImageButtonFrame(drawFrame);
 
         if (!parentOf.empty())
         {

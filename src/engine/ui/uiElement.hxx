@@ -166,6 +166,8 @@ public:
 
   const ElementData &getUiElementData() const { return elementData; };
 
+  virtual void drawImageButtonFrame(bool drawFrame){};
+
 private:
   SDL_Renderer *_renderer = WindowManager::instance().getRenderer();
   SDL_Window *_window = WindowManager::instance().getWindow();

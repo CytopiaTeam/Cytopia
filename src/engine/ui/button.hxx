@@ -19,6 +19,8 @@ public:
   void onMouseEnter(const SDL_Event &event) override;
   void onMouseLeave(const SDL_Event &event) override;
 
+  void drawImageButtonFrame(bool drawFrame) override;
+
   void registerCallbackFunction(std::function<void()> const &cb) override;
   void registerToggleUIFunction(std::function<void(const std::string &)> const &cb) override;
 
@@ -29,6 +31,8 @@ private:
 
   bool _isMouseButtonDown = false;
   bool _isButtonToggled = false;
+
+  bool _drawFrame = false;
 
   Signal::Signal<void()> clickSignal;
   Signal::Signal<void(const std::string &)> toggleGroupSignal;

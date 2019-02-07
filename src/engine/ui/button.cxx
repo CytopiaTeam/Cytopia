@@ -13,6 +13,11 @@ void Button::draw()
     drawButtonFrame(_rect);
   }
 
+  if (_drawFrame)
+  {
+    drawButtonFrame(_uiElementRect);
+  }
+
   _buttonLabel->draw();
 
   // render the buttons texture if available
@@ -92,3 +97,5 @@ void Button::onMouseLeave(const SDL_Event &event)
 
 void Button::registerCallbackFunction(std::function<void()> const &cb) { clickSignal.connect(cb); }
 void Button::registerToggleUIFunction(std::function<void(const std::string &)> const &cb) { toggleGroupSignal.connect(cb); }
+
+void Button::drawImageButtonFrame(bool drawFrame) { _drawFrame = drawFrame; }

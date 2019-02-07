@@ -95,6 +95,7 @@
       "Action": "Demolish",
       "Layout": "BottomMenuExpansionGroup",
       "ToggleButton": true,
+      "DrawFrame": true,
       "TooltipText": "Demolish"
     },
     {
@@ -106,6 +107,7 @@
       "Action": "RaiseTerrain",
       "Layout": "BottomMenuExpansionGroup",
       "ToggleButton": true,
+      "DrawFrame": true,
       "TooltipText": "Raise Terrain"
     },
     {
@@ -117,6 +119,7 @@
       "Action": "LowerTerrain",
       "Layout": "BottomMenuExpansionGroup",
       "ToggleButton": true,
+      "DrawFrame": true,
       "TooltipText": "Lower Terrain"
     },
     {
@@ -128,6 +131,7 @@
       "Action": "LevelTerrain",
       "Layout": "BottomMenuExpansionGroup",
       "ToggleButton": true,
+      "DrawFrame": true,
       "TooltipText": "Level Terrain"
     },
     {
@@ -140,6 +144,7 @@
       "TileType": "water",
       "Layout": "BottomMenuExpansionGroup",
       "ToggleButton": true,
+      "DrawFrame": true,
       "TooltipText": "Water"
     }
   ],
