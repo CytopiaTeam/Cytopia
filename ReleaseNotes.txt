@@ -1,4 +1,15 @@
-Isometric Engine 
+Cytopia
+
+v0.1
+- Renamed the Project to Cytopia
+- Added a Qt based tool to edit TileData JSON File (by Kollix)
+- A lot of new buildings by Kingtut 101 and Pineapples Trix
+- Placement of buildings (Power, Water, Debug, ...)
+- Support tilemaps and improved tilemanagement
+- Camera panning (hold down right mouse button)
+- Added a background image for image buttons. 
+- Added window and desktop icons
+- Performance Improvements and code refactoring
 
 v0.0.2
 - Improved User Interface Library
