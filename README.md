@@ -88,6 +88,7 @@ If you are on a linux system, you can use:
 #### Work-in-Progress Screenshot
 
 ![alt text](https://raw.githubusercontent.com/JimmySnails/Cytopia/master/images/Screenshot1.png)
+![alt text](https://raw.githubusercontent.com/JimmySnails/Cytopia/master/images/Screenshot2.png)
 
 #### Latest build
 
