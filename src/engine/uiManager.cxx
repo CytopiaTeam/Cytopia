@@ -153,12 +153,14 @@ void UIManager::init()
         {
           uiElement->registerCallbackFunction([]() {
             terrainEditMode == TerrainEdit::RAISE ? terrainEditMode = TerrainEdit::NONE : terrainEditMode = TerrainEdit::RAISE;
+            terrainEditMode == TerrainEdit::NONE ? highlightSelection = false : highlightSelection = true;
           });
         }
         else if (actionID == "LowerTerrain")
         {
           uiElement->registerCallbackFunction([]() {
             terrainEditMode == TerrainEdit::LOWER ? terrainEditMode = TerrainEdit::NONE : terrainEditMode = TerrainEdit::LOWER;
+            terrainEditMode == TerrainEdit::NONE ? highlightSelection = false : highlightSelection = true;
           });
         }
         else if (actionID == "QuitGame")
@@ -167,7 +169,10 @@ void UIManager::init()
         }
         else if (actionID == "Demolish")
         {
-          uiElement->registerCallbackFunction([]() { demolishMode = !demolishMode; });
+          uiElement->registerCallbackFunction([]() {
+            demolishMode = !demolishMode;
+            demolishMode ? highlightSelection = true : highlightSelection = false;
+          });
         }
         else if (actionID == "ChangeTileType")
         {
@@ -176,8 +181,10 @@ void UIManager::init()
             text = uiLayout[it.key()][id]["Text"].get<std::string>();
           }
           std::string type = uiLayout[it.key()][id].value("TileType", "");
-          uiElement->registerCallbackFunction(
-              [type]() { tileTypeEditMode == type ? tileTypeEditMode = "" : tileTypeEditMode = type; });
+          uiElement->registerCallbackFunction([type]() {
+            tileTypeEditMode == type ? tileTypeEditMode = "" : tileTypeEditMode = type;
+            tileTypeEditMode == type ? highlightSelection = true : highlightSelection = false;
+          });
         }
         // store the element in a vector
         _uiElements.emplace_back(uiElement);

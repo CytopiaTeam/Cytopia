@@ -359,12 +359,14 @@ void Map::highlightNode(const Point &isoCoordinates)
   {
     highlitNode->getSprite()->highlight(false);
   }
-
-  int index = isoCoordinates.x * _columns + isoCoordinates.y;
-
-  if (index >= 0 && index < _mapNodes.size())
+  if (highlightSelection)
   {
-    highlitNode = _mapNodes.at(index);
-    highlitNode->getSprite()->highlight(true);
+    int index = isoCoordinates.x * _columns + isoCoordinates.y;
+
+    if (index >= 0 && index < _mapNodes.size())
+    {
+      highlitNode = _mapNodes.at(index);
+      highlitNode->getSprite()->highlight(true);
+    }
   }
 }
