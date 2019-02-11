@@ -8,6 +8,7 @@ v0.1
 - Support tilemaps and improved tilemanagement
 - Camera panning (hold down right mouse button)
 - Added a background image for image buttons. 
+- highlight mouse over tile when in edit/placement mode
 - Added window and desktop icons
 - Performance Improvements and code refactoring
 
