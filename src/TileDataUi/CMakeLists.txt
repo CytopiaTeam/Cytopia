@@ -1,4 +1,4 @@
-set(TARGET TileDataUi)
+set(TARGET TileDataEditor)
 
 set(SOURCES
 main.cxx
