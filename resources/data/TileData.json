@@ -1,172 +1,292 @@
 [
-  {
-    "id": "terrain",
-    "type": "terrain",
-    "tiles": {
-      "fileName": "resources/images/terrain/terrain_tiles.png",
-      "count": 3,
-      "clip_width": 32,
-      "clip_height": 16
+    {
+        "author": "Kingtut 101",
+        "cornerTiles": {
+            "clip_height": 0,
+            "clip_width": 0,
+            "count": 0,
+            "fileName": ""
+        },
+        "description": "com_1x1_ClockStore1",
+        "id": "com_1x1_ClockStore1",
+        "power": 0,
+        "price": 5,
+        "slopeTiles": {
+            "clip_height": 0,
+            "clip_width": 0,
+            "count": 0,
+            "fileName": ""
+        },
+        "tiles": {
+            "clip_height": 32,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/com_1x1_ClockStore1.png"
+        },
+        "title": "com_1x1_ClockStore1",
+        "type": "commercial",
+        "upkeep cost": 0,
+        "water": 0
     },
-    "slopeTiles": {
-      "fileName": "resources/images/terrain/terrain_slopes.png",
-      "count": 13,
-      "clip_width": 32,
-      "clip_height": 32
+    {
+        "author": "Kingtut 101",
+        "cornerTiles": {
+            "clip_height": 0,
+            "clip_width": 0,
+            "count": 0,
+            "fileName": ""
+        },
+        "description": "com_2x2_office",
+        "id": "com_2x2_office",
+        "power": 0,
+        "price": 5,
+        "slopeTiles": {
+            "clip_height": 0,
+            "clip_width": 0,
+            "count": 0,
+            "fileName": ""
+        },
+        "tiles": {
+            "clip_height": 64,
+            "clip_width": 64,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/com_2x2_office.png"
+        },
+        "title": "com_2x2_office",
+        "type": "commercial",
+        "upkeep cost": 0,
+        "water": 0
     },
-    "title": "Terrain",
-    "description": "Terrain tiles",
-    "price": 0,
-    "upkeep cost": 0,
-    "power": 0,
-    "water": 0,
-    "author": "Kingtut 101"
-  },
-  {
-    "id": "paved_road",
-    "type": "road",
-    "tiles": {
-      "fileName": "resources/images/roads/paved_road.png",
-      "count": 16,
-      "clip_width": 32,
-      "clip_height": 16
+    {
+        "author": "Kingtut 101",
+        "cornerTiles": {
+            "clip_height": 0,
+            "clip_width": 0,
+            "count": 0,
+            "fileName": ""
+        },
+        "description": "Country Road... takes you home!",
+        "id": "country_road",
+        "power": 0,
+        "price": 7,
+        "slopeTiles": {
+            "clip_height": 29,
+            "clip_width": 32,
+            "count": 4,
+            "fileName": "resources/images/roads/road_country_slopes.png"
+        },
+        "tiles": {
+            "clip_height": 16,
+            "clip_width": 32,
+            "count": 16,
+            "fileName": "resources/images/roads/road_country.png"
+        },
+        "title": "Country Road",
+        "type": "road",
+        "upkeep cost": 2,
+        "water": 0
     },
-    "slopeTiles": {
-      "fileName": "resources/images/roads/paved_road_slopes.png",
-      "count": 4,
-      "clip_width": 32,
-      "clip_height": 32
+    {
+        "author": "Kingtut 101",
+        "cornerTiles": {
+            "clip_height": 0,
+            "clip_width": 0,
+            "count": 0,
+            "fileName": ""
+        },
+        "description": "A Road, that hasn't been cleaned often",
+        "id": "dirt_road",
+        "power": 0,
+        "price": 3,
+        "slopeTiles": {
+            "clip_height": 32,
+            "clip_width": 32,
+            "count": 4,
+            "fileName": "resources/images/roads/dirt_road_slopes.png"
+        },
+        "tiles": {
+            "clip_height": 16,
+            "clip_width": 32,
+            "count": 16,
+            "fileName": "resources/images/roads/dirt_road.png"
+        },
+        "title": "Dirt Road",
+        "type": "road",
+        "upkeep cost": 1,
+        "water": 0
     },
-    "title": "Paved Road",
-    "description": "Paved Road",
-    "price": 10,
-    "upkeep cost": 2,
-    "power": 0,
-    "water": 0,
-    "author": "Kingtut 101"
-  },
-  {
-    "id": "dirt_road",
-    "type": "road",
-    "tiles": {
-      "fileName": "resources/images/roads/dirt_road.png",
-      "count": 16,
-      "clip_width": 32,
-      "clip_height": 16
+    {
+        "author": "Kingtut 101",
+        "cornerTiles": {
+            "clip_height": 0,
+            "clip_width": 0,
+            "count": 0,
+            "fileName": ""
+        },
+        "description": "Paved Road",
+        "id": "paved_road",
+        "power": 0,
+        "price": 10,
+        "slopeTiles": {
+            "clip_height": 32,
+            "clip_width": 32,
+            "count": 4,
+            "fileName": "resources/images/roads/paved_road_slopes.png"
+        },
+        "tiles": {
+            "clip_height": 16,
+            "clip_width": 32,
+            "count": 16,
+            "fileName": "resources/images/roads/paved_road.png"
+        },
+        "title": "Paved Road",
+        "type": "road",
+        "upkeep cost": 2,
+        "water": 0
     },
-    "slopeTiles": {
-      "fileName": "resources/images/roads/dirt_road_slopes.png",
-      "count": 4,
-      "clip_width": 32,
-      "clip_height": 32
+    {
+        "author": "Kingtut 101",
+        "cornerTiles": {
+            "clip_height": 0,
+            "clip_width": 0,
+            "count": 0,
+            "fileName": ""
+        },
+        "description": "pow_3x3_CoalPlant",
+        "id": "pow_3x3_CoalPlant",
+        "power": 0,
+        "price": 5,
+        "slopeTiles": {
+            "clip_height": 0,
+            "clip_width": 0,
+            "count": 0,
+            "fileName": ""
+        },
+        "tiles": {
+            "clip_height": 73,
+            "clip_width": 96,
+            "count": 1,
+            "fileName": "resources/images/buildings/Power Plants/pow_3x3_CoalPlant.png"
+        },
+        "title": "pow_3x3_CoalPlant",
+        "type": "power",
+        "upkeep cost": 0,
+        "water": 0
     },
-    "title": "Dirt Road",
-    "description": "A Road, that hasn't been cleaned often",
-    "price": 3,
-    "upkeep cost": 1,
-    "power": 0,
-    "water": 0,
-    "author": "Kingtut 101",
-    "draw ground": true
-  },
-  {
-    "id": "water",
-    "type": "water",
-    "tiles": {
-      "fileName": "resources/images/water/terrain_water.png",
-      "count": 1
+    {
+        "author": "Kingtut 101",
+        "cornerTiles": {
+            "clip_height": 0,
+            "clip_width": 0,
+            "count": 0,
+            "fileName": ""
+        },
+        "description": "Terrain tiles",
+        "id": "terrain",
+        "power": 0,
+        "price": 0,
+        "slopeTiles": {
+            "clip_height": 32,
+            "clip_width": 32,
+            "count": 13,
+            "fileName": "resources/images/terrain/terrain_slopes.png"
+        },
+        "tiles": {
+            "clip_height": 16,
+            "clip_width": 32,
+            "count": 3,
+            "fileName": "resources/images/terrain/terrain_tiles.png"
+        },
+        "title": "Terrain",
+        "type": "terrain",
+        "upkeep cost": 0,
+        "water": 0
     },
-    "title": "Water",
-    "description": "Water",
-    "price": 5,
-    "upkeep cost": 0,
-    "power": 0,
-    "water": 0,
-    "author": "Kingtut 101"
-  },
-  {
-    "id": "com_1x1_ClockStore1",
-    "type": "commercial",
-    "tiles": {
-      "fileName": "resources/images/buildings/commercial/com_1x1_ClockStore1.png",
-      "count": 1,
-      "clip_width": 32,
-      "clip_height": 32
+    {
+        "author": "Kingtut 101",
+        "cornerTiles": {
+            "clip_height": 0,
+            "clip_width": 0,
+            "count": 0,
+            "fileName": ""
+        },
+        "description": "Water",
+        "id": "water",
+        "power": 0,
+        "price": 5,
+        "slopeTiles": {
+            "clip_height": 0,
+            "clip_width": 0,
+            "count": 0,
+            "fileName": ""
+        },
+        "tiles": {
+            "clip_height": 0,
+            "clip_width": 0,
+            "count": 1,
+            "fileName": "resources/images/water/terrain_water.png"
+        },
+        "title": "Water",
+        "type": "water",
+        "upkeep cost": 0,
+        "water": 0
     },
-    "title": "com_1x1_ClockStore1",
-    "description": "com_1x1_ClockStore1",
-    "price": 5,
-    "upkeep cost": 0,
-    "power": 0,
-    "water": 0,
-    "author": "Kingtut 101"
-  },
-  {
-    "id": "com_2x2_office",
-    "type": "commercial",
-    "tiles": {
-      "fileName": "resources/images/buildings/commercial/com_2x2_office.png",
-      "count": 1,
-      "clip_width": 64,
-      "clip_height": 64
+    {
+        "author": "Kingtut 101",
+        "cornerTiles": {
+            "clip_height": 0,
+            "clip_width": 0,
+            "count": 0,
+            "fileName": ""
+        },
+        "description": "com_2x2_office",
+        "id": "watertower",
+        "power": 0,
+        "price": 5,
+        "slopeTiles": {
+            "clip_height": 0,
+            "clip_width": 0,
+            "count": 0,
+            "fileName": ""
+        },
+        "tiles": {
+            "clip_height": 64,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/Water/watertower.png"
+        },
+        "title": "com_2x2_office",
+        "type": "utilities",
+        "upkeep cost": 0,
+        "water": 0
     },
-    "title": "com_2x2_office",
-    "description": "com_2x2_office",
-    "price": 5,
-    "upkeep cost": 0,
-    "power": 0,
-    "water": 0,
-    "author": "Kingtut 101"
-  },
-  {
-    "id": "pow_3x3_CoalPlant",
-    "type": "power",
-    "tiles": {
-      "fileName": "resources/images/buildings/Power Plants/pow_3x3_CoalPlant.png",
-      "count": 1,
-      "clip_width": 96,
-      "clip_height": 73
-    },
-    "title": "pow_3x3_CoalPlant",
-    "description": "pow_3x3_CoalPlant",
-    "price": 5,
-    "upkeep cost": 0,
-    "power": 0,
-    "water": 0,
-    "author": "Kingtut 101"
-  },
-  {
-    "id": "watertower",
-    "type": "utilities",
-    "tiles": {
-      "fileName": "resources/images/buildings/Water/watertower.png",
-      "count": 1,
-      "clip_width": 32,
-      "clip_height": 64
-    },
-    "title": "com_2x2_office",
-    "description": "com_2x2_office",
-    "price": 5,
-    "upkeep cost": 0,
-    "power": 0,
-    "water": 0,
-    "author": "Kingtut 101"
-  },
-  {
-    "id": "watertower2",
-    "type": "utilities",
-    "tiles": {
-      "fileName": "resources/images/buildings/Water/watertower2.png",
-      "count": 1,
-      "clip_width": 32,
-      "clip_height": 32
-    },
-    "title": "com_2x2_office",
-    "description": "com_2x2_office",
-    "price": 5,
-    "upkeep cost": 0,
-    "power": 0,
-    "water": 0,
-    "author": "Kingtut 101"
-  }
+    {
+        "author": "Kingtut 101",
+        "cornerTiles": {
+            "clip_height": 0,
+            "clip_width": 0,
+            "count": 0,
+            "fileName": ""
+        },
+        "description": "com_2x2_office",
+        "id": "watertower2",
+        "power": 0,
+        "price": 5,
+        "slopeTiles": {
+            "clip_height": 0,
+            "clip_width": 0,
+            "count": 0,
+            "fileName": ""
+        },
+        "tiles": {
+            "clip_height": 32,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/Water/watertower2.png"
+        },
+        "title": "com_2x2_office",
+        "type": "utilities",
+        "upkeep cost": 0,
+        "water": 0
+    }
 ]

@@ -83,6 +83,18 @@
       "Layout": "BottomMenuExpansionGroup",
       "ToggleButton": true,
       "TooltipText": "Dirt Road"
+    },
+    {
+      "ID": "button build country roads",
+      "Type": "ImageButton",
+      "SpriteID": "Button_RoadsMenu_CountryRoad",
+      "Position_x": 560,
+      "Position_y": 470,
+      "Action": "ChangeTileType",
+      "TileType" : "country_road",
+      "Layout": "BottomMenuExpansionGroup",
+      "ToggleButton": true,
+      "TooltipText": "Country Road"
     }
   ],
   "ConstructionSubMenu": [
