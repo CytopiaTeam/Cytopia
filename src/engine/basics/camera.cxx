@@ -41,8 +41,8 @@ void Camera::centerScreenOnPoint(const Point &isoCoordinates)
     y = static_cast<int>((screenCoordinates.y + (tileSize.y * zoomLevel) * 0.25) -
                          Settings::instance().settings.screenHeight * 0.5);
 
-    x -= (tileSize.x * zoomLevel) * 0.75;
-    y -= tileSize.y * zoomLevel;
+    x -= static_cast<int>((tileSize.x * zoomLevel) * 0.75);
+    y -= static_cast<int>(tileSize.y * zoomLevel);
 
     cameraOffset = {x, y};
     Engine::instance().getMap()->refresh();
