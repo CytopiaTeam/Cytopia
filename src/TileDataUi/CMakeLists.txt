@@ -30,6 +30,7 @@ if ( WIN32 )
   install (FILES $<TARGET_FILE:Qt5::Core> DESTINATION .)
   install (FILES $<TARGET_FILE:Qt5::Gui> DESTINATION .)
   install (FILES $<TARGET_FILE:Qt5::Widgets> DESTINATION .)
+  install (FILES $<TARGET_FILE:Qt5::QWindowsIntegrationPlugin> DESTINATION platforms)
 
   # copy the qt libraries over to the build directory so the tool can be started
   add_custom_command(
