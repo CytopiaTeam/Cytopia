@@ -93,4 +93,4 @@ If you are on a linux system, you can use:
 #### Latest build
 
 .deb Package:
-https://jimmysnails.github.io/IsometricEngine/build/Cytopia-0.1-Linux.deb
+https://jimmysnails.github.io/Cytopia/build/Cytopia-0.1-Linux.deb
