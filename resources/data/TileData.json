@@ -24,7 +24,7 @@
             "fileName": "resources/images/buildings/commercial/com_1x1_ClockStore1.png"
         },
         "title": "com_1x1_ClockStore1",
-        "type": "commercial",
+        "category": "commercial",
         "upkeep cost": 0,
         "water": 0
     },
@@ -53,7 +53,7 @@
             "fileName": "resources/images/buildings/commercial/com_2x2_office.png"
         },
         "title": "com_2x2_office",
-        "type": "commercial",
+        "category": "commercial",
         "upkeep cost": 0,
         "water": 0
     },
@@ -82,7 +82,7 @@
             "fileName": "resources/images/roads/road_country.png"
         },
         "title": "Country Road",
-        "type": "road",
+        "category": "road",
         "upkeep cost": 2,
         "water": 0
     },
@@ -111,7 +111,7 @@
             "fileName": "resources/images/roads/dirt_road.png"
         },
         "title": "Dirt Road",
-        "type": "road",
+        "category": "road",
         "upkeep cost": 1,
         "water": 0
     },
@@ -140,7 +140,7 @@
             "fileName": "resources/images/roads/paved_road.png"
         },
         "title": "Paved Road",
-        "type": "road",
+        "category": "road",
         "upkeep cost": 2,
         "water": 0
     },
@@ -169,7 +169,7 @@
             "fileName": "resources/images/buildings/Power Plants/pow_3x3_CoalPlant.png"
         },
         "title": "pow_3x3_CoalPlant",
-        "type": "power",
+        "category": "power",
         "upkeep cost": 0,
         "water": 0
     },
@@ -198,7 +198,7 @@
             "fileName": "resources/images/terrain/terrain_tiles.png"
         },
         "title": "Terrain",
-        "type": "terrain",
+        "category": "terrain",
         "upkeep cost": 0,
         "water": 0
     },
@@ -227,7 +227,7 @@
             "fileName": "resources/images/water/terrain_water.png"
         },
         "title": "Water",
-        "type": "water",
+        "category": "water",
         "upkeep cost": 0,
         "water": 0
     },
@@ -256,7 +256,7 @@
             "fileName": "resources/images/buildings/Water/watertower.png"
         },
         "title": "com_2x2_office",
-        "type": "utilities",
+        "category": "utilities",
         "upkeep cost": 0,
         "water": 0
     },
@@ -285,7 +285,7 @@
             "fileName": "resources/images/buildings/Water/watertower2.png"
         },
         "title": "com_2x2_office",
-        "type": "utilities",
+        "category": "utilities",
         "upkeep cost": 0,
         "water": 0
     }

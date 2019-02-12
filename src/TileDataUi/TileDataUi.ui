@@ -37,7 +37,7 @@
     </widget>
    </item>
    <item row="1" column="1">
-    <widget class="QLineEdit" name="type">
+    <widget class="QLineEdit" name="category">
      <property name="toolTip">
       <string>The  category this item resides in. Categories are used for the building menu in-game and for sorting the items in the editors tree view</string>
      </property>

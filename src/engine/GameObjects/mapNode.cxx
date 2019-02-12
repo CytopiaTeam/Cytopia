@@ -53,13 +53,13 @@ void MapNode::updateTexture()
   _tileMap = TileMap::DEFAULT;
 
   // only calculate orientation for textures that adjust themselves according to elevation / other tiles of the same id
-  if (_tileData->type == "terrain" || _tileData->type == "road" || _tileData->type == "water")
+  if (_tileData->category == "terrain" || _tileData->category == "road" || _tileData->category == "water")
   {
     _orientation = TileManager::instance().caluclateSlopeOrientation(_elevationBitmask);
 
     if (_orientation == TileSlopes::DEFAULT_ORIENTATION)
     {
-      if (_tileData->type != "terrain")
+      if (_tileData->category != "terrain")
       {
         _orientation = TileManager::instance().caluclateTileOrientation(_tileIDBitmask);
       }

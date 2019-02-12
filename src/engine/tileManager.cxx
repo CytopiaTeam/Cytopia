@@ -273,7 +273,7 @@ void TileManager::init()
     tileData[id].author = tileDataJSON[idx].value("author", "");
     tileData[id].title = tileDataJSON[idx].value("title", "");
     tileData[id].description = tileDataJSON[idx].value("description", "");
-    tileData[id].type = tileDataJSON[idx].value("type", "");
+    tileData[id].category = tileDataJSON[idx].value("category", "");
     tileData[id].price = tileDataJSON[idx].value("price", 0);
     tileData[id].water = tileDataJSON[idx].value("water", 0);
     tileData[id].drawGround = tileDataJSON[idx].value("draw ground", false);

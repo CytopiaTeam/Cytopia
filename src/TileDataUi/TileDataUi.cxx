@@ -30,7 +30,7 @@ TileDataUi::TileDataUi()
   splitter->addWidget(w);
 
   ui.id->setMaxLength(TD_ID_MAX_CHARS);
-  ui.type->setMaxLength(TD_TYPE_MAX_CHARS);
+  ui.category->setMaxLength(TD_CATEGORY_MAX_CHARS);
   ui.title->setMaxLength(TD_TITLE_MAX_CHARS);
   ui.author->setMaxLength(TD_AUTHOR_MAX_CHARS);
   ui.buildCost->setRange(TD_PRICE_MIN, TD_PRICE_MAX);
@@ -182,22 +182,22 @@ bool TileDataUi::loadFile(const QString &fileName)
     return false;
   }
 
-  QMap<QString, QTreeWidgetItem *> types;
+  QMap<QString, QTreeWidgetItem *> categories;
   for (const TileData &tile : tileContainer)
   {
-    QString type(QString::fromStdString(tile.type));
+    QString category(QString::fromStdString(tile.category));
 
-    if ( !types.contains(type) )
+    if ( !categories.contains(category) )
     {
       QTreeWidgetItem *item = newTreeRootItem(tile);
-      types.insert(type, item);
+      categories.insert(category, item);
     }
   }
 
   for (const TileData &tile : tileContainer)
   {
-    QString type(QString::fromStdString(tile.type));
-    QTreeWidgetItem *root = types.value(type);
+    QString category(QString::fromStdString(tile.category));
+    QTreeWidgetItem *root = categories.value(category);
 
     root->addChild(newTreeItem(tile));
   }
@@ -228,9 +228,9 @@ void TileDataUi::itemSelected(QTreeWidgetItem *current, QTreeWidgetItem *previou
       previous->setText(0, ui.title->text());
       previous->setData(0, Qt::UserRole, ui.id->text());
 
-      // if type changed, move item
+      // if category changed, move item
       QTreeWidgetItem *root = previous->parent();
-      if ( ui.type->text() != root->text(0) )
+      if ( ui.category->text() != root->text(0) )
       {
         int idx = root->indexOfChild(previous);
         QTreeWidgetItem *item = root->takeChild(idx);
@@ -242,10 +242,10 @@ void TileDataUi::itemSelected(QTreeWidgetItem *current, QTreeWidgetItem *previou
           delete root;
         }
 
-        // find new type
+        // find new category
         for (int i = 0; i < tree->topLevelItemCount(); i++)
         {
-          if ( tree->topLevelItem(i)->text(0) == ui.type->text() )  // new parent found
+          if ( tree->topLevelItem(i)->text(0) == ui.category->text() )  // new parent found
           {
             tree->topLevelItem(i)->addChild(item);
             item = nullptr;
@@ -253,7 +253,7 @@ void TileDataUi::itemSelected(QTreeWidgetItem *current, QTreeWidgetItem *previou
           }
         }
 
-        if ( item )  // only if no toplevel type node found - create a new one
+        if ( item )  // only if no toplevel category node found - create a new one
         {
           QTreeWidgetItem *root = newTreeRootItem(tile);
           root->addChild(item);
@@ -274,11 +274,11 @@ void TileDataUi::itemSelected(QTreeWidgetItem *current, QTreeWidgetItem *previou
 
 void TileDataUi::ensureUniqueId(TileData &tile)
 {
-  if ( tile.type.empty() )
-    tile.type = "unknown type";
+  if ( tile.category.empty() )
+    tile.category = "unknown category";
 
   if ( tile.id.empty() )
-    tile.id = tile.type + "1";
+    tile.id = tile.category + "1";
 
   QString id = QString::fromStdString(tile.id);
 
@@ -306,7 +306,7 @@ void TileDataUi::ensureUniqueId(TileData &tile)
 void TileDataUi::writeToTileData(TileData &tile)
 {
   tile.id = ui.id->text().toStdString();
-  tile.type = ui.type->text().toStdString();
+  tile.category = ui.category->text().toStdString();
   tile.title = ui.title->text().toStdString();
   tile.description = ui.description->toPlainText().toStdString();
   tile.author = ui.author->text().toStdString();
@@ -329,7 +329,7 @@ void TileDataUi::writeToTileData(TileData &tile)
 void TileDataUi::readFromTileData(const TileData &tile)
 {
   ui.id->setText(QString::fromStdString(tile.id));
-  ui.type->setText(QString::fromStdString(tile.type));
+  ui.category->setText(QString::fromStdString(tile.category));
   ui.title->setText(QString::fromStdString(tile.title));
   ui.description->setPlainText(QString::fromStdString(tile.description));
   ui.author->setText(QString::fromStdString(tile.author));
@@ -384,7 +384,7 @@ QTreeWidgetItem *TileDataUi::newTreeRootItem(const TileData &tile)
 {
   QTreeWidgetItem *root = new QTreeWidgetItem(tree);
   root->setIcon(0, QIcon::fromTheme("folder"));
-  root->setText(0, QString::fromStdString(tile.type));
+  root->setText(0, QString::fromStdString(tile.category));
   root->setExpanded(true);
 
   return root;
@@ -413,10 +413,10 @@ void TileDataUi::newItem()
     if ( tree->currentItem()->data(0, Qt::UserRole).isValid() )  // item, not root
     {
       QString id = tree->currentItem()->data(0, Qt::UserRole).toString();
-      tile.type = tileContainer.getTileData(id).type;
+      tile.category = tileContainer.getTileData(id).category;
     }
     else
-      tile.type = tree->currentItem()->text(0).toStdString();  // root
+      tile.category = tree->currentItem()->text(0).toStdString();  // root
 
     tree->setCurrentItem(nullptr);  // and select nothing (this calls itemSelected)
   }
@@ -425,7 +425,7 @@ void TileDataUi::newItem()
   ensureUniqueId(tile);
 
   if ( tile.title.empty() )
-    tile.title = "new " + tile.type;
+    tile.title = "new " + tile.category;
 
   addItem(tile);
 }
@@ -440,7 +440,7 @@ void TileDataUi::addItem(const TileData &tile)
   QTreeWidgetItem *root = nullptr;
   for (int i = 0; i < tree->topLevelItemCount(); i++)
   {
-    if ( tree->topLevelItem(i)->text(0) == QString::fromStdString(tile.type) )  // new parent found
+    if ( tree->topLevelItem(i)->text(0) == QString::fromStdString(tile.category) )  // new parent found
     {
       root = tree->topLevelItem(i);
       break;
@@ -468,7 +468,7 @@ void TileDataUi::deleteItem()
   QMessageBox::StandardButton ret =
     QMessageBox::question(this, tr("Delete Item"),
                           tr("Shall the item '%1/%2' be deleted?")
-                            .arg(QString::fromStdString(tile.type))
+                            .arg(QString::fromStdString(tile.category))
                             .arg(QString::fromStdString(tile.title)));
 
   if ( ret == QMessageBox::No )

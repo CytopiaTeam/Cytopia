@@ -16,7 +16,7 @@
 #define TD_DESCRIPTION_MAX_CHARS 100
 #define TD_AUTHOR_MAX_CHARS 100
 #define TD_ID_MAX_CHARS 100
-#define TD_TYPE_MAX_CHARS 40
+#define TD_CATEGORY_MAX_CHARS 40
 
 struct TileSetData
 {
@@ -29,7 +29,7 @@ struct TileSetData
 struct TileData
 {
   std::string id;
-  std::string type;
+  std::string category;
   TileSetData tiles;
   TileSetData cornerTiles;
   TileSetData slopeTiles;

@@ -46,7 +46,7 @@ QString TileDataContainer::loadFile(const QString &theFileName)
     TileData tile;
     QString id = obj.value("id").toString();
     tile.id = id.toStdString();
-    tile.type = obj.value("type").toString().toStdString();
+    tile.category = obj.value("category").toString().toStdString();
     tile.title = obj.value("title").toString().toStdString();
     tile.description = obj.value("description").toString().toStdString();
     tile.author = obj.value("author").toString().toStdString();
@@ -88,7 +88,7 @@ bool TileDataContainer::saveFile()
   {
     QJsonObject obj;
     obj.insert("id", QString::fromStdString(tile.id));
-    obj.insert("type", QString::fromStdString(tile.type));
+    obj.insert("category", QString::fromStdString(tile.category));
     obj.insert("title", QString::fromStdString(tile.title));
     obj.insert("description", QString::fromStdString(tile.description));
     obj.insert("author", QString::fromStdString(tile.author));
