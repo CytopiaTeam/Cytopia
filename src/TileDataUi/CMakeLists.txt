@@ -6,6 +6,10 @@ TileData.cxx
 TileDataUi.cxx
 )
 
+if ( MSVC )
+  set(SOURCES ${SOURCES} ${PROJECT_SOURCE_DIR}/msvc/icon_tiledataeditor.rc)
+endif()
+
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)

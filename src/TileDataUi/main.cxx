@@ -5,7 +5,7 @@
 int main(int argc, char **argv)
 {
   QApplication app(argc, argv);
-  app.setWindowIcon(QIcon("resources/images/app_icons/cytopia_icon_iso.png"));
+  app.setWindowIcon(QIcon("resources/images/app_icons/tiledataeditor_icon_iso.png"));
 
   TileDataUi ui;
   if ( !ui.loadFile("resources/data/TileData.json") )
