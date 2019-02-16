@@ -44,13 +44,17 @@ If you have questions or if you want to join the project, visit the [Projects Di
   http://www.libsdl.org
   http://www.libsdl.org/projects/SDL_image/
  
- CMake 3.9 or later
+ CMake 3.11 or later
  
   https://cmake.org/
   
  QT 5.9 or later (optional, needed for the TileData editor)
  
   http://qt.io
+
+  WiX Toolset v3.11 (optional, needed for packaging on windows)
+
+  http://wixtoolset.org/
 
 #### Build instructions
 
@@ -84,11 +88,11 @@ Once the build is configured, you can then compile it using:
     
 To install the project, 
 
-  cmake --build . --target install
+    cmake --build . --target install
 
-Create a package (only works on debian based OS now)
+Create a package (MSI, RPM, DEB, ZIP)
 
-  cmake --build . --target package
+    cmake --build . --target package
 
 
 #### Coding guidelines

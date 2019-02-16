@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.9 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.11 FATAL_ERROR)
 
 # create the cmake project
 project(
@@ -6,18 +6,31 @@ project(
   Cytopia
   # this will provide ${PROJECT_VERSION}
   VERSION 0.1
+  # Description
+  DESCRIPTION "A city-building game"
   # we are using C++
   LANGUAGES CXX
 )
 
+# get linux distribution
+if ( UNIX )
+  execute_process(COMMAND head -1 /etc/os-release OUTPUT_VARIABLE linux_distribution)
+endif()
+
+# Configuration for packaging
+include(CpackConfiguration.cmake)
+
 # set install dir here for convenience
 set (CMAKE_INSTALL_PREFIX "../install")
+
 # make sure, every binary lands in the root directory
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
 # add builddtype as cached variable
 set(CMAKE_BUILD_TYPE Release CACHE STRING "Build type")
 set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS ${CMAKE_CONFIGURATION_TYPES})
+
+message(STATUS "Building Project:  ${PROJECT_NAME}") 
 message(STATUS "Build configuration: " ${CMAKE_BUILD_TYPE}) 
 
 if ( UNIX )
@@ -27,55 +40,40 @@ endif()
 # add the path to our custom find modules
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake_modules/")
 
-# Package Generator specific settings
-set(CPACK_GENERATOR "DEB")
-set(CPACK_PACKAGE_VERSION ${PROJECT_VERSION})
-set(CPACK_DEBIAN_PACKAGE_VERSION ${PROJECT_VERSION})
-set(CPACK_DEBIAN_PACKAGE_SECTION games)
-set(CPACK_PACKAGE_NAME ${PROJECT_NAME})
-set(CPACK_PACKAGE_DESCRIPTION "${PROJECT_VERSION} Tech Preview")
-set(CPACK_DEBIAN_PACKAGE_MAINTAINER "Jimmy Snails")
-set(CPACK_DEBIAN_PACKAGE_HOMEPAGE "https://github.com/JimmySnails/Cytopia")
-set(CPACK_PACKAGING_INSTALL_PREFIX "/usr/games/${PROJECT_NAME}")
-set(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
-set(CPACK_STRIP_FILES ON)
-
-INCLUDE(CPack)
-
 set (SOURCES 
-src/engine/basics/camera.cxx
-src/engine/basics/isoMath.cxx
-src/engine/basics/mapEdit.cxx
-src/engine/basics/settings.cxx
-src/engine/basics/timer.cxx
-src/engine/GameObjects/mapNode.cxx
-src/engine/ui/bar.cxx
-src/engine/ui/button.cxx
-src/engine/ui/combobox.cxx
-src/engine/ui/checkbox.cxx
-src/engine/ui/frame.cxx
-src/engine/ui/text.cxx
-src/engine/ui/textField.cxx
-src/engine/ui/tooltip.cxx
-src/engine/ui/uiElement.cxx
-src/engine/audio/soundEffect.cxx
-src/engine/audio/soundEffect.cxx
-src/engine/audio/music.cxx
-src/engine/audioMixer.cxx
-src/engine/engine.cxx
-src/engine/eventManager.cxx
-src/engine/map.cxx
-src/engine/sprite.cxx
-src/engine/resourcesManager.cxx
-src/engine/tileManager.cxx
-src/engine/uiManager.cxx
-src/engine/windowManager.cxx
-src/game.cxx
-src/main.cxx
+  src/engine/basics/camera.cxx
+  src/engine/basics/isoMath.cxx
+  src/engine/basics/mapEdit.cxx
+  src/engine/basics/settings.cxx
+  src/engine/basics/timer.cxx
+  src/engine/GameObjects/mapNode.cxx
+  src/engine/ui/bar.cxx
+  src/engine/ui/button.cxx
+  src/engine/ui/combobox.cxx
+  src/engine/ui/checkbox.cxx
+  src/engine/ui/frame.cxx
+  src/engine/ui/text.cxx
+  src/engine/ui/textField.cxx
+  src/engine/ui/tooltip.cxx
+  src/engine/ui/uiElement.cxx
+  src/engine/audio/soundEffect.cxx
+  src/engine/audio/soundEffect.cxx
+  src/engine/audio/music.cxx
+  src/engine/audioMixer.cxx
+  src/engine/engine.cxx
+  src/engine/eventManager.cxx
+  src/engine/map.cxx
+  src/engine/sprite.cxx
+  src/engine/resourcesManager.cxx
+  src/engine/tileManager.cxx
+  src/engine/uiManager.cxx
+  src/engine/windowManager.cxx
+  src/game.cxx
+  src/main.cxx
 )
   
 if ( MSVC )
-  set(SOURCES ${SOURCES} ${CMAKE_CURRENT_SOURCE_DIR}/msvc/icon.rc)
+  set(SOURCES ${SOURCES} ${CMAKE_CURRENT_SOURCE_DIR}/msvc/icon_cytopia.rc)
 endif()
 
 # create a new executable with the same name as the project
@@ -176,14 +174,6 @@ if( MSVC )
     PROPERTIES
       VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/$(Configuration)"
   )
-  
-    set(SOURCES ${SOURCES} ${CMAKE_CURRENT_SOURCE_DIR}/Resource.rc)
-
-
-    # ENABLE_LANGUAGE(RC)
-    # set(SOURCES Resource.rc ${SOURCES})
-  
-
 endif()
 
 

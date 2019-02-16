@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=@PROJECT_VERSION@
+Name=@PROJECT_NAME@
+Encoding=UTF-8
+Type=Application
+Comment=@CPACK_PACKAGE_DESCRIPTION_SUMMARY@
+Categories=Game
+Terminal=true
+Path=@CPACK_PACKAGING_INSTALL_PREFIX@
+Exec=@CPACK_PACKAGING_INSTALL_PREFIX@/Cytopia
+Icon=@CPACK_PACKAGING_INSTALL_PREFIX@/resources/images/app_icons/cytopia_icon_iso.png
