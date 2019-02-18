@@ -23,7 +23,7 @@ if ( UNIX )
   configure_file(setup/cytopia-TileDataEditor.desktop setup/cytopia-TileDataEditor.desktop)
 
   INSTALL(FILES ${PROJECT_BINARY_DIR}/setup/cytopia.desktop DESTINATION /usr/share/applications)
-  INSTALL(FILES ${PROJECT_BINARY_DIR}/setup/cytopia-TileDataEditor.desktop DESTINATION /usr/share/applications)
+  INSTALL(FILES ${PROJECT_BINARY_DIR}/setup/cytopia-tiledata-editor.desktop DESTINATION /usr/share/applications)
 
 
 
