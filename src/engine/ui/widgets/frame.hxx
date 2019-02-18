@@ -1,7 +1,7 @@
 #ifndef FRAME_HXX_
 #define FRAME_HXX_
 
-#include "uiElement.hxx"
+#include "../basics/uiElement.hxx"
 
 class Frame : public UiElement
 {

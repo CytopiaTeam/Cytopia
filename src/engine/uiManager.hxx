@@ -3,14 +3,14 @@
 
 #include <vector>
 
-#include "ui/button.hxx"
-#include "ui/frame.hxx"
-#include "ui/text.hxx"
-#include "ui/textField.hxx"
-#include "ui/tooltip.hxx"
-#include "ui/checkbox.hxx"
-#include "ui/combobox.hxx"
-#include "ui/uiElement.hxx"
+#include "ui/widgets/button.hxx"
+#include "ui/widgets/frame.hxx"
+#include "ui/widgets/text.hxx"
+#include "ui/widgets/textField.hxx"
+#include "ui/widgets/tooltip.hxx"
+#include "ui/widgets/checkbox.hxx"
+#include "ui/widgets/combobox.hxx"
+#include "ui/basics/uiElement.hxx"
 
 #include <SDL.h>
 

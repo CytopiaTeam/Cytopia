@@ -1,9 +1,9 @@
 #ifndef TOOLTIP_HXX_
 #define TOOLTIP_HXX_
 
-#include "uiElement.hxx"
+#include "../basics/uiElement.hxx"
 #include "text.hxx"
-#include "../basics/timer.hxx"
+#include "../../basics/timer.hxx"
 
 /** Tooltip class
   * Tooltip is derived from Text, and adds some extensions to it. It is set to visible after 

@@ -9,7 +9,7 @@
 
 #include "basics/log.hxx"
 #include "basics/utils.hxx"
-#include "ui/tooltip.hxx"
+#include "ui/widgets/tooltip.hxx"
 
 void EventManager::checkEvents(SDL_Event &event, Engine &engine)
 {

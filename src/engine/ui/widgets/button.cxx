@@ -1,5 +1,6 @@
 #include "button.hxx"
-#include "../basics/log.hxx"
+#include "../../basics/log.hxx"
+
 Button::Button(const SDL_Rect &uiElementRect) : UiElement(uiElementRect), _rect(uiElementRect)
 {
   _buttonLabel = std::make_unique<Text>(uiElementRect);

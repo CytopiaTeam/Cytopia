@@ -3,7 +3,7 @@
 
 #include <memory>
 
-#include "uiElement.hxx"
+#include "../basics/uiElement.hxx"
 #include "textField.hxx"
 
 class ComboBox : public UiElement

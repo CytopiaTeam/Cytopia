@@ -1,7 +1,7 @@
 #ifndef BUTTON_HXX_
 #define BUTTON_HXX_
 
-#include "uiElement.hxx"
+#include "../basics/uiElement.hxx"
 #include "text.hxx"
 
 class Button : public UiElement

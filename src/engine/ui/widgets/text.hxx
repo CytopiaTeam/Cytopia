@@ -3,7 +3,7 @@
 
 #include <string>
 
-#include "uiElement.hxx"
+#include "../basics/uiElement.hxx"
 
 class Text : public UiElement
 {

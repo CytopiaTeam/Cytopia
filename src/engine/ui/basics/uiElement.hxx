@@ -3,10 +3,10 @@
 
 #include <string>
 
-#include "../basics/mapEdit.hxx"
-#include "../resourcesManager.hxx"
-#include "../windowManager.hxx"
-#include "../basics/signal.hxx"
+#include "../../basics/mapEdit.hxx"
+#include "../../resourcesManager.hxx"
+#include "../../windowManager.hxx"
+#include "../../basics/signal.hxx"
 
 #include <SDL.h>
 #include <SDL_ttf.h>

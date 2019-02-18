@@ -47,15 +47,16 @@ set (SOURCES
   src/engine/basics/settings.cxx
   src/engine/basics/timer.cxx
   src/engine/GameObjects/mapNode.cxx
-  src/engine/ui/bar.cxx
-  src/engine/ui/button.cxx
-  src/engine/ui/combobox.cxx
-  src/engine/ui/checkbox.cxx
-  src/engine/ui/frame.cxx
-  src/engine/ui/text.cxx
-  src/engine/ui/textField.cxx
-  src/engine/ui/tooltip.cxx
-  src/engine/ui/uiElement.cxx
+  src/engine/ui/basics/uiElement.cxx
+  src/engine/ui/basics/buttonGroup.cxx
+  src/engine/ui/widgets/bar.cxx
+  src/engine/ui/widgets/button.cxx
+  src/engine/ui/widgets/combobox.cxx
+  src/engine/ui/widgets/checkbox.cxx
+  src/engine/ui/widgets/frame.cxx
+  src/engine/ui/widgets/text.cxx
+  src/engine/ui/widgets/textField.cxx
+  src/engine/ui/widgets/tooltip.cxx
   src/engine/audio/soundEffect.cxx
   src/engine/audio/soundEffect.cxx
   src/engine/audio/music.cxx

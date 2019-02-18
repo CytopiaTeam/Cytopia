@@ -1,7 +1,7 @@
 #ifndef CHECKBOX_HXX_
 #define CHECKBOX_HXX_
 
-#include "uiElement.hxx"
+#include "../basics/uiElement.hxx"
 
 class Checkbox : public UiElement
 {
