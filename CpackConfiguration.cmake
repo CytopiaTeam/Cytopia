@@ -20,7 +20,7 @@ if ( UNIX )
   set(CPACK_PACKAGING_INSTALL_PREFIX "/usr/games/${PROJECT_NAME}")
 
   configure_file(setup/cytopia.desktop setup/cytopia.desktop)
-  configure_file(setup/cytopia-TileDataEditor.desktop setup/cytopia-tiledata-editor.desktop)
+  configure_file(setup/cytopia-tiledata-editor.desktop setup/cytopia-tiledata-editor.desktop)
 
   INSTALL(FILES ${PROJECT_BINARY_DIR}/setup/cytopia.desktop DESTINATION /usr/share/applications)
   INSTALL(FILES ${PROJECT_BINARY_DIR}/setup/cytopia-tiledata-editor.desktop DESTINATION /usr/share/applications)
