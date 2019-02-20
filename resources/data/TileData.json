@@ -186,13 +186,13 @@
         "power": 0,
         "price": 0,
         "slopeTiles": {
-            "clip_height": 32,
+            "clip_height": 23,
             "clip_width": 32,
             "count": 13,
             "fileName": "resources/images/terrain/terrain_slopes.png"
         },
         "tiles": {
-            "clip_height": 16,
+            "clip_height": 15,
             "clip_width": 32,
             "count": 3,
             "fileName": "resources/images/terrain/terrain_tiles.png"
