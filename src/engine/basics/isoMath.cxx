@@ -20,7 +20,7 @@ Point calculateIsoCoordinates(const SDL_Point &screenCoordinates)
 
 SDL_Point convertIsoToScreenCoordinates(const Point &isoCoordinates, bool calcWithoutOffset)
 {
-  const int heightOffset = 18;
+  const int heightOffset = 24;
 
   int zoomedTileSizeX = static_cast<int>(Camera::tileSize.x * Camera::zoomLevel);
   int zoomedTileSizeY = static_cast<int>(Camera::tileSize.y * Camera::zoomLevel);
@@ -44,7 +44,31 @@ SDL_Point convertIsoToScreenCoordinates(const Point &isoCoordinates, bool calcWi
 
 Point convertScreenToIsoCoordinates(const SDL_Point &screenCoordinates)
 {
-  return Engine::instance().getMap()->findNodeInMap(screenCoordinates);
+  Point foundCoordinates = Engine::instance().getMap()->findNodeInMap(screenCoordinates);
+
+  // if negative coordinates are returned, this means that the point is outside of the grid
+  // calculate the coordinates instead and make sure it's within grid boundaries
+  if (foundCoordinates.x == -1)
+  {
+    foundCoordinates = calculateIsoCoordinates(screenCoordinates);
+    if (foundCoordinates.x < 0)
+    {
+      foundCoordinates.x = 0;
+    };
+    if (foundCoordinates.x > Settings::instance().settings.mapSize)
+    {
+      foundCoordinates.x = Settings::instance().settings.mapSize;
+    };
+    if (foundCoordinates.y < 0)
+    {
+      foundCoordinates.y = 0;
+    };
+    if (foundCoordinates.y > Settings::instance().settings.mapSize)
+    {
+      foundCoordinates.y = Settings::instance().settings.mapSize;
+    };
+  }
+  return foundCoordinates;
 }
 
 bool isPointWithinMapBoundaries(const Point &isoCoordinates)

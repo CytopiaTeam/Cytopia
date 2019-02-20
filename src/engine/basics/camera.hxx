@@ -28,6 +28,8 @@ public:
   static void increaseZoomLevel();
   static void decreaseZoomLevel();
 
+  static void setCenterIsoCoordinates(Point isoCoordinates);
+
 private:
   Camera() = delete;
   ~Camera() = delete;

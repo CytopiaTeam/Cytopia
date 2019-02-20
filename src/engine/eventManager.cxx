@@ -77,6 +77,8 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         {
           Camera::cameraOffset.x += event.motion.xrel;
           Camera::cameraOffset.y += event.motion.yrel;
+          Camera::setCenterIsoCoordinates(convertScreenToIsoCoordinates(
+              {Settings::instance().settings.screenWidth / 2, Settings::instance().settings.screenHeight / 2}));
           Engine::instance().getMap()->refresh();
         }
         else
