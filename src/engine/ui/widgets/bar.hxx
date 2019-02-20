@@ -1,7 +1,7 @@
 #ifndef BAR_HXX_
 #define BAR_HXX_
 
-#include "uiElement.hxx"
+#include "../basics/uiElement.hxx"
 
 class Bar : public UiElement
 {
