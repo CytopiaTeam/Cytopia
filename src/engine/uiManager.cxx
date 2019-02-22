@@ -176,10 +176,6 @@ void UIManager::init()
         }
         else if (actionID == "ChangeTileType")
         {
-          if (!uiLayout[it.key()][id]["Text"].is_null())
-          {
-            text = uiLayout[it.key()][id]["Text"].get<std::string>();
-          }
           std::string type = uiLayout[it.key()][id].value("TileType", "");
           uiElement->registerCallbackFunction([type]() {
             tileTypeEditMode == type ? tileTypeEditMode = "" : tileTypeEditMode = type;
