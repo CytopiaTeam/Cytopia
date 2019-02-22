@@ -33,7 +33,8 @@ TileData *TileManager::getTileData(const std::string &id)
 
 size_t TileManager::caluclateSlopeOrientation(unsigned char bitMaskElevation)
 {
-  size_t orientation;
+  // initialize with DEFAULT_ORIENTAITON which elevationMask.none()
+  size_t orientation = TileSlopes::DEFAULT_ORIENTATION;
   std::bitset<8> elevationMask(bitMaskElevation);
 
   // Bits:
@@ -47,12 +48,7 @@ size_t TileManager::caluclateSlopeOrientation(unsigned char bitMaskElevation)
   // 7 = 2^7 = 128 = BOTTOM RIGHT
 
   // check for all combinations
-  if (elevationMask.none())
-  { // NONE
-    orientation = TileSlopes::DEFAULT_ORIENTATION;
-  }
-  // special cases
-  else if (elevationMask.test(3) && elevationMask.test(6))
+  if (elevationMask.test(3) && elevationMask.test(6))
   { // BOTTOM_RIGHT
     orientation = TileSlopes::S_AND_E;
   }
@@ -142,10 +138,6 @@ size_t TileManager::caluclateSlopeOrientation(unsigned char bitMaskElevation)
     orientation = TileSlopes::SE;
   }
 
-  else
-  {
-    LOG(LOG_ERROR) << "No Combination for bitmask " << elevationMask.to_string() << " found! This should not have happened";
-  }
   return orientation;
 }
 
