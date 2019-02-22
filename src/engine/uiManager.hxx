@@ -11,6 +11,7 @@
 #include "ui/widgets/checkbox.hxx"
 #include "ui/widgets/combobox.hxx"
 #include "ui/basics/uiElement.hxx"
+#include "ui/basics/buttonGroup.hxx"
 
 #include <SDL.h>
 
@@ -53,6 +54,8 @@ private:
 
   bool _mouseHeldDown = false;
   bool _showDebugMenu = false;
+
+  std::unordered_map<std::string, ButtonGroup> buttonGroups;
 };
 
 #endif
