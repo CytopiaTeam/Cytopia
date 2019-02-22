@@ -1,5 +1,6 @@
 ![alt text](https://raw.githubusercontent.com/JimmySnails/Cytopia/master/resources/images/app_icons/logo_big_textured.png)
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/bcf3710318ec4b43900b1cca8bdf4dee)](https://app.codacy.com/app/JimmySnails/Cytopia?utm_source=github.com&utm_medium=referral&utm_content=JimmySnails/Cytopia&utm_campaign=Badge_Grade_Settings)
 [![Build Status](https://travis-ci.org/JimmySnails/Cytopia.svg?branch=master)](https://travis-ci.org/JimmySnails/Cytopia)
 
 
