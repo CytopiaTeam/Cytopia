@@ -279,14 +279,13 @@ SDL_Color Map::getColorOfPixelInSurface(SDL_Surface *surface, int x, int y, cons
 
 Point Map::findNodeInMap(const SDL_Point &screenCoordinates) const
 {
-  Point foundCoordinates{-1, -1, 0, 0};
+  Point foundCoordinates = {-1, -1, 0, 0};
 
   // calculate clicked column (x coordinate) without heigh taken into account.
   Point calculatedIsoCoords = calculateIsoCoordinates(screenCoordinates);
   int isoX = calculatedIsoCoords.x;
   int isoY = calculatedIsoCoords.y;
 
-  bool run = true;
   // traverse a column from top to bottom (from the calculated coordinates)
   while (isoX <= Settings::instance().settings.mapSize && isoY >= 0)
   {
