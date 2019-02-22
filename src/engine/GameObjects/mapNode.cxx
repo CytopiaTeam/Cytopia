@@ -74,8 +74,6 @@ void MapNode::updateTexture()
     _orientation = TileList::TILE_DEFAULT_ORIENTATION;
   }
 
-  _sprite->setOrientation(_orientation);
-
   switch (_tileMap)
   {
   case TileMap::DEFAULT:

@@ -18,7 +18,6 @@ public:
 
   void setTexture(SDL_Texture *texture);
   void setCoordinates(Point isoCoords) { _isoCoordinates = isoCoords; }
-  void setOrientation(size_t orientation) { _orientation = orientation; };
   void setSpriteCount(size_t spriteCount) { _spriteCount = spriteCount; };
   const SDL_Rect &getDestRect() { return _destRect; };
   const SDL_Rect &getClipRect() { return _clipRect; };
@@ -38,7 +37,6 @@ private:
   float _currentZoomLevel = 0;
   size_t _spriteCount = 1;
 
-  size_t _orientation;
   bool _needsRefresh = false;
   bool _highlightSprite = false;
 };
