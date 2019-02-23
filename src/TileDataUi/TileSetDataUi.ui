@@ -48,7 +48,8 @@
         <string/>
        </property>
        <property name="icon">
-        <iconset theme="edit-delete"/>
+        <iconset theme="edit-delete">
+         <normaloff>.</normaloff>.</iconset>
        </property>
       </widget>
      </item>
@@ -110,6 +111,9 @@
     <widget class="QSpinBox" name="count">
      <property name="toolTip">
       <string>How many frames  / tiles this image contains.</string>
+     </property>
+     <property name="minimum">
+      <number>1</number>
      </property>
     </widget>
    </item>
