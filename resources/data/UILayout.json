@@ -218,7 +218,7 @@
       "Type": "TextButton",
       "Text": "Settings",
       "Position_x": 300,
-      "Position_y": 200,
+      "Position_y": 170,
       "Width": 200,
       "Height": 40,
       "ParentOfGroup": "SettingsMenu",
@@ -226,9 +226,27 @@
     },
     {
       "Type": "TextButton",
+      "Text": "Save Game",
+      "Position_x": 300,
+      "Position_y": 240,
+      "Width": 200,
+      "Height": 40,
+      "Action": "SaveGame"
+    },
+    {
+      "Type": "TextButton",
+      "Text": "Load Game",
+      "Position_x": 300,
+      "Position_y": 310,
+      "Width": 200,
+      "Height": 40,
+      "Action": "LoadGame"
+    },
+    {
+      "Type": "TextButton",
       "Text": "Quit Game",
       "Position_x": 300,
-      "Position_y": 300,
+      "Position_y": 380,
       "Width": 200,
       "Height": 40,
       "Action": "QuitGame"
