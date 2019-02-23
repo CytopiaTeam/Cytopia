@@ -42,6 +42,16 @@
        </property>
       </widget>
      </item>
+     <item>
+      <widget class="QPushButton" name="deleteButton">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset theme="edit-delete"/>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
    <item row="1" column="0">
@@ -59,7 +69,7 @@
         <string>Size of this element or of one tile, if the image contains multiple tiles in a tileset.</string>
        </property>
        <property name="maximum">
-        <number>500</number>
+        <number>20000</number>
        </property>
       </widget>
      </item>
@@ -76,7 +86,14 @@
         <string>Size of this element or of one tile, if the image contains multiple tiles in a tileset.</string>
        </property>
        <property name="maximum">
-        <number>500</number>
+        <number>20000</number>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="imageSize">
+       <property name="text">
+        <string/>
        </property>
       </widget>
      </item>

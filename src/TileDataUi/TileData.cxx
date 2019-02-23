@@ -121,10 +121,14 @@ bool TileDataContainer::saveFile()
 QJsonObject TileDataContainer::tileSetDataToJson(const TileSetData &data)
 {
   QJsonObject obj;
-  obj.insert("fileName", QString::fromStdString(data.fileName));
-  obj.insert("count", data.count);
-  obj.insert("clip_width", data.clippingWidth);
-  obj.insert("clip_height", data.clippingHeight);
+
+  if ( !data.fileName.empty() )
+  {
+    obj.insert("fileName", QString::fromStdString(data.fileName));
+    obj.insert("count", data.count);
+    obj.insert("clip_width", data.clippingWidth);
+    obj.insert("clip_height", data.clippingHeight);
+  }
 
   return obj;
 }

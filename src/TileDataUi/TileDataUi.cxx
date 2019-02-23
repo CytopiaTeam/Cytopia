@@ -151,8 +151,40 @@ void TileDataUi::setup(Ui::TileSetDataUi &ui)
               ui.image->setPixmap(pix);
               ui.width->setValue(pix.width());
               ui.height->setValue(pix.height());
+              ui.imageSize->setText(tr("(%1 x %2)").arg(pix.width()).arg(pix.height()));
+              ui.imageSize->show();
               ui.size1->setChecked(true);
+              ui.deleteButton->setEnabled(true);
             }
+          });
+
+  connect(ui.deleteButton, &QPushButton::clicked, this,
+          [ui, this]()
+          {
+            QMessageBox::StandardButton ret =
+              QMessageBox::question(this, tr("Delete Image"), tr("Shall the image really be deleted?"));
+
+            if ( ret == QMessageBox::No )
+              return;
+
+            ui.fileName->setText(QString());
+            QPixmap pix;
+            ui.origImage->setPixmap(pix);
+            ui.image->setPixmap(pix);
+            ui.width->setValue(pix.width());
+            ui.height->setValue(pix.height());
+            ui.imageSize->hide();
+            ui.size1->setChecked(true);
+            ui.deleteButton->setEnabled(false);
+          });
+
+  connect(ui.count, QOverload<int>::of(&QSpinBox::valueChanged), this,
+          [ui](int value)
+          {
+            if ( !ui.origImage->pixmap() || (value == 0) )
+              return;
+
+            ui.width->setValue(ui.origImage->pixmap()->width() / value);
           });
 
   ui.origImage->hide();  // a hidden storage for the original sized pixmap
@@ -370,7 +402,11 @@ void TileDataUi::fillTileSetDataWidget(const Ui::TileSetDataUi &ui, const TileSe
   QPixmap pix(QString::fromStdString(data.fileName));
   ui.image->setPixmap(pix);
   ui.origImage->setPixmap(pix);
+  ui.imageSize->setText(tr("(%1 x %2)").arg(pix.width()).arg(pix.height()));
+  ui.imageSize->setVisible(!pix.isNull());
   ui.size1->setChecked(true);
+
+  ui.deleteButton->setEnabled(!pix.isNull());
 }
 
 //--------------------------------------------------------------------------------
