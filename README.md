@@ -6,32 +6,32 @@
 Cytopia is a free, open source retro pixel-art city building game with a big focus on mods. It’s based on a custom isometric rendering engine based on SDL2. 
 
 Current Key Features:
-  - Custom UI System, based on JSON. Highly moddable
-  - SDL2 based rendering engine written in C++
-  - Camera panning, zooming, relocating
-  - Terrain manipulation
-  - Pixel-art graphics made by Kingtut 101 and Pineapples Trix
-  - A Qt based tile editor for editing TileData JSON files.
+- Custom UI System, based on JSON. Highly moddable
+- SDL2 based rendering engine written in C++
+- Camera panning, zooming, relocating
+- Terrain manipulation
+- Pixel-art graphics made by Kingtut 101 and Pineapples Trix
+- A Qt based tile editor for editing TileData JSON files.
 
 Planned features:
-  - Procedural Terrain Generation
-  - OpenGL Renderer
-  - Gameplay mechanics
-  - In-Game Mod downloading mechanism
-  - Android / iOS / Mac Support
-  - Scripting language for mods (like LUA)
+- Procedural Terrain Generation
+- OpenGL Renderer
+- Gameplay mechanics
+- In-Game Mod downloading mechanism
+- Android / iOS / Mac Support
+- Scripting language for mods (like LUA)
 
 For code documentation see the projects [Doxygen Documentation](https://jimmysnails.github.io/Cytopia/build/html/index.html).
 
 If you have questions or if you want to join the project, visit the [Projects Discord Server](https://discord.gg/qwa2H3G) 
 
 #### Key Features
-  - Different zoom levels
-  - Relocate camera via rightclick
-  - Read settings from json files ( Filename to tile ID  / Engine specific Settings )
-  - Terrain editing (raise / lower terrain)
+- Different zoom levels
+- Relocate camera via rightclick
+- Read settings from json files ( Filename to tile ID  / Engine specific Settings )
+- Terrain editing (raise / lower terrain)
   
-#### Supported Platforms:
+#### Supported Platforms
 Linux (clang / g++-5 or higher)
 Windows
   
@@ -99,7 +99,6 @@ If you are on a linux system, you can use:
 
     find . -regex '.*\.\(hxx\|cxx\)' -not -path '*/ThirdParty/*' -exec clang-format -style=file -i {} \;  
 
-
 #### Work-in-Progress Screenshot
 
 ![alt text](https://raw.githubusercontent.com/JimmySnails/Cytopia/master/images/Screenshot1.png)
@@ -108,4 +107,4 @@ If you are on a linux system, you can use:
 #### Latest build
 
 .deb Package:
-https://jimmysnails.github.io/Cytopia/build/Cytopia-0.1-Linux.deb
+<https://jimmysnails.github.io/Cytopia/build/Cytopia-0.1-Linux.deb>
