@@ -11,6 +11,7 @@
 #include <QMessageBox>
 #include <QDir>
 #include <QHeaderView>
+#include <QSignalBlocker>
 
 #include <engine/basics/tileData.hxx>
 
@@ -161,7 +162,7 @@ void TileDataUi::setup(Ui::TileSetDataUi &ui)
           [ui](QAbstractButton *button)
           {
             QPixmap pix = *(ui.origImage->pixmap());
-            
+
             if ( button == ui.size2 )
               pix = pix.transformed(QTransform().scale(2, 2));
             else if ( button == ui.size4 )
@@ -224,14 +225,23 @@ void TileDataUi::itemSelected(QTreeWidgetItem *current, QTreeWidgetItem *previou
       writeToTileData(tile);
       tileContainer.addTileData(tile);
 
+      // could be different from what is seen in ui widgets since writeToTileData() adjusts
+      QString tileCategory = QString::fromStdString(tile.category);
+      QString tileId = QString::fromStdString(tile.id);
+
       // also update tree
       previous->setText(0, ui.title->text());
-      previous->setData(0, Qt::UserRole, ui.id->text());
+      previous->setData(0, Qt::UserRole, tileId);
 
       // if category changed, move item
       QTreeWidgetItem *root = previous->parent();
-      if ( ui.category->text() != root->text(0) )
+      if ( tileCategory != root->text(0) )
       {
+        QSignalBlocker blocker(tree);  // avoid recursive call of itemSelected
+
+        // different from current when called from saveTileData()
+        QTreeWidgetItem *currentItem = tree->currentItem();
+
         int idx = root->indexOfChild(previous);
         QTreeWidgetItem *item = root->takeChild(idx);
         if ( root->childCount() == 0 )
@@ -245,7 +255,7 @@ void TileDataUi::itemSelected(QTreeWidgetItem *current, QTreeWidgetItem *previou
         // find new category
         for (int i = 0; i < tree->topLevelItemCount(); i++)
         {
-          if ( tree->topLevelItem(i)->text(0) == ui.category->text() )  // new parent found
+          if ( tree->topLevelItem(i)->text(0) == tileCategory )  // new parent found
           {
             tree->topLevelItem(i)->addChild(item);
             item = nullptr;
@@ -258,14 +268,16 @@ void TileDataUi::itemSelected(QTreeWidgetItem *current, QTreeWidgetItem *previou
           QTreeWidgetItem *root = newTreeRootItem(tile);
           root->addChild(item);
         }
+
+        tree->setCurrentItem(currentItem);
       }
     }
   }
 
-  // show current item values
   if ( !current || !current->data(0, Qt::UserRole).isValid() )
     return;
 
+  // show current item values
   TileData tile = tileContainer.getTileData(current->data(0, Qt::UserRole).toString());
   readFromTileData(tile);
 }
