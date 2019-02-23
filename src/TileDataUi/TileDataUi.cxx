@@ -155,6 +155,9 @@ void TileDataUi::setup(Ui::TileSetDataUi &ui)
               ui.imageSize->show();
               ui.size1->setChecked(true);
               ui.deleteButton->setEnabled(true);
+
+              // recalc width based on current count
+              ui.width->setValue(ui.origImage->pixmap()->width() / ui.count->value());
             }
           });
 
@@ -396,15 +399,15 @@ void TileDataUi::readFromTileData(const TileData &tile)
 void TileDataUi::fillTileSetDataWidget(const Ui::TileSetDataUi &ui, const TileSetData &data)
 {
   ui.fileName->setText(QString::fromStdString(data.fileName));
-  ui.width->setValue(data.clippingWidth);
-  ui.height->setValue(data.clippingHeight);
-  ui.count->setValue(data.count);
   QPixmap pix(QString::fromStdString(data.fileName));
   ui.image->setPixmap(pix);
   ui.origImage->setPixmap(pix);
   ui.imageSize->setText(tr("(%1 x %2)").arg(pix.width()).arg(pix.height()));
   ui.imageSize->setVisible(!pix.isNull());
   ui.size1->setChecked(true);
+  ui.width->setValue(data.clippingWidth);
+  ui.height->setValue(data.clippingHeight);
+  ui.count->setValue(data.count);
 
   ui.deleteButton->setEnabled(!pix.isNull());
 }

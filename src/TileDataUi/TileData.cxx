@@ -97,9 +97,14 @@ bool TileDataContainer::saveFile()
     obj.insert("power", tile.power);
     obj.insert("water", tile.water);
 
-    obj.insert("tiles", tileSetDataToJson(tile.tiles));
-    obj.insert("cornerTiles", tileSetDataToJson(tile.cornerTiles));
-    obj.insert("slopeTiles", tileSetDataToJson(tile.slopeTiles));
+    if ( !tile.tiles.fileName.empty() )
+      obj.insert("tiles", tileSetDataToJson(tile.tiles));
+
+    if ( !tile.cornerTiles.fileName.empty() )
+      obj.insert("cornerTiles", tileSetDataToJson(tile.cornerTiles));
+
+    if ( !tile.slopeTiles.fileName.empty() )
+      obj.insert("slopeTiles", tileSetDataToJson(tile.slopeTiles));
 
     array.append(obj);
   }
@@ -122,13 +127,10 @@ QJsonObject TileDataContainer::tileSetDataToJson(const TileSetData &data)
 {
   QJsonObject obj;
 
-  if ( !data.fileName.empty() )
-  {
-    obj.insert("fileName", QString::fromStdString(data.fileName));
-    obj.insert("count", data.count);
-    obj.insert("clip_width", data.clippingWidth);
-    obj.insert("clip_height", data.clippingHeight);
-  }
+  obj.insert("fileName", QString::fromStdString(data.fileName));
+  obj.insert("count", data.count);
+  obj.insert("clip_width", data.clippingWidth);
+  obj.insert("clip_height", data.clippingHeight);
 
   return obj;
 }
