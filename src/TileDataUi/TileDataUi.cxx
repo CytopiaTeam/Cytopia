@@ -161,6 +161,9 @@ void TileDataUi::setup(Ui::TileSetDataUi &ui)
           this,
           [ui](QAbstractButton *button)
           {
+            if ( !ui.origImage->pixmap() )
+              return;
+
             QPixmap pix = *(ui.origImage->pixmap());
 
             if ( button == ui.size2 )

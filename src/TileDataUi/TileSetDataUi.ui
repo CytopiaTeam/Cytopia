@@ -8,7 +8,7 @@
     <x>0</x>
     <y>0</y>
     <width>777</width>
-    <height>270</height>
+    <height>310</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -58,6 +58,9 @@
        <property name="toolTip">
         <string>Size of this element or of one tile, if the image contains multiple tiles in a tileset.</string>
        </property>
+       <property name="maximum">
+        <number>500</number>
+       </property>
       </widget>
      </item>
      <item>
@@ -71,6 +74,9 @@
       <widget class="QSpinBox" name="height">
        <property name="toolTip">
         <string>Size of this element or of one tile, if the image contains multiple tiles in a tileset.</string>
+       </property>
+       <property name="maximum">
+        <number>500</number>
        </property>
       </widget>
      </item>
@@ -100,22 +106,6 @@
      </property>
      <property name="text">
       <string>image</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="1">
-    <widget class="QLabel" name="image">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>Preview image</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -157,7 +147,64 @@
        </attribute>
       </widget>
      </item>
+     <item>
+      <spacer name="verticalSpacer">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
     </layout>
+   </item>
+   <item row="4" column="1">
+    <widget class="QScrollArea" name="scrollArea">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="widgetResizable">
+      <bool>true</bool>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <widget class="QWidget" name="scrollAreaWidgetContents">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>680</width>
+        <height>138</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QLabel" name="image">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
    </item>
   </layout>
  </widget>
