@@ -15,7 +15,7 @@ public:
   Map(int columns, int rows);
   ~Map() = default;
 
-  MapNode *getNode(int x, int y) { return _mapNodes[x * _columns + y]; };
+  MapNode *getNode(int x, int y) const { return _mapNodes[x * _columns + y]; };
 
   /** \brief Initialize the Map with node objects
     * Initialize the Map with node objects
@@ -40,7 +40,7 @@ public:
     * call the render() function of the sprite in the all contained MapNode elements
     * @see Sprite#render
     */
-  void renderMap();
+  void renderMap() const;
 
   void highlightNode(const Point &isoCoordinates);
 

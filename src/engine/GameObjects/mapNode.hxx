@@ -24,10 +24,10 @@ public:
     * get the Sprite* object for this nodes
     * @see Sprite
     */
-  Sprite *getSprite() { return _sprite.get(); };
+  Sprite *getSprite() const { return _sprite.get(); };
 
   /// get iso coordinates of this node
-  const Point &getCoordinates() { return _isoCoordinates; };
+  const Point &getCoordinates() const { return _isoCoordinates; };
 
   /** @brief Increase Height
     * Increases the height of the node and its sprite
@@ -44,17 +44,17 @@ public:
   /** @brief Render MapNode
   * Renders the sprite object(s) of the node
   */
-  void render();
+  void render() const;
 
   void setBitmask(unsigned char elevationBitmask, unsigned char tileTypeBitmask);
 
-  unsigned char getElevationBitmask() { return _elevationBitmask; };
+  unsigned char getElevationBitmask() const { return _elevationBitmask; };
 
-  const TileData *getTileData() { return _tileData; };
+  const TileData *getTileData() const { return _tileData; };
 
-  const std::string &getTileID() { return _tileID; };
+  const std::string &getTileID() const { return _tileID; };
   void setTileID(const std::string &tileType);
-  size_t getUsedTileMap() { return _tileMap; };
+  size_t getUsedTileMap() const { return _tileMap; };
 
 private:
   Point _isoCoordinates;

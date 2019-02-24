@@ -29,7 +29,7 @@ void MapNode::decreaseHeight()
   }
 }
 
-void MapNode::render() { _sprite->render(); }
+void MapNode::render() const { _sprite->render(); }
 
 void MapNode::setBitmask(unsigned char elevationBitmask, unsigned char tileIDBitmask)
 {
