@@ -5,7 +5,11 @@
 #include "basics/mapEdit.hxx"
 #include "basics/settings.hxx"
 #include "basics/log.hxx"
+#include "basics/mapSerializer.hxx"
 #include "resourcesManager.hxx"
+#include "../ThirdParty/json.hxx"
+
+using json = nlohmann::json;
 
 constexpr struct
 {
@@ -367,4 +371,9 @@ void Map::highlightNode(const Point &isoCoordinates)
       highlitNode->getSprite()->highlight(true);
     }
   }
+}
+
+void Map::saveMapToFile()
+{
+  saveMap(this, "resources/save.json");
 }

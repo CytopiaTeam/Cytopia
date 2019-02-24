@@ -182,6 +182,10 @@ void UIManager::init()
             tileTypeEditMode == type ? highlightSelection = true : highlightSelection = false;
           });
         }
+        else if (actionID == "SaveGame")
+        {
+          uiElement->registerCallbackFunction([]() { Engine::instance().getMap()->saveMapToFile(); });
+        }
         // store the element in a vector
         _uiElements.emplace_back(uiElement);
       }

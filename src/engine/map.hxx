@@ -51,9 +51,12 @@ public:
   void demolishNode(const Point &isoCoordinates);
   void refresh();
 
-private:
+  void saveMapToFile();
+  void loadMapFromFile();
+
   std::vector<MapNode *> _mapNodes;
   std::vector<MapNode *> _mapNodesInDrawingOrder;
+private:
 
   MapNode *highlitNode = nullptr;
 
