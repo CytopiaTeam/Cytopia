@@ -67,9 +67,8 @@ addons:
       - g++-5
       - doxygen
       - graphviz
+      - qt5-default
 
-  
-      
 deploy:
   provider: pages
   skip_cleanup: true
