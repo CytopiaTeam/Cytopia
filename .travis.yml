@@ -1,5 +1,5 @@
 language: cpp
-dist: trusty
+dist: xenial
 sudo: required
 group: edge
 
@@ -22,11 +22,18 @@ matrix:
     compiler: clang
     env:
       - COMPILER=clang++-5.0
-
-
+      
+before_install:
+  - sudo add-apt-repository --yes ppa:beineri/opt-qt-5.12.1-xenial
+  - sudo apt-get --allow-unauthenticated update 
+  - sudo apt-get -y install qt512base
+  - source /opt/qt5*/bin/qt5*-env.sh
+    
 before_script:
-  # Build SDL2 manually to have the latest version
+  # install dependencies for SDL2 TTF
+  - sudo apt install -y libfreetype6-dev libgl1-mesa-dev
   - pushd src/ThirdParty
+  # Build SDL2 manually to have the latest version
   - travis_retry curl -L https://www.libsdl.org/release/SDL2-2.0.9.tar.gz | tar xz
   - pushd SDL2-* && ./configure && make && sudo make install && popd
   - travis_retry curl -L https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-2.0.14.tar.gz | tar xz
@@ -66,10 +73,7 @@ addons:
       - g++-5
       - doxygen
       - graphviz
-      - qt5-default
 
-  
-      
 deploy:
   provider: pages
   skip_cleanup: true
