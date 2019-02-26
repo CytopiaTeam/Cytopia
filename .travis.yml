@@ -23,12 +23,6 @@ matrix:
     env:
       - COMPILER=clang++-5.0
 
-before_install:
-  - sudo add-apt-repository --yes ppa:beineri/opt-qt-5.9.7-xenial 
-  - sudo apt-get --allow-unauthenticated update 
-  - sudo apt-get -y install qt59base
-  - source /opt/qt5*/bin/qt5*-env.sh
-    
 before_script:
   # install dependencies for SDL2 TTF
   - sudo apt install -y libfreetype6-dev libgl1-mesa-dev
