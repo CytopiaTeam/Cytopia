@@ -60,9 +60,6 @@ private:
   Point _isoCoordinates;
   std::unique_ptr<Sprite> _sprite;
 
-  SDL_Renderer *_renderer;
-  SDL_Window *_window;
-
   int _maxHeight = 32;
 
   std::string _tileID = "terrain";
