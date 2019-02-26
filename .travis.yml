@@ -24,7 +24,7 @@ matrix:
       - COMPILER=clang++-5.0
 
 before_install:
-    - sudo add-apt-repository --yes ppa:beineri/opt-qt597-xenial
+    - sudo add-apt-repository --yes ppa:beineri/opt-qt593-xenial 
     - sudo apt-get update -qq
     - sudo apt-get -y install qt59base
     - source /opt/qt59/bin/qt59-env.sh
