@@ -20,6 +20,9 @@ endif()
 # Configuration for packaging
 include(build/cmake/CpackConfiguration.cmake)
 
+# Compile options
+include(build/cmake/CompileOptions.cmake)
+
 # set install dir here for convenience
 set (CMAKE_INSTALL_PREFIX "../install")
 
