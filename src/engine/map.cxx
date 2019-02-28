@@ -28,7 +28,7 @@ constexpr struct
     {1, 1}    // 5 = 2^5 = 32  = TOP RIGHT
 };
 
-Map::Map(int columns, int rows) : _mapNodes((columns + 1) * (rows + 1)), _columns(columns + 1), _rows(rows + 1)
+Map::Map(int columns, int rows) : _mapNodes(columns * rows), _columns(columns), _rows(rows)
 {
   _mapNodes.reserve(_rows * _columns);
   initMap();
@@ -39,9 +39,9 @@ void Map::initMap()
   int z = 0;
 
   // nodes need to be created at the correct vector "coordinates", or else the Z-Order will be broken
-  for (int x = 0; x <= Settings::instance().settings.mapSize; x++)
+  for (int x = 0; x < Settings::instance().settings.mapSize; x++)
   {
-    for (int y = Settings::instance().settings.mapSize; y >= 0; y--)
+    for (int y = Settings::instance().settings.mapSize - 1; y >= 0; y--)
     {
       _mapNodes[x * _columns + y] = new MapNode(Point{x, y, z++, 0});
       _mapNodesInDrawingOrder.push_back(_mapNodes[x * _columns + y]);
@@ -291,7 +291,7 @@ Point Map::findNodeInMap(const SDL_Point &screenCoordinates) const
   int isoY = calculatedIsoCoords.y;
 
   // traverse a column from top to bottom (from the calculated coordinates)
-  while (isoX <= Settings::instance().settings.mapSize && isoY >= 0)
+  while (isoX < Settings::instance().settings.mapSize && isoY < Settings::instance().settings.mapSize && isoY >= 0)
   {
     if (isClickWithinTile(screenCoordinates, isoX, isoY))
     {
@@ -300,14 +300,15 @@ Point Map::findNodeInMap(const SDL_Point &screenCoordinates) const
         foundCoordinates = _mapNodes[isoX * _columns + isoY]->getCoordinates();
       }
     }
-    if (isClickWithinTile(screenCoordinates, isoX - 1, isoY))
+    if (isoX > 0 && isClickWithinTile(screenCoordinates, isoX - 1, isoY))
     {
       if (foundCoordinates.z < _mapNodes[(isoX - 1) * _columns + isoY]->getCoordinates().z)
       {
         foundCoordinates = _mapNodes[(isoX - 1) * _columns + isoY]->getCoordinates();
       }
     }
-    if (isClickWithinTile(screenCoordinates, isoX, isoY + 1))
+    //check if isoY is already the last one
+    if (isoY < Settings::instance().settings.mapSize - 1 && isClickWithinTile(screenCoordinates, isoX, isoY + 1))
     {
       if (foundCoordinates.z < _mapNodes[isoX * _columns + (isoY + 1)]->getCoordinates().z)
       {
@@ -373,7 +374,4 @@ void Map::highlightNode(const Point &isoCoordinates)
   }
 }
 
-void Map::saveMapToFile()
-{
-  saveMap(this, "resources/save.json");
-}
+void Map::saveMapToFile() { saveMap(this, "resources/save.json"); }
