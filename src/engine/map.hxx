@@ -57,13 +57,14 @@ public:
   std::vector<MapNode *> _mapNodes;
   std::vector<MapNode *> _mapNodesInDrawingOrder;
 
-  void updateNeighbors(const Point &isoCoordinates);
 
 private:
   MapNode *highlitNode = nullptr;
 
   int _columns;
   int _rows;
+
+  void updateNeighbors(const Point &isoCoordinates);
 
   /**\brief Get neighbor MapNode Objects
     * Stores pointers to the neighboring nodes of the given coordinates in the passed parameter.
