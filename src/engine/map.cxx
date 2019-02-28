@@ -34,6 +34,14 @@ Map::Map(int columns, int rows) : _mapNodes(columns * rows), _columns(columns), 
   initMap();
 }
 
+Map::~Map()
+{
+  for (const auto &it : _mapNodes)
+  {
+    delete it;
+  }
+}
+
 void Map::initMap()
 {
   int z = 0;

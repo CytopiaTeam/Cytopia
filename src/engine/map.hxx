@@ -13,7 +13,7 @@ public:
 
   Map() = default;
   Map(int columns, int rows);
-  ~Map() = default;
+  ~Map();
 
   MapNode *getNode(int x, int y) const { return _mapNodes[x * _columns + y]; };
 
@@ -56,8 +56,8 @@ public:
 
   std::vector<MapNode *> _mapNodes;
   std::vector<MapNode *> _mapNodesInDrawingOrder;
-private:
 
+private:
   MapNode *highlitNode = nullptr;
 
   int _columns;
