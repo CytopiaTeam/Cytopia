@@ -381,7 +381,7 @@ void Map::highlightNode(const Point &isoCoordinates)
   }
 }
 
-void Map::updateNode(Point coordinates, const std::string &tileID)
+void Map::updateNode(const Point &coordinates, const std::string &tileID)
 {
   _mapNodes[coordinates.x * _columns + coordinates.y]->setCoordinates(coordinates);
   updateNeighbors(coordinates);
