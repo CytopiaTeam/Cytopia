@@ -64,7 +64,7 @@ public:
 
   void demolishNode(const Point &isoCoordinates);
 
-  Map *getMap() { return &_map; };
+  Map *getMap() { return _map; };
 
   bool isGameRunning() { return _running; };
   void quitGame() { _running = false; };
@@ -74,7 +74,7 @@ private:
   virtual ~Engine() = default;
   bool _running = true;
 
-  Map _map;
+  Map *_map;
 
   /// Uint for storing a bitmask (Layers Enum)
   unsigned int _activeLayers;

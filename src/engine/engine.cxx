@@ -11,7 +11,7 @@ Engine::Engine()
 {
   int map_size = Settings::instance().settings.mapSize;
 
-  _map = Map(map_size, map_size);
+  _map = new Map(map_size, map_size);
 
   // Default: Floor and Buildings are drawn
   _activeLayers = LAYER_FLOOR | LAYER_BUILDINGS;
@@ -20,20 +20,20 @@ Engine::Engine()
 void Engine::increaseHeight(const Point &isoCoordinates)
 {
   terrainEditMode = TerrainEdit::RAISE;
-  _map.increaseHeight(isoCoordinates);
+  _map->increaseHeight(isoCoordinates);
 }
 
 void Engine::decreaseHeight(const Point &isoCoordinates)
 {
   terrainEditMode = TerrainEdit::LOWER;
-  _map.decreaseHeight(isoCoordinates);
+  _map->decreaseHeight(isoCoordinates);
 }
 
 void Engine::toggleFullScreen() { WindowManager::instance().toggleFullScreen(); };
 
 void Engine::setTileIDOfNode(const Point &isoCoordinates, const std::string &tileID)
 {
-  _map.setTileIDOfNode(isoCoordinates, tileID);
+  _map->setTileIDOfNode(isoCoordinates, tileID);
 }
 
-void Engine::demolishNode(const Point &isoCoordinates) { _map.demolishNode(isoCoordinates); }
+void Engine::demolishNode(const Point &isoCoordinates) { _map->demolishNode(isoCoordinates); }
