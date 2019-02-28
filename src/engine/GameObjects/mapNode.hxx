@@ -18,7 +18,7 @@ class MapNode
 {
 public:
   explicit MapNode(Point isoCoordinates);
-  ~MapNode() = default;
+  ~MapNode();
 
   /** @brief get Sprite
     * get the Sprite* object for this nodes
@@ -28,6 +28,8 @@ public:
 
   /// get iso coordinates of this node
   const Point &getCoordinates() const { return _isoCoordinates; };
+
+  void setCoordinates(const Point &newIsoCoordinates);
 
   /** @brief Increase Height
     * Increases the height of the node and its sprite

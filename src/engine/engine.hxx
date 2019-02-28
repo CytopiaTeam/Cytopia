@@ -69,6 +69,8 @@ public:
   bool isGameRunning() { return _running; };
   void quitGame() { _running = false; };
 
+  void loadMap(const std::string &fileName);
+
 private:
   Engine();
   virtual ~Engine() = default;

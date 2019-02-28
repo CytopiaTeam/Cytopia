@@ -37,3 +37,9 @@ void Engine::setTileIDOfNode(const Point &isoCoordinates, const std::string &til
 }
 
 void Engine::demolishNode(const Point &isoCoordinates) { _map->demolishNode(isoCoordinates); }
+
+void Engine::loadMap(const std::string &fileName)
+{
+  delete _map;
+  _map = Map::loadMapFromFile("resources/save.json");
+}

@@ -5,7 +5,6 @@
 #include "basics/mapEdit.hxx"
 #include "basics/settings.hxx"
 #include "basics/log.hxx"
-#include "basics/mapSerializer.hxx"
 #include "resourcesManager.hxx"
 #include "../ThirdParty/json.hxx"
 
@@ -382,4 +381,54 @@ void Map::highlightNode(const Point &isoCoordinates)
   }
 }
 
-void Map::saveMapToFile() { saveMap(this, "resources/save.json"); }
+void Map::updateNode(Point coordinates, const std::string &tileID)
+{
+  _mapNodes[coordinates.x * _columns + coordinates.y]->setCoordinates(coordinates);
+  updateNeighbors(coordinates);
+  _mapNodes[coordinates.x * _columns + coordinates.y]->setTileID(tileID);
+}
+
+void Map::saveMapToFile(const std::string &fileName)
+{
+  json j = json{{"columns", this->_columns}, {"rows", this->_rows}, {"mapNode", _mapNodes}};
+
+  std::ofstream file(fileName);
+  file << j;
+}
+
+Map *Map::loadMapFromFile(const std::string &fileName)
+{
+  std::ifstream file(fileName);
+  json j;
+  j << file;
+
+  int x = j.value("columns", -1);
+  int y = j.value("rows", -1);
+
+  if (x == -1 || y == -1)
+    return nullptr;
+
+  Map *map = new Map(x, y);
+  map->initMap();
+
+  for (auto it : j["mapNode"].items())
+  {
+    map->updateNode(json(it.value())["coordinates"].get<Point>(), json(it.value())["tileID"].get<std::string>());
+  }
+  return map;
+}
+
+// JSON serializer for Point class
+void to_json(json &j, const Point &point) { j = json{{"x", point.x}, {"y", point.y}, {"z", point.z}, {"height", point.height}}; }
+
+// JSON serializer for MapNode class
+void to_json(json &j, const MapNode *m) { j = json{{"tileID", m->getTileID()}, {"coordinates", m->getCoordinates()}}; }
+
+// JSON deserializer for Point class
+void from_json(const json &j, Point &point)
+{
+  point.x = j.at("x").get<int>();
+  point.y = j.at("y").get<int>();
+  point.z = j.at("z").get<int>();
+  point.height = j.at("height").get<int>();
+}

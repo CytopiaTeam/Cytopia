@@ -7,6 +7,8 @@ MapNode::MapNode(Point isoCoordinates) : _isoCoordinates(std::move(isoCoordinate
   updateTexture();
 }
 
+MapNode::~MapNode() {}
+
 void MapNode::increaseHeight()
 {
   int height = _isoCoordinates.height;
@@ -110,4 +112,10 @@ void MapNode::updateTexture()
   }
   _sprite->setSpriteCount(_spriteCount);
   _sprite->setTexture(TileManager::instance().getTexture(_tileID, _tileMap));
+}
+
+void MapNode::setCoordinates(const Point &newIsoCoordinates)
+{
+  _isoCoordinates = newIsoCoordinates;
+  _sprite->setCoordinates(_isoCoordinates);
 }
