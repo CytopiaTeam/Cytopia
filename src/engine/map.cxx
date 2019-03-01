@@ -328,7 +328,6 @@ void Map::demolishNode(const Point &isoCoordinates)
 
 bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int isoY) const
 {
-
   if (isoX < 0 || isoX > Settings::instance().settings.mapSize || isoY < 0 || isoY > Settings::instance().settings.mapSize)
   {
     return false;
@@ -414,7 +413,14 @@ void to_json(json &j, const Point &point) { j = json{{"x", point.x}, {"y", point
 // JSON serializer for MapNode class
 void to_json(json &j, const std::unique_ptr<MapNode> &m)
 {
-  j = json{{"tileID", m->getTileID()}, {"coordinates", m->getCoordinates()}};
+  if (m.get())
+  {
+    j = json{{"tileID", m->getTileID()}, {"coordinates", m->getCoordinates()}};
+  }
+  else
+  {
+    j = nullptr;
+  }
 }
 
 // JSON deserializer for Point class
