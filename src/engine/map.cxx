@@ -365,7 +365,8 @@ void Map::highlightNode(const Point &isoCoordinates)
 
     if (index >= 0 && index < _mapNodes.size())
     {
-      _mapNodes[index]->getSprite()->highlight(true);
+      highlitNode = _mapNodes[index].get();
+      highlitNode->getSprite()->highlight(true);
     }
   }
 }
