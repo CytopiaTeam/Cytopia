@@ -7,8 +7,6 @@ MapNode::MapNode(Point isoCoordinates) : _isoCoordinates(std::move(isoCoordinate
   updateTexture();
 }
 
-MapNode::~MapNode() {}
-
 void MapNode::increaseHeight()
 {
   int height = _isoCoordinates.height;

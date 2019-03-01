@@ -30,15 +30,6 @@ constexpr struct
 Map::Map(int columns, int rows) : _mapNodes(columns * rows), _columns(columns), _rows(rows)
 {
   _mapNodes.reserve(_rows * _columns);
-  initMap();
-}
-
-Map::~Map()
-{
-  for (const auto &it : _mapNodes)
-  {
-    delete it;
-  }
 }
 
 void Map::initMap()
@@ -50,8 +41,8 @@ void Map::initMap()
   {
     for (int y = Settings::instance().settings.mapSize - 1; y >= 0; y--)
     {
-      _mapNodes[x * _columns + y] = new MapNode(Point{x, y, z++, 0});
-      _mapNodesInDrawingOrder.push_back(_mapNodes[x * _columns + y]);
+      _mapNodes[x * _columns + y] = std::make_unique<MapNode>(Point{x, y, z++, 0});
+      _mapNodesInDrawingOrder.push_back(_mapNodes[x * _columns + y].get());
     }
   }
 }
@@ -245,7 +236,7 @@ void Map::getNeighbors(const Point &isoCoordinates, NeighborMatrix &result) cons
     int y = isoCoordinates.y + it.y;
     if (x >= 0 && x < _rows && y >= 0 && y < _columns)
     {
-      result[idx] = _mapNodes[x * _columns + y];
+      result[idx] = _mapNodes[x * _columns + y].get();
     }
     else
     {
@@ -375,8 +366,7 @@ void Map::highlightNode(const Point &isoCoordinates)
 
     if (index >= 0 && index < _mapNodes.size())
     {
-      highlitNode = _mapNodes.at(index);
-      highlitNode->getSprite()->highlight(true);
+      _mapNodes[index]->getSprite()->highlight(true);
     }
   }
 }
@@ -411,7 +401,7 @@ Map *Map::loadMapFromFile(const std::string &fileName)
   Map *map = new Map(x, y);
   map->initMap();
 
-  for (auto it : j["mapNode"].items())
+  for (const auto &it : j["mapNode"].items())
   {
     map->updateNode(json(it.value())["coordinates"].get<Point>(), json(it.value())["tileID"].get<std::string>());
   }
@@ -422,7 +412,10 @@ Map *Map::loadMapFromFile(const std::string &fileName)
 void to_json(json &j, const Point &point) { j = json{{"x", point.x}, {"y", point.y}, {"z", point.z}, {"height", point.height}}; }
 
 // JSON serializer for MapNode class
-void to_json(json &j, const MapNode *m) { j = json{{"tileID", m->getTileID()}, {"coordinates", m->getCoordinates()}}; }
+void to_json(json &j, const std::unique_ptr<MapNode> &m)
+{
+  j = json{{"tileID", m->getTileID()}, {"coordinates", m->getCoordinates()}};
+}
 
 // JSON deserializer for Point class
 void from_json(const json &j, Point &point)

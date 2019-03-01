@@ -13,9 +13,9 @@ public:
 
   Map() = default;
   Map(int columns, int rows);
-  ~Map();
+  ~Map() = default;
 
-  MapNode *getNode(int x, int y) const { return _mapNodes[x * _columns + y]; };
+  MapNode *getNode(int x, int y) const { return _mapNodes[x * _columns + y].get(); };
 
   /** \brief Initialize the Map with node objects
     * Initialize the Map with node objects
@@ -54,9 +54,8 @@ public:
   void saveMapToFile(const std::string &fileName);
   static Map *loadMapFromFile(const std::string &fileName);
 
-  std::vector<MapNode *> _mapNodes;
+  std::vector<std::unique_ptr<MapNode>> _mapNodes;
   std::vector<MapNode *> _mapNodesInDrawingOrder;
-
 
 private:
   MapNode *highlitNode = nullptr;

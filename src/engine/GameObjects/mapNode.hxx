@@ -18,7 +18,7 @@ class MapNode
 {
 public:
   explicit MapNode(Point isoCoordinates);
-  ~MapNode();
+  ~MapNode() = default;
 
   /** @brief get Sprite
     * get the Sprite* object for this nodes

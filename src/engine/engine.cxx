@@ -12,7 +12,7 @@ Engine::Engine()
   int map_size = Settings::instance().settings.mapSize;
 
   _map = new Map(map_size, map_size);
-
+  _map->initMap();
   // Default: Floor and Buildings are drawn
   _activeLayers = LAYER_FLOOR | LAYER_BUILDINGS;
 }
