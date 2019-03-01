@@ -40,6 +40,11 @@ void Engine::demolishNode(const Point &isoCoordinates) { _map->demolishNode(isoC
 
 void Engine::loadMap(const std::string &fileName)
 {
-  delete _map;
-  _map = Map::loadMapFromFile("resources/save.json");
+  Map *newMap = Map::loadMapFromFile("resources/save.json");
+
+  if (newMap)
+  {
+    delete _map;
+    _map = newMap;
+  }
 }
