@@ -52,64 +52,71 @@ void MapNode::updateTexture()
   _tileData = TileManager::instance().getTileData(_tileID);
   _tileMap = TileMap::DEFAULT;
 
-  // only calculate orientation for textures that adjust themselves according to elevation / other tiles of the same id
-  if (_tileData->category == "terrain" || _tileData->category == "road" || _tileData->category == "water")
+  if (_tileData)
   {
-    _orientation = TileManager::instance().caluclateSlopeOrientation(_elevationBitmask);
-
-    if (_orientation == TileSlopes::DEFAULT_ORIENTATION)
+    // only calculate orientation for textures that adjust themselves according to elevation / other tiles of the same id
+    if (_tileData->category == "terrain" || _tileData->category == "road" || _tileData->category == "water")
     {
-      if (_tileData->category != "terrain")
+      _orientation = TileManager::instance().caluclateSlopeOrientation(_elevationBitmask);
+
+      if (_orientation == TileSlopes::DEFAULT_ORIENTATION)
       {
-        _orientation = TileManager::instance().caluclateTileOrientation(_tileIDBitmask);
+        if (_tileData->category != "terrain")
+        {
+          _orientation = TileManager::instance().caluclateTileOrientation(_tileIDBitmask);
+        }
+      }
+      else
+      {
+        _tileMap = TileMap::SLOPES;
       }
     }
     else
     {
-      _tileMap = TileMap::SLOPES;
+      _orientation = TileList::TILE_DEFAULT_ORIENTATION;
     }
+
+    switch (_tileMap)
+    {
+    case TileMap::DEFAULT:
+      clipRect.x = _tileData->tiles.clippingWidth * (int)_orientation;
+      _clippingWidth = _tileData->tiles.clippingWidth;
+      if (_tileID == "terrain")
+      {
+        clipRect.x = 0;
+        _sprite->setClipRect({ 0, 0, _tileData->tiles.clippingWidth, _tileData->tiles.clippingHeight });
+      }
+      else
+      {
+        _sprite->setClipRect({ clipRect.x, 0, _tileData->tiles.clippingWidth, _tileData->tiles.clippingHeight });
+      }
+      _spriteCount = _tileData->tiles.count;
+      break;
+    case TileMap::CORNERS:
+      _clippingWidth = _tileData->cornerTiles.clippingWidth;
+      clipRect.x = _tileData->cornerTiles.clippingWidth * (int)_orientation;
+      _sprite->setClipRect({ clipRect.x, 0, _tileData->cornerTiles.clippingWidth, _tileData->cornerTiles.clippingHeight });
+      _spriteCount = _tileData->cornerTiles.count;
+      break;
+    case TileMap::SLOPES:
+      _clippingWidth = _tileData->slopeTiles.clippingWidth;
+      clipRect.x = _tileData->slopeTiles.clippingWidth * (int)_orientation;
+      _sprite->setClipRect({ clipRect.x, 0, _tileData->slopeTiles.clippingWidth, _tileData->slopeTiles.clippingHeight });
+      _spriteCount = _tileData->slopeTiles.count;
+      break;
+    }
+    if (clipRect.x >= _spriteCount * _clippingWidth)
+    {
+      _tileID = _previousTileID;
+      updateTexture();
+    }
+    _sprite->setSpriteCount(_spriteCount);
+    _sprite->setTexture(TileManager::instance().getTexture(_tileID, _tileMap));
   }
   else
   {
-    _orientation = TileList::TILE_DEFAULT_ORIENTATION;
+    LOG(LOG_ERROR) << "Could not retrieve TileData Information for TileID " << _tileID;
   }
-
-  switch (_tileMap)
-  {
-  case TileMap::DEFAULT:
-    clipRect.x = _tileData->tiles.clippingWidth * (int)_orientation;
-    _clippingWidth = _tileData->tiles.clippingWidth;
-    if (_tileID == "terrain")
-    {
-      clipRect.x = 0;
-      _sprite->setClipRect({0, 0, _tileData->tiles.clippingWidth, _tileData->tiles.clippingHeight});
-    }
-    else
-    {
-      _sprite->setClipRect({clipRect.x, 0, _tileData->tiles.clippingWidth, _tileData->tiles.clippingHeight});
-    }
-    _spriteCount = _tileData->tiles.count;
-    break;
-  case TileMap::CORNERS:
-    _clippingWidth = _tileData->cornerTiles.clippingWidth;
-    clipRect.x = _tileData->cornerTiles.clippingWidth * (int)_orientation;
-    _sprite->setClipRect({clipRect.x, 0, _tileData->cornerTiles.clippingWidth, _tileData->cornerTiles.clippingHeight});
-    _spriteCount = _tileData->cornerTiles.count;
-    break;
-  case TileMap::SLOPES:
-    _clippingWidth = _tileData->slopeTiles.clippingWidth;
-    clipRect.x = _tileData->slopeTiles.clippingWidth * (int)_orientation;
-    _sprite->setClipRect({clipRect.x, 0, _tileData->slopeTiles.clippingWidth, _tileData->slopeTiles.clippingHeight});
-    _spriteCount = _tileData->slopeTiles.count;
-    break;
-  }
-  if (clipRect.x >= _spriteCount * _clippingWidth)
-  {
-    _tileID = _previousTileID;
-    updateTexture();
-  }
-  _sprite->setSpriteCount(_spriteCount);
-  _sprite->setTexture(TileManager::instance().getTexture(_tileID, _tileMap));
 }
 
 void MapNode::setCoordinates(const Point &newIsoCoordinates)
