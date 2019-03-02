@@ -1,7 +1,7 @@
 
 
 # Set warnings as errors flag
-option(TREAT_WARNINGS_AS_ERRORS "Treat all warnings as errors" OFF)
+option(TREAT_WARNINGS_AS_ERRORS "Treat all warnings as errors" ON)
 if(TREAT_WARNINGS_AS_ERRORS)
 	if(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
 		set(WARN_AS_ERROR_FLAGS	"/WX")
