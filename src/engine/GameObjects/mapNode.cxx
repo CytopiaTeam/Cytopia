@@ -47,7 +47,7 @@ void MapNode::setTileID(const std::string &tileID)
 
 void MapNode::updateTexture()
 {
-  SDL_Rect clipRect;
+  SDL_Rect clipRect = {0, 0, 0, 0};
 
   _tileData = TileManager::instance().getTileData(_tileID);
   _tileMap = TileMap::DEFAULT;
