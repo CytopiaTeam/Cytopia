@@ -22,7 +22,7 @@ void SoundEffect::loadFile(const std::string &filename)
   }
 }
 
-void SoundEffect::play(int channel, int angle, int distance, int loops) const
+void SoundEffect::play(int channel, Sint16 angle, Uint8 distance, int loops) const
 {
   if (Settings::instance().settings.playSoundEffects)
   {
@@ -55,7 +55,7 @@ void SoundEffect::stop(int channel) const
 {
   if (Settings::instance().settings.playMusic)
   {
-    Mix_HaltChannel(-1);
+    Mix_HaltChannel(channel);
   }
 }
 
