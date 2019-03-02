@@ -24,9 +24,9 @@ constexpr struct
     {1, 1}    // 5 = 2^5 = 32  = TOP RIGHT
 };
 
-Map::Map(int columns, int rows) : _mapNodes((columns + 1) * (rows + 1)), _columns(columns + 1), _rows(rows + 1)
+Map::Map(int columns, int rows) : _columns(columns + 1), _rows(rows + 1)
 {
-  _mapNodes.reserve(_rows * _columns);
+  _mapNodes.resize(_rows * _columns);
   initMap();
 }
 
