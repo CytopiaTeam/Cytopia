@@ -188,7 +188,7 @@ void UIManager::init()
         }
         else if (actionID == "LoadGame")
         {
-          uiElement->registerCallbackFunction([]() { Engine::instance().loadMap("resources/save.json"); });
+          uiElement->registerCallbackFunction([]() { Engine::instance().loadSaveGame("resources/save.json"); });
         }
         // store the element in a vector
         _uiElements.emplace_back(uiElement);

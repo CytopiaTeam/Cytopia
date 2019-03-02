@@ -69,7 +69,12 @@ public:
   bool isGameRunning() { return _running; };
   void quitGame() { _running = false; };
 
-  void loadMap(const std::string &fileName);
+  /** @brief Loads a saved game
+  * Loads a saved Game
+  * @param fileName FileName of the saved game
+  * @see Map#loadMapFromFile
+  */
+  void loadSaveGame(const std::string &fileName);
 
 private:
   Engine();

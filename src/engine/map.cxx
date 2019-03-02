@@ -27,10 +27,10 @@ constexpr struct
     {1, 1}    // 5 = 2^5 = 32  = TOP RIGHT
 };
 
-Map::Map(int columns, int rows) : _mapNodes(columns * rows), _columns(columns), _rows(rows)
+Map::Map(int columns, int rows) : mapNodes(columns * rows), _columns(columns), _rows(rows)
 {
-  _mapNodes.reserve(_rows * _columns);
-  _mapNodesInDrawingOrder.reserve(_rows * _columns);
+  mapNodes.reserve(_rows * _columns);
+  mapNodesInDrawingOrder.reserve(_rows * _columns);
 }
 
 void Map::initMap()
@@ -42,42 +42,42 @@ void Map::initMap()
   {
     for (int y = Settings::instance().settings.mapSize - 1; y >= 0; y--)
     {
-      _mapNodes[x * _columns + y] = std::make_unique<MapNode>(Point{x, y, z++, 0});
-      _mapNodesInDrawingOrder.push_back(_mapNodes[x * _columns + y].get());
+      mapNodes[x * _columns + y] = std::make_unique<MapNode>(Point{x, y, z++, 0});
+      mapNodesInDrawingOrder.push_back(mapNodes[x * _columns + y].get());
     }
   }
 }
 
 void Map::increaseHeight(const Point &isoCoordinates)
 {
-  int height = _mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->getCoordinates().height;
+  int height = mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->getCoordinates().height;
 
   if (height < Settings::instance().settings.maxElevationHeight)
   {
     demolishNode(isoCoordinates);
-    _mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->increaseHeight();
-    updateNeighborsOfNode(_mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->getCoordinates());
-    _mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->getSprite()->refresh();
+    mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->increaseHeight();
+    updateNeighborsOfNode(mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->getCoordinates());
+    mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->getSprite()->refresh();
   }
 }
 
 void Map::decreaseHeight(const Point &isoCoordinates)
 {
-  int height = _mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->getCoordinates().height;
+  int height = mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->getCoordinates().height;
 
   if (height > 0)
   {
     demolishNode(isoCoordinates);
-    _mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->decreaseHeight();
-    updateNeighborsOfNode(_mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->getCoordinates());
-    _mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->getSprite()->refresh();
+    mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->decreaseHeight();
+    updateNeighborsOfNode(mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->getCoordinates());
+    mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->getSprite()->refresh();
   }
 }
 
 void Map::updateNeighborsOfNode(const Point &isoCoordinates)
 {
   unsigned char elevationBitmask;
-  int tileHeight = _mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->getCoordinates().height;
+  int tileHeight = mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->getCoordinates().height;
 
   NeighborMatrix matrix;
   getNeighbors(isoCoordinates, matrix);
@@ -151,7 +151,7 @@ void Map::updateNeighborsOfNode(const Point &isoCoordinates)
 
 void Map::updateAllNodes()
 {
-  for (const auto &it : _mapNodes)
+  for (const auto &it : mapNodes)
   {
     updateNeighborsOfNode(it->getCoordinates());
   }
@@ -159,7 +159,7 @@ void Map::updateAllNodes()
 
 void Map::setTileIDOfNode(const Point &isoCoordinates, const std::string &tileID)
 {
-  _mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->setTileID(tileID);
+  mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->setTileID(tileID);
   updateNeighborsOfNode(isoCoordinates);
 }
 
@@ -185,9 +185,9 @@ unsigned char Map::getElevatedNeighborBitmask(const Point &isoCoordinates)
   {
     if (it.first >= 0 && it.first < _rows && it.second >= 0 && it.second < _columns)
     {
-      if (_mapNodes[it.first * _columns + it.second]->getCoordinates().height >
-              _mapNodes[x * _columns + y]->getCoordinates().height &&
-          _mapNodes[it.first * _columns + it.second])
+      if (mapNodes[it.first * _columns + it.second]->getCoordinates().height >
+              mapNodes[x * _columns + y]->getCoordinates().height &&
+          mapNodes[it.first * _columns + it.second])
       {
         // for each found tile add 2 ^ i to the bitmask
         bitmask |= static_cast<unsigned int>(1 << i);
@@ -204,7 +204,7 @@ unsigned char Map::getNeighboringTilesBitmask(const Point &isoCoordinates)
   int x = isoCoordinates.x;
   int y = isoCoordinates.y;
 
-  if (_mapNodes[x * _columns + y]->getTileData()->category == "terrain")
+  if (mapNodes[x * _columns + y]->getTileData()->category == "terrain")
   {
     return bitmask;
   }
@@ -225,7 +225,7 @@ unsigned char Map::getNeighboringTilesBitmask(const Point &isoCoordinates)
   {
     if (it.first >= 0 && it.first < _rows && it.second >= 0 && it.second < _columns)
     {
-      if (_mapNodes[it.first * _columns + it.second]->getTileID() == _mapNodes[x * _columns + y]->getTileID())
+      if (mapNodes[it.first * _columns + it.second]->getTileID() == mapNodes[x * _columns + y]->getTileID())
       {
         // for each found tile add 2 ^ i to the bitmask
         bitmask |= static_cast<unsigned int>(1 << i);
@@ -245,7 +245,7 @@ void Map::getNeighbors(const Point &isoCoordinates, NeighborMatrix &result) cons
     int y = isoCoordinates.y + it.y;
     if (x >= 0 && x < _rows && y >= 0 && y < _columns)
     {
-      result[idx] = _mapNodes[x * _columns + y].get();
+      result[idx] = mapNodes[x * _columns + y].get();
     }
     else
     {
@@ -256,7 +256,7 @@ void Map::getNeighbors(const Point &isoCoordinates, NeighborMatrix &result) cons
 }
 void Map::renderMap() const
 {
-  for (auto it : _mapNodesInDrawingOrder)
+  for (auto it : mapNodesInDrawingOrder)
   {
     it->render();
   }
@@ -264,7 +264,7 @@ void Map::renderMap() const
 
 void Map::refresh()
 {
-  for (auto it : _mapNodesInDrawingOrder)
+  for (auto it : mapNodesInDrawingOrder)
   {
     it->getSprite()->refresh();
   }
@@ -302,24 +302,24 @@ Point Map::findNodeInMap(const SDL_Point &screenCoordinates) const
   {
     if (isClickWithinTile(screenCoordinates, isoX, isoY))
     {
-      if (foundCoordinates.z < _mapNodes[isoX * _columns + isoY]->getCoordinates().z)
+      if (foundCoordinates.z < mapNodes[isoX * _columns + isoY]->getCoordinates().z)
       {
-        foundCoordinates = _mapNodes[isoX * _columns + isoY]->getCoordinates();
+        foundCoordinates = mapNodes[isoX * _columns + isoY]->getCoordinates();
       }
     }
     if (isoX > 0 && isClickWithinTile(screenCoordinates, isoX - 1, isoY))
     {
-      if (foundCoordinates.z < _mapNodes[(isoX - 1) * _columns + isoY]->getCoordinates().z)
+      if (foundCoordinates.z < mapNodes[(isoX - 1) * _columns + isoY]->getCoordinates().z)
       {
-        foundCoordinates = _mapNodes[(isoX - 1) * _columns + isoY]->getCoordinates();
+        foundCoordinates = mapNodes[(isoX - 1) * _columns + isoY]->getCoordinates();
       }
     }
     //check if isoY is already the last one
     if (isoY < Settings::instance().settings.mapSize - 1 && isClickWithinTile(screenCoordinates, isoX, isoY + 1))
     {
-      if (foundCoordinates.z < _mapNodes[isoX * _columns + (isoY + 1)]->getCoordinates().z)
+      if (foundCoordinates.z < mapNodes[isoX * _columns + (isoY + 1)]->getCoordinates().z)
       {
-        foundCoordinates = _mapNodes[isoX * _columns + (isoY + 1)]->getCoordinates();
+        foundCoordinates = mapNodes[isoX * _columns + (isoY + 1)]->getCoordinates();
       }
     }
 
@@ -332,7 +332,7 @@ Point Map::findNodeInMap(const SDL_Point &screenCoordinates) const
 
 void Map::demolishNode(const Point &isoCoordinates)
 {
-  _mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->setTileID("terrain");
+  mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->setTileID("terrain");
 }
 
 bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int isoY) const
@@ -342,7 +342,7 @@ bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int is
     return false;
   }
 
-  SDL_Rect spriteRect = _mapNodes[isoX * _columns + isoY]->getSprite()->getDestRect();
+  SDL_Rect spriteRect = mapNodes[isoX * _columns + isoY]->getSprite()->getDestRect();
   SDL_Point clicked = {screenCoordinates.x, screenCoordinates.y};
   if (SDL_PointInRect(&clicked, &spriteRect))
   {
@@ -351,9 +351,9 @@ bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int is
     int pixelY = static_cast<int>((screenCoordinates.y - spriteRect.y) / Camera::zoomLevel);
 
     // Check if the clicked Sprite is not transparent (we hit a point within the pixel)
-    if (getColorOfPixelInSurface(ResourcesManager::instance().getTileSurface(_mapNodes[isoX * _columns + isoY]->getTileID(),
-                                                                             _mapNodes[isoX * _columns + isoY]->getUsedTileMap()),
-                                 pixelX, pixelY, _mapNodes[isoX * _columns + isoY]->getSprite()->getClipRect())
+    if (getColorOfPixelInSurface(ResourcesManager::instance().getTileSurface(mapNodes[isoX * _columns + isoY]->getTileID(),
+                                                                             mapNodes[isoX * _columns + isoY]->getUsedTileMap()),
+                                 pixelX, pixelY, mapNodes[isoX * _columns + isoY]->getSprite()->getClipRect())
             .a != SDL_ALPHA_TRANSPARENT)
     {
       return true;
@@ -372,9 +372,9 @@ void Map::highlightNode(const Point &isoCoordinates)
   {
     int index = isoCoordinates.x * _columns + isoCoordinates.y;
 
-    if (index >= 0 && index < _mapNodes.size())
+    if (index >= 0 && index < mapNodes.size())
     {
-      highlitNode = _mapNodes[index].get();
+      highlitNode = mapNodes[index].get();
       highlitNode->getSprite()->highlight(true);
     }
   }
@@ -382,7 +382,7 @@ void Map::highlightNode(const Point &isoCoordinates)
 
 void Map::saveMapToFile(const std::string &fileName)
 {
-  json j = json{{"columns", this->_columns}, {"rows", this->_rows}, {"mapNode", _mapNodes}};
+  json j = json{{"columns", this->_columns}, {"rows", this->_rows}, {"mapNode", mapNodes}};
 
   std::ofstream file(fileName);
   file << j;
@@ -407,7 +407,7 @@ Map *Map::loadMapFromFile(const std::string &fileName)
   for (const auto &it : j["mapNode"].items())
   {
     Point coordinates = json(it.value())["coordinates"].get<Point>();
-    map->_mapNodes[coordinates.x * columns + coordinates.y]->setCoordinates(coordinates);
+    map->mapNodes[coordinates.x * columns + coordinates.y]->setCoordinates(coordinates);
   }
 
   // update all nodes to reflect new height differences
@@ -417,7 +417,7 @@ Map *Map::loadMapFromFile(const std::string &fileName)
   for (const auto &it : j["mapNode"].items())
   {
     Point coordinates = json(it.value())["coordinates"].get<Point>();
-    map->_mapNodes[coordinates.x * columns + coordinates.y]->setTileID(json(it.value())["tileID"].get<std::string>());
+    map->mapNodes[coordinates.x * columns + coordinates.y]->setTileID(json(it.value())["tileID"].get<std::string>());
   }
 
   // update all nodes to have correct tiling for new tileIDs
