@@ -14,7 +14,7 @@ public:
 
   void addText(const std::string &text);
 
-  int getSeletectedID(int x, int y) { return _selectedID; };
+  int getSelectedID() { return _selectedID; };
 
   int getHoveredID() { return _hoveredID; };
 
