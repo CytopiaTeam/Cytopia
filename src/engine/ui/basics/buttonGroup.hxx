@@ -10,7 +10,7 @@ public:
   ~ButtonGroup() = default;
 
   void addToGroup(UiElement *widget);
-  void setExclusive(bool exclusive) { exclusive; };
+  void setExclusive(bool isExclusive) { exclusive = isExclusive; };
   bool isExclusive() { return exclusive; };
 
 private:
