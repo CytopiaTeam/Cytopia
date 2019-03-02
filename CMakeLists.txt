@@ -122,6 +122,17 @@ target_compile_definitions(
     VERSION="${PROJECT_NAME} ${PROJECT_VERSION} alpha build"
 )
 
+# Compile options
+target_compile_options(
+  ${PROJECT_NAME}
+  PRIVATE
+
+  PUBLIC
+    ${DEFAULT_COMPILE_OPTIONS}
+
+  INTERFACE
+)
+
 # copy the resources to the compiled directory
 add_custom_command(
   TARGET ${PROJECT_NAME} PRE_BUILD
