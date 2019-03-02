@@ -35,7 +35,14 @@ void TextField::addText(const std::string &text)
   textRect.y = _uiElementRect.y + ((static_cast<int>(_textVector.size()) - 1) * textRect.h);
 
   // center text
-  textRect.x = _uiElementRect.x + (_uiElementRect.w / 2 - _textVector.back()->getUiElementRect().w / 2);
+  if (centerText)
+  {
+    textRect.x = _uiElementRect.x + (_uiElementRect.w / 2 - _textVector.back()->getUiElementRect().w / 2);
+  }
+  else
+  {
+    textRect.x = _uiElementRect.x;
+  }
 
   _textElementHeight = textRect.h;
 
