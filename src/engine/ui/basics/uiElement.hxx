@@ -173,14 +173,9 @@ private:
   SDL_Window *_window = WindowManager::instance().getWindow();
   TTF_Font *_font;
 
-  SDL_Surface *_surface = nullptr;
-
   int _buttonState = BUTTONSTATE_DEFAULT;
 
   bool _visible = true;
-
-  /// workaround to find out, if we have a "clean" texture, or if there's text on it
-  bool _textBlittedToTexture = false;
 
 protected:
   SDL_Texture *_texture = nullptr;
