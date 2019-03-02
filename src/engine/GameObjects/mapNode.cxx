@@ -84,24 +84,24 @@ void MapNode::updateTexture()
       if (_tileID == "terrain")
       {
         clipRect.x = 0;
-        _sprite->setClipRect({ 0, 0, _tileData->tiles.clippingWidth, _tileData->tiles.clippingHeight });
+        _sprite->setClipRect({0, 0, _tileData->tiles.clippingWidth, _tileData->tiles.clippingHeight});
       }
       else
       {
-        _sprite->setClipRect({ clipRect.x, 0, _tileData->tiles.clippingWidth, _tileData->tiles.clippingHeight });
+        _sprite->setClipRect({clipRect.x, 0, _tileData->tiles.clippingWidth, _tileData->tiles.clippingHeight});
       }
       _spriteCount = _tileData->tiles.count;
       break;
     case TileMap::CORNERS:
       _clippingWidth = _tileData->cornerTiles.clippingWidth;
       clipRect.x = _tileData->cornerTiles.clippingWidth * (int)_orientation;
-      _sprite->setClipRect({ clipRect.x, 0, _tileData->cornerTiles.clippingWidth, _tileData->cornerTiles.clippingHeight });
+      _sprite->setClipRect({clipRect.x, 0, _tileData->cornerTiles.clippingWidth, _tileData->cornerTiles.clippingHeight});
       _spriteCount = _tileData->cornerTiles.count;
       break;
     case TileMap::SLOPES:
       _clippingWidth = _tileData->slopeTiles.clippingWidth;
       clipRect.x = _tileData->slopeTiles.clippingWidth * (int)_orientation;
-      _sprite->setClipRect({ clipRect.x, 0, _tileData->slopeTiles.clippingWidth, _tileData->slopeTiles.clippingHeight });
+      _sprite->setClipRect({clipRect.x, 0, _tileData->slopeTiles.clippingWidth, _tileData->slopeTiles.clippingHeight});
       _spriteCount = _tileData->slopeTiles.count;
       break;
     }
