@@ -1,8 +1,6 @@
 #include "textField.hxx"
 #include "text.hxx"
 
-//TextField::TextField(const SDL_Rect &uiElementRect) : UiElement(uiElementRect) {}
-
 TextField::TextField(const SDL_Rect &uiElementRect) : UiElement(uiElementRect)
 {
   // initialize height with an offset of 4 so the frame doesn't overlap with the last text element
@@ -49,7 +47,7 @@ void TextField::addText(const std::string &text)
 
 std::string TextField::getTextFromID(int id)
 {
-  if (id < _textVector.size())
+  if (static_cast<int>(id) < static_cast<int>(_textVector.size()))
   {
     return _textVector[id]->getUiElementData().text;
   }
@@ -76,9 +74,9 @@ void TextField::onMouseMove(const SDL_Event &event)
   {
     _hoveredID = ((_textElementHeight + event.button.y - _uiElementRect.y) / _textElementHeight) - 1;
     // because of the -4 pixel offset that's been added in the constructor, the id would exceed the size of the vector, if the bottom of the dropdown is clicked
-    if (_hoveredID > _textVector.size() - 1)
+    if (_hoveredID > static_cast<int>(_textVector.size()) - 1)
     {
-      _hoveredID = (int)_textVector.size() - 1;
+      _hoveredID = static_cast<int>(_textVector.size()) - 1;
     }
     _hoverRect.y = ((_hoveredID)*_textElementHeight) + _uiElementRect.y;
   }
