@@ -393,19 +393,19 @@ Map *Map::loadMapFromFile(const std::string &fileName)
   json j;
   j << file;
 
-  int x = j.value("columns", -1);
-  int y = j.value("rows", -1);
+  int columns = j.value("columns", -1);
+  int rows = j.value("rows", -1);
 
-  if (x == -1 || y == -1)
+  if (columns == -1 || rows == -1)
     return nullptr;
 
-  Map *map = new Map(x, y);
+  Map *map = new Map(columns, rows);
   map->initMap();
 
   for (const auto &it : j["mapNode"].items())
   {
     Point coordinates = json(it.value())["coordinates"].get<Point>();
-    map->_mapNodes[coordinates.x * x + coordinates.y]->setCoordinates(coordinates);
+    map->_mapNodes[coordinates.x * columns + coordinates.y]->setCoordinates(coordinates);
   }
 
   map->updateAllNodes();
@@ -413,7 +413,7 @@ Map *Map::loadMapFromFile(const std::string &fileName)
   for (const auto &it : j["mapNode"].items())
   {
     Point coordinates = json(it.value())["coordinates"].get<Point>();
-    map->_mapNodes[coordinates.x * x + coordinates.y]->setTileID(json(it.value())["tileID"].get<std::string>());
+    map->_mapNodes[coordinates.x * columns + coordinates.y]->setTileID(json(it.value())["tileID"].get<std::string>());
   }
 
   map->updateAllNodes();
