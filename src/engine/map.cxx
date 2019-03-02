@@ -30,6 +30,7 @@ constexpr struct
 Map::Map(int columns, int rows) : _mapNodes(columns * rows), _columns(columns), _rows(rows)
 {
   _mapNodes.reserve(_rows * _columns);
+  _mapNodesInDrawingOrder.reserve(_rows * _columns);
 }
 
 void Map::initMap()
@@ -402,20 +403,24 @@ Map *Map::loadMapFromFile(const std::string &fileName)
   Map *map = new Map(columns, rows);
   map->initMap();
 
+  // set coordinates first
   for (const auto &it : j["mapNode"].items())
   {
     Point coordinates = json(it.value())["coordinates"].get<Point>();
     map->_mapNodes[coordinates.x * columns + coordinates.y]->setCoordinates(coordinates);
   }
 
+  // update all nodes to reflect new height differences
   map->updateAllNodes();
 
+  // set tileIDs from savegame
   for (const auto &it : j["mapNode"].items())
   {
     Point coordinates = json(it.value())["coordinates"].get<Point>();
     map->_mapNodes[coordinates.x * columns + coordinates.y]->setTileID(json(it.value())["tileID"].get<std::string>());
   }
 
+  // update all nodes to have correct tiling for new tileIDs
   map->updateAllNodes();
 
   return map;
