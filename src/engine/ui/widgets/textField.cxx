@@ -84,7 +84,7 @@ void TextField::onMouseMove(const SDL_Event &event)
   }
 }
 
-void TextField::onMouseLeave(const SDL_Event &event)
+void TextField::onMouseLeave(const SDL_Event &)
 {
   // reset the hovering
   _hoveredID = -1;

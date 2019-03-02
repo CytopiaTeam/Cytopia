@@ -27,7 +27,7 @@ void Button::draw()
 
 void Button::setText(const std::string &text) { _buttonLabel->setText(text); }
 
-void Button::onMouseButtonUp(const SDL_Event &event)
+void Button::onMouseButtonUp(const SDL_Event &)
 {
   clickSignal.emit();
 
@@ -51,7 +51,7 @@ void Button::onMouseButtonUp(const SDL_Event &event)
   }
 }
 
-void Button::onMouseButtonDown(const SDL_Event &event)
+void Button::onMouseButtonDown(const SDL_Event &)
 {
   if (!elementData.isToggleButton)
   {
@@ -83,7 +83,7 @@ void Button::onMouseEnter(const SDL_Event &event)
   }
 }
 
-void Button::onMouseLeave(const SDL_Event &event)
+void Button::onMouseLeave(const SDL_Event &)
 {
   if (elementData.isToggleButton)
   {
