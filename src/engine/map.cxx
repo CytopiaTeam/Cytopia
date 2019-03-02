@@ -391,11 +391,23 @@ void Map::saveMapToFile(const std::string &fileName)
 Map *Map::loadMapFromFile(const std::string &fileName)
 {
   std::ifstream file(fileName);
-  json j;
-  j << file;
 
-  int columns = j.value("columns", -1);
-  int rows = j.value("rows", -1);
+  if (file.fail())
+  {
+    LOG(LOG_ERROR) << "Could not load savegame file " << fileName;
+    return nullptr;
+  }
+
+  // check if json file can be parsed
+  json saveGameJSON = json::parse(file, nullptr, false);
+  if (saveGameJSON.is_discarded())
+  {
+    LOG(LOG_ERROR) << "Could not parse savegame file " << fileName;
+    return nullptr;
+  }
+
+  int columns = saveGameJSON.value("columns", -1);
+  int rows = saveGameJSON.value("rows", -1);
 
   if (columns == -1 || rows == -1)
     return nullptr;
@@ -404,7 +416,7 @@ Map *Map::loadMapFromFile(const std::string &fileName)
   map->initMap();
 
   // set coordinates first
-  for (const auto &it : j["mapNode"].items())
+  for (const auto &it : saveGameJSON["mapNode"].items())
   {
     Point coordinates = json(it.value())["coordinates"].get<Point>();
     map->mapNodes[coordinates.x * columns + coordinates.y]->setCoordinates(coordinates);
@@ -414,7 +426,7 @@ Map *Map::loadMapFromFile(const std::string &fileName)
   map->updateAllNodes();
 
   // set tileIDs from savegame
-  for (const auto &it : j["mapNode"].items())
+  for (const auto &it : saveGameJSON["mapNode"].items())
   {
     Point coordinates = json(it.value())["coordinates"].get<Point>();
     map->mapNodes[coordinates.x * columns + coordinates.y]->setTileID(json(it.value())["tileID"].get<std::string>());
