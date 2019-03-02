@@ -28,10 +28,10 @@ public:
   void onMouseMove(const SDL_Event &event) override;
   void onMouseLeave(const SDL_Event &event) override;
 
+  bool centerText = true;
 private:
   std::vector<Text *> _textVector;
 
-  bool _centerText = true;
 
   int _textElementHeight = 0;
   int _selectedID = -1;
