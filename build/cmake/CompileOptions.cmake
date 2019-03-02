@@ -1,3 +1,22 @@
+
+
+# Set warnings as errors flag
+option(TREAT_WARNINGS_AS_ERRORS "Treat all warnings as errors" OFF)
+if(TREAT_WARNINGS_AS_ERRORS)
+	if(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
+		set(WARN_AS_ERROR_FLAGS	"/WX")
+	else()
+		set(WARN_AS_ERROR_FLAGS "-Werror")
+	endif()
+endif()
+
+
+# MSVC compiler options
+if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
+	# remove default warning level from CMAKE_CXX_FLAGS
+	string (REGEX REPLACE "/W[0-4]" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+endif()
+
 # MSVC compiler options
 if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
     set(DEFAULT_COMPILE_OPTIONS ${DEFAULT_COMPILE_OPTIONS}
