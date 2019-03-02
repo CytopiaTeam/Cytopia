@@ -32,7 +32,7 @@ void TextField::addText(const std::string &text)
 
   _textVector.push_back(new Text(text));
   textRect.h = _textVector.back()->getUiElementRect().h; // get height of text after instantiating
-  textRect.y = _uiElementRect.y + (((int)_textVector.size() - 1) * textRect.h);
+  textRect.y = _uiElementRect.y + ((static_cast<int>(_textVector.size()) - 1) * textRect.h);
 
   // center text
   textRect.x = _uiElementRect.x + (_uiElementRect.w / 2 - _textVector.back()->getUiElementRect().w / 2);
@@ -60,9 +60,9 @@ void TextField::onMouseButtonUp(const SDL_Event &event)
   {
     _selectedID = ((_textElementHeight + event.button.y - _uiElementRect.y) / _textElementHeight) - 1;
     // because of the -4 pixel offset that's been added in the constructor, the id would exceed the size of the vector, if the bottom of the dropdown is clicked
-    if (_selectedID > _textVector.size())
+    if (_selectedID > static_cast<int>(_textVector.size()))
     {
-      _selectedID = (int)_textVector.size();
+      _selectedID = static_cast<int>(_textVector.size());
     }
   }
 }
