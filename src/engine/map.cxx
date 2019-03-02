@@ -371,13 +371,6 @@ void Map::highlightNode(const Point &isoCoordinates)
   }
 }
 
-void Map::updateNode(const Point &coordinates, const std::string &tileID)
-{
-  _mapNodes[coordinates.x * _columns + coordinates.y]->setCoordinates(coordinates);
-  updateNeighbors(coordinates);
-  _mapNodes[coordinates.x * _columns + coordinates.y]->setTileID(tileID);
-}
-
 void Map::saveMapToFile(const std::string &fileName)
 {
   json j = json{{"columns", this->_columns}, {"rows", this->_rows}, {"mapNode", _mapNodes}};
@@ -403,7 +396,24 @@ Map *Map::loadMapFromFile(const std::string &fileName)
 
   for (const auto &it : j["mapNode"].items())
   {
-    map->updateNode(json(it.value())["coordinates"].get<Point>(), json(it.value())["tileID"].get<std::string>());
+    Point coordinates = json(it.value())["coordinates"].get<Point>();
+    map->_mapNodes[coordinates.x * x + coordinates.y]->setCoordinates(coordinates);
+  }
+
+  for (const auto &it : map->_mapNodes)
+  {
+    map->updateNeighbors(it->getCoordinates());
+  }
+
+  for (const auto &it : j["mapNode"].items())
+  {
+    Point coordinates = json(it.value())["coordinates"].get<Point>();
+    map->_mapNodes[coordinates.x * x + coordinates.y]->setTileID(json(it.value())["tileID"].get<std::string>());
+  }
+
+  for (const auto &it : map->_mapNodes)
+  {
+    map->updateNeighbors(it->getCoordinates());
   }
   return map;
 }
