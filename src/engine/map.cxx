@@ -55,7 +55,7 @@ void Map::increaseHeight(const Point &isoCoordinates)
   {
     demolishNode(isoCoordinates);
     _mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->increaseHeight();
-    updateNeighbors(_mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->getCoordinates());
+    updateNeighborsOfNode(_mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->getCoordinates());
     _mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->getSprite()->refresh();
   }
 }
@@ -68,12 +68,12 @@ void Map::decreaseHeight(const Point &isoCoordinates)
   {
     demolishNode(isoCoordinates);
     _mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->decreaseHeight();
-    updateNeighbors(_mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->getCoordinates());
+    updateNeighborsOfNode(_mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->getCoordinates());
     _mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->getSprite()->refresh();
   }
 }
 
-void Map::updateNeighbors(const Point &isoCoordinates)
+void Map::updateNeighborsOfNode(const Point &isoCoordinates)
 {
   unsigned char elevationBitmask;
   int tileHeight = _mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->getCoordinates().height;
@@ -148,10 +148,18 @@ void Map::updateNeighbors(const Point &isoCoordinates)
   }
 }
 
+void Map::updateAllNodes()
+{
+  for (const auto &it : _mapNodes)
+  {
+    updateNeighborsOfNode(it->getCoordinates());
+  }
+}
+
 void Map::setTileIDOfNode(const Point &isoCoordinates, const std::string &tileID)
 {
   _mapNodes[isoCoordinates.x * _columns + isoCoordinates.y]->setTileID(tileID);
-  updateNeighbors(isoCoordinates);
+  updateNeighborsOfNode(isoCoordinates);
 }
 
 unsigned char Map::getElevatedNeighborBitmask(const Point &isoCoordinates)
@@ -400,10 +408,7 @@ Map *Map::loadMapFromFile(const std::string &fileName)
     map->_mapNodes[coordinates.x * x + coordinates.y]->setCoordinates(coordinates);
   }
 
-  for (const auto &it : map->_mapNodes)
-  {
-    map->updateNeighbors(it->getCoordinates());
-  }
+  map->updateAllNodes();
 
   for (const auto &it : j["mapNode"].items())
   {
@@ -411,10 +416,8 @@ Map *Map::loadMapFromFile(const std::string &fileName)
     map->_mapNodes[coordinates.x * x + coordinates.y]->setTileID(json(it.value())["tileID"].get<std::string>());
   }
 
-  for (const auto &it : map->_mapNodes)
-  {
-    map->updateNeighbors(it->getCoordinates());
-  }
+  map->updateAllNodes();
+
   return map;
 }
 

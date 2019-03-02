@@ -63,7 +63,8 @@ private:
   int _columns;
   int _rows;
 
-  void updateNeighbors(const Point &isoCoordinates);
+  void updateNeighborsOfNode(const Point &isoCoordinates);
+  void updateAllNodes();
 
   /**\brief Get neighbor MapNode Objects
     * Stores pointers to the neighboring nodes of the given coordinates in the passed parameter.
