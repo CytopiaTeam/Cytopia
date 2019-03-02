@@ -68,10 +68,7 @@ void Button::onMouseEnter(const SDL_Event &event)
 {
   if (event.button.button == SDL_BUTTON_LEFT)
   {
-    if (!elementData.isToggleButton)
-    {
-    }
-    else
+    if (elementData.isToggleButton)
     {
       _isMouseButtonDown = true;
     }
