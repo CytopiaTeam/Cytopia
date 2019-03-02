@@ -118,7 +118,7 @@ void ComboBox::onMouseButtonUp(const SDL_Event &event)
   }
 }
 
-void ComboBox::onMouseButtonDown(const SDL_Event &event) { changeButtonState(BUTTONSTATE_DEFAULT); }
+void ComboBox::onMouseButtonDown(const SDL_Event &) { changeButtonState(BUTTONSTATE_DEFAULT); }
 
 void ComboBox::onMouseLeave(const SDL_Event &event)
 {
