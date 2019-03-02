@@ -1,7 +1,6 @@
 ![alt text](https://raw.githubusercontent.com/JimmySnails/Cytopia/master/resources/images/app_icons/logo_big_textured.png)
 
 [![Build Status](https://travis-ci.org/JimmySnails/Cytopia.svg?branch=master)](https://travis-ci.org/JimmySnails/Cytopia)
-https://img.shields.io/discord/448344322887254018.svg?logo=discord
 ![Discord](https://img.shields.io/discord/448344322887254018.svg?logo=discord)](https://discord.gg/qwa2H3G)
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/f686b5cf79384e0ab807578cb392b0bc)](https://www.codacy.com/app/JimmySnails/Cytopia?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=JimmySnails/Cytopia&amp;utm_campaign=Badge_Grade)
