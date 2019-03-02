@@ -169,17 +169,15 @@ void UiElement::drawFrame(SDL_Rect rect)
   Uint8 bgColor = 128;
   Uint8 bgColorFrame = 150;
   Uint8 bgColorFrameShade = 172;
-  Uint8 bgColorBottomFrame = 106;
-  Uint8 bgColorBottomFrameShade = 84;
 
   SDL_Color color = {128, 128, 128};
   SDL_Color color_temp = {128, 128, 128};
 
-  drawSolidRect(_uiElementRect, SDL_Color{bgColorFrame, bgColorFrame, bgColorFrame});
-  drawSolidRect(SDL_Rect{_uiElementRect.x + 2, _uiElementRect.y + 2, _uiElementRect.w - 4, _uiElementRect.h - 4},
+  drawSolidRect(rect, SDL_Color{bgColorFrame, bgColorFrame, bgColorFrame});
+  drawSolidRect(SDL_Rect{rect.x + 2, rect.y + 2, rect.w - 4, rect.h - 4},
                 SDL_Color{bgColorFrameShade, bgColorFrameShade, bgColorFrameShade});
-  drawSolidRect(SDL_Rect{_uiElementRect.x + 4, _uiElementRect.y + 4, _uiElementRect.w - 8, _uiElementRect.h - 8},
+  drawSolidRect(SDL_Rect{rect.x + 4, rect.y + 4, rect.w - 8, rect.h - 8},
                 SDL_Color{bgColorFrame, bgColorFrame, bgColorFrame});
-  drawSolidRect(SDL_Rect{_uiElementRect.x + 6, _uiElementRect.y + 6, _uiElementRect.w - 12, _uiElementRect.h - 12},
+  drawSolidRect(SDL_Rect{rect.x + 6, rect.y + 6, rect.w - 12, rect.h - 12},
                 SDL_Color{bgColor, bgColor, bgColor});
 }
