@@ -111,7 +111,7 @@ void ComboBox::onMouseButtonUp(const SDL_Event &event)
 
   if (_isMenuOpened)
   {
-    _activeID = _textField->getSeletectedID(x, y);
+    _activeID = _textField->getSeletectedID();
     _activeText = _textField->getTextFromID(_activeID);
     _isMenuOpened = false;
     _textField->setVisibility(false);
