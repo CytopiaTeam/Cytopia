@@ -1,7 +1,3 @@
-#pragma once
-// deprecated localtime warning - keep Visual Studio from nagging
-#pragma warning(disable : 4996) //_CRT_SECURE_NO_WARNINGS
-
 #ifndef LOG_HXX_
 #define LOG_HXX_
 
