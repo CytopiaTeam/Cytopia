@@ -122,20 +122,19 @@ void Map::updateNeighbors(const Point &isoCoordinates)
       }
       if (raise)
       {
-
         increaseHeight(it->getCoordinates());
         if (terrainEditMode == TerrainEdit::LOWER)
         {
           //decreaseHeight(it->getCoordinates());
           NeighborMatrix loweredNodesNeighbors;
           getNeighbors(it->getCoordinates(), loweredNodesNeighbors);
-          for (const auto &it : loweredNodesNeighbors)
+          for (const auto &neighbor : loweredNodesNeighbors)
           {
-            if (it)
+            if (neighbor)
             {
-              if (it->getCoordinates().height > tileHeight)
+              if (neighbor->getCoordinates().height > tileHeight)
               {
-                decreaseHeight(it->getCoordinates());
+                decreaseHeight(neighbor->getCoordinates());
               }
             }
           }
