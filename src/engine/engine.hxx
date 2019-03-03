@@ -78,7 +78,7 @@ public:
 
 private:
   Engine();
-  virtual ~Engine() = default;
+  ~Engine();
   bool _running = true;
 
   Map *_map;

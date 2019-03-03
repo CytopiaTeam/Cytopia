@@ -17,6 +17,8 @@ Engine::Engine()
   _activeLayers = LAYER_FLOOR | LAYER_BUILDINGS;
 }
 
+Engine::~Engine() { delete _map; }
+
 void Engine::increaseHeight(const Point &isoCoordinates)
 {
   terrainEditMode = TerrainEdit::RAISE;
