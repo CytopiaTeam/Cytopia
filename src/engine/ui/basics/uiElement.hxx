@@ -24,8 +24,6 @@ protected:
     std::string tooltipText;
     std::string actionID;
     std::string actionParameter;
-    std::string groupName;
-    std::string parentOf;
     std::string textureID;
     bool isToggleButton = false;
 
@@ -101,21 +99,6 @@ public:
   * @param Visibility of the UI Element.
   */
   void setVisibility(bool visibility) { _visible = visibility; };
-
-  /** \brief Set the Group ID (name) of the UI Element.
-  * Sets the Name of the group the UI Elements belongs to.
-  * Group ID Name must be the same as used for groups in the UI Layout JSON File.
-  * @param The name of the group the element nbelongs to as string
-  */
-  void setGroupID(const std::string &groupName) { elementData.groupName = groupName; };
-
-  /** \brief Set the ParentOf ID of the UI Element.
-  * Retrieves the ID of the group that the UI Element is the parent of.
-  * Group ID Name must be the same as used for groups in the UI Layout JSON File.
-  * For more details see our github wiki page
-  * @param The parentOf ID as string
-  */
-  void setParentID(const std::string &parentOf) { elementData.parentOf = parentOf; };
 
   /** \brief Set the Action ID of the UI Element.
   * Sets the ID of the action the UI Element should execute when it's clicked.

@@ -107,10 +107,14 @@ void UIManager::init()
         uiElement->setTooltipText(tooltipText);
         uiElement->setActionID(actionID);
         uiElement->setActionParameter(actionParameter);
-        uiElement->setGroupID(groupID);
         uiElement->setToggleButton(toggleButton);
         uiElement->setUIElementID(uiElementID);
         uiElement->drawImageButtonFrame(drawFrame);
+
+        if (!groupID.empty())
+        {
+          uiGroups[groupID].push_back(uiElement.get());
+        }
 
         if (actionID == "RaiseTerrain")
         {
@@ -184,12 +188,9 @@ void UIManager::toggleGroupVisibility(const std::string &groupID)
     return;
   }
 
-  for (const std::unique_ptr<UiElement> &it : _uiElements)
+  for (const auto &it : uiGroups[groupID])
   {
-    if (it->getUiElementData().groupName == groupID)
-    {
-      it->setVisibility(!it->isVisible());
-    }
+    it->setVisibility(!it->isVisible());
   }
 }
 

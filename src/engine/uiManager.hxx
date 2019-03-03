@@ -52,6 +52,7 @@ private:
   bool _mouseHeldDown = false;
   bool _showDebugMenu = false;
 
+  std::unordered_map<std::string, std::vector<UiElement *>> uiGroups;
   std::unordered_map<std::string, ButtonGroup> buttonGroups;
 };
 
