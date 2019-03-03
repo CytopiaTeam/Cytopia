@@ -209,8 +209,6 @@ void UIManager::drawUI()
   _tooltip->draw();
 }
 
-void UIManager::addToGroup(int groupID, std::shared_ptr<UiElement> uiElement) { _group[groupID] = std::move(uiElement); }
-
 void UIManager::toggleGroupVisibility(const std::string &groupID)
 {
   for (const std::shared_ptr<UiElement> &it : _uiElements)

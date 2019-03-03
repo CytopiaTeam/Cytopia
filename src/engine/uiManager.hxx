@@ -31,8 +31,6 @@ public:
 
   void toggleDebugMenu() { _showDebugMenu = !_showDebugMenu; };
 
-  void addToGroup(int groupID, std::shared_ptr<UiElement> uiElement);
-
   void setFPSCounterText(const std::string &fps);
 
   const std::vector<std::shared_ptr<UiElement>> &getAllUiElements() const { return _uiElements; };
@@ -46,7 +44,6 @@ private:
   UIManager() = default;
   ~UIManager() = default;
   std::vector<std::shared_ptr<UiElement>> _uiElements;
-  std::unordered_map<int, std::shared_ptr<UiElement>> _group;
 
   std::unique_ptr<Tooltip> _tooltip = std::make_unique<Tooltip>();
   // Text element for the FPS Counter (debug menu)
