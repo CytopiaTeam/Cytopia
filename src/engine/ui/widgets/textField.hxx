@@ -29,13 +29,17 @@ public:
   void onMouseLeave(const SDL_Event &event) override;
 
   bool centerText = true;
+
+  int count() const { return _count; };
+
 private:
   std::vector<Text *> _textVector;
-
 
   int _textElementHeight = 0;
   int _selectedID = -1;
   int _hoveredID = -1;
+
+  int _count = 0;
   // a rect is drawn beneath the current text to hover it
   SDL_Rect _hoverRect;
 };
