@@ -57,6 +57,7 @@ void UIManager::init()
         std::string tooltipText = uiLayout[it.key()][id].value("TooltipText", "");
         std::string text = uiLayout[it.key()][id].value("Text", "");
         std::string textureID = uiLayout[it.key()][id].value("SpriteID", "");
+        std::string type = uiLayout[it.key()][id].value("Type", "");
 
         SDL_Rect elementRect = {0, 0, 0, 0};
         elementRect.x = uiLayout[it.key()][id].value("Position_x", 0);
@@ -67,30 +68,36 @@ void UIManager::init()
         std::unique_ptr<UiElement> uiElement;
 
         // Create the ui elements
-        if (uiLayout[it.key()][id]["Type"] == "ImageButton")
+        if (type.empty())
+        {
+          LOG(LOG_ERROR) << "An element without a type can not be created, check your UiLayout JSON File "
+                         << Settings::instance().settings.uiLayoutJSONFile;
+          continue;
+        }
+        else if (type == "ImageButton")
         {
           uiElement = std::make_unique<Button>(elementRect);
           uiElement->setTextureID(textureID);
         }
-        if (uiLayout[it.key()][id]["Type"] == "TextButton")
+        else if (type == "TextButton")
         {
           uiElement = std::make_unique<Button>(elementRect);
           uiElement->setText(text);
         }
-        if (uiLayout[it.key()][id]["Type"] == "Text")
+        else if (type == "Text")
         {
           uiElement = std::make_unique<Text>(elementRect);
           uiElement->setText(text);
         }
-        if (uiLayout[it.key()][id]["Type"] == "Frame")
+        else if (type == "Frame")
         {
           uiElement = std::make_unique<Frame>(elementRect);
         }
-        if (uiLayout[it.key()][id]["Type"] == "Checkbox")
+        else if (type == "Checkbox")
         {
           uiElement = std::make_unique<Checkbox>(elementRect);
         }
-        if (uiLayout[it.key()][id]["Type"] == "ComboBox")
+        else if (type == "ComboBox")
         {
           uiElement = std::make_unique<ComboBox>(elementRect);
           uiElement->setText(text);
