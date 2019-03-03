@@ -31,7 +31,6 @@ Map::Map(int columns, int rows) : _columns(columns), _rows(rows)
 {
   mapNodes.resize(_rows * _columns);
   mapNodesInDrawingOrder.reserve(_rows * _columns);
-
 }
 
 void Map::initMap()
@@ -372,7 +371,7 @@ void Map::highlightNode(const Point &isoCoordinates)
   {
     size_t index = isoCoordinates.x * _columns + isoCoordinates.y;
 
-    if (index < _mapNodes.size())
+    if (index < mapNodes.size())
     {
       highlitNode = mapNodes[index].get();
       highlitNode->getSprite()->highlight(true);
