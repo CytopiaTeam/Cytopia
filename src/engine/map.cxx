@@ -27,10 +27,11 @@ constexpr struct
     {1, 1}    // 5 = 2^5 = 32  = TOP RIGHT
 };
 
-Map::Map(int columns, int rows) : mapNodes(columns * rows), _columns(columns), _rows(rows)
+Map::Map(int columns, int rows) : _columns(columns), _rows(rows)
 {
-  mapNodes.reserve(_rows * _columns);
+  mapNodes.resize(_rows * _columns);
   mapNodesInDrawingOrder.reserve(_rows * _columns);
+
 }
 
 void Map::initMap()
@@ -125,20 +126,19 @@ void Map::updateNeighborsOfNode(const Point &isoCoordinates)
       }
       if (raise)
       {
-
         increaseHeight(it->getCoordinates());
         if (terrainEditMode == TerrainEdit::LOWER)
         {
           //decreaseHeight(it->getCoordinates());
           NeighborMatrix loweredNodesNeighbors;
           getNeighbors(it->getCoordinates(), loweredNodesNeighbors);
-          for (const auto &it : loweredNodesNeighbors)
+          for (const auto &neighbor : loweredNodesNeighbors)
           {
-            if (it)
+            if (neighbor)
             {
-              if (it->getCoordinates().height > tileHeight)
+              if (neighbor->getCoordinates().height > tileHeight)
               {
-                decreaseHeight(it->getCoordinates());
+                decreaseHeight(neighbor->getCoordinates());
               }
             }
           }
@@ -370,9 +370,9 @@ void Map::highlightNode(const Point &isoCoordinates)
   }
   if (highlightSelection)
   {
-    int index = isoCoordinates.x * _columns + isoCoordinates.y;
+    size_t index = isoCoordinates.x * _columns + isoCoordinates.y;
 
-    if (index >= 0 && index < mapNodes.size())
+    if (index < _mapNodes.size())
     {
       highlitNode = mapNodes[index].get();
       highlitNode->getSprite()->highlight(true);

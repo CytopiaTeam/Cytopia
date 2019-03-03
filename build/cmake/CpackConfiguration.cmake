@@ -10,7 +10,7 @@ set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/license.txt")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "A pixel-art city building game")
 set(CPACK_PACKAGE_VENDOR "Cytopia")
 
-set(CPACK_PACKAGE_ICON "${PROJECT_SOURCE_DIR}/msvc/cytopia.ico")
+set(CPACK_PACKAGE_ICON "${PROJECT_SOURCE_DIR}/build/msvc/cytopia.ico")
 
 set(CPACK_STRIP_FILES ON)
 set(CPACK_PACKAGE_INSTALL_DIRECTORY ${PROJECT_NAME})
@@ -19,8 +19,8 @@ if ( UNIX )
   # general settings for unix packaging
   set(CPACK_PACKAGING_INSTALL_PREFIX "/usr/games/${PROJECT_NAME}")
 
-  configure_file(setup/cytopia.desktop setup/cytopia.desktop)
-  configure_file(setup/cytopia-tiledata-editor.desktop setup/cytopia-tiledata-editor.desktop)
+  configure_file(${PROJECT_SOURCE_DIR}/build/setup/cytopia.desktop setup/cytopia.desktop)
+  configure_file(${PROJECT_SOURCE_DIR}/build/setup/cytopia-tiledata-editor.desktop setup/cytopia-tiledata-editor.desktop)
 
   INSTALL(FILES ${PROJECT_BINARY_DIR}/setup/cytopia.desktop DESTINATION /usr/share/applications)
   INSTALL(FILES ${PROJECT_BINARY_DIR}/setup/cytopia-tiledata-editor.desktop DESTINATION /usr/share/applications)
@@ -52,8 +52,8 @@ elseif ( WIN32 )
   set(CPACK_WIX_UPGRADE_GUID "F56FA877-A127-415C-9D04-43023C5459B0")
   set(CPACK_WIX_PRODUCT_ICON "${CPACK_PACKAGE_ICON}")
   set(CPACK_WIX_CMAKE_PACKAGE_REGISTRY ${PROJECT_NAME})
-  set(CPACK_WIX_UI_BANNER "${PROJECT_SOURCE_DIR}/setup/banner.png")
-  set(CPACK_WIX_UI_DIALOG "${PROJECT_SOURCE_DIR}/setup/logoSide.png")
+  set(CPACK_WIX_UI_BANNER "${PROJECT_SOURCE_DIR}/build/setup/banner.png")
+  set(CPACK_WIX_UI_DIALOG "${PROJECT_SOURCE_DIR}/build/setup/logoSide.png")
   set(CPACK_WIX_PROGRAM_MENU_FOLDER "${PROJECT_NAME}")
 
   #For Windows Start Menu entries

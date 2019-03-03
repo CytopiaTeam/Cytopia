@@ -21,13 +21,7 @@ ComboBox::ComboBox(const SDL_Rect &uiElementRect)
 
 void ComboBox::draw()
 {
-  Uint8 bgColor, bgColorFrame, bgColorFrameShade, bgColorBottomFrame, bgColorBottomFrameShade;
-
-  bgColor = 128;
-  bgColorFrame = 150;
-  bgColorFrameShade = 172;
-  bgColorBottomFrame = 106;
-  bgColorBottomFrameShade = 84;
+  Uint8 bgColorFrameShade = 172;
 
   // draw the button frame
   if (_comboBoxRect.w != 0 && _comboBoxRect.h != 0)
@@ -35,8 +29,7 @@ void ComboBox::draw()
     drawButtonFrame(_comboBoxRect);
   }
 
-  // arrow
-
+  // draw the arrow
   SDL_Rect arrowRect;
   SDL_Color color = {bgColorFrameShade, bgColorFrameShade, bgColorFrameShade};
 
@@ -111,14 +104,14 @@ void ComboBox::onMouseButtonUp(const SDL_Event &event)
 
   if (_isMenuOpened)
   {
-    _activeID = _textField->getSeletectedID(x, y);
+    _activeID = _textField->getSelectedID();
     _activeText = _textField->getTextFromID(_activeID);
     _isMenuOpened = false;
     _textField->setVisibility(false);
   }
 }
 
-void ComboBox::onMouseButtonDown(const SDL_Event &event) { changeButtonState(BUTTONSTATE_DEFAULT); }
+void ComboBox::onMouseButtonDown(const SDL_Event &) { changeButtonState(BUTTONSTATE_DEFAULT); }
 
 void ComboBox::onMouseLeave(const SDL_Event &event)
 {

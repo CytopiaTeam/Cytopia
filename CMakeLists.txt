@@ -18,7 +18,10 @@ if ( UNIX )
 endif()
 
 # Configuration for packaging
-include(CpackConfiguration.cmake)
+include(build/cmake/CpackConfiguration.cmake)
+
+# Compile options
+include(build/cmake/CompileOptions.cmake)
 
 # set install dir here for convenience
 set (CMAKE_INSTALL_PREFIX "../install")
@@ -38,7 +41,7 @@ if ( UNIX )
 endif()
 
 # add the path to our custom find modules
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake_modules/")
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/build/cmake_modules/")
 
 set (SOURCES 
   src/engine/basics/camera.cxx
@@ -74,7 +77,7 @@ set (SOURCES
 )
   
 if ( MSVC )
-  set(SOURCES ${SOURCES} ${CMAKE_CURRENT_SOURCE_DIR}/msvc/icon_cytopia.rc)
+  set(SOURCES ${SOURCES} ${PROJECT_SOURCE_DIR}/build/msvc/icon_cytopia.rc)
 endif()
 
 # create a new executable with the same name as the project
@@ -119,11 +122,22 @@ target_compile_definitions(
     VERSION="${PROJECT_NAME} ${PROJECT_VERSION} alpha build"
 )
 
+# Compile options
+target_compile_options(
+  ${PROJECT_NAME}
+  PRIVATE
+
+  PUBLIC
+    ${DEFAULT_COMPILE_OPTIONS}
+
+  INTERFACE
+)
+
 # copy the resources to the compiled directory
 add_custom_command(
   TARGET ${PROJECT_NAME} PRE_BUILD
   COMMAND
-    ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/resources $<TARGET_FILE_DIR:${PROJECT_NAME}>/resources
+    ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/resources $<TARGET_FILE_DIR:${PROJECT_NAME}>/resources
 )
 
 
@@ -148,7 +162,7 @@ endif()
 find_package(Doxygen)
 
 if( DOXYGEN_FOUND )
-  set (DoxyFile_src ${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile)
+  set (DoxyFile_src ${PROJECT_SOURCE_DIR}/Doxyfile)
   set (DoxyFile ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile)
   configure_file(${DoxyFile_src} ${DoxyFile} @ONLY)
 
@@ -164,7 +178,7 @@ endif()
 if( MSVC )
   # set startup project for Visual Studio Builds
   set_property(
-    DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    DIRECTORY ${PROJECT_SOURCE_DIR}
     PROPERTY
       VS_STARTUP_PROJECT ${PROJECT_NAME}
   )
