@@ -105,7 +105,7 @@ void MapNode::updateTexture()
       _spriteCount = _tileData->slopeTiles.count;
       break;
     }
-    if (clipRect.x >= _spriteCount * _clippingWidth)
+    if (clipRect.x >=  static_cast<int>(_spriteCount) * _clippingWidth)
     {
       _tileID = _previousTileID;
       updateTexture();
