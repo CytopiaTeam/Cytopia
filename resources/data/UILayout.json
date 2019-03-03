@@ -9,7 +9,8 @@
       "SpriteID": "Button_ConstructionMenu",
       "Position_x": 400,
       "Position_y": 520,
-      "ParentOfGroup": "ConstructionSubMenu",
+      "Action": "ToggleVisibilityOfGroup",
+      "ActionParameter": "ConstructionSubMenu",
       "Layout": "BottomMenu",
       "ToggleButton": true,
       "TooltipText": "Construction"
@@ -18,9 +19,10 @@
       "ID": "roads menu",
       "Type": "ImageButton",
       "SpriteID": "Button_RoadsMenu",
+      "Action": "ToggleVisibilityOfGroup",
+      "ActionParameter": "RoadsSubMenu",
       "Position_x": 480,
       "Position_y": 520,
-      "ParentOfGroup": "RoadsSubMenu",
       "Layout": "BottomMenu",
       "ToggleButton": true,
       "TooltipText": "Construction"
@@ -29,9 +31,10 @@
       "ID": "debug menu",
       "Type": "ImageButton",
       "SpriteID": "Button_DebugMenu",
+      "Action": "ToggleVisibilityOfGroup",
+      "ActionParameter": "DebugSubMenu",
       "Position_x": 320,
       "Position_y": 520,
-      "ParentOfGroup": "DebugSubMenu",
       "Layout": "BottomMenu",
       "ToggleButton": true,
       "TooltipText": "Debug Menu"
@@ -40,9 +43,10 @@
       "ID": "power menu",
       "Type": "ImageButton",
       "SpriteID": "Button_PowerMenu",
+      "Action": "ToggleVisibilityOfGroup",
+      "ActionParameter": "PowerSubMenu",
       "Position_x": 240,
       "Position_y": 520,
-      "ParentOfGroup": "PowerSubMenu",
       "Layout": "BottomMenu",
       "ToggleButton": true,
       "TooltipText": "Power"
@@ -51,9 +55,10 @@
       "ID": "water menu",
       "Type": "ImageButton",
       "SpriteID": "Button_WaterMenu",
+      "Action": "ToggleVisibilityOfGroup",
+      "ActionParameter": "WaterSubMenu",
       "Position_x": 160,
       "Position_y": 520,
-      "ParentOfGroup": "WaterSubMenu",
       "Layout": "BottomMenu",
       "ToggleButton": true,
       "TooltipText": "Water"
@@ -221,7 +226,8 @@
       "Position_y": 170,
       "Width": 200,
       "Height": 40,
-      "ParentOfGroup": "SettingsMenu",
+      "Action": "ToggleVisibilityOfGroup",
+      "ActionParameter": "SettingsMenu",
       "GroupID": 2
     },
     {
@@ -283,7 +289,8 @@
       "Position_y": 450,
       "Width": 100,
       "Height": 30,
-      "ParentOfGroup": "SettingsMenu"
+      "Action": "ToggleVisibilityOfGroup",
+      "ActionParameter": "SettingsMenu"
     },
     {
       "Type": "TextButton",
@@ -292,7 +299,8 @@
       "Position_y": 450,
       "Width": 100,
       "Height": 30,
-      "ParentOfGroup": "SettingsMenu"
+      "Action": "ToggleVisibilityOfGroup",
+      "ActionParameter": "SettingsMenu"
     },
     {
       "Type": "ComboBox",

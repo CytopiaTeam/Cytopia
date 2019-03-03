@@ -23,6 +23,7 @@ protected:
     std::string text;
     std::string tooltipText;
     std::string actionID;
+    std::string actionParameter;
     std::string groupName;
     std::string parentOf;
     std::string textureID;
@@ -122,6 +123,13 @@ public:
   * @param The Action ID as int
   */
   void setActionID(const std::string &actionID) { elementData.actionID = actionID; };
+
+  /** \brief Set the Action Parameter of the UI Element.
+  * Sets the Parameter of the action the UI Element should execute when it's clicked.
+  * For more details see our github wiki page
+  * @param The Action ID as int
+  */
+  void setActionParameter(const std::string &actionParameter) { elementData.actionParameter = actionParameter; };
 
   /** \brief Set the button state
   * Sets the mouse button pressed state. 

@@ -53,7 +53,7 @@ void UIManager::init()
         bool drawFrame = uiLayout[it.key()][id].value("DrawFrame", false);
         std::string uiElementID = uiLayout[it.key()][id].value("ID", "");
         std::string actionID = uiLayout[it.key()][id].value("Action", "");
-        std::string parentOf = uiLayout[it.key()][id].value("ParentOfGroup", "");
+        std::string actionParameter = uiLayout[it.key()][id].value("ActionParameter", "");
         std::string tooltipText = uiLayout[it.key()][id].value("TooltipText", "");
         std::string text = uiLayout[it.key()][id].value("Text", "");
         std::string textureID = uiLayout[it.key()][id].value("SpriteID", "");
@@ -106,16 +106,12 @@ void UIManager::init()
         uiElement->setVisibility(visible);
         uiElement->setTooltipText(tooltipText);
         uiElement->setActionID(actionID);
-        uiElement->setParentID(parentOf);
+        uiElement->setActionParameter(actionParameter);
         uiElement->setGroupID(groupID);
         uiElement->setToggleButton(toggleButton);
         uiElement->setUIElementID(uiElementID);
         uiElement->drawImageButtonFrame(drawFrame);
 
-        if (!parentOf.empty())
-        {
-          uiElement->registerCallbackFunction(Signal::slot(this, &UIManager::toggleGroupVisibility));
-        }
         if (actionID == "RaiseTerrain")
         {
           uiElement->registerCallbackFunction([]() {
@@ -149,6 +145,10 @@ void UIManager::init()
             tileTypeEditMode == type ? highlightSelection = true : highlightSelection = false;
           });
         }
+        else if (actionID == "ToggleVisibilityOfGroup")
+        {
+          uiElement->registerCallbackFunction(Signal::slot(this, &UIManager::toggleGroupVisibility));
+        }
         // store the element in a vector
         _uiElements.emplace_back(std::move(uiElement));
       }
@@ -178,6 +178,12 @@ void UIManager::drawUI()
 
 void UIManager::toggleGroupVisibility(const std::string &groupID)
 {
+  if (groupID.empty())
+  {
+    LOG(LOG_ERROR) << "UI Element with Action \"ToggleVisibilityOfGroup\" was called without a parameter.";
+    return;
+  }
+
   for (const std::unique_ptr<UiElement> &it : _uiElements)
   {
     if (it->getUiElementData().groupName == groupID)

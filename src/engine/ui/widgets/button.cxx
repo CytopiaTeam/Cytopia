@@ -30,11 +30,7 @@ void Button::setText(const std::string &text) { _buttonLabel->setText(text); }
 void Button::onMouseButtonUp(const SDL_Event &event)
 {
   clickSignal.emit();
-
-  if (!elementData.parentOf.empty())
-  {
-    clickSignalString.emit(elementData.parentOf);
-  }
+  clickSignalString.emit(elementData.actionParameter);
 
   if (!elementData.isToggleButton)
   {
