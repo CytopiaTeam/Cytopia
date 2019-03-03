@@ -360,7 +360,7 @@ void Map::highlightNode(const Point &isoCoordinates)
   {
     size_t index = isoCoordinates.x * _columns + isoCoordinates.y;
 
-    if (index >= 0 && index < _mapNodes.size())
+    if (index < _mapNodes.size())
     {
       highlitNode = _mapNodes.at(index);
       highlitNode->getSprite()->highlight(true);
