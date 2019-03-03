@@ -49,63 +49,23 @@ void UIManager::init()
 
       if (!uiLayout[it.key()][id]["Type"].is_null())
       {
-        bool toggleButton = false;
-        bool drawFrame = false;
-        std::string uiElementID;
-        std::string actionID;
-        std::string parentOf;
-        std::string tooltipText;
-        std::string text;
-        std::string textureID;
+        bool toggleButton = uiLayout[it.key()][id].value("ToggleButton", false);
+        bool drawFrame = uiLayout[it.key()][id].value("DrawFrame", false);
+        std::string uiElementID = uiLayout[it.key()][id].value("ID", "");
+        std::string actionID = uiLayout[it.key()][id].value("Action", "");
+        std::string parentOf = uiLayout[it.key()][id].value("ParentOfGroup", "");
+        std::string tooltipText = uiLayout[it.key()][id].value("TooltipText", "");
+        std::string text = uiLayout[it.key()][id].value("Text", "");
+        std::string textureID = uiLayout[it.key()][id].value("SpriteID", "");
 
         SDL_Rect elementRect = {0, 0, 0, 0};
-
-        // Each element must have x and y values
-        elementRect.x = uiLayout[it.key()][id]["Position_x"].get<int>();
-        elementRect.y = uiLayout[it.key()][id]["Position_y"].get<int>();
-
-        if (!uiLayout[it.key()][id]["Width"].is_null())
-        {
-          elementRect.w = uiLayout[it.key()][id]["Width"].get<int>();
-        }
-        if (!uiLayout[it.key()][id]["Height"].is_null())
-        {
-          elementRect.h = uiLayout[it.key()][id]["Height"].get<int>();
-        }
-        if (!uiLayout[it.key()][id]["SpriteID"].is_null())
-        {
-          textureID = uiLayout[it.key()][id]["SpriteID"].get<std::string>();
-        }
-        if (!uiLayout[it.key()][id]["TooltipText"].is_null())
-        {
-          tooltipText = uiLayout[it.key()][id]["TooltipText"].get<std::string>();
-        }
-        if (!uiLayout[it.key()][id]["ToggleButton"].is_null())
-        {
-          toggleButton = uiLayout[it.key()][id]["ToggleButton"].get<bool>();
-        }
-        if (!uiLayout[it.key()][id]["ParentOfGroup"].is_null())
-        {
-          parentOf = uiLayout[it.key()][id]["ParentOfGroup"].get<std::string>();
-        }
-        if (!uiLayout[it.key()][id]["Action"].is_null())
-        {
-          actionID = uiLayout[it.key()][id]["Action"].get<std::string>();
-        }
-        if (!uiLayout[it.key()][id]["Text"].is_null())
-        {
-          text = uiLayout[it.key()][id]["Text"].get<std::string>();
-        }
-        if (!uiLayout[it.key()][id]["ID"].is_null())
-        {
-          uiElementID = uiLayout[it.key()][id]["ID"].get<std::string>();
-        }
-        if (!uiLayout[it.key()][id]["DrawFrame"].is_null())
-        {
-          drawFrame = uiLayout[it.key()][id]["DrawFrame"].get<bool>();
-        }
+        elementRect.x = uiLayout[it.key()][id].value("Position_x", 0);
+        elementRect.y = uiLayout[it.key()][id].value("Position_y", 0);
+        elementRect.w = uiLayout[it.key()][id].value("Width", 0);
+        elementRect.h = uiLayout[it.key()][id].value("Height", 0);
 
         std::unique_ptr<UiElement> uiElement;
+
         // Create the ui elements
         if (uiLayout[it.key()][id]["Type"] == "ImageButton")
         {
