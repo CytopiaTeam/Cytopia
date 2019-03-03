@@ -79,7 +79,7 @@ void MapNode::updateTexture()
     switch (_tileMap)
     {
     case TileMap::DEFAULT:
-      clipRect.x = _tileData->tiles.clippingWidth * (int)_orientation;
+      clipRect.x = _tileData->tiles.clippingWidth * static_cast<int>(_orientation);
       _clippingWidth = _tileData->tiles.clippingWidth;
       if (_tileID == "terrain")
       {
@@ -94,13 +94,13 @@ void MapNode::updateTexture()
       break;
     case TileMap::CORNERS:
       _clippingWidth = _tileData->cornerTiles.clippingWidth;
-      clipRect.x = _tileData->cornerTiles.clippingWidth * (int)_orientation;
+      clipRect.x = _tileData->cornerTiles.clippingWidth * static_cast<int>(_orientation);
       _sprite->setClipRect({clipRect.x, 0, _tileData->cornerTiles.clippingWidth, _tileData->cornerTiles.clippingHeight});
       _spriteCount = _tileData->cornerTiles.count;
       break;
     case TileMap::SLOPES:
       _clippingWidth = _tileData->slopeTiles.clippingWidth;
-      clipRect.x = _tileData->slopeTiles.clippingWidth * (int)_orientation;
+      clipRect.x = _tileData->slopeTiles.clippingWidth * static_cast<int>(_orientation);
       _sprite->setClipRect({clipRect.x, 0, _tileData->slopeTiles.clippingWidth, _tileData->slopeTiles.clippingHeight});
       _spriteCount = _tileData->slopeTiles.count;
       break;
