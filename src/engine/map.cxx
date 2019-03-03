@@ -386,6 +386,7 @@ void Map::saveMapToFile(const std::string &fileName)
 
   std::ofstream file(fileName);
   file << j;
+  file.close();
 }
 
 Map *Map::loadMapFromFile(const std::string &fileName)
@@ -400,6 +401,9 @@ Map *Map::loadMapFromFile(const std::string &fileName)
 
   // check if json file can be parsed
   json saveGameJSON = json::parse(file, nullptr, false);
+
+  file.close();
+
   if (saveGameJSON.is_discarded())
   {
     LOG(LOG_ERROR) << "Could not parse savegame file " << fileName;
