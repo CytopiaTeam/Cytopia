@@ -30,11 +30,7 @@ void Button::setText(const std::string &text) { _buttonLabel->setText(text); }
 void Button::onMouseButtonUp(const SDL_Event &)
 {
   clickSignal.emit();
-
-  if (!elementData.parentOf.empty())
-  {
-    toggleGroupSignal.emit(elementData.parentOf);
-  }
+  clickSignalString.emit(elementData.actionParameter);
 
   if (!elementData.isToggleButton)
   {
@@ -94,6 +90,6 @@ void Button::onMouseLeave(const SDL_Event &)
 }
 
 void Button::registerCallbackFunction(std::function<void()> const &cb) { clickSignal.connect(cb); }
-void Button::registerToggleUIFunction(std::function<void(const std::string &)> const &cb) { toggleGroupSignal.connect(cb); }
+void Button::registerCallbackFunction(std::function<void(const std::string &)> const &cb) { clickSignalString.connect(cb); }
 
 void Button::drawImageButtonFrame(bool drawFrame) { _drawFrame = drawFrame; }

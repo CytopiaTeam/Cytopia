@@ -49,106 +49,73 @@ void UIManager::init()
 
       if (!uiLayout[it.key()][id]["Type"].is_null())
       {
-        bool toggleButton = false;
-        bool drawFrame = false;
-        std::string uiElementID;
-        std::string actionID;
-        std::string parentOf;
-        std::string tooltipText;
-        std::string text;
-        std::string textureID;
+        bool toggleButton = uiLayout[it.key()][id].value("ToggleButton", false);
+        bool drawFrame = uiLayout[it.key()][id].value("DrawFrame", false);
+        std::string uiElementID = uiLayout[it.key()][id].value("ID", "");
+        std::string actionID = uiLayout[it.key()][id].value("Action", "");
+        std::string actionParameter = uiLayout[it.key()][id].value("ActionParameter", "");
+        std::string tooltipText = uiLayout[it.key()][id].value("TooltipText", "");
+        std::string text = uiLayout[it.key()][id].value("Text", "");
+        std::string textureID = uiLayout[it.key()][id].value("SpriteID", "");
+        std::string type = uiLayout[it.key()][id].value("Type", "");
 
         SDL_Rect elementRect = {0, 0, 0, 0};
+        elementRect.x = uiLayout[it.key()][id].value("Position_x", 0);
+        elementRect.y = uiLayout[it.key()][id].value("Position_y", 0);
+        elementRect.w = uiLayout[it.key()][id].value("Width", 0);
+        elementRect.h = uiLayout[it.key()][id].value("Height", 0);
 
-        // Each element must have x and y values
-        elementRect.x = uiLayout[it.key()][id]["Position_x"].get<int>();
-        elementRect.y = uiLayout[it.key()][id]["Position_y"].get<int>();
+        std::unique_ptr<UiElement> uiElement;
 
-        if (!uiLayout[it.key()][id]["Width"].is_null())
-        {
-          elementRect.w = uiLayout[it.key()][id]["Width"].get<int>();
-        }
-        if (!uiLayout[it.key()][id]["Height"].is_null())
-        {
-          elementRect.h = uiLayout[it.key()][id]["Height"].get<int>();
-        }
-        if (!uiLayout[it.key()][id]["SpriteID"].is_null())
-        {
-          textureID = uiLayout[it.key()][id]["SpriteID"].get<std::string>();
-        }
-        if (!uiLayout[it.key()][id]["TooltipText"].is_null())
-        {
-          tooltipText = uiLayout[it.key()][id]["TooltipText"].get<std::string>();
-        }
-        if (!uiLayout[it.key()][id]["ToggleButton"].is_null())
-        {
-          toggleButton = uiLayout[it.key()][id]["ToggleButton"].get<bool>();
-        }
-        if (!uiLayout[it.key()][id]["ParentOfGroup"].is_null())
-        {
-          parentOf = uiLayout[it.key()][id]["ParentOfGroup"].get<std::string>();
-        }
-        if (!uiLayout[it.key()][id]["Action"].is_null())
-        {
-          actionID = uiLayout[it.key()][id]["Action"].get<std::string>();
-        }
-        if (!uiLayout[it.key()][id]["Text"].is_null())
-        {
-          text = uiLayout[it.key()][id]["Text"].get<std::string>();
-        }
-        if (!uiLayout[it.key()][id]["ID"].is_null())
-        {
-          uiElementID = uiLayout[it.key()][id]["ID"].get<std::string>();
-        }
-        if (!uiLayout[it.key()][id]["DrawFrame"].is_null())
-        {
-          drawFrame = uiLayout[it.key()][id]["DrawFrame"].get<bool>();
-        }
-
-        std::shared_ptr<UiElement> uiElement;
         // Create the ui elements
-        if (uiLayout[it.key()][id]["Type"] == "ImageButton")
+        if (type.empty())
         {
-          uiElement = std::make_shared<Button>(elementRect);
+          LOG(LOG_ERROR) << "An element without a type can not be created, check your UiLayout JSON File "
+                         << Settings::instance().settings.uiLayoutJSONFile;
+          continue;
+        }
+        else if (type == "ImageButton")
+        {
+          uiElement = std::make_unique<Button>(elementRect);
           uiElement->setTextureID(textureID);
         }
-        if (uiLayout[it.key()][id]["Type"] == "TextButton")
+        else if (type == "TextButton")
         {
-          uiElement = std::make_shared<Button>(elementRect);
+          uiElement = std::make_unique<Button>(elementRect);
           uiElement->setText(text);
         }
-        if (uiLayout[it.key()][id]["Type"] == "Text")
+        else if (type == "Text")
         {
-          uiElement = std::make_shared<Text>(elementRect);
+          uiElement = std::make_unique<Text>(elementRect);
           uiElement->setText(text);
         }
-        if (uiLayout[it.key()][id]["Type"] == "Frame")
+        else if (type == "Frame")
         {
-          uiElement = std::make_shared<Frame>(elementRect);
+          uiElement = std::make_unique<Frame>(elementRect);
         }
-        if (uiLayout[it.key()][id]["Type"] == "Checkbox")
+        else if (type == "Checkbox")
         {
-          uiElement = std::make_shared<Checkbox>(elementRect);
+          uiElement = std::make_unique<Checkbox>(elementRect);
         }
-        if (uiLayout[it.key()][id]["Type"] == "ComboBox")
+        else if (type == "ComboBox")
         {
-          uiElement = std::make_shared<ComboBox>(elementRect);
+          uiElement = std::make_unique<ComboBox>(elementRect);
           uiElement->setText(text);
         }
 
         uiElement->setVisibility(visible);
         uiElement->setTooltipText(tooltipText);
         uiElement->setActionID(actionID);
-        uiElement->setParentID(parentOf);
-        uiElement->setGroupID(groupID);
+        uiElement->setActionParameter(actionParameter);
         uiElement->setToggleButton(toggleButton);
         uiElement->setUIElementID(uiElementID);
         uiElement->drawImageButtonFrame(drawFrame);
 
-        if (!parentOf.empty())
+        if (!groupID.empty())
         {
-          uiElement->registerToggleUIFunction(Signal::slot(this, &UIManager::toggleGroupVisibility));
+          uiGroups[groupID].push_back(uiElement.get());
         }
+
         if (actionID == "RaiseTerrain")
         {
           uiElement->registerCallbackFunction([]() {
@@ -182,6 +149,10 @@ void UIManager::init()
             tileTypeEditMode == type ? highlightSelection = true : highlightSelection = false;
           });
         }
+        else if (actionID == "ToggleVisibilityOfGroup")
+        {
+          uiElement->registerCallbackFunction(Signal::slot(this, &UIManager::toggleGroupVisibility));
+        }
         else if (actionID == "SaveGame")
         {
           uiElement->registerCallbackFunction([]() { Engine::instance().getMap()->saveMapToFile("resources/save.json"); });
@@ -191,7 +162,7 @@ void UIManager::init()
           uiElement->registerCallbackFunction([]() { Engine::instance().loadSaveGame("resources/save.json"); });
         }
         // store the element in a vector
-        _uiElements.emplace_back(uiElement);
+        _uiElements.emplace_back(std::move(uiElement));
       }
     }
   }
@@ -217,16 +188,17 @@ void UIManager::drawUI()
   _tooltip->draw();
 }
 
-void UIManager::addToGroup(int groupID, std::shared_ptr<UiElement> uiElement) { _group[groupID] = std::move(uiElement); }
-
 void UIManager::toggleGroupVisibility(const std::string &groupID)
 {
-  for (const std::shared_ptr<UiElement> &it : _uiElements)
+  if (groupID.empty())
   {
-    if (it->getUiElementData().groupName == groupID)
-    {
-      it->setVisibility(!it->isVisible());
-    }
+    LOG(LOG_ERROR) << "UI Element with Action \"ToggleVisibilityOfGroup\" was called without a parameter.";
+    return;
+  }
+
+  for (const auto &it : uiGroups[groupID])
+  {
+    it->setVisibility(!it->isVisible());
   }
 }
 
@@ -241,12 +213,12 @@ void UIManager::startTooltip(SDL_Event &event, const std::string &tooltipText)
 
 void UIManager::stopTooltip() { _tooltip->reset(); }
 
-std::shared_ptr<UiElement> UIManager::getUiElementByID(const std::string &UiElementID)
+UiElement *UIManager::getUiElementByID(const std::string &UiElementID)
 {
   for (auto &it : _uiElements)
   {
     if (it->getUiElementData().elementID == UiElementID)
-      return it;
+      return it.get();
   }
   return nullptr;
 }

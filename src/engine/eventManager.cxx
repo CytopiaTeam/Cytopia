@@ -150,7 +150,7 @@ bool EventManager::dispatchUiEvents(SDL_Event &event)
   bool isHovering = false;
 
   // the reversed draw order of the vector is  the Z-Order of the elements
-  for (const std::shared_ptr<UiElement> &it : utils::ReverseIterator(uiManager.getAllUiElements()))
+  for (const std::unique_ptr<UiElement> &it : utils::ReverseIterator(uiManager.getAllUiElements()))
   {
     if (event.type == SDL_KEYDOWN)
     {
@@ -167,14 +167,14 @@ bool EventManager::dispatchUiEvents(SDL_Event &event)
       switch (event.type)
       {
       case SDL_MOUSEMOTION:
-        if (it != lastHoveredElement && isHovering)
+        if (it.get() != lastHoveredElement && isHovering)
         {
           if (lastHoveredElement != nullptr)
           {
             lastHoveredElement->onMouseLeave(event);
           }
           it->onMouseEnter(event);
-          lastHoveredElement = it;
+          lastHoveredElement = it.get();
         }
         else if (isMouseOverElement)
         {

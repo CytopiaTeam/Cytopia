@@ -21,9 +21,9 @@ void Checkbox::onMouseButtonUp(const SDL_Event &)
 {
   clickSignal.emit();
 
-  if (!elementData.parentOf.empty())
+  if (!elementData.actionParameter.empty())
   {
-    toggleGroupSignal.emit(elementData.parentOf);
+    toggleGroupSignal.emit(elementData.actionParameter);
   }
 
   if (!_isMouseButtonDown)

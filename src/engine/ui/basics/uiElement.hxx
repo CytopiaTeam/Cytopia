@@ -23,8 +23,7 @@ protected:
     std::string text;
     std::string tooltipText;
     std::string actionID;
-    std::string groupName;
-    std::string parentOf;
+    std::string actionParameter;
     std::string textureID;
     bool isToggleButton = false;
 
@@ -38,10 +37,9 @@ public:
   UiElement(const SDL_Rect &uiElementRect) : _uiElementRect(uiElementRect){};
   virtual ~UiElement() = default;
 
-  /**
-  */
   virtual void registerCallbackFunction(std::function<void()> const &){};
-  virtual void registerToggleUIFunction(std::function<void(const std::string &)> const &){};
+  virtual void registerCallbackFunction(std::function<void(const std::string &)> const &){};
+
 
   // empty virtual function that can be overriden in the derived Ui Elements
   virtual void onMouseButtonUp(const SDL_Event &){};
@@ -101,27 +99,19 @@ public:
   */
   void setVisibility(bool visibility) { _visible = visibility; };
 
-  /** \brief Set the Group ID (name) of the UI Element.
-  * Sets the Name of the group the UI Elements belongs to.
-  * Group ID Name must be the same as used for groups in the UI Layout JSON File.
-  * @param The name of the group the element nbelongs to as string
-  */
-  void setGroupID(const std::string &groupName) { elementData.groupName = groupName; };
-
-  /** \brief Set the ParentOf ID of the UI Element.
-  * Retrieves the ID of the group that the UI Element is the parent of.
-  * Group ID Name must be the same as used for groups in the UI Layout JSON File.
-  * For more details see our github wiki page
-  * @param The parentOf ID as string
-  */
-  void setParentID(const std::string &parentOf) { elementData.parentOf = parentOf; };
-
   /** \brief Set the Action ID of the UI Element.
   * Sets the ID of the action the UI Element should execute when it's clicked.
   * For more details see our github wiki page
   * @param The Action ID as int
   */
   void setActionID(const std::string &actionID) { elementData.actionID = actionID; };
+
+  /** \brief Set the Action Parameter of the UI Element.
+  * Sets the Parameter of the action the UI Element should execute when it's clicked.
+  * For more details see our github wiki page
+  * @param The Action ID as int
+  */
+  void setActionParameter(const std::string &actionParameter) { elementData.actionParameter = actionParameter; };
 
   /** \brief Set the button state
   * Sets the mouse button pressed state. 
