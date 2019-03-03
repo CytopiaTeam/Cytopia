@@ -29,8 +29,9 @@ constexpr struct
 
 Map::Map(int columns, int rows) : _columns(columns), _rows(rows)
 {
-  mapNodes.resize(_rows * _columns);
-  mapNodesInDrawingOrder.reserve(_rows * _columns);
+  size_t vectorSize = static_cast<size_t>(_rows * _columns);
+  mapNodes.resize(vectorSize);
+  mapNodesInDrawingOrder.reserve(vectorSize);
 }
 
 void Map::initMap()
