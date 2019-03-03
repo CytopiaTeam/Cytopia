@@ -40,7 +40,7 @@ void Engine::demolishNode(const Point &isoCoordinates) { _map->demolishNode(isoC
 
 void Engine::loadSaveGame(const std::string &fileName)
 {
-  Map *newMap = Map::loadMapFromFile("resources/save.json");
+  Map *newMap = Map::loadMapFromFile(fileName);
 
   if (newMap)
   {
