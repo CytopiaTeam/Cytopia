@@ -54,25 +54,27 @@ Point convertScreenToIsoCoordinates(const SDL_Point &screenCoordinates)
     if (foundCoordinates.x < 0)
     {
       foundCoordinates.x = 0;
-    };
-    if (foundCoordinates.x > Settings::instance().settings.mapSize)
+    }
+    else if (foundCoordinates.x >= Settings::instance().settings.mapSize)
     {
-      foundCoordinates.x = Settings::instance().settings.mapSize;
-    };
+      // map (vector) size is 128, but coordinates ranges from 0 - 127
+      foundCoordinates.x = Settings::instance().settings.mapSize - 1;
+    }
     if (foundCoordinates.y < 0)
     {
       foundCoordinates.y = 0;
-    };
-    if (foundCoordinates.y > Settings::instance().settings.mapSize)
+    }
+    else if (foundCoordinates.y >= Settings::instance().settings.mapSize)
     {
-      foundCoordinates.y = Settings::instance().settings.mapSize;
-    };
+      // map (vector) size is 128, but coordinates range from 0 - 127
+      foundCoordinates.y = Settings::instance().settings.mapSize - 1;
+    }
   }
   return foundCoordinates;
 }
 
 bool isPointWithinMapBoundaries(const Point &isoCoordinates)
 {
-  return (isoCoordinates.x >= 0 && isoCoordinates.x <= Settings::instance().settings.mapSize) &&
-         (isoCoordinates.y >= 0 && isoCoordinates.y <= Settings::instance().settings.mapSize);
+  return (isoCoordinates.x >= 0 && isoCoordinates.x < Settings::instance().settings.mapSize) &&
+         (isoCoordinates.y >= 0 && isoCoordinates.y < Settings::instance().settings.mapSize);
 }

@@ -14,7 +14,7 @@ public:
 
   void addText(const std::string &text);
 
-  int getSeletectedID(int x, int y) { return _selectedID; };
+  int getSelectedID() { return _selectedID; };
 
   int getHoveredID() { return _hoveredID; };
 
@@ -28,14 +28,18 @@ public:
   void onMouseMove(const SDL_Event &event) override;
   void onMouseLeave(const SDL_Event &event) override;
 
+  bool centerText = true;
+
+  int count() const { return _count; };
+
 private:
   std::vector<Text *> _textVector;
-
-  bool _centerText = true;
 
   int _textElementHeight = 0;
   int _selectedID = -1;
   int _hoveredID = -1;
+
+  int _count = 0;
   // a rect is drawn beneath the current text to hover it
   SDL_Rect _hoverRect;
 };

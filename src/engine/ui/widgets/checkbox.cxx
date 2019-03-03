@@ -17,7 +17,7 @@ void Checkbox::draw()
   }
 }
 
-void Checkbox::onMouseButtonUp(const SDL_Event &event)
+void Checkbox::onMouseButtonUp(const SDL_Event &)
 {
   clickSignal.emit();
 
@@ -33,7 +33,7 @@ void Checkbox::onMouseButtonUp(const SDL_Event &event)
   _isMouseButtonDown = false;
 }
 
-void Checkbox::onMouseButtonDown(const SDL_Event &event)
+void Checkbox::onMouseButtonDown(const SDL_Event &)
 {
   changeButtonState(getButtonState() == BUTTONSTATE_CLICKED ? BUTTONSTATE_DEFAULT : BUTTONSTATE_CLICKED);
   _isMouseButtonDown = true;

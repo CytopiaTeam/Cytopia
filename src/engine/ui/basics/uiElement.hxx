@@ -37,18 +37,17 @@ public:
   UiElement(const SDL_Rect &uiElementRect) : _uiElementRect(uiElementRect){};
   virtual ~UiElement() = default;
 
-  /**
-  */
-  virtual void registerCallbackFunction(std::function<void()> const &cb){};
-  virtual void registerCallbackFunction(std::function<void(const std::string &)> const &cb){};
+  virtual void registerCallbackFunction(std::function<void()> const &){};
+  virtual void registerCallbackFunction(std::function<void(const std::string &)> const &){};
+
 
   // empty virtual function that can be overriden in the derived Ui Elements
-  virtual void onMouseButtonUp(const SDL_Event &event){};
-  virtual void onMouseButtonDown(const SDL_Event &event){};
-  virtual void onMouseEnter(const SDL_Event &event){};
-  virtual void onMouseLeave(const SDL_Event &event){};
-  virtual void onMouseMove(const SDL_Event &event){};
-  virtual bool onKeyDown(const SDL_Event &event) { return false; };
+  virtual void onMouseButtonUp(const SDL_Event &){};
+  virtual void onMouseButtonDown(const SDL_Event &){};
+  virtual void onMouseEnter(const SDL_Event &){};
+  virtual void onMouseLeave(const SDL_Event &){};
+  virtual void onMouseMove(const SDL_Event &){};
+  virtual bool onKeyDown(const SDL_Event &) { return false; };
 
   /** \brief Draw the UI Element and/or render it's textures to the screen
   * Renders the texture of the Ui Element. Function is over
@@ -157,21 +156,16 @@ public:
 
   const ElementData &getUiElementData() const { return elementData; };
 
-  virtual void drawImageButtonFrame(bool drawFrame){};
+  virtual void drawImageButtonFrame(bool){};
 
 private:
   SDL_Renderer *_renderer = WindowManager::instance().getRenderer();
   SDL_Window *_window = WindowManager::instance().getWindow();
   TTF_Font *_font;
 
-  SDL_Surface *_surface = nullptr;
-
   int _buttonState = BUTTONSTATE_DEFAULT;
 
   bool _visible = true;
-
-  /// workaround to find out, if we have a "clean" texture, or if there's text on it
-  bool _textBlittedToTexture = false;
 
 protected:
   SDL_Texture *_texture = nullptr;

@@ -35,7 +35,7 @@ public:
     * @param distance The distance from the listener, from 0(near/loud) to 255(far/quiet).
     * @param loops How many loops should be played. Default: 0 (play one time)
     */
-  void play(int channel = -1, int angle = 0, int distance = 0, int loops = 0) const;
+  void play(int channel = -1, Sint16 angle = 0, Uint8 distance = 0, int loops = 0) const;
 
   /** \brief Stop sound effect
     * Stops the soundeffect at given channel

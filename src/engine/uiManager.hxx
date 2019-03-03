@@ -49,7 +49,6 @@ private:
   // Text element for the FPS Counter (debug menu)
   std::unique_ptr<Text> _fpsCounter = std::make_unique<Text>(SDL_Rect{40, 20, 0, 0});
 
-  bool _mouseHeldDown = false;
   bool _showDebugMenu = false;
 
   std::unordered_map<std::string, std::vector<UiElement *>> uiGroups;

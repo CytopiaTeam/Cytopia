@@ -153,6 +153,14 @@ void UIManager::init()
         {
           uiElement->registerCallbackFunction(Signal::slot(this, &UIManager::toggleGroupVisibility));
         }
+        else if (actionID == "SaveGame")
+        {
+          uiElement->registerCallbackFunction([]() { Engine::instance().getMap()->saveMapToFile("resources/save.json"); });
+        }
+        else if (actionID == "LoadGame")
+        {
+          uiElement->registerCallbackFunction([]() { Engine::instance().loadSaveGame("resources/save.json"); });
+        }
         // store the element in a vector
         _uiElements.emplace_back(std::move(uiElement));
       }

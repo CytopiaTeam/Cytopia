@@ -45,8 +45,8 @@ before_script:
   - popd
   
   # Build Cytopia
-  - mkdir build
-  - cd build
+  - mkdir travis_build
+  - cd travis_build
   - cmake ..
 
 script:

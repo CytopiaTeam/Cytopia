@@ -7,7 +7,7 @@ TileDataUi.cxx
 )
 
 if ( MSVC )
-  set(SOURCES ${SOURCES} ${PROJECT_SOURCE_DIR}/msvc/icon_tiledataeditor.rc)
+  set(SOURCES ${SOURCES} ${PROJECT_SOURCE_DIR}/build/msvc/icon_tiledataeditor.rc)
 endif()
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
