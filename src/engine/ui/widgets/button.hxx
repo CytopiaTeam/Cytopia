@@ -22,7 +22,7 @@ public:
   void drawImageButtonFrame(bool drawFrame) override;
 
   void registerCallbackFunction(std::function<void()> const &cb) override;
-  void registerToggleUIFunction(std::function<void(const std::string &)> const &cb) override;
+  void registerCallbackFunction(std::function<void(const std::string &)> const &cb) override;
 
 private:
   SDL_Rect _rect;
@@ -35,7 +35,7 @@ private:
   bool _drawFrame = false;
 
   Signal::Signal<void()> clickSignal;
-  Signal::Signal<void(const std::string &)> toggleGroupSignal;
+  Signal::Signal<void(const std::string &)> clickSignalString;
 };
 
 #endif

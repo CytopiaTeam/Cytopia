@@ -114,7 +114,7 @@ void UIManager::init()
 
         if (!parentOf.empty())
         {
-          uiElement->registerToggleUIFunction(Signal::slot(this, &UIManager::toggleGroupVisibility));
+          uiElement->registerCallbackFunction(Signal::slot(this, &UIManager::toggleGroupVisibility));
         }
         if (actionID == "RaiseTerrain")
         {
