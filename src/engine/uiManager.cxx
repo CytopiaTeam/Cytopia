@@ -105,34 +105,34 @@ void UIManager::init()
           drawFrame = uiLayout[it.key()][id]["DrawFrame"].get<bool>();
         }
 
-        std::shared_ptr<UiElement> uiElement;
+        std::unique_ptr<UiElement> uiElement;
         // Create the ui elements
         if (uiLayout[it.key()][id]["Type"] == "ImageButton")
         {
-          uiElement = std::make_shared<Button>(elementRect);
+          uiElement = std::make_unique<Button>(elementRect);
           uiElement->setTextureID(textureID);
         }
         if (uiLayout[it.key()][id]["Type"] == "TextButton")
         {
-          uiElement = std::make_shared<Button>(elementRect);
+          uiElement = std::make_unique<Button>(elementRect);
           uiElement->setText(text);
         }
         if (uiLayout[it.key()][id]["Type"] == "Text")
         {
-          uiElement = std::make_shared<Text>(elementRect);
+          uiElement = std::make_unique<Text>(elementRect);
           uiElement->setText(text);
         }
         if (uiLayout[it.key()][id]["Type"] == "Frame")
         {
-          uiElement = std::make_shared<Frame>(elementRect);
+          uiElement = std::make_unique<Frame>(elementRect);
         }
         if (uiLayout[it.key()][id]["Type"] == "Checkbox")
         {
-          uiElement = std::make_shared<Checkbox>(elementRect);
+          uiElement = std::make_unique<Checkbox>(elementRect);
         }
         if (uiLayout[it.key()][id]["Type"] == "ComboBox")
         {
-          uiElement = std::make_shared<ComboBox>(elementRect);
+          uiElement = std::make_unique<ComboBox>(elementRect);
           uiElement->setText(text);
         }
 
@@ -183,7 +183,7 @@ void UIManager::init()
           });
         }
         // store the element in a vector
-        _uiElements.emplace_back(uiElement);
+        _uiElements.emplace_back(std::move(uiElement));
       }
     }
   }
@@ -211,7 +211,7 @@ void UIManager::drawUI()
 
 void UIManager::toggleGroupVisibility(const std::string &groupID)
 {
-  for (const std::shared_ptr<UiElement> &it : _uiElements)
+  for (const std::unique_ptr<UiElement> &it : _uiElements)
   {
     if (it->getUiElementData().groupName == groupID)
     {
@@ -231,12 +231,12 @@ void UIManager::startTooltip(SDL_Event &event, const std::string &tooltipText)
 
 void UIManager::stopTooltip() { _tooltip->reset(); }
 
-std::shared_ptr<UiElement> UIManager::getUiElementByID(const std::string &UiElementID)
+UiElement *UIManager::getUiElementByID(const std::string &UiElementID)
 {
   for (auto &it : _uiElements)
   {
     if (it->getUiElementData().elementID == UiElementID)
-      return it;
+      return it.get();
   }
   return nullptr;
 }

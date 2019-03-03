@@ -33,9 +33,9 @@ public:
 
   void setFPSCounterText(const std::string &fps);
 
-  const std::vector<std::shared_ptr<UiElement>> &getAllUiElements() const { return _uiElements; };
+  const std::vector<std::unique_ptr<UiElement>> &getAllUiElements() const { return _uiElements; };
 
-  std::shared_ptr<UiElement> getUiElementByID(const std::string &UiElement);
+  UiElement *getUiElementByID(const std::string &UiElement);
   void startTooltip(SDL_Event &event, const std::string &tooltipText);
 
   void stopTooltip();
@@ -43,7 +43,7 @@ public:
 private:
   UIManager() = default;
   ~UIManager() = default;
-  std::vector<std::shared_ptr<UiElement>> _uiElements;
+  std::vector<std::unique_ptr<UiElement>> _uiElements;
 
   std::unique_ptr<Tooltip> _tooltip = std::make_unique<Tooltip>();
   // Text element for the FPS Counter (debug menu)
