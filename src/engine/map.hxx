@@ -15,7 +15,7 @@ public:
   Map(int columns, int rows);
   ~Map() = default;
 
-  MapNode *getNode(int x, int y) { return _mapNodes[x * _columns + y]; };
+  MapNode *getNode(int x, int y) const { return mapNodes[x * _columns + y].get(); };
 
   /** \brief Initialize the Map with node objects
     * Initialize the Map with node objects
@@ -40,7 +40,7 @@ public:
     * call the render() function of the sprite in the all contained MapNode elements
     * @see Sprite#render
     */
-  void renderMap();
+  void renderMap() const;
 
   void highlightNode(const Point &isoCoordinates);
 
@@ -51,16 +51,39 @@ public:
   void demolishNode(const Point &isoCoordinates);
   void refresh();
 
-private:
-  std::vector<MapNode *> _mapNodes;
-  std::vector<MapNode *> _mapNodesInDrawingOrder;
+  /** \Brief Save Map to file
+  * Serializes the Map class to json and writes the data to a file.
+  * @param string fileName The file the map should be written to
+  */
+  void saveMapToFile(const std::string &fileName);
 
+  /** \Brief Load Map from file
+  * Deserializes the Map class from a json file, creates a new Map and returns it.
+  * @param string fileName The file the map should be written to
+  * @returns Map* Pointer to the newly created Map.
+  */
+  static Map *loadMapFromFile(const std::string &fileName);
+
+  std::vector<std::unique_ptr<MapNode>> mapNodes;
+  std::vector<MapNode *> mapNodesInDrawingOrder;
+
+private:
   MapNode *highlitNode = nullptr;
 
   int _columns;
   int _rows;
 
-  void updateNeighbors(const Point &isoCoordinates);
+  /**\brief Update mapNode and its adjacent tiles
+  * Updates mapNode height information, draws slopes for adjacent tiles and sets tiling for mapNode sprite if applicable
+  * @param Point isoCoordinates - isometric coordinates of the tile that should be updated.
+  */
+  void updateNeighborsOfNode(const Point &isoCoordinates);
+
+  /**\brief Update all mapNodes 
+  * Updates all mapNode and its adjacent tiles regarding height information, draws slopes for adjacent tiles and 
+  * sets tiling for mapNode sprite if applicable
+  */
+  void updateAllNodes();
 
   /**\brief Get neighbor MapNode Objects
     * Stores pointers to the neighboring nodes of the given coordinates in the passed parameter.

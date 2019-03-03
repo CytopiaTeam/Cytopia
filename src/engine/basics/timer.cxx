@@ -25,7 +25,7 @@ void Timer::start()
 
 void Timer::stop()
 {
-  _elapsedTime = (int)((SDL_GetPerformanceCounter() - _startTime) * 1000 / SDL_GetPerformanceFrequency());
+  _elapsedTime = static_cast<int>((SDL_GetPerformanceCounter() - _startTime) * 1000 / SDL_GetPerformanceFrequency());
   _isActive = false;
   _timeOut = false;
   _threadRunning = false;
@@ -39,8 +39,9 @@ void Timer::pause()
 {
   if (_isActive)
   {
-    _elapsedTime = (int)((SDL_GetPerformanceCounter() - _startTime) * 1000 / SDL_GetPerformanceFrequency());
-    _timeSinceLastTimeOut = (int)((SDL_GetPerformanceCounter() - _lastTimeOutTime) * 1000 / SDL_GetPerformanceFrequency());
+    _elapsedTime = static_cast<int>((SDL_GetPerformanceCounter() - _startTime) * 1000 / SDL_GetPerformanceFrequency());
+    _timeSinceLastTimeOut =
+        static_cast<int>((SDL_GetPerformanceCounter() - _lastTimeOutTime) * 1000 / SDL_GetPerformanceFrequency());
     _endTime = _startTime;
     _startTime = SDL_GetPerformanceCounter();
     _isActive = false;
@@ -67,7 +68,7 @@ int Timer::getElapsedTime()
 {
   if (_isActive)
   {
-    _elapsedTime = (int)((SDL_GetPerformanceCounter() - _startTime) * 1000 / SDL_GetPerformanceFrequency());
+    _elapsedTime = static_cast<int>((SDL_GetPerformanceCounter() - _startTime) * 1000 / SDL_GetPerformanceFrequency());
   }
   return _elapsedTime;
 }
@@ -76,7 +77,8 @@ int Timer::getElapsedTimeSinceLastTimeOut()
 {
   if (_isActive)
   {
-    _timeSinceLastTimeOut = (int)((SDL_GetPerformanceCounter() - _lastTimeOutTime) * 1000 / SDL_GetPerformanceFrequency());
+    _timeSinceLastTimeOut =
+        static_cast<int>((SDL_GetPerformanceCounter() - _lastTimeOutTime) * 1000 / SDL_GetPerformanceFrequency());
   }
   return _timeSinceLastTimeOut;
 }

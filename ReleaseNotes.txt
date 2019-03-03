@@ -1,5 +1,12 @@
 Cytopia
 
+v0.0.1
+ - Save / Load Game functionality
+ - TileDate Editor
+   - Automatically calculate TileSize if count is changed
+   - Added scrollbars if the preview image is bigger than the preview window
+   - Fixed a crash when changing category of a tile
+
 v0.1
 - Renamed the Project to Cytopia
 - Added a Qt based tool to edit TileData JSON File (by Kollix)
