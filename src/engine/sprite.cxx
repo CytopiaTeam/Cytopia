@@ -8,8 +8,6 @@
 
 Sprite::Sprite(Point isoCoordinates) : _isoCoordinates(isoCoordinates)
 {
-  _renderer = WindowManager::instance().getRenderer();
-  _window = WindowManager::instance().getWindow();
   _screenCoordinates = convertIsoToScreenCoordinates(isoCoordinates);
 }
 
@@ -22,11 +20,11 @@ void Sprite::render()
 
   if (_clipRect.w != 0)
   {
-    SDL_RenderCopy(_renderer, _texture, &_clipRect, &_destRect);
+    SDL_RenderCopy(WindowManager::instance().getRenderer(), _texture, &_clipRect, &_destRect);
   }
   else
   {
-    SDL_RenderCopy(_renderer, _texture, nullptr, &_destRect);
+    SDL_RenderCopy(WindowManager::instance().getRenderer(), _texture, nullptr, &_destRect);
   }
 
   if (_highlightSprite == true)

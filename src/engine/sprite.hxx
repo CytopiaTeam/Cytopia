@@ -26,8 +26,6 @@ public:
 
 private:
   SDL_Texture *_texture = nullptr;
-  SDL_Renderer *_renderer;
-  SDL_Window *_window;
   SDL_Rect _destRect;
   SDL_Rect _clipRect{0, 0, 0, 0};
 
