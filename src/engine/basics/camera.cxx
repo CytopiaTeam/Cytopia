@@ -14,7 +14,7 @@ void Camera::increaseZoomLevel()
   {
     zoomLevel += 0.25f;
     centerScreenOnPoint(centerIsoCoordinates);
-    Engine::instance().getMap()->refresh();
+    Engine::instance().map->refresh();
   }
 }
 
@@ -24,7 +24,7 @@ void Camera::decreaseZoomLevel()
   {
     zoomLevel -= 0.25f;
     centerScreenOnPoint(centerIsoCoordinates);
-    Engine::instance().getMap()->refresh();
+    Engine::instance().map->refresh();
   }
 }
 
@@ -45,7 +45,7 @@ void Camera::centerScreenOnPoint(const Point &isoCoordinates)
     y -= static_cast<int>(tileSize.y * zoomLevel);
 
     cameraOffset = {x, y};
-    Engine::instance().getMap()->refresh();
+    Engine::instance().map->refresh();
   }
 }
 

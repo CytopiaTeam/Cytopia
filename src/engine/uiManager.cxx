@@ -155,7 +155,7 @@ void UIManager::init()
         }
         else if (actionID == "SaveGame")
         {
-          uiElement->registerCallbackFunction([]() { Engine::instance().getMap()->saveMapToFile("resources/save.json"); });
+          uiElement->registerCallbackFunction([]() { Engine::instance().map->saveMapToFile("resources/save.json"); });
         }
         else if (actionID == "LoadGame")
         {

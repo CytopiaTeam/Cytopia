@@ -43,7 +43,7 @@ void run()
     evManager.checkEvents(event, engine);
 
     // render the tilemap
-    engine.getMap()->renderMap();
+    engine.map->renderMap();
 
     // render the ui
     uiManager.drawUI();

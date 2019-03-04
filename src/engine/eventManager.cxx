@@ -79,11 +79,11 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           Camera::cameraOffset.y += event.motion.yrel;
           Camera::setCenterIsoCoordinates(convertScreenToIsoCoordinates(
               {Settings::instance().settings.screenWidth / 2, Settings::instance().settings.screenHeight / 2}));
-          Engine::instance().getMap()->refresh();
+          Engine::instance().map->refresh();
         }
         else
         {
-          engine.getMap()->highlightNode(clickCoords);
+          engine.map->highlightNode(clickCoords);
         }
         break;
       case SDL_MOUSEBUTTONDOWN:

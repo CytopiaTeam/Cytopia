@@ -44,7 +44,7 @@ SDL_Point convertIsoToScreenCoordinates(const Point &isoCoordinates, bool calcWi
 
 Point convertScreenToIsoCoordinates(const SDL_Point &screenCoordinates)
 {
-  Point foundCoordinates = Engine::instance().getMap()->findNodeInMap(screenCoordinates);
+  Point foundCoordinates = Engine::instance().map->findNodeInMap(screenCoordinates);
 
   // if negative coordinates are returned, this means that the point is outside of the grid
   // calculate the coordinates instead and make sure it's within grid boundaries

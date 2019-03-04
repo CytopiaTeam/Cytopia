@@ -64,8 +64,6 @@ public:
 
   void demolishNode(const Point &isoCoordinates);
 
-  Map *getMap() { return _map; };
-
   bool isGameRunning() { return _running; };
   void quitGame() { _running = false; };
 
@@ -76,12 +74,12 @@ public:
   */
   void loadSaveGame(const std::string &fileName);
 
+  Map *map;
+
 private:
   Engine();
   ~Engine();
   bool _running = true;
-
-  Map *_map;
 
   /// Uint for storing a bitmask (Layers Enum)
   unsigned int _activeLayers;
