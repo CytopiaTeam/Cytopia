@@ -7,16 +7,16 @@ SoundEffect::SoundEffect(const std::string &filename) { loadFile(filename); }
 
 SoundEffect::~SoundEffect()
 {
-  if (_soundEffect)
+  if (m_soundEffect)
   {
-    Mix_FreeChunk(_soundEffect);
+    Mix_FreeChunk(m_soundEffect);
   }
 }
 
 void SoundEffect::loadFile(const std::string &filename)
 {
-  _soundEffect = Mix_LoadWAV(filename.c_str());
-  if (!_soundEffect)
+  m_soundEffect = Mix_LoadWAV(filename.c_str());
+  if (!m_soundEffect)
   {
     LOG(LOG_ERROR) << "Failed to load audio file " << filename << "\n" << Mix_GetError();
   }
@@ -26,9 +26,9 @@ void SoundEffect::play(int channel, Sint16 angle, Uint8 distance, int loops) con
 {
   if (Settings::instance().settings.playSoundEffects)
   {
-    if (_soundEffect)
+    if (m_soundEffect)
     {
-      int currentChannel = Mix_PlayChannel(channel, _soundEffect, loops);
+      int currentChannel = Mix_PlayChannel(channel, m_soundEffect, loops);
 
       if (currentChannel == -1)
       {

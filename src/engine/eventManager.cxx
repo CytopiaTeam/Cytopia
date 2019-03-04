@@ -77,8 +77,8 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         {
           Camera::cameraOffset.x += event.motion.xrel;
           Camera::cameraOffset.y += event.motion.yrel;
-          Camera::setCenterIsoCoordinates(convertScreenToIsoCoordinates(
-              {Settings::instance().settings.screenWidth / 2, Settings::instance().settings.screenHeight / 2}));
+          Camera::centerIsoCoordinates = convertScreenToIsoCoordinates(
+              {Settings::instance().settings.screenWidth / 2, Settings::instance().settings.screenHeight / 2});
           Engine::instance().map->refresh();
         }
         else
@@ -167,14 +167,14 @@ bool EventManager::dispatchUiEvents(SDL_Event &event)
       switch (event.type)
       {
       case SDL_MOUSEMOTION:
-        if (it.get() != lastHoveredElement && isHovering)
+        if (it.get() != m_lastHoveredElement && isHovering)
         {
-          if (lastHoveredElement != nullptr)
+          if (m_lastHoveredElement != nullptr)
           {
-            lastHoveredElement->onMouseLeave(event);
+            m_lastHoveredElement->onMouseLeave(event);
           }
           it->onMouseEnter(event);
-          lastHoveredElement = it.get();
+          m_lastHoveredElement = it.get();
         }
         else if (isMouseOverElement)
         {
@@ -202,11 +202,11 @@ bool EventManager::dispatchUiEvents(SDL_Event &event)
     }
   }
 
-  if (!isHovering && lastHoveredElement != nullptr)
+  if (!isHovering && m_lastHoveredElement != nullptr)
   {
     uiManager.stopTooltip();
-    lastHoveredElement->onMouseLeave(event);
-    lastHoveredElement = nullptr;
+    m_lastHoveredElement->onMouseLeave(event);
+    m_lastHoveredElement = nullptr;
   }
 
   return isMouseOverElement;

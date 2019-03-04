@@ -15,7 +15,7 @@ public:
   Map(int columns, int rows);
   ~Map() = default;
 
-  MapNode *getNode(int x, int y) const { return mapNodes[x * _columns + y].get(); };
+  MapNode *getNode(int x, int y) const { return mapNodes[x * m_columns + y].get(); };
 
   /** \brief Initialize the Map with node objects
     * Initialize the Map with node objects
@@ -68,10 +68,10 @@ public:
   std::vector<MapNode *> mapNodesInDrawingOrder;
 
 private:
-  MapNode *highlitNode = nullptr;
+  MapNode *m_highlitNode = nullptr;
 
-  int _columns;
-  int _rows;
+  int m_columns;
+  int m_rows;
 
   /**\brief Update mapNode and its adjacent tiles
   * Updates mapNode height information, draws slopes for adjacent tiles and sets tiling for mapNode sprite if applicable

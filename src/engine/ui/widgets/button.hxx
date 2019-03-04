@@ -27,13 +27,14 @@ public:
 private:
   SDL_Rect _rect;
 
-  std::unique_ptr<Text> _buttonLabel;
+  std::unique_ptr<Text> m_buttonLabel;
 
-  bool _isMouseButtonDown = false;
-  bool _isButtonToggled = false;
+  bool m_isMouseButtonDown = false;
+  bool m_isButtonToggled = false;
 
-  bool _drawFrame = false;
+  bool m_drawFrame = false;
 
+  // Signals
   Signal::Signal<void()> clickSignal;
   Signal::Signal<void(const std::string &)> clickSignalString;
 };

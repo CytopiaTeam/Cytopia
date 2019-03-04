@@ -58,10 +58,10 @@ private:
   SDL_Surface *createSurfaceFromFile(const std::string &fileName);
   SDL_Texture *createTextureFromSurface(SDL_Surface *surface);
 
-  std::unordered_map<std::string, std::unordered_map<std::string, SDL_Texture *>> _uiTextureMap;
+  std::unordered_map<std::string, std::unordered_map<std::string, SDL_Texture *>> m_uiTextureMap;
 
-  std::unordered_map<std::string, SDL_Texture *> _tileTextureMap;
-  std::unordered_map<std::string, SDL_Surface *> _surfaceMap;
+  std::unordered_map<std::string, SDL_Texture *> m_tileTextureMap;
+  std::unordered_map<std::string, SDL_Surface *> m_surfaceMap;
 };
 
 #endif

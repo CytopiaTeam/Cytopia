@@ -50,7 +50,7 @@ public:
   bool isPlaying() const;
 
 private:
-  Mix_Music *_music = nullptr;
+  Mix_Music *m_music = nullptr;
 };
 
 #endif

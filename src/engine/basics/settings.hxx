@@ -40,7 +40,7 @@ public:
   SettingsStruct settings;
 
 private:
-  std::string settingsFileName = "resources/settings.json";
+  std::string m_settingsFileName = "resources/settings.json";
 };
 
 #endif

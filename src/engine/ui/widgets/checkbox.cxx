@@ -26,17 +26,17 @@ void Checkbox::onMouseButtonUp(const SDL_Event &)
     toggleGroupSignal.emit(elementData.actionParameter);
   }
 
-  if (!_isMouseButtonDown)
+  if (!m_isMouseButtonDown)
   {
     changeButtonState(getButtonState() == BUTTONSTATE_CLICKED ? BUTTONSTATE_DEFAULT : BUTTONSTATE_CLICKED);
   }
-  _isMouseButtonDown = false;
+  m_isMouseButtonDown = false;
 }
 
 void Checkbox::onMouseButtonDown(const SDL_Event &)
 {
   changeButtonState(getButtonState() == BUTTONSTATE_CLICKED ? BUTTONSTATE_DEFAULT : BUTTONSTATE_CLICKED);
-  _isMouseButtonDown = true;
+  m_isMouseButtonDown = true;
 }
 
 void Checkbox::onMouseEnter(const SDL_Event &event)
@@ -44,7 +44,7 @@ void Checkbox::onMouseEnter(const SDL_Event &event)
   if (event.button.button == SDL_BUTTON_LEFT)
   {
     changeButtonState(getButtonState() == BUTTONSTATE_CLICKED ? BUTTONSTATE_DEFAULT : BUTTONSTATE_CLICKED);
-    _isMouseButtonDown = true;
+    m_isMouseButtonDown = true;
   }
 }
 

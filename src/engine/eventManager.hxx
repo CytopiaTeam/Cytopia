@@ -17,7 +17,8 @@ public:
 private:
   UIManager &uiManager = UIManager::instance();
 
-  UiElement *lastHoveredElement = nullptr;
+  UiElement *m_lastHoveredElement = nullptr;
+
   bool dispatchUiEvents(SDL_Event &event);
   bool rightMouseButtonHeldDown = false;
 };

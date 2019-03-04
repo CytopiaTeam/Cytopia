@@ -50,7 +50,7 @@ public:
   bool isPlaying() const;
 
 private:
-  Mix_Chunk *_soundEffect = nullptr;
+  Mix_Chunk *m_soundEffect = nullptr;
 };
 
 #endif

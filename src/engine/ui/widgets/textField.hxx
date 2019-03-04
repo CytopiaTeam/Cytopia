@@ -14,10 +14,6 @@ public:
 
   void addText(const std::string &text);
 
-  int getSelectedID() { return _selectedID; };
-
-  int getHoveredID() { return _hoveredID; };
-
   std::string getTextFromID(int id);
 
   SDL_Rect getSize() { return _uiElementRect; };
@@ -32,12 +28,12 @@ public:
 
   int count() const { return _count; };
 
+  int selectedID = -1;
+  int hoveredID = -1;
 private:
   std::vector<Text *> _textVector;
 
   int _textElementHeight = 0;
-  int _selectedID = -1;
-  int _hoveredID = -1;
 
   int _count = 0;
   // a rect is drawn beneath the current text to hover it

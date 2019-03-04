@@ -26,21 +26,21 @@ public:
     * @param bitmapped Uint from enum "Layers"
     * @see Resources#Layers
     */
-  void enableLayer(unsigned int layer) { _activeLayers |= layer; };
+  void enableLayer(unsigned int layer) { m_activeLayers |= layer; };
 
   /** \brief Disable Drawing Layer
     * Disable Drawing Layer ( Turned off by using bitwise AND with inversed pattern)
     * @param bitmapped Uint from enum "Layers"
     * @see Resources#Layers
     */
-  void disableLayer(unsigned int layer) { _activeLayers &= ~layer; };
+  void disableLayer(unsigned int layer) { m_activeLayers &= ~layer; };
 
   /** \brief Toggle Drawing Layer
     * Toggle Drawing Layer (use bitwise XOR to toggle layer)
     * @param bitmapped Uint from enum "Layers"
     * @see Resources#Layers
     */
-  void toggleLayer(unsigned int layer) { _activeLayers ^= layer; };
+  void toggleLayer(unsigned int layer) { m_activeLayers ^= layer; };
 
   /** @brief Increase Height
     * Increases the height of the given map node 
@@ -64,8 +64,8 @@ public:
 
   void demolishNode(const Point &isoCoordinates);
 
-  bool isGameRunning() { return _running; };
-  void quitGame() { _running = false; };
+  bool isGameRunning() { return m_running; };
+  void quitGame() { m_running = false; };
 
   /** @brief Loads a saved game
   * Loads a saved Game
@@ -79,10 +79,10 @@ public:
 private:
   Engine();
   ~Engine();
-  bool _running = true;
+  bool m_running = true;
 
   /// Uint for storing a bitmask (Layers Enum)
-  unsigned int _activeLayers;
+  unsigned int m_activeLayers;
 
   // Layer ENUM
 public:

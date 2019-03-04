@@ -54,5 +54,3 @@ void Camera::centerScreenOnMapCenter()
   centerIsoCoordinates = {Settings::instance().settings.mapSize / 2, Settings::instance().settings.mapSize / 2, 0, 0};
   centerScreenOnPoint(centerIsoCoordinates);
 }
-
-void Camera::setCenterIsoCoordinates(Point isoCoordinates) { centerIsoCoordinates = isoCoordinates; }

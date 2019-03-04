@@ -17,8 +17,8 @@ ResourcesManager::~ResourcesManager() { flush(); }
 void ResourcesManager::loadTexture(const std::string &id, const std::string &fileName, size_t tileMapType)
 {
   std::string key = id + std::to_string(tileMapType);
-  _surfaceMap[key] = createSurfaceFromFile(fileName);
-  _tileTextureMap[key] = createTextureFromSurface(_surfaceMap[key]);
+  m_surfaceMap[key] = createSurfaceFromFile(fileName);
+  m_tileTextureMap[key] = createTextureFromSurface(m_surfaceMap[key]);
 }
 
 void ResourcesManager::loadUITexture()
@@ -47,7 +47,7 @@ void ResourcesManager::loadUITexture()
   {
     for (auto it = uiDataJSON[tileID.key()].begin(); it != uiDataJSON[tileID.key()].end(); ++it)
     {
-      _uiTextureMap[tileID.key()][it.key()] = createTextureFromSurface(createSurfaceFromFile(it.value()));
+      m_uiTextureMap[tileID.key()][it.key()] = createTextureFromSurface(createSurfaceFromFile(it.value()));
     }
   }
 }
@@ -67,19 +67,19 @@ SDL_Texture *ResourcesManager::getUITexture(const std::string &uiElement, int bu
     texture = "Texture_Default";
   }
 
-  if (_uiTextureMap[uiElement].count(texture))
-    return _uiTextureMap[uiElement][texture];
+  if (m_uiTextureMap[uiElement].count(texture))
+    return m_uiTextureMap[uiElement][texture];
 
-  return _uiTextureMap[uiElement]["Texture_Default"];
+  return m_uiTextureMap[uiElement]["Texture_Default"];
 }
 
 SDL_Texture *ResourcesManager::getTileTexture(const std::string &id, size_t tileMapType)
 {
   std::string key = id + std::to_string(tileMapType);
 
-  if (_tileTextureMap.count(key))
+  if (m_tileTextureMap.count(key))
   {
-    return _tileTextureMap[key];
+    return m_tileTextureMap[key];
   }
   return nullptr;
 }
@@ -87,9 +87,9 @@ SDL_Texture *ResourcesManager::getTileTexture(const std::string &id, size_t tile
 SDL_Surface *ResourcesManager::getTileSurface(const std::string &id, size_t tileMapType)
 {
   std::string key = id + std::to_string(tileMapType);
-  if (_surfaceMap.count(key))
+  if (m_surfaceMap.count(key))
   {
-    return _surfaceMap[key];
+    return m_surfaceMap[key];
   }
   return nullptr;
 }
@@ -122,24 +122,24 @@ SDL_Texture *ResourcesManager::createTextureFromSurface(SDL_Surface *surface)
 
 void ResourcesManager::flush()
 {
-  for (const auto &it : _surfaceMap)
+  for (const auto &it : m_surfaceMap)
   {
     SDL_FreeSurface(it.second);
   }
-  _surfaceMap.clear();
+  m_surfaceMap.clear();
 
-  for (const auto &it : _tileTextureMap)
+  for (const auto &it : m_tileTextureMap)
   {
     SDL_DestroyTexture(it.second);
   }
-  _tileTextureMap.clear();
+  m_tileTextureMap.clear();
 
-  for (const auto &it : _uiTextureMap)
+  for (const auto &it : m_uiTextureMap)
   {
     for (const auto &ita : it.second)
     {
       SDL_DestroyTexture(ita.second);
     }
   }
-  _uiTextureMap.clear();
+  m_uiTextureMap.clear();
 }

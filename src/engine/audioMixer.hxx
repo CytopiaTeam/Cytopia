@@ -20,7 +20,7 @@ public:
   void mute();
 
 private:
-  std::vector<std::shared_ptr<Music>> musicObjects;
+  std::vector<std::shared_ptr<Music>> m_musicObjects;
 };
 
 #endif

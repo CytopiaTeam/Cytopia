@@ -15,7 +15,7 @@ void TextField::draw()
 {
   if (isVisible())
   {
-    if (_hoveredID != -1)
+    if (hoveredID != -1)
     {
       drawSolidRect(_hoverRect, SDL_Color({150, 150, 150}));
     }
@@ -66,12 +66,12 @@ void TextField::onMouseButtonUp(const SDL_Event &event)
 {
   if (!_textVector.empty())
   {
-    _selectedID = ((_textElementHeight + event.button.y - _uiElementRect.y) / _textElementHeight) - 1;
+    selectedID = ((_textElementHeight + event.button.y - _uiElementRect.y) / _textElementHeight) - 1;
     // because of the -4 pixel offset that's been added in the constructor, the id would exceed the size of the vector, if the bottom of the dropdown is clicked
 
-    if (_selectedID >= _count)
+    if (selectedID >= _count)
     {
-      _selectedID = _count - 1;
+      selectedID = _count - 1;
     }
   }
 }
@@ -79,20 +79,20 @@ void TextField::onMouseButtonUp(const SDL_Event &event)
 void TextField::onMouseMove(const SDL_Event &event)
 {
   // TODO: Calculation deviates by 4 pixel in height because of the frame
-  if (_hoveredID != ((_textElementHeight + event.button.y - _uiElementRect.y) / _textElementHeight) - 1)
+  if (hoveredID != ((_textElementHeight + event.button.y - _uiElementRect.y) / _textElementHeight) - 1)
   {
-    _hoveredID = ((_textElementHeight + event.button.y - _uiElementRect.y) / _textElementHeight) - 1;
+    hoveredID = ((_textElementHeight + event.button.y - _uiElementRect.y) / _textElementHeight) - 1;
     // because of the -4 pixel offset that's been added in the constructor, the id would exceed the size of the vector, if the bottom of the dropdown is clicked
-    if (_hoveredID >= _count)
+    if (hoveredID >= _count)
     {
-      _hoveredID = _count - 1;
+      hoveredID = _count - 1;
     }
-    _hoverRect.y = ((_hoveredID)*_textElementHeight) + _uiElementRect.y;
+    _hoverRect.y = ((hoveredID)*_textElementHeight) + _uiElementRect.y;
   }
 }
 
 void TextField::onMouseLeave(const SDL_Event &)
 {
   // reset the hovering
-  _hoveredID = -1;
+  hoveredID = -1;
 }

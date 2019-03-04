@@ -14,29 +14,21 @@ public:
   void render();
   void refresh();
 
-  void setClipRect(const SDL_Rect &clipRect) { _clipRect = clipRect; };
+  void setTexture(SDL_Texture *m_texture);
 
-  void setTexture(SDL_Texture *texture);
-  void setCoordinates(Point isoCoords) { _isoCoordinates = isoCoords; }
-  void setSpriteCount(size_t spriteCount) { _spriteCount = spriteCount; };
-  const SDL_Rect &getDestRect() { return _destRect; };
-  const SDL_Rect &getClipRect() { return _clipRect; };
+  size_t spriceCount = 1;
+  bool highlightSprite = false;
 
-  void highlight(bool highlight) { _highlightSprite = highlight; };
+  SDL_Rect clipRect{0, 0, 0, 0};
+  SDL_Rect destRect;
+  Point isoCoordinates;
 
 private:
-  SDL_Texture *_texture = nullptr;
-  SDL_Rect _destRect;
-  SDL_Rect _clipRect{0, 0, 0, 0};
+  SDL_Texture *m_texture = nullptr;
+  SDL_Point m_screenCoordinates;
 
-  Point _isoCoordinates;
-  SDL_Point _screenCoordinates;
-
-  float _currentZoomLevel = 0;
-  size_t _spriteCount = 1;
-
-  bool _needsRefresh = false;
-  bool _highlightSprite = false;
+  bool m_needsRefresh = false;
+  float m_currentZoomLevel = 0;
 };
 
 #endif

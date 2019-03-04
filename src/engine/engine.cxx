@@ -14,7 +14,7 @@ Engine::Engine()
   map = new Map(map_size, map_size);
   map->initMap();
   // Default: Floor and Buildings are drawn
-  _activeLayers = LAYER_FLOOR | LAYER_BUILDINGS;
+  m_activeLayers = LAYER_FLOOR | LAYER_BUILDINGS;
 }
 
 Engine::~Engine() { delete map; }

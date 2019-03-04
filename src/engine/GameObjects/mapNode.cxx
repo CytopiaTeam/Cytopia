@@ -1,47 +1,47 @@
 #include "mapNode.hxx"
 #include "../basics/log.hxx"
 
-MapNode::MapNode(Point isoCoordinates) : _isoCoordinates(std::move(isoCoordinates))
+MapNode::MapNode(Point isoCoordinates) : m_isoCoordinates(std::move(isoCoordinates))
 {
-  _sprite = std::make_unique<Sprite>(_isoCoordinates);
+  m_sprite = std::make_unique<Sprite>(m_isoCoordinates);
   updateTexture();
 }
 
 void MapNode::increaseHeight()
 {
-  int height = _isoCoordinates.height;
+  int height = m_isoCoordinates.height;
 
-  if (height < _maxHeight)
+  if (height < m_maxHeight)
   {
-    _isoCoordinates.height++;
-    _sprite->setCoordinates(_isoCoordinates);
+    m_isoCoordinates.height++;
+    m_sprite->isoCoordinates = m_isoCoordinates;
   }
 }
 
 void MapNode::decreaseHeight()
 {
-  int height = _isoCoordinates.height;
+  int height = m_isoCoordinates.height;
 
   if (height > 0)
   {
-    _isoCoordinates.height--;
-    _sprite->setCoordinates(_isoCoordinates);
+    m_isoCoordinates.height--;
+    m_sprite->isoCoordinates = m_isoCoordinates;
   }
 }
 
-void MapNode::render() const { _sprite->render(); }
+void MapNode::render() const { m_sprite->render(); }
 
 void MapNode::setBitmask(unsigned char elevationBitmask, unsigned char tileIDBitmask)
 {
-  _elevationBitmask = elevationBitmask;
-  _tileIDBitmask = tileIDBitmask;
+  m_elevationBitmask = elevationBitmask;
+  m_tileIDBitmask = tileIDBitmask;
   updateTexture();
 }
 
 void MapNode::setTileID(const std::string &tileID)
 {
-  _previousTileID = _tileID;
-  _tileID = tileID;
+  m_previousTileID = m_tileID;
+  m_tileID = tileID;
   updateTexture();
 }
 
@@ -49,78 +49,80 @@ void MapNode::updateTexture()
 {
   SDL_Rect clipRect = {0, 0, 0, 0};
 
-  _tileData = TileManager::instance().getTileData(_tileID);
-  _tileMap = TileMap::DEFAULT;
+  m_tileData = TileManager::instance().getTileData(m_tileID);
+  tileMap = TileMap::DEFAULT;
 
-  if (_tileData)
+  if (m_tileData)
   {
-    // only calculate orientation for textures that adjust themselves according to elevation / other tiles of the same id
-    if (_tileData->category == "terrain" || _tileData->category == "road" || _tileData->category == "water")
-    {
-      _orientation = TileManager::instance().caluclateSlopeOrientation(_elevationBitmask);
+    size_t spriteCount = 1;
 
-      if (_orientation == TileSlopes::DEFAULT_ORIENTATION)
+    // only calculate orientation for textures that adjust themselves according to elevation / other tiles of the same id
+    if (m_tileData->category == "terrain" || m_tileData->category == "road" || m_tileData->category == "water")
+    {
+      m_orientation = TileManager::instance().caluclateSlopeOrientation(m_elevationBitmask);
+
+      if (m_orientation == TileSlopes::DEFAULT_ORIENTATION)
       {
-        if (_tileData->category != "terrain")
+        if (m_tileData->category != "terrain")
         {
-          _orientation = TileManager::instance().caluclateTileOrientation(_tileIDBitmask);
+          m_orientation = TileManager::instance().caluclateTileOrientation(m_tileIDBitmask);
         }
       }
       else
       {
-        _tileMap = TileMap::SLOPES;
+        tileMap = TileMap::SLOPES;
       }
     }
     else
     {
-      _orientation = TileList::TILE_DEFAULT_ORIENTATION;
+      m_orientation = TileList::TILE_DEFAULT_ORIENTATION;
     }
 
-    switch (_tileMap)
+    switch (tileMap)
     {
     case TileMap::DEFAULT:
-      clipRect.x = _tileData->tiles.clippingWidth * static_cast<int>(_orientation);
-      _clippingWidth = _tileData->tiles.clippingWidth;
-      if (_tileID == "terrain")
+      clipRect.x = m_tileData->tiles.clippingWidth * static_cast<int>(m_orientation);
+      m_clippingWidth = m_tileData->tiles.clippingWidth;
+      if (m_tileID == "terrain")
       {
         clipRect.x = 0;
-        _sprite->setClipRect({0, 0, _tileData->tiles.clippingWidth, _tileData->tiles.clippingHeight});
+        m_sprite->clipRect = {0, 0, m_tileData->tiles.clippingWidth, m_tileData->tiles.clippingHeight};
       }
       else
       {
-        _sprite->setClipRect({clipRect.x, 0, _tileData->tiles.clippingWidth, _tileData->tiles.clippingHeight});
+        m_sprite->clipRect = {clipRect.x, 0, m_tileData->tiles.clippingWidth, m_tileData->tiles.clippingHeight};
       }
-      _spriteCount = _tileData->tiles.count;
+      spriteCount = m_tileData->tiles.count;
       break;
     case TileMap::CORNERS:
-      _clippingWidth = _tileData->cornerTiles.clippingWidth;
-      clipRect.x = _tileData->cornerTiles.clippingWidth * static_cast<int>(_orientation);
-      _sprite->setClipRect({clipRect.x, 0, _tileData->cornerTiles.clippingWidth, _tileData->cornerTiles.clippingHeight});
-      _spriteCount = _tileData->cornerTiles.count;
+      m_clippingWidth = m_tileData->cornerTiles.clippingWidth;
+      clipRect.x = m_tileData->cornerTiles.clippingWidth * static_cast<int>(m_orientation);
+      m_sprite->clipRect = {clipRect.x, 0, m_tileData->cornerTiles.clippingWidth, m_tileData->cornerTiles.clippingHeight};
+      spriteCount = m_tileData->cornerTiles.count;
       break;
     case TileMap::SLOPES:
-      _clippingWidth = _tileData->slopeTiles.clippingWidth;
-      clipRect.x = _tileData->slopeTiles.clippingWidth * static_cast<int>(_orientation);
-      _sprite->setClipRect({clipRect.x, 0, _tileData->slopeTiles.clippingWidth, _tileData->slopeTiles.clippingHeight});
-      _spriteCount = _tileData->slopeTiles.count;
+      m_clippingWidth = m_tileData->slopeTiles.clippingWidth;
+      clipRect.x = m_tileData->slopeTiles.clippingWidth * static_cast<int>(m_orientation);
+      m_sprite->clipRect = {clipRect.x, 0, m_tileData->slopeTiles.clippingWidth, m_tileData->slopeTiles.clippingHeight};
+      spriteCount = m_tileData->slopeTiles.count;
       break;
     }
-    if (clipRect.x >=  static_cast<int>(_spriteCount) * _clippingWidth)
+    if (clipRect.x >=  static_cast<int>(spriteCount) * m_clippingWidth)
     {
-      _tileID = _previousTileID;
+      m_tileID = m_previousTileID;
       updateTexture();
     }
-    _sprite->setSpriteCount(_spriteCount);
-    _sprite->setTexture(TileManager::instance().getTexture(_tileID, _tileMap));
+    m_sprite->spriceCount = spriteCount;
+    m_sprite->setTexture(TileManager::instance().getTexture(m_tileID, tileMap));
   }
   else
   {
-    LOG(LOG_ERROR) << "Could not retrieve TileData Information for TileID " << _tileID;
+    LOG(LOG_ERROR) << "Could not retrieve TileData Information for TileID " << m_tileID;
   }
 }
 
 void MapNode::setCoordinates(const Point &newIsoCoordinates)
 {
-  _isoCoordinates = newIsoCoordinates;
-  _sprite->setCoordinates(_isoCoordinates);
+  m_isoCoordinates = newIsoCoordinates;
+  m_sprite->isoCoordinates = m_isoCoordinates;
 }
