@@ -57,7 +57,7 @@ void UIManager::init()
         std::string tooltipText = uiLayout[it.key()][id].value("TooltipText", "");
         std::string text = uiLayout[it.key()][id].value("Text", "");
         std::string textureID = uiLayout[it.key()][id].value("SpriteID", "");
-        std::string type = uiLayout[it.key()][id].value("Type", "");
+        std::string uiElementType = uiLayout[it.key()][id].value("Type", "");
 
         SDL_Rect elementRect = {0, 0, 0, 0};
         elementRect.x = uiLayout[it.key()][id].value("Position_x", 0);
@@ -68,36 +68,36 @@ void UIManager::init()
         std::unique_ptr<UiElement> uiElement;
 
         // Create the ui elements
-        if (type.empty())
+        if (uiElementType.empty())
         {
           LOG(LOG_ERROR) << "An element without a type can not be created, check your UiLayout JSON File "
                          << Settings::instance().settings.uiLayoutJSONFile;
           continue;
         }
-        else if (type == "ImageButton")
+        else if (uiElementType == "ImageButton")
         {
           uiElement = std::make_unique<Button>(elementRect);
           uiElement->setTextureID(textureID);
         }
-        else if (type == "TextButton")
+        else if (uiElementType == "TextButton")
         {
           uiElement = std::make_unique<Button>(elementRect);
           uiElement->setText(text);
         }
-        else if (type == "Text")
+        else if (uiElementType == "Text")
         {
           uiElement = std::make_unique<Text>(elementRect);
           uiElement->setText(text);
         }
-        else if (type == "Frame")
+        else if (uiElementType == "Frame")
         {
           uiElement = std::make_unique<Frame>(elementRect);
         }
-        else if (type == "Checkbox")
+        else if (uiElementType == "Checkbox")
         {
           uiElement = std::make_unique<Checkbox>(elementRect);
         }
-        else if (type == "ComboBox")
+        else if (uiElementType == "ComboBox")
         {
           uiElement = std::make_unique<ComboBox>(elementRect);
           uiElement->setText(text);
@@ -143,10 +143,10 @@ void UIManager::init()
         }
         else if (actionID == "ChangeTileType")
         {
-          std::string type = uiLayout[it.key()][id].value("TileType", "");
-          uiElement->registerCallbackFunction([type]() {
-            tileTypeEditMode == type ? tileTypeEditMode = "" : tileTypeEditMode = type;
-            tileTypeEditMode == type ? highlightSelection = true : highlightSelection = false;
+          std::string tileType = uiLayout[it.key()][id].value("TileType", "");
+          uiElement->registerCallbackFunction([tileType]() {
+            tileTypeEditMode == tileType ? tileTypeEditMode = "" : tileTypeEditMode = tileType;
+            tileTypeEditMode == tileType ? highlightSelection = true : highlightSelection = false;
           });
         }
         else if (actionID == "ToggleVisibilityOfGroup")
