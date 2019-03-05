@@ -23,39 +23,12 @@ void Settings::readFile()
     LOG(LOG_ERROR) << "Error parsing JSON File " << m_settingsFileName;
   }
 
-  settings.screenWidth = _settingsJSONObject["Graphics"]["Resolution"]["Width"].get<int>();
-  settings.screenHeight = _settingsJSONObject["Graphics"]["Resolution"]["Height"].get<int>();
-  settings.vSync = _settingsJSONObject["Graphics"]["VSYNC"].get<bool>();
-  settings.fullScreen = _settingsJSONObject["Graphics"]["FullScreen"].get<bool>();
-  settings.mapSize = _settingsJSONObject["Game"]["MapSize"].get<int>();
-  settings.maxElevationHeight = _settingsJSONObject["Game"]["MaxElevationHeight"].get<int>();
-  settings.uiDataJSONFile = _settingsJSONObject["ConfigFiles"]["UIDataJSONFile"].get<std::string>();
-  settings.tileDataJSONFile = _settingsJSONObject["ConfigFiles"]["TileDataJSONFile"].get<std::string>();
-  settings.uiLayoutJSONFile = _settingsJSONObject["ConfigFiles"]["UILayoutJSONFile"].get<std::string>();
-  settings.playMusic = _settingsJSONObject["Audio"]["PlayMusic"].get<bool>();
-  settings.playSoundEffects = _settingsJSONObject["Audio"]["PlaySoundEffects"].get<bool>();
-  settings.audioChannels = _settingsJSONObject["Audio"]["AudioChannels"].get<int>();
-  settings.musicVolume = _settingsJSONObject["Audio"]["MusicVolume"].get<int>();
-  settings.soundEffectsVolume = _settingsJSONObject["Audio"]["SoundEffectsVolume"].get<int>();
+  settings = _settingsJSONObject;
 }
 
 void Settings::writeFile()
 {
-  json _settingsJSONObject;
-  _settingsJSONObject["Graphics"]["Resolution"]["Width"] = settings.screenWidth;
-  _settingsJSONObject["Graphics"]["Resolution"]["Height"] = settings.screenHeight;
-  _settingsJSONObject["Graphics"]["VSYNC"] = settings.vSync;
-  _settingsJSONObject["Graphics"]["FullScreen"] = settings.fullScreen;
-  _settingsJSONObject["Game"]["MapSize"] = settings.mapSize;
-  _settingsJSONObject["Game"]["MaxElevationHeight"] = settings.maxElevationHeight;
-  _settingsJSONObject["ConfigFiles"]["UIDataJSONFile"] = settings.uiDataJSONFile;
-  _settingsJSONObject["ConfigFiles"]["TileDataJSONFile"] = settings.tileDataJSONFile;
-  _settingsJSONObject["ConfigFiles"]["UILayoutJSONFile"] = settings.uiLayoutJSONFile;
-  _settingsJSONObject["Audio"]["PlayMusic"] = settings.playMusic;
-  _settingsJSONObject["Audio"]["PlaySoundEffects"] = settings.playSoundEffects;
-  _settingsJSONObject["Audio"]["AudioChannels"] = settings.audioChannels;
-  _settingsJSONObject["Audio"]["MusicVolume"] = settings.musicVolume;
-  _settingsJSONObject["Audio"]["SoundEffectsVolume"] = settings.soundEffectsVolume;
+  json _settingsJSONObject = settings;
 
   std::ofstream settingsFile(m_settingsFileName);
 
@@ -68,4 +41,50 @@ void Settings::writeFile()
   {
     LOG(LOG_ERROR) << "Could not write file " << m_settingsFileName;
   }
+}
+
+// JSON serializer for Settings struct
+void to_json(json &j, const Settings::SettingsStruct &s)
+{
+  j = {
+      {"Graphics",
+       {
+           {"VSYNC", s.vSync},
+           {"FullScreen", s.fullScreen},
+           {"Resolution", {{"Screen_Width", s.screenWidth}, {"Screen_Height", s.screenHeight}}},
+       }},
+      {"Game", {{"MapSize", s.mapSize}, {"MaxElevationHeight", s.maxElevationHeight}}},
+      {"ConfigFiles",
+       {{"UIDataJSONFile", s.uiDataJSONFile},
+        {"TileDataJSONFile", s.tileDataJSONFile},
+        {"UILayoutJSONFile", s.uiLayoutJSONFile}}},
+      {"Audio",
+       {
+           {"PlayMusic", s.playMusic},
+           {"PlaySoundEffects", s.playSoundEffects},
+           {"AudioChannels", s.audioChannels},
+           {"MusicVolume", s.musicVolume},
+           {"SoundEffectsVolume", s.soundEffectsVolume},
+       }},
+
+  };
+}
+
+// JSON deserializer for Settings struct
+void from_json(const json &j, Settings::SettingsStruct &s)
+{
+  s.screenWidth = j["Graphics"]["Resolution"].value("Screen_Width", 800);
+  s.screenHeight = j["Graphics"]["Resolution"].value("Screen_Height", 600);
+  s.vSync = j["Graphics"].value("VSYNC", false);
+  s.fullScreen = j["Graphics"].value("FullScreen", false);
+  s.mapSize = j["Game"].value("MapSize", 64);
+  s.maxElevationHeight = j["Game"].value("MaxElevationHeight", 32);
+  s.uiDataJSONFile = j["ConfigFiles"].value("UIDataJSONFile", "resources/data/TileData.json");
+  s.tileDataJSONFile = j["ConfigFiles"].value("TileDataJSONFile", "resources/data/UIData.json");
+  s.uiLayoutJSONFile = j["ConfigFiles"].value("UILayoutJSONFile", "resources/data/UILayout.json");
+  s.playMusic = j["Audio"].value("PlayMusic", true);
+  s.playSoundEffects = j["Audio"].value("PlaySoundEffects", false);
+  s.audioChannels = j["Audio"].value("AudioChannels", 2);
+  s.musicVolume = j["Audio"].value("MusicVolume", 50);
+  s.soundEffectsVolume = j["Audio"].value("SoundEffectsVolume", 100);
 }
