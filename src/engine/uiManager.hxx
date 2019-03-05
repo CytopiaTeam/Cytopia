@@ -25,7 +25,7 @@ public:
     return uiManager;
   }
   void init();
-  void drawUI();
+  void drawUI() const;
 
   void toggleGroupVisibility(const std::string &groupID);
 
@@ -35,10 +35,10 @@ public:
 
   const std::vector<std::unique_ptr<UiElement>> &getAllUiElements() const { return m_uiElements; };
 
-  UiElement *getUiElementByID(const std::string &UiElement);
+  UiElement *getUiElementByID(const std::string &UiElement) const;
   void startTooltip(SDL_Event &event, const std::string &tooltipText);
 
-  void stopTooltip();
+  void stopTooltip() const;
 
 private:
   UIManager() = default;

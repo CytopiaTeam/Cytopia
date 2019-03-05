@@ -19,7 +19,7 @@ public:
   WindowManager(WindowManager const &) = delete;
   WindowManager &operator=(WindowManager const &) = delete;
 
-  void toggleFullScreen();
+  void toggleFullScreen() const;
 
   void setWindowTitle(const std::string &title);
 
@@ -27,13 +27,13 @@ public:
   * Returns a pointer to the SDL Renderer
   * \return Pointer to the SDL_Renderer
   */
-  SDL_Renderer *getRenderer() { return m_renderer; };
+  SDL_Renderer *getRenderer() const { return m_renderer; };
 
   /** \brief get SDL Window
   * Returns a pointer to the SDL_Window
   * \return Pointer to the SDL_Window
   */
-  SDL_Window *getWindow() { return m_window; };
+  SDL_Window *getWindow() const { return m_window; };
 
 private:
   WindowManager();

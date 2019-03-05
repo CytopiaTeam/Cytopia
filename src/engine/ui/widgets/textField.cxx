@@ -53,7 +53,7 @@ void TextField::addText(const std::string &text)
   count = static_cast<int>(m_textElements.size());
 }
 
-std::string TextField::getTextFromID(int id)
+std::string TextField::getTextFromID(int id) const
 {
   if (id < count)
   {

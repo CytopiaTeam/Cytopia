@@ -14,9 +14,9 @@ public:
 
   void addText(const std::string &text);
 
-  std::string getTextFromID(int id);
+  std::string getTextFromID(int id) const;
 
-  SDL_Rect getSize() { return m_uiElementRect; };
+  SDL_Rect getSize() const { return m_uiElementRect; };
 
   void draw() override;
 

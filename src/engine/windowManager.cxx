@@ -41,7 +41,7 @@ WindowManager::~WindowManager()
   SDL_DestroyWindow(m_window);
 }
 
-void WindowManager::toggleFullScreen()
+void WindowManager::toggleFullScreen() const
 {
   Settings::instance().settings.fullScreen = !Settings::instance().settings.fullScreen;
 

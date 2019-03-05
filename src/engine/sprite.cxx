@@ -11,7 +11,7 @@ Sprite::Sprite(Point isoCoordinates) : isoCoordinates(isoCoordinates)
   m_screenCoordinates = convertIsoToScreenCoordinates(isoCoordinates);
 }
 
-void Sprite::render()
+void Sprite::render() const
 {
   if (highlightSprite == true)
   {

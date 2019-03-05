@@ -171,7 +171,7 @@ void UIManager::init()
 
 void UIManager::setFPSCounterText(const std::string &fps) { m_fpsCounter->setText(fps); }
 
-void UIManager::drawUI()
+void UIManager::drawUI() const
 {
   for (const auto &it : m_uiElements)
   {
@@ -211,9 +211,9 @@ void UIManager::startTooltip(SDL_Event &event, const std::string &tooltipText)
   m_tooltip->startTimer();
 }
 
-void UIManager::stopTooltip() { m_tooltip->reset(); }
+void UIManager::stopTooltip() const { m_tooltip->reset(); }
 
-UiElement *UIManager::getUiElementByID(const std::string &UiElementID)
+UiElement *UIManager::getUiElementByID(const std::string &UiElementID) const
 {
   for (auto &it : m_uiElements)
   {

@@ -11,7 +11,7 @@ public:
   Sprite(Point isoCoordinates);
   virtual ~Sprite() = default;
 
-  void render();
+  void render() const;
   void refresh();
 
   void setTexture(SDL_Texture *m_texture);
@@ -20,12 +20,12 @@ public:
   bool highlightSprite = false;
 
   SDL_Rect clipRect{0, 0, 0, 0};
-  SDL_Rect destRect;
-  Point isoCoordinates;
+  SDL_Rect destRect{0, 0, 0, 0};
+  Point isoCoordinates{0, 0, 0, 0};
 
 private:
   SDL_Texture *m_texture = nullptr;
-  SDL_Point m_screenCoordinates;
+  SDL_Point m_screenCoordinates{0, 0};
 
   bool m_needsRefresh = false;
   float m_currentZoomLevel = 0;

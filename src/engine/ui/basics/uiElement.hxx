@@ -69,7 +69,7 @@ public:
   * Gets the position and the size of this ui element
   * @return Position and size as SDL_Rect
   */
-  const SDL_Rect &getUiElementRect() { return m_uiElementRect; };
+  const SDL_Rect &getUiElementRect() const { return m_uiElementRect; };
 
   /** \brief Checks if the mouse cursor is over the current UI Element
   * Check if the coordinates match the ones stored in m_uiElementRect
@@ -156,7 +156,7 @@ public:
 
   const ElementData &getUiElementData() const { return elementData; };
 
-  virtual void drawImageButtonFrame(bool){};
+  virtual void drawImageButtonFrame(bool) {};
 
 private:
   SDL_Renderer *m_renderer = WindowManager::instance().getRenderer();
