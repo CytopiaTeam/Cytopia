@@ -15,8 +15,6 @@ public:
   Map(int columns, int rows);
   ~Map() = default;
 
-  MapNode *getNode(int x, int y) const { return mapNodes[x * m_columns + y].get(); };
-
   /** \brief Initialize the Map with node objects
     * Initialize the Map with node objects
     */
