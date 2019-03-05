@@ -4,118 +4,118 @@
 
 Timer::~Timer()
 {
-  _threadRunning = false;
-  if (_timerThread.joinable())
+  m_threadRunning = false;
+  if (m_timerThread.joinable())
   {
-    _timerThread.join();
+    m_timerThread.join();
   }
 }
 
 void Timer::start()
 {
-  _startTime = SDL_GetPerformanceCounter();
-  _lastTimeOutTime = SDL_GetPerformanceCounter();
-  _endTime = _startTime;
-  _elapsedTime = 0;
-  _isActive = true;
-  _timeOut = false;
+  m_startTime = SDL_GetPerformanceCounter();
+  m_lastTimeOutTime = SDL_GetPerformanceCounter();
+  m_endTime = m_startTime;
+  m_elapsedTime = 0;
+  m_isActive = true;
+  m_timeOut = false;
 
   startThread();
 }
 
 void Timer::stop()
 {
-  _elapsedTime = static_cast<int>((SDL_GetPerformanceCounter() - _startTime) * 1000 / SDL_GetPerformanceFrequency());
-  _isActive = false;
-  _timeOut = false;
-  _threadRunning = false;
-  if (_timerThread.joinable())
+  m_elapsedTime = static_cast<int>((SDL_GetPerformanceCounter() - m_startTime) * 1000 / SDL_GetPerformanceFrequency());
+  m_isActive = false;
+  m_timeOut = false;
+  m_threadRunning = false;
+  if (m_timerThread.joinable())
   {
-    _timerThread.join();
+    m_timerThread.join();
   }
 }
 
 void Timer::pause()
 {
-  if (_isActive)
+  if (m_isActive)
   {
-    _elapsedTime = static_cast<int>((SDL_GetPerformanceCounter() - _startTime) * 1000 / SDL_GetPerformanceFrequency());
-    _timeSinceLastTimeOut =
-        static_cast<int>((SDL_GetPerformanceCounter() - _lastTimeOutTime) * 1000 / SDL_GetPerformanceFrequency());
-    _endTime = _startTime;
-    _startTime = SDL_GetPerformanceCounter();
-    _isActive = false;
+    m_elapsedTime = static_cast<int>((SDL_GetPerformanceCounter() - m_startTime) * 1000 / SDL_GetPerformanceFrequency());
+    m_timeSinceLastTimeOut =
+        static_cast<int>((SDL_GetPerformanceCounter() - m_lastTimeOutTime) * 1000 / SDL_GetPerformanceFrequency());
+    m_endTime = m_startTime;
+    m_startTime = SDL_GetPerformanceCounter();
+    m_isActive = false;
   }
 }
 
 void Timer::resume()
 {
-  if (!_isActive)
+  if (!m_isActive)
   {
-    _startTime = SDL_GetPerformanceCounter() - (_startTime - _endTime);
-    _lastTimeOutTime = SDL_GetPerformanceCounter() - _lastTimeOutTime;
-    _isActive = true;
+    m_startTime = SDL_GetPerformanceCounter() - (m_startTime - m_endTime);
+    m_lastTimeOutTime = SDL_GetPerformanceCounter() - m_lastTimeOutTime;
+    m_isActive = true;
   }
 }
 
 void Timer::setTimer(int timeInMs)
 {
-  _timeUntilTimeOut = timeInMs;
-  _timeOut = false;
+  m_timeUntilTimeOut = timeInMs;
+  m_timeOut = false;
 }
 
 int Timer::getElapsedTime()
 {
-  if (_isActive)
+  if (m_isActive)
   {
-    _elapsedTime = static_cast<int>((SDL_GetPerformanceCounter() - _startTime) * 1000 / SDL_GetPerformanceFrequency());
+    m_elapsedTime = static_cast<int>((SDL_GetPerformanceCounter() - m_startTime) * 1000 / SDL_GetPerformanceFrequency());
   }
-  return _elapsedTime;
+  return m_elapsedTime;
 }
 
 int Timer::getElapsedTimeSinceLastTimeOut()
 {
-  if (_isActive)
+  if (m_isActive)
   {
-    _timeSinceLastTimeOut =
-        static_cast<int>((SDL_GetPerformanceCounter() - _lastTimeOutTime) * 1000 / SDL_GetPerformanceFrequency());
+    m_timeSinceLastTimeOut =
+        static_cast<int>((SDL_GetPerformanceCounter() - m_lastTimeOutTime) * 1000 / SDL_GetPerformanceFrequency());
   }
-  return _timeSinceLastTimeOut;
+  return m_timeSinceLastTimeOut;
 }
 
 void Timer::timeOut()
 {
-  _timeSinceLastTimeOut = 0;
-  _timeOut = true;
-  _timeOutSignal.emit();
-  _lastTimeOutTime = SDL_GetPerformanceCounter();
+  m_timeSinceLastTimeOut = 0;
+  m_timeOut = true;
+  m_timeOutSignal.emit();
+  m_lastTimeOutTime = SDL_GetPerformanceCounter();
 }
 
 void Timer::startThread()
 {
   // if thread is running, abort and join it before starting a new one
-  if (_timerThread.joinable())
+  if (m_timerThread.joinable())
   {
-    _threadRunning = false;
-    _timerThread.join();
+    m_threadRunning = false;
+    m_timerThread.join();
   }
-  else if (_threadRunning == true)
+  else if (m_threadRunning == true)
   {
     return;
   }
 
-  _threadRunning = true;
-  if (_timeUntilTimeOut != 0)
+  m_threadRunning = true;
+  if (m_timeUntilTimeOut != 0)
   {
-    _timerThread = std::thread([=]() {
-      while (_threadRunning)
+    m_timerThread = std::thread([=]() {
+      while (m_threadRunning)
       {
-        if (getElapsedTimeSinceLastTimeOut() >= _timeUntilTimeOut)
+        if (getElapsedTimeSinceLastTimeOut() >= m_timeUntilTimeOut)
         {
           timeOut();
-          if (!_loopTimer)
+          if (!m_loopTimer)
           {
-            _threadRunning = false;
+            m_threadRunning = false;
           }
         }
 

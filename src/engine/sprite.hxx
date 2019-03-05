@@ -16,7 +16,7 @@ public:
 
   void setTexture(SDL_Texture *m_texture);
 
-  size_t spriceCount = 1;
+  size_t spriteCount = 1;
   bool highlightSprite = false;
 
   SDL_Rect clipRect{0, 0, 0, 0};

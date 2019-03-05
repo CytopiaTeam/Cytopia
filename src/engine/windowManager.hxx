@@ -27,23 +27,23 @@ public:
   * Returns a pointer to the SDL Renderer
   * \return Pointer to the SDL_Renderer
   */
-  SDL_Renderer *getRenderer() { return _renderer; };
+  SDL_Renderer *getRenderer() { return m_renderer; };
 
   /** \brief get SDL Window
   * Returns a pointer to the SDL_Window
   * \return Pointer to the SDL_Window
   */
-  SDL_Window *getWindow() { return _window; };
+  SDL_Window *getWindow() { return m_window; };
 
 private:
   WindowManager();
   ~WindowManager();
 
-  std::string _title = "Cytopia";
-  const std::string windowIcon = "resources/images/app_icons/cytopia_icon.png";
-  int _width = 800;
-  int _height = 600;
+  std::string m_title = "Cytopia";
+  const std::string m_windowIcon = "resources/images/app_icons/cytopia_icon.png";
+  int m_width = 800;
+  int m_height = 600;
 
-  SDL_Window *_window = nullptr;
-  SDL_Renderer *_renderer = nullptr;
+  SDL_Window *m_window = nullptr;
+  SDL_Renderer *m_renderer = nullptr;
 };

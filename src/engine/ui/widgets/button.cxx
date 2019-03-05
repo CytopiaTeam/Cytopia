@@ -16,7 +16,7 @@ void Button::draw()
 
   if (m_drawFrame)
   {
-    drawButtonFrame(_uiElementRect);
+    drawButtonFrame(m_uiElementRect);
   }
 
   m_buttonLabel->draw();

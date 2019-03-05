@@ -3,7 +3,7 @@
 
 void UiElement::draw()
 {
-  if (_texture)
+  if (m_texture)
   {
     renderTexture();
   }
@@ -15,38 +15,38 @@ void UiElement::setTextureID(const std::string &textureID)
   SDL_Texture *texture = ResourcesManager::instance().getUITexture(textureID);
   if (texture)
   {
-    _texture = texture;
+    m_texture = texture;
   }
-  SDL_QueryTexture(_texture, nullptr, nullptr, &_uiElementRect.w, &_uiElementRect.h);
+  SDL_QueryTexture(m_texture, nullptr, nullptr, &m_uiElementRect.w, &m_uiElementRect.h);
 }
 
 void UiElement::changeButtonState(int state)
 {
-  if (_buttonState != state && !elementData.textureID.empty())
+  if (m_buttonState != state && !elementData.textureID.empty())
   {
     changeTexture(ResourcesManager::instance().getUITexture(elementData.textureID, state));
   }
-  _buttonState = state;
+  m_buttonState = state;
 }
 
 void UiElement::renderTexture()
 {
-  if (_texture)
+  if (m_texture)
   {
-    SDL_RenderCopy(_renderer, _texture, nullptr, &_uiElementRect);
+    SDL_RenderCopy(m_renderer, m_texture, nullptr, &m_uiElementRect);
   }
 }
 
 bool UiElement::isMouseOver(int x, int y)
 {
-  return x > _uiElementRect.x && x < _uiElementRect.x + _uiElementRect.w && y > _uiElementRect.y &&
-         y < _uiElementRect.y + _uiElementRect.h;
+  return x > m_uiElementRect.x && x < m_uiElementRect.x + m_uiElementRect.w && y > m_uiElementRect.y &&
+         y < m_uiElementRect.y + m_uiElementRect.h;
 }
 
 bool UiElement::isMouseOverHoverableArea(int x, int y)
 {
-  return x > _uiElementRect.x && x < _uiElementRect.x + _uiElementRect.w && y > _uiElementRect.y &&
-         y < _uiElementRect.y + _uiElementRect.h;
+  return x > m_uiElementRect.x && x < m_uiElementRect.x + m_uiElementRect.w && y > m_uiElementRect.y &&
+         y < m_uiElementRect.y + m_uiElementRect.h;
 }
 
 void UiElement::setText(const std::string &text)
@@ -57,32 +57,32 @@ void UiElement::setText(const std::string &text)
 
 void UiElement::createTextTexture(const std::string &text, const SDL_Color &textColor)
 {
-  _font = TTF_OpenFont("resources/fonts/arcadeclassics.ttf", 20);
+  m_font = TTF_OpenFont("resources/fonts/arcadeclassics.ttf", 20);
 
-  if (!_font)
+  if (!m_font)
   {
     LOG(LOG_ERROR) << "Failed to load font!\n" << TTF_GetError();
   }
 
   // destroy texture first to prevent memleaks
-  if (_texture)
-    SDL_DestroyTexture(_texture);
+  if (m_texture)
+    SDL_DestroyTexture(m_texture);
 
-  SDL_Surface *textSurface = TTF_RenderText_Solid(_font, text.c_str(), textColor);
+  SDL_Surface *textSurface = TTF_RenderText_Solid(m_font, text.c_str(), textColor);
   if (textSurface)
   {
     SDL_Rect _textRect{0, 0, 0, 0};
 
-    _texture = SDL_CreateTextureFromSurface(_renderer, textSurface);
+    m_texture = SDL_CreateTextureFromSurface(m_renderer, textSurface);
 
     // no surface exists but some shape has been drawn for that ui element
-    SDL_QueryTexture(_texture, nullptr, nullptr, &_textRect.w, &_textRect.h);
+    SDL_QueryTexture(m_texture, nullptr, nullptr, &_textRect.w, &_textRect.h);
 
-    _textRect.x = _uiElementRect.x + (_uiElementRect.w / 2) - (_textRect.w / 2);
-    _textRect.y = _uiElementRect.y + (_uiElementRect.h / 2) - (_textRect.h / 2);
-    _uiElementRect = _textRect;
+    _textRect.x = m_uiElementRect.x + (m_uiElementRect.w / 2) - (_textRect.w / 2);
+    _textRect.y = m_uiElementRect.y + (m_uiElementRect.h / 2) - (_textRect.h / 2);
+    m_uiElementRect = _textRect;
 
-    if (!_texture)
+    if (!m_texture)
     {
       LOG(LOG_ERROR) << "Failed to create texture from text surface!\n" << SDL_GetError();
     }
@@ -94,29 +94,29 @@ void UiElement::createTextTexture(const std::string &text, const SDL_Color &text
     LOG(LOG_ERROR) << "Failed to create text surface!\n" << TTF_GetError();
   }
 
-  TTF_CloseFont(_font);
+  TTF_CloseFont(m_font);
 }
 
 void UiElement::drawTextFrame()
 {
-  if (_uiElementRect.w != 0 && _uiElementRect.h != 0)
+  if (m_uiElementRect.w != 0 && m_uiElementRect.h != 0)
   {
-    drawSolidRect(_uiElementRect, SDL_Color{150, 150, 150});
-    drawSolidRect({_uiElementRect.x - 2, _uiElementRect.y - 2, _uiElementRect.w + 1, _uiElementRect.h + 1},
+    drawSolidRect(m_uiElementRect, SDL_Color{150, 150, 150});
+    drawSolidRect({m_uiElementRect.x - 2, m_uiElementRect.y - 2, m_uiElementRect.w + 1, m_uiElementRect.h + 1},
                   SDL_Color{128, 128, 128});
   }
 }
 
 void UiElement::drawSolidRect(SDL_Rect rect, const SDL_Color &color) const
 {
-  SDL_SetRenderDrawColor(_renderer, color.r, color.g, color.b, SDL_ALPHA_OPAQUE);
-  SDL_RenderFillRect(_renderer, &rect);
+  SDL_SetRenderDrawColor(m_renderer, color.r, color.g, color.b, SDL_ALPHA_OPAQUE);
+  SDL_RenderFillRect(m_renderer, &rect);
 }
 
 void UiElement::drawLine(int x1, int y1, int x2, int y2, const SDL_Color &color) const
 {
-  SDL_SetRenderDrawColor(_renderer, color.r, color.g, color.b, SDL_ALPHA_OPAQUE);
-  SDL_RenderDrawLine(_renderer, x1, y1, x2, y2);
+  SDL_SetRenderDrawColor(m_renderer, color.r, color.g, color.b, SDL_ALPHA_OPAQUE);
+  SDL_RenderDrawLine(m_renderer, x1, y1, x2, y2);
 }
 
 void UiElement::drawButtonFrame(SDL_Rect rect, bool isHighlightable)

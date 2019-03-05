@@ -77,7 +77,7 @@ private:
   TileManager();
   ~TileManager() = default;
 
-  std::unordered_map<std::string, TileData> tileData;
+  std::unordered_map<std::string, TileData> m_tileData;
 };
 
 #endif

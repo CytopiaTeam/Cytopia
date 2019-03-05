@@ -112,7 +112,7 @@ void MapNode::updateTexture()
       m_tileID = m_previousTileID;
       updateTexture();
     }
-    m_sprite->spriceCount = spriteCount;
+    m_sprite->spriteCount = spriteCount;
     m_sprite->setTexture(TileManager::instance().getTexture(m_tileID, tileMap));
   }
   else

@@ -16,7 +16,7 @@ public:
 
   std::string getTextFromID(int id);
 
-  SDL_Rect getSize() { return _uiElementRect; };
+  SDL_Rect getSize() { return m_uiElementRect; };
 
   void draw() override;
 
@@ -26,18 +26,17 @@ public:
 
   bool centerText = true;
 
-  int count() const { return _count; };
-
   int selectedID = -1;
   int hoveredID = -1;
+  int count = 0;
+
 private:
-  std::vector<Text *> _textVector;
+  std::vector<Text *> m_textElements;
 
-  int _textElementHeight = 0;
+  int m_textElementHeight = 0;
 
-  int _count = 0;
   // a rect is drawn beneath the current text to hover it
-  SDL_Rect _hoverRect;
+  SDL_Rect m_hoverRect;
 };
 
 #endif

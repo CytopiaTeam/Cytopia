@@ -23,8 +23,8 @@ public:
   void reset();
 
 private:
-  Timer _tooltipTimer;
-  bool _active = false;
+  Timer m_tooltipTimer;
+  bool m_active = false;
 };
 
 #endif

@@ -113,7 +113,7 @@ void UIManager::init()
 
         if (!groupID.empty())
         {
-          uiGroups[groupID].push_back(uiElement.get());
+          m_uiGroups[groupID].push_back(uiElement.get());
         }
 
         if (actionID == "RaiseTerrain")
@@ -162,18 +162,18 @@ void UIManager::init()
           uiElement->registerCallbackFunction([]() { Engine::instance().loadSaveGame("resources/save.json"); });
         }
         // store the element in a vector
-        _uiElements.emplace_back(std::move(uiElement));
+        m_uiElements.emplace_back(std::move(uiElement));
       }
     }
   }
-  _tooltip->setVisibility(false);
+  m_tooltip->setVisibility(false);
 }
 
-void UIManager::setFPSCounterText(const std::string &fps) { _fpsCounter->setText(fps); }
+void UIManager::setFPSCounterText(const std::string &fps) { m_fpsCounter->setText(fps); }
 
 void UIManager::drawUI()
 {
-  for (const auto &it : _uiElements)
+  for (const auto &it : m_uiElements)
   {
     if (it->isVisible())
     {
@@ -181,11 +181,11 @@ void UIManager::drawUI()
     }
   }
 
-  if (_showDebugMenu)
+  if (m_showDebugMenu)
   {
-    _fpsCounter->draw();
+    m_fpsCounter->draw();
   }
-  _tooltip->draw();
+  m_tooltip->draw();
 }
 
 void UIManager::toggleGroupVisibility(const std::string &groupID)
@@ -196,7 +196,7 @@ void UIManager::toggleGroupVisibility(const std::string &groupID)
     return;
   }
 
-  for (const auto &it : uiGroups[groupID])
+  for (const auto &it : m_uiGroups[groupID])
   {
     it->setVisibility(!it->isVisible());
   }
@@ -204,18 +204,18 @@ void UIManager::toggleGroupVisibility(const std::string &groupID)
 
 void UIManager::startTooltip(SDL_Event &event, const std::string &tooltipText)
 {
-  _tooltip->setText(tooltipText);
+  m_tooltip->setText(tooltipText);
 
-  _tooltip->setPosition(event.button.x - _tooltip->getUiElementRect().w / 2, event.button.y - _tooltip->getUiElementRect().h);
+  m_tooltip->setPosition(event.button.x - m_tooltip->getUiElementRect().w / 2, event.button.y - m_tooltip->getUiElementRect().h);
 
-  _tooltip->startTimer();
+  m_tooltip->startTimer();
 }
 
-void UIManager::stopTooltip() { _tooltip->reset(); }
+void UIManager::stopTooltip() { m_tooltip->reset(); }
 
 UiElement *UIManager::getUiElementByID(const std::string &UiElementID)
 {
-  for (auto &it : _uiElements)
+  for (auto &it : m_uiElements)
   {
     if (it->getUiElementData().elementID == UiElementID)
       return it.get();
