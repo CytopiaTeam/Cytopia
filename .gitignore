@@ -6,3 +6,6 @@
 
 # ignore build directories
 cmake-build-*
+
+# ignore macOS stuff
+.DS_Store
