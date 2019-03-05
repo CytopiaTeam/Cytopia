@@ -1,3 +1,7 @@
+#ifndef __APPLE__
+#include <cstring>
+#endif
+
 #include <SDL.h>
 
 #include "engine/engine.hxx"
@@ -39,8 +43,6 @@ void run()
   unsigned short i = 0;
   srand(time(NULL));
   const unsigned short MAX_FAKE_LOADING_SCREEN_MILLIS = rand() % 500 + 500;
-  const unsigned char TTF_INIT_FAILED = 0xFE;
-  const unsigned char TTF_OPEN_FONT_FAILED = 0xFF;
   std::vector<std::string> loading_lines = std::vector<std::string>();
   loading_lines.push_back("loading  traffic");
   loading_lines.push_back("calling  aliens");
