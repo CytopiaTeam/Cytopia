@@ -6,14 +6,13 @@
 Settings::Settings() { readFile(); }
 using json = nlohmann::json;
 
-
 void Settings::readFile()
 {
   json _settingsJSONObject;
-  std::ifstream i(SETTINGSFILENAME);
+  std::ifstream i(SETTINGS_FILE_NAME);
   if (i.fail())
   {
-    LOG(LOG_ERROR) << "File " << SETTINGSFILENAME << " does not exist! Cannot load settings from INI File!";
+    LOG(LOG_ERROR) << "File " << SETTINGS_FILE_NAME << " does not exist! Cannot load settings from INI File!";
     // Application should quit here, without settings from the ini file we can't continue
     return;
   }
@@ -22,7 +21,7 @@ void Settings::readFile()
   _settingsJSONObject = json::parse(i, nullptr, false);
   if (_settingsJSONObject.is_discarded())
   {
-    LOG(LOG_ERROR) << "Error parsing JSON File " << SETTINGSFILENAME;
+    LOG(LOG_ERROR) << "Error parsing JSON File " << SETTINGS_FILE_NAME;
   }
 
   settings.screenWidth = _settingsJSONObject["Graphics"]["Resolution"]["Width"].get<int>();
@@ -59,7 +58,7 @@ void Settings::writeFile()
   _settingsJSONObject["Audio"]["MusicVolume"] = settings.musicVolume;
   _settingsJSONObject["Audio"]["SoundEffectsVolume"] = settings.soundEffectsVolume;
 
-  std::ofstream settingsFile(SETTINGSFILENAME);
+  std::ofstream settingsFile(SETTINGS_FILE_NAME);
 
   if (settingsFile.is_open())
   {
@@ -68,6 +67,6 @@ void Settings::writeFile()
   }
   else
   {
-    LOG(LOG_ERROR) << "Could not write file " << SETTINGSFILENAME;
+    LOG(LOG_ERROR) << "Could not write file " << SETTINGS_FILE_NAME;
   }
 }
