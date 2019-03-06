@@ -1,11 +1,11 @@
 #include "settings.hxx"
 #include "log.hxx"
+#include "../common/Constants.hxx"
 #include "../../ThirdParty/json.hxx"
 
 Settings::Settings() { readFile(); }
 using json = nlohmann::json;
 
-constexpr char SETTINGSFILENAME[] = "resources/settings.json";
 
 void Settings::readFile()
 {
