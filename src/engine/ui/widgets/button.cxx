@@ -1,7 +1,7 @@
 #include "button.hxx"
 #include "../../basics/log.hxx"
 
-Button::Button(const SDL_Rect &uiElementRect) : UiElement(uiElementRect), _rect(uiElementRect)
+Button::Button(const SDL_Rect &uiElementRect) : UiElement(uiElementRect), m_rect(uiElementRect)
 {
   m_buttonLabel = std::make_unique<Text>(uiElementRect);
 }
@@ -9,9 +9,9 @@ Button::Button(const SDL_Rect &uiElementRect) : UiElement(uiElementRect), _rect(
 void Button::draw()
 {
   // if the button is initialized with no dimension, don't draw a frame.
-  if (_rect.h != 0 && _rect.w != 0)
+  if (m_rect.h != 0 && m_rect.w != 0)
   {
-    drawButtonFrame(_rect);
+    drawButtonFrame(m_rect);
   }
 
   if (m_drawFrame)
