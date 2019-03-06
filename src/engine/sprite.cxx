@@ -6,9 +6,9 @@
 #include "basics/isoMath.hxx"
 #include "basics/log.hxx"
 
-Sprite::Sprite(Point isoCoordinates) : isoCoordinates(isoCoordinates)
+Sprite::Sprite(Point _isoCoordinates) : isoCoordinates(_isoCoordinates)
 {
-  m_screenCoordinates = convertIsoToScreenCoordinates(isoCoordinates);
+  m_screenCoordinates = convertIsoToScreenCoordinates(_isoCoordinates);
 }
 
 void Sprite::render() const
