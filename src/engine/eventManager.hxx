@@ -15,7 +15,7 @@ public:
   void checkEvents(SDL_Event &event, Engine &engine);
 
 private:
-  UIManager &uiManager = UIManager::instance();
+  UIManager &m_uiManager = UIManager::instance();
 
   UiElement *m_lastHoveredElement = nullptr;
 
