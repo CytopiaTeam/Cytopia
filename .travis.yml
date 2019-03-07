@@ -23,6 +23,19 @@ matrix:
     env:
       - COMPILER=clang++-5.0
       
+  - os: osx
+    osx_image: xcode9.2
+    env: TARGET=macOS
+    language: objective-c
+    before_install:
+      - brew update
+      - brew install sdl2 sdl2_image sdl2_mixer sdl2_ttf
+    script:
+      - mkdir travis_build
+      - cd travis_build
+      - cmake ..
+      - make
+        
 before_install:
   - sudo add-apt-repository --yes ppa:beineri/opt-qt-5.12.1-xenial
   - sudo apt-get --allow-unauthenticated update 
