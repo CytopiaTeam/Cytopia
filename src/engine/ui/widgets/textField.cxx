@@ -5,21 +5,21 @@ TextField::TextField(const SDL_Rect &uiElementRect) : UiElement(uiElementRect)
 {
   // initialize height with an offset of 4 so the frame doesn't overlap with the last text element
   // this elemenets height will be adjusted accordingly when the textField is filled.
-  _uiElementRect.h = 4;
-  _hoverRect = _uiElementRect;
-  _hoverRect.x += 4;
-  _hoverRect.w -= 8;
+  m_uiElementRect.h = 4;
+  m_hoverRect = m_uiElementRect;
+  m_hoverRect.x += 4;
+  m_hoverRect.w -= 8;
 }
 
 void TextField::draw()
 {
   if (isVisible())
   {
-    if (_hoveredID != -1)
+    if (hoveredID != -1)
     {
-      drawSolidRect(_hoverRect, SDL_Color({150, 150, 150}));
+      drawSolidRect(m_hoverRect, SDL_Color({150, 150, 150}));
     }
-    for (auto text : _textVector)
+    for (auto text : m_textElements)
     {
       text->draw();
     }
@@ -28,50 +28,50 @@ void TextField::draw()
 
 void TextField::addText(const std::string &text)
 {
-  SDL_Rect textRect = _uiElementRect;
+  SDL_Rect textRect = m_uiElementRect;
 
-  _textVector.push_back(new Text(text));
-  textRect.h = _textVector.back()->getUiElementRect().h; // get height of text after instantiating
-  textRect.y = (_uiElementRect.y + _count - 1) * textRect.h;
+  m_textElements.push_back(new Text(text));
+  textRect.h = m_textElements.back()->getUiElementRect().h; // get height of text after instantiating
+  textRect.y = (m_uiElementRect.y + count - 1) * textRect.h;
 
   // center text
   if (centerText)
   {
-    textRect.x = _uiElementRect.x + (_uiElementRect.w / 2 - _textVector.back()->getUiElementRect().w / 2);
+    textRect.x = m_uiElementRect.x + (m_uiElementRect.w / 2 - m_textElements.back()->getUiElementRect().w / 2);
   }
   else
   {
-    textRect.x = _uiElementRect.x;
+    textRect.x = m_uiElementRect.x;
   }
 
-  _textElementHeight = textRect.h;
+  m_textElementHeight = textRect.h;
 
-  _uiElementRect.h += _textElementHeight;
-  _hoverRect.h = _textElementHeight;
+  m_uiElementRect.h += m_textElementHeight;
+  m_hoverRect.h = m_textElementHeight;
 
-  _textVector.back()->setPosition(textRect.x, textRect.y);
-  _count = static_cast<int>(_textVector.size());
+  m_textElements.back()->setPosition(textRect.x, textRect.y);
+  count = static_cast<int>(m_textElements.size());
 }
 
-std::string TextField::getTextFromID(int id)
+std::string TextField::getTextFromID(int id) const
 {
-  if (id < _count)
+  if (id < count)
   {
-    return _textVector[id]->getUiElementData().text;
+    return m_textElements[id]->getUiElementData().text;
   }
   return "";
 }
 
 void TextField::onMouseButtonUp(const SDL_Event &event)
 {
-  if (!_textVector.empty())
+  if (!m_textElements.empty())
   {
-    _selectedID = ((_textElementHeight + event.button.y - _uiElementRect.y) / _textElementHeight) - 1;
+    selectedID = ((m_textElementHeight + event.button.y - m_uiElementRect.y) / m_textElementHeight) - 1;
     // because of the -4 pixel offset that's been added in the constructor, the id would exceed the size of the vector, if the bottom of the dropdown is clicked
 
-    if (_selectedID >= _count)
+    if (selectedID >= count)
     {
-      _selectedID = _count - 1;
+      selectedID = count - 1;
     }
   }
 }
@@ -79,20 +79,20 @@ void TextField::onMouseButtonUp(const SDL_Event &event)
 void TextField::onMouseMove(const SDL_Event &event)
 {
   // TODO: Calculation deviates by 4 pixel in height because of the frame
-  if (_hoveredID != ((_textElementHeight + event.button.y - _uiElementRect.y) / _textElementHeight) - 1)
+  if (hoveredID != ((m_textElementHeight + event.button.y - m_uiElementRect.y) / m_textElementHeight) - 1)
   {
-    _hoveredID = ((_textElementHeight + event.button.y - _uiElementRect.y) / _textElementHeight) - 1;
+    hoveredID = ((m_textElementHeight + event.button.y - m_uiElementRect.y) / m_textElementHeight) - 1;
     // because of the -4 pixel offset that's been added in the constructor, the id would exceed the size of the vector, if the bottom of the dropdown is clicked
-    if (_hoveredID >= _count)
+    if (hoveredID >= count)
     {
-      _hoveredID = _count - 1;
+      hoveredID = count - 1;
     }
-    _hoverRect.y = ((_hoveredID)*_textElementHeight) + _uiElementRect.y;
+    m_hoverRect.y = ((hoveredID)*m_textElementHeight) + m_uiElementRect.y;
   }
 }
 
 void TextField::onMouseLeave(const SDL_Event &)
 {
   // reset the hovering
-  _hoveredID = -1;
+  hoveredID = -1;
 }

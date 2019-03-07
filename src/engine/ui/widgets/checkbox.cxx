@@ -8,11 +8,11 @@ Checkbox::Checkbox(const SDL_Rect &uiElementRect) : UiElement(SDL_Rect{uiElement
 
 void Checkbox::draw()
 {
-  drawButtonFrame(_uiElementRect);
+  drawButtonFrame(m_uiElementRect);
 
   if (getButtonState() == BUTTONSTATE_CLICKED)
   {
-    drawSolidRect(SDL_Rect{(_uiElementRect.x + 7), _uiElementRect.y + 7, _uiElementRect.w - 13, _uiElementRect.h - 13},
+    drawSolidRect(SDL_Rect{(m_uiElementRect.x + 7), m_uiElementRect.y + 7, m_uiElementRect.w - 13, m_uiElementRect.h - 13},
                   SDL_Color{84, 84, 84});
   }
 }
@@ -26,17 +26,17 @@ void Checkbox::onMouseButtonUp(const SDL_Event &)
     toggleGroupSignal.emit(elementData.actionParameter);
   }
 
-  if (!_isMouseButtonDown)
+  if (!m_isMouseButtonDown)
   {
     changeButtonState(getButtonState() == BUTTONSTATE_CLICKED ? BUTTONSTATE_DEFAULT : BUTTONSTATE_CLICKED);
   }
-  _isMouseButtonDown = false;
+  m_isMouseButtonDown = false;
 }
 
 void Checkbox::onMouseButtonDown(const SDL_Event &)
 {
   changeButtonState(getButtonState() == BUTTONSTATE_CLICKED ? BUTTONSTATE_DEFAULT : BUTTONSTATE_CLICKED);
-  _isMouseButtonDown = true;
+  m_isMouseButtonDown = true;
 }
 
 void Checkbox::onMouseEnter(const SDL_Event &event)
@@ -44,7 +44,7 @@ void Checkbox::onMouseEnter(const SDL_Event &event)
   if (event.button.button == SDL_BUTTON_LEFT)
   {
     changeButtonState(getButtonState() == BUTTONSTATE_CLICKED ? BUTTONSTATE_DEFAULT : BUTTONSTATE_CLICKED);
-    _isMouseButtonDown = true;
+    m_isMouseButtonDown = true;
   }
 }
 

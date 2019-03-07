@@ -6,64 +6,62 @@
 #include "basics/isoMath.hxx"
 #include "basics/log.hxx"
 
-Sprite::Sprite(Point isoCoordinates) : _isoCoordinates(isoCoordinates)
+Sprite::Sprite(Point _isoCoordinates) : isoCoordinates(_isoCoordinates)
 {
-  _renderer = WindowManager::instance().getRenderer();
-  _window = WindowManager::instance().getWindow();
-  _screenCoordinates = convertIsoToScreenCoordinates(isoCoordinates);
+  m_screenCoordinates = convertIsoToScreenCoordinates(_isoCoordinates);
 }
 
-void Sprite::render()
+void Sprite::render() const
 {
-  if (_highlightSprite == true)
+  if (highlightSprite == true)
   {
-    SDL_SetTextureColorMod(_texture, 150, 150, 150);
+    SDL_SetTextureColorMod(m_texture, 150, 150, 150);
   }
 
-  if (_clipRect.w != 0)
+  if (clipRect.w != 0)
   {
-    SDL_RenderCopy(_renderer, _texture, &_clipRect, &_destRect);
+    SDL_RenderCopy(WindowManager::instance().getRenderer(), m_texture, &clipRect, &destRect);
   }
   else
   {
-    SDL_RenderCopy(_renderer, _texture, nullptr, &_destRect);
+    SDL_RenderCopy(WindowManager::instance().getRenderer(), m_texture, nullptr, &destRect);
   }
 
-  if (_highlightSprite == true)
+  if (highlightSprite == true)
   {
-    SDL_SetTextureColorMod(_texture, 255, 255, 255);
+    SDL_SetTextureColorMod(m_texture, 255, 255, 255);
   }
 }
 
 void Sprite::refresh()
 {
-  if (_currentZoomLevel != Camera::zoomLevel || _needsRefresh)
+  if (m_currentZoomLevel != Camera::zoomLevel || m_needsRefresh)
   {
-    _currentZoomLevel = Camera::zoomLevel;
-    if (_clipRect.w != 0)
+    m_currentZoomLevel = Camera::zoomLevel;
+    if (clipRect.w != 0)
     {
-      _destRect.w = static_cast<int>(_clipRect.w * _currentZoomLevel);
-      _destRect.h = static_cast<int>(_clipRect.h * _currentZoomLevel);
+      destRect.w = static_cast<int>(clipRect.w * m_currentZoomLevel);
+      destRect.h = static_cast<int>(clipRect.h * m_currentZoomLevel);
     }
     else
     {
-      SDL_QueryTexture(_texture, nullptr, nullptr, &_destRect.w, &_destRect.h);
-      _destRect.w = static_cast<int>(_destRect.w * _currentZoomLevel);
-      _destRect.h = static_cast<int>(_destRect.h * _currentZoomLevel);
+      SDL_QueryTexture(m_texture, nullptr, nullptr, &destRect.w, &destRect.h);
+      destRect.w = static_cast<int>(destRect.w * m_currentZoomLevel);
+      destRect.h = static_cast<int>(destRect.h * m_currentZoomLevel);
     }
   }
 
-  _screenCoordinates = convertIsoToScreenCoordinates(_isoCoordinates);
+  m_screenCoordinates = convertIsoToScreenCoordinates(isoCoordinates);
   // render the sprite in the middle of its bounding box so bigger than 1x1 sprites will render correctly
-  _destRect.x = _screenCoordinates.x - (_destRect.w / 2);
+  destRect.x = m_screenCoordinates.x - (destRect.w / 2);
   // change y coordinates with sprites height taken into account to render the sprite at its base and not at its top.
-  _destRect.y = _screenCoordinates.y - _destRect.h;
-  _needsRefresh = false;
+  destRect.y = m_screenCoordinates.y - destRect.h;
+  m_needsRefresh = false;
 }
 
 void Sprite::setTexture(SDL_Texture *texture)
 {
-  _texture = texture;
-  _needsRefresh = true;
+  m_texture = texture;
+  m_needsRefresh = true;
   refresh();
 }

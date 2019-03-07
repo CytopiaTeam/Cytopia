@@ -10,12 +10,11 @@ public:
   ~ButtonGroup() = default;
 
   void addToGroup(UiElement *widget);
-  void setExclusive(bool isExclusive) { exclusive = isExclusive; };
   bool isExclusive() { return exclusive; };
 
-private:
-  std::vector<UiElement *> buttonGroup;
   bool exclusive = false;
+private:
+  std::vector<UiElement *> m_buttonGroup;
 };
 
 #endif

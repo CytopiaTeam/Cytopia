@@ -15,9 +15,10 @@ public:
   void checkEvents(SDL_Event &event, Engine &engine);
 
 private:
-  UIManager &uiManager = UIManager::instance();
+  UIManager &m_uiManager = UIManager::instance();
 
-  UiElement *lastHoveredElement = nullptr;
+  UiElement *m_lastHoveredElement = nullptr;
+
   bool dispatchUiEvents(SDL_Event &event);
   bool rightMouseButtonHeldDown = false;
 };

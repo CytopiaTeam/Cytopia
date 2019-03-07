@@ -23,22 +23,19 @@ public:
   * returns the ID of the selected element in the comboBox
   * @return selected ID
   */
-  int getActiveID() { return _activeID; };
-  std::string getActiveText() { return _activeText; };
-
   bool isMouseOver(int x, int y) override;
   bool isMouseOverHoverableArea(int x, int y) override;
 
+  int activeID = 0;
+  std::string activeText;
+
 private:
-  SDL_Rect _comboBoxRect;
-  SDL_Rect _menuRect;
+  SDL_Rect m_comboBoxRect;
+  SDL_Rect m_menuRect;
 
-  std::unique_ptr<TextField> _textField;
+  std::unique_ptr<TextField> m_textField;
 
-  std::string _activeText;
-  int _activeID = 0;
-
-  bool _isMenuOpened = false;
+  bool m_isMenuOpened = false;
 };
 
 #endif

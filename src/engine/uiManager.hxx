@@ -25,34 +25,34 @@ public:
     return uiManager;
   }
   void init();
-  void drawUI();
+  void drawUI() const;
 
   void toggleGroupVisibility(const std::string &groupID);
 
-  void toggleDebugMenu() { _showDebugMenu = !_showDebugMenu; };
+  void toggleDebugMenu() { m_showDebugMenu = !m_showDebugMenu; };
 
   void setFPSCounterText(const std::string &fps);
 
-  const std::vector<std::unique_ptr<UiElement>> &getAllUiElements() const { return _uiElements; };
+  const std::vector<std::unique_ptr<UiElement>> &getAllUiElements() const { return m_uiElements; };
 
-  UiElement *getUiElementByID(const std::string &UiElement);
+  UiElement *getUiElementByID(const std::string &UiElement) const;
   void startTooltip(SDL_Event &event, const std::string &tooltipText);
 
-  void stopTooltip();
+  void stopTooltip() const;
 
 private:
   UIManager() = default;
   ~UIManager() = default;
-  std::vector<std::unique_ptr<UiElement>> _uiElements;
+  std::vector<std::unique_ptr<UiElement>> m_uiElements;
 
-  std::unique_ptr<Tooltip> _tooltip = std::make_unique<Tooltip>();
+  std::unique_ptr<Tooltip> m_tooltip = std::make_unique<Tooltip>();
   // Text element for the FPS Counter (debug menu)
-  std::unique_ptr<Text> _fpsCounter = std::make_unique<Text>(SDL_Rect{40, 20, 0, 0});
+  std::unique_ptr<Text> m_fpsCounter = std::make_unique<Text>(SDL_Rect{40, 20, 0, 0});
 
-  bool _showDebugMenu = false;
+  bool m_showDebugMenu = false;
 
-  std::unordered_map<std::string, std::vector<UiElement *>> uiGroups;
-  std::unordered_map<std::string, ButtonGroup> buttonGroups;
+  std::unordered_map<std::string, std::vector<UiElement *>> m_uiGroups;
+  std::unordered_map<std::string, ButtonGroup> m_buttonGroups;
 };
 
 #endif

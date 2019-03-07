@@ -2,8 +2,8 @@
 
 Tooltip::Tooltip()
 {
-  _tooltipTimer.registerCallbackFunction(Signal::slot(this, &Tooltip::showTooltip));
-  _tooltipTimer.setTimer(1500);
+  m_tooltipTimer.registerCallbackFunction(Signal::slot(this, &Tooltip::showTooltip));
+  m_tooltipTimer.setTimer(1500);
   setVisibility(false);
 }
 
@@ -19,18 +19,18 @@ void Tooltip::draw()
 void Tooltip::startTimer()
 {
   setVisibility(false);
-  _tooltipTimer.start();
-  _active = true;
+  m_tooltipTimer.start();
+  m_active = true;
 }
 
 void Tooltip::showTooltip() { setVisibility(true); }
 
 void Tooltip::reset()
 {
-  if (_active)
+  if (m_active)
   {
     setVisibility(false);
-    _tooltipTimer.stop();
-    _active = false;
+    m_tooltipTimer.stop();
+    m_active = false;
   }
 }

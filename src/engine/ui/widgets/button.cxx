@@ -1,31 +1,31 @@
 #include "button.hxx"
 #include "../../basics/log.hxx"
 
-Button::Button(const SDL_Rect &uiElementRect) : UiElement(uiElementRect), _rect(uiElementRect)
+Button::Button(const SDL_Rect &uiElementRect) : UiElement(uiElementRect), m_rect(uiElementRect)
 {
-  _buttonLabel = std::make_unique<Text>(uiElementRect);
+  m_buttonLabel = std::make_unique<Text>(uiElementRect);
 }
 
 void Button::draw()
 {
   // if the button is initialized with no dimension, don't draw a frame.
-  if (_rect.h != 0 && _rect.w != 0)
+  if (m_rect.h != 0 && m_rect.w != 0)
   {
-    drawButtonFrame(_rect);
+    drawButtonFrame(m_rect);
   }
 
-  if (_drawFrame)
+  if (m_drawFrame)
   {
-    drawButtonFrame(_uiElementRect);
+    drawButtonFrame(m_uiElementRect);
   }
 
-  _buttonLabel->draw();
+  m_buttonLabel->draw();
 
   // render the buttons texture if available
   renderTexture();
 }
 
-void Button::setText(const std::string &text) { _buttonLabel->setText(text); }
+void Button::setText(const std::string &text) { m_buttonLabel->setText(text); }
 
 void Button::onMouseButtonUp(const SDL_Event &)
 {
@@ -38,12 +38,12 @@ void Button::onMouseButtonUp(const SDL_Event &)
   }
   else
   {
-    if (!_isMouseButtonDown)
+    if (!m_isMouseButtonDown)
     {
       changeButtonState(getButtonState() == BUTTONSTATE_CLICKED ? BUTTONSTATE_DEFAULT : BUTTONSTATE_CLICKED);
     }
-    _isMouseButtonDown = false;
-    _isButtonToggled = !_isButtonToggled;
+    m_isMouseButtonDown = false;
+    m_isButtonToggled = !m_isButtonToggled;
   }
 }
 
@@ -56,7 +56,7 @@ void Button::onMouseButtonDown(const SDL_Event &)
   else
   {
     changeButtonState(getButtonState() == BUTTONSTATE_CLICKED ? BUTTONSTATE_DEFAULT : BUTTONSTATE_CLICKED);
-    _isMouseButtonDown = true;
+    m_isMouseButtonDown = true;
   }
 }
 
@@ -66,7 +66,7 @@ void Button::onMouseEnter(const SDL_Event &event)
   {
     if (elementData.isToggleButton)
     {
-      _isMouseButtonDown = true;
+      m_isMouseButtonDown = true;
     }
     changeButtonState(BUTTONSTATE_CLICKED);
   }
@@ -80,8 +80,8 @@ void Button::onMouseLeave(const SDL_Event &)
 {
   if (elementData.isToggleButton)
   {
-    changeButtonState(_isButtonToggled ? BUTTONSTATE_CLICKED : BUTTONSTATE_DEFAULT);
-    _isMouseButtonDown = false;
+    changeButtonState(m_isButtonToggled ? BUTTONSTATE_CLICKED : BUTTONSTATE_DEFAULT);
+    m_isMouseButtonDown = false;
   }
   else
   {
@@ -89,7 +89,8 @@ void Button::onMouseLeave(const SDL_Event &)
   }
 }
 
+void Button::drawImageButtonFrame(bool drawFrame) { m_drawFrame = drawFrame; }
+
 void Button::registerCallbackFunction(std::function<void()> const &cb) { clickSignal.connect(cb); }
 void Button::registerCallbackFunction(std::function<void(const std::string &)> const &cb) { clickSignalString.connect(cb); }
 
-void Button::drawImageButtonFrame(bool drawFrame) { _drawFrame = drawFrame; }

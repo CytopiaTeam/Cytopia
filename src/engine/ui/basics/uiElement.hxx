@@ -34,7 +34,7 @@ protected:
 public:
   //Initializes variables
   UiElement() = default;
-  UiElement(const SDL_Rect &uiElementRect) : _uiElementRect(uiElementRect){};
+  UiElement(const SDL_Rect &uiElementRect) : m_uiElementRect(uiElementRect){};
   virtual ~UiElement() = default;
 
   virtual void registerCallbackFunction(std::function<void()> const &){};
@@ -61,18 +61,18 @@ public:
   */
   void setPosition(int x, int y)
   {
-    _uiElementRect.x = x;
-    _uiElementRect.y = y;
+    m_uiElementRect.x = x;
+    m_uiElementRect.y = y;
   };
 
   /** \brief Get the position and the size of this ui element
   * Gets the position and the size of this ui element
   * @return Position and size as SDL_Rect
   */
-  const SDL_Rect &getUiElementRect() { return _uiElementRect; };
+  const SDL_Rect &getUiElementRect() const { return m_uiElementRect; };
 
   /** \brief Checks if the mouse cursor is over the current UI Element
-  * Check if the coordinates match the ones stored in _uiElementRect
+  * Check if the coordinates match the ones stored in m_uiElementRect
   * @param x, y coordinates of the mouseclick
   * @return Wether the element is hovered over
   */
@@ -91,13 +91,13 @@ public:
   * Check if the UI Element is visibile
   * @return Visibility of the UI Element.
   */
-  bool isVisible() { return _visible; };
+  bool isVisible() { return m_visible; };
 
   /** \brief Sets the UI Elements visibility.
   * Set the UI Elements visibility.
   * @param Visibility of the UI Element.
   */
-  void setVisibility(bool visibility) { _visible = visibility; };
+  void setVisibility(bool visibility) { m_visible = visibility; };
 
   /** \brief Set the Action ID of the UI Element.
   * Sets the ID of the action the UI Element should execute when it's clicked.
@@ -125,7 +125,7 @@ public:
   * @return state enum buttonstate
   * @see ResourcesManager::ButtonState
   */
-  int getButtonState() { return _buttonState; };
+  int getButtonState() { return m_buttonState; };
 
   /** \brief Set the button mode to toggleButton
   * Set the button mode to toggle button, which means it stays pressed when its clicked.
@@ -156,20 +156,20 @@ public:
 
   const ElementData &getUiElementData() const { return elementData; };
 
-  virtual void drawImageButtonFrame(bool){};
+  virtual void drawImageButtonFrame(bool) {};
 
 private:
-  SDL_Renderer *_renderer = WindowManager::instance().getRenderer();
-  SDL_Window *_window = WindowManager::instance().getWindow();
-  TTF_Font *_font;
+  SDL_Renderer *m_renderer = WindowManager::instance().getRenderer();
+  SDL_Window *m_window = WindowManager::instance().getWindow();
+  TTF_Font *m_font;
 
-  int _buttonState = BUTTONSTATE_DEFAULT;
+  int m_buttonState = BUTTONSTATE_DEFAULT;
 
-  bool _visible = true;
+  bool m_visible = true;
 
 protected:
-  SDL_Texture *_texture = nullptr;
-  SDL_Rect _uiElementRect{0, 0, 0, 0};
+  SDL_Texture *m_texture = nullptr;
+  SDL_Rect m_uiElementRect{0, 0, 0, 0};
 
   void renderTexture();
 
@@ -209,7 +209,7 @@ protected:
 
   void drawFrame(SDL_Rect rect);
 
-  void changeTexture(SDL_Texture *texture) { _texture = texture; };
+  void changeTexture(SDL_Texture *texture) { m_texture = texture; };
 };
 
 #endif

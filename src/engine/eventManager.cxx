@@ -33,14 +33,14 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         {
         case SDLK_ESCAPE:
           // TODO: Toggle last opened menu or settings menu if nothing is open
-          uiManager.toggleGroupVisibility("PauseMenu");
+          m_uiManager.toggleGroupVisibility("PauseMenu");
           break;
 
         case SDLK_0:
           engine.toggleLayer(Engine::LAYER_GRID);
           break;
         case SDLK_F11:
-          uiManager.toggleDebugMenu();
+          m_uiManager.toggleDebugMenu();
           break;
         case SDLK_1:
           engine.toggleLayer(Engine::LAYER_FLOOR);
@@ -77,13 +77,13 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         {
           Camera::cameraOffset.x += event.motion.xrel;
           Camera::cameraOffset.y += event.motion.yrel;
-          Camera::setCenterIsoCoordinates(convertScreenToIsoCoordinates(
-              {Settings::instance().settings.screenWidth / 2, Settings::instance().settings.screenHeight / 2}));
-          Engine::instance().getMap()->refresh();
+          Camera::centerIsoCoordinates = convertScreenToIsoCoordinates(
+              {Settings::instance().settings.screenWidth / 2, Settings::instance().settings.screenHeight / 2});
+          Engine::instance().map->refresh();
         }
         else
         {
-          engine.getMap()->highlightNode(clickCoords);
+          engine.map->highlightNode(clickCoords);
         }
         break;
       case SDL_MOUSEBUTTONDOWN:
@@ -150,7 +150,7 @@ bool EventManager::dispatchUiEvents(SDL_Event &event)
   bool isHovering = false;
 
   // the reversed draw order of the vector is  the Z-Order of the elements
-  for (const std::unique_ptr<UiElement> &it : utils::ReverseIterator(uiManager.getAllUiElements()))
+  for (const std::unique_ptr<UiElement> &it : utils::ReverseIterator(m_uiManager.getAllUiElements()))
   {
     if (event.type == SDL_KEYDOWN)
     {
@@ -167,14 +167,14 @@ bool EventManager::dispatchUiEvents(SDL_Event &event)
       switch (event.type)
       {
       case SDL_MOUSEMOTION:
-        if (it.get() != lastHoveredElement && isHovering)
+        if (it.get() != m_lastHoveredElement && isHovering)
         {
-          if (lastHoveredElement != nullptr)
+          if (m_lastHoveredElement != nullptr)
           {
-            lastHoveredElement->onMouseLeave(event);
+            m_lastHoveredElement->onMouseLeave(event);
           }
           it->onMouseEnter(event);
-          lastHoveredElement = it.get();
+          m_lastHoveredElement = it.get();
         }
         else if (isMouseOverElement)
         {
@@ -184,11 +184,11 @@ bool EventManager::dispatchUiEvents(SDL_Event &event)
         // handle tooltips
         if (!it->getUiElementData().tooltipText.empty())
         {
-          uiManager.startTooltip(event, it->getUiElementData().tooltipText);
+          m_uiManager.startTooltip(event, it->getUiElementData().tooltipText);
         }
         else
         {
-          uiManager.stopTooltip();
+          m_uiManager.stopTooltip();
         }
         break;
       case SDL_MOUSEBUTTONDOWN:
@@ -202,11 +202,11 @@ bool EventManager::dispatchUiEvents(SDL_Event &event)
     }
   }
 
-  if (!isHovering && lastHoveredElement != nullptr)
+  if (!isHovering && m_lastHoveredElement != nullptr)
   {
-    uiManager.stopTooltip();
-    lastHoveredElement->onMouseLeave(event);
-    lastHoveredElement = nullptr;
+    m_uiManager.stopTooltip();
+    m_lastHoveredElement->onMouseLeave(event);
+    m_lastHoveredElement = nullptr;
   }
 
   return isMouseOverElement;

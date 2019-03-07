@@ -24,10 +24,10 @@ public:
     * get the Sprite* object for this nodes
     * @see Sprite
     */
-  Sprite *getSprite() const { return _sprite.get(); };
+  Sprite *getSprite() const { return m_sprite.get(); };
 
   /// get iso coordinates of this node
-  const Point &getCoordinates() const { return _isoCoordinates; };
+  const Point &getCoordinates() const { return m_isoCoordinates; };
 
   void setCoordinates(const Point &newIsoCoordinates);
 
@@ -50,33 +50,32 @@ public:
 
   void setBitmask(unsigned char elevationBitmask, unsigned char tileTypeBitmask);
 
-  unsigned char getElevationBitmask() const { return _elevationBitmask; };
+  unsigned char getElevationBitmask() const { return m_elevationBitmask; };
 
-  const TileData *getTileData() const { return _tileData; };
+  const TileData *getTileData() const { return m_tileData; };
 
-  const std::string &getTileID() const { return _tileID; };
+  const std::string &getTileID() const { return m_tileID; };
   void setTileID(const std::string &tileType);
-  size_t getUsedTileMap() const { return _tileMap; };
+
+  size_t tileMap = TileMap::DEFAULT;
 
 private:
-  Point _isoCoordinates;
-  std::unique_ptr<Sprite> _sprite;
+  Point m_isoCoordinates;
+  std::unique_ptr<Sprite> m_sprite;
 
-  int _maxHeight = 32;
+  int m_maxHeight = 32;
 
-  std::string _tileID = "terrain";
-  std::string _previousTileID = "terrain";
+  std::string m_tileID = "terrain";
+  std::string m_previousTileID = "terrain";
 
-  size_t _tileMap = TileMap::DEFAULT;
-  size_t _orientation = TileSlopes::DEFAULT_ORIENTATION;
-  size_t _spriteCount = 1;
+  size_t m_orientation = TileSlopes::DEFAULT_ORIENTATION;
 
-  int _clippingWidth = 0;
+  int m_clippingWidth = 0;
 
-  TileData *_tileData;
+  TileData *m_tileData;
 
-  unsigned char _elevationBitmask = 0;
-  unsigned char _tileIDBitmask = 0;
+  unsigned char m_elevationBitmask = 0;
+  unsigned char m_tileIDBitmask = 0;
 
   void updateTexture();
 };

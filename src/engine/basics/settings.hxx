@@ -39,8 +39,6 @@ public:
 
   SettingsStruct settings;
 
-private:
-  std::string settingsFileName = "resources/settings.json";
 };
 
 #endif

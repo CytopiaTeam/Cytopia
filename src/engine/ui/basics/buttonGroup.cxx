@@ -1,3 +1,3 @@
 #include "buttonGroup.hxx"
 
-void ButtonGroup::addToGroup(UiElement *widget) { buttonGroup.push_back(widget); }
+void ButtonGroup::addToGroup(UiElement *widget) { m_buttonGroup.push_back(widget); }

@@ -24,16 +24,16 @@ void AudioMixer::playMusic()
 {
   // TODO: stored audio elements should be moved to the resources class after refactoring
   std::shared_ptr<Music> themeMusic(new Music);
-  musicObjects.push_back(themeMusic);
+  m_musicObjects.push_back(themeMusic);
 
-  musicObjects[0]->loadFile("resources/audio/music/Theme - Easy Listening.mp3");
-  musicObjects[0]->play(-1);
+  m_musicObjects[0]->loadFile("resources/audio/music/Theme - Easy Listening.mp3");
+  m_musicObjects[0]->play(-1);
 }
 
 void AudioMixer::mute()
 {
   //TODO: stop all music stored in the element class after refactoring
-  for (const auto &it : musicObjects)
+  for (const auto &it : m_musicObjects)
   {
     it->stop();
     Settings::instance().settings.playMusic = false;

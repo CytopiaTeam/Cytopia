@@ -2,4 +2,4 @@
 
 Frame::Frame(const SDL_Rect &uiElementRect) : UiElement(uiElementRect) {}
 
-void Frame::draw() { drawFrame(_uiElementRect); }
+void Frame::draw() { drawFrame(m_uiElementRect); }

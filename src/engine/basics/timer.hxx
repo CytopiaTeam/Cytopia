@@ -55,14 +55,14 @@ public:
   /** \brief Checks if the timer is active.
   * Returns true if the timer is running (pending); otherwise returns false.
   */
-  bool isActive() { return _isActive; };
+  bool isActive() { return m_isActive; };
 
   /** \brief Checks if the time is done.
   * Returns true, if the timer has reached 0. 
   * @note Only applicable, if a timer has been set
   * @see Timer#setTimer()
   */
-  bool isTimedOut() { return _timeOut; };
+  bool isTimedOut() { return m_timeOut; };
 
   /** \brief Sets a timer
    * Sets a timer. When a timer is set, a signal is emitted and the registered callback function 
@@ -79,33 +79,33 @@ public:
   * @see Signal#Signal
   * @see Signal#slot
   */
-  void registerCallbackFunction(std::function<void()> const &cb) { _timeOutSignal.connect(cb); };
+  void registerCallbackFunction(std::function<void()> const &cb) { m_timeOutSignal.connect(cb); };
 
   /** Loop Timer
   * Specify if the timerout callback is called once or everytime the counter hits zero.
   */
-  void loopTimer(bool loop) { _loopTimer = loop; };
+  void loopTimer(bool loop) { m_loopTimer = loop; };
 
 private:
   void startThread();
 
-  Signal::Signal<void()> _timeOutSignal;
+  Signal::Signal<void()> m_timeOutSignal;
 
-  std::thread _timerThread;
+  std::thread m_timerThread;
 
-  bool _loopTimer = false;
-  bool _timeOut = false;
-  bool _isActive = false;
-  bool _threadRunning = false;
+  bool m_loopTimer = false;
+  bool m_timeOut = false;
+  bool m_isActive = false;
+  bool m_threadRunning = false;
 
-  int _timeUntilTimeOut = 0;
-  int _timeSinceLastTimeOut = 0;
-  int _elapsedTime = 0;
+  int m_timeUntilTimeOut = 0;
+  int m_timeSinceLastTimeOut = 0;
+  int m_elapsedTime = 0;
 
-  Uint64 _startTime = 0;
-  Uint64 _endTime = 0;
+  Uint64 m_startTime = 0;
+  Uint64 m_endTime = 0;
 
-  Uint64 _lastTimeOutTime = 0;
+  Uint64 m_lastTimeOutTime = 0;
 
   void timeOut();
 };

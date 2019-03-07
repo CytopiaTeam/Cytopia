@@ -7,16 +7,16 @@ Music::Music(const std::string &fileName) { loadFile(fileName); }
 
 Music::~Music()
 {
-  if (_music)
+  if (m_music)
   {
-    Mix_FreeMusic(_music);
+    Mix_FreeMusic(m_music);
   }
 }
 
 void Music::loadFile(const std::string &filename)
 {
-  _music = Mix_LoadMUS(filename.c_str());
-  if (!_music)
+  m_music = Mix_LoadMUS(filename.c_str());
+  if (!m_music)
   {
     LOG(LOG_ERROR) << "Failed to load audio file " << filename << "\n" << Mix_GetError();
   }
@@ -26,12 +26,12 @@ void Music::play(int loops) const
 {
   if (Settings::instance().settings.playMusic)
   {
-    if (_music)
+    if (m_music)
     {
       // stop the music playback first to start from the beginning
       stop();
 
-      if (Mix_PlayMusic(_music, loops) == -1)
+      if (Mix_PlayMusic(m_music, loops) == -1)
       {
         LOG(LOG_ERROR) << "Failed to play music!\n" << Mix_GetError();
       }
