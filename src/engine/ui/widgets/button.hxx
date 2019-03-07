@@ -25,7 +25,7 @@ public:
   void registerCallbackFunction(std::function<void(const std::string &)> const &cb) override;
 
 private:
-  SDL_Rect _rect;
+  SDL_Rect m_rect;
 
   std::unique_ptr<Text> m_buttonLabel;
 

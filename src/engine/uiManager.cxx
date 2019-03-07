@@ -59,7 +59,7 @@ void UIManager::init()
         std::string textureID = uiLayout[it.key()][id].value("SpriteID", "");
         std::string uiElementType = uiLayout[it.key()][id].value("Type", "");
 
-        SDL_Rect elementRect = {0, 0, 0, 0};
+        SDL_Rect elementRect {0, 0, 0, 0};
         elementRect.x = uiLayout[it.key()][id].value("Position_x", 0);
         elementRect.y = uiLayout[it.key()][id].value("Position_y", 0);
         elementRect.w = uiLayout[it.key()][id].value("Width", 0);

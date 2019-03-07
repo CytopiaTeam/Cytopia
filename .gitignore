@@ -1,5 +1,8 @@
 # ignore CLion generated directory
 .idea
 
+# ignore Vim caches.
+*.swp
+
 # ignore build directories
 cmake-build-*

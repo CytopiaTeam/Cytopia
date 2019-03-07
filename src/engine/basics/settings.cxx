@@ -1,5 +1,6 @@
 #include "settings.hxx"
 #include "log.hxx"
+#include "../common/Constants.hxx"
 #include "../../ThirdParty/json.hxx"
 
 Settings::Settings() { readFile(); }
@@ -8,10 +9,10 @@ using json = nlohmann::json;
 void Settings::readFile()
 {
   json _settingsJSONObject;
-  std::ifstream i(m_settingsFileName);
+  std::ifstream i(SETTINGS_FILE_NAME);
   if (i.fail())
   {
-    LOG(LOG_ERROR) << "File " << m_settingsFileName << " does not exist! Cannot load settings from INI File!";
+    LOG(LOG_ERROR) << "File " << SETTINGS_FILE_NAME << " does not exist! Cannot load settings from INI File!";
     // Application should quit here, without settings from the ini file we can't continue
     return;
   }
@@ -20,7 +21,7 @@ void Settings::readFile()
   _settingsJSONObject = json::parse(i, nullptr, false);
   if (_settingsJSONObject.is_discarded())
   {
-    LOG(LOG_ERROR) << "Error parsing JSON File " << m_settingsFileName;
+    LOG(LOG_ERROR) << "Error parsing JSON File " << SETTINGS_FILE_NAME;
   }
 
   settings = _settingsJSONObject;
@@ -30,7 +31,7 @@ void Settings::writeFile()
 {
   json _settingsJSONObject = settings;
 
-  std::ofstream settingsFile(m_settingsFileName);
+  std::ofstream settingsFile(SETTINGS_FILE_NAME);
 
   if (settingsFile.is_open())
   {
@@ -39,7 +40,7 @@ void Settings::writeFile()
   }
   else
   {
-    LOG(LOG_ERROR) << "Could not write file " << m_settingsFileName;
+    LOG(LOG_ERROR) << "Could not write file " << SETTINGS_FILE_NAME;
   }
 }
 
