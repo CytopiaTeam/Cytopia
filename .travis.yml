@@ -26,9 +26,9 @@ matrix:
       - sudo apt install -y libfreetype6-dev libgl1-mesa-dev
 
     script:
+      - build/scripts/linux/build_sdl2.sh
       - mkdir travis_build
       - cd travis_build
-      - build/scripts/linux/build_sdl2.sh
       # make sure CXX is correctly set
       - sudo unlink /usr/bin/gcc && sudo ln -s /usr/bin/gcc-5 /usr/bin/gcc
       - sudo unlink /usr/bin/g++ && sudo ln -s /usr/bin/g++-5 /usr/bin/g++
@@ -57,9 +57,9 @@ matrix:
       - sudo apt install -y libfreetype6-dev libgl1-mesa-dev
 
     script:
+      - build/scripts/linux/build_sdl2.sh
       - mkdir travis_build
       - cd travis_build
-      - build/scripts/linux/build_sdl2.sh
       # Build Cytopia
       - cmake ..
       - cmake --build .
