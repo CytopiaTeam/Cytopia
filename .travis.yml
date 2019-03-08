@@ -71,7 +71,7 @@ matrix:
     language: objective-c
     before_install:
       - brew update
-      - brew install sdl2 sdl2_image sdl2_mixer sdl2_ttf
+      - brew install sdl2 sdl2_image sdl2_mixer sdl2_ttf qt
     script:
       - mkdir travis_build
       - cd travis_build
