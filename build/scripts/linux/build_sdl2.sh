@@ -9,4 +9,3 @@ curl -L https://www.libsdl.org/projects/SDL_image/release/SDL2_image-2.0.4.tar.g
 pushd SDL2_image-* && ./configure && make && sudo make install && popd
 curl -L https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.4.tar.gz | tar xz
 pushd SDL2_mixer-* && ./configure && make && sudo make install && popd
-popd
