@@ -12,75 +12,60 @@ matrix:
 
   # gcc build
   - os: linux
+    name: GCC 5 Build
     compiler: gcc
     env: 
-      - COMPILER=g++-5
+      - DEPLOY_DOCUMENTATION=true
       - C_COMPILER=gcc-5
     before_install:
       - sudo add-apt-repository --yes ppa:beineri/opt-qt-5.12.1-xenial
       - sudo apt-get --allow-unauthenticated update
       - sudo apt-get -y install qt512base
       - source /opt/qt5*/bin/qt5*-env.sh
-
-    before_script:
       # install dependencies for building SDL2 TTF
       - sudo apt install -y libfreetype6-dev libgl1-mesa-dev
 
-      # Build Cytopia
+    script:
       - mkdir travis_build
       - cd travis_build
-
-    script:
-      - scripts/linux/build_sdl2.sh
+      - build/scripts/linux/build_sdl2.sh
       # make sure CXX is correctly set
       - sudo unlink /usr/bin/gcc && sudo ln -s /usr/bin/gcc-5 /usr/bin/gcc
       - sudo unlink /usr/bin/g++ && sudo ln -s /usr/bin/g++-5 /usr/bin/g++
-      - gcc --version
-      - g++ --version
       - if [[ "${COMPILER}" != "" ]]; then export CXX=${COMPILER}; fi
       - if [[ "${C_COMPILER}" != "" ]]; then export CC=${COMPILER}; fi
+      # Build Cytopia
       - cmake ..
       - cmake --build .
-      - cppcheck --force --quiet --error-exitcode=1 .
-      - if [ "$TRAVIS_BRANCH" = "master" -a "$COMPILER" = "g++-5" ]; then cmake --build . --target doc; fi
-      - if [ "$TRAVIS_BRANCH" = "master" -a "$COMPILER" = "g++-5" ]; then cmake --build . --target package; fi
-
+      - cmake --build . --target doc; fi
+      - cmake --build . --target package; fi
 
   # clang build
   - os: linux
+    name: CLANG 5 Build
     compiler: clang
     env:
       - COMPILER=clang++-5.0
+      - CC=/usr/bin/gcc-5 /usr/bin/clang++-5.0
+      - CXX=/usr/bin/gcc-5 /usr/bin/clang++-5.0
     before_install:
       - sudo add-apt-repository --yes ppa:beineri/opt-qt-5.12.1-xenial
       - sudo apt-get --allow-unauthenticated update
       - sudo apt-get -y install qt512base
       - source /opt/qt5*/bin/qt5*-env.sh
-        
-    before_script:
       # install dependencies for building SDL2 TTF
       - sudo apt install -y libfreetype6-dev libgl1-mesa-dev
 
-      # Build Cytopia
+    script:
       - mkdir travis_build
       - cd travis_build
-
-    script:
-      - scripts/linux/build_sdl2.sh
-      # make sure CXX is correctly set
-      - sudo unlink /usr/bin/gcc && sudo ln -s /usr/bin/gcc-5 /usr/bin/gcc
-      - sudo unlink /usr/bin/g++ && sudo ln -s /usr/bin/g++-5 /usr/bin/g++
-      - gcc --version
-      - g++ --version
-      - if [[ "${COMPILER}" != "" ]]; then export CXX=${COMPILER}; fi
-      - if [[ "${C_COMPILER}" != "" ]]; then export CC=${COMPILER}; fi
+      - build/scripts/linux/build_sdl2.sh
+      # Build Cytopia
       - cmake ..
       - cmake --build .
-      - cppcheck --force --quiet --error-exitcode=1 .
-      - if [ "$TRAVIS_BRANCH" = "master" -a "$COMPILER" = "g++-5" ]; then cmake --build . --target doc; fi
-      - if [ "$TRAVIS_BRANCH" = "master" -a "$COMPILER" = "g++-5" ]; then cmake --build . --target package; fi
       
   - os: osx
+    name: XCode 9.2 Build
     osx_image: xcode9.2
     env: TARGET=macOS
     language: objective-c
@@ -92,27 +77,26 @@ matrix:
       - cd travis_build
       - cmake ..
       - make
-        
 
 addons:
   apt:
     sources: 
       - ubuntu-toolchain-r-test
     packages:
-      - cmake
-      - cppcheck
       - gcc-5
       - g++-5
       - doxygen
       - graphviz
+      - libfreetype6-dev 
+      - libgl1-mesa-dev
 
 deploy:
   provider: pages
   skip_cleanup: true
+  local_dir: travis_build/html
   github_token: $GH_REPO_TOKEN
-  # repo: $GITHUB_REPO
-  # local_dir: html
   verbose: true
   on:
-    condition: $COMPILER = "g++-5"
-    branch: master
+    condition: $DEPLOY_DOCUMENTATION = "true"
+#commented for test purpose
+#    branch: master
