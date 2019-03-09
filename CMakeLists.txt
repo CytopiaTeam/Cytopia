@@ -169,7 +169,7 @@ if( DOXYGEN_FOUND )
   message("Use target doc to build the documentation")
   add_custom_target(
     doc
-    COMMAND ${DOXYGEN_EXECUTABLE} ${DoxyFile}
+    COMMAND ${DOXYGEN_EXECUTABLE} -b ${DoxyFile}
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
     VERBATIM
   )
