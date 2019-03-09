@@ -27,7 +27,7 @@ matrix:
 
     script:
       - pushd src/ThirdParty
-      - build/scripts/linux/build_sdl2.sh
+      - ../../build/scripts/linux/build_sdl2.sh
       - popd
       - mkdir travis_build
       - cd travis_build
@@ -60,7 +60,7 @@ matrix:
 
     script:
       - pushd src/ThirdParty
-      - build/scripts/linux/build_sdl2.sh
+      - ../../build/scripts/linux/build_sdl2.sh
       - popd
       - mkdir travis_build
       - cd travis_build
