@@ -62,6 +62,6 @@ void run()
       fpsFrames = 0;
     }
 
-    //SDL_Delay(1);
+    SDL_Delay(1);
   }
 }
