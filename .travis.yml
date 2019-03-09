@@ -77,7 +77,7 @@ matrix:
       - cd travis_build
       - cmake ..
       - make
-      - make packages
+      - make package
 
 addons:
   apt:
