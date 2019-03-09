@@ -103,5 +103,4 @@ deploy:
   verbose: true
   on:
     condition: $DEPLOY_DOCUMENTATION = "true"
-#commented for test purpose
-#    branch: master
+    branch: master
