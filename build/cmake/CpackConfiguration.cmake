@@ -16,18 +16,14 @@ set(CPACK_STRIP_FILES ON)
 set(CPACK_PACKAGE_INSTALL_DIRECTORY ${PROJECT_NAME})
 
 if ( UNIX )
-  # general settings for unix packaging
-  set(CPACK_PACKAGING_INSTALL_PREFIX "/usr/games/${PROJECT_NAME}")
-
-  configure_file(${PROJECT_SOURCE_DIR}/build/setup/cytopia.desktop setup/cytopia.desktop)
-  configure_file(${PROJECT_SOURCE_DIR}/build/setup/cytopia-tiledata-editor.desktop setup/cytopia-tiledata-editor.desktop)
-
-  INSTALL(FILES ${PROJECT_BINARY_DIR}/setup/cytopia.desktop DESTINATION /usr/share/applications)
-  INSTALL(FILES ${PROJECT_BINARY_DIR}/setup/cytopia-tiledata-editor.desktop DESTINATION /usr/share/applications)
-
-
-
   if ( (linux_distribution MATCHES Debian) OR (linux_distribution MATCHES Ubuntu) )
+    configure_file(${PROJECT_SOURCE_DIR}/build/setup/cytopia.desktop setup/cytopia.desktop)
+    configure_file(${PROJECT_SOURCE_DIR}/build/setup/cytopia-tiledata-editor.desktop setup/cytopia-tiledata-editor.desktop)
+
+    install(FILES ${PROJECT_BINARY_DIR}/setup/cytopia.desktop DESTINATION /usr/share/applications)
+    install(FILES ${PROJECT_BINARY_DIR}/setup/cytopia-tiledata-editor.desktop DESTINATION /usr/share/applications)
+
+    set(CPACK_PACKAGING_INSTALL_PREFIX "/usr/games/${PROJECT_NAME}")
     set(CPACK_GENERATOR "DEB")
 	
   	set(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
@@ -35,18 +31,18 @@ if ( UNIX )
     set(CPACK_DEBIAN_PACKAGE_MAINTAINER "Jimmy Snails")
     set(CPACK_DEBIAN_PACKAGE_HOMEPAGE ${CPACK_PACKAGE_HOMEPAGE_URL})
 	
-	
   elseif ( (linux_distribution MATCHES CentOS) OR (linux_distribution MATCHES SUSE))
     set(CPACK_GENERATOR "RPM")
     # todo: 
 	  # - add more debian / rpm specific generator settings
-
+  elseif(APPLE)
+    set(CPACK_GENERATOR "DragNDrop")
+    set(CPACK_DMG_VOLUME_NAME "${PROJECT_NAME}")
   else ()
     set(CPACK_GENERATOR "TGZ")
   endif()
 elseif ( WIN32 )
   # packaging needs WiX Tooset installed 
-  
   set(CPACK_GENERATOR "WIX;ZIP")
   # Upgrade Code must always be the same, so the setup can replace the existing installation
   set(CPACK_WIX_UPGRADE_GUID "F56FA877-A127-415C-9D04-43023C5459B0")
