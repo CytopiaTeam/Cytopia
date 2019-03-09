@@ -48,24 +48,26 @@ void Settings::writeFile()
 void to_json(json &j, const Settings::SettingsStruct &s)
 {
   j = {
-      {"Graphics",
+      {std::string("Graphics"),
        {
-           {"VSYNC", s.vSync},
-           {"FullScreen", s.fullScreen},
-           {"Resolution", {{"Screen_Width", s.screenWidth}, {"Screen_Height", s.screenHeight}}},
+           {std::string("VSYNC"), s.vSync},
+           {std::string("FullScreen"), s.fullScreen},
+           {std::string("Resolution"), {
+    {std::string("Screen_Width"), s.screenWidth}, { std::string("Screen_Height"), s.screenHeight }}},
        }},
-      {"Game", {{"MapSize", s.mapSize}, {"MaxElevationHeight", s.maxElevationHeight}}},
-      {"ConfigFiles",
-       {{"UIDataJSONFile", s.uiDataJSONFile},
-        {"TileDataJSONFile", s.tileDataJSONFile},
-        {"UILayoutJSONFile", s.uiLayoutJSONFile}}},
-      {"Audio",
+      {std::string("Game"), {
+    {std::string("MapSize"), s.mapSize}, { std::string("MaxElevationHeight"), s.maxElevationHeight }}},
+      {std::string("ConfigFiles"),
+       {{std::string("UIDataJSONFile"), s.uiDataJSONFile},
+        {std::string("TileDataJSONFile"), s.tileDataJSONFile},
+        {std::string("UILayoutJSONFile"), s.uiLayoutJSONFile}}},
+      {std::string("Audio"),
        {
-           {"PlayMusic", s.playMusic},
-           {"PlaySoundEffects", s.playSoundEffects},
-           {"AudioChannels", s.audioChannels},
-           {"MusicVolume", s.musicVolume},
-           {"SoundEffectsVolume", s.soundEffectsVolume},
+           {std::string("PlayMusic"), s.playMusic},
+           {std::string("PlaySoundEffects"), s.playSoundEffects},
+           {std::string("AudioChannels"), s.audioChannels},
+           {std::string("MusicVolume"), s.musicVolume},
+           {std::string("SoundEffectsVolume"), s.soundEffectsVolume},
        }},
 
   };
