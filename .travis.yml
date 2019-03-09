@@ -37,8 +37,8 @@ matrix:
       # Build Cytopia
       - cmake ..
       - cmake --build .
-      - cmake --build . --target doc; fi
-      - cmake --build . --target package; fi
+      - cmake --build . --target doc
+      - cmake --build . --target package
 
   # clang build
   - os: linux
