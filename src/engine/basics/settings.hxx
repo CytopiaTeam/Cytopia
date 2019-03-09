@@ -38,7 +38,6 @@ public:
   } SettingsStruct;
 
   SettingsStruct settings;
-
 };
 
 #endif

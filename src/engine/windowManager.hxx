@@ -41,8 +41,6 @@ private:
 
   std::string m_title = "Cytopia";
   const std::string m_windowIcon = "resources/images/app_icons/cytopia_icon.png";
-  int m_width = 800;
-  int m_height = 600;
 
   SDL_Window *m_window = nullptr;
   SDL_Renderer *m_renderer = nullptr;

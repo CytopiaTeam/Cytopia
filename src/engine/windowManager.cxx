@@ -7,10 +7,8 @@
 
 WindowManager::WindowManager()
 {
-  m_width = Settings::instance().settings.screenWidth;
-  m_height = Settings::instance().settings.screenHeight;
-
-  m_window = SDL_CreateWindow(m_title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, m_width, m_height, 0);
+  m_window = SDL_CreateWindow(m_title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+                              Settings::instance().settings.screenWidth, Settings::instance().settings.screenHeight, 0);
   if (m_window == nullptr)
   {
     LOG(LOG_ERROR) << "Failed to Init SDL\nSDL Error:" << SDL_GetError();

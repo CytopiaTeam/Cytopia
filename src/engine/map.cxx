@@ -344,6 +344,7 @@ bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int is
 
   SDL_Rect spriteRect = mapNodes[isoX * m_columns + isoY]->getSprite()->destRect;
   SDL_Point clicked {screenCoordinates.x, screenCoordinates.y};
+
   if (SDL_PointInRect(&clicked, &spriteRect))
   {
     // Calculate the position of the clicked pixel within the surface and "un-zoom" the positon to match the un-adjusted surface
