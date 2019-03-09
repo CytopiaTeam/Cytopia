@@ -25,7 +25,7 @@ void ResourcesManager::loadUITexture()
 {
   json uiDataJSON;
 
-  std::ifstream i(Settings::instance().settings.uiDataJSONFile);
+  std::ifstream i(SDL_GetBasePath() + Settings::instance().settings.uiDataJSONFile);
   if (i.fail())
   {
     LOG(LOG_ERROR) << "File " << Settings::instance().settings.uiDataJSONFile << " does not exist!";

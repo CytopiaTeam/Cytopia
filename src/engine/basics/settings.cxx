@@ -9,7 +9,12 @@ using json = nlohmann::json;
 void Settings::readFile()
 {
   json _settingsJSONObject;
-  std::ifstream i(SETTINGS_FILE_NAME);
+
+  char *settingsFileName = new char[strlen(SDL_GetBasePath()) + strlen(SETTINGS_FILE_NAME) + 1];
+  strcpy(settingsFileName, SDL_GetBasePath());
+  strcat(settingsFileName, SETTINGS_FILE_NAME);
+  std::ifstream i(settingsFileName);
+
   if (i.fail())
   {
     LOG(LOG_ERROR) << "File " << SETTINGS_FILE_NAME << " does not exist! Cannot load settings from INI File!";
@@ -58,7 +63,10 @@ void Settings::writeFile()
   _settingsJSONObject["Audio"]["MusicVolume"] = settings.musicVolume;
   _settingsJSONObject["Audio"]["SoundEffectsVolume"] = settings.soundEffectsVolume;
 
-  std::ofstream settingsFile(SETTINGS_FILE_NAME);
+  char *settingsFileName = new char[strlen(SDL_GetBasePath()) + strlen(SETTINGS_FILE_NAME) + 1];
+  strcpy(settingsFileName, SDL_GetBasePath());
+  strcat(settingsFileName, SETTINGS_FILE_NAME);
+  std::ofstream settingsFile(settingsFileName);
 
   if (settingsFile.is_open())
   {
