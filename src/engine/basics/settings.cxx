@@ -10,9 +10,8 @@ void Settings::readFile()
 {
   json _settingsJSONObject;
 
-  char *settingsFileName = new char[strlen(SDL_GetBasePath()) + strlen(SETTINGS_FILE_NAME) + 1];
-  strcpy(settingsFileName, SDL_GetBasePath());
-  strcat(settingsFileName, SETTINGS_FILE_NAME);
+  std::string settingsFileName = SDL_GetBasePath();
+  settingsFileName.append(SETTINGS_FILE_NAME);
   std::ifstream i(settingsFileName);
 
   if (i.fail())
@@ -63,9 +62,8 @@ void Settings::writeFile()
   _settingsJSONObject["Audio"]["MusicVolume"] = settings.musicVolume;
   _settingsJSONObject["Audio"]["SoundEffectsVolume"] = settings.soundEffectsVolume;
 
-  char *settingsFileName = new char[strlen(SDL_GetBasePath()) + strlen(SETTINGS_FILE_NAME) + 1];
-  strcpy(settingsFileName, SDL_GetBasePath());
-  strcat(settingsFileName, SETTINGS_FILE_NAME);
+  std::string settingsFileName = SDL_GetBasePath();
+  settingsFileName.append(SETTINGS_FILE_NAME);
   std::ofstream settingsFile(settingsFileName);
 
   if (settingsFile.is_open())
