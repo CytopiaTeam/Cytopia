@@ -9,7 +9,11 @@ using json = nlohmann::json;
 void Settings::readFile()
 {
   json _settingsJSONObject;
-  std::ifstream i(SETTINGS_FILE_NAME);
+
+  std::string settingsFileName = SDL_GetBasePath();
+  settingsFileName.append(SETTINGS_FILE_NAME);
+  std::ifstream i(settingsFileName);
+
   if (i.fail())
   {
     LOG(LOG_ERROR) << "File " << SETTINGS_FILE_NAME << " does not exist! Cannot load settings from INI File!";
@@ -31,7 +35,9 @@ void Settings::writeFile()
 {
   json _settingsJSONObject = settings;
 
-  std::ofstream settingsFile(SETTINGS_FILE_NAME);
+  std::string settingsFileName = SDL_GetBasePath();
+  settingsFileName.append(SETTINGS_FILE_NAME);
+  std::ofstream settingsFile(settingsFileName);
 
   if (settingsFile.is_open())
   {

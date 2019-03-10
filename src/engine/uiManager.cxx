@@ -16,7 +16,11 @@ void UIManager::init()
 {
   json uiLayout;
 
-  std::ifstream i(Settings::instance().settings.uiLayoutJSONFile);
+  //char*  full_text = new char[strlen(base_path) + strlen(SETTINGS_FILE_NAME) + 1];
+  //strcpy(full_text, SDL_GetBasePath());
+  //strcat(full_text, SETTINGS_FILE_NAME);
+  //std::ifstream i(full_text);
+  std::ifstream i(SDL_GetBasePath()  + Settings::instance().settings.uiLayoutJSONFile);
   if (i.fail())
   {
     LOG(LOG_ERROR) << "File " << Settings::instance().settings.uiLayoutJSONFile

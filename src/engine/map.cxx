@@ -389,14 +389,14 @@ void Map::saveMapToFile(const std::string &fileName)
 {
   json j = json{{"columns", this->m_columns}, {"rows", this->m_rows}, {"mapNode", mapNodes}};
 
-  std::ofstream file(fileName);
+  std::ofstream file(SDL_GetBasePath() + fileName);
   file << j;
   file.close();
 }
 
 Map *Map::loadMapFromFile(const std::string &fileName)
 {
-  std::ifstream file(fileName);
+  std::ifstream file(SDL_GetBasePath() + fileName);
 
   if (file.fail())
   {

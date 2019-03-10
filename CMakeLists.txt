@@ -80,8 +80,29 @@ if ( MSVC )
   set(SOURCES ${SOURCES} ${PROJECT_SOURCE_DIR}/build/msvc/icon_cytopia.rc)
 endif()
 
-# create a new executable with the same name as the project
-add_executable(${PROJECT_NAME} ${SOURCES})
+if ( APPLE )
+  file(GLOB_RECURSE MAC_RESOURCES ${CMAKE_CURRENT_SOURCE_DIR}/resources/*)
+
+  # not working now, we need a special icon file for apple
+  set(ICON_PATH ${PROJECT_SOURCE_DIR}/resources/images/app_icons/cytopia_icon_iso.png)
+  set(MACOSX_BUNDLE_ICON_FILE  cytopia_icon_iso.png)
+
+  # set each file as resources file for the app image.
+  foreach (resource_file ${MAC_RESOURCES})
+    get_filename_component(buildDirRelFilePath ${resource_file} DIRECTORY)
+    string(REPLACE  "${CMAKE_CURRENT_SOURCE_DIR}/" "" buildDirRelFilePath ${buildDirRelFilePath} )
+    set_source_files_properties(${resource_file} PROPERTIES MACOSX_PACKAGE_LOCATION Resources/${buildDirRelFilePath})
+  endforeach()
+
+  set_source_files_properties(${ICON_PATH} PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
+  set_source_files_properties(${myApp_ICON} PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
+
+  add_executable(${PROJECT_NAME} MACOSX_BUNDLE ${SOURCES} ${ICON_PATH} ${MAC_RESOURCES})
+
+else()
+  # create a new executable with the same name as the project
+  add_executable(${PROJECT_NAME} ${SOURCES})
+endif()
 
 # find all required dependences - if these fail the build will not continue
 find_package(SDL2 REQUIRED)
@@ -140,7 +161,6 @@ add_custom_command(
     ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/resources $<TARGET_FILE_DIR:${PROJECT_NAME}>/resources
 )
 
-
 # QT5 is used for the TileData Editing tool
 find_package(Qt5 CONFIG COMPONENTS Core Widgets)
 
@@ -191,9 +211,11 @@ if( MSVC )
   )
 endif()
 
-
 install(TARGETS ${PROJECT_NAME} DESTINATION .)
-install(DIRECTORY resources DESTINATION .)
+if ( NOT APPLE )
+  install(DIRECTORY resources DESTINATION .)
+endif()
+
 install(FILES ReleaseNotes.txt credits.txt DESTINATION .)
 
 
@@ -231,3 +253,8 @@ if ( WIN32 )
   #install the dynamic libraries so we have them in the deployment
   install (FILES ${SDL_RUNTIME_LIBRARIES} DESTINATION .)
 endif()
+
+if ( APPLE )
+  set_target_properties(${PROJECT_NAME} PROPERTIES MACOSX_BUNDLE TRUE RESOURCE TRUE)
+endif()
+

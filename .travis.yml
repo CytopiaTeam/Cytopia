@@ -12,75 +12,95 @@ matrix:
 
   # gcc build
   - os: linux
+    name: GCC 5 Build
     compiler: gcc
     env: 
-      - COMPILER=g++-5
+      - DEPLOY_DOCUMENTATION=true
       - C_COMPILER=gcc-5
+    before_install:
+      - sudo add-apt-repository --yes ppa:beineri/opt-qt-5.12.1-xenial
+      - sudo apt-get --allow-unauthenticated update
+      - sudo apt-get -y install qt512base
+      - source /opt/qt5*/bin/qt5*-env.sh
+      # install dependencies for building SDL2 TTF
+      - sudo apt install -y libfreetype6-dev libgl1-mesa-dev
+
+    script:
+      - pushd src/ThirdParty
+      - ../../build/scripts/linux/build_sdl2.sh
+      - popd
+      - mkdir travis_build
+      - cd travis_build
+      # make sure CXX is correctly set
+      - sudo unlink /usr/bin/gcc && sudo ln -s /usr/bin/gcc-5 /usr/bin/gcc
+      - sudo unlink /usr/bin/g++ && sudo ln -s /usr/bin/g++-5 /usr/bin/g++
+      - if [[ "${COMPILER}" != "" ]]; then export CXX=${COMPILER}; fi
+      - if [[ "${C_COMPILER}" != "" ]]; then export CC=${COMPILER}; fi
+      # Build Cytopia
+      - cmake ..
+      - cmake --build .
+      - cmake --build . --target doc
+      - cmake --build . --target package
 
   # clang build
   - os: linux
+    name: CLANG 5 Build
     compiler: clang
     env:
       - COMPILER=clang++-5.0
-      
-before_install:
-  - sudo add-apt-repository --yes ppa:beineri/opt-qt-5.12.1-xenial
-  - sudo apt-get --allow-unauthenticated update 
-  - sudo apt-get -y install qt512base
-  - source /opt/qt5*/bin/qt5*-env.sh
-    
-before_script:
-  # install dependencies for SDL2 TTF
-  - sudo apt install -y libfreetype6-dev libgl1-mesa-dev
-  - pushd src/ThirdParty
-  # Build SDL2 manually to have the latest version
-  - travis_retry curl -L https://www.libsdl.org/release/SDL2-2.0.9.tar.gz | tar xz
-  - pushd SDL2-* && ./configure && make && sudo make install && popd
-  - travis_retry curl -L https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-2.0.14.tar.gz | tar xz
-  - pushd SDL2_ttf-* && ./configure && make && sudo make install && popd
-  - travis_retry curl -L https://www.libsdl.org/projects/SDL_image/release/SDL2_image-2.0.4.tar.gz | tar xz
-  - pushd SDL2_image-* && ./configure && make && sudo make install && popd
-  - travis_retry curl -L https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.4.tar.gz | tar xz
-  - pushd SDL2_mixer-* && ./configure && make && sudo make install && popd
-  - popd
-  
-  # Build Cytopia
-  - mkdir travis_build
-  - cd travis_build
-  - cmake ..
+      - CC=/usr/bin/gcc-5 /usr/bin/clang++-5.0
+      - CXX=/usr/bin/gcc-5 /usr/bin/clang++-5.0
+    before_install:
+      - sudo add-apt-repository --yes ppa:beineri/opt-qt-5.12.1-xenial
+      - sudo apt-get --allow-unauthenticated update
+      - sudo apt-get -y install qt512base
+      - source /opt/qt5*/bin/qt5*-env.sh
+      # install dependencies for building SDL2 TTF
+      - sudo apt install -y libfreetype6-dev libgl1-mesa-dev
 
-script:
-  # make sure CXX is correctly set
-  - sudo unlink /usr/bin/gcc && sudo ln -s /usr/bin/gcc-5 /usr/bin/gcc
-  - sudo unlink /usr/bin/g++ && sudo ln -s /usr/bin/g++-5 /usr/bin/g++
-  - gcc --version
-  - g++ --version
-  - if [[ "${COMPILER}" != "" ]]; then export CXX=${COMPILER}; fi
-  - if [[ "${C_COMPILER}" != "" ]]; then export CC=${COMPILER}; fi
-  - cmake --build .
-  - cppcheck --force --quiet --error-exitcode=1 .
-  - if [ "$TRAVIS_BRANCH" = "master" -a "$COMPILER" = "g++-5" ]; then cmake --build . --target doc; fi
-  - if [ "$TRAVIS_BRANCH" = "master" -a "$COMPILER" = "g++-5" ]; then cmake --build . --target package; fi
+    script:
+      - pushd src/ThirdParty
+      - ../../build/scripts/linux/build_sdl2.sh
+      - popd
+      - mkdir travis_build
+      - cd travis_build
+      # Build Cytopia
+      - cmake ..
+      - cmake --build .
+      
+  - os: osx
+    name: XCode 9.2 Build
+    osx_image: xcode9.2
+    env: TARGET=macOS
+    language: objective-c
+    before_install:
+      - brew update
+      - brew install sdl2 sdl2_image sdl2_mixer sdl2_ttf qt
+    script:
+      - mkdir travis_build
+      - cd travis_build
+      - cmake ..
+      - make
+      - make package
 
 addons:
   apt:
     sources: 
       - ubuntu-toolchain-r-test
     packages:
-      - cmake
-      - cppcheck
       - gcc-5
       - g++-5
       - doxygen
       - graphviz
+      - libfreetype6-dev 
+      - libgl1-mesa-dev
 
 deploy:
   provider: pages
   skip_cleanup: true
+  local_dir: travis_build/html
   github_token: $GH_REPO_TOKEN
-  # repo: $GITHUB_REPO
-  # local_dir: html
   verbose: true
   on:
-    condition: $COMPILER = "g++-5"
+    condition: $DEPLOY_DOCUMENTATION = "true"
     branch: master

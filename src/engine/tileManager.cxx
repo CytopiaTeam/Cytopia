@@ -239,7 +239,7 @@ void TileManager::init()
   json tileDataJSON;
 
   // Read JSON File.
-  std::ifstream i(Settings::instance().settings.tileDataJSONFile);
+  std::ifstream i(SDL_GetBasePath() + Settings::instance().settings.tileDataJSONFile);
   if (i.fail())
   {
     LOG(LOG_ERROR) << "File " << Settings::instance().settings.tileDataJSONFile << " does not exist!";
