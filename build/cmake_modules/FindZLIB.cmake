@@ -52,7 +52,7 @@
 set(_ZLIB_SEARCHES)
 
 # Search ZLIB_ROOT first if it is set.
-if(ZLIB_DIR)
+if( ZLIB_DIR )
   set(_ZLIB_SEARCH_ROOT PATHS ${ZLIB_DIR} NO_DEFAULT_PATH)
   list(APPEND _ZLIB_SEARCHES _ZLIB_SEARCH_ROOT)
 endif()
@@ -60,9 +60,9 @@ endif()
 # Normal search.
 set(_ZLIB_x86 "(x86)")
 set(_ZLIB_SEARCH_NORMAL
-    PATHS "[HKEY_LOCAL_MACHINE\\SOFTWARE\\GnuWin32\\Zlib;InstallPath]"
+    PATHS "${PROJECT_SOURCE_DIR}/Cytopia_ExternLibs/zlib"
+          "[HKEY_LOCAL_MACHINE\\SOFTWARE\\GnuWin32\\Zlib;InstallPath]"
           "$ENV{ProgramFiles}/zlib"
-          "${PROJECT_SOURCE_DIR}/Cytopia_ExternLibs/zlib"
           "$ENV{ProgramFiles${_ZLIB_x86}}/zlib")
 unset(_ZLIB_x86)
 list(APPEND _ZLIB_SEARCHES _ZLIB_SEARCH_NORMAL)
@@ -73,10 +73,18 @@ set(ZLIB_NAMES_DEBUG zlibd zlibd1)
 # Try each search configuration.
 foreach(search ${_ZLIB_SEARCHES})
   find_path(ZLIB_INCLUDE_DIR NAMES zlib.h ${${search}} PATH_SUFFIXES include)
+  find_file(ZLIB_RUNTIME_LIBRARY NAMES ${CMAKE_SHARED_LIBRARY_PREFIX}${ZLIB_NAMES}${CMAKE_SHARED_LIBRARY_SUFFIX} ${${search}} PATH_SUFFIXES lib)
 endforeach()
 
+# ${CMAKE_SHARED_LIBRARY_PREFIX}${ZLIB_NAMES}${CMAKE_SHARED_LIBRARY_SUFFIX}
+# Search Runtime Library.
+foreach(search ${_ZLIB_SEARCHES})
+#   find_path(ZLIB_RUNTIME_LIBRARY NAMES "${CMAKE_SHARED_LIBRARY_PREFIX}${ZLIB_NAMES}${CMAKE_SHARED_LIBRARY_SUFFIX}" ${${search}} PATH_SUFFIXES lib)
+endforeach()
+
+
 # Allow ZLIB_LIBRARY to be set manually, as the location of the zlib library
-if(NOT ZLIB_LIBRARY)
+if( NOT ZLIB_LIBRARY )
   foreach(search ${_ZLIB_SEARCHES})
     find_library(ZLIB_LIBRARY_RELEASE NAMES ${ZLIB_NAMES} NAMES_PER_DIR ${${search}} PATH_SUFFIXES lib)
     find_library(ZLIB_LIBRARY_DEBUG NAMES ${ZLIB_NAMES_DEBUG} NAMES_PER_DIR ${${search}} PATH_SUFFIXES lib)
@@ -91,7 +99,7 @@ unset(ZLIB_NAMES_DEBUG)
 
 mark_as_advanced(ZLIB_INCLUDE_DIR)
 
-if(ZLIB_INCLUDE_DIR AND EXISTS "${ZLIB_INCLUDE_DIR}/zlib.h")
+if( ZLIB_INCLUDE_DIR AND EXISTS "${ZLIB_INCLUDE_DIR}/zlib.h" )
     file(STRINGS "${ZLIB_INCLUDE_DIR}/zlib.h" ZLIB_H REGEX "^#define ZLIB_VERSION \"[^\"]*\"$")
 
     string(REGEX REPLACE "^.*ZLIB_VERSION \"([0-9]+).*$" "\\1" ZLIB_VERSION_MAJOR "${ZLIB_H}")
@@ -101,7 +109,7 @@ if(ZLIB_INCLUDE_DIR AND EXISTS "${ZLIB_INCLUDE_DIR}/zlib.h")
 
     # only append a TWEAK version if it exists:
     set(ZLIB_VERSION_TWEAK "")
-    if( "${ZLIB_H}" MATCHES "ZLIB_VERSION \"[0-9]+\\.[0-9]+\\.[0-9]+\\.([0-9]+)")
+    if( "${ZLIB_H}" MATCHES "ZLIB_VERSION \"[0-9]+\\.[0-9]+\\.[0-9]+\\.([0-9]+)" )
         set(ZLIB_VERSION_TWEAK "${CMAKE_MATCH_1}")
         string(APPEND ZLIB_VERSION_STRING ".${ZLIB_VERSION_TWEAK}")
     endif()
@@ -115,33 +123,33 @@ include(FindPackageHandleStandardArgs)
 FIND_PACKAGE_HANDLE_STANDARD_ARGS(ZLIB REQUIRED_VARS ZLIB_LIBRARY ZLIB_INCLUDE_DIR
                                        VERSION_VAR ZLIB_VERSION_STRING)
 
-if(ZLIB_FOUND)
+if( ZLIB_FOUND )
     set(ZLIB_INCLUDE_DIRS ${ZLIB_INCLUDE_DIR})
 
-    if(NOT ZLIB_LIBRARIES)
+    if( NOT ZLIB_LIBRARIES )
       set(ZLIB_LIBRARIES ${ZLIB_LIBRARY})
     endif()
 
-    if(NOT TARGET ZLIB::ZLIB)
+    if( NOT TARGET ZLIB::ZLIB )
       add_library(ZLIB::ZLIB UNKNOWN IMPORTED)
       set_target_properties(ZLIB::ZLIB PROPERTIES
         INTERFACE_INCLUDE_DIRECTORIES "${ZLIB_INCLUDE_DIRS}")
 
-      if(ZLIB_LIBRARY_RELEASE)
+      if( ZLIB_LIBRARY_RELEASE )
         set_property(TARGET ZLIB::ZLIB APPEND PROPERTY
           IMPORTED_CONFIGURATIONS RELEASE)
         set_target_properties(ZLIB::ZLIB PROPERTIES
           IMPORTED_LOCATION_RELEASE "${ZLIB_LIBRARY_RELEASE}")
       endif()
 
-      if(ZLIB_LIBRARY_DEBUG)
+      if( ZLIB_LIBRARY_DEBUG )
         set_property(TARGET ZLIB::ZLIB APPEND PROPERTY
           IMPORTED_CONFIGURATIONS DEBUG)
         set_target_properties(ZLIB::ZLIB PROPERTIES
           IMPORTED_LOCATION_DEBUG "${ZLIB_LIBRARY_DEBUG}")
       endif()
 
-      if(NOT ZLIB_LIBRARY_RELEASE AND NOT ZLIB_LIBRARY_DEBUG)
+      if( NOT ZLIB_LIBRARY_RELEASE AND NOT ZLIB_LIBRARY_DEBUG )
         set_property(TARGET ZLIB::ZLIB APPEND PROPERTY
           IMPORTED_LOCATION "${ZLIB_LIBRARY}")
       endif()
