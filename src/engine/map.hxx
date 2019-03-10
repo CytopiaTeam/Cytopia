@@ -46,7 +46,7 @@ public:
 
   void setTileIDOfNode(const Point &isoCoordinates, const std::string &tileType);
 
-  void demolishNode(const Point &isoCoordinates);
+  void demolishNode(const Point &isoCoordinates, bool updateNeighboringTiles = 0);
   void refresh();
 
   /** \Brief Save Map to file

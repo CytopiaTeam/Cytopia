@@ -38,7 +38,7 @@ void Engine::setTileIDOfNode(const Point &isoCoordinates, const std::string &til
   map->setTileIDOfNode(isoCoordinates, tileID);
 }
 
-void Engine::demolishNode(const Point &isoCoordinates) { map->demolishNode(isoCoordinates); }
+void Engine::demolishNode(const Point &isoCoordinates) { map->demolishNode(isoCoordinates, true); }
 
 void Engine::loadSaveGame(const std::string &fileName)
 {

@@ -15,7 +15,7 @@ constexpr struct
   int x;
   int y;
 
-} adjecantNodesOffsets[9] {
+} adjecantNodesOffsets[9]{
     {-1, -1}, // 6 = 2^6 = 64  = BOTTOM LEFT
     {-1, 0},  // 2 = 2^2 = 4   = LEFT
     {-1, 1},  // 4 = 2^4 = 16  = TOP LEFT
@@ -169,7 +169,7 @@ unsigned char Map::getElevatedNeighborBitmask(const Point &isoCoordinates)
   int x = isoCoordinates.x;
   int y = isoCoordinates.y;
 
-  std::pair<int, int> adjecantNodesCoordinates[8] {
+  std::pair<int, int> adjecantNodesCoordinates[8]{
       std::make_pair(x, y + 1),     // 0 = 2^0 = 1   = TOP
       std::make_pair(x, y - 1),     // 1 = 2^1 = 2   = BOTTOM
       std::make_pair(x - 1, y),     // 2 = 2^2 = 4   = LEFT
@@ -209,7 +209,7 @@ unsigned char Map::getNeighboringTilesBitmask(const Point &isoCoordinates)
     return bitmask;
   }
 
-  std::pair<int, int> adjecantNodesCoordinates[8] {
+  std::pair<int, int> adjecantNodesCoordinates[8]{
       std::make_pair(x, y + 1),     // 0 = 2^0 = 1   = TOP
       std::make_pair(x, y - 1),     // 1 = 2^1 = 2   = BOTTOM
       std::make_pair(x - 1, y),     // 2 = 2^2 = 4   = LEFT
@@ -272,7 +272,7 @@ void Map::refresh()
 
 SDL_Color Map::getColorOfPixelInSurface(SDL_Surface *surface, int x, int y, const SDL_Rect &clipRect) const
 {
-  SDL_Color Color {0, 0, 0, SDL_ALPHA_TRANSPARENT};
+  SDL_Color Color{0, 0, 0, SDL_ALPHA_TRANSPARENT};
 
   x += clipRect.w;
 
@@ -290,7 +290,7 @@ SDL_Color Map::getColorOfPixelInSurface(SDL_Surface *surface, int x, int y, cons
 
 Point Map::findNodeInMap(const SDL_Point &screenCoordinates) const
 {
-  Point foundCoordinates {-1, -1, 0, 0};
+  Point foundCoordinates{-1, -1, 0, 0};
 
   // calculate clicked column (x coordinate) without heigh taken into account.
   Point calculatedIsoCoords = calculateIsoCoordinates(screenCoordinates);
@@ -330,9 +330,13 @@ Point Map::findNodeInMap(const SDL_Point &screenCoordinates) const
   return foundCoordinates;
 }
 
-void Map::demolishNode(const Point &isoCoordinates)
+void Map::demolishNode(const Point &isoCoordinates, bool updateNeighboringTiles)
 {
   mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->setTileID("terrain");
+  if (updateNeighboringTiles)
+  {
+    updateNeighborsOfNode({isoCoordinates.x, isoCoordinates.y});
+  }
 }
 
 bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int isoY) const
@@ -343,7 +347,7 @@ bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int is
   }
 
   SDL_Rect spriteRect = mapNodes[isoX * m_columns + isoY]->getSprite()->destRect;
-  SDL_Point clicked {screenCoordinates.x, screenCoordinates.y};
+  SDL_Point clicked{screenCoordinates.x, screenCoordinates.y};
 
   if (SDL_PointInRect(&clicked, &spriteRect))
   {
