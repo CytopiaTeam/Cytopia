@@ -32,7 +32,7 @@ void TextField::addText(const std::string &text)
 
   m_textElements.push_back(new Text(text));
   textRect.h = m_textElements.back()->getUiElementRect().h; // get height of text after instantiating
-  textRect.y = (m_uiElementRect.y + count - 1) * textRect.h;
+  textRect.y = m_uiElementRect.y + count * textRect.h;
 
   // center text
   if (centerText)
