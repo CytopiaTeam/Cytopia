@@ -93,4 +93,3 @@ void Button::drawImageButtonFrame(bool drawFrame) { m_drawFrame = drawFrame; }
 
 void Button::registerCallbackFunction(std::function<void()> const &cb) { clickSignal.connect(cb); }
 void Button::registerCallbackFunction(std::function<void(const std::string &)> const &cb) { clickSignalString.connect(cb); }
-

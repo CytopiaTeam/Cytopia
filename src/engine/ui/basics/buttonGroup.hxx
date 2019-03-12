@@ -13,6 +13,7 @@ public:
   bool isExclusive() { return exclusive; };
 
   bool exclusive = false;
+
 private:
   std::vector<UiElement *> m_buttonGroup;
 };

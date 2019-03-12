@@ -47,7 +47,7 @@ void MapNode::setTileID(const std::string &tileID)
 
 void MapNode::updateTexture()
 {
-  SDL_Rect clipRect {0, 0, 0, 0};
+  SDL_Rect clipRect{0, 0, 0, 0};
 
   m_tileData = TileManager::instance().getTileData(m_tileID);
   tileMap = TileMap::DEFAULT;
@@ -107,7 +107,7 @@ void MapNode::updateTexture()
       spriteCount = m_tileData->slopeTiles.count;
       break;
     }
-    if (clipRect.x >=  static_cast<int>(spriteCount) * m_clippingWidth)
+    if (clipRect.x >= static_cast<int>(spriteCount) * m_clippingWidth)
     {
       m_tileID = m_previousTileID;
       updateTexture();
