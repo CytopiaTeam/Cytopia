@@ -73,15 +73,8 @@ set(ZLIB_NAMES_DEBUG zlibd zlibd1)
 # Try each search configuration.
 foreach(search ${_ZLIB_SEARCHES})
   find_path(ZLIB_INCLUDE_DIR NAMES zlib.h ${${search}} PATH_SUFFIXES include)
-  find_file(ZLIB_RUNTIME_LIBRARY NAMES ${CMAKE_SHARED_LIBRARY_PREFIX}${ZLIB_NAMES}${CMAKE_SHARED_LIBRARY_SUFFIX} ${${search}} PATH_SUFFIXES lib)
+  find_file(ZLIB_RUNTIME_LIBRARY NAMES ${CMAKE_SHARED_LIBRARY_PREFIX}${ZLIB_NAMES}${CMAKE_SHARED_LIBRARY_SUFFIX} ${${search}} PATH_SUFFIXES lib NO_DEFAULT_PATH)
 endforeach()
-
-# ${CMAKE_SHARED_LIBRARY_PREFIX}${ZLIB_NAMES}${CMAKE_SHARED_LIBRARY_SUFFIX}
-# Search Runtime Library.
-foreach(search ${_ZLIB_SEARCHES})
-#   find_path(ZLIB_RUNTIME_LIBRARY NAMES "${CMAKE_SHARED_LIBRARY_PREFIX}${ZLIB_NAMES}${CMAKE_SHARED_LIBRARY_SUFFIX}" ${${search}} PATH_SUFFIXES lib)
-endforeach()
-
 
 # Allow ZLIB_LIBRARY to be set manually, as the location of the zlib library
 if( NOT ZLIB_LIBRARY )
