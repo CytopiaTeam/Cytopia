@@ -40,7 +40,7 @@ void Engine::setTileIDOfNode(const Point &isoCoordinates, const std::string &til
 
 void Engine::demolishNode(const Point &isoCoordinates) { map->demolishNode(isoCoordinates, true); }
 
-void Engine::loadSaveGame(const std::string &fileName)
+void Engine::loadGame(const std::string &fileName)
 {
   Map *newMap = Map::loadMapFromFile(fileName);
 
