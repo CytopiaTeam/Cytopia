@@ -7,6 +7,10 @@
 #include "basics/log.hxx"
 #include "resourcesManager.hxx"
 #include "../ThirdParty/json.hxx"
+#include "basics/compression.hxx"
+
+#include <sstream>
+#include <string>
 
 using json = nlohmann::json;
 
@@ -389,14 +393,17 @@ void Map::saveMapToFile(const std::string &fileName)
 {
   json j = json{{"columns", this->m_columns}, {"rows", this->m_rows}, {"mapNode", mapNodes}};
 
-  std::ofstream file(fileName);
-  file << j;
+  std::ofstream file(fileName, std::ios_base::out | std::ios_base::binary);
+
+  std::string compressedSaveGame = compressString(j.dump());
+
+  file << compressedSaveGame;
   file.close();
 }
 
 Map *Map::loadMapFromFile(const std::string &fileName)
 {
-  std::ifstream file(fileName);
+  std::ifstream file(fileName, std::ios_base::in | std::ios_base::binary);
 
   if (file.fail())
   {
@@ -404,8 +411,13 @@ Map *Map::loadMapFromFile(const std::string &fileName)
     return nullptr;
   }
 
-  // check if json file can be parsed
-  json saveGameJSON = json::parse(file, nullptr, false);
+  std::stringstream buffer;
+  buffer << file.rdbuf();
+
+  std::string jsonAsString;
+  jsonAsString = decompressString(buffer.str());
+
+  json saveGameJSON = json::parse(jsonAsString, nullptr, false);
 
   file.close();
 
