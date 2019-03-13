@@ -7,7 +7,7 @@ constexpr int CHUNK_SIZE = 65536;
 
 /**
   * @brief Compress a given string with zlib
-  * Compress the given string
+  * Compress the given string. Returns an empty string if something went wrong
   * @param stringToCompress String that should be compressed
   * @return std::string compressed data
   */
@@ -26,6 +26,7 @@ std::string compressString(const std::string &stringToCompress)
   if (deflateInit(&zstream, Z_BEST_COMPRESSION) != Z_OK)
   {
     LOG(LOG_ERROR) << "Failed to initialize zlib stream.";
+    return "";
   }
 
   zstream.avail_in = static_cast<unsigned int>(stringToCompress.size());
@@ -50,6 +51,7 @@ std::string compressString(const std::string &stringToCompress)
   if (deflateResult != Z_STREAM_END)
   {
     LOG(LOG_ERROR) << "Error (" << deflateResult << ") while compressing file. " << zstream.msg;
+    return;
   }
 
   return compressedString;
@@ -76,6 +78,7 @@ std::string decompressString(const std::string &compressedString)
   if (inflateInit(&zstream) != Z_OK)
   {
     LOG(LOG_ERROR) << "Failed to initialize zlib stream.";
+    return "";
   }
 
   zstream.next_in = (Bytef *)compressedString.data();
@@ -101,6 +104,7 @@ std::string decompressString(const std::string &compressedString)
   if (inflateResult != Z_STREAM_END)
   {
     LOG(LOG_ERROR) << "Error (" << inflateResult << ") while uncompressing file. " << zstream.msg;
+    return "";
   }
 
   return uncompressedString;

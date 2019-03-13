@@ -397,7 +397,10 @@ void Map::saveMapToFile(const std::string &fileName)
 
   std::string compressedSaveGame = compressString(j.dump());
 
-  file << compressedSaveGame;
+  if (!compressedSaveGame.empty)
+  {
+    file << compressedSaveGame;
+  }
   file.close();
 }
 
@@ -416,6 +419,11 @@ Map *Map::loadMapFromFile(const std::string &fileName)
 
   std::string jsonAsString;
   jsonAsString = decompressString(buffer.str());
+
+  if (jsonAsString.empty())
+  {
+    return nullptr;
+  }
 
   json saveGameJSON = json::parse(jsonAsString, nullptr, false);
 
