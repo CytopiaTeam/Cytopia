@@ -393,7 +393,7 @@ void Map::saveMapToFile(const std::string &fileName)
 {
   json j = json{{"columns", this->m_columns}, {"rows", this->m_rows}, {"mapNode", mapNodes}};
 
-  std::ofstream file(fileName, std::ios_base::out | std::ios_base::binary);
+  std::ofstream file(SDL_GetBasePath() + fileName, std::ios_base::out | std::ios_base::binary);
 
   std::string compressedSaveGame = compressString(j.dump());
 
@@ -403,7 +403,7 @@ void Map::saveMapToFile(const std::string &fileName)
 
 Map *Map::loadMapFromFile(const std::string &fileName)
 {
-  std::ifstream file(fileName, std::ios_base::in | std::ios_base::binary);
+  std::ifstream file(SDL_GetBasePath() + fileName, std::ios_base::in | std::ios_base::binary);
 
   if (file.fail())
   {

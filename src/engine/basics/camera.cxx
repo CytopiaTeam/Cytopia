@@ -12,7 +12,7 @@ void Camera::increaseZoomLevel()
 {
   if (zoomLevel < 4.0f)
   {
-    zoomLevel += 0.25f;
+    zoomLevel += 0.5f;
     centerScreenOnPoint(centerIsoCoordinates);
     Engine::instance().map->refresh();
   }
@@ -22,7 +22,7 @@ void Camera::decreaseZoomLevel()
 {
   if (zoomLevel > 0.5f)
   {
-    zoomLevel -= 0.25f;
+    zoomLevel -= 0.5f;
     centerScreenOnPoint(centerIsoCoordinates);
     Engine::instance().map->refresh();
   }
