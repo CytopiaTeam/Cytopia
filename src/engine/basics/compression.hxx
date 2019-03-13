@@ -51,7 +51,7 @@ std::string compressString(const std::string &stringToCompress)
   if (deflateResult != Z_STREAM_END)
   {
     LOG(LOG_ERROR) << "Error (" << deflateResult << ") while compressing file. " << zstream.msg;
-    return;
+    return "";
   }
 
   return compressedString;

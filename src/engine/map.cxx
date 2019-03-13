@@ -397,7 +397,7 @@ void Map::saveMapToFile(const std::string &fileName)
 
   std::string compressedSaveGame = compressString(j.dump());
 
-  if (!compressedSaveGame.empty)
+  if (!compressedSaveGame.empty())
   {
     file << compressedSaveGame;
   }
