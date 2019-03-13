@@ -71,6 +71,8 @@ private:
   int m_columns;
   int m_rows;
 
+  static const size_t m_saveGameVersion = 1;
+
   /**\brief Update mapNode and its adjacent tiles
   * Updates mapNode height information, draws slopes for adjacent tiles and sets tiling for mapNode sprite if applicable
   * @param Point isoCoordinates - isometric coordinates of the tile that should be updated.
@@ -111,6 +113,7 @@ private:
   SDL_Color getColorOfPixelInSurface(SDL_Surface *surface, int x, int y, const SDL_Rect &clipRect) const;
 
   bool isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int isoY) const;
+
 };
 
 #endif
