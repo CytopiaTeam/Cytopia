@@ -14,7 +14,7 @@
 
 using json = nlohmann::json;
 
-static const size_t m_saveGameVersion;
+const size_t Map::m_saveGameVersion = 1;
 
 constexpr struct
 {
