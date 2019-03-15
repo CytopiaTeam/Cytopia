@@ -40,7 +40,6 @@ public:
   virtual void registerCallbackFunction(std::function<void()> const &){};
   virtual void registerCallbackFunction(std::function<void(const std::string &)> const &){};
 
-
   // empty virtual function that can be overriden in the derived Ui Elements
   virtual void onMouseButtonUp(const SDL_Event &){};
   virtual void onMouseButtonDown(const SDL_Event &){};
@@ -156,7 +155,7 @@ public:
 
   const ElementData &getUiElementData() const { return elementData; };
 
-  virtual void drawImageButtonFrame(bool) {};
+  virtual void drawImageButtonFrame(bool){};
 
 private:
   SDL_Renderer *m_renderer = WindowManager::instance().getRenderer();

@@ -3,8 +3,8 @@
 #include "settings.hxx"
 #include "../engine.hxx"
 
-SDL_Point Camera::tileSize {32, 16};
-SDL_Point Camera::cameraOffset {0, 0};
+SDL_Point Camera::tileSize{32, 16};
+SDL_Point Camera::cameraOffset{0, 0};
 Point Camera::centerIsoCoordinates;
 float Camera::zoomLevel = 1.0f;
 

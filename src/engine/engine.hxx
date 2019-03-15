@@ -72,7 +72,9 @@ public:
   * @param fileName FileName of the saved game
   * @see Map#loadMapFromFile
   */
-  void loadSaveGame(const std::string &fileName);
+  void loadGame(const std::string &fileName);
+
+  void saveGame(const std::string &fileName) { map->saveMapToFile(fileName); };
 
   Map *map;
 

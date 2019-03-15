@@ -110,6 +110,12 @@ find_package(SDL2_image REQUIRED)
 find_package(SDL2_ttf REQUIRED)
 find_package(SDL2_mixer REQUIRED)
 
+find_package(ZLIB)
+
+if( NOT ZLIB_FOUND )
+  message (FATAL_ERROR "Could not find zlib. Set ZLIB_DIR env variable or use Cytopia_ExternLibs git submodule")
+endif()
+
 if( MINGW )
   target_link_libraries(
     ${PROJECT_NAME}
@@ -127,6 +133,13 @@ target_link_libraries(
     SDL::SDL2_image
     SDL::SDL2_ttf
     SDL::SDL2_mixer
+    ${ZLIB_LIBRARIES}
+)
+
+target_include_directories(
+  ${PROJECT_NAME}
+  PRIVATE
+  ${ZLIB_INCLUDE_DIRS}
 )
 
 target_compile_features(
@@ -239,7 +252,7 @@ if ( WIN32 )
   ${SDL2_RUNTIME_LIBRARY_DIR}/SDL2_image.dll
   ${SDL2_RUNTIME_LIBRARY_DIR}/SDL2_mixer.dll
   ${SDL2_RUNTIME_LIBRARY_DIR}/SDL2_ttf.dll
-  ${SDL2_RUNTIME_LIBRARY_DIR}/zlib1.dll
+  ${ZLIB_RUNTIME_LIBRARY}
   )
 
   # copy the qt libraries over to the build directory so the tool can be started
