@@ -81,6 +81,10 @@ To build the project, create a new build directory, then:
 
     cmake <PATH_TO_REPOSITORY>
 
+*Note:* If you're on windows, you might want to specify a generator for Visual Studio, like:
+
+    cmake -G "Visual Studio 15 2017 Win64"<PATH_TO_REPOSITORY>
+ 
 This will configure the build.
 If any dependencies are missing, you will receive an error here.
 
