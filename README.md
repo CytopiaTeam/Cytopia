@@ -9,6 +9,9 @@
 
 Cytopia is a free, open source retro pixel-art city building game with a big focus on mods. It’s based on a custom isometric rendering engine based on SDL2. 
 
+Visit our Projects website at <https://www.cytopia.net>
+Or our community page for Dev Blogs and our forum <https://community.cytopia.net>
+
 Current Key Features:
 - Custom UI System, based on JSON. Highly moddable
 - SDL2 based rendering engine written in C++
@@ -25,9 +28,10 @@ Planned features:
 - Android / iOS / Mac Support
 - Scripting language for mods (like LUA)
 
-For code documentation see the projects [Doxygen Documentation](https://jimmysnails.github.io/Cytopia/build/html/index.html).
+For code documentation see the projects [Doxygen Documentation](https://jimmysnails.github.io/Cytopia/).
 
 If you have questions or if you want to join the project, visit the [Projects Discord Server](https://discord.gg/qwa2H3G) 
+In case you want to support our project on patreon, visit our [Patreon Page](https://patreon.com/cytopia) 
 
 #### Key Features
 - Different zoom levels
@@ -60,7 +64,12 @@ WiX Toolset v3.11 (optional, needed for packaging on windows)
 
 #### Build instructions
 
+Some of our resources are stored in a git submodule. There's also an submodule with extern libraries for windows to ease building.
+We recommend to add the `--recursive` parameter during git clone or init 
 To build the TileData editor, you will need a qt installation for your build environment. 
+
+For already cloned repositories, use to get the submodules.
+`git submodule update --init --recursive`
 
 On Windows, download and install the qt installer and select the appropriate environment during installation (e.g. mscv
 and set the environment variable Qt5_DIR to your installation directory.
@@ -81,8 +90,15 @@ in your repository to download the sdl dependencies.
 
 If you are using Windows and have manually installed SDL2, you will need to update your PATH environment variable to point to it.
 
-Note: If you want to change your install directory (per default it's set to ../install) add the definition `-DCMAKE_INSTALL_PREFIX=/foo/bar` to your cmake call.
+On macOS, you have to provide SDL Libraries. This can be done via brew:
 
+- Install brew (https://brew.sh/)
+- Install SDL Libraries
+`brew install sdl2 sdl2_image sdl2_mixer sdl2_ttf`
+
+*Note:* If you want to change your install directory (per default it's set to ../install) add the definition `-DCMAKE_INSTALL_PREFIX=/foo/bar` to your cmake call.
+
+**Build Instructions:**
 Once the build is configured, you can then compile it using:
 
     cmake --build .
@@ -91,7 +107,7 @@ To install the project,
 
     cmake --build . --target install
 
-Create a package (MSI, RPM, DEB, ZIP)
+Create a package (MSI, RPM, DEB, DMG, ZIP)
 
     cmake --build . --target package
 
@@ -108,7 +124,3 @@ If you are on a linux system, you can use:
 ![alt text](https://raw.githubusercontent.com/JimmySnails/Cytopia/master/images/Screenshot1.png)
 ![alt text](https://raw.githubusercontent.com/JimmySnails/Cytopia/master/images/Screenshot2.png)
 
-#### Latest build
-
-.deb Package:
-<https://jimmysnails.github.io/Cytopia/build/Cytopia-0.1-Linux.deb>
