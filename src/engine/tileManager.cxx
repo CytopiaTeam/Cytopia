@@ -1,12 +1,12 @@
 #include "tileManager.hxx"
 
-#include <bitset>
-
 #include "basics/log.hxx"
 #include "basics/settings.hxx"
 #include "resourcesManager.hxx"
 
 #include "../ThirdParty/json.hxx"
+
+#include <bitset>
 
 using json = nlohmann::json;
 

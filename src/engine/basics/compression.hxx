@@ -1,6 +1,6 @@
-#include <string>
-
 #include <zlib.h>
+
+#include <string>
 
 // set buffer chunksize to 65kb
 constexpr int CHUNK_SIZE = 65536;

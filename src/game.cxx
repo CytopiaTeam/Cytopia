@@ -1,5 +1,3 @@
-#include <SDL.h>
-
 #include "engine/engine.hxx"
 #include "engine/eventManager.hxx"
 #include "engine/uiManager.hxx"
@@ -8,6 +6,8 @@
 #include "engine/basics/camera.hxx"
 #include "engine/basics/point.hxx"
 #include "engine/basics/log.hxx"
+
+#include <SDL.h>
 
 void run()
 {

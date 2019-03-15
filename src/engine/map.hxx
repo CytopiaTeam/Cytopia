@@ -113,7 +113,6 @@ private:
   SDL_Color getColorOfPixelInSurface(SDL_Surface *surface, int x, int y, const SDL_Rect &clipRect) const;
 
   bool isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int isoY) const;
-
 };
 
 #endif

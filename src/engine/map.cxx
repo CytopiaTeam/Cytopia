@@ -6,8 +6,9 @@
 #include "basics/settings.hxx"
 #include "basics/log.hxx"
 #include "resourcesManager.hxx"
-#include "../ThirdParty/json.hxx"
 #include "basics/compression.hxx"
+
+#include "../ThirdParty/json.hxx"
 
 #include <sstream>
 #include <string>

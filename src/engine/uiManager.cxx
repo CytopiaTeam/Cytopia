@@ -20,7 +20,7 @@ void UIManager::init()
   //strcpy(full_text, SDL_GetBasePath());
   //strcat(full_text, SETTINGS_FILE_NAME);
   //std::ifstream i(full_text);
-  std::ifstream i(SDL_GetBasePath()  + Settings::instance().settings.uiLayoutJSONFile);
+  std::ifstream i(SDL_GetBasePath() + Settings::instance().settings.uiLayoutJSONFile);
   if (i.fail())
   {
     LOG(LOG_ERROR) << "File " << Settings::instance().settings.uiLayoutJSONFile

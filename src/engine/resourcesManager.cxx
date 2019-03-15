@@ -1,12 +1,12 @@
 #include "resourcesManager.hxx"
 
-#include <SDL_image.h>
-#include "../ThirdParty/json.hxx"
-
 #include "windowManager.hxx"
 #include "tileManager.hxx"
 #include "basics/settings.hxx"
 #include "basics/log.hxx"
+
+#include <SDL_image.h>
+#include "../ThirdParty/json.hxx"
 
 using json = nlohmann::json;
 
