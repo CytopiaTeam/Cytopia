@@ -84,8 +84,8 @@ if ( APPLE )
   file(GLOB_RECURSE MAC_RESOURCES ${CMAKE_CURRENT_SOURCE_DIR}/resources/*)
 
   # not working now, we need a special icon file for apple
-  set(ICON_PATH ${PROJECT_SOURCE_DIR}/resources/images/app_icons/cytopia_icon_iso.png)
-  set(MACOSX_BUNDLE_ICON_FILE  cytopia_icon_iso.png)
+  set(ICON_PATH ${PROJECT_SOURCE_DIR}/resources/images/app_icons/cytopia_icon_iso.icns)
+  set(MACOSX_BUNDLE_ICON_FILE  cytopia_icon_iso.icns)
 
   # set each file as resources file for the app image.
   foreach (resource_file ${MAC_RESOURCES})
