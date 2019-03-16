@@ -3,7 +3,10 @@
 #include "../basics/log.hxx"
 #include "../basics/settings.hxx"
 
-SoundEffect::SoundEffect(const std::string &filename) { loadFile(filename); }
+SoundEffect::SoundEffect(const std::string &filename) : m_playSoundEffect(Settings::instance().settings.playSoundEffects)
+{
+  loadFile(filename);
+}
 
 SoundEffect::~SoundEffect()
 {
@@ -19,12 +22,14 @@ void SoundEffect::loadFile(const std::string &filename)
   if (!m_soundEffect)
   {
     LOG(LOG_ERROR) << "Failed to load audio file " << filename << "\n" << Mix_GetError();
+    LOG() << "Disabled soound effect playback!";
+    m_playSoundEffect = false;
   }
 }
 
 void SoundEffect::play(int channel, Sint16 angle, Uint8 distance, int loops) const
 {
-  if (Settings::instance().settings.playSoundEffects)
+  if (m_playSoundEffect)
   {
     if (m_soundEffect)
     {
@@ -53,7 +58,7 @@ void SoundEffect::play(int channel, Sint16 angle, Uint8 distance, int loops) con
 
 void SoundEffect::stop(int channel) const
 {
-  if (Settings::instance().settings.playMusic)
+  if (m_playSoundEffect)
   {
     Mix_HaltChannel(channel);
   }
@@ -61,10 +66,12 @@ void SoundEffect::stop(int channel) const
 
 bool SoundEffect::isPlaying() const
 {
-  if (Settings::instance().settings.playMusic)
+  if (m_playSoundEffect)
   {
     // returns amount of playing audiochannels
     return Mix_Playing(-1) != 0;
   }
   return false;
 }
+
+void SoundEffect::enableSoundEffects(bool enabled) { m_playSoundEffect = enabled; }

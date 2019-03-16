@@ -49,8 +49,12 @@ public:
     */
   bool isPlaying() const;
 
+  void enableSoundEffects(bool enabled);
+
 private:
   Mix_Chunk *m_soundEffect = nullptr;
+
+  bool m_playSoundEffect;
 };
 
 #endif
