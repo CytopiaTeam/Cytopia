@@ -3,7 +3,7 @@
 #include "../basics/log.hxx"
 #include "../basics/settings.hxx"
 
-Music::Music(const std::string &fileName) { loadFile(fileName); }
+Music::Music(const std::string &fileName) : m_playMusic(Settings::instance().settings.playMusic) { loadFile(fileName); }
 
 Music::~Music()
 {
@@ -19,12 +19,14 @@ void Music::loadFile(const std::string &filename)
   if (!m_music)
   {
     LOG(LOG_ERROR) << "Failed to load audio file " << filename << "\n" << Mix_GetError();
+    LOG() << "Disabled Music playback!";
+    m_playMusic = false;
   }
 }
 
 void Music::play(int loops) const
 {
-  if (Settings::instance().settings.playMusic)
+  if (m_playMusic)
   {
     if (m_music)
     {
@@ -45,7 +47,7 @@ void Music::play(int loops) const
 
 void Music::stop() const
 {
-  if (Settings::instance().settings.playMusic)
+  if (m_playMusic)
   {
     // Reset the music file to the beginning
     Mix_HookMusic(nullptr, nullptr);
@@ -55,7 +57,7 @@ void Music::stop() const
 
 void Music::pause() const
 {
-  if (Settings::instance().settings.playMusic)
+  if (m_playMusic)
   {
     Mix_PauseMusic();
   }
@@ -63,7 +65,7 @@ void Music::pause() const
 
 void Music::resume() const
 {
-  if (Settings::instance().settings.playMusic)
+  if (m_playMusic)
   {
     Mix_ResumeMusic();
   }
@@ -71,10 +73,12 @@ void Music::resume() const
 
 bool Music::isPlaying() const
 {
-  if (Settings::instance().settings.playMusic)
+  if (m_playMusic)
   {
     // returns amount of playing audiochannels
     return Mix_Playing(-1) != 0;
   }
   return false;
 }
+
+void Music::disableMusic(bool disableMusic) { m_playMusic = disableMusic; }

@@ -49,8 +49,12 @@ public:
     */
   bool isPlaying() const;
 
+  void disableMusic(bool disableMusic);
+
 private:
   Mix_Music *m_music = nullptr;
+
+  bool m_playMusic = true;
 };
 
 #endif
