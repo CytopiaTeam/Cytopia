@@ -174,6 +174,17 @@ add_custom_command(
     ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/resources $<TARGET_FILE_DIR:${PROJECT_NAME}>/resources
 )
 
+if (EXISTS ${PROJECT_SOURCE_DIR}/Cytopia_Resources)
+  add_custom_command(
+    TARGET ${PROJECT_NAME} PRE_BUILD
+    COMMAND
+      ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/Cytopia_Resources/music $<TARGET_FILE_DIR:${PROJECT_NAME}>/resources/audio/music
+  )
+else ()
+  message(WARNING "No Resources directory found. Please init git submodules with following command:")
+  message("git submodule update --init --recursive")
+endif()
+
 # QT5 is used for the TileData Editing tool
 find_package(Qt5 CONFIG COMPONENTS Core Widgets)
 
@@ -227,6 +238,10 @@ endif()
 install(TARGETS ${PROJECT_NAME} DESTINATION .)
 if ( NOT APPLE )
   install(DIRECTORY resources DESTINATION .)
+
+  if ( EXISTS ${PROJECT_SOURCE_DIR}/Cytopia_Resources )
+    install(DIRECTORY ${PROJECT_SOURCE_DIR}/Cytopia_Resources/music DESTINATION ./resources/audio)
+  endif()
 endif()
 
 install(FILES ReleaseNotes.txt credits.txt DESTINATION .)
