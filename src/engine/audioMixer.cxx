@@ -26,7 +26,7 @@ void AudioMixer::playMusic()
   std::shared_ptr<Music> themeMusic(new Music);
   m_musicObjects.push_back(themeMusic);
 
-  m_musicObjects[0]->loadFile("resources/audio/music/Theme - Easy Listening.mp3");
+  m_musicObjects[0]->loadFile("resources/audio/music/Cytopia OST 1.mp3");
   m_musicObjects[0]->play(-1);
 }
 
