@@ -82,6 +82,7 @@ endif()
 
 if ( APPLE )
   file(GLOB_RECURSE MAC_RESOURCES ${CMAKE_CURRENT_SOURCE_DIR}/resources/*)
+  file(GLOB_RECURSE MAC_EXTERN_RESOURCES ${PROJECT_SOURCE_DIR}/Cytopia_Resources/*)
 
   # not working now, we need a special icon file for apple
   set(ICON_PATH ${PROJECT_SOURCE_DIR}/resources/images/app_icons/cytopia_icon_iso.icns)
@@ -94,10 +95,17 @@ if ( APPLE )
     set_source_files_properties(${resource_file} PROPERTIES MACOSX_PACKAGE_LOCATION Resources/${buildDirRelFilePath})
   endforeach()
 
+  foreach (resource_file ${MAC_EXTERN_RESOURCES})
+    get_filename_component(buildDirRelFilePath ${resource_file} DIRECTORY)
+    string(REPLACE  "${CMAKE_CURRENT_SOURCE_DIR}/Cytopia_Resources/" "" buildDirRelFilePath ${buildDirRelFilePath} )
+    set_source_files_properties("${resource_file}" PROPERTIES MACOSX_PACKAGE_LOCATION Resources/resources/audio/${buildDirRelFilePath})
+  endforeach()
+
+  # set_source_files_properties(${PROJECT_SOURCE_DIR}/Cytopia_Resources/music  PROPERTIES MACOSX_PACKAGE_LOCATION Resources/resources/audio/music)
   set_source_files_properties(${ICON_PATH} PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
   set_source_files_properties(${myApp_ICON} PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
 
-  add_executable(${PROJECT_NAME} MACOSX_BUNDLE ${SOURCES} ${ICON_PATH} ${MAC_RESOURCES})
+  add_executable(${PROJECT_NAME} MACOSX_BUNDLE ${SOURCES} ${ICON_PATH} ${MAC_RESOURCES} ${MAC_EXTERN_RESOURCES})
 
 else()
   # create a new executable with the same name as the project
@@ -180,6 +188,7 @@ if (EXISTS ${PROJECT_SOURCE_DIR}/Cytopia_Resources)
     COMMAND
       ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/Cytopia_Resources/music $<TARGET_FILE_DIR:${PROJECT_NAME}>/resources/audio/music
   )
+
 else ()
   message(WARNING "No Resources directory found. Please init git submodules with following command:")
   message("git submodule update --init --recursive")
@@ -285,4 +294,3 @@ endif()
 if ( APPLE )
   set_target_properties(${PROJECT_NAME} PROPERTIES MACOSX_BUNDLE TRUE RESOURCE TRUE)
 endif()
-
