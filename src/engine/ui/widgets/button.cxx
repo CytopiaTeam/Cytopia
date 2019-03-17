@@ -45,7 +45,7 @@ bool Button::onMouseButtonUp(const SDL_Event &event)
         changeButtonState(getButtonState() == BUTTONSTATE_CLICKED ? BUTTONSTATE_DEFAULT : BUTTONSTATE_CLICKED);
       }
       m_isMouseButtonDown = false;
-      m_isButtonToggled = !m_isButtonToggled;
+      checkState = !checkState;
     }
     return true;
   }
@@ -90,7 +90,7 @@ void Button::onMouseLeave(const SDL_Event &)
 {
   if (elementData.isToggleButton)
   {
-    changeButtonState(m_isButtonToggled ? BUTTONSTATE_CLICKED : BUTTONSTATE_DEFAULT);
+    changeButtonState(checkState ? BUTTONSTATE_CLICKED : BUTTONSTATE_DEFAULT);
     m_isMouseButtonDown = false;
   }
   else if (getButtonState() != BUTTONSTATE_DEFAULT)

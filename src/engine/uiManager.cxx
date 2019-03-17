@@ -118,7 +118,7 @@ void UIManager::init()
 
         if (!layout.empty())
         {
-          m_buttonGroups[layout].addToGroup(uiElement.get());
+          m_buttonGroups[layout].addToGroup(dynamic_cast<Button*>(uiElement.get()));
         }
         else
         {
