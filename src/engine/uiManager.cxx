@@ -62,6 +62,7 @@ void UIManager::init()
         std::string text = uiLayout[it.key()][id].value("Text", "");
         std::string textureID = uiLayout[it.key()][id].value("SpriteID", "");
         std::string uiElementType = uiLayout[it.key()][id].value("Type", "");
+        std::string layout = uiLayout[it.key()][id].value("Layout", "");
 
         SDL_Rect elementRect{0, 0, 0, 0};
         elementRect.x = uiLayout[it.key()][id].value("Position_x", 0);
@@ -114,6 +115,15 @@ void UIManager::init()
         uiElement->setToggleButton(toggleButton);
         uiElement->setUIElementID(uiElementID);
         uiElement->drawImageButtonFrame(drawFrame);
+
+        if (!layout.empty())
+        {
+          m_buttonGroups[layout].addToGroup(uiElement.get());
+        }
+        else
+        {
+          m_uiElementsWithoutGroup.push_back(uiElement.get());
+        }
 
         if (!groupID.empty())
         {

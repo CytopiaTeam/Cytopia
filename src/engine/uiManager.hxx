@@ -43,7 +43,11 @@ public:
 private:
   UIManager() = default;
   ~UIManager() = default;
+  // this container holds all UiElements and is the owner.
   std::vector<std::unique_ptr<UiElement>> m_uiElements;
+
+  // subset of UiElements that are not in a group.
+  std::vector<UiElement *> m_uiElementsWithoutGroup;
 
   std::unique_ptr<Tooltip> m_tooltip = std::make_unique<Tooltip>();
   // Text element for the FPS Counter (debug menu)
@@ -53,6 +57,8 @@ private:
 
   std::unordered_map<std::string, std::vector<UiElement *>> m_uiGroups;
   std::unordered_map<std::string, ButtonGroup> m_buttonGroups;
+
+  friend class EventManager;
 };
 
 #endif
