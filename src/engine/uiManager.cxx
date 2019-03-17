@@ -191,17 +191,16 @@ void UIManager::init()
 
           std::string tileType = uiLayout[it.key()][id].value("TileType", "");
           uiElement->registerCallbackFunction([tileType](UiElement *uiElement) {
-
-              Button *button = dynamic_cast<Button *>(uiElement);
-              if (button)
+            Button *button = dynamic_cast<Button *>(uiElement);
+            if (button)
+            {
+              if (button->getUiElementData().isToggleButton)
               {
-                if (button->getUiElementData().isToggleButton)
-                {
-                  button->checkState() ? tileTypeEditMode = tileType : tileTypeEditMode = "";
-                  button->checkState() ? highlightSelection = true : highlightSelection = false;
-                  return;
-                }
+                button->checkState() ? tileTypeEditMode = tileType : tileTypeEditMode = "";
+                button->checkState() ? highlightSelection = true : highlightSelection = false;
+                return;
               }
+            }
             tileTypeEditMode == tileType ? tileTypeEditMode = "" : tileTypeEditMode = tileType;
             tileTypeEditMode == tileType ? highlightSelection = true : highlightSelection = false;
           });

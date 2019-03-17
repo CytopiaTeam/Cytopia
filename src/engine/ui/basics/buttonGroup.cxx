@@ -1,5 +1,6 @@
 #include "buttonGroup.hxx"
 
+#include "../../uiManager.hxx"
 #include "../../basics/log.hxx"
 
 void ButtonGroup::addToGroup(Button *widget) { m_buttonGroup.push_back(widget); }
@@ -16,7 +17,6 @@ bool ButtonGroup::onMouseButtonDown(const SDL_Event &event)
       }
     }
   }
-
   return false;
 }
 
@@ -34,6 +34,7 @@ bool ButtonGroup::onMouseButtonUp(const SDL_Event &event)
       {
         uncheckAllButtons(it);
       }
+
       it->onMouseButtonUp(event);
       return true;
     }
@@ -42,7 +43,7 @@ bool ButtonGroup::onMouseButtonUp(const SDL_Event &event)
   return false;
 }
 
-void ButtonGroup::uncheckAllButtons(Button* exceptThisButton)
+void ButtonGroup::uncheckAllButtons(Button *exceptThisButton)
 {
   for (auto &it : m_buttonGroup)
   {
@@ -51,5 +52,18 @@ void ButtonGroup::uncheckAllButtons(Button* exceptThisButton)
       continue;
     }
     it->setCheckState(false);
+
+    // If the buttongroup has children, uncheck them too
+    if (it->getUiElementData().actionID == "ToggleVisibilityOfGroup")
+    {
+      for (auto groupElement : UIManager::instance().getUiElementsOfGroup(it->getUiElementData().actionParameter))
+      {
+        Button *button = dynamic_cast<Button *>(groupElement);
+        if (button)
+        {
+          button->setCheckState(false);
+        }
+      }
+    }
   }
 }
