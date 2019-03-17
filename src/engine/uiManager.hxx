@@ -27,7 +27,7 @@ public:
   void init();
   void drawUI() const;
 
-  void toggleGroupVisibility(const std::string &groupID);
+  void toggleGroupVisibility(const std::string &groupID, UiElement *sender = nullptr);
 
   void toggleDebugMenu() { m_showDebugMenu = !m_showDebugMenu; };
 

@@ -38,7 +38,7 @@ public:
   virtual ~UiElement() = default;
 
   virtual void registerCallbackFunction(std::function<void()> const &){};
-  virtual void registerCallbackFunction(std::function<void(const std::string &)> const &){};
+  virtual void registerCallbackFunction(std::function<void(const std::string &, UiElement *sender)> const &){};
 
   // empty virtual function that can be overriden in the derived Ui Elements
   virtual bool onMouseButtonUp(const SDL_Event &) { return false; };

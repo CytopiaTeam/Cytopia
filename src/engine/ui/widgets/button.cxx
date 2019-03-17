@@ -31,12 +31,12 @@ bool Button::onMouseButtonUp(const SDL_Event &event)
 {
   if (isMouseOver(event.button.x, event.button.y))
   {
-    clickSignal.emit();
-    clickSignalString.emit(elementData.actionParameter);
 
     if (!elementData.isToggleButton)
     {
       changeButtonState(BUTTONSTATE_DEFAULT);
+      clickSignal.emit();
+      clickSignalString.emit(elementData.actionParameter, this);
     }
     else
     {
@@ -89,7 +89,6 @@ void Button::onMouseLeave(const SDL_Event &)
 {
   if (elementData.isToggleButton)
   {
-    //setCheckState(!m_checkState);
     changeButtonState(m_checkState ? BUTTONSTATE_CLICKED : BUTTONSTATE_DEFAULT);
     m_isMouseButtonDown = false;
   }
@@ -105,8 +104,10 @@ void Button::setCheckState(bool state)
 {
   m_checkState = state;
   changeButtonState(m_checkState ? BUTTONSTATE_CLICKED : BUTTONSTATE_DEFAULT);
+  //clickSignal.emit();
+  clickSignalString.emit(elementData.actionParameter, this);
 }
 
 
 void Button::registerCallbackFunction(std::function<void()> const &cb) { clickSignal.connect(cb); }
-void Button::registerCallbackFunction(std::function<void(const std::string &)> const &cb) { clickSignalString.connect(cb); }
+void Button::registerCallbackFunction(std::function<void(const std::string &, UiElement* sender)> const &cb) { clickSignalString.connect(cb); }

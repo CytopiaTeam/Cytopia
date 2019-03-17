@@ -22,7 +22,7 @@ public:
   void drawImageButtonFrame(bool drawFrame) override;
 
   void registerCallbackFunction(std::function<void()> const &cb) override;
-  void registerCallbackFunction(std::function<void(const std::string &)> const &cb) override;
+  void registerCallbackFunction(std::function<void(const std::string &, UiElement* sender)> const &cb) override;
 
   const bool checkState() { return m_checkState; };
   void setCheckState(bool state);
@@ -38,7 +38,7 @@ private:
 
   // Signals
   Signal::Signal<void()> clickSignal;
-  Signal::Signal<void(const std::string &)> clickSignalString;
+  Signal::Signal<void(const std::string &, UiElement* sender)> clickSignalString;
 };
 
 #endif

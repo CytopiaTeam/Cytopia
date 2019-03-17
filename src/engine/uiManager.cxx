@@ -118,7 +118,7 @@ void UIManager::init()
 
         if (!layout.empty())
         {
-          m_buttonGroups[layout].addToGroup(dynamic_cast<Button*>(uiElement.get()));
+          m_buttonGroups[layout].addToGroup(dynamic_cast<Button *>(uiElement.get()));
         }
         else
         {
@@ -202,7 +202,7 @@ void UIManager::drawUI() const
   m_tooltip->draw();
 }
 
-void UIManager::toggleGroupVisibility(const std::string &groupID)
+void UIManager::toggleGroupVisibility(const std::string &groupID, UiElement *sender)
 {
   if (groupID.empty())
   {
@@ -210,6 +210,22 @@ void UIManager::toggleGroupVisibility(const std::string &groupID)
     return;
   }
 
+  if (sender)
+  {
+    Button *button = dynamic_cast<Button *>(sender);
+    if (button)
+    {
+      // cast the object to a Button to check if it's a toggle button.
+      if (button->getUiElementData().isToggleButton)
+      {
+        for (const auto &it : m_uiGroups[groupID])
+        {
+          it->setVisibility(button->checkState());
+        }
+        return;
+      }
+    }
+  }
   for (const auto &it : m_uiGroups[groupID])
   {
     it->setVisibility(!it->isVisible());
