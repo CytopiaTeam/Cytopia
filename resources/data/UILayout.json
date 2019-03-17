@@ -308,8 +308,7 @@
       "Position_y": 230,
       "Width": 200,
       "Height": 30,
-      "Text": "800 x 600",
-      "Layout": "BottomMenu"
+      "Text": "800 x 600"
     }
   ],
   "DebugSubMenu": [
