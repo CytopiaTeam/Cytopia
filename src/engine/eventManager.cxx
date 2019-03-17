@@ -152,7 +152,6 @@ bool EventManager::dispatchUiEvents(SDL_Event &event)
   // groupElements
   for (auto it : utils::ReverseIterator(m_uiManager.m_buttonGroups))
   {
-
     switch (event.type)
     {
     case SDL_MOUSEBUTTONDOWN:
@@ -164,7 +163,6 @@ bool EventManager::dispatchUiEvents(SDL_Event &event)
     }
   }
 
-  // the reversed draw order of the vector is  the Z-Order of the elements
   for (auto it : utils::ReverseIterator(m_uiManager.m_uiElementsWithoutGroup))
   {
     if (it->isVisible())
@@ -180,59 +178,64 @@ bool EventManager::dispatchUiEvents(SDL_Event &event)
           return true;
         break;
       }
-
-      if (event.type == SDL_KEYDOWN)
-      {
-        if (it->onKeyDown(event))
-        {
-          return true;
-        }
-      }
-      else if (it->isMouseOver(event.button.x, event.button.y) && it->isVisible())
-      {
-        isMouseOverElement = true;
-        isHovering = it->isMouseOverHoverableArea(event.button.x, event.button.y);
-
-        switch (event.type)
-        {
-
-        case SDL_MOUSEMOTION:
-          if (it != m_lastHoveredElement && isHovering)
-          {
-            if (m_lastHoveredElement != nullptr)
-            {
-              m_lastHoveredElement->onMouseLeave(event);
-            }
-            it->onMouseEnter(event);
-            m_lastHoveredElement = it;
-          }
-          else if (isMouseOverElement)
-          {
-            it->onMouseMove(event);
-          }
-
-          // handle tooltips
-          if (!it->getUiElementData().tooltipText.empty())
-          {
-            m_uiManager.startTooltip(event, it->getUiElementData().tooltipText);
-          }
-          else
-          {
-            m_uiManager.stopTooltip();
-          }
-          break;
-        }
-        break; // break after the first element is found (Z-Order)
-      }
     }
   }
 
-  if (!isHovering && m_lastHoveredElement != nullptr)
+  // the reversed draw order of the vector is  the Z-Order of the elements
+  for (auto &it : utils::ReverseIterator(m_uiManager.m_uiElements))
   {
-    m_uiManager.stopTooltip();
-    m_lastHoveredElement->onMouseLeave(event);
-    m_lastHoveredElement = nullptr;
+    if (event.type == SDL_KEYDOWN)
+    {
+      if (it->onKeyDown(event))
+      {
+        return true;
+      }
+    }
+    else if (it->isMouseOver(event.button.x, event.button.y) && it->isVisible())
+    {
+      isMouseOverElement = true;
+      isHovering = it->isMouseOverHoverableArea(event.button.x, event.button.y);
+
+      switch (event.type)
+      {
+
+      case SDL_MOUSEMOTION:
+        if (it.get() != m_lastHoveredElement && isHovering)
+        {
+          if (m_lastHoveredElement != nullptr)
+          {
+            m_lastHoveredElement->onMouseLeave(event);
+          }
+          it->onMouseEnter(event);
+          m_lastHoveredElement = it.get();
+        }
+        else if (isMouseOverElement)
+        {
+          it->onMouseMove(event);
+        }
+
+        // handle tooltips
+        if (!it->getUiElementData().tooltipText.empty())
+        {
+          m_uiManager.startTooltip(event, it->getUiElementData().tooltipText);
+        }
+        else
+        {
+          m_uiManager.stopTooltip();
+        }
+        break;
+      }
+      break; // break after the first element is found (Z-Order)
+    }
   }
 
-  return isMouseOverElement;
+
+if (!isHovering && m_lastHoveredElement != nullptr)
+{
+  m_uiManager.stopTooltip();
+  m_lastHoveredElement->onMouseLeave(event);
+  m_lastHoveredElement = nullptr;
+}
+
+return isMouseOverElement;
 }
