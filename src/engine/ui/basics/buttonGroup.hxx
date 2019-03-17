@@ -3,7 +3,7 @@
 
 #include "uiElement.hxx"
 
-class ButtonGroup
+class ButtonGroup : public UiElement
 {
 public:
   ButtonGroup() = default;
@@ -11,6 +11,9 @@ public:
 
   void addToGroup(UiElement *widget);
   bool isExclusive() { return exclusive; };
+
+  void onMouseButtonDown(const SDL_Event &event) override;
+  void onMouseButtonUp(const SDL_Event &event) override;
 
   bool exclusive = false;
 
