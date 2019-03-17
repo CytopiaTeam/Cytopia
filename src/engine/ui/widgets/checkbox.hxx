@@ -11,8 +11,8 @@ public:
 
   void draw() override;
 
-  void onMouseButtonUp(const SDL_Event &event) override;
-  void onMouseButtonDown(const SDL_Event &event) override;
+  bool onMouseButtonUp(const SDL_Event &event) override;
+  bool onMouseButtonDown(const SDL_Event &event) override;
   void onMouseEnter(const SDL_Event &event) override;
   void onMouseLeave(const SDL_Event &event) override;
 

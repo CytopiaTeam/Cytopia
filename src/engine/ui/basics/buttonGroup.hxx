@@ -12,8 +12,8 @@ public:
   void addToGroup(UiElement *widget);
   bool isExclusive() { return exclusive; };
 
-  void onMouseButtonDown(const SDL_Event &event) override;
-  void onMouseButtonUp(const SDL_Event &event) override;
+  bool onMouseButtonDown(const SDL_Event &event) override;
+  bool onMouseButtonUp(const SDL_Event &event) override;
 
   bool exclusive = false;
 

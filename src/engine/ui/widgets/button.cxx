@@ -27,7 +27,7 @@ void Button::draw()
 
 void Button::setText(const std::string &text) { m_buttonLabel->setText(text); }
 
-void Button::onMouseButtonUp(const SDL_Event &event)
+bool Button::onMouseButtonUp(const SDL_Event &event)
 {
   if (isMouseOver(event.button.x, event.button.y))
   {
@@ -47,10 +47,12 @@ void Button::onMouseButtonUp(const SDL_Event &event)
       m_isMouseButtonDown = false;
       m_isButtonToggled = !m_isButtonToggled;
     }
+    return true;
   }
+  return false;
 }
 
-void Button::onMouseButtonDown(const SDL_Event &event)
+bool Button::onMouseButtonDown(const SDL_Event &event)
 {
   if (isMouseOver(event.button.x, event.button.y))
   {
@@ -63,7 +65,9 @@ void Button::onMouseButtonDown(const SDL_Event &event)
       changeButtonState(getButtonState() == BUTTONSTATE_CLICKED ? BUTTONSTATE_DEFAULT : BUTTONSTATE_CLICKED);
       m_isMouseButtonDown = true;
     }
+    return true;
   }
+  return false;
 }
 
 void Button::onMouseEnter(const SDL_Event &event)

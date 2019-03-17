@@ -41,11 +41,11 @@ public:
   virtual void registerCallbackFunction(std::function<void(const std::string &)> const &){};
 
   // empty virtual function that can be overriden in the derived Ui Elements
-  virtual void onMouseButtonUp(const SDL_Event &){};
-  virtual void onMouseButtonDown(const SDL_Event &){};
-  virtual void onMouseEnter(const SDL_Event &){};
-  virtual void onMouseLeave(const SDL_Event &){};
-  virtual void onMouseMove(const SDL_Event &){};
+  virtual bool onMouseButtonUp(const SDL_Event &) { return false; };
+  virtual bool onMouseButtonDown(const SDL_Event &) { return false; };
+  virtual void onMouseEnter(const SDL_Event &) { };
+  virtual void onMouseLeave(const SDL_Event &) { };
+  virtual void onMouseMove(const SDL_Event &) { };
   virtual bool onKeyDown(const SDL_Event &) { return false; };
 
   /** \brief Draw the UI Element and/or render it's textures to the screen
