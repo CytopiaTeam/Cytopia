@@ -166,6 +166,18 @@ bool EventManager::dispatchUiEvents(SDL_Event &event)
   // the reversed draw order of the vector is  the Z-Order of the elements
   for (auto it : utils::ReverseIterator(m_uiManager.m_uiElementsWithoutGroup))
   {
+    switch (event.type)
+    {
+    case SDL_MOUSEBUTTONDOWN:
+      if (it->onMouseButtonDown(event))
+        return true;
+      break;
+    case SDL_MOUSEBUTTONUP:
+      if (it->onMouseButtonUp(event))
+        return true;
+      break;
+    }
+
     if (event.type == SDL_KEYDOWN)
     {
       if (it->onKeyDown(event))
@@ -180,6 +192,7 @@ bool EventManager::dispatchUiEvents(SDL_Event &event)
 
       switch (event.type)
       {
+
       case SDL_MOUSEMOTION:
         if (it != m_lastHoveredElement && isHovering)
         {
@@ -204,12 +217,6 @@ bool EventManager::dispatchUiEvents(SDL_Event &event)
         {
           m_uiManager.stopTooltip();
         }
-        break;
-      case SDL_MOUSEBUTTONDOWN:
-        it->onMouseButtonDown(event);
-        break;
-      case SDL_MOUSEBUTTONUP:
-        it->onMouseButtonUp(event);
         break;
       }
       break; // break after the first element is found (Z-Order)
