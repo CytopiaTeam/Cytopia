@@ -132,16 +132,36 @@ void UIManager::init()
 
         if (actionID == "RaiseTerrain")
         {
-          uiElement->registerCallbackFunction([]() {
+          uiElement->registerCallbackFunction([](UiElement *uiElement) {
+            Button *button = dynamic_cast<Button *>(uiElement);
+            if (button)
+            {
+              if (button->getUiElementData().isToggleButton)
+              {
+                button->checkState() ? terrainEditMode = TerrainEdit::RAISE : terrainEditMode = TerrainEdit::NONE;
+                button->checkState() ? highlightSelection = true : highlightSelection = false;
+                return;
+              }
+            }
             terrainEditMode == TerrainEdit::RAISE ? terrainEditMode = TerrainEdit::NONE : terrainEditMode = TerrainEdit::RAISE;
             terrainEditMode == TerrainEdit::NONE ? highlightSelection = false : highlightSelection = true;
           });
         }
         else if (actionID == "LowerTerrain")
         {
-          uiElement->registerCallbackFunction([]() {
+          uiElement->registerCallbackFunction([](UiElement *uiElement) {
+            Button *button = dynamic_cast<Button *>(uiElement);
+            if (button)
+            {
+              if (button->getUiElementData().isToggleButton)
+              {
+                button->checkState() ? terrainEditMode = TerrainEdit::LOWER : terrainEditMode = TerrainEdit::NONE;
+                button->checkState() ? highlightSelection = true : highlightSelection = false;
+                return;
+              }
+            }
             terrainEditMode == TerrainEdit::LOWER ? terrainEditMode = TerrainEdit::NONE : terrainEditMode = TerrainEdit::LOWER;
-            terrainEditMode == TerrainEdit::NONE ? highlightSelection = false : highlightSelection = true;
+            terrainEditMode == TerrainEdit::NONE ? highlightSelection = true : highlightSelection = false;
           });
         }
         else if (actionID == "QuitGame")
@@ -150,15 +170,38 @@ void UIManager::init()
         }
         else if (actionID == "Demolish")
         {
-          uiElement->registerCallbackFunction([]() {
+          uiElement->registerCallbackFunction([](UiElement *uiElement) {
+            Button *button = dynamic_cast<Button *>(uiElement);
+            if (button)
+            {
+              if (button->getUiElementData().isToggleButton)
+              {
+                button->checkState() ? demolishMode = true : demolishMode = false;
+                button->checkState() ? highlightSelection = true : highlightSelection = false;
+                return;
+              }
+            }
+
             demolishMode = !demolishMode;
             demolishMode ? highlightSelection = true : highlightSelection = false;
           });
         }
         else if (actionID == "ChangeTileType")
         {
+
           std::string tileType = uiLayout[it.key()][id].value("TileType", "");
-          uiElement->registerCallbackFunction([tileType]() {
+          uiElement->registerCallbackFunction([tileType](UiElement *uiElement) {
+
+              Button *button = dynamic_cast<Button *>(uiElement);
+              if (button)
+              {
+                if (button->getUiElementData().isToggleButton)
+                {
+                  button->checkState() ? tileTypeEditMode = tileType : tileTypeEditMode = "";
+                  button->checkState() ? highlightSelection = true : highlightSelection = false;
+                  return;
+                }
+              }
             tileTypeEditMode == tileType ? tileTypeEditMode = "" : tileTypeEditMode = tileType;
             tileTypeEditMode == tileType ? highlightSelection = true : highlightSelection = false;
           });
