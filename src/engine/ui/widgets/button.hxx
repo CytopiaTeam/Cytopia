@@ -24,13 +24,13 @@ public:
   void registerCallbackFunction(std::function<void()> const &cb) override;
   void registerCallbackFunction(std::function<void(const std::string &)> const &cb) override;
 
+  bool checkState = false;
 private:
   SDL_Rect m_rect;
 
   std::unique_ptr<Text> m_buttonLabel;
 
   bool m_isMouseButtonDown = false;
-  bool m_isButtonToggled = false;
 
   bool m_drawFrame = false;
 
