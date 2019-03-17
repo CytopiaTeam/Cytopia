@@ -149,8 +149,22 @@ bool EventManager::dispatchUiEvents(SDL_Event &event)
   bool isMouseOverElement = false;
   bool isHovering = false;
 
+  // groupElements
+  for (auto it : utils::ReverseIterator(m_uiManager.m_buttonGroups))
+  {
+    switch (event.type)
+    {
+    case SDL_MOUSEBUTTONDOWN:
+      it.second.onMouseButtonDown(event);
+      break;
+    case SDL_MOUSEBUTTONUP:
+      it.second.onMouseButtonUp(event);
+      break;
+    }
+  }
+
   // the reversed draw order of the vector is  the Z-Order of the elements
-  for (const std::unique_ptr<UiElement> &it : utils::ReverseIterator(m_uiManager.getAllUiElements()))
+  for (auto it : utils::ReverseIterator(m_uiManager.m_uiElementsWithoutGroup))
   {
     if (event.type == SDL_KEYDOWN)
     {
@@ -167,14 +181,14 @@ bool EventManager::dispatchUiEvents(SDL_Event &event)
       switch (event.type)
       {
       case SDL_MOUSEMOTION:
-        if (it.get() != m_lastHoveredElement && isHovering)
+        if (it != m_lastHoveredElement && isHovering)
         {
           if (m_lastHoveredElement != nullptr)
           {
             m_lastHoveredElement->onMouseLeave(event);
           }
           it->onMouseEnter(event);
-          m_lastHoveredElement = it.get();
+          m_lastHoveredElement = it;
         }
         else if (isMouseOverElement)
         {
