@@ -21,7 +21,7 @@ public:
 
 private:
   std::vector<Button *> m_buttonGroup;
-  void uncheckAllButtons();
+  void uncheckAllButtons(Button *exceptThisButton = nullptr);
 };
 
 #endif

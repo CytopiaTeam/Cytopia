@@ -45,7 +45,7 @@ bool Button::onMouseButtonUp(const SDL_Event &event)
         changeButtonState(getButtonState() == BUTTONSTATE_CLICKED ? BUTTONSTATE_DEFAULT : BUTTONSTATE_CLICKED);
       }
       m_isMouseButtonDown = false;
-      checkState = !checkState;
+      setCheckState(!m_checkState);
     }
     return true;
   }
@@ -62,7 +62,6 @@ bool Button::onMouseButtonDown(const SDL_Event &event)
     }
     else
     {
-      changeButtonState(getButtonState() == BUTTONSTATE_CLICKED ? BUTTONSTATE_DEFAULT : BUTTONSTATE_CLICKED);
       m_isMouseButtonDown = true;
     }
     return true;
@@ -90,7 +89,8 @@ void Button::onMouseLeave(const SDL_Event &)
 {
   if (elementData.isToggleButton)
   {
-    changeButtonState(checkState ? BUTTONSTATE_CLICKED : BUTTONSTATE_DEFAULT);
+    //setCheckState(!m_checkState);
+    changeButtonState(m_checkState ? BUTTONSTATE_CLICKED : BUTTONSTATE_DEFAULT);
     m_isMouseButtonDown = false;
   }
   else if (getButtonState() != BUTTONSTATE_DEFAULT)
@@ -100,6 +100,13 @@ void Button::onMouseLeave(const SDL_Event &)
 }
 
 void Button::drawImageButtonFrame(bool drawFrame) { m_drawFrame = drawFrame; }
+
+void Button::setCheckState(bool state)
+{
+  m_checkState = state;
+  changeButtonState(m_checkState ? BUTTONSTATE_CLICKED : BUTTONSTATE_DEFAULT);
+}
+
 
 void Button::registerCallbackFunction(std::function<void()> const &cb) { clickSignal.connect(cb); }
 void Button::registerCallbackFunction(std::function<void(const std::string &)> const &cb) { clickSignalString.connect(cb); }

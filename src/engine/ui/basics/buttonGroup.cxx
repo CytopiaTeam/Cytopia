@@ -8,9 +8,12 @@ bool ButtonGroup::onMouseButtonDown(const SDL_Event &event)
 {
   for (auto &it : m_buttonGroup)
   {
-    if (it->onMouseButtonDown(event))
+    if (it->isVisible())
     {
-      return true;
+      if (it->onMouseButtonDown(event))
+      {
+        return true;
+      }
     }
   }
 
@@ -21,10 +24,17 @@ bool ButtonGroup::onMouseButtonUp(const SDL_Event &event)
 {
   for (auto &it : m_buttonGroup)
   {
-    if (it->onMouseButtonUp(event))
+    if (it->isMouseOver(event.button.x, event.button.y) && it->isVisible())
     {
-      uncheckAllButtons();
-      it->checkState = true;
+      if (exclusive)
+      {
+        uncheckAllButtons();
+      }
+      else
+      {
+        uncheckAllButtons(it);
+      }
+      it->onMouseButtonUp(event);
       return true;
     }
   }
@@ -32,10 +42,14 @@ bool ButtonGroup::onMouseButtonUp(const SDL_Event &event)
   return false;
 }
 
-void ButtonGroup::uncheckAllButtons()
+void ButtonGroup::uncheckAllButtons(Button* exceptThisButton)
 {
   for (auto &it : m_buttonGroup)
   {
-    it->checkState = false;
+    if (it == exceptThisButton)
+    {
+      continue;
+    }
+    it->setCheckState(false);
   }
- }
+}
