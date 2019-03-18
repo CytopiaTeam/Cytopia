@@ -132,8 +132,8 @@ void UIManager::init()
 
         if (actionID == "RaiseTerrain")
         {
-          uiElement->registerCallbackFunction([](UiElement *uiElement) {
-            Button *button = dynamic_cast<Button *>(uiElement);
+          uiElement->registerCallbackFunction([](UiElement *sender) {
+            Button *button = dynamic_cast<Button *>(sender);
             if (button)
             {
               if (button->getUiElementData().isToggleButton)
@@ -149,8 +149,8 @@ void UIManager::init()
         }
         else if (actionID == "LowerTerrain")
         {
-          uiElement->registerCallbackFunction([](UiElement *uiElement) {
-            Button *button = dynamic_cast<Button *>(uiElement);
+          uiElement->registerCallbackFunction([](UiElement *sender) {
+            Button *button = dynamic_cast<Button *>(sender);
             if (button)
             {
               if (button->getUiElementData().isToggleButton)
@@ -170,8 +170,8 @@ void UIManager::init()
         }
         else if (actionID == "Demolish")
         {
-          uiElement->registerCallbackFunction([](UiElement *uiElement) {
-            Button *button = dynamic_cast<Button *>(uiElement);
+          uiElement->registerCallbackFunction([](UiElement *sender) {
+            Button *button = dynamic_cast<Button *>(sender);
             if (button)
             {
               if (button->getUiElementData().isToggleButton)
@@ -189,8 +189,8 @@ void UIManager::init()
         else if (actionID == "ChangeTileType")
         {
 
-          uiElement->registerCallbackFunction([actionParameter](UiElement *uiElement) {
-            Button *button = dynamic_cast<Button *>(uiElement);
+          uiElement->registerCallbackFunction([actionParameter](UiElement *sender) {
+            Button *button = dynamic_cast<Button *>(sender);
             if (button)
             {
               if (button->getUiElementData().isToggleButton)
