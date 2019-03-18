@@ -47,12 +47,6 @@ void ButtonGroup::uncheckAllButtons(Button *exceptThisButton)
 {
   for (auto &it : m_buttonGroup)
   {
-    if (it == exceptThisButton)
-    {
-      continue;
-    }
-    it->setCheckState(false);
-
     // If the buttongroup has children, uncheck them too
     if (it->getUiElementData().actionID == "ToggleVisibilityOfGroup")
     {
@@ -65,5 +59,12 @@ void ButtonGroup::uncheckAllButtons(Button *exceptThisButton)
         }
       }
     }
+    // skip the calling button itself if it's not exclusive
+    if (it == exceptThisButton)
+    {
+      continue;
+    }
+
+    it->setCheckState(false);
   }
 }
