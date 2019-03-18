@@ -150,7 +150,7 @@ bool EventManager::dispatchUiEvents(SDL_Event &event)
   bool isHovering = false;
 
   // groupElements
-  for (auto it : utils::ReverseIterator(m_uiManager.m_buttonGroups))
+  for (auto it : m_uiManager.m_buttonGroups)
   {
     switch (event.type)
     {
