@@ -189,20 +189,19 @@ void UIManager::init()
         else if (actionID == "ChangeTileType")
         {
 
-          std::string tileType = uiLayout[it.key()][id].value("TileType", "");
-          uiElement->registerCallbackFunction([tileType](UiElement *uiElement) {
+          uiElement->registerCallbackFunction([actionParameter](UiElement *uiElement) {
             Button *button = dynamic_cast<Button *>(uiElement);
             if (button)
             {
               if (button->getUiElementData().isToggleButton)
               {
-                button->checkState() ? tileTypeEditMode = tileType : tileTypeEditMode = "";
+                button->checkState() ? tileTypeEditMode = actionParameter : tileTypeEditMode = "";
                 button->checkState() ? highlightSelection = true : highlightSelection = false;
                 return;
               }
             }
-            tileTypeEditMode == tileType ? tileTypeEditMode = "" : tileTypeEditMode = tileType;
-            tileTypeEditMode == tileType ? highlightSelection = true : highlightSelection = false;
+            tileTypeEditMode == actionParameter ? tileTypeEditMode = "" : tileTypeEditMode = actionParameter;
+            tileTypeEditMode == actionParameter ? highlightSelection = true : highlightSelection = false;
           });
         }
         else if (actionID == "ToggleVisibilityOfGroup")
