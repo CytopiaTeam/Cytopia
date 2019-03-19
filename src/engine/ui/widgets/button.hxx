@@ -25,7 +25,7 @@ public:
   void registerCallbackFunction(std::function<void(UiElement *sender)> const &cb) override;
   void registerCallbackFunction(std::function<void(const std::string &, UiElement* sender)> const &cb) override;
 
-  const bool checkState() { return m_checkState; };
+  bool checkState() const { return m_checkState; };
   void setCheckState(bool state);
 private:
   SDL_Rect m_rect;
