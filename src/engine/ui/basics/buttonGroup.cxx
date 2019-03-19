@@ -25,7 +25,7 @@ bool ButtonGroup::onMouseButtonUp(const SDL_Event &event)
   {
     if (it->isMouseOver(event.button.x, event.button.y) && it->isVisible())
     {
-      if (exclusive)
+      if (alwaysOn)
       {
         uncheckAllButtons();
       }
@@ -58,7 +58,7 @@ void ButtonGroup::uncheckAllButtons(Button *exceptThisButton)
         }
       }
     }
-    // skip the calling button itself if it's not exclusive
+    // skip the calling button itself if it is supplied as parameter (when alwaysOn is set)
     if (it != exceptThisButton)
     {
       it->setCheckState(false);
