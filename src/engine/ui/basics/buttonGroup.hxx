@@ -16,7 +16,6 @@ public:
   bool onMouseButtonDown(const SDL_Event &event) override;
   bool onMouseButtonUp(const SDL_Event &event) override;
 
-
   bool exclusive = false;
 
 private:

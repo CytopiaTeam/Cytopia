@@ -1,7 +1,6 @@
 #include "buttonGroup.hxx"
 
 #include "../../uiManager.hxx"
-#include "../../basics/log.hxx"
 
 void ButtonGroup::addToGroup(Button *widget) { m_buttonGroup.push_back(widget); }
 
@@ -60,11 +59,9 @@ void ButtonGroup::uncheckAllButtons(Button *exceptThisButton)
       }
     }
     // skip the calling button itself if it's not exclusive
-    if (it == exceptThisButton)
+    if (it != exceptThisButton)
     {
-      continue;
+      it->setCheckState(false);
     }
-
-    it->setCheckState(false);
   }
 }
