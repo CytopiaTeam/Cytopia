@@ -25,13 +25,16 @@ bool ButtonGroup::onMouseButtonUp(const SDL_Event &event)
   {
     if (it->isMouseOver(event.button.x, event.button.y) && it->isVisible())
     {
-      if (alwaysOn)
+      if (exclusive)
       {
-        uncheckAllButtons();
-      }
-      else
-      {
-        uncheckAllButtons(it);
+        if (alwaysOn)
+        {
+          uncheckAllButtons();
+        }
+        else
+        {
+          uncheckAllButtons(it);
+        }
       }
 
       it->onMouseButtonUp(event);

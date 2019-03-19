@@ -35,8 +35,15 @@ public:
    * @brief Defines wheter on button of the group must stay active or not
    * If enabled, one button always stays active. Keep in mind that the button group should be initialized with one button set to checked.
    * Best suitable for Comboboxes or Radio Buttons.
+   * @Note this only works if the ButtonGroup is set to exlusive! Also take in mind, that this option doesn't make sense if the group has children (ToggleVisibilityOfGroup)
    */
-  bool alwaysOn = false;
+  bool alwaysOn = true;
+
+  /**
+  * @brief Defines whether the button group is exclusive
+  * If set to true, only one button in the group can be checked at the same time.
+  */
+  bool exclusive = true;
 
 private:
   std::vector<Button *> m_buttonGroup;
