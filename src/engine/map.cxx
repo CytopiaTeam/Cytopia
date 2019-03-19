@@ -124,7 +124,7 @@ void Map::updateNeighborsOfNode(const Point &isoCoordinates)
 
       // those bitmask combinations require the tile to be elevated.
       std::vector<unsigned char> bits{3, 12, 26, 38, 73, 133};
-      for (auto elevationBit : bits)
+      for (const auto &elevationBit : bits)
       {
         if ((elevationBitmask & elevationBit) == elevationBit)
         {
@@ -263,7 +263,7 @@ void Map::getNeighbors(const Point &isoCoordinates, NeighborMatrix &result) cons
 }
 void Map::renderMap() const
 {
-  for (auto it : mapNodesInDrawingOrder)
+  for (const auto &it : mapNodesInDrawingOrder)
   {
     it->render();
   }
@@ -271,7 +271,7 @@ void Map::renderMap() const
 
 void Map::refresh()
 {
-  for (auto it : mapNodesInDrawingOrder)
+  for (const auto &it : mapNodesInDrawingOrder)
   {
     it->getSprite()->refresh();
   }

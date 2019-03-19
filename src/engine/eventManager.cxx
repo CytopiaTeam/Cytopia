@@ -150,7 +150,7 @@ bool EventManager::dispatchUiEvents(SDL_Event &event)
   bool isHovering = false;
 
   // groupElements
-  for (auto it : m_uiManager.m_buttonGroups)
+  for (auto &it : m_uiManager.m_buttonGroups)
   {
     switch (event.type)
     {
@@ -163,7 +163,7 @@ bool EventManager::dispatchUiEvents(SDL_Event &event)
     }
   }
 
-  for (auto it : utils::ReverseIterator(m_uiManager.m_uiElementsWithoutGroup))
+  for (const auto &it : utils::ReverseIterator(m_uiManager.m_uiElementsWithoutGroup))
   {
     if (it->isVisible())
     {
@@ -182,7 +182,7 @@ bool EventManager::dispatchUiEvents(SDL_Event &event)
   }
 
   // the reversed draw order of the vector is  the Z-Order of the elements
-  for (auto &it : utils::ReverseIterator(m_uiManager.m_uiElements))
+  for (const auto &it : utils::ReverseIterator(m_uiManager.m_uiElements))
   {
     if (event.type == SDL_KEYDOWN)
     {

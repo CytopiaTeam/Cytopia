@@ -7,7 +7,7 @@ void ButtonGroup::addToGroup(Button *widget) { m_buttonGroup.push_back(widget); 
 
 bool ButtonGroup::onMouseButtonDown(const SDL_Event &event)
 {
-  for (auto &it : m_buttonGroup)
+  for (const auto &it : m_buttonGroup)
   {
     if (it->isVisible())
     {
@@ -22,7 +22,7 @@ bool ButtonGroup::onMouseButtonDown(const SDL_Event &event)
 
 bool ButtonGroup::onMouseButtonUp(const SDL_Event &event)
 {
-  for (auto &it : m_buttonGroup)
+  for (const auto &it : m_buttonGroup)
   {
     if (it->isMouseOver(event.button.x, event.button.y) && it->isVisible())
     {
@@ -45,12 +45,12 @@ bool ButtonGroup::onMouseButtonUp(const SDL_Event &event)
 
 void ButtonGroup::uncheckAllButtons(Button *exceptThisButton)
 {
-  for (auto &it : m_buttonGroup)
+  for (const auto &it : m_buttonGroup)
   {
     // If the buttongroup has children, uncheck them too
     if (it->getUiElementData().actionID == "ToggleVisibilityOfGroup")
     {
-      for (auto groupElement : UIManager::instance().getUiElementsOfGroup(it->getUiElementData().actionParameter))
+      for (const auto &groupElement : UIManager::instance().getUiElementsOfGroup(it->getUiElementData().actionParameter))
       {
         Button *button = dynamic_cast<Button *>(groupElement);
         if (button)
