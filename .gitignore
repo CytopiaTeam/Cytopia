@@ -6,3 +6,6 @@
 
 # ignore build directories
 cmake-build-*
+
+#ignore VStudio code generated directory
+.vscode
