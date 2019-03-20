@@ -1,0 +1,5 @@
+
+queries:
+  - exclude: Cytopia_ExternLibs
+  - exclude: Cytopia_Resources
+  - exclude: src\ThirdParty
