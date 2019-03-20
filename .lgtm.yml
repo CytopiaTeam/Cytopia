@@ -1,5 +1,6 @@
 
-queries:
-  - exclude: Cytopia_ExternLibs
-  - exclude: Cytopia_Resources
-  - exclude: src\ThirdParty
+path_classifiers:
+  library:
+    - Cytopia_ExternLibs
+    - Cytopia_Resources
+    - src\ThirdParty

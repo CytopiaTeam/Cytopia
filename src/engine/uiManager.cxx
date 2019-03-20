@@ -11,7 +11,7 @@
 #include "../ThirdParty/json.hxx"
 
 using json = nlohmann::json;
-//DELME
+
 void UIManager::init()
 {
   json uiLayout;
