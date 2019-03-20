@@ -58,7 +58,7 @@ void UIManager::init()
         std::string text = uiLayout[it.key()][id].value("Text", "");
         std::string textureID = uiLayout[it.key()][id].value("SpriteID", "");
         std::string uiElementType = uiLayout[it.key()][id].value("Type", "");
-        std::string layout = uiLayout[it.key()][id].value("Layout", "");
+        std::string buttonGroupID = uiLayout[it.key()][id].value("ButtonGroup", "");
 
         SDL_Rect elementRect{0, 0, 0, 0};
         elementRect.x = uiLayout[it.key()][id].value("Position_x", 0);
@@ -112,9 +112,9 @@ void UIManager::init()
         uiElement->setUIElementID(uiElementID);
         uiElement->drawImageButtonFrame(drawFrame);
 
-        if (!layout.empty())
+        if (!buttonGroupID.empty())
         {
-          m_buttonGroups[layout].addToGroup(dynamic_cast<Button *>(uiElement.get()));
+          m_buttonGroups[buttonGroupID].addToGroup(dynamic_cast<Button *>(uiElement.get()));
         }
         else
         {

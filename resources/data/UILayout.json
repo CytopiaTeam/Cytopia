@@ -11,7 +11,7 @@
       "Position_y": 520,
       "Action": "ToggleVisibilityOfGroup",
       "ActionParameter": "ConstructionSubMenu",
-      "Layout": "BottomMenu",
+      "ButtonGroup": "BottomMenu",
       "ToggleButton": true,
       "TooltipText": "Construction"
     },
@@ -23,7 +23,7 @@
       "ActionParameter": "RoadsSubMenu",
       "Position_x": 480,
       "Position_y": 520,
-      "Layout": "BottomMenu",
+      "ButtonGroup": "BottomMenu",
       "ToggleButton": true,
       "TooltipText": "Construction"
     },
@@ -35,7 +35,7 @@
       "ActionParameter": "DebugSubMenu",
       "Position_x": 320,
       "Position_y": 520,
-      "Layout": "BottomMenu",
+      "ButtonGroup": "BottomMenu",
       "ToggleButton": true,
       "TooltipText": "Debug Menu"
     },
@@ -47,7 +47,7 @@
       "ActionParameter": "PowerSubMenu",
       "Position_x": 240,
       "Position_y": 520,
-      "Layout": "BottomMenu",
+      "ButtonGroup": "BottomMenu",
       "ToggleButton": true,
       "TooltipText": "Power"
     },
@@ -59,7 +59,7 @@
       "ActionParameter": "WaterSubMenu",
       "Position_x": 160,
       "Position_y": 520,
-      "Layout": "BottomMenu",
+      "ButtonGroup": "BottomMenu",
       "ToggleButton": true,
       "TooltipText": "Water"
     }
@@ -73,7 +73,7 @@
       "Position_y": 470,
       "Action": "ChangeTileType",
       "ActionParameter": "paved_road",
-      "Layout": "BottomMenuExpansionGroup",
+      "ButtonGroup": "BottomMenuExpansionGroup",
       "ToggleButton": true,
       "DrawFrame": true,
       "TooltipText": "Paved Road"
@@ -86,7 +86,7 @@
       "Position_y": 470,
       "Action": "ChangeTileType",
       "ActionParameter" : "dirt_road",
-      "Layout": "BottomMenuExpansionGroup",
+      "ButtonGroup": "BottomMenuExpansionGroup",
       "ToggleButton": true,
       "DrawFrame": true,
       "TooltipText": "Dirt Road"
@@ -99,7 +99,7 @@
       "Position_y": 470,
       "Action": "ChangeTileType",
       "ActionParameter" : "country_road",
-      "Layout": "BottomMenuExpansionGroup",
+      "ButtonGroup": "BottomMenuExpansionGroup",
       "ToggleButton": true,
       "DrawFrame": true,
       "TooltipText": "Country Road"
@@ -113,7 +113,7 @@
       "Position_x": 340,
       "Position_y": 470,
       "Action": "Demolish",
-      "Layout": "BottomMenuExpansionGroup",
+      "ButtonGroup": "BottomMenuExpansionGroup",
       "ToggleButton": true,
       "DrawFrame": true,
       "TooltipText": "Demolish"
@@ -125,7 +125,7 @@
       "Position_x": 380,
       "Position_y": 470,
       "Action": "RaiseTerrain",
-      "Layout": "BottomMenuExpansionGroup",
+      "ButtonGroup": "BottomMenuExpansionGroup",
       "ToggleButton": true,
       "DrawFrame": true,
       "TooltipText": "Raise Terrain"
@@ -137,7 +137,7 @@
       "Position_x": 420,
       "Position_y": 470,
       "Action": "LowerTerrain",
-      "Layout": "BottomMenuExpansionGroup",
+      "ButtonGroup": "BottomMenuExpansionGroup",
       "ToggleButton": true,
       "DrawFrame": true,
       "TooltipText": "Lower Terrain"
@@ -149,7 +149,7 @@
       "Position_x": 460,
       "Position_y": 470,
       "Action": "LevelTerrain",
-      "Layout": "BottomMenuExpansionGroup",
+      "ButtonGroup": "BottomMenuExpansionGroup",
       "ToggleButton": true,
       "DrawFrame": true,
       "TooltipText": "Level Terrain"
@@ -162,7 +162,7 @@
       "Position_y": 470,
       "Action": "ChangeTileType",
       "ActionParameter": "water",
-      "Layout": "BottomMenuExpansionGroup",
+      "ButtonGroup": "BottomMenuExpansionGroup",
       "ToggleButton": true,
       "DrawFrame": true,
       "TooltipText": "Water"
@@ -177,7 +177,7 @@
       "Position_y": 470,
       "Action": "ChangeTileType",
       "ActionParameter": "pow_3x3_CoalPlant",
-      "Layout": "BottomMenuExpansionGroup",
+      "ButtonGroup": "BottomMenuExpansionGroup",
       "ToggleButton": true,
       "DrawFrame": true,
       "TooltipText": "Paved Road"
@@ -192,7 +192,7 @@
       "Position_y": 470,
       "Action": "ChangeTileType",
       "ActionParameter": "watertower",
-      "Layout": "BottomMenuExpansionGroup",
+      "ButtonGroup": "BottomMenuExpansionGroup",
       "ToggleButton": true,
       "DrawFrame": true,
       "TooltipText": "Water Tower"
@@ -205,7 +205,7 @@
       "Position_y": 470,
       "Action": "ChangeTileType",
       "ActionParameter" : "watertower2",
-      "Layout": "BottomMenuExpansionGroup",
+      "ButtonGroup": "BottomMenuExpansionGroup",
       "ToggleButton": true,
       "DrawFrame": true,
       "TooltipText": "Water Tower 2"
@@ -319,7 +319,7 @@
       "Position_y": 470,
       "Action": "ChangeTileType",
       "ActionParameter": "com_2x2_office",
-      "Layout": "BottomMenuExpansionGroup",
+      "ButtonGroup": "BottomMenuExpansionGroup",
       "ToggleButton": true,
       "DrawFrame": true,
       "TooltipText": "BuildHouse"
@@ -331,7 +331,7 @@
       "Position_y": 470,
       "Action": "ChangeTileType",
       "ActionParameter": "com_1x1_ClockStore1",
-      "Layout": "BottomMenuExpansionGroup",
+      "ButtonGroup": "BottomMenuExpansionGroup",
       "ToggleButton": true,
       "DrawFrame": true,
       "TooltipText": "BuildHouse"
