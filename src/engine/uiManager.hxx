@@ -12,6 +12,7 @@
 #include "ui/widgets/combobox.hxx"
 #include "ui/basics/uiElement.hxx"
 #include "ui/basics/buttonGroup.hxx"
+#include "ui/menuGroups/MenuGroupBuild.hxx"
 
 #include <SDL.h>
 
@@ -59,6 +60,8 @@ private:
 
   std::unordered_map<std::string, std::vector<UiElement *>> m_uiGroups;
   std::unordered_map<std::string, ButtonGroup> m_buttonGroups;
+
+  MenuGroupBuild m_menuGroupBuild;
 
   friend class EventManager;
 };

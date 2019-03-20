@@ -232,6 +232,12 @@ void UIManager::drawUI() const
     }
   }
 
+  // draw the menugroups
+  if (m_menuGroupBuild.visible)
+  {
+    m_menuGroupBuild.draw();
+  }
+
   if (m_showDebugMenu)
   {
     m_fpsCounter->draw();

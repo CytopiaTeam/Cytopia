@@ -60,6 +60,7 @@ set (SOURCES
   src/engine/ui/widgets/text.cxx
   src/engine/ui/widgets/textField.cxx
   src/engine/ui/widgets/tooltip.cxx
+  src/engine/ui/menuGroups/MenuGroupBuild.cxx
   src/engine/audio/soundEffect.cxx
   src/engine/audio/soundEffect.cxx
   src/engine/audio/music.cxx
