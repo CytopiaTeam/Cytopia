@@ -31,6 +31,8 @@ public:
   bool onMouseButtonDown(const SDL_Event &event) override;
   bool onMouseButtonUp(const SDL_Event &event) override;
 
+  size_t count() { return m_buttonGroup.size(); };
+
   /**
    * @brief Defines wheter on button of the group must stay active or not
    * If enabled, one button always stays active. Keep in mind that the button group should be initialized with one button set to checked.
