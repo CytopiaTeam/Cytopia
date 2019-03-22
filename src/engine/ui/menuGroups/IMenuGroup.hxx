@@ -1,3 +1,6 @@
+#ifndef I_MENU_GROUP_HXX_
+#define I_MENU_GROUP_HXX_
+
 #include "../basics/uiElement.hxx"
 #include "../basics/buttonGroup.hxx"
 
@@ -37,13 +40,15 @@ public:
 
 protected:
   /**
- * @brief container for storing UiElements
- * 
- */
+   * @brief container for storing UiElements
+   *
+   */
   std::vector<Button *> m_groupElements;
 
-  std::unordered_map<std::string, ButtonGroup*> m_buildSubMenuGroups;
+  std::unordered_map<std::string, ButtonGroup *> m_buildSubMenuGroups;
   // This buttongroup holds the main elements
-  // TODO: Shared or unique? 
+  // TODO: Shared or unique?
   ButtonGroup *m_buildMenuGroup = new ButtonGroup;
 };
+
+#endif

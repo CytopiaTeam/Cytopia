@@ -1,3 +1,6 @@
+#ifndef MENU_GROUP_BUILD_HXX_
+#define MENU_GROUP_BUILD_HXX_
+
 #include "IMenuGroup.hxx"
 
 /**
@@ -24,3 +27,5 @@ public:
 
   void constructMenu();
 };
+
+#endif
