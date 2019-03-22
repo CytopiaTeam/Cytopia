@@ -39,7 +39,15 @@ void MenuGroupBuild::constructMenu()
         newString = it->getUiElementData().menuGroupID;
 
         newString.erase(sizeOfStringToCut, stringToCut.size());
-        m_buildSubMenuGroups[newString]->addToGroup(it);
+        if (m_buildSubMenuGroups.find("newString") != m_buildSubMenuGroups.end())
+        {
+          m_buildSubMenuGroups[newString]->addToGroup(it);
+        }
+        else
+        {
+          LOG(LOG_ERROR) << "You are trying to add an UiElement to the Group " << newString
+                         << ", but the main group does not exist.";
+        }
         //LOG() << "found a submenu!" << it->getUiElementData().menuGroupID;
       }
     }
