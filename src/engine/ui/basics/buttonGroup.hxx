@@ -45,6 +45,8 @@ public:
   */
   bool exclusive = true;
 
+  const std::vector<Button *> getAllButtons() const { return m_buttonGroup; };
+
 private:
   std::vector<Button *> m_buttonGroup;
 
