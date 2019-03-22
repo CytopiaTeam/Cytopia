@@ -25,6 +25,7 @@ protected:
     std::string actionID;
     std::string actionParameter;
     std::string textureID;
+    std::string menuGroupID;
     bool isToggleButton = false;
 
   } ElementData;
@@ -44,9 +45,9 @@ public:
   // empty virtual function that can be overriden in the derived Ui Elements
   virtual bool onMouseButtonUp(const SDL_Event &) { return false; };
   virtual bool onMouseButtonDown(const SDL_Event &) { return false; };
-  virtual void onMouseEnter(const SDL_Event &) { };
-  virtual void onMouseLeave(const SDL_Event &) { };
-  virtual void onMouseMove(const SDL_Event &) { };
+  virtual void onMouseEnter(const SDL_Event &){};
+  virtual void onMouseLeave(const SDL_Event &){};
+  virtual void onMouseMove(const SDL_Event &){};
   virtual bool onKeyDown(const SDL_Event &) { return false; };
 
   /** \brief Draw the UI Element and/or render it's textures to the screen
@@ -151,6 +152,8 @@ public:
   * @param spriteID that should be used for this element as std::string.
   */
   void setTextureID(const std::string &textureID);
+
+  void setMenuGroupID(const std::string &menuGroupID) { elementData.menuGroupID = menuGroupID; };
 
   virtual void setText(const std::string &text);
 
