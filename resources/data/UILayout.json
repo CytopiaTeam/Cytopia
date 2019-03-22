@@ -13,7 +13,8 @@
       "ActionParameter": "ConstructionSubMenu",
       "ButtonGroup": "BottomMenu",
       "ToggleButton": true,
-      "TooltipText": "Construction"
+      "TooltipText": "Construction",
+      "menuGroupID": "Build_Construction"
     },
     {
       "ID": "roads menu",
@@ -116,7 +117,8 @@
       "ButtonGroup": "BottomMenuExpansionGroup",
       "ToggleButton": true,
       "DrawFrame": true,
-      "TooltipText": "Demolish"
+      "TooltipText": "Demolish",
+      "menuGroupID": "Build_Construction_sub"
     },
     {
       "ID": "button raise terrain",
