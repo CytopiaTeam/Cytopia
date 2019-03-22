@@ -24,7 +24,7 @@ void MenuGroupBuild::constructMenu()
       it->setPosition(400, 300);
 
       // check if it the button is a submenu
-      if (!it->getUiElementData().menuGroupID.find("_sub") != std::string::npos)
+      if (it->getUiElementData().menuGroupID.find("_sub") == std::string::npos)
       {
         // create an empty ButtonGroup in the m_buildSubmenuGroups, so we know that elements can be placed here
         m_buildSubMenuGroups[it->getUiElementData().menuGroupID] = new ButtonGroup;
@@ -32,7 +32,7 @@ void MenuGroupBuild::constructMenu()
       }
       else
       {
-        LOG() << "found a submenu!" << '\n';
+        LOG() << "found a submenu!" << it->getUiElementData().menuGroupID;
       }
     }
   }
