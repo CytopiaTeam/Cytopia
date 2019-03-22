@@ -15,14 +15,19 @@ void MenuGroupBuild::constructMenu()
   SDL_Point screenCenter{Settings::instance().settings.screenWidth / 2, Settings::instance().settings.screenHeight / 2};
   SDL_Rect elementSize{0, 0, 0, 0};
 
+  std::string stringToCut = "_sub";
+  std::string::size_type sizeOfStringToCut;
+  std::string newString;
+
   for (auto it : m_groupElements)
   {
     // TODO: replace by an enum, when BetterEnums is added.
 
     if (!it->getUiElementData().menuGroupID.empty())
     {
+      sizeOfStringToCut = it->getUiElementData().menuGroupID.find("_sub");
       // check if it the button is a submenu
-      if (it->getUiElementData().menuGroupID.find("_sub") == std::string::npos)
+      if (it->getUiElementData().menuGroupID.find(stringToCut) == std::string::npos)
       {
         // create an empty ButtonGroup in the m_buildSubmenuGroups, so we know that elements can be placed here
         m_buildSubMenuGroups[it->getUiElementData().menuGroupID] = new ButtonGroup;
@@ -31,7 +36,11 @@ void MenuGroupBuild::constructMenu()
       }
       else
       {
-        LOG() << "found a submenu!" << it->getUiElementData().menuGroupID;
+        newString = it->getUiElementData().menuGroupID;
+
+        newString.erase(sizeOfStringToCut, stringToCut.size());
+        m_buildSubMenuGroups[newString]->addToGroup(it);
+        //LOG() << "found a submenu!" << it->getUiElementData().menuGroupID;
       }
     }
   }
