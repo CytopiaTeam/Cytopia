@@ -10,16 +10,17 @@
 class MenuGroupBuild : public IMenuGroup
 {
 public:
-/**
+  /**
  * @brief Construct a new Menu Group Build object
  * 
  */
   MenuGroupBuild() = default;
 
-/**
+  /**
  * @brief Render all UI Elements
  * 
  */
   void draw() const override;
 
+  void constructMenu();
 };
