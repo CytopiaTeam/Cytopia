@@ -59,6 +59,7 @@ void UIManager::init()
         std::string textureID = uiLayout[it.key()][id].value("SpriteID", "");
         std::string uiElementType = uiLayout[it.key()][id].value("Type", "");
         std::string buttonGroupID = uiLayout[it.key()][id].value("ButtonGroup", "");
+        std::string menuGroupID = uiLayout[it.key()][id].value("menuGroupID", "");
 
         SDL_Rect elementRect{0, 0, 0, 0};
         elementRect.x = uiLayout[it.key()][id].value("Position_x", 0);
@@ -111,6 +112,12 @@ void UIManager::init()
         uiElement->setToggleButton(toggleButton);
         uiElement->setUIElementID(uiElementID);
         uiElement->drawImageButtonFrame(drawFrame);
+        uiElement->setMenuGroupID(menuGroupID);
+
+        if (!menuGroupID.empty())
+        {
+          m_menuGroupBuild.addToGroup(dynamic_cast<Button *>(uiElement.get()));
+        }
 
         if (!buttonGroupID.empty())
         {
@@ -218,6 +225,8 @@ void UIManager::init()
     }
   }
   m_tooltip->setVisibility(false);
+
+  m_menuGroupBuild.constructMenu();
 }
 
 void UIManager::setFPSCounterText(const std::string &fps) { m_fpsCounter->setText(fps); }

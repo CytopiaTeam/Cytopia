@@ -36,7 +36,10 @@ public:
 
   const std::vector<std::unique_ptr<UiElement>> &getAllUiElements() const { return m_uiElements; };
 
-  const std::vector<UiElement *> &getUiElementsOfGroup(const std::string groupID) const { return m_uiGroups.find(groupID)->second; };
+  const std::vector<UiElement *> &getUiElementsOfGroup(const std::string groupID) const
+  {
+    return m_uiGroups.find(groupID)->second;
+  };
 
   UiElement *getUiElementByID(const std::string &UiElement) const;
   void startTooltip(SDL_Event &event, const std::string &tooltipText);
