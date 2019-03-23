@@ -9,6 +9,10 @@ void MenuGroupBuild::draw() const
   {
     it->draw();
   }
+  for (auto it : m_buildSubMenuGroups)
+  {
+    it.second->draw();
+  }
 }
 
 void MenuGroupBuild::constructMenu()
