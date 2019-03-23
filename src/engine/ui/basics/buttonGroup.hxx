@@ -39,7 +39,7 @@ public:
    * Best suitable for Comboboxes or Radio Buttons.
    * @Note this only works if the ButtonGroup is set to exlusive! Also take in mind, that this option doesn't make sense if the group has children (ToggleVisibilityOfGroup)
    */
-  bool alwaysOn = true;
+  bool alwaysOn = false;
 
   /**
   * @brief Defines whether the button group is exclusive
