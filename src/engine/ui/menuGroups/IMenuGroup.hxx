@@ -49,6 +49,8 @@ protected:
   // This buttongroup holds the main elements
   // TODO: Shared or unique?
   ButtonGroup *m_buildMenuGroup = new ButtonGroup;
+
+  friend class UIManager;
 };
 
 #endif
