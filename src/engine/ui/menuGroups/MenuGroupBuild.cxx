@@ -2,16 +2,26 @@
 #include "../../basics/log.hxx"
 #include "../../basics/settings.hxx"
 #include "../../tileManager.hxx"
+#include "../../basics/signal.hxx"
 
 void MenuGroupBuild::draw() const
 {
   for (const auto &it : m_groupElements)
   {
-    it->draw();
+    if (it->isVisible())
+    {
+      it->draw();
+    }
   }
   for (auto it : m_buildSubMenuGroups)
   {
-    it.second->draw();
+    for (auto uielement : it.second->getAllButtons())
+    {
+      if (uielement->isVisible())
+      {
+        uielement->draw();
+      }
+    }
   }
 }
 
@@ -79,6 +89,10 @@ void MenuGroupBuild::constructMenu()
 
         // TODO: Check if icon empty.
         button->setTextureID("Button_NoIcon");
+        button->drawImageButtonFrame(true);
+        button->setVisibility(false);
+        button->setToggleButton(true);
+
         if (m_buildSubMenuGroups[tile.second.category])
         {
           m_buildSubMenuGroups[tile.second.category]->addToGroup(button);
@@ -96,13 +110,25 @@ void MenuGroupBuild::constructMenu()
   // loop for re-arranging buttons that are in subgroups.
   for (auto it : m_buildSubMenuGroups)
   {
-    //m_buildMenuGroup->
     int number = 1;
     for (auto button : m_buildSubMenuGroups[it.first]->getAllButtons())
     {
-      button->setPosition(screenCenter.y - 30, 40 * number);
+      button->setPosition(screenCenter.x / 2 - 40 * number, screenCenter.y / 2 - 40);
       number++;
     }
     LOG() << "Size of " << it.first << " is " << m_buildSubMenuGroups[it.first]->count();
+  }
+
+  // set actionID
+
+  for (auto it : m_buildMenuGroup->getAllButtons())
+  {
+
+    if (m_buildSubMenuGroups.count(it->getUiElementData().menuGroupID))
+    {
+      it->setActionID("ToggleVisibilityOfGroup");
+      it->setActionParameter(it->getUiElementData().menuGroupID);
+      LOG() << "Adding action for: " << it->getUiElementData().menuGroupID;
+    }
   }
 }
