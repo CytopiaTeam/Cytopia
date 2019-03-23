@@ -130,7 +130,7 @@ void UIManager::init()
         }
         else
         {
-          m_uiElementsWithoutGroup.push_back(uiElement.get());
+          m_uiElementsForEventHandling.push_back(uiElement.get());
         }
 
         if (!groupID.empty())
@@ -234,12 +234,12 @@ void UIManager::init()
   // Add all buttongroups
   for (auto it : m_buttonGroups)
   {
-    m_uiElementsWithoutGroup.push_back(it.second);
+    m_uiElementsForEventHandling.push_back(it.second);
   }
 
   m_menuGroupBuild.constructMenu();
 
-  m_uiElementsWithoutGroup.push_back(m_menuGroupBuild.m_buildMenuGroup);
+  m_uiElementsForEventHandling.push_back(m_menuGroupBuild.m_buildMenuGroup);
 }
 
 void UIManager::setFPSCounterText(const std::string &fps) { m_fpsCounter->setText(fps); }

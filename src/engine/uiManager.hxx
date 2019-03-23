@@ -52,8 +52,8 @@ private:
   // this container holds all UiElements and is the owner.
   std::vector<std::unique_ptr<UiElement>> m_uiElements;
 
-  // subset of UiElements that are not in a group.
-  std::vector<UiElement *> m_uiElementsWithoutGroup;
+  // stores Buttongroups and UiElements that are not in a group
+  std::vector<UiElement *> m_uiElementsForEventHandling;
 
   std::unique_ptr<Tooltip> m_tooltip = std::make_unique<Tooltip>();
   // Text element for the FPS Counter (debug menu)
