@@ -239,7 +239,17 @@ void UIManager::init()
 
   m_menuGroupBuild.constructMenu();
 
+  // Add main buttongroup from MenuGroup
   m_uiElementsForEventHandling.push_back(m_menuGroupBuild.m_buildMenuGroup);
+
+  for (auto it : m_menuGroupBuild.m_buildSubMenuGroups)
+  {
+    m_uiElementsForEventHandling.push_back(it.second);
+    for (auto uiElement : it.second->getAllButtons())
+    {
+      m_uiGroups[it.first].push_back(uiElement);
+    }
+  }
 }
 
 void UIManager::setFPSCounterText(const std::string &fps) { m_fpsCounter->setText(fps); }
