@@ -62,7 +62,7 @@ private:
   bool m_showDebugMenu = false;
 
   std::unordered_map<std::string, std::vector<UiElement *>> m_uiGroups;
-  std::unordered_map<std::string, ButtonGroup> m_buttonGroups;
+  std::unordered_map<std::string, ButtonGroup *> m_buttonGroups;
 
   MenuGroupBuild m_menuGroupBuild;
 

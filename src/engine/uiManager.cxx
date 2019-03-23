@@ -121,7 +121,12 @@ void UIManager::init()
 
         if (!buttonGroupID.empty())
         {
-          m_buttonGroups[buttonGroupID].addToGroup(dynamic_cast<Button *>(uiElement.get()));
+          if (m_buttonGroups.find("buttonGroupID") == m_buttonGroups.end())
+          {
+            m_buttonGroups[buttonGroupID] = new ButtonGroup();
+          }
+
+          m_buttonGroups[buttonGroupID]->addToGroup(dynamic_cast<Button *>(uiElement.get()));
         }
         else
         {
@@ -226,7 +231,15 @@ void UIManager::init()
   }
   m_tooltip->setVisibility(false);
 
+  // Add all buttongroups
+  for (auto it : m_buttonGroups)
+  {
+    m_uiElementsWithoutGroup.push_back(it.second);
+  }
+
   m_menuGroupBuild.constructMenu();
+
+  m_uiElementsWithoutGroup.push_back(m_menuGroupBuild.m_buildMenuGroup);
 }
 
 void UIManager::setFPSCounterText(const std::string &fps) { m_fpsCounter->setText(fps); }
