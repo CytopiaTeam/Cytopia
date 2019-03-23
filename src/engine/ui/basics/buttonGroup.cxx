@@ -2,7 +2,13 @@
 
 #include "../../uiManager.hxx"
 
-void ButtonGroup::addToGroup(Button *widget) { m_buttonGroup.push_back(widget); }
+void ButtonGroup::addToGroup(Button *widget)
+{
+  if (widget)
+  {
+    m_buttonGroup.push_back(widget);
+  }
+}
 
 bool ButtonGroup::onMouseButtonDown(const SDL_Event &event)
 {
