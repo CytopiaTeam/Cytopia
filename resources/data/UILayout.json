@@ -14,7 +14,7 @@
       "ButtonGroup": "BottomMenu",
       "ToggleButton": true,
       "TooltipText": "Construction",
-      "menuGroupID": "Build_Construction"
+      "menuGroupID": "Construction"
     },
     {
       "ID": "roads menu",
@@ -27,7 +27,7 @@
       "ButtonGroup": "BottomMenu",
       "ToggleButton": true,
       "TooltipText": "Construction",
-      "menuGroupID": "Build_Roads"
+      "menuGroupID": "Roads"
     },
     {
       "ID": "debug menu",
@@ -40,7 +40,7 @@
       "ButtonGroup": "BottomMenu",
       "ToggleButton": true,
       "TooltipText": "Debug Menu",
-      "menuGroupID": "Build_Debug"
+      "menuGroupID": "Debug"
     },
     {
       "ID": "power menu",
@@ -53,7 +53,7 @@
       "ButtonGroup": "BottomMenu",
       "ToggleButton": true,
       "TooltipText": "Power",
-      "menuGroupID": "Build_Power"
+      "menuGroupID": "Power"
     },
     {
       "ID": "water menu",
@@ -65,8 +65,8 @@
       "Position_y": 520,
       "ButtonGroup": "BottomMenu",
       "ToggleButton": true,
-      "TooltipText": "Water",
-      "menuGroupID": "Build_Water"
+      "TooltipText": "Utilities",
+      "menuGroupID": "Utilities"
     }
   ],
   "RoadsSubMenu": [
@@ -122,7 +122,7 @@
       "ToggleButton": true,
       "DrawFrame": true,
       "TooltipText": "Demolish",
-      "menuGroupID": "Build_Construction_sub"
+      "menuGroupID": "Construction_sub"
     },
     {
       "ID": "button raise terrain",

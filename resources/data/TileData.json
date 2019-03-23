@@ -1,7 +1,7 @@
 [
     {
         "author": "Kingtut 101",
-        "category": "commercial",
+        "category": "Commercial",
         "description": "com_1x1_ClockStore1",
         "id": "com_1x1_ClockStore1",
         "power": 0,
@@ -18,7 +18,7 @@
     },
     {
         "author": "Kingtut 101",
-        "category": "commercial",
+        "category": "Commercial",
         "description": "com_2x2_office",
         "id": "com_2x2_office",
         "power": 0,
@@ -35,7 +35,7 @@
     },
     {
         "author": "Kingtut 101",
-        "category": "road",
+        "category": "Roads",
         "description": "Country Road... takes you home!",
         "id": "country_road",
         "power": 0,
@@ -58,7 +58,7 @@
     },
     {
         "author": "Kingtut 101",
-        "category": "road",
+        "category": "Roads",
         "description": "A Road, that hasn't been cleaned often",
         "id": "dirt_road",
         "power": 0,
@@ -81,7 +81,7 @@
     },
     {
         "author": "Kingtut 101",
-        "category": "road",
+        "category": "Roads",
         "description": "Paved Road",
         "id": "paved_road",
         "power": 0,
@@ -104,7 +104,7 @@
     },
     {
         "author": "Kingtut 101",
-        "category": "power",
+        "category": "Power",
         "description": "pow_3x3_CoalPlant",
         "id": "pow_3x3_CoalPlant",
         "power": 0,
@@ -121,7 +121,7 @@
     },
     {
         "author": "Kingtut 101",
-        "category": "terrain",
+        "category": "Terrain",
         "description": "Terrain tiles",
         "id": "terrain",
         "power": 0,
@@ -144,7 +144,7 @@
     },
     {
         "author": "Kingtut 101",
-        "category": "water",
+        "category": "Water",
         "description": "Water",
         "id": "water",
         "power": 0,
@@ -161,7 +161,7 @@
     },
     {
         "author": "Kingtut 101",
-        "category": "utilities",
+        "category": "Utilities",
         "description": "com_2x2_office",
         "id": "watertower",
         "power": 0,
@@ -178,7 +178,7 @@
     },
     {
         "author": "Kingtut 101",
-        "category": "utilities",
+        "category": "Utilities",
         "description": "com_2x2_office",
         "id": "watertower2",
         "power": 0,
