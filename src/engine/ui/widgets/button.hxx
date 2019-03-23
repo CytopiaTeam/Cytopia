@@ -23,10 +23,11 @@ public:
 
   void registerCallbackFunction(std::function<void()> const &cb) override;
   void registerCallbackFunction(std::function<void(UiElement *sender)> const &cb) override;
-  void registerCallbackFunction(std::function<void(const std::string &, UiElement* sender)> const &cb) override;
+  void registerCallbackFunction(std::function<void(const std::string &, UiElement *sender)> const &cb) override;
 
   bool checkState() const { return m_checkState; };
   void setCheckState(bool state);
+
 private:
   SDL_Rect m_rect;
 
@@ -40,7 +41,7 @@ private:
   // Signals
   Signal::Signal<void()> clickSignal;
   Signal::Signal<void(UiElement *sender)> clickSignalSender;
-  Signal::Signal<void(const std::string &, UiElement* sender)> clickSignalString;
+  Signal::Signal<void(const std::string &, UiElement *sender)> clickSignalString;
 };
 
 #endif

@@ -109,7 +109,9 @@ void Button::setCheckState(bool state)
   clickSignalString.emit(elementData.actionParameter, this);
 }
 
-
 void Button::registerCallbackFunction(std::function<void()> const &cb) { clickSignal.connect(cb); }
 void Button::registerCallbackFunction(std::function<void(UiElement *sender)> const &cb) { clickSignalSender.connect(cb); }
-void Button::registerCallbackFunction(std::function<void(const std::string &, UiElement* sender)> const &cb) { clickSignalString.connect(cb); }
+void Button::registerCallbackFunction(std::function<void(const std::string &, UiElement *sender)> const &cb)
+{
+  clickSignalString.connect(cb);
+}
