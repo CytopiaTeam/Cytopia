@@ -111,20 +111,20 @@ void MenuGroupBuild::constructMenu()
 void MenuGroupBuild::arrangeElements()
 {
   SDL_Point screenCenter{Settings::instance().settings.screenWidth / 2, Settings::instance().settings.screenHeight / 2};
-  int width = 0;
+  int mainGroupWidth = 0;
   //TODO: Make Padding an attribute
   int padding = 16;
-  int x = 0;
+  int subMenuPadding = 8;
 
   // get width for all main elements
   for (auto it : m_buildMenuGroup->getAllButtons())
   {
-    width += it->getUiElementRect().w;
+    mainGroupWidth += it->getUiElementRect().w;
   }
   // add padding between main elements to width
-  width -= static_cast<int>(padding * (m_buildMenuGroup->count()-1));
+  mainGroupWidth -= static_cast<int>(padding * (m_buildMenuGroup->count() - 1));
 
-  int xOffset = screenCenter.x - width;
+  int xOffset = screenCenter.x - mainGroupWidth;
   int currentElement = 1;
 
   // set position for main elements
@@ -133,20 +133,35 @@ void MenuGroupBuild::arrangeElements()
     int elementWidth = it->getUiElementRect().w;
     if (!it->getUiElementData().menuGroupID.empty())
     {
-      x = static_cast<int>(xOffset + (elementWidth * currentElement) + elementWidth / 4 * (currentElement - 1));
+      int x = static_cast<int>(xOffset + (elementWidth * currentElement) + padding * (currentElement - 1));
       it->setPosition(x, screenCenter.y);
       currentElement++;
     }
-  }
 
-  // loop for re-arranging buttons that are in subgroups.
-  for (auto it : m_buildSubMenuGroups)
-  {
-    int number = 1;
-    for (auto button : m_buildSubMenuGroups[it.first]->getAllButtons())
+    // loop for re-arranging buttons that are in subgroups.
+    if (m_buildSubMenuGroups.find(it->getUiElementData().menuGroupID) != m_buildSubMenuGroups.end())
     {
-      button->setPosition(screenCenter.x - 40 * number, screenCenter.y);
-      number++;
+      int subMenuGroupWidth = 0;
+      SDL_Rect parentRect = it->getUiElementRect();
+
+      // calculate width for all elements of submenu group
+      for (auto groupElement : m_buildSubMenuGroups[it->getUiElementData().menuGroupID]->getAllButtons())
+      {
+        subMenuGroupWidth += groupElement->getUiElementRect().w;
+      }
+      // add total size of padding between elements
+      subMenuGroupWidth +=
+          static_cast<int>(subMenuPadding * (m_buildSubMenuGroups[it->getUiElementData().menuGroupID]->count() - 1));
+
+      int subMenuXOffset = parentRect.x - subMenuGroupWidth / 2;
+
+      int currentSubElement = 1;
+      for (auto groupElement : m_buildSubMenuGroups[it->getUiElementData().menuGroupID]->getAllButtons())
+      {
+        int x = subMenuXOffset + groupElement->getUiElementRect().w * currentSubElement + subMenuPadding * (currentSubElement - 1);
+        groupElement->setPosition(x, screenCenter.y);
+        currentSubElement++;
+      }
     }
   }
 }
