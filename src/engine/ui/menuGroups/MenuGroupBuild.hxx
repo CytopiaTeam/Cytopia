@@ -26,6 +26,9 @@ public:
   void draw() const override;
 
   void constructMenu();
+
+  private:
+  void arrangeElements();
 };
 
 #endif

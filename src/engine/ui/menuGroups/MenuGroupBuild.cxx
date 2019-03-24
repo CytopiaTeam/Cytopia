@@ -27,9 +27,6 @@ void MenuGroupBuild::draw() const
 
 void MenuGroupBuild::constructMenu()
 {
-  SDL_Point screenCenter{Settings::instance().settings.screenWidth / 2, Settings::instance().settings.screenHeight / 2};
-  SDL_Rect elementSize{0, 0, 0, 0};
-
   std::string stringToCut = "_sub";
   std::string::size_type sizeOfStringToCut;
   std::string newString;
@@ -47,7 +44,6 @@ void MenuGroupBuild::constructMenu()
         // create an empty ButtonGroup in the m_buildSubmenuGroups, so we know that elements can be placed here
         m_buildSubMenuGroups[it->getUiElementData().menuGroupID] = new ButtonGroup;
         m_buildMenuGroup->addToGroup(it);
-        elementSize = it->getUiElementRect();
       }
       else
       {
@@ -67,18 +63,8 @@ void MenuGroupBuild::constructMenu()
     }
   }
 
-  // this only works for one element. get width in a for loop instead.
-  int width = static_cast<int>(m_buildMenuGroup->count() * elementSize.w - elementSize.w / 4 * (m_buildMenuGroup->count() - 1));
-  int startX = screenCenter.x - width;
-  int elementNumber = 1;
   for (auto it : m_buildMenuGroup->getAllButtons())
   {
-    if (!it->getUiElementData().menuGroupID.empty())
-    {
-      int x = static_cast<int>(startX + (elementSize.w * elementNumber) + elementSize.w / 4 * (elementNumber - 1));
-      it->setPosition(x, screenCenter.y);
-      elementNumber++;
-    }
     // check if there's a corresponding category for tiles for this menu ID.
     for (auto &tile : TileManager::instance().getAllTileData())
     {
@@ -107,20 +93,7 @@ void MenuGroupBuild::constructMenu()
     }
   }
 
-  // loop for re-arranging buttons that are in subgroups.
-  for (auto it : m_buildSubMenuGroups)
-  {
-    int number = 1;
-    for (auto button : m_buildSubMenuGroups[it.first]->getAllButtons())
-    {
-      button->setPosition(screenCenter.x / 2 - 40 * number, screenCenter.y / 2 - 40);
-      number++;
-    }
-    LOG() << "Size of " << it.first << " is " << m_buildSubMenuGroups[it.first]->count();
-  }
-
   // set actionID
-
   for (auto it : m_buildMenuGroup->getAllButtons())
   {
 
@@ -129,6 +102,51 @@ void MenuGroupBuild::constructMenu()
       it->setActionID("ToggleVisibilityOfGroup");
       it->setActionParameter(it->getUiElementData().menuGroupID);
       LOG() << "Adding action for: " << it->getUiElementData().menuGroupID;
+    }
+  }
+
+  arrangeElements();
+}
+
+void MenuGroupBuild::arrangeElements()
+{
+  SDL_Point screenCenter{Settings::instance().settings.screenWidth / 2, Settings::instance().settings.screenHeight / 2};
+  int width = 0;
+  //TODO: Make Padding an attribute
+  int padding = 16;
+  int x = 0;
+
+  // get width for all main elements
+  for (auto it : m_buildMenuGroup->getAllButtons())
+  {
+    width += it->getUiElementRect().w;
+  }
+  // add padding between main elements to width
+  width -= static_cast<int>(padding * (m_buildMenuGroup->count()-1));
+
+  int xOffset = screenCenter.x - width;
+  int currentElement = 1;
+
+  // set position for main elements
+  for (auto it : m_buildMenuGroup->getAllButtons())
+  {
+    int elementWidth = it->getUiElementRect().w;
+    if (!it->getUiElementData().menuGroupID.empty())
+    {
+      x = static_cast<int>(xOffset + (elementWidth * currentElement) + elementWidth / 4 * (currentElement - 1));
+      it->setPosition(x, screenCenter.y);
+      currentElement++;
+    }
+  }
+
+  // loop for re-arranging buttons that are in subgroups.
+  for (auto it : m_buildSubMenuGroups)
+  {
+    int number = 1;
+    for (auto button : m_buildSubMenuGroups[it.first]->getAllButtons())
+    {
+      button->setPosition(screenCenter.x - 40 * number, screenCenter.y);
+      number++;
     }
   }
 }
