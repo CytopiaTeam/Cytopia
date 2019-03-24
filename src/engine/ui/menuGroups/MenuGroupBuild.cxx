@@ -112,9 +112,12 @@ void MenuGroupBuild::arrangeElements()
 {
   SDL_Point screenCenter{Settings::instance().settings.screenWidth / 2, Settings::instance().settings.screenHeight / 2};
   int mainGroupWidth = 0;
+
   //TODO: Make Padding an attribute
   int padding = 16;
+  int paddingVertical = 16;
   int subMenuPadding = 8;
+  int subMenuPaddingVertical = 8;
 
   // get width for all main elements
   for (auto it : m_buildMenuGroup->getAllButtons())
@@ -124,17 +127,19 @@ void MenuGroupBuild::arrangeElements()
   // add padding between main elements to width
   mainGroupWidth -= static_cast<int>(padding * (m_buildMenuGroup->count() - 1));
 
+  // calculate x starting point
   int xOffset = screenCenter.x - mainGroupWidth;
   int currentElement = 1;
 
-  // set position for main elements
+  // set position for all main elements
   for (auto it : m_buildMenuGroup->getAllButtons())
   {
     int elementWidth = it->getUiElementRect().w;
     if (!it->getUiElementData().menuGroupID.empty())
     {
       int x = static_cast<int>(xOffset + (elementWidth * currentElement) + padding * (currentElement - 1));
-      it->setPosition(x, screenCenter.y);
+      int y = Settings::instance().settings.screenHeight - it->getUiElementRect().h - paddingVertical;
+      it->setPosition(x, y);
       currentElement++;
     }
 
@@ -154,12 +159,15 @@ void MenuGroupBuild::arrangeElements()
           static_cast<int>(subMenuPadding * (m_buildSubMenuGroups[it->getUiElementData().menuGroupID]->count() - 1));
 
       int subMenuXOffset = parentRect.x - subMenuGroupWidth / 2;
+      int subMenuYOffset = parentRect.y;
 
       int currentSubElement = 1;
       for (auto groupElement : m_buildSubMenuGroups[it->getUiElementData().menuGroupID]->getAllButtons())
       {
-        int x = subMenuXOffset + groupElement->getUiElementRect().w * currentSubElement + subMenuPadding * (currentSubElement - 1);
-        groupElement->setPosition(x, screenCenter.y);
+        int x =
+            subMenuXOffset + groupElement->getUiElementRect().w * currentSubElement + subMenuPadding * (currentSubElement - 1);
+        int y = subMenuYOffset - groupElement->getUiElementRect().h - subMenuPaddingVertical;
+        groupElement->setPosition(x, y);
         currentSubElement++;
       }
     }
