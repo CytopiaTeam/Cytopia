@@ -36,6 +36,8 @@ public:
 
   const std::vector<std::unique_ptr<UiElement>> &getAllUiElements() const { return m_uiElements; };
 
+  const std::vector<UiElement *> &getAllUiElementsForEventHandling() const { return m_uiElementsForEventHandling; };
+
   const std::vector<UiElement *> &getUiElementsOfGroup(const std::string groupID) const;
 
   UiElement *getUiElementByID(const std::string &UiElement) const;
@@ -52,6 +54,12 @@ private:
   // stores Buttongroups and UiElements that are not in a group
   std::vector<UiElement *> m_uiElementsForEventHandling;
 
+  // map holding all ui elements, accessible via the group ID
+  std::unordered_map<std::string, std::vector<UiElement *>> m_uiGroups;
+
+  // Holding all buttongroups
+  std::unordered_map<std::string, ButtonGroup *> m_buttonGroups;
+
   std::unique_ptr<Tooltip> m_tooltip = std::make_unique<Tooltip>();
   // Text element for the FPS Counter (debug menu)
   std::unique_ptr<Text> m_fpsCounter = std::make_unique<Text>(SDL_Rect{40, 20, 0, 0});
@@ -60,12 +68,7 @@ private:
 
   bool m_showDebugMenu = false;
 
-  std::unordered_map<std::string, std::vector<UiElement *>> m_uiGroups;
-  std::unordered_map<std::string, ButtonGroup *> m_buttonGroups;
-
   MenuGroupBuild m_menuGroupBuild;
-
-  friend class EventManager;
 };
 
 #endif

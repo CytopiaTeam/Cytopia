@@ -150,7 +150,7 @@ bool EventManager::dispatchUiEvents(SDL_Event &event)
   bool isMouseOverElement = false;
   bool isHovering = false;
 
-  for (const auto &it : utils::ReverseIterator(m_uiManager.m_uiElementsForEventHandling))
+  for (const auto &it : utils::ReverseIterator(m_uiManager.getAllUiElementsForEventHandling()))
   {
     if (it->isVisible())
     {
@@ -187,7 +187,7 @@ bool EventManager::dispatchUiEvents(SDL_Event &event)
   }
 
   // the reversed draw order of the vector is  the Z-Order of the elements
-  for (const auto &it : utils::ReverseIterator(m_uiManager.m_uiElements))
+  for (const auto &it : utils::ReverseIterator(m_uiManager.getAllUiElements()))
   {
     if (event.type == SDL_KEYDOWN)
     {
