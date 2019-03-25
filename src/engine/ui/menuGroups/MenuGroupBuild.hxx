@@ -27,7 +27,7 @@ public:
 
   void constructMenu();
 
-  private:
+private:
   void arrangeElements();
 };
 

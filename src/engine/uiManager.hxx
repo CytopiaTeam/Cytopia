@@ -36,10 +36,7 @@ public:
 
   const std::vector<std::unique_ptr<UiElement>> &getAllUiElements() const { return m_uiElements; };
 
-  const std::vector<UiElement *> &getUiElementsOfGroup(const std::string groupID) const
-  {
-    return m_uiGroups.find(groupID)->second;
-  };
+  const std::vector<UiElement *> &getUiElementsOfGroup(const std::string groupID) const;
 
   UiElement *getUiElementByID(const std::string &UiElement) const;
   void startTooltip(SDL_Event &event, const std::string &tooltipText);
@@ -58,6 +55,8 @@ private:
   std::unique_ptr<Tooltip> m_tooltip = std::make_unique<Tooltip>();
   // Text element for the FPS Counter (debug menu)
   std::unique_ptr<Text> m_fpsCounter = std::make_unique<Text>(SDL_Rect{40, 20, 0, 0});
+
+  void setCallbackFunctions();
 
   bool m_showDebugMenu = false;
 

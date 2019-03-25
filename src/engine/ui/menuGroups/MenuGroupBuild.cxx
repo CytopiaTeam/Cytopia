@@ -79,6 +79,9 @@ void MenuGroupBuild::constructMenu()
         button->setVisibility(false);
         button->setToggleButton(true);
 
+        button->setActionID("ChangeTileType");
+        button->setActionParameter(tile.first);
+
         if (m_buildSubMenuGroups[tile.second.category])
         {
           m_buildSubMenuGroups[tile.second.category]->addToGroup(button);
@@ -96,7 +99,6 @@ void MenuGroupBuild::constructMenu()
   // set actionID
   for (auto it : m_buildMenuGroup->getAllButtons())
   {
-
     if (m_buildSubMenuGroups.count(it->getUiElementData().menuGroupID))
     {
       it->setActionID("ToggleVisibilityOfGroup");

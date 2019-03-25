@@ -138,92 +138,6 @@ void UIManager::init()
           m_uiGroups[groupID].push_back(uiElement.get());
         }
 
-        if (actionID == "RaiseTerrain")
-        {
-          uiElement->registerCallbackFunction([](UiElement *sender) {
-            Button *button = dynamic_cast<Button *>(sender);
-            if (button)
-            {
-              if (button->getUiElementData().isToggleButton)
-              {
-                button->checkState() ? terrainEditMode = TerrainEdit::RAISE : terrainEditMode = TerrainEdit::NONE;
-                button->checkState() ? highlightSelection = true : highlightSelection = false;
-                return;
-              }
-            }
-            terrainEditMode == TerrainEdit::RAISE ? terrainEditMode = TerrainEdit::NONE : terrainEditMode = TerrainEdit::RAISE;
-            terrainEditMode == TerrainEdit::NONE ? highlightSelection = false : highlightSelection = true;
-          });
-        }
-        else if (actionID == "LowerTerrain")
-        {
-          uiElement->registerCallbackFunction([](UiElement *sender) {
-            Button *button = dynamic_cast<Button *>(sender);
-            if (button)
-            {
-              if (button->getUiElementData().isToggleButton)
-              {
-                button->checkState() ? terrainEditMode = TerrainEdit::LOWER : terrainEditMode = TerrainEdit::NONE;
-                button->checkState() ? highlightSelection = true : highlightSelection = false;
-                return;
-              }
-            }
-            terrainEditMode == TerrainEdit::LOWER ? terrainEditMode = TerrainEdit::NONE : terrainEditMode = TerrainEdit::LOWER;
-            terrainEditMode == TerrainEdit::NONE ? highlightSelection = true : highlightSelection = false;
-          });
-        }
-        else if (actionID == "QuitGame")
-        {
-          uiElement->registerCallbackFunction(Signal::slot(Engine::instance(), &Engine::quitGame));
-        }
-        else if (actionID == "Demolish")
-        {
-          uiElement->registerCallbackFunction([](UiElement *sender) {
-            Button *button = dynamic_cast<Button *>(sender);
-            if (button)
-            {
-              if (button->getUiElementData().isToggleButton)
-              {
-                button->checkState() ? demolishMode = true : demolishMode = false;
-                button->checkState() ? highlightSelection = true : highlightSelection = false;
-                return;
-              }
-            }
-
-            demolishMode = !demolishMode;
-            demolishMode ? highlightSelection = true : highlightSelection = false;
-          });
-        }
-        else if (actionID == "ChangeTileType")
-        {
-
-          uiElement->registerCallbackFunction([actionParameter](UiElement *sender) {
-            Button *button = dynamic_cast<Button *>(sender);
-            if (button)
-            {
-              if (button->getUiElementData().isToggleButton)
-              {
-                button->checkState() ? tileTypeEditMode = actionParameter : tileTypeEditMode = "";
-                button->checkState() ? highlightSelection = true : highlightSelection = false;
-                return;
-              }
-            }
-            tileTypeEditMode == actionParameter ? tileTypeEditMode = "" : tileTypeEditMode = actionParameter;
-            tileTypeEditMode == actionParameter ? highlightSelection = true : highlightSelection = false;
-          });
-        }
-        else if (actionID == "ToggleVisibilityOfGroup")
-        {
-          uiElement->registerCallbackFunction(Signal::slot(this, &UIManager::toggleGroupVisibility));
-        }
-        else if (actionID == "SaveGame")
-        {
-          uiElement->registerCallbackFunction([]() { Engine::instance().saveGame("resources/save.cts"); });
-        }
-        else if (actionID == "LoadGame")
-        {
-          uiElement->registerCallbackFunction([]() { Engine::instance().loadGame("resources/save.cts"); });
-        }
         // store the element in a vector
         m_uiElements.emplace_back(std::move(uiElement));
       }
@@ -248,8 +162,11 @@ void UIManager::init()
     for (auto uiElement : it.second->getAllButtons())
     {
       m_uiGroups[it.first].push_back(uiElement);
+      m_uiElements.emplace_back(uiElement);
     }
   }
+
+  setCallbackFunctions();
 }
 
 void UIManager::setFPSCounterText(const std::string &fps) { m_fpsCounter->setText(fps); }
@@ -326,4 +243,104 @@ UiElement *UIManager::getUiElementByID(const std::string &UiElementID) const
       return it.get();
   }
   return nullptr;
+}
+
+const std::vector<UiElement *> &UIManager::getUiElementsOfGroup(const std::string groupID) const
+{
+
+  return m_uiGroups.find(groupID)->second;
+}
+
+void UIManager::setCallbackFunctions()
+{
+  for (auto &uiElement : m_uiElements)
+  {
+    std::string actionParameter = uiElement->getUiElementData().actionParameter;
+
+    if (uiElement->getUiElementData().actionID == "RaiseTerrain")
+    {
+      uiElement->registerCallbackFunction([](UiElement *sender) {
+        Button *button = dynamic_cast<Button *>(sender);
+        if (button)
+        {
+          if (button->getUiElementData().isToggleButton)
+          {
+            button->checkState() ? terrainEditMode = TerrainEdit::RAISE : terrainEditMode = TerrainEdit::NONE;
+            button->checkState() ? highlightSelection = true : highlightSelection = false;
+            return;
+          }
+        }
+        terrainEditMode == TerrainEdit::RAISE ? terrainEditMode = TerrainEdit::NONE : terrainEditMode = TerrainEdit::RAISE;
+        terrainEditMode == TerrainEdit::NONE ? highlightSelection = false : highlightSelection = true;
+      });
+    }
+    else if (uiElement->getUiElementData().actionID == "LowerTerrain")
+    {
+      uiElement->registerCallbackFunction([](UiElement *sender) {
+        Button *button = dynamic_cast<Button *>(sender);
+        if (button)
+        {
+          if (button->getUiElementData().isToggleButton)
+          {
+            button->checkState() ? terrainEditMode = TerrainEdit::LOWER : terrainEditMode = TerrainEdit::NONE;
+            button->checkState() ? highlightSelection = true : highlightSelection = false;
+            return;
+          }
+        }
+        terrainEditMode == TerrainEdit::LOWER ? terrainEditMode = TerrainEdit::NONE : terrainEditMode = TerrainEdit::LOWER;
+        terrainEditMode == TerrainEdit::NONE ? highlightSelection = true : highlightSelection = false;
+      });
+    }
+    else if (uiElement->getUiElementData().actionID == "QuitGame")
+    {
+      uiElement->registerCallbackFunction(Signal::slot(Engine::instance(), &Engine::quitGame));
+    }
+    else if (uiElement->getUiElementData().actionID == "Demolish")
+    {
+      uiElement->registerCallbackFunction([](UiElement *sender) {
+        Button *button = dynamic_cast<Button *>(sender);
+        if (button)
+        {
+          if (button->getUiElementData().isToggleButton)
+          {
+            button->checkState() ? demolishMode = true : demolishMode = false;
+            button->checkState() ? highlightSelection = true : highlightSelection = false;
+            return;
+          }
+        }
+
+        demolishMode = !demolishMode;
+        demolishMode ? highlightSelection = true : highlightSelection = false;
+      });
+    }
+    else if (uiElement->getUiElementData().actionID == "ChangeTileType")
+    {
+      uiElement->registerCallbackFunction([actionParameter](UiElement *sender) {
+        Button *button = dynamic_cast<Button *>(sender);
+        if (button)
+        {
+          if (button->getUiElementData().isToggleButton)
+          {
+            button->checkState() ? tileTypeEditMode = actionParameter : tileTypeEditMode = "";
+            button->checkState() ? highlightSelection = true : highlightSelection = false;
+            return;
+          }
+        }
+        tileTypeEditMode == actionParameter ? tileTypeEditMode = "" : tileTypeEditMode = actionParameter;
+        tileTypeEditMode == actionParameter ? highlightSelection = true : highlightSelection = false;
+      });
+    }
+    else if (uiElement->getUiElementData().actionID == "ToggleVisibilityOfGroup")
+    {
+      uiElement->registerCallbackFunction(Signal::slot(this, &UIManager::toggleGroupVisibility));
+    }
+    else if (uiElement->getUiElementData().actionID == "SaveGame")
+    {
+      uiElement->registerCallbackFunction([]() { Engine::instance().saveGame("resources/save.cts"); });
+    }
+    else if (uiElement->getUiElementData().actionID == "LoadGame")
+    {
+      uiElement->registerCallbackFunction([]() { Engine::instance().loadGame("resources/save.cts"); });
+    }
+  }
 }
