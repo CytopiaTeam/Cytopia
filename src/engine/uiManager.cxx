@@ -245,7 +245,7 @@ UiElement *UIManager::getUiElementByID(const std::string &UiElementID) const
   return nullptr;
 }
 
-const std::vector<UiElement *> &UIManager::getUiElementsOfGroup(const std::string groupID) const
+const std::vector<UiElement *> &UIManager::getUiElementsOfGroup(const std::string &groupID) const
 {
 
   return m_uiGroups.find(groupID)->second;
