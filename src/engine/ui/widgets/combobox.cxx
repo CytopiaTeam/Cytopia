@@ -82,35 +82,48 @@ bool ComboBox::isMouseOver(int x, int y)
   return x > boundaries.x && x < boundaries.x + boundaries.w && y > boundaries.y && y < boundaries.y + boundaries.h;
 }
 
-void ComboBox::onMouseButtonUp(const SDL_Event &event)
+bool ComboBox::onMouseButtonUp(const SDL_Event &event)
 {
   int x = event.button.x;
   int y = event.button.y;
 
-  if (x > m_comboBoxRect.x && x < m_comboBoxRect.x + m_comboBoxRect.w && y > m_comboBoxRect.y &&
-      y < m_comboBoxRect.y + m_comboBoxRect.h)
+  if (isMouseOver(x, y))
   {
-    m_isMenuOpened = !m_isMenuOpened;
-    m_textField->setVisibility(!m_textField->isVisible());
-    changeButtonState(BUTTONSTATE_HOVERING);
-    return;
-  }
+    if (x > m_comboBoxRect.x && x < m_comboBoxRect.x + m_comboBoxRect.w && y > m_comboBoxRect.y &&
+        y < m_comboBoxRect.y + m_comboBoxRect.h)
+    {
+      m_isMenuOpened = !m_isMenuOpened;
+      m_textField->setVisibility(!m_textField->isVisible());
+      changeButtonState(BUTTONSTATE_HOVERING);
+      return true;
+    }
 
-  if (m_isMenuOpened)
-  {
-    m_textField->onMouseButtonUp(event); //trigger TextField onMouseButtonUp event
-  }
+    if (m_isMenuOpened)
+    {
+      m_textField->onMouseButtonUp(event); //trigger TextField onMouseButtonUp event
+    }
 
-  if (m_isMenuOpened)
-  {
-    activeID = m_textField->selectedID;
-    activeText = m_textField->getTextFromID(activeID);
-    m_isMenuOpened = false;
-    m_textField->setVisibility(false);
+    if (m_isMenuOpened)
+    {
+      activeID = m_textField->selectedID;
+      activeText = m_textField->getTextFromID(activeID);
+      m_isMenuOpened = false;
+      m_textField->setVisibility(false);
+    }
+    return true;
   }
+  return false;
 }
 
-void ComboBox::onMouseButtonDown(const SDL_Event &) { changeButtonState(BUTTONSTATE_DEFAULT); }
+bool ComboBox::onMouseButtonDown(const SDL_Event &event)
+{
+  if (isMouseOver(event.button.x, event.button.y))
+  {
+    changeButtonState(BUTTONSTATE_DEFAULT);
+    return true;
+  }
+  return false;
+}
 
 void ComboBox::onMouseLeave(const SDL_Event &event)
 {

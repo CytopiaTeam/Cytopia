@@ -20,7 +20,7 @@ public:
 
   void draw() override;
 
-  void onMouseButtonUp(const SDL_Event &event) override;
+  bool onMouseButtonUp(const SDL_Event &event) override;
   void onMouseMove(const SDL_Event &event) override;
   void onMouseLeave(const SDL_Event &event) override;
 

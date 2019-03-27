@@ -17,26 +17,36 @@ void Checkbox::draw()
   }
 }
 
-void Checkbox::onMouseButtonUp(const SDL_Event &)
+bool Checkbox::onMouseButtonUp(const SDL_Event &event)
 {
-  clickSignal.emit();
-
-  if (!elementData.actionParameter.empty())
+  if (isMouseOver(event.button.x, event.button.y))
   {
-    toggleGroupSignal.emit(elementData.actionParameter);
-  }
+    clickSignal.emit();
 
-  if (!m_isMouseButtonDown)
-  {
-    changeButtonState(getButtonState() == BUTTONSTATE_CLICKED ? BUTTONSTATE_DEFAULT : BUTTONSTATE_CLICKED);
+    if (!elementData.actionParameter.empty())
+    {
+      toggleGroupSignal.emit(elementData.actionParameter);
+    }
+
+    if (!m_isMouseButtonDown)
+    {
+      changeButtonState(getButtonState() == BUTTONSTATE_CLICKED ? BUTTONSTATE_DEFAULT : BUTTONSTATE_CLICKED);
+    }
+    m_isMouseButtonDown = false;
+    return true;
   }
-  m_isMouseButtonDown = false;
+  return false;
 }
 
-void Checkbox::onMouseButtonDown(const SDL_Event &)
+bool Checkbox::onMouseButtonDown(const SDL_Event &event)
 {
-  changeButtonState(getButtonState() == BUTTONSTATE_CLICKED ? BUTTONSTATE_DEFAULT : BUTTONSTATE_CLICKED);
-  m_isMouseButtonDown = true;
+  if (isMouseOver(event.button.x, event.button.y))
+  {
+    changeButtonState(getButtonState() == BUTTONSTATE_CLICKED ? BUTTONSTATE_DEFAULT : BUTTONSTATE_CLICKED);
+    m_isMouseButtonDown = true;
+    return true;
+  }
+  return false;
 }
 
 void Checkbox::onMouseEnter(const SDL_Event &event)

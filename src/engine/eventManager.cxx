@@ -149,8 +149,40 @@ bool EventManager::dispatchUiEvents(SDL_Event &event)
   bool isMouseOverElement = false;
   bool isHovering = false;
 
+  // groupElements
+  for (auto &it : m_uiManager.m_buttonGroups)
+  {
+    switch (event.type)
+    {
+    case SDL_MOUSEBUTTONDOWN:
+      it.second.onMouseButtonDown(event);
+      break;
+    case SDL_MOUSEBUTTONUP:
+      it.second.onMouseButtonUp(event);
+      break;
+    }
+  }
+
+  for (const auto &it : utils::ReverseIterator(m_uiManager.m_uiElementsWithoutGroup))
+  {
+    if (it->isVisible())
+    {
+      switch (event.type)
+      {
+      case SDL_MOUSEBUTTONDOWN:
+        if (it->onMouseButtonDown(event))
+          return true;
+        break;
+      case SDL_MOUSEBUTTONUP:
+        if (it->onMouseButtonUp(event))
+          return true;
+        break;
+      }
+    }
+  }
+
   // the reversed draw order of the vector is  the Z-Order of the elements
-  for (const std::unique_ptr<UiElement> &it : utils::ReverseIterator(m_uiManager.getAllUiElements()))
+  for (const auto &it : utils::ReverseIterator(m_uiManager.m_uiElements))
   {
     if (event.type == SDL_KEYDOWN)
     {
@@ -166,6 +198,7 @@ bool EventManager::dispatchUiEvents(SDL_Event &event)
 
       switch (event.type)
       {
+
       case SDL_MOUSEMOTION:
         if (it.get() != m_lastHoveredElement && isHovering)
         {
@@ -191,23 +224,18 @@ bool EventManager::dispatchUiEvents(SDL_Event &event)
           m_uiManager.stopTooltip();
         }
         break;
-      case SDL_MOUSEBUTTONDOWN:
-        it->onMouseButtonDown(event);
-        break;
-      case SDL_MOUSEBUTTONUP:
-        it->onMouseButtonUp(event);
-        break;
       }
       break; // break after the first element is found (Z-Order)
     }
   }
 
-  if (!isHovering && m_lastHoveredElement != nullptr)
-  {
-    m_uiManager.stopTooltip();
-    m_lastHoveredElement->onMouseLeave(event);
-    m_lastHoveredElement = nullptr;
-  }
 
-  return isMouseOverElement;
+if (!isHovering && m_lastHoveredElement != nullptr)
+{
+  m_uiManager.stopTooltip();
+  m_lastHoveredElement->onMouseLeave(event);
+  m_lastHoveredElement = nullptr;
+}
+
+return isMouseOverElement;
 }

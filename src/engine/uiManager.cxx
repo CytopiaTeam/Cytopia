@@ -16,10 +16,6 @@ void UIManager::init()
 {
   json uiLayout;
 
-  //char*  full_text = new char[strlen(base_path) + strlen(SETTINGS_FILE_NAME) + 1];
-  //strcpy(full_text, SDL_GetBasePath());
-  //strcat(full_text, SETTINGS_FILE_NAME);
-  //std::ifstream i(full_text);
   std::ifstream i(SDL_GetBasePath() + Settings::instance().settings.uiLayoutJSONFile);
   if (i.fail())
   {
@@ -62,6 +58,7 @@ void UIManager::init()
         std::string text = uiLayout[it.key()][id].value("Text", "");
         std::string textureID = uiLayout[it.key()][id].value("SpriteID", "");
         std::string uiElementType = uiLayout[it.key()][id].value("Type", "");
+        std::string buttonGroupID = uiLayout[it.key()][id].value("ButtonGroup", "");
 
         SDL_Rect elementRect{0, 0, 0, 0};
         elementRect.x = uiLayout[it.key()][id].value("Position_x", 0);
@@ -115,6 +112,15 @@ void UIManager::init()
         uiElement->setUIElementID(uiElementID);
         uiElement->drawImageButtonFrame(drawFrame);
 
+        if (!buttonGroupID.empty())
+        {
+          m_buttonGroups[buttonGroupID].addToGroup(dynamic_cast<Button *>(uiElement.get()));
+        }
+        else
+        {
+          m_uiElementsWithoutGroup.push_back(uiElement.get());
+        }
+
         if (!groupID.empty())
         {
           m_uiGroups[groupID].push_back(uiElement.get());
@@ -122,16 +128,36 @@ void UIManager::init()
 
         if (actionID == "RaiseTerrain")
         {
-          uiElement->registerCallbackFunction([]() {
+          uiElement->registerCallbackFunction([](UiElement *sender) {
+            Button *button = dynamic_cast<Button *>(sender);
+            if (button)
+            {
+              if (button->getUiElementData().isToggleButton)
+              {
+                button->checkState() ? terrainEditMode = TerrainEdit::RAISE : terrainEditMode = TerrainEdit::NONE;
+                button->checkState() ? highlightSelection = true : highlightSelection = false;
+                return;
+              }
+            }
             terrainEditMode == TerrainEdit::RAISE ? terrainEditMode = TerrainEdit::NONE : terrainEditMode = TerrainEdit::RAISE;
             terrainEditMode == TerrainEdit::NONE ? highlightSelection = false : highlightSelection = true;
           });
         }
         else if (actionID == "LowerTerrain")
         {
-          uiElement->registerCallbackFunction([]() {
+          uiElement->registerCallbackFunction([](UiElement *sender) {
+            Button *button = dynamic_cast<Button *>(sender);
+            if (button)
+            {
+              if (button->getUiElementData().isToggleButton)
+              {
+                button->checkState() ? terrainEditMode = TerrainEdit::LOWER : terrainEditMode = TerrainEdit::NONE;
+                button->checkState() ? highlightSelection = true : highlightSelection = false;
+                return;
+              }
+            }
             terrainEditMode == TerrainEdit::LOWER ? terrainEditMode = TerrainEdit::NONE : terrainEditMode = TerrainEdit::LOWER;
-            terrainEditMode == TerrainEdit::NONE ? highlightSelection = false : highlightSelection = true;
+            terrainEditMode == TerrainEdit::NONE ? highlightSelection = true : highlightSelection = false;
           });
         }
         else if (actionID == "QuitGame")
@@ -140,17 +166,38 @@ void UIManager::init()
         }
         else if (actionID == "Demolish")
         {
-          uiElement->registerCallbackFunction([]() {
+          uiElement->registerCallbackFunction([](UiElement *sender) {
+            Button *button = dynamic_cast<Button *>(sender);
+            if (button)
+            {
+              if (button->getUiElementData().isToggleButton)
+              {
+                button->checkState() ? demolishMode = true : demolishMode = false;
+                button->checkState() ? highlightSelection = true : highlightSelection = false;
+                return;
+              }
+            }
+
             demolishMode = !demolishMode;
             demolishMode ? highlightSelection = true : highlightSelection = false;
           });
         }
         else if (actionID == "ChangeTileType")
         {
-          std::string tileType = uiLayout[it.key()][id].value("TileType", "");
-          uiElement->registerCallbackFunction([tileType]() {
-            tileTypeEditMode == tileType ? tileTypeEditMode = "" : tileTypeEditMode = tileType;
-            tileTypeEditMode == tileType ? highlightSelection = true : highlightSelection = false;
+
+          uiElement->registerCallbackFunction([actionParameter](UiElement *sender) {
+            Button *button = dynamic_cast<Button *>(sender);
+            if (button)
+            {
+              if (button->getUiElementData().isToggleButton)
+              {
+                button->checkState() ? tileTypeEditMode = actionParameter : tileTypeEditMode = "";
+                button->checkState() ? highlightSelection = true : highlightSelection = false;
+                return;
+              }
+            }
+            tileTypeEditMode == actionParameter ? tileTypeEditMode = "" : tileTypeEditMode = actionParameter;
+            tileTypeEditMode == actionParameter ? highlightSelection = true : highlightSelection = false;
           });
         }
         else if (actionID == "ToggleVisibilityOfGroup")
@@ -192,7 +239,7 @@ void UIManager::drawUI() const
   m_tooltip->draw();
 }
 
-void UIManager::toggleGroupVisibility(const std::string &groupID)
+void UIManager::toggleGroupVisibility(const std::string &groupID, UiElement *sender)
 {
   if (groupID.empty())
   {
@@ -200,6 +247,22 @@ void UIManager::toggleGroupVisibility(const std::string &groupID)
     return;
   }
 
+  if (sender)
+  {
+    Button *button = dynamic_cast<Button *>(sender);
+    if (button)
+    {
+      // cast the object to a Button to check if it's a toggle button.
+      if (button->getUiElementData().isToggleButton)
+      {
+        for (const auto &it : m_uiGroups[groupID])
+        {
+          it->setVisibility(button->checkState());
+        }
+        return;
+      }
+    }
+  }
   for (const auto &it : m_uiGroups[groupID])
   {
     it->setVisibility(!it->isVisible());

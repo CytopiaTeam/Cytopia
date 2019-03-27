@@ -14,29 +14,33 @@ public:
 
   void setText(const std::string &text) override;
 
-  void onMouseButtonUp(const SDL_Event &event) override;
-  void onMouseButtonDown(const SDL_Event &event) override;
+  bool onMouseButtonUp(const SDL_Event &event) override;
+  bool onMouseButtonDown(const SDL_Event &event) override;
   void onMouseEnter(const SDL_Event &event) override;
   void onMouseLeave(const SDL_Event &event) override;
 
   void drawImageButtonFrame(bool drawFrame) override;
 
   void registerCallbackFunction(std::function<void()> const &cb) override;
-  void registerCallbackFunction(std::function<void(const std::string &)> const &cb) override;
+  void registerCallbackFunction(std::function<void(UiElement *sender)> const &cb) override;
+  void registerCallbackFunction(std::function<void(const std::string &, UiElement* sender)> const &cb) override;
 
+  bool checkState() const { return m_checkState; };
+  void setCheckState(bool state);
 private:
   SDL_Rect m_rect;
 
   std::unique_ptr<Text> m_buttonLabel;
 
   bool m_isMouseButtonDown = false;
-  bool m_isButtonToggled = false;
 
   bool m_drawFrame = false;
+  bool m_checkState = false;
 
   // Signals
   Signal::Signal<void()> clickSignal;
-  Signal::Signal<void(const std::string &)> clickSignalString;
+  Signal::Signal<void(UiElement *sender)> clickSignalSender;
+  Signal::Signal<void(const std::string &, UiElement* sender)> clickSignalString;
 };
 
 #endif

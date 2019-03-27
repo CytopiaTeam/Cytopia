@@ -62,18 +62,23 @@ std::string TextField::getTextFromID(int id) const
   return "";
 }
 
-void TextField::onMouseButtonUp(const SDL_Event &event)
+bool TextField::onMouseButtonUp(const SDL_Event &event)
 {
-  if (!m_textElements.empty())
+  if (isMouseOver(event.button.x, event.button.y))
   {
-    selectedID = ((m_textElementHeight + event.button.y - m_uiElementRect.y) / m_textElementHeight) - 1;
-    // because of the -4 pixel offset that's been added in the constructor, the id would exceed the size of the vector, if the bottom of the dropdown is clicked
-
-    if (selectedID >= count)
+    if (!m_textElements.empty())
     {
-      selectedID = count - 1;
+      selectedID = ((m_textElementHeight + event.button.y - m_uiElementRect.y) / m_textElementHeight) - 1;
+      // because of the -4 pixel offset that's been added in the constructor, the id would exceed the size of the vector, if the bottom of the dropdown is clicked
+
+      if (selectedID >= count)
+      {
+        selectedID = count - 1;
+      }
     }
+    return true;
   }
+  return false;
 }
 
 void TextField::onMouseMove(const SDL_Event &event)
