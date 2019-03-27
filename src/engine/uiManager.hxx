@@ -38,7 +38,7 @@ public:
 
   const std::vector<UiElement *> &getAllUiElementsForEventHandling() const { return m_uiElementsForEventHandling; };
 
-  const std::vector<UiElement *> &getUiElementsOfGroup(const std::string &groupID) const;
+  const std::vector<UiElement *> *getUiElementsOfGroup(const std::string &groupID) const;
 
   UiElement *getUiElementByID(const std::string &UiElement) const;
   void startTooltip(SDL_Event &event, const std::string &tooltipText);

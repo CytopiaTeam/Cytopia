@@ -56,9 +56,10 @@ void ButtonGroup::uncheckAllButtons(Button *exceptThisButton)
   for (const auto &it : m_buttonGroup)
   {
     // If the buttongroup has children, uncheck them too
-    if (it->getUiElementData().actionID == "ToggleVisibilityOfGroup")
+    if (UIManager::instance().getUiElementsOfGroup(it->getUiElementData().actionParameter) &&
+        it->getUiElementData().actionID == "ToggleVisibilityOfGroup")
     {
-      for (const auto &groupElement : UIManager::instance().getUiElementsOfGroup(it->getUiElementData().actionParameter))
+      for (auto groupElement : *UIManager::instance().getUiElementsOfGroup(it->getUiElementData().actionParameter))
       {
         Button *button = dynamic_cast<Button *>(groupElement);
         if (button)
