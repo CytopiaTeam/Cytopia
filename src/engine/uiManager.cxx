@@ -251,7 +251,6 @@ const std::vector<UiElement *> *UIManager::getUiElementsOfGroup(const std::strin
   {
     return &m_uiGroups.find(groupID)->second;
   }
-  LOG() << "ERROR " << groupID << " does not exist";
   return nullptr;
 }
 

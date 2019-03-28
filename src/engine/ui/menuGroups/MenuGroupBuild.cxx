@@ -50,7 +50,7 @@ void MenuGroupBuild::constructMenu()
         newString = it->getUiElementData().menuGroupID;
 
         newString.erase(sizeOfStringToCut, stringToCut.size());
-        if (m_buildSubMenuGroups.find("newString") != m_buildSubMenuGroups.end())
+        if (m_buildSubMenuGroups.find(newString) != m_buildSubMenuGroups.end())
         {
           m_buildSubMenuGroups[newString]->addToGroup(it);
         }

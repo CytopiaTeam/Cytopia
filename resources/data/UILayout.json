@@ -134,7 +134,8 @@
       "ButtonGroup": "BottomMenuExpansionGroup",
       "ToggleButton": true,
       "DrawFrame": true,
-      "TooltipText": "Raise Terrain"
+      "TooltipText": "Raise Terrain",
+      "menuGroupID": "Construction_sub"
     },
     {
       "ID": "button lower terrain",
@@ -146,7 +147,8 @@
       "ButtonGroup": "BottomMenuExpansionGroup",
       "ToggleButton": true,
       "DrawFrame": true,
-      "TooltipText": "Lower Terrain"
+      "TooltipText": "Lower Terrain",
+      "menuGroupID": "Construction_sub"
     },
     {
       "ID": "button level terrain",
@@ -158,7 +160,8 @@
       "ButtonGroup": "BottomMenuExpansionGroup",
       "ToggleButton": true,
       "DrawFrame": true,
-      "TooltipText": "Level Terrain"
+      "TooltipText": "Level Terrain",
+      "menuGroupID": "Construction_sub"
     },
     {
       "ID": "button terrain water",
@@ -171,7 +174,8 @@
       "ButtonGroup": "BottomMenuExpansionGroup",
       "ToggleButton": true,
       "DrawFrame": true,
-      "TooltipText": "Water"
+      "TooltipText": "Water",
+      "menuGroupID": "Construction_sub"
     }
   ],
   "PowerSubMenu": [
