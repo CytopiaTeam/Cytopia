@@ -114,28 +114,29 @@ void UIManager::init()
         uiElement->drawImageButtonFrame(drawFrame);
         uiElement->setMenuGroupID(menuGroupID);
 
-        if (!menuGroupID.empty())
+        // only add UiElements to buttongroups / eventhandling if they have no MenuGroupID property set
+        if (menuGroupID.empty())
         {
-          m_menuGroupBuild.addToGroup(dynamic_cast<Button *>(uiElement.get()));
-        }
 
-        if (!buttonGroupID.empty())
-        {
-          if (m_buttonGroups.find("buttonGroupID") == m_buttonGroups.end())
+          if (!buttonGroupID.empty())
           {
-            m_buttonGroups[buttonGroupID] = new ButtonGroup();
+            if (m_buttonGroups.find("buttonGroupID") == m_buttonGroups.end())
+            {
+              m_buttonGroups[buttonGroupID] = new ButtonGroup();
+            }
+
+            m_buttonGroups[buttonGroupID]->addToGroup(dynamic_cast<Button *>(uiElement.get()));
+          }
+          else
+          {
+            // ButtonGroup Elements will be added later
+            m_uiElementsForEventHandling.push_back(uiElement.get());
           }
 
-          m_buttonGroups[buttonGroupID]->addToGroup(dynamic_cast<Button *>(uiElement.get()));
-        }
-        else
-        {
-          m_uiElementsForEventHandling.push_back(uiElement.get());
-        }
-
-        if (!groupID.empty())
-        {
-          m_uiGroups[groupID].push_back(uiElement.get());
+          if (!groupID.empty())
+          {
+            m_uiGroups[groupID].push_back(uiElement.get());
+          }
         }
 
         // store the element in a vector
@@ -145,28 +146,14 @@ void UIManager::init()
   }
   m_tooltip->setVisibility(false);
 
-  // Add all buttongroups
+  createBuildMenu();
+  setCallbackFunctions();
+
+  // Add all buttongroups to EventHandling container
   for (auto it : m_buttonGroups)
   {
     m_uiElementsForEventHandling.push_back(it.second);
   }
-
-  m_menuGroupBuild.constructMenu();
-
-  // Add main buttongroup from MenuGroup
-  m_uiElementsForEventHandling.push_back(m_menuGroupBuild.m_buildMenuGroup);
-
-  for (auto it : m_menuGroupBuild.m_buildSubMenuGroups)
-  {
-    m_uiElementsForEventHandling.push_back(it.second);
-    for (auto uiElement : it.second->getAllButtons())
-    {
-      m_uiGroups[it.first].push_back(uiElement);
-      m_uiElements.emplace_back(uiElement);
-    }
-  }
-
-  setCallbackFunctions();
 }
 
 void UIManager::setFPSCounterText(const std::string &fps) { m_fpsCounter->setText(fps); }
@@ -259,7 +246,6 @@ void UIManager::setCallbackFunctions()
   for (auto &uiElement : m_uiElements)
   {
     std::string actionParameter = uiElement->getUiElementData().actionParameter;
-
     if (uiElement->getUiElementData().actionID == "RaiseTerrain")
     {
       uiElement->registerCallbackFunction([](UiElement *sender) {
@@ -344,6 +330,58 @@ void UIManager::setCallbackFunctions()
     else if (uiElement->getUiElementData().actionID == "LoadGame")
     {
       uiElement->registerCallbackFunction([]() { Engine::instance().loadGame("resources/save.cts"); });
+    }
+  }
+}
+
+// TODO: Rename to create menugroup buttons
+void UIManager::createBuildMenu()
+{
+  std::string stringToCut = "_sub";
+  std::string::size_type sizeOfStringToCut;
+  std::string parentGroupName;
+
+  // Create ButtonGroup "_BuildMenu_" for the parent elements
+  if (m_buttonGroups.find("_BuildMenu_") == m_buttonGroups.end())
+  {
+    m_buttonGroups["_BuildMenu_"] = new ButtonGroup;
+  }
+
+  // iterate over all elements and add everything that has a menuGroupID.
+  for (const auto &element : m_uiElements)
+  {
+    // Only buttons can be added to the build menu
+    Button *button = dynamic_cast<Button *>(element.get());
+    if (button)
+    {
+      // check if the element has the menuGroupID set
+      if (!button->getUiElementData().menuGroupID.empty())
+      {
+        // get all uiElements that have a _sub suffix in their MenuGroupID
+        sizeOfStringToCut = button->getUiElementData().menuGroupID.find("_sub");
+        if (button->getUiElementData().menuGroupID.find(stringToCut) != std::string::npos)
+        {
+          parentGroupName = element->getUiElementData().menuGroupID;
+          parentGroupName.erase(sizeOfStringToCut, stringToCut.size());
+          // Make sure the button group exists before adding the item.
+          if (m_buttonGroups.find(parentGroupName) == m_buttonGroups.end())
+          {
+            m_buttonGroups[parentGroupName] = new ButtonGroup;
+          }
+          // add the element to both buttonGroup and uiGroup container
+          m_buttonGroups[parentGroupName]->addToGroup(button);
+          m_uiGroups[parentGroupName].push_back(button);
+        }
+        //  A base-button toggles a group with the same name as the MenuGroupID, so set ActionID and ActionParameter for all base buttons
+        else
+        {
+          // create buttons in the main menu
+          button->setActionID("ToggleVisibilityOfGroup");
+          button->setActionParameter(button->getUiElementData().menuGroupID);
+          m_buttonGroups["_BuildMenu_"]->addToGroup(button);
+          m_uiGroups["_BuildMenu_"].push_back(button);
+        }
+      }
     }
   }
 }

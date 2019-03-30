@@ -66,6 +66,8 @@ private:
 
   void setCallbackFunctions();
 
+  void createBuildMenu();
+
   bool m_showDebugMenu = false;
 
   MenuGroupBuild m_menuGroupBuild;
