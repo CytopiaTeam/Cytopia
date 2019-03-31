@@ -15,6 +15,22 @@
 
 #include <SDL.h>
 
+struct Layout
+{
+  std::string alignment;         /// where the element should be place. e.g. SCREENCENTER
+  std::string layoutType;        /// how to layout, default = HORIZONTAL
+  std::string layoutParentGroup; /// align to the parent Group
+  float alignmentOffset;         /// Offset in percent to the screen point. can be negative
+  int padding;                   /// padding between elements in pixel
+  int paddingParent;             /// padding between this group and the parent
+};
+
+struct UiGroup
+{
+  std::vector<UiElement *> uiElements; /// contains pointer to all uiElements belonging to this group
+  Layout layout;                       /// layout information @see Layout
+};
+
 class UIManager
 {
 public:
@@ -39,25 +55,12 @@ public:
 
   const std::vector<UiElement *> *getUiElementsOfGroup(const std::string &groupID) const;
 
+  const std::unordered_map<std::string, UiGroup> &getAllUiGroups() const { return m_uiGroups; }
+
   UiElement *getUiElementByID(const std::string &UiElement) const;
   void startTooltip(SDL_Event &event, const std::string &tooltipText);
 
   void stopTooltip() const;
-
-  struct UiGroup
-  {
-    std::vector<UiElement *> uiElements;
-    Layout layout;
-  };
-  struct Layout
-  {
-    std::string alignment;         /// where the element should be place. e.g. SCREENCENTER
-    std::string layoutType;        /// how to layout, default = HORIZONTAL
-    std::string layoutParentGroup; /// align to the parent Group
-    float alignmentOffset;         /// Offset in percent to the screen point. can be negative
-    int padding;                   /// padding between elements in pixel
-    int paddingParent;             /// padding between this group and the parent
-  };
 
 private:
   UIManager() = default;

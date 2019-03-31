@@ -372,6 +372,7 @@ void UIManager::createBuildMenu()
           button->setActionID("ToggleVisibilityOfGroup");
           button->setActionParameter(button->getUiElementData().menuGroupID);
           m_buttonGroups["_BuildMenu_"]->addToGroup(button);
+
           m_uiGroups["_BuildMenu_"].uiElements.push_back(button);
         }
       }
