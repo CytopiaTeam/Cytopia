@@ -12,7 +12,6 @@
 #include "ui/widgets/combobox.hxx"
 #include "ui/basics/uiElement.hxx"
 #include "ui/basics/buttonGroup.hxx"
-#include "ui/menuGroups/MenuGroupBuild.hxx"
 
 #include <SDL.h>
 
@@ -45,6 +44,21 @@ public:
 
   void stopTooltip() const;
 
+  struct UiGroup
+  {
+    std::vector<UiElement *> uiElements;
+    Layout layout;
+  };
+  struct Layout
+  {
+    std::string alignment;         /// where the element should be place. e.g. SCREENCENTER
+    std::string layoutType;        /// how to layout, default = HORIZONTAL
+    std::string layoutParentGroup; /// align to the parent Group
+    float alignmentOffset;         /// Offset in percent to the screen point. can be negative
+    int padding;                   /// padding between elements in pixel
+    int paddingParent;             /// padding between this group and the parent
+  };
+
 private:
   UIManager() = default;
   ~UIManager() = default;
@@ -55,7 +69,7 @@ private:
   std::vector<UiElement *> m_uiElementsForEventHandling;
 
   // map holding all ui elements, accessible via the group ID
-  std::unordered_map<std::string, std::vector<UiElement *>> m_uiGroups;
+  std::unordered_map<std::string, UiGroup> m_uiGroups;
 
   // Holding all buttongroups
   std::unordered_map<std::string, ButtonGroup *> m_buttonGroups;
@@ -69,8 +83,6 @@ private:
   void createBuildMenu();
 
   bool m_showDebugMenu = false;
-
-  MenuGroupBuild m_menuGroupBuild;
 };
 
 #endif

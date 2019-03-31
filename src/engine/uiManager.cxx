@@ -117,7 +117,6 @@ void UIManager::init()
         // only add UiElements to buttongroups / eventhandling if they have no MenuGroupID property set
         if (menuGroupID.empty())
         {
-
           if (!buttonGroupID.empty())
           {
             if (m_buttonGroups.find("buttonGroupID") == m_buttonGroups.end())
@@ -135,7 +134,7 @@ void UIManager::init()
 
           if (!groupID.empty())
           {
-            m_uiGroups[groupID].push_back(uiElement.get());
+            m_uiGroups[groupID].uiElements.push_back(uiElement.get());
           }
         }
 
@@ -168,12 +167,6 @@ void UIManager::drawUI() const
     }
   }
 
-  // draw the menugroups
-  if (m_menuGroupBuild.visible)
-  {
-    m_menuGroupBuild.draw();
-  }
-
   if (m_showDebugMenu)
   {
     m_fpsCounter->draw();
@@ -197,7 +190,7 @@ void UIManager::toggleGroupVisibility(const std::string &groupID, UiElement *sen
       // cast the object to a Button to check if it's a toggle button.
       if (button->getUiElementData().isToggleButton)
       {
-        for (const auto &it : m_uiGroups[groupID])
+        for (const auto &it : m_uiGroups[groupID].uiElements)
         {
           it->setVisibility(button->checkState());
         }
@@ -205,7 +198,7 @@ void UIManager::toggleGroupVisibility(const std::string &groupID, UiElement *sen
       }
     }
   }
-  for (const auto &it : m_uiGroups[groupID])
+  for (const auto &it : m_uiGroups[groupID].uiElements)
   {
     it->setVisibility(!it->isVisible());
   }
@@ -236,7 +229,7 @@ const std::vector<UiElement *> *UIManager::getUiElementsOfGroup(const std::strin
 {
   if (m_uiGroups.find(groupID) != m_uiGroups.end())
   {
-    return &m_uiGroups.find(groupID)->second;
+    return &m_uiGroups.find(groupID)->second.uiElements;
   }
   return nullptr;
 }
@@ -370,7 +363,7 @@ void UIManager::createBuildMenu()
           }
           // add the element to both buttonGroup and uiGroup container
           m_buttonGroups[parentGroupName]->addToGroup(button);
-          m_uiGroups[parentGroupName].push_back(button);
+          m_uiGroups[parentGroupName].uiElements.push_back(button);
         }
         //  A base-button toggles a group with the same name as the MenuGroupID, so set ActionID and ActionParameter for all base buttons
         else
@@ -379,7 +372,7 @@ void UIManager::createBuildMenu()
           button->setActionID("ToggleVisibilityOfGroup");
           button->setActionParameter(button->getUiElementData().menuGroupID);
           m_buttonGroups["_BuildMenu_"]->addToGroup(button);
-          m_uiGroups["_BuildMenu_"].push_back(button);
+          m_uiGroups["_BuildMenu_"].uiElements.push_back(button);
         }
       }
     }
