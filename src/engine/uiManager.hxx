@@ -57,7 +57,7 @@ public:
 
   const std::vector<UiElement *> *getUiElementsOfGroup(const std::string &groupID) const;
 
-  const std::unordered_map<std::string, UiGroup> &getAllUiGroups() const { return m_uiGroups; }
+  std::unordered_map<std::string, UiGroup> &getAllUiGroups() { return m_uiGroups; }
 
   UiElement *getUiElementByID(const std::string &UiElement) const;
   void startTooltip(SDL_Event &event, const std::string &tooltipText);

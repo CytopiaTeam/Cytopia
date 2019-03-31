@@ -52,6 +52,7 @@ set (SOURCES
   src/engine/GameObjects/mapNode.cxx
   src/engine/ui/basics/uiElement.cxx
   src/engine/ui/basics/buttonGroup.cxx
+  src/engine/ui/basics/Layout.cxx
   src/engine/ui/widgets/bar.cxx
   src/engine/ui/widgets/button.cxx
   src/engine/ui/widgets/combobox.cxx

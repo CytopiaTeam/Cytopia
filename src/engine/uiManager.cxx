@@ -7,6 +7,7 @@
 #include "basics/mapEdit.hxx"
 #include "basics/settings.hxx"
 #include "basics/log.hxx"
+#include "ui/basics/Layout.hxx"
 
 #include "../ThirdParty/json.hxx"
 
@@ -153,6 +154,9 @@ void UIManager::init()
   {
     m_uiElementsForEventHandling.push_back(it.second);
   }
+
+  Layout layout;
+  layout.arrangeElements();
 }
 
 void UIManager::setFPSCounterText(const std::string &fps) { m_fpsCounter->setText(fps); }
@@ -378,4 +382,7 @@ void UIManager::createBuildMenu()
       }
     }
   }
+  m_uiGroups["_BuildMenu_"].layout.alignment = "BUILDMENU";
+  m_uiGroups["_BuildMenu_"].layout.layoutType = "HORIZONTAL";
+  m_uiGroups["_BuildMenu_"].layout.padding = 16;
 }
