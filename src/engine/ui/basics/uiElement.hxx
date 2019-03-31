@@ -17,7 +17,7 @@
 class UiElement
 {
 protected:
-  typedef struct
+  struct ElementData
   {
     std::string elementID;
     std::string text;
@@ -27,8 +27,7 @@ protected:
     std::string textureID;
     std::string menuGroupID;
     bool isToggleButton = false;
-
-  } ElementData;
+  };
 
   ElementData elementData;
 
