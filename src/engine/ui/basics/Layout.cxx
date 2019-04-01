@@ -51,9 +51,9 @@ void Layout::arrangeElements()
     {
       groupLayout.groupHeight += static_cast<int>(groupLayout.padding * (group.second.uiElements.size() - 1));
     }
-    LOG() << "done";
   }
 
+  // Second loop gets total width / height for all layouted groups
   for (auto &group : UIManager::instance().getAllUiGroups())
   {
     LayoutData &groupLayout = group.second.layout;
@@ -80,12 +80,48 @@ void Layout::arrangeElements()
     // iterator variable
     int currentElement = 1;
     int currentLength = 0;
+    int x = 0;
 
+    // set x and y coordinates for each element
     for (const auto &element : group.second.uiElements)
     {
-      // start off at the xOffset with the first element.
-      int x = static_cast<int>(xOffset + currentLength);
+      if (groupLayout.alignment == "CENTER" || groupLayout.alignment == "CENTER_HORIZONTAL" ||
+          groupLayout.alignment == "BUILDMENU")
+      {
+        // start off at the xOffset with the first element.
+        x = static_cast<int>(xOffset + currentLength);
+      }
+      // Special handling for Buildmenu. Note: This should only be used internally
+      else if (groupLayout.alignment == "BUILDMENU_SUB")
+      {
+        // If it's a subelement of the BuildMenu, we need to find the button that toggles it.
+        for (auto &it : UIManager::instance().getAllUiElementsForEventHandling())
+        {
+          ButtonGroup *buttonGroup = dynamic_cast<ButtonGroup *>(it);
+
+          if (buttonGroup)
+          {
+            // If it's a group, find the matching button
+            for (auto &elementInButtonGroup : buttonGroup->getAllButtons())
+            {
+              if (elementInButtonGroup->getUiElementData().actionParameter == group.first)
+              {
+                // get parents x coordinate, calculate the center of the button and use it as x Offset
+                xOffset = (elementInButtonGroup->getUiElementRect().x - groupLayout.groupWidth / 2) +
+                          elementInButtonGroup->getUiElementRect().w / 2;
+              }
+            }
+          }
+          else if (it->getUiElementData().actionParameter == group.first)
+          {
+            // get parents x coordinate, calculate the center of the button and use it as x Offset
+            xOffset = it->getUiElementRect().x - groupLayout.groupWidth / 2 + it->getUiElementRect().w / 2;
+          }
+          x = static_cast<int>(xOffset + currentLength);
+        }
+      }
       // TODO: special handling for parents
+      // TODO: y coordinate
       int y = Settings::instance().settings.screenHeight - element->getUiElementRect().h - groupLayout.paddingParent;
       element->setPosition(x, y);
       currentElement++;
