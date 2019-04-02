@@ -384,9 +384,12 @@ void UIManager::createBuildMenu()
           // add the element to both buttonGroup and uiGroup container
           m_buttonGroups[parentGroupName]->addToGroup(button);
           m_uiGroups[parentGroupName].uiElements.push_back(button);
+
+          // set Layout parameters
           m_uiGroups[parentGroupName].layout.alignment = "BUILDMENU_SUB";
           m_uiGroups[parentGroupName].layout.layoutType = "HORIZONTAL";
           m_uiGroups[parentGroupName].layout.padding = 8;
+          m_uiGroups[parentGroupName].layout.paddingToParent = 16;
         }
         //  A base-button toggles a group with the same name as the MenuGroupID, so set ActionID and ActionParameter for all base buttons
         else

@@ -27,7 +27,7 @@ void Layout::arrangeElements()
       if (groupLayout.layoutType == "HORIZONTAL")
       {
         group.second.layout.groupWidth += element->getUiElementRect().w;
-        if (groupLayout.groupHeight > element->getUiElementRect().h)
+        if (groupLayout.groupHeight < element->getUiElementRect().h)
         {
           groupLayout.groupHeight = element->getUiElementRect().h;
         }
@@ -35,7 +35,7 @@ void Layout::arrangeElements()
       else if (groupLayout.layoutType == "VERTICAL")
       {
         groupLayout.groupHeight += element->getUiElementRect().h;
-        if (groupLayout.groupWidth > element->getUiElementRect().w)
+        if (groupLayout.groupWidth < element->getUiElementRect().w)
         {
           groupLayout.groupWidth = element->getUiElementRect().w;
         }
@@ -74,13 +74,14 @@ void Layout::arrangeElements()
     }
     else if (groupLayout.layoutType == "VERTICAL")
     {
-      yOffset = screenCenter.y - groupLayout.groupHeight;
+      yOffset = screenCenter.y - groupLayout.groupHeight / 2;
     }
 
     // iterator variable
     int currentElement = 1;
     int currentLength = 0;
     int x = 0;
+    int y = 0;
 
     // set x and y coordinates for each element
     for (const auto &element : group.second.uiElements)
@@ -97,7 +98,7 @@ void Layout::arrangeElements()
         // If it's a subelement of the BuildMenu, we need to align the group to the button that toggles it.
         if (!group.second.layout.layoutParentElement.empty())
         {
-
+          // get parent element and check if it exists
           UiElement *parentElement = UIManager::instance().getUiElementByID(group.second.layout.layoutParentElement);
           if (parentElement)
           {
@@ -109,12 +110,44 @@ void Layout::arrangeElements()
             LOG(LOG_ERROR) << "Cannot align UiGroup " << group.first << " to a parent because it has no ParentElementID set!";
           }
         }
+      }
+
+      // Set vertical layout
+      if (groupLayout.alignmentVertical == "BOTTOM" || groupLayout.alignment == "BUILDMENU")
+      {
+        y = Settings::instance().settings.screenHeight - element->getUiElementRect().h - groupLayout.paddingToParent;
+      }
+
+      else if (groupLayout.alignmentVertical == "TOP")
+      {
+        y = 0;
+      }
+      else if (groupLayout.alignmentVertical == "CENTER")
+      {
+        y = screenCenter.y - element->getUiElementRect().h / 2;
+      }
+      else if (groupLayout.alignment == "BUILDMENU_SUB" || groupLayout.alignmentVertical == "ALIGN_ABOVE_PARENT")
+      {
+        // If it's a subelement of the BuildMenu, we need to align the group to the button that toggles it.
+        if (!group.second.layout.layoutParentElement.empty())
+        {
+          // get parent element and check if it exists
+          UiElement *parentElement = UIManager::instance().getUiElementByID(group.second.layout.layoutParentElement);
+          if (parentElement)
+          {
+            y = (parentElement->getUiElementRect().y - groupLayout.groupHeight - groupLayout.paddingToParent);
+            //y = (parentElement->getUiElementRect().y - groupLayout.groupHeight / 2) + parentElement->getUiElementRect().h / 2;
+          }
+          else
+          {
+            LOG(LOG_ERROR) << "Cannot align UiGroup " << group.first << " to a parent because it has no ParentElementID set!";
+          }
+        }
 
         x = static_cast<int>(xOffset + currentLength);
       }
       // TODO: special handling for parents
       // TODO: y coordinate
-      int y = Settings::instance().settings.screenHeight - element->getUiElementRect().h - groupLayout.paddingParent;
       element->setPosition(x, y);
       currentElement++;
       // add the distance from the current element for the next element.
