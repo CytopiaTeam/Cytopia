@@ -347,7 +347,6 @@ void UIManager::setCallbackFunctions()
   }
 }
 
-// TODO: Rename to create menugroup buttons
 void UIManager::createBuildMenu()
 {
   std::string subMenuSuffix = "_sub";
@@ -375,34 +374,42 @@ void UIManager::createBuildMenu()
   }
 
   // Add elements from TileData.json to the Buildmenu, if there is a button whose BuildMenuID matches the category
-  for (const auto &element : m_uiElements)
+  // check if there's a corresponding category for tiles for this menu ID.
+  for (auto &tile : TileManager::instance().getAllTileData())
   {
-    // check if there's a corresponding category for tiles for this menu ID.
-    for (auto &tile : TileManager::instance().getAllTileData())
+    std::string category = tile.second.category;
+
+    // Skip all items from specific categories
+    if (category == "Water" || category == "Terrain")
     {
-      if (tile.second.category == element->getUiElementData().buildMenuID)
-      {
-        Button *button = new Button({0, 0, 0, 0});
-
-        // TODO: Check if icon empty.
-        button->setTextureID("Button_NoIcon");
-        button->drawImageButtonFrame(true);
-        button->setVisibility(false);
-        button->setToggleButton(true);
-
-        button->setActionID("ChangeTileType");
-        button->setActionParameter(tile.first);
-        button->setMenuGroupID(tile.second.category + "_sub");
-
-        m_uiElements.push_back(std::unique_ptr<UiElement>(dynamic_cast<UiElement *>(button)));
-      }
+      continue;
     }
+
+    // If there's no matching buttongroup, there's also no button. Add them to the debug menu instead
+    if (m_buttonGroups.find(category) == m_buttonGroups.end())
+    {
+      category = "Debug";
+    }
+    Button *button = new Button({0, 0, 0, 0});
+
+    // TODO: Check if icon empty.
+
+    // Set button properties
+    button->setTextureID("Button_NoIcon");
+    button->drawImageButtonFrame(true);
+    button->setVisibility(false);
+    button->setToggleButton(true);
+    button->setActionID("ChangeTileType");
+    button->setActionParameter(tile.first);
+    button->setMenuGroupID(category + "_sub");
+
+    // Add the newly created button to the container holding all UiElements
+    m_uiElements.push_back(std::unique_ptr<UiElement>(dynamic_cast<UiElement *>(button)));
   }
 
-  // iterate over all elements and add everything that has a buildMenuID.
+  // iterate over all elements and add everything that has a BuildMenu ID.
   for (const auto &element : m_uiElements)
   {
-
     // Only buttons can be added to the build menu
     Button *button = dynamic_cast<Button *>(element.get());
     if (button)
