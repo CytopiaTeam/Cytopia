@@ -2,7 +2,24 @@
     {
         "author": "Kingtut 101",
         "category": "Commercial",
-        "description": "com_1x1_ClockStore1",
+        "description": "A Shop that sells Bikes",
+        "id": "com_1x1_BikeShop",
+        "power": 0,
+        "price": 5,
+        "tiles": {
+            "clip_height": 30,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/com_1x1_BikeShop.png"
+        },
+        "title": "BikeShop",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Commercial",
+        "description": "A shop that sells clocks",
         "id": "com_1x1_ClockStore1",
         "power": 0,
         "price": 5,
@@ -12,14 +29,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/commercial/com_1x1_ClockStore1.png"
         },
-        "title": "com_1x1_ClockStore1",
+        "title": "Clock Store",
         "upkeep cost": 0,
         "water": 0
     },
     {
         "author": "Kingtut 101",
         "category": "Commercial",
-        "description": "com_2x2_office",
+        "description": "Where people work",
         "id": "com_2x2_office",
         "power": 0,
         "price": 5,
@@ -29,7 +46,24 @@
             "count": 1,
             "fileName": "resources/images/buildings/commercial/com_2x2_office.png"
         },
-        "title": "com_2x2_office",
+        "title": "Office",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Commercial",
+        "description": "The community gathers and works here",
+        "id": "com_3x3_CommunityTower",
+        "power": 0,
+        "price": 5,
+        "tiles": {
+            "clip_height": 119,
+            "clip_width": 96,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/com_3x3_CommunityTower.png"
+        },
+        "title": "Community Tower",
         "upkeep cost": 0,
         "water": 0
     },
@@ -105,7 +139,7 @@
     {
         "author": "Kingtut 101",
         "category": "Power",
-        "description": "pow_3x3_CoalPlant",
+        "description": "A Coal Power plant.",
         "id": "pow_3x3_CoalPlant",
         "power": 0,
         "price": 5,
@@ -115,7 +149,24 @@
             "count": 1,
             "fileName": "resources/images/buildings/Power Plants/pow_3x3_CoalPlant.png"
         },
-        "title": "pow_3x3_CoalPlant",
+        "title": "Coal Power Plant",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "",
+        "category": "Residential",
+        "description": "A small house",
+        "id": "res_1x1_KTHouse2",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 18,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/res_1x1_KTHouse2.png"
+        },
+        "title": "Small House",
         "upkeep cost": 0,
         "water": 0
     },
@@ -162,7 +213,7 @@
     {
         "author": "Kingtut 101",
         "category": "Utilities",
-        "description": "com_2x2_office",
+        "description": "A beautiful water tower",
         "id": "watertower",
         "power": 0,
         "price": 5,
@@ -172,14 +223,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/Water/watertower.png"
         },
-        "title": "com_2x2_office",
+        "title": "Water Tower",
         "upkeep cost": 0,
         "water": 0
     },
     {
         "author": "Kingtut 101",
         "category": "Utilities",
-        "description": "com_2x2_office",
+        "description": "A small water tower",
         "id": "watertower2",
         "power": 0,
         "price": 5,
@@ -189,7 +240,7 @@
             "count": 1,
             "fileName": "resources/images/buildings/Water/watertower2.png"
         },
-        "title": "com_2x2_office",
+        "title": "Small Water Tower",
         "upkeep cost": 0,
         "water": 0
     }
