@@ -66,13 +66,10 @@ void Layout::arrangeElements()
 
     int xOffset = 0;
     int yOffset = 0;
+    int x = 0;
+    int y = 0;
 
-    // calculate x starting point
-    if (groupLayout.layoutType == "HORIZONTAL")
-    {
-      xOffset = screenCenter.x - groupLayout.groupWidth / 2;
-    }
-    else if (groupLayout.layoutType == "VERTICAL")
+    if (groupLayout.layoutType == "VERTICAL")
     {
       yOffset = screenCenter.y - groupLayout.groupHeight / 2;
     }
@@ -80,35 +77,36 @@ void Layout::arrangeElements()
     // iterator variable
     int currentElement = 1;
     int currentLength = 0;
-    int x = 0;
-    int y = 0;
 
-    // set x and y coordinates for each element
+    // Set horizontal layout
     for (const auto &element : group.second.uiElements)
     {
       if (groupLayout.alignment == "CENTER" || groupLayout.alignment == "CENTER_HORIZONTAL" ||
-          groupLayout.alignment == "BOTTOM_CENTER")
+          groupLayout.alignment == "BOTTOM_CENTER" || groupLayout.alignment == "TOP_CENTER")
       {
         // start off at the xOffset with the first element.
+        xOffset = screenCenter.x - groupLayout.groupWidth / 2;
         x = static_cast<int>(xOffset + currentLength);
       }
+
       // Align elements to it's parent
-      else if (groupLayout.alignment == "BUILDMENU_SUB" || groupLayout.alignment == "ALIGN_ABOVE_PARENT")
+      if (!group.second.layout.layoutParentElement.empty())
       {
-        // If it's a subelement of the BuildMenu, we need to align the group to the button that toggles it.
-        if (!group.second.layout.layoutParentElement.empty())
+        // get parent element and check if it exists
+        UiElement *parentElement = UIManager::instance().getUiElementByID(group.second.layout.layoutParentElement);
+        if (!parentElement)
         {
-          // get parent element and check if it exists
-          UiElement *parentElement = UIManager::instance().getUiElementByID(group.second.layout.layoutParentElement);
-          if (parentElement)
-          {
-            xOffset =
-                (parentElement->getUiElementRect().x - groupLayout.groupWidth / 2) + parentElement->getUiElementRect().w / 2;
-          }
-          else
-          {
-            LOG(LOG_ERROR) << "Cannot align UiGroup " << group.first << " to a parent because it has no ParentElementID set!";
-          }
+          LOG(LOG_ERROR) << "Cannot align UiGroup " << group.first << " to a parent because it has no ParentElementID set!";
+        }
+
+        // Align the element to its parent
+        if (groupLayout.alignment == "ALIGN_ABOVE_PARENT" || groupLayout.alignment == "ALIGN_BENEATH_PARENT")
+        {
+          xOffset = (parentElement->getUiElementRect().x - groupLayout.groupWidth / 2) + parentElement->getUiElementRect().w / 2;
+        }
+        else if (groupLayout.alignment == "ALIGN_RIGHT_TO_PARENT" || groupLayout.alignment == "ALIGN_LEFT_TO_PARENT")
+        {
+          xOffset = (parentElement->getUiElementRect().x - groupLayout.groupWidth / 2) + parentElement->getUiElementRect().w / 2;
         }
       }
 
@@ -119,7 +117,7 @@ void Layout::arrangeElements()
         y = Settings::instance().settings.screenHeight - element->getUiElementRect().h - groupLayout.paddingToParent;
       }
 
-      else if (groupLayout.alignment == "TOP")
+      else if (groupLayout.alignment == "TOP_CENTER")
       {
         y = 0;
       }
@@ -127,24 +125,28 @@ void Layout::arrangeElements()
       {
         y = screenCenter.y - element->getUiElementRect().h / 2;
       }
-      else if (groupLayout.alignment == "BUILDMENU_SUB" || groupLayout.alignment == "ALIGN_ABOVE_PARENT")
+
+
+      if (!group.second.layout.layoutParentElement.empty())
       {
-        // If it's a subelement of the BuildMenu, we need to align the group to the button that toggles it.
-        if (!group.second.layout.layoutParentElement.empty())
+        // get parent element and check if it exists
+        UiElement *parentElement = UIManager::instance().getUiElementByID(group.second.layout.layoutParentElement);
+        if (!parentElement)
         {
-          // get parent element and check if it exists
-          UiElement *parentElement = UIManager::instance().getUiElementByID(group.second.layout.layoutParentElement);
-          if (parentElement)
-          {
-            y = (parentElement->getUiElementRect().y - groupLayout.groupHeight - groupLayout.paddingToParent);
-          }
-          else
-          {
-            LOG(LOG_ERROR) << "Cannot align UiGroup " << group.first << " to a parent because it has no ParentElementID set!";
-          }
+          LOG(LOG_ERROR) << "Cannot align UiGroup " << group.first << " to a parent because it has no ParentElementID set!";
         }
 
-        x = static_cast<int>(xOffset + currentLength);
+        if (groupLayout.alignment == "ALIGN_ABOVE_PARENT")
+        {
+          x = static_cast<int>(xOffset + currentLength);
+          y = (parentElement->getUiElementRect().y - groupLayout.groupHeight - groupLayout.paddingToParent);
+        }
+
+        else if (groupLayout.alignment == "ALIGN_BENEATH_PARENT")
+        {
+          x = static_cast<int>(xOffset + currentLength);
+          y = (parentElement->getUiElementRect().y + parentElement->getUiElementRect().h + groupLayout.paddingToParent);
+        }
       }
       // TODO: special handling for parents
       // TODO: y coordinate

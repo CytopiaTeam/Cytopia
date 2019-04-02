@@ -470,7 +470,7 @@ void UIManager::setBuildMenuLayout()
   {
     alignment = "TOP_CENTER";
     layoutType = "HORIZONTAL";
-    subMenuAlignment = "ALIGN_BELOW_PARENT";
+    subMenuAlignment = "ALIGN_BENEATH_PARENT";
   }
   else if (Settings::instance().settings.buildMenuPosition == "LEFT")
   {
