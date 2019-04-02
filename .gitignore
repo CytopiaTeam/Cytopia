@@ -9,3 +9,9 @@ cmake-build-*
 
 #ignore VStudio code generated directory
 .vscode
+
+#ignore .exe, .dll and .so to be able to use the TileDataEditor in the source directory
+*.exe
+*.dll
+*.so
+TileDataEditor
