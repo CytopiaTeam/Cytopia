@@ -402,6 +402,7 @@ void UIManager::createBuildMenu()
     button->setActionID("ChangeTileType");
     button->setActionParameter(tile.first);
     button->setMenuGroupID(category + "_sub");
+    button->setTooltipText(tile.second.title);
 
     // Add the newly created button to the container holding all UiElements
     m_uiElements.push_back(std::unique_ptr<UiElement>(dynamic_cast<UiElement *>(button)));
