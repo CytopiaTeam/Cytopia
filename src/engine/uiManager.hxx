@@ -87,6 +87,7 @@ private:
   void setCallbackFunctions();
 
   void createBuildMenu();
+  void setBuildMenuLayout();
 
   bool m_showDebugMenu = false;
 };

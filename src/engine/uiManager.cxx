@@ -3,9 +3,9 @@
 #include "resourcesManager.hxx"
 #include "engine.hxx"
 #include "map.hxx"
-
 #include "basics/mapEdit.hxx"
 #include "basics/settings.hxx"
+#include "basics/utils.hxx"
 #include "basics/log.hxx"
 #include "ui/basics/Layout.hxx"
 
@@ -350,7 +350,6 @@ void UIManager::setCallbackFunctions()
 void UIManager::createBuildMenu()
 {
   std::string subMenuSuffix = "_sub";
-  std::string::size_type sizeOfStringToCut;
 
   // Create ButtonGroup "_BuildMenu_" for the parent elements
   if (m_buttonGroups.find("_BuildMenu_") == m_buttonGroups.end())
@@ -415,7 +414,6 @@ void UIManager::createBuildMenu()
     Button *button = dynamic_cast<Button *>(element.get());
     if (button)
     {
-      sizeOfStringToCut = button->getUiElementData().buildMenuID.find("_sub");
       // check if the element is part of the BuildMenu
       if (!button->getUiElementData().buildMenuID.empty())
       {
@@ -424,8 +422,7 @@ void UIManager::createBuildMenu()
         {
           std::string parentGroupName;
           parentGroupName = element->getUiElementData().buildMenuID;
-
-          parentGroupName.erase(sizeOfStringToCut, subMenuSuffix.size());
+          utils::strings::removeSubString(parentGroupName, subMenuSuffix);
 
           // add the element to both buttonGroup and uiGroup container
           if (m_buttonGroups.find(parentGroupName) != m_buttonGroups.end())
@@ -438,12 +435,6 @@ void UIManager::createBuildMenu()
             LOG(LOG_ERROR) << "Attempting to add element with ID \"" << button->getUiElementData().elementID
                            << "\" to category \"" << parentGroupName << "\" but the Category doesn't exist.";
           }
-
-          // set Layout parameters
-          m_uiGroups[parentGroupName].layout.alignment = "BUILDMENU_SUB";
-          m_uiGroups[parentGroupName].layout.layoutType = "HORIZONTAL";
-          m_uiGroups[parentGroupName].layout.padding = 8;
-          m_uiGroups[parentGroupName].layout.paddingToParent = 16;
         }
         //  A base-button toggles a group with the same name as the MenuGroupID, so set ActionID and ActionParameter for all base buttons
         else
@@ -458,6 +449,31 @@ void UIManager::createBuildMenu()
       }
     }
   }
+  setBuildMenuLayout();
+}
+
+void UIManager::setBuildMenuLayout()
+{
+  std::string subMenuSuffix = "_sub";
+
+  // iterate over all elements and add everything that has a BuildMenu ID.
+  for (const auto &element : m_uiElements)
+  {
+    // get all uiElements that have a _sub suffix in their MenuGroupID
+    if (utils::strings::endsWith(element->getUiElementData().buildMenuID, subMenuSuffix))
+    {
+      std::string parentGroupName;
+      parentGroupName = element->getUiElementData().buildMenuID;
+      utils::strings::removeSubString(parentGroupName, subMenuSuffix);
+
+      // set Layout parameters
+      m_uiGroups[parentGroupName].layout.alignment = "BUILDMENU_SUB";
+      m_uiGroups[parentGroupName].layout.layoutType = "HORIZONTAL";
+      m_uiGroups[parentGroupName].layout.padding = 8;
+      m_uiGroups[parentGroupName].layout.paddingToParent = 16;
+    }
+  }
+
   m_uiGroups["_BuildMenu_"].layout.alignment = "BUILDMENU";
   m_uiGroups["_BuildMenu_"].layout.layoutType = "HORIZONTAL";
   m_uiGroups["_BuildMenu_"].layout.padding = 16;
