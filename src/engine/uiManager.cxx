@@ -364,7 +364,7 @@ void UIManager::createBuildMenu()
   {
     std::string parentGroupName = element->getUiElementData().buildMenuID;
 
-    // check if the element is part of the BuildMenu
+    // check if the element is part of the BuildMenu and not of a SubMenu
     if (!parentGroupName.empty() && parentGroupName.find(subMenuSuffix) == std::string::npos)
     {
       if (m_buttonGroups.find(parentGroupName) == m_buttonGroups.end())
@@ -374,11 +374,35 @@ void UIManager::createBuildMenu()
     }
   }
 
+  // Add elements from TileData.json to the Buildmenu, if there is a button whose BuildMenuID matches the category
+  for (const auto &element : m_uiElements)
+  {
+    // check if there's a corresponding category for tiles for this menu ID.
+    for (auto &tile : TileManager::instance().getAllTileData())
+    {
+      if (tile.second.category == element->getUiElementData().buildMenuID)
+      {
+        Button *button = new Button({0, 0, 0, 0});
+
+        // TODO: Check if icon empty.
+        button->setTextureID("Button_NoIcon");
+        button->drawImageButtonFrame(true);
+        button->setVisibility(false);
+        button->setToggleButton(true);
+
+        button->setActionID("ChangeTileType");
+        button->setActionParameter(tile.first);
+        button->setMenuGroupID(tile.second.category + "_sub");
+
+        m_uiElements.push_back(std::unique_ptr<UiElement>(dynamic_cast<UiElement *>(button)));
+      }
+    }
+  }
+
   // iterate over all elements and add everything that has a buildMenuID.
   for (const auto &element : m_uiElements)
   {
 
-    std::string parentGroupName;
     // Only buttons can be added to the build menu
     Button *button = dynamic_cast<Button *>(element.get());
     if (button)
@@ -390,12 +414,22 @@ void UIManager::createBuildMenu()
         // get all uiElements that have a _sub suffix in their MenuGroupID
         if (button->getUiElementData().buildMenuID.find(subMenuSuffix) != std::string::npos)
         {
+          std::string parentGroupName;
           parentGroupName = element->getUiElementData().buildMenuID;
+
           parentGroupName.erase(sizeOfStringToCut, subMenuSuffix.size());
 
           // add the element to both buttonGroup and uiGroup container
-          m_buttonGroups[parentGroupName]->addToGroup(button);
-          m_uiGroups[parentGroupName].uiElements.push_back(button);
+          if (m_buttonGroups.find(parentGroupName) != m_buttonGroups.end())
+          {
+            m_buttonGroups[parentGroupName]->addToGroup(button);
+            m_uiGroups[parentGroupName].uiElements.push_back(button);
+          }
+          else
+          {
+            LOG(LOG_ERROR) << "Attempting to add element with ID \"" << button->getUiElementData().elementID
+                           << "\" to category \"" << parentGroupName << "\" but the Category doesn't exist.";
+          }
 
           // set Layout parameters
           m_uiGroups[parentGroupName].layout.alignment = "BUILDMENU_SUB";
