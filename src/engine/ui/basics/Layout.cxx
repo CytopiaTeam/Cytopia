@@ -91,34 +91,26 @@ void Layout::arrangeElements()
         // start off at the xOffset with the first element.
         x = static_cast<int>(xOffset + currentLength);
       }
-      // Special handling for Buildmenu. Note: This should only be used internally
-      else if (groupLayout.alignment == "BUILDMENU_SUB")
+      // Align elements to it's parent
+      else if (groupLayout.alignment == "BUILDMENU_SUB" || groupLayout.alignment == "ALIGN_TO_PARENT")
       {
-        // If it's a subelement of the BuildMenu, we need to find the button that toggles it.
-        for (auto &it : UIManager::instance().getAllUiElementsForEventHandling())
+        // If it's a subelement of the BuildMenu, we need to align the group to the button that toggles it.
+        if (!group.second.layout.layoutParentElement.empty())
         {
-          ButtonGroup *buttonGroup = dynamic_cast<ButtonGroup *>(it);
 
-          if (buttonGroup)
+          UiElement *parentElement = UIManager::instance().getUiElementByID(group.second.layout.layoutParentElement);
+          if (parentElement)
           {
-            // If it's a group, find the matching button
-            for (auto &elementInButtonGroup : buttonGroup->getAllButtons())
-            {
-              if (elementInButtonGroup->getUiElementData().actionParameter == group.first)
-              {
-                // get parents x coordinate, calculate the center of the button and use it as x Offset
-                xOffset = (elementInButtonGroup->getUiElementRect().x - groupLayout.groupWidth / 2) +
-                          elementInButtonGroup->getUiElementRect().w / 2;
-              }
-            }
+            xOffset =
+                (parentElement->getUiElementRect().x - groupLayout.groupWidth / 2) + parentElement->getUiElementRect().w / 2;
           }
-          else if (it->getUiElementData().actionParameter == group.first)
+          else
           {
-            // get parents x coordinate, calculate the center of the button and use it as x Offset
-            xOffset = it->getUiElementRect().x - groupLayout.groupWidth / 2 + it->getUiElementRect().w / 2;
+            LOG(LOG_ERROR) << "Cannot align UiGroup " << group.first << " to a parent because it has no ParentElementID set!";
           }
-          x = static_cast<int>(xOffset + currentLength);
         }
+
+        x = static_cast<int>(xOffset + currentLength);
       }
       // TODO: special handling for parents
       // TODO: y coordinate
