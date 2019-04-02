@@ -49,6 +49,7 @@ set (SOURCES
   src/engine/basics/mapEdit.cxx
   src/engine/basics/settings.cxx
   src/engine/basics/timer.cxx
+  src/engine/basics/utils.cxx
   src/engine/GameObjects/mapNode.cxx
   src/engine/ui/basics/uiElement.cxx
   src/engine/ui/basics/buttonGroup.cxx
