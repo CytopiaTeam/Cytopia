@@ -60,7 +60,7 @@ void UIManager::init()
         std::string textureID = uiLayout[it.key()][id].value("SpriteID", "");
         std::string uiElementType = uiLayout[it.key()][id].value("Type", "");
         std::string buttonGroupID = uiLayout[it.key()][id].value("ButtonGroup", "");
-        std::string menuGroupID = uiLayout[it.key()][id].value("menuGroupID", "");
+        std::string buildMenuID = uiLayout[it.key()][id].value("BuildMenuID", "");
 
         SDL_Rect elementRect{0, 0, 0, 0};
         elementRect.x = uiLayout[it.key()][id].value("Position_x", 0);
@@ -113,10 +113,10 @@ void UIManager::init()
         uiElement->setToggleButton(toggleButton);
         uiElement->setUIElementID(uiElementID);
         uiElement->drawImageButtonFrame(drawFrame);
-        uiElement->setMenuGroupID(menuGroupID);
+        uiElement->setMenuGroupID(buildMenuID);
 
         // only add UiElements to buttongroups / eventhandling if they have no MenuGroupID property set
-        if (menuGroupID.empty())
+        if (buildMenuID.empty())
         {
           if (!buttonGroupID.empty())
           {
@@ -360,21 +360,21 @@ void UIManager::createBuildMenu()
     m_buttonGroups["_BuildMenu_"] = new ButtonGroup;
   }
 
-  // iterate over all elements and add everything that has a menuGroupID.
+  // iterate over all elements and add everything that has a buildMenuID.
   for (const auto &element : m_uiElements)
   {
     // Only buttons can be added to the build menu
     Button *button = dynamic_cast<Button *>(element.get());
     if (button)
     {
-      // check if the element has the menuGroupID set
-      if (!button->getUiElementData().menuGroupID.empty())
+      // check if the element is part of the BuildMenu
+      if (!button->getUiElementData().buildMenuID.empty())
       {
         // get all uiElements that have a _sub suffix in their MenuGroupID
-        sizeOfStringToCut = button->getUiElementData().menuGroupID.find("_sub");
-        if (button->getUiElementData().menuGroupID.find(stringToCut) != std::string::npos)
+        sizeOfStringToCut = button->getUiElementData().buildMenuID.find("_sub");
+        if (button->getUiElementData().buildMenuID.find(stringToCut) != std::string::npos)
         {
-          parentGroupName = element->getUiElementData().menuGroupID;
+          parentGroupName = element->getUiElementData().buildMenuID;
           parentGroupName.erase(sizeOfStringToCut, stringToCut.size());
           // Make sure the button group exists before adding the item.
           if (m_buttonGroups.find(parentGroupName) == m_buttonGroups.end())
@@ -396,7 +396,7 @@ void UIManager::createBuildMenu()
         {
           // create buttons in the main menu
           button->setActionID("ToggleVisibilityOfGroup");
-          button->setActionParameter(button->getUiElementData().menuGroupID);
+          button->setActionParameter(button->getUiElementData().buildMenuID);
           m_buttonGroups["_BuildMenu_"]->addToGroup(button);
 
           m_uiGroups["_BuildMenu_"].uiElements.push_back(button);

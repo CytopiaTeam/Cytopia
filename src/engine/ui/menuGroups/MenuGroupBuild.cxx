@@ -35,19 +35,19 @@ void MenuGroupBuild::constructMenu()
   {
     // TODO: replace by an enum, when BetterEnums is added.
     // TODO: parse all non - _sub elements first, to make sure the main group exists.
-    if (!it->getUiElementData().menuGroupID.empty())
+    if (!it->getUiElementData().buildMenuID.empty())
     {
-      sizeOfStringToCut = it->getUiElementData().menuGroupID.find("_sub");
+      sizeOfStringToCut = it->getUiElementData().buildMenuID.find("_sub");
       // check if it the button is a submenu
-      if (it->getUiElementData().menuGroupID.find(stringToCut) == std::string::npos)
+      if (it->getUiElementData().buildMenuID.find(stringToCut) == std::string::npos)
       {
         // create an empty ButtonGroup in the m_buildSubmenuGroups, so we know that elements can be placed here
-        m_buildSubMenuGroups[it->getUiElementData().menuGroupID] = new ButtonGroup;
+        m_buildSubMenuGroups[it->getUiElementData().buildMenuID] = new ButtonGroup;
         m_buildMenuGroup->addToGroup(it);
       }
       else
       {
-        newString = it->getUiElementData().menuGroupID;
+        newString = it->getUiElementData().buildMenuID;
 
         newString.erase(sizeOfStringToCut, stringToCut.size());
         if (m_buildSubMenuGroups.find(newString) != m_buildSubMenuGroups.end())
@@ -68,7 +68,7 @@ void MenuGroupBuild::constructMenu()
     // check if there's a corresponding category for tiles for this menu ID.
     for (auto &tile : TileManager::instance().getAllTileData())
     {
-      if (tile.second.category == it->getUiElementData().menuGroupID)
+      if (tile.second.category == it->getUiElementData().buildMenuID)
       {
         //TODO: take care of ownership / add the created elements to UiManager to properly delete them
         Button *button = new Button({0, 0, 0, 0});
@@ -99,11 +99,11 @@ void MenuGroupBuild::constructMenu()
   // set actionID
   for (auto it : m_buildMenuGroup->getAllButtons())
   {
-    if (m_buildSubMenuGroups.count(it->getUiElementData().menuGroupID))
+    if (m_buildSubMenuGroups.count(it->getUiElementData().buildMenuID))
     {
       it->setActionID("ToggleVisibilityOfGroup");
-      it->setActionParameter(it->getUiElementData().menuGroupID);
-      LOG() << "Adding action for: " << it->getUiElementData().menuGroupID;
+      it->setActionParameter(it->getUiElementData().buildMenuID);
+      LOG() << "Adding action for: " << it->getUiElementData().buildMenuID;
     }
   }
 
@@ -137,7 +137,7 @@ void MenuGroupBuild::arrangeElements()
   for (auto it : m_buildMenuGroup->getAllButtons())
   {
     int elementWidth = it->getUiElementRect().w;
-    if (!it->getUiElementData().menuGroupID.empty())
+    if (!it->getUiElementData().buildMenuID.empty())
     {
       int x = static_cast<int>(xOffset + (elementWidth * currentElement) + padding * (currentElement - 1));
       int y = Settings::instance().settings.screenHeight - it->getUiElementRect().h - paddingVertical;
@@ -146,25 +146,25 @@ void MenuGroupBuild::arrangeElements()
     }
 
     // loop for re-arranging buttons that are in subgroups.
-    if (m_buildSubMenuGroups.find(it->getUiElementData().menuGroupID) != m_buildSubMenuGroups.end())
+    if (m_buildSubMenuGroups.find(it->getUiElementData().buildMenuID) != m_buildSubMenuGroups.end())
     {
       int subMenuGroupWidth = 0;
       SDL_Rect parentRect = it->getUiElementRect();
 
       // calculate width for all elements of submenu group
-      for (auto groupElement : m_buildSubMenuGroups[it->getUiElementData().menuGroupID]->getAllButtons())
+      for (auto groupElement : m_buildSubMenuGroups[it->getUiElementData().buildMenuID]->getAllButtons())
       {
         subMenuGroupWidth += groupElement->getUiElementRect().w;
       }
       // add total size of padding between elements
       subMenuGroupWidth +=
-          static_cast<int>(subMenuPadding * (m_buildSubMenuGroups[it->getUiElementData().menuGroupID]->count() - 1));
+          static_cast<int>(subMenuPadding * (m_buildSubMenuGroups[it->getUiElementData().buildMenuID]->count() - 1));
 
       int subMenuXOffset = parentRect.x - subMenuGroupWidth / 2;
       int subMenuYOffset = parentRect.y;
 
       int currentSubElement = 1;
-      for (auto groupElement : m_buildSubMenuGroups[it->getUiElementData().menuGroupID]->getAllButtons())
+      for (auto groupElement : m_buildSubMenuGroups[it->getUiElementData().buildMenuID]->getAllButtons())
       {
         int x =
             subMenuXOffset + groupElement->getUiElementRect().w * currentSubElement + subMenuPadding * (currentSubElement - 1);

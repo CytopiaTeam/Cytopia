@@ -136,7 +136,6 @@ void Layout::arrangeElements()
           if (parentElement)
           {
             y = (parentElement->getUiElementRect().y - groupLayout.groupHeight - groupLayout.paddingToParent);
-            //y = (parentElement->getUiElementRect().y - groupLayout.groupHeight / 2) + parentElement->getUiElementRect().h / 2;
           }
           else
           {

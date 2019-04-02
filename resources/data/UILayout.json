@@ -14,7 +14,7 @@
       "ButtonGroup": "BottomMenu",
       "ToggleButton": true,
       "TooltipText": "Construction",
-      "menuGroupID": "Construction"
+      "BuildMenuID": "Construction"
     },
     {
       "ID": "roads menu",
@@ -27,7 +27,7 @@
       "ButtonGroup": "BottomMenu",
       "ToggleButton": true,
       "TooltipText": "Construction",
-      "menuGroupID": "Roads"
+      "BuildMenuID": "Roads"
     },
     {
       "ID": "debug menu",
@@ -40,7 +40,7 @@
       "ButtonGroup": "BottomMenu",
       "ToggleButton": true,
       "TooltipText": "Debug Menu",
-      "menuGroupID": "Debug"
+      "BuildMenuID": "Debug"
     },
     {
       "ID": "power menu",
@@ -53,7 +53,7 @@
       "ButtonGroup": "BottomMenu",
       "ToggleButton": true,
       "TooltipText": "Power",
-      "menuGroupID": "Power"
+      "BuildMenuID": "Power"
     },
     {
       "ID": "water menu",
@@ -66,7 +66,7 @@
       "ButtonGroup": "BottomMenu",
       "ToggleButton": true,
       "TooltipText": "Utilities",
-      "menuGroupID": "Utilities"
+      "BuildMenuID": "Utilities"
     }
   ],
   "RoadsSubMenu": [
@@ -122,7 +122,7 @@
       "ToggleButton": true,
       "DrawFrame": true,
       "TooltipText": "Demolish",
-      "menuGroupID": "Construction_sub"
+      "BuildMenuID": "Construction_sub"
     },
     {
       "ID": "button raise terrain",
@@ -135,7 +135,7 @@
       "ToggleButton": true,
       "DrawFrame": true,
       "TooltipText": "Raise Terrain",
-      "menuGroupID": "Construction_sub"
+      "BuildMenuID": "Construction_sub"
     },
     {
       "ID": "button lower terrain",
@@ -148,7 +148,7 @@
       "ToggleButton": true,
       "DrawFrame": true,
       "TooltipText": "Lower Terrain",
-      "menuGroupID": "Construction_sub"
+      "BuildMenuID": "Construction_sub"
     },
     {
       "ID": "button level terrain",
@@ -161,7 +161,7 @@
       "ToggleButton": true,
       "DrawFrame": true,
       "TooltipText": "Level Terrain",
-      "menuGroupID": "Construction_sub"
+      "BuildMenuID": "Construction_sub"
     },
     {
       "ID": "button terrain water",
@@ -175,7 +175,7 @@
       "ToggleButton": true,
       "DrawFrame": true,
       "TooltipText": "Water",
-      "menuGroupID": "Construction_sub"
+      "BuildMenuID": "Construction_sub"
     }
   ],
   "PowerSubMenu": [
