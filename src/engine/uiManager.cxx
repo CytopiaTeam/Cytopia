@@ -350,9 +350,8 @@ void UIManager::setCallbackFunctions()
 // TODO: Rename to create menugroup buttons
 void UIManager::createBuildMenu()
 {
-  std::string stringToCut = "_sub";
+  std::string subMenuSuffix = "_sub";
   std::string::size_type sizeOfStringToCut;
-  std::string parentGroupName;
 
   // Create ButtonGroup "_BuildMenu_" for the parent elements
   if (m_buttonGroups.find("_BuildMenu_") == m_buttonGroups.end())
@@ -360,27 +359,40 @@ void UIManager::createBuildMenu()
     m_buttonGroups["_BuildMenu_"] = new ButtonGroup;
   }
 
+  // create buttongroups for all main-buttons in buildmenu (without the _sub prefix)
+  for (const auto &element : m_uiElements)
+  {
+    std::string parentGroupName = element->getUiElementData().buildMenuID;
+
+    // check if the element is part of the BuildMenu
+    if (!parentGroupName.empty() && parentGroupName.find(subMenuSuffix) == std::string::npos)
+    {
+      if (m_buttonGroups.find(parentGroupName) == m_buttonGroups.end())
+      {
+        m_buttonGroups[parentGroupName] = new ButtonGroup;
+      }
+    }
+  }
+
   // iterate over all elements and add everything that has a buildMenuID.
   for (const auto &element : m_uiElements)
   {
+
+    std::string parentGroupName;
     // Only buttons can be added to the build menu
     Button *button = dynamic_cast<Button *>(element.get());
     if (button)
     {
+      sizeOfStringToCut = button->getUiElementData().buildMenuID.find("_sub");
       // check if the element is part of the BuildMenu
       if (!button->getUiElementData().buildMenuID.empty())
       {
         // get all uiElements that have a _sub suffix in their MenuGroupID
-        sizeOfStringToCut = button->getUiElementData().buildMenuID.find("_sub");
-        if (button->getUiElementData().buildMenuID.find(stringToCut) != std::string::npos)
+        if (button->getUiElementData().buildMenuID.find(subMenuSuffix) != std::string::npos)
         {
           parentGroupName = element->getUiElementData().buildMenuID;
-          parentGroupName.erase(sizeOfStringToCut, stringToCut.size());
-          // Make sure the button group exists before adding the item.
-          if (m_buttonGroups.find(parentGroupName) == m_buttonGroups.end())
-          {
-            m_buttonGroups[parentGroupName] = new ButtonGroup;
-          }
+          parentGroupName.erase(sizeOfStringToCut, subMenuSuffix.size());
+
           // add the element to both buttonGroup and uiGroup container
           m_buttonGroups[parentGroupName]->addToGroup(button);
           m_uiGroups[parentGroupName].uiElements.push_back(button);
