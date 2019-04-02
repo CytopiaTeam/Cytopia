@@ -19,14 +19,15 @@ class UiElement
 protected:
   struct ElementData
   {
-    std::string elementID;
-    std::string text;
-    std::string tooltipText;
-    std::string actionID;
-    std::string actionParameter;
-    std::string textureID;
+    std::string elementID;       // ID to reference to this element
+    std::string text;            // Text label that is shown on the button
+    std::string tooltipText;     // Tooltip text that is shown when hovering over the button
+    std::string actionID;        // ID of the action this button invokes
+    std::string actionParameter; // Parameter for the function that's been called when the button is clicked.
+    std::string textureID;       // ID of the texture this item uses
     std::string menuGroupID;
-    bool isToggleButton = false;
+    UiElement *parent = nullptr; // The object that toggles this items visibility
+    bool isToggleButton = false; // specifies if this is a toggle button
   };
 
   ElementData elementData;
@@ -152,6 +153,7 @@ public:
   */
   void setTextureID(const std::string &textureID);
 
+  void setParent(UiElement *parent) { elementData.parent = parent; };
   void setMenuGroupID(const std::string &menuGroupID) { elementData.menuGroupID = menuGroupID; };
 
   virtual void setText(const std::string &text);

@@ -319,11 +319,21 @@ void UIManager::setCallbackFunctions()
     else if (uiElement->getUiElementData().actionID == "ToggleVisibilityOfGroup")
     {
       uiElement->registerCallbackFunction(Signal::slot(this, &UIManager::toggleGroupVisibility));
-      // for layouting, set the element as parent for the group, in case it should be aligned to it's parent.
-      if (m_uiGroups.find(uiElement.get()->getUiElementData().actionParameter) == m_uiGroups.end())
+
+      if (m_uiGroups.find(uiElement.get()->getUiElementData().actionParameter) != m_uiGroups.end())
       {
-        m_uiGroups[uiElement.get()->getUiElementData().actionParameter].layout.parentElement =
-            uiElement.get()->getUiElementData().elementID;
+        // set a pointer to the parent element for all UiElements that belong to the group that.
+        for (const auto it : m_uiGroups[uiElement.get()->getUiElementData().actionParameter].uiElements)
+        {
+          it->setParent(uiElement.get());
+        }
+
+        // If we layout a Buildmenu sub item, it's layout-parent is always the calling button.
+        if (m_uiGroups[uiElement.get()->getUiElementData().actionParameter].layout.alignment == "BUILDMENU_SUB")
+        {
+          m_uiGroups[uiElement.get()->getUiElementData().actionParameter].layout.layoutParentElement =
+              uiElement.get()->getUiElementData().elementID;
+        }
       }
     }
     else if (uiElement->getUiElementData().actionID == "SaveGame")
