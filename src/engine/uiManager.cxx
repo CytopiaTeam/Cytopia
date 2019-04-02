@@ -328,8 +328,9 @@ void UIManager::setCallbackFunctions()
           it->setParent(uiElement.get());
         }
 
-        // If we layout a Buildmenu sub item, it's layout-parent is always the calling button.
-        if (m_uiGroups[uiElement.get()->getUiElementData().actionParameter].layout.alignment == "BUILDMENU_SUB")
+        // If we layout a Buildmenu sub item (item that has a buildMenuID), it's layout-parent is always the calling button unless it already has a parentElement assigned
+        if (!uiElement.get()->getUiElementData().buildMenuID.empty() &&
+            m_uiGroups[uiElement.get()->getUiElementData().actionParameter].layout.layoutParentElement.empty())
         {
           m_uiGroups[uiElement.get()->getUiElementData().actionParameter].layout.layoutParentElement =
               uiElement.get()->getUiElementData().elementID;
@@ -455,6 +456,34 @@ void UIManager::createBuildMenu()
 void UIManager::setBuildMenuLayout()
 {
   std::string subMenuSuffix = "_sub";
+  std::string alignment = "BOTTOM_CENTER";
+  std::string layoutType = "HORIZONTAL";
+  std::string subMenuAlignment = "HORIZONTAL";
+
+  if (Settings::instance().settings.buildMenuPosition == "BOTTOM")
+  {
+    alignment = "BOTTOM_CENTER";
+    layoutType = "HORIZONTAL";
+    subMenuAlignment = "ALIGN_ABOVE_PARENT";
+  }
+  else if (Settings::instance().settings.buildMenuPosition == "TOP")
+  {
+    alignment = "TOP_CENTER";
+    layoutType = "HORIZONTAL";
+    subMenuAlignment = "ALIGN_BELOW_PARENT";
+  }
+  else if (Settings::instance().settings.buildMenuPosition == "LEFT")
+  {
+    alignment = "LEFT_CENTER";
+    layoutType = "VERTICAL";
+    subMenuAlignment = "ALIGN_RIGHT_TO_PARENT";
+  }
+  else if (Settings::instance().settings.buildMenuPosition == "RIGHT")
+  {
+    alignment = "RIGHT_CENTER";
+    layoutType = "VERTICAL";
+    subMenuAlignment = "ALIGN_LEFT_TO_PARENT";
+  }
 
   // iterate over all elements and add everything that has a BuildMenu ID.
   for (const auto &element : m_uiElements)
@@ -467,14 +496,14 @@ void UIManager::setBuildMenuLayout()
       utils::strings::removeSubString(parentGroupName, subMenuSuffix);
 
       // set Layout parameters
-      m_uiGroups[parentGroupName].layout.alignment = "BUILDMENU_SUB";
-      m_uiGroups[parentGroupName].layout.layoutType = "HORIZONTAL";
+      m_uiGroups[parentGroupName].layout.alignment = subMenuAlignment;
+      m_uiGroups[parentGroupName].layout.layoutType = layoutType;
       m_uiGroups[parentGroupName].layout.padding = 8;
       m_uiGroups[parentGroupName].layout.paddingToParent = 16;
     }
   }
 
-  m_uiGroups["_BuildMenu_"].layout.alignment = "BUILDMENU";
-  m_uiGroups["_BuildMenu_"].layout.layoutType = "HORIZONTAL";
+  m_uiGroups["_BuildMenu_"].layout.alignment = alignment;
+  m_uiGroups["_BuildMenu_"].layout.layoutType = layoutType;
   m_uiGroups["_BuildMenu_"].layout.padding = 16;
 }

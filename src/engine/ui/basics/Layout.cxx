@@ -87,13 +87,13 @@ void Layout::arrangeElements()
     for (const auto &element : group.second.uiElements)
     {
       if (groupLayout.alignment == "CENTER" || groupLayout.alignment == "CENTER_HORIZONTAL" ||
-          groupLayout.alignment == "BUILDMENU")
+          groupLayout.alignment == "BOTTOM_CENTER")
       {
         // start off at the xOffset with the first element.
         x = static_cast<int>(xOffset + currentLength);
       }
       // Align elements to it's parent
-      else if (groupLayout.alignment == "BUILDMENU_SUB" || groupLayout.alignment == "ALIGN_TO_PARENT")
+      else if (groupLayout.alignment == "BUILDMENU_SUB" || groupLayout.alignment == "ALIGN_ABOVE_PARENT")
       {
         // If it's a subelement of the BuildMenu, we need to align the group to the button that toggles it.
         if (!group.second.layout.layoutParentElement.empty())
@@ -113,20 +113,21 @@ void Layout::arrangeElements()
       }
 
       // Set vertical layout
-      if (groupLayout.alignmentVertical == "BOTTOM" || groupLayout.alignment == "BUILDMENU")
+      if (groupLayout.alignment == "BOTTOM_LEFT" || groupLayout.alignment == "BOTTOM_CENTER" ||
+          groupLayout.alignment == "BOTTOM_RIGHT")
       {
         y = Settings::instance().settings.screenHeight - element->getUiElementRect().h - groupLayout.paddingToParent;
       }
 
-      else if (groupLayout.alignmentVertical == "TOP")
+      else if (groupLayout.alignment == "TOP")
       {
         y = 0;
       }
-      else if (groupLayout.alignmentVertical == "CENTER")
+      else if (groupLayout.alignment == "CENTER")
       {
         y = screenCenter.y - element->getUiElementRect().h / 2;
       }
-      else if (groupLayout.alignment == "BUILDMENU_SUB" || groupLayout.alignmentVertical == "ALIGN_ABOVE_PARENT")
+      else if (groupLayout.alignment == "BUILDMENU_SUB" || groupLayout.alignment == "ALIGN_ABOVE_PARENT")
       {
         // If it's a subelement of the BuildMenu, we need to align the group to the button that toggles it.
         if (!group.second.layout.layoutParentElement.empty())
