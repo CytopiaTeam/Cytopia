@@ -319,6 +319,12 @@ void UIManager::setCallbackFunctions()
     else if (uiElement->getUiElementData().actionID == "ToggleVisibilityOfGroup")
     {
       uiElement->registerCallbackFunction(Signal::slot(this, &UIManager::toggleGroupVisibility));
+      // for layouting, set the element as parent for the group, in case it should be aligned to it's parent.
+      if (m_uiGroups.find(uiElement.get()->getUiElementData().actionParameter) == m_uiGroups.end())
+      {
+        m_uiGroups[uiElement.get()->getUiElementData().actionParameter].layout.parentElement =
+            uiElement.get()->getUiElementData().elementID;
+      }
     }
     else if (uiElement->getUiElementData().actionID == "SaveGame")
     {

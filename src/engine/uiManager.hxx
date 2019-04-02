@@ -17,14 +17,14 @@
 
 struct LayoutData
 {
-  std::string alignment;         /// <mandatory> where the element should be place. e.g. SCREENCENTER
-  std::string layoutType;        /// <mandatory> how to layout, default = HORIZONTAL
-  std::string layoutParentGroup; /// align to the parent Group
-  float alignmentOffset;         /// Offset in percent to the screen point. can be negative
-  int padding = 0;               /// padding between elements in pixel
-  int paddingParent = 0;         /// padding between this group and the parent
-  int groupHeight = 0;           /// <internal> height of all elements in group
-  int groupWidth = 0;            /// <internal> Width of all elements in group
+  std::string alignment;     /// <mandatory> where the element should be place. e.g. SCREENCENTER
+  std::string layoutType;    /// <mandatory> how to layout, default = HORIZONTAL
+  std::string parentElement; /// align to the parent element
+  float alignmentOffset;     /// Offset in percent to the screen point. can be negative
+  int padding = 0;           /// padding between elements in pixel
+  int paddingParent = 0;     /// padding between this group and the parent
+  int groupHeight = 0;       /// <internal> height of all elements in group
+  int groupWidth = 0;        /// <internal> Width of all elements in group
 };
 
 struct UiGroup
