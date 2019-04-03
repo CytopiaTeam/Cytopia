@@ -8,6 +8,7 @@
 void Layout::arrangeElements()
 {
   SDL_Point screenCenter{Settings::instance().settings.screenWidth / 2, Settings::instance().settings.screenHeight / 2};
+  SDL_Point screenSize{Settings::instance().settings.screenWidth, Settings::instance().settings.screenHeight};
   // First loop gets total width / height for all layouted groups
   for (auto &group : UIManager::instance().getAllUiGroups())
   {
@@ -81,21 +82,6 @@ void Layout::arrangeElements()
     // Set horizontal layout
     for (const auto &element : group.second.uiElements)
     {
-      if (groupLayout.alignment == "CENTER" || groupLayout.alignment == "CENTER_HORIZONTAL" ||
-          groupLayout.alignment == "BOTTOM_CENTER" || groupLayout.alignment == "TOP_CENTER")
-      {
-        // start off at the xOffset with the first element.
-        xOffset = screenCenter.x - groupLayout.groupWidth / 2;
-        x = static_cast<int>(xOffset + currentLength);
-      }
-
-      if (groupLayout.alignment == "TOP_LEFT" || groupLayout.alignment == "LEFT_CENTER" || groupLayout.alignment == "BOTTOM_LEFT")
-      {
-        // start off at the xOffset with the first element.
-        x = 0;
-        yOffset = screenCenter.y - groupLayout.groupHeight / 2;
-      }
-
       // Align elements to it's parent
       if (!group.second.layout.layoutParentElement.empty())
       {
@@ -117,32 +103,144 @@ void Layout::arrangeElements()
         }
       }
 
-      // Set vertical layout
-      if (groupLayout.alignment == "BOTTOM_LEFT" || groupLayout.alignment == "BOTTOM_CENTER" ||
-          groupLayout.alignment == "BOTTOM_RIGHT")
+      if (groupLayout.alignment == "TOP_LEFT")
       {
-        y = Settings::instance().settings.screenHeight - element->getUiElementRect().h - groupLayout.paddingToParent;
+        if (groupLayout.layoutType == "HORIZONTAL")
+        {
+          xOffset = 0;
+          y = 0;
+        }
+        else if (groupLayout.layoutType == "VERTICAL")
+        {
+          yOffset = 0;
+          x = 0;
+        }
+      }
+      if (groupLayout.alignment == "LEFT_CENTER")
+      {
+        if (groupLayout.layoutType == "HORIZONTAL")
+        {
+          x = static_cast<int>(xOffset + currentLength);
+
+          xOffset = 0;
+          y = screenCenter.y;
+        }
+        else if (groupLayout.layoutType == "VERTICAL")
+        {
+          x = 0;
+          yOffset = screenCenter.y - groupLayout.groupHeight / 2;
+          y = static_cast<int>(yOffset + currentLength);
+        }
+      }
+      if (groupLayout.alignment == "BOTTOM_LEFT")
+      {
+        if (groupLayout.layoutType == "HORIZONTAL")
+        {
+          x = static_cast<int>(xOffset + currentLength);
+
+          xOffset = 0;
+          y = Settings::instance().settings.screenHeight - groupLayout.groupHeight;
+        }
+        else if (groupLayout.layoutType == "VERTICAL")
+        {
+          x = static_cast<int>(xOffset + currentLength);
+          y = static_cast<int>(yOffset + currentLength);
+          x = 0;
+          yOffset = Settings::instance().settings.screenHeight - groupLayout.groupHeight;
+        }
+      }
+      if (groupLayout.alignment == "TOP_CENTER")
+      {
+        if (groupLayout.layoutType == "HORIZONTAL")
+        {
+          xOffset = screenCenter.x - groupLayout.groupWidth / 2;
+          x = static_cast<int>(xOffset + currentLength);
+          y = 0;
+        }
+        else if (groupLayout.layoutType == "VERTICAL")
+        {
+          x = screenCenter.x - groupLayout.groupWidth / 2;
+          yOffset = 0;
+          y = static_cast<int>(yOffset + currentLength);
+        }
+      }
+      if (groupLayout.alignment == "CENTER")
+      {
+        if (groupLayout.layoutType == "HORIZONTAL")
+        {
+          xOffset = screenCenter.x - groupLayout.groupWidth / 2;
+          x = static_cast<int>(xOffset + currentLength);
+          y = screenCenter.y;
+        }
+        else if (groupLayout.layoutType == "VERTICAL")
+        {
+          yOffset = screenCenter.y - groupLayout.groupHeight / 2;
+          x = screenCenter.x;
+          y = static_cast<int>(yOffset + currentLength);
+        }
+      }
+      if (groupLayout.alignment == "BOTTOM_CENTER")
+      {
+        if (groupLayout.layoutType == "HORIZONTAL")
+        {
+          xOffset = screenCenter.x - groupLayout.groupWidth / 2;
+          x = static_cast<int>(xOffset + currentLength);
+          y = Settings::instance().settings.screenHeight - groupLayout.groupHeight;
+        }
+        else if (groupLayout.layoutType == "VERTICAL")
+        {
+          yOffset = screenSize.y - groupLayout.groupHeight;
+          x = screenCenter.x - groupLayout.groupWidth / 2;
+          y = static_cast<int>(yOffset + currentLength);
+        }
+      }
+      if (groupLayout.alignment == "TOP_RIGHT")
+      {
+        if (groupLayout.layoutType == "HORIZONTAL")
+        {
+          xOffset = screenSize.x - groupLayout.groupWidth;
+          x = static_cast<int>(xOffset + currentLength);
+          y = screenSize.y;
+        }
+        else if (groupLayout.layoutType == "VERTICAL")
+        {
+          yOffset = screenSize.y - groupLayout.groupHeight;
+          x = screenCenter.x - groupLayout.groupWidth / 2;
+          y = static_cast<int>(yOffset + currentLength);
+        }
+      }
+      if (groupLayout.alignment == "RIGHT_CENTER")
+      {
+        if (groupLayout.layoutType == "HORIZONTAL")
+        {
+          xOffset = screenSize.x - groupLayout.groupWidth;
+          x = static_cast<int>(xOffset + currentLength);
+          y = screenCenter.y;
+        }
+        else if (groupLayout.layoutType == "VERTICAL")
+        {
+          yOffset = screenCenter.y - groupLayout.groupHeight / 2;
+          x = Settings::instance().settings.screenWidth - element->getUiElementRect().w;
+          y = static_cast<int>(yOffset + currentLength);
+        }
+      }
+      if (groupLayout.alignment == "BOTTOM_RIGHT")
+      {
+        if (groupLayout.layoutType == "HORIZONTAL")
+        {
+          xOffset = screenSize.x - groupLayout.groupWidth;
+          x = static_cast<int>(xOffset + currentLength);
+          y = screenCenter.y;
+        }
+        else if (groupLayout.layoutType == "VERTICAL")
+        {
+          yOffset = screenCenter.y - groupLayout.groupHeight / 2;
+          x = Settings::instance().settings.screenWidth - element->getUiElementRect().w;
+          y = static_cast<int>(yOffset + currentLength);
+        }
       }
 
-      else if (groupLayout.alignment == "LEFT_CENTER")
-      {
-        x = 0;
-        y = static_cast<int>(yOffset + currentLength);
-      }
-      else if (groupLayout.alignment == "RIGHT_CENTER")
-      {
-        x = Settings::instance().settings.screenWidth - element->getUiElementRect().w;
-        y = static_cast<int>(yOffset + currentLength);
-      }
-      else if (groupLayout.alignment == "TOP_CENTER")
-      {
-        y = 0;
-      }
-      else if (groupLayout.alignment == "CENTER")
-      {
-        y = screenCenter.y - element->getUiElementRect().h / 2;
-      }
-
+      // Handling for items that are aligned to a parent
       if (!group.second.layout.layoutParentElement.empty())
       {
         // get parent element and check if it exists
