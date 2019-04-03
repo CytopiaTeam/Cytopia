@@ -89,6 +89,13 @@ void Layout::arrangeElements()
         x = static_cast<int>(xOffset + currentLength);
       }
 
+      if (groupLayout.alignment == "TOP_LEFT" || groupLayout.alignment == "LEFT_CENTER" || groupLayout.alignment == "BOTTOM_LEFT")
+      {
+        // start off at the xOffset with the first element.
+        x = 0;
+        yOffset = screenCenter.y - groupLayout.groupHeight / 2;
+      }
+
       // Align elements to it's parent
       if (!group.second.layout.layoutParentElement.empty())
       {
@@ -106,7 +113,7 @@ void Layout::arrangeElements()
         }
         else if (groupLayout.alignment == "ALIGN_RIGHT_TO_PARENT" || groupLayout.alignment == "ALIGN_LEFT_TO_PARENT")
         {
-          xOffset = (parentElement->getUiElementRect().x - groupLayout.groupWidth / 2) + parentElement->getUiElementRect().w / 2;
+          yOffset = (parentElement->getUiElementRect().y - groupLayout.groupHeight / 2) + parentElement->getUiElementRect().h / 2;
         }
       }
 
@@ -117,6 +124,16 @@ void Layout::arrangeElements()
         y = Settings::instance().settings.screenHeight - element->getUiElementRect().h - groupLayout.paddingToParent;
       }
 
+      else if (groupLayout.alignment == "LEFT_CENTER")
+      {
+        x = 0;
+        y = static_cast<int>(yOffset + currentLength);
+      }
+      else if (groupLayout.alignment == "RIGHT_CENTER")
+      {
+        x = Settings::instance().settings.screenWidth - element->getUiElementRect().w;
+        y = static_cast<int>(yOffset + currentLength);
+      }
       else if (groupLayout.alignment == "TOP_CENTER")
       {
         y = 0;
@@ -125,7 +142,6 @@ void Layout::arrangeElements()
       {
         y = screenCenter.y - element->getUiElementRect().h / 2;
       }
-
 
       if (!group.second.layout.layoutParentElement.empty())
       {
@@ -147,9 +163,19 @@ void Layout::arrangeElements()
           x = static_cast<int>(xOffset + currentLength);
           y = (parentElement->getUiElementRect().y + parentElement->getUiElementRect().h + groupLayout.paddingToParent);
         }
+        else if (groupLayout.alignment == "ALIGN_RIGHT_TO_PARENT")
+        {
+          x = (parentElement->getUiElementRect().x + parentElement->getUiElementRect().w + group.second.layout.padding);
+          y = static_cast<int>(yOffset + currentLength);
+        }
+        else if (groupLayout.alignment == "ALIGN_LEFT_TO_PARENT")
+        {
+          x = (parentElement->getUiElementRect().x - element->getUiElementRect().w - group.second.layout.padding);
+
+          y = static_cast<int>(yOffset + currentLength);
+        }
       }
-      // TODO: special handling for parents
-      // TODO: y coordinate
+
       element->setPosition(x, y);
       currentElement++;
       // add the distance from the current element for the next element.
