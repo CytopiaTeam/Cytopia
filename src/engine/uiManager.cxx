@@ -38,11 +38,9 @@ void UIManager::init()
     std::string groupID;
     groupID = it.key();
 
-    bool visible = false;
-
+    bool visible = true;
     for (size_t id = 0; id < uiLayout[it.key()].size(); id++)
     {
-
       if (!uiLayout[it.key()][id]["groupVisibility"].is_null())
       {
         visible = uiLayout[it.key()][id]["groupVisibility"].get<bool>();

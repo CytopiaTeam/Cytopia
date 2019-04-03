@@ -69,48 +69,10 @@
       "BuildMenuID": "Utilities"
     }
   ],
-  "RoadsSubMenu": [
-    {
-      "ID": "button build paved roads",
-      "Type": "ImageButton",
-      "SpriteID": "Button_RoadsMenu_PavedRoad",
-      "Position_x": 480,
-      "Position_y": 470,
-      "Action": "ChangeTileType",
-      "ActionParameter": "paved_road",
-      "ButtonGroup": "BottomMenuExpansionGroup",
-      "ToggleButton": true,
-      "DrawFrame": true,
-      "TooltipText": "Paved Road"
-    },
-    {
-      "ID": "button build dirt roads",
-      "Type": "ImageButton",
-      "SpriteID": "Button_RoadsMenu_DirtRoad",
-      "Position_x": 520,
-      "Position_y": 470,
-      "Action": "ChangeTileType",
-      "ActionParameter" : "dirt_road",
-      "ButtonGroup": "BottomMenuExpansionGroup",
-      "ToggleButton": true,
-      "DrawFrame": true,
-      "TooltipText": "Dirt Road"
-    },
-    {
-      "ID": "button build country roads",
-      "Type": "ImageButton",
-      "SpriteID": "Button_RoadsMenu_CountryRoad",
-      "Position_x": 560,
-      "Position_y": 470,
-      "Action": "ChangeTileType",
-      "ActionParameter" : "country_road",
-      "ButtonGroup": "BottomMenuExpansionGroup",
-      "ToggleButton": true,
-      "DrawFrame": true,
-      "TooltipText": "Country Road"
-    }
-  ],
   "ConstructionSubMenu": [
+    {
+      "groupVisibility": false
+    },
     {
       "ID": "button demolish",
       "Type": "ImageButton",
@@ -178,50 +140,10 @@
       "BuildMenuID": "Construction_sub"
     }
   ],
-  "PowerSubMenu": [
-    {
-      "ID": "button power coal plant",
-      "Type": "ImageButton",
-      "SpriteID": "Button_NoIcon",
-      "Position_x": 240,
-      "Position_y": 470,
-      "Action": "ChangeTileType",
-      "ActionParameter": "pow_3x3_CoalPlant",
-      "ButtonGroup": "BottomMenuExpansionGroup",
-      "ToggleButton": true,
-      "DrawFrame": true,
-      "TooltipText": "Paved Road"
-    }
-  ],
-  "WaterSubMenu": [
-    {
-      "ID": "button water watertower",
-      "Type": "ImageButton",
-      "SpriteID": "Button_NoIcon",
-      "Position_x": 140,
-      "Position_y": 470,
-      "Action": "ChangeTileType",
-      "ActionParameter": "watertower",
-      "ButtonGroup": "BottomMenuExpansionGroup",
-      "ToggleButton": true,
-      "DrawFrame": true,
-      "TooltipText": "Water Tower"
-    },
-    {
-      "ID": "button water watertower 2",
-      "Type": "ImageButton",
-      "SpriteID": "Button_NoIcon",
-      "Position_x": 180,
-      "Position_y": 470,
-      "Action": "ChangeTileType",
-      "ActionParameter" : "watertower2",
-      "ButtonGroup": "BottomMenuExpansionGroup",
-      "ToggleButton": true,
-      "DrawFrame": true,
-      "TooltipText": "Water Tower 2"
-    }
-  ],
   "PauseMenu": [
+    {
+      "groupVisibility": false
+    },
     {
       "Type": "Frame",
       "Position_x": 250,
@@ -269,6 +191,9 @@
     }
   ],
   "SettingsMenu": [
+    {
+      "groupVisibility": false
+    },
     {
       "Type": "Frame",
       "Position_x": 250,
@@ -319,32 +244,6 @@
       "Width": 200,
       "Height": 30,
       "Text": "800 x 600"
-    }
-  ],
-  "DebugSubMenu": [
-    {
-      "Type": "ImageButton",
-      "SpriteID": "Button_NoIcon",
-      "Position_x": 320,
-      "Position_y": 470,
-      "Action": "ChangeTileType",
-      "ActionParameter": "com_2x2_office",
-      "ButtonGroup": "BottomMenuExpansionGroup",
-      "ToggleButton": true,
-      "DrawFrame": true,
-      "TooltipText": "BuildHouse"
-    },
-    {
-      "Type": "ImageButton",
-      "SpriteID": "Button_NoIcon",
-      "Position_x": 360,
-      "Position_y": 470,
-      "Action": "ChangeTileType",
-      "ActionParameter": "com_1x1_ClockStore1",
-      "ButtonGroup": "BottomMenuExpansionGroup",
-      "ToggleButton": true,
-      "DrawFrame": true,
-      "TooltipText": "BuildHouse"
     }
   ]
 }
