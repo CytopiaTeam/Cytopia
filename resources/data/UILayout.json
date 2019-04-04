@@ -1,7 +1,15 @@
 {
+    "LayoutGroups": [
+    {
+      "GroupName": "TestLayout",
+      "Alignment": "LEFT_CENTER",
+      "LayoutType": "HORIZONTAL"
+    }
+  ],
+  "UiElements": {
   "BottomBar": [
     {
-      "groupVisibility": true
+      "GroupVisibility": true
     },
     {
       "ID": "construction menu",
@@ -71,7 +79,7 @@
   ],
   "ConstructionSubMenu": [
     {
-      "groupVisibility": false
+      "GroupVisibility": false
     },
     {
       "ID": "button demolish",
@@ -142,7 +150,7 @@
   ],
   "PauseMenu": [
     {
-      "groupVisibility": false
+      "GroupVisibility": false
     },
     {
       "Type": "Frame",
@@ -190,60 +198,61 @@
       "Action": "QuitGame"
     }
   ],
-  "SettingsMenu": [
-    {
-      "groupVisibility": false
-    },
-    {
-      "Type": "Frame",
-      "Position_x": 250,
-      "Position_y": 100,
-      "Width": 300,
-      "Height": 400
-    },
-    {
-      "Type": "Text",
-      "Text": "Settings",
-      "Position_x": 370,
-      "Position_y": 130
-    },
-    {
-      "Type": "Checkbox",
-      "Position_x": 290,
-      "Position_y": 190
-    },
-    {
-      "Type": "Checkbox",
-      "Position_x": 330,
-      "Position_y": 190
-    },
-    {
-      "Type": "TextButton",
-      "Text": "OK",
-      "Position_x": 270,
-      "Position_y": 450,
-      "Width": 100,
-      "Height": 30,
-      "Action": "ToggleVisibilityOfGroup",
-      "ActionParameter": "SettingsMenu"
-    },
-    {
-      "Type": "TextButton",
-      "Text": "Cancel",
-      "Position_x": 430,
-      "Position_y": 450,
-      "Width": 100,
-      "Height": 30,
-      "Action": "ToggleVisibilityOfGroup",
-      "ActionParameter": "SettingsMenu"
-    },
-    {
-      "Type": "ComboBox",
-      "Position_x": 290,
-      "Position_y": 230,
-      "Width": 200,
-      "Height": 30,
-      "Text": "800 x 600"
-    }
-  ]
+    "SettingsMenu": [
+      {
+        "GroupVisibility": false
+      },
+      {
+        "Type": "Frame",
+        "Position_x": 250,
+        "Position_y": 100,
+        "Width": 300,
+        "Height": 400
+      },
+      {
+        "Type": "Text",
+        "Text": "Settings",
+        "Position_x": 370,
+        "Position_y": 130
+      },
+      {
+        "Type": "Checkbox",
+        "Position_x": 290,
+        "Position_y": 190
+      },
+      {
+        "Type": "Checkbox",
+        "Position_x": 330,
+        "Position_y": 190
+      },
+      {
+        "Type": "TextButton",
+        "Text": "OK",
+        "Position_x": 270,
+        "Position_y": 450,
+        "Width": 100,
+        "Height": 30,
+        "Action": "ToggleVisibilityOfGroup",
+        "ActionParameter": "SettingsMenu"
+      },
+      {
+        "Type": "TextButton",
+        "Text": "Cancel",
+        "Position_x": 430,
+        "Position_y": 450,
+        "Width": 100,
+        "Height": 30,
+        "Action": "ToggleVisibilityOfGroup",
+        "ActionParameter": "SettingsMenu"
+      },
+      {
+        "Type": "ComboBox",
+        "Position_x": 290,
+        "Position_y": 230,
+        "Width": 200,
+        "Height": 30,
+        "Text": "800 x 600"
+      }
+    ]
+  }
 }

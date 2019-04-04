@@ -77,6 +77,9 @@ private:
   // map holding all ui elements, accessible via the group ID
   std::unordered_map<std::string, UiGroup> m_uiGroups;
 
+  // map holding layput groups, accessible via the layoutgroup ID
+  std::unordered_map<std::string, UiGroup> m_layoutGroups;
+
   // Holding all buttongroups
   std::unordered_map<std::string, ButtonGroup *> m_buttonGroups;
 

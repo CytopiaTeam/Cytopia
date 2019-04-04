@@ -33,38 +33,62 @@ void UIManager::init()
     LOG(LOG_ERROR) << "Error parsing JSON File " << Settings::instance().settings.uiLayoutJSONFile;
   }
 
-  for (const auto &it : uiLayout.items())
+  for (const auto &it : uiLayout["UiElements"].items())
   {
     std::string groupID;
     groupID = it.key();
+    UiGroup layoutGroup;
+    std::string layoutGroupName;
+    std::string layoutType;
+    std::string alignment;
 
     bool visible = true;
-    for (size_t id = 0; id < uiLayout[it.key()].size(); id++)
+    for (size_t id = 0; id < uiLayout["UiElements"][it.key()].size(); id++)
     {
-      if (!uiLayout[it.key()][id]["groupVisibility"].is_null())
+      if (!uiLayout["UiElements"][it.key()][id]["GroupVisibility"].is_null())
       {
-        visible = uiLayout[it.key()][id]["groupVisibility"].get<bool>();
+        visible = uiLayout["UiElements"][it.key()][id]["GroupVisibility"].get<bool>();
       }
+      //if (!uiLayout[it.key()][id]["GroupLayout"].is_null())
+      //{
+      //  for (const auto &layout : uiLayout[it.key()][id]["GroupLayout"].items())
+      //  {
+      //    layoutGroupName = uiLayout[it.key()][id]["GroupLayout"].value("LayoutGroup", "");
+      //    layoutGroup.layout.layoutType = uiLayout[it.key()][id]["GroupLayout"].value("LayoutType", "");
+      //    layoutGroup.layout.alignment = uiLayout[it.key()][id]["GroupLayout"].value("Alignment", "");
+      //  }
+      //}
 
-      if (!uiLayout[it.key()][id]["Type"].is_null())
+      // parse single item layout data only if there is no group layout defined
+      //if (!uiLayout[it.key()][id]["Layout"].is_null())
+      //{
+      //  for (const auto &layout : uiLayout[it.key()][id]["Layout"].items())
+      //  {
+      //    layoutGroupName = uiLayout[it.key()][id]["Layout"].value("LayoutGroup", "");
+      //    layoutGroup.layout.layoutType = uiLayout[it.key()][id]["Layout"].value("LayoutType", "");
+      //    layoutGroup.layout.alignment = uiLayout[it.key()][id]["Layout"].value("Alignment", "");
+      //  }
+      //}
+
+      if (!uiLayout["UiElements"][it.key()][id]["Type"].is_null())
       {
-        bool toggleButton = uiLayout[it.key()][id].value("ToggleButton", false);
-        bool drawFrame = uiLayout[it.key()][id].value("DrawFrame", false);
-        std::string uiElementID = uiLayout[it.key()][id].value("ID", "");
-        std::string actionID = uiLayout[it.key()][id].value("Action", "");
-        std::string actionParameter = uiLayout[it.key()][id].value("ActionParameter", "");
-        std::string tooltipText = uiLayout[it.key()][id].value("TooltipText", "");
-        std::string text = uiLayout[it.key()][id].value("Text", "");
-        std::string textureID = uiLayout[it.key()][id].value("SpriteID", "");
-        std::string uiElementType = uiLayout[it.key()][id].value("Type", "");
-        std::string buttonGroupID = uiLayout[it.key()][id].value("ButtonGroup", "");
-        std::string buildMenuID = uiLayout[it.key()][id].value("BuildMenuID", "");
+        bool toggleButton = uiLayout["UiElements"][it.key()][id].value("ToggleButton", false);
+        bool drawFrame = uiLayout["UiElements"][it.key()][id].value("DrawFrame", false);
+        std::string uiElementID = uiLayout["UiElements"][it.key()][id].value("ID", "");
+        std::string actionID = uiLayout["UiElements"][it.key()][id].value("Action", "");
+        std::string actionParameter = uiLayout["UiElements"][it.key()][id].value("ActionParameter", "");
+        std::string tooltipText = uiLayout["UiElements"][it.key()][id].value("TooltipText", "");
+        std::string text = uiLayout["UiElements"][it.key()][id].value("Text", "");
+        std::string textureID = uiLayout["UiElements"][it.key()][id].value("SpriteID", "");
+        std::string uiElementType = uiLayout["UiElements"][it.key()][id].value("Type", "");
+        std::string buttonGroupID = uiLayout["UiElements"][it.key()][id].value("ButtonGroup", "");
+        std::string buildMenuID = uiLayout["UiElements"][it.key()][id].value("BuildMenuID", "");
 
         SDL_Rect elementRect{0, 0, 0, 0};
-        elementRect.x = uiLayout[it.key()][id].value("Position_x", 0);
-        elementRect.y = uiLayout[it.key()][id].value("Position_y", 0);
-        elementRect.w = uiLayout[it.key()][id].value("Width", 0);
-        elementRect.h = uiLayout[it.key()][id].value("Height", 0);
+        elementRect.x = uiLayout["UiElements"][it.key()][id].value("Position_x", 0);
+        elementRect.y = uiLayout["UiElements"][it.key()][id].value("Position_y", 0);
+        elementRect.w = uiLayout["UiElements"][it.key()][id].value("Width", 0);
+        elementRect.h = uiLayout["UiElements"][it.key()][id].value("Height", 0);
 
         std::unique_ptr<UiElement> uiElement;
 
@@ -137,6 +161,13 @@ void UIManager::init()
           }
         }
 
+
+
+        if (!layoutGroupName.empty())
+        {
+          m_layoutGroups[layoutGroupName] = layoutGroup;
+          m_layoutGroups[layoutGroupName].uiElements.push_back(uiElement.get());
+        }
         // store the element in a vector
         m_uiElements.emplace_back(std::move(uiElement));
       }
