@@ -107,48 +107,47 @@ void Layout::arrangeElements()
         if (groupLayout.layoutType == "HORIZONTAL")
         {
           xOffset = 0;
+          x = static_cast<int>(xOffset + currentLength);
           y = 0;
         }
         else if (groupLayout.layoutType == "VERTICAL")
         {
           yOffset = 0;
           x = 0;
-        }
-      }
-      if (groupLayout.alignment == "LEFT_CENTER")
-      {
-        if (groupLayout.layoutType == "HORIZONTAL")
-        {
-          x = static_cast<int>(xOffset + currentLength);
-
-          xOffset = 0;
-          y = screenCenter.y;
-        }
-        else if (groupLayout.layoutType == "VERTICAL")
-        {
-          x = 0;
-          yOffset = screenCenter.y - groupLayout.groupHeight / 2;
           y = static_cast<int>(yOffset + currentLength);
         }
       }
-      if (groupLayout.alignment == "BOTTOM_LEFT")
+      else if (groupLayout.alignment == "LEFT_CENTER")
       {
         if (groupLayout.layoutType == "HORIZONTAL")
         {
-          x = static_cast<int>(xOffset + currentLength);
-
           xOffset = 0;
+          x = static_cast<int>(xOffset + currentLength);
+          y = screenCenter.y - groupLayout.groupHeight / 2;
+        }
+        else if (groupLayout.layoutType == "VERTICAL")
+        {
+          yOffset = screenCenter.y - groupLayout.groupHeight / 2;
+          x = 0;
+          y = static_cast<int>(yOffset + currentLength);
+        }
+      }
+      else if (groupLayout.alignment == "BOTTOM_LEFT")
+      {
+        if (groupLayout.layoutType == "HORIZONTAL")
+        {
+          xOffset = 0;
+          x = static_cast<int>(xOffset + currentLength);
           y = Settings::instance().settings.screenHeight - groupLayout.groupHeight;
         }
         else if (groupLayout.layoutType == "VERTICAL")
         {
-          x = static_cast<int>(xOffset + currentLength);
-          y = static_cast<int>(yOffset + currentLength);
-          x = 0;
           yOffset = Settings::instance().settings.screenHeight - groupLayout.groupHeight;
+          x = 0;
+          y = static_cast<int>(yOffset + currentLength);
         }
       }
-      if (groupLayout.alignment == "TOP_CENTER")
+      else if (groupLayout.alignment == "TOP_CENTER")
       {
         if (groupLayout.layoutType == "HORIZONTAL")
         {
@@ -158,12 +157,12 @@ void Layout::arrangeElements()
         }
         else if (groupLayout.layoutType == "VERTICAL")
         {
-          x = screenCenter.x - groupLayout.groupWidth / 2;
           yOffset = 0;
+          x = screenCenter.x - groupLayout.groupWidth / 2;
           y = static_cast<int>(yOffset + currentLength);
         }
       }
-      if (groupLayout.alignment == "CENTER")
+      else if (groupLayout.alignment == "CENTER")
       {
         if (groupLayout.layoutType == "HORIZONTAL")
         {
@@ -178,7 +177,7 @@ void Layout::arrangeElements()
           y = static_cast<int>(yOffset + currentLength);
         }
       }
-      if (groupLayout.alignment == "BOTTOM_CENTER")
+      else if (groupLayout.alignment == "BOTTOM_CENTER")
       {
         if (groupLayout.layoutType == "HORIZONTAL")
         {
@@ -193,48 +192,48 @@ void Layout::arrangeElements()
           y = static_cast<int>(yOffset + currentLength);
         }
       }
-      if (groupLayout.alignment == "TOP_RIGHT")
+      else if (groupLayout.alignment == "TOP_RIGHT")
       {
         if (groupLayout.layoutType == "HORIZONTAL")
         {
           xOffset = screenSize.x - groupLayout.groupWidth;
           x = static_cast<int>(xOffset + currentLength);
-          y = screenSize.y;
+          y = 0;
+        }
+        else if (groupLayout.layoutType == "VERTICAL")
+        {
+          yOffset = 0;
+          x = screenSize.x - groupLayout.groupWidth;
+          y = static_cast<int>(yOffset + currentLength);
+        }
+      }
+      else if (groupLayout.alignment == "RIGHT_CENTER")
+      {
+        if (groupLayout.layoutType == "HORIZONTAL")
+        {
+          xOffset = screenSize.x - groupLayout.groupWidth;
+          x = static_cast<int>(xOffset + currentLength);
+          y = screenCenter.y - groupLayout.groupHeight / 2;
+        }
+        else if (groupLayout.layoutType == "VERTICAL")
+        {
+          yOffset = screenCenter.y - groupLayout.groupHeight / 2;
+          x = Settings::instance().settings.screenWidth - element->getUiElementRect().w;
+          y = static_cast<int>(yOffset + currentLength);
+        }
+      }
+      else if (groupLayout.alignment == "BOTTOM_RIGHT")
+      {
+        if (groupLayout.layoutType == "HORIZONTAL")
+        {
+          xOffset = screenSize.x - groupLayout.groupWidth;
+          x = static_cast<int>(xOffset + currentLength);
+          y = screenSize.y - groupLayout.groupHeight;
         }
         else if (groupLayout.layoutType == "VERTICAL")
         {
           yOffset = screenSize.y - groupLayout.groupHeight;
-          x = screenCenter.x - groupLayout.groupWidth / 2;
-          y = static_cast<int>(yOffset + currentLength);
-        }
-      }
-      if (groupLayout.alignment == "RIGHT_CENTER")
-      {
-        if (groupLayout.layoutType == "HORIZONTAL")
-        {
-          xOffset = screenSize.x - groupLayout.groupWidth;
-          x = static_cast<int>(xOffset + currentLength);
-          y = screenCenter.y;
-        }
-        else if (groupLayout.layoutType == "VERTICAL")
-        {
-          yOffset = screenCenter.y - groupLayout.groupHeight / 2;
-          x = Settings::instance().settings.screenWidth - element->getUiElementRect().w;
-          y = static_cast<int>(yOffset + currentLength);
-        }
-      }
-      if (groupLayout.alignment == "BOTTOM_RIGHT")
-      {
-        if (groupLayout.layoutType == "HORIZONTAL")
-        {
-          xOffset = screenSize.x - groupLayout.groupWidth;
-          x = static_cast<int>(xOffset + currentLength);
-          y = screenCenter.y;
-        }
-        else if (groupLayout.layoutType == "VERTICAL")
-        {
-          yOffset = screenCenter.y - groupLayout.groupHeight / 2;
-          x = Settings::instance().settings.screenWidth - element->getUiElementRect().w;
+          x = screenSize.x - groupLayout.groupWidth;
           y = static_cast<int>(yOffset + currentLength);
         }
       }
