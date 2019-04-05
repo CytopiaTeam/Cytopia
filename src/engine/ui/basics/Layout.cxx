@@ -173,7 +173,7 @@ void Layout::arrangeElements()
         else if (groupLayout.layoutType == "VERTICAL")
         {
           yOffset = screenCenter.y - groupLayout.groupHeight / 2;
-          x = screenCenter.x;
+          x = screenCenter.x - groupLayout.groupWidth / 2;
           y = static_cast<int>(yOffset + currentLength);
         }
       }
@@ -275,7 +275,14 @@ void Layout::arrangeElements()
       element->setPosition(x, y);
       currentElement++;
       // add the distance from the current element for the next element.
-      currentLength += (element->getUiElementRect().w + groupLayout.padding);
+      if (groupLayout.layoutType == "HORIZONTAL")
+      {
+        currentLength += (element->getUiElementRect().w + groupLayout.padding);
+      }
+      else
+      {
+        currentLength += (element->getUiElementRect().h + groupLayout.padding);
+      }
     }
   }
 }
