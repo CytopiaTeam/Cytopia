@@ -60,7 +60,7 @@ public:
   * @param x the new x coordinate of the ui element
   * @param y the new y coordinate of the ui element
   */
-  void setPosition(int x, int y)
+  virtual void setPosition(int x, int y)
   {
     m_uiElementRect.x = x;
     m_uiElementRect.y = y;

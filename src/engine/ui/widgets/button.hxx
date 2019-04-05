@@ -4,6 +4,14 @@
 #include "../basics/uiElement.hxx"
 #include "text.hxx"
 
+enum class TextLayout
+{
+  CENTERED,
+  TOP_LEFT,
+  TOP_RIGHT,
+  BOTTOM_LEFT,
+  BOTTOM_RIGHT
+};
 class Button : public UiElement
 {
 public:
@@ -25,11 +33,14 @@ public:
   void registerCallbackFunction(std::function<void(UiElement *sender)> const &cb) override;
   void registerCallbackFunction(std::function<void(const std::string &, UiElement *sender)> const &cb) override;
 
+  void setPosition(int x, int y) override;
+  void centerTextLabel();
+
   bool checkState() const { return m_checkState; };
   void setCheckState(bool state);
 
 private:
-  SDL_Rect m_rect;
+  SDL_Rect m_frameRect;
 
   std::unique_ptr<Text> m_buttonLabel;
 

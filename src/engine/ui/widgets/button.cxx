@@ -1,17 +1,18 @@
 #include "button.hxx"
 #include "../../basics/log.hxx"
 
-Button::Button(const SDL_Rect &uiElementRect) : UiElement(uiElementRect), m_rect(uiElementRect)
+Button::Button(const SDL_Rect &uiElementRect) : UiElement(uiElementRect), m_frameRect(uiElementRect)
 {
-  m_buttonLabel = std::make_unique<Text>(uiElementRect);
+  m_buttonLabel = std::make_unique<Text>();
+  centerTextLabel();
 }
 
 void Button::draw()
 {
   // if the button is initialized with no dimension, don't draw a frame.
-  if (m_rect.h != 0 && m_rect.w != 0)
+  if (m_frameRect.h != 0 && m_frameRect.w != 0)
   {
-    drawButtonFrame(m_rect);
+    drawButtonFrame(m_frameRect);
   }
 
   if (m_drawFrame)
@@ -107,6 +108,23 @@ void Button::setCheckState(bool state)
   clickSignal.emit();
   clickSignalSender.emit(this);
   clickSignalString.emit(elementData.actionParameter, this);
+}
+
+void Button::setPosition(int x, int y)
+{
+
+  m_uiElementRect.x = x;
+  m_uiElementRect.y = y;
+  m_frameRect.x = x;
+  m_frameRect.y = y;
+  centerTextLabel();
+}
+
+void Button::centerTextLabel()
+{
+  int x = m_uiElementRect.x + m_uiElementRect.w / 2 - m_buttonLabel->getUiElementRect().w / 2;
+  int y = m_uiElementRect.y + m_uiElementRect.h / 2 - m_buttonLabel->getUiElementRect().h / 2;
+  m_buttonLabel->setPosition(x, y);
 }
 
 void Button::registerCallbackFunction(std::function<void()> const &cb) { clickSignal.connect(cb); }
