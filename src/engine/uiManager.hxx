@@ -28,7 +28,7 @@ struct LayoutData
   int groupWidth = 0;              /// <internal> Width of all elements in group
 };
 
-struct UiGroup
+struct LayoutGroup
 {
   std::vector<UiElement *> uiElements; /// contains pointer to all uiElements belonging to this group
   LayoutData layout;                   /// layout information @see LayoutData
@@ -58,8 +58,8 @@ public:
 
   const std::vector<UiElement *> *getUiElementsOfGroup(const std::string &groupID) const;
 
-  std::unordered_map<std::string, UiGroup> &getAllUiGroups() { return m_uiGroups; }
-  std::unordered_map<std::string, UiGroup> &getAllLayoutGroups() { return m_layoutGroups; }
+  std::unordered_map<std::string, std::vector<UiElement *>> &getAllUiGroups() { return m_uiGroups; }
+  std::unordered_map<std::string, LayoutGroup> &getAllLayoutGroups() { return m_layoutGroups; }
 
   UiElement *getUiElementByID(const std::string &UiElement) const;
   void startTooltip(SDL_Event &event, const std::string &tooltipText);
@@ -76,10 +76,10 @@ private:
   std::vector<UiElement *> m_uiElementsForEventHandling;
 
   // map holding all ui elements, accessible via the group ID
-  std::unordered_map<std::string, UiGroup> m_uiGroups;
+  std::unordered_map<std::string, std::vector<UiElement *>> m_uiGroups;
 
   // map holding layput groups, accessible via the layoutgroup ID
-  std::unordered_map<std::string, UiGroup> m_layoutGroups;
+  std::unordered_map<std::string, LayoutGroup> m_layoutGroups;
 
   // Holding all buttongroups
   std::unordered_map<std::string, ButtonGroup *> m_buttonGroups;

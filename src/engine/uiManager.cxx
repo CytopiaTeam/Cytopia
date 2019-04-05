@@ -43,7 +43,7 @@ void UIManager::init()
       layoutGroupName = uiLayout["LayoutGroups"][it.key()][id].value("GroupName", "");
       if (!layoutGroupName.empty())
       {
-        UiGroup layoutGroup;
+        LayoutGroup layoutGroup;
         layoutGroup.layout.layoutType = uiLayout["LayoutGroups"][it.key()][id].value("LayoutType", "");
         layoutGroup.layout.alignment = uiLayout["LayoutGroups"][it.key()][id].value("Alignment", "");
 
@@ -183,7 +183,7 @@ void UIManager::init()
 
           if (!groupID.empty())
           {
-            m_uiGroups[groupID].uiElements.push_back(uiElement.get());
+            m_uiGroups[groupID].push_back(uiElement.get());
           }
         }
 
@@ -255,7 +255,7 @@ void UIManager::toggleGroupVisibility(const std::string &groupID, UiElement *sen
       // cast the object to a Button to check if it's a toggle button.
       if (button->getUiElementData().isToggleButton)
       {
-        for (const auto &it : m_uiGroups[groupID].uiElements)
+        for (const auto &it : m_uiGroups[groupID])
         {
           it->setVisibility(button->checkState());
         }
@@ -263,7 +263,7 @@ void UIManager::toggleGroupVisibility(const std::string &groupID, UiElement *sen
       }
     }
   }
-  for (const auto &it : m_uiGroups[groupID].uiElements)
+  for (const auto &it : m_uiGroups[groupID])
   {
     it->setVisibility(!it->isVisible());
   }
@@ -272,9 +272,7 @@ void UIManager::toggleGroupVisibility(const std::string &groupID, UiElement *sen
 void UIManager::startTooltip(SDL_Event &event, const std::string &tooltipText)
 {
   m_tooltip->setText(tooltipText);
-
   m_tooltip->setPosition(event.button.x - m_tooltip->getUiElementRect().w / 2, event.button.y - m_tooltip->getUiElementRect().h);
-
   m_tooltip->startTimer();
 }
 
@@ -294,7 +292,7 @@ const std::vector<UiElement *> *UIManager::getUiElementsOfGroup(const std::strin
 {
   if (m_uiGroups.find(groupID) != m_uiGroups.end())
   {
-    return &m_uiGroups.find(groupID)->second.uiElements;
+    return &m_uiGroups.find(groupID)->second;
   }
   return nullptr;
 }
@@ -381,23 +379,7 @@ void UIManager::setCallbackFunctions()
     {
       uiElement->registerCallbackFunction(Signal::slot(this, &UIManager::toggleGroupVisibility));
 
-      //if (m_uiGroups.find(uiElement.get()->getUiElementData().actionParameter) != m_uiGroups.end())
-      //{
-      //  // set a pointer to the parent element for all UiElements that belong to the group that.
-      //  for (const auto it : m_uiGroups[uiElement.get()->getUiElementData().actionParameter].uiElements)
-      //  {
-      //    it->setParent(uiElement.get());
-      //  }
-
-      //  // If we layout a Buildmenu sub item (item that has a buildMenuID), it's layout-parent is always the calling button unless it already has a parentElement assigned
-      //  if (!uiElement.get()->getUiElementData().buildMenuID.empty() &&
-      //      m_uiGroups[uiElement.get()->getUiElementData().actionParameter].layout.layoutParentElement.empty())
-      //  {
-      //    m_uiGroups[uiElement.get()->getUiElementData().actionParameter].layout.layoutParentElement =
-      //        uiElement.get()->getUiElementData().elementID;
-      //  }
-      //}
-      if (m_layoutGroups.find(uiElement.get()->getUiElementData().actionParameter) != m_uiGroups.end())
+      if (m_layoutGroups.find(uiElement.get()->getUiElementData().actionParameter) != m_layoutGroups.end())
       {
         // set a pointer to the parent element for all UiElements that belong to the group that.
         for (const auto it : m_layoutGroups[uiElement.get()->getUiElementData().actionParameter].uiElements)
@@ -506,7 +488,7 @@ void UIManager::createBuildMenu()
           if (m_buttonGroups.find(parentGroupName) != m_buttonGroups.end())
           {
             m_buttonGroups[parentGroupName]->addToGroup(button);
-            m_uiGroups[parentGroupName].uiElements.push_back(button);
+            m_uiGroups[parentGroupName].push_back(button);
             m_layoutGroups[parentGroupName].uiElements.push_back(button);
           }
           else
@@ -523,7 +505,7 @@ void UIManager::createBuildMenu()
           button->setActionParameter(button->getUiElementData().buildMenuID);
           m_buttonGroups["_BuildMenu_"]->addToGroup(button);
 
-          m_uiGroups["_BuildMenu_"].uiElements.push_back(button);
+          m_uiGroups["_BuildMenu_"].push_back(button);
           m_layoutGroups["_BuildMenu_"].uiElements.push_back(button);
         }
       }
