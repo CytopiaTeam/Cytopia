@@ -31,44 +31,70 @@ void UIManager::init()
   if (uiLayout.is_discarded())
   {
     LOG(LOG_ERROR) << "Error parsing JSON File " << Settings::instance().settings.uiLayoutJSONFile;
+    return;
   }
 
+  // parse Layout
+  for (const auto &it : uiLayout["LayoutGroups"].items())
+  {
+    std::string layoutGroupName;
+    for (size_t id = 0; id < uiLayout["LayoutGroups"][it.key()].size(); id++)
+    {
+      layoutGroupName = uiLayout["LayoutGroups"][it.key()][id].value("GroupName", "");
+      if (!layoutGroupName.empty())
+      {
+        UiGroup layoutGroup;
+        layoutGroup.layout.layoutType = uiLayout["LayoutGroups"][it.key()][id].value("LayoutType", "");
+        layoutGroup.layout.alignment = uiLayout["LayoutGroups"][it.key()][id].value("Alignment", "");
+
+        if (layoutGroup.layout.layoutType.empty())
+        {
+          LOG(LOG_ERROR) << "LayoutGroup " << layoutGroupName
+                         << " has no parameter \"LayoutType\" set. Check your UiLayout.json file.";
+          continue;
+        }
+        if (layoutGroup.layout.alignment.empty())
+        {
+          LOG(LOG_ERROR) << "LayoutGroup " << layoutGroupName
+                         << " has no parameter \"Alignment\" set. Check your UiLayout.json file.";
+          continue;
+        }
+
+        m_layoutGroups[layoutGroupName] = layoutGroup;
+      }
+      else
+      {
+        LOG(LOG_ERROR) << "Cannot add a Layout Group without a name. Check your UiLayout.json file.";
+      }
+    }
+  }
+
+  // parse UiElements
   for (const auto &it : uiLayout["UiElements"].items())
   {
     std::string groupID;
     groupID = it.key();
-    UiGroup layoutGroup;
     std::string layoutGroupName;
-    std::string layoutType;
-    std::string alignment;
 
     bool visible = true;
+
+    // parse UiElements
     for (size_t id = 0; id < uiLayout["UiElements"][it.key()].size(); id++)
     {
       if (!uiLayout["UiElements"][it.key()][id]["GroupVisibility"].is_null())
       {
         visible = uiLayout["UiElements"][it.key()][id]["GroupVisibility"].get<bool>();
       }
-      //if (!uiLayout[it.key()][id]["GroupLayout"].is_null())
-      //{
-      //  for (const auto &layout : uiLayout[it.key()][id]["GroupLayout"].items())
-      //  {
-      //    layoutGroupName = uiLayout[it.key()][id]["GroupLayout"].value("LayoutGroup", "");
-      //    layoutGroup.layout.layoutType = uiLayout[it.key()][id]["GroupLayout"].value("LayoutType", "");
-      //    layoutGroup.layout.alignment = uiLayout[it.key()][id]["GroupLayout"].value("Alignment", "");
-      //  }
-      //}
-
-      // parse single item layout data only if there is no group layout defined
-      //if (!uiLayout[it.key()][id]["Layout"].is_null())
-      //{
-      //  for (const auto &layout : uiLayout[it.key()][id]["Layout"].items())
-      //  {
-      //    layoutGroupName = uiLayout[it.key()][id]["Layout"].value("LayoutGroup", "");
-      //    layoutGroup.layout.layoutType = uiLayout[it.key()][id]["Layout"].value("LayoutType", "");
-      //    layoutGroup.layout.alignment = uiLayout[it.key()][id]["Layout"].value("Alignment", "");
-      //  }
-      //}
+      // check if their is a global layoutgroup paramter set
+      if (!uiLayout["UiElements"][it.key()][id]["GroupSettings"].is_null())
+      {
+        layoutGroupName = uiLayout["UiElements"][it.key()][id]["GroupSettings"].value("LayoutGroup", "");
+      }
+      // check if a single item is associated with a layout group and override group settings, if applicable
+      if (!uiLayout["UiElements"][it.key()][id]["LayoutGroup"].is_null())
+      {
+        layoutGroupName = uiLayout["UiElements"][it.key()][id].value("LayoutGroup", "");
+      }
 
       if (!uiLayout["UiElements"][it.key()][id]["Type"].is_null())
       {
@@ -161,13 +187,19 @@ void UIManager::init()
           }
         }
 
-
-
         if (!layoutGroupName.empty())
         {
-          m_layoutGroups[layoutGroupName] = layoutGroup;
-          m_layoutGroups[layoutGroupName].uiElements.push_back(uiElement.get());
+          if (m_layoutGroups.find(layoutGroupName) != m_layoutGroups.end())
+          {
+            m_layoutGroups[layoutGroupName].uiElements.push_back(uiElement.get());
+          }
+          else
+          {
+            LOG(LOG_ERROR) << "Trying to add element " << uiElement.get()->getUiElementData().elementID << " to LayoutGroup "
+                           << layoutGroupName;
+          }
         }
+
         // store the element in a vector
         m_uiElements.emplace_back(std::move(uiElement));
       }
@@ -349,19 +381,35 @@ void UIManager::setCallbackFunctions()
     {
       uiElement->registerCallbackFunction(Signal::slot(this, &UIManager::toggleGroupVisibility));
 
-      if (m_uiGroups.find(uiElement.get()->getUiElementData().actionParameter) != m_uiGroups.end())
+      //if (m_uiGroups.find(uiElement.get()->getUiElementData().actionParameter) != m_uiGroups.end())
+      //{
+      //  // set a pointer to the parent element for all UiElements that belong to the group that.
+      //  for (const auto it : m_uiGroups[uiElement.get()->getUiElementData().actionParameter].uiElements)
+      //  {
+      //    it->setParent(uiElement.get());
+      //  }
+
+      //  // If we layout a Buildmenu sub item (item that has a buildMenuID), it's layout-parent is always the calling button unless it already has a parentElement assigned
+      //  if (!uiElement.get()->getUiElementData().buildMenuID.empty() &&
+      //      m_uiGroups[uiElement.get()->getUiElementData().actionParameter].layout.layoutParentElement.empty())
+      //  {
+      //    m_uiGroups[uiElement.get()->getUiElementData().actionParameter].layout.layoutParentElement =
+      //        uiElement.get()->getUiElementData().elementID;
+      //  }
+      //}
+      if (m_layoutGroups.find(uiElement.get()->getUiElementData().actionParameter) != m_uiGroups.end())
       {
         // set a pointer to the parent element for all UiElements that belong to the group that.
-        for (const auto it : m_uiGroups[uiElement.get()->getUiElementData().actionParameter].uiElements)
+        for (const auto it : m_layoutGroups[uiElement.get()->getUiElementData().actionParameter].uiElements)
         {
           it->setParent(uiElement.get());
         }
 
         // If we layout a Buildmenu sub item (item that has a buildMenuID), it's layout-parent is always the calling button unless it already has a parentElement assigned
         if (!uiElement.get()->getUiElementData().buildMenuID.empty() &&
-            m_uiGroups[uiElement.get()->getUiElementData().actionParameter].layout.layoutParentElement.empty())
+            m_layoutGroups[uiElement.get()->getUiElementData().actionParameter].layout.layoutParentElement.empty())
         {
-          m_uiGroups[uiElement.get()->getUiElementData().actionParameter].layout.layoutParentElement =
+          m_layoutGroups[uiElement.get()->getUiElementData().actionParameter].layout.layoutParentElement =
               uiElement.get()->getUiElementData().elementID;
         }
       }
@@ -459,6 +507,7 @@ void UIManager::createBuildMenu()
           {
             m_buttonGroups[parentGroupName]->addToGroup(button);
             m_uiGroups[parentGroupName].uiElements.push_back(button);
+            m_layoutGroups[parentGroupName].uiElements.push_back(button);
           }
           else
           {
@@ -475,6 +524,7 @@ void UIManager::createBuildMenu()
           m_buttonGroups["_BuildMenu_"]->addToGroup(button);
 
           m_uiGroups["_BuildMenu_"].uiElements.push_back(button);
+          m_layoutGroups["_BuildMenu_"].uiElements.push_back(button);
         }
       }
     }
@@ -525,14 +575,14 @@ void UIManager::setBuildMenuLayout()
       utils::strings::removeSubString(parentGroupName, subMenuSuffix);
 
       // set Layout parameters
-      m_uiGroups[parentGroupName].layout.alignment = subMenuAlignment;
-      m_uiGroups[parentGroupName].layout.layoutType = layoutType;
-      m_uiGroups[parentGroupName].layout.padding = 8;
-      m_uiGroups[parentGroupName].layout.paddingToParent = 16;
+      m_layoutGroups[parentGroupName].layout.alignment = subMenuAlignment;
+      m_layoutGroups[parentGroupName].layout.layoutType = layoutType;
+      m_layoutGroups[parentGroupName].layout.padding = 8;
+      m_layoutGroups[parentGroupName].layout.paddingToParent = 16;
     }
   }
 
-  m_uiGroups["_BuildMenu_"].layout.alignment = alignment;
-  m_uiGroups["_BuildMenu_"].layout.layoutType = layoutType;
-  m_uiGroups["_BuildMenu_"].layout.padding = 16;
+  m_layoutGroups["_BuildMenu_"].layout.alignment = alignment;
+  m_layoutGroups["_BuildMenu_"].layout.layoutType = layoutType;
+  m_layoutGroups["_BuildMenu_"].layout.padding = 16;
 }
