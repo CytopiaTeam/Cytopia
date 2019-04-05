@@ -38,6 +38,7 @@ void UIManager::init()
   for (const auto &it : uiLayout["LayoutGroups"].items())
   {
     std::string layoutGroupName;
+    // prepare empty layout groups with layout information from json
     for (size_t id = 0; id < uiLayout["LayoutGroups"][it.key()].size(); id++)
     {
       layoutGroupName = uiLayout["LayoutGroups"][it.key()][id].value("GroupName", "");
@@ -60,6 +61,23 @@ void UIManager::init()
           continue;
         }
 
+        // set parent and check if the element exists
+        layoutGroup.layout.layoutParentElementID = uiLayout["LayoutGroups"][it.key()][id].value("LayoutParentElementID", "");
+        if (!layoutGroup.layout.layoutParentElementID.empty())
+        {
+          if (!getUiElementByID(layoutGroup.layout.layoutParentElementID))
+          {
+            LOG(LOG_ERROR) << "Non existing UiElement with ID " << layoutGroup.layout.layoutParentElementID
+                           << "has been set for LayoutGroup " << layoutGroupName;
+            continue;
+          }
+        }
+
+        layoutGroup.layout.padding = uiLayout["LayoutGroups"][it.key()][id].value("Padding", 0);
+        layoutGroup.layout.paddingToParent = uiLayout["LayoutGroups"][it.key()][id].value("PaddingToParent", 0);
+        layoutGroup.layout.alignmentOffset = uiLayout["LayoutGroups"][it.key()][id].value("AlignmentOffeset", 0.0f);
+
+        // add layout group information to container
         m_layoutGroups[layoutGroupName] = layoutGroup;
       }
       else
@@ -195,8 +213,8 @@ void UIManager::init()
           }
           else
           {
-            LOG(LOG_ERROR) << "Trying to add element " << uiElement.get()->getUiElementData().elementID << " to LayoutGroup "
-                           << layoutGroupName;
+            LOG(LOG_ERROR) << "Cannot add elements to non existing LayoutGroup " << layoutGroupName
+                           << ". Add the group first, before trying to add elements to it.";
           }
         }
 
@@ -389,9 +407,9 @@ void UIManager::setCallbackFunctions()
 
         // If we layout a Buildmenu sub item (item that has a buildMenuID), it's layout-parent is always the calling button unless it already has a parentElement assigned
         if (!uiElement.get()->getUiElementData().buildMenuID.empty() &&
-            m_layoutGroups[uiElement.get()->getUiElementData().actionParameter].layout.layoutParentElement.empty())
+            m_layoutGroups[uiElement.get()->getUiElementData().actionParameter].layout.layoutParentElementID.empty())
         {
-          m_layoutGroups[uiElement.get()->getUiElementData().actionParameter].layout.layoutParentElement =
+          m_layoutGroups[uiElement.get()->getUiElementData().actionParameter].layout.layoutParentElementID =
               uiElement.get()->getUiElementData().elementID;
         }
       }

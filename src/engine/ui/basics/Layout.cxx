@@ -82,10 +82,10 @@ void Layout::arrangeElements()
     for (const auto &element : group.second.uiElements)
     {
       // Align elements to it's parent
-      if (!group.second.layout.layoutParentElement.empty())
+      if (!group.second.layout.layoutParentElementID.empty())
       {
         // get parent element and check if it exists
-        UiElement *parentElement = UIManager::instance().getUiElementByID(group.second.layout.layoutParentElement);
+        UiElement *parentElement = UIManager::instance().getUiElementByID(group.second.layout.layoutParentElementID);
         if (!parentElement)
         {
           LOG(LOG_ERROR) << "Cannot align UiGroup " << group.first << " to a parent because it has no ParentElementID set!";
@@ -239,10 +239,10 @@ void Layout::arrangeElements()
       }
 
       // Handling for items that are aligned to a parent
-      if (!group.second.layout.layoutParentElement.empty())
+      if (!group.second.layout.layoutParentElementID.empty())
       {
         // get parent element and check if it exists
-        UiElement *parentElement = UIManager::instance().getUiElementByID(group.second.layout.layoutParentElement);
+        UiElement *parentElement = UIManager::instance().getUiElementByID(group.second.layout.layoutParentElementID);
         if (!parentElement)
         {
           LOG(LOG_ERROR) << "Cannot align UiGroup " << group.first << " to a parent because it has no ParentElementID set!";

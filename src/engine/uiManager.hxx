@@ -17,15 +17,14 @@
 
 struct LayoutData
 {
-  std::string alignment;           /// <mandatory> where the element should be place. e.g. SCREENCENTER
-  std::string alignmentVertical;   /// <mandatory> Vertical alignment
-  std::string layoutType;          /// <mandatory> how to layout, default = HORIZONTAL
-  std::string layoutParentElement; /// align to the parent element
-  float alignmentOffset;           /// Offset in percent to the screen point. can be negative
-  int padding = 0;                 /// padding between elements in pixel
-  int paddingToParent = 0;         /// padding between this group and the parent
-  int groupHeight = 0;             /// <internal> height of all elements in group
-  int groupWidth = 0;              /// <internal> Width of all elements in group
+  std::string alignment;             /// <mandatory> where the element should be place. e.g. CENTER
+  std::string layoutType;            /// <mandatory> how to layout, default = HORIZONTAL
+  std::string layoutParentElementID; /// elementID of the parent UiElement this group should be aligned to.
+  float alignmentOffset;             /// Offset in percent to the screen point. can be negative
+  int padding = 0;                   /// padding between elements in pixel
+  int paddingToParent = 0;           /// padding between this group and the parent in pixel
+  int groupHeight = 0;               /// <internal> height of all elements in group
+  int groupWidth = 0;                /// <internal> Width of all elements in group
 };
 
 struct LayoutGroup
