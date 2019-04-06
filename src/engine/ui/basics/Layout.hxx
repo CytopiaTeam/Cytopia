@@ -39,18 +39,9 @@ public:
   void arrangeElements();
 
 private:
-  /**
-   * @brief Visbility of group.
-   * If true, the group will not be rendered.
-   */
-  bool visible = true;
-
   std::vector<UiElement *> m_groupElements;
 
   std::unordered_map<std::string, UiElement *> m_buildSubMenuGroups;
-  // This buttongroup holds the main elements
-  // TODO: Shared or unique?
-  ButtonGroup *m_buildMenuGroup = new ButtonGroup;
 };
 
 #endif
