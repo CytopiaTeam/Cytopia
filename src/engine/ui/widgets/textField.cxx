@@ -55,7 +55,7 @@ void TextField::addText(const std::string &text)
 
 std::string TextField::getTextFromID(int id) const
 {
-  if (id < count)
+  if (id < count && count > 0 && id >= 0)
   {
     return m_textElements[id]->getUiElementData().text;
   }
