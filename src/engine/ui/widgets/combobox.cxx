@@ -3,7 +3,9 @@
 ComboBox::ComboBox(const SDL_Rect &uiElementRect)
     : UiElement(uiElementRect), m_comboBoxRect(uiElementRect), m_menuRect(uiElementRect)
 {
-  m_menuRect.y = m_comboBoxRect.y + m_comboBoxRect.h;
+  m_buttonLabel = std::make_unique<Text>();
+
+  m_menuRect.y = m_uiElementRect.y + m_uiElementRect.h;
 
   m_textField = std::make_unique<TextField>(m_menuRect);
 
@@ -11,11 +13,12 @@ ComboBox::ComboBox(const SDL_Rect &uiElementRect)
   m_textField->addText("awesome element");
   m_textField->addText("one more element");
 
-  activeText = m_textField->getTextFromID(0);
+  m_buttonLabel->setText(m_textField->getTextFromID(0));
 
   //set menu to same height as textfield
   m_menuRect.h = m_textField->getUiElementRect().h;
   m_textField->setVisibility(false);
+  centerTextLabel();
 }
 
 void ComboBox::draw()
@@ -51,11 +54,22 @@ void ComboBox::draw()
     drawButtonFrame(m_menuRect, false);
     m_textField->draw();
   }
+  m_buttonLabel->draw();
+}
 
-  createTextTexture(activeText, {255, 255, 255});
+void ComboBox::setPosition(int x, int y)
+{
 
-  //render the buttons texture if available
-  renderTexture();
+  m_uiElementRect.x = x;
+  m_uiElementRect.y = y;
+  //centerTextLabel();
+}
+
+void ComboBox::centerTextLabel()
+{
+  int x = m_uiElementRect.x + m_uiElementRect.w / 2 - m_buttonLabel->getUiElementRect().w / 2;
+  int y = m_uiElementRect.y + m_uiElementRect.h / 2 - m_buttonLabel->getUiElementRect().h / 2;
+  m_buttonLabel->setPosition(x, y);
 }
 
 bool ComboBox::isMouseOverHoverableArea(int x, int y)
@@ -105,8 +119,9 @@ bool ComboBox::onMouseButtonUp(const SDL_Event &event)
 
     if (m_isMenuOpened)
     {
-      activeID = m_textField->selectedID;
-      activeText = m_textField->getTextFromID(activeID);
+      m_activeID = m_textField->selectedID;
+      activeText = m_textField->getTextFromID(m_activeID);
+      m_buttonLabel->setText(activeText);
       m_isMenuOpened = false;
       m_textField->setVisibility(false);
     }

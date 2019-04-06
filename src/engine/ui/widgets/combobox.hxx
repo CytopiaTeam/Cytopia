@@ -19,23 +19,30 @@ public:
 
   void draw() override;
 
+  void setPosition(int x, int y) override;
+
+  bool isMouseOver(int x, int y) override;
+  bool isMouseOverHoverableArea(int x, int y) override;
+
   /** \brief Get ID of selected element
   * returns the ID of the selected element in the comboBox
   * @return selected ID
   */
-  bool isMouseOver(int x, int y) override;
-  bool isMouseOverHoverableArea(int x, int y) override;
-
-  int activeID = 0;
+  const int getActiveID() const { return m_activeID; };
   std::string activeText;
 
 private:
+  int m_activeID = 0;
   SDL_Rect m_comboBoxRect;
   SDL_Rect m_menuRect;
 
   std::unique_ptr<TextField> m_textField;
 
   bool m_isMenuOpened = false;
+
+  std::unique_ptr<Text> m_buttonLabel;
+
+  void centerTextLabel();
 };
 
 #endif
