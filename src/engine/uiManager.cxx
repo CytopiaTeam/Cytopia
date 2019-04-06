@@ -169,7 +169,6 @@ void UIManager::init()
         else if (uiElementType == "ComboBox")
         {
           uiElement = std::make_unique<ComboBox>(elementRect);
-          uiElement->setText(text);
         }
 
         uiElement->setVisibility(visible);

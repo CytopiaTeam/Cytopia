@@ -29,12 +29,13 @@ public:
   * @return selected ID
   */
   const int getActiveID() const { return m_activeID; };
+
   std::string activeText;
 
 private:
   int m_activeID = 0;
-  SDL_Rect m_comboBoxRect;
-  SDL_Rect m_menuRect;
+  SDL_Rect m_dropDownRect;     // represents the dropdownMenu
+  SDL_Rect m_wholeElementRect; // represents the whole UiElement including the opened menu
 
   std::unique_ptr<TextField> m_textField;
 
@@ -43,6 +44,8 @@ private:
   std::unique_ptr<Text> m_buttonLabel;
 
   void centerTextLabel();
+
+  bool checkBoundaries(int x, int y);
 };
 
 #endif
