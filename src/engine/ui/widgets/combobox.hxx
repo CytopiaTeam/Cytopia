@@ -28,7 +28,7 @@ public:
   * returns the ID of the selected element in the comboBox
   * @return selected ID
   */
-  const int getActiveID() const { return m_activeID; };
+  int getActiveID() const { return m_activeID; };
 
   std::string activeText;
 
