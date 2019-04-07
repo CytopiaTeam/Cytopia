@@ -7,8 +7,6 @@ ComboBox::ComboBox(const SDL_Rect &uiElementRect) : UiElement(uiElementRect), m_
   m_buttonLabel = std::make_unique<Text>();
 
   m_dropDownRect.y = m_uiElementRect.y + m_uiElementRect.h;
-  LOG() << "uielementRect " << m_uiElementRect.w << ", " << m_uiElementRect.h;
-  LOG() << "uielementRect " << m_uiElementRect.w << ", " << m_uiElementRect.h;
   m_textField = std::make_unique<TextField>(m_dropDownRect);
 
   m_textField->addText("test");
@@ -25,6 +23,10 @@ ComboBox::ComboBox(const SDL_Rect &uiElementRect) : UiElement(uiElementRect), m_
   m_wholeElementRect.h = m_dropDownRect.h + m_uiElementRect.h;
 
   m_textField->setVisibility(false);
+
+  // center the text in dropdown menu
+  m_textField->textAlignment = TextFieldAlignment::CENTERED;
+
   centerTextLabel();
 }
 
@@ -75,9 +77,7 @@ void ComboBox::setPosition(int x, int y)
   m_wholeElementRect.x = x;
   m_wholeElementRect.y = y;
 
-  //= m_uiElementRect;
-  //m_wholeElementRect.h = m_dropDownRect.h + m_uiElementRect.h;
-
+  m_textField->setPosition(m_dropDownRect.x, m_dropDownRect.y);
   centerTextLabel();
 }
 
@@ -108,7 +108,7 @@ bool ComboBox::onMouseButtonUp(const SDL_Event &event)
   int x = event.button.x;
   int y = event.button.y;
 
-  if (checkBoundaries(event.button.x, event.button.y))
+  if (checkBoundaries(x, y))
   {
     // check if the mouse is over the button part of the combox box.
     if (x > m_uiElementRect.x && x < m_uiElementRect.x + m_uiElementRect.w && y > m_uiElementRect.y &&
@@ -154,7 +154,7 @@ void ComboBox::onMouseMove(const SDL_Event &event)
   int x = event.button.x;
   int y = event.button.y;
 
-  if (checkBoundaries(event.button.x, event.button.y))
+  if (checkBoundaries(x, y))
   {
 
     // if the mouse is moving over the button, handle the button alone
