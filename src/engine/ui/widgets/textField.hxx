@@ -42,7 +42,7 @@ public:
   TextFieldAlignment textAlignment = TextFieldAlignment::CENTERED;
 
 private:
-  std::vector<Text *> m_textElements;
+  std::vector<std::unique_ptr<Text>> m_textElements;
 
   int m_textElementHeight = 0;
 

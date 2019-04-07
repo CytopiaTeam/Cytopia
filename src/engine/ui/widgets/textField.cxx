@@ -30,14 +30,14 @@ void TextField::addText(const std::string &text)
 {
   SDL_Rect textRect = m_uiElementRect;
 
-  m_textElements.push_back(new Text(text));
-  textRect.h = m_textElements.back()->getUiElementRect().h; // get height of text after instantiating
+  Text *label = new Text(text);
+  textRect.h = label->getUiElementRect().h; // get height of text after instantiating
   textRect.y = m_uiElementRect.y + count * textRect.h;
 
   // center text
   if (centerText)
   {
-    textRect.x = m_uiElementRect.x + (m_uiElementRect.w / 2 - m_textElements.back()->getUiElementRect().w / 2);
+    textRect.x = m_uiElementRect.x + (m_uiElementRect.w / 2 - label->getUiElementRect().w / 2);
   }
   else
   {
@@ -49,7 +49,8 @@ void TextField::addText(const std::string &text)
   m_uiElementRect.h += m_textElementHeight;
   m_highlightingRect.h = m_textElementHeight;
 
-  m_textElements.back()->setPosition(textRect.x, textRect.y);
+  label->setPosition(textRect.x, textRect.y);
+  m_textElements.emplace_back(label);
   count = static_cast<int>(m_textElements.size());
 }
 
@@ -59,7 +60,7 @@ std::string TextField::getTextFromID(int id) const
   {
     return m_textElements[id]->getUiElementData().text;
   }
-  return "";
+  return ""+id;
 }
 
 void TextField::setPosition(int x, int y)
