@@ -2,6 +2,7 @@
 #define UTILS_HXX_
 
 #include <iterator>
+#include <string>
 
 namespace utils
 {
