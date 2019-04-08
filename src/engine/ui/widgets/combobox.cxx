@@ -2,10 +2,9 @@
 
 #include "../../basics/log.hxx"
 
-ComboBox::ComboBox(const SDL_Rect &uiElementRect) : UiElement(uiElementRect), m_dropDownRect(uiElementRect)
+ComboBox::ComboBox(const SDL_Rect &uiElementRect)
+    : UiElement(uiElementRect), m_dropDownRect(uiElementRect), m_buttonLabel(std::make_unique<Text>())
 {
-  m_buttonLabel = std::make_unique<Text>();
-
   m_dropDownRect.y = m_uiElementRect.y + m_uiElementRect.h;
   m_textField = std::make_unique<TextField>(m_dropDownRect);
 
