@@ -60,7 +60,7 @@ std::string TextField::getTextFromID(int id) const
   {
     return m_textElements[id]->getUiElementData().text;
   }
-  return ""+id;
+  return "";
 }
 
 void TextField::setPosition(int x, int y)
@@ -75,6 +75,9 @@ void TextField::setPosition(int x, int y)
     //SDL_Rect textRect;
     switch (textAlignment)
     {
+    case TextFieldAlignment::LEFT:
+      // for LEFT alignemnt, we use the same values as the uiElementRect
+      break;
     case TextFieldAlignment::RIGHT:
       x = m_uiElementRect.x + m_uiElementRect.w - text->getUiElementRect().w;
       break;
