@@ -74,8 +74,6 @@ void Layout::arrangeElements()
       yOffset = screenCenter.y - groupLayout.groupHeight / 2;
     }
 
-    // iterator variable
-    int currentElement = 1;
     int currentLength = 0;
 
     // Set horizontal layout
@@ -273,7 +271,7 @@ void Layout::arrangeElements()
       }
 
       element->setPosition(x, y);
-      currentElement++;
+
       // add the distance from the current element for the next element.
       if (groupLayout.layoutType == "HORIZONTAL")
       {
