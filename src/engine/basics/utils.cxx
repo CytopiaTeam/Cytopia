@@ -16,19 +16,12 @@ void removeSubString(std::string &string, const std::string &stringToRemove)
 
 bool endsWith(const std::string &mainStr, const std::string &toMatch)
 {
-  if (mainStr.size() >= toMatch.size() && mainStr.compare(mainStr.size() - toMatch.size(), toMatch.size(), toMatch) == 0)
-    return true;
-  else
-    return false;
+  return mainStr.size() >= toMatch.size() && mainStr.compare(mainStr.size() - toMatch.size(), toMatch.size(), toMatch) == 0;
 }
 
 bool startsWith(std::string mainStr, std::string toMatch)
 {
-  // std::string::find returns 0 if toMatch is found at starting
-  if (mainStr.find(toMatch) == 0)
-    return true;
-  else
-    return false;
+  return mainStr.size() >= toMatch.size() && mainStr.compare(0, toMatch.size(), toMatch) == 0;
 }
 
 } // namespace strings
