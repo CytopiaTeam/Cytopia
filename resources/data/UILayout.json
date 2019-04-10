@@ -9,9 +9,18 @@
     ],
     "TestLayout2": [
       {
-        "GroupName": "TestLayout",
-        "Alignment": "LEFT_CENTER",
-        "LayoutType": "HORIZONTAL"
+        "GroupName": "TestLayout2",
+        "Alignment": "BOTTOM_CENTER",
+        "LayoutType": "VERTICAL",
+        "Padding": 12
+      }
+    ],
+    "PauseMenuButtons": [
+      {
+        "GroupName": "PauseMenuButtons",
+        "Alignment": "CENTER",
+        "LayoutType": "VERTICAL",
+        "Padding": 30
       }
     ]
   },
@@ -177,7 +186,9 @@
         "Height": 40,
         "Action": "ToggleVisibilityOfGroup",
         "ActionParameter": "SettingsMenu",
-        "GroupID": 2
+        "GroupID": 2,
+        "LayoutGroup": "PauseMenuButtons"
+
       },
       {
         "Type": "TextButton",
@@ -186,7 +197,9 @@
         "Position_y": 240,
         "Width": 200,
         "Height": 40,
-        "Action": "SaveGame"
+        "Action": "SaveGame",
+        "LayoutGroup": "PauseMenuButtons"
+
       },
       {
         "Type": "TextButton",
@@ -195,7 +208,9 @@
         "Position_y": 310,
         "Width": 200,
         "Height": 40,
-        "Action": "LoadGame"
+        "Action": "LoadGame",
+        "LayoutGroup": "PauseMenuButtons"
+
       },
       {
         "Type": "TextButton",
@@ -204,7 +219,8 @@
         "Position_y": 380,
         "Width": 200,
         "Height": 40,
-        "Action": "QuitGame"
+        "Action": "QuitGame",
+        "LayoutGroup": "PauseMenuButtons"
       }
     ],
     "SettingsMenu": [
@@ -255,59 +271,13 @@
         "ActionParameter": "SettingsMenu"
       },
       {
+        "ID": "$BuildMenuLayout",
         "Type": "ComboBox",
         "Position_x": 290,
         "Position_y": 230,
         "Width": 200,
         "Height": 30,
         "Text": "800 x 600"
-      }
-    ],
-    "TestMenu": [
-      {
-        "GroupVisibility": true,
-        "GroupSettings": {
-          "LayoutGroup": "TestLayout"
-        }
-      },
-      {
-        "Type": "TextButton",
-        "Text": "Settings",
-        "Position_x": 300,
-        "Position_y": 170,
-        "Width": 200,
-        "Height": 40,
-        "Action": "ToggleVisibilityOfGroup",
-        "ActionParameter": "SettingsMenu",
-        "GroupID": 2,
-        "LayoutGroup": "SettingsMenuButtons"
-      },
-      {
-        "Type": "TextButton",
-        "Text": "Save Game",
-        "Position_x": 300,
-        "Position_y": 240,
-        "Width": 200,
-        "Height": 40,
-        "Action": "SaveGame"
-      },
-      {
-        "Type": "TextButton",
-        "Text": "Load Game",
-        "Position_x": 300,
-        "Position_y": 310,
-        "Width": 200,
-        "Height": 40,
-        "Action": "LoadGame"
-      },
-      {
-        "Type": "TextButton",
-        "Text": "Quit Game",
-        "Position_x": 300,
-        "Position_y": 380,
-        "Width": 200,
-        "Height": 40,
-        "Action": "QuitGame"
       }
     ]
   }
