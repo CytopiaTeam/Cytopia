@@ -65,6 +65,8 @@ public:
 
   void stopTooltip() const;
 
+  void UIManager::initializeDollarVariables();
+
 private:
   UIManager() = default;
   ~UIManager() = default;

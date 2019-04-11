@@ -3,30 +3,18 @@
 #include "../../basics/log.hxx"
 
 ComboBox::ComboBox(const SDL_Rect &uiElementRect)
-    : UiElement(uiElementRect), m_dropDownRect(uiElementRect), m_buttonLabel(std::make_unique<Text>())
+    : UiElement(uiElementRect), m_dropDownRect(uiElementRect), m_wholeElementRect(uiElementRect),
+      m_buttonLabel(std::make_unique<Text>())
 {
+  // the Dropdown frame starts directly beneath the button element of the combobox
   m_dropDownRect.y = m_uiElementRect.y + m_uiElementRect.h;
   m_textField = std::make_unique<TextField>(m_dropDownRect);
 
-  m_textField->addText("test");
-  m_textField->addText("awesome element");
-  m_textField->addText("one more element");
-
-  m_buttonLabel->setText(m_textField->getTextFromID(0));
-
-  //set menu to same height as textfield
-  m_dropDownRect.h = m_textField->getUiElementRect().h;
-
-  // Rect for the whole element
-  m_wholeElementRect = m_uiElementRect;
-  m_wholeElementRect.h = m_dropDownRect.h + m_uiElementRect.h;
-
+  // ComboBox is collapsed when element is instantiated
   m_textField->setVisibility(false);
 
-  // center the text in dropdown menu
+  // set TextFields text alignemnt to center as default
   m_textField->textAlignment = TextFieldAlignment::CENTERED;
-
-  centerTextLabel();
 }
 
 void ComboBox::draw()
@@ -67,16 +55,22 @@ void ComboBox::draw()
 
 void ComboBox::setPosition(int x, int y)
 {
+  // set the button elements posiiton
   m_uiElementRect.x = x;
   m_uiElementRect.y = y;
 
+  // reposition the dropdown menu frame
   m_dropDownRect.x = x;
   m_dropDownRect.y = m_uiElementRect.y + m_uiElementRect.h;
 
+  // adjust the rect that represents the whole element
   m_wholeElementRect.x = x;
   m_wholeElementRect.y = y;
 
+  // repositon the text field
   m_textField->setPosition(m_dropDownRect.x, m_dropDownRect.y);
+
+  // center the Label on the button element
   centerTextLabel();
 }
 
@@ -100,6 +94,24 @@ bool ComboBox::checkBoundaries(int x, int y)
   }
   return x > m_uiElementRect.x && x < (m_uiElementRect.x + m_uiElementRect.w) && y > m_uiElementRect.y &&
          y < (m_uiElementRect.y + m_uiElementRect.h);
+}
+
+void ComboBox::addElement(const std::string &text)
+{
+  m_textField->addText(text);
+
+  // if the added element is the active one, set the main text to the added elements text.
+  if (m_textField->count == m_activeID + 1)
+  {
+    m_buttonLabel->setText(m_textField->getTextFromID(m_activeID));
+    centerTextLabel();
+  }
+
+  //set dropdown frame to the same height as textfield
+  m_dropDownRect.h = m_textField->getUiElementRect().h;
+
+  // increase the size of the rect that represents the whole element
+  m_wholeElementRect.h = m_uiElementRect.h + m_dropDownRect.h;
 }
 
 bool ComboBox::onMouseButtonUp(const SDL_Event &event)
@@ -127,6 +139,7 @@ bool ComboBox::onMouseButtonUp(const SDL_Event &event)
     m_buttonLabel->setText(activeText);
     m_isMenuOpened = false;
     m_textField->setVisibility(false);
+    centerTextLabel();
     return true;
   }
   return false;

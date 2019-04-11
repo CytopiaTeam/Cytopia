@@ -24,6 +24,8 @@ public:
   bool isMouseOver(int x, int y) override;
   bool isMouseOverHoverableArea(int x, int y) override;
 
+  void addElement(const std::string &text);
+
   /** \brief Get ID of selected element
   * returns the ID of the selected element in the comboBox
   * @return selected ID

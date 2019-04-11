@@ -224,6 +224,7 @@ void UIManager::init()
   }
   m_tooltip->setVisibility(false);
 
+  initializeDollarVariables();
   createBuildMenu();
   setCallbackFunctions();
 
@@ -584,4 +585,31 @@ void UIManager::setBuildMenuLayout()
   m_layoutGroups["_BuildMenu_"].layout.alignment = alignment;
   m_layoutGroups["_BuildMenu_"].layout.layoutType = layoutType;
   m_layoutGroups["_BuildMenu_"].layout.padding = 16;
+}
+
+void UIManager::initializeDollarVariables()
+{
+
+  // get all elements that start with a dollar.
+  for (const auto &it : getAllUiElements())
+  {
+    if (utils::strings::startsWith(it->getUiElementData().elementID, "$"))
+    {
+      if (it->getUiElementData().elementID == "$BuildMenuLayout")
+      {
+        // This must be a ComboBox
+        ComboBox *combobox = dynamic_cast<ComboBox *>(it.get());
+        if (!combobox)
+        {
+          LOG(LOG_ERROR) << "Can not use element ID $BuildMenuLayout for an element other than a combobox!";
+          continue;
+        }
+
+        combobox->addElement("LEFT");
+        combobox->addElement("RIGHT");
+        combobox->addElement("TOP");
+        combobox->addElement("BOTTOM");
+      }
+    }
+  }
 }
