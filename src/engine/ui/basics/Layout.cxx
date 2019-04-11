@@ -1,14 +1,14 @@
 #include "Layout.hxx"
+
 #include "../../basics/log.hxx"
 #include "../../basics/settings.hxx"
-#include "../../tileManager.hxx"
-#include "../../basics/signal.hxx"
 #include "../../uiManager.hxx"
 
 void Layout::arrangeElements()
 {
   SDL_Point screenCenter{Settings::instance().settings.screenWidth / 2, Settings::instance().settings.screenHeight / 2};
   SDL_Point screenSize{Settings::instance().settings.screenWidth, Settings::instance().settings.screenHeight};
+
   // First loop gets total width / height for all layouted groups
   for (auto &group : UIManager::instance().getAllLayoutGroups())
   {

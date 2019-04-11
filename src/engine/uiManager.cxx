@@ -234,8 +234,7 @@ void UIManager::init()
     m_uiElementsForEventHandling.push_back(it.second);
   }
 
-  Layout layout;
-  layout.arrangeElements();
+  Layout::arrangeElements();
 }
 
 void UIManager::setFPSCounterText(const std::string &fps) { m_fpsCounter->setText(fps); }
