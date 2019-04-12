@@ -10,6 +10,7 @@
 #include "basics/log.hxx"
 #include "basics/utils.hxx"
 #include "ui/widgets/tooltip.hxx"
+#include "ui/menuGroups/MenuGroupBuild.hxx"
 
 void EventManager::checkEvents(SDL_Event &event, Engine &engine)
 {
@@ -149,40 +150,44 @@ bool EventManager::dispatchUiEvents(SDL_Event &event)
   bool isMouseOverElement = false;
   bool isHovering = false;
 
-  // groupElements
-  for (auto &it : m_uiManager.m_buttonGroups)
-  {
-    switch (event.type)
-    {
-    case SDL_MOUSEBUTTONDOWN:
-      it.second.onMouseButtonDown(event);
-      break;
-    case SDL_MOUSEBUTTONUP:
-      it.second.onMouseButtonUp(event);
-      break;
-    }
-  }
-
-  for (const auto &it : utils::ReverseIterator(m_uiManager.m_uiElementsWithoutGroup))
+  for (const auto &it : utils::ReverseIterator(m_uiManager.getAllUiElementsForEventHandling()))
   {
     if (it->isVisible())
     {
+      ButtonGroup *group = dynamic_cast<ButtonGroup *>(it);
       switch (event.type)
       {
       case SDL_MOUSEBUTTONDOWN:
-        if (it->onMouseButtonDown(event))
+        if (group)
+        {
+          if (group->onMouseButtonDown(event))
+          {
+            return true;
+          }
+        }
+        else if (it->onMouseButtonDown(event))
+        {
           return true;
+        }
         break;
       case SDL_MOUSEBUTTONUP:
-        if (it->onMouseButtonUp(event))
+        if (group)
+        {
+          if (group->onMouseButtonUp(event))
+          {
+            return true;
+          }
+        }
+        else if (it->onMouseButtonUp(event))
+        {
           return true;
-        break;
+        }
       }
     }
   }
 
   // the reversed draw order of the vector is  the Z-Order of the elements
-  for (const auto &it : utils::ReverseIterator(m_uiManager.m_uiElements))
+  for (const auto &it : utils::ReverseIterator(m_uiManager.getAllUiElements()))
   {
     if (event.type == SDL_KEYDOWN)
     {
@@ -229,13 +234,12 @@ bool EventManager::dispatchUiEvents(SDL_Event &event)
     }
   }
 
+  if (!isHovering && m_lastHoveredElement != nullptr)
+  {
+    m_uiManager.stopTooltip();
+    m_lastHoveredElement->onMouseLeave(event);
+    m_lastHoveredElement = nullptr;
+  }
 
-if (!isHovering && m_lastHoveredElement != nullptr)
-{
-  m_uiManager.stopTooltip();
-  m_lastHoveredElement->onMouseLeave(event);
-  m_lastHoveredElement = nullptr;
-}
-
-return isMouseOverElement;
+  return isMouseOverElement;
 }

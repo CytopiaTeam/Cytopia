@@ -64,6 +64,7 @@ void to_json(json &j, const Settings::SettingsStruct &s)
             {{std::string("Screen_Width"), s.screenWidth}, {std::string("Screen_Height"), s.screenHeight}}},
        }},
       {std::string("Game"), {{std::string("MapSize"), s.mapSize}, {std::string("MaxElevationHeight"), s.maxElevationHeight}}},
+      {std::string("User Interface"), {{std::string("BuildMenu Position"), s.buildMenuPosition}}},
       {std::string("ConfigFiles"),
        {{std::string("UIDataJSONFile"), s.uiDataJSONFile},
         {std::string("TileDataJSONFile"), s.tileDataJSONFile},
@@ -97,4 +98,5 @@ void from_json(const json &j, Settings::SettingsStruct &s)
   s.audioChannels = j["Audio"].value("AudioChannels", 2);
   s.musicVolume = j["Audio"].value("MusicVolume", 50);
   s.soundEffectsVolume = j["Audio"].value("SoundEffectsVolume", 100);
+  s.buildMenuPosition = j["User Interface"].value("BuildMenu Position", "BOTTOM");
 }

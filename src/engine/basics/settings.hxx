@@ -32,6 +32,7 @@ public:
     bool playMusic;
     bool playSoundEffects;
     int audioChannels;
+    std::string buildMenuPosition; // TODO: Replace by enum when BetterEnums is implemented
     std::string uiDataJSONFile;
     std::string tileDataJSONFile;
     std::string uiLayoutJSONFile;

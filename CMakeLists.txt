@@ -49,9 +49,11 @@ set (SOURCES
   src/engine/basics/mapEdit.cxx
   src/engine/basics/settings.cxx
   src/engine/basics/timer.cxx
+  src/engine/basics/utils.cxx
   src/engine/GameObjects/mapNode.cxx
   src/engine/ui/basics/uiElement.cxx
   src/engine/ui/basics/buttonGroup.cxx
+  src/engine/ui/basics/Layout.cxx
   src/engine/ui/widgets/bar.cxx
   src/engine/ui/widgets/button.cxx
   src/engine/ui/widgets/combobox.cxx
@@ -60,6 +62,7 @@ set (SOURCES
   src/engine/ui/widgets/text.cxx
   src/engine/ui/widgets/textField.cxx
   src/engine/ui/widgets/tooltip.cxx
+  src/engine/ui/menuGroups/MenuGroupBuild.cxx
   src/engine/audio/soundEffect.cxx
   src/engine/audio/soundEffect.cxx
   src/engine/audio/music.cxx

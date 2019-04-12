@@ -211,7 +211,7 @@ unsigned char Map::getNeighboringTilesBitmask(const Point &isoCoordinates)
   int x = isoCoordinates.x;
   int y = isoCoordinates.y;
 
-  if (mapNodes[x * m_columns + y]->getTileData()->category == "terrain")
+  if (mapNodes[x * m_columns + y]->getTileData()->category == "Terrain")
   {
     return bitmask;
   }

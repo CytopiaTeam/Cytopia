@@ -17,17 +17,18 @@
 class UiElement
 {
 protected:
-  typedef struct
+  struct ElementData
   {
-    std::string elementID;
-    std::string text;
-    std::string tooltipText;
-    std::string actionID;
-    std::string actionParameter;
-    std::string textureID;
-    bool isToggleButton = false;
-
-  } ElementData;
+    std::string elementID;       // ID to reference to this element
+    std::string text;            // Text label that is shown on the button
+    std::string tooltipText;     // Tooltip text that is shown when hovering over the button
+    std::string actionID;        // ID of the action this button invokes
+    std::string actionParameter; // Parameter for the function that's been called when the button is clicked.
+    std::string textureID;       // ID of the texture this item uses
+    std::string buildMenuID;
+    UiElement *parent = nullptr; // The object that toggles this items visibility
+    bool isToggleButton = false; // specifies if this is a toggle button
+  };
 
   ElementData elementData;
 
@@ -44,9 +45,9 @@ public:
   // empty virtual function that can be overriden in the derived Ui Elements
   virtual bool onMouseButtonUp(const SDL_Event &) { return false; };
   virtual bool onMouseButtonDown(const SDL_Event &) { return false; };
-  virtual void onMouseEnter(const SDL_Event &) { };
-  virtual void onMouseLeave(const SDL_Event &) { };
-  virtual void onMouseMove(const SDL_Event &) { };
+  virtual void onMouseEnter(const SDL_Event &){};
+  virtual void onMouseLeave(const SDL_Event &){};
+  virtual void onMouseMove(const SDL_Event &){};
   virtual bool onKeyDown(const SDL_Event &) { return false; };
 
   /** \brief Draw the UI Element and/or render it's textures to the screen
@@ -59,7 +60,7 @@ public:
   * @param x the new x coordinate of the ui element
   * @param y the new y coordinate of the ui element
   */
-  void setPosition(int x, int y)
+  virtual void setPosition(int x, int y)
   {
     m_uiElementRect.x = x;
     m_uiElementRect.y = y;
@@ -151,6 +152,9 @@ public:
   * @param spriteID that should be used for this element as std::string.
   */
   void setTextureID(const std::string &textureID);
+
+  void setParent(UiElement *parent) { elementData.parent = parent; };
+  void setMenuGroupID(const std::string &buildMenuID) { elementData.buildMenuID = buildMenuID; };
 
   virtual void setText(const std::string &text);
 

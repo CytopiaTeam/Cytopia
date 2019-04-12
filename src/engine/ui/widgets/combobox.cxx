@@ -1,21 +1,20 @@
 #include "combobox.hxx"
 
+#include "../../basics/log.hxx"
+
 ComboBox::ComboBox(const SDL_Rect &uiElementRect)
-    : UiElement(uiElementRect), m_comboBoxRect(uiElementRect), m_menuRect(uiElementRect)
+    : UiElement(uiElementRect), m_dropDownRect(uiElementRect), m_wholeElementRect(uiElementRect),
+      m_buttonLabel(std::make_unique<Text>())
 {
-  m_menuRect.y = m_comboBoxRect.y + m_comboBoxRect.h;
+  // the Dropdown frame starts directly beneath the button element of the combobox
+  m_dropDownRect.y = m_uiElementRect.y + m_uiElementRect.h;
+  m_textField = std::make_unique<TextField>(m_dropDownRect);
 
-  m_textField = std::make_unique<TextField>(m_menuRect);
-
-  m_textField->addText("test");
-  m_textField->addText("awesome element");
-  m_textField->addText("one more element");
-
-  activeText = m_textField->getTextFromID(0);
-
-  //set menu to same height as textfield
-  m_menuRect.h = m_textField->getUiElementRect().h;
+  // ComboBox is collapsed when element is instantiated
   m_textField->setVisibility(false);
+
+  // set TextFields text alignemnt to center as default
+  m_textField->textAlignment = TextFieldAlignment::CENTERED;
 }
 
 void ComboBox::draw()
@@ -23,9 +22,9 @@ void ComboBox::draw()
   Uint8 bgColorFrameShade = 172;
 
   // draw the button frame
-  if (m_comboBoxRect.w != 0 && m_comboBoxRect.h != 0)
+  if (m_uiElementRect.w != 0 && m_uiElementRect.h != 0)
   {
-    drawButtonFrame(m_comboBoxRect);
+    drawButtonFrame(m_uiElementRect);
   }
 
   // draw the arrow
@@ -34,8 +33,8 @@ void ComboBox::draw()
 
   arrowRect.w = 18;
   arrowRect.h = 2;
-  arrowRect.x = m_comboBoxRect.x + (m_comboBoxRect.w - arrowRect.w) - 9;
-  arrowRect.y = m_comboBoxRect.y + (m_comboBoxRect.h / 2) - (arrowRect.w / 2) / arrowRect.h - 1;
+  arrowRect.x = m_uiElementRect.x + (m_uiElementRect.w - arrowRect.w) - 9;
+  arrowRect.y = m_uiElementRect.y + (m_uiElementRect.h / 2) - (arrowRect.w / 2) / arrowRect.h - 1;
 
   for (; arrowRect.w > 1; arrowRect.w -= 2)
   {
@@ -48,38 +47,71 @@ void ComboBox::draw()
   // drowpdown menu
   if (m_isMenuOpened)
   {
-    drawButtonFrame(m_menuRect, false);
+    drawButtonFrame(m_dropDownRect, false);
     m_textField->draw();
   }
-
-  createTextTexture(activeText, {255, 255, 255});
-
-  //render the buttons texture if available
-  renderTexture();
+  m_buttonLabel->draw();
 }
 
-bool ComboBox::isMouseOverHoverableArea(int x, int y)
+void ComboBox::setPosition(int x, int y)
 {
-  SDL_Rect boundaries = m_comboBoxRect;
+  // set the button elements posiiton
+  m_uiElementRect.x = x;
+  m_uiElementRect.y = y;
 
-  if (m_isMenuOpened)
-  {
-    boundaries.h += m_menuRect.h;
-  }
+  // reposition the dropdown menu frame
+  m_dropDownRect.x = x;
+  m_dropDownRect.y = m_uiElementRect.y + m_uiElementRect.h;
 
-  return x > boundaries.x && x < boundaries.x + boundaries.w && y > boundaries.y && y < boundaries.y + boundaries.h;
+  // adjust the rect that represents the whole element
+  m_wholeElementRect.x = x;
+  m_wholeElementRect.y = y;
+
+  // repositon the text field
+  m_textField->setPosition(m_dropDownRect.x, m_dropDownRect.y);
+
+  // center the Label on the button element
+  centerTextLabel();
 }
 
-bool ComboBox::isMouseOver(int x, int y)
+void ComboBox::centerTextLabel()
 {
-  SDL_Rect boundaries = m_comboBoxRect;
+  int x = m_uiElementRect.x + m_uiElementRect.w / 2 - m_buttonLabel->getUiElementRect().w / 2;
+  int y = m_uiElementRect.y + m_uiElementRect.h / 2 - m_buttonLabel->getUiElementRect().h / 2;
+  m_buttonLabel->setPosition(x, y);
+}
 
+bool ComboBox::isMouseOverHoverableArea(int x, int y) { return checkBoundaries(x, y); }
+
+bool ComboBox::isMouseOver(int x, int y) { return checkBoundaries(x, y); }
+
+bool ComboBox::checkBoundaries(int x, int y)
+{
   if (m_isMenuOpened)
   {
-    boundaries.h += m_menuRect.h;
+    return x > m_wholeElementRect.x && x < (m_wholeElementRect.x + m_wholeElementRect.w) && y > m_wholeElementRect.y &&
+           y < (m_wholeElementRect.y + m_wholeElementRect.h);
+  }
+  return x > m_uiElementRect.x && x < (m_uiElementRect.x + m_uiElementRect.w) && y > m_uiElementRect.y &&
+         y < (m_uiElementRect.y + m_uiElementRect.h);
+}
+
+void ComboBox::addElement(const std::string &text)
+{
+  m_textField->addText(text);
+
+  // if the added element is the active one, set the main text to the added elements text.
+  if (m_textField->count == m_activeID + 1)
+  {
+    m_buttonLabel->setText(m_textField->getTextFromID(m_activeID));
+    centerTextLabel();
   }
 
-  return x > boundaries.x && x < boundaries.x + boundaries.w && y > boundaries.y && y < boundaries.y + boundaries.h;
+  //set dropdown frame to the same height as textfield
+  m_dropDownRect.h = m_textField->getUiElementRect().h;
+
+  // increase the size of the rect that represents the whole element
+  m_wholeElementRect.h = m_uiElementRect.h + m_dropDownRect.h;
 }
 
 bool ComboBox::onMouseButtonUp(const SDL_Event &event)
@@ -87,29 +119,28 @@ bool ComboBox::onMouseButtonUp(const SDL_Event &event)
   int x = event.button.x;
   int y = event.button.y;
 
-  if (isMouseOver(x, y))
+  if (checkBoundaries(x, y))
   {
-    if (x > m_comboBoxRect.x && x < m_comboBoxRect.x + m_comboBoxRect.w && y > m_comboBoxRect.y &&
-        y < m_comboBoxRect.y + m_comboBoxRect.h)
+    // check if the mouse is over the button part of the combox box.
+    if (x > m_uiElementRect.x && x < m_uiElementRect.x + m_uiElementRect.w && y > m_uiElementRect.y &&
+        y < m_uiElementRect.y + m_uiElementRect.h)
     {
+      // toggle the dropdown menu, it's textfield and set the buttonstate to hovering
       m_isMenuOpened = !m_isMenuOpened;
-      m_textField->setVisibility(!m_textField->isVisible());
+      m_textField->setVisibility(m_isMenuOpened);
       changeButtonState(BUTTONSTATE_HOVERING);
       return true;
     }
 
-    if (m_isMenuOpened)
-    {
-      m_textField->onMouseButtonUp(event); //trigger TextField onMouseButtonUp event
-    }
-
-    if (m_isMenuOpened)
-    {
-      activeID = m_textField->selectedID;
-      activeText = m_textField->getTextFromID(activeID);
-      m_isMenuOpened = false;
-      m_textField->setVisibility(false);
-    }
+    // if the click event is outside the button, handle a click on the dropdown menu
+    m_textField->onMouseButtonUp(event); //trigger TextField onMouseButtonUp event
+    m_activeID = m_textField->selectedID;
+    activeText = m_textField->getTextFromID(m_activeID);
+    m_buttonLabel->setText(activeText);
+    m_isMenuOpened = false;
+    m_textField->setVisibility(false);
+    centerTextLabel();
+    clickSignalSender.emit(this);
     return true;
   }
   return false;
@@ -117,7 +148,7 @@ bool ComboBox::onMouseButtonUp(const SDL_Event &event)
 
 bool ComboBox::onMouseButtonDown(const SDL_Event &event)
 {
-  if (isMouseOver(event.button.x, event.button.y))
+  if (checkBoundaries(event.button.x, event.button.y))
   {
     changeButtonState(BUTTONSTATE_DEFAULT);
     return true;
@@ -136,21 +167,23 @@ void ComboBox::onMouseMove(const SDL_Event &event)
   int x = event.button.x;
   int y = event.button.y;
 
-  if (x > m_comboBoxRect.x && x < m_comboBoxRect.x + m_comboBoxRect.w && y > m_comboBoxRect.y &&
-      y < m_comboBoxRect.y + m_comboBoxRect.h)
+  if (checkBoundaries(x, y))
   {
-    if (getButtonState() != BUTTONSTATE_HOVERING)
+
+    // if the mouse is moving over the button, handle the button alone
+    if (x > m_uiElementRect.x && x < m_uiElementRect.x + m_uiElementRect.w && y > m_uiElementRect.y &&
+        y < m_uiElementRect.y + m_uiElementRect.h)
     {
-      changeButtonState(BUTTONSTATE_HOVERING);
+      if (getButtonState() != BUTTONSTATE_HOVERING)
+      {
+        changeButtonState(BUTTONSTATE_HOVERING);
+      }
+      if (m_textField->hoveredID != -1)
+      {
+        m_textField->onMouseLeave(event);
+      }
     }
-    if (m_textField->hoveredID != -1)
-    {
-      m_textField->onMouseLeave(event);
-    }
-  }
-  else
-  {
-    if (m_isMenuOpened)
+    else
     {
       changeButtonState(BUTTONSTATE_DEFAULT);
       {
@@ -159,3 +192,5 @@ void ComboBox::onMouseMove(const SDL_Event &event)
     }
   }
 }
+
+void ComboBox::registerCallbackFunction(std::function<void(UiElement *sender)> const &cb) { clickSignalSender.connect(cb); }

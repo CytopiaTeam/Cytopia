@@ -2,7 +2,13 @@
 
 #include "../../uiManager.hxx"
 
-void ButtonGroup::addToGroup(Button *widget) { m_buttonGroup.push_back(widget); }
+void ButtonGroup::addToGroup(Button *widget)
+{
+  if (widget)
+  {
+    m_buttonGroup.push_back(widget);
+  }
+}
 
 bool ButtonGroup::onMouseButtonDown(const SDL_Event &event)
 {
@@ -47,9 +53,10 @@ void ButtonGroup::uncheckAllButtons(Button *exceptThisButton)
   for (const auto &it : m_buttonGroup)
   {
     // If the buttongroup has children, uncheck them too
-    if (it->getUiElementData().actionID == "ToggleVisibilityOfGroup")
+    if (UIManager::instance().getUiElementsOfGroup(it->getUiElementData().actionParameter) &&
+        it->getUiElementData().actionID == "ToggleVisibilityOfGroup")
     {
-      for (const auto &groupElement : UIManager::instance().getUiElementsOfGroup(it->getUiElementData().actionParameter))
+      for (auto groupElement : *UIManager::instance().getUiElementsOfGroup(it->getUiElementData().actionParameter))
       {
         Button *button = dynamic_cast<Button *>(groupElement);
         if (button)

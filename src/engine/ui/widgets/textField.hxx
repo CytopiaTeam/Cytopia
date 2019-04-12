@@ -4,6 +4,13 @@
 #include "../basics/uiElement.hxx"
 #include "text.hxx"
 
+enum class TextFieldAlignment
+{
+  LEFT,
+  RIGHT,
+  CENTERED
+};
+
 class TextField : public UiElement
 {
 public:
@@ -18,6 +25,8 @@ public:
 
   SDL_Rect getSize() const { return m_uiElementRect; };
 
+  void setPosition(int x, int y) override;
+
   void draw() override;
 
   bool onMouseButtonUp(const SDL_Event &event) override;
@@ -30,13 +39,15 @@ public:
   int hoveredID = -1;
   int count = 0;
 
+  TextFieldAlignment textAlignment = TextFieldAlignment::CENTERED;
+
 private:
-  std::vector<Text *> m_textElements;
+  std::vector<std::unique_ptr<Text>> m_textElements;
 
   int m_textElementHeight = 0;
 
   // a rect is drawn beneath the current text to hover it
-  SDL_Rect m_hoverRect;
+  SDL_Rect m_highlightingRect;
 };
 
 #endif

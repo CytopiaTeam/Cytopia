@@ -2,6 +2,7 @@
 #define UTILS_HXX_
 
 #include <iterator>
+#include <string>
 
 namespace utils
 {
@@ -18,9 +19,23 @@ public:
   auto begin() const noexcept { return std::make_reverse_iterator(std::end(elem)); }
   auto end() const noexcept { return std::make_reverse_iterator(std::begin(elem)); }
 };
-}
+} // namespace Lib
 /// Helper function for Reverse template because c++11 does not support template deduction
 template <class T> auto ReverseIterator(T const &elem) { return Lib::Reverse<T>(elem); }
-}
+
+namespace strings
+{
+
+/// Erase First Occurrence of given  substring from main string.
+void removeSubString(std::string &string, const std::string &stringToRemove);
+
+/// checks if a string ends with a certain substring
+bool endsWith(const std::string &mainStr, const std::string &toMatch);
+
+/// checks if a string starts with a certain substring
+bool startsWith(std::string mainStr, std::string toMatch);
+
+} // namespace strings
+} // namespace utils
 
 #endif
