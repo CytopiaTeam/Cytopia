@@ -421,6 +421,10 @@ void UIManager::setCallbackFunctions()
     {
       uiElement->registerCallbackFunction([]() { Engine::instance().loadGame("resources/save.cts"); });
     }
+    else if (uiElement->getUiElementData().actionID == "SaveSetings")
+    {
+      uiElement->registerCallbackFunction([]() { Settings::instance().writeFile(); });
+    }
   }
 }
 

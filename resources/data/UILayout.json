@@ -257,7 +257,7 @@
         "Position_y": 450,
         "Width": 100,
         "Height": 30,
-        "Action": "ToggleVisibilityOfGroup",
+        "Action": "SaveSetings",
         "ActionParameter": "SettingsMenu"
       },
       {
