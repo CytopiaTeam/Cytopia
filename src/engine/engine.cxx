@@ -9,10 +9,7 @@
 
 Engine::Engine()
 {
-  int map_size = Settings::instance().settings.mapSize;
-
-  map = new Map(map_size, map_size);
-  map->initMap();
+  newGame();
   // Default: Floor and Buildings are drawn
   m_activeLayers = LAYER_FLOOR | LAYER_BUILDINGS;
 }
@@ -49,4 +46,16 @@ void Engine::loadGame(const std::string &fileName)
     delete map;
     map = newMap;
   }
+}
+
+void Engine::newGame()
+{
+  if (map)
+  {
+    delete map;
+  }
+  int map_size = Settings::instance().settings.mapSize;
+
+  map = new Map(map_size, map_size);
+  map->initMap();
 }

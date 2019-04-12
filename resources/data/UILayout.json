@@ -192,6 +192,17 @@
       },
       {
         "Type": "TextButton",
+        "Text": "New Game",
+        "Position_x": 300,
+        "Position_y": 240,
+        "Width": 200,
+        "Height": 40,
+        "Action": "NewGame",
+        "LayoutGroup": "PauseMenuButtons"
+
+      },
+      {
+        "Type": "TextButton",
         "Text": "Save Game",
         "Position_x": 300,
         "Position_y": 240,

@@ -76,6 +76,8 @@ public:
 
   void saveGame(const std::string &fileName) { map->saveMapToFile(fileName); };
 
+  void newGame();
+
   Map *map;
 
 private:

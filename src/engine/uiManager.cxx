@@ -413,6 +413,10 @@ void UIManager::setCallbackFunctions()
         }
       }
     }
+    else if (uiElement->getUiElementData().actionID == "NewGame")
+    {
+      uiElement->registerCallbackFunction([]() { Engine::instance().newGame(); });
+    }
     else if (uiElement->getUiElementData().actionID == "SaveGame")
     {
       uiElement->registerCallbackFunction([]() { Engine::instance().saveGame("resources/save.cts"); });

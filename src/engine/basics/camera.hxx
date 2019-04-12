@@ -4,8 +4,6 @@
 #include "SDL.h"
 #include "point.hxx"
 
-//class Engine;
-
 class Camera
 {
 public:
