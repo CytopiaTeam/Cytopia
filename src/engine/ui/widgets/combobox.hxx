@@ -34,6 +34,8 @@ public:
 
   std::string activeText;
 
+  void registerCallbackFunction(std::function<void(UiElement *sender)> const &cb) override;
+
 private:
   int m_activeID = 0;
   SDL_Rect m_dropDownRect;     // represents the dropdownMenu
@@ -48,6 +50,9 @@ private:
   void centerTextLabel();
 
   bool checkBoundaries(int x, int y);
+
+  // Signals
+  Signal::Signal<void(UiElement *sender)> clickSignalSender;
 };
 
 #endif

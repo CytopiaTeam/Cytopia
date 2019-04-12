@@ -140,6 +140,7 @@ bool ComboBox::onMouseButtonUp(const SDL_Event &event)
     m_isMenuOpened = false;
     m_textField->setVisibility(false);
     centerTextLabel();
+    clickSignalSender.emit(this);
     return true;
   }
   return false;
@@ -191,3 +192,5 @@ void ComboBox::onMouseMove(const SDL_Event &event)
     }
   }
 }
+
+void ComboBox::registerCallbackFunction(std::function<void(UiElement *sender)> const &cb) { clickSignalSender.connect(cb); }

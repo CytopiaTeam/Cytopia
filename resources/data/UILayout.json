@@ -229,9 +229,9 @@
       },
       {
         "Type": "Frame",
-        "Position_x": 250,
+        "Position_x": 150,
         "Position_y": 100,
-        "Width": 300,
+        "Width": 500,
         "Height": 400
       },
       {
@@ -271,9 +271,15 @@
         "ActionParameter": "SettingsMenu"
       },
       {
+        "Type": "Text",
+        "Text": "BuildMenu Layout",
+        "Position_x": 330,
+        "Position_y": 245
+      },
+      {
         "ID": "$BuildMenuLayout",
         "Type": "ComboBox",
-        "Position_x": 290,
+        "Position_x": 420,
         "Position_y": 230,
         "Width": 200,
         "Height": 30,

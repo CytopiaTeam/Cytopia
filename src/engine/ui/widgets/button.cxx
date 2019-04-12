@@ -112,7 +112,6 @@ void Button::setCheckState(bool state)
 
 void Button::setPosition(int x, int y)
 {
-
   m_uiElementRect.x = x;
   m_uiElementRect.y = y;
   m_frameRect.x = x;

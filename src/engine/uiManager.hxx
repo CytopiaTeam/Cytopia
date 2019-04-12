@@ -67,6 +67,9 @@ public:
 
   void UIManager::initializeDollarVariables();
 
+  void setBuildMenuPosition(UiElement *sender);
+  //void setBuildMenuPosition(const std::string &position);
+
 private:
   UIManager() = default;
   ~UIManager() = default;

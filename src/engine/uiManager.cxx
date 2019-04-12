@@ -608,7 +608,24 @@ void UIManager::initializeDollarVariables()
         combobox->addElement("RIGHT");
         combobox->addElement("TOP");
         combobox->addElement("BOTTOM");
+
+        combobox->registerCallbackFunction(Signal::slot(this, &UIManager::setBuildMenuPosition));
       }
     }
+  }
+}
+
+void UIManager::setBuildMenuPosition(UiElement *sender)
+{
+  ComboBox *comboBox = dynamic_cast<ComboBox *>(sender);
+  if (comboBox)
+  {
+    Settings::instance().settings.buildMenuPosition = comboBox->activeText;
+    setBuildMenuLayout();
+    Layout::arrangeElements();
+  }
+  else
+  {
+    LOG(LOG_ERROR) << "Only a combox can have setBuildMenuPosition() as callback function";
   }
 }
