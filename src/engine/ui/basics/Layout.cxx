@@ -19,6 +19,9 @@ void Layout::arrangeElements()
     {
       continue;
     }
+    // reset group Height / Width
+    groupLayout.groupWidth = 0;
+    groupLayout.groupHeight = 0;
 
     // arrange elements in group
     for (const auto &element : group.second.uiElements)
