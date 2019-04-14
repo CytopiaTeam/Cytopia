@@ -28,6 +28,8 @@ private:
  * 
  */
   ~Layout() = default;
+
+  static void arrangeChildElements();
 };
 
 #endif
