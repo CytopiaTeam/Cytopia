@@ -35,23 +35,6 @@
     },
     {
         "author": "Folesnaid",
-        "category": "Commercial",
-        "description": "A petrol station",
-        "id": "Petrol Station",
-        "power": 0,
-        "price": 0,
-        "tiles": {
-            "clip_height": 24,
-            "clip_width": 32,
-            "count": 1,
-            "fileName": "resources/images/buildings/commercial/com_1x1_des_petrol_station_FN.png"
-        },
-        "title": "Petrol Station",
-        "upkeep cost": 0,
-        "water": 0
-    },
-    {
-        "author": "Folesnaid",
         "category": "Residential",
         "description": "Old Church",
         "id": "Res_1x1_old_des_church_FN",
@@ -102,6 +85,193 @@
         "water": 0
     },
     {
+        "author": "MaroonShaded",
+        "category": "Commercial",
+        "description": "A shop!",
+        "id": "com_1x1_CompactFastshop_MS",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 19,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/com_1x1_CompactFastshop_MS.png"
+        },
+        "title": "CompactFast Shop",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Folesnaid",
+        "category": "Commercial",
+        "description": "I scream for ice cream!",
+        "id": "com_1x1_des_ice_cream_shop_FN",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 27,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/com_1x1_des_ice_cream_shop_FN.png"
+        },
+        "title": "Ice Cream Shop",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Folesnaid",
+        "category": "Commercial",
+        "description": "A petrol station",
+        "id": "com_1x1_des_petrol_station_FN",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 24,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/com_1x1_des_petrol_station_FN.png"
+        },
+        "title": "Petrol Station",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Folesnaid",
+        "category": "Commercial",
+        "description": "A shop that sells games. Even Cytopia is in store!",
+        "id": "com_1x1_game_shop_FN",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 26,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/com_1x1_game_shop_FN.png"
+        },
+        "title": "Game Shop",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "RockFort",
+        "category": "Commercial",
+        "description": "Appartment Building",
+        "id": "com_1x1_nycbuild_RF",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 41,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/com_1x1_nycbuild_RF.png"
+        },
+        "title": "Appartment Building",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Folesnaid",
+        "category": "Commercial",
+        "description": "A shop that sells phones. It has the new CyPhone X",
+        "id": "com_1x1_phone_shop_FN_1552102023413",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 34,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/com_1x1_phone_shop_FN_1552102023413.png"
+        },
+        "title": "Phone Shop",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "RockFort",
+        "category": "Commercial",
+        "description": "Ruegroshorloge",
+        "id": "com_1x1_ruegroshorloge_RF",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 49,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/com_1x1_ruegroshorloge_RF.png"
+        },
+        "title": "Ruegroshorloge",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Folesnaid",
+        "category": "Commercial",
+        "description": "A shop!",
+        "id": "com_1x1_shop_1_FN",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/com_1x1_shop_1_FN.png"
+        },
+        "title": "Shop",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Folesnaid",
+        "category": "Nature",
+        "description": "An oasis",
+        "id": "com_1x1_shop_1_FN1",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 31,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/Nature/Nature_1x1_oasis_FN.png"
+        },
+        "title": "Oasis",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "RockFort",
+        "category": "Commercial",
+        "description": "Borgs Burgers - We have the tastiest!",
+        "id": "com_2x2_BorgsBurgers",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 41,
+            "clip_width": 64,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/com_2x2_BorgsBurgers.png"
+        },
+        "title": "Borgs Burgers",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Folesnaid",
+        "category": "Commercial",
+        "description": "A commercial center",
+        "id": "com_2x2_little_commercial_center_1_FN",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 42,
+            "clip_width": 64,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/com_2x2_small_commercial_center_1_FN.png"
+        },
+        "title": "Small Commercial Center",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
         "author": "Kingtut 101",
         "category": "Commercial",
         "description": "Where people work",
@@ -119,6 +289,23 @@
         "water": 0
     },
     {
+        "author": "RockFort",
+        "category": "Commercial",
+        "description": "Big Office Building",
+        "id": "com_2x2_seattlereworked_RF",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 122,
+            "clip_width": 64,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/com_2x2_seattlereworked_RF.png"
+        },
+        "title": "Big Office Building",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
         "author": "Kingtut 101",
         "category": "Commercial",
         "description": "The community gathers and works here",
@@ -132,6 +319,23 @@
             "fileName": "resources/images/buildings/commercial/com_3x3_CommunityTower.png"
         },
         "title": "Community Tower",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "RockFort",
+        "category": "Commercial",
+        "description": "Tour Front De Seine",
+        "id": "com_3x3_tourfrontdeseine_RF",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 211,
+            "clip_width": 96,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/com_3x3_tourfrontdeseine_RF.png"
+        },
+        "title": "Tour Front De Seine",
         "upkeep cost": 0,
         "water": 0
     },
@@ -209,7 +413,7 @@
             "clip_height": 26,
             "clip_width": 32,
             "count": 1,
-            "fileName": "resources/images/buildings/industrial/ind_1x1_des_petrol_1_FN.png"
+            "fileName": "resources/images/buildings/industrial/desert/ind_1x1_des_petrol_1_FN.png"
         },
         "title": "Petrol Pump",
         "upkeep cost": 0,
@@ -284,6 +488,23 @@
         "water": 0
     },
     {
+        "author": "Folesnaid",
+        "category": "Industrial",
+        "description": "A factory",
+        "id": "ind_2x2_factory_FN",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 58,
+            "clip_width": 64,
+            "count": 1,
+            "fileName": "resources/images/buildings/industrial/ind_2x2_factory_FN.png"
+        },
+        "title": "Factory",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
         "author": "KingTut 101",
         "category": "Industrial",
         "description": "A Power Plant, that has been built years ago",
@@ -301,6 +522,23 @@
         "water": 0
     },
     {
+        "author": "Folesnaid",
+        "category": "Industrial",
+        "description": "A chemical plant",
+        "id": "ind_3x3_chemical_plant_FN",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 66,
+            "clip_width": 96,
+            "count": 1,
+            "fileName": "resources/images/buildings/industrial/ind_3x3_chemical_plant_FN.png"
+        },
+        "title": "Chemical Plant",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
         "author": "KingTut 101",
         "category": "Industrial",
         "description": "Big Depollutor",
@@ -314,6 +552,23 @@
             "fileName": "resources/images/buildings/industrial/ind_4x4_DepolluterLRG.png"
         },
         "title": "Depolluter Big",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "MaroonShaded",
+        "category": "Industrial",
+        "description": "A factory",
+        "id": "ind_des_2x2_Factory_MS",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 51,
+            "clip_width": 64,
+            "count": 1,
+            "fileName": "resources/images/buildings/industrial/desert/ind_des_2x2_Factory_MS.png"
+        },
+        "title": "Factory",
         "upkeep cost": 0,
         "water": 0
     },
@@ -338,6 +593,23 @@
         },
         "title": "Paved Road",
         "upkeep cost": 2,
+        "water": 0
+    },
+    {
+        "author": "MaroonShaded",
+        "category": "Power",
+        "description": "A  small coal power plant.",
+        "id": "pow_1x1_SmallCoalPlant_MS",
+        "power": 0,
+        "price": 5,
+        "tiles": {
+            "clip_height": 32,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/Power Plants/pow_1x1_SmallCoalPlant_MS.png"
+        },
+        "title": "Small Coal Power Plant2",
+        "upkeep cost": 0,
         "water": 0
     },
     {
@@ -405,6 +677,23 @@
             "fileName": "resources/images/buildings/residential/res_1x1_KTHouseNew2.png"
         },
         "title": "Small House",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "RockFort",
+        "category": "Residential",
+        "description": "A small  building",
+        "id": "res_1x1_SmallRedHouse_RF",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 25,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_1x1_SmallRedHouse_RF.png"
+        },
+        "title": "Small house",
         "upkeep cost": 0,
         "water": 0
     },
@@ -494,6 +783,23 @@
         "water": 0
     },
     {
+        "author": "RockFort",
+        "category": "Residential",
+        "description": "Appartment London",
+        "id": "res_1x1_londonhouse_RF",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 49,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_1x1_londonhouse_RF.png"
+        },
+        "title": "Appartment London",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
         "author": "Folesnaid",
         "category": "Residential",
         "description": "Old building",
@@ -524,6 +830,108 @@
             "fileName": "resources/images/buildings/residential/res_1x1_old_building_2_FN.png"
         },
         "title": "Old building",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Folesnaid",
+        "category": "Residential",
+        "description": "A big building",
+        "id": "res_2x2_big_building_1_FN",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 68,
+            "clip_width": 64,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_2x2_big_building_1_FN.png"
+        },
+        "title": "Big Building",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "RockFort",
+        "category": "Residential",
+        "description": "Bois Guillaume Appartment",
+        "id": "res_2x2_bois_guillaume_appt1_RF",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 49,
+            "clip_width": 64,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_2x2_bois_guillaume_appt1_RF.png"
+        },
+        "title": "Bois Guillaume Appartment",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Folesnaid",
+        "category": "Residential",
+        "description": "Appartment",
+        "id": "res_2x2_building_2_FN",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 69,
+            "clip_width": 64,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_2x2_building_2_FN.png"
+        },
+        "title": "Appartment",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Folesnaid",
+        "category": "Residential",
+        "description": "big Appartments",
+        "id": "res_2x2_skyscraper_2_FN",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 95,
+            "clip_width": 64,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_2x2_skyscraper_2_FN.png"
+        },
+        "title": "Big Appartments",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Folesnaid",
+        "category": "Residential",
+        "description": "big Appartments",
+        "id": "res_2x2_skyscraper_2_FN1",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 131,
+            "clip_width": 64,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_2x2_skyscraper_1_FN.png"
+        },
+        "title": "Big Appartments",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "RockFort",
+        "category": "Residential",
+        "description": "Medium Appartments",
+        "id": "res_2x2_viennabuilding_RF",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 67,
+            "clip_width": 64,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_2x2_viennabuilding_RF.png"
+        },
+        "title": "Medium Appartments",
         "upkeep cost": 0,
         "water": 0
     },
