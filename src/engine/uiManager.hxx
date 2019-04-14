@@ -1,4 +1,5 @@
-#pragma once
+#ifndef UIMANAGER_HXX_
+#define UIMANAGER_HXX_
 
 #include <vector>
 
@@ -94,3 +95,5 @@ private:
 
   bool m_showDebugMenu = false;
 };
+
+#endif
