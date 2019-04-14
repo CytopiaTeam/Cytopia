@@ -233,14 +233,9 @@ void UIManager::init()
     m_uiElementsForEventHandling.push_back(it.second);
   }
 
-  //setBuildMenuPosition();
   setBuildMenuLayout();
 
   Layout::arrangeElements();
-
-  //Settings::instance().settings.buildMenuPosition = "BOTTOM";
-  //setBuildMenuLayout();
-  //Layout::arrangeElements();
 }
 
 void UIManager::setFPSCounterText(const std::string &fps) { m_fpsCounter->setText(fps); }

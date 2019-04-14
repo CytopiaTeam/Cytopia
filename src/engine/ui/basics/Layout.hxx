@@ -45,8 +45,8 @@ private:
  */
   ~Layout() = default;
 
-  static void arrangeChildElements();
   static void arrangeChildElementsNew(LayoutData &groupLayout, std::vector<UiElement *> groupElements);
+  static void calculateLayoutGroupDimensions();
 };
 
 #endif

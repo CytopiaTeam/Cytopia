@@ -9,54 +9,8 @@ void Layout::arrangeElements()
   SDL_Point screenCenter{Settings::instance().settings.screenWidth / 2, Settings::instance().settings.screenHeight / 2};
   SDL_Point screenSize{Settings::instance().settings.screenWidth, Settings::instance().settings.screenHeight};
 
-  // First loop gets total width / height for all layouted groups
-  for (auto &group : UIManager::instance().getAllLayoutGroups())
-  {
-    LayoutData &groupLayout = group.second.layout;
+  calculateLayoutGroupDimensions();
 
-    // skip elements without layout parameters
-    if (groupLayout.layoutType.empty() || groupLayout.alignment.empty())
-    {
-      continue;
-    }
-    // reset group Height / Width
-    groupLayout.groupWidth = 0;
-    groupLayout.groupHeight = 0;
-
-    // arrange elements in group
-    for (const auto &element : group.second.uiElements)
-    {
-      // calculate total width / height for all elements
-      if (groupLayout.layoutType == "HORIZONTAL")
-      {
-        groupLayout.groupWidth += element->getUiElementRect().w;
-        if (groupLayout.groupHeight < element->getUiElementRect().h)
-        {
-          groupLayout.groupHeight = element->getUiElementRect().h;
-        }
-      }
-      else if (groupLayout.layoutType == "VERTICAL")
-      {
-        groupLayout.groupHeight += element->getUiElementRect().h;
-        if (groupLayout.groupWidth < element->getUiElementRect().w)
-        {
-          groupLayout.groupWidth = element->getUiElementRect().w;
-        }
-      }
-    }
-
-    // add total padding to total height / width
-    if (groupLayout.layoutType == "HORIZONTAL")
-    {
-      groupLayout.groupWidth += static_cast<int>(groupLayout.padding * (group.second.uiElements.size() - 1));
-    }
-    else if (groupLayout.layoutType == "VERTICAL")
-    {
-      groupLayout.groupHeight += static_cast<int>(groupLayout.padding * (group.second.uiElements.size() - 1));
-    }
-  }
-
-  // Second loop gets total width / height for all layouted groups
   for (auto &group : UIManager::instance().getAllLayoutGroups())
   {
     LayoutData &groupLayout = group.second.layout;
@@ -230,8 +184,13 @@ void Layout::arrangeElements()
         currentLength += (element->getUiElementRect().h + groupLayout.padding);
       }
     }
+  }
 
-    // Take care of elements that are aligned to a parent
+  // Take care of elements that are aligned to a parent
+  for (auto &group : UIManager::instance().getAllLayoutGroups())
+  {
+    LayoutData &groupLayout = group.second.layout;
+
     if (!groupLayout.layoutParentElementID.empty())
     {
       arrangeChildElementsNew(groupLayout, group.second.uiElements);
@@ -330,6 +289,56 @@ void Layout::arrangeChildElementsNew(LayoutData &groupLayout, std::vector<UiElem
     else
     {
       currentLength += (element->getUiElementRect().h + groupLayout.padding);
+    }
+  }
+}
+
+void Layout::calculateLayoutGroupDimensions()
+{
+  // First loop gets total width / height for all layouted groups
+  for (auto &group : UIManager::instance().getAllLayoutGroups())
+  {
+    LayoutData &groupLayout = group.second.layout;
+
+    // skip elements without layout parameters
+    if (groupLayout.layoutType.empty() || groupLayout.alignment.empty())
+    {
+      continue;
+    }
+    // reset group Height / Width
+    groupLayout.groupWidth = 0;
+    groupLayout.groupHeight = 0;
+
+    // arrange elements in group
+    for (const auto &element : group.second.uiElements)
+    {
+      // calculate total width / height for all elements
+      if (groupLayout.layoutType == "HORIZONTAL")
+      {
+        groupLayout.groupWidth += element->getUiElementRect().w;
+        if (groupLayout.groupHeight < element->getUiElementRect().h)
+        {
+          groupLayout.groupHeight = element->getUiElementRect().h;
+        }
+      }
+      else if (groupLayout.layoutType == "VERTICAL")
+      {
+        groupLayout.groupHeight += element->getUiElementRect().h;
+        if (groupLayout.groupWidth < element->getUiElementRect().w)
+        {
+          groupLayout.groupWidth = element->getUiElementRect().w;
+        }
+      }
+    }
+
+    // add total padding to total height / width
+    if (groupLayout.layoutType == "HORIZONTAL")
+    {
+      groupLayout.groupWidth += static_cast<int>(groupLayout.padding * (group.second.uiElements.size() - 1));
+    }
+    else if (groupLayout.layoutType == "VERTICAL")
+    {
+      groupLayout.groupHeight += static_cast<int>(groupLayout.padding * (group.second.uiElements.size() - 1));
     }
   }
 }
