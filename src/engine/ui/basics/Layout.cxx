@@ -78,30 +78,9 @@ void Layout::arrangeElements()
     }
 
     int currentLength = 0;
-
-    // Set horizontal layout
+    // Set layout for all non-child elements
     for (const auto &element : group.second.uiElements)
     {
-      // Align elements to it's parent
-      if (!group.second.layout.layoutParentElementID.empty())
-      {
-        // get parent element and check if it exists
-        UiElement *parentElement = UIManager::instance().getUiElementByID(group.second.layout.layoutParentElementID);
-        if (!parentElement)
-        {
-          LOG(LOG_ERROR) << "Cannot align UiGroup " << group.first << " to a parent because it has no ParentElementID set!";
-        }
-
-        // Align the element to its parent
-        if (groupLayout.alignment == "ALIGN_ABOVE_PARENT" || groupLayout.alignment == "ALIGN_BENEATH_PARENT")
-        {
-          xOffset = (parentElement->getUiElementRect().x - groupLayout.groupWidth / 2) + parentElement->getUiElementRect().w / 2;
-        }
-        else if (groupLayout.alignment == "ALIGN_RIGHT_TO_PARENT" || groupLayout.alignment == "ALIGN_LEFT_TO_PARENT")
-        {
-          yOffset = (parentElement->getUiElementRect().y - groupLayout.groupHeight / 2) + parentElement->getUiElementRect().h / 2;
-        }
-      }
 
       if (groupLayout.alignment == "TOP_LEFT")
       {
@@ -239,38 +218,101 @@ void Layout::arrangeElements()
         }
       }
 
-      // Handling for items that are aligned to a parent
-      if (!group.second.layout.layoutParentElementID.empty())
+      element->setPosition(x, y);
+
+      // add the distance from the current element for the next element.
+      if (groupLayout.layoutType == "HORIZONTAL")
       {
-        // get parent element and check if it exists
-        UiElement *parentElement = UIManager::instance().getUiElementByID(group.second.layout.layoutParentElementID);
-        if (!parentElement)
-        {
-          LOG(LOG_ERROR) << "Cannot align UiGroup " << group.first << " to a parent because it has no ParentElementID set!";
-        }
+        currentLength += (element->getUiElementRect().w + groupLayout.padding);
+      }
+      else
+      {
+        currentLength += (element->getUiElementRect().h + groupLayout.padding);
+      }
+    }
+  }
+  arrangeChildElements();
+  arrangeChildElements();
+}
 
-        if (groupLayout.alignment == "ALIGN_ABOVE_PARENT")
-        {
-          x = static_cast<int>(xOffset + currentLength);
-          y = (parentElement->getUiElementRect().y - groupLayout.groupHeight - groupLayout.paddingToParent);
-        }
+void Layout::arrangeChildElements()
+{
+  SDL_Point screenCenter{Settings::instance().settings.screenWidth / 2, Settings::instance().settings.screenHeight / 2};
+  SDL_Point screenSize{Settings::instance().settings.screenWidth, Settings::instance().settings.screenHeight};
 
-        else if (groupLayout.alignment == "ALIGN_BENEATH_PARENT")
-        {
-          x = static_cast<int>(xOffset + currentLength);
-          y = (parentElement->getUiElementRect().y + parentElement->getUiElementRect().h + groupLayout.paddingToParent);
-        }
-        else if (groupLayout.alignment == "ALIGN_RIGHT_TO_PARENT")
-        {
-          x = (parentElement->getUiElementRect().x + parentElement->getUiElementRect().w + group.second.layout.padding);
-          y = static_cast<int>(yOffset + currentLength);
-        }
-        else if (groupLayout.alignment == "ALIGN_LEFT_TO_PARENT")
-        {
-          x = (parentElement->getUiElementRect().x - element->getUiElementRect().w - group.second.layout.padding);
+  for (auto &group : UIManager::instance().getAllLayoutGroups())
+  {
+    LayoutData &groupLayout = group.second.layout;
 
-          y = static_cast<int>(yOffset + currentLength);
+    int xOffset = 0;
+    int yOffset = 0;
+    int x = 0;
+    int y = 0;
+
+    if (groupLayout.layoutType == "VERTICAL")
+    {
+      yOffset = screenCenter.y - groupLayout.groupHeight / 2;
+    }
+
+    int currentLength = 0;
+
+    // This loop handles child elements
+    for (const auto &element : group.second.uiElements)
+    {
+      // Align elements to it's parent
+      if (group.second.layout.layoutParentElementID.empty())
+      {
+        continue;
+      }
+
+      // get parent element and check if it exists
+      UiElement *parentElement = UIManager::instance().getUiElementByID(group.second.layout.layoutParentElementID);
+      if (!parentElement)
+      {
+        LOG(LOG_ERROR) << "Cannot align UiGroup " << group.first << " to a parent because it has no ParentElementID set!";
+      }
+
+      // Align the element to its parent
+      if (groupLayout.alignment == "ALIGN_ABOVE_PARENT" || groupLayout.alignment == "ALIGN_BENEATH_PARENT")
+      {
+        xOffset = (parentElement->getUiElementRect().x - groupLayout.groupWidth / 2) + parentElement->getUiElementRect().w / 2;
+        yOffset = 0;
+      }
+      else if (groupLayout.alignment == "ALIGN_RIGHT_TO_PARENT" || groupLayout.alignment == "ALIGN_LEFT_TO_PARENT")
+      {
+        xOffset = 0;
+        yOffset = (parentElement->getUiElementRect().y - groupLayout.groupHeight / 2) + parentElement->getUiElementRect().h / 2;
+      }
+
+      // Handling for items that are aligned to a parent
+
+      // get parent element and check if it exists
+
+      if (groupLayout.alignment == "ALIGN_ABOVE_PARENT")
+      {
+        x = static_cast<int>(xOffset + currentLength);
+        y = (parentElement->getUiElementRect().y - groupLayout.groupHeight - groupLayout.paddingToParent);
+        if (x <= 0)
+        {
+          LOG() << "aa";
         }
+      }
+
+      else if (groupLayout.alignment == "ALIGN_BENEATH_PARENT")
+      {
+        x = static_cast<int>(xOffset + currentLength);
+        y = (parentElement->getUiElementRect().y + parentElement->getUiElementRect().h + groupLayout.paddingToParent);
+      }
+      else if (groupLayout.alignment == "ALIGN_RIGHT_TO_PARENT")
+      {
+        x = (parentElement->getUiElementRect().x + parentElement->getUiElementRect().w + group.second.layout.padding);
+        y = static_cast<int>(yOffset + currentLength);
+      }
+      else if (groupLayout.alignment == "ALIGN_LEFT_TO_PARENT")
+      {
+        x = (parentElement->getUiElementRect().x - element->getUiElementRect().w - group.second.layout.padding);
+
+        y = static_cast<int>(yOffset + currentLength);
       }
 
       element->setPosition(x, y);

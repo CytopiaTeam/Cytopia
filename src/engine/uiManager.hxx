@@ -65,7 +65,7 @@ public:
 
   void stopTooltip() const;
 
-  void UIManager::initializeDollarVariables();
+  void initializeDollarVariables();
 
   void setBuildMenuPosition(UiElement *sender);
 

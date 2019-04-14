@@ -234,6 +234,13 @@ void UIManager::init()
     m_uiElementsForEventHandling.push_back(it.second);
   }
 
+  //setBuildMenuPosition();
+  setBuildMenuLayout();
+
+  Layout::arrangeElements();
+
+  Settings::instance().settings.buildMenuPosition = "BOTTOM"; 
+  setBuildMenuLayout();
   Layout::arrangeElements();
 }
 
@@ -459,38 +466,96 @@ void UIManager::createBuildMenu()
 
   // Add elements from TileData.json to the Buildmenu, if there is a button whose BuildMenuID matches the category
   // check if there's a corresponding category for tiles for this menu ID.
+  int idx = 0;
   for (auto &tile : TileManager::instance().getAllTileData())
   {
     std::string category = tile.second.category;
 
-    // Skip all items from specific categories
+    // Skip all items that have no button group
+
     if (category == "Water" || category == "Terrain")
     {
       continue;
     }
 
-    // If there's no matching buttongroup, there's also no button. Add them to the debug menu instead
     if (m_buttonGroups.find(category) == m_buttonGroups.end())
     {
-      category = "Debug";
+      std::string newcategory = "Debug_" + category;
+      if (m_buttonGroups.find("Debug_" + category) == m_buttonGroups.end())
+      {
+        m_buttonGroups["Debug_" + category] = new ButtonGroup;
+        if (m_buttonGroups.find("Debug_sub") == m_buttonGroups.end())
+        {
+          m_buttonGroups["Debug_sub"] = new ButtonGroup;
+        }
+        Button *button = new Button({0, 0, 0, 0});
+
+        button->setTextureID("Button_NoIcon");
+        button->drawImageButtonFrame(true);
+        button->setVisibility(false);
+        button->setToggleButton(true);
+        button->setActionID("ToggleVisibilityOfGroup");
+        button->setActionParameter(newcategory);
+        button->setMenuGroupID("Debug_sub");
+        button->setTooltipText(tile.second.title);
+        button->setUIElementID("Debug_sub" + idx);
+        m_buttonGroups["Debug_sub"]->addToGroup(button);
+        m_uiElements.push_back(std::unique_ptr<UiElement>(dynamic_cast<UiElement *>(button)));
+      }
+      Button *button = new Button({0, 0, 0, 0});
+
+      button->setTextureID("Button_NoIcon");
+      button->drawImageButtonFrame(true);
+      button->setVisibility(false);
+      button->setToggleButton(true);
+      button->setActionID("ChangeTileType");
+      button->setActionParameter(tile.first);
+      button->setMenuGroupID(newcategory + "_sub");
+      button->setTooltipText(tile.second.title);
+      button->setUIElementID(newcategory + std::to_string(m_buttonGroups[newcategory]->count()));
+      //m_buttonGroups[newcategory]->addToGroup(button);
+      m_uiElements.push_back(std::unique_ptr<UiElement>(dynamic_cast<UiElement *>(button)));
     }
-    Button *button = new Button({0, 0, 0, 0});
 
-    // TODO: Check if icon empty.
+    else
 
-    // Set button properties
-    button->setTextureID("Button_NoIcon");
-    button->drawImageButtonFrame(true);
-    button->setVisibility(false);
-    button->setToggleButton(true);
-    button->setActionID("ChangeTileType");
-    button->setActionParameter(tile.first);
-    button->setMenuGroupID(category + "_sub");
-    button->setTooltipText(tile.second.title);
+    {
+      Button *button = new Button({0, 0, 0, 0});
 
-    // Add the newly created button to the container holding all UiElements
-    m_uiElements.push_back(std::unique_ptr<UiElement>(dynamic_cast<UiElement *>(button)));
+      // TODO: Check if icon empty.
+
+      // Set button properties
+      button->setTextureID("Button_NoIcon");
+      button->drawImageButtonFrame(true);
+      button->setVisibility(false);
+      button->setToggleButton(true);
+      button->setActionID("ChangeTileType");
+      button->setActionParameter(tile.first);
+      button->setMenuGroupID(category + "_sub");
+      button->setTooltipText(tile.second.title);
+
+      // Add the newly created button to the container holding all UiElements
+      m_uiElements.push_back(std::unique_ptr<UiElement>(dynamic_cast<UiElement *>(button)));
+    }
   }
+
+  //// Handling for elements that should go into debug menu
+  //for (auto &tile : TileManager::instance().getAllTileData())
+  //{
+
+  //  std::string category = tile.second.category;
+
+  //  if (category == "Water" || category == "Terrain")
+  //  {
+  //    continue;
+  //  }
+
+  //  if (m_buttonGroups.find(category) == m_buttonGroups.end())
+  //  {
+  //
+
+  //}
+  //  }
 
   // iterate over all elements and add everything that has a BuildMenu ID.
   for (const auto &element : m_uiElements)
@@ -504,6 +569,7 @@ void UIManager::createBuildMenu()
       {
         // get all uiElements that have a _sub suffix in their MenuGroupID
         if (button->getUiElementData().buildMenuID.find(subMenuSuffix) != std::string::npos)
+        //if (utils::strings::endsWith(button->getUiElementData().buildMenuID, subMenuSuffix))
         {
           std::string parentGroupName;
           parentGroupName = element->getUiElementData().buildMenuID;
