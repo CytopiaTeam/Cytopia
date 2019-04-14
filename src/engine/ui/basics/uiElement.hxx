@@ -26,6 +26,7 @@ protected:
     std::string actionParameter; // Parameter for the function that's been called when the button is clicked.
     std::string textureID;       // ID of the texture this item uses
     std::string buildMenuID;
+    std::string layoutGroupName;
     UiElement *parent = nullptr; // The object that toggles this items visibility
     bool isToggleButton = false; // specifies if this is a toggle button
   };
@@ -155,6 +156,7 @@ public:
 
   void setParent(UiElement *parent) { elementData.parent = parent; };
   void setMenuGroupID(const std::string &buildMenuID) { elementData.buildMenuID = buildMenuID; };
+  void setLayoutGroupName(const std::string &layoutGroupName) { elementData.layoutGroupName = layoutGroupName; };
 
   virtual void setText(const std::string &text);
 
