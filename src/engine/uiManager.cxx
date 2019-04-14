@@ -490,7 +490,7 @@ void UIManager::createBuildMenu()
         button->setActionID("ToggleVisibilityOfGroup");
         button->setActionParameter(newcategory);
         button->setMenuGroupID("Debug_sub");
-        button->setTooltipText(tile.second.title);
+        button->setTooltipText(category);
         button->setUIElementID("Debug_sub" + std::to_string(idx));
         m_buttonGroups["Debug_sub"]->addToGroup(button);
         m_uiElements.push_back(std::unique_ptr<UiElement>(dynamic_cast<UiElement *>(button)));
@@ -510,7 +510,6 @@ void UIManager::createBuildMenu()
     }
 
     else
-
     {
       Button *button = new Button({0, 0, 0, 0});
 
@@ -635,7 +634,6 @@ void UIManager::setBuildMenuLayout()
 
 void UIManager::initializeDollarVariables()
 {
-
   // get all elements that start with a dollar.
   for (const auto &it : getAllUiElements())
   {
