@@ -43,12 +43,18 @@ public:
    * @brief Parses the UiLayout.json files and creates UI Elements
    * 
    */
-  void init();
 
+  void init();
   /**
-   * @brief Renders all UI Widgets
-   * 
-   */
+ * @brief Fill UI Widgets whose ID start with a $ with data
+ * Used for filling widgets with data, like BuildMenu Position combobox, Screen Resolution ComboBox and so on
+ */
+  void initializeDollarVariables();
+
+ /**
+  * @brief Renders all UI Widgets
+  * 
+  */
   void drawUI() const;
 
 /**
@@ -67,12 +73,19 @@ public:
  */
   void toggleDebugMenu() { m_showDebugMenu = !m_showDebugMenu; };
 
-/**
+  /**
  * @brief Helper function to update the FPS Counter
  * 
  * @param fps 
  */
   void setFPSCounterText(const std::string &fps);
+  
+  /**
+ * @brief CallbackFunction that sets the Build Menu Position 
+ * Used as callback function for the ComboBox that holds the Build Menu position
+ * @param sender ComboBox that called the function
+ */
+  void setBuildMenuPosition(UiElement *sender);
 
 /**
  * @brief Get all Ui Element objects
@@ -82,15 +95,15 @@ public:
  */
   const std::vector<std::unique_ptr<UiElement>> &getAllUiElements() const { return m_uiElements; };
 
-/**
+  /**
  * @brief Get all Ui Elements For Event Handling 
  * Returns Widgets that are not in ButtonGroups and ButtonGroups. 
  * @note The ButtonGroup container takes care of handling events in it's container, so those widgets are excluded
  * @return const std::vector<UiElement *>& 
  */
   const std::vector<UiElement *> &getAllUiElementsForEventHandling() const { return m_uiElementsForEventHandling; };
-
-/**
+  
+  /**
  * @brief Get the UiElements Of aroup 
  * get Elements that are in UiGroup (m_uiGroups)
  * @param groupID ID of the group whose elements should be returned
@@ -98,7 +111,7 @@ public:
  */
   const std::vector<UiElement *> *getUiElementsOfGroup(const std::string &groupID) const;
 
-/**
+  /**
  * @brief Get the m_uiGroups object
  * Returns the container, that holds all UiElements sorted by their UI Group
  * @return std::unordered_map<std::string, std::vector<UiElement *>>& 
@@ -112,7 +125,7 @@ public:
    */
   std::unordered_map<std::string, LayoutGroup> &getAllLayoutGroups() { return m_layoutGroups; }
 
-/**
+  /**
  * @brief Get the Ui Element By ID
  * Finds and returns an UiElement by its elementID parameter
  * @param UiElement ID of the element that should be returned.
@@ -120,27 +133,13 @@ public:
  */
   UiElement *getUiElementByID(const std::string &UiElement) const;
 
-  
   void startTooltip(SDL_Event &event, const std::string &tooltipText);
-
   void stopTooltip() const;
-
-/**
- * @brief Fill UI Widgets whose ID start with a $ with data
- * Used for filling widgets with data, like BuildMenu Position combobox, Screen Resolution ComboBox and so on
- */
-  void initializeDollarVariables();
-
-/**
- * @brief CallbackFunction that sets the Build Menu Position 
- * Used as callback function for the ComboBox that holds the Build Menu position
- * @param sender ComboBox that called the function
- */
-  void setBuildMenuPosition(UiElement *sender);
 
 private:
   UIManager() = default;
   ~UIManager() = default;
+
   // this container holds all UiElements and is the owner.
   std::vector<std::unique_ptr<UiElement>> m_uiElements;
 
@@ -157,6 +156,7 @@ private:
   std::unordered_map<std::string, ButtonGroup *> m_buttonGroups;
 
   std::unique_ptr<Tooltip> m_tooltip = std::make_unique<Tooltip>();
+
   // Text element for the FPS Counter (debug menu)
   std::unique_ptr<Text> m_fpsCounter = std::make_unique<Text>(SDL_Rect{40, 20, 0, 0});
 
