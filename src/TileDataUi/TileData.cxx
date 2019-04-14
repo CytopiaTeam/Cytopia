@@ -6,16 +6,13 @@
 
 //--------------------------------------------------------------------------------
 
-bool TileDataContainer::hasTileData(const QString &id) const
-{
-  return tileData.contains(id);
-}
+bool TileDataContainer::hasTileData(const QString &id) const { return tileData.contains(id); }
 
 //--------------------------------------------------------------------------------
 
 TileData TileDataContainer::getTileData(const QString &id) const
 {
-  if ( !tileData.contains(id) )
+  if (!tileData.contains(id))
     return TileData();
 
   return tileData[id];
@@ -29,14 +26,14 @@ QString TileDataContainer::loadFile(const QString &theFileName)
   tileData.clear();
 
   QFile file(fileName);
-  if ( !file.exists() )
+  if (!file.exists())
     return QString();
 
-  if ( !file.open(QIODevice::ReadOnly) )
+  if (!file.open(QIODevice::ReadOnly))
     return file.errorString();
 
   QJsonDocument doc = QJsonDocument::fromJson(file.readAll());
-  if ( doc.isNull() || !doc.isArray() )
+  if (doc.isNull() || !doc.isArray())
     return tr("Illegal file content");
 
   for (const QJsonValue &value : doc.array())
@@ -97,13 +94,13 @@ bool TileDataContainer::saveFile()
     obj.insert("power", tile.power);
     obj.insert("water", tile.water);
 
-    if ( !tile.tiles.fileName.empty() )
+    if (!tile.tiles.fileName.empty())
       obj.insert("tiles", tileSetDataToJson(tile.tiles));
 
-    if ( !tile.cornerTiles.fileName.empty() )
+    if (!tile.cornerTiles.fileName.empty())
       obj.insert("cornerTiles", tileSetDataToJson(tile.cornerTiles));
 
-    if ( !tile.slopeTiles.fileName.empty() )
+    if (!tile.slopeTiles.fileName.empty())
       obj.insert("slopeTiles", tileSetDataToJson(tile.slopeTiles));
 
     array.append(obj);
@@ -112,7 +109,7 @@ bool TileDataContainer::saveFile()
   doc.setArray(array);
 
   QFile file(fileName);
-  if ( !file.open(QIODevice::WriteOnly) )
+  if (!file.open(QIODevice::WriteOnly))
   {
     // error handling
     return false;
@@ -137,16 +134,10 @@ QJsonObject TileDataContainer::tileSetDataToJson(const TileSetData &data)
 
 //--------------------------------------------------------------------------------
 
-void TileDataContainer::removeTileData(const QString &id)
-{
-  tileData.remove(id);
-}
+void TileDataContainer::removeTileData(const QString &id) { tileData.remove(id); }
 
 //--------------------------------------------------------------------------------
 
-void TileDataContainer::addTileData(const TileData &tile)
-{
-  tileData.insert(QString::fromStdString(tile.id), tile);
-}
+void TileDataContainer::addTileData(const TileData &tile) { tileData.insert(QString::fromStdString(tile.id), tile); }
 
 //--------------------------------------------------------------------------------

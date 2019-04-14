@@ -1,57 +1,40 @@
 #include "game.hxx"
-#include "engine/basics/log.hxx"
 
-#include <SDL.h>
-#include <SDL_ttf.h>
-#include <SDL_mixer.h>
+#include <iostream>
 
-bool initialize()
+int protected_main(int argc, char **argv)
 {
-  if (SDL_Init(SDL_INIT_VIDEO) != 0)
-  {
-    LOG(LOG_ERROR) << "Failed to Init SDL\nSDL Error:" << SDL_GetError();
-    return false;
-  }
+  (void)argc;
+  (void)argv;
 
-  if (TTF_Init() == -1)
-  {
-    LOG(LOG_ERROR) << "Failed to Init SDL_TTF\nSDL Error:" << TTF_GetError();
-    return false;
-  }
+  Game game;
 
-  if (Mix_Init(MIX_INIT_MP3) == -1)
-  {
-    LOG(LOG_ERROR) << "Failed to Init SDL_Mixer\nSDL Error:" << Mix_GetError();
-    return false;
-  }
-
-  return true;
-}
-
-void shutdown()
-{
-  TTF_Quit();
-  Mix_Quit();
-  SDL_Quit();
-}
-
-int main(int, char **)
-{
-  // initialize all systems and globals
-  auto const initialized = initialize();
-
-  if (initialized)
-  {
-    // run the game
-    run();
-  }
-  else
+  if (!game.initialize())
   {
     return EXIT_FAILURE;
   }
 
-  // shutdown all systems and clean-up stuff
-  shutdown();
+  game.run();
+  game.shutdown();
 
   return EXIT_SUCCESS;
+}
+
+int main(int argc, char **argv)
+{
+  try
+  {
+    return protected_main(argc, argv);
+  }
+  catch (const std::exception &e)
+  {
+    std::cerr << "Caught unhandled exception:\n";
+    std::cerr << " - what(): " << e.what() << '\n';
+  }
+  catch (...)
+  {
+    std::cerr << "Caught unknown exception\n";
+  }
+
+  return EXIT_FAILURE;
 }

@@ -1,12 +1,19 @@
 #ifndef GAME_HXX_
 #define GAME_HXX_
 
-#pragma once
-
 #ifndef VERSION
 #define VERSION 0
 #endif
 
-void run();
+class Game
+{
+public:
+  Game() = default;
+  virtual ~Game() = default;
+
+  virtual bool initialize();
+  virtual void run();
+  virtual void shutdown();
+};
 
 #endif
