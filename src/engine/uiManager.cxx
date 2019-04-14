@@ -18,6 +18,7 @@ void UIManager::init()
   json uiLayout;
 
   std::ifstream i(SDL_GetBasePath() + Settings::instance().settings.uiLayoutJSONFile);
+
   if (i.fail())
   {
     LOG(LOG_ERROR) << "File " << Settings::instance().settings.uiLayoutJSONFile
@@ -28,6 +29,7 @@ void UIManager::init()
 
   // check if json file can be parsed
   uiLayout = json::parse(i, nullptr, false);
+
   if (uiLayout.is_discarded())
   {
     LOG(LOG_ERROR) << "Error parsing JSON File " << Settings::instance().settings.uiLayoutJSONFile;
@@ -38,10 +40,12 @@ void UIManager::init()
   for (const auto &it : uiLayout["LayoutGroups"].items())
   {
     std::string layoutGroupName;
+
     // prepare empty layout groups with layout information from json
     for (size_t id = 0; id < uiLayout["LayoutGroups"][it.key()].size(); id++)
     {
       layoutGroupName = uiLayout["LayoutGroups"][it.key()][id].value("GroupName", "");
+
       if (!layoutGroupName.empty())
       {
         LayoutGroup layoutGroup;
@@ -54,6 +58,7 @@ void UIManager::init()
                          << " has no parameter \"LayoutType\" set. Check your UiLayout.json file.";
           continue;
         }
+
         if (layoutGroup.layout.alignment.empty())
         {
           LOG(LOG_ERROR) << "LayoutGroup " << layoutGroupName
@@ -63,6 +68,7 @@ void UIManager::init()
 
         // set parent and check if the element exists
         layoutGroup.layout.layoutParentElementID = uiLayout["LayoutGroups"][it.key()][id].value("LayoutParentElementID", "");
+
         if (!layoutGroup.layout.layoutParentElementID.empty())
         {
           if (!getUiElementByID(layoutGroup.layout.layoutParentElementID))
@@ -96,43 +102,50 @@ void UIManager::init()
 
     bool visible = true;
 
+    auto &elements = uiLayout["UiElements"][it.key()];
+
     // parse UiElements
-    for (size_t id = 0; id < uiLayout["UiElements"][it.key()].size(); id++)
+    for (size_t id = 0; id < elements.size(); id++)
     {
-      if (!uiLayout["UiElements"][it.key()][id]["GroupVisibility"].is_null())
+      auto &element = elements[id];
+
+      if (!element["GroupVisibility"].is_null())
       {
-        visible = uiLayout["UiElements"][it.key()][id]["GroupVisibility"].get<bool>();
-      }
-      // check if their is a global layoutgroup paramter set
-      if (!uiLayout["UiElements"][it.key()][id]["GroupSettings"].is_null())
-      {
-        layoutGroupName = uiLayout["UiElements"][it.key()][id]["GroupSettings"].value("LayoutGroup", "");
-      }
-      // check if a single item is associated with a layout group and override group settings, if applicable
-      if (!uiLayout["UiElements"][it.key()][id]["LayoutGroup"].is_null())
-      {
-        layoutGroupName = uiLayout["UiElements"][it.key()][id].value("LayoutGroup", "");
+        visible = element["GroupVisibility"].get<bool>();
       }
 
-      if (!uiLayout["UiElements"][it.key()][id]["Type"].is_null())
+      // check if their is a global layoutgroup paramter set
+      if (!element["GroupSettings"].is_null())
       {
-        bool toggleButton = uiLayout["UiElements"][it.key()][id].value("ToggleButton", false);
-        bool drawFrame = uiLayout["UiElements"][it.key()][id].value("DrawFrame", false);
-        std::string uiElementID = uiLayout["UiElements"][it.key()][id].value("ID", "");
-        std::string actionID = uiLayout["UiElements"][it.key()][id].value("Action", "");
-        std::string actionParameter = uiLayout["UiElements"][it.key()][id].value("ActionParameter", "");
-        std::string tooltipText = uiLayout["UiElements"][it.key()][id].value("TooltipText", "");
-        std::string text = uiLayout["UiElements"][it.key()][id].value("Text", "");
-        std::string textureID = uiLayout["UiElements"][it.key()][id].value("SpriteID", "");
-        std::string uiElementType = uiLayout["UiElements"][it.key()][id].value("Type", "");
-        std::string buttonGroupID = uiLayout["UiElements"][it.key()][id].value("ButtonGroup", "");
-        std::string buildMenuID = uiLayout["UiElements"][it.key()][id].value("BuildMenuID", "");
+        layoutGroupName = element["GroupSettings"].value("LayoutGroup", "");
+      }
+
+      // check if a single item is associated with a layout group and override group settings, if applicable
+      if (!element["LayoutGroup"].is_null())
+      {
+        layoutGroupName = element.value("LayoutGroup", "");
+      }
+
+      if (!element["Type"].is_null())
+      {
+        bool toggleButton = element.value("ToggleButton", false);
+        bool drawFrame = element.value("DrawFrame", false);
+
+        auto uiElementID = element.value("ID", "");
+        auto actionID = element.value("Action", "");
+        auto actionParameter = element.value("ActionParameter", "");
+        auto tooltipText = element.value("TooltipText", "");
+        auto text = element.value("Text", "");
+        auto textureID = element.value("SpriteID", "");
+        auto uiElementType = element.value("Type", "");
+        auto buttonGroupID = element.value("ButtonGroup", "");
+        auto buildMenuID = element.value("BuildMenuID", "");
 
         SDL_Rect elementRect{0, 0, 0, 0};
-        elementRect.x = uiLayout["UiElements"][it.key()][id].value("Position_x", 0);
-        elementRect.y = uiLayout["UiElements"][it.key()][id].value("Position_y", 0);
-        elementRect.w = uiLayout["UiElements"][it.key()][id].value("Width", 0);
-        elementRect.h = uiLayout["UiElements"][it.key()][id].value("Height", 0);
+        elementRect.x = element.value("Position_x", 0);
+        elementRect.y = element.value("Position_y", 0);
+        elementRect.w = element.value("Width", 0);
+        elementRect.h = element.value("Height", 0);
 
         std::unique_ptr<UiElement> uiElement;
 
@@ -222,6 +235,7 @@ void UIManager::init()
       }
     }
   }
+
   m_tooltip->setVisibility(false);
 
   initializeDollarVariables();
@@ -253,6 +267,7 @@ void UIManager::drawUI() const
   {
     m_fpsCounter->draw();
   }
+
   m_tooltip->draw();
 }
 
@@ -267,6 +282,7 @@ void UIManager::toggleGroupVisibility(const std::string &groupID, UiElement *sen
   if (sender)
   {
     Button *button = dynamic_cast<Button *>(sender);
+
     if (button)
     {
       // cast the object to a Button to check if it's a toggle button.
@@ -276,10 +292,12 @@ void UIManager::toggleGroupVisibility(const std::string &groupID, UiElement *sen
         {
           it->setVisibility(button->checkState());
         }
+
         return;
       }
     }
   }
+
   for (const auto &it : m_uiGroups[groupID])
   {
     it->setVisibility(!it->isVisible());
@@ -289,7 +307,11 @@ void UIManager::toggleGroupVisibility(const std::string &groupID, UiElement *sen
 void UIManager::startTooltip(SDL_Event &event, const std::string &tooltipText)
 {
   m_tooltip->setText(tooltipText);
-  m_tooltip->setPosition(event.button.x - m_tooltip->getUiElementRect().w / 2, event.button.y - m_tooltip->getUiElementRect().h);
+
+  auto x = event.button.x - m_tooltip->getUiElementRect().w / 2;
+  auto y = event.button.y - m_tooltip->getUiElementRect().h;
+  m_tooltip->setPosition(x, y);
+
   m_tooltip->startTimer();
 }
 
@@ -300,8 +322,11 @@ UiElement *UIManager::getUiElementByID(const std::string &UiElementID) const
   for (auto &it : m_uiElements)
   {
     if (it->getUiElementData().elementID == UiElementID)
+    {
       return it.get();
+    }
   }
+
   return nullptr;
 }
 
@@ -311,6 +336,7 @@ const std::vector<UiElement *> *UIManager::getUiElementsOfGroup(const std::strin
   {
     return &m_uiGroups.find(groupID)->second;
   }
+
   return nullptr;
 }
 
@@ -319,36 +345,35 @@ void UIManager::setCallbackFunctions()
   for (auto &uiElement : m_uiElements)
   {
     std::string actionParameter = uiElement->getUiElementData().actionParameter;
+
     if (uiElement->getUiElementData().actionID == "RaiseTerrain")
     {
       uiElement->registerCallbackFunction([](UiElement *sender) {
         Button *button = dynamic_cast<Button *>(sender);
-        if (button)
+
+        if (button && button->getUiElementData().isToggleButton)
         {
-          if (button->getUiElementData().isToggleButton)
-          {
-            button->checkState() ? terrainEditMode = TerrainEdit::RAISE : terrainEditMode = TerrainEdit::NONE;
-            button->checkState() ? highlightSelection = true : highlightSelection = false;
-            return;
-          }
+          terrainEditMode = button->checkState() ? TerrainEdit::RAISE : TerrainEdit::NONE;
+          highlightSelection = button->checkState();
+          return;
         }
-        terrainEditMode == TerrainEdit::RAISE ? terrainEditMode = TerrainEdit::NONE : terrainEditMode = TerrainEdit::RAISE;
-        terrainEditMode == TerrainEdit::NONE ? highlightSelection = false : highlightSelection = true;
+
+        terrainEditMode = (terrainEditMode == TerrainEdit::RAISE) ? TerrainEdit::NONE : TerrainEdit::RAISE;
+        highlightSelection = terrainEditMode != TerrainEdit::NONE;
       });
     }
     else if (uiElement->getUiElementData().actionID == "LowerTerrain")
     {
       uiElement->registerCallbackFunction([](UiElement *sender) {
         Button *button = dynamic_cast<Button *>(sender);
-        if (button)
+
+        if (button && button->getUiElementData().isToggleButton)
         {
-          if (button->getUiElementData().isToggleButton)
-          {
-            button->checkState() ? terrainEditMode = TerrainEdit::LOWER : terrainEditMode = TerrainEdit::NONE;
-            button->checkState() ? highlightSelection = true : highlightSelection = false;
-            return;
-          }
+          button->checkState() ? terrainEditMode = TerrainEdit::LOWER : terrainEditMode = TerrainEdit::NONE;
+          button->checkState() ? highlightSelection = true : highlightSelection = false;
+          return;
         }
+
         terrainEditMode == TerrainEdit::LOWER ? terrainEditMode = TerrainEdit::NONE : terrainEditMode = TerrainEdit::LOWER;
         terrainEditMode == TerrainEdit::NONE ? highlightSelection = true : highlightSelection = false;
       });
@@ -361,14 +386,12 @@ void UIManager::setCallbackFunctions()
     {
       uiElement->registerCallbackFunction([](UiElement *sender) {
         Button *button = dynamic_cast<Button *>(sender);
-        if (button)
+
+        if (button && button->getUiElementData().isToggleButton)
         {
-          if (button->getUiElementData().isToggleButton)
-          {
-            button->checkState() ? demolishMode = true : demolishMode = false;
-            button->checkState() ? highlightSelection = true : highlightSelection = false;
-            return;
-          }
+          button->checkState() ? demolishMode = true : demolishMode = false;
+          button->checkState() ? highlightSelection = true : highlightSelection = false;
+          return;
         }
 
         demolishMode = !demolishMode;
@@ -379,15 +402,14 @@ void UIManager::setCallbackFunctions()
     {
       uiElement->registerCallbackFunction([actionParameter](UiElement *sender) {
         Button *button = dynamic_cast<Button *>(sender);
-        if (button)
+
+        if (button && button->getUiElementData().isToggleButton)
         {
-          if (button->getUiElementData().isToggleButton)
-          {
-            button->checkState() ? tileTypeEditMode = actionParameter : tileTypeEditMode = "";
-            button->checkState() ? highlightSelection = true : highlightSelection = false;
-            return;
-          }
+          button->checkState() ? tileTypeEditMode = actionParameter : tileTypeEditMode = "";
+          button->checkState() ? highlightSelection = true : highlightSelection = false;
+          return;
         }
+
         tileTypeEditMode == actionParameter ? tileTypeEditMode = "" : tileTypeEditMode = actionParameter;
         tileTypeEditMode == actionParameter ? highlightSelection = true : highlightSelection = false;
       });
@@ -448,12 +470,10 @@ void UIManager::createBuildMenu()
     std::string parentGroupName = element->getUiElementData().buildMenuID;
 
     // check if the element is part of the BuildMenu and not of a SubMenu
-    if (!parentGroupName.empty() && parentGroupName.find(subMenuSuffix) == std::string::npos)
+    if (!parentGroupName.empty() && parentGroupName.find(subMenuSuffix) == std::string::npos &&
+        m_buttonGroups.find(parentGroupName) == m_buttonGroups.end())
     {
-      if (m_buttonGroups.find(parentGroupName) == m_buttonGroups.end())
-      {
-        m_buttonGroups[parentGroupName] = new ButtonGroup;
-      }
+      m_buttonGroups[parentGroupName] = new ButtonGroup;
     }
   }
 
@@ -474,6 +494,7 @@ void UIManager::createBuildMenu()
     {
       category = "Debug";
     }
+
     Button *button = new Button({0, 0, 0, 0});
 
     // TODO: Check if icon empty.
@@ -497,45 +518,44 @@ void UIManager::createBuildMenu()
   {
     // Only buttons can be added to the build menu
     Button *button = dynamic_cast<Button *>(element.get());
-    if (button)
-    {
-      // check if the element is part of the BuildMenu
-      if (!button->getUiElementData().buildMenuID.empty())
-      {
-        // get all uiElements that have a _sub suffix in their MenuGroupID
-        if (button->getUiElementData().buildMenuID.find(subMenuSuffix) != std::string::npos)
-        {
-          std::string parentGroupName;
-          parentGroupName = element->getUiElementData().buildMenuID;
-          utils::strings::removeSubString(parentGroupName, subMenuSuffix);
 
-          // add the element to both buttonGroup and uiGroup container
-          if (m_buttonGroups.find(parentGroupName) != m_buttonGroups.end())
-          {
-            m_buttonGroups[parentGroupName]->addToGroup(button);
-            m_uiGroups[parentGroupName].push_back(button);
-            m_layoutGroups[parentGroupName].uiElements.push_back(button);
-          }
-          else
-          {
-            LOG(LOG_ERROR) << "Attempting to add element with ID \"" << button->getUiElementData().elementID
-                           << "\" to category \"" << parentGroupName << "\" but the Category doesn't exist.";
-          }
+    // check if the element is part of the BuildMenu
+    if (button && !button->getUiElementData().buildMenuID.empty())
+    {
+      // get all uiElements that have a _sub suffix in their MenuGroupID
+      if (button->getUiElementData().buildMenuID.find(subMenuSuffix) != std::string::npos)
+      {
+        std::string parentGroupName;
+        parentGroupName = element->getUiElementData().buildMenuID;
+        utils::strings::removeSubString(parentGroupName, subMenuSuffix);
+
+        // add the element to both buttonGroup and uiGroup container
+        if (m_buttonGroups.find(parentGroupName) != m_buttonGroups.end())
+        {
+          m_buttonGroups[parentGroupName]->addToGroup(button);
+          m_uiGroups[parentGroupName].push_back(button);
+          m_layoutGroups[parentGroupName].uiElements.push_back(button);
         }
-        //  A base-button toggles a group with the same name as the MenuGroupID, so set ActionID and ActionParameter for all base buttons
         else
         {
-          // create buttons in the main menu
-          button->setActionID("ToggleVisibilityOfGroup");
-          button->setActionParameter(button->getUiElementData().buildMenuID);
-          m_buttonGroups["_BuildMenu_"]->addToGroup(button);
-
-          m_uiGroups["_BuildMenu_"].push_back(button);
-          m_layoutGroups["_BuildMenu_"].uiElements.push_back(button);
+          LOG(LOG_ERROR) << "Attempting to add element with ID \"" << button->getUiElementData().elementID << "\" to category \""
+                         << parentGroupName << "\" but the Category doesn't exist.";
         }
+      }
+      //  A base-button toggles a group with the same name as the MenuGroupID, so set ActionID and ActionParameter for all base buttons
+      else
+      {
+        // create buttons in the main menu
+        button->setActionID("ToggleVisibilityOfGroup");
+        button->setActionParameter(button->getUiElementData().buildMenuID);
+        m_buttonGroups["_BuildMenu_"]->addToGroup(button);
+
+        m_uiGroups["_BuildMenu_"].push_back(button);
+        m_layoutGroups["_BuildMenu_"].uiElements.push_back(button);
       }
     }
   }
+
   setBuildMenuLayout();
 }
 
@@ -546,25 +566,27 @@ void UIManager::setBuildMenuLayout()
   std::string layoutType = "HORIZONTAL";
   std::string subMenuAlignment = "HORIZONTAL";
 
-  if (Settings::instance().settings.buildMenuPosition == "BOTTOM")
+  auto &position = Settings::instance().settings.buildMenuPosition;
+
+  if (position == "BOTTOM")
   {
     alignment = "BOTTOM_CENTER";
     layoutType = "HORIZONTAL";
     subMenuAlignment = "ALIGN_ABOVE_PARENT";
   }
-  else if (Settings::instance().settings.buildMenuPosition == "TOP")
+  else if (position == "TOP")
   {
     alignment = "TOP_CENTER";
     layoutType = "HORIZONTAL";
     subMenuAlignment = "ALIGN_BENEATH_PARENT";
   }
-  else if (Settings::instance().settings.buildMenuPosition == "LEFT")
+  else if (position == "LEFT")
   {
     alignment = "LEFT_CENTER";
     layoutType = "VERTICAL";
     subMenuAlignment = "ALIGN_RIGHT_TO_PARENT";
   }
-  else if (Settings::instance().settings.buildMenuPosition == "RIGHT")
+  else if (position == "RIGHT")
   {
     alignment = "RIGHT_CENTER";
     layoutType = "VERTICAL";
@@ -582,21 +604,22 @@ void UIManager::setBuildMenuLayout()
       utils::strings::removeSubString(parentGroupName, subMenuSuffix);
 
       // set Layout parameters
-      m_layoutGroups[parentGroupName].layout.alignment = subMenuAlignment;
-      m_layoutGroups[parentGroupName].layout.layoutType = layoutType;
-      m_layoutGroups[parentGroupName].layout.padding = 8;
-      m_layoutGroups[parentGroupName].layout.paddingToParent = 16;
+      auto &parentLayout = m_layoutGroups[parentGroupName].layout;
+      parentLayout.alignment = subMenuAlignment;
+      parentLayout.layoutType = layoutType;
+      parentLayout.padding = 8;
+      parentLayout.paddingToParent = 16;
     }
   }
 
-  m_layoutGroups["_BuildMenu_"].layout.alignment = alignment;
-  m_layoutGroups["_BuildMenu_"].layout.layoutType = layoutType;
-  m_layoutGroups["_BuildMenu_"].layout.padding = 16;
+  auto &layout = m_layoutGroups["_BuildMenu_"].layout;
+  layout.alignment = alignment;
+  layout.layoutType = layoutType;
+  layout.padding = 16;
 }
 
 void UIManager::initializeDollarVariables()
 {
-
   // get all elements that start with a dollar.
   for (const auto &it : getAllUiElements())
   {
@@ -606,6 +629,7 @@ void UIManager::initializeDollarVariables()
       {
         // This must be a ComboBox
         ComboBox *combobox = dynamic_cast<ComboBox *>(it.get());
+
         if (!combobox)
         {
           LOG(LOG_ERROR) << "Can not use element ID $BuildMenuLayout for an element other than a combobox!";
@@ -626,6 +650,7 @@ void UIManager::initializeDollarVariables()
 void UIManager::setBuildMenuPosition(UiElement *sender)
 {
   ComboBox *comboBox = dynamic_cast<ComboBox *>(sender);
+
   if (comboBox)
   {
     Settings::instance().settings.buildMenuPosition = comboBox->activeText;

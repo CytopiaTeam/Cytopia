@@ -42,36 +42,32 @@ public:
     static UIManager uiManager;
     return uiManager;
   }
+
   void init();
+  void initializeDollarVariables();
+
   void drawUI() const;
 
   void toggleGroupVisibility(const std::string &groupID, UiElement *sender = nullptr);
-
   void toggleDebugMenu() { m_showDebugMenu = !m_showDebugMenu; };
 
   void setFPSCounterText(const std::string &fps);
+  void setBuildMenuPosition(UiElement *sender);
 
   const std::vector<std::unique_ptr<UiElement>> &getAllUiElements() const { return m_uiElements; };
-
   const std::vector<UiElement *> &getAllUiElementsForEventHandling() const { return m_uiElementsForEventHandling; };
-
   const std::vector<UiElement *> *getUiElementsOfGroup(const std::string &groupID) const;
-
   std::unordered_map<std::string, std::vector<UiElement *>> &getAllUiGroups() { return m_uiGroups; }
   std::unordered_map<std::string, LayoutGroup> &getAllLayoutGroups() { return m_layoutGroups; }
-
   UiElement *getUiElementByID(const std::string &UiElement) const;
+
   void startTooltip(SDL_Event &event, const std::string &tooltipText);
-
   void stopTooltip() const;
-
-  void UIManager::initializeDollarVariables();
-
-  void setBuildMenuPosition(UiElement *sender);
 
 private:
   UIManager() = default;
   ~UIManager() = default;
+
   // this container holds all UiElements and is the owner.
   std::vector<std::unique_ptr<UiElement>> m_uiElements;
 
@@ -88,6 +84,7 @@ private:
   std::unordered_map<std::string, ButtonGroup *> m_buttonGroups;
 
   std::unique_ptr<Tooltip> m_tooltip = std::make_unique<Tooltip>();
+
   // Text element for the FPS Counter (debug menu)
   std::unique_ptr<Text> m_fpsCounter = std::make_unique<Text>(SDL_Rect{40, 20, 0, 0});
 
