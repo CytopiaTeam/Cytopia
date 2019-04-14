@@ -29,6 +29,7 @@ template <typename Result> struct CollectorLast
     return true;
   }
   CollectorResult result() { return last_; }
+
 private:
   Result last_;
 };
@@ -134,7 +135,7 @@ public:
   // Number of connected slots.
   std::size_t size() { return callback_list_.size(); }
 };
-} // End Namespace Signal::Lib
+} // namespace Lib
 
 // Begin Namespace Signal
 
