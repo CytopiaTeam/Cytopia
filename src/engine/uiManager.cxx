@@ -508,7 +508,6 @@ void UIManager::createBuildMenu()
       button->setUIElementID(newcategory + std::to_string(idx++));
       m_uiElements.push_back(std::unique_ptr<UiElement>(dynamic_cast<UiElement *>(button)));
     }
-
     else
     {
       Button *button = new Button({0, 0, 0, 0});

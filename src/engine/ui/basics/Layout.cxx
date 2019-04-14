@@ -193,12 +193,12 @@ void Layout::arrangeElements()
 
     if (!groupLayout.layoutParentElementID.empty())
     {
-      arrangeChildElementsNew(groupLayout, group.second.uiElements);
+      arrangeChildElements(groupLayout, group.second.uiElements);
     }
   }
 }
 
-void Layout::arrangeChildElementsNew(LayoutData &groupLayout, std::vector<UiElement *> groupElements)
+void Layout::arrangeChildElements(LayoutData &groupLayout, std::vector<UiElement *> groupElements)
 {
   SDL_Point screenCenter{Settings::instance().settings.screenWidth / 2, Settings::instance().settings.screenHeight / 2};
   SDL_Point screenSize{Settings::instance().settings.screenWidth, Settings::instance().settings.screenHeight};
@@ -240,7 +240,7 @@ void Layout::arrangeChildElementsNew(LayoutData &groupLayout, std::vector<UiElem
 
       std::vector<UiElement *> parentsUiElements = UIManager::instance().getAllLayoutGroups()[parentsLayoutGroup].uiElements;
 
-      arrangeChildElementsNew(lay, parentsUiElements);
+      arrangeChildElements(lay, parentsUiElements);
     }
 
     // Align the element to its parent
