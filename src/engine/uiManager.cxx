@@ -7,7 +7,6 @@
 #include "basics/settings.hxx"
 #include "basics/utils.hxx"
 #include "basics/log.hxx"
-#include "ui/basics/Layout.hxx"
 
 #include "../ThirdParty/json.hxx"
 
@@ -208,7 +207,7 @@ void UIManager::init()
         {
           if (m_layoutGroups.find(layoutGroupName) != m_layoutGroups.end())
           {
-            m_layoutGroups[layoutGroupName].uiElements.push_back(uiElement.get());
+            addToLayoutGroup(layoutGroupName, uiElement.get());
           }
           else
           {
@@ -239,9 +238,9 @@ void UIManager::init()
 
   Layout::arrangeElements();
 
-  Settings::instance().settings.buildMenuPosition = "BOTTOM"; 
-  setBuildMenuLayout();
-  Layout::arrangeElements();
+  //Settings::instance().settings.buildMenuPosition = "BOTTOM";
+  //setBuildMenuLayout();
+  //Layout::arrangeElements();
 }
 
 void UIManager::setFPSCounterText(const std::string &fps) { m_fpsCounter->setText(fps); }
@@ -472,7 +471,6 @@ void UIManager::createBuildMenu()
     std::string category = tile.second.category;
 
     // Skip all items that have no button group
-
     if (category == "Water" || category == "Terrain")
     {
       continue;
@@ -498,7 +496,7 @@ void UIManager::createBuildMenu()
         button->setActionParameter(newcategory);
         button->setMenuGroupID("Debug_sub");
         button->setTooltipText(tile.second.title);
-        button->setUIElementID("Debug_sub" + idx);
+        button->setUIElementID("Debug_sub" + std::to_string(idx));
         m_buttonGroups["Debug_sub"]->addToGroup(button);
         m_uiElements.push_back(std::unique_ptr<UiElement>(dynamic_cast<UiElement *>(button)));
       }
@@ -512,8 +510,7 @@ void UIManager::createBuildMenu()
       button->setActionParameter(tile.first);
       button->setMenuGroupID(newcategory + "_sub");
       button->setTooltipText(tile.second.title);
-      button->setUIElementID(newcategory + std::to_string(m_buttonGroups[newcategory]->count()));
-      //m_buttonGroups[newcategory]->addToGroup(button);
+      button->setUIElementID(newcategory + std::to_string(idx++));
       m_uiElements.push_back(std::unique_ptr<UiElement>(dynamic_cast<UiElement *>(button)));
     }
 
@@ -539,24 +536,6 @@ void UIManager::createBuildMenu()
     }
   }
 
-  //// Handling for elements that should go into debug menu
-  //for (auto &tile : TileManager::instance().getAllTileData())
-  //{
-
-  //  std::string category = tile.second.category;
-
-  //  if (category == "Water" || category == "Terrain")
-  //  {
-  //    continue;
-  //  }
-
-  //  if (m_buttonGroups.find(category) == m_buttonGroups.end())
-  //  {
-  //
-
-  //}
-  //  }
-
   // iterate over all elements and add everything that has a BuildMenu ID.
   for (const auto &element : m_uiElements)
   {
@@ -568,8 +547,7 @@ void UIManager::createBuildMenu()
       if (!button->getUiElementData().buildMenuID.empty())
       {
         // get all uiElements that have a _sub suffix in their MenuGroupID
-        if (button->getUiElementData().buildMenuID.find(subMenuSuffix) != std::string::npos)
-        //if (utils::strings::endsWith(button->getUiElementData().buildMenuID, subMenuSuffix))
+        if (utils::strings::endsWith(button->getUiElementData().buildMenuID, subMenuSuffix))
         {
           std::string parentGroupName;
           parentGroupName = element->getUiElementData().buildMenuID;
@@ -580,7 +558,7 @@ void UIManager::createBuildMenu()
           {
             m_buttonGroups[parentGroupName]->addToGroup(button);
             m_uiGroups[parentGroupName].push_back(button);
-            m_layoutGroups[parentGroupName].uiElements.push_back(button);
+            addToLayoutGroup(parentGroupName, button);
           }
           else
           {
@@ -597,7 +575,7 @@ void UIManager::createBuildMenu()
           m_buttonGroups["_BuildMenu_"]->addToGroup(button);
 
           m_uiGroups["_BuildMenu_"].push_back(button);
-          m_layoutGroups["_BuildMenu_"].uiElements.push_back(button);
+          addToLayoutGroup("_BuildMenu_", button);
         }
       }
     }
@@ -701,5 +679,14 @@ void UIManager::setBuildMenuPosition(UiElement *sender)
   else
   {
     LOG(LOG_ERROR) << "Only a combox can have setBuildMenuPosition() as callback function";
+  }
+}
+
+void UIManager::addToLayoutGroup(const std::string &groupName, UiElement *widget)
+{
+  if (widget)
+  {
+    widget->setLayoutGroupName(groupName);
+    m_layoutGroups[groupName].uiElements.push_back(widget);
   }
 }
