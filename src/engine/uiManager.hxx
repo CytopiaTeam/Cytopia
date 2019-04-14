@@ -51,13 +51,13 @@ public:
  */
   void initializeDollarVariables();
 
- /**
+  /**
   * @brief Renders all UI Widgets
   * 
   */
   void drawUI() const;
 
-/**
+  /**
  * @brief Callback function for toggling the visibility of an UiGroup 
  * Callback function for Ui Widgets with the ActionID "ToggleVisiblityOfGroup".
  * The ActionParamter is used for toggling elements from m_uiGroups with the same ID
@@ -67,7 +67,7 @@ public:
  */
   void toggleGroupVisibility(const std::string &groupID, UiElement *sender = nullptr);
 
-/**
+  /**
  * @brief Toggle Visibility of Debug Menu
  * 
  */
@@ -79,7 +79,7 @@ public:
  * @param fps 
  */
   void setFPSCounterText(const std::string &fps);
-  
+
   /**
  * @brief CallbackFunction that sets the Build Menu Position 
  * Used as callback function for the ComboBox that holds the Build Menu position
@@ -87,7 +87,7 @@ public:
  */
   void setBuildMenuPosition(UiElement *sender);
 
-/**
+  /**
  * @brief Get all Ui Element objects
  * Returns a container that holds ALL UiElements, even those in buttongroups. 
  * @note Does not return ButtonGroups, only basic widgets
@@ -102,7 +102,7 @@ public:
  * @return const std::vector<UiElement *>& 
  */
   const std::vector<UiElement *> &getAllUiElementsForEventHandling() const { return m_uiElementsForEventHandling; };
-  
+
   /**
  * @brief Get the UiElements Of aroup 
  * get Elements that are in UiGroup (m_uiGroups)
@@ -131,7 +131,7 @@ public:
  * @param UiElement ID of the element that should be returned.
  * @return UiElement* 
  */
-  UiElement *getUiElementByID(const std::string &UiElement) const;
+  UiElement *getUiElementByID(const std::string &ID) const;
 
   void startTooltip(SDL_Event &event, const std::string &tooltipText);
   void stopTooltip() const;

@@ -200,8 +200,6 @@ void Layout::arrangeElements()
 
 void Layout::arrangeChildElements(LayoutData &groupLayout, std::vector<UiElement *> groupElements)
 {
-  SDL_Point screenCenter{Settings::instance().settings.screenWidth / 2, Settings::instance().settings.screenHeight / 2};
-  SDL_Point screenSize{Settings::instance().settings.screenWidth, Settings::instance().settings.screenHeight};
 
   int xOffset = 0;
   int yOffset = 0;
@@ -210,7 +208,7 @@ void Layout::arrangeChildElements(LayoutData &groupLayout, std::vector<UiElement
 
   if (groupLayout.layoutType == "VERTICAL")
   {
-    yOffset = screenCenter.y - groupLayout.groupHeight / 2;
+    yOffset = Settings::instance().settings.screenHeight / 2 - groupLayout.groupHeight / 2;
   }
 
   int currentLength = 0;

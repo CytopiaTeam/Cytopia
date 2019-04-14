@@ -559,7 +559,7 @@ void UIManager::createBuildMenu()
     if (button && !button->getUiElementData().buildMenuID.empty())
     {
       // get all uiElements that have a _sub suffix in their MenuGroupID
-      if (button->getUiElementData().buildMenuID.find(subMenuSuffix) != std::string::npos)
+      if (utils::strings::endsWith(button->getUiElementData().buildMenuID, subMenuSuffix))
       {
         std::string parentGroupName;
         parentGroupName = element->getUiElementData().buildMenuID;
