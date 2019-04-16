@@ -295,6 +295,21 @@
         "Width": 200,
         "Height": 30,
         "Text": "800 x 600"
+      },
+      {
+        "Type": "Text",
+        "Text": "Screen Resolution",
+        "Position_x": 330,
+        "Position_y": 315
+      },
+      {
+        "ID": "$ScreenResolutionSelector",
+        "Type": "ComboBox",
+        "Position_x": 420,
+        "Position_y": 300,
+        "Width": 200,
+        "Height": 30,
+        "Text": "800 x 600"
       }
     ]
   }

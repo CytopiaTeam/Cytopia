@@ -36,6 +36,10 @@ public:
   */
   SDL_Window *getWindow() const { return m_window; };
 
+  std::vector<SDL_DisplayMode *> getSupportedScreenResolutions() { return m_resolutions; };
+
+  void changeResolution(int mode);
+
 private:
   WindowManager();
   ~WindowManager();
@@ -46,8 +50,10 @@ private:
   SDL_Window *m_window = nullptr;
   SDL_Renderer *m_renderer = nullptr;
 
+  void initializeScreenResolutions();
+
+  std::vector<SDL_DisplayMode *> m_resolutions;
+
   int m_numOfDisplays = 0;
   int m_activeDisplay = 0;
-
-  std::vector<SDL_DisplayMode>  getSupportedScreenResolutions();
 };

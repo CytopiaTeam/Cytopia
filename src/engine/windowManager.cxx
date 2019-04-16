@@ -34,6 +34,7 @@ WindowManager::WindowManager()
   }
 
   m_numOfDisplays = SDL_GetNumVideoDisplays();
+  initializeScreenResolutions();
 }
 
 WindowManager::~WindowManager()
@@ -62,25 +63,33 @@ void WindowManager::setWindowTitle(const std::string &title)
   SDL_SetWindowTitle(m_window, m_title.c_str());
 }
 
-std::vector<SDL_DisplayMode> WindowManager::getSupportedScreenResolutions()
+void WindowManager::initializeScreenResolutions()
 {
-  std::vector<SDL_DisplayMode> resolutions;
-
   if (m_activeDisplay > m_numOfDisplays)
   {
     LOG(LOG_ERROR) << "There is no display with number " << m_activeDisplay << " - Resetting to display 0";
   }
 
   // get the number of different screen modes
-  for (int idx = 0; idx <= SDL_GetNumDisplayModes(m_activeDisplay); idx++)
+  for (int modeIndex = 0; modeIndex <= SDL_GetNumDisplayModes(m_activeDisplay); modeIndex++)
   {
-    SDL_DisplayMode mode = {SDL_PIXELFORMAT_UNKNOWN, 0, 0, 0, 0};
+    SDL_DisplayMode *mode = new SDL_DisplayMode{SDL_PIXELFORMAT_UNKNOWN, 0, 0, 0, 0};
 
-    if (SDL_GetDisplayMode(m_activeDisplay, idx, &mode) == 0)
+    if (SDL_GetDisplayMode(m_activeDisplay, modeIndex, mode) == 0)
     {
-      resolutions.push_back(mode);
+      m_resolutions.push_back(mode);
     }
   }
+}
 
-  return resolutions;
+void WindowManager::changeResolution(int mode)
+{
+  if (Settings::instance().settings.fullScreen)
+  {
+    SDL_SetWindowDisplayMode(m_window, m_resolutions[mode]);
+  }
+  else
+  {
+    SDL_SetWindowSize(m_window, m_resolutions[mode]->w, m_resolutions[mode]->h);
+  }
 }

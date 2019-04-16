@@ -452,6 +452,10 @@ void UIManager::setCallbackFunctions()
     {
       uiElement->registerCallbackFunction([]() { Settings::instance().writeFile(); });
     }
+    else if (uiElement->getUiElementData().actionID == "ChangeResolution")
+    {
+      uiElement->registerCallbackFunction(Signal::slot(this, &UIManager::changeResolution));
+    }
   }
 }
 
@@ -672,12 +676,34 @@ void UIManager::initializeDollarVariables()
           continue;
         }
 
+        combobox->clear();
         combobox->addElement("LEFT");
         combobox->addElement("RIGHT");
         combobox->addElement("TOP");
         combobox->addElement("BOTTOM");
 
         combobox->registerCallbackFunction(Signal::slot(this, &UIManager::setBuildMenuPosition));
+      }
+
+      else if (it->getUiElementData().elementID == "$ScreenResolutionSelector")
+      {
+        // This must be a ComboBox
+        ComboBox *combobox = dynamic_cast<ComboBox *>(it.get());
+
+        if (!combobox)
+        {
+          LOG(LOG_ERROR) << "Can not use element ID $BuildMenuLayout for an element other than a combobox!";
+          continue;
+        }
+
+        combobox->clear();
+        for (const auto &mode : WindowManager::instance().getSupportedScreenResolutions())
+        {
+          std::string resolution = std::to_string(mode->w) + " x " + std::to_string(mode->h);
+          combobox->addElement(resolution);
+        }
+
+        combobox->registerCallbackFunction(Signal::slot(this, &UIManager::changeResolution));
       }
     }
   }
@@ -706,4 +732,11 @@ void UIManager::addToLayoutGroup(const std::string &groupName, UiElement *widget
     widget->setLayoutGroupName(groupName);
     m_layoutGroups[groupName].uiElements.push_back(widget);
   }
+}
+
+void UIManager::changeResolution(UiElement *sender)
+{
+
+  ComboBox *combobox = dynamic_cast<ComboBox *>(sender);
+  WindowManager::instance().changeResolution(combobox->getActiveID());
 }
