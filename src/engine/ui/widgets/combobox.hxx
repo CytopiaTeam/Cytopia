@@ -36,6 +36,8 @@ public:
 
   void registerCallbackFunction(std::function<void(UiElement *sender)> const &cb) override;
 
+  void clear() { m_textField->clear(); }
+
 private:
   int m_activeID = 0;
   SDL_Rect m_dropDownRect;     // represents the dropdownMenu

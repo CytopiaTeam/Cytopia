@@ -41,6 +41,8 @@ public:
 
   TextFieldAlignment textAlignment = TextFieldAlignment::CENTERED;
 
+  void clear() { m_textElements.clear(); }
+
 private:
   std::vector<std::unique_ptr<Text>> m_textElements;
 
