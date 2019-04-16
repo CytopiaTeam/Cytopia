@@ -29,8 +29,11 @@ WindowManager::WindowManager()
   }
   else
   {
-    LOG(LOG_ERROR) << "Could not load Texture from file " << m_windowIcon << "\nSDL_IMAGE Error: " << IMG_GetError();
+
+    LOG(LOG_ERROR) << "Could not load icon " << m_windowIcon << "\nSDL_IMAGE Error: " << IMG_GetError();
   }
+
+  m_numOfDisplays = SDL_GetNumVideoDisplays();
 }
 
 WindowManager::~WindowManager()
@@ -57,4 +60,27 @@ void WindowManager::setWindowTitle(const std::string &title)
 {
   m_title = title;
   SDL_SetWindowTitle(m_window, m_title.c_str());
+}
+
+std::vector<SDL_DisplayMode> WindowManager::getSupportedScreenResolutions()
+{
+  std::vector<SDL_DisplayMode> resolutions;
+
+  if (m_activeDisplay > m_numOfDisplays)
+  {
+    LOG(LOG_ERROR) << "There is no display with number " << m_activeDisplay << " - Resetting to display 0";
+  }
+
+  // get the number of different screen modes
+  for (int idx = 0; idx <= SDL_GetNumDisplayModes(m_activeDisplay); idx++)
+  {
+    SDL_DisplayMode mode = {SDL_PIXELFORMAT_UNKNOWN, 0, 0, 0, 0};
+
+    if (SDL_GetDisplayMode(m_activeDisplay, idx, &mode) == 0)
+    {
+      resolutions.push_back(mode);
+    }
+  }
+
+  return resolutions;
 }

@@ -2,6 +2,7 @@
 
 #include <string>
 #include <iostream>
+#include <vector>
 
 #include <SDL.h>
 
@@ -44,4 +45,9 @@ private:
 
   SDL_Window *m_window = nullptr;
   SDL_Renderer *m_renderer = nullptr;
+
+  int m_numOfDisplays = 0;
+  int m_activeDisplay = 0;
+
+  std::vector<SDL_DisplayMode>  getSupportedScreenResolutions();
 };
