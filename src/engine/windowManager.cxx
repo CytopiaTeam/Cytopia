@@ -87,6 +87,9 @@ void WindowManager::changeResolution(int mode)
   if (Settings::instance().settings.fullScreen)
   {
     SDL_SetWindowDisplayMode(m_window, m_resolutions[mode]);
+    // workaround. After setting Display Resolution in fullscreen, it won't work until disabling / enabling FUllscreen again.
+    SDL_SetWindowFullscreen(m_window, 0);
+    SDL_SetWindowFullscreen(m_window, SDL_WINDOW_FULLSCREEN);
   }
   else
   {
