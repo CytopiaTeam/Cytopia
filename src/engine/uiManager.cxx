@@ -701,6 +701,11 @@ void UIManager::initializeDollarVariables()
         {
           std::string resolution = std::to_string(mode->w) + " x " + std::to_string(mode->h);
           combobox->addElement(resolution);
+          // check if the added element is the active screen resolution
+          if (Settings::instance().settings.screenHeight == mode->h && Settings::instance().settings.screenWidth == mode->w)
+          {
+            combobox->setActiveID(static_cast<int>(combobox->count() - 1));
+          }
         }
 
         combobox->registerCallbackFunction(Signal::slot(this, &UIManager::changeResolution));
@@ -721,6 +726,7 @@ void UIManager::initializeDollarVariables()
         combobox->addElement("BORDERLESS");
         combobox->addElement("FULLSCREEN");
 
+        combobox->setActiveID(Settings::instance().settings.fullScreenMode);
         combobox->registerCallbackFunction(Signal::slot(this, &UIManager::changeFullScreenMode));
       }
     }
