@@ -33,17 +33,19 @@ public:
   void onMouseMove(const SDL_Event &event) override;
   void onMouseLeave(const SDL_Event &event) override;
 
+  size_t count() const { return m_count; };
   bool centerText = true;
 
   int selectedID = -1;
   int hoveredID = -1;
-  int count = 0;
 
   TextFieldAlignment textAlignment = TextFieldAlignment::CENTERED;
 
   void clear() { m_textElements.clear(); }
 
 private:
+  size_t m_count = 0;
+
   std::vector<std::unique_ptr<Text>> m_textElements;
 
   int m_textElementHeight = 0;

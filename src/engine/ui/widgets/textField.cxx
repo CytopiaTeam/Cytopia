@@ -32,7 +32,7 @@ void TextField::addText(const std::string &text)
 
   Text *label = new Text(text);
   textRect.h = label->getUiElementRect().h; // get height of text after instantiating
-  textRect.y = m_uiElementRect.y + count * textRect.h;
+  textRect.y = static_cast<int>(m_uiElementRect.y + m_count * textRect.h);
 
   // center text
   if (centerText)
@@ -51,12 +51,12 @@ void TextField::addText(const std::string &text)
 
   label->setPosition(textRect.x, textRect.y);
   m_textElements.emplace_back(label);
-  count = static_cast<int>(m_textElements.size());
+  m_count = static_cast<int>(m_textElements.size());
 }
 
 std::string TextField::getTextFromID(int id) const
 {
-  if (id < count && count > 0 && id >= 0)
+  if (id < m_count && m_count > 0 && id >= 0)
   {
     return m_textElements[id]->getUiElementData().text;
   }
@@ -100,9 +100,9 @@ bool TextField::onMouseButtonUp(const SDL_Event &event)
       selectedID = ((m_textElementHeight + event.button.y - m_uiElementRect.y) / m_textElementHeight) - 1;
       // because of the -4 pixel offset that's been added in the constructor, the id would exceed the size of the vector, if the bottom of the dropdown is clicked
 
-      if (selectedID >= count)
+      if (selectedID >= m_count)
       {
-        selectedID = count - 1;
+        selectedID = static_cast<int>(m_count - 1);
       }
     }
     return true;
@@ -117,9 +117,9 @@ void TextField::onMouseMove(const SDL_Event &event)
   {
     hoveredID = ((m_textElementHeight + event.button.y - m_uiElementRect.y) / m_textElementHeight) - 1;
     // because of the -4 pixel offset that's been added in the constructor, the id would exceed the size of the vector, if the bottom of the dropdown is clicked
-    if (hoveredID >= count)
+    if (hoveredID >= m_count)
     {
-      hoveredID = count - 1;
+      hoveredID = static_cast<int>(m_count - 1);
     }
     m_highlightingRect.y = ((hoveredID)*m_textElementHeight) + m_uiElementRect.y;
   }

@@ -33,6 +33,7 @@ public:
   int getActiveID() const { return m_activeID; };
   void setActiveID(int ID);
 
+  size_t count() const { return m_textField->count(); };
   std::string activeText;
 
   void registerCallbackFunction(std::function<void(UiElement *sender)> const &cb) override;
