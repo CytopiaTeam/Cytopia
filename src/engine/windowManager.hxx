@@ -6,6 +6,13 @@
 
 #include <SDL.h>
 
+enum class FULLSCREEN_MODE
+{
+  WINDOWED,
+  BORDERLESS,
+  FULLSCREEN
+};
+
 class WindowManager
 {
 public:
@@ -39,6 +46,8 @@ public:
   std::vector<SDL_DisplayMode *> getSupportedScreenResolutions() { return m_resolutions; };
 
   void changeResolution(int mode);
+
+  void setFullScreenMode(FULLSCREEN_MODE mode);
 
 private:
   WindowManager();

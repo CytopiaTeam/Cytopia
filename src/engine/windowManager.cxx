@@ -57,6 +57,26 @@ void WindowManager::toggleFullScreen() const
   }
 }
 
+void WindowManager::setFullScreenMode(FULLSCREEN_MODE mode)
+{
+  switch (mode)
+  {
+  case FULLSCREEN_MODE::WINDOWED:
+    SDL_SetWindowFullscreen(m_window, 0);
+    break;
+  case FULLSCREEN_MODE::FULLSCREEN:
+    SDL_SetWindowFullscreen(m_window, SDL_WINDOW_FULLSCREEN);
+    break;
+  case FULLSCREEN_MODE::BORDERLESS:
+    // As a workaround, need to swtich back into windowed mode
+    // before changing the display mode, then back to full screen
+    // mode.
+    SDL_SetWindowFullscreen(m_window, 0);
+    SDL_SetWindowFullscreen(m_window, SDL_WINDOW_FULLSCREEN_DESKTOP);
+    break;
+  }
+}
+
 void WindowManager::setWindowTitle(const std::string &title)
 {
   m_title = title;

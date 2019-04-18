@@ -705,6 +705,24 @@ void UIManager::initializeDollarVariables()
 
         combobox->registerCallbackFunction(Signal::slot(this, &UIManager::changeResolution));
       }
+      else if (it->getUiElementData().elementID == "$FullScreenSelector")
+      {
+        // This must be a ComboBox
+        ComboBox *combobox = dynamic_cast<ComboBox *>(it.get());
+
+        if (!combobox)
+        {
+          LOG(LOG_ERROR) << "Can not use element ID FullScreenSelector for an element other than a combobox!";
+          continue;
+        }
+
+        combobox->clear();
+        combobox->addElement("WINDOWED");
+        combobox->addElement("BORDERLESS");
+        combobox->addElement("FULLSCREEN");
+
+        combobox->registerCallbackFunction(Signal::slot(this, &UIManager::changeFullScreenMode));
+      }
     }
   }
 }
@@ -736,7 +754,14 @@ void UIManager::addToLayoutGroup(const std::string &groupName, UiElement *widget
 
 void UIManager::changeResolution(UiElement *sender)
 {
-
+  // TODO: Save settings
   ComboBox *combobox = dynamic_cast<ComboBox *>(sender);
   WindowManager::instance().changeResolution(combobox->getActiveID());
+}
+
+void UIManager::changeFullScreenMode(UiElement *sender)
+{
+  // TODO: Save settings
+  ComboBox *combobox = dynamic_cast<ComboBox *>(sender);
+  WindowManager::instance().setFullScreenMode(static_cast<FULLSCREEN_MODE>(combobox->getActiveID()));
 }

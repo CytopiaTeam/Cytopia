@@ -137,6 +137,7 @@ public:
   void stopTooltip() const;
 
   void changeResolution(UiElement *sender);
+  void changeFullScreenMode(UiElement *sender);
 
 private:
   UIManager() = default;
