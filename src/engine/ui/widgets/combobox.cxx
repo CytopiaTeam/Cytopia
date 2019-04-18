@@ -114,6 +114,12 @@ void ComboBox::addElement(const std::string &text)
   m_wholeElementRect.h = m_uiElementRect.h + m_dropDownRect.h;
 }
 
+void ComboBox::setActiveID(int ID)
+{
+  m_activeID = ID;
+  m_buttonLabel->setText(m_textField->getTextFromID(m_activeID));
+}
+
 bool ComboBox::onMouseButtonUp(const SDL_Event &event)
 {
   int x = event.button.x;

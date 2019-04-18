@@ -31,6 +31,7 @@ public:
   * @return selected ID
   */
   int getActiveID() const { return m_activeID; };
+  void setActiveID(int ID);
 
   std::string activeText;
 
