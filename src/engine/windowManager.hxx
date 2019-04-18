@@ -8,9 +8,9 @@
 
 enum class FULLSCREEN_MODE
 {
-  WINDOWED,
-  BORDERLESS,
-  FULLSCREEN
+  WINDOWED = 0,
+  BORDERLESS = 1,
+  FULLSCREEN = 2
 };
 
 class WindowManager
@@ -45,7 +45,7 @@ public:
 
   std::vector<SDL_DisplayMode *> getSupportedScreenResolutions() { return m_resolutions; };
 
-  void changeResolution(int mode);
+  void setScreenResolution(int mode);
 
   void setFullScreenMode(FULLSCREEN_MODE mode);
 

@@ -60,6 +60,7 @@ void to_json(json &j, const Settings::SettingsStruct &s)
        {
            {std::string("VSYNC"), s.vSync},
            {std::string("FullScreen"), s.fullScreen},
+           {std::string("FullScreenMode"), s.fullScreenMode},
            {std::string("Resolution"),
             {{std::string("Screen_Width"), s.screenWidth}, {std::string("Screen_Height"), s.screenHeight}}},
        }},
@@ -88,6 +89,7 @@ void from_json(const json &j, Settings::SettingsStruct &s)
   s.screenHeight = j["Graphics"]["Resolution"].value("Screen_Height", 600);
   s.vSync = j["Graphics"].value("VSYNC", false);
   s.fullScreen = j["Graphics"].value("FullScreen", false);
+  s.fullScreenMode = j["Graphics"].value("FullScreenMode", 0);
   s.mapSize = j["Game"].value("MapSize", 64);
   s.maxElevationHeight = j["Game"].value("MaxElevationHeight", 32);
   s.uiDataJSONFile = j["ConfigFiles"].value("UIDataJSONFile", "resources/data/TileData.json");

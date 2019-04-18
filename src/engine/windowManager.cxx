@@ -35,6 +35,7 @@ WindowManager::WindowManager()
 
   m_numOfDisplays = SDL_GetNumVideoDisplays();
   initializeScreenResolutions();
+  setFullScreenMode(static_cast<FULLSCREEN_MODE>(Settings::instance().settings.fullScreenMode));
 }
 
 WindowManager::~WindowManager()
@@ -59,6 +60,8 @@ void WindowManager::toggleFullScreen() const
 
 void WindowManager::setFullScreenMode(FULLSCREEN_MODE mode)
 {
+  Settings::instance().settings.fullScreenMode = static_cast<int>(mode);
+
   switch (mode)
   {
   case FULLSCREEN_MODE::WINDOWED:
@@ -102,17 +105,25 @@ void WindowManager::initializeScreenResolutions()
   }
 }
 
-void WindowManager::changeResolution(int mode)
+void WindowManager::setScreenResolution(int mode)
 {
-  if (Settings::instance().settings.fullScreen)
+  Settings::instance().settings.screenWidth = m_resolutions[mode]->w;
+  Settings::instance().settings.screenHeight = m_resolutions[mode]->h;
+
+  switch (static_cast<FULLSCREEN_MODE>(Settings::instance().settings.fullScreenMode))
   {
+  case FULLSCREEN_MODE::FULLSCREEN:
     SDL_SetWindowDisplayMode(m_window, m_resolutions[mode]);
-    // workaround. After setting Display Resolution in fullscreen, it won't work until disabling / enabling FUllscreen again.
+    // workaround. After setting Display Resolution in fullscreen, it won't work until disabling / enabling Fullscreen again.
     SDL_SetWindowFullscreen(m_window, 0);
     SDL_SetWindowFullscreen(m_window, SDL_WINDOW_FULLSCREEN);
-  }
-  else
-  {
+    break;
+  case FULLSCREEN_MODE::WINDOWED:
     SDL_SetWindowSize(m_window, m_resolutions[mode]->w, m_resolutions[mode]->h);
+    SDL_SetWindowPosition(m_window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
+    break;
+  case FULLSCREEN_MODE::BORDERLESS:
+    // do nothing for borderless fullscreen, it's always the screensize
+    break;
   }
 }

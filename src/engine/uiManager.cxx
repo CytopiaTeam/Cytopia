@@ -756,7 +756,7 @@ void UIManager::changeResolution(UiElement *sender)
 {
   // TODO: Save settings
   ComboBox *combobox = dynamic_cast<ComboBox *>(sender);
-  WindowManager::instance().changeResolution(combobox->getActiveID());
+  WindowManager::instance().setScreenResolution(combobox->getActiveID());
 }
 
 void UIManager::changeFullScreenMode(UiElement *sender)

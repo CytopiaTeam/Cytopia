@@ -27,6 +27,7 @@ public:
     int maxElevationHeight;
     bool vSync;
     bool fullScreen;
+    int fullScreenMode;
     int musicVolume;
     int soundEffectsVolume;
     bool playMusic;
