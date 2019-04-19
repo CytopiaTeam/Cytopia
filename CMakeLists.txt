@@ -59,6 +59,7 @@ set (SOURCES
   src/engine/ui/widgets/combobox.cxx
   src/engine/ui/widgets/checkbox.cxx
   src/engine/ui/widgets/frame.cxx
+  src/engine/ui/widgets/Image.cxx
   src/engine/ui/widgets/text.cxx
   src/engine/ui/widgets/textField.cxx
   src/engine/ui/widgets/tooltip.cxx

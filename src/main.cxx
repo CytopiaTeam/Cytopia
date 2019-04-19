@@ -14,6 +14,7 @@ int protected_main(int argc, char **argv)
     return EXIT_FAILURE;
   }
 
+  game.splashscreen();
   game.run();
   game.shutdown();
 

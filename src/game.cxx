@@ -8,6 +8,8 @@
 #include "engine/basics/camera.hxx"
 #include "engine/basics/point.hxx"
 #include "engine/basics/log.hxx"
+#include "engine/ui/widgets/Image.hxx"
+#include "engine/basics/settings.hxx"
 
 #include <SDL.h>
 
@@ -32,7 +34,29 @@ bool Game::initialize()
     return false;
   }
 
+  // initialize window manager
+  WindowManager::instance().setWindowTitle(VERSION);
   return true;
+}
+
+void Game::splashscreen()
+{
+  Image logo;
+  logo.setTextureID("Cytopia_Logo");
+  logo.setVisibility(true);
+  logo.setPosition(Settings::instance().settings.screenWidth / 2 - logo.getUiElementRect().w / 2,
+                   Settings::instance().settings.screenHeight / 2 - logo.getUiElementRect().h / 2);
+
+  for (Uint8 opacity = 0; opacity < 255; opacity++)
+  {
+    SDL_RenderClear(WindowManager::instance().getRenderer());
+    logo.setOpacity(opacity);
+    logo.draw();
+
+    SDL_RenderPresent(WindowManager::instance().getRenderer());
+    SDL_Delay(5);
+  }
+  logo.setVisibility(false);
 }
 
 void Game::run()
@@ -40,10 +64,9 @@ void Game::run()
   Timer benchmarkTimer;
   LOG() << VERSION;
 
-  WindowManager::instance().setWindowTitle(VERSION);
-
-  benchmarkTimer.start();
   Engine &engine = Engine::instance();
+  benchmarkTimer.start();
+
   LOG() << "Map initialized in " << benchmarkTimer.getElapsedTime() << "ms";
   Camera::centerScreenOnMapCenter();
 
