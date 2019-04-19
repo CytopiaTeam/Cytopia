@@ -606,31 +606,29 @@ void UIManager::setBuildMenuLayout()
   std::string layoutType = "HORIZONTAL";
   std::string subMenuAlignment = "HORIZONTAL";
 
-  auto &position = Settings::instance().settings.buildMenuPosition;
-
-  if (position == "BOTTOM")
+  switch (buildMenuLayout)
   {
-    alignment = "BOTTOM_CENTER";
-    layoutType = "HORIZONTAL";
-    subMenuAlignment = "ALIGN_ABOVE_PARENT";
-  }
-  else if (position == "TOP")
-  {
-    alignment = "TOP_CENTER";
-    layoutType = "HORIZONTAL";
-    subMenuAlignment = "ALIGN_BENEATH_PARENT";
-  }
-  else if (position == "LEFT")
-  {
+  case BUILDMENU_LAYOUT::LEFT:
     alignment = "LEFT_CENTER";
     layoutType = "VERTICAL";
     subMenuAlignment = "ALIGN_RIGHT_TO_PARENT";
-  }
-  else if (position == "RIGHT")
-  {
+    break;
+  case BUILDMENU_LAYOUT::RIGHT:
     alignment = "RIGHT_CENTER";
     layoutType = "VERTICAL";
     subMenuAlignment = "ALIGN_LEFT_TO_PARENT";
+    break;
+  case BUILDMENU_LAYOUT::TOP:
+    alignment = "TOP_CENTER";
+    layoutType = "HORIZONTAL";
+    subMenuAlignment = "ALIGN_BENEATH_PARENT";
+    break;
+  default:
+  case BUILDMENU_LAYOUT::BOTTOM:
+    alignment = "BOTTOM_CENTER";
+    layoutType = "HORIZONTAL";
+    subMenuAlignment = "ALIGN_ABOVE_PARENT";
+    break;
   }
 
   // iterate over all elements and add everything that has a BuildMenu ID.
@@ -678,9 +676,33 @@ void UIManager::initializeDollarVariables()
 
         combobox->clear();
         combobox->addElement("LEFT");
+        // TODO: #97 Ugly workaround until we have BetterEnums
+        if (Settings::instance().settings.buildMenuPosition == "LEFT")
+        {
+          combobox->setActiveID(static_cast<int>(combobox->count() - 1));
+          buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(combobox->count() - 1));
+        }
         combobox->addElement("RIGHT");
+        // TODO: #97 Ugly workaround until we have BetterEnums
+        if (Settings::instance().settings.buildMenuPosition == "RIGHT")
+        {
+          combobox->setActiveID(static_cast<int>(combobox->count() - 1));
+          buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(combobox->count() - 1));
+        }
         combobox->addElement("TOP");
+        // TODO: #97 Ugly workaround until we have BetterEnums
+        if (Settings::instance().settings.buildMenuPosition == "TOP")
+        {
+          combobox->setActiveID(static_cast<int>(combobox->count() - 1));
+          buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(combobox->count() - 1));
+        }
         combobox->addElement("BOTTOM");
+        // TODO: #97 Ugly workaround until we have BetterEnums
+        if (Settings::instance().settings.buildMenuPosition == "BOTTOM")
+        {
+          combobox->setActiveID(static_cast<int>(combobox->count() - 1));
+          buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(combobox->count() - 1));
+        }
 
         combobox->registerCallbackFunction(Signal::slot(this, &UIManager::setBuildMenuPosition));
       }
@@ -740,6 +762,7 @@ void UIManager::setBuildMenuPosition(UiElement *sender)
   if (comboBox)
   {
     Settings::instance().settings.buildMenuPosition = comboBox->activeText;
+    buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(comboBox->getActiveID());
     setBuildMenuLayout();
     Layout::arrangeElements();
   }

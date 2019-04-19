@@ -26,6 +26,14 @@ struct LayoutGroup
   LayoutData layout;                   /// layout information @see LayoutData
 };
 
+enum class BUILDMENU_LAYOUT
+{
+  LEFT = 0,
+  RIGHT = 1,
+  TOP = 2,
+  BOTTOM = 3
+};
+
 /**
  * @brief Draws the UI to the screen
  * Parses UiLayout.json file and instantiates UI widgets accordingly. Also takes care of layouting
@@ -140,6 +148,8 @@ public:
   void changeFullScreenMode(UiElement *sender);
 
 private:
+  BUILDMENU_LAYOUT buildMenuLayout;
+
   UIManager() = default;
   ~UIManager() = default;
 
