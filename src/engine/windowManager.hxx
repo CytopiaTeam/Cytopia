@@ -2,8 +2,16 @@
 
 #include <string>
 #include <iostream>
+#include <vector>
 
 #include <SDL.h>
+
+enum class FULLSCREEN_MODE
+{
+  WINDOWED = 0,
+  BORDERLESS = 1,
+  FULLSCREEN = 2
+};
 
 class WindowManager
 {
@@ -35,6 +43,12 @@ public:
   */
   SDL_Window *getWindow() const { return m_window; };
 
+  std::vector<SDL_DisplayMode *> getSupportedScreenResolutions() { return m_resolutions; };
+
+  void setScreenResolution(int mode);
+
+  void setFullScreenMode(FULLSCREEN_MODE mode);
+
 private:
   WindowManager();
   ~WindowManager();
@@ -44,4 +58,11 @@ private:
 
   SDL_Window *m_window = nullptr;
   SDL_Renderer *m_renderer = nullptr;
+
+  void initializeScreenResolutions();
+
+  std::vector<SDL_DisplayMode *> m_resolutions;
+
+  int m_numOfDisplays = 0;
+  int m_activeDisplay = 0;
 };

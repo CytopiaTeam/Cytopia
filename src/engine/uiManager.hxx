@@ -136,6 +136,9 @@ public:
   void startTooltip(SDL_Event &event, const std::string &tooltipText);
   void stopTooltip() const;
 
+  void changeResolution(UiElement *sender);
+  void changeFullScreenMode(UiElement *sender);
+
 private:
   UIManager() = default;
   ~UIManager() = default;

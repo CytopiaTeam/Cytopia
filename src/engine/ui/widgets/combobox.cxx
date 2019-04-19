@@ -101,7 +101,7 @@ void ComboBox::addElement(const std::string &text)
   m_textField->addText(text);
 
   // if the added element is the active one, set the main text to the added elements text.
-  if (m_textField->count == m_activeID + 1)
+  if (m_activeID == static_cast<int>(m_textField->count() - 1))
   {
     m_buttonLabel->setText(m_textField->getTextFromID(m_activeID));
     centerTextLabel();
@@ -112,6 +112,12 @@ void ComboBox::addElement(const std::string &text)
 
   // increase the size of the rect that represents the whole element
   m_wholeElementRect.h = m_uiElementRect.h + m_dropDownRect.h;
+}
+
+void ComboBox::setActiveID(int ID)
+{
+  m_activeID = ID;
+  m_buttonLabel->setText(m_textField->getTextFromID(m_activeID));
 }
 
 bool ComboBox::onMouseButtonUp(const SDL_Event &event)

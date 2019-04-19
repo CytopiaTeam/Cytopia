@@ -17,6 +17,7 @@
     },
     "Graphics": {
         "FullScreen": false,
+        "FullScreenMode": 0,
         "Resolution": {
             "Screen_Height": 600,
             "Screen_Width": 800

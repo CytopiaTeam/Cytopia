@@ -31,10 +31,14 @@ public:
   * @return selected ID
   */
   int getActiveID() const { return m_activeID; };
+  void setActiveID(int ID);
 
+  size_t count() const { return m_textField->count(); };
   std::string activeText;
 
   void registerCallbackFunction(std::function<void(UiElement *sender)> const &cb) override;
+
+  void clear() { m_textField->clear(); }
 
 private:
   int m_activeID = 0;
