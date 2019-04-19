@@ -43,15 +43,26 @@ void Game::splashscreen()
 {
   int screenWidth = Settings::instance().settings.screenWidth;
   int screenHeight = Settings::instance().settings.screenHeight;
-
+  bool mainMenuLoop = true;
   Image logo;
   Text versionText(VERSION);
   versionText.setPosition(screenWidth - versionText.getUiElementRect().w, screenHeight - versionText.getUiElementRect().h);
 
+  Button newGameButton({screenWidth / 2 - 100, screenHeight / 2 - 20, 200, 40});
+  newGameButton.setText("New Game");
+  newGameButton.registerCallbackFunction([]() { Engine::instance().newGame(); });
+
+  Button loadGameButton({screenWidth / 2 - 100, screenHeight / 2 - 20 + newGameButton.getUiElementRect().h * 2, 200, 40});
+  loadGameButton.setText("Load Game");
+  loadGameButton.registerCallbackFunction([]() { Engine::instance().loadGame("resources/save.cts"); });
+
+  Button quitGameButton({screenWidth / 2 - 100, screenHeight / 2 - 20 + loadGameButton.getUiElementRect().h * 4, 200, 40});
+  quitGameButton.setText("Quit Game");
+  quitGameButton.registerCallbackFunction(Signal::slot(this, &Game::shutdown));
+
   logo.setTextureID("Cytopia_Logo");
   logo.setVisibility(true);
-  logo.setPosition(screenWidth / 2 - logo.getUiElementRect().w / 2,
-                   screenHeight / 2 - logo.getUiElementRect().h / 2);
+  logo.setPosition(screenWidth / 2 - logo.getUiElementRect().w / 2, screenHeight / 4 - logo.getUiElementRect().h / 2);
 
   for (Uint8 opacity = 0; opacity < 255; opacity++)
   {
@@ -59,10 +70,22 @@ void Game::splashscreen()
     logo.setOpacity(opacity);
     logo.draw();
     versionText.draw();
+    newGameButton.draw();
+    loadGameButton.draw();
+    quitGameButton.draw();
 
-
+    // reset renderer color back to black
+    SDL_SetRenderDrawColor(WindowManager::instance().getRenderer(), 0, 0, 0, SDL_ALPHA_OPAQUE);
     SDL_RenderPresent(WindowManager::instance().getRenderer());
     SDL_Delay(5);
+  }
+  while (mainMenuLoop)
+  {
+    logo.draw();
+    versionText.draw();
+    newGameButton.draw();
+    loadGameButton.draw();
+    quitGameButton.draw();
   }
   logo.setVisibility(false);
 }
