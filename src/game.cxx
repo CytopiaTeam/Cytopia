@@ -50,7 +50,7 @@ void Game::splashscreen()
 
   Button newGameButton({screenWidth / 2 - 100, screenHeight / 2 - 20, 200, 40});
   newGameButton.setText("New Game");
-  newGameButton.registerCallbackFunction([]() { Engine::instance().newGame(); });
+  newGameButton.setUIElementID("newgame");
 
   Button loadGameButton({screenWidth / 2 - 100, screenHeight / 2 - 20 + newGameButton.getUiElementRect().h * 2, 200, 40});
   loadGameButton.setText("Load Game");
@@ -58,7 +58,12 @@ void Game::splashscreen()
 
   Button quitGameButton({screenWidth / 2 - 100, screenHeight / 2 - 20 + loadGameButton.getUiElementRect().h * 4, 200, 40});
   quitGameButton.setText("Quit Game");
-  quitGameButton.registerCallbackFunction(Signal::slot(this, &Game::shutdown));
+  quitGameButton.registerCallbackFunction([]() { Engine::instance().quitGame(); });
+
+  std::vector<UiElement *> buttons;
+  buttons.push_back(&newGameButton);
+  buttons.push_back(&loadGameButton);
+  buttons.push_back(&quitGameButton);
 
   logo.setTextureID("Cytopia_Logo");
   logo.setVisibility(true);
@@ -79,8 +84,31 @@ void Game::splashscreen()
     SDL_RenderPresent(WindowManager::instance().getRenderer());
     SDL_Delay(5);
   }
+  SDL_Event event;
+
   while (mainMenuLoop)
   {
+    if (SDL_PollEvent(&event))
+    {
+      //bool isMouseOverElement = false;
+      //bool isHovering = false;
+      for (const auto &it : buttons)
+      {
+        switch (event.type)
+        {
+        case SDL_MOUSEBUTTONDOWN:
+          it->onMouseButtonDown(event);
+          break;
+        case SDL_MOUSEBUTTONUP:
+
+          if (it->onMouseButtonUp(event))
+          {
+            mainMenuLoop = false;
+          }
+          break;
+        }
+      }
+    }
     logo.draw();
     versionText.draw();
     newGameButton.draw();
