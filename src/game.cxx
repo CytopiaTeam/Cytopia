@@ -41,17 +41,25 @@ bool Game::initialize()
 
 void Game::splashscreen()
 {
+  int screenWidth = Settings::instance().settings.screenWidth;
+  int screenHeight = Settings::instance().settings.screenHeight;
+
   Image logo;
+  Text versionText(VERSION);
+  versionText.setPosition(screenWidth - versionText.getUiElementRect().w, screenHeight - versionText.getUiElementRect().h);
+
   logo.setTextureID("Cytopia_Logo");
   logo.setVisibility(true);
-  logo.setPosition(Settings::instance().settings.screenWidth / 2 - logo.getUiElementRect().w / 2,
-                   Settings::instance().settings.screenHeight / 2 - logo.getUiElementRect().h / 2);
+  logo.setPosition(screenWidth / 2 - logo.getUiElementRect().w / 2,
+                   screenHeight / 2 - logo.getUiElementRect().h / 2);
 
   for (Uint8 opacity = 0; opacity < 255; opacity++)
   {
     SDL_RenderClear(WindowManager::instance().getRenderer());
     logo.setOpacity(opacity);
     logo.draw();
+    versionText.draw();
+
 
     SDL_RenderPresent(WindowManager::instance().getRenderer());
     SDL_Delay(5);
