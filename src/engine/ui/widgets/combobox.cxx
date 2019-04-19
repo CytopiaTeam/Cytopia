@@ -101,7 +101,7 @@ void ComboBox::addElement(const std::string &text)
   m_textField->addText(text);
 
   // if the added element is the active one, set the main text to the added elements text.
-  if (m_activeID == m_textField->count() - 1)
+  if (m_activeID == static_cast<int>(m_textField->count() - 1))
   {
     m_buttonLabel->setText(m_textField->getTextFromID(m_activeID));
     centerTextLabel();

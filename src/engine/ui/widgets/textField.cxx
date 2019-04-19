@@ -56,7 +56,7 @@ void TextField::addText(const std::string &text)
 
 std::string TextField::getTextFromID(int id) const
 {
-  if (id < m_count && m_count > 0 && id >= 0)
+  if (id < static_cast<int>(m_count) && static_cast<int>(m_count) > 0 && id >= 0)
   {
     return m_textElements[id]->getUiElementData().text;
   }
@@ -100,7 +100,7 @@ bool TextField::onMouseButtonUp(const SDL_Event &event)
       selectedID = ((m_textElementHeight + event.button.y - m_uiElementRect.y) / m_textElementHeight) - 1;
       // because of the -4 pixel offset that's been added in the constructor, the id would exceed the size of the vector, if the bottom of the dropdown is clicked
 
-      if (selectedID >= m_count)
+      if (selectedID >= static_cast<int>(m_count))
       {
         selectedID = static_cast<int>(m_count - 1);
       }
@@ -117,7 +117,7 @@ void TextField::onMouseMove(const SDL_Event &event)
   {
     hoveredID = ((m_textElementHeight + event.button.y - m_uiElementRect.y) / m_textElementHeight) - 1;
     // because of the -4 pixel offset that's been added in the constructor, the id would exceed the size of the vector, if the bottom of the dropdown is clicked
-    if (hoveredID >= m_count)
+    if (hoveredID >= static_cast<int>(m_count))
     {
       hoveredID = static_cast<int>(m_count - 1);
     }
