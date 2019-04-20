@@ -69,6 +69,8 @@ void Game::splashscreen()
   logo.setVisibility(true);
   logo.setPosition(screenWidth / 2 - logo.getUiElementRect().w / 2, screenHeight / 4 - logo.getUiElementRect().h / 2);
 
+  UiElement *m_lastHoveredElement = nullptr;
+
   for (Uint8 opacity = 0; opacity < 255; opacity++)
   {
     SDL_RenderClear(WindowManager::instance().getRenderer());
@@ -86,12 +88,13 @@ void Game::splashscreen()
   }
   SDL_Event event;
 
+  bool isHovering = false;
   while (mainMenuLoop)
   {
-    if (SDL_PollEvent(&event))
+    SDL_RenderClear(WindowManager::instance().getRenderer());
+
+    while (SDL_PollEvent(&event) != 0)
     {
-      //bool isMouseOverElement = false;
-      //bool isHovering = false;
       for (const auto &it : buttons)
       {
         switch (event.type)
@@ -106,16 +109,51 @@ void Game::splashscreen()
             mainMenuLoop = false;
           }
           break;
+        case SDL_MOUSEMOTION:
+          SDL_Point mousepoint{event.button.x, event.button.y};
+          it->onMouseMove(event);
+
+          if (SDL_PointInRect(&mousepoint, &it->getUiElementRect()) && it != m_lastHoveredElement)
+          {
+            if (it != m_lastHoveredElement)
+            {
+              if (it->isMouseOverHoverableArea(event.button.x, event.button.y))
+              {
+                isHovering = it->isMouseOverHoverableArea(event.button.x, event.button.y);
+                if (isHovering)
+                {
+                  if (m_lastHoveredElement != nullptr)
+                  {
+                    m_lastHoveredElement->onMouseLeave(event);
+                  }
+                  it->onMouseEnter(event);
+                  m_lastHoveredElement = it;
+                }
+              }
+              break;
+            }
+          }
+          else if (m_lastHoveredElement && !SDL_PointInRect(&mousepoint, &m_lastHoveredElement->getUiElementRect()))
+          {
+            isHovering = false;
+            m_lastHoveredElement->onMouseLeave(event);
+            m_lastHoveredElement = nullptr;
+          }
+          break;
         }
       }
     }
+
     logo.draw();
     versionText.draw();
     newGameButton.draw();
     loadGameButton.draw();
     quitGameButton.draw();
+
+    // reset renderer color back to black
+    SDL_SetRenderDrawColor(WindowManager::instance().getRenderer(), 0, 0, 0, SDL_ALPHA_OPAQUE);
+    SDL_RenderPresent(WindowManager::instance().getRenderer());
   }
-  logo.setVisibility(false);
 }
 
 void Game::run()
