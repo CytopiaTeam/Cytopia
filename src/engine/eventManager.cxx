@@ -95,6 +95,10 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           // if the element we're hovering over is not the same as the stored "lastHoveredElement", update it
           if (it.get() != m_lastHoveredElement)
           {
+            if (m_lastHoveredElement)
+            {
+              m_lastHoveredElement->onMouseLeave(event);
+            }
             it->onMouseEnter(event);
             m_lastHoveredElement = it.get();
           }
