@@ -41,6 +41,8 @@ bool Game::initialize()
 
 void Game::splashscreen()
 {
+  SDL_Event event;
+
   int screenWidth = Settings::instance().settings.screenWidth;
   int screenHeight = Settings::instance().settings.screenHeight;
   bool mainMenuLoop = true;
@@ -71,8 +73,18 @@ void Game::splashscreen()
 
   UiElement *m_lastHoveredElement = nullptr;
 
+  // fade in Logo
   for (Uint8 opacity = 0; opacity < 255; opacity++)
   {
+    // break the loop if an event occurs
+    if (SDL_PollEvent(&event))
+    {
+      if (event.type == SDL_MOUSEBUTTONDOWN || event.type == SDL_KEYDOWN)
+      {
+        logo.setOpacity(SDL_ALPHA_OPAQUE);
+        break;
+      }
+    }
     SDL_RenderClear(WindowManager::instance().getRenderer());
     logo.setOpacity(opacity);
     logo.draw();
@@ -86,7 +98,6 @@ void Game::splashscreen()
     SDL_RenderPresent(WindowManager::instance().getRenderer());
     SDL_Delay(5);
   }
-  SDL_Event event;
 
   bool isHovering = false;
   while (mainMenuLoop)
