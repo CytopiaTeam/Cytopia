@@ -46,7 +46,12 @@ void Game::mainMenu()
   int screenWidth = Settings::instance().settings.screenWidth;
   int screenHeight = Settings::instance().settings.screenHeight;
   bool mainMenuLoop = true;
+
   Image logo;
+  logo.setTextureID("Cytopia_Logo");
+  logo.setVisibility(true);
+  logo.setPosition(screenWidth / 2 - logo.getUiElementRect().w / 2, screenHeight / 4 - logo.getUiElementRect().h / 2);
+
   Text versionText(VERSION);
   versionText.setPosition(screenWidth - versionText.getUiElementRect().w, screenHeight - versionText.getUiElementRect().h);
 
@@ -62,14 +67,13 @@ void Game::mainMenu()
   quitGameButton.setText("Quit Game");
   quitGameButton.registerCallbackFunction([]() { Engine::instance().quitGame(); });
 
-  std::vector<UiElement *> buttons;
-  buttons.push_back(&newGameButton);
-  buttons.push_back(&loadGameButton);
-  buttons.push_back(&quitGameButton);
-
-  logo.setTextureID("Cytopia_Logo");
-  logo.setVisibility(true);
-  logo.setPosition(screenWidth / 2 - logo.getUiElementRect().w / 2, screenHeight / 4 - logo.getUiElementRect().h / 2);
+  // store elements in vector
+  std::vector<UiElement *> uiElements;
+  uiElements.push_back(&newGameButton);
+  uiElements.push_back(&loadGameButton);
+  uiElements.push_back(&quitGameButton);
+  uiElements.push_back(&logo);
+  uiElements.push_back(&versionText);
 
   UiElement *m_lastHoveredElement = nullptr;
 
@@ -87,11 +91,11 @@ void Game::mainMenu()
     }
     SDL_RenderClear(WindowManager::instance().getRenderer());
     logo.setOpacity(opacity);
-    logo.draw();
-    versionText.draw();
-    newGameButton.draw();
-    loadGameButton.draw();
-    quitGameButton.draw();
+
+    for (const auto &element : uiElements)
+    {
+      element->draw();
+    }
 
     // reset renderer color back to black
     SDL_SetRenderDrawColor(WindowManager::instance().getRenderer(), 0, 0, 0, SDL_ALPHA_OPAQUE);
@@ -105,7 +109,7 @@ void Game::mainMenu()
 
     while (SDL_PollEvent(&event) != 0)
     {
-      for (const auto &it : buttons)
+      for (const auto &it : uiElements)
       {
         switch (event.type)
         {
@@ -147,11 +151,10 @@ void Game::mainMenu()
       }
     }
 
-    logo.draw();
-    versionText.draw();
-    newGameButton.draw();
-    loadGameButton.draw();
-    quitGameButton.draw();
+    for (const auto &element : uiElements)
+    {
+      element->draw();
+    }
 
     // reset renderer color back to black
     SDL_SetRenderDrawColor(WindowManager::instance().getRenderer(), 0, 0, 0, SDL_ALPHA_OPAQUE);
