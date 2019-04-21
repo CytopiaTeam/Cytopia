@@ -10,6 +10,7 @@ public:
   ~Frame() override = default;
 
   void draw() override;
+  bool isMouseOverHoverableArea(int , int ) override { return false; };
 };
 
 #endif
