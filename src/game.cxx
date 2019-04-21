@@ -99,7 +99,6 @@ void Game::splashscreen()
     SDL_Delay(5);
   }
 
-  bool isHovering = false;
   while (mainMenuLoop)
   {
     SDL_RenderClear(WindowManager::instance().getRenderer());
@@ -124,31 +123,24 @@ void Game::splashscreen()
           SDL_Point mousepoint{event.button.x, event.button.y};
           it->onMouseMove(event);
 
-          if (SDL_PointInRect(&mousepoint, &it->getUiElementRect()) && it != m_lastHoveredElement)
+          // if the mouse cursor left an element, we're not hovering any more and we need to reset the pointer to the last hovered
+          if (m_lastHoveredElement && !m_lastHoveredElement->isMouseOverHoverableArea(event.button.x, event.button.y))
           {
-            if (it != m_lastHoveredElement)
-            {
-              if (it->isMouseOverHoverableArea(event.button.x, event.button.y))
-              {
-                isHovering = it->isMouseOverHoverableArea(event.button.x, event.button.y);
-                if (isHovering)
-                {
-                  if (m_lastHoveredElement != nullptr)
-                  {
-                    m_lastHoveredElement->onMouseLeave(event);
-                  }
-                  it->onMouseEnter(event);
-                  m_lastHoveredElement = it;
-                }
-              }
-              break;
-            }
-          }
-          else if (m_lastHoveredElement && !SDL_PointInRect(&mousepoint, &m_lastHoveredElement->getUiElementRect()))
-          {
-            isHovering = false;
             m_lastHoveredElement->onMouseLeave(event);
             m_lastHoveredElement = nullptr;
+          }
+
+          // if the element we're hovering over is not the same as the stored "lastHoveredElement", update it
+          if (it->isMouseOverHoverableArea(event.button.x, event.button.y) && it != m_lastHoveredElement)
+          {
+            it->onMouseMove(event);
+
+            if (m_lastHoveredElement != nullptr)
+            {
+              m_lastHoveredElement->onMouseLeave(event);
+            }
+            m_lastHoveredElement = it;
+            it->onMouseEnter(event);
           }
           break;
         }
