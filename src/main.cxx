@@ -27,7 +27,7 @@ int protected_main(int argc, char **argv)
 
   if (!skipMenu)
   {
-    game.splashscreen();
+    game.mainMenu();
   }
   game.run();
   game.shutdown();

@@ -14,7 +14,7 @@ public:
   virtual bool initialize();
   virtual void run();
   virtual void shutdown();
-  virtual void splashscreen();
+  virtual void mainMenu();
 };
 
 #endif

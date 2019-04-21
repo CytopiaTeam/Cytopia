@@ -39,7 +39,7 @@ bool Game::initialize()
   return true;
 }
 
-void Game::splashscreen()
+void Game::mainMenu()
 {
   SDL_Event event;
 
