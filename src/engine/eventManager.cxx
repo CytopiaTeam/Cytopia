@@ -149,6 +149,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       }
       break;
     case SDL_MOUSEBUTTONDOWN:
+      skipLeftClick = false;
       // check for UI events first
       for (const auto &it : m_uiManager.getAllUiElementsForEventHandling())
       {
@@ -157,22 +158,9 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         {
           if (it->onMouseButtonDown(event))
           {
-            skipLeftClick = true;
             break;
           }
-          // If we're over a UI element that has no click functionaliy, abort the event loop, so no clicks go through the UiElement.
-          //Note: This is handled here because UIGroups have no dimensions, but are UiElements
-          if (it->isMouseOver(event.button.x, event.button.y))
-          {
-            skipLeftClick = true;
-          }
         }
-      }
-      // If we're over a ui element, don't handle game events
-      if (skipLeftClick)
-      {
-        skipLeftClick = false;
-        break;
       }
 
       if (event.button.button == SDL_BUTTON_RIGHT)
