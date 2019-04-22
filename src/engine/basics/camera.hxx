@@ -26,11 +26,15 @@ public:
   static void increaseZoomLevel();
   static void decreaseZoomLevel();
 
+  static void setPinchDistance(float pinchDistance);
+
   static Point centerIsoCoordinates;
 
 private:
   Camera() = delete;
   ~Camera() = delete;
+
+  static float m_pinchDistance;
 };
 
 #endif

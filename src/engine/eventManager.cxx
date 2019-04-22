@@ -68,6 +68,23 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         break;
       }
       break;
+    case SDL_MULTIGESTURE:
+    {
+      const int numFingers = event.mgesture.numFingers;
+      const float gestureScale = 15.0f;
+      const int x = static_cast<int>(Settings::instance().settings.screenWidth * event.mgesture.x);
+      const int y = static_cast<int>(Settings::instance().settings.screenHeight * event.mgesture.y);
+
+      if (numFingers == 2)
+      {
+        // check if we're pinching
+        if (event.mgesture.dDist != 0)
+        {
+          Camera::setPinchDistance(event.mgesture.dDist * gestureScale);
+        }
+      }
+    }
+    break;
     case SDL_MOUSEMOTION:
       // check for UI events first
       for (const auto &it : m_uiManager.getAllUiElements())
