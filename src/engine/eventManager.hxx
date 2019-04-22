@@ -19,7 +19,6 @@ private:
 
   UiElement *m_lastHoveredElement = nullptr;
 
-  bool dispatchUiEvents(SDL_Event &event);
   bool rightMouseButtonHeldDown = false;
 };
 
