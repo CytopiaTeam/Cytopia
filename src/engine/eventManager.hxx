@@ -20,6 +20,7 @@ private:
   UiElement *m_lastHoveredElement = nullptr;
 
   bool rightMouseButtonHeldDown = false;
+  bool skipLeftClick = false;
 };
 
 #endif

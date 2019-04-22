@@ -17,7 +17,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
   // check for UI events first
   SDL_Point mouseCoords;
   Point clickCoords;
-  bool done = false;
+
   while (SDL_PollEvent(&event))
   {
     switch (event.type)
@@ -68,38 +68,32 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         break;
       }
       break;
-    case SDL_MULTIGESTURE:
-    {
-      const int numFingers = event.mgesture.numFingers;
-      const float gestureScale = 15.0f;
-      const int x = static_cast<int>(Settings::instance().settings.screenWidth * event.mgesture.x);
-      const int y = static_cast<int>(Settings::instance().settings.screenHeight * event.mgesture.y);
-      const int deltaX = static_cast<int>(Settings::instance().settings.screenWidth * event.tfinger.dx);
-      const int deltaY = static_cast<int>(Settings::instance().settings.screenHeight * event.tfinger.dy);
 
-      if (numFingers == 2)
+    case SDL_MULTIGESTURE:
+      if (event.mgesture.numFingers == 2)
       {
         rightMouseButtonHeldDown = true;
         // check if we're pinching
         if (event.mgesture.dDist != 0)
         {
-          Camera::setPinchDistance(event.mgesture.dDist * gestureScale);
+          Camera::setPinchDistance(event.mgesture.dDist * 15.0f);
+          skipLeftClick = true;
           break;
         }
 
         if (rightMouseButtonHeldDown)
         {
-          Camera::cameraOffset.x += deltaX;
-          Camera::cameraOffset.y += deltaY;
+          Camera::cameraOffset.x -= static_cast<int>(Settings::instance().settings.screenWidth * event.tfinger.dx);
+          Camera::cameraOffset.y -= static_cast<int>(Settings::instance().settings.screenHeight * event.tfinger.dy);
           Camera::centerIsoCoordinates = convertScreenToIsoCoordinates(
               {Settings::instance().settings.screenWidth / 2, Settings::instance().settings.screenHeight / 2});
           Engine::instance().map->refresh();
+          skipLeftClick = true;
           break;
         }
       }
+      skipLeftClick = true;
       break;
-    }
-    break;
     case SDL_MOUSEMOTION:
       // check for UI events first
       for (const auto &it : m_uiManager.getAllUiElements())
@@ -143,8 +137,8 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       clickCoords = convertScreenToIsoCoordinates(mouseCoords);
       if (rightMouseButtonHeldDown)
       {
-        Camera::cameraOffset.x += event.motion.xrel;
-        Camera::cameraOffset.y += event.motion.yrel;
+        Camera::cameraOffset.x -= event.motion.xrel;
+        Camera::cameraOffset.y -= event.motion.yrel;
         Camera::centerIsoCoordinates = convertScreenToIsoCoordinates(
             {Settings::instance().settings.screenWidth / 2, Settings::instance().settings.screenHeight / 2});
         Engine::instance().map->refresh();
@@ -163,20 +157,56 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         {
           if (it->onMouseButtonDown(event))
           {
-            done = true;
+            skipLeftClick = true;
             break;
           }
           // If we're over a UI element that has no click functionaliy, abort the event loop, so no clicks go through the UiElement.
           //Note: This is handled here because UIGroups have no dimensions, but are UiElements
           if (it->isMouseOver(event.button.x, event.button.y))
           {
-            done = true;
+            skipLeftClick = true;
           }
         }
       }
       // If we're over a ui element, don't handle game events
-      if (done)
+      if (skipLeftClick)
       {
+        skipLeftClick = false;
+        break;
+      }
+
+      if (event.button.button == SDL_BUTTON_RIGHT)
+      {
+        rightMouseButtonHeldDown = true;
+      }
+      break;
+
+    case SDL_MOUSEBUTTONUP:
+      rightMouseButtonHeldDown = false;
+      // check for UI events first
+      for (const auto &it : m_uiManager.getAllUiElementsForEventHandling())
+      {
+        // only check visible elements
+        if (it->isVisible())
+        {
+          // first, check if the element is a group and send the event
+          if (it->onMouseButtonUp(event))
+          {
+            skipLeftClick = true;
+            break;
+          }
+          // If we're over a UI element that has no click functionaliy, abort the event loop, so no clicks go through the UiElement.
+          //Note: This is handled here because UIGroups have no dimensions, but are UiElements
+          if (it->isMouseOver(event.button.x, event.button.y))
+          {
+            skipLeftClick = true;
+          }
+        }
+      }
+      // If we're over a ui element, don't handle game events
+      if (skipLeftClick)
+      {
+        skipLeftClick = true;
         break;
       }
 
@@ -210,30 +240,9 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           }
         }
       }
-      else if (event.button.button == SDL_BUTTON_RIGHT)
-      {
-        rightMouseButtonHeldDown = true;
-      }
+
       break;
-    case SDL_MOUSEBUTTONUP:
-    {
-      // check for UI events first
-      for (const auto &it : m_uiManager.getAllUiElementsForEventHandling())
-      {
-        // only check visible elements
-        if (it->isVisible())
-        {
-          // first, check if the element is a group and send the event
-          if (it->onMouseButtonUp(event))
-          {
-            break;
-          }
-        }
-      }
-      // game event handling
-      rightMouseButtonHeldDown = false;
-    }
-    break;
+      break;
     case SDL_MOUSEWHEEL:
       if (event.wheel.y > 0)
       {
