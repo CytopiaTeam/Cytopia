@@ -124,7 +124,6 @@ void Game::mainMenu()
           }
           break;
         case SDL_MOUSEMOTION:
-          SDL_Point mousepoint{event.button.x, event.button.y};
           it->onMouseMove(event);
 
           // if the mouse cursor left an element, we're not hovering any more and we need to reset the pointer to the last hovered
