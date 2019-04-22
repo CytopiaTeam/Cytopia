@@ -74,15 +74,30 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       const float gestureScale = 15.0f;
       const int x = static_cast<int>(Settings::instance().settings.screenWidth * event.mgesture.x);
       const int y = static_cast<int>(Settings::instance().settings.screenHeight * event.mgesture.y);
+      const int deltaX = static_cast<int>(Settings::instance().settings.screenWidth * event.tfinger.dx);
+      const int deltaY = static_cast<int>(Settings::instance().settings.screenHeight * event.tfinger.dy);
 
       if (numFingers == 2)
       {
+        rightMouseButtonHeldDown = true;
         // check if we're pinching
         if (event.mgesture.dDist != 0)
         {
           Camera::setPinchDistance(event.mgesture.dDist * gestureScale);
+          break;
+        }
+
+        if (rightMouseButtonHeldDown)
+        {
+          Camera::cameraOffset.x += deltaX;
+          Camera::cameraOffset.y += deltaY;
+          Camera::centerIsoCoordinates = convertScreenToIsoCoordinates(
+              {Settings::instance().settings.screenWidth / 2, Settings::instance().settings.screenHeight / 2});
+          Engine::instance().map->refresh();
+          break;
         }
       }
+      break;
     }
     break;
     case SDL_MOUSEMOTION:
