@@ -7,6 +7,17 @@ int protected_main(int argc, char **argv)
   (void)argc;
   (void)argv;
 
+  bool skipMenu = false;
+
+  // add commandline parameter to skipMenu
+  for (int i = 1; i < argc; ++i)
+  {
+
+    if (std::string(argv[i]) == "--skipMenu")
+    {
+      skipMenu = true;
+    }
+  }
   Game game;
 
   if (!game.initialize())
@@ -14,6 +25,10 @@ int protected_main(int argc, char **argv)
     return EXIT_FAILURE;
   }
 
+  if (!skipMenu)
+  {
+    game.mainMenu();
+  }
   game.run();
   game.shutdown();
 
