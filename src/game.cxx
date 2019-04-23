@@ -166,8 +166,8 @@ void Game::run()
   Timer benchmarkTimer;
   LOG() << VERSION;
 
-  Engine &engine = Engine::instance();
   benchmarkTimer.start();
+  Engine &engine = Engine::instance();
 
   LOG() << "Map initialized in " << benchmarkTimer.getElapsedTime() << "ms";
   Camera::centerScreenOnMapCenter();
