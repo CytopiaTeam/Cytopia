@@ -26,7 +26,7 @@ public:
   static void increaseZoomLevel();
   static void decreaseZoomLevel();
 
-  static void setPinchDistance(float pinchDistance);
+  static void setPinchDistance(float pinchDistance, int isoX, int isoY);
 
   static Point centerIsoCoordinates;
 

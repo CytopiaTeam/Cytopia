@@ -29,18 +29,26 @@ void Camera::decreaseZoomLevel()
   }
 }
 
-void Camera::setPinchDistance(float pinchDistance)
+void Camera::setPinchDistance(float pinchDistance, int isoX, int isoY)
 {
   m_pinchDistance += pinchDistance;
 
   if (m_pinchDistance > 0.25f)
   {
     m_pinchDistance = 0;
+    if (zoomLevel < 4.0f)
+    {
+      centerScreenOnPoint({isoX, isoY, 0, 0});
+    }
     increaseZoomLevel();
   }
   else if (m_pinchDistance < -0.25f)
   {
     m_pinchDistance = 0;
+    if (zoomLevel > 0.5f)
+    {
+      centerScreenOnPoint({isoX, isoY, 0, 0});
+    }
     decreaseZoomLevel();
   }
 }

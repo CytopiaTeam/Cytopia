@@ -19,8 +19,9 @@ private:
 
   UiElement *m_lastHoveredElement = nullptr;
 
-  bool rightMouseButtonHeldDown = false;
-  bool skipLeftClick = false;
+  bool m_panning = false;
+  bool m_skipLeftClick = false;
+  Point pinchCenterCoords = {0, 0, 0, 0};
 };
 
 #endif
