@@ -7,6 +7,7 @@ SDL_Point Camera::tileSize{32, 16};
 SDL_Point Camera::cameraOffset{0, 0};
 Point Camera::centerIsoCoordinates;
 float Camera::zoomLevel = 1.0f;
+float Camera::m_pinchDistance = 0.0f;
 
 void Camera::increaseZoomLevel()
 {
@@ -25,6 +26,30 @@ void Camera::decreaseZoomLevel()
     zoomLevel -= 0.5f;
     centerScreenOnPoint(centerIsoCoordinates);
     Engine::instance().map->refresh();
+  }
+}
+
+void Camera::setPinchDistance(float pinchDistance, int isoX, int isoY)
+{
+  m_pinchDistance += pinchDistance;
+
+  if (m_pinchDistance > 0.25f)
+  {
+    m_pinchDistance = 0;
+    if (zoomLevel < 4.0f)
+    {
+      centerScreenOnPoint({isoX, isoY, 0, 0});
+    }
+    increaseZoomLevel();
+  }
+  else if (m_pinchDistance < -0.25f)
+  {
+    m_pinchDistance = 0;
+    if (zoomLevel > 0.5f)
+    {
+      centerScreenOnPoint({isoX, isoY, 0, 0});
+    }
+    decreaseZoomLevel();
   }
 }
 

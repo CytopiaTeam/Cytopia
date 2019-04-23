@@ -68,9 +68,18 @@ SDL_Texture *ResourcesManager::getUITexture(const std::string &uiElement, int bu
   }
 
   if (m_uiTextureMap[uiElement].count(texture))
+  {
     return m_uiTextureMap[uiElement][texture];
-
-  return m_uiTextureMap[uiElement]["Texture_Default"];
+  }
+  else
+  {
+    // If no texture is found, check if there's a default texture
+    if (m_uiTextureMap[uiElement].count("Texture_Default"))
+      return m_uiTextureMap[uiElement]["Texture_Default"];
+    else
+      LOG(LOG_ERROR) << "No texture found for " << uiElement;
+  }
+  return nullptr;
 }
 
 SDL_Texture *ResourcesManager::getTileTexture(const std::string &id, size_t tileMapType)
@@ -81,6 +90,7 @@ SDL_Texture *ResourcesManager::getTileTexture(const std::string &id, size_t tile
   {
     return m_tileTextureMap[key];
   }
+  LOG(LOG_ERROR) << "No texture found for " << id;
   return nullptr;
 }
 
@@ -91,6 +101,7 @@ SDL_Surface *ResourcesManager::getTileSurface(const std::string &id, size_t tile
   {
     return m_surfaceMap[key];
   }
+  LOG(LOG_ERROR) << "No surface found for " << id;
   return nullptr;
 }
 
