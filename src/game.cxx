@@ -10,7 +10,7 @@
 #include "engine/basics/log.hxx"
 #include "engine/ui/widgets/Image.hxx"
 #include "engine/basics/settings.hxx"
-
+#include <noise.h>
 #include <SDL.h>
 
 bool Game::initialize()

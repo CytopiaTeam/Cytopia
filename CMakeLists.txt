@@ -58,7 +58,7 @@ set (SOURCES
   src/engine/ui/widgets/button.cxx
   src/engine/ui/widgets/combobox.cxx
   src/engine/ui/widgets/checkbox.cxx
-  src/engine/ui/widgets/frame.cxx
+  src/engine/ui/widgets/frame.cxx  
   src/engine/ui/widgets/Image.cxx
   src/engine/ui/widgets/text.cxx
   src/engine/ui/widgets/textField.cxx
@@ -121,6 +121,7 @@ find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)
 find_package(SDL2_ttf REQUIRED)
 find_package(SDL2_mixer REQUIRED)
+find_package(LIBNOISE REQUIRED)
 
 find_package(ZLIB)
 
@@ -145,6 +146,7 @@ target_link_libraries(
     SDL::SDL2_image
     SDL::SDL2_ttf
     SDL::SDL2_mixer
+    LIBNOISE::LIBNOISE_LIBRARIES
     ${ZLIB_LIBRARIES}
 )
 
