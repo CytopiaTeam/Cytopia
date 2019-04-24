@@ -68,20 +68,20 @@ matrix:
       - cmake ..
       - cmake --build .
       
-  - os: osx
-    name: XCode 9.2 Build
-    osx_image: xcode9.2
-    env: TARGET=macOS
-    language: objective-c
-    before_install:
-      - brew update
-      - brew install sdl2 sdl2_image sdl2_mixer sdl2_ttf qt
-    script:
-      - mkdir travis_build
-      - cd travis_build
-      - cmake ..
-      - make
-      - make package
+#  - os: osx
+#    name: XCode 9.2 Build
+#    osx_image: xcode9.2
+#    env: TARGET=macOS
+#    language: objective-c
+#    before_install:
+#      - brew update
+#      - brew install sdl2 sdl2_image sdl2_mixer sdl2_ttf qt
+#    script:
+#      - mkdir travis_build
+#      - cd travis_build
+#      - cmake ..
+#      - make
+#      - make package
 
 addons:
   apt:
