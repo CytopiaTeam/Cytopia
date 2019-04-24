@@ -94,6 +94,7 @@ addons:
       - graphviz
       - libfreetype6-dev 
       - libgl1-mesa-dev
+      - libnoise-dev
 
 deploy:
   provider: pages

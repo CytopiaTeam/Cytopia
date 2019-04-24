@@ -9,7 +9,7 @@
 find_path(
   LIBNOISE_INCLUDE_DIR 
   NAMES noise.h
-  PATH_SUFFIXES include
+  PATH_SUFFIXES include include/libnoise
   HINTS ${LIBNOISE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/Cytopia_ExternLibs/noise
 )
 
