@@ -119,27 +119,35 @@ void WindowManager::initializeScreenResolutions()
 
 void WindowManager::setScreenResolution(int mode)
 {
-  Settings::instance().settings.screenWidth = m_resolutions[mode]->w;
-  Settings::instance().settings.screenHeight = m_resolutions[mode]->h;
-
-  // update the actual resolution
-  Settings::instance().settings.currentScreenWidth = Settings::instance().settings.screenWidth;
-  Settings::instance().settings.currentScreenHeight = Settings::instance().settings.screenHeight;
-
-  switch (static_cast<FULLSCREEN_MODE>(Settings::instance().settings.fullScreenMode))
+  // check if the desired mode exists first
+  if (mode > 0 && mode < m_resolutions.size() && m_resolutions[mode])
   {
-  case FULLSCREEN_MODE::FULLSCREEN:
-    SDL_SetWindowDisplayMode(m_window, m_resolutions[mode]);
-    // workaround. After setting Display Resolution in fullscreen, it won't work until disabling / enabling Fullscreen again.
-    SDL_SetWindowFullscreen(m_window, 0);
-    SDL_SetWindowFullscreen(m_window, SDL_WINDOW_FULLSCREEN);
-    break;
-  case FULLSCREEN_MODE::WINDOWED:
-    SDL_SetWindowSize(m_window, m_resolutions[mode]->w, m_resolutions[mode]->h);
-    SDL_SetWindowPosition(m_window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
-    break;
-  case FULLSCREEN_MODE::BORDERLESS:
-    // do nothing for borderless fullscreen, it's always the screensize
-    break;
+    Settings::instance().settings.screenWidth = m_resolutions[mode]->w;
+    Settings::instance().settings.screenHeight = m_resolutions[mode]->h;
+
+    // update the actual resolution
+    Settings::instance().settings.currentScreenWidth = Settings::instance().settings.screenWidth;
+    Settings::instance().settings.currentScreenHeight = Settings::instance().settings.screenHeight;
+
+    switch (static_cast<FULLSCREEN_MODE>(Settings::instance().settings.fullScreenMode))
+    {
+    case FULLSCREEN_MODE::FULLSCREEN:
+      SDL_SetWindowDisplayMode(m_window, m_resolutions[mode]);
+      // workaround. After setting Display Resolution in fullscreen, it won't work until disabling / enabling Fullscreen again.
+      SDL_SetWindowFullscreen(m_window, 0);
+      SDL_SetWindowFullscreen(m_window, SDL_WINDOW_FULLSCREEN);
+      break;
+    case FULLSCREEN_MODE::WINDOWED:
+      SDL_SetWindowSize(m_window, m_resolutions[mode]->w, m_resolutions[mode]->h);
+      SDL_SetWindowPosition(m_window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
+      break;
+    case FULLSCREEN_MODE::BORDERLESS:
+      // do nothing for borderless fullscreen, it's always the screensize
+      break;
+    }
+  }
+  else
+  {
+    LOG(LOG_ERROR) << "Cannot set screen mode " << mode;
   }
 }
