@@ -794,4 +794,5 @@ void UIManager::changeFullScreenMode(UiElement *sender)
   // TODO: Save settings
   ComboBox *combobox = dynamic_cast<ComboBox *>(sender);
   WindowManager::instance().setFullScreenMode(static_cast<FULLSCREEN_MODE>(combobox->getActiveID()));
+  Layout::arrangeElements();
 }

@@ -6,8 +6,9 @@
 
 void Layout::arrangeElements()
 {
-  SDL_Point screenCenter{Settings::instance().settings.screenWidth / 2, Settings::instance().settings.screenHeight / 2};
-  SDL_Point screenSize{Settings::instance().settings.screenWidth, Settings::instance().settings.screenHeight};
+  SDL_Point screenCenter{Settings::instance().settings.currentScreenWidth / 2,
+                         Settings::instance().settings.currentScreenHeight / 2};
+  SDL_Point screenSize{Settings::instance().settings.currentScreenWidth, Settings::instance().settings.currentScreenHeight};
 
   calculateLayoutGroupDimensions();
 
@@ -72,11 +73,11 @@ void Layout::arrangeElements()
         {
           xOffset = 0;
           x = static_cast<int>(xOffset + currentLength);
-          y = Settings::instance().settings.screenHeight - groupLayout.groupHeight;
+          y = Settings::instance().settings.currentScreenHeight - groupLayout.groupHeight;
         }
         else if (groupLayout.layoutType == "VERTICAL")
         {
-          yOffset = Settings::instance().settings.screenHeight - groupLayout.groupHeight;
+          yOffset = Settings::instance().settings.currentScreenHeight - groupLayout.groupHeight;
           x = 0;
           y = static_cast<int>(yOffset + currentLength);
         }
@@ -117,7 +118,7 @@ void Layout::arrangeElements()
         {
           xOffset = screenCenter.x - groupLayout.groupWidth / 2;
           x = static_cast<int>(xOffset + currentLength);
-          y = Settings::instance().settings.screenHeight - groupLayout.groupHeight;
+          y = Settings::instance().settings.currentScreenHeight - groupLayout.groupHeight;
         }
         else if (groupLayout.layoutType == "VERTICAL")
         {
@@ -152,7 +153,7 @@ void Layout::arrangeElements()
         else if (groupLayout.layoutType == "VERTICAL")
         {
           yOffset = screenCenter.y - groupLayout.groupHeight / 2;
-          x = Settings::instance().settings.screenWidth - element->getUiElementRect().w;
+          x = Settings::instance().settings.currentScreenWidth - element->getUiElementRect().w;
           y = static_cast<int>(yOffset + currentLength);
         }
       }
@@ -208,7 +209,7 @@ void Layout::arrangeChildElements(LayoutData &groupLayout, std::vector<UiElement
 
   if (groupLayout.layoutType == "VERTICAL")
   {
-    yOffset = Settings::instance().settings.screenHeight / 2 - groupLayout.groupHeight / 2;
+    yOffset = Settings::instance().settings.currentScreenHeight / 2 - groupLayout.groupHeight / 2;
   }
 
   int currentLength = 0;

@@ -31,6 +31,10 @@ void Settings::readFile()
   }
 
   settings = _settingsJSONObject;
+
+  // init the actual resolution with the desired resolution
+  settings.currentScreenWidth = settings.screenWidth;
+  settings.currentScreenHeight = settings.screenHeight;
 }
 
 void Settings::writeFile()
