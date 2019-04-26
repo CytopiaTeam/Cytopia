@@ -518,7 +518,6 @@ Map *Map::generateMapFromSettings()
   //noise::module::Const terrainHeightBlendConstant;
   //terrainHeightBlendConstant.SetConstValue(0.5);
 
-
   noise::module::Blend terrainHeightBlend;
   terrainHeightBlend.SetSourceModule(0, terrainHeightPerlinScaled);
   terrainHeightBlend.SetSourceModule(1, terrainHeightFractalScaled);
@@ -536,6 +535,8 @@ Map *Map::generateMapFromSettings()
   int columns = 128;
   int rows = 128;
 
+  int sealevel = 5;
+
   Map *map = new Map(columns, rows);
   map->initMap();
 
@@ -549,8 +550,15 @@ Map *Map::generateMapFromSettings()
       coordinates.y = y;
       coordinates.z = 0;
       coordinates.height = (int)terrainHeight.GetValue(x * 32, y * 32, 0.5);
-      printf("%i \n", coordinates.height);
+      //printf("%i \n", coordinates.height);
       map->mapNodes[coordinates.x * columns + coordinates.y]->setCoordinates(coordinates);
+
+      if (coordinates.height < sealevel)
+      {
+        coordinates.height = sealevel;
+        map->mapNodes[coordinates.x * columns + coordinates.y]->setCoordinates(coordinates);
+        map->mapNodes[coordinates.x * columns + coordinates.y]->setTileID("water");
+      }
     }
   }
 
