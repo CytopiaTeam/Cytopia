@@ -120,7 +120,7 @@ void WindowManager::initializeScreenResolutions()
 void WindowManager::setScreenResolution(int mode)
 {
   // check if the desired mode exists first
-  if (mode > 0 && mode < m_resolutions.size() && m_resolutions[mode])
+  if (mode > 0 && mode < static_cast<int>(m_resolutions.size()) && m_resolutions[mode])
   {
     Settings::instance().settings.screenWidth = m_resolutions[mode]->w;
     Settings::instance().settings.screenHeight = m_resolutions[mode]->h;
