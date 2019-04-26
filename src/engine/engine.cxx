@@ -58,4 +58,12 @@ void Engine::newGame()
 
   map = new Map(map_size, map_size);
   map->initMap();
+
+  Map *newMap = Map::generateMapFromSettings();
+
+  if (newMap)
+  {
+    delete map;
+    map = newMap;
+  }
 }

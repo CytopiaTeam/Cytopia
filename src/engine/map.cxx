@@ -9,6 +9,7 @@
 #include "basics/compression.hxx"
 
 #include "../ThirdParty/json.hxx"
+#include "noise.h"
 
 #include <sstream>
 #include <string>
@@ -477,6 +478,94 @@ Map *Map::loadMapFromFile(const std::string &fileName)
 
   // update all nodes to have correct tiling for new tileIDs
   map->updateAllNodes();
+
+  return map;
+}
+
+Map *Map::generateMapFromSettings()
+{
+  int seed = 1234;
+  noise::module::Perlin terrainHeightPerlin;
+  terrainHeightPerlin.SetSeed(seed);
+  terrainHeightPerlin.SetFrequency(0.003 / 32);
+  terrainHeightPerlin.SetLacunarity(1.5);
+  terrainHeightPerlin.SetOctaveCount(16);
+  noise::module::ScaleBias terrainHeightPerlinScaled;
+  terrainHeightPerlinScaled.SetSourceModule(0, terrainHeightPerlin);
+  terrainHeightPerlinScaled.SetScale(0.25);
+  terrainHeightPerlinScaled.SetBias(-0.5);
+
+  noise::module::RidgedMulti terrainHeightFractal;
+  terrainHeightFractal.SetSeed(seed);
+  terrainHeightFractal.SetFrequency(0.005 / 32);
+  terrainHeightFractal.SetLacunarity(2);
+  noise::module::ScaleBias terrainHeightFractalScaled;
+  terrainHeightFractalScaled.SetSourceModule(0, terrainHeightFractal);
+  terrainHeightFractalScaled.SetScale(0.5);
+  terrainHeightFractalScaled.SetBias(0.5);
+
+  noise::module::Perlin terrainHeightBlendPerlin;
+  terrainHeightBlendPerlin.SetSeed(seed + 1);
+  terrainHeightBlendPerlin.SetFrequency(0.005 / 32);
+  noise::module::ScaleBias terrainHeightBlendScale;
+  terrainHeightBlendScale.SetSourceModule(0, terrainHeightBlendPerlin);
+  terrainHeightBlendScale.SetScale(2.0);
+  terrainHeightBlendScale.SetBias(-0.5);
+  noise::module::Clamp terrainHeightBlendControl;
+  terrainHeightBlendControl.SetSourceModule(0, terrainHeightBlendScale);
+  terrainHeightBlendControl.SetBounds(0, 1);
+
+  //noise::module::Const terrainHeightBlendConstant;
+  //terrainHeightBlendConstant.SetConstValue(0.5);
+
+
+  noise::module::Blend terrainHeightBlend;
+  terrainHeightBlend.SetSourceModule(0, terrainHeightPerlinScaled);
+  terrainHeightBlend.SetSourceModule(1, terrainHeightFractalScaled);
+  terrainHeightBlend.SetControlModule(terrainHeightBlendControl);
+
+  noise::module::ScaleBias terrainHeightScale;
+  terrainHeightScale.SetSourceModule(0, terrainHeightBlend);
+  terrainHeightScale.SetScale(20.0);
+  terrainHeightScale.SetBias(4.0);
+
+  noise::module::Clamp terrainHeight;
+  terrainHeight.SetSourceModule(0, terrainHeightScale);
+  terrainHeight.SetBounds(0, 255);
+
+  int columns = 128;
+  int rows = 128;
+
+  Map *map = new Map(columns, rows);
+  map->initMap();
+
+  // set coordinates first
+  for (int x = 0; x < columns; x++)
+  {
+    for (int y = 0; y < rows; y++)
+    {
+      Point coordinates;
+      coordinates.x = x;
+      coordinates.y = y;
+      coordinates.z = 0;
+      coordinates.height = (int)terrainHeight.GetValue(x * 32, y * 32, 0.5);
+      printf("%i \n", coordinates.height);
+      map->mapNodes[coordinates.x * columns + coordinates.y]->setCoordinates(coordinates);
+    }
+  }
+
+  // update all nodes to reflect new height differences
+  map->updateAllNodes();
+
+  // set tileIDs from savegame
+  /*for (const auto &it : saveGameJSON["mapNode"].items())
+  {
+    Point coordinates = json(it.value())["coordinates"].get<Point>();
+    map->mapNodes[coordinates.x * columns + coordinates.y]->setTileID(json(it.value())["tileID"].get<std::string>());
+  }*/
+
+  // update all nodes to have correct tiling for new tileIDs
+  //map->updateAllNodes();
 
   return map;
 }

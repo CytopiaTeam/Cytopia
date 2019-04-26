@@ -62,6 +62,8 @@ public:
   */
   static Map *loadMapFromFile(const std::string &fileName);
 
+  static Map *generateMapFromSettings();
+
   std::vector<std::unique_ptr<MapNode>> mapNodes;
   std::vector<MapNode *> mapNodesInDrawingOrder;
 
