@@ -22,8 +22,10 @@ public:
   typedef struct
   {
     int mapSize;
-    int screenWidth;
-    int screenHeight;
+    int screenWidth;         // the screen width that's been set. Does only apply for windowed / fullscreen mode
+    int screenHeight;        // the screen height that's been set. Does only apply for windowed / fullscreen mode
+    int currentScreenWidth;  // the actual screen width (can differ from the one that's set in borderless fullscreen)
+    int currentScreenHeight; // the actual screen height (can differ from the one that's set in borderless fullscreen)
     int maxElevationHeight;
     bool vSync;
     bool fullScreen;
