@@ -57,13 +57,18 @@ void MapNode::updateTexture()
     size_t spriteCount = 1;
 
     // only calculate orientation for textures that adjust themselves according to elevation / other tiles of the same id
-    if (m_tileData->category == "Terrain" || m_tileData->category == "Roads")
+    if (m_tileData->category == "Terrain" || m_tileData->category == "Roads"|| m_tileData->category == "Water")
     {
       m_orientation = TileManager::instance().caluclateSlopeOrientation(m_elevationBitmask);
 
       if (m_orientation == TileSlopes::DEFAULT_ORIENTATION)
       {
-        if (m_tileData->category != "Terrain")
+        if (m_tileData->category == "Water")
+        {
+          tileMap = TileMap::DEFAULT;
+          m_orientation = TileList::TILE_DEFAULT_ORIENTATION;
+        }
+        else if (m_tileData->category != "Terrain")
         {
           m_orientation = TileManager::instance().caluclateTileOrientation(m_tileIDBitmask);
         }

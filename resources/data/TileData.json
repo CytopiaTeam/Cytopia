@@ -999,6 +999,12 @@
         "id": "water",
         "power": 0,
         "price": 5,
+        "slopeTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 16,
+            "fileName": "resources/images/water/liquid_water.png"
+        },
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
@@ -1038,6 +1044,23 @@
             "clip_width": 32,
             "count": 1,
             "fileName": "resources/images/buildings/Water/watertower2.png"
+        },
+        "title": "Small Water Tower",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "description": "trees",
+        "id": "trees",
+        "power": 0,
+        "price": 5,
+        "tiles": {
+            "clip_height": 32,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/flora/trees.png"
         },
         "title": "Small Water Tower",
         "upkeep cost": 0,
