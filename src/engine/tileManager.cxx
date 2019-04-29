@@ -261,68 +261,23 @@ void TileManager::init()
     // check if ID is an array and multiple sprites are supplied. If that's the case, we create seperate m_tileData entries for each element.
     if (tileDataJSON[idx]["id"].is_array())
     {
-      // TODO: Check if id count  == tile image count
-      //if (
       size_t count = tileDataJSON[idx]["tiles"].value("count", -1);
       if (tileDataJSON[idx]["id"].size() != count)
       {
         std::string title = tileDataJSON[idx].value("title", "");
         LOG(LOG_ERROR) << "There are " << count << " elements in the section \"tiles\" of element with Title: " << title
                        << " but only " << tileDataJSON[idx]["id"].size() << " IDs!";
-	  }
+      }
       for (const auto &it : tileDataJSON[idx]["id"].items())
       {
         addJSONObjectToTileData(tileDataJSON, idx, it.value(), std::stoi(it.key()));
-        //LOG() << "id " << it.key() << " | " << it.value();
-      }
-      break;
-    }
-
-    std::string id;
-    id = tileDataJSON[idx].value("id", "");
-    m_tileData[id].author = tileDataJSON[idx].value("author", "");
-    m_tileData[id].title = tileDataJSON[idx].value("title", "");
-    m_tileData[id].description = tileDataJSON[idx].value("description", "");
-    m_tileData[id].category = tileDataJSON[idx].value("category", "");
-    m_tileData[id].price = tileDataJSON[idx].value("price", 0);
-    m_tileData[id].water = tileDataJSON[idx].value("water", 0);
-    m_tileData[id].drawGround = tileDataJSON[idx].value("draw ground", false);
-
-    m_tileData[id].tiles.fileName = tileDataJSON[idx]["tiles"].value("fileName", "");
-    m_tileData[id].tiles.count = tileDataJSON[idx]["tiles"].value("count", 1);
-    m_tileData[id].tiles.clippingWidth = tileDataJSON[idx]["tiles"].value("clip_width", 0);
-    m_tileData[id].tiles.clippingHeight = tileDataJSON[idx]["tiles"].value("clip_height", 0);
-
-    if (!m_tileData[id].tiles.fileName.empty())
-    {
-      ResourcesManager::instance().loadTexture(id, m_tileData[id].tiles.fileName, TileMap::DEFAULT);
-    }
-
-    if (!tileDataJSON[idx]["cornerTiles"].is_null())
-    {
-      m_tileData[id].cornerTiles.fileName = tileDataJSON[idx]["cornerTiles"].value("fileName", "");
-      m_tileData[id].cornerTiles.count = tileDataJSON[idx]["cornerTiles"].value("count", 1);
-      m_tileData[id].cornerTiles.clippingWidth = tileDataJSON[idx]["cornerTiles"].value("clip_width", 0);
-      m_tileData[id].cornerTiles.clippingHeight = tileDataJSON[idx]["cornerTiles"].value("clip_height", 0);
-
-      if (!m_tileData[id].cornerTiles.fileName.empty())
-      {
-        ResourcesManager::instance().loadTexture(id, m_tileData[id].cornerTiles.fileName, TileMap::CORNERS);
       }
     }
-
-    if (!tileDataJSON[idx]["slopeTiles"].is_null())
+    else
     {
-
-      m_tileData[id].slopeTiles.fileName = tileDataJSON[idx]["slopeTiles"].value("fileName", "");
-      m_tileData[id].slopeTiles.count = tileDataJSON[idx]["slopeTiles"].value("count", 1);
-      m_tileData[id].slopeTiles.clippingWidth = tileDataJSON[idx]["slopeTiles"].value("clip_width", 0);
-      m_tileData[id].slopeTiles.clippingHeight = tileDataJSON[idx]["slopeTiles"].value("clip_height", 0);
-
-      if (!m_tileData[id].slopeTiles.fileName.empty())
-      {
-        ResourcesManager::instance().loadTexture(id, m_tileData[id].slopeTiles.fileName, TileMap::SLOPES);
-      }
+      std::string id;
+      id = tileDataJSON[idx].value("id", "");
+      addJSONObjectToTileData(tileDataJSON, idx, id);
     }
 
     idx++;
@@ -333,10 +288,6 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
 {
   m_tileData[id].tiles.clippingWidth = tileDataJSON[idx]["tiles"].value("clip_width", 0);
   m_tileData[id].tiles.count = tileDataJSON[idx]["tiles"].value("count", 1);
-  if (tileIndex != -1)
-  {
-    m_tileData[id].tileIndex = tileIndex;
-  }
   m_tileData[id].author = tileDataJSON[idx].value("author", "");
   m_tileData[id].title = tileDataJSON[idx].value("title", "");
   m_tileData[id].description = tileDataJSON[idx].value("description", "");
@@ -351,5 +302,37 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
   if (!m_tileData[id].tiles.fileName.empty())
   {
     ResourcesManager::instance().loadTexture(id, m_tileData[id].tiles.fileName, TileMap::DEFAULT);
+  }
+
+  if (tileIndex != -1)
+  {
+    m_tileData[id].tileIndex = tileIndex;
+  }
+
+  if (tileDataJSON[idx].find("cornerTiles") != tileDataJSON[idx].end())
+  {
+    m_tileData[id].cornerTiles.fileName = tileDataJSON[idx]["cornerTiles"].value("fileName", "");
+    m_tileData[id].cornerTiles.count = tileDataJSON[idx]["cornerTiles"].value("count", 1);
+    m_tileData[id].cornerTiles.clippingWidth = tileDataJSON[idx]["cornerTiles"].value("clip_width", 0);
+    m_tileData[id].cornerTiles.clippingHeight = tileDataJSON[idx]["cornerTiles"].value("clip_height", 0);
+
+    if (!m_tileData[id].cornerTiles.fileName.empty())
+    {
+      ResourcesManager::instance().loadTexture(id, m_tileData[id].cornerTiles.fileName, TileMap::CORNERS);
+    }
+  }
+
+  if (tileDataJSON[idx].find("slopeTiles") != tileDataJSON[idx].end())
+  {
+
+    m_tileData[id].slopeTiles.fileName = tileDataJSON[idx]["slopeTiles"].value("fileName", "");
+    m_tileData[id].slopeTiles.count = tileDataJSON[idx]["slopeTiles"].value("count", 1);
+    m_tileData[id].slopeTiles.clippingWidth = tileDataJSON[idx]["slopeTiles"].value("clip_width", 0);
+    m_tileData[id].slopeTiles.clippingHeight = tileDataJSON[idx]["slopeTiles"].value("clip_height", 0);
+
+    if (!m_tileData[id].slopeTiles.fileName.empty())
+    {
+      ResourcesManager::instance().loadTexture(id, m_tileData[id].slopeTiles.fileName, TileMap::SLOPES);
+    }
   }
 }
