@@ -1,78 +1,97 @@
-language: cpp
-dist: xenial
-sudo: required
-group: edge
+language:              cpp
+dist:                  xenial
+sudo:                  required
+group:                 edge
 
 env:
   global:
-    - GITHUB_REPO: JimmySnails/IsometricEngine
+    - GITHUB_REPO:     JimmySnails/Cytopia
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - gcc-5
+      - g++-5
+      - ninja-build
+      - doxygen
+      - graphviz
+      - libfreetype6-dev
+      - libgl1-mesa-dev
+      - libasound2-dev
+
+cache:
+  directories:
+    - $HOME/.conan/
 
 matrix:
   include:
 
   # gcc build
-  - os: linux
-    name: GCC 5 Build
-    compiler: gcc
-    env: 
+  - os:                linux
+    name:              GCC 5 Build
+    compiler:          gcc
+    env:
       - DEPLOY_DOCUMENTATION=true
       - C_COMPILER=gcc-5
     before_install:
-      - sudo add-apt-repository --yes ppa:beineri/opt-qt-5.12.1-xenial
-      - sudo apt-get --allow-unauthenticated update
-      - sudo apt-get -y install qt512base
-      - source /opt/qt5*/bin/qt5*-env.sh
-      # install dependencies for building SDL2 TTF
-      - sudo apt install -y libfreetype6-dev libgl1-mesa-dev
+      - sudo rm -rf /usr/local/cmake-3.9.2/
+      - sudo rm -f /usr/local/cmake
+      - sudo pip install cmake conan --ignore-installed
 
-    script:
-      - pushd src/ThirdParty
-      - ../../build/scripts/linux/build_sdl2.sh
-      - popd
+    install:
       - mkdir travis_build
       - cd travis_build
+      - conan user
+      - conan remote add AFG https://api.bintray.com/conan/anotherfoxguy/conan-packages || true
+      - conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan || true
+      - conan install .. -s build_type=Release -s compiler=gcc -s compiler.version=5 -s compiler.libcxx=libstdc++11 -g=cmake --build=missing
+
+    script:
       # make sure CXX is correctly set
       - sudo unlink /usr/bin/gcc && sudo ln -s /usr/bin/gcc-5 /usr/bin/gcc
       - sudo unlink /usr/bin/g++ && sudo ln -s /usr/bin/g++-5 /usr/bin/g++
       - if [[ "${COMPILER}" != "" ]]; then export CXX=${COMPILER}; fi
       - if [[ "${C_COMPILER}" != "" ]]; then export CC=${COMPILER}; fi
       # Build Cytopia
-      - cmake ..
-      - cmake --build .
-      - cmake --build . --target doc
-      - cmake --build . --target package
+      - cmake -GNinja -DCMAKE_BUILD_TYPE=Release ..
+      - ninja
+      - ninja doc
+      - ninja package
 
   # clang build
-  - os: linux
-    name: CLANG 5 Build
-    compiler: clang
+  - os:                linux
+    name:              CLANG 5 Build
+    compiler:          clang
     env:
       - COMPILER=clang++-5.0
       - CC=/usr/bin/gcc-5 /usr/bin/clang++-5.0
       - CXX=/usr/bin/gcc-5 /usr/bin/clang++-5.0
-    before_install:
-      - sudo add-apt-repository --yes ppa:beineri/opt-qt-5.12.1-xenial
-      - sudo apt-get --allow-unauthenticated update
-      - sudo apt-get -y install qt512base
-      - source /opt/qt5*/bin/qt5*-env.sh
-      # install dependencies for building SDL2 TTF
-      - sudo apt install -y libfreetype6-dev libgl1-mesa-dev
 
-    script:
-      - pushd src/ThirdParty
-      - ../../build/scripts/linux/build_sdl2.sh
-      - popd
+    before_install:
+      - sudo rm -rf /usr/local/cmake-3.9.2/
+      - sudo rm -f /usr/local/cmake
+      - sudo pip install cmake conan --ignore-installed
+
+    install:
       - mkdir travis_build
       - cd travis_build
+      - conan user
+      - conan remote add AFG https://api.bintray.com/conan/anotherfoxguy/conan-packages || true
+      - conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan || true
+      - conan install .. -s build_type=Release -s compiler=clang -s compiler.version=7.0 -s compiler.libcxx=libstdc++11 -g=cmake --build=missing
+
+    script:
       # Build Cytopia
-      - cmake ..
-      - cmake --build .
-      
-#  - os: osx
-#    name: XCode 9.2 Build
-#    osx_image: xcode9.2
-#    env: TARGET=macOS
-#    language: objective-c
+      - cmake -GNinja -DCMAKE_BUILD_TYPE=Release ..
+      - ninja
+
+#  - os:               osx
+#    name:             XCode 9.2 Build
+#    osx_image:        xcode9.2
+#    env:              TARGET=macOS
+#    language:         objective-c
 #    before_install:
 #      - brew update
 #      - brew install sdl2 sdl2_image sdl2_mixer sdl2_ttf qt
@@ -83,25 +102,12 @@ matrix:
 #      - make
 #      - make package
 
-addons:
-  apt:
-    sources: 
-      - ubuntu-toolchain-r-test
-    packages:
-      - gcc-5
-      - g++-5
-      - doxygen
-      - graphviz
-      - libfreetype6-dev 
-      - libgl1-mesa-dev
-      - libnoise-dev
-
 deploy:
-  provider: pages
-  skip_cleanup: true
-  local_dir: travis_build/html
-  github_token: $GH_REPO_TOKEN
-  verbose: true
+  provider:            pages
+  skip_cleanup:        true
+  local_dir:           travis_build/html
+  github_token:        $GH_REPO_TOKEN
+  verbose:             true
   on:
-    condition: $DEPLOY_DOCUMENTATION = "true"
-    branch: master
+    condition:         $DEPLOY_DOCUMENTATION = "true"
+    branch:            master
