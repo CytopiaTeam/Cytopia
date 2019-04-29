@@ -6,6 +6,7 @@
 #include "basics/log.hxx"
 
 #include <SDL_image.h>
+
 #include "../ThirdParty/json.hxx"
 
 using json = nlohmann::json;
