@@ -1,14 +1,16 @@
 cmake_minimum_required(VERSION 3.9 FATAL_ERROR)
 set(CONAN_QT False CACHE BOOL "Get QT with conan")
+set(USE_PACKAGE_MANAGER True CACHE BOOL "Use conan for managing packages")
 
-# Download automatically, you can also just copy the conan.cmake file
-if(NOT EXISTS "${CMAKE_BINARY_DIR}/conan.cmake")
-   message(STATUS "Downloading conan.cmake from https://github.com/conan-io/cmake-conan")
-   file(DOWNLOAD "https://raw.githubusercontent.com/conan-io/cmake-conan/master/conan.cmake"
-                 "${CMAKE_BINARY_DIR}/conan.cmake")
-endif()
-
-include(${CMAKE_BINARY_DIR}/conan.cmake)
+if (USE_PACKAGE_MANAGER)
+    # Download automatically, you can also just copy the conan.cmake file
+    if (NOT EXISTS "${CMAKE_BINARY_DIR}/conan.cmake")
+        message(STATUS "Downloading conan.cmake from https://github.com/conan-io/cmake-conan")
+        file(DOWNLOAD "https://raw.githubusercontent.com/conan-io/cmake-conan/master/conan.cmake"
+                "${CMAKE_BINARY_DIR}/conan.cmake")
+    endif ()
+    include(${CMAKE_BINARY_DIR}/conan.cmake)
+endif (USE_PACKAGE_MANAGER)
 
 # create the cmake project
 project(
@@ -22,28 +24,40 @@ project(
         LANGUAGES CXX
 )
 
-conan_add_remote(NAME AFG URL https://api.bintray.com/conan/anotherfoxguy/conan-packages)
-conan_add_remote(NAME bincrafters URL https://api.bintray.com/conan/bincrafters/public-conan)
+if (USE_PACKAGE_MANAGER)
 
+    conan_add_remote(NAME AFG URL https://api.bintray.com/conan/anotherfoxguy/conan-packages)
+    conan_add_remote(NAME bincrafters URL https://api.bintray.com/conan/bincrafters/public-conan)
 
-SET(CONAN_DEPS
-		"sdl2/2.0.9@bincrafters/stable"
-		"sdl2_ttf/2.0.15@bincrafters/stable"
-		"sdl2_image/2.0.4@bincrafters/stable"
-		"sdl2_mixer/2.0.4@anotherfoxguy/stable"
-		"libpng/1.6.36@bincrafters/stable"
-		"freetype/2.9.1@bincrafters/stable"
-		"OpenSSL/1.1.1a@conan/stable"
-		"libnoise/1.0.0@anotherfoxguy/stable"
-)
+    SET(CONAN_DEPS
+            "sdl2/2.0.9@bincrafters/stable"
+            "sdl2_ttf/2.0.15@bincrafters/stable"
+            "sdl2_image/2.0.4@bincrafters/stable"
+            "sdl2_mixer/2.0.4@anotherfoxguy/stable"
+            "libpng/1.6.36@bincrafters/stable"
+            "freetype/2.9.1@bincrafters/stable"
+            "OpenSSL/1.1.1a@conan/stable"
+            "libnoise/1.0.0@anotherfoxguy/stable"
+            )
 
-if(CONAN_QT)
+    if (CONAN_QT)
         list(APPEND CONAN_DEPS "qt/5.12.3@bincrafters/stable")
-endif ()
+    endif ()
 
-conan_cmake_run(REQUIRES ${CONAN_DEPS}
-                BASIC_SETUP CMAKE_TARGETS NO_OUTPUT_DIRS
-                BUILD missing)
+    conan_cmake_run(REQUIRES ${CONAN_DEPS}
+            BASIC_SETUP CMAKE_TARGETS NO_OUTPUT_DIRS
+            BUILD missing)
+
+else (USE_PACKAGE_MANAGER)
+
+    find_package(SDL2 REQUIRED)
+    find_package(SDL2_image REQUIRED)
+    find_package(SDL2_ttf REQUIRED)
+    find_package(SDL2_mixer REQUIRED)
+    find_package(LIBNOISE REQUIRED)
+    find_package(ZLIB REQUIRED)
+
+endif (USE_PACKAGE_MANAGER)
 
 # get linux distribution
 if (UNIX)
@@ -159,22 +173,40 @@ if (MINGW)
 endif ()
 
 # link the libraries that we've found
-target_link_libraries(
-        ${PROJECT_NAME}
-        PRIVATE
-        CONAN_PKG::sdl2
-        CONAN_PKG::sdl2_image
-        CONAN_PKG::sdl2_ttf
-        CONAN_PKG::sdl2_mixer
-        CONAN_PKG::libnoise
-        CONAN_PKG::zlib
-)
+if (USE_PACKAGE_MANAGER)
 
-target_include_directories(
-        ${PROJECT_NAME}
-        PRIVATE
-        ${ZLIB_INCLUDE_DIRS}
-)
+    target_link_libraries(
+            ${PROJECT_NAME}
+            PRIVATE
+            CONAN_PKG::sdl2
+            CONAN_PKG::sdl2_image
+            CONAN_PKG::sdl2_ttf
+            CONAN_PKG::sdl2_mixer
+            CONAN_PKG::libnoise
+            CONAN_PKG::zlib
+    )
+
+else (USE_PACKAGE_MANAGER)
+
+    target_link_libraries(
+            ${PROJECT_NAME}
+            PRIVATE
+            SDL::SDL2main
+            SDL::SDL2_image
+            SDL::SDL2_ttf
+            SDL::SDL2_mixer
+            LIBNOISE::LIBNOISE_LIBRARIES
+            ${ZLIB_LIBRARIES}
+    )
+
+    target_include_directories(
+            ${PROJECT_NAME}
+            PRIVATE
+            ${ZLIB_INCLUDE_DIRS}
+    )
+
+endif (USE_PACKAGE_MANAGER)
+
 
 target_compile_features(
         ${PROJECT_NAME}
@@ -220,10 +252,13 @@ else ()
     message("git submodule update --init --recursive")
 endif ()
 
-# QT5 is used for the TileData Editing tool
-if(CONAN_QT)
+if (NOT USE_PACKAGE_MANAGER)
+    # QT5 is used for the TileData Editing tool
+    find_package(Qt5 CONFIG COMPONENTS Core Widgets REQUIRED)
     add_subdirectory(src/TileDataUi)
-endif ()
+elseif (CONAN_QT)
+    add_subdirectory(src/TileDataUi)
+endif ()# USE_PACKAGE_MANAGER
 
 # use Doxygen to generate the documentation
 find_package(Doxygen)
@@ -249,12 +284,12 @@ if (MSVC)
             PROPERTY
             VS_STARTUP_PROJECT ${PROJECT_NAME}
     )
-	# set Visual Studio working directory to the Configuration directory	
-	set_target_properties(	
-			${PROJECT_NAME}	
-			PROPERTIES	
-			VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/$(Configuration)"	
-	)
+    # set Visual Studio working directory to the Configuration directory
+    set_target_properties(
+            ${PROJECT_NAME}
+            PROPERTIES
+            VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/$(Configuration)"
+    )
 endif ()
 
 install(TARGETS ${PROJECT_NAME} DESTINATION .)

@@ -27,7 +27,7 @@ void AudioMixer::playMusic()
   m_musicObjects.push_back(themeMusic);
 
   std::string filePath = SDL_GetBasePath();
-  filePath = filePath + "resources/audio/music/Cytopia OST 1.wav";
+  filePath = filePath + "resources/audio/music/Cytopia OST 1.mp3";
   m_musicObjects[0]->loadFile(filePath);
   m_musicObjects[0]->play(-1);
 }
