@@ -3,6 +3,8 @@
 struct TerrainSettings
 {
   int mapSize = 128;
+  int seed = 1234;
+  int seaLevel = 5;
 };
 
 class TerrainGenerator
@@ -11,11 +13,11 @@ public:
   TerrainGenerator() = default;
   ~TerrainGenerator() = default;
 
-  std::vector<std::unique_ptr<MapNode>> &generateTerrain();
+  typedef std::vector<MapNode *> MapNodeVector;
+  typedef std::vector<std::unique_ptr<MapNode>> MapNodeUniquePtrVector;
+
+  void generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNodeVector &mapNodesInDrawingOrder);
 
 private:
   TerrainSettings terrainSettings;
-
-  std::vector<std::unique_ptr<MapNode>> mapNodes;
-  std::vector<MapNode *> mapNodesInDrawingOrder;
 };

@@ -44,15 +44,7 @@ Map::Map(int columns, int rows) : m_columns(columns), m_rows(rows)
 
 void Map::initMap()
 {
-  mapNodes = std::move(terrainGen.generateTerrain());
-
-  for (int x = 0; x < Settings::instance().settings.mapSize; x++)
-  {
-    for (int y = Settings::instance().settings.mapSize - 1; y >= 0; y--)
-    {
-      mapNodesInDrawingOrder.push_back(mapNodes[x * m_columns + y].get());
-    }
-  }
+  terrainGen.generateTerrain(mapNodes, mapNodesInDrawingOrder);
   updateAllNodes();
 }
 

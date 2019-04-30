@@ -1,13 +1,10 @@
 #include "TerrainGenerator.hxx"
 #include <noise.h>
 
-std::vector<std::unique_ptr<MapNode>> &TerrainGenerator::generateTerrain()
+void TerrainGenerator::generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNodeVector &mapNodesInDrawingOrder)
 {
-  int seed = 1234;
-  int sealevel = 5;
-
   noise::module::Perlin terrainHeightPerlin;
-  terrainHeightPerlin.SetSeed(seed);
+  terrainHeightPerlin.SetSeed(terrainSettings.seed);
   terrainHeightPerlin.SetFrequency(0.003 / 32);
   terrainHeightPerlin.SetLacunarity(1.5);
   terrainHeightPerlin.SetOctaveCount(16);
@@ -17,7 +14,7 @@ std::vector<std::unique_ptr<MapNode>> &TerrainGenerator::generateTerrain()
   terrainHeightPerlinScaled.SetBias(-0.5);
 
   noise::module::RidgedMulti terrainHeightFractal;
-  terrainHeightFractal.SetSeed(seed);
+  terrainHeightFractal.SetSeed(terrainSettings.seed);
   terrainHeightFractal.SetFrequency(0.005 / 32);
   terrainHeightFractal.SetLacunarity(2);
   noise::module::ScaleBias terrainHeightFractalScaled;
@@ -26,7 +23,7 @@ std::vector<std::unique_ptr<MapNode>> &TerrainGenerator::generateTerrain()
   terrainHeightFractalScaled.SetBias(0.5);
 
   noise::module::Perlin terrainHeightBlendPerlin;
-  terrainHeightBlendPerlin.SetSeed(seed + 1);
+  terrainHeightBlendPerlin.SetSeed(terrainSettings.seed + 1);
   terrainHeightBlendPerlin.SetFrequency(0.005 / 32);
   noise::module::ScaleBias terrainHeightBlendScale;
   terrainHeightBlendScale.SetSourceModule(0, terrainHeightBlendPerlin);
@@ -64,9 +61,9 @@ std::vector<std::unique_ptr<MapNode>> &TerrainGenerator::generateTerrain()
     {
       height = static_cast<int>(terrainHeight.GetValue(x * 32, y * 32, 0.5));
 
-      if (height < sealevel)
+      if (height < terrainSettings.seaLevel)
       {
-        height = sealevel;
+        height = terrainSettings.seaLevel;
         mapNodes[x * terrainSettings.mapSize + y] = std::make_unique<MapNode>(Point{x, y, z++, height}, "water");
       }
       else
@@ -76,6 +73,4 @@ std::vector<std::unique_ptr<MapNode>> &TerrainGenerator::generateTerrain()
       mapNodesInDrawingOrder.push_back(mapNodes[x * terrainSettings.mapSize + y].get());
     }
   }
-
-  return mapNodes;
 }
