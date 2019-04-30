@@ -9,7 +9,6 @@
 #include "basics/compression.hxx"
 
 #include "../ThirdParty/json.hxx"
-#include "noise.h"
 
 #include <sstream>
 #include <string>

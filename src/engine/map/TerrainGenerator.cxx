@@ -1,8 +1,17 @@
 #include "TerrainGenerator.hxx"
+
+#include "../common/Constants.hxx"
+#include "../basics/log.hxx"
+
+#include "../../ThirdParty/json.hxx"
 #include <noise.h>
+
+using json = nlohmann::json;
 
 void TerrainGenerator::generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNodeVector &mapNodesInDrawingOrder)
 {
+  loadTerrainDataFromJSON();
+
   noise::module::Perlin terrainHeightPerlin;
   terrainHeightPerlin.SetSeed(terrainSettings.seed);
   terrainHeightPerlin.SetFrequency(0.003 / 32);
@@ -72,5 +81,84 @@ void TerrainGenerator::generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNode
       }
       mapNodesInDrawingOrder.push_back(mapNodes[x * terrainSettings.mapSize + y].get());
     }
+  }
+}
+
+void TerrainGenerator::loadTerrainDataFromJSON()
+{
+  json _biomeDataJSONObject;
+
+  std::string terrainGenDataFileName = SDL_GetBasePath();
+  terrainGenDataFileName.append(TERRAINGEN_DATA_FILE_NAME);
+  std::ifstream i(terrainGenDataFileName);
+
+  if (i.fail())
+  {
+    LOG(LOG_ERROR) << "File " << TERRAINGEN_DATA_FILE_NAME << " does not exist! Cannot load settings from INI File!";
+    return;
+  }
+
+  // check if json file can be parsed
+  _biomeDataJSONObject = json::parse(i, nullptr, false);
+  if (_biomeDataJSONObject.is_discarded())
+  {
+    LOG(LOG_ERROR) << "Error parsing JSON File " << TERRAINGEN_DATA_FILE_NAME;
+  }
+  // parse biome objects
+  for (const auto &it : _biomeDataJSONObject.items())
+  {
+    biomeInformation[it.key()] = it.value();
+  }
+}
+
+// JSON deserializer for Terrain Gen Data
+void from_json(const json &j, BiomeData &b)
+{
+  if (j.find("trees") != j.end())
+  {
+    for (const auto &it : j["trees"].items())
+    {
+      if (it.key() == "small")
+      {
+        std::vector<std::string> temp = it.value();
+        b.treesSmall = temp;
+      }
+      if (it.key() == "normal")
+      {
+        std::vector<std::string> temp = it.value();
+        b.treesNormal = temp;
+      }
+      if (it.key() == "dense")
+      {
+        std::vector<std::string> temp = it.value();
+        b.treesDense = temp;
+      }
+    }
+  }
+
+  if (j.find("terrain") != j.end())
+  {
+    std::vector<std::string> temp = j["terrain"];
+    b.terrain = temp;
+  }
+  if (j.find("water") != j.end())
+  {
+    std::vector<std::string> temp = j["water"];
+    b.water = temp;
+  }
+  if (j.find("waterdecoration") != j.end())
+  {
+    std::vector<std::string> temp = j["waterdecoration"];
+    b.waterDecoration = temp;
+  }
+  if (j.find("terrainRocks") != j.end())
+  {
+    std::vector<std::string> temp = j["terrainRocks"];
+    b.terrainRocks = temp;
+  }
+  if (j.find("terrainFlowers") != j.end())
+  {
+    std::vector<std::string> temp = j["terrainFlowers"];
+    b.terrainFlowers = temp;
   }
 }
