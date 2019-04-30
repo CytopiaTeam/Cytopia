@@ -1,10 +1,10 @@
 #ifndef _TileDataUi_H_
 #define _TileDataUi_H_
 
-#include <QMainWindow>
-#include <QTreeWidget>
-#include <QSplitter>
-#include <QJsonObject>
+#include <QtWidgets/QMainWindow>
+#include <QtWidgets/QTreeWidget>
+#include <QtWidgets/QSplitter>
+#include <QtCore/QJsonObject>
 
 #include <ui_TileDataUi.h>
 #include <ui_TileSetDataUi.h>

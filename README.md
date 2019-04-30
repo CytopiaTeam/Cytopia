@@ -49,7 +49,6 @@ CMake 3.11 or later
 
 <https://cmake.org/>
 
-
 Conan
 
 <https://conan.io>

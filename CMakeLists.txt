@@ -1,16 +1,8 @@
 cmake_minimum_required(VERSION 3.9 FATAL_ERROR)
-set(CONAN_QT False CACHE BOOL "Get QT with conan")
-set(USE_PACKAGE_MANAGER True CACHE BOOL "Use conan for managing packages")
+set(CONAN_QT OFF CACHE BOOL "Get QT with conan")
+set(USE_PACKAGE_MANAGER ON CACHE BOOL "Use conan for managing packages")
+set(USE_PMM OFF CACHE BOOL "Use PMM for managing conan")
 
-if (USE_PACKAGE_MANAGER)
-    # Download automatically, you can also just copy the conan.cmake file
-    if (NOT EXISTS "${CMAKE_BINARY_DIR}/conan.cmake")
-        message(STATUS "Downloading conan.cmake from https://github.com/conan-io/cmake-conan")
-        file(DOWNLOAD "https://raw.githubusercontent.com/conan-io/cmake-conan/master/conan.cmake"
-                "${CMAKE_BINARY_DIR}/conan.cmake")
-    endif ()
-    include(${CMAKE_BINARY_DIR}/conan.cmake)
-endif (USE_PACKAGE_MANAGER)
 
 # create the cmake project
 project(
@@ -26,27 +18,37 @@ project(
 
 if (USE_PACKAGE_MANAGER)
 
-    conan_add_remote(NAME AFG URL https://api.bintray.com/conan/anotherfoxguy/conan-packages)
-    conan_add_remote(NAME bincrafters URL https://api.bintray.com/conan/bincrafters/public-conan)
+    if (USE_PMM)
+        include(cmake/pmm.cmake)
 
-    SET(CONAN_DEPS
-            "sdl2/2.0.9@bincrafters/stable"
-            "sdl2_ttf/2.0.15@bincrafters/stable"
-            "sdl2_image/2.0.4@bincrafters/stable"
-            "sdl2_mixer/2.0.4@anotherfoxguy/stable"
-            "libpng/1.6.36@bincrafters/stable"
-            "freetype/2.9.1@bincrafters/stable"
-            "OpenSSL/1.1.1a@conan/stable"
-            "libnoise/1.0.0@anotherfoxguy/stable"
-            )
+        pmm(DEBUG CONAN REMOTES AFG https://api.bintray.com/conan/anotherfoxguy/conan-packages BINCRAFTERS)
 
-    if (CONAN_QT)
-        list(APPEND CONAN_DEPS "qt/5.12.3@bincrafters/stable")
+    else ()
+        include(cmake/conan.cmake)
+
+        conan_add_remote(NAME AFG URL https://api.bintray.com/conan/anotherfoxguy/conan-packages)
+        conan_add_remote(NAME bincrafters URL https://api.bintray.com/conan/bincrafters/public-conan)
+
+        SET(CONAN_DEPS
+                "sdl2/2.0.9@bincrafters/stable"
+                "sdl2_ttf/2.0.15@bincrafters/stable"
+                "sdl2_image/2.0.4@bincrafters/stable"
+                "sdl2_mixer/2.0.4@anotherfoxguy/stable"
+                "libpng/1.6.36@bincrafters/stable"
+                "freetype/2.9.1@bincrafters/stable"
+                "OpenSSL/1.1.1a@conan/stable"
+                "libnoise/1.0.0@anotherfoxguy/stable"
+                )
+
+        if (CONAN_QT)
+            list(APPEND CONAN_DEPS "qt/5.12.3@bincrafters/stable")
+        endif ()
+
+        conan_cmake_run(REQUIRES ${CONAN_DEPS}
+                BASIC_SETUP CMAKE_TARGETS NO_OUTPUT_DIRS
+                BUILD missing)
+
     endif ()
-
-    conan_cmake_run(REQUIRES ${CONAN_DEPS}
-            BASIC_SETUP CMAKE_TARGETS NO_OUTPUT_DIRS
-            BUILD missing)
 
 else (USE_PACKAGE_MANAGER)
 
@@ -257,6 +259,7 @@ if (NOT USE_PACKAGE_MANAGER)
     find_package(Qt5 CONFIG COMPONENTS Core Widgets REQUIRED)
     add_subdirectory(src/TileDataUi)
 elseif (CONAN_QT)
+    find_package(Qt5 CONFIG COMPONENTS Core Widgets REQUIRED)
     add_subdirectory(src/TileDataUi)
 endif ()# USE_PACKAGE_MANAGER
 
@@ -306,3 +309,6 @@ install(FILES ReleaseNotes.txt credits.txt DESTINATION .)
 if (APPLE)
     set_target_properties(${PROJECT_NAME} PROPERTIES MACOSX_BUNDLE TRUE RESOURCE TRUE)
 endif ()
+
+include(FeatureSummary)
+feature_summary(WHAT ALL)

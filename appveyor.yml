@@ -1,0 +1,31 @@
+version: 0.2-CIBuild-{build}
+pull_requests:
+  do_not_increment_build_number: true
+image: Visual Studio 2017
+configuration: Release
+clone_depth: 10
+cache: C:/Users/appveyor/.conan/
+install:
+- cmd: >-
+    git submodule update --init --recursive
+
+    choco install ninja conan -y
+
+    refreshenv
+
+    call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
+
+    conan user
+
+    conan remote add anotherfoxguy https://api.bintray.com/conan/anotherfoxguy/conan-packages & exit 0
+
+    conan remote add bincrafters-public-conan https://api.bintray.com/conan/bincrafters/public-conan & exit 0
+
+    conan install --build=missing -u .
+build_script:
+- cmd: >-
+    cmake -GNinja -DCMAKE_BUILD_TYPE=Release .
+
+    ninja
+test: off
+deploy: off
