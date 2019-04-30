@@ -18,7 +18,7 @@ class MapNode
 {
 public:
   MapNode(Point isoCoordinates);
-  MapNode(Point isoCoordinates, std::string tileID);
+  MapNode(Point isoCoordinates, const std::string &tileID);
   ~MapNode() = default;
 
   /** @brief get Sprite
