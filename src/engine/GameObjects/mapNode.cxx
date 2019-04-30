@@ -1,9 +1,16 @@
 #include "mapNode.hxx"
 #include "../basics/log.hxx"
 
-MapNode::MapNode(Point isoCoordinates) : m_isoCoordinates(std::move(isoCoordinates))
+MapNode::MapNode(Point isoCoordinates) : m_isoCoordinates(isoCoordinates)
 {
   m_sprite = std::make_unique<Sprite>(m_isoCoordinates);
+  updateTexture();
+}
+
+MapNode::MapNode(Point isoCoordinates, std::string tileID) : m_isoCoordinates(isoCoordinates)
+{
+  m_sprite = std::make_unique<Sprite>(m_isoCoordinates);
+  setTileID(tileID);
   updateTexture();
 }
 
