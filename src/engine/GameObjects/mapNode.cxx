@@ -64,13 +64,19 @@ void MapNode::updateTexture()
     size_t spriteCount = 1;
 
     // only calculate orientation for textures that adjust themselves according to elevation / other tiles of the same id
-    if (m_tileData->category == "Terrain" || m_tileData->category == "Roads")
+    if (m_tileData->category == "Terrain" || m_tileData->category == "Roads" || m_tileData->category == "Water")
     {
       m_orientation = TileManager::instance().caluclateSlopeOrientation(m_elevationBitmask);
 
+      // if the node has no elevated neighbors, check if it needs to tile itself to another tile of the same ID
       if (m_orientation == TileSlopes::DEFAULT_ORIENTATION)
       {
-        if (m_tileData->category != "Terrain")
+        if (m_tileData->category == "Water")
+        {
+          tileMap = TileMap::DEFAULT;
+          m_orientation = TileList::TILE_DEFAULT_ORIENTATION;
+        }
+        else if (m_tileData->category != "Terrain")
         {
           m_orientation = TileManager::instance().caluclateTileOrientation(m_tileIDBitmask);
         }
@@ -88,7 +94,15 @@ void MapNode::updateTexture()
     switch (tileMap)
     {
     case TileMap::DEFAULT:
-      clipRect.x = m_tileData->tiles.clippingWidth * static_cast<int>(m_orientation);
+      // if tileIndex is set, it means we take a single image out of a spritesheet
+      if (m_tileData->tileIndex != -1)
+      {
+        clipRect.x = m_tileData->tiles.clippingWidth * m_tileData->tileIndex;
+      }
+      else
+      {
+        clipRect.x = m_tileData->tiles.clippingWidth * static_cast<int>(m_orientation);
+      }
       m_clippingWidth = m_tileData->tiles.clippingWidth;
       if (m_tileID == "terrain")
       {

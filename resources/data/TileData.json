@@ -999,6 +999,12 @@
         "id": "water",
         "power": 0,
         "price": 5,
+        "slopeTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 16,
+            "fileName": "resources/images/water/liquid_water.png"
+        },
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
@@ -1040,6 +1046,36 @@
             "fileName": "resources/images/buildings/Water/watertower2.png"
         },
         "title": "Small Water Tower",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "description": "trees",
+        "id": [
+            "trees_oak_single_normal_1",
+            "trees_oak_single_normal_2",
+            "trees_oak_single_normal_3",
+            "trees_oak_single_small_1",
+            "trees_oak_single_small_2",
+            "trees_oak_single_small_3",
+            "trees_oak_single_small_4",
+            "trees_oak_group_dense_1",
+            "trees_oak_group_dense_2",
+            "trees_oak_group_dense_3",
+            "trees_oak_group_dense_4",
+            "trees_oak_group_dense_5"
+          ],
+        "power": 0,
+        "price": 5,
+        "tiles": {
+            "clip_height": 31,
+            "clip_width": 32,
+            "count": 12,
+            "fileName": "resources/images/flora/trees.png"
+        },
+        "title": "Trees",
         "upkeep cost": 0,
         "water": 0
     }
