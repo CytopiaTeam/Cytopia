@@ -1,3 +1,6 @@
+#ifndef TERRAIN_GEN_HXX_
+#define TERRAIN_GEN_HXX_
+
 #include "../GameObjects/mapNode.hxx"
 
 #include <map>
@@ -40,3 +43,5 @@ private:
 
   std::map<std::string, BiomeData> biomeInformation; // key: biome
 };
+
+#endif
