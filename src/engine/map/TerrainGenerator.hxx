@@ -1,6 +1,7 @@
 #include "../GameObjects/mapNode.hxx"
 
 #include <map>
+#include <vector>
 
 struct BiomeData
 {
