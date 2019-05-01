@@ -1078,5 +1078,27 @@
         "title": "Trees",
         "upkeep cost": 0,
         "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "biome": "GrassLands",
+        "category": "TerrainDecoration",
+        "description": "Rocks for the terrain",
+        "id": [
+            "terrain_rocks1",
+            "terrain_rocks2",
+            "terrain_rocks3"
+          ],
+        "power": 0,
+        "price": 5,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 12,
+            "fileName": "resources/images/decoration/grassLands/terrainRocks.png"
+        },
+        "title": "Rocks",
+        "upkeep cost": 0,
+        "water": 0
     }
 ]
