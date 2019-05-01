@@ -1,5 +1,5 @@
 {
-  "grassLands": {
+  "GrassLands": {
     "trees": {
       "small": [
         "trees_oak_single_small_1",
@@ -42,7 +42,7 @@
       "terrain_flowers3"
     ]
   },
-  "desert": {
+  "Desert": {
     "trees": {
       "small": [
         "trees_oak_single_small_1",
