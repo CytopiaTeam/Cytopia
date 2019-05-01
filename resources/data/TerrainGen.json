@@ -32,9 +32,9 @@
       "water_rocks3"
     ],
     "terrainRocks": [
-      "terrain_rocks1",
-      "terrain_rocks2",
-      "terrain_rocks3"
+      "terrain_rocks_grassLands_1",
+      "terrain_rocks_grassLands_2",
+      "terrain_rocks_grassLands_3"
     ],
     "terrainFlowers": [
       "terrain_flowers1",
@@ -75,9 +75,9 @@
       "water_rocks3"
     ],
     "terrainRocks": [
-      "terrain_rocks1",
-      "terrain_rocks2",
-      "terrain_rocks3"
+      "terrain_rocks_desert_1",
+      "terrain_rocks_desert_2",
+      "terrain_rocks_desert_3"
     ],
     "terrainFlowers": [
       "terrain_flowers1",
