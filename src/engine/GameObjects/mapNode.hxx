@@ -7,6 +7,7 @@
 #include <string>
 
 #include "../sprite.hxx"
+#include "../common/Enums.hxx"
 #include "../basics/point.hxx"
 
 #include "../tileManager.hxx"
@@ -50,6 +51,9 @@ public:
 
   void setBitmask(unsigned char elevationBitmask, unsigned char tileTypeBitmask);
 
+  void activateLayer(Layer layer);
+  void deactivateLayer(Layer layer);
+
   unsigned char getElevationBitmask() const { return m_elevationBitmask; };
 
   const TileData *getTileData() const { return m_tileData; };
@@ -78,6 +82,9 @@ private:
   unsigned char m_tileIDBitmask = 0;
 
   void updateTexture();
+
+  int m_activeLayers = +Layer::TERRAIN << +Layer::DRAW_ON_GROUND;
+  std::vector<Layer> layers;
 };
 
 #endif

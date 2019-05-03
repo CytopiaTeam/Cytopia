@@ -5,6 +5,8 @@ MapNode::MapNode(Point isoCoordinates) : m_isoCoordinates(std::move(isoCoordinat
 {
   m_sprite = std::make_unique<Sprite>(m_isoCoordinates);
   updateTexture();
+  activateLayer(Layer::TERRAIN);
+  activateLayer(Layer::DRAW_ON_GROUND);
 }
 
 void MapNode::increaseHeight()
@@ -29,7 +31,7 @@ void MapNode::decreaseHeight()
   }
 }
 
-void MapNode::render() const { m_sprite->render(); }
+void MapNode::render() const { m_sprite->render(layers); }
 
 void MapNode::setBitmask(unsigned char elevationBitmask, unsigned char tileIDBitmask)
 {
@@ -139,4 +141,20 @@ void MapNode::setCoordinates(const Point &newIsoCoordinates)
 {
   m_isoCoordinates = newIsoCoordinates;
   m_sprite->isoCoordinates = m_isoCoordinates;
+}
+
+void MapNode::activateLayer(Layer layer)
+{
+  if (std::find(layers.begin(), layers.end(), layer) == layers.end())
+  {
+    layers.push_back(layer);
+  }
+}
+
+void MapNode::deactivateLayer(Layer layer)
+{
+  if (std::find(layers.begin(), layers.end(), layer) != layers.end())
+  {
+    layers.erase(std::remove(layers.begin(), layers.end(), layer), layers.end());
+  }
 }

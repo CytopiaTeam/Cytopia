@@ -11,25 +11,33 @@ Sprite::Sprite(Point _isoCoordinates) : isoCoordinates(_isoCoordinates)
   m_screenCoordinates = convertIsoToScreenCoordinates(_isoCoordinates);
 }
 
-void Sprite::render() const
+void Sprite::render(const std::vector<Layer> &layers) const
 {
-  if (highlightSprite == true)
+  //LOG() << " a " << Layer::_from_index(layers);
+  for (const int &it : layers)
+  //for (const auto &it : m_textures)
   {
-    SDL_SetTextureColorMod(m_texture, 150, 150, 150);
-  }
+    if (m_textures.count(it))
+    {
+      if (highlightSprite == true)
+      {
+        SDL_SetTextureColorMod(m_textures.at(it), 150, 150, 150);
+      }
 
-  if (clipRect.w != 0)
-  {
-    SDL_RenderCopy(WindowManager::instance().getRenderer(), m_texture, &clipRect, &destRect);
-  }
-  else
-  {
-    SDL_RenderCopy(WindowManager::instance().getRenderer(), m_texture, nullptr, &destRect);
-  }
+      if (clipRect.w != 0)
+      {
+        SDL_RenderCopy(WindowManager::instance().getRenderer(), m_textures.at(it), &clipRect, &destRect);
+      }
+      else
+      {
+        SDL_RenderCopy(WindowManager::instance().getRenderer(), m_textures.at(it), nullptr, &destRect);
+      }
 
-  if (highlightSprite == true)
-  {
-    SDL_SetTextureColorMod(m_texture, 255, 255, 255);
+      if (highlightSprite == true)
+      {
+        SDL_SetTextureColorMod(m_textures.at(it), 255, 255, 255);
+      }
+    }
   }
 }
 
@@ -59,9 +67,9 @@ void Sprite::refresh()
   m_needsRefresh = false;
 }
 
-void Sprite::setTexture(SDL_Texture *texture)
+void Sprite::setTexture(SDL_Texture *texture, Layer layer)
 {
-  m_texture = texture;
+  m_textures[layer] = texture;
   m_needsRefresh = true;
   refresh();
 }
