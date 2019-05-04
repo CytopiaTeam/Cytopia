@@ -51,7 +51,9 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       case SDLK_3:
         engine.toggleLayer(Engine::LAYER_SELECTION);
         break;
-
+      case SDLK_i:
+        m_tileInfoMode = !m_tileInfoMode;
+        break;
       case SDLK_f:
         engine.toggleFullScreen();
         break;
@@ -215,7 +217,11 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       {
         if (isPointWithinMapBoundaries(clickCoords))
         {
-          if (terrainEditMode == TerrainEdit::RAISE)
+          if (m_tileInfoMode)
+          {
+            engine.map->getNodeInformation({clickCoords.x, clickCoords.y, 0, 0});
+          }
+          else if (terrainEditMode == TerrainEdit::RAISE)
           {
             engine.increaseHeight(clickCoords);
           }
