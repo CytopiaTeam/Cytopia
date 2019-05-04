@@ -13,10 +13,9 @@ public:
   Sprite(Point isoCoordinates);
   virtual ~Sprite() = default;
 
-  void render(const std::vector<Layer> &layers) const;
+  void render() const;
   void refresh();
 
-  // TODOSetTexture must have layer as parameter
   void setTexture(SDL_Texture *m_texture, Layer layer = Layer::TERRAIN);
 
   size_t spriteCount = 1;

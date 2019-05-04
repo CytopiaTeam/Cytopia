@@ -1,12 +1,14 @@
 #include "mapNode.hxx"
+
 #include "../basics/log.hxx"
+#include "../map/MapLayers.hxx"
 
 MapNode::MapNode(Point isoCoordinates) : m_isoCoordinates(std::move(isoCoordinates))
 {
   m_sprite = std::make_unique<Sprite>(m_isoCoordinates);
   updateTexture();
-  enableLayer(Layer::TERRAIN);
-  enableLayer(Layer::DRAW_ON_GROUND);
+  MapLayers::enableLayer(Layer::TERRAIN);
+  MapLayers::enableLayer(Layer::DRAW_ON_GROUND);
 }
 
 void MapNode::increaseHeight()
@@ -31,7 +33,7 @@ void MapNode::decreaseHeight()
   }
 }
 
-void MapNode::render() const { m_sprite->render(layers); }
+void MapNode::render() const { m_sprite->render(); }
 
 void MapNode::setBitmask(unsigned char elevationBitmask, unsigned char tileIDBitmask)
 {
@@ -142,32 +144,4 @@ void MapNode::setCoordinates(const Point &newIsoCoordinates)
 {
   m_isoCoordinates = newIsoCoordinates;
   m_sprite->isoCoordinates = m_isoCoordinates;
-}
-
-void MapNode::enableLayer(Layer layer)
-{
-  if (std::find(layers.begin(), layers.end(), layer) == layers.end())
-  {
-    layers.push_back(layer);
-  }
-}
-
-void MapNode::disableLayer(Layer layer)
-{
-  if (std::find(layers.begin(), layers.end(), layer) != layers.end())
-  {
-    layers.erase(std::remove(layers.begin(), layers.end(), layer), layers.end());
-  }
-}
-
-void MapNode::toggleLayer(Layer layer)
-{
-  if (std::find(layers.begin(), layers.end(), layer) != layers.end())
-  {
-    layers.erase(std::remove(layers.begin(), layers.end(), layer), layers.end());
-  }
-  else
-  {
-    layers.push_back(layer);
-  }
 }

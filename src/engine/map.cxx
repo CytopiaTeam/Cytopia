@@ -505,27 +505,3 @@ void from_json(const json &j, Point &point)
   point.z = j.at("z").get<int>();
   point.height = j.at("height").get<int>();
 }
-
-void Map::enableLayer(Layer layer)
-{
-  for (const auto &it : mapNodesInDrawingOrder)
-  {
-    it->enableLayer(layer);
-  }
-}
-
-void Map::disableLayer(Layer layer)
-{
-  for (const auto &it : mapNodesInDrawingOrder)
-  {
-    it->disableLayer(layer);
-  }
-}
-
-void Map::toggleLayer(Layer layer)
-{
-  for (const auto &it : mapNodesInDrawingOrder)
-  {
-    it->toggleLayer(layer);
-  }
-}

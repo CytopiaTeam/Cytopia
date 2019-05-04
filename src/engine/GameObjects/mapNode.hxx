@@ -52,10 +52,7 @@ public:
 
   void setBitmask(unsigned char elevationBitmask, unsigned char tileTypeBitmask);
 
-  void enableLayer(Layer layer);
-  void disableLayer(Layer layer);
-  void toggleLayer(Layer layer);
-  bool isLayerActive(Layer layer) const { return std::find(layers.begin(), layers.end(), layer) != layers.end(); };
+  //bool isLayerActive(Layer layer) const { return std::find(layers.begin(), layers.end(), layer) != layers.end(); };
 
   unsigned char getElevationBitmask() const { return m_elevationBitmask; };
 
@@ -85,9 +82,6 @@ private:
   unsigned char m_tileIDBitmask = 0;
 
   void updateTexture();
-
-  int m_activeLayers = +Layer::TERRAIN << +Layer::DRAW_ON_GROUND;
-  std::vector<Layer> layers;
 };
 
 #endif

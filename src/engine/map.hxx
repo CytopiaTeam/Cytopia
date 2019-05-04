@@ -65,24 +65,6 @@ public:
   */
   static Map *loadMapFromFile(const std::string &fileName);
 
-  /** \brief Enable Drawing Layer
-    * Enable Drawing Layer
-    * @param Layer enum
-    */
-  void enableLayer(Layer layer);
-
-  /** \brief Disable Drawing Layer
-    * Disable Drawing Layer 
-    * @param Layer enum
-    */
-  void disableLayer(Layer layer);
-
-  /** \brief Toggle Drawing Layer
-    * Toggle Drawing Layer 
-    * @param Layer enum
-    */
-  void toggleLayer(Layer layer);
-
 private:
   MapNode *m_highlitNode = nullptr;
 
@@ -131,8 +113,6 @@ private:
   SDL_Color getColorOfPixelInSurface(SDL_Surface *surface, int x, int y, const SDL_Rect &clipRect) const;
 
   bool isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int isoY) const;
-
-
 };
 
 #endif

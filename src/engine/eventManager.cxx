@@ -6,6 +6,7 @@
 #include "basics/timer.hxx"
 #include "basics/settings.hxx"
 #include "common/enums.hxx"
+#include "map/MapLayers.hxx"
 #include "map.hxx"
 
 #include "basics/log.hxx"
@@ -41,10 +42,10 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         m_uiManager.toggleDebugMenu();
         break;
       case SDLK_1:
-        engine.map->toggleLayer(Layer::TERRAIN);
+        MapLayers::toggleLayer(Layer::TERRAIN);
         break;
       case SDLK_2:
-        engine.map->toggleLayer(Layer::DRAW_ON_GROUND);
+        MapLayers::toggleLayer(Layer::DRAW_ON_GROUND);
         break;
       case SDLK_3:
         break;

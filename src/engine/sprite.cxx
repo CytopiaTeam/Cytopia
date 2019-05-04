@@ -5,15 +5,16 @@
 #include "basics/camera.hxx"
 #include "basics/isoMath.hxx"
 #include "basics/log.hxx"
+#include "map/MapLayer.hxx"
 
 Sprite::Sprite(Point _isoCoordinates) : isoCoordinates(_isoCoordinates)
 {
   m_screenCoordinates = convertIsoToScreenCoordinates(_isoCoordinates);
 }
 
-void Sprite::render(const std::vector<Layer> &layers) const
+void Sprite::render() const
 {
-  for (const int &it : layers)
+  for (const int &it : MapLayers::getActiveLayers())
   {
     if (m_textures.count(it))
     {
