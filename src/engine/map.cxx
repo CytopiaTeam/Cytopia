@@ -496,3 +496,13 @@ void from_json(const json &j, Point &point)
   point.z = j.at("z").get<int>();
   point.height = j.at("height").get<int>();
 }
+
+void Map::getNodeInformation(const Point &isoCoordinates) const
+{
+  const TileData* tileData = mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getTileData();
+  LOG() << "===== TILE at " << isoCoordinates.x << ", " << isoCoordinates.y << "=====";
+  LOG() << "Biome: " << tileData->biome;
+  LOG() << "Category: " << tileData->category;
+  LOG() << "FileName: " << tileData->tiles.fileName;
+  LOG() << "ID: " << mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getTileID();
+}

@@ -63,6 +63,8 @@ public:
   */
   static Map *loadMapFromFile(const std::string &fileName);
 
+  void getNodeInformation(const Point &isoCoordinates) const;
+
   std::vector<std::unique_ptr<MapNode>> mapNodes;
   std::vector<MapNode *> mapNodesInDrawingOrder;
 
