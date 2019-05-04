@@ -4,15 +4,11 @@
 #include "basics/isoMath.hxx"
 #include "basics/mapEdit.hxx"
 #include "basics/settings.hxx"
+#include "common/enums.hxx"
 #include "GameObjects/mapNode.hxx"
 #include "resourcesManager.hxx"
 
-Engine::Engine()
-{
-  newGame();
-  // Default: Floor and Buildings are drawn
-  m_activeLayers = LAYER_FLOOR | LAYER_BUILDINGS;
-}
+Engine::Engine() { newGame(); }
 
 Engine::~Engine() { delete map; }
 

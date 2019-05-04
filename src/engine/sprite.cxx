@@ -13,9 +13,7 @@ Sprite::Sprite(Point _isoCoordinates) : isoCoordinates(_isoCoordinates)
 
 void Sprite::render(const std::vector<Layer> &layers) const
 {
-  //LOG() << " a " << Layer::_from_index(layers);
   for (const int &it : layers)
-  //for (const auto &it : m_textures)
   {
     if (m_textures.count(it))
     {

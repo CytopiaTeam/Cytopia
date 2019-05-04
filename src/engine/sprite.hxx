@@ -28,6 +28,7 @@ public:
 
 private:
   std::unordered_map<int, SDL_Texture *> m_textures;
+  std::unordered_map<int, SDL_Rect *> m_clipRects;
   SDL_Texture *m_texture = nullptr;
   SDL_Point m_screenCoordinates{0, 0};
 

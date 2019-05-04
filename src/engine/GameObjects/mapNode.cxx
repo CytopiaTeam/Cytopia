@@ -5,8 +5,8 @@ MapNode::MapNode(Point isoCoordinates) : m_isoCoordinates(std::move(isoCoordinat
 {
   m_sprite = std::make_unique<Sprite>(m_isoCoordinates);
   updateTexture();
-  activateLayer(Layer::TERRAIN);
-  activateLayer(Layer::DRAW_ON_GROUND);
+  enableLayer(Layer::TERRAIN);
+  enableLayer(Layer::DRAW_ON_GROUND);
 }
 
 void MapNode::increaseHeight()
@@ -103,10 +103,12 @@ void MapNode::updateTexture()
       {
         clipRect.x = 0;
         m_sprite->clipRect = {0, 0, m_tileData->tiles.clippingWidth, m_tileData->tiles.clippingHeight};
+        m_sprite->setTexture(TileManager::instance().getTexture(m_tileID, tileMap), Layer::TERRAIN);
       }
       else
       {
         m_sprite->clipRect = {clipRect.x, 0, m_tileData->tiles.clippingWidth, m_tileData->tiles.clippingHeight};
+        m_sprite->setTexture(TileManager::instance().getTexture(m_tileID, tileMap), Layer::DRAW_ON_GROUND);
       }
       spriteCount = m_tileData->tiles.count;
       break;
@@ -129,7 +131,6 @@ void MapNode::updateTexture()
       updateTexture();
     }
     m_sprite->spriteCount = spriteCount;
-    m_sprite->setTexture(TileManager::instance().getTexture(m_tileID, tileMap));
   }
   else
   {
@@ -143,7 +144,7 @@ void MapNode::setCoordinates(const Point &newIsoCoordinates)
   m_sprite->isoCoordinates = m_isoCoordinates;
 }
 
-void MapNode::activateLayer(Layer layer)
+void MapNode::enableLayer(Layer layer)
 {
   if (std::find(layers.begin(), layers.end(), layer) == layers.end())
   {
@@ -151,10 +152,22 @@ void MapNode::activateLayer(Layer layer)
   }
 }
 
-void MapNode::deactivateLayer(Layer layer)
+void MapNode::disableLayer(Layer layer)
 {
   if (std::find(layers.begin(), layers.end(), layer) != layers.end())
   {
     layers.erase(std::remove(layers.begin(), layers.end(), layer), layers.end());
+  }
+}
+
+void MapNode::toggleLayer(Layer layer)
+{
+  if (std::find(layers.begin(), layers.end(), layer) != layers.end())
+  {
+    layers.erase(std::remove(layers.begin(), layers.end(), layer), layers.end());
+  }
+  else
+  {
+    layers.push_back(layer);
   }
 }

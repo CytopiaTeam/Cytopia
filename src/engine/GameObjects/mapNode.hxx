@@ -5,6 +5,7 @@
 
 #include <memory>
 #include <string>
+#include <algorithm>
 
 #include "../sprite.hxx"
 #include "../common/Enums.hxx"
@@ -51,8 +52,10 @@ public:
 
   void setBitmask(unsigned char elevationBitmask, unsigned char tileTypeBitmask);
 
-  void activateLayer(Layer layer);
-  void deactivateLayer(Layer layer);
+  void enableLayer(Layer layer);
+  void disableLayer(Layer layer);
+  void toggleLayer(Layer layer);
+  bool isLayerActive(Layer layer) const { return std::find(layers.begin(), layers.end(), layer) != layers.end(); };
 
   unsigned char getElevationBitmask() const { return m_elevationBitmask; };
 
