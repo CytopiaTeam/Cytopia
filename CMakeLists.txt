@@ -265,7 +265,8 @@ if (NOT USE_PACKAGE_MANAGER)
     find_package(Qt5 CONFIG COMPONENTS Core Widgets REQUIRED)
     add_subdirectory(src/TileDataUi)
 elseif (CONAN_QT)
-    find_package(Qt5 CONFIG COMPONENTS Core Widgets REQUIRED)
+    find_package(Qt5Core CONFIG REQUIRED)
+    find_package(Qt5Widgets CONFIG REQUIRED)
     add_subdirectory(src/TileDataUi)
 endif ()# USE_PACKAGE_MANAGER
 

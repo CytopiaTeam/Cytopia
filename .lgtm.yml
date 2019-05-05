@@ -5,6 +5,9 @@ path_classifiers:
 
 extraction:
   cpp:
+    prepare:
+      packages:
+        - libnoise-dev
     configure:
       command:
         - cmake -DUSE_PACKAGE_MANAGER=OFF .

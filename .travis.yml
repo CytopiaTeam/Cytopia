@@ -25,6 +25,7 @@ addons:
       - libaudio-dev
 
 cache:
+  timeout: 1000
   directories:
     - $HOME/.conan/
 

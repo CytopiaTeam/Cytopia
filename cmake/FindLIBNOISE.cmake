@@ -9,7 +9,7 @@
 find_path(
   LIBNOISE_INCLUDE_DIR 
   NAMES noise.h
-  PATH_SUFFIXES include include/noise
+  PATH_SUFFIXES include include/noise include/libnoise
   HINTS ${LIBNOISE_DIR}
 )
 
