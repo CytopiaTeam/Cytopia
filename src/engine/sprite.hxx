@@ -7,6 +7,13 @@
 #include "basics/point.hxx"
 #include "common/Enums.hxx"
 
+struct SpriteData
+{
+  SDL_Texture *texture = nullptr;
+  SDL_Rect clipRect{0, 0, 0, 0};
+  SDL_Rect destRect{0, 0, 0, 0};
+};
+
 class Sprite
 {
 public:
@@ -23,21 +30,19 @@ public:
   size_t spriteCount = 1;
   bool highlightSprite = false;
 
-  //SDL_Rect destRect{0, 0, 0, 0};
-  SDL_Rect getDestRect(Layer layer = Layer::TERRAIN) { return m_destRects.at(layer); };
+  SDL_Rect getDestRect(Layer layer = Layer::TERRAIN) { return m_SpriteData[layer].destRect; };
   Point isoCoordinates{0, 0, 0, 0};
 
   SDL_Rect clipRect{0, 0, 0, 0};
 
 private:
-  std::unordered_map<int, SDL_Texture *> m_textures;
-  std::unordered_map<int, SDL_Rect> m_clipRects;
-  std::unordered_map<int, SDL_Rect> m_destRects;
   SDL_Texture *m_texture = nullptr;
   SDL_Point m_screenCoordinates{0, 0};
 
   bool m_needsRefresh = false;
   float m_currentZoomLevel = 0;
+
+  std::vector<SpriteData> m_SpriteData;
 };
 
 #endif
