@@ -55,12 +55,18 @@ if (USE_PACKAGE_MANAGER)
 
 else (USE_PACKAGE_MANAGER)
 
-    find_package(SDL2 REQUIRED)
-    find_package(SDL2_image REQUIRED)
-    find_package(SDL2_ttf REQUIRED)
-    find_package(SDL2_mixer REQUIRED)
+    # add the path to our custom find modules
+    list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+
+    find_package(PkgConfig REQUIRED)
+
+    pkg_check_modules(SDL2 REQUIRED sdl2)
+    pkg_check_modules(SDL2_image REQUIRED SDL2_image)
+    pkg_check_modules(SDL2_ttf REQUIRED SDL2_ttf)
+    pkg_check_modules(SDL2_mixer REQUIRED SDL2_mixer)
+    pkg_check_modules(ZLIB REQUIRED zlib)
+
     find_package(LIBNOISE REQUIRED)
-    find_package(ZLIB REQUIRED)
 
 endif (USE_PACKAGE_MANAGER)
 
@@ -87,9 +93,6 @@ message(STATUS "Build configuration: " ${CMAKE_BUILD_TYPE})
 if (UNIX)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 endif ()
-
-# add the path to our custom find modules
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/build/cmake_modules/")
 
 set(SOURCES
         src/engine/basics/camera.cxx
@@ -192,10 +195,10 @@ else (USE_PACKAGE_MANAGER)
     target_link_libraries(
             ${PROJECT_NAME}
             PRIVATE
-            SDL::SDL2main
-            SDL::SDL2_image
-            SDL::SDL2_ttf
-            SDL::SDL2_mixer
+            ${SDL2_LIBRARIES}
+            ${SDL2_image_LIBRARIES}
+            ${SDL2_ttf_LIBRARIES}
+            ${SDL2_mixer_LIBRARIES}
             LIBNOISE::LIBNOISE_LIBRARIES
             ${ZLIB_LIBRARIES}
     )
@@ -203,6 +206,10 @@ else (USE_PACKAGE_MANAGER)
     target_include_directories(
             ${PROJECT_NAME}
             PRIVATE
+            ${SDL2_INCLUDE_DIRS}
+            ${SDL2_image_INCLUDE_DIRS}
+            ${SDL2_ttf_INCLUDE_DIRS}
+            ${SDL2_mixer_INCLUDE_DIRS}
             ${ZLIB_INCLUDE_DIRS}
     )
 

@@ -5,10 +5,6 @@ path_classifiers:
 
 extraction:
   cpp:
-    prepare:
-      packages:
-        - python3-virtualenv
     configure:
       command:
-        - python3 -m venv test
-        - cmake -DUSE_PMM=ON .
+        - cmake -DUSE_PACKAGE_MANAGER=OFF .
