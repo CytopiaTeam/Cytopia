@@ -48,9 +48,6 @@ matrix:
         - mkdir travis_build
         - cd travis_build
         - conan user
-        - conan remote add AFG https://api.bintray.com/conan/anotherfoxguy/conan-packages || true
-        - conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan || true
-        - conan install .. -s build_type=Release -s compiler=gcc -s compiler.version=5 -s compiler.libcxx=libstdc++11 -g=cmake --build=missing -u
 
       script:
         # make sure CXX is correctly set
@@ -83,9 +80,6 @@ matrix:
         - mkdir travis_build
         - cd travis_build
         - conan user
-        - conan remote add AFG https://api.bintray.com/conan/anotherfoxguy/conan-packages || true
-        - conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan || true
-        - conan install .. -s build_type=Release -s compiler=clang -s compiler.version=7.0 -s compiler.libcxx=libstdc++11 -g=cmake --build=missing -u
 
       script:
         # Build Cytopia
@@ -105,9 +99,6 @@ matrix:
         - mkdir travis_build
         - cd travis_build
         - conan user
-        - conan remote add AFG https://api.bintray.com/conan/anotherfoxguy/conan-packages || true
-        - conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan || true
-        - conan install .. --build=missing -u
       script:
         - cmake -DCMAKE_BUILD_TYPE=Release ..
         - make

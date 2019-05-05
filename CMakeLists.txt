@@ -26,6 +26,8 @@ if (USE_PACKAGE_MANAGER)
     else ()
         include(cmake/conan.cmake)
 
+		conan_check()
+
         conan_add_remote(NAME AFG URL https://api.bintray.com/conan/anotherfoxguy/conan-packages)
         conan_add_remote(NAME bincrafters URL https://api.bintray.com/conan/bincrafters/public-conan)
 
@@ -45,6 +47,7 @@ if (USE_PACKAGE_MANAGER)
         endif ()
 
         conan_cmake_run(REQUIRES ${CONAN_DEPS}
+                OPTIONS sdl2_mixer:opus=False
                 BASIC_SETUP CMAKE_TARGETS NO_OUTPUT_DIRS
                 BUILD missing)
 
@@ -77,10 +80,6 @@ set(CMAKE_INSTALL_PREFIX "../install")
 
 # make sure, every binary lands in the root directory
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
-
-# add builddtype as cached variable
-set(CMAKE_BUILD_TYPE Release CACHE STRING "Build type")
-set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS ${CMAKE_CONFIGURATION_TYPES})
 
 message(STATUS "Building Project:  ${PROJECT_NAME}")
 message(STATUS "Build configuration: " ${CMAKE_BUILD_TYPE})

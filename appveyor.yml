@@ -16,12 +16,6 @@ install:
     call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
 
     conan user
-
-    conan remote add anotherfoxguy https://api.bintray.com/conan/anotherfoxguy/conan-packages & exit 0
-
-    conan remote add bincrafters-public-conan https://api.bintray.com/conan/bincrafters/public-conan & exit 0
-
-    conan install --build=missing -u .
 build_script:
 - cmd: >-
     cmake -GNinja -DCMAKE_BUILD_TYPE=Release .
