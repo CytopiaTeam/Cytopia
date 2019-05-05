@@ -24,7 +24,7 @@ void Sprite::render() const
         SDL_SetTextureColorMod(m_SpriteData[it].texture, 150, 150, 150);
       }
 
-      if (clipRect.w != 0)
+      if (m_SpriteData[it].clipRect.w != 0)
       {
         SDL_RenderCopy(WindowManager::instance().getRenderer(), m_SpriteData[it].texture, &m_SpriteData[it].clipRect,
                        &m_SpriteData[it].destRect);
@@ -84,3 +84,16 @@ void Sprite::setTexture(SDL_Texture *texture, Layer layer)
 
 void Sprite::setClipRect(SDL_Rect clipRect, Layer layer) { m_SpriteData[layer._to_index()].clipRect = clipRect; }
 void Sprite::setDestRect(SDL_Rect destRect, Layer layer) { m_SpriteData[layer._to_index()].destRect = destRect; }
+
+SDL_Rect Sprite::getActiveClipRect()
+{
+  if (MapLayers::getActiveLayers()[Layer::BUILDINGS])
+  {
+    return m_SpriteData[Layer::BUILDINGS].clipRect;
+  }
+  else if (MapLayers::getActiveLayers()[Layer::TERRAIN])
+  {
+    return m_SpriteData[Layer::TERRAIN].clipRect;
+  }
+  return {0, 0, 0, 0};
+}

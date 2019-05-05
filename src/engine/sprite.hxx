@@ -31,9 +31,9 @@ public:
   bool highlightSprite = false;
 
   SDL_Rect getDestRect(Layer layer = Layer::TERRAIN) { return m_SpriteData[layer].destRect; };
-  Point isoCoordinates{0, 0, 0, 0};
+  SDL_Rect getActiveClipRect();
 
-  SDL_Rect clipRect{0, 0, 0, 0};
+  Point isoCoordinates{0, 0, 0, 0};
 
 private:
   SDL_Texture *m_texture = nullptr;
