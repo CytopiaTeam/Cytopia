@@ -8,7 +8,7 @@ MapNode::MapNode(Point isoCoordinates) : m_isoCoordinates(std::move(isoCoordinat
   m_sprite = std::make_unique<Sprite>(m_isoCoordinates);
   updateTexture();
   MapLayers::enableLayer(Layer::TERRAIN);
-  MapLayers::enableLayer(Layer::DRAW_ON_GROUND);
+  MapLayers::enableLayer(Layer::BUILDINGS);
 }
 
 void MapNode::increaseHeight()
@@ -105,12 +105,15 @@ void MapNode::updateTexture()
       {
         clipRect.x = 0;
         m_sprite->clipRect = {0, 0, m_tileData->tiles.clippingWidth, m_tileData->tiles.clippingHeight};
+        m_sprite->setClipRect({0, 0, m_tileData->tiles.clippingWidth, m_tileData->tiles.clippingHeight}, Layer::TERRAIN);
         m_sprite->setTexture(TileManager::instance().getTexture(m_tileID, tileMap), Layer::TERRAIN);
       }
       else
       {
         m_sprite->clipRect = {clipRect.x, 0, m_tileData->tiles.clippingWidth, m_tileData->tiles.clippingHeight};
-        m_sprite->setTexture(TileManager::instance().getTexture(m_tileID, tileMap), Layer::DRAW_ON_GROUND);
+        m_sprite->setClipRect({clipRect.x, 0, m_tileData->tiles.clippingWidth, m_tileData->tiles.clippingHeight},
+                              Layer::BUILDINGS);
+        m_sprite->setTexture(TileManager::instance().getTexture(m_tileID, tileMap), Layer::BUILDINGS);
       }
       spriteCount = m_tileData->tiles.count;
       break;
@@ -119,12 +122,38 @@ void MapNode::updateTexture()
       clipRect.x = m_tileData->cornerTiles.clippingWidth * static_cast<int>(m_orientation);
       m_sprite->clipRect = {clipRect.x, 0, m_tileData->cornerTiles.clippingWidth, m_tileData->cornerTiles.clippingHeight};
       spriteCount = m_tileData->cornerTiles.count;
+      if (m_tileID == "terrain")
+      {
+        m_sprite->setClipRect({clipRect.x, 0, m_tileData->cornerTiles.clippingWidth, m_tileData->cornerTiles.clippingHeight},
+                              Layer::TERRAIN);
+        m_sprite->setTexture(TileManager::instance().getTexture(m_tileID, tileMap), Layer::TERRAIN);
+      }
+      else
+      {
+        m_sprite->setClipRect({clipRect.x, 0, m_tileData->cornerTiles.clippingWidth, m_tileData->cornerTiles.clippingHeight},
+                              Layer::BUILDINGS);
+        m_sprite->setTexture(TileManager::instance().getTexture(m_tileID, tileMap), Layer::BUILDINGS);
+      }
       break;
     case TileMap::SLOPES:
       m_clippingWidth = m_tileData->slopeTiles.clippingWidth;
       clipRect.x = m_tileData->slopeTiles.clippingWidth * static_cast<int>(m_orientation);
       m_sprite->clipRect = {clipRect.x, 0, m_tileData->slopeTiles.clippingWidth, m_tileData->slopeTiles.clippingHeight};
       spriteCount = m_tileData->slopeTiles.count;
+      if (m_tileID == "terrain")
+      {
+        m_sprite->setClipRect({clipRect.x, 0, m_tileData->slopeTiles.clippingWidth, m_tileData->slopeTiles.clippingHeight},
+                              Layer::TERRAIN);
+        m_sprite->setTexture(TileManager::instance().getTexture(m_tileID, tileMap), Layer::TERRAIN);
+      }
+      else
+      {
+        m_sprite->setClipRect({clipRect.x, 0, m_tileData->slopeTiles.clippingWidth, m_tileData->slopeTiles.clippingHeight},
+                              Layer::BUILDINGS);
+
+        m_sprite->setTexture(TileManager::instance().getTexture(m_tileID, tileMap), Layer::BUILDINGS);
+      }
+
       break;
     }
     if (clipRect.x >= static_cast<int>(spriteCount) * m_clippingWidth)

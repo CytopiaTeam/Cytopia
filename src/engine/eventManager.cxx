@@ -45,7 +45,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         MapLayers::toggleLayer(Layer::TERRAIN);
         break;
       case SDLK_2:
-        MapLayers::toggleLayer(Layer::DRAW_ON_GROUND);
+        MapLayers::toggleLayer(Layer::BUILDINGS);
         break;
       case SDLK_3:
         break;
