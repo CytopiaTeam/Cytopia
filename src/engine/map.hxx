@@ -65,6 +65,8 @@ public:
   */
   static Map *loadMapFromFile(const std::string &fileName);
 
+  void getNodeInformation(const Point &isoCoordinates) const;
+
 private:
   MapNode *m_highlitNode = nullptr;
 
