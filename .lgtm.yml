@@ -1,6 +1,13 @@
-
 path_classifiers:
   library:
-    - Cytopia_ExternLibs
     - Cytopia_Resources
     - src/ThirdParty
+
+extraction:
+  cpp:
+    prepare:
+      packages:
+        - libnoise-dev
+    configure:
+      command:
+        - cmake -DUSE_PACKAGE_MANAGER=OFF .

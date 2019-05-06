@@ -1,107 +1,116 @@
-language: cpp
-dist: xenial
-sudo: required
-group: edge
+language:              cpp
+dist:                  xenial
+sudo:                  required
+group:                 edge
 
 env:
   global:
-    - GITHUB_REPO: JimmySnails/IsometricEngine
-
-matrix:
-  include:
-
-  # gcc build
-  - os: linux
-    name: GCC 5 Build
-    compiler: gcc
-    env: 
-      - DEPLOY_DOCUMENTATION=true
-      - C_COMPILER=gcc-5
-    before_install:
-      - sudo add-apt-repository --yes ppa:beineri/opt-qt-5.12.1-xenial
-      - sudo apt-get --allow-unauthenticated update
-      - sudo apt-get -y install qt512base
-      - source /opt/qt5*/bin/qt5*-env.sh
-      # install dependencies for building SDL2 TTF
-      - sudo apt install -y libfreetype6-dev libgl1-mesa-dev
-
-    script:
-      - pushd src/ThirdParty
-      - ../../build/scripts/linux/build_sdl2.sh
-      - popd
-      - mkdir travis_build
-      - cd travis_build
-      # make sure CXX is correctly set
-      - sudo unlink /usr/bin/gcc && sudo ln -s /usr/bin/gcc-5 /usr/bin/gcc
-      - sudo unlink /usr/bin/g++ && sudo ln -s /usr/bin/g++-5 /usr/bin/g++
-      - if [[ "${COMPILER}" != "" ]]; then export CXX=${COMPILER}; fi
-      - if [[ "${C_COMPILER}" != "" ]]; then export CC=${COMPILER}; fi
-      # Build Cytopia
-      - cmake ..
-      - cmake --build .
-      - cmake --build . --target doc
-      - cmake --build . --target package
-
-  # clang build
-  - os: linux
-    name: CLANG 5 Build
-    compiler: clang
-    env:
-      - COMPILER=clang++-5.0
-      - CC=/usr/bin/gcc-5 /usr/bin/clang++-5.0
-      - CXX=/usr/bin/gcc-5 /usr/bin/clang++-5.0
-    before_install:
-      - sudo add-apt-repository --yes ppa:beineri/opt-qt-5.12.1-xenial
-      - sudo apt-get --allow-unauthenticated update
-      - sudo apt-get -y install qt512base
-      - source /opt/qt5*/bin/qt5*-env.sh
-      # install dependencies for building SDL2 TTF
-      - sudo apt install -y libfreetype6-dev libgl1-mesa-dev
-
-    script:
-      - pushd src/ThirdParty
-      - ../../build/scripts/linux/build_sdl2.sh
-      - popd
-      - mkdir travis_build
-      - cd travis_build
-      # Build Cytopia
-      - cmake ..
-      - cmake --build .
-      
-#  - os: osx
-#    name: XCode 9.2 Build
-#    osx_image: xcode9.2
-#    env: TARGET=macOS
-#    language: objective-c
-#    before_install:
-#      - brew update
-#      - brew install sdl2 sdl2_image sdl2_mixer sdl2_ttf qt
-#    script:
-#      - mkdir travis_build
-#      - cd travis_build
-#      - cmake ..
-#      - make
-#      - make package
+    - GITHUB_REPO:     JimmySnails/Cytopia
 
 addons:
   apt:
-    sources: 
+    sources:
       - ubuntu-toolchain-r-test
     packages:
       - gcc-5
       - g++-5
+      - ninja-build
       - doxygen
       - graphviz
-      - libfreetype6-dev 
+      - libfreetype6-dev
       - libgl1-mesa-dev
-      - libnoise-dev
+      - libasound2-dev
+      - libjack-dev
+      - libpulse-dev
+      - libaudio-dev
+
+cache:
+  timeout: 1000
+  directories:
+    - $HOME/.conan/
+
+matrix:
+  include:
+
+    # gcc build
+    - os:                linux
+      name:              GCC 5 Build
+      compiler:          gcc
+      python:            3.7
+      env:
+        - DEPLOY_DOCUMENTATION=true
+        - C_COMPILER=gcc-5
+      before_install:
+        - sudo rm -rf /usr/local/cmake-3.9.2/
+        - sudo rm -f /usr/local/cmake
+        - sudo pip install cmake conan --ignore-installed
+
+      install:
+        - mkdir travis_build
+        - cd travis_build
+        - conan user
+
+      script:
+        # make sure CXX is correctly set
+        - sudo unlink /usr/bin/gcc && sudo ln -s /usr/bin/gcc-5 /usr/bin/gcc
+        - sudo unlink /usr/bin/g++ && sudo ln -s /usr/bin/g++-5 /usr/bin/g++
+        - if [[ "${COMPILER}" != "" ]]; then export CXX=${COMPILER}; fi
+        - if [[ "${C_COMPILER}" != "" ]]; then export CC=${COMPILER}; fi
+        # Build Cytopia
+        - cmake -GNinja -DCMAKE_BUILD_TYPE=Release ..
+        - ninja
+        - ninja doc
+        - ninja package
+
+    # clang build
+    - os:                linux
+      name:              CLANG 5 Build
+      compiler:          clang
+      python:            3.7
+      env:
+        - COMPILER=clang++-5.0
+        - CC=/usr/bin/gcc-5 /usr/bin/clang++-5.0
+        - CXX=/usr/bin/gcc-5 /usr/bin/clang++-5.0
+
+      before_install:
+        - sudo rm -rf /usr/local/cmake-3.9.2/
+        - sudo rm -f /usr/local/cmake
+        - sudo pip install cmake conan --ignore-installed
+
+      install:
+        - mkdir travis_build
+        - cd travis_build
+        - conan user
+
+      script:
+        # Build Cytopia
+        - cmake -GNinja -DCMAKE_BUILD_TYPE=Release ..
+        - ninja
+
+    - os:               osx
+      name:             XCode 10.2 Build
+      osx_image:        xcode10.2
+      env:              TARGET=macOS
+      language:         objective-c
+      python:           3.7
+      before_install:
+        - brew update
+        - brew install conan
+      install:
+        - mkdir travis_build
+        - cd travis_build
+        - conan user
+      script:
+        - cmake -DCMAKE_BUILD_TYPE=Release ..
+        - make
+        - make package
 
 deploy:
-  provider: pages
-  skip_cleanup: true
-  local_dir: travis_build/html
-  github_token: $GH_REPO_TOKEN
-  verbose: true
+  provider:            pages
+  skip_cleanup:        true
+  local_dir:           travis_build/html
+  github_token:        $GH_REPO_TOKEN
+  verbose:             true
   on:
-    condition: $DEPLOY_DOCUMENTATION = "true"
-    branch: master
+    condition:         $DEPLOY_DOCUMENTATION = "true"
+    branch:            master
