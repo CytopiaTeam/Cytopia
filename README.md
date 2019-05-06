@@ -25,7 +25,7 @@ Planned features:
 - OpenGL Renderer
 - Gameplay mechanics
 - In-Game Mod downloading mechanism
-- Android / iOS / Mac Support
+- Android / iOS
 - Scripting language for mods (like LUA)
 
 For code documentation see the projects [Doxygen Documentation](https://jimmysnails.github.io/Cytopia/).
@@ -42,6 +42,7 @@ In case you want to support our project on patreon, visit our [Patreon Page](htt
 #### Supported Platforms
 Linux (clang / g++-5 or higher)
 Windows
+Mac
 
 #### Prerequisites
 
@@ -56,46 +57,11 @@ Conan
 
 #### Build instructions
 
-Some of our resources are stored in a git submodule. We recommend to add the `--recursive` parameter during git clone or init
-To build the TileData editor, you will need a qt installation for your build environment.
-
-For already cloned repositories, use to get the submodules.
-`git submodule update --init --recursive`
-
-This project uses [CMake](https://cmake.org) to manage the build.
-Please make sure you have installed at least version 3.9 or later.
-To build the project, create a new build directory, then:
-
-    cmake <PATH_TO_REPOSITORY>
-
-*Note:* If you're on windows, you might want to specify a generator for Visual Studio, like:
-
-    cmake -G "Visual Studio 15 2017 Win64"<PATH_TO_REPOSITORY>
-
-This will configure the build.
-
-*Note:* If you want to change your install directory (per default it's set to ../install) add the definition `-DCMAKE_INSTALL_PREFIX=/foo/bar` to your cmake call.
-
-**Build Instructions:**
-Once the build is configured, you can then compile it using:
-
-    cmake --build .
-
-To install the project,
-
-    cmake --build . --target install
-
-Create a package (MSI, RPM, DEB, DMG, ZIP)
-
-    cmake --build . --target package
+See: https://github.com/JimmySnails/Cytopia/wiki/Build-instructions
 
 #### Coding guidelines
 
-Please use the clang-format (.clang-format file is provided in the root of the repository), if you want to contribute in order to format your code according to our coding guidelines.
-
-If you are on a linux system, you can use:
-
-    find . -regex '.*\.\(hxx\|cxx\)' -not -path '*/ThirdParty/*' -exec clang-format -style=file -i {} \;  
+See: https://github.com/JimmySnails/Cytopia/wiki/Coding-guidelines
 
 #### Work-in-Progress Screenshot
 
