@@ -62,6 +62,10 @@ matrix:
         - ninja doc
         - ninja package
 
+      before_cache:
+        - rm -rf $HOME/.conan/data/qt/5.12.3/bincrafters/stable/build/ || true
+        - rm -rf $HOME/.conan/data/qt/5.12.3/bincrafters/stable/source/ || true
+
     # clang build
     - os:                linux
       name:              CLANG 5 Build
@@ -87,6 +91,10 @@ matrix:
         - cmake -GNinja -DCMAKE_BUILD_TYPE=Release ..
         - ninja
 
+      before_cache:
+        - rm -rf $HOME/.conan/data/qt/5.12.3/bincrafters/stable/build/ || true
+        - rm -rf $HOME/.conan/data/qt/5.12.3/bincrafters/stable/source/ || true
+
     - os:               osx
       name:             XCode 10.2 Build
       osx_image:        xcode10.2
@@ -96,14 +104,20 @@ matrix:
       before_install:
         - brew update
         - brew install conan
+
       install:
         - mkdir travis_build
         - cd travis_build
         - conan user
+
       script:
         - cmake -DCMAKE_BUILD_TYPE=Release ..
         - make
         - make package
+
+      before_cache:
+        - rm -rf $HOME/.conan/data/qt/5.12.3/bincrafters/stable/build/ || true
+        - rm -rf $HOME/.conan/data/qt/5.12.3/bincrafters/stable/source/ || true
 
 deploy:
   provider:            pages

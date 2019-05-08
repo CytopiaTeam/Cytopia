@@ -25,6 +25,6 @@ test: off
 deploy: off
 on_success:
 - cmd: >-
-    RD /S /Q C:\Users\appveyor\.conan\data\sdl2_mixer\2.0.4\anotherfoxguy\stable\build\c5616fb41f757be0457cf19c4770a3e47c2dc7c3\
-    
-    RD /S /Q C:\Users\appveyor\.conan\data\sdl2_mixer\2.0.4\anotherfoxguy\stable\source\
+    RD /S /Q C:\Users\appveyor\.conan\data\sdl2_mixer\2.0.4\anotherfoxguy\stable\build\ & exit 0
+
+    RD /S /Q C:\Users\appveyor\.conan\data\sdl2_mixer\2.0.4\anotherfoxguy\stable\source\ & exit 0
