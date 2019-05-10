@@ -37,7 +37,7 @@ private:
   MapLayers() = default;
   ~MapLayers() = default;
 
-  static uint32_t m_activeLayers;
+  static unsigned int m_activeLayers;
 };
 
 #endif

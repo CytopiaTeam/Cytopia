@@ -6,12 +6,19 @@
 #include <memory>
 #include <string>
 #include <algorithm>
+#include <vector>
 
 #include "../sprite.hxx"
 #include "../common/Enums.hxx"
 #include "../basics/point.hxx"
 
 #include "../tileManager.hxx"
+
+struct mapNodeData
+{
+  std::string tileID;
+  TileData *tileData = nullptr;
+};
 
 /** @brief Class that holds map nodes
  * Each tile is represented by the map nodes class.
@@ -57,14 +64,14 @@ public:
 
   unsigned char getElevationBitmask() const { return m_elevationBitmask; };
 
-  const TileData *getTileData() const { return m_tileData; };
+  const TileData *getTileData(Layer layer = Layer::TERRAIN) const { return mapNodeData[layer].tileData; };
 
   const std::string &getTileID() const
   {
-    if (m_tileID.empty())
-      return m_tileIDTerrain;
+    if (!mapNodeData[Layer::BUILDINGS].tileID.empty())
+      return mapNodeData[Layer::BUILDINGS].tileID;
     else
-      return m_tileID;
+      return mapNodeData[Layer::TERRAIN].tileID;
   };
   void setTileID(const std::string &tileType);
   size_t tileMap = TileMap::DEFAULT;
@@ -75,16 +82,13 @@ private:
 
   int m_maxHeight = 32;
 
-  std::string m_tileIDTerrain = "terrain";
-  std::string m_tileID;
   std::string m_previousTileID = "terrain";
 
   size_t m_orientation = TileSlopes::DEFAULT_ORIENTATION;
 
   int m_clippingWidth = 0;
 
-  TileData *m_tileData = nullptr;
-
+  std::vector<mapNodeData> mapNodeData;
   unsigned char m_elevationBitmask = 0;
   unsigned char m_tileIDBitmask = 0;
 
