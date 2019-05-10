@@ -138,41 +138,25 @@ void MapNode::updateTexture()
         m_clippingWidth = mapNodeData[it].tileData->cornerTiles.clippingWidth;
         clipRect.x = mapNodeData[it].tileData->cornerTiles.clippingWidth * static_cast<int>(m_orientation);
         spriteCount = mapNodeData[it].tileData->cornerTiles.count;
-        if (mapNodeData[it].tileID == "terrain")
+        if (mapNodeData[it].tileData->category == "Terrain")
         {
           m_sprite->setClipRect({clipRect.x, 0, mapNodeData[it].tileData->cornerTiles.clippingWidth,
                                  mapNodeData[it].tileData->cornerTiles.clippingHeight},
-                                Layer::TERRAIN);
-          m_sprite->setTexture(TileManager::instance().getTexture(mapNodeData[it].tileID, tileMap), Layer::TERRAIN);
-        }
-        else
-        {
-          m_sprite->setClipRect({clipRect.x, 0, mapNodeData[it].tileData->cornerTiles.clippingWidth,
-                                 mapNodeData[it].tileData->cornerTiles.clippingHeight},
-                                Layer::BUILDINGS);
-          m_sprite->setTexture(TileManager::instance().getTexture(mapNodeData[it].tileID, tileMap), Layer::BUILDINGS);
+                                static_cast<Layer>(it));
+          m_sprite->setTexture(TileManager::instance().getTexture(mapNodeData[it].tileID, tileMap), static_cast<Layer>(it));
         }
         break;
       case TileMap::SLOPES:
         m_clippingWidth = mapNodeData[it].tileData->slopeTiles.clippingWidth;
         clipRect.x = mapNodeData[it].tileData->slopeTiles.clippingWidth * static_cast<int>(m_orientation);
         spriteCount = mapNodeData[it].tileData->slopeTiles.count;
-        if (mapNodeData[it].tileID == "terrain")
+        if (mapNodeData[it].tileData->category == "Terrain")
         {
           m_sprite->setClipRect({clipRect.x, 0, mapNodeData[it].tileData->slopeTiles.clippingWidth,
                                  mapNodeData[it].tileData->slopeTiles.clippingHeight},
-                                Layer::TERRAIN);
-          m_sprite->setTexture(TileManager::instance().getTexture(mapNodeData[it].tileID, tileMap), Layer::TERRAIN);
+                                static_cast<Layer>(it));
+          m_sprite->setTexture(TileManager::instance().getTexture(mapNodeData[it].tileID, tileMap), static_cast<Layer>(it));
         }
-        else
-        {
-          m_sprite->setClipRect({clipRect.x, 0, mapNodeData[it].tileData->slopeTiles.clippingWidth,
-                                 mapNodeData[it].tileData->slopeTiles.clippingHeight},
-                                Layer::BUILDINGS);
-
-          m_sprite->setTexture(TileManager::instance().getTexture(mapNodeData[it].tileID, tileMap), Layer::BUILDINGS);
-        }
-
         break;
       }
       if (clipRect.x >= static_cast<int>(spriteCount) * m_clippingWidth)
