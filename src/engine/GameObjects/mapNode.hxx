@@ -17,7 +17,8 @@
 class MapNode
 {
 public:
-  explicit MapNode(Point isoCoordinates);
+  MapNode(Point isoCoordinates);
+  MapNode(Point isoCoordinates, const std::string &tileID);
   ~MapNode() = default;
 
   /** @brief get Sprite

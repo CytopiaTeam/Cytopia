@@ -21,6 +21,7 @@ private:
 
   bool m_panning = false;
   bool m_skipLeftClick = false;
+  bool m_tileInfoMode = false;
   Point pinchCenterCoords = {0, 0, 0, 0};
 };
 

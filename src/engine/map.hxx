@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "GameObjects/mapNode.hxx"
+#include "map/TerrainGenerator.hxx"
 
 class Map
 {
@@ -62,7 +63,7 @@ public:
   */
   static Map *loadMapFromFile(const std::string &fileName);
 
-  static Map *generateMapFromSettings();
+  void getNodeInformation(const Point &isoCoordinates) const;
 
   std::vector<std::unique_ptr<MapNode>> mapNodes;
   std::vector<MapNode *> mapNodesInDrawingOrder;
@@ -72,6 +73,8 @@ private:
 
   int m_columns;
   int m_rows;
+
+  TerrainGenerator terrainGen;
 
   static const size_t m_saveGameVersion;
 

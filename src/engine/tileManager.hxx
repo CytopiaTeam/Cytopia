@@ -2,6 +2,8 @@
 #define TILEMANAGER_HXX_
 
 #include "basics/tileData.hxx"
+
+#include "../ThirdParty/json.hxx"
 #include <SDL.h>
 
 #include <unordered_map>
@@ -78,6 +80,7 @@ private:
   ~TileManager() = default;
 
   std::unordered_map<std::string, TileData> m_tileData;
+  void addJSONObjectToTileData(const nlohmann::json &tileDataJSON, size_t idx, const std::string &id, int tileIndex = -1);
 };
 
 #endif
