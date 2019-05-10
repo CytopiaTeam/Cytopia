@@ -10,33 +10,36 @@
 Sprite::Sprite(Point _isoCoordinates) : isoCoordinates(_isoCoordinates)
 {
   m_screenCoordinates = convertIsoToScreenCoordinates(_isoCoordinates);
-  m_SpriteData.resize(Layer::_size()); // resize the spritedata layer to the amount of layers we have.
+  m_SpriteData.resize(LAYERS_COUNT); // resize the spritedata vector to the amount of layers we have.
 }
 
 void Sprite::render() const
 {
-  for (const int &it : MapLayers::getActiveLayers())
+  for (uint32_t i = 0; i < LAYERS_COUNT; ++i)
   {
-    if (m_SpriteData[it].texture)
+    if (MapLayers::isLayerActive(i))
     {
-      if (highlightSprite == true)
+      if (m_SpriteData[i].texture)
       {
-        SDL_SetTextureColorMod(m_SpriteData[it].texture, 150, 150, 150);
-      }
+        if (highlightSprite)
+        {
+          SDL_SetTextureColorMod(m_SpriteData[i].texture, 150, 150, 150);
+        }
 
-      if (m_SpriteData[it].clipRect.w != 0)
-      {
-        SDL_RenderCopy(WindowManager::instance().getRenderer(), m_SpriteData[it].texture, &m_SpriteData[it].clipRect,
-                       &m_SpriteData[it].destRect);
-      }
-      else
-      {
-        SDL_RenderCopy(WindowManager::instance().getRenderer(), m_SpriteData[it].texture, nullptr, &m_SpriteData[it].destRect);
-      }
+        if (m_SpriteData[i].clipRect.w != 0)
+        {
+          SDL_RenderCopy(WindowManager::instance().getRenderer(), m_SpriteData[i].texture, &m_SpriteData[i].clipRect,
+                         &m_SpriteData[i].destRect);
+        }
+        else
+        {
+          SDL_RenderCopy(WindowManager::instance().getRenderer(), m_SpriteData[i].texture, nullptr, &m_SpriteData[i].destRect);
+        }
 
-      if (highlightSprite == true)
-      {
-        SDL_SetTextureColorMod(m_SpriteData[it].texture, 255, 255, 255);
+        if (highlightSprite)
+        {
+          SDL_SetTextureColorMod(m_SpriteData[i].texture, 255, 255, 255);
+        }
       }
     }
   }
@@ -46,7 +49,7 @@ void Sprite::refresh()
 {
   if (m_currentZoomLevel != Camera::zoomLevel || m_needsRefresh)
   {
-    for (const int &it : MapLayers::getActiveLayers())
+    for (uint32_t it = 0; it < LAYERS_COUNT; ++it)
     {
       m_currentZoomLevel = Camera::zoomLevel;
       if (m_SpriteData[it].clipRect.w != 0)
@@ -65,7 +68,7 @@ void Sprite::refresh()
 
   m_screenCoordinates = convertIsoToScreenCoordinates(isoCoordinates);
 
-  for (const int &it : MapLayers::getActiveLayers())
+  for (uint32_t it = 0; it < LAYERS_COUNT; ++it)
   {
     // render the sprite in the middle of its bounding box so bigger than 1x1 sprites will render correctly
     m_SpriteData[it].destRect.x = m_screenCoordinates.x - (m_SpriteData[it].destRect.w / 2);
@@ -77,21 +80,22 @@ void Sprite::refresh()
 
 void Sprite::setTexture(SDL_Texture *texture, Layer layer)
 {
-  m_SpriteData[layer._to_index()].texture = texture;
+  m_SpriteData[layer].texture = texture;
   m_needsRefresh = true;
   refresh();
 }
 
-void Sprite::setClipRect(SDL_Rect clipRect, Layer layer) { m_SpriteData[layer._to_index()].clipRect = clipRect; }
-void Sprite::setDestRect(SDL_Rect destRect, Layer layer) { m_SpriteData[layer._to_index()].destRect = destRect; }
+void Sprite::setClipRect(SDL_Rect clipRect, Layer layer) { m_SpriteData[layer].clipRect = clipRect; }
+void Sprite::setDestRect(SDL_Rect destRect, Layer layer) { m_SpriteData[layer].destRect = destRect; }
 
 SDL_Rect Sprite::getActiveClipRect()
 {
-  if (MapLayers::getActiveLayers()[Layer::BUILDINGS])
+  if (MapLayers::isLayerActive(Layer::BUILDINGS) && m_SpriteData[Layer::BUILDINGS].clipRect.w != 0 &&
+      m_SpriteData[Layer::BUILDINGS].clipRect.h != 0)
   {
     return m_SpriteData[Layer::BUILDINGS].clipRect;
   }
-  else if (MapLayers::getActiveLayers()[Layer::TERRAIN])
+  else if (MapLayers::isLayerActive(Layer::TERRAIN))
   {
     return m_SpriteData[Layer::TERRAIN].clipRect;
   }

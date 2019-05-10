@@ -3,9 +3,15 @@
 #include "../basics/log.hxx"
 #include "../map/MapLayers.hxx"
 
-MapNode::MapNode(Point isoCoordinates) : m_isoCoordinates(std::move(isoCoordinates))
+MapNode::MapNode(Point isoCoordinates, const std::string &terrainID, const std::string &tileID)
+    : m_isoCoordinates(std::move(isoCoordinates))
 {
   m_sprite = std::make_unique<Sprite>(m_isoCoordinates);
+
+  setTileID(terrainID);
+  if (!tileID.empty()) // in case tileID is not supplied skip it
+    setTileID(tileID);
+
   updateTexture();
   MapLayers::enableLayer(Layer::TERRAIN);
   MapLayers::enableLayer(Layer::BUILDINGS);
@@ -44,18 +50,31 @@ void MapNode::setBitmask(unsigned char elevationBitmask, unsigned char tileIDBit
 
 void MapNode::setTileID(const std::string &tileID)
 {
+
   m_previousTileID = m_tileID;
-  m_tileID = tileID;
-  updateTexture();
+  if (TileManager::instance().getTileData(tileID))
+  {
+    if (TileManager::instance().getTileData(tileID)->category == "Terrain")
+    {
+      m_tileData = TileManager::instance().getTileData(tileID);
+      m_tileIDTerrain = tileID;
+    }
+    else
+    {
+      m_tileData = TileManager::instance().getTileData(tileID);
+      m_tileID = tileID;
+    }
+    updateTexture();
+  }
 }
 
 void MapNode::updateTexture()
 {
   SDL_Rect clipRect{0, 0, 0, 0};
 
-  m_tileData = TileManager::instance().getTileData(m_tileID);
   tileMap = TileMap::DEFAULT;
 
+  // check if we have a valid tileData struct;
   if (m_tileData)
   {
     size_t spriteCount = 1;
@@ -101,13 +120,13 @@ void MapNode::updateTexture()
         clipRect.x = m_tileData->tiles.clippingWidth * static_cast<int>(m_orientation);
       }
       m_clippingWidth = m_tileData->tiles.clippingWidth;
-      if (m_tileID == "terrain")
+      if (!m_tileIDTerrain.empty())
       {
         clipRect.x = 0;
         m_sprite->setClipRect({0, 0, m_tileData->tiles.clippingWidth, m_tileData->tiles.clippingHeight}, Layer::TERRAIN);
-        m_sprite->setTexture(TileManager::instance().getTexture(m_tileID, tileMap), Layer::TERRAIN);
+        m_sprite->setTexture(TileManager::instance().getTexture(m_tileIDTerrain, tileMap), Layer::TERRAIN);
       }
-      else
+      if (!m_tileID.empty())
       {
         m_sprite->setClipRect({clipRect.x, 0, m_tileData->tiles.clippingWidth, m_tileData->tiles.clippingHeight},
                               Layer::BUILDINGS);
@@ -158,10 +177,6 @@ void MapNode::updateTexture()
       updateTexture();
     }
     m_sprite->spriteCount = spriteCount;
-  }
-  else
-  {
-    LOG(LOG_ERROR) << "Could not retrieve TileData Information for TileID " << m_tileID;
   }
 }
 

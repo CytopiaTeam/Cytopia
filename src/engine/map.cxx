@@ -50,7 +50,7 @@ void Map::initMap()
   {
     for (int y = Settings::instance().settings.mapSize - 1; y >= 0; y--)
     {
-      mapNodes[x * m_columns + y] = std::make_unique<MapNode>(Point{x, y, z++, 0});
+      mapNodes[x * m_columns + y] = std::make_unique<MapNode>(Point{x, y, z++, 0}, "terrain", "");
       mapNodesInDrawingOrder.push_back(mapNodes[x * m_columns + y].get());
     }
   }
@@ -509,7 +509,7 @@ void from_json(const json &j, Point &point)
 
 void Map::getNodeInformation(const Point &isoCoordinates) const
 {
-  const TileData* tileData = mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getTileData();
+  const TileData *tileData = mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getTileData();
   LOG() << "===== TILE at " << isoCoordinates.x << ", " << isoCoordinates.y << "=====";
   LOG() << "Biome: " << tileData->biome;
   LOG() << "Category: " << tileData->category;

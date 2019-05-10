@@ -16,10 +16,11 @@
 /** @brief Class that holds map nodes
  * Each tile is represented by the map nodes class.
  */
+
 class MapNode
 {
 public:
-  explicit MapNode(Point isoCoordinates);
+  MapNode(Point isoCoordinates, const std::string &terrainID, const std::string &tileID = "");
   ~MapNode() = default;
 
   /** @brief get Sprite
@@ -58,9 +59,14 @@ public:
 
   const TileData *getTileData() const { return m_tileData; };
 
-  const std::string &getTileID() const { return m_tileID; };
+  const std::string &getTileID() const
+  {
+    if (m_tileID.empty())
+      return m_tileIDTerrain;
+    else
+      return m_tileID;
+  };
   void setTileID(const std::string &tileType);
-
   size_t tileMap = TileMap::DEFAULT;
 
 private:
@@ -69,14 +75,15 @@ private:
 
   int m_maxHeight = 32;
 
-  std::string m_tileID = "terrain";
+  std::string m_tileIDTerrain = "terrain";
+  std::string m_tileID;
   std::string m_previousTileID = "terrain";
 
   size_t m_orientation = TileSlopes::DEFAULT_ORIENTATION;
 
   int m_clippingWidth = 0;
 
-  TileData *m_tileData;
+  TileData *m_tileData = nullptr;
 
   unsigned char m_elevationBitmask = 0;
   unsigned char m_tileIDBitmask = 0;
