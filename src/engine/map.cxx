@@ -232,7 +232,8 @@ unsigned char Map::getNeighboringTilesBitmask(const Point &isoCoordinates)
   {
     if (it.first >= 0 && it.first < m_rows && it.second >= 0 && it.second < m_columns)
     {
-      if (mapNodes[it.first * m_columns + it.second]->getTileID() == mapNodes[x * m_columns + y]->getTileID())
+      if (mapNodes[it.first * m_columns + it.second]->getTileData()->category ==
+          mapNodes[x * m_columns + y]->getTileData()->category)
       {
         // for each found tile add 2 ^ i to the bitmask
         bitmask |= static_cast<unsigned int>(1 << i);
