@@ -5,7 +5,7 @@
 #include <unordered_map>
 
 #include "basics/point.hxx"
-#include "common/Enums.hxx"
+#include "common/enums.hxx"
 
 struct SpriteData
 {
