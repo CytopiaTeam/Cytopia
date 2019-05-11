@@ -1,6 +1,8 @@
 #ifndef ENUMS_HXX_
 #define ENUMS_HXX_
 
+#include <stddef.h>
+
 constexpr size_t LAYERS_COUNT = 7;
 
 enum Layer : unsigned int

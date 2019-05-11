@@ -262,6 +262,7 @@ void Map::getNeighbors(const Point &isoCoordinates, NeighborMatrix &result) cons
     ++idx;
   }
 }
+
 void Map::renderMap() const
 {
   for (const auto &it : mapNodesInDrawingOrder)
