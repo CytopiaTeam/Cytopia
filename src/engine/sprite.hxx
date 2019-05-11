@@ -2,7 +2,7 @@
 #define SPRITE_HXX_
 
 #include <SDL.h>
-#include <unordered_map>
+#include <vector>
 
 #include "basics/point.hxx"
 #include "common/enums.hxx"
