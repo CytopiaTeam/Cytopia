@@ -70,6 +70,8 @@ public:
 
   const mapNodeData &getActiveMapNodeData() const;
 
+  void demolishNode();
+
   void setTileID(const std::string &tileType);
   size_t tileMap = TileMap::DEFAULT;
 

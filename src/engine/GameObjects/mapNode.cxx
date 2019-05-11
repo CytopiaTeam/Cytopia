@@ -212,3 +212,14 @@ const mapNodeData &MapNode::getActiveMapNodeData() const
 
   return mapNodeData[Layer::TERRAIN];
 }
+
+void MapNode::demolishNode()
+{
+  if (MapLayers::isLayerActive(Layer::BUILDINGS))
+  {
+    mapNodeData[Layer::BUILDINGS].tileData = nullptr;
+    mapNodeData[Layer::BUILDINGS].tileID = "";
+    m_sprite->clearSprite(Layer::BUILDINGS);
+    updateTexture();
+  }
+}

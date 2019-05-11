@@ -101,3 +101,10 @@ SDL_Rect Sprite::getActiveClipRect()
   }
   return {0, 0, 0, 0};
 }
+
+void Sprite::clearSprite(Layer layer)
+{
+  m_SpriteData[layer].clipRect = {0, 0, 0, 0};
+  m_SpriteData[layer].destRect = {0, 0, 0, 0};
+  m_SpriteData[layer].texture = nullptr;
+}

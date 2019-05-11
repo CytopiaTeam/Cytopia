@@ -27,6 +27,8 @@ public:
   void setClipRect(SDL_Rect clipRect, Layer layer = Layer::TERRAIN);
   void setDestRect(SDL_Rect clipRect, Layer layer = Layer::TERRAIN);
 
+  void clearSprite(Layer layer);
+
   size_t spriteCount = 1;
   bool highlightSprite = false;
 

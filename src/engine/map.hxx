@@ -49,7 +49,7 @@ public:
 
   void setTileIDOfNode(const Point &isoCoordinates, const std::string &tileType);
 
-  void demolishNode(const Point &isoCoordinates, bool updateNeighboringTiles = 0);
+  void demolishNode(const Point &isoCoordinates, bool updateNeighboringTiles = false);
   void refresh();
 
   /** \Brief Save Map to file

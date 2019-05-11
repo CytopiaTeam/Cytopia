@@ -341,7 +341,8 @@ Point Map::findNodeInMap(const SDL_Point &screenCoordinates) const
 
 void Map::demolishNode(const Point &isoCoordinates, bool updateNeighboringTiles)
 {
-  mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->setTileID("terrain");
+  mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->demolishNode();
+  // TODO: Play soundeffect here
   if (updateNeighboringTiles)
   {
     updateNeighborsOfNode({isoCoordinates.x, isoCoordinates.y});
