@@ -78,7 +78,7 @@ void MapNode::updateTexture()
 
   for (uint32_t it = 0; it < LAYERS_COUNT; ++it)
   {
-    if (mapNodeData[it].tileData)
+    if (MapLayers::isLayerActive(it) && mapNodeData[it].tileData)
     {
       size_t spriteCount = 1;
       // only calculate orientation for textures that adjust themselves according to elevation / other tiles of the same id
@@ -87,7 +87,6 @@ void MapNode::updateTexture()
       {
         m_orientation = TileManager::instance().caluclateSlopeOrientation(m_elevationBitmask);
 
-        // if the node has no elevated neighbors, check if it needs to tile itself to another tile of the same ID
         if (m_orientation == TileSlopes::DEFAULT_ORIENTATION)
         {
           if (mapNodeData[it].tileData->category == "Water")
@@ -95,7 +94,8 @@ void MapNode::updateTexture()
             tileMap = TileMap::DEFAULT;
             m_orientation = TileList::TILE_DEFAULT_ORIENTATION;
           }
-          else if (mapNodeData[it].tileData->category != "Terrain")
+          // if the node has no elevated neighbors, check if it needs to tile itself to another tile of the same ID
+          if (mapNodeData[it].tileData->category != "Terrain")
           {
             m_orientation = TileManager::instance().caluclateTileOrientation(m_tileIDBitmask);
           }
@@ -173,4 +173,16 @@ void MapNode::setCoordinates(const Point &newIsoCoordinates)
 {
   m_isoCoordinates = newIsoCoordinates;
   m_sprite->isoCoordinates = m_isoCoordinates;
+}
+
+const mapNodeData &MapNode::getActiveMapNodeData() const
+{
+  //TODO: Needs further adjustments for other layers
+  // Determine the topmost active layer here by checking if it has a tileID set and return it's mapnodeData
+  if (MapLayers::isLayerActive(Layer::BUILDINGS) && !mapNodeData[Layer::BUILDINGS].tileID.empty())
+  {
+    return mapNodeData[Layer::BUILDINGS];
+  }
+
+  return mapNodeData[Layer::TERRAIN];
 }

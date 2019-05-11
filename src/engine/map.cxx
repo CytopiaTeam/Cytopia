@@ -211,7 +211,7 @@ unsigned char Map::getNeighboringTilesBitmask(const Point &isoCoordinates)
   int x = isoCoordinates.x;
   int y = isoCoordinates.y;
 
-  if (mapNodes[x * m_columns + y]->getTileData()->category == "Terrain")
+  if (mapNodes[x * m_columns + y]->getActiveMapNodeData().tileData->category == "Terrain")
   {
     return bitmask;
   }
@@ -232,8 +232,8 @@ unsigned char Map::getNeighboringTilesBitmask(const Point &isoCoordinates)
   {
     if (it.first >= 0 && it.first < m_rows && it.second >= 0 && it.second < m_columns)
     {
-      if (mapNodes[it.first * m_columns + it.second]->getTileData()->category ==
-          mapNodes[x * m_columns + y]->getTileData()->category)
+      if (mapNodes[it.first * m_columns + it.second]->getActiveMapNodeData().tileData->category ==
+          mapNodes[x * m_columns + y]->getActiveMapNodeData().tileData->category)
       {
         // for each found tile add 2 ^ i to the bitmask
         bitmask |= static_cast<unsigned int>(1 << i);
@@ -365,9 +365,10 @@ bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int is
     int pixelY = static_cast<int>((screenCoordinates.y - spriteRect.y) / Camera::zoomLevel);
 
     // Check if the clicked Sprite is not transparent (we hit a point within the pixel)
-    if (getColorOfPixelInSurface(ResourcesManager::instance().getTileSurface(mapNodes[isoX * m_columns + isoY]->getTileID(),
-                                                                             mapNodes[isoX * m_columns + isoY]->tileMap),
-                                 pixelX, pixelY, mapNodes[isoX * m_columns + isoY]->getSprite()->getActiveClipRect())
+    if (getColorOfPixelInSurface(
+            ResourcesManager::instance().getTileSurface(mapNodes[isoX * m_columns + isoY]->getActiveMapNodeData().tileID,
+                                                        mapNodes[isoX * m_columns + isoY]->tileMap),
+            pixelX, pixelY, mapNodes[isoX * m_columns + isoY]->getSprite()->getActiveClipRect())
             .a != SDL_ALPHA_TRANSPARENT)
     {
       return true;
@@ -491,7 +492,7 @@ void to_json(json &j, const std::unique_ptr<MapNode> &m)
 {
   if (m.get())
   {
-    j = json{{"tileID", m->getTileID()}, {"coordinates", m->getCoordinates()}};
+    j = json{{"tileID", m->getActiveMapNodeData().tileID}, {"coordinates", m->getCoordinates()}};
   }
   else
   {
@@ -510,10 +511,10 @@ void from_json(const json &j, Point &point)
 
 void Map::getNodeInformation(const Point &isoCoordinates) const
 {
-  const TileData *tileData = mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getTileData();
+  const TileData *tileData = mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getActiveMapNodeData().tileData;
   LOG() << "===== TILE at " << isoCoordinates.x << ", " << isoCoordinates.y << "=====";
   LOG() << "Biome: " << tileData->biome;
   LOG() << "Category: " << tileData->category;
   LOG() << "FileName: " << tileData->tiles.fileName;
-  LOG() << "ID: " << mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getTileID();
+  LOG() << "ID: " << mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getActiveMapNodeData().tileID;
 }

@@ -64,15 +64,12 @@ public:
 
   unsigned char getElevationBitmask() const { return m_elevationBitmask; };
 
-  const TileData *getTileData(Layer layer = Layer::TERRAIN) const { return mapNodeData[layer].tileData; };
+  const TileData *getTileData(Layer layer) const { return mapNodeData[layer].tileData; };
 
-  const std::string &getTileID() const
-  {
-    if (!mapNodeData[Layer::BUILDINGS].tileID.empty())
-      return mapNodeData[Layer::BUILDINGS].tileID;
-    else
-      return mapNodeData[Layer::TERRAIN].tileID;
-  };
+  const std::string &getTileID(Layer layer) const { return mapNodeData[layer].tileID; };
+
+  const mapNodeData &getActiveMapNodeData() const;
+
   void setTileID(const std::string &tileType);
   size_t tileMap = TileMap::DEFAULT;
 
