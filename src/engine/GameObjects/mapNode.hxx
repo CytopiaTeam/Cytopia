@@ -82,6 +82,7 @@ private:
   std::string m_previousTileID = "terrain";
 
   size_t m_orientation = TileSlopes::DEFAULT_ORIENTATION;
+  size_t m_elevationOrientation = TileSlopes::DEFAULT_ORIENTATION;
 
   int m_clippingWidth = 0;
 
