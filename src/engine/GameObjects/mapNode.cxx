@@ -103,8 +103,16 @@ void MapNode::updateTexture()
         }
         else
         {
-          tileMap = TileMap::SLOPES;
-          m_orientation = m_elevationOrientation;
+          if (mapNodeData[currentLayer].tileData->slopeTiles.fileName.empty())
+          {
+            TileMap::DEFAULT;
+            m_orientation = TileList::TILE_DEFAULT_ORIENTATION;
+          }
+          else
+          {
+            tileMap = TileMap::SLOPES;
+            m_orientation = m_elevationOrientation;
+          }
         }
       }
       else
@@ -156,10 +164,14 @@ void MapNode::updateTexture()
         }
         break;
       case TileMap::SLOPES:
+        if (mapNodeData[currentLayer].tileData->slopeTiles.fileName.empty())
+        {
+          break;
+        }
         m_clippingWidth = mapNodeData[currentLayer].tileData->slopeTiles.clippingWidth;
         clipRect.x = mapNodeData[currentLayer].tileData->slopeTiles.clippingWidth * static_cast<int>(m_orientation);
         spriteCount = mapNodeData[currentLayer].tileData->slopeTiles.count;
-        if (mapNodeData[currentLayer].tileData->category == "Terrain")
+        if (clipRect.x < static_cast<int>(spriteCount) * m_clippingWidth)
         {
           m_sprite->setClipRect({clipRect.x, 0, mapNodeData[currentLayer].tileData->slopeTiles.clippingWidth,
                                  mapNodeData[currentLayer].tileData->slopeTiles.clippingHeight},
@@ -172,6 +184,10 @@ void MapNode::updateTexture()
       if (clipRect.x >= static_cast<int>(spriteCount) * m_clippingWidth)
       {
         mapNodeData[currentLayer].tileID = m_previousTileID;
+        if (m_previousTileID.empty())
+        {
+          mapNodeData[currentLayer].tileData = nullptr;
+		}
         updateTexture();
       }
       m_sprite->spriteCount = spriteCount;
