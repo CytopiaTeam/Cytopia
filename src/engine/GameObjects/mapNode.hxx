@@ -9,7 +9,7 @@
 #include <vector>
 
 #include "../sprite.hxx"
-#include "../common/Enums.hxx"
+#include "../common/enums.hxx"
 #include "../basics/point.hxx"
 
 #include "../tileManager.hxx"
