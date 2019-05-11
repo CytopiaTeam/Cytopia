@@ -105,7 +105,7 @@ void MapNode::updateTexture()
         {
           if (mapNodeData[currentLayer].tileData->slopeTiles.fileName.empty())
           {
-            TileMap::DEFAULT;
+            tileMap = TileMap::DEFAULT;
             m_orientation = TileList::TILE_DEFAULT_ORIENTATION;
           }
           else
@@ -187,7 +187,7 @@ void MapNode::updateTexture()
         if (m_previousTileID.empty())
         {
           mapNodeData[currentLayer].tileData = nullptr;
-		}
+        }
         updateTexture();
       }
       m_sprite->spriteCount = spriteCount;
