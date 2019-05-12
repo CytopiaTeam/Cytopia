@@ -467,20 +467,21 @@ Map *Map::loadMapFromFile(const std::string &fileName)
   for (const auto &it : saveGameJSON["mapNode"].items())
   {
     Point coordinates = json(it.value())["coordinates"].get<Point>();
+
+    // get mapNodeData and store in a vector
+    std::vector<MapNodeData> tileIDs = json(it.value())["mapNodeData"];
+    // for now we only set tileID read from the savegame
     map->mapNodes[coordinates.x * columns + coordinates.y]->setCoordinates(coordinates);
+    for (const auto &data : tileIDs)
+    {
+      if (!data.tileID.empty())
+      {
+        map->mapNodes[coordinates.x * columns + coordinates.y]->setTileID(data.tileID);
+      }
+    }
   }
 
-  // update all nodes to reflect new height differences
-  map->updateAllNodes();
-
-  // set tileIDs from savegame
-  for (const auto &it : saveGameJSON["mapNode"].items())
-  {
-    Point coordinates = json(it.value())["coordinates"].get<Point>();
-    map->mapNodes[coordinates.x * columns + coordinates.y]->setTileID(json(it.value())["tileID"].get<std::string>());
-  }
-
-  // update all nodes to have correct tiling for new tileIDs
+  // update all nodes to reflect new height differences and  to have correct tiling for new tileIDs
   map->updateAllNodes();
 
   return map;
@@ -489,12 +490,15 @@ Map *Map::loadMapFromFile(const std::string &fileName)
 // JSON serializer for Point class
 void to_json(json &j, const Point &point) { j = json{{"x", point.x}, {"y", point.y}, {"z", point.z}, {"height", point.height}}; }
 
+// JSON serializer for MapNodeData struct
+void to_json(json &j, const MapNodeData &mapNodeData) { j = json{{"tileID", mapNodeData.tileID}}; }
+
 // JSON serializer for MapNode class
 void to_json(json &j, const std::unique_ptr<MapNode> &m)
 {
   if (m.get())
   {
-    j = json{{"tileID", m->getActiveMapNodeData().tileID}, {"coordinates", m->getCoordinates()}};
+    j = json{{"coordinates", m->getCoordinates()}, {"mapNodeData", m->getMapNodeData()}};
   }
   else
   {
@@ -510,6 +514,9 @@ void from_json(const json &j, Point &point)
   point.z = j.at("z").get<int>();
   point.height = j.at("height").get<int>();
 }
+
+// JSON deserializer for Point class
+void from_json(const json &j, MapNodeData &mapNodeData) { mapNodeData.tileID = j.at("tileID").get<std::string>(); }
 
 void Map::getNodeInformation(const Point &isoCoordinates) const
 {
