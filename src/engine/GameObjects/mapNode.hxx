@@ -14,7 +14,7 @@
 
 #include "../tileManager.hxx"
 
-struct mapNodeData
+struct MapNodeData
 {
   std::string tileID;
   TileData *tileData = nullptr;
@@ -64,11 +64,11 @@ public:
 
   unsigned char getElevationBitmask() const { return m_elevationBitmask; };
 
-  const TileData *getTileData(Layer layer) const { return mapNodeData[layer].tileData; };
+  const TileData *getTileData(Layer layer) const { return m_mapNodeData[layer].tileData; };
 
-  const std::string &getTileID(Layer layer) const { return mapNodeData[layer].tileID; };
+  const std::string &getTileID(Layer layer) const { return m_mapNodeData[layer].tileID; };
 
-  const mapNodeData &getActiveMapNodeData() const;
+  const MapNodeData &getActiveMapNodeData() const;
 
   void demolishNode();
 
@@ -88,7 +88,7 @@ private:
 
   int m_clippingWidth = 0;
 
-  std::vector<mapNodeData> mapNodeData;
+  std::vector<MapNodeData> m_mapNodeData;
   unsigned char m_elevationBitmask = 0;
   unsigned char m_tileIDBitmask = 0;
 
