@@ -7,8 +7,7 @@ clone_depth: 10
 cache: C:/Users/appveyor/.conan/
 environment:
   BUTLER_API_KEY:
-    secure: L38T7H6WY5vly/RFqNpX52LtRnBo4UMsk0n1brec9iduJx1BBiAsrOZirMWe1qg2
-
+    secure: PbT7/2muaC99K24vd6d+DMQETnal230eqmdPtw4tn+zqhwkKpSRIJgjRmJPxphBF
 install:
 - cmd: >-
     git submodule update --init --recursive
