@@ -46,10 +46,20 @@ if (USE_PACKAGE_MANAGER)
             list(APPEND CONAN_DEPS "qt/5.12.3@bincrafters/stable")
         endif ()
 
+        set(CONAN_ARGS
+            BASIC_SETUP
+            CMAKE_TARGETS
+        )
+
+        if(NOT DEFINED ENV{CI})
+          list(APPEND CONAN_ARGS NO_OUTPUT_DIRS)
+        endif()
+
         conan_cmake_run(REQUIRES ${CONAN_DEPS}
                 OPTIONS sdl2_mixer:opus=False
-                BASIC_SETUP CMAKE_TARGETS NO_OUTPUT_DIRS
-                BUILD missing)
+                BUILD missing
+                ${CONAN_ARGS}
+            )
 
     endif ()
 
