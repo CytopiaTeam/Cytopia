@@ -26,7 +26,7 @@ if (USE_PACKAGE_MANAGER)
     else ()
         include(cmake/conan.cmake)
 
-		conan_check()
+        conan_check()
 
         conan_add_remote(NAME AFG URL https://api.bintray.com/conan/anotherfoxguy/conan-packages)
         conan_add_remote(NAME bincrafters URL https://api.bintray.com/conan/bincrafters/public-conan)
