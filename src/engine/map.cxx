@@ -468,10 +468,20 @@ Map *Map::loadMapFromFile(const std::string &fileName)
   {
     Point coordinates = json(it.value())["coordinates"].get<Point>();
 
-    // get mapNodeData and store in a vector
-    std::vector<MapNodeData> tileIDs = json(it.value())["mapNodeData"];
     // for now we only set tileID read from the savegame
     map->mapNodes[coordinates.x * columns + coordinates.y]->setCoordinates(coordinates);
+  }
+
+  // update all nodes to reflect new height differences and  to have correct tiling for new tileIDs
+  map->updateAllNodes();
+
+  // now set the tileIDs after the nodes have been updated, so they're not auto-demolished
+  for (const auto &it : saveGameJSON["mapNode"].items())
+  {
+    Point coordinates = json(it.value())["coordinates"].get<Point>();
+
+    // get mapNodeData and store in a vector
+    std::vector<MapNodeData> tileIDs = json(it.value())["mapNodeData"];
     for (const auto &data : tileIDs)
     {
       if (!data.tileID.empty())
@@ -480,8 +490,7 @@ Map *Map::loadMapFromFile(const std::string &fileName)
       }
     }
   }
-
-  // update all nodes to reflect new height differences and  to have correct tiling for new tileIDs
+  //update again to auto tile roads and so on
   map->updateAllNodes();
 
   return map;
