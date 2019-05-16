@@ -6,6 +6,10 @@
 #include "basics/isoMath.hxx"
 #include "basics/log.hxx"
 
+#ifdef MICROPROFILE_ENABLED
+#include "microprofile.h"
+#endif
+
 Sprite::Sprite(Point _isoCoordinates) : isoCoordinates(_isoCoordinates)
 {
   m_screenCoordinates = convertIsoToScreenCoordinates(_isoCoordinates);
@@ -13,6 +17,10 @@ Sprite::Sprite(Point _isoCoordinates) : isoCoordinates(_isoCoordinates)
 
 void Sprite::render() const
 {
+#ifdef MICROPROFILE_ENABLED
+    MICROPROFILE_SCOPEI ("Map", "Sprite render", MP_RED);
+#endif
+
   if (highlightSprite == true)
   {
     SDL_SetTextureColorMod(m_texture, 150, 150, 150);

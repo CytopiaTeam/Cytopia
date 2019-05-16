@@ -3,6 +3,7 @@ set(BUILD_TILEDATA_EDITOR OFF CACHE BOOL "Build Cytopia TileData Editor")
 set(USE_PACKAGE_MANAGER ON CACHE BOOL "Use conan for managing packages")
 set(USE_PMM OFF CACHE BOOL "Use PMM for managing conan")
 set(ENABLE_SDL2_MIXER ON CACHE BOOL "Enable SDL2 Mixer")
+set(ENABLE_MICROPROFILE OFF CACHE BOOL "Enable microprofile")
 
 
 # create the cmake project
@@ -91,6 +92,21 @@ else (USE_PACKAGE_MANAGER)
 
 endif (USE_PACKAGE_MANAGER)
 
+if (ENABLE_MICROPROFILE)
+    set(FETCHCONTENT_QUIET OFF)
+    include(FetchContent)
+    FetchContent_Declare(
+            microprofile
+            GIT_REPOSITORY https://github.com/jonasmr/microprofile.git
+    )
+
+    FetchContent_GetProperties(microprofile)
+    if (NOT microprofile_POPULATED)
+        FetchContent_Populate(microprofile)
+    endif ()
+    set(TREAT_WARNINGS_AS_ERRORS OFF CACHE INTERNAL "" FORCE)
+endif (ENABLE_MICROPROFILE)
+
 # get linux distribution
 if (UNIX AND NOT APPLE)
     execute_process(COMMAND head -1 /etc/os-release OUTPUT_VARIABLE linux_distribution)
@@ -157,6 +173,14 @@ if (ENABLE_SDL2_MIXER)
         )
 endif()
 
+if (ENABLE_MICROPROFILE)
+    set(SOURCES ${SOURCES}
+            ${microprofile_SOURCE_DIR}/microprofile.h
+            ${microprofile_SOURCE_DIR}/microprofile_html.h
+            ${microprofile_SOURCE_DIR}/microprofile.cpp
+            )
+endif (ENABLE_MICROPROFILE)
+
 if (MSVC)
     set(SOURCES ${SOURCES} ${PROJECT_SOURCE_DIR}/build/msvc/icon_cytopia.rc)
 endif ()
@@ -192,6 +216,27 @@ else ()
     # create a new executable with the same name as the project
     add_executable(${PROJECT_NAME} ${SOURCES})
 endif ()
+
+if (ENABLE_MICROPROFILE)
+    target_include_directories(
+            ${PROJECT_NAME}
+            PRIVATE
+            ${microprofile_SOURCE_DIR}
+    )
+    target_compile_definitions(
+            ${PROJECT_NAME}
+            PRIVATE
+            MICROPROFILE_ENABLED
+            MICROPROFILE_GPU_TIMERS=0
+    )
+	if (WIN32)
+		target_link_libraries(
+				${PROJECT_NAME}
+				PRIVATE
+				ws2_32.lib
+		)
+	endif (WIN32)
+endif (ENABLE_MICROPROFILE)
 
 if (MINGW)
     target_link_libraries(

@@ -12,8 +12,15 @@
 #include "ui/widgets/tooltip.hxx"
 #include "ui/menuGroups/MenuGroupBuild.hxx"
 
+#ifdef MICROPROFILE_ENABLED
+#include "microprofile.h"
+#endif
+
 void EventManager::checkEvents(SDL_Event &event, Engine &engine)
 {
+#ifdef MICROPROFILE_ENABLED
+    MICROPROFILE_SCOPEI ("EventManager", "checkEvents", MP_BEIGE);
+#endif
   // check for UI events first
   SDL_Point mouseCoords;
   Point clickCoords;
