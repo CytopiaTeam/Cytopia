@@ -79,7 +79,7 @@ void MapNode::updateTexture()
 
   for (uint32_t currentLayer = 0; currentLayer < LAYERS_COUNT; ++currentLayer)
   {
-    if (MapLayers::isLayerActive(currentLayer) && m_mapNodeData[currentLayer].tileData)
+    if (m_mapNodeData[currentLayer].tileData)
     {
       size_t spriteCount = 1;
       // only calculate orientation for textures that adjust themselves according to elevation / other tiles of the same id
