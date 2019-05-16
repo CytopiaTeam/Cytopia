@@ -5,8 +5,9 @@
 #include "basics/mapEdit.hxx"
 #include "basics/settings.hxx"
 #include "basics/log.hxx"
-#include "resourcesManager.hxx"
 #include "basics/compression.hxx"
+#include "common/Constants.hxx"
+#include "resourcesManager.hxx"
 
 #include "../ThirdParty/json.hxx"
 
@@ -14,8 +15,6 @@
 #include <string>
 
 using json = nlohmann::json;
-
-const size_t Map::m_saveGameVersion = 1;
 
 constexpr struct
 {
@@ -400,7 +399,7 @@ void Map::highlightNode(const Point &isoCoordinates)
 void Map::saveMapToFile(const std::string &fileName)
 {
   json j =
-      json{{"Savegame version", m_saveGameVersion}, {"columns", this->m_columns}, {"rows", this->m_rows}, {"mapNode", mapNodes}};
+      json{{"Savegame version", SAVEGAME_VERSION}, {"columns", this->m_columns}, {"rows", this->m_rows}, {"mapNode", mapNodes}};
 
   std::ofstream file(SDL_GetBasePath() + fileName, std::ios_base::out | std::ios_base::binary);
 
@@ -446,12 +445,12 @@ Map *Map::loadMapFromFile(const std::string &fileName)
 
   size_t saveGameVersion = saveGameJSON.value("Savegame version", 0);
 
-  if (saveGameVersion != m_saveGameVersion)
+  if (saveGameVersion != SAVEGAME_VERSION)
   {
     // Check savegame version for compatibility and add upgrade functions here later if needed
 
     LOG(LOG_ERROR) << "Trying to load a Savegame with version " << saveGameVersion << " but only savegames with version."
-                   << m_saveGameVersion << " are supported";
+                   << SAVEGAME_VERSION << " are supported";
   }
 
   int columns = saveGameJSON.value("columns", -1);
