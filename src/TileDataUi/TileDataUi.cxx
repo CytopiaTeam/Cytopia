@@ -1,17 +1,17 @@
 #include <TileDataUi.hxx>
 
-#include <QToolBar>
-#include <QMenu>
-#include <QMenuBar>
-#include <QAction>
-#include <QMap>
-#include <QIcon>
-#include <QSettings>
-#include <QFileDialog>
-#include <QMessageBox>
-#include <QDir>
-#include <QHeaderView>
-#include <QSignalBlocker>
+#include <QtWidgets/QToolBar>
+#include <QtWidgets/QMenu>
+#include <QtWidgets/QMenuBar>
+#include <QtWidgets/QAction>
+#include <QtCore/QMap>
+#include <QtGui/QIcon>
+#include <QtCore/QSettings>
+#include <QtWidgets/QFileDialog>
+#include <QtWidgets/QMessageBox>
+#include <QtCore/QDir>
+#include <QtWidgets/QHeaderView>
+#include <QtCore/QSignalBlocker>
 
 #include <engine/basics/tileData.hxx>
 

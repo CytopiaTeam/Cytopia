@@ -1,8 +1,8 @@
 #include <TileData.hxx>
 
-#include <QFile>
-#include <QJsonDocument>
-#include <QJsonArray>
+#include <QtCore/QFile>
+#include <QtCore/QJsonDocument>
+#include <QtCore/QJsonArray>
 
 //--------------------------------------------------------------------------------
 
