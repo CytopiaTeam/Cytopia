@@ -10,6 +10,10 @@
 
 #include "../ThirdParty/json.hxx"
 
+#ifdef MICROPROFILE_ENABLED
+#include "microprofile.h"
+#endif
+
 using json = nlohmann::json;
 
 void UIManager::init()
@@ -256,6 +260,9 @@ void UIManager::setFPSCounterText(const std::string &fps) { m_fpsCounter->setTex
 
 void UIManager::drawUI() const
 {
+#ifdef MICROPROFILE_ENABLED
+  MICROPROFILE_SCOPEI ("UI", "draw UI", MP_BLUE);
+#endif
   for (const auto &it : m_uiElements)
   {
     if (it->isVisible())

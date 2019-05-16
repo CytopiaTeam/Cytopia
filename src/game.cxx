@@ -16,6 +16,10 @@
   #include "engine/audioMixer.hxx"
 #endif
 
+#ifdef MICROPROFILE_ENABLED
+#include "microprofile.h"
+#endif
+
 bool Game::initialize()
 {
   if (SDL_Init(SDL_INIT_VIDEO) != 0)
@@ -195,6 +199,9 @@ void Game::run()
   // Gameloop
   while (engine.isGameRunning())
   {
+#ifdef MICROPROFILE_ENABLED
+      MICROPROFILE_SCOPEI ("Map", "Gameloop", MP_GREEN);
+#endif
     SDL_RenderClear(WindowManager::instance().getRenderer());
 
     evManager.checkEvents(event, engine);
@@ -221,6 +228,11 @@ void Game::run()
     }
 
     SDL_Delay(1);
+
+#ifdef MICROPROFILE_ENABLED
+      MicroProfileFlip(nullptr);
+#endif
+
   }
 }
 
