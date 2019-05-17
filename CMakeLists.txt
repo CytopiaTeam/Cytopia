@@ -10,7 +10,7 @@ project(
         # this will be the ${PROJECT_NAME}
         Cytopia
         # this will provide ${PROJECT_VERSION}
-        VERSION 0.1.1
+        VERSION 0.2
         # Description
         DESCRIPTION "A city-building game"
         # we are using C++
@@ -255,7 +255,7 @@ target_compile_features(
         cxx_std_14
 )
 
-set (COMPILER_FLAGS VERSION="${PROJECT_NAME} ${PROJECT_VERSION} alpha build")
+set (COMPILER_FLAGS VERSION="${PROJECT_NAME} ${PROJECT_VERSION} - tech preview")
 
 if (NOT ENABLE_SDL2_MIXER)
   list(APPEND COMPILER_FLAGS DISABLE_SDL2_MIXER)
