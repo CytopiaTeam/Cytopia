@@ -87,7 +87,7 @@ else (USE_PACKAGE_MANAGER)
 endif (USE_PACKAGE_MANAGER)
 
 # get linux distribution
-if (UNIX)
+if (UNIX AND NOT APPLE)
     execute_process(COMMAND head -1 /etc/os-release OUTPUT_VARIABLE linux_distribution)
 endif ()
 
