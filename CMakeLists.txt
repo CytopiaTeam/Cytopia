@@ -1,7 +1,8 @@
 cmake_minimum_required(VERSION 3.9 FATAL_ERROR)
-set(CONAN_QT OFF CACHE BOOL "Get QT with conan")
+set(BUILD_TILEDATA_EDITOR OFF CACHE BOOL "Build Cytopia TileData Editor")
 set(USE_PACKAGE_MANAGER ON CACHE BOOL "Use conan for managing packages")
 set(USE_PMM OFF CACHE BOOL "Use PMM for managing conan")
+set(ENABLE_SDL2_MIXER ON CACHE BOOL "Enable SDL2 Mixer")
 
 
 # create the cmake project
@@ -9,7 +10,7 @@ project(
         # this will be the ${PROJECT_NAME}
         Cytopia
         # this will provide ${PROJECT_VERSION}
-        VERSION 0.1.1
+        VERSION 0.2
         # Description
         DESCRIPTION "A city-building game"
         # we are using C++
@@ -35,14 +36,16 @@ if (USE_PACKAGE_MANAGER)
                 "sdl2/2.0.9@bincrafters/stable"
                 "sdl2_ttf/2.0.15@bincrafters/stable"
                 "sdl2_image/2.0.4@bincrafters/stable"
-                "sdl2_mixer/2.0.4@anotherfoxguy/stable"
                 "libpng/1.6.36@bincrafters/stable"
                 "freetype/2.9.1@bincrafters/stable"
                 "OpenSSL/1.1.1a@conan/stable"
                 "libnoise/1.0.0@anotherfoxguy/stable"
                 )
+        if (ENABLE_SDL2_MIXER)
+            list(APPEND CONAN_DEPS "sdl2_mixer/2.0.4@anotherfoxguy/stable")
+        endif()
 
-        if (CONAN_QT)
+        if (BUILD_TILEDATA_EDITOR)
             list(APPEND CONAN_DEPS "qt/5.12.3@bincrafters/stable")
         endif ()
 
@@ -73,15 +76,18 @@ else (USE_PACKAGE_MANAGER)
     pkg_check_modules(SDL2 REQUIRED sdl2)
     pkg_check_modules(SDL2_image REQUIRED SDL2_image)
     pkg_check_modules(SDL2_ttf REQUIRED SDL2_ttf)
-    pkg_check_modules(SDL2_mixer REQUIRED SDL2_mixer)
     pkg_check_modules(ZLIB REQUIRED zlib)
+
+    if (ENABLE_SDL2_MIXER)
+        pkg_check_modules(SDL2_mixer REQUIRED SDL2_mixer)
+    endif()
 
     find_package(LIBNOISE REQUIRED)
 
 endif (USE_PACKAGE_MANAGER)
 
 # get linux distribution
-if (UNIX)
+if (UNIX AND NOT APPLE)
     execute_process(COMMAND head -1 /etc/os-release OUTPUT_VARIABLE linux_distribution)
 endif ()
 
@@ -125,10 +131,6 @@ set(SOURCES
         src/engine/ui/widgets/textField.cxx
         src/engine/ui/widgets/tooltip.cxx
         src/engine/ui/menuGroups/MenuGroupBuild.cxx
-        src/engine/audio/soundEffect.cxx
-        src/engine/audio/soundEffect.cxx
-        src/engine/audio/music.cxx
-        src/engine/audioMixer.cxx
         src/engine/engine.cxx
         src/engine/eventManager.cxx
         src/engine/map.cxx
@@ -140,6 +142,15 @@ set(SOURCES
         src/game.cxx
         src/main.cxx
         )
+
+if (ENABLE_SDL2_MIXER)
+    set(SOURCES ${SOURCES}
+        src/engine/audio/soundEffect.cxx
+        src/engine/audio/soundEffect.cxx
+        src/engine/audio/music.cxx
+        src/engine/audioMixer.cxx
+        )
+endif()
 
 if (MSVC)
     set(SOURCES ${SOURCES} ${PROJECT_SOURCE_DIR}/build/msvc/icon_cytopia.rc)
@@ -188,7 +199,7 @@ endif ()
 
 # link the libraries that we've found
 if (USE_PACKAGE_MANAGER)
-
+  if (ENABLE_SDL2_MIXER)
     target_link_libraries(
             ${PROJECT_NAME}
             PRIVATE
@@ -199,6 +210,17 @@ if (USE_PACKAGE_MANAGER)
             CONAN_PKG::libnoise
             CONAN_PKG::zlib
     )
+  else ()
+      target_link_libraries(
+          ${PROJECT_NAME}
+          PRIVATE
+          CONAN_PKG::sdl2
+          CONAN_PKG::sdl2_image
+          CONAN_PKG::sdl2_ttf
+          CONAN_PKG::libnoise
+          CONAN_PKG::zlib
+      )
+  endif ()
 
 else (USE_PACKAGE_MANAGER)
 
@@ -233,11 +255,17 @@ target_compile_features(
         cxx_std_14
 )
 
+set (COMPILER_FLAGS VERSION="${PROJECT_NAME} ${PROJECT_VERSION} - tech preview")
+
+if (NOT ENABLE_SDL2_MIXER)
+  list(APPEND COMPILER_FLAGS DISABLE_SDL2_MIXER)
+endif()
+
 target_compile_definitions(
         ${PROJECT_NAME}
         PRIVATE
         # pass the version string via the compiler
-        VERSION="${PROJECT_NAME} ${PROJECT_VERSION} alpha build"
+        ${COMPILER_FLAGS}
 )
 
 # Compile options
@@ -268,17 +296,18 @@ if (EXISTS ${PROJECT_SOURCE_DIR}/Cytopia_Resources)
 else ()
     message(WARNING "No Resources directory found. Please init git submodules with following command:")
     message("git submodule update --init --recursive")
-endif ()
+    endif ()
+if (BUILD_TILEDATA_EDITOR)
+    add_subdirectory(src/TileDataUi)
 
-if (NOT USE_PACKAGE_MANAGER)
     # QT5 is used for the TileData Editing tool
-    find_package(Qt5 CONFIG COMPONENTS Core Widgets REQUIRED)
-    add_subdirectory(src/TileDataUi)
-elseif (CONAN_QT)
-    find_package(Qt5Core CONFIG REQUIRED)
-    find_package(Qt5Widgets CONFIG REQUIRED)
-    add_subdirectory(src/TileDataUi)
-endif ()# USE_PACKAGE_MANAGER
+    if (USE_PACKAGE_MANAGER)
+        find_package(Qt5 CONFIG COMPONENTS Core Widgets REQUIRED)
+    else()
+        find_package(Qt5Core CONFIG REQUIRED)
+        find_package(Qt5Widgets CONFIG REQUIRED)
+    endif ()# USE_PACKAGE_MANAGER
+endif ()# BUILD_TILEDATA_EDITOR
 
 # use Doxygen to generate the documentation
 find_package(Doxygen)
