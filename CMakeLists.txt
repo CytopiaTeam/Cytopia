@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.9 FATAL_ERROR)
-set(CONAN_QT OFF CACHE BOOL "Get QT with conan")
+set(BUILD_TILEDATA_EDITOR OFF CACHE BOOL "Build Cytopia TileData Editor")
 set(USE_PACKAGE_MANAGER ON CACHE BOOL "Use conan for managing packages")
 set(USE_PMM OFF CACHE BOOL "Use PMM for managing conan")
 set(ENABLE_SDL2_MIXER ON CACHE BOOL "Enable SDL2 Mixer")
@@ -45,7 +45,7 @@ if (USE_PACKAGE_MANAGER)
             list(APPEND CONAN_DEPS "sdl2_mixer/2.0.4@anotherfoxguy/stable")
         endif()
 
-        if (CONAN_QT)
+        if (BUILD_TILEDATA_EDITOR)
             list(APPEND CONAN_DEPS "qt/5.12.3@bincrafters/stable")
         endif ()
 
@@ -296,17 +296,18 @@ if (EXISTS ${PROJECT_SOURCE_DIR}/Cytopia_Resources)
 else ()
     message(WARNING "No Resources directory found. Please init git submodules with following command:")
     message("git submodule update --init --recursive")
-endif ()
+    endif ()
+if (BUILD_TILEDATA_EDITOR)
+    add_subdirectory(src/TileDataUi)
 
-if (NOT USE_PACKAGE_MANAGER)
     # QT5 is used for the TileData Editing tool
-    find_package(Qt5 CONFIG COMPONENTS Core Widgets REQUIRED)
-    add_subdirectory(src/TileDataUi)
-elseif (CONAN_QT)
-    find_package(Qt5Core CONFIG REQUIRED)
-    find_package(Qt5Widgets CONFIG REQUIRED)
-    add_subdirectory(src/TileDataUi)
-endif ()# USE_PACKAGE_MANAGER
+    if (USE_PACKAGE_MANAGER)
+        find_package(Qt5 CONFIG COMPONENTS Core Widgets REQUIRED)
+    else()
+        find_package(Qt5Core CONFIG REQUIRED)
+        find_package(Qt5Widgets CONFIG REQUIRED)
+    endif ()# USE_PACKAGE_MANAGER
+endif ()# BUILD_TILEDATA_EDITOR
 
 # use Doxygen to generate the documentation
 find_package(Doxygen)
