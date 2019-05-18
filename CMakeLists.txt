@@ -20,6 +20,7 @@ project(
 # on macOS, usr/local/lib is not in the default search path for libraries. Homebrew install it's libraries there though.
 if (APPLE AND NOT USE_PACKAGE_MANAGER)
   LINK_DIRECTORIES(${LINK_DIRECTORIES} /usr/local/lib)
+  include_directories(${INCLUDE_DIRECTORIES} /usr/local/include/)
 endif()
 
 if (USE_PACKAGE_MANAGER)
