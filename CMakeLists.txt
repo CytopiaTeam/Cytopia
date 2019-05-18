@@ -17,6 +17,11 @@ project(
         LANGUAGES CXX
 )
 
+# on macOS, usr/local/lib is not in the default search path for libraries. Homebrew install it's libraries there though.
+if (APPLE AND NOT USE_PACKAGE_MANAGER)
+  LINK_DIRECTORIES(${LINK_DIRECTORIES} /usr/local/lib)
+endif()
+
 if (USE_PACKAGE_MANAGER)
 
     if (USE_PMM)
