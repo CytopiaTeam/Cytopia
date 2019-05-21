@@ -5,8 +5,9 @@
 #include "basics/mapEdit.hxx"
 #include "basics/settings.hxx"
 #include "basics/log.hxx"
-#include "resourcesManager.hxx"
 #include "basics/compression.hxx"
+#include "common/Constants.hxx"
+#include "resourcesManager.hxx"
 
 #include "../ThirdParty/json.hxx"
 
@@ -18,8 +19,6 @@
 #endif
 
 using json = nlohmann::json;
-
-const size_t Map::m_saveGameVersion = 1;
 
 constexpr struct
 {
@@ -206,7 +205,7 @@ unsigned char Map::getNeighboringTilesBitmask(const Point &isoCoordinates)
   int x = isoCoordinates.x;
   int y = isoCoordinates.y;
 
-  if (mapNodes[x * m_columns + y]->getTileData()->category == "Terrain")
+  if (mapNodes[x * m_columns + y]->getActiveMapNodeData().tileData->category == "Terrain")
   {
     return bitmask;
   }
@@ -227,7 +226,8 @@ unsigned char Map::getNeighboringTilesBitmask(const Point &isoCoordinates)
   {
     if (it.first >= 0 && it.first < m_rows && it.second >= 0 && it.second < m_columns)
     {
-      if (mapNodes[it.first * m_columns + it.second]->getTileID() == mapNodes[x * m_columns + y]->getTileID())
+      if (mapNodes[it.first * m_columns + it.second]->getActiveMapNodeData().tileData->category ==
+          mapNodes[x * m_columns + y]->getActiveMapNodeData().tileData->category)
       {
         // for each found tile add 2 ^ i to the bitmask
         bitmask |= static_cast<unsigned int>(1 << i);
@@ -256,6 +256,7 @@ void Map::getNeighbors(const Point &isoCoordinates, NeighborMatrix &result) cons
     ++idx;
   }
 }
+
 void Map::renderMap() const
 {
 #ifdef MICROPROFILE_ENABLED
@@ -341,7 +342,8 @@ Point Map::findNodeInMap(const SDL_Point &screenCoordinates) const
 
 void Map::demolishNode(const Point &isoCoordinates, bool updateNeighboringTiles)
 {
-  mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->setTileID("terrain");
+  mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->demolishNode();
+  // TODO: Play soundeffect here
   if (updateNeighboringTiles)
   {
     updateNeighborsOfNode({isoCoordinates.x, isoCoordinates.y});
@@ -355,7 +357,8 @@ bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int is
     return false;
   }
 
-  SDL_Rect spriteRect = mapNodes[isoX * m_columns + isoY]->getSprite()->destRect;
+  //TODO: Which layer ?
+  SDL_Rect spriteRect = mapNodes[isoX * m_columns + isoY]->getSprite()->getDestRect();
   SDL_Point clicked{screenCoordinates.x, screenCoordinates.y};
 
   if (SDL_PointInRect(&clicked, &spriteRect))
@@ -365,9 +368,10 @@ bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int is
     int pixelY = static_cast<int>((screenCoordinates.y - spriteRect.y) / Camera::zoomLevel);
 
     // Check if the clicked Sprite is not transparent (we hit a point within the pixel)
-    if (getColorOfPixelInSurface(ResourcesManager::instance().getTileSurface(mapNodes[isoX * m_columns + isoY]->getTileID(),
-                                                                             mapNodes[isoX * m_columns + isoY]->tileMap),
-                                 pixelX, pixelY, mapNodes[isoX * m_columns + isoY]->getSprite()->clipRect)
+    if (getColorOfPixelInSurface(
+            ResourcesManager::instance().getTileSurface(mapNodes[isoX * m_columns + isoY]->getActiveMapNodeData().tileID,
+                                                        mapNodes[isoX * m_columns + isoY]->tileMap),
+            pixelX, pixelY, mapNodes[isoX * m_columns + isoY]->getSprite()->getActiveClipRect())
             .a != SDL_ALPHA_TRANSPARENT)
     {
       return true;
@@ -397,7 +401,7 @@ void Map::highlightNode(const Point &isoCoordinates)
 void Map::saveMapToFile(const std::string &fileName)
 {
   json j =
-      json{{"Savegame version", m_saveGameVersion}, {"columns", this->m_columns}, {"rows", this->m_rows}, {"mapNode", mapNodes}};
+      json{{"Savegame version", SAVEGAME_VERSION}, {"columns", this->m_columns}, {"rows", this->m_rows}, {"mapNode", mapNodes}};
 
   std::ofstream file(SDL_GetBasePath() + fileName, std::ios_base::out | std::ios_base::binary);
 
@@ -443,12 +447,12 @@ Map *Map::loadMapFromFile(const std::string &fileName)
 
   size_t saveGameVersion = saveGameJSON.value("Savegame version", 0);
 
-  if (saveGameVersion != m_saveGameVersion)
+  if (saveGameVersion != SAVEGAME_VERSION)
   {
     // Check savegame version for compatibility and add upgrade functions here later if needed
 
     LOG(LOG_ERROR) << "Trying to load a Savegame with version " << saveGameVersion << " but only savegames with version."
-                   << m_saveGameVersion << " are supported";
+                   << SAVEGAME_VERSION << " are supported";
   }
 
   int columns = saveGameJSON.value("columns", -1);
@@ -464,20 +468,30 @@ Map *Map::loadMapFromFile(const std::string &fileName)
   for (const auto &it : saveGameJSON["mapNode"].items())
   {
     Point coordinates = json(it.value())["coordinates"].get<Point>();
+
+    // for now we only set tileID read from the savegame
     map->mapNodes[coordinates.x * columns + coordinates.y]->setCoordinates(coordinates);
   }
 
-  // update all nodes to reflect new height differences
+  // update all nodes to reflect new height differences and  to have correct tiling for new tileIDs
   map->updateAllNodes();
 
-  // set tileIDs from savegame
+  // now set the tileIDs after the nodes have been updated, so they're not auto-demolished
   for (const auto &it : saveGameJSON["mapNode"].items())
   {
     Point coordinates = json(it.value())["coordinates"].get<Point>();
-    map->mapNodes[coordinates.x * columns + coordinates.y]->setTileID(json(it.value())["tileID"].get<std::string>());
-  }
 
-  // update all nodes to have correct tiling for new tileIDs
+    // get mapNodeData and store in a vector
+    std::vector<MapNodeData> tileIDs = json(it.value())["mapNodeData"];
+    for (const auto &data : tileIDs)
+    {
+      if (!data.tileID.empty())
+      {
+        map->mapNodes[coordinates.x * columns + coordinates.y]->setTileID(data.tileID);
+      }
+    }
+  }
+  //update again to auto tile roads and so on
   map->updateAllNodes();
 
   return map;
@@ -486,12 +500,15 @@ Map *Map::loadMapFromFile(const std::string &fileName)
 // JSON serializer for Point class
 void to_json(json &j, const Point &point) { j = json{{"x", point.x}, {"y", point.y}, {"z", point.z}, {"height", point.height}}; }
 
+// JSON serializer for MapNodeData struct
+void to_json(json &j, const MapNodeData &mapNodeData) { j = json{{"tileID", mapNodeData.tileID}}; }
+
 // JSON serializer for MapNode class
 void to_json(json &j, const std::unique_ptr<MapNode> &m)
 {
   if (m.get())
   {
-    j = json{{"tileID", m->getTileID()}, {"coordinates", m->getCoordinates()}};
+    j = json{{"coordinates", m->getCoordinates()}, {"mapNodeData", m->getMapNodeData()}};
   }
   else
   {
@@ -508,12 +525,15 @@ void from_json(const json &j, Point &point)
   point.height = j.at("height").get<int>();
 }
 
+// JSON deserializer for Point class
+void from_json(const json &j, MapNodeData &mapNodeData) { mapNodeData.tileID = j.at("tileID").get<std::string>(); }
+
 void Map::getNodeInformation(const Point &isoCoordinates) const
 {
-  const TileData* tileData = mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getTileData();
+  const TileData *tileData = mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getActiveMapNodeData().tileData;
   LOG() << "===== TILE at " << isoCoordinates.x << ", " << isoCoordinates.y << "=====";
   LOG() << "Biome: " << tileData->biome;
   LOG() << "Category: " << tileData->category;
   LOG() << "FileName: " << tileData->tiles.fileName;
-  LOG() << "ID: " << mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getTileID();
+  LOG() << "ID: " << mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getActiveMapNodeData().tileID;
 }

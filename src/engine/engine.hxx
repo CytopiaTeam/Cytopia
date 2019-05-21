@@ -26,21 +26,21 @@ public:
     * @param bitmapped Uint from enum "Layers"
     * @see Resources#Layers
     */
-  void enableLayer(unsigned int layer) { m_activeLayers |= layer; };
+  void enableLayer(Layer layer);
 
   /** \brief Disable Drawing Layer
     * Disable Drawing Layer ( Turned off by using bitwise AND with inversed pattern)
     * @param bitmapped Uint from enum "Layers"
     * @see Resources#Layers
     */
-  void disableLayer(unsigned int layer) { m_activeLayers &= ~layer; };
+  void disableLayer(Layer layer);
 
   /** \brief Toggle Drawing Layer
     * Toggle Drawing Layer (use bitwise XOR to toggle layer)
     * @param bitmapped Uint from enum "Layers"
     * @see Resources#Layers
     */
-  void toggleLayer(unsigned int layer) { m_activeLayers ^= layer; };
+  void toggleLayer(Layer layer);
 
   /** @brief Increase Height
     * Increases the height of the given map node 
@@ -84,19 +84,6 @@ private:
   Engine();
   ~Engine();
   bool m_running = true;
-
-  /// Uint for storing a bitmask (Layers Enum)
-  unsigned int m_activeLayers;
-
-  // Layer ENUM
-public:
-  enum Layers : unsigned int
-  {
-    LAYER_FLOOR = 1u << 0,
-    LAYER_BUILDINGS = 1u << 1,
-    LAYER_GRID = 1u << 2,
-    LAYER_SELECTION = 1u << 3
-  };
 };
 
 #endif
