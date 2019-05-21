@@ -38,14 +38,22 @@ if (USE_PACKAGE_MANAGER)
         conan_add_remote(NAME AFG URL https://api.bintray.com/conan/anotherfoxguy/conan-packages)
         conan_add_remote(NAME bincrafters URL https://api.bintray.com/conan/bincrafters/public-conan)
 
+        if (ANDROID)
+          find_library(OpenGLES2_LIBRARY GLESv2 REQUIRED)
+          find_library(ANDROID_LOG_LIBRARY log REQUIRED)
+          find_library(ANDROID_LIBRARY_LIBRARY android REQUIRED)
+        else()
+          set (CONAN_EXTRA_DEPS "OpenSSL/1.1.1a@conan/stable")
+        endif()
+
         SET(CONAN_DEPS
                 "sdl2/2.0.9@bincrafters/stable"
                 "sdl2_ttf/2.0.15@bincrafters/stable"
                 "sdl2_image/2.0.4@bincrafters/stable"
                 "libpng/1.6.36@bincrafters/stable"
                 "freetype/2.9.1@bincrafters/stable"
-                "OpenSSL/1.1.1a@conan/stable"
                 "libnoise/1.0.0@anotherfoxguy/stable"
+                ${CONAN_EXTRA_DEPS}
                 )
         if (ENABLE_SDL2_MIXER)
             list(APPEND CONAN_DEPS "sdl2_mixer/2.0.4@anotherfoxguy/stable")
@@ -64,10 +72,14 @@ if (USE_PACKAGE_MANAGER)
           list(APPEND CONAN_ARGS NO_OUTPUT_DIRS)
         endif()
 
+        if (ANDROID)
+          list(APPEND CONAN_DEPS PROFILE ${CMAKE_CURRENT_SOURCE_DIR}/build/conan/android_profile)
+        endif ()
+
         conan_cmake_run(REQUIRES ${CONAN_DEPS}
                 OPTIONS sdl2_mixer:opus=False
-                BUILD missing
-                ${CONAN_ARGS}
+		        BUILD missing
+		        ${CONAN_ARGS}
             )
 
     endif ()
@@ -247,6 +259,14 @@ if (MINGW)
     )
 endif ()
 
+if (ANDROID)
+  set (EXTRA_LIBS ${EXTRA_LIBS}
+    ${OpenGLES2_LIBRARY}
+    ${ANDROID_LOG_LIBRARY}
+    ${ANDROID_LIBRARY_LIBRARY}
+  )
+endif()
+
 # link the libraries that we've found
 if (USE_PACKAGE_MANAGER)
   if (ENABLE_SDL2_MIXER)
@@ -259,6 +279,8 @@ if (USE_PACKAGE_MANAGER)
             CONAN_PKG::sdl2_mixer
             CONAN_PKG::libnoise
             CONAN_PKG::zlib
+            ${EXTRA_LIBS} 
+            
     )
   else ()
       target_link_libraries(
@@ -269,6 +291,7 @@ if (USE_PACKAGE_MANAGER)
           CONAN_PKG::sdl2_ttf
           CONAN_PKG::libnoise
           CONAN_PKG::zlib
+          ${EXTRA_LIBS}
       )
   endif ()
 
