@@ -4,7 +4,6 @@
 #include "engine/eventManager.hxx"
 #include "engine/uiManager.hxx"
 #include "engine/windowManager.hxx"
-#include "engine/audioMixer.hxx"
 #include "engine/basics/camera.hxx"
 #include "engine/basics/point.hxx"
 #include "engine/basics/log.hxx"
@@ -12,6 +11,14 @@
 #include "engine/basics/settings.hxx"
 #include <noise.h>
 #include <SDL.h>
+
+#ifndef DISABLE_SDL2_MIXER
+  #include "engine/audioMixer.hxx"
+#endif
+
+#ifdef MICROPROFILE_ENABLED
+#include "microprofile.h"
+#endif
 
 bool Game::initialize()
 {
@@ -28,11 +35,13 @@ bool Game::initialize()
     return false;
   }
 
+#ifndef DISABLE_SDL2_MIXER
   if (Mix_Init(MIX_INIT_MP3) == -1)
   {
     LOG(LOG_ERROR) << "Failed to Init SDL_Mixer\nSDL Error:" << Mix_GetError();
     return false;
   }
+#endif
 
   // initialize window manager
   WindowManager::instance().setWindowTitle(VERSION);
@@ -177,9 +186,10 @@ void Game::run()
 
   UIManager &uiManager = UIManager::instance();
   uiManager.init();
-
+#ifndef DISABLE_SDL2_MIXER
   AudioMixer audiomixer;
   audiomixer.playMusic();
+#endif
 
   // FPS Counter variables
   const float fpsIntervall = 1.0; // interval the fps counter is refreshed in seconds.
@@ -189,6 +199,9 @@ void Game::run()
   // Gameloop
   while (engine.isGameRunning())
   {
+#ifdef MICROPROFILE_ENABLED
+      MICROPROFILE_SCOPEI ("Map", "Gameloop", MP_GREEN);
+#endif
     SDL_RenderClear(WindowManager::instance().getRenderer());
 
     evManager.checkEvents(event, engine);
@@ -215,12 +228,21 @@ void Game::run()
     }
 
     SDL_Delay(1);
+
+#ifdef MICROPROFILE_ENABLED
+      MicroProfileFlip(nullptr);
+#endif
+
   }
 }
 
 void Game::shutdown()
 {
   TTF_Quit();
+
+#ifndef DISABLE_SDL2_MIXER
   Mix_Quit();
+#endif
+
   SDL_Quit();
 }

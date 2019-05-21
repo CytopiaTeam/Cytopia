@@ -13,6 +13,10 @@
 #include <sstream>
 #include <string>
 
+#ifdef MICROPROFILE_ENABLED
+#include "microprofile.h"
+#endif
+
 using json = nlohmann::json;
 
 const size_t Map::m_saveGameVersion = 1;
@@ -254,6 +258,10 @@ void Map::getNeighbors(const Point &isoCoordinates, NeighborMatrix &result) cons
 }
 void Map::renderMap() const
 {
+#ifdef MICROPROFILE_ENABLED
+    MICROPROFILE_SCOPEI ("Map", "Render Map", MP_YELLOW);
+#endif
+
   for (const auto &it : mapNodesInDrawingOrder)
   {
     it->render();
@@ -262,6 +270,9 @@ void Map::renderMap() const
 
 void Map::refresh()
 {
+#ifdef MICROPROFILE_ENABLED
+    MICROPROFILE_SCOPEI ("Map", "Refresh Map", MP_YELLOW);
+#endif
   for (const auto &it : mapNodesInDrawingOrder)
   {
     it->getSprite()->refresh();

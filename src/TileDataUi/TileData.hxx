@@ -1,12 +1,12 @@
 #ifndef _TILE_DATA_H_
 #define _TILE_DATA_H_
 
-#include <QObject>
-#include <QMap>
-#include <QString>
-#include <QJsonObject>
+#include <QtCore/QObject>
+#include <QtCore/QMap>
+#include <QtCore/QJsonObject>
 
 #include <engine/basics/tileData.hxx>
+
 
 class TileDataContainer : public QObject
 {
