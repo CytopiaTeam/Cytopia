@@ -7,6 +7,10 @@
 #include "basics/log.hxx"
 #include "map/MapLayers.hxx"
 
+#ifdef MICROPROFILE_ENABLED
+#include "microprofile.h"
+#endif
+
 Sprite::Sprite(Point _isoCoordinates) : isoCoordinates(_isoCoordinates)
 {
   m_screenCoordinates = convertIsoToScreenCoordinates(_isoCoordinates);
@@ -15,7 +19,11 @@ Sprite::Sprite(Point _isoCoordinates) : isoCoordinates(_isoCoordinates)
 
 void Sprite::render() const
 {
+#ifdef MICROPROFILE_ENABLED
+    MICROPROFILE_SCOPEI ("Map", "Sprite render", MP_RED);
+#endif
   for (uint32_t i = 0; i < LAYERS_COUNT; ++i)
+  if (highlightSprite == true)
   {
     if (MapLayers::isLayerActive(i))
     {
