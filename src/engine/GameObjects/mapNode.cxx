@@ -18,6 +18,13 @@ MapNode::MapNode(Point isoCoordinates, const std::string &terrainID, const std::
   MapLayers::enableLayer(Layer::BUILDINGS);
 }
 
+MapNode::MapNode(Point isoCoordinates, const std::string &tileID) : m_isoCoordinates(isoCoordinates)
+{
+  m_sprite = std::make_unique<Sprite>(m_isoCoordinates);
+  setTileID(tileID);
+  updateTexture();
+}
+
 void MapNode::increaseHeight()
 {
   int height = m_isoCoordinates.height;

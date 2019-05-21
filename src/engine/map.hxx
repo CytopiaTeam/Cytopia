@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "GameObjects/mapNode.hxx"
+#include "map/TerrainGenerator.hxx"
 
 class Map
 {
@@ -107,6 +108,10 @@ private:
 
   int m_columns;
   int m_rows;
+
+  TerrainGenerator terrainGen;
+
+  static const size_t m_saveGameVersion;
 
   /**\brief Update mapNode and its adjacent tiles
   * Updates mapNode height information, draws slopes for adjacent tiles and sets tiling for mapNode sprite if applicable

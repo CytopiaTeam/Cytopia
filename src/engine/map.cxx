@@ -46,17 +46,8 @@ Map::Map(int columns, int rows) : m_columns(columns), m_rows(rows)
 
 void Map::initMap()
 {
-  int z = 0;
-
-  // nodes need to be created at the correct vector "coordinates", or else the Z-Order will be broken
-  for (int x = 0; x < Settings::instance().settings.mapSize; x++)
-  {
-    for (int y = Settings::instance().settings.mapSize - 1; y >= 0; y--)
-    {
-      mapNodes[x * m_columns + y] = std::make_unique<MapNode>(Point{x, y, z++, 0}, "terrain", "");
-      mapNodesInDrawingOrder.push_back(mapNodes[x * m_columns + y].get());
-    }
-  }
+  terrainGen.generateTerrain(mapNodes, mapNodesInDrawingOrder);
+  updateAllNodes();
 }
 
 void Map::increaseHeight(const Point &isoCoordinates)
