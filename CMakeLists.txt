@@ -140,6 +140,7 @@ set(SOURCES
         src/engine/basics/utils.cxx
         src/engine/GameObjects/mapNode.cxx
         src/engine/map/MapLayers.cxx
+        src/engine/map/TerrainGenerator.cxx
         src/engine/ui/basics/uiElement.cxx
         src/engine/ui/basics/buttonGroup.cxx
         src/engine/ui/basics/Layout.cxx
