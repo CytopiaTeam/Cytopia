@@ -96,7 +96,7 @@ void TerrainGenerator::generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNode
 
           if (foliageDensity < 0.1)
           {
-            while (tileIndex >= biomeInformation["GrassLands"].treesSmall.size())
+            while (tileIndex >= static_cast<int>(biomeInformation["GrassLands"].treesSmall.size()))
             {
               tileIndex -= (int)biomeInformation["GrassLands"].treesSmall.size();
             }
@@ -105,7 +105,7 @@ void TerrainGenerator::generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNode
           }
           else if (foliageDensity < 0.25)
           {
-            while (tileIndex >= biomeInformation["GrassLands"].treesNormal.size())
+            while (tileIndex >= static_cast < int >( biomeInformation["GrassLands"].treesNormal.size()))
             {
               tileIndex -= (int)biomeInformation["GrassLands"].treesNormal.size();
             }
@@ -114,7 +114,7 @@ void TerrainGenerator::generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNode
           }
           else
           {
-            while (tileIndex >= biomeInformation["GrassLands"].treesDense.size())
+            while (tileIndex >= static_cast < int >( biomeInformation["GrassLands"].treesDense.size()))
             {
               tileIndex -= (int)biomeInformation["GrassLands"].treesDense.size();
             }
