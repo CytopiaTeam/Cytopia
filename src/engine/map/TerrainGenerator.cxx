@@ -101,7 +101,7 @@ void TerrainGenerator::generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNode
               tileIndex -= (int)biomeInformation["GrassLands"].treesSmall.size();
             }
             mapNodes[x * terrainSettings.mapSize + y] =
-                std::make_unique<MapNode>(Point{x, y, z++, height}, biomeInformation["GrassLands"].treesSmall[tileIndex]);
+                std::make_unique<MapNode>(Point{x, y, z++, height}, "terrain", biomeInformation["GrassLands"].treesSmall[tileIndex]);
           }
           else if (foliageDensity < 0.25)
           {
@@ -109,8 +109,8 @@ void TerrainGenerator::generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNode
             {
               tileIndex -= (int)biomeInformation["GrassLands"].treesNormal.size();
             }
-            mapNodes[x * terrainSettings.mapSize + y] =
-                std::make_unique<MapNode>(Point{x, y, z++, height}, biomeInformation["GrassLands"].treesNormal[tileIndex]);
+            mapNodes[x * terrainSettings.mapSize + y] = std::make_unique<MapNode>(
+                Point{x, y, z++, height}, "terrain", biomeInformation["GrassLands"].treesNormal[tileIndex]);
           }
           else
           {
@@ -119,8 +119,8 @@ void TerrainGenerator::generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNode
               tileIndex -= (int)biomeInformation["GrassLands"].treesDense.size();
             }
             //std::cout << tileIndex << "\t";
-            mapNodes[x * terrainSettings.mapSize + y] =
-                std::make_unique<MapNode>(Point{x, y, z++, height}, biomeInformation["GrassLands"].treesDense[tileIndex]);
+            mapNodes[x * terrainSettings.mapSize + y] = std::make_unique<MapNode>(
+                Point{x, y, z++, height}, "terrain", biomeInformation["GrassLands"].treesDense[tileIndex]);
           }
         }
       }
