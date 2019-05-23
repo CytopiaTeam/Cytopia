@@ -5,6 +5,8 @@
 #include "basics/mapEdit.hxx"
 #include "basics/timer.hxx"
 #include "basics/settings.hxx"
+#include "common/enums.hxx"
+#include "map/MapLayers.hxx"
 #include "map.hxx"
 
 #include "basics/log.hxx"
@@ -42,21 +44,17 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         break;
 
       case SDLK_0:
-        engine.toggleLayer(Engine::LAYER_GRID);
         break;
       case SDLK_F11:
         m_uiManager.toggleDebugMenu();
         break;
       case SDLK_1:
-        engine.toggleLayer(Engine::LAYER_FLOOR);
+        MapLayers::toggleLayer(Layer::TERRAIN);
         break;
-
       case SDLK_2:
-        engine.toggleLayer(Engine::LAYER_BUILDINGS);
+        MapLayers::toggleLayer(Layer::BUILDINGS);
         break;
-
       case SDLK_3:
-        engine.toggleLayer(Engine::LAYER_SELECTION);
         break;
       case SDLK_i:
         m_tileInfoMode = !m_tileInfoMode;
