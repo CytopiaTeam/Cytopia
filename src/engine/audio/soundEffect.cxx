@@ -3,7 +3,8 @@
 #include "../basics/log.hxx"
 #include "../basics/settings.hxx"
 
-SoundEffect::SoundEffect(const std::string &filename) : m_playSoundEffect(Settings::instance().settings.playSoundEffects)
+SoundEffect::SoundEffect(const std::string &filename)
+  : m_playSoundEffect(Settings::instance().settings.playSoundEffects)
 {
   loadFile(filename);
 }

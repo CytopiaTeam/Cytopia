@@ -13,7 +13,7 @@
 #include <SDL.h>
 
 #ifndef DISABLE_SDL2_MIXER
-  #include "engine/audioMixer.hxx"
+#include "engine/audioMixer.hxx"
 #endif
 
 #ifdef MICROPROFILE_ENABLED
@@ -200,7 +200,7 @@ void Game::run()
   while (engine.isGameRunning())
   {
 #ifdef MICROPROFILE_ENABLED
-      MICROPROFILE_SCOPEI ("Map", "Gameloop", MP_GREEN);
+    MICROPROFILE_SCOPEI("Map", "Gameloop", MP_GREEN);
 #endif
     SDL_RenderClear(WindowManager::instance().getRenderer());
 
@@ -230,9 +230,8 @@ void Game::run()
     SDL_Delay(1);
 
 #ifdef MICROPROFILE_ENABLED
-      MicroProfileFlip(nullptr);
+    MicroProfileFlip(nullptr);
 #endif
-
   }
 }
 

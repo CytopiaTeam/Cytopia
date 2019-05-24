@@ -29,7 +29,6 @@ WindowManager::WindowManager()
   }
   else
   {
-
     LOG(LOG_ERROR) << "Could not load icon " << m_windowIcon << "\nSDL_IMAGE Error: " << IMG_GetError();
   }
 
