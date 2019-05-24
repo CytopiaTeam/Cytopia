@@ -167,7 +167,7 @@ public:
 private:
   SDL_Renderer *m_renderer = WindowManager::instance().getRenderer();
   SDL_Window *m_window = WindowManager::instance().getWindow();
-  TTF_Font *m_font;
+  TTF_Font *m_font = nullptr;
 
   int m_buttonState = BUTTONSTATE_DEFAULT;
 
