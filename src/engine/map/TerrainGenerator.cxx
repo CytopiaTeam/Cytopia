@@ -92,7 +92,7 @@ void TerrainGenerator::generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNode
         }
         else
         {
-          int tileIndex = static_cast<int>(abs(round(highFrequencyNoise.GetValue(x * 32, y * 32, height / 32.0) * 100.0)));
+          int tileIndex = static_cast<int>(std::abs(round(highFrequencyNoise.GetValue(x * 32, y * 32, height / 32.0) * 100.0)));
 
           if (foliageDensity < 0.1)
           {
