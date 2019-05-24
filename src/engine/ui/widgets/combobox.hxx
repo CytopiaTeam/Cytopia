@@ -53,7 +53,7 @@ private:
 
   void centerTextLabel() const;
 
-  bool checkBoundaries(int x, int y);
+  bool checkBoundaries(int x, int y) const;
 
   // Signals
   Signal::Signal<void(UiElement *sender)> clickSignalSender;
