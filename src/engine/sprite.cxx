@@ -23,7 +23,6 @@ void Sprite::render() const
     MICROPROFILE_SCOPEI ("Map", "Sprite render", MP_RED);
 #endif
   for (uint32_t i = 0; i < LAYERS_COUNT; ++i)
-  if (highlightSprite == true)
   {
     if (MapLayers::isLayerActive(i))
     {
@@ -67,7 +66,7 @@ void Sprite::refresh()
       }
       else
       {
-        SDL_QueryTexture(m_texture, nullptr, nullptr, &m_SpriteData[it].destRect.w, &m_SpriteData[it].destRect.h);
+        SDL_QueryTexture(m_SpriteData[it].texture, nullptr, nullptr, &m_SpriteData[it].destRect.w, &m_SpriteData[it].destRect.h);
         m_SpriteData[it].destRect.w = static_cast<int>(m_SpriteData[it].destRect.w * m_currentZoomLevel);
         m_SpriteData[it].destRect.h = static_cast<int>(m_SpriteData[it].destRect.h * m_currentZoomLevel);
       }

@@ -38,7 +38,6 @@ public:
   Point isoCoordinates{0, 0, 0, 0};
 
 private:
-  SDL_Texture *m_texture = nullptr;
   SDL_Point m_screenCoordinates{0, 0};
 
   bool m_needsRefresh = false;
