@@ -54,7 +54,8 @@ void MapNode::setTileID(const std::string &tileID)
 
   if (TileManager::instance().getTileData(tileID))
   {
-    if (TileManager::instance().getTileData(tileID)->category == "Terrain")
+    if (TileManager::instance().getTileData(tileID)->category == "Terrain" ||
+        TileManager::instance().getTileData(tileID)->category == "Water")
     {
       m_previousTileID = m_mapNodeData[Layer::TERRAIN].tileID;
       m_mapNodeData[Layer::TERRAIN].tileData = TileManager::instance().getTileData(tileID);
