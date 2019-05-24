@@ -8,11 +8,13 @@
 #include "basics/compression.hxx"
 #include "common/Constants.hxx"
 #include "resourcesManager.hxx"
+#include "map/MapLayers.hxx"
 
 #include "../ThirdParty/json.hxx"
 
 #include <sstream>
 #include <string>
+#include "map/MapLayers.hxx"
 
 #ifdef MICROPROFILE_ENABLED
 #include "microprofile.h"
@@ -46,6 +48,8 @@ Map::Map(int columns, int rows) : m_columns(columns), m_rows(rows)
 
 void Map::initMap()
 {
+  MapLayers::enableLayer(Layer::TERRAIN);
+  MapLayers::enableLayer(Layer::BUILDINGS);
   terrainGen.generateTerrain(mapNodes, mapNodesInDrawingOrder);
   updateAllNodes();
 }

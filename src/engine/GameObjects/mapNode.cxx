@@ -14,8 +14,6 @@ MapNode::MapNode(Point isoCoordinates, const std::string &terrainID, const std::
     setTileID(tileID);
 
   updateTexture();
-  MapLayers::enableLayer(Layer::TERRAIN);
-  MapLayers::enableLayer(Layer::BUILDINGS);
 }
 
 void MapNode::increaseHeight()
