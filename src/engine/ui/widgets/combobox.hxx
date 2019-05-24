@@ -51,7 +51,7 @@ private:
 
   std::unique_ptr<Text> m_buttonLabel;
 
-  void centerTextLabel();
+  void centerTextLabel() const;
 
   bool checkBoundaries(int x, int y);
 

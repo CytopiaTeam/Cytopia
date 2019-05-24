@@ -39,7 +39,7 @@ void Settings::readFile()
 
 void Settings::writeFile()
 {
-  json _settingsJSONObject = settings;
+  const json settingsJsonObject = settings;
 
   std::string settingsFileName = SDL_GetBasePath();
   settingsFileName.append(SETTINGS_FILE_NAME);
@@ -47,7 +47,7 @@ void Settings::writeFile()
 
   if (settingsFile.is_open())
   {
-    settingsFile << std::setw(4) << _settingsJSONObject << std::endl;
+    settingsFile << std::setw(4) << settingsJsonObject << std::endl;
     settingsFile.close();
   }
   else

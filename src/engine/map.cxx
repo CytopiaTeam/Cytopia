@@ -41,7 +41,7 @@ constexpr struct
 
 Map::Map(int columns, int rows) : m_columns(columns), m_rows(rows)
 {
-  size_t vectorSize = static_cast<size_t>(m_rows * m_columns);
+  const size_t vectorSize = static_cast<size_t>(m_rows * m_columns);
   mapNodes.resize(vectorSize);
   mapNodesInDrawingOrder.reserve(vectorSize);
 }
@@ -56,7 +56,7 @@ void Map::initMap()
 
 void Map::increaseHeight(const Point &isoCoordinates)
 {
-  int height = mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getCoordinates().height;
+  const int height = mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getCoordinates().height;
 
   if (height < Settings::instance().settings.maxElevationHeight)
   {
@@ -69,7 +69,7 @@ void Map::increaseHeight(const Point &isoCoordinates)
 
 void Map::decreaseHeight(const Point &isoCoordinates)
 {
-  int height = mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getCoordinates().height;
+  const int height = mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getCoordinates().height;
 
   if (height > 0)
   {
@@ -82,8 +82,7 @@ void Map::decreaseHeight(const Point &isoCoordinates)
 
 void Map::updateNeighborsOfNode(const Point &isoCoordinates)
 {
-  unsigned char elevationBitmask;
-  int tileHeight = mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getCoordinates().height;
+  const int tileHeight = mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getCoordinates().height;
 
   NeighborMatrix matrix;
   getNeighbors(isoCoordinates, matrix);
@@ -94,7 +93,7 @@ void Map::updateNeighborsOfNode(const Point &isoCoordinates)
     if (it)
     {
       bool raise = false;
-      elevationBitmask = getElevatedNeighborBitmask(it->getCoordinates());
+      const unsigned char elevationBitmask = getElevatedNeighborBitmask(it->getCoordinates());
 
       // if the elevation bitmask changes (-> a new texture is drawn), demolish the tile
       if (elevationBitmask != it->getElevationBitmask())
@@ -209,7 +208,8 @@ unsigned char Map::getNeighboringTilesBitmask(const Point &isoCoordinates)
   int x = isoCoordinates.x;
   int y = isoCoordinates.y;
 
-  if (mapNodes[x * m_columns + y]->getActiveMapNodeData().tileData->category == "Terrain"|| (mapNodes[x * m_columns + y]->getActiveMapNodeData().tileData->category == "Water"))
+  if (mapNodes[x * m_columns + y]->getActiveMapNodeData().tileData->category == "Terrain" ||
+      (mapNodes[x * m_columns + y]->getActiveMapNodeData().tileData->category == "Water"))
   {
     return bitmask;
   }
@@ -247,8 +247,8 @@ void Map::getNeighbors(const Point &isoCoordinates, NeighborMatrix &result) cons
   size_t idx = 0;
   for (const auto &it : adjecantNodesOffsets)
   {
-    int x = isoCoordinates.x + it.x;
-    int y = isoCoordinates.y + it.y;
+    const int x = isoCoordinates.x + it.x;
+    const int y = isoCoordinates.y + it.y;
     if (x >= 0 && x < m_rows && y >= 0 && y < m_columns)
     {
       result[idx] = mapNodes[x * m_columns + y].get();
@@ -264,7 +264,7 @@ void Map::getNeighbors(const Point &isoCoordinates, NeighborMatrix &result) cons
 void Map::renderMap() const
 {
 #ifdef MICROPROFILE_ENABLED
-    MICROPROFILE_SCOPEI ("Map", "Render Map", MP_YELLOW);
+  MICROPROFILE_SCOPEI("Map", "Render Map", MP_YELLOW);
 #endif
 
   for (const auto &it : mapNodesInDrawingOrder)
@@ -276,7 +276,7 @@ void Map::renderMap() const
 void Map::refresh()
 {
 #ifdef MICROPROFILE_ENABLED
-    MICROPROFILE_SCOPEI ("Map", "Refresh Map", MP_YELLOW);
+  MICROPROFILE_SCOPEI("Map", "Refresh Map", MP_YELLOW);
 #endif
   for (const auto &it : mapNodesInDrawingOrder)
   {
@@ -292,9 +292,9 @@ SDL_Color Map::getColorOfPixelInSurface(SDL_Surface *surface, int x, int y, cons
 
   if (surface)
   {
-    int Bpp = surface->format->BytesPerPixel;
-    Uint8 *p = (Uint8 *)surface->pixels + y * surface->pitch + x * Bpp;
-    Uint32 pixel = *(Uint32 *)p;
+    const int bpp = surface->format->BytesPerPixel;
+    Uint8 *p = static_cast<Uint8 *>(surface->pixels) + y * surface->pitch + x * bpp;
+    const Uint32 pixel = *reinterpret_cast<Uint32 *>(p);
 
     SDL_GetRGBA(pixel, surface->format, &Color.r, &Color.g, &Color.b, &Color.a);
   }
@@ -307,7 +307,7 @@ Point Map::findNodeInMap(const SDL_Point &screenCoordinates) const
   Point foundCoordinates{-1, -1, 0, 0};
 
   // calculate clicked column (x coordinate) without heigh taken into account.
-  Point calculatedIsoCoords = calculateIsoCoordinates(screenCoordinates);
+  const Point calculatedIsoCoords = calculateIsoCoordinates(screenCoordinates);
   int isoX = calculatedIsoCoords.x;
   int isoY = calculatedIsoCoords.y;
 
@@ -368,8 +368,8 @@ bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int is
   if (SDL_PointInRect(&clicked, &spriteRect))
   {
     // Calculate the position of the clicked pixel within the surface and "un-zoom" the positon to match the un-adjusted surface
-    int pixelX = static_cast<int>((screenCoordinates.x - spriteRect.x) / Camera::zoomLevel);
-    int pixelY = static_cast<int>((screenCoordinates.y - spriteRect.y) / Camera::zoomLevel);
+    const int pixelX = static_cast<int>((screenCoordinates.x - spriteRect.x) / Camera::zoomLevel);
+    const int pixelY = static_cast<int>((screenCoordinates.y - spriteRect.y) / Camera::zoomLevel);
 
     // Check if the clicked Sprite is not transparent (we hit a point within the pixel)
     if (getColorOfPixelInSurface(
@@ -392,7 +392,7 @@ void Map::highlightNode(const Point &isoCoordinates)
   }
   if (highlightSelection)
   {
-    size_t index = isoCoordinates.x * m_columns + isoCoordinates.y;
+    const size_t index = isoCoordinates.x * m_columns + isoCoordinates.y;
 
     if (index < mapNodes.size())
     {
@@ -404,12 +404,12 @@ void Map::highlightNode(const Point &isoCoordinates)
 
 void Map::saveMapToFile(const std::string &fileName)
 {
-  json j =
+  const json j =
       json{{"Savegame version", SAVEGAME_VERSION}, {"columns", this->m_columns}, {"rows", this->m_rows}, {"mapNode", mapNodes}};
 
   std::ofstream file(SDL_GetBasePath() + fileName, std::ios_base::out | std::ios_base::binary);
 
-  std::string compressedSaveGame = compressString(j.dump());
+  const std::string compressedSaveGame = compressString(j.dump());
 
   if (!compressedSaveGame.empty())
   {

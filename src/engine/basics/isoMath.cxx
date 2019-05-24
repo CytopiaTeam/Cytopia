@@ -7,11 +7,11 @@
 
 Point calculateIsoCoordinates(const SDL_Point &screenCoordinates)
 {
-  int isoX =
+  const int isoX =
       static_cast<int>((screenCoordinates.x + Camera::cameraOffset.x + 2.0 * (screenCoordinates.y + Camera::cameraOffset.y)) /
                            (Camera::tileSize.x * Camera::zoomLevel) +
                        1);
-  int isoY =
+  const int isoY =
       static_cast<int>((screenCoordinates.x + Camera::cameraOffset.x - 2.0 * (screenCoordinates.y + Camera::cameraOffset.y)) /
                        (Camera::tileSize.x * Camera::zoomLevel));
 
@@ -22,8 +22,8 @@ SDL_Point convertIsoToScreenCoordinates(const Point &isoCoordinates, bool calcWi
 {
   const int heightOffset = 24;
 
-  int zoomedTileSizeX = static_cast<int>(Camera::tileSize.x * Camera::zoomLevel);
-  int zoomedTileSizeY = static_cast<int>(Camera::tileSize.y * Camera::zoomLevel);
+  const int zoomedTileSizeX = static_cast<int>(Camera::tileSize.x * Camera::zoomLevel);
+  const int zoomedTileSizeY = static_cast<int>(Camera::tileSize.y * Camera::zoomLevel);
 
   int x = static_cast<int>(zoomedTileSizeX * isoCoordinates.x + zoomedTileSizeX * isoCoordinates.y) / 2;
   int y = static_cast<int>(zoomedTileSizeY * isoCoordinates.x - zoomedTileSizeY * isoCoordinates.y) / 2;

@@ -33,7 +33,7 @@ size_t TileManager::caluclateSlopeOrientation(unsigned char bitMaskElevation)
 {
   // initialize with DEFAULT_ORIENTAITON which elevationMask.none()
   size_t orientation = TileSlopes::DEFAULT_ORIENTATION;
-  std::bitset<8> elevationMask(bitMaskElevation);
+  const std::bitset<8> elevationMask(bitMaskElevation);
 
   // Bits:
   // 0 = 2^0 = 1   = TOP

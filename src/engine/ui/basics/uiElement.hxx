@@ -177,7 +177,7 @@ protected:
   SDL_Texture *m_texture = nullptr;
   SDL_Rect m_uiElementRect{0, 0, 0, 0};
 
-  void renderTexture();
+  void renderTexture() const;
 
   /** \brief Draws a filled rectangle to the screen.
   * Draws a filled rectangle to the screen.
@@ -205,7 +205,7 @@ protected:
   /** \brief Draws a frame around a textfield
   * Draws a frame around around an existing textfield. This function cannot be used without an existing textfield.
   */
-  void drawTextFrame();
+  void drawTextFrame() const;
 
   /** \brief Change the Texture of the button
   * Changes the texture.
@@ -213,7 +213,7 @@ protected:
   */
   void drawButtonFrame(SDL_Rect rect, bool isHighlightable = true);
 
-  void drawFrame(SDL_Rect rect);
+  void drawFrame(SDL_Rect rect) const;
 
   void changeTexture(SDL_Texture *texture) { m_texture = texture; };
 };

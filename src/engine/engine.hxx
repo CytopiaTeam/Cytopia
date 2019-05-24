@@ -48,7 +48,7 @@ public:
     * @param isoCoordinates the isometric coordinates of the map node that should be raised
     * @see Map#increaseHeight
     */
-  void increaseHeight(const Point &isoCoordinates);
+  void increaseHeight(const Point &isoCoordinates) const;
 
   /** @brief Decrease Height
     * Decreases the height of the given map node
@@ -56,13 +56,13 @@ public:
     * @param isoCoordinates the isometric coordinates of the map node that should be lowered
     * @see Map#decreaseHeight
     */
-  void decreaseHeight(const Point &isoCoordinates);
+  void decreaseHeight(const Point &isoCoordinates) const;
 
   void toggleFullScreen();
 
-  void setTileIDOfNode(const Point &isoCoordinates, const std::string &tileType);
+  void setTileIDOfNode(const Point &isoCoordinates, const std::string &tileID) const;
 
-  void demolishNode(const Point &isoCoordinates);
+  void demolishNode(const Point &isoCoordinates) const;
 
   bool isGameRunning() { return m_running; };
   void quitGame() { m_running = false; };

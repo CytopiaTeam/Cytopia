@@ -58,7 +58,7 @@ void WindowManager::toggleFullScreen() const
   }
 }
 
-void WindowManager::setFullScreenMode(FULLSCREEN_MODE mode)
+void WindowManager::setFullScreenMode(FULLSCREEN_MODE mode) const
 {
   Settings::instance().settings.fullScreenMode = static_cast<int>(mode);
 
@@ -84,7 +84,7 @@ void WindowManager::setFullScreenMode(FULLSCREEN_MODE mode)
     Settings::instance().settings.currentScreenWidth = desktopScreenMode.w;
 
     // As a workaround, need to swtich back into windowed mode before changing the display mode, then back to full screen mode.
-	// Minimize / Restore is another workaround to get the change from fullscreen to Borderless working
+    // Minimize / Restore is another workaround to get the change from fullscreen to Borderless working
     SDL_SetWindowFullscreen(m_window, 0);
     SDL_MinimizeWindow(m_window);
     SDL_SetWindowFullscreen(m_window, SDL_WINDOW_FULLSCREEN_DESKTOP);
@@ -110,7 +110,7 @@ void WindowManager::initializeScreenResolutions()
   // get the number of different screen modes
   for (int modeIndex = 0; modeIndex <= SDL_GetNumDisplayModes(m_activeDisplay); modeIndex++)
   {
-    SDL_DisplayMode *mode = new SDL_DisplayMode{SDL_PIXELFORMAT_UNKNOWN, 0, 0, 0, 0};
+    SDL_DisplayMode *mode = new SDL_DisplayMode{SDL_PIXELFORMAT_UNKNOWN, 0, 0, 0, nullptr};
 
     if (SDL_GetDisplayMode(m_activeDisplay, modeIndex, mode) == 0)
     {

@@ -92,7 +92,7 @@ void Sprite::setTexture(SDL_Texture *texture, Layer layer)
   refresh();
 }
 
-void Sprite::setClipRect(SDL_Rect clipRect, Layer layer) { m_SpriteData[layer].clipRect = clipRect; }
+void Sprite::setClipRect(SDL_Rect clipRect, const Layer layer) { m_SpriteData[layer].clipRect = clipRect; }
 void Sprite::setDestRect(SDL_Rect destRect, Layer layer) { m_SpriteData[layer].destRect = destRect; }
 
 SDL_Rect Sprite::getActiveClipRect()

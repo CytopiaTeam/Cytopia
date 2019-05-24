@@ -34,7 +34,7 @@ public:
   void registerCallbackFunction(std::function<void(const std::string &, UiElement *sender)> const &cb) override;
 
   void setPosition(int x, int y) override;
-  void centerTextLabel();
+  void centerTextLabel() const;
 
   bool checkState() const { return m_checkState; };
   void setCheckState(bool state);

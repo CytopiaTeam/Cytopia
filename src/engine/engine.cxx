@@ -12,13 +12,13 @@ Engine::Engine() { newGame(); }
 
 Engine::~Engine() { delete map; }
 
-void Engine::increaseHeight(const Point &isoCoordinates)
+void Engine::increaseHeight(const Point &isoCoordinates) const
 {
   terrainEditMode = TerrainEdit::RAISE;
   map->increaseHeight(isoCoordinates);
 }
 
-void Engine::decreaseHeight(const Point &isoCoordinates)
+void Engine::decreaseHeight(const Point &isoCoordinates) const
 {
   terrainEditMode = TerrainEdit::LOWER;
   map->decreaseHeight(isoCoordinates);
@@ -26,12 +26,12 @@ void Engine::decreaseHeight(const Point &isoCoordinates)
 
 void Engine::toggleFullScreen() { WindowManager::instance().toggleFullScreen(); };
 
-void Engine::setTileIDOfNode(const Point &isoCoordinates, const std::string &tileID)
+void Engine::setTileIDOfNode(const Point &isoCoordinates, const std::string &tileID) const
 {
   map->setTileIDOfNode(isoCoordinates, tileID);
 }
 
-void Engine::demolishNode(const Point &isoCoordinates) { map->demolishNode(isoCoordinates, true); }
+void Engine::demolishNode(const Point &isoCoordinates) const { map->demolishNode(isoCoordinates, true); }
 
 void Engine::loadGame(const std::string &fileName)
 {
@@ -46,12 +46,10 @@ void Engine::loadGame(const std::string &fileName)
 
 void Engine::newGame()
 {
-  if (map)
-  {
-    delete map;
-  }
-  int map_size = Settings::instance().settings.mapSize;
+  delete map;
 
-  map = new Map(map_size, map_size);
+  const int mapSize = Settings::instance().settings.mapSize;
+
+  map = new Map(mapSize, mapSize);
   map->initMap();
 }

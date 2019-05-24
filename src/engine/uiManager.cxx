@@ -256,7 +256,7 @@ void UIManager::init()
   Layout::arrangeElements();
 }
 
-void UIManager::setFPSCounterText(const std::string &fps) { m_fpsCounter->setText(fps); }
+void UIManager::setFPSCounterText(const std::string &fps) const { m_fpsCounter->setText(fps); }
 
 void UIManager::drawUI() const
 {
@@ -312,7 +312,7 @@ void UIManager::toggleGroupVisibility(const std::string &groupID, UiElement *sen
   }
 }
 
-void UIManager::startTooltip(SDL_Event &event, const std::string &tooltipText)
+void UIManager::startTooltip(SDL_Event &event, const std::string &tooltipText) const
 {
   m_tooltip->setText(tooltipText);
 

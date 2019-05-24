@@ -18,7 +18,7 @@ MapNode::MapNode(Point isoCoordinates, const std::string &terrainID, const std::
 
 void MapNode::increaseHeight()
 {
-  int height = m_isoCoordinates.height;
+  const int height = m_isoCoordinates.height;
 
   if (height < m_maxHeight)
   {
@@ -29,7 +29,7 @@ void MapNode::increaseHeight()
 
 void MapNode::decreaseHeight()
 {
-  int height = m_isoCoordinates.height;
+  const int height = m_isoCoordinates.height;
 
   if (height > 0)
   {
