@@ -39,10 +39,6 @@ void TextField::addText(const std::string &text)
   {
     textRect.x = m_uiElementRect.x + (m_uiElementRect.w / 2 - label->getUiElementRect().w / 2);
   }
-  else
-  {
-    textRect.x = m_uiElementRect.x;
-  }
 
   m_textElementHeight = textRect.h;
 
