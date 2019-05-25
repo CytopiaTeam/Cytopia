@@ -148,7 +148,7 @@ public:
   void changeFullScreenMode(UiElement *sender);
 
 private:
-  BUILDMENU_LAYOUT buildMenuLayout;
+  BUILDMENU_LAYOUT buildMenuLayout = BUILDMENU_LAYOUT::BOTTOM;
 
   UIManager() = default;
   ~UIManager() = default;

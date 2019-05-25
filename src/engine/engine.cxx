@@ -1,11 +1,8 @@
 #include "engine.hxx"
 
 #include "basics/camera.hxx"
-#include "basics/isoMath.hxx"
 #include "basics/mapEdit.hxx"
 #include "basics/settings.hxx"
-#include "common/enums.hxx"
-#include "GameObjects/mapNode.hxx"
 #include "resourcesManager.hxx"
 
 Engine::Engine() { newGame(); }

@@ -3,16 +3,12 @@
 #include "basics/camera.hxx"
 #include "basics/isoMath.hxx"
 #include "basics/mapEdit.hxx"
-#include "basics/timer.hxx"
 #include "basics/settings.hxx"
 #include "common/enums.hxx"
 #include "map/MapLayers.hxx"
 #include "map.hxx"
 
 #include "basics/log.hxx"
-#include "basics/utils.hxx"
-#include "ui/widgets/tooltip.hxx"
-#include "ui/menuGroups/MenuGroupBuild.hxx"
 
 #ifdef MICROPROFILE_ENABLED
 #include "microprofile.h"
@@ -25,7 +21,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
 #endif
   // check for UI events first
   SDL_Point mouseCoords;
-  Point clickCoords;
+  Point clickCoords{};
 
   while (SDL_PollEvent(&event))
   {
@@ -63,15 +59,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         engine.toggleFullScreen();
         break;
 
-      case SDLK_b:
-        LOG() << "Starting elevation Benchmark!";
-        Timer benchmarkTimer;
-        benchmarkTimer.start();
-        for (int i = 0; i <= Settings::instance().settings.maxElevationHeight; i++)
-        {
-          engine.increaseHeight(Point{64, 64, 0, 0});
-        }
-        LOG() << "Done. Elevation took " << benchmarkTimer.getElapsedTime() << "ms";
+      default:
         break;
       }
       break;
@@ -127,7 +115,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           m_lastHoveredElement = nullptr;
           break;
         }
-        // If we're over a UI element that has no click functionaliy, abort the event loop, so no clicks go through the UiElement.
+        // If we're over a UI element that has no click functionality, abort the event loop, so no clicks go through the UiElement.
         //Note: This is handled here because UIGroups have no dimensions, but are UiElements
         if (it->isMouseOverHoverableArea(event.button.x, event.button.y))
         {
@@ -185,7 +173,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
 
     case SDL_MOUSEBUTTONUP:
       m_panning = false;
-      // reset pinchCenterCoords when fingers are realeased
+      // reset pinchCenterCoords when fingers are released
       pinchCenterCoords = {0, 0, 0, 0};
       // check for UI events first
       for (const auto &it : m_uiManager.getAllUiElementsForEventHandling())
@@ -199,7 +187,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
             m_skipLeftClick = true;
             break;
           }
-          // If we're over a UI element that has no click functionaliy, abort the event loop, so no clicks go through the UiElement.
+          // If we're over a UI element that has no click functionality, abort the event loop, so no clicks go through the UiElement.
           //Note: This is handled here because UIGroups have no dimensions, but are UiElements
           if (it->isMouseOver(event.button.x, event.button.y))
           {
@@ -249,7 +237,6 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         }
       }
 
-      break;
       break;
     case SDL_MOUSEWHEEL:
       if (event.wheel.y > 0)

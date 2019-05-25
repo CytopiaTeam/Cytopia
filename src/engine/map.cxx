@@ -14,7 +14,6 @@
 
 #include <sstream>
 #include <string>
-#include "map/MapLayers.hxx"
 
 #ifdef MICROPROFILE_ENABLED
 #include "microprofile.h"
@@ -306,7 +305,7 @@ Point Map::findNodeInMap(const SDL_Point &screenCoordinates) const
 {
   Point foundCoordinates{-1, -1, 0, 0};
 
-  // calculate clicked column (x coordinate) without heigh taken into account.
+  // calculate clicked column (x coordinate) without height taken into account.
   const Point calculatedIsoCoords = calculateIsoCoordinates(screenCoordinates);
   int isoX = calculatedIsoCoords.x;
   int isoY = calculatedIsoCoords.y;
@@ -367,7 +366,7 @@ bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int is
 
   if (SDL_PointInRect(&clicked, &spriteRect))
   {
-    // Calculate the position of the clicked pixel within the surface and "un-zoom" the positon to match the un-adjusted surface
+    // Calculate the position of the clicked pixel within the surface and "un-zoom" the position to match the un-adjusted surface
     const int pixelX = static_cast<int>((screenCoordinates.x - spriteRect.x) / Camera::zoomLevel);
     const int pixelY = static_cast<int>((screenCoordinates.y - spriteRect.y) / Camera::zoomLevel);
 
@@ -455,7 +454,7 @@ Map *Map::loadMapFromFile(const std::string &fileName)
   {
     // Check savegame version for compatibility and add upgrade functions here later if needed
 
-    LOG(LOG_ERROR) << "Trying to load a Savegame with version " << saveGameVersion << " but only savegames with version."
+    LOG(LOG_ERROR) << "Trying to load a Savegame with version " << saveGameVersion << " but only save-games with version."
                    << SAVEGAME_VERSION << " are supported";
   }
 

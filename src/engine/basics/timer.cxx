@@ -99,7 +99,7 @@ void Timer::startThread()
     m_threadRunning = false;
     m_timerThread.join();
   }
-  else if (m_threadRunning == true)
+  else if (m_threadRunning)
   {
     return;
   }
@@ -122,7 +122,6 @@ void Timer::startThread()
         // helps with cpu usage...
         std::this_thread::sleep_for(std::chrono::milliseconds(50));
       }
-      return;
     });
   }
 }

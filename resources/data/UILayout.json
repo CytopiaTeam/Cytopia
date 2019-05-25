@@ -268,7 +268,7 @@
         "Position_y": 450,
         "Width": 100,
         "Height": 30,
-        "Action": "SaveSetings",
+        "Action": "SaveSettings",
         "ActionParameter": "SettingsMenu"
       },
       {
