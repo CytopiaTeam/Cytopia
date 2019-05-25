@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.9 FATAL_ERROR)
 set(BUILD_TILEDATA_EDITOR OFF CACHE BOOL "Build Cytopia TileData Editor")
 set(USE_PACKAGE_MANAGER ON CACHE BOOL "Use conan for managing packages")
-set(USE_PMM OFF CACHE BOOL "Use PMM for managing conan")
+set(USE_PMM ON CACHE BOOL "Use PMM for managing conan")
 set(ENABLE_SDL2_MIXER ON CACHE BOOL "Enable SDL2 Mixer")
 set(ENABLE_MICROPROFILE OFF CACHE BOOL "Enable microprofile")
 
