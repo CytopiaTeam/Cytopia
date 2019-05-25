@@ -70,7 +70,7 @@ void TerrainGenerator::generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNode
   mapNodes.resize(vectorSize);
   int z = 0;
 
-  #define currentBiome "GrassLands"
+#define currentBiome "GrassLands"
 
   // nodes need to be created at the correct vector "coordinates", or else the Z-Order will be broken
   for (int x = 0; x < terrainSettings.mapSize; x++)
@@ -88,44 +88,47 @@ void TerrainGenerator::generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNode
       {
         const double foliageDensity = foliageDensityPerlin.GetValue(x * 32, y * 32, height / 32.0);
         bool placed = false;
-        //std::cout << foliageDensity << "\n";
+
         if (foliageDensity > 0.0 && height > terrainSettings.seaLevel)
         {
           int tileIndex = static_cast<int>(abs(round(highFrequencyNoise.GetValue(x * 32, y * 32, height / 32.0) * 200.0)));
-          std::cout << tileIndex << "\n";
-			 if (foliageDensity < 0.1)
-			 {
-               if (tileIndex < 20)
-               {    
-				tileIndex = tileIndex % static_cast<int>(biomeInformation[currentBiome].treesSmall.size());
-				mapNodes[x * terrainSettings.mapSize + y] = std::make_unique<MapNode>(
-                                    Point{x, y, z++, height}, "terrain", biomeInformation[currentBiome].treesSmall[tileIndex]);
-				placed = true;
-				}
-			 }
-             else if (foliageDensity < 0.25)
-			 {
-               if (tileIndex < 50)
-               { 
-				tileIndex = tileIndex % static_cast<int>(biomeInformation[currentBiome].treesNormal.size());
-				mapNodes[x * terrainSettings.mapSize + y] = std::make_unique<MapNode>(
-                                    Point{x, y, z++, height}, "terrain", biomeInformation[currentBiome].treesNormal[tileIndex]);
-				placed = true;
-				}
-			 }
-             else if (foliageDensity < 1.0)
-			 {
-               if (tileIndex < 95)
-               { 
-				tileIndex = tileIndex % static_cast<int>(biomeInformation[currentBiome].treesDense.size());
-				
-				mapNodes[x * terrainSettings.mapSize + y] = std::make_unique<MapNode>(
-                                    Point{x, y, z++, height}, "terrain", biomeInformation[currentBiome].treesDense[tileIndex]);
-                placed = true;
-				}
-			 }
+
+          if (foliageDensity < 0.1)
+          {
+            if (tileIndex < 20)
+            {
+              tileIndex = tileIndex % static_cast<int>(biomeInformation[currentBiome].treesSmall.size());
+              mapNodes[x * terrainSettings.mapSize + y] = std::make_unique<MapNode>(
+                  Point{x, y, z++, height}, "terrain", biomeInformation[currentBiome].treesSmall[tileIndex]);
+              placed = true;
+            }
+          }
+          else if (foliageDensity < 0.25)
+          {
+            if (tileIndex < 50)
+            {
+              tileIndex = tileIndex % static_cast<int>(biomeInformation[currentBiome].treesNormal.size());
+              mapNodes[x * terrainSettings.mapSize + y] = std::make_unique<MapNode>(
+                  Point{x, y, z++, height}, "terrain", biomeInformation[currentBiome].treesNormal[tileIndex]);
+              placed = true;
+            }
+          }
+          else if (foliageDensity < 1.0)
+          {
+            if (tileIndex < 95)
+            {
+              tileIndex = tileIndex % static_cast<int>(biomeInformation[currentBiome].treesDense.size());
+
+              mapNodes[x * terrainSettings.mapSize + y] = std::make_unique<MapNode>(
+                  Point{x, y, z++, height}, "terrain", biomeInformation[currentBiome].treesDense[tileIndex]);
+              placed = true;
+            }
+          }
         }
-        if(placed == false){ mapNodes[x * terrainSettings.mapSize + y] = std::make_unique<MapNode>(Point{x, y, z++, height}, "terrain"); }
+        if (placed == false)
+        {
+          mapNodes[x * terrainSettings.mapSize + y] = std::make_unique<MapNode>(Point{x, y, z++, height}, "terrain");
+        }
       }
       mapNodesInDrawingOrder.push_back(mapNodes[x * terrainSettings.mapSize + y].get());
     }
