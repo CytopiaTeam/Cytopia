@@ -13,13 +13,13 @@ void MenuGroupBuild::draw() const
       it->draw();
     }
   }
-  for (auto it : m_buildSubMenuGroups)
+  for (const auto &it : m_buildSubMenuGroups)
   {
-    for (auto uielement : it.second->getAllButtons())
+    for (auto uiElement : it.second->getAllButtons())
     {
-      if (uielement->isVisible())
+      if (uiElement->isVisible())
       {
-        uielement->draw();
+        uiElement->draw();
       }
     }
   }

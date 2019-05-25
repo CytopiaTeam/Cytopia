@@ -29,9 +29,9 @@ TileData *TileManager::getTileData(const std::string &id)
   return nullptr;
 }
 
-size_t TileManager::caluclateSlopeOrientation(unsigned char bitMaskElevation)
+size_t TileManager::calculateSlopeOrientation(unsigned char bitMaskElevation)
 {
-  // initialize with DEFAULT_ORIENTAITON which elevationMask.none()
+  // initialize with DEFAULT_ORIENTATION which elevationMask.none()
   size_t orientation = TileSlopes::DEFAULT_ORIENTATION;
   const std::bitset<8> elevationMask(bitMaskElevation);
 
@@ -139,7 +139,7 @@ size_t TileManager::caluclateSlopeOrientation(unsigned char bitMaskElevation)
   return orientation;
 }
 
-size_t TileManager::caluclateTileOrientation(unsigned char bitMaskElevation)
+size_t TileManager::calculateTileOrientation(unsigned char bitMaskElevation)
 {
   size_t orientation;
   std::bitset<8> elevationMask(bitMaskElevation);
@@ -258,7 +258,7 @@ void TileManager::init()
 
   while (!tileDataJSON[idx].is_null())
   {
-    // check if ID is an array and multiple sprites are supplied. If that's the case, we create seperate m_tileData entries for each element.
+    // check if ID is an array and multiple sprites are supplied. If that's the case, we create separate m_tileData entries for each element.
     if (tileDataJSON[idx]["id"].is_array())
     {
       size_t count = tileDataJSON[idx]["tiles"].value("count", -1);

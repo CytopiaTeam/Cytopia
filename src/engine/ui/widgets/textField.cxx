@@ -4,7 +4,7 @@
 TextField::TextField(const SDL_Rect &uiElementRect) : UiElement(uiElementRect), m_highlightingRect(uiElementRect)
 {
   // initialize height with an offset of 4 so the frame doesn't overlap with the last text element
-  // this elemenets height will be adjusted accordingly when the textField is filled.
+  // this elements height will be adjusted accordingly when the textField is filled.
   m_uiElementRect.h = 4;
   m_highlightingRect = m_uiElementRect;
   m_highlightingRect.x += 4;
@@ -72,7 +72,7 @@ void TextField::setPosition(int x, int y)
     switch (textAlignment)
     {
     case TextFieldAlignment::LEFT:
-      // for LEFT alignemnt, we use the same values as the uiElementRect
+      // for LEFT alignment, we use the same values as the uiElementRect
       break;
     case TextFieldAlignment::RIGHT:
       x = m_uiElementRect.x + m_uiElementRect.w - text->getUiElementRect().w;

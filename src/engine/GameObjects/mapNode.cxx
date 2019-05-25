@@ -74,7 +74,7 @@ void MapNode::updateTexture()
   SDL_Rect clipRect{0, 0, 0, 0};
 
   tileMap = TileMap::DEFAULT;
-  m_elevationOrientation = TileManager::instance().caluclateSlopeOrientation(m_elevationBitmask);
+  m_elevationOrientation = TileManager::instance().calculateSlopeOrientation(m_elevationBitmask);
 
   for (uint32_t currentLayer = 0; currentLayer < LAYERS_COUNT; ++currentLayer)
   {
@@ -85,7 +85,7 @@ void MapNode::updateTexture()
       if (m_mapNodeData[currentLayer].tileData->category == "Terrain" ||
           m_mapNodeData[currentLayer].tileData->category == "Roads" || m_mapNodeData[currentLayer].tileData->category == "Water")
       {
-        //m_orientation = TileManager::instance().caluclateSlopeOrientation(m_elevationBitmask);
+        //m_orientation = TileManager::instance().calculateSlopeOrientation(m_elevationBitmask);
 
         if (m_elevationOrientation == TileSlopes::DEFAULT_ORIENTATION)
         {
@@ -97,7 +97,7 @@ void MapNode::updateTexture()
           // if the node has no elevated neighbors, check if it needs to tile itself to another tile of the same ID
           if (m_mapNodeData[currentLayer].tileData->category != "Terrain")
           {
-            m_orientation = TileManager::instance().caluclateTileOrientation(m_tileIDBitmask);
+            m_orientation = TileManager::instance().calculateTileOrientation(m_tileIDBitmask);
           }
         }
         else
@@ -122,7 +122,7 @@ void MapNode::updateTexture()
       switch (tileMap)
       {
       case TileMap::DEFAULT:
-        // if tileIndex is set, it means we take a single image out of a spritesheet
+        // if tileIndex is set, it means we take a single image out of a sprite sheet
         if (m_mapNodeData[currentLayer].tileData->tileIndex != -1)
         {
           clipRect.x =
@@ -180,7 +180,9 @@ void MapNode::updateTexture()
                                static_cast<Layer>(currentLayer));
         }
         break;
+      default: break;
       }
+
       if (clipRect.x >= static_cast<int>(spriteCount) * m_clippingWidth)
       {
         m_mapNodeData[currentLayer].tileID = m_previousTileID;
@@ -204,7 +206,7 @@ void MapNode::setCoordinates(const Point &newIsoCoordinates)
 const MapNodeData &MapNode::getActiveMapNodeData() const
 {
   //TODO: Needs further adjustments for other layers
-  // Determine the topmost active layer here by checking if it has a tileID set and return it's mapnodeData
+  // Determine the topmost active layer here by checking if it has a tileID set and return it's mapNodeData
   if (MapLayers::isLayerActive(Layer::BUILDINGS) && !m_mapNodeData[Layer::BUILDINGS].tileID.empty())
   {
     return m_mapNodeData[Layer::BUILDINGS];

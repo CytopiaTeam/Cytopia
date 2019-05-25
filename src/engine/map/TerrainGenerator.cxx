@@ -84,7 +84,7 @@ void TerrainGenerator::generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNode
       else
       {
         const double foliageDensity = foliageDensityPerlin.GetValue(x * 32, y * 32, height / 32.0);
-        //std::cout << foliageDensity << "\n";
+
         if (foliageDensity < 0.0)
         {
           mapNodes[x * terrainSettings.mapSize + y] = std::make_unique<MapNode>(Point{x, y, z++, height}, "terrain");
@@ -117,7 +117,7 @@ void TerrainGenerator::generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNode
             {
               tileIndex -= static_cast<int>(biomeInformation["GrassLands"].treesDense.size());
             }
-            //std::cout << tileIndex << "\t";
+
             mapNodes[x * terrainSettings.mapSize + y] = std::make_unique<MapNode>(
                 Point{x, y, z++, height}, "terrain", biomeInformation["GrassLands"].treesDense[tileIndex]);
           }
@@ -130,8 +130,6 @@ void TerrainGenerator::generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNode
 
 void TerrainGenerator::loadTerrainDataFromJSON()
 {
-  json _biomeDataJSONObject;
-
   std::string terrainGenDataFileName = SDL_GetBasePath();
   terrainGenDataFileName.append(TERRAINGEN_DATA_FILE_NAME);
   std::ifstream i(terrainGenDataFileName);
@@ -143,13 +141,13 @@ void TerrainGenerator::loadTerrainDataFromJSON()
   }
 
   // check if json file can be parsed
-  _biomeDataJSONObject = json::parse(i, nullptr, false);
-  if (_biomeDataJSONObject.is_discarded())
+  json biomeDataJsonObject = json::parse(i, nullptr, false);
+  if (biomeDataJsonObject.is_discarded())
   {
     LOG(LOG_ERROR) << "Error parsing JSON File " << TERRAINGEN_DATA_FILE_NAME;
   }
   // parse biome objects
-  for (const auto &it : _biomeDataJSONObject.items())
+  for (const auto &it : biomeDataJsonObject.items())
   {
     biomeInformation[it.key()] = it.value();
   }

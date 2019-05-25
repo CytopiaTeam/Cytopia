@@ -153,7 +153,7 @@ void Game::mainMenu()
             it->onMouseEnter(event);
           }
           break;
-        default: ;
+        default:;
         }
       }
     }
@@ -186,8 +186,8 @@ void Game::run()
   UIManager &uiManager = UIManager::instance();
   uiManager.init();
 #ifndef DISABLE_SDL2_MIXER
-  AudioMixer audiomixer;
-  audiomixer.playMusic();
+  AudioMixer audioMixer;
+  audioMixer.playMusic();
 #endif
 
   // FPS Counter variables
@@ -195,7 +195,7 @@ void Game::run()
   Uint32 fpsLastTime = SDL_GetTicks();
   Uint32 fpsFrames = 0;
 
-  // Gameloop
+  // GameLoop
   while (engine.isGameRunning())
   {
 #ifdef MICROPROFILE_ENABLED
@@ -205,7 +205,7 @@ void Game::run()
 
     evManager.checkEvents(event, engine);
 
-    // render the tilemap
+    // render the tileMap
     engine.map->renderMap();
 
     // render the ui

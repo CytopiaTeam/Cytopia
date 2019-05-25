@@ -83,7 +83,7 @@ void UIManager::init()
 
         layoutGroup.layout.padding = uiLayout["LayoutGroups"][it.key()][id].value("Padding", 0);
         layoutGroup.layout.paddingToParent = uiLayout["LayoutGroups"][it.key()][id].value("PaddingToParent", 0);
-        layoutGroup.layout.alignmentOffset = uiLayout["LayoutGroups"][it.key()][id].value("AlignmentOffeset", 0.0f);
+        layoutGroup.layout.alignmentOffset = uiLayout["LayoutGroups"][it.key()][id].value("AlignmentOffset", 0.0f);
 
         // add layout group information to container
         m_layoutGroups[layoutGroupName] = layoutGroup;
@@ -116,7 +116,7 @@ void UIManager::init()
         visible = element["GroupVisibility"].get<bool>();
       }
 
-      // check if there is a global layoutgroup paramter set
+      // check if there is a global layoutGroup parameter set
       if (!element["GroupSettings"].is_null())
       {
         layoutGroupName = element["GroupSettings"].value("LayoutGroup", "");
@@ -195,7 +195,7 @@ void UIManager::init()
         uiElement->drawImageButtonFrame(drawFrame);
         uiElement->setMenuGroupID(buildMenuID);
 
-        // only add UiElements to buttongroups / eventhandling if they have no MenuGroupID property set
+        // only add UiElements to buttonGroups / eventHandling if they have no MenuGroupID property set
         if (buildMenuID.empty())
         {
           if (!buttonGroupID.empty())
@@ -244,7 +244,7 @@ void UIManager::init()
   createBuildMenu();
   setCallbackFunctions();
 
-  // Add all buttongroups to EventHandling container
+  // Add all buttonGroups to EventHandling container
   for (auto it : m_buttonGroups)
   {
     m_uiElementsForEventHandling.push_back(it.second);
@@ -433,7 +433,7 @@ void UIManager::setCallbackFunctions()
           it->setParent(uiElement.get());
         }
 
-        // If we layout a Buildmenu sub item (item that has a buildMenuID), it's layout-parent is always the calling button unless it already has a parentElement assigned
+        // If we layout a BuildMenu sub item (item that has a buildMenuID), it's layout-parent is always the calling button unless it already has a parentElement assigned
         if (!uiElement.get()->getUiElementData().buildMenuID.empty() &&
             m_layoutGroups[uiElement.get()->getUiElementData().actionParameter].layout.layoutParentElementID.empty())
         {
@@ -454,7 +454,7 @@ void UIManager::setCallbackFunctions()
     {
       uiElement->registerCallbackFunction([]() { Engine::instance().loadGame("resources/save.cts"); });
     }
-    else if (uiElement->getUiElementData().actionID == "SaveSetings")
+    else if (uiElement->getUiElementData().actionID == "SaveSettings")
     {
       uiElement->registerCallbackFunction([]() { Settings::instance().writeFile(); });
     }
@@ -475,7 +475,7 @@ void UIManager::createBuildMenu()
     m_buttonGroups["_BuildMenu_"] = new ButtonGroup;
   }
 
-  // create buttongroups for all main-buttons in buildmenu (without the _sub prefix)
+  // create buttonGroups for all main-buttons in BuildMenu (without the _sub prefix)
   for (const auto &element : m_uiElements)
   {
     std::string parentGroupName = element->getUiElementData().buildMenuID;
@@ -488,7 +488,7 @@ void UIManager::createBuildMenu()
     }
   }
 
-  // Add elements from TileData.json to the Buildmenu, if there is a button whose BuildMenuID matches the category
+  // Add elements from TileData.json to the BuildMenu, if there is a button whose BuildMenuID matches the category
   // check if there's a corresponding category for tiles for this menu ID.
   int idx = 0;
   for (auto &tile : TileManager::instance().getAllTileData())
@@ -503,7 +503,7 @@ void UIManager::createBuildMenu()
 
     if (m_buttonGroups.find(category) == m_buttonGroups.end())
     {
-      std::string newcategory = "Debug_" + category;
+      std::string newCategory = "Debug_" + category;
       if (m_buttonGroups.find("Debug_" + category) == m_buttonGroups.end())
       {
         m_buttonGroups["Debug_" + category] = new ButtonGroup;
@@ -518,7 +518,7 @@ void UIManager::createBuildMenu()
         button->setVisibility(false);
         button->setToggleButton(true);
         button->setActionID("ToggleVisibilityOfGroup");
-        button->setActionParameter(newcategory);
+        button->setActionParameter(newCategory);
         button->setMenuGroupID("Debug_sub");
         button->setTooltipText(category);
         button->setUIElementID("Debug_sub" + std::to_string(idx));
@@ -533,9 +533,9 @@ void UIManager::createBuildMenu()
       button->setToggleButton(true);
       button->setActionID("ChangeTileType");
       button->setActionParameter(tile.first);
-      button->setMenuGroupID(newcategory + "_sub");
+      button->setMenuGroupID(newCategory + "_sub");
       button->setTooltipText(tile.second.title);
-      button->setUIElementID(newcategory + std::to_string(idx++));
+      button->setUIElementID(newCategory + std::to_string(idx++));
       m_uiElements.push_back(std::unique_ptr<UiElement>(dynamic_cast<UiElement *>(button)));
     }
     else
@@ -774,7 +774,7 @@ void UIManager::setBuildMenuPosition(UiElement *sender)
   }
   else
   {
-    LOG(LOG_ERROR) << "Only a combox can have setBuildMenuPosition() as callback function";
+    LOG(LOG_ERROR) << "Only a combobox can have setBuildMenuPosition() as callback function";
   }
 }
 

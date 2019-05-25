@@ -21,7 +21,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
 #endif
   // check for UI events first
   SDL_Point mouseCoords;
-  Point clickCoords;
+  Point clickCoords{};
 
   while (SDL_PollEvent(&event))
   {
@@ -115,7 +115,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           m_lastHoveredElement = nullptr;
           break;
         }
-        // If we're over a UI element that has no click functionaliy, abort the event loop, so no clicks go through the UiElement.
+        // If we're over a UI element that has no click functionality, abort the event loop, so no clicks go through the UiElement.
         //Note: This is handled here because UIGroups have no dimensions, but are UiElements
         if (it->isMouseOverHoverableArea(event.button.x, event.button.y))
         {
@@ -173,7 +173,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
 
     case SDL_MOUSEBUTTONUP:
       m_panning = false;
-      // reset pinchCenterCoords when fingers are realeased
+      // reset pinchCenterCoords when fingers are released
       pinchCenterCoords = {0, 0, 0, 0};
       // check for UI events first
       for (const auto &it : m_uiManager.getAllUiElementsForEventHandling())
@@ -187,7 +187,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
             m_skipLeftClick = true;
             break;
           }
-          // If we're over a UI element that has no click functionaliy, abort the event loop, so no clicks go through the UiElement.
+          // If we're over a UI element that has no click functionality, abort the event loop, so no clicks go through the UiElement.
           //Note: This is handled here because UIGroups have no dimensions, but are UiElements
           if (it->isMouseOver(event.button.x, event.button.y))
           {
