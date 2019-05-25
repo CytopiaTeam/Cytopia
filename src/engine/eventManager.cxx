@@ -238,7 +238,6 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       }
 
       break;
-      break;
     case SDL_MOUSEWHEEL:
       if (event.wheel.y > 0)
       {

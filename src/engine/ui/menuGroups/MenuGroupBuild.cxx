@@ -28,8 +28,6 @@ void MenuGroupBuild::draw() const
 void MenuGroupBuild::constructMenu()
 {
   std::string stringToCut = "_sub";
-  std::string::size_type sizeOfStringToCut;
-  std::string newString;
 
   for (auto it : m_groupElements)
   {
@@ -37,7 +35,7 @@ void MenuGroupBuild::constructMenu()
     // TODO: parse all non - _sub elements first, to make sure the main group exists.
     if (!it->getUiElementData().buildMenuID.empty())
     {
-      sizeOfStringToCut = it->getUiElementData().buildMenuID.find("_sub");
+      const std::string::size_type sizeOfStringToCut = it->getUiElementData().buildMenuID.find("_sub");
       // check if it the button is a submenu
       if (it->getUiElementData().buildMenuID.find(stringToCut) == std::string::npos)
       {
@@ -47,7 +45,7 @@ void MenuGroupBuild::constructMenu()
       }
       else
       {
-        newString = it->getUiElementData().buildMenuID;
+        std::string newString = it->getUiElementData().buildMenuID;
 
         newString.erase(sizeOfStringToCut, stringToCut.size());
         if (m_buildSubMenuGroups.find(newString) != m_buildSubMenuGroups.end())
