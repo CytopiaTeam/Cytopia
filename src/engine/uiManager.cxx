@@ -1,6 +1,5 @@
 #include "uiManager.hxx"
 
-#include "resourcesManager.hxx"
 #include "engine.hxx"
 #include "map.hxx"
 #include "basics/mapEdit.hxx"

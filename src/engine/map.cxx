@@ -14,7 +14,6 @@
 
 #include <sstream>
 #include <string>
-#include "map/MapLayers.hxx"
 
 #ifdef MICROPROFILE_ENABLED
 #include "microprofile.h"

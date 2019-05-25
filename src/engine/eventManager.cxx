@@ -10,9 +10,6 @@
 #include "map.hxx"
 
 #include "basics/log.hxx"
-#include "basics/utils.hxx"
-#include "ui/widgets/tooltip.hxx"
-#include "ui/menuGroups/MenuGroupBuild.hxx"
 
 #ifdef MICROPROFILE_ENABLED
 #include "microprofile.h"

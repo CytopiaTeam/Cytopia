@@ -5,11 +5,9 @@
 #include "engine/uiManager.hxx"
 #include "engine/windowManager.hxx"
 #include "engine/basics/camera.hxx"
-#include "engine/basics/point.hxx"
 #include "engine/basics/log.hxx"
 #include "engine/ui/widgets/Image.hxx"
 #include "engine/basics/settings.hxx"
-#include <noise.h>
 #include <SDL.h>
 
 #ifndef DISABLE_SDL2_MIXER

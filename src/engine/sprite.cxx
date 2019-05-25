@@ -4,7 +4,6 @@
 #include "windowManager.hxx"
 #include "basics/camera.hxx"
 #include "basics/isoMath.hxx"
-#include "basics/log.hxx"
 #include "map/MapLayers.hxx"
 
 #ifdef MICROPROFILE_ENABLED
