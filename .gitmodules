@@ -1,6 +1,3 @@
 [submodule "Cytopia_Resources"]
 	path = Cytopia_Resources
 	url = https://github.com/JimmySnails/Cytopia_Resources.git
-[submodule "Cytopia_ExternLibs"]
-	path = Cytopia_ExternLibs
-	url = https://github.com/JimmySnails/Cytopia_ExternLibs.git
