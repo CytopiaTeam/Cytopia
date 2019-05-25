@@ -69,13 +69,12 @@ void TerrainGenerator::generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNode
   const size_t vectorSize = static_cast<size_t>(terrainSettings.mapSize * terrainSettings.mapSize);
   mapNodes.resize(vectorSize);
   int z = 0;
-  int height = 0;
   // nodes need to be created at the correct vector "coordinates", or else the Z-Order will be broken
   for (int x = 0; x < terrainSettings.mapSize; x++)
   {
     for (int y = terrainSettings.mapSize - 1; y >= 0; y--)
     {
-      height = static_cast<int>(terrainHeight.GetValue(x * 32, y * 32, 0.5));
+      int height = static_cast<int>(terrainHeight.GetValue(x * 32, y * 32, 0.5));
 
       if (height < terrainSettings.seaLevel)
       {
