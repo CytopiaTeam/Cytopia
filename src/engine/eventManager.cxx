@@ -3,7 +3,6 @@
 #include "basics/camera.hxx"
 #include "basics/isoMath.hxx"
 #include "basics/mapEdit.hxx"
-#include "basics/timer.hxx"
 #include "basics/settings.hxx"
 #include "common/enums.hxx"
 #include "map/MapLayers.hxx"
@@ -60,15 +59,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         engine.toggleFullScreen();
         break;
 
-      case SDLK_b:
-        LOG() << "Starting elevation Benchmark!";
-        Timer benchmarkTimer;
-        benchmarkTimer.start();
-        for (int i = 0; i <= Settings::instance().settings.maxElevationHeight; i++)
-        {
-          engine.increaseHeight(Point{64, 64, 0, 0});
-        }
-        LOG() << "Done. Elevation took " << benchmarkTimer.getElapsedTime() << "ms";
+      default:
         break;
       }
       break;

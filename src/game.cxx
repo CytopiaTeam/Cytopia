@@ -153,6 +153,7 @@ void Game::mainMenu()
             it->onMouseEnter(event);
           }
           break;
+        default: ;
         }
       }
     }

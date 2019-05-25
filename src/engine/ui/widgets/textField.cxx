@@ -83,7 +83,6 @@ void TextField::setPosition(int x, int y)
     }
     y = m_uiElementRect.y + (m_textElementHeight * currentElement++);
     text->setPosition(x, y);
-    y += currentElement;
   }
 }
 
