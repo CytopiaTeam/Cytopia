@@ -107,10 +107,8 @@ void UIManager::init()
     auto &elements = uiLayout["UiElements"][it.key()];
 
     // parse UiElements
-    for (size_t id = 0; id < elements.size(); id++)
+    for (const auto &element : elements)
     {
-      auto &element = elements[id];
-
       if (!element["GroupVisibility"].is_null())
       {
         visible = element["GroupVisibility"].get<bool>();
