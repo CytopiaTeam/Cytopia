@@ -27,11 +27,6 @@ void Layout::arrangeElements()
     int x = 0;
     int y = 0;
 
-    if (groupLayout.layoutType == "VERTICAL")
-    {
-      yOffset = screenCenter.y - groupLayout.groupHeight / 2;
-    }
-
     int currentLength = 0;
     // Set layout for all non-child elements
     for (const auto &element : group.second.uiElements)
