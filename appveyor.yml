@@ -12,16 +12,12 @@ install:
 - cmd: >-
     git submodule update --init --recursive
 
-    choco install ninja conan -y
-
-    refreshenv
+    choco install ninja -y
 
     call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
-
-    conan user
 build_script:
 - cmd: >-
-    cmake -GNinja -DCMAKE_BUILD_TYPE=Release .
+    cmake -GNinja -DCMAKE_BUILD_TYPE=Release -DUSE_PMM=ON .
 
     ninja
 test: off
