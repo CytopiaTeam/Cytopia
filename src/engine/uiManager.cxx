@@ -423,20 +423,20 @@ void UIManager::setCallbackFunctions()
     {
       uiElement->registerCallbackFunction(Signal::slot(this, &UIManager::toggleGroupVisibility));
 
-      if (m_layoutGroups.find(uiElement.get()->getUiElementData().actionParameter) != m_layoutGroups.end())
+      if (m_layoutGroups.find(uiElement->getUiElementData().actionParameter) != m_layoutGroups.end())
       {
         // set a pointer to the parent element for all UiElements that belong to the group that.
-        for (const auto it : m_layoutGroups[uiElement.get()->getUiElementData().actionParameter].uiElements)
+        for (const auto it : m_layoutGroups[uiElement->getUiElementData().actionParameter].uiElements)
         {
           it->setParent(uiElement.get());
         }
 
         // If we layout a BuildMenu sub item (item that has a buildMenuID), it's layout-parent is always the calling button unless it already has a parentElement assigned
-        if (!uiElement.get()->getUiElementData().buildMenuID.empty() &&
-            m_layoutGroups[uiElement.get()->getUiElementData().actionParameter].layout.layoutParentElementID.empty())
+        if (!uiElement->getUiElementData().buildMenuID.empty() &&
+            m_layoutGroups[uiElement->getUiElementData().actionParameter].layout.layoutParentElementID.empty())
         {
-          m_layoutGroups[uiElement.get()->getUiElementData().actionParameter].layout.layoutParentElementID =
-              uiElement.get()->getUiElementData().elementID;
+          m_layoutGroups[uiElement->getUiElementData().actionParameter].layout.layoutParentElementID =
+              uiElement->getUiElementData().elementID;
         }
       }
     }
