@@ -361,7 +361,7 @@ bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int is
   }
 
   //TODO: Which layer ?
-  SDL_Rect spriteRect = mapNodes[isoX * m_columns + isoY]->getSprite()->getDestRect();
+  SDL_Rect spriteRect = mapNodes[isoX * m_columns + isoY]->getSprite()->getActiveDestRect();
   SDL_Point clicked{screenCoordinates.x, screenCoordinates.y};
 
   if (SDL_PointInRect(&clicked, &spriteRect))

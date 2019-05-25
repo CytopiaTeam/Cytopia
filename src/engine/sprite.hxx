@@ -34,6 +34,7 @@ public:
 
   SDL_Rect getDestRect(Layer layer = Layer::TERRAIN) { return m_SpriteData[layer].destRect; };
   SDL_Rect getActiveClipRect();
+  SDL_Rect getActiveDestRect();
 
   Point isoCoordinates{0, 0, 0, 0};
 

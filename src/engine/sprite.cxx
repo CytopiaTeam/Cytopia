@@ -108,6 +108,20 @@ SDL_Rect Sprite::getActiveClipRect()
   return {0, 0, 0, 0};
 }
 
+SDL_Rect Sprite::getActiveDestRect()
+{
+  if (MapLayers::isLayerActive(Layer::BUILDINGS) && m_SpriteData[Layer::BUILDINGS].destRect.w != 0 &&
+      m_SpriteData[Layer::BUILDINGS].destRect.h != 0)
+  {
+    return m_SpriteData[Layer::BUILDINGS].destRect;
+  }
+  else if (MapLayers::isLayerActive(Layer::TERRAIN))
+  {
+    return m_SpriteData[Layer::TERRAIN].destRect;
+  }
+  return {0, 0, 0, 0};
+}
+
 void Sprite::clearSprite(Layer layer)
 {
   m_SpriteData[layer].clipRect = {0, 0, 0, 0};
