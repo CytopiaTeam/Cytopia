@@ -1,7 +1,7 @@
 version: 0.2-CIBuild-{build}
 pull_requests:
   do_not_increment_build_number: true
-image: Visual Studio 2017
+image: Visual Studio 2019
 configuration: Release
 clone_depth: 10
 cache: C:/Users/appveyor/.conan/
@@ -14,7 +14,7 @@ install:
 
     choco install ninja -y
 
-    call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
+    call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvars64.bat"
 build_script:
 - cmd: >-
     cmake -GNinja -DCMAKE_BUILD_TYPE=Release -DUSE_PMM=ON .
