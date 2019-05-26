@@ -63,8 +63,7 @@ matrix:
         - ninja package
 
       before_cache:
-        - rm -rf $HOME/.conan/data/qt/5.12.3/bincrafters/stable/build/ || true
-        - rm -rf $HOME/.conan/data/qt/5.12.3/bincrafters/stable/source/ || true
+        - cmake -P ../cmake/pmm.cmake /Conan /Clean
 
     # clang build
     - os:                linux
@@ -92,8 +91,7 @@ matrix:
         - ninja
 
       before_cache:
-        - rm -rf $HOME/.conan/data/qt/5.12.3/bincrafters/stable/build/ || true
-        - rm -rf $HOME/.conan/data/qt/5.12.3/bincrafters/stable/source/ || true
+        - cmake -P ../cmake/pmm.cmake /Conan /Clean
 
     - os:               osx
       name:             XCode 10.2 Build
@@ -116,8 +114,7 @@ matrix:
         - make package
 
       before_cache:
-        - rm -rf $HOME/.conan/data/qt/5.12.3/bincrafters/stable/build/ || true
-        - rm -rf $HOME/.conan/data/qt/5.12.3/bincrafters/stable/source/ || true
+        - cmake -P ../cmake/pmm.cmake /Conan /Clean
 
 deploy:
   provider:            pages
