@@ -19,7 +19,7 @@ Sprite::Sprite(Point _isoCoordinates) : isoCoordinates(_isoCoordinates)
 void Sprite::render() const
 {
 #ifdef MICROPROFILE_ENABLED
-    MICROPROFILE_SCOPEI ("Map", "Sprite render", MP_RED);
+  MICROPROFILE_SCOPEI("Map", "Sprite render", MP_RED);
 #endif
   for (uint32_t i = 0; i < LAYERS_COUNT; ++i)
   {
@@ -106,6 +106,10 @@ SDL_Rect Sprite::getActiveClipRect()
     return m_SpriteData[Layer::TERRAIN].clipRect;
   }
   return {0, 0, 0, 0};
+}
+bool Sprite::isLayerUsed(Layer layer)
+{
+  return (MapLayers::isLayerActive(layer) && m_SpriteData[layer].clipRect.w != 0 && m_SpriteData[layer].clipRect.h != 0);
 }
 
 SDL_Rect Sprite::getActiveDestRect()
