@@ -33,6 +33,7 @@ public:
   bool highlightSprite = false;
 
   SDL_Rect getDestRect(Layer layer = Layer::TERRAIN) { return m_SpriteData[layer].destRect; };
+  SDL_Rect getClipRect(Layer layer = Layer::TERRAIN) { return m_SpriteData[layer].clipRect; };
   SDL_Rect getActiveClipRect();
   SDL_Rect getActiveDestRect();
 
