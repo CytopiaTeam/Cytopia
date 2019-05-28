@@ -359,7 +359,7 @@ bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int is
   }
 
   SDL_Rect spriteRect;
-  //TODO: Which layer ?
+  //TODO: Add other layers later
   if (MapLayers::isLayerActive(Layer::BUILDINGS) &&
       mapNodes[isoX * m_columns + isoY]->getSprite()->isLayerUsed((Layer::BUILDINGS)))
   {
@@ -392,6 +392,7 @@ bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int is
       const int pixelX = static_cast<int>((screenCoordinates.x - spriteRect.x) / Camera::zoomLevel);
       const int pixelY = static_cast<int>((screenCoordinates.y - spriteRect.y) / Camera::zoomLevel);
 
+      // TODO: The problem here is, that the pixel check doesn't work with all terrain tiles. This is a pre-layer issue. idk what causes it yet.
       // Check if the clicked Sprite is not transparent (we hit a point within the pixel)
       if (getColorOfPixelInSurface(ResourcesManager::instance().getTileSurface(
                                        mapNodes[isoX * m_columns + isoY]->getMapNodeDataForLayer(Layer::TERRAIN).tileID,
