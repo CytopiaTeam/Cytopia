@@ -72,15 +72,17 @@ void Sprite::refresh()
     }
   }
 
+  // convert this tiles isometric coordinates to screen coordinates (with camera offset / zoomlevel taken into account.
   m_screenCoordinates = convertIsoToScreenCoordinates(isoCoordinates);
 
-  for (uint32_t it = 0; it < LAYERS_COUNT; ++it)
+  for (auto &it : m_SpriteData)
   {
     // render the sprite in the middle of its bounding box so bigger than 1x1 sprites will render correctly
-    m_SpriteData[it].destRect.x = m_screenCoordinates.x - (m_SpriteData[it].destRect.w / 2);
+    it.destRect.x = m_screenCoordinates.x - (it.destRect.w / 2);
     // change y coordinates with sprites height taken into account to render the sprite at its base and not at its top.
-    m_SpriteData[it].destRect.y = m_screenCoordinates.y - m_SpriteData[it].destRect.h;
+    it.destRect.y = m_screenCoordinates.y - it.destRect.h;
   }
+
   m_needsRefresh = false;
 }
 
