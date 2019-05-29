@@ -70,6 +70,7 @@ public:
   const std::string &getTileID(Layer layer) const { return m_mapNodeData[layer].tileID; };
 
   const std::vector<MapNodeData> getMapNodeData() const { return m_mapNodeData; };
+  const MapNodeData getMapNodeDataForLayer(Layer layer) const { return m_mapNodeData[layer]; };
 
   const MapNodeData &getActiveMapNodeData() const;
 

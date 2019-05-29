@@ -19,7 +19,7 @@ Sprite::Sprite(Point _isoCoordinates) : isoCoordinates(_isoCoordinates)
 void Sprite::render() const
 {
 #ifdef MICROPROFILE_ENABLED
-    MICROPROFILE_SCOPEI ("Map", "Sprite render", MP_RED);
+  MICROPROFILE_SCOPEI("Map", "Sprite render", MP_RED);
 #endif
   for (uint32_t i = 0; i < LAYERS_COUNT; ++i)
   {
@@ -72,15 +72,17 @@ void Sprite::refresh()
     }
   }
 
+  // convert this tiles isometric coordinates to screen coordinates (with camera offset / zoomlevel taken into account.
   m_screenCoordinates = convertIsoToScreenCoordinates(isoCoordinates);
 
-  for (uint32_t it = 0; it < LAYERS_COUNT; ++it)
+  for (auto &it : m_SpriteData)
   {
     // render the sprite in the middle of its bounding box so bigger than 1x1 sprites will render correctly
-    m_SpriteData[it].destRect.x = m_screenCoordinates.x - (m_SpriteData[it].destRect.w / 2);
+    it.destRect.x = m_screenCoordinates.x - (it.destRect.w / 2);
     // change y coordinates with sprites height taken into account to render the sprite at its base and not at its top.
-    m_SpriteData[it].destRect.y = m_screenCoordinates.y - m_SpriteData[it].destRect.h;
+    it.destRect.y = m_screenCoordinates.y - it.destRect.h;
   }
+
   m_needsRefresh = false;
 }
 
@@ -104,6 +106,24 @@ SDL_Rect Sprite::getActiveClipRect()
   else if (MapLayers::isLayerActive(Layer::TERRAIN))
   {
     return m_SpriteData[Layer::TERRAIN].clipRect;
+  }
+  return {0, 0, 0, 0};
+}
+bool Sprite::isLayerUsed(Layer layer)
+{
+  return (MapLayers::isLayerActive(layer) && m_SpriteData[layer].clipRect.w != 0 && m_SpriteData[layer].clipRect.h != 0);
+}
+
+SDL_Rect Sprite::getActiveDestRect()
+{
+  if (MapLayers::isLayerActive(Layer::BUILDINGS) && m_SpriteData[Layer::BUILDINGS].destRect.w != 0 &&
+      m_SpriteData[Layer::BUILDINGS].destRect.h != 0)
+  {
+    return m_SpriteData[Layer::BUILDINGS].destRect;
+  }
+  else if (MapLayers::isLayerActive(Layer::TERRAIN))
+  {
+    return m_SpriteData[Layer::TERRAIN].destRect;
   }
   return {0, 0, 0, 0};
 }

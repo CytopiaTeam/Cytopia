@@ -17,7 +17,7 @@
 void EventManager::checkEvents(SDL_Event &event, Engine &engine)
 {
 #ifdef MICROPROFILE_ENABLED
-    MICROPROFILE_SCOPEI ("EventManager", "checkEvents", MP_BEIGE);
+  MICROPROFILE_SCOPEI("EventManager", "checkEvents", MP_BEIGE);
 #endif
   // check for UI events first
   SDL_Point mouseCoords;
@@ -135,14 +135,11 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       }
 
       // game event handling
-      mouseCoords = {event.button.x, event.button.y};
-      clickCoords = convertScreenToIsoCoordinates(mouseCoords);
       if (m_panning)
       {
         Camera::cameraOffset.x -= event.motion.xrel;
         Camera::cameraOffset.y -= event.motion.yrel;
-        Camera::centerIsoCoordinates = convertScreenToIsoCoordinates(
-            {Settings::instance().settings.screenWidth / 2, Settings::instance().settings.screenHeight / 2});
+
         Engine::instance().map->refresh();
       }
       else
@@ -172,7 +169,12 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       break;
 
     case SDL_MOUSEBUTTONUP:
-      m_panning = false;
+      if (m_panning)
+      {
+        Camera::centerIsoCoordinates = convertScreenToIsoCoordinates(
+            {Settings::instance().settings.screenWidth / 2, Settings::instance().settings.screenHeight / 2});
+        m_panning = false;
+      }
       // reset pinchCenterCoords when fingers are released
       pinchCenterCoords = {0, 0, 0, 0};
       // check for UI events first

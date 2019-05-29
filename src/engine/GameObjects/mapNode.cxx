@@ -49,7 +49,6 @@ void MapNode::setBitmask(unsigned char elevationBitmask, unsigned char tileIDBit
 
 void MapNode::setTileID(const std::string &tileID)
 {
-
   if (TileManager::instance().getTileData(tileID))
   {
     if (TileManager::instance().getTileData(tileID)->category == "Terrain" ||
