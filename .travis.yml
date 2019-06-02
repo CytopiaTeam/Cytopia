@@ -38,7 +38,6 @@ matrix:
       compiler:          gcc
       python:            3.7
       env:
-        - DEPLOY_DOCUMENTATION=true
         - C_COMPILER=gcc-5
       before_install:
         - sudo rm -rf /usr/local/cmake-3.9.2/
@@ -59,8 +58,8 @@ matrix:
         # Build Cytopia
         - cmake -GNinja -DCMAKE_BUILD_TYPE=Release ..
         - ninja
-        - ninja doc
-        - ninja package
+        - ldd ./bin/Cytopia
+        - sh ../tools/CI/upload-CI-build.sh
 
       before_cache:
         - cmake -P ../cmake/pmm.cmake /Conan /Clean
@@ -71,6 +70,7 @@ matrix:
       compiler:          clang
       python:            3.7
       env:
+        - DEPLOY_DOCUMENTATION=true
         - COMPILER=clang++-5.0
         - CC=/usr/bin/gcc-5 /usr/bin/clang++-5.0
         - CXX=/usr/bin/gcc-5 /usr/bin/clang++-5.0
@@ -89,6 +89,7 @@ matrix:
         # Build Cytopia
         - cmake -GNinja -DCMAKE_BUILD_TYPE=Release ..
         - ninja
+        - ninja doc
 
       before_cache:
         - cmake -P ../cmake/pmm.cmake /Conan /Clean
