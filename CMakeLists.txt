@@ -134,7 +134,7 @@ include(cmake/CpackConfiguration.cmake)
 include(cmake/CompileOptions.cmake)
 
 # set install dir here for convenience
-set(CMAKE_INSTALL_PREFIX "../install")
+set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/redist")
 
 # make sure, every binary lands in the root directory
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
