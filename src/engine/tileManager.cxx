@@ -254,19 +254,19 @@ void TileManager::init()
 
   size_t idx = 0;
 
-  while (!tileDataJSON[idx].is_null())
+  for (auto element : tileDataJSON.items())
   {
     // check if ID is an array and multiple sprites are supplied. If that's the case, we create separate m_tileData entries for each element.
-    if (tileDataJSON[idx]["id"].is_array())
+    if (element.value()["id"].is_array())
     {
-      size_t count = tileDataJSON[idx]["tiles"].value("count", -1);
-      if (tileDataJSON[idx]["id"].size() != count)
+      size_t count = element.value()["tiles"].value("count", -1);
+      if (element.value()["id"].size() != count)
       {
-        std::string title = tileDataJSON[idx].value("title", "");
+        std::string title = element.value().value("title", "");
         LOG(LOG_ERROR) << "There are " << count << " elements in the section \"tiles\" of element with Title: " << title
-                       << " but only " << tileDataJSON[idx]["id"].size() << " IDs!";
+                       << " but only " << element.value()["id"].size() << " IDs!";
       }
-      for (const auto &it : tileDataJSON[idx]["id"].items())
+      for (const auto &it : element.value()["id"].items())
       {
         addJSONObjectToTileData(tileDataJSON, idx, it.value(), std::stoi(it.key()));
       }
@@ -274,7 +274,7 @@ void TileManager::init()
     else
     {
       std::string id;
-      id = tileDataJSON[idx].value("id", "");
+      id = element.value().value("id", "");
       addJSONObjectToTileData(tileDataJSON, idx, id);
     }
 
