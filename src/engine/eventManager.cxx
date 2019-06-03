@@ -19,7 +19,7 @@
 void EventManager::checkEvents(SDL_Event &event, Engine &engine)
 {
 #ifdef MICROPROFILE_ENABLED
-    MICROPROFILE_SCOPEI ("EventManager", "checkEvents", MP_BEIGE);
+  MICROPROFILE_SCOPEI("EventManager", "checkEvents", MP_BEIGE);
 #endif
   // check for UI events first
   SDL_Point mouseCoords;
@@ -187,7 +187,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
 
     case SDL_MOUSEBUTTONUP:
       m_panning = false;
-      // reset pinchCenterCoords when fingers are realeased
+      // reset pinchCenterCoords when fingers are released
       pinchCenterCoords = {0, 0, 0, 0};
       // check for UI events first
       for (const auto &it : m_uiManager.getAllUiElementsForEventHandling())
@@ -252,7 +252,6 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       }
 
       break;
-      break;
     case SDL_MOUSEWHEEL:
       if (event.wheel.y > 0)
       {
@@ -268,4 +267,21 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       break;
     }
   }
+
+  for (auto &timer : timers)
+  {
+      timer->checkTimeout();
+  }
+
+  for (auto &removedTimer : removedTimers)
+  {
+      timers.erase(removedTimer);
+  }
+
+  removedTimers.clear();
+
 }
+
+void EventManager::registerTimer(Timer *timer) { timers.insert(timer); }
+
+void EventManager::removeTimer(Timer *timer) { removedTimers.insert(timer); }

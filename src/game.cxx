@@ -13,7 +13,7 @@
 #include <SDL.h>
 
 #ifndef DISABLE_SDL2_MIXER
-  #include "engine/audioMixer.hxx"
+#include "engine/audioMixer.hxx"
 #endif
 
 #ifdef MICROPROFILE_ENABLED
@@ -182,7 +182,7 @@ void Game::run()
   Camera::centerScreenOnMapCenter();
 
   SDL_Event event;
-  EventManager evManager;
+  EventManager &evManager = EventManager::instance();
 
   UIManager &uiManager = UIManager::instance();
   uiManager.init();
@@ -232,7 +232,6 @@ void Game::run()
 #ifdef MICROPROFILE_ENABLED
       MicroProfileFlip(nullptr);
 #endif
-
   }
 }
 
