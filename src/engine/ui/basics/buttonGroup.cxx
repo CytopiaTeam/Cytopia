@@ -52,7 +52,7 @@ void ButtonGroup::uncheckAllButtons(Button *exceptThisButton)
 {
   for (const auto &it : m_buttonGroup)
   {
-    // If the buttongroup has children, uncheck them too
+    // If the ButtonGroup has children, uncheck them too
     if (UIManager::instance().getUiElementsOfGroup(it->getUiElementData().actionParameter) &&
         it->getUiElementData().actionID == "ToggleVisibilityOfGroup")
     {

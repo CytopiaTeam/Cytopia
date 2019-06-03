@@ -29,11 +29,11 @@ TileData *TileManager::getTileData(const std::string &id)
   return nullptr;
 }
 
-size_t TileManager::caluclateSlopeOrientation(unsigned char bitMaskElevation)
+size_t TileManager::calculateSlopeOrientation(unsigned char bitMaskElevation)
 {
-  // initialize with DEFAULT_ORIENTAITON which elevationMask.none()
+  // initialize with DEFAULT_ORIENTATION which elevationMask.none()
   size_t orientation = TileSlopes::DEFAULT_ORIENTATION;
-  std::bitset<8> elevationMask(bitMaskElevation);
+  const std::bitset<8> elevationMask(bitMaskElevation);
 
   // Bits:
   // 0 = 2^0 = 1   = TOP
@@ -139,7 +139,7 @@ size_t TileManager::caluclateSlopeOrientation(unsigned char bitMaskElevation)
   return orientation;
 }
 
-size_t TileManager::caluclateTileOrientation(unsigned char bitMaskElevation)
+size_t TileManager::calculateTileOrientation(unsigned char bitMaskElevation)
 {
   size_t orientation;
   std::bitset<8> elevationMask(bitMaskElevation);
@@ -234,8 +234,6 @@ size_t TileManager::caluclateTileOrientation(unsigned char bitMaskElevation)
 
 void TileManager::init()
 {
-  json tileDataJSON;
-
   // Read JSON File.
   std::ifstream i(SDL_GetBasePath() + Settings::instance().settings.tileDataJSONFile);
   if (i.fail())
@@ -245,7 +243,7 @@ void TileManager::init()
   }
 
   // check if json file can be parsed
-  tileDataJSON = json::parse(i, nullptr, false);
+  const json tileDataJSON = json::parse(i, nullptr, false);
   if (tileDataJSON.is_discarded())
   {
     LOG(LOG_ERROR) << "Error parsing JSON File " << Settings::instance().settings.tileDataJSONFile;
@@ -256,19 +254,19 @@ void TileManager::init()
 
   size_t idx = 0;
 
-  while (!tileDataJSON[idx].is_null())
+  for (auto element : tileDataJSON.items())
   {
-    // check if ID is an array and multiple sprites are supplied. If that's the case, we create seperate m_tileData entries for each element.
-    if (tileDataJSON[idx]["id"].is_array())
+    // check if ID is an array and multiple sprites are supplied. If that's the case, we create separate m_tileData entries for each element.
+    if (element.value()["id"].is_array())
     {
-      size_t count = tileDataJSON[idx]["tiles"].value("count", -1);
-      if (tileDataJSON[idx]["id"].size() != count)
+      size_t count = element.value()["tiles"].value("count", -1);
+      if (element.value()["id"].size() != count)
       {
-        std::string title = tileDataJSON[idx].value("title", "");
+        std::string title = element.value().value("title", "");
         LOG(LOG_ERROR) << "There are " << count << " elements in the section \"tiles\" of element with Title: " << title
-                       << " but only " << tileDataJSON[idx]["id"].size() << " IDs!";
+                       << " but only " << element.value()["id"].size() << " IDs!";
       }
-      for (const auto &it : tileDataJSON[idx]["id"].items())
+      for (const auto &it : element.value()["id"].items())
       {
         addJSONObjectToTileData(tileDataJSON, idx, it.value(), std::stoi(it.key()));
       }
@@ -276,7 +274,7 @@ void TileManager::init()
     else
     {
       std::string id;
-      id = tileDataJSON[idx].value("id", "");
+      id = element.value().value("id", "");
       addJSONObjectToTileData(tileDataJSON, idx, id);
     }
 

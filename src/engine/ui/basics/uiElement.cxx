@@ -29,7 +29,7 @@ void UiElement::changeButtonState(int state)
   m_buttonState = state;
 }
 
-void UiElement::renderTexture()
+void UiElement::renderTexture() const
 {
   if (m_texture)
   {
@@ -97,7 +97,7 @@ void UiElement::createTextTexture(const std::string &text, const SDL_Color &text
   TTF_CloseFont(m_font);
 }
 
-void UiElement::drawTextFrame()
+void UiElement::drawTextFrame() const
 {
   if (m_uiElementRect.w != 0 && m_uiElementRect.h != 0)
   {
@@ -164,11 +164,11 @@ void UiElement::drawButtonFrame(SDL_Rect rect, bool isHighlightable)
                 SDL_Color{bgColorBottomFrameShade, bgColorBottomFrameShade, bgColorBottomFrameShade});
 }
 
-void UiElement::drawFrame(SDL_Rect rect)
+void UiElement::drawFrame(SDL_Rect rect) const
 {
-  Uint8 bgColor = 128;
-  Uint8 bgColorFrame = 150;
-  Uint8 bgColorFrameShade = 172;
+  const Uint8 bgColor = 128;
+  const Uint8 bgColorFrame = 150;
+  const Uint8 bgColorFrameShade = 172;
 
   drawSolidRect(rect, SDL_Color{bgColorFrame, bgColorFrame, bgColorFrame});
   drawSolidRect(SDL_Rect{rect.x + 2, rect.y + 2, rect.w - 4, rect.h - 4},

@@ -23,7 +23,7 @@ void AudioMixer::setSoundEffectVolume(int volume)
 void AudioMixer::playMusic()
 {
   // TODO: stored audio elements should be moved to the resources class after refactoring
-  std::shared_ptr<Music> themeMusic(new Music);
+  const std::shared_ptr<Music> themeMusic(new Music);
   m_musicObjects.push_back(themeMusic);
 
   std::string filePath = SDL_GetBasePath();

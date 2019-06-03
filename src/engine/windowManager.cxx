@@ -29,7 +29,6 @@ WindowManager::WindowManager()
   }
   else
   {
-
     LOG(LOG_ERROR) << "Could not load icon " << m_windowIcon << "\nSDL_IMAGE Error: " << IMG_GetError();
   }
 
@@ -58,7 +57,7 @@ void WindowManager::toggleFullScreen() const
   }
 }
 
-void WindowManager::setFullScreenMode(FULLSCREEN_MODE mode)
+void WindowManager::setFullScreenMode(FULLSCREEN_MODE mode) const
 {
   Settings::instance().settings.fullScreenMode = static_cast<int>(mode);
 
@@ -79,12 +78,12 @@ void WindowManager::setFullScreenMode(FULLSCREEN_MODE mode)
     {
       LOG() << "SDL_GetDesktopDisplayMode failed: " << SDL_GetError();
     }
-    // set the actual resolution to the desktop resolution for borderless
+    // set the actual resolution to the desktop resolution for Borderless
     Settings::instance().settings.currentScreenHeight = desktopScreenMode.h;
     Settings::instance().settings.currentScreenWidth = desktopScreenMode.w;
 
-    // As a workaround, need to swtich back into windowed mode before changing the display mode, then back to full screen mode.
-	// Minimize / Restore is another workaround to get the change from fullscreen to Borderless working
+    // As a workaround, need to switch back into windowed mode before changing the display mode, then back to full screen mode.
+    // Minimize / Restore is another workaround to get the change from fullscreen to Borderless working
     SDL_SetWindowFullscreen(m_window, 0);
     SDL_MinimizeWindow(m_window);
     SDL_SetWindowFullscreen(m_window, SDL_WINDOW_FULLSCREEN_DESKTOP);
@@ -110,7 +109,7 @@ void WindowManager::initializeScreenResolutions()
   // get the number of different screen modes
   for (int modeIndex = 0; modeIndex <= SDL_GetNumDisplayModes(m_activeDisplay); modeIndex++)
   {
-    SDL_DisplayMode *mode = new SDL_DisplayMode{SDL_PIXELFORMAT_UNKNOWN, 0, 0, 0, 0};
+    SDL_DisplayMode *mode = new SDL_DisplayMode{SDL_PIXELFORMAT_UNKNOWN, 0, 0, 0, nullptr};
 
     if (SDL_GetDisplayMode(m_activeDisplay, modeIndex, mode) == 0)
     {
@@ -144,7 +143,7 @@ void WindowManager::setScreenResolution(int mode)
       SDL_SetWindowPosition(m_window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
       break;
     case FULLSCREEN_MODE::BORDERLESS:
-      // do nothing for borderless fullscreen, it's always the screensize
+      // do nothing for Borderless fullscreen, it's always the screenSize
       break;
     }
   }

@@ -70,8 +70,8 @@ public:
 
   SDL_Texture *getTexture(const std::string &id, size_t tileMapType = 0) const;
   TileData *getTileData(const std::string &id);
-  size_t caluclateSlopeOrientation(unsigned char bitMaskElevation);
-  size_t caluclateTileOrientation(unsigned char bitMaskElevation);
+  size_t calculateSlopeOrientation(unsigned char bitMaskElevation);
+  size_t calculateTileOrientation(unsigned char bitMaskElevation);
   const std::unordered_map<std::string, TileData> &getAllTileData() const { return m_tileData; };
   void init();
 

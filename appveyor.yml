@@ -12,16 +12,12 @@ install:
 - cmd: >-
     git submodule update --init --recursive
 
-    choco install ninja conan -y
-
-    refreshenv
+    choco install ninja -y
 
     call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
-
-    conan user
 build_script:
 - cmd: >-
-    cmake -GNinja -DCMAKE_BUILD_TYPE=Release .
+    cmake -GNinja -DCMAKE_BUILD_TYPE=Release -DUSE_PMM=ON .
 
     ninja
 test: off
@@ -32,7 +28,4 @@ deploy_script:
     scoop install https://raw.githubusercontent.com/AnotherFoxGuy/scoop-bucket/master/butler.json;
     butler push bin cytopia/cytopia:windows-ci --userversion $env:APPVEYOR_BUILD_VERSION;}
 on_success:
-- cmd: >-
-    RD /S /Q C:\Users\appveyor\.conan\data\sdl2_mixer\2.0.4\anotherfoxguy\stable\build\ & exit 0
-
-    RD /S /Q C:\Users\appveyor\.conan\data\sdl2_mixer\2.0.4\anotherfoxguy\stable\source\ & exit 0
+- cmd: cmake -P cmake/pmm.cmake /Conan /Clean

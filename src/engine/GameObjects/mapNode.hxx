@@ -5,19 +5,30 @@
 
 #include <memory>
 #include <string>
+#include <algorithm>
+#include <vector>
 
 #include "../sprite.hxx"
+#include "../common/enums.hxx"
 #include "../basics/point.hxx"
 
 #include "../tileManager.hxx"
 
+struct MapNodeData
+{
+  std::string tileID;
+  TileData *tileData = nullptr;
+};
+
 /** @brief Class that holds map nodes
  * Each tile is represented by the map nodes class.
  */
+
 class MapNode
 {
 public:
-  explicit MapNode(Point isoCoordinates);
+  MapNode(Point isoCoordinates, const std::string &terrainID, const std::string &tileID = "");
+
   ~MapNode() = default;
 
   /** @brief get Sprite
@@ -50,13 +61,22 @@ public:
 
   void setBitmask(unsigned char elevationBitmask, unsigned char tileTypeBitmask);
 
+  //bool isLayerActive(Layer layer) const { return std::find(layers.begin(), layers.end(), layer) != layers.end(); };
+
   unsigned char getElevationBitmask() const { return m_elevationBitmask; };
 
-  const TileData *getTileData() const { return m_tileData; };
+  const TileData *getTileData(Layer layer) const { return m_mapNodeData[layer].tileData; };
 
-  const std::string &getTileID() const { return m_tileID; };
+  const std::string &getTileID(Layer layer) const { return m_mapNodeData[layer].tileID; };
+
+  const std::vector<MapNodeData> getMapNodeData() const { return m_mapNodeData; };
+  const MapNodeData getMapNodeDataForLayer(Layer layer) const { return m_mapNodeData[layer]; };
+
+  const MapNodeData &getActiveMapNodeData() const;
+
+  void demolishNode();
+
   void setTileID(const std::string &tileType);
-
   size_t tileMap = TileMap::DEFAULT;
 
 private:
@@ -65,15 +85,14 @@ private:
 
   int m_maxHeight = 32;
 
-  std::string m_tileID = "terrain";
   std::string m_previousTileID = "terrain";
 
   size_t m_orientation = TileSlopes::DEFAULT_ORIENTATION;
+  size_t m_elevationOrientation = TileSlopes::DEFAULT_ORIENTATION;
 
   int m_clippingWidth = 0;
 
-  TileData *m_tileData;
-
+  std::vector<MapNodeData> m_mapNodeData;
   unsigned char m_elevationBitmask = 0;
   unsigned char m_tileIDBitmask = 0;
 

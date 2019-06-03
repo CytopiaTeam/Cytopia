@@ -81,4 +81,4 @@ bool Music::isPlaying() const
   return false;
 }
 
-void Music::ensableMusic(bool enabled) { m_playMusic = enabled; }
+void Music::enableMusic(bool enabled) { m_playMusic = enabled; }
