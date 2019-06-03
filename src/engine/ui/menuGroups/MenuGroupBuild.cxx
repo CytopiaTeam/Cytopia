@@ -1,7 +1,7 @@
 #include "MenuGroupBuild.hxx"
-#include "../../basics/log.hxx"
-#include "../../basics/settings.hxx"
-#include "../../tileManager.hxx"
+#include "../../basics/LOG.hxx"
+#include "../../basics/Settings.hxx"
+#include "../../TileManager.hxx"
 #include "../../basics/signal.hxx"
 
 void MenuGroupBuild::draw() const
@@ -56,7 +56,7 @@ void MenuGroupBuild::constructMenu()
         }
         else
         {
-          LOG(LOG_ERROR) << "You are trying to add an UiElement to the Group " << newString
+          LOG(LOG_ERROR) << "You are trying to add an UIElement to the Group " << newString
                          << ", but the main group does not exist.";
         }
       }
@@ -70,7 +70,7 @@ void MenuGroupBuild::constructMenu()
     {
       if (tile.second.category == it->getUiElementData().buildMenuID)
       {
-        //TODO: take care of ownership / add the created elements to UiManager to properly delete them
+        //TODO: take care of ownership / add the created elements to UIManager to properly delete them
         Button *button = new Button({0, 0, 0, 0});
 
         // TODO: Check if icon empty.

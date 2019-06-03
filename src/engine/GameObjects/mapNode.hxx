@@ -6,10 +6,10 @@
 #include <memory>
 #include <string>
 
-#include "../sprite.hxx"
+#include "../Sprite.hxx"
 #include "../basics/point.hxx"
 
-#include "../tileManager.hxx"
+#include "../TileManager.hxx"
 
 /** @brief Class that holds map nodes
  * Each tile is represented by the map nodes class.

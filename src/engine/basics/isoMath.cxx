@@ -1,8 +1,8 @@
 #include "isoMath.hxx"
 
-#include "../engine.hxx"
-#include "camera.hxx"
-#include "settings.hxx"
+#include "../Engine.hxx"
+#include "Camera.hxx"
+#include "Settings.hxx"
 #include "point.hxx"
 
 Point calculateIsoCoordinates(const SDL_Point &screenCoordinates)

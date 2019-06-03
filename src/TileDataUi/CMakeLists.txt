@@ -2,8 +2,8 @@ set(TARGET TileDataEditor)
 
 set(SOURCES
         main.cxx
-        TileData.cxx
-        TileDataUi.cxx
+        TileDataContainer.cxx
+        TileDataUI.cxx
         )
 
 if (MSVC)

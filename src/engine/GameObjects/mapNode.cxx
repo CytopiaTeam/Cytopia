@@ -1,5 +1,5 @@
 #include "mapNode.hxx"
-#include "../basics/log.hxx"
+#include "../basics/LOG.hxx"
 
 MapNode::MapNode(Point isoCoordinates) : m_isoCoordinates(std::move(isoCoordinates))
 {

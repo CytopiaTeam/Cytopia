@@ -1,8 +1,8 @@
 #include "Layout.hxx"
 
-#include "../../basics/log.hxx"
-#include "../../basics/settings.hxx"
-#include "../../uiManager.hxx"
+#include "../../basics/LOG.hxx"
+#include "../../basics/Settings.hxx"
+#include "../../UIManager.hxx"
 
 void Layout::arrangeElements()
 {
@@ -199,7 +199,7 @@ void Layout::arrangeElements()
   }
 }
 
-void Layout::arrangeChildElements(LayoutData &groupLayout, std::vector<UiElement *> groupElements)
+void Layout::arrangeChildElements(LayoutData &groupLayout, std::vector<UIElement *> groupElements)
 {
 
   int xOffset = 0;
@@ -224,7 +224,7 @@ void Layout::arrangeChildElements(LayoutData &groupLayout, std::vector<UiElement
     }
 
     // get parent element and check if it exists
-    UiElement *parentElement = UIManager::instance().getUiElementByID(groupLayout.layoutParentElementID);
+    UIElement *parentElement = UIManager::instance().getUiElementByID(groupLayout.layoutParentElementID);
     if (!parentElement)
     {
       LOG(LOG_ERROR) << "Cannot align element " << element->getUiElementData().elementID
@@ -237,7 +237,7 @@ void Layout::arrangeChildElements(LayoutData &groupLayout, std::vector<UiElement
       std::string parentsLayoutGroup = parentElement->getUiElementData().layoutGroupName;
       LayoutData lay = UIManager::instance().getAllLayoutGroups()[parentsLayoutGroup].layout;
 
-      std::vector<UiElement *> parentsUiElements = UIManager::instance().getAllLayoutGroups()[parentsLayoutGroup].uiElements;
+      std::vector<UIElement *> parentsUiElements = UIManager::instance().getAllLayoutGroups()[parentsLayoutGroup].uiElements;
 
       arrangeChildElements(lay, parentsUiElements);
     }
