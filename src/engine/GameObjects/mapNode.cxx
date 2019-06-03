@@ -1,7 +1,7 @@
 #include "mapNode.hxx"
 
-#include "../basics/log.hxx"
 #include "../map/MapLayers.hxx"
+#include "../basics/LOG.hxx"
 
 MapNode::MapNode(Point isoCoordinates, const std::string &terrainID, const std::string &tileID)
     : m_isoCoordinates(std::move(isoCoordinates))

@@ -8,11 +8,11 @@
 #include <algorithm>
 #include <vector>
 
-#include "../sprite.hxx"
+#include "../Sprite.hxx"
 #include "../common/enums.hxx"
 #include "../basics/point.hxx"
 
-#include "../tileManager.hxx"
+#include "../TileManager.hxx"
 
 struct MapNodeData
 {

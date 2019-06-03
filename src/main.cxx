@@ -1,4 +1,4 @@
-#include "game.hxx"
+#include "Game.hxx"
 
 #include <iostream>
 
