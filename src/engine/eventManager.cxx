@@ -255,4 +255,21 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       break;
     }
   }
+
+  for (auto &timer : timers)
+  {
+      timer->checkTimeout();
+  }
+
+  for (auto &removedTimer : removedTimers)
+  {
+      timers.erase(removedTimer);
+  }
+
+  removedTimers.clear();
+
 }
+
+void EventManager::registerTimer(Timer *timer) { timers.insert(timer); }
+
+void EventManager::removeTimer(Timer *timer) { removedTimers.insert(timer); }

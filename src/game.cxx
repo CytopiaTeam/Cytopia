@@ -181,7 +181,7 @@ void Game::run()
   Camera::centerScreenOnMapCenter();
 
   SDL_Event event;
-  EventManager evManager;
+  EventManager &evManager = EventManager::instance();
 
   UIManager &uiManager = UIManager::instance();
   uiManager.init();

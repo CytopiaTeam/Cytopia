@@ -1,14 +1,12 @@
 #include "timer.hxx"
 
 #include "../basics/log.hxx"
+#include "../eventManager.hxx"
 
 Timer::~Timer()
 {
-  m_threadRunning = false;
-  if (m_timerThread.joinable())
-  {
-    m_timerThread.join();
-  }
+    stop();
+    EventManager::instance().removeTimer(this);
 }
 
 void Timer::start()
@@ -20,7 +18,7 @@ void Timer::start()
   m_isActive = true;
   m_timeOut = false;
 
-  startThread();
+  EventManager::instance().registerTimer(this);
 }
 
 void Timer::stop()
@@ -28,11 +26,6 @@ void Timer::stop()
   m_elapsedTime = static_cast<int>((SDL_GetPerformanceCounter() - m_startTime) * 1000 / SDL_GetPerformanceFrequency());
   m_isActive = false;
   m_timeOut = false;
-  m_threadRunning = false;
-  if (m_timerThread.joinable())
-  {
-    m_timerThread.join();
-  }
 }
 
 void Timer::pause()
@@ -68,7 +61,8 @@ int Timer::getElapsedTime()
 {
   if (m_isActive)
   {
-    m_elapsedTime = static_cast<int>((SDL_GetPerformanceCounter() - m_startTime) * 1000 / SDL_GetPerformanceFrequency());
+    m_elapsedTime =
+        static_cast<int>((SDL_GetPerformanceCounter() - m_startTime) * 1000 / SDL_GetPerformanceFrequency());
   }
   return m_elapsedTime;
 }
@@ -91,37 +85,13 @@ void Timer::timeOut()
   m_lastTimeOutTime = SDL_GetPerformanceCounter();
 }
 
-void Timer::startThread()
-{
-  // if thread is running, abort and join it before starting a new one
-  if (m_timerThread.joinable())
-  {
-    m_threadRunning = false;
-    m_timerThread.join();
-  }
-  else if (m_threadRunning)
-  {
-    return;
-  }
-
-  m_threadRunning = true;
-  if (m_timeUntilTimeOut != 0)
-  {
-    m_timerThread = std::thread([=]() {
-      while (m_threadRunning)
-      {
-        if (getElapsedTimeSinceLastTimeOut() >= m_timeUntilTimeOut)
+void Timer::checkTimeout() {
+    if (getElapsedTimeSinceLastTimeOut() >= m_timeUntilTimeOut)
+    {
+        timeOut();
+        if (!m_loopTimer)
         {
-          timeOut();
-          if (!m_loopTimer)
-          {
-            m_threadRunning = false;
-          }
+            stop();
         }
-
-        // helps with cpu usage...
-        std::this_thread::sleep_for(std::chrono::milliseconds(50));
-      }
-    });
-  }
+    }
 }

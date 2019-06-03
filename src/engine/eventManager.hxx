@@ -2,6 +2,7 @@
 #define EVENTMANAGER_HXX_
 
 #include <SDL.h>
+#include <set>
 
 #include "engine.hxx"
 #include "uiManager.hxx"
@@ -12,7 +13,16 @@ public:
   EventManager() = default;
   ~EventManager() = default;
 
+  static EventManager& instance()
+  {
+      static EventManager evManager;
+      return evManager;
+  }
+
   void checkEvents(SDL_Event &event, Engine &engine);
+
+  void registerTimer(Timer *timer);
+  void removeTimer(Timer *timer);
 
 private:
   UIManager &m_uiManager = UIManager::instance();
@@ -23,6 +33,9 @@ private:
   bool m_skipLeftClick = false;
   bool m_tileInfoMode = false;
   Point pinchCenterCoords = {0, 0, 0, 0};
+
+  std::set<Timer*> timers;
+  std::set<Timer*> removedTimers;
 };
 
 #endif
