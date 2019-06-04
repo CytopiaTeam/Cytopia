@@ -258,7 +258,14 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       // If we're over a ui element, don't handle game events
       if (m_skipLeftClick)
       {
-        m_skipLeftClick = true;
+        for (size_t i = 0; i < m_highlightedNodes.size(); i++)
+        {
+          engine.map->unHighlightNode(m_highlightedNodes[i]);
+        }
+        m_highlightedNodes.clear();
+
+		engine.map->unHighlightNode(m_highlitNode);
+
         break;
       }
 
