@@ -3,9 +3,9 @@
 
 #include <string>
 
-#include "../basics/uiElement.hxx"
+#include "../basics/UIElement.hxx"
 
-class Image : public UiElement
+class Image : public UIElement
 {
 public:
   Image() = default;

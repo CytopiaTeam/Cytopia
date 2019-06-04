@@ -1,8 +1,8 @@
 #ifndef I_MENU_GROUP_HXX_
 #define I_MENU_GROUP_HXX_
 
-#include "../basics/uiElement.hxx"
-#include "../basics/buttonGroup.hxx"
+#include "../basics/UIElement.hxx"
+#include "../basics/ButtonGroup.hxx"
 
 #include <map>
 #include <vector>
