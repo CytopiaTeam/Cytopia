@@ -207,6 +207,17 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       {
         m_panning = true;
       }
+      else if (event.button.button == SDL_BUTTON_LEFT)
+      {
+        // game event handling
+        mouseCoords = {event.button.x, event.button.y};
+        clickCoords = convertScreenToIsoCoordinates(mouseCoords);
+
+        if (isPointWithinMapBoundaries(clickCoords))
+        {
+          m_clickDownCoords = clickCoords;
+        }
+      }
       break;
 
     case SDL_MOUSEBUTTONUP:
@@ -267,7 +278,17 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           }
           else if (!tileTypeEditMode.empty())
           {
-            engine.setTileIDOfNode(clickCoords, tileTypeEditMode);
+            if (m_highlightedNodes.size() == 0)
+            {
+              engine.setTileIDOfNode(m_clickDownCoords, tileTypeEditMode);
+            }
+            else
+            {
+              for (size_t i = 0; i < m_highlightedNodes.size(); i++)
+              {
+                engine.setTileIDOfNode(m_highlightedNodes[i], tileTypeEditMode);
+              }
+            }
           }
           else if (demolishMode)
           {
