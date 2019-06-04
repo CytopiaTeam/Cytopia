@@ -1,6 +1,6 @@
 #ifndef LAYOUT_HXX_
 #define LAYOUT_HXX_
-#include "uiElement.hxx"
+#include "UIElement.hxx"
 
 #include <string>
 #include <vector>
@@ -52,7 +52,7 @@ private:
 * @param groupLayout LayoutData from the group that should be layouted
 * @param groupElements Elenents of the group that should be layouted
 */
-  static void arrangeChildElements(LayoutData &groupLayout, std::vector<UiElement *> groupElements);
+  static void arrangeChildElements(LayoutData &groupLayout, std::vector<UIElement *> groupElements);
 
   /**
 * @brief Calculates height and width of layout groups

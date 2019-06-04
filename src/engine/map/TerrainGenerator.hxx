@@ -1,7 +1,7 @@
 #ifndef TERRAIN_GEN_HXX_
 #define TERRAIN_GEN_HXX_
 
-#include "../GameObjects/mapNode.hxx"
+#include "../GameObjects/MapNode.hxx"
 
 #include <map>
 #include <vector>
