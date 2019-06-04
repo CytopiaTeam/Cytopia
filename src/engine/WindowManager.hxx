@@ -47,7 +47,7 @@ public:
 
   void setScreenResolution(int mode);
 
-  void setFullScreenMode(FULLSCREEN_MODE mode);
+  void setFullScreenMode(FULLSCREEN_MODE mode) const;
 
 private:
   WindowManager();

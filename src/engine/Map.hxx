@@ -4,12 +4,16 @@
 #include <vector>
 
 #include "GameObjects/mapNode.hxx"
+#include "map/TerrainGenerator.hxx"
 
 class Map
 {
 public:
   //fixed MapNode* array to store neighbors.
   using NeighborMatrix = MapNode * [9];
+
+  std::vector<std::unique_ptr<MapNode>> mapNodes;
+  std::vector<MapNode *> mapNodesInDrawingOrder;
 
   Map() = default;
   Map(int columns, int rows);
@@ -40,13 +44,43 @@ public:
     */
   void renderMap() const;
 
+  /**
+ * @brief Sets a node to be highlit
+ * This sets a node to be highlit, the highlighting is done dureing rendering
+ * @param isoCoordinates which node should be highlit.
+ */
   void highlightNode(const Point &isoCoordinates);
 
+  /**
+ * @brief Returns the node at given screencoordinates
+ * 
+ * @param screenCoordinates 
+ * @return Point 
+ */
   Point findNodeInMap(const SDL_Point &screenCoordinates) const;
 
-  void setTileIDOfNode(const Point &isoCoordinates, const std::string &tileType);
+  /**
+ * @brief Set the Tile ID Of Node object
+ * Also invokes all necessary texture updates (auto-tiling, slopes, ...)
+ * @param isoCoordinates 
+ * @param tileID tileID which should be set
+ */
+  void setTileIDOfNode(const Point &isoCoordinates, const std::string &tileID);
 
-  void demolishNode(const Point &isoCoordinates, bool updateNeighboringTiles = 0);
+  /**
+ * @brief Demolish a node
+ * Invokes the tiles demolish function
+ * @param isoCoordinates 
+ * @param updateNeighboringTiles 
+ * @see MapNode#demolishNode
+ */
+  void demolishNode(const Point &isoCoordinates, bool updateNeighboringTiles = false);
+
+  /**
+   * @brief Refresh all the map tile textures
+   * 
+   * @see Sprite#refresh
+   */
   void refresh();
 
   /** \Brief Save Map to file
@@ -62,16 +96,20 @@ public:
   */
   static Map *loadMapFromFile(const std::string &fileName);
 
+  /**
+ * @brief Debug MapNodeData to Console
+ * Used as Tile-Inspector until we implement a GUI variant
+ * @param isoCoordinates Tile to inspect
+ */
   void getNodeInformation(const Point &isoCoordinates) const;
-
-  std::vector<std::unique_ptr<MapNode>> mapNodes;
-  std::vector<MapNode *> mapNodesInDrawingOrder;
 
 private:
   MapNode *m_highlitNode = nullptr;
 
   int m_columns;
   int m_rows;
+
+  TerrainGenerator terrainGen;
 
   static const size_t m_saveGameVersion;
 

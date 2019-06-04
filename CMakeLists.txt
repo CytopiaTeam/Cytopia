@@ -1,9 +1,11 @@
 cmake_minimum_required(VERSION 3.9 FATAL_ERROR)
-set(BUILD_TILEDATA_EDITOR OFF CACHE BOOL "Build Cytopia TileData Editor")
-set(USE_PACKAGE_MANAGER ON CACHE BOOL "Use conan for managing packages")
-set(USE_PMM OFF CACHE BOOL "Use PMM for managing conan")
-set(ENABLE_SDL2_MIXER ON CACHE BOOL "Enable SDL2 Mixer")
-set(ENABLE_MICROPROFILE OFF CACHE BOOL "Enable microprofile")
+include(CMakeDependentOption)
+
+option(BUILD_TILEDATA_EDITOR    "Build Cytopia TileData Editor"   OFF)
+option(USE_PACKAGE_MANAGER      "Use conan for managing packages" ON)
+cmake_dependent_option(USE_PMM  "Use PMM for managing conan"      OFF WIN32 ON)
+option(ENABLE_SDL2_MIXER        "Enable SDL2 Mixer"               ON)
+option(ENABLE_MICROPROFILE      "Enable microprofile"             OFF)
 
 
 # create the cmake project
@@ -30,6 +32,13 @@ if (USE_PACKAGE_MANAGER)
 
         pmm(DEBUG CONAN REMOTES AFG https://api.bintray.com/conan/anotherfoxguy/conan-packages BINCRAFTERS)
 
+        if(DEFINED ENV{CI})
+            set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
+            set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+            set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELWITHDEBINFO ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+            set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_MINSIZEREL ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+            set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+        endif()
     else ()
         include(cmake/conan.cmake)
 
@@ -45,7 +54,7 @@ if (USE_PACKAGE_MANAGER)
                 "libpng/1.6.36@bincrafters/stable"
                 "freetype/2.9.1@bincrafters/stable"
                 "OpenSSL/1.1.1a@conan/stable"
-                "libnoise/1.0.0@anotherfoxguy/stable"
+                "libnoise/1.0.1@anotherfoxguy/stable"
                 )
         if (ENABLE_SDL2_MIXER)
             list(APPEND CONAN_DEPS "sdl2_mixer/2.0.4@anotherfoxguy/stable")
@@ -139,8 +148,8 @@ set(SOURCES
         src/engine/basics/Timer.cxx
         src/engine/basics/utils.cxx
         src/engine/GameObjects/mapNode.cxx
-        src/engine/ui/basics/UIElement.cxx
-        src/engine/ui/basics/ButtonGroup.cxx
+        src/engine/map/MapLayers.cxx
+        src/engine/map/TerrainGenerator.cxx
         src/engine/ui/basics/Layout.cxx
         src/engine/ui/widgets/Bar.cxx
         src/engine/ui/widgets/Button.cxx

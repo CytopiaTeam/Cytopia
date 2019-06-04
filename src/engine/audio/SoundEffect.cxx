@@ -3,7 +3,8 @@
 #include "../basics/LOG.hxx"
 #include "../basics/Settings.hxx"
 
-SoundEffect::SoundEffect(const std::string &filename) : m_playSoundEffect(Settings::instance().settings.playSoundEffects)
+SoundEffect::SoundEffect(const std::string &filename)
+  : m_playSoundEffect(Settings::instance().settings.playSoundEffects)
 {
   loadFile(filename);
 }
@@ -22,7 +23,7 @@ void SoundEffect::loadFile(const std::string &filename)
   if (!m_soundEffect)
   {
     LOG(LOG_ERROR) << "Failed to load audio file " << filename << "\n" << Mix_GetError();
-    LOG() << "Disabled soound effect playback!";
+    LOG() << "Disabled sound effect playback!";
     m_playSoundEffect = false;
   }
 }
@@ -33,7 +34,7 @@ void SoundEffect::play(int channel, Sint16 angle, Uint8 distance, int loops) con
   {
     if (m_soundEffect)
     {
-      int currentChannel = Mix_PlayChannel(channel, m_soundEffect, loops);
+      const int currentChannel = Mix_PlayChannel(channel, m_soundEffect, loops);
 
       if (currentChannel == -1)
       {

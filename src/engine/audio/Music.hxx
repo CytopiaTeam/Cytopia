@@ -49,12 +49,12 @@ public:
     */
   bool isPlaying() const;
 
-  void ensableMusic(bool enabled);
+  void enableMusic(bool enabled);
 
 private:
   Mix_Music *m_music = nullptr;
 
-  bool m_playMusic;
+  bool m_playMusic = true;
 };
 
 #endif

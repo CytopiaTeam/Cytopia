@@ -3,14 +3,12 @@
 #include "basics/Camera.hxx"
 #include "basics/isoMath.hxx"
 #include "basics/mapEdit.hxx"
-#include "basics/Timer.hxx"
 #include "basics/Settings.hxx"
+#include "common/enums.hxx"
+#include "map/MapLayers.hxx"
 #include "Map.hxx"
 
 #include "basics/LOG.hxx"
-#include "basics/utils.hxx"
-#include "ui/widgets/Tooltip.hxx"
-#include "ui/menuGroups/MenuGroupBuild.hxx"
 
 #ifdef MICROPROFILE_ENABLED
 #include "microprofile.h"
@@ -23,7 +21,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
 #endif
   // check for UI events first
   SDL_Point mouseCoords;
-  Point clickCoords;
+  Point clickCoords{};
 
   while (SDL_PollEvent(&event))
   {
@@ -42,21 +40,17 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         break;
 
       case SDLK_0:
-        engine.toggleLayer(Engine::LAYER_GRID);
         break;
       case SDLK_F11:
         m_uiManager.toggleDebugMenu();
         break;
       case SDLK_1:
-        engine.toggleLayer(Engine::LAYER_FLOOR);
+        MapLayers::toggleLayer(Layer::TERRAIN);
         break;
-
       case SDLK_2:
-        engine.toggleLayer(Engine::LAYER_BUILDINGS);
+        MapLayers::toggleLayer(Layer::BUILDINGS);
         break;
-
       case SDLK_3:
-        engine.toggleLayer(Engine::LAYER_SELECTION);
         break;
       case SDLK_i:
         m_tileInfoMode = !m_tileInfoMode;
@@ -65,15 +59,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         engine.toggleFullScreen();
         break;
 
-      case SDLK_b:
-        LOG() << "Starting elevation Benchmark!";
-        Timer benchmarkTimer;
-        benchmarkTimer.start();
-        for (int i = 0; i <= Settings::instance().settings.maxElevationHeight; i++)
-        {
-          engine.increaseHeight(Point{64, 64, 0, 0});
-        }
-        LOG() << "Done. Elevation took " << benchmarkTimer.getElapsedTime() << "ms";
+      default:
         break;
       }
       break;
@@ -129,7 +115,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           m_lastHoveredElement = nullptr;
           break;
         }
-        // If we're over a UI element that has no click functionaliy, abort the event loop, so no clicks go through the UIElement.
+        // If we're over a UI element that has no click functionality, abort the event loop, so no clicks go through the UiElement.
         //Note: This is handled here because UIGroups have no dimensions, but are UiElements
         if (it->isMouseOverHoverableArea(event.button.x, event.button.y))
         {
@@ -149,14 +135,11 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       }
 
       // game event handling
-      mouseCoords = {event.button.x, event.button.y};
-      clickCoords = convertScreenToIsoCoordinates(mouseCoords);
       if (m_panning)
       {
         Camera::cameraOffset.x -= event.motion.xrel;
         Camera::cameraOffset.y -= event.motion.yrel;
-        Camera::centerIsoCoordinates = convertScreenToIsoCoordinates(
-            {Settings::instance().settings.screenWidth / 2, Settings::instance().settings.screenHeight / 2});
+
         Engine::instance().map->refresh();
       }
       else
@@ -186,7 +169,12 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       break;
 
     case SDL_MOUSEBUTTONUP:
-      m_panning = false;
+      if (m_panning)
+      {
+        Camera::centerIsoCoordinates = convertScreenToIsoCoordinates(
+            {Settings::instance().settings.screenWidth / 2, Settings::instance().settings.screenHeight / 2});
+        m_panning = false;
+      }
       // reset pinchCenterCoords when fingers are released
       pinchCenterCoords = {0, 0, 0, 0};
       // check for UI events first
@@ -201,7 +189,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
             m_skipLeftClick = true;
             break;
           }
-          // If we're over a UI element that has no click functionaliy, abort the event loop, so no clicks go through the UIElement.
+          // If we're over a UI element that has no click functionality, abort the event loop, so no clicks go through the UiElement.
           //Note: This is handled here because UIGroups have no dimensions, but are UiElements
           if (it->isMouseOver(event.button.x, event.button.y))
           {

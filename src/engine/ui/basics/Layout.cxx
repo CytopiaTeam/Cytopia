@@ -6,9 +6,9 @@
 
 void Layout::arrangeElements()
 {
-  SDL_Point screenCenter{Settings::instance().settings.currentScreenWidth / 2,
+  const SDL_Point screenCenter{Settings::instance().settings.currentScreenWidth / 2,
                          Settings::instance().settings.currentScreenHeight / 2};
-  SDL_Point screenSize{Settings::instance().settings.currentScreenWidth, Settings::instance().settings.currentScreenHeight};
+  const SDL_Point screenSize{Settings::instance().settings.currentScreenWidth, Settings::instance().settings.currentScreenHeight};
 
   calculateLayoutGroupDimensions();
 
@@ -26,11 +26,6 @@ void Layout::arrangeElements()
     int yOffset = 0;
     int x = 0;
     int y = 0;
-
-    if (groupLayout.layoutType == "VERTICAL")
-    {
-      yOffset = screenCenter.y - groupLayout.groupHeight / 2;
-    }
 
     int currentLength = 0;
     // Set layout for all non-child elements

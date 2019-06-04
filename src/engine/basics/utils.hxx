@@ -33,7 +33,7 @@ void removeSubString(std::string &string, const std::string &stringToRemove);
 bool endsWith(const std::string &mainStr, const std::string &toMatch);
 
 /// checks if a string starts with a certain substring
-bool startsWith(std::string mainStr, std::string toMatch);
+bool startsWith(const std::string &mainStr, const std::string &toMatch);
 
 } // namespace strings
 } // namespace utils

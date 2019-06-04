@@ -13,13 +13,13 @@ ComboBox::ComboBox(const SDL_Rect &uiElementRect)
   // ComboBox is collapsed when element is instantiated
   m_textField->setVisibility(false);
 
-  // set TextFields text alignemnt to center as default
+  // set TextFields text alignment to center as default
   m_textField->textAlignment = TextFieldAlignment::CENTERED;
 }
 
 void ComboBox::draw()
 {
-  Uint8 bgColorFrameShade = 172;
+  const Uint8 bgColorFrameShade = 172;
 
   // draw the button frame
   if (m_uiElementRect.w != 0 && m_uiElementRect.h != 0)
@@ -29,7 +29,7 @@ void ComboBox::draw()
 
   // draw the arrow
   SDL_Rect arrowRect;
-  SDL_Color color{bgColorFrameShade, bgColorFrameShade, bgColorFrameShade};
+  const SDL_Color color{bgColorFrameShade, bgColorFrameShade, bgColorFrameShade};
 
   arrowRect.w = 18;
   arrowRect.h = 2;
@@ -44,7 +44,7 @@ void ComboBox::draw()
   }
   drawSolidRect(arrowRect, color);
 
-  // drowpdown menu
+  // dropDown menu
   if (m_isMenuOpened)
   {
     drawButtonFrame(m_dropDownRect, false);
@@ -55,7 +55,7 @@ void ComboBox::draw()
 
 void ComboBox::setPosition(int x, int y)
 {
-  // set the button elements posiiton
+  // set the button elements position
   m_uiElementRect.x = x;
   m_uiElementRect.y = y;
 
@@ -67,14 +67,14 @@ void ComboBox::setPosition(int x, int y)
   m_wholeElementRect.x = x;
   m_wholeElementRect.y = y;
 
-  // repositon the text field
+  // reposition the text field
   m_textField->setPosition(m_dropDownRect.x, m_dropDownRect.y);
 
   // center the Label on the button element
   centerTextLabel();
 }
 
-void ComboBox::centerTextLabel()
+void ComboBox::centerTextLabel() const
 {
   int x = m_uiElementRect.x + m_uiElementRect.w / 2 - m_buttonLabel->getUiElementRect().w / 2;
   int y = m_uiElementRect.y + m_uiElementRect.h / 2 - m_buttonLabel->getUiElementRect().h / 2;
@@ -85,7 +85,7 @@ bool ComboBox::isMouseOverHoverableArea(int x, int y) { return checkBoundaries(x
 
 bool ComboBox::isMouseOver(int x, int y) { return checkBoundaries(x, y); }
 
-bool ComboBox::checkBoundaries(int x, int y)
+bool ComboBox::checkBoundaries(int x, int y) const
 {
   if (m_isMenuOpened)
   {
@@ -127,11 +127,11 @@ bool ComboBox::onMouseButtonUp(const SDL_Event &event)
 
   if (checkBoundaries(x, y))
   {
-    // check if the mouse is over the button part of the combox box.
+    // check if the mouse is over the button part of the combobox box.
     if (x > m_uiElementRect.x && x < m_uiElementRect.x + m_uiElementRect.w && y > m_uiElementRect.y &&
         y < m_uiElementRect.y + m_uiElementRect.h)
     {
-      // toggle the dropdown menu, it's textfield and set the buttonstate to hovering
+      // toggle the dropdown menu, it's textfield and set the buttonState to hovering
       m_isMenuOpened = !m_isMenuOpened;
       m_textField->setVisibility(m_isMenuOpened);
       changeButtonState(BUTTONSTATE_HOVERING);

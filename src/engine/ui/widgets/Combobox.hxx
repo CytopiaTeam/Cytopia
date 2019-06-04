@@ -51,9 +51,9 @@ private:
 
   std::unique_ptr<Text> m_buttonLabel;
 
-  void centerTextLabel();
+  void centerTextLabel() const;
 
-  bool checkBoundaries(int x, int y);
+  bool checkBoundaries(int x, int y) const;
 
   // Signals
   Signal::Signal<void(UIElement *sender)> clickSignalSender;

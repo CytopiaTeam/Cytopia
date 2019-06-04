@@ -24,8 +24,6 @@ void ResourcesManager::loadTexture(const std::string &id, const std::string &fil
 
 void ResourcesManager::loadUITexture()
 {
-  json uiDataJSON;
-
   std::ifstream i(SDL_GetBasePath() + Settings::instance().settings.uiDataJSONFile);
   if (i.fail())
   {
@@ -34,7 +32,7 @@ void ResourcesManager::loadUITexture()
   }
 
   // check if json file can be parsed
-  uiDataJSON = json::parse(i, nullptr, false);
+  const json uiDataJSON = json::parse(i, nullptr, false);
 
   if (uiDataJSON.is_discarded())
   {

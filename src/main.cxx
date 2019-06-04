@@ -12,7 +12,6 @@ int protected_main(int argc, char **argv)
   // add commandline parameter to skipMenu
   for (int i = 1; i < argc; ++i)
   {
-
     if (std::string(argv[i]) == "--skipMenu")
     {
       skipMenu = true;

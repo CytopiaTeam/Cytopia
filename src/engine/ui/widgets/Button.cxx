@@ -119,7 +119,7 @@ void Button::setPosition(int x, int y)
   centerTextLabel();
 }
 
-void Button::centerTextLabel()
+void Button::centerTextLabel() const
 {
   int x = m_uiElementRect.x + m_uiElementRect.w / 2 - m_buttonLabel->getUiElementRect().w / 2;
   int y = m_uiElementRect.y + m_uiElementRect.h / 2 - m_buttonLabel->getUiElementRect().h / 2;

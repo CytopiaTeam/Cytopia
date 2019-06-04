@@ -86,7 +86,7 @@ public:
  * 
  * @param fps 
  */
-  void setFPSCounterText(const std::string &fps);
+  void setFPSCounterText(const std::string &fps) const;
 
   /**
  * @brief CallbackFunction that sets the Build Menu Position 
@@ -141,14 +141,14 @@ public:
  */
   UIElement *getUiElementByID(const std::string &ID) const;
 
-  void startTooltip(SDL_Event &event, const std::string &tooltipText);
+  void startTooltip(SDL_Event &event, const std::string &tooltipText) const;
   void stopTooltip() const;
 
   void changeResolution(UIElement *sender);
   void changeFullScreenMode(UIElement *sender);
 
 private:
-  BUILDMENU_LAYOUT buildMenuLayout;
+  BUILDMENU_LAYOUT buildMenuLayout = BUILDMENU_LAYOUT::BOTTOM;
 
   UIManager() = default;
   ~UIManager() = default;

@@ -5,7 +5,6 @@
 #include "engine/UIManager.hxx"
 #include "engine/WindowManager.hxx"
 #include "engine/basics/Camera.hxx"
-#include "engine/basics/point.hxx"
 #include "engine/basics/LOG.hxx"
 #include "engine/ui/widgets/Image.hxx"
 #include "engine/basics/Settings.hxx"
@@ -155,6 +154,7 @@ void Game::mainMenu()
             it->onMouseEnter(event);
           }
           break;
+        default:;
         }
       }
     }
@@ -187,8 +187,8 @@ void Game::run()
   UIManager &uiManager = UIManager::instance();
   uiManager.init();
 #ifndef DISABLE_SDL2_MIXER
-  AudioMixer audiomixer;
-  audiomixer.playMusic();
+  AudioMixer audioMixer;
+  audioMixer.playMusic();
 #endif
 
   // FPS Counter variables
@@ -196,17 +196,17 @@ void Game::run()
   Uint32 fpsLastTime = SDL_GetTicks();
   Uint32 fpsFrames = 0;
 
-  // Gameloop
+  // GameLoop
   while (engine.isGameRunning())
   {
 #ifdef MICROPROFILE_ENABLED
-      MICROPROFILE_SCOPEI ("Map", "Gameloop", MP_GREEN);
+    MICROPROFILE_SCOPEI("Map", "Gameloop", MP_GREEN);
 #endif
     SDL_RenderClear(WindowManager::instance().getRenderer());
 
     evManager.checkEvents(event, engine);
 
-    // render the tilemap
+    // render the tileMap
     engine.map->renderMap();
 
     // render the ui
@@ -230,7 +230,7 @@ void Game::run()
     SDL_Delay(1);
 
 #ifdef MICROPROFILE_ENABLED
-      MicroProfileFlip(nullptr);
+    MicroProfileFlip(nullptr);
 #endif
   }
 }
