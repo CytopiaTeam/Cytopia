@@ -1,8 +1,8 @@
 #include "isoMath.hxx"
 
-#include "../engine.hxx"
-#include "camera.hxx"
-#include "settings.hxx"
+#include "../Engine.hxx"
+#include "Camera.hxx"
+#include "Settings.hxx"
 #include "point.hxx"
 
 Point calculateIsoCoordinates(const SDL_Point &screenCoordinates)
@@ -44,7 +44,9 @@ SDL_Point convertIsoToScreenCoordinates(const Point &isoCoordinates, bool calcWi
 
 Point convertScreenToIsoCoordinates(const SDL_Point &screenCoordinates)
 {
-  Point foundCoordinates = Engine::instance().map->findNodeInMap(screenCoordinates);
+  Point foundCoordinates = Point();
+  if (Engine::instance().map != nullptr)
+    foundCoordinates = Engine::instance().map->findNodeInMap(screenCoordinates);
 
   // if negative coordinates are returned, this means that the point is outside of the grid
   // calculate the coordinates instead and make sure it's within grid boundaries

@@ -1,7 +1,7 @@
 #include "TerrainGenerator.hxx"
 
 #include "../common/Constants.hxx"
-#include "../basics/log.hxx"
+#include "../basics/LOG.hxx"
 
 #include "../../ThirdParty/json.hxx"
 #include <noise.h>
@@ -11,6 +11,19 @@ using json = nlohmann::json;
 void TerrainGenerator::generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNodeVector &mapNodesInDrawingOrder)
 {
   loadTerrainDataFromJSON();
+
+  if (terrainSettings.seed == 0)
+  {
+    srand(static_cast<unsigned int>(time(0)));
+    terrainSettings.seed = rand();
+    //std::cout << "Seed is now " << terrainSettings.seed << "\n";
+  }
+
+
+
+
+
+
 
   noise::module::Perlin terrainHeightPerlin;
   terrainHeightPerlin.SetSeed(terrainSettings.seed);
@@ -28,7 +41,8 @@ void TerrainGenerator::generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNode
   terrainHeightFractal.SetLacunarity(2);
   noise::module::ScaleBias terrainHeightFractalScaled;
   terrainHeightFractalScaled.SetSourceModule(0, terrainHeightFractal);
-  terrainHeightFractalScaled.SetScale(0.5);
+  //terrainHeightFractalScaled.SetScale(0.5);
+  terrainHeightFractalScaled.SetScale(terrainSettings.mountainAmplitude * 0.025);
   terrainHeightFractalScaled.SetBias(0.5);
 
   noise::module::Perlin terrainHeightBlendPerlin;
@@ -37,7 +51,7 @@ void TerrainGenerator::generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNode
   noise::module::ScaleBias terrainHeightBlendScale;
   terrainHeightBlendScale.SetSourceModule(0, terrainHeightBlendPerlin);
   terrainHeightBlendScale.SetScale(2.0);
-  terrainHeightBlendScale.SetBias(-0.5);
+  terrainHeightBlendScale.SetBias(-0.1 * terrainSettings.mountainAmplitude);
   noise::module::Clamp terrainHeightBlendControl;
   terrainHeightBlendControl.SetSourceModule(0, terrainHeightBlendScale);
   terrainHeightBlendControl.SetBounds(0, 1);
@@ -70,14 +84,15 @@ void TerrainGenerator::generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNode
   mapNodes.resize(vectorSize);
   int z = 0;
 
-#define currentBiome "GrassLands"
+	std::string currentBiome = "GrassLands";
 
   // nodes need to be created at the correct vector "coordinates", or else the Z-Order will be broken
   for (int x = 0; x < terrainSettings.mapSize; x++)
   {
     for (int y = terrainSettings.mapSize - 1; y >= 0; y--)
     {
-      int height = static_cast<int>(terrainHeight.GetValue(x * 32, y * 32, 0.5));
+      double rawHeight = terrainHeight.GetValue(x * 32, y * 32, 0.5);
+      int height = static_cast<int>(rawHeight);
 
       if (height < terrainSettings.seaLevel)
       {
