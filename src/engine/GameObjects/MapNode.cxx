@@ -1,4 +1,4 @@
-#include "mapNode.hxx"
+#include "MapNode.hxx"
 
 #include "../basics/LOG.hxx"
 #include "../map/MapLayers.hxx"

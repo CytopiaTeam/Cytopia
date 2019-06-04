@@ -1,7 +1,7 @@
 #include "TerrainGenerator.hxx"
 
 #include "../common/Constants.hxx"
-#include "../basics/log.hxx"
+#include "../basics/LOG.hxx"
 
 #include "../../ThirdParty/json.hxx"
 #include <noise.h>

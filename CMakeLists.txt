@@ -147,9 +147,11 @@ set(SOURCES
         src/engine/basics/Settings.cxx
         src/engine/basics/Timer.cxx
         src/engine/basics/utils.cxx
-        src/engine/GameObjects/mapNode.cxx
+        src/engine/GameObjects/MapNode.cxx
         src/engine/map/MapLayers.cxx
         src/engine/map/TerrainGenerator.cxx
+        src/engine/ui/basics/UIElement.cxx
+        src/engine/ui/basics/ButtonGroup.cxx
         src/engine/ui/basics/Layout.cxx
         src/engine/ui/widgets/Bar.cxx
         src/engine/ui/widgets/Button.cxx

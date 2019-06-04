@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#include "GameObjects/mapNode.hxx"
+#include "GameObjects/MapNode.hxx"
 #include "map/TerrainGenerator.hxx"
 
 class Map

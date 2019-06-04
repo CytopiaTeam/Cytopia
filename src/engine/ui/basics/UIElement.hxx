@@ -43,7 +43,7 @@ public:
   virtual void registerCallbackFunction(std::function<void(UIElement *sender)> const &){};
   virtual void registerCallbackFunction(std::function<void(const std::string &, UIElement *sender)> const &){};
 
-  // empty virtual function that can be overriden in the derived Ui Elements
+  // empty virtual function that can be overridden in the derived Ui Elements
   virtual bool onMouseButtonUp(const SDL_Event &) { return false; };
   virtual bool onMouseButtonDown(const SDL_Event &) { return false; };
   virtual void onMouseEnter(const SDL_Event &){};

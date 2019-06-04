@@ -537,7 +537,7 @@ void UIManager::createBuildMenu()
       button->setActionParameter(tile.first);
       button->setMenuGroupID(newCategory + "_sub");
       button->setTooltipText(tile.second.title);
-      button->setUIElementID(newcategory + std::to_string(idx++));
+      button->setUIElementID(newCategory + std::to_string(idx++));
       m_uiElements.push_back(std::unique_ptr<UIElement>(dynamic_cast<UIElement *>(button)));
     }
     else

@@ -7,7 +7,7 @@
 #include "basics/LOG.hxx"
 #include "basics/compression.hxx"
 #include "common/Constants.hxx"
-#include "resourcesManager.hxx"
+#include "ResourcesManager.hxx"
 #include "map/MapLayers.hxx"
 
 #include "../ThirdParty/json.hxx"
