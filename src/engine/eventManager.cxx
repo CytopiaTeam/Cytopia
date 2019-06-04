@@ -178,6 +178,12 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         }
         else
         {
+          for (size_t i = 0; i < m_highlightedNodes.size(); i++)
+          {
+            engine.map->unHighlightNode(m_highlightedNodes[i]);
+          }
+          m_highlightedNodes.clear();
+
           engine.map->unHighlightNode(m_highlitNode);
           m_highlitNode = clickCoords;
 
