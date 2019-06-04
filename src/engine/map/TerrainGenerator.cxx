@@ -12,6 +12,19 @@ void TerrainGenerator::generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNode
 {
   loadTerrainDataFromJSON();
 
+  if (terrainSettings.seed == 0)
+  {
+    srand(static_cast<unsigned int>(time(0)));
+    terrainSettings.seed = rand();
+    //std::cout << "Seed is now " << terrainSettings.seed << "\n";
+  }
+
+
+
+
+
+
+
   noise::module::Perlin terrainHeightPerlin;
   terrainHeightPerlin.SetSeed(terrainSettings.seed);
   terrainHeightPerlin.SetFrequency(0.003 / 32);
@@ -71,14 +84,15 @@ void TerrainGenerator::generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNode
   mapNodes.resize(vectorSize);
   int z = 0;
 
-#define currentBiome "GrassLands"
+	std::string currentBiome = "GrassLands";
 
   // nodes need to be created at the correct vector "coordinates", or else the Z-Order will be broken
   for (int x = 0; x < terrainSettings.mapSize; x++)
   {
     for (int y = terrainSettings.mapSize - 1; y >= 0; y--)
     {
-      int height = static_cast<int>(terrainHeight.GetValue(x * 32, y * 32, 0.5));
+      double rawHeight = terrainHeight.GetValue(x * 32, y * 32, 0.5);
+      int height = static_cast<int>(rawHeight);
 
       if (height < terrainSettings.seaLevel)
       {
