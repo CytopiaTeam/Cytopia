@@ -38,8 +38,6 @@ private:
   std::vector<Point> m_highlightedNodes = {};
   std::set<Timer*> timers;
   std::set<Timer*> removedTimers;
-  std::set<Timer*> timers;
-  std::set<Timer*> removedTimers;
 };
 
 #endif
