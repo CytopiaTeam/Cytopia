@@ -46,10 +46,17 @@ public:
 
   /**
  * @brief Sets a node to be highlit
- * This sets a node to be highlit, the highlighting is done dureing rendering
+ * This sets a node to be highlit, the highlighting is done during rendering
  * @param isoCoordinates which node should be highlit.
  */
   void highlightNode(const Point &isoCoordinates);
+
+  /**
+ * @brief Sets a node to be unhighlit
+ * This sets a node to be unhighlit, the highlighting is done during rendering
+ * @param isoCoordinates which node should be unhighlit.
+ */
+  void unHighlightNode(const Point &isoCoordinates);
 
   /**
  * @brief Returns the node at given screencoordinates

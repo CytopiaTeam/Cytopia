@@ -23,6 +23,8 @@ private:
   bool m_skipLeftClick = false;
   bool m_tileInfoMode = false;
   Point pinchCenterCoords = {0, 0, 0, 0};
+  Point m_highlitNode = {0, 0, 0, 0};
+  std::vector<Point> m_highlightedNodes = {};
 };
 
 #endif
