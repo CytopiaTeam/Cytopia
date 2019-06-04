@@ -23,6 +23,13 @@ struct TerrainSettings
   int mapSize = 128;
   int seed = 1234;
   int seaLevel = 5;
+  int treeDensity = 50;
+  int mountainAmplitude = 100;
+  int waterAmount = 10;
+  int coasts = 1;
+  int rivers = 1;
+  std::string biomes = "{}";
+  std::string advanced = "{}";
 };
 
 class TerrainGenerator
