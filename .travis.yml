@@ -59,6 +59,7 @@ matrix:
         # Build Cytopia
         - cmake -GNinja -DCMAKE_BUILD_TYPE=Release ..
         - ninja
+        - ctest
         - ninja doc
         - ninja package
 
@@ -89,6 +90,7 @@ matrix:
         # Build Cytopia
         - cmake -GNinja -DCMAKE_BUILD_TYPE=Release ..
         - ninja
+        - ctest
 
       before_cache:
         - cmake -P ../cmake/pmm.cmake /Conan /Clean
@@ -111,6 +113,7 @@ matrix:
       script:
         - cmake -DCMAKE_BUILD_TYPE=Release ..
         - make
+        - ctest
         - make package
 
       before_cache:
