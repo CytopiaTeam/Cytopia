@@ -111,8 +111,6 @@ public:
   void getNodeInformation(const Point &isoCoordinates) const;
 
 private:
-  MapNode *m_highlitNode = nullptr;
-
   int m_columns;
   int m_rows;
 
