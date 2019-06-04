@@ -78,4 +78,4 @@ See: <https://github.com/JimmySnails/Cytopia/wiki/Coding-guidelines>
 We're proud to be part of Jetbrains opensource program!
 
 ![alt text](http://cytopia.net/jetbrains)
-< https://www.jetbrains.com/?from=ABC>
+<https://www.jetbrains.com/?from=Cytopia>
