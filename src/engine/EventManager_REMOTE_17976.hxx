@@ -33,9 +33,7 @@ private:
   bool m_skipLeftClick = false;
   bool m_tileInfoMode = false;
   Point pinchCenterCoords = {0, 0, 0, 0};
-  Point m_clickDownCoords = {0, 0, 0, 0};
-  Point m_highlitNode = {0, 0, 0, 0};
-  std::vector<Point> m_highlightedNodes = {};
+
   std::set<Timer*> timers;
   std::set<Timer*> removedTimers;
 };

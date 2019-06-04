@@ -410,19 +410,23 @@ bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int is
 
 void Map::highlightNode(const Point &isoCoordinates)
 {
-  if (m_highlitNode != nullptr)
-  {
-    m_highlitNode->getSprite()->highlightSprite = false;
-  }
-  if (highlightSelection)
-  {
-    const size_t index = isoCoordinates.x * m_columns + isoCoordinates.y;
+  const size_t index = isoCoordinates.x * m_columns + isoCoordinates.y;
 
-    if (index < mapNodes.size())
-    {
-      m_highlitNode = mapNodes[index].get();
-      m_highlitNode->getSprite()->highlightSprite = true;
-    }
+  if (index < mapNodes.size())
+  {
+    MapNode *node = mapNodes[index].get();
+    node->getSprite()->highlightSprite = true;
+  }
+}
+
+void Map::unHighlightNode(const Point &isoCoordinates)
+{
+  const size_t index = isoCoordinates.x * m_columns + isoCoordinates.y;
+
+  if (index < mapNodes.size())
+  {
+    MapNode *node = mapNodes[index].get();
+    node->getSprite()->highlightSprite = false;
   }
 }
 

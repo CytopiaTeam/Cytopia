@@ -145,7 +145,54 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       }
       else if (engine.map != nullptr)
       {
-        engine.map->highlightNode(clickCoords);
+        mouseCoords = {event.button.x, event.button.y};
+        clickCoords = convertScreenToIsoCoordinates(mouseCoords);
+
+        if (highlightSelection && (SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_LEFT)))
+        {
+          if (terrainEditMode == TerrainEdit::RAISE)
+          {
+            // Add highlighting here
+          }
+          else if (terrainEditMode == TerrainEdit::LOWER)
+          {
+            // Add highlighting here
+          }
+          else if (!tileTypeEditMode.empty())
+          {
+            for (size_t i = 0; i < m_highlightedNodes.size(); i++)
+            {
+              engine.map->unHighlightNode(m_highlightedNodes[i]);
+            }
+
+            m_highlightedNodes = createBresenhamLine(m_clickDownCoords, clickCoords);
+
+            for (size_t i = 0; i < m_highlightedNodes.size(); i++)
+            {
+              engine.map->highlightNode(m_highlightedNodes[i]);
+            }
+          }
+          else if (demolishMode)
+          {
+            // Add highlighting here
+          }
+        }
+        else
+        {
+          for (size_t i = 0; i < m_highlightedNodes.size(); i++)
+          {
+            engine.map->unHighlightNode(m_highlightedNodes[i]);
+          }
+          m_highlightedNodes.clear();
+
+          engine.map->unHighlightNode(m_highlitNode);
+          m_highlitNode = clickCoords;
+
+          if (highlightSelection)
+          {
+            engine.map->highlightNode(m_highlitNode);
+          }
+        }
       }
       break;
     case SDL_MOUSEBUTTONDOWN:
@@ -166,6 +213,17 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       if (event.button.button == SDL_BUTTON_RIGHT)
       {
         m_panning = true;
+      }
+      else if (event.button.button == SDL_BUTTON_LEFT)
+      {
+        // game event handling
+        mouseCoords = {event.button.x, event.button.y};
+        clickCoords = convertScreenToIsoCoordinates(mouseCoords);
+
+        if (isPointWithinMapBoundaries(clickCoords))
+        {
+          m_clickDownCoords = clickCoords;
+        }
       }
       break;
 
@@ -201,7 +259,14 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       // If we're over a ui element, don't handle game events
       if (m_skipLeftClick)
       {
-        m_skipLeftClick = true;
+        for (size_t i = 0; i < m_highlightedNodes.size(); i++)
+        {
+          engine.map->unHighlightNode(m_highlightedNodes[i]);
+        }
+        m_highlightedNodes.clear();
+
+		engine.map->unHighlightNode(m_highlitNode);
+
         break;
       }
 
@@ -227,7 +292,17 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           }
           else if (!tileTypeEditMode.empty())
           {
-            engine.setTileIDOfNode(clickCoords, tileTypeEditMode);
+            if (m_highlightedNodes.size() == 0)
+            {
+              engine.setTileIDOfNode(m_clickDownCoords, tileTypeEditMode);
+            }
+            else
+            {
+              for (size_t i = 0; i < m_highlightedNodes.size(); i++)
+              {
+                engine.setTileIDOfNode(m_highlightedNodes[i], tileTypeEditMode);
+              }
+            }
           }
           else if (demolishMode)
           {
@@ -239,6 +314,12 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           }
         }
       }
+
+      for (size_t i = 0; i < m_highlightedNodes.size(); i++)
+      {
+        engine.map->unHighlightNode(m_highlightedNodes[i]);
+      }
+      m_highlightedNodes.clear();
 
       break;
     case SDL_MOUSEWHEEL:

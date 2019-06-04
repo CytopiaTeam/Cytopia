@@ -33,11 +33,15 @@ private:
   bool m_skipLeftClick = false;
   bool m_tileInfoMode = false;
   Point pinchCenterCoords = {0, 0, 0, 0};
+<<<<<<< HEAD:src/engine/eventManager.hxx
   Point m_clickDownCoords = {0, 0, 0, 0};
   Point m_highlitNode = {0, 0, 0, 0};
   std::vector<Point> m_highlightedNodes = {};
+=======
+
   std::set<Timer*> timers;
   std::set<Timer*> removedTimers;
+>>>>>>> a23ac3da6c75e0c56a703c43fe21f8bf7cc04b84:src/engine/EventManager.hxx
 };
 
 #endif
