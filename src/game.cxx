@@ -65,6 +65,7 @@ void Game::mainMenu()
   Button newGameButton({screenWidth / 2 - 100, screenHeight / 2 - 20, 200, 40});
   newGameButton.setText("New Game");
   newGameButton.setUIElementID("newgame");
+  newGameButton.registerCallbackFunction([]() { Engine::instance().newGame(); });
 
   Button loadGameButton({screenWidth / 2 - 100, screenHeight / 2 - 20 + newGameButton.getUiElementRect().h * 2, 200, 40});
   loadGameButton.setText("Load Game");
@@ -206,7 +207,8 @@ void Game::run()
     evManager.checkEvents(event, engine);
 
     // render the tileMap
-    engine.map->renderMap();
+    if (engine.map != nullptr)
+		engine.map->renderMap();
 
     // render the ui
     uiManager.drawUI();

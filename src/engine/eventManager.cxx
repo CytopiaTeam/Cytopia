@@ -139,10 +139,11 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       {
         Camera::cameraOffset.x -= event.motion.xrel;
         Camera::cameraOffset.y -= event.motion.yrel;
-
-        Engine::instance().map->refresh();
+		
+		if (Engine::instance().map != nullptr)
+			Engine::instance().map->refresh();
       }
-      else
+      else if (engine.map != nullptr)
       {
         engine.map->highlightNode(clickCoords);
       }

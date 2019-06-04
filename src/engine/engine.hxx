@@ -83,7 +83,7 @@ public:
 private:
   Engine();
   ~Engine();
-  bool m_running = true;
+  bool m_running = false;
 };
 
 #endif

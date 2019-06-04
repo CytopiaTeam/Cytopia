@@ -5,7 +5,7 @@
 #include "basics/settings.hxx"
 #include "resourcesManager.hxx"
 
-Engine::Engine() { newGame(); }
+Engine::Engine() {  }
 
 Engine::~Engine() { delete map; }
 
@@ -38,12 +38,14 @@ void Engine::loadGame(const std::string &fileName)
   {
     delete map;
     map = newMap;
+    m_running = true;
   }
 }
 
 void Engine::newGame()
 {
   delete map;
+  m_running = true;
 
   const int mapSize = Settings::instance().settings.mapSize;
 
