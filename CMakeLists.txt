@@ -8,6 +8,12 @@ option(ENABLE_SDL2_MIXER        "Enable SDL2 Mixer"               ON)
 option(ENABLE_MICROPROFILE      "Enable microprofile"             OFF)
 
 
+if(NOT BUILD_TILEDATA_EDITOR)
+  set(ENABLE_QT "# ")
+endif()
+
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/conanfile.txt.in" "${CMAKE_CURRENT_SOURCE_DIR}/conanfile.txt")
+
 # create the cmake project
 project(
         # this will be the ${PROJECT_NAME}
