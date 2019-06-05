@@ -31,7 +31,6 @@ matrix:
     # gcc build
     - os:              linux
       name:            GCC 8 Build
-      compiler:        gcc
       python:          3.7
       compiler:        gcc-8
       addons:
