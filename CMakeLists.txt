@@ -36,9 +36,9 @@ if (USE_PACKAGE_MANAGER)
     if (USE_PMM)
         include(cmake/pmm.cmake)
 
-        pmm(DEBUG CONAN 
-		REMOTES 
-			AFG https://api.bintray.com/conan/anotherfoxguy/conan-packages 	
+        pmm(DEBUG CONAN
+		REMOTES
+			AFG https://api.bintray.com/conan/anotherfoxguy/conan-packages
 			ror-dependencies https://api.bintray.com/conan/anotherfoxguy/ror-dependencies
 			BINCRAFTERS
 		)
@@ -61,7 +61,7 @@ if (USE_PACKAGE_MANAGER)
 		conan_add_remote(NAME ror-dependencies URL https://api.bintray.com/conan/anotherfoxguy/ror-dependencies)
 
         SET(CONAN_DEPS
-				"AngelScript/2.33@anotherfoxguy/stable"
+                "AngelScript/2.33@anotherfoxguy/stable"
                 "sdl2/2.0.9@bincrafters/stable"
                 "sdl2_ttf/2.0.15@bincrafters/stable"
                 "sdl2_image/2.0.4@bincrafters/stable"
