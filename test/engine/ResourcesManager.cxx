@@ -1,5 +1,5 @@
 #include <catch2/catch.hpp>
-#include "../../src/engine/resourcesManager.hxx"
+#include "../../src/engine/ResourcesManager.hxx"
 
 using string = std::string;
 
