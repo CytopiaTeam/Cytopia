@@ -135,7 +135,7 @@ void MapNode::updateTexture()
         if (!m_mapNodeData[currentLayer].tileID.empty())
         {
           // terrain always uses the first tile
-          if (m_mapNodeData[currentLayer].tileID == "terrain")
+          if (m_mapNodeData[currentLayer].tileID == "terrain" || m_mapNodeData[currentLayer].tileID == "water")
           {
             clipRect.x = 0;
           }
@@ -206,7 +206,8 @@ const MapNodeData &MapNode::getActiveMapNodeData() const
 {
   //TODO: Needs further adjustments for other layers
   // Determine the topmost active layer here by checking if it has a tileID set and return it's mapNodeData
-  if (MapLayers::isLayerActive(Layer::BUILDINGS) && !m_mapNodeData[Layer::BUILDINGS].tileID.empty())
+  if (MapLayers::isLayerActive(Layer::BUILDINGS) && !m_mapNodeData[Layer::BUILDINGS].tileID.empty() &&
+      m_mapNodeData[Layer::BUILDINGS].tileData)
   {
     return m_mapNodeData[Layer::BUILDINGS];
   }
