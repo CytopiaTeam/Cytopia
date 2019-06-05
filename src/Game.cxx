@@ -8,6 +8,7 @@
 #include "engine/basics/LOG.hxx"
 #include "engine/ui/widgets/Image.hxx"
 #include "engine/basics/Settings.hxx"
+#include "Scripting/ScriptEngine.hxx"
 #include <noise.h>
 #include <SDL.h>
 
@@ -18,6 +19,7 @@
 #ifdef MICROPROFILE_ENABLED
 #include "microprofile.h"
 #endif
+
 
 bool Game::initialize()
 {
@@ -192,6 +194,10 @@ void Game::run(bool SkipMenu)
 
   UIManager &uiManager = UIManager::instance();
   uiManager.init();
+
+  scriptEngine = new ScriptEngine();
+  scriptEngine->init();
+
 #ifndef DISABLE_SDL2_MIXER
   AudioMixer audioMixer;
   audioMixer.playMusic();
