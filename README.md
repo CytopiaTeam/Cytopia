@@ -77,5 +77,5 @@ See: <https://github.com/JimmySnails/Cytopia/wiki/Coding-guidelines>
 
 We're proud to be part of Jetbrains opensource program!
 
-![alt text](http://cytopia.net/jetbrains)
+![alt text](https://www.cytopia.net/github/jetbrains.png)
 <https://www.jetbrains.com/?from=Cytopia>

@@ -3,6 +3,7 @@
 
 #include "point.hxx"
 #include "SDL.h"
+#include <vector>
 
 // calculate clicked column (x coordinate) without heigh taken into account.
 /** \brief Calculates screen space coordinates to isometric space coordinates.
@@ -39,5 +40,13 @@ Point convertScreenToIsoCoordinates(const SDL_Point &screenCoordinates);
 * @return bool - true if coordinates are inside the map bounds.
 */
 bool isPointWithinMapBoundaries(const Point &isoCoordinates);
+
+/** \brief Creates a line between two points using the Bresenham Line algorithm
+* Creates a line between two points using the Bresenham Line algorithm
+* @param Point() - start coordinates
+* @param Point() - end coordinates
+* @return std::vector<Point>() - contains coordinates for each tile between start and end coordinates, including start and end
+*/
+std::vector<Point> createBresenhamLine(const Point &isoCoordinatesStart, const Point &isoCoordinatesEnd);
 
 #endif

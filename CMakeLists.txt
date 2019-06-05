@@ -8,6 +8,12 @@ cmake_dependent_option(USE_PMM  "Use PMM for managing conan"      OFF WIN32 ON)
 option(ENABLE_SDL2_MIXER        "Enable SDL2 Mixer"               ON)
 option(ENABLE_MICROPROFILE      "Enable microprofile"             OFF)
 
+if(NOT BUILD_TILEDATA_EDITOR)
+  set(ENABLE_QT "# ")
+endif()
+
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/conanfile.txt.in" "${CMAKE_CURRENT_SOURCE_DIR}/conanfile.txt")
+
 # create the cmake project
 project(
         # this will be the ${PROJECT_NAME}
@@ -136,7 +142,7 @@ include(cmake/CpackConfiguration.cmake)
 include(cmake/CompileOptions.cmake)
 
 # set install dir here for convenience
-set(CMAKE_INSTALL_PREFIX "../install")
+set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/redist")
 
 # make sure, every binary lands in the root directory
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
@@ -149,46 +155,46 @@ if (UNIX)
 endif ()
 
 set(SOURCES
-        src/engine/basics/camera.cxx
+        src/engine/basics/Camera.cxx
         src/engine/basics/isoMath.cxx
         src/engine/basics/mapEdit.cxx
-        src/engine/basics/settings.cxx
-        src/engine/basics/timer.cxx
+        src/engine/basics/Settings.cxx
+        src/engine/basics/Timer.cxx
         src/engine/basics/utils.cxx
-        src/engine/GameObjects/mapNode.cxx
+        src/engine/GameObjects/MapNode.cxx
         src/engine/map/MapLayers.cxx
         src/engine/map/TerrainGenerator.cxx
-        src/engine/ui/basics/uiElement.cxx
-        src/engine/ui/basics/buttonGroup.cxx
+        src/engine/ui/basics/UIElement.cxx
+        src/engine/ui/basics/ButtonGroup.cxx
         src/engine/ui/basics/Layout.cxx
-        src/engine/ui/widgets/bar.cxx
-        src/engine/ui/widgets/button.cxx
-        src/engine/ui/widgets/combobox.cxx
-        src/engine/ui/widgets/checkbox.cxx
-        src/engine/ui/widgets/frame.cxx
+        src/engine/ui/widgets/Bar.cxx
+        src/engine/ui/widgets/Button.cxx
+        src/engine/ui/widgets/Combobox.cxx
+        src/engine/ui/widgets/Checkbox.cxx
+        src/engine/ui/widgets/Frame.cxx
         src/engine/ui/widgets/Image.cxx
-        src/engine/ui/widgets/text.cxx
-        src/engine/ui/widgets/textField.cxx
-        src/engine/ui/widgets/tooltip.cxx
+        src/engine/ui/widgets/Text.cxx
+        src/engine/ui/widgets/TextField.cxx
+        src/engine/ui/widgets/Tooltip.cxx
         src/engine/ui/menuGroups/MenuGroupBuild.cxx
-        src/engine/engine.cxx
-        src/engine/eventManager.cxx
-        src/engine/map.cxx
-        src/engine/sprite.cxx
-        src/engine/resourcesManager.cxx
-        src/engine/tileManager.cxx
-        src/engine/uiManager.cxx
-        src/engine/windowManager.cxx
-        src/game.cxx
+        src/engine/Engine.cxx
+        src/engine/EventManager.cxx
+        src/engine/Map.cxx
+        src/engine/Sprite.cxx
+        src/engine/ResourcesManager.cxx
+        src/engine/TileManager.cxx
+        src/engine/UIManager.cxx
+        src/engine/WindowManager.cxx
+        src/Game.cxx
         src/main.cxx
         )
 
 if (ENABLE_SDL2_MIXER)
     set(SOURCES ${SOURCES}
-        src/engine/audio/soundEffect.cxx
-        src/engine/audio/soundEffect.cxx
-        src/engine/audio/music.cxx
-        src/engine/audioMixer.cxx
+            src/engine/audio/SoundEffect.cxx
+            src/engine/audio/SoundEffect.cxx
+            src/engine/audio/Music.cxx
+            src/engine/AudioMixer.cxx
         )
 endif()
 
