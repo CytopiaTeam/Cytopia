@@ -11,5 +11,5 @@ then
 
 	# Setup redist folder and push it to itch
 	ninja install
-	./butler push redist rcytopia/cytopia:linux-ci --userversion 0.2-CIBuild-${TRAVIS_JOB_NUMBER}
+	./butler push redist cytopia/cytopia:linux-ci --userversion 0.2-CIBuild-${TRAVIS_JOB_NUMBER}
 fi
