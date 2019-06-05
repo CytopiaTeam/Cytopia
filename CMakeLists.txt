@@ -36,7 +36,12 @@ if (USE_PACKAGE_MANAGER)
     if (USE_PMM)
         include(cmake/pmm.cmake)
 
-        pmm(DEBUG CONAN REMOTES AFG https://api.bintray.com/conan/anotherfoxguy/conan-packages BINCRAFTERS)
+        pmm(DEBUG CONAN 
+		REMOTES 
+			AFG https://api.bintray.com/conan/anotherfoxguy/conan-packages 	
+			ror-dependencies https://api.bintray.com/conan/anotherfoxguy/ror-dependencies
+			BINCRAFTERS
+		)
 
         if(DEFINED ENV{CI})
             set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
@@ -53,8 +58,10 @@ if (USE_PACKAGE_MANAGER)
         conan_add_remote(NAME AFG URL https://api.bintray.com/conan/anotherfoxguy/conan-packages)
         conan_add_remote(NAME bincrafters URL https://api.bintray.com/conan/bincrafters/public-conan)
         conan_add_remote(NAME catchorg URL https://api.bintray.com/conan/catchorg/Catch2)
+		conan_add_remote(NAME ror-dependencies URL https://api.bintray.com/conan/anotherfoxguy/ror-dependencies)
 
         SET(CONAN_DEPS
+				"AngelScript/2.33@anotherfoxguy/stable"
                 "sdl2/2.0.9@bincrafters/stable"
                 "sdl2_ttf/2.0.15@bincrafters/stable"
                 "sdl2_image/2.0.4@bincrafters/stable"
@@ -155,6 +162,10 @@ if (UNIX)
 endif ()
 
 set(SOURCES
+		external/as_add_on/scriptbuilder/scriptbuilder.cpp
+		external/as_add_on/scriptbuilder/scriptbuilder.h
+		external/as_add_on/scriptstdstring/scriptstdstring.h
+		external/as_add_on/scriptstdstring/scriptstdstring.cpp
         src/engine/basics/Camera.cxx
         src/engine/basics/isoMath.cxx
         src/engine/basics/mapEdit.cxx
@@ -185,6 +196,8 @@ set(SOURCES
         src/engine/TileManager.cxx
         src/engine/UIManager.cxx
         src/engine/WindowManager.cxx
+		src/Scripting/ScriptEngine.cxx
+		src/Scripting/ScriptEngine.hxx
         src/Game.cxx
         src/main.cxx
         )
@@ -316,6 +329,7 @@ if (USE_PACKAGE_MANAGER)
     target_link_libraries(
             ${PROJECT_NAME}
             PRIVATE
+            CONAN_PKG::AngelScript
             CONAN_PKG::sdl2
             CONAN_PKG::sdl2_image
             CONAN_PKG::sdl2_ttf
@@ -340,6 +354,7 @@ if (USE_PACKAGE_MANAGER)
       target_link_libraries(
           ${PROJECT_NAME}
           PRIVATE
+          CONAN_PKG::AngelScript
           CONAN_PKG::sdl2
           CONAN_PKG::sdl2_image
           CONAN_PKG::sdl2_ttf
@@ -431,6 +446,12 @@ set (COMPILER_FLAGS VERSION="${PROJECT_NAME} ${PROJECT_VERSION} - tech preview")
 if (NOT ENABLE_SDL2_MIXER)
   list(APPEND COMPILER_FLAGS DISABLE_SDL2_MIXER)
 endif()
+
+target_include_directories(
+            ${PROJECT_NAME}
+            PRIVATE
+            external/as_add_on
+)
 
 target_compile_definitions(
         ${PROJECT_NAME}
