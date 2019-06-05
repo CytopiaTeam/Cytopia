@@ -19,3 +19,5 @@ TileDataEditor
 # ignore macOS stuff.
 .DS_Store
 _pmm
+
+conanfile\.txt
