@@ -15,7 +15,7 @@ set(CPACK_PACKAGE_ICON "${PROJECT_SOURCE_DIR}/build/msvc/cytopia.ico")
 set(CPACK_STRIP_FILES ON)
 set(CPACK_PACKAGE_INSTALL_DIRECTORY ${PROJECT_NAME})
 
-if ( UNIX )
+if ( UNIX AND NOT ENV{CI} )
   if ( (linux_distribution MATCHES Debian) OR (linux_distribution MATCHES Ubuntu) )
     configure_file(${PROJECT_SOURCE_DIR}/build/setup/cytopia.desktop setup/cytopia.desktop)
     configure_file(${PROJECT_SOURCE_DIR}/build/setup/cytopia-tiledata-editor.desktop setup/cytopia-tiledata-editor.desktop)
