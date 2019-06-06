@@ -206,8 +206,7 @@ if (ENABLE_MICROPROFILE)
             )
 endif (ENABLE_MICROPROFILE)
 
-# Everything in /test is a test source
-FILE(GLOB_RECURSE TEST_SOURCES test/*)
+INCLUDE(test/CMakeLists.txt)
 # We need to test our sources
 LIST(APPEND TEST_SOURCES ${SOURCES})
 # We need to remove main()
@@ -278,20 +277,20 @@ if (ENABLE_MICROPROFILE)
                 MICROPROFILE_GPU_TIMERS=0
         )
     endif(BUILD_TEST)
-	if (WIN32)
-		target_link_libraries(
-				${PROJECT_NAME}
-				PRIVATE
-				ws2_32.lib
-		)
-    if(BUILD_TEST)
+    if (WIN32)
         target_link_libraries(
-            ${PROJECT_NAME}_Tests
+            ${PROJECT_NAME}
             PRIVATE
             ws2_32.lib
         )
-    endif(BUILD_TEST)
-	endif (WIN32)
+        if(BUILD_TEST)
+            target_link_libraries(
+                ${PROJECT_NAME}_Tests
+                PRIVATE
+                ws2_32.lib
+            )
+        endif(BUILD_TEST)
+    endif (WIN32)
 endif (ENABLE_MICROPROFILE)
 
 if (MINGW)

@@ -14,3 +14,4 @@ Catch2/2.8.0@catchorg/stable
 @ENABLE_QT@qt/5.12.3@bincrafters/stable
 
 [options]
+sdl2_mixer:opus=False # PACKAGE:OPTION=VALUE
