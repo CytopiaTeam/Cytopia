@@ -179,7 +179,8 @@ void MapNode::updateTexture()
                                static_cast<Layer>(currentLayer));
         }
         break;
-      default: break;
+      default:
+        break;
       }
 
       if (clipRect.x >= static_cast<int>(spriteCount) * m_clippingWidth)

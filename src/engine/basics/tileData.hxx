@@ -51,12 +51,12 @@ struct TileData
   int water = 0;      // water production / consumption if negative
   int tileIndex = -1; // index in the spritesheet, if it contains multiple tiles. (categories without "special handling")
   std::string author;
-  bool drawGround = false; // draw ground below sprite (grass, flowers, ...)
+  bool drawGround = false;   // draw ground below sprite (grass, flowers, ...)
   bool placeOnGround = true; // wether or not this building is placeable on ground
   bool placeOnWater = false; // wether or not this building is placeable on ground
-  int pollutionLevel = 0;  // Pollution this building produces or prevents
-  int crimeLevel = 0;      // Crime this building produces or prevents (police station)
-  int fireDangerLevel = 0; // Fire Danger this building produces or prevents
+  int pollutionLevel = 0;    // Pollution this building produces or prevents
+  int crimeLevel = 0;        // Crime this building produces or prevents (police station)
+  int fireDangerLevel = 0;   // Fire Danger this building produces or prevents
   int habitants = 0;
 };
 

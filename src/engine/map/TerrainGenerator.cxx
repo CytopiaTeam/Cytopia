@@ -19,12 +19,6 @@ void TerrainGenerator::generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNode
     //std::cout << "Seed is now " << terrainSettings.seed << "\n";
   }
 
-
-
-
-
-
-
   noise::module::Perlin terrainHeightPerlin;
   terrainHeightPerlin.SetSeed(terrainSettings.seed);
   terrainHeightPerlin.SetFrequency(0.003 / 32);
@@ -84,7 +78,7 @@ void TerrainGenerator::generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNode
   mapNodes.resize(vectorSize);
   int z = 0;
 
-	std::string currentBiome = "GrassLands";
+  std::string currentBiome = "GrassLands";
 
   // nodes need to be created at the correct vector "coordinates", or else the Z-Order will be broken
   for (int x = 0; x < terrainSettings.mapSize; x++)

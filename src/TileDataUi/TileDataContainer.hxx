@@ -7,7 +7,6 @@
 
 #include <engine/basics/tileData.hxx>
 
-
 class TileDataContainer : public QObject
 {
 public:

@@ -61,8 +61,7 @@ int Timer::getElapsedTime()
 {
   if (m_isActive)
   {
-    m_elapsedTime =
-        static_cast<int>((SDL_GetPerformanceCounter() - m_startTime) * 1000 / SDL_GetPerformanceFrequency());
+    m_elapsedTime = static_cast<int>((SDL_GetPerformanceCounter() - m_startTime) * 1000 / SDL_GetPerformanceFrequency());
   }
   return m_elapsedTime;
 }
@@ -85,13 +84,14 @@ void Timer::timeOut()
   m_lastTimeOutTime = SDL_GetPerformanceCounter();
 }
 
-void Timer::checkTimeout() {
-    if (getElapsedTimeSinceLastTimeOut() >= m_timeUntilTimeOut)
+void Timer::checkTimeout()
+{
+  if (getElapsedTimeSinceLastTimeOut() >= m_timeUntilTimeOut)
+  {
+    timeOut();
+    if (!m_loopTimer)
     {
-        timeOut();
-        if (!m_loopTimer)
-        {
-            stop();
-        }
+      stop();
     }
+  }
 }

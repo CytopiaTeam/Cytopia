@@ -13,10 +13,10 @@ public:
   EventManager() = default;
   ~EventManager() = default;
 
-  static EventManager& instance()
+  static EventManager &instance()
   {
-      static EventManager evManager;
-      return evManager;
+    static EventManager evManager;
+    return evManager;
   }
 
   void checkEvents(SDL_Event &event, Engine &engine);
