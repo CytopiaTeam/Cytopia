@@ -139,9 +139,9 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       {
         Camera::cameraOffset.x -= event.motion.xrel;
         Camera::cameraOffset.y -= event.motion.yrel;
-		
-		if (Engine::instance().map != nullptr)
-			Engine::instance().map->refresh();
+
+        if (Engine::instance().map != nullptr)
+          Engine::instance().map->refresh();
       }
       else if (engine.map != nullptr)
       {
@@ -265,7 +265,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         }
         m_highlightedNodes.clear();
 
-		engine.map->unHighlightNode(m_highlitNode);
+        engine.map->unHighlightNode(m_highlitNode);
 
         break;
       }
@@ -340,18 +340,22 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
 
   for (auto &timer : timers)
   {
+    if (timer)
       timer->checkTimeout();
   }
 
-  for (auto &removedTimer : removedTimers)
+  for (std::vector<Timer *>::iterator it = timers.begin(); it != timers.end();)
   {
-      timers.erase(removedTimer);
+    if ( !(*it)->isActive())
+    {
+      it = timers.erase(it);
+    }
+    else
+    {
+      ++it;
+    }
   }
-
-  removedTimers.clear();
-
 }
 
-void EventManager::registerTimer(Timer *timer) { timers.insert(timer); }
+void EventManager::registerTimer(Timer *timer) { timers.push_back(timer); }
 
-void EventManager::removeTimer(Timer *timer) { removedTimers.insert(timer); }
