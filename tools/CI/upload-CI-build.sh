@@ -2,7 +2,7 @@
 
 set -eu
 
-if [[ "${TRAVIS_PULL_REQUEST}" = "false" ]]
+if [ "${TRAVIS_PULL_REQUEST}" = "false" ]
 then
 	# Get butler
 	wget https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default -O butler.zip
@@ -11,5 +11,5 @@ then
 
 	# Setup redist folder and push it to itch
 	ninja install
-	./butler push redist rcytopia/cytopia:linux-ci --userversion 0.2-CIBuild-${TRAVIS_JOB_NUMBER}
+	./butler push redist cytopia/cytopia:linux-ci --userversion 0.2-CIBuild-${TRAVIS_JOB_NUMBER}
 fi

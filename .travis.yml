@@ -9,11 +9,7 @@ env:
 
 addons:
   apt:
-    sources:
-      - ubuntu-toolchain-r-test
     packages:
-      - gcc-5
-      - g++-5
       - ninja-build
       - doxygen
       - graphviz
@@ -25,7 +21,7 @@ addons:
       - libaudio-dev
 
 cache:
-  timeout: 1000
+  timeout:             1000
   directories:
     - $HOME/.conan/
 
@@ -33,12 +29,29 @@ matrix:
   include:
 
     # gcc build
-    - os:                linux
-      name:              GCC 5 Build
-      compiler:          gcc
-      python:            3.7
+    - os:              linux
+      name:            GCC 8 Build
+      python:          3.7
+      compiler:        gcc-8
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - p7zip-full
+            - gcc-8
+            - ninja-build
+            - doxygen
+            - graphviz
+            - libfreetype6-dev
+            - libgl1-mesa-dev
+            - libasound2-dev
+            - libjack-dev
+            - libpulse-dev
+            - libaudio-dev
       env:
-        - C_COMPILER=gcc-5
+        - MATRIX_EVAL="CC=gcc-8 && CXX=g++-8"
+
       before_install:
         - sudo rm -rf /usr/local/cmake-3.9.2/
         - sudo rm -f /usr/local/cmake
@@ -50,11 +63,6 @@ matrix:
         - conan user
 
       script:
-        # make sure CXX is correctly set
-        - sudo unlink /usr/bin/gcc && sudo ln -s /usr/bin/gcc-5 /usr/bin/gcc
-        - sudo unlink /usr/bin/g++ && sudo ln -s /usr/bin/g++-5 /usr/bin/g++
-        - if [[ "${COMPILER}" != "" ]]; then export CXX=${COMPILER}; fi
-        - if [[ "${C_COMPILER}" != "" ]]; then export CC=${COMPILER}; fi
         # Build Cytopia
         - cmake -GNinja -DCMAKE_BUILD_TYPE=Release ..
         - ninja
@@ -65,15 +73,13 @@ matrix:
         - cmake -P ../cmake/pmm.cmake /Conan /Clean
 
     # clang build
-    - os:                linux
-      name:              CLANG 5 Build
-      compiler:          clang
-      python:            3.7
+    - os:              linux
+      name:            CLANG 5 Build
+      compiler:        clang
+      python:          3.7
       env:
         - DEPLOY_DOCUMENTATION=true
-        - COMPILER=clang++-5.0
-        - CC=/usr/bin/gcc-5 /usr/bin/clang++-5.0
-        - CXX=/usr/bin/gcc-5 /usr/bin/clang++-5.0
+        - MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0"
 
       before_install:
         - sudo rm -rf /usr/local/cmake-3.9.2/
@@ -94,12 +100,12 @@ matrix:
       before_cache:
         - cmake -P ../cmake/pmm.cmake /Conan /Clean
 
-    - os:               osx
-      name:             XCode 10.2 Build
-      osx_image:        xcode10.2
-      env:              TARGET=macOS
-      language:         objective-c
-      python:           3.7
+    - os:              osx
+      name:            XCode 10.2 Build
+      osx_image:       xcode10.2
+      env:             TARGET=macOS
+      language:        objective-c
+      python:          3.7
       before_install:
         - brew update
         - brew install conan
