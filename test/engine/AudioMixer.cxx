@@ -30,7 +30,7 @@ TEST_CASE("Set the music volume", "[engine]") {
     mixer.setMusicVolume(Limits<int>::max())
   );
   REQUIRE_NOTHROW(
-    mixer.setMusicVolume(Limits<int>::min())
+    mixer.setMusicVolume(Limits<int>::lowest())
   );
 }
 
@@ -49,7 +49,7 @@ TEST_CASE("Set sound effects volume", "[engine]") {
     mixer.setSoundEffectVolume(Limits<int>::max())
   );
   REQUIRE_NOTHROW(
-    mixer.setSoundEffectVolume(Limits<int>::min())
+    mixer.setSoundEffectVolume(Limits<int>::lowest())
   );
 }
 
