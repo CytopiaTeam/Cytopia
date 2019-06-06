@@ -2,6 +2,7 @@
 #include <limits>
 
 #include "../../src/engine/AudioMixer.hxx"
+#include "../../src/engine/basics/Settings.hxx"
 
 template <class T>
 using Limits = std::numeric_limits<T>;
@@ -22,16 +23,13 @@ TEST_CASE("Set the music volume", "[engine][audio]") {
     mixer.setMusicVolume(10)
   );
   REQUIRE_NOTHROW(
-    mixer.setMusicVolume(-10)
-  );
-  REQUIRE_NOTHROW(
     mixer.setMusicVolume(0)
   );
   REQUIRE_NOTHROW(
-    mixer.setMusicVolume(Limits<int>::max())
+    mixer.setMusicVolume(Limits<uint8_t>::max())
   );
   REQUIRE_NOTHROW(
-    mixer.setMusicVolume(Limits<int>::lowest())
+    mixer.setMusicVolume(Limits<uint8_t>::lowest())
   );
 }
 
@@ -41,16 +39,13 @@ TEST_CASE("Set sound effects volume", "[engine][audio]") {
     mixer.setSoundEffectVolume(10)
   );
   REQUIRE_NOTHROW(
-    mixer.setSoundEffectVolume(-10)
-  );
-  REQUIRE_NOTHROW(
     mixer.setSoundEffectVolume(0)
   );
   REQUIRE_NOTHROW(
-    mixer.setSoundEffectVolume(Limits<int>::max())
+    mixer.setSoundEffectVolume(Limits<uint8_t>::max())
   );
   REQUIRE_NOTHROW(
-    mixer.setSoundEffectVolume(Limits<int>::lowest())
+    mixer.setSoundEffectVolume(Limits<uint8_t>::lowest())
   );
 }
 
@@ -74,7 +69,7 @@ SCENARIO("I can change the music volume", "[engine][audio]") {
     }
   }
   GIVEN("The music volume is currently 128") {
-    Audiomixer mixer;
+    AudioMixer mixer;
     mixer.setMusicVolume(128);
     REQUIRE(Settings::instance().settings.musicVolume == 128);
     WHEN("I set the music volume to 0") {
@@ -89,21 +84,21 @@ SCENARIO("I can change the music volume", "[engine][audio]") {
 SCENARIO("I can change the sound effects volume", "[engine][audio]") {
   GIVEN("The sound effects volume is currently 0") {
     AudioMixer mixer;
-    mixer.setSoundEffectsVolume(0);
+    mixer.setSoundEffectVolume(0);
     REQUIRE(Settings::instance().settings.soundEffectsVolume == 0);
     WHEN("I set the sound effects volume to 128") {
-      mixer.setSoundEffectsVolume(128);
+      mixer.setSoundEffectVolume(128);
       THEN("My sound effects volume setting becomes 128") {
         REQUIRE(Settings::instance().settings.soundEffectsVolume == 128);
       }
     }
   }
   GIVEN("The sound effects volume is currently 128") {
-    Audiomixer mixer;
-    mixer.setSoundEffectsVolume(128);
+    AudioMixer mixer;
+    mixer.setSoundEffectVolume(128);
     REQUIRE(Settings::instance().settings.soundEffectsVolume == 128);
     WHEN("I set the sound effects volume to 0") {
-      mixer.setSoundEffectsVolume(0);
+      mixer.setSoundEffectVolume(0);
       THEN("My sound effects volume setting becomes 0") {
         REQUIRE(Settings::instance().settings.soundEffectsVolume == 0);
       }
@@ -127,11 +122,10 @@ SCENARIO("I can play music", "[engine][audio]") {
 
 SCENARIO("I can mute sounds", "[engine][audio]") {
   GIVEN("I am playing something") {
-    Audiomixer mixer;
-    mixer.plauMusic();
+    AudioMixer mixer;
+    mixer.playMusic();
     REQUIRE(Mix_Playing(-1) > 0);
     WHEN("I mute all sounds") {
-      AudioMixer mixer;
       mixer.mute();
       THEN("I am not hearing anything") {
         REQUIRE(Mix_Playing(-1) == 0);

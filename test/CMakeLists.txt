@@ -3,7 +3,11 @@ SET(TEST_SOURCES
   ${CMAKE_CURRENT_LIST_DIR}/main.cxx
   ${CMAKE_CURRENT_LIST_DIR}/Example.cxx
   ${CMAKE_CURRENT_LIST_DIR}/engine/ResourcesManager.cxx  
-  ${CMAKE_CURRENT_LIST_DIR}/engine/AudioMixer.cxx  
   )
 
+if(ENABLE_SDL2_MIXER)
+  LIST(APPEND TEST_SOURCES
+    ${CMAKE_CURRENT_LIST_DIR}/engine/AudioMixer.cxx
+  ) 
+endif(ENABLE_SDL2_MIXER)
 
