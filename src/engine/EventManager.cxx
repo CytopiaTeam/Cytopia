@@ -346,7 +346,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
 
   for (std::vector<Timer *>::iterator it = timers.begin(); it != timers.end();)
   {
-    if ((*it)->isActive())
+    if ( !(*it)->isActive())
     {
       it = timers.erase(it);
     }
