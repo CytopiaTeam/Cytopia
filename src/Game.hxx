@@ -17,9 +17,6 @@ public:
   virtual void run(bool SkipMenu = false);
   virtual void shutdown();
   virtual void mainMenu();
-
-  private:
-  ScriptEngine *scriptEngine;
 };
 
 #endif

@@ -5,7 +5,7 @@
 #include "basics/Settings.hxx"
 #include "ResourcesManager.hxx"
 
-Engine::Engine() {  }
+Engine::Engine() {}
 
 Engine::~Engine() { delete map; }
 

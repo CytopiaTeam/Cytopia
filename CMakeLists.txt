@@ -116,6 +116,7 @@ else (USE_PACKAGE_MANAGER)
     endif()
 
     find_package(LIBNOISE REQUIRED)
+    find_package(AngelScript REQUIRED)
     if(BUILD_TEST)
       find_package(Catch2 REQUIRED)
     endif(BUILD_TEST)
@@ -380,6 +381,7 @@ else (USE_PACKAGE_MANAGER)
     target_link_libraries(
             ${PROJECT_NAME}
             PRIVATE
+            ${AngelScript_LIBRARY}
             ${SDL2_LIBRARIES}
             ${SDL2_image_LIBRARIES}
             ${SDL2_ttf_LIBRARIES}
@@ -404,6 +406,7 @@ else (USE_PACKAGE_MANAGER)
     target_include_directories(
             ${PROJECT_NAME}
             PRIVATE
+            ${AngelScript_INCLUDE_DIR}
             ${SDL2_INCLUDE_DIRS}
             ${SDL2_image_INCLUDE_DIRS}
             ${SDL2_ttf_INCLUDE_DIRS}

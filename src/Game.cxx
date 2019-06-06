@@ -20,7 +20,6 @@
 #include "microprofile.h"
 #endif
 
-
 bool Game::initialize()
 {
   if (SDL_Init(SDL_INIT_VIDEO) != 0)
@@ -195,8 +194,8 @@ void Game::run(bool SkipMenu)
   UIManager &uiManager = UIManager::instance();
   uiManager.init();
 
-  scriptEngine = new ScriptEngine();
-  scriptEngine->init();
+  ScriptEngine &scriptEngine = ScriptEngine::instance();
+  scriptEngine.init();
 
 #ifndef DISABLE_SDL2_MIXER
   AudioMixer audioMixer;

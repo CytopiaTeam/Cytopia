@@ -16,7 +16,7 @@ void Camera::increaseZoomLevel()
     zoomLevel += 0.5f;
     centerScreenOnPoint(centerIsoCoordinates);
     if (Engine::instance().map != nullptr)
-		Engine::instance().map->refresh();
+      Engine::instance().map->refresh();
   }
 }
 
@@ -27,7 +27,7 @@ void Camera::decreaseZoomLevel()
     zoomLevel -= 0.5f;
     centerScreenOnPoint(centerIsoCoordinates);
     if (Engine::instance().map != nullptr)
-		Engine::instance().map->refresh();
+      Engine::instance().map->refresh();
   }
 }
 
@@ -72,7 +72,7 @@ void Camera::centerScreenOnPoint(const Point &isoCoordinates)
 
     cameraOffset = {x, y};
     if (Engine::instance().map != nullptr)
-		Engine::instance().map->refresh();
+      Engine::instance().map->refresh();
   }
 }
 

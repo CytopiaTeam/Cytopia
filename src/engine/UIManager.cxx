@@ -262,7 +262,7 @@ void UIManager::setFPSCounterText(const std::string &fps) const { m_fpsCounter->
 void UIManager::drawUI() const
 {
 #ifdef MICROPROFILE_ENABLED
-  MICROPROFILE_SCOPEI ("UI", "draw UI", MP_BLUE);
+  MICROPROFILE_SCOPEI("UI", "draw UI", MP_BLUE);
 #endif
   for (const auto &it : m_uiElements)
   {

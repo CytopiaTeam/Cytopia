@@ -15,8 +15,6 @@
 
 void print(const std::string &str) { printf("%s", str.c_str()); }
 
-ScriptEngine::ScriptEngine() {}
-
 ScriptEngine::~ScriptEngine()
 {
   // Clean up
@@ -78,7 +76,7 @@ void ScriptEngine::init()
   // Find the function that is to be called.
   asIScriptModule *mod = engine->GetModule("CytopiaModule");
   asIScriptFunction *func = mod->GetFunctionByDecl("void main()");
-  if (func == 0)
+  if (func == nullptr)
   {
     // The function couldn't be found. Instruct the script writer
     // to include the expected function in the script.

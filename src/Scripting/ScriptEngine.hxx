@@ -7,16 +7,32 @@
 class ScriptEngine
 {
 public:
+    
+  /// Retrieves instance of Singleton class UI Manager
+  static ScriptEngine &instance()
+  {
+    static ScriptEngine se;
+    return se;
+  }
 
-  ScriptEngine();
+  ScriptEngine() = default;
   ~ScriptEngine();
+
+  /**
+    * @brief Setup the ScriptEngine
+    *
+    */
   void init();
-  void MessageCallback(const asSMessageInfo *msg);
 
 protected:
-  asIScriptEngine *engine;                            //!< instance of the scripting engine
-  asIScriptContext *context;                          //!< context in which all scripting happens
+  /**
+    * @brief The message callback used to receive information on errors in human readable form.
+    *
+    */
+  void MessageCallback(const asSMessageInfo *msg);
 
+  asIScriptEngine *engine{};   //!< instance of the scripting engine
+  asIScriptContext *context{}; //!< context in which all scripting happens
 };
 
 #endif
