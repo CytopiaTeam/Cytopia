@@ -2,11 +2,11 @@ cmake_minimum_required(VERSION 3.9 FATAL_ERROR)
 include(CMakeDependentOption)
 
 option(BUILD_TILEDATA_EDITOR    "Build Cytopia TileData Editor"   OFF)
+option(BUILD_TEST               "Build Cytopia Tests"             ON)
 option(USE_PACKAGE_MANAGER      "Use conan for managing packages" ON)
 cmake_dependent_option(USE_PMM  "Use PMM for managing conan"      OFF WIN32 ON)
 option(ENABLE_SDL2_MIXER        "Enable SDL2 Mixer"               ON)
 option(ENABLE_MICROPROFILE      "Enable microprofile"             OFF)
-
 
 if(NOT BUILD_TILEDATA_EDITOR)
   set(ENABLE_QT "# ")
@@ -52,6 +52,7 @@ if (USE_PACKAGE_MANAGER)
 
         conan_add_remote(NAME AFG URL https://api.bintray.com/conan/anotherfoxguy/conan-packages)
         conan_add_remote(NAME bincrafters URL https://api.bintray.com/conan/bincrafters/public-conan)
+        conan_add_remote(NAME catchorg URL https://api.bintray.com/conan/catchorg/Catch2)
 
         SET(CONAN_DEPS
                 "sdl2/2.0.9@bincrafters/stable"
@@ -70,6 +71,10 @@ if (USE_PACKAGE_MANAGER)
             list(APPEND CONAN_DEPS "qt/5.12.3@bincrafters/stable")
         endif ()
 
+        if (BUILD_TEST)
+            list(APPEND CONAN_DEPS "Catch2/2.8.0@catchorg/stable")
+        endif()
+        
         set(CONAN_ARGS
             BASIC_SETUP
             CMAKE_TARGETS
@@ -104,6 +109,9 @@ else (USE_PACKAGE_MANAGER)
     endif()
 
     find_package(LIBNOISE REQUIRED)
+    if(BUILD_TEST)
+      find_package(Catch2 REQUIRED)
+    endif(BUILD_TEST)
 
 endif (USE_PACKAGE_MANAGER)
 
@@ -198,6 +206,16 @@ if (ENABLE_MICROPROFILE)
             )
 endif (ENABLE_MICROPROFILE)
 
+INCLUDE(test/CMakeLists.txt)
+# We need to test our sources
+LIST(APPEND TEST_SOURCES ${SOURCES})
+# We need to remove main()
+LIST(REMOVE_ITEM TEST_SOURCES src/main.cxx)
+
+if(BUILD_TEST)
+    add_executable(${PROJECT_NAME}_Tests ${TEST_SOURCES})
+endif(BUILD_TEST)
+
 if (MSVC)
     set(SOURCES ${SOURCES} ${PROJECT_SOURCE_DIR}/build/msvc/icon_cytopia.rc)
 endif ()
@@ -246,13 +264,33 @@ if (ENABLE_MICROPROFILE)
             MICROPROFILE_ENABLED
             MICROPROFILE_GPU_TIMERS=0
     )
-	if (WIN32)
-		target_link_libraries(
-				${PROJECT_NAME}
-				PRIVATE
-				ws2_32.lib
-		)
-	endif (WIN32)
+    if(BUILD_TEST)
+        target_include_directories(
+                ${PROJECT_NAME}_Tests
+                PRIVATE
+                ${microprofile_SOURCE_DIR}
+        )
+        target_compile_definitions(
+                ${PROJECT_NAME}_Tests
+                PRIVATE
+                MICROPROFILE_ENABLED
+                MICROPROFILE_GPU_TIMERS=0
+        )
+    endif(BUILD_TEST)
+    if (WIN32)
+        target_link_libraries(
+            ${PROJECT_NAME}
+            PRIVATE
+            ws2_32.lib
+        )
+        if(BUILD_TEST)
+            target_link_libraries(
+                ${PROJECT_NAME}_Tests
+                PRIVATE
+                ws2_32.lib
+            )
+        endif(BUILD_TEST)
+    endif (WIN32)
 endif (ENABLE_MICROPROFILE)
 
 if (MINGW)
@@ -262,6 +300,14 @@ if (MINGW)
             # need to link with mingw32 before SDL2
             mingw32
     )
+    if(BUILD_TEST)
+        target_link_libraries(
+                ${PROJECT_NAME}_Tests
+                PRIVATE
+                # need to link with mingw32 before SDL2
+                mingw32
+        )
+    endif(BUILD_TEST)
 endif ()
 
 # link the libraries that we've found
@@ -277,6 +323,19 @@ if (USE_PACKAGE_MANAGER)
             CONAN_PKG::libnoise
             CONAN_PKG::zlib
     )
+    if(BUILD_TEST)
+        target_link_libraries(
+                ${PROJECT_NAME}_Tests
+                PRIVATE
+                CONAN_PKG::sdl2
+                CONAN_PKG::sdl2_image
+                CONAN_PKG::sdl2_ttf
+                CONAN_PKG::sdl2_mixer
+                CONAN_PKG::libnoise
+                CONAN_PKG::zlib
+                CONAN_PKG::Catch2
+        )
+    endif(BUILD_TEST)
   else ()
       target_link_libraries(
           ${PROJECT_NAME}
@@ -287,6 +346,18 @@ if (USE_PACKAGE_MANAGER)
           CONAN_PKG::libnoise
           CONAN_PKG::zlib
       )
+      if(BUILD_TEST)
+          target_link_libraries(
+              ${PROJECT_NAME}_Tests
+              PRIVATE
+              CONAN_PKG::sdl2
+              CONAN_PKG::sdl2_image
+              CONAN_PKG::sdl2_ttf
+              CONAN_PKG::libnoise
+              CONAN_PKG::zlib
+              CONAN_PKG::Catch2
+          )
+      endif(BUILD_TEST)
   endif ()
 
 else (USE_PACKAGE_MANAGER)
@@ -301,6 +372,19 @@ else (USE_PACKAGE_MANAGER)
             LIBNOISE::LIBNOISE_LIBRARIES
             ${ZLIB_LIBRARIES}
     )
+    if(BUILD_TEST)
+        target_link_libraries(
+                ${PROJECT_NAME}_Tests
+                PRIVATE
+                ${SDL2_LIBRARIES}
+                ${SDL2_image_LIBRARIES}
+                ${SDL2_ttf_LIBRARIES}
+                ${SDL2_mixer_LIBRARIES}
+                LIBNOISE::LIBNOISE_LIBRARIES
+                ${ZLIB_LIBRARIES}
+                ${CATCH2_LIBRARIES}
+        )
+    endif(BUILD_TEST)
 
     target_include_directories(
             ${PROJECT_NAME}
@@ -311,6 +395,18 @@ else (USE_PACKAGE_MANAGER)
             ${SDL2_mixer_INCLUDE_DIRS}
             ${ZLIB_INCLUDE_DIRS}
     )
+    if(BUILD_TEST)
+        target_include_directories(
+                ${PROJECT_NAME}_Tests
+                PRIVATE
+                ${SDL2_INCLUDE_DIRS}
+                ${SDL2_image_INCLUDE_DIRS}
+                ${SDL2_ttf_INCLUDE_DIRS}
+                ${SDL2_mixer_INCLUDE_DIRS}
+                ${ZLIB_INCLUDE_DIRS}
+                ${CATCH2_INCLUDE_DIRS}
+        )
+    endif(BUILD_TEST)
 
 endif (USE_PACKAGE_MANAGER)
 
@@ -321,6 +417,14 @@ target_compile_features(
         # enable C++14
         cxx_std_14
 )
+if(BUILD_TEST)
+    target_compile_features(
+            ${PROJECT_NAME}_Tests
+            PRIVATE
+            # enable C++14
+            cxx_std_14
+    )
+endif(BUILD_TEST)
 
 set (COMPILER_FLAGS VERSION="${PROJECT_NAME} ${PROJECT_VERSION} - tech preview")
 
@@ -334,6 +438,14 @@ target_compile_definitions(
         # pass the version string via the compiler
         ${COMPILER_FLAGS}
 )
+if(BUILD_TEST)
+    target_compile_definitions(
+            ${PROJECT_NAME}_Tests
+            PRIVATE
+            # pass the version string via the compiler
+            ${COMPILER_FLAGS}
+    )
+endif(BUILD_TEST)
 
 # Compile options
 target_compile_options(
@@ -345,6 +457,17 @@ target_compile_options(
 
         INTERFACE
 )
+if(BUILD_TEST)
+    target_compile_options(
+            ${PROJECT_NAME}_Tests
+            PRIVATE
+
+            PUBLIC
+            ${DEFAULT_COMPILE_OPTIONS}
+
+            INTERFACE
+    )
+endif(BUILD_TEST)
 
 # copy the resources to the compiled directory
 add_custom_command(
@@ -425,3 +548,9 @@ endif ()
 
 include(FeatureSummary)
 feature_summary(WHAT ALL)
+
+if(BUILD_TEST)
+    include(CTest)
+    include(cmake/Catch.cmake)
+    catch_discover_tests(${PROJECT_NAME}_Tests)
+endif(BUILD_TEST)
