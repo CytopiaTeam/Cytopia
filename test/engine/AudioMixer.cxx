@@ -1,14 +1,15 @@
 #include <catch2/catch.hpp>
 #include <limits>
 
-#include "../src/AudioMixer.hxx"
+#include "../../src/engine/AudioMixer.hxx"
 
 template <class T>
 using Limits = std::numeric_limits<T>;
 
 TEST_CASE("Create an destroy AudioMixer", "[engine]") {
+  AudioMixer* mixer = nullptr;
   REQUIRE_NOTHROW(
-      AudioMixer* mixer = new AudioMixer()
+      mixer = new AudioMixer
   );
   REQUIRE_NOTHROW(
     delete mixer
