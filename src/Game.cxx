@@ -171,10 +171,15 @@ void Game::mainMenu()
   }
 }
 
-void Game::run()
+void Game::run(bool SkipMenu)
 {
   Timer benchmarkTimer;
   LOG() << VERSION;
+
+  if (SkipMenu)
+  {
+    Engine::instance().newGame();
+  }
 
   benchmarkTimer.start();
   Engine &engine = Engine::instance();
@@ -209,7 +214,7 @@ void Game::run()
 
     // render the tileMap
     if (engine.map != nullptr)
-		engine.map->renderMap();
+      engine.map->renderMap();
 
     // render the ui
     uiManager.drawUI();

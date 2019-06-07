@@ -12,7 +12,7 @@ public:
   virtual ~Game() = default;
 
   virtual bool initialize();
-  virtual void run();
+  virtual void run(bool SkipMenu = false);
   virtual void shutdown();
   virtual void mainMenu();
 };
