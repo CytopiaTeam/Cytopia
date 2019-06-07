@@ -20,11 +20,11 @@ void UIManager::init()
 {
   json uiLayout;
 
-  std::ifstream i(SDL_GetBasePath() + Settings::instance().settings.uiLayoutJSONFile);
+  std::ifstream i(SDL_GetBasePath() + Settings::instance().uiLayoutJSONFile);
 
   if (i.fail())
   {
-    LOG(LOG_ERROR) << "File " << Settings::instance().settings.uiLayoutJSONFile
+    LOG(LOG_ERROR) << "File " << Settings::instance().uiLayoutJSONFile
                    << " does not exist! Cannot load settings from INI File!";
     // Application should quit here, without textureData we can't continue
     return;
@@ -35,7 +35,7 @@ void UIManager::init()
 
   if (uiLayout.is_discarded())
   {
-    LOG(LOG_ERROR) << "Error parsing JSON File " << Settings::instance().settings.uiLayoutJSONFile;
+    LOG(LOG_ERROR) << "Error parsing JSON File " << Settings::instance().uiLayoutJSONFile;
     return;
   }
 
@@ -157,7 +157,7 @@ void UIManager::init()
         if (uiElementType.empty())
         {
           LOG(LOG_ERROR) << "An element without a type can not be created, check your UiLayout JSON File "
-                         << Settings::instance().settings.uiLayoutJSONFile;
+                         << Settings::instance().uiLayoutJSONFile;
           continue;
         }
         else if (uiElementType == "ImageButton")
@@ -685,28 +685,28 @@ void UIManager::initializeDollarVariables()
         combobox->clear();
         combobox->addElement("LEFT");
         // TODO: #97 Ugly workaround until we have BetterEnums
-        if (Settings::instance().settings.buildMenuPosition == "LEFT")
+        if (Settings::instance().buildMenuPosition == "LEFT")
         {
           combobox->setActiveID(static_cast<int>(combobox->count() - 1));
           buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(combobox->count() - 1));
         }
         combobox->addElement("RIGHT");
         // TODO: #97 Ugly workaround until we have BetterEnums
-        if (Settings::instance().settings.buildMenuPosition == "RIGHT")
+        if (Settings::instance().buildMenuPosition == "RIGHT")
         {
           combobox->setActiveID(static_cast<int>(combobox->count() - 1));
           buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(combobox->count() - 1));
         }
         combobox->addElement("TOP");
         // TODO: #97 Ugly workaround until we have BetterEnums
-        if (Settings::instance().settings.buildMenuPosition == "TOP")
+        if (Settings::instance().buildMenuPosition == "TOP")
         {
           combobox->setActiveID(static_cast<int>(combobox->count() - 1));
           buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(combobox->count() - 1));
         }
         combobox->addElement("BOTTOM");
         // TODO: #97 Ugly workaround until we have BetterEnums
-        if (Settings::instance().settings.buildMenuPosition == "BOTTOM")
+        if (Settings::instance().buildMenuPosition == "BOTTOM")
         {
           combobox->setActiveID(static_cast<int>(combobox->count() - 1));
           buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(combobox->count() - 1));
@@ -732,7 +732,7 @@ void UIManager::initializeDollarVariables()
           std::string resolution = std::to_string(mode->w) + " x " + std::to_string(mode->h);
           combobox->addElement(resolution);
           // check if the added element is the active screen resolution
-          if (Settings::instance().settings.screenHeight == mode->h && Settings::instance().settings.screenWidth == mode->w)
+          if (Settings::instance().screenHeight == mode->h && Settings::instance().screenWidth == mode->w)
           {
             combobox->setActiveID(static_cast<int>(combobox->count() - 1));
           }
@@ -756,7 +756,7 @@ void UIManager::initializeDollarVariables()
         combobox->addElement("BORDERLESS");
         combobox->addElement("FULLSCREEN");
 
-        combobox->setActiveID(Settings::instance().settings.fullScreenMode);
+        combobox->setActiveID(Settings::instance().fullScreenMode);
         combobox->registerCallbackFunction(Signal::slot(this, &UIManager::changeFullScreenMode));
       }
     }
@@ -769,7 +769,7 @@ void UIManager::setBuildMenuPosition(UIElement *sender)
 
   if (comboBox)
   {
-    Settings::instance().settings.buildMenuPosition = comboBox->activeText;
+    Settings::instance().buildMenuPosition = comboBox->activeText;
     buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(comboBox->getActiveID());
     setBuildMenuLayout();
     Layout::arrangeElements();

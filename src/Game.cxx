@@ -51,8 +51,8 @@ void Game::mainMenu()
 {
   SDL_Event event;
 
-  int screenWidth = Settings::instance().settings.screenWidth;
-  int screenHeight = Settings::instance().settings.screenHeight;
+  int screenWidth = Settings::instance().screenWidth;
+  int screenHeight = Settings::instance().screenHeight;
   bool mainMenuLoop = true;
 
   Image logo;

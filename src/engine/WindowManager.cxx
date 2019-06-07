@@ -8,7 +8,7 @@
 WindowManager::WindowManager()
 {
   m_window = SDL_CreateWindow(m_title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-                              Settings::instance().settings.screenWidth, Settings::instance().settings.screenHeight, 0);
+                              Settings::instance().screenWidth, Settings::instance().screenHeight, 0);
   if (m_window == nullptr)
   {
     LOG(LOG_ERROR) << "Failed to Init SDL\nSDL Error:" << SDL_GetError();
@@ -34,7 +34,7 @@ WindowManager::WindowManager()
 
   m_numOfDisplays = SDL_GetNumVideoDisplays();
   initializeScreenResolutions();
-  setFullScreenMode(static_cast<FULLSCREEN_MODE>(Settings::instance().settings.fullScreenMode));
+  setFullScreenMode(static_cast<FULLSCREEN_MODE>(Settings::instance().fullScreenMode));
 }
 
 WindowManager::~WindowManager()
@@ -45,9 +45,9 @@ WindowManager::~WindowManager()
 
 void WindowManager::toggleFullScreen() const
 {
-  Settings::instance().settings.fullScreen = !Settings::instance().settings.fullScreen;
+  Settings::instance().fullScreen = !Settings::instance().fullScreen;
 
-  if (Settings::instance().settings.fullScreen)
+  if (Settings::instance().fullScreen)
   {
     SDL_SetWindowFullscreen(m_window, SDL_WINDOW_FULLSCREEN);
   }
@@ -59,11 +59,11 @@ void WindowManager::toggleFullScreen() const
 
 void WindowManager::setFullScreenMode(FULLSCREEN_MODE mode) const
 {
-  Settings::instance().settings.fullScreenMode = static_cast<int>(mode);
+  Settings::instance().fullScreenMode = static_cast<int>(mode);
 
   // reset the actual resolution back to the desired resolution
-  Settings::instance().settings.currentScreenHeight = Settings::instance().settings.screenHeight;
-  Settings::instance().settings.currentScreenWidth = Settings::instance().settings.screenWidth;
+  Settings::instance().currentScreenHeight = Settings::instance().screenHeight;
+  Settings::instance().currentScreenWidth = Settings::instance().screenWidth;
   switch (mode)
   {
   case FULLSCREEN_MODE::WINDOWED:
@@ -79,8 +79,8 @@ void WindowManager::setFullScreenMode(FULLSCREEN_MODE mode) const
       LOG() << "SDL_GetDesktopDisplayMode failed: " << SDL_GetError();
     }
     // set the actual resolution to the desktop resolution for Borderless
-    Settings::instance().settings.currentScreenHeight = desktopScreenMode.h;
-    Settings::instance().settings.currentScreenWidth = desktopScreenMode.w;
+    Settings::instance().currentScreenHeight = desktopScreenMode.h;
+    Settings::instance().currentScreenWidth = desktopScreenMode.w;
 
     // As a workaround, need to switch back into windowed mode before changing the display mode, then back to full screen mode.
     // Minimize / Restore is another workaround to get the change from fullscreen to Borderless working
@@ -123,14 +123,14 @@ void WindowManager::setScreenResolution(int mode)
   // check if the desired mode exists first
   if (mode > 0 && mode < static_cast<int>(m_resolutions.size()) && m_resolutions[mode])
   {
-    Settings::instance().settings.screenWidth = m_resolutions[mode]->w;
-    Settings::instance().settings.screenHeight = m_resolutions[mode]->h;
+    Settings::instance().screenWidth = m_resolutions[mode]->w;
+    Settings::instance().screenHeight = m_resolutions[mode]->h;
 
     // update the actual resolution
-    Settings::instance().settings.currentScreenWidth = Settings::instance().settings.screenWidth;
-    Settings::instance().settings.currentScreenHeight = Settings::instance().settings.screenHeight;
+    Settings::instance().currentScreenWidth = Settings::instance().screenWidth;
+    Settings::instance().currentScreenHeight = Settings::instance().screenHeight;
 
-    switch (static_cast<FULLSCREEN_MODE>(Settings::instance().settings.fullScreenMode))
+    switch (static_cast<FULLSCREEN_MODE>(Settings::instance().fullScreenMode))
     {
     case FULLSCREEN_MODE::FULLSCREEN:
       SDL_SetWindowDisplayMode(m_window, m_resolutions[mode]);

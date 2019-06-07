@@ -4,7 +4,7 @@
 #include "../basics/Settings.hxx"
 
 SoundEffect::SoundEffect(const std::string &filename)
-  : m_playSoundEffect(Settings::instance().settings.playSoundEffects)
+  : m_playSoundEffect(Settings::instance().playSoundEffects)
 {
   loadFile(filename);
 }
@@ -42,7 +42,7 @@ void SoundEffect::play(int channel, Sint16 angle, Uint8 distance, int loops) con
       }
 
       // for stereo set the position of the sound effect
-      if (Settings::instance().settings.audioChannels == 2)
+      if (Settings::instance().audioChannels == 2)
       {
         if (!Mix_SetPosition(currentChannel, angle, distance))
         {

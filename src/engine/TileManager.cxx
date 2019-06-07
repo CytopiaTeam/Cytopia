@@ -235,10 +235,10 @@ size_t TileManager::calculateTileOrientation(unsigned char bitMaskElevation)
 void TileManager::init()
 {
   // Read JSON File.
-  std::ifstream i(SDL_GetBasePath() + Settings::instance().settings.tileDataJSONFile);
+  std::ifstream i(SDL_GetBasePath() + Settings::instance().tileDataJSONFile);
   if (i.fail())
   {
-    LOG(LOG_ERROR) << "File " << Settings::instance().settings.tileDataJSONFile << " does not exist!";
+    LOG(LOG_ERROR) << "File " << Settings::instance().tileDataJSONFile << " does not exist!";
     return;
   }
 
@@ -246,7 +246,7 @@ void TileManager::init()
   const json tileDataJSON = json::parse(i, nullptr, false);
   if (tileDataJSON.is_discarded())
   {
-    LOG(LOG_ERROR) << "Error parsing JSON File " << Settings::instance().settings.tileDataJSONFile;
+    LOG(LOG_ERROR) << "Error parsing JSON File " << Settings::instance().tileDataJSONFile;
   }
   i.close();
 

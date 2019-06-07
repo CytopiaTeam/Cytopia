@@ -75,8 +75,8 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           if (pinchCenterCoords.x == 0 && pinchCenterCoords.y == 0)
           {
             pinchCenterCoords =
-                convertScreenToIsoCoordinates({static_cast<int>(event.mgesture.x * Settings::instance().settings.screenWidth),
-                                               static_cast<int>(event.mgesture.y * Settings::instance().settings.screenHeight)});
+                convertScreenToIsoCoordinates({static_cast<int>(event.mgesture.x * Settings::instance().screenWidth),
+                                               static_cast<int>(event.mgesture.y * Settings::instance().screenHeight)});
           }
           Camera::setPinchDistance(event.mgesture.dDist * 15.0f, pinchCenterCoords.x, pinchCenterCoords.y);
           m_skipLeftClick = true;
@@ -85,10 +85,10 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
 
         if (m_panning)
         {
-          Camera::cameraOffset.x -= static_cast<int>(Settings::instance().settings.screenWidth * event.tfinger.dx);
-          Camera::cameraOffset.y -= static_cast<int>(Settings::instance().settings.screenHeight * event.tfinger.dy);
+          Camera::cameraOffset.x -= static_cast<int>(Settings::instance().screenWidth * event.tfinger.dx);
+          Camera::cameraOffset.y -= static_cast<int>(Settings::instance().screenHeight * event.tfinger.dy);
           Camera::centerIsoCoordinates = convertScreenToIsoCoordinates(
-              {Settings::instance().settings.screenWidth / 2, Settings::instance().settings.screenHeight / 2});
+              {Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2});
           Engine::instance().map->refresh();
           m_skipLeftClick = true;
           break;
@@ -231,7 +231,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       if (m_panning)
       {
         Camera::centerIsoCoordinates = convertScreenToIsoCoordinates(
-            {Settings::instance().settings.screenWidth / 2, Settings::instance().settings.screenHeight / 2});
+            {Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2});
         m_panning = false;
       }
       // reset pinchCenterCoords when fingers are released

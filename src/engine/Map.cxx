@@ -57,7 +57,7 @@ void Map::increaseHeight(const Point &isoCoordinates)
 {
   const int height = mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getCoordinates().height;
 
-  if (height < Settings::instance().settings.maxElevationHeight)
+  if (height < Settings::instance().maxElevationHeight)
   {
     demolishNode(isoCoordinates);
     mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->increaseHeight();
@@ -309,7 +309,7 @@ Point Map::findNodeInMap(const SDL_Point &screenCoordinates) const
   int isoY = calculatedIsoCoords.y;
 
   // traverse a column from top to bottom (from the calculated coordinates)
-  while (isoX < Settings::instance().settings.mapSize && isoY < Settings::instance().settings.mapSize && isoY >= 0)
+  while (isoX < Settings::instance().mapSize && isoY < Settings::instance().mapSize && isoY >= 0)
   {
     if (isClickWithinTile(screenCoordinates, isoX, isoY))
     {
@@ -326,7 +326,7 @@ Point Map::findNodeInMap(const SDL_Point &screenCoordinates) const
       }
     }
     //check if isoY is already the last one
-    if (isoY < Settings::instance().settings.mapSize - 1 && isClickWithinTile(screenCoordinates, isoX, isoY + 1))
+    if (isoY < Settings::instance().mapSize - 1 && isClickWithinTile(screenCoordinates, isoX, isoY + 1))
     {
       if (foundCoordinates.z < mapNodes[isoX * m_columns + (isoY + 1)]->getCoordinates().z)
       {
@@ -353,7 +353,7 @@ void Map::demolishNode(const Point &isoCoordinates, bool updateNeighboringTiles)
 
 bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int isoY) const
 {
-  if (isoX < 0 || isoX > Settings::instance().settings.mapSize || isoY < 0 || isoY > Settings::instance().settings.mapSize)
+  if (isoX < 0 || isoX > Settings::instance().mapSize || isoY < 0 || isoY > Settings::instance().mapSize)
   {
     return false;
   }
