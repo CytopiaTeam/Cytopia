@@ -8,12 +8,16 @@
 #include "engine/basics/LOG.hxx"
 #include "engine/ui/widgets/Image.hxx"
 #include "engine/basics/Settings.hxx"
-#include "Scripting/ScriptEngine.hxx"
+
 #include <noise.h>
 #include <SDL.h>
 
 #ifdef USE_SDL2_MIXER
 #include "engine/AudioMixer.hxx"
+#endif
+
+#ifdef USE_ANGELSCRIPT
+#include "Scripting/ScriptEngine.hxx"
 #endif
 
 #ifdef MICROPROFILE_ENABLED
@@ -194,8 +198,10 @@ void Game::run(bool SkipMenu)
   UIManager &uiManager = UIManager::instance();
   uiManager.init();
 
+#ifdef USE_ANGELSCRIPT
   ScriptEngine &scriptEngine = ScriptEngine::instance();
   scriptEngine.init();
+#endif
 
 #ifdef USE_SDL2_MIXER
   AudioMixer audioMixer;

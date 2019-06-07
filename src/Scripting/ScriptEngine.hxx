@@ -1,6 +1,8 @@
 #ifndef SCRIPTENGINE_HXX_
 #define SCRIPTENGINE_HXX_
 
+#ifdef USE_ANGELSCRIPT
+
 #include <angelscript.h>
 #include <string>
 
@@ -34,5 +36,6 @@ protected:
   asIScriptEngine *engine{};   //!< instance of the scripting engine
   asIScriptContext *context{}; //!< context in which all scripting happens
 };
+#endif
 
 #endif

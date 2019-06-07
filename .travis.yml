@@ -100,7 +100,8 @@ matrix:
         - cmake -GNinja -DCMAKE_BUILD_TYPE=Release ..
         - ninja
         - ctest
-        - ninja doc
+        - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then ninja doc; fi
+        
 
       before_cache:
         - cmake -P ../cmake/pmm.cmake /Conan /Clean

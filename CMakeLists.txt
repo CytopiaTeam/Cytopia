@@ -159,10 +159,6 @@ if (UNIX)
 endif ()
 
 set(SOURCES
-        external/as_add_on/scriptbuilder/scriptbuilder.cpp
-        external/as_add_on/scriptbuilder/scriptbuilder.h
-        external/as_add_on/scriptstdstring/scriptstdstring.h
-        external/as_add_on/scriptstdstring/scriptstdstring.cpp
         src/engine/basics/Camera.cxx
         src/engine/basics/isoMath.cxx
         src/engine/basics/mapEdit.cxx
@@ -193,14 +189,12 @@ set(SOURCES
         src/engine/TileManager.cxx
         src/engine/UIManager.cxx
         src/engine/WindowManager.cxx
-        src/Scripting/ScriptEngine.cxx
-        src/Scripting/ScriptEngine.hxx
         src/Game.cxx
         src/main.cxx
         )
 
 if (ENABLE_SDL2_MIXER)
-    set(SOURCES ${SOURCES}
+    list(APPEND SOURCES
             src/engine/audio/SoundEffect.cxx
             src/engine/audio/SoundEffect.cxx
             src/engine/audio/Music.cxx
@@ -208,8 +202,19 @@ if (ENABLE_SDL2_MIXER)
             )
 endif ()
 
+if (ENABLE_ANGELSCRIPT)
+    list(APPEND SOURCES
+            external/as_add_on/scriptbuilder/scriptbuilder.cpp
+            external/as_add_on/scriptbuilder/scriptbuilder.h
+            external/as_add_on/scriptstdstring/scriptstdstring.h
+            external/as_add_on/scriptstdstring/scriptstdstring.cpp
+            src/Scripting/ScriptEngine.cxx
+            src/Scripting/ScriptEngine.hxx
+            )
+endif ()
+
 if (ENABLE_MICROPROFILE)
-    set(SOURCES ${SOURCES}
+    list(APPEND SOURCES
             ${microprofile_SOURCE_DIR}/microprofile.h
             ${microprofile_SOURCE_DIR}/microprofile_html.h
             ${microprofile_SOURCE_DIR}/microprofile.cpp
@@ -344,7 +349,6 @@ else (USE_PACKAGE_MANAGER)
     target_link_libraries(
             ${PROJECT_NAME}
             PRIVATE
-
             ${SDL2_LIBRARIES}
             ${SDL2_image_LIBRARIES}
             ${SDL2_ttf_LIBRARIES}
