@@ -2,17 +2,17 @@
 cmake
 
 [requires]
-AngelScript/2.33@anotherfoxguy/stable
+@_CC_ANGELSCRIPT@AngelScript/2.33@anotherfoxguy/stable
 sdl2/2.0.9@bincrafters/stable
 sdl2_ttf/2.0.15@bincrafters/stable
 sdl2_image/2.0.4@bincrafters/stable
-sdl2_mixer/2.0.4@anotherfoxguy/stable
+@_CC_SDL2_MIXER@sdl2_mixer/2.0.4@anotherfoxguy/stable
 libpng/1.6.36@bincrafters/stable
 freetype/2.9.1@bincrafters/stable
 libnoise/1.0.1@anotherfoxguy/stable
 OpenSSL/1.1.1a@conan/stable
-Catch2/2.8.0@catchorg/stable
-@ENABLE_QT@qt/5.12.3@bincrafters/stable
+@_CC_CATCH2@Catch2/2.8.0@catchorg/stable
+@_CC_QT@qt/5.12.3@bincrafters/stable
 
 [options]
 sdl2_mixer:opus=False # PACKAGE:OPTION=VALUE

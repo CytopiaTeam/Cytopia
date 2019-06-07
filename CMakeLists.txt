@@ -1,16 +1,29 @@
 cmake_minimum_required(VERSION 3.9 FATAL_ERROR)
 include(CMakeDependentOption)
 
-option(BUILD_TILEDATA_EDITOR    "Build Cytopia TileData Editor"   OFF)
-option(BUILD_TEST               "Build Cytopia Tests"             ON)
-option(USE_PACKAGE_MANAGER      "Use conan for managing packages" ON)
-cmake_dependent_option(USE_PMM  "Use PMM for managing conan"      OFF WIN32 ON)
-option(ENABLE_SDL2_MIXER        "Enable SDL2 Mixer"               ON)
-option(ENABLE_MICROPROFILE      "Enable microprofile"             OFF)
+option(BUILD_TILEDATA_EDITOR "Build Cytopia TileData Editor" OFF)
+option(BUILD_TEST "Build Cytopia Tests" ON)
+option(USE_PACKAGE_MANAGER "Use conan for managing packages" ON)
+cmake_dependent_option(USE_PMM "Use PMM for managing conan" OFF WIN32 ON)
+option(ENABLE_SDL2_MIXER "Enable SDL2 Mixer" ON)
+option(ENABLE_MICROPROFILE "Enable microprofile" OFF)
+option(ENABLE_ANGELSCRIPT "Enable AngelScript" ON)
 
-if(NOT BUILD_TILEDATA_EDITOR)
-  set(ENABLE_QT "# ")
-endif()
+if (NOT BUILD_TILEDATA_EDITOR)
+    set(_CC_QT "# ")
+endif ()
+
+if (NOT ENABLE_SDL2_MIXER)
+    set(_CC_SDL2_MIXER "# ")
+endif ()
+
+if (NOT BUILD_TEST)
+    set(_CC_CATCH2 "# ")
+endif ()
+
+if (NOT ENABLE_ANGELSCRIPT)
+    set(_CC_ANGELSCRIPT "# ")
+endif ()
 
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/conanfile.txt.in" "${CMAKE_CURRENT_SOURCE_DIR}/conanfile.txt")
 
@@ -28,28 +41,29 @@ project(
 
 # on macOS, usr/local/lib is not in the default search path for libraries. Homebrew install it's libraries there though.
 if (APPLE AND NOT USE_PACKAGE_MANAGER)
-  LINK_DIRECTORIES(${LINK_DIRECTORIES} /usr/local/lib)
-endif()
+    LINK_DIRECTORIES(${LINK_DIRECTORIES} /usr/local/lib)
+endif ()
 
 if (USE_PACKAGE_MANAGER)
 
     if (USE_PMM)
         include(cmake/pmm.cmake)
 
-        pmm(DEBUG CONAN
-		REMOTES
-			AFG https://api.bintray.com/conan/anotherfoxguy/conan-packages
-			ror-dependencies https://api.bintray.com/conan/anotherfoxguy/ror-dependencies
-			BINCRAFTERS
-		)
+        pmm(CONAN
+                REMOTES
+                AFG https://api.bintray.com/conan/anotherfoxguy/conan-packages
+                catchorg https://api.bintray.com/conan/catchorg/Catch2
+                ror-dependencies https://api.bintray.com/conan/anotherfoxguy/ror-dependencies
+                BINCRAFTERS
+                )
 
-        if(DEFINED ENV{CI})
+        if (DEFINED ENV{CI})
             set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
             set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
             set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELWITHDEBINFO ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
             set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_MINSIZEREL ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
             set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
-        endif()
+        endif ()
     else ()
         include(cmake/conan.cmake)
 
@@ -58,44 +72,22 @@ if (USE_PACKAGE_MANAGER)
         conan_add_remote(NAME AFG URL https://api.bintray.com/conan/anotherfoxguy/conan-packages)
         conan_add_remote(NAME bincrafters URL https://api.bintray.com/conan/bincrafters/public-conan)
         conan_add_remote(NAME catchorg URL https://api.bintray.com/conan/catchorg/Catch2)
-		conan_add_remote(NAME ror-dependencies URL https://api.bintray.com/conan/anotherfoxguy/ror-dependencies)
+        conan_add_remote(NAME ror-dependencies URL https://api.bintray.com/conan/anotherfoxguy/ror-dependencies)
 
-        SET(CONAN_DEPS
-                "AngelScript/2.33@anotherfoxguy/stable"
-                "sdl2/2.0.9@bincrafters/stable"
-                "sdl2_ttf/2.0.15@bincrafters/stable"
-                "sdl2_image/2.0.4@bincrafters/stable"
-                "libpng/1.6.36@bincrafters/stable"
-                "freetype/2.9.1@bincrafters/stable"
-                "OpenSSL/1.1.1a@conan/stable"
-                "libnoise/1.0.1@anotherfoxguy/stable"
+
+        set(CONAN_ARGS
+                BASIC_SETUP
+                CMAKE_TARGETS
                 )
-        if (ENABLE_SDL2_MIXER)
-            list(APPEND CONAN_DEPS "sdl2_mixer/2.0.4@anotherfoxguy/stable")
-        endif()
 
-        if (BUILD_TILEDATA_EDITOR)
-            list(APPEND CONAN_DEPS "qt/5.12.3@bincrafters/stable")
+        if (NOT DEFINED ENV{CI})
+            list(APPEND CONAN_ARGS NO_OUTPUT_DIRS)
         endif ()
 
-        if (BUILD_TEST)
-            list(APPEND CONAN_DEPS "Catch2/2.8.0@catchorg/stable")
-        endif()
-        
-        set(CONAN_ARGS
-            BASIC_SETUP
-            CMAKE_TARGETS
-        )
-
-        if(NOT DEFINED ENV{CI})
-          list(APPEND CONAN_ARGS NO_OUTPUT_DIRS)
-        endif()
-
-        conan_cmake_run(REQUIRES ${CONAN_DEPS}
-                OPTIONS sdl2_mixer:opus=False
+        conan_cmake_run(CONANFILE conanfile.txt
                 BUILD missing
                 ${CONAN_ARGS}
-            )
+                )
 
     endif ()
 
@@ -113,13 +105,17 @@ else (USE_PACKAGE_MANAGER)
 
     if (ENABLE_SDL2_MIXER)
         pkg_check_modules(SDL2_mixer REQUIRED SDL2_mixer)
-    endif()
+    endif ()
 
     find_package(LIBNOISE REQUIRED)
-    find_package(AngelScript REQUIRED)
-    if(BUILD_TEST)
-      find_package(Catch2 REQUIRED)
-    endif(BUILD_TEST)
+
+    if (ENABLE_ANGELSCRIPT)
+        find_package(AngelScript REQUIRED)
+    endif ()
+
+    if (BUILD_TEST)
+        find_package(Catch2 REQUIRED)
+    endif (BUILD_TEST)
 
 endif (USE_PACKAGE_MANAGER)
 
@@ -163,10 +159,10 @@ if (UNIX)
 endif ()
 
 set(SOURCES
-		external/as_add_on/scriptbuilder/scriptbuilder.cpp
-		external/as_add_on/scriptbuilder/scriptbuilder.h
-		external/as_add_on/scriptstdstring/scriptstdstring.h
-		external/as_add_on/scriptstdstring/scriptstdstring.cpp
+        external/as_add_on/scriptbuilder/scriptbuilder.cpp
+        external/as_add_on/scriptbuilder/scriptbuilder.h
+        external/as_add_on/scriptstdstring/scriptstdstring.h
+        external/as_add_on/scriptstdstring/scriptstdstring.cpp
         src/engine/basics/Camera.cxx
         src/engine/basics/isoMath.cxx
         src/engine/basics/mapEdit.cxx
@@ -197,8 +193,8 @@ set(SOURCES
         src/engine/TileManager.cxx
         src/engine/UIManager.cxx
         src/engine/WindowManager.cxx
-		src/Scripting/ScriptEngine.cxx
-		src/Scripting/ScriptEngine.hxx
+        src/Scripting/ScriptEngine.cxx
+        src/Scripting/ScriptEngine.hxx
         src/Game.cxx
         src/main.cxx
         )
@@ -209,8 +205,8 @@ if (ENABLE_SDL2_MIXER)
             src/engine/audio/SoundEffect.cxx
             src/engine/audio/Music.cxx
             src/engine/AudioMixer.cxx
-        )
-endif()
+            )
+endif ()
 
 if (ENABLE_MICROPROFILE)
     set(SOURCES ${SOURCES}
@@ -226,9 +222,9 @@ LIST(APPEND TEST_SOURCES ${SOURCES})
 # We need to remove main()
 LIST(REMOVE_ITEM TEST_SOURCES src/main.cxx)
 
-if(BUILD_TEST)
+if (BUILD_TEST)
     add_executable(${PROJECT_NAME}_Tests ${TEST_SOURCES})
-endif(BUILD_TEST)
+endif (BUILD_TEST)
 
 if (MSVC)
     set(SOURCES ${SOURCES} ${PROJECT_SOURCE_DIR}/build/msvc/icon_cytopia.rc)
@@ -278,7 +274,7 @@ if (ENABLE_MICROPROFILE)
             MICROPROFILE_ENABLED
             MICROPROFILE_GPU_TIMERS=0
     )
-    if(BUILD_TEST)
+    if (BUILD_TEST)
         target_include_directories(
                 ${PROJECT_NAME}_Tests
                 PRIVATE
@@ -290,20 +286,20 @@ if (ENABLE_MICROPROFILE)
                 MICROPROFILE_ENABLED
                 MICROPROFILE_GPU_TIMERS=0
         )
-    endif(BUILD_TEST)
+    endif (BUILD_TEST)
     if (WIN32)
         target_link_libraries(
-            ${PROJECT_NAME}
-            PRIVATE
-            ws2_32.lib
-        )
-        if(BUILD_TEST)
-            target_link_libraries(
-                ${PROJECT_NAME}_Tests
+                ${PROJECT_NAME}
                 PRIVATE
                 ws2_32.lib
+        )
+        if (BUILD_TEST)
+            target_link_libraries(
+                    ${PROJECT_NAME}_Tests
+                    PRIVATE
+                    ws2_32.lib
             )
-        endif(BUILD_TEST)
+        endif (BUILD_TEST)
     endif (WIN32)
 endif (ENABLE_MICROPROFILE)
 
@@ -314,118 +310,54 @@ if (MINGW)
             # need to link with mingw32 before SDL2
             mingw32
     )
-    if(BUILD_TEST)
+    if (BUILD_TEST)
         target_link_libraries(
                 ${PROJECT_NAME}_Tests
                 PRIVATE
                 # need to link with mingw32 before SDL2
                 mingw32
         )
-    endif(BUILD_TEST)
+    endif (BUILD_TEST)
 endif ()
 
 # link the libraries that we've found
 if (USE_PACKAGE_MANAGER)
-  if (ENABLE_SDL2_MIXER)
     target_link_libraries(
             ${PROJECT_NAME}
             PRIVATE
-            CONAN_PKG::AngelScript
             CONAN_PKG::sdl2
             CONAN_PKG::sdl2_image
             CONAN_PKG::sdl2_ttf
-            CONAN_PKG::sdl2_mixer
             CONAN_PKG::libnoise
             CONAN_PKG::zlib
     )
-    if(BUILD_TEST)
-        target_link_libraries(
-                ${PROJECT_NAME}_Tests
-                PRIVATE
-                CONAN_PKG::sdl2
-                CONAN_PKG::sdl2_image
-                CONAN_PKG::sdl2_ttf
-                CONAN_PKG::sdl2_mixer
-                CONAN_PKG::libnoise
-                CONAN_PKG::zlib
-                CONAN_PKG::Catch2
-        )
-    endif(BUILD_TEST)
-  else ()
-      target_link_libraries(
-          ${PROJECT_NAME}
-          PRIVATE
-          CONAN_PKG::AngelScript
-          CONAN_PKG::sdl2
-          CONAN_PKG::sdl2_image
-          CONAN_PKG::sdl2_ttf
-          CONAN_PKG::libnoise
-          CONAN_PKG::zlib
-      )
-      if(BUILD_TEST)
-          target_link_libraries(
-              ${PROJECT_NAME}_Tests
-              PRIVATE
-              CONAN_PKG::sdl2
-              CONAN_PKG::sdl2_image
-              CONAN_PKG::sdl2_ttf
-              CONAN_PKG::libnoise
-              CONAN_PKG::zlib
-              CONAN_PKG::Catch2
-          )
-      endif(BUILD_TEST)
-  endif ()
+
+    if (ENABLE_SDL2_MIXER)
+        target_link_libraries(${PROJECT_NAME} PRIVATE CONAN_PKG::sdl2_mixer)
+    endif ()
+
+    if (ENABLE_ANGELSCRIPT)
+        target_link_libraries(${PROJECT_NAME} PRIVATE CONAN_PKG::AngelScript)
+    endif ()
 
 else (USE_PACKAGE_MANAGER)
-
     target_link_libraries(
             ${PROJECT_NAME}
             PRIVATE
-            ${AngelScript_LIBRARY}
+
             ${SDL2_LIBRARIES}
             ${SDL2_image_LIBRARIES}
             ${SDL2_ttf_LIBRARIES}
-            ${SDL2_mixer_LIBRARIES}
             LIBNOISE::LIBNOISE_LIBRARIES
             ${ZLIB_LIBRARIES}
     )
-    if(BUILD_TEST)
-        target_link_libraries(
-                ${PROJECT_NAME}_Tests
-                PRIVATE
-                ${SDL2_LIBRARIES}
-                ${SDL2_image_LIBRARIES}
-                ${SDL2_ttf_LIBRARIES}
-                ${SDL2_mixer_LIBRARIES}
-                LIBNOISE::LIBNOISE_LIBRARIES
-                ${ZLIB_LIBRARIES}
-                ${CATCH2_LIBRARIES}
-        )
-    endif(BUILD_TEST)
 
-    target_include_directories(
-            ${PROJECT_NAME}
-            PRIVATE
-            ${AngelScript_INCLUDE_DIR}
-            ${SDL2_INCLUDE_DIRS}
-            ${SDL2_image_INCLUDE_DIRS}
-            ${SDL2_ttf_INCLUDE_DIRS}
-            ${SDL2_mixer_INCLUDE_DIRS}
-            ${ZLIB_INCLUDE_DIRS}
-    )
-    if(BUILD_TEST)
-        target_include_directories(
-                ${PROJECT_NAME}_Tests
-                PRIVATE
-                ${SDL2_INCLUDE_DIRS}
-                ${SDL2_image_INCLUDE_DIRS}
-                ${SDL2_ttf_INCLUDE_DIRS}
-                ${SDL2_mixer_INCLUDE_DIRS}
-                ${ZLIB_INCLUDE_DIRS}
-                ${CATCH2_INCLUDE_DIRS}
-        )
-    endif(BUILD_TEST)
-
+    if (ENABLE_SDL2_MIXER)
+        target_link_libraries(${PROJECT_NAME} PRIVATE ${SDL2_mixer_LIBRARIES})
+    endif ()
+    if (ENABLE_ANGELSCRIPT)
+        target_link_libraries(${PROJECT_NAME} PRIVATE ${AngelScript_LIBRARY})
+    endif ()
 endif (USE_PACKAGE_MANAGER)
 
 
@@ -435,25 +367,29 @@ target_compile_features(
         # enable C++14
         cxx_std_14
 )
-if(BUILD_TEST)
+if (BUILD_TEST)
     target_compile_features(
             ${PROJECT_NAME}_Tests
             PRIVATE
             # enable C++14
             cxx_std_14
     )
-endif(BUILD_TEST)
+endif (BUILD_TEST)
 
-set (COMPILER_FLAGS VERSION="${PROJECT_NAME} ${PROJECT_VERSION} - tech preview")
+set(COMPILER_FLAGS VERSION="${PROJECT_NAME} ${PROJECT_VERSION} - tech preview")
 
-if (NOT ENABLE_SDL2_MIXER)
-  list(APPEND COMPILER_FLAGS DISABLE_SDL2_MIXER)
-endif()
+if (ENABLE_SDL2_MIXER)
+    target_compile_definitions(${PROJECT_NAME} PRIVATE USE_SDL2_MIXER)
+endif ()
+
+if (ENABLE_ANGELSCRIPT)
+    target_compile_definitions(${PROJECT_NAME} PRIVATE USE_ANGELSCRIPT)
+endif ()
 
 target_include_directories(
-            ${PROJECT_NAME}
-            PRIVATE
-            external/as_add_on
+        ${PROJECT_NAME}
+        PRIVATE
+        external/as_add_on
 )
 
 target_compile_definitions(
@@ -462,14 +398,14 @@ target_compile_definitions(
         # pass the version string via the compiler
         ${COMPILER_FLAGS}
 )
-if(BUILD_TEST)
+if (BUILD_TEST)
     target_compile_definitions(
             ${PROJECT_NAME}_Tests
             PRIVATE
             # pass the version string via the compiler
             ${COMPILER_FLAGS}
     )
-endif(BUILD_TEST)
+endif (BUILD_TEST)
 
 # Compile options
 target_compile_options(
@@ -481,7 +417,7 @@ target_compile_options(
 
         INTERFACE
 )
-if(BUILD_TEST)
+if (BUILD_TEST)
     target_compile_options(
             ${PROJECT_NAME}_Tests
             PRIVATE
@@ -491,7 +427,7 @@ if(BUILD_TEST)
 
             INTERFACE
     )
-endif(BUILD_TEST)
+endif (BUILD_TEST)
 
 # copy the resources to the compiled directory
 add_custom_command(
@@ -510,14 +446,14 @@ if (EXISTS ${PROJECT_SOURCE_DIR}/Cytopia_Resources)
 else ()
     message(WARNING "No Resources directory found. Please init git submodules with following command:")
     message("git submodule update --init --recursive")
-    endif ()
+endif ()
 if (BUILD_TILEDATA_EDITOR)
     add_subdirectory(src/TileDataUi)
 
     # QT5 is used for the TileData Editing tool
     if (USE_PACKAGE_MANAGER)
         find_package(Qt5 CONFIG COMPONENTS Core Widgets REQUIRED)
-    else()
+    else ()
         find_package(Qt5Core CONFIG REQUIRED)
         find_package(Qt5Widgets CONFIG REQUIRED)
     endif ()# USE_PACKAGE_MANAGER
@@ -573,8 +509,8 @@ endif ()
 include(FeatureSummary)
 feature_summary(WHAT ALL)
 
-if(BUILD_TEST)
+if (BUILD_TEST)
     include(CTest)
     include(cmake/Catch.cmake)
     catch_discover_tests(${PROJECT_NAME}_Tests)
-endif(BUILD_TEST)
+endif (BUILD_TEST)
