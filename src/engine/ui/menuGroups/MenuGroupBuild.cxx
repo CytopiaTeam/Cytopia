@@ -110,7 +110,7 @@ void MenuGroupBuild::constructMenu()
 
 void MenuGroupBuild::arrangeElements()
 {
-  SDL_Point screenCenter{Settings::instance().settings.screenWidth / 2, Settings::instance().settings.screenHeight / 2};
+  SDL_Point screenCenter{Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2};
   int mainGroupWidth = 0;
 
   //TODO: Make Padding an attribute
@@ -138,7 +138,7 @@ void MenuGroupBuild::arrangeElements()
     if (!it->getUiElementData().buildMenuID.empty())
     {
       int x = static_cast<int>(xOffset + (elementWidth * currentElement) + padding * (currentElement - 1));
-      int y = Settings::instance().settings.screenHeight - it->getUiElementRect().h - paddingVertical;
+      int y = Settings::instance().screenHeight - it->getUiElementRect().h - paddingVertical;
       it->setPosition(x, y);
       currentElement++;
     }

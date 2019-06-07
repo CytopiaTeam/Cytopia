@@ -3,7 +3,7 @@
 #include "../basics/LOG.hxx"
 #include "../basics/Settings.hxx"
 
-Music::Music(const std::string &fileName) : m_playMusic(Settings::instance().settings.playMusic) { loadFile(fileName); }
+Music::Music(const std::string &fileName) : m_playMusic(Settings::instance().playMusic) { loadFile(fileName); }
 
 Music::~Music()
 {

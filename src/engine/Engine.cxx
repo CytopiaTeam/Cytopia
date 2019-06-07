@@ -47,7 +47,7 @@ void Engine::newGame()
   delete map;
   m_running = true;
 
-  const int mapSize = Settings::instance().settings.mapSize;
+  const int mapSize = Settings::instance().mapSize;
 
   map = new Map(mapSize, mapSize);
   map->initMap();

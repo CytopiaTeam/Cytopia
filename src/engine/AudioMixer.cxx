@@ -4,19 +4,19 @@
 
 AudioMixer::AudioMixer()
 {
-  Mix_OpenAudio(44100, AUDIO_S16SYS, Settings::instance().settings.audioChannels, 1024);
-  setMusicVolume(Settings::instance().settings.musicVolume);
+  Mix_OpenAudio(44100, AUDIO_S16SYS, Settings::instance().audioChannels, 1024);
+  setMusicVolume(Settings::instance().musicVolume);
 }
 
 void AudioMixer::setMusicVolume(uint8_t volume) noexcept
 {
   volume = Mix_VolumeMusic(volume) & 0xFF;
-  Settings::instance().settings.musicVolume = volume;
+  Settings::instance().musicVolume = volume;
 }
 
 void AudioMixer::setSoundEffectVolume(uint8_t volume) noexcept
 {
-  Settings::instance().settings.soundEffectsVolume = volume;
+  Settings::instance().soundEffectsVolume = volume;
 }
 
 void AudioMixer::playMusic(void) noexcept
@@ -35,7 +35,7 @@ void AudioMixer::mute(void) noexcept
   for (const auto &it : m_musicObjects)
   {
     it->stop();
-    Settings::instance().settings.playMusic = false;
-    Settings::instance().settings.playSoundEffects = false;
+    Settings::instance().playMusic = false;
+    Settings::instance().playSoundEffects = false;
   }
 }
