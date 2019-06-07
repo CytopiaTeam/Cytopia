@@ -56,7 +56,7 @@ TEST_CASE("Play music", "[engine][audio]") {
   );
 }
 
-SCENARIO("I can change the music volume", "[engine][audio]") {
+SCENARIO("I can change the music volume", "[engine][audio][!mayfail]") {
   GIVEN("The music volume is currently 0") {
     AudioMixer mixer;
     mixer.setMusicVolume(0);
@@ -106,7 +106,7 @@ SCENARIO("I can change the sound effects volume", "[engine][audio]") {
   }
 }
 
-SCENARIO("I can play music", "[engine][audio]") {
+SCENARIO("I can play music", "[engine][audio][!mayfail]") {
   GIVEN("I am not hearing anything") {
     AudioMixer mixer;
     mixer.mute();
@@ -120,7 +120,7 @@ SCENARIO("I can play music", "[engine][audio]") {
   }
 }
 
-SCENARIO("I can mute sounds", "[engine][audio]") {
+SCENARIO("I can mute sounds", "[engine][audio][!mayfail]") {
   GIVEN("I am playing something") {
     AudioMixer mixer;
     mixer.playMusic();

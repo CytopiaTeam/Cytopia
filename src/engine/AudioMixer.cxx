@@ -10,7 +10,7 @@ AudioMixer::AudioMixer()
 
 void AudioMixer::setMusicVolume(uint8_t volume) noexcept
 {
-  volume = Mix_VolumeMusic(volume);
+  volume = Mix_VolumeMusic(volume) & 0xFF;
   Settings::instance().settings.musicVolume = volume;
 }
 
