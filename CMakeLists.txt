@@ -27,6 +27,10 @@ endif ()
 
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/conanfile.txt.in" "${CMAKE_CURRENT_SOURCE_DIR}/conanfile.txt")
 
+set(_include_directories "")
+set(_compile_definitions "")
+set(_link_libraries "")
+
 # create the cmake project
 project(
         # this will be the ${PROJECT_NAME}
@@ -221,16 +225,6 @@ if (ENABLE_MICROPROFILE)
             )
 endif (ENABLE_MICROPROFILE)
 
-INCLUDE(test/CMakeLists.txt)
-# We need to test our sources
-LIST(APPEND TEST_SOURCES ${SOURCES})
-# We need to remove main()
-LIST(REMOVE_ITEM TEST_SOURCES src/main.cxx)
-
-if (BUILD_TEST)
-    add_executable(${PROJECT_NAME}_Tests ${TEST_SOURCES})
-endif (BUILD_TEST)
-
 if (MSVC)
     set(SOURCES ${SOURCES} ${PROJECT_SOURCE_DIR}/build/msvc/icon_cytopia.rc)
 endif ()
@@ -268,170 +262,86 @@ else ()
 endif ()
 
 if (ENABLE_MICROPROFILE)
-    target_include_directories(
-            ${PROJECT_NAME}
-            PRIVATE
-            ${microprofile_SOURCE_DIR}
-    )
-    target_compile_definitions(
-            ${PROJECT_NAME}
-            PRIVATE
+    list(APPEND _include_directories ${microprofile_SOURCE_DIR})
+    list(APPEND _compile_definitions
             MICROPROFILE_ENABLED
             MICROPROFILE_GPU_TIMERS=0
-    )
-    if (BUILD_TEST)
-        target_include_directories(
-                ${PROJECT_NAME}_Tests
-                PRIVATE
-                ${microprofile_SOURCE_DIR}
-        )
-        target_compile_definitions(
-                ${PROJECT_NAME}_Tests
-                PRIVATE
-                MICROPROFILE_ENABLED
-                MICROPROFILE_GPU_TIMERS=0
-        )
-    endif (BUILD_TEST)
-    if (WIN32)
-        target_link_libraries(
-                ${PROJECT_NAME}
-                PRIVATE
-                ws2_32.lib
-        )
-        if (BUILD_TEST)
-            target_link_libraries(
-                    ${PROJECT_NAME}_Tests
-                    PRIVATE
-                    ws2_32.lib
             )
-        endif (BUILD_TEST)
+    if (WIN32)
+        list(APPEND _link_libraries ws2_32.lib)
     endif (WIN32)
 endif (ENABLE_MICROPROFILE)
 
 if (MINGW)
-    target_link_libraries(
-            ${PROJECT_NAME}
-            PRIVATE
-            # need to link with mingw32 before SDL2
-            mingw32
-    )
-    if (BUILD_TEST)
-        target_link_libraries(
-                ${PROJECT_NAME}_Tests
-                PRIVATE
-                # need to link with mingw32 before SDL2
-                mingw32
-        )
-    endif (BUILD_TEST)
+    # need to link with mingw32 before SDL2
+    list(APPEND _link_libraries mingw32
+            )
 endif ()
 
 # link the libraries that we've found
 if (USE_PACKAGE_MANAGER)
-    target_link_libraries(
-            ${PROJECT_NAME}
-            PRIVATE
+    list(APPEND _link_libraries
             CONAN_PKG::sdl2
             CONAN_PKG::sdl2_image
             CONAN_PKG::sdl2_ttf
             CONAN_PKG::libnoise
             CONAN_PKG::zlib
-    )
+            )
 
     if (ENABLE_SDL2_MIXER)
-        target_link_libraries(${PROJECT_NAME} PRIVATE CONAN_PKG::sdl2_mixer)
+        list(APPEND _link_libraries CONAN_PKG::sdl2_mixer)
     endif ()
 
     if (ENABLE_ANGELSCRIPT)
-        target_link_libraries(${PROJECT_NAME} PRIVATE CONAN_PKG::AngelScript)
+        list(APPEND _link_libraries CONAN_PKG::AngelScript)
     endif ()
 
+    if (BUILD_TEST)
+        list(APPEND _link_libraries CONAN_PKG::Catch2)
+    endif ()
+
+
 else (USE_PACKAGE_MANAGER)
-    target_link_libraries(
-            ${PROJECT_NAME}
-            PRIVATE
+    list(APPEND _link_libraries
             ${SDL2_LIBRARIES}
             ${SDL2_image_LIBRARIES}
             ${SDL2_ttf_LIBRARIES}
             LIBNOISE::LIBNOISE_LIBRARIES
             ${ZLIB_LIBRARIES}
-    )
+            )
 
     if (ENABLE_SDL2_MIXER)
-        target_link_libraries(${PROJECT_NAME} PRIVATE ${SDL2_mixer_LIBRARIES})
+        list(APPEND _link_libraries ${SDL2_mixer_LIBRARIES})
     endif ()
+
     if (ENABLE_ANGELSCRIPT)
-        target_link_libraries(${PROJECT_NAME} PRIVATE ${AngelScript_LIBRARY})
+        list(APPEND _link_libraries ${AngelScript_LIBRARY})
     endif ()
+
+    if (BUILD_TEST)
+        list(APPEND _link_libraries ${CATCH2_LIBRARIES})
+    endif ()
+
 endif (USE_PACKAGE_MANAGER)
 
 
-target_compile_features(
-        ${PROJECT_NAME}
-        PRIVATE
-        # enable C++14
-        cxx_std_14
-)
-if (BUILD_TEST)
-    target_compile_features(
-            ${PROJECT_NAME}_Tests
-            PRIVATE
-            # enable C++14
-            cxx_std_14
-    )
-endif (BUILD_TEST)
+# enable C++14
+target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_14)
 
-set(COMPILER_FLAGS VERSION="${PROJECT_NAME} ${PROJECT_VERSION} - tech preview")
+list(APPEND _compile_definitions VERSION="${PROJECT_NAME} ${PROJECT_VERSION} - tech preview")
 
 if (ENABLE_SDL2_MIXER)
-    target_compile_definitions(${PROJECT_NAME} PRIVATE USE_SDL2_MIXER)
+    list(APPEND _compile_definitions USE_SDL2_MIXER)
 endif ()
 
 if (ENABLE_ANGELSCRIPT)
-    target_compile_definitions(${PROJECT_NAME} PRIVATE USE_ANGELSCRIPT)
+    list(APPEND _compile_definitions USE_ANGELSCRIPT)
+    list(APPEND _include_directories external/as_add_on)
 endif ()
 
-target_include_directories(
-        ${PROJECT_NAME}
-        PRIVATE
-        external/as_add_on
-)
-
-target_compile_definitions(
-        ${PROJECT_NAME}
-        PRIVATE
-        # pass the version string via the compiler
-        ${COMPILER_FLAGS}
-)
-if (BUILD_TEST)
-    target_compile_definitions(
-            ${PROJECT_NAME}_Tests
-            PRIVATE
-            # pass the version string via the compiler
-            ${COMPILER_FLAGS}
-    )
-endif (BUILD_TEST)
-
-# Compile options
-target_compile_options(
-        ${PROJECT_NAME}
-        PRIVATE
-
-        PUBLIC
-        ${DEFAULT_COMPILE_OPTIONS}
-
-        INTERFACE
-)
-if (BUILD_TEST)
-    target_compile_options(
-            ${PROJECT_NAME}_Tests
-            PRIVATE
-
-            PUBLIC
-            ${DEFAULT_COMPILE_OPTIONS}
-
-            INTERFACE
-    )
-endif (BUILD_TEST)
+target_include_directories(${PROJECT_NAME} PRIVATE ${_include_directories})
+target_compile_definitions(${PROJECT_NAME} PRIVATE ${_compile_definitions})
+target_link_libraries(${PROJECT_NAME} PRIVATE ${_link_libraries})
 
 # copy the resources to the compiled directory
 add_custom_command(
@@ -510,11 +420,9 @@ if (APPLE)
     set_target_properties(${PROJECT_NAME} PROPERTIES MACOSX_BUNDLE TRUE RESOURCE TRUE)
 endif ()
 
+if (BUILD_TEST)
+    include(tests/CMakeLists.txt)
+endif (BUILD_TEST)
+
 include(FeatureSummary)
 feature_summary(WHAT ALL)
-
-if (BUILD_TEST)
-    include(CTest)
-    include(cmake/Catch.cmake)
-    catch_discover_tests(${PROJECT_NAME}_Tests)
-endif (BUILD_TEST)
