@@ -60,22 +60,22 @@ SCENARIO("I can change the music volume", "[engine][audio][!mayfail]") {
   GIVEN("The music volume is currently 0") {
     AudioMixer mixer;
     mixer.setMusicVolume(0);
-    REQUIRE(Settings::instance().settings.musicVolume == 0);
+    REQUIRE(Settings::instance().musicVolume == 0);
     WHEN("I set the music volume to 128") {
       mixer.setMusicVolume(128);
       THEN("My music volume setting becomes 128") {
-        REQUIRE(Settings::instance().settings.musicVolume == 128);
+        REQUIRE(Settings::instance().musicVolume == 128);
       }
     }
   }
   GIVEN("The music volume is currently 128") {
     AudioMixer mixer;
     mixer.setMusicVolume(128);
-    REQUIRE(Settings::instance().settings.musicVolume == 128);
+    REQUIRE(Settings::instance().musicVolume == 128);
     WHEN("I set the music volume to 0") {
       mixer.setMusicVolume(0);
       THEN("My music volume setting becomes 0") {
-        REQUIRE(Settings::instance().settings.musicVolume == 0);
+        REQUIRE(Settings::instance().musicVolume == 0);
       }
     }
   }
@@ -85,22 +85,22 @@ SCENARIO("I can change the sound effects volume", "[engine][audio]") {
   GIVEN("The sound effects volume is currently 0") {
     AudioMixer mixer;
     mixer.setSoundEffectVolume(0);
-    REQUIRE(Settings::instance().settings.soundEffectsVolume == 0);
+    REQUIRE(Settings::instance().soundEffectsVolume == 0);
     WHEN("I set the sound effects volume to 128") {
       mixer.setSoundEffectVolume(128);
       THEN("My sound effects volume setting becomes 128") {
-        REQUIRE(Settings::instance().settings.soundEffectsVolume == 128);
+        REQUIRE(Settings::instance().soundEffectsVolume == 128);
       }
     }
   }
   GIVEN("The sound effects volume is currently 128") {
     AudioMixer mixer;
     mixer.setSoundEffectVolume(128);
-    REQUIRE(Settings::instance().settings.soundEffectsVolume == 128);
+    REQUIRE(Settings::instance().soundEffectsVolume == 128);
     WHEN("I set the sound effects volume to 0") {
       mixer.setSoundEffectVolume(0);
       THEN("My sound effects volume setting becomes 0") {
-        REQUIRE(Settings::instance().settings.soundEffectsVolume == 0);
+        REQUIRE(Settings::instance().soundEffectsVolume == 0);
       }
     }
   }
