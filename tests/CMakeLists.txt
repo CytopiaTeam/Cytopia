@@ -15,12 +15,13 @@ LIST(APPEND TEST_SOURCES ${SOURCES})
 LIST(REMOVE_ITEM TEST_SOURCES src/main.cxx)
 
 if (ENABLE_SDL2_MIXER)
-    LIST(APPEND TEST_SOURCES
-            ${CMAKE_CURRENT_LIST_DIR}/engine/AudioMixer.cxx
-            )
+    LIST(APPEND TEST_SOURCES ${CMAKE_CURRENT_LIST_DIR}/engine/AudioMixer.cxx)
 endif (ENABLE_SDL2_MIXER)
 
 add_executable(${TESTS_PROJECT_NAME} ${TEST_SOURCES})
+
+# enable C++14
+target_compile_features(${TESTS_PROJECT_NAME} PRIVATE cxx_std_14)
 
 target_include_directories(${TESTS_PROJECT_NAME} PRIVATE ${_include_directories} src)
 target_compile_definitions(${TESTS_PROJECT_NAME} PRIVATE ${_compile_definitions})

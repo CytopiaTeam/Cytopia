@@ -274,8 +274,7 @@ endif (ENABLE_MICROPROFILE)
 
 if (MINGW)
     # need to link with mingw32 before SDL2
-    list(APPEND _link_libraries mingw32
-            )
+    list(APPEND _link_libraries mingw32)
 endif ()
 
 # link the libraries that we've found
@@ -302,6 +301,12 @@ if (USE_PACKAGE_MANAGER)
 
 
 else (USE_PACKAGE_MANAGER)
+    list(APPEND _include_directories
+            ${SDL2_INCLUDE_DIRS}
+            ${SDL2_image_INCLUDE_DIRS}
+            ${SDL2_ttf_INCLUDE_DIRS}
+            ${ZLIB_INCLUDEDIR}
+            )
     list(APPEND _link_libraries
             ${SDL2_LIBRARIES}
             ${SDL2_image_LIBRARIES}
