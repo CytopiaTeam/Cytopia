@@ -12,7 +12,7 @@
 #include <noise.h>
 #include <SDL.h>
 
-#ifndef DISABLE_SDL2_MIXER
+#ifdef USE_SDL2_MIXER
 #include "engine/AudioMixer.hxx"
 #endif
 
@@ -35,7 +35,7 @@ bool Game::initialize()
     return false;
   }
 
-#ifndef DISABLE_SDL2_MIXER
+#ifdef USE_SDL2_MIXER
   if (Mix_Init(MIX_INIT_MP3) == -1)
   {
     LOG(LOG_ERROR) << "Failed to Init SDL_Mixer\nSDL Error:" << Mix_GetError();
@@ -197,7 +197,7 @@ void Game::run(bool SkipMenu)
   ScriptEngine &scriptEngine = ScriptEngine::instance();
   scriptEngine.init();
 
-#ifndef DISABLE_SDL2_MIXER
+#ifdef USE_SDL2_MIXER
   AudioMixer audioMixer;
   audioMixer.playMusic();
 #endif
@@ -251,7 +251,7 @@ void Game::shutdown()
 {
   TTF_Quit();
 
-#ifndef DISABLE_SDL2_MIXER
+#ifdef USE_SDL2_MIXER
   Mix_Quit();
 #endif
 
