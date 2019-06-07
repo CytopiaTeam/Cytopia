@@ -100,7 +100,7 @@ void from_json(const json &j, Settings::SettingsStruct &s)
   s.playMusic = j["Audio"].value("PlayMusic", true);
   s.playSoundEffects = j["Audio"].value("PlaySoundEffects", false);
   s.audioChannels = j["Audio"].value("AudioChannels", 2);
-  s.musicVolume = j["Audio"].value("MusicVolume", 50);
-  s.soundEffectsVolume = j["Audio"].value("SoundEffectsVolume", 100);
+  s.musicVolume = j["Audio"].value("MusicVolume", static_cast<uint8_t>(50));
+  s.soundEffectsVolume = j["Audio"].value("SoundEffectsVolume", static_cast<uint8_t>(100));
   s.buildMenuPosition = j["User Interface"].value("BuildMenu Position", "BOTTOM");
 }

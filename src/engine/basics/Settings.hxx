@@ -30,8 +30,8 @@ public:
     bool vSync;
     bool fullScreen;
     int fullScreenMode;
-    int musicVolume;
-    int soundEffectsVolume;
+    uint8_t musicVolume;
+    uint8_t soundEffectsVolume;
     bool playMusic;
     bool playSoundEffects;
     int audioChannels;
