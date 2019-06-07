@@ -5,4 +5,9 @@ SET(TEST_SOURCES
   ${CMAKE_CURRENT_LIST_DIR}/engine/ResourcesManager.cxx  
   )
 
+if(ENABLE_SDL2_MIXER)
+  LIST(APPEND TEST_SOURCES
+    ${CMAKE_CURRENT_LIST_DIR}/engine/AudioMixer.cxx
+  ) 
+endif(ENABLE_SDL2_MIXER)
 

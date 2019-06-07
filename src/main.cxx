@@ -28,7 +28,7 @@ int protected_main(int argc, char **argv)
   {
     game.mainMenu();
   }
-  game.run();
+  game.run(skipMenu);
   game.shutdown();
 
   return EXIT_SUCCESS;

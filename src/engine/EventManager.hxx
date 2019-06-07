@@ -22,7 +22,6 @@ public:
   void checkEvents(SDL_Event &event, Engine &engine);
 
   void registerTimer(Timer *timer);
-  void removeTimer(Timer *timer);
 
 private:
   UIManager &m_uiManager = UIManager::instance();
@@ -36,8 +35,7 @@ private:
   Point m_clickDownCoords = {0, 0, 0, 0};
   Point m_highlitNode = {0, 0, 0, 0};
   std::vector<Point> m_highlightedNodes = {};
-  std::set<Timer*> timers;
-  std::set<Timer*> removedTimers;
+  std::vector<Timer*> timers;
 };
 
 #endif
