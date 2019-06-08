@@ -5,6 +5,8 @@
 
 #include "../../ThirdParty/json.hxx"
 
+#include <iomanip>
+
 Settings::Settings() { readFile(); }
 using json = nlohmann::json;
 
