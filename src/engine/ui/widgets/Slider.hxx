@@ -17,6 +17,16 @@ public:
 
 
 private:
+  /// Thickness of the slider line
+  int m_lineThickness = 6;
+  /// coordinates / dimensions of the slider line
+  SDL_Rect sliderLine{0, 0, 0, 0};
+  /// coordinates / dimensions of the slider Button
+  SDL_Rect sliderButton{0, 0, 0, 0};
+  /// minimum slider value
+  int m_minVal = 0;
+  /// maximum slider value
+  int m_maxVal = 100;
 };
 
 #endif
