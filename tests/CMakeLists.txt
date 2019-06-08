@@ -27,4 +27,5 @@ target_include_directories(${TESTS_PROJECT_NAME} PRIVATE ${_include_directories}
 target_compile_definitions(${TESTS_PROJECT_NAME} PRIVATE ${_compile_definitions})
 target_link_libraries(${TESTS_PROJECT_NAME} PRIVATE ${_link_libraries})
 
+
 catch_discover_tests(${TESTS_PROJECT_NAME})

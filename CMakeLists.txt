@@ -1,5 +1,9 @@
 cmake_minimum_required(VERSION 3.9 FATAL_ERROR)
+# add the path to our custom find modules
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+
 include(CMakeDependentOption)
+include(cotire)
 
 option(BUILD_TILEDATA_EDITOR "Build Cytopia TileData Editor" OFF)
 option(BUILD_TEST "Build Cytopia Tests" ON)
@@ -51,7 +55,7 @@ endif ()
 if (USE_PACKAGE_MANAGER)
 
     if (USE_PMM)
-        include(cmake/pmm.cmake)
+        include(pmm)
 
         pmm(CONAN
                 REMOTES
@@ -69,7 +73,7 @@ if (USE_PACKAGE_MANAGER)
             set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
         endif ()
     else ()
-        include(cmake/conan.cmake)
+        include(conan)
 
         conan_check()
 
@@ -96,9 +100,6 @@ if (USE_PACKAGE_MANAGER)
     endif ()
 
 else (USE_PACKAGE_MANAGER)
-
-    # add the path to our custom find modules
-    list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
     find_package(PkgConfig REQUIRED)
 
@@ -347,6 +348,9 @@ endif ()
 target_include_directories(${PROJECT_NAME} PRIVATE ${_include_directories})
 target_compile_definitions(${PROJECT_NAME} PRIVATE ${_compile_definitions})
 target_link_libraries(${PROJECT_NAME} PRIVATE ${_link_libraries})
+
+set_target_properties(${PROJECT_NAME} PROPERTIES COTIRE_ADD_UNITY_BUILD FALSE)
+cotire(${PROJECT_NAME})
 
 # copy the resources to the compiled directory
 add_custom_command(
