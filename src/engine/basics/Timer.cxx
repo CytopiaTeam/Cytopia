@@ -5,8 +5,8 @@
 
 Timer::~Timer()
 {
-    stop();
-    //EventManager::instance().removeTimer(this);
+  stop();
+  //EventManager::instance().removeTimer(this);
 }
 
 void Timer::start()

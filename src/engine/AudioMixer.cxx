@@ -14,10 +14,7 @@ void AudioMixer::setMusicVolume(uint8_t volume) noexcept
   Settings::instance().musicVolume = volume;
 }
 
-void AudioMixer::setSoundEffectVolume(uint8_t volume) noexcept
-{
-  Settings::instance().soundEffectsVolume = volume;
-}
+void AudioMixer::setSoundEffectVolume(uint8_t volume) noexcept { Settings::instance().soundEffectsVolume = volume; }
 
 void AudioMixer::playMusic(void) noexcept
 {

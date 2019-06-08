@@ -56,7 +56,7 @@ void Settings::writeFile()
 }
 
 // JSON serializer for Settings struct
-void to_json(json& j, const SettingsData& s)
+void to_json(json &j, const SettingsData &s)
 {
   j = {
       {std::string("Graphics"),
@@ -86,7 +86,7 @@ void to_json(json& j, const SettingsData& s)
 }
 
 // JSON deserializer for Settings struct
-void from_json(const json& j, SettingsData& s)
+void from_json(const json &j, SettingsData &s)
 {
   s.screenWidth = j["Graphics"]["Resolution"].value("Screen_Width", 800);
   s.screenHeight = j["Graphics"]["Resolution"].value("Screen_Height", 600);
@@ -105,4 +105,3 @@ void from_json(const json& j, SettingsData& s)
   s.soundEffectsVolume = j["Audio"].value("SoundEffectsVolume", static_cast<uint8_t>(100));
   s.buildMenuPosition = j["User Interface"].value("BuildMenu Position", "BOTTOM");
 }
-

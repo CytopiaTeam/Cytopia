@@ -35,7 +35,7 @@ private:
   Point m_clickDownCoords = {0, 0, 0, 0};
   Point m_highlitNode = {0, 0, 0, 0};
   std::vector<Point> m_highlightedNodes = {};
-  std::vector<Timer*> timers;
+  std::vector<Timer *> timers;
 };
 
 #endif

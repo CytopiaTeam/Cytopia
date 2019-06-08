@@ -24,8 +24,7 @@ void UIManager::init()
 
   if (i.fail())
   {
-    LOG(LOG_ERROR) << "File " << Settings::instance().uiLayoutJSONFile
-                   << " does not exist! Cannot load settings from INI File!";
+    LOG(LOG_ERROR) << "File " << Settings::instance().uiLayoutJSONFile << " does not exist! Cannot load settings from INI File!";
     // Application should quit here, without textureData we can't continue
     return;
   }
