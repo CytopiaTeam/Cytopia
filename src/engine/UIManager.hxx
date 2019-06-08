@@ -3,16 +3,17 @@
 
 #include <vector>
 
+#include "ui/basics/UIElement.hxx"
+#include "ui/basics/Layout.hxx"
+#include "ui/basics/ButtonGroup.hxx"
 #include "ui/widgets/Button.hxx"
+#include "ui/widgets/Checkbox.hxx"
+#include "ui/widgets/Combobox.hxx"
 #include "ui/widgets/Frame.hxx"
 #include "ui/widgets/Text.hxx"
 #include "ui/widgets/TextField.hxx"
 #include "ui/widgets/Tooltip.hxx"
-#include "ui/widgets/Checkbox.hxx"
-#include "ui/widgets/Combobox.hxx"
-#include "ui/basics/UIElement.hxx"
-#include "ui/basics/ButtonGroup.hxx"
-#include "ui/basics/Layout.hxx"
+#include "ui/widgets/Slider.hxx"
 
 #include <SDL.h>
 

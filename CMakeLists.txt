@@ -181,6 +181,7 @@ set(SOURCES
         src/engine/ui/widgets/Checkbox.cxx
         src/engine/ui/widgets/Frame.cxx
         src/engine/ui/widgets/Image.cxx
+        src/engine/ui/widgets/Slider.cxx
         src/engine/ui/widgets/Text.cxx
         src/engine/ui/widgets/TextField.cxx
         src/engine/ui/widgets/Tooltip.cxx

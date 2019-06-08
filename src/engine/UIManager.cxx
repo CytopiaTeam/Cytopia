@@ -186,6 +186,10 @@ void UIManager::init()
         {
           uiElement = std::make_unique<ComboBox>(elementRect);
         }
+        else if (uiElementType == "Slider")
+        {
+          uiElement = std::make_unique<Slider>(elementRect);
+        }
 
         uiElement->setVisibility(visible);
         uiElement->setTooltipText(tooltipText);
