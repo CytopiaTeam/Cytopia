@@ -9,7 +9,6 @@
 class ScriptEngine
 {
 public:
-    
   /// Retrieves instance of Singleton class UI Manager
   static ScriptEngine &instance()
   {

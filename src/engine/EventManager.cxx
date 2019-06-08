@@ -87,8 +87,8 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         {
           Camera::cameraOffset.x -= static_cast<int>(Settings::instance().screenWidth * event.tfinger.dx);
           Camera::cameraOffset.y -= static_cast<int>(Settings::instance().screenHeight * event.tfinger.dy);
-          Camera::centerIsoCoordinates = convertScreenToIsoCoordinates(
-              {Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2});
+          Camera::centerIsoCoordinates =
+              convertScreenToIsoCoordinates({Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2});
           Engine::instance().map->refresh();
           m_skipLeftClick = true;
           break;
@@ -230,8 +230,8 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
     case SDL_MOUSEBUTTONUP:
       if (m_panning)
       {
-        Camera::centerIsoCoordinates = convertScreenToIsoCoordinates(
-            {Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2});
+        Camera::centerIsoCoordinates =
+            convertScreenToIsoCoordinates({Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2});
         m_panning = false;
       }
       // reset pinchCenterCoords when fingers are released
@@ -346,7 +346,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
 
   for (std::vector<Timer *>::iterator it = timers.begin(); it != timers.end();)
   {
-    if ( !(*it)->isActive())
+    if (!(*it)->isActive())
     {
       it = timers.erase(it);
     }
@@ -358,4 +358,3 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
 }
 
 void EventManager::registerTimer(Timer *timer) { timers.push_back(timer); }
-

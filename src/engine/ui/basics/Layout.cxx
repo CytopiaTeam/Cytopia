@@ -6,8 +6,7 @@
 
 void Layout::arrangeElements()
 {
-  const SDL_Point screenCenter{Settings::instance().currentScreenWidth / 2,
-                         Settings::instance().currentScreenHeight / 2};
+  const SDL_Point screenCenter{Settings::instance().currentScreenWidth / 2, Settings::instance().currentScreenHeight / 2};
   const SDL_Point screenSize{Settings::instance().currentScreenWidth, Settings::instance().currentScreenHeight};
 
   calculateLayoutGroupDimensions();
