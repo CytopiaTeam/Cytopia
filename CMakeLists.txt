@@ -331,8 +331,8 @@ else (USE_PACKAGE_MANAGER)
 endif (USE_PACKAGE_MANAGER)
 
 
-# enable C++14
-target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_14)
+# enable C++17
+target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
 
 list(APPEND _compile_definitions VERSION="${PROJECT_NAME} ${PROJECT_VERSION} - tech preview")
 
