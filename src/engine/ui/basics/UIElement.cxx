@@ -173,6 +173,12 @@ void UIElement::drawFrame(SDL_Rect rect) const
   drawSolidRect(rect, SDL_Color{bgColorFrame, bgColorFrame, bgColorFrame});
   drawSolidRect(SDL_Rect{rect.x + 2, rect.y + 2, rect.w - 4, rect.h - 4},
                 SDL_Color{bgColorFrameShade, bgColorFrameShade, bgColorFrameShade});
-  drawSolidRect(SDL_Rect{rect.x + 4, rect.y + 4, rect.w - 8, rect.h - 8}, SDL_Color{bgColorFrame, bgColorFrame, bgColorFrame});
-  drawSolidRect(SDL_Rect{rect.x + 6, rect.y + 6, rect.w - 12, rect.h - 12}, SDL_Color{bgColor, bgColor, bgColor});
+  if (rect.h >= 8 && rect.w >= 4)
+  {
+    drawSolidRect(SDL_Rect{rect.x + 4, rect.y + 4, rect.w - 8, rect.h - 8}, SDL_Color{bgColorFrame, bgColorFrame, bgColorFrame});
+  }
+  if (rect.h >= 12 && rect.w >= 6)
+  {
+    drawSolidRect(SDL_Rect{rect.x + 6, rect.y + 6, rect.w - 12, rect.h - 12}, SDL_Color{bgColor, bgColor, bgColor});
+  }
 }
