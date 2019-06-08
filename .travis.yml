@@ -40,6 +40,7 @@ matrix:
           packages:
             - p7zip-full
             - gcc-8
+            - g++-8
             - ninja-build
             - doxygen
             - graphviz
@@ -65,7 +66,7 @@ matrix:
 
       script:
         # Build Cytopia
-        - cmake -GNinja -DCMAKE_BUILD_TYPE=Release ..
+        - cmake -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=gcc-8 -DCMAKE_CXX_COMPILER=g++-8 ..
         - ninja
         - ldd ./bin/Cytopia
         - ldd ./bin/Cytopia_Tests
