@@ -1,18 +1,23 @@
 set(TESTS_PROJECT_NAME Cytopia_Tests)
 
 include(CTest)
-include(cmake/Catch.cmake)
+include(Catch)
 
-SET(TEST_SOURCES
+
+# We need to test our sources
+SET(TEST_SOURCES ${SOURCE_FILES})
+# We need to remove main()
+LIST(REMOVE_ITEM TEST_SOURCES main.cxx)
+
+LIST(APPEND TEST_SOURCES
         ${CMAKE_CURRENT_LIST_DIR}/main.cxx
         ${CMAKE_CURRENT_LIST_DIR}/Example.cxx
         ${CMAKE_CURRENT_LIST_DIR}/engine/ResourcesManager.cxx
         )
 
-# We need to test our sources
-LIST(APPEND TEST_SOURCES ${SOURCES})
-# We need to remove main()
-LIST(REMOVE_ITEM TEST_SOURCES src/main.cxx)
+# Generate source groups for use in IDEs
+generate_source_groups(${TEST_SOURCES})
+
 
 if (ENABLE_SDL2_MIXER)
     LIST(APPEND TEST_SOURCES ${CMAKE_CURRENT_LIST_DIR}/engine/AudioMixer.cxx)
