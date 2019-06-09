@@ -32,7 +32,6 @@ matrix:
             - p7zip-full
             - gcc-8
             - g++-8
-            - gcov
             - doxygen
             - graphviz
             - libfreetype6-dev
