@@ -62,6 +62,7 @@ void UIElement::createTextTexture(const std::string &text, const SDL_Color &text
   if (!m_font)
   {
     LOG(LOG_ERROR) << "Failed to load font!\n" << TTF_GetError();
+    return;
   }
 
   // destroy texture first to prevent memleaks
