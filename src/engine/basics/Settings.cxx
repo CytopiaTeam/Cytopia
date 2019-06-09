@@ -1,9 +1,9 @@
 #include "Settings.hxx"
 
 #include "LOG.hxx"
-#include "../common/Constants.hxx"
+#include "Constants.hxx"
 
-#include "../../ThirdParty/json.hxx"
+#include <json.hxx>
 
 #include <iomanip>
 

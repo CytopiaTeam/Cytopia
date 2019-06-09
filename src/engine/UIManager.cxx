@@ -8,7 +8,7 @@
 #include "basics/utils.hxx"
 #include "basics/LOG.hxx"
 
-#include "../ThirdParty/json.hxx"
+#include "json.hxx"
 
 #ifdef MICROPROFILE_ENABLED
 #include "microprofile.h"

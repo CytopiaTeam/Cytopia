@@ -5,9 +5,9 @@
 #include <unordered_map>
 #include <string>
 
-#include "basics/tileData.hxx"
-#include "../ThirdParty/json.hxx"
-#include "../util/Singleton.hxx"
+#include "tileData.hxx"
+#include "json.hxx"
+#include "Singleton.hxx"
 
 enum TileMap : size_t
 {

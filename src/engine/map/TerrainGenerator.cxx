@@ -1,9 +1,9 @@
 #include "TerrainGenerator.hxx"
 
-#include "../common/Constants.hxx"
-#include "../basics/LOG.hxx"
+#include "Constants.hxx"
+#include "LOG.hxx"
 
-#include "../../ThirdParty/json.hxx"
+#include "json.hxx"
 #include <noise.h>
 
 using json = nlohmann::json;

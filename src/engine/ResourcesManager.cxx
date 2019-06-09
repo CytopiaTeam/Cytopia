@@ -7,7 +7,7 @@
 
 #include <SDL_image.h>
 
-#include "../ThirdParty/json.hxx"
+#include "json.hxx"
 
 using json = nlohmann::json;
 

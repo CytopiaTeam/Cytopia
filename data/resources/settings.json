@@ -1,0 +1,30 @@
+{
+    "Audio": {
+        "AudioChannels": 2,
+        "MusicVolume": 50,
+        "PlayMusic": true,
+        "PlaySoundEffects": true,
+        "SoundEffectsVolume": 100
+    },
+    "ConfigFiles": {
+        "TileDataJSONFile": "resources/data/TileData.json",
+        "UIDataJSONFile": "resources/data/UIData.json",
+        "UILayoutJSONFile": "resources/data/UILayout.json"
+    },
+    "Game": {
+        "MapSize": 128,
+        "MaxElevationHeight": 32
+    },
+    "Graphics": {
+        "FullScreen": false,
+        "FullScreenMode": 0,
+        "Resolution": {
+            "Screen_Height": 600,
+            "Screen_Width": 800
+        },
+        "VSYNC": false
+    },
+    "User Interface": {
+        "BuildMenu Position": "BOTTOM"
+    }
+}
