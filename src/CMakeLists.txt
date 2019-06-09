@@ -1,0 +1,235 @@
+set(SOURCE_FILES
+        main.cxx
+        Game.{hxx,cxx}
+        engine/basics/Camera.{hxx,cxx}
+        engine/basics/isoMath.{hxx,cxx}
+        engine/basics/mapEdit.{hxx,cxx}
+        engine/basics/Settings.{hxx,cxx}
+        engine/basics/signal.hxx
+        engine/basics/Timer.{hxx,cxx}
+        engine/basics/utils.{hxx,cxx}
+        engine/common/Constants.hxx
+        engine/common/enums.hxx
+        engine/GameObjects/MapNode.{hxx,cxx}
+        engine/map/MapLayers.{hxx,cxx}
+        engine/map/TerrainGenerator.{hxx,cxx}
+        engine/ui/basics/UIElement.{hxx,cxx}
+        engine/ui/basics/ButtonGroup.{hxx,cxx}
+        engine/ui/basics/Layout.{hxx,cxx}
+        engine/ui/widgets/Bar.{hxx,cxx}
+        engine/ui/widgets/Button.{hxx,cxx}
+        engine/ui/widgets/Combobox.{hxx,cxx}
+        engine/ui/widgets/Checkbox.{hxx,cxx}
+        engine/ui/widgets/Frame.{hxx,cxx}
+        engine/ui/widgets/Image.{hxx,cxx}
+        engine/ui/widgets/Text.{hxx,cxx}
+        engine/ui/widgets/TextField.{hxx,cxx}
+        engine/ui/widgets/Tooltip.{hxx,cxx}
+        engine/ui/menuGroups/IMenuGroup.hxx
+        engine/ui/menuGroups/MenuGroupBuild.{hxx,cxx}
+        engine/Engine.{hxx,cxx}
+        engine/EventManager.{hxx,cxx}
+        engine/Map.{hxx,cxx}
+        engine/Sprite.{hxx,cxx}
+        engine/ResourcesManager.{hxx,cxx}
+        engine/TileManager.{hxx,cxx}
+        engine/UIManager.{hxx,cxx}
+        engine/WindowManager.{hxx,cxx}
+        )
+
+list(APPEND _include_directories
+        engine
+        engine/basics
+        engine/common
+        engine/GameObjects
+        engine/map
+        engine/ui/basics/
+        engine/ui/widgets
+        engine/ui/menuGroups
+        util
+        )
+
+if (ENABLE_SDL2_MIXER)
+    list(APPEND SOURCE_FILES
+            engine/audio/SoundEffect.{hxx,cxx}
+            engine/audio/SoundEffect.{hxx,cxx}
+            engine/audio/Music.{hxx,cxx}
+            engine/AudioMixer.{hxx,cxx}
+            )
+endif ()
+
+if (ENABLE_ANGELSCRIPT)
+    list(APPEND SOURCE_FILES
+            ${CMAKE_SOURCE_DIR}/external/as_add_on/scriptbuilder/scriptbuilder.cpp
+            ${CMAKE_SOURCE_DIR}/external/as_add_on/scriptbuilder/scriptbuilder.h
+            ${CMAKE_SOURCE_DIR}/external/as_add_on/scriptstdstring/scriptstdstring.h
+            ${CMAKE_SOURCE_DIR}/external/as_add_on/scriptstdstring/scriptstdstring.cpp
+            Scripting/ScriptEngine.{hxx,cxx}
+            )
+endif ()
+
+if (ENABLE_MICROPROFILE)
+    list(APPEND SOURCE_FILES
+            ${microprofile_SOURCE_DIR}/microprofile.h
+            ${microprofile_SOURCE_DIR}/microprofile_html.h
+            ${microprofile_SOURCE_DIR}/microprofile.cpp
+            )
+endif (ENABLE_MICROPROFILE)
+
+# Expand file extensions (i.e. path/to/file.{h,cpp} becomes path/to/file.h;path/to/file.cpp)
+expand_file_extensions(SOURCE_FILES ${SOURCE_FILES})
+
+# Generate source groups for use in IDEs
+generate_source_groups(${SOURCE_FILES})
+
+if (MSVC)
+    set(SOURCE_FILES ${SOURCE_FILES} ${CMAKE_SOURCE_DIR}/src/Windows/icon_cytopia.rc)
+endif ()
+
+if (APPLE)
+    file(GLOB_RECURSE MAC_RESOURCE_FILES ${CMAKE_SOURCE_DIR}/data/resources/*)
+
+    # not working now, we need a special icon file for apple
+    set(ICON_PATH ${CMAKE_SOURCE_DIR}/data/resources/images/app_icons/cytopia_icon_iso.icns)
+    set(MACOSX_BUNDLE_ICON_FILE cytopia_icon_iso.icns)
+
+    # set each file as resources file for the app image.
+    foreach (resources_file ${MAC_RESOURCE_FILES})
+        get_filename_component(buildDirRelFilePath ${resources_file} DIRECTORY)
+        string(REPLACE "${CMAKE_SOURCE_DIR}/" "" buildDirRelFilePath ${buildDirRelFilePath})
+        set_source_files_properties(${resources_file} PROPERTIES MACOSX_PACKAGE_LOCATION Resources/${buildDirRelFilePath})
+    endforeach ()
+    # set_source_files_properties(${PROJECT_SOURCE_DIR}/Cytopia_Resources/music  PROPERTIES MACOSX_PACKAGE_LOCATION Resources/resources/audio/music)
+    set_source_files_properties(${ICON_PATH} PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
+    set_source_files_properties(${myApp_ICON} PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
+
+    add_executable(${PROJECT_NAME} MACOSX_BUNDLE ${SOURCE_FILES} ${ICON_PATH} ${MAC_RESOURCE_FILES})
+else ()
+    # create a new executable with the same name as the project
+    add_executable(${PROJECT_NAME} ${SOURCE_FILES})
+endif ()
+
+if (ENABLE_MICROPROFILE)
+    list(APPEND _include_directories ${microprofile_SOURCE_DIR})
+    list(APPEND _compile_definitions
+            MICROPROFILE_ENABLED
+            MICROPROFILE_GPU_TIMERS=0
+            )
+    if (WIN32)
+        list(APPEND _link_libraries ws2_32.lib)
+    endif (WIN32)
+endif (ENABLE_MICROPROFILE)
+
+if (MINGW)
+    # need to link with mingw32 before SDL2
+    list(APPEND _link_libraries mingw32)
+endif ()
+
+# link the libraries that we've found
+if (USE_PACKAGE_MANAGER)
+    list(APPEND _link_libraries
+            CONAN_PKG::sdl2
+            CONAN_PKG::sdl2_image
+            CONAN_PKG::sdl2_ttf
+            CONAN_PKG::libnoise
+            CONAN_PKG::zlib
+            )
+
+    if (ENABLE_SDL2_MIXER)
+        list(APPEND _link_libraries CONAN_PKG::sdl2_mixer)
+    endif ()
+
+    if (ENABLE_ANGELSCRIPT)
+        list(APPEND _link_libraries CONAN_PKG::AngelScript)
+    endif ()
+
+    if (BUILD_TEST)
+        list(APPEND _link_libraries CONAN_PKG::Catch2)
+    endif ()
+
+
+else (USE_PACKAGE_MANAGER)
+    list(APPEND _include_directories
+            ${SDL2_INCLUDE_DIRS}
+            ${SDL2_image_INCLUDE_DIRS}
+            ${SDL2_ttf_INCLUDE_DIRS}
+            ${ZLIB_INCLUDEDIR}
+            )
+    list(APPEND _link_libraries
+            ${SDL2_LIBRARIES}
+            ${SDL2_image_LIBRARIES}
+            ${SDL2_ttf_LIBRARIES}
+            LIBNOISE::LIBNOISE_LIBRARIES
+            ${ZLIB_LIBRARIES}
+            )
+
+    if (ENABLE_SDL2_MIXER)
+        list(APPEND _link_libraries ${SDL2_mixer_LIBRARIES})
+    endif ()
+
+    if (ENABLE_ANGELSCRIPT)
+        list(APPEND _link_libraries ${AngelScript_LIBRARY})
+    endif ()
+
+    if (BUILD_TEST)
+        list(APPEND _link_libraries ${CATCH2_LIBRARIES})
+    endif ()
+
+endif (USE_PACKAGE_MANAGER)
+
+
+# enable C++14
+target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_14)
+
+list(APPEND _compile_definitions VERSION="${PROJECT_NAME} ${PROJECT_VERSION} - tech preview")
+
+if (ENABLE_SDL2_MIXER)
+    list(APPEND _compile_definitions USE_SDL2_MIXER)
+endif ()
+
+if (ENABLE_ANGELSCRIPT)
+    list(APPEND _compile_definitions USE_ANGELSCRIPT)
+    list(APPEND _include_directories ${CMAKE_SOURCE_DIR}/external/as_add_on)
+endif ()
+
+target_include_directories(${PROJECT_NAME} PRIVATE ${_include_directories})
+target_compile_definitions(${PROJECT_NAME} PRIVATE ${_compile_definitions})
+target_link_libraries(${PROJECT_NAME} PRIVATE ${_link_libraries})
+
+# copy the resources to the compiled directory
+
+add_custom_command(
+        TARGET ${PROJECT_NAME} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/data/resources/ $<TARGET_FILE_DIR:${PROJECT_NAME}>/resources/
+        COMMENT "Copy the resources to the compiled directory"
+)
+
+if (MSVC)
+    # set startup project for Visual Studio Builds
+    set_property(
+            DIRECTORY ${PROJECT_SOURCE_DIR}
+            PROPERTY
+            VS_STARTUP_PROJECT ${PROJECT_NAME}
+    )
+    # set Visual Studio working directory to the Configuration directory
+    set_target_properties(
+            ${PROJECT_NAME}
+            PROPERTIES
+            VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/$(Configuration)"
+    )
+endif ()
+
+install(TARGETS ${PROJECT_NAME} DESTINATION .)
+if (NOT APPLE)
+    install(DIRECTORY ${CMAKE_SOURCE_DIR}/data/resources/ DESTINATION resources)
+endif ()
+
+install(FILES ${CMAKE_SOURCE_DIR}/ReleaseNotes.txt ${CMAKE_SOURCE_DIR}/credits.txt DESTINATION .)
+
+if (APPLE)
+    set_target_properties(${PROJECT_NAME} PROPERTIES MACOSX_BUNDLE TRUE RESOURCE TRUE)
+endif ()
+
+if (BUILD_TEST)
+    include(${CMAKE_SOURCE_DIR}/tests/CMakeLists.txt)
+endif (BUILD_TEST)
