@@ -6,18 +6,13 @@
 
 #include "Engine.hxx"
 #include "UIManager.hxx"
+#include "../util/Singleton.hxx"
 
-class EventManager
+class EventManager : public Singleton<EventManager>
 {
 public:
   EventManager() = default;
   ~EventManager() = default;
-
-  static EventManager &instance()
-  {
-    static EventManager evManager;
-    return evManager;
-  }
 
   void checkEvents(SDL_Event &event, Engine &engine);
 

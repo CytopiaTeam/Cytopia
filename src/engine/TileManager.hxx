@@ -1,13 +1,13 @@
 #ifndef TILEMANAGER_HXX_
 #define TILEMANAGER_HXX_
 
-#include "basics/tileData.hxx"
-
-#include "../ThirdParty/json.hxx"
 #include <SDL.h>
-
 #include <unordered_map>
 #include <string>
+
+#include "basics/tileData.hxx"
+#include "../ThirdParty/json.hxx"
+#include "../util/Singleton.hxx"
 
 enum TileMap : size_t
 {
@@ -54,15 +54,11 @@ enum TileList : size_t
   TILE_ALL_DIRECTIONS
 };
 
-class TileManager
+class TileManager : public Singleton<TileManager>
 {
 public:
-  /// Retrieves instance of Singleton class TileManager
-  static TileManager &instance()
-  {
-    static TileManager tileManager;
-    return tileManager;
-  }
+
+  friend Singleton<TileManager>;
 
   // Disable copy and assignemnt operators
   TileManager(TileManager const &) = delete;

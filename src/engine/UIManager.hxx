@@ -1,6 +1,7 @@
 #ifndef UIMANAGER_HXX_
 #define UIMANAGER_HXX_
 
+#include <SDL.h>
 #include <vector>
 
 #include "ui/basics/UIElement.hxx"
@@ -14,8 +15,7 @@
 #include "ui/widgets/TextField.hxx"
 #include "ui/widgets/Tooltip.hxx"
 #include "ui/widgets/Slider.hxx"
-
-#include <SDL.h>
+#include "../util/Singleton.hxx"
 
 /**
  * @brief Struct that hold UiElements belonging to a layoutgroup and its corresponding LayoutData
@@ -39,15 +39,12 @@ enum class BUILDMENU_LAYOUT
  * @brief Draws the UI to the screen
  * Parses UiLayout.json file and instantiates UI widgets accordingly. Also takes care of layouting
  */
-class UIManager
+class UIManager : public Singleton<UIManager>
 {
 public:
-  /// Retrieves instance of Singleton class UI Manager
-  static UIManager &instance()
-  {
-    static UIManager uiManager;
-    return uiManager;
-  }
+  
+  friend Singleton<UIManager>;
+
   /**
    * @brief Parses the UiLayout.json files and creates UI Elements
    * 
