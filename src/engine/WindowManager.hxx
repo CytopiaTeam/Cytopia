@@ -3,8 +3,9 @@
 #include <string>
 #include <iostream>
 #include <vector>
-
 #include <SDL.h>
+
+#include "../util/Singleton.hxx"
 
 enum class FULLSCREEN_MODE
 {
@@ -13,15 +14,11 @@ enum class FULLSCREEN_MODE
   FULLSCREEN = 2
 };
 
-class WindowManager
+class WindowManager : public Singleton<WindowManager>
 {
 public:
-  /// Retrieves instance of Singleton class WindowManager
-  static WindowManager &instance()
-  {
-    static WindowManager windowManager;
-    return windowManager;
-  }
+
+  friend Singleton<WindowManager>;
 
   // Disable copy and assignemnt operators
   WindowManager(WindowManager const &) = delete;

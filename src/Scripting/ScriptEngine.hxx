@@ -6,15 +6,13 @@
 #include <angelscript.h>
 #include <string>
 
-class ScriptEngine
+#include "../util/Singleton.hxx"
+
+class ScriptEngine : public Singleton<ScriptEngine>
 {
 public:
-  /// Retrieves instance of Singleton class UI Manager
-  static ScriptEngine &instance()
-  {
-    static ScriptEngine se;
-    return se;
-  }
+
+  friend Singleton<ScriptEngine>;
 
   ScriptEngine() = default;
   ~ScriptEngine();

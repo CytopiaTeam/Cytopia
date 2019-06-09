@@ -16,15 +16,11 @@ enum ButtonState
   BUTTONSTATE_DISABLED
 };
 
-class ResourcesManager
+class ResourcesManager : public Singleton<ResourcesManager>
 {
 public:
-  /// Retrieves instance of Singleton class Texture Manager
-  static ResourcesManager &instance()
-  {
-    static ResourcesManager resourcesManager;
-    return resourcesManager;
-  }
+
+  friend Singleton<ResourcesManager>;
 
   // Disable copy and assignemnt operators
   ResourcesManager(ResourcesManager const &) = delete;
