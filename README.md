@@ -1,4 +1,4 @@
-![Cytopia Logo](https://raw.githubusercontent.com/JimmySnails/Cytopia/master/resources/images/app_icons/logo_big_textured.png)
+![Cytopia Logo](data/resources/images/app_icons/logo_big_textured.png?raw=1)
 
 [![Build Status](https://travis-ci.org/JimmySnails/Cytopia.svg?branch=master)](https://travis-ci.org/JimmySnails/Cytopia)
 [![Discord](https://img.shields.io/discord/448344322887254018.svg?logo=discord)](https://discord.gg/qwa2H3G)
