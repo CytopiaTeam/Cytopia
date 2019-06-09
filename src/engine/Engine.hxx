@@ -6,16 +6,13 @@
 #include "WindowManager.hxx"
 #include "basics/point.hxx"
 #include "Map.hxx"
+#include "../util/Singleton.hxx"
 
-class Engine
+class Engine : public Singleton<Engine>
 {
 public:
-  /// Retrieves instance of Singleton class Engine
-  static Engine &instance()
-  {
-    static Engine engine;
-    return engine;
-  }
+
+  friend Singleton<Engine>;
 
   // Disable copy and assignemnt operators
   Engine(Engine const &) = delete;
