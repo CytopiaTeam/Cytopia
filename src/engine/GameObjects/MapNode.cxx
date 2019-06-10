@@ -1,6 +1,6 @@
 #include "MapNode.hxx"
 
-#include "../basics/LOG.hxx"
+#include "../../util/LOG.hxx"
 #include "../map/MapLayers.hxx"
 
 MapNode::MapNode(Point isoCoordinates, const std::string &terrainID, const std::string &tileID)

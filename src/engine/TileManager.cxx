@@ -1,6 +1,6 @@
 #include "TileManager.hxx"
 
-#include "basics/LOG.hxx"
+#include "../util/LOG.hxx"
 #include "basics/Settings.hxx"
 #include "ResourcesManager.hxx"
 

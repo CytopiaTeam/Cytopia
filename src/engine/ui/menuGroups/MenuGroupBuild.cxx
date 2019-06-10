@@ -1,5 +1,5 @@
 #include "MenuGroupBuild.hxx"
-#include "../../basics/LOG.hxx"
+#include "../../../util/LOG.hxx"
 #include "../../basics/Settings.hxx"
 #include "../../TileManager.hxx"
 #include "../../basics/signal.hxx"
@@ -89,7 +89,7 @@ void MenuGroupBuild::constructMenu()
           LOG(LOG_ERROR) << "Attempting to add element " << tile.first << " to category " << tile.second.category
                          << ". But the Category doesn't exist.";
         }
-        LOG() << "Found matching category " << tile.first;
+        LOG(LOG_INFO) << "Found matching category " << tile.first;
       }
     }
   }
@@ -101,7 +101,7 @@ void MenuGroupBuild::constructMenu()
     {
       it->setActionID("ToggleVisibilityOfGroup");
       it->setActionParameter(it->getUiElementData().buildMenuID);
-      LOG() << "Adding action for: " << it->getUiElementData().buildMenuID;
+      LOG(LOG_INFO) << "Adding action for: " << it->getUiElementData().buildMenuID;
     }
   }
 

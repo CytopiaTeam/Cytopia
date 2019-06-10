@@ -1,6 +1,7 @@
-#include "Game.hxx"
-
 #include <iostream>
+
+#include "Game.hxx"
+#include "util/Exception.hxx"
 
 int protected_main(int argc, char **argv)
 {
@@ -28,6 +29,7 @@ int protected_main(int argc, char **argv)
   {
     game.mainMenu();
   }
+  LOG(LOG_DEBUG) << "Game::run";
   game.run(skipMenu);
   game.shutdown();
 
@@ -36,6 +38,18 @@ int protected_main(int argc, char **argv)
 
 int main(int argc, char **argv)
 {
+
+  #ifdef __WIN__
+  /**
+   * @todo register signal handler for windows
+   */
+  #else
+  /* Register handler for Segmentation Fault */
+  signal(SIGSEGV, SIG_handler);
+  signal(SIGINT, SIG_handler);
+  signal(SIGTERM, SIG_handler);
+  #endif
+
   try
   {
     return protected_main(argc, argv);

@@ -6,7 +6,7 @@
 #include "basics/mapEdit.hxx"
 #include "basics/Settings.hxx"
 #include "basics/utils.hxx"
-#include "basics/LOG.hxx"
+#include "../util/LOG.hxx"
 
 #include "../ThirdParty/json.hxx"
 

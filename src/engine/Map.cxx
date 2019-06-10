@@ -4,7 +4,7 @@
 #include "basics/isoMath.hxx"
 #include "basics/mapEdit.hxx"
 #include "basics/Settings.hxx"
-#include "basics/LOG.hxx"
+#include "../util/LOG.hxx"
 #include "basics/compression.hxx"
 #include "common/Constants.hxx"
 #include "ResourcesManager.hxx"
@@ -563,9 +563,9 @@ void from_json(const json &j, MapNodeData &mapNodeData) { mapNodeData.tileID = j
 void Map::getNodeInformation(const Point &isoCoordinates) const
 {
   const TileData *tileData = mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getActiveMapNodeData().tileData;
-  LOG() << "===== TILE at " << isoCoordinates.x << ", " << isoCoordinates.y << "=====";
-  LOG() << "Biome: " << tileData->biome;
-  LOG() << "Category: " << tileData->category;
-  LOG() << "FileName: " << tileData->tiles.fileName;
-  LOG() << "ID: " << mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getActiveMapNodeData().tileID;
+  LOG(LOG_INFO) << "===== TILE at " << isoCoordinates.x << ", " << isoCoordinates.y << "=====";
+  LOG(LOG_INFO) << "Biome: " << tileData->biome;
+  LOG(LOG_INFO) << "Category: " << tileData->category;
+  LOG(LOG_INFO) << "FileName: " << tileData->tiles.fileName;
+  LOG(LOG_INFO) << "ID: " << mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getActiveMapNodeData().tileID;
 }

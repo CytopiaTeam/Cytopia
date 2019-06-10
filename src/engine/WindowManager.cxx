@@ -1,6 +1,6 @@
 #include "WindowManager.hxx"
 
-#include "basics/LOG.hxx"
+#include "../util/LOG.hxx"
 #include "basics/Settings.hxx"
 
 #include <SDL_image.h>
@@ -76,7 +76,7 @@ void WindowManager::setFullScreenMode(FULLSCREEN_MODE mode) const
     SDL_DisplayMode desktopScreenMode;
     if (SDL_GetDesktopDisplayMode(0, &desktopScreenMode) != 0)
     {
-      LOG() << "SDL_GetDesktopDisplayMode failed: " << SDL_GetError();
+      LOG(LOG_INFO) << "SDL_GetDesktopDisplayMode failed: " << SDL_GetError();
     }
     // set the actual resolution to the desktop resolution for Borderless
     Settings::instance().currentScreenHeight = desktopScreenMode.h;

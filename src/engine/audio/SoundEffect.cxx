@@ -1,6 +1,6 @@
 #include "SoundEffect.hxx"
 
-#include "../basics/LOG.hxx"
+#include "../../util/LOG.hxx"
 #include "../basics/Settings.hxx"
 
 SoundEffect::SoundEffect(const std::string &filename) : m_playSoundEffect(Settings::instance().playSoundEffects)
@@ -22,7 +22,7 @@ void SoundEffect::loadFile(const std::string &filename)
   if (!m_soundEffect)
   {
     LOG(LOG_ERROR) << "Failed to load audio file " << filename << "\n" << Mix_GetError();
-    LOG() << "Disabled sound effect playback!";
+    LOG(LOG_INFO) << "Disabled sound effect playback!";
     m_playSoundEffect = false;
   }
 }

@@ -5,7 +5,7 @@
 #include "engine/UIManager.hxx"
 #include "engine/WindowManager.hxx"
 #include "engine/basics/Camera.hxx"
-#include "engine/basics/LOG.hxx"
+#include "util/LOG.hxx"
 #include "engine/ui/widgets/Image.hxx"
 #include "engine/basics/Settings.hxx"
 
@@ -54,6 +54,7 @@ bool Game::initialize()
 
 void Game::mainMenu()
 {
+  LOG(LOG_INFO) << "Starting main menu";
   SDL_Event event;
 
   int screenWidth = Settings::instance().screenWidth;
@@ -71,7 +72,10 @@ void Game::mainMenu()
   Button newGameButton({screenWidth / 2 - 100, screenHeight / 2 - 20, 200, 40});
   newGameButton.setText("New Game");
   newGameButton.setUIElementID("newgame");
-  newGameButton.registerCallbackFunction([]() { Engine::instance().newGame(); });
+  newGameButton.registerCallbackFunction([]() {
+    LOG(LOG_DEBUG) << "Clicked on New Game";
+    Engine::instance().newGame(); 
+  });
 
   Button loadGameButton({screenWidth / 2 - 100, screenHeight / 2 - 20 + newGameButton.getUiElementRect().h * 2, 200, 40});
   loadGameButton.setText("Load Game");
@@ -117,6 +121,8 @@ void Game::mainMenu()
     SDL_Delay(5);
   }
 
+  LOG(LOG_DEBUG) << "Logo animation done";
+
   while (mainMenuLoop)
   {
     SDL_RenderClear(WindowManager::instance().getRenderer());
@@ -128,39 +134,48 @@ void Game::mainMenu()
         switch (event.type)
         {
         case SDL_MOUSEBUTTONDOWN:
-          it->onMouseButtonDown(event);
-          break;
+          {
+            LOG(LOG_DEBUG) << "Mouse is pressed";
+            it->onMouseButtonDown(event);
+            break;
+          }
         case SDL_MOUSEBUTTONUP:
-
-          if (it->onMouseButtonUp(event))
           {
-            mainMenuLoop = false;
+            LOG(LOG_DEBUG) << "Mouse is released";
+            if (it->onMouseButtonUp(event))
+            {
+              mainMenuLoop = false;
+            }
+            break;
           }
-          break;
         case SDL_MOUSEMOTION:
-          it->onMouseMove(event);
-
-          // if the mouse cursor left an element, we're not hovering any more and we need to reset the pointer to the last hovered
-          if (m_lastHoveredElement && !m_lastHoveredElement->isMouseOverHoverableArea(event.button.x, event.button.y))
-          {
-            m_lastHoveredElement->onMouseLeave(event);
-            m_lastHoveredElement = nullptr;
-          }
-
-          // if the element we're hovering over is not the same as the stored "lastHoveredElement", update it
-          if (it->isMouseOverHoverableArea(event.button.x, event.button.y) && it != m_lastHoveredElement)
           {
             it->onMouseMove(event);
 
-            if (m_lastHoveredElement != nullptr)
+            // if the mouse cursor left an element, we're not hovering any more and we need to reset the pointer to the last hovered
+            if (m_lastHoveredElement && !m_lastHoveredElement->isMouseOverHoverableArea(event.button.x, event.button.y))
             {
               m_lastHoveredElement->onMouseLeave(event);
+              m_lastHoveredElement = nullptr;
             }
-            m_lastHoveredElement = it;
-            it->onMouseEnter(event);
+
+            // if the element we're hovering over is not the same as the stored "lastHoveredElement", update it
+            if (it->isMouseOverHoverableArea(event.button.x, event.button.y) && it != m_lastHoveredElement)
+            {
+              it->onMouseMove(event);
+              {
+                m_lastHoveredElement->onMouseLeave(event);
+              }
+              m_lastHoveredElement = it;
+              it->onMouseEnter(event);
+            }
+            break;
           }
-          break;
-        default:;
+        default:
+          {
+            LOG(LOG_ERROR) << "Received unknown event";
+            break;
+          }
         }
       }
     }
@@ -174,12 +189,13 @@ void Game::mainMenu()
     SDL_SetRenderDrawColor(WindowManager::instance().getRenderer(), 0, 0, 0, SDL_ALPHA_OPAQUE);
     SDL_RenderPresent(WindowManager::instance().getRenderer());
   }
+  LOG(LOG_DEBUG) << "Main menu loop stopped";
 }
 
 void Game::run(bool SkipMenu)
 {
   Timer benchmarkTimer;
-  LOG() << VERSION;
+  LOG(LOG_INFO) << VERSION;
 
   if (SkipMenu)
   {
@@ -189,7 +205,7 @@ void Game::run(bool SkipMenu)
   benchmarkTimer.start();
   Engine &engine = Engine::instance();
 
-  LOG() << "Map initialized in " << benchmarkTimer.getElapsedTime() << "ms";
+  LOG(LOG_INFO) << "Map initialized in " << benchmarkTimer.getElapsedTime() << "ms";
   Camera::centerScreenOnMapCenter();
 
   SDL_Event event;

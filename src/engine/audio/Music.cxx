@@ -1,6 +1,6 @@
 #include "Music.hxx"
 
-#include "../basics/LOG.hxx"
+#include "../../util/LOG.hxx"
 #include "../basics/Settings.hxx"
 
 Music::Music(const std::string &fileName) : m_playMusic(Settings::instance().playMusic) { loadFile(fileName); }
@@ -19,7 +19,7 @@ void Music::loadFile(const std::string &filename)
   if (!m_music)
   {
     LOG(LOG_ERROR) << "Failed to load audio file " << filename << "\n" << Mix_GetError();
-    LOG() << "Disabled Music playback!";
+    LOG(LOG_INFO) << "Disabled Music playback!";
     m_playMusic = false;
   }
 }

@@ -3,7 +3,7 @@
 #include "WindowManager.hxx"
 #include "TileManager.hxx"
 #include "basics/Settings.hxx"
-#include "basics/LOG.hxx"
+#include "../util/LOG.hxx"
 
 #include <SDL_image.h>
 

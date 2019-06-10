@@ -4,6 +4,7 @@
 #include "basics/mapEdit.hxx"
 #include "basics/Settings.hxx"
 #include "ResourcesManager.hxx"
+#include "../util/LOG.hxx"
 
 Engine::Engine() {}
 
@@ -32,6 +33,7 @@ void Engine::demolishNode(const Point &isoCoordinates) const { map->demolishNode
 
 void Engine::loadGame(const std::string &fileName)
 {
+  LOG(LOG_INFO) << "Trying to load game from file " << fileName;
   Map *newMap = Map::loadMapFromFile(fileName);
 
   if (newMap)
@@ -44,6 +46,7 @@ void Engine::loadGame(const std::string &fileName)
 
 void Engine::newGame()
 {
+  LOG(LOG_INFO) << "Starting a new game";
   delete map;
   m_running = true;
 

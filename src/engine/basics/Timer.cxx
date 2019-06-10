@@ -1,6 +1,6 @@
 #include "Timer.hxx"
 
-#include "LOG.hxx"
+#include "../../util/LOG.hxx"
 #include "../EventManager.hxx"
 
 Timer::~Timer()

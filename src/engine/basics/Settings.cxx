@@ -1,12 +1,24 @@
 #include "Settings.hxx"
 
-#include "LOG.hxx"
+#include "../../util/LOG.hxx"
 #include "../common/Constants.hxx"
-
 #include "../../ThirdParty/json.hxx"
+#include "../../util/Exception.hxx"
 
-Settings::Settings() { readFile(); }
 using json = nlohmann::json;
+using string = std::string;
+
+Settings::Settings()
+{
+  try
+  {
+    readFile();
+  }
+  catch(ConfigurationError& e)
+  {
+    throw RuntimeError(ERROR_MSG "Cannot Initialize Settings\n" + string(e.what()));
+  }
+}
 
 void Settings::readFile()
 {
@@ -17,8 +29,7 @@ void Settings::readFile()
   if (i.fail())
   {
     LOG(LOG_ERROR) << "File " << SETTINGS_FILE_NAME << " does not exist! Cannot load settings from INI File!";
-    // Application should quit here, without settings from the ini file we can't continue
-    return;
+    throw RuntimeError(ERROR_MSG "Could not open file " + settingsFileName);
   }
 
   // check if json file can be parsed
@@ -26,6 +37,7 @@ void Settings::readFile()
   if (_settingsJSONObject.is_discarded())
   {
     LOG(LOG_ERROR) << "Error parsing JSON File " << SETTINGS_FILE_NAME;
+    throw ConfigurationError(ERROR_MSG "Could not parse " + settingsFileName);
   }
 
   SettingsData data = _settingsJSONObject;
@@ -52,6 +64,7 @@ void Settings::writeFile()
   else
   {
     LOG(LOG_ERROR) << "Could not write file " << SETTINGS_FILE_NAME;
+    throw ConfigurationError(ERROR_MSG "Could not write to file " + settingsFileName);
   }
 }
 

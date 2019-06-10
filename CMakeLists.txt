@@ -8,6 +8,7 @@ cmake_dependent_option(USE_PMM "Use PMM for managing conan" OFF WIN32 ON)
 option(ENABLE_SDL2_MIXER "Enable SDL2 Mixer" ON)
 option(ENABLE_MICROPROFILE "Enable microprofile" OFF)
 option(ENABLE_ANGELSCRIPT "Enable AngelScript" ON)
+option(DEBUG "Enable verbose output" ON)
 
 if (NOT BUILD_TILEDATA_EDITOR)
     set(_CC_QT "# ")
@@ -162,7 +163,12 @@ if (UNIX)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 endif ()
 
+if(DEBUG)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D DEBUG")
+endif(DEBUG)
+
 set(SOURCES
+        src/util/Exception.cxx
         src/engine/basics/Camera.cxx
         src/engine/basics/isoMath.cxx
         src/engine/basics/mapEdit.cxx
