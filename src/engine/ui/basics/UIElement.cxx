@@ -55,6 +55,14 @@ void UIElement::setText(const std::string &text)
   createTextTexture(elementData.text, SDL_Color{255, 255, 255});
 }
 
+SDL_Point UIElement::screenPointToLocalPointInRect(SDL_Point screenCoordinates)
+{
+  SDL_Point result;
+  result.x = screenCoordinates.x - m_uiElementRect.x;
+  result.y = screenCoordinates.y - m_uiElementRect.y;
+  return result;
+}
+
 void UIElement::createTextTexture(const std::string &text, const SDL_Color &textColor)
 {
   m_font = TTF_OpenFont("resources/fonts/arcadeclassics.ttf", 20);
