@@ -6,7 +6,9 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/f686b5cf79384e0ab807578cb392b0bc)](https://www.codacy.com/app/JimmySnails/Cytopia?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=JimmySnails/Cytopia&amp;utm_campaign=Badge_Grade)
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/JimmySnails/Cytopia.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/JimmySnails/Cytopia/alerts/)
 [![Language grade: C/C++](https://img.shields.io/lgtm/grade/cpp/g/JimmySnails/Cytopia.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/JimmySnails/Cytopia/context:cpp)
+
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=cytopia&metric=alert_status)](https://sonarcloud.io/dashboard?id=cytopia)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=cytopia&metric=coverage)](https://sonarcloud.io/dashboard?id=cytopia)
 
 
 Cytopia is a free, open source retro pixel-art city building game with a big focus on mods. It’s based on a custom isometric rendering engine based on SDL2.
