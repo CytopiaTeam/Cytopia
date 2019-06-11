@@ -1,0 +1,1126 @@
+[
+    {
+        "author": "Folesnaid",
+        "category": "Decoration",
+        "description": "A pile of coal",
+        "id": "Coal Pile",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 18,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/Decoration/Dec_1x1_coal_FN.png"
+        },
+        "title": "Coal Pile",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "KingTut 101",
+        "category": "Residential",
+        "description": "Day Care Center",
+        "id": "Day Care Center",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 42,
+            "clip_width": 65,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_2x2_Daycare.png"
+        },
+        "title": "Day Care Center",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Folesnaid",
+        "category": "Residential",
+        "description": "Old Church",
+        "id": "Res_1x1_old_des_church_FN",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 38,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/Desert/Res_1x1_old_des_church_FN.png"
+        },
+        "title": "Old Church",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Commercial",
+        "description": "A Shop that sells Bikes",
+        "id": "com_1x1_BikeShop",
+        "power": 0,
+        "price": 5,
+        "tiles": {
+            "clip_height": 30,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/com_1x1_BikeShop.png"
+        },
+        "title": "BikeShop",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Commercial",
+        "description": "A shop that sells clocks",
+        "id": "com_1x1_ClockStore1",
+        "power": 0,
+        "price": 5,
+        "tiles": {
+            "clip_height": 32,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/com_1x1_ClockStore1.png"
+        },
+        "title": "Clock Store",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "MaroonShaded",
+        "category": "Commercial",
+        "description": "A shop!",
+        "id": "com_1x1_CompactFastshop_MS",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 19,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/com_1x1_CompactFastshop_MS.png"
+        },
+        "title": "CompactFast Shop",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Folesnaid",
+        "category": "Commercial",
+        "description": "I scream for ice cream!",
+        "id": "com_1x1_des_ice_cream_shop_FN",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 27,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/com_1x1_des_ice_cream_shop_FN.png"
+        },
+        "title": "Ice Cream Shop",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Folesnaid",
+        "category": "Commercial",
+        "description": "A petrol station",
+        "id": "com_1x1_des_petrol_station_FN",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 24,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/com_1x1_des_petrol_station_FN.png"
+        },
+        "title": "Petrol Station",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Folesnaid",
+        "category": "Commercial",
+        "description": "A shop that sells games. Even Cytopia is in store!",
+        "id": "com_1x1_game_shop_FN",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 26,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/com_1x1_game_shop_FN.png"
+        },
+        "title": "Game Shop",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "RockFort",
+        "category": "Commercial",
+        "description": "Appartment Building",
+        "id": "com_1x1_nycbuild_RF",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 41,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/com_1x1_nycbuild_RF.png"
+        },
+        "title": "Appartment Building",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Folesnaid",
+        "category": "Commercial",
+        "description": "A shop that sells phones. It has the new CyPhone X",
+        "id": "com_1x1_phone_shop_FN_1552102023413",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 34,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/com_1x1_phone_shop_FN_1552102023413.png"
+        },
+        "title": "Phone Shop",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "RockFort",
+        "category": "Commercial",
+        "description": "Ruegroshorloge",
+        "id": "com_1x1_ruegroshorloge_RF",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 49,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/com_1x1_ruegroshorloge_RF.png"
+        },
+        "title": "Ruegroshorloge",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Folesnaid",
+        "category": "Commercial",
+        "description": "A shop!",
+        "id": "com_1x1_shop_1_FN",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/com_1x1_shop_1_FN.png"
+        },
+        "title": "Shop",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Folesnaid",
+        "category": "Nature",
+        "description": "An oasis",
+        "id": "com_1x1_shop_1_FN1",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 31,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/Nature/Nature_1x1_oasis_FN.png"
+        },
+        "title": "Oasis",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "RockFort",
+        "category": "Commercial",
+        "description": "Borgs Burgers - We have the tastiest!",
+        "id": "com_2x2_BorgsBurgers",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 41,
+            "clip_width": 64,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/com_2x2_BorgsBurgers.png"
+        },
+        "title": "Borgs Burgers",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Folesnaid",
+        "category": "Commercial",
+        "description": "A commercial center",
+        "id": "com_2x2_little_commercial_center_1_FN",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 42,
+            "clip_width": 64,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/com_2x2_small_commercial_center_1_FN.png"
+        },
+        "title": "Small Commercial Center",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Commercial",
+        "description": "Where people work",
+        "id": "com_2x2_office",
+        "power": 0,
+        "price": 5,
+        "tiles": {
+            "clip_height": 64,
+            "clip_width": 64,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/com_2x2_office.png"
+        },
+        "title": "Office",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "RockFort",
+        "category": "Commercial",
+        "description": "Big Office Building",
+        "id": "com_2x2_seattlereworked_RF",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 122,
+            "clip_width": 64,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/com_2x2_seattlereworked_RF.png"
+        },
+        "title": "Big Office Building",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Commercial",
+        "description": "The community gathers and works here",
+        "id": "com_3x3_CommunityTower",
+        "power": 0,
+        "price": 5,
+        "tiles": {
+            "clip_height": 119,
+            "clip_width": 96,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/com_3x3_CommunityTower.png"
+        },
+        "title": "Community Tower",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "RockFort",
+        "category": "Commercial",
+        "description": "Tour Front De Seine",
+        "id": "com_3x3_tourfrontdeseine_RF",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 211,
+            "clip_width": 96,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/com_3x3_tourfrontdeseine_RF.png"
+        },
+        "title": "Tour Front De Seine",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "KingTut 101",
+        "category": "Roads",
+        "description": "Country Road... takes you home!",
+        "id": "country_road",
+        "power": 0,
+        "price": 7,
+        "slopeTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 4,
+            "fileName": "resources/images/roads/road_country_slopes.png"
+        },
+        "tiles": {
+            "clip_height": 16,
+            "clip_width": 32,
+            "count": 16,
+            "fileName": "resources/images/roads/road_country.png"
+        },
+        "title": "Country Road",
+        "upkeep cost": 2,
+        "water": 0
+    },
+    {
+        "author": "KingTut 101",
+        "category": "Roads",
+        "description": "A Road, that hasn't been cleaned often",
+        "id": "dirt_road",
+        "power": 0,
+        "price": 3,
+        "slopeTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 4,
+            "fileName": "resources/images/roads/dirt_road_slopes.png"
+        },
+        "tiles": {
+            "clip_height": 16,
+            "clip_width": 32,
+            "count": 16,
+            "fileName": "resources/images/roads/dirt_road.png"
+        },
+        "title": "Dirt Road",
+        "upkeep cost": 1,
+        "water": 0
+    },
+    {
+        "author": "KingTut 101",
+        "category": "Industrial",
+        "description": "Small Depollutor",
+        "id": "ind_1x1_DepolluterMINI",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 26,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/industrial/ind_1x1_DepolluterMINI1.png"
+        },
+        "title": "Depolluter Small",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Folesnaid",
+        "category": "Industrial",
+        "description": "A petrol pump",
+        "id": "ind_1x1_des_petrol_1",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 26,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/industrial/desert/ind_1x1_des_petrol_1_FN.png"
+        },
+        "title": "Petrol Pump",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Folesnaid",
+        "category": "Industrial",
+        "description": "Industrial Building",
+        "id": "ind_1x1_industry_1_FN1",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 28,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/industrial/ind_1x1_industry_1_FN.png"
+        },
+        "title": "Industrial Building",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Folesnaid",
+        "category": "Industrial",
+        "description": "Industrial Building",
+        "id": "ind_1x1_industry_2_FN",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 31,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/industrial/ind_1x1_industry_2_FN.png"
+        },
+        "title": "Industrial Building",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Folesnaid",
+        "category": "Industrial",
+        "description": "Old Industrial Building",
+        "id": "ind_1x1_old_industry_1_FN",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 25,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/industrial/ind_1x1_old_industry_1_FN.png"
+        },
+        "title": "Old Industrial Building",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "KingTut 101",
+        "category": "Industrial",
+        "description": "Medium Depollutor",
+        "id": "ind_2x2_DepolluterSML",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 40,
+            "clip_width": 64,
+            "count": 1,
+            "fileName": "resources/images/buildings/industrial/ind_2x2_DepolluterSML.png"
+        },
+        "title": "Depolluter Medium",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Folesnaid",
+        "category": "Industrial",
+        "description": "A factory",
+        "id": "ind_2x2_factory_FN",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 58,
+            "clip_width": 64,
+            "count": 1,
+            "fileName": "resources/images/buildings/industrial/ind_2x2_factory_FN.png"
+        },
+        "title": "Factory",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "KingTut 101",
+        "category": "Industrial",
+        "description": "A Power Plant, that has been built years ago",
+        "id": "ind_3x3_OldPowerPlant",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 73,
+            "clip_width": 96,
+            "count": 1,
+            "fileName": "resources/images/buildings/industrial/ind_3x3_OldPowerPlant.png"
+        },
+        "title": "OldPowerPlant",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Folesnaid",
+        "category": "Industrial",
+        "description": "A chemical plant",
+        "id": "ind_3x3_chemical_plant_FN",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 66,
+            "clip_width": 96,
+            "count": 1,
+            "fileName": "resources/images/buildings/industrial/ind_3x3_chemical_plant_FN.png"
+        },
+        "title": "Chemical Plant",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "KingTut 101",
+        "category": "Industrial",
+        "description": "Big Depollutor",
+        "id": "ind_4x4_DepolluterLRG",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 87,
+            "clip_width": 128,
+            "count": 1,
+            "fileName": "resources/images/buildings/industrial/ind_4x4_DepolluterLRG.png"
+        },
+        "title": "Depolluter Big",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "MaroonShaded",
+        "category": "Industrial",
+        "description": "A factory",
+        "id": "ind_des_2x2_Factory_MS",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 51,
+            "clip_width": 64,
+            "count": 1,
+            "fileName": "resources/images/buildings/industrial/desert/ind_des_2x2_Factory_MS.png"
+        },
+        "title": "Factory",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "KingTut 101",
+        "category": "Roads",
+        "description": "Paved Road",
+        "id": "paved_road",
+        "power": 0,
+        "price": 10,
+        "slopeTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 4,
+            "fileName": "resources/images/roads/paved_road_slopes.png"
+        },
+        "tiles": {
+            "clip_height": 16,
+            "clip_width": 32,
+            "count": 16,
+            "fileName": "resources/images/roads/paved_road.png"
+        },
+        "title": "Paved Road",
+        "upkeep cost": 2,
+        "water": 0
+    },
+    {
+        "author": "MaroonShaded",
+        "category": "Power",
+        "description": "A  small coal power plant.",
+        "id": "pow_1x1_SmallCoalPlant_MS",
+        "power": 0,
+        "price": 5,
+        "tiles": {
+            "clip_height": 32,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/Power Plants/pow_1x1_SmallCoalPlant_MS.png"
+        },
+        "title": "Small Coal Power Plant2",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "KingTut 101",
+        "category": "Power",
+        "description": "A Coal Power plant.",
+        "id": "pow_3x3_CoalPlant",
+        "power": 0,
+        "price": 5,
+        "tiles": {
+            "clip_height": 73,
+            "clip_width": 96,
+            "count": 1,
+            "fileName": "resources/images/buildings/Power Plants/pow_3x3_CoalPlant.png"
+        },
+        "title": "Coal Power Plant",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "KingTut 101",
+        "category": "Power",
+        "description": "A  small coal power plant.",
+        "id": "pow_3x3_CoalPlant1",
+        "power": 0,
+        "price": 5,
+        "tiles": {
+            "clip_height": 24,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/Power Plants/pow_1x1_SmallPowerPlant.png"
+        },
+        "title": "Small Coal Power Plant",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "KingTut 101",
+        "category": "Residential",
+        "description": "A small house",
+        "id": "res_1x1_KTHouse2",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 18,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_1x1_KTHouse2.png"
+        },
+        "title": "Small House",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "KingTut 101",
+        "category": "Residential",
+        "description": "A small house",
+        "id": "res_1x1_KTHouseNew2",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 20,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_1x1_KTHouseNew2.png"
+        },
+        "title": "Small House",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "RockFort",
+        "category": "Residential",
+        "description": "A small  building",
+        "id": "res_1x1_SmallRedHouse_RF",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 25,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_1x1_SmallRedHouse_RF.png"
+        },
+        "title": "Small house",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "KingTut 101",
+        "category": "Residential",
+        "description": "A small shack",
+        "id": "res_1x1_SmallShack1",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 18,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_1x1_SmallShack1.png"
+        },
+        "title": "Small Shack",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Folesnaid",
+        "category": "Residential",
+        "description": "Appartments",
+        "id": "res_1x1_building_1_FN",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 52,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_1x1_building_1_FN.png"
+        },
+        "title": "Appartments",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Folesnaid",
+        "category": "Residential",
+        "description": "Desert building",
+        "id": "res_1x1_des_desert_building_1_FN",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 26,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/Desert/res_1x1_des_desert_building_1_FN.png"
+        },
+        "title": "Desert Building",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Folesnaid",
+        "category": "Residential",
+        "description": "Pyramid",
+        "id": "res_1x1_des_pyramide_1_FN",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 20,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/Desert/res_1x1_des_pyramide_1_FN.png"
+        },
+        "title": "Pyramid",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Folesnaid",
+        "category": "Residential",
+        "description": "House with swimming pool",
+        "id": "res_1x1_des_swimming_pool_house_FN",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 27,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/Desert/res_1x1_des_swimming_pool_house_FN.png"
+        },
+        "title": "House with swimming pool",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "RockFort",
+        "category": "Residential",
+        "description": "Appartment London",
+        "id": "res_1x1_londonhouse_RF",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 49,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_1x1_londonhouse_RF.png"
+        },
+        "title": "Appartment London",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Folesnaid",
+        "category": "Residential",
+        "description": "Old building",
+        "id": "res_1x1_old_building_1_FN",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 40,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_1x1_old_building_1_FN.png"
+        },
+        "title": "Old building",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Folesnaid",
+        "category": "Residential",
+        "description": "Old building",
+        "id": "res_1x1_old_building_2_FN",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 30,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_1x1_old_building_2_FN.png"
+        },
+        "title": "Old building",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Folesnaid",
+        "category": "Residential",
+        "description": "A big building",
+        "id": "res_2x2_big_building_1_FN",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 68,
+            "clip_width": 64,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_2x2_big_building_1_FN.png"
+        },
+        "title": "Big Building",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "RockFort",
+        "category": "Residential",
+        "description": "Bois Guillaume Appartment",
+        "id": "res_2x2_bois_guillaume_appt1_RF",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 49,
+            "clip_width": 64,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_2x2_bois_guillaume_appt1_RF.png"
+        },
+        "title": "Bois Guillaume Appartment",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Folesnaid",
+        "category": "Residential",
+        "description": "Appartment",
+        "id": "res_2x2_building_2_FN",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 69,
+            "clip_width": 64,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_2x2_building_2_FN.png"
+        },
+        "title": "Appartment",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Folesnaid",
+        "category": "Residential",
+        "description": "big Appartments",
+        "id": "res_2x2_skyscraper_2_FN",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 95,
+            "clip_width": 64,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_2x2_skyscraper_2_FN.png"
+        },
+        "title": "Big Appartments",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Folesnaid",
+        "category": "Residential",
+        "description": "big Appartments",
+        "id": "res_2x2_skyscraper_2_FN1",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 131,
+            "clip_width": 64,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_2x2_skyscraper_1_FN.png"
+        },
+        "title": "Big Appartments",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "RockFort",
+        "category": "Residential",
+        "description": "Medium Appartments",
+        "id": "res_2x2_viennabuilding_RF",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 67,
+            "clip_width": 64,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_2x2_viennabuilding_RF.png"
+        },
+        "title": "Medium Appartments",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "KingTut 101",
+        "category": "Residential",
+        "description": "A Tower made out of concrete",
+        "id": "res_3x3_ConcreteTowerLRG",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 245,
+            "clip_width": 96,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_3x3_ConcreteTowerLRG.png"
+        },
+        "title": "Concrete Tower",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "KingTut 101",
+        "category": "Residential",
+        "description": "A skyscaper",
+        "id": "res_3x3_GreenSkyScraper",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 99,
+            "clip_width": 96,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_3x3_GreenSkyScraper.png"
+        },
+        "title": "Skyscraper",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Terrain",
+        "description": "Terrain tiles",
+        "id": "terrain",
+        "power": 0,
+        "price": 0,
+        "slopeTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 15,
+            "fileName": "resources/images/terrain/terrain_slopes.png"
+        },
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 3,
+            "fileName": "resources/images/terrain/terrain_tiles.png"
+        },
+        "title": "Terrain",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Water",
+        "description": "Water",
+        "id": "water",
+        "power": 0,
+        "price": 5,
+        "slopeTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 16,
+            "fileName": "resources/images/water/liquid_water.png"
+        },
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/water/terrain_water.png"
+        },
+        "title": "Water",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Utilities",
+        "description": "A beautiful water tower",
+        "id": "watertower",
+        "power": 0,
+        "price": 5,
+        "tiles": {
+            "clip_height": 64,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/Water/watertower.png"
+        },
+        "title": "Water Tower",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Utilities",
+        "description": "A small water tower",
+        "id": "watertower2",
+        "power": 0,
+        "price": 5,
+        "tiles": {
+            "clip_height": 32,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/Water/watertower2.png"
+        },
+        "title": "Small Water Tower",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "description": "trees",
+        "id": [
+            "trees_oak_single_normal_1",
+            "trees_oak_single_normal_2",
+            "trees_oak_single_normal_3",
+            "trees_oak_single_small_1",
+            "trees_oak_single_small_2",
+            "trees_oak_single_small_3",
+            "trees_oak_single_small_4",
+            "trees_oak_group_dense_1",
+            "trees_oak_group_dense_2",
+            "trees_oak_group_dense_3",
+            "trees_oak_group_dense_4",
+            "trees_oak_group_dense_5"
+          ],
+        "power": 0,
+        "price": 5,
+        "tiles": {
+            "clip_height": 31,
+            "clip_width": 32,
+            "count": 12,
+            "fileName": "resources/images/flora/trees.png"
+        },
+        "title": "Trees",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "biome": "GrassLands",
+        "category": "TerrainDecoration",
+        "description": "Rocks for the terrain",
+        "id": [
+            "terrain_rocks_grassLands_1",
+            "terrain_rocks_grassLands_2",
+            "terrain_rocks_grassLands_3"
+          ],
+        "power": 0,
+        "price": 5,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 3,
+            "fileName": "resources/images/decoration/grassLands/terrainRocks.png"
+        },
+        "title": "Rocks",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "biome": "Desert",
+        "category": "TerrainDecoration",
+        "description": "Rocks for the terrain",
+        "id": [
+            "terrain_rocks_desert_1",
+            "terrain_rocks_desert_2",
+            "terrain_rocks_desert_3"
+          ],
+        "power": 0,
+        "price": 5,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 3,
+            "fileName": "resources/images/decoration/desert/terrainRocks.png"
+        },
+        "title": "Rocks",
+        "upkeep cost": 0,
+        "water": 0
+    }
+]

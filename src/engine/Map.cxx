@@ -10,7 +10,7 @@
 #include "ResourcesManager.hxx"
 #include "map/MapLayers.hxx"
 
-#include "../ThirdParty/json.hxx"
+#include "json.hxx"
 
 #include <sstream>
 #include <string>

@@ -1,5 +1,13 @@
 set(TARGET TileDataEditor)
 
+# QT5 is used for the TileData Editing tool
+if (USE_PACKAGE_MANAGER)
+    find_package(Qt5 CONFIG COMPONENTS Core Widgets REQUIRED)
+else (USE_PACKAGE_MANAGER)
+    find_package(Qt5Core CONFIG REQUIRED)
+    find_package(Qt5Widgets CONFIG REQUIRED)
+endif (USE_PACKAGE_MANAGER)
+
 set(SOURCES
         main.cxx
         TileDataContainer.cxx

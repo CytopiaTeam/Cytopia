@@ -3,6 +3,8 @@
 
 #include <string>
 
+#include "../../util/Singleton.hxx"
+
 /* Settings Types */
 using ScreenDimension = int;
 using VolumeLevel = uint8_t;
@@ -117,19 +119,14 @@ struct SettingsData
 };
 
 /**
- * @class Settings the settings of the client
+ * @class Settings
+ * @brief the settings of the client
  */
-class Settings : public SettingsData
+class Settings : public SettingsData, public Singleton<Settings>
 {
 public:
-  /**
-   * @brief Retrieves instance of Singleton class Settings
-   */
-  static Settings &instance()
-  {
-    static Settings settings;
-    return settings;
-  }
+
+  friend Singleton<Settings>;
 
   /**
    * @brief Load settings from file

@@ -1,9 +1,10 @@
 #include "Settings.hxx"
 
 #include "../../util/LOG.hxx"
-#include "../common/Constants.hxx"
-#include "../../ThirdParty/json.hxx"
 #include "../../util/Exception.hxx"
+#include "Constants.hxx"
+
+#include <json.hxx>
 
 using json = nlohmann::json;
 using string = std::string;
