@@ -2,10 +2,10 @@
 #define OBSERVER_HXX_
 
 #include <memory>
-#include <vector>
+#include <forward_list>
 
 template <typename T>
-using List = std::vector<T>;
+using LinkedList = std::forward_list<T>;
 template <typename ...DataArgs>
 class Subject;
 
@@ -14,6 +14,7 @@ class Subject;
  * @brief Allows to listen to another Object's
  *        events
  * @see https://en.wikipedia.org/wiki/Observer_pattern
+ * @example test/util/Observer.cxx
  */
 template <typename ...DataArgs>
 class Observer
@@ -22,36 +23,59 @@ protected:
   Observer() noexcept = default;
   virtual ~Observer() noexcept = 0;
 private:
-  void update(DataArgs...) noexcept = 0;
-  template <typename ...DataArgs>
-  using ObserverPtr = std::shared_ptr<Observer<DataArgs...> >;
+  virtual void update(DataArgs...) noexcept = 0;
+  friend Subject<DataArgs...>;
 };
 
 template <typename ...DataArgs>
 inline Observer<DataArgs...>::~Observer() noexcept { }
+template <typename ...DataArgs>
+using ObserverWPtr = std::weak_ptr<Observer<DataArgs...> >;
+template <typename ...DataArgs>
+using ObserverSPtr = std::shared_ptr<Observer<DataArgs...> >;
 
 /**
  * @class Subject
  * @brief Allows to notify Observers about
  *        events
  * @see https://en.wikipedia.org/wiki/Observer_pattern
+ * @example test/util/Observer.cxx
  */
 template <typename ...DataArgs>
 class Subject
 {
-  friend Observer<DataArgs...>;
 private:
-  List<ObserverPtr> m_Observers;
+  LinkedList<ObserverWPtr<DataArgs...> > m_Observers;
 protected:
   Subject() = default;
   inline void notifyObservers(DataArgs... args) noexcept
   {
-    for(ObserverPtr observer : m_Observers)
+    using Iterator = typename LinkedList<ObserverWPtr<DataArgs...> >::iterator;
+    Iterator it = m_Observers.before_begin();
+    Iterator old;
+    while(it != m_Observers.end())
     {
-      observer->update(args...);
+      old = it;
+      if(++it == m_Observers.end()) continue;
+      if(auto observer = it->lock())
+      {
+        observer->update(args...);
+      }
+      else
+      {
+        /* It's expired */
+        m_Observers.erase_after(old);
+        it = old;
+        continue;
+      }
     }
   }
   virtual ~Subject() noexcept = 0;
+public:
+  inline virtual void addObserver(ObserverSPtr<DataArgs...> observer)
+  {
+    m_Observers.emplace_front(observer);
+  }
 };
 
 template <typename ...DataArgs>

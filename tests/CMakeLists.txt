@@ -13,6 +13,8 @@ LIST(APPEND TEST_SOURCES
         ${CMAKE_CURRENT_LIST_DIR}/main.cxx
         ${CMAKE_CURRENT_LIST_DIR}/Example.cxx
         ${CMAKE_CURRENT_LIST_DIR}/engine/ResourcesManager.cxx
+        ${CMAKE_CURRENT_LIST_DIR}/util/Observer.cxx
+        ${CMAKE_CURRENT_LIST_DIR}/util/TransitiveModel.cxx
         )
 
 # Generate source groups for use in IDEs
