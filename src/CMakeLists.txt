@@ -10,6 +10,7 @@ set(SOURCE_FILES
         engine/basics/utils.{hxx,cxx}
         engine/common/Constants.hxx
         engine/common/enums.hxx
+        engine/common/JsonSerialization.hxx
         engine/GameObjects/MapNode.{hxx,cxx}
         engine/map/MapLayers.{hxx,cxx}
         engine/map/TerrainGenerator.{hxx,cxx}

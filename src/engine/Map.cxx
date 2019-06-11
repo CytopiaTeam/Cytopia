@@ -9,6 +9,7 @@
 #include "common/Constants.hxx"
 #include "ResourcesManager.hxx"
 #include "map/MapLayers.hxx"
+#include "common/JsonSerialization.hxx"
 
 #include "json.hxx"
 
@@ -21,18 +22,6 @@
 
 using json = nlohmann::json;
 
-// JSON deserializer for Point class
-void from_json(const json &j, Point &point)
-{
-  point.x = j.at("x").get<int>();
-  point.y = j.at("y").get<int>();
-  point.z = j.at("z").get<int>();
-  point.height = j.at("height").get<int>();
-}
-
-// JSON deserializer for Point class
-void from_json(const json &j, MapNodeData &mapNodeData) { mapNodeData.tileID = j.at("tileID").get<std::string>(); }
-
 void Map::getNodeInformation(const Point &isoCoordinates) const
 {
   const TileData *tileData = mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getActiveMapNodeData().tileData;
@@ -41,25 +30,6 @@ void Map::getNodeInformation(const Point &isoCoordinates) const
   LOG() << "Category: " << tileData->category;
   LOG() << "FileName: " << tileData->tiles.fileName;
   LOG() << "ID: " << mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getActiveMapNodeData().tileID;
-}
-
-// JSON serializer for Point class
-void to_json(json &j, const Point &point) { j = json{{"x", point.x}, {"y", point.y}, {"z", point.z}, {"height", point.height}}; }
-
-// JSON serializer for MapNodeData struct
-void to_json(json &j, const MapNodeData &mapNodeData) { j = json{{"tileID", mapNodeData.tileID}}; }
-
-// JSON serializer for MapNode class
-void to_json(json &j, const std::unique_ptr<MapNode> &m)
-{
-  if (m.get())
-  {
-    j = json{{"coordinates", m->getCoordinates()}, {"mapNodeData", m->getMapNodeData()}};
-  }
-  else
-  {
-    j = nullptr;
-  }
 }
 
 constexpr struct
