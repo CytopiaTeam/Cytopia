@@ -35,6 +35,8 @@ set(SOURCE_FILES
         engine/TileManager.{hxx,cxx}
         engine/UIManager.{hxx,cxx}
         engine/WindowManager.{hxx,cxx}
+        util/Exception.{hxx,cxx}
+        util/Singleton.hxx
         )
 
 list(APPEND _include_directories
