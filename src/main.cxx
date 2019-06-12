@@ -3,6 +3,14 @@
 #include "Game.hxx"
 #include "util/Exception.hxx"
 
+#ifdef _WIN32
+#else
+#include <execinfo.h>
+#include <signal.h>
+void SIG_handler(int signal);
+#endif
+SDL_AssertState AssertionHandler(const SDL_AssertData *, void *);
+
 int protected_main(int argc, char **argv)
 {
   (void)argc;
@@ -39,12 +47,12 @@ int protected_main(int argc, char **argv)
 int main(int argc, char **argv)
 {
 
-  #ifdef __WIN__
+  #ifdef _WIN32
   /**
    * @todo register signal handler for windows
    */
   #else
-  /* Register handler for Segmentation Fault */
+  /* Register handler for Segmentation Fault, Interrupt, Terminate */
   signal(SIGSEGV, SIG_handler);
   signal(SIGINT, SIG_handler);
   signal(SIGTERM, SIG_handler);
