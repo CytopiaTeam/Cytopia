@@ -37,4 +37,15 @@ void SIG_handler(int signal)
   exit(1);
 }
 
+SDL_AssertState AssertionHandler(const SDL_AssertData *data, void *)
+{
+  LOG(LOG_EXCEPTION) << "SDL2 Assertion failure";
+  /* We print the last 10 calls */
+  void* buffer[10];
+  size_t size;
+  size = backtrace(buffer, 10);
+  backtrace_symbols_fd(buffer, size, STDERR_FILENO);
+  return SDL_ASSERTION_ABORT;
+}
+
 #endif

@@ -4,10 +4,6 @@
 
 AudioMixer::AudioMixer()
 {
-
-  int* n = nullptr;
-  *n = 0;
-
   Mix_OpenAudio(44100, AUDIO_S16SYS, Settings::instance().audioChannels, 1024);
   setMusicVolume(Settings::instance().musicVolume);
 }

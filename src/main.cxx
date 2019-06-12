@@ -50,6 +50,10 @@ int main(int argc, char **argv)
   signal(SIGTERM, SIG_handler);
   #endif
 
+  /* All SDL2 Assertion failures must be handled
+   * by our handler */
+  SDL_SetAssertionHandler(AssertionHandler, 0);
+
   try
   {
     return protected_main(argc, argv);

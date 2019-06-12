@@ -150,8 +150,11 @@ void Game::mainMenu()
           }
         case SDL_MOUSEMOTION:
           {
+            LOG(LOG_DEBUG) << "Mouse has moved";
             it->onMouseMove(event);
 
+
+            LOG(LOG_DEBUG) << "Hit test";
             // if the mouse cursor left an element, we're not hovering any more and we need to reset the pointer to the last hovered
             if (m_lastHoveredElement && !m_lastHoveredElement->isMouseOverHoverableArea(event.button.x, event.button.y))
             {
@@ -159,10 +162,13 @@ void Game::mainMenu()
               m_lastHoveredElement = nullptr;
             }
 
+            LOG(LOG_DEBUG) << "Updating hovering";
             // if the element we're hovering over is not the same as the stored "lastHoveredElement", update it
             if (it->isMouseOverHoverableArea(event.button.x, event.button.y) && it != m_lastHoveredElement)
             {
+              LOG(LOG_DEBUG) << "Moving object again";
               it->onMouseMove(event);
+              if(m_lastHoveredElement != nullptr)
               {
                 m_lastHoveredElement->onMouseLeave(event);
               }
@@ -177,6 +183,7 @@ void Game::mainMenu()
             break;
           }
         }
+        LOG(LOG_DEBUG) << "Done with event";
       }
     }
 
