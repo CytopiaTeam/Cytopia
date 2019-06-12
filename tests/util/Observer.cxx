@@ -81,7 +81,7 @@ private:
     /* We keep a reference to parent class */
     MyListener& m_listener;
 
-    FirstObserver(MyListener& listener) : m_listener(listener) { }
+    explicit FirstObserver(MyListener& listener) : m_listener(listener) { }
 
     void update(int x, bool y, string z) noexcept
     {
@@ -113,7 +113,7 @@ private:
    * new Observer, so that it is always synchronised. */
 
 public:
-  MyListener(MyModel& model)
+  explicit MyListener(MyModel& model)
   {
     /* Here we initialize all observers and add them
        to the model */
