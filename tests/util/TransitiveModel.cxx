@@ -1,6 +1,11 @@
 #include <catch2/catch.hpp>
 #include <bitset>
-using Catch::Matchers
+
+#include "../../src/util/TransitiveModel.hxx"
+
+using namespace Catch::Matchers;
+template <class T>
+using vector = std::vector<T>;
 
 /* This is our data model for a Button */
 struct ButtonModel

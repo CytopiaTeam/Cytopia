@@ -57,7 +57,8 @@ protected:
     {
       old = it;
       if(++it == m_Observers.end()) continue;
-      if(mustNotify(it, args...) and auto observer = it->lock())
+      auto observer = it->lock();
+      if(mustNotify(it, args...) and observer != nullptr)
       {
         observer->update(args...);
       }

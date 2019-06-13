@@ -10,20 +10,16 @@
  * @brief Represents the change between one state to another
  * @example tests/util/TransitiveModel.cxx
  */
-template <typename Model>
-struct Transition
+template <typename Model, typename Operations = typename Model::Operations, 
+         template<typename... Types> typename OperationTypes = template<typename... Args> typename Model::OperationTypes>
+struct Transition<Model>
 {
-  static_assert(std::is_enum<Model::Operations>::value, "Model::Operations must be an enum-type");
-  static_assert(std::is_class<Model::OperationTypes>::value, "Model::OperationTypes must be a templated struct");
-  
-  template<typename Args...>
-  struct ArgType
-  {
-    static_assert(std::is_Model::OperationTypes, "Model::OperationTypes must be a templated struct");
-    typename Model::OperationTypes<Args...>;
-    using TransitionData = std::variant<Args...>;
-  };
-
+  static_assert(std::is_enum<Operations>::value, "Model::Operations must be an enum-type");
+  static_assert(std::is_class<OperationTypes>::value, "Model::OperationTypes must be a type list");
+  using TransitionData = std::variant<Types...>;
+  using TransitionType = typename Model::Operations;
+  TransitionType type;
+  TransitionData data;
 };
 
 /**
@@ -37,11 +33,11 @@ struct Transition
  * @example tests/util/TransitiveModel.cxx
  */
 template <typename Model>
-class TransitiveModel : protected Data, public Subject< Transition<Model> > 
+class TransitiveModel : protected Model, public Subject< Transition<Model> > 
 {
-  void subscribe(Model::Operations... filters);
+  void subscribe(typename Model::Operations... filters);
 private:
-  using Subject<Transition<Data> >::addObserver;
+  using Subject<Transition<Model> >::addObserver;
   using Iterator = typename LinkedList<ObserverWPtr<DataArgs...> >::iterator;
   inline final bool mustNotify(Iterator it, Transition<Model> event) noexcept const;
 };
