@@ -4,12 +4,12 @@
 #define STRINGIFY(x) #x
 #define STRINGIFY2(x) STRINGIFY(x)
 #define __line__ STRINGIFY2(__LINE__)
-#define RED "\e[38;5;196m"
-#define BLUE "\e[38;5;39m"
-#define YELLOW "\e[38;5;214m"
-#define PURPLE "\e[38;5;57m"
-#define CLEAR "\e[0m"
-#define BOLD "\e[1m"
+#define __RED__ "\33[38;5;196m"
+#define __BLUE__ "\33[38;5;39m"
+#define __YELLOW__ "\33[38;5;214m"
+#define __PURPLE__ "\33[38;5;57m"
+#define __CLEAR__ "\33[0m"
+#define __BOLD__ "\33[1m"
 
 #include <iostream>
 #include <chrono>
@@ -40,23 +40,23 @@ public:
     {
       case LOG_ERROR:
         {
-          logMessage << " - " RED BOLD "[ERROR]" CLEAR " - ";
+          logMessage << " - " __RED__ __BOLD__ "[ERROR]" __CLEAR__ " - ";
           break;
         }
       case LOG_INFO:
         {
-          logMessage << " - " BLUE BOLD "[INFO]" CLEAR " - ";
+          logMessage << " - " __BLUE__ __BOLD__ "[INFO]" __CLEAR__ " - ";
           break;
         }
       case LOG_EXCEPTION:
         {
-          logMessage << " - " YELLOW BOLD "[EXCEPTION]" CLEAR " - ";
+          logMessage << " - " __YELLOW__ __BOLD__ "[EXCEPTION]" __CLEAR__ " - ";
           break;
         }
       case LOG_DEBUG:
         {
           #ifdef DEBUG
-          logMessage << " - " PURPLE BOLD "[DEBUG]" CLEAR " - ";
+          logMessage << " - " __PURPLE__ __BOLD__ "[DEBUG]" __CLEAR__ " - ";
           break;
           #endif
         }

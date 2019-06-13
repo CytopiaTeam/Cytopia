@@ -6,23 +6,13 @@
 
 #include "LOG.hxx"
 
-#define ERROR_MSG "In file " BOLD RED __FILE__ ":" __line__ CLEAR "\n\t"
-#define NESTED_MSG "Called from " BOLD RED __FILE__ ":" __line__ CLEAR "\n\t"
+#define ERROR_MSG "In file " __BOLD__ __RED__ __FILE__ ":" __line__ __CLEAR__ "\n\t"
+#define NESTED_MSG "Called from " __BOLD__ __RED__ __FILE__ ":" __line__ __CLEAR__ "\n\t"
 
 using RuntimeError = std::runtime_error;
 
 class ConfigurationError : public RuntimeError { using RuntimeError::RuntimeError; };
 class UnimplementedError : public RuntimeError { using RuntimeError::RuntimeError; };
 class MissingResourceError : public RuntimeError { using RuntimeError::RuntimeError; };
-
-void SIG_handler(int signal);
-SDL_AssertState AssertionHandler(const SDL_AssertData *, void *);
-
-#ifdef __WIN__
-
-#else
-#include <execinfo.h>
-#include <signal.h>
-#endif
 
 #endif
