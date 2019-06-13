@@ -1,0 +1,237 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-06-13 08:32+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Coal Pile"
+msgstr ""
+
+msgid "Day Care Center"
+msgstr ""
+
+msgid "Old Church"
+msgstr ""
+
+msgid "BikeShop"
+msgstr ""
+
+msgid "Clock Store"
+msgstr ""
+
+msgid "CompactFast Shop"
+msgstr ""
+
+msgid "Ice Cream Shop"
+msgstr ""
+
+msgid "Petrol Station"
+msgstr ""
+
+msgid "Game Shop"
+msgstr ""
+
+msgid "Appartment Building"
+msgstr ""
+
+msgid "Phone Shop"
+msgstr ""
+
+msgid "Ruegroshorloge"
+msgstr ""
+
+msgid "Shop"
+msgstr ""
+
+msgid "Oasis"
+msgstr ""
+
+msgid "Borgs Burgers"
+msgstr ""
+
+msgid "Small Commercial Center"
+msgstr ""
+
+msgid "Office"
+msgstr ""
+
+msgid "Big Office Building"
+msgstr ""
+
+msgid "Community Tower"
+msgstr ""
+
+msgid "Tour Front De Seine"
+msgstr ""
+
+msgid "Country Road"
+msgstr ""
+
+msgid "Dirt Road"
+msgstr ""
+
+msgid "Depolluter Small"
+msgstr ""
+
+msgid "Petrol Pump"
+msgstr ""
+
+msgid "Industrial Building"
+msgstr ""
+
+msgid "Old Industrial Building"
+msgstr ""
+
+msgid "Depolluter Medium"
+msgstr ""
+
+msgid "Factory"
+msgstr ""
+
+msgid "OldPowerPlant"
+msgstr ""
+
+msgid "Chemical Plant"
+msgstr ""
+
+msgid "Depolluter Big"
+msgstr ""
+
+msgid "Paved Road"
+msgstr ""
+
+msgid "Small Coal Power Plant2"
+msgstr ""
+
+msgid "Coal Power Plant"
+msgstr ""
+
+msgid "Small Coal Power Plant"
+msgstr ""
+
+msgid "Small House"
+msgstr ""
+
+msgid "Small house"
+msgstr ""
+
+msgid "Small Shack"
+msgstr ""
+
+msgid "Appartments"
+msgstr ""
+
+msgid "Desert Building"
+msgstr ""
+
+msgid "Pyramid"
+msgstr ""
+
+msgid "House with swimming pool"
+msgstr ""
+
+msgid "Appartment London"
+msgstr ""
+
+msgid "Old building"
+msgstr ""
+
+msgid "Big Building"
+msgstr ""
+
+msgid "Bois Guillaume Appartment"
+msgstr ""
+
+msgid "Appartment"
+msgstr ""
+
+msgid "Big Appartments"
+msgstr ""
+
+msgid "Medium Appartments"
+msgstr ""
+
+msgid "Concrete Tower"
+msgstr ""
+
+msgid "Skyscraper"
+msgstr ""
+
+msgid "Terrain"
+msgstr ""
+
+msgid "Water"
+msgstr ""
+
+msgid "Water Tower"
+msgstr ""
+
+msgid "Small Water Tower"
+msgstr ""
+
+msgid "Trees"
+msgstr ""
+
+msgid "Rocks"
+msgstr ""
+
+msgid "Construction"
+msgstr ""
+
+msgid "Debug Menu"
+msgstr ""
+
+msgid "Power"
+msgstr ""
+
+msgid "Utilities"
+msgstr ""
+
+msgid "Demolish"
+msgstr ""
+
+msgid "Raise Terrain"
+msgstr ""
+
+msgid "Lower Terrain"
+msgstr ""
+
+msgid "Level Terrain"
+msgstr ""
+
+msgid "Settings"
+msgstr ""
+
+msgid "New Game"
+msgstr ""
+
+msgid "Save Game"
+msgstr ""
+
+msgid "Load Game"
+msgstr ""
+
+msgid "Quit Game"
+msgstr ""
+
+msgid "OK"
+msgstr ""
+
+msgid "Cancel"
+msgstr ""
+
+msgid "BuildMenu Layout"
+msgstr ""
+
+msgid "Screen Resolution"
+msgstr ""
+
+msgid "Fullscreen Mode"
+msgstr ""
