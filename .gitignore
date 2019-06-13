@@ -23,3 +23,7 @@ TileDataEditor
 _pmm
 conanfile\.txt
 Doxygen_Docs/*
+
+tools/l10n/languages/
+
+tools/l10n/tx/
