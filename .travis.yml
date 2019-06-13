@@ -77,12 +77,12 @@ matrix:
 
     # clang build
     - os:              linux
-      name:            CLANG 5 Build
+      name:            CLANG 6 Build
       compiler:        clang
       python:          3.7
       env:
         - DEPLOY_DOCUMENTATION=true
-        - MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0"
+        - MATRIX_EVAL="CC=clang-6.0 && CXX=clang++-6.0"
 
       before_install:
         - sudo rm -rf /usr/local/cmake-3.9.2/
