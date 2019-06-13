@@ -4,6 +4,7 @@
 #include "json.hxx"
 #include "point.hxx"
 #include "GameObjects/MapNode.hxx"
+#include "TerrainGenerator.hxx"
 #include "Settings.hxx"
 
 using json = nlohmann::json;
@@ -11,7 +12,7 @@ using json = nlohmann::json;
 // ************** DE-SERIALIZER **************
 
 // JSON deserializer for Point class
-void from_json(const json &j, Point &point)
+inline void from_json(const json &j, Point &point)
 {
   point.x = j.at("x").get<int>();
   point.y = j.at("y").get<int>();
@@ -20,10 +21,10 @@ void from_json(const json &j, Point &point)
 }
 
 // JSON deserializer for Point class
-void from_json(const json &j, MapNodeData &mapNodeData) { mapNodeData.tileID = j.at("tileID").get<std::string>(); }
+inline void from_json(const json &j, MapNodeData &mapNodeData) { mapNodeData.tileID = j.at("tileID").get<std::string>(); }
 
 // JSON deserializer for Settings struct
-void from_json(const json &j, SettingsData &s)
+inline void from_json(const json &j, SettingsData &s)
 {
   s.screenWidth = j["Graphics"]["Resolution"].value("Screen_Width", 800);
   s.screenHeight = j["Graphics"]["Resolution"].value("Screen_Height", 600);
@@ -43,16 +44,72 @@ void from_json(const json &j, SettingsData &s)
   s.buildMenuPosition = j["User Interface"].value("BuildMenu Position", "BOTTOM");
 }
 
+
+// JSON deserializer for BiomeData struct (Terrain Gen)
+inline void from_json(const json &j, BiomeData &b)
+{
+  if (j.find("trees") != j.end())
+  {
+    for (const auto &it : j["trees"].items())
+    {
+      if (it.key() == "small")
+      {
+        std::vector<std::string> temp = it.value();
+        b.treesSmall = temp;
+      }
+      if (it.key() == "normal")
+      {
+        std::vector<std::string> temp = it.value();
+        b.treesNormal = temp;
+      }
+      if (it.key() == "dense")
+      {
+        std::vector<std::string> temp = it.value();
+        b.treesDense = temp;
+      }
+    }
+  }
+
+  if (j.find("terrain") != j.end())
+  {
+    std::vector<std::string> temp = j["terrain"];
+    b.terrain = temp;
+  }
+  if (j.find("water") != j.end())
+  {
+    std::vector<std::string> temp = j["water"];
+    b.water = temp;
+  }
+  if (j.find("waterdecoration") != j.end())
+  {
+    std::vector<std::string> temp = j["waterdecoration"];
+    b.waterDecoration = temp;
+  }
+  if (j.find("terrainRocks") != j.end())
+  {
+    std::vector<std::string> temp = j["terrainRocks"];
+    b.terrainRocks = temp;
+  }
+  if (j.find("terrainFlowers") != j.end())
+  {
+    std::vector<std::string> temp = j["terrainFlowers"];
+    b.terrainFlowers = temp;
+  }
+}
+
 // ************** SERIALIZER **************
 
 // JSON serializer for Point class
-void to_json(json &j, const Point &point) { j = json{{"x", point.x}, {"y", point.y}, {"z", point.z}, {"height", point.height}}; }
+inline void to_json(json &j, const Point &point)
+{
+  j = json{{"x", point.x}, {"y", point.y}, {"z", point.z}, {"height", point.height}};
+}
 
 // JSON serializer for MapNodeData struct
-void to_json(json &j, const MapNodeData &mapNodeData) { j = json{{"tileID", mapNodeData.tileID}}; }
+inline void to_json(json &j, const MapNodeData &mapNodeData) { j = json{{"tileID", mapNodeData.tileID}}; }
 
 // JSON serializer for MapNode class
-void to_json(json &j, const std::unique_ptr<MapNode> &m)
+inline void to_json(json &j, const std::unique_ptr<MapNode> &m)
 {
   if (m.get())
   {
@@ -65,7 +122,7 @@ void to_json(json &j, const std::unique_ptr<MapNode> &m)
 }
 
 // JSON serializer for Settings struct
-void to_json(json &j, const SettingsData &s)
+inline void to_json(json &j, const SettingsData &s)
 {
   j = {
       {std::string("Graphics"),

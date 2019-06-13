@@ -4,12 +4,9 @@
 #include "Constants.hxx"
 #include "JsonSerialization.hxx"
 
-#include <json.hxx>
-
 #include <iomanip>
 
 Settings::Settings() { readFile(); }
-using json = nlohmann::json;
 
 void Settings::readFile()
 {
