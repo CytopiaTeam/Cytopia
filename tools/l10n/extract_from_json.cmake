@@ -15,16 +15,16 @@ msgstr \"\" \n\
 \"Content-Transfer-Encoding: 8bit\\n\" \n\n")
 
 
-foreach(_file IN LISTS json_files)
-  file(READ ${_file} _file_cont)
-  string(REGEX MATCHALL "\"(title|Text|TooltipText)\": \"((\\\\\"|[^\"])*)\"" reg_match ${_file_cont})
-  message("Extracting strings from ${_file}")
-  foreach(_line IN LISTS reg_match)
-    string(REGEX MATCH "\"[A-Za-z0-9_]*\": \"(.*)\"" _ ${_line})
-    set(pot_cont ${pot_cont} "\
+foreach (_file IN LISTS json_files)
+    file(READ ${_file} _file_cont)
+    string(REGEX MATCHALL "\"(title|Text|TooltipText)\": \"((\\\\\"|[^\"])*)\"" reg_match ${_file_cont})
+    message("Extracting strings from ${_file}")
+    foreach (_line IN LISTS reg_match)
+        string(REGEX MATCH "\"[A-Za-z0-9_]*\": \"(.*)\"" _ ${_line})
+        set(pot_cont ${pot_cont} "\
 msgid \"${CMAKE_MATCH_1}\" \n\
 msgstr \"\"\n\n")
-  endforeach()
-endforeach()
+    endforeach ()
+endforeach ()
 
 file(WRITE "../../data/languages/Cytopia_Json.pot" ${pot_cont})
