@@ -1,8 +1,7 @@
 #ifndef TRANSITIVE_MODEL_HXX_
 #define TRANSITIVE_MODEL_HXX
 
-#include <type_traits>
-
+#include "Meta.hxx"
 #include "Observer.hxx"
 
 /**
@@ -10,13 +9,12 @@
  * @brief Represents the change between one state to another
  * @example tests/util/TransitiveModel.cxx
  */
-template <typename Model, typename Operations = typename Model::Operations, 
-         template<typename... Types> typename OperationTypes = template<typename... Args> typename Model::OperationTypes>
-struct Transition<Model>
+template <typename Model>
+struct Transition
 {
   static_assert(std::is_enum<Operations>::value, "Model::Operations must be an enum-type");
   static_assert(std::is_class<OperationTypes>::value, "Model::OperationTypes must be a type list");
-  using TransitionData = std::variant<Types...>;
+  using TransitionData = typename VariantType<typename Model::OperationTypes>::type;
   using TransitionType = typename Model::Operations;
   TransitionType type;
   TransitionData data;
