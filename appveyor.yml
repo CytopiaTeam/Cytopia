@@ -19,13 +19,19 @@ build_script:
 - cmd: >-
     cmake -GNinja -DCMAKE_BUILD_TYPE=Release -DUSE_PMM=ON .
 
-    ninja install
-test: off
+    ninja
+
+test_script: >-
+  cmake -E copy tests\CTestTestfile.cmake .
+
+  ctest -VV
+
 deploy_script:
 - ps: >-
     if (($env:APPVEYOR_REPO_BRANCH -eq "master") -and (-Not $env:APPVEYOR_PULL_REQUEST_NUMBER)) {
     iex (new-object net.webclient).downloadstring('https://get.scoop.sh');
     scoop install https://raw.githubusercontent.com/AnotherFoxGuy/scoop-bucket/master/butler.json;
+    ninja install
     butler push redist cytopia/cytopia:windows-ci --userversion $env:APPVEYOR_BUILD_VERSION;}
 on_success:
 - cmd: cmake -P cmake/pmm.cmake /Conan /Clean
