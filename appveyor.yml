@@ -31,7 +31,7 @@ deploy_script:
     if (($env:APPVEYOR_REPO_BRANCH -eq "master") -and (-Not $env:APPVEYOR_PULL_REQUEST_NUMBER)) {
     iex (new-object net.webclient).downloadstring('https://get.scoop.sh');
     scoop install https://raw.githubusercontent.com/AnotherFoxGuy/scoop-bucket/master/butler.json;
-    ninja install
+    ninja install;
     butler push redist cytopia/cytopia:windows-ci --userversion $env:APPVEYOR_BUILD_VERSION;}
 on_success:
 - cmd: cmake -P cmake/pmm.cmake /Conan /Clean
