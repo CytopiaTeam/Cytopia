@@ -48,22 +48,21 @@ private:
   LinkedList<ObserverWPtr<DataArgs...> > m_Observers;
 protected:
   Subject() = default;
+  using ObsIterator = typename LinkedList<ObserverWPtr<DataArgs...> >::iterator;
   inline void notifyObservers(DataArgs... args) noexcept
   {
-    using Iterator = typename LinkedList<ObserverWPtr<DataArgs...> >::iterator;
-    Iterator it = m_Observers.before_begin();
-    Iterator old;
+    ObsIterator it = m_Observers.before_begin();
+    ObsIterator old;
     while(it != m_Observers.end())
     {
       old = it;
       if(++it == m_Observers.end()) continue;
-      if(auto observer = it->lock())
+      if(mustNotify(it, args...) and auto observer = it->lock())
       {
         observer->update(args...);
       }
-      else
+      else if(it->expired())
       {
-        /* It's expired */
         m_Observers.erase_after(old);
         it = old;
         continue;
@@ -71,6 +70,7 @@ protected:
     }
   }
   virtual ~Subject() noexcept = 0;
+  virtual inline bool mustNotify(ObsIterator, const DataArgs& ...) const noexcept { return true; }
 public:
   inline virtual void addObserver(ObserverSPtr<DataArgs...> observer)
   {
