@@ -19,7 +19,6 @@ enum ButtonState
 class ResourcesManager : public Singleton<ResourcesManager>
 {
 public:
-
   friend Singleton<ResourcesManager>;
 
   // Disable copy and assignemnt operators

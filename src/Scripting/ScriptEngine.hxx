@@ -11,7 +11,6 @@
 class ScriptEngine : public Singleton<ScriptEngine>
 {
 public:
-
   friend Singleton<ScriptEngine>;
 
   ScriptEngine() = default;
