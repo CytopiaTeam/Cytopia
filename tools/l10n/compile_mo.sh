@@ -10,7 +10,7 @@ for dir in *
 do
 	cd $dir
 	echo "Now processing language $dir"
-  for potfile in *
+  for potfile in *.po
   do
   	echo "   compiling $potfile"
   	msgfmt -o "${potfile%.*}".mo $potfile

@@ -1,6 +1,10 @@
 #include "UIElement.hxx"
 #include "../../basics/LOG.hxx"
 
+#ifdef USE_MOFILEREADER
+#include "moFileReader.h"
+#endif
+
 void UIElement::draw()
 {
   if (m_texture)
@@ -51,7 +55,12 @@ bool UIElement::isMouseOverHoverableArea(int x, int y)
 
 void UIElement::setText(const std::string &text)
 {
+#ifdef USE_MOFILEREADER
+  LOG(LOG_INFO) << "Translatable string: " << text;
+  elementData.text = moFileLib::moFileReaderSingleton::GetInstance().Lookup(text.c_str());
+#else
   elementData.text = text;
+#endif
   createTextTexture(elementData.text, SDL_Color{255, 255, 255});
 }
 
