@@ -1,7 +1,9 @@
 #ifndef LOG_HXX_
 #define LOG_HXX_
 
-#define __line__ " ## __LINE__ ## "
+#define STRINGIFY(x) #x
+#define STRINGIFY2(x) STRINGIFY(x)
+#define __line__ STRINGIFY2(__LINE__)
 #define RED "\e[38;5;196m"
 #define BLUE "\e[38;5;39m"
 #define YELLOW "\e[38;5;214m"

@@ -13,6 +13,7 @@ using RuntimeError = std::runtime_error;
 
 class ConfigurationError : public RuntimeError { using RuntimeError::RuntimeError; };
 class UnimplementedError : public RuntimeError { using RuntimeError::RuntimeError; };
+class MissingResourceError : public RuntimeError { using RuntimeError::RuntimeError; };
 
 void SIG_handler(int signal);
 SDL_AssertState AssertionHandler(const SDL_AssertData *, void *);

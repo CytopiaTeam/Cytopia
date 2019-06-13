@@ -49,7 +49,9 @@ void Map::initMap()
 {
   MapLayers::enableLayer(Layer::TERRAIN);
   MapLayers::enableLayer(Layer::BUILDINGS);
+  LOG(LOG_DEBUG) << "Generating Terrain";
   terrainGen.generateTerrain(mapNodes, mapNodesInDrawingOrder);
+  LOG(LOG_DEBUG) << "Updating nodes";
   updateAllNodes();
 }
 

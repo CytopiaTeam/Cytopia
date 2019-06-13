@@ -11,6 +11,7 @@
 
 #include <noise.h>
 #include <SDL.h>
+#include <SDL_image.h>
 
 #ifdef USE_SDL2_MIXER
 #include "engine/AudioMixer.hxx"
@@ -36,6 +37,13 @@ bool Game::initialize()
   if (TTF_Init() == -1)
   {
     LOG(LOG_ERROR) << "Failed to Init SDL_TTF\nSDL Error:" << TTF_GetError();
+    return false;
+  }
+  
+  int imgFlags = IMG_INIT_PNG;
+  if (not(IMG_Init(IMG_INIT_PNG) & imgFlags))
+  {
+    LOG(LOG_ERROR) << "Failed to Init SDL_IMG\nSDL Error:" << IMG_GetError();
     return false;
   }
 
@@ -75,6 +83,7 @@ void Game::mainMenu()
   newGameButton.registerCallbackFunction([]() {
     LOG(LOG_DEBUG) << "Clicked on New Game";
     Engine::instance().newGame(); 
+    LOG(LOG_DEBUG) << "Created a new game";
   });
 
   Button loadGameButton({screenWidth / 2 - 100, screenHeight / 2 - 20 + newGameButton.getUiElementRect().h * 2, 200, 40});

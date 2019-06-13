@@ -1,5 +1,6 @@
 #include "UIElement.hxx"
 #include "../../../util/LOG.hxx"
+#include "../../../util/Exception.hxx"
 
 void UIElement::draw()
 {
@@ -13,11 +14,17 @@ void UIElement::setTextureID(const std::string &textureID)
 {
   elementData.textureID = textureID;
   SDL_Texture *texture = ResourcesManager::instance().getUITexture(textureID);
-  if (texture)
+  if (texture == nullptr)
   {
-    m_texture = texture;
+    throw MissingResourceError(ERROR_MSG "Could not find resource " + textureID);
   }
-  SDL_QueryTexture(m_texture, nullptr, nullptr, &m_uiElementRect.w, &m_uiElementRect.h);
+  m_texture = texture;
+  if(SDL_QueryTexture(m_texture, nullptr,
+                      nullptr, &m_uiElementRect.w,
+                      &m_uiElementRect.h) == -1)
+  {
+    throw new RuntimeError(ERROR_MSG "Could not query texture " +  textureID);
+  }
 }
 
 void UIElement::changeButtonState(int state)

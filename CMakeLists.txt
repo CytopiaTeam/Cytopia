@@ -13,7 +13,7 @@ cmake_dependent_option(USE_PMM "Use PMM for managing conan" OFF WIN32 ON)
 option(ENABLE_SDL2_MIXER "Enable SDL2 Mixer" ON)
 option(ENABLE_MICROPROFILE "Enable microprofile" OFF)
 option(ENABLE_ANGELSCRIPT "Enable AngelScript" ON)
-option(DEBUG "Enable verbose output" ON)
+option(DEBUG "Enable verbose output and debugging symbols" ON)
 
 if (NOT BUILD_TILEDATA_EDITOR)
     set(_CC_QT "# ")
@@ -163,7 +163,7 @@ if (UNIX)
 endif ()
 
 if(DEBUG)
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D DEBUG")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D DEBUG -g")
 endif(DEBUG)
 
 if (BUILD_TILEDATA_EDITOR)

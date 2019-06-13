@@ -68,15 +68,21 @@ SDL_Texture *ResourcesManager::getUITexture(const std::string &uiElement, int bu
 
   if (m_uiTextureMap[uiElement].count(texture))
   {
+    LOG(LOG_DEBUG) << "Found the texture";
     return m_uiTextureMap[uiElement][texture];
   }
   else
   {
     // If no texture is found, check if there's a default texture
     if (m_uiTextureMap[uiElement].count("Texture_Default"))
+    {
+      LOG(LOG_DEBUG) << "Found the texture";
       return m_uiTextureMap[uiElement]["Texture_Default"];
+    }
     else
+    {
       LOG(LOG_ERROR) << "No texture found for " << uiElement;
+    }
   }
   return nullptr;
 }

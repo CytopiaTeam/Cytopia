@@ -19,6 +19,7 @@ void TerrainGenerator::generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNode
     //std::cout << "Seed is now " << terrainSettings.seed << "\n";
   }
 
+  LOG(LOG_DEBUG) << "Generating perlin noise height terrain";
   noise::module::Perlin terrainHeightPerlin;
   terrainHeightPerlin.SetSeed(terrainSettings.seed);
   terrainHeightPerlin.SetFrequency(0.003 / 32);
@@ -29,6 +30,7 @@ void TerrainGenerator::generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNode
   terrainHeightPerlinScaled.SetScale(0.25);
   terrainHeightPerlinScaled.SetBias(-0.5);
 
+  LOG(LOG_DEBUG) << "Generating fractal height terrain";
   noise::module::RidgedMulti terrainHeightFractal;
   terrainHeightFractal.SetSeed(terrainSettings.seed);
   terrainHeightFractal.SetFrequency(0.005 / 32);
@@ -39,6 +41,7 @@ void TerrainGenerator::generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNode
   terrainHeightFractalScaled.SetScale(terrainSettings.mountainAmplitude * 0.025);
   terrainHeightFractalScaled.SetBias(0.5);
 
+  LOG(LOG_DEBUG) << "Generating perlin blend height terrain";
   noise::module::Perlin terrainHeightBlendPerlin;
   terrainHeightBlendPerlin.SetSeed(terrainSettings.seed + 1);
   terrainHeightBlendPerlin.SetFrequency(0.005 / 32);
@@ -50,26 +53,31 @@ void TerrainGenerator::generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNode
   terrainHeightBlendControl.SetSourceModule(0, terrainHeightBlendScale);
   terrainHeightBlendControl.SetBounds(0, 1);
 
+  LOG(LOG_DEBUG) << "Blending terrains";
   noise::module::Blend terrainHeightBlend;
   terrainHeightBlend.SetSourceModule(0, terrainHeightPerlinScaled);
   terrainHeightBlend.SetSourceModule(1, terrainHeightFractalScaled);
   terrainHeightBlend.SetControlModule(terrainHeightBlendControl);
 
+  LOG(LOG_DEBUG) << "Scaling terrain";
   noise::module::ScaleBias terrainHeightScale;
   terrainHeightScale.SetSourceModule(0, terrainHeightBlend);
   terrainHeightScale.SetScale(20.0);
   terrainHeightScale.SetBias(4.0);
 
+  LOG(LOG_DEBUG) << "Clamping terrains";
   noise::module::Clamp terrainHeight;
   terrainHeight.SetSourceModule(0, terrainHeightScale);
   terrainHeight.SetBounds(0, 255);
 
   // Foliage
+  LOG(LOG_DEBUG) << "Adding foliage";
   noise::module::Perlin foliageDensityPerlin;
   foliageDensityPerlin.SetSeed(terrainSettings.seed + 1234);
   foliageDensityPerlin.SetFrequency(0.05 / 32);
 
   // Arbitrary Noise
+  LOG(LOG_DEBUG) << "Adding noise";
   noise::module::Perlin highFrequencyNoise;
   highFrequencyNoise.SetSeed(terrainSettings.seed + 42);
   highFrequencyNoise.SetFrequency(1);
@@ -81,6 +89,7 @@ void TerrainGenerator::generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNode
   std::string currentBiome = "GrassLands";
 
   // nodes need to be created at the correct vector "coordinates", or else the Z-Order will be broken
+  LOG(LOG_DEBUG) << "Creating nodes";
   for (int x = 0; x < terrainSettings.mapSize; x++)
   {
     for (int y = terrainSettings.mapSize - 1; y >= 0; y--)
@@ -90,6 +99,7 @@ void TerrainGenerator::generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNode
 
       if (height < terrainSettings.seaLevel)
       {
+        LOG(LOG_DEBUG) << "Here's a watery node!";
         height = terrainSettings.seaLevel;
         mapNodes[x * terrainSettings.mapSize + y] = std::make_unique<MapNode>(Point{x, y, z++, height}, "water");
       }
@@ -98,6 +108,7 @@ void TerrainGenerator::generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNode
         const double foliageDensity = foliageDensityPerlin.GetValue(x * 32, y * 32, height / 32.0);
         bool placed = false;
 
+        LOG(LOG_DEBUG) << "It's foliage. Always. Foliage.";
         if (foliageDensity > 0.0 && height > terrainSettings.seaLevel)
         {
           int tileIndex = static_cast<int>(std::abs(round(highFrequencyNoise.GetValue(x * 32, y * 32, height / 32.0) * 200.0)));
@@ -136,10 +147,14 @@ void TerrainGenerator::generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNode
         }
         if (placed == false)
         {
+          LOG(LOG_DEBUG) << "It's gonna do something";
           mapNodes[x * terrainSettings.mapSize + y] = std::make_unique<MapNode>(Point{x, y, z++, height}, "terrain");
+          LOG(LOG_DEBUG) << "Fuck it did it";
         }
       }
+      LOG(LOG_DEBUG) << "Gonna draw it";
       mapNodesInDrawingOrder.push_back(mapNodes[x * terrainSettings.mapSize + y].get());
+      LOG(LOG_DEBUG) << "Gonna draw it";
     }
   }
 }

@@ -58,14 +58,13 @@ int main(int argc, char **argv)
   {
     return protected_main(argc, argv);
   }
-  catch (const std::exception &e)
+  catch (std::exception &e)
   {
-    std::cerr << "Caught unhandled exception:\n";
-    std::cerr << " - what(): " << e.what() << '\n';
+    LOG(LOG_EXCEPTION) << e.what();
   }
   catch (...)
   {
-    std::cerr << "Caught unknown exception\n";
+    LOG(LOG_EXCEPTION) << "Caught unknown exception";
   }
 
   return EXIT_FAILURE;

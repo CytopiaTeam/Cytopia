@@ -12,7 +12,7 @@ MapNode::MapNode(Point isoCoordinates, const std::string &terrainID, const std::
   setTileID(terrainID);
   if (!tileID.empty()) // in case tileID is not supplied skip it
     setTileID(tileID);
-
+  LOG(LOG_DEBUG) << "Updating texture";
   updateTexture();
 }
 
