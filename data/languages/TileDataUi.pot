@@ -1,0 +1,105 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-06-13 08:32+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/TileDataUi/TileDataUI.cxx:150 src/TileDataUi/TileDataUI.cxx:394
+msgid "(%1 x %2)"
+msgstr ""
+
+#. --- help menu ---
+#: src/TileDataUi/TileDataUI.cxx:117
+msgid "About Qt"
+msgstr ""
+
+#: src/TileDataUi/TileDataUI.cxx:50
+msgid "Corner"
+msgstr ""
+
+#: src/TileDataUi/TileDataUI.cxx:209
+msgid "Could not load %1. %2"
+msgstr ""
+
+#: src/TileDataUi/TileDataUI.cxx:161
+msgid "Delete Image"
+msgstr ""
+
+#: src/TileDataUi/TileDataUI.cxx:102 src/TileDataUi/TileDataUI.cxx:511
+msgid "Delete Item"
+msgstr ""
+
+#: src/TileDataUi/TileDataUI.cxx:109
+msgid "Duplicate Item"
+msgstr ""
+
+#: src/TileDataUi/TileDataUI.cxx:72
+msgid "Edit"
+msgstr ""
+
+#: src/TileDataUi/TileDataUI.cxx:71
+msgid "File"
+msgstr ""
+
+#: src/TileDataUi/TileDataUI.cxx:73
+msgid "Help"
+msgstr ""
+
+#: src/TileDataUi/TileDataContainer.cxx:37
+msgid "Illegal file content"
+msgstr ""
+
+#: src/TileDataUi/TileDataUI.cxx:141
+msgid "Images (*.png)"
+msgstr ""
+
+#: src/TileDataUi/TileDataUI.cxx:209
+msgid "Load Error"
+msgstr ""
+
+#. --- edit menu ---
+#: src/TileDataUi/TileDataUI.cxx:95
+msgid "New Item"
+msgstr ""
+
+#. --- file menu ---
+#: src/TileDataUi/TileDataUI.cxx:80
+msgid "Save"
+msgstr ""
+
+#: src/TileDataUi/TileDataUI.cxx:87
+msgid "Save and Quit"
+msgstr ""
+
+#: src/TileDataUi/TileDataUI.cxx:141
+msgid "Select Image"
+msgstr ""
+
+#: src/TileDataUi/TileDataUI.cxx:161
+msgid "Shall the image really be deleted?"
+msgstr ""
+
+#: src/TileDataUi/TileDataUI.cxx:512
+msgid "Shall the item '%1/%2' be deleted?"
+msgstr ""
+
+#: src/TileDataUi/TileDataUI.cxx:55
+msgid "Slope"
+msgstr ""
+
+#: src/TileDataUi/TileDataUI.cxx:45
+msgid "Tiles"
+msgstr ""
