@@ -57,7 +57,6 @@ enum TileList : size_t
 class TileManager : public Singleton<TileManager>
 {
 public:
-
   friend Singleton<TileManager>;
 
   // Disable copy and assignemnt operators

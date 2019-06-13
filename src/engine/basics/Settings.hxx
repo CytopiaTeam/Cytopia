@@ -125,7 +125,6 @@ struct SettingsData
 class Settings : public SettingsData, public Singleton<Settings>
 {
 public:
-
   friend Singleton<Settings>;
 
   /**
