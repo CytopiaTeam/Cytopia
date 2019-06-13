@@ -35,9 +35,6 @@ struct TypeList<T, Ts...>
  * @tparam unnamed don't use it
  */
 template <size_t i, typename List, typename = void>
-struct GetType;
-
-template <size_t, typename, typename = void>
 struct GetType
 {
   using type = nullptr_t;
@@ -77,7 +74,7 @@ struct VariantType<List<Ts...>>
  * @tparam Type the type of the constant
  * @tparam value the constant value
  */
-template<typename Type, T value>
+template<typename Type, Type value>
 using Constant = std::integral_constant<Type, value>;
 
 #endif
