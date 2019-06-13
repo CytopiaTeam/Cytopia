@@ -2,7 +2,9 @@
 set -eu
 
 # Cleanup
-rm -r languages
+if [ -d languages ]; then
+	rm -r languages
+fi
 
 # Moves po files from local tx repo to folder structure
 cd tx/translations/cytopia.cytopia_jsonpot

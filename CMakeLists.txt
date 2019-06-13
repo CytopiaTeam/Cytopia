@@ -14,6 +14,7 @@ cmake_dependent_option(USE_PMM "Use PMM for managing conan" OFF WIN32 ON)
 option(ENABLE_SDL2_MIXER "Enable SDL2 Mixer" ON)
 option(ENABLE_MICROPROFILE "Enable microprofile" OFF)
 option(ENABLE_ANGELSCRIPT "Enable AngelScript" ON)
+option(ENABLE_MOFILEREADER "Enable MofileReader" ON)
 
 if (NOT BUILD_TILEDATA_EDITOR)
     set(_CC_QT "# ")
@@ -29,6 +30,10 @@ endif ()
 
 if (NOT ENABLE_ANGELSCRIPT)
     set(_CC_ANGELSCRIPT "# ")
+endif ()
+
+if (NOT ENABLE_MOFILEREADER)
+    set(_CC_MOFILEREADER "# ")
 endif ()
 
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/conanfile.txt.in" "${CMAKE_CURRENT_SOURCE_DIR}/conanfile.txt")
@@ -116,6 +121,7 @@ if (USE_PACKAGE_MANAGER)
             CONAN_PKG::sdl2
             CONAN_PKG::sdl2_image
             CONAN_PKG::sdl2_ttf
+            CONAN_PKG::sdl2_ttf
             CONAN_PKG::libnoise
             CONAN_PKG::zlib
             )
@@ -126,6 +132,10 @@ if (USE_PACKAGE_MANAGER)
 
     if (ENABLE_ANGELSCRIPT)
         list(APPEND _link_libraries CONAN_PKG::AngelScript)
+    endif ()
+
+    if (ENABLE_MOFILEREADER)
+        list(APPEND _link_libraries CONAN_PKG::MofileReader)
     endif ()
 
     if (BUILD_TEST)
@@ -148,6 +158,10 @@ else (USE_PACKAGE_MANAGER)
 
     if (ENABLE_ANGELSCRIPT)
         find_package(AngelScript REQUIRED)
+    endif ()
+
+    if (ENABLE_MOFILEREADER)
+        find_package(MofileReader REQUIRED)
     endif ()
 
     if (BUILD_TEST)
@@ -207,6 +221,9 @@ if (ENABLE_ANGELSCRIPT)
     list(APPEND _include_directories ${CMAKE_SOURCE_DIR}/external/as_add_on)
 endif ()
 
+if (ENABLE_MOFILEREADER)
+    list(APPEND _compile_definitions USE_MOFILEREADER)
+endif ()
 
 if (ENABLE_MICROPROFILE)
     FetchContent_Declare(

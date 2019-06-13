@@ -11,7 +11,16 @@ msgstr ""
 "Content-Type: text/plain charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+msgid "Decoration"
+msgstr ""
+
+msgid "A pile of coal"
+msgstr ""
+
 msgid "Coal Pile"
+msgstr ""
+
+msgid "Residential"
 msgstr ""
 
 msgid "Day Care Center"
@@ -20,25 +29,49 @@ msgstr ""
 msgid "Old Church"
 msgstr ""
 
+msgid "Commercial"
+msgstr ""
+
+msgid "A Shop that sells Bikes"
+msgstr ""
+
 msgid "BikeShop"
+msgstr ""
+
+msgid "A shop that sells clocks"
 msgstr ""
 
 msgid "Clock Store"
 msgstr ""
 
+msgid "A shop!"
+msgstr ""
+
 msgid "CompactFast Shop"
+msgstr ""
+
+msgid "I scream for ice cream!"
 msgstr ""
 
 msgid "Ice Cream Shop"
 msgstr ""
 
+msgid "A petrol station"
+msgstr ""
+
 msgid "Petrol Station"
+msgstr ""
+
+msgid "A shop that sells games. Even Cytopia is in store!"
 msgstr ""
 
 msgid "Game Shop"
 msgstr ""
 
 msgid "Appartment Building"
+msgstr ""
+
+msgid "A shop that sells phones. It has the new CyPhone X"
 msgstr ""
 
 msgid "Phone Shop"
@@ -50,13 +83,28 @@ msgstr ""
 msgid "Shop"
 msgstr ""
 
+msgid "Nature"
+msgstr ""
+
+msgid "An oasis"
+msgstr ""
+
 msgid "Oasis"
+msgstr ""
+
+msgid "Borgs Burgers - We have the tastiest!"
 msgstr ""
 
 msgid "Borgs Burgers"
 msgstr ""
 
+msgid "A commercial center"
+msgstr ""
+
 msgid "Small Commercial Center"
+msgstr ""
+
+msgid "Where people work"
 msgstr ""
 
 msgid "Office"
@@ -65,19 +113,40 @@ msgstr ""
 msgid "Big Office Building"
 msgstr ""
 
+msgid "The community gathers and works here"
+msgstr ""
+
 msgid "Community Tower"
 msgstr ""
 
 msgid "Tour Front De Seine"
 msgstr ""
 
+msgid "Roads"
+msgstr ""
+
+msgid "Country Road... takes you home!"
+msgstr ""
+
 msgid "Country Road"
+msgstr ""
+
+msgid "A Road, that hasn't been cleaned often"
 msgstr ""
 
 msgid "Dirt Road"
 msgstr ""
 
+msgid "Industrial"
+msgstr ""
+
+msgid "Small Depollutor"
+msgstr ""
+
 msgid "Depolluter Small"
+msgstr ""
+
+msgid "A petrol pump"
 msgstr ""
 
 msgid "Petrol Pump"
@@ -89,16 +158,31 @@ msgstr ""
 msgid "Old Industrial Building"
 msgstr ""
 
+msgid "Medium Depollutor"
+msgstr ""
+
 msgid "Depolluter Medium"
+msgstr ""
+
+msgid "A factory"
 msgstr ""
 
 msgid "Factory"
 msgstr ""
 
+msgid "A Power Plant, that has been built years ago"
+msgstr ""
+
 msgid "OldPowerPlant"
 msgstr ""
 
+msgid "A chemical plant"
+msgstr ""
+
 msgid "Chemical Plant"
+msgstr ""
+
+msgid "Big Depollutor"
 msgstr ""
 
 msgid "Depolluter Big"
@@ -107,7 +191,16 @@ msgstr ""
 msgid "Paved Road"
 msgstr ""
 
+msgid "Power"
+msgstr ""
+
+msgid "A  small coal power plant."
+msgstr ""
+
 msgid "Small Coal Power Plant2"
+msgstr ""
+
+msgid "A Coal Power plant."
 msgstr ""
 
 msgid "Coal Power Plant"
@@ -116,16 +209,28 @@ msgstr ""
 msgid "Small Coal Power Plant"
 msgstr ""
 
+msgid "A small house"
+msgstr ""
+
 msgid "Small House"
 msgstr ""
 
+msgid "A small  building"
+msgstr ""
+
 msgid "Small house"
+msgstr ""
+
+msgid "A small shack"
 msgstr ""
 
 msgid "Small Shack"
 msgstr ""
 
 msgid "Appartments"
+msgstr ""
+
+msgid "Desert building"
 msgstr ""
 
 msgid "Desert Building"
@@ -143,6 +248,9 @@ msgstr ""
 msgid "Old building"
 msgstr ""
 
+msgid "A big building"
+msgstr ""
+
 msgid "Big Building"
 msgstr ""
 
@@ -152,13 +260,22 @@ msgstr ""
 msgid "Appartment"
 msgstr ""
 
+msgid "big Appartments"
+msgstr ""
+
 msgid "Big Appartments"
 msgstr ""
 
 msgid "Medium Appartments"
 msgstr ""
 
+msgid "A Tower made out of concrete"
+msgstr ""
+
 msgid "Concrete Tower"
+msgstr ""
+
+msgid "A skyscaper"
 msgstr ""
 
 msgid "Skyscraper"
@@ -167,16 +284,40 @@ msgstr ""
 msgid "Terrain"
 msgstr ""
 
+msgid "Terrain tiles"
+msgstr ""
+
 msgid "Water"
+msgstr ""
+
+msgid "Utilities"
+msgstr ""
+
+msgid "A beautiful water tower"
 msgstr ""
 
 msgid "Water Tower"
 msgstr ""
 
+msgid "A small water tower"
+msgstr ""
+
 msgid "Small Water Tower"
 msgstr ""
 
+msgid "Flora"
+msgstr ""
+
+msgid "trees"
+msgstr ""
+
 msgid "Trees"
+msgstr ""
+
+msgid "TerrainDecoration"
+msgstr ""
+
+msgid "Rocks for the terrain"
 msgstr ""
 
 msgid "Rocks"
@@ -186,12 +327,6 @@ msgid "Construction"
 msgstr ""
 
 msgid "Debug Menu"
-msgstr ""
-
-msgid "Power"
-msgstr ""
-
-msgid "Utilities"
 msgstr ""
 
 msgid "Demolish"
