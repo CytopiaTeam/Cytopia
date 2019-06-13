@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.11 FATAL_ERROR)
 # add the path to our custom find modules
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 include(CMakeDependentOption)
 include(SourceFileUtils)
@@ -55,8 +56,14 @@ endif ()
 
 if (USE_PACKAGE_MANAGER)
 
+    function(get_variable_from_conan _var_name)
+        include("${CMAKE_CURRENT_BINARY_DIR}/conanbuildinfo.cmake")
+        get_property(__propt VARIABLE PROPERTY ${_var_name})
+        SET(${_var_name} ${__propt} PARENT_SCOPE)
+    endfunction()
+
     if (USE_PMM)
-        include(cmake/pmm.cmake)
+        include(pmm)
 
         pmm(CONAN
                 REMOTES
@@ -74,7 +81,7 @@ if (USE_PACKAGE_MANAGER)
             set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
         endif ()
     else ()
-        include(cmake/conan.cmake)
+        include(conan)
 
         conan_check()
 
@@ -100,6 +107,31 @@ if (USE_PACKAGE_MANAGER)
 
     endif ()
 
+    if (BUILD_TEST)
+        get_variable_from_conan(CONAN_LIB_DIRS_CATCH2)
+        list(APPEND CMAKE_MODULE_PATH "${CONAN_LIB_DIRS_CATCH2}/cmake/Catch2")
+    endif ()
+
+    list(APPEND _link_libraries
+            CONAN_PKG::sdl2
+            CONAN_PKG::sdl2_image
+            CONAN_PKG::sdl2_ttf
+            CONAN_PKG::libnoise
+            CONAN_PKG::zlib
+            )
+
+    if (ENABLE_SDL2_MIXER)
+        list(APPEND _link_libraries CONAN_PKG::sdl2_mixer)
+    endif ()
+
+    if (ENABLE_ANGELSCRIPT)
+        list(APPEND _link_libraries CONAN_PKG::AngelScript)
+    endif ()
+
+    if (BUILD_TEST)
+        list(APPEND _link_libraries CONAN_PKG::Catch2)
+    endif ()
+
 else (USE_PACKAGE_MANAGER)
     find_package(PkgConfig REQUIRED)
 
@@ -122,7 +154,59 @@ else (USE_PACKAGE_MANAGER)
         find_package(Catch2 REQUIRED)
     endif (BUILD_TEST)
 
+    list(APPEND _include_directories
+            ${SDL2_INCLUDE_DIRS}
+            ${SDL2_image_INCLUDE_DIRS}
+            ${SDL2_ttf_INCLUDE_DIRS}
+            ${ZLIB_INCLUDEDIR}
+            )
+    list(APPEND _link_libraries
+            ${SDL2_LIBRARIES}
+            ${SDL2_image_LIBRARIES}
+            ${SDL2_ttf_LIBRARIES}
+            LIBNOISE::LIBNOISE_LIBRARIES
+            ${ZLIB_LIBRARIES}
+            )
+
+    if (ENABLE_SDL2_MIXER)
+        list(APPEND _link_libraries ${SDL2_mixer_LIBRARIES})
+    endif ()
+
+    if (ENABLE_ANGELSCRIPT)
+        list(APPEND _link_libraries ${AngelScript_LIBRARY})
+    endif ()
+
+    if (BUILD_TEST)
+        list(APPEND _link_libraries ${CATCH2_LIBRARIES})
+    endif ()
+
 endif (USE_PACKAGE_MANAGER)
+
+if (ENABLE_MICROPROFILE)
+    list(APPEND _include_directories ${microprofile_SOURCE_DIR})
+    list(APPEND _compile_definitions
+            MICROPROFILE_ENABLED
+            MICROPROFILE_GPU_TIMERS=0
+            )
+    if (WIN32)
+        list(APPEND _link_libraries ws2_32.lib)
+    endif (WIN32)
+endif (ENABLE_MICROPROFILE)
+
+if (MINGW)
+    # need to link with mingw32 before SDL2
+    list(APPEND _link_libraries mingw32)
+endif ()
+
+if (ENABLE_SDL2_MIXER)
+    list(APPEND _compile_definitions USE_SDL2_MIXER)
+endif ()
+
+if (ENABLE_ANGELSCRIPT)
+    list(APPEND _compile_definitions USE_ANGELSCRIPT)
+    list(APPEND _include_directories ${CMAKE_SOURCE_DIR}/external/as_add_on)
+endif ()
+
 
 if (ENABLE_MICROPROFILE)
     FetchContent_Declare(
@@ -183,6 +267,11 @@ if (DOXYGEN_FOUND)
 endif ()
 
 add_subdirectory(src)
+
+if (BUILD_TEST)
+    add_subdirectory(tests)
+endif (BUILD_TEST)
+
 
 include(FeatureSummary)
 feature_summary(WHAT ALL)
