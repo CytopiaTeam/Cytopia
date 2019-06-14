@@ -18,7 +18,7 @@ cmake -P extract_from_json.cmake
 ```
 
 **Note:** The Cytopia_Json.pot contains duplicate keys.
-These can be removed by running `msguniq -o Cytopia_Json.pot Cytopia_Json.pot`
+These can be removed by running `msguniq -o Cytopia.pot Cytopia.pot`
 
 ### Compile *.mo files from Transifex
 A \*.mo file is a translation for a given language in binary form.  

@@ -7,13 +7,13 @@ if [ -d languages ]; then
 fi
 
 # Moves po files from local tx repo to folder structure
-cd tx/translations/cytopia.cytopia_jsonpot
+cd tx/translations/cytopia.cytopiapot
 for file in *
 do
 	file="${file%.*}"
-	echo "Now copying $file from CytopiaJson"
+	echo "Now copying $file from Cytopia"
 	mkdir -p ../../../languages/$file/
-	cp $file.po ../../../languages/$file/CytopiaJson.po
+	cp $file.po ../../../languages/$file/Cytopia.po
 done
 
 cd ../cytopia.tiledatauipot
