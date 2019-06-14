@@ -10,4 +10,4 @@ extraction:
         - libnoise-dev
     configure:
       command:
-        - cmake -DENABLE_ANGELSCRIPT=OFF -DUSE_PACKAGE_MANAGER=OFF -DBUILD_TEST=OFF .
+        - cmake -DBUILD_TEST=OFF -DENABLE_ANGELSCRIPT=OFF -DUSE_PACKAGE_MANAGER=OFF -DBUILD_TEST=OFF .
