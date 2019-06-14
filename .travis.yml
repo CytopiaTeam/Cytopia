@@ -96,7 +96,7 @@ matrix:
       python:          3.7
       addons:
         apt:
-          sources: [ 'ubuntu-toolchain-r-test', 'llvm-toolchain-7' ]
+          sources: [ 'ubuntu-toolchain-r-test', 'llvm-toolchain-xenial-7' ]
           packages:
             - p7zip-full
             - ninja-build
