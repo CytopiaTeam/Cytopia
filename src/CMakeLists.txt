@@ -10,6 +10,7 @@ set(SOURCE_FILES
         engine/basics/utils.{hxx,cxx}
         engine/common/Constants.hxx
         engine/common/enums.hxx
+        engine/common/JsonSerialization.hxx
         engine/GameObjects/MapNode.{hxx,cxx}
         engine/map/MapLayers.{hxx,cxx}
         engine/map/TerrainGenerator.{hxx,cxx}
@@ -22,6 +23,7 @@ set(SOURCE_FILES
         engine/ui/widgets/Checkbox.{hxx,cxx}
         engine/ui/widgets/Frame.{hxx,cxx}
         engine/ui/widgets/Image.{hxx,cxx}
+        engine/ui/widgets/Slider.{hxx,cxx}
         engine/ui/widgets/Text.{hxx,cxx}
         engine/ui/widgets/TextField.{hxx,cxx}
         engine/ui/widgets/Tooltip.{hxx,cxx}
@@ -111,8 +113,8 @@ else ()
     add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 endif ()
 
-# enable C++14
-target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_14)
+# enable C++17
+target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
 
 list(APPEND _compile_definitions VERSION="${PROJECT_NAME} ${PROJECT_VERSION} - tech preview")
 

@@ -5,7 +5,22 @@ group:                 edge
 
 env:
   global:
-    - GITHUB_REPO:     cytopiateam/Cytopia
+    - GITHUB_REPO:     CytopiaTeam/Cytopia
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - ninja-build
+      - doxygen
+      - graphviz
+      - libfreetype6-dev
+      - libgl1-mesa-dev
+      - libasound2-dev
+      - libjack-dev
+      - libpulse-dev
+      - libaudio-dev
 
 cache:
   timeout:             1000
@@ -76,11 +91,12 @@ matrix:
 
     # clang build
     - os:              linux
-      name:            CLANG 5 Build
+      name:            CLANG 7 Build
       compiler:        clang
       python:          3.7
       addons:
         apt:
+          sources: [ 'ubuntu-toolchain-r-test', 'llvm-toolchain-xenial-7' ]
           packages:
             - p7zip-full
             - ninja-build
@@ -92,9 +108,13 @@ matrix:
             - libjack-dev
             - libpulse-dev
             - libaudio-dev
+            - clang-7
+            - gcc-8 #install gcc and g++ in order to make clang use gccs libstdc++
+            - g++-8
+            - libc++-7-dev  # C++17 support in libstd++
       env:
         - DEPLOY_DOCUMENTATION=true
-        - MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0"
+        - MATRIX_EVAL="CC=clang-7.0 && CXX=clang++-7.0"
 
       install:
         - sudo rm -rf /usr/local/cmake-3.9.2/

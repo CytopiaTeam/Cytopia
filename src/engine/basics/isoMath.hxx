@@ -4,6 +4,8 @@
 #include "point.hxx"
 #include "SDL.h"
 #include <vector>
+#include <algorithm>
+
 
 // calculate clicked column (x coordinate) without heigh taken into account.
 /** \brief Calculates screen space coordinates to isometric space coordinates.
@@ -48,5 +50,9 @@ bool isPointWithinMapBoundaries(const Point &isoCoordinates);
 * @return std::vector<Point>() - contains coordinates for each tile between start and end coordinates, including start and end
 */
 std::vector<Point> createBresenhamLine(const Point &isoCoordinatesStart, const Point &isoCoordinatesEnd);
+
+/// Clamp value
+//TODO: Remove this when switching to C++17 and use std::clamp instead
+template <typename T> T clamp(const T &n, const T &lower, const T &upper) { return std::max(lower, std::min(n, upper)); }
 
 #endif
