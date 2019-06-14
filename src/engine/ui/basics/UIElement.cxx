@@ -55,6 +55,14 @@ void UIElement::setText(const std::string &text)
   createTextTexture(elementData.text, SDL_Color{255, 255, 255});
 }
 
+SDL_Point UIElement::screenPointToLocalPointInRect(SDL_Point screenCoordinates)
+{
+  SDL_Point result;
+  result.x = screenCoordinates.x - m_uiElementRect.x;
+  result.y = screenCoordinates.y - m_uiElementRect.y;
+  return result;
+}
+
 void UIElement::createTextTexture(const std::string &text, const SDL_Color &textColor)
 {
   m_font = TTF_OpenFont("resources/fonts/arcadeclassics.ttf", 20);
@@ -62,6 +70,7 @@ void UIElement::createTextTexture(const std::string &text, const SDL_Color &text
   if (!m_font)
   {
     LOG(LOG_ERROR) << "Failed to load font!\n" << TTF_GetError();
+    return;
   }
 
   // destroy texture first to prevent memleaks
@@ -173,6 +182,12 @@ void UIElement::drawFrame(SDL_Rect rect) const
   drawSolidRect(rect, SDL_Color{bgColorFrame, bgColorFrame, bgColorFrame});
   drawSolidRect(SDL_Rect{rect.x + 2, rect.y + 2, rect.w - 4, rect.h - 4},
                 SDL_Color{bgColorFrameShade, bgColorFrameShade, bgColorFrameShade});
-  drawSolidRect(SDL_Rect{rect.x + 4, rect.y + 4, rect.w - 8, rect.h - 8}, SDL_Color{bgColorFrame, bgColorFrame, bgColorFrame});
-  drawSolidRect(SDL_Rect{rect.x + 6, rect.y + 6, rect.w - 12, rect.h - 12}, SDL_Color{bgColor, bgColor, bgColor});
+  if (rect.h >= 8 && rect.w >= 4)
+  {
+    drawSolidRect(SDL_Rect{rect.x + 4, rect.y + 4, rect.w - 8, rect.h - 8}, SDL_Color{bgColorFrame, bgColorFrame, bgColorFrame});
+  }
+  if (rect.h >= 12 && rect.w >= 6)
+  {
+    drawSolidRect(SDL_Rect{rect.x + 6, rect.y + 6, rect.w - 12, rect.h - 12}, SDL_Color{bgColor, bgColor, bgColor});
+  }
 }

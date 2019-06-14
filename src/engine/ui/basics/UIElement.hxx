@@ -164,6 +164,8 @@ public:
 
   virtual void drawImageButtonFrame(bool){};
 
+  virtual SDL_Point screenPointToLocalPointInRect(SDL_Point screenCoordinates);
+
 private:
   SDL_Renderer *m_renderer = WindowManager::instance().getRenderer();
   SDL_Window *m_window = WindowManager::instance().getWindow();

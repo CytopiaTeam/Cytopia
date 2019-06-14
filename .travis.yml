@@ -5,10 +5,12 @@ group:                 edge
 
 env:
   global:
-    - GITHUB_REPO:     JimmySnails/Cytopia
+    - GITHUB_REPO:     CytopiaTeam/Cytopia
 
 addons:
   apt:
+    sources:
+      - ubuntu-toolchain-r-test
     packages:
       - ninja-build
       - doxygen
@@ -34,14 +36,16 @@ matrix:
       python:          3.7
       compiler:        gcc-8
       addons:
+        sonarcloud:
+          organization: "cytopia"
+          token:
+            secure: "HKP12cwEq+liwjJZyFECQKJBSmMC0LUz85JOod3HAoak846iI5kPLHDX1tbzL/yjKWUzKVfHpFGQAOTAIW8CuW5Ck7jnRalQRnHUeF4OSVDAHWwtgA41klWbr/8i1jfurMWwJISCMtJ1gYM1EabtwosXlt2bz1nD0DVTMcVnYYHOoSei2L8FMv0BWj8jVv0mR+1V2CrZtKeIYBhdvyouF6AzmsRLLiDqGHAQYxz39s615qiD43OvrwO+6aM5S90rByFEyyA51c7g2KlPGH+ursx1I1pR60k+K1H61aCRyTq3kG4iZLF6N9j/o/ywR92FppOwi7tMNiq6WpKlTwq8JM/XtlNlXrYByTmdufEHuzjZ5OYnsfmUIVJIQiYn60IIslLzbErQCOoe53I3NqbdGt7rDnUix5DVGLixlatLP5w82s4snAYmRbwDjDExSSBxk9Xecb9YKJQs80wz6DiS16mQ5HvYbYafqiIM4HHuunQ1tv5z3w2etFluIJfE+5KERWS1gfh8mAMvFfeS66IHbzls2iZEw0FQj+72oNwJzRQUlqZhvFglCnQS/C7WZ9m0xB8msLoa+B8TrdbzYc0ZQWZ5BNgLRxf/kLl0YoaVXLfttjJY44IM42w5eH0PN2I/6gI2XUo6EFp3vjc6lNaeRQzxF6z1SQ2cVW+BPcugB2I="
         apt:
           sources:
             - ubuntu-toolchain-r-test
           packages:
-            - p7zip-full
             - gcc-8
             - g++-8
-            - ninja-build
             - doxygen
             - graphviz
             - libfreetype6-dev
@@ -53,58 +57,84 @@ matrix:
       env:
         - MATRIX_EVAL="CC=gcc-8 && CXX=g++-8"
 
-      before_install:
+      install:
         - sudo rm -rf /usr/local/cmake-3.9.2/
         - sudo rm -f /usr/local/cmake
         - sudo pip install cmake conan --ignore-installed
-        - git submodule update --init --recursive
-
-      install:
-        - mkdir travis_build
-        - cd travis_build
         - conan user
 
+      before_script:
+        - cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_C_COMPILER=gcc-8 -DCMAKE_CXX_COMPILER=g++-8 -DENABLE_COVERAGE=ON .
+
       script:
+        - >
+          if [ "${TRAVIS_SECURE_ENV_VARS}" == "true" ]; then
+            echo "Running sonar build";
+            build-wrapper-linux-x86-64 --out-dir bw-output make -j2;
+          fi;
+        - >
+          if [ "${TRAVIS_SECURE_ENV_VARS}" == "false" ]; then
+            echo "Running pullrequest build";
+            make -j2;
+          fi;
         # Build Cytopia
-        - cmake -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=gcc-8 -DCMAKE_CXX_COMPILER=g++-8 ..
-        - ninja
-        - cmake -E copy tests/CTestTestfile.cmake .
-        - ctest -VV
-        - sh ../tools/CI/upload-CI-build.sh
+        - ./bin/Cytopia_Tests
+        - make gcov
+        - make copy_coverage
+        - >
+          if [ "${TRAVIS_SECURE_ENV_VARS}" == "true" ]; then
+            sonar-scanner -X -D"sonar.projectVersion=CI-${TRAVIS_JOB_NUMBER}";
+          fi;
 
       before_cache:
-        - cmake -P ../cmake/pmm.cmake /Conan /Clean
+        - cmake -P ./cmake/pmm.cmake /Conan /Clean
 
     # clang build
     - os:              linux
-      name:            CLANG 5 Build
+      name:            CLANG 7 Build
       compiler:        clang
       python:          3.7
+      addons:
+        apt:
+          sources: [ 'ubuntu-toolchain-r-test', 'llvm-toolchain-xenial-7' ]
+          packages:
+            - p7zip-full
+            - ninja-build
+            - doxygen
+            - graphviz
+            - libfreetype6-dev
+            - libgl1-mesa-dev
+            - libasound2-dev
+            - libjack-dev
+            - libpulse-dev
+            - libaudio-dev
+            - clang-7
+            - gcc-8 #install gcc and g++ in order to make clang use gccs libstdc++
+            - g++-8
+            - libc++-7-dev  # C++17 support in libstd++
       env:
         - DEPLOY_DOCUMENTATION=true
-        - MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0"
+        - MATRIX_EVAL="CC=clang-7.0 && CXX=clang++-7.0"
 
-      before_install:
+      install:
         - sudo rm -rf /usr/local/cmake-3.9.2/
         - sudo rm -f /usr/local/cmake
         - sudo pip install cmake conan --ignore-installed
-        - git submodule update --init --recursive
-
-      install:
-        - mkdir travis_build
-        - cd travis_build
         - conan user
+
+      before_script:
+        - cmake -GNinja -DCMAKE_BUILD_TYPE=Release .
 
       script:
         # Build Cytopia
-        - cmake -GNinja -DCMAKE_BUILD_TYPE=Release ..
         - ninja
-        - cmake -E copy tests/CTestTestfile.cmake .
-        - ctest -VV
-        - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then ninja doc; fi
+        - ./bin/Cytopia_Tests
+        - sh ./tools/CI/upload-CI-build.sh
+        - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then doxygen Doxyfile; fi
+
 
       before_cache:
-        - cmake -P ../cmake/pmm.cmake /Conan /Clean
+        - cmake -P ./cmake/pmm.cmake /Conan /Clean
 
     - os:              osx
       name:            XCode 10.2 Build
@@ -112,30 +142,27 @@ matrix:
       env:             TARGET=macOS
       language:        objective-c
       python:          3.7
-      before_install:
-        - brew update
-        - brew install conan
-        - git submodule update --init --recursive
 
       install:
-        - mkdir travis_build
-        - cd travis_build
-        - conan user
+        - brew update
+        - brew install conan
+
+      before_script:
+        - cmake -DCMAKE_BUILD_TYPE=Release .
 
       script:
-        - cmake -DCMAKE_BUILD_TYPE=Release ..
         - make
         - cmake -E copy tests/CTestTestfile.cmake .
         - ctest -VV
         - make package
 
       before_cache:
-        - cmake -P ../cmake/pmm.cmake /Conan /Clean
+        - cmake -P ./cmake/pmm.cmake /Conan /Clean
 
 deploy:
   provider:            pages
   skip_cleanup:        true
-  local_dir:           travis_build/html
+  local_dir:           Doxygen_Docs/html
   github_token:        $GH_REPO_TOKEN
   verbose:             true
   on:
