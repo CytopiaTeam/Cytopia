@@ -96,6 +96,7 @@ matrix:
       python:          3.7
       addons:
         apt:
+          sources: [ 'ubuntu-toolchain-r-test', 'llvm-toolchain-7' ]
           packages:
             - p7zip-full
             - ninja-build
@@ -107,6 +108,8 @@ matrix:
             - libjack-dev
             - libpulse-dev
             - libaudio-dev
+            - clang-7
+            - libc++-7-dev  # C++17 support in libstd++
       env:
         - DEPLOY_DOCUMENTATION=true
         - MATRIX_EVAL="CC=clang-7.0 && CXX=clang++-7.0"
@@ -130,10 +133,6 @@ matrix:
 
       before_cache:
         - cmake -P ./cmake/pmm.cmake /Conan /Clean
-      addons:
-        apt:
-          sources: [ 'ubuntu-toolchain-r-test', 'llvm-toolchain-7' ]
-          packages: [ 'clang-7.0', 'libstdc++-7-dev' ] # C++17 support in libstd++
 
     - os:              osx
       name:            XCode 10.2 Build
