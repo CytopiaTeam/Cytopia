@@ -80,12 +80,12 @@ matrix:
 
     # clang build
     - os:              linux
-      name:            CLANG 5 Build
+      name:            CLANG 7 Build
       compiler:        clang
       python:          3.7
       env:
         - DEPLOY_DOCUMENTATION=true
-        - MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0"
+        - MATRIX_EVAL="CC=clang-7.0 && CXX=clang++-7.0"
 
       before_install:
         - sudo rm -rf /usr/local/cmake-3.9.2/
@@ -108,6 +108,10 @@ matrix:
 
       before_cache:
         - cmake -P ../cmake/pmm.cmake /Conan /Clean
+      addons:
+        apt:
+          sources: [ 'ubuntu-toolchain-r-test', 'llvm-toolchain-7' ]
+          packages: [ 'clang-7.0', 'libstdc++-7-dev' ] # C++17 support in libstd++
 
     - os:              osx
       name:            XCode 10.2 Build
