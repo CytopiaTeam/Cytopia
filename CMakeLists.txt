@@ -249,29 +249,23 @@ if (BUILD_TILEDATA_EDITOR)
     add_subdirectory(src/TileDataUi)
 endif (BUILD_TILEDATA_EDITOR)
 
-# use Doxygen to generate the documentation
-find_package(Doxygen)
-
-if (DOXYGEN_FOUND)
-    set(DoxyFile_src ${PROJECT_SOURCE_DIR}/Doxyfile)
-    set(DoxyFile ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile)
-    configure_file(${DoxyFile_src} ${DoxyFile} @ONLY)
-
-    message("Use target doc to build the documentation")
-    add_custom_target(
-            doc
-            COMMAND ${DOXYGEN_EXECUTABLE} ${DoxyFile}
-            WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-            VERBATIM
-    )
-endif ()
-
 add_subdirectory(src)
 
 if (BUILD_TEST)
     add_subdirectory(tests)
 endif (BUILD_TEST)
 
+# use Doxygen to generate the documentation
+find_package(Doxygen)
+
+if (DOXYGEN_FOUND)
+    add_custom_target(
+            doc
+            COMMAND "${DOXYGEN_EXECUTABLE}" "${PROJECT_SOURCE_DIR}/Doxyfile"
+            WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+            VERBATIM
+    )
+endif ()
 
 include(FeatureSummary)
 feature_summary(WHAT ALL)

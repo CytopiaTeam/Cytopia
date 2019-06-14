@@ -19,6 +19,7 @@ TileDataEditor
 
 # ignore macOS stuff.
 .DS_Store
-_pmm
 
+_pmm
 conanfile\.txt
+Doxygen_Docs/*
