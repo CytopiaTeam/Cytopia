@@ -110,7 +110,7 @@ matrix:
         - ninja
         - ./bin/Cytopia_Tests
         - sh ./tools/CI/upload-CI-build.sh
-        - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then ninja doc; fi
+        - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then doxygen Doxyfile; fi
 
 
       before_cache:
@@ -142,7 +142,7 @@ matrix:
 deploy:
   provider:            pages
   skip_cleanup:        true
-  local_dir:           html
+  local_dir:           Doxygen_Docs/html
   github_token:        $GH_REPO_TOKEN
   verbose:             true
   on:
