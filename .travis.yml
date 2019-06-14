@@ -5,7 +5,7 @@ group:                 edge
 
 env:
   global:
-    - GITHUB_REPO:     JimmySnails/Cytopia
+    - GITHUB_REPO:     cytopiateam/Cytopia
 
 addons:
   apt:
