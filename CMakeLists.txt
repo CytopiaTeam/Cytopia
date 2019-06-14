@@ -255,6 +255,17 @@ if (BUILD_TEST)
     add_subdirectory(tests)
 endif (BUILD_TEST)
 
+# use Doxygen to generate the documentation
+find_package(Doxygen)
+
+if (DOXYGEN_FOUND)
+    add_custom_target(
+            doc
+            COMMAND "${DOXYGEN_EXECUTABLE}" "${PROJECT_SOURCE_DIR}/Doxyfile"
+            WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+            VERBATIM
+    )
+endif ()
 
 include(FeatureSummary)
 feature_summary(WHAT ALL)
