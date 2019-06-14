@@ -61,15 +61,15 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang"
   
           ${WARN_AS_ERROR_FLAGS}
       )
-  		endif (BUILD_TEST)
-  endif ()
+  endif (BUILD_TEST)
+endif ()
 
-  if (CMAKE_CXX_COMPILER_ID MATCHES "GNU")
+if (CMAKE_CXX_COMPILER_ID MATCHES "GNU")
     set(DEFAULT_COMPILE_OPTIONS ${DEFAULT_COMPILE_OPTIONS}
         -Wno-int-in-bool-context
     )
-
-  if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+endif ()
+if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
     set(DEFAULT_COMPILE_OPTIONS ${DEFAULT_COMPILE_OPTIONS}
         -stdlib=libc++
     )
