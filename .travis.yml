@@ -19,6 +19,7 @@ addons:
       - libjack-dev
       - libpulse-dev
       - libaudio-dev
+      - gcc-8
 
 cache:
   timeout:             1000
