@@ -42,7 +42,6 @@ enum class BUILDMENU_LAYOUT
 class UIManager : public Singleton<UIManager>
 {
 public:
-  
   friend Singleton<UIManager>;
 
   /**

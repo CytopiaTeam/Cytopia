@@ -10,6 +10,7 @@ set(SOURCE_FILES
         engine/basics/utils.{hxx,cxx}
         engine/common/Constants.hxx
         engine/common/enums.hxx
+        engine/common/JsonSerialization.hxx
         engine/GameObjects/MapNode.{hxx,cxx}
         engine/map/MapLayers.{hxx,cxx}
         engine/map/TerrainGenerator.{hxx,cxx}
@@ -83,6 +84,8 @@ expand_file_extensions(SOURCE_FILES ${SOURCE_FILES})
 # Generate source groups for use in IDEs
 generate_source_groups(${SOURCE_FILES})
 
+set(MAIN_EXE_SOURCE_FILES "${SOURCE_FILES}" PARENT_SCOPE)
+
 if (MSVC)
     set(SOURCE_FILES ${SOURCE_FILES} ${CMAKE_SOURCE_DIR}/src/Windows/icon_cytopia.rc)
 endif ()
@@ -110,88 +113,11 @@ else ()
     add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 endif ()
 
-if (ENABLE_MICROPROFILE)
-    list(APPEND _include_directories ${microprofile_SOURCE_DIR})
-    list(APPEND _compile_definitions
-            MICROPROFILE_ENABLED
-            MICROPROFILE_GPU_TIMERS=0
-            )
-    if (WIN32)
-        list(APPEND _link_libraries ws2_32.lib)
-    endif (WIN32)
-endif (ENABLE_MICROPROFILE)
-
-if (MINGW)
-    # need to link with mingw32 before SDL2
-    list(APPEND _link_libraries mingw32)
-endif ()
-
-# link the libraries that we've found
-if (USE_PACKAGE_MANAGER)
-    list(APPEND _link_libraries
-            CONAN_PKG::sdl2
-            CONAN_PKG::sdl2_image
-            CONAN_PKG::sdl2_ttf
-            CONAN_PKG::libnoise
-            CONAN_PKG::zlib
-            )
-
-    if (ENABLE_SDL2_MIXER)
-        list(APPEND _link_libraries CONAN_PKG::sdl2_mixer)
-    endif ()
-
-    if (ENABLE_ANGELSCRIPT)
-        list(APPEND _link_libraries CONAN_PKG::AngelScript)
-    endif ()
-
-    if (BUILD_TEST)
-        list(APPEND _link_libraries CONAN_PKG::Catch2)
-    endif ()
-
-
-else (USE_PACKAGE_MANAGER)
-    list(APPEND _include_directories
-            ${SDL2_INCLUDE_DIRS}
-            ${SDL2_image_INCLUDE_DIRS}
-            ${SDL2_ttf_INCLUDE_DIRS}
-            ${ZLIB_INCLUDEDIR}
-            )
-    list(APPEND _link_libraries
-            ${SDL2_LIBRARIES}
-            ${SDL2_image_LIBRARIES}
-            ${SDL2_ttf_LIBRARIES}
-            LIBNOISE::LIBNOISE_LIBRARIES
-            ${ZLIB_LIBRARIES}
-            )
-
-    if (ENABLE_SDL2_MIXER)
-        list(APPEND _link_libraries ${SDL2_mixer_LIBRARIES})
-    endif ()
-
-    if (ENABLE_ANGELSCRIPT)
-        list(APPEND _link_libraries ${AngelScript_LIBRARY})
-    endif ()
-
-    if (BUILD_TEST)
-        list(APPEND _link_libraries ${CATCH2_LIBRARIES})
-    endif ()
-
-endif (USE_PACKAGE_MANAGER)
-
-
-# enable C++14
-target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_14)
+# enable C++17
+target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
 
 list(APPEND _compile_definitions VERSION="${PROJECT_NAME} ${PROJECT_VERSION} - tech preview")
 
-if (ENABLE_SDL2_MIXER)
-    list(APPEND _compile_definitions USE_SDL2_MIXER)
-endif ()
-
-if (ENABLE_ANGELSCRIPT)
-    list(APPEND _compile_definitions USE_ANGELSCRIPT)
-    list(APPEND _include_directories ${CMAKE_SOURCE_DIR}/external/as_add_on)
-endif ()
 
 target_include_directories(${PROJECT_NAME} PRIVATE ${_include_directories})
 target_compile_definitions(${PROJECT_NAME} PRIVATE ${_compile_definitions})
@@ -230,7 +156,3 @@ install(FILES ${CMAKE_SOURCE_DIR}/ReleaseNotes.txt ${CMAKE_SOURCE_DIR}/credits.t
 if (APPLE)
     set_target_properties(${PROJECT_NAME} PROPERTIES MACOSX_BUNDLE TRUE RESOURCE TRUE)
 endif ()
-
-if (BUILD_TEST)
-    include(${CMAKE_SOURCE_DIR}/tests/CMakeLists.txt)
-endif (BUILD_TEST)

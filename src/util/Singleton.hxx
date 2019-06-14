@@ -5,12 +5,10 @@
  * @class Singleton
  * @brief Abstract Singleton implementation
  */
-template <typename T>
-class Singleton
+template <typename T> class Singleton
 {
 
 public:
-
   /**
    * @brief Get an instance of the singleton
    */
@@ -21,13 +19,10 @@ public:
   }
 
 protected:
-
   Singleton() noexcept = default;
   virtual ~Singleton() noexcept = 0;
-
 };
 
-template <typename T>
-inline Singleton<T>::~Singleton() noexcept { }
+template <typename T> inline Singleton<T>::~Singleton() noexcept {}
 
 #endif

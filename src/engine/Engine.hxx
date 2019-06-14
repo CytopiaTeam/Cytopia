@@ -11,7 +11,6 @@
 class Engine : public Singleton<Engine>
 {
 public:
-
   friend Singleton<Engine>;
 
   // Disable copy and assignemnt operators

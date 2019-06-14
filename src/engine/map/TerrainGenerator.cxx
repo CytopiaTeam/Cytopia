@@ -2,6 +2,7 @@
 
 #include "Constants.hxx"
 #include "LOG.hxx"
+#include "JsonSerialization.hxx"
 
 #include "json.hxx"
 #include <noise.h>
@@ -166,57 +167,5 @@ void TerrainGenerator::loadTerrainDataFromJSON()
   for (const auto &it : biomeDataJsonObject.items())
   {
     biomeInformation[it.key()] = it.value();
-  }
-}
-
-// JSON deserializer for Terrain Gen Data
-void from_json(const json &j, BiomeData &b)
-{
-  if (j.find("trees") != j.end())
-  {
-    for (const auto &it : j["trees"].items())
-    {
-      if (it.key() == "small")
-      {
-        std::vector<std::string> temp = it.value();
-        b.treesSmall = temp;
-      }
-      if (it.key() == "normal")
-      {
-        std::vector<std::string> temp = it.value();
-        b.treesNormal = temp;
-      }
-      if (it.key() == "dense")
-      {
-        std::vector<std::string> temp = it.value();
-        b.treesDense = temp;
-      }
-    }
-  }
-
-  if (j.find("terrain") != j.end())
-  {
-    std::vector<std::string> temp = j["terrain"];
-    b.terrain = temp;
-  }
-  if (j.find("water") != j.end())
-  {
-    std::vector<std::string> temp = j["water"];
-    b.water = temp;
-  }
-  if (j.find("waterdecoration") != j.end())
-  {
-    std::vector<std::string> temp = j["waterdecoration"];
-    b.waterDecoration = temp;
-  }
-  if (j.find("terrainRocks") != j.end())
-  {
-    std::vector<std::string> temp = j["terrainRocks"];
-    b.terrainRocks = temp;
-  }
-  if (j.find("terrainFlowers") != j.end())
-  {
-    std::vector<std::string> temp = j["terrainFlowers"];
-    b.terrainFlowers = temp;
   }
 }

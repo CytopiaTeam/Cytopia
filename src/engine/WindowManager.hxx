@@ -17,7 +17,6 @@ enum class FULLSCREEN_MODE
 class WindowManager : public Singleton<WindowManager>
 {
 public:
-
   friend Singleton<WindowManager>;
 
   // Disable copy and assignemnt operators

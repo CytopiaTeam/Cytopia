@@ -9,6 +9,8 @@ env:
 
 addons:
   apt:
+    sources:
+      - ubuntu-toolchain-r-test
     packages:
       - ninja-build
       - doxygen
@@ -19,7 +21,7 @@ addons:
       - libjack-dev
       - libpulse-dev
       - libaudio-dev
-      - gcc-8
+      - build-essential
 
 cache:
   timeout:             1000
@@ -69,9 +71,8 @@ matrix:
         # Build Cytopia
         - cmake -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=gcc-8 -DCMAKE_CXX_COMPILER=g++-8 ..
         - ninja
-        - ldd ./bin/Cytopia
-        - ldd ./bin/Cytopia_Tests
-        - ctest
+        - cmake -E copy tests/CTestTestfile.cmake .
+        - ctest -VV
         - sh ../tools/CI/upload-CI-build.sh
 
       before_cache:
@@ -101,9 +102,9 @@ matrix:
         # Build Cytopia
         - cmake -GNinja -DCMAKE_BUILD_TYPE=Release ..
         - ninja
-        - ctest
+        - cmake -E copy tests/CTestTestfile.cmake .
+        - ctest -VV
         - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then ninja doc; fi
-        
 
       before_cache:
         - cmake -P ../cmake/pmm.cmake /Conan /Clean
@@ -127,7 +128,8 @@ matrix:
       script:
         - cmake -DCMAKE_BUILD_TYPE=Release ..
         - make
-        - ctest
+        - cmake -E copy tests/CTestTestfile.cmake .
+        - ctest -VV
         - make package
 
       before_cache:
