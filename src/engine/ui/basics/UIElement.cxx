@@ -23,7 +23,7 @@ void UIElement::setTextureID(const std::string &textureID)
                       nullptr, &m_uiElementRect.w,
                       &m_uiElementRect.h) == -1)
   {
-    throw new RuntimeError(ERROR_MSG "Could not query texture " +  textureID);
+    throw RuntimeError(ERROR_MSG "Could not query texture " +  textureID);
   }
 }
 
