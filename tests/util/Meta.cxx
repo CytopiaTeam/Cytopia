@@ -1,12 +1,13 @@
+#include <catch2/catch.hpp>
 #include "../../util/Meta.hxx"
 #include <ratio>
 
-SECTION("You can use a TypeList like a safe linked list", "[util]")
+TEST_CASE("You can use a TypeList like a safe linked list", "[util]")
 {
   using MyConstants = TypeList<
-    Constant<int, 1>
-    Constant<bool, true>
-    Constant<char, 'x'>
+    Constant<1, int>,
+    Constant<true>,
+    Constant<'x'>
     >;
   REQUIRE(MyConstants::current::value == 1);
   REQUIRE(std::is_same_v<MyConstants::current::value, int>);
@@ -15,15 +16,15 @@ SECTION("You can use a TypeList like a safe linked list", "[util]")
   REQUIRE(std::is_same_v<MyConstants::next::next::next, nullptr_t>); 
 }
 
-SECTION("TypeLists support random access", "[util]")
+TEST_CASE("TypeLists support random access", "[util]")
 {
   enum ConstantTypes { MajorVersion, MinorVersion, DefaultSeed, MinFoliageRatio, MaxFoliageRatio /* etc... */ };
 
   using GameConstants = TypeList<
-    Constant<int, 1>,                 /*   MajorVersion   */ 
-    Constant<int, 2>,                 /*   MinorVersion   */  
-    Constant<uint32_t, 2147483647>,   /*   DefaultSeed    */
-    std::ratio<15, 100>               /*  MinFoliageRatio */
+    Constant<1>,                      /*   MajorVersion   */ 
+    Constant<2>,                      /*   MinorVersion   */  
+    Constant<2147483647, uint8_t>,    /*   DefaultSeed    */
+    std::ratio<15, 100>,              /*  MinFoliageRatio */
     std::ratio<7, 20>                 /*  MaxFoliageRatio */
   >;
 
@@ -49,21 +50,22 @@ SECTION("TypeLists support random access", "[util]")
  * Consider the following template class
  */
 
+enum Color { RED, GREEN, BLUE };
+enum Behaviour { DriveAround, DriveSlow, CreateAccidents };
+enum Event { Accident, Traffic, SomeoneIsDrivingSlow };
+
 template <typename CarSpecification>
 class AbstractCar
 {
 protected:
 
   /* Our types */
-  enum Color { RED, GREEN, BLUE };
-  enum Behaviour { DriveAround, DriveSlow, CreateAccidents };
-  enum Event { Accident, Traffic, SomeoneIsDrivingSlow };
-  using CarSpeed = double; /* in km/h */
-  using MinSpeed = Constant<CarSpeed, 40>;
-  using MaxSpeed = Constant<CarSpeed, 90>;
+  using CarSpeed = int; /* in km/h */
+  using MinSpeed = Constant<40, CarSpeed>;
+  using MaxSpeed = Constant<90, CarSpeed>;
 
   /* We let the specification decide how it wants to be implemented */
-  using MyColor = typename CarSpecification::Color;
+  using MyColor = typename CarSpecification::CarColor;
   using MyInitialBehaviour = typename CarSpecification::InitialBehaviour;
   /* ... but we enforce a max/min speed. This is resolved at compile time too! */
   using MyInitialSpeed = Constant<CarSpeed, 
@@ -123,24 +125,24 @@ public:
 
 class NormalCar : public AbstractCar<NormalCar>
 {
-  using Color = Constant<AbstractCar::Color, RED>;
-  using InitialBehaviour = Constant<AbstractCar::Behaviour, AbstractCar::DriveAround>;
+  using CarColor = Constant<RED>;
+  using InitialBehaviour = Constant<DriveAround>;
   /* This won't work */
-  struct onTraffic { Event handle() { return DriveAround; } };
+  struct onTraffic { Behaviour handle() { return DriveAround; } };
   using EventHandlers = TypeList<DefaultAccidentHandler, onTraffic, DefaultSlowHandler>;
-  using Speed = Constant<CarSpeed, 50>;
+  using Speed = Constant<50, Carspeed>;
 };
 
 class ChaoticCar : public AbstractCar<ChaoticCar>
 {
-  using Color = Constant<AbstractCar::Color, BLUE>;
-  using InitialBehaviour = Constant<AbstractCar::Behaviour, AbstractCar::DriveSlow>;
-  struct MakeAccident { Event handle() { return CreateAccidents; } };
+  using CarColor = Constant<BLUE>;
+  using InitialBehaviour = Constant<DriveSlow>;
+  struct MakeAccident { Behaviour handle() { return CreateAccidents; } };
   using EventHandlers = TypeList<MakeAccident, MakeAccident, MakeAccident>;
-  using Speed = Constant<CarSpeed, 200>;
+  using Speed = Constant<200>;
 };
 
-SECTION("Metaprogramming can be used to create strong abstractions", "[util]")
+TEST_CASE("Metaprogramming can be used to create strong abstractions", "[util]")
 {
   NormalCar normalCar;
   REQUIRE(normalCar.currentBehaviour == DriveSlow);

@@ -15,6 +15,9 @@ option(ENABLE_SDL2_MIXER "Enable SDL2 Mixer" ON)
 option(ENABLE_MICROPROFILE "Enable microprofile" OFF)
 option(ENABLE_ANGELSCRIPT "Enable AngelScript" ON)
 
+set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD_REQUIRE ON)
+
 if (NOT BUILD_TILEDATA_EDITOR)
     set(_CC_QT "# ")
 endif ()
@@ -240,6 +243,8 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
 message(STATUS "Building Project:  ${PROJECT_NAME}")
 message(STATUS "Build configuration: " ${CMAKE_BUILD_TYPE})
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --std=c++17")
 
 if (UNIX)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
