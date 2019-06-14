@@ -1,4 +1,4 @@
-
+set(CMAKE_CXX_STANDARD 14)
 
 # Set warnings as errors flag
 option(TREAT_WARNINGS_AS_ERRORS "Treat all warnings as errors" ON)
@@ -25,7 +25,7 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
         ${WARN_AS_ERROR_FLAGS}
 
 
-        /wd4996       # -> disable warning: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. 
+        /wd4996       # -> disable warning: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead.
         # /wd4251     # -> disable warning: 'identifier': class 'type' needs to have dll-interface to be used by clients of class 'type2'
         # /wd4592     # -> disable warning: 'identifier': symbol will be dynamically initialized (implementation limitation)
         # /wd4201     # -> disable warning: nonstandard extension used: nameless struct/union (caused by GLM)
@@ -47,12 +47,24 @@ endif ()
 
 # GCC and Clang compiler options
 if (CMAKE_CXX_COMPILER_ID MATCHES "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+
+
+if (BUILD_TEST)
+	set(DEFAULT_COMPILE_OPTIONS ${DEFAULT_COMPILE_OPTIONS}
+			-O0
+			-Wall
+			-fprofile-arcs
+			-ftest-coverage
+	)
+else()
+
     set(DEFAULT_COMPILE_OPTIONS ${DEFAULT_COMPILE_OPTIONS}
         -Wall
         -Wno-missing-braces
 
         ${WARN_AS_ERROR_FLAGS}
     )
+		endif (BUILD_TEST)
 endif ()
 if (CMAKE_CXX_COMPILER_ID MATCHES "GNU")
     set(DEFAULT_COMPILE_OPTIONS ${DEFAULT_COMPILE_OPTIONS}
