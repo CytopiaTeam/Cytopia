@@ -109,6 +109,8 @@ matrix:
             - libpulse-dev
             - libaudio-dev
             - clang-7
+            - gcc-8 #install gcc and g++ in order to make clang use gccs libstdc++
+            - g++-8
             - libc++-7-dev  # C++17 support in libstd++
       env:
         - DEPLOY_DOCUMENTATION=true
