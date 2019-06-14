@@ -28,4 +28,4 @@ msgstr \"\"\n\n")
     endforeach ()
 endforeach ()
 
-file(WRITE "../../data/languages/Cytopia_Json.pot" ${pot_cont})
+file(WRITE "../../data/languages/Cytopia.pot" ${pot_cont})
