@@ -68,7 +68,7 @@ matrix:
         - make copy_coverage
         - >
           if [ "${TRAVIS_SECURE_ENV_VARS}" == "true" ]; then
-            sonar-scanner;
+            sonar-scanner -X -D"sonar.projectVersion=CI-${TRAVIS_JOB_NUMBER}";
           fi;
 
       before_cache:
