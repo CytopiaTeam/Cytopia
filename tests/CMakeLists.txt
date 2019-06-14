@@ -48,6 +48,8 @@ LIST(APPEND TEST_SOURCES
         main.cxx
         Example.cxx
         engine/ResourcesManager.cxx
+        engine/AudioMixer.cxx
+        util/Meta.cxx
         )
 
 # Generate source groups for use in IDEs
