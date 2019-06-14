@@ -52,12 +52,24 @@ matrix:
         - cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_C_COMPILER=gcc-8 -DCMAKE_CXX_COMPILER=g++-8 -DENABLE_COVERAGE=ON .
 
       script:
+        - >
+          if [ "${TRAVIS_SECURE_ENV_VARS}" == "true" ]; then
+            echo "Running sonar build";
+            build-wrapper-linux-x86-64 --out-dir bw-output make -j2;
+          fi;
+        - >
+          if [ "${TRAVIS_SECURE_ENV_VARS}" == "false" ]; then
+            echo "Running pullrequest build";
+            make -j2;
+          fi;
         # Build Cytopia
-        - build-wrapper-linux-x86-64 --out-dir bw-output make -j2
         - ./bin/Cytopia_Tests
         - make gcov
         - make copy_coverage
-        - sonar-scanner || true
+        - >
+          if [ "${TRAVIS_SECURE_ENV_VARS}" == "true" ]; then
+            sonar-scanner;
+          fi;
 
       before_cache:
         - cmake -P ./cmake/pmm.cmake /Conan /Clean
@@ -89,7 +101,7 @@ matrix:
         - sudo rm -f /usr/local/cmake
         - sudo pip install cmake conan --ignore-installed
         - conan user
-        
+
       before_script:
         - cmake -GNinja -DCMAKE_BUILD_TYPE=Release .
 
@@ -110,11 +122,11 @@ matrix:
       env:             TARGET=macOS
       language:        objective-c
       python:          3.7
-      
+
       install:
         - brew update
         - brew install conan
-        
+
       before_script:
         - cmake -DCMAKE_BUILD_TYPE=Release .
 
