@@ -57,7 +57,7 @@ matrix:
         - ./bin/Cytopia_Tests
         - make gcov
         - make copy_coverage
-        - sonar-scanner
+        - sonar-scanner || true
 
       before_cache:
         - cmake -P ./cmake/pmm.cmake /Conan /Clean
