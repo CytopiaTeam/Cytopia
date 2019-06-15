@@ -25,6 +25,7 @@
         "VSYNC": false
     },
     "User Interface": {
-        "BuildMenu Position": "BOTTOM"
+        "BuildMenu Position": "BOTTOM",
+        "Language": "en"
     }
 }

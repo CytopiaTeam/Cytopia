@@ -42,8 +42,8 @@ inline void from_json(const json &j, SettingsData &s)
   s.musicVolume = j["Audio"].value("MusicVolume", static_cast<uint8_t>(50));
   s.soundEffectsVolume = j["Audio"].value("SoundEffectsVolume", static_cast<uint8_t>(100));
   s.buildMenuPosition = j["User Interface"].value("BuildMenu Position", "BOTTOM");
+  s.gameLanguage = j["User Interface"].value("Language", "en");
 }
-
 
 // JSON deserializer for BiomeData struct (Terrain Gen)
 inline void from_json(const json &j, BiomeData &b)
@@ -134,7 +134,8 @@ inline void to_json(json &j, const SettingsData &s)
             {{std::string("Screen_Width"), s.screenWidth}, {std::string("Screen_Height"), s.screenHeight}}},
        }},
       {std::string("Game"), {{std::string("MapSize"), s.mapSize}, {std::string("MaxElevationHeight"), s.maxElevationHeight}}},
-      {std::string("User Interface"), {{std::string("BuildMenu Position"), s.buildMenuPosition}}},
+      {std::string("User Interface"),
+       {{std::string("BuildMenu Position"), s.buildMenuPosition}, {std::string("Language"), s.gameLanguage}}},
       {std::string("ConfigFiles"),
        {{std::string("UIDataJSONFile"), s.uiDataJSONFile},
         {std::string("TileDataJSONFile"), s.tileDataJSONFile},

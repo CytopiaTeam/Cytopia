@@ -1,372 +1,380 @@
-msgid ""
-msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-13 08:32+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain charset=CHARSET\n"
-"Content-Transfer-Encoding: 8bit\n"
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid   ""
+msgstr  "Project-Id-Version: PACKAGE VERSION\n"
+        "Report-Msgid-Bugs-To: \n"
+        "POT-Creation-Date: 2019-06-15 11:35+0200\n"
+        "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+        "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+        "Language-Team: LANGUAGE <LL@li.org>\n"
+        "Language: \n"
+        "MIME-Version: 1.0\n"
+        "Content-Type: text/plain; charset=CHARSET\n"
+        "Content-Transfer-Encoding: 8bit\n"
 
-msgid "Decoration"
-msgstr ""
+msgid   "A  small coal power plant."
+msgstr  ""
 
-msgid "A pile of coal"
-msgstr ""
+msgid   "A Coal Power plant."
+msgstr  ""
 
-msgid "Coal Pile"
-msgstr ""
+msgid   "A Power Plant, that has been built years ago"
+msgstr  ""
 
-msgid "Residential"
-msgstr ""
+msgid   "A Road, that hasn't been cleaned often"
+msgstr  ""
 
-msgid "Day Care Center"
-msgstr ""
+msgid   "A Shop that sells Bikes"
+msgstr  ""
 
-msgid "Old Church"
-msgstr ""
+msgid   "A Tower made out of concrete"
+msgstr  ""
 
-msgid "Commercial"
-msgstr ""
+msgid   "A beautiful water tower"
+msgstr  ""
 
-msgid "A Shop that sells Bikes"
-msgstr ""
+msgid   "A big building"
+msgstr  ""
 
-msgid "BikeShop"
-msgstr ""
+msgid   "A chemical plant"
+msgstr  ""
 
-msgid "A shop that sells clocks"
-msgstr ""
+msgid   "A commercial center"
+msgstr  ""
 
-msgid "Clock Store"
-msgstr ""
+msgid   "A factory"
+msgstr  ""
 
-msgid "A shop!"
-msgstr ""
+msgid   "A petrol pump"
+msgstr  ""
 
-msgid "CompactFast Shop"
-msgstr ""
+msgid   "A petrol station"
+msgstr  ""
 
-msgid "I scream for ice cream!"
-msgstr ""
+msgid   "A pile of coal"
+msgstr  ""
 
-msgid "Ice Cream Shop"
-msgstr ""
+msgid   "A shop that sells clocks"
+msgstr  ""
 
-msgid "A petrol station"
-msgstr ""
+msgid   "A shop that sells games. Even Cytopia is in store!"
+msgstr  ""
 
-msgid "Petrol Station"
-msgstr ""
+msgid   "A shop that sells phones. It has the new CyPhone X"
+msgstr  ""
 
-msgid "A shop that sells games. Even Cytopia is in store!"
-msgstr ""
+msgid   "A shop!"
+msgstr  ""
 
-msgid "Game Shop"
-msgstr ""
+msgid   "A skyscaper"
+msgstr  ""
 
-msgid "Appartment Building"
-msgstr ""
+msgid   "A small  building"
+msgstr  ""
 
-msgid "A shop that sells phones. It has the new CyPhone X"
-msgstr ""
+msgid   "A small house"
+msgstr  ""
 
-msgid "Phone Shop"
-msgstr ""
+msgid   "A small shack"
+msgstr  ""
 
-msgid "Ruegroshorloge"
-msgstr ""
+msgid   "A small water tower"
+msgstr  ""
 
-msgid "Shop"
-msgstr ""
+msgid   "An oasis"
+msgstr  ""
 
-msgid "Nature"
-msgstr ""
+msgid   "Appartment"
+msgstr  ""
 
-msgid "An oasis"
-msgstr ""
+msgid   "Appartment Building"
+msgstr  ""
 
-msgid "Oasis"
-msgstr ""
+msgid   "Appartment London"
+msgstr  ""
 
-msgid "Borgs Burgers - We have the tastiest!"
-msgstr ""
+msgid   "Appartments"
+msgstr  ""
 
-msgid "Borgs Burgers"
-msgstr ""
+msgid   "Big Appartments"
+msgstr  ""
 
-msgid "A commercial center"
-msgstr ""
+msgid   "Big Building"
+msgstr  ""
 
-msgid "Small Commercial Center"
-msgstr ""
+msgid   "Big Depollutor"
+msgstr  ""
 
-msgid "Where people work"
-msgstr ""
+msgid   "Big Office Building"
+msgstr  ""
 
-msgid "Office"
-msgstr ""
+msgid   "BikeShop"
+msgstr  ""
 
-msgid "Big Office Building"
-msgstr ""
+msgid   "Bois Guillaume Appartment"
+msgstr  ""
 
-msgid "The community gathers and works here"
-msgstr ""
+msgid   "Borgs Burgers"
+msgstr  ""
 
-msgid "Community Tower"
-msgstr ""
+msgid   "Borgs Burgers - We have the tastiest!"
+msgstr  ""
 
-msgid "Tour Front De Seine"
-msgstr ""
+msgid   "BuildMenu Layout"
+msgstr  ""
 
-msgid "Roads"
-msgstr ""
+msgid   "Cancel"
+msgstr  ""
 
-msgid "Country Road... takes you home!"
-msgstr ""
+msgid   "Chemical Plant"
+msgstr  ""
 
-msgid "Country Road"
-msgstr ""
+msgid   "Clock Store"
+msgstr  ""
 
-msgid "A Road, that hasn't been cleaned often"
-msgstr ""
+msgid   "Coal Pile"
+msgstr  ""
 
-msgid "Dirt Road"
-msgstr ""
+msgid   "Coal Power Plant"
+msgstr  ""
 
-msgid "Industrial"
-msgstr ""
+msgid   "Commercial"
+msgstr  ""
 
-msgid "Small Depollutor"
-msgstr ""
+msgid   "Community Tower"
+msgstr  ""
 
-msgid "Depolluter Small"
-msgstr ""
+msgid   "CompactFast Shop"
+msgstr  ""
 
-msgid "A petrol pump"
-msgstr ""
+msgid   "Concrete Tower"
+msgstr  ""
 
-msgid "Petrol Pump"
-msgstr ""
+msgid   "Construction"
+msgstr  ""
 
-msgid "Industrial Building"
-msgstr ""
+msgid   "Country Road"
+msgstr  ""
 
-msgid "Old Industrial Building"
-msgstr ""
+msgid   "Country Road... takes you home!"
+msgstr  ""
 
-msgid "Medium Depollutor"
-msgstr ""
+msgid   "Day Care Center"
+msgstr  ""
 
-msgid "Depolluter Medium"
-msgstr ""
+msgid   "Debug Menu"
+msgstr  ""
 
-msgid "A factory"
-msgstr ""
+msgid   "Decoration"
+msgstr  ""
 
-msgid "Factory"
-msgstr ""
+msgid   "Demolish"
+msgstr  ""
 
-msgid "A Power Plant, that has been built years ago"
-msgstr ""
+msgid   "Depolluter Big"
+msgstr  ""
 
-msgid "OldPowerPlant"
-msgstr ""
+msgid   "Depolluter Medium"
+msgstr  ""
 
-msgid "A chemical plant"
-msgstr ""
+msgid   "Depolluter Small"
+msgstr  ""
 
-msgid "Chemical Plant"
-msgstr ""
+msgid   "Desert Building"
+msgstr  ""
 
-msgid "Big Depollutor"
-msgstr ""
+msgid   "Desert building"
+msgstr  ""
 
-msgid "Depolluter Big"
-msgstr ""
+msgid   "Dirt Road"
+msgstr  ""
 
-msgid "Paved Road"
-msgstr ""
+msgid   "Factory"
+msgstr  ""
 
-msgid "Power"
-msgstr ""
+msgid   "Flora"
+msgstr  ""
 
-msgid "A  small coal power plant."
-msgstr ""
+msgid   "Fullscreen Mode"
+msgstr  ""
 
-msgid "Small Coal Power Plant2"
-msgstr ""
+msgid   "Game Shop"
+msgstr  ""
 
-msgid "A Coal Power plant."
-msgstr ""
+msgid   "House with swimming pool"
+msgstr  ""
 
-msgid "Coal Power Plant"
-msgstr ""
+msgid   "I scream for ice cream!"
+msgstr  ""
 
-msgid "Small Coal Power Plant"
-msgstr ""
+msgid   "Ice Cream Shop"
+msgstr  ""
 
-msgid "A small house"
-msgstr ""
+msgid   "Industrial"
+msgstr  ""
 
-msgid "Small House"
-msgstr ""
+msgid   "Industrial Building"
+msgstr  ""
 
-msgid "A small  building"
-msgstr ""
+msgid   "Level Terrain"
+msgstr  ""
 
-msgid "Small house"
-msgstr ""
+#: src/Game.cxx:96
+msgid   "Load Game"
+msgstr  ""
 
-msgid "A small shack"
-msgstr ""
+msgid   "Lower Terrain"
+msgstr  ""
 
-msgid "Small Shack"
-msgstr ""
+msgid   "Medium Appartments"
+msgstr  ""
 
-msgid "Appartments"
-msgstr ""
+msgid   "Medium Depollutor"
+msgstr  ""
 
-msgid "Desert building"
-msgstr ""
+msgid   "Nature"
+msgstr  ""
 
-msgid "Desert Building"
-msgstr ""
+#: src/Game.cxx:91
+msgid   "New Game"
+msgstr  ""
 
-msgid "Pyramid"
-msgstr ""
+msgid   "OK"
+msgstr  ""
 
-msgid "House with swimming pool"
-msgstr ""
+msgid   "Oasis"
+msgstr  ""
 
-msgid "Appartment London"
-msgstr ""
+msgid   "Office"
+msgstr  ""
 
-msgid "Old building"
-msgstr ""
+msgid   "Old Church"
+msgstr  ""
 
-msgid "A big building"
-msgstr ""
+msgid   "Old Industrial Building"
+msgstr  ""
 
-msgid "Big Building"
-msgstr ""
+msgid   "Old building"
+msgstr  ""
 
-msgid "Bois Guillaume Appartment"
-msgstr ""
+msgid   "OldPowerPlant"
+msgstr  ""
 
-msgid "Appartment"
-msgstr ""
+msgid   "Paved Road"
+msgstr  ""
 
-msgid "big Appartments"
-msgstr ""
+msgid   "Petrol Pump"
+msgstr  ""
 
-msgid "Big Appartments"
-msgstr ""
+msgid   "Petrol Station"
+msgstr  ""
 
-msgid "Medium Appartments"
-msgstr ""
+msgid   "Phone Shop"
+msgstr  ""
 
-msgid "A Tower made out of concrete"
-msgstr ""
+msgid   "Power"
+msgstr  ""
 
-msgid "Concrete Tower"
-msgstr ""
+msgid   "Pyramid"
+msgstr  ""
 
-msgid "A skyscaper"
-msgstr ""
+#: src/Game.cxx:100
+msgid   "Quit Game"
+msgstr  ""
 
-msgid "Skyscraper"
-msgstr ""
+msgid   "Raise Terrain"
+msgstr  ""
 
-msgid "Terrain"
-msgstr ""
+msgid   "Residential"
+msgstr  ""
 
-msgid "Terrain tiles"
-msgstr ""
+msgid   "Roads"
+msgstr  ""
 
-msgid "Water"
-msgstr ""
+msgid   "Rocks"
+msgstr  ""
 
-msgid "Utilities"
-msgstr ""
+msgid   "Rocks for the terrain"
+msgstr  ""
 
-msgid "A beautiful water tower"
-msgstr ""
+msgid   "Ruegroshorloge"
+msgstr  ""
 
-msgid "Water Tower"
-msgstr ""
+msgid   "Save Game"
+msgstr  ""
 
-msgid "A small water tower"
-msgstr ""
+msgid   "Screen Resolution"
+msgstr  ""
 
-msgid "Small Water Tower"
-msgstr ""
+msgid   "Settings"
+msgstr  ""
 
-msgid "Flora"
-msgstr ""
+msgid   "Shop"
+msgstr  ""
 
-msgid "trees"
-msgstr ""
+msgid   "Skyscraper"
+msgstr  ""
 
-msgid "Trees"
-msgstr ""
+msgid   "Small Coal Power Plant"
+msgstr  ""
 
-msgid "TerrainDecoration"
-msgstr ""
+msgid   "Small Coal Power Plant2"
+msgstr  ""
 
-msgid "Rocks for the terrain"
-msgstr ""
+msgid   "Small Commercial Center"
+msgstr  ""
 
-msgid "Rocks"
-msgstr ""
+msgid   "Small Depollutor"
+msgstr  ""
 
-msgid "Construction"
-msgstr ""
+msgid   "Small House"
+msgstr  ""
 
-msgid "Debug Menu"
-msgstr ""
+msgid   "Small Shack"
+msgstr  ""
 
-msgid "Demolish"
-msgstr ""
+msgid   "Small Water Tower"
+msgstr  ""
 
-msgid "Raise Terrain"
-msgstr ""
+msgid   "Small house"
+msgstr  ""
 
-msgid "Lower Terrain"
-msgstr ""
+msgid   "Terrain"
+msgstr  ""
 
-msgid "Level Terrain"
-msgstr ""
+msgid   "Terrain tiles"
+msgstr  ""
 
-msgid "Settings"
-msgstr ""
+msgid   "TerrainDecoration"
+msgstr  ""
 
-msgid "New Game"
-msgstr ""
+msgid   "The community gathers and works here"
+msgstr  ""
 
-msgid "Save Game"
-msgstr ""
+msgid   "Tour Front De Seine"
+msgstr  ""
 
-msgid "Load Game"
-msgstr ""
+msgid   "Trees"
+msgstr  ""
 
-msgid "Quit Game"
-msgstr ""
+msgid   "Utilities"
+msgstr  ""
 
-msgid "OK"
-msgstr ""
+msgid   "Water"
+msgstr  ""
 
-msgid "Cancel"
-msgstr ""
+msgid   "Water Tower"
+msgstr  ""
 
-msgid "BuildMenu Layout"
-msgstr ""
+msgid   "Where people work"
+msgstr  ""
 
-msgid "Screen Resolution"
-msgstr ""
+msgid   "big Appartments"
+msgstr  ""
 
-msgid "Fullscreen Mode"
-msgstr ""
+msgid   "trees"
+msgstr  ""

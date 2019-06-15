@@ -125,10 +125,11 @@ target_link_libraries(${PROJECT_NAME} PRIVATE ${_link_libraries})
 
 # copy the resources to the compiled directory
 
-add_custom_command(
-        TARGET ${PROJECT_NAME} POST_BUILD
+add_custom_target(
+        copy_resources
         COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/data/resources/ $<TARGET_FILE_DIR:${PROJECT_NAME}>/resources/
         COMMENT "Copy the resources to the compiled directory"
+        VERBATIM
 )
 
 if (MSVC)

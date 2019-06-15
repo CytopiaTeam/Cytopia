@@ -77,7 +77,7 @@ matrix:
             echo "Running pullrequest build";
             make -j2;
           fi;
-        # Build Cytopia
+        - make copy_resources
         - ./bin/Cytopia_Tests
         - make gcov
         - make copy_coverage
@@ -126,8 +126,8 @@ matrix:
         - cmake -GNinja -DCMAKE_BUILD_TYPE=Release .
 
       script:
-        # Build Cytopia
         - ninja
+        - ninja copy_resources
         - ./bin/Cytopia_Tests
         - sh ./tools/CI/upload-CI-build.sh
         - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then doxygen Doxyfile; fi
@@ -152,6 +152,7 @@ matrix:
 
       script:
         - make
+        - make copy_resources
         - cmake -E copy tests/CTestTestfile.cmake .
         - ctest -VV
         - make package
