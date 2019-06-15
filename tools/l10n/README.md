@@ -11,7 +11,6 @@ should be updated whenever new strings which need translation have been added to
 
 ```bash
 # extract new translations template
-extract_pot.sh
 cmake -P extract_from_json.cmake
 # now update the source file on Transifex:
 # Cytopia -> more project options -> resource -> *.pot -> update
