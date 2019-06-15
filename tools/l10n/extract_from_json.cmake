@@ -1,5 +1,8 @@
 file(GLOB_RECURSE json_files ../../data/resources/data/*.json)
 
+set(TMP_pot "${CMAKE_BINARY_DIR}/TMP/TMP.pot")
+set(final_pot "../../data/languages/Cytopia.pot")
+
 set(pot_cont "\
 msgid \"\"\n \
 msgstr \"\" \n\
@@ -28,4 +31,12 @@ msgstr \"\"\n\n")
     endforeach ()
 endforeach ()
 
-file(WRITE "../../data/languages/Cytopia.pot" ${pot_cont})
+file(WRITE ${TMP_pot} ${pot_cont})
+
+message("Extracting strings from source files")
+execute_process(COMMAND bash "-c" "find src -iname '*.cxx' -not -path '*/TileDataUi/*' | xargs xgettext -o${TMP_pot} -ksetText -c -s -j"
+                WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/../..")
+
+message("Cleaning up")
+execute_process(COMMAND msguniq -i -s -o${final_pot} ${TMP_pot}
+                WORKING_DIRECTORY ${CMAKE_BINARY_DIR})

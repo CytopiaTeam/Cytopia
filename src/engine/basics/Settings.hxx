@@ -116,6 +116,11 @@ struct SettingsData
    * @todo add a typename
    */
   std::string uiLayoutJSONFile;
+
+  /**
+   * @brief The Game language 
+   */
+  std::string gameLanguage;
 };
 
 /**

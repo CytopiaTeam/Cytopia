@@ -10,10 +10,6 @@
 
 #include "json.hxx"
 
-#ifdef USE_MOFILEREADER
-#include "moFileReader.h"
-#endif
-
 #ifdef MICROPROFILE_ENABLED
 #include "microprofile.h"
 #endif
@@ -22,14 +18,6 @@ using json = nlohmann::json;
 
 void UIManager::init()
 {
-  std::string moFilePath = SDL_GetBasePath();
-  moFilePath = moFilePath + "languages/nl/Cytopia.mo";
-
-  if (moFileLib::moFileReaderSingleton::GetInstance().ReadFile(moFilePath.c_str()) != moFileLib::moFileReader::EC_SUCCESS)
-  {
-    LOG(LOG_ERROR) << "Failed to load MO file";
-  }
-
   json uiLayout;
 
   std::ifstream i(SDL_GetBasePath() + Settings::instance().uiLayoutJSONFile);

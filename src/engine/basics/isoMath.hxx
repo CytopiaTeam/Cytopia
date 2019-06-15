@@ -6,7 +6,6 @@
 #include <vector>
 #include <algorithm>
 
-
 // calculate clicked column (x coordinate) without heigh taken into account.
 /** \brief Calculates screen space coordinates to isometric space coordinates.
 * A formula is used to calculate the iso coordinates from given screen coordinates. No tile height is taken into account.

@@ -15,7 +15,6 @@ public:
 
   void draw() override;
 
-
 private:
   /// Thickness of the slider line
   int m_lineThickness = 6;
