@@ -8,13 +8,9 @@
 
 #include <SDL_ttf.h>
 
-Text::Text(const SDL_Rect &uiElementRect, const std::string &text) : UIElement(uiElementRect) { setText(text); }
-
-Text::Text(const std::string &text) : UIElement() { setText(text); }
-
 void Text::draw()
 {
-  if (m_texture)
+  if (m_texture && isVisible())
   {
     renderTexture();
   }

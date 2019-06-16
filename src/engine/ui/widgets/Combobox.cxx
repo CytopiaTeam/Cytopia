@@ -8,7 +8,8 @@ ComboBox::ComboBox(const SDL_Rect &uiElementRect)
 {
   // the Dropdown frame starts directly beneath the button element of the combobox
   m_dropDownRect.y = m_uiElementRect.y + m_uiElementRect.h;
-  m_textField = std::make_unique<TextField>(m_dropDownRect);
+  m_textField = std::make_unique<TextField>();
+  m_textField->setPosition(m_dropDownRect.x, m_dropDownRect.y);
 
   // ComboBox is collapsed when element is instantiated
   m_textField->setVisibility(false);

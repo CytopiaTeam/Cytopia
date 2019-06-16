@@ -11,16 +11,7 @@ public:
   /**
    * @brief default Constructor
    */
-  Text() = default;
-  /**
-   * @brief Constructs element at a certain position
-   */
-  Text(const SDL_Rect &uiElementRect) : UIElement(uiElementRect){};
-  /**
-   * @brief Constructs element at a certain position with text
-   */
-  Text(const SDL_Rect &uiElementRect, const std::string &text);
-  Text(const std::string &text);
+  Text() : UIElement({0, 0, 0, 0}){};
 
   /**
    * @brief Destructor
