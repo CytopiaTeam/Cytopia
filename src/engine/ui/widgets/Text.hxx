@@ -44,6 +44,8 @@ public:
    */
   void setFontSize(int fontSize);
 
+  int getFontSize() const { return m_fontSize; }
+
 private:
   /** \brief Draws a text string to the screen
   * Draws a text string to the screen. This could either be a standalone text, a text on another texture
