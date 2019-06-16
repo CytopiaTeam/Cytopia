@@ -5,6 +5,9 @@
 
 #include "../basics/UIElement.hxx"
 
+/**
+ * @Brief A Text GUI Widget
+ */
 class Text : public UIElement
 {
 public:
