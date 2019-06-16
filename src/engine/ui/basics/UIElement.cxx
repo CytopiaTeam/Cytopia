@@ -2,22 +2,16 @@
 #include "../../basics/LOG.hxx"
 #include "Settings.hxx"
 
-void UIElement::draw()
-{
-  if (m_texture)
-  {
-    renderTexture();
-  }
-}
-
 void UIElement::setTextureID(const std::string &textureID)
 {
   elementData.textureID = textureID;
   SDL_Texture *texture = ResourcesManager::instance().getUITexture(textureID);
-  if (texture)
+  if (!texture)
   {
-    m_texture = texture;
+    LOG(LOG_ERROR) << "Texture " << textureID << " could not be loaded!";
+    return;
   }
+  m_texture = texture;
   SDL_QueryTexture(m_texture, nullptr, nullptr, &m_uiElementRect.w, &m_uiElementRect.h);
 }
 

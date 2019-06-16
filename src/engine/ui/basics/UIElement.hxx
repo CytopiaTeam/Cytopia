@@ -53,7 +53,7 @@ public:
   /** \brief Draw the UI Element and/or render it's textures to the screen
   * Renders the texture of the Ui Element. Function is over
   */
-  virtual void draw();
+  virtual void draw(){};
 
   /** \brief Sets the x,y position of this ui element
   * Sets the x,y position of the ui element
@@ -157,7 +157,6 @@ public:
   void setMenuGroupID(const std::string &buildMenuID) { elementData.buildMenuID = buildMenuID; };
   void setLayoutGroupName(const std::string &layoutGroupName) { elementData.layoutGroupName = layoutGroupName; };
 
-
   const ElementData &getUiElementData() const { return elementData; };
 
   virtual void drawImageButtonFrame(bool){};
@@ -167,7 +166,6 @@ public:
 private:
   SDL_Renderer *m_renderer = WindowManager::instance().getRenderer();
   SDL_Window *m_window = WindowManager::instance().getWindow();
-  
 
   int m_buttonState = BUTTONSTATE_DEFAULT;
 
@@ -193,7 +191,6 @@ protected:
   * @param color The color of the line.
   */
   void drawLine(int x1, int y1, int x2, int y2, const SDL_Color &color) const;
-
 
   /** \brief Draws a frame around a textfield
   * Draws a frame around around an existing textfield. This function cannot be used without an existing textfield.
