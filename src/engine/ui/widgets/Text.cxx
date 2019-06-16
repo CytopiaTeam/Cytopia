@@ -12,6 +12,14 @@ Text::Text(const SDL_Rect &uiElementRect, const std::string &text) : UIElement(u
 
 Text::Text(const std::string &text) : UIElement() { setText(text); }
 
+void Text::draw()
+{
+  if (m_texture)
+  {
+    renderTexture();
+  }
+}
+
 void Text::setText(const std::string &text)
 {
 #ifdef USE_MOFILEREADER
