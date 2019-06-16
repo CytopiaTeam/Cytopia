@@ -7,7 +7,6 @@ include(CMakeDependentOption)
 include(SourceFileUtils)
 include(FetchContent)
 
-option(BUILD_TILEDATA_EDITOR "Build Cytopia TileData Editor" OFF)
 option(BUILD_TEST "Build Cytopia Tests" ON)
 option(USE_PACKAGE_MANAGER "Use conan for managing packages" ON)
 cmake_dependent_option(USE_PMM "Use PMM for managing conan" OFF WIN32 ON)
@@ -15,10 +14,6 @@ option(ENABLE_SDL2_MIXER "Enable SDL2 Mixer" ON)
 option(ENABLE_MICROPROFILE "Enable microprofile" OFF)
 option(ENABLE_ANGELSCRIPT "Enable AngelScript" ON)
 option(ENABLE_MOFILEREADER "Enable MofileReader" ON)
-
-if (NOT BUILD_TILEDATA_EDITOR)
-    set(_CC_QT "# ")
-endif ()
 
 if (NOT ENABLE_SDL2_MIXER)
     set(_CC_SDL2_MIXER "# ")
@@ -261,10 +256,6 @@ message(STATUS "Build configuration: " ${CMAKE_BUILD_TYPE})
 if (UNIX)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 endif ()
-
-if (BUILD_TILEDATA_EDITOR)
-    add_subdirectory(src/TileDataUi)
-endif (BUILD_TILEDATA_EDITOR)
 
 add_subdirectory(src)
 
