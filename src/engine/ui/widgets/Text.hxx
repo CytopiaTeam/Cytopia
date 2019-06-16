@@ -8,14 +8,40 @@
 class Text : public UIElement
 {
 public:
+  /**
+   * @brief default Constructor
+   */
   Text() = default;
+  /**
+   * @brief Constructs element at a certain position
+   */
   Text(const SDL_Rect &uiElementRect) : UIElement(uiElementRect){};
+  /**
+   * @brief Constructs element at a certain position with text
+   */
   Text(const SDL_Rect &uiElementRect, const std::string &text);
   Text(const std::string &text);
+
+  /**
+   * @brief Destructor
+   */
   ~Text() override = default;
 
+  /**
+   * @brief implements draw function. Renders the SDL_Texture generated from the TTF.
+   */
   void draw() override;
+
+  /**
+   * @brief sets the text for this text widget.
+   * @param text The text that should be set
+   */
   void setText(const std::string &text);
+
+  /**
+   * @brief Sets the Font size of this element
+   * @param fontSize the size the font should be set to.
+   */
   void setFontSize(int fontSize);
 
 private:
