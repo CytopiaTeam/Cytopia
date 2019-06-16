@@ -16,6 +16,7 @@ public:
 
   void draw() override;
   void setText(const std::string &text);
+  void setFontSize(int fontSize);
 
 private:
   /** \brief Draws a text string to the screen
@@ -25,6 +26,8 @@ private:
   * @param textColor Color that should be used for the text in SDL_Color format
   */
   void createTextTexture(const std::string &text, const SDL_Color &textColor);
+
+  int m_fontSize = 20;
 };
 
 #endif

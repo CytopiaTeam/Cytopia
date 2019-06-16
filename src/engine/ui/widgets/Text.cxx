@@ -31,9 +31,16 @@ void Text::setText(const std::string &text)
   createTextTexture(elementData.text, SDL_Color{255, 255, 255});
 }
 
+void Text::setFontSize(int fontSize)
+{
+  m_fontSize = fontSize;
+  // call the setText function again with the current text
+  setText(elementData.text);
+}
+
 void Text::createTextTexture(const std::string &text, const SDL_Color &textColor)
 {
-  TTF_Font *font = TTF_OpenFont(Settings::instance().fontFileName.c_str(), 25);
+  TTF_Font *font = TTF_OpenFont(Settings::instance().fontFileName.c_str(), m_fontSize);
 
   if (!font)
   {
