@@ -167,12 +167,12 @@ void UIManager::init()
         else if (uiElementType == "TextButton")
         {
           uiElement = std::make_unique<Button>(elementRect);
-          uiElement->setText(text);
+          dynamic_cast<Button *>(uiElement.get())->setText(text);
         }
         else if (uiElementType == "Text")
         {
           uiElement = std::make_unique<Text>(elementRect);
-          uiElement->setText(text);
+          dynamic_cast<Text *>(uiElement.get())->setText(text);
         }
         else if (uiElementType == "Frame")
         {

@@ -11,6 +11,7 @@
 
 #include <noise.h>
 #include <SDL.h>
+#include <SDL_ttf.h>
 
 #ifdef USE_SDL2_MIXER
 #include "engine/AudioMixer.hxx"
