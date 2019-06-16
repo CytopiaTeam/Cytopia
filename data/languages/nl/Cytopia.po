@@ -1,0 +1,385 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Edgar <Edgar@AnotherFoxGuy.com>, 2019
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-06-15 11:35+0200\n"
+"PO-Revision-Date: 2019-06-14 12:00+0000\n"
+"Last-Translator: Edgar <Edgar@AnotherFoxGuy.com>, 2019\n"
+"Language-Team: Dutch (https://www.transifex.com/cytopia/teams/100140/nl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nl\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "A  small coal power plant."
+msgstr "Een kleine kolencentrale."
+
+msgid "A Coal Power plant."
+msgstr "Een kolencentrale."
+
+msgid "A Power Plant, that has been built years ago"
+msgstr "Een energiecentrale, die al jaren geleden is gebouwd"
+
+msgid "A Road, that hasn't been cleaned often"
+msgstr "Een weg die niet vaak is schoongemaakt"
+
+msgid "A Shop that sells Bikes"
+msgstr "Een winkel die fietsen verkoopt"
+
+msgid "A Tower made out of concrete"
+msgstr "Een toren gemaakt van beton"
+
+msgid "A beautiful water tower"
+msgstr "Een prachtige watertoren"
+
+msgid "A big building"
+msgstr "Een groot gebouw"
+
+msgid "A chemical plant"
+msgstr "Een chemische fabriek"
+
+msgid "A commercial center"
+msgstr "Een commercieel centrum"
+
+msgid "A factory"
+msgstr "Een fabriek"
+
+msgid "A petrol pump"
+msgstr "Een benzinepomp"
+
+msgid "A petrol station"
+msgstr "Een benzinestation"
+
+msgid "A pile of coal"
+msgstr "Een stapel kolen"
+
+msgid "A shop that sells clocks"
+msgstr "Een winkel die klokken verkoopt"
+
+msgid "A shop that sells games. Even Cytopia is in store!"
+msgstr "Een winkel die games verkoopt. Zelfs Cytopia ligt in de winkel!"
+
+msgid "A shop that sells phones. It has the new CyPhone X"
+msgstr "Een winkel die telefoons verkoopt. Het heeft de nieuwe CyPhone X"
+
+msgid "A shop!"
+msgstr "Een winkel!"
+
+msgid "A skyscaper"
+msgstr "Een wolkenkrabber"
+
+msgid "A small  building"
+msgstr "Een klein gebouw"
+
+msgid "A small house"
+msgstr "Een klein huis"
+
+msgid "A small shack"
+msgstr "Een kleine hut"
+
+msgid "A small water tower"
+msgstr "Een kleine watertoren"
+
+msgid "An oasis"
+msgstr "Een oase"
+
+msgid "Appartment"
+msgstr "Appartement"
+
+msgid "Appartment Building"
+msgstr "Appartementencomplex"
+
+msgid "Appartment London"
+msgstr "Appartement London"
+
+msgid "Appartments"
+msgstr "Appartementen"
+
+msgid "Big Appartments"
+msgstr "Grootte Appartementen"
+
+msgid "Big Building"
+msgstr "Groot gebouw"
+
+msgid "Big Depollutor"
+msgstr "Grote Depollutor"
+
+msgid "Big Office Building"
+msgstr "Groot kantoorgebouw"
+
+msgid "BikeShop"
+msgstr "Fietsenwinkel"
+
+msgid "Bois Guillaume Appartment"
+msgstr "Bois Guillaume Appartement"
+
+msgid "Borgs Burgers"
+msgstr "Borgs Burgers"
+
+msgid "Borgs Burgers - We have the tastiest!"
+msgstr "Borgs Burgers - We hebben de lekkerste!"
+
+msgid "BuildMenu Layout"
+msgstr "Bouw menu indeling"
+
+msgid "Cancel"
+msgstr "Annuleren"
+
+msgid "Chemical Plant"
+msgstr "Chemische fabriek"
+
+msgid "Clock Store"
+msgstr "Klokkenwinkel"
+
+msgid "Coal Pile"
+msgstr "Steenkoolstapel"
+
+msgid "Coal Power Plant"
+msgstr "Coal Power Plant"
+
+msgid "Commercial"
+msgstr "Commercieel"
+
+msgid "Community Tower"
+msgstr "Gemeenschapstoren"
+
+msgid "CompactFast Shop"
+msgstr "CompactFast Winkel"
+
+msgid "Concrete Tower"
+msgstr "Betonen Toren"
+
+msgid "Construction"
+msgstr "Constructie"
+
+msgid "Country Road"
+msgstr "Landweg"
+
+msgid "Country Road... takes you home!"
+msgstr "Country Road ... neemt je mee naar huis!"
+
+msgid "Day Care Center"
+msgstr "Kinderopvang"
+
+msgid "Debug Menu"
+msgstr "Debug Menu"
+
+msgid "Decoration"
+msgstr "Decoratie"
+
+msgid "Demolish"
+msgstr "Slopen"
+
+msgid "Depolluter Big"
+msgstr "Depollutor Groot"
+
+msgid "Depolluter Medium"
+msgstr "Depolluter Medium"
+
+msgid "Depolluter Small"
+msgstr "Depolluter Klein"
+
+msgid "Desert Building"
+msgstr "Woestijn Gebouw"
+
+msgid "Desert building"
+msgstr "Woestijn gebouw"
+
+msgid "Dirt Road"
+msgstr "Zandweg"
+
+msgid "Factory"
+msgstr "Fabriek"
+
+msgid "Flora"
+msgstr "Flora"
+
+msgid "Fullscreen Mode"
+msgstr "Volledig scherm"
+
+msgid "Game Shop"
+msgstr "Game Winkel"
+
+msgid "House with swimming pool"
+msgstr "Huis met zwembad"
+
+msgid "I scream for ice cream!"
+msgstr "Ik gil voor ijs!"
+
+msgid "Ice Cream Shop"
+msgstr "Ijssalon"
+
+msgid "Industrial"
+msgstr "Industrieel"
+
+msgid "Industrial Building"
+msgstr "Industrieel gebouw"
+
+msgid "Level Terrain"
+msgstr "Vlak Terrein"
+
+#: src/Game.cxx:96
+msgid "Load Game"
+msgstr "Spel laden"
+
+msgid "Lower Terrain"
+msgstr "Verlaag terrein"
+
+msgid "Medium Appartments"
+msgstr "Middelgrote appartementen"
+
+msgid "Medium Depollutor"
+msgstr "Medium Depollutor"
+
+msgid "Nature"
+msgstr "Natuur"
+
+#: src/Game.cxx:91
+msgid "New Game"
+msgstr "Nieuw spel"
+
+msgid "OK"
+msgstr "OK"
+
+msgid "Oasis"
+msgstr "Oase"
+
+msgid "Office"
+msgstr "Kantoor"
+
+msgid "Old Church"
+msgstr "Oude Kerk"
+
+msgid "Old Industrial Building"
+msgstr "Oud industrieel gebouw"
+
+msgid "Old building"
+msgstr "Oud gebouw"
+
+msgid "OldPowerPlant"
+msgstr "Oude elektrische centrale"
+
+msgid "Paved Road"
+msgstr "Geplaveide weg"
+
+msgid "Petrol Pump"
+msgstr "Benzinepomp"
+
+msgid "Petrol Station"
+msgstr "Benzinestation"
+
+msgid "Phone Shop"
+msgstr "Telefoonwinkel"
+
+msgid "Power"
+msgstr "Stroom"
+
+msgid "Pyramid"
+msgstr "Piramide"
+
+#: src/Game.cxx:100
+msgid "Quit Game"
+msgstr "Sluit spel"
+
+msgid "Raise Terrain"
+msgstr "Verhoog terrein"
+
+msgid "Residential"
+msgstr "Residentieel"
+
+msgid "Roads"
+msgstr "Wegen"
+
+msgid "Rocks"
+msgstr "Rotsen"
+
+msgid "Rocks for the terrain"
+msgstr "Rotsen voor het terrein"
+
+msgid "Ruegroshorloge"
+msgstr "Ruegroshorloge"
+
+msgid "Save Game"
+msgstr "Spel opslaan"
+
+msgid "Screen Resolution"
+msgstr "Schermresolutie"
+
+msgid "Settings"
+msgstr "Instellingen"
+
+msgid "Shop"
+msgstr "Winkel"
+
+msgid "Skyscraper"
+msgstr "Wolkenkrabber"
+
+msgid "Small Coal Power Plant"
+msgstr "Kleine kolencentrale"
+
+msgid "Small Coal Power Plant2"
+msgstr "Kleine kolencentrale2"
+
+msgid "Small Commercial Center"
+msgstr "Klein commercieel centrum"
+
+msgid "Small Depollutor"
+msgstr "Klein Depollutor"
+
+msgid "Small House"
+msgstr "Klein huis"
+
+msgid "Small Shack"
+msgstr "Kleine hut"
+
+msgid "Small Water Tower"
+msgstr "Kleine watertoren"
+
+msgid "Small house"
+msgstr "Klein huis"
+
+msgid "Terrain"
+msgstr "Terrein"
+
+msgid "Terrain tiles"
+msgstr "Terreintegels"
+
+msgid "TerrainDecoration"
+msgstr "Terreindecoratie"
+
+msgid "The community gathers and works here"
+msgstr "De gemeenschap verzamelt zich en werkt hier"
+
+msgid "Tour Front De Seine"
+msgstr "Tour Front De Seine"
+
+msgid "Trees"
+msgstr "Bomen"
+
+msgid "Utilities"
+msgstr "Gereedschap"
+
+msgid "Water"
+msgstr "Water"
+
+msgid "Water Tower"
+msgstr "Watertoren"
+
+msgid "Where people work"
+msgstr "Waar mensen werken"
+
+msgid "big Appartments"
+msgstr "grootte Appartementen"
+
+msgid "trees"
+msgstr "bomen"
