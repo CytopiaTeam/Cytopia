@@ -26,7 +26,11 @@ void Button::draw()
   renderTexture();
 }
 
-void Button::setText(const std::string &text) { m_buttonLabel->setText(text); }
+void Button::setText(const std::string &text)
+{
+  m_buttonLabel->setText(text);
+  centerTextLabel();
+}
 
 bool Button::onMouseButtonUp(const SDL_Event &event)
 {
