@@ -20,7 +20,7 @@ public:
 
   void draw() override;
 
-  void setText(const std::string &text) override;
+  void setText(const std::string &text);
 
   bool onMouseButtonUp(const SDL_Event &event) override;
   bool onMouseButtonDown(const SDL_Event &event) override;

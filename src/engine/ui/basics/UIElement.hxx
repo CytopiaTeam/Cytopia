@@ -9,7 +9,6 @@
 #include "../../basics/signal.hxx"
 
 #include <SDL.h>
-#include <SDL_ttf.h>
 
 /** @brief Base class for UI Elements
   * Provides functions and variables for derived user interface elements.
@@ -54,7 +53,7 @@ public:
   /** \brief Draw the UI Element and/or render it's textures to the screen
   * Renders the texture of the Ui Element. Function is over
   */
-  virtual void draw();
+  virtual void draw(){};
 
   /** \brief Sets the x,y position of this ui element
   * Sets the x,y position of the ui element
@@ -158,8 +157,6 @@ public:
   void setMenuGroupID(const std::string &buildMenuID) { elementData.buildMenuID = buildMenuID; };
   void setLayoutGroupName(const std::string &layoutGroupName) { elementData.layoutGroupName = layoutGroupName; };
 
-  virtual void setText(const std::string &text);
-
   const ElementData &getUiElementData() const { return elementData; };
 
   virtual void drawImageButtonFrame(bool){};
@@ -169,7 +166,6 @@ public:
 private:
   SDL_Renderer *m_renderer = WindowManager::instance().getRenderer();
   SDL_Window *m_window = WindowManager::instance().getWindow();
-  TTF_Font *m_font = nullptr;
 
   int m_buttonState = BUTTONSTATE_DEFAULT;
 
@@ -195,14 +191,6 @@ protected:
   * @param color The color of the line.
   */
   void drawLine(int x1, int y1, int x2, int y2, const SDL_Color &color) const;
-
-  /** \brief Draws a text string to the screen
-  * Draws a text string to the screen. This could either be a standalone text, a text on another texture
-  * or a text on a GUI Element drawn with shape functions.
-  * @param text Text to draw
-  * @param textColor Color that should be used for the text in SDL_Color format
-  */
-  void createTextTexture(const std::string &text, const SDL_Color &textColor);
 
   /** \brief Draws a frame around a textfield
   * Draws a frame around around an existing textfield. This function cannot be used without an existing textfield.

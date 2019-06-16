@@ -11,6 +11,7 @@
 
 #include <noise.h>
 #include <SDL.h>
+#include <SDL_ttf.h>
 
 #ifdef USE_SDL2_MIXER
 #include "engine/AudioMixer.hxx"
@@ -84,7 +85,8 @@ void Game::mainMenu()
   logo.setVisibility(true);
   logo.setPosition(screenWidth / 2 - logo.getUiElementRect().w / 2, screenHeight / 4 - logo.getUiElementRect().h / 2);
 
-  Text versionText(VERSION);
+  Text versionText;
+  versionText.setText(VERSION);
   versionText.setPosition(screenWidth - versionText.getUiElementRect().w, screenHeight - versionText.getUiElementRect().h);
 
   Button newGameButton({screenWidth / 2 - 100, screenHeight / 2 - 20, 200, 40});

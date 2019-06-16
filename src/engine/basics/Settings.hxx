@@ -121,6 +121,11 @@ struct SettingsData
    * @brief The Game language 
    */
   std::string gameLanguage;
+
+  /**
+   * @brief FileName of the Font that should be used.
+   */
+  std::string fontFileName;
 };
 
 /**

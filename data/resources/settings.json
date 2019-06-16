@@ -26,6 +26,7 @@
     },
     "User Interface": {
         "BuildMenu Position": "BOTTOM",
-        "Language": "en"
+        "Language": "en",
+        "Font Filename": "resources/fonts/arcadeclassics.ttf"
     }
 }

@@ -93,6 +93,9 @@ void UIManager::init()
         LOG(LOG_ERROR) << "Cannot add a Layout Group without a name. Check your UiLayout.json file.";
       }
     }
+
+    // set FPS Counter position
+    m_fpsCounter->setPosition(40, 20);
   }
 
   // parse UiElements
@@ -167,12 +170,13 @@ void UIManager::init()
         else if (uiElementType == "TextButton")
         {
           uiElement = std::make_unique<Button>(elementRect);
-          uiElement->setText(text);
+          dynamic_cast<Button *>(uiElement.get())->setText(text);
         }
         else if (uiElementType == "Text")
         {
-          uiElement = std::make_unique<Text>(elementRect);
-          uiElement->setText(text);
+          uiElement = std::make_unique<Text>();
+          dynamic_cast<Text *>(uiElement.get())->setText(text);
+          dynamic_cast<Text *>(uiElement.get())->setPosition(elementRect.x, elementRect.y);
         }
         else if (uiElementType == "Frame")
         {

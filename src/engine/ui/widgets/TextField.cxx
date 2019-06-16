@@ -30,7 +30,8 @@ void TextField::addText(const std::string &text)
 {
   SDL_Rect textRect = m_uiElementRect;
 
-  Text *label = new Text(text);
+  Text *label = new Text();
+  label->setText(text);
   textRect.h = label->getUiElementRect().h; // get height of text after instantiating
   textRect.y = static_cast<int>(m_uiElementRect.y + m_count * textRect.h);
 
