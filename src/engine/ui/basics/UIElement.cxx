@@ -1,5 +1,6 @@
 #include "UIElement.hxx"
 #include "../../basics/LOG.hxx"
+#include "Settings.hxx"
 
 #ifdef USE_MOFILEREADER
 #include "moFileReader.h"
@@ -74,7 +75,7 @@ SDL_Point UIElement::screenPointToLocalPointInRect(SDL_Point screenCoordinates)
 
 void UIElement::createTextTexture(const std::string &text, const SDL_Color &textColor)
 {
-  m_font = TTF_OpenFont("resources/fonts/arcadeclassics.ttf", 20);
+  m_font = TTF_OpenFont(Settings::instance().fontFileName.c_str(), 20);
 
   if (!m_font)
   {

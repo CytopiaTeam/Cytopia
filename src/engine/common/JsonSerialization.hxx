@@ -43,6 +43,7 @@ inline void from_json(const json &j, SettingsData &s)
   s.soundEffectsVolume = j["Audio"].value("SoundEffectsVolume", static_cast<uint8_t>(100));
   s.buildMenuPosition = j["User Interface"].value("BuildMenu Position", "BOTTOM");
   s.gameLanguage = j["User Interface"].value("Language", "en");
+  s.fontFileName = j["User Interface"].value("Font Filename", "en");
 }
 
 // JSON deserializer for BiomeData struct (Terrain Gen)
