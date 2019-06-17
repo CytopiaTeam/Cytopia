@@ -78,7 +78,7 @@ matrix:
             make -j2;
           fi;
         - make copy_resources
-        - ./bin/Cytopia_Tests
+        - ctest -VV
         - make gcov
         - make copy_coverage
         - >
@@ -128,7 +128,7 @@ matrix:
       script:
         - ninja
         - ninja copy_resources
-        - ./bin/Cytopia_Tests
+        - ctest -VV
         - sh ./tools/CI/upload-CI-build.sh
         - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then doxygen Doxyfile; fi
 
@@ -153,7 +153,6 @@ matrix:
       script:
         - make
         - make copy_resources
-        - cmake -E copy tests/CTestTestfile.cmake .
         - ctest -VV
         - make package
 
