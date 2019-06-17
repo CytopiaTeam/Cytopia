@@ -1,7 +1,6 @@
 set(TESTS_PROJECT_NAME Cytopia_Tests)
 
 include(Catch)
-include(CTest)
 
 list(APPEND _include_directories
         ${CMAKE_SOURCE_DIR}/src/engine
