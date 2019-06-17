@@ -256,6 +256,8 @@ message(STATUS "Build configuration: " ${CMAKE_BUILD_TYPE})
 if (UNIX)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 endif ()
+# Always color output
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fdiagnostics-color=always")
 
 add_subdirectory(src)
 

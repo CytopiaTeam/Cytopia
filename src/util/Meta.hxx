@@ -71,13 +71,28 @@ struct VariantType<List<Ts...>>
   using type = std::variant<Ts...>;
 };
 
+template <typename List, typename Type>
+constexpr bool ContainsType = false;
+
+template <template<typename...> typename List, typename T1, typename T2, typename... Ts>
+constexpr bool ContainsType<List<T1, Ts...>, T2> = std::is_same_v<T1, T2> ? true : ContainsType<List<Ts...>, T2>;
+
 /**
  * @struct Constant
  * @brief Constant::value returns the value
  * @tparam val the constant value
- * @pre val must be an integral type
+ * @pre Type of val must be an integral type
  */
 template<auto val, typename Type = decltype(val)>
 using Constant = std::integral_constant<Type, val>;
+
+template <typename>
+struct GetMemberType { };
+
+template <typename Type, typename Member>
+struct GetMemberType<Member Type::*>
+{
+  using type = Member;
+};
 
 #endif
