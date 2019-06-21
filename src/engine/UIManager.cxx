@@ -71,14 +71,11 @@ void UIManager::init()
         // set parent and check if the element exists
         layoutGroup.layout.layoutParentElementID = uiLayout["LayoutGroups"][it.key()][id].value("LayoutParentElementID", "");
 
-        if (!layoutGroup.layout.layoutParentElementID.empty())
+        if (!layoutGroup.layout.layoutParentElementID.empty() && !getUiElementByID(layoutGroup.layout.layoutParentElementID))
         {
-          if (!getUiElementByID(layoutGroup.layout.layoutParentElementID))
-          {
-            LOG(LOG_ERROR) << "Non existing UIElement with ID " << layoutGroup.layout.layoutParentElementID
-                           << "has been set for LayoutGroup " << layoutGroupName;
-            continue;
-          }
+          LOG(LOG_ERROR) << "Non existing UIElement with ID " << layoutGroup.layout.layoutParentElementID
+                         << "has been set for LayoutGroup " << layoutGroupName;
+          continue;
         }
 
         layoutGroup.layout.padding = uiLayout["LayoutGroups"][it.key()][id].value("Padding", 0);
