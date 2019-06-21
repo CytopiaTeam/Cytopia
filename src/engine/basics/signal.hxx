@@ -68,7 +68,7 @@ template <class Collector, class... Args> struct CollectorInvocation<Collector, 
 
 /// ProtoSignal template specialised for the callback signature and collector.
 template <class Collector, class R, class... Args>
-class ProtoSignal<R(Args...), Collector> : private CollectorInvocation<Collector, R(Args...)>
+class ProtoSignal<R(Args...), Collector> : CollectorInvocation<Collector, R(Args...)>
 {
 protected:
   using CbFunction = std::function<R(Args...)>;
