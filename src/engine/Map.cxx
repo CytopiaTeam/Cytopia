@@ -148,12 +148,9 @@ void Map::updateNeighborsOfNode(const Point &isoCoordinates)
           getNeighbors(it->getCoordinates(), loweredNodesNeighbors);
           for (const auto &neighbor : loweredNodesNeighbors)
           {
-            if (neighbor)
+            if (neighbor && neighbor->getCoordinates().height > tileHeight)
             {
-              if (neighbor->getCoordinates().height > tileHeight)
-              {
-                decreaseHeight(neighbor->getCoordinates());
-              }
+              decreaseHeight(neighbor->getCoordinates());
             }
           }
         }
@@ -372,7 +369,7 @@ bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int is
   SDL_Rect spriteRect;
   //TODO: Add other layers later
   if (MapLayers::isLayerActive(Layer::BUILDINGS) &&
-      mapNodes[isoX * m_columns + isoY]->getSprite()->isLayerUsed((Layer::BUILDINGS)))
+      mapNodes[isoX * m_columns + isoY]->getSprite()->isLayerUsed(Layer::BUILDINGS))
   {
     spriteRect = mapNodes[isoX * m_columns + isoY]->getSprite()->getDestRect(Layer::BUILDINGS);
 
@@ -394,7 +391,7 @@ bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int is
     }
   }
   // if we can't find the tile in the BUILDINGS layer, try terrain too.
-  if (MapLayers::isLayerActive(Layer::TERRAIN) && mapNodes[isoX * m_columns + isoY]->getSprite()->isLayerUsed((Layer::TERRAIN)))
+  if (MapLayers::isLayerActive(Layer::TERRAIN) && mapNodes[isoX * m_columns + isoY]->getSprite()->isLayerUsed(Layer::TERRAIN))
   {
     spriteRect = mapNodes[isoX * m_columns + isoY]->getSprite()->getDestRect(Layer::TERRAIN);
     if (SDL_PointInRect(&screenCoordinates, &spriteRect))
