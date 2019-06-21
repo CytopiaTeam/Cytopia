@@ -33,13 +33,21 @@ public:
 
   /** @brief get Sprite
     * get the Sprite* object for this nodes
+    * @returns the Sprite of this node.
     * @see Sprite
     */
   Sprite *getSprite() const { return m_sprite.get(); };
 
-  /// get iso coordinates of this node
+    /** @brief get iso coordinates of this node
+    * gets the iso coordinates of this node
+    * @returns a pointer to the node's iso coordinates
+    */
   const Point &getCoordinates() const { return m_isoCoordinates; };
 
+  /** @brief sets the iso coordinates of this node
+    * sets the iso coordinates of this node
+    * @param a pointer to the new iso coordinates for the node
+    */
   void setCoordinates(const Point &newIsoCoordinates);
 
   /** @brief Increase Height
