@@ -38,27 +38,30 @@ public:
   */
   void start();
 
-  /** Stop the timer
+  /** \brief Stop the timer
   * Stops the timer and set it back to 0 
   */
   void stop();
 
-  /** Pauses the timer
+  /** \brief Pauses the timer
+   * Pauses the timer.
    */
   void pause();
 
-  /** Resume the timer
+  /** \brief Resume the timer
   * Resumed the paused timer. If the timer is not paused, it will behave as start()
   */
   void resume();
 
   /** \brief Checks if the timer is active.
   * Returns true if the timer is running (pending); otherwise returns false.
+  * @returns true if the timer is running, false if it is not
   */
   bool isActive() { return m_isActive; };
 
   /** \brief Checks if the time is done.
   * Returns true, if the timer has reached 0. 
+  * @returns if the timer has reached 0 or not
   * @note Only applicable, if a timer has been set
   * @see Timer#setTimer()
   */
@@ -67,6 +70,7 @@ public:
   /** \brief Sets a timer
    * Sets a timer. When a timer is set, a signal is emitted and the registered callback function 
    * is called. Also a bool variable will be set to true.
+   * @param the time in milliseconds the timer will be set to
    * @see Timer#registerCallbackFunction
    * @see Timer#isTimedOut()
   */
@@ -74,6 +78,7 @@ public:
 
   /** \brief Register callback function for this timer
   * Register one or more callback functions that should be executed, when the Timer is triggered.
+  * @param the callback functions to register
   * @note Only applicable if a timer has been set
   * @see setTimer()
   * @see Signal#Signal
@@ -81,8 +86,9 @@ public:
   */
   void registerCallbackFunction(std::function<void()> const &cb) { m_timeOutSignal.connect(cb); };
 
-  /** Loop Timer
+  /** \brief Loop Timer
   * Specify if the timeout callback is called once or everytime the counter hits zero.
+  * @param true if the callback is supposed to loop, false if it is supposed to be called once
   */
   void loopTimer(bool loop) { m_loopTimer = loop; };
 
@@ -95,13 +101,18 @@ private:
   bool m_timeOut = false;
   bool m_isActive = false;
 
+  /// time until the next TimeOut.
   int m_timeUntilTimeOut = 0;
+  /// time that has passed since the last TimeOut.
   int m_timeSinceLastTimeOut = 0;
+  /// time that has passed since the timer was started.
   int m_elapsedTime = 0;
 
+  /// the time at whichthe timer was started.
   Uint64 m_startTime = 0;
+  /// the time at which the timer was stopped.
   Uint64 m_endTime = 0;
-
+  /// the time of the last TimeOut.
   Uint64 m_lastTimeOutTime = 0;
 
   void timeOut();
