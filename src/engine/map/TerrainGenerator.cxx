@@ -123,16 +123,13 @@ void TerrainGenerator::generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNode
               placed = true;
             }
           }
-          else if (foliageDensity < 1.0)
+          else if (foliageDensity < 1.0 && tileIndex < 95)
           {
-            if (tileIndex < 95)
-            {
-              tileIndex = tileIndex % static_cast<int>(biomeInformation[currentBiome].treesDense.size());
+            tileIndex = tileIndex % static_cast<int>(biomeInformation[currentBiome].treesDense.size());
 
-              mapNodes[x * terrainSettings.mapSize + y] = std::make_unique<MapNode>(
-                  Point{x, y, z++, height}, "terrain", biomeInformation[currentBiome].treesDense[tileIndex]);
-              placed = true;
-            }
+            mapNodes[x * terrainSettings.mapSize + y] = std::make_unique<MapNode>(
+                Point{x, y, z++, height}, "terrain", biomeInformation[currentBiome].treesDense[tileIndex]);
+            placed = true;
           }
         }
         if (placed == false)

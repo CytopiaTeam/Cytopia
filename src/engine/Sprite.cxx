@@ -24,29 +24,26 @@ void Sprite::render() const
 #endif
   for (uint32_t i = 0; i < LAYERS_COUNT; ++i)
   {
-    if (MapLayers::isLayerActive(i))
+    if (MapLayers::isLayerActive(i) && m_SpriteData[i].texture)
     {
-      if (m_SpriteData[i].texture)
+      if (highlightSprite)
       {
-        if (highlightSprite)
-        {
-          SDL_SetTextureColorMod(m_SpriteData[i].texture, 150, 150, 150);
-        }
+        SDL_SetTextureColorMod(m_SpriteData[i].texture, 150, 150, 150);
+      }
 
-        if (m_SpriteData[i].clipRect.w != 0)
-        {
-          SDL_RenderCopy(WindowManager::instance().getRenderer(), m_SpriteData[i].texture, &m_SpriteData[i].clipRect,
-                         &m_SpriteData[i].destRect);
-        }
-        else
-        {
-          SDL_RenderCopy(WindowManager::instance().getRenderer(), m_SpriteData[i].texture, nullptr, &m_SpriteData[i].destRect);
-        }
+      if (m_SpriteData[i].clipRect.w != 0)
+      {
+        SDL_RenderCopy(WindowManager::instance().getRenderer(), m_SpriteData[i].texture, &m_SpriteData[i].clipRect,
+                       &m_SpriteData[i].destRect);
+      }
+      else
+      {
+        SDL_RenderCopy(WindowManager::instance().getRenderer(), m_SpriteData[i].texture, nullptr, &m_SpriteData[i].destRect);
+      }
 
-        if (highlightSprite)
-        {
-          SDL_SetTextureColorMod(m_SpriteData[i].texture, 255, 255, 255);
-        }
+      if (highlightSprite)
+      {
+        SDL_SetTextureColorMod(m_SpriteData[i].texture, 255, 255, 255);
       }
     }
   }
