@@ -18,3 +18,16 @@ void Slider::draw()
   drawFrame(sliderLine);
   drawButtonFrame(sliderButton);
 }
+
+void Slider::setValue(int val)
+{
+	int range = m_maxVal - m_minVal;
+	// calculate position to set
+	// translate that to position on the slider (For the button)
+	curVal = val;
+}
+
+int Slider::getValue(int x, int y)
+{
+	return -1;
+}

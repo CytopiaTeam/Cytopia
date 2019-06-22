@@ -14,6 +14,11 @@ public:
   ~Slider() override = default;
 
   void draw() override;
+<<<<<<< HEAD
+=======
+  void setValue(int);
+  int getValue(int, int);
+>>>>>>> b1cc749... Added field for current value and value method headers.
 
 private:
   /// Thickness of the slider line
@@ -26,6 +31,8 @@ private:
   int m_minVal = 0;
   /// maximum slider value
   int m_maxVal = 100;
+  /// current slider value
+  int curVal;
 };
 
 #endif
