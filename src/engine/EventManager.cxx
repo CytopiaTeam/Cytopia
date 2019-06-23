@@ -78,7 +78,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
                 convertScreenToIsoCoordinates({static_cast<int>(event.mgesture.x * Settings::instance().screenWidth),
                                                static_cast<int>(event.mgesture.y * Settings::instance().screenHeight)});
           }
-          Camera::setPinchDistance(event.mgesture.dDist * 15.0f, pinchCenterCoords.x, pinchCenterCoords.y);
+          Camera::setPinchDistance(event.mgesture.dDist * 15.0F, pinchCenterCoords.x, pinchCenterCoords.y);
           m_skipLeftClick = true;
           break;
         }
