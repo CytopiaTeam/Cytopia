@@ -71,14 +71,11 @@ void UIManager::init()
         // set parent and check if the element exists
         layoutGroup.layout.layoutParentElementID = uiLayout["LayoutGroups"][it.key()][id].value("LayoutParentElementID", "");
 
-        if (!layoutGroup.layout.layoutParentElementID.empty())
+        if (!layoutGroup.layout.layoutParentElementID.empty() && !getUiElementByID(layoutGroup.layout.layoutParentElementID))
         {
-          if (!getUiElementByID(layoutGroup.layout.layoutParentElementID))
-          {
-            LOG(LOG_ERROR) << "Non existing UIElement with ID " << layoutGroup.layout.layoutParentElementID
-                           << "has been set for LayoutGroup " << layoutGroupName;
-            continue;
-          }
+          LOG(LOG_ERROR) << "Non existing UIElement with ID " << layoutGroup.layout.layoutParentElementID
+                         << "has been set for LayoutGroup " << layoutGroupName;
+          continue;
         }
 
         layoutGroup.layout.padding = uiLayout["LayoutGroups"][it.key()][id].value("Padding", 0);
@@ -298,19 +295,14 @@ void UIManager::toggleGroupVisibility(const std::string &groupID, UIElement *sen
   if (sender)
   {
     Button *button = dynamic_cast<Button *>(sender);
-
-    if (button)
+    // cast the object to a Button to check if it's a toggle button.
+    if (button && button->getUiElementData().isToggleButton)
     {
-      // cast the object to a Button to check if it's a toggle button.
-      if (button->getUiElementData().isToggleButton)
+      for (const auto &it : m_uiGroups[groupID])
       {
-        for (const auto &it : m_uiGroups[groupID])
-        {
-          it->setVisibility(button->checkState());
-        }
-
-        return;
+        it->setVisibility(button->checkState());
       }
+      return;
     }
   }
 

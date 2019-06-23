@@ -72,7 +72,8 @@ private:
   logType _logType = LOG_INFO;
   std::ostringstream logMessage;
 
-  /** Gets formatted TimeStamp 
+  /** @brief Gets formatted TimeStamp
+  * Gets formatted TimeStamp
   * @return std::string containing current TimeStamp*/
   inline std::string getTimeStamp()
   {
@@ -83,7 +84,8 @@ private:
     return buf;
   }
 
-  /** Write log message to error.log file
+  /** @brief Write log message to error.log file
+  * Write log message to error.log file
   * @param message to write to error logfile
   */
   inline void writeErrorLog(const std::string &errorMessage)

@@ -24,8 +24,6 @@ build_script:
     ninja copy_resources
 
 test_script:
-  cmake -E copy tests\CTestTestfile.cmake .
-
   ctest -VV
 
 deploy_script:

@@ -9,7 +9,9 @@ class Camera
 public:
   /// the size of the default floor tiles.
   static SDL_Point tileSize;
+  /// the offset of the camera.
   static SDL_Point cameraOffset;
+  /// the zoom level of the camera.
   static float zoomLevel;
 
   /** \brief Centers camera on given isometric coordinates
@@ -23,7 +25,14 @@ public:
   */
   static void centerScreenOnMapCenter();
 
+  /** \brief Increases the zoom level of the camera
+  * Increases the zoom level of the camera.
+  */
   static void increaseZoomLevel();
+
+  /** \brief Decreases the zoom level of the camera
+  * Decreases the zoom level of the camera.
+  */
   static void decreaseZoomLevel();
 
   static void setPinchDistance(float pinchDistance, int isoX, int isoY);

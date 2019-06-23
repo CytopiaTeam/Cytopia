@@ -116,13 +116,10 @@ void Game::mainMenu()
   for (Uint8 opacity = 0; opacity < 255; opacity++)
   {
     // break the loop if an event occurs
-    if (SDL_PollEvent(&event))
+    if (SDL_PollEvent(&event) && (event.type == SDL_MOUSEBUTTONDOWN || event.type == SDL_KEYDOWN))
     {
-      if (event.type == SDL_MOUSEBUTTONDOWN || event.type == SDL_KEYDOWN)
-      {
-        logo.setOpacity(SDL_ALPHA_OPAQUE);
-        break;
-      }
+      logo.setOpacity(SDL_ALPHA_OPAQUE);
+      break;
     }
     SDL_RenderClear(WindowManager::instance().getRenderer());
     logo.setOpacity(opacity);
