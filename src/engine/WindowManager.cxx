@@ -13,8 +13,8 @@ WindowManager::WindowManager()
   {
     LOG(LOG_ERROR) << "Failed to Init SDL\nSDL Error:" << SDL_GetError();
   }
-
-  m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED);
+  // Note that providing no flags gives priority to available SDL_RENDERER_ACCELERATED renderers. This should fallback to Software if no renderer is available.
+  m_renderer = SDL_CreateRenderer(m_window, -1, 0);
   if (m_renderer == nullptr)
   {
     LOG(LOG_ERROR) << "Failed to create Renderer!\nSDL Error:" << SDL_GetError();
