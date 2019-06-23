@@ -80,7 +80,7 @@ matrix:
             make -j2;
           fi;
         - make copy_resources
-        - xvfb-run ./bin/Cytopia_Tests
+        - xvfb-run -a ./bin/Cytopia_Tests
         - make gcov
         - make copy_coverage
         - >
@@ -130,7 +130,7 @@ matrix:
       script:
         - ninja
         - ninja copy_resources
-        - xvfb-run ./bin/Cytopia_Tests
+        - xvfb-run -a ./bin/Cytopia_Tests
         - sh ./tools/CI/upload-CI-build.sh
         - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then doxygen Doxyfile; fi
 
