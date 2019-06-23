@@ -80,7 +80,7 @@ matrix:
             make -j2;
           fi;
         - make copy_resources
-        - xvfb-run -a ctest -VV
+        - xvfb-run -a ctest
         - make gcov
         - make copy_coverage
         - >
@@ -130,7 +130,7 @@ matrix:
       script:
         - ninja
         - ninja copy_resources
-        - xvfb-run -a ctest -VV
+        - xvfb-run -a ctest
         - sh ./tools/CI/upload-CI-build.sh
         - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then doxygen Doxyfile; fi
 
@@ -155,7 +155,7 @@ matrix:
       script:
         - make
         - make copy_resources
-        - ctest -VV
+        - ctest
         - make package
 
       before_cache:
