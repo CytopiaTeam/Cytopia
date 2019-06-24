@@ -6,18 +6,19 @@
 
 #include <unordered_set>
 #include <map>
+#include <ciso646>
 
-template <typename Key, typename Hash = std::hash<Key>, typename Allocator = std::allocator<Key> >
-using Set = std::unordered_set<Key, Hash, Allocator>;
-template <typename Key, typename Value, typename Compare = std::less<Key>, typename Allocator = std::allocator<std::pair<const Key, Value> > >
+template <typename Key>
+using Set = std::unordered_set<Key>;
+template <typename Key, typename Value, typename Compare = std::less<Key>,
+          typename Allocator = std::allocator<std::pair<const Key, Value>>>
 using TreeMap = std::map<Key, Value, Compare, Allocator>;
 
 /**
  * @brief Represents the change between one state to another
  * @example tests/util/TransitiveModel.cxx
  */
-template <typename Model>
-struct Transition
+template <typename Model> struct Transition
 {
   static_assert(std::is_enum<typename Model::Operations>::value, "Model::Operations must be an enum-type");
   static_assert(std::is_class<typename Model::OperationTypes>::value, "Model::OperationTypes must be a type list");
@@ -25,28 +26,15 @@ struct Transition
   using TransitionType = typename Model::Operations;
   TransitionData data;
   inline constexpr TransitionType getType() const { return static_cast<TransitionType>(data.index()); }
-  template<typename OperationData, typename = std::enable_if<ContainsType<typename Model::OperationTypes, OperationData>, void> >
-  explicit Transition(OperationData data) : data(data) { }
-  inline constexpr bool operator==(const Transition& other) const noexcept
+  template <typename OperationData, typename = std::enable_if<ContainsType<typename Model::OperationTypes, OperationData>, void>>
+  explicit Transition(OperationData data) : data(data)
   {
-    return data == other.data;
   }
+  inline constexpr bool operator==(const Transition &other) const noexcept { return data == other.data; }
 };
 
-template <typename Data>
-explicit Transition(Data data) -> Transition<typename Data::MyModelType>;
-
-template<typename Model>
-struct std::hash<Transition<Model> >
-{
-  using argument_type = Transition<Model>;
-  using result_type = std::size_t;
-  result_type operator()(argument_type const& arg) const noexcept
-  {
-    std::hash<typename std::underlying_type<typename Model::Operations>::type> h;
-    return h(arg.getType());
-  }
-};
+/* Deduction guide for constructors */
+template <typename Data> explicit Transition(Data data)->Transition<typename Data::MyModelType>;
 
 /**
  * @details A subject model that is tightly coupled with its operations.
@@ -57,49 +45,48 @@ struct std::hash<Transition<Model> >
  *          events
  * @example tests/util/TransitiveModel.cxx
  */
-template <typename Model>
-class TransitiveModel : protected Model, public Subject< Transition<Model> > 
+template <typename Model> class TransitiveModel : protected Model, public Subject<Transition<Model>>
 {
 protected:
   TransitiveModel() = default;
-public:
 
+public:
   using Event = Transition<Model>;
   using TransitionType = typename Event::TransitionType;
 
   static_assert(std::is_enum_v<TransitionType>, "TransitionType must be an enum type");
 
-  template <typename... Args>
-  inline void subscribe(ObserverSPtr<Event> observer, Args... filters)
+  template <typename... Args> inline void subscribe(ObserverSPtr<Event> observer, Args... filters)
   {
     addObserver(observer);
-    //(m_Filters[observer].insert(filters), ...);
+    (m_Filters[observer].insert(filters), ...);
   }
 
 private:
-  
   using Subject<Event>::addObserver;
-  using FilterType = TreeMap<
-    ObserverWPtr<Event>,
-    Set<typename Event::TransitionType>,
-    std::owner_less<ObserverWPtr<Event> > >;
+  using FilterType = TreeMap<ObserverWPtr<Event>, Set<typename Event::TransitionType>, std::owner_less<ObserverWPtr<Event>>>;
   FilterType m_Filters;
-  
-  virtual inline bool mustNotify(ObserverWPtr<Event> observer, const Event& event) noexcept final
+
+  virtual inline bool mustNotify(ObserverWPtr<Event> observer, const Event &event) noexcept final
   {
-    if(observer.expired())
+    if (observer.expired())
     {
       return false;
     }
-    return true;
-    //return m_Filters[observer].count(event.getType()) == 1;
+    return m_Filters[observer].count(event.getType()) == 1;
   }
 
   virtual inline void onObserverExpired(void) noexcept override
   {
     /* We are responsible for removing the ObserverWPtrs */
-    //std::remove_if(m_Filters.begin(), m_Filters.end(), 
-    //    [](ObserverWPtr<Event> ptr){ return ptr.expired(); });
+    using Iterator = typename FilterType::iterator;
+    for(Iterator it = m_Filters.begin(); it != m_Filters.end(); ++it)
+    {
+      if(std::get<0>(*it).expired())
+      {
+        m_Filters.erase(it);
+      }
+    }
   }
 };
 

@@ -7,8 +7,8 @@ using string = std::string;
 
 /* This is the simple way to use Observers */
 
-struct MyTestSubject : public Subject<> 
-{ 
+struct MyTestSubject : public Subject<>
+{
   /* This could be any call that ultimately
    * triggers an event */
   void modifySubject(void) { notifyObservers(); }
@@ -17,10 +17,10 @@ struct MyTestSubject : public Subject<>
 struct MyTestObserver : public Observer<>
 {
   int notifyCount = 0;
+
 private:
   void update(void) noexcept override { notifyCount++; }
 };
-
 
 SCENARIO("Observers listen to their Subject", "[util]")
 {
@@ -37,14 +37,10 @@ SCENARIO("Observers listen to their Subject", "[util]")
     WHEN("My subject notifies observers")
     {
       subject.modifySubject();
-      THEN("My observer gets updated")
-      {
-        REQUIRE(std::dynamic_pointer_cast<MyTestObserver>(observer)->notifyCount == 1);
-      }
+      THEN("My observer gets updated") { REQUIRE(std::dynamic_pointer_cast<MyTestObserver>(observer)->notifyCount == 1); }
     }
-  } 
+  }
 }
-
 
 /* This is a better way to use Observers */
 
@@ -54,36 +50,43 @@ private:
   int m_x = 0;
   bool m_y = false;
   string m_z = "BEFORE";
+
 public:
-  void setX(int x) { m_x = x; notifyObservers(m_x, m_y, m_z); }
-  void setY(bool y) { m_y = y; notifyObservers(m_x, m_y, m_z); }
+  void setX(int x)
+  {
+    m_x = x;
+    notifyObservers(m_x, m_y, m_z);
+  }
+  void setY(bool y)
+  {
+    m_y = y;
+    notifyObservers(m_x, m_y, m_z);
+  }
   void setZ(string z)
-  { 
+  {
     /* This is one of the advantages of Observers:
      * We can optimize when they should be notified
      * and keep that logic in the Subject close to the data */
-    if(m_z != z)
+    if (m_z != z)
     {
       m_z = std::move(z);
       notifyObservers(m_x, m_y, m_z);
     }
   }
-  virtual inline void onObserverExpired(ObserverWPtr<int, bool, string> observer) noexcept final
-  { }
+  virtual inline void onObserverExpired(ObserverWPtr<int, bool, string> observer) noexcept final {}
 };
 
 class MyListener
 {
 
 private:
-
   /* Observer as inner class */
   struct FirstObserver : public Observer<int, bool, string>
   {
     /* We keep a reference to parent class */
-    MyListener& m_listener;
+    MyListener &m_listener;
 
-    explicit FirstObserver(MyListener& listener) : m_listener(listener) { }
+    explicit FirstObserver(MyListener &listener) : m_listener(listener) {}
 
     void update(int x, bool y, string z) noexcept
     {
@@ -115,7 +118,7 @@ private:
    * new Observer, so that it is always synchronised. */
 
 public:
-  explicit MyListener(MyModel& model)
+  explicit MyListener(MyModel &model)
   {
     /* Here we initialize all observers and add them
        to the model */
@@ -146,9 +149,7 @@ SCENARIO("Observers can become expired", "[util]")
       listener1.expire();
       WHEN("I notify all observers")
       {
-        REQUIRE_NOTHROW(
-          model.setX(123)
-        );
+        REQUIRE_NOTHROW(model.setX(123));
         THEN("My active listener gets updated")
         {
           REQUIRE(listener2.getNotifiedX() == 123);
@@ -165,4 +166,3 @@ SCENARIO("Observers can become expired", "[util]")
     }
   }
 }
-

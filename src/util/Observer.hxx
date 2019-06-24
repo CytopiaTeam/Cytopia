@@ -4,10 +4,8 @@
 #include <memory>
 #include <forward_list>
 
-template <typename T>
-using LinkedList = std::forward_list<T>;
-template <typename ...DataArgs>
-class Subject;
+template <typename T> using LinkedList = std::forward_list<T>;
+template <typename... DataArgs> class Subject;
 
 /**
  * @class Observer
@@ -16,23 +14,20 @@ class Subject;
  * @see https://en.wikipedia.org/wiki/Observer_pattern
  * @example test/util/Observer.cxx
  */
-template <typename ...DataArgs>
-class Observer
+template <typename... DataArgs> class Observer
 {
 protected:
   Observer() noexcept = default;
   virtual ~Observer() noexcept = 0;
+
 private:
   virtual void update(DataArgs...) noexcept = 0;
   friend Subject<DataArgs...>;
 };
 
-template <typename ...DataArgs>
-inline Observer<DataArgs...>::~Observer() noexcept { }
-template <typename ...DataArgs>
-using ObserverWPtr = std::weak_ptr<Observer<DataArgs...> >;
-template <typename ...DataArgs>
-using ObserverSPtr = std::shared_ptr<Observer<DataArgs...> >;
+template <typename... DataArgs> inline Observer<DataArgs...>::~Observer() noexcept {}
+template <typename... DataArgs> using ObserverWPtr = std::weak_ptr<Observer<DataArgs...>>;
+template <typename... DataArgs> using ObserverSPtr = std::shared_ptr<Observer<DataArgs...>>;
 
 /**
  * @class Subject
@@ -41,20 +36,19 @@ using ObserverSPtr = std::shared_ptr<Observer<DataArgs...> >;
  * @see https://en.wikipedia.org/wiki/Observer_pattern
  * @example test/util/Observer.cxx
  */
-template <typename ...DataArgs>
-class Subject
+template <typename... DataArgs> class Subject
 {
 private:
-  LinkedList<ObserverWPtr<DataArgs...> > m_Observers;
+  LinkedList<ObserverWPtr<DataArgs...>> m_Observers;
+
 protected:
-  
   /**
    * @strong
    */
   Subject() = default;
 
-  using ObsIterator = typename LinkedList<ObserverWPtr<DataArgs...> >::iterator;
-  
+  using ObsIterator = typename LinkedList<ObserverWPtr<DataArgs...>>::iterator;
+
   /**
    * @nothrow
    * @brief notifies all affected observers
@@ -65,22 +59,22 @@ protected:
     ObsIterator it = m_Observers.before_begin();
     ObsIterator old;
     bool mustCleanup = false;
-    m_Observers.remove_if([&mustCleanup](ObserverWPtr<DataArgs...> ptr) 
-    { 
-        if(ptr.expired()) {
-          mustCleanup = true;
-          return true; 
-        } 
-        return false; 
+    m_Observers.remove_if([&mustCleanup](ObserverWPtr<DataArgs...> ptr) {
+      if (ptr.expired())
+      {
+        mustCleanup = true;
+        return true;
+      }
+      return false;
     });
-    if(mustCleanup)
-    {   
+    if (mustCleanup)
+    {
       onObserverExpired();
     }
-    for(ObserverWPtr<DataArgs...> it : m_Observers)
+    for (ObserverWPtr<DataArgs...> it : m_Observers)
     {
       auto observer = it.lock();
-      if(mustNotify(it, args...))
+      if (mustNotify(it, args...))
       {
         observer->update(args...);
       }
@@ -92,8 +86,7 @@ protected:
    * @brief is called whenever an observer expires
    * @details Implement this method to cleanup weak pointers
    */
-  virtual inline void onObserverExpired(void) noexcept
-  { }
+  virtual inline void onObserverExpired(void) noexcept {}
 
   /**
    * @nothrow @racehazard
@@ -106,20 +99,17 @@ protected:
    * @param observer the observer to be notified
    * @param data the data to be sent to observer
    */
-  virtual inline bool mustNotify(ObserverWPtr<DataArgs...> observer, const DataArgs& ... data) const noexcept { return true; }
+  virtual inline bool mustNotify(ObserverWPtr<DataArgs...> observer, const DataArgs &... data) const noexcept { return true; }
 
 public:
-
   /**
    * @strong @racehazard
    * @brief Adds an observer to listen to Subject's events
    * @param observer the observer to add
    */
-  inline void addObserver(ObserverSPtr<DataArgs...> observer)
-  { m_Observers.emplace_front(observer); }
+  inline void addObserver(ObserverSPtr<DataArgs...> observer) { m_Observers.emplace_front(observer); }
 };
 
-template <typename ...DataArgs>
-inline Subject<DataArgs...>::~Subject() noexcept { }
+template <typename... DataArgs> inline Subject<DataArgs...>::~Subject() noexcept {}
 
 #endif
