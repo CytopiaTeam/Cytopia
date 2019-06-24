@@ -12,6 +12,10 @@ enum class TextLayout
   BOTTOM_LEFT,
   BOTTOM_RIGHT
 };
+
+/**
+ * @brief A Button GUI Widget
+ */
 class Button : public UIElement
 {
 public:
@@ -20,6 +24,10 @@ public:
 
   void draw() override;
 
+  /** @brief Sets the button's text
+   * sets the button's text to the string passed as an argument
+   * @param text the text to be displayed on the button
+   */
   void setText(const std::string &text);
 
   bool onMouseButtonUp(const SDL_Event &event) override;
@@ -42,6 +50,7 @@ public:
 private:
   SDL_Rect m_frameRect;
 
+  /// a pointer to the button's text
   std::unique_ptr<Text> m_buttonLabel;
 
   bool m_isMouseButtonDown = false;

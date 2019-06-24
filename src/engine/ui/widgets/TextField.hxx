@@ -11,6 +11,9 @@ enum class TextFieldAlignment
   CENTERED
 };
 
+/**
+ * @brief A TextField GUI Widget
+ */
 class TextField : public UIElement
 {
 public:
@@ -47,7 +50,7 @@ private:
   size_t m_count = 0;
 
   std::vector<std::unique_ptr<Text>> m_textElements;
-
+  /// height of this element's text
   int m_textElementHeight = 0;
 
   // a rect is drawn beneath the current text to hover it

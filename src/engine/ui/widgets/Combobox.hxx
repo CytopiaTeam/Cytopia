@@ -31,6 +31,10 @@ public:
   * @return selected ID
   */
   int getActiveID() const { return m_activeID; };
+  /** @brief Set ID of selected element
+  * sets the ID of the selected element in the comboBox
+  * @param ID the value to set the ID to
+  */
   void setActiveID(int ID);
 
   size_t count() const { return m_textField->count(); };
@@ -38,13 +42,19 @@ public:
 
   void registerCallbackFunction(std::function<void(UIElement *sender)> const &cb) override;
 
+  /** @brief Clears the element's text field
+  * clears the text field of the comboBox
+  */
   void clear() { m_textField->clear(); }
 
 private:
+  /// the active element's ID
   int m_activeID = 0;
-  SDL_Rect m_dropDownRect;     // represents the dropdownMenu
-  SDL_Rect m_wholeElementRect; // represents the whole UIElement including the opened menu
-
+  /// represents the dropdownMenu
+  SDL_Rect m_dropDownRect;
+  /// represents the whole UIElement including the opened menu
+  SDL_Rect m_wholeElementRect;
+  /// pointer to the textField of this comboBox
   std::unique_ptr<TextField> m_textField;
 
   bool m_isMenuOpened = false;

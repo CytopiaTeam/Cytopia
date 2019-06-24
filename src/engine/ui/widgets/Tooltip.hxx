@@ -18,12 +18,26 @@ public:
   ~Tooltip() override = default;
 
   void draw() override;
+
+  /** @brief starts the countdown to when the Tooltip appears
+   * starts the timer for the countdown to when the Tooltip becomes visible
+   */
   void startTimer();
+
+  /** @brief makes the Tooltip visible
+   * makes the Tooltip visible
+   */
   void showTooltip();
+
+  /** @brief resets the Tooltip
+   * Hides and deactivates the Tooltip and stops the timer
+   */
   void reset();
 
 private:
+  /// Timer that counts the time until the Tooltip should be displayed
   Timer m_tooltipTimer;
+  /// if the Tooltip is active or not
   bool m_active = false;
 };
 

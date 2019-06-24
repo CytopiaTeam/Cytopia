@@ -3,6 +3,9 @@
 
 #include "../basics/UIElement.hxx"
 
+/**
+ * @brief A Checkbox GUI Widget
+ */
 class Checkbox : public UIElement
 {
 public:
