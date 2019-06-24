@@ -38,7 +38,7 @@ public:
     */
   Sprite *getSprite() const { return m_sprite.get(); };
 
-    /** @brief get iso coordinates of this node
+  /** @brief get iso coordinates of this node
     * gets the iso coordinates of this node
     * @returns a pointer to the node's iso coordinates
     */

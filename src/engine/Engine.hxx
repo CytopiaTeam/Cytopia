@@ -68,10 +68,10 @@ public:
     * @returns Returns true if the game is running, and false otherwise
     */
   bool isGameRunning() { return m_running; };
-  
+
   /** @brief Quits the game
     * Sets m_running to false and quitting the game.
-    */  
+    */
   void quitGame() { m_running = false; };
 
   /** @brief Loads a saved game
@@ -82,7 +82,7 @@ public:
   void loadGame(const std::string &fileName);
 
   void saveGame(const std::string &fileName) { map->saveMapToFile(fileName); };
-  
+
   /** @brief Creates a new game
     * Creates a new game
     */

@@ -50,6 +50,8 @@ LIST(APPEND TEST_SOURCES
         ui/widgets/Text.cxx
         engine/AudioMixer.cxx
         util/Meta.cxx
+        util/Observer.cxx
+        util/TransitiveModel.cxx
         )
 
 # Generate source groups for use in IDEs
