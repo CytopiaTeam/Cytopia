@@ -80,7 +80,7 @@ void UIManager::init()
 
         layoutGroup.layout.padding = uiLayout["LayoutGroups"][it.key()][id].value("Padding", 0);
         layoutGroup.layout.paddingToParent = uiLayout["LayoutGroups"][it.key()][id].value("PaddingToParent", 0);
-        layoutGroup.layout.alignmentOffset = uiLayout["LayoutGroups"][it.key()][id].value("AlignmentOffset", 0.0f);
+        layoutGroup.layout.alignmentOffset = uiLayout["LayoutGroups"][it.key()][id].value("AlignmentOffset", 0.0F);
 
         // add layout group information to container
         m_layoutGroups[layoutGroupName] = layoutGroup;
@@ -630,8 +630,7 @@ void UIManager::setBuildMenuLayout()
     layoutType = "HORIZONTAL";
     subMenuAlignment = "ALIGN_BENEATH_PARENT";
     break;
-  default:
-  case BUILDMENU_LAYOUT::BOTTOM:
+  default: // AKA BUILDMENU_LAYOUT::BOTTOM
     alignment = "BOTTOM_CENTER";
     layoutType = "HORIZONTAL";
     subMenuAlignment = "ALIGN_ABOVE_PARENT";
