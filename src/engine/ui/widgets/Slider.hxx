@@ -5,6 +5,9 @@
 
 #include "../basics/UIElement.hxx"
 
+/**
+ * @brief A Slider GUI Widget
+ */
 class Slider : public UIElement
 {
 public:

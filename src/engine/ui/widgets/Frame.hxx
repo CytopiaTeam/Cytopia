@@ -3,6 +3,9 @@
 
 #include "../basics/UIElement.hxx"
 
+/**
+ * @brief A Frame GUI Widget
+ */
 class Frame : public UIElement
 {
 public:
