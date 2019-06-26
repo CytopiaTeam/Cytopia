@@ -37,7 +37,7 @@ int Slider::getValue(int x, int y)
 
 bool Slider::overSliderButton(int x, int y)
 {
-  return x > sliderButton.x && x < (sliderButton.x + sliderButton.w) && y > sliderButton.y &&
+    return x > sliderButton.x && x < (sliderButton.x + sliderButton.w) && y > sliderButton.y &&
          y < (sliderButton.y + sliderButton.h);
 }
 
@@ -46,10 +46,7 @@ bool Slider::onMouseButtonDown(const SDL_Event &event)
   if (overSliderButton(event.button.x, event.button.y))
   {
     printf("click\n");
-  }
-  else
-  {
-    printf("else\n");
+    return true;
   }
   return false;
 }
