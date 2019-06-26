@@ -8,8 +8,7 @@
 #include <map>
 #include <ciso646>
 
-template <typename Key>
-using Set = std::unordered_set<Key>;
+template <typename Key> using Set = std::unordered_set<Key>;
 template <typename Key, typename Value, typename Compare = std::less<Key>,
           typename Allocator = std::allocator<std::pair<const Key, Value>>>
 using TreeMap = std::map<Key, Value, Compare, Allocator>;
@@ -80,9 +79,9 @@ private:
   {
     /* We are responsible for removing the ObserverWPtrs */
     using Iterator = typename FilterType::iterator;
-    for(Iterator it = m_Filters.begin(); it != m_Filters.end(); ++it)
+    for (Iterator it = m_Filters.begin(); it != m_Filters.end(); ++it)
     {
-      if(std::get<0>(*it).expired())
+      if (std::get<0>(*it).expired())
       {
         m_Filters.erase(it);
       }
