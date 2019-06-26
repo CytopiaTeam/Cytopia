@@ -90,6 +90,9 @@ void WindowManager::setFullScreenMode(FULLSCREEN_MODE mode) const
     SDL_RestoreWindow(m_window);
 
     break;
+  default:
+    // do nothing or log message on the off chance this is reached
+    break;
   }
 }
 
@@ -142,7 +145,7 @@ void WindowManager::setScreenResolution(int mode)
       SDL_SetWindowSize(m_window, m_resolutions[mode]->w, m_resolutions[mode]->h);
       SDL_SetWindowPosition(m_window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
       break;
-    case FULLSCREEN_MODE::BORDERLESS:
+    default: //AKA FULLSCREEN_MODE::BORDERLESS
       // do nothing for Borderless fullscreen, it's always the screenSize
       break;
     }

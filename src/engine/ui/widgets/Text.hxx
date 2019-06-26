@@ -38,6 +38,10 @@ public:
    */
   void setFontSize(int fontSize);
 
+  /** @brief gets the Font size of this element
+   * gets the font size of the element
+   * @returns the element's font size
+   */
   int getFontSize() const { return m_fontSize; }
 
 private:
@@ -49,6 +53,7 @@ private:
   */
   void createTextTexture(const std::string &text, const SDL_Color &textColor);
 
+  /// the font size of the text
   int m_fontSize = 20;
 };
 

@@ -194,15 +194,13 @@ unsigned char Map::getElevatedNeighborBitmask(const Point &isoCoordinates)
   int i = 0;
   for (const auto &it : adjecantNodesCoordinates)
   {
-    if (it.first >= 0 && it.first < m_rows && it.second >= 0 && it.second < m_columns)
+    if ((it.first >= 0 && it.first < m_rows && it.second >= 0 && it.second < m_columns) &&
+        (mapNodes[it.first * m_columns + it.second]->getCoordinates().height >
+             mapNodes[x * m_columns + y]->getCoordinates().height &&
+         mapNodes[it.first * m_columns + it.second]))
     {
-      if (mapNodes[it.first * m_columns + it.second]->getCoordinates().height >
-              mapNodes[x * m_columns + y]->getCoordinates().height &&
-          mapNodes[it.first * m_columns + it.second])
-      {
-        // for each found tile add 2 ^ i to the bitmask
-        bitmask |= static_cast<unsigned int>(1 << i);
-      }
+      // for each found tile add 2 ^ i to the bitmask
+      bitmask |= static_cast<unsigned int>(1 << i);
     }
     i++;
   }
@@ -232,14 +230,12 @@ unsigned char Map::getNeighboringTilesBitmask(const Point &isoCoordinates)
     int i = 0;
     for (const auto &it : adjecantNodesCoordinates)
     {
-      if (it.first >= 0 && it.first < m_rows && it.second >= 0 && it.second < m_columns)
+      if ((it.first >= 0 && it.first < m_rows && it.second >= 0 && it.second < m_columns) &&
+          (mapNodes[it.first * m_columns + it.second]->getActiveMapNodeData().tileData->category ==
+           mapNodes[x * m_columns + y]->getActiveMapNodeData().tileData->category))
       {
-        if (mapNodes[it.first * m_columns + it.second]->getActiveMapNodeData().tileData->category ==
-            mapNodes[x * m_columns + y]->getActiveMapNodeData().tileData->category)
-        {
-          // for each found tile add 2 ^ i to the bitmask
-          bitmask |= static_cast<unsigned int>(1 << i);
-        }
+        // for each found tile add 2 ^ i to the bitmask
+        bitmask |= static_cast<unsigned int>(1 << i);
       }
       i++;
     }
@@ -319,27 +315,21 @@ Point Map::findNodeInMap(const SDL_Point &screenCoordinates) const
   // traverse a column from top to bottom (from the calculated coordinates)
   while (isoX < Settings::instance().mapSize && isoY < Settings::instance().mapSize && isoY >= 0)
   {
-    if (isClickWithinTile(screenCoordinates, isoX, isoY))
+    if (isClickWithinTile(screenCoordinates, isoX, isoY) &&
+        (foundCoordinates.z < mapNodes[isoX * m_columns + isoY]->getCoordinates().z))
     {
-      if (foundCoordinates.z < mapNodes[isoX * m_columns + isoY]->getCoordinates().z)
-      {
-        foundCoordinates = mapNodes[isoX * m_columns + isoY]->getCoordinates();
-      }
+      foundCoordinates = mapNodes[isoX * m_columns + isoY]->getCoordinates();
     }
-    if (isoX > 0 && isClickWithinTile(screenCoordinates, isoX - 1, isoY))
+    if (isoX > 0 && isClickWithinTile(screenCoordinates, isoX - 1, isoY) &&
+        (foundCoordinates.z < mapNodes[(isoX - 1) * m_columns + isoY]->getCoordinates().z))
     {
-      if (foundCoordinates.z < mapNodes[(isoX - 1) * m_columns + isoY]->getCoordinates().z)
-      {
-        foundCoordinates = mapNodes[(isoX - 1) * m_columns + isoY]->getCoordinates();
-      }
+      foundCoordinates = mapNodes[(isoX - 1) * m_columns + isoY]->getCoordinates();
     }
     //check if isoY is already the last one
-    if (isoY < Settings::instance().mapSize - 1 && isClickWithinTile(screenCoordinates, isoX, isoY + 1))
+    if (isoY < Settings::instance().mapSize - 1 && isClickWithinTile(screenCoordinates, isoX, isoY + 1) &&
+        (foundCoordinates.z < mapNodes[isoX * m_columns + (isoY + 1)]->getCoordinates().z))
     {
-      if (foundCoordinates.z < mapNodes[isoX * m_columns + (isoY + 1)]->getCoordinates().z)
-      {
-        foundCoordinates = mapNodes[isoX * m_columns + (isoY + 1)]->getCoordinates();
-      }
+      foundCoordinates = mapNodes[isoX * m_columns + (isoY + 1)]->getCoordinates();
     }
 
     isoX++;
@@ -368,8 +358,7 @@ bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int is
 
   SDL_Rect spriteRect;
   //TODO: Add other layers later
-  if (MapLayers::isLayerActive(Layer::BUILDINGS) &&
-      mapNodes[isoX * m_columns + isoY]->getSprite()->isLayerUsed(Layer::BUILDINGS))
+  if (MapLayers::isLayerActive(Layer::BUILDINGS) && mapNodes[isoX * m_columns + isoY]->getSprite()->isLayerUsed(Layer::BUILDINGS))
   {
     spriteRect = mapNodes[isoX * m_columns + isoY]->getSprite()->getDestRect(Layer::BUILDINGS);
 
