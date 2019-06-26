@@ -37,22 +37,27 @@ int Slider::getValue(int x, int y)
 
 bool Slider::overSliderButton(int x, int y)
 {
-    return x > sliderButton.x && x < (sliderButton.x + sliderButton.w) && y > sliderButton.y &&
+  return x > sliderButton.x && x < (sliderButton.x + sliderButton.w) && y > sliderButton.y &&
          y < (sliderButton.y + sliderButton.h);
+}
+
+bool Slider::overSliderLine(int x, int y)
+{
+  return x > sliderLine.x && x < (sliderLine.x + sliderLine.w) && y > sliderLine.y && y < (sliderLine.y + sliderLine.h);
 }
 
 bool Slider::onMouseButtonDown(const SDL_Event &event)
 {
+  if (overSliderLine(event.button.x, event.button.y))
+  {
+    sliderButton.x = event.button.x - sliderButton.w / 2; // sets the middle of the button to where the user clicked
+    return true;
+  }
   if (overSliderButton(event.button.x, event.button.y))
   {
-    printf("click\n");
     return true;
   }
   return false;
 }
 
-bool Slider::onMouseButtonUp(const SDL_Event &event)
-{
-  printf("unclick\n");
-  return false;
-}
+bool Slider::onMouseButtonUp(const SDL_Event &event) { return false; }
