@@ -18,14 +18,21 @@ public:
 
   void draw() override;
   void setValue(int);
-  int getValue(int, int);
+  int getValue(int);
 
   /** @brief Checks if the mouse is over the button of the slider
    * checks if the mouse is over the sliderButton
-   * @param x, y the current coordinates of the mouse
+   * @param x,y the current coordinates of the mouse
    * @returns whether or not the mouse is over the button
    */
   bool overSliderButton(int, int);
+
+  /** @brief Checks if the mouses is over the line part of the slider
+   * checks if the mouse is over the sliderLine
+   * @param x,y the current coordinates of the mouse
+   * @returns whether or not the mouse is over the button
+   */
+  bool overSliderLine(int, int);
   bool onMouseButtonDown(const SDL_Event &) override;
   bool onMouseButtonUp(const SDL_Event &) override;
 

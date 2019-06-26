@@ -28,11 +28,13 @@ void Slider::setValue(int val)
   curVal = val;
 }
 
-int Slider::getValue(int x, int y)
+int Slider::getValue(int x)
 {
   // based on where the button is on the line, find the corresponding value
-
-  return -1;
+  int range = m_maxVal - m_minVal;
+  double ratio = (x - sliderLine.x) / (double) sliderLine.w;
+  int val = ratio * range + m_minVal;
+  return val;
 }
 
 bool Slider::overSliderButton(int x, int y)
@@ -51,6 +53,7 @@ bool Slider::onMouseButtonDown(const SDL_Event &event)
   if (overSliderLine(event.button.x, event.button.y))
   {
     sliderButton.x = event.button.x - sliderButton.w / 2; // sets the middle of the button to where the user clicked
+    curVal = getValue(event.button.x);
     return true;
   }
   if (overSliderButton(event.button.x, event.button.y))
