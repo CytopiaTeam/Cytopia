@@ -16,6 +16,13 @@ public:
   void draw() override;
   void setValue(int);
   int getValue(int, int);
+
+  /** @brief Checks if the mouse is over the button of the slider
+   * checks if the mouse is over the sliderButton
+   * @param x, y the current coordinates of the mouse
+   * @returns whether or not the mouse is over the button
+   */
+  bool overSliderButton(int, int);
   bool onMouseButtonDown(const SDL_Event &) override;
   bool onMouseButtonUp(const SDL_Event &) override;
 
