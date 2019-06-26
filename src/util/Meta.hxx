@@ -3,6 +3,7 @@
 #include <iostream>
 #include <type_traits>
 #include <variant>
+#include <tuple>
 
 using nullptr_t = std::nullptr_t;
 
@@ -63,6 +64,18 @@ template <template <typename...> typename List, typename... Ts> struct VariantTy
   using type = std::variant<Ts...>;
 };
 
+/**
+ * @struct TupleType
+ * @brief TupleType::type returns std::tuple<All fields inside the TypeList>
+ * @tparam List the TypeList
+ */
+template <class List> struct TupleType;
+
+template <template <typename...> typename List, typename... Ts> struct TupleType<List<Ts...>>
+{
+  using type = std::tuple<Ts...>;
+};
+
 template <typename List, typename Type> constexpr bool ContainsType = false;
 
 template <template <typename...> typename List, typename T1, typename T2, typename... Ts>
@@ -83,6 +96,23 @@ template <typename> struct GetMemberType
 template <typename Type, typename Member> struct GetMemberType<Member Type::*>
 {
   using type = Member;
+};
+
+template <typename WeakType, typename>
+struct StrongType
+{ 
+  StrongType() = default;
+  StrongType(const StrongType&) = default;
+  StrongType(StrongType&&) = default;
+  StrongType& operator=(const StrongType&) = default;
+  StrongType& operator=(StrongType&&) = default;
+  
+  template<typename... Args, typename = std::enable_if_t<std::is_constructible_v<WeakType, Args...>> >
+  explicit inline StrongType(Args&&... args) : m_Data(std::forward<Args>(args)...) { }
+  
+  WeakType& get() noexcept { return m_Data; }
+private:
+  WeakType m_Data;
 };
 
 #endif
