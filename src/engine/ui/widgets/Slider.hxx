@@ -14,11 +14,10 @@ public:
   ~Slider() override = default;
 
   void draw() override;
-<<<<<<< HEAD
-=======
   void setValue(int);
   int getValue(int, int);
->>>>>>> b1cc749... Added field for current value and value method headers.
+  bool onMouseButtonDown(const SDL_Event &) override;
+  bool onMouseButtonUp(const SDL_Event &) override;
 
 private:
   /// Thickness of the slider line
