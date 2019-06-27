@@ -35,6 +35,7 @@ public:
   bool overSliderLine(int, int);
   bool onMouseButtonDown(const SDL_Event &) override;
   bool onMouseButtonUp(const SDL_Event &) override;
+  void onMouseMove(const SDL_Event &) override;
 
 private:
   /// Thickness of the slider line
@@ -49,6 +50,7 @@ private:
   int m_maxVal = 100;
   /// current slider value
   int curVal;
+  bool mouseDown = false;
 };
 
 #endif
