@@ -24,7 +24,10 @@ void Slider::setValue(int val)
 {
   int range = m_maxVal - m_minVal;
   // calculate position to set
+  double ratio = (val - m_minVal) / (double)range;
+  int x = ratio * sliderLine.w + sliderLine.x;
   // translate that to position on the slider (For the button)
+  sliderButton.x = x - sliderButton.w / 2;
   curVal = val;
 }
 
@@ -32,7 +35,7 @@ int Slider::getValue(int x)
 {
   // based on where the button is on the line, find the corresponding value
   int range = m_maxVal - m_minVal;
-  double ratio = (x - sliderLine.x) / (double) sliderLine.w;
+  double ratio = (x - sliderLine.x) / (double)sliderLine.w;
   int val = ratio * range + m_minVal;
   return val;
 }
