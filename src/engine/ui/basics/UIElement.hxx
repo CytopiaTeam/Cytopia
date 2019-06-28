@@ -172,7 +172,7 @@ private:
   bool m_visible = true;
 
 protected:
-  SDL_Texture *m_texture = nullptr;
+  SDL_Texture *m_texture = nullptr;  /// a pointer to the element's texture
   SDL_Rect m_uiElementRect{0, 0, 0, 0};
 
   void renderTexture() const;
