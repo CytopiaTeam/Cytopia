@@ -14,6 +14,10 @@ class Music
 public:
   Music() = default;
   Music(const std::string &fileName);
+ 
+  /**
+    * @brief Destroys the Music object
+    */
   ~Music();
 
   /** \brief Load File

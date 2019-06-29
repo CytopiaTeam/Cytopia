@@ -39,24 +39,24 @@ struct TileData
 {
   std::string id;
   std::string category;
-  std::string biome; // the biome the tile belongs to
+  std::string biome; /// the biome the tile belongs to
   TileSetData tiles;
   TileSetData cornerTiles;
   TileSetData slopeTiles;
   std::string title;
   std::string description;
-  int price = 0;      // building cost
-  int upkeepCost = 0; // monthly cost
-  int power = 0;      // power production / consumption if negative
-  int water = 0;      // water production / consumption if negative
-  int tileIndex = -1; // index in the spritesheet, if it contains multiple tiles. (categories without "special handling")
+  int price = 0;      /// building cost
+  int upkeepCost = 0; /// monthly cost
+  int power = 0;      /// power production / consumption if negative
+  int water = 0;      /// water production / consumption if negative
+  int tileIndex = -1; /// index in the spritesheet, if it contains multiple tiles. (categories without "special handling")
   std::string author;
-  bool drawGround = false;   // draw ground below sprite (grass, flowers, ...)
-  bool placeOnGround = true; // wether or not this building is placeable on ground
-  bool placeOnWater = false; // wether or not this building is placeable on ground
-  int pollutionLevel = 0;    // Pollution this building produces or prevents
-  int crimeLevel = 0;        // Crime this building produces or prevents (police station)
-  int fireDangerLevel = 0;   // Fire Danger this building produces or prevents
+  bool drawGround = false;   /// draw ground below sprite (grass, flowers, ...)
+  bool placeOnGround = true; /// wether or not this building is placeable on ground
+  bool placeOnWater = false; /// whether or not this building is placeable on ground
+  int pollutionLevel = 0;    /// Pollution this building produces or prevents
+  int crimeLevel = 0;        /// Crime this building produces or prevents (police station)
+  int fireDangerLevel = 0;   /// Fire Danger this building produces or prevents
   int habitants = 0;
 };
 
