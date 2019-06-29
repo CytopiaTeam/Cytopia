@@ -17,7 +17,18 @@ public:
   ~Slider() override = default;
 
   void draw() override;
+
+  /** @brief changes the slider position based on the new value given
+   * calculates the slider's position corresponding to the given value
+   * @param val the new value of the slider
+   */
   void setValue(int);
+
+  /** @brief finds the slider's value based on where the button is on the line
+   * uses the button's coordinates to calculate the corresponding value
+   * @param x the x coordinate of the center of the sliderButton
+   * @returns the current value of the slider
+   */
   int getValue(int);
 
   /** @brief Checks if the mouse is over the button of the slider
@@ -36,6 +47,14 @@ public:
   bool onMouseButtonDown(const SDL_Event &) override;
   bool onMouseButtonUp(const SDL_Event &) override;
   void onMouseMove(const SDL_Event &) override;
+
+  /** @brief Only overridden to enable dragging functionality
+   * this was only redeclared and redefined because the regular implementation 
+   * would not work for the Slider widget due to it being composed of two rectangles, 
+   * whereas other UIElements are composed of one.
+   * @param x,y the current coordinates of the mouse
+   * @returns always returns true for the Slider widget only
+   */
   bool isMouseOver(int, int) override;
 
 private:
@@ -51,6 +70,7 @@ private:
   int m_maxVal = 100;
   /// current slider value
   int curVal;
+  /// whether or not the button is to follow the mouse
   bool dragMode;
 };
 
