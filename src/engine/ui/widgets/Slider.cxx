@@ -11,6 +11,7 @@ Slider::Slider(const SDL_Rect &uiElementRect) : UIElement(uiElementRect)
   sliderButton.h = 40;
   sliderButton.y = uiElementRect.y - uiElementRect.h / 2 + m_lineThickness / 2;
   sliderButton.x = uiElementRect.w / 2 - sliderButton.w / 2;
+  dragMode = false;
 };
 
 void Slider::draw()
@@ -52,7 +53,6 @@ bool Slider::overSliderLine(int x, int y)
 
 bool Slider::onMouseButtonDown(const SDL_Event &event)
 {
-  mouseDown = true;
   if (overSliderLine(event.button.x, event.button.y))
   {
     sliderButton.x = event.button.x - sliderButton.w / 2; // sets the middle of the button to where the user clicked
@@ -61,21 +61,24 @@ bool Slider::onMouseButtonDown(const SDL_Event &event)
   }
   if (overSliderButton(event.button.x, event.button.y))
   {
-    return true;
+    dragMode = true;
+	return true;
   }
   return false;
 }
 
 bool Slider::onMouseButtonUp(const SDL_Event &event)
 {
-  mouseDown = false;
+  dragMode = false;
   return false;
 }
 
 void Slider::onMouseMove(const SDL_Event &event)
 {
-  if (mouseDown)
+  if (dragMode)
   {
-    printf("click and move");
+    // button will follow mouse
   }
 }
+
+bool Slider::isMouseOver(int x, int y) { return overSliderButton(x, y); }
