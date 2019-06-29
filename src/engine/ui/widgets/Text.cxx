@@ -41,6 +41,7 @@ void Text::createTextTexture(const std::string &text, const SDL_Color &textColor
   if (!font)
   {
     LOG(LOG_ERROR) << "Failed to load font!\n" << TTF_GetError();
+    //@todo throw an error when the exception handling improvements have been merged
     return;
   }
 

@@ -47,6 +47,8 @@ LIST(APPEND TEST_SOURCES
         main.cxx
         Example.cxx
         engine/ResourcesManager.cxx
+        engine/Engine.cxx
+        engine/WindowManager.cxx
         ui/widgets/Text.cxx
         engine/AudioMixer.cxx
         util/Meta.cxx

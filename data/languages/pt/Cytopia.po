@@ -1,0 +1,386 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Maroon Shaded <maroonshaded@gmail.com>, 2019
+# A Tua Mãe <macos.bbr@hotmail.com>, 2019
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-06-15 11:35+0200\n"
+"PO-Revision-Date: 2019-06-14 12:00+0000\n"
+"Last-Translator: A Tua Mãe <macos.bbr@hotmail.com>, 2019\n"
+"Language-Team: Portuguese (https://www.transifex.com/cytopia/teams/100140/pt/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pt\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "A  small coal power plant."
+msgstr "Uma central termoelétrica a carvão pequena."
+
+msgid "A Coal Power plant."
+msgstr "Uma central termoelétrica a carvão."
+
+msgid "A Power Plant, that has been built years ago"
+msgstr "Uma central elétrica que foi construída há anos"
+
+msgid "A Road, that hasn't been cleaned often"
+msgstr "Uma estrada que não tem sido limpa muitas vezes..."
+
+msgid "A Shop that sells Bikes"
+msgstr "Uma loja que vende bicicletas"
+
+msgid "A Tower made out of concrete"
+msgstr "Uma torre feita de cimento"
+
+msgid "A beautiful water tower"
+msgstr "Uma linda caixa d'água"
+
+msgid "A big building"
+msgstr "Um grande edifício"
+
+msgid "A chemical plant"
+msgstr "Uma fábrica química"
+
+msgid "A commercial center"
+msgstr "Um centro comercial"
+
+msgid "A factory"
+msgstr "Uma fábrica"
+
+msgid "A petrol pump"
+msgstr "Uma bomba de gasolina"
+
+msgid "A petrol station"
+msgstr "Um posto de gasolina"
+
+msgid "A pile of coal"
+msgstr "Uma pilha de carvão"
+
+msgid "A shop that sells clocks"
+msgstr "Uma loja que vende relógios"
+
+msgid "A shop that sells games. Even Cytopia is in store!"
+msgstr "Uma loja que vende jogos. Até Cytopia lá está!"
+
+msgid "A shop that sells phones. It has the new CyPhone X"
+msgstr "Uma  loja que vende telemóveis. Têm o novo CyPhone X"
+
+msgid "A shop!"
+msgstr "Uma loja!"
+
+msgid "A skyscaper"
+msgstr "Um arranha-céus"
+
+msgid "A small  building"
+msgstr "Um pequeno edifício"
+
+msgid "A small house"
+msgstr "Uma pequena casa"
+
+msgid "A small shack"
+msgstr "Uma pequena cabana"
+
+msgid "A small water tower"
+msgstr "Uma pequena caixa d'água"
+
+msgid "An oasis"
+msgstr "Um oásis"
+
+msgid "Appartment"
+msgstr "Apartamento"
+
+msgid "Appartment Building"
+msgstr "Prédio de apartamentos"
+
+msgid "Appartment London"
+msgstr "Londres de Apartamentos"
+
+msgid "Appartments"
+msgstr "Apartamentos"
+
+msgid "Big Appartments"
+msgstr "Apartamentos Grandes"
+
+msgid "Big Building"
+msgstr "Grande Edifício"
+
+msgid "Big Depollutor"
+msgstr "Grande Depoluidor"
+
+msgid "Big Office Building"
+msgstr "Grande Edíficio de Escritórios"
+
+msgid "BikeShop"
+msgstr "Loja de Bicicletas"
+
+msgid "Bois Guillaume Appartment"
+msgstr "Apartamento Bois Guillaume"
+
+msgid "Borgs Burgers"
+msgstr "Borgs Burgers"
+
+msgid "Borgs Burgers - We have the tastiest!"
+msgstr "Borgs Burgers - Nós temos o mais saboroso!"
+
+msgid "BuildMenu Layout"
+msgstr "Disposição do Menu de Construção"
+
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgid "Chemical Plant"
+msgstr "Fábrica Química"
+
+msgid "Clock Store"
+msgstr "Loja de Relógios"
+
+msgid "Coal Pile"
+msgstr "Pilha de Carvão"
+
+msgid "Coal Power Plant"
+msgstr "Central Termoelétrica de Carvão"
+
+msgid "Commercial"
+msgstr "Comercial"
+
+msgid "Community Tower"
+msgstr "Torre da Comunidade"
+
+msgid "CompactFast Shop"
+msgstr "Loja RápidoCompacto"
+
+msgid "Concrete Tower"
+msgstr "Torre de Cimento"
+
+msgid "Construction"
+msgstr "Construção"
+
+msgid "Country Road"
+msgstr "Estrada Nacional"
+
+msgid "Country Road... takes you home!"
+msgstr "Estrada Nacional... leva-te para casa!"
+
+msgid "Day Care Center"
+msgstr "Creche"
+
+msgid "Debug Menu"
+msgstr "Menu de Debug"
+
+msgid "Decoration"
+msgstr "Decoração"
+
+msgid "Demolish"
+msgstr "Demolir"
+
+msgid "Depolluter Big"
+msgstr "Grande Depoluidor"
+
+msgid "Depolluter Medium"
+msgstr "Depoluídor Médio"
+
+msgid "Depolluter Small"
+msgstr "Depoluídor Pequeno"
+
+msgid "Desert Building"
+msgstr "Edifício do Deserto"
+
+msgid "Desert building"
+msgstr "Edifício deserto"
+
+msgid "Dirt Road"
+msgstr "Estrada de Terra"
+
+msgid "Factory"
+msgstr "Fábrica"
+
+msgid "Flora"
+msgstr "Flora"
+
+msgid "Fullscreen Mode"
+msgstr "Modo Ecrã-Inteiro"
+
+msgid "Game Shop"
+msgstr "Loja de jogos"
+
+msgid "House with swimming pool"
+msgstr "Casa com Piscina"
+
+msgid "I scream for ice cream!"
+msgstr "Eu grito por gelado!"
+
+msgid "Ice Cream Shop"
+msgstr "Loja de Gelado"
+
+msgid "Industrial"
+msgstr "Industrial"
+
+msgid "Industrial Building"
+msgstr "Edifício Industrial"
+
+msgid "Level Terrain"
+msgstr "Nivelar Terreno"
+
+#: src/Game.cxx:96
+msgid "Load Game"
+msgstr "Carregar Jogo"
+
+msgid "Lower Terrain"
+msgstr "Descer Terreno"
+
+msgid "Medium Appartments"
+msgstr "Apartamentos Médios"
+
+msgid "Medium Depollutor"
+msgstr "Depoluidor Médio"
+
+msgid "Nature"
+msgstr "Natureza"
+
+#: src/Game.cxx:91
+msgid "New Game"
+msgstr "Novo Jogo"
+
+msgid "OK"
+msgstr "OK"
+
+msgid "Oasis"
+msgstr "Oásis"
+
+msgid "Office"
+msgstr "Escritório"
+
+msgid "Old Church"
+msgstr "Igreja Antiga"
+
+msgid "Old Industrial Building"
+msgstr "Edifício Industrial Antigo"
+
+msgid "Old building"
+msgstr "Edifício Antigo"
+
+msgid "OldPowerPlant"
+msgstr "Central Elétrica Antiga"
+
+msgid "Paved Road"
+msgstr "Estrada Pavimentada"
+
+msgid "Petrol Pump"
+msgstr "Bomba de gasolina"
+
+msgid "Petrol Station"
+msgstr "Estação de gasolina"
+
+msgid "Phone Shop"
+msgstr "Loja de Telemóveis"
+
+msgid "Power"
+msgstr "Eletricidade"
+
+msgid "Pyramid"
+msgstr "Pirâmide"
+
+#: src/Game.cxx:100
+msgid "Quit Game"
+msgstr "Sair do Jogo"
+
+msgid "Raise Terrain"
+msgstr "Subir Terreno"
+
+msgid "Residential"
+msgstr "Residencial"
+
+msgid "Roads"
+msgstr "Estradas"
+
+msgid "Rocks"
+msgstr "Pedras"
+
+msgid "Rocks for the terrain"
+msgstr "Pedras para o terreno"
+
+msgid "Ruegroshorloge"
+msgstr "Ruegroshorloge"
+
+msgid "Save Game"
+msgstr "Guardar Jogo"
+
+msgid "Screen Resolution"
+msgstr "Resolução de Ecrã"
+
+msgid "Settings"
+msgstr "Definições"
+
+msgid "Shop"
+msgstr "Loja"
+
+msgid "Skyscraper"
+msgstr "Arranha-céus"
+
+msgid "Small Coal Power Plant"
+msgstr "Pequena Central Termoelétrica a Carvão"
+
+msgid "Small Coal Power Plant2"
+msgstr "Pequena Central Termoelétrica a Carvão2"
+
+msgid "Small Commercial Center"
+msgstr "Pequeno Centro Comercial"
+
+msgid "Small Depollutor"
+msgstr "Pequeno Depoluídor"
+
+msgid "Small House"
+msgstr "Casa Pequena"
+
+msgid "Small Shack"
+msgstr "Cabana Pequena"
+
+msgid "Small Water Tower"
+msgstr "Caixa d'Água Pequena"
+
+msgid "Small house"
+msgstr "Casa Pequena"
+
+msgid "Terrain"
+msgstr "Terreno"
+
+msgid "Terrain tiles"
+msgstr "Peças do Terreno"
+
+msgid "TerrainDecoration"
+msgstr "Decoração do Terreno"
+
+msgid "The community gathers and works here"
+msgstr "A comunidade reúne-se e trabalha aqui"
+
+msgid "Tour Front De Seine"
+msgstr "Tour Front De Seine"
+
+msgid "Trees"
+msgstr "Árvores"
+
+msgid "Utilities"
+msgstr "Utilidades"
+
+msgid "Water"
+msgstr "Água"
+
+msgid "Water Tower"
+msgstr "Caixa d'Água"
+
+msgid "Where people work"
+msgstr "Onde as pessoas trabalham"
+
+msgid "big Appartments"
+msgstr "Apartamentos Grandes"
+
+msgid "trees"
+msgstr "árvores"

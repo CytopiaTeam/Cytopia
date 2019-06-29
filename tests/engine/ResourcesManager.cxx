@@ -3,14 +3,14 @@
 
 using string = std::string;
 
-TEST_CASE("Get instance", "[engine]")
+TEST_CASE("Get ResourcesManager instance", "[engine][resourcesmanager]")
 {
   void *singleton1 = static_cast<void *>(&ResourcesManager::instance());
   void *singleton2 = static_cast<void *>(&ResourcesManager::instance());
   CHECK(singleton1 == singleton2);
 }
 
-TEST_CASE("Get UI Texture", "[engine]")
+TEST_CASE("Get UI Texture", "[engine][resourcesmanager]")
 {
   SDL_Texture *texture1 = ResourcesManager::instance().getUITexture("UNLOADED");
   SDL_Texture *texture2 = ResourcesManager::instance().getUITexture("UNLOADED", BUTTONSTATE_HOVERING);
@@ -18,7 +18,7 @@ TEST_CASE("Get UI Texture", "[engine]")
   CHECK(texture2 == nullptr);
 }
 
-TEST_CASE("Get Tile Texture", "[engine]")
+TEST_CASE("Get Tile Texture", "[engine][resourcesmanager]")
 {
   SDL_Texture *texture1 = ResourcesManager::instance().getTileTexture("UNLOADED");
   SDL_Texture *texture2 = ResourcesManager::instance().getTileTexture("UNLOADED", 1);
@@ -26,7 +26,7 @@ TEST_CASE("Get Tile Texture", "[engine]")
   CHECK(texture2 == nullptr);
 }
 
-TEST_CASE("Get Tile Surface", "[engine]")
+TEST_CASE("Get Tile Surface", "[engine][resourcesmanager]")
 {
   SDL_Surface *surface1 = ResourcesManager::instance().getTileSurface("UNLOADED");
   SDL_Surface *surface2 = ResourcesManager::instance().getTileSurface("UNLOADED", 1);
@@ -34,13 +34,13 @@ TEST_CASE("Get Tile Surface", "[engine]")
   CHECK(surface2 == nullptr);
 }
 
-TEST_CASE("Load Texture", "[engine]")
+TEST_CASE("Load Texture", "[engine][resourcesmanager]")
 {
   CHECK_NOTHROW(ResourcesManager::instance().loadTexture("TEXTURE", "__NOT_A_FILE__"));
   CHECK_NOTHROW(ResourcesManager::instance().loadTexture("TEXTURE", "__NOT_A_FILE__", 1));
 }
 
-SCENARIO("I can load and use textures", "[engine][!mayfail]")
+SCENARIO("I can load and use textures", "[engine][resourcesmanager][!mayfail]")
 {
   GIVEN("A texture named resources/images/app_icons/logo_big_textured.png")
   {
