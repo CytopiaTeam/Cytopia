@@ -132,7 +132,6 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           }
           break;
         }
-        
 		// definitely figure out a better way to do this, this was done for the Slider
 		if (it->isMouseOver(event.button.x, event.button.y))
         {
