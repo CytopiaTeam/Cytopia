@@ -10,6 +10,8 @@
 
 using Monitor = std::condition_variable;
 using Mutex = std::mutex;
+using MonitorUPtr = std::unique_ptr<Monitor>;
+using MutexUPtr = std::unique_ptr<Mutex>;
 template <typename Type> using Deque = std::deque<Type>;
 template <typename Semaphore> using Lock = std::unique_lock<Semaphore>;
 
@@ -33,11 +35,11 @@ public:
   {
     /* Push the event */
     {
-      Lock<Mutex> lock(m_Semaphore);
+      Lock<Mutex> lock(*m_Semaphore);
       m_Queue.push_back(event);
     }
     /* Notify */
-    m_OnEvent.notify_all();
+    m_OnEvent->notify_all();
   }
 
   /**
@@ -47,8 +49,8 @@ public:
    */
   bool peek(void) noexcept
   {
-    Lock<Mutex> lock(m_Semaphore);
-    return m_OnEvent.wait_for(lock, std::chrono::seconds::zero(), std::bind(&MessageQueue::wakeCondition, this));
+    Lock<Mutex> lock(*m_Semaphore);
+    return m_OnEvent->wait_for(lock, std::chrono::seconds::zero(), std::bind(&MessageQueue::wakeCondition, this));
   }
 
   /**
@@ -60,19 +62,20 @@ public:
    */
   Enumerable getEnumerable(void)
   {
-    Lock<Mutex> lock(m_Semaphore);
-    m_OnEvent.wait(lock, std::bind(&MessageQueue::wakeCondition, this));
+    Lock<Mutex> lock(*m_Semaphore);
+    m_OnEvent->wait(lock, std::bind(&MessageQueue::wakeCondition, this));
     Enumerable enumerable;
     std::swap(enumerable, m_Queue);
     return enumerable;
   }
 
   /* These operators are deleted to prevent race hazards */
-  MessageQueue &operator=(const MessageQueue &) = delete;
   MessageQueue(const MessageQueue &) = delete;
-  MessageQueue(const MessageQueue &&) = delete;
+  MessageQueue &operator=(const MessageQueue &) = delete;
 
   MessageQueue() = default;
+  MessageQueue(MessageQueue &&) = default;
+  MessageQueue &operator=(MessageQueue &&) = default;
 
 private:
   /**
@@ -82,8 +85,8 @@ private:
    */
   inline bool wakeCondition(void) const noexcept { return not m_Queue.empty(); }
 
-  Monitor m_OnEvent;
-  Mutex m_Semaphore;
+  MonitorUPtr m_OnEvent = std::make_unique<Monitor>();
+  MutexUPtr m_Semaphore = std::make_unique<Mutex>();
   Deque<Event> m_Queue;
 };
 
