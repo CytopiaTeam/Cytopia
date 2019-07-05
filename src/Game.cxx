@@ -1,5 +1,4 @@
 #include "Game.hxx"
-
 #include "engine/Engine.hxx"
 #include "engine/EventManager.hxx"
 #include "engine/UIManager.hxx"
@@ -28,6 +27,9 @@
 #ifdef MICROPROFILE_ENABLED
 #include "microprofile.h"
 #endif
+
+template void Game::LoopMain<GameLoopMQ, Game::GameVisitor>(Game::GameContext&, Game::GameVisitor);
+template void Game::LoopMain<UILoopMQ, Game::UIVisitor>(Game::GameContext&, Game::UIVisitor);
 
 bool Game::initialize()
 {
@@ -281,3 +283,23 @@ void Game::shutdown()
 
   SDL_Quit();
 }
+
+template <typename MQType, typename Visitor>
+void Game::LoopMain(GameContext& context, Visitor visitor)
+{
+  while(true)
+  {
+    for(auto event : std::get<MQType>(context).get().getEnumerable())
+    {
+      if (std::holds_alternative<TerminateEvent>(event))
+      {
+        break;
+      }
+      else
+      {
+        std::visit(visitor, event);
+      }
+    }
+  }
+}
+

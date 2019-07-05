@@ -62,7 +62,6 @@ void Consumer(Context &application, TestResult &result)
 {
   while (true)
   {
-
     EventQueue::Enumerable events = application.ConsumerMQ.getEnumerable();
     CHECK(events.size() > 0);
     result.insert(result.end(), events.begin(), events.end());
