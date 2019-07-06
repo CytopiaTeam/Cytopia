@@ -5,9 +5,18 @@
 
 #include "../../util/Singleton.hxx"
 
+#include <stddef.h>
+
 /* Settings Types */
 using ScreenDimension = int;
 using VolumeLevel = uint8_t;
+
+enum AudioMode : uint8_t
+{
+	MONO,
+	STEREO,
+	BINAURAL
+};
 
 struct SettingsData
 {
@@ -91,7 +100,12 @@ struct SettingsData
    * @todo add a typename
    */
   int audioChannels;
-
+  
+  /**
+   * Mode of audio game is being played in such as mono,stereo,binaural
+   */
+  AudioMode audioMode;
+  
   /**
    * @todo document what this field is
    * @todo add a typename

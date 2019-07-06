@@ -6,6 +6,10 @@
 #include <SDL.h>
 #include <SDL_mixer.h>
 
+#include "AL/al.h"
+#include "AL/alc.h"
+#include "alure.h"
+
 /** \brief Sound effect class
   * Class for sound effects.
   * Loads and plays sound effects of following formats: WAV, AIFF, RIFF, OGG, and VOC
@@ -55,6 +59,8 @@ private:
   Mix_Chunk *m_soundEffect = nullptr;
 
   bool m_playSoundEffect;
+  
+  ALuint source;
 };
 
 #endif

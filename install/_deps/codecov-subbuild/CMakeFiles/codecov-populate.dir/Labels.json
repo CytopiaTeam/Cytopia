@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/install/_deps/codecov-subbuild/CMakeFiles/codecov-populate"
+		},
+		{
+			"file" : "/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/install/_deps/codecov-subbuild/CMakeFiles/codecov-populate.rule"
+		},
+		{
+			"file" : "/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/install/_deps/codecov-subbuild/CMakeFiles/codecov-populate-complete.rule"
+		},
+		{
+			"file" : "/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/install/_deps/codecov-subbuild/codecov-populate-prefix/src/codecov-populate-stamp/codecov-populate-install.rule"
+		},
+		{
+			"file" : "/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/install/_deps/codecov-subbuild/codecov-populate-prefix/src/codecov-populate-stamp/codecov-populate-mkdir.rule"
+		},
+		{
+			"file" : "/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/install/_deps/codecov-subbuild/codecov-populate-prefix/src/codecov-populate-stamp/codecov-populate-download.rule"
+		},
+		{
+			"file" : "/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/install/_deps/codecov-subbuild/codecov-populate-prefix/src/codecov-populate-stamp/codecov-populate-update.rule"
+		},
+		{
+			"file" : "/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/install/_deps/codecov-subbuild/codecov-populate-prefix/src/codecov-populate-stamp/codecov-populate-patch.rule"
+		},
+		{
+			"file" : "/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/install/_deps/codecov-subbuild/codecov-populate-prefix/src/codecov-populate-stamp/codecov-populate-configure.rule"
+		},
+		{
+			"file" : "/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/install/_deps/codecov-subbuild/codecov-populate-prefix/src/codecov-populate-stamp/codecov-populate-build.rule"
+		},
+		{
+			"file" : "/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/install/_deps/codecov-subbuild/codecov-populate-prefix/src/codecov-populate-stamp/codecov-populate-test.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"codecov-populate"
+		],
+		"name" : "codecov-populate"
+	}
+}

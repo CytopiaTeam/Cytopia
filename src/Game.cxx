@@ -16,6 +16,10 @@
 #include "engine/AudioMixer.hxx"
 #endif
 
+#ifdef USE_OPENAL_SOFT
+#include "AL/al.h"
+#endif
+
 #ifdef USE_ANGELSCRIPT
 #include "Scripting/ScriptEngine.hxx"
 #endif
@@ -49,6 +53,11 @@ bool Game::initialize()
     LOG(LOG_ERROR) << "Failed to Init SDL_Mixer\nSDL Error:" << Mix_GetError();
     return false;
   }
+#endif
+
+#ifdef USE_OPENAL_SOFT
+	ALuint source;
+	std::cout << "OpenAL Soft enabled. \n";
 #endif
 
   // initialize window manager

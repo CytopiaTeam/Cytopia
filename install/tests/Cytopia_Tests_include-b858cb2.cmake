@@ -1,0 +1,5 @@
+if(EXISTS "/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/install/tests/Cytopia_Tests_tests-b858cb2.cmake")
+  include("/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/install/tests/Cytopia_Tests_tests-b858cb2.cmake")
+else()
+  add_test(Cytopia_Tests_NOT_BUILT-b858cb2 Cytopia_Tests_NOT_BUILT-b858cb2)
+endif()

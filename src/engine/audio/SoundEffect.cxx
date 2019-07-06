@@ -31,6 +31,7 @@ void SoundEffect::play(int channel, Sint16 angle, Uint8 distance, int loops) con
 {
   if (m_playSoundEffect)
   {
+	//if in mono or stereo mode
     if (m_soundEffect)
     {
       const int currentChannel = Mix_PlayChannel(channel, m_soundEffect, loops);
@@ -53,6 +54,9 @@ void SoundEffect::play(int channel, Sint16 angle, Uint8 distance, int loops) con
     {
       LOG(LOG_ERROR) << "No sound effect file is loaded but the function play() has been called!\n";
     }
+    
+    //else if in binaural audio mode
+    
   }
 }
 
