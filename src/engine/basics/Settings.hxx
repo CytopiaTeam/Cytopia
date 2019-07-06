@@ -22,7 +22,7 @@ struct SettingsData
 {
 
   /**
-   * @todo document what this field is
+   * @brief the size of the map
    * @todo add a typename
    */
   int mapSize;
@@ -50,7 +50,7 @@ struct SettingsData
   ScreenDimension currentScreenHeight;
 
   /**
-   * @todo document what this field is
+   * @brief the maximum elevation height
    * @todo add a typename
    */
   int maxElevationHeight;
@@ -114,13 +114,13 @@ struct SettingsData
   std::string buildMenuPosition;
 
   /**
-   * @todo document what this field is
+   * @brief JSONFile that contains uiData
    * @todo add a typename
    */
   std::string uiDataJSONFile;
 
   /**
-   * @todo document what this field is
+   * @brief JSONFile that contains tileData
    * @todo add a typename
    */
   std::string tileDataJSONFile;
@@ -135,6 +135,11 @@ struct SettingsData
    * @brief The Game language 
    */
   std::string gameLanguage;
+
+  /**
+   * @brief FileName of the Font that should be used.
+   */
+  std::string fontFileName;
 };
 
 /**

@@ -54,24 +54,38 @@ public:
     */
   void decreaseHeight(const Point &isoCoordinates) const;
 
+  /** @brief Toggle Fullscreen Mode
+    * Toggle Fullscreen Mode
+    */
   void toggleFullScreen();
 
   void setTileIDOfNode(const Point &isoCoordinates, const std::string &tileID) const;
 
   void demolishNode(const Point &isoCoordinates) const;
 
+  /** @brief Checks if game is running
+    * Checks if game is running
+    * @returns Returns true if the game is running, and false otherwise
+    */
   bool isGameRunning() { return m_running; };
+
+  /** @brief Quits the game
+    * Sets m_running to false and quitting the game.
+    */
   void quitGame() { m_running = false; };
 
   /** @brief Loads a saved game
-  * Loads a saved Game
-  * @param fileName FileName of the saved game
-  * @see Map#loadMapFromFile
-  */
+    * Loads a saved Game
+    * @param fileName FileName of the saved game
+    * @see Map#loadMapFromFile
+    */
   void loadGame(const std::string &fileName);
 
   void saveGame(const std::string &fileName) { map->saveMapToFile(fileName); };
 
+  /** @brief Creates a new game
+    * Creates a new game
+    */
   void newGame();
 
   Map *map;

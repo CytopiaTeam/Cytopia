@@ -1,26 +1,17 @@
 #include "UIElement.hxx"
 #include "../../basics/LOG.hxx"
-
-#ifdef USE_MOFILEREADER
-#include "moFileReader.h"
-#endif
-
-void UIElement::draw()
-{
-  if (m_texture)
-  {
-    renderTexture();
-  }
-}
+#include "Settings.hxx"
 
 void UIElement::setTextureID(const std::string &textureID)
 {
   elementData.textureID = textureID;
   SDL_Texture *texture = ResourcesManager::instance().getUITexture(textureID);
-  if (texture)
+  if (!texture)
   {
-    m_texture = texture;
+    LOG(LOG_ERROR) << "Texture " << textureID << " could not be loaded!";
+    return;
   }
+  m_texture = texture;
   SDL_QueryTexture(m_texture, nullptr, nullptr, &m_uiElementRect.w, &m_uiElementRect.h);
 }
 
@@ -53,66 +44,12 @@ bool UIElement::isMouseOverHoverableArea(int x, int y)
          y < m_uiElementRect.y + m_uiElementRect.h;
 }
 
-void UIElement::setText(const std::string &text)
-{
-#ifdef USE_MOFILEREADER
-  LOG(LOG_INFO) << "Translatable string: " << text;
-  elementData.text = moFileLib::moFileReaderSingleton::GetInstance().Lookup(text.c_str());
-#else
-  elementData.text = text;
-#endif
-  createTextTexture(elementData.text, SDL_Color{255, 255, 255});
-}
-
 SDL_Point UIElement::screenPointToLocalPointInRect(SDL_Point screenCoordinates)
 {
   SDL_Point result;
   result.x = screenCoordinates.x - m_uiElementRect.x;
   result.y = screenCoordinates.y - m_uiElementRect.y;
   return result;
-}
-
-void UIElement::createTextTexture(const std::string &text, const SDL_Color &textColor)
-{
-  m_font = TTF_OpenFont("resources/fonts/arcadeclassics.ttf", 20);
-
-  if (!m_font)
-  {
-    LOG(LOG_ERROR) << "Failed to load font!\n" << TTF_GetError();
-    return;
-  }
-
-  // destroy texture first to prevent memleaks
-  if (m_texture)
-    SDL_DestroyTexture(m_texture);
-
-  SDL_Surface *textSurface = TTF_RenderText_Solid(m_font, text.c_str(), textColor);
-  if (textSurface)
-  {
-    SDL_Rect _textRect{0, 0, 0, 0};
-
-    m_texture = SDL_CreateTextureFromSurface(m_renderer, textSurface);
-
-    // no surface exists but some shape has been drawn for that ui element
-    SDL_QueryTexture(m_texture, nullptr, nullptr, &_textRect.w, &_textRect.h);
-
-    _textRect.x = m_uiElementRect.x + (m_uiElementRect.w / 2) - (_textRect.w / 2);
-    _textRect.y = m_uiElementRect.y + (m_uiElementRect.h / 2) - (_textRect.h / 2);
-    m_uiElementRect = _textRect;
-
-    if (!m_texture)
-    {
-      LOG(LOG_ERROR) << "Failed to create texture from text surface!\n" << SDL_GetError();
-    }
-    //Delete no longer needed surface
-    SDL_FreeSurface(textSurface);
-  }
-  else
-  {
-    LOG(LOG_ERROR) << "Failed to create text surface!\n" << TTF_GetError();
-  }
-
-  TTF_CloseFont(m_font);
 }
 
 void UIElement::drawTextFrame() const

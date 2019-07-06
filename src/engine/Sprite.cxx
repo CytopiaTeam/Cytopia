@@ -5,6 +5,7 @@
 #include "basics/Camera.hxx"
 #include "basics/isoMath.hxx"
 #include "map/MapLayers.hxx"
+#include "LOG.hxx"
 
 #ifdef MICROPROFILE_ENABLED
 #include "microprofile.h"
@@ -23,29 +24,26 @@ void Sprite::render() const
 #endif
   for (uint32_t i = 0; i < LAYERS_COUNT; ++i)
   {
-    if (MapLayers::isLayerActive(i))
+    if (MapLayers::isLayerActive(i) && m_SpriteData[i].texture)
     {
-      if (m_SpriteData[i].texture)
+      if (highlightSprite)
       {
-        if (highlightSprite)
-        {
-          SDL_SetTextureColorMod(m_SpriteData[i].texture, 150, 150, 150);
-        }
+        SDL_SetTextureColorMod(m_SpriteData[i].texture, 150, 150, 150);
+      }
 
-        if (m_SpriteData[i].clipRect.w != 0)
-        {
-          SDL_RenderCopy(WindowManager::instance().getRenderer(), m_SpriteData[i].texture, &m_SpriteData[i].clipRect,
-                         &m_SpriteData[i].destRect);
-        }
-        else
-        {
-          SDL_RenderCopy(WindowManager::instance().getRenderer(), m_SpriteData[i].texture, nullptr, &m_SpriteData[i].destRect);
-        }
+      if (m_SpriteData[i].clipRect.w != 0)
+      {
+        SDL_RenderCopy(WindowManager::instance().getRenderer(), m_SpriteData[i].texture, &m_SpriteData[i].clipRect,
+                       &m_SpriteData[i].destRect);
+      }
+      else
+      {
+        SDL_RenderCopy(WindowManager::instance().getRenderer(), m_SpriteData[i].texture, nullptr, &m_SpriteData[i].destRect);
+      }
 
-        if (highlightSprite)
-        {
-          SDL_SetTextureColorMod(m_SpriteData[i].texture, 255, 255, 255);
-        }
+      if (highlightSprite)
+      {
+        SDL_SetTextureColorMod(m_SpriteData[i].texture, 255, 255, 255);
       }
     }
   }
@@ -57,17 +55,21 @@ void Sprite::refresh()
   {
     for (uint32_t it = 0; it < LAYERS_COUNT; ++it)
     {
-      m_currentZoomLevel = Camera::zoomLevel;
-      if (m_SpriteData[it].clipRect.w != 0)
+      if (m_SpriteData[it].texture)
       {
-        m_SpriteData[it].destRect.w = static_cast<int>(m_SpriteData[it].clipRect.w * m_currentZoomLevel);
-        m_SpriteData[it].destRect.h = static_cast<int>(m_SpriteData[it].clipRect.h * m_currentZoomLevel);
-      }
-      else
-      {
-        SDL_QueryTexture(m_SpriteData[it].texture, nullptr, nullptr, &m_SpriteData[it].destRect.w, &m_SpriteData[it].destRect.h);
-        m_SpriteData[it].destRect.w = static_cast<int>(m_SpriteData[it].destRect.w * m_currentZoomLevel);
-        m_SpriteData[it].destRect.h = static_cast<int>(m_SpriteData[it].destRect.h * m_currentZoomLevel);
+        m_currentZoomLevel = Camera::zoomLevel;
+        if (m_SpriteData[it].clipRect.w != 0)
+        {
+          m_SpriteData[it].destRect.w = static_cast<int>(m_SpriteData[it].clipRect.w * m_currentZoomLevel);
+          m_SpriteData[it].destRect.h = static_cast<int>(m_SpriteData[it].clipRect.h * m_currentZoomLevel);
+        }
+        else
+        {
+          SDL_QueryTexture(m_SpriteData[it].texture, nullptr, nullptr, &m_SpriteData[it].destRect.w,
+                           &m_SpriteData[it].destRect.h);
+          m_SpriteData[it].destRect.w = static_cast<int>(m_SpriteData[it].destRect.w * m_currentZoomLevel);
+          m_SpriteData[it].destRect.h = static_cast<int>(m_SpriteData[it].destRect.h * m_currentZoomLevel);
+        }
       }
     }
   }
@@ -88,6 +90,11 @@ void Sprite::refresh()
 
 void Sprite::setTexture(SDL_Texture *texture, Layer layer)
 {
+  if (!texture)
+  {
+    LOG(LOG_ERROR) << "Called Sprite::setTexture() with a non valid texture";
+    return;
+  }
   m_SpriteData[layer].texture = texture;
   m_needsRefresh = true;
   refresh();

@@ -78,7 +78,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
                 convertScreenToIsoCoordinates({static_cast<int>(event.mgesture.x * Settings::instance().screenWidth),
                                                static_cast<int>(event.mgesture.y * Settings::instance().screenHeight)});
           }
-          Camera::setPinchDistance(event.mgesture.dDist * 15.0f, pinchCenterCoords.x, pinchCenterCoords.y);
+          Camera::setPinchDistance(event.mgesture.dDist * 15.0F, pinchCenterCoords.x, pinchCenterCoords.y);
           m_skipLeftClick = true;
           break;
         }
@@ -131,6 +131,11 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
             m_lastHoveredElement = it.get();
           }
           break;
+        }
+		// definitely figure out a better way to do this, this was done for the Slider
+		if (it->isMouseOver(event.button.x, event.button.y))
+        {
+          it->onMouseMove(event);
         }
       }
 
@@ -201,12 +206,9 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       for (const auto &it : m_uiManager.getAllUiElementsForEventHandling())
       {
         // only check visible elements
-        if (it->isVisible())
+        if (it->isVisible() && it->onMouseButtonDown(event))
         {
-          if (it->onMouseButtonDown(event))
-          {
-            break;
-          }
+          break;
         }
       }
 
@@ -274,44 +276,41 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       mouseCoords = {event.button.x, event.button.y};
       clickCoords = convertScreenToIsoCoordinates(mouseCoords);
 
-      if (event.button.button == SDL_BUTTON_LEFT)
+      if (event.button.button == SDL_BUTTON_LEFT && isPointWithinMapBoundaries(clickCoords))
       {
-        if (isPointWithinMapBoundaries(clickCoords))
+        if (m_tileInfoMode)
         {
-          if (m_tileInfoMode)
+          engine.map->getNodeInformation({clickCoords.x, clickCoords.y, 0, 0});
+        }
+        else if (terrainEditMode == TerrainEdit::RAISE)
+        {
+          engine.increaseHeight(clickCoords);
+        }
+        else if (terrainEditMode == TerrainEdit::LOWER)
+        {
+          engine.decreaseHeight(clickCoords);
+        }
+        else if (!tileTypeEditMode.empty())
+        {
+          if (m_highlightedNodes.size() == 0)
           {
-            engine.map->getNodeInformation({clickCoords.x, clickCoords.y, 0, 0});
-          }
-          else if (terrainEditMode == TerrainEdit::RAISE)
-          {
-            engine.increaseHeight(clickCoords);
-          }
-          else if (terrainEditMode == TerrainEdit::LOWER)
-          {
-            engine.decreaseHeight(clickCoords);
-          }
-          else if (!tileTypeEditMode.empty())
-          {
-            if (m_highlightedNodes.size() == 0)
-            {
-              engine.setTileIDOfNode(m_clickDownCoords, tileTypeEditMode);
-            }
-            else
-            {
-              for (size_t i = 0; i < m_highlightedNodes.size(); i++)
-              {
-                engine.setTileIDOfNode(m_highlightedNodes[i], tileTypeEditMode);
-              }
-            }
-          }
-          else if (demolishMode)
-          {
-            engine.demolishNode(clickCoords);
+            engine.setTileIDOfNode(m_clickDownCoords, tileTypeEditMode);
           }
           else
           {
-            LOG() << "CLICKED - Iso Coords: " << clickCoords.x << ", " << clickCoords.y;
+            for (size_t i = 0; i < m_highlightedNodes.size(); i++)
+            {
+              engine.setTileIDOfNode(m_highlightedNodes[i], tileTypeEditMode);
+            }
           }
+        }
+        else if (demolishMode)
+        {
+          engine.demolishNode(clickCoords);
+        }
+        else
+        {
+          LOG() << "CLICKED - Iso Coords: " << clickCoords.x << ", " << clickCoords.y;
         }
       }
 

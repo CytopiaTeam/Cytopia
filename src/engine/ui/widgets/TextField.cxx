@@ -30,7 +30,8 @@ void TextField::addText(const std::string &text)
 {
   SDL_Rect textRect = m_uiElementRect;
 
-  Text *label = new Text(text);
+  Text *label = new Text();
+  label->setText(text);
   textRect.h = label->getUiElementRect().h; // get height of text after instantiating
   textRect.y = static_cast<int>(m_uiElementRect.y + m_count * textRect.h);
 
@@ -71,14 +72,14 @@ void TextField::setPosition(int x, int y)
     //SDL_Rect textRect;
     switch (textAlignment)
     {
-    case TextFieldAlignment::LEFT:
-      // for LEFT alignment, we use the same values as the uiElementRect
-      break;
     case TextFieldAlignment::RIGHT:
       x = m_uiElementRect.x + m_uiElementRect.w - text->getUiElementRect().w;
       break;
     case TextFieldAlignment::CENTERED:
       x = m_uiElementRect.x + (m_uiElementRect.w / 2 - text->getUiElementRect().w / 2);
+      break;
+    default: //AKA TextFieldAlignment::LEFT
+      // for LEFT alignment, we use the same values as the uiElementRect
       break;
     }
     y = m_uiElementRect.y + (m_textElementHeight * currentElement++);

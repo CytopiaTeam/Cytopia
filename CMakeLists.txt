@@ -276,12 +276,15 @@ message(STATUS "Building Project:  ${PROJECT_NAME}")
 message(STATUS "Build configuration: " ${CMAKE_BUILD_TYPE})
 
 if (UNIX)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread -fdiagnostics-color=always")
 endif ()
 
 add_subdirectory(src)
 
 if (BUILD_TEST)
+    include(CTest)
+    enable_testing()
+
     add_subdirectory(tests)
 endif (BUILD_TEST)
 

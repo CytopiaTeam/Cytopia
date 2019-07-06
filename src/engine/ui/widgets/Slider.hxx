@@ -5,6 +5,9 @@
 
 #include "../basics/UIElement.hxx"
 
+/**
+ * @brief A Slider GUI Widget
+ */
 class Slider : public UIElement
 {
 public:
@@ -14,6 +17,45 @@ public:
   ~Slider() override = default;
 
   void draw() override;
+
+  /** @brief changes the slider position based on the new value given
+   * calculates the slider's position corresponding to the given value
+   * @param val the new value of the slider
+   */
+  void setValue(int);
+
+  /** @brief finds the slider's value based on where the button is on the line
+   * uses the button's coordinates to calculate the corresponding value
+   * @param x the x coordinate of the center of the sliderButton
+   * @returns the current value of the slider
+   */
+  int getValue(int);
+
+  /** @brief Checks if the mouse is over the button of the slider
+   * checks if the mouse is over the sliderButton
+   * @param x,y the current coordinates of the mouse
+   * @returns whether or not the mouse is over the button
+   */
+  bool overSliderButton(int, int);
+
+  /** @brief Checks if the mouses is over the line part of the slider
+   * checks if the mouse is over the sliderLine
+   * @param x,y the current coordinates of the mouse
+   * @returns whether or not the mouse is over the button
+   */
+  bool overSliderLine(int, int);
+  bool onMouseButtonDown(const SDL_Event &) override;
+  bool onMouseButtonUp(const SDL_Event &) override;
+  void onMouseMove(const SDL_Event &) override;
+
+  /** @brief Only overridden to enable dragging functionality
+   * this was only redeclared and redefined because the regular implementation 
+   * would not work for the Slider widget due to it being composed of two rectangles, 
+   * whereas other UIElements are composed of one.
+   * @param x,y the current coordinates of the mouse
+   * @returns always returns true for the Slider widget only
+   */
+  bool isMouseOver(int, int) override;
 
 private:
   /// Thickness of the slider line
@@ -26,6 +68,10 @@ private:
   int m_minVal = 0;
   /// maximum slider value
   int m_maxVal = 100;
+  /// current slider value
+  int curVal;
+  /// whether or not the button is to follow the mouse
+  bool dragMode;
 };
 
 #endif

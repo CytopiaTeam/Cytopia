@@ -168,7 +168,7 @@ private:
   std::unique_ptr<Tooltip> m_tooltip = std::make_unique<Tooltip>();
 
   // Text element for the FPS Counter (debug menu)
-  std::unique_ptr<Text> m_fpsCounter = std::make_unique<Text>(SDL_Rect{40, 20, 0, 0});
+  std::unique_ptr<Text> m_fpsCounter = std::make_unique<Text>();
 
   void setCallbackFunctions();
 

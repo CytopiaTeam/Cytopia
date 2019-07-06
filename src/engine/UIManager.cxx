@@ -71,19 +71,16 @@ void UIManager::init()
         // set parent and check if the element exists
         layoutGroup.layout.layoutParentElementID = uiLayout["LayoutGroups"][it.key()][id].value("LayoutParentElementID", "");
 
-        if (!layoutGroup.layout.layoutParentElementID.empty())
+        if (!layoutGroup.layout.layoutParentElementID.empty() && !getUiElementByID(layoutGroup.layout.layoutParentElementID))
         {
-          if (!getUiElementByID(layoutGroup.layout.layoutParentElementID))
-          {
-            LOG(LOG_ERROR) << "Non existing UIElement with ID " << layoutGroup.layout.layoutParentElementID
-                           << "has been set for LayoutGroup " << layoutGroupName;
-            continue;
-          }
+          LOG(LOG_ERROR) << "Non existing UIElement with ID " << layoutGroup.layout.layoutParentElementID
+                         << "has been set for LayoutGroup " << layoutGroupName;
+          continue;
         }
 
         layoutGroup.layout.padding = uiLayout["LayoutGroups"][it.key()][id].value("Padding", 0);
         layoutGroup.layout.paddingToParent = uiLayout["LayoutGroups"][it.key()][id].value("PaddingToParent", 0);
-        layoutGroup.layout.alignmentOffset = uiLayout["LayoutGroups"][it.key()][id].value("AlignmentOffset", 0.0f);
+        layoutGroup.layout.alignmentOffset = uiLayout["LayoutGroups"][it.key()][id].value("AlignmentOffset", 0.0F);
 
         // add layout group information to container
         m_layoutGroups[layoutGroupName] = layoutGroup;
@@ -93,6 +90,9 @@ void UIManager::init()
         LOG(LOG_ERROR) << "Cannot add a Layout Group without a name. Check your UiLayout.json file.";
       }
     }
+
+    // set FPS Counter position
+    m_fpsCounter->setPosition(40, 20);
   }
 
   // parse UiElements
@@ -167,12 +167,13 @@ void UIManager::init()
         else if (uiElementType == "TextButton")
         {
           uiElement = std::make_unique<Button>(elementRect);
-          uiElement->setText(text);
+          dynamic_cast<Button *>(uiElement.get())->setText(text);
         }
         else if (uiElementType == "Text")
         {
-          uiElement = std::make_unique<Text>(elementRect);
-          uiElement->setText(text);
+          uiElement = std::make_unique<Text>();
+          dynamic_cast<Text *>(uiElement.get())->setText(text);
+          dynamic_cast<Text *>(uiElement.get())->setPosition(elementRect.x, elementRect.y);
         }
         else if (uiElementType == "Frame")
         {
@@ -294,19 +295,14 @@ void UIManager::toggleGroupVisibility(const std::string &groupID, UIElement *sen
   if (sender)
   {
     Button *button = dynamic_cast<Button *>(sender);
-
-    if (button)
+    // cast the object to a Button to check if it's a toggle button.
+    if (button && button->getUiElementData().isToggleButton)
     {
-      // cast the object to a Button to check if it's a toggle button.
-      if (button->getUiElementData().isToggleButton)
+      for (const auto &it : m_uiGroups[groupID])
       {
-        for (const auto &it : m_uiGroups[groupID])
-        {
-          it->setVisibility(button->checkState());
-        }
-
-        return;
+        it->setVisibility(button->checkState());
       }
+      return;
     }
   }
 
@@ -634,8 +630,7 @@ void UIManager::setBuildMenuLayout()
     layoutType = "HORIZONTAL";
     subMenuAlignment = "ALIGN_BENEATH_PARENT";
     break;
-  default:
-  case BUILDMENU_LAYOUT::BOTTOM:
+  default: // AKA BUILDMENU_LAYOUT::BOTTOM
     alignment = "BOTTOM_CENTER";
     layoutType = "HORIZONTAL";
     subMenuAlignment = "ALIGN_ABOVE_PARENT";

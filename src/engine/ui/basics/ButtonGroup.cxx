@@ -14,12 +14,9 @@ bool ButtonGroup::onMouseButtonDown(const SDL_Event &event)
 {
   for (const auto &it : m_buttonGroup)
   {
-    if (it->isVisible())
+    if (it->isVisible() && it->onMouseButtonDown(event))
     {
-      if (it->onMouseButtonDown(event))
-      {
-        return true;
-      }
+      return true;
     }
   }
   return false;

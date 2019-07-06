@@ -42,12 +42,9 @@ void SoundEffect::play(int channel, Sint16 angle, Uint8 distance, int loops) con
       }
 
       // for stereo set the position of the sound effect
-      if (Settings::instance().audioChannels == 2)
+      if (Settings::instance().audioChannels == 2 && !Mix_SetPosition(currentChannel, angle, distance))
       {
-        if (!Mix_SetPosition(currentChannel, angle, distance))
-        {
-          LOG(LOG_ERROR) << "Failed to set audio position!\n" << Mix_GetError();
-        }
+        LOG(LOG_ERROR) << "Failed to set audio position!\n" << Mix_GetError();
       }
     }
     else

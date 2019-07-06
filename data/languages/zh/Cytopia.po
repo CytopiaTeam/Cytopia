@@ -1,0 +1,386 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Victor Xia <victorxia.xia@gmail.com>, 2019
+# Elizabeth Sherrock <lizzyd710@gmail.com>, 2019
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-06-15 11:35+0200\n"
+"PO-Revision-Date: 2019-06-14 12:00+0000\n"
+"Last-Translator: Elizabeth Sherrock <lizzyd710@gmail.com>, 2019\n"
+"Language-Team: Chinese (https://www.transifex.com/cytopia/teams/100140/zh/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "A  small coal power plant."
+msgstr "一个小的煤电厂"
+
+msgid "A Coal Power plant."
+msgstr "一个煤电厂"
+
+msgid "A Power Plant, that has been built years ago"
+msgstr "一个发电厂，多年前建的"
+
+msgid "A Road, that hasn't been cleaned often"
+msgstr "一条路，不常清理"
+
+msgid "A Shop that sells Bikes"
+msgstr "自行车店"
+
+msgid "A Tower made out of concrete"
+msgstr "水泥做的塔楼"
+
+msgid "A beautiful water tower"
+msgstr "一个漂亮的水塔"
+
+msgid "A big building"
+msgstr "一个大的建筑"
+
+msgid "A chemical plant"
+msgstr "化工厂"
+
+msgid "A commercial center"
+msgstr "商业中心"
+
+msgid "A factory"
+msgstr "一个工厂"
+
+msgid "A petrol pump"
+msgstr "一个加油泵"
+
+msgid "A petrol station"
+msgstr "一个加油站"
+
+msgid "A pile of coal"
+msgstr "一堆煤"
+
+msgid "A shop that sells clocks"
+msgstr "一个钟表店"
+
+msgid "A shop that sells games. Even Cytopia is in store!"
+msgstr "一个游戏店。店里也卖Cytopia！"
+
+msgid "A shop that sells phones. It has the new CyPhone X"
+msgstr "一个手机店。店里有新的CyPhone X"
+
+msgid "A shop!"
+msgstr "一个商店！"
+
+msgid "A skyscaper"
+msgstr "一个摩天大桜"
+
+msgid "A small  building"
+msgstr "一个小的建筑"
+
+msgid "A small house"
+msgstr "一个小的房子"
+
+msgid "A small shack"
+msgstr "一个小棚子"
+
+msgid "A small water tower"
+msgstr "一个小的水塔"
+
+msgid "An oasis"
+msgstr "一个绿洲"
+
+msgid "Appartment"
+msgstr "公寓住宅"
+
+msgid "Appartment Building"
+msgstr "公寓住宅建筑"
+
+msgid "Appartment London"
+msgstr "伦敦公寓"
+
+msgid "Appartments"
+msgstr "公寓住宅"
+
+msgid "Big Appartments"
+msgstr "大的公寓住宅"
+
+msgid "Big Building"
+msgstr "大的建筑"
+
+msgid "Big Depollutor"
+msgstr "大的污染清洁厂"
+
+msgid "Big Office Building"
+msgstr "大的办公楼"
+
+msgid "BikeShop"
+msgstr "自行车商店"
+
+msgid "Bois Guillaume Appartment"
+msgstr "波基澳木公寓住宅"
+
+msgid "Borgs Burgers"
+msgstr "博格的汉堡"
+
+msgid "Borgs Burgers - We have the tastiest!"
+msgstr "博格的汉堡－我们有最好吃！"
+
+msgid "BuildMenu Layout"
+msgstr "构建画面布局"
+
+msgid "Cancel"
+msgstr "取消"
+
+msgid "Chemical Plant"
+msgstr "化工厂"
+
+msgid "Clock Store"
+msgstr "钟商店"
+
+msgid "Coal Pile"
+msgstr "煤堆"
+
+msgid "Coal Power Plant"
+msgstr "煤电厂"
+
+msgid "Commercial"
+msgstr "商业"
+
+msgid "Community Tower"
+msgstr "公共塔楼"
+
+msgid "CompactFast Shop"
+msgstr "CF卡商店"
+
+msgid "Concrete Tower"
+msgstr "水泥塔楼"
+
+msgid "Construction"
+msgstr "施工"
+
+msgid "Country Road"
+msgstr "乡村路"
+
+msgid "Country Road... takes you home!"
+msgstr "乡村路。。。带你回家！"
+
+msgid "Day Care Center"
+msgstr "日托中心"
+
+msgid "Debug Menu"
+msgstr "调试画面"
+
+msgid "Decoration"
+msgstr "装饰"
+
+msgid "Demolish"
+msgstr "拆"
+
+msgid "Depolluter Big"
+msgstr "污染清洁厂  大"
+
+msgid "Depolluter Medium"
+msgstr "污染清洁厂  中"
+
+msgid "Depolluter Small"
+msgstr "污染清洁厂  小"
+
+msgid "Desert Building"
+msgstr "沙漠建筑"
+
+msgid "Desert building"
+msgstr "沙漠建筑"
+
+msgid "Dirt Road"
+msgstr "泥路"
+
+msgid "Factory"
+msgstr "工厂"
+
+msgid "Flora"
+msgstr "花草"
+
+msgid "Fullscreen Mode"
+msgstr "全屏"
+
+msgid "Game Shop"
+msgstr "游戏商店"
+
+msgid "House with swimming pool"
+msgstr "带游泳池的房子"
+
+msgid "I scream for ice cream!"
+msgstr "我为冰淇淋尖叫！"
+
+msgid "Ice Cream Shop"
+msgstr "冰淇淋商店"
+
+msgid "Industrial"
+msgstr "产业"
+
+msgid "Industrial Building"
+msgstr "产业建筑"
+
+msgid "Level Terrain"
+msgstr "平地形"
+
+#: src/Game.cxx:96
+msgid "Load Game"
+msgstr "加载游戏"
+
+msgid "Lower Terrain"
+msgstr "降低地形"
+
+msgid "Medium Appartments"
+msgstr "中等公寓住宅"
+
+msgid "Medium Depollutor"
+msgstr "中等污染清洁厂"
+
+msgid "Nature"
+msgstr "自然"
+
+#: src/Game.cxx:91
+msgid "New Game"
+msgstr "创建游戏"
+
+msgid "OK"
+msgstr "好"
+
+msgid "Oasis"
+msgstr "绿洲"
+
+msgid "Office"
+msgstr "办公室"
+
+msgid "Old Church"
+msgstr "老的教堂"
+
+msgid "Old Industrial Building"
+msgstr "旧的产业建筑"
+
+msgid "Old building"
+msgstr "老的建筑"
+
+msgid "OldPowerPlant"
+msgstr "旧的发电厂"
+
+msgid "Paved Road"
+msgstr "泊油路"
+
+msgid "Petrol Pump"
+msgstr "加油泵"
+
+msgid "Petrol Station"
+msgstr "加油站"
+
+msgid "Phone Shop"
+msgstr "手机商店"
+
+msgid "Power"
+msgstr "电"
+
+msgid "Pyramid"
+msgstr "金字塔"
+
+#: src/Game.cxx:100
+msgid "Quit Game"
+msgstr "退出"
+
+msgid "Raise Terrain"
+msgstr "提高地形"
+
+msgid "Residential"
+msgstr "住宅"
+
+msgid "Roads"
+msgstr "马路"
+
+msgid "Rocks"
+msgstr "石头"
+
+msgid "Rocks for the terrain"
+msgstr "地形石头"
+
+msgid "Ruegroshorloge"
+msgstr "大时钟街（Ruegroshorloge）"
+
+msgid "Save Game"
+msgstr "保存游戏"
+
+msgid "Screen Resolution"
+msgstr "屏幕分辨率"
+
+msgid "Settings"
+msgstr "设置"
+
+msgid "Shop"
+msgstr "商店"
+
+msgid "Skyscraper"
+msgstr "摩天大桜"
+
+msgid "Small Coal Power Plant"
+msgstr "小的煤电厂"
+
+msgid "Small Coal Power Plant2"
+msgstr "小的煤电厂2"
+
+msgid "Small Commercial Center"
+msgstr "小的商业中心"
+
+msgid "Small Depollutor"
+msgstr "小的污染清洁厂"
+
+msgid "Small House"
+msgstr "小的房子"
+
+msgid "Small Shack"
+msgstr "一个小棚子"
+
+msgid "Small Water Tower"
+msgstr "小的水塔"
+
+msgid "Small house"
+msgstr "小的房子"
+
+msgid "Terrain"
+msgstr "地形"
+
+msgid "Terrain tiles"
+msgstr "地形网格"
+
+msgid "TerrainDecoration"
+msgstr "地形装饰"
+
+msgid "The community gathers and works here"
+msgstr "社区工作区"
+
+msgid "Tour Front De Seine"
+msgstr "塞纳河前的塔"
+
+msgid "Trees"
+msgstr "树"
+
+msgid "Utilities"
+msgstr "公用事业"
+
+msgid "Water"
+msgstr "水"
+
+msgid "Water Tower"
+msgstr "水塔"
+
+msgid "Where people work"
+msgstr "工作区"
+
+msgid "big Appartments"
+msgstr "大的公寓住宅"
+
+msgid "trees"
+msgstr "树"

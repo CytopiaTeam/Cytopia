@@ -88,14 +88,11 @@ void ScriptEngine::init()
   context = engine->CreateContext();
   context->Prepare(func);
   r = context->Execute();
-  if (r != asEXECUTION_FINISHED)
+  if (r != asEXECUTION_FINISHED && r == asEXECUTION_EXCEPTION)
   {
     // The execution didn't complete as expected. Determine what happened.
-    if (r == asEXECUTION_EXCEPTION)
-    {
-      // An exception occurred, let the script writer know what happened so it can be corrected.
-      printf("An exception '%s' occurred. Please correct the code and try again.\n", context->GetExceptionString());
-    }
+    // An exception occurred, let the script writer know what happened so it can be corrected.
+    printf("An exception '%s' occurred. Please correct the code and try again.\n", context->GetExceptionString());
   }
 }
 

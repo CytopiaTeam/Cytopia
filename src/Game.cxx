@@ -1,5 +1,4 @@
 #include "Game.hxx"
-
 #include "engine/Engine.hxx"
 #include "engine/EventManager.hxx"
 #include "engine/UIManager.hxx"
@@ -11,6 +10,7 @@
 
 #include <noise.h>
 #include <SDL.h>
+#include <SDL_ttf.h>
 
 #ifdef USE_SDL2_MIXER
 #include "engine/AudioMixer.hxx"
@@ -31,6 +31,9 @@
 #ifdef MICROPROFILE_ENABLED
 #include "microprofile.h"
 #endif
+
+template void Game::LoopMain<GameLoopMQ, Game::GameVisitor>(Game::GameContext&, Game::GameVisitor);
+template void Game::LoopMain<UILoopMQ, Game::UIVisitor>(Game::GameContext&, Game::UIVisitor);
 
 bool Game::initialize()
 {
@@ -93,7 +96,8 @@ void Game::mainMenu()
   logo.setVisibility(true);
   logo.setPosition(screenWidth / 2 - logo.getUiElementRect().w / 2, screenHeight / 4 - logo.getUiElementRect().h / 2);
 
-  Text versionText(VERSION);
+  Text versionText;
+  versionText.setText(VERSION);
   versionText.setPosition(screenWidth - versionText.getUiElementRect().w, screenHeight - versionText.getUiElementRect().h);
 
   Button newGameButton({screenWidth / 2 - 100, screenHeight / 2 - 20, 200, 40});
@@ -123,13 +127,10 @@ void Game::mainMenu()
   for (Uint8 opacity = 0; opacity < 255; opacity++)
   {
     // break the loop if an event occurs
-    if (SDL_PollEvent(&event))
+    if (SDL_PollEvent(&event) && (event.type == SDL_MOUSEBUTTONDOWN || event.type == SDL_KEYDOWN))
     {
-      if (event.type == SDL_MOUSEBUTTONDOWN || event.type == SDL_KEYDOWN)
-      {
-        logo.setOpacity(SDL_ALPHA_OPAQUE);
-        break;
-      }
+      logo.setOpacity(SDL_ALPHA_OPAQUE);
+      break;
     }
     SDL_RenderClear(WindowManager::instance().getRenderer());
     logo.setOpacity(opacity);
@@ -291,3 +292,23 @@ void Game::shutdown()
 
   SDL_Quit();
 }
+
+template <typename MQType, typename Visitor>
+void Game::LoopMain(GameContext& context, Visitor visitor)
+{
+  while(true)
+  {
+    for(auto event : std::get<MQType>(context).get().getEnumerable())
+    {
+      if (std::holds_alternative<TerminateEvent>(event))
+      {
+        break;
+      }
+      else
+      {
+        std::visit(visitor, event);
+      }
+    }
+  }
+}
+
