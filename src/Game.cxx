@@ -7,7 +7,6 @@
 #include "engine/basics/LOG.hxx"
 #include "engine/ui/widgets/Image.hxx"
 #include "engine/basics/Settings.hxx"
-
 #include <noise.h>
 #include <SDL.h>
 #include <SDL_ttf.h>
@@ -284,6 +283,10 @@ void Game::run(bool SkipMenu)
 
 void Game::shutdown()
 {
+  std::get<UILoopMQ>(m_GameContext).get().push(TerminateEvent{});
+  std::get<GameLoopMQ>(m_GameContext).get().push(TerminateEvent{});
+  m_UILoop.join();
+  m_EventLoop.join();
   TTF_Quit();
 
 #ifdef USE_SDL2_MIXER
@@ -302,7 +305,7 @@ void Game::LoopMain(GameContext& context, Visitor visitor)
     {
       if (std::holds_alternative<TerminateEvent>(event))
       {
-        break;
+        return;
       }
       else
       {
