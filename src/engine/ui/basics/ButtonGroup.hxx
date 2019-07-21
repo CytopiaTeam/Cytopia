@@ -30,7 +30,8 @@ public:
 
   bool onMouseButtonDown(const SDL_Event &event) override;
   bool onMouseButtonUp(const SDL_Event &event) override;
-
+  
+  /// The number of buttons in the group
   size_t count() { return m_buttonGroup.size(); };
 
   /**
@@ -46,10 +47,15 @@ public:
   * If set to true, only one button in the group can be checked at the same time.
   */
   bool exclusive = true;
-
+  
+  /**
+   * @brief Gets all of the buttons in this ButtonGroup
+   * @returns a vector of pointers to the buttons in this ButtonGroup
+   */
   const std::vector<Button *> getAllButtons() const { return m_buttonGroup; };
 
 private:
+  /// The buttons in the group
   std::vector<Button *> m_buttonGroup;
 
   /**

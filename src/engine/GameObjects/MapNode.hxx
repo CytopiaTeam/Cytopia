@@ -28,7 +28,10 @@ class MapNode
 {
 public:
   MapNode(Point isoCoordinates, const std::string &terrainID, const std::string &tileID = "");
-
+  
+  /**
+    * @brief Destroys the MapNode object
+    */
   ~MapNode() = default;
 
   /** @brief get Sprite

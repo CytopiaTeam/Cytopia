@@ -25,6 +25,10 @@ public:
 
   void toggleFullScreen() const;
 
+  /** \brief sets title of the window
+  * Sets title of the game window
+  * @param title the new title of the window
+  */
   void setWindowTitle(const std::string &title);
 
   /** \brief get SDL Renderer
@@ -42,18 +46,28 @@ public:
   std::vector<SDL_DisplayMode *> getSupportedScreenResolutions() { return m_resolutions; };
 
   void setScreenResolution(int mode);
-
+  
+  /** \brief sets the game's window mode
+  * Changes the game's window mode to fullscreen, borderless, or windowed
+  * @param mode the new window mode, WINDOWED, BORDERLESS, or FULLSCREEN
+  */
   void setFullScreenMode(FULLSCREEN_MODE mode) const;
 
 private:
+  /** 
+  * \brief Construct a new WindowManager object.
+  */
   WindowManager();
+  /**
+  * \brief Destroy the WindowManager object.
+  */
   ~WindowManager();
 
-  std::string m_title = "Cytopia";
-  const std::string m_windowIcon = "resources/images/app_icons/cytopia_icon.png";
+  std::string m_title = "Cytopia"; /// title of the window
+  const std::string m_windowIcon = "resources/images/app_icons/cytopia_icon.png"; /// the window's icon
 
-  SDL_Window *m_window = nullptr;
-  SDL_Renderer *m_renderer = nullptr;
+  SDL_Window *m_window = nullptr; /// pointer to the SDL_Window
+  SDL_Renderer *m_renderer = nullptr; /// pointer to the SDL_Renderer
 
   void initializeScreenResolutions();
 

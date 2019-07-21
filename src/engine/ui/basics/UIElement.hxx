@@ -18,16 +18,16 @@ class UIElement
 protected:
   struct ElementData
   {
-    std::string elementID;       // ID to reference to this element
-    std::string text;            // Text label that is shown on the button
-    std::string tooltipText;     // Tooltip text that is shown when hovering over the button
-    std::string actionID;        // ID of the action this button invokes
-    std::string actionParameter; // Parameter for the function that's been called when the button is clicked.
-    std::string textureID;       // ID of the texture this item uses
+    std::string elementID;       /// ID to reference to this element
+    std::string text;            /// Text label that is shown on the button
+    std::string tooltipText;     /// Tooltip text that is shown when hovering over the button
+    std::string actionID;        /// ID of the action this button invokes
+    std::string actionParameter; /// Parameter for the function that's been called when the button is clicked.
+    std::string textureID;       /// ID of the texture this item uses
     std::string buildMenuID;
     std::string layoutGroupName;
-    UIElement *parent = nullptr; // The object that toggles this items visibility
-    bool isToggleButton = false; // specifies if this is a toggle button
+    UIElement *parent = nullptr; /// The object that toggles this items visibility
+    bool isToggleButton = false; /// specifies if this is a toggle button
   };
 
   ElementData elementData;
@@ -172,7 +172,7 @@ private:
   bool m_visible = true;
 
 protected:
-  SDL_Texture *m_texture = nullptr;
+  SDL_Texture *m_texture = nullptr;  /// a pointer to the element's texture
   SDL_Rect m_uiElementRect{0, 0, 0, 0};
 
   void renderTexture() const;
