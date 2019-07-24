@@ -1136,7 +1136,7 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_blvdbelges_RF.png"
         },
-        "title": "Appartment Building",
+        "title": "Apartment Building",
         "upkeep cost": 0,
         "water": 0
     },
@@ -1153,7 +1153,7 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_savannahgeorgia_RF.png"
         },
-        "title": "Appartment Building",
+        "title": "Mansion",
         "upkeep cost": 0,
         "water": 0
     },
@@ -1170,7 +1170,7 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_viennabuilding2_RF.png"
         },
-        "title": "Appartment Building",
+        "title": "Apartment Building",
         "upkeep cost": 0,
         "water": 0
     },
@@ -1238,7 +1238,7 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_3x3_bellevueappt1_RF.png"
         },
-        "title": "Appartment Building",
+        "title": "Apartment Building",
         "upkeep cost": 0,
         "water": 0
     },
@@ -1253,7 +1253,7 @@
             "clip_height": 41,
             "clip_width": 64,
             "count": 1,
-            "fileName": "resources/images/buildings/residential/res_2x2_fitzgeraldhouse_RF.png"
+            "fileName": "resources/images/buildings/residential/res_2x2_fitzgeraldhousealabama_RF.png"
         },
         "title": "house",
         "upkeep cost": 0,
@@ -1262,7 +1262,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
-        "description": "An appartement building from Montreal , Quebec",
+        "description": "An apartment building from Montreal , Quebec",
         "id": "res_3x3_laciteapptmontreal_RF",
         "power": 0,
         "price": 0,
@@ -1272,14 +1272,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_3x3_laciteapptmontreal_RF.png"
         },
-        "title": "Appartment Building",
+        "title": "Apartment Building",
         "upkeep cost": 0,
         "water": 0
     },
     {
         "author": "RockFort",
         "category": "Residential",
-        "description": "An appartement building from Vancouver , BC , Canada",
+        "description": "An apartment building from Vancouver , BC , Canada",
         "id": "res_3x3_vancouver1_RF",
         "power": 0,
         "price": 0,
@@ -1289,7 +1289,7 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_3x3_vancouver1_RF.png"
         },
-        "title": "Appartment Building",
+        "title": "Apartment Building",
         "upkeep cost": 0,
         "water": 0
     }
