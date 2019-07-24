@@ -85,4 +85,4 @@ void Slider::onMouseMove(const SDL_Event &event)
   }
 }
 
-bool Slider::isMouseOver(int x, int y) { return true; }
+bool Slider::isMouseOver(int x, int y) { return overSliderButton(x, y) || overSliderLine(x, y); }
