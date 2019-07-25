@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-15 11:35+0200\n"
+"POT-Creation-Date: 2019-07-25 09:45+0200\n"
 "PO-Revision-Date: 2019-06-14 12:00+0000\n"
 "Last-Translator: TDM OF TDM <dillonmanyo@gmail.com>, 2019\n"
 "Language-Team: Indonesian (https://www.transifex.com/cytopia/teams/100140/id/)\n"
@@ -22,10 +22,10 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "A  small coal power plant."
-msgstr "Sebuah PLTUB (Pembangkit Listrik Tenaga Batubara) Kecil"
+msgstr "Sebuah PLTUB Pembangkit Listrik Tenaga Batubara Kecil"
 
 msgid "A Coal Power plant."
-msgstr "Sebuah PLTUB (Pembangkit Listrik Tenaga Batubara)"
+msgstr "Sebuah PLTUB Pembangkit Listrik Tenaga Batubara"
 
 msgid "A Power Plant, that has been built years ago"
 msgstr ""
@@ -46,14 +46,26 @@ msgstr "Sebuah Kolam Air Indah"
 msgid "A big building"
 msgstr "Sebuah Bangunan Besar"
 
+msgid "A blue hotel from vienna"
+msgstr "Sebuah Hotel Biru Dari Vienna"
+
 msgid "A chemical plant"
 msgstr "Sebuah Pabrik Barang"
+
+msgid "A classic house from Savannah , Georgia , USA"
+msgstr "Sebuah Rumah Klasik Dari Savanna Georgia , USA"
 
 msgid "A commercial center"
 msgstr "Sebuah Bangunan Komersial Pusat"
 
 msgid "A factory"
 msgstr "Sebuah Pabrik"
+
+msgid "A house from Alabama , USA"
+msgstr "Sebuah Rumah Dari Alabama , USS"
+
+msgid "A house from Vienna"
+msgstr "Sebuah Rumah Dari Vienna"
 
 msgid "A petrol pump"
 msgstr "Sebuah Pompa Minyak"
@@ -83,6 +95,9 @@ msgstr "Sebuah Bangunan Pencakar Langit"
 msgid "A small  building"
 msgstr "Sebuah Bangunan Kecil"
 
+msgid "A small french mansion "
+msgstr "Sebuah Mansion Prancis Kecil"
+
 msgid "A small house"
 msgstr "Sebuah Rumah Kecil"
 
@@ -92,8 +107,20 @@ msgstr "Sebuah Pondok"
 msgid "A small water tower"
 msgstr "Sebuah Penampung Air"
 
+msgid "An apartment building from Montreal , Quebec"
+msgstr "Sebuah Bangunan Apartemen Dari Montreal , Quebec"
+
+msgid "An apartment building from Vancouver , BC , Canada"
+msgstr "Sebuah Bangunan Apartemen Dari Vancouver , BC , Canada"
+
+msgid "An appartement building from Bellevue , WA , USA"
+msgstr "Sebuah Bangunan Apartemen Dari Bellevue , WA , USA"
+
 msgid "An oasis"
 msgstr "Sebuah Oasis"
+
+msgid "Apartment Building"
+msgstr "Bangunan Apartemen"
 
 msgid "Appartment"
 msgstr "Apartemen"
@@ -121,6 +148,9 @@ msgstr "Bangunan Kantor Besar"
 
 msgid "BikeShop"
 msgstr "Toko Sepeda"
+
+msgid "Block of houses from the Boulevard des Belges , Rouen"
+msgstr "Blok Rumah Dari Boulevard Des Belges , Rouen"
 
 msgid "Bois Guillaume Appartment"
 msgstr "Apartemen Bois Guillaume"
@@ -212,6 +242,9 @@ msgstr "Mode Layar Penuh"
 msgid "Game Shop"
 msgstr "Toko Game"
 
+msgid "Hotel"
+msgstr "Hotel"
+
 msgid "House with swimming pool"
 msgstr "Rumah Dengan Kolam Berenang"
 
@@ -230,12 +263,15 @@ msgstr "Bangunan Industri"
 msgid "Level Terrain"
 msgstr "Ratakan Permukaan Tanah"
 
-#: src/Game.cxx:96
+#: src/Game.cxx:99
 msgid "Load Game"
 msgstr "Muat Game"
 
 msgid "Lower Terrain"
 msgstr "Turunkan Permukaan Tanah"
+
+msgid "Mansion"
+msgstr "Mansion"
 
 msgid "Medium Appartments"
 msgstr "Apartemen Sedang"
@@ -246,7 +282,7 @@ msgstr "Depolutor Sedang"
 msgid "Nature"
 msgstr "Alam"
 
-#: src/Game.cxx:91
+#: src/Game.cxx:94
 msgid "New Game"
 msgstr "Game Baru"
 
@@ -289,7 +325,7 @@ msgstr "Listrik"
 msgid "Pyramid"
 msgstr "Piramid"
 
-#: src/Game.cxx:100
+#: src/Game.cxx:103
 msgid "Quit Game"
 msgstr "Keluar Game"
 
@@ -298,6 +334,12 @@ msgstr "Naikkan Permukaan Tanah"
 
 msgid "Residential"
 msgstr "Perumahan"
+
+msgid "Restaurant"
+msgstr "Restoran"
+
+msgid "Restaurant in Paris"
+msgstr "Restoran Di Paris"
 
 msgid "Roads"
 msgstr "Jalan"
@@ -382,6 +424,9 @@ msgstr "Dimana Orang Bekerja"
 
 msgid "big Appartments"
 msgstr "Apartemen Besar"
+
+msgid "house"
+msgstr "Rumah"
 
 msgid "trees"
 msgstr "Pepohonan"
