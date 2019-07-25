@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-15 11:35+0200\n"
+"POT-Creation-Date: 2019-07-25 09:45+0200\n"
 "PO-Revision-Date: 2019-06-14 12:00+0000\n"
 "Last-Translator: Edgar <Edgar@AnotherFoxGuy.com>, 2019\n"
 "Language-Team: Dutch (https://www.transifex.com/cytopia/teams/100140/nl/)\n"
@@ -45,14 +45,26 @@ msgstr "Een prachtige watertoren"
 msgid "A big building"
 msgstr "Een groot gebouw"
 
+msgid "A blue hotel from vienna"
+msgstr "Een blauw hotel uit Wenen"
+
 msgid "A chemical plant"
 msgstr "Een chemische fabriek"
+
+msgid "A classic house from Savannah , Georgia , USA"
+msgstr "Een klassiek huis uit Savannah, Georgia, VS"
 
 msgid "A commercial center"
 msgstr "Een commercieel centrum"
 
 msgid "A factory"
 msgstr "Een fabriek"
+
+msgid "A house from Alabama , USA"
+msgstr "Een huis uit Alabama, VS"
+
+msgid "A house from Vienna"
+msgstr "Een huis uit Wenen"
 
 msgid "A petrol pump"
 msgstr "Een benzinepomp"
@@ -81,6 +93,9 @@ msgstr "Een wolkenkrabber"
 msgid "A small  building"
 msgstr "Een klein gebouw"
 
+msgid "A small french mansion "
+msgstr "Een klein Frans landhuis"
+
 msgid "A small house"
 msgstr "Een klein huis"
 
@@ -90,8 +105,20 @@ msgstr "Een kleine hut"
 msgid "A small water tower"
 msgstr "Een kleine watertoren"
 
+msgid "An apartment building from Montreal , Quebec"
+msgstr "Een appartementengebouw uit Montreal, Quebec"
+
+msgid "An apartment building from Vancouver , BC , Canada"
+msgstr "Een appartementengebouw uit Vancouver, BC, Canada"
+
+msgid "An appartement building from Bellevue , WA , USA"
+msgstr "Een appartementengebouw uit Bellevue, WA, VS"
+
 msgid "An oasis"
 msgstr "Een oase"
+
+msgid "Apartment Building"
+msgstr "Appartementencomplex"
 
 msgid "Appartment"
 msgstr "Appartement"
@@ -119,6 +146,9 @@ msgstr "Groot kantoorgebouw"
 
 msgid "BikeShop"
 msgstr "Fietsenwinkel"
+
+msgid "Block of houses from the Boulevard des Belges , Rouen"
+msgstr "Blok van huizen van de Boulevard des Belges, Rouen"
 
 msgid "Bois Guillaume Appartment"
 msgstr "Bois Guillaume Appartement"
@@ -210,6 +240,9 @@ msgstr "Volledig scherm"
 msgid "Game Shop"
 msgstr "Game Winkel"
 
+msgid "Hotel"
+msgstr "Hotel"
+
 msgid "House with swimming pool"
 msgstr "Huis met zwembad"
 
@@ -228,12 +261,15 @@ msgstr "Industrieel gebouw"
 msgid "Level Terrain"
 msgstr "Vlak Terrein"
 
-#: src/Game.cxx:96
+#: src/Game.cxx:99
 msgid "Load Game"
 msgstr "Spel laden"
 
 msgid "Lower Terrain"
 msgstr "Verlaag terrein"
+
+msgid "Mansion"
+msgstr "Herenhuis"
 
 msgid "Medium Appartments"
 msgstr "Middelgrote appartementen"
@@ -244,7 +280,7 @@ msgstr "Medium Depollutor"
 msgid "Nature"
 msgstr "Natuur"
 
-#: src/Game.cxx:91
+#: src/Game.cxx:94
 msgid "New Game"
 msgstr "Nieuw spel"
 
@@ -287,7 +323,7 @@ msgstr "Stroom"
 msgid "Pyramid"
 msgstr "Piramide"
 
-#: src/Game.cxx:100
+#: src/Game.cxx:103
 msgid "Quit Game"
 msgstr "Sluit spel"
 
@@ -296,6 +332,12 @@ msgstr "Verhoog terrein"
 
 msgid "Residential"
 msgstr "Residentieel"
+
+msgid "Restaurant"
+msgstr "Restaurant"
+
+msgid "Restaurant in Paris"
+msgstr "Restaurant in Parijs"
 
 msgid "Roads"
 msgstr "Wegen"
@@ -380,6 +422,9 @@ msgstr "Waar mensen werken"
 
 msgid "big Appartments"
 msgstr "grootte Appartementen"
+
+msgid "house"
+msgstr "huis"
 
 msgid "trees"
 msgstr "bomen"
