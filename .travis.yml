@@ -1,31 +1,18 @@
-language:              cpp
-dist:                  xenial
+language:               cpp
+dist:                   xenial
 services:
                       - xvfb
-sudo:                  required
-group:                 edge
+sudo:                   required
+group:                  edge
 
 env:
   global:
-    - GITHUB_REPO:     CytopiaTeam/Cytopia
+    - GITHUB_REPO:      CytopiaTeam/Cytopia
+    - CONAN_PKG:        conan-ubuntu-64_1_17_0.deb
 
-addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-    packages:
-      - ninja-build
-      - doxygen
-      - graphviz
-      - libfreetype6-dev
-      - libgl1-mesa-dev
-      - libasound2-dev
-      - libjack-dev
-      - libpulse-dev
-      - libaudio-dev
 
 cache:
-  timeout:             1000
+  timeout:              1000
   directories:
     - $HOME/.conan/
 
@@ -33,19 +20,25 @@ matrix:
   include:
 
     # gcc build
-    - os:              linux
-      name:            GCC 8 Build
-      python:          3.7
-      compiler:        gcc-8
+    - os:               linux
+      name:             GCC 8 Build
+      python:           3.7
+      compiler:         gcc-8
       addons:
         sonarcloud:
           organization: "cytopia"
           token:
-            secure: "HKP12cwEq+liwjJZyFECQKJBSmMC0LUz85JOod3HAoak846iI5kPLHDX1tbzL/yjKWUzKVfHpFGQAOTAIW8CuW5Ck7jnRalQRnHUeF4OSVDAHWwtgA41klWbr/8i1jfurMWwJISCMtJ1gYM1EabtwosXlt2bz1nD0DVTMcVnYYHOoSei2L8FMv0BWj8jVv0mR+1V2CrZtKeIYBhdvyouF6AzmsRLLiDqGHAQYxz39s615qiD43OvrwO+6aM5S90rByFEyyA51c7g2KlPGH+ursx1I1pR60k+K1H61aCRyTq3kG4iZLF6N9j/o/ywR92FppOwi7tMNiq6WpKlTwq8JM/XtlNlXrYByTmdufEHuzjZ5OYnsfmUIVJIQiYn60IIslLzbErQCOoe53I3NqbdGt7rDnUix5DVGLixlatLP5w82s4snAYmRbwDjDExSSBxk9Xecb9YKJQs80wz6DiS16mQ5HvYbYafqiIM4HHuunQ1tv5z3w2etFluIJfE+5KERWS1gfh8mAMvFfeS66IHbzls2iZEw0FQj+72oNwJzRQUlqZhvFglCnQS/C7WZ9m0xB8msLoa+B8TrdbzYc0ZQWZ5BNgLRxf/kLl0YoaVXLfttjJY44IM42w5eH0PN2I/6gI2XUo6EFp3vjc6lNaeRQzxF6z1SQ2cVW+BPcugB2I="
+            secure:     "HKP12cwEq+liwjJZyFECQKJBSmMC0LUz85JOod3HAoak846iI5kPLHDX1tbzL/yjKWUzKVfHpFGQAOTAIW8CuW5Ck7jnRalQRnHUeF4OSVDAHWwtgA41klWbr/8i1jfurMWwJISCMtJ1gYM1EabtwosXlt2bz1nD0DVTMcVnYYHOoSei2L8FMv0BWj8jVv0mR+1V2CrZtKeIYBhdvyouF6AzmsRLLiDqGHAQYxz39s615qiD43OvrwO+6aM5S90rByFEyyA51c7g2KlPGH+ursx1I1pR60k+K1H61aCRyTq3kG4iZLF6N9j/o/ywR92FppOwi7tMNiq6WpKlTwq8JM/XtlNlXrYByTmdufEHuzjZ5OYnsfmUIVJIQiYn60IIslLzbErQCOoe53I3NqbdGt7rDnUix5DVGLixlatLP5w82s4snAYmRbwDjDExSSBxk9Xecb9YKJQs80wz6DiS16mQ5HvYbYafqiIM4HHuunQ1tv5z3w2etFluIJfE+5KERWS1gfh8mAMvFfeS66IHbzls2iZEw0FQj+72oNwJzRQUlqZhvFglCnQS/C7WZ9m0xB8msLoa+B8TrdbzYc0ZQWZ5BNgLRxf/kLl0YoaVXLfttjJY44IM42w5eH0PN2I/6gI2XUo6EFp3vjc6lNaeRQzxF6z1SQ2cVW+BPcugB2I="
         apt:
           sources:
             - ubuntu-toolchain-r-test
+            # Official Kitware APT repository. Currently supports Bionic and Xenial.
+            # More information at: https://apt.kitware.com
+            - sourceline: 'deb https://apt.kitware.com/ubuntu/ xenial main'
+              key_url:  'https://apt.kitware.com/keys/kitware-archive-latest.asc'
           packages:
+            - cmake
+            - ninja-build
             - gcc-8
             - g++-8
             - doxygen
@@ -60,9 +53,8 @@ matrix:
         - MATRIX_EVAL="CC=gcc-8 && CXX=g++-8"
 
       install:
-        - sudo rm -rf /usr/local/cmake-3.9.2/
-        - sudo rm -f /usr/local/cmake
-        - sudo pip install cmake conan --ignore-installed
+        - wget https://dl.bintray.com/conan/installers/$CONAN_PKG -nv
+        - sudo dpkg -i ./$CONAN_PKG
         - conan user
 
       before_script:
@@ -92,14 +84,22 @@ matrix:
         - cmake -P ./cmake/pmm.cmake /Conan /Clean
 
     # clang build
-    - os:              linux
-      name:            CLANG 7 Build
-      compiler:        clang
-      python:          3.7
+    - os:               linux
+      name:             CLANG 7 Build
+      compiler:         clang
+      python:           3.7
       addons:
         apt:
-          sources: [ 'ubuntu-toolchain-r-test', 'llvm-toolchain-xenial-7' ]
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-xenial-7
+            # Official Kitware APT repository. Currently supports Bionic and Xenial.
+            # More information at: https://apt.kitware.com
+            - sourceline: 'deb https://apt.kitware.com/ubuntu/ xenial main'
+              key_url:  'https://apt.kitware.com/keys/kitware-archive-latest.asc'
           packages:
+            - cmake
+            - ninja-build
             - p7zip-full
             - ninja-build
             - doxygen
@@ -119,9 +119,8 @@ matrix:
         - MATRIX_EVAL="CC=clang-7.0 && CXX=clang++-7.0"
 
       install:
-        - sudo rm -rf /usr/local/cmake-3.9.2/
-        - sudo rm -f /usr/local/cmake
-        - sudo pip install cmake conan --ignore-installed
+        - wget https://dl.bintray.com/conan/installers/$CONAN_PKG -nv
+        - sudo dpkg -i ./$CONAN_PKG
         - conan user
 
       before_script:
@@ -138,12 +137,12 @@ matrix:
       before_cache:
         - cmake -P ./cmake/pmm.cmake /Conan /Clean
 
-    - os:              osx
-      name:            XCode 10.2 Build
-      osx_image:       xcode10.2
-      env:             TARGET=macOS
-      language:        objective-c
-      python:          3.7
+    - os:               osx
+      name:             XCode 10.2 Build
+      osx_image:        xcode10.2
+      env:              TARGET=macOS
+      language:         objective-c
+      python:           3.7
 
       install:
         - brew update
@@ -162,11 +161,11 @@ matrix:
         - cmake -P ./cmake/pmm.cmake /Conan /Clean
 
 deploy:
-  provider:            pages
-  skip_cleanup:        true
-  local_dir:           Doxygen_Docs/html
-  github_token:        $GH_REPO_TOKEN
-  verbose:             true
+  provider:             pages
+  skip_cleanup:         true
+  local_dir:            Doxygen_Docs/html
+  github_token:         $GH_REPO_TOKEN
+  verbose:              true
   on:
-    condition:         $DEPLOY_DOCUMENTATION = "true"
-    branch:            master
+    condition:          $DEPLOY_DOCUMENTATION = "true"
+    branch:             master
