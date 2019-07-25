@@ -4,17 +4,17 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Maroon Shaded <maroonshaded@gmail.com>, 2019
 # A Tua Mãe <macos.bbr@hotmail.com>, 2019
+# Maroon Shaded <maroonshaded@gmail.com>, 2019
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-15 11:35+0200\n"
+"POT-Creation-Date: 2019-07-25 09:45+0200\n"
 "PO-Revision-Date: 2019-06-14 12:00+0000\n"
-"Last-Translator: A Tua Mãe <macos.bbr@hotmail.com>, 2019\n"
+"Last-Translator: Maroon Shaded <maroonshaded@gmail.com>, 2019\n"
 "Language-Team: Portuguese (https://www.transifex.com/cytopia/teams/100140/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -46,14 +46,26 @@ msgstr "Uma linda caixa d'água"
 msgid "A big building"
 msgstr "Um grande edifício"
 
+msgid "A blue hotel from vienna"
+msgstr "Um hotel azul de Viena"
+
 msgid "A chemical plant"
 msgstr "Uma fábrica química"
+
+msgid "A classic house from Savannah , Georgia , USA"
+msgstr "Uma casa clássica de Savannah, Georgia, EUA"
 
 msgid "A commercial center"
 msgstr "Um centro comercial"
 
 msgid "A factory"
 msgstr "Uma fábrica"
+
+msgid "A house from Alabama , USA"
+msgstr "Uma casa de Alabama, EUA"
+
+msgid "A house from Vienna"
+msgstr "Uma casa de Viena"
 
 msgid "A petrol pump"
 msgstr "Uma bomba de gasolina"
@@ -82,6 +94,9 @@ msgstr "Um arranha-céus"
 msgid "A small  building"
 msgstr "Um pequeno edifício"
 
+msgid "A small french mansion "
+msgstr "Uma mansão francesa pequena"
+
 msgid "A small house"
 msgstr "Uma pequena casa"
 
@@ -91,8 +106,20 @@ msgstr "Uma pequena cabana"
 msgid "A small water tower"
 msgstr "Uma pequena caixa d'água"
 
+msgid "An apartment building from Montreal , Quebec"
+msgstr "Um prédio de Montreal, Quebec"
+
+msgid "An apartment building from Vancouver , BC , Canada"
+msgstr "Um prédio de Vancouver, BC, Canada"
+
+msgid "An appartement building from Bellevue , WA , USA"
+msgstr "Um prédio de Bellevue, WA, EUA"
+
 msgid "An oasis"
 msgstr "Um oásis"
+
+msgid "Apartment Building"
+msgstr "Prédio"
 
 msgid "Appartment"
 msgstr "Apartamento"
@@ -120,6 +147,9 @@ msgstr "Grande Edíficio de Escritórios"
 
 msgid "BikeShop"
 msgstr "Loja de Bicicletas"
+
+msgid "Block of houses from the Boulevard des Belges , Rouen"
+msgstr "Bloco de casas de Boulevard des Belges, Ruão"
 
 msgid "Bois Guillaume Appartment"
 msgstr "Apartamento Bois Guillaume"
@@ -211,6 +241,9 @@ msgstr "Modo Ecrã-Inteiro"
 msgid "Game Shop"
 msgstr "Loja de jogos"
 
+msgid "Hotel"
+msgstr "Hotel"
+
 msgid "House with swimming pool"
 msgstr "Casa com Piscina"
 
@@ -229,12 +262,15 @@ msgstr "Edifício Industrial"
 msgid "Level Terrain"
 msgstr "Nivelar Terreno"
 
-#: src/Game.cxx:96
+#: src/Game.cxx:99
 msgid "Load Game"
 msgstr "Carregar Jogo"
 
 msgid "Lower Terrain"
 msgstr "Descer Terreno"
+
+msgid "Mansion"
+msgstr "Mansão"
 
 msgid "Medium Appartments"
 msgstr "Apartamentos Médios"
@@ -245,7 +281,7 @@ msgstr "Depoluidor Médio"
 msgid "Nature"
 msgstr "Natureza"
 
-#: src/Game.cxx:91
+#: src/Game.cxx:94
 msgid "New Game"
 msgstr "Novo Jogo"
 
@@ -288,7 +324,7 @@ msgstr "Eletricidade"
 msgid "Pyramid"
 msgstr "Pirâmide"
 
-#: src/Game.cxx:100
+#: src/Game.cxx:103
 msgid "Quit Game"
 msgstr "Sair do Jogo"
 
@@ -297,6 +333,12 @@ msgstr "Subir Terreno"
 
 msgid "Residential"
 msgstr "Residencial"
+
+msgid "Restaurant"
+msgstr "Restaurante"
+
+msgid "Restaurant in Paris"
+msgstr "Restaurante de Paris"
 
 msgid "Roads"
 msgstr "Estradas"
@@ -381,6 +423,9 @@ msgstr "Onde as pessoas trabalham"
 
 msgid "big Appartments"
 msgstr "Apartamentos Grandes"
+
+msgid "house"
+msgstr "casa"
 
 msgid "trees"
 msgstr "árvores"
