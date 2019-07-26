@@ -51,20 +51,26 @@ void MapNode::setTileID(const std::string &tileID)
 {
   if (TileManager::instance().getTileData(tileID))
   {
-    if (TileManager::instance().getTileData(tileID)->category == "Terrain" ||
-        TileManager::instance().getTileData(tileID)->category == "Water")
+    Layer layer = Layer::BUILDINGS;
+    if (TileManager::instance().getTileData(tileID)->category == "Terrain")
     {
-      m_previousTileID = m_mapNodeData[Layer::TERRAIN].tileID;
-      m_mapNodeData[Layer::TERRAIN].tileData = TileManager::instance().getTileData(tileID);
-      m_mapNodeData[Layer::TERRAIN].tileID = tileID;
+      layer = Layer::TERRAIN;
+    }
+    else if (TileManager::instance().getTileData(tileID)->category == "Water")
+    {
+      layer = Layer::WATER;
+	}
+    m_previousTileID = m_mapNodeData[layer].tileID;
+    if (layer != Layer::WATER && m_previousTileID == "")
+    {
+      m_mapNodeData[layer].tileData = TileManager::instance().getTileData(tileID);
+      m_mapNodeData[layer].tileID = tileID;
+      updateTexture();
     }
     else
     {
-      m_previousTileID = m_mapNodeData[Layer::BUILDINGS].tileID;
-      m_mapNodeData[Layer::BUILDINGS].tileData = TileManager::instance().getTileData(tileID);
-      m_mapNodeData[Layer::BUILDINGS].tileID = tileID;
+      // error
     }
-    updateTexture();
   }
 }
 
