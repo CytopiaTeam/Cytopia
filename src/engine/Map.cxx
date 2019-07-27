@@ -168,10 +168,30 @@ void Map::updateAllNodes()
   }
 }
 
-void Map::setTileIDOfNode(const Point &isoCoordinates, const std::string &tileID)
+void Map::setTileIDOfNode(const std::vector<Point> &isoCoordinates, const std::string &tileID)
 {
-  mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->setTileID(tileID);
-  updateNeighborsOfNode(isoCoordinates);
+  bool isOkToSet = true;
+  for (auto it = isoCoordinates.begin(); it != isoCoordinates.end(); ++it)
+  {
+    if (!checkTileIDIsEmpty(*it, tileID))
+    {
+      isOkToSet = false;
+      break;
+    }
+  }
+  if (isOkToSet)
+  {
+    for (auto it = isoCoordinates.begin(); it != isoCoordinates.end(); ++it)
+    {
+      mapNodes[it->x * m_columns + it->y]->setTileID(tileID);
+      updateNeighborsOfNode(*it);
+    }
+  }
+}
+
+bool Map::checkTileIDIsEmpty(const Point &isoCoordinates, const std::string &tileID) const
+{
+  return mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->checkTileIsEmpty(tileID);
 }
 
 unsigned char Map::getElevatedNeighborBitmask(const Point &isoCoordinates)
@@ -214,7 +234,8 @@ unsigned char Map::getNeighboringTilesBitmask(const Point &isoCoordinates)
   int y = isoCoordinates.y;
 
   // only auto-tile categories that can be tiled.
-  if (mapNodes[x * m_columns + y]->getActiveMapNodeData().tileData->category == "Roads")
+  if (mapNodes[x * m_columns + y] && mapNodes[x * m_columns + y]->getActiveMapNodeData().tileData &&
+      mapNodes[x * m_columns + y]->getActiveMapNodeData().tileData->category == "Roads")
   {
     std::pair<int, int> adjecantNodesCoordinates[8]{
         std::make_pair(x, y + 1),     // 0 = 2^0 = 1   = TOP

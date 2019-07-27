@@ -49,29 +49,37 @@ void MapNode::setBitmask(unsigned char elevationBitmask, unsigned char tileIDBit
 
 void MapNode::setTileID(const std::string &tileID)
 {
-  if (TileManager::instance().getTileData(tileID))
+  TileData *tileData = TileManager::instance().getTileData(tileID);
+  if (tileData)
   {
     Layer layer = Layer::BUILDINGS;
-    if (TileManager::instance().getTileData(tileID)->category == "Terrain")
+    if (tileData->category == "Terrain" || tileData->category == "Water")
     {
       layer = Layer::TERRAIN;
     }
-    else if (TileManager::instance().getTileData(tileID)->category == "Water")
-    {
-      layer = Layer::WATER;
-	}
     m_previousTileID = m_mapNodeData[layer].tileID;
-    if (layer != Layer::WATER && m_previousTileID == "")
+    if (tileData->category != "Water" && m_previousTileID == "")
     {
-      m_mapNodeData[layer].tileData = TileManager::instance().getTileData(tileID);
+      m_mapNodeData[layer].tileData = tileData;
       m_mapNodeData[layer].tileID = tileID;
       updateTexture();
     }
-    else
-    {
-      // error
-    }
   }
+}
+
+bool MapNode::checkTileIsEmpty(const std::string &tileID) const
+{
+  TileData *tileData = TileManager::instance().getTileData(tileID);
+  if (tileData)
+  {
+    Layer layer = Layer::BUILDINGS;
+    if (tileData->category == "Terrain" || tileData->category == "Water")
+    {
+      layer = Layer::TERRAIN;
+    }
+    return m_mapNodeData[layer].tileID == "";
+  }
+  return false;
 }
 
 void MapNode::updateTexture()

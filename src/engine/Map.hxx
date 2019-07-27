@@ -72,7 +72,7 @@ public:
  * @param isoCoordinates 
  * @param tileID tileID which should be set
  */
-  void setTileIDOfNode(const Point &isoCoordinates, const std::string &tileID);
+  void setTileIDOfNode(const std::vector<Point> &isoCoordinates, const std::string &tileID);
 
   /**
  * @brief Demolish a node
@@ -109,6 +109,12 @@ public:
  * @param isoCoordinates Tile to inspect
  */
   void getNodeInformation(const Point &isoCoordinates) const;
+
+  /** \Brief check if Tile is occupied
+  * @param isoCoordinates Tile to inspect
+  * @param tileID tileID which should be checked
+  */
+  bool checkTileIDIsEmpty(const Point &isoCoordinates, const std::string &tileID) const;
 
 private:
   int m_columns;
