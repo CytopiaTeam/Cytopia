@@ -60,6 +60,7 @@ void Map::initMap()
 {
   MapLayers::enableLayer(Layer::TERRAIN);
   MapLayers::enableLayer(Layer::BUILDINGS);
+  MapLayers::enableLayer(Layer::WATER);
   terrainGen.generateTerrain(mapNodes, mapNodesInDrawingOrder);
   updateAllNodes();
 }
@@ -252,8 +253,12 @@ unsigned char Map::getNeighboringTilesBitmask(const Point &isoCoordinates)
     for (const auto &it : adjecantNodesCoordinates)
     {
       if ((it.first >= 0 && it.first < m_rows && it.second >= 0 && it.second < m_columns) &&
-          (mapNodes[it.first * m_columns + it.second]->getActiveMapNodeData().tileData->category ==
-           mapNodes[x * m_columns + y]->getActiveMapNodeData().tileData->category))
+          (	mapNodes[it.first * m_columns + it.second] &&
+			mapNodes[it.first * m_columns + it.second]->getActiveMapNodeData().tileData
+			&& mapNodes[x * m_columns + y]
+			&& mapNodes[x * m_columns + y]->getActiveMapNodeData().tileData 
+			&& mapNodes[it.first * m_columns + it.second]->getActiveMapNodeData().tileData->category
+				== mapNodes[x * m_columns + y]->getActiveMapNodeData().tileData->category))
       {
         // for each found tile add 2 ^ i to the bitmask
         bitmask |= static_cast<unsigned int>(1 << i);

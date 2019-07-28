@@ -98,6 +98,8 @@ private:
 
   int m_maxHeight = 32;
 
+  Layer m_usedLayer = Layer::BLUEPRINT;
+
   std::string m_previousTileID = "terrain";
 
   size_t m_orientation = TileSlopes::DEFAULT_ORIENTATION;
