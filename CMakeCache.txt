@@ -267,8 +267,8 @@ ENABLE_MICROPROFILE:BOOL=OFF
 //Enable MofileReader
 ENABLE_MOFILEREADER:BOOL=0
 
-//No help, variable specified on the command line.
-ENABLE_OPENAL_SOFT:UNINITIALIZED=1
+//Enable OpenAL Soft
+ENABLE_OPENAL_SOFT:BOOL=1
 
 //Enable SDL2 Mixer
 ENABLE_SDL2_MIXER:BOOL=1
@@ -327,6 +327,9 @@ pkgcfg_lib_SDL2_ttf_SDL2_ttf:FILEPATH=/usr/lib/libSDL2_ttf.so
 
 //Path to a library.
 pkgcfg_lib_ZLIB_z:FILEPATH=/usr/lib/libz.so
+
+//Path to a library.
+pkgcfg_lib_openal_openal:FILEPATH=/usr/local/lib64/libopenal.so
 
 
 ########################
@@ -683,11 +686,71 @@ __pkg_config_arguments_SDL2_image:INTERNAL=REQUIRED;SDL2_image
 __pkg_config_arguments_SDL2_mixer:INTERNAL=REQUIRED;SDL2_mixer
 __pkg_config_arguments_SDL2_ttf:INTERNAL=REQUIRED;SDL2_ttf
 __pkg_config_arguments_ZLIB:INTERNAL=REQUIRED;zlib
+__pkg_config_arguments_openal:INTERNAL=REQUIRED;openal
 __pkg_config_checked_SDL2:INTERNAL=1
 __pkg_config_checked_SDL2_image:INTERNAL=1
 __pkg_config_checked_SDL2_mixer:INTERNAL=1
 __pkg_config_checked_SDL2_ttf:INTERNAL=1
 __pkg_config_checked_ZLIB:INTERNAL=1
+__pkg_config_checked_openal:INTERNAL=1
+openal-soft_CFLAGS:INTERNAL=
+openal-soft_CFLAGS_I:INTERNAL=
+openal-soft_CFLAGS_OTHER:INTERNAL=
+openal-soft_FOUND:INTERNAL=
+openal-soft_INCLUDEDIR:INTERNAL=
+openal-soft_LIBDIR:INTERNAL=
+openal-soft_LIBS:INTERNAL=
+openal-soft_LIBS_L:INTERNAL=
+openal-soft_LIBS_OTHER:INTERNAL=
+openal-soft_LIBS_PATHS:INTERNAL=
+openal-soft_PREFIX:INTERNAL=
+openal-soft_STATIC_CFLAGS:INTERNAL=
+openal-soft_STATIC_CFLAGS_I:INTERNAL=
+openal-soft_STATIC_CFLAGS_OTHER:INTERNAL=
+openal-soft_STATIC_LIBDIR:INTERNAL=
+openal-soft_STATIC_LIBS:INTERNAL=
+openal-soft_STATIC_LIBS_L:INTERNAL=
+openal-soft_STATIC_LIBS_OTHER:INTERNAL=
+openal-soft_STATIC_LIBS_PATHS:INTERNAL=
+openal-soft_VERSION:INTERNAL=
+openal-soft_openal-soft_INCLUDEDIR:INTERNAL=
+openal-soft_openal-soft_LIBDIR:INTERNAL=
+openal-soft_openal-soft_PREFIX:INTERNAL=
+openal-soft_openal-soft_VERSION:INTERNAL=
+openal_CFLAGS:INTERNAL=-I/usr/include/AL
+openal_CFLAGS_I:INTERNAL=
+openal_CFLAGS_OTHER:INTERNAL=
+openal_FOUND:INTERNAL=1
+openal_INCLUDEDIR:INTERNAL=/usr/include
+openal_INCLUDE_DIRS:INTERNAL=/usr/include/AL
+openal_LDFLAGS:INTERNAL=-lopenal
+openal_LDFLAGS_OTHER:INTERNAL=
+openal_LIBDIR:INTERNAL=/usr/lib
+openal_LIBRARIES:INTERNAL=openal
+openal_LIBRARY_DIRS:INTERNAL=
+openal_LIBS:INTERNAL=
+openal_LIBS_L:INTERNAL=
+openal_LIBS_OTHER:INTERNAL=
+openal_LIBS_PATHS:INTERNAL=
+openal_PREFIX:INTERNAL=/usr
+openal_STATIC_CFLAGS:INTERNAL=-I/usr/include/AL
+openal_STATIC_CFLAGS_I:INTERNAL=
+openal_STATIC_CFLAGS_OTHER:INTERNAL=
+openal_STATIC_INCLUDE_DIRS:INTERNAL=/usr/include/AL
+openal_STATIC_LDFLAGS:INTERNAL=-lopenal
+openal_STATIC_LDFLAGS_OTHER:INTERNAL=
+openal_STATIC_LIBDIR:INTERNAL=
+openal_STATIC_LIBRARIES:INTERNAL=openal
+openal_STATIC_LIBRARY_DIRS:INTERNAL=
+openal_STATIC_LIBS:INTERNAL=
+openal_STATIC_LIBS_L:INTERNAL=
+openal_STATIC_LIBS_OTHER:INTERNAL=
+openal_STATIC_LIBS_PATHS:INTERNAL=
+openal_VERSION:INTERNAL=1.19.1
+openal_openal_INCLUDEDIR:INTERNAL=
+openal_openal_LIBDIR:INTERNAL=
+openal_openal_PREFIX:INTERNAL=
+openal_openal_VERSION:INTERNAL=
 //ADVANCED property for variable: pkgcfg_lib_SDL2_SDL2
 pkgcfg_lib_SDL2_SDL2-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: pkgcfg_lib_SDL2_image_SDL2
@@ -704,5 +767,7 @@ pkgcfg_lib_SDL2_ttf_SDL2-ADVANCED:INTERNAL=1
 pkgcfg_lib_SDL2_ttf_SDL2_ttf-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: pkgcfg_lib_ZLIB_z
 pkgcfg_lib_ZLIB_z-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: pkgcfg_lib_openal_openal
+pkgcfg_lib_openal_openal-ADVANCED:INTERNAL=1
 prefix_result:INTERNAL=/usr/lib
 

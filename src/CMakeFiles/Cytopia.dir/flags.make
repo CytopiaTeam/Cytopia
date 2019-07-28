@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_FLAGS =  -pthread -fdiagnostics-color=always   -std=c++17
 
-CXX_DEFINES = -DUSE_ANGELSCRIPT -DUSE_SDL2_MIXER -DVERSION="\"Cytopia 0.2 - tech preview\""
+CXX_DEFINES = -DUSE_ANGELSCRIPT -DUSE_OPENAL_SOFT -DUSE_SDL2_MIXER -DVERSION="\"Cytopia 0.2 - tech preview\""
 
 CXX_INCLUDES = -I/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/external/header_only -I/usr/include/SDL2 -I/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/external/as_add_on -I/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/src/engine -I/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/src/engine/basics -I/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/src/engine/common -I/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/src/engine/GameObjects -I/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/src/engine/map -I/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/src/engine/ui/basics -I/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/src/engine/ui/widgets -I/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/src/engine/ui/menuGroups -I/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/src/util -isystem /usr/include/noise 
 

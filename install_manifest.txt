@@ -1,0 +1,163 @@
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/./Cytopia
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/test.as
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/data/UIData.json
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/data/UILayout.json
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/data/TileData.json
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/data/TerrainGen.json
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/ui/buttons/water.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/ui/buttons/Construction Menu hover.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/ui/buttons/Power Menu.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/ui/buttons/paved_road.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/ui/buttons/Water Menu hover.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/ui/buttons/Power Menu hover.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/ui/buttons/lowerTerrain.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/ui/buttons/Construction Menu.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/ui/buttons/cat_nature.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/ui/buttons/Power Menu pressed.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/ui/buttons/Debug Menu pressed.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/ui/buttons/Roads Menu hover.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/ui/buttons/Construction Menu pressed.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/ui/buttons/levelTerrain.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/ui/buttons/Roads Menu.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/ui/buttons/raiseTerrain.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/ui/buttons/dirt_road.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/ui/buttons/cat_GroundDeco.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/ui/buttons/no_icon.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/ui/buttons/Roads Menu pressed.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/ui/buttons/Water Menu.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/ui/buttons/demolish.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/ui/buttons/country_road.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/ui/buttons/Debug Menu.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/ui/buttons/Water Menu pressed.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/ui/buttons/Debug Menu hover.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/ui/general/item_boxes.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/flora/tree_1.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/flora/tree_mushroom.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/flora/trees_pinetree.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/flora/trees.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/selection/grid.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/selection/selectedNeighbor.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/selection/selectedTile.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/water/liquid_water.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/water/terrain_water.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/app_icons/cytopia_icon_iso.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/app_icons/tiledataeditor_icon_iso.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/app_icons/cytopia_icon_iso.icns
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/app_icons/cytopia_icon.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/app_icons/logo_big_textured.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/terrain/terrain_tiles.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/terrain/terrain_slopes.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/terrain/shoreline_grass.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/terrain/terrain_tiles_debug.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/terrain/terrain_sand.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/roads/paved_road.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/roads/road_country_slopes.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/roads/paved_road_slopes.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/roads/dirt_road_slopes.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/roads/dirt_road.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/roads/road_country.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/decoration/desert/terrainRocks.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/decoration/grassLands/terrainRocks.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/Nature/Nature_1x1_oasis_FN.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/Decoration/Dec_1x1_coal_FN.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/commercial/com_1x1_ClockStore3.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/commercial/com_1x1_phone_shop_FN_1552102023413.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/commercial/com_2x2_seattlereworked_RF.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/commercial/com_1x1_des_petrol_station_FN.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/commercial/com_3x3_tourfrontdeseine_RF.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/commercial/com_1x1_ruegroshorloge_RF.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/commercial/com_1x1_game_shop_FN.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/commercial/com_2x2_small_commercial_center_1_FN.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/commercial/com_2x2_office.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/commercial/com_1x1_des_ice_cream_shop_FN.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/commercial/com_2x2_BorgsBurgers.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/commercial/com_1x1_CompactFastshop_MS.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/commercial/com_2x2_viennahotel1_RF.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/commercial/com_1x1_BikeShop.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/commercial/com_2x2_lefouquet_s_RF.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/commercial/com_1x1_ClockStore1.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/commercial/com_3x3_CommunityTower.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/commercial/com_1x1_nycbuild_RF.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/commercial/com_1x1_ClockStore2.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/commercial/com_1x1_shop_1_FN.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/residential/res_1x1_old_building_2_FN.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/residential/res_3x3_laciteapptmontreal_RF.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/residential/res_3x3_bellevueappt1_RF.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/residential/res_1x1_KTHouse2.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/residential/res_2x2_savannahgeorgia_RF.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/residential/res_3x3_RedSkyScraper.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/residential/res_2x2_blvdbelges_RF.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/residential/res_1x1_londonhouse_RF.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/residential/res_1x1_KTHouseNew2.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/residential/res_3x3_PurpleSkyScraper.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/residential/res_3x3_vancouver1_RF.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/residential/res_1x1_old_building_1_FN.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/residential/res_2x2_fitzgeraldhousealabama_RF.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/residential/res_1x1_SmallRedHouse_RF.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/residential/res_2x2_skyscraper_1_FN.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/residential/res_1x1_SmallShack2.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/residential/res_2x2_viennabuilding2_RF.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/residential/res_1x1_building_1_FN.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/residential/res_2x2_building_2_FN.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/residential/res_1x1_KTHouseNew4.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/residential/res_3x3_GreenSkyScraper.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/residential/res_3x3_ConcreteTowerLRG.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/residential/res_1x1_KTHouse.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/residential/res_2x2_skyscraper_2_FN.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/residential/res_2x2_viennabuilding_RF.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/residential/Desert/res_1x1_des_desert_building_1_FN.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/residential/Desert/res_1x1_des_swimming_pool_house_FN.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/residential/Desert/res_1x1_des_pyramide_1_FN.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/residential/Desert/Res_1x1_old_des_church_FN.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/residential/res_2x2_frmanreworked_RF.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/residential/res_2x2_big_building_1_FN.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/residential/res_2x2_Daycare.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/residential/res_1x1_SmallShack1.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/residential/res_1x1_KTHouseNew3.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/residential/res_2x2_bois_guillaume_appt1_RF.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/Water/wat_1x1_HomeWaterTower.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/Water/watertower2.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/Water/wat_1x1_OldWaterTower.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/Water/watertower.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/Power Plants/pow_1x1_SmallPowerPlant.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/Power Plants/pow_3x3_CoalPlant.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/Power Plants/pow_1x1_SmallCoalPlant_MS.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/industrial/ind_3x3_OldPowerPlant.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/industrial/ind_2x2_factory_FN.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/industrial/desert/ind_1x1_des_petrol_1_FN.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/industrial/desert/ind_des_2x2_Factory_MS.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/industrial/ind_1x1_industry_2_FN.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/industrial/ind_1x1_DepolluterMINI3.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/industrial/ind_1x1_DepolluterMINI1.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/industrial/ind_1x1_industry_1_FN.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/industrial/ind_4x4_DepolluterLRG.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/industrial/ind_3x3_chemical_plant_FN.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/industrial/ind_2x2_DepolluterSML.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/industrial/ind_1x1_old_industry_1_FN.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/images/buildings/industrial/ind_1x1_DepolluterMINI2.png
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/fonts/Poco.ttf
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/fonts/ARCADECLASSIC.TTF
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/fonts/arcadeclassics.ttf
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/settings.json
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/audio/music/Theme - Easy Listening.mp3
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/audio/music/Cytopia OST 2.mp3
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/audio/music/Cytopia OST 1.mp3
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/audio/sound effects/terrain/Terrain 1.wav
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/audio/sound effects/terrain/Terrain 6.wav
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/audio/sound effects/terrain/Terrain 3.wav
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/audio/sound effects/terrain/Terrain 2.wav
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/audio/sound effects/terrain/Terrain 5.wav
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/audio/sound effects/terrain/Terrain 4.wav
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/audio/sound effects/terrain/Terrain 7.wav
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/audio/sound effects/menu/Negative Select.wav
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/audio/sound effects/menu/Negative Select 2.wav
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/audio/sound effects/menu/Up Select.wav
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/audio/sound effects/menu/Positive Jingle.wav
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/audio/sound effects/menu/Bad Select.wav
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/audio/sound effects/menu/Strong Winds.mp3
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/audio/sound effects/menu/Major Selection.wav
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/audio/sound effects/menu/Positive Select.wav
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/audio/sound effects/menu/Nature Still Air and Birds.mp3
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/resources/audio/sound effects/menu/Down Select.wav
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/./ReleaseNotes.txt
+/home/archman/CodeProj/cpp_projects/cytopia-myfork/Cytopia/redist/./credits.txt

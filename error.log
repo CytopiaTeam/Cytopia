@@ -6,3 +6,27 @@ Jul 14 15:08:20	resources/images/app_icons/cytopia_icon.png
 Jul 14 15:08:20	
 SDL_IMAGE Error: 
 Jul 14 15:08:20	Couldn't open resources/images/app_icons/cytopia_icon.png
+Jul 28 13:18:42	Jul 28 13:18:42 - ERROR - File 
+Jul 28 13:18:42	resources/settings.json
+Jul 28 13:18:42	 does not exist! Cannot load settings from INI File!
+Jul 28 13:18:43	Jul 28 13:18:43 - ERROR - Could not load icon 
+Jul 28 13:18:43	resources/images/app_icons/cytopia_icon.png
+Jul 28 13:18:43	
+SDL_IMAGE Error: 
+Jul 28 13:18:43	Couldn't open resources/images/app_icons/cytopia_icon.png
+Jul 28 13:25:52	Jul 28 13:25:52 - ERROR - File 
+Jul 28 13:25:52	resources/settings.json
+Jul 28 13:25:52	 does not exist! Cannot load settings from INI File!
+Jul 28 13:25:52	Jul 28 13:25:52 - ERROR - Could not load icon 
+Jul 28 13:25:52	resources/images/app_icons/cytopia_icon.png
+Jul 28 13:25:52	
+SDL_IMAGE Error: 
+Jul 28 13:25:52	Couldn't open resources/images/app_icons/cytopia_icon.png
+Jul 28 15:47:37	Jul 28 15:47:37 - ERROR - File 
+Jul 28 15:47:37	resources/settings.json
+Jul 28 15:47:37	 does not exist! Cannot load settings from INI File!
+Jul 28 15:47:37	Jul 28 15:47:37 - ERROR - Could not load icon 
+Jul 28 15:47:37	resources/images/app_icons/cytopia_icon.png
+Jul 28 15:47:37	
+SDL_IMAGE Error: 
+Jul 28 15:47:37	Couldn't open resources/images/app_icons/cytopia_icon.png

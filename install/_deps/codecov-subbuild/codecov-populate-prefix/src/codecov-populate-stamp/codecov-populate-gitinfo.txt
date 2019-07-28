@@ -1,3 +1,0 @@
-repository='https://github.com/RWTH-HPC/CMake-codecov.git'
-module=''
-tag=''
