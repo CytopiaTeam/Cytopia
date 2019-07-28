@@ -1,0 +1,8 @@
+Jul 14 15:08:19	Jul 14 15:08:19 - ERROR - File 
+Jul 14 15:08:19	resources/settings.json
+Jul 14 15:08:19	 does not exist! Cannot load settings from INI File!
+Jul 14 15:08:20	Jul 14 15:08:20 - ERROR - Could not load icon 
+Jul 14 15:08:20	resources/images/app_icons/cytopia_icon.png
+Jul 14 15:08:20	
+SDL_IMAGE Error: 
+Jul 14 15:08:20	Couldn't open resources/images/app_icons/cytopia_icon.png

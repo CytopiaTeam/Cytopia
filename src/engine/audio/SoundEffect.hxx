@@ -8,7 +8,6 @@
 
 #include "AL/al.h"
 #include "AL/alc.h"
-#include "alure.h"
 
 /** \brief Sound effect class
   * Class for sound effects.
