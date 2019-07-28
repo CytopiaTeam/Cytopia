@@ -1122,5 +1122,175 @@
         "title": "Rocks",
         "upkeep cost": 0,
         "water": 0
+    },
+    {
+        "author": "RockFort",
+        "category": "Residential",
+        "description": "Block of houses from the Boulevard des Belges , Rouen",
+        "id": "res_2x2_blvdbelges_RF",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 59,
+            "clip_width": 64,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_2x2_blvdbelges_RF.png"
+        },
+        "title": "Apartment Building",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "RockFort",
+        "category": "Residential",
+        "description": "A classic house from Savannah , Georgia , USA",
+        "id": "res_2x2_savannahgeorgia_RF",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 44,
+            "clip_width": 64,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_2x2_savannahgeorgia_RF.png"
+        },
+        "title": "Mansion",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "RockFort",
+        "category": "Residential",
+        "description": "A house from Vienna",
+        "id": "res_2x2_viennabuilding2_RF",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 64,
+            "clip_width": 64,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_2x2_viennabuilding2_RF.png"
+        },
+        "title": "Apartment Building",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "RockFort",
+        "category": "Commercial",
+        "description": "Restaurant in Paris",
+        "id": "com_2x2_lefouquet_s_RF",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 63,
+            "clip_width": 64,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/com_2x2_lefouquet_s_RF.png"
+        },
+        "title": "Restaurant",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "RockFort",
+        "category": "Commercial",
+        "description": "A blue hotel from vienna",
+        "id": "com_2x2_viennahotel1_RF",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 70,
+            "clip_width": 64,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/com_2x2_viennahotel1_RF.png"
+        },
+        "title": "Hotel",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "RockFort",
+        "category": "Residential",
+        "description": "A small french mansion ",
+        "id": "res_2x2_frmanreworked_RF",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 40,
+            "clip_width": 64,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_2x2_frmanreworked_RF.png"
+        },
+        "title": "Mansion",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "RockFort",
+        "category": "Residential",
+        "description": "An appartement building from Bellevue , WA , USA",
+        "id": "res_3x3_bellevueappt1_RF",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 153,
+            "clip_width": 96,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_3x3_bellevueappt1_RF.png"
+        },
+        "title": "Apartment Building",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "RockFort",
+        "category": "Residential",
+        "description": "A house from Alabama , USA",
+        "id": "res_2x2_fitzgeraldhousealabama_RF",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 41,
+            "clip_width": 64,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_2x2_fitzgeraldhousealabama_RF.png"
+        },
+        "title": "house",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "RockFort",
+        "category": "Residential",
+        "description": "An apartment building from Montreal , Quebec",
+        "id": "res_3x3_laciteapptmontreal_RF",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 179,
+            "clip_width": 96,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_3x3_laciteapptmontreal_RF.png"
+        },
+        "title": "Apartment Building",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "RockFort",
+        "category": "Residential",
+        "description": "An apartment building from Vancouver , BC , Canada",
+        "id": "res_3x3_vancouver1_RF",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 174,
+            "clip_width": 96,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_3x3_vancouver1_RF.png"
+        },
+        "title": "Apartment Building",
+        "upkeep cost": 0,
+        "water": 0
     }
 ]

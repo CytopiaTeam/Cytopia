@@ -4,7 +4,7 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Edgar <Edgar@AnotherFoxGuy.com>, 2019
+# TDM OF TDM <dillonmanyo@gmail.com>, 2019
 # 
 #, fuzzy
 msgid ""
@@ -13,418 +13,420 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-07-25 09:45+0200\n"
 "PO-Revision-Date: 2019-06-14 12:00+0000\n"
-"Last-Translator: Edgar <Edgar@AnotherFoxGuy.com>, 2019\n"
-"Language-Team: Dutch (https://www.transifex.com/cytopia/teams/100140/nl/)\n"
+"Last-Translator: TDM OF TDM <dillonmanyo@gmail.com>, 2019\n"
+"Language-Team: Indonesian (https://www.transifex.com/cytopia/teams/100140/id/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: nl\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: id\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "A  small coal power plant."
-msgstr "Een kleine kolencentrale."
+msgstr "Sebuah PLTUB Pembangkit Listrik Tenaga Batubara Kecil"
 
 msgid "A Coal Power plant."
-msgstr "Een kolencentrale."
+msgstr "Sebuah PLTUB Pembangkit Listrik Tenaga Batubara"
 
 msgid "A Power Plant, that has been built years ago"
-msgstr "Een energiecentrale, die al jaren geleden is gebouwd"
+msgstr ""
+"Sebuah Pembangkit Listrik Yang Sudah Dibangun Bertahun-tahun Yang lalu"
 
 msgid "A Road, that hasn't been cleaned often"
-msgstr "Een weg die niet vaak is schoongemaakt"
+msgstr "Sebuah Jalan yang Tidak Sering Dibersikan"
 
 msgid "A Shop that sells Bikes"
-msgstr "Een winkel die fietsen verkoopt"
+msgstr "Sebuah Toko Yang Menjual Berbagai Sepeda"
 
 msgid "A Tower made out of concrete"
-msgstr "Een toren gemaakt van beton"
+msgstr "Sebuah Menara Yang Terbuat Dari Beton"
 
 msgid "A beautiful water tower"
-msgstr "Een prachtige watertoren"
+msgstr "Sebuah Kolam Air Indah"
 
 msgid "A big building"
-msgstr "Een groot gebouw"
+msgstr "Sebuah Bangunan Besar"
 
 msgid "A blue hotel from vienna"
-msgstr "Een blauw hotel uit Wenen"
+msgstr "Sebuah Hotel Biru Dari Vienna"
 
 msgid "A chemical plant"
-msgstr "Een chemische fabriek"
+msgstr "Sebuah Pabrik Barang"
 
 msgid "A classic house from Savannah , Georgia , USA"
-msgstr "Een klassiek huis uit Savannah, Georgia, VS"
+msgstr "Sebuah Rumah Klasik Dari Savanna Georgia , USA"
 
 msgid "A commercial center"
-msgstr "Een commercieel centrum"
+msgstr "Sebuah Bangunan Komersial Pusat"
 
 msgid "A factory"
-msgstr "Een fabriek"
+msgstr "Sebuah Pabrik"
 
 msgid "A house from Alabama , USA"
-msgstr "Een huis uit Alabama, VS"
+msgstr "Sebuah Rumah Dari Alabama , USS"
 
 msgid "A house from Vienna"
-msgstr "Een huis uit Wenen"
+msgstr "Sebuah Rumah Dari Vienna"
 
 msgid "A petrol pump"
-msgstr "Een benzinepomp"
+msgstr "Sebuah Pompa Minyak"
 
 msgid "A petrol station"
-msgstr "Een benzinestation"
+msgstr "Sebuah Pom Bensin"
 
 msgid "A pile of coal"
-msgstr "Een stapel kolen"
+msgstr "Sejumlah Tumpukan Batubara"
 
 msgid "A shop that sells clocks"
-msgstr "Een winkel die klokken verkoopt"
+msgstr "Sebuah Toko Yang Menjual Berbagai Jam"
 
 msgid "A shop that sells games. Even Cytopia is in store!"
-msgstr "Een winkel die games verkoopt. Zelfs Cytopia ligt in de winkel!"
+msgstr ""
+"Sebuah Toko Yang Menjual Berbagai Permainan. Bahkan Cytopia Ada Di Toko Ini"
 
 msgid "A shop that sells phones. It has the new CyPhone X"
-msgstr "Een winkel die telefoons verkoopt. Het heeft de nieuwe CyPhone X"
+msgstr "Sebuah Toko Yang Menjual Ponsel. Toko Ini Mempunyai CyPhone X"
 
 msgid "A shop!"
-msgstr "Een winkel!"
+msgstr "Sebuah Toko !"
 
 msgid "A skyscaper"
-msgstr "Een wolkenkrabber"
+msgstr "Sebuah Bangunan Pencakar Langit"
 
 msgid "A small  building"
-msgstr "Een klein gebouw"
+msgstr "Sebuah Bangunan Kecil"
 
 msgid "A small french mansion "
-msgstr "Een klein Frans landhuis"
+msgstr "Sebuah Mansion Prancis Kecil"
 
 msgid "A small house"
-msgstr "Een klein huis"
+msgstr "Sebuah Rumah Kecil"
 
 msgid "A small shack"
-msgstr "Een kleine hut"
+msgstr "Sebuah Pondok"
 
 msgid "A small water tower"
-msgstr "Een kleine watertoren"
+msgstr "Sebuah Penampung Air"
 
 msgid "An apartment building from Montreal , Quebec"
-msgstr "Een appartementengebouw uit Montreal, Quebec"
+msgstr "Sebuah Bangunan Apartemen Dari Montreal , Quebec"
 
 msgid "An apartment building from Vancouver , BC , Canada"
-msgstr "Een appartementengebouw uit Vancouver, BC, Canada"
+msgstr "Sebuah Bangunan Apartemen Dari Vancouver , BC , Canada"
 
 msgid "An appartement building from Bellevue , WA , USA"
-msgstr "Een appartementengebouw uit Bellevue, WA, VS"
+msgstr "Sebuah Bangunan Apartemen Dari Bellevue , WA , USA"
 
 msgid "An oasis"
-msgstr "Een oase"
+msgstr "Sebuah Oasis"
 
 msgid "Apartment Building"
-msgstr "Appartementencomplex"
+msgstr "Bangunan Apartemen"
 
 msgid "Appartment"
-msgstr "Appartement"
+msgstr "Apartemen"
 
 msgid "Appartment Building"
-msgstr "Appartementencomplex"
+msgstr "Bangunan Apartemen"
 
 msgid "Appartment London"
-msgstr "Appartement London"
+msgstr "Apartemen London"
 
 msgid "Appartments"
-msgstr "Appartementen"
+msgstr "Bermacam Apartement"
 
 msgid "Big Appartments"
-msgstr "Grootte Appartementen"
+msgstr "Bermacam Apartemen besar"
 
 msgid "Big Building"
-msgstr "Groot gebouw"
+msgstr "Bangunan Besar"
 
 msgid "Big Depollutor"
-msgstr "Grote Depollutor"
+msgstr "Depolutor Besar"
 
 msgid "Big Office Building"
-msgstr "Groot kantoorgebouw"
+msgstr "Bangunan Kantor Besar"
 
 msgid "BikeShop"
-msgstr "Fietsenwinkel"
+msgstr "Toko Sepeda"
 
 msgid "Block of houses from the Boulevard des Belges , Rouen"
-msgstr "Blok van huizen van de Boulevard des Belges, Rouen"
+msgstr "Blok Rumah Dari Boulevard Des Belges , Rouen"
 
 msgid "Bois Guillaume Appartment"
-msgstr "Bois Guillaume Appartement"
+msgstr "Apartemen Bois Guillaume"
 
 msgid "Borgs Burgers"
-msgstr "Borgs Burgers"
+msgstr "Borgs Burger"
 
 msgid "Borgs Burgers - We have the tastiest!"
-msgstr "Borgs Burgers - We hebben de lekkerste!"
+msgstr "Borgs Burgers - Kita Adalah Yang Terenak"
 
 msgid "BuildMenu Layout"
-msgstr "Bouw menu indeling"
+msgstr "Tata Letak Menu Bangunan"
 
 msgid "Cancel"
-msgstr "Annuleren"
+msgstr "Batal"
 
 msgid "Chemical Plant"
-msgstr "Chemische fabriek"
+msgstr "Pabrik Barang"
 
 msgid "Clock Store"
-msgstr "Klokkenwinkel"
+msgstr "Toko Jam"
 
 msgid "Coal Pile"
-msgstr "Steenkoolstapel"
+msgstr "Tumpukan Batubara"
 
 msgid "Coal Power Plant"
-msgstr "Coal Power Plant"
+msgstr "PLTUB (Pembangkit Listrik Tenaga Batubara)"
 
 msgid "Commercial"
-msgstr "Commercieel"
+msgstr "komersial"
 
 msgid "Community Tower"
-msgstr "Gemeenschapstoren"
+msgstr "Menara Komunitas"
 
 msgid "CompactFast Shop"
-msgstr "CompactFast Winkel"
+msgstr "Toko CompactFast"
 
 msgid "Concrete Tower"
-msgstr "Betonen Toren"
+msgstr "Menara Beton"
 
 msgid "Construction"
-msgstr "Constructie"
+msgstr "Pembangunan"
 
 msgid "Country Road"
-msgstr "Landweg"
+msgstr "Jalan Tol"
 
 msgid "Country Road... takes you home!"
-msgstr "Country Road ... neemt je mee naar huis!"
+msgstr "Jalan Tol... Menuju KeRumahmu !"
 
 msgid "Day Care Center"
-msgstr "Kinderopvang"
+msgstr "Pusat Penitipan Anak"
 
 msgid "Debug Menu"
-msgstr "Debug Menu"
+msgstr "Menu Debug"
 
 msgid "Decoration"
-msgstr "Decoratie"
+msgstr "Dekorasi"
 
 msgid "Demolish"
-msgstr "Slopen"
+msgstr "Hancurkan"
 
 msgid "Depolluter Big"
-msgstr "Depollutor Groot"
+msgstr "Depolutor Besar"
 
 msgid "Depolluter Medium"
-msgstr "Depolluter Medium"
+msgstr "Depolutor Sedang"
 
 msgid "Depolluter Small"
-msgstr "Depolluter Klein"
+msgstr "Depolutor Kecil"
 
 msgid "Desert Building"
-msgstr "Woestijn Gebouw"
+msgstr "Bangunan Gurun Pasir"
 
 msgid "Desert building"
-msgstr "Woestijn gebouw"
+msgstr "Bangunan Gurun Pasir"
 
 msgid "Dirt Road"
-msgstr "Zandweg"
+msgstr "Jalan Tanah"
 
 msgid "Factory"
-msgstr "Fabriek"
+msgstr "Pabrik"
 
 msgid "Flora"
 msgstr "Flora"
 
 msgid "Fullscreen Mode"
-msgstr "Volledig scherm"
+msgstr "Mode Layar Penuh"
 
 msgid "Game Shop"
-msgstr "Game Winkel"
+msgstr "Toko Game"
 
 msgid "Hotel"
 msgstr "Hotel"
 
 msgid "House with swimming pool"
-msgstr "Huis met zwembad"
+msgstr "Rumah Dengan Kolam Berenang"
 
 msgid "I scream for ice cream!"
-msgstr "Ik gil voor ijs!"
+msgstr "Aku Teriak Untuk Es Krim !"
 
 msgid "Ice Cream Shop"
-msgstr "Ijssalon"
+msgstr "Toko Es Krim"
 
 msgid "Industrial"
-msgstr "Industrieel"
+msgstr "Industri"
 
 msgid "Industrial Building"
-msgstr "Industrieel gebouw"
+msgstr "Bangunan Industri"
 
 msgid "Level Terrain"
-msgstr "Vlak Terrein"
+msgstr "Ratakan Permukaan Tanah"
 
 #: src/Game.cxx:99
 msgid "Load Game"
-msgstr "Spel laden"
+msgstr "Muat Game"
 
 msgid "Lower Terrain"
-msgstr "Verlaag terrein"
+msgstr "Turunkan Permukaan Tanah"
 
 msgid "Mansion"
-msgstr "Herenhuis"
+msgstr "Mansion"
 
 msgid "Medium Appartments"
-msgstr "Middelgrote appartementen"
+msgstr "Apartemen Sedang"
 
 msgid "Medium Depollutor"
-msgstr "Medium Depollutor"
+msgstr "Depolutor Sedang"
 
 msgid "Nature"
-msgstr "Natuur"
+msgstr "Alam"
 
 #: src/Game.cxx:94
 msgid "New Game"
-msgstr "Nieuw spel"
+msgstr "Game Baru"
 
 msgid "OK"
-msgstr "OK"
+msgstr "Iya"
 
 msgid "Oasis"
-msgstr "Oase"
+msgstr "Oasis"
 
 msgid "Office"
-msgstr "Kantoor"
+msgstr "Kantor"
 
 msgid "Old Church"
-msgstr "Oude Kerk"
+msgstr "Gereja Tua"
 
 msgid "Old Industrial Building"
-msgstr "Oud industrieel gebouw"
+msgstr "Bangunan Industri Tua"
 
 msgid "Old building"
-msgstr "Oud gebouw"
+msgstr "Bangunan Tua"
 
 msgid "OldPowerPlant"
-msgstr "Oude elektrische centrale"
+msgstr "Pembangkit Listrik Tua"
 
 msgid "Paved Road"
-msgstr "Geplaveide weg"
+msgstr "Jalan Beraspal"
 
 msgid "Petrol Pump"
-msgstr "Benzinepomp"
+msgstr "Pompa Minyak"
 
 msgid "Petrol Station"
-msgstr "Benzinestation"
+msgstr "Pom Bensin"
 
 msgid "Phone Shop"
-msgstr "Telefoonwinkel"
+msgstr "Toko Ponsel"
 
 msgid "Power"
-msgstr "Stroom"
+msgstr "Listrik"
 
 msgid "Pyramid"
-msgstr "Piramide"
+msgstr "Piramid"
 
 #: src/Game.cxx:103
 msgid "Quit Game"
-msgstr "Sluit spel"
+msgstr "Keluar Game"
 
 msgid "Raise Terrain"
-msgstr "Verhoog terrein"
+msgstr "Naikkan Permukaan Tanah"
 
 msgid "Residential"
-msgstr "Residentieel"
+msgstr "Perumahan"
 
 msgid "Restaurant"
-msgstr "Restaurant"
+msgstr "Restoran"
 
 msgid "Restaurant in Paris"
-msgstr "Restaurant in Parijs"
+msgstr "Restoran Di Paris"
 
 msgid "Roads"
-msgstr "Wegen"
+msgstr "Jalan"
 
 msgid "Rocks"
-msgstr "Rotsen"
+msgstr "Bebatuan"
 
 msgid "Rocks for the terrain"
-msgstr "Rotsen voor het terrein"
+msgstr "Bebatuan Untuk Permukaan Tanah"
 
 msgid "Ruegroshorloge"
-msgstr "Ruegroshorloge"
+msgstr "Rue Gros Horloge"
 
 msgid "Save Game"
-msgstr "Spel opslaan"
+msgstr "Simpan Game"
 
 msgid "Screen Resolution"
-msgstr "Schermresolutie"
+msgstr "Resolusi Layar"
 
 msgid "Settings"
-msgstr "Instellingen"
+msgstr "Pengaturan"
 
 msgid "Shop"
-msgstr "Winkel"
+msgstr "Toko"
 
 msgid "Skyscraper"
-msgstr "Wolkenkrabber"
+msgstr "Pencakar Langit"
 
 msgid "Small Coal Power Plant"
-msgstr "Kleine kolencentrale"
+msgstr "PLTUB Kecil"
 
 msgid "Small Coal Power Plant2"
-msgstr "Kleine kolencentrale2"
+msgstr "PLTUB kecil 2"
 
 msgid "Small Commercial Center"
-msgstr "Klein commercieel centrum"
+msgstr "Komersial Pusat Kecil"
 
 msgid "Small Depollutor"
-msgstr "Klein Depollutor"
+msgstr "Depolutor Kecil"
 
 msgid "Small House"
-msgstr "Klein huis"
+msgstr "Rumah kecil"
 
 msgid "Small Shack"
-msgstr "Kleine hut"
+msgstr "Pondok Kecil"
 
 msgid "Small Water Tower"
-msgstr "Kleine watertoren"
+msgstr "Sebuah Penampung Air Kecil"
 
 msgid "Small house"
-msgstr "Klein huis"
+msgstr "Rumah Kecil"
 
 msgid "Terrain"
-msgstr "Terrein"
+msgstr "Permukaan Tanah"
 
 msgid "Terrain tiles"
-msgstr "Terreintegels"
+msgstr "Ubin Permukaan Tanah"
 
 msgid "TerrainDecoration"
-msgstr "Terreindecoratie"
+msgstr "Dekorasi Permukaan Tanah"
 
 msgid "The community gathers and works here"
-msgstr "De gemeenschap verzamelt zich en werkt hier"
+msgstr "Komunitas Ini Berkumpul Dan Bekerja Disini"
 
 msgid "Tour Front De Seine"
 msgstr "Tour Front De Seine"
 
 msgid "Trees"
-msgstr "Bomen"
+msgstr "Pepohonan"
 
 msgid "Utilities"
-msgstr "Gereedschap"
+msgstr "Keperluan"
 
 msgid "Water"
-msgstr "Water"
+msgstr "Air"
 
 msgid "Water Tower"
-msgstr "Watertoren"
+msgstr "Penampung Air"
 
 msgid "Where people work"
-msgstr "Waar mensen werken"
+msgstr "Dimana Orang Bekerja"
 
 msgid "big Appartments"
-msgstr "grootte Appartementen"
+msgstr "Apartemen Besar"
 
 msgid "house"
-msgstr "huis"
+msgstr "Rumah"
 
 msgid "trees"
-msgstr "bomen"
+msgstr "Pepohonan"

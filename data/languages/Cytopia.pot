@@ -7,7 +7,7 @@
 msgid   ""
 msgstr  "Project-Id-Version: PACKAGE VERSION\n"
         "Report-Msgid-Bugs-To: \n"
-        "POT-Creation-Date: 2019-06-15 11:35+0200\n"
+        "POT-Creation-Date: 2019-07-25 09:45+0200\n"
         "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
         "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
         "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -40,13 +40,25 @@ msgstr  ""
 msgid   "A big building"
 msgstr  ""
 
+msgid   "A blue hotel from vienna"
+msgstr  ""
+
 msgid   "A chemical plant"
+msgstr  ""
+
+msgid   "A classic house from Savannah , Georgia , USA"
 msgstr  ""
 
 msgid   "A commercial center"
 msgstr  ""
 
 msgid   "A factory"
+msgstr  ""
+
+msgid   "A house from Alabama , USA"
+msgstr  ""
+
+msgid   "A house from Vienna"
 msgstr  ""
 
 msgid   "A petrol pump"
@@ -76,6 +88,9 @@ msgstr  ""
 msgid   "A small  building"
 msgstr  ""
 
+msgid   "A small french mansion "
+msgstr  ""
+
 msgid   "A small house"
 msgstr  ""
 
@@ -85,7 +100,19 @@ msgstr  ""
 msgid   "A small water tower"
 msgstr  ""
 
+msgid   "An apartment building from Montreal , Quebec"
+msgstr  ""
+
+msgid   "An apartment building from Vancouver , BC , Canada"
+msgstr  ""
+
+msgid   "An appartement building from Bellevue , WA , USA"
+msgstr  ""
+
 msgid   "An oasis"
+msgstr  ""
+
+msgid   "Apartment Building"
 msgstr  ""
 
 msgid   "Appartment"
@@ -113,6 +140,9 @@ msgid   "Big Office Building"
 msgstr  ""
 
 msgid   "BikeShop"
+msgstr  ""
+
+msgid   "Block of houses from the Boulevard des Belges , Rouen"
 msgstr  ""
 
 msgid   "Bois Guillaume Appartment"
@@ -205,6 +235,9 @@ msgstr  ""
 msgid   "Game Shop"
 msgstr  ""
 
+msgid   "Hotel"
+msgstr  ""
+
 msgid   "House with swimming pool"
 msgstr  ""
 
@@ -223,11 +256,14 @@ msgstr  ""
 msgid   "Level Terrain"
 msgstr  ""
 
-#: src/Game.cxx:96
+#: src/Game.cxx:99
 msgid   "Load Game"
 msgstr  ""
 
 msgid   "Lower Terrain"
+msgstr  ""
+
+msgid   "Mansion"
 msgstr  ""
 
 msgid   "Medium Appartments"
@@ -239,7 +275,7 @@ msgstr  ""
 msgid   "Nature"
 msgstr  ""
 
-#: src/Game.cxx:91
+#: src/Game.cxx:94
 msgid   "New Game"
 msgstr  ""
 
@@ -282,7 +318,7 @@ msgstr  ""
 msgid   "Pyramid"
 msgstr  ""
 
-#: src/Game.cxx:100
+#: src/Game.cxx:103
 msgid   "Quit Game"
 msgstr  ""
 
@@ -290,6 +326,12 @@ msgid   "Raise Terrain"
 msgstr  ""
 
 msgid   "Residential"
+msgstr  ""
+
+msgid   "Restaurant"
+msgstr  ""
+
+msgid   "Restaurant in Paris"
 msgstr  ""
 
 msgid   "Roads"
@@ -374,6 +416,9 @@ msgid   "Where people work"
 msgstr  ""
 
 msgid   "big Appartments"
+msgstr  ""
+
+msgid   "house"
 msgstr  ""
 
 msgid   "trees"

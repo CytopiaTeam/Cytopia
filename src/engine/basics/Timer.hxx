@@ -16,6 +16,10 @@ public:
   * countdown timer. It's also possible to invoke a callback function when the timer is triggered
   */
   Timer() = default;
+  
+  /**
+  * @brief Destroys the Timer object
+  */
   ~Timer();
 
   /** \brief get elapsed time

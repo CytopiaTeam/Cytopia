@@ -18,6 +18,10 @@ class SoundEffect
 public:
   SoundEffect(const std::string &filename);
   SoundEffect() = default;
+ 
+  /**
+    * @brief Destroys the SoundEffect object
+    */
   ~SoundEffect();
 
   /** \brief Load File
