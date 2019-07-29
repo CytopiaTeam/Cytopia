@@ -196,7 +196,7 @@ else (USE_PACKAGE_MANAGER)
     endif ()
     
     if (ENABLE_OPENAL_SOFT)
-        list(APPEND _link_libraries ${openal_soft_LIBRARIES})
+        list(APPEND _link_libraries ${openal_LIBRARIES})
     endif ()
 
 

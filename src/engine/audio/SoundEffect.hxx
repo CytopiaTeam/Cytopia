@@ -9,6 +9,7 @@
 #ifdef USE_OPENAL_SOFT
 #include "AL/al.h"
 #include "AL/alc.h"
+#include <cassert>
 #endif
 
 /** \brief Sound effect class
@@ -67,6 +68,7 @@ private:
   
   #ifdef USE_OPENAL_SOFT
   ALuint source;
+  ALuint buffer;
   #endif
   
 };

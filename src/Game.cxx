@@ -57,10 +57,6 @@ bool Game::initialize()
   }
 #endif
 
-#ifdef USE_OPENAL_SOFT
-	ALuint source;
-	std::cout << "OpenAL Soft enabled. \n";
-#endif
 
   // initialize window manager
   WindowManager::instance().setWindowTitle(VERSION);

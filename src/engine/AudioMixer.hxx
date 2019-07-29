@@ -3,9 +3,15 @@
 
 #include <vector>
 #include <memory>
+#include <iostream>
 
 #include "audio/Music.hxx"
 #include "audio/SoundEffect.hxx"
+
+#ifdef USE_OPENAL_SOFT
+#include "AL/al.h"
+#include "AL/alc.h"
+#endif
 
 /**
  * @class AudioMixer
@@ -48,6 +54,13 @@ public:
 
 private:
   std::vector<std::shared_ptr<Music>> m_musicObjects;
+  
+    //openal soft stuff
+  #ifdef USE_OPENAL_SOFT
+  //OpenAL Soft sound setup variables
+  ALCdevice* gAudioDevice; //audio device to be used
+  ALCcontext* alContext; //context of where audio is played
+  #endif
 };
 
 #endif

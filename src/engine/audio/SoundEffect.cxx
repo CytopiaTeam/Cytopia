@@ -6,6 +6,7 @@
 SoundEffect::SoundEffect(const std::string &filename) : m_playSoundEffect(Settings::instance().playSoundEffects)
 {
   loadFile(filename);
+
 }
 
 SoundEffect::~SoundEffect()
@@ -14,6 +15,18 @@ SoundEffect::~SoundEffect()
   {
     Mix_FreeChunk(m_soundEffect);
   }
+  
+  #ifdef USE_OPENAL_SOFT
+  if(source != 0)
+	{
+		alDeleteSources(1, &source);
+	}
+	
+  if(buffer != 0)
+  {
+	   alDeleteBuffers(1, &buffer);
+  }
+  #endif
 }
 
 void SoundEffect::loadFile(const std::string &filename)
@@ -25,15 +38,44 @@ void SoundEffect::loadFile(const std::string &filename)
     LOG() << "Disabled sound effect playback!";
     m_playSoundEffect = false;
   }
+  #ifdef USE_OPENAL_SOFT
+  source = 0;
+  buffer = 0;
+  
+  //initialize source
+  alGenSources(1, &source);
+  alSourcei(source, AL_SOURCE_RELATIVE, AL_FALSE);
+  assert(alGetError()==AL_NO_ERROR && "Failed to setup sound source.");
+  
+  //initialize buffer
+ 
+  ALuint tempBuffer = 0; //initialize temp buffer
+			
+  alGenBuffers(1, &tempBuffer);//request 1 buffer	
+  //set buffer data
+  //ALenum variable for format of sound sample e.g. mono,stereo, 8-bit 16-bit
+  ALenum format = AL_FORMAT_STEREO16; //assuming sound effect is converted to MIX_DEFAULT_FORMAT default stereo signed 16-bit
+  
+  alBufferData(tempBuffer, format, m_soundEffect->abuf, m_soundEffect->alen * sizeof(int16_t), MIX_DEFAULT_FREQUENCY);
+  
+  buffer = tempBuffer;
+  
+  #endif
 }
 
 void SoundEffect::play(int channel, Sint16 angle, Uint8 distance, int loops) const
 {
   if (m_playSoundEffect)
   {
-	//if in mono or stereo mode
+
     if (m_soundEffect)
     {
+	  #ifdef USE_OPENAL_SOFT
+	  if(Settings::instance().audioChannels >= 2)
+	  {
+		  std::cout << "OpenAL Soft version of play sound effect called! \n";
+	  }
+	  #endif
       const int currentChannel = Mix_PlayChannel(channel, m_soundEffect, loops);
 
       if (currentChannel == -1)

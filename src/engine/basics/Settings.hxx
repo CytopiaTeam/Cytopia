@@ -13,9 +13,9 @@ using VolumeLevel = uint8_t;
 
 enum AudioMode : uint8_t
 {
-	MONO = 0,
-	STEREO,
-	BINAURAL
+	MONO = 1,
+	STEREO = 2,
+	BINAURAL_SURROUND = 3
 };
 
 struct SettingsData
