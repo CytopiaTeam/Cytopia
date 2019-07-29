@@ -14,9 +14,10 @@
         },
         "title": "Coal Pile",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "KingTut 101",
         "category": "Residential",
         "description": "Day Care Center",
@@ -31,9 +32,10 @@
         },
         "title": "Day Care Center",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "Folesnaid",
         "category": "Residential",
         "description": "Old Church",
@@ -48,9 +50,10 @@
         },
         "title": "Old Church",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "Kingtut 101",
         "category": "Commercial",
         "description": "A Shop that sells Bikes",
@@ -65,9 +68,10 @@
         },
         "title": "BikeShop",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "Kingtut 101",
         "category": "Commercial",
         "description": "A shop that sells clocks",
@@ -82,9 +86,10 @@
         },
         "title": "Clock Store",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "MaroonShaded",
         "category": "Commercial",
         "description": "A shop!",
@@ -99,9 +104,10 @@
         },
         "title": "CompactFast Shop",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "Folesnaid",
         "category": "Commercial",
         "description": "I scream for ice cream!",
@@ -116,9 +122,10 @@
         },
         "title": "Ice Cream Shop",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "Folesnaid",
         "category": "Commercial",
         "description": "A petrol station",
@@ -133,9 +140,10 @@
         },
         "title": "Petrol Station",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "Folesnaid",
         "category": "Commercial",
         "description": "A shop that sells games. Even Cytopia is in store!",
@@ -150,9 +158,10 @@
         },
         "title": "Game Shop",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "RockFort",
         "category": "Commercial",
         "description": "Appartment Building",
@@ -167,9 +176,10 @@
         },
         "title": "Appartment Building",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "Folesnaid",
         "category": "Commercial",
         "description": "A shop that sells phones. It has the new CyPhone X",
@@ -184,9 +194,10 @@
         },
         "title": "Phone Shop",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "RockFort",
         "category": "Commercial",
         "description": "Ruegroshorloge",
@@ -201,9 +212,10 @@
         },
         "title": "Ruegroshorloge",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "Folesnaid",
         "category": "Commercial",
         "description": "A shop!",
@@ -218,9 +230,10 @@
         },
         "title": "Shop",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "Folesnaid",
         "category": "Nature",
         "description": "An oasis",
@@ -235,9 +248,10 @@
         },
         "title": "Oasis",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "RockFort",
         "category": "Commercial",
         "description": "Borgs Burgers - We have the tastiest!",
@@ -252,9 +266,10 @@
         },
         "title": "Borgs Burgers",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "Folesnaid",
         "category": "Commercial",
         "description": "A commercial center",
@@ -269,9 +284,10 @@
         },
         "title": "Small Commercial Center",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "Kingtut 101",
         "category": "Commercial",
         "description": "Where people work",
@@ -286,9 +302,10 @@
         },
         "title": "Office",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "RockFort",
         "category": "Commercial",
         "description": "Big Office Building",
@@ -303,9 +320,10 @@
         },
         "title": "Big Office Building",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "Kingtut 101",
         "category": "Commercial",
         "description": "The community gathers and works here",
@@ -320,9 +338,10 @@
         },
         "title": "Community Tower",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "RockFort",
         "category": "Commercial",
         "description": "Tour Front De Seine",
@@ -337,9 +356,10 @@
         },
         "title": "Tour Front De Seine",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "KingTut 101",
         "category": "Roads",
         "description": "Country Road... takes you home!",
@@ -360,9 +380,10 @@
         },
         "title": "Country Road",
         "upkeep cost": 2,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "KingTut 101",
         "category": "Roads",
         "description": "A Road, that hasn't been cleaned often",
@@ -383,9 +404,10 @@
         },
         "title": "Dirt Road",
         "upkeep cost": 1,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "KingTut 101",
         "category": "Industrial",
         "description": "Small Depollutor",
@@ -400,9 +422,10 @@
         },
         "title": "Depolluter Small",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "Folesnaid",
         "category": "Industrial",
         "description": "A petrol pump",
@@ -417,9 +440,10 @@
         },
         "title": "Petrol Pump",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "Folesnaid",
         "category": "Industrial",
         "description": "Industrial Building",
@@ -434,9 +458,10 @@
         },
         "title": "Industrial Building",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "Folesnaid",
         "category": "Industrial",
         "description": "Industrial Building",
@@ -451,9 +476,10 @@
         },
         "title": "Industrial Building",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "Folesnaid",
         "category": "Industrial",
         "description": "Old Industrial Building",
@@ -468,9 +494,10 @@
         },
         "title": "Old Industrial Building",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "KingTut 101",
         "category": "Industrial",
         "description": "Medium Depollutor",
@@ -485,9 +512,10 @@
         },
         "title": "Depolluter Medium",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "Folesnaid",
         "category": "Industrial",
         "description": "A factory",
@@ -502,9 +530,10 @@
         },
         "title": "Factory",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "KingTut 101",
         "category": "Industrial",
         "description": "A Power Plant, that has been built years ago",
@@ -519,9 +548,10 @@
         },
         "title": "OldPowerPlant",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "Folesnaid",
         "category": "Industrial",
         "description": "A chemical plant",
@@ -536,9 +566,10 @@
         },
         "title": "Chemical Plant",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "KingTut 101",
         "category": "Industrial",
         "description": "Big Depollutor",
@@ -553,9 +584,10 @@
         },
         "title": "Depolluter Big",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "MaroonShaded",
         "category": "Industrial",
         "description": "A factory",
@@ -570,9 +602,10 @@
         },
         "title": "Factory",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "KingTut 101",
         "category": "Roads",
         "description": "Paved Road",
@@ -593,9 +626,10 @@
         },
         "title": "Paved Road",
         "upkeep cost": 2,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "MaroonShaded",
         "category": "Power",
         "description": "A  small coal power plant.",
@@ -610,9 +644,10 @@
         },
         "title": "Small Coal Power Plant2",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "KingTut 101",
         "category": "Power",
         "description": "A Coal Power plant.",
@@ -627,9 +662,10 @@
         },
         "title": "Coal Power Plant",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "KingTut 101",
         "category": "Power",
         "description": "A  small coal power plant.",
@@ -644,9 +680,10 @@
         },
         "title": "Small Coal Power Plant",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "KingTut 101",
         "category": "Residential",
         "description": "A small house",
@@ -661,9 +698,10 @@
         },
         "title": "Small House",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "KingTut 101",
         "category": "Residential",
         "description": "A small house",
@@ -678,9 +716,10 @@
         },
         "title": "Small House",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "RockFort",
         "category": "Residential",
         "description": "A small  building",
@@ -695,9 +734,10 @@
         },
         "title": "Small house",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "KingTut 101",
         "category": "Residential",
         "description": "A small shack",
@@ -712,9 +752,10 @@
         },
         "title": "Small Shack",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "Folesnaid",
         "category": "Residential",
         "description": "Appartments",
@@ -729,9 +770,10 @@
         },
         "title": "Appartments",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "Folesnaid",
         "category": "Residential",
         "description": "Desert building",
@@ -746,9 +788,10 @@
         },
         "title": "Desert Building",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "Folesnaid",
         "category": "Residential",
         "description": "Pyramid",
@@ -763,9 +806,10 @@
         },
         "title": "Pyramid",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "Folesnaid",
         "category": "Residential",
         "description": "House with swimming pool",
@@ -780,9 +824,10 @@
         },
         "title": "House with swimming pool",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "RockFort",
         "category": "Residential",
         "description": "Appartment London",
@@ -797,9 +842,10 @@
         },
         "title": "Appartment London",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "Folesnaid",
         "category": "Residential",
         "description": "Old building",
@@ -814,9 +860,10 @@
         },
         "title": "Old building",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "Folesnaid",
         "category": "Residential",
         "description": "Old building",
@@ -831,9 +878,10 @@
         },
         "title": "Old building",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "Folesnaid",
         "category": "Residential",
         "description": "A big building",
@@ -848,9 +896,10 @@
         },
         "title": "Big Building",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "RockFort",
         "category": "Residential",
         "description": "Bois Guillaume Appartment",
@@ -865,9 +914,10 @@
         },
         "title": "Bois Guillaume Appartment",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "Folesnaid",
         "category": "Residential",
         "description": "Appartment",
@@ -882,9 +932,10 @@
         },
         "title": "Appartment",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "Folesnaid",
         "category": "Residential",
         "description": "big Appartments",
@@ -899,9 +950,10 @@
         },
         "title": "Big Appartments",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "Folesnaid",
         "category": "Residential",
         "description": "big Appartments",
@@ -916,9 +968,10 @@
         },
         "title": "Big Appartments",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "RockFort",
         "category": "Residential",
         "description": "Medium Appartments",
@@ -933,9 +986,10 @@
         },
         "title": "Medium Appartments",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "KingTut 101",
         "category": "Residential",
         "description": "A Tower made out of concrete",
@@ -950,9 +1004,10 @@
         },
         "title": "Concrete Tower",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "KingTut 101",
         "category": "Residential",
         "description": "A skyscaper",
@@ -967,9 +1022,10 @@
         },
         "title": "Skyscraper",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "Kingtut 101",
         "category": "Terrain",
         "description": "Terrain tiles",
@@ -990,9 +1046,10 @@
         },
         "title": "Terrain",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "Kingtut 101",
         "category": "Water",
         "description": "Water",
@@ -1013,9 +1070,10 @@
         },
         "title": "Water",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "Kingtut 101",
         "category": "Utilities",
         "description": "A beautiful water tower",
@@ -1030,9 +1088,10 @@
         },
         "title": "Water Tower",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "Kingtut 101",
         "category": "Utilities",
         "description": "A small water tower",
@@ -1047,9 +1106,10 @@
         },
         "title": "Small Water Tower",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "Kingtut 101",
         "category": "Flora",
         "description": "trees",
@@ -1077,9 +1137,10 @@
         },
         "title": "Trees",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 1
+	},
+	{
         "author": "Kingtut 101",
         "biome": "GrassLands",
         "category": "TerrainDecoration",
@@ -1099,9 +1160,10 @@
         },
         "title": "Rocks",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "Kingtut 101",
         "biome": "Desert",
         "category": "TerrainDecoration",
@@ -1121,9 +1183,10 @@
         },
         "title": "Rocks",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "RockFort",
         "category": "Residential",
         "description": "Block of houses from the Boulevard des Belges , Rouen",
@@ -1138,9 +1201,10 @@
         },
         "title": "Apartment Building",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "RockFort",
         "category": "Residential",
         "description": "A classic house from Savannah , Georgia , USA",
@@ -1155,9 +1219,10 @@
         },
         "title": "Mansion",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "RockFort",
         "category": "Residential",
         "description": "A house from Vienna",
@@ -1172,9 +1237,10 @@
         },
         "title": "Apartment Building",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "RockFort",
         "category": "Commercial",
         "description": "Restaurant in Paris",
@@ -1189,9 +1255,10 @@
         },
         "title": "Restaurant",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "RockFort",
         "category": "Commercial",
         "description": "A blue hotel from vienna",
@@ -1206,9 +1273,10 @@
         },
         "title": "Hotel",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "RockFort",
         "category": "Residential",
         "description": "A small french mansion ",
@@ -1223,9 +1291,10 @@
         },
         "title": "Mansion",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "RockFort",
         "category": "Residential",
         "description": "An appartement building from Bellevue , WA , USA",
@@ -1240,9 +1309,10 @@
         },
         "title": "Apartment Building",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "RockFort",
         "category": "Residential",
         "description": "A house from Alabama , USA",
@@ -1257,9 +1327,10 @@
         },
         "title": "house",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "RockFort",
         "category": "Residential",
         "description": "An apartment building from Montreal , Quebec",
@@ -1274,9 +1345,10 @@
         },
         "title": "Apartment Building",
         "upkeep cost": 0,
-        "water": 0
-    },
-    {
+        "water": 0,
+    	"isOverPlacable": 0
+	},
+	{
         "author": "RockFort",
         "category": "Residential",
         "description": "An apartment building from Vancouver , BC , Canada",
@@ -1291,6 +1363,7 @@
         },
         "title": "Apartment Building",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "isOverPlacable": 0
     }
 ]

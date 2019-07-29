@@ -84,7 +84,9 @@ bool MapNode::checkTileIsEmpty(const std::string &tileID) const
       return false;
     }
     TileData *previousTileData = m_mapNodeData[layer].tileData;
-    if (previousTileData && previousTileData->category == "Roads" && tileData->category == "Roads")
+    if (previousTileData
+		&& (previousTileData->isOverPlacable
+			|| (previousTileData->category == "Roads" && tileData->category == "Roads")))
     {
       // road intersecting is allowed.
       return true;

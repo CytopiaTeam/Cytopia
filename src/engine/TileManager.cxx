@@ -290,8 +290,10 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
   m_tileData[id].title = tileDataJSON[idx].value("title", "");
   m_tileData[id].description = tileDataJSON[idx].value("description", "");
   m_tileData[id].category = tileDataJSON[idx].value("category", "");
+  std::string category = m_tileData[id].category;
   m_tileData[id].price = tileDataJSON[idx].value("price", 0);
   m_tileData[id].water = tileDataJSON[idx].value("water", 0);
+  m_tileData[id].isOverPlacable = tileDataJSON[idx].value("isOverPlacable", 0);
   m_tileData[id].drawGround = tileDataJSON[idx].value("draw ground", false);
 
   m_tileData[id].tiles.fileName = tileDataJSON[idx]["tiles"].value("fileName", "");
