@@ -88,7 +88,7 @@ void SoundEffect::play(int channel, Sint16 angle, Uint8 distance, int loops) con
     if (m_soundEffect)
     {
 	  #ifdef USE_OPENAL_SOFT
-	  if(Settings::instance().audioChannels >= 2)
+	  if(Settings::instance().audioChannels >= 3)
 	  {
 		  std::cout << "OpenAL Soft version of play sound effect called! \n";
 	  }
