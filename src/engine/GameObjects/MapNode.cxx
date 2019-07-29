@@ -80,9 +80,15 @@ bool MapNode::checkTileIsEmpty(const std::string &tileID) const
     }
     if (m_mapNodeData[Layer::WATER].tileData != nullptr)
     {
-	  //this is a water tile, building not permitted.
+      //this is a water tile, building not permitted.
       return false;
     }
+    TileData *previousTileData = m_mapNodeData[layer].tileData;
+    if (previousTileData && previousTileData->category == "Roads" && tileData->category == "Roads")
+    {
+      // road intersecting is allowed.
+      return true;
+	}
     return m_mapNodeData[layer].tileID == "" || m_mapNodeData[layer].tileID == "terrain";
   }
   return false;
