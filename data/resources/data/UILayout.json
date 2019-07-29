@@ -337,12 +337,12 @@
       },
       {
         "Type": "Text",
-        "Text": "Audio Mode",
+        "Text": "Audio Channels",
         "Position_x": 330,
         "Position_y":440
       },
       {
-        "ID": "$AudioModeSelector",
+        "ID": "$AudioChannelSelector",
         "Type": "ComboBox",
         "Position_x": 420,
         "Position_y": 440,

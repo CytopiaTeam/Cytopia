@@ -93,6 +93,7 @@ void SoundEffect::play(int channel, Sint16 angle, Uint8 distance, int loops) con
 		  std::cout << "OpenAL Soft version of play sound effect called! \n";
 	  }
 	  #endif
+	  
       const int currentChannel = Mix_PlayChannel(channel, m_soundEffect, loops);
 
       if (currentChannel == -1)

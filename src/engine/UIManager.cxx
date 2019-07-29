@@ -757,6 +757,26 @@ void UIManager::initializeDollarVariables()
         combobox->setActiveID(Settings::instance().fullScreenMode);
         combobox->registerCallbackFunction(Signal::slot(this, &UIManager::changeFullScreenMode));
       }
+      else if (it->getUiElementData().elementID == "$AudioChannelSelector")
+      {
+        // This must be a ComboBox
+        ComboBox *combobox = dynamic_cast<ComboBox *>(it.get());
+
+        if (!combobox)
+        {
+          LOG(LOG_ERROR) << "Can not use element ID $AudioChannelSelector for an element other than a combobox!";
+          continue;
+        }
+
+        combobox->clear();
+        combobox->addElement("1");
+        combobox->addElement("2");
+        combobox->addElement("3");
+
+        combobox->setActiveID(Settings::instance().audioChannels);
+
+        combobox->registerCallbackFunction(Signal::slot(this, &UIManager::changeAudioChannels));
+      }
     }
   }
 }
@@ -800,5 +820,12 @@ void UIManager::changeFullScreenMode(UIElement *sender)
   // TODO: Save settings
   ComboBox *combobox = dynamic_cast<ComboBox *>(sender);
   WindowManager::instance().setFullScreenMode(static_cast<FULLSCREEN_MODE>(combobox->getActiveID()));
+  Layout::arrangeElements();
+}
+
+void UIManager::changeAudioChannels(UIElement *sender)
+{
+  ComboBox *combobox = dynamic_cast<ComboBox *>(sender);
+  Settings::instance().audioChannels = std::stoi(combobox->activeText);
   Layout::arrangeElements();
 }

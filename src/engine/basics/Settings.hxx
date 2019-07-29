@@ -11,13 +11,6 @@
 using ScreenDimension = int;
 using VolumeLevel = uint8_t;
 
-enum AudioMode : uint8_t
-{
-	MONO = 1,
-	STEREO = 2,
-	BINAURAL_SURROUND = 3
-};
-
 struct SettingsData
 {
 
@@ -98,13 +91,9 @@ struct SettingsData
   /**
    * @todo document what this field is
    * @todo add a typename
+   * 1=Mono,2=Stereo,3=Binaural or Surround
    */
   int audioChannels;
-  
-  /**
-   * Mode of audio game is being played in such as mono,stereo,binaural
-   */
-  AudioMode audioMode;
   
   /**
    * @todo document what this field is
