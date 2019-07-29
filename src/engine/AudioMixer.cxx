@@ -44,6 +44,14 @@ AudioMixer::AudioMixer()
 #endif
 }
 
+AudioMixer::~AudioMixer()
+{
+  #ifdef USE_OPENAL_SOFT
+  alcDestroyContext(alContext);	//delete context
+  alcCloseDevice(gAudioDevice);	//close device
+  #endif
+}
+
 void AudioMixer::setMusicVolume(uint8_t volume) noexcept
 {
   volume = Mix_VolumeMusic(volume) & 0xFF;

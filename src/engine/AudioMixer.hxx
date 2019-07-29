@@ -21,7 +21,7 @@ class AudioMixer
 {
 public:
   AudioMixer();
-  ~AudioMixer() = default;
+  ~AudioMixer();
 
   /**
    * @brief sets the music volume
