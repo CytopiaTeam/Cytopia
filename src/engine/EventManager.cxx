@@ -174,7 +174,16 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
 
             for (size_t i = 0; i < m_highlightedNodes.size(); i++)
             {
-              engine.map->highlightNode(m_highlightedNodes[i]);
+              if (!engine.map->checkTileIDIsEmpty(m_highlightedNodes[i], tileTypeEditMode))
+              {
+                // already occupied tile, mark red
+                engine.map->highlightNode(m_highlightedNodes[i], true);
+              }
+              else
+              {
+				// mark gray.
+                engine.map->highlightNode(m_highlightedNodes[i]);
+              }
             }
           }
           else if (demolishMode)
@@ -196,6 +205,16 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           if (highlightSelection)
           {
             engine.map->highlightNode(m_highlitNode);
+            if (!engine.map->checkTileIDIsEmpty(m_highlitNode, tileTypeEditMode))
+            {
+              // already occupied tile, mark red
+              engine.map->highlightNode(m_highlitNode, true);
+            }
+            else
+            {
+              // mark gray.
+              engine.map->highlightNode(m_highlitNode);
+            }
           }
         }
       }
