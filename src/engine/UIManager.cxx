@@ -770,10 +770,23 @@ void UIManager::initializeDollarVariables()
 
         combobox->clear();
         combobox->addElement("1");
+        // TODO: Ugly workaround until we have BetterEnums
+        if (Settings::instance().audioChannels == 1)
+        {
+          combobox->setActiveID(static_cast<int>(combobox->count() - 1));
+        }
         combobox->addElement("2");
+        // TODO: Ugly workaround until we have BetterEnums
+        if (Settings::instance().audioChannels == 2)
+        {
+          combobox->setActiveID(static_cast<int>(combobox->count() - 1));
+        }
         combobox->addElement("3");
-
-        combobox->setActiveID(Settings::instance().audioChannels);
+		// TODO: Ugly workaround until we have BetterEnums
+        if (Settings::instance().audioChannels == 3)
+        {
+          combobox->setActiveID(static_cast<int>(combobox->count() - 1));
+        }
 
         combobox->registerCallbackFunction(Signal::slot(this, &UIManager::changeAudioChannels));
       }
@@ -826,6 +839,6 @@ void UIManager::changeFullScreenMode(UIElement *sender)
 void UIManager::changeAudioChannels(UIElement *sender)
 {
   ComboBox *combobox = dynamic_cast<ComboBox *>(sender);
-  Settings::instance().audioChannels = std::stoi(combobox->activeText);
+  Settings::instance().audioChannels = combobox->getActiveID();
   Layout::arrangeElements();
 }
