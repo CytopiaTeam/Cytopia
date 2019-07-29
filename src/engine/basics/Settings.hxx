@@ -13,7 +13,7 @@ using VolumeLevel = uint8_t;
 
 enum AudioMode : uint8_t
 {
-	MONO,
+	MONO = 0,
 	STEREO,
 	BINAURAL
 };

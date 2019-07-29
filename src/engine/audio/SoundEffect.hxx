@@ -6,8 +6,10 @@
 #include <SDL.h>
 #include <SDL_mixer.h>
 
+#ifdef USE_OPENAL_SOFT
 #include "AL/al.h"
 #include "AL/alc.h"
+#endif
 
 /** \brief Sound effect class
   * Class for sound effects.
@@ -63,7 +65,10 @@ private:
 
   bool m_playSoundEffect;
   
+  #ifdef USE_OPENAL_SOFT
   ALuint source;
+  #endif
+  
 };
 
 #endif
