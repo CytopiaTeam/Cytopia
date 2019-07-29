@@ -58,8 +58,25 @@ void SoundEffect::loadFile(const std::string &filename)
   
   alBufferData(tempBuffer, format, m_soundEffect->abuf, m_soundEffect->alen * sizeof(int16_t), MIX_DEFAULT_FREQUENCY);
   
-  buffer = tempBuffer;
-  
+ 
+  /* Check if an error occured, and clean up if so. */
+  ALenum err = alGetError();
+
+
+  if(err != AL_NO_ERROR)
+  {
+	  fprintf(stderr, "OpenAL Error: %s\n", alGetString(err));
+	  if(tempBuffer && alIsBuffer(tempBuffer)){alDeleteBuffers(1, &tempBuffer);}
+  }
+  else
+  { 
+	  buffer = tempBuffer;
+	  std::cout << "buffer succesfully loaded for sound effect. \n";
+	  alSourcei(source, AL_SOURCE_RELATIVE, AL_TRUE);
+	  alSource3f(source, AL_POSITION, 0.0f, 0.0f, -1.0f);
+	  alSourcei(source, AL_BUFFER, buffer);
+	  assert(alGetError()==AL_NO_ERROR && "Failed to setup sound source with buffer.");
+  }
   #endif
 }
 
