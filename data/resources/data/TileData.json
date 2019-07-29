@@ -1139,8 +1139,8 @@
         "upkeep cost": 0,
         "water": 0,
     	"isOverPlacable": 1
-	},
-	{
+        },
+        {
         "author": "Kingtut 101",
         "biome": "GrassLands",
         "category": "TerrainDecoration",
@@ -1347,8 +1347,8 @@
         "upkeep cost": 0,
         "water": 0,
     	"isOverPlacable": 0
-	},
-	{
+        },
+        {
         "author": "RockFort",
         "category": "Residential",
         "description": "An apartment building from Vancouver , BC , Canada",
