@@ -1304,6 +1304,7 @@
             "clip_height": 23,
             "clip_width": 32,
             "count": 16,
+            "offset": 13,
             "fileName": "resources/images/buildings/farm/Farm_1x1_wheat_field_FN.png"
         },
         "title": "TODO TITLE",
@@ -1754,7 +1755,7 @@
     },
     {
         "author": "Folesnaid",
-        "category": "Utilities",
+        "category": "School",
         "description": "TODO DESC",
         "id": "Scl_5x5_middle_school_FN",
         "power": 0,
@@ -1763,7 +1764,7 @@
             "clip_height": 79,
             "clip_width": 160,
             "count": 1,
-            "fileName": "resources/images/buildings/utilities/Scl_5x5_middle_school_FN.png"
+            "fileName": "resources/images/buildings/school/Scl_5x5_middle_school_FN.png"
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
@@ -1907,7 +1908,7 @@
     },
     {
         "author": "Kingtut 101",
-        "category": "Utilities",
+        "category": "School",
         "description": "TODO DESC",
         "id": "scl_3x3_Pool_kt",
         "power": 0,
@@ -1916,7 +1917,7 @@
             "clip_height": 50,
             "clip_width": 96,
             "count": 1,
-            "fileName": "resources/images/buildings/utilities/scl_3x3_Pool_kt.png"
+            "fileName": "resources/images/buildings/school/scl_3x3_Pool_kt.png"
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
@@ -2349,7 +2350,7 @@
     },
     {
         "author": "Kingtut 101",
-        "category": "Utilities",
+        "category": "Reward",
         "description": "TODO DESC",
         "id": "reward_2x2_CytopianTowers_kt",
         "power": 0,
@@ -2358,7 +2359,7 @@
             "clip_height": 58,
             "clip_width": 64,
             "count": 1,
-            "fileName": "resources/images/buildings/utilities/reward_2x2_CytopianTowers_kt.png"
+            "fileName": "resources/images/buildings/reward/reward_2x2_CytopianTowers_kt.png"
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
@@ -2485,16 +2486,16 @@
     },
     {
         "author": "RockFort",
-        "category": "Utilities",
+        "category": "Medical",
         "description": "TODO DESC",
-        "id": "reward_4x4_rbissonhospital_RF",
+        "id": "med_4x4_rbissonhospital_RF",
         "power": 0,
         "price": 0,
         "tiles": {
             "clip_height": 123,
             "clip_width": 128,
             "count": 1,
-            "fileName": "resources/images/buildings/utilities/reward_4x4_rbissonhospital_RF.png"
+            "fileName": "resources/images/buildings/medical/med_4x4_rbissonhospital_RF.png"
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
@@ -3522,7 +3523,7 @@
     },
     {
         "author": "RockFort",
-        "category": "Utilities",
+        "category": "Reward",
         "description": "TODO DESC",
         "id": "reward_1x1_redlighthouse_RF",
         "power": 0,
@@ -3531,7 +3532,7 @@
             "clip_height": 64,
             "clip_width": 32,
             "count": 1,
-            "fileName": "resources/images/buildings/utilities/reward_1x1_redlighthouse_RF.png"
+            "fileName": "resources/images/buildings/reward/reward_1x1_redlighthouse_RF.png"
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
@@ -3658,7 +3659,7 @@
     },
     {
         "author": "Folesnaid",
-        "category": "Utilities",
+        "category": "School",
         "description": "TODO DESC",
         "id": "scl_2x2_Old_School_FN",
         "power": 0,
@@ -3667,7 +3668,7 @@
             "clip_height": 46,
             "clip_width": 63,
             "count": 1,
-            "fileName": "resources/images/buildings/utilities/scl_2x2_Old_School_FN.png"
+            "fileName": "resources/images/buildings/school/scl_2x2_Old_School_FN.png"
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
@@ -4406,7 +4407,7 @@
     },
     {
         "author": "THEMAX",
-        "category": "Utilities",
+        "category": "Reward",
         "description": "TODO DESC",
         "id": "reward_6x6_cathedrale_mx",
         "power": 0,
@@ -4415,7 +4416,7 @@
             "clip_height": 250,
             "clip_width": 192,
             "count": 1,
-            "fileName": "resources/images/buildings/utilities/reward_6x6_cathedrale_mx.png"
+            "fileName": "resources/images/buildings/reward/reward_6x6_cathedrale_mx.png"
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
