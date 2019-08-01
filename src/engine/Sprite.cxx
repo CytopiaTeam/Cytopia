@@ -28,7 +28,7 @@ void Sprite::render() const
     {
       if (highlightSprite)
       {
-        SDL_SetTextureColorMod(m_SpriteData[i].texture, 150, 150, 150);
+        SDL_SetTextureColorMod(m_SpriteData[i].texture, highlightColor.r, highlightColor.g, highlightColor.b);
       }
 
       if (m_SpriteData[i].clipRect.w != 0)

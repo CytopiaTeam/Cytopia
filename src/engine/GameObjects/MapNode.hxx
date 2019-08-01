@@ -80,6 +80,8 @@ public:
 
   const std::string &getTileID(Layer layer) const { return m_mapNodeData[layer].tileID; };
 
+  bool checkTileIsEmpty(const std::string &tileID) const;
+
   const std::vector<MapNodeData> getMapNodeData() const { return m_mapNodeData; };
   const MapNodeData getMapNodeDataForLayer(Layer layer) const { return m_mapNodeData[layer]; };
 
