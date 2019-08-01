@@ -48,8 +48,9 @@ public:
  * @brief Sets a node to be highlit
  * This sets a node to be highlit, the highlighting is done during rendering
  * @param isoCoordinates which node should be highlit.
+ * @param redHighlight should highlight it with red or gray color.
  */
-  void highlightNode(const Point &isoCoordinates);
+  void highlightNode(const Point &isoCoordinates, bool redHighlight = false);
 
   /**
  * @brief Sets a node to be unhighlit
@@ -72,7 +73,7 @@ public:
  * @param isoCoordinates 
  * @param tileID tileID which should be set
  */
-  void setTileIDOfNode(const Point &isoCoordinates, const std::string &tileID);
+  void setTileIDOfNode(const std::vector<Point> &isoCoordinates, const std::string &tileID);
 
   /**
  * @brief Demolish a node
@@ -109,6 +110,12 @@ public:
  * @param isoCoordinates Tile to inspect
  */
   void getNodeInformation(const Point &isoCoordinates) const;
+
+  /** \Brief check if Tile is occupied
+  * @param isoCoordinates Tile to inspect
+  * @param tileID tileID which should be checked
+  */
+  bool checkTileIDIsEmpty(const Point &isoCoordinates, const std::string &tileID) const;
 
 private:
   int m_columns;
