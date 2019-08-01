@@ -16,3 +16,4 @@ OpenSSL/1.1.1a@conan/stable
 
 [options]
 sdl2_mixer:opus=False # PACKAGE:OPTION=VALUE
+@_CC_OPENAL_SOFT@openal/1.19.0@bincrafters/stable

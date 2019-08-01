@@ -767,25 +767,32 @@ void UIManager::initializeDollarVariables()
           LOG(LOG_ERROR) << "Can not use element ID $AudioChannelSelector for an element other than a combobox!";
           continue;
         }
-
+		
+		std::cout << "Settings audio channels before set combo box: " << Settings::instance().audioChannels << std::endl;
         combobox->clear();
         combobox->addElement("1");
         // TODO: Ugly workaround until we have BetterEnums
         if (Settings::instance().audioChannels == 1)
         {
-          combobox->setActiveID(static_cast<int>(combobox->count() - 1));
+		  std::cout << "combox count:" << combobox->count();
+		  int newID = combobox->count() - 1;
+          combobox->setActiveID(newID);
         }
         combobox->addElement("2");
         // TODO: Ugly workaround until we have BetterEnums
         if (Settings::instance().audioChannels == 2)
         {
-          combobox->setActiveID(static_cast<int>(combobox->count() - 1));
+		  std::cout << "combox count:" << combobox->count();		   
+          int newID = combobox->count() - 1;
+          combobox->setActiveID(newID);
         }
         combobox->addElement("3");
 		// TODO: Ugly workaround until we have BetterEnums
         if (Settings::instance().audioChannels == 3)
-        {
-          combobox->setActiveID(static_cast<int>(combobox->count() - 1));
+		{
+		  std::cout << "combox count:" << combobox->count();
+          int newID = combobox->count() - 1;
+          combobox->setActiveID(newID);
         }
 
         combobox->registerCallbackFunction(Signal::slot(this, &UIManager::changeAudioChannels));
@@ -839,6 +846,9 @@ void UIManager::changeFullScreenMode(UIElement *sender)
 void UIManager::changeAudioChannels(UIElement *sender)
 {
   ComboBox *combobox = dynamic_cast<ComboBox *>(sender);
+  std::cout << "active id:" << combobox->getActiveID();
   Settings::instance().audioChannels = combobox->getActiveID();
   Layout::arrangeElements();
+  
+  std::cout << "channels: " << Settings::instance().audioChannels << std::endl;
 }
