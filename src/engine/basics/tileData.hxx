@@ -53,7 +53,8 @@ struct TileData
   std::string author;
   bool drawGround = false;   /// draw ground below sprite (grass, flowers, ...)
   bool placeOnGround = true; /// wether or not this building is placeable on ground
-  bool placeOnWater = false; /// whether or not this building is placeable on ground
+  bool placeOnWater = false; /// whether or not this building is placeable on water
+  bool isOverPlacable;
   int pollutionLevel = 0;    /// Pollution this building produces or prevents
   int crimeLevel = 0;        /// Crime this building produces or prevents (police station)
   int fireDangerLevel = 0;   /// Fire Danger this building produces or prevents

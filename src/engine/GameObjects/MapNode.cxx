@@ -49,23 +49,51 @@ void MapNode::setBitmask(unsigned char elevationBitmask, unsigned char tileIDBit
 
 void MapNode::setTileID(const std::string &tileID)
 {
-  if (TileManager::instance().getTileData(tileID))
+  TileData *tileData = TileManager::instance().getTileData(tileID);
+  if (tileData)
   {
-    if (TileManager::instance().getTileData(tileID)->category == "Terrain" ||
-        TileManager::instance().getTileData(tileID)->category == "Water")
+    Layer layer = Layer::BUILDINGS;
+    if (tileData->category == "Terrain")
     {
-      m_previousTileID = m_mapNodeData[Layer::TERRAIN].tileID;
-      m_mapNodeData[Layer::TERRAIN].tileData = TileManager::instance().getTileData(tileID);
-      m_mapNodeData[Layer::TERRAIN].tileID = tileID;
+      layer = Layer::TERRAIN;
     }
-    else
+    else if (tileData->category == "Water")
     {
-      m_previousTileID = m_mapNodeData[Layer::BUILDINGS].tileID;
-      m_mapNodeData[Layer::BUILDINGS].tileData = TileManager::instance().getTileData(tileID);
-      m_mapNodeData[Layer::BUILDINGS].tileID = tileID;
+      layer = Layer::WATER;
     }
+    m_previousTileID = m_mapNodeData[layer].tileID;
+    m_mapNodeData[layer].tileData = tileData;
+    m_mapNodeData[layer].tileID = tileID;
     updateTexture();
   }
+}
+
+bool MapNode::checkTileIsEmpty(const std::string &tileID) const
+{
+  TileData *tileData = TileManager::instance().getTileData(tileID);
+  if (tileData)
+  {
+    Layer layer = Layer::BUILDINGS;
+    if (tileData->category == "Terrain")
+    {
+      layer = Layer::TERRAIN;
+    }
+    if (m_mapNodeData[Layer::WATER].tileData != nullptr)
+    {
+      //this is a water tile, building not permitted.
+      return false;
+    }
+    TileData *previousTileData = m_mapNodeData[layer].tileData;
+    if (previousTileData
+		&& (previousTileData->isOverPlacable
+			|| (previousTileData->category == "Roads" && tileData->category == "Roads")))
+    {
+      // road intersecting is allowed.
+      return true;
+	}
+    return m_mapNodeData[layer].tileID == "" || m_mapNodeData[layer].tileID == "terrain";
+  }
+  return false;
 }
 
 void MapNode::updateTexture()

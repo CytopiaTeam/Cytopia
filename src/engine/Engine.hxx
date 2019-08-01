@@ -59,7 +59,7 @@ public:
     */
   void toggleFullScreen();
 
-  void setTileIDOfNode(const Point &isoCoordinates, const std::string &tileID) const;
+  void setTileIDOfNode(const std::vector<Point> &isoCoordinates, const std::string &tileID) const;
 
   void demolishNode(const Point &isoCoordinates) const;
 

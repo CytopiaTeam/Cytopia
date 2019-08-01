@@ -60,6 +60,7 @@ void Map::initMap()
 {
   MapLayers::enableLayer(Layer::TERRAIN);
   MapLayers::enableLayer(Layer::BUILDINGS);
+  MapLayers::enableLayer(Layer::WATER);
   terrainGen.generateTerrain(mapNodes, mapNodesInDrawingOrder);
   updateAllNodes();
 }
@@ -168,10 +169,30 @@ void Map::updateAllNodes()
   }
 }
 
-void Map::setTileIDOfNode(const Point &isoCoordinates, const std::string &tileID)
+void Map::setTileIDOfNode(const std::vector<Point> &isoCoordinates, const std::string &tileID)
 {
-  mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->setTileID(tileID);
-  updateNeighborsOfNode(isoCoordinates);
+  bool isOkToSet = true;
+  for (auto it = isoCoordinates.begin(); it != isoCoordinates.end(); ++it)
+  {
+    if (!checkTileIDIsEmpty(*it, tileID))
+    {
+      isOkToSet = false;
+      break;
+    }
+  }
+  if (isOkToSet)
+  {
+    for (auto it = isoCoordinates.begin(); it != isoCoordinates.end(); ++it)
+    {
+      mapNodes[it->x * m_columns + it->y]->setTileID(tileID);
+      updateNeighborsOfNode(*it);
+    }
+  }
+}
+
+bool Map::checkTileIDIsEmpty(const Point &isoCoordinates, const std::string &tileID) const
+{
+  return mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->checkTileIsEmpty(tileID);
 }
 
 unsigned char Map::getElevatedNeighborBitmask(const Point &isoCoordinates)
@@ -214,7 +235,8 @@ unsigned char Map::getNeighboringTilesBitmask(const Point &isoCoordinates)
   int y = isoCoordinates.y;
 
   // only auto-tile categories that can be tiled.
-  if (mapNodes[x * m_columns + y]->getActiveMapNodeData().tileData->category == "Roads")
+  if (mapNodes[x * m_columns + y] && mapNodes[x * m_columns + y]->getActiveMapNodeData().tileData &&
+      mapNodes[x * m_columns + y]->getActiveMapNodeData().tileData->category == "Roads")
   {
     std::pair<int, int> adjecantNodesCoordinates[8]{
         std::make_pair(x, y + 1),     // 0 = 2^0 = 1   = TOP
@@ -231,8 +253,12 @@ unsigned char Map::getNeighboringTilesBitmask(const Point &isoCoordinates)
     for (const auto &it : adjecantNodesCoordinates)
     {
       if ((it.first >= 0 && it.first < m_rows && it.second >= 0 && it.second < m_columns) &&
-          (mapNodes[it.first * m_columns + it.second]->getActiveMapNodeData().tileData->category ==
-           mapNodes[x * m_columns + y]->getActiveMapNodeData().tileData->category))
+          (	mapNodes[it.first * m_columns + it.second] &&
+			mapNodes[it.first * m_columns + it.second]->getActiveMapNodeData().tileData
+			&& mapNodes[x * m_columns + y]
+			&& mapNodes[x * m_columns + y]->getActiveMapNodeData().tileData 
+			&& mapNodes[it.first * m_columns + it.second]->getActiveMapNodeData().tileData->category
+				== mapNodes[x * m_columns + y]->getActiveMapNodeData().tileData->category))
       {
         // for each found tile add 2 ^ i to the bitmask
         bitmask |= static_cast<unsigned int>(1 << i);
@@ -405,13 +431,21 @@ bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int is
   return false;
 }
 
-void Map::highlightNode(const Point &isoCoordinates)
+void Map::highlightNode(const Point &isoCoordinates, bool redHighlight)
 {
   const size_t index = isoCoordinates.x * m_columns + isoCoordinates.y;
 
   if (index < mapNodes.size())
   {
     MapNode *node = mapNodes[index].get();
+    if (!redHighlight)
+    {
+      node->getSprite()->highlightColor = SpriteHighlightColor::GRAY;
+    }
+    else
+    {
+      node->getSprite()->highlightColor = SpriteHighlightColor::RED;
+    }
     node->getSprite()->highlightSprite = true;
   }
 }

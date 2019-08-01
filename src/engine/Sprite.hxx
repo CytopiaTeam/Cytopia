@@ -14,6 +14,20 @@ struct SpriteData
   SDL_Rect destRect{0, 0, 0, 0};
 };
 
+struct SpriteRGBColor
+{
+  uint8_t r;
+  uint8_t g;
+  uint8_t b;
+};
+
+typedef class _sprite_highlight_color_t
+{
+public:
+  static constexpr SpriteRGBColor GRAY{150, 150, 150};
+  static constexpr SpriteRGBColor RED{150, 15, 15};
+} SpriteHighlightColor;
+
 class Sprite
 {
 public:
@@ -31,6 +45,7 @@ public:
 
   size_t spriteCount = 1;
   bool highlightSprite = false;
+  SpriteRGBColor highlightColor = SpriteHighlightColor::GRAY;
 
   SDL_Rect getDestRect(Layer layer = Layer::TERRAIN) { return m_SpriteData[layer].destRect; };
   SDL_Rect getClipRect(Layer layer = Layer::TERRAIN) { return m_SpriteData[layer].clipRect; };

@@ -23,7 +23,7 @@ void Engine::decreaseHeight(const Point &isoCoordinates) const
 
 void Engine::toggleFullScreen() { WindowManager::instance().toggleFullScreen(); };
 
-void Engine::setTileIDOfNode(const Point &isoCoordinates, const std::string &tileID) const
+void Engine::setTileIDOfNode(const std::vector<Point> &isoCoordinates, const std::string &tileID) const
 {
   map->setTileIDOfNode(isoCoordinates, tileID);
 }
