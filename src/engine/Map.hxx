@@ -50,7 +50,7 @@ public:
  * @param isoCoordinates which node should be highlit.
  * @param redHighlight should highlight it with red or gray color.
  */
-  void highlightNode(const Point &isoCoordinates, bool redHighlight = false);
+  void highlightNode(const Point &isoCoordinates, const SpriteRGBColor &rgbColor);
 
   /**
  * @brief Sets a node to be unhighlit

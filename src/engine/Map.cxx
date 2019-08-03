@@ -431,21 +431,14 @@ bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int is
   return false;
 }
 
-void Map::highlightNode(const Point &isoCoordinates, bool redHighlight)
+void Map::highlightNode(const Point &isoCoordinates, const SpriteRGBColor& rgbColor)
 {
   const size_t index = isoCoordinates.x * m_columns + isoCoordinates.y;
 
   if (index < mapNodes.size())
   {
     MapNode *node = mapNodes[index].get();
-    if (!redHighlight)
-    {
-      node->getSprite()->highlightColor = SpriteHighlightColor::GRAY;
-    }
-    else
-    {
-      node->getSprite()->highlightColor = SpriteHighlightColor::RED;
-    }
+    node->getSprite()->highlightColor = rgbColor;
     node->getSprite()->highlightSprite = true;
   }
 }

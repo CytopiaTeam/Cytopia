@@ -15,7 +15,7 @@
         "title": "Coal Pile",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "KingTut 101",
@@ -33,7 +33,7 @@
         "title": "Day Care Center",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "Folesnaid",
@@ -51,7 +51,7 @@
         "title": "Old Church",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "Kingtut 101",
@@ -69,7 +69,7 @@
         "title": "BikeShop",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "Kingtut 101",
@@ -87,7 +87,7 @@
         "title": "Clock Store",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "MaroonShaded",
@@ -105,7 +105,7 @@
         "title": "CompactFast Shop",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "Folesnaid",
@@ -123,7 +123,7 @@
         "title": "Ice Cream Shop",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "Folesnaid",
@@ -141,7 +141,7 @@
         "title": "Petrol Station",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "Folesnaid",
@@ -159,7 +159,7 @@
         "title": "Game Shop",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "RockFort",
@@ -177,7 +177,7 @@
         "title": "Appartment Building",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "Folesnaid",
@@ -195,7 +195,7 @@
         "title": "Phone Shop",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "RockFort",
@@ -213,7 +213,7 @@
         "title": "Ruegroshorloge",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "Folesnaid",
@@ -231,7 +231,7 @@
         "title": "Shop",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "Folesnaid",
@@ -249,7 +249,7 @@
         "title": "Oasis",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "RockFort",
@@ -267,7 +267,7 @@
         "title": "Borgs Burgers",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "Folesnaid",
@@ -285,7 +285,7 @@
         "title": "Small Commercial Center",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "Kingtut 101",
@@ -303,7 +303,7 @@
         "title": "Office",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "RockFort",
@@ -321,7 +321,7 @@
         "title": "Big Office Building",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "Kingtut 101",
@@ -339,7 +339,7 @@
         "title": "Community Tower",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "RockFort",
@@ -357,7 +357,7 @@
         "title": "Tour Front De Seine",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "KingTut 101",
@@ -381,7 +381,7 @@
         "title": "Country Road",
         "upkeep cost": 2,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "KingTut 101",
@@ -405,7 +405,7 @@
         "title": "Dirt Road",
         "upkeep cost": 1,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "KingTut 101",
@@ -423,7 +423,7 @@
         "title": "Depolluter Small",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "Folesnaid",
@@ -441,7 +441,7 @@
         "title": "Petrol Pump",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "Folesnaid",
@@ -459,7 +459,7 @@
         "title": "Industrial Building",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "Folesnaid",
@@ -477,7 +477,7 @@
         "title": "Industrial Building",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "Folesnaid",
@@ -495,7 +495,7 @@
         "title": "Old Industrial Building",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "KingTut 101",
@@ -513,7 +513,7 @@
         "title": "Depolluter Medium",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "Folesnaid",
@@ -531,7 +531,7 @@
         "title": "Factory",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "KingTut 101",
@@ -549,7 +549,7 @@
         "title": "OldPowerPlant",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "Folesnaid",
@@ -567,7 +567,7 @@
         "title": "Chemical Plant",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "KingTut 101",
@@ -585,7 +585,7 @@
         "title": "Depolluter Big",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "MaroonShaded",
@@ -603,7 +603,7 @@
         "title": "Factory",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "KingTut 101",
@@ -627,7 +627,7 @@
         "title": "Paved Road",
         "upkeep cost": 2,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "MaroonShaded",
@@ -645,7 +645,7 @@
         "title": "Small Coal Power Plant2",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "KingTut 101",
@@ -663,7 +663,7 @@
         "title": "Coal Power Plant",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "KingTut 101",
@@ -681,7 +681,7 @@
         "title": "Small Coal Power Plant",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "KingTut 101",
@@ -699,7 +699,7 @@
         "title": "Small House",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "KingTut 101",
@@ -717,7 +717,7 @@
         "title": "Small House",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "RockFort",
@@ -735,7 +735,7 @@
         "title": "Small house",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "KingTut 101",
@@ -753,7 +753,7 @@
         "title": "Small Shack",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "Folesnaid",
@@ -771,7 +771,7 @@
         "title": "Appartments",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "Folesnaid",
@@ -789,7 +789,7 @@
         "title": "Desert Building",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "Folesnaid",
@@ -807,7 +807,7 @@
         "title": "Pyramid",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "Folesnaid",
@@ -825,7 +825,7 @@
         "title": "House with swimming pool",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "RockFort",
@@ -843,7 +843,7 @@
         "title": "Appartment London",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "Folesnaid",
@@ -861,7 +861,7 @@
         "title": "Old building",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "Folesnaid",
@@ -879,7 +879,7 @@
         "title": "Old building",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "Folesnaid",
@@ -897,7 +897,7 @@
         "title": "Big Building",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "RockFort",
@@ -915,7 +915,7 @@
         "title": "Bois Guillaume Appartment",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "Folesnaid",
@@ -933,7 +933,7 @@
         "title": "Appartment",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "Folesnaid",
@@ -951,7 +951,7 @@
         "title": "Big Appartments",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "Folesnaid",
@@ -969,7 +969,7 @@
         "title": "Big Appartments",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "RockFort",
@@ -987,7 +987,7 @@
         "title": "Medium Appartments",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "KingTut 101",
@@ -1005,7 +1005,7 @@
         "title": "Concrete Tower",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "KingTut 101",
@@ -1023,7 +1023,7 @@
         "title": "Skyscraper",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "Kingtut 101",
@@ -1047,7 +1047,7 @@
         "title": "Terrain",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "Kingtut 101",
@@ -1071,7 +1071,7 @@
         "title": "Water",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "Kingtut 101",
@@ -1089,7 +1089,7 @@
         "title": "Water Tower",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "Kingtut 101",
@@ -1107,7 +1107,7 @@
         "title": "Small Water Tower",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "Kingtut 101",
@@ -1138,7 +1138,7 @@
         "title": "Trees",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 1
+        "isOverPlacable": true
         },
         {
         "author": "Kingtut 101",
@@ -1161,7 +1161,7 @@
         "title": "Rocks",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "Kingtut 101",
@@ -1184,7 +1184,7 @@
         "title": "Rocks",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "RockFort",
@@ -1202,7 +1202,7 @@
         "title": "Apartment Building",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "RockFort",
@@ -1220,7 +1220,7 @@
         "title": "Mansion",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "RockFort",
@@ -1238,7 +1238,7 @@
         "title": "Apartment Building",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "RockFort",
@@ -1256,7 +1256,7 @@
         "title": "Restaurant",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "RockFort",
@@ -1274,7 +1274,7 @@
         "title": "Hotel",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "RockFort",
@@ -1292,7 +1292,7 @@
         "title": "Mansion",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "RockFort",
@@ -1310,7 +1310,7 @@
         "title": "Apartment Building",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "RockFort",
@@ -1328,7 +1328,7 @@
         "title": "house",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "RockFort",
@@ -1346,7 +1346,7 @@
         "title": "Apartment Building",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
         },
         {
         "author": "RockFort",
@@ -1364,7 +1364,7 @@
         "title": "Apartment Building",
         "upkeep cost": 0,
         "water": 0,
-        "isOverPlacable": 0
+        "isOverPlacable": false
     },
     {
         "author": "Folesnaid",
