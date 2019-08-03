@@ -36,3 +36,6 @@ redist/*
 
 #ignore Cytopia Resources directory
 Cytopia_resources/*
+
+#ignore CMakeFiles
+src/CMakeFiles/*
