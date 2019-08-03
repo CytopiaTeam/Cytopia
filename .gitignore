@@ -41,3 +41,4 @@ resources/*
 #ignore CMakeFiles
 src/CMakeFiles/*
 CMakeFiles
+CMakeCache.txt
