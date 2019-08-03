@@ -9,7 +9,6 @@ include(FetchContent)
 
 option(BUILD_TEST "Build Cytopia Tests" ON)
 option(USE_PACKAGE_MANAGER "Use conan for managing packages" ON)
-cmake_dependent_option(USE_PMM "Use PMM for managing conan" OFF WIN32 ON)
 option(ENABLE_SDL2_MIXER "Enable SDL2 Mixer" ON)
 option(ENABLE_MICROPROFILE "Enable microprofile" OFF)
 option(ENABLE_ANGELSCRIPT "Enable AngelScript" ON)
@@ -62,50 +61,24 @@ if (USE_PACKAGE_MANAGER)
         SET(${_var_name} ${__propt} PARENT_SCOPE)
     endfunction()
 
-    if (USE_PMM)
-        include(pmm)
+    include(pmm)
 
-        pmm(CONAN
-                REMOTES
-                AFG https://api.bintray.com/conan/anotherfoxguy/conan-packages
-                catchorg https://api.bintray.com/conan/catchorg/Catch2
-                ror-dependencies https://api.bintray.com/conan/anotherfoxguy/ror-dependencies
-                BINCRAFTERS
-                )
+    pmm(CONAN
+            REMOTES
+            AFG https://api.bintray.com/conan/anotherfoxguy/conan-packages
+            catchorg https://api.bintray.com/conan/catchorg/Catch2
+            ror-dependencies https://api.bintray.com/conan/anotherfoxguy/ror-dependencies
+            BINCRAFTERS
+            )
 
-        if (DEFINED ENV{CI})
-            set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
-            set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
-            set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELWITHDEBINFO ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
-            set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_MINSIZEREL ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
-            set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
-        endif ()
-    else ()
-        include(conan)
-
-        conan_check()
-
-        conan_add_remote(NAME AFG URL https://api.bintray.com/conan/anotherfoxguy/conan-packages)
-        conan_add_remote(NAME bincrafters URL https://api.bintray.com/conan/bincrafters/public-conan)
-        conan_add_remote(NAME catchorg URL https://api.bintray.com/conan/catchorg/Catch2)
-        conan_add_remote(NAME ror-dependencies URL https://api.bintray.com/conan/anotherfoxguy/ror-dependencies)
-
-
-        set(CONAN_ARGS
-                BASIC_SETUP
-                CMAKE_TARGETS
-                )
-
-        if (NOT DEFINED ENV{CI})
-            list(APPEND CONAN_ARGS NO_OUTPUT_DIRS)
-        endif ()
-
-        conan_cmake_run(CONANFILE conanfile.txt
-                BUILD missing
-                ${CONAN_ARGS}
-                )
-
+    if (DEFINED ENV{CI})
+        set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
+        set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+        set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELWITHDEBINFO ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+        set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_MINSIZEREL ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+        set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
     endif ()
+
 
     if (BUILD_TEST)
         get_variable_from_conan(CONAN_LIB_DIRS_CATCH2)
