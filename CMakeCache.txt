@@ -23,12 +23,15 @@ AngelScript_LIBRARY:FILEPATH=/usr/lib/libangelscript.so
 //Build Cytopia Tests
 BUILD_TEST:BOOL=0
 
+//No help, variable specified on the command line.
+BUILD_TYPE:UNINITIALIZED=Debug
+
 //Path to a program.
 CMAKE_AR:FILEPATH=/usr/bin/ar
 
 //Choose the type of build, options are: None Debug Release RelWithDebInfo
 // MinSizeRel ...
-CMAKE_BUILD_TYPE:STRING=
+CMAKE_BUILD_TYPE:STRING=Debug
 
 //Enable/Disable color output during build.
 CMAKE_COLOR_MAKEFILE:BOOL=ON
@@ -347,9 +350,9 @@ CMAKE_CACHEFILE_DIR:INTERNAL=/home/archman/CodeProj/cpp_projects/cytopia-myfork/
 //Major version of cmake used to create the current loaded cache
 CMAKE_CACHE_MAJOR_VERSION:INTERNAL=3
 //Minor version of cmake used to create the current loaded cache
-CMAKE_CACHE_MINOR_VERSION:INTERNAL=14
+CMAKE_CACHE_MINOR_VERSION:INTERNAL=15
 //Patch version of cmake used to create the current loaded cache
-CMAKE_CACHE_PATCH_VERSION:INTERNAL=5
+CMAKE_CACHE_PATCH_VERSION:INTERNAL=1
 //ADVANCED property for variable: CMAKE_COLOR_MAKEFILE
 CMAKE_COLOR_MAKEFILE-ADVANCED:INTERNAL=1
 //Path to CMake executable.
@@ -432,7 +435,7 @@ CMAKE_PLATFORM_INFO_INITIALIZED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_RANLIB
 CMAKE_RANLIB-ADVANCED:INTERNAL=1
 //Path to CMake installation.
-CMAKE_ROOT:INTERNAL=/usr/share/cmake-3.14
+CMAKE_ROOT:INTERNAL=/usr/share/cmake-3.15
 //ADVANCED property for variable: CMAKE_SHARED_LINKER_FLAGS
 CMAKE_SHARED_LINKER_FLAGS-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_SHARED_LINKER_FLAGS_DEBUG
@@ -504,7 +507,7 @@ FIND_PACKAGE_MESSAGE_DETAILS_AngelScript:INTERNAL=[/usr/include][/usr/lib/libang
 //Details about finding LIBNOISE
 FIND_PACKAGE_MESSAGE_DETAILS_LIBNOISE:INTERNAL=[/usr/lib/libnoise.so][/usr/include/noise][v()]
 //Details about finding PkgConfig
-FIND_PACKAGE_MESSAGE_DETAILS_PkgConfig:INTERNAL=[/usr/bin/pkg-config][v1.6.1()]
+FIND_PACKAGE_MESSAGE_DETAILS_PkgConfig:INTERNAL=[/usr/bin/pkg-config][v1.6.3()]
 //ADVANCED property for variable: LIBNOISE_INCLUDE_DIR
 LIBNOISE_INCLUDE_DIR-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: LIBNOISE_LIBRARIES

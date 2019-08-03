@@ -33,3 +33,6 @@ tools/l10n/TMP/
 
 #ignore redist directory
 redist/*
+
+#ignore Cytopia Resources directory
+Cytopia_resources/*
