@@ -59,7 +59,13 @@ public:
     */
   void toggleFullScreen();
 
-  void setTileIDOfNode(const std::vector<Point> &isoCoordinates, const std::string &tileID) const;
+  template<typename Iterator>
+  void setTileIDOfNode(Iterator& begin, Iterator& end, const std::string& tileID) const
+  {
+    static_assert(std::is_same_v<Point, typename std::iterator_traits<Iterator>::value_type>,
+                  "Iterator value must be a const Point");
+    map->setTileIDOfNode<std::vector<Point>::iterator>(begin, end, tileID);
+  }
 
   void demolishNode(const Point &isoCoordinates) const;
 

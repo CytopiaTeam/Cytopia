@@ -315,7 +315,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           {
             m_highlightedNodes.push_back(m_clickDownCoords);
           }
-          engine.setTileIDOfNode(m_highlightedNodes, tileTypeEditMode);
+          engine.setTileIDOfNode(m_highlightedNodes.begin(), m_highlightedNodes.end(), tileTypeEditMode);
         }
         else if (demolishMode)
         {

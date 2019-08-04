@@ -169,27 +169,6 @@ void Map::updateAllNodes()
   }
 }
 
-void Map::setTileIDOfNode(const std::vector<Point> &isoCoordinates, const std::string &tileID)
-{
-  bool isOkToSet = true;
-  for (auto it = isoCoordinates.begin(); it != isoCoordinates.end(); ++it)
-  {
-    if (!checkTileIDIsEmpty(*it, tileID))
-    {
-      isOkToSet = false;
-      break;
-    }
-  }
-  if (isOkToSet)
-  {
-    for (auto it = isoCoordinates.begin(); it != isoCoordinates.end(); ++it)
-    {
-      mapNodes[it->x * m_columns + it->y]->setTileID(tileID);
-      updateNeighborsOfNode(*it);
-    }
-  }
-}
-
 bool Map::checkTileIDIsEmpty(const Point &isoCoordinates, const std::string &tileID) const
 {
   return mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->checkTileIsEmpty(tileID);
