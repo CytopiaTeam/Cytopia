@@ -231,7 +231,7 @@
             "clip_height": 31,
             "clip_width": 32,
             "count": 1,
-            "fileName": "resources/images/buildings/Nature/Nature_1x1_oasis_FN.png"
+            "fileName": "resources/images/buildings/nature/Nature_1x1_oasis_FN.png"
         },
         "title": "Oasis",
         "upkeep cost": 0,
@@ -606,7 +606,7 @@
             "clip_height": 32,
             "clip_width": 32,
             "count": 1,
-            "fileName": "resources/images/buildings/Power Plants/pow_1x1_SmallCoalPlant_MS.png"
+            "fileName": "resources/images/buildings/power plants/pow_1x1_SmallCoalPlant_MS.png"
         },
         "title": "Small Coal Power Plant2",
         "upkeep cost": 0,
@@ -623,7 +623,7 @@
             "clip_height": 73,
             "clip_width": 96,
             "count": 1,
-            "fileName": "resources/images/buildings/Power Plants/pow_3x3_CoalPlant.png"
+            "fileName": "resources/images/buildings/power plants/pow_3x3_CoalPlant.png"
         },
         "title": "Coal Power Plant",
         "upkeep cost": 0,
@@ -640,7 +640,7 @@
             "clip_height": 24,
             "clip_width": 32,
             "count": 1,
-            "fileName": "resources/images/buildings/Power Plants/pow_1x1_SmallPowerPlant.png"
+            "fileName": "resources/images/buildings/power plants/pow_1x1_SmallPowerPlant.png"
         },
         "title": "Small Coal Power Plant",
         "upkeep cost": 0,
@@ -1026,7 +1026,7 @@
             "clip_height": 64,
             "clip_width": 32,
             "count": 1,
-            "fileName": "resources/images/buildings/Water/watertower.png"
+            "fileName": "resources/images/buildings/water/watertower.png"
         },
         "title": "Water Tower",
         "upkeep cost": 0,
@@ -1043,7 +1043,7 @@
             "clip_height": 32,
             "clip_width": 32,
             "count": 1,
-            "fileName": "resources/images/buildings/Water/watertower2.png"
+            "fileName": "resources/images/buildings/water/watertower2.png"
         },
         "title": "Small Water Tower",
         "upkeep cost": 0,
