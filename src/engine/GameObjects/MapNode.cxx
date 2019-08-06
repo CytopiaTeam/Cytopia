@@ -68,6 +68,33 @@ void MapNode::setTileID(const std::string &tileID)
   }
 }
 
+bool MapNode::checkBuildingLayerSlopePlaceable(const std::string &tileID, const Layer &layer) const
+{
+  if (layer != Layer::BUILDINGS)
+  {
+    return true;
+  }
+  SDL_Rect clipRect{0, 0, 0, 0};
+  size_t spriteCount = 1;
+  TileData *tileData = TileManager::instance().getTileData(tileID);
+  if (tileData)
+  {
+    if (m_elevationOrientation != TileSlopes::DEFAULT_ORIENTATION)
+    {
+      clipRect.x = tileData->slopeTiles.clippingWidth * static_cast<int>(m_orientation);
+      spriteCount = tileData->slopeTiles.count;
+      if (clipRect.x >= static_cast<int>(spriteCount) * tileData->slopeTiles.clippingWidth)
+      {
+        if (m_previousTileID.empty())
+        {
+          return false;
+        }
+      }
+    }
+  }
+  return true;
+}
+
 bool MapNode::checkTileIsEmpty(const std::string &tileID) const
 {
   TileData *tileData = TileManager::instance().getTileData(tileID);
@@ -84,14 +111,14 @@ bool MapNode::checkTileIsEmpty(const std::string &tileID) const
       return false;
     }
     TileData *previousTileData = m_mapNodeData[layer].tileData;
-    if (previousTileData
-		&& (previousTileData->isOverPlacable
-			|| (previousTileData->category == "Roads" && tileData->category == "Roads")))
+    if (previousTileData &&
+        (previousTileData->isOverPlacable || (previousTileData->category == "Roads" && tileData->category == "Roads")))
     {
       // road intersecting is allowed.
       return true;
-	}
-    return m_mapNodeData[layer].tileID == "" || m_mapNodeData[layer].tileID == "terrain";
+    }
+    return checkBuildingLayerSlopePlaceable(tileID, layer) &&
+           (m_mapNodeData[layer].tileID == "" || m_mapNodeData[layer].tileID == "terrain");
   }
   return false;
 }

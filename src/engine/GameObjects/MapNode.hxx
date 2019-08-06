@@ -87,6 +87,8 @@ public:
 
   const MapNodeData &getActiveMapNodeData() const;
 
+  bool checkBuildingLayerSlopePlaceable(const std::string &tileID, const Layer &layer) const;
+
   void demolishNode();
 
   void setTileID(const std::string &tileType);
