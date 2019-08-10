@@ -4,7 +4,10 @@
 
 AudioMixer::AudioMixer()
 {
-  Mix_OpenAudio(44100, AUDIO_S16SYS, Settings::instance().audioChannels, 1024);
+  int channels = Settings::instance().audioChannels;
+  if(channels >= 2){channels = 2;}
+  
+  Mix_OpenAudio(44100, AUDIO_S16SYS, channels, 1024);
   setMusicVolume(Settings::instance().musicVolume);
   
   #ifdef USE_OPENAL_SOFT
