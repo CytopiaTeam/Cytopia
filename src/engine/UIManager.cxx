@@ -9,12 +9,16 @@
 #include "basics/LOG.hxx"
 
 #include "json.hxx"
+#include "betterEnums.hxx"
 
 #ifdef MICROPROFILE_ENABLED
 #include "microprofile.h"
 #endif
 
 using json = nlohmann::json;
+
+BETTER_ENUM(ElementType, int, ImageButton, TextButton, Text, Frame, Checkbox, ComboBox,
+            Slider)
 
 void UIManager::init()
 {
