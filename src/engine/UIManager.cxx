@@ -17,8 +17,9 @@
 
 using json = nlohmann::json;
 
-BETTER_ENUM(ElementType, int, ImageButton, TextButton, Text, Frame, Checkbox, ComboBox,
-            Slider)
+BETTER_ENUM(ElementType, int, ImageButton, TextButton, Text, Frame, Checkbox, ComboBox, Slider)
+BETTER_ENUM(Action, int, RaiseTerrain, LowerTerrain, QuitGame, Demolish, ChangeTileType, ToggleVisibilityOfGroup, NewGame,
+            SaveGame, LoadGame, SaveSettings, ChangeResolution)
 
 void UIManager::init()
 {
@@ -157,43 +158,38 @@ void UIManager::init()
         std::unique_ptr<UIElement> uiElement;
 
         // Create the ui elements
-        if (uiElementType.empty())
+        ElementType elementType = ElementType::_from_string(uiElementType.c_str());
+        switch (elementType)
         {
-          LOG(LOG_ERROR) << "An element without a type can not be created, check your UiLayout JSON File "
-                         << Settings::instance().uiLayoutJSONFile;
-          continue;
-        }
-        else if (uiElementType == "ImageButton")
-        {
+        case ElementType::ImageButton:
           uiElement = std::make_unique<Button>(elementRect);
           uiElement->setTextureID(textureID);
-        }
-        else if (uiElementType == "TextButton")
-        {
+          break;
+        case ElementType::TextButton:
           uiElement = std::make_unique<Button>(elementRect);
           dynamic_cast<Button *>(uiElement.get())->setText(text);
-        }
-        else if (uiElementType == "Text")
-        {
+          break;
+        case ElementType::Text:
           uiElement = std::make_unique<Text>();
           dynamic_cast<Text *>(uiElement.get())->setText(text);
           dynamic_cast<Text *>(uiElement.get())->setPosition(elementRect.x, elementRect.y);
-        }
-        else if (uiElementType == "Frame")
-        {
+          break;
+        case ElementType::Frame:
           uiElement = std::make_unique<Frame>(elementRect);
-        }
-        else if (uiElementType == "Checkbox")
-        {
+          break;
+        case ElementType::Checkbox:
           uiElement = std::make_unique<Checkbox>(elementRect);
-        }
-        else if (uiElementType == "ComboBox")
-        {
+          break;
+        case ElementType::ComboBox:
           uiElement = std::make_unique<ComboBox>(elementRect);
-        }
-        else if (uiElementType == "Slider")
-        {
+          break;
+        case ElementType::Slider:
           uiElement = std::make_unique<Slider>(elementRect);
+          break;
+        default:
+          LOG(LOG_ERROR) << "An element without a type can not be created, check your UiLayout JSON File "
+                         << Settings::instance().uiLayoutJSONFile;
+          break;
         }
 
         uiElement->setVisibility(visible);
