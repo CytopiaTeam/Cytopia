@@ -7,7 +7,7 @@
 msgid   ""
 msgstr  "Project-Id-Version: PACKAGE VERSION\n"
         "Report-Msgid-Bugs-To: \n"
-        "POT-Creation-Date: 2019-07-25 09:45+0200\n"
+        "POT-Creation-Date: 2019-08-13 18:53+0200\n"
         "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
         "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
         "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,19 +19,8 @@ msgstr  "Project-Id-Version: PACKAGE VERSION\n"
 msgid   "A  small coal power plant."
 msgstr  ""
 
-msgid   "A Coal Power plant."
-msgstr  ""
-
-msgid   "A Power Plant, that has been built years ago"
-msgstr  ""
-
-msgid   "A Road, that hasn't been cleaned often"
-msgstr  ""
-
-msgid   "A Shop that sells Bikes"
-msgstr  ""
-
-msgid   "A Tower made out of concrete"
+msgid   "A  small coal power plant.  It can supply a small town with "
+        "electricity, but it produces a lot of pollution."
 msgstr  ""
 
 msgid   "A beautiful water tower"
@@ -40,13 +29,26 @@ msgstr  ""
 msgid   "A big building"
 msgstr  ""
 
+msgid   "A bland-looking apartment building made out of concrete."
+msgstr  ""
+
+msgid   "A blank train platform with nothing on it."
+msgstr  ""
+
 msgid   "A blue hotel from vienna"
 msgstr  ""
 
 msgid   "A chemical plant"
 msgstr  ""
 
+msgid   "A classic depolluter building that has been recently repurposed."
+msgstr  ""
+
 msgid   "A classic house from Savannah , Georgia , USA"
+msgstr  ""
+
+msgid   "A coal power plant.  It'll produce enough electricity to keep a town "
+        "running, but it creates a lot of pollution."
 msgstr  ""
 
 msgid   "A commercial center"
@@ -55,10 +57,54 @@ msgstr  ""
 msgid   "A factory"
 msgstr  ""
 
+msgid   "A few benches that offer a place to sit to your citizens."
+msgstr  ""
+
+msgid   "A group of beautiful oak trees."
+msgstr  ""
+
+msgid   "A group of beautiful pinetrees."
+msgstr  ""
+
+msgid   "A group of benches that surround a nice decorative object."
+msgstr  ""
+
+msgid   "A group of mannequins you dressed up as people that can be used to "
+        "decorate a town."
+msgstr  ""
+
+msgid   "A group of picnic tables that your citizens can use to eat lunch at."
+msgstr  ""
+
 msgid   "A house from Alabama , USA"
 msgstr  ""
 
 msgid   "A house from Vienna"
+msgstr  ""
+
+msgid   "A large multi-story shopping mall with large windows. Urban legends "
+        "say it was built by hand by the members of a distant community"
+msgstr  ""
+
+msgid   "A large plaza with a pool of water in the middle."
+msgstr  ""
+
+msgid   "A new factory that was once a depolluter building."
+msgstr  ""
+
+msgid   "A nice park that can be used as a good centerpiece."
+msgstr  ""
+
+msgid   "A nice paved road that are commonly found in the middle of large "
+        "cities.  Includes a sidewalk."
+msgstr  ""
+
+msgid   "A nice public pool that is a great way to stay cool and keep your "
+        "citizens happy."
+msgstr  ""
+
+msgid   "A nice reward for your city-building efforts, although it might make "
+        "your citizens question if they're in a simulation."
 msgstr  ""
 
 msgid   "A petrol pump"
@@ -67,13 +113,19 @@ msgstr  ""
 msgid   "A petrol station"
 msgstr  ""
 
+msgid   "A picnic pavilion is a great place for your citizens to eat lunch."
+msgstr  ""
+
 msgid   "A pile of coal"
 msgstr  ""
 
-msgid   "A shop that sells clocks"
+msgid   "A pile of rocks that can be found in the desert biome."
 msgstr  ""
 
-msgid   "A shop that sells games. Even Cytopia is in store!"
+msgid   "A pile of rocks that can be found in the grasslands biome."
+msgstr  ""
+
+msgid   "A shop that sells games. Even Cytopia is sold here!"
 msgstr  ""
 
 msgid   "A shop that sells phones. It has the new CyPhone X"
@@ -82,22 +134,85 @@ msgstr  ""
 msgid   "A shop!"
 msgstr  ""
 
-msgid   "A skyscaper"
-msgstr  ""
-
 msgid   "A small  building"
 msgstr  ""
 
 msgid   "A small french mansion "
 msgstr  ""
 
-msgid   "A small house"
+msgid   "A small group of lilypads. These are commonly found in lakes and "
+        "ponds."
 msgstr  ""
 
-msgid   "A small shack"
+msgid   "A small lantern that can be used to decorate your cities."
+msgstr  ""
+
+msgid   "A small office building with a nice sidewalk and a unique blue "
+        "entrance."
+msgstr  ""
+
+msgid   "A small piece of land where impoverished people reside."
+msgstr  ""
+
+msgid   "A small shed used by nearby factories as a way to store things."
+msgstr  ""
+
+msgid   "A small shop that sells bikes."
+msgstr  ""
+
+msgid   "A small trailer house"
+msgstr  ""
+
+msgid   "A small trailer house."
+msgstr  ""
+
+msgid   "A small train platform that has a small structure on it.  People can "
+        "wait here until the train comes, although there isnt much room "
+        "inside."
 msgstr  ""
 
 msgid   "A small water tower"
+msgstr  ""
+
+msgid   "A small wooden sign that can be used to decorate a town.  It doesn't "
+        "actually say anything though..."
+msgstr  ""
+
+msgid   "A somewhat large fast food restaurant known for cheap food and "
+        "questionable quality."
+msgstr  ""
+
+msgid   "A somewhat-large plot of land that is the home to many trailer "
+        "houses."
+msgstr  ""
+
+msgid   "A stereotypical red barn."
+msgstr  ""
+
+msgid   "A tall glass skyscraper that fears the day a stone-throwing "
+        "competition is held in town."
+msgstr  ""
+
+msgid   "A tall light pole that can be used to decorate a town."
+msgstr  ""
+
+msgid   "A tiny house that can only accommodate a few people."
+msgstr  ""
+
+msgid   "A train platform with a couple of benches and a trash can."
+msgstr  ""
+
+msgid   "A train platform with a large sign on it."
+msgstr  ""
+
+msgid   "A very old ship that crashed here long ago.  Its origin is unkown, "
+        "but I think it's safe to say what happened to its crew"
+msgstr  ""
+
+msgid   "An algae-green tower that is the home of lots of people."
+msgstr  ""
+
+msgid   "An ancient coal power plant that has been turned into a factory."
 msgstr  ""
 
 msgid   "An apartment building from Montreal , Quebec"
@@ -109,7 +224,27 @@ msgstr  ""
 msgid   "An appartement building from Bellevue , WA , USA"
 msgstr  ""
 
+msgid   "An average road that'll you would commonly find out in the "
+        "countryside.  It lacks a proper sidewalk though."
+msgstr  ""
+
 msgid   "An oasis"
+msgstr  ""
+
+msgid   "An old clock store that sells and repairs clocks."
+msgstr  ""
+
+msgid   "An old day care that has since become someone's home."
+msgstr  ""
+
+msgid   "An old depolluter building that has become a new industrial factory."
+msgstr  ""
+
+msgid   "An old dirt road that doesn't require much maintenance.  Not "
+        "recommended for busy roadways."
+msgstr  ""
+
+msgid   "An old phone booth that can be used to decorate your cities."
 msgstr  ""
 
 msgid   "Apartment Building"
@@ -127,13 +262,19 @@ msgstr  ""
 msgid   "Appartments"
 msgstr  ""
 
+msgid   "Bench Platform"
+msgstr  ""
+
+msgid   "Benches"
+msgstr  ""
+
 msgid   "Big Appartments"
 msgstr  ""
 
 msgid   "Big Building"
 msgstr  ""
 
-msgid   "Big Depollutor"
+msgid   "Big Depolluter"
 msgstr  ""
 
 msgid   "Big Office Building"
@@ -142,16 +283,16 @@ msgstr  ""
 msgid   "BikeShop"
 msgstr  ""
 
+msgid   "Blank Platform"
+msgstr  ""
+
 msgid   "Block of houses from the Boulevard des Belges , Rouen"
 msgstr  ""
 
 msgid   "Bois Guillaume Appartment"
 msgstr  ""
 
-msgid   "Borgs Burgers"
-msgstr  ""
-
-msgid   "Borgs Burgers - We have the tastiest!"
+msgid   "Borg's Burgers"
 msgstr  ""
 
 msgid   "BuildMenu Layout"
@@ -160,7 +301,13 @@ msgstr  ""
 msgid   "Cancel"
 msgstr  ""
 
+msgid   "Centerpiece Park"
+msgstr  ""
+
 msgid   "Chemical Plant"
+msgstr  ""
+
+msgid   "Classic Red Barn"
 msgstr  ""
 
 msgid   "Clock Store"
@@ -181,16 +328,10 @@ msgstr  ""
 msgid   "CompactFast Shop"
 msgstr  ""
 
-msgid   "Concrete Tower"
-msgstr  ""
-
 msgid   "Construction"
 msgstr  ""
 
 msgid   "Country Road"
-msgstr  ""
-
-msgid   "Country Road... takes you home!"
 msgstr  ""
 
 msgid   "Day Care Center"
@@ -205,15 +346,6 @@ msgstr  ""
 msgid   "Demolish"
 msgstr  ""
 
-msgid   "Depolluter Big"
-msgstr  ""
-
-msgid   "Depolluter Medium"
-msgstr  ""
-
-msgid   "Depolluter Small"
-msgstr  ""
-
 msgid   "Desert Building"
 msgstr  ""
 
@@ -226,6 +358,9 @@ msgstr  ""
 msgid   "Factory"
 msgstr  ""
 
+msgid   "Farm"
+msgstr  ""
+
 msgid   "Flora"
 msgstr  ""
 
@@ -233,6 +368,15 @@ msgid   "Fullscreen Mode"
 msgstr  ""
 
 msgid   "Game Shop"
+msgstr  ""
+
+msgid   "Glass Tower"
+msgstr  ""
+
+msgid   "GrassLand Rocks"
+msgstr  ""
+
+msgid   "Homeless Camp"
 msgstr  ""
 
 msgid   "Hotel"
@@ -253,7 +397,22 @@ msgstr  ""
 msgid   "Industrial Building"
 msgstr  ""
 
+msgid   "It might be an old, bland-looking tower, but it gets the job done."
+msgstr  ""
+
+msgid   "Lantern"
+msgstr  ""
+
+msgid   "Large Plaza Park"
+msgstr  ""
+
 msgid   "Level Terrain"
+msgstr  ""
+
+msgid   "Light Pole"
+msgstr  ""
+
+msgid   "Lilypads"
 msgstr  ""
 
 #: src/Game.cxx:99
@@ -266,10 +425,16 @@ msgstr  ""
 msgid   "Mansion"
 msgstr  ""
 
+msgid   "Medical"
+msgstr  ""
+
 msgid   "Medium Appartments"
 msgstr  ""
 
-msgid   "Medium Depollutor"
+msgid   "Medium Depolluter"
+msgstr  ""
+
+msgid   "Mini Depolluter"
 msgstr  ""
 
 msgid   "Nature"
@@ -285,22 +450,25 @@ msgstr  ""
 msgid   "Oasis"
 msgstr  ""
 
-msgid   "Office"
-msgstr  ""
-
 msgid   "Old Church"
 msgstr  ""
 
 msgid   "Old Industrial Building"
 msgstr  ""
 
+msgid   "Old Power Plant"
+msgstr  ""
+
 msgid   "Old building"
 msgstr  ""
 
-msgid   "OldPowerPlant"
+msgid   "Park Crossroads"
 msgstr  ""
 
 msgid   "Paved Road"
+msgstr  ""
+
+msgid   "People"
 msgstr  ""
 
 msgid   "Petrol Pump"
@@ -309,7 +477,19 @@ msgstr  ""
 msgid   "Petrol Station"
 msgstr  ""
 
+msgid   "Phone Booth"
+msgstr  ""
+
 msgid   "Phone Shop"
+msgstr  ""
+
+msgid   "Picnic Pavilion"
+msgstr  ""
+
+msgid   "Picnic Tables"
+msgstr  ""
+
+msgid   "Pool"
 msgstr  ""
 
 msgid   "Power"
@@ -334,19 +514,22 @@ msgstr  ""
 msgid   "Restaurant in Paris"
 msgstr  ""
 
+msgid   "Reward"
+msgstr  ""
+
 msgid   "Roads"
 msgstr  ""
 
 msgid   "Rocks"
 msgstr  ""
 
-msgid   "Rocks for the terrain"
-msgstr  ""
-
 msgid   "Ruegroshorloge"
 msgstr  ""
 
 msgid   "Save Game"
+msgstr  ""
+
+msgid   "School"
 msgstr  ""
 
 msgid   "Screen Resolution"
@@ -356,6 +539,9 @@ msgid   "Settings"
 msgstr  ""
 
 msgid   "Shop"
+msgstr  ""
+
+msgid   "Sign Platform"
 msgstr  ""
 
 msgid   "Skyscraper"
@@ -370,19 +556,43 @@ msgstr  ""
 msgid   "Small Commercial Center"
 msgstr  ""
 
-msgid   "Small Depollutor"
-msgstr  ""
-
 msgid   "Small House"
 msgstr  ""
 
+msgid   "Small Office Building"
+msgstr  ""
+
 msgid   "Small Shack"
+msgstr  ""
+
+msgid   "Small Shed"
+msgstr  ""
+
+msgid   "Small Waiting Platform"
 msgstr  ""
 
 msgid   "Small Water Tower"
 msgstr  ""
 
 msgid   "Small house"
+msgstr  ""
+
+msgid   "Station"
+msgstr  ""
+
+msgid   "Sunken Ship"
+msgstr  ""
+
+msgid   "TODO DESC"
+msgstr  ""
+
+msgid   "TODO TITLE"
+msgstr  ""
+
+msgid   "Tall Concrete Tower"
+msgstr  ""
+
+msgid   "Tan Tower"
 msgstr  ""
 
 msgid   "Terrain"
@@ -394,10 +604,10 @@ msgstr  ""
 msgid   "TerrainDecoration"
 msgstr  ""
 
-msgid   "The community gathers and works here"
+msgid   "Tour Front De Seine"
 msgstr  ""
 
-msgid   "Tour Front De Seine"
+msgid   "Trailer Park"
 msgstr  ""
 
 msgid   "Trees"
@@ -412,14 +622,11 @@ msgstr  ""
 msgid   "Water Tower"
 msgstr  ""
 
-msgid   "Where people work"
+msgid   "Wooden Sign"
 msgstr  ""
 
 msgid   "big Appartments"
 msgstr  ""
 
 msgid   "house"
-msgstr  ""
-
-msgid   "trees"
 msgstr  ""
