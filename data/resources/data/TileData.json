@@ -4732,5 +4732,225 @@
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0
+    },{
+        "author": "RockFort",
+        "category": "Residential",
+        "description": "TODO DESC",
+        "id": "res_2x2_mannevillette1_RF",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 37,
+            "clip_width": 64,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_2x2_mannevillette1_RF.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "RockFort",
+        "category": "Industrial",
+        "description": "TODO DESC",
+        "id": "ind_2x2_sevelia_lillebonne_2_RF",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 89,
+            "clip_width": 64,
+            "count": 1,
+            "fileName": "resources/images/buildings/industrial/ind_2x2_sevelia_lillebonne_2_RF.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "BangBoom",
+        "category": "Industrial",
+        "description": "TODO DESC",
+        "id": "ind_1x1_steel_warehouse_BB",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 28,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/industrial/ind_1x1_steel_warehouse_BB.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "RockFort",
+        "category": "Industrial",
+        "description": "TODO DESC",
+        "id": "ind_6x6_sevelia_lillebonne_1_RF",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 147,
+            "clip_width": 192,
+            "count": 1,
+            "fileName": "resources/images/buildings/industrial/ind_6x6_sevelia_lillebonne_1_RF.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Commercial",
+        "description": "TODO DESC",
+        "id": "com_1x1_WitheredBrickShop_kt",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 27,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/com_1x1_WitheredBrickShop_kt.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Commercial",
+        "description": "TODO DESC",
+        "id": "com_1x1_RunDownSkinnyShop_kt",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 21,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/com_1x1_RunDownSkinnyShop_kt.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Commercial",
+        "description": "TODO DESC",
+        "id": "com_1x1_SmallBrickWarehouse_kt",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 22,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/com_1x1_SmallBrickWarehouse_kt.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "BangBoom",
+        "category": "Commercial",
+        "description": "TODO DESC",
+        "id": "com_1x1_chem_holding_BB",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 25,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/com_1x1_chem_holding_BB.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "RockFort",
+        "category": "Residential",
+        "description": "TODO DESC",
+        "id": "res_2x2_caveeverte1lehavre_RF",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 70,
+            "clip_width": 64,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_2x2_caveeverte1lehavre_RF.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "RockFort",
+        "category": "Residential",
+        "description": "TODO DESC",
+        "id": "res_2x2_ketsuy1_RF",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 81,
+            "clip_width": 64,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_2x2_ketsuy1_RF.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "RockFort",
+        "category": "Residential",
+        "description": "TODO DESC",
+        "id": "res_1x1_grand_est_alsace1_RF",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 32,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_1x1_grand_est_alsace1_RF.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "BangBoom",
+        "category": "Industrial",
+        "description": "TODO DESC",
+        "id": "ind_1x1_concrete_warehouse_BB",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 24,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/industrial/ind_1x1_concrete_warehouse_BB.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "THEMAX",
+        "category": "Residential",
+        "description": "TODO DESC",
+        "id": "res_3x3_mediterannean_house_mx",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 72,
+            "clip_width": 96,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_3x3_mediterannean_house_mx.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
     }
 ]
