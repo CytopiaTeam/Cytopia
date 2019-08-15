@@ -32,23 +32,39 @@ void Engine::demolishNode(const Point &isoCoordinates) const { map->demolishNode
 
 void Engine::loadGame(const std::string &fileName)
 {
-  Map *newMap = Map::loadMapFromFile(fileName);
-
-  if (newMap)
+  try
   {
-    delete map;
-    map = newMap;
-    m_running = true;
+    Map *newMap = Map::loadMapFromFile(fileName);
+
+    if (newMap)
+    {
+      delete map;
+      map = newMap;
+      m_running = true;
+    }
+  }
+  catch (const std::exception &e)
+  {
+    std::cerr << "Caught exception in LoadGame\n";
+    std::cerr << e.what() << '\n';
   }
 }
 
 void Engine::newGame()
 {
-  delete map;
-  m_running = true;
+  try
+  {
+    delete map;
+    m_running = true;
 
-  const int mapSize = Settings::instance().mapSize;
+    const int mapSize = Settings::instance().mapSize;
 
-  map = new Map(mapSize, mapSize);
-  map->initMap();
+    map = new Map(mapSize, mapSize);
+    map->initMap();
+  }
+  catch (const std::exception &e)
+  {
+    std::cerr << "Caught exception in NewGame\n";
+    std::cerr << e.what() << '\n';
+  }
 }

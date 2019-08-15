@@ -1,3 +1,4 @@
+#include <cstdlib>
 #include "MapNode.hxx"
 
 #include "../basics/LOG.hxx"
@@ -64,6 +65,7 @@ void MapNode::setTileID(const std::string &tileID)
     m_previousTileID = m_mapNodeData[layer].tileID;
     m_mapNodeData[layer].tileData = tileData;
     m_mapNodeData[layer].tileID = tileID;
+    m_mapNodeData[layer].tileIndex = rand() % m_mapNodeData[layer].tileData->tiles.count; 
     updateTexture();
   }
 }
@@ -150,10 +152,13 @@ void MapNode::updateTexture()
       {
       case TileMap::DEFAULT:
         // if tileIndex is set, it means we take a single image out of a sprite sheet
-        if (m_mapNodeData[currentLayer].tileData->tileIndex != -1)
+        if (m_mapNodeData[currentLayer].tileIndex != 0)
         {
           clipRect.x =
-              m_mapNodeData[currentLayer].tileData->tiles.clippingWidth * m_mapNodeData[currentLayer].tileData->tileIndex;
+              (m_mapNodeData[currentLayer].tileData->tiles.clippingWidth * 
+                m_mapNodeData[currentLayer].tileData->tiles.offset + 
+                m_mapNodeData[currentLayer].tileData->tiles.clippingWidth *
+                m_mapNodeData[currentLayer].tileIndex);
         }
         else
         {

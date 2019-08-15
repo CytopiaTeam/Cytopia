@@ -33,6 +33,7 @@ struct TileSetData
   int count = 1;
   int clippingWidth = 0;
   int clippingHeight = 0;
+  int offset = 0;
 };
 
 struct TileData
