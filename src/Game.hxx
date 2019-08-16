@@ -8,59 +8,32 @@
 #include "Scripting/ScriptEngine.hxx"
 #include "util/MessageQueue.hxx"
 #include "util/Meta.hxx"
-#include "Events.hxx"
+#include "GameService.hxx"
+#ifdef USE_SDL2_MIXER
+#include "services/AudioMixer.hxx"
+#endif
+#include "services/Randomizer.hxx"
+#include "engine/basics/LOG.hxx"
 
 #include <thread>
 
 using Thread = std::thread;
-
-using UILoopMQ = StrongType<MessageQueue<typename VariantType<UIEvents>::type>, struct UITag>;
-using GameLoopMQ = StrongType<MessageQueue<typename VariantType<GameEvents>::type>, struct GameTag>;
-
-class GameService
-{
-
-public:
-
-  using Types = TypeList<UILoopMQ, GameLoopMQ /* Add other services here */ >;
-
-  using ServiceTuple = typename TupleType<Types>::type;
-  GameService(ServiceTuple&& services) : m_Services(services) { } 
-
-  template <typename ServiceType>
-  struct require_service_type
-  {
-    static_assert(ContainsType<Types, ServiceType>, "ServiceType must be registered as a Service in GameService::Types");
-    using type = ServiceType;
-  };
-  
-  template <typename ServiceInner, typename Tag>
-  struct require_service_type<StrongType<ServiceInner, Tag>>
-  {
-    static_assert(ContainsType<Types, StrongType<ServiceInner, Tag>>, "StrongType<ServiceInner, Tag> must be registered as a Service in GameService::Types");
-    using type = ServiceInner;
-  };
-
-private:
-  
-  TupleType<Types>::type& m_Services;
-
-protected:
-
-  template<typename ServiceType>
-  ServiceType& GetService()
-  {
-    return std::get<typename require_service_type<ServiceType>::type>(m_Services);
-  }
-
-};
+using RuntimeError = std::runtime_error;
 
 class Game
 {
 public:
-  Game() : m_GameContext(UILoopMQ{}, GameLoopMQ{}),
-          m_UILoop(&LoopMain<UILoopMQ, UIVisitor>, std::ref(m_GameContext), UIVisitor{}), 
-          m_EventLoop(&LoopMain<GameLoopMQ, GameVisitor>, std::ref(m_GameContext), GameVisitor{}) { }
+  Game() :
+#ifdef USE_SDL2_MIXER
+          m_AudioMixer{m_GameContext},
+#endif
+          m_Randomizer{m_GameContext},
+          m_UILoopMQ{},
+          m_GameLoopMQ{},
+          m_GameContext(m_UILoopMQ, m_GameLoopMQ, m_AudioMixer, m_Randomizer),
+          m_UILoop(&LoopMain<UILoopMQ, UIVisitor>, std::ref(m_GameContext), UIVisitor{}),
+          m_EventLoop(&LoopMain<GameLoopMQ, GameVisitor>, std::ref(m_GameContext), GameVisitor{m_GameContext})
+          { }
   virtual ~Game() = default;
   
   /** @brief starts setting up the game
@@ -83,8 +56,19 @@ public:
 
 private:
 
+  /* Services */
+#ifdef USE_SDL2_MIXER
+  AudioMixer m_AudioMixer;
+#endif
+  Randomizer m_Randomizer;
+  UILoopMQ m_UILoopMQ;
+  GameLoopMQ m_GameLoopMQ;
+
+  /* Game context */
   using GameContext = typename TupleType<GameService::Types>::type;
   GameContext m_GameContext;
+
+  /* Threads */
   Thread m_UILoop;
   Thread m_EventLoop;
 
@@ -111,16 +95,37 @@ private:
 
   };
 
-  struct GameVisitor
+  struct GameVisitor : public GameService
   {
-    template<typename ArgumentType>
-    void operator()(ArgumentType&& event)
+
+    using AudioEvents = TypeList<
+      AudioTriggerEvent,
+      AudioTriggerEvent,
+      AudioTrigger3DEvent,
+      AudioPlayEvent, 
+      AudioPlay3DEvent, 
+      AudioMusicVolumeChangeEvent, 
+      AudioSoundVolumeChangeEvent, 
+      AudioSetMutedEvent
+      >;
+
+    template <typename AudioEventType>
+    EnableIf<ContainsType<AudioEvents, AudioEventType>, void>
+    operator()(AudioEventType&& event)
     {
-      static_assert(std::is_void_v<std::void_t<ArgumentType>>, "GameVisitor does not know how to handle this event. You must specialize the functor");
+      GetService<AudioMixer>().handleEvent(std::move(event));
+    }
+
+    template<typename ArgumentType>
+    void operator()(const ArgumentType&& event)
+    {
+      string ErrorMsg = "Unimplemented Error: ";
+      ErrorMsg += __PRETTY_FUNCTION__;
+      ErrorMsg += " is not implemented";
+      throw RuntimeError(ErrorMsg);
     }
 
   };
-
 };
 
 #endif

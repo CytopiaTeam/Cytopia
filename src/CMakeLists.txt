@@ -1,6 +1,9 @@
 set(SOURCE_FILES
         main.cxx
         Game.{hxx,cxx}
+        GameService.hxx
+        GameService.inl.hxx
+        services/Randomizer.{hxx,cxx}
         engine/basics/Camera.{hxx,cxx}
         engine/basics/isoMath.{hxx,cxx}
         engine/basics/mapEdit.{hxx,cxx}
@@ -55,10 +58,8 @@ list(APPEND _include_directories
 
 if (ENABLE_SDL2_MIXER)
     list(APPEND SOURCE_FILES
-            engine/audio/SoundEffect.{hxx,cxx}
-            engine/audio/SoundEffect.{hxx,cxx}
-            engine/audio/Music.{hxx,cxx}
-            engine/AudioMixer.{hxx,cxx}
+            engine/audio/Soundtrack.hxx
+            services/AudioMixer.{hxx,cxx}
             )
 endif ()
 
