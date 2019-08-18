@@ -87,12 +87,6 @@ void SoundEffect::play(int channel, Sint16 angle, Uint8 distance, int loops) con
 
     if (m_soundEffect)
     {
-	  #ifdef USE_OPENAL_SOFT
-	  if(Settings::instance().audioChannels >= 3)
-	  {
-		  std::cout << "OpenAL Soft version of play sound effect called! \n";
-	  }
-	  #endif
 	  
       const int currentChannel = Mix_PlayChannel(channel, m_soundEffect, loops);
 
@@ -116,6 +110,18 @@ void SoundEffect::play(int channel, Sint16 angle, Uint8 distance, int loops) con
     
   }
 }
+
+#ifdef USE_OPENAL_SOFT
+void SoundEffect::play3DSound(int x, int y, int elevation, int loops)
+{
+	
+	if(Settings::instance().audioChannels >= 3)
+	{
+		std::cout << "OpenAL Soft version of play sound effect called! \n";
+	}
+	  
+}
+#endif
 
 void SoundEffect::stop(int channel) const
 {

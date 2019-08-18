@@ -771,7 +771,7 @@ void UIManager::initializeDollarVariables()
 		std::cout << "Settings audio channels before set combo box: " << Settings::instance().audioChannels << std::endl;
         combobox->clear();
         combobox->addElement("1");
-        // TODO: Ugly workaround until we have BetterEnums
+   
         if (Settings::instance().audioChannels == 1)
         {
 		  std::cout << "combox count:" << combobox->count();
@@ -779,7 +779,7 @@ void UIManager::initializeDollarVariables()
           combobox->setActiveID(newID);
         }
         combobox->addElement("2");
-        // TODO: Ugly workaround until we have BetterEnums
+
         if (Settings::instance().audioChannels == 2)
         {
 		  std::cout << "combox count:" << combobox->count();		   
@@ -787,7 +787,7 @@ void UIManager::initializeDollarVariables()
           combobox->setActiveID(newID);
         }
         combobox->addElement("3");
-		// TODO: Ugly workaround until we have BetterEnums
+
         if (Settings::instance().audioChannels == 3)
 		{
 		  std::cout << "combox count:" << combobox->count();
