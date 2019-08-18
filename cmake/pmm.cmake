@@ -35,7 +35,7 @@ endmacro()
 # The version:
 _pmm_set_if_undef(PMM_VERSION ${PMM_VERSION_INIT})
 # The base URL we download PMM from:
-_pmm_set_if_undef(PMM_URL_BASE "http://anotherfoxguy.com/pmm/")
+_pmm_set_if_undef(PMM_URL_BASE "https://anotherfoxguy.com/pmm")
 # The real URL we download from (Based on the version)
 _pmm_set_if_undef(PMM_URL "${PMM_URL_BASE}/${PMM_VERSION}")
 # The directory where we store our downloaded files
@@ -46,6 +46,7 @@ _pmm_set_if_undef(PMM_DIR "${PMM_DIR_BASE}/${PMM_VERSION}")
 set(_PMM_ENTRY_FILE "${PMM_DIR}/entry.cmake")
 
 if(NOT EXISTS "${_PMM_ENTRY_FILE}" OR PMM_ALWAYS_DOWNLOAD)
+    MESSAGE("Downloading ${PMM_URL}/entry.cmake ...")
     file(
         DOWNLOAD "${PMM_URL}/entry.cmake"
         "${_PMM_ENTRY_FILE}.tmp"
@@ -54,7 +55,7 @@ if(NOT EXISTS "${_PMM_ENTRY_FILE}" OR PMM_ALWAYS_DOWNLOAD)
     list(GET pair 0 rc)
     list(GET pair 1 msg)
     if(rc)
-        message(FATAL_ERROR "Failed to download PMM entry file")
+        message(FATAL_ERROR "Failed to download PMM entry file: ${msg}")
     endif()
     file(RENAME "${_PMM_ENTRY_FILE}.tmp" "${_PMM_ENTRY_FILE}")
 endif()

@@ -2,6 +2,7 @@
 
 #include "Constants.hxx"
 #include "LOG.hxx"
+#include "Exception.hxx"
 #include "JsonSerialization.hxx"
 
 #include "json.hxx"
@@ -17,7 +18,6 @@ void TerrainGenerator::generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNode
   {
     srand(static_cast<unsigned int>(time(0)));
     terrainSettings.seed = rand();
-    //std::cout << "Seed is now " << terrainSettings.seed << "\n";
   }
 
   noise::module::Perlin terrainHeightPerlin;
@@ -148,18 +148,13 @@ void TerrainGenerator::loadTerrainDataFromJSON()
   terrainGenDataFileName.append(TERRAINGEN_DATA_FILE_NAME);
   std::ifstream i(terrainGenDataFileName);
 
-  if (i.fail())
-  {
-    LOG(LOG_ERROR) << "File " << TERRAINGEN_DATA_FILE_NAME << " does not exist! Cannot load settings from INI File!";
-    return;
-  }
+  if (!i)
+    throw ConfigurationError(TRACE_INFO "Could not open file " + string{TERRAINGEN_DATA_FILE_NAME});
 
   // check if json file can be parsed
   json biomeDataJsonObject = json::parse(i, nullptr, false);
   if (biomeDataJsonObject.is_discarded())
-  {
-    LOG(LOG_ERROR) << "Error parsing JSON File " << TERRAINGEN_DATA_FILE_NAME;
-  }
+    throw ConfigurationError(TRACE_INFO "Error parsing JSON File " + string{TERRAINGEN_DATA_FILE_NAME});
   // parse biome objects
   for (const auto &it : biomeDataJsonObject.items())
   {

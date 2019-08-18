@@ -1,6 +1,8 @@
 set(SOURCE_FILES
         main.cxx
         Game.{hxx,cxx}
+        util/LOG.{hxx,cxx}
+        util/filesystem.hxx
         GameService.hxx
         GameService.inl.hxx
         services/Randomizer.{hxx,cxx}
@@ -41,6 +43,7 @@ set(SOURCE_FILES
         engine/WindowManager.{hxx,cxx}
         util/Singleton.hxx
         util/Meta.hxx
+        util/Exception.{hxx,cxx}
         )
 
 list(APPEND _include_directories
@@ -133,7 +136,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE ${_link_libraries})
 add_custom_target(
         copy_resources
         ALL
-        COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/data/resources/ $<TARGET_FILE_DIR:${PROJECT_NAME}>/resources/
+        COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/data/resources/ $<TARGET_FILE_DIR:${PROJECT_NAME}>/resources/ 
         COMMENT "Copy the resources to the compiled directory"
         VERBATIM
 )

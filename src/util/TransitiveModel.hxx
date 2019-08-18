@@ -66,13 +66,20 @@ private:
   using FilterType = TreeMap<ObserverWPtr<Event>, Set<typename Event::TransitionType>, std::owner_less<ObserverWPtr<Event>>>;
   FilterType m_Filters;
 
-  virtual inline bool mustNotify(ObserverWPtr<Event> observer, const Event &event) noexcept final
+  virtual inline bool mustNotify(ObserverWPtr<Event> observer, const Event &event) const noexcept final
   {
     if (observer.expired())
     {
       return false;
     }
-    return m_Filters[observer].count(event.getType()) == 1;
+    try
+    {
+      return m_Filters.at(observer).count(event.getType()) == 1;
+    }
+    catch(...)
+    {
+      return true;
+    }
   }
 
   virtual inline void onObserverExpired(void) noexcept override

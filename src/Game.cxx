@@ -4,7 +4,7 @@
 #include "engine/UIManager.hxx"
 #include "engine/WindowManager.hxx"
 #include "engine/basics/Camera.hxx"
-#include "engine/basics/LOG.hxx"
+#include "LOG.hxx"
 #include "engine/ui/widgets/Image.hxx"
 #include "engine/basics/Settings.hxx"
 #include <noise.h>
@@ -187,7 +187,7 @@ void Game::mainMenu()
 void Game::run(bool SkipMenu)
 {
   Timer benchmarkTimer;
-  LOG() << VERSION;
+  LOG(LOG_INFO) << VERSION;
 
   if (SkipMenu)
   {
@@ -197,7 +197,7 @@ void Game::run(bool SkipMenu)
   benchmarkTimer.start();
   Engine &engine = Engine::instance();
 
-  LOG() << "Map initialized in " << benchmarkTimer.getElapsedTime() << "ms";
+  LOG(LOG_DEBUG) << "Map initialized in " << benchmarkTimer.getElapsedTime() << "ms";
   Camera::centerScreenOnMapCenter();
 
   SDL_Event event;
@@ -274,6 +274,7 @@ void Game::run(bool SkipMenu)
 
 void Game::shutdown()
 {
+  LOG(LOG_DEBUG) << "In shutdown";
   m_UILoopMQ.push(TerminateEvent{});
   m_GameLoopMQ.push(TerminateEvent{});
   m_UILoop.join();

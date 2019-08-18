@@ -6,7 +6,8 @@
 #include "basics/mapEdit.hxx"
 #include "basics/Settings.hxx"
 #include "basics/utils.hxx"
-#include "basics/LOG.hxx"
+#include "LOG.hxx"
+#include "Exception.hxx"
 
 #include "json.hxx"
 #include "betterEnums.hxx"
@@ -29,21 +30,14 @@ void UIManager::init()
 
   std::ifstream i(SDL_GetBasePath() + Settings::instance().uiLayoutJSONFile.get());
 
-  if (i.fail())
-  {
-    LOG(LOG_ERROR) << "File " << Settings::instance().uiLayoutJSONFile.get() << " does not exist! Cannot load settings from INI File!";
-    // Application should quit here, without textureData we can't continue
-    return;
-  }
+  if (!i)
+    throw ConfigurationError(TRACE_INFO "Could not open UI config file " + Settings::instance().uiLayoutJSONFile.get());
 
   // check if json file can be parsed
   uiLayout = json::parse(i, nullptr, false);
 
   if (uiLayout.is_discarded())
-  {
-    LOG(LOG_ERROR) << "Error parsing JSON File " << Settings::instance().uiLayoutJSONFile.get();
-    return;
-  }
+    throw ConfigurationError(TRACE_INFO "Error parsing JSON File " + Settings::instance().uiLayoutJSONFile.get());
 
   // parse Layout
   for (const auto &it : uiLayout["LayoutGroups"].items())
@@ -63,15 +57,15 @@ void UIManager::init()
 
         if (layoutGroup.layout.layoutType.empty())
         {
-          LOG(LOG_ERROR) << "LayoutGroup " << layoutGroupName
-                         << " has no parameter \"LayoutType\" set. Check your UiLayout.json file.";
+          LOG(LOG_WARNING) << "Skipping LayoutGroup " << layoutGroupName
+                         << " because it has no parameter \"LayoutType\" set. Check your UiLayout.json file.";
           continue;
         }
 
         if (layoutGroup.layout.alignment.empty())
         {
-          LOG(LOG_ERROR) << "LayoutGroup " << layoutGroupName
-                         << " has no parameter \"Alignment\" set. Check your UiLayout.json file.";
+          LOG(LOG_WARNING) << "Skipping LayoutGroup " << layoutGroupName
+                         << " because it has no parameter \"Alignment\" set. Check your UiLayout.json file.";
           continue;
         }
 
@@ -80,8 +74,8 @@ void UIManager::init()
 
         if (!layoutGroup.layout.layoutParentElementID.empty() && !getUiElementByID(layoutGroup.layout.layoutParentElementID))
         {
-          LOG(LOG_ERROR) << "Non existing UIElement with ID " << layoutGroup.layout.layoutParentElementID
-                         << "has been set for LayoutGroup " << layoutGroupName;
+          LOG(LOG_WARNING) << "Skipping a non-existant UIElement with ID " << layoutGroup.layout.layoutParentElementID
+                         << "that was set for LayoutGroup " << layoutGroupName;
           continue;
         }
 
@@ -94,7 +88,7 @@ void UIManager::init()
       }
       else
       {
-        LOG(LOG_ERROR) << "Cannot add a Layout Group without a name. Check your UiLayout.json file.";
+        LOG(LOG_WARNING) << "Cannot add a Layout Group without a name. Check your UiLayout.json file.";
       }
     }
 
@@ -189,7 +183,7 @@ void UIManager::init()
           uiElement = std::make_unique<Slider>(elementRect);
           break;
         default:
-          LOG(LOG_ERROR) << "An element without a type can not be created, check your UiLayout JSON File "
+          LOG(LOG_WARNING) << "An element without a type can not be created, check your UiLayout JSON File "
                          << Settings::instance().uiLayoutJSONFile.get();
           break;
         }
@@ -235,8 +229,8 @@ void UIManager::init()
           }
           else
           {
-            LOG(LOG_ERROR) << "Cannot add elements to non existing LayoutGroup " << layoutGroupName
-                           << ". Add the group first, before trying to add elements to it.";
+            throw UIError(TRACE_INFO "Cannot add elements to non existing LayoutGroup " + layoutGroupName
+                + ". Add the group first, before trying to add elements to it.");
           }
         }
 
@@ -288,30 +282,19 @@ void UIManager::drawUI() const
 
 void UIManager::toggleGroupVisibility(const std::string &groupID, UIElement *sender)
 {
-  if (groupID.empty())
-  {
-    LOG(LOG_ERROR) << "UI Element with Action \"ToggleVisibilityOfGroup\" was called without a parameter.";
-    return;
-  }
-
   if (sender)
   {
     Button *button = dynamic_cast<Button *>(sender);
+
     // cast the object to a Button to check if it's a toggle button.
-    if (button && button->getUiElementData().isToggleButton)
-    {
-      for (const auto &it : m_uiGroups[groupID])
-      {
+    if(button && button->getUiElementData().isToggleButton)
+      for(const auto &it : m_uiGroups[groupID])
         it->setVisibility(button->checkState());
-      }
-      return;
-    }
+    return;
   }
 
   for (const auto &it : m_uiGroups[groupID])
-  {
     it->setVisibility(!it->isVisible());
-  }
 }
 
 void UIManager::startTooltip(SDL_Event &event, const std::string &tooltipText) const
@@ -330,23 +313,15 @@ void UIManager::stopTooltip() const { m_tooltip->reset(); }
 UIElement *UIManager::getUiElementByID(const std::string &UiElementID) const
 {
   for (auto &it : m_uiElements)
-  {
     if (it->getUiElementData().elementID == UiElementID)
-    {
       return it.get();
-    }
-  }
-
   return nullptr;
 }
 
 const std::vector<UIElement *> *UIManager::getUiElementsOfGroup(const std::string &groupID) const
 {
   if (m_uiGroups.find(groupID) != m_uiGroups.end())
-  {
     return &m_uiGroups.find(groupID)->second;
-  }
-
   return nullptr;
 }
 
@@ -474,16 +449,16 @@ void UIManager::scaleCenterButtonImage(SDL_Rect &ret, int btnW, int btnH, int im
   {
     float ratio = (float)imgH / (float)imgW;
     ret.w = btnW;
-    ret.h = ceil(btnH * ratio);
+    ret.h = static_cast<int>(ceil(btnH * ratio));
     ret.x = 0;
     ret.y = btnH - ret.h;
   }
   else
   {
     float ratio = (float)imgW / (float)imgH;
-    ret.w = ceil(btnW * ratio);
+    ret.w = static_cast<int>(ceil(btnW * ratio));
     ret.h = btnH;
-    ret.x = ceil((btnW - ret.w)/2);
+    ret.x = static_cast<int>(ceil((btnW - ret.w)/2));
     ret.y = 0;
   }
 }
@@ -630,7 +605,7 @@ void UIManager::createBuildMenu()
         }
         else
         {
-          LOG(LOG_ERROR) << "Attempting to add element with ID \"" << button->getUiElementData().elementID << "\" to category \""
+          LOG(LOG_WARNING) << "Attempting to add element with ID \"" << button->getUiElementData().elementID << "\" to category \""
                          << parentGroupName << "\" but the Category doesn't exist.";
         }
       }
@@ -721,7 +696,7 @@ void UIManager::initializeDollarVariables()
 
         if (!combobox)
         {
-          LOG(LOG_ERROR) << "Can not use element ID $BuildMenuLayout for an element other than a combobox!";
+          LOG(LOG_WARNING) << "Can not use element ID $BuildMenuLayout for an element other than a combobox!";
           continue;
         }
 
@@ -765,7 +740,7 @@ void UIManager::initializeDollarVariables()
 
         if (!combobox)
         {
-          LOG(LOG_ERROR) << "Can not use element ID $BuildMenuLayout for an element other than a combobox!";
+          LOG(LOG_WARNING) << "Can not use element ID $BuildMenuLayout for an element other than a combobox!";
           continue;
         }
 
@@ -790,7 +765,7 @@ void UIManager::initializeDollarVariables()
 
         if (!combobox)
         {
-          LOG(LOG_ERROR) << "Can not use element ID FullScreenSelector for an element other than a combobox!";
+          LOG(LOG_WARNING) << "Can't use element ID FullScreenSelector for an element other than a combobox!";
           continue;
         }
 
@@ -818,9 +793,7 @@ void UIManager::setBuildMenuPosition(UIElement *sender)
     Layout::arrangeElements();
   }
   else
-  {
-    LOG(LOG_ERROR) << "Only a combobox can have setBuildMenuPosition() as callback function";
-  }
+    throw UIError(TRACE_INFO "Only a combobox can have setBuildMenuPosition() as callback function");
 }
 
 void UIManager::addToLayoutGroup(const std::string &groupName, UIElement *widget)

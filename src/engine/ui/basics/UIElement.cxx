@@ -1,5 +1,6 @@
 #include "UIElement.hxx"
-#include "../../basics/LOG.hxx"
+#include "LOG.hxx"
+#include "Exception.hxx"
 #include "Settings.hxx"
 
 void UIElement::setTextureID(const std::string &textureID)
@@ -7,10 +8,7 @@ void UIElement::setTextureID(const std::string &textureID)
   elementData.textureID = textureID;
   SDL_Texture *texture = ResourcesManager::instance().getUITexture(textureID);
   if (!texture)
-  {
-    LOG(LOG_ERROR) << "Texture " << textureID << " could not be loaded!";
-    return;
-  }
+    throw UIError(TRACE_INFO "Texture " + textureID + " could not be loaded");
   m_texture = texture;
   m_directTexture = false;
   SDL_QueryTexture(m_texture, nullptr, nullptr, &m_uiElementRect.w, &m_uiElementRect.h);

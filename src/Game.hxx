@@ -13,7 +13,8 @@
 #include "services/AudioMixer.hxx"
 #endif
 #include "services/Randomizer.hxx"
-#include "engine/basics/LOG.hxx"
+#include "LOG.hxx"
+#include "Exception.hxx"
 
 #include <thread>
 
@@ -120,10 +121,7 @@ private:
     template<typename ArgumentType>
     void operator()(const ArgumentType&& event)
     {
-      string ErrorMsg = "Unimplemented Error: ";
-      ErrorMsg += __PRETTY_FUNCTION__;
-      ErrorMsg += " is not implemented";
-      throw RuntimeError(ErrorMsg);
+      throw UnimplementedError(TRACE_INFO "Unimplemented Error");
     }
 
   };

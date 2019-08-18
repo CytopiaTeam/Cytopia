@@ -15,6 +15,12 @@ option(ENABLE_MICROPROFILE "Enable microprofile" OFF)
 option(ENABLE_ANGELSCRIPT "Enable AngelScript" ON)
 option(ENABLE_MOFILEREADER "Enable MofileReader" ON)
 
+# Use Release by default
+if(NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE Release)
+endif()
+
+# Comment-out uneeded libs
 if (NOT ENABLE_SDL2_MIXER)
     set(_CC_SDL2_MIXER "# ")
 endif ()
@@ -182,6 +188,33 @@ else (USE_PACKAGE_MANAGER)
 
 endif (USE_PACKAGE_MANAGER)
 
+if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
+  SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /DEBUG:FULL /Od")
+  SET(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} /DEBUG:FULL /O2")
+  SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /O2")
+  if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    add_compile_definitions(DEBUG)
+  elseif(CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo")
+    add_compile_definitions(DEBUG)
+  endif()
+  link_libraries(dbghelp.lib)
+else()
+  # Needed for filesystem library
+  if(NOT APPLE)
+    # TODO: Link with stdc++fs on Apple with XCode11
+    list(APPEND _link_libraries "stdc++fs")
+  endif()
+  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror")
+  SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g -O1")
+  SET(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} -g -O3")
+  SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
+  if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    add_compile_definitions(DEBUG)
+  elseif(CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo")
+    add_compile_definitions(DEBUG)
+  endif()
+endif()
+
 if (ENABLE_MICROPROFILE)
     list(APPEND _include_directories ${microprofile_SOURCE_DIR})
     list(APPEND _compile_definitions
@@ -232,7 +265,7 @@ endif (ENABLE_MICROPROFILE)
 if (UNIX AND NOT APPLE)
     execute_process(COMMAND head -1 /etc/os-release OUTPUT_VARIABLE linux_distribution)
 endif ()
-
+    
 # Configuration for packaging
 include(CpackConfiguration)
 
