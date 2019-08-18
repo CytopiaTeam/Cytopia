@@ -20,7 +20,35 @@ AudioMixer::AudioMixer(GameService::ServiceTuple& context) : GameService(context
   json config_json;
   ifs >> config_json;
   AudioConfig audioConfig = config_json;
+  
+   #ifdef USE_OPENAL_SOFT
+	//use default audio device
+	gAudioDevice = alcOpenDevice(NULL);
+	if(gAudioDevice == NULL)
+	{
+		throw RuntimeError(string{"Unable to initialize default audio device! " + *alGetString(alGetError()) } );
+	}
 
+	//create context
+	alContext = alcCreateContext(gAudioDevice, NULL);
+	if(alContext == NULL)
+	{
+		throw RuntimeError(string{"Unable to initialize OpenAL context! " + *alGetString(alGetError()) } );
+	}
+	else{alcMakeContextCurrent(alContext);}
+
+	/* Check if an error occured, and clean up if so. */
+	ALenum err; //variable for error flag
+	err = alGetError();
+	if(err != AL_NO_ERROR)
+	{
+		throw RuntimeError(string{ alGetString(err) } );
+	}
+	
+	std::cout << " Open AL Soft Initialized! \n";
+#endif
+
+    
   /* Load all Music */
   loadSoundtrack(audioConfig.Music.begin(), audioConfig.Music.end(),
       [](const string& name, Mix_Chunk* chunk){
@@ -54,6 +82,10 @@ AudioMixer::~AudioMixer()
     Mix_CloseAudio();
   while(Mix_Init(0))
     Mix_Quit();
+  #ifdef USE_OPENAL_SOFT
+  alcDestroyContext(alContext);	//delete context
+  alcCloseDevice(gAudioDevice);	//close device
+  #endif
 }
 
 /*

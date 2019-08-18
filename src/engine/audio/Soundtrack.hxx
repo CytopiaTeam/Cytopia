@@ -7,6 +7,11 @@
 
 #include "../../util/Meta.hxx"
 
+#ifdef USE_OPENAL_SOFT
+#include "AL/al.h"
+#include "AL/alc.h"
+#endif
+
 using std::string;
 using ChannelID = StrongType<int, struct ChannelIDTag>;
 using SoundtrackID = StrongType<string, struct SoundtrackIDTag>;
@@ -53,6 +58,23 @@ struct Soundtrack
    * @brief true if the Soundtrack can be played by SoundtrackID
    */
   bool isPlayable : 1;
+  
+  #ifdef USE_OPENAL_SOFT 
+  
+  /**
+   * @brief The OpenAL source of the sound track
+   * @details An object that tells the OpenAL system where the sound making object is located in 3d space
+   * and what buffer(sound) it makes.
+   */
+  ALuint source;
+  
+  /**
+   * @brief The OpenAL buffer of the sound track
+   * @details An object that tells the OpenAL system what the sound made is. Must be connected to a source
+   * to tell the system where the sound is made.
+   */
+  ALuint buffer;
+  #endif
 };
 
 using SoundtrackUPtr = std::unique_ptr<Soundtrack>;

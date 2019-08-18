@@ -11,17 +11,6 @@
 #include <SDL.h>
 #include <SDL_ttf.h>
 
-<<<<<<< HEAD
-#ifdef USE_SDL2_MIXER
-#include "engine/AudioMixer.hxx"
-#endif
-
-#ifdef USE_OPENAL_SOFT
-#include "AL/al.h"
-#endif
-
-=======
->>>>>>> upstream/master
 #ifdef USE_ANGELSCRIPT
 #include "Scripting/ScriptEngine.hxx"
 #endif
@@ -52,18 +41,6 @@ bool Game::initialize()
     return false;
   }
 
-<<<<<<< HEAD
-#ifdef USE_SDL2_MIXER
-  if (Mix_Init(MIX_INIT_MP3) == -1)
-  {
-    LOG(LOG_ERROR) << "Failed to Init SDL_Mixer\nSDL Error:" << Mix_GetError();
-    return false;
-  }
-#endif
-
-
-=======
->>>>>>> upstream/master
   // initialize window manager
   WindowManager::instance().setWindowTitle(VERSION);
 

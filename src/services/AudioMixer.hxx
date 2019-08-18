@@ -11,6 +11,11 @@
 #include "../GameService.hxx"
 #include "../util/Meta.hxx"
 
+#ifdef USE_OPENAL_SOFT
+#include "AL/al.h"
+#include "AL/alc.h"
+#endif
+
 template <typename Key, typename Value> 
 using Mapping = std::unordered_map<Key, Value>;
 template <typename Type, size_t N>
@@ -162,6 +167,22 @@ private:
   static void onTrackFinishedFuncPtr(int channelID) { onTrackFinishedFunc(channelID); }
 
   friend class Game;
+  
+  //openal soft stuff
+  #ifdef USE_OPENAL_SOFT
+  
+  //OpenAL Soft sound setup variables
+  /**
+   * @brief OpenAL Soft setup, audio device to be used
+   */
+  ALCdevice* gAudioDevice; 
+  
+  /**
+   * @brief OpenAL Soft setup, context of where audio is played
+   */
+  ALCcontext* alContext; 
+  
+  #endif
 
 };
 
