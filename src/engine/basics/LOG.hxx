@@ -7,6 +7,12 @@
 #include <fstream>
 #include <sstream>
 
+#if _MSC_VER && !__INTEL_COMPILER
+#define __PRETTY_FUNCTION__ __FUNCSIG__
+#elif __INTEL_COMPILER
+#define __PRETTY_FUNCTION__ "Unknown_Method"
+#endif
+
 #include <SDL.h>
 
 enum logType
