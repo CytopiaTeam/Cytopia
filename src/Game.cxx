@@ -4,7 +4,7 @@
 #include "engine/UIManager.hxx"
 #include "engine/WindowManager.hxx"
 #include "engine/basics/Camera.hxx"
-#include "engine/basics/LOG.hxx"
+#include "LOG.hxx"
 #include "engine/ui/widgets/Image.hxx"
 #include "engine/basics/Settings.hxx"
 #include <noise.h>
@@ -31,14 +31,15 @@ bool Game::initialize()
 {
   if (SDL_Init(SDL_INIT_VIDEO) != 0)
   {
-    LOG(LOG_ERROR) << "Failed to Init SDL\n";
-    LOG(LOG_ERROR) << "SDL Error:" << SDL_GetError();
+    LOG(LOG_ERROR) << "Failed to Init SDL";
+    LOG(LOG_ERROR) << "SDL Error: " << SDL_GetError();
     return false;
   }
 
   if (TTF_Init() == -1)
   {
-    LOG(LOG_ERROR) << "Failed to Init SDL_TTF\nSDL Error:" << TTF_GetError();
+    LOG(LOG_ERROR) << "Failed to Init SDL_TTF";
+    LOG(LOG_ERROR) << "SDL Error: " << TTF_GetError();
     return false;
   }
 
@@ -187,7 +188,7 @@ void Game::mainMenu()
 void Game::run(bool SkipMenu)
 {
   Timer benchmarkTimer;
-  LOG() << VERSION;
+  LOG(LOG_INFO) << VERSION;
 
   if (SkipMenu)
   {
@@ -197,7 +198,7 @@ void Game::run(bool SkipMenu)
   benchmarkTimer.start();
   Engine &engine = Engine::instance();
 
-  LOG() << "Map initialized in " << benchmarkTimer.getElapsedTime() << "ms";
+  LOG(LOG_DEBUG) << "Map initialized in " << benchmarkTimer.getElapsedTime() << "ms";
   Camera::centerScreenOnMapCenter();
 
   SDL_Event event;
@@ -274,6 +275,7 @@ void Game::run(bool SkipMenu)
 
 void Game::shutdown()
 {
+  LOG(LOG_DEBUG) << "In shutdown";
   m_UILoopMQ.push(TerminateEvent{});
   m_GameLoopMQ.push(TerminateEvent{});
   m_UILoop.join();
@@ -291,26 +293,27 @@ void Game::shutdown()
 template <typename MQType, typename Visitor>
 void Game::LoopMain(GameContext& context, Visitor visitor)
 {
-  while(true)
+  try
   {
-    for(auto event : std::get<MQType&>(context).getEnumerable())
+    while(true)
     {
-      if (std::holds_alternative<TerminateEvent>(event))
+      for(auto event : std::get<MQType&>(context).getEnumerable())
       {
-        return;
-      }
-      else
-      {
-        try
+        if (std::holds_alternative<TerminateEvent>(event))
+        {
+          return;
+        }
+        else
         {
           std::visit(visitor, std::move(event));
         }
-        catch(std::exception& ex)
-        {
-          LOG(LOG_ERROR) << "Error: " << ex.what();
-        }
       }
     }
+  }
+  catch(std::exception& ex)
+  {
+    LOG(LOG_ERROR) << ex.what();
+    // @todo: Call shutdown() here in a safe way
   }
 }
 

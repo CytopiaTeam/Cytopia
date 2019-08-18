@@ -5,7 +5,7 @@
 #include <iterator>
 
 #include "../GameService.hxx"
-#include "../engine/basics/LOG.hxx"
+#include "LOG.hxx"
 
 
 using RNG = std::mt19937;

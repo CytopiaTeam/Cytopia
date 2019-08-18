@@ -4,7 +4,7 @@
 #include "basics/isoMath.hxx"
 #include "basics/mapEdit.hxx"
 #include "basics/Settings.hxx"
-#include "basics/LOG.hxx"
+#include "LOG.hxx"
 #include "basics/compression.hxx"
 #include "common/Constants.hxx"
 #include "ResourcesManager.hxx"
@@ -25,11 +25,11 @@ using json = nlohmann::json;
 void Map::getNodeInformation(const Point &isoCoordinates) const
 {
   const TileData *tileData = mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getActiveMapNodeData().tileData;
-  LOG() << "===== TILE at " << isoCoordinates.x << ", " << isoCoordinates.y << "=====";
-  LOG() << "Biome: " << tileData->biome;
-  LOG() << "Category: " << tileData->category;
-  LOG() << "FileName: " << tileData->tiles.fileName;
-  LOG() << "ID: " << mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getActiveMapNodeData().tileID;
+  LOG(LOG_INFO) << "===== TILE at " << isoCoordinates.x << ", " << isoCoordinates.y << "=====";
+  LOG(LOG_INFO) << "Biome: " << tileData->biome;
+  LOG(LOG_INFO) << "Category: " << tileData->category;
+  LOG(LOG_INFO) << "FileName: " << tileData->tiles.fileName;
+  LOG(LOG_INFO) << "ID: " << mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getActiveMapNodeData().tileID;
 }
 
 constexpr struct
@@ -451,43 +451,32 @@ void Map::saveMapToFile(const std::string &fileName)
 
 Map *Map::loadMapFromFile(const std::string &fileName)
 {
-  std::ifstream file(SDL_GetBasePath() + fileName, std::ios_base::in | std::ios_base::binary);
-
-  if (file.fail())
-  {
-    LOG(LOG_ERROR) << "Could not load savegame file " << fileName;
-    return nullptr;
-  }
-
   std::stringstream buffer;
-  buffer << file.rdbuf();
+  {
+    std::ifstream file(SDL_GetBasePath() + fileName, std::ios_base::in | std::ios_base::binary);
+    if (!file)
+      throw ConfigurationError(TRACE_INFO "Could not load savegame file " + fileName); 
+    buffer << file.rdbuf();
+  }
 
   std::string jsonAsString;
   jsonAsString = decompressString(buffer.str());
 
   if (jsonAsString.empty())
-  {
     return nullptr;
-  }
-
+  
   json saveGameJSON = json::parse(jsonAsString, nullptr, false);
 
-  file.close();
-
   if (saveGameJSON.is_discarded())
-  {
-    LOG(LOG_ERROR) << "Could not parse savegame file " << fileName;
-    return nullptr;
-  }
+    throw ConfigurationError(TRACE_INFO "Could not parse savegame file " + fileName);
 
   size_t saveGameVersion = saveGameJSON.value("Savegame version", 0);
 
   if (saveGameVersion != SAVEGAME_VERSION)
   {
-    // Check savegame version for compatibility and add upgrade functions here later if needed
-
-    LOG(LOG_ERROR) << "Trying to load a Savegame with version " << saveGameVersion << " but only save-games with version."
-                   << SAVEGAME_VERSION << " are supported";
+    /* @todo Check savegame version for compatibility and add upgrade functions here later if needed */
+    throw  CytopiaError(TRACE_INFO "Trying to load a Savegame with version " + std::to_string(saveGameVersion)
+        + " but only save-games with version " + std::to_string(SAVEGAME_VERSION) + " are supported");
   }
 
   int columns = saveGameJSON.value("columns", -1);

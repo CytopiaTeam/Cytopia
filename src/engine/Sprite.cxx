@@ -6,6 +6,7 @@
 #include "basics/isoMath.hxx"
 #include "map/MapLayers.hxx"
 #include "LOG.hxx"
+#include "Exception.hxx"
 
 #ifdef MICROPROFILE_ENABLED
 #include "microprofile.h"
@@ -91,10 +92,7 @@ void Sprite::refresh()
 void Sprite::setTexture(SDL_Texture *texture, Layer layer)
 {
   if (!texture)
-  {
-    LOG(LOG_ERROR) << "Called Sprite::setTexture() with a non valid texture";
-    return;
-  }
+    throw UIError(TRACE_INFO "Called Sprite::setTexture() with a non valid texture");
   m_SpriteData[layer].texture = texture;
   m_needsRefresh = true;
   refresh();
