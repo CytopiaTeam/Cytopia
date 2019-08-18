@@ -1,6 +1,7 @@
 #include "Settings.hxx"
 
 #include "LOG.hxx"
+#include "Exception.hxx"
 #include "Constants.hxx"
 #include "JsonSerialization.hxx"
 
@@ -14,19 +15,13 @@ void Settings::readFile()
   settingsFileName.append(SETTINGS_FILE_NAME);
   std::ifstream i(settingsFileName);
 
-  if (i.fail())
-  {
-    LOG(LOG_ERROR) << "File " << SETTINGS_FILE_NAME << " does not exist! Cannot load settings from INI File!";
-    // Application should quit here, without settings from the ini file we can't continue
-    return;
-  }
+  if (!i)
+    throw ConfigurationError(TRACE_INFO "Can't open file " + string{SETTINGS_FILE_NAME});
 
   // check if json file can be parsed
   const json _settingsJSONObject = json::parse(i, nullptr, false);
   if (_settingsJSONObject.is_discarded())
-  {
-    LOG(LOG_ERROR) << "Error parsing JSON File " << SETTINGS_FILE_NAME;
-  }
+    throw ConfigurationError(TRACE_INFO "Error parsing JSON File " + string{SETTINGS_FILE_NAME});
 
   SettingsData data = _settingsJSONObject;
   *this = data;
@@ -44,13 +39,9 @@ void Settings::writeFile()
   settingsFileName.append(SETTINGS_FILE_NAME);
   std::ofstream settingsFile(settingsFileName);
 
-  if (settingsFile.is_open())
-  {
-    settingsFile << std::setw(4) << settingsJsonObject << std::endl;
-    settingsFile.close();
-  }
-  else
-  {
-    LOG(LOG_ERROR) << "Could not write file " << SETTINGS_FILE_NAME;
-  }
+  if (!settingsFile)
+    throw ConfigurationError(TRACE_INFO "Could not write to file " + string{SETTINGS_FILE_NAME});
+
+  settingsFile << std::setw(4) << settingsJsonObject << std::endl;
+  settingsFile.close();
 }

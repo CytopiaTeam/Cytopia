@@ -1,21 +1,20 @@
 #include "AudioMixer.hxx"
 #include "basics/Settings.hxx"
-#include "basics/LOG.hxx"
+#include "LOG.hxx"
+#include "Exception.hxx"
 
 #include "../services/Randomizer.hxx"
 #include "common/JsonSerialization.hxx"
 #include <fstream>
 
-using RuntimeError = std::runtime_error;
 using ifstream = std::ifstream;
 using nlohmann::json;
 
 std::function<void(int)> AudioMixer::onTrackFinishedFunc;
 
-AudioMixer::AudioMixer(GameService::ServiceTuple& context) : GameService(context)
-{
-  std::thread loadSoundThread(&AudioMixer::loadAllSounds, this);
-  m_LoadSoundThread.swap(loadSoundThread);
+AudioMixer::AudioMixer(GameService::ServiceTuple& context) : GameService(context), m_LoadSoundThread(&AudioMixer::loadAllSounds, this)
+{ 
+  LOG(LOG_DEBUG) << "Created AudioMixer";
 }
 
 AudioMixer::~AudioMixer()
@@ -28,26 +27,42 @@ AudioMixer::~AudioMixer()
     Mix_CloseAudio();
   while(Mix_Init(0))
     Mix_Quit();
+  LOG(LOG_DEBUG) << "Destroyed AudioMixer";
 }
 
 void AudioMixer::loadAllSounds()
 {
   if(Mix_OpenAudio(44100, AUDIO_S16SYS, DEFAULT_CHANNELS::value, 1024) == -1)
-    throw RuntimeError(string{"Unable to open audio channels "} + Mix_GetError());
-  ifstream ifs {Settings::instance().audioConfigJSONFile.get()};
-  json config_json;
-  ifs >> config_json;
-  AudioConfig audioConfig = config_json;
+    throw AudioError(TRACE_INFO + string{"Unable to open audio channels "} + Mix_GetError());
 
+  LOG(LOG_DEBUG) << "Retrieving Audio Configuration";
+  string fName = SDL_GetBasePath() + Settings::instance().audioConfigJSONFile.get();
+  ifstream ifs(fName);
+  if(!ifs)
+    throw ConfigurationError(TRACE_INFO "Can't open file " + fName);
+
+  json config_json;
+  AudioConfig audioConfig;
+  try
+  {
+    ifs >> config_json;
+    audioConfig = config_json;
+  }
+  catch(...)
+  {
+    std::throw_with_nested(ConfigurationError(TRACE_INFO "Couldn't parse json file"));
+  }
+
+  LOG(LOG_DEBUG) << "Loading Soundtracks";
   /* Load all Music */
   loadSoundtrack(audioConfig.Music.begin(), audioConfig.Music.end(),
-      [](const string& name, Mix_Chunk* chunk){
+      [](const string& name, Mix_Chunk* chunk) {
         return new Soundtrack{SoundtrackID{name}, ChannelID{0}, chunk, RepeatCount{0}, true, false, true, true};
       });
 
   /* Load all Sounds */
   loadSoundtrack(audioConfig.Sound.begin(), audioConfig.Sound.end(),
-      [](const string& name, Mix_Chunk* chunk){
+      [](const string& name, Mix_Chunk* chunk) {
         return new Soundtrack{SoundtrackID{name}, ChannelID{-1}, chunk, RepeatCount{0}, false, false, true, true};
       });
 
@@ -58,7 +73,7 @@ void AudioMixer::loadAllSounds()
       });
 
   /* Set up the Mix_ChannelFinished callback */
-  onTrackFinishedFunc = [this](int channelID){ return onTrackFinished(channelID); };
+  onTrackFinishedFunc = [this](int channelID) { return onTrackFinished(channelID); };
   Mix_ChannelFinished(onTrackFinishedFuncPtr);
 }
 
@@ -120,7 +135,7 @@ void AudioMixer::handleEvent(const AudioTriggerEvent&& event)
   auto& possibilities = m_Triggers[event.trigger];
   if(possibilities.size() == 0) 
   {
-    LOG() << "Warning: no Soundtracks are triggered by " << event.trigger._to_string();
+    LOG(LOG_WARNING) << "Warning: no Soundtracks are triggered by " << event.trigger._to_string();
     return;
   }
   SoundtrackID& trackID = *GetService<Randomizer>().choose(possibilities.begin(), possibilities.end());
@@ -131,9 +146,7 @@ void AudioMixer::handleEvent(const AudioTriggerEvent&& event)
 /* @todo Implement this */
 void AudioMixer::handleEvent(const AudioTrigger3DEvent&& event)
 {
-  string ErrorMsg = "Unimplemented Error: ";
-  ErrorMsg += __PRETTY_FUNCTION__;
-  throw RuntimeError(ErrorMsg);
+  throw UnimplementedError(TRACE_INFO "Unimplemented Error");
 }
 
 void AudioMixer::handleEvent(const AudioPlayEvent&& event)
@@ -145,33 +158,25 @@ void AudioMixer::handleEvent(const AudioPlayEvent&& event)
 /* @todo Implement this */
 void AudioMixer::handleEvent(const AudioPlay3DEvent&& event)
 {
-  string ErrorMsg = "Unimplemented Error: ";
-  ErrorMsg += __PRETTY_FUNCTION__;
-  throw RuntimeError(ErrorMsg);
+  throw UnimplementedError(TRACE_INFO "Unimplemented Error");
 }
 
 /* @todo Implement this */
 void AudioMixer::handleEvent(const AudioSoundVolumeChangeEvent&& event)
 {
-  string ErrorMsg = "Unimplemented Error: ";
-  ErrorMsg += __PRETTY_FUNCTION__;
-  throw RuntimeError(ErrorMsg);
+  throw UnimplementedError(TRACE_INFO "Unimplemented Error");
 }
 
 /* @todo Implement this */
 void AudioMixer::handleEvent(const AudioMusicVolumeChangeEvent&& event)
 {
-  string ErrorMsg = "Unimplemented Error: ";
-  ErrorMsg += __PRETTY_FUNCTION__;
-  throw RuntimeError(ErrorMsg);
+  throw UnimplementedError(TRACE_INFO "Unimplemented Error");
 }
 
 /* @todo Implement this */
 void AudioMixer::handleEvent(const AudioSetMutedEvent&& event)
 {
-  string ErrorMsg = "Unimplemented Error: ";
-  ErrorMsg += __PRETTY_FUNCTION__;
-  throw RuntimeError(ErrorMsg);
+  throw UnimplementedError(TRACE_INFO "Unimplemented Error");
 }
 
 /*
@@ -183,7 +188,7 @@ void AudioMixer::handleEvent(const AudioSetMutedEvent&& event)
 void AudioMixer::playSoundtrack(SoundtrackUPtr& track)
 {
   if(!track)
-    throw RuntimeError("Received an invalid soundtrack");
+    throw AudioError(TRACE_INFO "Received an invalid soundtrack");
   
   track->Channel = Mix_PlayChannel(track->Channel.get(), track->Chunks, 0);
   if(track->Channel.get() == -1)
@@ -193,7 +198,7 @@ void AudioMixer::playSoundtrack(SoundtrackUPtr& track)
     Mix_AllocateChannels(2 * num_alloc);
     track->Channel = Mix_PlayChannel(track->Channel.get(), track->Chunks, 0);
     if(track->Channel.get() == -1)
-      throw RuntimeError("Failed to play track " + track->ID.get() + ": " + SDL_GetError());
+      throw AudioError(TRACE_INFO "Failed to play track " + track->ID.get() + ": " + SDL_GetError());
   }
   m_Playing.push_front(&track);
   track->isPlaying = true;

@@ -1,6 +1,8 @@
 set(SOURCE_FILES
         main.cxx
         Game.{hxx,cxx}
+        util/LOG.{hxx,cxx}
+        util/filesystem.hxx
         GameService.hxx
         GameService.inl.hxx
         services/Randomizer.{hxx,cxx}
@@ -41,6 +43,7 @@ set(SOURCE_FILES
         engine/WindowManager.{hxx,cxx}
         util/Singleton.hxx
         util/Meta.hxx
+        util/Exception.{hxx,cxx}
         )
 
 list(APPEND _include_directories

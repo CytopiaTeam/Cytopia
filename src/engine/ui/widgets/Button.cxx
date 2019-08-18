@@ -1,5 +1,5 @@
 #include "Button.hxx"
-#include "../../basics/LOG.hxx"
+#include "LOG.hxx"
 
 Button::Button(const SDL_Rect &uiElementRect) : UIElement(uiElementRect), m_frameRect(uiElementRect)
 {

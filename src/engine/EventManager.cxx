@@ -9,7 +9,7 @@
 #include "Map.hxx"
 #include "Sprite.hxx"
 
-#include "basics/LOG.hxx"
+#include "LOG.hxx"
 
 #ifdef MICROPROFILE_ENABLED
 #include "microprofile.h"
@@ -327,7 +327,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         }
         else
         {
-          LOG() << "CLICKED - Iso Coords: " << clickCoords.x << ", " << clickCoords.y;
+          LOG(LOG_INFO) << "CLICKED - Iso Coords: " << clickCoords.x << ", " << clickCoords.y;
         }
       }
 
