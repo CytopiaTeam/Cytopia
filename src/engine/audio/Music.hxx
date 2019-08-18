@@ -8,8 +8,9 @@
 /** \brief Music class
   * Class for playing Music.
   * Loads and plays music of following formats:  WAV, MOD, MIDI, OGG, MP3, FLAC
+  * @deprecated Replaced by Soundtrack
   */
-class Music
+class [[deprecated("Use Soundtrack instead")]] Music
 {
 public:
   Music() = default;

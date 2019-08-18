@@ -11,6 +11,7 @@
 #include <SDL.h>
 #include <SDL_ttf.h>
 
+<<<<<<< HEAD
 #ifdef USE_SDL2_MIXER
 #include "engine/AudioMixer.hxx"
 #endif
@@ -19,6 +20,8 @@
 #include "AL/al.h"
 #endif
 
+=======
+>>>>>>> upstream/master
 #ifdef USE_ANGELSCRIPT
 #include "Scripting/ScriptEngine.hxx"
 #endif
@@ -49,6 +52,7 @@ bool Game::initialize()
     return false;
   }
 
+<<<<<<< HEAD
 #ifdef USE_SDL2_MIXER
   if (Mix_Init(MIX_INIT_MP3) == -1)
   {
@@ -58,6 +62,8 @@ bool Game::initialize()
 #endif
 
 
+=======
+>>>>>>> upstream/master
   // initialize window manager
   WindowManager::instance().setWindowTitle(VERSION);
 
@@ -228,8 +234,7 @@ void Game::run(bool SkipMenu)
 #endif
 
 #ifdef USE_SDL2_MIXER
-  AudioMixer audioMixer;
-  audioMixer.playMusic();
+  m_AudioMixer.play(AudioTrigger::MainTheme);
 #endif
 
   // FPS Counter variables
@@ -279,8 +284,8 @@ void Game::run(bool SkipMenu)
 
 void Game::shutdown()
 {
-  std::get<UILoopMQ>(m_GameContext).get().push(TerminateEvent{});
-  std::get<GameLoopMQ>(m_GameContext).get().push(TerminateEvent{});
+  m_UILoopMQ.push(TerminateEvent{});
+  m_GameLoopMQ.push(TerminateEvent{});
   m_UILoop.join();
   m_EventLoop.join();
   TTF_Quit();
@@ -297,7 +302,7 @@ void Game::LoopMain(GameContext& context, Visitor visitor)
 {
   while(true)
   {
-    for(auto event : std::get<MQType>(context).get().getEnumerable())
+    for(auto event : std::get<MQType&>(context).getEnumerable())
     {
       if (std::holds_alternative<TerminateEvent>(event))
       {
@@ -305,7 +310,14 @@ void Game::LoopMain(GameContext& context, Visitor visitor)
       }
       else
       {
-        std::visit(visitor, event);
+        try
+        {
+          std::visit(visitor, std::move(event));
+        }
+        catch(std::exception& ex)
+        {
+          LOG(LOG_ERROR) << "Error: " << ex.what();
+        }
       }
     }
   }

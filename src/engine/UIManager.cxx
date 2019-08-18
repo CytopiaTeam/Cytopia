@@ -20,11 +20,11 @@ void UIManager::init()
 {
   json uiLayout;
 
-  std::ifstream i(SDL_GetBasePath() + Settings::instance().uiLayoutJSONFile);
+  std::ifstream i(SDL_GetBasePath() + Settings::instance().uiLayoutJSONFile.get());
 
   if (i.fail())
   {
-    LOG(LOG_ERROR) << "File " << Settings::instance().uiLayoutJSONFile << " does not exist! Cannot load settings from INI File!";
+    LOG(LOG_ERROR) << "File " << Settings::instance().uiLayoutJSONFile.get() << " does not exist! Cannot load settings from INI File!";
     // Application should quit here, without textureData we can't continue
     return;
   }
@@ -34,7 +34,7 @@ void UIManager::init()
 
   if (uiLayout.is_discarded())
   {
-    LOG(LOG_ERROR) << "Error parsing JSON File " << Settings::instance().uiLayoutJSONFile;
+    LOG(LOG_ERROR) << "Error parsing JSON File " << Settings::instance().uiLayoutJSONFile.get();
     return;
   }
 
@@ -156,7 +156,7 @@ void UIManager::init()
         if (uiElementType.empty())
         {
           LOG(LOG_ERROR) << "An element without a type can not be created, check your UiLayout JSON File "
-                         << Settings::instance().uiLayoutJSONFile;
+                         << Settings::instance().uiLayoutJSONFile.get();
           continue;
         }
         else if (uiElementType == "ImageButton")

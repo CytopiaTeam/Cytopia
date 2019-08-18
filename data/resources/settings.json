@@ -9,7 +9,8 @@
     "ConfigFiles": {
         "TileDataJSONFile": "resources/data/TileData.json",
         "UIDataJSONFile": "resources/data/UIData.json",
-        "UILayoutJSONFile": "resources/data/UILayout.json"
+        "UILayoutJSONFile": "resources/data/UILayout.json",
+        "AudioConfigJSONFile": "resources/data/AudioConfig.json"
     },
     "Game": {
         "MapSize": 128,

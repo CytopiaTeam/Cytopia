@@ -15,8 +15,9 @@
 /** \brief Sound effect class
   * Class for sound effects.
   * Loads and plays sound effects of following formats: WAV, AIFF, RIFF, OGG, and VOC
+  * @deprecated Replaced by Soundtrack
   */
-class SoundEffect
+class [[deprecated("Use Soundtrack instead")]] SoundEffect
 {
 public:
   SoundEffect(const std::string &filename);

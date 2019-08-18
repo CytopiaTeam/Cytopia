@@ -25,7 +25,7 @@ template <typename Model> struct Transition
   using TransitionType = typename Model::Operations;
   TransitionData data;
   inline constexpr TransitionType getType() const { return static_cast<TransitionType>(data.index()); }
-  template <typename OperationData, typename = std::enable_if<ContainsType<typename Model::OperationTypes, OperationData>, void>>
+  template <typename OperationData, EnableIf<ContainsType<typename Model::OperationTypes, OperationData>, int> = 0>
   explicit Transition(OperationData data) : data(data)
   {
   }
