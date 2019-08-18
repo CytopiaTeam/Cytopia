@@ -12,6 +12,13 @@ using nlohmann::json;
 
 std::function<void(int)> AudioMixer::onTrackFinishedFunc;
 
+//for orientation of listener
+enum ORIENTATION_INDEX { FORWARD_X=0,FORWARD_Y=1,FORWARD_Z=2,
+													 UP_X=3, UP_Y=4, UP_Z=5 };
+
+//for position of listener
+enum POSITION_INDEX { X=0,Y=1,Z=2 };
+
 AudioMixer::AudioMixer(GameService::ServiceTuple& context) : GameService(context)
 {
   if(Mix_OpenAudio(44100, AUDIO_S16SYS, DEFAULT_CHANNELS::value, 1024) == -1)
@@ -46,6 +53,37 @@ AudioMixer::AudioMixer(GameService::ServiceTuple& context) : GameService(context
 	}
 	
 	std::cout << " Open AL Soft Initialized! \n";
+	
+	std::vector <float> listener_position_vector(3);
+	//set listener position one space behind origin
+	listener_position_vector[POSITION_INDEX::X] = 0.0f;
+	listener_position_vector[POSITION_INDEX::Y] = 0.0f;
+	listener_position_vector[POSITION_INDEX::Z] = 1.0f;
+	
+	//Initialize Listener speed
+	alListener3f(AL_VELOCITY, 0.0f, 0.0f, 0.0f);//is not moving in 3d space
+	
+	//initialize listener position 1 space behind origin in openal forward direction(-z direction in regular cartesian) 
+	alListener3f(AL_POSITION, listener_position_vector[POSITION_INDEX::X], listener_position_vector[POSITION_INDEX::Y], listener_position_vector[POSITION_INDEX::Z]);
+	
+	//Set Listener orientation
+	
+	//set to just facing the screen
+
+	//set where head is facing
+	std::vector <float> listener_orientation_vector(6);
+	listener_orientation_vector[ORIENTATION_INDEX::FORWARD_X] = 0.0f; //forward vector x value
+	listener_orientation_vector[ORIENTATION_INDEX::FORWARD_Y] = 0.0f; //forward vector y value
+	listener_orientation_vector[ORIENTATION_INDEX::FORWARD_Z] = -1.0f; //forward vector z value
+	//set direction of top of head surface vector
+	listener_orientation_vector[ORIENTATION_INDEX::UP_X] = 0.0f; //up vector x value
+	listener_orientation_vector[ORIENTATION_INDEX::UP_Y] = 1.0f; //up vector y value
+	listener_orientation_vector[ORIENTATION_INDEX::UP_Z] = 0.0f; //up vector z value
+		
+	//set current listener orientation
+	alListenerfv(AL_ORIENTATION, listener_orientation_vector.data());
+	
+	
 #endif
 
     
@@ -148,9 +186,23 @@ void AudioMixer::handleEvent(const AudioTriggerEvent&& event)
 /* @todo Implement this */
 void AudioMixer::handleEvent(const AudioTrigger3DEvent&& event)
 {
-  string ErrorMsg = "Unimplemented Error: ";
-  ErrorMsg += __PRETTY_FUNCTION__;
-  throw RuntimeError(ErrorMsg);
+  #ifdef USE_OPENAL_SOFT
+  auto& possibilities = m_Triggers[event.trigger];
+  if(possibilities.size() == 0) 
+  {
+    LOG() << "Warning: no Soundtracks are triggered by " << event.trigger._to_string();
+    return;
+  }
+  SoundtrackID& trackID = *GetService<Randomizer>().choose(possibilities.begin(), possibilities.end());
+  SoundtrackUPtr& track = *m_GetSound.at(trackID);
+  
+   //set position of source in track 
+  alSource3f(track->source, AL_POSITION, 
+		(ALfloat)event.position.y, 
+		(ALfloat)event.position.z, 
+		(ALfloat)event.position.x);
+  playSoundtrack(track);
+  #endif
 }
 
 void AudioMixer::handleEvent(const AudioPlayEvent&& event)
@@ -162,9 +214,15 @@ void AudioMixer::handleEvent(const AudioPlayEvent&& event)
 /* @todo Implement this */
 void AudioMixer::handleEvent(const AudioPlay3DEvent&& event)
 {
-  string ErrorMsg = "Unimplemented Error: ";
-  ErrorMsg += __PRETTY_FUNCTION__;
-  throw RuntimeError(ErrorMsg);
+  SoundtrackUPtr& track = *m_GetSound.at(event.ID);
+  #ifdef USE_OPENAL_SOFT
+   //set position of source in track 
+  alSource3f(track->source, AL_POSITION, 
+		(ALfloat)event.position.y, 
+		(ALfloat)event.position.z, 
+		(ALfloat)event.position.x);
+  playSoundtrack(track);
+  #endif
 }
 
 /* @todo Implement this */
@@ -202,19 +260,41 @@ void AudioMixer::playSoundtrack(SoundtrackUPtr& track)
   if(!track)
     throw RuntimeError("Received an invalid soundtrack");
   
-  track->Channel = Mix_PlayChannel(track->Channel.get(), track->Chunks, 0);
-  if(track->Channel.get() == -1)
+  if(Settings::instance().audioChannels != 3)
   {
-    /* We might need to allocate more channels */
-    int num_alloc = Mix_AllocateChannels(-1);
-    Mix_AllocateChannels(2 * num_alloc);
-    track->Channel = Mix_PlayChannel(track->Channel.get(), track->Chunks, 0);
-    if(track->Channel.get() == -1)
-      throw RuntimeError("Failed to play track " + track->ID.get() + ": " + SDL_GetError());
+	  track->Channel = Mix_PlayChannel(track->Channel.get(), track->Chunks, 0);
+	  if(track->Channel.get() == -1)
+	  {
+		/* We might need to allocate more channels */
+		int num_alloc = Mix_AllocateChannels(-1);
+		Mix_AllocateChannels(2 * num_alloc);
+		track->Channel = Mix_PlayChannel(track->Channel.get(), track->Chunks, 0);
+		if(track->Channel.get() == -1)
+		  throw RuntimeError("Failed to play track " + track->ID.get() + ": " + SDL_GetError());
+	  }
+	  m_Playing.push_front(&track);
+	  track->isPlaying = true;
   }
-  m_Playing.push_front(&track);
-  track->isPlaying = true;
+  else
+  {
+	  #ifdef USE_OPENAL_SOFT
+	  std::cout << "OpenAL Soft called to play track! \n";
+	  if(track->source != 0)
+	  {
+		  alSourcePlay(track->source);
+		  m_Playing.push_front(&track);
+		  track->isPlaying = true;
+	  }
+	  else
+	  {
+		  std::cout << "Unable to play track because it's source is uninitialized! \n";
+	  }
+	  
+	  #endif
+  }
 }
+
+
 
 template <typename Iterator, typename CallbackType>
 void AudioMixer::loadSoundtrack(Iterator begin, Iterator end, CallbackType createSoundtrack)
@@ -233,6 +313,26 @@ void AudioMixer::loadSoundtrack(Iterator begin, Iterator end, CallbackType creat
         throw RuntimeError(ErrorMsg);
       }
       m_Soundtracks.emplace_back(createSoundtrack(name, chunk));
+      #ifdef USE_OPENAL_SOFT
+      
+      //initialize buffer
+	  alGenBuffers(1, &m_Soundtracks.back()->buffer);
+	  assert(alGetError() == AL_NO_ERROR && "Could not create buffers");
+      //set buffer data
+	  //alBufferData(buffer, format, data, slen, frequency);
+	  ALenum format;
+	  //if(){format = AL_FORMAT_MONO16;}
+	  //else if(){format = AL_FORMAT_STEREO16;}
+	  alBufferData(m_Soundtracks.back()->buffer, AL_FORMAT_MONO16, m_Soundtracks.back()->Chunks->abuf, m_Soundtracks.back()->Chunks->alen / 2, 44100);
+      
+      //initialize source
+      alGenSources(1, &m_Soundtracks.back()->source);
+	  alSourcei(m_Soundtracks.back()->source, AL_SOURCE_RELATIVE, AL_FALSE);
+	  assert(alGetError()==AL_NO_ERROR && "Failed to setup sound source.");
+      
+      //attach buffer to source
+      alSourcei(m_Soundtracks.back()->source, AL_BUFFER, m_Soundtracks.back()->buffer);
+      #endif
       for(AudioTrigger trigger : soundtrack.triggers)
         m_Triggers[trigger].emplace_back(name);
     });
