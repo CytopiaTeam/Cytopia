@@ -53,6 +53,12 @@ struct Soundtrack
    * @brief true if the Soundtrack can be played by SoundtrackID
    */
   bool isPlayable : 1;
+
+  ~Soundtrack()
+  {
+    if(Chunks) delete Chunks;
+  }
+
 };
 
 using SoundtrackUPtr = std::unique_ptr<Soundtrack>;
