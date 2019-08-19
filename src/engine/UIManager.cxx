@@ -188,7 +188,7 @@ void UIManager::init()
           break;
         default:
           LOG(LOG_ERROR) << "An element without a type can not be created, check your UiLayout JSON File "
-                         << Settings::instance().uiLayoutJSONFile;
+                         << Settings::instance().uiLayoutJSONFile.get();
           break;
         }
 
