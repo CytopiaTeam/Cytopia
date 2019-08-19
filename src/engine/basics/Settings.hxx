@@ -4,11 +4,19 @@
 #include <string>
 
 #include "../../util/Singleton.hxx"
+#include "../../util/Meta.hxx"
+
+using std::string;
 
 /* Settings Types */
 using ScreenDimension = int;
-using VolumeLevel = uint8_t;
+using VolumeLevel = StrongType<uint8_t, struct VolumeLevelTag>;
+using FilePath = StrongType<string, struct FilePathTag>;
 
+/* @todo This and Settings must be refactored into a TransitiveModel class
+ * @todo This TransitiveModel must be subscribed to by the Settings iView
+ * @todo We must create a ServiceController class with setters and Events for each field
+ */
 struct SettingsData
 {
 
@@ -103,19 +111,25 @@ struct SettingsData
    * @brief JSONFile that contains uiData
    * @todo add a typename
    */
-  std::string uiDataJSONFile;
+  FilePath uiDataJSONFile;
 
   /**
    * @brief JSONFile that contains tileData
    * @todo add a typename
    */
-  std::string tileDataJSONFile;
+  FilePath tileDataJSONFile;
 
   /**
    * @todo document what this field is
    * @todo add a typename
    */
-  std::string uiLayoutJSONFile;
+  FilePath uiLayoutJSONFile;
+
+  /**
+   * The file path to Audio Configuration
+   * @todo add a typename
+   */
+  FilePath audioConfigJSONFile;
 
   /**
    * @brief The Game language 
@@ -123,9 +137,9 @@ struct SettingsData
   std::string gameLanguage;
 
   /**
-   * @brief FileName of the Font that should be used.
+   * @brief FilePath of the Font that should be used.
    */
-  std::string fontFileName;
+  FilePath fontFileName;
 };
 
 /**

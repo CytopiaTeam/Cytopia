@@ -1,0 +1,90 @@
+{
+  "Music": {
+    "EasyListening": {
+      "path": "resources/audio/music/Easy_Listening.ogg",
+      "triggers": [ "MainTheme" ]
+    },
+    "OST1": {
+      "path": "resources/audio/music/OST1.ogg",
+      "triggers": [ "MainTheme" ]
+    },
+    "OST2": {
+      "path": "resources/audio/music/OST2.ogg",
+      "triggers": [ "MainTheme" ]
+    },
+    "SarahTheme": {
+      "path": "resources/audio/music/Sarah_Theme.ogg",
+      "triggers": [ "MainTheme" ]
+    }
+  },
+  "Sound": {
+    "BadSelect": {
+      "path": "resources/audio/sound effects/menu/Bad Select.ogg",
+      "triggers": []
+    },
+    "DownSelect": {
+      "path": "resources/audio/sound effects/menu/Down Select.ogg",
+      "triggers": []
+    },
+    "MajorSelection": {
+      "path": "resources/audio/sound effects/menu/Major Selection.ogg",
+      "triggers": []
+    },
+    "Nature": {
+      "path": "resources/audio/sound effects/menu/Nature Still Air and Birds.ogg",
+      "triggers": []
+    },
+    "NegativeSelect": {
+      "path": "resources/audio/sound effects/menu/Negative Select.ogg",
+      "triggers": []
+    },
+    "NegativeSelect2": {
+      "path": "resources/audio/sound effects/menu/Negative Select 2.ogg",
+      "triggers": []
+    },
+    "PositiveJingle": {
+      "path": "resources/audio/sound effects/menu/Positive Jingle.ogg",
+      "triggers": []
+    },
+    "PositiveSelect": {
+      "path": "resources/audio/sound effects/menu/Positive Select.ogg",
+      "triggers": []
+    },
+    "StrongWinds": {
+      "path": "resources/audio/sound effects/menu/Strong Winds.ogg",
+      "triggers": []
+    },
+    "UpSelect": {
+      "path": "resources/audio/sound effects/menu/Up Select.ogg",
+      "triggers": []
+    },
+    "Terrain1": {
+      "path": "resources/audio/sound effects/terrain/Terrain 1.ogg",
+      "triggers": []
+    },
+    "Terrain2": {
+      "path": "resources/audio/sound effects/terrain/Terrain 2.ogg",
+      "triggers": []
+    },
+    "Terrain3": {
+      "path": "resources/audio/sound effects/terrain/Terrain 3.ogg",
+      "triggers": []
+    },
+    "Terrain4": {
+      "path": "resources/audio/sound effects/terrain/Terrain 4.ogg",
+      "triggers": []
+    },
+    "Terrain5": {
+      "path": "resources/audio/sound effects/terrain/Terrain 5.ogg",
+      "triggers": []
+    },
+    "Terrain6": {
+      "path": "resources/audio/sound effects/terrain/Terrain 6.ogg",
+      "triggers": []
+    },
+    "Terrain7": {
+      "path": "resources/audio/sound effects/terrain/Terrain 7.ogg",
+      "triggers": []
+    }
+  }
+}

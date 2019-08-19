@@ -6,6 +6,7 @@
 #include "GameObjects/MapNode.hxx"
 #include "TerrainGenerator.hxx"
 #include "Settings.hxx"
+#include "../../services/AudioMixer.hxx"
 
 using json = nlohmann::json;
 
@@ -36,6 +37,7 @@ inline void from_json(const json &j, SettingsData &s)
   s.uiDataJSONFile = j["ConfigFiles"].value("UIDataJSONFile", "resources/data/TileData.json");
   s.tileDataJSONFile = j["ConfigFiles"].value("TileDataJSONFile", "resources/data/UIData.json");
   s.uiLayoutJSONFile = j["ConfigFiles"].value("UILayoutJSONFile", "resources/data/UILayout.json");
+  s.audioConfigJSONFile= j["ConfigFiles"].value("AudioConfigJSONFile", "resources/data/AudioConfig.json");
   s.playMusic = j["Audio"].value("PlayMusic", true);
   s.playSoundEffects = j["Audio"].value("PlaySoundEffects", false);
   s.audioChannels = j["Audio"].value("AudioChannels", 2);
@@ -98,6 +100,30 @@ inline void from_json(const json &j, BiomeData &b)
   }
 }
 
+// JSON deserializer for AudioTrigger
+inline void from_json(const json &j, AudioTrigger& trigger)
+{
+  trigger = AudioTrigger::_from_string(j.get<string>().c_str());
+}
+
+// JSON deserializer for SoundtrackConfiguration
+inline void from_json(const json &j, AudioConfig::SoundtrackConfiguration& config)
+{
+  j["path"].get_to(config.filePath);
+  std::vector<string> triggers; 
+  j["triggers"].get_to(triggers);
+  std::transform(triggers.begin(), triggers.end(), std::back_inserter(config.triggers), [](const string& trigger) {
+    return AudioTrigger::_from_string(trigger.c_str());  
+  });
+}
+
+// JSON deserializer for AudioConfig
+inline void from_json(const json &j, AudioConfig& config)
+{
+  j["Music"].get_to(config.Music);
+  j["Sound"].get_to(config.Sound);
+}
+
 // ************** SERIALIZER **************
 
 // JSON serializer for Point class
@@ -138,16 +164,17 @@ inline void to_json(json &j, const SettingsData &s)
       {std::string("User Interface"),
        {{std::string("BuildMenu Position"), s.buildMenuPosition}, {std::string("Language"), s.gameLanguage}}},
       {std::string("ConfigFiles"),
-       {{std::string("UIDataJSONFile"), s.uiDataJSONFile},
-        {std::string("TileDataJSONFile"), s.tileDataJSONFile},
-        {std::string("UILayoutJSONFile"), s.uiLayoutJSONFile}}},
+       {{std::string("UIDataJSONFile"), s.uiDataJSONFile.get()},
+        {std::string("TileDataJSONFile"), s.tileDataJSONFile.get()},
+        {std::string("UILayoutJSONFile"), s.uiLayoutJSONFile.get()},
+        {std::string("AudioConfigJSONFile"), s.audioConfigJSONFile.get()}}},
       {std::string("Audio"),
        {
            {std::string("PlayMusic"), s.playMusic},
            {std::string("PlaySoundEffects"), s.playSoundEffects},
            {std::string("AudioChannels"), s.audioChannels},
-           {std::string("MusicVolume"), s.musicVolume},
-           {std::string("SoundEffectsVolume"), s.soundEffectsVolume},
+           {std::string("MusicVolume"), s.musicVolume.get()},
+           {std::string("SoundEffectsVolume"), s.soundEffectsVolume.get()},
        }},
 
   };
