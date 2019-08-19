@@ -119,6 +119,10 @@ struct StrongType
   const WeakType& get() const noexcept { return m_Data; }  
 
   friend bool operator==(const StrongType& s1, const StrongType& s2) noexcept { return s1.m_Data == s2.m_Data; }
+
+  friend std::ostream& operator<<(std::ostream& os, const StrongType& obj) { return os << obj.m_Data; }
+  
+  friend std::istream& operator>>(std::istream& is, StrongType& obj) { return is >> obj.m_Data; }
   
 private:
   WeakType m_Data;

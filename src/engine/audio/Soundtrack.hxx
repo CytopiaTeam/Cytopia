@@ -75,6 +75,12 @@ struct Soundtrack
    */
   ALuint buffer;
   #endif
+
+  ~Soundtrack()
+  {
+    if(Chunks) delete Chunks;
+  }
+
 };
 
 using SoundtrackUPtr = std::unique_ptr<Soundtrack>;
