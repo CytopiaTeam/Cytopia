@@ -21,7 +21,7 @@ enum POSITION_INDEX { X=0,Y=1,Z=2 };
 
 AudioMixer::AudioMixer(GameService::ServiceTuple& context) : GameService(context)
 {
-  if(Mix_OpenAudio(44100, AUDIO_S16SYS, DEFAULT_CHANNELS::value, 1024) == -1)
+  if(Mix_OpenAudio(44100, AUDIO_S16SYS, 1, 1024) == -1)
     throw RuntimeError(string{"Unable to open audio channels "} + Mix_GetError());
   ifstream ifs {Settings::instance().audioConfigJSONFile.get()};
   json config_json;
@@ -198,9 +198,9 @@ void AudioMixer::handleEvent(const AudioTrigger3DEvent&& event)
   
    //set position of source in track 
   alSource3f(track->source, AL_POSITION, 
-		(ALfloat)event.position.y, 
 		(ALfloat)event.position.z, 
-		(ALfloat)event.position.x);
+		(ALfloat)event.position.x, 
+		(ALfloat)event.position.y);
   playSoundtrack(track);
   #endif
 }
@@ -218,9 +218,9 @@ void AudioMixer::handleEvent(const AudioPlay3DEvent&& event)
   #ifdef USE_OPENAL_SOFT
    //set position of source in track 
   alSource3f(track->source, AL_POSITION, 
-		(ALfloat)event.position.y, 
 		(ALfloat)event.position.z, 
-		(ALfloat)event.position.x);
+		(ALfloat)event.position.x, 
+		(ALfloat)event.position.y);
   playSoundtrack(track);
   #endif
 }
@@ -323,7 +323,7 @@ void AudioMixer::loadSoundtrack(Iterator begin, Iterator end, CallbackType creat
 	  ALenum format;
 	  //if(){format = AL_FORMAT_MONO16;}
 	  //else if(){format = AL_FORMAT_STEREO16;}
-	  alBufferData(m_Soundtracks.back()->buffer, AL_FORMAT_MONO16, m_Soundtracks.back()->Chunks->abuf, m_Soundtracks.back()->Chunks->alen / 2, 44100);
+	  alBufferData(m_Soundtracks.back()->buffer, AL_FORMAT_MONO16, m_Soundtracks.back()->Chunks->abuf, m_Soundtracks.back()->Chunks->alen, 44100);
       
       //initialize source
       alGenSources(1, &m_Soundtracks.back()->source);

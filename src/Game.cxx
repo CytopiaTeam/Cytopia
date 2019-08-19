@@ -211,7 +211,7 @@ void Game::run(bool SkipMenu)
 #endif
 
 #ifdef USE_SDL2_MIXER
-  m_AudioMixer.play(AudioTrigger::MainTheme);
+  m_AudioMixer.play(AudioTrigger::MainTheme,Coordinate3D{0,0,0});
 #endif
 
   // FPS Counter variables

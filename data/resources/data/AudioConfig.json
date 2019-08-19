@@ -1,19 +1,19 @@
 {
   "Music": {
     "EasyListening": {
-      "path": "resources/audio/music/Easy_Listening.ogg",
+      "path": "resources/audio/music/Easy_Listening_mono.ogg",
       "triggers": [ "MainTheme" ]
     },
     "OST1": {
-      "path": "resources/audio/music/OST1.ogg",
+      "path": "resources/audio/music/OST1-mono.ogg",
       "triggers": [ "MainTheme" ]
     },
     "OST2": {
-      "path": "resources/audio/music/OST2.ogg",
+      "path": "resources/audio/music/OST2-mono.ogg",
       "triggers": [ "MainTheme" ]
     },
     "SarahTheme": {
-      "path": "resources/audio/music/Sarah_Theme.ogg",
+      "path": "resources/audio/music/Sarah_Theme_mono.ogg",
       "triggers": [ "MainTheme" ]
     }
   },
