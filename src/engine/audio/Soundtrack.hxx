@@ -79,6 +79,11 @@ struct Soundtrack
   ~Soundtrack()
   {
     if(Chunks) delete Chunks;
+    
+    #ifdef USE_OPENAL_SOFT
+    if(buffer){alDeleteBuffers(1, &buffer);}
+    if(source){alDeleteSources(1, &source);} 
+    #endif
   }
 
 };

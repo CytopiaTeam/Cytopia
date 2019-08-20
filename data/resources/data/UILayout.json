@@ -334,20 +334,6 @@
         "Position_y": 370,
         "Width": 200,
         "Height": 30
-      },
-      {
-        "Type": "Text",
-        "Text": "Audio Channels",
-        "Position_x": 330,
-        "Position_y":440
-      },
-      {
-        "ID": "$AudioChannelSelector",
-        "Type": "ComboBox",
-        "Position_x": 420,
-        "Position_y": 440,
-        "Width": 200,
-        "Height": 30
       }
     ]
   }

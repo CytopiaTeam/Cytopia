@@ -1,6 +1,6 @@
 {
     "Audio": {
-        "AudioChannels": 3,
+        "AudioChannels": 2,
         "MusicVolume": 50,
         "PlayMusic": true,
         "PlaySoundEffects": true,

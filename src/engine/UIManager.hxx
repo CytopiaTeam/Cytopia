@@ -143,8 +143,6 @@ public:
 
   void changeResolution(UIElement *sender);
   void changeFullScreenMode(UIElement *sender);
-  
-  void changeAudioChannels(UIElement *sender);
 
 private:
   BUILDMENU_LAYOUT buildMenuLayout = BUILDMENU_LAYOUT::BOTTOM;

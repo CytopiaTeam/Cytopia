@@ -48,7 +48,7 @@
     },
     "PositiveSelect": {
       "path": "resources/audio/sound effects/menu/Positive Select.ogg",
-      "triggers": []
+      "triggers": [ "ClickSound"]
     },
     "StrongWinds": {
       "path": "resources/audio/sound effects/menu/Strong Winds.ogg",

@@ -757,46 +757,6 @@ void UIManager::initializeDollarVariables()
         combobox->setActiveID(Settings::instance().fullScreenMode);
         combobox->registerCallbackFunction(Signal::slot(this, &UIManager::changeFullScreenMode));
       }
-      else if (it->getUiElementData().elementID == "$AudioChannelSelector")
-      {
-        // This must be a ComboBox
-        ComboBox *combobox = dynamic_cast<ComboBox *>(it.get());
-
-        if (!combobox)
-        {
-          LOG(LOG_ERROR) << "Can not use element ID $AudioChannelSelector for an element other than a combobox!";
-          continue;
-        }
-		
-		std::cout << "Settings audio channels before set combo box: " << Settings::instance().audioChannels << std::endl;
-        combobox->clear();
-        combobox->addElement("1");
-   
-        if (Settings::instance().audioChannels == 1)
-        {
-		  std::cout << "combox count:" << combobox->count();
-		  int newID = combobox->count() - 1;
-          combobox->setActiveID(newID);
-        }
-        combobox->addElement("2");
-
-        if (Settings::instance().audioChannels == 2)
-        {
-		  std::cout << "combox count:" << combobox->count();		   
-          int newID = combobox->count() - 1;
-          combobox->setActiveID(newID);
-        }
-        combobox->addElement("3");
-
-        if (Settings::instance().audioChannels == 3)
-		{
-		  std::cout << "combox count:" << combobox->count();
-          int newID = combobox->count() - 1;
-          combobox->setActiveID(newID);
-        }
-
-        combobox->registerCallbackFunction(Signal::slot(this, &UIManager::changeAudioChannels));
-      }
     }
   }
 }
@@ -843,12 +803,3 @@ void UIManager::changeFullScreenMode(UIElement *sender)
   Layout::arrangeElements();
 }
 
-void UIManager::changeAudioChannels(UIElement *sender)
-{
-  ComboBox *combobox = dynamic_cast<ComboBox *>(sender);
-  std::cout << "active id:" << combobox->getActiveID();
-  Settings::instance().audioChannels = combobox->getActiveID();
-  Layout::arrangeElements();
-  
-  std::cout << "channels: " << Settings::instance().audioChannels << std::endl;
-}

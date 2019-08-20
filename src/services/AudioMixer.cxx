@@ -21,8 +21,13 @@ enum POSITION_INDEX { X=0,Y=1,Z=2 };
 
 AudioMixer::AudioMixer(GameService::ServiceTuple& context) : GameService(context)
 {
+  #ifdef USE_OPENAL_SOFT
   if(Mix_OpenAudio(44100, AUDIO_S16SYS, 1, 1024) == -1)
     throw RuntimeError(string{"Unable to open audio channels "} + Mix_GetError());
+  #else
+   if(Mix_OpenAudio(44100, AUDIO_S16SYS, 2, 1024) == -1)
+    throw RuntimeError(string{"Unable to open audio channels "} + Mix_GetError());
+  #endif
   ifstream ifs {Settings::instance().audioConfigJSONFile.get()};
   json config_json;
   ifs >> config_json;
@@ -260,38 +265,35 @@ void AudioMixer::playSoundtrack(SoundtrackUPtr& track)
   if(!track)
     throw RuntimeError("Received an invalid soundtrack");
   
-  if(Settings::instance().audioChannels != 3)
+  #ifndef USE_OPENAL_SOFT
+  track->Channel = Mix_PlayChannel(track->Channel.get(), track->Chunks, 0);
+  if(track->Channel.get() == -1)
   {
-	  track->Channel = Mix_PlayChannel(track->Channel.get(), track->Chunks, 0);
-	  if(track->Channel.get() == -1)
-	  {
-		/* We might need to allocate more channels */
-		int num_alloc = Mix_AllocateChannels(-1);
-		Mix_AllocateChannels(2 * num_alloc);
-		track->Channel = Mix_PlayChannel(track->Channel.get(), track->Chunks, 0);
-		if(track->Channel.get() == -1)
-		  throw RuntimeError("Failed to play track " + track->ID.get() + ": " + SDL_GetError());
-	  }
+	/* We might need to allocate more channels */
+	int num_alloc = Mix_AllocateChannels(-1);
+	Mix_AllocateChannels(2 * num_alloc);
+	track->Channel = Mix_PlayChannel(track->Channel.get(), track->Chunks, 0);
+	if(track->Channel.get() == -1)
+	  throw RuntimeError("Failed to play track " + track->ID.get() + ": " + SDL_GetError());
+  }
+  m_Playing.push_front(&track);
+  track->isPlaying = true;
+
+  #else
+  std::cout << "OpenAL Soft called to play track! \n";
+  if(track->source != 0)
+  {
+	  alSourcePlay(track->source);
 	  m_Playing.push_front(&track);
 	  track->isPlaying = true;
   }
   else
   {
-	  #ifdef USE_OPENAL_SOFT
-	  std::cout << "OpenAL Soft called to play track! \n";
-	  if(track->source != 0)
-	  {
-		  alSourcePlay(track->source);
-		  m_Playing.push_front(&track);
-		  track->isPlaying = true;
-	  }
-	  else
-	  {
-		  std::cout << "Unable to play track because it's source is uninitialized! \n";
-	  }
-	  
-	  #endif
+	  std::cout << "Unable to play track because it's source is uninitialized! \n";
   }
+  
+  #endif
+  
 }
 
 
