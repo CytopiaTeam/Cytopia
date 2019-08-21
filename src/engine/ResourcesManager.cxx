@@ -24,10 +24,10 @@ void ResourcesManager::loadTexture(const std::string &id, const std::string &fil
 
 void ResourcesManager::loadUITexture()
 {
-  std::ifstream i(SDL_GetBasePath() + Settings::instance().uiDataJSONFile);
+  std::ifstream i(SDL_GetBasePath() + Settings::instance().uiDataJSONFile.get());
   if (i.fail())
   {
-    LOG(LOG_ERROR) << "File " << Settings::instance().uiDataJSONFile << " does not exist!";
+    LOG(LOG_ERROR) << "File " << Settings::instance().uiDataJSONFile.get() << " does not exist!";
     return;
   }
 
@@ -36,7 +36,7 @@ void ResourcesManager::loadUITexture()
 
   if (uiDataJSON.is_discarded())
   {
-    LOG(LOG_ERROR) << "Error parsing JSON File " << Settings::instance().uiDataJSONFile;
+    LOG(LOG_ERROR) << "Error parsing JSON File " << Settings::instance().uiDataJSONFile.get();
     return;
   }
 

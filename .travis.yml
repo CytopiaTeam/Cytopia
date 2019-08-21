@@ -1,14 +1,11 @@
+dist:                   bionic
 language:               cpp
-dist:                   xenial
 services:
                       - xvfb
-sudo:                   required
-group:                  edge
 
 env:
   global:
     - GITHUB_REPO:      CytopiaTeam/Cytopia
-    - CONAN_PKG:        conan-ubuntu-64_1_18_0.deb
 
 
 cache:
@@ -31,7 +28,6 @@ matrix:
             secure:     "HKP12cwEq+liwjJZyFECQKJBSmMC0LUz85JOod3HAoak846iI5kPLHDX1tbzL/yjKWUzKVfHpFGQAOTAIW8CuW5Ck7jnRalQRnHUeF4OSVDAHWwtgA41klWbr/8i1jfurMWwJISCMtJ1gYM1EabtwosXlt2bz1nD0DVTMcVnYYHOoSei2L8FMv0BWj8jVv0mR+1V2CrZtKeIYBhdvyouF6AzmsRLLiDqGHAQYxz39s615qiD43OvrwO+6aM5S90rByFEyyA51c7g2KlPGH+ursx1I1pR60k+K1H61aCRyTq3kG4iZLF6N9j/o/ywR92FppOwi7tMNiq6WpKlTwq8JM/XtlNlXrYByTmdufEHuzjZ5OYnsfmUIVJIQiYn60IIslLzbErQCOoe53I3NqbdGt7rDnUix5DVGLixlatLP5w82s4snAYmRbwDjDExSSBxk9Xecb9YKJQs80wz6DiS16mQ5HvYbYafqiIM4HHuunQ1tv5z3w2etFluIJfE+5KERWS1gfh8mAMvFfeS66IHbzls2iZEw0FQj+72oNwJzRQUlqZhvFglCnQS/C7WZ9m0xB8msLoa+B8TrdbzYc0ZQWZ5BNgLRxf/kLl0YoaVXLfttjJY44IM42w5eH0PN2I/6gI2XUo6EFp3vjc6lNaeRQzxF6z1SQ2cVW+BPcugB2I="
         apt:
           sources:
-            - ubuntu-toolchain-r-test
             # Official Kitware APT repository. Currently supports Bionic and Xenial.
             # More information at: https://apt.kitware.com
             - sourceline: 'deb https://apt.kitware.com/ubuntu/ xenial main'
@@ -39,8 +35,6 @@ matrix:
           packages:
             - cmake
             - ninja-build
-            - gcc-8
-            - g++-8
             - doxygen
             - graphviz
             - libfreetype6-dev
@@ -49,16 +43,9 @@ matrix:
             - libjack-dev
             - libpulse-dev
             - libaudio-dev
-      env:
-        - MATRIX_EVAL="CC=gcc-8 && CXX=g++-8"
-
-      install:
-        - wget https://dl.bintray.com/conan/installers/$CONAN_PKG -nv
-        - sudo dpkg -i ./$CONAN_PKG
-        - conan user
 
       before_script:
-        - cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_C_COMPILER=gcc-8 -DCMAKE_CXX_COMPILER=g++-8 -DENABLE_COVERAGE=ON .
+        - cmake -DCMAKE_BUILD_TYPE=Debug -DENABLE_COVERAGE=ON .
 
       script:
         - >
@@ -91,8 +78,6 @@ matrix:
       addons:
         apt:
           sources:
-            - ubuntu-toolchain-r-test
-            - llvm-toolchain-xenial-7
             # Official Kitware APT repository. Currently supports Bionic and Xenial.
             # More information at: https://apt.kitware.com
             - sourceline: 'deb https://apt.kitware.com/ubuntu/ xenial main'
@@ -111,17 +96,10 @@ matrix:
             - libpulse-dev
             - libaudio-dev
             - clang-7
-            - gcc-8 #install gcc and g++ in order to make clang use gccs libstdc++
-            - g++-8
             - libc++-7-dev  # C++17 support in libstd++
       env:
         - DEPLOY_DOCUMENTATION=true
         - MATRIX_EVAL="CC=clang-7.0 && CXX=clang++-7.0"
-
-      install:
-        - wget https://dl.bintray.com/conan/installers/$CONAN_PKG -nv
-        - sudo dpkg -i ./$CONAN_PKG
-        - conan user
 
       before_script:
         - cmake -GNinja -DCMAKE_BUILD_TYPE=Release .

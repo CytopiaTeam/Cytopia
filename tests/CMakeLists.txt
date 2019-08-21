@@ -50,7 +50,6 @@ LIST(APPEND TEST_SOURCES
         engine/Engine.cxx
         engine/WindowManager.cxx
         ui/widgets/Text.cxx
-        engine/AudioMixer.cxx
         util/Meta.cxx
         util/Observer.cxx
         util/TransitiveModel.cxx
@@ -61,7 +60,7 @@ LIST(APPEND TEST_SOURCES
 generate_source_groups(${TEST_SOURCES})
 
 if (ENABLE_SDL2_MIXER)
-    LIST(APPEND TEST_SOURCES ${CMAKE_CURRENT_LIST_DIR}/engine/AudioMixer.cxx)
+    LIST(APPEND TEST_SOURCES ${CMAKE_CURRENT_LIST_DIR}/services/AudioMixer.cxx)
 endif (ENABLE_SDL2_MIXER)
 
 # Generate source groups for use in IDEs
