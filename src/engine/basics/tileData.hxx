@@ -29,11 +29,26 @@
 
 struct TileSetData
 {
+  /**
+  * count is the number of images that are in the tile set. This is for things that 
+  * will have a random tile chosen from their set. 
+  *
+  * offset is where the first image in this tileset is, so a file could contain multiple
+  * tilesets and offset would define where to start this tileset and count would define
+  * how many images it has. offset = 0 is the first image, offset = 3 is the 4th tile. 
+  *
+  * rotations is the number of rotations that exist in this tileset (for buildings). 
+  * this is not applicable for terrain and roads, their orientation is figured out
+  * differently. For buildings that have multiple orientations, this isn't implemented
+  * yet but it prevents buildings with multiple orientations from being placed with 
+  * a random image (that might be the wrong size).
+  **/
   std::string fileName;
   int count = 1;
   int clippingWidth = 0;
   int clippingHeight = 0;
   int offset = 0;
+  int rotations = 1; 
 };
 
 struct TileData
