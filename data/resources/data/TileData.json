@@ -10,7 +10,7 @@
             "clip_height": 18,
             "clip_width": 32,
             "count": 1,
-            "fileName": "resources/images/buildings/Decoration/Dec_1x1_coal_FN.png"
+            "fileName": "resources/images/buildings/decoration/Dec_1x1_coal_FN.png"
         },
         "title": "Coal Pile",
         "upkeep cost": 0,
@@ -18,9 +18,9 @@
         "isOverPlacable": 0
     },
     {
-        "author": "KingTut 101",
+        "author": "Kingtut 101",
         "category": "Residential",
-        "description": "Day Care Center",
+        "description": "An old day care that has since become someone's home.",
         "id": "Day Care Center",
         "power": 0,
         "price": 0,
@@ -56,7 +56,7 @@
     {
         "author": "Kingtut 101",
         "category": "Commercial",
-        "description": "A Shop that sells Bikes",
+        "description": "A small shop that sells bikes.",
         "id": "com_1x1_BikeShop",
         "power": 0,
         "price": 5,
@@ -74,7 +74,7 @@
     {
         "author": "Kingtut 101",
         "category": "Commercial",
-        "description": "A shop that sells clocks",
+        "description": "An old clock store that sells and repairs clocks.",
         "id": "com_1x1_ClockStore1",
         "power": 0,
         "price": 5,
@@ -146,7 +146,7 @@
     {
         "author": "Folesnaid",
         "category": "Commercial",
-        "description": "A shop that sells games. Even Cytopia is in store!",
+        "description": "A shop that sells games. Even Cytopia is sold here!",
         "id": "com_1x1_game_shop_FN",
         "power": 0,
         "price": 0,
@@ -244,7 +244,7 @@
             "clip_height": 31,
             "clip_width": 32,
             "count": 1,
-            "fileName": "resources/images/buildings/Nature/Nature_1x1_oasis_FN.png"
+            "fileName": "resources/images/buildings/nature/Nature_1x1_oasis_FN.png"
         },
         "title": "Oasis",
         "upkeep cost": 0,
@@ -252,9 +252,9 @@
         "isOverPlacable": 0
     },
     {
-        "author": "RockFort",
+        "author": "Kingtut 101",
         "category": "Commercial",
-        "description": "Borgs Burgers - We have the tastiest!",
+        "description": "A somewhat large fast food restaurant known for cheap food and questionable quality.",
         "id": "com_2x2_BorgsBurgers",
         "power": 0,
         "price": 0,
@@ -264,7 +264,7 @@
             "count": 1,
             "fileName": "resources/images/buildings/commercial/com_2x2_BorgsBurgers.png"
         },
-        "title": "Borgs Burgers",
+        "title": "Borg's Burgers",
         "upkeep cost": 0,
         "water": 0,
         "isOverPlacable": 0
@@ -290,7 +290,7 @@
     {
         "author": "Kingtut 101",
         "category": "Commercial",
-        "description": "Where people work",
+        "description": "A small office building with a nice sidewalk and a unique blue entrance.",
         "id": "com_2x2_office",
         "power": 0,
         "price": 5,
@@ -300,7 +300,7 @@
             "count": 1,
             "fileName": "resources/images/buildings/commercial/com_2x2_office.png"
         },
-        "title": "Office",
+        "title": "Small Office Building",
         "upkeep cost": 0,
         "water": 0,
         "isOverPlacable": 0
@@ -326,7 +326,7 @@
     {
         "author": "Kingtut 101",
         "category": "Commercial",
-        "description": "The community gathers and works here",
+        "description": "A large multi-story shopping mall with large windows. Urban legends say it was built by hand by the members of a distant community",
         "id": "com_3x3_CommunityTower",
         "power": 0,
         "price": 5,
@@ -360,9 +360,9 @@
         "isOverPlacable": 0
     },
     {
-        "author": "KingTut 101",
+        "author": "Kingtut 101",
         "category": "Roads",
-        "description": "Country Road... takes you home!",
+        "description": "An average road that'll you would commonly find out in the countryside.  It lacks a proper sidewalk though.",
         "id": "country_road",
         "power": 0,
         "price": 7,
@@ -384,9 +384,9 @@
         "isOverPlacable": 0
     },
     {
-        "author": "KingTut 101",
+        "author": "Kingtut 101",
         "category": "Roads",
-        "description": "A Road, that hasn't been cleaned often",
+        "description": "An old dirt road that doesn't require much maintenance.  Not recommended for busy roadways.",
         "id": "dirt_road",
         "power": 0,
         "price": 3,
@@ -408,9 +408,9 @@
         "isOverPlacable": 0
     },
     {
-        "author": "KingTut 101",
+        "author": "Kingtut 101",
         "category": "Industrial",
-        "description": "Small Depollutor",
+        "description": "An old depolluter building that has become a new industrial factory.",
         "id": "ind_1x1_DepolluterMINI",
         "power": 0,
         "price": 0,
@@ -420,7 +420,7 @@
             "count": 1,
             "fileName": "resources/images/buildings/industrial/ind_1x1_DepolluterMINI1.png"
         },
-        "title": "Depolluter Small",
+        "title": "Mini Depolluter",
         "upkeep cost": 0,
         "water": 0,
         "isOverPlacable": 0
@@ -498,9 +498,9 @@
         "isOverPlacable": 0
     },
     {
-        "author": "KingTut 101",
+        "author": "Kingtut 101",
         "category": "Industrial",
-        "description": "Medium Depollutor",
+        "description": "A classic depolluter building that has been recently repurposed.",
         "id": "ind_2x2_DepolluterSML",
         "power": 0,
         "price": 0,
@@ -510,7 +510,7 @@
             "count": 1,
             "fileName": "resources/images/buildings/industrial/ind_2x2_DepolluterSML.png"
         },
-        "title": "Depolluter Medium",
+        "title": "Medium Depolluter",
         "upkeep cost": 0,
         "water": 0,
         "isOverPlacable": 0
@@ -534,9 +534,9 @@
         "isOverPlacable": 0
     },
     {
-        "author": "KingTut 101",
+        "author": "Kingtut 101",
         "category": "Industrial",
-        "description": "A Power Plant, that has been built years ago",
+        "description": "An ancient coal power plant that has been turned into a factory.",
         "id": "ind_3x3_OldPowerPlant",
         "power": 0,
         "price": 0,
@@ -546,7 +546,7 @@
             "count": 1,
             "fileName": "resources/images/buildings/industrial/ind_3x3_OldPowerPlant.png"
         },
-        "title": "OldPowerPlant",
+        "title": "Old Power Plant",
         "upkeep cost": 0,
         "water": 0,
         "isOverPlacable": 0
@@ -570,9 +570,9 @@
         "isOverPlacable": 0
     },
     {
-        "author": "KingTut 101",
+        "author": "Kingtut 101",
         "category": "Industrial",
-        "description": "Big Depollutor",
+        "description": "A new factory that was once a depolluter building.",
         "id": "ind_4x4_DepolluterLRG",
         "power": 0,
         "price": 0,
@@ -582,7 +582,7 @@
             "count": 1,
             "fileName": "resources/images/buildings/industrial/ind_4x4_DepolluterLRG.png"
         },
-        "title": "Depolluter Big",
+        "title": "Big Depolluter",
         "upkeep cost": 0,
         "water": 0,
         "isOverPlacable": 0
@@ -606,9 +606,9 @@
         "isOverPlacable": 0
     },
     {
-        "author": "KingTut 101",
+        "author": "Kingtut 101",
         "category": "Roads",
-        "description": "Paved Road",
+        "description": "A nice paved road that are commonly found in the middle of large cities.  Includes a sidewalk.",
         "id": "paved_road",
         "power": 0,
         "price": 10,
@@ -640,7 +640,7 @@
             "clip_height": 32,
             "clip_width": 32,
             "count": 1,
-            "fileName": "resources/images/buildings/Power Plants/pow_1x1_SmallCoalPlant_MS.png"
+            "fileName": "resources/images/buildings/power plants/pow_1x1_SmallCoalPlant_MS.png"
         },
         "title": "Small Coal Power Plant2",
         "upkeep cost": 0,
@@ -650,7 +650,7 @@
     {
         "author": "KingTut 101",
         "category": "Power",
-        "description": "A Coal Power plant.",
+        "description": "A coal power plant.  It'll produce enough electricity to keep a town running, but it creates a lot of pollution.",
         "id": "pow_3x3_CoalPlant",
         "power": 0,
         "price": 5,
@@ -658,7 +658,7 @@
             "clip_height": 73,
             "clip_width": 96,
             "count": 1,
-            "fileName": "resources/images/buildings/Power Plants/pow_3x3_CoalPlant.png"
+            "fileName": "resources/images/buildings/power plants/pow_3x3_CoalPlant.png"
         },
         "title": "Coal Power Plant",
         "upkeep cost": 0,
@@ -666,9 +666,9 @@
         "isOverPlacable": 0
     },
     {
-        "author": "KingTut 101",
+        "author": "Kingtut 101",
         "category": "Power",
-        "description": "A  small coal power plant.",
+        "description": "A  small coal power plant.  It can supply a small town with electricity, but it produces a lot of pollution.",
         "id": "pow_3x3_CoalPlant1",
         "power": 0,
         "price": 5,
@@ -676,7 +676,7 @@
             "clip_height": 24,
             "clip_width": 32,
             "count": 1,
-            "fileName": "resources/images/buildings/Power Plants/pow_1x1_SmallPowerPlant.png"
+            "fileName": "resources/images/buildings/power plants/pow_1x1_SmallPowerPlant.png"
         },
         "title": "Small Coal Power Plant",
         "upkeep cost": 0,
@@ -684,9 +684,9 @@
         "isOverPlacable": 0
     },
     {
-        "author": "KingTut 101",
+        "author": "Kingtut 101",
         "category": "Residential",
-        "description": "A small house",
+        "description": "A small trailer house.",
         "id": "res_1x1_KTHouse2",
         "power": 0,
         "price": 0,
@@ -702,9 +702,9 @@
         "isOverPlacable": 0
     },
     {
-        "author": "KingTut 101",
+        "author": "Kingtut 101",
         "category": "Residential",
-        "description": "A small house",
+        "description": "A small trailer house",
         "id": "res_1x1_KTHouseNew2",
         "power": 0,
         "price": 0,
@@ -738,9 +738,9 @@
         "isOverPlacable": 0
     },
     {
-        "author": "KingTut 101",
+        "author": "Kingtut 101",
         "category": "Residential",
-        "description": "A small shack",
+        "description": "A tiny house that can only accommodate a few people.",
         "id": "res_1x1_SmallShack1",
         "power": 0,
         "price": 0,
@@ -990,9 +990,9 @@
         "isOverPlacable": 0
     },
     {
-        "author": "KingTut 101",
+        "author": "Kingtut 101",
         "category": "Residential",
-        "description": "A Tower made out of concrete",
+        "description": "A bland-looking apartment building made out of concrete.",
         "id": "res_3x3_ConcreteTowerLRG",
         "power": 0,
         "price": 0,
@@ -1002,7 +1002,7 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_3x3_ConcreteTowerLRG.png"
         },
-        "title": "Concrete Tower",
+        "title": "Tall Concrete Tower",
         "upkeep cost": 0,
         "water": 0,
         "isOverPlacable": 0
@@ -1010,7 +1010,7 @@
     {
         "author": "KingTut 101",
         "category": "Residential",
-        "description": "A skyscaper",
+        "description": "An algae-green tower that is the home of lots of people.",
         "id": "res_3x3_GreenSkyScraper",
         "power": 0,
         "price": 0,
@@ -1084,7 +1084,7 @@
             "clip_height": 64,
             "clip_width": 32,
             "count": 1,
-            "fileName": "resources/images/buildings/Water/watertower.png"
+            "fileName": "resources/images/buildings/water/watertower.png"
         },
         "title": "Water Tower",
         "upkeep cost": 0,
@@ -1102,7 +1102,7 @@
             "clip_height": 32,
             "clip_width": 32,
             "count": 1,
-            "fileName": "resources/images/buildings/Water/watertower2.png"
+            "fileName": "resources/images/buildings/water/watertower2.png"
         },
         "title": "Small Water Tower",
         "upkeep cost": 0,
@@ -1112,7 +1112,7 @@
     {
         "author": "Kingtut 101",
         "category": "Flora",
-        "description": "trees",
+        "description": "A group of beautiful oak trees.",
         "id": [
             "trees_oak_single_normal_1",
             "trees_oak_single_normal_2",
@@ -1144,7 +1144,7 @@
         "author": "Kingtut 101",
         "biome": "GrassLands",
         "category": "TerrainDecoration",
-        "description": "Rocks for the terrain",
+        "description": "A pile of rocks that can be found in the grasslands biome.",
         "id": [
             "terrain_rocks_grassLands_1",
             "terrain_rocks_grassLands_2",
@@ -1158,7 +1158,7 @@
             "count": 3,
             "fileName": "resources/images/decoration/grassLands/terrainRocks.png"
         },
-        "title": "Rocks",
+        "title": "GrassLand Rocks",
         "upkeep cost": 0,
         "water": 0,
         "isOverPlacable": 0
@@ -1167,7 +1167,7 @@
         "author": "Kingtut 101",
         "biome": "Desert",
         "category": "TerrainDecoration",
-        "description": "Rocks for the terrain",
+        "description": "A pile of rocks that can be found in the desert biome.",
         "id": [
             "terrain_rocks_desert_1",
             "terrain_rocks_desert_2",
@@ -1557,7 +1557,7 @@
     {
         "author": "Kingtut 101",
         "category": "Flora",
-        "description": "TODO DESC",
+        "description": "A group of beautiful pinetrees.",
         "id": "tree_pinetrees_dense",
         "power": 0,
         "price": 0,
@@ -1625,7 +1625,7 @@
     {
         "author": "Kingtut 101",
         "category": "Flora",
-        "description": "TODO DESC",
+        "description": "A small group of lilypads. These are commonly found in lakes and ponds.",
         "id": "flora_water_lilypads",
         "power": 0,
         "price": 0,
@@ -1635,7 +1635,7 @@
             "count": 1,
             "fileName": "resources/images/flora/flora_water_lilypads.png"
         },
-        "title": "TODO TITLE",
+        "title": "Lilypads",
         "upkeep cost": 0,
         "water": 0
     },
@@ -1659,7 +1659,7 @@
     {
         "author": "Kingtut 101",
         "category": "Decoration",
-        "description": "TODO DESC",
+        "description": "A small lantern that can be used to decorate your cities.",
         "id": "BD_1x1_Lantern_kt",
         "power": 0,
         "price": 0,
@@ -1669,7 +1669,7 @@
             "count": 3,
             "fileName": "resources/images/buildings/decoration/BD_1x1_Lantern_kt.png"
         },
-        "title": "TODO TITLE",
+        "title": "Lantern",
         "upkeep cost": 0,
         "water": 0
     },
@@ -1744,7 +1744,7 @@
     {
         "author": "Kingtut 101",
         "category": "Decoration",
-        "description": "TODO DESC",
+        "description": "A tall light pole that can be used to decorate a town.",
         "id": "BD_1x1_LightPole_kt",
         "power": 0,
         "price": 0,
@@ -1754,15 +1754,15 @@
             "count": 4,
             "fileName": "resources/images/buildings/decoration/BD_1x1_LightPole_kt.png"
         },
-        "title": "TODO TITLE",
+        "title": "Light Pole",
         "upkeep cost": 0,
         "water": 0
     },
     {
-        "author": "Kingtut 101",
+        "author": "Folenaid",
         "category": "Residential",
-        "description": "TODO DESC",
-        "id": "Res_1x1_homeless_camp_kt",
+        "description": "A small piece of land where impoverished people reside.",
+        "id": "Res_1x1_homeless_camp_FN",
         "power": 0,
         "price": 0,
         "tiles": {
@@ -1771,14 +1771,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/Res_1x1_homeless_camp_kt.png"
         },
-        "title": "TODO TITLE",
+        "title": "Homeless Camp",
         "upkeep cost": 0,
         "water": 0
     },
     {
         "author": "Kingtut 101",
         "category": "Decoration",
-        "description": "TODO DESC",
+        "description": "A nice park that can be used as a good centerpiece.",
         "id": "BD_3x3_DarkParkCrossroads_kt",
         "power": 0,
         "price": 0,
@@ -1788,7 +1788,7 @@
             "count": 2,
             "fileName": "resources/images/buildings/decoration/BD_3x3_DarkParkCrossroads_kt.png"
         },
-        "title": "TODO TITLE",
+        "title": "Park Crossroads",
         "upkeep cost": 0,
         "water": 0
     },
@@ -1931,7 +1931,7 @@
     {
         "author": "Kingtut 101",
         "category": "Commercial",
-        "description": "TODO DESC",
+        "description": "A tall glass skyscraper that fears the day a stone-throwing competition is held in town.",
         "id": "com_3x3_GlassTower_kt",
         "power": 0,
         "price": 0,
@@ -1941,7 +1941,7 @@
             "count": 1,
             "fileName": "resources/images/buildings/commercial/com_3x3_GlassTower_kt.png"
         },
-        "title": "TODO TITLE",
+        "title": "Glass Tower",
         "upkeep cost": 0,
         "water": 0
     },
@@ -1982,7 +1982,7 @@
     {
         "author": "Kingtut 101",
         "category": "School",
-        "description": "TODO DESC",
+        "description": "A nice public pool that is a great way to stay cool and keep your citizens happy.",
         "id": "scl_3x3_Pool_kt",
         "power": 0,
         "price": 0,
@@ -1992,7 +1992,7 @@
             "count": 1,
             "fileName": "resources/images/buildings/school/scl_3x3_Pool_kt.png"
         },
-        "title": "TODO TITLE",
+        "title": "Pool",
         "upkeep cost": 0,
         "water": 0
     },
@@ -2152,7 +2152,7 @@
     {
         "author": "Kingtut 101",
         "category": "Decoration",
-        "description": "TODO DESC",
+        "description": "An old phone booth that can be used to decorate your cities.",
         "id": "BD_1x1_PhoneBooths_kt",
         "power": 0,
         "price": 0,
@@ -2162,7 +2162,7 @@
             "count": 3,
             "fileName": "resources/images/buildings/decoration/BD_1x1_PhoneBooths_kt.png"
         },
-        "title": "TODO TITLE",
+        "title": "Phone Booth",
         "upkeep cost": 0,
         "water": 0
     },
@@ -2424,7 +2424,7 @@
     {
         "author": "Kingtut 101",
         "category": "Reward",
-        "description": "TODO DESC",
+        "description": "A nice reward for your city-building efforts, although it might make your citizens question if they're in a simulation.",
         "id": "reward_2x2_CytopianTowers_kt",
         "power": 0,
         "price": 0,
@@ -2543,7 +2543,7 @@
     {
         "author": "Kingtut 101",
         "category": "Commercial",
-        "description": "TODO DESC",
+        "description": "It might be an old, bland-looking tower, but it gets the job done.",
         "id": "com_2x2_TanTower_kt",
         "power": 0,
         "price": 0,
@@ -2553,7 +2553,7 @@
             "count": 1,
             "fileName": "resources/images/buildings/commercial/com_2x2_TanTower_kt.png"
         },
-        "title": "TODO TITLE",
+        "title": "Tan Tower",
         "upkeep cost": 0,
         "water": 0
     },
@@ -2645,7 +2645,7 @@
     {
         "author": "Kingtut 101",
         "category": "Residential",
-        "description": "TODO DESC",
+        "description": "A somewhat-large plot of land that is the home to many trailer houses.",
         "id": "res_5x5_TrailerPark_kt",
         "power": 0,
         "price": 0,
@@ -2655,7 +2655,7 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_5x5_TrailerPark_kt.png"
         },
-        "title": "TODO TITLE",
+        "title": "Trailer Park",
         "upkeep cost": 0,
         "water": 0
     },
@@ -2764,7 +2764,7 @@
     {
         "author": "Kingtut 101",
         "category": "Decoration",
-        "description": "TODO DESC",
+        "description": "A train platform with a large sign on it.",
         "id": "bd_1x1_RF2_BlueSignPlatform_kt",
         "power": 0,
         "price": 0,
@@ -2774,7 +2774,7 @@
             "count": 2,
             "fileName": "resources/images/buildings/decoration/bd_1x1_RF2_BlueSignPlatform_kt.png"
         },
-        "title": "TODO TITLE",
+        "title": "Sign Platform",
         "upkeep cost": 0,
         "water": 0
     },
@@ -2832,7 +2832,7 @@
     {
         "author": "Kingtut 101",
         "category": "Station",
-        "description": "TODO DESC",
+        "description": "A small train platform that has a small structure on it.  People can wait here until the train comes, although there isnt much room inside.",
         "id": "station_1x1_RF4_OriginalTramwayStation_kt",
         "power": 0,
         "price": 0,
@@ -2842,7 +2842,7 @@
             "count": 16,
             "fileName": "resources/images/buildings/station/station_1x1_RF4_OriginalTramwayStation_kt.png"
         },
-        "title": "TODO TITLE",
+        "title": "Small Waiting Platform",
         "upkeep cost": 0,
         "water": 0
     },
@@ -3104,7 +3104,7 @@
     {
         "author": "Kingtut 101",
         "category": "Decoration",
-        "description": "TODO DESC",
+        "description": "A large plaza with a pool of water in the middle.",
         "id": "BD_4x4_DarkParkRing_kt",
         "power": 0,
         "price": 0,
@@ -3114,7 +3114,7 @@
             "count": 1,
             "fileName": "resources/images/buildings/decoration/BD_4x4_DarkParkRing_kt.png"
         },
-        "title": "TODO TITLE",
+        "title": "Large Plaza Park",
         "upkeep cost": 0,
         "water": 0
     },
@@ -3631,7 +3631,7 @@
     {
         "author": "Kingtut 101",
         "category": "Decoration",
-        "description": "TODO DESC",
+        "description": "A train platform with a couple of benches and a trash can.",
         "id": "bd_1x1_RF2_BenchesPlatform_kt",
         "power": 0,
         "price": 0,
@@ -3641,14 +3641,14 @@
             "count": 2,
             "fileName": "resources/images/buildings/decoration/bd_1x1_RF2_BenchesPlatform_kt.png"
         },
-        "title": "TODO TITLE",
+        "title": "Bench Platform",
         "upkeep cost": 0,
         "water": 0
     },
     {
         "author": "Kingtut 101",
         "category": "Industrial",
-        "description": "TODO DESC",
+        "description": "A small shed used by nearby factories as a way to store things.",
         "id": "ind_1x1_Shed_kt",
         "power": 0,
         "price": 0,
@@ -3658,7 +3658,7 @@
             "count": 2,
             "fileName": "resources/images/buildings/industrial/ind_1x1_Shed_kt.png"
         },
-        "title": "TODO TITLE",
+        "title": "Small Shed",
         "upkeep cost": 0,
         "water": 0
     },
@@ -3784,7 +3784,7 @@
     {
         "author": "Kingtut 101",
         "category": "Decoration",
-        "description": "TODO DESC",
+        "description": "A blank train platform with nothing on it.",
         "id": "bd_1x1_BlankPlatform_kt",
         "power": 0,
         "price": 0,
@@ -3794,14 +3794,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/decoration/bd_1x1_BlankPlatform_kt.png"
         },
-        "title": "TODO TITLE",
+        "title": "Blank Platform",
         "upkeep cost": 0,
         "water": 0
     },
     {
         "author": "Kingtut 101",
         "category": "Decoration",
-        "description": "TODO DESC",
+        "description": "A group of mannequins you dressed up as people that can be used to decorate a town.",
         "id": "BD_1x1_People_kt",
         "power": 0,
         "price": 0,
@@ -3811,7 +3811,7 @@
             "count": 5,
             "fileName": "resources/images/buildings/decoration/BD_1x1_People_kt.png"
         },
-        "title": "TODO TITLE",
+        "title": "People",
         "upkeep cost": 0,
         "water": 0
     },
@@ -3869,7 +3869,7 @@
     {
         "author": "Kingtut 101",
         "category": "Decoration",
-        "description": "TODO DESC",
+        "description": "A group of benches that surround a nice decorative object.",
         "id": "BD_2x2_DarkParkCenterpieces_kt",
         "power": 0,
         "price": 0,
@@ -3879,7 +3879,7 @@
             "count": 4,
             "fileName": "resources/images/buildings/decoration/BD_2x2_DarkParkCenterpieces_kt.png"
         },
-        "title": "TODO TITLE",
+        "title": "Centerpiece Park",
         "upkeep cost": 0,
         "water": 0
     },
@@ -3920,7 +3920,7 @@
     {
         "author": "Kingtut 101",
         "category": "Decoration",
-        "description": "TODO DESC",
+        "description": "A small wooden sign that can be used to decorate a town.  It doesn't actually say anything though...",
         "id": "BD_1x1_RF2_WoodenSign_kt",
         "power": 0,
         "price": 0,
@@ -3930,7 +3930,7 @@
             "count": 2,
             "fileName": "resources/images/buildings/decoration/BD_1x1_RF2_WoodenSign_kt.png"
         },
-        "title": "TODO TITLE",
+        "title": "Wooden Sign",
         "upkeep cost": 0,
         "water": 0
     },
@@ -4039,7 +4039,7 @@
     {
         "author": "Kingtut 101",
         "category": "Decoration",
-        "description": "TODO DESC",
+        "description": "A picnic pavilion is a great place for your citizens to eat lunch.",
         "id": "BD_1x1_RF2_PicnicPavilions_kt",
         "power": 0,
         "price": 0,
@@ -4049,7 +4049,7 @@
             "count": 6,
             "fileName": "resources/images/buildings/decoration/BD_1x1_RF2_PicnicPavilions_kt.png"
         },
-        "title": "TODO TITLE",
+        "title": "Picnic Pavilion",
         "upkeep cost": 0,
         "water": 0
     },
@@ -4090,7 +4090,7 @@
     {
         "author": "Kingtut 101",
         "category": "Decoration",
-        "description": "TODO DESC",
+        "description": "A group of picnic tables that your citizens can use to eat lunch at.",
         "id": "BD_1x1_PicnicTables_kt",
         "power": 0,
         "price": 0,
@@ -4100,7 +4100,7 @@
             "count": 4,
             "fileName": "resources/images/buildings/decoration/BD_1x1_PicnicTables_kt.png"
         },
-        "title": "TODO TITLE",
+        "title": "Picnic Tables",
         "upkeep cost": 0,
         "water": 0
     },
@@ -4141,7 +4141,7 @@
     {
         "author": "Kingtut 101",
         "category": "Farm",
-        "description": "TODO DESC",
+        "description": "A stereotypical red barn.",
         "id": "farm_2x2_ClassicRedBarn_kt",
         "power": 0,
         "price": 0,
@@ -4151,7 +4151,7 @@
             "count": 1,
             "fileName": "resources/images/buildings/farm/farm_2x2_ClassicRedBarn_kt.png"
         },
-        "title": "TODO TITLE",
+        "title": "Classic Red Barn",
         "upkeep cost": 0,
         "water": 0
     },
@@ -4277,7 +4277,7 @@
     {
         "author": "Kingtut 101",
         "category": "Decoration",
-        "description": "TODO DESC",
+        "description": "A very old ship that crashed here long ago.  Its origin is unkown, but I think it's safe to say what happened to its crew",
         "id": "bd_2x2_sunkenship_kt",
         "power": 0,
         "price": 0,
@@ -4287,7 +4287,7 @@
             "count": 1,
             "fileName": "resources/images/buildings/decoration/bd_2x2_sunkenship_kt.png"
         },
-        "title": "TODO TITLE",
+        "title": "Sunken Ship",
         "upkeep cost": 0,
         "water": 0
     },
@@ -4634,7 +4634,7 @@
     {
         "author": "Kingtut 101",
         "category": "Decoration",
-        "description": "TODO DESC",
+        "description": "A few benches that offer a place to sit to your citizens.",
         "id": "BD_1x1_RF2_Benches_kt",
         "power": 0,
         "price": 0,
@@ -4644,7 +4644,7 @@
             "count": 4,
             "fileName": "resources/images/buildings/decoration/BD_1x1_RF2_Benches_kt.png"
         },
-        "title": "TODO TITLE",
+        "title": "Benches",
         "upkeep cost": 0,
         "water": 0
     },
@@ -4728,6 +4728,226 @@
             "clip_width": 32,
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_1x1_scandinavian_house2_Y8.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },{
+        "author": "RockFort",
+        "category": "Residential",
+        "description": "TODO DESC",
+        "id": "res_2x2_mannevillette1_RF",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 37,
+            "clip_width": 64,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_2x2_mannevillette1_RF.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "RockFort",
+        "category": "Industrial",
+        "description": "TODO DESC",
+        "id": "ind_2x2_sevelia_lillebonne_2_RF",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 89,
+            "clip_width": 64,
+            "count": 1,
+            "fileName": "resources/images/buildings/industrial/ind_2x2_sevelia_lillebonne_2_RF.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "BangBoom",
+        "category": "Industrial",
+        "description": "TODO DESC",
+        "id": "ind_1x1_steel_warehouse_BB",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 28,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/industrial/ind_1x1_steel_warehouse_BB.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "RockFort",
+        "category": "Industrial",
+        "description": "TODO DESC",
+        "id": "ind_6x6_sevelia_lillebonne_1_RF",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 147,
+            "clip_width": 192,
+            "count": 1,
+            "fileName": "resources/images/buildings/industrial/ind_6x6_sevelia_lillebonne_1_RF.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Commercial",
+        "description": "TODO DESC",
+        "id": "com_1x1_WitheredBrickShop_kt",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 27,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/com_1x1_WitheredBrickShop_kt.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Commercial",
+        "description": "TODO DESC",
+        "id": "com_1x1_RunDownSkinnyShop_kt",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 21,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/com_1x1_RunDownSkinnyShop_kt.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Commercial",
+        "description": "TODO DESC",
+        "id": "com_1x1_SmallBrickWarehouse_kt",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 22,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/com_1x1_SmallBrickWarehouse_kt.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "BangBoom",
+        "category": "Commercial",
+        "description": "TODO DESC",
+        "id": "com_1x1_chem_holding_BB",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 25,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/com_1x1_chem_holding_BB.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "RockFort",
+        "category": "Residential",
+        "description": "TODO DESC",
+        "id": "res_2x2_caveeverte1lehavre_RF",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 70,
+            "clip_width": 64,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_2x2_caveeverte1lehavre_RF.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "RockFort",
+        "category": "Residential",
+        "description": "TODO DESC",
+        "id": "res_2x2_ketsuy1_RF",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 81,
+            "clip_width": 64,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_2x2_ketsuy1_RF.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "RockFort",
+        "category": "Residential",
+        "description": "TODO DESC",
+        "id": "res_1x1_grand_est_alsace1_RF",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 32,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_1x1_grand_est_alsace1_RF.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "BangBoom",
+        "category": "Industrial",
+        "description": "TODO DESC",
+        "id": "ind_1x1_concrete_warehouse_BB",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 24,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/industrial/ind_1x1_concrete_warehouse_BB.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "THEMAX",
+        "category": "Residential",
+        "description": "TODO DESC",
+        "id": "res_3x3_mediterannean_house_mx",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 72,
+            "clip_width": 96,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_3x3_mediterannean_house_mx.png"
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
