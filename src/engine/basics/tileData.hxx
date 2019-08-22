@@ -65,7 +65,6 @@ struct TileData
   int upkeepCost = 0; /// monthly cost
   int power = 0;      /// power production / consumption if negative
   int water = 0;      /// water production / consumption if negative
-  int tileIndex = -1; /// index in the spritesheet, if it contains multiple tiles. (categories without "special handling")
   std::string author;
   bool drawGround = false;   /// draw ground below sprite (grass, flowers, ...)
   bool placeOnGround = true; /// wether or not this building is placeable on ground

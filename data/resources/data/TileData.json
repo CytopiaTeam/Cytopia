@@ -376,7 +376,8 @@
             "clip_height": 16,
             "clip_width": 32,
             "count": 16,
-            "fileName": "resources/images/roads/road_country.png"
+            "fileName": "resources/images/roads/road_country.png",
+            "rotations": 16
         },
         "title": "Country Road",
         "upkeep cost": 2,
@@ -400,7 +401,8 @@
             "clip_height": 16,
             "clip_width": 32,
             "count": 16,
-            "fileName": "resources/images/roads/dirt_road.png"
+            "fileName": "resources/images/roads/dirt_road.png",
+            "rotations": 16
         },
         "title": "Dirt Road",
         "upkeep cost": 1,
@@ -622,7 +624,8 @@
             "clip_height": 16,
             "clip_width": 32,
             "count": 16,
-            "fileName": "resources/images/roads/paved_road.png"
+            "fileName": "resources/images/roads/paved_road.png",
+            "rotations": 16
         },
         "title": "Paved Road",
         "upkeep cost": 2,
@@ -1035,7 +1038,14 @@
         "slopeTiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 15,
+            "count": 4,
+            "fileName": "resources/images/terrain/terrain_slopes.png"
+        },
+        "cornerTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 8,
+            "offset": 4,
             "fileName": "resources/images/terrain/terrain_slopes.png"
         },
         "tiles": {
@@ -1059,7 +1069,14 @@
         "slopeTiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 16,
+            "count": 4,
+            "fileName": "resources/images/water/liquid_water.png"
+        },
+        "cornerTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 8,
+            "offset": 4,
             "fileName": "resources/images/water/liquid_water.png"
         },
         "tiles": {
@@ -1353,7 +1370,7 @@
         "power": 0,
         "price": 0,
         "tiles": {
-            "clip_height": 23,
+            "clip_height": 18,
             "clip_width": 32,
             "count": 4,
             "offset": 12,
