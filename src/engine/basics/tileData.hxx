@@ -47,8 +47,8 @@ struct TileSetData
   int count = 1;
   int clippingWidth = 0;
   int clippingHeight = 0;
-  int offset = 0;
-  int rotations = 1; 
+  int offset = 0;   // The offset to start the spritesheet from in images (see above)
+  int rotations = 1; // The number of rotation images in this spritesheet (see above)
 };
 
 struct TileData
