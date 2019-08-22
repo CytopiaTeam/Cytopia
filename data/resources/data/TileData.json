@@ -31,7 +31,8 @@
         },
         "title": "Day Care Center",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "Folesnaid",
@@ -252,7 +253,8 @@
         },
         "title": "Borg's Burgers",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "Folesnaid",
@@ -269,7 +271,8 @@
         },
         "title": "Small Commercial Center",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "Kingtut 101",
@@ -286,7 +289,8 @@
         },
         "title": "Small Office Building",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "RockFort",
@@ -303,7 +307,8 @@
         },
         "title": "Big Office Building",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "Kingtut 101",
@@ -320,7 +325,8 @@
         },
         "title": "Community Tower",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 9
     },
     {
         "author": "RockFort",
@@ -337,7 +343,8 @@
         },
         "title": "Tour Front De Seine",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 9
     },
     {
         "author": "Kingtut 101",
@@ -485,7 +492,8 @@
         },
         "title": "Medium Depolluter",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "Folesnaid",
@@ -502,7 +510,8 @@
         },
         "title": "Factory",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "Kingtut 101",
@@ -519,7 +528,8 @@
         },
         "title": "Old Power Plant",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 9
     },
     {
         "author": "Folesnaid",
@@ -536,7 +546,8 @@
         },
         "title": "Chemical Plant",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 9
     },
     {
         "author": "Kingtut 101",
@@ -553,7 +564,8 @@
         },
         "title": "Big Depolluter",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 16
     },
     {
         "author": "MaroonShaded",
@@ -570,7 +582,8 @@
         },
         "title": "Factory",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "Kingtut 101",
@@ -627,7 +640,8 @@
         },
         "title": "Coal Power Plant",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 9
     },
     {
         "author": "Kingtut 101",
@@ -644,7 +658,8 @@
         },
         "title": "Small Coal Power Plant",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 9
     },
     {
         "author": "Kingtut 101",
@@ -848,7 +863,8 @@
         },
         "title": "Big Building",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "RockFort",
@@ -865,7 +881,8 @@
         },
         "title": "Bois Guillaume Appartment",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "Folesnaid",
@@ -882,7 +899,8 @@
         },
         "title": "Appartment",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "Folesnaid",
@@ -899,7 +917,8 @@
         },
         "title": "Big Appartments",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "Folesnaid",
@@ -916,7 +935,8 @@
         },
         "title": "Big Appartments",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "RockFort",
@@ -933,7 +953,8 @@
         },
         "title": "Medium Appartments",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "Kingtut 101",
@@ -950,7 +971,8 @@
         },
         "title": "Tall Concrete Tower",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 9
     },
     {
         "author": "KingTut 101",
@@ -967,7 +989,8 @@
         },
         "title": "Skyscraper",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 9
     },
     {
         "author": "Kingtut 101",
@@ -1139,7 +1162,8 @@
         },
         "title": "Apartment Building",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "RockFort",
@@ -1156,7 +1180,8 @@
         },
         "title": "Mansion",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "RockFort",
@@ -1173,7 +1198,8 @@
         },
         "title": "Apartment Building",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "RockFort",
@@ -1190,7 +1216,8 @@
         },
         "title": "Restaurant",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "RockFort",
@@ -1207,7 +1234,8 @@
         },
         "title": "Hotel",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "RockFort",
@@ -1224,7 +1252,8 @@
         },
         "title": "Mansion",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "RockFort",
@@ -1241,7 +1270,8 @@
         },
         "title": "Apartment Building",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 9
     },
     {
         "author": "RockFort",
@@ -1258,7 +1288,8 @@
         },
         "title": "house",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "RockFort",
@@ -1275,7 +1306,8 @@
         },
         "title": "Apartment Building",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 9
         },
         {
         "author": "RockFort",
@@ -1292,7 +1324,8 @@
         },
         "title": "Apartment Building",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 9
     },
     {
         "author": "Folesnaid",
@@ -1327,7 +1360,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "JustKekman",
@@ -1344,7 +1378,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "RockFort",
@@ -1361,7 +1396,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 16
     },
     {
         "author": "RockFort",
@@ -1378,7 +1414,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 16
     },
     {
         "author": "Folesnaid",
@@ -1395,7 +1432,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 9
     },
     {
         "author": "RockFort",
@@ -1412,7 +1450,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 9
     },
     {
         "author": "RockFort",
@@ -1429,7 +1468,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 8
     },
     {
         "author": "RockFort",
@@ -1446,7 +1486,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 8
     },
     {
         "author": "RockFort",
@@ -1463,7 +1504,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 9
     },
     {
         "author": "RockFort",
@@ -1480,7 +1522,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "Kingtut 101",
@@ -1531,7 +1574,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 9
     },
     {
         "author": "MaroonShaded",
@@ -1582,7 +1626,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 9
     },
     {
         "author": "Kingtut 101",
@@ -1616,7 +1661,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "RockFort",
@@ -1633,7 +1679,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 9
     },
     {
         "author": "Folesnaid",
@@ -1667,7 +1714,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "Kingtut 101",
@@ -1718,7 +1766,8 @@
         },
         "title": "Park Crossroads",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 9
     },
     {
         "author": "RockFort",
@@ -1735,7 +1784,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "RockFort",
@@ -1752,7 +1802,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 9
     },
     {
         "author": "Folesnaid",
@@ -1769,7 +1820,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 25
     },
     {
         "author": "RockFort",
@@ -1786,7 +1838,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "Folesnaid",
@@ -1820,7 +1873,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "RockFort",
@@ -1871,7 +1925,8 @@
         },
         "title": "Glass Tower",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 9
     },
     {
         "author": "RockFort",
@@ -1888,7 +1943,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "RockFort",
@@ -1905,7 +1961,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "Kingtut 101",
@@ -1922,7 +1979,8 @@
         },
         "title": "Pool",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 9
     },
     {
         "author": "Folesnaid",
@@ -1939,7 +1997,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "Kingtut 101",
@@ -1973,7 +2032,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "Panzerkampfwagen 2 ausf C",
@@ -1990,7 +2050,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "RockFort",
@@ -2007,7 +2068,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 12
     },
     {
         "author": "RockFort",
@@ -2024,7 +2086,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "RockFort",
@@ -2109,7 +2172,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "Kingtut 101",
@@ -2177,7 +2241,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 16
     },
     {
         "author": "Yusuf8a684",
@@ -2211,7 +2276,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "RockFort",
@@ -2262,7 +2328,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 9
     },
     {
         "author": "Yusuf8a684",
@@ -2279,7 +2346,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "Folesnaid",
@@ -2296,7 +2364,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "Yusuf8a684",
@@ -2313,7 +2382,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "RockFort",
@@ -2330,7 +2400,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "RockFort",
@@ -2364,7 +2435,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "Kingtut 101",
@@ -2398,7 +2470,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 9
     },
     {
         "author": "Kingtut 101",
@@ -2432,7 +2505,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "RockFort",
@@ -2466,7 +2540,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "Kingtut 101",
@@ -2483,7 +2558,8 @@
         },
         "title": "Tan Tower",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "RockFort",
@@ -2500,7 +2576,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 16
     },
     {
         "author": "RockFort",
@@ -2517,7 +2594,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "RockFort",
@@ -2585,7 +2663,8 @@
         },
         "title": "Trailer Park",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 25
     },
     {
         "author": "RockFort",
@@ -2602,7 +2681,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 9
     },
     {
         "author": "RockFort",
@@ -2619,7 +2699,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "Kingtut 101",
@@ -2670,7 +2751,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "JustKekman",
@@ -2687,7 +2769,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 9
     },
     {
         "author": "Kingtut 101",
@@ -2755,7 +2838,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 9
     },
     {
         "author": "Kingtut 101",
@@ -2823,7 +2907,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "RockFort",
@@ -2840,7 +2925,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 8
     },
     {
         "author": "RockFort",
@@ -2874,7 +2960,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "Folesnaid",
@@ -2908,7 +2995,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 9
     },
     {
         "author": "MaroonShaded",
@@ -2925,7 +3013,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "RockFort",
@@ -2942,7 +3031,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 8
     },
     {
         "author": "RockFort",
@@ -2959,7 +3049,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "RockFort",
@@ -2976,7 +3067,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 9
     },
     {
         "author": "RockFort",
@@ -2993,7 +3085,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 9
     },
     {
         "author": "RockFort",
@@ -3010,7 +3103,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 16
     },
     {
         "author": "RockFort",
@@ -3027,7 +3121,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 9
     },
     {
         "author": "Kingtut 101",
@@ -3044,7 +3139,8 @@
         },
         "title": "Large Plaza Park",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 16
     },
     {
         "author": "THEMAX",
@@ -3061,7 +3157,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 16
     },
     {
         "author": "RockFort",
@@ -3129,7 +3226,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "RockFort",
@@ -3146,7 +3244,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "RockFort",
@@ -3163,7 +3262,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 9
     },
     {
         "author": "RockFort",
@@ -3180,7 +3280,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 9
     },
     {
         "author": "RockFort",
@@ -3197,7 +3298,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 9
     },
     {
         "author": "Panzerkampfwagen 2 ausf C",
@@ -3214,7 +3316,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 15
     },
     {
         "author": "Yusuf8a684",
@@ -3248,7 +3351,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "RockFort",
@@ -3265,7 +3369,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "RockFort",
@@ -3282,7 +3387,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 9
     },
     {
         "author": "RockFort",
@@ -3299,7 +3405,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "RockFort",
@@ -3316,7 +3423,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 9
     },
     {
         "author": "RockFort",
@@ -3333,7 +3441,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "Yusuf8a684",
@@ -3384,7 +3493,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "RockFort",
@@ -3435,7 +3545,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "RockFort",
@@ -3452,7 +3563,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 9
     },
     {
         "author": "RockFort",
@@ -3486,7 +3598,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 9
     },
     {
         "author": "RockFort",
@@ -3503,7 +3616,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "RockFort",
@@ -3520,7 +3634,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 16
     },
     {
         "author": "RockFort",
@@ -3673,7 +3788,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "RockFort",
@@ -3690,7 +3806,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "RockFort",
@@ -3707,7 +3824,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "Kingtut 101",
@@ -3758,7 +3876,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 16
     },
     {
         "author": "RockFort",
@@ -3775,7 +3894,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "RockFort",
@@ -3792,7 +3912,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 9
     },
     {
         "author": "Kingtut 101",
@@ -3809,7 +3930,8 @@
         },
         "title": "Centerpiece Park",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "Kingtut 101",
@@ -3843,7 +3965,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "Kingtut 101",
@@ -3877,7 +4000,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 8
     },
     {
         "author": "RockFort",
@@ -3894,7 +4018,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "RockFort",
@@ -3911,7 +4036,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 9
     },
     {
         "author": "RockFort",
@@ -3928,7 +4054,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "RockFort",
@@ -3945,7 +4072,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "Folesnaid",
@@ -3962,7 +4090,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "Kingtut 101",
@@ -3996,7 +4125,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 9
     },
     {
         "author": "RockFort",
@@ -4013,7 +4143,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "Kingtut 101",
@@ -4047,7 +4178,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "Folesnaid",
@@ -4064,7 +4196,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "Kingtut 101",
@@ -4081,7 +4214,8 @@
         },
         "title": "Classic Red Barn",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "Yusuf8a684",
@@ -4098,7 +4232,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 16
     },
     {
         "author": "RockFort",
@@ -4166,7 +4301,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "Kingtut 101",
@@ -4217,7 +4353,8 @@
         },
         "title": "Sunken Ship",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "JustKekman",
@@ -4234,7 +4371,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 16
     },
     {
         "author": "RockFort",
@@ -4251,7 +4389,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "RockFort",
@@ -4268,7 +4407,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "RockFort",
@@ -4285,7 +4425,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "Kingtut 101",
@@ -4353,7 +4494,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "RockFort",
@@ -4370,7 +4512,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 9
     },
     {
         "author": "Yusuf8a684",
@@ -4387,7 +4530,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 9
     },
     {
         "author": "RockFort",
@@ -4404,7 +4548,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 16
     },
     {
         "author": "THEMAX",
@@ -4421,7 +4566,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 36
     },
     {
         "author": "Kingtut 101",
@@ -4472,7 +4618,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "RockFort",
@@ -4489,7 +4636,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 16
     },
     {
         "author": "RockFort",
@@ -4506,7 +4654,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 9
     },
     {
         "author": "Folesnaid",
@@ -4523,7 +4672,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 12
     },
     {
         "author": "RockFort",
@@ -4540,7 +4690,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "RockFort",
@@ -4557,7 +4708,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 8
     },
     {
         "author": "Kingtut 101",
@@ -4591,7 +4743,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 16
     },
     {
         "author": "Folesnaid",
@@ -4642,7 +4795,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "Yusuf8a684",
@@ -4675,7 +4829,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "RockFort",
@@ -4692,7 +4847,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "BangBoom",
@@ -4726,7 +4882,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 36
     },
     {
         "author": "Kingtut 101",
@@ -4811,7 +4968,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "RockFort",
@@ -4828,7 +4986,8 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 4
     },
     {
         "author": "RockFort",
@@ -4879,6 +5038,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0
+        "water": 0,
+        "buildingsize": 9
     }
 ]
