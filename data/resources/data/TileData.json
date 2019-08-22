@@ -10,7 +10,7 @@
             "clip_height": 18,
             "clip_width": 32,
             "count": 1,
-            "fileName": "resources/images/buildings/decoration/Dec_1x1_coal_FN.png"
+            "fileName": "resources/images/buildings/decoration/BD_1x1_coal_FN.png"
         },
         "title": "Coal Pile",
         "upkeep cost": 0,
@@ -376,7 +376,8 @@
             "clip_height": 16,
             "clip_width": 32,
             "count": 16,
-            "fileName": "resources/images/roads/road_country.png"
+            "fileName": "resources/images/roads/road_country.png",
+            "rotations": 16
         },
         "title": "Country Road",
         "upkeep cost": 2,
@@ -400,7 +401,8 @@
             "clip_height": 16,
             "clip_width": 32,
             "count": 16,
-            "fileName": "resources/images/roads/dirt_road.png"
+            "fileName": "resources/images/roads/dirt_road.png",
+            "rotations": 16
         },
         "title": "Dirt Road",
         "upkeep cost": 1,
@@ -622,7 +624,8 @@
             "clip_height": 16,
             "clip_width": 32,
             "count": 16,
-            "fileName": "resources/images/roads/paved_road.png"
+            "fileName": "resources/images/roads/paved_road.png",
+            "rotations": 16
         },
         "title": "Paved Road",
         "upkeep cost": 2,
@@ -1035,7 +1038,14 @@
         "slopeTiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 15,
+            "count": 4,
+            "fileName": "resources/images/terrain/terrain_slopes.png"
+        },
+        "cornerTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 8,
+            "offset": 4,
             "fileName": "resources/images/terrain/terrain_slopes.png"
         },
         "tiles": {
@@ -1059,7 +1069,14 @@
         "slopeTiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 16,
+            "count": 4,
+            "fileName": "resources/images/water/liquid_water.png"
+        },
+        "cornerTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 8,
+            "offset": 4,
             "fileName": "resources/images/water/liquid_water.png"
         },
         "tiles": {
@@ -1113,20 +1130,7 @@
         "author": "Kingtut 101",
         "category": "Flora",
         "description": "A group of beautiful oak trees.",
-        "id": [
-            "trees_oak_single_normal_1",
-            "trees_oak_single_normal_2",
-            "trees_oak_single_normal_3",
-            "trees_oak_single_small_1",
-            "trees_oak_single_small_2",
-            "trees_oak_single_small_3",
-            "trees_oak_single_small_4",
-            "trees_oak_group_dense_1",
-            "trees_oak_group_dense_2",
-            "trees_oak_group_dense_3",
-            "trees_oak_group_dense_4",
-            "trees_oak_group_dense_5"
-          ],
+        "id": "trees_oak",
         "power": 0,
         "price": 5,
         "tiles": {
@@ -1145,11 +1149,7 @@
         "biome": "GrassLands",
         "category": "TerrainDecoration",
         "description": "A pile of rocks that can be found in the grasslands biome.",
-        "id": [
-            "terrain_rocks_grassLands_1",
-            "terrain_rocks_grassLands_2",
-            "terrain_rocks_grassLands_3"
-          ],
+        "id": "terrain_rocks_grassLands",
         "power": 0,
         "price": 5,
         "tiles": {
@@ -1168,11 +1168,7 @@
         "biome": "Desert",
         "category": "TerrainDecoration",
         "description": "A pile of rocks that can be found in the desert biome.",
-        "id": [
-            "terrain_rocks_desert_1",
-            "terrain_rocks_desert_2",
-            "terrain_rocks_desert_3"
-          ],
+        "id": "terrain_rocks_desert",
         "power": 0,
         "price": 5,
         "tiles": {
@@ -1374,10 +1370,24 @@
         "power": 0,
         "price": 0,
         "tiles": {
+            "clip_height": 18,
+            "clip_width": 32,
+            "count": 4,
+            "offset": 12,
+            "fileName": "resources/images/buildings/farm/Farm_1x1_wheat_field_FN.png"
+        },
+        "cornerTiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 16,
-            "offset": 13,
+            "count": 8,
+            "offset": 4,
+            "fileName": "resources/images/buildings/farm/Farm_1x1_wheat_field_FN.png"
+        },
+        "slopeTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 4,
+            "offset": 0,
             "fileName": "resources/images/buildings/farm/Farm_1x1_wheat_field_FN.png"
         },
         "title": "TODO TITLE",
@@ -1564,8 +1574,9 @@
         "tiles": {
             "clip_height": 33,
             "clip_width": 32,
-            "count": 1,
-            "fileName": "resources/images/flora/tree_pinetrees_dense.png"
+            "count": 10,
+            "offset": 8,
+            "fileName": "resources/images/flora/tree_pinetree.png"
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
@@ -1921,7 +1932,7 @@
         "tiles": {
             "clip_height": 28,
             "clip_width": 32,
-            "count": 1,
+            "count": 7,
             "fileName": "resources/images/flora/tree_pinetrees_light.png"
         },
         "title": "TODO TITLE",
@@ -2023,7 +2034,7 @@
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
-            "count": 1,
+            "count": 4,
             "fileName": "resources/images/flora/flora_RedBerryBush_dense.png"
         },
         "title": "TODO TITLE",
@@ -2193,7 +2204,7 @@
         "tiles": {
             "clip_height": 14,
             "clip_width": 32,
-            "count": 1,
+            "count": 4,
             "fileName": "resources/images/flora/flora_RedBerryBush.png"
         },
         "title": "TODO TITLE",
@@ -2210,7 +2221,7 @@
         "tiles": {
             "clip_height": 22,
             "clip_width": 32,
-            "count": 1,
+            "count": 16,
             "fileName": "resources/images/flora/tree_mushroom_light.png"
         },
         "title": "TODO TITLE",
@@ -2227,7 +2238,7 @@
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
-            "count": 1,
+            "count": 2,
             "fileName": "resources/images/flora/flora_ferns_dense.png"
         },
         "title": "TODO TITLE",
@@ -2448,7 +2459,7 @@
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
-            "count": 1,
+            "count": 4,
             "fileName": "resources/images/flora/flora_bush_dense.png"
         },
         "title": "TODO TITLE",
@@ -2482,7 +2493,7 @@
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
-            "count": 1,
+            "count": 4,
             "fileName": "resources/images/flora/flora_bush.png"
         },
         "title": "TODO TITLE",
@@ -2618,7 +2629,7 @@
         "tiles": {
             "clip_height": 16,
             "clip_width": 32,
-            "count": 1,
+            "count": 2,
             "fileName": "resources/images/flora/flora_tallgrass_dense.png"
         },
         "title": "TODO TITLE",
@@ -2635,7 +2646,7 @@
         "tiles": {
             "clip_height": 31,
             "clip_width": 32,
-            "count": 1,
+            "count": 5,
             "fileName": "resources/images/flora/tree_deciduous_dense.png"
         },
         "title": "TODO TITLE",
@@ -2703,7 +2714,7 @@
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
-            "count": 1,
+            "count": 4,
             "fileName": "resources/images/flora/flora_flower_dense.png"
         },
         "title": "TODO TITLE",
@@ -2720,7 +2731,7 @@
         "tiles": {
             "clip_height": 16,
             "clip_width": 32,
-            "count": 1,
+            "count": 2,
             "fileName": "resources/images/flora/flora_tallgrass_light.png"
         },
         "title": "TODO TITLE",
@@ -2856,7 +2867,7 @@
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
-            "count": 1,
+            "count": 3,
             "fileName": "resources/images/flora/flora_ferns_light.png"
         },
         "title": "TODO TITLE",
@@ -3485,7 +3496,7 @@
         "tiles": {
             "clip_height": 16,
             "clip_width": 32,
-            "count": 1,
+            "count": 2,
             "fileName": "resources/images/flora/flora_tallgrass.png"
         },
         "title": "TODO TITLE",
@@ -3706,7 +3717,7 @@
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
-            "count": 1,
+            "count": 2,
             "fileName": "resources/images/flora/flora_horse.png"
         },
         "title": "TODO TITLE",
@@ -3893,7 +3904,7 @@
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
-            "count": 1,
+            "count": 6,
             "fileName": "resources/images/flora/flora_bush_light.png"
         },
         "title": "TODO TITLE",
@@ -4050,6 +4061,24 @@
             "fileName": "resources/images/buildings/decoration/BD_1x1_RF2_PicnicPavilions_kt.png"
         },
         "title": "Picnic Pavilion",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Decoration",
+        "description": "TODO DESC",
+        "id": "BD_1x1_RF2_PicnicPavilions_kt_set",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 18,
+            "clip_width": 32,
+            "count": 1,
+            "offset": 5,
+            "fileName": "resources/images/buildings/decoration/BD_1x1_RF2_PicnicPavilions_kt.png"
+        },
+        "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0
     },
@@ -4216,7 +4245,7 @@
         "tiles": {
             "clip_height": 28,
             "clip_width": 32,
-            "count": 1,
+            "count": 7,
             "fileName": "resources/images/flora/tree_deciduous_light.png"
         },
         "title": "TODO TITLE",
@@ -4250,7 +4279,7 @@
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
-            "count": 1,
+            "count": 4,
             "fileName": "resources/images/flora/flora_flower_light.png"
         },
         "title": "TODO TITLE",
@@ -4369,7 +4398,7 @@
         "tiles": {
             "clip_height": 24,
             "clip_width": 32,
-            "count": 1,
+            "count": 12,
             "fileName": "resources/images/flora/tree_mushroom_dense.png"
         },
         "title": "TODO TITLE",
@@ -4403,7 +4432,7 @@
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
-            "count": 1,
+            "count": 6,
             "fileName": "resources/images/flora/flora_RedBerryBush_light.png"
         },
         "title": "TODO TITLE",
@@ -4522,7 +4551,7 @@
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
-            "count": 1,
+            "count": 4,
             "fileName": "resources/images/flora/flora_flower.png"
         },
         "title": "TODO TITLE",
@@ -4692,7 +4721,7 @@
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
-            "count": 1,
+            "count": 2,
             "fileName": "resources/images/flora/flora_ferns.png"
         },
         "title": "TODO TITLE",

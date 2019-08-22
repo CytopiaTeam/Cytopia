@@ -18,6 +18,7 @@ struct MapNodeData
 {
   std::string tileID;
   TileData *tileData = nullptr;
+  int32_t tileIndex = 0;
 };
 
 /** @brief Class that holds map nodes
