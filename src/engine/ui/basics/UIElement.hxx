@@ -153,6 +153,9 @@ public:
   */
   void setTextureID(const std::string &textureID);
 
+  //Just incase you want to set the texture directly
+  void setTextureID(SDL_Texture *texture, const SDL_Rect &clipRect, const SDL_Rect &textureRect);
+
   void setParent(UIElement *parent) { elementData.parent = parent; };
   void setMenuGroupID(const std::string &buildMenuID) { elementData.buildMenuID = buildMenuID; };
   void setLayoutGroupName(const std::string &layoutGroupName) { elementData.layoutGroupName = layoutGroupName; };
@@ -171,9 +174,13 @@ private:
 
   bool m_visible = true;
 
+  bool m_directTexture = false; //was this texture set directly?
+
 protected:
   SDL_Texture *m_texture = nullptr;  /// a pointer to the element's texture
   SDL_Rect m_uiElementRect{0, 0, 0, 0};
+  SDL_Rect m_uiElementClipRect{0, 0, 0, 0};
+  SDL_Rect m_uiTextureRect{0, 0, 0, 0};
 
   void renderTexture() const;
 

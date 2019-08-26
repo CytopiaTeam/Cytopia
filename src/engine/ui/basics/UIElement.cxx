@@ -12,12 +12,21 @@ void UIElement::setTextureID(const std::string &textureID)
     return;
   }
   m_texture = texture;
+  m_directTexture = false;
   SDL_QueryTexture(m_texture, nullptr, nullptr, &m_uiElementRect.w, &m_uiElementRect.h);
+}
+
+void UIElement::setTextureID(SDL_Texture *texture, const SDL_Rect &clipRect, const SDL_Rect &textureRect)
+{
+  m_texture = texture; 
+  m_directTexture = true;
+  m_uiElementClipRect = clipRect;
+  m_uiTextureRect = textureRect;
 }
 
 void UIElement::changeButtonState(int state)
 {
-  if (m_buttonState != state && !elementData.textureID.empty())
+  if (m_buttonState != state && !elementData.textureID.empty() && m_directTexture == false)
   {
     changeTexture(ResourcesManager::instance().getUITexture(elementData.textureID, state));
   }
@@ -28,7 +37,18 @@ void UIElement::renderTexture() const
 {
   if (m_texture)
   {
-    SDL_RenderCopy(m_renderer, m_texture, nullptr, &m_uiElementRect);
+    if (m_directTexture) //if this texture was set directly then add the clipping rect
+    {
+      SDL_Rect newRect{m_uiElementRect.x + m_uiTextureRect.x,
+                       m_uiElementRect.y + m_uiTextureRect.y, 
+                       m_uiTextureRect.w, 
+                       m_uiTextureRect.h};
+      SDL_RenderCopy(m_renderer, m_texture, &m_uiElementClipRect, &newRect);
+    } 
+    else //otherwise, leave it as null and it'll figure itself out
+    {
+      SDL_RenderCopy(m_renderer, m_texture, nullptr, &m_uiElementRect);
+    }
   }
 }
 

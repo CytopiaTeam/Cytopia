@@ -46,6 +46,8 @@ inline void from_json(const json &j, SettingsData &s)
   s.buildMenuPosition = j["User Interface"].value("BuildMenu Position", "BOTTOM");
   s.gameLanguage = j["User Interface"].value("Language", "en");
   s.fontFileName = j["User Interface"].value("Font Filename", "en");
+  s.subMenuButtonWidth = j["User Interface"].value("SubMenuButtonWidth", 32);
+  s.subMenuButtonHeight = j["User Interface"].value("SubMenuButtonHeight", 32);
 }
 
 // JSON deserializer for BiomeData struct (Terrain Gen)

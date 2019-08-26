@@ -57,6 +57,14 @@ public:
    */
   bool isMouseOver(int, int) override;
 
+  /** @brief add uiElements to be controlled by this slider
+   * @param add uiElements to the vector of elements that will be controlled by this slider
+   */
+  void addUiElement(UIElement *elem);
+  void addUiElements(std::vector<UIElement *>);
+  void clearUiElements() {m_uiElements.clear(); scrollRectSet = false; };
+
+
 private:
   /// Thickness of the slider line
   int m_lineThickness = 6;
@@ -72,6 +80,13 @@ private:
   int curVal;
   /// whether or not the button is to follow the mouse
   bool dragMode;
+
+  // the elements to scroll
+  std::vector<UIElement *> m_uiElements;
+  // the rect that contains all the scrollable elements
+  SDL_Rect scrollRect;
+  bool scrollRectSet = false;
+  int lastVal;
 };
 
 #endif

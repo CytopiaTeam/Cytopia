@@ -171,7 +171,7 @@ private:
   std::unique_ptr<Text> m_fpsCounter = std::make_unique<Text>();
 
   void setCallbackFunctions();
-
+  void scaleCenterButtonImage(SDL_Rect &ret, int btnW, int btnH, int imgW, int imgH);
   void createBuildMenu();
   void setBuildMenuLayout();
 
