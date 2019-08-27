@@ -502,6 +502,24 @@ void UIManager::scaleCenterButtonImage(SDL_Rect &ret, int btnW, int btnH, int im
   }
 }
 
+void UIManager::setupButtonTileImage(Button *button, const std::pair<std::string, TileData>& tile)
+{
+  int bWid = Settings::instance().subMenuButtonWidth; //UI button width for sub menues
+  int bHei = Settings::instance().subMenuButtonHeight; //UI button height for sub menues
+
+  if (TileManager::instance().getTexture(tile.first, TileMap::DEFAULT) == nullptr)
+  {
+    button->setTextureID("Button_NoIcon");
+  }
+  SDL_Rect destRect{button->getUiElementRect().x, button->getUiElementRect().y, 0, 0}; 
+  scaleCenterButtonImage(destRect, bWid, bHei, tile.second.tiles.clippingWidth, tile.second.tiles.clippingHeight);
+  button->setTextureID(
+    TileManager::instance().getTexture(tile.first, TileMap::DEFAULT),
+    {0, 0, tile.second.tiles.clippingWidth, tile.second.tiles.clippingHeight},
+    destRect
+    );
+}
+
 void UIManager::createBuildMenu()
 {
   std::string subMenuSuffix = "_sub";
@@ -532,6 +550,7 @@ void UIManager::createBuildMenu()
   int bWid = Settings::instance().subMenuButtonWidth; //UI button width for sub menues
   int bHei = Settings::instance().subMenuButtonHeight; //UI button height for sub menues
 
+
   for (auto &tile : TileManager::instance().getAllTileData())
   {
     std::string category = tile.second.category;
@@ -554,17 +573,7 @@ void UIManager::createBuildMenu()
         }
         Button *button = new Button({0, 0, bWid, bHei});
 
-        if (TileManager::instance().getTexture(tile.first, TileMap::DEFAULT) == nullptr)
-        {
-          button->setTextureID("Button_NoIcon");
-        }
-        SDL_Rect destRect{button->getUiElementRect().x, button->getUiElementRect().y, 0, 0}; 
-        scaleCenterButtonImage(destRect, bWid, bHei, tile.second.tiles.clippingWidth, tile.second.tiles.clippingHeight);
-        button->setTextureID(
-          TileManager::instance().getTexture(tile.first, TileMap::DEFAULT),
-          {0, 0, tile.second.tiles.clippingWidth, tile.second.tiles.clippingHeight},
-          destRect
-          );
+        setupButtonTileImage(button, tile);
         button->drawImageButtonFrame(true);
         button->setVisibility(false);
         button->setToggleButton(true);
@@ -578,17 +587,7 @@ void UIManager::createBuildMenu()
       }
       Button *button = new Button({0, 0, bWid, bHei});
 
-      if (TileManager::instance().getTexture(tile.first, TileMap::DEFAULT) == nullptr)
-      {
-        button->setTextureID("Button_NoIcon");
-      }
-      SDL_Rect destRect{button->getUiElementRect().x, button->getUiElementRect().y, 0, 0}; 
-      scaleCenterButtonImage(destRect, bWid, bHei, tile.second.tiles.clippingWidth, tile.second.tiles.clippingHeight);
-      button->setTextureID(
-        TileManager::instance().getTexture(tile.first, TileMap::DEFAULT),
-        {0, 0, tile.second.tiles.clippingWidth, tile.second.tiles.clippingHeight},
-        destRect
-        );
+      setupButtonTileImage(button, tile);
       button->drawImageButtonFrame(true);
       button->setVisibility(false);
       button->setToggleButton(true);
@@ -603,17 +602,7 @@ void UIManager::createBuildMenu()
     {
       Button *button = new Button({0, 0, bWid, bHei});
 
-      if (TileManager::instance().getTexture(tile.first, TileMap::DEFAULT) == nullptr)
-      {
-        button->setTextureID("Button_NoIcon");
-      }
-      SDL_Rect destRect{button->getUiElementRect().x, button->getUiElementRect().y, 0, 0}; 
-      scaleCenterButtonImage(destRect, bWid, bHei, tile.second.tiles.clippingWidth, tile.second.tiles.clippingHeight);
-      button->setTextureID(
-        TileManager::instance().getTexture(tile.first, TileMap::DEFAULT),
-        {0, 0, tile.second.tiles.clippingWidth, tile.second.tiles.clippingHeight},
-        destRect
-        );
+      setupButtonTileImage(button, tile);
       button->drawImageButtonFrame(true);
       button->setVisibility(false);
       button->setToggleButton(true);

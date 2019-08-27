@@ -176,6 +176,7 @@ private:
   void scaleCenterButtonImage(SDL_Rect &ret, int btnW, int btnH, int imgW, int imgH);
   void createBuildMenu();
   void setBuildMenuLayout();
+  void setupButtonTileImage(Button *button, const std::pair<std::string, TileData>& tile);
 
   bool m_showDebugMenu = false;
 
