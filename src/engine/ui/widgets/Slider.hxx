@@ -62,7 +62,7 @@ public:
    */
   void addUiElement(UIElement *elem);
   void addUiElements(std::vector<UIElement *>);
-  void clearUiElements() {m_uiElements.clear(); scrollRectSet = false; };
+  void clearUiElements();
 
 
 private:
@@ -75,7 +75,7 @@ private:
   /// minimum slider value
   int m_minVal = 0;
   /// maximum slider value
-  int m_maxVal = 100;
+  int m_maxVal = 0;
   /// current slider value
   int curVal;
   /// whether or not the button is to follow the mouse
@@ -83,10 +83,6 @@ private:
 
   // the elements to scroll
   std::vector<UIElement *> m_uiElements;
-  // the rect that contains all the scrollable elements
-  SDL_Rect scrollRect;
-  bool scrollRectSet = false;
-  int lastVal;
 };
 
 #endif

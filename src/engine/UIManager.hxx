@@ -150,6 +150,8 @@ private:
   UIManager() = default;
   ~UIManager() = default;
 
+  Slider *m_slider = nullptr;
+
   // this container holds all UiElements and is the owner.
   std::vector<std::unique_ptr<UIElement>> m_uiElements;
 
