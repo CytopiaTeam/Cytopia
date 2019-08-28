@@ -32,6 +32,7 @@ WindowManager::WindowManager()
     LOG(LOG_ERROR) << "Could not load icon " << m_windowIcon << "\nSDL_IMAGE Error: " << IMG_GetError();
   }
 
+
   m_numOfDisplays = SDL_GetNumVideoDisplays();
   initializeScreenResolutions();
   setFullScreenMode(static_cast<FULLSCREEN_MODE>(Settings::instance().fullScreenMode));
@@ -97,6 +98,12 @@ void WindowManager::setFullScreenMode(FULLSCREEN_MODE mode) const
 }
 
 void WindowManager::setWindowTitle(const std::string &title)
+{
+  m_title = title;
+  SDL_SetWindowTitle(m_window, m_title.c_str());
+}
+
+void WindowManager::setWindowTitle(const char* title)
 {
   m_title = title;
   SDL_SetWindowTitle(m_window, m_title.c_str());

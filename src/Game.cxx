@@ -42,6 +42,7 @@ bool Game::initialize()
   }
 
   // initialize window manager
+  LOG(LOG_INFO) << VERSION;
   WindowManager::instance().setWindowTitle(VERSION);
 
 #ifdef USE_MOFILEREADER
@@ -57,7 +58,7 @@ bool Game::initialize()
     LOG(LOG_ERROR) << "Failed to load MO file " << moFilePath;
   }
 #endif
-
+  LOG(LOG_INFO) << "Here";
   return true;
 }
 

@@ -56,7 +56,7 @@ struct Soundtrack
 
   ~Soundtrack()
   {
-    if(Chunks) delete Chunks;
+    Mix_FreeChunk(Chunks);
   }
 
 };

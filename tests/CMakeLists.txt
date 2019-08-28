@@ -45,6 +45,7 @@ endforeach ()
 
 LIST(APPEND TEST_SOURCES
         main.cxx
+        Game.cxx
         Example.cxx
         engine/ResourcesManager.cxx
         engine/Engine.cxx

@@ -30,6 +30,7 @@ public:
   * @param title the new title of the window
   */
   void setWindowTitle(const std::string &title);
+  void setWindowTitle(const char *title);
 
   /** \brief get SDL Renderer
   * Returns a pointer to the SDL Renderer

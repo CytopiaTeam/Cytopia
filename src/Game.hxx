@@ -2,7 +2,7 @@
 #define GAME_HXX_
 
 #ifndef VERSION
-#define VERSION 0
+#define VERSION "Unknown Version"
 #endif
 
 #include "Scripting/ScriptEngine.hxx"
