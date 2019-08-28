@@ -75,12 +75,12 @@ bool MapNode::checkBuildingLayerSlopePlaceable(const std::string &tileID, const 
     return true;
   }
   SDL_Rect clipRect{0, 0, 0, 0};
-  size_t spriteCount = 1;
   TileData *tileData = TileManager::instance().getTileData(tileID);
   if (tileData)
   {
     if (m_elevationOrientation != TileSlopes::DEFAULT_ORIENTATION)
     {
+      size_t spriteCount = 1;
       clipRect.x = tileData->slopeTiles.clippingWidth * static_cast<int>(m_orientation);
       spriteCount = tileData->slopeTiles.count;
       if (clipRect.x >= static_cast<int>(spriteCount) * tileData->slopeTiles.clippingWidth)
