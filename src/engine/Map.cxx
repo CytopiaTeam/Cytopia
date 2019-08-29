@@ -169,27 +169,6 @@ void Map::updateAllNodes()
   }
 }
 
-void Map::setTileIDOfNode(const std::vector<Point> &isoCoordinates, const std::string &tileID)
-{
-  bool isOkToSet = true;
-  for (auto it = isoCoordinates.begin(); it != isoCoordinates.end(); ++it)
-  {
-    if (!checkTileIDIsEmpty(*it, tileID))
-    {
-      isOkToSet = false;
-      break;
-    }
-  }
-  if (isOkToSet)
-  {
-    for (auto it = isoCoordinates.begin(); it != isoCoordinates.end(); ++it)
-    {
-      mapNodes[it->x * m_columns + it->y]->setTileID(tileID);
-      updateNeighborsOfNode(*it);
-    }
-  }
-}
-
 bool Map::checkTileIDIsEmpty(const Point &isoCoordinates, const std::string &tileID) const
 {
   return mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->checkTileIsEmpty(tileID);
@@ -431,21 +410,14 @@ bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int is
   return false;
 }
 
-void Map::highlightNode(const Point &isoCoordinates, bool redHighlight)
+void Map::highlightNode(const Point &isoCoordinates, const SpriteRGBColor& rgbColor)
 {
   const size_t index = isoCoordinates.x * m_columns + isoCoordinates.y;
 
   if (index < mapNodes.size())
   {
     MapNode *node = mapNodes[index].get();
-    if (!redHighlight)
-    {
-      node->getSprite()->highlightColor = SpriteHighlightColor::GRAY;
-    }
-    else
-    {
-      node->getSprite()->highlightColor = SpriteHighlightColor::RED;
-    }
+    node->getSprite()->highlightColor = rgbColor;
     node->getSprite()->highlightSprite = true;
   }
 }
