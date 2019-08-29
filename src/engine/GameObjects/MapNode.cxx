@@ -68,7 +68,7 @@ void MapNode::setTileID(const std::string &tileID)
   }
 }
 
-bool MapNode::checkBuildingLayerSlopePlaceable(const std::string &tileID, const Layer &layer) const
+bool MapNode::isPlacableOnSlope(const std::string &tileID, const Layer &layer) const
 {
   if (layer != Layer::BUILDINGS)
   {
@@ -116,7 +116,7 @@ bool MapNode::checkTileIsEmpty(const std::string &tileID) const
       // road intersecting is allowed.
       return true;
     }
-    return checkBuildingLayerSlopePlaceable(tileID, layer) &&
+    return isPlacableOnSlope(tileID, layer) &&
            (m_mapNodeData[layer].tileID == "" || m_mapNodeData[layer].tileID == "terrain");
   }
   return false;
