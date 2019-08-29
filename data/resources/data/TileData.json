@@ -5069,5 +5069,835 @@
         "upkeep cost": 0,
         "water": 0,
         "buildingsize": 9
+    },
+    {
+        "author": "RockFort",
+        "category": "Commercial",
+        "description": "TODO DESC",
+        "id": "com_2x2_unclejoes1_RF",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 39,
+            "clip_width": 64,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/com_2x2_unclejoes1_RF.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "RockFort",
+        "category": "Residential",
+        "description": "TODO DESC",
+        "id": "res_3x3_barentin1large_RF",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 198,
+            "clip_width": 96,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_3x3_barentin1large_RF.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "RockFort",
+        "category": "Residential",
+        "description": "TODO DESC",
+        "id": "res_2x2_apartvienna4_rf",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 70,
+            "clip_width": 64,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_2x2_apartvienna4_rf.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "RockFort",
+        "category": "Residential",
+        "description": "TODO DESC",
+        "id": "res_2x2_thann1_RF",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 61,
+            "clip_width": 64,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_2x2_thann1_RF.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "RockFort",
+        "category": "Residential",
+        "description": "TODO DESC",
+        "id": "res_2x2_mex1_RF",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 33,
+            "clip_width": 64,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_2x2_mex1_RF.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Commercial",
+        "description": "TODO DESC",
+        "id": "com_1x1_MiniBorgsBurgers_kt",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 20,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/com_1x1_MiniBorgsBurgers_kt.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "RockFort",
+        "category": "Residential",
+        "description": "TODO DESC",
+        "id": "res_3x3_barentin1med_RF",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 126,
+            "clip_width": 96,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_3x3_barentin1med_RF.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "RockFort",
+        "category": "Residential",
+        "description": "TODO DESC",
+        "id": "res_2x2_semidetstouen1_RF",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 42,
+            "clip_width": 64,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_2x2_semidetstouen1_RF.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "RockFort",
+        "category": "Commercial",
+        "description": "TODO DESC",
+        "id": "com_2x2_dancinghouseprague_RF",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 78,
+            "clip_width": 64,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/com_2x2_dancinghouseprague_RF.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Residential",
+        "description": "TODO DESC",
+        "id": "res_2x2_BigBlueHouse_kt",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 42,
+            "clip_width": 64,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_2x2_BigBlueHouse_kt.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "RockFort",
+        "category": "Residential",
+        "description": "TODO DESC",
+        "id": "res_3x3_siauliai7fullversion_RF",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 149,
+            "clip_width": 96,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_3x3_siauliai7fullversion_RF.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "RockFort",
+        "category": "Residential",
+        "description": "TODO DESC",
+        "id": "res_3x3_romanianappt1_RF",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 78,
+            "clip_width": 96,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_3x3_romanianappt1_RF.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "RockFort",
+        "category": "Residential",
+        "description": "TODO DESC",
+        "id": "res_3x3_barentin1small_RF",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 90,
+            "clip_width": 96,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_3x3_barentin1small_RF.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Commercial",
+        "description": "TODO DESC",
+        "id": "com_1x1_CafeApartment_kt",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 35,
+            "clip_width": 32,
+            "count": 2,
+            "fileName": "resources/images/buildings/commercial/com_1x1_CafeApartment_kt.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Decoration",
+        "description": "TODO DESC",
+        "id": "BD_1x1_Snowmen_kt",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 18,
+            "clip_width": 32,
+            "count": 2,
+            "fileName": "resources/images/buildings/decoration/BD_1x1_Snowmen_kt.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Folesnaid",
+        "category": "Power",
+        "description": "TODO DESC",
+        "id": "pow_5x5_Kohlekraftwerk_Durnrohr_FN",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 133,
+            "clip_width": 160,
+            "count": 1,
+            "fileName": "resources/images/buildings/power plants/pow_5x5_Kohlekraftwerk_Durnrohr_FN.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Terrain",
+        "description": "Terrain basalt tiles",
+        "id": "terrain_basalt",
+        "power": 0,
+        "price": 0,
+        "slopeTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 4,
+            "fileName": "resources/images/terrain/terrain_basalt.png"
+        },
+        "cornerTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 8,
+            "offset": 4,
+            "fileName": "resources/images/terrain/terrain_basalt.png"
+        },
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count":  1,
+            "offset": 13,
+            "fileName": "resources/images/terrain/terrain_basalt.png"
+        },
+        "title": "Basalt",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Terrain",
+        "description": "Terrain beach tiles",
+        "id": "terrain_beach",
+        "power": 0,
+        "price": 0,
+        "slopeTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 4,
+            "fileName": "resources/images/terrain/terrain_beach.png"
+        },
+        "cornerTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 8,
+            "offset": 4,
+            "fileName": "resources/images/terrain/terrain_beach.png"
+        },
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count":  1,
+            "offset": 13,
+            "fileName": "resources/images/terrain/terrain_beach.png"
+        },
+        "title": "Beach",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Terrain",
+        "description": "Terrain Black Sand tiles",
+        "id": "terrain_BlackSand",
+        "power": 0,
+        "price": 0,
+        "slopeTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 4,
+            "fileName": "resources/images/terrain/terrain_BlackSand.png"
+        },
+        "cornerTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 8,
+            "offset": 4,
+            "fileName": "resources/images/terrain/terrain_BlackSand.png"
+        },
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 3,
+            "offset": 13,
+            "fileName": "resources/images/terrain/terrain_BlackSand.png"
+        },
+        "title": "Black Sand",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Terrain",
+        "description": "Terrain burned tiles",
+        "id": "terrain_burned",
+        "power": 0,
+        "price": 0,
+        "slopeTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 4,
+            "fileName": "resources/images/terrain/terrain_burned.png"
+        },
+        "cornerTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 8,
+            "offset": 4,
+            "fileName": "resources/images/terrain/terrain_burned.png"
+        },
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 1,
+            "offset": 13,
+            "fileName": "resources/images/terrain/terrain_burned.png"
+        },
+        "title": "Burned land",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Terrain",
+        "description": "Terrain Desert tiles",
+        "id": "terrain_desert",
+        "power": 0,
+        "price": 0,
+        "slopeTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 4,
+            "fileName": "resources/images/terrain/terrain_desert.png"
+        },
+        "cornerTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 8,
+            "offset": 4,
+            "fileName": "resources/images/terrain/terrain_desert.png"
+        },
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 2,
+            "offset": 13,
+            "fileName": "resources/images/terrain/terrain_desert.png"
+        },
+        "title": "Desert",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Terrain",
+        "description": "Terrain Dirt tiles",
+        "id": "terrain_dirt",
+        "power": 0,
+        "price": 0,
+        "slopeTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 4,
+            "fileName": "resources/images/terrain/terrain_dirt.png"
+        },
+        "cornerTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 8,
+            "offset": 4,
+            "fileName": "resources/images/terrain/terrain_dirt.png"
+        },
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 2,
+            "offset": 13,
+            "fileName": "resources/images/terrain/terrain_dirt.png"
+        },
+        "title": "Dirt",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Terrain",
+        "description": "Terrain grass tiles",
+        "id": "terrain_grass",
+        "power": 0,
+        "price": 0,
+        "slopeTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 4,
+            "fileName": "resources/images/terrain/terrain_grass.png"
+        },
+        "cornerTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 8,
+            "offset": 4,
+            "fileName": "resources/images/terrain/terrain_grass.png"
+        },
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 3,
+            "offset": 13,
+            "fileName": "resources/images/terrain/terrain_grass.png"
+        },
+        "title": "Grass",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Terrain",
+        "description": "Terrain grass forest tiles",
+        "id": "terrain_grass_forest",
+        "power": 0,
+        "price": 0,
+        "slopeTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 4,
+            "fileName": "resources/images/terrain/terrain_grass_forest.png"
+        },
+        "cornerTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 8,
+            "offset": 4,
+            "fileName": "resources/images/terrain/terrain_grass_forest.png"
+        },
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 3,
+            "offset": 13,
+            "fileName": "resources/images/terrain/terrain_grass_forest.png"
+        },
+        "title": "Basalt",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Terrain",
+        "description": "Terrain grass mint tiles",
+        "id": "terrain_grass_mint",
+        "power": 0,
+        "price": 0,
+        "slopeTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 4,
+            "fileName": "resources/images/terrain/terrain_grass_mint.png"
+        },
+        "cornerTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 8,
+            "offset": 4,
+            "fileName": "resources/images/terrain/terrain_grass_mint.png"
+        },
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 3,
+            "offset": 13,
+            "fileName": "resources/images/terrain/terrain_grass_mint.png"
+        },
+        "title": "Grass Mint",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Terrain",
+        "description": "Terrain Grass Mint Forest tiles",
+        "id": "terrain_grass_mint_forest",
+        "power": 0,
+        "price": 0,
+        "slopeTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 4,
+            "fileName": "resources/images/terrain/terrain_grass_mint_forest.png"
+        },
+        "cornerTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 8,
+            "offset": 4,
+            "fileName": "resources/images/terrain/terrain_grass_mint_forest.png"
+        },
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 3,
+            "offset": 13,
+            "fileName": "resources/images/terrain/terrain_grass_mint_forest.png"
+        },
+        "title": "Grass Mint Forest",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Terrain",
+        "description": "Terrain Gravel tiles",
+        "id": "terrain_gravel",
+        "power": 0,
+        "price": 0,
+        "slopeTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 4,
+            "fileName": "resources/images/terrain/terrain_gravel.png"
+        },
+        "cornerTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 8,
+            "offset": 4,
+            "fileName": "resources/images/terrain/terrain_gravel.png"
+        },
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 3,
+            "offset": 13,
+            "fileName": "resources/images/terrain/terrain_gravel.png"
+        },
+        "title": "Gravel",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Terrain",
+        "description": "Terrain mud tiles",
+        "id": "terrain_mud",
+        "power": 0,
+        "price": 0,
+        "slopeTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 4,
+            "fileName": "resources/images/terrain/terrain_mud.png"
+        },
+        "cornerTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 8,
+            "offset": 4,
+            "fileName": "resources/images/terrain/terrain_mud.png"
+        },
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 1,
+            "offset": 13,
+            "fileName": "resources/images/terrain/terrain_mud.png"
+        },
+        "title": "Mud",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Terrain",
+        "description": "Terrain Sand tiles",
+        "id": "terrain_sand",
+        "power": 0,
+        "price": 0,
+        "slopeTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 4,
+            "offset": 3,
+            "fileName": "resources/images/terrain/terrain_sand.png"
+        },
+        "cornerTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 8,
+            "offset": 7,
+            "fileName": "resources/images/terrain/terrain_sand.png"
+        },
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 3,
+            "fileName": "resources/images/terrain/terrain_sand.png"
+        },
+        "title": "Sand",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Terrain",
+        "description": "Terrain Red Sand tiles",
+        "id": "terrain_sand_red",
+        "power": 0,
+        "price": 0,
+        "slopeTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 4,
+            "fileName": "resources/images/terrain/terrain_sand_red.png"
+        },
+        "cornerTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 8,
+            "offset": 4,
+            "fileName": "resources/images/terrain/terrain_sand_red.png"
+        },
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 3,
+            "offset": 13,
+            "fileName": "resources/images/terrain/terrain_sand_red.png"
+        },
+        "title": "Red Sand",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Terrain",
+        "description": "Terrain shading tiles",
+        "id": "terrain_shading",
+        "power": 0,
+        "price": 0,
+        "slopeTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 4,
+            "fileName": "resources/images/terrain/terrain_shading.png"
+        },
+        "cornerTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 8,
+            "offset": 4,
+            "fileName": "resources/images/terrain/terrain_shading.png"
+        },
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 1,
+            "offset": 13,
+            "fileName": "resources/images/terrain/terrain_shading.png"
+        },
+        "title": "Shading",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Terrain",
+        "description": "Terrain Snow tiles",
+        "id": "terrain_snow",
+        "power": 0,
+        "price": 0,
+        "slopeTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 4,
+            "fileName": "resources/images/terrain/terrain_snow.png"
+        },
+        "cornerTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 8,
+            "offset": 4,
+            "fileName": "resources/images/terrain/terrain_snow.png"
+        },
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 3,
+            "offset": 13,
+            "fileName": "resources/images/terrain/terrain_snow.png"
+        },
+        "title": "snow",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Terrain",
+        "description": "Terrain soil tiles",
+        "id": "terrain_soil",
+        "power": 0,
+        "price": 0,
+        "slopeTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 4,
+            "fileName": "resources/images/terrain/terrain_soil.png"
+        },
+        "cornerTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 8,
+            "offset": 4,
+            "fileName": "resources/images/terrain/terrain_soil.png"
+        },
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 3,
+            "offset": 13,
+            "fileName": "resources/images/terrain/terrain_soil.png"
+        },
+        "title": "Soil",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Terrain",
+        "description": "Terrain Stone tiles",
+        "id": "terrain_Stone",
+        "power": 0,
+        "price": 0,
+        "slopeTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 4,
+            "fileName": "resources/images/terrain/terrain_stone.png"
+        },
+        "cornerTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 8,
+            "offset": 4,
+            "fileName": "resources/images/terrain/terrain_stone.png"
+        },
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 3,
+            "offset": 13,
+            "fileName": "resources/images/terrain/terrain_stone.png"
+        },
+        "title": "Stone",
+        "upkeep cost": 0,
+        "water": 0
     }
 ]
