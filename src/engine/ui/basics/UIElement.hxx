@@ -66,18 +66,11 @@ public:
     m_uiElementRect.y = y;
   };
 
-  virtual void setBasePosition(int x, int y)
-  {
-    m_uiBaseElementRect.x = x;
-    m_uiBaseElementRect.y = y;
-  };
-
   /** \brief Get the position and the size of this ui element
   * Gets the position and the size of this ui element
   * @return Position and size as SDL_Rect
   */
   const SDL_Rect &getUiElementRect() const { return m_uiElementRect; };
-  const SDL_Rect &getUiBaseElementRect() const { return m_uiBaseElementRect; };
 
   /** \brief Checks if the mouse cursor is over the current UI Element
   * Check if the coordinates match the ones stored in m_uiElementRect
@@ -188,7 +181,6 @@ protected:
   SDL_Rect m_uiElementRect{0, 0, 0, 0};
   SDL_Rect m_uiElementClipRect{0, 0, 0, 0};
   SDL_Rect m_uiTextureRect{0, 0, 0, 0};
-  SDL_Rect m_uiBaseElementRect{0, 0, 0, 0}; //the location of this element before sliding
 
   void renderTexture() const;
 

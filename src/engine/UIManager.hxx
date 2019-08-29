@@ -150,8 +150,6 @@ private:
   UIManager() = default;
   ~UIManager() = default;
 
-  Slider *m_slider = nullptr;
-
   // this container holds all UiElements and is the owner.
   std::vector<std::unique_ptr<UIElement>> m_uiElements;
 
@@ -173,9 +171,26 @@ private:
   std::unique_ptr<Text> m_fpsCounter = std::make_unique<Text>();
 
   void setCallbackFunctions();
+
+  /**
+   * @brief takes an SDL_Rect, default button width and height, and image width and height
+   *        and scales the image to fit on a button of the default button size (maintaining the 
+   *        aspect ration of the original image).
+   * @param ret, the address of a rect that will contain the size of the scaled image
+   * @param btnW, the default button width
+   * @param btnH, the default button height
+   * @param imgW, the width of the image to scale
+   * @param imgH, the height of the image to scale
+   */
   void scaleCenterButtonImage(SDL_Rect &ret, int btnW, int btnH, int imgW, int imgH);
   void createBuildMenu();
   void setBuildMenuLayout();
+  
+  /**
+   * @brief Draws the tile (defined by the string, tiledata pair) onto the button
+   * @param button, the button to draw this image on
+   * @param The id string, tileData pair of the tile that defines the image to be drawn
+   */
   void setupButtonTileImage(Button *button, const std::pair<std::string, TileData>& tile);
 
   bool m_showDebugMenu = false;

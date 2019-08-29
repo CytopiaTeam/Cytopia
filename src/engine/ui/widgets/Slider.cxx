@@ -1,6 +1,4 @@
 #include "Slider.hxx"
-#include "../basics/LOG.hxx"
-#include "Settings.hxx"
 
 Slider::Slider(const SDL_Rect &uiElementRect) : UIElement(uiElementRect)
 {
@@ -58,14 +56,6 @@ bool Slider::onMouseButtonDown(const SDL_Event &event)
   {
     sliderButton.x = event.button.x - sliderButton.w / 2; // sets the middle of the button to where the user clicked
     curVal = getValue(event.button.x);
-    
-    //move all the elements being slid by this slider
-    for(auto elem : m_uiElements)
-    {
-      SDL_Rect r = elem->getUiBaseElementRect();
-      elem->setPosition(r.x + curVal - m_maxVal/2, r.y);
-    }
-
     return true;
   }
   if (overSliderButton(event.button.x, event.button.y))
@@ -92,39 +82,7 @@ void Slider::onMouseMove(const SDL_Event &event)
       sliderButton.x = event.motion.x - sliderButton.w / 2;
       curVal = getValue(event.motion.x);
     }
-
-    //move all the elements being slid by this slider
-    for(auto elem : m_uiElements)
-    {
-      SDL_Rect r = elem->getUiBaseElementRect();
-      elem->setPosition(r.x + curVal - m_maxVal/2, r.y);
-    }
   }
 }
 
 bool Slider::isMouseOver(int x, int y) { return overSliderButton(x, y) || overSliderLine(x, y); }
-
-void Slider::addUiElement(UIElement *elem){
-  //add the new element to m_uiElements
-  elem->setBasePosition(elem->getUiElementRect().x, elem->getUiElementRect().y);
-  m_uiElements.push_back(elem);
-  m_maxVal = m_maxVal + Settings::instance().subMenuButtonWidth * 1.5;
-};
-
-void Slider::addUiElements(std::vector<UIElement *> newElems) 
-{ 
-  for(auto elem : newElems)
-  {
-    addUiElement(elem);
-  }
-}
-
-void Slider::clearUiElements() 
-{
-  for(auto elem : m_uiElements)
-  {
-    elem->setPosition(elem->getUiBaseElementRect().x, elem->getUiBaseElementRect().y);
-  }
-  m_uiElements.clear(); 
-  m_maxVal = 0; 
-}

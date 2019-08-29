@@ -225,11 +225,6 @@ void UIManager::init()
           {
             m_uiGroups[groupID].push_back(uiElement.get());
           }
-
-          if (uiElement->getUiElementData().elementID == "slider")
-          {
-            m_slider = dynamic_cast<Slider *>(uiElement.get());
-          }
         }
 
         if (!layoutGroupName.empty())
@@ -301,10 +296,6 @@ void UIManager::toggleGroupVisibility(const std::string &groupID, UIElement *sen
 
   if (sender)
   {
-    if (m_slider != nullptr)
-    {
-      m_slider->clearUiElements();
-    }
     Button *button = dynamic_cast<Button *>(sender);
     // cast the object to a Button to check if it's a toggle button.
     if (button && button->getUiElementData().isToggleButton)
@@ -312,11 +303,6 @@ void UIManager::toggleGroupVisibility(const std::string &groupID, UIElement *sen
       for (const auto &it : m_uiGroups[groupID])
       {
         it->setVisibility(button->checkState());
-        //toggle this group as the visible one in the slider
-        if (m_slider != nullptr)
-        {
-          m_slider->addUiElement(it);
-        }
       }
       return;
     }
@@ -515,7 +501,10 @@ void UIManager::setupButtonTileImage(Button *button, const std::pair<std::string
   scaleCenterButtonImage(destRect, bWid, bHei, tile.second.tiles.clippingWidth, tile.second.tiles.clippingHeight);
   button->setTextureID(
     TileManager::instance().getTexture(tile.first, TileMap::DEFAULT),
-    {0, 0, tile.second.tiles.clippingWidth, tile.second.tiles.clippingHeight},
+    {tile.second.tiles.clippingWidth * tile.second.tiles.offset, 
+      0, 
+      tile.second.tiles.clippingWidth, 
+      tile.second.tiles.clippingHeight},
     destRect
     );
 }

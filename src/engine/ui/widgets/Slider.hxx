@@ -57,14 +57,6 @@ public:
    */
   bool isMouseOver(int, int) override;
 
-  /** @brief add uiElements to be controlled by this slider
-   * @param add uiElements to the vector of elements that will be controlled by this slider
-   */
-  void addUiElement(UIElement *elem);
-  void addUiElements(std::vector<UIElement *>);
-  void clearUiElements();
-
-
 private:
   /// Thickness of the slider line
   int m_lineThickness = 6;
@@ -75,14 +67,11 @@ private:
   /// minimum slider value
   int m_minVal = 0;
   /// maximum slider value
-  int m_maxVal = 0;
+  int m_maxVal = 100;
   /// current slider value
   int curVal;
   /// whether or not the button is to follow the mouse
   bool dragMode;
-
-  // the elements to scroll
-  std::vector<UIElement *> m_uiElements;
 };
 
 #endif
