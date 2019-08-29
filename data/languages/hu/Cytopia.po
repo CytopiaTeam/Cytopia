@@ -1,0 +1,430 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# litoll <litoll@freemail.hu>, 2019
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-07-25 09:45+0200\n"
+"PO-Revision-Date: 2019-06-14 12:00+0000\n"
+"Last-Translator: litoll <litoll@freemail.hu>, 2019\n"
+"Language-Team: Hungarian (https://www.transifex.com/cytopia/teams/100140/hu/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: hu\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "A  small coal power plant."
+msgstr "Egy kis szénerőmű."
+
+msgid "A Coal Power plant."
+msgstr "Egy szénerőmű."
+
+msgid "A Power Plant, that has been built years ago"
+msgstr "Egy erőmű, amelyet évekkel ezelőtt építettek"
+
+msgid "A Road, that hasn't been cleaned often"
+msgstr "Egy út, amelyet nem gyakran tisztítottak"
+
+msgid "A Shop that sells Bikes"
+msgstr "Egy bolt, amely kerékpárokat árul"
+
+msgid "A Tower made out of concrete"
+msgstr "Egy betonból készül torony"
+
+msgid "A beautiful water tower"
+msgstr "Egy gyönyörű víztorony"
+
+msgid "A big building"
+msgstr "Egy nagy épület"
+
+msgid "A blue hotel from vienna"
+msgstr "Egy kék hotel Bécsből"
+
+msgid "A chemical plant"
+msgstr "Egy vegyi üzem"
+
+msgid "A classic house from Savannah , Georgia , USA"
+msgstr "Egy klasszikus ház innen: Savannah , Georgia , USA"
+
+msgid "A commercial center"
+msgstr "Egy kereskedelmi központ"
+
+msgid "A factory"
+msgstr "Egy gyár"
+
+msgid "A house from Alabama , USA"
+msgstr "Egy ház innen: Alabama , USA"
+
+msgid "A house from Vienna"
+msgstr "Egy bécsi ház"
+
+msgid "A petrol pump"
+msgstr "Egy benzinszivattyú"
+
+msgid "A petrol station"
+msgstr "Egy benzinkút"
+
+msgid "A pile of coal"
+msgstr "Egy halom szén"
+
+msgid "A shop that sells clocks"
+msgstr "Egy órákat áruló bolt"
+
+msgid "A shop that sells games. Even Cytopia is in store!"
+msgstr "Egy videójátékokat áruló bolt. Még a Cytopia is megvan nekik!"
+
+msgid "A shop that sells phones. It has the new CyPhone X"
+msgstr "Egy telefonokat áruló bolt. Megvan nekik az új CyPhone X"
+
+msgid "A shop!"
+msgstr "Egy bolt!"
+
+msgid "A skyscaper"
+msgstr "Egy felhőkarcoló"
+
+msgid "A small  building"
+msgstr "Egy kis épület"
+
+msgid "A small french mansion "
+msgstr "Egy kis francia kúria"
+
+msgid "A small house"
+msgstr "Egy kis ház"
+
+msgid "A small shack"
+msgstr "Egy kis kunyhó"
+
+msgid "A small water tower"
+msgstr "Egy kis víztorony"
+
+msgid "An apartment building from Montreal , Quebec"
+msgstr "Egy apartman épület innen: Montréal, Québec"
+
+msgid "An apartment building from Vancouver , BC , Canada"
+msgstr "Egy apartman épület innen: Vancouver BC, Kanada"
+
+msgid "An appartement building from Bellevue , WA , USA"
+msgstr "Egy apartman épület innen: Bellevue, WA, USA"
+
+msgid "An oasis"
+msgstr "Egy oázis"
+
+msgid "Apartment Building"
+msgstr "Apartman épület"
+
+msgid "Appartment"
+msgstr "Apartman"
+
+msgid "Appartment Building"
+msgstr "Apartman épület"
+
+msgid "Appartment London"
+msgstr "Londoni apartman"
+
+msgid "Appartments"
+msgstr "Apartmanok"
+
+msgid "Big Appartments"
+msgstr "Nagy apartmanok"
+
+msgid "Big Building"
+msgstr "Nagy épület"
+
+msgid "Big Depollutor"
+msgstr "Nagy szennyezésmentesítő"
+
+msgid "Big Office Building"
+msgstr "Nagy irodaépület"
+
+msgid "BikeShop"
+msgstr "Kerékpárbolt"
+
+msgid "Block of houses from the Boulevard des Belges , Rouen"
+msgstr "Egy háztömb innen: Boulevard des Belges , Rouen"
+
+msgid "Bois Guillaume Appartment"
+msgstr "Bois Guillaume Apartman"
+
+msgid "Borgs Burgers"
+msgstr "Borg burgerfalodája"
+
+msgid "Borgs Burgers - We have the tastiest!"
+msgstr "Borg burgerfalodája - Nálunk a legízletesebb!"
+
+msgid "BuildMenu Layout"
+msgstr "Építésmenü elrendezés"
+
+msgid "Cancel"
+msgstr "Mégse"
+
+msgid "Chemical Plant"
+msgstr "Vegyi üzem"
+
+msgid "Clock Store"
+msgstr "Órabolt"
+
+msgid "Coal Pile"
+msgstr "Szénhalom "
+
+msgid "Coal Power Plant"
+msgstr "Szénerőmű"
+
+msgid "Commercial"
+msgstr "Kereskedelmi"
+
+msgid "Community Tower"
+msgstr "Közösségi torony"
+
+msgid "CompactFast Shop"
+msgstr "KompaktGyors Bolt"
+
+msgid "Concrete Tower"
+msgstr "Betontorony "
+
+msgid "Construction"
+msgstr "Építés"
+
+msgid "Country Road"
+msgstr "Országút"
+
+msgid "Country Road... takes you home!"
+msgstr "Országút... hazavisz!"
+
+msgid "Day Care Center"
+msgstr "Napközi otthon"
+
+msgid "Debug Menu"
+msgstr "Hibakereső menü"
+
+msgid "Decoration"
+msgstr "Díszítés "
+
+msgid "Demolish"
+msgstr "Lerombolás"
+
+msgid "Depolluter Big"
+msgstr "Szennyezésmentesítő nagy"
+
+msgid "Depolluter Medium"
+msgstr "Szennyezésmentesítő közepes "
+
+msgid "Depolluter Small"
+msgstr "Szennyezésmentesítő kicsi"
+
+msgid "Desert Building"
+msgstr "Sivatagi épület"
+
+msgid "Desert building"
+msgstr "Sivatagi épület"
+
+msgid "Dirt Road"
+msgstr "Földút"
+
+msgid "Factory"
+msgstr "Gyár"
+
+msgid "Flora"
+msgstr "Növényzet"
+
+msgid "Fullscreen Mode"
+msgstr "Teljes képernyős mód"
+
+msgid "Game Shop"
+msgstr "Videojáték-szaküzlet"
+
+msgid "Hotel"
+msgstr "Hotel"
+
+msgid "House with swimming pool"
+msgstr "Úszómedencés ház"
+
+msgid "I scream for ice cream!"
+msgstr "Nyaljuk a fagylaltot!"
+
+msgid "Ice Cream Shop"
+msgstr "Fagyizó"
+
+msgid "Industrial"
+msgstr "Ipari"
+
+msgid "Industrial Building"
+msgstr "Ipari épület"
+
+msgid "Level Terrain"
+msgstr "Terep kiegyenlítése"
+
+#: src/Game.cxx:99
+msgid "Load Game"
+msgstr "Játék betöltése"
+
+msgid "Lower Terrain"
+msgstr "Terep lesüllyesztése"
+
+msgid "Mansion"
+msgstr "Kúria"
+
+msgid "Medium Appartments"
+msgstr "Közepes apartmanok"
+
+msgid "Medium Depollutor"
+msgstr "Közepes szennyezésmentesítő"
+
+msgid "Nature"
+msgstr "Természet"
+
+#: src/Game.cxx:94
+msgid "New Game"
+msgstr "Új játék"
+
+msgid "OK"
+msgstr "OK"
+
+msgid "Oasis"
+msgstr "Oázis"
+
+msgid "Office"
+msgstr "Iroda"
+
+msgid "Old Church"
+msgstr "Öreg templom"
+
+msgid "Old Industrial Building"
+msgstr "Régi ipari épület"
+
+msgid "Old building"
+msgstr "Régi épület"
+
+msgid "OldPowerPlant"
+msgstr "Régierőmű"
+
+msgid "Paved Road"
+msgstr "Kövezett út"
+
+msgid "Petrol Pump"
+msgstr "Benzinszivattyú"
+
+msgid "Petrol Station"
+msgstr "Benzinkút"
+
+msgid "Phone Shop"
+msgstr "Telefonbolt"
+
+msgid "Power"
+msgstr "Erő"
+
+msgid "Pyramid"
+msgstr "Piramis"
+
+#: src/Game.cxx:103
+msgid "Quit Game"
+msgstr "Kilépés a játékból"
+
+msgid "Raise Terrain"
+msgstr "Terep megemelése"
+
+msgid "Residential"
+msgstr "Lakossági"
+
+msgid "Restaurant"
+msgstr "Étterem"
+
+msgid "Restaurant in Paris"
+msgstr "Párizsi étterem"
+
+msgid "Roads"
+msgstr "Utak"
+
+msgid "Rocks"
+msgstr "Sziklák"
+
+msgid "Rocks for the terrain"
+msgstr "Sziklák a terepre"
+
+msgid "Ruegroshorloge"
+msgstr "Ruegroshorloge"
+
+msgid "Save Game"
+msgstr "Játék mentése"
+
+msgid "Screen Resolution"
+msgstr "Képernyőfelbontás"
+
+msgid "Settings"
+msgstr "Beállítások"
+
+msgid "Shop"
+msgstr "Bolt"
+
+msgid "Skyscraper"
+msgstr "Felhőkarcoló"
+
+msgid "Small Coal Power Plant"
+msgstr "Kis szénerőmű"
+
+msgid "Small Coal Power Plant2"
+msgstr "Kis szénerőmű2"
+
+msgid "Small Commercial Center"
+msgstr "Kis kereskedelmi központ"
+
+msgid "Small Depollutor"
+msgstr "Kis szennyezésmentesítő"
+
+msgid "Small House"
+msgstr "Kis ház"
+
+msgid "Small Shack"
+msgstr "Kis kunyhó"
+
+msgid "Small Water Tower"
+msgstr "Kis víztorony"
+
+msgid "Small house"
+msgstr "Kis ház"
+
+msgid "Terrain"
+msgstr "Terep"
+
+msgid "Terrain tiles"
+msgstr "Terep mezők"
+
+msgid "TerrainDecoration"
+msgstr "Terepdísz"
+
+msgid "The community gathers and works here"
+msgstr "A közösség itt gyülekezik és dologzik"
+
+msgid "Tour Front De Seine"
+msgstr "Tour Front De Seine"
+
+msgid "Trees"
+msgstr "Fák"
+
+msgid "Utilities"
+msgstr "Közművek"
+
+msgid "Water"
+msgstr "Víz"
+
+msgid "Water Tower"
+msgstr "Víztorony"
+
+msgid "Where people work"
+msgstr "Ahol az emberek dolgoznak"
+
+msgid "big Appartments"
+msgstr "nagy apartmanok"
+
+msgid "house"
+msgstr "ház"
+
+msgid "trees"
+msgstr "fák"

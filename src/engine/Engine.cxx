@@ -23,11 +23,6 @@ void Engine::decreaseHeight(const Point &isoCoordinates) const
 
 void Engine::toggleFullScreen() { WindowManager::instance().toggleFullScreen(); };
 
-void Engine::setTileIDOfNode(const std::vector<Point> &isoCoordinates, const std::string &tileID) const
-{
-  map->setTileIDOfNode(isoCoordinates, tileID);
-}
-
 void Engine::demolishNode(const Point &isoCoordinates) const { map->demolishNode(isoCoordinates, true); }
 
 void Engine::loadGame(const std::string &fileName)

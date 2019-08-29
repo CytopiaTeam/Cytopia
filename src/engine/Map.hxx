@@ -50,7 +50,7 @@ public:
  * @param isoCoordinates which node should be highlit.
  * @param redHighlight should highlight it with red or gray color.
  */
-  void highlightNode(const Point &isoCoordinates, bool redHighlight = false);
+  void highlightNode(const Point &isoCoordinates, const SpriteRGBColor &rgbColor);
 
   /**
  * @brief Sets a node to be unhighlit
@@ -73,7 +73,29 @@ public:
  * @param isoCoordinates 
  * @param tileID tileID which should be set
  */
-  void setTileIDOfNode(const std::vector<Point> &isoCoordinates, const std::string &tileID);
+  template <typename Iterator>
+  void setTileIDOfNode(const Iterator& begin, const Iterator& end, const std::string& tileID)
+  {
+    static_assert(std::is_same_v<Point, typename std::iterator_traits<Iterator>::value_type>,
+                  "Iterator value must be a const Point");
+    bool isOkToSet = true;
+    for (Iterator it = begin; it != end; ++it)
+    {
+      if (!checkTileIDIsEmpty(*it, tileID))
+      {
+        isOkToSet = false;
+        break;
+      }
+    }
+    if (isOkToSet)
+    {
+      for (Iterator it = begin; it != end; ++it)
+      {
+        mapNodes[it->x * m_columns + it->y]->setTileID(tileID);
+        updateNeighborsOfNode(*it);
+      }
+    }
+  }
 
   /**
  * @brief Demolish a node

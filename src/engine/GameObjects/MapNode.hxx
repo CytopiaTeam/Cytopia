@@ -18,6 +18,7 @@ struct MapNodeData
 {
   std::string tileID;
   TileData *tileData = nullptr;
+  int32_t tileIndex = 0;
 };
 
 /** @brief Class that holds map nodes
@@ -86,6 +87,13 @@ public:
   const MapNodeData getMapNodeDataForLayer(Layer layer) const { return m_mapNodeData[layer]; };
 
   const MapNodeData &getActiveMapNodeData() const;
+
+  /** @brief tileID placeable on slope tile.
+    * check if tileID is placeable on slope.
+    * @param tileID - the tileID which need to be checked whether allowing placement on slope or not.
+    * @param layer - what layer should be checked on, in case this is not BUILDING layer the placement is OK.
+    */
+  bool isPlacableOnSlope(const std::string &tileID, const Layer &layer) const;
 
   void demolishNode();
 
