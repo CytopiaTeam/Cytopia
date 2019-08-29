@@ -5,7 +5,7 @@
         "PlayMusic": true,
         "PlaySoundEffects": true,
         "SoundEffectsVolume": 100,
-        "Audio3DStatus":false
+        "Audio3DStatus": false
     },
     "ConfigFiles": {
         "TileDataJSONFile": "resources/data/TileData.json",
