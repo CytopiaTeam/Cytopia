@@ -1106,8 +1106,8 @@
         "upkeep cost": 0,
         "water": 0,
         "isOverPlacable": true
-        },
-        {
+    },
+    {
         "author": "Kingtut 101",
         "biome": "GrassLands",
         "category": "TerrainDecoration",
@@ -1304,8 +1304,8 @@
         "upkeep cost": 0,
         "water": 0,
         "buildingsize": 9
-        },
-        {
+    },
+    {
         "author": "RockFort",
         "category": "Residential",
         "description": "An apartment building from Vancouver , BC , Canada",
@@ -4861,7 +4861,8 @@
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0
-    },{
+    },
+    {
         "author": "RockFort",
         "category": "Residential",
         "description": "TODO DESC",
@@ -5383,7 +5384,7 @@
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
-            "count":  1,
+            "count": 1,
             "offset": 13,
             "fileName": "resources/images/terrain/terrain_basalt.png"
         },
@@ -5414,7 +5415,7 @@
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
-            "count":  1,
+            "count": 1,
             "offset": 13,
             "fileName": "resources/images/terrain/terrain_beach.png"
         },
