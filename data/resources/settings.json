@@ -28,6 +28,8 @@
     "User Interface": {
         "BuildMenu Position": "BOTTOM",
         "Language": "en",
-        "Font Filename": "resources/fonts/arcadeclassics.ttf"
+        "Font Filename": "resources/fonts/arcadeclassics.ttf",
+        "SubMenuButtonWidth": 32,
+        "SubMenuButtonHeight": 32
     }
 }

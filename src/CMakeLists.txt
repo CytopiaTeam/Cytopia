@@ -31,7 +31,6 @@ set(SOURCE_FILES
         engine/ui/widgets/TextField.{hxx,cxx}
         engine/ui/widgets/Tooltip.{hxx,cxx}
         engine/ui/menuGroups/IMenuGroup.hxx
-        engine/ui/menuGroups/MenuGroupBuild.{hxx,cxx}
         engine/Engine.{hxx,cxx}
         engine/EventManager.{hxx,cxx}
         engine/Map.{hxx,cxx}
