@@ -7,6 +7,7 @@
 #include "common/enums.hxx"
 #include "map/MapLayers.hxx"
 #include "Map.hxx"
+#include "Sprite.hxx"
 
 #include "basics/LOG.hxx"
 
@@ -177,12 +178,12 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
               if (!engine.map->checkTileIDIsEmpty(m_highlightedNodes[i], tileTypeEditMode))
               {
                 // already occupied tile, mark red
-                engine.map->highlightNode(m_highlightedNodes[i], true);
+                engine.map->highlightNode(m_highlightedNodes[i], SpriteHighlightColor::RED);
               }
               else
               {
-				// mark gray.
-                engine.map->highlightNode(m_highlightedNodes[i]);
+                // mark gray.
+                engine.map->highlightNode(m_highlightedNodes[i], SpriteHighlightColor::GRAY);
               }
             }
           }
@@ -204,16 +205,15 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
 
           if (highlightSelection)
           {
-            engine.map->highlightNode(m_highlitNode);
             if (!engine.map->checkTileIDIsEmpty(m_highlitNode, tileTypeEditMode))
             {
               // already occupied tile, mark red
-              engine.map->highlightNode(m_highlitNode, true);
+              engine.map->highlightNode(m_highlitNode, SpriteHighlightColor::RED);
             }
             else
             {
               // mark gray.
-              engine.map->highlightNode(m_highlitNode);
+              engine.map->highlightNode(m_highlitNode, SpriteHighlightColor::GRAY);
             }
           }
         }
@@ -311,12 +311,11 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         }
         else if (!tileTypeEditMode.empty())
         {
-          std::vector<Point> vec = {m_clickDownCoords};
-          if (m_highlightedNodes.size() != 0)
+          if (m_highlightedNodes.size() == 0)
           {
-            vec = m_highlightedNodes;
+            m_highlightedNodes.push_back(m_clickDownCoords);
           }
-          engine.setTileIDOfNode(vec, tileTypeEditMode);
+          engine.setTileIDOfNode(m_highlightedNodes.begin(), m_highlightedNodes.end(), tileTypeEditMode);
         }
         else if (demolishMode)
         {

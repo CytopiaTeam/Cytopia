@@ -32,6 +32,8 @@ deploy_script:
     iex (new-object net.webclient).downloadstring('https://get.scoop.sh');
     scoop install https://raw.githubusercontent.com/AnotherFoxGuy/scoop-bucket/master/butler.json;
     ninja install;
+    wget https://cytopia.net/download/languages.zip -OutFile languages.zip;
+    7z x languages.zip -Oredist;
     butler push redist cytopia/cytopia:windows-ci --userversion $env:APPVEYOR_BUILD_VERSION;}
 on_success:
 - cmd: cmake -P cmake/pmm.cmake /Conan /Clean
