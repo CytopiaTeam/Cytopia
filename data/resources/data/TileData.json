@@ -164,7 +164,7 @@
     {
         "author": "RockFort",
         "category": "Commercial",
-        "description": "Appartment Building",
+        "description": "Apartment Building",
         "id": "com_1x1_nycbuild_RF",
         "power": 0,
         "price": 0,
@@ -174,7 +174,7 @@
             "count": 1,
             "fileName": "resources/images/buildings/commercial/com_1x1_nycbuild_RF.png"
         },
-        "title": "Appartment Building",
+        "title": "Apartment Building",
         "upkeep cost": 0,
         "water": 0,
         "isOverPlacable": 0
@@ -761,7 +761,7 @@
     {
         "author": "Folesnaid",
         "category": "Residential",
-        "description": "Appartments",
+        "description": "Apartments",
         "id": "res_1x1_building_1_FN",
         "power": 0,
         "price": 0,
@@ -771,7 +771,7 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_1x1_building_1_FN.png"
         },
-        "title": "Appartments",
+        "title": "Apartments",
         "upkeep cost": 0,
         "water": 0,
         "isOverPlacable": 0
@@ -833,7 +833,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
-        "description": "Appartment London",
+        "description": "Apartment London",
         "id": "res_1x1_londonhouse_RF",
         "power": 0,
         "price": 0,
@@ -843,7 +843,7 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_1x1_londonhouse_RF.png"
         },
-        "title": "Appartment London",
+        "title": "Apartment London",
         "upkeep cost": 0,
         "water": 0,
         "isOverPlacable": 0
@@ -905,7 +905,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
-        "description": "Bois Guillaume Appartment",
+        "description": "Bois Guillaume Apartment",
         "id": "res_2x2_bois_guillaume_appt1_RF",
         "power": 0,
         "price": 0,
@@ -915,7 +915,7 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_bois_guillaume_appt1_RF.png"
         },
-        "title": "Bois Guillaume Appartment",
+        "title": "Bois Guillaume Apartment",
         "upkeep cost": 0,
         "water": 0,
         "isOverPlacable": 0
@@ -923,7 +923,7 @@
     {
         "author": "Folesnaid",
         "category": "Residential",
-        "description": "Appartment",
+        "description": "Apartment",
         "id": "res_2x2_building_2_FN",
         "power": 0,
         "price": 0,
@@ -933,7 +933,7 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_building_2_FN.png"
         },
-        "title": "Appartment",
+        "title": "Apartment",
         "upkeep cost": 0,
         "water": 0,
         "isOverPlacable": 0
@@ -941,7 +941,7 @@
     {
         "author": "Folesnaid",
         "category": "Residential",
-        "description": "big Appartments",
+        "description": "big Apartments",
         "id": "res_2x2_skyscraper_2_FN",
         "power": 0,
         "price": 0,
@@ -951,7 +951,7 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_skyscraper_2_FN.png"
         },
-        "title": "Big Appartments",
+        "title": "Big Apartments",
         "upkeep cost": 0,
         "water": 0,
         "isOverPlacable": 0
@@ -959,7 +959,7 @@
     {
         "author": "Folesnaid",
         "category": "Residential",
-        "description": "big Appartments",
+        "description": "big Apartments",
         "id": "res_2x2_skyscraper_2_FN1",
         "power": 0,
         "price": 0,
@@ -969,7 +969,7 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_skyscraper_1_FN.png"
         },
-        "title": "Big Appartments",
+        "title": "Big Apartments",
         "upkeep cost": 0,
         "water": 0,
         "isOverPlacable": 0
@@ -977,7 +977,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
-        "description": "Medium Appartments",
+        "description": "Medium Apartments",
         "id": "res_2x2_viennabuilding_RF",
         "power": 0,
         "price": 0,
@@ -987,7 +987,7 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_viennabuilding_RF.png"
         },
-        "title": "Medium Appartments",
+        "title": "Medium Apartments",
         "upkeep cost": 0,
         "water": 0,
         "isOverPlacable": 0
@@ -1293,7 +1293,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
-        "description": "An appartement building from Bellevue , WA , USA",
+        "description": "An apartement building from Bellevue , WA , USA",
         "id": "res_3x3_bellevueappt1_RF",
         "power": 0,
         "price": 0,
@@ -5341,7 +5341,7 @@
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
-            "count": 1,
+            "count": 3,
             "offset": 13,
             "fileName": "resources/images/terrain/terrain_BlackSand.png"
         },
@@ -5405,7 +5405,7 @@
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
-            "count": 1,
+            "count": 2,
             "offset": 13,
             "fileName": "resources/images/terrain/terrain_desert.png"
         },
@@ -5437,7 +5437,7 @@
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
-            "count": 1,
+            "count": 2,
             "offset": 13,
             "fileName": "resources/images/terrain/terrain_dirt.png"
         },
@@ -5469,7 +5469,7 @@
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
-            "count": 1,
+            "count": 3,
             "offset": 13,
             "fileName": "resources/images/terrain/terrain_grass.png"
         },
@@ -5501,7 +5501,7 @@
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
-            "count": 1,
+            "count": 3,
             "offset": 13,
             "fileName": "resources/images/terrain/terrain_grass_forest.png"
         },
@@ -5533,7 +5533,7 @@
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
-            "count": 1,
+            "count": 3,
             "offset": 13,
             "fileName": "resources/images/terrain/terrain_grass_mint.png"
         },
@@ -5565,7 +5565,7 @@
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
-            "count": 1,
+            "count": 3,
             "offset": 13,
             "fileName": "resources/images/terrain/terrain_grass_mint_forest.png"
         },
@@ -5597,7 +5597,7 @@
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
-            "count": 1,
+            "count": 3,
             "offset": 13,
             "fileName": "resources/images/terrain/terrain_gravel.png"
         },
@@ -5649,20 +5649,20 @@
             "clip_height": 23,
             "clip_width": 32,
             "count": 4,
+            "offset": 4,
             "fileName": "resources/images/terrain/terrain_sand.png"
         },
         "cornerTiles": {
             "clip_height": 23,
             "clip_width": 32,
             "count": 8,
-            "offset": 4,
+            "offset": 8,
             "fileName": "resources/images/terrain/terrain_sand.png"
         },
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
-            "count": 1,
-            "offset": 13,
+            "count": 3,
             "fileName": "resources/images/terrain/terrain_sand.png"
         },
         "title": "Sand",
@@ -5693,7 +5693,7 @@
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
-            "count": 1,
+            "count": 3,
             "offset": 13,
             "fileName": "resources/images/terrain/terrain_sand_red.png"
         },
@@ -5757,7 +5757,7 @@
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
-            "count": 1,
+            "count": 3,
             "offset": 13,
             "fileName": "resources/images/terrain/terrain_snow.png"
         },
@@ -5789,7 +5789,7 @@
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
-            "count": 1,
+            "count": 3,
             "offset": 13,
             "fileName": "resources/images/terrain/terrain_soil.png"
         },
@@ -5821,7 +5821,7 @@
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
-            "count": 1,
+            "count": 3,
             "offset": 13,
             "fileName": "resources/images/terrain/terrain_stone.png"
         },

@@ -127,7 +127,8 @@ void MapNode::updateTexture()
     
       if (m_elevationOrientation == TileSlopes::DEFAULT_ORIENTATION)
       {
-        if (m_mapNodeData[currentLayer].tileData->category == "Water")
+        if (m_mapNodeData[currentLayer].tileData->category == "Water" ||
+            m_mapNodeData[currentLayer].tileData->category == "Terrain")
         {
           tileMap = TileMap::DEFAULT;
           m_orientation = TileList::TILE_DEFAULT_ORIENTATION;
@@ -200,7 +201,7 @@ void MapNode::updateTexture()
         m_clippingWidth = m_mapNodeData[currentLayer].tileData->cornerTiles.clippingWidth;
         clipRect.x = m_clippingWidth * (static_cast<int>(m_orientation) - 4);
         spriteCount = m_mapNodeData[currentLayer].tileData->cornerTiles.count;
-        if (clipRect.x < static_cast<int>(spriteCount) * m_clippingWidth)
+        if (clipRect.x <= static_cast<int>(spriteCount) * m_clippingWidth)
         {
           m_sprite->setClipRect({clipRect.x + m_mapNodeData[currentLayer].tileData->cornerTiles.offset * m_clippingWidth, 
                                   0, 
@@ -219,7 +220,7 @@ void MapNode::updateTexture()
         m_clippingWidth = m_mapNodeData[currentLayer].tileData->slopeTiles.clippingWidth;
         clipRect.x = m_mapNodeData[currentLayer].tileData->slopeTiles.clippingWidth * static_cast<int>(m_orientation);
         spriteCount = m_mapNodeData[currentLayer].tileData->slopeTiles.count;
-        if (clipRect.x < static_cast<int>(spriteCount) * m_clippingWidth)
+        if (clipRect.x <= static_cast<int>(spriteCount) * m_clippingWidth)
         {
           m_sprite->setClipRect({clipRect.x + m_mapNodeData[currentLayer].tileData->slopeTiles.offset * m_clippingWidth, 
                                   0, 
