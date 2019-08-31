@@ -328,9 +328,6 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         else
         {
           LOG() << "CLICKED - Iso Coords: " << clickCoords.x << ", " << clickCoords.y;
-          //#ifdef USE_SDL2_MIXER
-		  //m_AudioMixer.play(AudioTrigger::ClickSound,Coordinate3D{clickCoords.x,clickCoords.y,0});
-		  //#endif
         }
       }
 

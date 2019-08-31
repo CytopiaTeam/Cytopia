@@ -28,6 +28,7 @@ AudioMixer::AudioMixer(GameService::ServiceTuple& context) : GameService(context
    if(Mix_OpenAudio(44100, AUDIO_S16SYS, 2, 1024) == -1)
     throw RuntimeError(string{"Unable to open audio channels "} + Mix_GetError());
   #endif
+  
   ifstream ifs {Settings::instance().audioConfigJSONFile.get()};
   json config_json;
   ifs >> config_json;
