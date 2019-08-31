@@ -203,10 +203,11 @@ void AudioMixer::handleEvent(const AudioTrigger3DEvent&& event)
   SoundtrackUPtr& track = *m_GetSound.at(trackID);
   
    //set position of source in track 
+   //converted to regular cartesian coordinate system
   alSource3f(track->source, AL_POSITION, 
-		(ALfloat)event.position.z, 
 		(ALfloat)event.position.x, 
-		(ALfloat)event.position.y);
+		(ALfloat)event.position.y, 
+		(ALfloat)event.position.z);
   playSoundtrack(track);
   #endif
 }
