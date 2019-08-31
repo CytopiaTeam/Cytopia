@@ -7,6 +7,7 @@
 #include "common/enums.hxx"
 #include "map/MapLayers.hxx"
 #include "Map.hxx"
+#include "Sprite.hxx"
 
 #include "basics/LOG.hxx"
 
@@ -100,42 +101,46 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       // check for UI events first
       for (const auto &it : m_uiManager.getAllUiElements())
       {
-        // spawn tooltip timer, if we're over an UI Element
-        if (it->isMouseOver(event.button.x, event.button.y) && !it->getUiElementData().tooltipText.empty())
+        // if element isn't visible then don't event check it
+        if (it->isVisible())
         {
-          m_uiManager.startTooltip(event, it->getUiElementData().tooltipText);
-        }
-        // if the mouse cursor left an element, we're not hovering any more and we need to reset the pointer to the last hovered element
-        if (m_lastHoveredElement && !m_lastHoveredElement->isMouseOverHoverableArea(event.button.x, event.button.y))
-        {
-          // we're not hovering, so stop the tooltips
-          m_uiManager.stopTooltip();
-          // tell the previously hovered element we left it before resetting it
-          m_lastHoveredElement->onMouseLeave(event);
-          m_lastHoveredElement = nullptr;
-          break;
-        }
-        // If we're over a UI element that has no click functionality, abort the event loop, so no clicks go through the UiElement.
-        //Note: This is handled here because UIGroups have no dimensions, but are UiElements
-        if (it->isMouseOverHoverableArea(event.button.x, event.button.y))
-        {
-          it->onMouseMove(event);
-          // if the element we're hovering over is not the same as the stored "lastHoveredElement", update it
-          if (it.get() != m_lastHoveredElement)
+          // spawn tooltip timer, if we're over an UI Element
+          if (it->isMouseOver(event.button.x, event.button.y) && !it->getUiElementData().tooltipText.empty())
           {
-            if (m_lastHoveredElement)
-            {
-              m_lastHoveredElement->onMouseLeave(event);
-            }
-            it->onMouseEnter(event);
-            m_lastHoveredElement = it.get();
+            m_uiManager.startTooltip(event, it->getUiElementData().tooltipText);
           }
-          break;
-        }
-        // definitely figure out a better way to do this, this was done for the Slider
-        if (it->isMouseOver(event.button.x, event.button.y))
-        {
-          it->onMouseMove(event);
+          // if the mouse cursor left an element, we're not hovering any more and we need to reset the pointer to null
+          if (m_lastHoveredElement && !m_lastHoveredElement->isMouseOverHoverableArea(event.button.x, event.button.y))
+          {
+            // we're not hovering, so stop the tooltips
+            m_uiManager.stopTooltip();
+            // tell the previously hovered element we left it before resetting it
+            m_lastHoveredElement->onMouseLeave(event);
+            m_lastHoveredElement = nullptr;
+            break;
+          }
+          // If we're over a UI element that has no click functionality, abort the event loop, so no clicks go through the UiElement.
+          //Note: This is handled here because UIGroups have no dimensions, but are UiElements
+          if (it->isMouseOverHoverableArea(event.button.x, event.button.y))
+          {
+            it->onMouseMove(event);
+            // if the element we're hovering over is not the same as the stored "lastHoveredElement", update it
+            if (it.get() != m_lastHoveredElement)
+            {
+              if (m_lastHoveredElement)
+              {
+                m_lastHoveredElement->onMouseLeave(event);
+              }
+              it->onMouseEnter(event);
+              m_lastHoveredElement = it.get();
+            }
+            break;
+          }
+          // definitely figure out a better way to do this, this was done for the Slider
+          if (it->isMouseOver(event.button.x, event.button.y))
+          {
+            it->onMouseMove(event);
+          }
         }
       }
 
@@ -177,12 +182,12 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
               if (!engine.map->checkTileIDIsEmpty(m_highlightedNodes[i], tileTypeEditMode))
               {
                 // already occupied tile, mark red
-                engine.map->highlightNode(m_highlightedNodes[i], true);
+                engine.map->highlightNode(m_highlightedNodes[i], SpriteHighlightColor::RED);
               }
               else
               {
-				// mark gray.
-                engine.map->highlightNode(m_highlightedNodes[i]);
+                // mark gray.
+                engine.map->highlightNode(m_highlightedNodes[i], SpriteHighlightColor::GRAY);
               }
             }
           }
@@ -204,16 +209,15 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
 
           if (highlightSelection)
           {
-            engine.map->highlightNode(m_highlitNode);
             if (!engine.map->checkTileIDIsEmpty(m_highlitNode, tileTypeEditMode))
             {
               // already occupied tile, mark red
-              engine.map->highlightNode(m_highlitNode, true);
+              engine.map->highlightNode(m_highlitNode, SpriteHighlightColor::RED);
             }
             else
             {
               // mark gray.
-              engine.map->highlightNode(m_highlitNode);
+              engine.map->highlightNode(m_highlitNode, SpriteHighlightColor::GRAY);
             }
           }
         }
@@ -311,12 +315,11 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         }
         else if (!tileTypeEditMode.empty())
         {
-          std::vector<Point> vec = {m_clickDownCoords};
-          if (m_highlightedNodes.size() != 0)
+          if (m_highlightedNodes.size() == 0)
           {
-            vec = m_highlightedNodes;
+            m_highlightedNodes.push_back(m_clickDownCoords);
           }
-          engine.setTileIDOfNode(vec, tileTypeEditMode);
+          engine.setTileIDOfNode(m_highlightedNodes.begin(), m_highlightedNodes.end(), tileTypeEditMode);
         }
         else if (demolishMode)
         {

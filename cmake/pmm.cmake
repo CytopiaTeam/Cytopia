@@ -1,6 +1,7 @@
 ## MIT License
 ##
 ## Copyright (c) 2018 vector-of-bool
+## Copyright (c) 2019 Edgar (Edgar@AnotherFoxGuy.com)
 ##
 ## Permission is hereby granted, free of charge, to any person obtaining a copy
 ## of this software and associated documentation files (the "Software"), to deal
@@ -21,7 +22,7 @@
 ## SOFTWARE.
 
 # Bump this version to change what PMM version is downloaded
-set(PMM_VERSION_INIT 1.5.0)
+set(PMM_VERSION_INIT 1.6.0)
 
 # Helpful macro to set a variable if it isn't already set
 macro(_pmm_set_if_undef varname)

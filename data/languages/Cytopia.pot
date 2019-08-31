@@ -7,7 +7,7 @@
 msgid   ""
 msgstr  "Project-Id-Version: PACKAGE VERSION\n"
         "Report-Msgid-Bugs-To: \n"
-        "POT-Creation-Date: 2019-08-13 18:53+0200\n"
+        "POT-Creation-Date: 2019-08-29 15:53+0200\n"
         "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
         "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
         "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -262,6 +262,12 @@ msgstr  ""
 msgid   "Appartments"
 msgstr  ""
 
+msgid   "Basalt"
+msgstr  ""
+
+msgid   "Beach"
+msgstr  ""
+
 msgid   "Bench Platform"
 msgstr  ""
 
@@ -283,6 +289,9 @@ msgstr  ""
 msgid   "BikeShop"
 msgstr  ""
 
+msgid   "Black Sand"
+msgstr  ""
+
 msgid   "Blank Platform"
 msgstr  ""
 
@@ -296,6 +305,9 @@ msgid   "Borg's Burgers"
 msgstr  ""
 
 msgid   "BuildMenu Layout"
+msgstr  ""
+
+msgid   "Burned land"
 msgstr  ""
 
 msgid   "Cancel"
@@ -346,10 +358,16 @@ msgstr  ""
 msgid   "Demolish"
 msgstr  ""
 
+msgid   "Desert"
+msgstr  ""
+
 msgid   "Desert Building"
 msgstr  ""
 
 msgid   "Desert building"
+msgstr  ""
+
+msgid   "Dirt"
 msgstr  ""
 
 msgid   "Dirt Road"
@@ -373,7 +391,19 @@ msgstr  ""
 msgid   "Glass Tower"
 msgstr  ""
 
+msgid   "Grass"
+msgstr  ""
+
+msgid   "Grass Mint"
+msgstr  ""
+
+msgid   "Grass Mint Forest"
+msgstr  ""
+
 msgid   "GrassLand Rocks"
+msgstr  ""
+
+msgid   "Gravel"
 msgstr  ""
 
 msgid   "Homeless Camp"
@@ -415,7 +445,7 @@ msgstr  ""
 msgid   "Lilypads"
 msgstr  ""
 
-#: src/Game.cxx:99
+#: src/Game.cxx:87
 msgid   "Load Game"
 msgstr  ""
 
@@ -437,10 +467,13 @@ msgstr  ""
 msgid   "Mini Depolluter"
 msgstr  ""
 
+msgid   "Mud"
+msgstr  ""
+
 msgid   "Nature"
 msgstr  ""
 
-#: src/Game.cxx:94
+#: src/Game.cxx:82
 msgid   "New Game"
 msgstr  ""
 
@@ -498,11 +531,14 @@ msgstr  ""
 msgid   "Pyramid"
 msgstr  ""
 
-#: src/Game.cxx:103
+#: src/Game.cxx:91
 msgid   "Quit Game"
 msgstr  ""
 
 msgid   "Raise Terrain"
+msgstr  ""
+
+msgid   "Red Sand"
 msgstr  ""
 
 msgid   "Residential"
@@ -526,6 +562,9 @@ msgstr  ""
 msgid   "Ruegroshorloge"
 msgstr  ""
 
+msgid   "Sand"
+msgstr  ""
+
 msgid   "Save Game"
 msgstr  ""
 
@@ -536,6 +575,9 @@ msgid   "Screen Resolution"
 msgstr  ""
 
 msgid   "Settings"
+msgstr  ""
+
+msgid   "Shading"
 msgstr  ""
 
 msgid   "Shop"
@@ -577,7 +619,13 @@ msgstr  ""
 msgid   "Small house"
 msgstr  ""
 
+msgid   "Soil"
+msgstr  ""
+
 msgid   "Station"
+msgstr  ""
+
+msgid   "Stone"
 msgstr  ""
 
 msgid   "Sunken Ship"
@@ -596,6 +644,60 @@ msgid   "Tan Tower"
 msgstr  ""
 
 msgid   "Terrain"
+msgstr  ""
+
+msgid   "Terrain Black Sand tiles"
+msgstr  ""
+
+msgid   "Terrain Desert tiles"
+msgstr  ""
+
+msgid   "Terrain Dirt tiles"
+msgstr  ""
+
+msgid   "Terrain Grass Mint Forest tiles"
+msgstr  ""
+
+msgid   "Terrain Gravel tiles"
+msgstr  ""
+
+msgid   "Terrain Red Sand tiles"
+msgstr  ""
+
+msgid   "Terrain Sand tiles"
+msgstr  ""
+
+msgid   "Terrain Snow tiles"
+msgstr  ""
+
+msgid   "Terrain Stone tiles"
+msgstr  ""
+
+msgid   "Terrain basalt tiles"
+msgstr  ""
+
+msgid   "Terrain beach tiles"
+msgstr  ""
+
+msgid   "Terrain burned tiles"
+msgstr  ""
+
+msgid   "Terrain grass forest tiles"
+msgstr  ""
+
+msgid   "Terrain grass mint tiles"
+msgstr  ""
+
+msgid   "Terrain grass tiles"
+msgstr  ""
+
+msgid   "Terrain mud tiles"
+msgstr  ""
+
+msgid   "Terrain shading tiles"
+msgstr  ""
+
+msgid   "Terrain soil tiles"
 msgstr  ""
 
 msgid   "Terrain tiles"
@@ -629,4 +731,7 @@ msgid   "big Appartments"
 msgstr  ""
 
 msgid   "house"
+msgstr  ""
+
+msgid   "snow"
 msgstr  ""

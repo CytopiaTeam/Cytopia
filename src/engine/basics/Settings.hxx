@@ -143,6 +143,19 @@ struct SettingsData
    * @brief FilePath of the Font that should be used.
    */
   FilePath fontFileName;
+
+  /**
+   * @brief The width in pixels of the buttons used in the 
+   * build sub menues on the UI
+   */
+  int subMenuButtonWidth;
+
+  /**
+   * @brief The height in pixels of the buttons used in the 
+   * build sub menues on the UI
+   */
+  int subMenuButtonHeight;
+
 };
 
 /**
