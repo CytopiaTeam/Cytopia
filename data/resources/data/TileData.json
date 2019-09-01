@@ -613,16 +613,16 @@
     },
     {
         "author": "MaroonShaded",
-        "category": "Power",
+        "category": "Industrial",
         "description": "A  small coal power plant.",
-        "id": "pow_1x1_SmallCoalPlant_MS",
+        "id": "ind_1x1_SmallCoalPlant_MS",
         "power": 0,
         "price": 5,
         "tiles": {
             "clip_height": 32,
             "clip_width": 32,
             "count": 1,
-            "fileName": "resources/images/buildings/power plants/pow_1x1_SmallCoalPlant_MS.png"
+            "fileName": "resources/images/buildings/industrial/ind_1x1_SmallCoalPlant_MS.png"
         },
         "title": "Small Coal Power Plant2",
         "upkeep cost": 0,
@@ -630,16 +630,16 @@
     },
     {
         "author": "KingTut 101",
-        "category": "Power",
+        "category": "Industrial",
         "description": "A coal power plant.  It'll produce enough electricity to keep a town running, but it creates a lot of pollution.",
-        "id": "pow_3x3_CoalPlant",
+        "id": "ind_3x3_CoalPlant",
         "power": 0,
         "price": 5,
         "tiles": {
             "clip_height": 73,
             "clip_width": 96,
             "count": 1,
-            "fileName": "resources/images/buildings/power plants/pow_3x3_CoalPlant.png"
+            "fileName": "resources/images/buildings/industrial/ind_3x3_CoalPlant.png"
         },
         "title": "Coal Power Plant",
         "upkeep cost": 0,
@@ -648,16 +648,16 @@
     },
     {
         "author": "Kingtut 101",
-        "category": "Power",
+        "category": "Industrial",
         "description": "A  small coal power plant.  It can supply a small town with electricity, but it produces a lot of pollution.",
-        "id": "pow_3x3_CoalPlant1",
+        "id": "ind_3x3_CoalPlant1",
         "power": 0,
         "price": 5,
         "tiles": {
             "clip_height": 24,
             "clip_width": 32,
             "count": 1,
-            "fileName": "resources/images/buildings/power plants/pow_1x1_SmallPowerPlant.png"
+            "fileName": "resources/images/buildings/industrial/ind_1x1_SmallPowerPlant.png"
         },
         "title": "Small Coal Power Plant",
         "upkeep cost": 0,
@@ -1059,14 +1059,14 @@
         "author": "Kingtut 101",
         "category": "Utilities",
         "description": "A beautiful water tower",
-        "id": "watertower",
+        "id": "wat_1x1_HomeWaterTower",
         "power": 0,
         "price": 5,
         "tiles": {
-            "clip_height": 64,
+            "clip_height": 42,
             "clip_width": 32,
             "count": 1,
-            "fileName": "resources/images/buildings/water/watertower.png"
+            "fileName": "resources/images/buildings/water/wat_1x1_HomeWaterTower.png"
         },
         "title": "Water Tower",
         "upkeep cost": 0,
@@ -1074,16 +1074,16 @@
     },
     {
         "author": "Kingtut 101",
-        "category": "Utilities",
+        "category": "Reward",
         "description": "A small water tower",
-        "id": "watertower2",
+        "id": "reward_1x1_OldWaterTower",
         "power": 0,
         "price": 5,
         "tiles": {
             "clip_height": 32,
             "clip_width": 32,
             "count": 1,
-            "fileName": "resources/images/buildings/water/watertower2.png"
+            "fileName": "resources/images/buildings/reward/reward_1x1_OldWaterTower.png"
         },
         "title": "Small Water Tower",
         "upkeep cost": 0,
@@ -2162,6 +2162,24 @@
             "clip_height": 15,
             "clip_width": 32,
             "count": 3,
+            "fileName": "resources/images/buildings/decoration/BD_1x1_PhoneBooths_kt.png"
+        },
+        "title": "Phone Booth",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Decoration",
+        "description": "An old blue phone booth that can be used to decorate your cities.",
+        "id": "BD_1x1_blue_PhoneBooth_kt",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 1,
+            "offset": 1,
             "fileName": "resources/images/buildings/decoration/BD_1x1_PhoneBooths_kt.png"
         },
         "title": "Phone Booth",
@@ -4969,14 +4987,14 @@
         "author": "BangBoom",
         "category": "Commercial",
         "description": "TODO DESC",
-        "id": "com_1x1_chem_holding_BB",
+        "id": "ind_1x1_chem_holding_BB",
         "power": 0,
         "price": 0,
         "tiles": {
             "clip_height": 25,
             "clip_width": 32,
             "count": 1,
-            "fileName": "resources/images/buildings/commercial/com_1x1_chem_holding_BB.png"
+            "fileName": "resources/images/buildings/industrial/ind_1x1_chem_holding_BB.png"
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
