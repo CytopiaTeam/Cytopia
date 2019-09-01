@@ -29,6 +29,12 @@ AudioMixer::AudioMixer(GameService::ServiceTuple& context) : GameService(context
     throw RuntimeError(string{"Unable to open audio channels "} + Mix_GetError());
   #endif
   
+  // #ifdef USE_OPENAL_SOFT
+  // ifstream ifs {Settings::instance().audioConfig3DJSONFile.get()};
+  //  #else
+  //ifstream ifs {Settings::instance().audioConfigJSONFile.get()};
+  //#endif
+  
   ifstream ifs {Settings::instance().audioConfigJSONFile.get()};
   json config_json;
   ifs >> config_json;
@@ -317,6 +323,7 @@ void AudioMixer::loadSoundtrack(Iterator begin, Iterator end, CallbackType creat
         throw RuntimeError(ErrorMsg);
       }
       m_Soundtracks.emplace_back(createSoundtrack(name, chunk));
+      
       #ifdef USE_OPENAL_SOFT
       
       //initialize buffer
@@ -336,6 +343,11 @@ void AudioMixer::loadSoundtrack(Iterator begin, Iterator end, CallbackType creat
       
       //attach buffer to source
       alSourcei(m_Soundtracks.back()->source, AL_BUFFER, m_Soundtracks.back()->buffer);
+      
+      //free chunk
+      Mix_FreeChunk(m_Soundtracks.back()->Chunks);
+      m_Soundtracks.back()->Chunks = nullptr;
+      
       #endif
       for(AudioTrigger trigger : soundtrack.triggers)
         m_Triggers[trigger].emplace_back(name);
