@@ -11,6 +11,8 @@
 #include "../GameService.hxx"
 #include "../util/Meta.hxx"
 
+#include <thread>
+
 template <typename Key, typename Value> 
 using Mapping = std::unordered_map<Key, Value>;
 template <typename Type, size_t N>
@@ -92,6 +94,16 @@ public:
   AudioMixer(GameService::ServiceTuple&);
   ~AudioMixer();
 
+  /**
+   * @brief Loads all game sounds, can be called in new thread
+   */
+  void loadAllSounds();
+
+  /**
+   * @brief joins the thread used to load sounds, if its still running
+   */
+  void joinLoadThread();
+
 private:
 
   /**
@@ -113,6 +125,11 @@ private:
    * @brief All the currently playing Soundtracks
    */
   List<SoundtrackUPtr*> m_Playing;
+
+  /**
+   * @brief A separate thread for loading the sounds.
+   */
+  std::thread m_LoadSoundThread;
 
   /* Event handlers */
   void handleEvent(const AudioTriggerEvent&& event);

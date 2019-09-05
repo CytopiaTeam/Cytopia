@@ -14,6 +14,24 @@ std::function<void(int)> AudioMixer::onTrackFinishedFunc;
 
 AudioMixer::AudioMixer(GameService::ServiceTuple& context) : GameService(context)
 {
+  std::thread loadSoundThread(&AudioMixer::loadAllSounds, this);
+  m_LoadSoundThread.swap(loadSoundThread);
+}
+
+AudioMixer::~AudioMixer()
+{
+  int num_opened = 0;
+  int _discard;
+  Uint16 _discard2;
+  num_opened = Mix_QuerySpec(&_discard, &_discard2, &_discard);
+  while(num_opened --> 0)
+    Mix_CloseAudio();
+  while(Mix_Init(0))
+    Mix_Quit();
+}
+
+void AudioMixer::loadAllSounds()
+{
   if(Mix_OpenAudio(44100, AUDIO_S16SYS, DEFAULT_CHANNELS::value, 1024) == -1)
     throw RuntimeError(string{"Unable to open audio channels "} + Mix_GetError());
   ifstream ifs {Settings::instance().audioConfigJSONFile.get()};
@@ -42,18 +60,17 @@ AudioMixer::AudioMixer(GameService::ServiceTuple& context) : GameService(context
   /* Set up the Mix_ChannelFinished callback */
   onTrackFinishedFunc = [this](int channelID){ return onTrackFinished(channelID); };
   Mix_ChannelFinished(onTrackFinishedFuncPtr);
+  LOG(LOG_INFO) << "soundloading complete";
+  play(AudioTrigger::MainTheme);
 }
 
-AudioMixer::~AudioMixer()
+void AudioMixer::joinLoadThread()
 {
-  int num_opened = 0;
-  int _discard;
-  Uint16 _discard2;
-  num_opened = Mix_QuerySpec(&_discard, &_discard2, &_discard);
-  while(num_opened --> 0)
-    Mix_CloseAudio();
-  while(Mix_Init(0))
-    Mix_Quit();
+  if (m_LoadSoundThread.joinable())
+  {
+    LOG(LOG_INFO) << "joining soundloading thread";
+    m_LoadSoundThread.join();
+  }
 }
 
 /*

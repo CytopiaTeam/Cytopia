@@ -210,10 +210,6 @@ void Game::run(bool SkipMenu)
   scriptEngine.init();
 #endif
 
-#ifdef USE_SDL2_MIXER
-  m_AudioMixer.play(AudioTrigger::MainTheme);
-#endif
-
   // FPS Counter variables
   const float fpsIntervall = 1.0; // interval the fps counter is refreshed in seconds.
   Uint32 fpsLastTime = SDL_GetTicks();
@@ -268,6 +264,7 @@ void Game::shutdown()
   TTF_Quit();
 
 #ifdef USE_SDL2_MIXER
+  m_AudioMixer.joinLoadThread();
   Mix_Quit();
 #endif
 
