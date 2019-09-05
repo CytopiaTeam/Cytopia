@@ -61,7 +61,6 @@ matrix:
         - make copy_resources
         - xvfb-run -a ctest
         - make gcov
-        - make copy_coverage
         - >
           if [ "${TRAVIS_SECURE_ENV_VARS}" == "true" ]; then
             sonar-scanner -X -D"sonar.projectVersion=CI-${TRAVIS_JOB_NUMBER}";
@@ -106,7 +105,6 @@ matrix:
 
       script:
         - ninja
-        - ninja copy_resources
         - xvfb-run -a ctest
         - sh ./tools/CI/upload-CI-build.sh
         - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then doxygen Doxyfile; fi
@@ -131,7 +129,6 @@ matrix:
 
       script:
         - make
-        - make copy_resources
         - ctest
         - make package
 

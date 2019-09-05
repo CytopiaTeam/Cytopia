@@ -10,9 +10,15 @@ environment:
     secure: PbT7/2muaC99K24vd6d+DMQETnal230eqmdPtw4tn+zqhwkKpSRIJgjRmJPxphBF
 install:
 - cmd: >-
-    git submodule update --init --recursive
-
     choco install ninja -y
+
+    choco source add -n=AFG -s="https://api.bintray.com/nuget/anotherfoxguy/choco-pkg"
+
+    choco install conan -y
+
+    refreshenv
+
+    git submodule update --init --recursive
 
     call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
 build_script:
@@ -20,8 +26,6 @@ build_script:
     cmake -GNinja -DCMAKE_BUILD_TYPE=Release -DUSE_PMM=ON .
 
     ninja
-
-    ninja copy_resources
 
 test_script:
   ctest -VV
