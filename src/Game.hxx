@@ -16,7 +16,6 @@
 #include "engine/basics/LOG.hxx"
 
 #include <thread>
-#include <iostream>
 
 using Thread = std::thread;
 using RuntimeError = std::runtime_error;
