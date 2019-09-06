@@ -101,6 +101,8 @@ public:
 
   /**
    * @brief joins the thread used to load sounds, if its still running
+   *        This must be called when all other threads are joining
+   *        when the application is closing, or else it won't close nicely.
    */
   void joinLoadThread();
 
@@ -130,6 +132,12 @@ private:
    * @brief A separate thread for loading the sounds.
    */
   std::thread m_LoadSoundThread;
+
+  /**
+   * @brief if this becomes false then loading will stop.
+   *        it will be made false by the joinLoadThread function.
+   */
+  bool running = true;
 
   /* Event handlers */
   void handleEvent(const AudioTriggerEvent&& event);

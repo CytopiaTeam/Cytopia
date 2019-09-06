@@ -60,15 +60,13 @@ void AudioMixer::loadAllSounds()
   /* Set up the Mix_ChannelFinished callback */
   onTrackFinishedFunc = [this](int channelID){ return onTrackFinished(channelID); };
   Mix_ChannelFinished(onTrackFinishedFuncPtr);
-  LOG(LOG_INFO) << "soundloading complete";
-  play(AudioTrigger::MainTheme);
 }
 
 void AudioMixer::joinLoadThread()
 {
+  running = false;
   if (m_LoadSoundThread.joinable())
   {
-    LOG(LOG_INFO) << "joining soundloading thread";
     m_LoadSoundThread.join();
   }
 }
@@ -206,20 +204,23 @@ void AudioMixer::loadSoundtrack(Iterator begin, Iterator end, CallbackType creat
 {
   std::for_each(begin, end, 
     [this, &createSoundtrack](auto& kvp) {
-      auto& [name, soundtrack] = kvp;
-      string filepath = SDL_GetBasePath() + soundtrack.filePath;
-      Mix_Chunk* chunk = Mix_LoadWAV(filepath.c_str());
-      if(!chunk)
+      if (running)
       {
-        string ErrorMsg = "Error could not read sound file ";
-        ErrorMsg += soundtrack.filePath;
-        ErrorMsg += ": ";
-        ErrorMsg += Mix_GetError();
-        throw RuntimeError(ErrorMsg);
-      }
-      m_Soundtracks.emplace_back(createSoundtrack(name, chunk));
-      for(AudioTrigger trigger : soundtrack.triggers)
-        m_Triggers[trigger].emplace_back(name);
+        auto& [name, soundtrack] = kvp;
+        string filepath = SDL_GetBasePath() + soundtrack.filePath;
+        Mix_Chunk* chunk = Mix_LoadWAV(filepath.c_str());
+        if(!chunk)
+        {
+          string ErrorMsg = "Error could not read sound file ";
+          ErrorMsg += soundtrack.filePath;
+          ErrorMsg += ": ";
+          ErrorMsg += Mix_GetError();
+          throw RuntimeError(ErrorMsg);
+        }
+        m_Soundtracks.emplace_back(createSoundtrack(name, chunk));
+        for(AudioTrigger trigger : soundtrack.triggers)
+          m_Triggers[trigger].emplace_back(name);
+    }
     });
 }
 
