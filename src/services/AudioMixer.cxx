@@ -21,6 +21,29 @@ enum POSITION_INDEX { X=0,Y=1,Z=2 };
 
 AudioMixer::AudioMixer(GameService::ServiceTuple& context) : GameService(context)
 {
+  std::thread loadSoundThread(&AudioMixer::loadAllSounds, this);
+  m_LoadSoundThread.swap(loadSoundThread);
+}
+
+AudioMixer::~AudioMixer()
+{
+    int num_opened = 0;
+  int _discard;
+  Uint16 _discard2;
+  num_opened = Mix_QuerySpec(&_discard, &_discard2, &_discard);
+  while(num_opened --> 0)
+    Mix_CloseAudio();
+  while(Mix_Init(0))
+    Mix_Quit();
+  #ifdef USE_OPENAL_SOFT
+  alcDestroyContext(alContext);	//delete context
+  alcCloseDevice(gAudioDevice);	//close device
+  #endif
+    
+}
+
+void AudioMixer::loadAllSounds()
+{
   #ifdef USE_OPENAL_SOFT
   if(Settings::instance().audio3DStatus)
   {
@@ -36,7 +59,7 @@ AudioMixer::AudioMixer(GameService::ServiceTuple& context) : GameService(context
   }
   
   #else
-   if(Mix_OpenAudio(44100, AUDIO_S16SYS, 2, 1024) == -1)
+   if(Mix_OpenAudio(44100, AUDIO_S16SYS, DEFAULT_CHANNELS::value, 1024) == -1)
     throw RuntimeError(string{"Unable to open audio channels "} + Mix_GetError());
   #endif
   
@@ -144,20 +167,13 @@ AudioMixer::AudioMixer(GameService::ServiceTuple& context) : GameService(context
   Mix_ChannelFinished(onTrackFinishedFuncPtr);
 }
 
-AudioMixer::~AudioMixer()
+void AudioMixer::joinLoadThread()
 {
-  int num_opened = 0;
-  int _discard;
-  Uint16 _discard2;
-  num_opened = Mix_QuerySpec(&_discard, &_discard2, &_discard);
-  while(num_opened --> 0)
-    Mix_CloseAudio();
-  while(Mix_Init(0))
-    Mix_Quit();
-  #ifdef USE_OPENAL_SOFT
-  alcDestroyContext(alContext);	//delete context
-  alcCloseDevice(gAudioDevice);	//close device
-  #endif
+  running = false;
+  if (m_LoadSoundThread.joinable())
+  {
+    m_LoadSoundThread.join();
+  }
 }
 
 /*
@@ -333,20 +349,22 @@ void AudioMixer::loadSoundtrack(Iterator begin, Iterator end, CallbackType creat
 {
   std::for_each(begin, end, 
     [this, &createSoundtrack](auto& kvp) {
-      auto& [name, soundtrack] = kvp;
-      string filepath = SDL_GetBasePath() + soundtrack.filePath;
-      Mix_Chunk* chunk = Mix_LoadWAV(filepath.c_str());
-      if(!chunk)
+      if (running)
       {
-        string ErrorMsg = "Error could not read sound file ";
-        ErrorMsg += soundtrack.filePath;
-        ErrorMsg += ": ";
-        ErrorMsg += Mix_GetError();
-        throw RuntimeError(ErrorMsg);
-      }
-      m_Soundtracks.emplace_back(createSoundtrack(name, chunk));
-      
-      #ifdef USE_OPENAL_SOFT
+		auto& [name, soundtrack] = kvp;
+        string filepath = SDL_GetBasePath() + soundtrack.filePath;
+        Mix_Chunk* chunk = Mix_LoadWAV(filepath.c_str());
+        if(!chunk)
+        {
+          string ErrorMsg = "Error could not read sound file ";
+          ErrorMsg += soundtrack.filePath;
+          ErrorMsg += ": ";
+          ErrorMsg += Mix_GetError();
+          throw RuntimeError(ErrorMsg);
+        }
+        m_Soundtracks.emplace_back(createSoundtrack(name, chunk));
+        
+        #ifdef USE_OPENAL_SOFT
       
       //initialize buffer
 	  alGenBuffers(1, &m_Soundtracks.back()->buffer);
@@ -371,8 +389,12 @@ void AudioMixer::loadSoundtrack(Iterator begin, Iterator end, CallbackType creat
       m_Soundtracks.back()->Chunks = nullptr;
       
       #endif
+      
       for(AudioTrigger trigger : soundtrack.triggers)
-        m_Triggers[trigger].emplace_back(name);
+	    m_Triggers[trigger].emplace_back(name);
+        
+      }
+    }
     });
 }
 

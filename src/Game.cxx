@@ -281,6 +281,7 @@ void Game::shutdown()
   TTF_Quit();
 
 #ifdef USE_SDL2_MIXER
+  m_AudioMixer.joinLoadThread();
   Mix_Quit();
 #endif
 
