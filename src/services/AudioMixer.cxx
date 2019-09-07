@@ -394,7 +394,6 @@ void AudioMixer::loadSoundtrack(Iterator begin, Iterator end, CallbackType creat
 	    m_Triggers[trigger].emplace_back(name);
         
       }
-    }
     });
 }
 
