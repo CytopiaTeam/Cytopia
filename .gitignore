@@ -1,4 +1,6 @@
 build/*
+build-mixer-only/*
+
 # ignore CLion generated directory
 .idea
 
