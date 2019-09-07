@@ -47,8 +47,3 @@ void Engine::newGame()
   map = new Map(mapSize, mapSize);
   map->initMap();
 }
-
-void Engine::toggle3DSoundBool()
-{
-	Settings::instance().audio3DStatus = !Settings::instance().audio3DStatus;
-}

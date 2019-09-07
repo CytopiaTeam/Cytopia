@@ -96,10 +96,6 @@ public:
 
   Map *map;
   
-  /** @brief Sets status of playing 3D sound in game
-    * @param status Whether or not 3D sound is set
-    */
-  void toggle3DSoundBool();
 
 private:
   Engine();
