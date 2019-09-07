@@ -97,11 +97,15 @@ struct SettingsData
   bool playSoundEffects;
 
   /**
-   * @todo document what this field is
-   * @todo add a typename
-   * 1=Mono,2=Stereo,3=Binaural or Surround
+   * @brief the 
+   * 1=Mono,2=Stereo
    */
   int audioChannels;
+  
+  /**
+   * @brief Whether to play 3D sound or not
+   */
+  bool audio3DStatus;
   
   /**
    * @todo document what this field is
@@ -133,6 +137,12 @@ struct SettingsData
    * @todo add a typename
    */
   FilePath audioConfigJSONFile;
+  
+  /**
+   * The file path to Audio Configuration 3D
+   * @todo add a typename
+   */
+  FilePath audioConfig3DJSONFile;
 
   /**
    * @brief The Game language 

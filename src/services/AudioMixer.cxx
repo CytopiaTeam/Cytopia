@@ -22,20 +22,42 @@ enum POSITION_INDEX { X=0,Y=1,Z=2 };
 AudioMixer::AudioMixer(GameService::ServiceTuple& context) : GameService(context)
 {
   #ifdef USE_OPENAL_SOFT
-  if(Mix_OpenAudio(44100, AUDIO_S16SYS, 1, 1024) == -1)
-    throw RuntimeError(string{"Unable to open audio channels "} + Mix_GetError());
+  if(Settings::instance().audio3DStatus)
+  {
+	  std::cout << "3D audio on! \n";
+	  if(Mix_OpenAudio(44100, AUDIO_S16SYS, 1, 1024) == -1)
+		throw RuntimeError(string{"Unable to open audio channels "} + Mix_GetError());
+  }
+  else
+  {
+	  std::cout << "3D audio off! \n";
+	  if(Mix_OpenAudio(44100, AUDIO_S16SYS, 2, 1024) == -1)
+		throw RuntimeError(string{"Unable to open audio channels "} + Mix_GetError());
+  }
+  
   #else
    if(Mix_OpenAudio(44100, AUDIO_S16SYS, 2, 1024) == -1)
     throw RuntimeError(string{"Unable to open audio channels "} + Mix_GetError());
   #endif
   
-  // #ifdef USE_OPENAL_SOFT
-  // ifstream ifs {Settings::instance().audioConfig3DJSONFile.get()};
-  //  #else
-  //ifstream ifs {Settings::instance().audioConfigJSONFile.get()};
-  //#endif
+  ifstream ifs;
+   #ifdef USE_OPENAL_SOFT
+   if(Settings::instance().audio3DStatus)
+   {
+	   std::cout << "Loaded from audio 3d Json config.\n";
+	   ifs.open(Settings::instance().audioConfig3DJSONFile.get());
+   }
+   else
+   {
+	   std::cout << "Loaded from audio Json config.\n";
+	   ifs.open(Settings::instance().audioConfigJSONFile.get());
+   }
+   #else
+   std::cout << "Loaded from audio Json config.\n";
+   ifs.open(Settings::instance().audioConfigJSONFile.get());
+   #endif
   
-  ifstream ifs {Settings::instance().audioConfigJSONFile.get()};
+  //ifstream ifs {Settings::instance().audioConfigJSONFile.get()};
   json config_json;
   ifs >> config_json;
   AudioConfig audioConfig = config_json;
@@ -332,9 +354,9 @@ void AudioMixer::loadSoundtrack(Iterator begin, Iterator end, CallbackType creat
       //set buffer data
 	  //alBufferData(buffer, format, data, slen, frequency);
 	  ALenum format;
-	  //if(){format = AL_FORMAT_MONO16;}
-	  //else if(){format = AL_FORMAT_STEREO16;}
-	  alBufferData(m_Soundtracks.back()->buffer, AL_FORMAT_MONO16, m_Soundtracks.back()->Chunks->abuf, m_Soundtracks.back()->Chunks->alen, 44100);
+	  if(Settings::instance().audio3DStatus){format = AL_FORMAT_MONO16;}
+	  else{format = AL_FORMAT_STEREO16;}
+	  alBufferData(m_Soundtracks.back()->buffer, format, m_Soundtracks.back()->Chunks->abuf, m_Soundtracks.back()->Chunks->alen, 44100);
       
       //initialize source
       alGenSources(1, &m_Soundtracks.back()->source);
