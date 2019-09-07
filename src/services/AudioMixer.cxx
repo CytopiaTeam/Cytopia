@@ -143,7 +143,7 @@ void AudioMixer::loadAllSounds()
 	
 #endif
 
-    
+  std::cout << "Loading all sounds. \n";
   /* Load all Music */
   loadSoundtrack(audioConfig.Music.begin(), audioConfig.Music.end(),
       [](const string& name, Mix_Chunk* chunk){
@@ -165,6 +165,7 @@ void AudioMixer::loadAllSounds()
   /* Set up the Mix_ChannelFinished callback */
   onTrackFinishedFunc = [this](int channelID){ return onTrackFinished(channelID); };
   Mix_ChannelFinished(onTrackFinishedFuncPtr);
+  std::cout << "Finished loading all sounds.\n";
 }
 
 void AudioMixer::joinLoadThread()
