@@ -216,7 +216,7 @@ void Game::run(bool SkipMenu)
   //change to 0,0,0 for regular stereo music
   if(Settings::instance().audio3DStatus)
   {
-	  m_AudioMixer.play(AudioTrigger::MainTheme,Coordinate3D{0,-1,-4});
+	  m_AudioMixer.play(AudioTrigger::MainTheme,Coordinate3D{0,0,-4});
   }
   else
   {

@@ -47,13 +47,13 @@ void AudioMixer::loadAllSounds()
   #ifdef USE_OPENAL_SOFT
   if(Settings::instance().audio3DStatus)
   {
-	  //LOG() << "3D audio on! \n";
+	  //LOG(LOG_DEBUG) << "3D audio on! \n";
 	  if(Mix_OpenAudio(44100, AUDIO_S16SYS, 1, 1024) == -1)
 		throw RuntimeError(string{"Unable to open audio channels "} + Mix_GetError());
   }
   else
   {
-	  //LOG() << "3D audio off! \n";
+	  //LOG(LOG_DEBUG) << "3D audio off! \n";
 	  if(Mix_OpenAudio(44100, AUDIO_S16SYS, 2, 1024) == -1)
 		throw RuntimeError(string{"Unable to open audio channels "} + Mix_GetError());
   }
@@ -67,20 +67,19 @@ void AudioMixer::loadAllSounds()
    #ifdef USE_OPENAL_SOFT
    if(Settings::instance().audio3DStatus)
    {
-	   //LOG() << "Loaded from audio 3d Json config.\n";
-	   ifs.open(Settings::instance().audioConfig3DJSONFile.get());
+	   LOG(LOG_INFO) << "Loaded from audio 3d Json config.\n";
+	   ifs.open(SDL_GetBasePath() + Settings::instance().audioConfig3DJSONFile.get());
    }
    else
    {
-	   //LOG() << "Loaded from audio Json config.\n";
-	   ifs.open(Settings::instance().audioConfigJSONFile.get());
+	   LOG(LOG_INFO) << "Loaded from audio Json config.\n";
+	   ifs.open(SDL_GetBasePath() + Settings::instance().audioConfigJSONFile.get());
    }
    #else
-   //LOG() << "Loaded from audio Json config.\n";
-   ifs.open(Settings::instance().audioConfigJSONFile.get());
+   LOG(LOG_INFO) << "Loaded from audio Json config.\n";
+   ifs.open(SDL_GetBasePath() + Settings::instance().audioConfigJSONFile.get());
    #endif
   
-  //ifstream ifs {Settings::instance().audioConfigJSONFile.get()};
   json config_json;
   ifs >> config_json;
   AudioConfig audioConfig = config_json;
@@ -109,13 +108,10 @@ void AudioMixer::loadAllSounds()
 		throw RuntimeError(string{ alGetString(err) } );
 	}
 	
-	//LOG() << " Open AL Soft Initialized! \n";
+	LOG(LOG_INFO) << " Open AL Soft Initialized! \n";
 	
-	std::vector <float> listener_position_vector(3);
 	//set listener position one space behind origin
-	listener_position_vector[POSITION_INDEX::X] = 0.0f;
-	listener_position_vector[POSITION_INDEX::Y] = 0.0f;
-	listener_position_vector[POSITION_INDEX::Z] = 1.0f;
+	std::array <float, 3> listener_position_vector = { 0.0f, 0.0f, 1.0f };
 	
 	//Initialize Listener speed
 	alListener3f(AL_VELOCITY, 0.0f, 0.0f, 0.0f);//is not moving in 3d space
@@ -128,14 +124,8 @@ void AudioMixer::loadAllSounds()
 	//set to just facing the screen
 
 	//set where head is facing
-	std::vector <float> listener_orientation_vector(6);
-	listener_orientation_vector[ORIENTATION_INDEX::FORWARD_X] = 0.0f; //forward vector x value
-	listener_orientation_vector[ORIENTATION_INDEX::FORWARD_Y] = 0.0f; //forward vector y value
-	listener_orientation_vector[ORIENTATION_INDEX::FORWARD_Z] = -1.0f; //forward vector z value
-	//set direction of top of head surface vector
-	listener_orientation_vector[ORIENTATION_INDEX::UP_X] = 0.0f; //up vector x value
-	listener_orientation_vector[ORIENTATION_INDEX::UP_Y] = 1.0f; //up vector y value
-	listener_orientation_vector[ORIENTATION_INDEX::UP_Z] = 0.0f; //up vector z value
+	//forward x, forward y, forward z, up x, up y, up z
+	std::array <float, 6> listener_orientation_vector = { 0.0f, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f };
 		
 	//set current listener orientation
 	alListenerfv(AL_ORIENTATION, listener_orientation_vector.data());
@@ -143,7 +133,7 @@ void AudioMixer::loadAllSounds()
 	
 #endif
 
-  //LOG() << "Loading all sounds. \n";
+  //LLOG(LOG_DEBUG) << "Loading all sounds. \n";
   /* Load all Music */
   loadSoundtrack(audioConfig.Music.begin(), audioConfig.Music.end(),
       [](const string& name, Mix_Chunk* chunk){
@@ -165,7 +155,7 @@ void AudioMixer::loadAllSounds()
   /* Set up the Mix_ChannelFinished callback */
   onTrackFinishedFunc = [this](int channelID){ return onTrackFinished(channelID); };
   Mix_ChannelFinished(onTrackFinishedFuncPtr);
-  //LOG() << "Finished loading all sounds.\n";
+  //LOG(LOG_DEBUG) << "Finished loading all sounds.\n";
 }
 
 void AudioMixer::joinLoadThread()
@@ -200,15 +190,19 @@ void AudioMixer::play(AudioTrigger&& trigger) noexcept
   GetService<GameLoopMQ>().push(AudioTriggerEvent{trigger}); 
 }
 
+#ifdef USE_OPENAL_SOFT
 void AudioMixer::play(SoundtrackID&& ID, Coordinate3D&& position) noexcept 
 { 
   GetService<GameLoopMQ>().push(AudioPlay3DEvent{ID, position});
 }
+#endif
 
+#ifdef USE_OPENAL_SOFT
 void AudioMixer::play(AudioTrigger&& trigger, Coordinate3D&& position) noexcept
 {
   GetService<GameLoopMQ>().push(AudioTrigger3DEvent{trigger, position}); 
 }
+#endif
 
 void AudioMixer::setMuted(bool isMuted) noexcept
 {
@@ -234,7 +228,7 @@ void AudioMixer::handleEvent(const AudioTriggerEvent&& event)
   playSoundtrack(track);
 }
 
-/* @todo Implement this */
+#ifdef USE_OPENAL_SOFT
 void AudioMixer::handleEvent(const AudioTrigger3DEvent&& event)
 {
   #ifdef USE_OPENAL_SOFT
@@ -256,6 +250,7 @@ void AudioMixer::handleEvent(const AudioTrigger3DEvent&& event)
   playSoundtrack(track);
   #endif
 }
+#endif
 
 void AudioMixer::handleEvent(const AudioPlayEvent&& event)
 {
@@ -263,21 +258,19 @@ void AudioMixer::handleEvent(const AudioPlayEvent&& event)
   playSoundtrack(track);
 }
 
-/* @todo Implement this */
+#ifdef USE_OPENAL_SOFT
 void AudioMixer::handleEvent(const AudioPlay3DEvent&& event)
 {
   SoundtrackUPtr& track = *m_GetSound.at(event.ID);
-  #ifdef USE_OPENAL_SOFT
    //set position of source in track 
   alSource3f(track->source, AL_POSITION, 
 		static_cast<ALfloat>(event.position.x), 
 		static_cast<ALfloat>(event.position.y), 
 		static_cast<ALfloat>(event.position.z));
   playSoundtrack(track);
-  #endif
 }
+#endif
 
-/* @todo Implement this */
 void AudioMixer::handleEvent(const AudioSoundVolumeChangeEvent&& event)
 {
   string ErrorMsg = "Unimplemented Error: ";
@@ -285,7 +278,7 @@ void AudioMixer::handleEvent(const AudioSoundVolumeChangeEvent&& event)
   throw RuntimeError(ErrorMsg);
 }
 
-/* @todo Implement this */
+
 void AudioMixer::handleEvent(const AudioMusicVolumeChangeEvent&& event)
 {
   string ErrorMsg = "Unimplemented Error: ";
@@ -293,7 +286,7 @@ void AudioMixer::handleEvent(const AudioMusicVolumeChangeEvent&& event)
   throw RuntimeError(ErrorMsg);
 }
 
-/* @todo Implement this */
+
 void AudioMixer::handleEvent(const AudioSetMutedEvent&& event)
 {
   string ErrorMsg = "Unimplemented Error: ";

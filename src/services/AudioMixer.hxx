@@ -82,15 +82,18 @@ public:
    * @param ID the SoundtrackID
    * @param position the Coordinate3D position of the sound
    */
+   #ifdef USE_OPENAL_SOFT
   void play(SoundtrackID&& ID, Coordinate3D&& position) noexcept;
-
+	#endif
+	
   /**
    * @brief Plays a 3D Soundtrack from a trigger
    * @param trigger the AudioTrigger
    * @param position the Coordinate3D position of the sound
    */
+  #ifdef USE_OPENAL_SOFT
   void play(AudioTrigger&& trigger, Coordinate3D&& position) noexcept;
-
+  #endif
   /**
    * @brief stops all sounds
    * @param isMuted is muted
@@ -147,9 +150,13 @@ private:
 
   /* Event handlers */
   void handleEvent(const AudioTriggerEvent&& event);
+  #ifdef USE_OPENAL_SOFT
   void handleEvent(const AudioTrigger3DEvent&& event);
+  #endif
   void handleEvent(const AudioPlayEvent&& event);
+  #ifdef USE_OPENAL_SOFT
   void handleEvent(const AudioPlay3DEvent&& event);
+  #endif
   void handleEvent(const AudioSoundVolumeChangeEvent&& event);
   void handleEvent(const AudioMusicVolumeChangeEvent&& event);
   void handleEvent(const AudioSetMutedEvent&& event);
