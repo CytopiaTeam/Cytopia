@@ -64,21 +64,9 @@ void AudioMixer::loadAllSounds()
   #endif
   
   ifstream ifs;
-   #ifdef USE_OPENAL_SOFT
-   if(Settings::instance().audio3DStatus)
-   {
-	   LOG(LOG_INFO) << "Loaded from audio 3d Json config.\n";
-	   ifs.open(SDL_GetBasePath() + Settings::instance().audioConfig3DJSONFile.get());
-   }
-   else
-   {
-	   LOG(LOG_INFO) << "Loaded from audio Json config.\n";
-	   ifs.open(SDL_GetBasePath() + Settings::instance().audioConfigJSONFile.get());
-   }
-   #else
-   LOG(LOG_INFO) << "Loaded from audio Json config.\n";
-   ifs.open(SDL_GetBasePath() + Settings::instance().audioConfigJSONFile.get());
-   #endif
+
+  LOG(LOG_INFO) << "Loaded from audio Json config.\n";
+  ifs.open(SDL_GetBasePath() + Settings::instance().audioConfigJSONFile.get());
   
   json config_json;
   ifs >> config_json;
@@ -346,12 +334,25 @@ void AudioMixer::loadSoundtrack(Iterator begin, Iterator end, CallbackType creat
       if (running)
       {
 		auto& [name, soundtrack] = kvp;
-        string filepath = SDL_GetBasePath() + soundtrack.filePath;
+		string filepath;
+		
+		#ifdef USE_OPENAL_SOFT
+		if(Settings::instance().audio3DStatus)
+		{
+			filepath = SDL_GetBasePath() + soundtrack.monoFilePath;
+		}
+		else
+		{
+			filepath = SDL_GetBasePath() + soundtrack.stereoFilePath; 
+		}
+        #else
+        filepath = SDL_GetBasePath() + soundtrack.stereoFilePath; 
+        #endif
         Mix_Chunk* chunk = Mix_LoadWAV(filepath.c_str());
         if(!chunk)
         {
           string ErrorMsg = "Error could not read sound file ";
-          ErrorMsg += soundtrack.filePath;
+          ErrorMsg += filepath;
           ErrorMsg += ": ";
           ErrorMsg += Mix_GetError();
           throw RuntimeError(ErrorMsg);

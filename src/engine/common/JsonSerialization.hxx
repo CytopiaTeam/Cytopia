@@ -38,9 +38,7 @@ inline void from_json(const json &j, SettingsData &s)
   s.tileDataJSONFile = j["ConfigFiles"].value("TileDataJSONFile", "resources/data/UIData.json");
   s.uiLayoutJSONFile = j["ConfigFiles"].value("UILayoutJSONFile", "resources/data/UILayout.json");
   s.audioConfigJSONFile= j["ConfigFiles"].value("AudioConfigJSONFile", "resources/data/AudioConfig.json");
-#ifdef USE_OPENAL_SOFT
-s.audioConfig3DJSONFile= j["ConfigFiles"].value("AudioConfig3DJSONFile", "resources/data/AudioConfig3D.json");
-#endif
+  s.audioConfig3DJSONFile= j["ConfigFiles"].value("AudioConfig3DJSONFile", "resources/data/AudioConfig3D.json");
   s.audio3DStatus = j["Audio"].value("Audio3DStatus", true);
   s.playMusic = j["Audio"].value("PlayMusic", true);
   s.playSoundEffects = j["Audio"].value("PlaySoundEffects", false);
@@ -115,7 +113,8 @@ inline void from_json(const json &j, AudioTrigger& trigger)
 // JSON deserializer for SoundtrackConfiguration
 inline void from_json(const json &j, AudioConfig::SoundtrackConfiguration& config)
 {
-  j["path"].get_to(config.filePath);
+  j["path"].get_to(config.stereoFilePath);
+  j["monopath"].get_to(config.monoFilePath);
   std::vector<string> triggers; 
   j["triggers"].get_to(triggers);
   std::transform(triggers.begin(), triggers.end(), std::back_inserter(config.triggers), [](const string& trigger) {
@@ -173,8 +172,7 @@ inline void to_json(json &j, const SettingsData &s)
        {{std::string("UIDataJSONFile"), s.uiDataJSONFile.get()},
         {std::string("TileDataJSONFile"), s.tileDataJSONFile.get()},
         {std::string("UILayoutJSONFile"), s.uiLayoutJSONFile.get()},
-        {std::string("AudioConfigJSONFile"), s.audioConfigJSONFile.get()},
-        {std::string("AudioConfig3DJSONFile"), s.audioConfig3DJSONFile.get()}}},
+        {std::string("AudioConfigJSONFile"), s.audioConfigJSONFile.get()}}},
       {std::string("Audio"),
        {
 		   {std::string("Audio3DStatus"), s.audio3DStatus},

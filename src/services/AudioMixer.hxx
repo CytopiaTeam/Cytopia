@@ -35,7 +35,8 @@ struct AudioConfig
 {
   struct SoundtrackConfiguration
   {
-    string filePath;
+    string stereoFilePath;
+    string monoFilePath;
     Vector<AudioTrigger> triggers;
   };
   Mapping<string, SoundtrackConfiguration> Music;
