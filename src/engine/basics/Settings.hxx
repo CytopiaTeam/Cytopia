@@ -97,7 +97,7 @@ struct SettingsData
   bool playSoundEffects;
 
   /**
-   * @brief the 
+   * @brief the number of channels used for sound playback
    * 1=Mono,2=Stereo
    */
   int audioChannels;
@@ -134,13 +134,11 @@ struct SettingsData
 
   /**
    * The file path to Audio Configuration
-   * @todo add a typename
    */
   FilePath audioConfigJSONFile;
   
   /**
    * The file path to Audio Configuration 3D
-   * @todo add a typename
    */
   FilePath audioConfig3DJSONFile;
 

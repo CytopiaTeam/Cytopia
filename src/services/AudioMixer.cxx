@@ -47,13 +47,13 @@ void AudioMixer::loadAllSounds()
   #ifdef USE_OPENAL_SOFT
   if(Settings::instance().audio3DStatus)
   {
-	  std::cout << "3D audio on! \n";
+	  //LOG() << "3D audio on! \n";
 	  if(Mix_OpenAudio(44100, AUDIO_S16SYS, 1, 1024) == -1)
 		throw RuntimeError(string{"Unable to open audio channels "} + Mix_GetError());
   }
   else
   {
-	  std::cout << "3D audio off! \n";
+	  //LOG() << "3D audio off! \n";
 	  if(Mix_OpenAudio(44100, AUDIO_S16SYS, 2, 1024) == -1)
 		throw RuntimeError(string{"Unable to open audio channels "} + Mix_GetError());
   }
@@ -67,16 +67,16 @@ void AudioMixer::loadAllSounds()
    #ifdef USE_OPENAL_SOFT
    if(Settings::instance().audio3DStatus)
    {
-	   std::cout << "Loaded from audio 3d Json config.\n";
+	   //LOG() << "Loaded from audio 3d Json config.\n";
 	   ifs.open(Settings::instance().audioConfig3DJSONFile.get());
    }
    else
    {
-	   std::cout << "Loaded from audio Json config.\n";
+	   //LOG() << "Loaded from audio Json config.\n";
 	   ifs.open(Settings::instance().audioConfigJSONFile.get());
    }
    #else
-   std::cout << "Loaded from audio Json config.\n";
+   //LOG() << "Loaded from audio Json config.\n";
    ifs.open(Settings::instance().audioConfigJSONFile.get());
    #endif
   
@@ -109,7 +109,7 @@ void AudioMixer::loadAllSounds()
 		throw RuntimeError(string{ alGetString(err) } );
 	}
 	
-	std::cout << " Open AL Soft Initialized! \n";
+	//LOG() << " Open AL Soft Initialized! \n";
 	
 	std::vector <float> listener_position_vector(3);
 	//set listener position one space behind origin
@@ -143,7 +143,7 @@ void AudioMixer::loadAllSounds()
 	
 #endif
 
-  std::cout << "Loading all sounds. \n";
+  //LOG() << "Loading all sounds. \n";
   /* Load all Music */
   loadSoundtrack(audioConfig.Music.begin(), audioConfig.Music.end(),
       [](const string& name, Mix_Chunk* chunk){
@@ -165,7 +165,7 @@ void AudioMixer::loadAllSounds()
   /* Set up the Mix_ChannelFinished callback */
   onTrackFinishedFunc = [this](int channelID){ return onTrackFinished(channelID); };
   Mix_ChannelFinished(onTrackFinishedFuncPtr);
-  std::cout << "Finished loading all sounds.\n";
+  //LOG() << "Finished loading all sounds.\n";
 }
 
 void AudioMixer::joinLoadThread()
@@ -250,9 +250,9 @@ void AudioMixer::handleEvent(const AudioTrigger3DEvent&& event)
    //set position of source in track 
    //converted to regular cartesian coordinate system
   alSource3f(track->source, AL_POSITION, 
-		(ALfloat)event.position.x, 
-		(ALfloat)event.position.y, 
-		(ALfloat)event.position.z);
+		static_cast<ALfloat>(event.position.x), 
+		static_cast<ALfloat>(event.position.y), 
+		static_cast<ALfloat>(event.position.z));
   playSoundtrack(track);
   #endif
 }
@@ -270,9 +270,9 @@ void AudioMixer::handleEvent(const AudioPlay3DEvent&& event)
   #ifdef USE_OPENAL_SOFT
    //set position of source in track 
   alSource3f(track->source, AL_POSITION, 
-		(ALfloat)event.position.z, 
-		(ALfloat)event.position.x, 
-		(ALfloat)event.position.y);
+		static_cast<ALfloat>(event.position.x), 
+		static_cast<ALfloat>(event.position.y), 
+		static_cast<ALfloat>(event.position.z));
   playSoundtrack(track);
   #endif
 }
@@ -327,7 +327,7 @@ void AudioMixer::playSoundtrack(SoundtrackUPtr& track)
   track->isPlaying = true;
 
   #else
-  std::cout << "OpenAL Soft called to play track! \n";
+  //LOG(LOG_DEBUG) << "OpenAL Soft called to play track! \n";
   if(track->source != 0)
   {
 	  alSourcePlay(track->source);
@@ -336,7 +336,7 @@ void AudioMixer::playSoundtrack(SoundtrackUPtr& track)
   }
   else
   {
-	  std::cout << "Unable to play track because it's source is uninitialized! \n";
+	  throw RuntimeError{"Unable to play track because it's source is uninitialized! \n"};
   }
   
   #endif
@@ -369,7 +369,10 @@ void AudioMixer::loadSoundtrack(Iterator begin, Iterator end, CallbackType creat
       
       //initialize buffer
 	  alGenBuffers(1, &m_Soundtracks.back()->buffer);
-	  assert(alGetError() == AL_NO_ERROR && "Could not create buffers");
+	  ALenum errorCode = alGetError();
+	  if(errorCode != AL_NO_ERROR)
+	    throw RuntimeError("Could not create buffers: Error " + std::to_string(errorCode));
+	    
       //set buffer data
 	  //alBufferData(buffer, format, data, slen, frequency);
 	  ALenum format;
@@ -380,8 +383,10 @@ void AudioMixer::loadSoundtrack(Iterator begin, Iterator end, CallbackType creat
       //initialize source
       alGenSources(1, &m_Soundtracks.back()->source);
 	  alSourcei(m_Soundtracks.back()->source, AL_SOURCE_RELATIVE, AL_FALSE);
-	  assert(alGetError()==AL_NO_ERROR && "Failed to setup sound source.");
-      
+	  errorCode = alGetError();
+      if(errorCode != AL_NO_ERROR)
+		throw RuntimeError("Failed to setup sound source: Error " + std::to_string(errorCode));
+		
       //attach buffer to source
       alSourcei(m_Soundtracks.back()->source, AL_BUFFER, m_Soundtracks.back()->buffer);
       

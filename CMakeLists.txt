@@ -132,7 +132,6 @@ else (USE_PACKAGE_MANAGER)
     endif ()
     
     if (ENABLE_OPENAL_SOFT)
-        #pkg_check_modules(openal-soft REQUIRED openal-soft)
         pkg_check_modules(openal REQUIRED openal)
     endif ()
 
