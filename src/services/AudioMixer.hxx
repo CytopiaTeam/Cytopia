@@ -115,6 +115,13 @@ public:
    *        when the application is closing, or else it won't close nicely.
    */
   void joinLoadThread();
+  
+  //for orientation of listener
+	enum class ORIENTATION_INDEX : int { FORWARD_X=0, FORWARD_Y=1, FORWARD_Z=2,
+														 UP_X=3, UP_Y=4, UP_Z=5 };
+
+	//for position of listener
+	enum class POSITION_INDEX : int { X=0, Y=1, Z=2 };
 
 private:
 

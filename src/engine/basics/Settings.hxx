@@ -8,7 +8,7 @@
 
 using std::string;
 
-#include <stddef.h>
+#include <cstddef>
 
 /* Settings Types */
 using ScreenDimension = int;

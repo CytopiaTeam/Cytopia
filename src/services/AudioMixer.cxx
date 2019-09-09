@@ -12,12 +12,7 @@ using nlohmann::json;
 
 std::function<void(int)> AudioMixer::onTrackFinishedFunc;
 
-//for orientation of listener
-enum ORIENTATION_INDEX { FORWARD_X=0,FORWARD_Y=1,FORWARD_Z=2,
-													 UP_X=3, UP_Y=4, UP_Z=5 };
 
-//for position of listener
-enum POSITION_INDEX { X=0,Y=1,Z=2 };
 
 AudioMixer::AudioMixer(GameService::ServiceTuple& context) : GameService(context)
 {
@@ -74,15 +69,15 @@ void AudioMixer::loadAllSounds()
   
    #ifdef USE_OPENAL_SOFT
 	//use default audio device
-	gAudioDevice = alcOpenDevice(NULL);
-	if(gAudioDevice == NULL)
+	gAudioDevice = alcOpenDevice(nullptr);
+	if(!gAudioDevice)
 	{
 		throw RuntimeError(string{"Unable to initialize default audio device! " + *alGetString(alGetError()) } );
 	}
 
 	//create context
-	alContext = alcCreateContext(gAudioDevice, NULL);
-	if(alContext == NULL)
+	alContext = alcCreateContext(gAudioDevice, nullptr);
+	if(!alContext)
 	{
 		throw RuntimeError(string{"Unable to initialize OpenAL context! " + *alGetString(alGetError()) } );
 	}
@@ -105,7 +100,7 @@ void AudioMixer::loadAllSounds()
 	alListener3f(AL_VELOCITY, 0.0f, 0.0f, 0.0f);//is not moving in 3d space
 	
 	//initialize listener position 1 space behind origin in openal forward direction(-z direction in regular cartesian) 
-	alListener3f(AL_POSITION, listener_position_vector[POSITION_INDEX::X], listener_position_vector[POSITION_INDEX::Y], listener_position_vector[POSITION_INDEX::Z]);
+	alListener3f(AL_POSITION, listener_position_vector[static_cast<int>(AudioMixer::POSITION_INDEX::X)], listener_position_vector[static_cast<int>(AudioMixer::POSITION_INDEX::Y)], listener_position_vector[static_cast<int>(AudioMixer::POSITION_INDEX::Z)]);
 	
 	//Set Listener orientation
 	
@@ -368,10 +363,11 @@ void AudioMixer::loadSoundtrack(Iterator begin, Iterator end, CallbackType creat
 	    throw RuntimeError("Could not create buffers: Error " + std::to_string(errorCode));
 	    
       //set buffer data
-	  //alBufferData(buffer, format, data, slen, frequency);
+	 
 	  ALenum format;
 	  if(Settings::instance().audio3DStatus){format = AL_FORMAT_MONO16;}
 	  else{format = AL_FORMAT_STEREO16;}
+	  // parameters buffer, format, data, sample length, frequency(sample rate)
 	  alBufferData(m_Soundtracks.back()->buffer, format, m_Soundtracks.back()->Chunks->abuf, m_Soundtracks.back()->Chunks->alen, 44100);
       
       //initialize source
