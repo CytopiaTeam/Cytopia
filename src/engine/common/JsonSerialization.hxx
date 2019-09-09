@@ -38,7 +38,6 @@ inline void from_json(const json &j, SettingsData &s)
   s.tileDataJSONFile = j["ConfigFiles"].value("TileDataJSONFile", "resources/data/UIData.json");
   s.uiLayoutJSONFile = j["ConfigFiles"].value("UILayoutJSONFile", "resources/data/UILayout.json");
   s.audioConfigJSONFile= j["ConfigFiles"].value("AudioConfigJSONFile", "resources/data/AudioConfig.json");
-  s.audioConfig3DJSONFile= j["ConfigFiles"].value("AudioConfig3DJSONFile", "resources/data/AudioConfig3D.json");
   s.audio3DStatus = j["Audio"].value("Audio3DStatus", true);
   s.playMusic = j["Audio"].value("PlayMusic", true);
   s.playSoundEffects = j["Audio"].value("PlaySoundEffects", false);
