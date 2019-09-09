@@ -847,3 +847,4 @@ void UIManager::changeFullScreenMode(UIElement *sender)
   WindowManager::instance().setFullScreenMode(static_cast<FULLSCREEN_MODE>(combobox->getActiveID()));
   Layout::arrangeElements();
 }
+

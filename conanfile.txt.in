@@ -14,7 +14,9 @@ freetype/2.10.0@bincrafters/stable
 libnoise/1.0.1@anotherfoxguy/stable
 OpenSSL/1.1.1a@conan/stable
 @_CC_CATCH2@Catch2/2.9.2@catchorg/stable
+@_CC_OPENAL_SOFT@openal/1.19.0@bincrafters/stable
 
 [options]
 sdl2_mixer:opus=False # PACKAGE:OPTION=VALUE
 sdl2_mixer:fluidsynth=False
+

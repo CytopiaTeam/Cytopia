@@ -11,6 +11,7 @@
 #include <SDL.h>
 #include <SDL_ttf.h>
 
+
 #ifdef USE_ANGELSCRIPT
 #include "Scripting/ScriptEngine.hxx"
 #endif
@@ -86,7 +87,7 @@ void Game::mainMenu()
   Button loadGameButton({screenWidth / 2 - 100, screenHeight / 2 - 20 + newGameButton.getUiElementRect().h * 2, 200, 40});
   loadGameButton.setText("Load Game");
   loadGameButton.registerCallbackFunction([]() { Engine::instance().loadGame("resources/save.cts"); });
-
+  
   Button quitGameButton({screenWidth / 2 - 100, screenHeight / 2 - 20 + loadGameButton.getUiElementRect().h * 4, 200, 40});
   quitGameButton.setText("Quit Game");
   quitGameButton.registerCallbackFunction([]() { Engine::instance().quitGame(); });
@@ -211,7 +212,19 @@ void Game::run(bool SkipMenu)
 #endif
 
 #ifdef USE_SDL2_MIXER
+  #ifdef USE_OPENAL_SOFT
+  //change to 0,0,0 for regular stereo music
+  if(Settings::instance().audio3DStatus)
+  {
+	  m_AudioMixer.play(AudioTrigger::MainTheme,Coordinate3D{0,0,-4});
+  }
+  else
+  {
+	  m_AudioMixer.play(AudioTrigger::MainTheme);
+  }
+  #else
   m_AudioMixer.play(AudioTrigger::MainTheme);
+  #endif
 #endif
 
   // FPS Counter variables

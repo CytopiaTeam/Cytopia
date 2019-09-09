@@ -1,4 +1,6 @@
 build/*
+build-mixer-only/*
+
 # ignore CLion generated directory
 .idea
 
@@ -30,3 +32,21 @@ tools/l10n/languages/
 tools/l10n/tx/
 
 tools/l10n/TMP/
+
+#ignore redist directory
+redist/*
+
+#ignore Cytopia Resources directory
+Cytopia_resources/*
+resources/*
+
+#ignore CMakeFiles
+src/CMakeFiles/*
+CMakeFiles
+CMakeCache.txt
+CPackConfig.cmake
+CPackSourceConfig.cmake
+
+cmake_install.cmake
+src/cmake_install.cmake
+src/Makefile
