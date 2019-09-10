@@ -3,7 +3,7 @@
 Tooltip::Tooltip()
 {
   m_tooltipTimer.registerCallbackFunction(Signal::slot(this, &Tooltip::showTooltip));
-  m_tooltipTimer.setTimer(1500);
+  m_tooltipTimer.setTimer(700);
   setVisibility(false);
 }
 

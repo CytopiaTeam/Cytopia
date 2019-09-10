@@ -11,6 +11,14 @@
 #include "../GameService.hxx"
 #include "../util/Meta.hxx"
 
+
+#ifdef USE_OPENAL_SOFT
+#include "AL/al.h"
+#include "AL/alc.h"
+#endif
+
+#include <thread>
+
 template <typename Key, typename Value> 
 using Mapping = std::unordered_map<Key, Value>;
 template <typename Type, size_t N>
@@ -27,7 +35,8 @@ struct AudioConfig
 {
   struct SoundtrackConfiguration
   {
-    string filePath;
+    string stereoFilePath;
+    string monoFilePath;
     Vector<AudioTrigger> triggers;
   };
   Mapping<string, SoundtrackConfiguration> Music;
@@ -74,15 +83,18 @@ public:
    * @param ID the SoundtrackID
    * @param position the Coordinate3D position of the sound
    */
+   #ifdef USE_OPENAL_SOFT
   void play(SoundtrackID&& ID, Coordinate3D&& position) noexcept;
-
+	#endif
+	
   /**
    * @brief Plays a 3D Soundtrack from a trigger
    * @param trigger the AudioTrigger
    * @param position the Coordinate3D position of the sound
    */
+  #ifdef USE_OPENAL_SOFT
   void play(AudioTrigger&& trigger, Coordinate3D&& position) noexcept;
-
+  #endif
   /**
    * @brief stops all sounds
    * @param isMuted is muted
@@ -91,6 +103,25 @@ public:
 
   AudioMixer(GameService::ServiceTuple&);
   ~AudioMixer();
+
+  /**
+   * @brief Loads all game sounds, can be called in new thread
+   */
+  void loadAllSounds();
+
+  /**
+   * @brief joins the thread used to load sounds, if its still running
+   *        This must be called when all other threads are joining
+   *        when the application is closing, or else it won't close nicely.
+   */
+  void joinLoadThread();
+  
+  //for orientation of listener
+	enum class ORIENTATION_INDEX : int { FORWARD_X=0, FORWARD_Y=1, FORWARD_Z=2,
+														 UP_X=3, UP_Y=4, UP_Z=5 };
+
+	//for position of listener
+	enum class POSITION_INDEX : int { X=0, Y=1, Z=2 };
 
 private:
 
@@ -114,11 +145,26 @@ private:
    */
   List<SoundtrackUPtr*> m_Playing;
 
+  /**
+   * @brief A separate thread for loading the sounds.
+   */
+  std::thread m_LoadSoundThread;
+
+  /**
+   * @brief if this becomes false then loading will stop.
+   *        it will be made false by the joinLoadThread function.
+   */
+  bool running = true;
+
   /* Event handlers */
   void handleEvent(const AudioTriggerEvent&& event);
+  #ifdef USE_OPENAL_SOFT
   void handleEvent(const AudioTrigger3DEvent&& event);
+  #endif
   void handleEvent(const AudioPlayEvent&& event);
+  #ifdef USE_OPENAL_SOFT
   void handleEvent(const AudioPlay3DEvent&& event);
+  #endif
   void handleEvent(const AudioSoundVolumeChangeEvent&& event);
   void handleEvent(const AudioMusicVolumeChangeEvent&& event);
   void handleEvent(const AudioSetMutedEvent&& event);
@@ -162,6 +208,22 @@ private:
   static void onTrackFinishedFuncPtr(int channelID) { onTrackFinishedFunc(channelID); }
 
   friend class Game;
+  
+  //openal soft stuff
+  #ifdef USE_OPENAL_SOFT
+  
+  //OpenAL Soft sound setup variables
+  /**
+   * @brief OpenAL Soft setup, audio device to be used
+   */
+  ALCdevice* gAudioDevice; 
+  
+  /**
+   * @brief OpenAL Soft setup, context of where audio is played
+   */
+  ALCcontext* alContext; 
+  
+  #endif
 
 };
 

@@ -11,6 +11,8 @@
 #include "json.hxx"
 #include "betterEnums.hxx"
 
+#include <cmath>
+
 #ifdef MICROPROFILE_ENABLED
 #include "microprofile.h"
 #endif
@@ -466,6 +468,47 @@ void UIManager::setCallbackFunctions()
   }
 }
 
+void UIManager::scaleCenterButtonImage(SDL_Rect &ret, int btnW, int btnH, int imgW, int imgH)
+{
+  if (imgW > imgH)
+  {
+    float ratio = (float)imgH / (float)imgW;
+    ret.w = btnW;
+    ret.h = ceil(btnH * ratio);
+    ret.x = 0;
+    ret.y = btnH - ret.h;
+  }
+  else
+  {
+    float ratio = (float)imgW / (float)imgH;
+    ret.w = ceil(btnW * ratio);
+    ret.h = btnH;
+    ret.x = ceil((btnW - ret.w)/2);
+    ret.y = 0;
+  }
+}
+
+void UIManager::setupButtonTileImage(Button *button, const std::pair<std::string, TileData>& tile)
+{
+  int bWid = Settings::instance().subMenuButtonWidth; //UI button width for sub menues
+  int bHei = Settings::instance().subMenuButtonHeight; //UI button height for sub menues
+
+  if (TileManager::instance().getTexture(tile.first, TileMap::DEFAULT) == nullptr)
+  {
+    button->setTextureID("Button_NoIcon");
+  }
+  SDL_Rect destRect{button->getUiElementRect().x, button->getUiElementRect().y, 0, 0}; 
+  scaleCenterButtonImage(destRect, bWid, bHei, tile.second.tiles.clippingWidth, tile.second.tiles.clippingHeight);
+  button->setTextureID(
+    TileManager::instance().getTexture(tile.first, TileMap::DEFAULT),
+    {tile.second.tiles.clippingWidth * tile.second.tiles.offset, 
+      0, 
+      tile.second.tiles.clippingWidth, 
+      tile.second.tiles.clippingHeight},
+    destRect
+    );
+}
+
 void UIManager::createBuildMenu()
 {
   std::string subMenuSuffix = "_sub";
@@ -492,6 +535,11 @@ void UIManager::createBuildMenu()
   // Add elements from TileData.json to the BuildMenu, if there is a button whose BuildMenuID matches the category
   // check if there's a corresponding category for tiles for this menu ID.
   int idx = 0;
+
+  int bWid = Settings::instance().subMenuButtonWidth; //UI button width for sub menues
+  int bHei = Settings::instance().subMenuButtonHeight; //UI button height for sub menues
+
+
   for (auto &tile : TileManager::instance().getAllTileData())
   {
     std::string category = tile.second.category;
@@ -512,9 +560,9 @@ void UIManager::createBuildMenu()
         {
           m_buttonGroups["Debug_sub"] = new ButtonGroup;
         }
-        Button *button = new Button({0, 0, 0, 0});
+        Button *button = new Button({0, 0, bWid, bHei});
 
-        button->setTextureID("Button_NoIcon");
+        setupButtonTileImage(button, tile);
         button->drawImageButtonFrame(true);
         button->setVisibility(false);
         button->setToggleButton(true);
@@ -526,9 +574,9 @@ void UIManager::createBuildMenu()
         m_buttonGroups["Debug_sub"]->addToGroup(button);
         m_uiElements.push_back(std::unique_ptr<UIElement>(dynamic_cast<UIElement *>(button)));
       }
-      Button *button = new Button({0, 0, 0, 0});
+      Button *button = new Button({0, 0, bWid, bHei});
 
-      button->setTextureID("Button_NoIcon");
+      setupButtonTileImage(button, tile);
       button->drawImageButtonFrame(true);
       button->setVisibility(false);
       button->setToggleButton(true);
@@ -541,12 +589,9 @@ void UIManager::createBuildMenu()
     }
     else
     {
-      Button *button = new Button({0, 0, 0, 0});
+      Button *button = new Button({0, 0, bWid, bHei});
 
-      // TODO: Check if icon empty.
-
-      // Set button properties
-      button->setTextureID("Button_NoIcon");
+      setupButtonTileImage(button, tile);
       button->drawImageButtonFrame(true);
       button->setVisibility(false);
       button->setToggleButton(true);
@@ -802,3 +847,4 @@ void UIManager::changeFullScreenMode(UIElement *sender)
   WindowManager::instance().setFullScreenMode(static_cast<FULLSCREEN_MODE>(combobox->getActiveID()));
   Layout::arrangeElements();
 }
+

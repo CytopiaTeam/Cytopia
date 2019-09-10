@@ -95,6 +95,7 @@ public:
   void newGame();
 
   Map *map;
+  
 
 private:
   Engine();

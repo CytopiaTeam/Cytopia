@@ -255,7 +255,7 @@
         "Position_x": 150,
         "Position_y": 100,
         "Width": 500,
-        "Height": 400
+        "Height": 500
       },
       {
         "Type": "Text",
@@ -277,7 +277,7 @@
         "Type": "TextButton",
         "Text": "OK",
         "Position_x": 270,
-        "Position_y": 450,
+        "Position_y": 500,
         "Width": 100,
         "Height": 30,
         "Action": "SaveSettings",
@@ -287,7 +287,7 @@
         "Type": "TextButton",
         "Text": "Cancel",
         "Position_x": 430,
-        "Position_y": 450,
+        "Position_y": 500,
         "Width": 100,
         "Height": 30,
         "Action": "ToggleVisibilityOfGroup",

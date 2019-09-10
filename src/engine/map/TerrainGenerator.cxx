@@ -92,7 +92,7 @@ void TerrainGenerator::generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNode
       if (height < terrainSettings.seaLevel)
       {
         height = terrainSettings.seaLevel;
-        mapNodes[x * terrainSettings.mapSize + y] = std::make_unique<MapNode>(Point{x, y, z++, height}, "water");
+        mapNodes[x * terrainSettings.mapSize + y] = std::make_unique<MapNode>(Point{x, y, z++, height}, biomeInformation[currentBiome].water[0]);
       }
       else
       {
@@ -109,7 +109,7 @@ void TerrainGenerator::generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNode
             {
               tileIndex = tileIndex % static_cast<int>(biomeInformation[currentBiome].treesSmall.size());
               mapNodes[x * terrainSettings.mapSize + y] = std::make_unique<MapNode>(
-                  Point{x, y, z++, height}, "terrain", biomeInformation[currentBiome].treesSmall[tileIndex]);
+                  Point{x, y, z++, height}, biomeInformation[currentBiome].terrain[0], biomeInformation[currentBiome].treesSmall[tileIndex]);
               placed = true;
             }
           }
@@ -119,7 +119,7 @@ void TerrainGenerator::generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNode
             {
               tileIndex = tileIndex % static_cast<int>(biomeInformation[currentBiome].treesNormal.size());
               mapNodes[x * terrainSettings.mapSize + y] = std::make_unique<MapNode>(
-                  Point{x, y, z++, height}, "terrain", biomeInformation[currentBiome].treesNormal[tileIndex]);
+                  Point{x, y, z++, height}, biomeInformation[currentBiome].terrain[0], biomeInformation[currentBiome].treesNormal[tileIndex]);
               placed = true;
             }
           }
@@ -128,13 +128,13 @@ void TerrainGenerator::generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNode
             tileIndex = tileIndex % static_cast<int>(biomeInformation[currentBiome].treesDense.size());
 
             mapNodes[x * terrainSettings.mapSize + y] = std::make_unique<MapNode>(
-                Point{x, y, z++, height}, "terrain", biomeInformation[currentBiome].treesDense[tileIndex]);
+                Point{x, y, z++, height}, biomeInformation[currentBiome].terrain[0], biomeInformation[currentBiome].treesDense[tileIndex]);
             placed = true;
           }
         }
         if (placed == false)
         {
-          mapNodes[x * terrainSettings.mapSize + y] = std::make_unique<MapNode>(Point{x, y, z++, height}, "terrain");
+          mapNodes[x * terrainSettings.mapSize + y] = std::make_unique<MapNode>(Point{x, y, z++, height}, biomeInformation[currentBiome].terrain[0]);
         }
       }
       mapNodesInDrawingOrder.push_back(mapNodes[x * terrainSettings.mapSize + y].get());

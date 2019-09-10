@@ -8,6 +8,8 @@
 
 using std::string;
 
+#include <cstddef>
+
 /* Settings Types */
 using ScreenDimension = int;
 using VolumeLevel = StrongType<uint8_t, struct VolumeLevelTag>;
@@ -95,11 +97,16 @@ struct SettingsData
   bool playSoundEffects;
 
   /**
-   * @todo document what this field is
-   * @todo add a typename
+   * @brief the number of channels used for sound playback
+   * 1=Mono,2=Stereo
    */
   int audioChannels;
-
+  
+  /**
+   * @brief Whether to play 3D sound or not
+   */
+  bool audio3DStatus;
+  
   /**
    * @todo document what this field is
    * @todo add a typename
@@ -127,9 +134,13 @@ struct SettingsData
 
   /**
    * The file path to Audio Configuration
-   * @todo add a typename
    */
   FilePath audioConfigJSONFile;
+  
+  /**
+   * The file path to Audio Configuration 3D
+   */
+  FilePath audioConfig3DJSONFile;
 
   /**
    * @brief The Game language 
@@ -140,6 +151,19 @@ struct SettingsData
    * @brief FilePath of the Font that should be used.
    */
   FilePath fontFileName;
+
+  /**
+   * @brief The width in pixels of the buttons used in the 
+   * build sub menues on the UI
+   */
+  int subMenuButtonWidth;
+
+  /**
+   * @brief The height in pixels of the buttons used in the 
+   * build sub menues on the UI
+   */
+  int subMenuButtonHeight;
+
 };
 
 /**
