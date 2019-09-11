@@ -27,14 +27,6 @@
   "UiElements": {
     "Test": [      {
       "GroupVisibility": true
-    },
-    {
-      "ID": "slider",
-      "Type": "Slider",
-      "Position_x": 400,
-      "Position_y": 520,
-      "Width": 200,
-      "Height": 40
     }
   ],
     "BottomBar": [
