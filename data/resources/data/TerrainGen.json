@@ -1,58 +1,58 @@
 {
-  "GrassLands": {
-    "trees": {
-      "small": [
-        "trees_oak"
-      ],
-      "normal": [
-        "trees_oak"
-      ],
-      "dense": [
-        "trees_oak"
-      ]
+    "GrassLands": {
+        "trees": {
+            "small": [
+                "trees_oak"
+            ],
+            "normal": [
+                "trees_oak"
+            ],
+            "dense": [
+                "trees_oak"
+            ]
+        },
+        "terrain": [
+            "terrain"
+        ],
+        "water": [
+            "water"
+        ],
+        "waterdecoration": [
+            "water_rocks"
+        ],
+        "terrainRocks": [
+            "terrain_rocks_grassLands"
+        ],
+        "terrainFlowers": [
+            "flora_flower"
+        ]
     },
-    "terrain": [
-      "terrain"
-    ],
-    "water": [
-      "water"
-    ],
-    "waterdecoration": [
-      "water_rocks"
-    ],
-    "terrainRocks": [
-      "terrain_rocks_grassLands"
-    ],
-    "terrainFlowers": [
-      "flora_flower"
-    ]
-  },
-  "Desert": {
-    "trees": {
-      "small": [
-        "trees_oak"
-      ],
-      "normal": [
-        "trees_oak"
-      ],
-      "dense": [
-        "trees_oak"
-      ]
-    },
-    "terrain": [
-      "terrain"
-    ],
-    "water": [
-      "water"
-    ],
-    "waterdecoration": [
-      "water_rocks"
-    ],
-    "terrainRocks": [
-      "terrain_rocks_desert"
-    ],
-    "terrainFlowers": [
-      "flora_flower"
-    ]
-  }
+    "Desert": {
+        "trees": {
+            "small": [
+                "trees_oak"
+            ],
+            "normal": [
+                "trees_oak"
+            ],
+            "dense": [
+                "trees_oak"
+            ]
+        },
+        "terrain": [
+            "terrain"
+        ],
+        "water": [
+            "water"
+        ],
+        "waterdecoration": [
+            "water_rocks"
+        ],
+        "terrainRocks": [
+            "terrain_rocks_desert"
+        ],
+        "terrainFlowers": [
+            "flora_flower"
+        ]
+    }
 }

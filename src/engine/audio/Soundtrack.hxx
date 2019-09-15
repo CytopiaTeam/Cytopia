@@ -78,7 +78,7 @@ struct Soundtrack
 
   ~Soundtrack()
   {
-    if(Chunks) delete Chunks;
+    if(Chunks) Mix_FreeChunk(Chunks);
     
     #ifdef USE_OPENAL_SOFT
     if(buffer){alDeleteBuffers(1, &buffer);}

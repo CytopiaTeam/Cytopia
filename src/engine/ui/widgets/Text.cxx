@@ -19,7 +19,6 @@ void Text::draw()
 void Text::setText(const std::string &text)
 {
 #ifdef USE_MOFILEREADER
-  LOG(LOG_INFO) << "Translatable string: " << text;
   elementData.text = moFileLib::moFileReaderSingleton::GetInstance().Lookup(text.c_str());
 #else
   elementData.text = text;
