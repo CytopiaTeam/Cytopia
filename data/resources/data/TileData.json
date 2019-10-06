@@ -6176,7 +6176,7 @@
     },
     {
         "author": "Kingtut 101",
-        "category": "Prison",
+        "category": "Roads",
         "description": "TODO DESC",
         "id": "prs_1x1_prisfen_kt",
         "power": 0,
@@ -6185,6 +6185,7 @@
             "clip_height": 19,
             "clip_width": 32,
             "count": 16,
+            "rotations": 16,
             "fileName": "resources/images/buildings/prison/prs_1x1_prisfen_kt.png"
         },
         "title": "TODO TITLE",
