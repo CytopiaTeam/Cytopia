@@ -6531,5 +6531,39 @@
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Residential",
+        "description": "TODO DESC",
+        "id": "res_2x2_WhiteOrangeFrenchTower_KT",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 83,
+            "clip_width": 64,
+            "count": 2,
+            "fileName": "resources/images/buildings/residential/res_2x2_WhiteOrangeFrenchTower_KT.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Industrial",
+        "description": "TODO DESC",
+        "id": "ind_1x1_SmallMilitaryFacility_KT",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 21,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/industrial/ind_1x1_SmallMilitaryFacility_KT.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
     }
 ]
