@@ -58,9 +58,9 @@ matrix:
             echo "Running pullrequest build";
             make -j2;
           fi;
-        - make copy_resources
         - xvfb-run -a ctest
         - make gcov
+        - make copy_coverage
         - >
           if [ "${TRAVIS_SECURE_ENV_VARS}" == "true" ]; then
             sonar-scanner -X -D"sonar.projectVersion=CI-${TRAVIS_JOB_NUMBER}";
