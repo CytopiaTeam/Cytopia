@@ -61,10 +61,6 @@ matrix:
         - xvfb-run -a ctest
         - make gcov
         - make copy_coverage
-        - >
-          if [ "${TRAVIS_SECURE_ENV_VARS}" == "true" ]; then
-            sonar-scanner -X -D"sonar.projectVersion=CI-${TRAVIS_JOB_NUMBER}";
-          fi;
 
       before_cache:
         - cmake -P ./cmake/pmm.cmake /Conan /Clean
