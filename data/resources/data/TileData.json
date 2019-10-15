@@ -5918,5 +5918,652 @@
         "title": "Stone",
         "upkeep cost": 0,
         "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Prison",
+        "description": "TODO DESC",
+        "id": "prs_1x1_office2-4_KT",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 27,
+            "clip_width": 32,
+            "count": 2,
+            "fileName": "resources/images/buildings/prison/prs_1x1_office2-4_KT.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Prison",
+        "description": "TODO DESC",
+        "id": "prs_1x1_office3-4_KT",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 33,
+            "clip_width": 32,
+            "count": 2,
+            "fileName": "resources/images/buildings/prison/prs_1x1_office3-4_KT.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Prison",
+        "description": "TODO DESC",
+        "id": "prs_1x1_tower_KT",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 24,
+            "clip_width": 32,
+            "count": 4,
+            "fileName": "resources/images/buildings/prison/prs_1x1_tower_KT.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Prison",
+        "description": "TODO DESC",
+        "id": "prs_1x1_office1-2_KT",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 21,
+            "clip_width": 32,
+            "count": 2,
+            "fileName": "resources/images/buildings/prison/prs_1x1_office1-2_KT.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "RockFort",
+        "category": "Commercial",
+        "description": "TODO DESC",
+        "id": "com_3x3_boise1_RF",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 146,
+            "clip_width": 96,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/com_3x3_boise1_RF.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "RockFort",
+        "category": "Residential",
+        "description": "TODO DESC",
+        "id": "res_2x2_grainval1_RF",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 38,
+            "clip_width": 64,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_2x2_grainval1_RF.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Prison",
+        "description": "TODO DESC",
+        "id": "prs_1x1_office2-3_KT",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 27,
+            "clip_width": 32,
+            "count": 2,
+            "fileName": "resources/images/buildings/prison/prs_1x1_office2-3_KT.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "RockFort",
+        "category": "Residential",
+        "description": "TODO DESC",
+        "id": "res_2x2_siauliai8_RF",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 48,
+            "clip_width": 64,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_2x2_siauliai8_RF.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Prison",
+        "description": "TODO DESC",
+        "id": "prs_2x2_yard2_KT",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 35,
+            "clip_width": 64,
+            "count": 1,
+            "fileName": "resources/images/buildings/prison/prs_2x2_yard2_KT.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Prison",
+        "description": "TODO DESC",
+        "id": "prs_1x1_holdingcell1_KT",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 4,
+            "fileName": "resources/images/buildings/prison/prs_1x1_holdingcell1_KT.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Prison",
+        "description": "TODO DESC",
+        "id": "prs_1x1_cell2_KT",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 29,
+            "clip_width": 32,
+            "count": 4,
+            "fileName": "resources/images/buildings/prison/prs_1x1_cell2_KT.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Prison",
+        "description": "TODO DESC",
+        "id": "prs_1x1_messhall3_KT",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 35,
+            "clip_width": 32,
+            "count": 4,
+            "fileName": "resources/images/buildings/prison/prs_1x1_messhall3_KT.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Prison",
+        "description": "TODO DESC",
+        "id": "prs_1x1_office3-2_KT",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 33,
+            "clip_width": 32,
+            "count": 2,
+            "fileName": "resources/images/buildings/prison/prs_1x1_office3-2_KT.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Prison",
+        "description": "TODO DESC",
+        "id": "prs_1x1_holdingcell3_KT",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 35,
+            "clip_width": 32,
+            "count": 4,
+            "fileName": "resources/images/buildings/prison/prs_1x1_holdingcell3_KT.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "RockFort",
+        "category": "Commercial",
+        "description": "TODO DESC",
+        "id": "com_1x1_portangeles1_RF",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 28,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/com_1x1_portangeles1_RF.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Roads",
+        "description": "TODO DESC",
+        "id": "prs_1x1_prisfen_kt",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 19,
+            "clip_width": 32,
+            "count": 16,
+            "rotations": 16,
+            "fileName": "resources/images/buildings/prison/prs_1x1_prisfen_kt.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Prison",
+        "description": "TODO DESC",
+        "id": "prs_1x1_messhall2_KT",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 29,
+            "clip_width": 32,
+            "count": 4,
+            "fileName": "resources/images/buildings/prison/prs_1x1_messhall2_KT.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Prison",
+        "description": "TODO DESC",
+        "id": "prs_1x1_holdingcell2_KT",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 29,
+            "clip_width": 32,
+            "count": 4,
+            "fileName": "resources/images/buildings/prison/prs_1x1_holdingcell2_KT.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Prison",
+        "description": "TODO DESC",
+        "id": "prs_1x1_office1-4_KT",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 21,
+            "clip_width": 32,
+            "count": 2,
+            "fileName": "resources/images/buildings/prison/prs_1x1_office1-4_KT.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Prison",
+        "description": "TODO DESC",
+        "id": "prs_1x1_office2-2_KT",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 27,
+            "clip_width": 32,
+            "count": 2,
+            "fileName": "resources/images/buildings/prison/prs_1x1_office2-2_KT.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "RockFort",
+        "category": "Residential",
+        "description": "TODO DESC",
+        "id": "res_1x1_veuleslesroses5_RF",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 36,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_1x1_veuleslesroses5_RF.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "RockFort",
+        "category": "Residential",
+        "description": "TODO DESC",
+        "id": "res_2x2_bolbec1_RF",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 45,
+            "clip_width": 64,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_2x2_bolbec1_RF.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Prison",
+        "description": "TODO DESC",
+        "id": "prs_1x1_cell3_KT",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 35,
+            "clip_width": 32,
+            "count": 4,
+            "fileName": "resources/images/buildings/prison/prs_1x1_cell3_KT.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Prison",
+        "description": "TODO DESC",
+        "id": "prs_1x1_office3-1_KT",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 35,
+            "clip_width": 32,
+            "count": 2,
+            "fileName": "resources/images/buildings/prison/prs_1x1_office3-1_KT.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Prison",
+        "description": "TODO DESC",
+        "id": "prs_1x1_office2-1_KT",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 29,
+            "clip_width": 32,
+            "count": 2,
+            "fileName": "resources/images/buildings/prison/prs_1x1_office2-1_KT.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "RockFort",
+        "category": "Residential",
+        "description": "TODO DESC",
+        "id": "res_2x2_mexsonora2_RF",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 49,
+            "clip_width": 64,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_2x2_mexsonora2_RF.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "RockFort",
+        "category": "Residential",
+        "description": "TODO DESC",
+        "id": "res_2x2_lillebonne2_RF",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 70,
+            "clip_width": 64,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_2x2_lillebonne2_RF.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Prison",
+        "description": "TODO DESC",
+        "id": "prs_1x1_office3-3_KT",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 33,
+            "clip_width": 32,
+            "count": 2,
+            "fileName": "resources/images/buildings/prison/prs_1x1_office3-3_KT.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Prison",
+        "description": "TODO DESC",
+        "id": "prs_1x1_messhall1_KT",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 4,
+            "fileName": "resources/images/buildings/prison/prs_1x1_messhall1_KT.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "RockFort",
+        "category": "Residential",
+        "description": "TODO DESC",
+        "id": "res_3x3_mtgaillard1a_RF",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 131,
+            "clip_width": 96,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_3x3_mtgaillard1a_RF.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "RockFort",
+        "category": "Residential",
+        "description": "TODO DESC",
+        "id": "res_3x3_containerhouse1_fr_RF",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 106,
+            "clip_width": 96,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_3x3_containerhouse1_fr_RF.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "RockFort",
+        "category": "Commercial",
+        "description": "TODO DESC",
+        "id": "com_2x2_miamiparkcentralhotel_RF",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 81,
+            "clip_width": 64,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/com_2x2_miamiparkcentralhotel_RF.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "RockFort",
+        "category": "Commercial",
+        "description": "TODO DESC",
+        "id": "com_2x2_alexandriaMN1_RF",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 51,
+            "clip_width": 64,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/com_2x2_alexandriaMN1_RF.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Prison",
+        "description": "TODO DESC",
+        "id": "prs_1x1_cell1_KT",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 4,
+            "fileName": "resources/images/buildings/prison/prs_1x1_cell1_KT.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Prison",
+        "description": "TODO DESC",
+        "id": "prs_1x1_office1-3_KT",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 21,
+            "clip_width": 32,
+            "count": 2,
+            "fileName": "resources/images/buildings/prison/prs_1x1_office1-3_KT.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Prison",
+        "description": "TODO DESC",
+        "id": "prs_1x1_office1-1_KT",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 2,
+            "fileName": "resources/images/buildings/prison/prs_1x1_office1-1_KT.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Residential",
+        "description": "TODO DESC",
+        "id": "res_2x2_WhiteOrangeFrenchTower_KT",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 83,
+            "clip_width": 64,
+            "count": 2,
+            "fileName": "resources/images/buildings/residential/res_2x2_WhiteOrangeFrenchTower_KT.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Industrial",
+        "description": "TODO DESC",
+        "id": "ind_1x1_SmallMilitaryFacility_KT",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 21,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/industrial/ind_1x1_SmallMilitaryFacility_KT.png"
+        },
+        "title": "TODO TITLE",
+        "upkeep cost": 0,
+        "water": 0
     }
 ]
