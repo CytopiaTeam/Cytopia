@@ -59,7 +59,43 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       case SDLK_f:
         engine.toggleFullScreen();
         break;
-
+      case SDLK_w:
+      {
+		  
+		  Camera::cameraOffset.y -= (Settings::instance().screenHeight / 4);
+		  if (Engine::instance().map != nullptr){Engine::instance().map->refresh();}
+		 	
+		  break;
+	  }
+		
+      case SDLK_a:
+      {
+		  
+		  Camera::cameraOffset.x -= (Settings::instance().screenWidth / 4);
+		  if (Engine::instance().map != nullptr){Engine::instance().map->refresh();}
+		  
+		  break;
+	  }
+		
+	  case SDLK_s:
+	  {
+		  
+		  Camera::cameraOffset.y += (Settings::instance().screenHeight / 4);
+	      if (Engine::instance().map != nullptr){Engine::instance().map->refresh();}
+		  
+		  break;
+	  }  
+	    
+	  case SDLK_d:
+	  {
+		  
+		  Camera::cameraOffset.x += (Settings::instance().screenWidth / 4);
+		  if (Engine::instance().map != nullptr){Engine::instance().map->refresh();}
+		
+	      break;
+	  }
+	    
+	    
       default:
         break;
       }
