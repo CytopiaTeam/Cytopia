@@ -61,36 +61,44 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         break;
       case SDLK_w:
       {
+		  if(Camera::cameraOffset.y > -2*Settings::instance().screenHeight*Camera::zoomLevel)
+		  {
+			  Camera::cameraOffset.y -= (Settings::instance().screenHeight / 4);
+			  if (Engine::instance().map != nullptr){Engine::instance().map->refresh();}
+		  }
 		  
-		  Camera::cameraOffset.y -= (Settings::instance().screenHeight / 4);
-		  if (Engine::instance().map != nullptr){Engine::instance().map->refresh();}
-		 	
 		  break;
 	  }
 		
       case SDLK_a:
       {
-		  
-		  Camera::cameraOffset.x -= (Settings::instance().screenWidth / 4);
-		  if (Engine::instance().map != nullptr){Engine::instance().map->refresh();}
+		  if(Camera::cameraOffset.x > -0.25*Settings::instance().screenWidth*Camera::zoomLevel)
+		  {
+			  Camera::cameraOffset.x -= (Settings::instance().screenWidth / 4);
+		      if (Engine::instance().map != nullptr){Engine::instance().map->refresh();}
+		  }
 		  
 		  break;
 	  }
 		
 	  case SDLK_s:
 	  {
-		  
-		  Camera::cameraOffset.y += (Settings::instance().screenHeight / 4);
-	      if (Engine::instance().map != nullptr){Engine::instance().map->refresh();}
+		  if(Camera::cameraOffset.y < 1.25*Settings::instance().screenHeight*Camera::zoomLevel)
+		  {
+			  Camera::cameraOffset.y += (Settings::instance().screenHeight / 4);
+			  if (Engine::instance().map != nullptr){Engine::instance().map->refresh();}
+		  }
 		  
 		  break;
 	  }  
 	    
 	  case SDLK_d:
 	  {
-		  
-		  Camera::cameraOffset.x += (Settings::instance().screenWidth / 4);
-		  if (Engine::instance().map != nullptr){Engine::instance().map->refresh();}
+		  if(Camera::cameraOffset.x < 5*Settings::instance().screenWidth*Camera::zoomLevel)
+		  {
+			  Camera::cameraOffset.x += (Settings::instance().screenWidth / 4);
+			  if (Engine::instance().map != nullptr){Engine::instance().map->refresh();}
+		  }
 		
 	      break;
 	  }
