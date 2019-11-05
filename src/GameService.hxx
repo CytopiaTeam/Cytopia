@@ -21,8 +21,8 @@ public:
   /**
    * @brief all concrete game services
    */
-  using Types = TypeList<UILoopMQ *, GameLoopMQ *, class AudioMixer *, class Randomizer *, class GameClock *
-                         /* Add other services here */>;
+  using Types = TypeList<UILoopMQ *, GameLoopMQ *, class AudioMixer *, class Randomizer *, class GameClock *,
+                         class ResourceManager * /* Add other services here */>;
 
   /**
    * @brief a tuple of all services

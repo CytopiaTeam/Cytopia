@@ -7,6 +7,7 @@
 #include "util/Meta.hxx"
 #include "util/TransitiveModel.hxx"
 #include "engine/audio/Soundtrack.hxx"
+#include "engine/audio/AudioConfig.hxx"
 
 using std::string;
 
@@ -51,11 +52,6 @@ using TransitiveStateChange =
     UIChangeEvent<ObserverWPtr<typename TransitiveType::Transition>, typename TransitiveType::Transition>;
 
 /* Audio Events */
-
-/**
- * @brief the types of triggers
- */
-BETTER_ENUM(AudioTrigger, int, MainTheme)
 
 /**
  * @brief the volume level

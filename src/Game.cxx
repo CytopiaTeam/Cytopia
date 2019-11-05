@@ -31,8 +31,8 @@ Game::Game()
 #ifdef USE_SDL2_MIXER
       m_AudioMixer{m_GameContext},
 #endif
-      m_GameClock{m_GameContext}, m_Randomizer{m_GameContext}, m_UILoopMQ{}, m_GameLoopMQ{},
-      m_GameContext(&m_UILoopMQ, &m_GameLoopMQ, &m_AudioMixer, &m_Randomizer, &m_GameClock),
+      m_GameClock{m_GameContext}, m_Randomizer{m_GameContext}, m_ResourceManager{m_GameContext}, m_UILoopMQ{}, m_GameLoopMQ{},
+      m_GameContext(&m_UILoopMQ, &m_GameLoopMQ, &m_AudioMixer, &m_Randomizer, &m_GameClock, &m_ResourceManager),
       m_UILoop(&LoopMain<UILoopMQ, UIVisitor>, std::ref(m_GameContext), UIVisitor{}),
       m_EventLoop(&LoopMain<GameLoopMQ, GameVisitor>, std::ref(m_GameContext), GameVisitor{m_GameContext})
 {
@@ -294,7 +294,6 @@ void Game::shutdown()
   TTF_Quit();
 
 #ifdef USE_SDL2_MIXER
-  m_AudioMixer.joinLoadThread();
   Mix_Quit();
 #endif
 
