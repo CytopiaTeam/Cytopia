@@ -1,7 +1,6 @@
 #include "Exception.hxx"
 #include "LOG.hxx"
 
-
 #ifdef _WIN32
 #include <Windows.h>
 #include <dbghelp.h>
@@ -51,26 +50,28 @@ void SIG_handler(int signal)
 
 void SIG_handler(int signal)
 {
-  switch(signal) {
-    case SIGINT: [[fallthrough]];
-    case SIGTERM:
-      {
-        LOG(LOG_INFO) << "Abort signal received";
-        exit(0);
-      }
-    case SIGSEGV:
-      {
-        LOG(LOG_ERROR) << "Segmentation Fault";
-        break;
-      }
-    default:
-      {
-        LOG(LOG_ERROR) << "Unknown signal received";
-        break;
-      }
+  switch (signal)
+  {
+  case SIGINT:
+    [[fallthrough]];
+  case SIGTERM:
+  {
+    LOG(LOG_INFO) << "Abort signal received";
+    exit(0);
+  }
+  case SIGSEGV:
+  {
+    LOG(LOG_ERROR) << "Segmentation Fault";
+    break;
+  }
+  default:
+  {
+    LOG(LOG_ERROR) << "Unknown signal received";
+    break;
+  }
   }
   /* We print the last 10 calls */
-  void* buffer[10];
+  void *buffer[10];
   size_t size;
   size = backtrace(buffer, 10);
   backtrace_symbols_fd(buffer, size, STDERR_FILENO);
@@ -83,7 +84,7 @@ SDL_AssertState AssertionHandler(const SDL_AssertData *data, void *)
 {
   LOG(LOG_ERROR) << "SDL2 Assertion failure";
 
-  #ifdef _WIN32
+#ifdef _WIN32
   /* We print the last 10 calls */
   void *buffer[10];
   HANDLE process = GetCurrentProcess();
@@ -92,15 +93,13 @@ SDL_AssertState AssertionHandler(const SDL_AssertData *data, void *)
   SYMBOL_INFO symbol;
   for (int i = 0; i < size; ++i)
     std::cout << "\tat " << symbol.Name << "\n";
-  #else
+#else
   /* We print the last 10 calls */
-  void* buffer[10];
+  void *buffer[10];
   size_t size;
   size = backtrace(buffer, 10);
   backtrace_symbols_fd(buffer, size, STDERR_FILENO);
-  #endif
+#endif
 
   return SDL_ASSERTION_ABORT;
 }
-
-

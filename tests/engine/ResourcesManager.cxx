@@ -13,14 +13,8 @@ TEST_CASE("Get ResourcesManager instance", "[engine][resourcesmanager]")
 
 TEST_CASE("Get UI Texture", "[engine][resourcesmanager]")
 {
-  REQUIRE_THROWS_AS(
-      ResourcesManager::instance().getUITexture("UNLOADED"),
-      UIError
-  );
-  REQUIRE_THROWS_AS(
-    ResourcesManager::instance().getUITexture("UNLOADED", BUTTONSTATE_HOVERING),
-    UIError
-  );
+  REQUIRE_THROWS_AS(ResourcesManager::instance().getUITexture("UNLOADED"), UIError);
+  REQUIRE_THROWS_AS(ResourcesManager::instance().getUITexture("UNLOADED", BUTTONSTATE_HOVERING), UIError);
 }
 
 TEST_CASE("Get Tile Texture", "[engine][resourcesmanager]")

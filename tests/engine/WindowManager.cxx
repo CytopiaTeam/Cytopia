@@ -34,7 +34,7 @@ TEST_CASE("Toggle Fullscreen", "[engine][WindowManager][!mayfail]")
 TEST_CASE("Set Window Title", "[engine][WindowManager]")
 {
   WindowManager &windowManager = WindowManager::instance();
-  const std::string windowTitle = "_TEST_"; 
+  const std::string windowTitle = "_TEST_";
   windowManager.setWindowTitle(windowTitle);
   CHECK(windowTitle == SDL_GetWindowTitle(windowManager.getWindow()));
 }

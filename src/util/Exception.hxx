@@ -9,13 +9,68 @@
 
 using RuntimeError = std::runtime_error;
 
-class CytopiaError : public RuntimeError { using RuntimeError::RuntimeError; };
-class ConfigurationError : public CytopiaError { using CytopiaError::CytopiaError; };
-class UnimplementedError : public CytopiaError { using CytopiaError::CytopiaError; };
-class AudioError : public CytopiaError { using CytopiaError::CytopiaError; };
-class FontError : public CytopiaError { using CytopiaError::CytopiaError; };
-class DisplayError : public CytopiaError { using CytopiaError::CytopiaError; };
-class UIError : public CytopiaError { using CytopiaError::CytopiaError; };
-class CompressionError : public CytopiaError { using CytopiaError::CytopiaError; };
+/**
+ * @brief A generic error in Cytopia
+ */
+class CytopiaError : public RuntimeError
+{
+  using RuntimeError::RuntimeError;
+};
+
+/**
+ * @brief A configuration error
+ */
+class ConfigurationError : public CytopiaError
+{
+  using CytopiaError::CytopiaError;
+};
+
+/*
+ * @brief An unimplemented function was called
+ */
+class UnimplementedError : public CytopiaError
+{
+  using CytopiaError::CytopiaError;
+};
+
+/**
+ * @brief An audio-related error occured
+ */
+class AudioError : public CytopiaError
+{
+  using CytopiaError::CytopiaError;
+};
+
+/**
+ * @brief A font-related error occured
+ */
+class FontError : public CytopiaError
+{
+  using CytopiaError::CytopiaError;
+};
+
+/**
+ * @brief A display error occured
+ */
+class DisplayError : public CytopiaError
+{
+  using CytopiaError::CytopiaError;
+};
+
+/**
+ * @brief A UI-related error occured
+ */
+class UIError : public CytopiaError
+{
+  using CytopiaError::CytopiaError;
+};
+
+/**
+ * @brief A compression error occured
+ */
+class CompressionError : public CytopiaError
+{
+  using CytopiaError::CytopiaError;
+};
 
 #endif

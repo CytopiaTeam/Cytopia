@@ -26,9 +26,9 @@ int protected_main(int argc, char **argv)
   }
 
   LOG(LOG_DEBUG) << "Launching Cytopia";
-  
+
   Game game;
-  
+
   LOG(LOG_DEBUG) << "Initializing Cytopia";
 
   if (!game.initialize())
@@ -39,8 +39,7 @@ int protected_main(int argc, char **argv)
     LOG(LOG_DEBUG) << "Starting Main menu";
     game.mainMenu();
   }
-  
-  
+
   LOG(LOG_DEBUG) << "Running the Game";
   game.run(skipMenu);
 

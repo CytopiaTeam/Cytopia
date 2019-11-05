@@ -245,8 +245,8 @@ void TileManager::init()
   for (auto element : tileDataJSON.items())
   {
     std::string id;
-	  id = element.value().value("id", "");
-	  addJSONObjectToTileData(tileDataJSON, idx, id);
+    id = element.value().value("id", "");
+    addJSONObjectToTileData(tileDataJSON, idx, id);
     idx++;
   }
 }

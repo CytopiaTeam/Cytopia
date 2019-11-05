@@ -232,12 +232,11 @@ unsigned char Map::getNeighboringTilesBitmask(const Point &isoCoordinates)
     for (const auto &it : adjecantNodesCoordinates)
     {
       if ((it.first >= 0 && it.first < m_rows && it.second >= 0 && it.second < m_columns) &&
-          (	mapNodes[it.first * m_columns + it.second] &&
-			mapNodes[it.first * m_columns + it.second]->getActiveMapNodeData().tileData
-			&& mapNodes[x * m_columns + y]
-			&& mapNodes[x * m_columns + y]->getActiveMapNodeData().tileData 
-			&& mapNodes[it.first * m_columns + it.second]->getActiveMapNodeData().tileData->category
-				== mapNodes[x * m_columns + y]->getActiveMapNodeData().tileData->category))
+          (mapNodes[it.first * m_columns + it.second] &&
+           mapNodes[it.first * m_columns + it.second]->getActiveMapNodeData().tileData && mapNodes[x * m_columns + y] &&
+           mapNodes[x * m_columns + y]->getActiveMapNodeData().tileData &&
+           mapNodes[it.first * m_columns + it.second]->getActiveMapNodeData().tileData->category ==
+               mapNodes[x * m_columns + y]->getActiveMapNodeData().tileData->category))
       {
         // for each found tile add 2 ^ i to the bitmask
         bitmask |= static_cast<unsigned int>(1 << i);
@@ -410,7 +409,7 @@ bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int is
   return false;
 }
 
-void Map::highlightNode(const Point &isoCoordinates, const SpriteRGBColor& rgbColor)
+void Map::highlightNode(const Point &isoCoordinates, const SpriteRGBColor &rgbColor)
 {
   const size_t index = isoCoordinates.x * m_columns + isoCoordinates.y;
 
@@ -455,7 +454,7 @@ Map *Map::loadMapFromFile(const std::string &fileName)
   {
     std::ifstream file(SDL_GetBasePath() + fileName, std::ios_base::in | std::ios_base::binary);
     if (!file)
-      throw ConfigurationError(TRACE_INFO "Could not load savegame file " + fileName); 
+      throw ConfigurationError(TRACE_INFO "Could not load savegame file " + fileName);
     buffer << file.rdbuf();
   }
 
@@ -464,7 +463,7 @@ Map *Map::loadMapFromFile(const std::string &fileName)
 
   if (jsonAsString.empty())
     return nullptr;
-  
+
   json saveGameJSON = json::parse(jsonAsString, nullptr, false);
 
   if (saveGameJSON.is_discarded())
@@ -475,8 +474,8 @@ Map *Map::loadMapFromFile(const std::string &fileName)
   if (saveGameVersion != SAVEGAME_VERSION)
   {
     /* @todo Check savegame version for compatibility and add upgrade functions here later if needed */
-    throw  CytopiaError(TRACE_INFO "Trying to load a Savegame with version " + std::to_string(saveGameVersion)
-        + " but only save-games with version " + std::to_string(SAVEGAME_VERSION) + " are supported");
+    throw CytopiaError(TRACE_INFO "Trying to load a Savegame with version " + std::to_string(saveGameVersion) +
+                       " but only save-games with version " + std::to_string(SAVEGAME_VERSION) + " are supported");
   }
 
   int columns = saveGameJSON.value("columns", -1);

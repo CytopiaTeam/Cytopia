@@ -222,7 +222,7 @@ void Layout::arrangeChildElements(LayoutData &groupLayout, std::vector<UIElement
     if (!parentElement)
     {
       LOG(LOG_WARNING) << "Cannot align element " << element->getUiElementData().elementID
-                     << " to a parent because it has no ParentElementID set!";
+                       << " to a parent because it has no ParentElementID set!";
       continue;
     }
 

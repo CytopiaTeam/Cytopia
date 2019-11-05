@@ -101,12 +101,12 @@ struct SettingsData
    * 1=Mono,2=Stereo
    */
   int audioChannels;
-  
+
   /**
    * @brief Whether to play 3D sound or not
    */
   bool audio3DStatus;
-  
+
   /**
    * @todo document what this field is
    * @todo add a typename
@@ -136,7 +136,7 @@ struct SettingsData
    * The file path to Audio Configuration
    */
   FilePath audioConfigJSONFile;
-  
+
   /**
    * The file path to Audio Configuration 3D
    */
@@ -163,7 +163,6 @@ struct SettingsData
    * build sub menues on the UI
    */
   int subMenuButtonHeight;
-
 };
 
 /**

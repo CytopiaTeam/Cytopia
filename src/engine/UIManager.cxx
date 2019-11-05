@@ -58,14 +58,14 @@ void UIManager::init()
         if (layoutGroup.layout.layoutType.empty())
         {
           LOG(LOG_WARNING) << "Skipping LayoutGroup " << layoutGroupName
-                         << " because it has no parameter \"LayoutType\" set. Check your UiLayout.json file.";
+                           << " because it has no parameter \"LayoutType\" set. Check your UiLayout.json file.";
           continue;
         }
 
         if (layoutGroup.layout.alignment.empty())
         {
           LOG(LOG_WARNING) << "Skipping LayoutGroup " << layoutGroupName
-                         << " because it has no parameter \"Alignment\" set. Check your UiLayout.json file.";
+                           << " because it has no parameter \"Alignment\" set. Check your UiLayout.json file.";
           continue;
         }
 
@@ -75,7 +75,7 @@ void UIManager::init()
         if (!layoutGroup.layout.layoutParentElementID.empty() && !getUiElementByID(layoutGroup.layout.layoutParentElementID))
         {
           LOG(LOG_WARNING) << "Skipping a non-existant UIElement with ID " << layoutGroup.layout.layoutParentElementID
-                         << "that was set for LayoutGroup " << layoutGroupName;
+                           << "that was set for LayoutGroup " << layoutGroupName;
           continue;
         }
 
@@ -184,7 +184,7 @@ void UIManager::init()
           break;
         default:
           LOG(LOG_WARNING) << "An element without a type can not be created, check your UiLayout JSON File "
-                         << Settings::instance().uiLayoutJSONFile.get();
+                           << Settings::instance().uiLayoutJSONFile.get();
           break;
         }
 
@@ -229,8 +229,8 @@ void UIManager::init()
           }
           else
           {
-            throw UIError(TRACE_INFO "Cannot add elements to non existing LayoutGroup " + layoutGroupName
-                + ". Add the group first, before trying to add elements to it.");
+            throw UIError(TRACE_INFO "Cannot add elements to non existing LayoutGroup " + layoutGroupName +
+                          ". Add the group first, before trying to add elements to it.");
           }
         }
 
@@ -287,9 +287,9 @@ void UIManager::toggleGroupVisibility(const std::string &groupID, UIElement *sen
     Button *button = dynamic_cast<Button *>(sender);
 
     // cast the object to a Button to check if it's a toggle button.
-    if(button && button->getUiElementData().isToggleButton)
+    if (button && button->getUiElementData().isToggleButton)
     {
-      for(const auto &it : m_uiGroups[groupID])
+      for (const auto &it : m_uiGroups[groupID])
         it->setVisibility(button->checkState());
       return;
     }
@@ -460,30 +460,26 @@ void UIManager::scaleCenterButtonImage(SDL_Rect &ret, int btnW, int btnH, int im
     float ratio = (float)imgW / (float)imgH;
     ret.w = static_cast<int>(ceil(btnW * ratio));
     ret.h = btnH;
-    ret.x = static_cast<int>(ceil((btnW - ret.w)/2));
+    ret.x = static_cast<int>(ceil((btnW - ret.w) / 2));
     ret.y = 0;
   }
 }
 
-void UIManager::setupButtonTileImage(Button *button, const std::pair<std::string, TileData>& tile)
+void UIManager::setupButtonTileImage(Button *button, const std::pair<std::string, TileData> &tile)
 {
-  int bWid = Settings::instance().subMenuButtonWidth; //UI button width for sub menues
+  int bWid = Settings::instance().subMenuButtonWidth;  //UI button width for sub menues
   int bHei = Settings::instance().subMenuButtonHeight; //UI button height for sub menues
 
   if (TileManager::instance().getTexture(tile.first, TileMap::DEFAULT) == nullptr)
   {
     button->setTextureID("Button_NoIcon");
   }
-  SDL_Rect destRect{button->getUiElementRect().x, button->getUiElementRect().y, 0, 0}; 
+  SDL_Rect destRect{button->getUiElementRect().x, button->getUiElementRect().y, 0, 0};
   scaleCenterButtonImage(destRect, bWid, bHei, tile.second.tiles.clippingWidth, tile.second.tiles.clippingHeight);
-  button->setTextureID(
-    TileManager::instance().getTexture(tile.first, TileMap::DEFAULT),
-    {tile.second.tiles.clippingWidth * tile.second.tiles.offset, 
-      0, 
-      tile.second.tiles.clippingWidth, 
-      tile.second.tiles.clippingHeight},
-    destRect
-    );
+  button->setTextureID(TileManager::instance().getTexture(tile.first, TileMap::DEFAULT),
+                       {tile.second.tiles.clippingWidth * tile.second.tiles.offset, 0, tile.second.tiles.clippingWidth,
+                        tile.second.tiles.clippingHeight},
+                       destRect);
 }
 
 void UIManager::createBuildMenu()
@@ -513,9 +509,8 @@ void UIManager::createBuildMenu()
   // check if there's a corresponding category for tiles for this menu ID.
   int idx = 0;
 
-  int bWid = Settings::instance().subMenuButtonWidth; //UI button width for sub menues
+  int bWid = Settings::instance().subMenuButtonWidth;  //UI button width for sub menues
   int bHei = Settings::instance().subMenuButtonHeight; //UI button height for sub menues
-
 
   for (auto &tile : TileManager::instance().getAllTileData())
   {
@@ -607,8 +602,8 @@ void UIManager::createBuildMenu()
         }
         else
         {
-          LOG(LOG_WARNING) << "Attempting to add element with ID \"" << button->getUiElementData().elementID << "\" to category \""
-                         << parentGroupName << "\" but the Category doesn't exist.";
+          LOG(LOG_WARNING) << "Attempting to add element with ID \"" << button->getUiElementData().elementID
+                           << "\" to category \"" << parentGroupName << "\" but the Category doesn't exist.";
         }
       }
       //  A base-button toggles a group with the same name as the MenuGroupID, so set ActionID and ActionParameter for all base buttons
@@ -822,4 +817,3 @@ void UIManager::changeFullScreenMode(UIElement *sender)
   WindowManager::instance().setFullScreenMode(static_cast<FULLSCREEN_MODE>(combobox->getActiveID()));
   Layout::arrangeElements();
 }
-
