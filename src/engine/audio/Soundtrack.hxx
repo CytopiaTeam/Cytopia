@@ -23,7 +23,6 @@ struct Soundtrack
 
   /**
    * @brief The ChannelID
-   * @
    */
   ChannelID Channel;
 
@@ -76,22 +75,8 @@ struct Soundtrack
   ALuint buffer;
 #endif
 
-  ~Soundtrack()
-  {
-    if (Chunks)
-      Mix_FreeChunk(Chunks);
-
-#ifdef USE_OPENAL_SOFT
-    if (buffer)
-    {
-      alDeleteBuffers(1, &buffer);
-    }
-    if (source)
-    {
-      alDeleteSources(1, &source);
-    }
-#endif
-  }
+  Soundtrack(SoundtrackID, ChannelID, Mix_Chunk*, RepeatCount, bool, bool, bool, bool);
+  ~Soundtrack();
 };
 
 using SoundtrackUPtr = std::unique_ptr<Soundtrack>;

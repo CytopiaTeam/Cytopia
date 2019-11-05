@@ -9,7 +9,7 @@ TEST_CASE("I can schedule a deferred task", "[engine][clock]")
 {
   GIVEN("I have a Game Clock running")
   {
-    GameService::ServiceTuple ctx = GameService::ServiceTuple{nullptr, nullptr, nullptr, nullptr, nullptr};
+    GameService::ServiceTuple ctx = GameService::ServiceTuple{};
     GameClock clock(ctx);
     WHEN("I schedule a callback to run in 3 seconds")
     {
@@ -39,7 +39,7 @@ TEST_CASE("I can schedule multiple deffered tasks", "[engine][clock]")
 {
   GIVEN("I have a Game Clock running")
   {
-    GameService::ServiceTuple ctx = GameService::ServiceTuple{nullptr, nullptr, nullptr, nullptr, nullptr};
+    GameService::ServiceTuple ctx = GameService::ServiceTuple{};
     GameClock clock(ctx);
     WHEN("I schedule multiple tasks with different delays")
     {

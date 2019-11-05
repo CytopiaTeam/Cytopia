@@ -18,6 +18,8 @@ set(SOURCE_FILES
         services/AudioMixer.{hxx,cxx}
         services/GameClock.{hxx,cxx}
         services/GameClock.inl.hxx
+        services/ResourceManager.{hxx,cxx}
+        services/ResourceManager.inl.hxx
         engine/basics/Camera.{hxx,cxx}
         engine/basics/isoMath.{hxx,cxx}
         engine/basics/mapEdit.{hxx,cxx}
@@ -25,6 +27,7 @@ set(SOURCE_FILES
         engine/basics/signal.hxx
         engine/basics/Timer.{hxx,cxx}
         engine/basics/utils.{hxx,cxx}
+        engine/audio/Soundtrack.{hxx,cxx}
         engine/common/Constants.hxx
         engine/common/enums.hxx
         engine/common/JsonSerialization.hxx

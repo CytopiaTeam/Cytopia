@@ -14,6 +14,7 @@
 #endif
 #include "services/Randomizer.hxx"
 #include "services/GameClock.hxx"
+#include "services/ResourceManager.hxx"
 #include "LOG.hxx"
 #include "Exception.hxx"
 
@@ -64,6 +65,7 @@ private:
 #endif
   Randomizer m_Randomizer;
   GameClock m_GameClock;
+  ResourceManager m_ResourceManager;
   UILoopMQ m_UILoopMQ;
   GameLoopMQ m_GameLoopMQ;
 

@@ -8,6 +8,7 @@
 #include <list>
 
 #include "audio/Soundtrack.hxx"
+#include "audio/AudioConfig.hxx"
 #include "../GameService.hxx"
 #include "../util/Meta.hxx"
 
@@ -16,8 +17,6 @@
 #include "AL/alc.h"
 #endif
 
-#include <thread>
-
 template <typename Key, typename Value> using Mapping = std::unordered_map<Key, Value>;
 template <typename Type, size_t N> using Array = std::array<Type, N>;
 using string = std::string;
@@ -25,17 +24,6 @@ template <typename Type> using Vector = std::vector<Type>;
 template <typename Type> using Set = std::unordered_set<Type>;
 template <typename Type> using List = std::list<Type>;
 
-struct AudioConfig
-{
-  struct SoundtrackConfiguration
-  {
-    string stereoFilePath;
-    string monoFilePath;
-    Vector<AudioTrigger> triggers;
-  };
-  Mapping<string, SoundtrackConfiguration> Music;
-  Mapping<string, SoundtrackConfiguration> Sound;
-};
 
 /**
  * @class AudioMixer
@@ -97,18 +85,6 @@ public:
   AudioMixer(GameService::ServiceTuple &);
   ~AudioMixer();
 
-  /**
-   * @brief Loads all game sounds, can be called in new thread
-   */
-  void loadAllSounds();
-
-  /**
-   * @brief joins the thread used to load sounds, if its still running
-   *        This must be called when all other threads are joining
-   *        when the application is closing, or else it won't close nicely.
-   */
-  void joinLoadThread();
-
   //for orientation of listener
   enum class ORIENTATION_INDEX : int
   {
@@ -149,17 +125,6 @@ private:
    */
   List<SoundtrackUPtr *> m_Playing;
 
-  /**
-   * @brief A separate thread for loading the sounds.
-   */
-  std::thread m_LoadSoundThread;
-
-  /**
-   * @brief if this becomes false then loading will stop.
-   *        it will be made false by the joinLoadThread function.
-   */
-  bool running = true;
-
   /* Event handlers */
   void handleEvent(const AudioTriggerEvent &&event);
 #ifdef USE_OPENAL_SOFT
@@ -182,17 +147,6 @@ private:
   void playSoundtrack(SoundtrackUPtr &soundtrack);
 
   /**
-   * @brief Loads all sounds into the AudioMixer
-   * @tparam Iterator an iterator to a Tuple<string, SoundtrackConfiguration>
-   * @tparam CallbackType a functor with signature (Soundtrack)(string, Mix_Chunk*)
-   * @param begin Iterator to the first item
-   * @param end Iterator to after the last item
-   * @param createSoundtrack The callback object
-   */
-  template <typename Iterator, typename CallbackType>
-  void loadSoundtrack(Iterator begin, Iterator end, CallbackType createSoundtrack = {});
-
-  /**
    * @brief Called whenever a Channel has finished playing
    * @param channelID the channel that has finished playing
    */
@@ -205,7 +159,7 @@ private:
 
   /**
    * @details Because of SDL_Mixer's poor design, we are forced to use a function
-   *          pointer. This means no lambda, no std::function, no std::bind. Our workaround this
+   *          pointer. This means no lambda, no std::function, no std::bind. Our workaround
    *          involves creating the onTrackFinishedFunc global function object which captures the AudioMixer object
    */
   static void onTrackFinishedFuncPtr(int channelID) { onTrackFinishedFunc(channelID); }
