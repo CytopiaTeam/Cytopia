@@ -13,7 +13,8 @@
 #include "services/AudioMixer.hxx"
 #endif
 #include "services/Randomizer.hxx"
-#include "engine/basics/LOG.hxx"
+#include "LOG.hxx"
+#include "Exception.hxx"
 
 #include <thread>
 
@@ -79,54 +80,54 @@ private:
   struct UIVisitor
   {
 
+    /**
+     * @brief handles invalid UI events
+     * @tparam ArgumentType the invalid event
+     */
     template<typename ArgumentType>
-    void operator()(ArgumentType&& event)
-    {
-      static_assert(std::is_void_v<std::void_t<ArgumentType>>, "UIVisitor does not know how to handle this event. You must specialize the functor");
-    }
+    void operator()(ArgumentType&& event);
 
+    /**
+     * @brief handles TransitiveStateChange messages
+     * @tparam TransitiveType the type which transitions
+     */
     template<typename TransitiveType>
-    void operator()(TransitiveStateChange<TransitiveType>&& event)
-    {
-      if(auto uiTarget = event.target.lock())
-      {
-        uiTarget->update(event.data);
-      }
-    }
+    void operator()(TransitiveStateChange<TransitiveType>&& event);
 
   };
+    
+  using AudioEvents = TypeList<
+    AudioTriggerEvent,
+    AudioTriggerEvent,
+    AudioTrigger3DEvent,
+    AudioPlayEvent, 
+    AudioPlay3DEvent, 
+    AudioMusicVolumeChangeEvent, 
+    AudioSoundVolumeChangeEvent, 
+    AudioSetMutedEvent
+    >;
 
   struct GameVisitor : public GameService
   {
 
-    using AudioEvents = TypeList<
-      AudioTriggerEvent,
-      AudioTriggerEvent,
-      AudioTrigger3DEvent,
-      AudioPlayEvent, 
-      AudioPlay3DEvent, 
-      AudioMusicVolumeChangeEvent, 
-      AudioSoundVolumeChangeEvent, 
-      AudioSetMutedEvent
-      >;
-
+    /**
+     * @brief handles valid Audio events
+     * @tparam AudioEventType the Audio event
+     */
     template <typename AudioEventType>
     EnableIf<ContainsType<AudioEvents, AudioEventType>, void>
-    operator()(AudioEventType&& event)
-    {
-      GetService<AudioMixer>().handleEvent(std::move(event));
-    }
+    operator()(AudioEventType&& event);
 
+    /**
+     * @brief handles invalid game events
+     * @tparam ArgumentType the invalid game event
+     */
     template<typename ArgumentType>
-    void operator()(const ArgumentType&& event)
-    {
-      string ErrorMsg = "Unimplemented Error: ";
-      ErrorMsg += __PRETTY_FUNCTION__;
-      ErrorMsg += " is not implemented";
-      throw RuntimeError(ErrorMsg);
-    }
+    void operator()(const ArgumentType&& event);
 
   };
 };
+
+#include "Game.inl.hxx"
 
 #endif

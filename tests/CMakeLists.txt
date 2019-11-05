@@ -54,6 +54,7 @@ LIST(APPEND TEST_SOURCES
         util/Observer.cxx
         util/TransitiveModel.cxx
         util/MessageQueue.cxx
+        util/LOG.cxx
         )
 
 # Generate source groups for use in IDEs

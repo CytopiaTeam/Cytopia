@@ -6,7 +6,7 @@ services:
 env:
   global:
     - GITHUB_REPO:      CytopiaTeam/Cytopia
-
+    - CTEST_OUTPUT_ON_FAILURE: 1
 
 cache:
   timeout:              1000
@@ -125,6 +125,7 @@ matrix:
 
       script:
         - make
+        - cp -R data/resources bin/resources
         - ctest
         - make package
 

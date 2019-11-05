@@ -73,7 +73,7 @@ public:
       notifyObservers(m_x, m_y, m_z);
     }
   }
-  virtual inline void onObserverExpired(ObserverWPtr<int, bool, string> observer) noexcept final {}
+  virtual inline void onObserverExpired() noexcept final {}
 };
 
 class MyListener
