@@ -27,7 +27,7 @@ std::string compressString(const std::string &stringToCompress)
 
   if (deflateInit(&zstream, Z_BEST_COMPRESSION) != Z_OK)
   {
-    if(zstream.msg)
+    if (zstream.msg)
       throw CompressionError(TRACE_INFO "Failed initialize Zlib stream: " + string{zstream.msg});
     throw CompressionError(TRACE_INFO "Failed initialize Zlib stream");
   }
@@ -53,7 +53,7 @@ std::string compressString(const std::string &stringToCompress)
 
   if (deflateResult != Z_STREAM_END)
   {
-    if(zstream.msg)
+    if (zstream.msg)
       throw CompressionError(TRACE_INFO "Error while compressing file: " + string{zstream.msg});
     throw CompressionError(TRACE_INFO "Error while compressing file");
   }
@@ -81,7 +81,7 @@ std::string decompressString(const std::string &compressedString)
 
   if (inflateInit(&zstream) != Z_OK)
   {
-    if(zstream.msg)
+    if (zstream.msg)
       throw CompressionError(TRACE_INFO "Failed initialize Zlib stream: " + string{zstream.msg});
     throw CompressionError(TRACE_INFO "Failed initialize Zlib stream");
   }
@@ -108,7 +108,7 @@ std::string decompressString(const std::string &compressedString)
 
   if (inflateResult != Z_STREAM_END)
   {
-    if(zstream.msg)
+    if (zstream.msg)
       throw CompressionError(TRACE_INFO "Error while decompressing file: " + string{zstream.msg});
     throw CompressionError(TRACE_INFO "Error while decompressing file");
   }

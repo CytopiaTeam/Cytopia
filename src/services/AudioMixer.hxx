@@ -11,7 +11,6 @@
 #include "../GameService.hxx"
 #include "../util/Meta.hxx"
 
-
 #ifdef USE_OPENAL_SOFT
 #include "AL/al.h"
 #include "AL/alc.h"
@@ -19,17 +18,12 @@
 
 #include <thread>
 
-template <typename Key, typename Value> 
-using Mapping = std::unordered_map<Key, Value>;
-template <typename Type, size_t N>
-using Array = std::array<Type, N>;
+template <typename Key, typename Value> using Mapping = std::unordered_map<Key, Value>;
+template <typename Type, size_t N> using Array = std::array<Type, N>;
 using string = std::string;
-template <typename Type>
-using Vector = std::vector<Type>;
-template<typename Type>
-using Set = std::unordered_set<Type>;
-template <typename Type>
-using List = std::list<Type>;
+template <typename Type> using Vector = std::vector<Type>;
+template <typename Type> using Set = std::unordered_set<Type>;
+template <typename Type> using List = std::list<Type>;
 
 struct AudioConfig
 {
@@ -49,7 +43,6 @@ struct AudioConfig
 class AudioMixer : public GameService
 {
 public:
-
   using DEFAULT_CHANNELS = Constant<4>;
 
   /**
@@ -70,38 +63,38 @@ public:
    * @brief Plays a Soundtrack given its ID
    * @param ID the SoundtrackID
    */
-  void play(SoundtrackID&& ID) noexcept;
+  void play(SoundtrackID &&ID) noexcept;
 
   /**
    * @brief Plays a random Soundtrack from a trigger
    * @param trigger the AudioTrigger
    */
-  void play(AudioTrigger&& trigger) noexcept;
+  void play(AudioTrigger &&trigger) noexcept;
 
   /**
    * @brief Plays a 3D Soundtrack given its ID
    * @param ID the SoundtrackID
    * @param position the Coordinate3D position of the sound
    */
-   #ifdef USE_OPENAL_SOFT
-  void play(SoundtrackID&& ID, Coordinate3D&& position) noexcept;
-	#endif
-	
-  /**
+#ifdef USE_OPENAL_SOFT
+  void play(SoundtrackID &&ID, Coordinate3D &&position) noexcept;
+#endif
+
+/**
    * @brief Plays a 3D Soundtrack from a trigger
    * @param trigger the AudioTrigger
    * @param position the Coordinate3D position of the sound
    */
-  #ifdef USE_OPENAL_SOFT
-  void play(AudioTrigger&& trigger, Coordinate3D&& position) noexcept;
-  #endif
+#ifdef USE_OPENAL_SOFT
+  void play(AudioTrigger &&trigger, Coordinate3D &&position) noexcept;
+#endif
   /**
    * @brief stops all sounds
    * @param isMuted is muted
    */
   void setMuted(bool isMuted) noexcept;
 
-  AudioMixer(GameService::ServiceTuple&);
+  AudioMixer(GameService::ServiceTuple &);
   ~AudioMixer();
 
   /**
@@ -115,35 +108,46 @@ public:
    *        when the application is closing, or else it won't close nicely.
    */
   void joinLoadThread();
-  
-  //for orientation of listener
-	enum class ORIENTATION_INDEX : int { FORWARD_X=0, FORWARD_Y=1, FORWARD_Z=2,
-														 UP_X=3, UP_Y=4, UP_Z=5 };
 
-	//for position of listener
-	enum class POSITION_INDEX : int { X=0, Y=1, Z=2 };
+  //for orientation of listener
+  enum class ORIENTATION_INDEX : int
+  {
+    FORWARD_X = 0,
+    FORWARD_Y = 1,
+    FORWARD_Z = 2,
+    UP_X = 3,
+    UP_Y = 4,
+    UP_Z = 5
+  };
+
+  //for position of listener
+  enum class POSITION_INDEX : int
+  {
+    X = 0,
+    Y = 1,
+    Z = 2
+  };
 
 private:
-
   /**
    * @brief All the available soundtracks
    */
   Vector<SoundtrackUPtr> m_Soundtracks;
-  
+
   /**
    * @brief A Mapping between triggers and SoundtrackID
    */
   Array<Vector<SoundtrackID>, AudioTrigger::_size()> m_Triggers;
-  
+
   /**
    * @brief A Mapping between SoundtrackID and Soundtrack
    */
-  Mapping<SoundtrackID, SoundtrackUPtr*> m_GetSound;
+  Mapping<SoundtrackID, SoundtrackUPtr *> m_GetSound;
 
   /**
    * @brief All the currently playing Soundtracks
    */
-  List<SoundtrackUPtr*> m_Playing;
+  List<SoundtrackUPtr *> m_Playing;
 
   /**
    * @brief A separate thread for loading the sounds.
@@ -157,25 +161,25 @@ private:
   bool running = true;
 
   /* Event handlers */
-  void handleEvent(const AudioTriggerEvent&& event);
-  #ifdef USE_OPENAL_SOFT
-  void handleEvent(const AudioTrigger3DEvent&& event);
-  #endif
-  void handleEvent(const AudioPlayEvent&& event);
-  #ifdef USE_OPENAL_SOFT
-  void handleEvent(const AudioPlay3DEvent&& event);
-  #endif
-  void handleEvent(const AudioSoundVolumeChangeEvent&& event);
-  void handleEvent(const AudioMusicVolumeChangeEvent&& event);
-  void handleEvent(const AudioSetMutedEvent&& event);
+  void handleEvent(const AudioTriggerEvent &&event);
+#ifdef USE_OPENAL_SOFT
+  void handleEvent(const AudioTrigger3DEvent &&event);
+#endif
+  void handleEvent(const AudioPlayEvent &&event);
+#ifdef USE_OPENAL_SOFT
+  void handleEvent(const AudioPlay3DEvent &&event);
+#endif
+  void handleEvent(const AudioSoundVolumeChangeEvent &&event);
+  void handleEvent(const AudioMusicVolumeChangeEvent &&event);
+  void handleEvent(const AudioSetMutedEvent &&event);
 
   /* Helpers */
-  
+
   /**
    * @brief Plays the Soundtrack
    * @param soundtrack the Soundtrack
    */
-  void playSoundtrack(SoundtrackUPtr& soundtrack);
+  void playSoundtrack(SoundtrackUPtr &soundtrack);
 
   /**
    * @brief Loads all sounds into the AudioMixer
@@ -186,8 +190,7 @@ private:
    * @param createSoundtrack The callback object
    */
   template <typename Iterator, typename CallbackType>
-  void loadSoundtrack(Iterator begin, Iterator end, 
-      CallbackType createSoundtrack = {});
+  void loadSoundtrack(Iterator begin, Iterator end, CallbackType createSoundtrack = {});
 
   /**
    * @brief Called whenever a Channel has finished playing
@@ -208,23 +211,22 @@ private:
   static void onTrackFinishedFuncPtr(int channelID) { onTrackFinishedFunc(channelID); }
 
   friend class Game;
-  
-  //openal soft stuff
-  #ifdef USE_OPENAL_SOFT
-  
+
+//openal soft stuff
+#ifdef USE_OPENAL_SOFT
+
   //OpenAL Soft sound setup variables
   /**
    * @brief OpenAL Soft setup, audio device to be used
    */
-  ALCdevice* gAudioDevice; 
-  
+  ALCdevice *gAudioDevice;
+
   /**
    * @brief OpenAL Soft setup, context of where audio is played
    */
-  ALCcontext* alContext; 
-  
-  #endif
+  ALCcontext *alContext;
 
+#endif
 };
 
 #endif

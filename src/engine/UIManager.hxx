@@ -185,13 +185,13 @@ private:
   void scaleCenterButtonImage(SDL_Rect &ret, int btnW, int btnH, int imgW, int imgH);
   void createBuildMenu();
   void setBuildMenuLayout();
-  
+
   /**
    * @brief Draws the tile (defined by the string, tiledata pair) onto the button
    * @param button, the button to draw this image on
    * @param The id string, tileData pair of the tile that defines the image to be drawn
    */
-  void setupButtonTileImage(Button *button, const std::pair<std::string, TileData>& tile);
+  void setupButtonTileImage(Button *button, const std::pair<std::string, TileData> &tile);
 
   bool m_showDebugMenu = false;
 

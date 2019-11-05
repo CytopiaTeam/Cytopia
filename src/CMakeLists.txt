@@ -3,8 +3,16 @@ set(SOURCE_FILES
         Game.{hxx,cxx}
         Game.inl.hxx
         util/LOG.{hxx,cxx}
+        util/LOG.inl.hxx
         util/filesystem.hxx
-        GameService.hxx
+        util/IEquatable.hxx
+        util/IEquatable.inl.hxx
+        util/Singleton.hxx
+        util/Meta.hxx
+        util/Exception.{hxx,cxx}
+        util/MessageQueue.hxx
+        util/MessageQueue.inl.hxx
+        GameService.{hxx,cxx}
         GameService.inl.hxx
         services/Randomizer.{hxx,cxx}
         engine/basics/Camera.{hxx,cxx}
@@ -42,9 +50,6 @@ set(SOURCE_FILES
         engine/TileManager.{hxx,cxx}
         engine/UIManager.{hxx,cxx}
         engine/WindowManager.{hxx,cxx}
-        util/Singleton.hxx
-        util/Meta.hxx
-        util/Exception.{hxx,cxx}
         )
 
 list(APPEND _include_directories

@@ -18,46 +18,45 @@
 
 #include <thread>
 
-
 using Thread = std::thread;
 using RuntimeError = std::runtime_error;
 
 class Game
 {
 public:
-  Game() :
-#ifdef USE_SDL2_MIXER
-          m_AudioMixer{m_GameContext},
-#endif
-          m_Randomizer{m_GameContext},
-          m_UILoopMQ{},
-          m_GameLoopMQ{},
-          m_GameContext(m_UILoopMQ, m_GameLoopMQ, m_AudioMixer, m_Randomizer),
-          m_UILoop(&LoopMain<UILoopMQ, UIVisitor>, std::ref(m_GameContext), UIVisitor{}),
-          m_EventLoop(&LoopMain<GameLoopMQ, GameVisitor>, std::ref(m_GameContext), GameVisitor{m_GameContext})
-          { }
+  /**
+   * @brief Creates a game
+   * @details Initializes all GameServices and starts the threads
+   */
+  Game();
+
+  /**
+   * @brief Destroy a game
+   */
   virtual ~Game() = default;
-  
+
   /** @brief starts setting up the game
     * starts game initialization.
     */
   virtual bool initialize();
+
   /** @brief begins the game
     * starts running the game
     * @param SkipMenu if the main menu should be skipped or not
     */
   virtual void run(bool SkipMenu = false);
+
   /** @brief ends the game
     * shuts down the game
     */
   virtual void shutdown();
+
   /** @brief initializes and displays the main menu
     * initializes and displays the main menu
     */
   virtual void mainMenu();
 
 private:
-
   /* Services */
 #ifdef USE_SDL2_MIXER
   AudioMixer m_AudioMixer;
@@ -74,8 +73,7 @@ private:
   Thread m_UILoop;
   Thread m_EventLoop;
 
-  template <typename MQType, typename Visitor>
-  static void LoopMain(GameContext& context, Visitor visitor);
+  template <typename MQType, typename Visitor> static void LoopMain(GameContext &context, Visitor visitor);
 
   struct UIVisitor
   {
@@ -84,28 +82,14 @@ private:
      * @brief handles invalid UI events
      * @tparam ArgumentType the invalid event
      */
-    template<typename ArgumentType>
-    void operator()(ArgumentType&& event);
+    template <typename ArgumentType> void operator()(ArgumentType &&event);
 
     /**
      * @brief handles TransitiveStateChange messages
      * @tparam TransitiveType the type which transitions
      */
-    template<typename TransitiveType>
-    void operator()(TransitiveStateChange<TransitiveType>&& event);
-
+    template <typename TransitiveType> void operator()(TransitiveStateChange<TransitiveType> &&event);
   };
-    
-  using AudioEvents = TypeList<
-    AudioTriggerEvent,
-    AudioTriggerEvent,
-    AudioTrigger3DEvent,
-    AudioPlayEvent, 
-    AudioPlay3DEvent, 
-    AudioMusicVolumeChangeEvent, 
-    AudioSoundVolumeChangeEvent, 
-    AudioSetMutedEvent
-    >;
 
   struct GameVisitor : public GameService
   {
@@ -115,16 +99,13 @@ private:
      * @tparam AudioEventType the Audio event
      */
     template <typename AudioEventType>
-    EnableIf<ContainsType<AudioEvents, AudioEventType>, void>
-    operator()(AudioEventType&& event);
+    EnableIf<ContainsType<AudioEvents, AudioEventType>, void> operator()(AudioEventType &&event);
 
     /**
      * @brief handles invalid game events
      * @tparam ArgumentType the invalid game event
      */
-    template<typename ArgumentType>
-    void operator()(const ArgumentType&& event);
-
+    template <typename ArgumentType> void operator()(const ArgumentType &&event);
   };
 };
 

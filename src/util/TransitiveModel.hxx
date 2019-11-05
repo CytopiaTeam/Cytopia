@@ -76,7 +76,7 @@ private:
     {
       return m_Filters.at(observer).count(event.getType()) == 1;
     }
-    catch(...)
+    catch (...)
     {
       return true;
     }

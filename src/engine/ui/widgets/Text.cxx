@@ -37,8 +37,8 @@ void Text::setFontSize(int fontSize)
 void Text::createTextTexture(const std::string &text, const SDL_Color &textColor)
 {
   LOG(LOG_DEBUG) << "Creating a Text texture";
-  string fontFName = SDL_GetBasePath() + Settings::instance().fontFileName.get(); 
-  
+  string fontFName = SDL_GetBasePath() + Settings::instance().fontFileName.get();
+
   /* @todo: Remove comment once we have support for the filesystem library
   if(!fs::is_regular_file(fontFName))
     throw ConfigurationError(TRACE_INFO "File " + fontFName.string() + " doesn't exist");
@@ -55,10 +55,10 @@ void Text::createTextTexture(const std::string &text, const SDL_Color &textColor
 
   SDL_Surface *textSurface = TTF_RenderText_Solid(font, text.c_str(), textColor);
   TTF_CloseFont(font);
-  
-  if(!textSurface)
+
+  if (!textSurface)
     throw UIError(TRACE_INFO "Failed to create text surface: " + string{TTF_GetError()});
-  
+
   SDL_Rect _textRect{0, 0, 0, 0};
 
   m_texture = SDL_CreateTextureFromSurface(WindowManager::instance().getRenderer(), textSurface);
@@ -75,5 +75,4 @@ void Text::createTextTexture(const std::string &text, const SDL_Color &textColor
 
   if (!m_texture)
     throw UIError(TRACE_INFO "Failed to create texture from text surface: " + string{SDL_GetError()});
-
 }

@@ -11,7 +11,6 @@
 #include <SDL.h>
 #include <SDL_ttf.h>
 
-
 #ifdef USE_ANGELSCRIPT
 #include "Scripting/ScriptEngine.hxx"
 #endif
@@ -24,8 +23,20 @@
 #include "microprofile.h"
 #endif
 
-template void Game::LoopMain<GameLoopMQ, Game::GameVisitor>(Game::GameContext&, Game::GameVisitor);
-template void Game::LoopMain<UILoopMQ, Game::UIVisitor>(Game::GameContext&, Game::UIVisitor);
+template void Game::LoopMain<GameLoopMQ, Game::GameVisitor>(Game::GameContext &, Game::GameVisitor);
+template void Game::LoopMain<UILoopMQ, Game::UIVisitor>(Game::GameContext &, Game::UIVisitor);
+
+Game::Game()
+    :
+#ifdef USE_SDL2_MIXER
+      m_AudioMixer{m_GameContext},
+#endif
+      m_Randomizer{m_GameContext}, m_UILoopMQ{}, m_GameLoopMQ{},
+      m_GameContext(m_UILoopMQ, m_GameLoopMQ, m_AudioMixer, m_Randomizer),
+      m_UILoop(&LoopMain<UILoopMQ, UIVisitor>, std::ref(m_GameContext), UIVisitor{}),
+      m_EventLoop(&LoopMain<GameLoopMQ, GameVisitor>, std::ref(m_GameContext), GameVisitor{m_GameContext})
+{
+}
 
 bool Game::initialize()
 {
@@ -88,7 +99,7 @@ void Game::mainMenu()
   Button loadGameButton({screenWidth / 2 - 100, screenHeight / 2 - 20 + newGameButton.getUiElementRect().h * 2, 200, 40});
   loadGameButton.setText("Load Game");
   loadGameButton.registerCallbackFunction([]() { Engine::instance().loadGame("resources/save.cts"); });
-  
+
   Button quitGameButton({screenWidth / 2 - 100, screenHeight / 2 - 20 + loadGameButton.getUiElementRect().h * 4, 200, 40});
   quitGameButton.setText("Quit Game");
   quitGameButton.registerCallbackFunction([]() { Engine::instance().quitGame(); });
@@ -213,19 +224,19 @@ void Game::run(bool SkipMenu)
 #endif
 
 #ifdef USE_SDL2_MIXER
-  #ifdef USE_OPENAL_SOFT
+#ifdef USE_OPENAL_SOFT
   //change to 0,0,0 for regular stereo music
-  if(Settings::instance().audio3DStatus)
+  if (Settings::instance().audio3DStatus)
   {
-	  m_AudioMixer.play(AudioTrigger::MainTheme,Coordinate3D{0,0,-4});
+    m_AudioMixer.play(AudioTrigger::MainTheme, Coordinate3D{0, 0, -4});
   }
   else
   {
-	  m_AudioMixer.play(AudioTrigger::MainTheme);
+    m_AudioMixer.play(AudioTrigger::MainTheme);
   }
-  #else
+#else
   m_AudioMixer.play(AudioTrigger::MainTheme);
-  #endif
+#endif
 #endif
 
   // FPS Counter variables
@@ -290,14 +301,13 @@ void Game::shutdown()
   SDL_Quit();
 }
 
-template <typename MQType, typename Visitor>
-void Game::LoopMain(GameContext& context, Visitor visitor)
+template <typename MQType, typename Visitor> void Game::LoopMain(GameContext &context, Visitor visitor)
 {
   try
   {
-    while(true)
+    while (true)
     {
-      for(auto event : std::get<MQType&>(context).getEnumerable())
+      for (auto event : std::get<MQType &>(context).getEnumerable())
       {
         if (std::holds_alternative<TerminateEvent>(event))
         {
@@ -310,10 +320,9 @@ void Game::LoopMain(GameContext& context, Visitor visitor)
       }
     }
   }
-  catch(std::exception& ex)
+  catch (std::exception &ex)
   {
     LOG(LOG_ERROR) << ex.what();
     // @todo: Call shutdown() here in a safe way
   }
 }
-

@@ -12,7 +12,7 @@ WindowManager::WindowManager()
                               Settings::instance().screenHeight, 0);
   if (!m_window)
     throw UIError(TRACE_INFO "Failed to create window: " + string{SDL_GetError()});
-  
+
   // Note that providing no flags gives priority to available SDL_RENDERER_ACCELERATED renderers. This should fallback to Software if no renderer is available.
   m_renderer = SDL_CreateRenderer(m_window, -1, 0);
 
@@ -22,7 +22,7 @@ WindowManager::WindowManager()
   string iconFName = SDL_GetBasePath() + m_windowIcon;
   SDL_Surface *icon = IMG_Load(iconFName.c_str());
 
-  if(!icon)
+  if (!icon)
     throw UIError(TRACE_INFO "Could not load icon " + iconFName + ": " + IMG_GetError());
 
   SDL_SetWindowIcon(m_window, icon);
