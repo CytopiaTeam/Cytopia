@@ -15,6 +15,9 @@ set(SOURCE_FILES
         GameService.{hxx,cxx}
         GameService.inl.hxx
         services/Randomizer.{hxx,cxx}
+        services/AudioMixer.{hxx,cxx}
+        services/GameClock.{hxx,cxx}
+        services/GameClock.inl.hxx
         engine/basics/Camera.{hxx,cxx}
         engine/basics/isoMath.{hxx,cxx}
         engine/basics/mapEdit.{hxx,cxx}

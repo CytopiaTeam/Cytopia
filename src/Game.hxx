@@ -13,6 +13,7 @@
 #include "services/AudioMixer.hxx"
 #endif
 #include "services/Randomizer.hxx"
+#include "services/GameClock.hxx"
 #include "LOG.hxx"
 #include "Exception.hxx"
 
@@ -62,11 +63,12 @@ private:
   AudioMixer m_AudioMixer;
 #endif
   Randomizer m_Randomizer;
+  GameClock m_GameClock;
   UILoopMQ m_UILoopMQ;
   GameLoopMQ m_GameLoopMQ;
 
   /* Game context */
-  using GameContext = typename TupleType<GameService::Types>::type;
+  using GameContext = GameService::ServiceTuple;
   GameContext m_GameContext;
 
   /* Threads */

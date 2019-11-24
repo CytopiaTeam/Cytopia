@@ -31,8 +31,8 @@ Game::Game()
 #ifdef USE_SDL2_MIXER
       m_AudioMixer{m_GameContext},
 #endif
-      m_Randomizer{m_GameContext}, m_UILoopMQ{}, m_GameLoopMQ{},
-      m_GameContext(m_UILoopMQ, m_GameLoopMQ, m_AudioMixer, m_Randomizer),
+      m_GameClock{m_GameContext}, m_Randomizer{m_GameContext}, m_UILoopMQ{}, m_GameLoopMQ{},
+      m_GameContext(&m_UILoopMQ, &m_GameLoopMQ, &m_AudioMixer, &m_Randomizer, &m_GameClock),
       m_UILoop(&LoopMain<UILoopMQ, UIVisitor>, std::ref(m_GameContext), UIVisitor{}),
       m_EventLoop(&LoopMain<GameLoopMQ, GameVisitor>, std::ref(m_GameContext), GameVisitor{m_GameContext})
 {
@@ -307,7 +307,7 @@ template <typename MQType, typename Visitor> void Game::LoopMain(GameContext &co
   {
     while (true)
     {
-      for (auto event : std::get<MQType &>(context).getEnumerable())
+      for (auto event : std::get<MQType *>(context)->getEnumerable())
       {
         if (std::holds_alternative<TerminateEvent>(event))
         {

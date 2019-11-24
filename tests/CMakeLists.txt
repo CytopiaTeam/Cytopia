@@ -49,6 +49,7 @@ LIST(APPEND TEST_SOURCES
         engine/ResourcesManager.cxx
         engine/Engine.cxx
         engine/WindowManager.cxx
+        services/GameClock.cxx
         ui/widgets/Text.cxx
         util/Meta.cxx
         util/Observer.cxx
