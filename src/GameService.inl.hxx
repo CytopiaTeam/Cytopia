@@ -16,5 +16,5 @@ template <typename ServiceInner, typename Tag> struct GameService::require_servi
 
 template <typename ServiceType> ServiceType &GameService::GetService()
 {
-  return std::get<typename require_service_type<ServiceType &>::type>(m_Services);
+  return *std::get<typename require_service_type<ServiceType *>::type>(m_Services);
 }
