@@ -82,6 +82,19 @@ public:
    */
   void setMuted(bool isMuted) noexcept;
 
+  /**
+   * @brief Stops all soundtracks
+   */
+  void stopAll() noexcept;
+
+  /**
+   * @brief Updates soundtracks that are no longer playing
+   */
+  void prune() noexcept;
+
+  /**
+   * @pre GameClock must be initialized
+   */
   AudioMixer(GameService::ServiceTuple &);
   ~AudioMixer();
 
@@ -137,6 +150,8 @@ private:
   void handleEvent(const AudioSoundVolumeChangeEvent &&event);
   void handleEvent(const AudioMusicVolumeChangeEvent &&event);
   void handleEvent(const AudioSetMutedEvent &&event);
+  void handleEvent(const AudioStopEvent &&event);
+  void handleEvent(const AudioPruneEvent &&event);
 
   /* Helpers */
 

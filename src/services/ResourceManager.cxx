@@ -13,8 +13,7 @@
 using ifstream = std::ifstream;
 using nlohmann::json;
 
-ResourceManager::ResourceManager(GameService::ServiceTuple & services) :
-  GameService(services)
+ResourceManager::ResourceManager(GameService::ServiceTuple &services) : GameService(services), m_Age(0), m_CacheSize(0)
 {
   string fName = SDL_GetBasePath() + Settings::instance().audioConfigJSONFile.get();
   ifstream ifs(fName);
@@ -30,7 +29,6 @@ void ResourceManager::fetch(SoundtrackID id)
   if(m_soundtracks.count(id) > 0)
   {
     m_soundtracks[id].age = m_Age++;
-    if(m_soundtracks.size() > MAX_RESOURCES::value) prune();
     return;
   }
   string filepath;
@@ -51,9 +49,11 @@ void ResourceManager::fetch(SoundtrackID id)
   Mix_Chunk *chunk = Mix_LoadWAV(filepath.c_str());
   if (!chunk)
     throw AudioError(TRACE_INFO "Could not read sound file: " + string{Mix_GetError()});
+  m_CacheSize += sizeof(Mix_Chunk) + sizeof(Soundtrack) + sizeof(SoundtrackResource) + chunk->alen;
   auto soundtrack = new Soundtrack{id, ChannelID{-1}, chunk, RepeatCount{0}, isMusic, false, true, true};
   m_soundtracks[id] = SoundtrackResource{ SoundtrackUPtr{soundtrack}, m_Age++ };
-  if(m_soundtracks.size() > MAX_RESOURCES::value) prune();
+  LOG(LOG_INFO) << "Resource cache is now at " << (m_CacheSize / 1000000) << "MB";
+  if (m_CacheSize > MAX_RESOURCE_BYTES::value) prune();
 }
 
 void ResourceManager::prune()
@@ -68,13 +68,28 @@ void ResourceManager::prune()
       all_ages.cend(),
       AgeIterator{m_soundtracks.begin()}, 
       AgeIterator{m_soundtracks.end()});
-  std::nth_element(all_ages.begin(), all_ages.end() + total_size, all_ages.end());
+  std::nth_element(all_ages.begin(), all_ages.begin() + total_size, all_ages.end());
   uint32_t median = all_ages[total_size];
-  for(auto it = m_soundtracks.begin(); it != m_soundtracks.end(); ++it)
+  for(auto it = m_soundtracks.begin(); it != m_soundtracks.end();)
   {
-    if(it->second.age < median) m_soundtracks.erase(it);
-    else it->second.age = 0;
+    if(it->second.age < median and !it->second.resource->isPlaying) 
+	{
+#ifdef USE_OPENAL_SOFT
+		int sizeBytes = 0;
+		alGetBufferi(it->second.resource->buffer, AL_SIZE, &sizeBytes);
+		m_CacheSize -= sizeof(Mix_Chunk) + sizeof(Soundtrack) + sizeof(SoundtrackUPtr) + sizeBytes;
+#else // USE_OPENAL_SOFT
+          m_CacheSize -= sizeof(Mix_Chunk) + sizeof(Soundtrack) + sizeof(SoundtrackUPtr) + it->second.resource->Chunks->alen;
+#endif
+		it = m_soundtracks.erase(it);
+	}
+	else
+	{
+		it->second.age = 0;
+		it++; 
+	}
   }
   m_Age = 0;
+  LOG(LOG_INFO) << "After eviction, cache is " << (m_CacheSize / 1000000) << "MB";
 }
 

@@ -59,19 +59,20 @@ public:
   virtual void mainMenu();
 
 private:
-  /* Services */
-#ifdef USE_SDL2_MIXER
-  AudioMixer m_AudioMixer;
-#endif
-  Randomizer m_Randomizer;
-  GameClock m_GameClock;
-  ResourceManager m_ResourceManager;
-  UILoopMQ m_UILoopMQ;
-  GameLoopMQ m_GameLoopMQ;
-
   /* Game context */
   using GameContext = GameService::ServiceTuple;
   GameContext m_GameContext;
+	
+  /* Services */
+  GameClock m_GameClock;
+  Randomizer m_Randomizer;
+  ResourceManager m_ResourceManager;
+#ifdef USE_SDL2_MIXER
+  AudioMixer m_AudioMixer;
+#endif
+  UILoopMQ m_UILoopMQ;
+  GameLoopMQ m_GameLoopMQ;
+
 
   /* Threads */
   Thread m_UILoop;

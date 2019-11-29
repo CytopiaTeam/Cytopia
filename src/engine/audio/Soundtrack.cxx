@@ -4,8 +4,19 @@
 #include "../basics/Settings.hxx"
 
 Soundtrack::Soundtrack(SoundtrackID id, ChannelID channelID, Mix_Chunk *chunks, RepeatCount repeat, bool isMusic, bool isPlaying, bool isPlayable, bool isTriggerable)
-    : ID(id), Channel(channelID), Chunks(chunks), Loop(repeat), isMusic(isMusic), isPlaying(isPlaying), isPlayable(isPlayable),
-      isTriggerable(isTriggerable)
+    : 
+	ID(id), 
+	Channel(channelID),
+	Loop(repeat), 
+	isMusic(isMusic), 
+	isPlaying(isPlaying), 
+	isPlayable(isPlayable),
+    isTriggerable(isTriggerable),
+#ifdef USE_OPENAL_SOFT
+      source(0), buffer(0)
+#else  // USE_OPENAL_SOFT
+      Chunks(chunks)
+#endif // USE_OPENAL_SOFT
 {
   /* initialize buffer */
   alGenBuffers(1, &buffer);
@@ -16,8 +27,11 @@ Soundtrack::Soundtrack(SoundtrackID id, ChannelID channelID, Mix_Chunk *chunks, 
   /* set buffer data */
   ALenum format = Settings::instance().audio3DStatus ? AL_FORMAT_MONO16 : AL_FORMAT_STEREO16;
   /* parameters: buffer, format, data, sample length, frequency(sample rate) */
-  alBufferData(buffer, format, Chunks->abuf, Chunks->alen,
+  alBufferData(buffer, format, chunks->abuf, chunks->alen,
                44100);
+
+  /* delete chunks */
+  Mix_FreeChunk(chunks);
 
   /* initialize source */
   alGenSources(1, &source);
@@ -28,17 +42,18 @@ Soundtrack::Soundtrack(SoundtrackID id, ChannelID channelID, Mix_Chunk *chunks, 
 
   /* attach buffer to source */
   alSourcei(source, AL_BUFFER, buffer);
+
 }
 
 Soundtrack::~Soundtrack()
 {
+#ifdef USE_OPENAL_SOFT
+  if (alIsSource(source))
+    alDeleteSources(1, &source);
+  if (alIsBuffer(buffer))
+    alDeleteBuffers(1, &buffer);
+#else // USE_OPENAL_SOFT
   if (Chunks)
     Mix_FreeChunk(Chunks);
-
-#ifdef USE_OPENAL_SOFT
-  if (buffer)
-    alDeleteBuffers(1, &buffer);
-  if (source)
-    alDeleteSources(1, &source);
-#endif
+#endif // USE_OPENAL_SOFT
 }

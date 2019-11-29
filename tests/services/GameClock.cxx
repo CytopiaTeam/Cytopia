@@ -16,7 +16,7 @@ TEST_CASE("I can schedule a deferred task", "[engine][clock]")
       auto begin = std::chrono::system_clock::now();
       std::chrono::seconds dt;
       std::atomic<bool> isDone = false;
-      clock.registerTimer(3s, [&begin, &dt, &isDone]() {
+      clock.createDefferedTask(3s, [&begin, &dt, &isDone]() {
         dt = std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now() - begin);
         isDone = true;
       });
@@ -45,13 +45,13 @@ TEST_CASE("I can schedule multiple deffered tasks", "[engine][clock]")
     {
       std::array order {0, 0, 0};
       int rank = 1;
-      clock.registerTimer(1s, [&order, &rank]() {
+      clock.createDefferedTask(1s, [&order, &rank]() {
         order[0] = rank++;
       });
-      clock.registerTimer(3s, [&order, &rank]() {
+      clock.createDefferedTask(3s, [&order, &rank]() {
         order[2] = rank++;
       });
-      clock.registerTimer(2s, [&order, &rank]() {
+      clock.createDefferedTask(2s, [&order, &rank]() {
         order[1] = rank++;
       });
       THEN("The deffered tasks execute according to their delays")

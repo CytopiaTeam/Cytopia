@@ -27,10 +27,13 @@ class ResourceManager : public GameService
   AudioConfig m_audioConfig;
   Mapping<SoundtrackID, SoundtrackResource> m_soundtracks;
   uint32_t m_Age;
-  using MAX_RESOURCES = Constant<50>;
+  uint32_t m_CacheSize;
+
+  /* Maximum of 150MB */
+  using MAX_RESOURCE_BYTES = Constant<150000000>;
 
   template <typename Iterator>
-  struct AgeIterator 
+  struct AgeIterator
   {
     using value_type = decltype(ResourceItem<nullptr_t>().age);
     using difference_type = size_t;

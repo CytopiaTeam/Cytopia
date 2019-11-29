@@ -22,7 +22,8 @@ using UIEvents = TypeList<struct TerminateEvent /* Add UI Events here */>;
 using GameEvents = TypeList<struct TerminateEvent,
                             /* All Audio events */
                             struct AudioTriggerEvent, struct AudioTrigger3DEvent, struct AudioPlayEvent, struct AudioPlay3DEvent,
-                            struct AudioMusicVolumeChangeEvent, struct AudioSoundVolumeChangeEvent, struct AudioSetMutedEvent
+                            struct AudioMusicVolumeChangeEvent, struct AudioSoundVolumeChangeEvent, struct AudioSetMutedEvent,
+							struct AudioStopEvent, struct AudioPruneEvent
                             /* Add Game Events here */>;
 
 /**
@@ -125,9 +126,23 @@ struct AudioSetMutedEvent
 };
 
 /**
+ * @brief event stopping all soundtracks
+ */
+struct AudioStopEvent
+{
+};
+
+/**
+ * @brief event pruning all stopped soundtracks
+ */
+struct AudioPruneEvent
+{
+};
+
+/**
  * @brief All audio-related events
  */
 using AudioEvents = TypeList<AudioTriggerEvent, AudioTriggerEvent, AudioTrigger3DEvent, AudioPlayEvent, AudioPlay3DEvent,
-                             AudioMusicVolumeChangeEvent, AudioSoundVolumeChangeEvent, AudioSetMutedEvent>;
+                             AudioMusicVolumeChangeEvent, AudioSoundVolumeChangeEvent, AudioSetMutedEvent, AudioStopEvent, AudioPruneEvent>;
 
 #endif

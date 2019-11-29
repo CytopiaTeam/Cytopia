@@ -25,7 +25,7 @@
             "path": "resources/audio/music/Sarah_Theme.ogg",
             "monopath": "resources/audio/music/Sarah_Theme_mono.ogg",
             "triggers": [
-                "MainTheme"
+                "MainMenu"
             ]
         }
     },
@@ -48,7 +48,9 @@
         "Nature": {
             "path": "resources/audio/sound effects/menu/Nature Still Air and Birds.ogg",
             "monopath": "resources/audio/sound effects/menu/Nature Still Air and Birds_mono.ogg",
-            "triggers": []
+            "triggers": [
+                "NatureSounds"
+            ]
         },
         "NegativeSelect": {
             "path": "resources/audio/sound effects/menu/Negative Select.ogg",
@@ -73,7 +75,9 @@
         "StrongWinds": {
             "path": "resources/audio/sound effects/menu/Strong Winds.ogg",
             "monopath": "resources/audio/sound effects/menu/Strong Winds_mono.ogg",
-            "triggers": []
+            "triggers": [
+                "NatureSounds"
+            ]
         },
         "UpSelect": {
             "path": "resources/audio/sound effects/menu/Up Select.ogg",
