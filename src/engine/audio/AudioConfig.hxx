@@ -15,7 +15,7 @@ template <typename Type> using Vector = std::vector<Type>;
 /**
  * @brief the types of triggers
  */
-BETTER_ENUM(AudioTrigger, int, MainTheme)
+BETTER_ENUM(AudioTrigger, int, MainMenu, MainTheme, NatureSounds)
 
   struct AudioConfig
 {

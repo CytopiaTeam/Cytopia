@@ -3,6 +3,7 @@
 #include "LOG.hxx"
 #include "Exception.hxx"
 #include "../services/ResourceManager.hxx"
+#include "../services/GameClock.hxx"
 #include "../services/Randomizer.hxx"
 #include "common/JsonSerialization.hxx"
 
@@ -26,6 +27,9 @@ AudioMixer::AudioMixer(GameService::ServiceTuple &context) : GameService(context
   AudioConfig audioConfig = config_json;
   for(auto & item : audioConfig.Music)
     for (auto & trigger : item.second.triggers)
+      m_Triggers[trigger].emplace_back(item.first);
+  for (auto &item : audioConfig.Sound)
+    for (auto &trigger : item.second.triggers)
       m_Triggers[trigger].emplace_back(item.first);
 #ifdef USE_OPENAL_SOFT
   if (Settings::instance().audio3DStatus)
@@ -75,15 +79,17 @@ AudioMixer::AudioMixer(GameService::ServiceTuple &context) : GameService(context
   Array<float, 6> listener_orientation_vector{0.0f, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f};
   alListenerfv(AL_ORIENTATION, listener_orientation_vector.data());
 
+  /* Set a pruning repeated task to get rid of soundtracks that have finished playing */
+  GetService<GameClock>().createRepeatedTask(5min, [&mixer = *this]() { mixer.prune(); });
+
 #else  // USE_OPENAL_SOFT
   LOG(LOG_INFO) << "Using stereo sounds";
   if (Mix_OpenAudio(44100, AUDIO_S16SYS, DEFAULT_CHANNELS::value, 1024) == -1)
     throw AudioError(TRACE_INFO + string{"Unable to open audio channels "} + Mix_GetError());
-#endif // USE_OPENAL_SOFT
-       /* Set up the Mix_ChannelFinished callback */
+  /* Set up the Mix_ChannelFinished callback */
   onTrackFinishedFunc = [this](int channelID) { return onTrackFinished(channelID); };
   Mix_ChannelFinished(onTrackFinishedFuncPtr);
-  LOG(LOG_DEBUG) << "Finished loading sounds";
+#endif // USE_OPENAL_SOFT
   LOG(LOG_DEBUG) << "Created AudioMixer";
 }
 
@@ -139,6 +145,10 @@ void AudioMixer::play(AudioTrigger &&trigger, Coordinate3D &&position) noexcept
 #endif
 
 void AudioMixer::setMuted(bool isMuted) noexcept { GetService<GameLoopMQ>().push(AudioSetMutedEvent{isMuted}); }
+
+void AudioMixer::stopAll() noexcept { GetService<GameLoopMQ>().push(AudioStopEvent{}); }
+
+void AudioMixer::prune() noexcept { GetService<GameLoopMQ>().push(AudioPruneEvent{}); }
 
 /*
    +------------------+
@@ -208,6 +218,36 @@ void AudioMixer::handleEvent(const AudioMusicVolumeChangeEvent &&event)
 
 void AudioMixer::handleEvent(const AudioSetMutedEvent &&event) { throw UnimplementedError(TRACE_INFO "Unimplemented Error"); }
 
+void AudioMixer::handleEvent(const AudioStopEvent &&)
+{
+	#ifndef USE_OPENAL_SOFT
+	Mix_HaltChannel(-1);
+	#else // USE_OPENAL_SOFT
+  while(!m_Playing.empty())
+  {
+    auto it = m_Playing.begin();
+    alSourceStop((**it)->source);
+    (**it)->isPlaying = false;
+    m_Playing.erase(it);
+	}
+	#endif // USE_OPENAL_SOFT
+}
+
+void AudioMixer::handleEvent(const AudioPruneEvent &&)
+{
+	for(auto it = m_Playing.begin(); it != m_Playing.end();)
+	{
+		int state = 0;
+		alGetSourcei((**it)->source, AL_SOURCE_STATE, &state);
+		if (state != AL_PLAYING)
+		{
+			(**it)->isPlaying = false;
+			it = m_Playing.erase(it);
+		}
+		else { ++it; }
+	}
+}
+
 /*
    +-----------+
    |  Helpers  |
@@ -220,7 +260,6 @@ void AudioMixer::playSoundtrack(SoundtrackUPtr &track)
     throw AudioError(TRACE_INFO "Received an invalid soundtrack");
 
 #ifndef USE_OPENAL_SOFT
-
   track->Channel = Mix_PlayChannel(track->Channel.get(), track->Chunks, 0);
   if (track->Channel.get() == -1)
   {
@@ -231,21 +270,14 @@ void AudioMixer::playSoundtrack(SoundtrackUPtr &track)
     if (track->Channel.get() == -1)
       throw AudioError(TRACE_INFO "Failed to play track " + track->ID.get() + ": " + SDL_GetError());
   }
-  m_Playing.push_front(&track);
-  track->isPlaying = true;
-
 #else // USE_OPENAL_SOFT
-
   if (!track->source)
     throw AudioError{TRACE_INFO "Unable to play track because its source is uninitialized"};
-
   alSourcePlay(track->source);
-  m_Playing.push_front(&track);
-
 #endif // USE_OPENAL_SOFT
+  m_Playing.push_front(&track);
+  track->isPlaying = true;
 }
-
-
 
 void AudioMixer::onTrackFinished(int channelID)
 {

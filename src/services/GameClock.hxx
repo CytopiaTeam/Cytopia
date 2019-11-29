@@ -21,18 +21,32 @@ using HalfDay = std::chrono::duration<int, std::ratio<1296>>;
 class GameClock : public GameService
 {
 
-  using TimeRep = std::chrono::system_clock::rep;
+  using ClockRep = std::chrono::system_clock::rep;
+  using ClockDuration = std::chrono::system_clock::duration;
 
   struct DefferedTask
   {
     std::function<void(void)> callback;
-    TimeRep waketime;
+    ClockRep waketime;
     inline friend bool operator>(const DefferedTask &dt1, const DefferedTask &dt2) { return dt1.waketime > dt2.waketime; }
   };
 
-  std::priority_queue<DefferedTask, std::vector<DefferedTask>, std::greater<DefferedTask>> m_queue;
+  struct RepeatedTask
+  {
+    std::function<void(void)> callback;
+    ClockRep waketime;
+    ClockRep interval;
+    inline friend bool operator>(const RepeatedTask &dt1, const RepeatedTask &dt2) { return dt1.waketime > dt2.waketime; }
+  };
+
+  using DefferedSchedule = std::priority_queue<DefferedTask, std::vector<DefferedTask>, std::greater<DefferedTask>>;
+  using RepeatedSchedule = std::priority_queue<RepeatedTask, std::vector<RepeatedTask>, std::greater<RepeatedTask>>;
+
+
+  DefferedSchedule m_Deffered;
+  RepeatedSchedule m_Repeated;
   Mutex m_lock;
-  Thread m_thread{&GameClock::clockLoop, this};
+  Thread m_thread;
 
   void clockLoop();
 
@@ -44,13 +58,23 @@ public:
   using Callback = std::function<void(void)>;
 
   /**
- 	 *  @brief Registers a new Timer
-   *  @details After duration time, callback will be called
-   *  @tparam Duration the duration type
-   *  @param duration the Duration
-   *  @param callback the function to call at schedule
-   */
-  template <typename Duration> void registerTimer(Duration &&, Callback);
+    *  @brief Registers a new deffered task
+    *  @details After duration time, callback will be called
+    *  @tparam Duration the duration type
+    *  @param duration the Duration
+    *  @param callback the function to call at schedule
+	*/
+  template <typename Duration> void createDefferedTask(Duration &&, Callback);
+
+  /**
+    *  @brief Registers a new repeated task
+    *  @details Every duration time, callback will be called
+    *  @tparam Duration the duration type
+    *  @param duration the Duration
+    *  @param callback the function to call at schedule
+	*/
+  template <typename Duration>
+  void createRepeatedTask(Duration &&, Callback);
 };
 
 #include "GameClock.inl.hxx"

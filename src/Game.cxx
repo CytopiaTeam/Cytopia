@@ -28,11 +28,11 @@ template void Game::LoopMain<UILoopMQ, Game::UIVisitor>(Game::GameContext &, Gam
 
 Game::Game()
     :
+      m_GameContext(&m_UILoopMQ, &m_GameLoopMQ, &m_AudioMixer, &m_Randomizer, &m_GameClock, &m_ResourceManager),
+      m_GameClock{m_GameContext}, m_Randomizer{m_GameContext}, m_ResourceManager{m_GameContext},
 #ifdef USE_SDL2_MIXER
       m_AudioMixer{m_GameContext},
 #endif
-      m_GameClock{m_GameContext}, m_Randomizer{m_GameContext}, m_ResourceManager{m_GameContext}, m_UILoopMQ{}, m_GameLoopMQ{},
-      m_GameContext(&m_UILoopMQ, &m_GameLoopMQ, &m_AudioMixer, &m_Randomizer, &m_GameClock, &m_ResourceManager),
       m_UILoop(&LoopMain<UILoopMQ, UIVisitor>, std::ref(m_GameContext), UIVisitor{}),
       m_EventLoop(&LoopMain<GameLoopMQ, GameVisitor>, std::ref(m_GameContext), GameVisitor{m_GameContext})
 {
@@ -82,6 +82,9 @@ void Game::mainMenu()
   int screenHeight = Settings::instance().screenHeight;
   bool mainMenuLoop = true;
 
+  /* Trigger MainMenu music */
+  m_AudioMixer.play(AudioTrigger::MainMenu);
+
   Image logo;
   logo.setTextureID("Cytopia_Logo");
   logo.setVisibility(true);
@@ -94,15 +97,27 @@ void Game::mainMenu()
   Button newGameButton({screenWidth / 2 - 100, screenHeight / 2 - 20, 200, 40});
   newGameButton.setText("New Game");
   newGameButton.setUIElementID("newgame");
-  newGameButton.registerCallbackFunction([]() { Engine::instance().newGame(); });
+  newGameButton.registerCallbackFunction([this]() {
+    m_AudioMixer.stopAll();
+	m_AudioMixer.play(SoundtrackID{"MajorSelection"});
+	Engine::instance().newGame(); 
+  });
 
   Button loadGameButton({screenWidth / 2 - 100, screenHeight / 2 - 20 + newGameButton.getUiElementRect().h * 2, 200, 40});
   loadGameButton.setText("Load Game");
-  loadGameButton.registerCallbackFunction([]() { Engine::instance().loadGame("resources/save.cts"); });
+  loadGameButton.registerCallbackFunction([this]() {
+	m_AudioMixer.stopAll();
+	m_AudioMixer.play(SoundtrackID{"MajorSelection"}); 
+	Engine::instance().loadGame("resources/save.cts"); 
+  });
 
   Button quitGameButton({screenWidth / 2 - 100, screenHeight / 2 - 20 + loadGameButton.getUiElementRect().h * 4, 200, 40});
   quitGameButton.setText("Quit Game");
-  quitGameButton.registerCallbackFunction([]() { Engine::instance().quitGame(); });
+  quitGameButton.registerCallbackFunction([this]() {
+    m_AudioMixer.stopAll();
+	m_AudioMixer.play(SoundtrackID{"NegativeSelect"}); 
+	Engine::instance().quitGame(); 
+  });
 
   // store elements in vector
   std::vector<UIElement *> uiElements;
@@ -224,19 +239,8 @@ void Game::run(bool SkipMenu)
 #endif
 
 #ifdef USE_SDL2_MIXER
-#ifdef USE_OPENAL_SOFT
-  //change to 0,0,0 for regular stereo music
-  if (Settings::instance().audio3DStatus)
-  {
-    m_AudioMixer.play(AudioTrigger::MainTheme, Coordinate3D{0, 0, -4});
-  }
-  else
-  {
-    m_AudioMixer.play(AudioTrigger::MainTheme);
-  }
-#else
-  m_AudioMixer.play(AudioTrigger::MainTheme);
-#endif
+  m_GameClock.createRepeatedTask(8min, [this]() { m_AudioMixer.play(AudioTrigger::MainTheme); });
+  m_GameClock.createRepeatedTask(3min, [this]() { m_AudioMixer.play(AudioTrigger::NatureSounds); });
 #endif
 
   // FPS Counter variables

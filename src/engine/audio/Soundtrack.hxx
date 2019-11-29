@@ -27,11 +27,6 @@ struct Soundtrack
   ChannelID Channel;
 
   /**
-   * @brief The WAVE data of the Soundtrack
-   */
-  Mix_Chunk *Chunks;
-
-  /**
    * @brief The number of times this track should be repeated
    * @details Must be between [0, 255]. A value of 0 will only play once
    *          while a value of 255 will play forever
@@ -73,7 +68,15 @@ struct Soundtrack
    * to tell the system where the sound is made.
    */
   ALuint buffer;
-#endif
+
+#else // USE_OPENAL_SOFT
+
+  /**
+   * @brief The WAVE data of the Soundtrack
+   */
+  Mix_Chunk *Chunks;
+
+#endif // USE_OPENAL_SOFT
 
   Soundtrack(SoundtrackID, ChannelID, Mix_Chunk*, RepeatCount, bool, bool, bool, bool);
   ~Soundtrack();
