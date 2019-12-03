@@ -3,12 +3,15 @@
 
 #include "Meta.hxx"
 
-template <typename Type, typename = void> struct IsStrongEquatableType : public std::false_type
+/**
+ * @brief Is true if a type is strongly equatable
+ */
+template <typename Type, typename = void> struct is_strong_equatable_type : public std::false_type
 {
 };
 
 template <typename Type>
-struct IsStrongEquatableType<Type, std::void_t<decltype(std::declval<Type>().Equals(std::declval<Type>()))>> : std::true_type
+struct is_strong_equatable_type<Type, std::void_t<decltype(std::declval<Type>().Equals(std::declval<Type>()))>> : std::true_type
 {
 };
 
@@ -29,30 +32,34 @@ private:
   std::size_t m_Hash;
 
 public:
-  IEquatable()
-  {
-    using FunctorType = typename GetMemberType<decltype(&Type::Hash)>::type;
-    static_assert(std::is_same_v<FunctorType, std::size_t() const noexcept>,
-                  "You must implement std::size_t Hash() const noexcept and make it accessible to IEquatable");
-  }
+  /**
+   * @brief Create an Equatable type
+   */
+  IEquatable();
 
-  inline constexpr bool operator!=(const IEquatable<Type> &other) const noexcept { return m_Hash != other.m_Hash; }
+  /**
+   * @returns true if not equal
+   */
+  constexpr bool operator!=(const IEquatable<Type> &other) const noexcept;
 
-  inline bool operator==(const IEquatable<Type> &other) const noexcept
-  {
-    if constexpr (IsStrongEquatableType<Type>::value)
-    {
-      return m_Hash == other.m_Hash && Type::Equals(other);
-    }
-    else
-    {
-      return m_Hash == other.m_Hash;
-    }
-  }
+  /**
+   * @returns true if equal
+   */
+  bool operator==(const IEquatable<Type> &other) const noexcept;
 
 protected:
-  inline void onHashChanged(std::size_t hash) noexcept { m_Hash = hash; }
-  inline void onHashChanged() noexcept { m_Hash = static_cast<Type &>(*this).Hash(); }
+  /**
+   * @brief Call when the hash has changed
+   * @param hash the new hash
+   */
+  void onHashChanged(std::size_t hash) noexcept;
+
+  /**
+   * @brief Call when the hash has changed
+   */
+  void onHashChanged() noexcept;
 };
+
+#include "IEquatable.inl.hxx"
 
 #endif

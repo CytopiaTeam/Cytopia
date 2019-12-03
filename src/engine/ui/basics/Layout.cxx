@@ -1,6 +1,6 @@
 #include "Layout.hxx"
 
-#include "../../basics/LOG.hxx"
+#include "LOG.hxx"
 #include "../../basics/Settings.hxx"
 #include "../../UIManager.hxx"
 
@@ -221,8 +221,9 @@ void Layout::arrangeChildElements(LayoutData &groupLayout, std::vector<UIElement
     UIElement *parentElement = UIManager::instance().getUiElementByID(groupLayout.layoutParentElementID);
     if (!parentElement)
     {
-      LOG(LOG_ERROR) << "Cannot align element " << element->getUiElementData().elementID
-                     << " to a parent because it has no ParentElementID set!";
+      LOG(LOG_WARNING) << "Cannot align element " << element->getUiElementData().elementID
+                       << " to a parent because it has no ParentElementID set!";
+      continue;
     }
 
     //make sure that the parent is processed first, if the parent also has a parent

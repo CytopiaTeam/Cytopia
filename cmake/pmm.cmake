@@ -22,45 +22,47 @@
 ## SOFTWARE.
 
 # Bump this version to change what PMM version is downloaded
-set(PMM_VERSION_INIT 1.6.0)
+set(PMM_VERSION_INIT 1.7.2)
 
 # Helpful macro to set a variable if it isn't already set
 macro(_pmm_set_if_undef varname)
-    if(NOT DEFINED "${varname}")
+    if (NOT DEFINED "${varname}")
         set("${varname}" "${ARGN}")
-    endif()
+    endif ()
 endmacro()
 
 ## Variables used by this script
 # The version:
 _pmm_set_if_undef(PMM_VERSION ${PMM_VERSION_INIT})
 # The base URL we download PMM from:
-_pmm_set_if_undef(PMM_URL_BASE "http://anotherfoxguy.com/pmm/")
+_pmm_set_if_undef(PMM_URL_BASE "https://anotherfoxguy.com/pmm")
 # The real URL we download from (Based on the version)
 _pmm_set_if_undef(PMM_URL "${PMM_URL_BASE}/${PMM_VERSION}")
 # The directory where we store our downloaded files
 _pmm_set_if_undef(PMM_DIR_BASE "${CMAKE_BINARY_DIR}/_pmm")
 _pmm_set_if_undef(PMM_DIR "${PMM_DIR_BASE}/${PMM_VERSION}")
+# The location of the current file
+_pmm_set_if_undef(PMM_MODULE "${CMAKE_CURRENT_LIST_FILE}")
 
 # The file that we first download
 set(_PMM_ENTRY_FILE "${PMM_DIR}/entry.cmake")
 
-if(NOT EXISTS "${_PMM_ENTRY_FILE}" OR PMM_ALWAYS_DOWNLOAD)
+if (NOT EXISTS "${_PMM_ENTRY_FILE}" OR PMM_ALWAYS_DOWNLOAD)
     file(
-        DOWNLOAD "${PMM_URL}/entry.cmake"
-        "${_PMM_ENTRY_FILE}.tmp"
-        STATUS pair
-        )
+            DOWNLOAD "${PMM_URL}/entry.cmake"
+            "${_PMM_ENTRY_FILE}.tmp"
+            STATUS pair
+    )
     list(GET pair 0 rc)
     list(GET pair 1 msg)
     if(rc)
-        message(FATAL_ERROR "Failed to download PMM entry file")
+        message(FATAL_ERROR "Failed to download PMM entry file: ${msg}")
     endif()
     file(RENAME "${_PMM_ENTRY_FILE}.tmp" "${_PMM_ENTRY_FILE}")
-endif()
+endif ()
 
 # ^^^ DO NOT CHANGE THIS LINE vvv
-set(_PMM_BOOTSTRAP_VERSION 1)
+set(_PMM_BOOTSTRAP_VERSION 2)
 # ^^^ DO NOT CHANGE THIS LINE ^^^
 
 include("${_PMM_ENTRY_FILE}")

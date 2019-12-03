@@ -4,13 +4,12 @@
 #include "engine/UIManager.hxx"
 #include "engine/WindowManager.hxx"
 #include "engine/basics/Camera.hxx"
-#include "engine/basics/LOG.hxx"
+#include "LOG.hxx"
 #include "engine/ui/widgets/Image.hxx"
 #include "engine/basics/Settings.hxx"
 #include <noise.h>
 #include <SDL.h>
 #include <SDL_ttf.h>
-
 
 #ifdef USE_ANGELSCRIPT
 #include "Scripting/ScriptEngine.hxx"
@@ -24,21 +23,34 @@
 #include "microprofile.h"
 #endif
 
-template void Game::LoopMain<GameLoopMQ, Game::GameVisitor>(Game::GameContext&, Game::GameVisitor);
-template void Game::LoopMain<UILoopMQ, Game::UIVisitor>(Game::GameContext&, Game::UIVisitor);
+template void Game::LoopMain<GameLoopMQ, Game::GameVisitor>(Game::GameContext &, Game::GameVisitor);
+template void Game::LoopMain<UILoopMQ, Game::UIVisitor>(Game::GameContext &, Game::UIVisitor);
+
+Game::Game()
+    :
+      m_GameContext(&m_UILoopMQ, &m_GameLoopMQ, &m_AudioMixer, &m_Randomizer, &m_GameClock, &m_ResourceManager),
+      m_GameClock{m_GameContext}, m_Randomizer{m_GameContext}, m_ResourceManager{m_GameContext},
+#ifdef USE_SDL2_MIXER
+      m_AudioMixer{m_GameContext},
+#endif
+      m_UILoop(&LoopMain<UILoopMQ, UIVisitor>, std::ref(m_GameContext), UIVisitor{}),
+      m_EventLoop(&LoopMain<GameLoopMQ, GameVisitor>, std::ref(m_GameContext), GameVisitor{m_GameContext})
+{
+}
 
 bool Game::initialize()
 {
   if (SDL_Init(SDL_INIT_VIDEO) != 0)
   {
-    LOG(LOG_ERROR) << "Failed to Init SDL\n";
-    LOG(LOG_ERROR) << "SDL Error:" << SDL_GetError();
+    LOG(LOG_ERROR) << "Failed to Init SDL";
+    LOG(LOG_ERROR) << "SDL Error: " << SDL_GetError();
     return false;
   }
 
   if (TTF_Init() == -1)
   {
-    LOG(LOG_ERROR) << "Failed to Init SDL_TTF\nSDL Error:" << TTF_GetError();
+    LOG(LOG_ERROR) << "Failed to Init SDL_TTF";
+    LOG(LOG_ERROR) << "SDL Error: " << TTF_GetError();
     return false;
   }
 
@@ -70,6 +82,9 @@ void Game::mainMenu()
   int screenHeight = Settings::instance().screenHeight;
   bool mainMenuLoop = true;
 
+  /* Trigger MainMenu music */
+  m_AudioMixer.play(AudioTrigger::MainMenu);
+
   Image logo;
   logo.setTextureID("Cytopia_Logo");
   logo.setVisibility(true);
@@ -82,15 +97,27 @@ void Game::mainMenu()
   Button newGameButton({screenWidth / 2 - 100, screenHeight / 2 - 20, 200, 40});
   newGameButton.setText("New Game");
   newGameButton.setUIElementID("newgame");
-  newGameButton.registerCallbackFunction([]() { Engine::instance().newGame(); });
+  newGameButton.registerCallbackFunction([this]() {
+    m_AudioMixer.stopAll();
+	m_AudioMixer.play(SoundtrackID{"MajorSelection"});
+	Engine::instance().newGame(); 
+  });
 
   Button loadGameButton({screenWidth / 2 - 100, screenHeight / 2 - 20 + newGameButton.getUiElementRect().h * 2, 200, 40});
   loadGameButton.setText("Load Game");
-  loadGameButton.registerCallbackFunction([]() { Engine::instance().loadGame("resources/save.cts"); });
-  
+  loadGameButton.registerCallbackFunction([this]() {
+	m_AudioMixer.stopAll();
+	m_AudioMixer.play(SoundtrackID{"MajorSelection"}); 
+	Engine::instance().loadGame("resources/save.cts"); 
+  });
+
   Button quitGameButton({screenWidth / 2 - 100, screenHeight / 2 - 20 + loadGameButton.getUiElementRect().h * 4, 200, 40});
   quitGameButton.setText("Quit Game");
-  quitGameButton.registerCallbackFunction([]() { Engine::instance().quitGame(); });
+  quitGameButton.registerCallbackFunction([this]() {
+    m_AudioMixer.stopAll();
+	m_AudioMixer.play(SoundtrackID{"NegativeSelect"}); 
+	Engine::instance().quitGame(); 
+  });
 
   // store elements in vector
   std::vector<UIElement *> uiElements;
@@ -187,7 +214,7 @@ void Game::mainMenu()
 void Game::run(bool SkipMenu)
 {
   Timer benchmarkTimer;
-  LOG() << VERSION;
+  LOG(LOG_INFO) << VERSION;
 
   if (SkipMenu)
   {
@@ -197,7 +224,7 @@ void Game::run(bool SkipMenu)
   benchmarkTimer.start();
   Engine &engine = Engine::instance();
 
-  LOG() << "Map initialized in " << benchmarkTimer.getElapsedTime() << "ms";
+  LOG(LOG_DEBUG) << "Map initialized in " << benchmarkTimer.getElapsedTime() << "ms";
   Camera::centerScreenOnMapCenter();
 
   SDL_Event event;
@@ -212,19 +239,8 @@ void Game::run(bool SkipMenu)
 #endif
 
 #ifdef USE_SDL2_MIXER
-  #ifdef USE_OPENAL_SOFT
-  //change to 0,0,0 for regular stereo music
-  if(Settings::instance().audio3DStatus)
-  {
-	  m_AudioMixer.play(AudioTrigger::MainTheme,Coordinate3D{0,0,-4});
-  }
-  else
-  {
-	  m_AudioMixer.play(AudioTrigger::MainTheme);
-  }
-  #else
-  m_AudioMixer.play(AudioTrigger::MainTheme);
-  #endif
+  m_GameClock.createRepeatedTask(8min, [this]() { m_AudioMixer.play(AudioTrigger::MainTheme); });
+  m_GameClock.createRepeatedTask(3min, [this]() { m_AudioMixer.play(AudioTrigger::NatureSounds); });
 #endif
 
   // FPS Counter variables
@@ -274,6 +290,7 @@ void Game::run(bool SkipMenu)
 
 void Game::shutdown()
 {
+  LOG(LOG_DEBUG) << "In shutdown";
   m_UILoopMQ.push(TerminateEvent{});
   m_GameLoopMQ.push(TerminateEvent{});
   m_UILoop.join();
@@ -281,36 +298,34 @@ void Game::shutdown()
   TTF_Quit();
 
 #ifdef USE_SDL2_MIXER
-  m_AudioMixer.joinLoadThread();
   Mix_Quit();
 #endif
 
   SDL_Quit();
 }
 
-template <typename MQType, typename Visitor>
-void Game::LoopMain(GameContext& context, Visitor visitor)
+template <typename MQType, typename Visitor> void Game::LoopMain(GameContext &context, Visitor visitor)
 {
-  while(true)
+  try
   {
-    for(auto event : std::get<MQType&>(context).getEnumerable())
+    while (true)
     {
-      if (std::holds_alternative<TerminateEvent>(event))
+      for (auto event : std::get<MQType *>(context)->getEnumerable())
       {
-        return;
-      }
-      else
-      {
-        try
+        if (std::holds_alternative<TerminateEvent>(event))
+        {
+          return;
+        }
+        else
         {
           std::visit(visitor, std::move(event));
-        }
-        catch(std::exception& ex)
-        {
-          LOG(LOG_ERROR) << "Error: " << ex.what();
         }
       }
     }
   }
+  catch (std::exception &ex)
+  {
+    LOG(LOG_ERROR) << ex.what();
+    // @todo: Call shutdown() here in a safe way
+  }
 }
-

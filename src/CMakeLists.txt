@@ -1,9 +1,25 @@
 set(SOURCE_FILES
         main.cxx
         Game.{hxx,cxx}
-        GameService.hxx
+        Game.inl.hxx
+        util/LOG.{hxx,cxx}
+        util/LOG.inl.hxx
+        util/filesystem.hxx
+        util/IEquatable.hxx
+        util/IEquatable.inl.hxx
+        util/Singleton.hxx
+        util/Meta.hxx
+        util/Exception.{hxx,cxx}
+        util/MessageQueue.hxx
+        util/MessageQueue.inl.hxx
+        GameService.{hxx,cxx}
         GameService.inl.hxx
         services/Randomizer.{hxx,cxx}
+        services/AudioMixer.{hxx,cxx}
+        services/GameClock.{hxx,cxx}
+        services/GameClock.inl.hxx
+        services/ResourceManager.{hxx,cxx}
+        services/ResourceManager.inl.hxx
         engine/basics/Camera.{hxx,cxx}
         engine/basics/isoMath.{hxx,cxx}
         engine/basics/mapEdit.{hxx,cxx}
@@ -11,6 +27,7 @@ set(SOURCE_FILES
         engine/basics/signal.hxx
         engine/basics/Timer.{hxx,cxx}
         engine/basics/utils.{hxx,cxx}
+        engine/audio/Soundtrack.{hxx,cxx}
         engine/common/Constants.hxx
         engine/common/enums.hxx
         engine/common/JsonSerialization.hxx
@@ -39,8 +56,6 @@ set(SOURCE_FILES
         engine/TileManager.{hxx,cxx}
         engine/UIManager.{hxx,cxx}
         engine/WindowManager.{hxx,cxx}
-        util/Singleton.hxx
-        util/Meta.hxx
         )
 
 list(APPEND _include_directories
@@ -133,7 +148,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE ${_link_libraries})
 add_custom_target(
         copy_resources
         ALL
-        COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/data/resources/ $<TARGET_FILE_DIR:${PROJECT_NAME}>/resources/
+        COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/data/resources/ $<TARGET_FILE_DIR:${PROJECT_NAME}>/resources/ 
         COMMENT "Copy the resources to the compiled directory"
         VERBATIM
 )

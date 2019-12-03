@@ -56,7 +56,6 @@ protected:
    */
   inline void notifyObservers(DataArgs... args) noexcept
   {
-    ObsIterator it = m_Observers.before_begin();
     ObsIterator old;
     bool mustCleanup = false;
     m_Observers.remove_if([&mustCleanup](ObserverWPtr<DataArgs...> ptr) {

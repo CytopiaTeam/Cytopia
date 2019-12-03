@@ -68,11 +68,11 @@ Conan
 
 #### Build instructions
 
-See: <https://github.com/JimmySnails/Cytopia/wiki/Build-instructions>
+See: <https://github.com/CytopiaTeam/Cytopia/wiki/Build-instructions>
 
 #### Coding guidelines
 
-See: <https://github.com/JimmySnails/Cytopia/wiki/Coding-guidelines>
+See: <https://github.com/CytopiaTeam/Cytopia/wiki/Coding-guidelines>
 
 #### Work-in-Progress Screenshot
 

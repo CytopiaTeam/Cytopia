@@ -7,7 +7,7 @@
 msgid   ""
 msgstr  "Project-Id-Version: PACKAGE VERSION\n"
         "Report-Msgid-Bugs-To: \n"
-        "POT-Creation-Date: 2019-08-29 15:53+0200\n"
+        "POT-Creation-Date: 2019-10-21 12:26+0200\n"
         "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
         "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
         "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -231,6 +231,9 @@ msgstr  ""
 msgid   "An oasis"
 msgstr  ""
 
+msgid   "An old blue phone booth that can be used to decorate your cities."
+msgstr  ""
+
 msgid   "An old clock store that sells and repairs clocks."
 msgstr  ""
 
@@ -445,7 +448,7 @@ msgstr  ""
 msgid   "Lilypads"
 msgstr  ""
 
-#: src/Game.cxx:87
+#: src/Game.cxx:88
 msgid   "Load Game"
 msgstr  ""
 
@@ -473,7 +476,7 @@ msgstr  ""
 msgid   "Nature"
 msgstr  ""
 
-#: src/Game.cxx:82
+#: src/Game.cxx:83
 msgid   "New Game"
 msgstr  ""
 
@@ -528,10 +531,13 @@ msgstr  ""
 msgid   "Power"
 msgstr  ""
 
+msgid   "Prison"
+msgstr  ""
+
 msgid   "Pyramid"
 msgstr  ""
 
-#: src/Game.cxx:91
+#: src/Game.cxx:92
 msgid   "Quit Game"
 msgstr  ""
 

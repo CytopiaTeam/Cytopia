@@ -22,7 +22,7 @@ class [[deprecated("Use Soundtrack instead")]] SoundEffect
 public:
   SoundEffect(const std::string &filename);
   SoundEffect() = default;
- 
+
   /**
     * @brief Destroys the SoundEffect object
     */
@@ -47,8 +47,8 @@ public:
     * @param loops How many loops should be played. Default: 0 (play one time)
     */
   void play(int channel = -1, Sint16 angle = 0, Uint8 distance = 0, int loops = 0) const;
-  
-   /** \brief Play loaded sound effect in 3d sound. Assume listener is facing forward which is perpendicular to 
+
+  /** \brief Play loaded sound effect in 3d sound. Assume listener is facing forward which is perpendicular to 
     * up direction of game world. Up game world direction = +y in openal, isometric xy = openal xz plane.
     * @param x isometric coordinate to describe horizontal position of object where sound originates
     * @param y isometric coordinate to describe vertical position of where sound originates
@@ -63,10 +63,10 @@ public:
 				7 = very top, highest floor
     * @param loops How many loops should be played. Default: 0 (play one time)
     */
-  #ifdef USE_OPENAL_SOFT  
+#ifdef USE_OPENAL_SOFT
   void play3DSound(int x, int y, int elevation, int loops = 0);
-  #endif
-  
+#endif
+
   /** \brief Stop sound effect
     * Stops the soundeffect at given channel
     * @param channel that should be stopped. Default: -1 (all channels)
@@ -85,12 +85,11 @@ private:
   Mix_Chunk *m_soundEffect = nullptr;
 
   bool m_playSoundEffect;
-  
-  #ifdef USE_OPENAL_SOFT
+
+#ifdef USE_OPENAL_SOFT
   ALuint source;
   ALuint buffer;
-  #endif
-  
+#endif
 };
 
 #endif

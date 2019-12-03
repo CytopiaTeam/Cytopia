@@ -1,4 +1,4 @@
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 
 # Set warnings as errors flag
 option(TREAT_WARNINGS_AS_ERRORS "Treat all warnings as errors" ON)
@@ -9,7 +9,6 @@ if(TREAT_WARNINGS_AS_ERRORS)
 		set(WARN_AS_ERROR_FLAGS "-Werror")
 	endif()
 endif()
-
 
 # MSVC compiler options
 if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
@@ -22,6 +21,7 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
     set(DEFAULT_COMPILE_OPTIONS ${DEFAULT_COMPILE_OPTIONS}
         /MP           # -> build with multiple processes
         /W4           # -> warning level 3
+        /EHsc         # -> allow exception handlers
         ${WARN_AS_ERROR_FLAGS}
 
 
@@ -58,7 +58,6 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang"
       set(DEFAULT_COMPILE_OPTIONS ${DEFAULT_COMPILE_OPTIONS}
           -Wall
           -Wno-missing-braces
-  
           ${WARN_AS_ERROR_FLAGS}
       )
   endif (BUILD_TEST)
@@ -74,3 +73,4 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
         -stdlib=libc++
     )
 endif ()
+

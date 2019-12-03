@@ -1,6 +1,6 @@
 #include "Combobox.hxx"
 
-#include "../../basics/LOG.hxx"
+#include "LOG.hxx"
 
 ComboBox::ComboBox(const SDL_Rect &uiElementRect)
     : UIElement(uiElementRect), m_dropDownRect(uiElementRect), m_wholeElementRect(uiElementRect),

@@ -1,6 +1,7 @@
 #include "WindowManager.hxx"
 
-#include "basics/LOG.hxx"
+#include "LOG.hxx"
+#include "Exception.hxx"
 #include "basics/Settings.hxx"
 
 #include <SDL_image.h>
@@ -9,29 +10,23 @@ WindowManager::WindowManager()
 {
   m_window = SDL_CreateWindow(m_title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, Settings::instance().screenWidth,
                               Settings::instance().screenHeight, 0);
-  if (m_window == nullptr)
-  {
-    LOG(LOG_ERROR) << "Failed to Init SDL\nSDL Error:" << SDL_GetError();
-  }
+  if (!m_window)
+    throw UIError(TRACE_INFO "Failed to create window: " + string{SDL_GetError()});
+
   // Note that providing no flags gives priority to available SDL_RENDERER_ACCELERATED renderers. This should fallback to Software if no renderer is available.
   m_renderer = SDL_CreateRenderer(m_window, -1, 0);
-  if (m_renderer == nullptr)
-  {
-    LOG(LOG_ERROR) << "Failed to create Renderer!\nSDL Error:" << SDL_GetError();
-  }
 
-  SDL_Surface *icon = IMG_Load(m_windowIcon.c_str());
+  if (!m_renderer)
+    throw UIError(TRACE_INFO "Failed to create Renderer: " + string{SDL_GetError()});
 
-  if (icon)
-  {
-    SDL_SetWindowIcon(m_window, icon);
-    SDL_FreeSurface(icon);
-  }
-  else
-  {
-    LOG(LOG_ERROR) << "Could not load icon " << m_windowIcon << "\nSDL_IMAGE Error: " << IMG_GetError();
-  }
+  string iconFName = SDL_GetBasePath() + m_windowIcon;
+  SDL_Surface *icon = IMG_Load(iconFName.c_str());
 
+  if (!icon)
+    throw UIError(TRACE_INFO "Could not load icon " + iconFName + ": " + IMG_GetError());
+
+  SDL_SetWindowIcon(m_window, icon);
+  SDL_FreeSurface(icon);
   m_numOfDisplays = SDL_GetNumVideoDisplays();
   initializeScreenResolutions();
   setFullScreenMode(static_cast<FULLSCREEN_MODE>(Settings::instance().fullScreenMode));
@@ -76,7 +71,7 @@ void WindowManager::setFullScreenMode(FULLSCREEN_MODE mode) const
     SDL_DisplayMode desktopScreenMode;
     if (SDL_GetDesktopDisplayMode(0, &desktopScreenMode) != 0)
     {
-      LOG() << "SDL_GetDesktopDisplayMode failed: " << SDL_GetError();
+      LOG(LOG_INFO) << "SDL_GetDesktopDisplayMode failed: " << SDL_GetError();
     }
     // set the actual resolution to the desktop resolution for Borderless
     Settings::instance().currentScreenHeight = desktopScreenMode.h;
@@ -105,9 +100,7 @@ void WindowManager::setWindowTitle(const std::string &title)
 void WindowManager::initializeScreenResolutions()
 {
   if (m_activeDisplay > m_numOfDisplays)
-  {
-    LOG(LOG_ERROR) << "There is no display with number " << m_activeDisplay << " - Resetting to display 0";
-  }
+    throw UIError(TRACE_INFO "There is no display with number " + std::to_string(m_activeDisplay) + ". Resetting to display 0");
 
   // get the number of different screen modes
   for (int modeIndex = 0; modeIndex <= SDL_GetNumDisplayModes(m_activeDisplay); modeIndex++)
@@ -152,6 +145,6 @@ void WindowManager::setScreenResolution(int mode)
   }
   else
   {
-    LOG(LOG_ERROR) << "Cannot set screen mode " << mode;
+    throw UIError(TRACE_INFO "Cannot set screen mode " + std::to_string(mode));
   }
 }
