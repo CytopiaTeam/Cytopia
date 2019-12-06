@@ -83,7 +83,21 @@ void Game::mainMenu()
   bool mainMenuLoop = true;
 
   /* Trigger MainMenu music */
-  m_AudioMixer.play(AudioTrigger::MainMenu);
+  
+  //if not playing in 3D audio
+  if (!Settings::instance().audio3DStatus)
+  {
+	m_AudioMixer.play(AudioTrigger::MainMenu);
+  }
+  //else if playing in 3D audio
+  else
+  {
+	//playing song in stereo with left and right locations, behind listener
+	m_AudioMixer.play(AudioTrigger::MainMenu,Coordinate3D{-2,0,1});
+	m_AudioMixer.play(AudioTrigger::MainMenu,Coordinate3D{2,0,1});
+  }
+  
+  
 
   Image logo;
   logo.setTextureID("Cytopia_Logo");
@@ -99,7 +113,10 @@ void Game::mainMenu()
   newGameButton.setUIElementID("newgame");
   newGameButton.registerCallbackFunction([this]() {
     m_AudioMixer.stopAll();
-	m_AudioMixer.play(SoundtrackID{"MajorSelection"});
+    
+    if(!Settings::instance().audio3DStatus){m_AudioMixer.play(SoundtrackID{"MajorSelection"});}
+    else{m_AudioMixer.play(SoundtrackID{"MajorSelection"},Coordinate3D{0,0,-4});}
+	
 	Engine::instance().newGame(); 
   });
 
@@ -107,7 +124,8 @@ void Game::mainMenu()
   loadGameButton.setText("Load Game");
   loadGameButton.registerCallbackFunction([this]() {
 	m_AudioMixer.stopAll();
-	m_AudioMixer.play(SoundtrackID{"MajorSelection"}); 
+	if(!Settings::instance().audio3DStatus){m_AudioMixer.play(SoundtrackID{"MajorSelection"});}
+    else{m_AudioMixer.play(SoundtrackID{"MajorSelection"},Coordinate3D{0,0,-4});} 
 	Engine::instance().loadGame("resources/save.cts"); 
   });
 
@@ -115,7 +133,8 @@ void Game::mainMenu()
   quitGameButton.setText("Quit Game");
   quitGameButton.registerCallbackFunction([this]() {
     m_AudioMixer.stopAll();
-	m_AudioMixer.play(SoundtrackID{"NegativeSelect"}); 
+	if(!Settings::instance().audio3DStatus){m_AudioMixer.play(SoundtrackID{"NegativeSelect"});}
+    else{m_AudioMixer.play(SoundtrackID{"NegativeSelect"},Coordinate3D{0,0,-4});} 
 	Engine::instance().quitGame(); 
   });
 
@@ -239,8 +258,23 @@ void Game::run(bool SkipMenu)
 #endif
 
 #ifdef USE_SDL2_MIXER
-  m_GameClock.createRepeatedTask(8min, [this]() { m_AudioMixer.play(AudioTrigger::MainTheme); });
-  m_GameClock.createRepeatedTask(3min, [this]() { m_AudioMixer.play(AudioTrigger::NatureSounds); });
+  
+  //if not playing in 3D audio
+  if (!Settings::instance().audio3DStatus)
+  {
+	m_GameClock.createRepeatedTask(8min, [this]() { m_AudioMixer.play(AudioTrigger::MainTheme); });
+	m_GameClock.createRepeatedTask(3min, [this]() { m_AudioMixer.play(AudioTrigger::NatureSounds); });
+  }
+  //else if playing in 3D audio
+  else
+  {
+	//playing song in stereo with left and right locations
+	m_GameClock.createRepeatedTask(8min, [this]() { m_AudioMixer.play(AudioTrigger::MainTheme,Coordinate3D{2, 0, 1}); });
+	m_GameClock.createRepeatedTask(8min, [this]() { m_AudioMixer.play(AudioTrigger::MainTheme,Coordinate3D{-2, 0, 1}); });
+	m_GameClock.createRepeatedTask(3min, [this]() { m_AudioMixer.play(AudioTrigger::NatureSounds,Coordinate3D{0, 0, -2}); });
+  }
+  
+  
 #endif
 
   // FPS Counter variables
