@@ -64,7 +64,7 @@ using VolumeLevel = StrongType<uint8_t, struct VolumeLevelTag>;
  */
 struct Coordinate3D
 {
-  int x, y, z;
+  double x, y, z;
 };
 
 /**
