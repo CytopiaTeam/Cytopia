@@ -50,7 +50,7 @@ project(
         # this will be the ${PROJECT_NAME}
         Cytopia
         # this will provide ${PROJECT_VERSION}
-        VERSION 0.2.1
+        VERSION 0.3
         # Description
         DESCRIPTION "A city-building game"
         # we are using C++
@@ -77,6 +77,7 @@ if (USE_PACKAGE_MANAGER)
             AFG https://api.bintray.com/conan/anotherfoxguy/conan-packages
             catchorg https://api.bintray.com/conan/catchorg/Catch2
             ror-dependencies https://api.bintray.com/conan/anotherfoxguy/ror-dependencies
+            cytopia https://api.bintray.com/conan/cytopia/conan-packages
             BINCRAFTERS
             CMakeCM ROLLING
             )
@@ -102,6 +103,7 @@ if (USE_PACKAGE_MANAGER)
             CONAN_PKG::sdl2_ttf
             CONAN_PKG::libnoise
             CONAN_PKG::zlib
+            CONAN_PKG::vulkan-sdk
             )
 
     if (ENABLE_AUDIO)
@@ -131,6 +133,7 @@ else (USE_PACKAGE_MANAGER)
     pkg_check_modules(SDL2_image REQUIRED SDL2_image)
     pkg_check_modules(SDL2_ttf REQUIRED SDL2_ttf)
     pkg_check_modules(ZLIB REQUIRED zlib)
+    pkg_check_modules(VULKAN REQUIRED vulkan)
 
     if (ENABLE_AUDIO)
         pkg_check_modules(SDL2_mixer REQUIRED SDL2_mixer)
@@ -159,6 +162,7 @@ else (USE_PACKAGE_MANAGER)
             ${SDL2_image_INCLUDE_DIRS}
             ${SDL2_ttf_INCLUDE_DIRS}
             ${ZLIB_INCLUDEDIR}
+            ${VULKAN_INCLUDEDIR}
             )
     list(APPEND _link_libraries
             ${SDL2_LIBRARIES}
@@ -166,6 +170,7 @@ else (USE_PACKAGE_MANAGER)
             ${SDL2_ttf_LIBRARIES}
             LIBNOISE::LIBNOISE_LIBRARIES
             ${ZLIB_LIBRARIES}
+            ${VULKAN_LIBRARIES}
             )
 
     if (ENABLE_AUDIO)
