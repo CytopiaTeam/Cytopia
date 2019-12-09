@@ -1,7 +1,9 @@
 set(CMAKE_CXX_STANDARD 17)
+set(CXX_STANDARD_REQUIRED YES)
 
 # Set warnings as errors flag
 option(TREAT_WARNINGS_AS_ERRORS "Treat all warnings as errors" ON)
+
 if(TREAT_WARNINGS_AS_ERRORS)
 	if(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
 		set(WARN_AS_ERROR_FLAGS	"/WX")
@@ -20,10 +22,9 @@ endif()
 if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
     set(DEFAULT_COMPILE_OPTIONS ${DEFAULT_COMPILE_OPTIONS}
         /MP           # -> build with multiple processes
-        /W4           # -> warning level 3
+        /W4           # -> warning level 4
         /EHsc         # -> allow exception handlers
         ${WARN_AS_ERROR_FLAGS}
-
 
         /wd4996       # -> disable warning: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead.
         # /wd4251     # -> disable warning: 'identifier': class 'type' needs to have dll-interface to be used by clients of class 'type2'

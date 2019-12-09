@@ -74,6 +74,7 @@ if (USE_PACKAGE_MANAGER)
             AFG https://api.bintray.com/conan/anotherfoxguy/conan-packages
             catchorg https://api.bintray.com/conan/catchorg/Catch2
             ror-dependencies https://api.bintray.com/conan/anotherfoxguy/ror-dependencies
+            cytopia https://api.bintray.com/conan/cytopia/conan-packages
             BINCRAFTERS
             )
 
@@ -249,12 +250,12 @@ endif (ENABLE_MICROPROFILE)
 if (UNIX AND NOT APPLE)
     execute_process(COMMAND head -1 /etc/os-release OUTPUT_VARIABLE linux_distribution)
 endif ()
-    
-# Configuration for packaging
-include(CpackConfiguration)
 
 # Compile options
 include(CompileOptions)
+
+# Configuration for packaging
+include(CpackConfiguration)
 
 # set install dir here for convenience
 set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/redist")

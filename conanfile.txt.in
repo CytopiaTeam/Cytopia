@@ -2,13 +2,13 @@
 cmake
 
 [requires]
-@_CC_ANGELSCRIPT@AngelScript/2.33@anotherfoxguy/stable
+@_CC_ANGELSCRIPT@AngelScript/2.33@cytopia/stable
 sdl2/2.0.10@bincrafters/stable 
 sdl2_ttf/2.0.15@bincrafters/stable
 sdl2_image/2.0.5@bincrafters/stable 
 bzip2/1.0.8@conan/stable
 @_CC_SDL2_MIXER@sdl2_mixer/2.0.4@bincrafters/stable 
-@_CC_MOFILEREADER@MofileReader/1.0.0@anotherfoxguy/stable
+@_CC_MOFILEREADER@MofileReader/1.0.0@cytopia/stable
 libpng/1.6.36@bincrafters/stable
 freetype/2.10.0@bincrafters/stable
 libnoise/1.0.1@anotherfoxguy/stable
