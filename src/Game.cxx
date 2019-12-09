@@ -269,7 +269,7 @@ void Game::run(bool SkipMenu)
   {
 	//playing song in stereo with left and right locations
 	
-	m_GameClock.createRepeatedTask(8min, [this]() { m_AudioMixer.play(AudioTrigger::MainMenu,Coordinate3D{0,0.5,0.1}); });
+	m_GameClock.createRepeatedTask(8min, [this]() { m_AudioMixer.play(AudioTrigger::MainTheme,Coordinate3D{0,0.5,0.1}); });
 	m_GameClock.createRepeatedTask(3min, [this]() { m_AudioMixer.play(AudioTrigger::NatureSounds,Coordinate3D{0, 0, -2}); });
   }
   
