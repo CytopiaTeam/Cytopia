@@ -75,6 +75,7 @@ public:
    */
 #ifdef USE_OPENAL_SOFT
   void play(AudioTrigger &&trigger, Coordinate3D &&position) noexcept;
+  
 #endif
   /**
    * @brief stops all sounds
