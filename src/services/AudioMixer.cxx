@@ -1,4 +1,5 @@
 #include "AudioMixer.hxx"
+#include "../engine/MessageQueue.hxx"
 #include "basics/Settings.hxx"
 #include "LOG.hxx"
 #include "Exception.hxx"

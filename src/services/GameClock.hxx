@@ -4,6 +4,8 @@
 #include <queue>
 #include <thread>
 #include <chrono>
+#include <mutex>
+#include <functional>
 
 #include "../GameService.hxx"
 

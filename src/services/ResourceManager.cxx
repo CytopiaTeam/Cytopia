@@ -15,6 +15,7 @@ using nlohmann::json;
 
 ResourceManager::ResourceManager(GameService::ServiceTuple &services) : GameService(services), m_Age(0), m_CacheSize(0)
 {
+#ifdef USE_AUDIO
   string fName = SDL_GetBasePath() + Settings::instance().audioConfigJSONFile.get();
   ifstream ifs(fName);
   if (!ifs)
@@ -22,8 +23,10 @@ ResourceManager::ResourceManager(GameService::ServiceTuple &services) : GameServ
   json config_json;
   ifs >> config_json;
   m_audioConfig = config_json;
+#endif // USE_AUDIO
 }
 
+#ifdef USE_AUDIO
 void ResourceManager::fetch(SoundtrackID id)
 {
   if(m_soundtracks.count(id) > 0)
@@ -55,9 +58,11 @@ void ResourceManager::fetch(SoundtrackID id)
   LOG(LOG_INFO) << "Resource cache is now at " << (m_CacheSize / 1000000) << "MB";
   if (m_CacheSize > MAX_RESOURCE_BYTES::value) prune();
 }
+#endif // USE_AUDIO
 
 void ResourceManager::prune()
 {
+#ifdef USE_AUDIO
   size_t total_size = 0;
   total_size += m_soundtracks.size();
   /* We evict a half of kept resources */
@@ -73,22 +78,19 @@ void ResourceManager::prune()
   for(auto it = m_soundtracks.begin(); it != m_soundtracks.end();)
   {
     if(it->second.age < median and !it->second.resource->isPlaying) 
-	{
-#ifdef USE_OPENAL_SOFT
-		int sizeBytes = 0;
-		alGetBufferi(it->second.resource->buffer, AL_SIZE, &sizeBytes);
-		m_CacheSize -= sizeof(Mix_Chunk) + sizeof(Soundtrack) + sizeof(SoundtrackUPtr) + sizeBytes;
-#else // USE_OPENAL_SOFT
-          m_CacheSize -= sizeof(Mix_Chunk) + sizeof(Soundtrack) + sizeof(SoundtrackUPtr) + it->second.resource->Chunks->alen;
-#endif
-		it = m_soundtracks.erase(it);
-	}
-	else
-	{
-		it->second.age = 0;
-		it++; 
-	}
+    {
+      int sizeBytes = 0;
+      alGetBufferi(it->second.resource->buffer, AL_SIZE, &sizeBytes);
+      m_CacheSize -= sizeof(Mix_Chunk) + sizeof(Soundtrack) + sizeof(SoundtrackUPtr) + sizeBytes;
+      it = m_soundtracks.erase(it);
+    }
+    else
+    {
+      it->second.age = 0;
+      it++; 
+    }
   }
+#endif // USE_AUDIO
   m_Age = 0;
   LOG(LOG_INFO) << "After eviction, cache is " << (m_CacheSize / 1000000) << "MB";
 }

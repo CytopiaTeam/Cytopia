@@ -8,6 +8,8 @@
 #include <functional>
 #include <ciso646>
 
+#include "../Events.hxx"
+
 using Monitor = std::condition_variable;
 using Mutex = std::mutex;
 using MonitorUPtr = std::unique_ptr<Monitor>;
@@ -19,7 +21,7 @@ template <typename Semaphore> using Lock = std::unique_lock<Semaphore>;
  * @brief A Thread safe MessageQueue
  * @example tests/util/MessageQueue.cxx
  */
-template <typename Event> class MessageQueue final
+template <typename Event> class MessageQueue
 {
 
 public:
@@ -66,5 +68,19 @@ private:
 };
 
 #include "MessageQueue.inl.hxx"
+
+/**
+ * @brief UI Actor's message queue
+ */
+class UILoopMQ : public MessageQueue<typename VariantType<UIEvents>::type>
+{
+};
+
+/**
+ * @brief Game loop Actor's message queue
+ */
+class GameLoopMQ : public MessageQueue<typename VariantType<GameEvents>::type>
+{
+};
 
 #endif
