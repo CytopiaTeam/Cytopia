@@ -3,6 +3,14 @@ cmake_minimum_required(VERSION 3.11 FATAL_ERROR)
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
+find_program(CCACHE_PROGRAM ccache)
+find_program(SCCACHE_PROGRAM sccache)
+if (CCACHE_PROGRAM)
+    set(CMAKE_CXX_COMPILER_LAUNCHER "${CCACHE_PROGRAM}")
+elseif (SCCACHE_PROGRAM)
+    set(CMAKE_CXX_COMPILER_LAUNCHER "${SCCACHE_PROGRAM}")
+endif ()
+
 include(CMakeDependentOption)
 include(SourceFileUtils)
 include(FetchContent)
@@ -72,9 +80,9 @@ if (USE_PACKAGE_MANAGER)
     pmm(CONAN
             REMOTES
             AFG https://api.bintray.com/conan/anotherfoxguy/conan-packages
-            catchorg https://api.bintray.com/conan/catchorg/Catch2
             ror-dependencies https://api.bintray.com/conan/anotherfoxguy/ror-dependencies
             BINCRAFTERS
+            CMakeCM ROLLING
             )
 
     if (DEFINED ENV{CI})
@@ -97,7 +105,7 @@ if (USE_PACKAGE_MANAGER)
             CONAN_PKG::sdl2_ttf
             CONAN_PKG::sdl2_ttf
             CONAN_PKG::libnoise
-            CONAN_PKG::zlib
+            CONAN_PKG::ZLIB
             )
 
     if (ENABLE_SDL2_MIXER)

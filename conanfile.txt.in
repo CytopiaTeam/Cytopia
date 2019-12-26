@@ -3,6 +3,7 @@ cmake
 
 [requires]
 @_CC_ANGELSCRIPT@AngelScript/2.33@anotherfoxguy/stable
+zlib/1.2.11
 sdl2/2.0.10@bincrafters/stable 
 sdl2_ttf/2.0.15@bincrafters/stable
 sdl2_image/2.0.5@bincrafters/stable 
