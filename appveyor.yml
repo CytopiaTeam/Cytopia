@@ -12,7 +12,9 @@ environment:
   SCCACHE_CACHE_SIZE: 1G
 install:
 - cmd: >-
-    choco install ninja sccache -y
+    choco install ninja -y
+
+    choco install sccache --version=0.2.12 -y
 
     choco install conan -y -s="https://api.bintray.com/nuget/anotherfoxguy/choco-pkg"
 
