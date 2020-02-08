@@ -36,6 +36,10 @@ if (NOT ENABLE_MOFILEREADER)
     set(_CC_MOFILEREADER "# ")
 endif ()
 
+if (WIN32)
+    set(_CC_WIN32 "# ")
+endif ()
+
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/conanfile.txt.in" "${CMAKE_CURRENT_SOURCE_DIR}/conanfile.txt")
 
 set(_include_directories "${CMAKE_CURRENT_SOURCE_DIR}/external/header_only")
