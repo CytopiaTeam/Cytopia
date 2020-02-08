@@ -79,6 +79,7 @@ if (USE_PACKAGE_MANAGER)
             catchorg https://api.bintray.com/conan/catchorg/Catch2
             ror-dependencies https://api.bintray.com/conan/anotherfoxguy/ror-dependencies
             BINCRAFTERS
+            CMakeCM ROLLING
             )
 
     if (DEFINED ENV{CI})

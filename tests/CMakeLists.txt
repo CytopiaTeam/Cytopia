@@ -14,20 +14,7 @@ list(APPEND _include_directories
         ${CMAKE_SOURCE_DIR}/src/util
         )
 
-
-FetchContent_Declare(
-        codecov
-        GIT_REPOSITORY https://github.com/RWTH-HPC/CMake-codecov.git
-)
-
-FetchContent_GetProperties(codecov)
-if (NOT codecov_POPULATED)
-    FetchContent_Populate(codecov)
-endif ()
-
-list(APPEND CMAKE_MODULE_PATH "${codecov_SOURCE_DIR}/cmake/")
-
-find_package(codecov)
+include(codecov)
 
 # We need to test our sources
 SET(_TMP_SRC ${MAIN_EXE_SOURCE_FILES})
