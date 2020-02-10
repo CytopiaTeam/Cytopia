@@ -36,6 +36,10 @@ if (NOT ENABLE_MOFILEREADER)
     set(_CC_MOFILEREADER "# ")
 endif ()
 
+if (WIN32 OR APPLE)
+    set(_CC_WIN32 "# ")
+endif ()
+
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/conanfile.txt.in" "${CMAKE_CURRENT_SOURCE_DIR}/conanfile.txt")
 
 set(_include_directories "${CMAKE_CURRENT_SOURCE_DIR}/external/header_only")
@@ -75,6 +79,7 @@ if (USE_PACKAGE_MANAGER)
             catchorg https://api.bintray.com/conan/catchorg/Catch2
             ror-dependencies https://api.bintray.com/conan/anotherfoxguy/ror-dependencies
             BINCRAFTERS
+            CMakeCM ROLLING
             )
 
     if (DEFINED ENV{CI})

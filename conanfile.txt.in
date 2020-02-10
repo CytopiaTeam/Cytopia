@@ -9,14 +9,15 @@ sdl2_image/2.0.5@bincrafters/stable
 bzip2/1.0.8@conan/stable
 @_CC_SDL2_MIXER@sdl2_mixer/2.0.4@bincrafters/stable 
 @_CC_MOFILEREADER@MofileReader/1.0.0@anotherfoxguy/stable
-libpng/1.6.36@bincrafters/stable
+libpng/1.6.37
 freetype/2.10.0@bincrafters/stable
 libnoise/1.0.1@anotherfoxguy/stable
 OpenSSL/1.1.1a@conan/stable
 @_CC_CATCH2@Catch2/2.9.2@catchorg/stable
 @_CC_OPENAL_SOFT@openal/1.19.0@bincrafters/stable
+zlib/1.2.11
+@_CC_WIN32@libalsa/1.1.9
 
 [options]
 sdl2_mixer:opus=False # PACKAGE:OPTION=VALUE
 sdl2_mixer:fluidsynth=False
-
