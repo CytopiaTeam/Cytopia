@@ -48,9 +48,9 @@ LIST(APPEND TEST_SOURCES
 # Generate source groups for use in IDEs
 generate_source_groups(${TEST_SOURCES})
 
-if (ENABLE_SDL2_MIXER)
+if (ENABLE_AUDIO)
     LIST(APPEND TEST_SOURCES ${CMAKE_CURRENT_LIST_DIR}/services/AudioMixer.cxx)
-endif (ENABLE_SDL2_MIXER)
+endif (ENABLE_AUDIO)
 
 # Generate source groups for use in IDEs
 generate_source_groups(${TEST_SOURCES})
