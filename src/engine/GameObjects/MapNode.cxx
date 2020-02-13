@@ -287,6 +287,19 @@ const MapNodeData &MapNode::getActiveMapNodeData() const
   return m_mapNodeData[Layer::TERRAIN];
 }
 
+void MapNode::setMapNodeData(std::vector<MapNodeData> mapNodeData)
+{
+  if (mapNodeData.size() == m_mapNodeData.size())
+  {
+    m_mapNodeData.swap(mapNodeData);
+  }
+  // updates the pointers to the tiles, after loading tileIDs from json
+  for (auto &it : m_mapNodeData)
+  {
+    it.tileData = TileManager::instance().getTileData(it.tileID);
+  }
+}
+
 void MapNode::demolishNode()
 {
   if (MapLayers::isLayerActive(Layer::BUILDINGS))
