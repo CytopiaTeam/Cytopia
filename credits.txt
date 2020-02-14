@@ -1,6 +1,31 @@
-Music by sqwdmusic
+=====Project Lead / Lead Developer=====
+JimmySnails (Engine, UI, ...)
+Ercadio (Engine, Unittests)
+Cad'ika Orade (Procedural Terrain Generation) 
 
-Cytopia Original Soundtrack by MB22
+=====Developers=====
+adct23 (Engine, Audiosystem)
+AnotherFoxGuy (BuildSystem, WebSite, Community Manager)
+Kollix (TileData Editor)
+lizzyd710 (UI, Translator)
+Notakas (Engine, Gameplay)
+Paragoumba (Engine, Gameplay, Translator)
+utilForever (Code Reviews, Consulting)
+Westrox (Engine, Gameplay)
+Yukyduky (Engine, Gameplay)
 
-Textures by Kingtut 101
-https://sites.google.com/site/theotownmaps/home
+=====Graphics Artists=====
+Kingtut 101 (Lead Artist, Community Manager)
+Pineapples Trix
+RockFort (Translator)
+Folesnaid
+MaroonShaded (Translator)
+Yusuf8a684
+JustKekman
+THEMAX
+BangBoom
+Panzerkampfwagen 2 ausf (Junior Graphics Artist)
+
+=====Sound Design=====
+MB22 (OST, Sound Effects, Ambient Noise)
+sqwdmusic (OST)
