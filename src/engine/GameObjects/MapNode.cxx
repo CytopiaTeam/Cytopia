@@ -287,7 +287,7 @@ const MapNodeData &MapNode::getActiveMapNodeData() const
   return m_mapNodeData[Layer::TERRAIN];
 }
 
-void MapNode::setMapNodeData(std::vector<MapNodeData> mapNodeData)
+void MapNode::setMapNodeData(std::vector<MapNodeData>&& mapNodeData)
 {
   m_mapNodeData.swap(mapNodeData);
 
