@@ -63,8 +63,12 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         if (Camera::cameraOffset.y > -2 * Settings::instance().screenHeight * Camera::zoomLevel)
         {
           Camera::cameraOffset.y -= (Settings::instance().screenHeight / 4);
+          // check if map exists to see, if we're ingame already. 
           if (Engine::instance().map != nullptr)
           {
+            // center the camera
+            Camera::centerIsoCoordinates =
+                convertScreenToIsoCoordinates({Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2});
             Engine::instance().map->refresh();
           }
         }
@@ -73,8 +77,12 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         if (Camera::cameraOffset.x > -0.25 * Settings::instance().screenWidth * Camera::zoomLevel)
         {
           Camera::cameraOffset.x -= (Settings::instance().screenWidth / 4);
+          // check if map exists to see, if we're ingame already. 
           if (Engine::instance().map != nullptr)
           {
+            // center the camera
+            Camera::centerIsoCoordinates =
+                convertScreenToIsoCoordinates({Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2});
             Engine::instance().map->refresh();
           }
         }
@@ -84,8 +92,12 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         if (Camera::cameraOffset.y < 1.25 * Settings::instance().screenHeight * Camera::zoomLevel)
         {
           Camera::cameraOffset.y += (Settings::instance().screenHeight / 4);
+          // check if map exists to see, if we're ingame already. 
           if (Engine::instance().map != nullptr)
           {
+            // center the camera
+            Camera::centerIsoCoordinates =
+                convertScreenToIsoCoordinates({Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2});
             Engine::instance().map->refresh();
           }
         }
@@ -95,8 +107,12 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         if (Camera::cameraOffset.x < 5 * Settings::instance().screenWidth * Camera::zoomLevel)
         {
           Camera::cameraOffset.x += (Settings::instance().screenWidth / 4);
+          // check if map exists to see, if we're ingame already. 
           if (Engine::instance().map != nullptr)
           {
+            // center the camera
+            Camera::centerIsoCoordinates =
+                convertScreenToIsoCoordinates({Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2});
             Engine::instance().map->refresh();
           }
         }
