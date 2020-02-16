@@ -4,10 +4,12 @@
 #include <unordered_map>
 #include <string>
 
+#ifdef USE_AUDIO
 #include "audio/AudioConfig.hxx"
+#include "audio/Soundtrack.hxx"
+#endif // USE_AUDIO
 #include "../GameService.hxx"
 #include "../util/Meta.hxx"
-#include "audio/Soundtrack.hxx"
 
 template <typename Key, typename Value>
 using Mapping = std::unordered_map<Key, Value>;
@@ -22,10 +24,13 @@ class ResourceManager : public GameService
     uint32_t age;
   };
 
+#ifdef USE_AUDIO
   using SoundtrackResource = ResourceItem<SoundtrackUPtr>;
 
   AudioConfig m_audioConfig;
   Mapping<SoundtrackID, SoundtrackResource> m_soundtracks;
+#endif // USE_AUDIO
+
   uint32_t m_Age;
   uint32_t m_CacheSize;
 
@@ -60,12 +65,14 @@ public:
    */
   ResourceManager(GameService::ServiceTuple &);
 
+#ifdef USE_AUDIO
   /**
    *  @brief Fetches a soundtrack
    *  @param SoundtrackPath the path to the Soundtrack
    *  @throws AudioError when loading the file results in an error
    */
   void fetch(SoundtrackID);
+#endif // USE_AUDIO
 
   /**
    *  @brief Fetches and return a Soundtrack

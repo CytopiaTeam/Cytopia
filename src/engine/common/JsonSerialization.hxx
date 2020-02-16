@@ -6,7 +6,9 @@
 #include "GameObjects/MapNode.hxx"
 #include "TerrainGenerator.hxx"
 #include "Settings.hxx"
+#ifdef USE_AUDIO
 #include "../../services/AudioMixer.hxx"
+#endif // USE_AUDIO
 
 using json = nlohmann::json;
 
@@ -103,6 +105,7 @@ inline void from_json(const json &j, BiomeData &b)
   }
 }
 
+#ifdef USE_AUDIO
 // JSON deserializer for AudioTrigger
 inline void from_json(const json &j, AudioTrigger &trigger) { trigger = AudioTrigger::_from_string(j.get<string>().c_str()); }
 
@@ -123,6 +126,7 @@ inline void from_json(const json &j, AudioConfig &config)
   j["Music"].get_to(config.Music);
   j["Sound"].get_to(config.Sound);
 }
+#endif // USE_AUDIO
 
 // ************** SERIALIZER **************
 

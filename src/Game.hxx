@@ -6,10 +6,10 @@
 #endif
 
 #include "Scripting/ScriptEngine.hxx"
-#include "util/MessageQueue.hxx"
+#include "engine/MessageQueue.hxx"
 #include "util/Meta.hxx"
 #include "GameService.hxx"
-#ifdef USE_SDL2_MIXER
+#ifdef USE_AUDIO
 #include "services/AudioMixer.hxx"
 #endif
 #include "services/Randomizer.hxx"
@@ -67,7 +67,7 @@ private:
   GameClock m_GameClock;
   Randomizer m_Randomizer;
   ResourceManager m_ResourceManager;
-#ifdef USE_SDL2_MIXER
+#ifdef USE_AUDIO
   AudioMixer m_AudioMixer;
 #endif
   UILoopMQ m_UILoopMQ;
@@ -88,23 +88,19 @@ private:
      * @tparam ArgumentType the invalid event
      */
     template <typename ArgumentType> void operator()(ArgumentType &&event);
-
-    /**
-     * @brief handles TransitiveStateChange messages
-     * @tparam TransitiveType the type which transitions
-     */
-    template <typename TransitiveType> void operator()(TransitiveStateChange<TransitiveType> &&event);
   };
 
   struct GameVisitor : public GameService
   {
 
+#ifdef USE_AUDIO
     /**
      * @brief handles valid Audio events
      * @tparam AudioEventType the Audio event
      */
     template <typename AudioEventType>
     EnableIf<ContainsType<AudioEvents, AudioEventType>, void> operator()(AudioEventType &&event);
+#endif // USE_AUDIO
 
     /**
      * @brief handles invalid game events

@@ -1,4 +1,5 @@
 #include "AudioMixer.hxx"
+#include "../engine/MessageQueue.hxx"
 #include "basics/Settings.hxx"
 #include "LOG.hxx"
 #include "Exception.hxx"
@@ -142,6 +143,7 @@ void AudioMixer::play(AudioTrigger &&trigger, Coordinate3D &&position) noexcept
 {
   GetService<GameLoopMQ>().push(AudioTrigger3DEvent{trigger, position});
 }
+
 #endif
 
 void AudioMixer::setMuted(bool isMuted) noexcept { GetService<GameLoopMQ>().push(AudioSetMutedEvent{isMuted}); }
@@ -278,6 +280,8 @@ void AudioMixer::playSoundtrack(SoundtrackUPtr &track)
   m_Playing.push_front(&track);
   track->isPlaying = true;
 }
+
+
 
 void AudioMixer::onTrackFinished(int channelID)
 {

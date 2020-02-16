@@ -26,16 +26,26 @@
 template void Game::LoopMain<GameLoopMQ, Game::GameVisitor>(Game::GameContext &, Game::GameVisitor);
 template void Game::LoopMain<UILoopMQ, Game::UIVisitor>(Game::GameContext &, Game::UIVisitor);
 
-Game::Game()
-    :
-      m_GameContext(&m_UILoopMQ, &m_GameLoopMQ, &m_AudioMixer, &m_Randomizer, &m_GameClock, &m_ResourceManager),
-      m_GameClock{m_GameContext}, m_Randomizer{m_GameContext}, m_ResourceManager{m_GameContext},
-#ifdef USE_SDL2_MIXER
+Game::Game() :
+      m_GameContext(
+          &m_UILoopMQ, 
+          &m_GameLoopMQ, 
+#ifdef USE_AUDIO
+          &m_AudioMixer, 
+#endif // USE_AUDIO
+          &m_Randomizer, 
+          &m_GameClock, 
+          &m_ResourceManager),
+      m_GameClock{m_GameContext}, 
+      m_Randomizer{m_GameContext}, 
+      m_ResourceManager{m_GameContext},
+#ifdef USE_AUDIO
       m_AudioMixer{m_GameContext},
 #endif
       m_UILoop(&LoopMain<UILoopMQ, UIVisitor>, std::ref(m_GameContext), UIVisitor{}),
       m_EventLoop(&LoopMain<GameLoopMQ, GameVisitor>, std::ref(m_GameContext), GameVisitor{m_GameContext})
 {
+  LOG(LOG_DEBUG) << "Created Game Object";
 }
 
 bool Game::initialize()
@@ -71,19 +81,26 @@ bool Game::initialize()
   }
 #endif
 
+  LOG(LOG_DEBUG) << "Initialized Game Object";
   return true;
 }
 
 void Game::mainMenu()
 {
+  LOG(LOG_DEBUG) << "Starting main menu";
   SDL_Event event;
 
   int screenWidth = Settings::instance().screenWidth;
   int screenHeight = Settings::instance().screenHeight;
   bool mainMenuLoop = true;
 
-  /* Trigger MainMenu music */
-  m_AudioMixer.play(AudioTrigger::MainMenu);
+#ifdef USE_AUDIO
+  /* Trigger MainMenu music */ 
+  if (!Settings::instance().audio3DStatus)
+	  m_AudioMixer.play(AudioTrigger::MainMenu);
+  else
+	  m_AudioMixer.play(AudioTrigger::MainMenu, Coordinate3D{ 0, 3, 0.5 });
+#endif // USE_AUDIO
 
   Image logo;
   logo.setTextureID("Cytopia_Logo");
@@ -98,24 +115,40 @@ void Game::mainMenu()
   newGameButton.setText("New Game");
   newGameButton.setUIElementID("newgame");
   newGameButton.registerCallbackFunction([this]() {
-    m_AudioMixer.stopAll();
-	m_AudioMixer.play(SoundtrackID{"MajorSelection"});
+#ifdef USE_AUDIO 
+    m_AudioMixer.stopAll();    
+    if(!Settings::instance().audio3DStatus)
+      m_AudioMixer.play(SoundtrackID{"MajorSelection"});
+    else
+      m_AudioMixer.play(SoundtrackID{"MajorSelection"},Coordinate3D{0,0,-4});
+#endif //  USE_AUDIO 
+	
 	Engine::instance().newGame(); 
   });
 
   Button loadGameButton({screenWidth / 2 - 100, screenHeight / 2 - 20 + newGameButton.getUiElementRect().h * 2, 200, 40});
   loadGameButton.setText("Load Game");
   loadGameButton.registerCallbackFunction([this]() {
+#ifdef USE_AUDIO 
 	m_AudioMixer.stopAll();
-	m_AudioMixer.play(SoundtrackID{"MajorSelection"}); 
+	if(!Settings::instance().audio3DStatus)
+    m_AudioMixer.play(SoundtrackID{"MajorSelection"});
+  else
+    m_AudioMixer.play(SoundtrackID{"MajorSelection"}, Coordinate3D{ 0, 0, -4 });
+#endif // USE_AUDIO 
 	Engine::instance().loadGame("resources/save.cts"); 
   });
 
   Button quitGameButton({screenWidth / 2 - 100, screenHeight / 2 - 20 + loadGameButton.getUiElementRect().h * 4, 200, 40});
   quitGameButton.setText("Quit Game");
   quitGameButton.registerCallbackFunction([this]() {
+#ifdef USE_AUDIO 
     m_AudioMixer.stopAll();
-	m_AudioMixer.play(SoundtrackID{"NegativeSelect"}); 
+	if(!Settings::instance().audio3DStatus)
+    m_AudioMixer.play(SoundtrackID{"NegativeSelect"});
+  else
+    m_AudioMixer.play(SoundtrackID{"NegativeSelect"}, Coordinate3D{0, 0, -4});
+#endif // USE_AUDIO 
 	Engine::instance().quitGame(); 
   });
 
@@ -238,10 +271,18 @@ void Game::run(bool SkipMenu)
   scriptEngine.init();
 #endif
 
-#ifdef USE_SDL2_MIXER
-  m_GameClock.createRepeatedTask(8min, [this]() { m_AudioMixer.play(AudioTrigger::MainTheme); });
-  m_GameClock.createRepeatedTask(3min, [this]() { m_AudioMixer.play(AudioTrigger::NatureSounds); });
-#endif
+#ifdef USE_AUDIO
+  if (!Settings::instance().audio3DStatus)
+  {
+	  m_GameClock.createRepeatedTask(8min, [this]() { m_AudioMixer.play(AudioTrigger::MainTheme); });
+	  m_GameClock.createRepeatedTask(3min, [this]() { m_AudioMixer.play(AudioTrigger::NatureSounds); });
+  }
+  else
+  {
+	  m_GameClock.createRepeatedTask(8min, [this]() { m_AudioMixer.play(AudioTrigger::MainTheme,Coordinate3D{0,0.5,0.1}); });
+	  m_GameClock.createRepeatedTask(3min, [this]() { m_AudioMixer.play(AudioTrigger::NatureSounds,Coordinate3D{0, 0, -2}); });
+  }
+#endif // USE_AUDIO
 
   // FPS Counter variables
   const float fpsIntervall = 1.0; // interval the fps counter is refreshed in seconds.
@@ -297,7 +338,7 @@ void Game::shutdown()
   m_EventLoop.join();
   TTF_Quit();
 
-#ifdef USE_SDL2_MIXER
+#ifdef USE_AUDIO
   Mix_Quit();
 #endif
 

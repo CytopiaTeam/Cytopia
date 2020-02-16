@@ -10,16 +10,16 @@ set(SOURCE_FILES
         util/Singleton.hxx
         util/Meta.hxx
         util/Exception.{hxx,cxx}
-        util/MessageQueue.hxx
-        util/MessageQueue.inl.hxx
+        events/UIEvents.hxx
         GameService.{hxx,cxx}
         GameService.inl.hxx
         services/Randomizer.{hxx,cxx}
-        services/AudioMixer.{hxx,cxx}
         services/GameClock.{hxx,cxx}
         services/GameClock.inl.hxx
         services/ResourceManager.{hxx,cxx}
         services/ResourceManager.inl.hxx
+        engine/MessageQueue.hxx
+        engine/MessageQueue.inl.hxx
         engine/basics/Camera.{hxx,cxx}
         engine/basics/isoMath.{hxx,cxx}
         engine/basics/mapEdit.{hxx,cxx}
@@ -27,7 +27,6 @@ set(SOURCE_FILES
         engine/basics/signal.hxx
         engine/basics/Timer.{hxx,cxx}
         engine/basics/utils.{hxx,cxx}
-        engine/audio/Soundtrack.{hxx,cxx}
         engine/common/Constants.hxx
         engine/common/enums.hxx
         engine/common/JsonSerialization.hxx
@@ -70,10 +69,11 @@ list(APPEND _include_directories
         util
         )
 
-if (ENABLE_SDL2_MIXER)
+if (ENABLE_AUDIO)
     list(APPEND SOURCE_FILES
-            engine/audio/Soundtrack.hxx
+            engine/audio/Soundtrack.{hxx,cxx}
             services/AudioMixer.{hxx,cxx}
+            events/AudioEvents.hxx
             )
 endif ()
 

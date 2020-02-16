@@ -2,11 +2,12 @@
 #define AUDIOMIXER_HXX_
 
 #include <array>
-#include <unordered_map>
+#include <unordered_set>
 #include <vector>
 #include <memory>
 #include <list>
 
+#include "../events/AudioEvents.hxx"
 #include "audio/Soundtrack.hxx"
 #include "audio/AudioConfig.hxx"
 #include "../GameService.hxx"
@@ -75,6 +76,7 @@ public:
    */
 #ifdef USE_OPENAL_SOFT
   void play(AudioTrigger &&trigger, Coordinate3D &&position) noexcept;
+  
 #endif
   /**
    * @brief stops all sounds
