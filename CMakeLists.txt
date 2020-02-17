@@ -105,7 +105,7 @@ if (USE_PACKAGE_MANAGER)
     if("${CMAKE_SYSTEM_NAME}" STREQUAL "Emscripten")
 
       pmm(CONAN
-        PROFILE "${CMAKE_CURRENT_SOURCE_DIR}/emscripten_profile"
+        PROFILE "${CMAKE_CURRENT_SOURCE_DIR}/cmake/conan_profiles/emscripten_profile"
         REMOTES
         AFG https://api.bintray.com/conan/anotherfoxguy/conan-packages
         catchorg https://api.bintray.com/conan/catchorg/Catch2
