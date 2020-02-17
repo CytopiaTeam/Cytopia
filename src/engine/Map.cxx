@@ -54,13 +54,13 @@ Map::Map(int columns, int rows) : m_columns(columns), m_rows(rows)
   const size_t vectorSize = static_cast<size_t>(m_rows * m_columns);
   mapNodes.resize(vectorSize);
   mapNodesInDrawingOrder.reserve(vectorSize);
+  MapLayers::enableLayer(Layer::TERRAIN);
+  MapLayers::enableLayer(Layer::BUILDINGS);
+  MapLayers::enableLayer(Layer::WATER);
 }
 
 void Map::initMap()
 {
-  MapLayers::enableLayer(Layer::TERRAIN);
-  MapLayers::enableLayer(Layer::BUILDINGS);
-  MapLayers::enableLayer(Layer::WATER);
   terrainGen.generateTerrain(mapNodes, mapNodesInDrawingOrder);
   updateAllNodes();
 }
@@ -439,6 +439,12 @@ void Map::saveMapToFile(const std::string &fileName)
 
   std::ofstream file(SDL_GetBasePath() + fileName, std::ios_base::out | std::ios_base::binary);
 
+#ifdef DEBUG
+  // Write uncompressed savegame for easier debugging
+  std::ofstream fileuncompressed(SDL_GetBasePath() + fileName + "_UNCOMPRESSED", std::ios_base::out | std::ios_base::binary);
+  fileuncompressed << j.dump();
+#endif
+
   const std::string compressedSaveGame = compressString(j.dump());
 
   if (!compressedSaveGame.empty())
@@ -485,36 +491,26 @@ Map *Map::loadMapFromFile(const std::string &fileName)
     return nullptr;
 
   Map *map = new Map(columns, rows);
-  map->initMap();
 
-  // set coordinates first
   for (const auto &it : saveGameJSON["mapNode"].items())
   {
     Point coordinates = json(it.value())["coordinates"].get<Point>();
+    // set coordinates (height) of the map
+    map->mapNodes[coordinates.x * columns + coordinates.y] =
+        std::make_unique<MapNode>(Point{coordinates.x, coordinates.y, coordinates.z, coordinates.height}, "");
 
-    // for now we only set tileID read from the savegame
-    map->mapNodes[coordinates.x * columns + coordinates.y]->setCoordinates(coordinates);
+    // load back mapNodeData (tileIDs, Buildins, ...)
+    map->mapNodes[coordinates.x * columns + coordinates.y]->setMapNodeData(json(it.value())["mapNodeData"]);
   }
 
-  // update all nodes to reflect new height differences and  to have correct tiling for new tileIDs
-  map->updateAllNodes();
-
-  // now set the tileIDs after the nodes have been updated, so they're not auto-demolished
-  for (const auto &it : saveGameJSON["mapNode"].items())
+  // Now put those newly created nodes in correct drawing order
+  for (int x = 0; x < columns; x++)
   {
-    Point coordinates = json(it.value())["coordinates"].get<Point>();
-
-    // get mapNodeData and store in a vector
-    std::vector<MapNodeData> tileIDs = json(it.value())["mapNodeData"];
-    for (const auto &data : tileIDs)
+    for (int y = columns - 1; y >= 0; y--)
     {
-      if (!data.tileID.empty())
-      {
-        map->mapNodes[coordinates.x * columns + coordinates.y]->setTileID(data.tileID);
-      }
+      map->mapNodesInDrawingOrder.push_back(map->mapNodes[x * columns + y].get());
     }
   }
-  //update again to auto tile roads and so on
   map->updateAllNodes();
 
   return map;
