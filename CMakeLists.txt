@@ -138,12 +138,25 @@ if (USE_PACKAGE_MANAGER)
         list(APPEND CMAKE_MODULE_PATH "${CONAN_LIB_DIRS_CATCH2}/cmake/Catch2")
     endif ()
 
+# these compiler options are mostly for debugging and trying to get it to work
     if("${CMAKE_SYSTEM_NAME}" STREQUAL "Emscripten")
     list(APPEND _link_libraries
-#    "-s ERROR_ON_UNDEFINED_SYMBOLS=0"
+    "-s ERROR_ON_UNDEFINED_SYMBOLS=0"
+    "--preload-file ${CMAKE_CURRENT_BINARY_DIR}/resources" #include resources dir in .data file
         "-s USE_PTHREADS=1"
+        # "--source-map-base" 
         "-s WASM=1"
-        "-o index.html"
+        "-s WASM_MEM_MAX=512MB" # ALLOW_MEMORY_GROWTH demands MEM_MAX to be set
+        "-s ALLOW_MEMORY_GROWTH=1" #seems necessary for pthreads and dynamic memory allocation
+        "-o Cytopia.html"
+        "-s DISABLE_EXCEPTION_CATCHING=0" # 0 -> catch exceptions! 1-> is disabled
+        "-s TOTAL_MEMORY=33554432"
+        "-s SAFE_HEAP=1"
+        "--profiling-funcs"
+        "-s DEMANGLE_SUPPORT=1" #demangle C++ functions
+        "-s ASSERTIONS=1" # use assertions
+        "-Oz" # no optimization
+        "-g4" # most debug info
         CONAN_PKG::libnoise
         ${SDL2_LIBRARIES}
         ${SDL2_IMAGE_LIBRARIES}

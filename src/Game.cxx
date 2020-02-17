@@ -10,6 +10,12 @@
 #include <noise.h>
 #include <SDL.h>
 #include <SDL_ttf.h>
+// void gameLoop(Engine &engine, EventManager &evManager, UIManager &uiManager);
+
+void gameLoop(void* arg_);
+#ifdef __EMSCRIPTEN__
+  #include <emscripten.h>
+#endif
 
 #ifdef USE_ANGELSCRIPT
 #include "Scripting/ScriptEngine.hxx"
@@ -25,6 +31,12 @@
 
 template void Game::LoopMain<GameLoopMQ, Game::GameVisitor>(Game::GameContext &, Game::GameVisitor);
 template void Game::LoopMain<UILoopMQ, Game::UIVisitor>(Game::GameContext &, Game::UIVisitor);
+
+typedef struct loop_arg {
+  Engine *engine;
+  EventManager *evManager;
+  UIManager *uiManager;
+} loop_arg;
 
 Game::Game() :
       m_GameContext(
@@ -246,6 +258,7 @@ void Game::mainMenu()
 
 void Game::run(bool SkipMenu)
 {
+  loop_arg* arg = (loop_arg*)malloc(sizeof(loop_arg));
   Timer benchmarkTimer;
   LOG(LOG_INFO) << VERSION;
 
@@ -255,15 +268,21 @@ void Game::run(bool SkipMenu)
   }
 
   benchmarkTimer.start();
+
   Engine &engine = Engine::instance();
-
-  LOG(LOG_DEBUG) << "Map initialized in " << benchmarkTimer.getElapsedTime() << "ms";
-  Camera::centerScreenOnMapCenter();
-
-  SDL_Event event;
-  EventManager &evManager = EventManager::instance();
+    EventManager &evManager = EventManager::instance();
 
   UIManager &uiManager = UIManager::instance();
+  // SDL_Event event;
+
+  arg->engine = &engine;
+  arg->evManager = &evManager;
+  arg->uiManager = &uiManager;
+  
+    LOG(LOG_DEBUG) << "Map initialized in " << benchmarkTimer.getElapsedTime() << "ms";
+  Camera::centerScreenOnMapCenter();
+
+
   uiManager.init();
 
 #ifdef USE_ANGELSCRIPT
@@ -289,44 +308,19 @@ void Game::run(bool SkipMenu)
   Uint32 fpsLastTime = SDL_GetTicks();
   Uint32 fpsFrames = 0;
 
+  #ifdef __EMSCRIPTEN__
+  // void emscripten_set_main_loop(em_callback_func func, int fps, int simulate_infinite_loop);
+  // emscripten_set_main_loop(&game.run(), 60, 1);
+  // emscripten_set_main_loop(&gameLoop, 60, 1);
+  emscripten_set_main_loop_arg(&gameLoop, arg, 60, 1);
+#else
+
   // GameLoop
   while (engine.isGameRunning())
   {
-#ifdef MICROPROFILE_ENABLED
-    MICROPROFILE_SCOPEI("Map", "Gameloop", MP_GREEN);
-#endif
-    SDL_RenderClear(WindowManager::instance().getRenderer());
-
-    evManager.checkEvents(event, engine);
-
-    // render the tileMap
-    if (engine.map != nullptr)
-      engine.map->renderMap();
-
-    // render the ui
-    uiManager.drawUI();
-
-    // reset renderer color back to black
-    SDL_SetRenderDrawColor(WindowManager::instance().getRenderer(), 0, 0, 0, SDL_ALPHA_OPAQUE);
-
-    // Render the Frame
-    SDL_RenderPresent(WindowManager::instance().getRenderer());
-
-    fpsFrames++;
-
-    if (fpsLastTime < SDL_GetTicks() - fpsIntervall * 1000)
-    {
-      fpsLastTime = SDL_GetTicks();
-      uiManager.setFPSCounterText(std::to_string(fpsFrames) + " FPS");
-      fpsFrames = 0;
-    }
-
-    SDL_Delay(1);
-
-#ifdef MICROPROFILE_ENABLED
-    MicroProfileFlip(nullptr);
-#endif
+gameLoop( arg);
   }
+  #endif
 }
 
 void Game::shutdown()
@@ -369,4 +363,45 @@ template <typename MQType, typename Visitor> void Game::LoopMain(GameContext &co
     LOG(LOG_ERROR) << ex.what();
     // @todo: Call shutdown() here in a safe way
   }
+}
+
+void gameLoop(void* arg_)
+// void gameLoop(Engine &engine, EventManager &evManager, UIManager &uiManager)
+{
+
+loop_arg* arg = (loop_arg*)arg_;
+  #ifdef MICROPROFILE_ENABLED
+    MICROPROFILE_SCOPEI("Map", "Gameloop", MP_GREEN);
+#endif
+    SDL_RenderClear(WindowManager::instance().getRenderer());
+SDL_Event event;
+    arg->evManager->checkEvents(event, *arg->engine);
+
+    // render the tileMap
+    if (arg->engine->map != nullptr)
+      arg->engine->map->renderMap();
+
+    // render the ui
+    arg->uiManager->drawUI();
+
+    // reset renderer color back to black
+    SDL_SetRenderDrawColor(WindowManager::instance().getRenderer(), 0, 0, 0, SDL_ALPHA_OPAQUE);
+
+    // Render the Frame
+    SDL_RenderPresent(WindowManager::instance().getRenderer());
+
+    // fpsFrames++;
+
+    // if (fpsLastTime < SDL_GetTicks() - fpsIntervall * 1000)
+    // {
+    //   fpsLastTime = SDL_GetTicks();
+    //   uiManager.setFPSCounterText(std::to_string(fpsFrames) + " FPS");
+    //   fpsFrames = 0;
+    // }
+
+    SDL_Delay(1);
+
+#ifdef MICROPROFILE_ENABLED
+    MicroProfileFlip(nullptr);
+#endif
 }
