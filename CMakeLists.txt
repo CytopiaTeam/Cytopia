@@ -13,6 +13,36 @@ option(ENABLE_AUDIO "Enable Audio" ON)
 option(ENABLE_MICROPROFILE "Enable microprofile" OFF)
 option(ENABLE_ANGELSCRIPT "Enable AngelScript" ON)
 option(ENABLE_MOFILEREADER "Enable MofileReader" ON)
+option(CROSSBUILD_EMSCRIPTEN "Build for the EmScripten Platform" OFF)
+
+if (CROSSBUILD_EMSCRIPTEN)
+  # Turn off not features that are not compatible with emscripten
+  set (ENABLE_AUDIO OFF) 
+  set (ENABLE_ANGELSCRIPT OFF) 
+  set (ENABLE_MOFILEREADER OFF) 
+  #include(~/.conan/data/emsdk_installer/1.39.6/bincrafters/stable/package/1492a59deb6efdf29776a5734de63fc5f5c58650/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake )
+endif()
+
+if("${CMAKE_SYSTEM_NAME}" STREQUAL "Emscripten")
+  find_package(OpenGL REQUIRED)
+  include_directories(${OPENGL_INCLUDE_DIR})
+
+ list( APPEND conan_cmake_run_params SETTINGS os.threads=true )
+
+  set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --no-check-features")
+  set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --no-check-features")
+  set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --no-check-features")
+
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread -s USE_PTHREADS=1 -s USE_SDL_IMAGE=2  -s USE_SDL_TTF=2 -s USE_ZLIB=1"  )
+  set(CMAKE_C_FLAGS "${CMAKE_CXX_FLAGS} -pthread -s USE_PTHREADS=1 -s USE_SDL_IMAGE=2  -s USE_SDL_TTF=2 -s USE_ZLIB=1"  )
+  set(SDL2_LIBRARIES "-s USE_SDL=2")
+  set(SDL2_IMAGE_LIBRARIES "-s USE_PTHREADS=1 -s USE_SDL_IMAGE=2")
+  #set(SDL2_MIXER_LIBRARIES "-s USE_SDL_MIXER=2")
+  set(SDL2_TTF_LIBRARIES "--no-check-features -s USE_SDL_TTF=2")
+  set(SDL2_ZLIB_LIBRARIES "-s USE_ZLIB=1")
+  
+endif()
+
 
 # Comment-out uneeded libs
 if (NOT ENABLE_AUDIO)
@@ -72,14 +102,27 @@ if (USE_PACKAGE_MANAGER)
 
     include(pmm)
 
-    pmm(CONAN
-            REMOTES
-            AFG https://api.bintray.com/conan/anotherfoxguy/conan-packages
-            catchorg https://api.bintray.com/conan/catchorg/Catch2
-            ror-dependencies https://api.bintray.com/conan/anotherfoxguy/ror-dependencies
-            BINCRAFTERS
-            CMakeCM ROLLING
-            )
+    if("${CMAKE_SYSTEM_NAME}" STREQUAL "Emscripten")
+
+      pmm(CONAN
+        PROFILE "${CMAKE_CURRENT_SOURCE_DIR}/emscripten_profile"
+        REMOTES
+        AFG https://api.bintray.com/conan/anotherfoxguy/conan-packages
+        catchorg https://api.bintray.com/conan/catchorg/Catch2
+        ror-dependencies https://api.bintray.com/conan/anotherfoxguy/ror-dependencies
+        BINCRAFTERS
+        CMakeCM ROLLING
+      )
+    else()
+      pmm(CONAN
+              REMOTES
+              AFG https://api.bintray.com/conan/anotherfoxguy/conan-packages
+              catchorg https://api.bintray.com/conan/catchorg/Catch2
+              ror-dependencies https://api.bintray.com/conan/anotherfoxguy/ror-dependencies
+              BINCRAFTERS
+              CMakeCM ROLLING
+              )
+    endif()
 
     if (DEFINED ENV{CI})
         set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
@@ -95,6 +138,19 @@ if (USE_PACKAGE_MANAGER)
         list(APPEND CMAKE_MODULE_PATH "${CONAN_LIB_DIRS_CATCH2}/cmake/Catch2")
     endif ()
 
+    if("${CMAKE_SYSTEM_NAME}" STREQUAL "Emscripten")
+    list(APPEND _link_libraries
+#    "-s ERROR_ON_UNDEFINED_SYMBOLS=0"
+        "-s USE_PTHREADS=1"
+        "-s WASM=1"
+        "-o index.html"
+        CONAN_PKG::libnoise
+        ${SDL2_LIBRARIES}
+        ${SDL2_IMAGE_LIBRARIES}
+        ${SDL2TTF_LIBRARIES}
+        ${SDL2_ZLIB_LIBRARIES}
+    )
+    else()
     list(APPEND _link_libraries
             CONAN_PKG::sdl2
             CONAN_PKG::sdl2_image
@@ -103,6 +159,7 @@ if (USE_PACKAGE_MANAGER)
             CONAN_PKG::libnoise
             CONAN_PKG::zlib
             )
+            endif()
 
     if (ENABLE_AUDIO)
         list(APPEND _link_libraries CONAN_PKG::sdl2_mixer)
@@ -197,7 +254,7 @@ if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
   link_libraries(dbghelp.lib)
 else()
   # Needed for filesystem library
-  if(NOT APPLE)
+  if(NOT APPLE AND NOT EMSCRIPTEN)
     # TODO: Link with stdc++fs on Apple with XCode11
     list(APPEND _link_libraries "stdc++fs")
   endif()
