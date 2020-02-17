@@ -205,11 +205,6 @@ void MapNode::updateTexture()
         }
         if (!m_mapNodeData[currentLayer].tileID.empty())
         {
-          // terrain always uses the first tile
-          if (m_mapNodeData[currentLayer].tileID == "terrain" || m_mapNodeData[currentLayer].tileID == "water")
-          {
-            clipRect.x = 0;
-          }
 
           m_sprite->setClipRect({clipRect.x + m_clippingWidth * m_mapNodeData[currentLayer].tileData->tiles.offset, 0,
                                  m_clippingWidth, m_mapNodeData[currentLayer].tileData->tiles.clippingHeight},
