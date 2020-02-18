@@ -205,11 +205,6 @@ void MapNode::updateTexture()
         }
         if (!m_mapNodeData[currentLayer].tileID.empty())
         {
-          // terrain always uses the first tile
-          if (m_mapNodeData[currentLayer].tileID == "terrain" || m_mapNodeData[currentLayer].tileID == "water")
-          {
-            clipRect.x = 0;
-          }
 
           m_sprite->setClipRect({clipRect.x + m_clippingWidth * m_mapNodeData[currentLayer].tileData->tiles.offset, 0,
                                  m_clippingWidth, m_mapNodeData[currentLayer].tileData->tiles.clippingHeight},
@@ -285,6 +280,21 @@ const MapNodeData &MapNode::getActiveMapNodeData() const
   }
 
   return m_mapNodeData[Layer::TERRAIN];
+}
+
+void MapNode::setMapNodeData(std::vector<MapNodeData>&& mapNodeData)
+{
+  m_mapNodeData.swap(mapNodeData);
+
+  // updates the pointers to the tiles, after loading tileIDs from json
+  for (auto &it : m_mapNodeData)
+  {
+    if (it.tileData)
+    {
+      delete it.tileData;
+    }
+    it.tileData = TileManager::instance().getTileData(it.tileID);
+  }
 }
 
 void MapNode::demolishNode()

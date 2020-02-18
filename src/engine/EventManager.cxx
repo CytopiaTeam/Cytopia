@@ -62,9 +62,13 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       case SDLK_w:
         if (Camera::cameraOffset.y > -2 * Settings::instance().screenHeight * Camera::zoomLevel)
         {
-          Camera::cameraOffset.y -= (Settings::instance().screenHeight / 4);
-          if (Engine::instance().map != nullptr)
+          // check if map exists to see, if we're ingame already.
+          if (Engine::instance().map)
           {
+            Camera::cameraOffset.y -= (Settings::instance().screenHeight / 16);
+            // set the center coordinates for scrolling
+            Camera::centerIsoCoordinates =
+                convertScreenToIsoCoordinates({Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2});
             Engine::instance().map->refresh();
           }
         }
@@ -72,9 +76,13 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       case SDLK_a:
         if (Camera::cameraOffset.x > -0.25 * Settings::instance().screenWidth * Camera::zoomLevel)
         {
-          Camera::cameraOffset.x -= (Settings::instance().screenWidth / 4);
-          if (Engine::instance().map != nullptr)
+          // check if map exists to see, if we're ingame already.
+          if (Engine::instance().map)
           {
+            Camera::cameraOffset.x -= (Settings::instance().screenWidth / 16);
+            // set the center coordinates for scrolling
+            Camera::centerIsoCoordinates =
+                convertScreenToIsoCoordinates({Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2});
             Engine::instance().map->refresh();
           }
         }
@@ -83,9 +91,13 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       case SDLK_s:
         if (Camera::cameraOffset.y < 1.25 * Settings::instance().screenHeight * Camera::zoomLevel)
         {
-          Camera::cameraOffset.y += (Settings::instance().screenHeight / 4);
-          if (Engine::instance().map != nullptr)
+          // check if map exists to see, if we're ingame already.
+          if (Engine::instance().map)
           {
+            Camera::cameraOffset.y += (Settings::instance().screenHeight / 16);
+            // set the center coordinates for scrolling
+            Camera::centerIsoCoordinates =
+                convertScreenToIsoCoordinates({Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2});
             Engine::instance().map->refresh();
           }
         }
@@ -94,9 +106,13 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       case SDLK_d:
         if (Camera::cameraOffset.x < 5 * Settings::instance().screenWidth * Camera::zoomLevel)
         {
-          Camera::cameraOffset.x += (Settings::instance().screenWidth / 4);
-          if (Engine::instance().map != nullptr)
+          // check if map exists to see, if we're ingame already.
+          if (Engine::instance().map)
           {
+            Camera::cameraOffset.x += (Settings::instance().screenWidth / 16);
+            // set the center coordinates for scrolling
+            Camera::centerIsoCoordinates =
+                convertScreenToIsoCoordinates({Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2});
             Engine::instance().map->refresh();
           }
         }
