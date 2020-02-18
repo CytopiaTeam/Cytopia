@@ -2031,6 +2031,7 @@
             "fileName": "resources/images/flora/tree_pinetree.png"
         },
         "title": "TODO TITLE",
+		"isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
         "tag": [
@@ -2117,6 +2118,7 @@
             "fileName": "resources/images/flora/flora_water_lilypads.png"
         },
         "title": "Lilypads",
+		"isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
         "tag": [
@@ -2508,6 +2510,7 @@
             "fileName": "resources/images/flora/tree_pinetrees_light.png"
         },
         "title": "TODO TITLE",
+		"isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
         "tag": [
@@ -2655,6 +2658,7 @@
             "fileName": "resources/images/flora/flora_RedBerryBush_dense.png"
         },
         "title": "TODO TITLE",
+		"isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
         "tag": [
@@ -2903,6 +2907,7 @@
             "fileName": "resources/images/flora/flora_RedBerryBush.png"
         },
         "title": "TODO TITLE",
+		"isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
         "tag": [
@@ -2924,6 +2929,7 @@
             "fileName": "resources/images/flora/tree_mushroom_light.png"
         },
         "title": "TODO TITLE",
+		"isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
         "tag": [
@@ -2945,6 +2951,7 @@
             "fileName": "resources/images/flora/flora_ferns_dense.png"
         },
         "title": "TODO TITLE",
+		"isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
         "tag": [
@@ -3238,6 +3245,7 @@
             "fileName": "resources/images/flora/flora_bush_dense.png"
         },
         "title": "TODO TITLE",
+		"isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
         "tag": [
@@ -3281,6 +3289,7 @@
             "fileName": "resources/images/flora/flora_bush.png"
         },
         "title": "TODO TITLE",
+		"isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
         "tag": [
@@ -3459,6 +3468,7 @@
             "fileName": "resources/images/flora/flora_tallgrass_dense.png"
         },
         "title": "TODO TITLE",
+		"isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
         "tag": [
@@ -3480,6 +3490,7 @@
             "fileName": "resources/images/flora/tree_deciduous_dense.png"
         },
         "title": "TODO TITLE",
+		"isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
         "tag": [
@@ -3572,6 +3583,7 @@
             "fileName": "resources/images/flora/flora_flower_dense.png"
         },
         "title": "TODO TITLE",
+		"isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
         "tag": [
@@ -3593,6 +3605,7 @@
             "fileName": "resources/images/flora/flora_tallgrass_light.png"
         },
         "title": "TODO TITLE",
+		"isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
         "tag": [
@@ -3784,6 +3797,7 @@
             "fileName": "resources/images/flora/flora_ferns_light.png"
         },
         "title": "TODO TITLE",
+		"isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
         "tag": [
@@ -4590,6 +4604,7 @@
             "fileName": "resources/images/flora/flora_tallgrass.png"
         },
         "title": "TODO TITLE",
+		"isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
         "tag": [
@@ -4879,6 +4894,7 @@
             "fileName": "resources/images/flora/flora_horse.png"
         },
         "title": "TODO TITLE",
+		"isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
         "tag": [
@@ -5132,6 +5148,7 @@
             "fileName": "resources/images/flora/flora_bush_light.png"
         },
         "title": "TODO TITLE",
+		"isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
         "tag": [
@@ -5588,6 +5605,7 @@
             "fileName": "resources/images/flora/tree_deciduous_light.png"
         },
         "title": "TODO TITLE",
+		"isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
         "tag": [
@@ -5631,6 +5649,7 @@
             "fileName": "resources/images/flora/flora_flower_light.png"
         },
         "title": "TODO TITLE",
+		"isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
         "tag": [
@@ -5799,6 +5818,7 @@
             "fileName": "resources/images/flora/tree_mushroom_dense.png"
         },
         "title": "TODO TITLE",
+		"isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
         "tag": [
@@ -5820,6 +5840,7 @@
             "fileName": "resources/images/flora/flora_water_rice.png"
         },
         "title": "TODO TITLE",
+		"isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
         "tag": [
@@ -5841,6 +5862,7 @@
             "fileName": "resources/images/flora/flora_RedBerryBush_light.png"
         },
         "title": "TODO TITLE",
+		"isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
         "tag": [
@@ -5972,6 +5994,7 @@
             "fileName": "resources/images/flora/flora_water_cattail.png"
         },
         "title": "TODO TITLE",
+		"isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
         "tag": [
@@ -5993,6 +6016,7 @@
             "fileName": "resources/images/flora/flora_flower.png"
         },
         "title": "TODO TITLE",
+		"isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
         "tag": [
@@ -6215,6 +6239,7 @@
             "fileName": "resources/images/flora/flora_ferns.png"
         },
         "title": "TODO TITLE",
+		"isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
         "tag": [
