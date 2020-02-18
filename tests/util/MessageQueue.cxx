@@ -1,5 +1,5 @@
-#include "../../src/engine/basics/LOG.hxx"
-#include "../../src/util/MessageQueue.hxx"
+#include "LOG.hxx"
+#include "MessageQueue.hxx"
 #include <atomic>
 #include <thread>
 #include <future>

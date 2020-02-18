@@ -8,6 +8,8 @@
 #include <functional>
 #include <ciso646>
 
+#include "../Events.hxx"
+
 using Monitor = std::condition_variable;
 using Mutex = std::mutex;
 using MonitorUPtr = std::unique_ptr<Monitor>;
@@ -16,58 +18,34 @@ template <typename Type> using Deque = std::deque<Type>;
 template <typename Semaphore> using Lock = std::unique_lock<Semaphore>;
 
 /**
- * @threadsafe
  * @brief A Thread safe MessageQueue
  * @example tests/util/MessageQueue.cxx
  */
-template <typename Event> class MessageQueue final
+template <typename Event> class MessageQueue
 {
 
 public:
   using Enumerable = Deque<Event>;
 
   /**
-   * @mutex
    * @brief Push an event on the Queue
    * @post All waiting threads are notified
    */
-  void push(Event &&event)
-  {
-    /* Push the event */
-    {
-      Lock<Mutex> lock(*m_Semaphore);
-      m_Queue.push_back(event);
-    }
-    /* Notify */
-    m_OnEvent->notify_all();
-  }
+  void push(Event &&event);
 
   /**
    * @returns true if the queue contains a message
-   * @details This method is non-blocking assuming the
-   *          thread is not starving
+   * @details This method is non-blocking
    */
-  bool peek(void) noexcept
-  {
-    Lock<Mutex> lock(*m_Semaphore);
-    return m_OnEvent->wait_for(lock, std::chrono::seconds::zero(), std::bind(&MessageQueue::wakeCondition, this));
-  }
+  bool peek(void) noexcept;
 
   /**
-   * @mutex
    * @details Blocks the thread until an event is received
    * @returns an Enumerable of Events on the Queue 
    * @post the Queue is emptied
    * @post Enumerable contains at least one Event
    */
-  Enumerable getEnumerable(void)
-  {
-    Lock<Mutex> lock(*m_Semaphore);
-    m_OnEvent->wait(lock, std::bind(&MessageQueue::wakeCondition, this));
-    Enumerable enumerable;
-    std::swap(enumerable, m_Queue);
-    return enumerable;
-  }
+  Enumerable getEnumerable(void);
 
   /* These operators are deleted to prevent race hazards */
   MessageQueue(const MessageQueue &) = delete;
@@ -79,15 +57,30 @@ public:
 
 private:
   /**
-   * @racehazard
    * @pre This thread owns a m_Semaphore Lock
    * @returns true if the queue contains an event
    */
-  inline bool wakeCondition(void) const noexcept { return not m_Queue.empty(); }
+  bool wakeCondition(void) const noexcept;
 
   MonitorUPtr m_OnEvent = std::make_unique<Monitor>();
   MutexUPtr m_Semaphore = std::make_unique<Mutex>();
   Deque<Event> m_Queue;
+};
+
+#include "MessageQueue.inl.hxx"
+
+/**
+ * @brief UI Actor's message queue
+ */
+class UILoopMQ : public MessageQueue<typename VariantType<UIEvents>::type>
+{
+};
+
+/**
+ * @brief Game loop Actor's message queue
+ */
+class GameLoopMQ : public MessageQueue<typename VariantType<GameEvents>::type>
+{
 };
 
 #endif

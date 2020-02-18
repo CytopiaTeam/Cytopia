@@ -14,20 +14,7 @@ list(APPEND _include_directories
         ${CMAKE_SOURCE_DIR}/src/util
         )
 
-
-FetchContent_Declare(
-        codecov
-        GIT_REPOSITORY https://github.com/RWTH-HPC/CMake-codecov.git
-)
-
-FetchContent_GetProperties(codecov)
-if (NOT codecov_POPULATED)
-    FetchContent_Populate(codecov)
-endif ()
-
-list(APPEND CMAKE_MODULE_PATH "${codecov_SOURCE_DIR}/cmake/")
-
-find_package(codecov)
+include(codecov)
 
 # We need to test our sources
 SET(_TMP_SRC ${MAIN_EXE_SOURCE_FILES})
@@ -49,19 +36,21 @@ LIST(APPEND TEST_SOURCES
         engine/ResourcesManager.cxx
         engine/Engine.cxx
         engine/WindowManager.cxx
+        services/GameClock.cxx
         ui/widgets/Text.cxx
         util/Meta.cxx
         util/Observer.cxx
         util/TransitiveModel.cxx
         util/MessageQueue.cxx
+        util/LOG.cxx
         )
 
 # Generate source groups for use in IDEs
 generate_source_groups(${TEST_SOURCES})
 
-if (ENABLE_SDL2_MIXER)
+if (ENABLE_AUDIO)
     LIST(APPEND TEST_SOURCES ${CMAKE_CURRENT_LIST_DIR}/services/AudioMixer.cxx)
-endif (ENABLE_SDL2_MIXER)
+endif (ENABLE_AUDIO)
 
 # Generate source groups for use in IDEs
 generate_source_groups(${TEST_SOURCES})

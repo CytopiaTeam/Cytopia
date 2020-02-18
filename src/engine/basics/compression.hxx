@@ -1,6 +1,8 @@
 #include <zlib.h>
-
 #include <string>
+
+#include "Exception.hxx"
+#include "LOG.hxx"
 
 // set buffer chunksize to 65kb
 constexpr int CHUNK_SIZE = 65536;
@@ -25,8 +27,9 @@ std::string compressString(const std::string &stringToCompress)
 
   if (deflateInit(&zstream, Z_BEST_COMPRESSION) != Z_OK)
   {
-    LOG(LOG_ERROR) << "Failed to initialize zlib stream.";
-    return "";
+    if (zstream.msg)
+      throw CompressionError(TRACE_INFO "Failed initialize Zlib stream: " + string{zstream.msg});
+    throw CompressionError(TRACE_INFO "Failed initialize Zlib stream");
   }
 
   zstream.avail_in = static_cast<unsigned int>(stringToCompress.size());
@@ -50,8 +53,9 @@ std::string compressString(const std::string &stringToCompress)
 
   if (deflateResult != Z_STREAM_END)
   {
-    LOG(LOG_ERROR) << "Error (" << deflateResult << ") while compressing file. " << zstream.msg;
-    return "";
+    if (zstream.msg)
+      throw CompressionError(TRACE_INFO "Error while compressing file: " + string{zstream.msg});
+    throw CompressionError(TRACE_INFO "Error while compressing file");
   }
 
   return compressedString;
@@ -77,8 +81,9 @@ std::string decompressString(const std::string &compressedString)
 
   if (inflateInit(&zstream) != Z_OK)
   {
-    LOG(LOG_ERROR) << "Failed to initialize zlib stream.";
-    return "";
+    if (zstream.msg)
+      throw CompressionError(TRACE_INFO "Failed initialize Zlib stream: " + string{zstream.msg});
+    throw CompressionError(TRACE_INFO "Failed initialize Zlib stream");
   }
 
   zstream.next_in = (Bytef *)compressedString.data();
@@ -103,8 +108,9 @@ std::string decompressString(const std::string &compressedString)
 
   if (inflateResult != Z_STREAM_END)
   {
-    LOG(LOG_ERROR) << "Error (" << inflateResult << ") while uncompressing file. " << zstream.msg;
-    return "";
+    if (zstream.msg)
+      throw CompressionError(TRACE_INFO "Error while decompressing file: " + string{zstream.msg});
+    throw CompressionError(TRACE_INFO "Error while decompressing file");
   }
 
   return uncompressedString;

@@ -6,17 +6,19 @@
 #endif
 
 #include "Scripting/ScriptEngine.hxx"
-#include "util/MessageQueue.hxx"
+#include "engine/MessageQueue.hxx"
 #include "util/Meta.hxx"
 #include "GameService.hxx"
-#ifdef USE_SDL2_MIXER
+#ifdef USE_AUDIO
 #include "services/AudioMixer.hxx"
 #endif
 #include "services/Randomizer.hxx"
-#include "engine/basics/LOG.hxx"
+#include "services/GameClock.hxx"
+#include "services/ResourceManager.hxx"
+#include "LOG.hxx"
+#include "Exception.hxx"
 
 #include <thread>
-
 
 using Thread = std::thread;
 using RuntimeError = std::runtime_error;
@@ -24,109 +26,90 @@ using RuntimeError = std::runtime_error;
 class Game
 {
 public:
-  Game() :
-#ifdef USE_SDL2_MIXER
-          m_AudioMixer{m_GameContext},
-#endif
-          m_Randomizer{m_GameContext},
-          m_UILoopMQ{},
-          m_GameLoopMQ{},
-          m_GameContext(m_UILoopMQ, m_GameLoopMQ, m_AudioMixer, m_Randomizer),
-          m_UILoop(&LoopMain<UILoopMQ, UIVisitor>, std::ref(m_GameContext), UIVisitor{}),
-          m_EventLoop(&LoopMain<GameLoopMQ, GameVisitor>, std::ref(m_GameContext), GameVisitor{m_GameContext})
-          { }
+  /**
+   * @brief Creates a game
+   * @details Initializes all GameServices and starts the threads
+   */
+  Game();
+
+  /**
+   * @brief Destroy a game
+   */
   virtual ~Game() = default;
-  
+
   /** @brief starts setting up the game
     * starts game initialization.
     */
   virtual bool initialize();
+
   /** @brief begins the game
     * starts running the game
     * @param SkipMenu if the main menu should be skipped or not
     */
   virtual void run(bool SkipMenu = false);
+
   /** @brief ends the game
     * shuts down the game
     */
   virtual void shutdown();
+
   /** @brief initializes and displays the main menu
     * initializes and displays the main menu
     */
   virtual void mainMenu();
 
 private:
-
+  /* Game context */
+  using GameContext = GameService::ServiceTuple;
+  GameContext m_GameContext;
+	
   /* Services */
-#ifdef USE_SDL2_MIXER
+  GameClock m_GameClock;
+  Randomizer m_Randomizer;
+  ResourceManager m_ResourceManager;
+#ifdef USE_AUDIO
   AudioMixer m_AudioMixer;
 #endif
-  Randomizer m_Randomizer;
   UILoopMQ m_UILoopMQ;
   GameLoopMQ m_GameLoopMQ;
 
-  /* Game context */
-  using GameContext = typename TupleType<GameService::Types>::type;
-  GameContext m_GameContext;
 
   /* Threads */
   Thread m_UILoop;
   Thread m_EventLoop;
 
-  template <typename MQType, typename Visitor>
-  static void LoopMain(GameContext& context, Visitor visitor);
+  template <typename MQType, typename Visitor> static void LoopMain(GameContext &context, Visitor visitor);
 
   struct UIVisitor
   {
 
-    template<typename ArgumentType>
-    void operator()(ArgumentType&& event)
-    {
-      static_assert(std::is_void_v<std::void_t<ArgumentType>>, "UIVisitor does not know how to handle this event. You must specialize the functor");
-    }
-
-    template<typename TransitiveType>
-    void operator()(TransitiveStateChange<TransitiveType>&& event)
-    {
-      if(auto uiTarget = event.target.lock())
-      {
-        uiTarget->update(event.data);
-      }
-    }
-
+    /**
+     * @brief handles invalid UI events
+     * @tparam ArgumentType the invalid event
+     */
+    template <typename ArgumentType> void operator()(ArgumentType &&event);
   };
 
   struct GameVisitor : public GameService
   {
 
-    using AudioEvents = TypeList<
-      AudioTriggerEvent,
-      AudioTriggerEvent,
-      AudioTrigger3DEvent,
-      AudioPlayEvent, 
-      AudioPlay3DEvent, 
-      AudioMusicVolumeChangeEvent, 
-      AudioSoundVolumeChangeEvent, 
-      AudioSetMutedEvent
-      >;
-
+#ifdef USE_AUDIO
+    /**
+     * @brief handles valid Audio events
+     * @tparam AudioEventType the Audio event
+     */
     template <typename AudioEventType>
-    EnableIf<ContainsType<AudioEvents, AudioEventType>, void>
-    operator()(AudioEventType&& event)
-    {
-      GetService<AudioMixer>().handleEvent(std::move(event));
-    }
+    EnableIf<ContainsType<AudioEvents, AudioEventType>, void> operator()(AudioEventType &&event);
+#endif // USE_AUDIO
 
-    template<typename ArgumentType>
-    void operator()(const ArgumentType&& event)
-    {
-      string ErrorMsg = "Unimplemented Error: ";
-      ErrorMsg += __PRETTY_FUNCTION__;
-      ErrorMsg += " is not implemented";
-      throw RuntimeError(ErrorMsg);
-    }
-
+    /**
+     * @brief handles invalid game events
+     * @tparam ArgumentType the invalid game event
+     */
+    template <typename ArgumentType> void operator()(const ArgumentType &&event);
   };
 };
+
+#include "Game.inl.hxx"
 
 #endif

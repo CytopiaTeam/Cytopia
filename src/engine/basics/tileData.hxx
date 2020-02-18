@@ -47,7 +47,7 @@ struct TileSetData
   int count = 1;
   int clippingWidth = 0;
   int clippingHeight = 0;
-  int offset = 0;   // The offset to start the spritesheet from in images (see above)
+  int offset = 0;    // The offset to start the spritesheet from in images (see above)
   int rotations = 1; // The number of rotation images in this spritesheet (see above)
 };
 
@@ -56,7 +56,7 @@ struct TileData
   std::string id;
   std::string category;
   uint8_t buildingsize; /// the size that the building occupies in tiles.
-  std::string biome; /// the biome the tile belongs to
+  std::string biome;    /// the biome the tile belongs to
   TileSetData tiles;
   TileSetData cornerTiles;
   TileSetData slopeTiles;
@@ -71,9 +71,9 @@ struct TileData
   bool placeOnGround = true; /// wether or not this building is placeable on ground
   bool placeOnWater = false; /// whether or not this building is placeable on water
   bool isOverPlacable;
-  int pollutionLevel = 0;    /// Pollution this building produces or prevents
-  int crimeLevel = 0;        /// Crime this building produces or prevents (police station)
-  int fireDangerLevel = 0;   /// Fire Danger this building produces or prevents
+  int pollutionLevel = 0;  /// Pollution this building produces or prevents
+  int crimeLevel = 0;      /// Crime this building produces or prevents (police station)
+  int fireDangerLevel = 0; /// Fire Danger this building produces or prevents
   int habitants = 0;
 };
 

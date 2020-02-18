@@ -1,9 +1,10 @@
 #include <catch2/catch.hpp>
 #include "../../src/engine/ResourcesManager.hxx"
+#include "Exception.hxx"
 
 using string = std::string;
 
-TEST_CASE("Get ResourcesManager instance", "[engine][resourcesmanager]")
+TEST_CASE("Get ResourcesManager instance", "[!mayfail][engine][resourcesmanager]")
 {
   void *singleton1 = static_cast<void *>(&ResourcesManager::instance());
   void *singleton2 = static_cast<void *>(&ResourcesManager::instance());
@@ -12,32 +13,26 @@ TEST_CASE("Get ResourcesManager instance", "[engine][resourcesmanager]")
 
 TEST_CASE("Get UI Texture", "[engine][resourcesmanager]")
 {
-  SDL_Texture *texture1 = ResourcesManager::instance().getUITexture("UNLOADED");
-  SDL_Texture *texture2 = ResourcesManager::instance().getUITexture("UNLOADED", BUTTONSTATE_HOVERING);
-  CHECK(texture1 == nullptr);
-  CHECK(texture2 == nullptr);
+  REQUIRE_THROWS_AS(ResourcesManager::instance().getUITexture("UNLOADED"), UIError);
+  REQUIRE_THROWS_AS(ResourcesManager::instance().getUITexture("UNLOADED", BUTTONSTATE_HOVERING), UIError);
 }
 
 TEST_CASE("Get Tile Texture", "[engine][resourcesmanager]")
 {
-  SDL_Texture *texture1 = ResourcesManager::instance().getTileTexture("UNLOADED");
-  SDL_Texture *texture2 = ResourcesManager::instance().getTileTexture("UNLOADED", 1);
-  CHECK(texture1 == nullptr);
-  CHECK(texture2 == nullptr);
+  REQUIRE_THROWS_AS(ResourcesManager::instance().getTileTexture("UNLOADED"), UIError);
+  REQUIRE_THROWS_AS(ResourcesManager::instance().getTileTexture("UNLOADED", 1), UIError);
 }
 
 TEST_CASE("Get Tile Surface", "[engine][resourcesmanager]")
 {
-  SDL_Surface *surface1 = ResourcesManager::instance().getTileSurface("UNLOADED");
-  SDL_Surface *surface2 = ResourcesManager::instance().getTileSurface("UNLOADED", 1);
-  CHECK(surface1 == nullptr);
-  CHECK(surface2 == nullptr);
+  REQUIRE_THROWS_AS(ResourcesManager::instance().getTileSurface("UNLOADED"), UIError);
+  REQUIRE_THROWS_AS(ResourcesManager::instance().getTileSurface("UNLOADED", 1), UIError);
 }
 
 TEST_CASE("Load Texture", "[engine][resourcesmanager]")
 {
-  CHECK_NOTHROW(ResourcesManager::instance().loadTexture("TEXTURE", "__NOT_A_FILE__"));
-  CHECK_NOTHROW(ResourcesManager::instance().loadTexture("TEXTURE", "__NOT_A_FILE__", 1));
+  REQUIRE_THROWS_AS(ResourcesManager::instance().loadTexture("TEXTURE", "__NOT_A_FILE__"), UIError);
+  REQUIRE_THROWS_AS(ResourcesManager::instance().loadTexture("TEXTURE", "__NOT_A_FILE__", 1), UIError);
 }
 
 SCENARIO("I can load and use textures", "[engine][resourcesmanager][!mayfail]")

@@ -1,6 +1,7 @@
 #include "TileManager.hxx"
 
-#include "basics/LOG.hxx"
+#include "LOG.hxx"
+#include "Exception.hxx"
 #include "basics/Settings.hxx"
 #include "ResourcesManager.hxx"
 
@@ -15,17 +16,10 @@ SDL_Texture *TileManager::getTexture(const std::string &id, size_t tileMapType) 
   return ResourcesManager::instance().getTileTexture(id, tileMapType);
 }
 
-TileData *TileManager::getTileData(const std::string &id)
+TileData *TileManager::getTileData(const std::string &id) noexcept
 {
   if (m_tileData.count(id))
-  {
     return &m_tileData[id];
-  }
-  else
-  {
-    LOG(LOG_ERROR) << "Non existing id is beeing accessed at Tile::getTileData(id) " << id;
-  }
-
   return nullptr;
 }
 
@@ -236,19 +230,13 @@ void TileManager::init()
 {
   // Read JSON File.
   std::ifstream i(SDL_GetBasePath() + Settings::instance().tileDataJSONFile.get());
-  if (i.fail())
-  {
-    LOG(LOG_ERROR) << "File " << Settings::instance().tileDataJSONFile.get() << " does not exist!";
-    return;
-  }
+  if (!i)
+    throw ConfigurationError(TRACE_INFO "Can't open file " + Settings::instance().tileDataJSONFile.get());
 
-  // check if json file can be parsed
+  /* check if json file can be parsed */
   const json tileDataJSON = json::parse(i, nullptr, false);
   if (tileDataJSON.is_discarded())
-  {
-    LOG(LOG_ERROR) << "Error parsing JSON File " << Settings::instance().tileDataJSONFile.get();
-  }
-  i.close();
+    throw ConfigurationError(TRACE_INFO "Error parsing JSON File " + Settings::instance().tileDataJSONFile.get());
 
   std::string key;
 
@@ -256,9 +244,9 @@ void TileManager::init()
 
   for (auto element : tileDataJSON.items())
   {
-	std::string id;
-	id = element.value().value("id", "");
-	addJSONObjectToTileData(tileDataJSON, idx, id);
+    std::string id;
+    id = element.value().value("id", "");
+    addJSONObjectToTileData(tileDataJSON, idx, id);
     idx++;
   }
 }

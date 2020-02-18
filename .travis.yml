@@ -6,7 +6,7 @@ services:
 env:
   global:
     - GITHUB_REPO:      CytopiaTeam/Cytopia
-
+    - CTEST_OUTPUT_ON_FAILURE: 1
 
 cache:
   timeout:              1000
@@ -58,13 +58,9 @@ matrix:
             echo "Running pullrequest build";
             make -j2;
           fi;
-        - make copy_resources
         - xvfb-run -a ctest
         - make gcov
-        - >
-          if [ "${TRAVIS_SECURE_ENV_VARS}" == "true" ]; then
-            sonar-scanner -X -D"sonar.projectVersion=CI-${TRAVIS_JOB_NUMBER}";
-          fi;
+        - make copy_coverage
 
       before_cache:
         - cmake -P ./cmake/pmm.cmake /Conan /Clean
@@ -129,6 +125,7 @@ matrix:
 
       script:
         - make
+        - cp -R data/resources bin/resources
         - ctest
         - make package
 

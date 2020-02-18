@@ -59,8 +59,7 @@ public:
     */
   void toggleFullScreen();
 
-  template<typename Iterator>
-  void setTileIDOfNode(const Iterator& begin, const Iterator& end, const std::string& tileID) const
+  template <typename Iterator> void setTileIDOfNode(const Iterator &begin, const Iterator &end, const std::string &tileID) const
   {
     static_assert(std::is_same_v<Point, typename std::iterator_traits<Iterator>::value_type>,
                   "Iterator value must be a const Point");
@@ -95,7 +94,6 @@ public:
   void newGame();
 
   Map *map;
-  
 
 private:
   Engine();

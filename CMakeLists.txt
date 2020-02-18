@@ -9,17 +9,17 @@ include(FetchContent)
 
 option(BUILD_TEST "Build Cytopia Tests" ON)
 option(USE_PACKAGE_MANAGER "Use conan for managing packages" ON)
-option(ENABLE_SDL2_MIXER "Enable SDL2 Mixer" ON)
-option(ENABLE_OPENAL_SOFT "Enable OpenAL Soft" ON)
+option(ENABLE_AUDIO "Enable Audio" ON)
 option(ENABLE_MICROPROFILE "Enable microprofile" OFF)
 option(ENABLE_ANGELSCRIPT "Enable AngelScript" ON)
 option(ENABLE_MOFILEREADER "Enable MofileReader" ON)
 
-if (NOT ENABLE_SDL2_MIXER)
+# Comment-out uneeded libs
+if (NOT ENABLE_AUDIO)
     set(_CC_SDL2_MIXER "# ")
 endif ()
 
-if (NOT ENABLE_OPENAL_SOFT)
+if (NOT ENABLE_AUDIO)
     set(_CC_OPENAL_SOFT "# ")
 endif ()
 
@@ -33,6 +33,10 @@ endif ()
 
 if (NOT ENABLE_MOFILEREADER)
     set(_CC_MOFILEREADER "# ")
+endif ()
+
+if (WIN32 OR APPLE)
+    set(_CC_WIN32 "# ")
 endif ()
 
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/conanfile.txt.in" "${CMAKE_CURRENT_SOURCE_DIR}/conanfile.txt")
@@ -74,6 +78,7 @@ if (USE_PACKAGE_MANAGER)
             catchorg https://api.bintray.com/conan/catchorg/Catch2
             ror-dependencies https://api.bintray.com/conan/anotherfoxguy/ror-dependencies
             BINCRAFTERS
+            CMakeCM ROLLING
             )
 
     if (DEFINED ENV{CI})
@@ -99,11 +104,11 @@ if (USE_PACKAGE_MANAGER)
             CONAN_PKG::zlib
             )
 
-    if (ENABLE_SDL2_MIXER)
+    if (ENABLE_AUDIO)
         list(APPEND _link_libraries CONAN_PKG::sdl2_mixer)
     endif ()
     
-    if (ENABLE_OPENAL_SOFT)
+    if (ENABLE_AUDIO)
         list(APPEND _link_libraries CONAN_PKG::openal)
     endif ()
 
@@ -127,11 +132,11 @@ else (USE_PACKAGE_MANAGER)
     pkg_check_modules(SDL2_ttf REQUIRED SDL2_ttf)
     pkg_check_modules(ZLIB REQUIRED zlib)
 
-    if (ENABLE_SDL2_MIXER)
+    if (ENABLE_AUDIO)
         pkg_check_modules(SDL2_mixer REQUIRED SDL2_mixer)
     endif ()
     
-    if (ENABLE_OPENAL_SOFT)
+    if (ENABLE_AUDIO)
         pkg_check_modules(openal REQUIRED openal)
     endif ()
 
@@ -163,11 +168,11 @@ else (USE_PACKAGE_MANAGER)
             ${ZLIB_LIBRARIES}
             )
 
-    if (ENABLE_SDL2_MIXER)
+    if (ENABLE_AUDIO)
         list(APPEND _link_libraries ${SDL2_mixer_LIBRARIES})
     endif ()
     
-    if (ENABLE_OPENAL_SOFT)
+    if (ENABLE_AUDIO)
         list(APPEND _link_libraries ${openal_LIBRARIES})
     endif ()
 
@@ -181,6 +186,22 @@ else (USE_PACKAGE_MANAGER)
     endif ()
 
 endif (USE_PACKAGE_MANAGER)
+
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+  add_compile_definitions(DEBUG)
+elseif(CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo")
+  add_compile_definitions(DEBUG)
+endif()
+
+if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
+  link_libraries(dbghelp.lib)
+else()
+  # Needed for filesystem library
+  if(NOT APPLE)
+    # TODO: Link with stdc++fs on Apple with XCode11
+    list(APPEND _link_libraries "stdc++fs")
+  endif()
+endif()
 
 if (ENABLE_MICROPROFILE)
     list(APPEND _include_directories ${microprofile_SOURCE_DIR})
@@ -198,13 +219,13 @@ if (MINGW)
     list(APPEND _link_libraries mingw32)
 endif ()
 
-if (ENABLE_SDL2_MIXER)
-    list(APPEND _compile_definitions USE_SDL2_MIXER)
+if (ENABLE_AUDIO)
+  list(APPEND _compile_definitions USE_AUDIO)
 endif ()
 
-if (ENABLE_OPENAL_SOFT)
+if (ENABLE_AUDIO)
     list(APPEND _compile_definitions USE_OPENAL_SOFT)
-endif ()
+endif (ENABLE_AUDIO)
 
 if (ENABLE_ANGELSCRIPT)
     list(APPEND _compile_definitions USE_ANGELSCRIPT)
@@ -232,7 +253,7 @@ endif (ENABLE_MICROPROFILE)
 if (UNIX AND NOT APPLE)
     execute_process(COMMAND head -1 /etc/os-release OUTPUT_VARIABLE linux_distribution)
 endif ()
-
+    
 # Configuration for packaging
 include(CpackConfiguration)
 

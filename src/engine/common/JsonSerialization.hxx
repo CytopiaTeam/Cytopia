@@ -6,7 +6,9 @@
 #include "GameObjects/MapNode.hxx"
 #include "TerrainGenerator.hxx"
 #include "Settings.hxx"
+#ifdef USE_AUDIO
 #include "../../services/AudioMixer.hxx"
+#endif // USE_AUDIO
 
 using json = nlohmann::json;
 
@@ -22,7 +24,11 @@ inline void from_json(const json &j, Point &point)
 }
 
 // JSON deserializer for Point class
-inline void from_json(const json &j, MapNodeData &mapNodeData) { mapNodeData.tileID = j.at("tileID").get<std::string>(); }
+inline void from_json(const json &j, MapNodeData &mapNodeData)
+{
+  mapNodeData.tileID = j.at("tileID").get<std::string>();
+  mapNodeData.tileIndex = j.at("tileIndex").get<std::int32_t>();
+}
 
 // JSON deserializer for Settings struct
 inline void from_json(const json &j, SettingsData &s)
@@ -37,7 +43,7 @@ inline void from_json(const json &j, SettingsData &s)
   s.uiDataJSONFile = j["ConfigFiles"].value("UIDataJSONFile", "resources/data/TileData.json");
   s.tileDataJSONFile = j["ConfigFiles"].value("TileDataJSONFile", "resources/data/UIData.json");
   s.uiLayoutJSONFile = j["ConfigFiles"].value("UILayoutJSONFile", "resources/data/UILayout.json");
-  s.audioConfigJSONFile= j["ConfigFiles"].value("AudioConfigJSONFile", "resources/data/AudioConfig.json");
+  s.audioConfigJSONFile = j["ConfigFiles"].value("AudioConfigJSONFile", "resources/data/AudioConfig.json");
   s.audio3DStatus = j["Audio"].value("Audio3DStatus", true);
   s.playMusic = j["Audio"].value("PlayMusic", true);
   s.playSoundEffects = j["Audio"].value("PlaySoundEffects", false);
@@ -103,30 +109,28 @@ inline void from_json(const json &j, BiomeData &b)
   }
 }
 
+#ifdef USE_AUDIO
 // JSON deserializer for AudioTrigger
-inline void from_json(const json &j, AudioTrigger& trigger)
-{
-  trigger = AudioTrigger::_from_string(j.get<string>().c_str());
-}
+inline void from_json(const json &j, AudioTrigger &trigger) { trigger = AudioTrigger::_from_string(j.get<string>().c_str()); }
 
 // JSON deserializer for SoundtrackConfiguration
-inline void from_json(const json &j, AudioConfig::SoundtrackConfiguration& config)
+inline void from_json(const json &j, AudioConfig::SoundtrackConfiguration &config)
 {
   j["path"].get_to(config.stereoFilePath);
   j["monopath"].get_to(config.monoFilePath);
-  std::vector<string> triggers; 
+  std::vector<string> triggers;
   j["triggers"].get_to(triggers);
-  std::transform(triggers.begin(), triggers.end(), std::back_inserter(config.triggers), [](const string& trigger) {
-    return AudioTrigger::_from_string(trigger.c_str());  
-  });
+  std::transform(triggers.begin(), triggers.end(), std::back_inserter(config.triggers),
+                 [](const string &trigger) { return AudioTrigger::_from_string(trigger.c_str()); });
 }
 
 // JSON deserializer for AudioConfig
-inline void from_json(const json &j, AudioConfig& config)
+inline void from_json(const json &j, AudioConfig &config)
 {
   j["Music"].get_to(config.Music);
   j["Sound"].get_to(config.Sound);
 }
+#endif // USE_AUDIO
 
 // ************** SERIALIZER **************
 
@@ -137,7 +141,10 @@ inline void to_json(json &j, const Point &point)
 }
 
 // JSON serializer for MapNodeData struct
-inline void to_json(json &j, const MapNodeData &mapNodeData) { j = json{{"tileID", mapNodeData.tileID}}; }
+inline void to_json(json &j, const MapNodeData &mapNodeData)
+{
+  j = json{{"tileID", mapNodeData.tileID}, {"tileIndex", mapNodeData.tileIndex}};
+}
 
 // JSON serializer for MapNode class
 inline void to_json(json &j, const std::unique_ptr<MapNode> &m)
@@ -174,7 +181,7 @@ inline void to_json(json &j, const SettingsData &s)
         {std::string("AudioConfigJSONFile"), s.audioConfigJSONFile.get()}}},
       {std::string("Audio"),
        {
-		   {std::string("Audio3DStatus"), s.audio3DStatus},
+           {std::string("Audio3DStatus"), s.audio3DStatus},
            {std::string("PlayMusic"), s.playMusic},
            {std::string("PlaySoundEffects"), s.playSoundEffects},
            {std::string("AudioChannels"), s.audioChannels},

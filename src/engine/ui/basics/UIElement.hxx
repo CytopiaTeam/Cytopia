@@ -177,7 +177,7 @@ private:
   bool m_directTexture = false; //was this texture set directly?
 
 protected:
-  SDL_Texture *m_texture = nullptr;  /// a pointer to the element's texture
+  SDL_Texture *m_texture = nullptr; /// a pointer to the element's texture
   SDL_Rect m_uiElementRect{0, 0, 0, 0};
   SDL_Rect m_uiElementClipRect{0, 0, 0, 0};
   SDL_Rect m_uiTextureRect{0, 0, 0, 0};

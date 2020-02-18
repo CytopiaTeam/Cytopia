@@ -4,7 +4,7 @@
 #include "basics/isoMath.hxx"
 #include "basics/mapEdit.hxx"
 #include "basics/Settings.hxx"
-#include "basics/LOG.hxx"
+#include "LOG.hxx"
 #include "basics/compression.hxx"
 #include "common/Constants.hxx"
 #include "ResourcesManager.hxx"
@@ -25,11 +25,11 @@ using json = nlohmann::json;
 void Map::getNodeInformation(const Point &isoCoordinates) const
 {
   const TileData *tileData = mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getActiveMapNodeData().tileData;
-  LOG() << "===== TILE at " << isoCoordinates.x << ", " << isoCoordinates.y << "=====";
-  LOG() << "Biome: " << tileData->biome;
-  LOG() << "Category: " << tileData->category;
-  LOG() << "FileName: " << tileData->tiles.fileName;
-  LOG() << "ID: " << mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getActiveMapNodeData().tileID;
+  LOG(LOG_INFO) << "===== TILE at " << isoCoordinates.x << ", " << isoCoordinates.y << "=====";
+  LOG(LOG_INFO) << "Biome: " << tileData->biome;
+  LOG(LOG_INFO) << "Category: " << tileData->category;
+  LOG(LOG_INFO) << "FileName: " << tileData->tiles.fileName;
+  LOG(LOG_INFO) << "ID: " << mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getActiveMapNodeData().tileID;
 }
 
 constexpr struct
@@ -54,13 +54,13 @@ Map::Map(int columns, int rows) : m_columns(columns), m_rows(rows)
   const size_t vectorSize = static_cast<size_t>(m_rows * m_columns);
   mapNodes.resize(vectorSize);
   mapNodesInDrawingOrder.reserve(vectorSize);
+  MapLayers::enableLayer(Layer::TERRAIN);
+  MapLayers::enableLayer(Layer::BUILDINGS);
+  MapLayers::enableLayer(Layer::WATER);
 }
 
 void Map::initMap()
 {
-  MapLayers::enableLayer(Layer::TERRAIN);
-  MapLayers::enableLayer(Layer::BUILDINGS);
-  MapLayers::enableLayer(Layer::WATER);
   terrainGen.generateTerrain(mapNodes, mapNodesInDrawingOrder);
   updateAllNodes();
 }
@@ -232,12 +232,11 @@ unsigned char Map::getNeighboringTilesBitmask(const Point &isoCoordinates)
     for (const auto &it : adjecantNodesCoordinates)
     {
       if ((it.first >= 0 && it.first < m_rows && it.second >= 0 && it.second < m_columns) &&
-          (	mapNodes[it.first * m_columns + it.second] &&
-			mapNodes[it.first * m_columns + it.second]->getActiveMapNodeData().tileData
-			&& mapNodes[x * m_columns + y]
-			&& mapNodes[x * m_columns + y]->getActiveMapNodeData().tileData 
-			&& mapNodes[it.first * m_columns + it.second]->getActiveMapNodeData().tileData->category
-				== mapNodes[x * m_columns + y]->getActiveMapNodeData().tileData->category))
+          (mapNodes[it.first * m_columns + it.second] &&
+           mapNodes[it.first * m_columns + it.second]->getActiveMapNodeData().tileData && mapNodes[x * m_columns + y] &&
+           mapNodes[x * m_columns + y]->getActiveMapNodeData().tileData &&
+           mapNodes[it.first * m_columns + it.second]->getActiveMapNodeData().tileData->category ==
+               mapNodes[x * m_columns + y]->getActiveMapNodeData().tileData->category))
       {
         // for each found tile add 2 ^ i to the bitmask
         bitmask |= static_cast<unsigned int>(1 << i);
@@ -410,7 +409,7 @@ bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int is
   return false;
 }
 
-void Map::highlightNode(const Point &isoCoordinates, const SpriteRGBColor& rgbColor)
+void Map::highlightNode(const Point &isoCoordinates, const SpriteRGBColor &rgbColor)
 {
   const size_t index = isoCoordinates.x * m_columns + isoCoordinates.y;
 
@@ -440,6 +439,12 @@ void Map::saveMapToFile(const std::string &fileName)
 
   std::ofstream file(SDL_GetBasePath() + fileName, std::ios_base::out | std::ios_base::binary);
 
+#ifdef DEBUG
+  // Write uncompressed savegame for easier debugging
+  std::ofstream fileuncompressed(SDL_GetBasePath() + fileName + "_UNCOMPRESSED", std::ios_base::out | std::ios_base::binary);
+  fileuncompressed << j.dump();
+#endif
+
   const std::string compressedSaveGame = compressString(j.dump());
 
   if (!compressedSaveGame.empty())
@@ -451,43 +456,32 @@ void Map::saveMapToFile(const std::string &fileName)
 
 Map *Map::loadMapFromFile(const std::string &fileName)
 {
-  std::ifstream file(SDL_GetBasePath() + fileName, std::ios_base::in | std::ios_base::binary);
-
-  if (file.fail())
-  {
-    LOG(LOG_ERROR) << "Could not load savegame file " << fileName;
-    return nullptr;
-  }
-
   std::stringstream buffer;
-  buffer << file.rdbuf();
+  {
+    std::ifstream file(SDL_GetBasePath() + fileName, std::ios_base::in | std::ios_base::binary);
+    if (!file)
+      throw ConfigurationError(TRACE_INFO "Could not load savegame file " + fileName);
+    buffer << file.rdbuf();
+  }
 
   std::string jsonAsString;
   jsonAsString = decompressString(buffer.str());
 
   if (jsonAsString.empty())
-  {
     return nullptr;
-  }
 
   json saveGameJSON = json::parse(jsonAsString, nullptr, false);
 
-  file.close();
-
   if (saveGameJSON.is_discarded())
-  {
-    LOG(LOG_ERROR) << "Could not parse savegame file " << fileName;
-    return nullptr;
-  }
+    throw ConfigurationError(TRACE_INFO "Could not parse savegame file " + fileName);
 
   size_t saveGameVersion = saveGameJSON.value("Savegame version", 0);
 
   if (saveGameVersion != SAVEGAME_VERSION)
   {
-    // Check savegame version for compatibility and add upgrade functions here later if needed
-
-    LOG(LOG_ERROR) << "Trying to load a Savegame with version " << saveGameVersion << " but only save-games with version."
-                   << SAVEGAME_VERSION << " are supported";
+    /* @todo Check savegame version for compatibility and add upgrade functions here later if needed */
+    throw CytopiaError(TRACE_INFO "Trying to load a Savegame with version " + std::to_string(saveGameVersion) +
+                       " but only save-games with version " + std::to_string(SAVEGAME_VERSION) + " are supported");
   }
 
   int columns = saveGameJSON.value("columns", -1);
@@ -497,36 +491,26 @@ Map *Map::loadMapFromFile(const std::string &fileName)
     return nullptr;
 
   Map *map = new Map(columns, rows);
-  map->initMap();
 
-  // set coordinates first
   for (const auto &it : saveGameJSON["mapNode"].items())
   {
     Point coordinates = json(it.value())["coordinates"].get<Point>();
+    // set coordinates (height) of the map
+    map->mapNodes[coordinates.x * columns + coordinates.y] =
+        std::make_unique<MapNode>(Point{coordinates.x, coordinates.y, coordinates.z, coordinates.height}, "");
 
-    // for now we only set tileID read from the savegame
-    map->mapNodes[coordinates.x * columns + coordinates.y]->setCoordinates(coordinates);
+    // load back mapNodeData (tileIDs, Buildins, ...)
+    map->mapNodes[coordinates.x * columns + coordinates.y]->setMapNodeData(json(it.value())["mapNodeData"]);
   }
 
-  // update all nodes to reflect new height differences and  to have correct tiling for new tileIDs
-  map->updateAllNodes();
-
-  // now set the tileIDs after the nodes have been updated, so they're not auto-demolished
-  for (const auto &it : saveGameJSON["mapNode"].items())
+  // Now put those newly created nodes in correct drawing order
+  for (int x = 0; x < columns; x++)
   {
-    Point coordinates = json(it.value())["coordinates"].get<Point>();
-
-    // get mapNodeData and store in a vector
-    std::vector<MapNodeData> tileIDs = json(it.value())["mapNodeData"];
-    for (const auto &data : tileIDs)
+    for (int y = columns - 1; y >= 0; y--)
     {
-      if (!data.tileID.empty())
-      {
-        map->mapNodes[coordinates.x * columns + coordinates.y]->setTileID(data.tileID);
-      }
+      map->mapNodesInDrawingOrder.push_back(map->mapNodes[x * columns + y].get());
     }
   }
-  //update again to auto tile roads and so on
   map->updateAllNodes();
 
   return map;

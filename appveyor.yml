@@ -4,7 +4,7 @@ pull_requests:
 image: Visual Studio 2017
 configuration: Release
 clone_depth: 10
-cache: C:/Users/appveyor/.conan/
+cache: C:/Users/appveyor/.conan/ -> conanfile.txt.in
 environment:
   BUTLER_API_KEY:
     secure: PbT7/2muaC99K24vd6d+DMQETnal230eqmdPtw4tn+zqhwkKpSRIJgjRmJPxphBF
@@ -20,7 +20,7 @@ install:
 
     git submodule update --init --recursive
 
-    call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
+    call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars32.bat"
 build_script:
 - cmd: >-
     cmake -GNinja -DCMAKE_BUILD_TYPE=Release -DUSE_PMM=ON .

@@ -2,6 +2,7 @@
 
 #include "Constants.hxx"
 #include "LOG.hxx"
+#include "Exception.hxx"
 #include "JsonSerialization.hxx"
 
 #include "json.hxx"
@@ -17,7 +18,6 @@ void TerrainGenerator::generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNode
   {
     srand(static_cast<unsigned int>(time(0)));
     terrainSettings.seed = rand();
-    //std::cout << "Seed is now " << terrainSettings.seed << "\n";
   }
 
   noise::module::Perlin terrainHeightPerlin;
@@ -92,7 +92,8 @@ void TerrainGenerator::generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNode
       if (height < terrainSettings.seaLevel)
       {
         height = terrainSettings.seaLevel;
-        mapNodes[x * terrainSettings.mapSize + y] = std::make_unique<MapNode>(Point{x, y, z++, height}, biomeInformation[currentBiome].water[0]);
+        mapNodes[x * terrainSettings.mapSize + y] =
+            std::make_unique<MapNode>(Point{x, y, z++, height}, biomeInformation[currentBiome].water[0]);
       }
       else
       {
@@ -108,8 +109,9 @@ void TerrainGenerator::generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNode
             if (tileIndex < 20)
             {
               tileIndex = tileIndex % static_cast<int>(biomeInformation[currentBiome].treesSmall.size());
-              mapNodes[x * terrainSettings.mapSize + y] = std::make_unique<MapNode>(
-                  Point{x, y, z++, height}, biomeInformation[currentBiome].terrain[0], biomeInformation[currentBiome].treesSmall[tileIndex]);
+              mapNodes[x * terrainSettings.mapSize + y] =
+                  std::make_unique<MapNode>(Point{x, y, z++, height}, biomeInformation[currentBiome].terrain[0],
+                                            biomeInformation[currentBiome].treesSmall[tileIndex]);
               placed = true;
             }
           }
@@ -118,8 +120,9 @@ void TerrainGenerator::generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNode
             if (tileIndex < 50)
             {
               tileIndex = tileIndex % static_cast<int>(biomeInformation[currentBiome].treesNormal.size());
-              mapNodes[x * terrainSettings.mapSize + y] = std::make_unique<MapNode>(
-                  Point{x, y, z++, height}, biomeInformation[currentBiome].terrain[0], biomeInformation[currentBiome].treesNormal[tileIndex]);
+              mapNodes[x * terrainSettings.mapSize + y] =
+                  std::make_unique<MapNode>(Point{x, y, z++, height}, biomeInformation[currentBiome].terrain[0],
+                                            biomeInformation[currentBiome].treesNormal[tileIndex]);
               placed = true;
             }
           }
@@ -127,14 +130,16 @@ void TerrainGenerator::generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNode
           {
             tileIndex = tileIndex % static_cast<int>(biomeInformation[currentBiome].treesDense.size());
 
-            mapNodes[x * terrainSettings.mapSize + y] = std::make_unique<MapNode>(
-                Point{x, y, z++, height}, biomeInformation[currentBiome].terrain[0], biomeInformation[currentBiome].treesDense[tileIndex]);
+            mapNodes[x * terrainSettings.mapSize + y] =
+                std::make_unique<MapNode>(Point{x, y, z++, height}, biomeInformation[currentBiome].terrain[0],
+                                          biomeInformation[currentBiome].treesDense[tileIndex]);
             placed = true;
           }
         }
         if (placed == false)
         {
-          mapNodes[x * terrainSettings.mapSize + y] = std::make_unique<MapNode>(Point{x, y, z++, height}, biomeInformation[currentBiome].terrain[0]);
+          mapNodes[x * terrainSettings.mapSize + y] =
+              std::make_unique<MapNode>(Point{x, y, z++, height}, biomeInformation[currentBiome].terrain[0]);
         }
       }
       mapNodesInDrawingOrder.push_back(mapNodes[x * terrainSettings.mapSize + y].get());
@@ -148,18 +153,13 @@ void TerrainGenerator::loadTerrainDataFromJSON()
   terrainGenDataFileName.append(TERRAINGEN_DATA_FILE_NAME);
   std::ifstream i(terrainGenDataFileName);
 
-  if (i.fail())
-  {
-    LOG(LOG_ERROR) << "File " << TERRAINGEN_DATA_FILE_NAME << " does not exist! Cannot load settings from INI File!";
-    return;
-  }
+  if (!i)
+    throw ConfigurationError(TRACE_INFO "Could not open file " + string{TERRAINGEN_DATA_FILE_NAME});
 
   // check if json file can be parsed
   json biomeDataJsonObject = json::parse(i, nullptr, false);
   if (biomeDataJsonObject.is_discarded())
-  {
-    LOG(LOG_ERROR) << "Error parsing JSON File " << TERRAINGEN_DATA_FILE_NAME;
-  }
+    throw ConfigurationError(TRACE_INFO "Error parsing JSON File " + string{TERRAINGEN_DATA_FILE_NAME});
   // parse biome objects
   for (const auto &it : biomeDataJsonObject.items())
   {
