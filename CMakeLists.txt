@@ -65,7 +65,7 @@ if (NOT ENABLE_MOFILEREADER)
     set(_CC_MOFILEREADER "# ")
 endif ()
 
-if (WIN32 OR APPLE)
+if (WIN32 OR APPLE OR EMSCRIPTEN)
     set(_CC_WIN32 "# ")
 endif ()
 
