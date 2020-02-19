@@ -184,12 +184,12 @@ std::vector<Point> Map::getObjectCoords(const Point &isoCoordinates, const std::
   {
    return ret;
   }
+  Point coords = isoCoordinates;
   for (int i = 0; i < tileData->RequiredTiles.width; i++)
   {
     for (int j = 0; j < tileData->RequiredTiles.height; j++)
     {
-      Point coords = isoCoordinates;
-      coords.x = x + i;
+      coords.x = x - i;
       coords.y = y + j;
       ret.push_back(coords);
     }

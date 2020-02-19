@@ -260,17 +260,22 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           {
             engine.map->unHighlightNode(m_highlightedNodes[i]);
           }
+          for (size_t i = 0; i < m_highlightedObjectNodes.size(); i++)
+          {
+            engine.map->unHighlightNode(m_highlightedObjectNodes[i]);
+          }
           m_highlightedNodes.clear();
+          m_highlightedObjectNodes.clear();
 
           engine.map->unHighlightNode(m_highlitNode);
           m_highlitNode = clickCoords;
 
-		  m_highlightedNodes = engine.map->getObjectCoords(m_highlitNode, tileTypeEditMode);
+		  m_highlightedObjectNodes = engine.map->getObjectCoords(m_highlitNode, tileTypeEditMode);
 
           if (highlightSelection)
           {
             //std::vector<Point> highlightedNodes = engine.map->getObjectCoords(m_highlitNode, tileTypeEditMode);
-            for (auto coords : m_highlightedNodes)
+            for (auto coords : m_highlightedObjectNodes)
             {
               if (!engine.map->checkTileIDIsEmpty(coords, tileTypeEditMode))
               {
@@ -352,7 +357,12 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         {
           engine.map->unHighlightNode(m_highlightedNodes[i]);
         }
+        for (size_t i = 0; i < m_highlightedObjectNodes.size(); i++)
+        {
+          engine.map->unHighlightNode(m_highlightedObjectNodes[i]);
+        }
         m_highlightedNodes.clear();
+        m_highlightedObjectNodes.clear();
 
         engine.map->unHighlightNode(m_highlitNode);
 
@@ -363,7 +373,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       mouseCoords = {event.button.x, event.button.y};
       clickCoords = convertScreenToIsoCoordinates(mouseCoords);
 
-      if (event.button.button == SDL_BUTTON_LEFT && isPointWithinMapBoundaries(clickCoords))
+      if (event.button.button == SDL_BUTTON_LEFT && isPointWithinMapBoundaries(m_highlightedObjectNodes))
       {
         if (m_tileInfoMode)
         {
@@ -384,6 +394,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
             m_highlightedNodes.push_back(m_clickDownCoords);
           }
           engine.setTileIDOfNode(m_highlightedNodes.begin(), m_highlightedNodes.end(), tileTypeEditMode);
+          engine.setTileIDOfNode(m_highlightedObjectNodes.begin(), m_highlightedObjectNodes.end(), tileTypeEditMode);
         }
         else if (demolishMode)
         {
@@ -399,7 +410,12 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       {
         engine.map->unHighlightNode(m_highlightedNodes[i]);
       }
+      for (size_t i = 0; i < m_highlightedObjectNodes.size(); i++)
+      {
+        engine.map->unHighlightNode(m_highlightedObjectNodes[i]);
+      }
       m_highlightedNodes.clear();
+      m_highlightedObjectNodes.clear();
 
       break;
     case SDL_MOUSEWHEEL:

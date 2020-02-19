@@ -81,6 +81,19 @@ bool isPointWithinMapBoundaries(const Point &isoCoordinates)
          (isoCoordinates.y >= 0 && isoCoordinates.y < Settings::instance().mapSize);
 }
 
+bool isPointWithinMapBoundaries(const std::vector<Point> &isoCoordinates)
+{
+  bool ret = true;;
+  for (auto p : isoCoordinates)
+  {
+    if (!isPointWithinMapBoundaries(p))
+    {
+      return false;
+	}
+  }
+  return true;
+}
+
 std::vector<Point> createBresenhamLine(const Point &isoCoordinatesStart, const Point &isoCoordinatesEnd)
 {
   std::vector<Point> line;
