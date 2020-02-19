@@ -7,7 +7,6 @@ sdl2/2.0.10@bincrafters/stable
 sdl2_ttf/2.0.15@bincrafters/stable
 sdl2_image/2.0.5@bincrafters/stable 
 bzip2/1.0.8@conan/stable
-libmad/0.15.1b
 @_CC_SDL2_MIXER@libmad/0.15.1b
 @_CC_SDL2_MIXER@sdl2_mixer/2.0.4@bincrafters/stable 
 @_CC_MOFILEREADER@MofileReader/1.0.0@anotherfoxguy/stable
