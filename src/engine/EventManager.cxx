@@ -265,18 +265,24 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           engine.map->unHighlightNode(m_highlitNode);
           m_highlitNode = clickCoords;
 
+		  m_highlightedNodes = engine.map->getObjectCoords(m_highlitNode, tileTypeEditMode);
+
           if (highlightSelection)
           {
-            if (!engine.map->checkTileIDIsEmpty(m_highlitNode, tileTypeEditMode))
+            //std::vector<Point> highlightedNodes = engine.map->getObjectCoords(m_highlitNode, tileTypeEditMode);
+            for (auto coords : m_highlightedNodes)
             {
-              // already occupied tile, mark red
-              engine.map->highlightNode(m_highlitNode, SpriteHighlightColor::RED);
-            }
-            else
-            {
-              // mark gray.
-              engine.map->highlightNode(m_highlitNode, SpriteHighlightColor::GRAY);
-            }
+              if (!engine.map->checkTileIDIsEmpty(coords, tileTypeEditMode))
+              {
+                // already occupied tile, mark red
+                engine.map->highlightNode(coords, SpriteHighlightColor::RED);
+              }
+              else
+              {
+                // mark gray.
+                engine.map->highlightNode(coords, SpriteHighlightColor::GRAY);
+              } 
+			}
           }
         }
       }

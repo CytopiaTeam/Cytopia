@@ -138,6 +138,11 @@ public:
   */
   bool checkTileIDIsEmpty(const Point &isoCoordinates, const std::string &tileID) const;
 
+  /** \brief Return vector of Points of an Object Tiles selection.
+  * 
+  */
+  std::vector<Point> getObjectCoords(const Point &isoCoordinates, const std::string &tileID);
+
 private:
   int m_columns;
   int m_rows;

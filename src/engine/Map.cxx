@@ -174,6 +174,29 @@ bool Map::checkTileIDIsEmpty(const Point &isoCoordinates, const std::string &til
   return mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->checkTileIsEmpty(tileID);
 }
 
+std::vector<Point> Map::getObjectCoords(const Point &isoCoordinates, const std::string &tileID) 
+{
+  std::vector<Point> ret;
+  TileData *tileData = TileManager::instance().getTileData(tileID);
+  int x = isoCoordinates.x;
+  int y = isoCoordinates.y;
+  if (!tileData)
+  {
+   return ret;
+  }
+  for (int i = 0; i < tileData->RequiredTiles.width; i++)
+  {
+    for (int j = 0; j < tileData->RequiredTiles.height; j++)
+    {
+      Point coords = isoCoordinates;
+      coords.x = x + i;
+      coords.y = y + j;
+      ret.push_back(coords);
+    }
+  }
+  return ret;
+}
+
 unsigned char Map::getElevatedNeighborBitmask(const Point &isoCoordinates)
 {
   unsigned char bitmask = 0;
