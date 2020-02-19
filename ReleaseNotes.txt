@@ -1,6 +1,24 @@
-Cytopia
+===Cytopia Changelog:===
 
-v0.0.1
+v0.2
+- A new 32 bit version of Cytopia has been made for users with older machines
+The new procedural terrain generation system can be used to make new maps with hills, lakes, oceans, and forests
+- Roads can now be placed using our new linetool
+- The new tile variation system allows buildings to pick a random frame after being placed
+- The grass and water tiles have been updated with new textures and variations
+- Lots of new buildings, decorations, and trees have been added
+- Items can be placed over flora tiles without manually removing them first
+- Tiles are now highlighted while placing items
+- You can now pan the camera using WASD
+- The GUI has been improved with previews for each building and new icons
+- The layer system fixes the black void that used to go under buildings
+- There is now touch screen support for Windows Tablets
+- New music tracks by MB22 have been added to the game
+- There is now spatial 3D audio
+- There is now Audio playback and track switching
+- Cytopia now has multilanguage support
+
+v0.1.1
  - Save / Load Game functionality (including ZLib compression)
  - macOS support
  - TileDate Editor
