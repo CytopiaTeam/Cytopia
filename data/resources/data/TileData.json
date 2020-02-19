@@ -33,10 +33,13 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_Daycare.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "Day Care Center",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
         "tag": [
             "old",
             "day",
@@ -322,10 +325,13 @@
             "count": 1,
             "fileName": "resources/images/buildings/commercial/com_2x2_BorgsBurgers.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "Borg's Burgers",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
         "tag": [
             "somewhat",
             "large",
@@ -352,10 +358,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/commercial/com_2x2_small_commercial_center_1_FN.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "Small Commercial Center",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "commercial",
             "center"
@@ -374,10 +384,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/commercial/com_2x2_office.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "Small Office Building",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "small",
             "office",
@@ -402,10 +416,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/commercial/com_2x2_seattlereworked_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "Big Office Building",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "big",
             "office",
@@ -425,10 +443,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/commercial/com_3x3_CommunityTower.png"
         },
+        "RequiredTiles": {
+            "width": 3,
+            "height": 3
+        },
         "title": "Community Tower",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 9,
+
         "tag": [
             "large",
             "multistory",
@@ -459,10 +481,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/commercial/com_3x3_tourfrontdeseine_RF.png"
         },
+        "RequiredTiles": {
+            "width": 3,
+            "height": 3
+        },
         "title": "Tour Front De Seine",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 9,
+
         "tag": [
             "tour",
             "front",
@@ -665,10 +691,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/industrial/ind_2x2_DepolluterSML.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "Medium Depolluter",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "classic",
             "depolluter",
@@ -691,10 +721,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/industrial/ind_2x2_factory_FN.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "Factory",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "factory"
         ]
@@ -712,10 +746,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/industrial/ind_3x3_OldPowerPlant.png"
         },
+        "RequiredTiles": {
+            "width": 3,
+            "height": 3
+        },
         "title": "Old Power Plant",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 9,
+
         "tag": [
             "ancient",
             "coal",
@@ -739,10 +777,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/industrial/ind_3x3_chemical_plant_FN.png"
         },
+        "RequiredTiles": {
+            "width": 3,
+            "height": 3
+        },
         "title": "Chemical Plant",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 9,
+
         "tag": [
             "chemical",
             "plant"
@@ -761,10 +803,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/industrial/ind_4x4_DepolluterLRG.png"
         },
+        "RequiredTiles": {
+            "width": 4,
+            "height": 4
+        },
         "title": "Big Depolluter",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 16,
+
         "tag": [
             "new",
             "factory",
@@ -786,10 +832,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/industrial/desert/ind_des_2x2_Factory_MS.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "Factory",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "factory"
         ]
@@ -867,10 +917,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/industrial/ind_3x3_CoalPlant.png"
         },
+        "RequiredTiles": {
+            "width": 3,
+            "height": 3
+        },
         "title": "Coal Power Plant",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 9,
+
         "tag": [
             "coal",
             "power",
@@ -900,10 +954,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/industrial/ind_1x1_SmallPowerPlant.png"
         },
+        "RequiredTiles": {
+            "width": 3,
+            "height": 3
+        },
         "title": "Small Coal Power Plant",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 9,
+
         "tag": [
             "small",
             "coal",
@@ -1167,10 +1225,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_big_building_1_FN.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "Big Building",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "big",
             "building"
@@ -1189,10 +1251,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_bois_guillaume_appt1_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "Bois Guillaume Appartment",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "bois",
             "guillaume",
@@ -1212,10 +1278,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_building_2_FN.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "Appartment",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "appartment"
         ]
@@ -1233,10 +1303,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_skyscraper_2_FN.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "Big Appartments",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "big",
             "appartments"
@@ -1255,10 +1329,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_skyscraper_1_FN.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "Big Appartments",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "big",
             "appartments"
@@ -1277,10 +1355,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_viennabuilding_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "Medium Appartments",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "medium",
             "appartments"
@@ -1299,10 +1381,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_3x3_ConcreteTowerLRG.png"
         },
+        "RequiredTiles": {
+            "width": 3,
+            "height": 3
+        },
         "title": "Tall Concrete Tower",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 9,
+
         "tag": [
             "blandlooking",
             "apartment",
@@ -1325,10 +1411,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_3x3_GreenSkyScraper.png"
         },
+        "RequiredTiles": {
+            "width": 3,
+            "height": 3
+        },
         "title": "Skyscraper",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 9,
+
         "tag": [
             "algaegreen",
             "tower",
@@ -1535,10 +1625,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_blvdbelges_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "Apartment Building",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "block",
             "houses",
@@ -1561,10 +1655,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_savannahgeorgia_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "Mansion",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "classic",
             "house",
@@ -1586,10 +1684,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_viennabuilding2_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "Apartment Building",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "house",
             "vienna"
@@ -1608,10 +1710,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/commercial/com_2x2_lefouquet_s_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "Restaurant",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "restaurant",
             "paris"
@@ -1630,10 +1736,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/commercial/com_2x2_viennahotel1_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "Hotel",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "blue",
             "hotel",
@@ -1653,10 +1763,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_frmanreworked_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "Mansion",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "small",
             "french",
@@ -1676,10 +1790,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_3x3_bellevueappt1_RF.png"
         },
+        "RequiredTiles": {
+            "width": 3,
+            "height": 3
+        },
         "title": "Apartment Building",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 9,
+
         "tag": [
             "appartement",
             "building",
@@ -1701,10 +1819,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_fitzgeraldhousealabama_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "house",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "house",
             "alabama",
@@ -1724,10 +1846,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_3x3_laciteapptmontreal_RF.png"
         },
+        "RequiredTiles": {
+            "width": 3,
+            "height": 3
+        },
         "title": "Apartment Building",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 9,
+
         "tag": [
             "apartment",
             "building",
@@ -1748,10 +1874,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_3x3_vancouver1_RF.png"
         },
+        "RequiredTiles": {
+            "width": 3,
+            "height": 3
+        },
         "title": "Apartment Building",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 9,
+
         "tag": [
             "apartment",
             "building",
@@ -1809,10 +1939,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_sfbuilding1_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "todo",
             "desc"
@@ -1831,10 +1965,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_illappt_jk.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "todo",
             "desc"
@@ -1853,10 +1991,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/commercial/com_4x4_nasusbuilding1_RF.png"
         },
+        "RequiredTiles": {
+            "width": 4,
+            "height": 4
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 16,
+
         "tag": [
             "todo",
             "desc"
@@ -1875,10 +2017,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/commercial/com_4x4_ruejacqueshuetset1_RF.png"
         },
+        "RequiredTiles": {
+            "width": 4,
+            "height": 4
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 16,
+
         "tag": [
             "todo",
             "desc"
@@ -1897,10 +2043,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/industrial/ind_3x3_chemical_industrie_FN.png"
         },
+        "RequiredTiles": {
+            "width": 3,
+            "height": 3
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 9,
+
         "tag": [
             "todo",
             "desc"
@@ -1919,10 +2069,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_3x3_glasgow1_RF.png"
         },
+        "RequiredTiles": {
+            "width": 3,
+            "height": 3
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 9,
+
         "tag": [
             "todo",
             "desc"
@@ -1941,10 +2095,13 @@
             "count": 2,
             "fileName": "resources/images/buildings/residential/res_4x2_quailutece_sand_high_RF.png"
         },
+        "RequiredTiles": {
+            "width": 4,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 8,
         "tag": [
             "todo",
             "desc"
@@ -1963,10 +2120,13 @@
             "count": 2,
             "fileName": "resources/images/buildings/residential/res_4x2_quailutece_sand_low_RF.png"
         },
+        "RequiredTiles": {
+            "width": 4,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 8,
         "tag": [
             "todo",
             "desc"
@@ -1985,10 +2145,13 @@
             "count": 1,
             "fileName": "resources/images/buildings/commercial/com_3x3_classicfecampcasino_RF.png"
         },
+        "RequiredTiles": {
+            "width": 3,
+            "height": 3
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 9,
         "tag": [
             "todo",
             "desc"
@@ -2007,10 +2170,13 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_villedulacsale1_UT_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
         "tag": [
             "todo",
             "desc"
@@ -2074,10 +2240,13 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_3x3_corblocappartement_RF.png"
         },
+        "RequiredTiles": {
+            "width": 3,
+            "height": 3
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 9,
         "tag": [
             "todo",
             "desc"
@@ -2146,10 +2315,13 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_3x3_honkkong1_RF.png"
         },
+        "RequiredTiles": {
+            "width": 3,
+            "height": 3
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 9,
         "tag": [
             "todo",
             "desc"
@@ -2193,10 +2365,13 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_tokyo12_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
         "tag": [
             "todo",
             "desc"
@@ -2215,10 +2390,13 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_3x3_lehavre1_RF.png"
         },
+        "RequiredTiles": {
+            "width": 3,
+            "height": 3
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 9,
         "tag": [
             "todo",
             "desc"
@@ -2258,10 +2436,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_tacomahouse3_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "todo",
             "desc"
@@ -2331,10 +2513,14 @@
             "count": 2,
             "fileName": "resources/images/buildings/decoration/BD_3x3_DarkParkCrossroads_kt.png"
         },
+        "RequiredTiles": {
+            "width": 3,
+            "height": 3
+        },
         "title": "Park Crossroads",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 9,
+
         "tag": [
             "nice",
             "park",
@@ -2357,10 +2543,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_turkhousesgroup1_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "todo",
             "desc"
@@ -2379,10 +2569,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/commercial/com_3x3_bureaudepostefecamp_RF.png"
         },
+        "RequiredTiles": {
+            "width": 3,
+            "height": 3
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 9,
+
         "tag": [
             "todo",
             "desc"
@@ -2401,10 +2595,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/school/Scl_5x5_middle_school_FN.png"
         },
+        "RequiredTiles": {
+            "width": 5,
+            "height": 5
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 25,
+
         "tag": [
             "todo",
             "desc"
@@ -2423,10 +2621,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_lesrivesdeluciline1_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "todo",
             "desc"
@@ -2466,10 +2668,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/commercial/com_2x2_argentina1_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "todo",
             "desc"
@@ -2531,10 +2737,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/commercial/com_3x3_GlassTower_kt.png"
         },
+        "RequiredTiles": {
+            "width": 3,
+            "height": 3
+        },
         "title": "Glass Tower",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 9,
+
         "tag": [
             "tall",
             "glass",
@@ -2560,10 +2770,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/commercial/com_2x2_saopaulo1_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "todo",
             "desc"
@@ -2582,10 +2796,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/commercial/com_2x2_cardealership1_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "todo",
             "desc"
@@ -2604,10 +2822,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/school/scl_3x3_Pool_kt.png"
         },
+        "RequiredTiles": {
+            "width": 3,
+            "height": 3
+        },
         "title": "Pool",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 9,
+
         "tag": [
             "nice",
             "public",
@@ -2635,10 +2857,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_town_hall_fn.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "todo",
             "desc"
@@ -2679,10 +2905,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_invernessflats1_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "todo",
             "desc"
@@ -2701,10 +2931,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_Turkishbuilding6_pw.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "todo",
             "desc"
@@ -2723,10 +2957,14 @@
             "count": 2,
             "fileName": "resources/images/buildings/residential/res_4x3_bellevuemansion1_RF.png"
         },
+        "RequiredTiles": {
+            "width": 4,
+            "height": 3
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 12,
+
         "tag": [
             "todo",
             "desc"
@@ -2745,10 +2983,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_montreal1_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "todo",
             "desc"
@@ -2884,10 +3126,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/commercial/com_2x2_vichy1_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "todo",
             "desc"
@@ -2972,10 +3218,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_4x4_NewYorkStyle_pw.png"
         },
+        "RequiredTiles": {
+            "width": 4,
+            "height": 4
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 16,
+
         "tag": [
             "todo",
             "desc"
@@ -3015,10 +3265,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/commercial/com_2x2_rjh1_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "todo",
             "desc"
@@ -3079,10 +3333,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/commercial/com_3x3_mcdalle1_RF.png"
         },
+        "RequiredTiles": {
+            "width": 3,
+            "height": 3
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 9,
+
         "tag": [
             "todo",
             "desc"
@@ -3101,10 +3359,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_scandic_apart1_Y8.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "todo",
             "desc"
@@ -3123,10 +3385,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_modern_house_1_FN.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "todo",
             "desc"
@@ -3145,10 +3411,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_scandic_apart3_Y8.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "todo",
             "desc"
@@ -3167,10 +3437,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/commercial/com_2x2_ntbuilding_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "todo",
             "desc"
@@ -3210,10 +3484,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/reward/reward_2x2_CytopianTowers_kt.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "nice",
             "reward",
@@ -3266,10 +3544,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_3x3_tourriva_RF.png"
         },
+        "RequiredTiles": {
+            "width": 3,
+            "height": 3
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 9,
+
         "tag": [
             "todo",
             "desc"
@@ -3310,10 +3592,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/commercial/com_2x2_kebab_house_Y8.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "todo",
             "desc"
@@ -3353,10 +3639,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_scandinavia1_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "todo",
             "desc"
@@ -3375,10 +3665,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/commercial/com_2x2_TanTower_kt.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "Tan Tower",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "might",
             "old",
@@ -3402,10 +3696,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/medical/med_4x4_rbissonhospital_RF.png"
         },
+        "RequiredTiles": {
+            "width": 4,
+            "height": 4
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 16,
+
         "tag": [
             "todo",
             "desc"
@@ -3424,10 +3722,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/commercial/com_2x2_rjh3_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "todo",
             "desc"
@@ -3511,10 +3813,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_5x5_TrailerPark_kt.png"
         },
+        "RequiredTiles": {
+            "width": 5,
+            "height": 5
+        },
         "title": "Trailer Park",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 25,
+
         "tag": [
             "somewhatlarge",
             "plot",
@@ -3538,10 +3844,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_3x3_torresblancas_RF.png"
         },
+        "RequiredTiles": {
+            "width": 3,
+            "height": 3
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 9,
+
         "tag": [
             "todo",
             "desc"
@@ -3560,10 +3870,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_redmansion1_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "todo",
             "desc"
@@ -3626,10 +3940,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_londonhouse3_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "todo",
             "desc"
@@ -3648,10 +3966,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/commercial/com_3x3_roundtower_jk.png"
         },
+        "RequiredTiles": {
+            "width": 3,
+            "height": 3
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 9,
+
         "tag": [
             "todo",
             "desc"
@@ -3737,10 +4059,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_3x3_seattle2_RF.png"
         },
+        "RequiredTiles": {
+            "width": 3,
+            "height": 3
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 9,
+
         "tag": [
             "todo",
             "desc"
@@ -3839,10 +4165,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/commercial/com_2x2_yakima1_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "todo",
             "desc"
@@ -3861,10 +4191,14 @@
             "count": 2,
             "fileName": "resources/images/buildings/residential/res_4x2_quailutece_pink_high_RF.png"
         },
+        "RequiredTiles": {
+            "width": 4,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 8,
+
         "tag": [
             "todo",
             "desc"
@@ -3904,10 +4238,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_lecaire2_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "todo",
             "desc"
@@ -3947,10 +4285,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_3x3_buildingru1_ets2balt_RF.png"
         },
+        "RequiredTiles": {
+            "width": 3,
+            "height": 3
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 9,
+
         "tag": [
             "todo",
             "desc"
@@ -3969,10 +4311,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_BuildingTen_MS.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "todo",
             "desc"
@@ -3991,10 +4337,14 @@
             "count": 2,
             "fileName": "resources/images/buildings/residential/res_4x2_quailutece_white_high_RF.png"
         },
+        "RequiredTiles": {
+            "width": 4,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 8,
+
         "tag": [
             "todo",
             "desc"
@@ -4013,10 +4363,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/commercial/com_2x2_jimmysnailssuggest1_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "todo",
             "desc"
@@ -4035,10 +4389,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/commercial/com_3x3_jimmysnailsoffice1_RF.png"
         },
+        "RequiredTiles": {
+            "width": 3,
+            "height": 3
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 9,
+
         "tag": [
             "todo",
             "desc"
@@ -4057,10 +4415,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_3x3_sfchateau1_RF.png"
         },
+        "RequiredTiles": {
+            "width": 3,
+            "height": 3
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 9,
+
         "tag": [
             "todo",
             "desc"
@@ -4079,10 +4441,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/commercial/com_4x4_belltower_RF.png"
         },
+        "RequiredTiles": {
+            "width": 4,
+            "height": 4
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 16,
+
         "tag": [
             "todo",
             "desc"
@@ -4101,10 +4467,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_3x3_marommeN15_1_RF.png"
         },
+        "RequiredTiles": {
+            "width": 3,
+            "height": 3
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 9,
+
         "tag": [
             "todo",
             "desc"
@@ -4123,10 +4493,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/decoration/BD_4x4_DarkParkRing_kt.png"
         },
+        "RequiredTiles": {
+            "width": 4,
+            "height": 4
+        },
         "title": "Large Plaza Park",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 16,
+
         "tag": [
             "large",
             "plaza",
@@ -4148,10 +4522,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/commercial/com_4x4_Banque_Ouvriere_Anternoise_mx.png"
         },
+        "RequiredTiles": {
+            "width": 4,
+            "height": 4
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 16,
+
         "tag": [
             "todo",
             "desc"
@@ -4233,10 +4611,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/commercial/com_2x2_scandinavian_office2_Y8.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "todo",
             "desc"
@@ -4255,10 +4637,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_elyNV_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "todo",
             "desc"
@@ -4277,10 +4663,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_3x3_minnesota2_RF.png"
         },
+        "RequiredTiles": {
+            "width": 3,
+            "height": 3
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 9,
+
         "tag": [
             "todo",
             "desc"
@@ -4299,10 +4689,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/commercial/com_3x3_zalandia1_RF.png"
         },
+        "RequiredTiles": {
+            "width": 3,
+            "height": 3
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 9,
+
         "tag": [
             "todo",
             "desc"
@@ -4321,10 +4715,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_3x3_ramponneau1modern_RF.png"
         },
+        "RequiredTiles": {
+            "width": 3,
+            "height": 3
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 9,
+
         "tag": [
             "todo",
             "desc"
@@ -4343,10 +4741,14 @@
             "count": 2,
             "fileName": "resources/images/buildings/commercial/com_3x5_RF2_CarDealer_pw.png"
         },
+        "RequiredTiles": {
+            "width": 3,
+            "height": 5
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 15,
+
         "tag": [
             "todo",
             "desc"
@@ -4386,10 +4788,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_pyongyang1_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "todo",
             "desc"
@@ -4408,10 +4814,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_tacomahouses2_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "todo",
             "desc"
@@ -4430,10 +4840,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_3x3_rouen_imm_st_ange1_RF.png"
         },
+        "RequiredTiles": {
+            "width": 3,
+            "height": 3
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 9,
+
         "tag": [
             "todo",
             "desc"
@@ -4452,10 +4866,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_safranboluappt1_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "todo",
             "desc"
@@ -4474,10 +4892,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/commercial/com_3x3_tourstsever_RF.png"
         },
+        "RequiredTiles": {
+            "width": 3,
+            "height": 3
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 9,
+
         "tag": [
             "todo",
             "desc"
@@ -4496,10 +4918,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_mn3_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "todo",
             "desc"
@@ -4560,10 +4986,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_viennabuilding_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "todo",
             "desc"
@@ -4625,10 +5055,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_brittishhouse1_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "todo",
             "desc"
@@ -4647,10 +5081,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_3x3_marseille1_RF.png"
         },
+        "RequiredTiles": {
+            "width": 3,
+            "height": 3
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 9,
+
         "tag": [
             "todo",
             "desc"
@@ -4690,10 +5128,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_3x3_ramponneau1classic_RF.png"
         },
+        "RequiredTiles": {
+            "width": 3,
+            "height": 3
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 9,
+
         "tag": [
             "todo",
             "desc"
@@ -4712,10 +5154,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_tacomahouse1_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "todo",
             "desc"
@@ -4734,10 +5180,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/commercial/com_4x4_komtartower_RF.png"
         },
+        "RequiredTiles": {
+            "width": 4,
+            "height": 4
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 16,
+
         "tag": [
             "todo",
             "desc"
@@ -4936,10 +5386,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/school/scl_2x2_Old_School_FN.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "todo",
             "desc"
@@ -4958,10 +5412,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_veuleslesroses4_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "todo",
             "desc"
@@ -4980,10 +5438,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/farm/farm_2x2_greenbarn_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "todo",
             "desc"
@@ -5055,10 +5517,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_4x4_onerinconhillstowers_RF.png"
         },
+        "RequiredTiles": {
+            "width": 4,
+            "height": 4
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 16,
+
         "tag": [
             "todo",
             "desc"
@@ -5077,10 +5543,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_lillebonne1_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "todo",
             "desc"
@@ -5099,10 +5569,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/commercial/com_3x3_tourvauban_RF.png"
         },
+        "RequiredTiles": {
+            "width": 3,
+            "height": 3
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 9,
+
         "tag": [
             "todo",
             "desc"
@@ -5121,10 +5595,14 @@
             "count": 4,
             "fileName": "resources/images/buildings/decoration/BD_2x2_DarkParkCenterpieces_kt.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "Centerpiece Park",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "group",
             "benches",
@@ -5169,10 +5647,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_north_scandinavian_houses1_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "todo",
             "desc"
@@ -5220,10 +5702,14 @@
             "count": 2,
             "fileName": "resources/images/buildings/residential/res_4x2_quailutece_pink_low_RF.png"
         },
+        "RequiredTiles": {
+            "width": 4,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 8,
+
         "tag": [
             "todo",
             "desc"
@@ -5242,10 +5728,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_maisonmoderne2_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "todo",
             "desc"
@@ -5264,10 +5754,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_3x3_spokane1_RF.png"
         },
+        "RequiredTiles": {
+            "width": 3,
+            "height": 3
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 9,
+
         "tag": [
             "todo",
             "desc"
@@ -5286,10 +5780,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_vancouverwashingtonUS1_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "todo",
             "desc"
@@ -5308,10 +5806,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_lecaire1_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "todo",
             "desc"
@@ -5330,10 +5832,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_big_building_1_FN.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "todo",
             "desc"
@@ -5401,10 +5907,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_3x3_tacomabuilding4_RF.png"
         },
+        "RequiredTiles": {
+            "width": 3,
+            "height": 3
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 9,
+
         "tag": [
             "todo",
             "desc"
@@ -5423,10 +5933,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/commercial/com_2x2_rjh2_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "todo",
             "desc"
@@ -5473,10 +5987,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_jura_house1_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "todo",
             "desc"
@@ -5495,10 +6013,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_des_building_2_FN.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "todo",
             "desc"
@@ -5517,10 +6039,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/farm/farm_2x2_ClassicRedBarn_kt.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "Classic Red Barn",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "stereotypical",
             "red",
@@ -5540,10 +6066,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/commercial/com_4x4_work_tower_Y8.png"
         },
+        "RequiredTiles": {
+            "width": 4,
+            "height": 4
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 16,
+
         "tag": [
             "todo",
             "desc"
@@ -5626,10 +6156,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/commercial/com_2x2_hyperlanesbuilding_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "todo",
             "desc"
@@ -5691,10 +6225,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/decoration/bd_2x2_sunkenship_kt.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "Sunken Ship",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "very",
             "old",
@@ -5729,10 +6267,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/commercial/com_4x4_bigglasstower_jk.png"
         },
+        "RequiredTiles": {
+            "width": 4,
+            "height": 4
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 16,
+
         "tag": [
             "todo",
             "desc"
@@ -5751,10 +6293,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_swisshouse1_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "todo",
             "desc"
@@ -5773,10 +6319,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_minnesotta_house1_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "todo",
             "desc"
@@ -5795,10 +6345,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_villanormande1_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "todo",
             "desc"
@@ -5883,10 +6437,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/industrial/ind_2x2_DesertFactory_MS.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "todo",
             "desc"
@@ -5905,10 +6463,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/commercial/com_3x3_office1_tacoma_WA_RF.png"
         },
+        "RequiredTiles": {
+            "width": 3,
+            "height": 3
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 9,
+
         "tag": [
             "todo",
             "desc"
@@ -5927,10 +6489,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/commercial/com_3x3_scandic_office1_Y8.png"
         },
+        "RequiredTiles": {
+            "width": 3,
+            "height": 3
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 9,
+
         "tag": [
             "todo",
             "desc"
@@ -5949,10 +6515,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/industrial/ind_4x4_warehouse_white_stedr1_RF.png"
         },
+        "RequiredTiles": {
+            "width": 4,
+            "height": 4
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 16,
+
         "tag": [
             "todo",
             "desc"
@@ -5971,10 +6541,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/reward/reward_6x6_cathedrale_mx.png"
         },
+        "RequiredTiles": {
+            "width": 6,
+            "height": 6
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 36,
+
         "tag": [
             "todo",
             "desc"
@@ -6037,10 +6611,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_manaus1_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "todo",
             "desc"
@@ -6059,10 +6637,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/commercial/com_4x4_cityplaza1_connecticut_RF.png"
         },
+        "RequiredTiles": {
+            "width": 4,
+            "height": 4
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 16,
+
         "tag": [
             "todo",
             "desc"
@@ -6081,10 +6663,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/commercial/com_3x3_buildingOR140ats_RF.png"
         },
+        "RequiredTiles": {
+            "width": 3,
+            "height": 3
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 9,
+
         "tag": [
             "todo",
             "desc"
@@ -6103,10 +6689,14 @@
             "count": 2,
             "fileName": "resources/images/buildings/residential/Res_3x4_jimmy_dream_house_FN.png"
         },
+        "RequiredTiles": {
+            "width": 3,
+            "height": 4
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 12,
+
         "tag": [
             "todo",
             "desc"
@@ -6125,10 +6715,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/commercial/com_2x2_oldrte66garage_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "todo",
             "desc"
@@ -6147,10 +6741,14 @@
             "count": 2,
             "fileName": "resources/images/buildings/residential/res_4x2_quailutece_white_low_RF.png"
         },
+        "RequiredTiles": {
+            "width": 4,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 8,
+
         "tag": [
             "todo",
             "desc"
@@ -6195,10 +6793,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_4x4_srilanka1_RF.png"
         },
+        "RequiredTiles": {
+            "width": 4,
+            "height": 4
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 16,
+
         "tag": [
             "todo",
             "desc"
@@ -6260,10 +6862,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/commercial/com_2x2_saopaulo2_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "todo",
             "desc"
@@ -6303,10 +6909,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_mannevillette1_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "todo",
             "desc"
@@ -6325,10 +6935,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/industrial/ind_2x2_sevelia_lillebonne_2_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "todo",
             "desc"
@@ -6368,10 +6982,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/industrial/ind_6x6_sevelia_lillebonne_1_RF.png"
         },
+        "RequiredTiles": {
+            "width": 6,
+            "height": 6
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 36,
+
         "tag": [
             "todo",
             "desc"
@@ -6474,10 +7092,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_caveeverte1lehavre_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "todo",
             "desc"
@@ -6496,10 +7118,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_ketsuy1_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 4,
+
         "tag": [
             "todo",
             "desc"
@@ -6560,10 +7186,14 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_3x3_mediterannean_house_mx.png"
         },
+        "RequiredTiles": {
+            "width": 3,
+            "height": 3
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
-        "buildingsize": 9,
+
         "tag": [
             "todo",
             "desc"
@@ -6581,6 +7211,10 @@
             "clip_width": 64,
             "count": 1,
             "fileName": "resources/images/buildings/commercial/com_2x2_unclejoes1_RF.png"
+        },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
@@ -6603,6 +7237,10 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_3x3_barentin1large_RF.png"
         },
+        "RequiredTiles": {
+            "width": 3,
+            "height": 3
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
@@ -6623,6 +7261,10 @@
             "clip_width": 64,
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_apartvienna4_rf.png"
+        },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
@@ -6645,6 +7287,10 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_thann1_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
@@ -6665,6 +7311,10 @@
             "clip_width": 64,
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_mex1_RF.png"
+        },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
@@ -6708,6 +7358,10 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_3x3_barentin1med_RF.png"
         },
+        "RequiredTiles": {
+            "width": 3,
+            "height": 3
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
@@ -6728,6 +7382,10 @@
             "clip_width": 64,
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_semidetstouen1_RF.png"
+        },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
@@ -6750,6 +7408,10 @@
             "count": 1,
             "fileName": "resources/images/buildings/commercial/com_2x2_dancinghouseprague_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
@@ -6770,6 +7432,10 @@
             "clip_width": 64,
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_BigBlueHouse_kt.png"
+        },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
@@ -6792,6 +7458,10 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_3x3_siauliai7fullversion_RF.png"
         },
+        "RequiredTiles": {
+            "width": 3,
+            "height": 3
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
@@ -6813,6 +7483,10 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_3x3_romanianappt1_RF.png"
         },
+        "RequiredTiles": {
+            "width": 3,
+            "height": 3
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
@@ -6833,6 +7507,10 @@
             "clip_width": 96,
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_3x3_barentin1small_RF.png"
+        },
+        "RequiredTiles": {
+            "width": 3,
+            "height": 3
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
@@ -6896,6 +7574,10 @@
             "clip_width": 160,
             "count": 1,
             "fileName": "resources/images/buildings/power plants/pow_5x5_Kohlekraftwerk_Durnrohr_FN.png"
+        },
+        "RequiredTiles": {
+            "width": 5,
+            "height": 5
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
@@ -7656,6 +8338,10 @@
             "count": 1,
             "fileName": "resources/images/buildings/commercial/com_3x3_boise1_RF.png"
         },
+        "RequiredTiles": {
+            "width": 3,
+            "height": 3
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
@@ -7676,6 +8362,10 @@
             "clip_width": 64,
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_grainval1_RF.png"
+        },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
@@ -7719,6 +8409,10 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_siauliai8_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
@@ -7739,6 +8433,10 @@
             "clip_width": 64,
             "count": 1,
             "fileName": "resources/images/buildings/prison/prs_2x2_yard2_KT.png"
+        },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
@@ -8014,6 +8712,10 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_bolbec1_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
@@ -8098,6 +8800,10 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_mexsonora2_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
@@ -8118,6 +8824,10 @@
             "clip_width": 64,
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_2x2_lillebonne2_RF.png"
+        },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
@@ -8182,6 +8892,10 @@
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_3x3_mtgaillard1a_RF.png"
         },
+        "RequiredTiles": {
+            "width": 3,
+            "height": 3
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
@@ -8202,6 +8916,10 @@
             "clip_width": 96,
             "count": 1,
             "fileName": "resources/images/buildings/residential/res_3x3_containerhouse1_fr_RF.png"
+        },
+        "RequiredTiles": {
+            "width": 3,
+            "height": 3
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
@@ -8224,6 +8942,10 @@
             "count": 1,
             "fileName": "resources/images/buildings/commercial/com_2x2_miamiparkcentralhotel_RF.png"
         },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
+        },
         "title": "TODO TITLE",
         "upkeep cost": 0,
         "water": 0,
@@ -8244,6 +8966,10 @@
             "clip_width": 64,
             "count": 1,
             "fileName": "resources/images/buildings/commercial/com_2x2_alexandriaMN1_RF.png"
+        },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
@@ -8328,6 +9054,10 @@
             "clip_width": 64,
             "count": 2,
             "fileName": "resources/images/buildings/residential/res_2x2_WhiteOrangeFrenchTower_KT.png"
+        },
+        "RequiredTiles": {
+            "width": 2,
+            "height": 2
         },
         "title": "Creme-Oran Tower",
         "upkeep cost": 0,

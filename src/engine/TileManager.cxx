@@ -257,11 +257,21 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
   m_tileData[id].title = tileDataJSON[idx].value("title", "");
   m_tileData[id].description = tileDataJSON[idx].value("description", "");
   m_tileData[id].category = tileDataJSON[idx].value("category", "");
-  m_tileData[id].buildingsize = tileDataJSON[idx].value("buildingsize", 1);
   m_tileData[id].price = tileDataJSON[idx].value("price", 0);
   m_tileData[id].water = tileDataJSON[idx].value("water", 0);
   m_tileData[id].isOverPlacable = tileDataJSON[idx].value("isOverPlacable", false);
   m_tileData[id].drawGround = tileDataJSON[idx].value("draw ground", false);
+
+  if (tileDataJSON[idx].find("RequiredTiles") != tileDataJSON[idx].end())
+  {
+    m_tileData[id].RequiredTiles.width = tileDataJSON[idx]["RequiredTiles"].value("width", 1);
+    m_tileData[id].RequiredTiles.height = tileDataJSON[idx]["RequiredTiles"].value("height", 1);
+  }
+  else
+  {
+    m_tileData[id].RequiredTiles.width = 1;
+    m_tileData[id].RequiredTiles.height = 1;
+  }
 
   m_tileData[id].tiles.fileName = tileDataJSON[idx]["tiles"].value("fileName", "");
   m_tileData[id].tiles.clippingHeight = tileDataJSON[idx]["tiles"].value("clip_height", 0);

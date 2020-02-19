@@ -51,6 +51,12 @@ struct TileSetData
   int rotations = 1; // The number of rotation images in this spritesheet (see above)
 };
 
+struct RequiredTilesData
+{
+  unsigned int width;
+  unsigned int height;
+};
+
 struct TileData
 {
   std::string id;
@@ -75,6 +81,7 @@ struct TileData
   int crimeLevel = 0;      /// Crime this building produces or prevents (police station)
   int fireDangerLevel = 0; /// Fire Danger this building produces or prevents
   int habitants = 0;
+  RequiredTilesData RequiredTiles;
 };
 
 #endif
