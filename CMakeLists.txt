@@ -17,10 +17,8 @@ option(CROSSBUILD_EMSCRIPTEN "Build for the EmScripten Platform" OFF)
 
 if (CROSSBUILD_EMSCRIPTEN)
   # Turn off not features that are not compatible with emscripten
-  set (ENABLE_AUDIO OFF) 
-  set (ENABLE_ANGELSCRIPT OFF) 
-  set (ENABLE_MOFILEREADER OFF) 
-  #include(~/.conan/data/emsdk_installer/1.39.6/bincrafters/stable/package/1492a59deb6efdf29776a5734de63fc5f5c58650/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake )
+
+  include(~/.conan/data/emsdk_installer/1.39.6/bincrafters/stable/package/1492a59deb6efdf29776a5734de63fc5f5c58650/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake )
 endif()
 
 if("${CMAKE_SYSTEM_NAME}" STREQUAL "Emscripten")
@@ -33,7 +31,12 @@ if("${CMAKE_SYSTEM_NAME}" STREQUAL "Emscripten")
   set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --no-check-features")
   set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --no-check-features")
 
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread -s USE_PTHREADS=1 -s USE_SDL_IMAGE=2  -s USE_SDL_TTF=2 -s USE_ZLIB=1"  )
+  #Debug information
+  #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --profiling-funcs -Oz -g4 -s PTHREAD_POOL_SIZE=8 -s DEMANGLE_SUPPORT=1 -pthread -s DISABLE_EXCEPTION_CATCHING=0 -s ASSERTIONS=1 -s USE_PTHREADS=1 -s USE_SDL_IMAGE=2  -s USE_SDL_TTF=2 -s USE_ZLIB=1"  )
+  
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --profiling-funcs -O3 -g0 --llvm-lto 1 --llvm-opts 3 -s PTHREAD_POOL_SIZE=8 -pthread -s DISABLE_EXCEPTION_CATCHING=1 -s USE_PTHREADS=1 -s USE_SDL_IMAGE=2  -s USE_SDL_TTF=2 -s USE_ZLIB=1"  )
+
+
   set(CMAKE_C_FLAGS "${CMAKE_CXX_FLAGS} -pthread -s USE_PTHREADS=1 -s USE_SDL_IMAGE=2  -s USE_SDL_TTF=2 -s USE_ZLIB=1"  )
   set(SDL2_LIBRARIES "-s USE_SDL=2")
   set(SDL2_IMAGE_LIBRARIES "-s USE_PTHREADS=1 -s USE_SDL_IMAGE=2")
@@ -141,22 +144,22 @@ if (USE_PACKAGE_MANAGER)
 # these compiler options are mostly for debugging and trying to get it to work
     if("${CMAKE_SYSTEM_NAME}" STREQUAL "Emscripten")
     list(APPEND _link_libraries
-    "-s ERROR_ON_UNDEFINED_SYMBOLS=0"
-    "--preload-file ${CMAKE_CURRENT_BINARY_DIR}/resources" #include resources dir in .data file
+    #"-s ERROR_ON_UNDEFINED_SYMBOLS=0"
+    "--preload-file ${CMAKE_CURRENT_BINARY_DIR}/resources@/resources" #include resources dir in .data file
         "-s USE_PTHREADS=1"
+        "--use-preload-plugins"
         # "--source-map-base" 
         "-s WASM=1"
         "-s WASM_MEM_MAX=512MB" # ALLOW_MEMORY_GROWTH demands MEM_MAX to be set
         "-s ALLOW_MEMORY_GROWTH=1" #seems necessary for pthreads and dynamic memory allocation
-        "-o Cytopia.html"
-        "-s DISABLE_EXCEPTION_CATCHING=0" # 0 -> catch exceptions! 1-> is disabled
+        "-o index.html"
+        # "-s DISABLE_EXCEPTION_CATCHING=0" # 0 -> catch exceptions! 1-> is disabled
         "-s TOTAL_MEMORY=33554432"
-        "-s SAFE_HEAP=1"
-        "--profiling-funcs"
-        "-s DEMANGLE_SUPPORT=1" #demangle C++ functions
-        "-s ASSERTIONS=1" # use assertions
-        "-Oz" # no optimization
-        "-g4" # most debug info
+        # "-s SAFE_HEAP=1"
+         #demangle C++ functions
+        # "-s ASSERTIONS=0" # use assertions
+        "-O3" # no optimization
+        "-g0" # most debug info
         CONAN_PKG::libnoise
         ${SDL2_LIBRARIES}
         ${SDL2_IMAGE_LIBRARIES}

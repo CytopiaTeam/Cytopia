@@ -262,6 +262,11 @@ void Game::run(bool SkipMenu)
   Timer benchmarkTimer;
   LOG(LOG_INFO) << VERSION;
 
+  Engine &engine = Engine::instance();
+  EventManager &evManager = EventManager::instance();
+  UIManager &uiManager = UIManager::instance();
+
+
   if (SkipMenu)
   {
     Engine::instance().newGame();
