@@ -46,6 +46,8 @@ If discord is not for you, visit our IRC channel on freenode at #Cytopia
 
 In case you want to support our project on patreon, visit our [Patreon Page](https://patreon.com/cytopia)
 
+Try out Cytopia in your Browser (Chrome based Browsers on PC supported) without installing it, take a look at our [emscripten port](https://game.cytopia.net/)
+
 #### Key Features
 - Different zoom levels
 - Relocate camera via rightclick
