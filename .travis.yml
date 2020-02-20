@@ -6,6 +6,7 @@ services:
 env:
   global:
     - GITHUB_REPO:      CytopiaTeam/Cytopia
+    - TRAVIS: true
     - CTEST_OUTPUT_ON_FAILURE: 1
 
 cache:
