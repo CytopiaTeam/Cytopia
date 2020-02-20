@@ -88,9 +88,10 @@ public:
     }
     if (isOkToSet)
     {
+      Point origPoint = *begin;
       for (Iterator it = begin; it != end; ++it)
       {
-        mapNodes[it->x * m_columns + it->y]->setTileID(tileID);
+        mapNodes[it->x * m_columns + it->y]->setTileID(tileID, origPoint);
         updateNeighborsOfNode(*it);
       }
     }

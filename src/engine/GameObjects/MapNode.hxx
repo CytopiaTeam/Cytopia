@@ -19,6 +19,7 @@ struct MapNodeData
   std::string tileID;
   TileData *tileData = nullptr;
   int32_t tileIndex = 0;
+  Point origCornerPoint;
 };
 
 /** @brief Class that holds map nodes
@@ -100,7 +101,7 @@ public:
 
   void demolishNode();
 
-  void setTileID(const std::string &tileType);
+  void setTileID(const std::string &tileType, const Point &origPoint);
   size_t tileMap = TileMap::DEFAULT;
 
 private:

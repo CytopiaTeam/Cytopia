@@ -10,9 +10,9 @@ MapNode::MapNode(Point isoCoordinates, const std::string &terrainID, const std::
   m_mapNodeData.resize(LAYERS_COUNT);
   m_sprite = std::make_unique<Sprite>(m_isoCoordinates);
 
-  setTileID(terrainID);
+  setTileID(terrainID, isoCoordinates);
   if (!tileID.empty()) // in case tileID is not supplied skip it
-    setTileID(tileID);
+    setTileID(tileID, isoCoordinates);
 
   updateTexture();
 }
@@ -48,7 +48,7 @@ void MapNode::setBitmask(unsigned char elevationBitmask, unsigned char tileIDBit
   updateTexture();
 }
 
-void MapNode::setTileID(const std::string &tileID)
+void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
 {
   TileData *tileData = TileManager::instance().getTileData(tileID);
   if (tileData)
@@ -62,6 +62,7 @@ void MapNode::setTileID(const std::string &tileID)
     {
       layer = Layer::WATER;
     }
+    m_mapNodeData[layer].origCornerPoint = origCornerPoint;
     m_previousTileID = m_mapNodeData[layer].tileID;
     m_mapNodeData[layer].tileData = tileData;
     m_mapNodeData[layer].tileID = tileID;
