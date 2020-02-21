@@ -10,12 +10,12 @@
 #include <noise.h>
 #include <SDL.h>
 #include <SDL_ttf.h>
-// void gameLoop(Engine &engine, EventManager &evManager, UIManager &uiManager);
 
-void gameLoop(void* arg_);
 #ifdef __EMSCRIPTEN__
   #include <emscripten.h>
 #endif
+
+void gameLoop(void* arg_);
 
 #ifdef USE_ANGELSCRIPT
 #include "Scripting/ScriptEngine.hxx"
@@ -274,10 +274,6 @@ void Game::run(bool SkipMenu)
 
   benchmarkTimer.start();
 
-  Engine &engine = Engine::instance();
-    EventManager &evManager = EventManager::instance();
-
-  UIManager &uiManager = UIManager::instance();
   // SDL_Event event;
 
   arg->engine = &engine;
