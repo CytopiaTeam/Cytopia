@@ -302,6 +302,7 @@ void MapNode::demolishNode()
     m_mapNodeData[Layer::BUILDINGS].tileData = nullptr;
     m_mapNodeData[Layer::BUILDINGS].tileID = "";
     m_sprite->clearSprite(Layer::BUILDINGS);
+    this->m_origCornerPoint = this->getCoordinates();
     updateTexture();
   }
 }

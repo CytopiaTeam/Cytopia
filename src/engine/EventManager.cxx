@@ -301,10 +301,14 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
               for (auto coords : pointsToHighlight)
               {
                 engine.map->highlightNode(coords, SpriteHighlightColor::RED);
-			  }
+              }
             }
             m_highlightedObjectNodes.insert(m_highlightedObjectNodes.end(), pointsToHighlight.begin(), pointsToHighlight.end());
-            engine.map->highlightNode(clickCoords, SpriteHighlightColor::GRAY);
+            if (tileTypeEditMode == "")
+            {
+              m_highlightNode = engine.map->getNodeOrigCornerPoint(clickCoords);
+              engine.map->highlightNode(m_highlightNode, SpriteHighlightColor::GRAY);
+			}
           }
         }
       }
