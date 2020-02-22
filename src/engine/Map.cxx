@@ -174,23 +174,21 @@ bool Map::checkTileIDIsEmpty(const Point &isoCoordinates, const std::string &til
   return mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->checkTileIsEmpty(tileID);
 }
 
-std::vector<Point> Map::getObjectCoords(const Point &isoCoordinates, const std::string &tileID) 
+std::vector<Point> Map::getObjectCoords(const Point &isoCoordinates, const std::string &tileID)
 {
   std::vector<Point> ret;
   TileData *tileData = TileManager::instance().getTileData(tileID);
-  int x = isoCoordinates.x;
-  int y = isoCoordinates.y;
   if (!tileData)
   {
-   return ret;
+    return ret;
   }
   Point coords = isoCoordinates;
   for (int i = 0; i < tileData->RequiredTiles.width; i++)
   {
     for (int j = 0; j < tileData->RequiredTiles.height; j++)
     {
-      coords.x = x - i;
-      coords.y = y + j;
+      coords.x = isoCoordinates.x - i;
+      coords.y = isoCoordinates.y + j;
       ret.push_back(coords);
     }
   }
@@ -230,10 +228,10 @@ unsigned char Map::getElevatedNeighborBitmask(const Point &isoCoordinates)
   return bitmask;
 }
 
-Point Map::getNodeOrigCornerPoint(const Point &isoCoordinates, const std::string& tileID)
+Point Map::getNodeOrigCornerPoint(const Point &isoCoordinates)
 {
-  Layer layer = TileManager::instance().getTileLayer(tileID);
-  return mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getOrigCornerPoint(layer);
+  //Layer layer = TileManager::instance().getTileLayer(tileID);
+  return mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getOrigCornerPoint();
 }
 
 unsigned char Map::getNeighboringTilesBitmask(const Point &isoCoordinates)
@@ -374,7 +372,17 @@ Point Map::findNodeInMap(const SDL_Point &screenCoordinates) const
 
 void Map::demolishNode(const Point &isoCoordinates, bool updateNeighboringTiles)
 {
-  mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->demolishNode();
+  Point origCornerPoint = mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getOrigCornerPoint();
+
+  Layer layer = Layer::BUILDINGS;
+  std::string tileID = mapNodes[origCornerPoint.x * m_columns + origCornerPoint.y]->getTileID(layer);
+  std::vector<Point> objectCoordinates = getObjectCoords(origCornerPoint, tileID);
+
+  for (auto coords : objectCoordinates)
+  {
+    mapNodes[coords.x * m_columns + coords.y]->demolishNode();
+  }
+  //mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->demolishNode();
   // TODO: Play soundeffect here
   if (updateNeighboringTiles)
   {

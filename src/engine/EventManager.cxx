@@ -252,6 +252,8 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           else if (demolishMode)
           {
             // Add highlighting here
+            m_highlightNode = clickCoords;
+            engine.map->highlightNode(clickCoords, SpriteHighlightColor::GRAY);
           }
         }
         else
@@ -284,7 +286,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
                 // already occupied tile, mark red
                 //engine.map->highlightNode(coords, SpriteHighlightColor::RED);
                 shouldHighlightRed = true;
-                origCornerPoint = engine.map->getNodeOrigCornerPoint(coords, tileTypeEditMode);
+                origCornerPoint = engine.map->getNodeOrigCornerPoint(coords);
                 engine.map->highlightNode(coords, SpriteHighlightColor::RED);
                 pointsToHighlight.push_back(origCornerPoint);
               }
@@ -302,6 +304,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
 			  }
             }
             m_highlightedObjectNodes.insert(m_highlightedObjectNodes.end(), pointsToHighlight.begin(), pointsToHighlight.end());
+            engine.map->highlightNode(clickCoords, SpriteHighlightColor::GRAY);
           }
         }
       }

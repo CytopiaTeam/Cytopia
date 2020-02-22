@@ -105,6 +105,7 @@ public:
   void setTileID(const std::string &tileType, const Point &origPoint);
 
   Point getOrigCornerPoint(Layer layer) { return getMapNodeDataForLayer(layer).origCornerPoint; }
+  Point getOrigCornerPoint() { return m_origCornerPoint; }
 
   size_t tileMap = TileMap::DEFAULT;
 
@@ -124,6 +125,8 @@ private:
   std::vector<MapNodeData> m_mapNodeData;
   unsigned char m_elevationBitmask = 0;
   unsigned char m_tileIDBitmask = 0;
+
+  Point m_origCornerPoint;
 
   void updateTexture();
 };

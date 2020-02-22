@@ -54,7 +54,8 @@ void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
   if (tileData)
   {
     Layer layer = TileManager::instance().getTileLayer(tileID);
-    m_mapNodeData[layer].origCornerPoint = origCornerPoint;
+    this->m_origCornerPoint = origCornerPoint;
+    //m_mapNodeData[layer].origCornerPoint = origCornerPoint;
     m_previousTileID = m_mapNodeData[layer].tileID;
     m_mapNodeData[layer].tileData = tileData;
     m_mapNodeData[layer].tileID = tileID;

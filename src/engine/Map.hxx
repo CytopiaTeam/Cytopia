@@ -125,7 +125,7 @@ public:
   /**
    * @brief Get original corner point of given point within building borders.
    */
-  Point getNodeOrigCornerPoint(const Point &isoCoordinates, const std::string &tileID);
+  Point getNodeOrigCornerPoint(const Point &isoCoordinates);
 
   /** \Brief Save Map to file
   * Serializes the Map class to json and writes the data to a file.
