@@ -112,6 +112,10 @@ SDL_Rect Sprite::getActiveClipRect()
   {
     return m_SpriteData[Layer::TERRAIN].clipRect;
   }
+  else if (MapLayers::isLayerActive(Layer::BLUEPRINT))
+  {
+    return m_SpriteData[Layer::BLUEPRINT].clipRect;
+  }
   return {0, 0, 0, 0};
 }
 bool Sprite::isLayerUsed(Layer layer)
@@ -129,6 +133,10 @@ SDL_Rect Sprite::getActiveDestRect()
   else if (MapLayers::isLayerActive(Layer::TERRAIN))
   {
     return m_SpriteData[Layer::TERRAIN].destRect;
+  }
+  else if (MapLayers::isLayerActive(Layer::BLUEPRINT))
+  {
+    return m_SpriteData[Layer::BLUEPRINT].destRect;
   }
   return {0, 0, 0, 0};
 }

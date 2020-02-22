@@ -12,8 +12,11 @@ MapNode::MapNode(Point isoCoordinates, const std::string &terrainID, const std::
 
   setTileID(terrainID);
   if (!tileID.empty()) // in case tileID is not supplied skip it
+  {
     setTileID(tileID);
+  }
 
+  setTileID("blueprint"); // also set the blueprint layer
   updateTexture();
 }
 
@@ -51,10 +54,15 @@ void MapNode::setBitmask(unsigned char elevationBitmask, unsigned char tileIDBit
 void MapNode::setTileID(const std::string &tileID)
 {
   TileData *tileData = TileManager::instance().getTileData(tileID);
+
   if (tileData)
   {
     Layer layer = Layer::BUILDINGS;
-    if (tileData->category == "Terrain")
+    if (tileData->category == "Blueprint")
+    {
+      layer = Layer::BLUEPRINT;
+    }
+    else if (tileData->category == "Terrain")
     {
       layer = Layer::TERRAIN;
     }
@@ -153,13 +161,15 @@ void MapNode::updateTexture()
       if (m_elevationOrientation == TileSlopes::DEFAULT_ORIENTATION)
       {
         if (m_mapNodeData[currentLayer].tileData->category == "Water" ||
-            m_mapNodeData[currentLayer].tileData->category == "Terrain")
+            m_mapNodeData[currentLayer].tileData->category == "Terrain" ||
+            m_mapNodeData[currentLayer].tileData->category == "Blueprint")
         {
           tileMap = TileMap::DEFAULT;
           m_orientation = TileList::TILE_DEFAULT_ORIENTATION;
         }
         // if the node has no elevated neighbors, check if it needs to tile itself to another tile of the same ID
-        if (m_mapNodeData[currentLayer].tileData->category != "Terrain")
+        if (m_mapNodeData[currentLayer].tileData->category != "Terrain" &&
+            m_mapNodeData[currentLayer].tileData->category != "Blueprint")
         {
           m_orientation = TileManager::instance().calculateTileOrientation(m_tileIDBitmask);
         }
@@ -282,7 +292,7 @@ const MapNodeData &MapNode::getActiveMapNodeData() const
   return m_mapNodeData[Layer::TERRAIN];
 }
 
-void MapNode::setMapNodeData(std::vector<MapNodeData>&& mapNodeData)
+void MapNode::setMapNodeData(std::vector<MapNodeData> &&mapNodeData)
 {
   m_mapNodeData.swap(mapNodeData);
 
