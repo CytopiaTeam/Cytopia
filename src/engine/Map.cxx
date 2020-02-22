@@ -230,6 +230,12 @@ unsigned char Map::getElevatedNeighborBitmask(const Point &isoCoordinates)
   return bitmask;
 }
 
+Point Map::getNodeOrigCornerPoint(const Point &isoCoordinates, const std::string& tileID)
+{
+  Layer layer = TileManager::instance().getTileLayer(tileID);
+  return mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getOrigCornerPoint(layer);
+}
+
 unsigned char Map::getNeighboringTilesBitmask(const Point &isoCoordinates)
 {
   unsigned char bitmask = 0;

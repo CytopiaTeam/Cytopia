@@ -267,27 +267,41 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           m_highlightedNodes.clear();
           m_highlightedObjectNodes.clear();
 
-          engine.map->unHighlightNode(m_highlitNode);
-          m_highlitNode = clickCoords;
+          engine.map->unHighlightNode(m_highlightNode);
+          m_highlightNode = clickCoords;
 
-		  m_highlightedObjectNodes = engine.map->getObjectCoords(m_highlitNode, tileTypeEditMode);
-
+          m_highlightedObjectNodes = engine.map->getObjectCoords(m_highlightNode, tileTypeEditMode);
+          std::vector<Point> pointsToHighlight;
           if (highlightSelection)
           {
             //std::vector<Point> highlightedNodes = engine.map->getObjectCoords(m_highlitNode, tileTypeEditMode);
+            bool shouldHighlightRed = false;
+            Point origCornerPoint;
             for (auto coords : m_highlightedObjectNodes)
             {
               if (!engine.map->checkTileIDIsEmpty(coords, tileTypeEditMode))
               {
                 // already occupied tile, mark red
+                //engine.map->highlightNode(coords, SpriteHighlightColor::RED);
+                shouldHighlightRed = true;
+                origCornerPoint = engine.map->getNodeOrigCornerPoint(coords, tileTypeEditMode);
                 engine.map->highlightNode(coords, SpriteHighlightColor::RED);
+                pointsToHighlight.push_back(origCornerPoint);
               }
               else
               {
                 // mark gray.
                 engine.map->highlightNode(coords, SpriteHighlightColor::GRAY);
-              } 
-			}
+              }
+            }
+            if (shouldHighlightRed)
+            {
+              for (auto coords : pointsToHighlight)
+              {
+                engine.map->highlightNode(coords, SpriteHighlightColor::RED);
+			  }
+            }
+            m_highlightedObjectNodes.insert(m_highlightedObjectNodes.end(), pointsToHighlight.begin(), pointsToHighlight.end());
           }
         }
       }
@@ -364,7 +378,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         m_highlightedNodes.clear();
         m_highlightedObjectNodes.clear();
 
-        engine.map->unHighlightNode(m_highlitNode);
+        engine.map->unHighlightNode(m_highlightNode);
 
         break;
       }
@@ -372,6 +386,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       // game event handling
       mouseCoords = {event.button.x, event.button.y};
       clickCoords = convertScreenToIsoCoordinates(mouseCoords);
+      m_highlightedObjectNodes = engine.map->getObjectCoords(clickCoords, tileTypeEditMode);
 
       if (event.button.button == SDL_BUTTON_LEFT && isPointWithinMapBoundaries(m_highlightedObjectNodes))
       {
@@ -392,9 +407,12 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           if (m_highlightedNodes.size() == 0)
           {
             m_highlightedNodes.push_back(m_clickDownCoords);
+            engine.setTileIDOfNode(m_highlightedObjectNodes.begin(), m_highlightedObjectNodes.end(), tileTypeEditMode, false);
           }
-          engine.setTileIDOfNode(m_highlightedNodes.begin(), m_highlightedNodes.end(), tileTypeEditMode);
-          engine.setTileIDOfNode(m_highlightedObjectNodes.begin(), m_highlightedObjectNodes.end(), tileTypeEditMode);
+          else
+          {
+            engine.setTileIDOfNode(m_highlightedNodes.begin(), m_highlightedNodes.end(), tileTypeEditMode, true);
+          }
         }
         else if (demolishMode)
         {

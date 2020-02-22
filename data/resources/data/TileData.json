@@ -1,5 +1,25 @@
 [
     {
+        "author": "Westrox",
+        "category": "Residential",
+        "description": "demy Node",
+        "id": "demy_node",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 18,
+            "clip_width": 32,
+            "count": 1,
+			"fileName": "resources/images/terrain/terrain_tiles.png"
+        },
+        "title": "demy Node",
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "demy"
+        ]
+    },
+	{
         "author": "Folesnaid",
         "category": "Decoration",
         "description": "A pile of coal",

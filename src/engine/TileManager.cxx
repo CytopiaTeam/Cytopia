@@ -5,6 +5,7 @@
 #include "basics/Settings.hxx"
 #include "ResourcesManager.hxx"
 
+
 #include <bitset>
 
 using json = nlohmann::json;
@@ -21,6 +22,21 @@ TileData *TileManager::getTileData(const std::string &id) noexcept
   if (m_tileData.count(id))
     return &m_tileData[id];
   return nullptr;
+}
+
+Layer TileManager::getTileLayer(const std::string &tileID) const
+{
+  Layer layer = Layer::BUILDINGS;
+  TileData *tileData = TileManager::instance().getTileData(tileID);
+  if (tileData->category == "Terrain")
+  {
+    layer = Layer::TERRAIN;
+  }
+  else if (tileData->category == "Water")
+  {
+    layer = Layer::WATER;
+  }
+  return layer;
 }
 
 size_t TileManager::calculateSlopeOrientation(unsigned char bitMaskElevation)
