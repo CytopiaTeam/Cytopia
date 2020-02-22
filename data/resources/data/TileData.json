@@ -1373,6 +1373,40 @@
     },
     {
         "author": "Kingtut 101",
+        "category": "Blueprint",
+        "description": "Blueprint tiles",
+        "id": "blueprint",
+        "power": 0,
+        "price": 0,
+        "slopeTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 4,
+            "fileName": "resources/images/blueprint/blueprints_PipeView.png"
+        },
+        "cornerTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 8,
+            "offset": 4,
+            "fileName": "resources/images/blueprint/blueprints_PipeView.png"
+        },
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/blueprint/blueprint.png"
+        },
+        "title": "Terrain",
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "blueprint",
+            "tiles"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
         "category": "Water",
         "description": "Water",
         "id": "water",
@@ -1394,7 +1428,7 @@
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
-            "count": 3,
+            "count": 1,
             "fileName": "resources/images/water/terrain_water.png"
         },
         "title": "Water",
