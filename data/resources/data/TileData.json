@@ -472,6 +472,35 @@
     },
     {
         "author": "Kingtut 101",
+        "category": "Pipes",
+        "description": "Water pipes for transporting water from a water source to buildings",
+        "id": "pipe",
+        "power": 0,
+        "price": 7,
+        "slopeTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 4,
+            "offset": 16,
+            "fileName": "resources/images/pipes/pipes.png"
+        },
+        "tiles": {
+            "clip_height": 16,
+            "clip_width": 32,
+            "count": 16,
+            "fileName": "resources/images/pipes/pipes.png",
+            "rotations": 16
+        },
+        "title": "Waterpipe",
+        "upkeep cost": 2,
+        "water": 0,
+        "tag": [
+            "waterpipe",
+            "pipe"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
         "category": "Roads",
         "description": "An average road that'll you would commonly find out in the countryside.  It lacks a proper sidewalk though.",
         "id": "country_road",
