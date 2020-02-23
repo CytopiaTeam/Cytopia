@@ -1368,41 +1368,6 @@
     },
     {
         "author": "Kingtut 101",
-        "category": "Terrain",
-        "description": "Terrain tiles",
-        "id": "terrain",
-        "power": 0,
-        "price": 0,
-        "slopeTiles": {
-            "clip_height": 23,
-            "clip_width": 32,
-            "count": 4,
-            "fileName": "resources/images/terrain/terrain_grass.png"
-        },
-        "cornerTiles": {
-            "clip_height": 23,
-            "clip_width": 32,
-            "count": 8,
-            "offset": 4,
-            "fileName": "resources/images/terrain/terrain_grass.png"
-        },
-        "tiles": {
-            "clip_height": 15,
-            "clip_width": 32,
-            "count": 3,
-            "offset": 12,
-            "fileName": "resources/images/terrain/terrain_grass.png"
-        },
-        "title": "Terrain",
-        "upkeep cost": 0,
-        "water": 0,
-        "tag": [
-            "terrain",
-            "tiles"
-        ]
-    },
-    {
-        "author": "Kingtut 101",
         "category": "Blueprint",
         "description": "Blueprint tiles",
         "id": "blueprint",
