@@ -87,13 +87,15 @@
         "trees": {
             "small": [
                 "tree_pinetrees_light",
-                "tree_deciduous_dense"
+                "tree_deciduous_light"
             ],
             "normal": [
-                "tree_pinetrees_light"
+                "tree_pinetrees_light",
+                "tree_deciduous_light"
             ],
             "dense": [
-                "tree_pinetrees_dense"
+                "tree_pinetrees_dense",
+                "tree_deciduous_dense"
             ]
         },
         "terrain": [
