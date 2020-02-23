@@ -140,7 +140,7 @@ bool MapNode::checkTileIsEmpty(const std::string &tileID) const
       // road intersecting is allowed.
       return true;
     }
-    return isPlacableOnSlope(tileID, layer) && (m_mapNodeData[layer].tileID == "" || m_mapNodeData[layer].tileID == "terrain");
+    return isPlacableOnSlope(tileID, layer) && (m_mapNodeData[layer].tileID == "" || m_mapNodeData[layer].tileData->category == "Terrain");
   }
   return false;
 }
