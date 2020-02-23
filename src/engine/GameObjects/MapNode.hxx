@@ -109,7 +109,7 @@ private:
 
   int m_maxHeight = 32;
 
-  std::string m_previousTileID = "terrain";
+  std::string m_previousTileID = "terrain_grass";
 
   size_t m_orientation = TileSlopes::DEFAULT_ORIENTATION;
   size_t m_elevationOrientation = TileSlopes::DEFAULT_ORIENTATION;
