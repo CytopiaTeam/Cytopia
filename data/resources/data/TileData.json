@@ -1377,20 +1377,21 @@
             "clip_height": 23,
             "clip_width": 32,
             "count": 4,
-            "fileName": "resources/images/terrain/terrain_slopes.png"
+            "fileName": "resources/images/terrain/terrain_grass.png"
         },
         "cornerTiles": {
             "clip_height": 23,
             "clip_width": 32,
             "count": 8,
             "offset": 4,
-            "fileName": "resources/images/terrain/terrain_slopes.png"
+            "fileName": "resources/images/terrain/terrain_grass.png"
         },
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
             "count": 3,
-            "fileName": "resources/images/terrain/terrain_tiles.png"
+            "offset": 12,
+            "fileName": "resources/images/terrain/terrain_grass.png"
         },
         "title": "Terrain",
         "upkeep cost": 0,
