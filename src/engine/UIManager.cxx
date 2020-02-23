@@ -517,7 +517,7 @@ void UIManager::createBuildMenu()
     std::string category = tile.second.category;
 
     // Skip all items that have no button group
-    if (category == "Water" || category == "Terrain")
+    if (category == "Water" || category == "Terrain" || category == "Blueprint")
     {
       continue;
     }
