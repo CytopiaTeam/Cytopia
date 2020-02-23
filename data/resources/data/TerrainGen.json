@@ -40,7 +40,64 @@
             ]
         },
         "terrain": [
-            "terrain"
+            "terrain_desert"
+        ],
+        "water": [
+            "water"
+        ],
+        "waterdecoration": [
+            "water_rocks"
+        ],
+        "terrainRocks": [
+            "terrain_rocks_desert"
+        ],
+        "terrainFlowers": [
+            "flora_flower"
+        ]
+    },
+    "Dirt": {
+        "trees": {
+            "small": [
+                "trees_oak"
+            ],
+            "normal": [
+                "trees_oak"
+            ],
+            "dense": [
+                "trees_oak"
+            ]
+        },
+        "terrain": [
+            "terrain_dirt"
+        ],
+        "water": [
+            "water"
+        ],
+        "waterdecoration": [
+            "water_rocks"
+        ],
+        "terrainRocks": [
+            "terrain_rocks_desert"
+        ],
+        "terrainFlowers": [
+            "flora_flower"
+        ]
+    }    ,
+    "Snow": {
+        "trees": {
+            "small": [
+                "tree_pinetrees_light",
+                "tree_deciduous_dense"
+            ],
+            "normal": [
+                "tree_pinetrees_light"
+            ],
+            "dense": [
+                "tree_pinetrees_dense"
+            ]
+        },
+        "terrain": [
+            "terrain_snow"
         ],
         "water": [
             "water"
