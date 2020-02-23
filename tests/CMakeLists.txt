@@ -14,6 +14,11 @@ list(APPEND _include_directories
         ${CMAKE_SOURCE_DIR}/src/util
         )
 
+if (NOT USE_PACKAGE_MANAGER)
+    include(pmm)
+    pmm(CMakeCM ROLLING)
+endif()
+
 include(codecov)
 
 # We need to test our sources
