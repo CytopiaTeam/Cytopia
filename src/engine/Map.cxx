@@ -214,36 +214,37 @@ unsigned char Map::getNeighboringTilesBitmask(const Point &isoCoordinates)
   int y = isoCoordinates.y;
 
   // only auto-tile categories that can be tiled.
-  if (mapNodes[x * m_columns + y] && mapNodes[x * m_columns + y]->getActiveMapNodeData().tileData &&
-      mapNodes[x * m_columns + y]->getActiveMapNodeData().tileData->category == "Roads")
-  {
-    std::pair<int, int> adjecantNodesCoordinates[8]{
-        std::make_pair(x, y + 1),     // 0 = 2^0 = 1   = TOP
-        std::make_pair(x, y - 1),     // 1 = 2^1 = 2   = BOTTOM
-        std::make_pair(x - 1, y),     // 2 = 2^2 = 4   = LEFT
-        std::make_pair(x + 1, y),     // 3 = 2^3 = 8   = RIGHT
-        std::make_pair(x - 1, y + 1), // 4 = 2^4 = 16  = TOP LEFT
-        std::make_pair(x + 1, y + 1), // 5 = 2^5 = 32  = TOP RIGHT
-        std::make_pair(x - 1, y - 1), // 6 = 2^6 = 64  = BOTTOM LEFT
-        std::make_pair(x + 1, y - 1)  // 7 = 2^7 = 128 = BOTTOM RIGHT
-    };
-
-    int i = 0;
-    for (const auto &it : adjecantNodesCoordinates)
+  if (mapNodes[x * m_columns + y] && mapNodes[x * m_columns + y]->getActiveMapNodeData().tileData)
+    if (mapNodes[x * m_columns + y]->getActiveMapNodeData().tileData->category == "Pipes" ||
+        mapNodes[x * m_columns + y]->getActiveMapNodeData().tileData->category == "Roads")
     {
-      if ((it.first >= 0 && it.first < m_rows && it.second >= 0 && it.second < m_columns) &&
-          (mapNodes[it.first * m_columns + it.second] &&
-           mapNodes[it.first * m_columns + it.second]->getActiveMapNodeData().tileData && mapNodes[x * m_columns + y] &&
-           mapNodes[x * m_columns + y]->getActiveMapNodeData().tileData &&
-           mapNodes[it.first * m_columns + it.second]->getActiveMapNodeData().tileData->category ==
-               mapNodes[x * m_columns + y]->getActiveMapNodeData().tileData->category))
+      std::pair<int, int> adjecantNodesCoordinates[8]{
+          std::make_pair(x, y + 1),     // 0 = 2^0 = 1   = TOP
+          std::make_pair(x, y - 1),     // 1 = 2^1 = 2   = BOTTOM
+          std::make_pair(x - 1, y),     // 2 = 2^2 = 4   = LEFT
+          std::make_pair(x + 1, y),     // 3 = 2^3 = 8   = RIGHT
+          std::make_pair(x - 1, y + 1), // 4 = 2^4 = 16  = TOP LEFT
+          std::make_pair(x + 1, y + 1), // 5 = 2^5 = 32  = TOP RIGHT
+          std::make_pair(x - 1, y - 1), // 6 = 2^6 = 64  = BOTTOM LEFT
+          std::make_pair(x + 1, y - 1)  // 7 = 2^7 = 128 = BOTTOM RIGHT
+      };
+
+      int i = 0;
+      for (const auto &it : adjecantNodesCoordinates)
       {
-        // for each found tile add 2 ^ i to the bitmask
-        bitmask |= static_cast<unsigned int>(1 << i);
+        if ((it.first >= 0 && it.first < m_rows && it.second >= 0 && it.second < m_columns) &&
+            (mapNodes[it.first * m_columns + it.second] &&
+             mapNodes[it.first * m_columns + it.second]->getActiveMapNodeData().tileData && mapNodes[x * m_columns + y] &&
+             mapNodes[x * m_columns + y]->getActiveMapNodeData().tileData &&
+             mapNodes[it.first * m_columns + it.second]->getActiveMapNodeData().tileData->category ==
+                 mapNodes[x * m_columns + y]->getActiveMapNodeData().tileData->category))
+        {
+          // for each found tile add 2 ^ i to the bitmask
+          bitmask |= static_cast<unsigned int>(1 << i);
+        }
+        i++;
       }
-      i++;
     }
-  }
   return bitmask;
 }
 
