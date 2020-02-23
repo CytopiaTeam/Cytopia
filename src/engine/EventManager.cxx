@@ -57,6 +57,10 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       case SDLK_i:
         m_tileInfoMode = !m_tileInfoMode;
         break;
+      case SDLK_h:
+        // TODO: This is only temporary until the new UI is ready. Remove this afterwards
+        Settings::instance().drawUI = !Settings::instance().drawUI;
+        break;
       case SDLK_f:
         engine.toggleFullScreen();
         break;

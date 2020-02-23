@@ -21,7 +21,7 @@
 
 Cytopia is a free, open source retro pixel-art city building game with a big focus on mods. It utilizes a custom isometric rendering engine based on SDL2.
 
-Current Key Features:
+#### Current Key Features:
 - Custom UI System, based on JSON. Highly moddable
 - SDL2 based rendering engine written in C++
 - Camera panning, zooming, relocating
@@ -31,7 +31,7 @@ Current Key Features:
 - An original soundtrack, ambient noises, and sound effects made mostly by MB22
 - A Qt based tile editor for editing TileData JSON files
 
-Planned features:
+#### Planned features:
 - Biomes
 - OpenGL Renderer
 - Gameplay mechanics
@@ -47,12 +47,6 @@ If discord is not for you, visit our IRC channel on freenode at #Cytopia
 In case you want to support our project on patreon, visit our [Patreon Page](https://patreon.com/cytopia)
 
 Try out Cytopia in your Browser (Chrome based Browsers on PC supported) without installing it, take a look at our [emscripten port](https://game.cytopia.net/)
-
-#### Key Features
-- Different zoom levels
-- Relocate camera via rightclick
-- Read settings from json files ( Filename to tile ID  / Engine specific Settings )
-- Terrain editing (raise / lower terrain)
 
 #### Supported Platforms
 Linux (clang / g++-5 or higher)
