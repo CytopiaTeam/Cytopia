@@ -83,7 +83,6 @@ bool isPointWithinMapBoundaries(const Point &isoCoordinates)
 
 bool isPointWithinMapBoundaries(const std::vector<Point> &isoCoordinates)
 {
-  bool ret = true;;
   for (auto p : isoCoordinates)
   {
     if (!isPointWithinMapBoundaries(p))
