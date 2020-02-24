@@ -252,7 +252,7 @@ void Game::mainMenu()
 
 void Game::run(bool SkipMenu)
 {
-  loop_arg* arg = (loop_arg*)malloc(sizeof(loop_arg));
+  loop_arg* arg = new loop_arg;
   Timer benchmarkTimer;
   LOG(LOG_INFO) << VERSION;
 
@@ -313,6 +313,8 @@ void Game::run(bool SkipMenu)
     gameLoop( arg);
   }
   #endif
+  
+  delete arg;
 }
 
 void Game::shutdown()
