@@ -309,17 +309,14 @@ void Game::run(bool SkipMenu)
   Uint32 fpsLastTime = SDL_GetTicks();
   Uint32 fpsFrames = 0;
 
-  #ifdef __EMSCRIPTEN__
-  // void emscripten_set_main_loop(em_callback_func func, int fps, int simulate_infinite_loop);
-  // emscripten_set_main_loop(&game.run(), 60, 1);
-  // emscripten_set_main_loop(&gameLoop, 60, 1);
-  emscripten_set_main_loop_arg(&gameLoop, arg, 60, 1);
+#ifdef __EMSCRIPTEN__
+  emscripten_set_main_loop_arg(&gameLoop, arg, 0, 1);
 #else
 
   // GameLoop
   while (engine.isGameRunning())
   {
-gameLoop( arg);
+    gameLoop( arg);
   }
   #endif
 }
@@ -400,7 +397,9 @@ SDL_Event event;
     //   fpsFrames = 0;
     // }
 
+#ifndef __EMSCRIPTEN__
     SDL_Delay(1);
+#endif
 
 #ifdef MICROPROFILE_ENABLED
     MicroProfileFlip(nullptr);
