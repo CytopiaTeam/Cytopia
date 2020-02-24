@@ -1,51 +1,46 @@
-dist:                   bionic
-language:               cpp
+dist: bionic
+language: cpp
 services:
-                      - xvfb
+  - xvfb
 
 env:
   global:
     - GITHUB_REPO:      CytopiaTeam/Cytopia
+    - TRAVIS: true
     - CTEST_OUTPUT_ON_FAILURE: 1
-
-cache:
-  timeout:              1000
-  directories:
-    - $HOME/.conan/
 
 matrix:
   include:
-
     # gcc build
-    - os:               linux
-      name:             GCC 8 Build
-      python:           3.7
-      compiler:         gcc-8
+    - os: linux
+      name: GCC 8 Build
+      python: 3.7
+      compiler: gcc-8
       addons:
         sonarcloud:
           organization: "cytopia"
           token:
-            secure:     "HKP12cwEq+liwjJZyFECQKJBSmMC0LUz85JOod3HAoak846iI5kPLHDX1tbzL/yjKWUzKVfHpFGQAOTAIW8CuW5Ck7jnRalQRnHUeF4OSVDAHWwtgA41klWbr/8i1jfurMWwJISCMtJ1gYM1EabtwosXlt2bz1nD0DVTMcVnYYHOoSei2L8FMv0BWj8jVv0mR+1V2CrZtKeIYBhdvyouF6AzmsRLLiDqGHAQYxz39s615qiD43OvrwO+6aM5S90rByFEyyA51c7g2KlPGH+ursx1I1pR60k+K1H61aCRyTq3kG4iZLF6N9j/o/ywR92FppOwi7tMNiq6WpKlTwq8JM/XtlNlXrYByTmdufEHuzjZ5OYnsfmUIVJIQiYn60IIslLzbErQCOoe53I3NqbdGt7rDnUix5DVGLixlatLP5w82s4snAYmRbwDjDExSSBxk9Xecb9YKJQs80wz6DiS16mQ5HvYbYafqiIM4HHuunQ1tv5z3w2etFluIJfE+5KERWS1gfh8mAMvFfeS66IHbzls2iZEw0FQj+72oNwJzRQUlqZhvFglCnQS/C7WZ9m0xB8msLoa+B8TrdbzYc0ZQWZ5BNgLRxf/kLl0YoaVXLfttjJY44IM42w5eH0PN2I/6gI2XUo6EFp3vjc6lNaeRQzxF6z1SQ2cVW+BPcugB2I="
+            secure: "HKP12cwEq+liwjJZyFECQKJBSmMC0LUz85JOod3HAoak846iI5kPLHDX1tbzL/yjKWUzKVfHpFGQAOTAIW8CuW5Ck7jnRalQRnHUeF4OSVDAHWwtgA41klWbr/8i1jfurMWwJISCMtJ1gYM1EabtwosXlt2bz1nD0DVTMcVnYYHOoSei2L8FMv0BWj8jVv0mR+1V2CrZtKeIYBhdvyouF6AzmsRLLiDqGHAQYxz39s615qiD43OvrwO+6aM5S90rByFEyyA51c7g2KlPGH+ursx1I1pR60k+K1H61aCRyTq3kG4iZLF6N9j/o/ywR92FppOwi7tMNiq6WpKlTwq8JM/XtlNlXrYByTmdufEHuzjZ5OYnsfmUIVJIQiYn60IIslLzbErQCOoe53I3NqbdGt7rDnUix5DVGLixlatLP5w82s4snAYmRbwDjDExSSBxk9Xecb9YKJQs80wz6DiS16mQ5HvYbYafqiIM4HHuunQ1tv5z3w2etFluIJfE+5KERWS1gfh8mAMvFfeS66IHbzls2iZEw0FQj+72oNwJzRQUlqZhvFglCnQS/C7WZ9m0xB8msLoa+B8TrdbzYc0ZQWZ5BNgLRxf/kLl0YoaVXLfttjJY44IM42w5eH0PN2I/6gI2XUo6EFp3vjc6lNaeRQzxF6z1SQ2cVW+BPcugB2I="
         apt:
           sources:
             # Official Kitware APT repository. Currently supports Bionic and Xenial.
             # More information at: https://apt.kitware.com
-            - sourceline: 'deb https://apt.kitware.com/ubuntu/ xenial main'
-              key_url:  'https://apt.kitware.com/keys/kitware-archive-latest.asc'
+            - sourceline: "deb https://apt.kitware.com/ubuntu/ xenial main"
+              key_url: "https://apt.kitware.com/keys/kitware-archive-latest.asc"
           packages:
             - cmake
             - ninja-build
             - doxygen
             - graphviz
-            - libfreetype6-dev
-            - libgl1-mesa-dev
-            - libasound2-dev
-            - libjack-dev
-            - libpulse-dev
-            - libaudio-dev
+            - libsdl2-dev
+            - libsdl2-image-dev
+            - libsdl2-mixer-dev
+            - libsdl2-ttf-dev
+            - libnoise-dev
+            - libopenal-dev
 
       before_script:
-        - cmake -DCMAKE_BUILD_TYPE=Debug -DENABLE_COVERAGE=ON .
+        - cmake -DCMAKE_BUILD_TYPE=Debug -DENABLE_COVERAGE=ON -DUSE_PACKAGE_MANAGER=OFF -DENABLE_ANGELSCRIPT=OFF -DENABLE_MOFILEREADER=OFF .
 
       script:
         - >
@@ -62,21 +57,18 @@ matrix:
         - make gcov
         - make copy_coverage
 
-      before_cache:
-        - cmake -P ./cmake/pmm.cmake /Conan /Clean
-
     # clang build
-    - os:               linux
-      name:             CLANG 7 Build
-      compiler:         clang
-      python:           3.7
+    - os: linux
+      name: CLANG 7 Build
+      compiler: clang
+      python: 3.7
       addons:
         apt:
           sources:
             # Official Kitware APT repository. Currently supports Bionic and Xenial.
             # More information at: https://apt.kitware.com
-            - sourceline: 'deb https://apt.kitware.com/ubuntu/ xenial main'
-              key_url:  'https://apt.kitware.com/keys/kitware-archive-latest.asc'
+            - sourceline: "deb https://apt.kitware.com/ubuntu/ xenial main"
+              key_url: "https://apt.kitware.com/keys/kitware-archive-latest.asc"
           packages:
             - cmake
             - ninja-build
@@ -84,20 +76,20 @@ matrix:
             - ninja-build
             - doxygen
             - graphviz
-            - libfreetype6-dev
-            - libgl1-mesa-dev
-            - libasound2-dev
-            - libjack-dev
-            - libpulse-dev
-            - libaudio-dev
+            - libsdl2-dev
+            - libsdl2-image-dev
+            - libsdl2-mixer-dev
+            - libsdl2-ttf-dev
+            - libnoise-dev
+            - libopenal-dev
             - clang-7
-            - libc++-7-dev  # C++17 support in libstd++
+            - libc++-7-dev # C++17 support in libstd++
       env:
         - DEPLOY_DOCUMENTATION=true
         - MATRIX_EVAL="CC=clang-7.0 && CXX=clang++-7.0"
 
       before_script:
-        - cmake -GNinja -DCMAKE_BUILD_TYPE=Release .
+        - cmake -GNinja -DCMAKE_BUILD_TYPE=Release -DUSE_PACKAGE_MANAGER=OFF -DENABLE_ANGELSCRIPT=OFF -DENABLE_MOFILEREADER=OFF .
 
       script:
         - ninja
@@ -105,16 +97,12 @@ matrix:
         - sh ./tools/CI/upload-CI-build.sh
         - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then doxygen Doxyfile; fi
 
-
-      before_cache:
-        - cmake -P ./cmake/pmm.cmake /Conan /Clean
-
-    - os:               osx
-      name:             XCode 10.2 Build
-      osx_image:        xcode10.2
-      env:              TARGET=macOS
-      language:         objective-c
-      python:           3.7
+    - os: osx
+      name: XCode 10.2 Build
+      osx_image: xcode10.2
+      env: TARGET=macOS
+      language: objective-c
+      python: 3.7
 
       install:
         - brew update
@@ -133,11 +121,11 @@ matrix:
         - cmake -P ./cmake/pmm.cmake /Conan /Clean
 
 deploy:
-  provider:             pages
-  skip_cleanup:         true
-  local_dir:            Doxygen_Docs/html
-  github_token:         $GH_REPO_TOKEN
-  verbose:              true
+  provider: pages
+  skip_cleanup: true
+  local_dir: Doxygen_Docs/html
+  github_token: $GH_REPO_TOKEN
+  verbose: true
   on:
-    condition:          $DEPLOY_DOCUMENTATION = "true"
-    branch:             master
+    condition: $DEPLOY_DOCUMENTATION = "true"
+    branch: master
