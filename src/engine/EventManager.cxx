@@ -281,21 +281,33 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           std::vector<Point> pointsToHighlight;
           if (highlightSelection)
           {
+            bool shouldHighlight = true;
             for (auto coords : m_highlightedObjectNodes)
             {
-              if (!engine.map->checkTileIDIsEmpty(coords, tileTypeEditMode))
+              if (!isPointWithinMapBoundaries(coords))
               {
-                Point origCornerPoint = engine.map->getNodeOrigCornerPoint(coords);
-                engine.map->highlightNode(origCornerPoint, SpriteHighlightColor::RED);
-                engine.map->highlightNode(coords, SpriteHighlightColor::RED);
-                pointsToHighlight.push_back(origCornerPoint);
-              }
-              else
-              {
-                engine.map->highlightNode(coords, SpriteHighlightColor::GRAY);
+                shouldHighlight = false;
+                break;
               }
             }
-            m_highlightedObjectNodes.insert(m_highlightedObjectNodes.end(), pointsToHighlight.begin(), pointsToHighlight.end());
+            if (shouldHighlight)
+            {
+              for (auto coords : m_highlightedObjectNodes)
+              {
+                if (!engine.map->checkTileIDIsEmpty(coords, tileTypeEditMode))
+                {
+                  Point origCornerPoint = engine.map->getNodeOrigCornerPoint(coords);
+                  engine.map->highlightNode(origCornerPoint, SpriteHighlightColor::RED);
+                  engine.map->highlightNode(coords, SpriteHighlightColor::RED);
+                  pointsToHighlight.push_back(origCornerPoint);
+                }
+                else
+                {
+                  engine.map->highlightNode(coords, SpriteHighlightColor::GRAY);
+                }
+              }
+              m_highlightedObjectNodes.insert(m_highlightedObjectNodes.end(), pointsToHighlight.begin(), pointsToHighlight.end());
+            }
           }
         }
       }
