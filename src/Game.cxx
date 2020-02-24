@@ -38,6 +38,11 @@ typedef struct loop_arg {
   UIManager *uiManager;
 } loop_arg;
 
+  // FPS Counter variables
+  const float fpsIntervall = 1.0; // interval the fps counter is refreshed in seconds.
+  Uint32 fpsLastTime = SDL_GetTicks();
+  Uint32 fpsFrames = 0;
+
 Game::Game()
     : m_GameContext(&m_UILoopMQ, &m_GameLoopMQ,
 #ifdef USE_AUDIO
@@ -298,11 +303,6 @@ void Game::run(bool SkipMenu)
   }
 #endif // USE_AUDIO
 
-  // FPS Counter variables
-  const float fpsIntervall = 1.0; // interval the fps counter is refreshed in seconds.
-  Uint32 fpsLastTime = SDL_GetTicks();
-  Uint32 fpsFrames = 0;
-
 #ifdef __EMSCRIPTEN__
   emscripten_set_main_loop_arg(&gameLoop, arg, 0, 1);
 #else
@@ -384,14 +384,14 @@ SDL_Event event;
     // Render the Frame
     SDL_RenderPresent(WindowManager::instance().getRenderer());
 
-    // fpsFrames++;
+    fpsFrames++;
 
-    // if (fpsLastTime < SDL_GetTicks() - fpsIntervall * 1000)
-    // {
-    //   fpsLastTime = SDL_GetTicks();
-    //   uiManager.setFPSCounterText(std::to_string(fpsFrames) + " FPS");
-    //   fpsFrames = 0;
-    // }
+    if (fpsLastTime < SDL_GetTicks() - fpsIntervall * 1000)
+    {
+      fpsLastTime = SDL_GetTicks();
+      uiManager.setFPSCounterText(std::to_string(fpsFrames) + " FPS");
+      fpsFrames = 0;
+    }
 
 #ifndef __EMSCRIPTEN__
     SDL_Delay(1);
