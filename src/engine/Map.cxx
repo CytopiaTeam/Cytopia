@@ -370,8 +370,10 @@ bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int is
     if (SDL_PointInRect(&screenCoordinates, &spriteRect))
     {
       // Calculate the position of the clicked pixel within the surface and "un-zoom" the position to match the un-adjusted surface
-      const int pixelX = static_cast<int>((screenCoordinates.x - spriteRect.x) / Camera::zoomLevel);
-      const int pixelY = static_cast<int>((screenCoordinates.y - spriteRect.y) / Camera::zoomLevel);
+      const int pixelX =
+          static_cast<int>(std::round(static_cast<float>((screenCoordinates.x - spriteRect.x)) / Camera::zoomLevel));
+      const int pixelY =
+          static_cast<int>(std::round(static_cast<float>((screenCoordinates.y - spriteRect.y)) / Camera::zoomLevel));
 
       // Check if the clicked Sprite is not transparent (we hit a point within the pixel)
       if (getColorOfPixelInSurface(ResourcesManager::instance().getTileSurface(
@@ -391,8 +393,11 @@ bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int is
     if (SDL_PointInRect(&screenCoordinates, &spriteRect))
     {
       // Calculate the position of the clicked pixel within the surface and "un-zoom" the position to match the un-adjusted surface
-      const int pixelX = static_cast<int>((screenCoordinates.x - spriteRect.x) / Camera::zoomLevel);
-      const int pixelY = static_cast<int>((screenCoordinates.y - spriteRect.y) / Camera::zoomLevel);
+
+      const int pixelX =
+          static_cast<int>(std::round(static_cast<float>((screenCoordinates.x - spriteRect.x)) / Camera::zoomLevel));
+      const int pixelY =
+          static_cast<int>(std::round(static_cast<float>((screenCoordinates.y - spriteRect.y)) / Camera::zoomLevel));
 
       // TODO: The problem here is, that the pixel check doesn't work with all terrain tiles. This is a pre-layer issue. idk what causes it yet.
       // Check if the clicked Sprite is not transparent (we hit a point within the pixel)
