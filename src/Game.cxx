@@ -389,7 +389,7 @@ SDL_Event event;
     if (fpsLastTime < SDL_GetTicks() - fpsIntervall * 1000)
     {
       fpsLastTime = SDL_GetTicks();
-      uiManager.setFPSCounterText(std::to_string(fpsFrames) + " FPS");
+      arg->uiManager->setFPSCounterText(std::to_string(fpsFrames) + " FPS");
       fpsFrames = 0;
     }
 
