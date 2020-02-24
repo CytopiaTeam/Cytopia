@@ -38,19 +38,13 @@ typedef struct loop_arg {
   UIManager *uiManager;
 } loop_arg;
 
-Game::Game() :
-      m_GameContext(
-          &m_UILoopMQ, 
-          &m_GameLoopMQ, 
+Game::Game()
+    : m_GameContext(&m_UILoopMQ, &m_GameLoopMQ,
 #ifdef USE_AUDIO
-          &m_AudioMixer, 
+                    &m_AudioMixer,
 #endif // USE_AUDIO
-          &m_Randomizer, 
-          &m_GameClock, 
-          &m_ResourceManager),
-      m_GameClock{m_GameContext}, 
-      m_Randomizer{m_GameContext}, 
-      m_ResourceManager{m_GameContext},
+                    &m_Randomizer, &m_GameClock, &m_ResourceManager),
+      m_GameClock{m_GameContext}, m_Randomizer{m_GameContext}, m_ResourceManager{m_GameContext},
 #ifdef USE_AUDIO
       m_AudioMixer{m_GameContext},
 #endif
@@ -107,11 +101,11 @@ void Game::mainMenu()
   bool mainMenuLoop = true;
 
 #ifdef USE_AUDIO
-  /* Trigger MainMenu music */ 
+  /* Trigger MainMenu music */
   if (!Settings::instance().audio3DStatus)
-	  m_AudioMixer.play(AudioTrigger::MainMenu);
+    m_AudioMixer.play(AudioTrigger::MainMenu);
   else
-	  m_AudioMixer.play(AudioTrigger::MainMenu, Coordinate3D{ 0, 3, 0.5 });
+    m_AudioMixer.play(AudioTrigger::MainMenu, Coordinate3D{0, 3, 0.5});
 #endif // USE_AUDIO
 
   Image logo;
@@ -127,41 +121,41 @@ void Game::mainMenu()
   newGameButton.setText("New Game");
   newGameButton.setUIElementID("newgame");
   newGameButton.registerCallbackFunction([this]() {
-#ifdef USE_AUDIO 
-    m_AudioMixer.stopAll();    
-    if(!Settings::instance().audio3DStatus)
+#ifdef USE_AUDIO
+    m_AudioMixer.stopAll();
+    if (!Settings::instance().audio3DStatus)
       m_AudioMixer.play(SoundtrackID{"MajorSelection"});
     else
-      m_AudioMixer.play(SoundtrackID{"MajorSelection"},Coordinate3D{0,0,-4});
-#endif //  USE_AUDIO 
-	
-	Engine::instance().newGame(); 
+      m_AudioMixer.play(SoundtrackID{"MajorSelection"}, Coordinate3D{0, 0, -4});
+#endif //  USE_AUDIO
+
+    Engine::instance().newGame();
   });
 
   Button loadGameButton({screenWidth / 2 - 100, screenHeight / 2 - 20 + newGameButton.getUiElementRect().h * 2, 200, 40});
   loadGameButton.setText("Load Game");
   loadGameButton.registerCallbackFunction([this]() {
-#ifdef USE_AUDIO 
-	m_AudioMixer.stopAll();
-	if(!Settings::instance().audio3DStatus)
-    m_AudioMixer.play(SoundtrackID{"MajorSelection"});
-  else
-    m_AudioMixer.play(SoundtrackID{"MajorSelection"}, Coordinate3D{ 0, 0, -4 });
-#endif // USE_AUDIO 
-	Engine::instance().loadGame("resources/save.cts"); 
+#ifdef USE_AUDIO
+    m_AudioMixer.stopAll();
+    if (!Settings::instance().audio3DStatus)
+      m_AudioMixer.play(SoundtrackID{"MajorSelection"});
+    else
+      m_AudioMixer.play(SoundtrackID{"MajorSelection"}, Coordinate3D{0, 0, -4});
+#endif // USE_AUDIO
+    Engine::instance().loadGame("resources/save.cts");
   });
 
   Button quitGameButton({screenWidth / 2 - 100, screenHeight / 2 - 20 + loadGameButton.getUiElementRect().h * 4, 200, 40});
   quitGameButton.setText("Quit Game");
   quitGameButton.registerCallbackFunction([this]() {
-#ifdef USE_AUDIO 
+#ifdef USE_AUDIO
     m_AudioMixer.stopAll();
-	if(!Settings::instance().audio3DStatus)
-    m_AudioMixer.play(SoundtrackID{"NegativeSelect"});
-  else
-    m_AudioMixer.play(SoundtrackID{"NegativeSelect"}, Coordinate3D{0, 0, -4});
-#endif // USE_AUDIO 
-	Engine::instance().quitGame(); 
+    if (!Settings::instance().audio3DStatus)
+      m_AudioMixer.play(SoundtrackID{"NegativeSelect"});
+    else
+      m_AudioMixer.play(SoundtrackID{"NegativeSelect"}, Coordinate3D{0, 0, -4});
+#endif // USE_AUDIO
+    Engine::instance().quitGame();
   });
 
   // store elements in vector
@@ -294,13 +288,13 @@ void Game::run(bool SkipMenu)
 #ifdef USE_AUDIO
   if (!Settings::instance().audio3DStatus)
   {
-	  m_GameClock.createRepeatedTask(8min, [this]() { m_AudioMixer.play(AudioTrigger::MainTheme); });
-	  m_GameClock.createRepeatedTask(3min, [this]() { m_AudioMixer.play(AudioTrigger::NatureSounds); });
+    m_GameClock.createRepeatedTask(8min, [this]() { m_AudioMixer.play(AudioTrigger::MainTheme); });
+    m_GameClock.createRepeatedTask(3min, [this]() { m_AudioMixer.play(AudioTrigger::NatureSounds); });
   }
   else
   {
-	  m_GameClock.createRepeatedTask(8min, [this]() { m_AudioMixer.play(AudioTrigger::MainTheme,Coordinate3D{0,0.5,0.1}); });
-	  m_GameClock.createRepeatedTask(3min, [this]() { m_AudioMixer.play(AudioTrigger::NatureSounds,Coordinate3D{0, 0, -2}); });
+    m_GameClock.createRepeatedTask(8min, [this]() { m_AudioMixer.play(AudioTrigger::MainTheme, Coordinate3D{0, 0.5, 0.1}); });
+    m_GameClock.createRepeatedTask(3min, [this]() { m_AudioMixer.play(AudioTrigger::NatureSounds, Coordinate3D{0, 0, -2}); });
   }
 #endif // USE_AUDIO
 
