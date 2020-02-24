@@ -965,7 +965,7 @@
         "author": "Kingtut 101",
         "category": "Industrial",
         "description": "A  small coal power plant.  It can supply a small town with electricity, but it produces a lot of pollution.",
-        "id": "ind_3x3_CoalPlant1",
+        "id": "ind_1x1_CoalPlant1",
         "power": 0,
         "price": 5,
         "tiles": {
@@ -973,10 +973,6 @@
             "clip_width": 32,
             "count": 1,
             "fileName": "resources/images/buildings/industrial/ind_1x1_SmallPowerPlant.png"
-        },
-        "RequiredTiles": {
-            "width": 3,
-            "height": 3
         },
         "title": "Small Coal Power Plant",
         "upkeep cost": 0,
@@ -4543,8 +4539,8 @@
             "fileName": "resources/images/buildings/commercial/com_4x4_Banque_Ouvriere_Anternoise_mx.png"
         },
         "RequiredTiles": {
-            "width": 4,
-            "height": 4
+            "width": 3,
+            "height": 3
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,

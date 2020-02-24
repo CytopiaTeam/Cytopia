@@ -81,6 +81,9 @@ public:
 
   const TileData *getTileData(Layer layer) const { return m_mapNodeData[layer].tileData; };
 
+  /** @brief get TileID of specific layer inside NodeData.
+    * @param layer - what layer should be checked on.
+    */
   const std::string &getTileID(Layer layer) const { return m_mapNodeData[layer].tileID; };
 
   bool checkTileIsEmpty(const std::string &tileID) const;

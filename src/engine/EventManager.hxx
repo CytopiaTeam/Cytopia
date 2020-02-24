@@ -15,8 +15,12 @@ public:
   ~EventManager() = default;
 
   void checkEvents(SDL_Event &event, Engine &engine);
-
   void registerTimer(Timer *timer);
+  /**
+ * @brief Unhighlight Highlited Nodes.
+ * This sets a node to be unhighlited.
+ */
+  void unHighlighNodes(Engine &engine);
 
 private:
   UIManager &m_uiManager = UIManager::instance();
@@ -28,7 +32,6 @@ private:
   bool m_tileInfoMode = false;
   Point pinchCenterCoords = {0, 0, 0, 0};
   Point m_clickDownCoords = {0, 0, 0, 0};
-  Point m_highlightNode = {0, 0, 0, 0};
   std::vector<Point> m_highlightedNodes = {};
   std::vector<Point> m_highlightedObjectNodes = {};
   std::vector<Timer *> timers;
