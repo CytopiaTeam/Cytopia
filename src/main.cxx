@@ -27,7 +27,7 @@ int protected_main(int argc, char **argv)
     }
   }
   
-  #ifdef __EMSCRIPTEN
+  #ifdef __EMSCRIPTEN__
     skipMenu = true;
   #endif
 
