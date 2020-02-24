@@ -42,7 +42,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
 
       case SDLK_0:
         break;
-      case SDLK_F11:
+      case SDLK_m:
         m_uiManager.toggleDebugMenu();
         break;
       case SDLK_1:
