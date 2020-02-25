@@ -26,15 +26,19 @@ TileData *TileManager::getTileData(const std::string &id) noexcept
 
 Layer TileManager::getTileLayer(const std::string &tileID) const
 {
-  Layer layer = Layer::BUILDINGS;
+  Layer layer = Layer::TERRAIN;
   TileData *tileData = TileManager::instance().getTileData(tileID);
-  if (tileData->category == "Terrain")
+  if (tileData)
   {
-    layer = Layer::TERRAIN;
-  }
-  else if (tileData->category == "Water")
-  {
-    layer = Layer::WATER;
+    layer = Layer::BUILDINGS;
+    if (tileData->category == "Terrain")
+    {
+      layer = Layer::TERRAIN;
+    }
+    else if (tileData->category == "Water")
+    {
+      layer = Layer::WATER;
+    } 
   }
   return layer;
 }
