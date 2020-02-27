@@ -317,24 +317,40 @@ Point Map::findNodeInMap(const SDL_Point &screenCoordinates) const
   int isoX = calculatedIsoCoords.x;
   int isoY = calculatedIsoCoords.y;
 
+  SDL_Point test = screenCoordinates;
+  //test.x += 1;
+  //test.y += 1;
+
   // traverse a column from top to bottom (from the calculated coordinates)
   while (isoX < Settings::instance().mapSize && isoY < Settings::instance().mapSize && isoY >= 0)
   {
-    if (isClickWithinTile(screenCoordinates, isoX, isoY) &&
-        (foundCoordinates.z < mapNodes[isoX * m_columns + isoY]->getCoordinates().z))
+    if (isClickWithinTile(test, isoX, isoY) && (foundCoordinates.z < mapNodes[isoX * m_columns + isoY]->getCoordinates().z))
     {
       foundCoordinates = mapNodes[isoX * m_columns + isoY]->getCoordinates();
     }
-    if (isoX > 0 && isClickWithinTile(screenCoordinates, isoX - 1, isoY) &&
+
+    if (isoX > 0 && isClickWithinTile(test, isoX - 1, isoY) &&
         (foundCoordinates.z < mapNodes[(isoX - 1) * m_columns + isoY]->getCoordinates().z))
     {
       foundCoordinates = mapNodes[(isoX - 1) * m_columns + isoY]->getCoordinates();
     }
+    if (isoX > 0 && isClickWithinTile(test, isoX - 2, isoY) &&
+        (foundCoordinates.z < mapNodes[(isoX - 2) * m_columns + isoY]->getCoordinates().z))
+    {
+      foundCoordinates = mapNodes[(isoX - 2) * m_columns + isoY]->getCoordinates();
+    }
     //check if isoY is already the last one
-    if (isoY < Settings::instance().mapSize - 1 && isClickWithinTile(screenCoordinates, isoX, isoY + 1) &&
+    if (isoY < Settings::instance().mapSize - 1 && isClickWithinTile(test, isoX, isoY + 1) &&
         (foundCoordinates.z < mapNodes[isoX * m_columns + (isoY + 1)]->getCoordinates().z))
     {
       foundCoordinates = mapNodes[isoX * m_columns + (isoY + 1)]->getCoordinates();
+    }
+
+    //check if isoY is already the last one
+    if (isoY < Settings::instance().mapSize - 1 && isClickWithinTile(test, isoX, isoY + 2) &&
+        (foundCoordinates.z < mapNodes[isoX * m_columns + (isoY + 2)]->getCoordinates().z))
+    {
+      foundCoordinates = mapNodes[isoX * m_columns + (isoY + 2)]->getCoordinates();
     }
 
     isoX++;
@@ -370,16 +386,16 @@ bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int is
     if (SDL_PointInRect(&screenCoordinates, &spriteRect))
     {
       // Calculate the position of the clicked pixel within the surface and "un-zoom" the position to match the un-adjusted surface
-      const int pixelX =
-          static_cast<int>(std::round(static_cast<float>((screenCoordinates.x - spriteRect.x)) / Camera::zoomLevel));
-      const int pixelY =
-          static_cast<int>(std::round(static_cast<float>((screenCoordinates.y - spriteRect.y)) / Camera::zoomLevel));
+      const int pixelX = static_cast<int>(std::round(
+          static_cast<float>((screenCoordinates.x) / Camera::zoomLevel - static_cast<float>(spriteRect.x) / Camera::zoomLevel)));
+      const int pixelY = static_cast<int>(std::round(
+          static_cast<float>((screenCoordinates.y) / Camera::zoomLevel - static_cast<float>(spriteRect.y) / Camera::zoomLevel)));
 
       // Check if the clicked Sprite is not transparent (we hit a point within the pixel)
       if (getColorOfPixelInSurface(ResourcesManager::instance().getTileSurface(
                                        mapNodes[isoX * m_columns + isoY]->getMapNodeDataForLayer(Layer::BUILDINGS).tileID,
                                        mapNodes[isoX * m_columns + isoY]->tileMap),
-                                   pixelX, pixelY, mapNodes[isoX * m_columns + isoY]->getSprite()->getActiveClipRect())
+                                   pixelX + 1, pixelY, mapNodes[isoX * m_columns + isoY]->getSprite()->getDestRect())
               .a != SDL_ALPHA_TRANSPARENT)
       {
         return true;
@@ -390,21 +406,32 @@ bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int is
   if (MapLayers::isLayerActive(Layer::TERRAIN) && mapNodes[isoX * m_columns + isoY]->getSprite()->isLayerUsed(Layer::TERRAIN))
   {
     spriteRect = mapNodes[isoX * m_columns + isoY]->getSprite()->getDestRect(Layer::TERRAIN);
+
     if (SDL_PointInRect(&screenCoordinates, &spriteRect))
     {
       // Calculate the position of the clicked pixel within the surface and "un-zoom" the position to match the un-adjusted surface
 
-      const int pixelX =
-          static_cast<int>(std::round(static_cast<float>((screenCoordinates.x - spriteRect.x)) / Camera::zoomLevel));
-      const int pixelY =
-          static_cast<int>(std::round(static_cast<float>((screenCoordinates.y - spriteRect.y)) / Camera::zoomLevel));
+      int pixelX = static_cast<int>(std::round(static_cast<float>((screenCoordinates.x - (spriteRect.x))) / Camera::zoomLevel));
+      int pixelY = static_cast<int>(std::round(static_cast<float>((screenCoordinates.y - (spriteRect.y))) / Camera::zoomLevel));
+      LOG(LOG_INFO) << "pixelX " << pixelX << ", " << pixelY << " - offset "
+                    << mapNodes[isoX * m_columns + isoY]->getTileData(Layer::TERRAIN)->tiles.offset << " width " << spriteRect.w
+                    << "cliprect.x " << mapNodes[isoX * m_columns + isoY]->getSprite()->getClipRect(Layer::TERRAIN).x;
 
-      // TODO: The problem here is, that the pixel check doesn't work with all terrain tiles. This is a pre-layer issue. idk what causes it yet.
+      // FIX: Move the x coordinate to the right so we check the correct tile in the spritesheet (cliprect => offset..)
+      pixelX += mapNodes[isoX * m_columns + isoY]->getSprite()->getClipRect(Layer::TERRAIN).x;
+      //pixelX += mapNodes[isoX * m_columns + isoY]->getTileData(Layer::TERRAIN)->tiles.offset *
+      //static_cast<int>(std::round(static_cast<float>(spriteRect.w) / Camera::zoomLevel));
+      //pixelY -= 16;
+      //spriteRect.w *Camera::zoomLevel / 2 :
+      LOG(LOG_INFO) << "pixelX " << pixelX << ", " << pixelY;
+      //LOG(LOG_INFO) << "screenCoordinates.x " << screenCoordinates.x << ", " << screenCoordinates.y;
+      //LOG(LOG_INFO) << "spriteRect.x.x " << spriteRect.x << ", " << spriteRect.y;
+      LOG(LOG_INFO) << "__ END __";
+       //TODO: The problem here is, that the pixel check doesn't work with all terrain tiles. This is a pre-layer issue. idk what causes it yet.
       // Check if the clicked Sprite is not transparent (we hit a point within the pixel)
       if (getColorOfPixelInSurface(ResourcesManager::instance().getTileSurface(
-                                       mapNodes[isoX * m_columns + isoY]->getMapNodeDataForLayer(Layer::TERRAIN).tileID,
-                                       mapNodes[isoX * m_columns + isoY]->tileMap),
-                                   pixelX, pixelY, mapNodes[isoX * m_columns + isoY]->getSprite()->getClipRect(Layer::TERRAIN))
+                                       mapNodes[isoX * m_columns + isoY]->getMapNodeDataForLayer(Layer::TERRAIN).tileID, TileMap::SLOPES),
+              pixelX, pixelY, mapNodes[isoX * m_columns + isoY]->getSprite()->getClipRect(Layer::TERRAIN))
               .a != SDL_ALPHA_TRANSPARENT)
       {
         return true;

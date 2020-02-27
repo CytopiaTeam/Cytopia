@@ -7233,13 +7233,13 @@
             "clip_height": 15,
             "clip_width": 32,
             "count": 3,
-            "offset": 13,
+            "offset": 12,
             "fileName": "resources/images/terrain/terrain_grass.png"
         },
         "title": "Grassland Terrain",
         "upkeep cost": 0,
         "water": 0,
-        "tag": [
+        "tag": [    
             "terrain",
             "grass",
             "tiles"

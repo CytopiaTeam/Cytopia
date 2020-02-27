@@ -13,7 +13,7 @@
 * \returns Point() - object containing the calculated isometric coordinates of the tile that matches the screen coordinates
 * @param Point() screenCoordinates - object containing screen space coordinates
 */
-Point calculateIsoCoordinates(const SDL_Point &screenCoordinates);
+Point calculateIsoCoordinates(const SDL_Point &screenCoordinates, int height = 1);
 
 /** \brief converts coordinates from isometric to screen space
 * The given isometric coordinates (which contain height information) are converted to the screen coordinates. The coordinates represent the x, y position of the
