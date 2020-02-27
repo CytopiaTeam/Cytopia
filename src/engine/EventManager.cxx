@@ -15,6 +15,20 @@
 #include "microprofile.h"
 #endif
 
+void EventManager::unHighlighNodes(Engine &engine)
+{
+  for (size_t i = 0; i < m_highlightedNodes.size(); i++)
+  {
+    engine.map->unHighlightNode(m_highlightedNodes[i]);
+  }
+  for (size_t i = 0; i < m_highlightedObjectNodes.size(); i++)
+  {
+    engine.map->unHighlightNode(m_highlightedObjectNodes[i]);
+  }
+  m_highlightedNodes.clear();
+  m_highlightedObjectNodes.clear();
+}
+
 void EventManager::checkEvents(SDL_Event &event, Engine &engine)
 {
 #ifdef MICROPROFILE_ENABLED
@@ -232,10 +246,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           }
           else if (!tileTypeEditMode.empty())
           {
-            for (size_t i = 0; i < m_highlightedNodes.size(); i++)
-            {
-              engine.map->unHighlightNode(m_highlightedNodes[i]);
-            }
+            this->unHighlighNodes(engine);
 
             m_highlightedNodes = createBresenhamLine(m_clickDownCoords, clickCoords);
 
@@ -260,26 +271,42 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         }
         else
         {
-          for (size_t i = 0; i < m_highlightedNodes.size(); i++)
+          this->unHighlighNodes(engine);
+          // get Object Nodes in case it's a building bigger than 1x1 tile.
+          m_highlightedObjectNodes = engine.map->getObjectCoords(clickCoords, tileTypeEditMode);
+          if (m_highlightedObjectNodes.empty())
           {
-            engine.map->unHighlightNode(m_highlightedNodes[i]);
+            m_highlightedObjectNodes.push_back(clickCoords);
           }
-          m_highlightedNodes.clear();
-
-          engine.map->unHighlightNode(m_highlitNode);
-          m_highlitNode = clickCoords;
-
+          std::vector<Point> pointsToHighlight;
           if (highlightSelection)
           {
-            if (!engine.map->checkTileIDIsEmpty(m_highlitNode, tileTypeEditMode))
+            bool shouldHighlight = true;
+            for (auto coords : m_highlightedObjectNodes)
             {
-              // already occupied tile, mark red
-              engine.map->highlightNode(m_highlitNode, SpriteHighlightColor::RED);
+              if (!isPointWithinMapBoundaries(coords))
+              {
+                shouldHighlight = false;
+                break;
+              }
             }
-            else
+            if (shouldHighlight)
             {
-              // mark gray.
-              engine.map->highlightNode(m_highlitNode, SpriteHighlightColor::GRAY);
+              for (auto coords : m_highlightedObjectNodes)
+              {
+                if (!engine.map->checkTileIDIsEmpty(coords, tileTypeEditMode))
+                {
+                  Point origCornerPoint = engine.map->getNodeOrigCornerPoint(coords);
+                  engine.map->highlightNode(origCornerPoint, SpriteHighlightColor::RED);
+                  engine.map->highlightNode(coords, SpriteHighlightColor::RED);
+                  pointsToHighlight.push_back(origCornerPoint);
+                }
+                else
+                {
+                  engine.map->highlightNode(coords, SpriteHighlightColor::GRAY);
+                }
+              }
+              m_highlightedObjectNodes.insert(m_highlightedObjectNodes.end(), pointsToHighlight.begin(), pointsToHighlight.end());
             }
           }
         }
@@ -315,6 +342,9 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       break;
 
     case SDL_MOUSEBUTTONUP:
+    {
+      std::vector<Point> bresenhamLineNodes = m_highlightedNodes;
+      this->unHighlighNodes(engine);
       if (m_panning)
       {
         Camera::centerIsoCoordinates =
@@ -346,22 +376,15 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       // If we're over a ui element, don't handle game events
       if (m_skipLeftClick)
       {
-        for (size_t i = 0; i < m_highlightedNodes.size(); i++)
-        {
-          engine.map->unHighlightNode(m_highlightedNodes[i]);
-        }
-        m_highlightedNodes.clear();
-
-        engine.map->unHighlightNode(m_highlitNode);
-
         break;
       }
 
       // game event handling
       mouseCoords = {event.button.x, event.button.y};
       clickCoords = convertScreenToIsoCoordinates(mouseCoords);
+      m_highlightedObjectNodes = engine.map->getObjectCoords(clickCoords, tileTypeEditMode);
 
-      if (event.button.button == SDL_BUTTON_LEFT && isPointWithinMapBoundaries(clickCoords))
+      if (event.button.button == SDL_BUTTON_LEFT && isPointWithinMapBoundaries(m_highlightedObjectNodes))
       {
         if (m_tileInfoMode)
         {
@@ -377,11 +400,15 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         }
         else if (!tileTypeEditMode.empty())
         {
-          if (m_highlightedNodes.size() == 0)
+          if (bresenhamLineNodes.size() == 0)
           {
-            m_highlightedNodes.push_back(m_clickDownCoords);
+            //m_highlightedNodes.push_back(m_clickDownCoords);
+            engine.setTileIDOfNode(m_highlightedObjectNodes.begin(), m_highlightedObjectNodes.end(), tileTypeEditMode, false);
           }
-          engine.setTileIDOfNode(m_highlightedNodes.begin(), m_highlightedNodes.end(), tileTypeEditMode);
+          else
+          {
+            engine.setTileIDOfNode(bresenhamLineNodes.begin(), bresenhamLineNodes.end(), tileTypeEditMode, true);
+          }
         }
         else if (demolishMode)
         {
@@ -393,13 +420,8 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         }
       }
 
-      for (size_t i = 0; i < m_highlightedNodes.size(); i++)
-      {
-        engine.map->unHighlightNode(m_highlightedNodes[i]);
-      }
-      m_highlightedNodes.clear();
-
       break;
+    }
     case SDL_MOUSEWHEEL:
       if (event.wheel.y > 0)
       {

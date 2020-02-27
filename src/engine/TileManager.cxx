@@ -5,6 +5,7 @@
 #include "basics/Settings.hxx"
 #include "ResourcesManager.hxx"
 
+
 #include <bitset>
 
 using json = nlohmann::json;
@@ -21,6 +22,25 @@ TileData *TileManager::getTileData(const std::string &id) noexcept
   if (m_tileData.count(id))
     return &m_tileData[id];
   return nullptr;
+}
+
+Layer TileManager::getTileLayer(const std::string &tileID) const
+{
+  Layer layer = Layer::TERRAIN;
+  TileData *tileData = TileManager::instance().getTileData(tileID);
+  if (tileData)
+  {
+    layer = Layer::BUILDINGS;
+    if (tileData->category == "Terrain")
+    {
+      layer = Layer::TERRAIN;
+    }
+    else if (tileData->category == "Water")
+    {
+      layer = Layer::WATER;
+    } 
+  }
+  return layer;
 }
 
 size_t TileManager::calculateSlopeOrientation(unsigned char bitMaskElevation)
@@ -257,11 +277,21 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
   m_tileData[id].title = tileDataJSON[idx].value("title", "");
   m_tileData[id].description = tileDataJSON[idx].value("description", "");
   m_tileData[id].category = tileDataJSON[idx].value("category", "");
-  m_tileData[id].buildingsize = tileDataJSON[idx].value("buildingsize", 1);
   m_tileData[id].price = tileDataJSON[idx].value("price", 0);
   m_tileData[id].water = tileDataJSON[idx].value("water", 0);
   m_tileData[id].isOverPlacable = tileDataJSON[idx].value("isOverPlacable", false);
   m_tileData[id].drawGround = tileDataJSON[idx].value("draw ground", false);
+
+  if (tileDataJSON[idx].find("RequiredTiles") != tileDataJSON[idx].end())
+  {
+    m_tileData[id].RequiredTiles.width = tileDataJSON[idx]["RequiredTiles"].value("width", 1);
+    m_tileData[id].RequiredTiles.height = tileDataJSON[idx]["RequiredTiles"].value("height", 1);
+  }
+  else
+  {
+    m_tileData[id].RequiredTiles.width = 1;
+    m_tileData[id].RequiredTiles.height = 1;
+  }
 
   m_tileData[id].tiles.fileName = tileDataJSON[idx]["tiles"].value("fileName", "");
   m_tileData[id].tiles.clippingHeight = tileDataJSON[idx]["tiles"].value("clip_height", 0);

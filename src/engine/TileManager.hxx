@@ -8,6 +8,7 @@
 #include "tileData.hxx"
 #include "json.hxx"
 #include "Singleton.hxx"
+#include "../common/enums.hxx"
 
 enum TileMap : size_t
 {
@@ -65,6 +66,7 @@ public:
 
   SDL_Texture *getTexture(const std::string &id, size_t tileMapType = 0) const;
   TileData *getTileData(const std::string &id) noexcept;
+  Layer getTileLayer(const std::string &tileID) const;
   size_t calculateSlopeOrientation(unsigned char bitMaskElevation);
   size_t calculateTileOrientation(unsigned char bitMaskElevation);
   const std::unordered_map<std::string, TileData> &getAllTileData() const { return m_tileData; };
