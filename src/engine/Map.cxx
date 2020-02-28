@@ -396,10 +396,11 @@ void Map::demolishNode(const Point &isoCoordinates, bool updateNeighboringTiles)
 
 bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int isoY) const
 {
-  if (isoX < 0 || isoX > Settings::instance().mapSize || isoY < 0 || isoY > Settings::instance().mapSize)
+  if (!isPointWithinMapBoundaries(isoX, isoY))
   {
     return false;
   }
+
   // For now we use the getActive* functions for layers. This might need to be changed once we have more layers.
   SDL_Rect spriteRect = mapNodes[isoX * m_columns + isoY]->getSprite()->getActiveDestRect();
   SDL_Rect clipRect = mapNodes[isoX * m_columns + isoY]->getSprite()->getActiveClipRect();

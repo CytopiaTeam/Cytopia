@@ -75,6 +75,11 @@ Point convertScreenToIsoCoordinates(const SDL_Point &screenCoordinates)
   return foundCoordinates;
 }
 
+bool isPointWithinMapBoundaries(int x, int y)
+{
+  return (x >= 0 && x < Settings::instance().mapSize) && (y >= 0 && y < Settings::instance().mapSize);
+}
+
 bool isPointWithinMapBoundaries(const Point &isoCoordinates)
 {
   return (isoCoordinates.x >= 0 && isoCoordinates.x < Settings::instance().mapSize) &&
