@@ -12,7 +12,7 @@
             ]
         },
         "terrain": [
-            "terrain"
+            "terrain_grass"
         ],
         "water": [
             "water"
