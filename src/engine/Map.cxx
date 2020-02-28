@@ -406,12 +406,12 @@ bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int is
   SDL_Rect clipRect = mapNodes[isoX * m_columns + isoY]->getSprite()->getActiveClipRect();
 
   // Calculate the position of the clicked pixel within the surface and "un-zoom" the position to match the un-adjusted surface
-  const int pixelX = static_cast<int>((screenCoordinates.x - spriteRect.x) / Camera::zoomLevel);
-  const int pixelY = static_cast<int>((screenCoordinates.y - spriteRect.y) / Camera::zoomLevel);
+  const int pixelX = static_cast<int>(std::round(static_cast<float>(screenCoordinates.x - spriteRect.x) / Camera::zoomLevel));
+  const int pixelY = static_cast<int>(std::round(static_cast<float>(screenCoordinates.y - spriteRect.y) / Camera::zoomLevel));
+
 
   if (SDL_PointInRect(&screenCoordinates, &spriteRect))
   {
-
     // Check if the clicked Sprite is not transparent (we hit a point within the pixel)
     if (getColorOfPixelInSurface(
             ResourcesManager::instance().getTileSurface(mapNodes[isoX * m_columns + isoY]->getActiveMapNodeData().tileID,
