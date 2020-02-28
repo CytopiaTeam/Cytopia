@@ -324,8 +324,6 @@ SDL_Color Map::getColorOfPixelInSurface(SDL_Surface *surface, int x, int y, cons
 {
   SDL_Color Color{0, 0, 0, SDL_ALPHA_TRANSPARENT};
 
-  x += clipRect.w;
-
   if (surface)
   {
     const int bpp = surface->format->BytesPerPixel;
