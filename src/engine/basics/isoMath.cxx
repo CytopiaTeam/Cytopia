@@ -22,11 +22,10 @@ SDL_Point convertIsoToScreenCoordinates(const Point &isoCoordinates, bool calcWi
 {
   const int heightOffset = 24;
 
-  const int zoomedTileSizeX = static_cast<int>(Camera::tileSize.x * Camera::zoomLevel);
-  const int zoomedTileSizeY = static_cast<int>(Camera::tileSize.y * Camera::zoomLevel);
-
-  int x = static_cast<int>(zoomedTileSizeX * isoCoordinates.x + zoomedTileSizeX * isoCoordinates.y) / 2;
-  int y = static_cast<int>(zoomedTileSizeY * isoCoordinates.x - zoomedTileSizeY * isoCoordinates.y) / 2;
+  int x = static_cast<int>(
+      std::round(static_cast<float>((isoCoordinates.x + isoCoordinates.y) * Camera::tileSize.x) * Camera::zoomLevel) / 2);
+  int y = static_cast<int>(
+      std::round(static_cast<float>((isoCoordinates.x - isoCoordinates.y) * Camera::tileSize.y) * Camera::zoomLevel) / 2);
 
   if (!calcWithoutOffset)
   {
@@ -36,7 +35,8 @@ SDL_Point convertIsoToScreenCoordinates(const Point &isoCoordinates, bool calcWi
 
   if (isoCoordinates.height > 0)
   {
-    y = static_cast<int>(y - ((Camera::tileSize.x - heightOffset) * isoCoordinates.height * Camera::zoomLevel));
+    y -= static_cast<int>(
+        std::round(static_cast<float>((Camera::tileSize.x - heightOffset) * isoCoordinates.height) * Camera::zoomLevel));
   }
 
   return {x, y};
@@ -88,7 +88,7 @@ bool isPointWithinMapBoundaries(const std::vector<Point> &isoCoordinates)
     if (!isPointWithinMapBoundaries(p))
     {
       return false;
-	}
+    }
   }
   return true;
 }
