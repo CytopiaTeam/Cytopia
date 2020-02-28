@@ -294,7 +294,7 @@ SDL_Color Map::getColorOfPixelInSurface(SDL_Surface *surface, int x, int y, cons
 {
   SDL_Color Color{0, 0, 0, SDL_ALPHA_TRANSPARENT};
 
-  x += clipRect.w;
+  // x += clipRect.w;
 
   if (surface)
   {
@@ -413,9 +413,9 @@ bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int is
 
       int pixelX = static_cast<int>(std::round(static_cast<float>((screenCoordinates.x - (spriteRect.x))) / Camera::zoomLevel));
       int pixelY = static_cast<int>(std::round(static_cast<float>((screenCoordinates.y - (spriteRect.y))) / Camera::zoomLevel));
-      LOG(LOG_INFO) << "pixelX " << pixelX << ", " << pixelY << " - offset "
-                    << mapNodes[isoX * m_columns + isoY]->getTileData(Layer::TERRAIN)->tiles.offset << " width " << spriteRect.w
-                    << "cliprect.x " << mapNodes[isoX * m_columns + isoY]->getSprite()->getClipRect(Layer::TERRAIN).x;
+      //LOG(LOG_INFO) << "pixelX " << pixelX << ", " << pixelY << " - offset "
+      //              << mapNodes[isoX * m_columns + isoY]->getTileData(Layer::TERRAIN)->tiles.offset << " width " << spriteRect.w
+      //              << "cliprect.x " << mapNodes[isoX * m_columns + isoY]->getSprite()->getClipRect(Layer::TERRAIN).x;
 
       // FIX: Move the x coordinate to the right so we check the correct tile in the spritesheet (cliprect => offset..)
       pixelX += mapNodes[isoX * m_columns + isoY]->getSprite()->getClipRect(Layer::TERRAIN).x;
@@ -423,10 +423,10 @@ bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int is
       //static_cast<int>(std::round(static_cast<float>(spriteRect.w) / Camera::zoomLevel));
       //pixelY -= 16;
       //spriteRect.w *Camera::zoomLevel / 2 :
-      LOG(LOG_INFO) << "pixelX " << pixelX << ", " << pixelY;
+      //LOG(LOG_INFO) << "pixelX " << pixelX << ", " << pixelY;
       //LOG(LOG_INFO) << "screenCoordinates.x " << screenCoordinates.x << ", " << screenCoordinates.y;
       //LOG(LOG_INFO) << "spriteRect.x.x " << spriteRect.x << ", " << spriteRect.y;
-      LOG(LOG_INFO) << "__ END __";
+      //LOG(LOG_INFO) << "__ END __";
        //TODO: The problem here is, that the pixel check doesn't work with all terrain tiles. This is a pre-layer issue. idk what causes it yet.
       // Check if the clicked Sprite is not transparent (we hit a point within the pixel)
       if (getColorOfPixelInSurface(ResourcesManager::instance().getTileSurface(
