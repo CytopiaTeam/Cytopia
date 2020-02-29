@@ -14,8 +14,8 @@ struct BiomeData
   std::vector<std::string> terrainRocks;    // TerrainRocks IDs
   std::vector<std::string> terrainFlowers;  // terrainFlowers IDs
   std::vector<std::string> treesDense;      // terrainFlowers IDs
-  std::vector<std::string> treesSmall;      // terrainFlowers IDs
-  std::vector<std::string> treesNormal;     // terrainFlowers IDs
+  std::vector<std::string> treesLight;      // terrainFlowers IDs
+  std::vector<std::string> treesMedium;     // terrainFlowers IDs
 };
 
 struct TerrainSettings

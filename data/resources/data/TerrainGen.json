@@ -1,10 +1,10 @@
 {
     "GrassLands": {
         "trees": {
-            "small": [
+            "light": [
                 "trees_oak"
             ],
-            "normal": [
+            "medium": [
                 "trees_oak"
             ],
             "dense": [
@@ -29,10 +29,10 @@
     },
     "Desert": {
         "trees": {
-            "small": [
+            "light": [
                 "trees_oak"
             ],
-            "normal": [
+            "medium": [
                 "trees_oak"
             ],
             "dense": [
@@ -57,10 +57,10 @@
     },
     "Dirt": {
         "trees": {
-            "small": [
+            "light": [
                 "trees_oak"
             ],
-            "normal": [
+            "medium": [
                 "trees_oak"
             ],
             "dense": [
@@ -85,11 +85,11 @@
     },
     "Snow": {
         "trees": {
-            "small": [
+            "light": [
                 "tree_pinetrees_light",
                 "tree_deciduous_light"
             ],
-            "normal": [
+            "medium": [
                 "tree_pinetrees_light",
                 "tree_deciduous_light"
             ],
@@ -116,11 +116,11 @@
     },
     "Basalt": {
         "trees": {
-            "small": [
+            "light": [
                 "tree_pinetrees_light",
                 "tree_deciduous_light"
             ],
-            "normal": [
+            "medium": [
                 "tree_pinetrees_light",
                 "tree_deciduous_light"
             ],
@@ -147,14 +147,14 @@
     },
     "Beach": {
         "trees": {
-            "small": [
-                "trees_oak"
+            "light": [
+                "tree_palmtree_light"
             ],
-            "normal": [
-                "trees_oak"
+            "medium": [
+                "tree_palmtree_medium"
             ],
             "dense": [
-                "trees_oak"
+                "tree_palmtree_dense"
             ]
         },
         "terrain": [
@@ -175,10 +175,10 @@
     },
     "BlackSand": {
         "trees": {
-            "small": [
+            "light": [
                 "trees_oak"
             ],
-            "normal": [
+            "medium": [
                 "trees_oak"
             ],
             "dense": [
@@ -203,10 +203,10 @@
     },
     "Burned": {
         "trees": {
-            "small": [
+            "light": [
                 "trees_oak"
             ],
-            "normal": [
+            "medium": [
                 "trees_oak"
             ],
             "dense": [
@@ -231,10 +231,10 @@
     },
     "Forest": {
         "trees": {
-            "small": [
+            "light": [
                 "trees_oak"
             ],
-            "normal": [
+            "medium": [
                 "trees_oak"
             ],
             "dense": [
@@ -259,10 +259,10 @@
     },
     "GrassMint": {
         "trees": {
-            "small": [
+            "light": [
                 "trees_oak"
             ],
-            "normal": [
+            "medium": [
                 "trees_oak"
             ],
             "dense": [
@@ -287,10 +287,10 @@
     },
     "ForestMint": {
         "trees": {
-            "small": [
+            "light": [
                 "trees_oak"
             ],
-            "normal": [
+            "medium": [
                 "trees_oak"
             ],
             "dense": [
@@ -315,10 +315,10 @@
     },
     "Gravel": {
         "trees": {
-            "small": [
+            "light": [
                 "trees_oak"
             ],
-            "normal": [
+            "medium": [
                 "trees_oak"
             ],
             "dense": [
@@ -343,10 +343,10 @@
     },
     "Mud": {
         "trees": {
-            "small": [
+            "light": [
                 "trees_oak"
             ],
-            "normal": [
+            "medium": [
                 "trees_oak"
             ],
             "dense": [
@@ -371,10 +371,10 @@
     },
     "Sand": {
         "trees": {
-            "small": [
+            "light": [
                 "trees_oak"
             ],
-            "normal": [
+            "medium": [
                 "trees_oak"
             ],
             "dense": [
@@ -399,10 +399,10 @@
     },
     "SandRed": {
         "trees": {
-            "small": [
+            "light": [
                 "trees_oak"
             ],
-            "normal": [
+            "medium": [
                 "trees_oak"
             ],
             "dense": [
@@ -427,10 +427,10 @@
     },
     "Soil": {
         "trees": {
-            "small": [
+            "light": [
                 "trees_oak"
             ],
-            "normal": [
+            "medium": [
                 "trees_oak"
             ],
             "dense": [
@@ -455,10 +455,10 @@
     },
     "Stone": {
         "trees": {
-            "small": [
+            "light": [
                 "trees_oak"
             ],
-            "normal": [
+            "medium": [
                 "trees_oak"
             ],
             "dense": [

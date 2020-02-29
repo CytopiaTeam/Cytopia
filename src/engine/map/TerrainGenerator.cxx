@@ -108,10 +108,10 @@ void TerrainGenerator::generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNode
           {
             if (tileIndex < 20)
             {
-              tileIndex = tileIndex % static_cast<int>(biomeInformation[currentBiome].treesSmall.size());
+              tileIndex = tileIndex % static_cast<int>(biomeInformation[currentBiome].treesLight.size());
               mapNodes[x * terrainSettings.mapSize + y] =
                   std::make_unique<MapNode>(Point{x, y, z++, height}, biomeInformation[currentBiome].terrain[0],
-                                            biomeInformation[currentBiome].treesSmall[tileIndex]);
+                                            biomeInformation[currentBiome].treesLight[tileIndex]);
               placed = true;
             }
           }
@@ -119,10 +119,10 @@ void TerrainGenerator::generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNode
           {
             if (tileIndex < 50)
             {
-              tileIndex = tileIndex % static_cast<int>(biomeInformation[currentBiome].treesNormal.size());
+              tileIndex = tileIndex % static_cast<int>(biomeInformation[currentBiome].treesMedium.size());
               mapNodes[x * terrainSettings.mapSize + y] =
                   std::make_unique<MapNode>(Point{x, y, z++, height}, biomeInformation[currentBiome].terrain[0],
-                                            biomeInformation[currentBiome].treesNormal[tileIndex]);
+                                            biomeInformation[currentBiome].treesMedium[tileIndex]);
               placed = true;
             }
           }

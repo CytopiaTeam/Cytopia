@@ -2289,6 +2289,75 @@
         ]
     },
     {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "description": "A group of palmtrees.",
+        "id": "tree_palmtree_dense",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 33,
+            "clip_width": 32,
+            "count": 6,
+            "fileName": "resources/images/flora/trees/nature_1x1_tree_palm_dense.png"
+        },
+        "title": "Palm Trees",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "djungle",
+            "beach",
+            "palmtrees"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "description": "A group of palmtrees.",
+        "id": "tree_palmtree_light",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 33,
+            "clip_width": 32,
+            "count": 12,
+            "fileName": "resources/images/flora/trees/nature_1x1_tree_palm_light.png"
+        },
+        "title": "Palm Trees",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "djungle",
+            "beach",
+            "palmtrees"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "description": "A group of palmtrees.",
+        "id": "tree_palmtree_medium",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 33,
+            "clip_width": 32,
+            "count": 7,
+            "fileName": "resources/images/flora/trees/nature_1x1_tree_palm_medium.png"
+        },
+        "title": "Palm Trees",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "djungle",
+            "beach",
+            "palmtrees"
+        ]
+    },
+    {
         "author": "RockFort",
         "category": "Commercial",
         "description": "TODO DESC",

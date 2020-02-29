@@ -64,15 +64,15 @@ inline void from_json(const json &j, BiomeData &b)
   {
     for (const auto &it : j["trees"].items())
     {
-      if (it.key() == "small")
+      if (it.key() == "light")
       {
         std::vector<std::string> temp = it.value();
-        b.treesSmall = temp;
+        b.treesLight = temp;
       }
-      if (it.key() == "normal")
+      if (it.key() == "medium")
       {
         std::vector<std::string> temp = it.value();
-        b.treesNormal = temp;
+        b.treesMedium = temp;
       }
       if (it.key() == "dense")
       {
