@@ -18,10 +18,10 @@
             "water"
         ],
         "waterdecoration": [
-            "water_rocks"
+            "rocks_water"
         ],
         "terrainRocks": [
-            "terrain_rocks_grassLands"
+            "rocks_grassLands"
         ],
         "terrainFlowers": [
             "flora_flower"
@@ -46,10 +46,10 @@
             "water"
         ],
         "waterdecoration": [
-            "water_rocks"
+            "rocks_water"
         ],
         "terrainRocks": [
-            "terrain_rocks_desert"
+            "rocks_desert"
         ],
         "terrainFlowers": [
             "flora_flower"
@@ -74,10 +74,10 @@
             "water"
         ],
         "waterdecoration": [
-            "water_rocks"
+            "rocks_water"
         ],
         "terrainRocks": [
-            "terrain_rocks_desert"
+            "rocks_desert"
         ],
         "terrainFlowers": [
             "flora_flower"
@@ -105,10 +105,10 @@
             "water"
         ],
         "waterdecoration": [
-            "water_rocks"
+            "rocks_water"
         ],
         "terrainRocks": [
-            "terrain_rocks_desert"
+            "rocks_snowy"
         ],
         "terrainFlowers": [
             "flora_flower"
@@ -136,10 +136,10 @@
             "water"
         ],
         "waterdecoration": [
-            "water_rocks"
+            "rocks_water"
         ],
         "terrainRocks": [
-            "terrain_rocks_desert"
+            "rocks_gold"
         ],
         "terrainFlowers": [
             "flora_flower"
@@ -164,10 +164,10 @@
             "water"
         ],
         "waterdecoration": [
-            "water_rocks"
+            "rocks_water"
         ],
         "terrainRocks": [
-            "terrain_rocks_desert"
+            "rocks_grassLands"
         ],
         "terrainFlowers": [
             "flora_flower"
@@ -192,10 +192,10 @@
             "water"
         ],
         "waterdecoration": [
-            "water_rocks"
+            "rocks_water"
         ],
         "terrainRocks": [
-            "terrain_rocks_desert"
+            "rocks_desert"
         ],
         "terrainFlowers": [
             "flora_flower"
@@ -220,10 +220,10 @@
             "water"
         ],
         "waterdecoration": [
-            "water_rocks"
+            "rocks_water"
         ],
         "terrainRocks": [
-            "terrain_rocks_desert"
+            "rocks_desert"
         ],
         "terrainFlowers": [
             "flora_flower"
@@ -248,10 +248,10 @@
             "water"
         ],
         "waterdecoration": [
-            "water_rocks"
+            "rocks_water"
         ],
         "terrainRocks": [
-            "terrain_rocks_desert"
+            "rocks_desert"
         ],
         "terrainFlowers": [
             "flora_flower"
@@ -276,10 +276,10 @@
             "water"
         ],
         "waterdecoration": [
-            "water_rocks"
+            "rocks_water"
         ],
         "terrainRocks": [
-            "terrain_rocks_grassLands"
+            "rocks_grassLands"
         ],
         "terrainFlowers": [
             "flora_flower"
@@ -304,10 +304,10 @@
             "water"
         ],
         "waterdecoration": [
-            "water_rocks"
+            "rocks_water"
         ],
         "terrainRocks": [
-            "terrain_rocks_grassLands"
+            "rocks_grassLands"
         ],
         "terrainFlowers": [
             "flora_flower"
@@ -332,10 +332,10 @@
             "water"
         ],
         "waterdecoration": [
-            "water_rocks"
+            "rocks_water"
         ],
         "terrainRocks": [
-            "terrain_rocks_grassLands"
+            "rocks_grassLands"
         ],
         "terrainFlowers": [
             "flora_flower"
@@ -360,10 +360,10 @@
             "water"
         ],
         "waterdecoration": [
-            "water_rocks"
+            "rocks_water"
         ],
         "terrainRocks": [
-            "terrain_rocks_grassLands"
+            "rocks_grassLands"
         ],
         "terrainFlowers": [
             "flora_flower"
@@ -388,10 +388,10 @@
             "water"
         ],
         "waterdecoration": [
-            "water_rocks"
+            "rocks_water"
         ],
         "terrainRocks": [
-            "terrain_rocks_desert"
+            "rocks_desert"
         ],
         "terrainFlowers": [
             "flora_flower"
@@ -416,10 +416,10 @@
             "water"
         ],
         "waterdecoration": [
-            "water_rocks"
+            "rocks_water"
         ],
         "terrainRocks": [
-            "terrain_rocks_desert"
+            "rocks_desert"
         ],
         "terrainFlowers": [
             "flora_flower"
@@ -444,10 +444,10 @@
             "water"
         ],
         "waterdecoration": [
-            "water_rocks"
+            "rocks_water"
         ],
         "terrainRocks": [
-            "terrain_rocks_desert"
+            "rocks_desert"
         ],
         "terrainFlowers": [
             "flora_flower"
@@ -472,10 +472,10 @@
             "water"
         ],
         "waterdecoration": [
-            "water_rocks"
+            "rocks_water"
         ],
         "terrainRocks": [
-            "terrain_rocks_desert"
+            "rocks_desert"
         ],
         "terrainFlowers": [
             "flora_flower"

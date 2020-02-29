@@ -1550,7 +1550,7 @@
         "biome": "GrassLands",
         "category": "TerrainDecoration",
         "description": "A pile of rocks that can be found in the grasslands biome.",
-        "id": "terrain_rocks_grassLands",
+        "id": "rocks_grassLands",
         "power": 0,
         "price": 5,
         "tiles": {
@@ -1575,7 +1575,7 @@
         "biome": "Desert",
         "category": "TerrainDecoration",
         "description": "A pile of rocks that can be found in the desert biome.",
-        "id": "terrain_rocks_desert",
+        "id": "rocks_desert",
         "power": 0,
         "price": 5,
         "tiles": {
@@ -1600,7 +1600,7 @@
         "biome": "Diamond",
         "category": "TerrainDecoration",
         "description": "A pile of rocks that can be found in the diamond biome.",
-        "id": "terrain_rocks_diamond",
+        "id": "rocks_diamond",
         "power": 0,
         "price": 5,
         "tiles": {
@@ -1625,7 +1625,7 @@
         "biome": "Desert",
         "category": "TerrainDecoration",
         "description": "A pile of rocks that can be found in the desert biome.",
-        "id": "terrain_rocks_gold",
+        "id": "rocks_gold",
         "power": 0,
         "price": 5,
         "tiles": {
@@ -1650,7 +1650,7 @@
         "biome": "Snow",
         "category": "TerrainDecoration",
         "description": "A pile of rocks that can be found in the snow biome.",
-        "id": "terrain_rocks_snowy",
+        "id": "rocks_snowy",
         "power": 0,
         "price": 5,
         "tiles": {
@@ -1674,7 +1674,7 @@
         "author": "Kingtut 101",
         "category": "TerrainDecoration",
         "description": "A pile of rocks that can be found in water.",
-        "id": "terrain_rocks_water",
+        "id": "rocks_water",
         "power": 0,
         "price": 5,
         "tiles": {
