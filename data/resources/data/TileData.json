@@ -7645,7 +7645,7 @@
         "author": "Kingtut 101",
         "category": "Terrain",
         "description": "Terrain Black Sand tiles",
-        "id": "terrain_BlackSand",
+        "id": "terrain_blacksand",
         "power": 0,
         "price": 0,
         "slopeTiles": {
@@ -7813,7 +7813,7 @@
             "offset": 13,
             "fileName": "resources/images/terrain/terrain_grass.png"
         },
-        "title": "Grassland Terrain",
+        "title": "Grassland",
         "upkeep cost": 0,
         "water": 0,
         "tag": [
@@ -7849,7 +7849,7 @@
             "offset": 13,
             "fileName": "resources/images/terrain/terrain_grass_forest.png"
         },
-        "title": "Basalt",
+        "title": "Forest",
         "upkeep cost": 0,
         "water": 0,
         "tag": [
@@ -8191,7 +8191,7 @@
         "author": "Kingtut 101",
         "category": "Terrain",
         "description": "Terrain Stone tiles",
-        "id": "terrain_Stone",
+        "id": "terrain_stone",
         "power": 0,
         "price": 0,
         "slopeTiles": {

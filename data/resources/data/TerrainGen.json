@@ -40,7 +40,433 @@
             ]
         },
         "terrain": [
-            "terrain"
+            "terrain_desert"
+        ],
+        "water": [
+            "water"
+        ],
+        "waterdecoration": [
+            "water_rocks"
+        ],
+        "terrainRocks": [
+            "terrain_rocks_desert"
+        ],
+        "terrainFlowers": [
+            "flora_flower"
+        ]
+    },
+    "Dirt": {
+        "trees": {
+            "small": [
+                "trees_oak"
+            ],
+            "normal": [
+                "trees_oak"
+            ],
+            "dense": [
+                "trees_oak"
+            ]
+        },
+        "terrain": [
+            "terrain_dirt"
+        ],
+        "water": [
+            "water"
+        ],
+        "waterdecoration": [
+            "water_rocks"
+        ],
+        "terrainRocks": [
+            "terrain_rocks_desert"
+        ],
+        "terrainFlowers": [
+            "flora_flower"
+        ]
+    },
+    "Snow": {
+        "trees": {
+            "small": [
+                "tree_pinetrees_light",
+                "tree_deciduous_light"
+            ],
+            "normal": [
+                "tree_pinetrees_light",
+                "tree_deciduous_light"
+            ],
+            "dense": [
+                "tree_pinetrees_dense",
+                "tree_deciduous_dense"
+            ]
+        },
+        "terrain": [
+            "terrain_snow"
+        ],
+        "water": [
+            "water"
+        ],
+        "waterdecoration": [
+            "water_rocks"
+        ],
+        "terrainRocks": [
+            "terrain_rocks_desert"
+        ],
+        "terrainFlowers": [
+            "flora_flower"
+        ]
+    },
+    "Basalt": {
+        "trees": {
+            "small": [
+                "tree_pinetrees_light",
+                "tree_deciduous_light"
+            ],
+            "normal": [
+                "tree_pinetrees_light",
+                "tree_deciduous_light"
+            ],
+            "dense": [
+                "tree_pinetrees_dense",
+                "tree_deciduous_dense"
+            ]
+        },
+        "terrain": [
+            "terrain_basalt"
+        ],
+        "water": [
+            "water"
+        ],
+        "waterdecoration": [
+            "water_rocks"
+        ],
+        "terrainRocks": [
+            "terrain_rocks_desert"
+        ],
+        "terrainFlowers": [
+            "flora_flower"
+        ]
+    },
+    "Beach": {
+        "trees": {
+            "small": [
+                "trees_oak"
+            ],
+            "normal": [
+                "trees_oak"
+            ],
+            "dense": [
+                "trees_oak"
+            ]
+        },
+        "terrain": [
+            "terrain_beach"
+        ],
+        "water": [
+            "water"
+        ],
+        "waterdecoration": [
+            "water_rocks"
+        ],
+        "terrainRocks": [
+            "terrain_rocks_desert"
+        ],
+        "terrainFlowers": [
+            "flora_flower"
+        ]
+    },
+    "BlackSand": {
+        "trees": {
+            "small": [
+                "trees_oak"
+            ],
+            "normal": [
+                "trees_oak"
+            ],
+            "dense": [
+                "trees_oak"
+            ]
+        },
+        "terrain": [
+            "terrain_blacksand"
+        ],
+        "water": [
+            "water"
+        ],
+        "waterdecoration": [
+            "water_rocks"
+        ],
+        "terrainRocks": [
+            "terrain_rocks_desert"
+        ],
+        "terrainFlowers": [
+            "flora_flower"
+        ]
+    },
+    "Burned": {
+        "trees": {
+            "small": [
+                "trees_oak"
+            ],
+            "normal": [
+                "trees_oak"
+            ],
+            "dense": [
+                "trees_oak"
+            ]
+        },
+        "terrain": [
+            "terrain_burned"
+        ],
+        "water": [
+            "water"
+        ],
+        "waterdecoration": [
+            "water_rocks"
+        ],
+        "terrainRocks": [
+            "terrain_rocks_desert"
+        ],
+        "terrainFlowers": [
+            "flora_flower"
+        ]
+    },
+    "Forest": {
+        "trees": {
+            "small": [
+                "trees_oak"
+            ],
+            "normal": [
+                "trees_oak"
+            ],
+            "dense": [
+                "trees_oak"
+            ]
+        },
+        "terrain": [
+            "terrain_grass_forest"
+        ],
+        "water": [
+            "water"
+        ],
+        "waterdecoration": [
+            "water_rocks"
+        ],
+        "terrainRocks": [
+            "terrain_rocks_desert"
+        ],
+        "terrainFlowers": [
+            "flora_flower"
+        ]
+    },
+    "GrassMint": {
+        "trees": {
+            "small": [
+                "trees_oak"
+            ],
+            "normal": [
+                "trees_oak"
+            ],
+            "dense": [
+                "trees_oak"
+            ]
+        },
+        "terrain": [
+            "terrain_grass_mint"
+        ],
+        "water": [
+            "water"
+        ],
+        "waterdecoration": [
+            "water_rocks"
+        ],
+        "terrainRocks": [
+            "terrain_rocks_grassLands"
+        ],
+        "terrainFlowers": [
+            "flora_flower"
+        ]
+    },
+    "ForestMint": {
+        "trees": {
+            "small": [
+                "trees_oak"
+            ],
+            "normal": [
+                "trees_oak"
+            ],
+            "dense": [
+                "trees_oak"
+            ]
+        },
+        "terrain": [
+            "terrain_grass_mint_forest"
+        ],
+        "water": [
+            "water"
+        ],
+        "waterdecoration": [
+            "water_rocks"
+        ],
+        "terrainRocks": [
+            "terrain_rocks_grassLands"
+        ],
+        "terrainFlowers": [
+            "flora_flower"
+        ]
+    },
+    "Gravel": {
+        "trees": {
+            "small": [
+                "trees_oak"
+            ],
+            "normal": [
+                "trees_oak"
+            ],
+            "dense": [
+                "trees_oak"
+            ]
+        },
+        "terrain": [
+            "terrain_gravel"
+        ],
+        "water": [
+            "water"
+        ],
+        "waterdecoration": [
+            "water_rocks"
+        ],
+        "terrainRocks": [
+            "terrain_rocks_grassLands"
+        ],
+        "terrainFlowers": [
+            "flora_flower"
+        ]
+    },
+    "Mud": {
+        "trees": {
+            "small": [
+                "trees_oak"
+            ],
+            "normal": [
+                "trees_oak"
+            ],
+            "dense": [
+                "trees_oak"
+            ]
+        },
+        "terrain": [
+            "terrain_mud"
+        ],
+        "water": [
+            "water"
+        ],
+        "waterdecoration": [
+            "water_rocks"
+        ],
+        "terrainRocks": [
+            "terrain_rocks_grassLands"
+        ],
+        "terrainFlowers": [
+            "flora_flower"
+        ]
+    },
+    "Sand": {
+        "trees": {
+            "small": [
+                "trees_oak"
+            ],
+            "normal": [
+                "trees_oak"
+            ],
+            "dense": [
+                "trees_oak"
+            ]
+        },
+        "terrain": [
+            "terrain_sand"
+        ],
+        "water": [
+            "water"
+        ],
+        "waterdecoration": [
+            "water_rocks"
+        ],
+        "terrainRocks": [
+            "terrain_rocks_desert"
+        ],
+        "terrainFlowers": [
+            "flora_flower"
+        ]
+    },
+    "SandRed": {
+        "trees": {
+            "small": [
+                "trees_oak"
+            ],
+            "normal": [
+                "trees_oak"
+            ],
+            "dense": [
+                "trees_oak"
+            ]
+        },
+        "terrain": [
+            "terrain_sand_red"
+        ],
+        "water": [
+            "water"
+        ],
+        "waterdecoration": [
+            "water_rocks"
+        ],
+        "terrainRocks": [
+            "terrain_rocks_desert"
+        ],
+        "terrainFlowers": [
+            "flora_flower"
+        ]
+    },
+    "Soil": {
+        "trees": {
+            "small": [
+                "trees_oak"
+            ],
+            "normal": [
+                "trees_oak"
+            ],
+            "dense": [
+                "trees_oak"
+            ]
+        },
+        "terrain": [
+            "terrain_soil"
+        ],
+        "water": [
+            "water"
+        ],
+        "waterdecoration": [
+            "water_rocks"
+        ],
+        "terrainRocks": [
+            "terrain_rocks_desert"
+        ],
+        "terrainFlowers": [
+            "flora_flower"
+        ]
+    },
+    "Stone": {
+        "trees": {
+            "small": [
+                "trees_oak"
+            ],
+            "normal": [
+                "trees_oak"
+            ],
+            "dense": [
+                "trees_oak"
+            ]
+        },
+        "terrain": [
+            "terrain_stone"
         ],
         "water": [
             "water"
