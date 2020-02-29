@@ -1467,7 +1467,8 @@
             "clip_height": 15,
             "clip_width": 32,
             "count": 3,
-            "fileName": "resources/images/water/terrain_water.png"
+            "offset": 13,
+            "fileName": "resources/images/water/liquid_water.png"
         },
         "title": "Water",
         "upkeep cost": 0,
