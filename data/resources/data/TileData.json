@@ -1557,9 +1557,9 @@
             "clip_height": 15,
             "clip_width": 32,
             "count": 3,
-            "fileName": "resources/images/decoration/grassLands/terrainRocks.png"
+            "fileName": "resources/images/decoration/rocks/rock_1x1_grassLand.png"
         },
-        "title": "GrassLand Rocks",
+        "title": "Rocks",
         "upkeep cost": 0,
         "water": 0,
         "tag": [
@@ -1582,9 +1582,9 @@
             "clip_height": 15,
             "clip_width": 32,
             "count": 3,
-            "fileName": "resources/images/decoration/desert/terrainRocks.png"
+            "fileName": "resources/images/decoration/rocks/rock_1x1_desert.png"
         },
-        "title": "Rocks",
+        "title": "Desert Rocks",
         "upkeep cost": 0,
         "water": 0,
         "tag": [
@@ -1592,6 +1592,105 @@
             "rocks",
             "found",
             "desert",
+            "biome"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "biome": "Diamond",
+        "category": "TerrainDecoration",
+        "description": "A pile of rocks that can be found in the diamond biome.",
+        "id": "terrain_rocks_diamond",
+        "power": 0,
+        "price": 5,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/decoration/rocks/rock_1x1_diamond.png"
+        },
+        "title": "Diamond Rocks",
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "pile",
+            "rocks",
+            "found",
+            "grasslands",
+            "biome"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "biome": "Desert",
+        "category": "TerrainDecoration",
+        "description": "A pile of rocks that can be found in the desert biome.",
+        "id": "terrain_rocks_gold",
+        "power": 0,
+        "price": 5,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/decoration/rocks/rock_1x1_gold.png"
+        },
+        "title": "Golden Rocks",
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "pile",
+            "rocks",
+            "found",
+            "grasslands",
+            "biome"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "biome": "Snow",
+        "category": "TerrainDecoration",
+        "description": "A pile of rocks that can be found in the snow biome.",
+        "id": "terrain_rocks_snowy",
+        "power": 0,
+        "price": 5,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 3,
+            "fileName": "resources/images/decoration/rocks/rock_1x1_snowy.png"
+        },
+        "title": "Snowy Rocks",
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "pile",
+            "rocks",
+            "found",
+            "grasslands",
+            "biome"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "TerrainDecoration",
+        "description": "A pile of rocks that can be found in water.",
+        "id": "terrain_rocks_water",
+        "power": 0,
+        "price": 5,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 4,
+            "fileName": "resources/images/decoration/rocks/rock_1x1_water.png"
+        },
+        "title": "Water Rocks",
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "pile",
+            "rocks",
+            "found",
+            "grasslands",
             "biome"
         ]
     },
