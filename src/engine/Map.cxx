@@ -399,14 +399,10 @@ bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int is
     return false;
   }
 
-  // For now we use the getActive* functions for layers. This might need to be changed once we have more layers.
-  SDL_Rect spriteRect = {0, 0, 0, 0};
-  SDL_Rect clipRect = {0, 0, 0, 0};
-
   if (MapLayers::isLayerActive(Layer::BUILDINGS) && mapNodes[isoX * m_columns + isoY]->getSprite()->isLayerUsed(Layer::BUILDINGS))
   {
-    spriteRect = mapNodes[isoX * m_columns + isoY]->getSprite()->getDestRect(Layer::BUILDINGS);
-    clipRect = mapNodes[isoX * m_columns + isoY]->getSprite()->getClipRect(Layer::BUILDINGS);
+    SDL_Rect spriteRect = mapNodes[isoX * m_columns + isoY]->getSprite()->getDestRect(Layer::BUILDINGS);
+    SDL_Rect clipRect = mapNodes[isoX * m_columns + isoY]->getSprite()->getClipRect(Layer::BUILDINGS);
 
     if (SDL_PointInRect(&screenCoordinates, &spriteRect))
     {
@@ -426,11 +422,11 @@ bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int is
       }
     }
   }
-  // if we can't find the tile in the BUILDINGS layer, try terrain too.
+  // if we can't find the tile in the BUILDINGS layer, try terrain too. This means the cursor is on an occupied tile, but not on the building sprite itself
   if (MapLayers::isLayerActive(Layer::TERRAIN) && mapNodes[isoX * m_columns + isoY]->getSprite()->isLayerUsed(Layer::TERRAIN))
   {
-    spriteRect = mapNodes[isoX * m_columns + isoY]->getSprite()->getDestRect(Layer::TERRAIN);
-    clipRect = mapNodes[isoX * m_columns + isoY]->getSprite()->getClipRect(Layer::TERRAIN);
+    SDL_Rect spriteRect = mapNodes[isoX * m_columns + isoY]->getSprite()->getDestRect(Layer::TERRAIN);
+    SDL_Rect clipRect = mapNodes[isoX * m_columns + isoY]->getSprite()->getClipRect(Layer::TERRAIN);
 
     if (SDL_PointInRect(&screenCoordinates, &spriteRect))
     {
@@ -439,7 +435,6 @@ bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int is
           static_cast<int>(std::round(static_cast<float>(screenCoordinates.x - spriteRect.x) / Camera::zoomLevel)) + clipRect.x;
       const int pixelY = static_cast<int>(std::round(static_cast<float>(screenCoordinates.y - spriteRect.y) / Camera::zoomLevel));
 
-      // TODO: The problem here is, that the pixel check doesn't work with all terrain tiles. This is a pre-layer issue. idk what causes it yet.
       // Check if the clicked Sprite is not transparent (we hit a point within the pixel)
       if (getColorOfPixelInSurface(ResourcesManager::instance().getTileSurface(
                                        mapNodes[isoX * m_columns + isoY]->getMapNodeDataForLayer(Layer::TERRAIN).tileID,
