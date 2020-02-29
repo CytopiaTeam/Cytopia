@@ -844,6 +844,7 @@
         "category": "Industrial",
         "description": "A factory",
         "id": "ind_des_2x2_Factory_MS",
+        "biome": "Desert",
         "power": 0,
         "price": 0,
         "tiles": {
@@ -2038,26 +2039,25 @@
         "author": "JustKekman",
         "category": "Residential",
         "description": "TODO DESC",
-        "id": "res_2x2_illappt_jk",
+        "id": "res_1x1_illappt_jk",
         "power": 0,
         "price": 0,
         "tiles": {
             "clip_height": 41,
             "clip_width": 34,
             "count": 1,
-            "fileName": "resources/images/buildings/residential/res_2x2_illappt_jk.png"
+            "fileName": "resources/images/buildings/residential/res_1x1_illappt_jk.png"
         },
         "RequiredTiles": {
             "width": 2,
             "height": 2
         },
-        "title": "TODO TITLE",
+        "title": "Appartment Building",
         "upkeep cost": 0,
         "water": 0,
 
         "tag": [
-            "todo",
-            "desc"
+            "appartment"
         ]
     },
     {
@@ -6570,32 +6570,6 @@
         "isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
-        "tag": [
-            "todo",
-            "desc"
-        ]
-    },
-    {
-        "author": "MaroonShaded",
-        "category": "Industrial",
-        "description": "TODO DESC",
-        "id": "ind_2x2_DesertFactory_MS",
-        "power": 0,
-        "price": 0,
-        "tiles": {
-            "clip_height": 51,
-            "clip_width": 64,
-            "count": 1,
-            "fileName": "resources/images/buildings/industrial/ind_2x2_DesertFactory_MS.png"
-        },
-        "RequiredTiles": {
-            "width": 2,
-            "height": 2
-        },
-        "title": "TODO TITLE",
-        "upkeep cost": 0,
-        "water": 0,
-
         "tag": [
             "todo",
             "desc"
