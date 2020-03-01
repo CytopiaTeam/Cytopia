@@ -297,9 +297,15 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
                 if (!engine.map->checkTileIDIsEmpty(coords, tileTypeEditMode))
                 {
                   Point origCornerPoint = engine.map->getNodeOrigCornerPoint(coords);
-                  engine.map->highlightNode(origCornerPoint, SpriteHighlightColor::RED);
+                  Layer layer = TileManager::instance().getTileLayer(tileTypeEditMode);
+                  std::string currentTileID = engine.map->getTileID(origCornerPoint, layer);
+                  std::vector<Point> objectTiles = engine.map->getObjectCoords(origCornerPoint, currentTileID);
+                  for (auto objectCoordinate : objectTiles)
+                  {
+                    engine.map->highlightNode(objectCoordinate, SpriteHighlightColor::RED);
+                    pointsToHighlight.push_back(objectCoordinate);
+                  }
                   engine.map->highlightNode(coords, SpriteHighlightColor::RED);
-                  pointsToHighlight.push_back(origCornerPoint);
                 }
                 else
                 {

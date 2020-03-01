@@ -462,6 +462,20 @@ void Map::highlightNode(const Point &isoCoordinates, const SpriteRGBColor &rgbCo
   }
 }
 
+std::string Map::getTileID(const Point &isoCoordinates, Layer layer)
+{
+  const size_t index = isoCoordinates.x * m_columns + isoCoordinates.y;
+  if (index < mapNodes.size())
+  {
+    MapNode *node = mapNodes[index].get();
+    if (node)
+    {
+      return node->getTileID(layer);
+    }
+  }
+  return "";
+}
+
 void Map::unHighlightNode(const Point &isoCoordinates)
 {
   const size_t index = isoCoordinates.x * m_columns + isoCoordinates.y;
