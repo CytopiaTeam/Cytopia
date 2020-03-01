@@ -3446,28 +3446,6 @@
         ]
     },
     {
-        "author": "Kingtut 101",
-        "category": "Flora",
-        "description": "a fern",
-        "id": "flora_ferns_dense",
-        "power": 0,
-        "price": 0,
-        "tiles": {
-            "clip_height": 15,
-            "clip_width": 32,
-            "count": 2,
-            "fileName": "resources/images/flora/flora_ferns_dense.png"
-        },
-        "title": "TODO TITLE",
-        "isOverPlacable": true,
-        "upkeep cost": 0,
-        "water": 0,
-        "tag": [
-            "todo",
-            "desc"
-        ]
-    },
-    {
         "author": "Panzerkampfwagen 2 ausf C",
         "category": "Residential",
         "description": "TODO DESC",
@@ -4248,6 +4226,219 @@
     {
         "author": "Kingtut 101",
         "category": "Flora",
+        "subCategory": "Flora",
+        "description": "A lovely flower patch that blooms in all colors.",
+        "id": "flora_flower_light",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 4,
+            "fileName": "resources/images/flora/flora/flora_1x1_flower_light.png"
+        },
+        "title": "Flowers",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "flora",
+            "flowers",
+            "colorful"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "subCategory": "Flora",
+        "description": "A lovely flower patch that blooms in all colors.",
+        "id": "flora_flower_medium",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 4,
+            "fileName": "resources/images/flora/flora/flora_1x1_flower_medium.png"
+        },
+        "title": "Flowers",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "flora",
+            "flowers",
+            "colorful"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "subCategory": "Flora",
+        "description": "A lovely flower patch that blooms in all colors.",
+        "id": "flora_flower_dense",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 4,
+            "fileName": "resources/images/flora/flora/flora_1x1_flower_dense.png"
+        },
+        "title": "Flowers",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "flora",
+            "flowers",
+            "colorful"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "subCategory": "Flora",
+        "description": "Ferns are green flowerless plants with divided leaves that tend to grow in damp, shady areas.",
+        "id": "flora_ferns_light",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 3,
+            "fileName": "resources/images/flora/flora/flora_1x1_ferns_light.png"
+        },
+        "title": "Ferns",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "flora",
+            "ferns",
+            "djungle"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "subCategory": "Flora",
+        "description": "Ferns are green flowerless plants with divided leaves that tend to grow in damp, shady areas.",
+        "id": "flora_ferns_medium",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 2,
+            "fileName": "resources/images/flora/flora/flora_1x1_ferns_medium.png"
+        },
+        "title": "Ferns",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "flora",
+            "ferns",
+            "djungle"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "subCategory": "Flora",
+        "description": "Ferns are green flowerless plants with divided leaves that tend to grow in damp, shady areas.",
+        "id": "flora_ferns_dense",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 2,
+            "fileName": "resources/images/flora/flora/flora_1x1_ferns_dense.png"
+        },
+        "title": "Ferns",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "flora",
+            "ferns",
+            "djungle"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "subCategory": "Flora",
+        "description": "In the tall grass.",
+        "id": "flora_tallgrass_light",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 16,
+            "clip_width": 32,
+            "count": 2,
+            "fileName": "resources/images/flora/flora/flora_1x1_tallgrass_light.png"
+        },
+        "title": "Tall Grass",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "flora",
+            "grass"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "subCategory": "Flora",
+        "description": "In the tall grass.",
+        "id": "flora_tallgrass_medium",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 16,
+            "clip_width": 32,
+            "count": 2,
+            "fileName": "resources/images/flora/flora/flora_1x1_tallgrass_medium.png"
+        },
+        "title": "Tall Grass",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "flora",
+            "grass"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "subCategory": "Flora",
+        "description": "In the tall grass.",
+        "id": "flora_tallgrass_dense",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 16,
+            "clip_width": 32,
+            "count": 2,
+            "fileName": "resources/images/flora/flora/flora_1x1_tallgrass_dense.png"
+        },
+        "title": "Tall Grass",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "flora",
+            "grass"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
         "description": "A deciduous tree",
         "id": "tree_deciduous_light",
         "power": 0,
@@ -4392,50 +4583,6 @@
         "upkeep cost": 0,
         "water": 0,
 
-        "tag": [
-            "todo",
-            "desc"
-        ]
-    },
-    {
-        "author": "Kingtut 101",
-        "category": "Flora",
-        "description": "TODO DESC",
-        "id": "flora_flower_dense",
-        "power": 0,
-        "price": 0,
-        "tiles": {
-            "clip_height": 15,
-            "clip_width": 32,
-            "count": 4,
-            "fileName": "resources/images/flora/flora_flower_dense.png"
-        },
-        "title": "TODO TITLE",
-        "isOverPlacable": true,
-        "upkeep cost": 0,
-        "water": 0,
-        "tag": [
-            "todo",
-            "desc"
-        ]
-    },
-    {
-        "author": "Kingtut 101",
-        "category": "Flora",
-        "description": "TODO DESC",
-        "id": "flora_tallgrass_light",
-        "power": 0,
-        "price": 0,
-        "tiles": {
-            "clip_height": 16,
-            "clip_width": 32,
-            "count": 2,
-            "fileName": "resources/images/flora/flora_tallgrass_light.png"
-        },
-        "title": "TODO TITLE",
-        "isOverPlacable": true,
-        "upkeep cost": 0,
-        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -4621,28 +4768,6 @@
             "isnt",
             "room",
             "inside"
-        ]
-    },
-    {
-        "author": "Kingtut 101",
-        "category": "Flora",
-        "description": "TODO DESC",
-        "id": "flora_ferns_light",
-        "power": 0,
-        "price": 0,
-        "tiles": {
-            "clip_height": 15,
-            "clip_width": 32,
-            "count": 3,
-            "fileName": "resources/images/flora/flora_ferns_light.png"
-        },
-        "title": "TODO TITLE",
-        "isOverPlacable": true,
-        "upkeep cost": 0,
-        "water": 0,
-        "tag": [
-            "todo",
-            "desc"
         ]
     },
     {
@@ -5527,28 +5652,6 @@
             "fileName": "resources/images/buildings/residential/res_1x1_iledepaques1_RF.png"
         },
         "title": "TODO TITLE",
-        "upkeep cost": 0,
-        "water": 0,
-        "tag": [
-            "todo",
-            "desc"
-        ]
-    },
-    {
-        "author": "Kingtut 101",
-        "category": "Flora",
-        "description": "TODO DESC",
-        "id": "flora_tallgrass",
-        "power": 0,
-        "price": 0,
-        "tiles": {
-            "clip_height": 16,
-            "clip_width": 32,
-            "count": 2,
-            "fileName": "resources/images/flora/flora_tallgrass.png"
-        },
-        "title": "TODO TITLE",
-        "isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
         "tag": [
@@ -6663,28 +6766,6 @@
         ]
     },
     {
-        "author": "Kingtut 101",
-        "category": "Flora",
-        "description": "TODO DESC",
-        "id": "flora_flower_light",
-        "power": 0,
-        "price": 0,
-        "tiles": {
-            "clip_height": 15,
-            "clip_width": 32,
-            "count": 4,
-            "fileName": "resources/images/flora/flora_flower_light.png"
-        },
-        "title": "TODO TITLE",
-        "isOverPlacable": true,
-        "upkeep cost": 0,
-        "water": 0,
-        "tag": [
-            "todo",
-            "desc"
-        ]
-    },
-    {
         "author": "Folesnaid",
         "category": "Residential",
         "description": "TODO DESC",
@@ -7186,28 +7267,6 @@
         ]
     },
     {
-        "author": "Kingtut 101",
-        "category": "Flora",
-        "description": "TODO DESC",
-        "id": "flora_flower",
-        "power": 0,
-        "price": 0,
-        "tiles": {
-            "clip_height": 15,
-            "clip_width": 32,
-            "count": 4,
-            "fileName": "resources/images/flora/flora_flower.png"
-        },
-        "title": "TODO TITLE",
-        "isOverPlacable": true,
-        "upkeep cost": 0,
-        "water": 0,
-        "tag": [
-            "todo",
-            "desc"
-        ]
-    },
-    {
         "author": "RockFort",
         "category": "Residential",
         "description": "TODO DESC",
@@ -7429,28 +7488,6 @@
             "fileName": "resources/images/buildings/residential/res_1x1_medieval_house_1_FN.png"
         },
         "title": "TODO TITLE",
-        "upkeep cost": 0,
-        "water": 0,
-        "tag": [
-            "todo",
-            "desc"
-        ]
-    },
-    {
-        "author": "Kingtut 101",
-        "category": "Flora",
-        "description": "TODO DESC",
-        "id": "flora_ferns",
-        "power": 0,
-        "price": 0,
-        "tiles": {
-            "clip_height": 15,
-            "clip_width": 32,
-            "count": 2,
-            "fileName": "resources/images/flora/flora_ferns.png"
-        },
-        "title": "TODO TITLE",
-        "isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
         "tag": [

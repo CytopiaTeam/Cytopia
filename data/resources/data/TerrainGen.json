@@ -30,13 +30,19 @@
         },
         "terrainFlora": {
             "light": [
-                "flora_flower_light"
+                "flora_flower_light",
+                "flora_tallgrass_light",
+                "flora_ferns_light"
             ],
             "medium": [
-                "flora_flower_dense"
+                "flora_flower_medium",
+                "flora_tallgrass_medium",
+                "flora_ferns_medium"
             ],
             "dense": [
-                "flora_flower_dense"
+                "flora_flower_dense",
+                "flora_tallgrass_dense",
+                "flora_ferns_dense"
             ]
         },
         "bushes": {
