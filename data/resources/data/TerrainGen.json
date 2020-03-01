@@ -428,6 +428,34 @@
             "flora_flower"
         ]
     },
+    "RainStone": {
+        "trees": {
+            "light": [
+                "tree_crystal_light"
+            ],
+            "medium": [
+                "tree_crystal_medium"
+            ],
+            "dense": [
+                "tree_crystal_dense"
+            ]
+        },
+        "terrain": [
+            "terrain_rainstone"
+        ],
+        "water": [
+            "water"
+        ],
+        "waterdecoration": [
+            "rocks_water"
+        ],
+        "terrainRocks": [
+            "rocks_desert"
+        ],
+        "terrainFlowers": [
+            "flora_flower"
+        ]
+    },
     "Soil": {
         "trees": {
             "light": [

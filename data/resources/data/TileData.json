@@ -3228,28 +3228,6 @@
         ]
     },
     {
-        "author": "Kingtut 101",
-        "category": "Flora",
-        "description": "TODO DESC",
-        "id": "flora_RedBerryBush_dense",
-        "power": 0,
-        "price": 0,
-        "tiles": {
-            "clip_height": 15,
-            "clip_width": 32,
-            "count": 4,
-            "fileName": "resources/images/flora/flora_RedBerryBush_dense.png"
-        },
-        "title": "TODO TITLE",
-        "isOverPlacable": true,
-        "upkeep cost": 0,
-        "water": 0,
-        "tag": [
-            "todo",
-            "desc"
-        ]
-    },
-    {
         "author": "RockFort",
         "category": "Residential",
         "description": "TODO DESC",
@@ -3491,28 +3469,6 @@
         "upkeep cost": 0,
         "water": 0,
 
-        "tag": [
-            "todo",
-            "desc"
-        ]
-    },
-    {
-        "author": "Kingtut 101",
-        "category": "Flora",
-        "description": "TODO DESC",
-        "id": "flora_RedBerryBush",
-        "power": 0,
-        "price": 0,
-        "tiles": {
-            "clip_height": 14,
-            "clip_width": 32,
-            "count": 4,
-            "fileName": "resources/images/flora/flora_RedBerryBush.png"
-        },
-        "title": "TODO TITLE",
-        "isOverPlacable": true,
-        "upkeep cost": 0,
-        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -3847,23 +3803,24 @@
     {
         "author": "Kingtut 101",
         "category": "Flora",
-        "description": "TODO DESC",
-        "id": "flora_bush_dense",
+        "description": "a green bush",
+        "id": "bush_green_dense",
         "power": 0,
         "price": 0,
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
             "count": 4,
-            "fileName": "resources/images/flora/flora_bush_dense.png"
+            "fileName": "resources/images/flora/bushes/bush_green_dense.png"
         },
-        "title": "TODO TITLE",
+        "title": "Green Bush",
         "isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
         "tag": [
-            "todo",
-            "desc"
+            "flora",
+            "green",
+            "bush"
         ]
     },
     {
@@ -3895,23 +3852,24 @@
     {
         "author": "Kingtut 101",
         "category": "Flora",
-        "description": "TODO DESC",
-        "id": "flora_bush",
+        "description": "a green bush",
+        "id": "bush_green_medium",
         "power": 0,
         "price": 0,
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
             "count": 4,
-            "fileName": "resources/images/flora/flora_bush.png"
+            "fileName": "resources/images/flora/bushes/bush_green_medium.png"
         },
-        "title": "TODO TITLE",
+        "title": "Green Bush",
         "isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
         "tag": [
-            "todo",
-            "desc"
+            "flora",
+            "green",
+            "bush"
         ]
     },
     {
@@ -5997,23 +5955,24 @@
     {
         "author": "Kingtut 101",
         "category": "Flora",
-        "description": "TODO DESC",
-        "id": "flora_bush_light",
+        "description": "a green bush",
+        "id": "bush_green_light",
         "power": 0,
         "price": 0,
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
             "count": 6,
-            "fileName": "resources/images/flora/flora_bush_light.png"
+            "fileName": "resources/images/flora/bushes/bush_green_light.png"
         },
-        "title": "TODO TITLE",
+        "title": "Green Bush",
         "isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
         "tag": [
-            "todo",
-            "desc"
+            "flora",
+            "green",
+            "bush"
         ]
     },
     {
@@ -6743,7 +6702,7 @@
     {
         "author": "Kingtut 101",
         "category": "Flora",
-        "description": "TODO DESC",
+        "description": "A bush with delicious red berries.",
         "id": "flora_RedBerryBush_light",
         "power": 0,
         "price": 0,
@@ -6751,15 +6710,62 @@
             "clip_height": 15,
             "clip_width": 32,
             "count": 6,
-            "fileName": "resources/images/flora/flora_RedBerryBush_light.png"
+            "fileName": "resources/images/flora/bushes/flora_RedBerryBush_light.png"
         },
-        "title": "TODO TITLE",
+        "title": "Red Berry Bush",
         "isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
         "tag": [
-            "todo",
-            "desc"
+            "bush",
+            "red",
+            "berries"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "description": "A bush with delicious red berries.",
+        "id": "flora_RedBerryBush_medium",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 14,
+            "clip_width": 32,
+            "count": 4,
+            "fileName": "resources/images/flora/bushes/flora_RedBerryBush_medium.png"
+        },
+        "title": "Red Berry Bush",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "bush",
+            "red",
+            "berries"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "description": "A bush with delicious red berries.",
+        "id": "flora_RedBerryBush_dense",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 4,
+            "fileName": "resources/images/flora/bushes/flora_RedBerryBush_dense.png"
+        },
+        "title": "Red Berry Bush",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "bush",
+            "red",
+            "berries"
         ]
     },
     {
@@ -8364,6 +8370,43 @@
             "count": 3,
             "offset": 13,
             "fileName": "resources/images/terrain/terrain_sand_red.png"
+        },
+        "title": "Red Sand",
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "terrain",
+            "red",
+            "sand",
+            "tiles"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Terrain",
+        "description": "Terrain Rainstone tiles",
+        "id": "terrain_rainstone",
+        "power": 0,
+        "price": 0,
+        "slopeTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 4,
+            "fileName": "resources/images/terrain/terrain_rainstone.png"
+        },
+        "cornerTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 8,
+            "offset": 4,
+            "fileName": "resources/images/terrain/terrain_rainstone.png"
+        },
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 3,
+            "offset": 13,
+            "fileName": "resources/images/terrain/terrain_rainstone.png"
         },
         "title": "Red Sand",
         "upkeep cost": 0,
