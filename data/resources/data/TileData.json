@@ -30,7 +30,7 @@
             "clip_height": 18,
             "clip_width": 32,
             "count": 1,
-            "fileName": "resources/images/buildings/decoration/BD_1x1_coal_FN.png"
+            "fileName": "resources/images/decoration/buildings/BD_1x1_coal_FN.png"
         },
         "title": "Coal Pile",
         "upkeep cost": 0,
@@ -2688,7 +2688,7 @@
             "clip_height": 17,
             "clip_width": 32,
             "count": 3,
-            "fileName": "resources/images/buildings/decoration/BD_1x1_Lantern_kt.png"
+            "fileName": "resources/images/decoration/buildings/BD_1x1_Lantern_kt.png"
         },
         "title": "Lantern",
         "upkeep cost": 0,
@@ -2810,7 +2810,7 @@
             "clip_height": 22,
             "clip_width": 32,
             "count": 4,
-            "fileName": "resources/images/buildings/decoration/BD_1x1_LightPole_kt.png"
+            "fileName": "resources/images/decoration/buildings/BD_1x1_LightPole_kt.png"
         },
         "title": "Light Pole",
         "upkeep cost": 0,
@@ -2861,7 +2861,7 @@
             "clip_height": 54,
             "clip_width": 96,
             "count": 2,
-            "fileName": "resources/images/buildings/decoration/BD_3x3_DarkParkCrossroads_kt.png"
+            "fileName": "resources/images/decoration/buildings/BD_3x3_DarkParkCrossroads_kt.png"
         },
         "RequiredTiles": {
             "width": 3,
@@ -3376,7 +3376,7 @@
             "clip_height": 15,
             "clip_width": 32,
             "count": 3,
-            "fileName": "resources/images/buildings/decoration/BD_1x1_PhoneBooths_kt.png"
+            "fileName": "resources/images/decoration/buildings/BD_1x1_PhoneBooths_kt.png"
         },
         "title": "Phone Booth",
         "upkeep cost": 0,
@@ -3403,7 +3403,7 @@
             "clip_width": 32,
             "count": 1,
             "offset": 1,
-            "fileName": "resources/images/buildings/decoration/BD_1x1_PhoneBooths_kt.png"
+            "fileName": "resources/images/decoration/buildings/BD_1x1_PhoneBooths_kt.png"
         },
         "title": "Phone Booth",
         "upkeep cost": 0,
@@ -4651,7 +4651,7 @@
             "clip_height": 17,
             "clip_width": 32,
             "count": 2,
-            "fileName": "resources/images/buildings/decoration/bd_1x1_RF2_BlueSignPlatform_kt.png"
+            "fileName": "resources/images/decoration/buildings/bd_1x1_RF2_BlueSignPlatform_kt.png"
         },
         "title": "Sign Platform",
         "upkeep cost": 0,
@@ -5130,7 +5130,7 @@
             "clip_height": 76,
             "clip_width": 128,
             "count": 1,
-            "fileName": "resources/images/buildings/decoration/BD_4x4_DarkParkRing_kt.png"
+            "fileName": "resources/images/decoration/buildings/BD_4x4_DarkParkRing_kt.png"
         },
         "RequiredTiles": {
             "width": 4,
@@ -5863,7 +5863,7 @@
             "clip_height": 17,
             "clip_width": 32,
             "count": 2,
-            "fileName": "resources/images/buildings/decoration/bd_1x1_RF2_BenchesPlatform_kt.png"
+            "fileName": "resources/images/decoration/buildings/bd_1x1_RF2_BenchesPlatform_kt.png"
         },
         "title": "Bench Platform",
         "upkeep cost": 0,
@@ -6079,7 +6079,7 @@
             "clip_height": 17,
             "clip_width": 32,
             "count": 1,
-            "fileName": "resources/images/buildings/decoration/bd_1x1_BlankPlatform_kt.png"
+            "fileName": "resources/images/decoration/buildings/bd_1x1_BlankPlatform_kt.png"
         },
         "title": "Blank Platform",
         "upkeep cost": 0,
@@ -6104,7 +6104,7 @@
             "clip_height": 15,
             "clip_width": 32,
             "count": 5,
-            "fileName": "resources/images/buildings/decoration/BD_1x1_People_kt.png"
+            "fileName": "resources/images/decoration/buildings/BD_1x1_People_kt.png"
         },
         "title": "People",
         "upkeep cost": 0,
@@ -6210,7 +6210,7 @@
             "clip_height": 41,
             "clip_width": 64,
             "count": 4,
-            "fileName": "resources/images/buildings/decoration/BD_2x2_DarkParkCenterpieces_kt.png"
+            "fileName": "resources/images/decoration/buildings/BD_2x2_DarkParkCenterpieces_kt.png"
         },
         "RequiredTiles": {
             "width": 2,
@@ -6289,7 +6289,7 @@
             "clip_height": 15,
             "clip_width": 32,
             "count": 2,
-            "fileName": "resources/images/buildings/decoration/BD_1x1_RF2_WoodenSign_kt.png"
+            "fileName": "resources/images/decoration/buildings/BD_1x1_RF2_WoodenSign_kt.png"
         },
         "title": "Wooden Sign",
         "upkeep cost": 0,
@@ -6474,7 +6474,7 @@
             "clip_height": 18,
             "clip_width": 32,
             "count": 6,
-            "fileName": "resources/images/buildings/decoration/BD_1x1_RF2_PicnicPavilions_kt.png"
+            "fileName": "resources/images/decoration/buildings/BD_1x1_RF2_PicnicPavilions_kt.png"
         },
         "title": "Picnic Pavilion",
         "upkeep cost": 0,
@@ -6502,7 +6502,7 @@
             "clip_width": 32,
             "count": 1,
             "offset": 5,
-            "fileName": "resources/images/buildings/decoration/BD_1x1_RF2_PicnicPavilions_kt.png"
+            "fileName": "resources/images/decoration/buildings/BD_1x1_RF2_PicnicPavilions_kt.png"
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
@@ -6575,7 +6575,7 @@
             "clip_height": 15,
             "clip_width": 32,
             "count": 4,
-            "fileName": "resources/images/buildings/decoration/BD_1x1_PicnicTables_kt.png"
+            "fileName": "resources/images/decoration/buildings/BD_1x1_PicnicTables_kt.png"
         },
         "title": "Picnic Tables",
         "upkeep cost": 0,
@@ -6789,6 +6789,7 @@
     {
         "author": "Kingtut 101",
         "category": "Decoration",
+        "subCategory": "BuildingsDecoration",
         "description": "A very old ship that crashed here long ago.  Its origin is unkown, but I think it's safe to say what happened to its crew",
         "id": "bd_2x2_sunkenship_kt",
         "power": 0,
@@ -6797,7 +6798,7 @@
             "clip_height": 37,
             "clip_width": 64,
             "count": 1,
-            "fileName": "resources/images/buildings/decoration/bd_2x2_sunkenship_kt.png"
+            "fileName": "resources/images/decoration/buildings/bd_2x2_SunkenShip_kt.png"
         },
         "RequiredTiles": {
             "width": 2,
@@ -6806,26 +6807,34 @@
         "title": "Sunken Ship",
         "upkeep cost": 0,
         "water": 0,
-
         "tag": [
-            "very",
-            "old",
-            "ship",
-            "crashed",
-            "here",
-            "long",
-            "ago",
-            "its",
-            "origin",
-            "unkown",
-            "think",
-            "its",
-            "safe",
-            "say",
-            "what",
-            "happened",
-            "its",
-            "crew"
+            "decoration",
+            "nature",
+            "sunk ship"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Roads",
+        "subCategory": "NatureDecoration",
+        "description": "TODO - move this to decoration when the new attribute is implemented",
+        "id": "ND_1x1_stream",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 16,
+            "rotations": 16,
+            "fileName": "resources/images/decoration/nature/ND_1x1_Stream.png"
+        },
+        "title": "Stream",
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "decoration",
+            "nature",
+            "stream"
         ]
     },
     {
@@ -7433,7 +7442,7 @@
             "clip_height": 16,
             "clip_width": 32,
             "count": 4,
-            "fileName": "resources/images/buildings/decoration/BD_1x1_RF2_Benches_kt.png"
+            "fileName": "resources/images/decoration/buildings/BD_1x1_RF2_Benches_kt.png"
         },
         "title": "Benches",
         "upkeep cost": 0,
@@ -8198,7 +8207,7 @@
             "clip_height": 18,
             "clip_width": 32,
             "count": 2,
-            "fileName": "resources/images/buildings/decoration/BD_1x1_Snowmen_kt.png"
+            "fileName": "resources/images/decoration/buildings/BD_1x1_Snowmen_kt.png"
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
