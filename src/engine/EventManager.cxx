@@ -357,7 +357,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       for (const auto &it : m_uiManager.getAllUiElementsForEventHandling())
       {
         // only check visible elements
-        if (it->isVisible())
+        if (it->isVisible() && event.button.button == SDL_BUTTON_LEFT)
         {
           // first, check if the element is a group and send the event
           if (it->onMouseButtonUp(event))
