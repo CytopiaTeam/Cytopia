@@ -7939,28 +7939,28 @@
         "author": "Kingtut 101",
         "category": "Terrain",
         "description": "Terrain beach tiles",
-        "id": "terrain_beach",
+        "id": "terrain_sand_beach",
         "power": 0,
         "price": 0,
         "slopeTiles": {
             "clip_height": 23,
             "clip_width": 32,
             "count": 4,
-            "fileName": "resources/images/terrain/terrain_beach.png"
+            "fileName": "resources/images/terrain/terrain_sand_beach.png"
         },
         "cornerTiles": {
             "clip_height": 23,
             "clip_width": 32,
             "count": 8,
             "offset": 4,
-            "fileName": "resources/images/terrain/terrain_beach.png"
+            "fileName": "resources/images/terrain/terrain_sand_beach.png"
         },
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
             "count": 1,
             "offset": 13,
-            "fileName": "resources/images/terrain/terrain_beach.png"
+            "fileName": "resources/images/terrain/terrain_sand_beach.png"
         },
         "title": "Beach",
         "upkeep cost": 0,
@@ -7968,6 +7968,7 @@
         "tag": [
             "terrain",
             "beach",
+            "sand",
             "tiles"
         ]
     },
@@ -7975,28 +7976,28 @@
         "author": "Kingtut 101",
         "category": "Terrain",
         "description": "Terrain Black Sand tiles",
-        "id": "terrain_blacksand",
+        "id": "terrain_sand_black",
         "power": 0,
         "price": 0,
         "slopeTiles": {
             "clip_height": 23,
             "clip_width": 32,
             "count": 4,
-            "fileName": "resources/images/terrain/terrain_BlackSand.png"
+            "fileName": "resources/images/terrain/terrain_sand_black.png"
         },
         "cornerTiles": {
             "clip_height": 23,
             "clip_width": 32,
             "count": 8,
             "offset": 4,
-            "fileName": "resources/images/terrain/terrain_BlackSand.png"
+            "fileName": "resources/images/terrain/terrain_sand_black.png"
         },
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
             "count": 3,
             "offset": 13,
-            "fileName": "resources/images/terrain/terrain_BlackSand.png"
+            "fileName": "resources/images/terrain/terrain_sand_black.png"
         },
         "title": "Black Sand",
         "upkeep cost": 0,
@@ -8048,34 +8049,35 @@
         "author": "Kingtut 101",
         "category": "Terrain",
         "description": "Terrain Desert tiles",
-        "id": "terrain_desert",
+        "id": "terrain_sand_desert",
         "power": 0,
         "price": 0,
         "slopeTiles": {
             "clip_height": 23,
             "clip_width": 32,
             "count": 4,
-            "fileName": "resources/images/terrain/terrain_desert.png"
+            "fileName": "resources/images/terrain/terrain_sand_desert.png"
         },
         "cornerTiles": {
             "clip_height": 23,
             "clip_width": 32,
             "count": 8,
             "offset": 4,
-            "fileName": "resources/images/terrain/terrain_desert.png"
+            "fileName": "resources/images/terrain/terrain_sand_desert.png"
         },
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
             "count": 2,
             "offset": 13,
-            "fileName": "resources/images/terrain/terrain_desert.png"
+            "fileName": "resources/images/terrain/terrain_sand_desert.png"
         },
         "title": "Desert",
         "upkeep cost": 0,
         "water": 0,
         "tag": [
             "terrain",
+            "sand",
             "desert",
             "tiles"
         ]
@@ -8333,42 +8335,6 @@
         "tag": [
             "terrain",
             "mud",
-            "tiles"
-        ]
-    },
-    {
-        "author": "Kingtut 101",
-        "category": "Terrain",
-        "description": "Terrain Sand tiles",
-        "id": "terrain_sand",
-        "power": 0,
-        "price": 0,
-        "slopeTiles": {
-            "clip_height": 23,
-            "clip_width": 32,
-            "count": 4,
-            "offset": 3,
-            "fileName": "resources/images/terrain/terrain_sand.png"
-        },
-        "cornerTiles": {
-            "clip_height": 23,
-            "clip_width": 32,
-            "count": 8,
-            "offset": 7,
-            "fileName": "resources/images/terrain/terrain_sand.png"
-        },
-        "tiles": {
-            "clip_height": 15,
-            "clip_width": 32,
-            "count": 3,
-            "fileName": "resources/images/terrain/terrain_sand.png"
-        },
-        "title": "Sand",
-        "upkeep cost": 0,
-        "water": 0,
-        "tag": [
-            "terrain",
-            "sand",
             "tiles"
         ]
     },
