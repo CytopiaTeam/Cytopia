@@ -10,9 +10,9 @@ MapNode::MapNode(Point isoCoordinates, const std::string &terrainID, const std::
   m_mapNodeData.resize(LAYERS_COUNT);
   m_sprite = std::make_unique<Sprite>(m_isoCoordinates);
 
-  setTileID(terrainID);
+  setTileID(terrainID, isoCoordinates);
   if (!tileID.empty()) // in case tileID is not supplied skip it
-    setTileID(tileID);
+    setTileID(tileID, isoCoordinates);
 
   updateTexture();
 }
@@ -48,20 +48,14 @@ void MapNode::setBitmask(unsigned char elevationBitmask, unsigned char tileIDBit
   updateTexture();
 }
 
-void MapNode::setTileID(const std::string &tileID)
+void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
 {
   TileData *tileData = TileManager::instance().getTileData(tileID);
   if (tileData)
   {
-    Layer layer = Layer::BUILDINGS;
-    if (tileData->category == "Terrain")
-    {
-      layer = Layer::TERRAIN;
-    }
-    else if (tileData->category == "Water")
-    {
-      layer = Layer::WATER;
-    }
+    Layer layer = TileManager::instance().getTileLayer(tileID);
+    this->m_origCornerPoint = origCornerPoint;
+    //m_mapNodeData[layer].origCornerPoint = origCornerPoint;
     m_previousTileID = m_mapNodeData[layer].tileID;
     m_mapNodeData[layer].tileData = tileData;
     m_mapNodeData[layer].tileID = tileID;
@@ -194,6 +188,10 @@ void MapNode::updateTexture()
       switch (tileMap)
       {
       case TileMap::DEFAULT:
+        if (!m_mapNodeData[currentLayer].shouldRender)
+        {
+          break;
+		}
         m_clippingWidth = m_mapNodeData[currentLayer].tileData->tiles.clippingWidth;
         if (m_mapNodeData[currentLayer].tileIndex != 0)
         {
@@ -282,7 +280,7 @@ const MapNodeData &MapNode::getActiveMapNodeData() const
   return m_mapNodeData[Layer::TERRAIN];
 }
 
-void MapNode::setMapNodeData(std::vector<MapNodeData>&& mapNodeData)
+void MapNode::setMapNodeData(std::vector<MapNodeData> &&mapNodeData)
 {
   m_mapNodeData.swap(mapNodeData);
 
@@ -304,6 +302,7 @@ void MapNode::demolishNode()
     m_mapNodeData[Layer::BUILDINGS].tileData = nullptr;
     m_mapNodeData[Layer::BUILDINGS].tileID = "";
     m_sprite->clearSprite(Layer::BUILDINGS);
+    this->m_origCornerPoint = this->getCoordinates();
     updateTexture();
   }
 }

@@ -10,28 +10,29 @@
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=cytopia&metric=alert_status)](https://sonarcloud.io/dashboard?id=cytopia)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=cytopia&metric=coverage)](https://sonarcloud.io/dashboard?id=cytopia)
 
+<b>Website/Forums</b> - Cytopia.net - <https://www.cytopia.net/><br>
+<b>YouTube</b> - Cytopia - <https://www.youtube.com/channel/UCJIzKBD3wl6KRohiX6i53GA><br>
+<b>Twitter</b> - @CytopiaGame - <https://twitter.com/CytopiaGame><br>
+<b>Reddit</b> - r/Cytopia - <https://www.reddit.com/r/Cytopia/><br>
+<b>Discord</b> - Cytopia - <https://discord.gg/ua3qFqF><br>
+<b>Patreon</b> - Cytopia by Jimmy Snails - <https://www.patreon.com/cytopia><br>
+<b>itch io</b> - Cytopia - <https://cytopia.itch.io/cytopia><br>
+<b>GitHub</b> - Cytopia by CytopiaTeam - <https://github.com/CytopiaTeam/Cytopia><br>
 
-Cytopia is a free, open source retro pixel-art city building game with a big focus on mods. It’s based on a custom isometric rendering engine based on SDL2.
+Cytopia is a free, open source retro pixel-art city building game with a big focus on mods. It utilizes a custom isometric rendering engine based on SDL2.
 
-Visit our Projects website at <https://www.cytopia.net>
-Or our community page for Dev Blogs and our forum <https://community.cytopia.net>
-Or follow us on twitter: <https://twitter.com/Cytopia1>
-
-Want to play Cytopia? We're live on itch.io:
-<https://cytopia.itch.io/cytopia>
-
-
-
-Current Key Features:
+#### Current Key Features:
 - Custom UI System, based on JSON. Highly moddable
 - SDL2 based rendering engine written in C++
 - Camera panning, zooming, relocating
 - Terrain manipulation
-- Pixel-art graphics made by Kingtut 101 and Pineapples Trix
-- A Qt based tile editor for editing TileData JSON files.
-
-Planned features:
 - Procedural Terrain Generation
+- Pixel-art graphics made by graphics team lead by Kingtut 101
+- An original soundtrack, ambient noises, and sound effects made mostly by MB22
+- A Qt based tile editor for editing TileData JSON files
+
+#### Planned features:
+- Biomes
 - OpenGL Renderer
 - Gameplay mechanics
 - In-Game Mod downloading mechanism
@@ -45,11 +46,7 @@ If discord is not for you, visit our IRC channel on freenode at #Cytopia
 
 In case you want to support our project on patreon, visit our [Patreon Page](https://patreon.com/cytopia)
 
-#### Key Features
-- Different zoom levels
-- Relocate camera via rightclick
-- Read settings from json files ( Filename to tile ID  / Engine specific Settings )
-- Terrain editing (raise / lower terrain)
+Try out Cytopia in your Browser (Chrome based Browsers on PC supported) without installing it, take a look at our [emscripten port](https://game.cytopia.net/)
 
 #### Supported Platforms
 Linux (clang / g++-5 or higher)

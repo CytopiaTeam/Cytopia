@@ -1,43 +1,40 @@
 version: 0.2-CIBuild-{build}
 pull_requests:
   do_not_increment_build_number: true
-image: Visual Studio 2017
+image: Visual Studio 2019
 configuration: Release
 clone_depth: 10
-cache: C:/Users/appveyor/.conan/ -> conanfile.txt.in
+cache: C:/Users/appveyor/.conan/
 environment:
   BUTLER_API_KEY:
     secure: PbT7/2muaC99K24vd6d+DMQETnal230eqmdPtw4tn+zqhwkKpSRIJgjRmJPxphBF
 install:
-- cmd: >-
-    choco install ninja -y
+  - cmd: >-
+      choco install ninja -y
 
-    choco source add -n=AFG -s="https://api.bintray.com/nuget/anotherfoxguy/choco-pkg"
+      choco install conan -y -s="https://api.bintray.com/nuget/anotherfoxguy/choco-pkg"
 
-    choco install conan -y
+      refreshenv
 
-    refreshenv
+      git submodule update --init --recursive
 
-    git submodule update --init --recursive
-
-    call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars32.bat"
+      call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvars32.bat"
 build_script:
-- cmd: >-
-    cmake -GNinja -DCMAKE_BUILD_TYPE=Release -DUSE_PMM=ON .
+  - cmd: >-
+      cmake -GNinja -DCMAKE_BUILD_TYPE=Release .
 
-    ninja
+      ninja
 
-test_script:
-  ctest -VV
+test_script: ctest -VV
 
 deploy_script:
-- ps: >-
-    if (($env:APPVEYOR_REPO_BRANCH -eq "master") -and (-Not $env:APPVEYOR_PULL_REQUEST_NUMBER)) {
-    iex (new-object net.webclient).downloadstring('https://get.scoop.sh');
-    scoop install https://raw.githubusercontent.com/AnotherFoxGuy/scoop-bucket/master/butler.json;
-    ninja install;
-    wget https://cytopia.net/download/languages.zip -OutFile languages.zip;
-    7z x languages.zip -Oredist;
-    butler push redist cytopia/cytopia:windows-ci --userversion $env:APPVEYOR_BUILD_VERSION;}
+  - ps: >-
+      if (($env:APPVEYOR_REPO_BRANCH -eq "master") -and (-Not $env:APPVEYOR_PULL_REQUEST_NUMBER)) {
+      iex (new-object net.webclient).downloadstring('https://get.scoop.sh');
+      scoop install https://raw.githubusercontent.com/AnotherFoxGuy/scoop-bucket/master/butler.json;
+      ninja install;
+      wget https://cytopia.net/download/languages.zip -OutFile languages.zip;
+      7z x languages.zip -Oredist;
+      butler push redist cytopia/cytopia:windows-ci --userversion $env:APPVEYOR_BUILD_VERSION;}
 on_success:
-- cmd: cmake -P cmake/pmm.cmake /Conan /Clean
+  - cmd: cmake -P cmake/pmm.cmake /Conan /Clean

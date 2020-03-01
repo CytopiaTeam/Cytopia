@@ -171,7 +171,32 @@ void Map::updateAllNodes()
 
 bool Map::checkTileIDIsEmpty(const Point &isoCoordinates, const std::string &tileID) const
 {
-  return mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->checkTileIsEmpty(tileID);
+  if (mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y])
+  {
+    return mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->checkTileIsEmpty(tileID);
+  }
+  return true;
+}
+
+std::vector<Point> Map::getObjectCoords(const Point &isoCoordinates, const std::string &tileID)
+{
+  std::vector<Point> ret;
+  TileData *tileData = TileManager::instance().getTileData(tileID);
+  if (!tileData)
+  {
+    return ret;
+  }
+  Point coords = isoCoordinates;
+  for (int i = 0; i < tileData->RequiredTiles.width; i++)
+  {
+    for (int j = 0; j < tileData->RequiredTiles.height; j++)
+    {
+      coords.x = isoCoordinates.x - i;
+      coords.y = isoCoordinates.y + j;
+      ret.push_back(coords);
+    }
+  }
+  return ret;
 }
 
 unsigned char Map::getElevatedNeighborBitmask(const Point &isoCoordinates)
@@ -205,6 +230,12 @@ unsigned char Map::getElevatedNeighborBitmask(const Point &isoCoordinates)
     i++;
   }
   return bitmask;
+}
+
+Point Map::getNodeOrigCornerPoint(const Point &isoCoordinates)
+{
+  //Layer layer = TileManager::instance().getTileLayer(tileID);
+  return mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getOrigCornerPoint();
 }
 
 unsigned char Map::getNeighboringTilesBitmask(const Point &isoCoordinates)
@@ -293,8 +324,6 @@ SDL_Color Map::getColorOfPixelInSurface(SDL_Surface *surface, int x, int y, cons
 {
   SDL_Color Color{0, 0, 0, SDL_ALPHA_TRANSPARENT};
 
-  x += clipRect.w;
-
   if (surface)
   {
     const int bpp = surface->format->BytesPerPixel;
@@ -345,7 +374,17 @@ Point Map::findNodeInMap(const SDL_Point &screenCoordinates) const
 
 void Map::demolishNode(const Point &isoCoordinates, bool updateNeighboringTiles)
 {
-  mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->demolishNode();
+  Point origCornerPoint = mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getOrigCornerPoint();
+
+  Layer layer = Layer::BUILDINGS;
+  std::string tileID = mapNodes[origCornerPoint.x * m_columns + origCornerPoint.y]->getTileID(layer);
+  std::vector<Point> objectCoordinates = getObjectCoords(origCornerPoint, tileID);
+
+  for (auto coords : objectCoordinates)
+  {
+    mapNodes[coords.x * m_columns + coords.y]->demolishNode();
+  }
+  //mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->demolishNode();
   // TODO: Play soundeffect here
   if (updateNeighboringTiles)
   {
@@ -355,45 +394,47 @@ void Map::demolishNode(const Point &isoCoordinates, bool updateNeighboringTiles)
 
 bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int isoY) const
 {
-  if (isoX < 0 || isoX > Settings::instance().mapSize || isoY < 0 || isoY > Settings::instance().mapSize)
+  if (!isPointWithinMapBoundaries(isoX, isoY))
   {
     return false;
   }
 
-  SDL_Rect spriteRect;
-  //TODO: Add other layers later
   if (MapLayers::isLayerActive(Layer::BUILDINGS) && mapNodes[isoX * m_columns + isoY]->getSprite()->isLayerUsed(Layer::BUILDINGS))
   {
-    spriteRect = mapNodes[isoX * m_columns + isoY]->getSprite()->getDestRect(Layer::BUILDINGS);
+    SDL_Rect spriteRect = mapNodes[isoX * m_columns + isoY]->getSprite()->getDestRect(Layer::BUILDINGS);
+    SDL_Rect clipRect = mapNodes[isoX * m_columns + isoY]->getSprite()->getClipRect(Layer::BUILDINGS);
 
     if (SDL_PointInRect(&screenCoordinates, &spriteRect))
     {
       // Calculate the position of the clicked pixel within the surface and "un-zoom" the position to match the un-adjusted surface
-      const int pixelX = static_cast<int>((screenCoordinates.x - spriteRect.x) / Camera::zoomLevel);
-      const int pixelY = static_cast<int>((screenCoordinates.y - spriteRect.y) / Camera::zoomLevel);
+      const int pixelX =
+          static_cast<int>(std::round(static_cast<float>(screenCoordinates.x - spriteRect.x) / Camera::zoomLevel)) + clipRect.x;
+      const int pixelY = static_cast<int>(std::round(static_cast<float>(screenCoordinates.y - spriteRect.y) / Camera::zoomLevel));
 
       // Check if the clicked Sprite is not transparent (we hit a point within the pixel)
       if (getColorOfPixelInSurface(ResourcesManager::instance().getTileSurface(
                                        mapNodes[isoX * m_columns + isoY]->getMapNodeDataForLayer(Layer::BUILDINGS).tileID,
                                        mapNodes[isoX * m_columns + isoY]->tileMap),
-                                   pixelX, pixelY, mapNodes[isoX * m_columns + isoY]->getSprite()->getActiveClipRect())
+                                   pixelX, pixelY, mapNodes[isoX * m_columns + isoY]->getSprite()->getClipRect(Layer::BUILDINGS))
               .a != SDL_ALPHA_TRANSPARENT)
       {
         return true;
       }
     }
   }
-  // if we can't find the tile in the BUILDINGS layer, try terrain too.
+  // if we can't find the tile in the BUILDINGS layer, try terrain too. This means the cursor is on an occupied tile, but not on the building sprite itself
   if (MapLayers::isLayerActive(Layer::TERRAIN) && mapNodes[isoX * m_columns + isoY]->getSprite()->isLayerUsed(Layer::TERRAIN))
   {
-    spriteRect = mapNodes[isoX * m_columns + isoY]->getSprite()->getDestRect(Layer::TERRAIN);
+    SDL_Rect spriteRect = mapNodes[isoX * m_columns + isoY]->getSprite()->getDestRect(Layer::TERRAIN);
+    SDL_Rect clipRect = mapNodes[isoX * m_columns + isoY]->getSprite()->getClipRect(Layer::TERRAIN);
+
     if (SDL_PointInRect(&screenCoordinates, &spriteRect))
     {
       // Calculate the position of the clicked pixel within the surface and "un-zoom" the position to match the un-adjusted surface
-      const int pixelX = static_cast<int>((screenCoordinates.x - spriteRect.x) / Camera::zoomLevel);
-      const int pixelY = static_cast<int>((screenCoordinates.y - spriteRect.y) / Camera::zoomLevel);
+      const int pixelX =
+          static_cast<int>(std::round(static_cast<float>(screenCoordinates.x - spriteRect.x) / Camera::zoomLevel)) + clipRect.x;
+      const int pixelY = static_cast<int>(std::round(static_cast<float>(screenCoordinates.y - spriteRect.y) / Camera::zoomLevel));
 
-      // TODO: The problem here is, that the pixel check doesn't work with all terrain tiles. This is a pre-layer issue. idk what causes it yet.
       // Check if the clicked Sprite is not transparent (we hit a point within the pixel)
       if (getColorOfPixelInSurface(ResourcesManager::instance().getTileSurface(
                                        mapNodes[isoX * m_columns + isoY]->getMapNodeDataForLayer(Layer::TERRAIN).tileID,
@@ -419,6 +460,20 @@ void Map::highlightNode(const Point &isoCoordinates, const SpriteRGBColor &rgbCo
     node->getSprite()->highlightColor = rgbColor;
     node->getSprite()->highlightSprite = true;
   }
+}
+
+std::string Map::getTileID(const Point &isoCoordinates, Layer layer)
+{
+  const size_t index = isoCoordinates.x * m_columns + isoCoordinates.y;
+  if (index < mapNodes.size())
+  {
+    MapNode *node = mapNodes[index].get();
+    if (node)
+    {
+      return node->getTileID(layer);
+    }
+  }
+  return "";
 }
 
 void Map::unHighlightNode(const Point &isoCoordinates)

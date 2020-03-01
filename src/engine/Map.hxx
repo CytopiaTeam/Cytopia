@@ -73,7 +73,8 @@ public:
  * @param isoCoordinates 
  * @param tileID tileID which should be set
  */
-  template <typename Iterator> void setTileIDOfNode(const Iterator &begin, const Iterator &end, const std::string &tileID)
+  template <typename Iterator>
+  void setTileIDOfNode(const Iterator &begin, const Iterator &end, const std::string &tileID, bool isMultiObjects)
   {
     static_assert(std::is_same_v<Point, typename std::iterator_traits<Iterator>::value_type>,
                   "Iterator value must be a const Point");
@@ -88,9 +89,18 @@ public:
     }
     if (isOkToSet)
     {
-      for (Iterator it = begin; it != end; ++it)
+      Point origPoint = *begin;
+      std::string id = tileID;
+      auto it = begin;
+      if (!isMultiObjects)
       {
-        mapNodes[it->x * m_columns + it->y]->setTileID(tileID);
+        mapNodes[it->x * m_columns + it->y]->setTileID(tileID, origPoint);
+        it++;
+        id = "demy_node";
+      }
+      for (; it != end; ++it)
+      {
+        mapNodes[it->x * m_columns + it->y]->setTileID(id, isMultiObjects ? *it : origPoint);
         updateNeighborsOfNode(*it);
       }
     }
@@ -111,6 +121,11 @@ public:
    * @see Sprite#refresh
    */
   void refresh();
+
+  /**
+   * @brief Get original corner point of given point within building borders.
+   */
+  Point getNodeOrigCornerPoint(const Point &isoCoordinates);
 
   /** \Brief Save Map to file
   * Serializes the Map class to json and writes the data to a file.
@@ -137,6 +152,17 @@ public:
   * @param tileID tileID which should be checked
   */
   bool checkTileIDIsEmpty(const Point &isoCoordinates, const std::string &tileID) const;
+
+  /** \brief Return vector of Points of an Object Tiles selection.
+  * 
+  */
+  std::vector<Point> getObjectCoords(const Point &isoCoordinates, const std::string &tileID);
+
+  /** \Brief get Tile ID of specific layer of specific iso coordinates
+  * @param isoCoordinates: Tile to inspect
+  * @param layer: layer to check.
+  */
+  std::string getTileID(const Point &isoCoordinates, Layer layer);
 
 private:
   int m_columns;
