@@ -13,13 +13,19 @@
         },
         "waterFlora": {
             "light": [
-                "flora_water_lilypads"
+                "waterFlora_cattail_light",
+                "waterFlora_rice_light",
+                "waterFlora_lilypads_light"
             ],
             "medium": [
-                "flora_water_lilypads"
+                "waterFlora_cattail_medium",
+                "waterFlora_rice_medium",
+                "waterFlora_lilypads_medium"
             ],
             "dense": [
-                "flora_water_lilypads"
+                "waterFlora_cattail_dense",
+                "waterFlora_rice_dense",
+                "waterFlora_lilypads_dense"
             ]
         },
         "terrainFlora": {

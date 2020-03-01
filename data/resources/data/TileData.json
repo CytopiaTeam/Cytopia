@@ -2653,35 +2653,6 @@
         ]
     },
     {
-        "author": "Kingtut 101",
-        "category": "Flora",
-        "description": "A small group of lilypads. These are commonly found in lakes and ponds.",
-        "id": "flora_water_lilypads",
-        "power": 0,
-        "price": 0,
-        "tiles": {
-            "clip_height": 15,
-            "clip_width": 32,
-            "count": 1,
-            "fileName": "resources/images/flora/flora_water_lilypads.png"
-        },
-        "title": "Lilypads",
-        "isOverPlacable": true,
-        "upkeep cost": 0,
-        "water": 0,
-        "tag": [
-            "small",
-            "group",
-            "lilypads",
-            "these",
-            "are",
-            "commonly",
-            "found",
-            "lakes",
-            "ponds"
-        ]
-    },
-    {
         "author": "RockFort",
         "category": "Residential",
         "description": "TODO DESC",
@@ -3477,7 +3448,7 @@
     {
         "author": "Kingtut 101",
         "category": "Flora",
-        "description": "TODO DESC",
+        "description": "a fern",
         "id": "flora_ferns_dense",
         "power": 0,
         "price": 0,
@@ -4052,23 +4023,226 @@
     {
         "author": "Kingtut 101",
         "category": "Flora",
-        "description": "TODO DESC",
-        "id": "flora_tallgrass_dense",
+        "subCategory": "WaterFlora",
+        "description": "A group tall wetland plants well-known for their brown catkins.",
+        "id": "waterFlora_cattail_light",
         "power": 0,
         "price": 0,
         "tiles": {
-            "clip_height": 16,
+            "clip_height": 15,
             "clip_width": 32,
             "count": 2,
-            "fileName": "resources/images/flora/flora_tallgrass_dense.png"
+            "fileName": "resources/images/flora/waterFlora/waterFlora_1x1_cattail_light.png"
         },
-        "title": "TODO TITLE",
+        "title": "Cattail",
         "isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
         "tag": [
-            "todo",
-            "desc"
+            "water",
+            "flora",
+            "cattail",
+            "waterflora"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "subCategory": "WaterFlora",
+        "description": "A group tall wetland plants well-known for their brown catkins.",
+        "id": "waterFlora_cattail_medium",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 2,
+            "fileName": "resources/images/flora/waterFlora/waterFlora_1x1_cattail_medium.png"
+        },
+        "title": "Cattail",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "water",
+            "flora",
+            "cattail",
+            "waterflora"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "subCategory": "WaterFlora",
+        "description": "A group tall wetland plants well-known for their brown catkins.",
+        "id": "waterFlora_cattail_dense",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 2,
+            "fileName": "resources/images/flora/waterFlora/waterFlora_1x1_cattail_dense.png"
+        },
+        "title": "Cattail",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "water",
+            "flora",
+            "cattail",
+            "waterflora"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "subCategory": "WaterFlora",
+        "description": "Rice is normally grown as an annual plant, although in tropical areas it can survive as a perennial and can produce a ratoon crop for up to 30 years.",
+        "id": "waterFlora_rice_light",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 2,
+            "fileName": "resources/images/flora/waterFlora/waterFlora_1x1_rice_light.png"
+        },
+        "title": "Rice",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "water",
+            "flora",
+            "rice",
+            "waterflora"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "subCategory": "WaterFlora",
+        "description": "Rice is normally grown as an annual plant, although in tropical areas it can survive as a perennial and can produce a ratoon crop for up to 30 years.",
+        "id": "waterFlora_rice_medium",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 2,
+            "fileName": "resources/images/flora/waterFlora/waterFlora_1x1_rice_medium.png"
+        },
+        "title": "Rice",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "water",
+            "flora",
+            "rice",
+            "waterflora"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "subCategory": "WaterFlora",
+        "description": "Rice is normally grown as an annual plant, although in tropical areas it can survive as a perennial and can produce a ratoon crop for up to 30 years.",
+        "id": "waterFlora_rice_dense",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 2,
+            "fileName": "resources/images/flora/waterFlora/waterFlora_1x1_rice_dense.png"
+        },
+        "title": "Rice",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "water",
+            "flora",
+            "rice",
+            "waterflora"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "subCategory": "WaterFlora",
+        "description": "Lily pads are broad, rounded, heart- or shield-shaped leaves. Frogs like to sit on them!",
+        "id": "waterFlora_lilypads_light",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 2,
+            "fileName": "resources/images/flora/waterFlora/waterFlora_1x1_lilypads_light.png"
+        },
+        "title": "Lily pads",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "water",
+            "flora",
+            "lilypads",
+            "waterflora"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "subCategory": "WaterFlora",
+        "description": "Lily pads are broad, rounded, heart- or shield-shaped leaves. Frogs like to sit on them!",
+        "id": "waterFlora_lilypads_medium",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 2,
+            "fileName": "resources/images/flora/waterFlora/waterFlora_1x1_lilypads_medium.png"
+        },
+        "title": "Lily pads",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "water",
+            "flora",
+            "lilypads",
+            "waterflora"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "subCategory": "WaterFlora",
+        "description": "Lily pads are broad, rounded, heart- or shield-shaped leaves. Frogs like to sit on them!",
+        "id": "waterFlora_lilypads_dense",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 2,
+            "fileName": "resources/images/flora/waterFlora/waterFlora_1x1_lilypads_dense.png"
+        },
+        "title": "Lily pads",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "water",
+            "flora",
+            "lilypads",
+            "waterflora"
         ]
     },
     {
@@ -6680,28 +6854,6 @@
     {
         "author": "Kingtut 101",
         "category": "Flora",
-        "description": "TODO DESC",
-        "id": "flora_water_rice",
-        "power": 0,
-        "price": 0,
-        "tiles": {
-            "clip_height": 15,
-            "clip_width": 32,
-            "count": 1,
-            "fileName": "resources/images/flora/flora_water_rice.png"
-        },
-        "title": "TODO TITLE",
-        "isOverPlacable": true,
-        "upkeep cost": 0,
-        "water": 0,
-        "tag": [
-            "todo",
-            "desc"
-        ]
-    },
-    {
-        "author": "Kingtut 101",
-        "category": "Flora",
         "description": "A bush with delicious red berries.",
         "id": "bush_redberry_light",
         "power": 0,
@@ -7028,28 +7180,6 @@
         "upkeep cost": 0,
         "water": 0,
 
-        "tag": [
-            "todo",
-            "desc"
-        ]
-    },
-    {
-        "author": "Kingtut 101",
-        "category": "Flora",
-        "description": "TODO DESC",
-        "id": "flora_water_cattail",
-        "power": 0,
-        "price": 0,
-        "tiles": {
-            "clip_height": 15,
-            "clip_width": 32,
-            "count": 1,
-            "fileName": "resources/images/flora/flora_water_cattail.png"
-        },
-        "title": "TODO TITLE",
-        "isOverPlacable": true,
-        "upkeep cost": 0,
-        "water": 0,
         "tag": [
             "todo",
             "desc"
