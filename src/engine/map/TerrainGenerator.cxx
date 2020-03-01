@@ -79,7 +79,9 @@ void TerrainGenerator::generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNode
   mapNodes.resize(vectorSize);
   int z = 0;
 
-  std::string currentBiome = "GrassLands";
+  // For now, the biome string is read from settings.json for debugging
+  std::string currentBiome = Settings::instance().biome;
+  //std::string currentBiome = "GrassLands";
 
   // nodes need to be created at the correct vector "coordinates", or else the Z-Order will be broken
   for (int x = 0; x < terrainSettings.mapSize; x++)
