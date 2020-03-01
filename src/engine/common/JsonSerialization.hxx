@@ -83,6 +83,72 @@ inline void from_json(const json &j, BiomeData &b)
     }
   }
 
+  if (j.find("terrainFlora") != j.end())
+  {
+    for (const auto &it : j["terrainFlora"].items())
+    {
+      if (it.key() == "light")
+      {
+        std::vector<std::string> temp = it.value();
+        b.terrainFloraLight = temp;
+      }
+      if (it.key() == "medium")
+      {
+        std::vector<std::string> temp = it.value();
+        b.terrainFloraMedium = temp;
+      }
+      if (it.key() == "dense")
+      {
+        std::vector<std::string> temp = it.value();
+        b.terrainFloraDense = temp;
+      }
+    }
+  }
+
+  if (j.find("bushes") != j.end())
+  {
+    for (const auto &it : j["bushes"].items())
+    {
+      if (it.key() == "light")
+      {
+        std::vector<std::string> temp = it.value();
+        b.bushesLight = temp;
+      }
+      if (it.key() == "medium")
+      {
+        std::vector<std::string> temp = it.value();
+        b.bushesMedium = temp;
+      }
+      if (it.key() == "dense")
+      {
+        std::vector<std::string> temp = it.value();
+        b.bushesDense = temp;
+      }
+    }
+  }
+
+  if (j.find("waterFlora") != j.end())
+  {
+    for (const auto &it : j["waterFlora"].items())
+    {
+      if (it.key() == "light")
+      {
+        std::vector<std::string> temp = it.value();
+        b.waterFloraLight = temp;
+      }
+      if (it.key() == "medium")
+      {
+        std::vector<std::string> temp = it.value();
+        b.waterFloraMedium = temp;
+      }
+      if (it.key() == "dense")
+      {
+        std::vector<std::string> temp = it.value();
+        b.waterFloraDense = temp;
+      }
+    }
+  }
+
   if (j.find("terrain") != j.end())
   {
     std::vector<std::string> temp = j["terrain"];
@@ -103,10 +169,10 @@ inline void from_json(const json &j, BiomeData &b)
     std::vector<std::string> temp = j["terrainRocks"];
     b.terrainRocks = temp;
   }
-  if (j.find("terrainFlowers") != j.end())
+  if (j.find("terrainDecoration") != j.end())
   {
-    std::vector<std::string> temp = j["terrainFlowers"];
-    b.terrainFlowers = temp;
+    std::vector<std::string> temp = j["terrainDecoration"];
+    b.terrainDecoration = temp;
   }
 }
 

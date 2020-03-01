@@ -11,8 +11,48 @@
                 "tree_pine_dense"
             ]
         },
+        "waterFlora": {
+            "light": [
+                "flora_water_lilypads"
+            ],
+            "medium": [
+                "flora_water_lilypads"
+            ],
+            "dense": [
+                "flora_water_lilypads"
+            ]
+        },
+        "terrainFlora": {
+            "light": [
+                "flora_flower_light"
+            ],
+            "medium": [
+                "flora_flower_dense"
+            ],
+            "dense": [
+                "flora_flower_dense"
+            ]
+        },
+        "bushes": {
+            "light": [
+                "bush_redberry_light",
+                "bush_green_light"
+
+            ],
+            "medium": [
+                "bush_redberry_medium",
+                "bush_green_medium"
+            ],
+            "dense": [
+                "bush_redberry_dense",
+                "bush_green_dense"
+            ]
+        },
         "terrain": [
             "terrain_grass"
+        ],
+        "terrainDecoration": [
+            "rocks_snowy"
         ],
         "water": [
             "water"
