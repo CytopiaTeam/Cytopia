@@ -3811,7 +3811,7 @@
             "clip_height": 15,
             "clip_width": 32,
             "count": 4,
-            "fileName": "resources/images/flora/bushes/bush_green_dense.png"
+            "fileName": "resources/images/flora/bushes/bush_1x1_green_dense.png"
         },
         "title": "Green Bush",
         "isOverPlacable": true,
@@ -3860,7 +3860,7 @@
             "clip_height": 15,
             "clip_width": 32,
             "count": 4,
-            "fileName": "resources/images/flora/bushes/bush_green_medium.png"
+            "fileName": "resources/images/flora/bushes/bush_1x1_green_medium.png"
         },
         "title": "Green Bush",
         "isOverPlacable": true,
@@ -5963,7 +5963,7 @@
             "clip_height": 15,
             "clip_width": 32,
             "count": 6,
-            "fileName": "resources/images/flora/bushes/bush_green_light.png"
+            "fileName": "resources/images/flora/bushes/bush_1x1_green_light.png"
         },
         "title": "Green Bush",
         "isOverPlacable": true,
@@ -6703,14 +6703,14 @@
         "author": "Kingtut 101",
         "category": "Flora",
         "description": "A bush with delicious red berries.",
-        "id": "flora_RedBerryBush_light",
+        "id": "bush_redberry_light",
         "power": 0,
         "price": 0,
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
             "count": 6,
-            "fileName": "resources/images/flora/bushes/flora_RedBerryBush_light.png"
+            "fileName": "resources/images/flora/bushes/bush_1x1_redberry_light.png"
         },
         "title": "Red Berry Bush",
         "isOverPlacable": true,
@@ -6726,14 +6726,14 @@
         "author": "Kingtut 101",
         "category": "Flora",
         "description": "A bush with delicious red berries.",
-        "id": "flora_RedBerryBush_medium",
+        "id": "bush_redberry_medium",
         "power": 0,
         "price": 0,
         "tiles": {
             "clip_height": 14,
             "clip_width": 32,
             "count": 4,
-            "fileName": "resources/images/flora/bushes/flora_RedBerryBush_medium.png"
+            "fileName": "resources/images/flora/bushes/bush_1x1_redberry_medium.png"
         },
         "title": "Red Berry Bush",
         "isOverPlacable": true,
@@ -6749,14 +6749,14 @@
         "author": "Kingtut 101",
         "category": "Flora",
         "description": "A bush with delicious red berries.",
-        "id": "flora_RedBerryBush_dense",
+        "id": "bush_redberry_dense",
         "power": 0,
         "price": 0,
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
             "count": 4,
-            "fileName": "resources/images/flora/bushes/flora_RedBerryBush_dense.png"
+            "fileName": "resources/images/flora/bushes/bush_1x1_redberry_dense.png"
         },
         "title": "Red Berry Bush",
         "isOverPlacable": true,
@@ -6766,6 +6766,167 @@
             "bush",
             "red",
             "berries"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "description": "A bush with delicious red berries.",
+        "id": "bush_redberry_dense",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 4,
+            "fileName": "resources/images/flora/bushes/bush_1x1_redberry_dense.png"
+        },
+        "title": "Red Berry Bush",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "bush",
+            "red",
+            "berries"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "description": "A green cactus.",
+        "id": "cactus_green_light",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 8,
+            "fileName": "resources/images/flora/bushes/bush_1x1_cactus_green_light.png"
+        },
+        "title": "Green Cactus",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "bush",
+            "cactus",
+            "green"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "description": "A green cactus.",
+        "id": "cactus_green_medium",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 16,
+            "clip_width": 32,
+            "count": 6,
+            "fileName": "resources/images/flora/bushes/bush_1x1_cactus_green_medium.png"
+        },
+        "title": "Green Cactus",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "bush",
+            "cactus",
+            "green"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "description": "A green cactus.",
+        "id": "cactus_green_dense",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 17,
+            "clip_width": 32,
+            "count": 6,
+            "fileName": "resources/images/flora/bushes/bush_1x1_cactus_green_dense.png"
+        },
+        "title": "Green Cactus",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "bush",
+            "cactus",
+            "green"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "description": "A yellow cactus.",
+        "id": "cactus_yellow_light",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 8,
+            "fileName": "resources/images/flora/bushes/bush_1x1_cactus_yellow_light.png"
+        },
+        "title": "Yellow Cactus",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "bush",
+            "cactus",
+            "yellow"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "description": "A yellow cactus.",
+        "id": "cactus_yellow_medium",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 16,
+            "clip_width": 32,
+            "count": 6,
+            "fileName": "resources/images/flora/bushes/bush_1x1_cactus_yellow_medium.png"
+        },
+        "title": "Yellow Cactus",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "bush",
+            "cactus",
+            "yellow"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "description": "A yellow cactus.",
+        "id": "cactus_yellow_dense",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 17,
+            "clip_width": 32,
+            "count": 6,
+            "fileName": "resources/images/flora/bushes/bush_1x1_cactus_yellow_dense.png"
+        },
+        "title": "Yellow Cactus",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "bush",
+            "cactus",
+            "yellow"
         ]
     },
     {
