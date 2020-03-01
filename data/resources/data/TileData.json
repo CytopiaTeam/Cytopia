@@ -10,7 +10,7 @@
             "clip_height": 18,
             "clip_width": 32,
             "count": 1,
-			"fileName": "resources/images/terrain/terrain_tiles.png"
+			"fileName": "resources/images/terrain/terrain_grass.png"
         },
         "title": "demy Node",
         "upkeep cost": 0,
@@ -1524,30 +1524,6 @@
     },
     {
         "author": "Kingtut 101",
-        "category": "Flora",
-        "description": "A group of beautiful oak trees.",
-        "id": "trees_oak",
-        "power": 0,
-        "price": 5,
-        "tiles": {
-            "clip_height": 31,
-            "clip_width": 32,
-            "count": 12,
-            "fileName": "resources/images/flora/trees.png"
-        },
-        "title": "Trees",
-        "upkeep cost": 0,
-        "water": 0,
-        "isOverPlacable": true,
-        "tag": [
-            "group",
-            "beautiful",
-            "oak",
-            "trees"
-        ]
-    },
-    {
-        "author": "Kingtut 101",
         "biome": "GrassLands",
         "category": "TerrainDecoration",
         "description": "A pile of rocks that can be found in the grasslands biome.",
@@ -2268,17 +2244,16 @@
         "author": "Kingtut 101",
         "category": "Flora",
         "description": "A group of beautiful pinetrees.",
-        "id": "tree_pinetrees_dense",
+        "id": "tree_pine_light",
         "power": 0,
         "price": 0,
         "tiles": {
-            "clip_height": 33,
+            "clip_height": 28,
             "clip_width": 32,
-            "count": 10,
-            "offset": 8,
-            "fileName": "resources/images/flora/tree_pinetree.png"
+            "count": 7,
+            "fileName": "resources/images/flora/trees/tree_1x1_pine_light.png"
         },
-        "title": "TODO TITLE",
+        "title": "Pine Trees",
         "isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
@@ -2291,15 +2266,268 @@
     {
         "author": "Kingtut 101",
         "category": "Flora",
+        "description": "A group of beautiful pinetrees.",
+        "id": "tree_pine_medium",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 33,
+            "clip_width": 32,
+            "count": 8,
+            "fileName": "resources/images/flora/trees/tree_1x1_pine_medium.png"
+        },
+        "title": "Pine Trees",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "group",
+            "beautiful",
+            "pinetrees"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "description": "A group of beautiful pinetrees.",
+        "id": "tree_pine_dense",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 33,
+            "clip_width": 32,
+            "count": 10,
+            "fileName": "resources/images/flora/trees/tree_1x1_pine_dense.png"
+        },
+        "title": "Pine Trees",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "group",
+            "beautiful",
+            "pinetrees"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "description": "A group of mysterious mushroom trees.",
+        "id": "tree_mushroom_light",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 22,
+            "clip_width": 32,
+            "count": 16,
+            "fileName": "resources/images/flora/trees/tree_1x1_mushroom_light.png"
+        },
+        "title": "Mushroom Trees",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "group",
+            "mysterious",
+            "mushroom"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "description": "A group of mysterious mushroom trees.",
+        "id": "tree_mushroom_medium",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 22,
+            "clip_width": 32,
+            "count": 12,
+            "fileName": "resources/images/flora/trees/tree_1x1_mushroom_medium.png"
+        },
+        "title": "Mushroom Trees",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "group",
+            "mysterious",
+            "mushroom"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "description": "A group of mysterious mushroom trees.",
+        "id": "tree_mushroom_dense",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 24,
+            "clip_width": 32,
+            "count": 12,
+            "fileName": "resources/images/flora/trees/tree_1x1_mushroom_dense.png"
+        },
+        "title": "Mushroom Trees",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "group",
+            "mysterious",
+            "mushroom"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "description": "A group of burned trees.",
+        "id": "tree_burned_light",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 28,
+            "clip_width": 32,
+            "count": 7,
+            "fileName": "resources/images/flora/trees/tree_1x1_burned_light.png"
+        },
+        "title": "Burned Trees",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "group",
+            "burned",
+            "trees"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "description": "A group of burned trees.",
+        "id": "tree_burned_medium",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 28,
+            "clip_width": 32,
+            "count": 7,
+            "fileName": "resources/images/flora/trees/tree_1x1_burned_medium.png"
+        },
+        "title": "Burned Trees",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "group",
+            "burned",
+            "trees"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "description": "A group of burned trees.",
+        "id": "tree_burned_dense",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 29,
+            "clip_width": 32,
+            "count": 7,
+            "fileName": "resources/images/flora/trees/tree_1x1_burned_dense.png"
+        },
+        "title": "Burned Trees",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "group",
+            "burned",
+            "trees"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "description": "A group of crystal trees.",
+        "id": "tree_crystal_light",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 19,
+            "clip_width": 32,
+            "count": 20,
+            "fileName": "resources/images/flora/trees/tree_1x1_crystal_light.png"
+        },
+        "title": "Crystal Trees",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "group",
+            "crystal",
+            "trees"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "description": "A group of crystal trees.",
+        "id": "tree_crystal_medium",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 22,
+            "clip_width": 32,
+            "count": 18,
+            "fileName": "resources/images/flora/trees/tree_1x1_crystal_medium.png"
+        },
+        "title": "Crystal Trees",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "group",
+            "crystal",
+            "trees"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "description": "A group of crystal trees.",
+        "id": "tree_crystal_dense",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 22,
+            "clip_width": 32,
+            "count": 18,
+            "fileName": "resources/images/flora/trees/tree_1x1_crystal_dense.png"
+        },
+        "title": "Crystal Trees",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "group",
+            "crystal",
+            "trees"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
         "description": "A group of palmtrees.",
-        "id": "tree_palmtree_dense",
+        "id": "tree_palm_dense",
         "power": 0,
         "price": 0,
         "tiles": {
             "clip_height": 33,
             "clip_width": 32,
             "count": 6,
-            "fileName": "resources/images/flora/trees/nature_1x1_tree_palm_dense.png"
+            "fileName": "resources/images/flora/trees/tree_1x1_palm_dense.png"
         },
         "title": "Palm Trees",
         "isOverPlacable": true,
@@ -2315,14 +2543,14 @@
         "author": "Kingtut 101",
         "category": "Flora",
         "description": "A group of palmtrees.",
-        "id": "tree_palmtree_light",
+        "id": "tree_palm_light",
         "power": 0,
         "price": 0,
         "tiles": {
             "clip_height": 33,
             "clip_width": 32,
             "count": 12,
-            "fileName": "resources/images/flora/trees/nature_1x1_tree_palm_light.png"
+            "fileName": "resources/images/flora/trees/tree_1x1_palm_light.png"
         },
         "title": "Palm Trees",
         "isOverPlacable": true,
@@ -2338,14 +2566,14 @@
         "author": "Kingtut 101",
         "category": "Flora",
         "description": "A group of palmtrees.",
-        "id": "tree_palmtree_medium",
+        "id": "tree_palm_medium",
         "power": 0,
         "price": 0,
         "tiles": {
             "clip_height": 33,
             "clip_width": 32,
             "count": 7,
-            "fileName": "resources/images/flora/trees/nature_1x1_tree_palm_medium.png"
+            "fileName": "resources/images/flora/trees/tree_1x1_palm_medium.png"
         },
         "title": "Palm Trees",
         "isOverPlacable": true,
@@ -2855,28 +3083,6 @@
     },
     {
         "author": "Kingtut 101",
-        "category": "Flora",
-        "description": "TODO DESC",
-        "id": "tree_pinetrees_light",
-        "power": 0,
-        "price": 0,
-        "tiles": {
-            "clip_height": 28,
-            "clip_width": 32,
-            "count": 7,
-            "fileName": "resources/images/flora/tree_pinetrees_light.png"
-        },
-        "title": "TODO TITLE",
-        "isOverPlacable": true,
-        "upkeep cost": 0,
-        "water": 0,
-        "tag": [
-            "todo",
-            "desc"
-        ]
-    },
-    {
-        "author": "Kingtut 101",
         "category": "Commercial",
         "description": "A tall glass skyscraper that fears the day a stone-throwing competition is held in town.",
         "id": "com_3x3_GlassTower_kt",
@@ -3302,28 +3508,6 @@
             "clip_width": 32,
             "count": 4,
             "fileName": "resources/images/flora/flora_RedBerryBush.png"
-        },
-        "title": "TODO TITLE",
-        "isOverPlacable": true,
-        "upkeep cost": 0,
-        "water": 0,
-        "tag": [
-            "todo",
-            "desc"
-        ]
-    },
-    {
-        "author": "Kingtut 101",
-        "category": "Flora",
-        "description": "TODO DESC",
-        "id": "tree_mushroom_light",
-        "power": 0,
-        "price": 0,
-        "tiles": {
-            "clip_height": 22,
-            "clip_width": 32,
-            "count": 16,
-            "fileName": "resources/images/flora/tree_mushroom_light.png"
         },
         "title": "TODO TITLE",
         "isOverPlacable": true,
@@ -3932,23 +4116,70 @@
     {
         "author": "Kingtut 101",
         "category": "Flora",
-        "description": "TODO DESC",
-        "id": "tree_deciduous_dense",
+        "description": "A deciduous tree",
+        "id": "tree_deciduous_light",
         "power": 0,
         "price": 0,
         "tiles": {
-            "clip_height": 31,
+            "clip_height": 28,
             "clip_width": 32,
-            "count": 5,
-            "fileName": "resources/images/flora/tree_deciduous_dense.png"
+            "count": 7,
+            "fileName": "resources/images/flora/trees/tree_1x1_deciduous_light.png"
         },
-        "title": "TODO TITLE",
+        "title": "Deciduous tree",
         "isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
         "tag": [
-            "todo",
-            "desc"
+            "deciduous",
+            "tree",
+            "light"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "description": "A deciduous tree",
+        "id": "tree_deciduous_medium",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 30,
+            "clip_width": 32,
+            "count": 7,
+            "fileName": "resources/images/flora/trees/tree_1x1_deciduous_medium.png"
+        },
+        "title": "Deciduous tree",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "deciduous",
+            "tree",
+            "medium"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "description": "A deciduous tree",
+        "id": "tree_deciduous_dense",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 32,
+            "clip_width": 32,
+            "count": 9,
+            "fileName": "resources/images/flora/trees/tree_1x1_deciduous_dense.png"
+        },
+        "title": "Deciduous tree",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "deciduous",
+            "tree",
+            "dense"
         ]
     },
     {
@@ -6273,28 +6504,6 @@
         ]
     },
     {
-        "author": "Kingtut 101",
-        "category": "Flora",
-        "description": "TODO DESC",
-        "id": "tree_deciduous_light",
-        "power": 0,
-        "price": 0,
-        "tiles": {
-            "clip_height": 28,
-            "clip_width": 32,
-            "count": 7,
-            "fileName": "resources/images/flora/tree_deciduous_light.png"
-        },
-        "title": "TODO TITLE",
-        "isOverPlacable": true,
-        "upkeep cost": 0,
-        "water": 0,
-        "tag": [
-            "todo",
-            "desc"
-        ]
-    },
-    {
         "author": "RockFort",
         "category": "Commercial",
         "description": "TODO DESC",
@@ -6504,28 +6713,6 @@
         "upkeep cost": 0,
         "water": 0,
 
-        "tag": [
-            "todo",
-            "desc"
-        ]
-    },
-    {
-        "author": "Kingtut 101",
-        "category": "Flora",
-        "description": "TODO DESC",
-        "id": "tree_mushroom_dense",
-        "power": 0,
-        "price": 0,
-        "tiles": {
-            "clip_height": 24,
-            "clip_width": 32,
-            "count": 12,
-            "fileName": "resources/images/flora/tree_mushroom_dense.png"
-        },
-        "title": "TODO TITLE",
-        "isOverPlacable": true,
-        "upkeep cost": 0,
-        "water": 0,
         "tag": [
             "todo",
             "desc"
