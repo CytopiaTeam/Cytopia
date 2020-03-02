@@ -20,13 +20,13 @@ TEST_CASE("Get UI Texture", "[engine][resourcesmanager]")
 TEST_CASE("Get Tile Texture", "[engine][resourcesmanager]")
 {
   REQUIRE_THROWS_AS(ResourcesManager::instance().getTileTexture("UNLOADED"), UIError);
-  REQUIRE_THROWS_AS(ResourcesManager::instance().getTileTexture("UNLOADED", 1), UIError);
+  REQUIRE_THROWS_AS(ResourcesManager::instance().getTileTexture("UNLOADED"), UIError);
 }
 
 TEST_CASE("Get Tile Surface", "[engine][resourcesmanager]")
 {
   REQUIRE_THROWS_AS(ResourcesManager::instance().getTileSurface("UNLOADED"), UIError);
-  REQUIRE_THROWS_AS(ResourcesManager::instance().getTileSurface("UNLOADED", 1), UIError);
+  REQUIRE_THROWS_AS(ResourcesManager::instance().getTileSurface("UNLOADED"), UIError);
 }
 
 TEST_CASE("Load Texture", "[engine][resourcesmanager]")
