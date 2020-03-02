@@ -470,13 +470,13 @@ void UIManager::setupButtonTileImage(Button *button, const std::pair<std::string
   int bWid = Settings::instance().subMenuButtonWidth;  //UI button width for sub menues
   int bHei = Settings::instance().subMenuButtonHeight; //UI button height for sub menues
 
-  if (TileManager::instance().getTexture(tile.first, TileMap::DEFAULT) == nullptr)
+  if (TileManager::instance().getTexture(tile.first) == nullptr)
   {
     button->setTextureID("Button_NoIcon");
   }
   SDL_Rect destRect{button->getUiElementRect().x, button->getUiElementRect().y, 0, 0};
   scaleCenterButtonImage(destRect, bWid, bHei, tile.second.tiles.clippingWidth, tile.second.tiles.clippingHeight);
-  button->setTextureID(TileManager::instance().getTexture(tile.first, TileMap::DEFAULT),
+  button->setTextureID(TileManager::instance().getTexture(tile.first),
                        {tile.second.tiles.clippingWidth * tile.second.tiles.offset, 0, tile.second.tiles.clippingWidth,
                         tile.second.tiles.clippingHeight},
                        destRect);

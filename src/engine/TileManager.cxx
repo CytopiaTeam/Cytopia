@@ -5,16 +5,15 @@
 #include "basics/Settings.hxx"
 #include "ResourcesManager.hxx"
 
-
 #include <bitset>
 
 using json = nlohmann::json;
 
 TileManager::TileManager() { init(); }
 
-SDL_Texture *TileManager::getTexture(const std::string &id, size_t tileMapType) const
+SDL_Texture *TileManager::getTexture(const std::string &tileID) const
 {
-  return ResourcesManager::instance().getTileTexture(id, tileMapType);
+  return ResourcesManager::instance().getTileTexture(tileID);
 }
 
 TileData *TileManager::getTileData(const std::string &id) noexcept
@@ -38,7 +37,7 @@ Layer TileManager::getTileLayer(const std::string &tileID) const
     else if (tileData->category == "Water")
     {
       layer = Layer::WATER;
-    } 
+    }
   }
   return layer;
 }
@@ -302,7 +301,7 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
 
   if (!m_tileData[id].tiles.fileName.empty())
   {
-    ResourcesManager::instance().loadTexture(id, m_tileData[id].tiles.fileName, TileMap::DEFAULT);
+    ResourcesManager::instance().loadTexture(id, m_tileData[id].tiles.fileName);
   }
 
   if (tileDataJSON[idx].find("cornerTiles") != tileDataJSON[idx].end())
@@ -315,7 +314,7 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
 
     if (!m_tileData[id].cornerTiles.fileName.empty())
     {
-      ResourcesManager::instance().loadTexture(id, m_tileData[id].cornerTiles.fileName, TileMap::CORNERS);
+      ResourcesManager::instance().loadTexture(id, m_tileData[id].cornerTiles.fileName);
     }
   }
 
@@ -330,7 +329,7 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
 
     if (!m_tileData[id].slopeTiles.fileName.empty())
     {
-      ResourcesManager::instance().loadTexture(id, m_tileData[id].slopeTiles.fileName, TileMap::SLOPES);
+      ResourcesManager::instance().loadTexture(id, m_tileData[id].slopeTiles.fileName);
     }
   }
 }

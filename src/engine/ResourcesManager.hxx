@@ -30,10 +30,10 @@ public:
 
   /** Retrieves Color of a specific tileID at coordinates with the texture */
 
-  SDL_Texture *getTileTexture(const std::string &id, size_t tileMapType = 0);
-  SDL_Surface *getTileSurface(const std::string &id, size_t tileMapType = 0);
+  SDL_Texture *getTileTexture(const std::string &id);
+  SDL_Surface *getTileSurface(const std::string &id);
 
-  void loadTexture(const std::string &id, const std::string &fileName, size_t tileMapType = 0);
+  void loadTexture(const std::string &id, const std::string &fileName);
 
 private:
   ResourcesManager();

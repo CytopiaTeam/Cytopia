@@ -413,8 +413,7 @@ bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int is
 
       // Check if the clicked Sprite is not transparent (we hit a point within the pixel)
       if (getColorOfPixelInSurface(ResourcesManager::instance().getTileSurface(
-                                       mapNodes[isoX * m_columns + isoY]->getMapNodeDataForLayer(Layer::BUILDINGS).tileID,
-                                       mapNodes[isoX * m_columns + isoY]->tileMap),
+                                       mapNodes[isoX * m_columns + isoY]->getMapNodeDataForLayer(Layer::BUILDINGS).tileID),
                                    pixelX, pixelY, mapNodes[isoX * m_columns + isoY]->getSprite()->getClipRect(Layer::BUILDINGS))
               .a != SDL_ALPHA_TRANSPARENT)
       {
@@ -437,8 +436,7 @@ bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int is
 
       // Check if the clicked Sprite is not transparent (we hit a point within the pixel)
       if (getColorOfPixelInSurface(ResourcesManager::instance().getTileSurface(
-                                       mapNodes[isoX * m_columns + isoY]->getMapNodeDataForLayer(Layer::TERRAIN).tileID,
-                                       mapNodes[isoX * m_columns + isoY]->tileMap),
+                                       mapNodes[isoX * m_columns + isoY]->getMapNodeDataForLayer(Layer::TERRAIN).tileID),
                                    pixelX, pixelY, mapNodes[isoX * m_columns + isoY]->getSprite()->getClipRect(Layer::TERRAIN))
               .a != SDL_ALPHA_TRANSPARENT)
       {
