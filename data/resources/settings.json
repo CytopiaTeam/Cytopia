@@ -15,7 +15,8 @@
     },
     "Game": {
         "MapSize": 128,
-        "MaxElevationHeight": 32
+        "MaxElevationHeight": 32,
+        "Biome": "GrassLands"
     },
     "Graphics": {
         "FullScreen": false,

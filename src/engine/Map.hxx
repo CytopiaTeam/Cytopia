@@ -158,6 +158,12 @@ public:
   */
   std::vector<Point> getObjectCoords(const Point &isoCoordinates, const std::string &tileID);
 
+  /** \Brief get Tile ID of specific layer of specific iso coordinates
+  * @param isoCoordinates: Tile to inspect
+  * @param layer: layer to check.
+  */
+  std::string getTileID(const Point &isoCoordinates, Layer layer);
+
 private:
   int m_columns;
   int m_rows;
