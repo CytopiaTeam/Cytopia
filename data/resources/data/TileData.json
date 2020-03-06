@@ -6882,7 +6882,7 @@
     },
     {
         "author": "Kingtut 101",
-        "category": "Roads",
+        "category": "Decoration",
         "tileType": "autotile",
         "subCategory": "NatureDecoration",
         "description": "TODO - move this to decoration when the new attribute is implemented",
