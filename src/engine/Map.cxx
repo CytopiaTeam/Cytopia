@@ -169,13 +169,13 @@ void Map::updateAllNodes()
   }
 }
 
-bool Map::checkTileIDIsEmpty(const Point &isoCoordinates, const std::string &tileID) const
+bool Map::isPlacementOnNodeAllowed(const Point &isoCoordinates, const std::string &tileID) const
 {
   if (mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y])
   {
-    return mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->checkTileIsEmpty(tileID);
+    return mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->isPlacementAllowed(tileID);
   }
-  return true;
+  return false;
 }
 
 std::vector<Point> Map::getObjectCoords(const Point &isoCoordinates, const std::string &tileID)

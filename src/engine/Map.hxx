@@ -81,7 +81,7 @@ public:
     bool isOkToSet = true;
     for (Iterator it = begin; it != end; ++it)
     {
-      if (!checkTileIDIsEmpty(*it, tileID))
+      if (!isPlacementOnNodeAllowed(*it, tileID))
       {
         isOkToSet = false;
         break;
@@ -151,7 +151,7 @@ public:
   * @param isoCoordinates Tile to inspect
   * @param tileID tileID which should be checked
   */
-  bool checkTileIDIsEmpty(const Point &isoCoordinates, const std::string &tileID) const;
+  bool isPlacementOnNodeAllowed(const Point &isoCoordinates, const std::string &tileID) const;
 
   /** \brief Return vector of Points of an Object Tiles selection.
   * 

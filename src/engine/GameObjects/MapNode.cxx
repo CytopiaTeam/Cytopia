@@ -94,7 +94,7 @@ bool MapNode::isPlacableOnSlope(const std::string &tileID) const
   return true;
 }
 
-bool MapNode::checkTileIsEmpty(const std::string &newTileID) const
+bool MapNode::isPlacementAllowed(const std::string &newTileID) const
 {
   TileData *tileData = TileManager::instance().getTileData(newTileID);
   if (tileData)
