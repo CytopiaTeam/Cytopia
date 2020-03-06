@@ -101,7 +101,7 @@ public:
     * @param tileID - the tileID which need to be checked whether allowing placement on slope or not.
     * @param layer - what layer should be checked on, in case this is not BUILDING layer the placement is OK.
     */
-  bool isPlacableOnSlope(const std::string &tileID, const Layer &layer) const;
+  bool isPlacableOnSlope(const std::string &tileID) const;
 
   void demolishNode();
 

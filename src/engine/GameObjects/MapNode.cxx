@@ -78,27 +78,17 @@ void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
   }
 }
 
-bool MapNode::isPlacableOnSlope(const std::string &tileID, const Layer &layer) const
+bool MapNode::isPlacableOnSlope(const std::string &tileID) const
 {
-  if (layer != Layer::BUILDINGS)
-  {
-    return true;
-  }
-  SDL_Rect clipRect{0, 0, 0, 0};
   TileData *tileData = TileManager::instance().getTileData(tileID);
-  if (tileData)
+  if (tileData && m_elevationOrientation != TileSlopes::DEFAULT_ORIENTATION)
   {
-    if (m_elevationOrientation != TileSlopes::DEFAULT_ORIENTATION)
+    int clipRectX = tileData->slopeTiles.clippingWidth * static_cast<int>(m_orientation);
+
+    if (clipRectX >= static_cast<int>(tileData->slopeTiles.count) * tileData->slopeTiles.clippingWidth &&
+        m_previousTileID.empty())
     {
-      size_t spriteCount = tileData->slopeTiles.count;
-      clipRect.x = tileData->slopeTiles.clippingWidth * static_cast<int>(m_orientation);
-      if (clipRect.x >= static_cast<int>(spriteCount) * tileData->slopeTiles.clippingWidth)
-      {
-        if (m_previousTileID.empty())
-        {
-          return false;
-        }
-      }
+      return false;
     }
   }
   return true;
@@ -129,7 +119,7 @@ bool MapNode::checkTileIsEmpty(const std::string &newTileID) const
     {
       return true;
     }
-    return isPlacableOnSlope(newTileID, layer) &&
+    return isPlacableOnSlope(newTileID) &&
            (m_mapNodeData[layer].tileID == "" || m_mapNodeData[layer].tileData->tileType == "terrain");
   }
   return false;
