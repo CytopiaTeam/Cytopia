@@ -12,7 +12,9 @@ MapNode::MapNode(Point isoCoordinates, const std::string &terrainID, const std::
 
   setTileID(terrainID, isoCoordinates);
   if (!tileID.empty()) // in case tileID is not supplied skip it
+  {
     setTileID(tileID, isoCoordinates);
+  }
 
   updateTexture();
 }
@@ -59,6 +61,7 @@ void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
     m_previousTileID = m_mapNodeData[layer].tileID;
     m_mapNodeData[layer].tileData = tileData;
     m_mapNodeData[layer].tileID = tileID;
+
     if (m_mapNodeData[layer].tileData->tiles.rotations <= 1)
     {
       /** set tileIndex to a rand between 1 and count, this will be the displayed image
@@ -117,7 +120,6 @@ bool MapNode::isPlacementAllowed(const std::string &newTileID) const
          (m_mapNodeData[layer].tileData->tileType == "autotile" && m_mapNodeData[layer].tileID == newTileID)))
 
     {
-
       return true;
     }
     return isPlacableOnSlope(newTileID) &&
@@ -196,9 +198,9 @@ void MapNode::updateTexture()
         {
           clipRect.x = m_clippingWidth * static_cast<int>(m_orientation);
         }
+
         if (!m_mapNodeData[currentLayer].tileID.empty())
         {
-
           m_sprite->setClipRect({clipRect.x + m_clippingWidth * m_mapNodeData[currentLayer].tileData->tiles.offset, 0,
                                  m_clippingWidth, m_mapNodeData[currentLayer].tileData->tiles.clippingHeight},
                                 static_cast<Layer>(currentLayer));
