@@ -30,7 +30,7 @@ struct MapNodeData
 class MapNode
 {
 public:
-  MapNode(Point isoCoordinates, const std::string &terrainID, const std::string &tileID = "");
+  MapNode(Point isoCoordinates, const std::string &terrainID, const std::string &newTileID = "");
 
   /**
     * @brief Destroys the MapNode object

@@ -104,9 +104,9 @@ bool MapNode::isPlacableOnSlope(const std::string &tileID, const Layer &layer) c
   return true;
 }
 
-bool MapNode::checkTileIsEmpty(const std::string &tileID) const
+bool MapNode::checkTileIsEmpty(const std::string &newTileID) const
 {
-  TileData *tileData = TileManager::instance().getTileData(tileID);
+  TileData *tileData = TileManager::instance().getTileData(newTileID);
   if (tileData)
   {
     Layer layer = Layer::BUILDINGS;
@@ -119,14 +119,18 @@ bool MapNode::checkTileIsEmpty(const std::string &tileID) const
       //this is a water tile, building not permitted.
       return false;
     }
-    TileData *previousTileData = m_mapNodeData[layer].tileData;
-    if (previousTileData &&
-        (previousTileData->isOverPlacable || (previousTileData->tileType == "autotile" && tileData->tileType == "autotile")))
+    std::string previousTileID = newTileID;
+
+    // check if the current tile is overplacable or allow overplacing autotiles if it's of the same tile ID
+    if (m_mapNodeData[layer].tileData &&
+        (m_mapNodeData[layer].tileData->isOverPlacable ||
+         (m_mapNodeData[layer].tileData->tileType == "autotile" && m_mapNodeData[layer].tileID == newTileID)))
+
     {
-      // autotile elements intersecting is allowed.
       return true;
     }
-    return isPlacableOnSlope(tileID, layer) && (m_mapNodeData[layer].tileID == "" || m_mapNodeData[layer].tileData->tileType == "terrain");
+    return isPlacableOnSlope(newTileID, layer) &&
+           (m_mapNodeData[layer].tileID == "" || m_mapNodeData[layer].tileData->tileType == "terrain");
   }
   return false;
 }
@@ -191,7 +195,7 @@ void MapNode::updateTexture()
         if (!m_mapNodeData[currentLayer].shouldRender)
         {
           break;
-		}
+        }
         m_clippingWidth = m_mapNodeData[currentLayer].tileData->tiles.clippingWidth;
         if (m_mapNodeData[currentLayer].tileIndex != 0)
         {
