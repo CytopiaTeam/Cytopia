@@ -110,7 +110,6 @@ bool MapNode::isPlacementAllowed(const std::string &newTileID) const
     {
       return false;
     }
-    std::string previousTileID = newTileID;
 
     // check if the current tile is overplacable or allow overplacing autotiles if it's of the same tile ID
     if (m_mapNodeData[layer].tileData &&
