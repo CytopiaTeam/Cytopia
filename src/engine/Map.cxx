@@ -246,7 +246,8 @@ unsigned char Map::getNeighboringTilesBitmask(const Point &isoCoordinates)
 
   // only auto-tile categories that can be tiled.
   if (mapNodes[x * m_columns + y] && mapNodes[x * m_columns + y]->getActiveMapNodeData().tileData &&
-      mapNodes[x * m_columns + y]->getActiveMapNodeData().tileData->tileType == "autotile")
+      mapNodes[x * m_columns + y]->getActiveMapNodeData().tileData->tileType == "autotile"
+      )
   {
     std::pair<int, int> adjecantNodesCoordinates[8]{
         std::make_pair(x, y + 1),     // 0 = 2^0 = 1   = TOP
@@ -266,8 +267,8 @@ unsigned char Map::getNeighboringTilesBitmask(const Point &isoCoordinates)
           (mapNodes[it.first * m_columns + it.second] &&
            mapNodes[it.first * m_columns + it.second]->getActiveMapNodeData().tileData && mapNodes[x * m_columns + y] &&
            mapNodes[x * m_columns + y]->getActiveMapNodeData().tileData &&
-           mapNodes[it.first * m_columns + it.second]->getActiveMapNodeData().tileData->category ==
-               mapNodes[x * m_columns + y]->getActiveMapNodeData().tileData->category))
+           mapNodes[it.first * m_columns + it.second]->getActiveMapNodeData().tileID ==
+               mapNodes[x * m_columns + y]->getActiveMapNodeData().tileID))
       {
         // for each found tile add 2 ^ i to the bitmask
         bitmask |= static_cast<unsigned int>(1 << i);
