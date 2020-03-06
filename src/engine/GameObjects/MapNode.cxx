@@ -110,7 +110,7 @@ bool MapNode::checkTileIsEmpty(const std::string &tileID) const
   if (tileData)
   {
     Layer layer = Layer::BUILDINGS;
-    if (tileData->category == "Terrain")
+    if (tileData->tileType == "terrain")
     {
       layer = Layer::TERRAIN;
     }
@@ -121,12 +121,12 @@ bool MapNode::checkTileIsEmpty(const std::string &tileID) const
     }
     TileData *previousTileData = m_mapNodeData[layer].tileData;
     if (previousTileData &&
-        (previousTileData->isOverPlacable || (previousTileData->category == "Roads" && tileData->category == "Roads")))
+        (previousTileData->isOverPlacable || (previousTileData->tileType == "autotile" && tileData->tileType == "autotile")))
     {
-      // road intersecting is allowed.
+      // autotile elements intersecting is allowed.
       return true;
     }
-    return isPlacableOnSlope(tileID, layer) && (m_mapNodeData[layer].tileID == "" || m_mapNodeData[layer].tileID == "terrain");
+    return isPlacableOnSlope(tileID, layer) && (m_mapNodeData[layer].tileID == "" || m_mapNodeData[layer].tileData->tileType == "terrain");
   }
   return false;
 }
