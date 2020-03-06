@@ -32,7 +32,7 @@ TEST_CASE("Get Tile Surface", "[engine][resourcesmanager]")
 TEST_CASE("Load Texture", "[engine][resourcesmanager]")
 {
   REQUIRE_THROWS_AS(ResourcesManager::instance().loadTexture("TEXTURE", "__NOT_A_FILE__"), UIError);
-  REQUIRE_THROWS_AS(ResourcesManager::instance().loadTexture("TEXTURE", "__NOT_A_FILE__", 1), UIError);
+  REQUIRE_THROWS_AS(ResourcesManager::instance().loadTexture("TEXTURE", "__NOT_A_FILE__"), UIError);
 }
 
 SCENARIO("I can load and use textures", "[engine][resourcesmanager][!mayfail]")
