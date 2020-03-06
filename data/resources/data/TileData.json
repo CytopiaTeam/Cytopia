@@ -940,7 +940,7 @@
             "fileName": "resources/images/roads/road_1x1_paved.png"
         },
         "tiles": {
-            "clip_height": 23,
+            "clip_height": 17,
             "clip_width": 32,
             "count": 16,
             "fileName": "resources/images/roads/road_1x1_paved.png",
@@ -6882,12 +6882,19 @@
         "id": "ND_1x1_stream",
         "power": 0,
         "price": 0,
-        "tiles": {
+        "slopeTiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 16,
-            "rotations": 16,
+            "count": 4,
+            "offset": 20,
             "fileName": "resources/images/decoration/nature/ND_1x1_Stream.png"
+        },
+        "tiles": {
+            "clip_height": 16,
+            "clip_width": 32,
+            "count": 16,
+            "fileName": "resources/images/decoration/nature/ND_1x1_Stream.png",
+            "rotations": 16
         },
         "title": "Stream",
         "upkeep cost": 0,
