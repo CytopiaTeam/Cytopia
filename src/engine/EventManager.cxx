@@ -415,7 +415,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           {
             engine.setTileIDOfNode(bresenhamLineNodes.begin(), bresenhamLineNodes.end(), tileTypeEditMode, true);
             // we need to empty the nodes when we're done so the next line starts "fresh" without drawin a line to the last coords.
-            m_highlightedNodes.empty();
+            m_highlightedNodes.clear();
           }
         }
         else if (demolishMode)
