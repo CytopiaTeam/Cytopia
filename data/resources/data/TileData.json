@@ -1513,6 +1513,7 @@
     {
         "author": "Kingtut 101",
         "category": "Water",
+        "tileType": "water",
         "description": "Water",
         "id": "water",
         "power": 0,

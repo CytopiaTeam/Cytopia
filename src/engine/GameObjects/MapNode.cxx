@@ -146,14 +146,14 @@ void MapNode::updateTexture()
 
       if (m_elevationOrientation == TileSlopes::DEFAULT_ORIENTATION)
       {
-        if (m_mapNodeData[currentLayer].tileData->category == "Water" ||
-            m_mapNodeData[currentLayer].tileData->category == "Terrain")
+        if (m_mapNodeData[currentLayer].tileData->tileType == "water" ||
+            m_mapNodeData[currentLayer].tileData->tileType == "terrain")
         {
           tileMap = TileMap::DEFAULT;
           m_orientation = TileList::TILE_DEFAULT_ORIENTATION;
         }
-        // if the node has no elevated neighbors, check if it needs to tile itself to another tile of the same ID
-        if (m_mapNodeData[currentLayer].tileData->category != "Terrain")
+        // if the node should autotile, check if it needs to tile itself to another tile of the same ID
+        else if (m_mapNodeData[currentLayer].tileData->tileType == "autotile")
         {
           m_orientation = TileManager::instance().calculateTileOrientation(m_tileIDBitmask);
         }
