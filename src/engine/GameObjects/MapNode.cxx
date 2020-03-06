@@ -104,9 +104,10 @@ bool MapNode::checkTileIsEmpty(const std::string &newTileID) const
     {
       layer = Layer::TERRAIN;
     }
-    if (m_mapNodeData[Layer::WATER].tileData != nullptr)
+    //this is a water tile and placeOnWater has not been set to true, building is not permitted. Also disallow placing of water tiles on non water tiles
+    if ((m_mapNodeData[Layer::WATER].tileData && !tileData->placeOnWater) ||
+        (!m_mapNodeData[Layer::WATER].tileData && tileData->placeOnWater))
     {
-      //this is a water tile, building not permitted.
       return false;
     }
     std::string previousTileID = newTileID;
@@ -117,6 +118,7 @@ bool MapNode::checkTileIsEmpty(const std::string &newTileID) const
          (m_mapNodeData[layer].tileData->tileType == "autotile" && m_mapNodeData[layer].tileID == newTileID)))
 
     {
+
       return true;
     }
     return isPlacableOnSlope(newTileID) &&
