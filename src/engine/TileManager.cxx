@@ -280,7 +280,7 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
 
   if (TileType::_is_valid_nocase(tileTypeStr.c_str()))
   {
-    m_tileData[id].tileType = TileType::_from_string(tileTypeStr.c_str());
+    m_tileData[id].tileType = TileType::_from_string_nocase(tileTypeStr.c_str());
   }
   else
   {
