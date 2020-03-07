@@ -40,7 +40,7 @@ Layer TileManager::getTileLayer(const std::string &tileID) const
       layer = Layer::BLUEPRINT;
       break;
     case TileType::UNDERGROUND:
-      layer = Layer::PIPES;
+      layer = Layer::UNDERGROUND;
       break;
     default:
       layer = Layer::BUILDINGS;

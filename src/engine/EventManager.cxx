@@ -69,7 +69,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         MapLayers::toggleLayer(Layer::BLUEPRINT);
         break;
       case SDLK_4:
-        MapLayers::toggleLayer(Layer::PIPES);
+        MapLayers::toggleLayer(Layer::UNDERGROUND);
         break;
       case SDLK_i:
         m_tileInfoMode = !m_tileInfoMode;

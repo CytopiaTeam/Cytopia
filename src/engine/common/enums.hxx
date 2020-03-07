@@ -9,7 +9,7 @@ constexpr size_t LAYERS_COUNT = 7;
 enum Layer : unsigned int
 {
   BLUEPRINT,       // Optional layer - Map Blueprint
-  PIPES,           // Optional layer - Pipes, Subway-pipes and so onn
+  UNDERGROUND,           // Optional layer - Pipes, Subway-pipes and so onn
   TERRAIN,         // Terrain tiles, decorations, ... - must always be a "full" tile
   WATER,           // Water tiles
   MOVABLE_OBJECTS, // Cars, Pedestrians
