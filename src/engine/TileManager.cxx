@@ -4,7 +4,7 @@
 #include "Exception.hxx"
 #include "basics/Settings.hxx"
 #include "ResourcesManager.hxx"
-
+#include "enums.hxx"
 
 #include <bitset>
 
@@ -12,9 +12,9 @@ using json = nlohmann::json;
 
 TileManager::TileManager() { init(); }
 
-SDL_Texture *TileManager::getTexture(const std::string &id, size_t tileMapType) const
+SDL_Texture *TileManager::getTexture(const std::string &tileID) const
 {
-  return ResourcesManager::instance().getTileTexture(id, tileMapType);
+  return ResourcesManager::instance().getTileTexture(tileID);
 }
 
 TileData *TileManager::getTileData(const std::string &id) noexcept
@@ -38,7 +38,7 @@ Layer TileManager::getTileLayer(const std::string &tileID) const
     else if (tileData->category == "Water")
     {
       layer = Layer::WATER;
-    } 
+    }
   }
   return layer;
 }
@@ -276,11 +276,24 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
   m_tileData[id].author = tileDataJSON[idx].value("author", "");
   m_tileData[id].title = tileDataJSON[idx].value("title", "");
   m_tileData[id].description = tileDataJSON[idx].value("description", "");
+  std::string tileTypeStr = tileDataJSON[idx].value("tileType", "default");
+
+  if (TileType::_is_valid_nocase(tileTypeStr.c_str()))
+  {
+    m_tileData[id].tileType = TileType::_from_string_nocase(tileTypeStr.c_str());
+  }
+  else
+  {
+    LOG(LOG_ERROR) << "In TileData.json in field with ID " << id << " the unsupported value " << tileTypeStr
+                   << " is used for the field tileType.";
+  }
+
   m_tileData[id].category = tileDataJSON[idx].value("category", "");
   m_tileData[id].price = tileDataJSON[idx].value("price", 0);
   m_tileData[id].water = tileDataJSON[idx].value("water", 0);
   m_tileData[id].isOverPlacable = tileDataJSON[idx].value("isOverPlacable", false);
   m_tileData[id].drawGround = tileDataJSON[idx].value("draw ground", false);
+  m_tileData[id].placeOnWater = tileDataJSON[idx].value("placeOnWater", false);
 
   if (tileDataJSON[idx].find("RequiredTiles") != tileDataJSON[idx].end())
   {
@@ -302,7 +315,7 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
 
   if (!m_tileData[id].tiles.fileName.empty())
   {
-    ResourcesManager::instance().loadTexture(id, m_tileData[id].tiles.fileName, TileMap::DEFAULT);
+    ResourcesManager::instance().loadTexture(id, m_tileData[id].tiles.fileName);
   }
 
   if (tileDataJSON[idx].find("cornerTiles") != tileDataJSON[idx].end())
@@ -315,7 +328,7 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
 
     if (!m_tileData[id].cornerTiles.fileName.empty())
     {
-      ResourcesManager::instance().loadTexture(id, m_tileData[id].cornerTiles.fileName, TileMap::CORNERS);
+      ResourcesManager::instance().loadTexture(id, m_tileData[id].cornerTiles.fileName);
     }
   }
 
@@ -330,7 +343,7 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
 
     if (!m_tileData[id].slopeTiles.fileName.empty())
     {
-      ResourcesManager::instance().loadTexture(id, m_tileData[id].slopeTiles.fileName, TileMap::SLOPES);
+      ResourcesManager::instance().loadTexture(id, m_tileData[id].slopeTiles.fileName);
     }
   }
 }

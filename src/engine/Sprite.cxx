@@ -58,7 +58,14 @@ void Sprite::refresh()
     {
       if (m_SpriteData[it].texture)
       {
+
         m_currentZoomLevel = Camera::zoomLevel;
+        int spriteSheetHeight = 0;
+        SDL_QueryTexture(m_SpriteData[it].texture, nullptr, nullptr, nullptr, &spriteSheetHeight);
+        // we need to offset the cliprect.y coodinate, because we've moved the "originpoint" for drawing the sprite to the screen on the bottom.
+        // the sprites need to start at the bottom, so the cliprect must too.
+        m_SpriteData[it].clipRect.y = spriteSheetHeight - m_SpriteData[it].clipRect.h;
+
         if (m_SpriteData[it].clipRect.w != 0)
         {
           m_SpriteData[it].destRect.w = static_cast<int>(m_SpriteData[it].clipRect.w * m_currentZoomLevel);
@@ -68,6 +75,7 @@ void Sprite::refresh()
         {
           SDL_QueryTexture(m_SpriteData[it].texture, nullptr, nullptr, &m_SpriteData[it].destRect.w,
                            &m_SpriteData[it].destRect.h);
+
           m_SpriteData[it].destRect.w = static_cast<int>(m_SpriteData[it].destRect.w * m_currentZoomLevel);
           m_SpriteData[it].destRect.h = static_cast<int>(m_SpriteData[it].destRect.h * m_currentZoomLevel);
         }

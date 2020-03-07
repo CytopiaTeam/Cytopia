@@ -64,7 +64,7 @@ public:
   TileManager(TileManager const &) = delete;
   TileManager &operator=(TileManager const &) = delete;
 
-  SDL_Texture *getTexture(const std::string &id, size_t tileMapType = 0) const;
+  SDL_Texture *getTexture(const std::string &tileID) const;
   TileData *getTileData(const std::string &id) noexcept;
   Layer getTileLayer(const std::string &tileID) const;
   size_t calculateSlopeOrientation(unsigned char bitMaskElevation);

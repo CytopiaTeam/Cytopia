@@ -8,14 +8,23 @@
 
 struct BiomeData
 {
-  std::vector<std::string> terrain;         // Terrain IDs
-  std::vector<std::string> water;           // Water IDs
-  std::vector<std::string> waterDecoration; // WaterDecoration IDs
-  std::vector<std::string> terrainRocks;    // TerrainRocks IDs
-  std::vector<std::string> terrainFlowers;  // terrainFlowers IDs
-  std::vector<std::string> treesDense;      // terrainFlowers IDs
-  std::vector<std::string> treesSmall;      // terrainFlowers IDs
-  std::vector<std::string> treesNormal;     // terrainFlowers IDs
+  std::vector<std::string> terrain;            // Terrain IDs
+  std::vector<std::string> water;              // Water IDs
+  std::vector<std::string> waterDecoration;    // Water Decoration IDs
+  std::vector<std::string> waterFloraLight;    // Water Flora Light IDs
+  std::vector<std::string> waterFloraMedium;   // Water Flora Medium IDs
+  std::vector<std::string> waterFloraDense;    // Water Flora Dense IDs
+  std::vector<std::string> terrainRocks;       // Terrain Rocks IDs
+  std::vector<std::string> terrainDecoration;  // Terrain Decoration IDs
+  std::vector<std::string> terrainFloraLight;  // Terrain Flora (Flowers) Light IDs
+  std::vector<std::string> terrainFloraMedium; // Terrain Flora (Flowers) Medium IDs
+  std::vector<std::string> terrainFloraDense;  // Terrain Flora (Flowers) Dense IDs
+  std::vector<std::string> bushesLight;        // Bushes Light IDs
+  std::vector<std::string> bushesMedium;       // Bushes Medium IDs
+  std::vector<std::string> bushesDense;        // Bushes Dense IDs
+  std::vector<std::string> treesLight;         // Trees Light IDs
+  std::vector<std::string> treesMedium;        // Trees Medium IDs
+  std::vector<std::string> treesDense;         // Trees Dense IDs
 };
 
 struct TerrainSettings

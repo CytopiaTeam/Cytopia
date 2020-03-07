@@ -10,7 +10,7 @@
             "clip_height": 18,
             "clip_width": 32,
             "count": 1,
-			"fileName": "resources/images/terrain/terrain_tiles.png"
+			"fileName": "resources/images/terrain/terrain_grass.png"
         },
         "title": "demy Node",
         "upkeep cost": 0,
@@ -30,7 +30,7 @@
             "clip_height": 18,
             "clip_width": 32,
             "count": 1,
-            "fileName": "resources/images/buildings/decoration/BD_1x1_coal_FN.png"
+            "fileName": "resources/images/decoration/buildings/BD_1x1_coal_FN.png"
         },
         "title": "Coal Pile",
         "upkeep cost": 0,
@@ -519,21 +519,23 @@
     {
         "author": "Kingtut 101",
         "category": "Roads",
+        "tileType": "autotile",
         "description": "An average road that'll you would commonly find out in the countryside.  It lacks a proper sidewalk though.",
-        "id": "country_road",
+        "id": "road_country",
         "power": 0,
         "price": 7,
         "slopeTiles": {
             "clip_height": 23,
             "clip_width": 32,
             "count": 4,
-            "fileName": "resources/images/roads/road_country_slopes.png"
+            "offset": 20,
+            "fileName": "resources/images/roads/road_1x1_Country.png"
         },
         "tiles": {
             "clip_height": 16,
             "clip_width": 32,
             "count": 16,
-            "fileName": "resources/images/roads/road_country.png",
+            "fileName": "resources/images/roads/road_1x1_Country.png",
             "rotations": 16
         },
         "title": "Country Road",
@@ -557,21 +559,23 @@
     {
         "author": "Kingtut 101",
         "category": "Roads",
+        "tileType": "autotile",
         "description": "An old dirt road that doesn't require much maintenance.  Not recommended for busy roadways.",
-        "id": "dirt_road",
+        "id": "road_dirt",
         "power": 0,
         "price": 3,
         "slopeTiles": {
             "clip_height": 23,
             "clip_width": 32,
             "count": 4,
-            "fileName": "resources/images/roads/dirt_road_slopes.png"
+            "offset": 20,
+            "fileName": "resources/images/roads/road_1x1_dirt.png"
         },
         "tiles": {
             "clip_height": 16,
             "clip_width": 32,
             "count": 16,
-            "fileName": "resources/images/roads/dirt_road.png",
+            "fileName": "resources/images/roads/road_1x1_dirt.png",
             "rotations": 16
         },
         "title": "Dirt Road",
@@ -586,6 +590,66 @@
             "recommended",
             "busy",
             "roadways"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Roads",
+        "tileType": "autotile",
+        "description": "Alley road.",
+        "id": "road_alley",
+        "power": 0,
+        "price": 3,
+        "slopeTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 4,
+            "offset": 20,
+            "fileName": "resources/images/roads/road_1x1_alley.png"
+        },
+        "tiles": {
+            "clip_height": 16,
+            "clip_width": 32,
+            "count": 16,
+            "fileName": "resources/images/roads/road_1x1_alley.png",
+            "rotations": 16
+        },
+        "title": "Alley Road",
+        "upkeep cost": 1,
+        "water": 0,
+        "tag": [
+            "road",
+            "alley"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Roads",
+        "tileType": "autotile",
+        "description": "A highway! Cars go faaaaast here.",
+        "id": "road_highway",
+        "power": 0,
+        "price": 10,
+        "slopeTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 4,
+            "offset": 20,
+            "fileName": "resources/images/roads/road_1x1_Highway.png"
+        },
+        "tiles": {
+            "clip_height": 16,
+            "clip_width": 32,
+            "count": 16,
+            "fileName": "resources/images/roads/road_1x1_Highway.png",
+            "rotations": 16
+        },
+        "title": "Highway Road",
+        "upkeep cost": 3,
+        "water": 0,
+        "tag": [
+            "road",
+            "highway"
         ]
     },
     {
@@ -844,6 +908,7 @@
         "category": "Industrial",
         "description": "A factory",
         "id": "ind_des_2x2_Factory_MS",
+        "biome": "Desert",
         "power": 0,
         "price": 0,
         "tiles": {
@@ -867,21 +932,23 @@
     {
         "author": "Kingtut 101",
         "category": "Roads",
+        "tileType": "autotile",
         "description": "A nice paved road that are commonly found in the middle of large cities.  Includes a sidewalk.",
-        "id": "paved_road",
+        "id": "road_paved",
         "power": 0,
         "price": 10,
         "slopeTiles": {
             "clip_height": 23,
             "clip_width": 32,
             "count": 4,
-            "fileName": "resources/images/roads/paved_road_slopes.png"
+            "offset": 20,
+            "fileName": "resources/images/roads/road_1x1_paved.png"
         },
         "tiles": {
-            "clip_height": 16,
+            "clip_height": 17,
             "clip_width": 32,
             "count": 16,
-            "fileName": "resources/images/roads/paved_road.png",
+            "fileName": "resources/images/roads/road_1x1_paved.png",
             "rotations": 16
         },
         "title": "Paved Road",
@@ -1446,6 +1513,7 @@
     {
         "author": "Kingtut 101",
         "category": "Water",
+        "tileType": "water",
         "description": "Water",
         "id": "water",
         "power": 0,
@@ -1467,7 +1535,8 @@
             "clip_height": 15,
             "clip_width": 32,
             "count": 3,
-            "fileName": "resources/images/water/terrain_water.png"
+            "offset": 13,
+            "fileName": "resources/images/water/liquid_water.png"
         },
         "title": "Water",
         "upkeep cost": 0,
@@ -1522,43 +1591,19 @@
     },
     {
         "author": "Kingtut 101",
-        "category": "Flora",
-        "description": "A group of beautiful oak trees.",
-        "id": "trees_oak",
-        "power": 0,
-        "price": 5,
-        "tiles": {
-            "clip_height": 31,
-            "clip_width": 32,
-            "count": 12,
-            "fileName": "resources/images/flora/trees.png"
-        },
-        "title": "Trees",
-        "upkeep cost": 0,
-        "water": 0,
-        "isOverPlacable": true,
-        "tag": [
-            "group",
-            "beautiful",
-            "oak",
-            "trees"
-        ]
-    },
-    {
-        "author": "Kingtut 101",
         "biome": "GrassLands",
         "category": "TerrainDecoration",
         "description": "A pile of rocks that can be found in the grasslands biome.",
-        "id": "terrain_rocks_grassLands",
+        "id": "rocks_grassLands",
         "power": 0,
         "price": 5,
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
             "count": 3,
-            "fileName": "resources/images/decoration/grassLands/terrainRocks.png"
+            "fileName": "resources/images/decoration/rocks/rock_1x1_grassLand.png"
         },
-        "title": "GrassLand Rocks",
+        "title": "Rocks",
         "upkeep cost": 0,
         "water": 0,
         "tag": [
@@ -1574,16 +1619,16 @@
         "biome": "Desert",
         "category": "TerrainDecoration",
         "description": "A pile of rocks that can be found in the desert biome.",
-        "id": "terrain_rocks_desert",
+        "id": "rocks_desert",
         "power": 0,
         "price": 5,
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
             "count": 3,
-            "fileName": "resources/images/decoration/desert/terrainRocks.png"
+            "fileName": "resources/images/decoration/rocks/rock_1x1_desert.png"
         },
-        "title": "Rocks",
+        "title": "Desert Rocks",
         "upkeep cost": 0,
         "water": 0,
         "tag": [
@@ -1591,6 +1636,106 @@
             "rocks",
             "found",
             "desert",
+            "biome"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "biome": "Diamond",
+        "category": "TerrainDecoration",
+        "description": "A pile of rocks that can be found in the diamond biome.",
+        "id": "rocks_diamond",
+        "power": 0,
+        "price": 5,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/decoration/rocks/rock_1x1_diamond.png"
+        },
+        "title": "Diamond Rocks",
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "pile",
+            "rocks",
+            "found",
+            "grasslands",
+            "biome"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "biome": "Desert",
+        "category": "TerrainDecoration",
+        "description": "A pile of rocks that can be found in the desert biome.",
+        "id": "rocks_gold",
+        "power": 0,
+        "price": 5,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/decoration/rocks/rock_1x1_gold.png"
+        },
+        "title": "Golden Rocks",
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "pile",
+            "rocks",
+            "found",
+            "grasslands",
+            "biome"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "biome": "Snow",
+        "category": "TerrainDecoration",
+        "description": "A pile of rocks that can be found in the snow biome.",
+        "id": "rocks_snowy",
+        "power": 0,
+        "price": 5,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 3,
+            "fileName": "resources/images/decoration/rocks/rock_1x1_snowy.png"
+        },
+        "title": "Snowy Rocks",
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "pile",
+            "rocks",
+            "found",
+            "grasslands",
+            "biome"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "TerrainDecoration",
+        "description": "A pile of rocks that can be found in water.",
+        "id": "rocks_water",
+        "placeOnWater": true,
+        "power": 0,
+        "price": 5,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 4,
+            "fileName": "resources/images/decoration/rocks/rock_1x1_water.png"
+        },
+        "title": "Water Rocks",
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "pile",
+            "rocks",
+            "found",
+            "grasslands",
             "biome"
         ]
     },
@@ -1938,26 +2083,25 @@
         "author": "JustKekman",
         "category": "Residential",
         "description": "TODO DESC",
-        "id": "res_2x2_illappt_jk",
+        "id": "res_1x1_illappt_jk",
         "power": 0,
         "price": 0,
         "tiles": {
             "clip_height": 41,
             "clip_width": 34,
             "count": 1,
-            "fileName": "resources/images/buildings/residential/res_2x2_illappt_jk.png"
+            "fileName": "resources/images/buildings/residential/res_1x1_illappt_jk.png"
         },
         "RequiredTiles": {
             "width": 2,
             "height": 2
         },
-        "title": "TODO TITLE",
+        "title": "Appartment Building",
         "upkeep cost": 0,
         "water": 0,
 
         "tag": [
-            "todo",
-            "desc"
+            "appartment"
         ]
     },
     {
@@ -2168,17 +2312,16 @@
         "author": "Kingtut 101",
         "category": "Flora",
         "description": "A group of beautiful pinetrees.",
-        "id": "tree_pinetrees_dense",
+        "id": "tree_pine_light",
         "power": 0,
         "price": 0,
         "tiles": {
-            "clip_height": 33,
+            "clip_height": 28,
             "clip_width": 32,
-            "count": 10,
-            "offset": 8,
-            "fileName": "resources/images/flora/tree_pinetree.png"
+            "count": 7,
+            "fileName": "resources/images/flora/trees/tree_1x1_pine_light.png"
         },
-        "title": "TODO TITLE",
+        "title": "Pine Trees",
         "isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
@@ -2186,6 +2329,328 @@
             "group",
             "beautiful",
             "pinetrees"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "description": "A group of beautiful pinetrees.",
+        "id": "tree_pine_medium",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 33,
+            "clip_width": 32,
+            "count": 8,
+            "fileName": "resources/images/flora/trees/tree_1x1_pine_medium.png"
+        },
+        "title": "Pine Trees",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "group",
+            "beautiful",
+            "pinetrees"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "description": "A group of beautiful pinetrees.",
+        "id": "tree_pine_dense",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 33,
+            "clip_width": 32,
+            "count": 10,
+            "fileName": "resources/images/flora/trees/tree_1x1_pine_dense.png"
+        },
+        "title": "Pine Trees",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "group",
+            "beautiful",
+            "pinetrees"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "description": "A group of mysterious mushroom trees.",
+        "id": "tree_mushroom_light",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 22,
+            "clip_width": 32,
+            "count": 16,
+            "fileName": "resources/images/flora/trees/tree_1x1_mushroom_light.png"
+        },
+        "title": "Mushroom Trees",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "group",
+            "mysterious",
+            "mushroom"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "description": "A group of mysterious mushroom trees.",
+        "id": "tree_mushroom_medium",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 22,
+            "clip_width": 32,
+            "count": 12,
+            "fileName": "resources/images/flora/trees/tree_1x1_mushroom_medium.png"
+        },
+        "title": "Mushroom Trees",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "group",
+            "mysterious",
+            "mushroom"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "description": "A group of mysterious mushroom trees.",
+        "id": "tree_mushroom_dense",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 24,
+            "clip_width": 32,
+            "count": 12,
+            "fileName": "resources/images/flora/trees/tree_1x1_mushroom_dense.png"
+        },
+        "title": "Mushroom Trees",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "group",
+            "mysterious",
+            "mushroom"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "description": "A group of burned trees.",
+        "id": "tree_burned_light",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 28,
+            "clip_width": 32,
+            "count": 7,
+            "fileName": "resources/images/flora/trees/tree_1x1_burned_light.png"
+        },
+        "title": "Burned Trees",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "group",
+            "burned",
+            "trees"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "description": "A group of burned trees.",
+        "id": "tree_burned_medium",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 28,
+            "clip_width": 32,
+            "count": 7,
+            "fileName": "resources/images/flora/trees/tree_1x1_burned_medium.png"
+        },
+        "title": "Burned Trees",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "group",
+            "burned",
+            "trees"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "description": "A group of burned trees.",
+        "id": "tree_burned_dense",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 29,
+            "clip_width": 32,
+            "count": 7,
+            "fileName": "resources/images/flora/trees/tree_1x1_burned_dense.png"
+        },
+        "title": "Burned Trees",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "group",
+            "burned",
+            "trees"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "description": "A group of crystal trees.",
+        "id": "tree_crystal_light",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 19,
+            "clip_width": 32,
+            "count": 20,
+            "fileName": "resources/images/flora/trees/tree_1x1_crystal_light.png"
+        },
+        "title": "Crystal Trees",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "group",
+            "crystal",
+            "trees"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "description": "A group of crystal trees.",
+        "id": "tree_crystal_medium",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 22,
+            "clip_width": 32,
+            "count": 18,
+            "fileName": "resources/images/flora/trees/tree_1x1_crystal_medium.png"
+        },
+        "title": "Crystal Trees",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "group",
+            "crystal",
+            "trees"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "description": "A group of crystal trees.",
+        "id": "tree_crystal_dense",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 22,
+            "clip_width": 32,
+            "count": 18,
+            "fileName": "resources/images/flora/trees/tree_1x1_crystal_dense.png"
+        },
+        "title": "Crystal Trees",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "group",
+            "crystal",
+            "trees"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "description": "A group of palmtrees.",
+        "id": "tree_palm_dense",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 33,
+            "clip_width": 32,
+            "count": 6,
+            "fileName": "resources/images/flora/trees/tree_1x1_palm_dense.png"
+        },
+        "title": "Palm Trees",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "djungle",
+            "beach",
+            "palmtrees"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "description": "A group of palmtrees.",
+        "id": "tree_palm_light",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 33,
+            "clip_width": 32,
+            "count": 12,
+            "fileName": "resources/images/flora/trees/tree_1x1_palm_light.png"
+        },
+        "title": "Palm Trees",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "djungle",
+            "beach",
+            "palmtrees"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "description": "A group of palmtrees.",
+        "id": "tree_palm_medium",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 33,
+            "clip_width": 32,
+            "count": 7,
+            "fileName": "resources/images/flora/trees/tree_1x1_palm_medium.png"
+        },
+        "title": "Palm Trees",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "djungle",
+            "beach",
+            "palmtrees"
         ]
     },
     {
@@ -2256,35 +2721,6 @@
         ]
     },
     {
-        "author": "Kingtut 101",
-        "category": "Flora",
-        "description": "A small group of lilypads. These are commonly found in lakes and ponds.",
-        "id": "flora_water_lilypads",
-        "power": 0,
-        "price": 0,
-        "tiles": {
-            "clip_height": 15,
-            "clip_width": 32,
-            "count": 1,
-            "fileName": "resources/images/flora/flora_water_lilypads.png"
-        },
-        "title": "Lilypads",
-        "isOverPlacable": true,
-        "upkeep cost": 0,
-        "water": 0,
-        "tag": [
-            "small",
-            "group",
-            "lilypads",
-            "these",
-            "are",
-            "commonly",
-            "found",
-            "lakes",
-            "ponds"
-        ]
-    },
-    {
         "author": "RockFort",
         "category": "Residential",
         "description": "TODO DESC",
@@ -2320,7 +2756,7 @@
             "clip_height": 17,
             "clip_width": 32,
             "count": 3,
-            "fileName": "resources/images/buildings/decoration/BD_1x1_Lantern_kt.png"
+            "fileName": "resources/images/decoration/buildings/BD_1x1_Lantern_kt.png"
         },
         "title": "Lantern",
         "upkeep cost": 0,
@@ -2442,7 +2878,7 @@
             "clip_height": 22,
             "clip_width": 32,
             "count": 4,
-            "fileName": "resources/images/buildings/decoration/BD_1x1_LightPole_kt.png"
+            "fileName": "resources/images/decoration/buildings/BD_1x1_LightPole_kt.png"
         },
         "title": "Light Pole",
         "upkeep cost": 0,
@@ -2493,7 +2929,7 @@
             "clip_height": 54,
             "clip_width": 96,
             "count": 2,
-            "fileName": "resources/images/buildings/decoration/BD_3x3_DarkParkCrossroads_kt.png"
+            "fileName": "resources/images/decoration/buildings/BD_3x3_DarkParkCrossroads_kt.png"
         },
         "RequiredTiles": {
             "width": 3,
@@ -2686,28 +3122,6 @@
     },
     {
         "author": "Kingtut 101",
-        "category": "Flora",
-        "description": "TODO DESC",
-        "id": "tree_pinetrees_light",
-        "power": 0,
-        "price": 0,
-        "tiles": {
-            "clip_height": 28,
-            "clip_width": 32,
-            "count": 7,
-            "fileName": "resources/images/flora/tree_pinetrees_light.png"
-        },
-        "title": "TODO TITLE",
-        "isOverPlacable": true,
-        "upkeep cost": 0,
-        "water": 0,
-        "tag": [
-            "todo",
-            "desc"
-        ]
-    },
-    {
-        "author": "Kingtut 101",
         "category": "Commercial",
         "description": "A tall glass skyscraper that fears the day a stone-throwing competition is held in town.",
         "id": "com_3x3_GlassTower_kt",
@@ -2847,28 +3261,6 @@
         "upkeep cost": 0,
         "water": 0,
 
-        "tag": [
-            "todo",
-            "desc"
-        ]
-    },
-    {
-        "author": "Kingtut 101",
-        "category": "Flora",
-        "description": "TODO DESC",
-        "id": "flora_RedBerryBush_dense",
-        "power": 0,
-        "price": 0,
-        "tiles": {
-            "clip_height": 15,
-            "clip_width": 32,
-            "count": 4,
-            "fileName": "resources/images/flora/flora_RedBerryBush_dense.png"
-        },
-        "title": "TODO TITLE",
-        "isOverPlacable": true,
-        "upkeep cost": 0,
-        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -3052,7 +3444,7 @@
             "clip_height": 15,
             "clip_width": 32,
             "count": 3,
-            "fileName": "resources/images/buildings/decoration/BD_1x1_PhoneBooths_kt.png"
+            "fileName": "resources/images/decoration/buildings/BD_1x1_PhoneBooths_kt.png"
         },
         "title": "Phone Booth",
         "upkeep cost": 0,
@@ -3079,7 +3471,7 @@
             "clip_width": 32,
             "count": 1,
             "offset": 1,
-            "fileName": "resources/images/buildings/decoration/BD_1x1_PhoneBooths_kt.png"
+            "fileName": "resources/images/decoration/buildings/BD_1x1_PhoneBooths_kt.png"
         },
         "title": "Phone Booth",
         "upkeep cost": 0,
@@ -3116,72 +3508,6 @@
         "upkeep cost": 0,
         "water": 0,
 
-        "tag": [
-            "todo",
-            "desc"
-        ]
-    },
-    {
-        "author": "Kingtut 101",
-        "category": "Flora",
-        "description": "TODO DESC",
-        "id": "flora_RedBerryBush",
-        "power": 0,
-        "price": 0,
-        "tiles": {
-            "clip_height": 14,
-            "clip_width": 32,
-            "count": 4,
-            "fileName": "resources/images/flora/flora_RedBerryBush.png"
-        },
-        "title": "TODO TITLE",
-        "isOverPlacable": true,
-        "upkeep cost": 0,
-        "water": 0,
-        "tag": [
-            "todo",
-            "desc"
-        ]
-    },
-    {
-        "author": "Kingtut 101",
-        "category": "Flora",
-        "description": "TODO DESC",
-        "id": "tree_mushroom_light",
-        "power": 0,
-        "price": 0,
-        "tiles": {
-            "clip_height": 22,
-            "clip_width": 32,
-            "count": 16,
-            "fileName": "resources/images/flora/tree_mushroom_light.png"
-        },
-        "title": "TODO TITLE",
-        "isOverPlacable": true,
-        "upkeep cost": 0,
-        "water": 0,
-        "tag": [
-            "todo",
-            "desc"
-        ]
-    },
-    {
-        "author": "Kingtut 101",
-        "category": "Flora",
-        "description": "TODO DESC",
-        "id": "flora_ferns_dense",
-        "power": 0,
-        "price": 0,
-        "tiles": {
-            "clip_height": 15,
-            "clip_width": 32,
-            "count": 2,
-            "fileName": "resources/images/flora/flora_ferns_dense.png"
-        },
-        "title": "TODO TITLE",
-        "isOverPlacable": true,
-        "upkeep cost": 0,
-        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -3494,23 +3820,24 @@
     {
         "author": "Kingtut 101",
         "category": "Flora",
-        "description": "TODO DESC",
-        "id": "flora_bush_dense",
+        "description": "a green bush",
+        "id": "bush_green_dense",
         "power": 0,
         "price": 0,
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
             "count": 4,
-            "fileName": "resources/images/flora/flora_bush_dense.png"
+            "fileName": "resources/images/flora/bushes/bush_1x1_green_dense.png"
         },
-        "title": "TODO TITLE",
+        "title": "Green Bush",
         "isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
         "tag": [
-            "todo",
-            "desc"
+            "flora",
+            "green",
+            "bush"
         ]
     },
     {
@@ -3542,23 +3869,24 @@
     {
         "author": "Kingtut 101",
         "category": "Flora",
-        "description": "TODO DESC",
-        "id": "flora_bush",
+        "description": "a green bush",
+        "id": "bush_green_medium",
         "power": 0,
         "price": 0,
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
             "count": 4,
-            "fileName": "resources/images/flora/flora_bush.png"
+            "fileName": "resources/images/flora/bushes/bush_1x1_green_medium.png"
         },
-        "title": "TODO TITLE",
+        "title": "Green Bush",
         "isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
         "tag": [
-            "todo",
-            "desc"
+            "flora",
+            "green",
+            "bush"
         ]
     },
     {
@@ -3741,7 +4069,423 @@
     {
         "author": "Kingtut 101",
         "category": "Flora",
-        "description": "TODO DESC",
+        "subCategory": "WaterFlora",
+        "placeOnWater": true,
+        "description": "A group tall wetland plants well-known for their brown catkins.",
+        "id": "waterFlora_cattail_light",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 2,
+            "fileName": "resources/images/flora/waterFlora/waterFlora_1x1_cattail_light.png"
+        },
+        "title": "Cattail",
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "water",
+            "flora",
+            "cattail",
+            "waterflora"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "subCategory": "WaterFlora",
+        "placeOnWater": true,
+        "description": "A group tall wetland plants well-known for their brown catkins.",
+        "id": "waterFlora_cattail_medium",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 2,
+            "fileName": "resources/images/flora/waterFlora/waterFlora_1x1_cattail_medium.png"
+        },
+        "title": "Cattail",
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "water",
+            "flora",
+            "cattail",
+            "waterflora"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "subCategory": "WaterFlora",
+        "placeOnWater": true,
+        "description": "A group tall wetland plants well-known for their brown catkins.",
+        "id": "waterFlora_cattail_dense",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 2,
+            "fileName": "resources/images/flora/waterFlora/waterFlora_1x1_cattail_dense.png"
+        },
+        "title": "Cattail",
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "water",
+            "flora",
+            "cattail",
+            "waterflora"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "subCategory": "WaterFlora",
+        "placeOnWater": true,
+        "description": "Rice is normally grown as an annual plant, although in tropical areas it can survive as a perennial and can produce a ratoon crop for up to 30 years.",
+        "id": "waterFlora_rice_light",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 2,
+            "fileName": "resources/images/flora/waterFlora/waterFlora_1x1_rice_light.png"
+        },
+        "title": "Rice",
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "water",
+            "flora",
+            "rice",
+            "waterflora"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "subCategory": "WaterFlora",
+        "placeOnWater": true,
+        "description": "Rice is normally grown as an annual plant, although in tropical areas it can survive as a perennial and can produce a ratoon crop for up to 30 years.",
+        "id": "waterFlora_rice_medium",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 2,
+            "fileName": "resources/images/flora/waterFlora/waterFlora_1x1_rice_medium.png"
+        },
+        "title": "Rice",
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "water",
+            "flora",
+            "rice",
+            "waterflora"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "subCategory": "WaterFlora",
+        "placeOnWater": true,
+        "description": "Rice is normally grown as an annual plant, although in tropical areas it can survive as a perennial and can produce a ratoon crop for up to 30 years.",
+        "id": "waterFlora_rice_dense",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 2,
+            "fileName": "resources/images/flora/waterFlora/waterFlora_1x1_rice_dense.png"
+        },
+        "title": "Rice",
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "water",
+            "flora",
+            "rice",
+            "waterflora"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "subCategory": "WaterFlora",
+        "placeOnWater": true,
+        "description": "Lily pads are broad, rounded, heart- or shield-shaped leaves. Frogs like to sit on them!",
+        "id": "waterFlora_lilypads_light",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 2,
+            "fileName": "resources/images/flora/waterFlora/waterFlora_1x1_lilypads_light.png"
+        },
+        "title": "Lily pads",
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "water",
+            "flora",
+            "lilypads",
+            "waterflora"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "subCategory": "WaterFlora",
+        "placeOnWater": true,
+        "description": "Lily pads are broad, rounded, heart- or shield-shaped leaves. Frogs like to sit on them!",
+        "id": "waterFlora_lilypads_medium",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 2,
+            "fileName": "resources/images/flora/waterFlora/waterFlora_1x1_lilypads_medium.png"
+        },
+        "title": "Lily pads",
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "water",
+            "flora",
+            "lilypads",
+            "waterflora"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "subCategory": "WaterFlora",
+        "placeOnWater": true,
+        "description": "Lily pads are broad, rounded, heart- or shield-shaped leaves. Frogs like to sit on them!",
+        "id": "waterFlora_lilypads_dense",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 2,
+            "fileName": "resources/images/flora/waterFlora/waterFlora_1x1_lilypads_dense.png"
+        },
+        "title": "Lily pads",
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "water",
+            "flora",
+            "lilypads",
+            "waterflora"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "subCategory": "Flora",
+        "description": "A lovely flower patch that blooms in all colors.",
+        "id": "flora_flower_light",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 4,
+            "fileName": "resources/images/flora/flora/flora_1x1_flower_light.png"
+        },
+        "title": "Flowers",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "flora",
+            "flowers",
+            "colorful"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "subCategory": "Flora",
+        "description": "A lovely flower patch that blooms in all colors.",
+        "id": "flora_flower_medium",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 4,
+            "fileName": "resources/images/flora/flora/flora_1x1_flower_medium.png"
+        },
+        "title": "Flowers",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "flora",
+            "flowers",
+            "colorful"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "subCategory": "Flora",
+        "description": "A lovely flower patch that blooms in all colors.",
+        "id": "flora_flower_dense",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 4,
+            "fileName": "resources/images/flora/flora/flora_1x1_flower_dense.png"
+        },
+        "title": "Flowers",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "flora",
+            "flowers",
+            "colorful"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "subCategory": "Flora",
+        "description": "Ferns are green flowerless plants with divided leaves that tend to grow in damp, shady areas.",
+        "id": "flora_ferns_light",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 3,
+            "fileName": "resources/images/flora/flora/flora_1x1_ferns_light.png"
+        },
+        "title": "Ferns",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "flora",
+            "ferns",
+            "djungle"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "subCategory": "Flora",
+        "description": "Ferns are green flowerless plants with divided leaves that tend to grow in damp, shady areas.",
+        "id": "flora_ferns_medium",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 2,
+            "fileName": "resources/images/flora/flora/flora_1x1_ferns_medium.png"
+        },
+        "title": "Ferns",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "flora",
+            "ferns",
+            "djungle"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "subCategory": "Flora",
+        "description": "Ferns are green flowerless plants with divided leaves that tend to grow in damp, shady areas.",
+        "id": "flora_ferns_dense",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 2,
+            "fileName": "resources/images/flora/flora/flora_1x1_ferns_dense.png"
+        },
+        "title": "Ferns",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "flora",
+            "ferns",
+            "djungle"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "subCategory": "Flora",
+        "description": "In the tall grass.",
+        "id": "flora_tallgrass_light",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 16,
+            "clip_width": 32,
+            "count": 2,
+            "fileName": "resources/images/flora/flora/flora_1x1_tallgrass_light.png"
+        },
+        "title": "Tall Grass",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "flora",
+            "grass"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "subCategory": "Flora",
+        "description": "In the tall grass.",
+        "id": "flora_tallgrass_medium",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 16,
+            "clip_width": 32,
+            "count": 2,
+            "fileName": "resources/images/flora/flora/flora_1x1_tallgrass_medium.png"
+        },
+        "title": "Tall Grass",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "flora",
+            "grass"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "subCategory": "Flora",
+        "description": "In the tall grass.",
         "id": "flora_tallgrass_dense",
         "power": 0,
         "price": 0,
@@ -3749,37 +4493,84 @@
             "clip_height": 16,
             "clip_width": 32,
             "count": 2,
-            "fileName": "resources/images/flora/flora_tallgrass_dense.png"
+            "fileName": "resources/images/flora/flora/flora_1x1_tallgrass_dense.png"
         },
-        "title": "TODO TITLE",
+        "title": "Tall Grass",
         "isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
         "tag": [
-            "todo",
-            "desc"
+            "flora",
+            "grass"
         ]
     },
     {
         "author": "Kingtut 101",
         "category": "Flora",
-        "description": "TODO DESC",
-        "id": "tree_deciduous_dense",
+        "description": "A deciduous tree",
+        "id": "tree_deciduous_light",
         "power": 0,
         "price": 0,
         "tiles": {
-            "clip_height": 31,
+            "clip_height": 28,
             "clip_width": 32,
-            "count": 5,
-            "fileName": "resources/images/flora/tree_deciduous_dense.png"
+            "count": 7,
+            "fileName": "resources/images/flora/trees/tree_1x1_deciduous_light.png"
         },
-        "title": "TODO TITLE",
+        "title": "Deciduous tree",
         "isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
         "tag": [
-            "todo",
-            "desc"
+            "deciduous",
+            "tree",
+            "light"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "description": "A deciduous tree",
+        "id": "tree_deciduous_medium",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 30,
+            "clip_width": 32,
+            "count": 7,
+            "fileName": "resources/images/flora/trees/tree_1x1_deciduous_medium.png"
+        },
+        "title": "Deciduous tree",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "deciduous",
+            "tree",
+            "medium"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "description": "A deciduous tree",
+        "id": "tree_deciduous_dense",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 32,
+            "clip_width": 32,
+            "count": 9,
+            "fileName": "resources/images/flora/trees/tree_1x1_deciduous_dense.png"
+        },
+        "title": "Deciduous tree",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "deciduous",
+            "tree",
+            "dense"
         ]
     },
     {
@@ -3866,50 +4657,6 @@
         ]
     },
     {
-        "author": "Kingtut 101",
-        "category": "Flora",
-        "description": "TODO DESC",
-        "id": "flora_flower_dense",
-        "power": 0,
-        "price": 0,
-        "tiles": {
-            "clip_height": 15,
-            "clip_width": 32,
-            "count": 4,
-            "fileName": "resources/images/flora/flora_flower_dense.png"
-        },
-        "title": "TODO TITLE",
-        "isOverPlacable": true,
-        "upkeep cost": 0,
-        "water": 0,
-        "tag": [
-            "todo",
-            "desc"
-        ]
-    },
-    {
-        "author": "Kingtut 101",
-        "category": "Flora",
-        "description": "TODO DESC",
-        "id": "flora_tallgrass_light",
-        "power": 0,
-        "price": 0,
-        "tiles": {
-            "clip_height": 16,
-            "clip_width": 32,
-            "count": 2,
-            "fileName": "resources/images/flora/flora_tallgrass_light.png"
-        },
-        "title": "TODO TITLE",
-        "isOverPlacable": true,
-        "upkeep cost": 0,
-        "water": 0,
-        "tag": [
-            "todo",
-            "desc"
-        ]
-    },
-    {
         "author": "RockFort",
         "category": "Residential",
         "description": "TODO DESC",
@@ -3972,7 +4719,7 @@
             "clip_height": 17,
             "clip_width": 32,
             "count": 2,
-            "fileName": "resources/images/buildings/decoration/bd_1x1_RF2_BlueSignPlatform_kt.png"
+            "fileName": "resources/images/decoration/buildings/bd_1x1_RF2_BlueSignPlatform_kt.png"
         },
         "title": "Sign Platform",
         "upkeep cost": 0,
@@ -4089,28 +4836,6 @@
             "isnt",
             "room",
             "inside"
-        ]
-    },
-    {
-        "author": "Kingtut 101",
-        "category": "Flora",
-        "description": "TODO DESC",
-        "id": "flora_ferns_light",
-        "power": 0,
-        "price": 0,
-        "tiles": {
-            "clip_height": 15,
-            "clip_width": 32,
-            "count": 3,
-            "fileName": "resources/images/flora/flora_ferns_light.png"
-        },
-        "title": "TODO TITLE",
-        "isOverPlacable": true,
-        "upkeep cost": 0,
-        "water": 0,
-        "tag": [
-            "todo",
-            "desc"
         ]
     },
     {
@@ -4473,7 +5198,7 @@
             "clip_height": 76,
             "clip_width": 128,
             "count": 1,
-            "fileName": "resources/images/buildings/decoration/BD_4x4_DarkParkRing_kt.png"
+            "fileName": "resources/images/decoration/buildings/BD_4x4_DarkParkRing_kt.png"
         },
         "RequiredTiles": {
             "width": 4,
@@ -5003,28 +5728,6 @@
         ]
     },
     {
-        "author": "Kingtut 101",
-        "category": "Flora",
-        "description": "TODO DESC",
-        "id": "flora_tallgrass",
-        "power": 0,
-        "price": 0,
-        "tiles": {
-            "clip_height": 16,
-            "clip_width": 32,
-            "count": 2,
-            "fileName": "resources/images/flora/flora_tallgrass.png"
-        },
-        "title": "TODO TITLE",
-        "isOverPlacable": true,
-        "upkeep cost": 0,
-        "water": 0,
-        "tag": [
-            "todo",
-            "desc"
-        ]
-    },
-    {
         "author": "RockFort",
         "category": "Residential",
         "description": "TODO DESC",
@@ -5228,7 +5931,7 @@
             "clip_height": 17,
             "clip_width": 32,
             "count": 2,
-            "fileName": "resources/images/buildings/decoration/bd_1x1_RF2_BenchesPlatform_kt.png"
+            "fileName": "resources/images/decoration/buildings/bd_1x1_RF2_BenchesPlatform_kt.png"
         },
         "title": "Bench Platform",
         "upkeep cost": 0,
@@ -5444,7 +6147,7 @@
             "clip_height": 17,
             "clip_width": 32,
             "count": 1,
-            "fileName": "resources/images/buildings/decoration/bd_1x1_BlankPlatform_kt.png"
+            "fileName": "resources/images/decoration/buildings/bd_1x1_BlankPlatform_kt.png"
         },
         "title": "Blank Platform",
         "upkeep cost": 0,
@@ -5469,7 +6172,7 @@
             "clip_height": 15,
             "clip_width": 32,
             "count": 5,
-            "fileName": "resources/images/buildings/decoration/BD_1x1_People_kt.png"
+            "fileName": "resources/images/decoration/buildings/BD_1x1_People_kt.png"
         },
         "title": "People",
         "upkeep cost": 0,
@@ -5575,7 +6278,7 @@
             "clip_height": 41,
             "clip_width": 64,
             "count": 4,
-            "fileName": "resources/images/buildings/decoration/BD_2x2_DarkParkCenterpieces_kt.png"
+            "fileName": "resources/images/decoration/buildings/BD_2x2_DarkParkCenterpieces_kt.png"
         },
         "RequiredTiles": {
             "width": 2,
@@ -5597,23 +6300,24 @@
     {
         "author": "Kingtut 101",
         "category": "Flora",
-        "description": "TODO DESC",
-        "id": "flora_bush_light",
+        "description": "a green bush",
+        "id": "bush_green_light",
         "power": 0,
         "price": 0,
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
             "count": 6,
-            "fileName": "resources/images/flora/flora_bush_light.png"
+            "fileName": "resources/images/flora/bushes/bush_1x1_green_light.png"
         },
-        "title": "TODO TITLE",
+        "title": "Green Bush",
         "isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
         "tag": [
-            "todo",
-            "desc"
+            "flora",
+            "green",
+            "bush"
         ]
     },
     {
@@ -5653,7 +6357,7 @@
             "clip_height": 15,
             "clip_width": 32,
             "count": 2,
-            "fileName": "resources/images/buildings/decoration/BD_1x1_RF2_WoodenSign_kt.png"
+            "fileName": "resources/images/decoration/buildings/BD_1x1_RF2_WoodenSign_kt.png"
         },
         "title": "Wooden Sign",
         "upkeep cost": 0,
@@ -5838,7 +6542,7 @@
             "clip_height": 18,
             "clip_width": 32,
             "count": 6,
-            "fileName": "resources/images/buildings/decoration/BD_1x1_RF2_PicnicPavilions_kt.png"
+            "fileName": "resources/images/decoration/buildings/BD_1x1_RF2_PicnicPavilions_kt.png"
         },
         "title": "Picnic Pavilion",
         "upkeep cost": 0,
@@ -5866,7 +6570,7 @@
             "clip_width": 32,
             "count": 1,
             "offset": 5,
-            "fileName": "resources/images/buildings/decoration/BD_1x1_RF2_PicnicPavilions_kt.png"
+            "fileName": "resources/images/decoration/buildings/BD_1x1_RF2_PicnicPavilions_kt.png"
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
@@ -5939,7 +6643,7 @@
             "clip_height": 15,
             "clip_width": 32,
             "count": 4,
-            "fileName": "resources/images/buildings/decoration/BD_1x1_PicnicTables_kt.png"
+            "fileName": "resources/images/decoration/buildings/BD_1x1_PicnicTables_kt.png"
         },
         "title": "Picnic Tables",
         "upkeep cost": 0,
@@ -6104,28 +6808,6 @@
         ]
     },
     {
-        "author": "Kingtut 101",
-        "category": "Flora",
-        "description": "TODO DESC",
-        "id": "tree_deciduous_light",
-        "power": 0,
-        "price": 0,
-        "tiles": {
-            "clip_height": 28,
-            "clip_width": 32,
-            "count": 7,
-            "fileName": "resources/images/flora/tree_deciduous_light.png"
-        },
-        "title": "TODO TITLE",
-        "isOverPlacable": true,
-        "upkeep cost": 0,
-        "water": 0,
-        "tag": [
-            "todo",
-            "desc"
-        ]
-    },
-    {
         "author": "RockFort",
         "category": "Commercial",
         "description": "TODO DESC",
@@ -6146,28 +6828,6 @@
         "upkeep cost": 0,
         "water": 0,
 
-        "tag": [
-            "todo",
-            "desc"
-        ]
-    },
-    {
-        "author": "Kingtut 101",
-        "category": "Flora",
-        "description": "TODO DESC",
-        "id": "flora_flower_light",
-        "power": 0,
-        "price": 0,
-        "tiles": {
-            "clip_height": 15,
-            "clip_width": 32,
-            "count": 4,
-            "fileName": "resources/images/flora/flora_flower_light.png"
-        },
-        "title": "TODO TITLE",
-        "isOverPlacable": true,
-        "upkeep cost": 0,
-        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -6197,6 +6857,7 @@
     {
         "author": "Kingtut 101",
         "category": "Decoration",
+        "subCategory": "BuildingsDecoration",
         "description": "A very old ship that crashed here long ago.  Its origin is unkown, but I think it's safe to say what happened to its crew",
         "id": "bd_2x2_sunkenship_kt",
         "power": 0,
@@ -6205,7 +6866,7 @@
             "clip_height": 37,
             "clip_width": 64,
             "count": 1,
-            "fileName": "resources/images/buildings/decoration/bd_2x2_sunkenship_kt.png"
+            "fileName": "resources/images/decoration/buildings/bd_2x2_SunkenShip_kt.png"
         },
         "RequiredTiles": {
             "width": 2,
@@ -6214,26 +6875,42 @@
         "title": "Sunken Ship",
         "upkeep cost": 0,
         "water": 0,
-
         "tag": [
-            "very",
-            "old",
-            "ship",
-            "crashed",
-            "here",
-            "long",
-            "ago",
-            "its",
-            "origin",
-            "unkown",
-            "think",
-            "its",
-            "safe",
-            "say",
-            "what",
-            "happened",
-            "its",
-            "crew"
+            "decoration",
+            "nature",
+            "sunk ship"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Decoration",
+        "tileType": "autotile",
+        "subCategory": "NatureDecoration",
+        "description": "TODO - move this to decoration when the new attribute is implemented",
+        "id": "ND_1x1_stream",
+        "power": 0,
+        "price": 0,
+        "slopeTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 4,
+            "offset": 20,
+            "fileName": "resources/images/decoration/nature/ND_1x1_Stream.png"
+        },
+        "tiles": {
+            "clip_height": 16,
+            "clip_width": 32,
+            "count": 16,
+            "fileName": "resources/images/decoration/nature/ND_1x1_Stream.png",
+            "rotations": 16
+        },
+        "title": "Stream",
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "decoration",
+            "nature",
+            "stream"
         ]
     },
     {
@@ -6343,93 +7020,231 @@
     {
         "author": "Kingtut 101",
         "category": "Flora",
-        "description": "TODO DESC",
-        "id": "tree_mushroom_dense",
-        "power": 0,
-        "price": 0,
-        "tiles": {
-            "clip_height": 24,
-            "clip_width": 32,
-            "count": 12,
-            "fileName": "resources/images/flora/tree_mushroom_dense.png"
-        },
-        "title": "TODO TITLE",
-        "isOverPlacable": true,
-        "upkeep cost": 0,
-        "water": 0,
-        "tag": [
-            "todo",
-            "desc"
-        ]
-    },
-    {
-        "author": "Kingtut 101",
-        "category": "Flora",
-        "description": "TODO DESC",
-        "id": "flora_water_rice",
-        "power": 0,
-        "price": 0,
-        "tiles": {
-            "clip_height": 15,
-            "clip_width": 32,
-            "count": 1,
-            "fileName": "resources/images/flora/flora_water_rice.png"
-        },
-        "title": "TODO TITLE",
-        "isOverPlacable": true,
-        "upkeep cost": 0,
-        "water": 0,
-        "tag": [
-            "todo",
-            "desc"
-        ]
-    },
-    {
-        "author": "Kingtut 101",
-        "category": "Flora",
-        "description": "TODO DESC",
-        "id": "flora_RedBerryBush_light",
+        "description": "A bush with delicious red berries.",
+        "id": "bush_redberry_light",
         "power": 0,
         "price": 0,
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
             "count": 6,
-            "fileName": "resources/images/flora/flora_RedBerryBush_light.png"
+            "fileName": "resources/images/flora/bushes/bush_1x1_redberry_light.png"
         },
-        "title": "TODO TITLE",
+        "title": "Red Berry Bush",
         "isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
         "tag": [
-            "todo",
-            "desc"
+            "bush",
+            "red",
+            "berries"
         ]
     },
     {
-        "author": "MaroonShaded",
-        "category": "Industrial",
-        "description": "TODO DESC",
-        "id": "ind_2x2_DesertFactory_MS",
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "description": "A bush with delicious red berries.",
+        "id": "bush_redberry_medium",
         "power": 0,
         "price": 0,
         "tiles": {
-            "clip_height": 51,
-            "clip_width": 64,
-            "count": 1,
-            "fileName": "resources/images/buildings/industrial/ind_2x2_DesertFactory_MS.png"
+            "clip_height": 14,
+            "clip_width": 32,
+            "count": 4,
+            "fileName": "resources/images/flora/bushes/bush_1x1_redberry_medium.png"
         },
-        "RequiredTiles": {
-            "width": 2,
-            "height": 2
-        },
-        "title": "TODO TITLE",
+        "title": "Red Berry Bush",
+        "isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
-
         "tag": [
-            "todo",
-            "desc"
+            "bush",
+            "red",
+            "berries"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "description": "A bush with delicious red berries.",
+        "id": "bush_redberry_dense",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 4,
+            "fileName": "resources/images/flora/bushes/bush_1x1_redberry_dense.png"
+        },
+        "title": "Red Berry Bush",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "bush",
+            "red",
+            "berries"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "description": "A bush with delicious red berries.",
+        "id": "bush_redberry_dense",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 4,
+            "fileName": "resources/images/flora/bushes/bush_1x1_redberry_dense.png"
+        },
+        "title": "Red Berry Bush",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "bush",
+            "red",
+            "berries"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "description": "A green cactus.",
+        "id": "cactus_green_light",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 8,
+            "fileName": "resources/images/flora/bushes/bush_1x1_cactus_green_light.png"
+        },
+        "title": "Green Cactus",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "bush",
+            "cactus",
+            "green"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "description": "A green cactus.",
+        "id": "cactus_green_medium",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 16,
+            "clip_width": 32,
+            "count": 6,
+            "fileName": "resources/images/flora/bushes/bush_1x1_cactus_green_medium.png"
+        },
+        "title": "Green Cactus",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "bush",
+            "cactus",
+            "green"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "description": "A green cactus.",
+        "id": "cactus_green_dense",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 17,
+            "clip_width": 32,
+            "count": 6,
+            "fileName": "resources/images/flora/bushes/bush_1x1_cactus_green_dense.png"
+        },
+        "title": "Green Cactus",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "bush",
+            "cactus",
+            "green"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "description": "A yellow cactus.",
+        "id": "cactus_yellow_light",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 8,
+            "fileName": "resources/images/flora/bushes/bush_1x1_cactus_yellow_light.png"
+        },
+        "title": "Yellow Cactus",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "bush",
+            "cactus",
+            "yellow"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "description": "A yellow cactus.",
+        "id": "cactus_yellow_medium",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 16,
+            "clip_width": 32,
+            "count": 6,
+            "fileName": "resources/images/flora/bushes/bush_1x1_cactus_yellow_medium.png"
+        },
+        "title": "Yellow Cactus",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "bush",
+            "cactus",
+            "yellow"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "description": "A yellow cactus.",
+        "id": "cactus_yellow_dense",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 17,
+            "clip_width": 32,
+            "count": 6,
+            "fileName": "resources/images/flora/bushes/bush_1x1_cactus_yellow_dense.png"
+        },
+        "title": "Yellow Cactus",
+        "isOverPlacable": true,
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "bush",
+            "cactus",
+            "yellow"
         ]
     },
     {
@@ -6531,50 +7346,6 @@
         "upkeep cost": 0,
         "water": 0,
 
-        "tag": [
-            "todo",
-            "desc"
-        ]
-    },
-    {
-        "author": "Kingtut 101",
-        "category": "Flora",
-        "description": "TODO DESC",
-        "id": "flora_water_cattail",
-        "power": 0,
-        "price": 0,
-        "tiles": {
-            "clip_height": 15,
-            "clip_width": 32,
-            "count": 1,
-            "fileName": "resources/images/flora/flora_water_cattail.png"
-        },
-        "title": "TODO TITLE",
-        "isOverPlacable": true,
-        "upkeep cost": 0,
-        "water": 0,
-        "tag": [
-            "todo",
-            "desc"
-        ]
-    },
-    {
-        "author": "Kingtut 101",
-        "category": "Flora",
-        "description": "TODO DESC",
-        "id": "flora_flower",
-        "power": 0,
-        "price": 0,
-        "tiles": {
-            "clip_height": 15,
-            "clip_width": 32,
-            "count": 4,
-            "fileName": "resources/images/flora/flora_flower.png"
-        },
-        "title": "TODO TITLE",
-        "isOverPlacable": true,
-        "upkeep cost": 0,
-        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -6747,7 +7518,7 @@
             "clip_height": 16,
             "clip_width": 32,
             "count": 4,
-            "fileName": "resources/images/buildings/decoration/BD_1x1_RF2_Benches_kt.png"
+            "fileName": "resources/images/decoration/buildings/BD_1x1_RF2_Benches_kt.png"
         },
         "title": "Benches",
         "upkeep cost": 0,
@@ -6802,28 +7573,6 @@
             "fileName": "resources/images/buildings/residential/res_1x1_medieval_house_1_FN.png"
         },
         "title": "TODO TITLE",
-        "upkeep cost": 0,
-        "water": 0,
-        "tag": [
-            "todo",
-            "desc"
-        ]
-    },
-    {
-        "author": "Kingtut 101",
-        "category": "Flora",
-        "description": "TODO DESC",
-        "id": "flora_ferns",
-        "power": 0,
-        "price": 0,
-        "tiles": {
-            "clip_height": 15,
-            "clip_width": 32,
-            "count": 2,
-            "fileName": "resources/images/flora/flora_ferns.png"
-        },
-        "title": "TODO TITLE",
-        "isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
         "tag": [
@@ -7534,7 +8283,7 @@
             "clip_height": 18,
             "clip_width": 32,
             "count": 2,
-            "fileName": "resources/images/buildings/decoration/BD_1x1_Snowmen_kt.png"
+            "fileName": "resources/images/decoration/buildings/BD_1x1_Snowmen_kt.png"
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
@@ -7572,6 +8321,7 @@
     {
         "author": "Kingtut 101",
         "category": "Terrain",
+        "tileType": "terrain",
         "description": "Terrain basalt tiles",
         "id": "terrain_basalt",
         "power": 0,
@@ -7608,29 +8358,30 @@
     {
         "author": "Kingtut 101",
         "category": "Terrain",
+        "tileType": "terrain",
         "description": "Terrain beach tiles",
-        "id": "terrain_beach",
+        "id": "terrain_sand_beach",
         "power": 0,
         "price": 0,
         "slopeTiles": {
             "clip_height": 23,
             "clip_width": 32,
             "count": 4,
-            "fileName": "resources/images/terrain/terrain_beach.png"
+            "fileName": "resources/images/terrain/terrain_sand_beach.png"
         },
         "cornerTiles": {
             "clip_height": 23,
             "clip_width": 32,
             "count": 8,
             "offset": 4,
-            "fileName": "resources/images/terrain/terrain_beach.png"
+            "fileName": "resources/images/terrain/terrain_sand_beach.png"
         },
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
             "count": 1,
             "offset": 13,
-            "fileName": "resources/images/terrain/terrain_beach.png"
+            "fileName": "resources/images/terrain/terrain_sand_beach.png"
         },
         "title": "Beach",
         "upkeep cost": 0,
@@ -7638,35 +8389,37 @@
         "tag": [
             "terrain",
             "beach",
+            "sand",
             "tiles"
         ]
     },
     {
         "author": "Kingtut 101",
         "category": "Terrain",
+        "tileType": "terrain",
         "description": "Terrain Black Sand tiles",
-        "id": "terrain_BlackSand",
+        "id": "terrain_sand_black",
         "power": 0,
         "price": 0,
         "slopeTiles": {
             "clip_height": 23,
             "clip_width": 32,
             "count": 4,
-            "fileName": "resources/images/terrain/terrain_BlackSand.png"
+            "fileName": "resources/images/terrain/terrain_sand_black.png"
         },
         "cornerTiles": {
             "clip_height": 23,
             "clip_width": 32,
             "count": 8,
             "offset": 4,
-            "fileName": "resources/images/terrain/terrain_BlackSand.png"
+            "fileName": "resources/images/terrain/terrain_sand_black.png"
         },
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
             "count": 3,
             "offset": 13,
-            "fileName": "resources/images/terrain/terrain_BlackSand.png"
+            "fileName": "resources/images/terrain/terrain_sand_black.png"
         },
         "title": "Black Sand",
         "upkeep cost": 0,
@@ -7681,6 +8434,7 @@
     {
         "author": "Kingtut 101",
         "category": "Terrain",
+        "tileType": "terrain",
         "description": "Terrain burned tiles",
         "id": "terrain_burned",
         "power": 0,
@@ -7717,35 +8471,37 @@
     {
         "author": "Kingtut 101",
         "category": "Terrain",
+        "tileType": "terrain",
         "description": "Terrain Desert tiles",
-        "id": "terrain_desert",
+        "id": "terrain_sand_desert",
         "power": 0,
         "price": 0,
         "slopeTiles": {
             "clip_height": 23,
             "clip_width": 32,
             "count": 4,
-            "fileName": "resources/images/terrain/terrain_desert.png"
+            "fileName": "resources/images/terrain/terrain_sand_desert.png"
         },
         "cornerTiles": {
             "clip_height": 23,
             "clip_width": 32,
             "count": 8,
             "offset": 4,
-            "fileName": "resources/images/terrain/terrain_desert.png"
+            "fileName": "resources/images/terrain/terrain_sand_desert.png"
         },
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
             "count": 2,
             "offset": 13,
-            "fileName": "resources/images/terrain/terrain_desert.png"
+            "fileName": "resources/images/terrain/terrain_sand_desert.png"
         },
         "title": "Desert",
         "upkeep cost": 0,
         "water": 0,
         "tag": [
             "terrain",
+            "sand",
             "desert",
             "tiles"
         ]
@@ -7753,6 +8509,7 @@
     {
         "author": "Kingtut 101",
         "category": "Terrain",
+        "tileType": "terrain",
         "description": "Terrain Dirt tiles",
         "id": "terrain_dirt",
         "power": 0,
@@ -7789,6 +8546,7 @@
     {
         "author": "Kingtut 101",
         "category": "Terrain",
+        "tileType": "terrain",
         "description": "Terrain grass tiles",
         "id": "terrain_grass",
         "power": 0,
@@ -7802,7 +8560,7 @@
         "cornerTiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 8,
+            "count": 9,
             "offset": 4,
             "fileName": "resources/images/terrain/terrain_grass.png"
         },
@@ -7813,7 +8571,7 @@
             "offset": 13,
             "fileName": "resources/images/terrain/terrain_grass.png"
         },
-        "title": "Grassland Terrain",
+        "title": "Grassland",
         "upkeep cost": 0,
         "water": 0,
         "tag": [
@@ -7825,6 +8583,7 @@
     {
         "author": "Kingtut 101",
         "category": "Terrain",
+        "tileType": "terrain",
         "description": "Terrain grass forest tiles",
         "id": "terrain_grass_forest",
         "power": 0,
@@ -7849,7 +8608,7 @@
             "offset": 13,
             "fileName": "resources/images/terrain/terrain_grass_forest.png"
         },
-        "title": "Basalt",
+        "title": "Forest",
         "upkeep cost": 0,
         "water": 0,
         "tag": [
@@ -7862,6 +8621,7 @@
     {
         "author": "Kingtut 101",
         "category": "Terrain",
+        "tileType": "terrain",
         "description": "Terrain grass mint tiles",
         "id": "terrain_grass_mint",
         "power": 0,
@@ -7899,6 +8659,7 @@
     {
         "author": "Kingtut 101",
         "category": "Terrain",
+        "tileType": "terrain",
         "description": "Terrain Grass Mint Forest tiles",
         "id": "terrain_grass_mint_forest",
         "power": 0,
@@ -7937,6 +8698,7 @@
     {
         "author": "Kingtut 101",
         "category": "Terrain",
+        "tileType": "terrain",
         "description": "Terrain Gravel tiles",
         "id": "terrain_gravel",
         "power": 0,
@@ -7973,6 +8735,7 @@
     {
         "author": "Kingtut 101",
         "category": "Terrain",
+        "tileType": "terrain",
         "description": "Terrain mud tiles",
         "id": "terrain_mud",
         "power": 0,
@@ -8009,42 +8772,7 @@
     {
         "author": "Kingtut 101",
         "category": "Terrain",
-        "description": "Terrain Sand tiles",
-        "id": "terrain_sand",
-        "power": 0,
-        "price": 0,
-        "slopeTiles": {
-            "clip_height": 23,
-            "clip_width": 32,
-            "count": 4,
-            "offset": 3,
-            "fileName": "resources/images/terrain/terrain_sand.png"
-        },
-        "cornerTiles": {
-            "clip_height": 23,
-            "clip_width": 32,
-            "count": 8,
-            "offset": 7,
-            "fileName": "resources/images/terrain/terrain_sand.png"
-        },
-        "tiles": {
-            "clip_height": 15,
-            "clip_width": 32,
-            "count": 3,
-            "fileName": "resources/images/terrain/terrain_sand.png"
-        },
-        "title": "Sand",
-        "upkeep cost": 0,
-        "water": 0,
-        "tag": [
-            "terrain",
-            "sand",
-            "tiles"
-        ]
-    },
-    {
-        "author": "Kingtut 101",
-        "category": "Terrain",
+        "tileType": "terrain",
         "description": "Terrain Red Sand tiles",
         "id": "terrain_sand_red",
         "power": 0,
@@ -8082,6 +8810,45 @@
     {
         "author": "Kingtut 101",
         "category": "Terrain",
+        "tileType": "terrain",
+        "description": "Terrain Rainstone tiles",
+        "id": "terrain_rainstone",
+        "power": 0,
+        "price": 0,
+        "slopeTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 4,
+            "fileName": "resources/images/terrain/terrain_rainstone.png"
+        },
+        "cornerTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 8,
+            "offset": 4,
+            "fileName": "resources/images/terrain/terrain_rainstone.png"
+        },
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 3,
+            "offset": 13,
+            "fileName": "resources/images/terrain/terrain_rainstone.png"
+        },
+        "title": "Red Sand",
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "terrain",
+            "red",
+            "sand",
+            "tiles"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Terrain",
+        "tileType": "terrain",
         "description": "Terrain shading tiles",
         "id": "terrain_shading",
         "power": 0,
@@ -8118,6 +8885,7 @@
     {
         "author": "Kingtut 101",
         "category": "Terrain",
+        "tileType": "terrain",
         "description": "Terrain Snow tiles",
         "id": "terrain_snow",
         "power": 0,
@@ -8154,6 +8922,7 @@
     {
         "author": "Kingtut 101",
         "category": "Terrain",
+        "tileType": "terrain",
         "description": "Terrain soil tiles",
         "id": "terrain_soil",
         "power": 0,
@@ -8190,8 +8959,9 @@
     {
         "author": "Kingtut 101",
         "category": "Terrain",
+        "tileType": "terrain",
         "description": "Terrain Stone tiles",
-        "id": "terrain_Stone",
+        "id": "terrain_stone",
         "power": 0,
         "price": 0,
         "slopeTiles": {
@@ -8557,6 +9327,7 @@
     {
         "author": "Kingtut 101",
         "category": "Roads",
+        "tileType": "autotile",
         "description": "TODO DESC",
         "id": "prs_1x1_prisfen_kt",
         "power": 0,
