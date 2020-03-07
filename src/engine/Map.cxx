@@ -246,7 +246,7 @@ unsigned char Map::getNeighboringTilesBitmask(const Point &isoCoordinates)
 
   // only auto-tile categories that can be tiled.
   if (mapNodes[x * m_columns + y] && mapNodes[x * m_columns + y]->getActiveMapNodeData().tileData &&
-      mapNodes[x * m_columns + y]->getActiveMapNodeData().tileData->tileType == +TileType::autotile)
+      mapNodes[x * m_columns + y]->getActiveMapNodeData().tileData->tileType == +TileType::AUTOTILE)
   {
     std::pair<int, int> adjecantNodesCoordinates[8]{
         std::make_pair(x, y + 1),     // 0 = 2^0 = 1   = TOP

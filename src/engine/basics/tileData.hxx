@@ -65,7 +65,7 @@ struct TileData
   uint8_t buildingsize; /// the size that the building occupies in tiles.
   std::string biome;    /// the biome the tile belongs to
   TileSetData tiles;
-  TileType tileType = TileType::default; /// todo: String for now, should be an enum
+  TileType tileType = TileType::DEFAULT; /// todo: String for now, should be an enum
   TileSetData cornerTiles;
   TileSetData slopeTiles;
   std::string title;

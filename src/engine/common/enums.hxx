@@ -18,6 +18,6 @@ enum Layer : unsigned int
   SYMBOLS          // Symbols to display over buildings like no power / water and so on
 };
 
-BETTER_ENUM(TileType, int, default, terrain, water, autotile)
+BETTER_ENUM(TileType, int, DEFAULT, TERRAIN, WATER, AUTOTILE)
 
 #endif

@@ -103,7 +103,7 @@ bool MapNode::isPlacementAllowed(const std::string &newTileID) const
   if (tileData)
   {
     Layer layer = Layer::BUILDINGS;
-    if (tileData->tileType == +TileType::terrain)
+    if (tileData->tileType == +TileType::TERRAIN)
     {
       layer = Layer::TERRAIN;
     }
@@ -117,13 +117,13 @@ bool MapNode::isPlacementAllowed(const std::string &newTileID) const
     // check if the current tile is overplacable or allow overplacing autotiles if it's of the same tile ID
     if (m_mapNodeData[layer].tileData &&
         (m_mapNodeData[layer].tileData->isOverPlacable ||
-         (m_mapNodeData[layer].tileData->tileType == +TileType::autotile && m_mapNodeData[layer].tileID == newTileID)))
+         (m_mapNodeData[layer].tileData->tileType == +TileType::AUTOTILE && m_mapNodeData[layer].tileID == newTileID)))
 
     {
       return true;
     }
     return isPlacableOnSlope(newTileID) &&
-           (m_mapNodeData[layer].tileID == "" || m_mapNodeData[layer].tileData->tileType == +TileType::terrain);
+           (m_mapNodeData[layer].tileID == "" || m_mapNodeData[layer].tileData->tileType == +TileType::TERRAIN);
   }
   return false;
 }
@@ -143,14 +143,14 @@ void MapNode::updateTexture()
 
       if (m_elevationOrientation == TileSlopes::DEFAULT_ORIENTATION)
       {
-        if (m_mapNodeData[currentLayer].tileData->tileType == +TileType::water ||
-            m_mapNodeData[currentLayer].tileData->tileType == +TileType::terrain)
+        if (m_mapNodeData[currentLayer].tileData->tileType == +TileType::WATER ||
+            m_mapNodeData[currentLayer].tileData->tileType == +TileType::TERRAIN)
         {
           tileMap = TileMap::DEFAULT;
           m_orientation = TileList::TILE_DEFAULT_ORIENTATION;
         }
         // if the node should autotile, check if it needs to tile itself to another tile of the same ID
-        else if (m_mapNodeData[currentLayer].tileData->tileType == +TileType::autotile)
+        else if (m_mapNodeData[currentLayer].tileData->tileType == +TileType::AUTOTILE)
         {
           m_orientation = TileManager::instance().calculateTileOrientation(m_tileIDBitmask);
         }
