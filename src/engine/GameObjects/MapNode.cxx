@@ -15,7 +15,8 @@ MapNode::MapNode(Point isoCoordinates, const std::string &terrainID, const std::
   {
     setTileID(tileID, isoCoordinates);
   }
-  setTileID("terrain_blueprint", isoCoordinates); // also set the blueprint layer
+  // always add blueprint tiles too when creating the node
+  setTileID("terrain_blueprint", isoCoordinates);
 
   updateTexture();
 }
@@ -101,24 +102,10 @@ bool MapNode::isPlacableOnSlope(const std::string &tileID) const
 bool MapNode::isPlacementAllowed(const std::string &newTileID) const
 {
   TileData *tileData = TileManager::instance().getTileData(newTileID);
+
   if (tileData)
   {
-    Layer layer = Layer::BUILDINGS;
-    switch (tileData->tileType)
-    {
-    case TileType::TERRAIN:
-      layer = Layer::TERRAIN;
-      break;
-    case TileType::BLUEPRINT:
-      layer = Layer::BLUEPRINT;
-      break;
-    case TileType::UNDERGROUND:
-      layer = Layer::PIPES;
-      break;
-    default:
-      layer = Layer::BUILDINGS;
-      break;
-    }
+    Layer layer = TileManager::instance().getTileLayer(newTileID);
 
     //this is a water tile and placeOnWater has not been set to true, building is not permitted. Also disallow placing of water tiles on non water tiles
     if ((m_mapNodeData[Layer::WATER].tileData && !tileData->placeOnWater) ||
@@ -137,7 +124,8 @@ bool MapNode::isPlacementAllowed(const std::string &newTileID) const
       return true;
     }
     return isPlacableOnSlope(newTileID) &&
-           (m_mapNodeData[layer].tileID == "" || m_mapNodeData[layer].tileData->tileType == +TileType::TERRAIN  || m_mapNodeData[layer].tileData->tileType == +TileType::BLUEPRINT);
+           (m_mapNodeData[layer].tileID == "" || m_mapNodeData[layer].tileData->tileType == +TileType::TERRAIN ||
+            m_mapNodeData[layer].tileData->tileType == +TileType::BLUEPRINT);
   }
   return false;
 }
