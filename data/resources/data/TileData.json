@@ -518,7 +518,7 @@
     },
     {
         "author": "Kingtut 101",
-        "category": "Roads",
+        "category": "Utilities",
         "tileType": "underground",
         "description": "Pipes are used for transporting water.",
         "id": "underground_pipes",

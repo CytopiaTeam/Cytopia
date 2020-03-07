@@ -103,10 +103,14 @@ bool MapNode::isPlacementAllowed(const std::string &newTileID) const
   if (tileData)
   {
     Layer layer = Layer::BUILDINGS;
-    if (tileData->tileType == +TileType::TERRAIN)
+    switch (tileData->tileType)
     {
+    case TileType::TERRAIN:
       layer = Layer::TERRAIN;
+    case TileType::BLUEPRINT:
+      layer = Layer::BLUEPRINT;
     }
+
     //this is a water tile and placeOnWater has not been set to true, building is not permitted. Also disallow placing of water tiles on non water tiles
     if ((m_mapNodeData[Layer::WATER].tileData && !tileData->placeOnWater) ||
         (!m_mapNodeData[Layer::WATER].tileData && tileData->placeOnWater))
@@ -116,8 +120,9 @@ bool MapNode::isPlacementAllowed(const std::string &newTileID) const
 
     // check if the current tile is overplacable or allow overplacing autotiles if it's of the same tile ID
     if (m_mapNodeData[layer].tileData &&
-        (m_mapNodeData[layer].tileData->isOverPlacable ||
-         (m_mapNodeData[layer].tileData->tileType == +TileType::AUTOTILE && m_mapNodeData[layer].tileID == newTileID)))
+        (m_mapNodeData[layer].tileData->isOverPlacable || ((m_mapNodeData[layer].tileData->tileType == +TileType::AUTOTILE ||
+                                                            m_mapNodeData[layer].tileData->tileType == +TileType::UNDERGROUND) &&
+                                                           m_mapNodeData[layer].tileID == newTileID)))
 
     {
       return true;
@@ -150,7 +155,8 @@ void MapNode::updateTexture()
           m_orientation = TileList::TILE_DEFAULT_ORIENTATION;
         }
         // if the node should autotile, check if it needs to tile itself to another tile of the same ID
-        else if (m_mapNodeData[currentLayer].tileData->tileType == +TileType::AUTOTILE)
+        else if (m_mapNodeData[currentLayer].tileData->tileType == +TileType::AUTOTILE ||
+                 m_mapNodeData[currentLayer].tileData->tileType == +TileType::UNDERGROUND)
         {
           m_orientation = TileManager::instance().calculateTileOrientation(m_tileIDBitmask);
         }
