@@ -15,6 +15,7 @@ MapNode::MapNode(Point isoCoordinates, const std::string &terrainID, const std::
   {
     setTileID(tileID, isoCoordinates);
   }
+  setTileID("terrain_blueprint", isoCoordinates); // also set the blueprint layer
 
   updateTexture();
 }
@@ -107,8 +108,16 @@ bool MapNode::isPlacementAllowed(const std::string &newTileID) const
     {
     case TileType::TERRAIN:
       layer = Layer::TERRAIN;
+      break;
     case TileType::BLUEPRINT:
       layer = Layer::BLUEPRINT;
+      break;
+    case TileType::UNDERGROUND:
+      layer = Layer::PIPES;
+      break;
+    default:
+      layer = Layer::BUILDINGS;
+      break;
     }
 
     //this is a water tile and placeOnWater has not been set to true, building is not permitted. Also disallow placing of water tiles on non water tiles
@@ -128,7 +137,7 @@ bool MapNode::isPlacementAllowed(const std::string &newTileID) const
       return true;
     }
     return isPlacableOnSlope(newTileID) &&
-           (m_mapNodeData[layer].tileID == "" || m_mapNodeData[layer].tileData->tileType == +TileType::TERRAIN);
+           (m_mapNodeData[layer].tileID == "" || m_mapNodeData[layer].tileData->tileType == +TileType::TERRAIN  || m_mapNodeData[layer].tileData->tileType == +TileType::BLUEPRINT);
   }
   return false;
 }
@@ -149,7 +158,8 @@ void MapNode::updateTexture()
       if (m_elevationOrientation == TileSlopes::DEFAULT_ORIENTATION)
       {
         if (m_mapNodeData[currentLayer].tileData->tileType == +TileType::WATER ||
-            m_mapNodeData[currentLayer].tileData->tileType == +TileType::TERRAIN)
+            m_mapNodeData[currentLayer].tileData->tileType == +TileType::TERRAIN ||
+            m_mapNodeData[currentLayer].tileData->tileType == +TileType::BLUEPRINT)
         {
           tileMap = TileMap::DEFAULT;
           m_orientation = TileList::TILE_DEFAULT_ORIENTATION;
