@@ -519,6 +519,7 @@
     {
         "author": "Kingtut 101",
         "category": "Roads",
+        "tileType": "autotile",
         "description": "An average road that'll you would commonly find out in the countryside.  It lacks a proper sidewalk though.",
         "id": "road_country",
         "power": 0,
@@ -558,6 +559,7 @@
     {
         "author": "Kingtut 101",
         "category": "Roads",
+        "tileType": "autotile",
         "description": "An old dirt road that doesn't require much maintenance.  Not recommended for busy roadways.",
         "id": "road_dirt",
         "power": 0,
@@ -593,6 +595,7 @@
     {
         "author": "Kingtut 101",
         "category": "Roads",
+        "tileType": "autotile",
         "description": "Alley road.",
         "id": "road_alley",
         "power": 0,
@@ -622,6 +625,7 @@
     {
         "author": "Kingtut 101",
         "category": "Roads",
+        "tileType": "autotile",
         "description": "A highway! Cars go faaaaast here.",
         "id": "road_highway",
         "power": 0,
@@ -928,6 +932,7 @@
     {
         "author": "Kingtut 101",
         "category": "Roads",
+        "tileType": "autotile",
         "description": "A nice paved road that are commonly found in the middle of large cities.  Includes a sidewalk.",
         "id": "road_paved",
         "power": 0,
@@ -1508,6 +1513,7 @@
     {
         "author": "Kingtut 101",
         "category": "Water",
+        "tileType": "water",
         "description": "Water",
         "id": "water",
         "power": 0,
@@ -1713,6 +1719,7 @@
         "category": "TerrainDecoration",
         "description": "A pile of rocks that can be found in water.",
         "id": "rocks_water",
+        "placeOnWater": true,
         "power": 0,
         "price": 5,
         "tiles": {
@@ -4063,6 +4070,7 @@
         "author": "Kingtut 101",
         "category": "Flora",
         "subCategory": "WaterFlora",
+        "placeOnWater": true,
         "description": "A group tall wetland plants well-known for their brown catkins.",
         "id": "waterFlora_cattail_light",
         "power": 0,
@@ -4074,7 +4082,6 @@
             "fileName": "resources/images/flora/waterFlora/waterFlora_1x1_cattail_light.png"
         },
         "title": "Cattail",
-        "isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
         "tag": [
@@ -4088,6 +4095,7 @@
         "author": "Kingtut 101",
         "category": "Flora",
         "subCategory": "WaterFlora",
+        "placeOnWater": true,
         "description": "A group tall wetland plants well-known for their brown catkins.",
         "id": "waterFlora_cattail_medium",
         "power": 0,
@@ -4099,7 +4107,6 @@
             "fileName": "resources/images/flora/waterFlora/waterFlora_1x1_cattail_medium.png"
         },
         "title": "Cattail",
-        "isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
         "tag": [
@@ -4113,6 +4120,7 @@
         "author": "Kingtut 101",
         "category": "Flora",
         "subCategory": "WaterFlora",
+        "placeOnWater": true,
         "description": "A group tall wetland plants well-known for their brown catkins.",
         "id": "waterFlora_cattail_dense",
         "power": 0,
@@ -4124,7 +4132,6 @@
             "fileName": "resources/images/flora/waterFlora/waterFlora_1x1_cattail_dense.png"
         },
         "title": "Cattail",
-        "isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
         "tag": [
@@ -4138,6 +4145,7 @@
         "author": "Kingtut 101",
         "category": "Flora",
         "subCategory": "WaterFlora",
+        "placeOnWater": true,
         "description": "Rice is normally grown as an annual plant, although in tropical areas it can survive as a perennial and can produce a ratoon crop for up to 30 years.",
         "id": "waterFlora_rice_light",
         "power": 0,
@@ -4149,7 +4157,6 @@
             "fileName": "resources/images/flora/waterFlora/waterFlora_1x1_rice_light.png"
         },
         "title": "Rice",
-        "isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
         "tag": [
@@ -4163,6 +4170,7 @@
         "author": "Kingtut 101",
         "category": "Flora",
         "subCategory": "WaterFlora",
+        "placeOnWater": true,
         "description": "Rice is normally grown as an annual plant, although in tropical areas it can survive as a perennial and can produce a ratoon crop for up to 30 years.",
         "id": "waterFlora_rice_medium",
         "power": 0,
@@ -4174,7 +4182,6 @@
             "fileName": "resources/images/flora/waterFlora/waterFlora_1x1_rice_medium.png"
         },
         "title": "Rice",
-        "isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
         "tag": [
@@ -4188,6 +4195,7 @@
         "author": "Kingtut 101",
         "category": "Flora",
         "subCategory": "WaterFlora",
+        "placeOnWater": true,
         "description": "Rice is normally grown as an annual plant, although in tropical areas it can survive as a perennial and can produce a ratoon crop for up to 30 years.",
         "id": "waterFlora_rice_dense",
         "power": 0,
@@ -4199,7 +4207,6 @@
             "fileName": "resources/images/flora/waterFlora/waterFlora_1x1_rice_dense.png"
         },
         "title": "Rice",
-        "isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
         "tag": [
@@ -4213,6 +4220,7 @@
         "author": "Kingtut 101",
         "category": "Flora",
         "subCategory": "WaterFlora",
+        "placeOnWater": true,
         "description": "Lily pads are broad, rounded, heart- or shield-shaped leaves. Frogs like to sit on them!",
         "id": "waterFlora_lilypads_light",
         "power": 0,
@@ -4224,7 +4232,6 @@
             "fileName": "resources/images/flora/waterFlora/waterFlora_1x1_lilypads_light.png"
         },
         "title": "Lily pads",
-        "isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
         "tag": [
@@ -4238,6 +4245,7 @@
         "author": "Kingtut 101",
         "category": "Flora",
         "subCategory": "WaterFlora",
+        "placeOnWater": true,
         "description": "Lily pads are broad, rounded, heart- or shield-shaped leaves. Frogs like to sit on them!",
         "id": "waterFlora_lilypads_medium",
         "power": 0,
@@ -4249,7 +4257,6 @@
             "fileName": "resources/images/flora/waterFlora/waterFlora_1x1_lilypads_medium.png"
         },
         "title": "Lily pads",
-        "isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
         "tag": [
@@ -4263,6 +4270,7 @@
         "author": "Kingtut 101",
         "category": "Flora",
         "subCategory": "WaterFlora",
+        "placeOnWater": true,
         "description": "Lily pads are broad, rounded, heart- or shield-shaped leaves. Frogs like to sit on them!",
         "id": "waterFlora_lilypads_dense",
         "power": 0,
@@ -4274,7 +4282,6 @@
             "fileName": "resources/images/flora/waterFlora/waterFlora_1x1_lilypads_dense.png"
         },
         "title": "Lily pads",
-        "isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
         "tag": [
@@ -6876,7 +6883,8 @@
     },
     {
         "author": "Kingtut 101",
-        "category": "Roads",
+        "category": "Decoration",
+        "tileType": "autotile",
         "subCategory": "NatureDecoration",
         "description": "TODO - move this to decoration when the new attribute is implemented",
         "id": "ND_1x1_stream",
@@ -8313,6 +8321,7 @@
     {
         "author": "Kingtut 101",
         "category": "Terrain",
+        "tileType": "terrain",
         "description": "Terrain basalt tiles",
         "id": "terrain_basalt",
         "power": 0,
@@ -8349,6 +8358,7 @@
     {
         "author": "Kingtut 101",
         "category": "Terrain",
+        "tileType": "terrain",
         "description": "Terrain beach tiles",
         "id": "terrain_sand_beach",
         "power": 0,
@@ -8386,6 +8396,7 @@
     {
         "author": "Kingtut 101",
         "category": "Terrain",
+        "tileType": "terrain",
         "description": "Terrain Black Sand tiles",
         "id": "terrain_sand_black",
         "power": 0,
@@ -8423,6 +8434,7 @@
     {
         "author": "Kingtut 101",
         "category": "Terrain",
+        "tileType": "terrain",
         "description": "Terrain burned tiles",
         "id": "terrain_burned",
         "power": 0,
@@ -8459,6 +8471,7 @@
     {
         "author": "Kingtut 101",
         "category": "Terrain",
+        "tileType": "terrain",
         "description": "Terrain Desert tiles",
         "id": "terrain_sand_desert",
         "power": 0,
@@ -8496,6 +8509,7 @@
     {
         "author": "Kingtut 101",
         "category": "Terrain",
+        "tileType": "terrain",
         "description": "Terrain Dirt tiles",
         "id": "terrain_dirt",
         "power": 0,
@@ -8532,6 +8546,7 @@
     {
         "author": "Kingtut 101",
         "category": "Terrain",
+        "tileType": "terrain",
         "description": "Terrain grass tiles",
         "id": "terrain_grass",
         "power": 0,
@@ -8568,6 +8583,7 @@
     {
         "author": "Kingtut 101",
         "category": "Terrain",
+        "tileType": "terrain",
         "description": "Terrain grass forest tiles",
         "id": "terrain_grass_forest",
         "power": 0,
@@ -8605,6 +8621,7 @@
     {
         "author": "Kingtut 101",
         "category": "Terrain",
+        "tileType": "terrain",
         "description": "Terrain grass mint tiles",
         "id": "terrain_grass_mint",
         "power": 0,
@@ -8642,6 +8659,7 @@
     {
         "author": "Kingtut 101",
         "category": "Terrain",
+        "tileType": "terrain",
         "description": "Terrain Grass Mint Forest tiles",
         "id": "terrain_grass_mint_forest",
         "power": 0,
@@ -8680,6 +8698,7 @@
     {
         "author": "Kingtut 101",
         "category": "Terrain",
+        "tileType": "terrain",
         "description": "Terrain Gravel tiles",
         "id": "terrain_gravel",
         "power": 0,
@@ -8716,6 +8735,7 @@
     {
         "author": "Kingtut 101",
         "category": "Terrain",
+        "tileType": "terrain",
         "description": "Terrain mud tiles",
         "id": "terrain_mud",
         "power": 0,
@@ -8752,6 +8772,7 @@
     {
         "author": "Kingtut 101",
         "category": "Terrain",
+        "tileType": "terrain",
         "description": "Terrain Red Sand tiles",
         "id": "terrain_sand_red",
         "power": 0,
@@ -8789,6 +8810,7 @@
     {
         "author": "Kingtut 101",
         "category": "Terrain",
+        "tileType": "terrain",
         "description": "Terrain Rainstone tiles",
         "id": "terrain_rainstone",
         "power": 0,
@@ -8826,6 +8848,7 @@
     {
         "author": "Kingtut 101",
         "category": "Terrain",
+        "tileType": "terrain",
         "description": "Terrain shading tiles",
         "id": "terrain_shading",
         "power": 0,
@@ -8862,6 +8885,7 @@
     {
         "author": "Kingtut 101",
         "category": "Terrain",
+        "tileType": "terrain",
         "description": "Terrain Snow tiles",
         "id": "terrain_snow",
         "power": 0,
@@ -8898,6 +8922,7 @@
     {
         "author": "Kingtut 101",
         "category": "Terrain",
+        "tileType": "terrain",
         "description": "Terrain soil tiles",
         "id": "terrain_soil",
         "power": 0,
@@ -8934,6 +8959,7 @@
     {
         "author": "Kingtut 101",
         "category": "Terrain",
+        "tileType": "terrain",
         "description": "Terrain Stone tiles",
         "id": "terrain_stone",
         "power": 0,
@@ -9301,6 +9327,7 @@
     {
         "author": "Kingtut 101",
         "category": "Roads",
+        "tileType": "autotile",
         "description": "TODO DESC",
         "id": "prs_1x1_prisfen_kt",
         "power": 0,

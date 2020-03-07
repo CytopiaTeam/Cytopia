@@ -4,6 +4,7 @@
 #include "Exception.hxx"
 #include "basics/Settings.hxx"
 #include "ResourcesManager.hxx"
+#include "enums.hxx"
 
 #include <bitset>
 
@@ -275,11 +276,24 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
   m_tileData[id].author = tileDataJSON[idx].value("author", "");
   m_tileData[id].title = tileDataJSON[idx].value("title", "");
   m_tileData[id].description = tileDataJSON[idx].value("description", "");
+  std::string tileTypeStr = tileDataJSON[idx].value("tileType", "default");
+
+  if (TileType::_is_valid_nocase(tileTypeStr.c_str()))
+  {
+    m_tileData[id].tileType = TileType::_from_string(tileTypeStr.c_str());
+  }
+  else
+  {
+    LOG(LOG_ERROR) << "In TileData.json in field with ID " << id << " the unsupported value " << tileTypeStr
+                   << " is used for the field tileType.";
+  }
+
   m_tileData[id].category = tileDataJSON[idx].value("category", "");
   m_tileData[id].price = tileDataJSON[idx].value("price", 0);
   m_tileData[id].water = tileDataJSON[idx].value("water", 0);
   m_tileData[id].isOverPlacable = tileDataJSON[idx].value("isOverPlacable", false);
   m_tileData[id].drawGround = tileDataJSON[idx].value("draw ground", false);
+  m_tileData[id].placeOnWater = tileDataJSON[idx].value("placeOnWater", false);
 
   if (tileDataJSON[idx].find("RequiredTiles") != tileDataJSON[idx].end())
   {

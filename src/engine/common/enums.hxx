@@ -2,6 +2,7 @@
 #define ENUMS_HXX_
 
 #include <stddef.h>
+#include "betterEnums.hxx"
 
 constexpr size_t LAYERS_COUNT = 7;
 
@@ -16,5 +17,7 @@ enum Layer : unsigned int
   ANIMATIONS,      // Animations like smoke
   SYMBOLS          // Symbols to display over buildings like no power / water and so on
 };
+
+BETTER_ENUM(TileType, int, DEFAULT, TERRAIN, WATER, AUTOTILE)
 
 #endif
