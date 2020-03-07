@@ -519,6 +519,37 @@
     {
         "author": "Kingtut 101",
         "category": "Roads",
+        "tileType": "underground",
+        "description": "Pipes are used for transporting water.",
+        "id": "underground_pipes",
+        "power": 0,
+        "price": 7,
+        "slopeTiles": {
+            "clip_height": 25,
+            "clip_width": 32,
+            "count": 4,
+            "offset": 20,
+            "fileName": "resources/images/underground/water/ug_1x1_pipes.png"
+        },
+        "tiles": {
+            "clip_height": 25,
+            "clip_width": 32,
+            "count": 16,
+            "fileName": "resources/images/underground/water/ug_1x1_pipes.png",
+            "rotations": 16
+        },
+        "title": "Water pipe",
+        "upkeep cost": 2,
+        "water": 0,
+        "tag": [
+            "utilities",
+            "pipes",
+            "water"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Roads",
         "tileType": "autotile",
         "description": "An average road that'll you would commonly find out in the countryside.  It lacks a proper sidewalk though.",
         "id": "road_country",
@@ -1522,21 +1553,21 @@
             "clip_height": 23,
             "clip_width": 32,
             "count": 4,
-            "fileName": "resources/images/water/liquid_water.png"
+            "fileName": "resources/images/terrain/water/liquid_water.png"
         },
         "cornerTiles": {
             "clip_height": 23,
             "clip_width": 32,
             "count": 8,
             "offset": 4,
-            "fileName": "resources/images/water/liquid_water.png"
+            "fileName": "resources/images/terrain/water/liquid_water.png"
         },
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
             "count": 3,
             "offset": 13,
-            "fileName": "resources/images/water/liquid_water.png"
+            "fileName": "resources/images/terrain/water/liquid_water.png"
         },
         "title": "Water",
         "upkeep cost": 0,
@@ -8314,8 +8345,46 @@
         "upkeep cost": 0,
         "water": 0,
         "tag": [
-            "todo",
-            "desc"
+            "power plant",
+            "coal",
+            "austria"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Terrain",
+        "tileType": "blueprint",
+        "description": "Terrain Blueprint",
+        "id": "terrain_blueprint",
+        "power": 0,
+        "price": 0,
+        "slopeTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 4,
+            "fileName": "resources/images/terrain/blueprint/blueprint_PipeView.png"
+        },
+        "cornerTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 8,
+            "offset": 4,
+            "fileName": "resources/images/terrain/blueprint/blueprint_PipeView.png"
+        },
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 1,
+            "offset": 13,
+            "fileName": "resources/images/terrain/blueprint/blueprint_PipeView.png"
+        },
+        "title": "Blueprint",
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "terrain",
+            "blueprint",
+            "tiles"
         ]
     },
     {

@@ -18,6 +18,13 @@ enum Layer : unsigned int
   SYMBOLS          // Symbols to display over buildings like no power / water and so on
 };
 
-BETTER_ENUM(TileType, int, DEFAULT, TERRAIN, WATER, AUTOTILE)
+BETTER_ENUM(TileType, int,
+            DEFAULT,    // Default is for buildings and practically everything that'll be placed on the TERRAIN layer
+            TERRAIN,    // Terrain itself
+            WATER,      // Water terrain
+            BLUEPRINT,  // Same as terrain, but gets placed on the BLUEPRINT layer
+            AUTOTILE,   // Autotiling to itself, like roads, power lines, etc
+            UNDERGROUND // same as AUTOTILE, but for the BLUEPRINT layer
+)
 
 #endif
