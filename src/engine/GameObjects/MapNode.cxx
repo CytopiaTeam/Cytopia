@@ -272,17 +272,17 @@ const MapNodeData &MapNode::getActiveMapNodeData() const
 {
   //TODO: Needs further adjustments for other layers
   // Determine the topmost active layer here by checking if it has a tileID set and return it's mapNodeData
-  if (MapLayers::isLayerActive(Layer::BUILDINGS) && !m_mapNodeData[Layer::BUILDINGS].tileID.empty() &&
+  if (MapLayers::isLayerActive(Layer::BUILDINGS) &&
       m_mapNodeData[Layer::BUILDINGS].tileData)
   {
     return m_mapNodeData[Layer::BUILDINGS];
   }
-  else if (MapLayers::isLayerActive(Layer::BLUEPRINT) && !m_mapNodeData[Layer::UNDERGROUND].tileID.empty() &&
+  else if (MapLayers::isLayerActive(Layer::BLUEPRINT) &&
            m_mapNodeData[Layer::UNDERGROUND].tileData)
   {
     return m_mapNodeData[Layer::UNDERGROUND];
   }
-  else if (MapLayers::isLayerActive(Layer::BLUEPRINT) && !m_mapNodeData[Layer::BLUEPRINT].tileID.empty() &&
+  else if (MapLayers::isLayerActive(Layer::BLUEPRINT) &&
            m_mapNodeData[Layer::BLUEPRINT].tileData)
   {
     return m_mapNodeData[Layer::BLUEPRINT];
