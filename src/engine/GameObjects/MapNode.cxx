@@ -83,6 +83,28 @@ void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
   }
 }
 
+unsigned int MapNode::getTopMostActiveLayer() const
+{
+  if (MapLayers::isLayerActive(Layer::BUILDINGS) && m_mapNodeData[Layer::BUILDINGS].tileData)
+  {
+    return Layer::BUILDINGS;
+  }
+  else if (MapLayers::isLayerActive(Layer::BLUEPRINT) && m_mapNodeData[Layer::UNDERGROUND].tileData)
+  {
+    return Layer::UNDERGROUND;
+  }
+  else if (MapLayers::isLayerActive(Layer::BLUEPRINT) && m_mapNodeData[Layer::BLUEPRINT].tileData)
+  {
+    return Layer::BLUEPRINT;
+  }
+  // terrain is our fallback, since there's always terrain.
+  else if (MapLayers::isLayerActive(Layer::TERRAIN) && m_mapNodeData[Layer::TERRAIN].tileData)
+  {
+    return Layer::TERRAIN;
+  }
+  return Layer::NONE
+}
+
 bool MapNode::isPlacableOnSlope(const std::string &tileID) const
 {
   TileData *tileData = TileManager::instance().getTileData(tileID);
@@ -270,25 +292,7 @@ void MapNode::setCoordinates(const Point &newIsoCoordinates)
 
 const MapNodeData &MapNode::getActiveMapNodeData() const
 {
-  //TODO: Needs further adjustments for other layers
-  // Determine the topmost active layer here by checking if it has a tileID set and return it's mapNodeData
-  if (MapLayers::isLayerActive(Layer::BUILDINGS) &&
-      m_mapNodeData[Layer::BUILDINGS].tileData)
-  {
-    return m_mapNodeData[Layer::BUILDINGS];
-  }
-  else if (MapLayers::isLayerActive(Layer::BLUEPRINT) &&
-           m_mapNodeData[Layer::UNDERGROUND].tileData)
-  {
-    return m_mapNodeData[Layer::UNDERGROUND];
-  }
-  else if (MapLayers::isLayerActive(Layer::BLUEPRINT) &&
-           m_mapNodeData[Layer::BLUEPRINT].tileData)
-  {
-    return m_mapNodeData[Layer::BLUEPRINT];
-  }
-
-  return m_mapNodeData[Layer::TERRAIN];
+  return m_mapNodeData[getTopMostActiveLayer()];
 }
 
 void MapNode::setMapNodeData(std::vector<MapNodeData> &&mapNodeData)
