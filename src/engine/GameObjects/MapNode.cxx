@@ -102,7 +102,7 @@ unsigned int MapNode::getTopMostActiveLayer() const
   {
     return Layer::TERRAIN;
   }
-  return Layer::NONE
+  return Layer::NONE;
 }
 
 bool MapNode::isPlacableOnSlope(const std::string &tileID) const

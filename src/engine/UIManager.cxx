@@ -392,13 +392,13 @@ void UIManager::setCallbackFunctions()
 
         if (button && button->getUiElementData().isToggleButton)
         {
-          button->checkState() ? tileTypeEditMode = actionParameter : tileTypeEditMode = "";
+          button->checkState() ? tileToPlace = actionParameter : tileToPlace = "";
           button->checkState() ? highlightSelection = true : highlightSelection = false;
           return;
         }
 
-        tileTypeEditMode == actionParameter ? tileTypeEditMode = "" : tileTypeEditMode = actionParameter;
-        tileTypeEditMode == actionParameter ? highlightSelection = true : highlightSelection = false;
+        tileToPlace == actionParameter ? tileToPlace = "" : tileToPlace = actionParameter;
+        tileToPlace == actionParameter ? highlightSelection = true : highlightSelection = false;
       });
     }
     else if (uiElement->getUiElementData().actionID == "ToggleVisibilityOfGroup")
