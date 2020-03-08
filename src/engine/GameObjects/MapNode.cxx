@@ -278,7 +278,7 @@ const MapNodeData &MapNode::getActiveMapNodeData() const
     return m_mapNodeData[Layer::BUILDINGS];
   }
   else if (MapLayers::isLayerActive(Layer::BLUEPRINT) && !m_mapNodeData[Layer::UNDERGROUND].tileID.empty() &&
-      m_mapNodeData[Layer::UNDERGROUND].tileData)
+           m_mapNodeData[Layer::UNDERGROUND].tileData)
   {
     return m_mapNodeData[Layer::UNDERGROUND];
   }
@@ -287,7 +287,7 @@ const MapNodeData &MapNode::getActiveMapNodeData() const
   {
     return m_mapNodeData[Layer::BLUEPRINT];
   }
-  
+
   return m_mapNodeData[Layer::TERRAIN];
 }
 
@@ -313,6 +313,14 @@ void MapNode::demolishNode()
     m_mapNodeData[Layer::BUILDINGS].tileData = nullptr;
     m_mapNodeData[Layer::BUILDINGS].tileID = "";
     m_sprite->clearSprite(Layer::BUILDINGS);
+    this->m_origCornerPoint = this->getCoordinates();
+    updateTexture();
+  }
+  else if (MapLayers::isLayerActive(Layer::UNDERGROUND))
+  {
+    m_mapNodeData[Layer::UNDERGROUND].tileData = nullptr;
+    m_mapNodeData[Layer::UNDERGROUND].tileID = "";
+    m_sprite->clearSprite(Layer::UNDERGROUND);
     this->m_origCornerPoint = this->getCoordinates();
     updateTexture();
   }
