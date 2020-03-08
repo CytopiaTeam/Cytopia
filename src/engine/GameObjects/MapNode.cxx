@@ -277,7 +277,17 @@ const MapNodeData &MapNode::getActiveMapNodeData() const
   {
     return m_mapNodeData[Layer::BUILDINGS];
   }
-
+  else if (MapLayers::isLayerActive(Layer::BLUEPRINT) && !m_mapNodeData[Layer::UNDERGROUND].tileID.empty() &&
+      m_mapNodeData[Layer::UNDERGROUND].tileData)
+  {
+    return m_mapNodeData[Layer::UNDERGROUND];
+  }
+  else if (MapLayers::isLayerActive(Layer::BLUEPRINT) && !m_mapNodeData[Layer::BLUEPRINT].tileID.empty() &&
+           m_mapNodeData[Layer::BLUEPRINT].tileData)
+  {
+    return m_mapNodeData[Layer::BLUEPRINT];
+  }
+  
   return m_mapNodeData[Layer::TERRAIN];
 }
 
