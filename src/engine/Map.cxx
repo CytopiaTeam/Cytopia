@@ -470,6 +470,55 @@ bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int is
       }
     }
   }
+
+    if (MapLayers::isLayerActive(Layer::BLUEPRINT) && mapNodes[isoX * m_columns + isoY]->getSprite()->isLayerUsed(Layer::BLUEPRINT))
+  {
+      SDL_Rect spriteRect = mapNodes[isoX * m_columns + isoY]->getSprite()->getDestRect(Layer::BLUEPRINT);
+    SDL_Rect clipRect = mapNodes[isoX * m_columns + isoY]->getSprite()->getClipRect(Layer::BLUEPRINT);
+
+    if (SDL_PointInRect(&screenCoordinates, &spriteRect))
+    {
+      // Calculate the position of the clicked pixel within the surface and "un-zoom" the position to match the un-adjusted surface
+      // we need to offset the click coordinates by the clipping coordinates to check for the right sprite in the spritesheet.
+      const int pixelX =
+          static_cast<int>(std::round(static_cast<float>(screenCoordinates.x - spriteRect.x) / Camera::zoomLevel)) + clipRect.x;
+      const int pixelY =
+          static_cast<int>(std::round(static_cast<float>(screenCoordinates.y - spriteRect.y) / Camera::zoomLevel)) + clipRect.y;
+      // Check if the clicked Sprite is not transparent (we hit a point within the pixel)
+      if (getColorOfPixelInSurface(ResourcesManager::instance().getTileSurface(
+                                       mapNodes[isoX * m_columns + isoY]->getMapNodeDataForLayer(Layer::BLUEPRINT).tileID),
+                                   pixelX, pixelY)
+              .a != SDL_ALPHA_TRANSPARENT)
+      {
+        return true;
+      }
+    }
+  }
+
+      if (MapLayers::isLayerActive(Layer::UNDERGROUND) &&
+      mapNodes[isoX * m_columns + isoY]->getSprite()->isLayerUsed(Layer::UNDERGROUND))
+  {
+        SDL_Rect spriteRect = mapNodes[isoX * m_columns + isoY]->getSprite()->getDestRect(Layer::UNDERGROUND);
+    SDL_Rect clipRect = mapNodes[isoX * m_columns + isoY]->getSprite()->getClipRect(Layer::UNDERGROUND);
+
+    if (SDL_PointInRect(&screenCoordinates, &spriteRect))
+    {
+      // Calculate the position of the clicked pixel within the surface and "un-zoom" the position to match the un-adjusted surface
+      // we need to offset the click coordinates by the clipping coordinates to check for the right sprite in the spritesheet.
+      const int pixelX =
+          static_cast<int>(std::round(static_cast<float>(screenCoordinates.x - spriteRect.x) / Camera::zoomLevel)) + clipRect.x;
+      const int pixelY =
+          static_cast<int>(std::round(static_cast<float>(screenCoordinates.y - spriteRect.y) / Camera::zoomLevel)) + clipRect.y;
+      // Check if the clicked Sprite is not transparent (we hit a point within the pixel)
+      if (getColorOfPixelInSurface(ResourcesManager::instance().getTileSurface(
+                                       mapNodes[isoX * m_columns + isoY]->getMapNodeDataForLayer(Layer::UNDERGROUND).tileID),
+                                   pixelX, pixelY)
+              .a != SDL_ALPHA_TRANSPARENT)
+      {
+        return true;
+      }
+    }
+  }
   // Nothing found
   return false;
 }
