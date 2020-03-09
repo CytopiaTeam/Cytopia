@@ -252,7 +252,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
 
             for (size_t i = 0; i < m_highlightedNodes.size(); i++)
             {
-              if (!engine.map->checkTileIDIsEmpty(m_highlightedNodes[i], tileTypeEditMode))
+              if (!engine.map->isPlacementOnNodeAllowed(m_highlightedNodes[i], tileTypeEditMode))
               {
                 // already occupied tile, mark red
                 engine.map->highlightNode(m_highlightedNodes[i], SpriteHighlightColor::RED);
@@ -294,7 +294,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
             {
               for (auto coords : m_highlightedObjectNodes)
               {
-                if (!engine.map->checkTileIDIsEmpty(coords, tileTypeEditMode))
+                if (!engine.map->isPlacementOnNodeAllowed(coords, tileTypeEditMode))
                 {
                   Point origCornerPoint = engine.map->getNodeOrigCornerPoint(coords);
                   Layer layer = TileManager::instance().getTileLayer(tileTypeEditMode);
@@ -414,6 +414,8 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           else
           {
             engine.setTileIDOfNode(bresenhamLineNodes.begin(), bresenhamLineNodes.end(), tileTypeEditMode, true);
+            // we need to empty the nodes when we're done so the next line starts "fresh" without drawin a line to the last coords.
+            m_highlightedNodes.clear();
           }
         }
         else if (demolishMode)

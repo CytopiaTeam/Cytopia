@@ -169,13 +169,13 @@ void Map::updateAllNodes()
   }
 }
 
-bool Map::checkTileIDIsEmpty(const Point &isoCoordinates, const std::string &tileID) const
+bool Map::isPlacementOnNodeAllowed(const Point &isoCoordinates, const std::string &tileID) const
 {
   if (mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y])
   {
-    return mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->checkTileIsEmpty(tileID);
+    return mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->isPlacementAllowed(tileID);
   }
-  return true;
+  return false;
 }
 
 std::vector<Point> Map::getObjectCoords(const Point &isoCoordinates, const std::string &tileID)
@@ -246,7 +246,7 @@ unsigned char Map::getNeighboringTilesBitmask(const Point &isoCoordinates)
 
   // only auto-tile categories that can be tiled.
   if (mapNodes[x * m_columns + y] && mapNodes[x * m_columns + y]->getActiveMapNodeData().tileData &&
-      mapNodes[x * m_columns + y]->getActiveMapNodeData().tileData->category == "Roads")
+      mapNodes[x * m_columns + y]->getActiveMapNodeData().tileData->tileType == +TileType::AUTOTILE)
   {
     std::pair<int, int> adjecantNodesCoordinates[8]{
         std::make_pair(x, y + 1),     // 0 = 2^0 = 1   = TOP
@@ -266,8 +266,8 @@ unsigned char Map::getNeighboringTilesBitmask(const Point &isoCoordinates)
           (mapNodes[it.first * m_columns + it.second] &&
            mapNodes[it.first * m_columns + it.second]->getActiveMapNodeData().tileData && mapNodes[x * m_columns + y] &&
            mapNodes[x * m_columns + y]->getActiveMapNodeData().tileData &&
-           mapNodes[it.first * m_columns + it.second]->getActiveMapNodeData().tileData->category ==
-               mapNodes[x * m_columns + y]->getActiveMapNodeData().tileData->category))
+           mapNodes[it.first * m_columns + it.second]->getActiveMapNodeData().tileID ==
+               mapNodes[x * m_columns + y]->getActiveMapNodeData().tileID))
       {
         // for each found tile add 2 ^ i to the bitmask
         bitmask |= static_cast<unsigned int>(1 << i);
@@ -320,10 +320,9 @@ void Map::refresh()
   }
 }
 
-SDL_Color Map::getColorOfPixelInSurface(SDL_Surface *surface, int x, int y, const SDL_Rect &clipRect) const
+SDL_Color Map::getColorOfPixelInSurface(SDL_Surface *surface, int x, int y) const
 {
   SDL_Color Color{0, 0, 0, SDL_ALPHA_TRANSPARENT};
-
   if (surface)
   {
     const int bpp = surface->format->BytesPerPixel;
@@ -425,9 +424,8 @@ bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int is
 
       // Check if the clicked Sprite is not transparent (we hit a point within the pixel)
       if (getColorOfPixelInSurface(ResourcesManager::instance().getTileSurface(
-                                       mapNodes[isoX * m_columns + isoY]->getMapNodeDataForLayer(Layer::BUILDINGS).tileID,
-                                       mapNodes[isoX * m_columns + isoY]->tileMap),
-                                   pixelX, pixelY, mapNodes[isoX * m_columns + isoY]->getSprite()->getClipRect(Layer::BUILDINGS))
+                                       mapNodes[isoX * m_columns + isoY]->getMapNodeDataForLayer(Layer::BUILDINGS).tileID),
+                                   pixelX, pixelY)
               .a != SDL_ALPHA_TRANSPARENT)
       {
         return true;
@@ -443,15 +441,40 @@ bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int is
     if (SDL_PointInRect(&screenCoordinates, &spriteRect))
     {
       // Calculate the position of the clicked pixel within the surface and "un-zoom" the position to match the un-adjusted surface
+      // we need to offset the click coordinates by the clipping coordinates to check for the right sprite in the spritesheet.
       const int pixelX =
           static_cast<int>(std::round(static_cast<float>(screenCoordinates.x - spriteRect.x) / Camera::zoomLevel)) + clipRect.x;
-      const int pixelY = static_cast<int>(std::round(static_cast<float>(screenCoordinates.y - spriteRect.y) / Camera::zoomLevel));
-
+      const int pixelY =
+          static_cast<int>(std::round(static_cast<float>(screenCoordinates.y - spriteRect.y) / Camera::zoomLevel)) + clipRect.y;
       // Check if the clicked Sprite is not transparent (we hit a point within the pixel)
       if (getColorOfPixelInSurface(ResourcesManager::instance().getTileSurface(
-                                       mapNodes[isoX * m_columns + isoY]->getMapNodeDataForLayer(Layer::TERRAIN).tileID,
-                                       mapNodes[isoX * m_columns + isoY]->tileMap),
-                                   pixelX, pixelY, mapNodes[isoX * m_columns + isoY]->getSprite()->getClipRect(Layer::TERRAIN))
+                                       mapNodes[isoX * m_columns + isoY]->getMapNodeDataForLayer(Layer::TERRAIN).tileID),
+                                   pixelX, pixelY)
+              .a != SDL_ALPHA_TRANSPARENT)
+      {
+        return true;
+      }
+    }
+  }
+
+  // if we can't find the tile in the BUILDINGS layer, try terrain too. This means the cursor is on an occupied tile, but not on the building sprite itself
+  if (MapLayers::isLayerActive(Layer::WATER) && mapNodes[isoX * m_columns + isoY]->getSprite()->isLayerUsed(Layer::WATER))
+  {
+    SDL_Rect spriteRect = mapNodes[isoX * m_columns + isoY]->getSprite()->getDestRect(Layer::WATER);
+    SDL_Rect clipRect = mapNodes[isoX * m_columns + isoY]->getSprite()->getClipRect(Layer::WATER);
+
+    if (SDL_PointInRect(&screenCoordinates, &spriteRect))
+    {
+      // Calculate the position of the clicked pixel within the surface and "un-zoom" the position to match the un-adjusted surface
+      // we need to offset the click coordinates by the clipping coordinates to check for the right sprite in the spritesheet.
+      const int pixelX =
+          static_cast<int>(std::round(static_cast<float>(screenCoordinates.x - spriteRect.x) / Camera::zoomLevel)) + clipRect.x;
+      const int pixelY =
+          static_cast<int>(std::round(static_cast<float>(screenCoordinates.y - spriteRect.y) / Camera::zoomLevel)) + clipRect.y;
+      // Check if the clicked Sprite is not transparent (we hit a point within the pixel)
+      if (getColorOfPixelInSurface(ResourcesManager::instance().getTileSurface(
+                                       mapNodes[isoX * m_columns + isoY]->getMapNodeDataForLayer(Layer::WATER).tileID),
+                                   pixelX, pixelY)
               .a != SDL_ALPHA_TRANSPARENT)
       {
         return true;
