@@ -68,16 +68,20 @@ void Sprite::refresh()
 
         if (m_SpriteData[it].clipRect.w != 0)
         {
-          m_SpriteData[it].destRect.w = static_cast<int>(m_SpriteData[it].clipRect.w * m_currentZoomLevel);
-          m_SpriteData[it].destRect.h = static_cast<int>(m_SpriteData[it].clipRect.h * m_currentZoomLevel);
+          m_SpriteData[it].destRect.w =
+              static_cast<int>(std::round(static_cast<float>(m_SpriteData[it].clipRect.w) * m_currentZoomLevel));
+          m_SpriteData[it].destRect.h =
+              static_cast<int>(std::round(static_cast<float>(m_SpriteData[it].clipRect.h) * m_currentZoomLevel));
         }
         else
         {
           SDL_QueryTexture(m_SpriteData[it].texture, nullptr, nullptr, &m_SpriteData[it].destRect.w,
                            &m_SpriteData[it].destRect.h);
 
-          m_SpriteData[it].destRect.w = static_cast<int>(m_SpriteData[it].destRect.w * m_currentZoomLevel);
-          m_SpriteData[it].destRect.h = static_cast<int>(m_SpriteData[it].destRect.h * m_currentZoomLevel);
+          m_SpriteData[it].destRect.w =
+              static_cast<int>(std::round(static_cast<float>(m_SpriteData[it].clipRect.w) * m_currentZoomLevel));
+          m_SpriteData[it].destRect.h =
+              static_cast<int>(std::round(static_cast<float>(m_SpriteData[it].clipRect.h) * m_currentZoomLevel));
         }
       }
     }

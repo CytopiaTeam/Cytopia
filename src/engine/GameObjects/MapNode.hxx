@@ -112,6 +112,12 @@ public:
 
   size_t tileMap = TileMap::DEFAULT;
 
+  /** @brief return topmost active layer.
+    * check layers in order of significance for the topmost active layer that has an active tile on that layer
+    * @return Layer enum of the topmost active layer
+    */
+  unsigned int getTopMostActiveLayer() const;
+
 private:
   Point m_isoCoordinates;
   std::unique_ptr<Sprite> m_sprite;

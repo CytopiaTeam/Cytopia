@@ -15,6 +15,8 @@ MapNode::MapNode(Point isoCoordinates, const std::string &terrainID, const std::
   {
     setTileID(tileID, isoCoordinates);
   }
+  // always add blueprint tiles too when creating the node
+  setTileID("terrain_blueprint", isoCoordinates);
 
   updateTexture();
 }
@@ -81,6 +83,28 @@ void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
   }
 }
 
+unsigned int MapNode::getTopMostActiveLayer() const
+{
+  if (MapLayers::isLayerActive(Layer::BUILDINGS) && m_mapNodeData[Layer::BUILDINGS].tileData)
+  {
+    return Layer::BUILDINGS;
+  }
+  else if (MapLayers::isLayerActive(Layer::BLUEPRINT) && m_mapNodeData[Layer::UNDERGROUND].tileData)
+  {
+    return Layer::UNDERGROUND;
+  }
+  else if (MapLayers::isLayerActive(Layer::BLUEPRINT) && m_mapNodeData[Layer::BLUEPRINT].tileData)
+  {
+    return Layer::BLUEPRINT;
+  }
+  // terrain is our fallback, since there's always terrain.
+  else if (MapLayers::isLayerActive(Layer::TERRAIN) && m_mapNodeData[Layer::TERRAIN].tileData)
+  {
+    return Layer::TERRAIN;
+  }
+  return Layer::NONE;
+}
+
 bool MapNode::isPlacableOnSlope(const std::string &tileID) const
 {
   TileData *tileData = TileManager::instance().getTileData(tileID);
@@ -100,13 +124,11 @@ bool MapNode::isPlacableOnSlope(const std::string &tileID) const
 bool MapNode::isPlacementAllowed(const std::string &newTileID) const
 {
   TileData *tileData = TileManager::instance().getTileData(newTileID);
+
   if (tileData)
   {
-    Layer layer = Layer::BUILDINGS;
-    if (tileData->tileType == +TileType::TERRAIN)
-    {
-      layer = Layer::TERRAIN;
-    }
+    Layer layer = TileManager::instance().getTileLayer(newTileID);
+
     //this is a water tile and placeOnWater has not been set to true, building is not permitted. Also disallow placing of water tiles on non water tiles
     if ((m_mapNodeData[Layer::WATER].tileData && !tileData->placeOnWater) ||
         (!m_mapNodeData[Layer::WATER].tileData && tileData->placeOnWater))
@@ -116,14 +138,16 @@ bool MapNode::isPlacementAllowed(const std::string &newTileID) const
 
     // check if the current tile is overplacable or allow overplacing autotiles if it's of the same tile ID
     if (m_mapNodeData[layer].tileData &&
-        (m_mapNodeData[layer].tileData->isOverPlacable ||
-         (m_mapNodeData[layer].tileData->tileType == +TileType::AUTOTILE && m_mapNodeData[layer].tileID == newTileID)))
+        (m_mapNodeData[layer].tileData->isOverPlacable || ((m_mapNodeData[layer].tileData->tileType == +TileType::AUTOTILE ||
+                                                            m_mapNodeData[layer].tileData->tileType == +TileType::UNDERGROUND) &&
+                                                           m_mapNodeData[layer].tileID == newTileID)))
 
     {
       return true;
     }
     return isPlacableOnSlope(newTileID) &&
-           (m_mapNodeData[layer].tileID == "" || m_mapNodeData[layer].tileData->tileType == +TileType::TERRAIN);
+           (m_mapNodeData[layer].tileID == "" || m_mapNodeData[layer].tileData->tileType == +TileType::TERRAIN ||
+            m_mapNodeData[layer].tileData->tileType == +TileType::BLUEPRINT);
   }
   return false;
 }
@@ -144,13 +168,15 @@ void MapNode::updateTexture()
       if (m_elevationOrientation == TileSlopes::DEFAULT_ORIENTATION)
       {
         if (m_mapNodeData[currentLayer].tileData->tileType == +TileType::WATER ||
-            m_mapNodeData[currentLayer].tileData->tileType == +TileType::TERRAIN)
+            m_mapNodeData[currentLayer].tileData->tileType == +TileType::TERRAIN ||
+            m_mapNodeData[currentLayer].tileData->tileType == +TileType::BLUEPRINT)
         {
           tileMap = TileMap::DEFAULT;
           m_orientation = TileList::TILE_DEFAULT_ORIENTATION;
         }
         // if the node should autotile, check if it needs to tile itself to another tile of the same ID
-        else if (m_mapNodeData[currentLayer].tileData->tileType == +TileType::AUTOTILE)
+        else if (m_mapNodeData[currentLayer].tileData->tileType == +TileType::AUTOTILE ||
+                 m_mapNodeData[currentLayer].tileData->tileType == +TileType::UNDERGROUND)
         {
           m_orientation = TileManager::instance().calculateTileOrientation(m_tileIDBitmask);
         }
@@ -266,15 +292,7 @@ void MapNode::setCoordinates(const Point &newIsoCoordinates)
 
 const MapNodeData &MapNode::getActiveMapNodeData() const
 {
-  //TODO: Needs further adjustments for other layers
-  // Determine the topmost active layer here by checking if it has a tileID set and return it's mapNodeData
-  if (MapLayers::isLayerActive(Layer::BUILDINGS) && !m_mapNodeData[Layer::BUILDINGS].tileID.empty() &&
-      m_mapNodeData[Layer::BUILDINGS].tileData)
-  {
-    return m_mapNodeData[Layer::BUILDINGS];
-  }
-
-  return m_mapNodeData[Layer::TERRAIN];
+  return m_mapNodeData[getTopMostActiveLayer()];
 }
 
 void MapNode::setMapNodeData(std::vector<MapNodeData> &&mapNodeData)
@@ -299,6 +317,14 @@ void MapNode::demolishNode()
     m_mapNodeData[Layer::BUILDINGS].tileData = nullptr;
     m_mapNodeData[Layer::BUILDINGS].tileID = "";
     m_sprite->clearSprite(Layer::BUILDINGS);
+    this->m_origCornerPoint = this->getCoordinates();
+    updateTexture();
+  }
+  else if (MapLayers::isLayerActive(Layer::UNDERGROUND))
+  {
+    m_mapNodeData[Layer::UNDERGROUND].tileData = nullptr;
+    m_mapNodeData[Layer::UNDERGROUND].tileID = "";
+    m_sprite->clearSprite(Layer::UNDERGROUND);
     this->m_origCornerPoint = this->getCoordinates();
     updateTexture();
   }
