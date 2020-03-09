@@ -232,9 +232,13 @@ unsigned char Map::getElevatedNeighborBitmask(const Point &isoCoordinates)
   return bitmask;
 }
 
-Point Map::getNodeOrigCornerPoint(const Point &isoCoordinates)
+Point Map::getNodeOrigCornerPoint(const Point &isoCoordinates, unsigned int layer)
 {
   //Layer layer = TileManager::instance().getTileLayer(tileID);
+  if (layer)
+  {
+    return mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getOrigCornerPoint((Layer)layer);
+  }
   return mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getOrigCornerPoint();
 }
 
@@ -590,7 +594,7 @@ Map *Map::loadMapFromFile(const std::string &fileName)
         std::make_unique<MapNode>(Point{coordinates.x, coordinates.y, coordinates.z, coordinates.height}, "");
 
     // load back mapNodeData (tileIDs, Buildins, ...)
-    map->mapNodes[coordinates.x * columns + coordinates.y]->setMapNodeData(json(it.value())["mapNodeData"]);
+    map->mapNodes[coordinates.x * columns + coordinates.y]->setMapNodeData(json(it.value())["mapNodeData"], coordinates);
   }
 
   // Now put those newly created nodes in correct drawing order

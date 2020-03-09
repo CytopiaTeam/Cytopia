@@ -294,10 +294,15 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
             {
               for (auto coords : m_highlightedObjectNodes)
               {
+                Layer layer = TileManager::instance().getTileLayer(tileTypeEditMode);
+                Point origCornerPoint = engine.map->getNodeOrigCornerPoint(coords, layer);
+                if (origCornerPoint == UNDEFINED_POINT)
+                {
+				  //basicly it shouldn't happen, but could.
+                  origCornerPoint = coords;
+                }
                 if (!engine.map->isPlacementOnNodeAllowed(coords, tileTypeEditMode))
                 {
-                  Point origCornerPoint = engine.map->getNodeOrigCornerPoint(coords);
-                  Layer layer = TileManager::instance().getTileLayer(tileTypeEditMode);
                   std::string currentTileID = engine.map->getTileID(origCornerPoint, layer);
                   std::vector<Point> objectTiles = engine.map->getObjectCoords(origCornerPoint, currentTileID);
                   for (auto objectCoordinate : objectTiles)
