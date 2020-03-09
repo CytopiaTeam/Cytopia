@@ -515,9 +515,10 @@ void UIManager::createBuildMenu()
   for (auto &tile : TileManager::instance().getAllTileData())
   {
     std::string category = tile.second.category;
+    std::string tileID = tile.first;
 
     // Skip all items that have no button group
-    if (category == "Water" || category == "Terrain")
+    if (tileID == "demy_node" || category == "Water" || category == "Terrain")
     {
       continue;
     }
