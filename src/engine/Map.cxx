@@ -340,33 +340,13 @@ Point Map::findNodeInMap(const SDL_Point &screenCoordinates) const
 {
   Point foundCoordinates{-1, -1, 0, 0};
 
-  // calculate clicked column (x coordinate) without height taken into account.
-  const Point calculatedIsoCoords = calculateIsoCoordinates(screenCoordinates);
-  int isoX = calculatedIsoCoords.x;
-  int isoY = calculatedIsoCoords.y;
-
-  // traverse a column from top to bottom (from the calculated coordinates)
-  while (isoX < Settings::instance().mapSize && isoY < Settings::instance().mapSize && isoY >= 0)
+  for (auto &it : mapNodes)
   {
-    if (isClickWithinTile(screenCoordinates, isoX, isoY) &&
-        (foundCoordinates.z < mapNodes[isoX * m_columns + isoY]->getCoordinates().z))
+    if (isClickWithinTile(screenCoordinates, it->getCoordinates().x, it->getCoordinates().y) &&
+        (foundCoordinates.z <= it->getCoordinates().z))
     {
-      foundCoordinates = mapNodes[isoX * m_columns + isoY]->getCoordinates();
+      foundCoordinates = it->getCoordinates();
     }
-    if (isoX > 0 && isClickWithinTile(screenCoordinates, isoX - 1, isoY) &&
-        (foundCoordinates.z < mapNodes[(isoX - 1) * m_columns + isoY]->getCoordinates().z))
-    {
-      foundCoordinates = mapNodes[(isoX - 1) * m_columns + isoY]->getCoordinates();
-    }
-    //check if isoY is already the last one
-    if (isoY < Settings::instance().mapSize - 1 && isClickWithinTile(screenCoordinates, isoX, isoY + 1) &&
-        (foundCoordinates.z < mapNodes[isoX * m_columns + (isoY + 1)]->getCoordinates().z))
-    {
-      foundCoordinates = mapNodes[isoX * m_columns + (isoY + 1)]->getCoordinates();
-    }
-
-    isoX++;
-    isoY--;
   }
 
   return foundCoordinates;
@@ -471,9 +451,9 @@ bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int is
     }
   }
 
-    if (MapLayers::isLayerActive(Layer::BLUEPRINT) && mapNodes[isoX * m_columns + isoY]->getSprite()->isLayerUsed(Layer::BLUEPRINT))
+  if (MapLayers::isLayerActive(Layer::BLUEPRINT) && mapNodes[isoX * m_columns + isoY]->getSprite()->isLayerUsed(Layer::BLUEPRINT))
   {
-      SDL_Rect spriteRect = mapNodes[isoX * m_columns + isoY]->getSprite()->getDestRect(Layer::BLUEPRINT);
+    SDL_Rect spriteRect = mapNodes[isoX * m_columns + isoY]->getSprite()->getDestRect(Layer::BLUEPRINT);
     SDL_Rect clipRect = mapNodes[isoX * m_columns + isoY]->getSprite()->getClipRect(Layer::BLUEPRINT);
 
     if (SDL_PointInRect(&screenCoordinates, &spriteRect))
@@ -495,10 +475,10 @@ bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int is
     }
   }
 
-      if (MapLayers::isLayerActive(Layer::UNDERGROUND) &&
+  if (MapLayers::isLayerActive(Layer::UNDERGROUND) &&
       mapNodes[isoX * m_columns + isoY]->getSprite()->isLayerUsed(Layer::UNDERGROUND))
   {
-        SDL_Rect spriteRect = mapNodes[isoX * m_columns + isoY]->getSprite()->getDestRect(Layer::UNDERGROUND);
+    SDL_Rect spriteRect = mapNodes[isoX * m_columns + isoY]->getSprite()->getDestRect(Layer::UNDERGROUND);
     SDL_Rect clipRect = mapNodes[isoX * m_columns + isoY]->getSprite()->getClipRect(Layer::UNDERGROUND);
 
     if (SDL_PointInRect(&screenCoordinates, &spriteRect))
