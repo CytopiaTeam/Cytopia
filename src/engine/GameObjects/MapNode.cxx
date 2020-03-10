@@ -112,6 +112,8 @@ bool MapNode::isPlacableOnSlope(const std::string &tileID) const
   {
     int clipRectX = tileData->slopeTiles.clippingWidth * static_cast<int>(m_orientation);
 
+	// while loading game, m_previousTileID will be equal to "terrain" for terrin tiles while it's empty "" when starting new game.
+	// so the check here on m_previousTileID is needed both (temporary), empty and "terrain", this will be fixed in new PR.
     if (clipRectX >= static_cast<int>(tileData->slopeTiles.count) * tileData->slopeTiles.clippingWidth &&
         (m_previousTileID.empty() || m_previousTileID == "terrain"))
     {
