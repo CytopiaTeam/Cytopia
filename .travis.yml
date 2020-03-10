@@ -116,6 +116,7 @@ matrix:
         - cp -R data/resources bin/resources
         - ctest
         - make package
+        - sh ./tools/CI/upload-CI-build.sh
 
       before_cache:
         - cmake -P ./cmake/pmm.cmake /Conan /Clean
