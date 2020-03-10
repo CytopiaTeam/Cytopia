@@ -13,13 +13,13 @@ class GameStates : public Singleton<GameStates>
 public:
   friend Singleton<GameStates>;
 
-
     /**
    * @brief Draw UI. This is a temporary variable until the new UI has been implemented.
    * TODO Remove this function afterwards
    */
   bool drawUI = true;
-  
+  LayerEditMode layerEditMode = LayerEditMode::TERRAIN;
+
 private:
   GameStates() = default;
   ~GameStates() = default;

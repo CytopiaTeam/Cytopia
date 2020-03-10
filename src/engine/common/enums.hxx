@@ -8,7 +8,7 @@ constexpr size_t LAYERS_COUNT = 7;
 
 enum Layer : unsigned int
 {
-  BLUEPRINT = 1,       // Optional layer - Map Blueprint
+  BLUEPRINT = 1,   // Optional layer - Map Blueprint
   UNDERGROUND,     // Optional layer - Pipes, Subway-pipes and so onn
   TERRAIN,         // Terrain tiles, decorations, ... - must always be a "full" tile
   WATER,           // Water tiles
@@ -27,5 +27,17 @@ BETTER_ENUM(TileType, int,
             AUTOTILE,   // Autotiling to itself, like roads, power lines, etc
             UNDERGROUND // same as AUTOTILE, but for the BLUEPRINT layer
 )
+
+/**
+ * @brief LayerEditMode.
+ * This enum is for switching between layers.
+ * TERRAIN activates Terrain and buildings
+ * BLUEPRINT activates blueprint + underground
+ */
+enum class LayerEditMode
+{
+  TERRAIN,
+  BLUEPRINT
+};
 
 #endif

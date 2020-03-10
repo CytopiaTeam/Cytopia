@@ -8,6 +8,7 @@
 #include "basics/utils.hxx"
 #include "LOG.hxx"
 #include "Exception.hxx"
+#include "GameStates.hxx"
 
 #include "json.hxx"
 #include "betterEnums.hxx"
@@ -400,6 +401,16 @@ void UIManager::setCallbackFunctions()
         tileToPlace == actionParameter ? tileToPlace = "" : tileToPlace = actionParameter;
         tileToPlace == actionParameter ? highlightSelection = true : highlightSelection = false;
       });
+      if (uiElement->getUiElementData().actionParameter == "underground_pipes")
+        uiElement->registerCallbackFunction([actionParameter](UIElement *sender) {
+          Button *button = dynamic_cast<Button *>(sender);
+
+          if (button->getButtonState() == ButtonState::BUTTONSTATE_CLICKED)
+            GameStates::instance().layerEditMode = LayerEditMode::BLUEPRINT;
+          else
+            GameStates::instance().layerEditMode = LayerEditMode::TERRAIN;
+
+        });
     }
     else if (uiElement->getUiElementData().actionID == "ToggleVisibilityOfGroup")
     {
