@@ -37,7 +37,7 @@ public:
   void render() const;
   void refresh();
 
-  void setTexture(SDL_Texture *m_texture, Layer layer = Layer::TERRAIN);
+  void setTexture(SDL_Texture *m_texture, Layer layer = Layer::TERRAIN, bool needToSetTexture = true);
   void setClipRect(SDL_Rect clipRect, Layer layer = Layer::TERRAIN);
   void setDestRect(SDL_Rect clipRect, Layer layer = Layer::TERRAIN);
 

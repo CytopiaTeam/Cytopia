@@ -59,7 +59,7 @@ void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
   {
     Layer layer = TileManager::instance().getTileLayer(tileID);
     this->m_origCornerPoint = origCornerPoint;
-    //m_mapNodeData[layer].origCornerPoint = origCornerPoint;
+    m_mapNodeData[layer].origCornerPoint = origCornerPoint;
     m_previousTileID = m_mapNodeData[layer].tileID;
     m_mapNodeData[layer].tileData = tileData;
     m_mapNodeData[layer].tileID = tileID;
@@ -112,8 +112,10 @@ bool MapNode::isPlacableOnSlope(const std::string &tileID) const
   {
     int clipRectX = tileData->slopeTiles.clippingWidth * static_cast<int>(m_orientation);
 
+	// while loading game, m_previousTileID will be equal to "terrain" for terrin tiles while it's empty "" when starting new game.
+	// so the check here on m_previousTileID is needed both (temporary), empty and "terrain", this will be fixed in new PR.
     if (clipRectX >= static_cast<int>(tileData->slopeTiles.count) * tileData->slopeTiles.clippingWidth &&
-        m_previousTileID.empty())
+        (m_previousTileID.empty() || m_previousTileID == "terrain"))
     {
       return false;
     }
@@ -124,11 +126,9 @@ bool MapNode::isPlacableOnSlope(const std::string &tileID) const
 bool MapNode::isPlacementAllowed(const std::string &newTileID) const
 {
   TileData *tileData = TileManager::instance().getTileData(newTileID);
-
+  Layer layer = TileManager::instance().getTileLayer(newTileID);
   if (tileData)
   {
-    Layer layer = TileManager::instance().getTileLayer(newTileID);
-
     //this is a water tile and placeOnWater has not been set to true, building is not permitted. Also disallow placing of water tiles on non water tiles
     if ((m_mapNodeData[Layer::WATER].tileData && !tileData->placeOnWater) ||
         (!m_mapNodeData[Layer::WATER].tileData && tileData->placeOnWater))
@@ -211,10 +211,6 @@ void MapNode::updateTexture()
       switch (tileMap)
       {
       case TileMap::DEFAULT:
-        if (!m_mapNodeData[currentLayer].shouldRender)
-        {
-          break;
-        }
         m_clippingWidth = m_mapNodeData[currentLayer].tileData->tiles.clippingWidth;
         if (m_mapNodeData[currentLayer].tileIndex != 0)
         {
@@ -230,8 +226,9 @@ void MapNode::updateTexture()
           m_sprite->setClipRect({clipRect.x + m_clippingWidth * m_mapNodeData[currentLayer].tileData->tiles.offset, 0,
                                  m_clippingWidth, m_mapNodeData[currentLayer].tileData->tiles.clippingHeight},
                                 static_cast<Layer>(currentLayer));
+          bool shouldRenderTexture = m_mapNodeData[currentLayer].tileID != DEMY_NODE_ID;
           m_sprite->setTexture(TileManager::instance().getTexture(m_mapNodeData[currentLayer].tileID),
-                               static_cast<Layer>(currentLayer));
+                               static_cast<Layer>(currentLayer), shouldRenderTexture);
         }
 
         spriteCount = m_mapNodeData[currentLayer].tileData->tiles.count;
@@ -295,7 +292,7 @@ const MapNodeData &MapNode::getActiveMapNodeData() const
   return m_mapNodeData[getTopMostActiveLayer()];
 }
 
-void MapNode::setMapNodeData(std::vector<MapNodeData> &&mapNodeData)
+void MapNode::setMapNodeData(std::vector<MapNodeData> &&mapNodeData, const Point &currNodeIsoCoordinates)
 {
   m_mapNodeData.swap(mapNodeData);
 
@@ -307,6 +304,10 @@ void MapNode::setMapNodeData(std::vector<MapNodeData> &&mapNodeData)
       delete it.tileData;
     }
     it.tileData = TileManager::instance().getTileData(it.tileID);
+    if (it.origCornerPoint != currNodeIsoCoordinates)
+    {
+      this->m_origCornerPoint = it.origCornerPoint;
+    }
   }
 }
 

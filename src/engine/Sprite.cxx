@@ -101,11 +101,12 @@ void Sprite::refresh()
   m_needsRefresh = false;
 }
 
-void Sprite::setTexture(SDL_Texture *texture, Layer layer)
+void Sprite::setTexture(SDL_Texture *texture, Layer layer, bool needToSetTexture)
 {
   if (!texture)
     throw UIError(TRACE_INFO "Called Sprite::setTexture() with a non valid texture");
-  m_SpriteData[layer].texture = texture;
+  if (needToSetTexture)
+    m_SpriteData[layer].texture = texture;
   m_needsRefresh = true;
   refresh();
 }

@@ -96,7 +96,7 @@ public:
       {
         mapNodes[it->x * m_columns + it->y]->setTileID(tileID, origPoint);
         it++;
-        id = "demy_node";
+        id = DEMY_NODE_ID;
       }
       for (; it != end; ++it)
       {
@@ -125,7 +125,7 @@ public:
   /**
    * @brief Get original corner point of given point within building borders.
    */
-  Point getNodeOrigCornerPoint(const Point &isoCoordinates);
+  Point getNodeOrigCornerPoint(const Point &isoCoordinates, unsigned int layer = 0);
 
   /** \Brief Save Map to file
   * Serializes the Map class to json and writes the data to a file.

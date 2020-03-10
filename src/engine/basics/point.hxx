@@ -3,8 +3,9 @@
 #ifndef POINT_HXX_
 #define POINT_HXX_
 
-struct Point
+class Point
 {
+public:
   /**
    * The x coordinate.
    */
@@ -24,6 +25,11 @@ struct Point
    * The height level.
    */
   int height;
+
+  bool operator==(const Point& p) { return x == p.x && y == p.y && z == p.z && height == p.height; }
+  bool operator!=(const Point &p) { return !(*this == p); }
 };
+
+const Point UNDEFINED_POINT = {-1, -1, -1, -1};
 
 #endif

@@ -232,9 +232,13 @@ unsigned char Map::getElevatedNeighborBitmask(const Point &isoCoordinates)
   return bitmask;
 }
 
-Point Map::getNodeOrigCornerPoint(const Point &isoCoordinates)
+Point Map::getNodeOrigCornerPoint(const Point &isoCoordinates, unsigned int layer)
 {
   //Layer layer = TileManager::instance().getTileLayer(tileID);
+  if (layer)
+  {
+    return mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getOrigCornerPoint((Layer)layer);
+  }
   return mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getOrigCornerPoint();
 }
 
@@ -354,21 +358,33 @@ Point Map::findNodeInMap(const SDL_Point &screenCoordinates) const
 
 void Map::demolishNode(const Point &isoCoordinates, bool updateNeighboringTiles)
 {
-  Point origCornerPoint = mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getOrigCornerPoint();
-
-  Layer layer = Layer::BUILDINGS;
-  std::string tileID = mapNodes[origCornerPoint.x * m_columns + origCornerPoint.y]->getTileID(layer);
-  std::vector<Point> objectCoordinates = getObjectCoords(origCornerPoint, tileID);
-
-  for (auto coords : objectCoordinates)
+  const size_t index = isoCoordinates.x * m_columns + isoCoordinates.y;
+  if (index < mapNodes.size())
   {
-    mapNodes[coords.x * m_columns + coords.y]->demolishNode();
-  }
-  //mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->demolishNode();
-  // TODO: Play soundeffect here
-  if (updateNeighboringTiles)
-  {
-    updateNeighborsOfNode({isoCoordinates.x, isoCoordinates.y});
+    Point origCornerPoint = mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getOrigCornerPoint();
+
+    Layer layer = Layer::BUILDINGS;
+    const size_t origIndex = origCornerPoint.x * m_columns + origCornerPoint.y;
+
+    if (origIndex < mapNodes.size() && mapNodes[origIndex])
+    {
+      std::string tileID = mapNodes[origIndex]->getTileID(layer);
+      std::vector<Point> objectCoordinates = getObjectCoords(origCornerPoint, tileID);
+
+      for (auto coords : objectCoordinates)
+      {
+        mapNodes[coords.x * m_columns + coords.y]->demolishNode();
+      }
+    }
+    else
+    {
+      mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->demolishNode();
+    }
+    // TODO: Play soundeffect here
+    if (updateNeighboringTiles)
+    {
+      updateNeighborsOfNode({isoCoordinates.x, isoCoordinates.y});
+    }
   }
 }
 
@@ -608,7 +624,7 @@ Map *Map::loadMapFromFile(const std::string &fileName)
         std::make_unique<MapNode>(Point{coordinates.x, coordinates.y, coordinates.z, coordinates.height}, "");
 
     // load back mapNodeData (tileIDs, Buildins, ...)
-    map->mapNodes[coordinates.x * columns + coordinates.y]->setMapNodeData(json(it.value())["mapNodeData"]);
+    map->mapNodes[coordinates.x * columns + coordinates.y]->setMapNodeData(json(it.value())["mapNodeData"], coordinates);
   }
 
   // Now put those newly created nodes in correct drawing order
