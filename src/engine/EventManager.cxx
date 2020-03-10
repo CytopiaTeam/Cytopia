@@ -66,6 +66,10 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         MapLayers::toggleLayer(Layer::BUILDINGS);
         break;
       case SDLK_3:
+        MapLayers::toggleLayer(Layer::BLUEPRINT);
+        break;
+      case SDLK_4:
+        MapLayers::toggleLayer(Layer::UNDERGROUND);
         break;
       case SDLK_i:
         m_tileInfoMode = !m_tileInfoMode;
@@ -244,7 +248,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           {
             // Add highlighting here
           }
-          else if (!tileTypeEditMode.empty())
+          else if (!tileToPlace.empty())
           {
             this->unHighlighNodes(engine);
 
@@ -252,7 +256,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
 
             for (size_t i = 0; i < m_highlightedNodes.size(); i++)
             {
-              if (!engine.map->isPlacementOnNodeAllowed(m_highlightedNodes[i], tileTypeEditMode))
+              if (!engine.map->isPlacementOnNodeAllowed(m_highlightedNodes[i], tileToPlace))
               {
                 // already occupied tile, mark red
                 engine.map->highlightNode(m_highlightedNodes[i], SpriteHighlightColor::RED);
@@ -273,7 +277,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         {
           this->unHighlighNodes(engine);
           // get Object Nodes in case it's a building bigger than 1x1 tile.
-          m_highlightedObjectNodes = engine.map->getObjectCoords(clickCoords, tileTypeEditMode);
+          m_highlightedObjectNodes = engine.map->getObjectCoords(clickCoords, tileToPlace);
           if (m_highlightedObjectNodes.empty())
           {
             m_highlightedObjectNodes.push_back(clickCoords);
@@ -294,15 +298,15 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
             {
               for (auto coords : m_highlightedObjectNodes)
               {
-                Layer layer = TileManager::instance().getTileLayer(tileTypeEditMode);
+                Layer layer = TileManager::instance().getTileLayer(tileToPlace);
                 Point origCornerPoint = engine.map->getNodeOrigCornerPoint(coords, layer);
                 if (origCornerPoint == UNDEFINED_POINT)
                 {
-				  //basicly it shouldn't happen, but could.
                   origCornerPoint = coords;
                 }
-                if (!engine.map->isPlacementOnNodeAllowed(coords, tileTypeEditMode))
+                if (!engine.map->isPlacementOnNodeAllowed(coords, tileToPlace))
                 {
+                  Point origCornerPoint = engine.map->getNodeOrigCornerPoint(coords);
                   std::string currentTileID = engine.map->getTileID(origCornerPoint, layer);
                   std::vector<Point> objectTiles = engine.map->getObjectCoords(origCornerPoint, currentTileID);
                   for (auto objectCoordinate : objectTiles)
@@ -393,7 +397,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       // game event handling
       mouseCoords = {event.button.x, event.button.y};
       clickCoords = convertScreenToIsoCoordinates(mouseCoords);
-      m_highlightedObjectNodes = engine.map->getObjectCoords(clickCoords, tileTypeEditMode);
+      m_highlightedObjectNodes = engine.map->getObjectCoords(clickCoords, tileToPlace);
 
       if (event.button.button == SDL_BUTTON_LEFT && isPointWithinMapBoundaries(m_highlightedObjectNodes))
       {
@@ -409,16 +413,16 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         {
           engine.decreaseHeight(clickCoords);
         }
-        else if (!tileTypeEditMode.empty())
+        else if (!tileToPlace.empty())
         {
           if (bresenhamLineNodes.size() == 0)
           {
             //m_highlightedNodes.push_back(m_clickDownCoords);
-            engine.setTileIDOfNode(m_highlightedObjectNodes.begin(), m_highlightedObjectNodes.end(), tileTypeEditMode, false);
+            engine.setTileIDOfNode(m_highlightedObjectNodes.begin(), m_highlightedObjectNodes.end(), tileToPlace, false);
           }
           else
           {
-            engine.setTileIDOfNode(bresenhamLineNodes.begin(), bresenhamLineNodes.end(), tileTypeEditMode, true);
+            engine.setTileIDOfNode(bresenhamLineNodes.begin(), bresenhamLineNodes.end(), tileToPlace, true);
             // we need to empty the nodes when we're done so the next line starts "fresh" without drawin a line to the last coords.
             m_highlightedNodes.clear();
           }

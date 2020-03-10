@@ -26,6 +26,8 @@ THEMAX
 BangBoom
 Panzerkampfwagen 2 ausf (Junior Graphics Artist)
 
-=====Sound Design=====
+=====Audio Director=====
 MB22 (OST, Sound Effects, Ambient Noise)
+
+=====Sound Design=====
 sqwdmusic (OST)
