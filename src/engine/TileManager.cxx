@@ -28,18 +28,26 @@ Layer TileManager::getTileLayer(const std::string &tileID) const
 {
   Layer layer = Layer::TERRAIN;
   TileData *tileData = TileManager::instance().getTileData(tileID);
+
   if (tileData)
   {
-    layer = Layer::BUILDINGS;
-    if (tileData->category == "Terrain")
+    switch (tileData->tileType)
     {
+    case TileType::TERRAIN:
       layer = Layer::TERRAIN;
-    }
-    else if (tileData->category == "Water")
-    {
-      layer = Layer::WATER;
+      break;
+    case TileType::BLUEPRINT:
+      layer = Layer::BLUEPRINT;
+      break;
+    case TileType::UNDERGROUND:
+      layer = Layer::UNDERGROUND;
+      break;
+    default:
+      layer = Layer::BUILDINGS;
+      break;
     }
   }
+
   return layer;
 }
 
