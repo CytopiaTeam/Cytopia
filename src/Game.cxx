@@ -7,6 +7,7 @@
 #include "LOG.hxx"
 #include "engine/ui/widgets/Image.hxx"
 #include "engine/basics/Settings.hxx"
+#include "engine/basics/GameStates.hxx"
 #include <noise.h>
 #include <SDL.h>
 #include <SDL_ttf.h>
@@ -301,7 +302,7 @@ void Game::run(bool SkipMenu)
 
     // render the ui
     // TODO: This is only temporary until the new UI is ready. Remove this afterwards
-    if (Settings::instance().drawUI)
+    if (GameStates::instance().drawUI)
     {
       uiManager.drawUI();
     }

@@ -4,6 +4,7 @@
 #include "basics/isoMath.hxx"
 #include "basics/mapEdit.hxx"
 #include "basics/Settings.hxx"
+#include "basics/GameStates.hxx"
 #include "common/enums.hxx"
 #include "map/MapLayers.hxx"
 #include "Map.hxx"
@@ -76,7 +77,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         break;
       case SDLK_h:
         // TODO: This is only temporary until the new UI is ready. Remove this afterwards
-        Settings::instance().drawUI = !Settings::instance().drawUI;
+        GameStates::instance().drawUI = !GameStates::instance().drawUI;
         break;
       case SDLK_f:
         engine.toggleFullScreen();

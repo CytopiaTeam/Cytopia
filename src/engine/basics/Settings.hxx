@@ -193,12 +193,6 @@ public:
 
   using SettingsData::operator=;
 
-  /**
-   * @brief Draw UI. This is a temporary variable until the new UI has been implemented.
-   * TODO Remove this function afterwards
-   */
-  bool drawUI = true;
-
 private:
   Settings();
   ~Settings() = default;
