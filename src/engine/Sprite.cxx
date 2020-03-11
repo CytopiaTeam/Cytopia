@@ -23,7 +23,7 @@ void Sprite::render() const
 #ifdef MICROPROFILE_ENABLED
   MICROPROFILE_SCOPEI("Map", "Sprite render", MP_RED);
 #endif
-  for (uint32_t i = 0; i < LAYERS_COUNT; ++i)
+  for (uint32_t i = FIRST_LAYER; i < LAYERS_COUNT; ++i)
   {
     if (MapLayers::isLayerActive(i) && m_SpriteData[i].texture)
     {
@@ -54,7 +54,7 @@ void Sprite::refresh()
 {
   if (m_currentZoomLevel != Camera::zoomLevel || m_needsRefresh)
   {
-    for (uint32_t it = 0; it < LAYERS_COUNT; ++it)
+    for (uint32_t it = FIRST_LAYER; it < LAYERS_COUNT; ++it)
     {
       if (m_SpriteData[it].texture)
       {

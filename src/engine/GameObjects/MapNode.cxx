@@ -159,7 +159,7 @@ void MapNode::updateTexture()
   tileMap = TileMap::DEFAULT;
   m_elevationOrientation = TileManager::instance().calculateSlopeOrientation(m_elevationBitmask);
 
-  for (uint32_t currentLayer = 0; currentLayer < LAYERS_COUNT; ++currentLayer)
+  for (uint32_t currentLayer = FIRST_LAYER; currentLayer < LAYERS_COUNT; ++currentLayer)
   {
     if (m_mapNodeData[currentLayer].tileData)
     {

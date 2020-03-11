@@ -15,11 +15,10 @@ enum Layer : unsigned int
   BUILDINGS,       // 6- Buildings, Streets and everything that goes on the terrain
   ANIMATIONS,      // 7- Animations like smoke
   SYMBOLS,         // 8- Symbols to display over buildings like no power / water and so on
-  LAYER_COUNT
+  LAYERS_COUNT
 };
 
-//TODO: need to be changed later to LAYER_COUNT;
-constexpr size_t LAYERS_COUNT = 8; 
+constexpr size_t FIRST_LAYER = NONE + 1; 
 
 BETTER_ENUM(TileType, int,
             DEFAULT,    // Default is for buildings and practically everything that'll be placed on the TERRAIN layer
