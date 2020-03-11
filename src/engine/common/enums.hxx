@@ -4,20 +4,22 @@
 #include <stddef.h>
 #include "betterEnums.hxx"
 
-constexpr size_t LAYERS_COUNT = 7;
-
 enum Layer : unsigned int
 {
-  BLUEPRINT = 1,       // Optional layer - Map Blueprint
-  UNDERGROUND,     // Optional layer - Pipes, Subway-pipes and so onn
-  TERRAIN,         // Terrain tiles, decorations, ... - must always be a "full" tile
-  WATER,           // Water tiles
-  MOVABLE_OBJECTS, // Cars, Pedestrians
-  BUILDINGS,       // Buildings, Streets and everything that goes on the terrain
-  ANIMATIONS,      // Animations like smoke
-  SYMBOLS,         // Symbols to display over buildings like no power / water and so on
-  NONE             // If no layer is active
+  NONE,            // 0
+  BLUEPRINT,       // 1- Optional layer - Map Blueprint
+  UNDERGROUND,     // 2- Optional layer - Pipes, Subway-pipes and so onn
+  TERRAIN,         // 3- Terrain tiles, decorations, ... - must always be a "full" tile
+  WATER,           // 4- Water tiles
+  MOVABLE_OBJECTS, // 5- Cars, Pedestrians
+  BUILDINGS,       // 6- Buildings, Streets and everything that goes on the terrain
+  ANIMATIONS,      // 7- Animations like smoke
+  SYMBOLS,         // 8- Symbols to display over buildings like no power / water and so on
+  LAYER_COUNT
 };
+
+//TODO: need to be changed later to LAYER_COUNT;
+constexpr size_t LAYERS_COUNT = 8; 
 
 BETTER_ENUM(TileType, int,
             DEFAULT,    // Default is for buildings and practically everything that'll be placed on the TERRAIN layer

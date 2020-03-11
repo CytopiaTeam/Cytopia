@@ -306,7 +306,6 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
                 }
                 if (!engine.map->isPlacementOnNodeAllowed(coords, tileToPlace))
                 {
-                  Point origCornerPoint = engine.map->getNodeOrigCornerPoint(coords);
                   std::string currentTileID = engine.map->getTileID(origCornerPoint, layer);
                   std::vector<Point> objectTiles = engine.map->getObjectCoords(origCornerPoint, currentTileID);
                   for (auto objectCoordinate : objectTiles)
