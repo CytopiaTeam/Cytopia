@@ -99,8 +99,8 @@ matrix:
         - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then doxygen Doxyfile; fi
 
     - os: osx
-      name: XCode 10.2 Build
-      osx_image: xcode10.2
+      name: XCode 11.3 Build
+      osx_image: xcode11.3
       env: TARGET=macOS
       language: objective-c
       python: 3.7
