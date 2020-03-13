@@ -18,9 +18,9 @@ matrix:
       compiler: gcc-8
       addons:
         sonarcloud:
-          organization: "cytopia"
+          organization: "vbfcdf134m3fasd123gfdgdfs"
           token:
-            secure: "HKP12cwEq+liwjJZyFECQKJBSmMC0LUz85JOod3HAoak846iI5kPLHDX1tbzL/yjKWUzKVfHpFGQAOTAIW8CuW5Ck7jnRalQRnHUeF4OSVDAHWwtgA41klWbr/8i1jfurMWwJISCMtJ1gYM1EabtwosXlt2bz1nD0DVTMcVnYYHOoSei2L8FMv0BWj8jVv0mR+1V2CrZtKeIYBhdvyouF6AzmsRLLiDqGHAQYxz39s615qiD43OvrwO+6aM5S90rByFEyyA51c7g2KlPGH+ursx1I1pR60k+K1H61aCRyTq3kG4iZLF6N9j/o/ywR92FppOwi7tMNiq6WpKlTwq8JM/XtlNlXrYByTmdufEHuzjZ5OYnsfmUIVJIQiYn60IIslLzbErQCOoe53I3NqbdGt7rDnUix5DVGLixlatLP5w82s4snAYmRbwDjDExSSBxk9Xecb9YKJQs80wz6DiS16mQ5HvYbYafqiIM4HHuunQ1tv5z3w2etFluIJfE+5KERWS1gfh8mAMvFfeS66IHbzls2iZEw0FQj+72oNwJzRQUlqZhvFglCnQS/C7WZ9m0xB8msLoa+B8TrdbzYc0ZQWZ5BNgLRxf/kLl0YoaVXLfttjJY44IM42w5eH0PN2I/6gI2XUo6EFp3vjc6lNaeRQzxF6z1SQ2cVW+BPcugB2I="
+            secure: "QkapNhxUL2iArxTDmA3D88Tu8DMPBRcZEzrcNBecq8FZfy/rqlVApL84BQwvUt3olbfMRG9HcNm0KKDVzywj6+VBrs0hQJcy92WZWB+rRocL9bB3khPrxVPCAfAx8Gvhl8cS5RMpwR3CYG3SiNUcnWGdYssow0yNA00PUA+emqTXVEYxl61TPSl1JJKIqJZNjFpnl4AqSNyYPw3JgZe5Egi24kPgj0HteKESCjmkvDOO/zB1yl09PW2Qozvpbhk7L5b/SbLxNSRJ19QC/5QleAQM0HC+iWWC2BGAIJ+QHAWZzlz8rya65m+kH55GxU8ZiLpjHvqubcgiNfuJdB4Qk92Omrnv7WTBqWglhmNSt5ilk8U1jiNHdJ4nrAxUrymgqlbqHXQr8bcNGk/7Kf2fKzuIfLVbtKzW2ESbLkCGfImk2m3pxN0Aine7ugbJ22SJeMrwhE0oQsRdTioWQRs6t9CVEA28r6g3VDKYPnx3JLC+OR3SXMmBTEyMHIiOKDMzbqa7CKQzIH38cpSwkKxHVbg/CPmX8OTLnTeWLieSc1g4V+0H/Yr6e0KARx81mKkGJ/5EO1tx08XGYWxWLriIIwJx3pxgJlBcifNT350wFoIanvHYoXb4GQKT50kv28qPjW+p6jNCsd9kHWuDMXjt0Dk3jsK8YMqnzd+xy2q3mJY="
         apt:
           sources:
             # Official Kitware APT repository. Currently supports Bionic and Xenial.
@@ -87,7 +87,8 @@ matrix:
       env:
         - DEPLOY_DOCUMENTATION=true
         - MATRIX_EVAL="CC=clang-7.0 && CXX=clang++-7.0"
-
+        - TARGET="linux"
+        
       before_script:
         - cmake -GNinja -DCMAKE_BUILD_TYPE=Release -DUSE_PACKAGE_MANAGER=OFF -DENABLE_ANGELSCRIPT=OFF -DENABLE_MOFILEREADER=OFF .
 
@@ -98,8 +99,8 @@ matrix:
         - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then doxygen Doxyfile; fi
 
     - os: osx
-      name: XCode 10.2 Build
-      osx_image: xcode10.2
+      name: XCode 11.3 Build
+      osx_image: xcode11.3
       env: TARGET=macOS
       language: objective-c
       python: 3.7
@@ -115,7 +116,9 @@ matrix:
         - make
         - cp -R data/resources bin/resources
         - ctest
+        - make copy_resources
         - make package
+        - sh ./tools/CI/upload-CI-build.sh
 
       before_cache:
         - cmake -P ./cmake/pmm.cmake /Conan /Clean
