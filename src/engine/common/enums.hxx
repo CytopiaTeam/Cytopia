@@ -19,6 +19,9 @@ enum Layer : unsigned int
   NONE             // If no layer is active
 };
 
+/// This is a orderd list of all relevant layers we need to interact with
+static const Layer allLayersOrdered[] = {Layer::TERRAIN, Layer::WATER, Layer::BUILDINGS, Layer::BLUEPRINT, Layer::UNDERGROUND};
+
 BETTER_ENUM(TileType, int,
             DEFAULT,    // Default is for buildings and practically everything that'll be placed on the TERRAIN layer
             TERRAIN,    // Terrain itself

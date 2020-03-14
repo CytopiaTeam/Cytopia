@@ -5,6 +5,7 @@
 #include "basics/Camera.hxx"
 #include "basics/isoMath.hxx"
 #include "map/MapLayers.hxx"
+#include "common/enums.hxx"
 #include "LOG.hxx"
 #include "Exception.hxx"
 
@@ -23,28 +24,28 @@ void Sprite::render() const
 #ifdef MICROPROFILE_ENABLED
   MICROPROFILE_SCOPEI("Map", "Sprite render", MP_RED);
 #endif
-  for (uint32_t i = 0; i < LAYERS_COUNT; ++i)
+  for (auto currentLayer : allLayersOrdered)
   {
-    if (MapLayers::isLayerActive(i) && m_SpriteData[i].texture)
+    if (MapLayers::isLayerActive(currentLayer) && m_SpriteData[currentLayer].texture)
     {
       if (highlightSprite)
       {
-        SDL_SetTextureColorMod(m_SpriteData[i].texture, highlightColor.r, highlightColor.g, highlightColor.b);
+        SDL_SetTextureColorMod(m_SpriteData[currentLayer].texture, highlightColor.r, highlightColor.g, highlightColor.b);
       }
 
-      if (m_SpriteData[i].clipRect.w != 0)
+      if (m_SpriteData[currentLayer].clipRect.w != 0)
       {
-        SDL_RenderCopy(WindowManager::instance().getRenderer(), m_SpriteData[i].texture, &m_SpriteData[i].clipRect,
-                       &m_SpriteData[i].destRect);
+        SDL_RenderCopy(WindowManager::instance().getRenderer(), m_SpriteData[currentLayer].texture, &m_SpriteData[currentLayer].clipRect,
+                       &m_SpriteData[currentLayer].destRect);
       }
       else
       {
-        SDL_RenderCopy(WindowManager::instance().getRenderer(), m_SpriteData[i].texture, nullptr, &m_SpriteData[i].destRect);
+        SDL_RenderCopy(WindowManager::instance().getRenderer(), m_SpriteData[currentLayer].texture, nullptr, &m_SpriteData[currentLayer].destRect);
       }
 
       if (highlightSprite)
       {
-        SDL_SetTextureColorMod(m_SpriteData[i].texture, 255, 255, 255);
+        SDL_SetTextureColorMod(m_SpriteData[currentLayer].texture, 255, 255, 255);
       }
     }
   }
@@ -54,34 +55,34 @@ void Sprite::refresh()
 {
   if (m_currentZoomLevel != Camera::zoomLevel || m_needsRefresh)
   {
-    for (uint32_t it = 0; it < LAYERS_COUNT; ++it)
+    for (auto currentLayer : allLayersOrdered)
     {
-      if (m_SpriteData[it].texture)
+      if (m_SpriteData[currentLayer].texture)
       {
 
         m_currentZoomLevel = Camera::zoomLevel;
         int spriteSheetHeight = 0;
-        SDL_QueryTexture(m_SpriteData[it].texture, nullptr, nullptr, nullptr, &spriteSheetHeight);
+        SDL_QueryTexture(m_SpriteData[currentLayer].texture, nullptr, nullptr, nullptr, &spriteSheetHeight);
         // we need to offset the cliprect.y coodinate, because we've moved the "originpoint" for drawing the sprite to the screen on the bottom.
         // the sprites need to start at the bottom, so the cliprect must too.
-        m_SpriteData[it].clipRect.y = spriteSheetHeight - m_SpriteData[it].clipRect.h;
+        m_SpriteData[currentLayer].clipRect.y = spriteSheetHeight - m_SpriteData[currentLayer].clipRect.h;
 
-        if (m_SpriteData[it].clipRect.w != 0)
+        if (m_SpriteData[currentLayer].clipRect.w != 0)
         {
-          m_SpriteData[it].destRect.w =
-              static_cast<int>(std::round(static_cast<float>(m_SpriteData[it].clipRect.w) * m_currentZoomLevel));
-          m_SpriteData[it].destRect.h =
-              static_cast<int>(std::round(static_cast<float>(m_SpriteData[it].clipRect.h) * m_currentZoomLevel));
+          m_SpriteData[currentLayer].destRect.w =
+              static_cast<int>(std::round(static_cast<float>(m_SpriteData[currentLayer].clipRect.w) * m_currentZoomLevel));
+          m_SpriteData[currentLayer].destRect.h =
+              static_cast<int>(std::round(static_cast<float>(m_SpriteData[currentLayer].clipRect.h) * m_currentZoomLevel));
         }
         else
         {
-          SDL_QueryTexture(m_SpriteData[it].texture, nullptr, nullptr, &m_SpriteData[it].destRect.w,
-                           &m_SpriteData[it].destRect.h);
+          SDL_QueryTexture(m_SpriteData[currentLayer].texture, nullptr, nullptr, &m_SpriteData[currentLayer].destRect.w,
+                           &m_SpriteData[currentLayer].destRect.h);
 
-          m_SpriteData[it].destRect.w =
-              static_cast<int>(std::round(static_cast<float>(m_SpriteData[it].clipRect.w) * m_currentZoomLevel));
-          m_SpriteData[it].destRect.h =
-              static_cast<int>(std::round(static_cast<float>(m_SpriteData[it].clipRect.h) * m_currentZoomLevel));
+          m_SpriteData[currentLayer].destRect.w =
+              static_cast<int>(std::round(static_cast<float>(m_SpriteData[currentLayer].clipRect.w) * m_currentZoomLevel));
+          m_SpriteData[currentLayer].destRect.h =
+              static_cast<int>(std::round(static_cast<float>(m_SpriteData[currentLayer].clipRect.h) * m_currentZoomLevel));
         }
       }
     }
