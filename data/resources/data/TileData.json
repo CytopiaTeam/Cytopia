@@ -548,6 +548,138 @@
         ]
     },
     {
+        "author": "RockFort",
+        "category": "Roads",
+        "tileType": "autotile",
+        "description": "A rural road from france with fresh asphalt with a broken line.",
+        "id": "road_ruralroadfr1straightline",
+        "power": 0,
+        "price": 7,
+        "slopeTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 4,
+            "offset": 20,
+            "fileName": "resources/images/roads/road_1x1_ruralfrroad1brokenline_RF.png"
+        },
+        "tiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 16,
+            "fileName": "resources/images/roads/road_1x1_ruralfrroad1brokenline_RF.png",
+            "rotations": 16
+        },
+        "title": "Rural French Road brokenlined",
+        "upkeep cost": 2,
+        "water": 0,
+        "tag": [
+            "road",
+            "european",
+            "french",
+            "rural",
+            "broken-line",
+            "fresh"
+        ]
+    },
+    {
+        "author": "RockFort",
+        "category": "Roads",
+        "tileType": "autotile",
+        "description": "A rural road from france with worn asphalth a straight line.",
+        "id": "road_ruralroadfr1straightline",
+        "power": 0,
+        "price": 7,
+        "slopeTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 4,
+            "offset": 20,
+            "fileName": "resources/images/roads/road_1x1_ruralroadfr1straightline_RF.png"
+        },
+        "tiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 16,
+            "fileName": "resources/images/roads/road_1x1_ruralroadfr1straightline_RF.png",
+            "rotations": 16
+        },
+        "title": "Rural French Road lined",
+        "upkeep cost": 2,
+        "water": 0,
+        "tag": [
+            "road",
+            "european",
+            "french",
+            "rural",
+            "straight-line",
+            "fresh"
+        ]
+    },
+    {
+        "author": "RockFort",
+        "category": "Roads",
+        "tileType": "autotile",
+        "description": "A rural road from france with fresh asphalt.",
+        "id": "road_ruralroadfr1newsaph",
+        "power": 0,
+        "price": 7,
+        "slopeTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 4,
+            "offset": 20,
+            "fileName": "resources/images/roads/road_1x1_ruralroadfr1newsaph_RF.png"
+        },
+        "tiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 16,
+            "fileName": "resources/images/roads/road_1x1_ruralroadfr1newsaph_RF.png",
+            "rotations": 16
+        },
+        "title": "Rural French Road fresh",
+        "upkeep cost": 2,
+        "water": 0,
+        "tag": [
+            "road",
+            "european",
+            "french",
+            "rural",
+            "fresh"
+        ]
+    },
+    {
+        "author": "RockFort",
+        "category": "Roads",
+        "tileType": "autotile",
+        "description": "A rural road from france with worn asphalt.",
+        "id": "road_ruralroadfr1grained",
+        "power": 0,
+        "price": 7,
+        "slopeTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 4,
+            "offset": 20,
+            "fileName": "resources/images/roads/road_1x1_ruralroadfr1grained_RF.png"
+        },
+        "tiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 16,
+            "fileName": "resources/images/roads/road_1x1_ruralroadfr1grained_RF.png",
+            "rotations": 16
+        },
+        "title": "Rural French Road",
+        "upkeep cost": 2,
+        "water": 0,
+        "tag": [
+            "road",
+            "european",
+            "french",
+            "rural"        ]
+    },
+    {
         "author": "Yusuf8a684",
         "category": "Roads",
         "tileType": "autotile",
@@ -654,7 +786,7 @@
             "fileName": "resources/images/roads/road_1x1_Country.png"
         },
         "tiles": {
-            "clip_height": 16,
+            "clip_height": 23,
             "clip_width": 32,
             "count": 16,
             "fileName": "resources/images/roads/road_1x1_Country.png",
@@ -694,7 +826,7 @@
             "fileName": "resources/images/roads/road_1x1_dirt.png"
         },
         "tiles": {
-            "clip_height": 16,
+            "clip_height": 23,
             "clip_width": 32,
             "count": 16,
             "fileName": "resources/images/roads/road_1x1_dirt.png",
@@ -730,7 +862,7 @@
             "fileName": "resources/images/roads/road_1x1_alley.png"
         },
         "tiles": {
-            "clip_height": 16,
+            "clip_height": 23,
             "clip_width": 32,
             "count": 16,
             "fileName": "resources/images/roads/road_1x1_alley.png",
@@ -760,7 +892,7 @@
             "fileName": "resources/images/roads/road_1x1_Highway.png"
         },
         "tiles": {
-            "clip_height": 16,
+            "clip_height": 23,
             "clip_width": 32,
             "count": 16,
             "fileName": "resources/images/roads/road_1x1_Highway.png",
@@ -1067,7 +1199,7 @@
             "fileName": "resources/images/roads/road_1x1_paved.png"
         },
         "tiles": {
-            "clip_height": 17,
+            "clip_height": 23,
             "clip_width": 32,
             "count": 16,
             "fileName": "resources/images/roads/road_1x1_paved.png",
