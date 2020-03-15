@@ -4,20 +4,21 @@
 #include <stddef.h>
 #include "betterEnums.hxx"
 
-constexpr size_t LAYERS_COUNT = 7;
-
 enum Layer : unsigned int
 {
-  BLUEPRINT = 1,       // Optional layer - Map Blueprint
-  UNDERGROUND,     // Optional layer - Pipes, Subway-pipes and so onn
-  TERRAIN,         // Terrain tiles, decorations, ... - must always be a "full" tile
-  WATER,           // Water tiles
-  MOVABLE_OBJECTS, // Cars, Pedestrians
-  BUILDINGS,       // Buildings, Streets and everything that goes on the terrain
-  ANIMATIONS,      // Animations like smoke
-  SYMBOLS,         // Symbols to display over buildings like no power / water and so on
-  NONE             // If no layer is active
+  NONE,            // 0- this must be FIRST !!!
+  BLUEPRINT,       // 1- Optional layer - Map Blueprint
+  UNDERGROUND,     // 2- Optional layer - Pipes, Subway-pipes and so onn
+  TERRAIN,         // 3- Terrain tiles, decorations, ... - must always be a "full" tile
+  WATER,           // 4- Water tiles
+  MOVABLE_OBJECTS, // 5- Cars, Pedestrians
+  BUILDINGS,       // 6- Buildings, Streets and everything that goes on the terrain
+  ANIMATIONS,      // 7- Animations like smoke
+  SYMBOLS,         // 8- Symbols to display over buildings like no power / water and so on
+  LAYERS_COUNT     // this must be LAST !!!
 };
+
+constexpr size_t FIRST_LAYER = NONE + 1; 
 
 /// This is a orderd list of all relevant layers we need to interact with
 static const Layer allLayersOrdered[] = {Layer::TERRAIN, Layer::WATER, Layer::BUILDINGS, Layer::BLUEPRINT, Layer::UNDERGROUND};
