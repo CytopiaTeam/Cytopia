@@ -112,8 +112,8 @@ bool MapNode::isPlacableOnSlope(const std::string &tileID) const
   {
     int clipRectX = tileData->slopeTiles.clippingWidth * static_cast<int>(m_orientation);
 
-	// while loading game, m_previousTileID will be equal to "terrain" for terrin tiles while it's empty "" when starting new game.
-	// so the check here on m_previousTileID is needed both (temporary), empty and "terrain", this will be fixed in new PR.
+    // while loading game, m_previousTileID will be equal to "terrain" for terrin tiles while it's empty "" when starting new game.
+    // so the check here on m_previousTileID is needed both (temporary), empty and "terrain", this will be fixed in new PR.
     if (clipRectX >= static_cast<int>(tileData->slopeTiles.count) * tileData->slopeTiles.clippingWidth &&
         (m_previousTileID.empty() || m_previousTileID == "terrain"))
     {
@@ -159,7 +159,7 @@ void MapNode::updateTexture()
   tileMap = TileMap::DEFAULT;
   m_elevationOrientation = TileManager::instance().calculateSlopeOrientation(m_elevationBitmask);
 
-  for (uint32_t currentLayer = 0; currentLayer < LAYERS_COUNT; ++currentLayer)
+  for (auto currentLayer : allLayersOrdered)
   {
     if (m_mapNodeData[currentLayer].tileData)
     {
@@ -226,9 +226,10 @@ void MapNode::updateTexture()
           m_sprite->setClipRect({clipRect.x + m_clippingWidth * m_mapNodeData[currentLayer].tileData->tiles.offset, 0,
                                  m_clippingWidth, m_mapNodeData[currentLayer].tileData->tiles.clippingHeight},
                                 static_cast<Layer>(currentLayer));
-          bool shouldRenderTexture = m_mapNodeData[currentLayer].tileID != DEMY_NODE_ID;
-          m_sprite->setTexture(TileManager::instance().getTexture(m_mapNodeData[currentLayer].tileID),
-                               static_cast<Layer>(currentLayer), shouldRenderTexture);
+          if (m_mapNodeData[currentLayer].shouldRender)
+          {
+            m_sprite->setTexture(TileManager::instance().getTexture(m_mapNodeData[currentLayer].tileID), static_cast<Layer>(currentLayer));
+          }
         }
 
         spriteCount = m_mapNodeData[currentLayer].tileData->tiles.count;
