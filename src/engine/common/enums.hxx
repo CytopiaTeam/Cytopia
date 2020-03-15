@@ -6,7 +6,7 @@
 
 enum Layer : unsigned int
 {
-  NONE,            // 0
+  NONE,            // 0- this must be FIRST !!!
   BLUEPRINT,       // 1- Optional layer - Map Blueprint
   UNDERGROUND,     // 2- Optional layer - Pipes, Subway-pipes and so onn
   TERRAIN,         // 3- Terrain tiles, decorations, ... - must always be a "full" tile
@@ -15,7 +15,7 @@ enum Layer : unsigned int
   BUILDINGS,       // 6- Buildings, Streets and everything that goes on the terrain
   ANIMATIONS,      // 7- Animations like smoke
   SYMBOLS,         // 8- Symbols to display over buildings like no power / water and so on
-  LAYERS_COUNT
+  LAYERS_COUNT     // this must be LAST !!!
 };
 
 constexpr size_t FIRST_LAYER = NONE + 1; 

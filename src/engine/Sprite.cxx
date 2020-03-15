@@ -23,6 +23,7 @@ void Sprite::render() const
 {
 #ifdef MICROPROFILE_ENABLED
   MICROPROFILE_SCOPEI("Map", "Sprite render", MP_RED);
+#endif
   for (auto currentLayer : allLayersOrdered)
   {
     if (MapLayers::isLayerActive(currentLayer) && m_SpriteData[currentLayer].texture)
