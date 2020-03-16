@@ -161,9 +161,9 @@ size_t TileManager::calculateSlopeOrientation(unsigned char bitMaskElevation)
   return orientation;
 }
 
-size_t TileManager::calculateTileOrientation(unsigned char bitMaskElevation)
+TileOrientation TileManager::calculateTileOrientation(unsigned char bitMaskElevation)
 {
-  size_t orientation;
+  TileOrientation orientation;
   std::bitset<8> elevationMask(bitMaskElevation);
 
   // Bits:
@@ -179,72 +179,72 @@ size_t TileManager::calculateTileOrientation(unsigned char bitMaskElevation)
   // check for all combinations
   if (elevationMask.none())
   { // NONE
-    orientation = TileList::TILE_DEFAULT_ORIENTATION;
+    orientation = TileOrientation::TILE_DEFAULT_ORIENTATION;
   }
   // special cases
   else if (elevationMask.test(0) && elevationMask.test(1) && elevationMask.test(2) && elevationMask.test(3))
   { // BOTTOM_RIGHT
-    orientation = TileList::TILE_ALL_DIRECTIONS;
+    orientation = TileOrientation::TILE_ALL_DIRECTIONS;
   }
   else if (elevationMask.test(0) && elevationMask.test(2) && elevationMask.test(3))
   { // BOTTOM_RIGHT
-    orientation = TileList::TILE_N_AND_E_AND_W;
+    orientation = TileOrientation::TILE_N_AND_E_AND_W;
   }
   else if (elevationMask.test(0) && elevationMask.test(1) && elevationMask.test(3))
   { // BOTTOM_RIGHT
-    orientation = TileList::TILE_N_AND_E_AND_S;
+    orientation = TileOrientation::TILE_N_AND_E_AND_S;
   }
   else if (elevationMask.test(0) && elevationMask.test(1) && elevationMask.test(2))
   { // BOTTOM_RIGHT
-    orientation = TileList::TILE_N_AND_S_AND_W;
+    orientation = TileOrientation::TILE_N_AND_S_AND_W;
   }
   else if (elevationMask.test(1) && elevationMask.test(2) && elevationMask.test(3))
   { // BOTTOM_RIGHT
-    orientation = TileList::TILE_S_AND_E_AND_W;
+    orientation = TileOrientation::TILE_S_AND_E_AND_W;
   }
   else if (elevationMask.test(2) && elevationMask.test(3))
   { // BOTTOM_RIGHT
-    orientation = TileList::TILE_E_AND_W;
+    orientation = TileOrientation::TILE_E_AND_W;
   }
   else if (elevationMask.test(0) && elevationMask.test(1))
   { // BOTTOM_RIGHT
-    orientation = TileList::TILE_N_AND_S;
+    orientation = TileOrientation::TILE_N_AND_S;
   }
 
   // diagonal combinations
   else if (elevationMask.test(0) && elevationMask.test(2))
   { // TOP && RIGHT
-    orientation = TileList::TILE_N_AND_W;
+    orientation = TileOrientation::TILE_N_AND_W;
   }
   else if (elevationMask.test(0) && elevationMask.test(3))
   { // TOP && LEFT
-    orientation = TileList::TILE_N_AND_E;
+    orientation = TileOrientation::TILE_N_AND_E;
   }
   else if (elevationMask.test(1) && elevationMask.test(2))
   { // BOTTOM && RIGHT
-    orientation = TileList::TILE_S_AND_W;
+    orientation = TileOrientation::TILE_S_AND_W;
   }
   else if (elevationMask.test(1) && elevationMask.test(3))
   { // BOTTOM && LEFT
-    orientation = TileList::TILE_S_AND_E;
+    orientation = TileOrientation::TILE_S_AND_E;
   }
 
   // default directions
   else if (elevationMask.test(0))
   { // TOP
-    orientation = TileList::TILE_N;
+    orientation = TileOrientation::TILE_N;
   }
   else if (elevationMask.test(1))
   { // BOTTOM
-    orientation = TileList::TILE_S;
+    orientation = TileOrientation::TILE_S;
   }
   else if (elevationMask.test(2))
   { // LEFT
-    orientation = TileList::TILE_W;
+    orientation = TileOrientation::TILE_W;
   }
   else if (elevationMask.test(3))
   { // RIGHT
-    orientation = TileList::TILE_E;
+    orientation = TileOrientation::TILE_E;
   }
 
   else

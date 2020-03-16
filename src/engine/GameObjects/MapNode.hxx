@@ -75,7 +75,7 @@ public:
   */
   void render() const;
 
-  void setBitmask(unsigned char elevationBitmask, unsigned char tileTypeBitmask);
+  void setBitmask(unsigned char elevationBitmask, std::vector<uint8_t> tileTypeBitmask);
 
   //bool isLayerActive(Layer layer) const { return std::find(layers.begin(), layers.end(), layer) != layers.end(); };
 
@@ -128,14 +128,14 @@ private:
 
   std::string m_previousTileID = "terrain";
 
-  size_t m_orientation = TileSlopes::DEFAULT_ORIENTATION;
+  std::vector<TileOrientation> m_orientation;
   size_t m_elevationOrientation = TileSlopes::DEFAULT_ORIENTATION;
 
   int m_clippingWidth = 0;
 
   std::vector<MapNodeData> m_mapNodeData;
+  std::vector<unsigned char> m_tileIDBitmask;
   unsigned char m_elevationBitmask = 0;
-  unsigned char m_tileIDBitmask = 0;
 
   Point m_origCornerPoint;
 
