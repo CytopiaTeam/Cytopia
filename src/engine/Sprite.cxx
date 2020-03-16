@@ -59,7 +59,6 @@ void Sprite::refresh()
     {
       if (m_SpriteData[currentLayer].texture)
       {
-
         m_currentZoomLevel = Camera::zoomLevel;
         int spriteSheetHeight = 0;
         SDL_QueryTexture(m_SpriteData[currentLayer].texture, nullptr, nullptr, nullptr, &spriteSheetHeight);
@@ -102,12 +101,11 @@ void Sprite::refresh()
   m_needsRefresh = false;
 }
 
-void Sprite::setTexture(SDL_Texture *texture, Layer layer, bool needToSetTexture)
+void Sprite::setTexture(SDL_Texture *texture, Layer layer)
 {
   if (!texture)
     throw UIError(TRACE_INFO "Called Sprite::setTexture() with a non valid texture");
-  if (needToSetTexture)
-    m_SpriteData[layer].texture = texture;
+  m_SpriteData[layer].texture = texture;
   m_needsRefresh = true;
   refresh();
 }

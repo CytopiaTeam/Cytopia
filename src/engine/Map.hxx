@@ -89,20 +89,14 @@ public:
     }
     if (isOkToSet)
     {
-      Point origPoint = *begin;
-      std::string id = tileID;
-      auto it = begin;
-      if (!isMultiObjects)
+      for (auto it = begin; it != end; ++it)
       {
-        mapNodes[it->x * m_columns + it->y]->setTileID(tileID, origPoint);
-        it++;
-        id = DEMY_NODE_ID;
+        bool shouldRender = !(!isMultiObjects && it != begin);
+        demolishNode(*it);
+        mapNodes[it->x * m_columns + it->y]->setRenderFlag(TileManager::instance().getTileLayer(tileID), shouldRender);
+        mapNodes[it->x * m_columns + it->y]->setTileID(tileID, *begin);
       }
-      for (; it != end; ++it)
-      {
-        mapNodes[it->x * m_columns + it->y]->setTileID(id, isMultiObjects ? *it : origPoint);
-        updateNeighborsOfNode(*it);
-      }
+      updateNeighborsOfNode(*begin);
     }
   }
 

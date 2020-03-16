@@ -239,9 +239,10 @@ void MapNode::updateTexture()
           m_sprite->setClipRect({clipRect.x + m_clippingWidth * m_mapNodeData[currentLayer].tileData->tiles.offset, 0,
                                  m_clippingWidth, m_mapNodeData[currentLayer].tileData->tiles.clippingHeight},
                                 static_cast<Layer>(currentLayer));
-          bool shouldRenderTexture = m_mapNodeData[currentLayer].tileID != DEMY_NODE_ID;
-          m_sprite->setTexture(TileManager::instance().getTexture(m_mapNodeData[currentLayer].tileID),
-                               static_cast<Layer>(currentLayer), shouldRenderTexture);
+          if (m_mapNodeData[currentLayer].shouldRender)
+          {
+            m_sprite->setTexture(TileManager::instance().getTexture(m_mapNodeData[currentLayer].tileID), static_cast<Layer>(currentLayer));
+          }
         }
 
         spriteCount = m_mapNodeData[currentLayer].tileData->tiles.count;

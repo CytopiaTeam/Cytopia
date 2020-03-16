@@ -236,11 +236,11 @@ unsigned char Map::getElevatedNeighborBitmask(const Point &isoCoordinates)
 Point Map::getNodeOrigCornerPoint(const Point &isoCoordinates, unsigned int layer)
 {
   //Layer layer = TileManager::instance().getTileLayer(tileID);
-  if (layer)
+  if (layer >= FIRST_LAYER)
   {
     return mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getOrigCornerPoint((Layer)layer);
   }
-  return mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getOrigCornerPoint();
+  return UNDEFINED_POINT;
 }
 
 std::vector<uint8_t> Map::calculateAutotileBitmask(const Point &isoCoordinates)

@@ -23,8 +23,6 @@ struct MapNodeData
   bool shouldRender = true;
 };
 
-const std::string DEMY_NODE_ID = "demy_node";
-
 /** @brief Class that holds map nodes
  * Each tile is represented by the map nodes class.
  */
@@ -119,6 +117,8 @@ public:
     * @return Layer enum of the topmost active layer
     */
   unsigned int getTopMostActiveLayer() const;
+
+  void setRenderFlag(Layer layer, bool shouldRender) { m_mapNodeData[layer].shouldRender = shouldRender; }
 
 private:
   Point m_isoCoordinates;
