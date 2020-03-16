@@ -114,7 +114,7 @@ void Map::updateNeighborsOfNode(const Point &isoCoordinates)
 
       // set elevation and tile bitmask for each neighbor
 
-      it->setBitmask(elevationBitmask, getNeighboringTilesBitmask(it->getCoordinates()));
+      it->setBitmask(elevationBitmask, calculateAutotileBitmask(it->getCoordinates()));
 
       // there can't be a height difference greater then 1 between two map nodes.
       // only increase the cardinal directions
@@ -243,7 +243,7 @@ Point Map::getNodeOrigCornerPoint(const Point &isoCoordinates, unsigned int laye
   return mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getOrigCornerPoint();
 }
 
-std::vector<uint8_t> Map::getNeighboringTilesBitmask(const Point &isoCoordinates)
+std::vector<uint8_t> Map::calculateAutotileBitmask(const Point &isoCoordinates)
 {
   std::vector<uint8_t> tileOrientationBitmask;
   tileOrientationBitmask.resize(LAYERS_COUNT);

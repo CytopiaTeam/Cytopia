@@ -128,13 +128,13 @@ private:
 
   std::string m_previousTileID = "terrain";
 
-  std::vector<TileOrientation> m_orientation;
+  std::vector<TileOrientation> m_autotileOrientation;
   size_t m_elevationOrientation = TileSlopes::DEFAULT_ORIENTATION;
 
   int m_clippingWidth = 0;
 
   std::vector<MapNodeData> m_mapNodeData;
-  std::vector<unsigned char> m_tileIDBitmask;
+  std::vector<unsigned char> m_autotileBitmask;
   unsigned char m_elevationBitmask = 0;
 
   Point m_origCornerPoint;

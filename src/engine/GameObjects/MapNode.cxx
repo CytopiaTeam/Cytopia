@@ -8,12 +8,12 @@ MapNode::MapNode(Point isoCoordinates, const std::string &terrainID, const std::
     : m_isoCoordinates(std::move(isoCoordinates))
 {
   m_mapNodeData.resize(LAYERS_COUNT);
-  m_tileIDBitmask.resize(LAYERS_COUNT);
+  m_autotileBitmask.resize(LAYERS_COUNT);
   m_orientation.resize(LAYERS_COUNT);
   m_sprite = std::make_unique<Sprite>(m_isoCoordinates);
 
   //initialize vectors
-  for (auto &it : m_tileIDBitmask)
+  for (auto &it : m_autotileBitmask)
   {
     it = 0;
   }
@@ -57,10 +57,10 @@ void MapNode::decreaseHeight()
 
 void MapNode::render() const { m_sprite->render(); }
 
-void MapNode::setBitmask(unsigned char elevationBitmask, std::vector<uint8_t> tileIDBitmask)
+void MapNode::setBitmask(unsigned char elevationBitmask, std::vector<uint8_t> autotileBitmask)
 {
   m_elevationBitmask = elevationBitmask;
-  m_tileIDBitmask = tileIDBitmask;
+  m_autotileBitmask = autotileBitmask;
   updateTexture();
 }
 
@@ -191,7 +191,7 @@ void MapNode::updateTexture()
         else if (m_mapNodeData[currentLayer].tileData->tileType == +TileType::AUTOTILE ||
                  m_mapNodeData[currentLayer].tileData->tileType == +TileType::UNDERGROUND)
         {
-          m_orientation[currentLayer] = TileManager::instance().calculateTileOrientation(m_tileIDBitmask[currentLayer]);
+          m_orientation[currentLayer] = TileManager::instance().calculateTileOrientation(m_autotileBitmask[currentLayer]);
         }
       }
       else if (m_elevationOrientation >= TileSlopes::N && m_elevationOrientation <= TileSlopes::S)
