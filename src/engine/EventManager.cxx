@@ -253,19 +253,27 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           {
             this->unHighlighNodes(engine);
 
-            m_highlightedNodes = createBresenhamLine(m_clickDownCoords, clickCoords);
-
-            for (size_t i = 0; i < m_highlightedNodes.size(); i++)
+            switch (GameStates::instance().placementMode)
             {
-              if (!engine.map->isPlacementOnNodeAllowed(m_highlightedNodes[i], tileToPlace))
+            case PlacementMode::SINGLE:
+              m_highlightedNodes.clear();
+              m_highlightedNodes.push_back(m_clickDownCoords);
+              break;
+            case PlacementMode::LINE:
+              m_highlightedNodes = createBresenhamLine(m_clickDownCoords, clickCoords);
+              break;
+            }
+            for (auto highlitNode : m_highlightedNodes)
+            {
+              if (!engine.map->isPlacementOnNodeAllowed(highlitNode, tileToPlace))
               {
                 // already occupied tile, mark red
-                engine.map->highlightNode(m_highlightedNodes[i], SpriteHighlightColor::RED);
+                engine.map->highlightNode(highlitNode, SpriteHighlightColor::RED);
               }
               else
               {
                 // mark gray.
-                engine.map->highlightNode(m_highlightedNodes[i], SpriteHighlightColor::GRAY);
+                engine.map->highlightNode(highlitNode, SpriteHighlightColor::GRAY);
               }
             }
           }

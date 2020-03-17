@@ -44,4 +44,11 @@ enum class LayerEditMode
   BLUEPRINT
 };
 
+enum class PlacementMode
+{
+  SINGLE,
+  LINE,
+  RECTANGLE
+};
+
 #endif

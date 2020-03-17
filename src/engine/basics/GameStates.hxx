@@ -19,6 +19,7 @@ public:
    */
   bool drawUI = true;
   LayerEditMode layerEditMode = LayerEditMode::TERRAIN;
+  PlacementMode placementMode = PlacementMode::LINE;
 
 private:
   GameStates() = default;
