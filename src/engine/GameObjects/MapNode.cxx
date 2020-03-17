@@ -9,7 +9,7 @@ MapNode::MapNode(Point isoCoordinates, const std::string &terrainID, const std::
 {
   m_mapNodeData.resize(LAYERS_COUNT);
   m_autotileBitmask.resize(LAYERS_COUNT);
-  m_orientation.resize(LAYERS_COUNT);
+  m_autotileOrientation.resize(LAYERS_COUNT);
   m_sprite = std::make_unique<Sprite>(m_isoCoordinates);
 
   //initialize vectors
@@ -17,7 +17,7 @@ MapNode::MapNode(Point isoCoordinates, const std::string &terrainID, const std::
   {
     it = 0;
   }
-  for (auto &it : m_orientation)
+  for (auto &it : m_autotileOrientation)
   {
     it = TileOrientation::TILE_DEFAULT_ORIENTATION;
   }
@@ -123,7 +123,7 @@ bool MapNode::isPlacableOnSlope(const std::string &tileID) const
   if (tileData && m_elevationOrientation != TileSlopes::DEFAULT_ORIENTATION)
   {
     Layer layer = TileManager::instance().getTileLayer(tileID);
-    int clipRectX = tileData->slopeTiles.clippingWidth * static_cast<int>(m_orientation[layer]);
+    int clipRectX = tileData->slopeTiles.clippingWidth * static_cast<int>(m_autotileOrientation[layer]);
 
     // while loading game, m_previousTileID will be equal to "terrain" for terrin tiles while it's empty "" when starting new game.
     // so the check here on m_previousTileID is needed both (temporary), empty and "terrain", this will be fixed in new PR.
@@ -185,13 +185,13 @@ void MapNode::updateTexture()
             m_mapNodeData[currentLayer].tileData->tileType == +TileType::BLUEPRINT)
         {
           tileMap = TileMap::DEFAULT;
-          m_orientation[currentLayer] = TileOrientation::TILE_DEFAULT_ORIENTATION;
+          m_autotileOrientation[currentLayer] = TileOrientation::TILE_DEFAULT_ORIENTATION;
         }
         // if the node should autotile, check if it needs to tile itself to another tile of the same ID
         else if (m_mapNodeData[currentLayer].tileData->tileType == +TileType::AUTOTILE ||
                  m_mapNodeData[currentLayer].tileData->tileType == +TileType::UNDERGROUND)
         {
-          m_orientation[currentLayer] = TileManager::instance().calculateTileOrientation(m_autotileBitmask[currentLayer]);
+          m_autotileOrientation[currentLayer] = TileManager::instance().calculateTileOrientation(m_autotileBitmask[currentLayer]);
         }
       }
       else if (m_elevationOrientation >= TileSlopes::N && m_elevationOrientation <= TileSlopes::S)
@@ -199,12 +199,12 @@ void MapNode::updateTexture()
         if (m_mapNodeData[currentLayer].tileData->slopeTiles.fileName.empty())
         {
           tileMap = TileMap::DEFAULT;
-          m_orientation[currentLayer] = TileOrientation::TILE_DEFAULT_ORIENTATION;
+          m_autotileOrientation[currentLayer] = TileOrientation::TILE_DEFAULT_ORIENTATION;
         }
         else
         {
           tileMap = TileMap::SLOPES; // TileSlopes [N,E,w,S]
-          m_orientation[currentLayer] = static_cast<TileOrientation>(m_elevationOrientation);
+          m_autotileOrientation[currentLayer] = static_cast<TileOrientation>(m_elevationOrientation);
         }
       }
       else if (m_elevationOrientation >= TileSlopes::NW && m_elevationOrientation <= TileSlopes::S_AND_E)
@@ -212,12 +212,12 @@ void MapNode::updateTexture()
         if (m_mapNodeData[currentLayer].tileData->cornerTiles.fileName.empty())
         {
           tileMap = TileMap::DEFAULT;
-          m_orientation[currentLayer] = TileOrientation::TILE_DEFAULT_ORIENTATION;
+          m_autotileOrientation[currentLayer] = TileOrientation::TILE_DEFAULT_ORIENTATION;
         }
         else
         {
           tileMap = TileMap::CORNERS; // TileSlopes [NW,NE,SE,SW,N_AND_W,N_AND_E,S_AND_E,S_AND_W]
-          m_orientation[currentLayer] = static_cast<TileOrientation>(m_elevationOrientation);
+          m_autotileOrientation[currentLayer] = static_cast<TileOrientation>(m_elevationOrientation);
         }
       }
 
@@ -231,7 +231,7 @@ void MapNode::updateTexture()
         }
         else
         {
-          clipRect.x = m_clippingWidth * static_cast<int>(m_orientation[currentLayer]);
+          clipRect.x = m_clippingWidth * static_cast<int>(m_autotileOrientation[currentLayer]);
         }
 
         if (!m_mapNodeData[currentLayer].tileID.empty())
@@ -249,7 +249,7 @@ void MapNode::updateTexture()
         break;
       case TileMap::CORNERS:
         m_clippingWidth = m_mapNodeData[currentLayer].tileData->cornerTiles.clippingWidth;
-        clipRect.x = m_clippingWidth * (static_cast<int>(m_orientation[currentLayer]) - 4);
+        clipRect.x = m_clippingWidth * (static_cast<int>(m_autotileOrientation[currentLayer]) - 4);
         spriteCount = m_mapNodeData[currentLayer].tileData->cornerTiles.count;
         if (clipRect.x <= static_cast<int>(spriteCount) * m_clippingWidth)
         {
@@ -267,7 +267,7 @@ void MapNode::updateTexture()
         }
         m_clippingWidth = m_mapNodeData[currentLayer].tileData->slopeTiles.clippingWidth;
         clipRect.x =
-            m_mapNodeData[currentLayer].tileData->slopeTiles.clippingWidth * static_cast<int>(m_orientation[currentLayer]);
+            m_mapNodeData[currentLayer].tileData->slopeTiles.clippingWidth * static_cast<int>(m_autotileOrientation[currentLayer]);
         spriteCount = m_mapNodeData[currentLayer].tileData->slopeTiles.count;
         if (clipRect.x <= static_cast<int>(spriteCount) * m_clippingWidth)
         {
