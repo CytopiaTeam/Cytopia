@@ -95,8 +95,8 @@ public:
         demolishNode(*it);
         mapNodes[it->x * m_columns + it->y]->setRenderFlag(TileManager::instance().getTileLayer(tileID), shouldRender);
         mapNodes[it->x * m_columns + it->y]->setTileID(tileID, *begin);
+        updateNeighborsOfNode(*it);
       }
-      updateNeighborsOfNode(*begin);
     }
   }
 
