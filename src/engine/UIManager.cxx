@@ -395,6 +395,21 @@ void UIManager::setCallbackFunctions()
         {
           button->checkState() ? tileToPlace = actionParameter : tileToPlace = "";
           button->checkState() ? highlightSelection = true : highlightSelection = false;
+          if (!tileToPlace.empty())
+          {
+            if (TileManager::instance().getTileData(tileToPlace))
+              switch (TileManager::instance().getTileData(tileToPlace)->tileType)
+              {
+              case +TileType::DEFAULT:
+                LOG(LOG_INFO) << "blueprint";
+                GameStates::instance().placementMode = PlacementMode::SINGLE;
+                break;
+              case +TileType::AUTOTILE:
+                LOG(LOG_INFO) << "autotile";
+                GameStates::instance().placementMode = PlacementMode::LINE;
+                break;
+              }
+          }
           return;
         }
 
@@ -409,7 +424,6 @@ void UIManager::setCallbackFunctions()
             GameStates::instance().layerEditMode = LayerEditMode::BLUEPRINT;
           else
             GameStates::instance().layerEditMode = LayerEditMode::TERRAIN;
-
         });
     }
     else if (uiElement->getUiElementData().actionID == "ToggleVisibilityOfGroup")
