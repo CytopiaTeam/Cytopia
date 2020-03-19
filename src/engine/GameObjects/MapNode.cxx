@@ -122,9 +122,8 @@ bool MapNode::isPlacableOnSlope(const std::string &tileID) const
   TileData *tileData = TileManager::instance().getTileData(tileID);
   if (tileData && m_elevationOrientation != TileSlopes::DEFAULT_ORIENTATION)
   {
-    Layer layer = TileManager::instance().getTileLayer(tileID);
-    int clipRectX = tileData->slopeTiles.clippingWidth * static_cast<int>(m_autotileOrientation[layer]);
-
+    // we need to check the terrain layer for it's orientation so we can calculate the resulting x offset in the spritesheet.
+    int clipRectX = tileData->slopeTiles.clippingWidth * static_cast<int>(m_autotileOrientation[Layer::TERRAIN]);
     // while loading game, m_previousTileID will be equal to "terrain" for terrin tiles while it's empty "" when starting new game.
     // so the check here on m_previousTileID is needed both (temporary), empty and "terrain", this will be fixed in new PR.
     if (clipRectX >= static_cast<int>(tileData->slopeTiles.count) * tileData->slopeTiles.clippingWidth &&
@@ -241,7 +240,8 @@ void MapNode::updateTexture()
                                 static_cast<Layer>(currentLayer));
           if (m_mapNodeData[currentLayer].shouldRender)
           {
-            m_sprite->setTexture(TileManager::instance().getTexture(m_mapNodeData[currentLayer].tileID), static_cast<Layer>(currentLayer));
+            m_sprite->setTexture(TileManager::instance().getTexture(m_mapNodeData[currentLayer].tileID),
+                                 static_cast<Layer>(currentLayer));
           }
         }
 
@@ -266,8 +266,8 @@ void MapNode::updateTexture()
           break;
         }
         m_clippingWidth = m_mapNodeData[currentLayer].tileData->slopeTiles.clippingWidth;
-        clipRect.x =
-            m_mapNodeData[currentLayer].tileData->slopeTiles.clippingWidth * static_cast<int>(m_autotileOrientation[currentLayer]);
+        clipRect.x = m_mapNodeData[currentLayer].tileData->slopeTiles.clippingWidth *
+                     static_cast<int>(m_autotileOrientation[currentLayer]);
         spriteCount = m_mapNodeData[currentLayer].tileData->slopeTiles.count;
         if (clipRect.x <= static_cast<int>(spriteCount) * m_clippingWidth)
         {
