@@ -32,4 +32,23 @@ BETTER_ENUM(TileType, int,
             UNDERGROUND // same as AUTOTILE, but for the BLUEPRINT layer
 )
 
+/**
+ * @brief LayerEditMode.
+ * This enum is for switching between layers.
+ * TERRAIN activates Terrain and buildings
+ * BLUEPRINT activates blueprint + underground
+ */
+enum class LayerEditMode
+{
+  TERRAIN,
+  BLUEPRINT
+};
+
+enum class PlacementMode
+{
+  SINGLE,
+  LINE,
+  RECTANGLE
+};
+
 #endif

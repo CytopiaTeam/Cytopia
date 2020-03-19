@@ -113,7 +113,8 @@ void Map::updateNeighborsOfNode(const Point &isoCoordinates)
       }
 
       // set elevation and tile bitmask for each neighbor
-      it->setBitmask(elevationBitmask, getNeighboringTilesBitmask(it->getCoordinates()));
+
+      it->setBitmask(elevationBitmask, calculateAutotileBitmask(it->getCoordinates()));
 
       // there can't be a height difference greater then 1 between two map nodes.
       // only increase the cardinal directions
@@ -242,45 +243,54 @@ Point Map::getNodeOrigCornerPoint(const Point &isoCoordinates, unsigned int laye
   return UNDEFINED_POINT;
 }
 
-unsigned char Map::getNeighboringTilesBitmask(const Point &isoCoordinates)
+std::vector<uint8_t> Map::calculateAutotileBitmask(const Point &isoCoordinates)
 {
-  unsigned char bitmask = 0;
+  std::vector<uint8_t> tileOrientationBitmask;
+  tileOrientationBitmask.resize(LAYERS_COUNT);
+  for (auto it : tileOrientationBitmask)
+  {
+    it = 0;
+  }
+
   int x = isoCoordinates.x;
   int y = isoCoordinates.y;
 
-  // only auto-tile categories that can be tiled.
-  if (mapNodes[x * m_columns + y] && mapNodes[x * m_columns + y]->getActiveMapNodeData().tileData &&
-      (mapNodes[x * m_columns + y]->getActiveMapNodeData().tileData->tileType == +TileType::AUTOTILE ||
-       mapNodes[x * m_columns + y]->getActiveMapNodeData().tileData->tileType == +TileType::UNDERGROUND))
+  for (auto currentLayer : allLayersOrdered)
   {
-    std::pair<int, int> adjecantNodesCoordinates[8]{
-        std::make_pair(x, y + 1),     // 0 = 2^0 = 1   = TOP
-        std::make_pair(x, y - 1),     // 1 = 2^1 = 2   = BOTTOM
-        std::make_pair(x - 1, y),     // 2 = 2^2 = 4   = LEFT
-        std::make_pair(x + 1, y),     // 3 = 2^3 = 8   = RIGHT
-        std::make_pair(x - 1, y + 1), // 4 = 2^4 = 16  = TOP LEFT
-        std::make_pair(x + 1, y + 1), // 5 = 2^5 = 32  = TOP RIGHT
-        std::make_pair(x - 1, y - 1), // 6 = 2^6 = 64  = BOTTOM LEFT
-        std::make_pair(x + 1, y - 1)  // 7 = 2^7 = 128 = BOTTOM RIGHT
-    };
-
-    int i = 0;
-    for (const auto &it : adjecantNodesCoordinates)
+    // only auto-tile categories that can be tiled.
+    if (mapNodes[x * m_columns + y] && mapNodes[x * m_columns + y]->getMapNodeDataForLayer(currentLayer).tileData &&
+        (mapNodes[x * m_columns + y]->getMapNodeDataForLayer(currentLayer).tileData->tileType == +TileType::AUTOTILE ||
+         mapNodes[x * m_columns + y]->getMapNodeDataForLayer(currentLayer).tileData->tileType == +TileType::UNDERGROUND))
     {
-      if ((it.first >= 0 && it.first < m_rows && it.second >= 0 && it.second < m_columns) &&
-          (mapNodes[it.first * m_columns + it.second] &&
-           mapNodes[it.first * m_columns + it.second]->getActiveMapNodeData().tileData && mapNodes[x * m_columns + y] &&
-           mapNodes[x * m_columns + y]->getActiveMapNodeData().tileData &&
-           mapNodes[it.first * m_columns + it.second]->getActiveMapNodeData().tileID ==
-               mapNodes[x * m_columns + y]->getActiveMapNodeData().tileID))
+      std::pair<int, int> adjecantNodesCoordinates[8]{
+          std::make_pair(x, y + 1),     // 0 = 2^0 = 1   = TOP
+          std::make_pair(x, y - 1),     // 1 = 2^1 = 2   = BOTTOM
+          std::make_pair(x - 1, y),     // 2 = 2^2 = 4   = LEFT
+          std::make_pair(x + 1, y),     // 3 = 2^3 = 8   = RIGHT
+          std::make_pair(x - 1, y + 1), // 4 = 2^4 = 16  = TOP LEFT
+          std::make_pair(x + 1, y + 1), // 5 = 2^5 = 32  = TOP RIGHT
+          std::make_pair(x - 1, y - 1), // 6 = 2^6 = 64  = BOTTOM LEFT
+          std::make_pair(x + 1, y - 1)  // 7 = 2^7 = 128 = BOTTOM RIGHT
+      };
+
+      int i = 0;
+      for (const auto &it : adjecantNodesCoordinates)
       {
-        // for each found tile add 2 ^ i to the bitmask
-        bitmask |= static_cast<unsigned int>(1 << i);
+        if ((it.first >= 0 && it.first < m_rows && it.second >= 0 && it.second < m_columns) &&
+            (mapNodes[it.first * m_columns + it.second] &&
+             mapNodes[it.first * m_columns + it.second]->getMapNodeDataForLayer(currentLayer).tileData &&
+             mapNodes[x * m_columns + y] && mapNodes[x * m_columns + y]->getMapNodeDataForLayer(currentLayer).tileData &&
+             mapNodes[it.first * m_columns + it.second]->getMapNodeDataForLayer(currentLayer).tileID ==
+                 mapNodes[x * m_columns + y]->getMapNodeDataForLayer(currentLayer).tileID))
+        {
+          // for each found tile add 2 ^ i to the bitmask
+          tileOrientationBitmask[currentLayer] |= static_cast<unsigned int>(1 << i);
+        }
+        i++;
       }
-      i++;
     }
   }
-  return bitmask;
+  return tileOrientationBitmask;
 }
 
 void Map::getNeighbors(const Point &isoCoordinates, NeighborMatrix &result) const

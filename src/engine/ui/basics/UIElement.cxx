@@ -2,6 +2,7 @@
 #include "LOG.hxx"
 #include "Exception.hxx"
 #include "Settings.hxx"
+#include "GameStates.hxx"
 
 void UIElement::setTextureID(const std::string &textureID)
 {
