@@ -16,15 +16,15 @@
 #include "microprofile.h"
 #endif
 
-void EventManager::unHighlighNodes(Engine &engine)
+void EventManager::unHighlightNodes()
 {
   for (size_t i = 0; i < m_highlightedNodes.size(); i++)
   {
-    engine.map->unHighlightNode(m_highlightedNodes[i]);
+    Engine::instance().map->unHighlightNode(m_highlightedNodes[i]);
   }
   for (size_t i = 0; i < m_highlightedObjectNodes.size(); i++)
   {
-    engine.map->unHighlightNode(m_highlightedObjectNodes[i]);
+    Engine::instance().map->unHighlightNode(m_highlightedObjectNodes[i]);
   }
   m_highlightedNodes.clear();
   m_highlightedObjectNodes.clear();
@@ -251,7 +251,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           }
           else if (!tileToPlace.empty())
           {
-            this->unHighlighNodes(engine);
+            unHighlightNodes();
 
             switch (GameStates::instance().placementMode)
             {
@@ -284,7 +284,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         }
         if (highlightSelection && GameStates::instance().placementMode == PlacementMode::SINGLE)
         {
-          this->unHighlighNodes(engine);
+          unHighlightNodes();
           // get Object Nodes in case it's a building bigger than 1x1 tile.
           m_highlightedObjectNodes = engine.map->getObjectCoords(clickCoords, tileToPlace);
           if (m_highlightedObjectNodes.empty())
@@ -367,7 +367,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
     case SDL_MOUSEBUTTONUP:
     {
       std::vector<Point> bresenhamLineNodes = m_highlightedNodes;
-      this->unHighlighNodes(engine);
+      unHighlightNodes();
       if (m_panning)
       {
         Camera::centerIsoCoordinates =

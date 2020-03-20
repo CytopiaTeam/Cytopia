@@ -20,7 +20,7 @@ public:
  * @brief Unhighlight Highlited Nodes.
  * This sets a node to be unhighlited.
  */
-  void unHighlighNodes(Engine &engine);
+  void unHighlightNodes();
 
 private:
   UIManager &m_uiManager = UIManager::instance();
