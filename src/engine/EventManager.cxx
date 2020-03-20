@@ -294,19 +294,11 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           std::vector<Point> pointsToHighlight;
           if (highlightSelection)
           {
-            bool shouldHighlight = true;
             for (auto coords : m_highlightedObjectNodes)
             {
-              if (!isPointWithinMapBoundaries(coords))
+              if (isPointWithinMapBoundaries(coords))
               {
-                shouldHighlight = false;
-                break;
-              }
-            }
-            if (shouldHighlight)
-            {
-              for (auto coords : m_highlightedObjectNodes)
-              {
+
                 Layer layer = TileManager::instance().getTileLayer(tileToPlace);
                 Point origCornerPoint = engine.map->getNodeOrigCornerPoint(coords, layer);
                 if (origCornerPoint == UNDEFINED_POINT)
@@ -329,6 +321,9 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
                   engine.map->highlightNode(coords, SpriteHighlightColor::GRAY);
                 }
               }
+            }
+            if (!pointsToHighlight.empty())
+            {
               m_highlightedObjectNodes.insert(m_highlightedObjectNodes.end(), pointsToHighlight.begin(), pointsToHighlight.end());
             }
           }
