@@ -257,7 +257,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
             {
             case PlacementMode::SINGLE:
               m_highlightedNodes.clear();
-              m_highlightedNodes.push_back(m_clickDownCoords);
+              m_highlightedNodes.push_back(clickCoords);
               break;
             case PlacementMode::LINE:
               m_highlightedNodes = createBresenhamLine(m_clickDownCoords, clickCoords);
