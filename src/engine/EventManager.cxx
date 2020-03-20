@@ -257,7 +257,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
             {
             case PlacementMode::SINGLE:
               m_highlightedNodes.clear();
-              m_highlightedNodes.push_back(clickCoords);
+              // highlight selection is handled below.
               break;
             case PlacementMode::LINE:
               m_highlightedNodes = createBresenhamLine(m_clickDownCoords, clickCoords);
@@ -282,7 +282,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
             // Add highlighting here
           }
         }
-        else
+        if (highlightSelection && GameStates::instance().placementMode == PlacementMode::SINGLE)
         {
           this->unHighlighNodes(engine);
           // get Object Nodes in case it's a building bigger than 1x1 tile.
