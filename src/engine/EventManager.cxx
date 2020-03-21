@@ -247,6 +247,15 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           mouseScreenCoords = {event.button.x, event.button.y};
           mouseIsoCoords = convertScreenToIsoCoordinates(mouseScreenCoords);
 
+          // if it's a multi-node tile, get the origin corner point
+          Point origCornerPoint =
+              engine.map->getNodeOrigCornerPoint(mouseIsoCoords, TileManager::instance().getTileLayer(tileToPlace));
+
+          if (origCornerPoint == UNDEFINED_POINT)
+          {
+            origCornerPoint = mouseIsoCoords;
+          }
+
           // if there's no tileToPlace use the current mouse coordinates
           if (tileToPlace.empty())
           {
@@ -269,15 +278,6 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
             }
           }
 
-          // if it's a multi-node tile, get the origin corner point
-          Point origCornerPoint =
-              engine.map->getNodeOrigCornerPoint(mouseIsoCoords, TileManager::instance().getTileLayer(tileToPlace));
-
-          if (origCornerPoint == UNDEFINED_POINT)
-          {
-            origCornerPoint = mouseIsoCoords;
-          }
-
           // if mouse is held down, we need to check for plamentmodes LINE and RECTANGLE
           if ((SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_LEFT)))
           {
@@ -296,26 +296,54 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
               break;
             }
           }
-        }
 
-        // if we haven't any nodes to place yet, use the mouse coordinates
-        if (m_nodesToPlace.empty())
-        {
-          m_nodesToPlace.push_back(mouseIsoCoords);
-        }
-
-        // finally highlight all the tiles we've found
-        for (auto highlitNode : m_nodesToHighlight)
-        {
-          if (!engine.map->isPlacementOnNodeAllowed(highlitNode, tileToPlace) || demolishMode)
+          // if we haven't any nodes to place yet, use the mouse coordinates
+          if (m_nodesToPlace.empty())
           {
-            // already occupied tile, mark red
-            engine.map->highlightNode(highlitNode, SpriteHighlightColor::RED);
+            m_nodesToPlace.push_back(mouseIsoCoords);
           }
-          else
+          bool placementAllowed = false;
+
+          // if we touch a bigger than 1x1 tile also add all nodes of the building to highlight.
+          for (auto coords : m_nodesToHighlight)
           {
-            // mark gray.
-            engine.map->highlightNode(highlitNode, SpriteHighlightColor::GRAY);
+            Layer layer = TileManager::instance().getTileLayer(tileToPlace);
+            Point currentOriginPoint = engine.map->getNodeOrigCornerPoint(coords, layer);
+            std::string currentTileID = engine.map->getTileID(currentOriginPoint, layer);
+            for (auto foundNode : engine.map->getObjectCoords(currentOriginPoint, currentTileID))
+            {
+              // only add the node if it's unique
+              if (std::find(m_nodesToHighlight.begin(), m_nodesToHighlight.end(), foundNode) == m_nodesToHighlight.end() && foundNode != UNDEFINED_POINT)
+              {
+                m_nodesToHighlight.push_back(foundNode);
+              }
+            }
+          }
+          // finally highlight all the tiles we've found
+          for (auto highlitNode : m_nodesToHighlight)
+          {
+            if (!engine.map->isPlacementOnNodeAllowed(highlitNode, tileToPlace) || demolishMode)
+            {
+              // already occupied tile, mark red
+              placementAllowed = false;
+              break;
+            }
+            else
+            {
+              // mark gray.
+              placementAllowed = true;
+            }
+          }
+          for (auto highlitNode : m_nodesToHighlight)
+          {
+            if (placementAllowed)
+            {
+              engine.map->highlightNode(highlitNode, SpriteHighlightColor::GRAY);
+            }
+            else
+            {
+              engine.map->highlightNode(highlitNode, SpriteHighlightColor::RED);
+            }
           }
         }
       }
