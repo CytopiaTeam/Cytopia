@@ -232,48 +232,49 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       }
 
       //  Game Event Handling
-      // if we're panning, move the camera and break
-      if (m_panning)
+      if (engine.map)
       {
-        Camera::cameraOffset.x -= event.motion.xrel;
-        Camera::cameraOffset.y -= event.motion.yrel;
-
-        if (Engine::instance().map != nullptr)
-          Engine::instance().map->refresh();
-        return;
-      }
-      // check if we should highlight tiles and if we're in placement mode
-      else if (engine.map != nullptr && highlightSelection && !tileToPlace.empty())
-      {
-        mouseCoords = {event.button.x, event.button.y};
-        clickCoords = convertScreenToIsoCoordinates(mouseCoords);
-
-        // this will be used for highlighting only, while m_pointstohighlight is used ofr placing!
-
-        unHighlightNodes();
-        if (terrainEditMode != TerrainEdit::NONE)
-        {
-        }
-        else if (demolishMode)
-        {
-          // Add highlighting here
-        }
         // clear highlighting
-        else
+        unHighlightNodes();
+
+        // if we're panning, move the camera and break
+        if (m_panning)
         {
-          // get all node coordinates the tile we'll place occupies
-          for (auto node : engine.map->getObjectCoords(clickCoords, tileToPlace))
+          Camera::cameraOffset.x -= event.motion.xrel;
+          Camera::cameraOffset.y -= event.motion.yrel;
+
+          if (Engine::instance().map != nullptr)
+            Engine::instance().map->refresh();
+          return;
+        }
+        // check if we should highlight tiles and if we're in placement mode
+        else if (highlightSelection)
+        {
+          mouseCoords = {event.button.x, event.button.y};
+          clickCoords = convertScreenToIsoCoordinates(mouseCoords);
+
+          // if there's no tileToPlace use the current mouse coordinates
+          if (tileToPlace.empty())
           {
-            // if we don't geta correct coordinate, fall back to the click coordinates
-            if (node == UNDEFINED_POINT && isPointWithinMapBoundaries(clickCoords))
+            m_nodesToHighlight.push_back(clickCoords);
+          }
+          else
+          {
+            // get all node coordinates the tile we'll place occupies
+            for (auto node : engine.map->getObjectCoords(clickCoords, tileToPlace))
             {
-              m_nodesToHighlight.push_back(clickCoords);
-            }
-            else if (isPointWithinMapBoundaries(node))
-            {
-              m_nodesToHighlight.push_back(node);
+              // if we don't geta correct coordinate, fall back to the click coordinates
+              if (node == UNDEFINED_POINT && isPointWithinMapBoundaries(clickCoords))
+              {
+                m_nodesToHighlight.push_back(clickCoords);
+              }
+              else if (isPointWithinMapBoundaries(node))
+              {
+                m_nodesToHighlight.push_back(node);
+              }
             }
           }
+
           // if it's a multi-node tile, get the origin corner point
           Point origCornerPoint =
               engine.map->getNodeOrigCornerPoint(clickCoords, TileManager::instance().getTileLayer(tileToPlace));
@@ -306,15 +307,26 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         // finally highlight all the tiles we've found
         for (auto highlitNode : m_nodesToHighlight)
         {
-          if (!engine.map->isPlacementOnNodeAllowed(highlitNode, tileToPlace))
+          if (terrainEditMode != TerrainEdit::NONE)
           {
-            // already occupied tile, mark red
+            engine.map->highlightNode(highlitNode, SpriteHighlightColor::GRAY);
+          }
+          else if (demolishMode)
+          {
             engine.map->highlightNode(highlitNode, SpriteHighlightColor::RED);
           }
-          else
+          if (!tileToPlace.empty())
           {
-            // mark gray.
-            engine.map->highlightNode(highlitNode, SpriteHighlightColor::GRAY);
+            if (!engine.map->isPlacementOnNodeAllowed(highlitNode, tileToPlace))
+            {
+              // already occupied tile, mark red
+              engine.map->highlightNode(highlitNode, SpriteHighlightColor::RED);
+            }
+            else
+            {
+              // mark gray.
+              engine.map->highlightNode(highlitNode, SpriteHighlightColor::GRAY);
+            }
           }
         }
       }
