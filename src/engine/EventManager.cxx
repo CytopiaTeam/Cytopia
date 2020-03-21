@@ -334,7 +334,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
               placementAllowed = true;
             }
           }
-          for (auto highlitNode : m_nodesToHighlight)
+          for (const auto &highlitNode : m_nodesToHighlight)
           {
             if (placementAllowed)
             {
