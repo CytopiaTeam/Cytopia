@@ -18,22 +18,16 @@
 
 void EventManager::unHighlightNodes()
 {
-  for (size_t i = 0; i < m_nodesToPlace.size(); i++)
+  for (auto node : m_nodesToPlace)
   {
-    Engine::instance().map->unHighlightNode(m_nodesToPlace[i]);
+    Engine::instance().map->unHighlightNode(node);
   }
-  for (size_t i = 0; i < m_highlightedObjectNodes.size(); i++)
-  {
-    Engine::instance().map->unHighlightNode(m_highlightedObjectNodes[i]);
-  }
-
   for (auto node : m_nodesToHighlight)
   {
     Engine::instance().map->unHighlightNode(node);
   }
   m_nodesToHighlight.clear();
   m_nodesToPlace.clear();
-  m_highlightedObjectNodes.clear();
 }
 
 void EventManager::checkEvents(SDL_Event &event, Engine &engine)
