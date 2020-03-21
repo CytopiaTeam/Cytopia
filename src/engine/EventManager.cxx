@@ -291,7 +291,8 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
               m_nodesToHighlight = m_nodesToPlace;
               break;
             case PlacementMode::RECTANGLE:
-              // implement rectangular selection here
+              m_nodesToPlace = getRectangleSelectionNodes(m_clickDownCoords, mouseIsoCoords);
+              m_nodesToHighlight = m_nodesToPlace;
               break;
             }
           }

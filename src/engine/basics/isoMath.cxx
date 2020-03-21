@@ -98,6 +98,19 @@ bool isPointWithinMapBoundaries(const std::vector<Point> &isoCoordinates)
   return true;
 }
 
+std::vector<Point> getRectangleSelectionNodes(const Point &isoCoordinatesStart, const Point &isoCoordinatesEnd)
+{
+  std::vector<Point> rectangle;
+  for (int x = isoCoordinatesStart.x; x <= isoCoordinatesEnd.x; x++)
+  {
+    for (int y = isoCoordinatesStart.y; y <= isoCoordinatesEnd.y; y++)
+    {
+      rectangle.push_back(Point{x, y});
+    }
+  }
+  return rectangle;
+}
+
 std::vector<Point> createBresenhamLine(const Point &isoCoordinatesStart, const Point &isoCoordinatesEnd)
 {
   std::vector<Point> line;
