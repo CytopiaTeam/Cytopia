@@ -42,8 +42,8 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
   MICROPROFILE_SCOPEI("EventManager", "checkEvents", MP_BEIGE);
 #endif
   // check for UI events first
-  SDL_Point mouseCoords;
-  Point clickCoords{};
+  SDL_Point mouseScreenCoords;
+  Point mouseIsoCoords{};
 
   while (SDL_PollEvent(&event))
   {
@@ -250,23 +250,23 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         // check if we should highlight tiles and if we're in placement mode
         else if (highlightSelection)
         {
-          mouseCoords = {event.button.x, event.button.y};
-          clickCoords = convertScreenToIsoCoordinates(mouseCoords);
+          mouseScreenCoords = {event.button.x, event.button.y};
+          mouseIsoCoords = convertScreenToIsoCoordinates(mouseScreenCoords);
 
           // if there's no tileToPlace use the current mouse coordinates
           if (tileToPlace.empty())
           {
-            m_nodesToHighlight.push_back(clickCoords);
+            m_nodesToHighlight.push_back(mouseIsoCoords);
           }
           else
           {
             // get all node coordinates the tile we'll place occupies
-            for (auto node : engine.map->getObjectCoords(clickCoords, tileToPlace))
+            for (auto node : engine.map->getObjectCoords(mouseIsoCoords, tileToPlace))
             {
               // if we don't geta correct coordinate, fall back to the click coordinates
-              if (node == UNDEFINED_POINT && isPointWithinMapBoundaries(clickCoords))
+              if (node == UNDEFINED_POINT && isPointWithinMapBoundaries(mouseIsoCoords))
               {
-                m_nodesToHighlight.push_back(clickCoords);
+                m_nodesToHighlight.push_back(mouseIsoCoords);
               }
               else if (isPointWithinMapBoundaries(node))
               {
@@ -277,11 +277,11 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
 
           // if it's a multi-node tile, get the origin corner point
           Point origCornerPoint =
-              engine.map->getNodeOrigCornerPoint(clickCoords, TileManager::instance().getTileLayer(tileToPlace));
+              engine.map->getNodeOrigCornerPoint(mouseIsoCoords, TileManager::instance().getTileLayer(tileToPlace));
 
           if (origCornerPoint == UNDEFINED_POINT)
           {
-            origCornerPoint = clickCoords;
+            origCornerPoint = mouseIsoCoords;
           }
 
           // if mouse is held down, we need to check for plamentmodes LINE and RECTANGLE
@@ -290,10 +290,10 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
             switch (GameStates::instance().placementMode)
             {
             case PlacementMode::SINGLE:
-              m_nodesToPlace.push_back(clickCoords);
+              m_nodesToPlace.push_back(mouseIsoCoords);
               break;
             case PlacementMode::LINE:
-              m_nodesToPlace = createBresenhamLine(m_clickDownCoords, clickCoords);
+              m_nodesToPlace = createBresenhamLine(m_clickDownCoords, mouseIsoCoords);
               m_nodesToHighlight = m_nodesToPlace;
               break;
             case PlacementMode::RECTANGLE:
@@ -306,7 +306,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         // if we haven't any nodes to place yet, use the mouse coordinates
         if (m_nodesToPlace.empty())
         {
-          m_nodesToPlace.push_back(clickCoords);
+          m_nodesToPlace.push_back(mouseIsoCoords);
         }
 
         // finally highlight all the tiles we've found
@@ -344,12 +344,12 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       else if (event.button.button == SDL_BUTTON_LEFT)
       {
         // game event handling
-        mouseCoords = {event.button.x, event.button.y};
-        clickCoords = convertScreenToIsoCoordinates(mouseCoords);
+        mouseScreenCoords = {event.button.x, event.button.y};
+        mouseIsoCoords = convertScreenToIsoCoordinates(mouseScreenCoords);
 
-        if (isPointWithinMapBoundaries(clickCoords))
+        if (isPointWithinMapBoundaries(mouseIsoCoords))
         {
-          m_clickDownCoords = clickCoords;
+          m_clickDownCoords = mouseIsoCoords;
         }
       }
       break;
@@ -393,30 +393,31 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       }
 
       // game event handling
-      mouseCoords = {event.button.x, event.button.y};
-      clickCoords = convertScreenToIsoCoordinates(mouseCoords);
+      mouseScreenCoords = {event.button.x, event.button.y};
+      mouseIsoCoords = convertScreenToIsoCoordinates(mouseScreenCoords);
       // gather all nodes the objects that'll be placed is going to occupy.
-      std::vector targetObjectNodes = engine.map->getObjectCoords(clickCoords, tileToPlace);
+      std::vector targetObjectNodes = engine.map->getObjectCoords(mouseIsoCoords, tileToPlace);
 
       if (event.button.button == SDL_BUTTON_LEFT && isPointWithinMapBoundaries(targetObjectNodes))
       {
         if (m_tileInfoMode)
         {
-          engine.map->getNodeInformation({clickCoords.x, clickCoords.y, 0, 0});
+          engine.map->getNodeInformation({mouseIsoCoords.x, mouseIsoCoords.y, 0, 0});
         }
         else if (terrainEditMode == TerrainEdit::RAISE)
         {
-          engine.increaseHeight(clickCoords);
+          engine.increaseHeight(mouseIsoCoords);
         }
         else if (terrainEditMode == TerrainEdit::LOWER)
         {
-          engine.decreaseHeight(clickCoords);
+          engine.decreaseHeight(mouseIsoCoords);
         }
         else if (!tileToPlace.empty())
         {
-            // if targetObject.size > 1 it is a tile bigger than 1x1
+          // if targetObject.size > 1 it is a tile bigger than 1x1
           if (targetObjectNodes.size() > 1)
           {
+            // instead of using "nodesToPlace" which would be the origin-corner coordinate, we need to pass ALL occupied nodes for now.
             engine.setTileIDOfNode(targetObjectNodes.begin(), targetObjectNodes.end(), tileToPlace, false);
           }
           else
@@ -426,11 +427,11 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         }
         else if (demolishMode)
         {
-          engine.demolishNode(clickCoords);
+          engine.demolishNode(mouseIsoCoords);
         }
         else
         {
-          LOG(LOG_INFO) << "CLICKED - Iso Coords: " << clickCoords.x << ", " << clickCoords.y;
+          LOG(LOG_INFO) << "CLICKED - Iso Coords: " << mouseIsoCoords.x << ", " << mouseIsoCoords.y;
         }
       }
       // when we're done, reset highlighting
