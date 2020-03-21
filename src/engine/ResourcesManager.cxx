@@ -58,13 +58,14 @@ SDL_Texture *ResourcesManager::getUITexture(const std::string &uiElement, int bu
   default:
     texture = "Texture_Default";
   }
-
-  if (m_uiTextureMap[uiElement].count(texture))
-    return m_uiTextureMap[uiElement][texture];
-  else if (m_uiTextureMap[uiElement].count("Texture_Default"))
+  if (m_uiTextureMap[uiElement].find(texture) != m_uiTextureMap[uiElement].end())
+  {
+    return m_uiTextureMap[uiElement].at(texture);
+  }
+  if (m_uiTextureMap[uiElement].find("Texture_Default") != m_uiTextureMap[uiElement].end())
   {
     // If no texture is found, check if there's a default texture
-    return m_uiTextureMap[uiElement]["Texture_Default"];
+    return m_uiTextureMap[uiElement].at("Texture_Default");
   }
   throw UIError(TRACE_INFO "No texture found for " + uiElement);
   return nullptr;
@@ -72,9 +73,9 @@ SDL_Texture *ResourcesManager::getUITexture(const std::string &uiElement, int bu
 
 SDL_Texture *ResourcesManager::getTileTexture(const std::string &id)
 {
-  if (m_tileTextureMap.count(id))
+  if (m_tileTextureMap.find(id) != m_tileTextureMap.end())
   {
-    return m_tileTextureMap[id];
+    return m_tileTextureMap.at(id);
   }
   throw UIError(TRACE_INFO "No texture found for " + id);
   return nullptr;
@@ -82,8 +83,10 @@ SDL_Texture *ResourcesManager::getTileTexture(const std::string &id)
 
 SDL_Surface *ResourcesManager::getTileSurface(const std::string &id)
 {
-  if (m_surfaceMap.count(id))
-    return m_surfaceMap[id];
+  if (m_surfaceMap.find(id) != m_surfaceMap.end())
+  {
+    return m_surfaceMap.at(id);
+  }
   throw UIError(TRACE_INFO "No surface found for " + id);
   return nullptr;
 }
