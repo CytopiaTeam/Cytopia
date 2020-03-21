@@ -264,7 +264,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           else
           {
             // get all node coordinates the tile we'll place occupies
-            for (auto node : engine.map->getObjectCoords(mouseIsoCoords, tileToPlace))
+            for (auto &node : engine.map->getObjectCoords(mouseIsoCoords, tileToPlace))
             {
               // if we don't geta correct coordinate, fall back to the click coordinates
               if (node == UNDEFINED_POINT && isPointWithinMapBoundaries(mouseIsoCoords))
@@ -305,12 +305,12 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           bool placementAllowed = false;
 
           // if we touch a bigger than 1x1 tile also add all nodes of the building to highlight.
-          for (auto coords : m_nodesToHighlight)
+          for (const auto &coords : m_nodesToHighlight)
           {
             Layer layer = TileManager::instance().getTileLayer(tileToPlace);
             Point currentOriginPoint = engine.map->getNodeOrigCornerPoint(coords, layer);
             std::string currentTileID = engine.map->getTileID(currentOriginPoint, layer);
-            for (auto foundNode : engine.map->getObjectCoords(currentOriginPoint, currentTileID))
+            for (auto &foundNode : engine.map->getObjectCoords(currentOriginPoint, currentTileID))
             {
               // only add the node if it's unique
               if (std::find(m_nodesToHighlight.begin(), m_nodesToHighlight.end(), foundNode) == m_nodesToHighlight.end() && foundNode != UNDEFINED_POINT)
@@ -320,7 +320,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
             }
           }
           // finally highlight all the tiles we've found
-          for (auto highlitNode : m_nodesToHighlight)
+          for (const auto &highlitNode : m_nodesToHighlight)
           {
             if (!engine.map->isPlacementOnNodeAllowed(highlitNode, tileToPlace) || demolishMode)
             {
