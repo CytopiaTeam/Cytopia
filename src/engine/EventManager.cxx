@@ -307,26 +307,15 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         // finally highlight all the tiles we've found
         for (auto highlitNode : m_nodesToHighlight)
         {
-          if (terrainEditMode != TerrainEdit::NONE)
+          if (!engine.map->isPlacementOnNodeAllowed(highlitNode, tileToPlace) || demolishMode)
           {
-            engine.map->highlightNode(highlitNode, SpriteHighlightColor::GRAY);
-          }
-          else if (demolishMode)
-          {
+            // already occupied tile, mark red
             engine.map->highlightNode(highlitNode, SpriteHighlightColor::RED);
           }
-          if (!tileToPlace.empty())
+          else
           {
-            if (!engine.map->isPlacementOnNodeAllowed(highlitNode, tileToPlace))
-            {
-              // already occupied tile, mark red
-              engine.map->highlightNode(highlitNode, SpriteHighlightColor::RED);
-            }
-            else
-            {
-              // mark gray.
-              engine.map->highlightNode(highlitNode, SpriteHighlightColor::GRAY);
-            }
+            // mark gray.
+            engine.map->highlightNode(highlitNode, SpriteHighlightColor::GRAY);
           }
         }
       }
