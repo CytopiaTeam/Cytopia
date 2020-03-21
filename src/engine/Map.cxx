@@ -236,7 +236,7 @@ unsigned char Map::getElevatedNeighborBitmask(const Point &isoCoordinates)
 Point Map::getNodeOrigCornerPoint(const Point &isoCoordinates, unsigned int layer)
 {
   //Layer layer = TileManager::instance().getTileLayer(tileID);
-  if (layer >= FIRST_LAYER)
+  if (layer >= FIRST_LAYER && isPointWithinMapBoundaries(isoCoordinates))
   {
     return mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getOrigCornerPoint((Layer)layer);
   }
