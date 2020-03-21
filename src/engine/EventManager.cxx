@@ -290,7 +290,6 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
             switch (GameStates::instance().placementMode)
             {
             case PlacementMode::SINGLE:
-              m_nodesToPlace.clear();
               m_nodesToPlace.push_back(clickCoords);
               break;
             case PlacementMode::LINE:
@@ -302,6 +301,12 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
               break;
             }
           }
+        }
+
+        // if we haven't any nodes to place yet, use the mouse coordinates
+        if (m_nodesToPlace.empty())
+        {
+          m_nodesToPlace.push_back(clickCoords);
         }
 
         // finally highlight all the tiles we've found
@@ -352,7 +357,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
     case SDL_MOUSEBUTTONUP:
     {
       std::vector<Point> bresenhamLineNodes = m_nodesToPlace;
-      unHighlightNodes();
+
       if (m_panning)
       {
         Camera::centerIsoCoordinates =
@@ -390,9 +395,10 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       // game event handling
       mouseCoords = {event.button.x, event.button.y};
       clickCoords = convertScreenToIsoCoordinates(mouseCoords);
-      m_highlightedObjectNodes = engine.map->getObjectCoords(clickCoords, tileToPlace);
+      // gather all nodes the objects that'll be placed is going to occupy.
+      std::vector targetObjectNodes = engine.map->getObjectCoords(clickCoords, tileToPlace);
 
-      if (event.button.button == SDL_BUTTON_LEFT && isPointWithinMapBoundaries(m_highlightedObjectNodes))
+      if (event.button.button == SDL_BUTTON_LEFT && isPointWithinMapBoundaries(targetObjectNodes))
       {
         if (m_tileInfoMode)
         {
@@ -408,16 +414,14 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         }
         else if (!tileToPlace.empty())
         {
-          if (bresenhamLineNodes.size() == 0)
+            // if targetObject.size > 1 it is a tile bigger than 1x1
+          if (targetObjectNodes.size() > 1)
           {
-            //m_nodesToPlace.push_back(m_clickDownCoords);
-            engine.setTileIDOfNode(m_highlightedObjectNodes.begin(), m_highlightedObjectNodes.end(), tileToPlace, false);
+            engine.setTileIDOfNode(targetObjectNodes.begin(), targetObjectNodes.end(), tileToPlace, false);
           }
           else
           {
-            engine.setTileIDOfNode(bresenhamLineNodes.begin(), bresenhamLineNodes.end(), tileToPlace, true);
-            // we need to empty the nodes when we're done so the next line starts "fresh" without drawin a line to the last coords.
-            m_nodesToPlace.clear();
+            engine.setTileIDOfNode(m_nodesToPlace.begin(), m_nodesToPlace.end(), tileToPlace, true);
           }
         }
         else if (demolishMode)
@@ -429,7 +433,8 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           LOG(LOG_INFO) << "CLICKED - Iso Coords: " << clickCoords.x << ", " << clickCoords.y;
         }
       }
-
+      // when we're done, reset highlighting
+      unHighlightNodes();
       break;
     }
     case SDL_MOUSEWHEEL:
