@@ -371,9 +371,8 @@ void Map::demolishNode(const Point &isoCoordinates, bool updateNeighboringTiles)
   const size_t index = isoCoordinates.x * m_columns + isoCoordinates.y;
   if (index < mapNodes.size())
   {
-    Point origCornerPoint = mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getOrigCornerPoint();
-
     Layer layer = Layer::BUILDINGS;
+    Point origCornerPoint = mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getOrigCornerPoint(layer);
     const size_t origIndex = origCornerPoint.x * m_columns + origCornerPoint.y;
 
     if (origIndex < mapNodes.size() && mapNodes[origIndex])

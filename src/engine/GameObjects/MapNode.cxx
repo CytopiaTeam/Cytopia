@@ -21,6 +21,10 @@ MapNode::MapNode(Point isoCoordinates, const std::string &terrainID, const std::
   {
     it = TileOrientation::TILE_DEFAULT_ORIENTATION;
   }
+  for (auto &it : m_mapNodeData)
+  {
+    it.origCornerPoint = isoCoordinates;
+  }
 
   setTileID(terrainID, isoCoordinates);
   if (!tileID.empty()) // in case tileID is not supplied skip it
@@ -70,7 +74,6 @@ void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
   if (tileData)
   {
     Layer layer = TileManager::instance().getTileLayer(tileID);
-    this->m_origCornerPoint = origCornerPoint;
     m_mapNodeData[layer].origCornerPoint = origCornerPoint;
     m_previousTileID = m_mapNodeData[layer].tileID;
     m_mapNodeData[layer].tileData = tileData;
@@ -318,27 +321,24 @@ void MapNode::setMapNodeData(std::vector<MapNodeData> &&mapNodeData, const Point
     it.tileData = TileManager::instance().getTileData(it.tileID);
     if (it.origCornerPoint != currNodeIsoCoordinates)
     {
-      this->m_origCornerPoint = it.origCornerPoint;
+      it.shouldRender = false;
     }
   }
 }
 
 void MapNode::demolishNode()
 {
-  if (MapLayers::isLayerActive(Layer::BUILDINGS))
+  Layer myLayers[] = {Layer::BUILDINGS, Layer::UNDERGROUND};
+  for (auto &layer : myLayers)
   {
-    m_mapNodeData[Layer::BUILDINGS].tileData = nullptr;
-    m_mapNodeData[Layer::BUILDINGS].tileID = "";
-    m_sprite->clearSprite(Layer::BUILDINGS);
-    this->m_origCornerPoint = this->getCoordinates();
-    updateTexture();
-  }
-  else if (MapLayers::isLayerActive(Layer::UNDERGROUND))
-  {
-    m_mapNodeData[Layer::UNDERGROUND].tileData = nullptr;
-    m_mapNodeData[Layer::UNDERGROUND].tileID = "";
-    m_sprite->clearSprite(Layer::UNDERGROUND);
-    this->m_origCornerPoint = this->getCoordinates();
-    updateTexture();
+    if (MapLayers::isLayerActive(layer))
+    {
+      m_mapNodeData[layer].tileData = nullptr;
+      m_mapNodeData[layer].tileID = "";
+      m_mapNodeData[layer].origCornerPoint = this->getCoordinates();
+      m_sprite->clearSprite(layer);
+      updateTexture();
+      break;
+    }
   }
 }
