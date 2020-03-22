@@ -380,6 +380,10 @@ void UIManager::setCallbackFunctions()
         {
           button->checkState() ? demolishMode = true : demolishMode = false;
           button->checkState() ? highlightSelection = true : highlightSelection = false;
+          if (demolishMode)
+          {
+            GameStates::instance().placementMode = PlacementMode::RECTANGLE;
+          }
           return;
         }
 
