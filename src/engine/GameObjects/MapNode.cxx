@@ -328,21 +328,17 @@ void MapNode::setMapNodeData(std::vector<MapNodeData> &&mapNodeData, const Point
 
 void MapNode::demolishNode()
 {
-  Layer layer = Layer::NONE;
-  if (MapLayers::isLayerActive(Layer::BUILDINGS))
+  Layer myLayers[] = {Layer::BUILDINGS, Layer::UNDERGROUND};
+  for (auto &layer : myLayers)
   {
-    layer = Layer::BUILDINGS;
-  }
-  else if (MapLayers::isLayerActive(Layer::UNDERGROUND))
-  {
-    layer = Layer::UNDERGROUND;
-  }
-  if (layer != Layer::NONE)
-  {
-    m_mapNodeData[layer].tileData = nullptr;
-    m_mapNodeData[layer].tileID = "";
-    m_mapNodeData[layer].origCornerPoint = this->getCoordinates();
-    m_sprite->clearSprite(layer);
-    updateTexture();
+    if (MapLayers::isLayerActive(layer))
+    {
+      m_mapNodeData[layer].tileData = nullptr;
+      m_mapNodeData[layer].tileID = "";
+      m_mapNodeData[layer].origCornerPoint = this->getCoordinates();
+      m_sprite->clearSprite(layer);
+      updateTexture();
+      break;
+    }
   }
 }
