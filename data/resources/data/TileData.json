@@ -1223,7 +1223,6 @@
             "clip_height": 15,
             "clip_width": 32,
             "count": 1,
-            "offset": 1,
             "fileName": "resources/images/zones/zone_commercial_RF.png"
         },
         "title": "Commercial Zone (dense)",
