@@ -24,6 +24,7 @@ set(SOURCE_FILES
         engine/basics/isoMath.{hxx,cxx}
         engine/basics/mapEdit.{hxx,cxx}
         engine/basics/Settings.{hxx,cxx}
+        engine/basics/GameStates.{hxx,cxx}
         engine/basics/signal.hxx
         engine/basics/Timer.{hxx,cxx}
         engine/basics/utils.{hxx,cxx}

@@ -528,6 +528,229 @@
         ]
     },
     {
+        "author": "RockFort",
+        "category": "Roads",
+        "tileType": "autotile",
+        "description": "A rural road from france with fresh asphalt with a broken line.",
+        "id": "road_ruralroadfr1straightline",
+        "power": 0,
+        "price": 7,
+        "slopeTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 4,
+            "offset": 20,
+            "fileName": "resources/images/roads/road_1x1_ruralfrroad1brokenline_RF.png"
+        },
+        "tiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 16,
+            "fileName": "resources/images/roads/road_1x1_ruralfrroad1brokenline_RF.png",
+            "rotations": 16
+        },
+        "title": "Rural French Road brokenlined",
+        "upkeep cost": 2,
+        "water": 0,
+        "tag": [
+            "road",
+            "european",
+            "french",
+            "rural",
+            "broken-line",
+            "fresh"
+        ]
+    },
+    {
+        "author": "RockFort",
+        "category": "Roads",
+        "tileType": "autotile",
+        "description": "A rural road from france with worn asphalth a straight line.",
+        "id": "road_ruralroadfr1straightline",
+        "power": 0,
+        "price": 7,
+        "slopeTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 4,
+            "offset": 20,
+            "fileName": "resources/images/roads/road_1x1_ruralroadfr1straightline_RF.png"
+        },
+        "tiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 16,
+            "fileName": "resources/images/roads/road_1x1_ruralroadfr1straightline_RF.png",
+            "rotations": 16
+        },
+        "title": "Rural French Road lined",
+        "upkeep cost": 2,
+        "water": 0,
+        "tag": [
+            "road",
+            "european",
+            "french",
+            "rural",
+            "straight-line",
+            "fresh"
+        ]
+    },
+    {
+        "author": "RockFort",
+        "category": "Roads",
+        "tileType": "autotile",
+        "description": "A rural road from france with fresh asphalt.",
+        "id": "road_ruralroadfr1newsaph",
+        "power": 0,
+        "price": 7,
+        "slopeTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 4,
+            "offset": 20,
+            "fileName": "resources/images/roads/road_1x1_ruralroadfr1newsaph_RF.png"
+        },
+        "tiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 16,
+            "fileName": "resources/images/roads/road_1x1_ruralroadfr1newsaph_RF.png",
+            "rotations": 16
+        },
+        "title": "Rural French Road fresh",
+        "upkeep cost": 2,
+        "water": 0,
+        "tag": [
+            "road",
+            "european",
+            "french",
+            "rural",
+            "fresh"
+        ]
+    },
+    {
+        "author": "RockFort",
+        "category": "Roads",
+        "tileType": "autotile",
+        "description": "A rural road from france with worn asphalt.",
+        "id": "road_ruralroadfr1grained",
+        "power": 0,
+        "price": 7,
+        "slopeTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 4,
+            "offset": 20,
+            "fileName": "resources/images/roads/road_1x1_ruralroadfr1grained_RF.png"
+        },
+        "tiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 16,
+            "fileName": "resources/images/roads/road_1x1_ruralroadfr1grained_RF.png",
+            "rotations": 16
+        },
+        "title": "Rural French Road",
+        "upkeep cost": 2,
+        "water": 0,
+        "tag": [
+            "road",
+            "european",
+            "french",
+            "rural"        ]
+    },
+    {
+        "author": "Yusuf8a684",
+        "category": "Roads",
+        "tileType": "autotile",
+        "description": "An european looking road.",
+        "id": "road_european",
+        "power": 0,
+        "price": 7,
+        "slopeTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 4,
+            "offset": 20,
+            "fileName": "resources/images/roads/road_1x1_european.png"
+        },
+        "tiles": {
+            "clip_height": 16,
+            "clip_width": 32,
+            "count": 16,
+            "fileName": "resources/images/roads/road_1x1_european.png",
+            "rotations": 16
+        },
+        "title": "European Road",
+        "upkeep cost": 2,
+        "water": 0,
+        "tag": [
+            "road",
+            "european"
+        ]
+    },
+    {
+        "author": "Yusuf8a684",
+        "category": "Roads",
+        "tileType": "autotile",
+        "description": "A modern european looking road.",
+        "id": "road_european_modern",
+        "power": 0,
+        "price": 7,
+        "slopeTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 4,
+            "offset": 20,
+            "fileName": "resources/images/roads/road_1x1_european_modern.png"
+        },
+        "tiles": {
+            "clip_height": 16,
+            "clip_width": 32,
+            "count": 16,
+            "fileName": "resources/images/roads/road_1x1_european_modern.png",
+            "rotations": 16
+        },
+        "title": "European Road",
+        "upkeep cost": 2,
+        "water": 0,
+        "tag": [
+            "road",
+            "european"
+        ]
+    },
+    {
+        "author": "Yusuf8a684",
+        "category": "Roads",
+        "tileType": "autotile",
+        "description": "A modern european looking road without a sidewalk.",
+        "id": "road_european_nosidewalk",
+        "power": 0,
+        "price": 7,
+        "slopeTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 4,
+            "offset": 20,
+            "fileName": "resources/images/roads/road_1x1_european_nosidewalk.png"
+        },
+        "tiles": {
+            "clip_height": 16,
+            "clip_width": 32,
+            "count": 16,
+            "fileName": "resources/images/roads/road_1x1_european_nosidewalk.png",
+            "rotations": 16
+        },
+        "title": "European Road",
+        "upkeep cost": 2,
+        "water": 0,
+        "tag": [
+            "road",
+            "european",
+            "no_sidewalk"
+        ]
+    },
+    {
         "author": "Kingtut 101",
         "category": "Roads",
         "tileType": "autotile",
@@ -543,7 +766,7 @@
             "fileName": "resources/images/roads/road_1x1_Country.png"
         },
         "tiles": {
-            "clip_height": 16,
+            "clip_height": 23,
             "clip_width": 32,
             "count": 16,
             "fileName": "resources/images/roads/road_1x1_Country.png",
@@ -583,7 +806,7 @@
             "fileName": "resources/images/roads/road_1x1_dirt.png"
         },
         "tiles": {
-            "clip_height": 16,
+            "clip_height": 23,
             "clip_width": 32,
             "count": 16,
             "fileName": "resources/images/roads/road_1x1_dirt.png",
@@ -619,7 +842,7 @@
             "fileName": "resources/images/roads/road_1x1_alley.png"
         },
         "tiles": {
-            "clip_height": 16,
+            "clip_height": 23,
             "clip_width": 32,
             "count": 16,
             "fileName": "resources/images/roads/road_1x1_alley.png",
@@ -649,7 +872,7 @@
             "fileName": "resources/images/roads/road_1x1_Highway.png"
         },
         "tiles": {
-            "clip_height": 16,
+            "clip_height": 23,
             "clip_width": 32,
             "count": 16,
             "fileName": "resources/images/roads/road_1x1_Highway.png",
@@ -956,7 +1179,7 @@
             "fileName": "resources/images/roads/road_1x1_paved.png"
         },
         "tiles": {
-            "clip_height": 17,
+            "clip_height": 23,
             "clip_width": 32,
             "count": 16,
             "fileName": "resources/images/roads/road_1x1_paved.png",

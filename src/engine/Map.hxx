@@ -95,8 +95,8 @@ public:
         demolishNode(*it);
         mapNodes[it->x * m_columns + it->y]->setRenderFlag(TileManager::instance().getTileLayer(tileID), shouldRender);
         mapNodes[it->x * m_columns + it->y]->setTileID(tileID, *begin);
+        updateNeighborsOfNode(*it);
       }
-      updateNeighborsOfNode(*begin);
     }
   }
 
@@ -201,7 +201,7 @@ private:
   * @param isoCoordinates isometric coordinates of the tile whose neighbors should be retrieved
   * @returns  Uint that stores the neighbor tiles
   */
-  unsigned char getNeighboringTilesBitmask(const Point &isoCoordinates);
+  std::vector<uint8_t> calculateAutotileBitmask(const Point &isoCoordinates);
 
   SDL_Color getColorOfPixelInSurface(SDL_Surface *surface, int x, int y) const;
 
