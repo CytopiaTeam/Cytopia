@@ -25,8 +25,8 @@ public:
    * The height level.
    */
   int height;
-
-  bool operator==(const Point& p) { return x == p.x && y == p.y && z == p.z && height == p.height; }
+  
+  bool operator==(const Point &p) { return x == p.x && y == p.y && z == p.z; }
   bool operator!=(const Point &p) { return !(*this == p); }
 };
 

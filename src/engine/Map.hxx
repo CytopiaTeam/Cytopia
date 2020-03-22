@@ -94,7 +94,7 @@ public:
         bool shouldRender = !(!isMultiObjects && it != begin);
         demolishNode(*it);
         mapNodes[it->x * m_columns + it->y]->setRenderFlag(TileManager::instance().getTileLayer(tileID), shouldRender);
-        mapNodes[it->x * m_columns + it->y]->setTileID(tileID, *begin);
+        mapNodes[it->x * m_columns + it->y]->setTileID(tileID, isMultiObjects ? *it : *begin);
         updateNeighborsOfNode(*it);
       }
     }
