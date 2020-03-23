@@ -4,7 +4,7 @@
 
 ComboBox::ComboBox(const SDL_Rect &uiElementRect)
     : UIElement(uiElementRect), m_dropDownRect(uiElementRect), m_wholeElementRect(uiElementRect),
-      m_textField(std::make_unique<TextField>()), m_buttonLabel(std::make_unique<Text>())
+      m_textField(std::make_unique<TextField>(m_dropDownRect)), m_buttonLabel(std::make_unique<Text>())
 {
   // the Dropdown frame starts directly beneath the button element of the combobox
   m_dropDownRect.y = m_uiElementRect.y + m_uiElementRect.h;
