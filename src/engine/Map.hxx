@@ -10,7 +10,7 @@ class Map
 {
 public:
   //fixed MapNode* array to store neighbors.
-  using NeighborMatrix = MapNode * [9];
+  using NeighborMatrix = MapNode *[9];
 
   std::vector<std::unique_ptr<MapNode>> mapNodes;
   std::vector<MapNode *> mapNodesInDrawingOrder;
@@ -81,7 +81,7 @@ public:
     bool isOkToSet = true;
     for (Iterator it = begin; it != end; ++it)
     {
-      if (!checkTileIDIsEmpty(*it, tileID))
+      if (!isPlacementOnNodeAllowed(*it, tileID))
       {
         isOkToSet = false;
         break;
@@ -89,18 +89,12 @@ public:
     }
     if (isOkToSet)
     {
-      Point origPoint = *begin;
-      std::string id = tileID;
-      auto it = begin;
-      if (!isMultiObjects)
+      for (auto it = begin; it != end; ++it)
       {
-        mapNodes[it->x * m_columns + it->y]->setTileID(tileID, origPoint);
-        it++;
-        id = "demy_node";
-      }
-      for (; it != end; ++it)
-      {
-        mapNodes[it->x * m_columns + it->y]->setTileID(id, isMultiObjects ? *it : origPoint);
+        bool shouldRender = !(!isMultiObjects && it != begin);
+        demolishNode(*it);
+        mapNodes[it->x * m_columns + it->y]->setRenderFlag(TileManager::instance().getTileLayer(tileID), shouldRender);
+        mapNodes[it->x * m_columns + it->y]->setTileID(tileID, isMultiObjects ? *it : *begin);
         updateNeighborsOfNode(*it);
       }
     }
@@ -125,7 +119,7 @@ public:
   /**
    * @brief Get original corner point of given point within building borders.
    */
-  Point getNodeOrigCornerPoint(const Point &isoCoordinates);
+  Point getNodeOrigCornerPoint(const Point &isoCoordinates, unsigned int layer = 0);
 
   /** \Brief Save Map to file
   * Serializes the Map class to json and writes the data to a file.
@@ -151,7 +145,7 @@ public:
   * @param isoCoordinates Tile to inspect
   * @param tileID tileID which should be checked
   */
-  bool checkTileIDIsEmpty(const Point &isoCoordinates, const std::string &tileID) const;
+  bool isPlacementOnNodeAllowed(const Point &isoCoordinates, const std::string &tileID) const;
 
   /** \brief Return vector of Points of an Object Tiles selection.
   * 
@@ -207,9 +201,9 @@ private:
   * @param isoCoordinates isometric coordinates of the tile whose neighbors should be retrieved
   * @returns  Uint that stores the neighbor tiles
   */
-  unsigned char getNeighboringTilesBitmask(const Point &isoCoordinates);
+  std::vector<uint8_t> calculateAutotileBitmask(const Point &isoCoordinates);
 
-  SDL_Color getColorOfPixelInSurface(SDL_Surface *surface, int x, int y, const SDL_Rect &clipRect) const;
+  SDL_Color getColorOfPixelInSurface(SDL_Surface *surface, int x, int y) const;
 
   bool isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int isoY) const;
 };

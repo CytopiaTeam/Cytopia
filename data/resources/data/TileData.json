@@ -1,25 +1,5 @@
 [
     {
-        "author": "Westrox",
-        "category": "Residential",
-        "description": "demy Node",
-        "id": "demy_node",
-        "power": 0,
-        "price": 0,
-        "tiles": {
-            "clip_height": 18,
-            "clip_width": 32,
-            "count": 1,
-			"fileName": "resources/images/terrain/terrain_grass.png"
-        },
-        "title": "demy Node",
-        "upkeep cost": 0,
-        "water": 0,
-        "tag": [
-            "demy"
-        ]
-    },
-	{
         "author": "Folesnaid",
         "category": "Decoration",
         "description": "A pile of coal",
@@ -518,22 +498,278 @@
     },
     {
         "author": "Kingtut 101",
+        "category": "Utilities",
+        "tileType": "underground",
+        "description": "Pipes are used for transporting water.",
+        "id": "underground_pipes",
+        "power": 0,
+        "price": 7,
+        "slopeTiles": {
+            "clip_height": 25,
+            "clip_width": 32,
+            "count": 4,
+            "offset": 20,
+            "fileName": "resources/images/underground/water/ug_1x1_pipes.png"
+        },
+        "tiles": {
+            "clip_height": 25,
+            "clip_width": 32,
+            "count": 16,
+            "fileName": "resources/images/underground/water/ug_1x1_pipes.png",
+            "rotations": 16
+        },
+        "title": "Water pipe",
+        "upkeep cost": 2,
+        "water": 0,
+        "tag": [
+            "utilities",
+            "pipes",
+            "water"
+        ]
+    },
+    {
+        "author": "RockFort",
         "category": "Roads",
-        "description": "An average road that'll you would commonly find out in the countryside.  It lacks a proper sidewalk though.",
-        "id": "country_road",
+        "tileType": "autotile",
+        "description": "A rural road from france with fresh asphalt with a broken line.",
+        "id": "road_ruralroadfr1straightline",
         "power": 0,
         "price": 7,
         "slopeTiles": {
             "clip_height": 23,
             "clip_width": 32,
             "count": 4,
-            "fileName": "resources/images/roads/road_country_slopes.png"
+            "offset": 20,
+            "fileName": "resources/images/roads/road_1x1_ruralfrroad1brokenline_RF.png"
+        },
+        "tiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 16,
+            "fileName": "resources/images/roads/road_1x1_ruralfrroad1brokenline_RF.png",
+            "rotations": 16
+        },
+        "title": "Rural French Road brokenlined",
+        "upkeep cost": 2,
+        "water": 0,
+        "tag": [
+            "road",
+            "european",
+            "french",
+            "rural",
+            "broken-line",
+            "fresh"
+        ]
+    },
+    {
+        "author": "RockFort",
+        "category": "Roads",
+        "tileType": "autotile",
+        "description": "A rural road from france with worn asphalth a straight line.",
+        "id": "road_ruralroadfr1straightline",
+        "power": 0,
+        "price": 7,
+        "slopeTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 4,
+            "offset": 20,
+            "fileName": "resources/images/roads/road_1x1_ruralroadfr1straightline_RF.png"
+        },
+        "tiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 16,
+            "fileName": "resources/images/roads/road_1x1_ruralroadfr1straightline_RF.png",
+            "rotations": 16
+        },
+        "title": "Rural French Road lined",
+        "upkeep cost": 2,
+        "water": 0,
+        "tag": [
+            "road",
+            "european",
+            "french",
+            "rural",
+            "straight-line",
+            "fresh"
+        ]
+    },
+    {
+        "author": "RockFort",
+        "category": "Roads",
+        "tileType": "autotile",
+        "description": "A rural road from france with fresh asphalt.",
+        "id": "road_ruralroadfr1newsaph",
+        "power": 0,
+        "price": 7,
+        "slopeTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 4,
+            "offset": 20,
+            "fileName": "resources/images/roads/road_1x1_ruralroadfr1newsaph_RF.png"
+        },
+        "tiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 16,
+            "fileName": "resources/images/roads/road_1x1_ruralroadfr1newsaph_RF.png",
+            "rotations": 16
+        },
+        "title": "Rural French Road fresh",
+        "upkeep cost": 2,
+        "water": 0,
+        "tag": [
+            "road",
+            "european",
+            "french",
+            "rural",
+            "fresh"
+        ]
+    },
+    {
+        "author": "RockFort",
+        "category": "Roads",
+        "tileType": "autotile",
+        "description": "A rural road from france with worn asphalt.",
+        "id": "road_ruralroadfr1grained",
+        "power": 0,
+        "price": 7,
+        "slopeTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 4,
+            "offset": 20,
+            "fileName": "resources/images/roads/road_1x1_ruralroadfr1grained_RF.png"
+        },
+        "tiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 16,
+            "fileName": "resources/images/roads/road_1x1_ruralroadfr1grained_RF.png",
+            "rotations": 16
+        },
+        "title": "Rural French Road",
+        "upkeep cost": 2,
+        "water": 0,
+        "tag": [
+            "road",
+            "european",
+            "french",
+            "rural"        ]
+    },
+    {
+        "author": "Yusuf8a684",
+        "category": "Roads",
+        "tileType": "autotile",
+        "description": "An european looking road.",
+        "id": "road_european",
+        "power": 0,
+        "price": 7,
+        "slopeTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 4,
+            "offset": 20,
+            "fileName": "resources/images/roads/road_1x1_european.png"
         },
         "tiles": {
             "clip_height": 16,
             "clip_width": 32,
             "count": 16,
-            "fileName": "resources/images/roads/road_country.png",
+            "fileName": "resources/images/roads/road_1x1_european.png",
+            "rotations": 16
+        },
+        "title": "European Road",
+        "upkeep cost": 2,
+        "water": 0,
+        "tag": [
+            "road",
+            "european"
+        ]
+    },
+    {
+        "author": "Yusuf8a684",
+        "category": "Roads",
+        "tileType": "autotile",
+        "description": "A modern european looking road.",
+        "id": "road_european_modern",
+        "power": 0,
+        "price": 7,
+        "slopeTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 4,
+            "offset": 20,
+            "fileName": "resources/images/roads/road_1x1_european_modern.png"
+        },
+        "tiles": {
+            "clip_height": 16,
+            "clip_width": 32,
+            "count": 16,
+            "fileName": "resources/images/roads/road_1x1_european_modern.png",
+            "rotations": 16
+        },
+        "title": "European Road",
+        "upkeep cost": 2,
+        "water": 0,
+        "tag": [
+            "road",
+            "european"
+        ]
+    },
+    {
+        "author": "Yusuf8a684",
+        "category": "Roads",
+        "tileType": "autotile",
+        "description": "A modern european looking road without a sidewalk.",
+        "id": "road_european_nosidewalk",
+        "power": 0,
+        "price": 7,
+        "slopeTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 4,
+            "offset": 20,
+            "fileName": "resources/images/roads/road_1x1_european_nosidewalk.png"
+        },
+        "tiles": {
+            "clip_height": 16,
+            "clip_width": 32,
+            "count": 16,
+            "fileName": "resources/images/roads/road_1x1_european_nosidewalk.png",
+            "rotations": 16
+        },
+        "title": "European Road",
+        "upkeep cost": 2,
+        "water": 0,
+        "tag": [
+            "road",
+            "european",
+            "no_sidewalk"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Roads",
+        "tileType": "autotile",
+        "description": "An average road that'll you would commonly find out in the countryside.  It lacks a proper sidewalk though.",
+        "id": "road_country",
+        "power": 0,
+        "price": 7,
+        "slopeTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 4,
+            "offset": 20,
+            "fileName": "resources/images/roads/road_1x1_Country.png"
+        },
+        "tiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 16,
+            "fileName": "resources/images/roads/road_1x1_Country.png",
             "rotations": 16
         },
         "title": "Country Road",
@@ -557,21 +793,23 @@
     {
         "author": "Kingtut 101",
         "category": "Roads",
+        "tileType": "autotile",
         "description": "An old dirt road that doesn't require much maintenance.  Not recommended for busy roadways.",
-        "id": "dirt_road",
+        "id": "road_dirt",
         "power": 0,
         "price": 3,
         "slopeTiles": {
             "clip_height": 23,
             "clip_width": 32,
             "count": 4,
-            "fileName": "resources/images/roads/dirt_road_slopes.png"
+            "offset": 20,
+            "fileName": "resources/images/roads/road_1x1_dirt.png"
         },
         "tiles": {
-            "clip_height": 16,
+            "clip_height": 23,
             "clip_width": 32,
             "count": 16,
-            "fileName": "resources/images/roads/dirt_road.png",
+            "fileName": "resources/images/roads/road_1x1_dirt.png",
             "rotations": 16
         },
         "title": "Dirt Road",
@@ -586,6 +824,66 @@
             "recommended",
             "busy",
             "roadways"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Roads",
+        "tileType": "autotile",
+        "description": "Alley road.",
+        "id": "road_alley",
+        "power": 0,
+        "price": 3,
+        "slopeTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 4,
+            "offset": 20,
+            "fileName": "resources/images/roads/road_1x1_alley.png"
+        },
+        "tiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 16,
+            "fileName": "resources/images/roads/road_1x1_alley.png",
+            "rotations": 16
+        },
+        "title": "Alley Road",
+        "upkeep cost": 1,
+        "water": 0,
+        "tag": [
+            "road",
+            "alley"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Roads",
+        "tileType": "autotile",
+        "description": "A highway! Cars go faaaaast here.",
+        "id": "road_highway",
+        "power": 0,
+        "price": 10,
+        "slopeTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 4,
+            "offset": 20,
+            "fileName": "resources/images/roads/road_1x1_Highway.png"
+        },
+        "tiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 16,
+            "fileName": "resources/images/roads/road_1x1_Highway.png",
+            "rotations": 16
+        },
+        "title": "Highway Road",
+        "upkeep cost": 3,
+        "water": 0,
+        "tag": [
+            "road",
+            "highway"
         ]
     },
     {
@@ -866,23 +1164,238 @@
         ]
     },
     {
+        "author": "RockFort",
+        "category": "Zones",
+        "tileType": "zone",
+        "description": "Commercial Zone (light).",
+        "id": "zone_commercial_light",
+        "power": 0,
+        "price": 3,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 1,
+            "offset": 2,
+            "fileName": "resources/images/zones/zone_commercial_RF.png"
+        },
+        "title": "Commercial Zone (light)",
+        "upkeep cost": 2,
+        "water": 0,
+        "tag": [
+            "zone",
+            "commercial",
+            "light"
+        ]
+    },
+    {
+        "author": "RockFort",
+        "category": "Zones",
+        "tileType": "zone",
+        "description": "Commercial Zone (medium).",
+        "id": "zone_commercial_medium",
+        "power": 0,
+        "price": 3,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 1,
+            "offset": 1,
+            "fileName": "resources/images/zones/zone_commercial_RF.png"
+        },
+        "title": "Commercial Zone (medium)",
+        "upkeep cost": 2,
+        "water": 0,
+        "tag": [
+            "zone",
+            "commercial",
+            "medium"
+        ]
+    },
+    {
+        "author": "RockFort",
+        "category": "Zones",
+        "tileType": "zone",
+        "description": "Commercial Zone (dense).",
+        "id": "zone_commercial_dense",
+        "power": 0,
+        "price": 3,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/zones/zone_commercial_RF.png"
+        },
+        "title": "Commercial Zone (dense)",
+        "upkeep cost": 2,
+        "water": 0,
+        "tag": [
+            "zone",
+            "commercial",
+            "dense"
+        ]
+    },
+    {
+        "author": "RockFort",
+        "category": "Zones",
+        "tileType": "zone",
+        "description": "Residential Zone (dense).",
+        "id": "zone_residential_dense",
+        "power": 0,
+        "price": 3,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/zones/zone_residential_RF.png"
+        },
+        "title": "Residential Zone (dense)",
+        "upkeep cost": 2,
+        "water": 0,
+        "tag": [
+            "zone",
+            "residential",
+            "dense"
+        ]
+    },
+    {
+        "author": "RockFort",
+        "category": "Zones",
+        "tileType": "zone",
+        "description": "Residential Zone (medium).",
+        "id": "zone_residential_medium",
+        "power": 0,
+        "price": 3,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 1,
+            "offset": 1,
+            "fileName": "resources/images/zones/zone_residential_RF.png"
+        },
+        "title": "Residential Zone (medium)",
+        "upkeep cost": 2,
+        "water": 0,
+        "tag": [
+            "zone",
+            "residential",
+            "medium"
+        ]
+    },
+    {
+        "author": "RockFort",
+        "category": "Zones",
+        "tileType": "zone",
+        "description": "Residential Zone (light).",
+        "id": "zone_residential_light",
+        "power": 0,
+        "price": 3,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 1,
+            "offset": 2,
+            "fileName": "resources/images/zones/zone_residential_RF.png"
+        },
+        "title": "Residential Zone (light)",
+        "upkeep cost": 2,
+        "water": 0,
+        "tag": [
+            "zone",
+            "residential",
+            "light"
+        ]
+    },
+    {
+        "author": "RockFort",
+        "category": "Zones",
+        "tileType": "zone",
+        "description": "Industrial Zone.",
+        "id": "zone_industrial_light",
+        "power": 0,
+        "price": 3,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 1,
+            "offset": 2,
+            "fileName": "resources/images/zones/zone_industrial_RF.png"
+        },
+        "title": "Industrial Zone (light)",
+        "upkeep cost": 2,
+        "water": 0,
+        "tag": [
+            "zone",
+            "industrial",
+            "medium"
+        ]
+    },
+    {
+        "author": "RockFort",
+        "category": "Zones",
+        "tileType": "zone",
+        "description": "Industrial Zone.",
+        "id": "zone_industrial_medium",
+        "power": 0,
+        "price": 3,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 1,
+            "offset": 1,
+            "fileName": "resources/images/zones/zone_industrial_RF.png"
+        },
+        "title": "Industrial Zone (medium)",
+        "upkeep cost": 2,
+        "water": 0,
+        "tag": [
+            "zone",
+            "industrial",
+            "medium"
+        ]
+    },
+    {
+        "author": "RockFort",
+        "category": "Zones",
+        "tileType": "zone",
+        "description": "Industrial Zone.",
+        "id": "zone_industrial_dense",
+        "power": 0,
+        "price": 3,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/zones/zone_industrial_RF.png"
+        },
+        "title": "Industrial Zone (medium)",
+        "upkeep cost": 2,
+        "water": 0,
+        "tag": [
+            "zone",
+            "industrial",
+            "dense"
+        ]
+    },
+    {
         "author": "Kingtut 101",
         "category": "Roads",
+        "tileType": "autotile",
         "description": "A nice paved road that are commonly found in the middle of large cities.  Includes a sidewalk.",
-        "id": "paved_road",
+        "id": "road_paved",
         "power": 0,
         "price": 10,
         "slopeTiles": {
             "clip_height": 23,
             "clip_width": 32,
             "count": 4,
-            "fileName": "resources/images/roads/paved_road_slopes.png"
+            "offset": 20,
+            "fileName": "resources/images/roads/road_1x1_paved.png"
         },
         "tiles": {
-            "clip_height": 16,
+            "clip_height": 23,
             "clip_width": 32,
             "count": 16,
-            "fileName": "resources/images/roads/paved_road.png",
+            "fileName": "resources/images/roads/road_1x1_paved.png",
             "rotations": 16
         },
         "title": "Paved Road",
@@ -1447,6 +1960,7 @@
     {
         "author": "Kingtut 101",
         "category": "Water",
+        "tileType": "water",
         "description": "Water",
         "id": "water",
         "power": 0,
@@ -1455,21 +1969,21 @@
             "clip_height": 23,
             "clip_width": 32,
             "count": 4,
-            "fileName": "resources/images/water/liquid_water.png"
+            "fileName": "resources/images/terrain/water/liquid_water.png"
         },
         "cornerTiles": {
             "clip_height": 23,
             "clip_width": 32,
             "count": 8,
             "offset": 4,
-            "fileName": "resources/images/water/liquid_water.png"
+            "fileName": "resources/images/terrain/water/liquid_water.png"
         },
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
             "count": 3,
             "offset": 13,
-            "fileName": "resources/images/water/liquid_water.png"
+            "fileName": "resources/images/terrain/water/liquid_water.png"
         },
         "title": "Water",
         "upkeep cost": 0,
@@ -1652,6 +2166,7 @@
         "category": "TerrainDecoration",
         "description": "A pile of rocks that can be found in water.",
         "id": "rocks_water",
+        "placeOnWater": true,
         "power": 0,
         "price": 5,
         "tiles": {
@@ -4002,6 +4517,7 @@
         "author": "Kingtut 101",
         "category": "Flora",
         "subCategory": "WaterFlora",
+        "placeOnWater": true,
         "description": "A group tall wetland plants well-known for their brown catkins.",
         "id": "waterFlora_cattail_light",
         "power": 0,
@@ -4013,7 +4529,6 @@
             "fileName": "resources/images/flora/waterFlora/waterFlora_1x1_cattail_light.png"
         },
         "title": "Cattail",
-        "isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
         "tag": [
@@ -4027,6 +4542,7 @@
         "author": "Kingtut 101",
         "category": "Flora",
         "subCategory": "WaterFlora",
+        "placeOnWater": true,
         "description": "A group tall wetland plants well-known for their brown catkins.",
         "id": "waterFlora_cattail_medium",
         "power": 0,
@@ -4038,7 +4554,6 @@
             "fileName": "resources/images/flora/waterFlora/waterFlora_1x1_cattail_medium.png"
         },
         "title": "Cattail",
-        "isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
         "tag": [
@@ -4052,6 +4567,7 @@
         "author": "Kingtut 101",
         "category": "Flora",
         "subCategory": "WaterFlora",
+        "placeOnWater": true,
         "description": "A group tall wetland plants well-known for their brown catkins.",
         "id": "waterFlora_cattail_dense",
         "power": 0,
@@ -4063,7 +4579,6 @@
             "fileName": "resources/images/flora/waterFlora/waterFlora_1x1_cattail_dense.png"
         },
         "title": "Cattail",
-        "isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
         "tag": [
@@ -4077,6 +4592,7 @@
         "author": "Kingtut 101",
         "category": "Flora",
         "subCategory": "WaterFlora",
+        "placeOnWater": true,
         "description": "Rice is normally grown as an annual plant, although in tropical areas it can survive as a perennial and can produce a ratoon crop for up to 30 years.",
         "id": "waterFlora_rice_light",
         "power": 0,
@@ -4088,7 +4604,6 @@
             "fileName": "resources/images/flora/waterFlora/waterFlora_1x1_rice_light.png"
         },
         "title": "Rice",
-        "isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
         "tag": [
@@ -4102,6 +4617,7 @@
         "author": "Kingtut 101",
         "category": "Flora",
         "subCategory": "WaterFlora",
+        "placeOnWater": true,
         "description": "Rice is normally grown as an annual plant, although in tropical areas it can survive as a perennial and can produce a ratoon crop for up to 30 years.",
         "id": "waterFlora_rice_medium",
         "power": 0,
@@ -4113,7 +4629,6 @@
             "fileName": "resources/images/flora/waterFlora/waterFlora_1x1_rice_medium.png"
         },
         "title": "Rice",
-        "isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
         "tag": [
@@ -4127,6 +4642,7 @@
         "author": "Kingtut 101",
         "category": "Flora",
         "subCategory": "WaterFlora",
+        "placeOnWater": true,
         "description": "Rice is normally grown as an annual plant, although in tropical areas it can survive as a perennial and can produce a ratoon crop for up to 30 years.",
         "id": "waterFlora_rice_dense",
         "power": 0,
@@ -4138,7 +4654,6 @@
             "fileName": "resources/images/flora/waterFlora/waterFlora_1x1_rice_dense.png"
         },
         "title": "Rice",
-        "isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
         "tag": [
@@ -4152,6 +4667,7 @@
         "author": "Kingtut 101",
         "category": "Flora",
         "subCategory": "WaterFlora",
+        "placeOnWater": true,
         "description": "Lily pads are broad, rounded, heart- or shield-shaped leaves. Frogs like to sit on them!",
         "id": "waterFlora_lilypads_light",
         "power": 0,
@@ -4163,7 +4679,6 @@
             "fileName": "resources/images/flora/waterFlora/waterFlora_1x1_lilypads_light.png"
         },
         "title": "Lily pads",
-        "isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
         "tag": [
@@ -4177,6 +4692,7 @@
         "author": "Kingtut 101",
         "category": "Flora",
         "subCategory": "WaterFlora",
+        "placeOnWater": true,
         "description": "Lily pads are broad, rounded, heart- or shield-shaped leaves. Frogs like to sit on them!",
         "id": "waterFlora_lilypads_medium",
         "power": 0,
@@ -4188,7 +4704,6 @@
             "fileName": "resources/images/flora/waterFlora/waterFlora_1x1_lilypads_medium.png"
         },
         "title": "Lily pads",
-        "isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
         "tag": [
@@ -4202,6 +4717,7 @@
         "author": "Kingtut 101",
         "category": "Flora",
         "subCategory": "WaterFlora",
+        "placeOnWater": true,
         "description": "Lily pads are broad, rounded, heart- or shield-shaped leaves. Frogs like to sit on them!",
         "id": "waterFlora_lilypads_dense",
         "power": 0,
@@ -4213,7 +4729,6 @@
             "fileName": "resources/images/flora/waterFlora/waterFlora_1x1_lilypads_dense.png"
         },
         "title": "Lily pads",
-        "isOverPlacable": true,
         "upkeep cost": 0,
         "water": 0,
         "tag": [
@@ -6815,18 +7330,26 @@
     },
     {
         "author": "Kingtut 101",
-        "category": "Roads",
+        "category": "Decoration",
+        "tileType": "autotile",
         "subCategory": "NatureDecoration",
         "description": "TODO - move this to decoration when the new attribute is implemented",
         "id": "ND_1x1_stream",
         "power": 0,
         "price": 0,
-        "tiles": {
+        "slopeTiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 16,
-            "rotations": 16,
+            "count": 4,
+            "offset": 20,
             "fileName": "resources/images/decoration/nature/ND_1x1_Stream.png"
+        },
+        "tiles": {
+            "clip_height": 16,
+            "clip_width": 32,
+            "count": 16,
+            "fileName": "resources/images/decoration/nature/ND_1x1_Stream.png",
+            "rotations": 16
         },
         "title": "Stream",
         "upkeep cost": 0,
@@ -8238,13 +8761,52 @@
         "upkeep cost": 0,
         "water": 0,
         "tag": [
-            "todo",
-            "desc"
+            "power plant",
+            "coal",
+            "austria"
         ]
     },
     {
         "author": "Kingtut 101",
         "category": "Terrain",
+        "tileType": "blueprint",
+        "description": "Terrain Blueprint",
+        "id": "terrain_blueprint",
+        "power": 0,
+        "price": 0,
+        "slopeTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 4,
+            "fileName": "resources/images/terrain/blueprint/blueprint_PipeView.png"
+        },
+        "cornerTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 8,
+            "offset": 4,
+            "fileName": "resources/images/terrain/blueprint/blueprint_PipeView.png"
+        },
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 1,
+            "offset": 13,
+            "fileName": "resources/images/terrain/blueprint/blueprint_PipeView.png"
+        },
+        "title": "Blueprint",
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "terrain",
+            "blueprint",
+            "tiles"
+        ]
+    },
+    {
+        "author": "Kingtut 101",
+        "category": "Terrain",
+        "tileType": "terrain",
         "description": "Terrain basalt tiles",
         "id": "terrain_basalt",
         "power": 0,
@@ -8281,6 +8843,7 @@
     {
         "author": "Kingtut 101",
         "category": "Terrain",
+        "tileType": "terrain",
         "description": "Terrain beach tiles",
         "id": "terrain_sand_beach",
         "power": 0,
@@ -8318,6 +8881,7 @@
     {
         "author": "Kingtut 101",
         "category": "Terrain",
+        "tileType": "terrain",
         "description": "Terrain Black Sand tiles",
         "id": "terrain_sand_black",
         "power": 0,
@@ -8355,6 +8919,7 @@
     {
         "author": "Kingtut 101",
         "category": "Terrain",
+        "tileType": "terrain",
         "description": "Terrain burned tiles",
         "id": "terrain_burned",
         "power": 0,
@@ -8391,6 +8956,7 @@
     {
         "author": "Kingtut 101",
         "category": "Terrain",
+        "tileType": "terrain",
         "description": "Terrain Desert tiles",
         "id": "terrain_sand_desert",
         "power": 0,
@@ -8428,6 +8994,7 @@
     {
         "author": "Kingtut 101",
         "category": "Terrain",
+        "tileType": "terrain",
         "description": "Terrain Dirt tiles",
         "id": "terrain_dirt",
         "power": 0,
@@ -8464,6 +9031,7 @@
     {
         "author": "Kingtut 101",
         "category": "Terrain",
+        "tileType": "terrain",
         "description": "Terrain grass tiles",
         "id": "terrain_grass",
         "power": 0,
@@ -8477,7 +9045,7 @@
         "cornerTiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 8,
+            "count": 9,
             "offset": 4,
             "fileName": "resources/images/terrain/terrain_grass.png"
         },
@@ -8500,6 +9068,7 @@
     {
         "author": "Kingtut 101",
         "category": "Terrain",
+        "tileType": "terrain",
         "description": "Terrain grass forest tiles",
         "id": "terrain_grass_forest",
         "power": 0,
@@ -8537,6 +9106,7 @@
     {
         "author": "Kingtut 101",
         "category": "Terrain",
+        "tileType": "terrain",
         "description": "Terrain grass mint tiles",
         "id": "terrain_grass_mint",
         "power": 0,
@@ -8574,6 +9144,7 @@
     {
         "author": "Kingtut 101",
         "category": "Terrain",
+        "tileType": "terrain",
         "description": "Terrain Grass Mint Forest tiles",
         "id": "terrain_grass_mint_forest",
         "power": 0,
@@ -8612,6 +9183,7 @@
     {
         "author": "Kingtut 101",
         "category": "Terrain",
+        "tileType": "terrain",
         "description": "Terrain Gravel tiles",
         "id": "terrain_gravel",
         "power": 0,
@@ -8648,6 +9220,7 @@
     {
         "author": "Kingtut 101",
         "category": "Terrain",
+        "tileType": "terrain",
         "description": "Terrain mud tiles",
         "id": "terrain_mud",
         "power": 0,
@@ -8684,6 +9257,7 @@
     {
         "author": "Kingtut 101",
         "category": "Terrain",
+        "tileType": "terrain",
         "description": "Terrain Red Sand tiles",
         "id": "terrain_sand_red",
         "power": 0,
@@ -8721,6 +9295,7 @@
     {
         "author": "Kingtut 101",
         "category": "Terrain",
+        "tileType": "terrain",
         "description": "Terrain Rainstone tiles",
         "id": "terrain_rainstone",
         "power": 0,
@@ -8758,6 +9333,7 @@
     {
         "author": "Kingtut 101",
         "category": "Terrain",
+        "tileType": "terrain",
         "description": "Terrain shading tiles",
         "id": "terrain_shading",
         "power": 0,
@@ -8794,6 +9370,7 @@
     {
         "author": "Kingtut 101",
         "category": "Terrain",
+        "tileType": "terrain",
         "description": "Terrain Snow tiles",
         "id": "terrain_snow",
         "power": 0,
@@ -8830,6 +9407,7 @@
     {
         "author": "Kingtut 101",
         "category": "Terrain",
+        "tileType": "terrain",
         "description": "Terrain soil tiles",
         "id": "terrain_soil",
         "power": 0,
@@ -8866,6 +9444,7 @@
     {
         "author": "Kingtut 101",
         "category": "Terrain",
+        "tileType": "terrain",
         "description": "Terrain Stone tiles",
         "id": "terrain_stone",
         "power": 0,
@@ -9233,6 +9812,7 @@
     {
         "author": "Kingtut 101",
         "category": "Roads",
+        "tileType": "autotile",
         "description": "TODO DESC",
         "id": "prs_1x1_prisfen_kt",
         "power": 0,

@@ -19,7 +19,7 @@ struct MapNodeData
   std::string tileID;
   TileData *tileData = nullptr;
   int32_t tileIndex = 0;
-  Point origCornerPoint;
+  Point origCornerPoint = UNDEFINED_POINT;
   bool shouldRender = true;
 };
 
@@ -30,7 +30,7 @@ struct MapNodeData
 class MapNode
 {
 public:
-  MapNode(Point isoCoordinates, const std::string &terrainID, const std::string &tileID = "");
+  MapNode(Point isoCoordinates, const std::string &terrainID, const std::string &newTileID = "");
 
   /**
     * @brief Destroys the MapNode object
@@ -73,7 +73,7 @@ public:
   */
   void render() const;
 
-  void setBitmask(unsigned char elevationBitmask, unsigned char tileTypeBitmask);
+  void setBitmask(unsigned char elevationBitmask, std::vector<uint8_t> tileTypeBitmask);
 
   //bool isLayerActive(Layer layer) const { return std::find(layers.begin(), layers.end(), layer) != layers.end(); };
 
@@ -86,10 +86,10 @@ public:
     */
   const std::string &getTileID(Layer layer) const { return m_mapNodeData[layer].tileID; };
 
-  bool checkTileIsEmpty(const std::string &tileID) const;
+  bool isPlacementAllowed(const std::string &tileID) const;
 
   /// Overwrite m_mapData with the one loaded from a savegame. This function to be used only by loadGame
-  void setMapNodeData(std::vector<MapNodeData> &&mapNodeData);
+  void setMapNodeData(std::vector<MapNodeData> &&mapNodeData, const Point &isoCoordinates);
 
   const std::vector<MapNodeData> getMapNodeData() const { return m_mapNodeData; };
   const MapNodeData getMapNodeDataForLayer(Layer layer) const { return m_mapNodeData[layer]; };
@@ -101,16 +101,23 @@ public:
     * @param tileID - the tileID which need to be checked whether allowing placement on slope or not.
     * @param layer - what layer should be checked on, in case this is not BUILDING layer the placement is OK.
     */
-  bool isPlacableOnSlope(const std::string &tileID, const Layer &layer) const;
+  bool isPlacableOnSlope(const std::string &tileID) const;
 
   void demolishNode();
 
   void setTileID(const std::string &tileType, const Point &origPoint);
 
   Point getOrigCornerPoint(Layer layer) { return getMapNodeDataForLayer(layer).origCornerPoint; }
-  Point getOrigCornerPoint() { return m_origCornerPoint; }
 
   size_t tileMap = TileMap::DEFAULT;
+
+  /** @brief return topmost active layer.
+    * check layers in order of significance for the topmost active layer that has an active tile on that layer
+    * @return Layer enum of the topmost active layer
+    */
+  unsigned int getTopMostActiveLayer() const;
+
+  void setRenderFlag(Layer layer, bool shouldRender) { m_mapNodeData[layer].shouldRender = shouldRender; }
 
 private:
   Point m_isoCoordinates;
@@ -120,16 +127,14 @@ private:
 
   std::string m_previousTileID = "terrain";
 
-  size_t m_orientation = TileSlopes::DEFAULT_ORIENTATION;
+  std::vector<TileOrientation> m_autotileOrientation;
   size_t m_elevationOrientation = TileSlopes::DEFAULT_ORIENTATION;
 
   int m_clippingWidth = 0;
 
   std::vector<MapNodeData> m_mapNodeData;
+  std::vector<unsigned char> m_autotileBitmask;
   unsigned char m_elevationBitmask = 0;
-  unsigned char m_tileIDBitmask = 0;
-
-  Point m_origCornerPoint;
 
   void updateTexture();
 };

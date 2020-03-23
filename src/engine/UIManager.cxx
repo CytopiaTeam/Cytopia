@@ -8,6 +8,8 @@
 #include "basics/utils.hxx"
 #include "LOG.hxx"
 #include "Exception.hxx"
+#include "GameStates.hxx"
+#include "MapLayers.hxx"
 
 #include "json.hxx"
 #include "betterEnums.hxx"
@@ -378,6 +380,10 @@ void UIManager::setCallbackFunctions()
         {
           button->checkState() ? demolishMode = true : demolishMode = false;
           button->checkState() ? highlightSelection = true : highlightSelection = false;
+          if (demolishMode)
+          {
+            GameStates::instance().placementMode = PlacementMode::RECTANGLE;
+          }
           return;
         }
 
@@ -392,14 +398,48 @@ void UIManager::setCallbackFunctions()
 
         if (button && button->getUiElementData().isToggleButton)
         {
-          button->checkState() ? tileTypeEditMode = actionParameter : tileTypeEditMode = "";
+          button->checkState() ? tileToPlace = actionParameter : tileToPlace = "";
           button->checkState() ? highlightSelection = true : highlightSelection = false;
+          if (GameStates::instance().layerEditMode == LayerEditMode::BLUEPRINT)
+          {
+            GameStates::instance().layerEditMode = LayerEditMode::TERRAIN;
+            MapLayers::setLayerEditMode(GameStates::instance().layerEditMode);
+          }
+          if (!tileToPlace.empty())
+          {
+            if (TileManager::instance().getTileData(tileToPlace))
+              switch (TileManager::instance().getTileData(tileToPlace)->tileType)
+              {
+              case +TileType::DEFAULT:
+                GameStates::instance().placementMode = PlacementMode::SINGLE;
+                break;
+              case +TileType::AUTOTILE:
+                GameStates::instance().placementMode = PlacementMode::LINE;
+                break;
+              case +TileType::ZONE:
+                GameStates::instance().placementMode = PlacementMode::RECTANGLE;
+                break;
+              case +TileType::UNDERGROUND:
+                GameStates::instance().layerEditMode = LayerEditMode::BLUEPRINT;
+                MapLayers::setLayerEditMode(GameStates::instance().layerEditMode);
+                break;
+              }
+          }
           return;
         }
 
-        tileTypeEditMode == actionParameter ? tileTypeEditMode = "" : tileTypeEditMode = actionParameter;
-        tileTypeEditMode == actionParameter ? highlightSelection = true : highlightSelection = false;
+        tileToPlace == actionParameter ? tileToPlace = "" : tileToPlace = actionParameter;
+        tileToPlace == actionParameter ? highlightSelection = true : highlightSelection = false;
       });
+      if (uiElement->getUiElementData().actionParameter == "underground_pipes")
+        uiElement->registerCallbackFunction([actionParameter](UIElement *sender) {
+          Button *button = dynamic_cast<Button *>(sender);
+
+          if (button->getButtonState() == ButtonState::BUTTONSTATE_CLICKED)
+            GameStates::instance().layerEditMode = LayerEditMode::BLUEPRINT;
+          else
+            GameStates::instance().layerEditMode = LayerEditMode::TERRAIN;
+        });
     }
     else if (uiElement->getUiElementData().actionID == "ToggleVisibilityOfGroup")
     {
@@ -470,13 +510,13 @@ void UIManager::setupButtonTileImage(Button *button, const std::pair<std::string
   int bWid = Settings::instance().subMenuButtonWidth;  //UI button width for sub menues
   int bHei = Settings::instance().subMenuButtonHeight; //UI button height for sub menues
 
-  if (TileManager::instance().getTexture(tile.first, TileMap::DEFAULT) == nullptr)
+  if (TileManager::instance().getTexture(tile.first) == nullptr)
   {
     button->setTextureID("Button_NoIcon");
   }
   SDL_Rect destRect{button->getUiElementRect().x, button->getUiElementRect().y, 0, 0};
   scaleCenterButtonImage(destRect, bWid, bHei, tile.second.tiles.clippingWidth, tile.second.tiles.clippingHeight);
-  button->setTextureID(TileManager::instance().getTexture(tile.first, TileMap::DEFAULT),
+  button->setTextureID(TileManager::instance().getTexture(tile.first),
                        {tile.second.tiles.clippingWidth * tile.second.tiles.offset, 0, tile.second.tiles.clippingWidth,
                         tile.second.tiles.clippingHeight},
                        destRect);

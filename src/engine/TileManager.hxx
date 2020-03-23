@@ -35,7 +35,7 @@ enum TileSlopes : size_t
   DEFAULT_ORIENTATION
 };
 
-enum TileList : size_t
+enum TileOrientation : size_t
 {
   TILE_DEFAULT_ORIENTATION,
   TILE_E,
@@ -64,11 +64,11 @@ public:
   TileManager(TileManager const &) = delete;
   TileManager &operator=(TileManager const &) = delete;
 
-  SDL_Texture *getTexture(const std::string &id, size_t tileMapType = 0) const;
+  SDL_Texture *getTexture(const std::string &tileID) const;
   TileData *getTileData(const std::string &id) noexcept;
   Layer getTileLayer(const std::string &tileID) const;
   size_t calculateSlopeOrientation(unsigned char bitMaskElevation);
-  size_t calculateTileOrientation(unsigned char bitMaskElevation);
+  TileOrientation calculateTileOrientation(unsigned char bitMaskElevation);
   const std::unordered_map<std::string, TileData> &getAllTileData() const { return m_tileData; };
   void init();
 

@@ -7,6 +7,7 @@
 #include "LOG.hxx"
 #include "engine/ui/widgets/Image.hxx"
 #include "engine/basics/Settings.hxx"
+#include "engine/basics/GameStates.hxx"
 #include <noise.h>
 #include <SDL.h>
 #include <SDL_ttf.h>
@@ -376,7 +377,11 @@ SDL_Event event;
       arg->engine->map->renderMap();
 
     // render the ui
-    arg->uiManager->drawUI();
+    // TODO: This is only temporary until the new UI is ready. Remove this afterwards
+    if (GameStates::instance().drawUI)
+    {
+      uiManager.drawUI();
+    }
 
     // reset renderer color back to black
     SDL_SetRenderDrawColor(WindowManager::instance().getRenderer(), 0, 0, 0, SDL_ALPHA_OPAQUE);

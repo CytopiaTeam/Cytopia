@@ -4,7 +4,7 @@
 #include "Exception.hxx"
 #include "basics/Settings.hxx"
 #include "ResourcesManager.hxx"
-
+#include "enums.hxx"
 
 #include <bitset>
 
@@ -12,9 +12,9 @@ using json = nlohmann::json;
 
 TileManager::TileManager() { init(); }
 
-SDL_Texture *TileManager::getTexture(const std::string &id, size_t tileMapType) const
+SDL_Texture *TileManager::getTexture(const std::string &tileID) const
 {
-  return ResourcesManager::instance().getTileTexture(id, tileMapType);
+  return ResourcesManager::instance().getTileTexture(tileID);
 }
 
 TileData *TileManager::getTileData(const std::string &id) noexcept
@@ -28,18 +28,26 @@ Layer TileManager::getTileLayer(const std::string &tileID) const
 {
   Layer layer = Layer::TERRAIN;
   TileData *tileData = TileManager::instance().getTileData(tileID);
+
   if (tileData)
   {
-    layer = Layer::BUILDINGS;
-    if (tileData->category == "Terrain")
+    switch (tileData->tileType)
     {
+    case TileType::TERRAIN:
       layer = Layer::TERRAIN;
+      break;
+    case TileType::BLUEPRINT:
+      layer = Layer::BLUEPRINT;
+      break;
+    case TileType::UNDERGROUND:
+      layer = Layer::UNDERGROUND;
+      break;
+    default:
+      layer = Layer::BUILDINGS;
+      break;
     }
-    else if (tileData->category == "Water")
-    {
-      layer = Layer::WATER;
-    } 
   }
+
   return layer;
 }
 
@@ -153,9 +161,9 @@ size_t TileManager::calculateSlopeOrientation(unsigned char bitMaskElevation)
   return orientation;
 }
 
-size_t TileManager::calculateTileOrientation(unsigned char bitMaskElevation)
+TileOrientation TileManager::calculateTileOrientation(unsigned char bitMaskElevation)
 {
-  size_t orientation;
+  TileOrientation orientation;
   std::bitset<8> elevationMask(bitMaskElevation);
 
   // Bits:
@@ -171,72 +179,72 @@ size_t TileManager::calculateTileOrientation(unsigned char bitMaskElevation)
   // check for all combinations
   if (elevationMask.none())
   { // NONE
-    orientation = TileList::TILE_DEFAULT_ORIENTATION;
+    orientation = TileOrientation::TILE_DEFAULT_ORIENTATION;
   }
   // special cases
   else if (elevationMask.test(0) && elevationMask.test(1) && elevationMask.test(2) && elevationMask.test(3))
   { // BOTTOM_RIGHT
-    orientation = TileList::TILE_ALL_DIRECTIONS;
+    orientation = TileOrientation::TILE_ALL_DIRECTIONS;
   }
   else if (elevationMask.test(0) && elevationMask.test(2) && elevationMask.test(3))
   { // BOTTOM_RIGHT
-    orientation = TileList::TILE_N_AND_E_AND_W;
+    orientation = TileOrientation::TILE_N_AND_E_AND_W;
   }
   else if (elevationMask.test(0) && elevationMask.test(1) && elevationMask.test(3))
   { // BOTTOM_RIGHT
-    orientation = TileList::TILE_N_AND_E_AND_S;
+    orientation = TileOrientation::TILE_N_AND_E_AND_S;
   }
   else if (elevationMask.test(0) && elevationMask.test(1) && elevationMask.test(2))
   { // BOTTOM_RIGHT
-    orientation = TileList::TILE_N_AND_S_AND_W;
+    orientation = TileOrientation::TILE_N_AND_S_AND_W;
   }
   else if (elevationMask.test(1) && elevationMask.test(2) && elevationMask.test(3))
   { // BOTTOM_RIGHT
-    orientation = TileList::TILE_S_AND_E_AND_W;
+    orientation = TileOrientation::TILE_S_AND_E_AND_W;
   }
   else if (elevationMask.test(2) && elevationMask.test(3))
   { // BOTTOM_RIGHT
-    orientation = TileList::TILE_E_AND_W;
+    orientation = TileOrientation::TILE_E_AND_W;
   }
   else if (elevationMask.test(0) && elevationMask.test(1))
   { // BOTTOM_RIGHT
-    orientation = TileList::TILE_N_AND_S;
+    orientation = TileOrientation::TILE_N_AND_S;
   }
 
   // diagonal combinations
   else if (elevationMask.test(0) && elevationMask.test(2))
   { // TOP && RIGHT
-    orientation = TileList::TILE_N_AND_W;
+    orientation = TileOrientation::TILE_N_AND_W;
   }
   else if (elevationMask.test(0) && elevationMask.test(3))
   { // TOP && LEFT
-    orientation = TileList::TILE_N_AND_E;
+    orientation = TileOrientation::TILE_N_AND_E;
   }
   else if (elevationMask.test(1) && elevationMask.test(2))
   { // BOTTOM && RIGHT
-    orientation = TileList::TILE_S_AND_W;
+    orientation = TileOrientation::TILE_S_AND_W;
   }
   else if (elevationMask.test(1) && elevationMask.test(3))
   { // BOTTOM && LEFT
-    orientation = TileList::TILE_S_AND_E;
+    orientation = TileOrientation::TILE_S_AND_E;
   }
 
   // default directions
   else if (elevationMask.test(0))
   { // TOP
-    orientation = TileList::TILE_N;
+    orientation = TileOrientation::TILE_N;
   }
   else if (elevationMask.test(1))
   { // BOTTOM
-    orientation = TileList::TILE_S;
+    orientation = TileOrientation::TILE_S;
   }
   else if (elevationMask.test(2))
   { // LEFT
-    orientation = TileList::TILE_W;
+    orientation = TileOrientation::TILE_W;
   }
   else if (elevationMask.test(3))
   { // RIGHT
-    orientation = TileList::TILE_E;
+    orientation = TileOrientation::TILE_E;
   }
 
   else
@@ -276,11 +284,24 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
   m_tileData[id].author = tileDataJSON[idx].value("author", "");
   m_tileData[id].title = tileDataJSON[idx].value("title", "");
   m_tileData[id].description = tileDataJSON[idx].value("description", "");
+  std::string tileTypeStr = tileDataJSON[idx].value("tileType", "default");
+
+  if (TileType::_is_valid_nocase(tileTypeStr.c_str()))
+  {
+    m_tileData[id].tileType = TileType::_from_string_nocase(tileTypeStr.c_str());
+  }
+  else
+  {
+    LOG(LOG_ERROR) << "In TileData.json in field with ID " << id << " the unsupported value " << tileTypeStr
+                   << " is used for the field tileType.";
+  }
+
   m_tileData[id].category = tileDataJSON[idx].value("category", "");
   m_tileData[id].price = tileDataJSON[idx].value("price", 0);
   m_tileData[id].water = tileDataJSON[idx].value("water", 0);
   m_tileData[id].isOverPlacable = tileDataJSON[idx].value("isOverPlacable", false);
   m_tileData[id].drawGround = tileDataJSON[idx].value("draw ground", false);
+  m_tileData[id].placeOnWater = tileDataJSON[idx].value("placeOnWater", false);
 
   if (tileDataJSON[idx].find("RequiredTiles") != tileDataJSON[idx].end())
   {
@@ -302,7 +323,7 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
 
   if (!m_tileData[id].tiles.fileName.empty())
   {
-    ResourcesManager::instance().loadTexture(id, m_tileData[id].tiles.fileName, TileMap::DEFAULT);
+    ResourcesManager::instance().loadTexture(id, m_tileData[id].tiles.fileName);
   }
 
   if (tileDataJSON[idx].find("cornerTiles") != tileDataJSON[idx].end())
@@ -315,7 +336,7 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
 
     if (!m_tileData[id].cornerTiles.fileName.empty())
     {
-      ResourcesManager::instance().loadTexture(id, m_tileData[id].cornerTiles.fileName, TileMap::CORNERS);
+      ResourcesManager::instance().loadTexture(id, m_tileData[id].cornerTiles.fileName);
     }
   }
 
@@ -330,7 +351,7 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
 
     if (!m_tileData[id].slopeTiles.fileName.empty())
     {
-      ResourcesManager::instance().loadTexture(id, m_tileData[id].slopeTiles.fileName, TileMap::SLOPES);
+      ResourcesManager::instance().loadTexture(id, m_tileData[id].slopeTiles.fileName);
     }
   }
 }

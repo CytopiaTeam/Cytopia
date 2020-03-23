@@ -16,7 +16,7 @@
     "Game": {
         "MapSize": 128,
         "MaxElevationHeight": 32,
-        "Biome": "GrassLands"
+        "Biome": "MixedForest"
     },
     "Graphics": {
         "FullScreen": false,

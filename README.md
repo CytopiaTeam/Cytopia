@@ -16,8 +16,9 @@
 <b>Reddit</b> - r/Cytopia - <https://www.reddit.com/r/Cytopia/><br>
 <b>Discord</b> - Cytopia - <https://discord.gg/ua3qFqF><br>
 <b>Patreon</b> - Cytopia by Jimmy Snails - <https://www.patreon.com/cytopia><br>
-<b>itch io</b> - Cytopia - <https://cytopia.itch.io/cytopia><br>
+<b>Itch io</b> - Cytopia - <https://cytopia.itch.io/cytopia><br>
 <b>GitHub</b> - Cytopia by CytopiaTeam - <https://github.com/CytopiaTeam/Cytopia><br>
+<b>Online Emscripten Port</b> - Cytopia - <https://game.cytopia.net/><br>
 
 Cytopia is a free, open source retro pixel-art city building game with a big focus on mods. It utilizes a custom isometric rendering engine based on SDL2.
 

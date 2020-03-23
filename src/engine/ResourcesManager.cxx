@@ -16,11 +16,10 @@ ResourcesManager::ResourcesManager() { loadUITexture(); }
 
 ResourcesManager::~ResourcesManager() { flush(); }
 
-void ResourcesManager::loadTexture(const std::string &id, const std::string &fileName, size_t tileMapType)
+void ResourcesManager::loadTexture(const std::string &id, const std::string &fileName)
 {
-  std::string key = id + std::to_string(tileMapType);
-  m_surfaceMap[key] = createSurfaceFromFile(fileName);
-  m_tileTextureMap[key] = createTextureFromSurface(m_surfaceMap[key]);
+  m_surfaceMap[id] = createSurfaceFromFile(fileName);
+  m_tileTextureMap[id] = createTextureFromSurface(m_surfaceMap[id]);
 }
 
 void ResourcesManager::loadUITexture()
@@ -59,35 +58,35 @@ SDL_Texture *ResourcesManager::getUITexture(const std::string &uiElement, int bu
   default:
     texture = "Texture_Default";
   }
-
-  if (m_uiTextureMap[uiElement].count(texture))
-    return m_uiTextureMap[uiElement][texture];
-  else if (m_uiTextureMap[uiElement].count("Texture_Default"))
+  if (m_uiTextureMap[uiElement].find(texture) != m_uiTextureMap[uiElement].end())
+  {
+    return m_uiTextureMap[uiElement].at(texture);
+  }
+  if (m_uiTextureMap[uiElement].find("Texture_Default") != m_uiTextureMap[uiElement].end())
   {
     // If no texture is found, check if there's a default texture
-    return m_uiTextureMap[uiElement]["Texture_Default"];
+    return m_uiTextureMap[uiElement].at("Texture_Default");
   }
   throw UIError(TRACE_INFO "No texture found for " + uiElement);
   return nullptr;
 }
 
-SDL_Texture *ResourcesManager::getTileTexture(const std::string &id, size_t tileMapType)
+SDL_Texture *ResourcesManager::getTileTexture(const std::string &id)
 {
-  std::string key = id + std::to_string(tileMapType);
-
-  if (m_tileTextureMap.count(key))
+  if (m_tileTextureMap.find(id) != m_tileTextureMap.end())
   {
-    return m_tileTextureMap[key];
+    return m_tileTextureMap.at(id);
   }
   throw UIError(TRACE_INFO "No texture found for " + id);
   return nullptr;
 }
 
-SDL_Surface *ResourcesManager::getTileSurface(const std::string &id, size_t tileMapType)
+SDL_Surface *ResourcesManager::getTileSurface(const std::string &id)
 {
-  std::string key = id + std::to_string(tileMapType);
-  if (m_surfaceMap.count(key))
-    return m_surfaceMap[key];
+  if (m_surfaceMap.find(id) != m_surfaceMap.end())
+  {
+    return m_surfaceMap.at(id);
+  }
   throw UIError(TRACE_INFO "No surface found for " + id);
   return nullptr;
 }

@@ -24,6 +24,7 @@ set(SOURCE_FILES
         engine/basics/isoMath.{hxx,cxx}
         engine/basics/mapEdit.{hxx,cxx}
         engine/basics/Settings.{hxx,cxx}
+        engine/basics/GameStates.{hxx,cxx}
         engine/basics/signal.hxx
         engine/basics/Timer.{hxx,cxx}
         engine/basics/utils.{hxx,cxx}
@@ -108,7 +109,7 @@ if (MSVC)
 endif ()
 
 if (APPLE)
-    file(GLOB_RECURSE MAC_RESOURCE_FILES ${CMAKE_SOURCE_DIR}/data/resources/*)
+    file(GLOB_RECURSE MAC_RESOURCE_FILES ${CMAKE_BINARY_DIR}/resources/*)
 
     # not working now, we need a special icon file for apple
     set(ICON_PATH ${CMAKE_SOURCE_DIR}/data/resources/images/app_icons/cytopia_icon_iso.icns)
