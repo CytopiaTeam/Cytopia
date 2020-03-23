@@ -29,6 +29,7 @@ BETTER_ENUM(TileType, int,
             WATER,      // Water terrain
             BLUEPRINT,  // Same as terrain, but gets placed on the BLUEPRINT layer
             AUTOTILE,   // Autotiling to itself, like roads, power lines, etc
+            ZONE,       // Zones (rectangular placement)
             UNDERGROUND // same as AUTOTILE, but for the BLUEPRINT layer
 )
 
