@@ -169,8 +169,8 @@ void UIManager::init()
           break;
         case ElementType::Text:
           uiElement = std::make_unique<Text>();
-          dynamic_cast<Text *>(uiElement.get())->setText(text);
           dynamic_cast<Text *>(uiElement.get())->setPosition(elementRect.x, elementRect.y);
+          dynamic_cast<Text *>(uiElement.get())->setText(text);
           break;
         case ElementType::Frame:
           uiElement = std::make_unique<Frame>(elementRect);
