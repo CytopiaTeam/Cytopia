@@ -7333,7 +7333,7 @@
         "category": "Decoration",
         "tileType": "autotile",
         "subCategory": "NatureDecoration",
-        "description": "TODO - move this to decoration when the new attribute is implemented",
+        "description": "a little stream",
         "id": "ND_1x1_stream",
         "power": 0,
         "price": 0,
@@ -9811,9 +9811,9 @@
     },
     {
         "author": "Kingtut 101",
-        "category": "Roads",
+        "category": "Prison",
         "tileType": "autotile",
-        "description": "TODO DESC",
+        "description": "A prison fence",
         "id": "prs_1x1_prisfen_kt",
         "power": 0,
         "price": 0,
@@ -9824,12 +9824,12 @@
             "rotations": 16,
             "fileName": "resources/images/buildings/prison/prs_1x1_prisfen_kt.png"
         },
-        "title": "TODO TITLE",
+        "title": "Prison Fence",
         "upkeep cost": 0,
         "water": 0,
         "tag": [
-            "todo",
-            "desc"
+            "prison",
+            "fence"
         ]
     },
     {
