@@ -101,13 +101,19 @@ bool isPointWithinMapBoundaries(const std::vector<Point> &isoCoordinates)
 std::vector<Point> getRectangleSelectionNodes(const Point &isoCoordinatesStart, const Point &isoCoordinatesEnd)
 {
   std::vector<Point> rectangle;
-  for (int x = isoCoordinatesStart.x; x <= isoCoordinatesEnd.x; x++)
+  SDL_Point startRect;
+  SDL_Point endRect;
+  std::tie(startRect.x, endRect.x) = std::minmax(isoCoordinatesStart.x, isoCoordinatesEnd.x);
+  std::tie(startRect.y, endRect.y) = std::minmax(isoCoordinatesStart.y, isoCoordinatesEnd.y);
+
+  for (int x = startRect.x; x <= endRect.x; x++)
   {
-    for (int y = isoCoordinatesStart.y; y <= isoCoordinatesEnd.y; y++)
+    for (int y = startRect.y; y <= endRect.y; y++)
     {
       rectangle.push_back(Point{x, y});
     }
   }
+
   return rectangle;
 }
 

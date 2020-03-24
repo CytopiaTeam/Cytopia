@@ -169,8 +169,8 @@ void UIManager::init()
           break;
         case ElementType::Text:
           uiElement = std::make_unique<Text>();
-          dynamic_cast<Text *>(uiElement.get())->setText(text);
           dynamic_cast<Text *>(uiElement.get())->setPosition(elementRect.x, elementRect.y);
+          dynamic_cast<Text *>(uiElement.get())->setText(text);
           break;
         case ElementType::Frame:
           uiElement = std::make_unique<Frame>(elementRect);
@@ -380,6 +380,10 @@ void UIManager::setCallbackFunctions()
         {
           button->checkState() ? demolishMode = true : demolishMode = false;
           button->checkState() ? highlightSelection = true : highlightSelection = false;
+          if (demolishMode)
+          {
+            GameStates::instance().placementMode = PlacementMode::RECTANGLE;
+          }
           return;
         }
 
@@ -411,6 +415,9 @@ void UIManager::setCallbackFunctions()
                 break;
               case +TileType::AUTOTILE:
                 GameStates::instance().placementMode = PlacementMode::LINE;
+                break;
+              case +TileType::ZONE:
+                GameStates::instance().placementMode = PlacementMode::RECTANGLE;
                 break;
               case +TileType::UNDERGROUND:
                 GameStates::instance().layerEditMode = LayerEditMode::BLUEPRINT;

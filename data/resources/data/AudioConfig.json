@@ -118,6 +118,11 @@
             "path": "resources/audio/sound effects/terrain/Terrain 7.ogg",
             "monopath": "resources/audio/sound effects/terrain/Terrain 7_mono.ogg",
             "triggers": []
+        },
+        "PlacementFail": {
+            "path": "resources/audio/sound effects/game/fail_placement.ogg",
+            "monopath": "resources/audio/sound effects/game/fail_placement.ogg",
+            "triggers": []
         }
     }
 }

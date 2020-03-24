@@ -29,7 +29,6 @@ inline void from_json(const json &j, MapNodeData &mapNodeData)
   mapNodeData.tileID = j.at("tileID").get<std::string>();
   mapNodeData.tileIndex = j.at("tileIndex").get<std::int32_t>();
   mapNodeData.origCornerPoint = j.at("origCornerPoint").get<Point>();
-  mapNodeData.shouldRender = j.at("shouldRender").get<bool>();
 }
 
 // JSON deserializer for Settings struct
@@ -215,8 +214,7 @@ inline void to_json(json &j, const MapNodeData &mapNodeData)
   j = json{
       {"tileID", mapNodeData.tileID},
       {"tileIndex", mapNodeData.tileIndex},
-      {"origCornerPoint", mapNodeData.origCornerPoint},
-      {"shouldRender", mapNodeData.shouldRender}
+      {"origCornerPoint", mapNodeData.origCornerPoint}
   };
 }
 

@@ -1164,6 +1164,219 @@
         ]
     },
     {
+        "author": "RockFort",
+        "category": "Zones",
+        "tileType": "zone",
+        "description": "Commercial Zone (light).",
+        "id": "zone_commercial_light",
+        "power": 0,
+        "price": 3,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 1,
+            "offset": 2,
+            "fileName": "resources/images/zones/zone_commercial_RF.png"
+        },
+        "title": "Commercial Zone (light)",
+        "upkeep cost": 2,
+        "water": 0,
+        "tag": [
+            "zone",
+            "commercial",
+            "light"
+        ]
+    },
+    {
+        "author": "RockFort",
+        "category": "Zones",
+        "tileType": "zone",
+        "description": "Commercial Zone (medium).",
+        "id": "zone_commercial_medium",
+        "power": 0,
+        "price": 3,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 1,
+            "offset": 1,
+            "fileName": "resources/images/zones/zone_commercial_RF.png"
+        },
+        "title": "Commercial Zone (medium)",
+        "upkeep cost": 2,
+        "water": 0,
+        "tag": [
+            "zone",
+            "commercial",
+            "medium"
+        ]
+    },
+    {
+        "author": "RockFort",
+        "category": "Zones",
+        "tileType": "zone",
+        "description": "Commercial Zone (dense).",
+        "id": "zone_commercial_dense",
+        "power": 0,
+        "price": 3,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/zones/zone_commercial_RF.png"
+        },
+        "title": "Commercial Zone (dense)",
+        "upkeep cost": 2,
+        "water": 0,
+        "tag": [
+            "zone",
+            "commercial",
+            "dense"
+        ]
+    },
+    {
+        "author": "RockFort",
+        "category": "Zones",
+        "tileType": "zone",
+        "description": "Residential Zone (dense).",
+        "id": "zone_residential_dense",
+        "power": 0,
+        "price": 3,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/zones/zone_residential_RF.png"
+        },
+        "title": "Residential Zone (dense)",
+        "upkeep cost": 2,
+        "water": 0,
+        "tag": [
+            "zone",
+            "residential",
+            "dense"
+        ]
+    },
+    {
+        "author": "RockFort",
+        "category": "Zones",
+        "tileType": "zone",
+        "description": "Residential Zone (medium).",
+        "id": "zone_residential_medium",
+        "power": 0,
+        "price": 3,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 1,
+            "offset": 1,
+            "fileName": "resources/images/zones/zone_residential_RF.png"
+        },
+        "title": "Residential Zone (medium)",
+        "upkeep cost": 2,
+        "water": 0,
+        "tag": [
+            "zone",
+            "residential",
+            "medium"
+        ]
+    },
+    {
+        "author": "RockFort",
+        "category": "Zones",
+        "tileType": "zone",
+        "description": "Residential Zone (light).",
+        "id": "zone_residential_light",
+        "power": 0,
+        "price": 3,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 1,
+            "offset": 2,
+            "fileName": "resources/images/zones/zone_residential_RF.png"
+        },
+        "title": "Residential Zone (light)",
+        "upkeep cost": 2,
+        "water": 0,
+        "tag": [
+            "zone",
+            "residential",
+            "light"
+        ]
+    },
+    {
+        "author": "RockFort",
+        "category": "Zones",
+        "tileType": "zone",
+        "description": "Industrial Zone.",
+        "id": "zone_industrial_light",
+        "power": 0,
+        "price": 3,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 1,
+            "offset": 2,
+            "fileName": "resources/images/zones/zone_industrial_RF.png"
+        },
+        "title": "Industrial Zone (light)",
+        "upkeep cost": 2,
+        "water": 0,
+        "tag": [
+            "zone",
+            "industrial",
+            "medium"
+        ]
+    },
+    {
+        "author": "RockFort",
+        "category": "Zones",
+        "tileType": "zone",
+        "description": "Industrial Zone.",
+        "id": "zone_industrial_medium",
+        "power": 0,
+        "price": 3,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 1,
+            "offset": 1,
+            "fileName": "resources/images/zones/zone_industrial_RF.png"
+        },
+        "title": "Industrial Zone (medium)",
+        "upkeep cost": 2,
+        "water": 0,
+        "tag": [
+            "zone",
+            "industrial",
+            "medium"
+        ]
+    },
+    {
+        "author": "RockFort",
+        "category": "Zones",
+        "tileType": "zone",
+        "description": "Industrial Zone.",
+        "id": "zone_industrial_dense",
+        "power": 0,
+        "price": 3,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/zones/zone_industrial_RF.png"
+        },
+        "title": "Industrial Zone (medium)",
+        "upkeep cost": 2,
+        "water": 0,
+        "tag": [
+            "zone",
+            "industrial",
+            "dense"
+        ]
+    },
+    {
         "author": "Kingtut 101",
         "category": "Roads",
         "tileType": "autotile",
