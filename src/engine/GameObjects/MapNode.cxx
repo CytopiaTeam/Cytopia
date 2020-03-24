@@ -209,7 +209,7 @@ void MapNode::updateTexture()
           m_autotileOrientation[currentLayer] = static_cast<TileOrientation>(m_elevationOrientation);
         }
       }
-      else if (m_elevationOrientation >= TileSlopes::NW && m_elevationOrientation <= TileSlopes::S_AND_E)
+      else if (m_elevationOrientation >= TileSlopes::NW && m_elevationOrientation <= TileSlopes::BETWEEN)
       {
         if (m_mapNodeData[currentLayer].tileData->cornerTiles.fileName.empty())
         {
