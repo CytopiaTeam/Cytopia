@@ -12,7 +12,7 @@ public:
   /// the offset of the camera.
   static SDL_Point cameraOffset;
   /// the zoom level of the camera.
-  static float zoomLevel;
+  static double zoomLevel;
 
   /** \brief Centers camera on given isometric coordinates
   * Centers the camera on the given isometric coordinates.
