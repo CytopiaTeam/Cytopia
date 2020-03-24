@@ -26,7 +26,8 @@ public:
    */
   int height;
   
-  bool operator==(const Point &p) { return x == p.x && y == p.y && z == p.z; }
+  //TODO: need to add z axis in the future, currently it is not supported.
+  bool operator==(const Point &p) { return x == p.x && y == p.y /*&& z == p.z*/; }
   bool operator!=(const Point &p) { return !(*this == p); }
 };
 
