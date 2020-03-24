@@ -82,6 +82,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       case SDLK_f:
         engine.toggleFullScreen();
         break;
+      case SDLK_UP:
       case SDLK_w:
         if (Camera::cameraOffset.y > -2 * Settings::instance().screenHeight * Camera::zoomLevel)
         {
@@ -96,6 +97,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           }
         }
         break;
+      case SDLK_LEFT:
       case SDLK_a:
         if (Camera::cameraOffset.x > -0.25 * Settings::instance().screenWidth * Camera::zoomLevel)
         {
@@ -110,7 +112,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           }
         }
         break;
-
+      case SDLK_DOWN:
       case SDLK_s:
         if (Camera::cameraOffset.y < 1.25 * Settings::instance().screenHeight * Camera::zoomLevel)
         {
@@ -125,7 +127,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           }
         }
         break;
-
+      case SDLK_RIGHT:
       case SDLK_d:
         if (Camera::cameraOffset.x < 5 * Settings::instance().screenWidth * Camera::zoomLevel)
         {
