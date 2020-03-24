@@ -289,26 +289,10 @@
                 "Position_y": 245
             },
             {
-                "ID": "$BuildMenuLayout",
-                "Type": "ComboBox",
-                "Position_x": 420,
-                "Position_y": 230,
-                "Width": 200,
-                "Height": 30
-            },
-            {
                 "Type": "Text",
                 "Text": "Screen Resolution",
                 "Position_x": 330,
                 "Position_y": 315
-            },
-            {
-                "ID": "$ScreenResolutionSelector",
-                "Type": "ComboBox",
-                "Position_x": 420,
-                "Position_y": 300,
-                "Width": 200,
-                "Height": 30
             },
             {
                 "Type": "Text",
@@ -323,7 +307,24 @@
                 "Position_y": 370,
                 "Width": 200,
                 "Height": 30
+            },
+            {
+                "ID": "$ScreenResolutionSelector",
+                "Type": "ComboBox",
+                "Position_x": 420,
+                "Position_y": 300,
+                "Width": 200,
+                "Height": 30
+            },
+            {
+                "ID": "$BuildMenuLayout",
+                "Type": "ComboBox",
+                "Position_x": 420,
+                "Position_y": 230,
+                "Width": 200,
+                "Height": 30
             }
+
         ]
     }
 }
