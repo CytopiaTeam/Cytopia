@@ -23,9 +23,9 @@ SDL_Point convertIsoToScreenCoordinates(const Point &isoCoordinates, bool calcWi
   const int heightOffset = 24;
 
   int x = static_cast<int>(
-      std::round(static_cast<float>((isoCoordinates.x + isoCoordinates.y) * Camera::tileSize.x) * Camera::zoomLevel) / 2);
+      std::round(static_cast<double>((isoCoordinates.x + isoCoordinates.y) * Camera::tileSize.x) * Camera::zoomLevel) / 2);
   int y = static_cast<int>(
-      std::round(static_cast<float>((isoCoordinates.x - isoCoordinates.y) * Camera::tileSize.y) * Camera::zoomLevel) / 2);
+      std::round(static_cast<double>((isoCoordinates.x - isoCoordinates.y) * Camera::tileSize.y) * Camera::zoomLevel) / 2);
 
   if (!calcWithoutOffset)
   {
@@ -36,7 +36,7 @@ SDL_Point convertIsoToScreenCoordinates(const Point &isoCoordinates, bool calcWi
   if (isoCoordinates.height > 0)
   {
     y -= static_cast<int>(
-        std::round(static_cast<float>((Camera::tileSize.x - heightOffset) * isoCoordinates.height) * Camera::zoomLevel));
+        std::round(static_cast<double>((Camera::tileSize.x - heightOffset) * isoCoordinates.height) * Camera::zoomLevel));
   }
 
   return {x, y};
