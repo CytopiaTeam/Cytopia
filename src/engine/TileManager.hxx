@@ -13,7 +13,6 @@
 enum TileMap : size_t
 {
   DEFAULT,
-  CORNERS,
   SLOPES
 };
 

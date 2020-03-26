@@ -196,7 +196,7 @@ void MapNode::updateTexture()
           m_autotileOrientation[currentLayer] = TileManager::instance().calculateTileOrientation(m_autotileBitmask[currentLayer]);
         }
       }
-      else if (m_elevationOrientation >= TileSlopes::N && m_elevationOrientation <= TileSlopes::S)
+      else if (m_elevationOrientation >= TileSlopes::N && m_elevationOrientation <= TileSlopes::BETWEEN)
       {
         if (m_mapNodeData[currentLayer].tileData->slopeTiles.fileName.empty())
         {
@@ -206,19 +206,6 @@ void MapNode::updateTexture()
         else
         {
           tileMap = TileMap::SLOPES; // TileSlopes [N,E,w,S]
-          m_autotileOrientation[currentLayer] = static_cast<TileOrientation>(m_elevationOrientation);
-        }
-      }
-      else if (m_elevationOrientation >= TileSlopes::NW && m_elevationOrientation <= TileSlopes::BETWEEN)
-      {
-        if (m_mapNodeData[currentLayer].tileData->cornerTiles.fileName.empty())
-        {
-          tileMap = TileMap::DEFAULT;
-          m_autotileOrientation[currentLayer] = TileOrientation::TILE_DEFAULT_ORIENTATION;
-        }
-        else
-        {
-          tileMap = TileMap::CORNERS; // TileSlopes [NW,NE,SE,SW,N_AND_W,N_AND_E,S_AND_E,S_AND_W]
           m_autotileOrientation[currentLayer] = static_cast<TileOrientation>(m_elevationOrientation);
         }
       }
@@ -249,19 +236,6 @@ void MapNode::updateTexture()
         }
 
         spriteCount = m_mapNodeData[currentLayer].tileData->tiles.count;
-        break;
-      case TileMap::CORNERS:
-        m_clippingWidth = m_mapNodeData[currentLayer].tileData->cornerTiles.clippingWidth;
-        clipRect.x = m_clippingWidth * (static_cast<int>(m_autotileOrientation[currentLayer]) - 4);
-        spriteCount = m_mapNodeData[currentLayer].tileData->cornerTiles.count;
-        if (clipRect.x <= static_cast<int>(spriteCount) * m_clippingWidth)
-        {
-          m_sprite->setClipRect({clipRect.x + m_mapNodeData[currentLayer].tileData->cornerTiles.offset * m_clippingWidth, 0,
-                                 m_clippingWidth, m_mapNodeData[currentLayer].tileData->cornerTiles.clippingHeight},
-                                static_cast<Layer>(currentLayer));
-          m_sprite->setTexture(TileManager::instance().getTexture(m_mapNodeData[currentLayer].tileID),
-                               static_cast<Layer>(currentLayer));
-        }
         break;
       case TileMap::SLOPES:
         if (m_mapNodeData[currentLayer].tileData->slopeTiles.fileName.empty())
