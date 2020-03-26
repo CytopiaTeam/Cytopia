@@ -39,6 +39,9 @@ Layer TileManager::getTileLayer(const std::string &tileID) const
     case TileType::BLUEPRINT:
       layer = Layer::BLUEPRINT;
       break;
+    case TileType::WATER:
+      layer = Layer::WATER;
+      break;
     case TileType::UNDERGROUND:
       layer = Layer::UNDERGROUND;
       break;
