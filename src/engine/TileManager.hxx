@@ -13,7 +13,8 @@
 enum TileMap : size_t
 {
   DEFAULT,
-  SLOPES
+  SLOPES,
+  SHORE
 };
 
 enum TileSlopes : size_t

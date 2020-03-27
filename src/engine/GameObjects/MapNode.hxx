@@ -21,6 +21,7 @@ struct MapNodeData
   int32_t tileIndex = 0;
   Point origCornerPoint = UNDEFINED_POINT;
   bool shouldRender = true;
+  TileMap tileMap = TileMap::DEFAULT; // store information wheter we use normal, slope or shore tiles
 };
 
 /** @brief Class that holds map nodes
@@ -109,7 +110,6 @@ public:
 
   const Point &getOrigCornerPoint(Layer layer) const { return getMapNodeDataForLayer(layer).origCornerPoint; }
 
-
   /** @brief return topmost active layer.
     * check layers in order of significance for the topmost active layer that has an active tile on that layer
     * @return Layer enum of the topmost active layer
@@ -121,7 +121,6 @@ public:
 private:
   Point m_isoCoordinates;
   std::unique_ptr<Sprite> m_sprite;
-  size_t tileMap = TileMap::DEFAULT;
 
   int m_maxHeight = 32;
 

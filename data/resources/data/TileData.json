@@ -8990,6 +8990,7 @@
             "clip_height": 15,
             "clip_width": 32,
             "count": 15,
+            "rotations": 16,
             "fileName": "resources/images/terrain_shorelines/terrain_grass_shore.png"
         },
         "title": "Grassland",

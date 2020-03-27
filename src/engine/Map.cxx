@@ -24,12 +24,16 @@ using json = nlohmann::json;
 
 void Map::getNodeInformation(const Point &isoCoordinates) const
 {
+  //const std::vector<MapNodeData> *TileDa = mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getMapNodeData();
   const TileData *tileData = mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getActiveMapNodeData().tileData;
   LOG(LOG_INFO) << "===== TILE at " << isoCoordinates.x << ", " << isoCoordinates.y << "=====";
+  LOG(LOG_INFO) << "ID: " << mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getActiveMapNodeData().tileID;
   LOG(LOG_INFO) << "Biome: " << tileData->biome;
   LOG(LOG_INFO) << "Category: " << tileData->category;
   LOG(LOG_INFO) << "FileName: " << tileData->tiles.fileName;
-  LOG(LOG_INFO) << "ID: " << mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getActiveMapNodeData().tileID;
+  LOG(LOG_INFO) << "Rotations: " << tileData->tiles.rotations;
+  LOG(LOG_INFO) << "TileMap: " << mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getActiveMapNodeData().tileMap;
+  LOG(LOG_INFO) << "TileIndex: " << mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getActiveMapNodeData().tileIndex;
 }
 
 constexpr struct
@@ -257,21 +261,41 @@ std::vector<uint8_t> Map::calculateAutotileBitmask(const Point &isoCoordinates)
 
   for (auto currentLayer : allLayersOrdered)
   {
+    std::pair<int, int> adjecantNodesCoordinates[8]{
+        std::make_pair(x, y + 1),     // 0 = 2^0 = 1   = TOP
+        std::make_pair(x, y - 1),     // 1 = 2^1 = 2   = BOTTOM
+        std::make_pair(x - 1, y),     // 2 = 2^2 = 4   = LEFT
+        std::make_pair(x + 1, y),     // 3 = 2^3 = 8   = RIGHT
+        std::make_pair(x - 1, y + 1), // 4 = 2^4 = 16  = TOP LEFT
+        std::make_pair(x + 1, y + 1), // 5 = 2^5 = 32  = TOP RIGHT
+        std::make_pair(x - 1, y - 1), // 6 = 2^6 = 64  = BOTTOM LEFT
+        std::make_pair(x + 1, y - 1)  // 7 = 2^7 = 128 = BOTTOM RIGHT
+    };
+
+    if (mapNodes[x * m_columns + y] && mapNodes[x * m_columns + y]->getMapNodeDataForLayer(currentLayer).tileData &&
+        (mapNodes[x * m_columns + y]->getMapNodeDataForLayer(currentLayer).tileData->tileType == +TileType::TERRAIN))
+    {
+      int i = 0;
+      for (const auto &it : adjecantNodesCoordinates)
+      {
+        if ((it.first >= 0 && it.first < m_rows && it.second >= 0 && it.second < m_columns) &&
+            (mapNodes[it.first * m_columns + it.second] &&
+             mapNodes[it.first * m_columns + it.second]->getMapNodeDataForLayer(Layer::WATER).tileData &&
+             mapNodes[it.first * m_columns + it.second]->getMapNodeDataForLayer(Layer::WATER).tileData->tileType ==
+                 +TileType::WATER))
+        {
+          // for each found tile add 2 ^ i to the bitmask
+          tileOrientationBitmask[currentLayer] |= static_cast<unsigned int>(1 << i);
+        }
+        i++;
+      }
+    }
+
     // only auto-tile categories that can be tiled.
     if (mapNodes[x * m_columns + y] && mapNodes[x * m_columns + y]->getMapNodeDataForLayer(currentLayer).tileData &&
         (mapNodes[x * m_columns + y]->getMapNodeDataForLayer(currentLayer).tileData->tileType == +TileType::AUTOTILE ||
          mapNodes[x * m_columns + y]->getMapNodeDataForLayer(currentLayer).tileData->tileType == +TileType::UNDERGROUND))
     {
-      std::pair<int, int> adjecantNodesCoordinates[8]{
-          std::make_pair(x, y + 1),     // 0 = 2^0 = 1   = TOP
-          std::make_pair(x, y - 1),     // 1 = 2^1 = 2   = BOTTOM
-          std::make_pair(x - 1, y),     // 2 = 2^2 = 4   = LEFT
-          std::make_pair(x + 1, y),     // 3 = 2^3 = 8   = RIGHT
-          std::make_pair(x - 1, y + 1), // 4 = 2^4 = 16  = TOP LEFT
-          std::make_pair(x + 1, y + 1), // 5 = 2^5 = 32  = TOP RIGHT
-          std::make_pair(x - 1, y - 1), // 6 = 2^6 = 64  = BOTTOM LEFT
-          std::make_pair(x + 1, y - 1)  // 7 = 2^7 = 128 = BOTTOM RIGHT
-      };
 
       int i = 0;
       for (const auto &it : adjecantNodesCoordinates)

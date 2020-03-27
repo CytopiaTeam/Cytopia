@@ -79,6 +79,7 @@ void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
     m_mapNodeData[layer].tileData = tileData;
     m_mapNodeData[layer].tileID = tileID;
 
+    // Determine if the tile should have a random rotation or not.
     if (m_mapNodeData[layer].tileData->tiles.rotations <= 1)
     {
       /** set tileIndex to a rand between 1 and count, this will be the displayed image
@@ -171,7 +172,6 @@ void MapNode::updateTexture()
 {
   SDL_Rect clipRect{0, 0, 0, 0};
 
-  tileMap = TileMap::DEFAULT;
   m_elevationOrientation = TileManager::instance().calculateSlopeOrientation(m_elevationBitmask);
 
   for (auto currentLayer : allLayersOrdered)
@@ -186,8 +186,14 @@ void MapNode::updateTexture()
             m_mapNodeData[currentLayer].tileData->tileType == +TileType::TERRAIN ||
             m_mapNodeData[currentLayer].tileData->tileType == +TileType::BLUEPRINT)
         {
-          tileMap = TileMap::DEFAULT;
-          m_autotileOrientation[currentLayer] = TileOrientation::TILE_DEFAULT_ORIENTATION;
+          m_autotileOrientation[currentLayer] = TileManager::instance().calculateTileOrientation(m_autotileBitmask[currentLayer]);
+          m_mapNodeData[currentLayer].tileMap = TileMap::DEFAULT;
+          if (m_autotileOrientation[currentLayer] != TileOrientation::TILE_DEFAULT_ORIENTATION)
+          {
+            m_mapNodeData[currentLayer].tileMap = TileMap::SHORE;
+            // for shoretiles, we need to reset the tileIndex to 0, else a random tile would be picked. This is a a litlte bit hacky.
+            m_mapNodeData[currentLayer].tileIndex = 0;
+          }
         }
         // if the node should autotile, check if it needs to tile itself to another tile of the same ID
         else if (m_mapNodeData[currentLayer].tileData->tileType == +TileType::AUTOTILE ||
@@ -200,17 +206,17 @@ void MapNode::updateTexture()
       {
         if (m_mapNodeData[currentLayer].tileData->slopeTiles.fileName.empty())
         {
-          tileMap = TileMap::DEFAULT;
+          m_mapNodeData[currentLayer].tileMap = TileMap::DEFAULT;
           m_autotileOrientation[currentLayer] = TileOrientation::TILE_DEFAULT_ORIENTATION;
         }
         else
         {
-          tileMap = TileMap::SLOPES; // TileSlopes [N,E,w,S]
+          m_mapNodeData[currentLayer].tileMap = TileMap::SLOPES; // TileSlopes [N,E,w,S]
           m_autotileOrientation[currentLayer] = static_cast<TileOrientation>(m_elevationOrientation);
         }
       }
 
-      switch (tileMap)
+      switch (m_mapNodeData[currentLayer].tileMap)
       {
       case TileMap::DEFAULT:
         m_clippingWidth = m_mapNodeData[currentLayer].tileData->tiles.clippingWidth;
@@ -236,6 +242,31 @@ void MapNode::updateTexture()
         }
 
         spriteCount = m_mapNodeData[currentLayer].tileData->tiles.count;
+        break;
+      case TileMap::SHORE:
+        m_clippingWidth = m_mapNodeData[currentLayer].tileData->shoreTiles.clippingWidth;
+        if (m_mapNodeData[currentLayer].tileIndex != 0)
+        {
+          clipRect.x = m_clippingWidth * m_mapNodeData[currentLayer].tileIndex;
+        }
+        else
+        {
+          clipRect.x = m_clippingWidth * static_cast<int>(m_autotileOrientation[currentLayer]);
+        }
+
+        if (!m_mapNodeData[currentLayer].tileID.empty())
+        {
+          m_sprite->setClipRect({clipRect.x + m_clippingWidth * m_mapNodeData[currentLayer].tileData->shoreTiles.offset, 0,
+                                 m_clippingWidth, m_mapNodeData[currentLayer].tileData->shoreTiles.clippingHeight},
+                                static_cast<Layer>(currentLayer));
+          if (m_mapNodeData[currentLayer].shouldRender)
+          {
+            m_sprite->setTexture(TileManager::instance().getTexture(m_mapNodeData[currentLayer].tileID + "_shore"),
+                                 static_cast<Layer>(currentLayer));
+          }
+        }
+
+        spriteCount = m_mapNodeData[currentLayer].tileData->shoreTiles.count;
         break;
       case TileMap::SLOPES:
         if (m_mapNodeData[currentLayer].tileData->slopeTiles.fileName.empty())
