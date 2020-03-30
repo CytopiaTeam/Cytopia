@@ -71,7 +71,7 @@ void MapNode::setBitmask(unsigned char elevationBitmask, std::vector<uint8_t> au
 void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
 {
   TileData *tileData = TileManager::instance().getTileData(tileID);
-  if (tileData)
+  if (tileData && !tileID.empty())
   {
     Layer layer = TileManager::instance().getTileLayer(tileID);
     m_mapNodeData[layer].origCornerPoint = origCornerPoint;
@@ -146,17 +146,20 @@ bool MapNode::isPlacementAllowed(const std::string &newTileID) const
   if (tileData)
   {
     //this is a water tile and placeOnWater has not been set to true, building is not permitted. Also disallow placing of water tiles on non water tiles
-    if ((m_mapNodeData[Layer::WATER].tileData && !tileData->placeOnWater) ||
+    if ((m_mapNodeData[Layer::WATER].tileData && !tileData->placeOnWater &&
+         m_mapNodeData[layer].tileData->tileType != +TileType::WATER) ||
         (!m_mapNodeData[Layer::WATER].tileData && tileData->placeOnWater))
     {
       return false;
     }
-
+    //(tileData->tileType == +TileType::WATER && m_mapNodeData[layer].tileData->tileType == +TileType::WATER)
     // check if the current tile is overplacable or allow overplacing autotiles if it's of the same tile ID
     if (m_mapNodeData[layer].tileData &&
-        (m_mapNodeData[layer].tileData->isOverPlacable || ((m_mapNodeData[layer].tileData->tileType == +TileType::AUTOTILE ||
-                                                            m_mapNodeData[layer].tileData->tileType == +TileType::UNDERGROUND) &&
-                                                           m_mapNodeData[layer].tileID == newTileID)))
+        (m_mapNodeData[layer].tileData->isOverPlacable ||
+         (tileData->tileType == +TileType::WATER && m_mapNodeData[layer].tileData->tileType == +TileType::WATER) ||
+         ((m_mapNodeData[layer].tileData->tileType == +TileType::AUTOTILE ||
+           m_mapNodeData[layer].tileData->tileType == +TileType::UNDERGROUND) &&
+          m_mapNodeData[layer].tileID == newTileID)))
 
     {
       return true;
@@ -171,7 +174,7 @@ bool MapNode::isPlacementAllowed(const std::string &newTileID) const
 void MapNode::updateTexture()
 {
   SDL_Rect clipRect{0, 0, 0, 0};
-
+  //TODO: Refactor this
   m_elevationOrientation = TileManager::instance().calculateSlopeOrientation(m_elevationBitmask);
 
   for (auto currentLayer : allLayersOrdered)
@@ -179,7 +182,7 @@ void MapNode::updateTexture()
     if (m_mapNodeData[currentLayer].tileData)
     {
       size_t spriteCount = 1;
-
+      m_mapNodeData[currentLayer].tileMap = TileMap::DEFAULT;
       if (m_elevationOrientation == TileSlopes::DEFAULT_ORIENTATION)
       {
         if (m_mapNodeData[currentLayer].tileData->tileType == +TileType::WATER ||
@@ -188,11 +191,11 @@ void MapNode::updateTexture()
         {
           m_autotileOrientation[currentLayer] = TileManager::instance().calculateTileOrientation(m_autotileBitmask[currentLayer]);
           m_mapNodeData[currentLayer].tileMap = TileMap::DEFAULT;
-          if (m_autotileOrientation[currentLayer] != TileOrientation::TILE_DEFAULT_ORIENTATION)
+          if (currentLayer == Layer::TERRAIN && m_autotileOrientation[currentLayer] != TileOrientation::TILE_DEFAULT_ORIENTATION)
           {
-            m_mapNodeData[currentLayer].tileMap = TileMap::SHORE;
+            m_mapNodeData[Layer::TERRAIN].tileMap = TileMap::SHORE;
             // for shoretiles, we need to reset the tileIndex to 0, else a random tile would be picked. This is a a litlte bit hacky.
-            m_mapNodeData[currentLayer].tileIndex = 0;
+            m_mapNodeData[Layer::TERRAIN].tileIndex = 0;
           }
         }
         // if the node should autotile, check if it needs to tile itself to another tile of the same ID
