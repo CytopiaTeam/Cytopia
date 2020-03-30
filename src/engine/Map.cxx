@@ -24,7 +24,6 @@ using json = nlohmann::json;
 
 void Map::getNodeInformation(const Point &isoCoordinates) const
 {
-  //const std::vector<MapNodeData> *TileDa = mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getMapNodeData();
   const TileData *tileData = mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getActiveMapNodeData().tileData;
   LOG(LOG_INFO) << "===== TILE at " << isoCoordinates.x << ", " << isoCoordinates.y << "=====";
   LOG(LOG_INFO) << "ID: " << mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getActiveMapNodeData().tileID;
@@ -221,7 +220,7 @@ unsigned char Map::getElevatedNeighborBitmask(const Point &isoCoordinates)
       std::make_pair(x + 1, y - 1)  // 7 = 2^7 = 128 = BOTTOM RIGHT
   };
 
-  int i = 0;
+  unsigned int i = 0;
   for (const auto &it : adjecantNodesCoordinates)
   {
     if ((it.first >= 0 && it.first < m_rows && it.second >= 0 && it.second < m_columns) &&
@@ -230,7 +229,7 @@ unsigned char Map::getElevatedNeighborBitmask(const Point &isoCoordinates)
          mapNodes[it.first * m_columns + it.second]))
     {
       // for each found tile add 2 ^ i to the bitmask
-      bitmask |= static_cast<unsigned int>(1 << i);
+      bitmask |= (1u << i);
     }
     i++;
   }
@@ -275,7 +274,7 @@ std::vector<uint8_t> Map::calculateAutotileBitmask(const Point &isoCoordinates)
     if (mapNodes[x * m_columns + y] && mapNodes[x * m_columns + y]->getMapNodeDataForLayer(currentLayer).tileData &&
         (mapNodes[x * m_columns + y]->getMapNodeDataForLayer(currentLayer).tileData->tileType == +TileType::TERRAIN))
     {
-      int i = 0;
+      unsigned int i = 0;
       for (const auto &it : adjecantNodesCoordinates)
       {
         if ((it.first >= 0 && it.first < m_rows && it.second >= 0 && it.second < m_columns) &&
@@ -285,7 +284,7 @@ std::vector<uint8_t> Map::calculateAutotileBitmask(const Point &isoCoordinates)
                  +TileType::WATER))
         {
           // for each found tile add 2 ^ i to the bitmask
-          tileOrientationBitmask[currentLayer] |= static_cast<unsigned int>(1 << i);
+          tileOrientationBitmask[currentLayer] |= (1u << i);
         }
         i++;
       }
@@ -297,7 +296,7 @@ std::vector<uint8_t> Map::calculateAutotileBitmask(const Point &isoCoordinates)
          mapNodes[x * m_columns + y]->getMapNodeDataForLayer(currentLayer).tileData->tileType == +TileType::UNDERGROUND))
     {
 
-      int i = 0;
+      unsigned int i = 0;
       for (const auto &it : adjecantNodesCoordinates)
       {
         if ((it.first >= 0 && it.first < m_rows && it.second >= 0 && it.second < m_columns) &&
@@ -308,7 +307,7 @@ std::vector<uint8_t> Map::calculateAutotileBitmask(const Point &isoCoordinates)
                  mapNodes[x * m_columns + y]->getMapNodeDataForLayer(currentLayer).tileID))
         {
           // for each found tile add 2 ^ i to the bitmask
-          tileOrientationBitmask[currentLayer] |= static_cast<unsigned int>(1 << i);
+          tileOrientationBitmask[currentLayer] |= (1u << i);
         }
         i++;
       }
