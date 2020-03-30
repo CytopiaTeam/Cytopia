@@ -320,10 +320,8 @@ void MapNode::setMapNodeData(std::vector<MapNodeData> &&mapNodeData, const Point
   // updates the pointers to the tiles, after loading tileIDs from json
   for (auto &it : m_mapNodeData)
   {
-    if (it.tileData)
-    {
-      delete it.tileData;
-    }
+    delete it.tileData;
+
     it.tileData = TileManager::instance().getTileData(it.tileID);
     if (it.origCornerPoint != currNodeIsoCoordinates)
     {
