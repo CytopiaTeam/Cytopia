@@ -143,31 +143,29 @@ bool MapNode::isPlacementAllowed(const std::string &newTileID) const
 {
   TileData *tileData = TileManager::instance().getTileData(newTileID);
   Layer layer = TileManager::instance().getTileLayer(newTileID);
+
   if (tileData)
   {
     //this is a water tile and placeOnWater has not been set to true, building is not permitted. Also disallow placing of water tiles on non water tiles
-    if ((m_mapNodeData[Layer::WATER].tileData && !tileData->placeOnWater &&
-         m_mapNodeData[layer].tileData->tileType != +TileType::WATER) ||
-        (!m_mapNodeData[Layer::WATER].tileData && tileData->placeOnWater))
+    if (tileData->tileType != +TileType::WATER && (m_mapNodeData[Layer::WATER].tileData && !tileData->placeOnWater ||
+                                                   !m_mapNodeData[Layer::WATER].tileData && tileData->placeOnWater))
     {
       return false;
     }
-    //(tileData->tileType == +TileType::WATER && m_mapNodeData[layer].tileData->tileType == +TileType::WATER)
-    // check if the current tile is overplacable or allow overplacing autotiles if it's of the same tile ID
+
+    // check if the current tile has the property overplacable set or if it's of the same tile ID for certain TileTypes only (not DEFAULT)
     if (m_mapNodeData[layer].tileData &&
         (m_mapNodeData[layer].tileData->isOverPlacable ||
-         (tileData->tileType == +TileType::WATER && m_mapNodeData[layer].tileData->tileType == +TileType::WATER) ||
-         ((m_mapNodeData[layer].tileData->tileType == +TileType::AUTOTILE ||
-           m_mapNodeData[layer].tileData->tileType == +TileType::UNDERGROUND) &&
-          m_mapNodeData[layer].tileID == newTileID)))
-
+         (m_mapNodeData[layer].tileData->tileType != +TileType::DEFAULT && m_mapNodeData[layer].tileID == newTileID)))
     {
       return true;
     }
+
     return isPlacableOnSlope(newTileID) &&
            (m_mapNodeData[layer].tileID == "" || m_mapNodeData[layer].tileData->tileType == +TileType::TERRAIN ||
             m_mapNodeData[layer].tileData->tileType == +TileType::BLUEPRINT);
   }
+
   return false;
 }
 
