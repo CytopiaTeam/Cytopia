@@ -26,7 +26,9 @@ void Map::getNodeInformation(const Point &isoCoordinates) const
 {
   const TileData *tileData = mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getActiveMapNodeData().tileData;
   LOG(LOG_INFO) << "===== TILE at " << isoCoordinates.x << ", " << isoCoordinates.y << "=====";
-  LOG(LOG_INFO) << "ID: " << mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getActiveMapNodeData().tileID;
+  LOG(LOG_INFO) << "[Layer: TERRAIN] ID: " << mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getMapNodeDataForLayer(Layer::TERRAIN).tileID;
+  LOG(LOG_INFO) << "[Layer: WATER] ID: " << mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getMapNodeDataForLayer(Layer::WATER).tileID;
+  LOG(LOG_INFO) << "[Layer: BUILDINGS] ID: " << mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getMapNodeDataForLayer(Layer::BUILDINGS).tileID;
   LOG(LOG_INFO) << "Biome: " << tileData->biome;
   LOG(LOG_INFO) << "Category: " << tileData->category;
   LOG(LOG_INFO) << "FileName: " << tileData->tiles.fileName;
@@ -469,7 +471,7 @@ bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int is
       {
         return false;
       }
-      if (mapNodes[isoX * m_columns + isoY]->getMapNodeDataForLayer(Layer::TERRAIN).tileMap == TileMap::SHORE)
+      if ( mapNodes[isoX * m_columns + isoY]->getMapNodeDataForLayer(Layer::TERRAIN).tileMap == TileMap::SHORE)
       {
         tileID = tileID + "_shore";
       }
