@@ -416,6 +416,7 @@ void UIManager::setCallbackFunctions()
               case +TileType::AUTOTILE:
                 GameStates::instance().placementMode = PlacementMode::LINE;
                 break;
+              case +TileType::WATER:
               case +TileType::ZONE:
                 GameStates::instance().placementMode = PlacementMode::RECTANGLE;
                 break;
