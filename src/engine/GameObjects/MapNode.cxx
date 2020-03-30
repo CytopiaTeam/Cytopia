@@ -162,7 +162,7 @@ bool MapNode::isPlacementAllowed(const std::string &newTileID) const
     }
 
     return isPlacableOnSlope(newTileID) &&
-           (m_mapNodeData[layer].tileID == "" || m_mapNodeData[layer].tileData->tileType == +TileType::TERRAIN ||
+           (m_mapNodeData[layer].tileID.empty() || m_mapNodeData[layer].tileData->tileType == +TileType::TERRAIN ||
             m_mapNodeData[layer].tileData->tileType == +TileType::BLUEPRINT);
   }
 
