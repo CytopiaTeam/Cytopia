@@ -114,7 +114,7 @@ public:
     * check layers in order of significance for the topmost active layer that has an active tile on that layer
     * @return Layer enum of the topmost active layer
     */
-  const unsigned int getTopMostActiveLayer() const;
+  Layer getTopMostActiveLayer() const;
 
   void setRenderFlag(Layer layer, bool shouldRender) { m_mapNodeData[layer].shouldRender = shouldRender; }
 

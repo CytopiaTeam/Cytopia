@@ -99,7 +99,7 @@ void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
   }
 }
 
-const unsigned int MapNode::getTopMostActiveLayer() const
+Layer MapNode::getTopMostActiveLayer() const
 {
   if (MapLayers::isLayerActive(Layer::BUILDINGS) && m_mapNodeData[Layer::BUILDINGS].tileData)
   {
