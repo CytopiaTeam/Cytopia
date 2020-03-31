@@ -52,7 +52,16 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       {
       case SDLK_ESCAPE:
         // TODO: Toggle last opened menu or settings menu if nothing is open
-        m_uiManager.toggleGroupVisibility("PauseMenu");
+        if (!tileToPlace.empty())
+        {
+          m_uiManager.closeOpenMenus();
+          tileToPlace.clear();
+          highlightSelection = false;
+        }
+        else
+        {
+          m_uiManager.toggleGroupVisibility("PauseMenu");
+        }
         break;
 
       case SDLK_0:

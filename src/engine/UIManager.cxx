@@ -261,6 +261,23 @@ void UIManager::init()
 
 void UIManager::setFPSCounterText(const std::string &fps) const { m_fpsCounter->setText(fps); }
 
+void UIManager::closeOpenMenus()
+{
+  for (const auto &[key, value] : m_uiGroups)
+  {
+    if (key == "_BuildMenu_")
+    {
+      continue;
+    }
+    for (auto element : value)
+    {
+      element->setVisibility(false);
+    }
+  }
+
+  return;
+}
+
 void UIManager::drawUI() const
 {
 #ifdef MICROPROFILE_ENABLED
@@ -287,7 +304,10 @@ void UIManager::toggleGroupVisibility(const std::string &groupID, UIElement *sen
   if (sender)
   {
     Button *button = dynamic_cast<Button *>(sender);
-
+    if (groupID == "SettingsMenu" && !(sender->getUiElementData().text == "Cancel" || sender->getUiElementData().text == "OK"))
+    {
+      closeOpenMenus();
+    }
     // cast the object to a Button to check if it's a toggle button.
     if (button && button->getUiElementData().isToggleButton)
     {
@@ -445,7 +465,6 @@ void UIManager::setCallbackFunctions()
     else if (uiElement->getUiElementData().actionID == "ToggleVisibilityOfGroup")
     {
       uiElement->registerCallbackFunction(Signal::slot(this, &UIManager::toggleGroupVisibility));
-
       if (m_layoutGroups.find(uiElement->getUiElementData().actionParameter) != m_layoutGroups.end())
       {
         // set a pointer to the parent element for all UiElements that belong to the group that.
