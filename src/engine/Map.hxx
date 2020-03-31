@@ -48,7 +48,7 @@ public:
  * @brief Sets a node to be highlit
  * This sets a node to be highlit, the highlighting is done during rendering
  * @param isoCoordinates which node should be highlit.
- * @param redHighlight should highlight it with red or gray color.
+ * @param rgbColor The SpriteRGBColor that should be used for highlighting
  */
   void highlightNode(const Point &isoCoordinates, const SpriteRGBColor &rgbColor);
 
@@ -119,17 +119,17 @@ public:
   /**
    * @brief Get original corner point of given point within building borders.
    */
-  Point getNodeOrigCornerPoint(const Point &isoCoordinates, unsigned int layer = 0);
+  Point getNodeOrigCornerPoint(const Point &isoCoordinates, Layer layer = Layer::NONE);
 
   /** \Brief Save Map to file
   * Serializes the Map class to json and writes the data to a file.
-  * @param string fileName The file the map should be written to
+  * @param fileName The file the map should be written to
   */
   void saveMapToFile(const std::string &fileName);
 
   /** \Brief Load Map from file
   * Deserializes the Map class from a json file, creates a new Map and returns it.
-  * @param string fileName The file the map should be written to
+  * @param fileName The file the map should be written to
   * @returns Map* Pointer to the newly created Map.
   */
   static Map *loadMapFromFile(const std::string &fileName);
@@ -168,7 +168,7 @@ private:
 
   /**\brief Update mapNode and its adjacent tiles
   * Updates mapNode height information, draws slopes for adjacent tiles and sets tiling for mapNode sprite if applicable
-  * @param Point isoCoordinates - isometric coordinates of the tile that should be updated.
+  * @param isoCoordinates - isometric coordinates of the tile that should be updated.
   */
   void updateNeighborsOfNode(const Point &isoCoordinates);
 
@@ -180,8 +180,8 @@ private:
 
   /**\brief Get neighbor MapNode Objects
     * Stores pointers to the neighboring nodes of the given coordinates in the passed parameter.
-    * @param Point isoCoordinates - isometric coordinates of the tile that's neighbors should be retrieved.
-    * @param NeighborMatrix result - Pass a ref of type neighbormatrix to store the found neighbors in.
+    * @param isoCoordinates - isometric coordinates of the tile that's neighbors should be retrieved.
+    * @param result - Pass a ref of type NeighborMatrix to store the found neighbors in.
     */
   void getNeighbors(const Point &isoCoordinates, NeighborMatrix &result) const;
 

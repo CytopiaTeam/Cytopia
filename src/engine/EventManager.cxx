@@ -309,14 +309,21 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           // if we touch a bigger than 1x1 tile also add all nodes of the building to highlight.
           for (const auto &coords : m_nodesToHighlight)
           {
-            Layer layer = TileManager::instance().getTileLayer(tileToPlace);
+            const Layer layer = TileManager::instance().getTileLayer(tileToPlace);
             Point currentOriginPoint = engine.map->getNodeOrigCornerPoint(coords, layer);
+            //TODO: Sometimes there's a illegal coordinate (uninitialized value in the m_nodesToHighlight container. Add a breakpoint here to debug
+            if (currentOriginPoint == UNDEFINED_POINT)
+            {
+              break;
+            }
             std::string currentTileID = engine.map->getTileID(currentOriginPoint, layer);
             for (auto &foundNode : engine.map->getObjectCoords(currentOriginPoint, currentTileID))
             {
               // only add the node if it's unique
-              if (std::find(m_nodesToHighlight.begin(), m_nodesToHighlight.end(), foundNode) == m_nodesToHighlight.end() && foundNode != UNDEFINED_POINT)
+              if (std::find(m_nodesToHighlight.begin(), m_nodesToHighlight.end(), foundNode) == m_nodesToHighlight.end() &&
+                  foundNode != UNDEFINED_POINT)
               {
+                //TODO: do not change the container we're iterating over!
                 m_nodesToHighlight.push_back(foundNode);
               }
             }

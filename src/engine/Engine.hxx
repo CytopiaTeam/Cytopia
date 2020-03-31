@@ -17,27 +17,6 @@ public:
   Engine(Engine const &) = delete;
   Engine &operator=(Engine const &) = delete;
 
-  /** \brief Enable Drawing Layer
-    * Enable Drawing Layer (use bitwise OR to add layer)
-    * @param bitmapped Uint from enum "Layers"
-    * @see Resources#Layers
-    */
-  void enableLayer(Layer layer);
-
-  /** \brief Disable Drawing Layer
-    * Disable Drawing Layer ( Turned off by using bitwise AND with inversed pattern)
-    * @param bitmapped Uint from enum "Layers"
-    * @see Resources#Layers
-    */
-  void disableLayer(Layer layer);
-
-  /** \brief Toggle Drawing Layer
-    * Toggle Drawing Layer (use bitwise XOR to toggle layer)
-    * @param bitmapped Uint from enum "Layers"
-    * @see Resources#Layers
-    */
-  void toggleLayer(Layer layer);
-
   /** @brief Increase Height
     * Increases the height of the given map node 
     * Calls the according function of the Map object that holds the terrain node and draws the slopes
@@ -72,7 +51,7 @@ public:
     * Checks if game is running
     * @returns Returns true if the game is running, and false otherwise
     */
-  bool isGameRunning() { return m_running; };
+  bool isGameRunning() const { return m_running; };
 
   /** @brief Quits the game
     * Sets m_running to false and quitting the game.
@@ -86,7 +65,7 @@ public:
     */
   void loadGame(const std::string &fileName);
 
-  void saveGame(const std::string &fileName) { map->saveMapToFile(fileName); };
+  void saveGame(const std::string &fileName) const { map->saveMapToFile(fileName); };
 
   /** @brief Creates a new game
     * Creates a new game

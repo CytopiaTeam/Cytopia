@@ -73,7 +73,7 @@ void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
   TileData *tileData = TileManager::instance().getTileData(tileID);
   if (tileData && !tileID.empty())
   {
-    Layer layer = TileManager::instance().getTileLayer(tileID);
+    const Layer layer = TileManager::instance().getTileLayer(tileID);
     m_mapNodeData[layer].origCornerPoint = origCornerPoint;
     m_previousTileID = m_mapNodeData[layer].tileID;
     m_mapNodeData[layer].tileData = tileData;
@@ -127,7 +127,7 @@ bool MapNode::isPlacableOnSlope(const std::string &tileID) const
   if (tileData && m_elevationOrientation != TileSlopes::DEFAULT_ORIENTATION)
   {
     // we need to check the terrain layer for it's orientation so we can calculate the resulting x offset in the spritesheet.
-    int clipRectX = tileData->slopeTiles.clippingWidth * static_cast<int>(m_autotileOrientation[Layer::TERRAIN]);
+    const int clipRectX = tileData->slopeTiles.clippingWidth * static_cast<int>(m_autotileOrientation[Layer::TERRAIN]);
     // while loading game, m_previousTileID will be equal to "terrain" for terrin tiles while it's empty "" when starting new game.
     // so the check here on m_previousTileID is needed both (temporary), empty and "terrain", this will be fixed in new PR.
     if (clipRectX >= static_cast<int>(tileData->slopeTiles.count) * tileData->slopeTiles.clippingWidth &&
@@ -142,7 +142,7 @@ bool MapNode::isPlacableOnSlope(const std::string &tileID) const
 bool MapNode::isPlacementAllowed(const std::string &newTileID) const
 {
   TileData *tileData = TileManager::instance().getTileData(newTileID);
-  Layer layer = TileManager::instance().getTileLayer(newTileID);
+  const Layer layer = TileManager::instance().getTileLayer(newTileID);
 
   if (tileData)
   {

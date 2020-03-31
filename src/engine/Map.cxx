@@ -241,12 +241,12 @@ unsigned char Map::getElevatedNeighborBitmask(const Point &isoCoordinates)
   return bitmask;
 }
 
-Point Map::getNodeOrigCornerPoint(const Point &isoCoordinates, unsigned int layer)
+Point Map::getNodeOrigCornerPoint(const Point &isoCoordinates, Layer layer)
 {
   //Layer layer = TileManager::instance().getTileLayer(tileID);
-  if (layer >= FIRST_LAYER && isPointWithinMapBoundaries(isoCoordinates))
+  if (layer != Layer::NONE && isPointWithinMapBoundaries(isoCoordinates))
   {
-    return mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getOrigCornerPoint((Layer)layer);
+    return mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getOrigCornerPoint(layer);
   }
   return UNDEFINED_POINT;
 }
@@ -399,13 +399,13 @@ void Map::demolishNode(const Point &isoCoordinates, bool updateNeighboringTiles)
   const size_t index = isoCoordinates.x * m_columns + isoCoordinates.y;
   if (index < mapNodes.size())
   {
-    Layer layer = Layer::BUILDINGS;
-    Point origCornerPoint = mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getOrigCornerPoint(layer);
+    const Layer layer = Layer::BUILDINGS;
+    const Point origCornerPoint = mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getOrigCornerPoint(layer);
     const size_t origIndex = origCornerPoint.x * m_columns + origCornerPoint.y;
 
     if (origIndex < mapNodes.size() && mapNodes[origIndex])
     {
-      std::string tileID = mapNodes[origIndex]->getTileID(layer);
+      const std::string &tileID = mapNodes[origIndex]->getTileID(layer);
       std::vector<Point> objectCoordinates = getObjectCoords(origCornerPoint, tileID);
 
       for (auto coords : objectCoordinates)

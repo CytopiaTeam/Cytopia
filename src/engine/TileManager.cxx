@@ -167,7 +167,7 @@ size_t TileManager::calculateSlopeOrientation(unsigned char bitMaskElevation)
 TileOrientation TileManager::calculateTileOrientation(unsigned char bitMaskElevation)
 {
   TileOrientation orientation;
-  std::bitset<8> elevationMask(bitMaskElevation);
+  const std::bitset<8> elevationMask(bitMaskElevation);
 
   // Bits:
   // 0 = 2^0 = 1   = TOP
@@ -273,7 +273,7 @@ void TileManager::init()
 
   size_t idx = 0;
 
-  for (auto element : tileDataJSON.items())
+  for (const auto &element : tileDataJSON.items())
   {
     std::string id;
     id = element.value().value("id", "");

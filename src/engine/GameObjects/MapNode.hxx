@@ -53,7 +53,7 @@ public:
 
   /** @brief sets the iso coordinates of this node
     * sets the iso coordinates of this node
-    * @param a pointer to the new iso coordinates for the node
+    * @param newIsoCoordinates the new iso coordinates for the node
     */
   void setCoordinates(const Point &newIsoCoordinates);
 
@@ -87,7 +87,7 @@ public:
     */
   const std::string &getTileID(Layer layer) const { return m_mapNodeData[layer].tileID; };
 
-  bool isPlacementAllowed(const std::string &tileID) const;
+  bool isPlacementAllowed(const std::string &newTileID) const;
 
   /// Overwrite m_mapData with the one loaded from a savegame. This function to be used only by loadGame
   void setMapNodeData(std::vector<MapNodeData> &&mapNodeData, const Point &isoCoordinates);
