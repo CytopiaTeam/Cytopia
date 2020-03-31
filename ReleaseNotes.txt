@@ -21,8 +21,12 @@ v0.2.1
 - Screen resolution can now be changed ingame
 - Fixed UI text alignment in ComboBoxes.
 - Fixed a bug where the game would crash when terrain was elevated and an in-between tile was created
-- added panning for WASD keys.
+- added panning for both WASD and arrow keys.
 - Allow to place tiles over certain items, like trees.
+- Now pressing ESC stops tile-placement mode
+- Opening the settings menu closes main menu (was left open in the background)
+- Added shorelines
+- Added more Bugs to fix later
 
 v0.2
 - A new 32-bit version of Cytopia has been made for users with older machines
