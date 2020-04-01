@@ -121,38 +121,20 @@ std::vector<Point> getRectangleSelectionNodes(const Point &isoCoordinatesStart, 
 std::vector<Point> getRectangularLineSelectionNodes(const Point &isoCoordinatesStart, const Point &isoCoordinatesEnd)
 {
   std::vector<Point> rectangle;
-  SDL_Point startRect;
-  SDL_Point endRect;
-  bool reverseDirection = false;
+  int directionX = isoCoordinatesStart.x < isoCoordinatesEnd.x ? 1 : -1;
+  int directionY = isoCoordinatesStart.y < isoCoordinatesEnd.y ? 1 : -1;
 
-  std::tie(startRect.x, endRect.x) = std::minmax(isoCoordinatesStart.x, isoCoordinatesEnd.x);
-  std::tie(startRect.y, endRect.y) = std::minmax(isoCoordinatesStart.y, isoCoordinatesEnd.y);
+  for (int x = isoCoordinatesStart.x; x != isoCoordinatesEnd.x; x += directionX)
+  {
+    rectangle.push_back(Point{x, isoCoordinatesStart.y});
+  }
 
-  if ((isoCoordinatesStart.x > isoCoordinatesEnd.x && isoCoordinatesStart.y < isoCoordinatesEnd.y) ||
-      (isoCoordinatesStart.x < isoCoordinatesEnd.x && isoCoordinatesStart.y > isoCoordinatesEnd.y))
+  for (int y = isoCoordinatesStart.y; y != isoCoordinatesEnd.y; y += directionY)
   {
-    reverseDirection = true;
+    rectangle.push_back(Point{isoCoordinatesEnd.x, y});
   }
-  for (int x = startRect.x; x <= endRect.x; x++)
-  {
-    for (int y = startRect.y; y <= endRect.y; y++)
-    {
-      if (reverseDirection)
-      {
-        if (x == startRect.x || y == startRect.y)
-        {
-          rectangle.push_back(Point{x, y});
-        }
-      }
-      else
-      {
-        if (x == startRect.x || y == endRect.y)
-        {
-          rectangle.push_back(Point{x, y});
-        }
-      }
-    }
-  }
+
+  rectangle.push_back(isoCoordinatesEnd);
 
   return rectangle;
 }
