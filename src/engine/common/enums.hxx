@@ -48,6 +48,7 @@ enum class LayerEditMode
 enum class PlacementMode
 {
   SINGLE,
+  STRAIGHT_LINE,
   LINE,
   RECTANGLE
 };

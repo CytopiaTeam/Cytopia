@@ -51,7 +51,6 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       switch (event.key.keysym.sym)
       {
       case SDLK_ESCAPE:
-        // TODO: Toggle last opened menu or settings menu if nothing is open
         if (!tileToPlace.empty())
         {
           m_uiManager.closeOpenMenus();
@@ -65,6 +64,12 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         break;
 
       case SDLK_0:
+        break;
+      case SDLK_LSHIFT:
+        if (GameStates::instance().placementMode == PlacementMode::LINE)
+        {
+          GameStates::instance().placementMode = PlacementMode::STRAIGHT_LINE;
+        }
         break;
       case SDLK_F11:
         m_uiManager.toggleDebugMenu();
@@ -156,7 +161,19 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         break;
       }
       break;
+    case SDL_KEYUP:
+      switch (event.key.keysym.sym)
+      {
+      case SDLK_LSHIFT:
+        if (GameStates::instance().placementMode == PlacementMode::STRAIGHT_LINE)
+        {
+          GameStates::instance().placementMode = PlacementMode::LINE;
+        }
+        break;
 
+      default:
+        break;
+      }
     case SDL_MULTIGESTURE:
       if (event.mgesture.numFingers == 2)
       {
@@ -299,6 +316,10 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
               break;
             case PlacementMode::LINE:
               m_nodesToPlace = createBresenhamLine(m_clickDownCoords, mouseIsoCoords);
+              m_nodesToHighlight = m_nodesToPlace;
+              break;
+            case PlacementMode::STRAIGHT_LINE:
+              m_nodesToPlace = getRectangularLineSelectionNodes(m_clickDownCoords, mouseIsoCoords);
               m_nodesToHighlight = m_nodesToPlace;
               break;
             case PlacementMode::RECTANGLE:

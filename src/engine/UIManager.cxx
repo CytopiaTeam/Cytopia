@@ -427,6 +427,7 @@ void UIManager::setCallbackFunctions()
           }
           if (!tileToPlace.empty())
           {
+            
             if (TileManager::instance().getTileData(tileToPlace))
               switch (TileManager::instance().getTileData(tileToPlace)->tileType)
               {

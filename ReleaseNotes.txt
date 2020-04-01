@@ -26,6 +26,7 @@ v0.2.1
 - Now pressing ESC stops tile-placement mode
 - Opening the settings menu closes main menu (was left open in the background)
 - Added shorelines
+- Hold down SHIFT key to use straight line placement mode instead of diagonal line placement mode
 - Added more Bugs to fix later
 
 v0.2
