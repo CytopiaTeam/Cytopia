@@ -314,17 +314,19 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
             m_nodesToPlace.push_back(mouseIsoCoords);
           }
           bool placementAllowed = false;
+          std::vector<Point> nodesToAdd;
 
           // if we touch a bigger than 1x1 tile also add all nodes of the building to highlight.
           for (const auto &coords : m_nodesToHighlight)
           {
             const Layer layer = TileManager::instance().getTileLayer(tileToPlace);
             Point currentOriginPoint = engine.map->getNodeOrigCornerPoint(coords, layer);
-            //TODO: Sometimes there's a illegal coordinate (uninitialized value in the m_nodesToHighlight container. Add a breakpoint here to debug
+
             if (currentOriginPoint == UNDEFINED_POINT)
-            {
-              break;
+            { // This should never happen, but check we'll check it anyway just to be safe
+              continue;
             }
+
             std::string currentTileID = engine.map->getTileID(currentOriginPoint, layer);
             for (auto &foundNode : engine.map->getObjectCoords(currentOriginPoint, currentTileID))
             {
@@ -332,12 +334,14 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
               if (std::find(m_nodesToHighlight.begin(), m_nodesToHighlight.end(), foundNode) == m_nodesToHighlight.end() &&
                   foundNode != UNDEFINED_POINT)
               {
-                //TODO: do not change the container we're iterating over!
-                m_nodesToHighlight.push_back(foundNode);
+                nodesToAdd.push_back(foundNode);
               }
             }
           }
-          // finally highlight all the tiles we've found
+          // add the nodes we've found
+          m_nodesToHighlight.insert(m_nodesToHighlight.end(), nodesToAdd.begin(), nodesToAdd.end());
+
+          // we need to check if placement is allowed and set a bool to color ALL the highlighted tiles and not just those who can't be placed
           for (const auto &highlitNode : m_nodesToHighlight)
           {
             if (!engine.map->isPlacementOnNodeAllowed(highlitNode, tileToPlace) || demolishMode)
@@ -352,6 +356,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
               placementAllowed = true;
             }
           }
+          // finally highlight all the tiles we've found
           for (const auto &highlitNode : m_nodesToHighlight)
           {
             if (placementAllowed)
