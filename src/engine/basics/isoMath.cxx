@@ -4,6 +4,7 @@
 #include "Camera.hxx"
 #include "Settings.hxx"
 #include "point.hxx"
+#include "LOG.hxx"
 
 Point calculateIsoCoordinates(const SDL_Point &screenCoordinates)
 {
@@ -111,6 +112,45 @@ std::vector<Point> getRectangleSelectionNodes(const Point &isoCoordinatesStart, 
     for (int y = startRect.y; y <= endRect.y; y++)
     {
       rectangle.push_back(Point{x, y});
+    }
+  }
+
+  return rectangle;
+}
+
+std::vector<Point> getRectangularLineSelectionNodes(const Point &isoCoordinatesStart, const Point &isoCoordinatesEnd)
+{
+  std::vector<Point> rectangle;
+  SDL_Point startRect;
+  SDL_Point endRect;
+  bool reverseDirection = false;
+
+  std::tie(startRect.x, endRect.x) = std::minmax(isoCoordinatesStart.x, isoCoordinatesEnd.x);
+  std::tie(startRect.y, endRect.y) = std::minmax(isoCoordinatesStart.y, isoCoordinatesEnd.y);
+
+  if ((isoCoordinatesStart.x > isoCoordinatesEnd.x && isoCoordinatesStart.y < isoCoordinatesEnd.y) ||
+      (isoCoordinatesStart.x < isoCoordinatesEnd.x && isoCoordinatesStart.y > isoCoordinatesEnd.y))
+  {
+    reverseDirection = true;
+  }
+  for (int x = startRect.x; x <= endRect.x; x++)
+  {
+    for (int y = startRect.y; y <= endRect.y; y++)
+    {
+      if (reverseDirection)
+      {
+        if (x == startRect.x || y == startRect.y)
+        {
+          rectangle.push_back(Point{x, y});
+        }
+      }
+      else
+      {
+        if (x == startRect.x || y == endRect.y)
+        {
+          rectangle.push_back(Point{x, y});
+        }
+      }
     }
   }
 
