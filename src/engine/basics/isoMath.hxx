@@ -72,4 +72,5 @@ std::vector<Point> getRectangularLineSelectionNodes(const Point &isoCoordinatesS
 //TODO: Remove this when switching to C++17 and use std::clamp instead
 template <typename T> T clamp(const T &n, const T &lower, const T &upper) { return std::max(lower, std::min(n, upper)); }
 
+
 #endif

@@ -6,6 +6,8 @@
 #include "point.hxx"
 #include "LOG.hxx"
 
+bool reverseDirection = false;
+
 Point calculateIsoCoordinates(const SDL_Point &screenCoordinates)
 {
   const int isoX =
@@ -123,18 +125,46 @@ std::vector<Point> getRectangularLineSelectionNodes(const Point &isoCoordinatesS
   std::vector<Point> rectangle;
   int directionX = isoCoordinatesStart.x < isoCoordinatesEnd.x ? 1 : -1;
   int directionY = isoCoordinatesStart.y < isoCoordinatesEnd.y ? 1 : -1;
+  int staticX, staticY;
+  SDL_Point startRect;
+  SDL_Point endRect;
+
+  uint32_t xDist = std::abs(isoCoordinatesStart.x - isoCoordinatesEnd.x);
+  uint32_t yDist = std::abs(isoCoordinatesStart.y - isoCoordinatesEnd.y);
+  
+  if (xDist == 0 && yDist == 1)
+  {
+    reverseDirection = true;
+  }
+  else if (xDist == 1 && yDist == 0)
+  {
+    reverseDirection = false;
+  }
+  else if (xDist == 0 && yDist == 0)
+  {
+    rectangle.push_back(Point{isoCoordinatesStart.x, isoCoordinatesStart.y});
+  }
+
+  if (reverseDirection)
+  {
+    staticX = isoCoordinatesStart.x;
+    staticY = isoCoordinatesEnd.y;
+  }
+  else
+  {
+    staticX = isoCoordinatesEnd.x;
+    staticY = isoCoordinatesStart.y;
+  }
 
   for (int x = isoCoordinatesStart.x; x != isoCoordinatesEnd.x; x += directionX)
   {
-    rectangle.push_back(Point{x, isoCoordinatesStart.y});
+    rectangle.push_back(Point{x, staticY});
   }
 
   for (int y = isoCoordinatesStart.y; y != isoCoordinatesEnd.y; y += directionY)
   {
-    rectangle.push_back(Point{isoCoordinatesEnd.x, y});
+    rectangle.push_back(Point{staticX, y});
   }
-
-  rectangle.push_back(isoCoordinatesEnd);
 
   return rectangle;
 }
