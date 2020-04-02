@@ -27,6 +27,8 @@ private:
 
   UIElement *m_lastHoveredElement = nullptr;
 
+  /// remember if placement is allowed from mousemove to mousedown
+  bool placementAllowed = false;
   bool m_panning = false;
   bool m_skipLeftClick = false;
   bool m_tileInfoMode = false;

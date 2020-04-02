@@ -203,10 +203,11 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           m_skipLeftClick = true;
           break;
         }
+        m_skipLeftClick = true;
       }
-      m_skipLeftClick = true;
       break;
     case SDL_MOUSEMOTION:
+      placementAllowed = false;
       // check for UI events first
       for (const auto &it : m_uiManager.getAllUiElements())
       {
@@ -270,7 +271,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           return;
         }
         // check if we should highlight tiles and if we're in placement mode
-        else if (highlightSelection)
+        if (highlightSelection)
         {
           mouseScreenCoords = {event.button.x, event.button.y};
           mouseIsoCoords = convertScreenToIsoCoordinates(mouseScreenCoords);
@@ -334,7 +335,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           {
             m_nodesToPlace.push_back(mouseIsoCoords);
           }
-          bool placementAllowed = false;
+          placementAllowed = false;
           std::vector<Point> nodesToAdd;
 
           // if we touch a bigger than 1x1 tile also add all nodes of the building to highlight.
@@ -371,11 +372,9 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
               placementAllowed = false;
               break;
             }
-            else
-            {
-              // mark gray.
-              placementAllowed = true;
-            }
+
+            // mark gray.
+            placementAllowed = true;
           }
           // finally highlight all the tiles we've found
           for (const auto &highlitNode : m_nodesToHighlight)
@@ -393,6 +392,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       }
       break;
     case SDL_MOUSEBUTTONDOWN:
+      placementAllowed = false;
       m_skipLeftClick = false;
       // check for UI events first
       for (const auto &it : m_uiManager.getAllUiElementsForEventHandling())
@@ -413,18 +413,18 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         // game event handling
         mouseScreenCoords = {event.button.x, event.button.y};
         mouseIsoCoords = convertScreenToIsoCoordinates(mouseScreenCoords);
+        const std::vector targetObjectNodes = engine.map->getObjectCoords(mouseIsoCoords, tileToPlace);
 
-        if (isPointWithinMapBoundaries(mouseIsoCoords))
+        if (isPointWithinMapBoundaries(mouseIsoCoords) && isPointWithinMapBoundaries(targetObjectNodes))
         {
           m_clickDownCoords = mouseIsoCoords;
+          placementAllowed = true;
         }
       }
       break;
 
     case SDL_MOUSEBUTTONUP:
     {
-      std::vector<Point> bresenhamLineNodes = m_nodesToPlace;
-
       if (m_panning)
       {
         Camera::centerIsoCoordinates =
@@ -465,7 +465,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       // gather all nodes the objects that'll be placed is going to occupy.
       std::vector targetObjectNodes = engine.map->getObjectCoords(mouseIsoCoords, tileToPlace);
 
-      if (event.button.button == SDL_BUTTON_LEFT && isPointWithinMapBoundaries(targetObjectNodes))
+      if (event.button.button == SDL_BUTTON_LEFT && placementAllowed)
       {
         if (m_tileInfoMode)
         {
@@ -482,7 +482,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         else if (!tileToPlace.empty())
         {
           // if targetObject.size > 1 it is a tile bigger than 1x1
-          if (targetObjectNodes.size() > 1)
+          if (targetObjectNodes.size() > 1 && isPointWithinMapBoundaries(targetObjectNodes))
           {
             // instead of using "nodesToPlace" which would be the origin-corner coordinate, we need to pass ALL occupied nodes for now.
             engine.setTileIDOfNode(targetObjectNodes.begin(), targetObjectNodes.end(), tileToPlace, false);
