@@ -545,7 +545,7 @@
         "tiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 16,
+            "count": 20,
             "fileName": "resources/images/roads/road_1x1_ruralfrroad1brokenline_RF.png",
             "rotations": 16
         },
@@ -579,7 +579,7 @@
         "tiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 16,
+            "count": 20,
             "fileName": "resources/images/roads/road_1x1_ruralroadfr1straightline_RF.png",
             "rotations": 16
         },
@@ -613,7 +613,7 @@
         "tiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 16,
+            "count": 20,
             "fileName": "resources/images/roads/road_1x1_ruralroadfr1newsaph_RF.png",
             "rotations": 16
         },
@@ -646,7 +646,7 @@
         "tiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 16,
+            "count": 20,
             "fileName": "resources/images/roads/road_1x1_ruralroadfr1grained_RF.png",
             "rotations": 16
         },
@@ -677,7 +677,7 @@
         "tiles": {
             "clip_height": 16,
             "clip_width": 32,
-            "count": 16,
+            "count": 20,
             "fileName": "resources/images/roads/road_1x1_european.png",
             "rotations": 16
         },
@@ -707,7 +707,7 @@
         "tiles": {
             "clip_height": 16,
             "clip_width": 32,
-            "count": 16,
+            "count": 20,
             "fileName": "resources/images/roads/road_1x1_european_modern.png",
             "rotations": 16
         },
@@ -737,7 +737,7 @@
         "tiles": {
             "clip_height": 16,
             "clip_width": 32,
-            "count": 16,
+            "count": 20,
             "fileName": "resources/images/roads/road_1x1_european_nosidewalk.png",
             "rotations": 16
         },
@@ -768,7 +768,7 @@
         "tiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 16,
+            "count": 20,
             "fileName": "resources/images/roads/road_1x1_Country.png",
             "rotations": 16
         },
@@ -808,7 +808,7 @@
         "tiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 16,
+            "count": 20,
             "fileName": "resources/images/roads/road_1x1_dirt.png",
             "rotations": 16
         },
@@ -844,7 +844,7 @@
         "tiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 16,
+            "count": 20,
             "fileName": "resources/images/roads/road_1x1_alley.png",
             "rotations": 16
         },
@@ -874,7 +874,7 @@
         "tiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 16,
+            "count": 20,
             "fileName": "resources/images/roads/road_1x1_Highway.png",
             "rotations": 16
         },
@@ -1394,7 +1394,7 @@
         "tiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 16,
+            "count": 20,
             "fileName": "resources/images/roads/road_1x1_paved.png",
             "rotations": 16
         },

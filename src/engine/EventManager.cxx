@@ -65,6 +65,9 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
 
       case SDLK_0:
         break;
+      case SDLK_LCTRL:
+        GameStates::instance().rectangularRoads = true;
+        break;
       case SDLK_LSHIFT:
         if (GameStates::instance().placementMode == PlacementMode::LINE)
         {
@@ -164,6 +167,9 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
     case SDL_KEYUP:
       switch (event.key.keysym.sym)
       {
+      case SDLK_LCTRL:
+        GameStates::instance().rectangularRoads = false;
+        break;
       case SDLK_LSHIFT:
         if (GameStates::instance().placementMode == PlacementMode::STRAIGHT_LINE)
         {

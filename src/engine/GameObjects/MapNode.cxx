@@ -3,6 +3,7 @@
 
 #include "LOG.hxx"
 #include "../map/MapLayers.hxx"
+#include "GameStates.hxx"
 
 MapNode::MapNode(Point isoCoordinates, const std::string &terrainID, const std::string &tileID)
     : m_isoCoordinates(std::move(isoCoordinates))
@@ -227,6 +228,28 @@ void MapNode::updateTexture()
         }
         else
         {
+          // only check for rectangular roads when there are frames for it. Spritesheets with rect-roads have 20 items
+          if (GameStates::instance().rectangularRoads && m_mapNodeData[currentLayer].tileData->tiles.count == 20)
+          {
+            switch (m_autotileOrientation[currentLayer])
+            {
+            case TileOrientation::TILE_S_AND_W:
+              m_autotileOrientation[currentLayer] = TileOrientation::TILE_S_AND_W_RECT;
+              break;
+            case TileOrientation::TILE_S_AND_E:
+              m_autotileOrientation[currentLayer] = TileOrientation::TILE_S_AND_E_RECT;
+              break;
+            case TileOrientation::TILE_N_AND_E:
+              m_autotileOrientation[currentLayer] = TileOrientation::TILE_N_AND_E_RECT;
+              break;
+            case TileOrientation::TILE_N_AND_W:
+              m_autotileOrientation[currentLayer] = TileOrientation::TILE_N_AND_W_RECT;
+              break;
+
+            default:
+              break;
+            }
+          }
           clipRect.x = m_clippingWidth * static_cast<int>(m_autotileOrientation[currentLayer]);
         }
 
