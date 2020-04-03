@@ -23,6 +23,7 @@ v0.2.1
 - Added Blueprint layer mode. When placing water pipes, the game switches to blueprint mode automatically
 - Roads of different type now won't autotile to each other
 - Hold down SHIFT key to use straight line placement mode instead of diagonal line placement mode
+- Hold down CTRL key to place straight road corners instead of diagonal ones
 - added panning for both WASD and arrow keys.
 - [General]
 - Fixed a bug where the game would crash when terrain was elevated and an in-between tile was created
