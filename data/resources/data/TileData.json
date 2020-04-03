@@ -1166,6 +1166,7 @@
     {
         "author": "RockFort",
         "category": "Zones",
+        "subCategory": "Commercial",
         "tileType": "zone",
         "description": "Commercial Zone (light).",
         "id": "zone_commercial_light",
@@ -1190,6 +1191,7 @@
     {
         "author": "RockFort",
         "category": "Zones",
+        "subCategory": "Commercial",
         "tileType": "zone",
         "description": "Commercial Zone (medium).",
         "id": "zone_commercial_medium",
@@ -1214,6 +1216,7 @@
     {
         "author": "RockFort",
         "category": "Zones",
+        "subCategory": "Commercial",
         "tileType": "zone",
         "description": "Commercial Zone (dense).",
         "id": "zone_commercial_dense",
@@ -1237,6 +1240,7 @@
     {
         "author": "RockFort",
         "category": "Zones",
+        "subCategory": "Residential",
         "tileType": "zone",
         "description": "Residential Zone (dense).",
         "id": "zone_residential_dense",
@@ -1260,6 +1264,7 @@
     {
         "author": "RockFort",
         "category": "Zones",
+        "subCategory": "Residential",
         "tileType": "zone",
         "description": "Residential Zone (medium).",
         "id": "zone_residential_medium",
@@ -1284,6 +1289,7 @@
     {
         "author": "RockFort",
         "category": "Zones",
+        "subCategory": "Residential",
         "tileType": "zone",
         "description": "Residential Zone (light).",
         "id": "zone_residential_light",
@@ -1308,6 +1314,7 @@
     {
         "author": "RockFort",
         "category": "Zones",
+        "subCategory": "Industrial",
         "tileType": "zone",
         "description": "Industrial Zone.",
         "id": "zone_industrial_light",
@@ -1331,7 +1338,8 @@
     },
     {
         "author": "RockFort",
-        "category": "Zones",
+        "category": "Zones",        
+        "subCategory": "Industrial",
         "tileType": "zone",
         "description": "Industrial Zone.",
         "id": "zone_industrial_medium",
@@ -1356,6 +1364,7 @@
     {
         "author": "RockFort",
         "category": "Zones",
+        "subCategory": "Industrial",
         "tileType": "zone",
         "description": "Industrial Zone.",
         "id": "zone_industrial_dense",

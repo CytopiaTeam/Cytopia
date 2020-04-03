@@ -427,7 +427,7 @@ void UIManager::setCallbackFunctions()
           }
           if (!tileToPlace.empty())
           {
-            
+
             if (TileManager::instance().getTileData(tileToPlace))
               switch (TileManager::instance().getTileData(tileToPlace)->tileType)
               {
@@ -576,6 +576,7 @@ void UIManager::createBuildMenu()
   for (auto &tile : TileManager::instance().getAllTileData())
   {
     std::string category = tile.second.category;
+    std::string subCategory = tile.second.subCategory;
 
     // Skip all items that have no button group
     if (category == "Water" || category == "Terrain")
@@ -585,14 +586,17 @@ void UIManager::createBuildMenu()
 
     if (m_buttonGroups.find(category) == m_buttonGroups.end())
     {
-      std::string newCategory = "Debug_" + category;
-      if (m_buttonGroups.find("Debug_" + category) == m_buttonGroups.end())
+      std::string newSubCategory = "Debug_" + subCategory + "_sub";
+      std::string newCategory = "Debug_" + category + "_sub";
+      std::string newParentCategory = "Debug_sub";
+      if (m_buttonGroups.find(newCategory) == m_buttonGroups.end())
       {
-        m_buttonGroups["Debug_" + category] = new ButtonGroup;
-        if (m_buttonGroups.find("Debug_sub") == m_buttonGroups.end())
+        m_buttonGroups[newCategory] = new ButtonGroup;
+        if (m_buttonGroups.find(newParentCategory) == m_buttonGroups.end())
         {
-          m_buttonGroups["Debug_sub"] = new ButtonGroup;
+          m_buttonGroups[newParentCategory] = new ButtonGroup;
         }
+
         Button *button = new Button({0, 0, bWid, bHei});
 
         setupButtonTileImage(button, tile);
@@ -601,12 +605,15 @@ void UIManager::createBuildMenu()
         button->setToggleButton(true);
         button->setActionID("ToggleVisibilityOfGroup");
         button->setActionParameter(newCategory);
-        button->setMenuGroupID("Debug_sub");
+        button->setMenuGroupID(newParentCategory);
         button->setTooltipText(category);
-        button->setUIElementID("Debug_sub" + std::to_string(idx));
-        m_buttonGroups["Debug_sub"]->addToGroup(button);
+        button->setUIElementID(newParentCategory + std::to_string(idx));
+        m_buttonGroups[newParentCategory]->addToGroup(button);
         m_uiElements.push_back(std::unique_ptr<UIElement>(dynamic_cast<UIElement *>(button)));
       }
+      if (!subCategory.empty())
+        continue;
+
       Button *button = new Button({0, 0, bWid, bHei});
 
       setupButtonTileImage(button, tile);
@@ -620,7 +627,7 @@ void UIManager::createBuildMenu()
       button->setUIElementID(newCategory + std::to_string(idx++));
       m_uiElements.push_back(std::unique_ptr<UIElement>(dynamic_cast<UIElement *>(button)));
     }
-    else
+    else if (subCategory.empty())
     {
       Button *button = new Button({0, 0, bWid, bHei});
 
@@ -637,6 +644,67 @@ void UIManager::createBuildMenu()
       m_uiElements.push_back(std::unique_ptr<UIElement>(dynamic_cast<UIElement *>(button)));
     }
   }
+    // SUBCATEGORIES
+  for (auto &tile : TileManager::instance().getAllTileData())
+  {
+    std::string category = tile.second.category;
+    std::string subCategory = tile.second.subCategory;
+    if (m_buttonGroups.find(subCategory) == m_buttonGroups.end() && !subCategory.empty())
+    {
+      std::string newCategory = "Debug_sc_" + subCategory + "_sub";
+      std::string newParentCategory = "Debug_" + category + "_sub";
+      if (m_buttonGroups.find(newCategory) == m_buttonGroups.end())
+      {
+        m_buttonGroups[newCategory] = new ButtonGroup;
+        if (m_buttonGroups.find(newParentCategory) == m_buttonGroups.end())
+        {
+          m_buttonGroups[newParentCategory] = new ButtonGroup;
+        }
+        Button *button = new Button({0, 0, bWid, bHei});
+
+        setupButtonTileImage(button, tile);
+        button->drawImageButtonFrame(true);
+        button->setVisibility(false);
+        button->setToggleButton(true);
+        button->setActionID("ToggleVisibilityOfGroup");
+        button->setActionParameter(newCategory);
+        button->setMenuGroupID(newParentCategory + "_sub");
+        button->setTooltipText(subCategory);
+        button->setUIElementID(newParentCategory + std::to_string(idx));
+        m_buttonGroups[newParentCategory]->addToGroup(button);
+        m_uiElements.push_back(std::unique_ptr<UIElement>(dynamic_cast<UIElement *>(button)));
+      }
+      Button *button = new Button({0, 0, bWid, bHei});
+
+      setupButtonTileImage(button, tile);
+      button->drawImageButtonFrame(true);
+      button->setVisibility(false);
+      button->setToggleButton(true);
+      button->setActionID("ChangeTileType");
+      button->setActionParameter(tile.first);
+      button->setMenuGroupID(newCategory + "_sub");
+      button->setTooltipText(tile.second.title);
+      button->setUIElementID(newCategory + std::to_string(idx++));
+      m_uiElements.push_back(std::unique_ptr<UIElement>(dynamic_cast<UIElement *>(button)));
+    }
+    else if (!subCategory.empty())
+    {
+      Button *button = new Button({0, 0, bWid, bHei});
+
+      setupButtonTileImage(button, tile);
+      button->drawImageButtonFrame(true);
+      button->setVisibility(false);
+      button->setToggleButton(true);
+      button->setActionID("ChangeTileType");
+      button->setActionParameter(tile.first);
+      button->setMenuGroupID(subCategory + "_sub");
+      button->setTooltipText(tile.second.title);
+
+      // Add the newly created button to the container holding all UiElements
+      m_uiElements.push_back(std::unique_ptr<UIElement>(dynamic_cast<UIElement *>(button)));
+    }
+  }
+  // SUBCATEGORIES END
 
   // iterate over all elements and add everything that has a BuildMenu ID.
   for (const auto &element : m_uiElements)
