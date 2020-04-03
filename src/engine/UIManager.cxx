@@ -644,7 +644,7 @@ void UIManager::createBuildMenu()
       m_uiElements.push_back(std::unique_ptr<UIElement>(dynamic_cast<UIElement *>(button)));
     }
   }
-    // SUBCATEGORIES
+  // SUBCATEGORIES
   for (auto &tile : TileManager::instance().getAllTileData())
   {
     std::string category = tile.second.category;
