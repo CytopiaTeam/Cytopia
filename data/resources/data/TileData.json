@@ -1968,14 +1968,7 @@
         "slopeTiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 4,
-            "fileName": "resources/images/terrain/water/liquid_water.png"
-        },
-        "cornerTiles": {
-            "clip_height": 23,
-            "clip_width": 32,
-            "count": 8,
-            "offset": 4,
+            "count": 13,
             "fileName": "resources/images/terrain/water/liquid_water.png"
         },
         "tiles": {
@@ -2467,10 +2460,17 @@
     {
         "author": "Folesnaid",
         "category": "Farm",
-        "description": "TODO DESC",
+        "description": "A Wheat Field",
         "id": "Farm_1x1_wheat_field_FN",
         "power": 0,
         "price": 0,
+        "slopeTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 13,
+            "offset": 0,
+            "fileName": "resources/images/buildings/farm/Farm_1x1_wheat_field_FN.png"
+        },
         "tiles": {
             "clip_height": 18,
             "clip_width": 32,
@@ -2478,21 +2478,7 @@
             "offset": 12,
             "fileName": "resources/images/buildings/farm/Farm_1x1_wheat_field_FN.png"
         },
-        "cornerTiles": {
-            "clip_height": 23,
-            "clip_width": 32,
-            "count": 8,
-            "offset": 4,
-            "fileName": "resources/images/buildings/farm/Farm_1x1_wheat_field_FN.png"
-        },
-        "slopeTiles": {
-            "clip_height": 23,
-            "clip_width": 32,
-            "count": 4,
-            "offset": 0,
-            "fileName": "resources/images/buildings/farm/Farm_1x1_wheat_field_FN.png"
-        },
-        "title": "TODO TITLE",
+        "title": "Wheat Field",
         "upkeep cost": 0,
         "water": 0,
         "tag": [
@@ -8777,14 +8763,7 @@
         "slopeTiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 4,
-            "fileName": "resources/images/terrain/blueprint/blueprint_PipeView.png"
-        },
-        "cornerTiles": {
-            "clip_height": 23,
-            "clip_width": 32,
-            "count": 8,
-            "offset": 4,
+            "count": 13,
             "fileName": "resources/images/terrain/blueprint/blueprint_PipeView.png"
         },
         "tiles": {
@@ -8814,14 +8793,7 @@
         "slopeTiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 4,
-            "fileName": "resources/images/terrain/terrain_basalt.png"
-        },
-        "cornerTiles": {
-            "clip_height": 23,
-            "clip_width": 32,
-            "count": 8,
-            "offset": 4,
+            "count": 13,
             "fileName": "resources/images/terrain/terrain_basalt.png"
         },
         "tiles": {
@@ -8851,14 +8823,7 @@
         "slopeTiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 4,
-            "fileName": "resources/images/terrain/terrain_sand_beach.png"
-        },
-        "cornerTiles": {
-            "clip_height": 23,
-            "clip_width": 32,
-            "count": 8,
-            "offset": 4,
+            "count": 13,
             "fileName": "resources/images/terrain/terrain_sand_beach.png"
         },
         "tiles": {
@@ -8889,14 +8854,7 @@
         "slopeTiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 4,
-            "fileName": "resources/images/terrain/terrain_sand_black.png"
-        },
-        "cornerTiles": {
-            "clip_height": 23,
-            "clip_width": 32,
-            "count": 8,
-            "offset": 4,
+            "count": 13,
             "fileName": "resources/images/terrain/terrain_sand_black.png"
         },
         "tiles": {
@@ -8927,14 +8885,7 @@
         "slopeTiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 4,
-            "fileName": "resources/images/terrain/terrain_burned.png"
-        },
-        "cornerTiles": {
-            "clip_height": 23,
-            "clip_width": 32,
-            "count": 8,
-            "offset": 4,
+            "count": 13,
             "fileName": "resources/images/terrain/terrain_burned.png"
         },
         "tiles": {
@@ -8964,14 +8915,7 @@
         "slopeTiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 4,
-            "fileName": "resources/images/terrain/terrain_sand_desert.png"
-        },
-        "cornerTiles": {
-            "clip_height": 23,
-            "clip_width": 32,
-            "count": 8,
-            "offset": 4,
+            "count": 13,
             "fileName": "resources/images/terrain/terrain_sand_desert.png"
         },
         "tiles": {
@@ -9002,14 +8946,7 @@
         "slopeTiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 4,
-            "fileName": "resources/images/terrain/terrain_dirt.png"
-        },
-        "cornerTiles": {
-            "clip_height": 23,
-            "clip_width": 32,
-            "count": 8,
-            "offset": 4,
+            "count": 13,
             "fileName": "resources/images/terrain/terrain_dirt.png"
         },
         "tiles": {
@@ -9039,14 +8976,7 @@
         "slopeTiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 4,
-            "fileName": "resources/images/terrain/terrain_grass.png"
-        },
-        "cornerTiles": {
-            "clip_height": 23,
-            "clip_width": 32,
-            "count": 9,
-            "offset": 4,
+            "count": 13,
             "fileName": "resources/images/terrain/terrain_grass.png"
         },
         "tiles": {
@@ -9055,6 +8985,13 @@
             "count": 3,
             "offset": 13,
             "fileName": "resources/images/terrain/terrain_grass.png"
+        },
+        "shoreLine": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 16,
+            "rotations": 16,
+            "fileName": "resources/images/terrain_shorelines/terrain_grass_shore.png"
         },
         "title": "Grassland",
         "upkeep cost": 0,
@@ -9076,14 +9013,7 @@
         "slopeTiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 4,
-            "fileName": "resources/images/terrain/terrain_grass_forest.png"
-        },
-        "cornerTiles": {
-            "clip_height": 23,
-            "clip_width": 32,
-            "count": 8,
-            "offset": 4,
+            "count": 13,
             "fileName": "resources/images/terrain/terrain_grass_forest.png"
         },
         "tiles": {
@@ -9114,14 +9044,7 @@
         "slopeTiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 4,
-            "fileName": "resources/images/terrain/terrain_grass_mint.png"
-        },
-        "cornerTiles": {
-            "clip_height": 23,
-            "clip_width": 32,
-            "count": 8,
-            "offset": 4,
+            "count": 13,
             "fileName": "resources/images/terrain/terrain_grass_mint.png"
         },
         "tiles": {
@@ -9152,14 +9075,7 @@
         "slopeTiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 4,
-            "fileName": "resources/images/terrain/terrain_grass_mint_forest.png"
-        },
-        "cornerTiles": {
-            "clip_height": 23,
-            "clip_width": 32,
-            "count": 8,
-            "offset": 4,
+            "count": 13,
             "fileName": "resources/images/terrain/terrain_grass_mint_forest.png"
         },
         "tiles": {
@@ -9191,14 +9107,7 @@
         "slopeTiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 4,
-            "fileName": "resources/images/terrain/terrain_gravel.png"
-        },
-        "cornerTiles": {
-            "clip_height": 23,
-            "clip_width": 32,
-            "count": 8,
-            "offset": 4,
+            "count": 13,
             "fileName": "resources/images/terrain/terrain_gravel.png"
         },
         "tiles": {
@@ -9228,14 +9137,7 @@
         "slopeTiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 4,
-            "fileName": "resources/images/terrain/terrain_mud.png"
-        },
-        "cornerTiles": {
-            "clip_height": 23,
-            "clip_width": 32,
-            "count": 8,
-            "offset": 4,
+            "count": 13,
             "fileName": "resources/images/terrain/terrain_mud.png"
         },
         "tiles": {
@@ -9265,14 +9167,7 @@
         "slopeTiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 4,
-            "fileName": "resources/images/terrain/terrain_sand_red.png"
-        },
-        "cornerTiles": {
-            "clip_height": 23,
-            "clip_width": 32,
-            "count": 8,
-            "offset": 4,
+            "count": 13,
             "fileName": "resources/images/terrain/terrain_sand_red.png"
         },
         "tiles": {
@@ -9303,14 +9198,7 @@
         "slopeTiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 4,
-            "fileName": "resources/images/terrain/terrain_rainstone.png"
-        },
-        "cornerTiles": {
-            "clip_height": 23,
-            "clip_width": 32,
-            "count": 8,
-            "offset": 4,
+            "count": 13,
             "fileName": "resources/images/terrain/terrain_rainstone.png"
         },
         "tiles": {
@@ -9341,14 +9229,7 @@
         "slopeTiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 4,
-            "fileName": "resources/images/terrain/terrain_shading.png"
-        },
-        "cornerTiles": {
-            "clip_height": 23,
-            "clip_width": 32,
-            "count": 8,
-            "offset": 4,
+            "count": 13,
             "fileName": "resources/images/terrain/terrain_shading.png"
         },
         "tiles": {
@@ -9378,14 +9259,7 @@
         "slopeTiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 4,
-            "fileName": "resources/images/terrain/terrain_snow.png"
-        },
-        "cornerTiles": {
-            "clip_height": 23,
-            "clip_width": 32,
-            "count": 8,
-            "offset": 4,
+            "count": 13,
             "fileName": "resources/images/terrain/terrain_snow.png"
         },
         "tiles": {
@@ -9415,14 +9289,7 @@
         "slopeTiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 4,
-            "fileName": "resources/images/terrain/terrain_soil.png"
-        },
-        "cornerTiles": {
-            "clip_height": 23,
-            "clip_width": 32,
-            "count": 8,
-            "offset": 4,
+            "count": 13,
             "fileName": "resources/images/terrain/terrain_soil.png"
         },
         "tiles": {
@@ -9452,14 +9319,7 @@
         "slopeTiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 4,
-            "fileName": "resources/images/terrain/terrain_stone.png"
-        },
-        "cornerTiles": {
-            "clip_height": 23,
-            "clip_width": 32,
-            "count": 8,
-            "offset": 4,
+            "count": 13,
             "fileName": "resources/images/terrain/terrain_stone.png"
         },
         "tiles": {

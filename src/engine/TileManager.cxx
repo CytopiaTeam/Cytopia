@@ -39,6 +39,9 @@ Layer TileManager::getTileLayer(const std::string &tileID) const
     case TileType::BLUEPRINT:
       layer = Layer::BLUEPRINT;
       break;
+    case TileType::WATER:
+      layer = Layer::WATER;
+      break;
     case TileType::UNDERGROUND:
       layer = Layer::UNDERGROUND;
       break;
@@ -326,17 +329,17 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
     ResourcesManager::instance().loadTexture(id, m_tileData[id].tiles.fileName);
   }
 
-  if (tileDataJSON[idx].find("cornerTiles") != tileDataJSON[idx].end())
+  if (tileDataJSON[idx].find("shoreLine") != tileDataJSON[idx].end())
   {
-    m_tileData[id].cornerTiles.fileName = tileDataJSON[idx]["cornerTiles"].value("fileName", "");
-    m_tileData[id].cornerTiles.count = tileDataJSON[idx]["cornerTiles"].value("count", 1);
-    m_tileData[id].cornerTiles.clippingWidth = tileDataJSON[idx]["cornerTiles"].value("clip_width", 0);
-    m_tileData[id].cornerTiles.clippingHeight = tileDataJSON[idx]["cornerTiles"].value("clip_height", 0);
-    m_tileData[id].cornerTiles.offset = tileDataJSON[idx]["cornerTiles"].value("offset", 0);
+    m_tileData[id].shoreTiles.fileName = tileDataJSON[idx]["shoreLine"].value("fileName", "");
+    m_tileData[id].shoreTiles.count = tileDataJSON[idx]["shoreLine"].value("count", 1);
+    m_tileData[id].shoreTiles.clippingWidth = tileDataJSON[idx]["shoreLine"].value("clip_width", 0);
+    m_tileData[id].shoreTiles.clippingHeight = tileDataJSON[idx]["shoreLine"].value("clip_height", 0);
+    m_tileData[id].shoreTiles.offset = tileDataJSON[idx]["shoreLine"].value("offset", 0);
 
-    if (!m_tileData[id].cornerTiles.fileName.empty())
+    if (!m_tileData[id].shoreTiles.fileName.empty())
     {
-      ResourcesManager::instance().loadTexture(id, m_tileData[id].cornerTiles.fileName);
+      ResourcesManager::instance().loadTexture(id + "_shore", m_tileData[id].shoreTiles.fileName);
     }
   }
 

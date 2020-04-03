@@ -26,10 +26,15 @@ void Map::getNodeInformation(const Point &isoCoordinates) const
 {
   const TileData *tileData = mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getActiveMapNodeData().tileData;
   LOG(LOG_INFO) << "===== TILE at " << isoCoordinates.x << ", " << isoCoordinates.y << "=====";
+  LOG(LOG_INFO) << "[Layer: TERRAIN] ID: " << mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getMapNodeDataForLayer(Layer::TERRAIN).tileID;
+  LOG(LOG_INFO) << "[Layer: WATER] ID: " << mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getMapNodeDataForLayer(Layer::WATER).tileID;
+  LOG(LOG_INFO) << "[Layer: BUILDINGS] ID: " << mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getMapNodeDataForLayer(Layer::BUILDINGS).tileID;
   LOG(LOG_INFO) << "Biome: " << tileData->biome;
   LOG(LOG_INFO) << "Category: " << tileData->category;
   LOG(LOG_INFO) << "FileName: " << tileData->tiles.fileName;
-  LOG(LOG_INFO) << "ID: " << mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getActiveMapNodeData().tileID;
+  LOG(LOG_INFO) << "Rotations: " << tileData->tiles.rotations;
+  LOG(LOG_INFO) << "TileMap: " << mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getActiveMapNodeData().tileMap;
+  LOG(LOG_INFO) << "TileIndex: " << mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getActiveMapNodeData().tileIndex;
 }
 
 constexpr struct
@@ -217,7 +222,7 @@ unsigned char Map::getElevatedNeighborBitmask(const Point &isoCoordinates)
       std::make_pair(x + 1, y - 1)  // 7 = 2^7 = 128 = BOTTOM RIGHT
   };
 
-  int i = 0;
+  unsigned int i = 0;
   for (const auto &it : adjecantNodesCoordinates)
   {
     if ((it.first >= 0 && it.first < m_rows && it.second >= 0 && it.second < m_columns) &&
@@ -226,7 +231,7 @@ unsigned char Map::getElevatedNeighborBitmask(const Point &isoCoordinates)
          mapNodes[it.first * m_columns + it.second]))
     {
       // for each found tile add 2 ^ i to the bitmask
-      bitmask |= static_cast<unsigned int>(1 << i);
+      bitmask |= (1u << i);
     }
     i++;
   }
@@ -257,23 +262,43 @@ std::vector<uint8_t> Map::calculateAutotileBitmask(const Point &isoCoordinates)
 
   for (auto currentLayer : allLayersOrdered)
   {
+    std::pair<int, int> adjecantNodesCoordinates[8]{
+        std::make_pair(x, y + 1),     // 0 = 2^0 = 1   = TOP
+        std::make_pair(x, y - 1),     // 1 = 2^1 = 2   = BOTTOM
+        std::make_pair(x - 1, y),     // 2 = 2^2 = 4   = LEFT
+        std::make_pair(x + 1, y),     // 3 = 2^3 = 8   = RIGHT
+        std::make_pair(x - 1, y + 1), // 4 = 2^4 = 16  = TOP LEFT
+        std::make_pair(x + 1, y + 1), // 5 = 2^5 = 32  = TOP RIGHT
+        std::make_pair(x - 1, y - 1), // 6 = 2^6 = 64  = BOTTOM LEFT
+        std::make_pair(x + 1, y - 1)  // 7 = 2^7 = 128 = BOTTOM RIGHT
+    };
+
+    if (mapNodes[x * m_columns + y] && mapNodes[x * m_columns + y]->getMapNodeDataForLayer(currentLayer).tileData &&
+        (mapNodes[x * m_columns + y]->getMapNodeDataForLayer(currentLayer).tileData->tileType == +TileType::TERRAIN))
+    {
+      unsigned int i = 0;
+      for (const auto &it : adjecantNodesCoordinates)
+      {
+        if ((it.first >= 0 && it.first < m_rows && it.second >= 0 && it.second < m_columns) &&
+            (mapNodes[it.first * m_columns + it.second] &&
+             mapNodes[it.first * m_columns + it.second]->getMapNodeDataForLayer(Layer::WATER).tileData &&
+             mapNodes[it.first * m_columns + it.second]->getMapNodeDataForLayer(Layer::WATER).tileData->tileType ==
+                 +TileType::WATER))
+        {
+          // for each found tile add 2 ^ i to the bitmask
+          tileOrientationBitmask[currentLayer] |= (1u << i);
+        }
+        i++;
+      }
+    }
+
     // only auto-tile categories that can be tiled.
     if (mapNodes[x * m_columns + y] && mapNodes[x * m_columns + y]->getMapNodeDataForLayer(currentLayer).tileData &&
         (mapNodes[x * m_columns + y]->getMapNodeDataForLayer(currentLayer).tileData->tileType == +TileType::AUTOTILE ||
          mapNodes[x * m_columns + y]->getMapNodeDataForLayer(currentLayer).tileData->tileType == +TileType::UNDERGROUND))
     {
-      std::pair<int, int> adjecantNodesCoordinates[8]{
-          std::make_pair(x, y + 1),     // 0 = 2^0 = 1   = TOP
-          std::make_pair(x, y - 1),     // 1 = 2^1 = 2   = BOTTOM
-          std::make_pair(x - 1, y),     // 2 = 2^2 = 4   = LEFT
-          std::make_pair(x + 1, y),     // 3 = 2^3 = 8   = RIGHT
-          std::make_pair(x - 1, y + 1), // 4 = 2^4 = 16  = TOP LEFT
-          std::make_pair(x + 1, y + 1), // 5 = 2^5 = 32  = TOP RIGHT
-          std::make_pair(x - 1, y - 1), // 6 = 2^6 = 64  = BOTTOM LEFT
-          std::make_pair(x + 1, y - 1)  // 7 = 2^7 = 128 = BOTTOM RIGHT
-      };
 
-      int i = 0;
+      unsigned int i = 0;
       for (const auto &it : adjecantNodesCoordinates)
       {
         if ((it.first >= 0 && it.first < m_rows && it.second >= 0 && it.second < m_columns) &&
@@ -284,7 +309,7 @@ std::vector<uint8_t> Map::calculateAutotileBitmask(const Point &isoCoordinates)
                  mapNodes[x * m_columns + y]->getMapNodeDataForLayer(currentLayer).tileID))
         {
           // for each found tile add 2 ^ i to the bitmask
-          tileOrientationBitmask[currentLayer] |= static_cast<unsigned int>(1 << i);
+          tileOrientationBitmask[currentLayer] |= (1u << i);
         }
         i++;
       }
@@ -432,21 +457,27 @@ bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int is
   {
     SDL_Rect spriteRect = mapNodes[isoX * m_columns + isoY]->getSprite()->getDestRect(Layer::TERRAIN);
     SDL_Rect clipRect = mapNodes[isoX * m_columns + isoY]->getSprite()->getClipRect(Layer::TERRAIN);
-    clipRect.h += 1; //HACK: We need to increase clipRect height by one to match all points in the drawRect. This is likely be caused by 
+    clipRect.h +=
+        1; //HACK: We need to increase clipRect height by one to match all points in the drawRect. This is likely be caused by
 
     if (SDL_PointInRect(&screenCoordinates, &spriteRect))
     {
       // Calculate the position of the clicked pixel within the surface and "un-zoom" the position to match the un-adjusted surface
       // we need to offset the click coordinates by the clipping coordinates to check for the right sprite in the spritesheet.
-      const int pixelX =
-          static_cast<int>((screenCoordinates.x - spriteRect.x) / Camera::zoomLevel) + clipRect.x;
-      const int pixelY =
-          static_cast<int>((screenCoordinates.y - spriteRect.y) / Camera::zoomLevel) + clipRect.y;
+      const int pixelX = static_cast<int>((screenCoordinates.x - spriteRect.x) / Camera::zoomLevel) + clipRect.x;
+      const int pixelY = static_cast<int>((screenCoordinates.y - spriteRect.y) / Camera::zoomLevel) + clipRect.y;
+      std::string tileID = mapNodes[isoX * m_columns + isoY]->getMapNodeDataForLayer(Layer::TERRAIN).tileID;
+      if (tileID.empty())
+      {
+        return false;
+      }
+      if ( mapNodes[isoX * m_columns + isoY]->getMapNodeDataForLayer(Layer::TERRAIN).tileMap == TileMap::SHORE)
+      {
+        tileID = tileID + "_shore";
+      }
       // Check if the clicked Sprite is not transparent (we hit a point within the pixel)
-      if (getColorOfPixelInSurface(ResourcesManager::instance().getTileSurface(
-                                       mapNodes[isoX * m_columns + isoY]->getMapNodeDataForLayer(Layer::TERRAIN).tileID),
-                                   pixelX, pixelY)
-              .a != SDL_ALPHA_TRANSPARENT)
+      if (getColorOfPixelInSurface(ResourcesManager::instance().getTileSurface(tileID), pixelX, pixelY).a !=
+          SDL_ALPHA_TRANSPARENT)
       {
         return true;
       }

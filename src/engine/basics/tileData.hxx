@@ -66,7 +66,7 @@ struct TileData
   std::string biome;    /// the biome the tile belongs to
   TileSetData tiles;
   TileType tileType = TileType::DEFAULT; /// todo: String for now, should be an enum
-  TileSetData cornerTiles;
+  TileSetData shoreTiles;
   TileSetData slopeTiles;
   std::string title;
   std::string description;
