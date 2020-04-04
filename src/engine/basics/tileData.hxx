@@ -75,15 +75,19 @@ struct TileData
   int upkeepCost = 0; /// monthly cost
   int power = 0;      /// power production / consumption if negative
   int water = 0;      /// water production / consumption if negative
-  std::string author;
+  Wealth wealth = +Wealth::LOW;
   bool drawGround = false;   /// draw ground below sprite (grass, flowers, ...)
   bool placeOnGround = true; /// wether or not this building is placeable on ground
   bool placeOnWater = false; /// whether or not this building is placeable on water
-  bool isOverPlacable;
+  bool isOverPlacable; /// Determines if other tiles can be placed over this one tile.
   int pollutionLevel = 0;  /// Pollution this building produces or prevents
   int crimeLevel = 0;      /// Crime this building produces or prevents (police station)
-  int fireDangerLevel = 0; /// Fire Danger this building produces or prevents
-  int habitants = 0;
+  int fireHazardLevel = 0; /// Fire Danger this building produces or prevents
+  int inhabitants = 0; /// How many residents / workers this building can hold. Also how much jobs it provides
+  int educationLevel = 0; ///How much education this building provides (educational building) / requires (job)
+  std::vector<Zones> zones;
+  std::vector<Style> style;
+  std::string author;
   RequiredTilesData RequiredTiles;
 };
 

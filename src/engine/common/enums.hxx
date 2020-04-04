@@ -18,7 +18,7 @@ enum Layer : unsigned int
   LAYERS_COUNT     // this must be LAST !!!
 };
 
-constexpr size_t FIRST_LAYER = NONE + 1; 
+constexpr size_t FIRST_LAYER = NONE + 1;
 
 /// This is a orderd list of all relevant layers we need to interact with
 static const Layer allLayersOrdered[] = {Layer::TERRAIN, Layer::WATER, Layer::BUILDINGS, Layer::BLUEPRINT, Layer::UNDERGROUND};
@@ -31,6 +31,25 @@ BETTER_ENUM(TileType, int,
             AUTOTILE,   // Autotiling to itself, like roads, power lines, etc
             ZONE,       // Zones (rectangular placement)
             UNDERGROUND // same as AUTOTILE, but for the BLUEPRINT layer
+)
+
+// 
+BETTER_ENUM(Zones, int,
+            NONE, // not applicable
+            RESIDENTIAL, INDUSTRIAL, COMMERCIAL, AGRICULTURAL)
+
+BETTER_ENUM(Wealth, int,
+            NONE,   // not applicable
+            LOW,    // Low income
+            MEDIUM, // Medium income
+            HIGH    // High income
+)
+
+BETTER_ENUM(Style, int,
+            ALL,      // Default, place the Building in all Styles
+            ASIAN,    // This building will only appear in a game with the Style Asian
+            EUROPEAN, // This building will only appear in a game with the Style European
+            US        // This building will only appear in a game with the Style US
 )
 
 /**
