@@ -349,6 +349,14 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
     m_tileData[id].style.push_back(Style::ALL);
   }
 
+  if (tileDataJSON[idx].find("biomes") != tileDataJSON[idx].end())
+  {
+    for (auto biome : tileDataJSON[idx].at("biomes").items())
+    {
+      m_tileData[id].biomes.push_back(biome.value().get<std::string>());
+    }
+  }
+
   if (tileDataJSON[idx].find("RequiredTiles") != tileDataJSON[idx].end())
   {
     m_tileData[id].RequiredTiles.width = tileDataJSON[idx]["RequiredTiles"].value("width", 1);
