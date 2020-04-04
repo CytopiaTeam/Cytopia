@@ -162,7 +162,7 @@ private:
   int m_columns;
   int m_rows;
 
-  TerrainGenerator terrainGen;
+  TerrainGenerator m_terrainGen;
 
   static const size_t m_saveGameVersion;
 

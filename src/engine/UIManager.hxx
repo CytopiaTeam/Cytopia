@@ -149,7 +149,7 @@ public:
   void closeOpenMenus();
 
 private:
-  BUILDMENU_LAYOUT buildMenuLayout = BUILDMENU_LAYOUT::BOTTOM;
+  BUILDMENU_LAYOUT m_buildMenuLayout = BUILDMENU_LAYOUT::BOTTOM;
 
   UIManager() = default;
   ~UIManager() = default;
@@ -197,9 +197,9 @@ private:
    */
   void setupButtonTileImage(Button *button, const std::pair<std::string, TileData> &tile);
 
-  bool m_showDebugMenu = false;
-
   void addToLayoutGroup(const std::string &groupName, UIElement *widget);
+
+  bool m_showDebugMenu = false;
 };
 
 #endif

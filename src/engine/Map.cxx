@@ -69,7 +69,7 @@ Map::Map(int columns, int rows) : m_columns(columns), m_rows(rows)
 
 void Map::initMap()
 {
-  terrainGen.generateTerrain(mapNodes, mapNodesInDrawingOrder);
+  m_terrainGen.generateTerrain(mapNodes, mapNodesInDrawingOrder);
   updateAllNodes();
 }
 

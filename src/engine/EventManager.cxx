@@ -188,13 +188,13 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         if (event.mgesture.dDist != 0)
         {
           // store pinchCenterCoords so they stay the same for all zoom levels
-          if (pinchCenterCoords.x == 0 && pinchCenterCoords.y == 0)
+          if (m_pinchCenterCoords.x == 0 && m_pinchCenterCoords.y == 0)
           {
-            pinchCenterCoords =
+            m_pinchCenterCoords =
                 convertScreenToIsoCoordinates({static_cast<int>(event.mgesture.x * Settings::instance().screenWidth),
                                                static_cast<int>(event.mgesture.y * Settings::instance().screenHeight)});
           }
-          Camera::setPinchDistance(event.mgesture.dDist * 15.0F, pinchCenterCoords.x, pinchCenterCoords.y);
+          Camera::setPinchDistance(event.mgesture.dDist * 15.0F, m_pinchCenterCoords.x, m_pinchCenterCoords.y);
           m_skipLeftClick = true;
           break;
         }
@@ -213,7 +213,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       }
       break;
     case SDL_MOUSEMOTION:
-      placementAllowed = false;
+      m_placementAllowed = false;
       // check for UI events first
       for (const auto &it : m_uiManager.getAllUiElements())
       {
@@ -341,7 +341,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           {
             m_nodesToPlace.push_back(mouseIsoCoords);
           }
-          placementAllowed = false;
+          m_placementAllowed = false;
           std::vector<Point> nodesToAdd;
 
           // if we touch a bigger than 1x1 tile also add all nodes of the building to highlight.
@@ -375,17 +375,17 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
             if (!engine.map->isPlacementOnNodeAllowed(highlitNode, tileToPlace) || demolishMode)
             {
               // already occupied tile, mark red
-              placementAllowed = false;
+              m_placementAllowed = false;
               break;
             }
 
             // mark gray.
-            placementAllowed = true;
+            m_placementAllowed = true;
           }
           // finally highlight all the tiles we've found
           for (const auto &highlitNode : m_nodesToHighlight)
           {
-            if (placementAllowed)
+            if (m_placementAllowed)
             {
               engine.map->highlightNode(highlitNode, SpriteHighlightColor::GRAY);
             }
@@ -398,7 +398,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       }
       break;
     case SDL_MOUSEBUTTONDOWN:
-      placementAllowed = false;
+      m_placementAllowed = false;
       m_skipLeftClick = false;
       // check for UI events first
       for (const auto &it : m_uiManager.getAllUiElementsForEventHandling())
@@ -424,7 +424,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         if (isPointWithinMapBoundaries(mouseIsoCoords) && isPointWithinMapBoundaries(targetObjectNodes))
         {
           m_clickDownCoords = mouseIsoCoords;
-          placementAllowed = true;
+          m_placementAllowed = true;
         }
       }
       break;
@@ -438,7 +438,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         m_panning = false;
       }
       // reset pinchCenterCoords when fingers are released
-      pinchCenterCoords = {0, 0, 0, 0};
+      m_pinchCenterCoords = {0, 0, 0, 0};
       // check for UI events first
       for (const auto &it : m_uiManager.getAllUiElementsForEventHandling())
       {
@@ -471,7 +471,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       // gather all nodes the objects that'll be placed is going to occupy.
       std::vector targetObjectNodes = engine.map->getObjectCoords(mouseIsoCoords, tileToPlace);
 
-      if (event.button.button == SDL_BUTTON_LEFT && placementAllowed)
+      if (event.button.button == SDL_BUTTON_LEFT && m_placementAllowed)
       {
         if (m_tileInfoMode)
         {
@@ -527,17 +527,17 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
     }
   }
 
-  for (auto &timer : timers)
+  for (auto &timer : m_timers)
   {
     if (timer)
       timer->checkTimeout();
   }
 
-  for (std::vector<Timer *>::iterator it = timers.begin(); it != timers.end();)
+  for (std::vector<Timer *>::iterator it = m_timers.begin(); it != m_timers.end();)
   {
     if (!(*it)->isActive())
     {
-      it = timers.erase(it);
+      it = m_timers.erase(it);
     }
     else
     {
@@ -546,4 +546,4 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
   }
 }
 
-void EventManager::registerTimer(Timer *timer) { timers.push_back(timer); }
+void EventManager::registerTimer(Timer *timer) { m_timers.push_back(timer); }

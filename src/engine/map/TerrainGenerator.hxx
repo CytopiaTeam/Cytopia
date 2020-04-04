@@ -57,9 +57,9 @@ public:
   void loadTerrainDataFromJSON();
 
 private:
-  TerrainSettings terrainSettings;
+  TerrainSettings m_terrainSettings;
 
-  std::map<std::string, BiomeData> biomeInformation; // key: biome
+  std::map<std::string, BiomeData> m_biomeInformation; // key: biome
 };
 
 #endif

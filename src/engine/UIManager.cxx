@@ -759,7 +759,7 @@ void UIManager::setBuildMenuLayout()
   std::string layoutType = "HORIZONTAL";
   std::string subMenuAlignment = "HORIZONTAL";
 
-  switch (buildMenuLayout)
+  switch (m_buildMenuLayout)
   {
   case BUILDMENU_LAYOUT::LEFT:
     alignment = "LEFT_CENTER";
@@ -832,28 +832,28 @@ void UIManager::initializeDollarVariables()
         if (Settings::instance().buildMenuPosition == "LEFT")
         {
           combobox->setActiveID(static_cast<int>(combobox->count() - 1));
-          buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(combobox->count() - 1));
+          m_buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(combobox->count() - 1));
         }
         combobox->addElement("RIGHT");
         // TODO: #97 Ugly workaround until we have BetterEnums
         if (Settings::instance().buildMenuPosition == "RIGHT")
         {
           combobox->setActiveID(static_cast<int>(combobox->count() - 1));
-          buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(combobox->count() - 1));
+          m_buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(combobox->count() - 1));
         }
         combobox->addElement("TOP");
         // TODO: #97 Ugly workaround until we have BetterEnums
         if (Settings::instance().buildMenuPosition == "TOP")
         {
           combobox->setActiveID(static_cast<int>(combobox->count() - 1));
-          buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(combobox->count() - 1));
+          m_buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(combobox->count() - 1));
         }
         combobox->addElement("BOTTOM");
         // TODO: #97 Ugly workaround until we have BetterEnums
         if (Settings::instance().buildMenuPosition == "BOTTOM")
         {
           combobox->setActiveID(static_cast<int>(combobox->count() - 1));
-          buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(combobox->count() - 1));
+          m_buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(combobox->count() - 1));
         }
 
         combobox->registerCallbackFunction(Signal::slot(this, &UIManager::setBuildMenuPosition));
@@ -914,7 +914,7 @@ void UIManager::setBuildMenuPosition(UIElement *sender)
   if (comboBox)
   {
     Settings::instance().buildMenuPosition = comboBox->activeText;
-    buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(comboBox->getActiveID());
+    m_buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(comboBox->getActiveID());
     setBuildMenuLayout();
     Layout::arrangeElements();
   }
