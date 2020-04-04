@@ -302,10 +302,53 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
   m_tileData[id].category = tileDataJSON[idx].value("category", "");
   m_tileData[id].subCategory = tileDataJSON[idx].value("subCategory", "");
   m_tileData[id].price = tileDataJSON[idx].value("price", 0);
+  m_tileData[id].power = tileDataJSON[idx].value("power", 0);
   m_tileData[id].water = tileDataJSON[idx].value("water", 0);
+  m_tileData[id].upkeepCost = tileDataJSON[idx].value("upkeepCost", 0);
   m_tileData[id].isOverPlacable = tileDataJSON[idx].value("isOverPlacable", false);
   m_tileData[id].drawGround = tileDataJSON[idx].value("draw ground", false);
   m_tileData[id].placeOnWater = tileDataJSON[idx].value("placeOnWater", false);
+  m_tileData[id].inhabitants = tileDataJSON[idx].value("inhabitants", 0);
+  m_tileData[id].fireHazardLevel = tileDataJSON[idx].value("fireHazardLevel", 0);
+  m_tileData[id].educationLevel = tileDataJSON[idx].value("educationLevel", 0);
+  m_tileData[id].crimeLevel = tileDataJSON[idx].value("crimeLevel", 0);
+  m_tileData[id].pollutionLevel = tileDataJSON[idx].value("pollutionLevel", 0);
+
+  std::string wealth = tileDataJSON[idx].value("wealth", "none");
+
+  if (Wealth::_is_valid_nocase(wealth.c_str()))
+  {
+    m_tileData[id].wealth = Wealth::_from_string_nocase(wealth.c_str());
+  }
+  else
+  {
+    LOG(LOG_ERROR) << "In TileData.json in field with ID " << id << " the unsupported value " << wealth
+                   << " is used for the field wealth.";
+  }
+
+  if (tileDataJSON[idx].find("zones") != tileDataJSON[idx].end())
+  {
+    for (auto zone : tileDataJSON[idx].at("zones").items())
+    {
+      m_tileData[id].zones.push_back(Zones::_from_string_nocase(zone.value().get<std::string>().c_str()));
+    }
+  }
+  else
+  {
+    m_tileData[id].zones.push_back(Zones::NONE);
+  }
+
+  if (tileDataJSON[idx].find("style") != tileDataJSON[idx].end())
+  {
+    for (auto style : tileDataJSON[idx].at("style").items())
+    {
+      m_tileData[id].style.push_back(Style::_from_string_nocase(style.value().get<std::string>().c_str()));
+    }
+  }
+  else
+  {
+    m_tileData[id].style.push_back(Style::ALL);
+  }
 
   if (tileDataJSON[idx].find("RequiredTiles") != tileDataJSON[idx].end())
   {

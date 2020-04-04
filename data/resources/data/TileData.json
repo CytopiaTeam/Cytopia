@@ -318,6 +318,8 @@
     {
         "author": "Kingtut 101",
         "category": "Commercial",
+        "zones": ["commercial"],
+        "style": ["European"],
         "description": "A somewhat large fast food restaurant known for cheap food and questionable quality.",
         "id": "com_2x2_BorgsBurgers",
         "power": 0,
