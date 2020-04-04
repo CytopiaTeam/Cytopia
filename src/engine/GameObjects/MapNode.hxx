@@ -119,8 +119,6 @@ public:
   void setRenderFlag(Layer layer, bool shouldRender) { m_mapNodeData[layer].shouldRender = shouldRender; }
 
 private:
-  void updateTexture();
-
   Point m_isoCoordinates;
   std::unique_ptr<Sprite> m_sprite;
 
@@ -137,6 +135,7 @@ private:
   std::vector<unsigned char> m_autotileBitmask;
   unsigned char m_elevationBitmask = 0;
 
+  void updateTexture();
 };
 
 #endif
