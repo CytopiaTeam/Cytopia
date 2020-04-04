@@ -28,6 +28,35 @@
 #define TD_ID_MAX_CHARS 100
 #define TD_CATEGORY_MAX_CHARS 40
 
+BETTER_ENUM(TileType, int,
+            DEFAULT,    // Default is for buildings and practically everything that'll be placed on the TERRAIN layer
+            TERRAIN,    // Terrain itself
+            WATER,      // Water terrain
+            BLUEPRINT,  // Same as terrain, but gets placed on the BLUEPRINT layer
+            AUTOTILE,   // Autotiling to itself, like roads, power lines, etc
+            ZONE,       // Zones (rectangular placement)
+            UNDERGROUND // same as AUTOTILE, but for the BLUEPRINT layer
+)
+
+//
+BETTER_ENUM(Zones, int,
+            NONE, // not applicable
+            RESIDENTIAL, INDUSTRIAL, COMMERCIAL, AGRICULTURAL)
+
+BETTER_ENUM(Wealth, int,
+            NONE,   // not applicable
+            LOW,    // Low income
+            MEDIUM, // Medium income
+            HIGH    // High income
+)
+
+BETTER_ENUM(Style, int,
+            ALL,      // Default, place the Building in all Styles
+            ASIAN,    // This building will only appear in a game with the Style Asian
+            EUROPEAN, // This building will only appear in a game with the Style European
+            US        // This building will only appear in a game with the Style US
+)
+
 struct TileSetData
 {
   /**
@@ -90,5 +119,8 @@ struct TileData
   std::string author;
   RequiredTilesData RequiredTiles;
 };
+
+
+
 
 #endif

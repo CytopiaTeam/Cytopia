@@ -4,7 +4,6 @@
 #include "Exception.hxx"
 #include "basics/Settings.hxx"
 #include "ResourcesManager.hxx"
-#include "enums.hxx"
 
 #include <bitset>
 
