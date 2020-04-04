@@ -350,17 +350,11 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
             const Layer layer = TileManager::instance().getTileLayer(tileToPlace);
             Point currentOriginPoint = engine.map->getNodeOrigCornerPoint(coords, layer);
 
-            if (currentOriginPoint == UNDEFINED_POINT)
-            { // This should never happen, but check we'll check it anyway just to be safe
-              continue;
-            }
-
             std::string currentTileID = engine.map->getTileID(currentOriginPoint, layer);
             for (auto &foundNode : engine.map->getObjectCoords(currentOriginPoint, currentTileID))
             {
               // only add the node if it's unique
-              if (std::find(m_nodesToHighlight.begin(), m_nodesToHighlight.end(), foundNode) == m_nodesToHighlight.end() &&
-                  foundNode != UNDEFINED_POINT)
+              if (std::find(m_nodesToHighlight.begin(), m_nodesToHighlight.end(), foundNode) == m_nodesToHighlight.end())
               {
                 nodesToAdd.push_back(foundNode);
               }
