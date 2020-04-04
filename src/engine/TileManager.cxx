@@ -294,8 +294,8 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
   }
   else
   {
-    LOG(LOG_ERROR) << "In TileData.json in field with ID " << id << " the unsupported value " << tileTypeStr
-                   << " is used for the field tileType.";
+    throw ConfigurationError(TRACE_INFO "In TileData.json in field with ID " + id +
+                             " the field tileType uses the unsupported value " + tileTypeStr);
   }
 
   m_tileData[id].category = tileDataJSON[idx].value("category", "");
@@ -321,15 +321,23 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
   }
   else
   {
-    LOG(LOG_ERROR) << "In TileData.json in field with ID " << id << " the unsupported value " << wealth
-                   << " is used for the field wealth.";
+    throw ConfigurationError(TRACE_INFO "In TileData.json in field with ID " + id +
+                             " the field tileType uses the unsupported value " + wealth);
   }
 
   if (tileDataJSON[idx].find("zones") != tileDataJSON[idx].end())
   {
     for (auto zone : tileDataJSON[idx].at("zones").items())
     {
-      m_tileData[id].zones.push_back(Zones::_from_string_nocase(zone.value().get<std::string>().c_str()));
+      if (Zones::_is_valid_nocase(zone.value().get<std::string>().c_str()))
+      {
+        m_tileData[id].zones.push_back(Zones::_from_string_nocase(zone.value().get<std::string>().c_str()));
+      }
+      else
+      {
+        throw ConfigurationError(TRACE_INFO "In TileData.json in field with ID " + id +
+                                 " the field tileType uses the unsupported value " + zone.value().get<std::string>());
+      }
     }
   }
   else
@@ -341,7 +349,15 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
   {
     for (auto style : tileDataJSON[idx].at("style").items())
     {
-      m_tileData[id].style.push_back(Style::_from_string_nocase(style.value().get<std::string>().c_str()));
+      if (Style::_is_valid_nocase(style.value().get<std::string>().c_str()))
+      {
+        m_tileData[id].style.push_back(Style::_from_string_nocase(style.value().get<std::string>().c_str()));
+      }
+      else
+      {
+        throw ConfigurationError(TRACE_INFO "In TileData.json in field with ID " + id +
+                                 " the field tileType uses the unsupported value " + style.value().get<std::string>());
+      }
     }
   }
   else
