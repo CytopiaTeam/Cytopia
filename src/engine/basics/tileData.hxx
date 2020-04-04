@@ -2,6 +2,7 @@
 #define TILEDATA_HXX_
 
 #include <string>
+#include <vector>
 #include "enums.hxx"
 
 /// min and max values for tileData
