@@ -64,6 +64,7 @@ Map::Map(int columns, int rows) : m_columns(columns), m_rows(rows)
   MapLayers::enableLayer(Layer::TERRAIN);
   MapLayers::enableLayer(Layer::BUILDINGS);
   MapLayers::enableLayer(Layer::WATER);
+  MapLayers::enableLayer(Layer::GROUND_DECORATION);
 }
 
 void Map::initMap()

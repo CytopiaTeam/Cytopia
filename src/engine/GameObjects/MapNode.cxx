@@ -114,6 +114,10 @@ Layer MapNode::getTopMostActiveLayer() const
   {
     return Layer::BLUEPRINT;
   }
+  else if (MapLayers::isLayerActive(Layer::GROUND_DECORATION) && m_mapNodeData[Layer::GROUND_DECORATION].tileData)
+  {
+    return Layer::GROUND_DECORATION;
+  }
   // terrain is our fallback, since there's always terrain.
   else if (MapLayers::isLayerActive(Layer::TERRAIN) && m_mapNodeData[Layer::TERRAIN].tileData)
   {
@@ -355,7 +359,7 @@ void MapNode::setMapNodeData(std::vector<MapNodeData> &&mapNodeData, const Point
 
 void MapNode::demolishNode()
 {
-  Layer myLayers[] = {Layer::BUILDINGS, Layer::UNDERGROUND};
+  Layer myLayers[] = {Layer::BUILDINGS, Layer::UNDERGROUND, Layer::GROUND_DECORATION};
   for (auto &layer : myLayers)
   {
     if (MapLayers::isLayerActive(layer))

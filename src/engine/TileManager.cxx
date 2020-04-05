@@ -44,6 +44,9 @@ Layer TileManager::getTileLayer(const std::string &tileID) const
     case TileType::UNDERGROUND:
       layer = Layer::UNDERGROUND;
       break;
+    case TileType::GROUNDDECORATION:
+      layer = Layer::GROUND_DECORATION;
+      break;
     default:
       layer = Layer::BUILDINGS;
       break;
