@@ -357,19 +357,33 @@ void MapNode::setMapNodeData(std::vector<MapNodeData> &&mapNodeData, const Point
   }
 }
 
-void MapNode::demolishNode()
+void MapNode::demolishNode(Layer layer)
 {
-  Layer myLayers[] = {Layer::BUILDINGS, Layer::UNDERGROUND, Layer::GROUND_DECORATION};
-  for (auto &layer : myLayers)
+  // allow to delete a single layer only
+  std::vector<Layer> layersToDemolish;
+  if (layer == Layer::NONE)
+  {
+    layersToDemolish = {Layer::BUILDINGS, Layer::UNDERGROUND, Layer::GROUND_DECORATION};
+  }
+  else
+  {
+    layersToDemolish.push_back(layer);
+  }
+
+  for (auto &layer : layersToDemolish)
   {
     if (MapLayers::isLayerActive(layer))
     {
+      if (m_mapNodeData[layer].tileData && m_mapNodeData[layer].tileData->tileType == +TileType::ZONE)
+      {
+        continue;
+      }
+
       m_mapNodeData[layer].tileData = nullptr;
       m_mapNodeData[layer].tileID = "";
       m_mapNodeData[layer].origCornerPoint = this->getCoordinates();
       m_sprite->clearSprite(layer);
       updateTexture();
-      break;
     }
   }
 }

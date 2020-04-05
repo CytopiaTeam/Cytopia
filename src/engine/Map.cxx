@@ -394,7 +394,7 @@ Point Map::findNodeInMap(const SDL_Point &screenCoordinates) const
   return foundCoordinates;
 }
 
-void Map::demolishNode(const std::vector<Point> &isoCoordinates, bool updateNeighboringTiles)
+void Map::demolishNode(const std::vector<Point> &isoCoordinates, bool updateNeighboringTiles, Layer layer)
 {
   std::vector<Point> nodesToDemolish;
   for (auto &isoCoord : isoCoordinates)
@@ -434,7 +434,7 @@ void Map::demolishNode(const std::vector<Point> &isoCoordinates, bool updateNeig
 
   for (auto &coords : nodesToDemolish)
   {
-    mapNodes[coords.x * m_columns + coords.y]->demolishNode();
+    mapNodes[coords.x * m_columns + coords.y]->demolishNode(layer);
     if (updateNeighboringTiles)
     {
       updateNeighborsOfNode({coords.x, coords.y});

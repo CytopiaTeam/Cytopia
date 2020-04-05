@@ -92,7 +92,7 @@ public:
       for (auto it = begin; it != end; ++it)
       {
         bool shouldRender = !(!isMultiObjects && it != begin);
-        demolishNode(std::vector<Point>{*it});
+        demolishNode(std::vector<Point>{*it}, 0, Layer::BUILDINGS);
         mapNodes[it->x * m_columns + it->y]->setRenderFlag(TileManager::instance().getTileLayer(tileID), shouldRender);
         mapNodes[it->x * m_columns + it->y]->setTileID(tileID, isMultiObjects ? *it : *begin);
         updateNeighborsOfNode(*it);
@@ -102,12 +102,13 @@ public:
 
   /**
  * @brief Demolish a node
- * Invokes the tiles demolish function
- * @param isoCoordinates 
- * @param updateNeighboringTiles 
+ * This function gathers all tiles that should be demolished and invokes the nodes demolish function. When a building bigger than 1x1 is selected, all it's coordinates are added to the demolishing points.
+ * @param isoCoordinates all coordinates that should be demolished
+ * @param updateNeighboringTiles wether the adjecent tiles should be updated. (only relevant for autotiling)
+ * @param layer restrict demolish to a single layer 
  * @see MapNode#demolishNode
  */
-  void demolishNode(const std::vector<Point> &isoCoordinates, bool updateNeighboringTiles = false);
+  void demolishNode(const std::vector<Point> &isoCoordinates, bool updateNeighboringTiles = false, Layer layer = Layer::NONE);
 
   /**
    * @brief Refresh all the map tile textures
