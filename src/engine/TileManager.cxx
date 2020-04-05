@@ -167,7 +167,7 @@ size_t TileManager::calculateSlopeOrientation(unsigned char bitMaskElevation)
 TileOrientation TileManager::calculateTileOrientation(unsigned char bitMaskElevation)
 {
   TileOrientation orientation;
-  std::bitset<8> elevationMask(bitMaskElevation);
+  const std::bitset<8> elevationMask(bitMaskElevation);
 
   // Bits:
   // 0 = 2^0 = 1   = TOP
@@ -273,7 +273,7 @@ void TileManager::init()
 
   size_t idx = 0;
 
-  for (auto element : tileDataJSON.items())
+  for (const auto &element : tileDataJSON.items())
   {
     std::string id;
     id = element.value().value("id", "");
@@ -300,6 +300,7 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
   }
 
   m_tileData[id].category = tileDataJSON[idx].value("category", "");
+  m_tileData[id].subCategory = tileDataJSON[idx].value("subCategory", "");
   m_tileData[id].price = tileDataJSON[idx].value("price", 0);
   m_tileData[id].water = tileDataJSON[idx].value("water", 0);
   m_tileData[id].isOverPlacable = tileDataJSON[idx].value("isOverPlacable", false);

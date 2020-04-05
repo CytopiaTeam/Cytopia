@@ -14,14 +14,14 @@ void TerrainGenerator::generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNode
 {
   loadTerrainDataFromJSON();
 
-  if (terrainSettings.seed == 0)
+  if (m_terrainSettings.seed == 0)
   {
     srand(static_cast<unsigned int>(time(0)));
-    terrainSettings.seed = rand();
+    m_terrainSettings.seed = rand();
   }
 
   noise::module::Perlin terrainHeightPerlin;
-  terrainHeightPerlin.SetSeed(terrainSettings.seed);
+  terrainHeightPerlin.SetSeed(m_terrainSettings.seed);
   terrainHeightPerlin.SetFrequency(0.003 / 32);
   terrainHeightPerlin.SetLacunarity(1.5);
   terrainHeightPerlin.SetOctaveCount(16);
@@ -31,22 +31,22 @@ void TerrainGenerator::generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNode
   terrainHeightPerlinScaled.SetBias(-0.5);
 
   noise::module::RidgedMulti terrainHeightFractal;
-  terrainHeightFractal.SetSeed(terrainSettings.seed);
+  terrainHeightFractal.SetSeed(m_terrainSettings.seed);
   terrainHeightFractal.SetFrequency(0.005 / 32);
   terrainHeightFractal.SetLacunarity(2);
   noise::module::ScaleBias terrainHeightFractalScaled;
   terrainHeightFractalScaled.SetSourceModule(0, terrainHeightFractal);
   //terrainHeightFractalScaled.SetScale(0.5);
-  terrainHeightFractalScaled.SetScale(terrainSettings.mountainAmplitude * 0.025);
+  terrainHeightFractalScaled.SetScale(m_terrainSettings.mountainAmplitude * 0.025);
   terrainHeightFractalScaled.SetBias(0.5);
 
   noise::module::Perlin terrainHeightBlendPerlin;
-  terrainHeightBlendPerlin.SetSeed(terrainSettings.seed + 1);
+  terrainHeightBlendPerlin.SetSeed(m_terrainSettings.seed + 1);
   terrainHeightBlendPerlin.SetFrequency(0.005 / 32);
   noise::module::ScaleBias terrainHeightBlendScale;
   terrainHeightBlendScale.SetSourceModule(0, terrainHeightBlendPerlin);
   terrainHeightBlendScale.SetScale(2.0);
-  terrainHeightBlendScale.SetBias(-0.1 * terrainSettings.mountainAmplitude);
+  terrainHeightBlendScale.SetBias(-0.1 * m_terrainSettings.mountainAmplitude);
   noise::module::Clamp terrainHeightBlendControl;
   terrainHeightBlendControl.SetSourceModule(0, terrainHeightBlendScale);
   terrainHeightBlendControl.SetBounds(0, 1);
@@ -67,15 +67,15 @@ void TerrainGenerator::generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNode
 
   // Foliage
   noise::module::Perlin foliageDensityPerlin;
-  foliageDensityPerlin.SetSeed(terrainSettings.seed + 1234);
+  foliageDensityPerlin.SetSeed(m_terrainSettings.seed + 1234);
   foliageDensityPerlin.SetFrequency(0.05 / 32);
 
   // Arbitrary Noise
   noise::module::Perlin highFrequencyNoise;
-  highFrequencyNoise.SetSeed(terrainSettings.seed + 42);
+  highFrequencyNoise.SetSeed(m_terrainSettings.seed + 42);
   highFrequencyNoise.SetFrequency(1);
 
-  const size_t vectorSize = static_cast<size_t>(terrainSettings.mapSize * terrainSettings.mapSize);
+  const size_t vectorSize = static_cast<size_t>(m_terrainSettings.mapSize * m_terrainSettings.mapSize);
   mapNodes.resize(vectorSize);
   int z = 0;
 
@@ -83,25 +83,25 @@ void TerrainGenerator::generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNode
   std::string currentBiome = Settings::instance().biome;
 
   // nodes need to be created at the correct vector "coordinates", or else the Z-Order will be broken
-  for (int x = 0; x < terrainSettings.mapSize; x++)
+  for (int x = 0; x < m_terrainSettings.mapSize; x++)
   {
-    for (int y = terrainSettings.mapSize - 1; y >= 0; y--)
+    for (int y = m_terrainSettings.mapSize - 1; y >= 0; y--)
     {
       double rawHeight = terrainHeight.GetValue(x * 32, y * 32, 0.5);
       int height = static_cast<int>(rawHeight);
 
-      if (height < terrainSettings.seaLevel)
+      if (height < m_terrainSettings.seaLevel)
       {
-        height = terrainSettings.seaLevel;
-        mapNodes[x * terrainSettings.mapSize + y] =
-            std::make_unique<MapNode>(Point{x, y, z++, height}, biomeInformation[currentBiome].water[0]);
+        height = m_terrainSettings.seaLevel;
+        mapNodes[x * m_terrainSettings.mapSize + y] =
+            std::make_unique<MapNode>(Point{x, y, z++, height}, m_biomeInformation[currentBiome].water[0]);
       }
       else
       {
         const double foliageDensity = foliageDensityPerlin.GetValue(x * 32, y * 32, height / 32.0);
         bool placed = false;
 
-        if (foliageDensity > 0.0 && height > terrainSettings.seaLevel)
+        if (foliageDensity > 0.0 && height > m_terrainSettings.seaLevel)
         {
           int tileIndex = static_cast<int>(std::abs(round(highFrequencyNoise.GetValue(x * 32, y * 32, height / 32.0) * 200.0)));
 
@@ -109,10 +109,10 @@ void TerrainGenerator::generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNode
           {
             if (tileIndex < 20)
             {
-              tileIndex = tileIndex % static_cast<int>(biomeInformation[currentBiome].treesLight.size());
-              mapNodes[x * terrainSettings.mapSize + y] =
-                  std::make_unique<MapNode>(Point{x, y, z++, height}, biomeInformation[currentBiome].terrain[0],
-                                            biomeInformation[currentBiome].treesLight[tileIndex]);
+              tileIndex = tileIndex % static_cast<int>(m_biomeInformation[currentBiome].treesLight.size());
+              mapNodes[x * m_terrainSettings.mapSize + y] =
+                  std::make_unique<MapNode>(Point{x, y, z++, height}, m_biomeInformation[currentBiome].terrain[0],
+                                            m_biomeInformation[currentBiome].treesLight[tileIndex]);
               placed = true;
             }
           }
@@ -120,30 +120,30 @@ void TerrainGenerator::generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNode
           {
             if (tileIndex < 50)
             {
-              tileIndex = tileIndex % static_cast<int>(biomeInformation[currentBiome].treesMedium.size());
-              mapNodes[x * terrainSettings.mapSize + y] =
-                  std::make_unique<MapNode>(Point{x, y, z++, height}, biomeInformation[currentBiome].terrain[0],
-                                            biomeInformation[currentBiome].treesMedium[tileIndex]);
+              tileIndex = tileIndex % static_cast<int>(m_biomeInformation[currentBiome].treesMedium.size());
+              mapNodes[x * m_terrainSettings.mapSize + y] =
+                  std::make_unique<MapNode>(Point{x, y, z++, height}, m_biomeInformation[currentBiome].terrain[0],
+                                            m_biomeInformation[currentBiome].treesMedium[tileIndex]);
               placed = true;
             }
           }
           else if (foliageDensity < 1.0 && tileIndex < 95)
           {
-            tileIndex = tileIndex % static_cast<int>(biomeInformation[currentBiome].treesDense.size());
+            tileIndex = tileIndex % static_cast<int>(m_biomeInformation[currentBiome].treesDense.size());
 
-            mapNodes[x * terrainSettings.mapSize + y] =
-                std::make_unique<MapNode>(Point{x, y, z++, height}, biomeInformation[currentBiome].terrain[0],
-                                          biomeInformation[currentBiome].treesDense[tileIndex]);
+            mapNodes[x * m_terrainSettings.mapSize + y] =
+                std::make_unique<MapNode>(Point{x, y, z++, height}, m_biomeInformation[currentBiome].terrain[0],
+                                          m_biomeInformation[currentBiome].treesDense[tileIndex]);
             placed = true;
           }
         }
         if (placed == false)
         {
-          mapNodes[x * terrainSettings.mapSize + y] =
-              std::make_unique<MapNode>(Point{x, y, z++, height}, biomeInformation[currentBiome].terrain[0]);
+          mapNodes[x * m_terrainSettings.mapSize + y] =
+              std::make_unique<MapNode>(Point{x, y, z++, height}, m_biomeInformation[currentBiome].terrain[0]);
         }
       }
-      mapNodesInDrawingOrder.push_back(mapNodes[x * terrainSettings.mapSize + y].get());
+      mapNodesInDrawingOrder.push_back(mapNodes[x * m_terrainSettings.mapSize + y].get());
     }
   }
 }
@@ -164,6 +164,6 @@ void TerrainGenerator::loadTerrainDataFromJSON()
   // parse biome objects
   for (const auto &it : biomeDataJsonObject.items())
   {
-    biomeInformation[it.key()] = it.value();
+    m_biomeInformation[it.key()] = it.value();
   }
 }

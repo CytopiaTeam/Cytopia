@@ -52,7 +52,11 @@ enum TileOrientation : size_t
   TILE_S_AND_W,
   TILE_S_AND_E_AND_W,
   TILE_N_AND_S_AND_W,
-  TILE_ALL_DIRECTIONS
+  TILE_ALL_DIRECTIONS,
+  TILE_N_AND_E_RECT,
+  TILE_S_AND_W_RECT,
+  TILE_S_AND_E_RECT,
+  TILE_N_AND_W_RECT
 };
 
 class TileManager : public Singleton<TileManager>

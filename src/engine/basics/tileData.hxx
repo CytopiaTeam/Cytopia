@@ -62,6 +62,7 @@ struct TileData
 {
   std::string id;
   std::string category;
+  std::string subCategory;
   uint8_t buildingsize; /// the size that the building occupies in tiles.
   std::string biome;    /// the biome the tile belongs to
   TileSetData tiles;

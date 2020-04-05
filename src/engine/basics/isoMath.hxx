@@ -60,8 +60,17 @@ std::vector<Point> createBresenhamLine(const Point &isoCoordinatesStart, const P
 */
 std::vector<Point> getRectangleSelectionNodes(const Point &isoCoordinatesStart, const Point &isoCoordinatesEnd);
 
-/// Clamp value
+/** \brief Gets all nodes in a rectangular line from start and end point
+* Gets all nodes in a rectangular line between start and end point
+* @param Point() - start coordinates
+* @param Point() - end coordinates
+* @return std::vector<Point>() - contains coordinates for each tile between start and end coordinates, including start and end
+*/
+std::vector<Point> getRectangularLineSelectionNodes(const Point &isoCoordinatesStart, const Point &isoCoordinatesEnd);
+
+    /// Clamp value
 //TODO: Remove this when switching to C++17 and use std::clamp instead
 template <typename T> T clamp(const T &n, const T &lower, const T &upper) { return std::max(lower, std::min(n, upper)); }
+
 
 #endif

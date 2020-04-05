@@ -1,28 +1,40 @@
 ===Cytopia Changelog:===
 
 v0.2.1
-- Preview for Buildings that are bigger than 1x1
-- When placing buildings bigger than 1x1, placement is now correctly checked
-- Tiles occupied by buildings larger than 1x1 are now correctly detected when placing new buildings
+- [UI]
+- Opening the settings menu closes main menu (was left open in the background)
+- UI can be hidden for screenshots when pressing the 'h' key on the keyboard
+- Fixed UI text alignment in ComboBoxes.
+- Add subcategory buttons to debug menu to show more buildings
+- Center Ui group elements if they would otherwise exceed screen estate
+- Right click will no longer trigger an UI interaction
+- Screen resolution can now be changed ingame
+- Ui Menu position can now be changed ingame
+- [Tiles]
 - Fixed a bug in autotiling
-- Added Blueprint layer mode. When placing water pipes, the game switches to blueprint mode automatically
+- Added new trees and other biome related graphics and prepare biome json information for further terraingen improvements
+- Changed how road spritesheets are handled. Now the tiles are used from a single spritesheets instead of having "default" tiles in an extra spritesheet
+- Added a "tileType" property to define certain behaviour, like "autotile" instead of handling this via tileCategory
+- Allow to place tiles over certain items, like trees.
+- Added a property to allow placement of tiles on water
+- [Gameplay]
 - Added 3 different selection Modes. Single, Rectangular and Line. The mode is chosen automitcally for the right tiles
 - Added RCI Zone tiles
-- Ui Menu position can now be changed ingame
-- Right click will no longer trigger an UI interaction
-- Fixed a few bugs in Line placement mode
-- Added support for diagonal Roads
+- Added Blueprint layer mode. When placing water pipes, the game switches to blueprint mode automatically
 - Roads of different type now won't autotile to each other
-- Added a property to allow placement of tiles on water
-- Added a "tileType" property to define certain behaviour, like "autotile" instead of handling this via tileCategory
-- Changed how road spritesheets are handled. Now the tiles are used from a single spritesheets instead of having "default" tiles in an extra spritesheet
-- Added new trees and other biome related graphics and prepare biome json information for further terraingen improvements
-- UI can be hidden for screenshots when pressing the 'h' key on the keyboard
-- Screen resolution can now be changed ingame
-- Fixed UI text alignment in ComboBoxes.
+- Hold down SHIFT key to use straight line placement mode instead of diagonal line placement mode
+- Hold down CTRL key to place straight road corners instead of diagonal ones
+- added panning for both WASD and arrow keys.
+- [General]
 - Fixed a bug where the game would crash when terrain was elevated and an in-between tile was created
-- added panning for WASD keys.
-- Allow to place tiles over certain items, like trees.
+- Fixed a few bugs in Line placement mode
+- Preview for Buildings that are bigger than 1x1
+- When placing buildings bigger than 1x1, placement is now correctly checked
+- Added support for diagonal Roads
+- Tiles occupied by buildings larger than 1x1 are now correctly detected when placing new buildings
+- Now pressing ESC stops tile-placement mode
+- Added shorelines
+- Added more Bugs to fix later
 
 v0.2
 - A new 32-bit version of Cytopia has been made for users with older machines

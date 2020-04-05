@@ -54,7 +54,7 @@ inline void from_json(const json &j, SettingsData &s)
   s.soundEffectsVolume = j["Audio"].value("SoundEffectsVolume", static_cast<uint8_t>(100));
   s.buildMenuPosition = j["User Interface"].value("BuildMenu Position", "BOTTOM");
   s.gameLanguage = j["User Interface"].value("Language", "en");
-  s.fontFileName = j["User Interface"].value("Font Filename", "en");
+  s.fontFileName = j["User Interface"].value("Font Filename", "resources/fonts/arcadeclassics.ttf");
   s.subMenuButtonWidth = j["User Interface"].value("SubMenuButtonWidth", 32);
   s.subMenuButtonHeight = j["User Interface"].value("SubMenuButtonHeight", 32);
 }
@@ -243,9 +243,16 @@ inline void to_json(json &j, const SettingsData &s)
            {std::string("Resolution"),
             {{std::string("Screen_Width"), s.screenWidth}, {std::string("Screen_Height"), s.screenHeight}}},
        }},
-      {std::string("Game"), {{std::string("MapSize"), s.mapSize}, {std::string("MaxElevationHeight"), s.maxElevationHeight}}},
+      {std::string("Game"),
+       {{std::string("MapSize"), s.mapSize},
+        {std::string("Biome"), s.biome},
+        {std::string("MaxElevationHeight"), s.maxElevationHeight}}},
       {std::string("User Interface"),
-       {{std::string("BuildMenu Position"), s.buildMenuPosition}, {std::string("Language"), s.gameLanguage}}},
+       {{std::string("BuildMenu Position"), s.buildMenuPosition},
+        {std::string("Font Filename"), s.fontFileName.get()},
+        {std::string("SubMenuButtonWidth"), s.subMenuButtonWidth},
+        {std::string("SubMenuButtonHeight"), s.subMenuButtonHeight},
+         {std::string("Language"), s.gameLanguage}}},
       {std::string("ConfigFiles"),
        {{std::string("UIDataJSONFile"), s.uiDataJSONFile.get()},
         {std::string("TileDataJSONFile"), s.tileDataJSONFile.get()},

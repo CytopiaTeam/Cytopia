@@ -241,6 +241,10 @@ void Layout::arrangeChildElements(LayoutData &groupLayout, std::vector<UIElement
     if (groupLayout.alignment == "ALIGN_ABOVE_PARENT" || groupLayout.alignment == "ALIGN_BENEATH_PARENT")
     {
       xOffset = (parentElement->getUiElementRect().x - groupLayout.groupWidth / 2) + parentElement->getUiElementRect().w / 2;
+      if (xOffset < 0 || xOffset + groupLayout.groupWidth > Settings::instance().screenWidth)
+        xOffset = (Settings::instance().screenWidth / 2) - groupLayout.groupWidth / 2;
+
+      //LOG(LOG_INFO) << "X Offset " << xOffset;
       yOffset = 0;
     }
     else if (groupLayout.alignment == "ALIGN_RIGHT_TO_PARENT" || groupLayout.alignment == "ALIGN_LEFT_TO_PARENT")

@@ -3,6 +3,7 @@
 
 #include "LOG.hxx"
 #include "../map/MapLayers.hxx"
+#include "GameStates.hxx"
 
 MapNode::MapNode(Point isoCoordinates, const std::string &terrainID, const std::string &tileID)
     : m_isoCoordinates(std::move(isoCoordinates))
@@ -73,7 +74,7 @@ void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
   TileData *tileData = TileManager::instance().getTileData(tileID);
   if (tileData && !tileID.empty())
   {
-    Layer layer = TileManager::instance().getTileLayer(tileID);
+    const Layer layer = TileManager::instance().getTileLayer(tileID);
     m_mapNodeData[layer].origCornerPoint = origCornerPoint;
     m_previousTileID = m_mapNodeData[layer].tileID;
     m_mapNodeData[layer].tileData = tileData;
@@ -127,7 +128,7 @@ bool MapNode::isPlacableOnSlope(const std::string &tileID) const
   if (tileData && m_elevationOrientation != TileSlopes::DEFAULT_ORIENTATION)
   {
     // we need to check the terrain layer for it's orientation so we can calculate the resulting x offset in the spritesheet.
-    int clipRectX = tileData->slopeTiles.clippingWidth * static_cast<int>(m_autotileOrientation[Layer::TERRAIN]);
+    const int clipRectX = tileData->slopeTiles.clippingWidth * static_cast<int>(m_autotileOrientation[Layer::TERRAIN]);
     // while loading game, m_previousTileID will be equal to "terrain" for terrin tiles while it's empty "" when starting new game.
     // so the check here on m_previousTileID is needed both (temporary), empty and "terrain", this will be fixed in new PR.
     if (clipRectX >= static_cast<int>(tileData->slopeTiles.count) * tileData->slopeTiles.clippingWidth &&
@@ -142,7 +143,7 @@ bool MapNode::isPlacableOnSlope(const std::string &tileID) const
 bool MapNode::isPlacementAllowed(const std::string &newTileID) const
 {
   TileData *tileData = TileManager::instance().getTileData(newTileID);
-  Layer layer = TileManager::instance().getTileLayer(newTileID);
+  const Layer layer = TileManager::instance().getTileLayer(newTileID);
 
   if (tileData)
   {
@@ -162,7 +163,7 @@ bool MapNode::isPlacementAllowed(const std::string &newTileID) const
     }
 
     return isPlacableOnSlope(newTileID) &&
-           (m_mapNodeData[layer].tileID == "" || m_mapNodeData[layer].tileData->tileType == +TileType::TERRAIN ||
+           (m_mapNodeData[layer].tileID.empty() || m_mapNodeData[layer].tileData->tileType == +TileType::TERRAIN ||
             m_mapNodeData[layer].tileData->tileType == +TileType::BLUEPRINT);
   }
 
@@ -227,6 +228,28 @@ void MapNode::updateTexture()
         }
         else
         {
+          // only check for rectangular roads when there are frames for it. Spritesheets with rect-roads have 20 items
+          if (GameStates::instance().rectangularRoads && m_mapNodeData[currentLayer].tileData->tiles.count == 20)
+          {
+            switch (m_autotileOrientation[currentLayer])
+            {
+            case TileOrientation::TILE_S_AND_W:
+              m_autotileOrientation[currentLayer] = TileOrientation::TILE_S_AND_W_RECT;
+              break;
+            case TileOrientation::TILE_S_AND_E:
+              m_autotileOrientation[currentLayer] = TileOrientation::TILE_S_AND_E_RECT;
+              break;
+            case TileOrientation::TILE_N_AND_E:
+              m_autotileOrientation[currentLayer] = TileOrientation::TILE_N_AND_E_RECT;
+              break;
+            case TileOrientation::TILE_N_AND_W:
+              m_autotileOrientation[currentLayer] = TileOrientation::TILE_N_AND_W_RECT;
+              break;
+
+            default:
+              break;
+            }
+          }
           clipRect.x = m_clippingWidth * static_cast<int>(m_autotileOrientation[currentLayer]);
         }
 
@@ -320,10 +343,8 @@ void MapNode::setMapNodeData(std::vector<MapNodeData> &&mapNodeData, const Point
   // updates the pointers to the tiles, after loading tileIDs from json
   for (auto &it : m_mapNodeData)
   {
-    if (it.tileData)
-    {
-      delete it.tileData;
-    }
+    delete it.tileData;
+
     it.tileData = TileManager::instance().getTileData(it.tileID);
     if (it.origCornerPoint != currNodeIsoCoordinates)
     {
