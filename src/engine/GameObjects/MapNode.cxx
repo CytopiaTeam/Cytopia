@@ -357,17 +357,17 @@ void MapNode::setMapNodeData(std::vector<MapNodeData> &&mapNodeData, const Point
   }
 }
 
-void MapNode::demolishNode(Layer layer)
+void MapNode::demolishNode(Layer demolishLayer)
 {
   // allow to delete a single layer only
   std::vector<Layer> layersToDemolish;
-  if (layer == Layer::NONE)
+  if (demolishLayer == Layer::NONE)
   {
     layersToDemolish = {Layer::BUILDINGS, Layer::UNDERGROUND, Layer::GROUND_DECORATION};
   }
   else
   {
-    layersToDemolish.push_back(layer);
+    layersToDemolish.push_back(demolishLayer);
   }
 
   for (auto &layer : layersToDemolish)
