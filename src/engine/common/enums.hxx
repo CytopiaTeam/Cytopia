@@ -23,7 +23,8 @@ enum Layer : unsigned int
 constexpr size_t FIRST_LAYER = NONE + 1;
 
 /// This is a ordered list of all relevant layers we need to interact with
-static const Layer allLayersOrdered[] = {Layer::TERRAIN, Layer::WATER, Layer::BUILDINGS, Layer::BLUEPRINT, Layer::UNDERGROUND};
+static const Layer allLayersOrdered[] = {Layer::TERRAIN,   Layer::WATER,     Layer::GROUND_DECORATION,
+                                         Layer::BUILDINGS, Layer::BLUEPRINT, Layer::UNDERGROUND};
 
 /**
  * @brief LayerEditMode.
