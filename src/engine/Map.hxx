@@ -92,7 +92,7 @@ public:
       for (auto it = begin; it != end; ++it)
       {
         bool shouldRender = !(!isMultiObjects && it != begin);
-        demolishNode(*it);
+        demolishNode(std::vector<Point>{*it});
         mapNodes[it->x * m_columns + it->y]->setRenderFlag(TileManager::instance().getTileLayer(tileID), shouldRender);
         mapNodes[it->x * m_columns + it->y]->setTileID(tileID, isMultiObjects ? *it : *begin);
         updateNeighborsOfNode(*it);
@@ -107,7 +107,7 @@ public:
  * @param updateNeighboringTiles 
  * @see MapNode#demolishNode
  */
-  void demolishNode(const Point &isoCoordinates, bool updateNeighboringTiles = false);
+  void demolishNode(const std::vector<Point> &isoCoordinates, bool updateNeighboringTiles = false);
 
   /**
    * @brief Refresh all the map tile textures
