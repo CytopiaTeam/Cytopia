@@ -1,40 +1,41 @@
 ===Cytopia Changelog:===
 
-v0.2.1
-- [UI]
-- Opening the settings menu closes main menu (was left open in the background)
-- UI can be hidden for screenshots when pressing the 'h' key on the keyboard
-- Fixed UI text alignment in ComboBoxes.
-- Add subcategory buttons to debug menu to show more buildings
-- Center Ui group elements if they would otherwise exceed screen estate
-- Right click will no longer trigger an UI interaction
-- Screen resolution can now be changed ingame
-- Ui Menu position can now be changed ingame
-- [Tiles]
-- Fixed a bug in autotiling
-- Added new trees and other biome related graphics and prepare biome json information for further terraingen improvements
-- Changed how road spritesheets are handled. Now the tiles are used from a single spritesheets instead of having "default" tiles in an extra spritesheet
-- Added a "tileType" property to define certain behaviour, like "autotile" instead of handling this via tileCategory
-- Allow to place tiles over certain items, like trees.
+Here's my revised version:
+===Cytopia v0.2.1 Changelog:===
+General:
+- Fixed a bug where the game would crash when the terrain was elevated and an in-between tile was created.
+- Fixed a few bugs in the line placement mode.
+- Added a preview for buildings that are bigger than 1x1.
+- When placing buildings bigger than 1x1, the placement is now correctly checked.
+- Added support for diagonal roads.
+- Pressing ESC now stops the tile-placement mode.
+- Added shorelines.
+Gameplay:
+- Added three different selection modes; single, rectangular, and line. The mode is chosen automatically for the right tiles.
+- Added RCI zone tiles by RockFort.
+- Added a blueprint layer mode. When placing water pipes, the game switches to this blueprint mode automatically.
+- Roads of different types now won't autotile to each other.
+- Holding down the SHIFT key will use straight line placement mode instead of the diagonal line placement mode.
+- Holding down the CTRL key will place straight road corners instead of diagonal ones.
+- Added De-Zone tool - Hold down SHIFT key while in demolish mode.
+- Added a tool to remove ground decoration only. - Hold down CTRL key while in demolish mode. 
+- Added panning for both WASD and the arrow keys.
+Tiles:
+- Fixed a bug in autotiling.
+- Added new trees and other biome-related graphics and prepared biome JSON information for further terrain generation improvements.
+- Changed how road spritesheets are handled. Now the tiles are used from a single spritesheet instead of having "default" tiles in an extra spritesheet.
+- Added a "tileType" property to define certain behaviors, like "autotile" instead of handling this via tileCategory.
+- Items can now be placed over certain items, like trees, without deleting them first.
 - Added a property to allow placement of tiles on water
-- [Gameplay]
-- Added 3 different selection Modes. Single, Rectangular and Line. The mode is chosen automitcally for the right tiles
-- Added RCI Zone tiles
-- Added Blueprint layer mode. When placing water pipes, the game switches to blueprint mode automatically
-- Roads of different type now won't autotile to each other
-- Hold down SHIFT key to use straight line placement mode instead of diagonal line placement mode
-- Hold down CTRL key to place straight road corners instead of diagonal ones
-- added panning for both WASD and arrow keys.
-- [General]
-- Fixed a bug where the game would crash when terrain was elevated and an in-between tile was created
-- Fixed a few bugs in Line placement mode
-- Preview for Buildings that are bigger than 1x1
-- When placing buildings bigger than 1x1, placement is now correctly checked
-- Added support for diagonal Roads
-- Tiles occupied by buildings larger than 1x1 are now correctly detected when placing new buildings
-- Now pressing ESC stops tile-placement mode
-- Added shorelines
-- Added more Bugs to fix later
+UI:
+- Opening the settings menu now hides the category UI.
+- The UI can be hidden for screenshots by pressing the H key.
+- Fixed the UI text alignment in ComboBoxes.
+- Added subcategory buttons to the debug menu to show more buildings.
+- Centered UI items if they would normally go off the screen.
+- Right-click will no longer trigger a UI interaction.
+- Screen resolution can now be changed in-game.
+- The UI menu position can now be changed in-game.
 
 v0.2
 - A new 32-bit version of Cytopia has been made for users with older machines
