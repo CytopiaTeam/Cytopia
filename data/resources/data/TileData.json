@@ -1,5 +1,53 @@
 [
     {
+        "author": "KingTut 101",
+        "category": "Decoration",
+        "subCategory": "Ground Decoration",
+        "tileType": "GroundDecoration",
+        "description": "Pretty concrete",
+        "id": "GD_NA_PrettyConcrete",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/decoration/ground/GD_NA_PrettyConcrete.png"
+        },
+        "title": "Concrete Ground Decoration",
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "decoration",
+            "ground",
+            "concrete"
+        ]
+    },
+    {
+        "author": "KingTut 101",
+        "category": "Decoration",
+        "subCategory": "Ground Decoration",
+        "tileType": "GroundDecoration",
+        "description": "Pavement",
+        "id": "GD_NA_Pavement",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/decoration/ground/GD_NA_Pavement.png"
+        },
+        "title": "Concrete Ground Decoration",
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "decoration",
+            "ground",
+            "pavement"
+        ]
+    },
+    {
         "author": "Folesnaid",
         "category": "Decoration",
         "description": "A pile of coal",
@@ -55,6 +103,7 @@
         "category": "Residential",
         "subCategory": "Low Wealth",
         "description": "Old Church",
+        "biomes": ["Desert"],
         "id": "Res_1x1_old_des_church_FN",
         "power": 0,
         "price": 0,
@@ -144,6 +193,7 @@
         "author": "Folesnaid",
         "category": "Commercial",
         "description": "I scream for ice cream!",
+        "biomes": ["Desert"],
         "id": "com_1x1_des_ice_cream_shop_FN",
         "power": 0,
         "price": 0,
@@ -166,6 +216,7 @@
         "author": "Folesnaid",
         "category": "Commercial",
         "description": "A petrol station",
+        "biomes": ["Desert"],
         "id": "com_1x1_des_petrol_station_FN",
         "power": 0,
         "price": 0,
@@ -318,6 +369,8 @@
     {
         "author": "Kingtut 101",
         "category": "Commercial",
+        "zones": ["commercial"],
+        "style": ["European"],
         "description": "A somewhat large fast food restaurant known for cheap food and questionable quality.",
         "id": "com_2x2_BorgsBurgers",
         "power": 0,
@@ -918,6 +971,7 @@
         "author": "Folesnaid",
         "category": "Industrial",
         "description": "A petrol pump",
+        "biomes": ["Desert"],
         "id": "ind_1x1_des_petrol_1",
         "power": 0,
         "price": 0,
@@ -1145,7 +1199,7 @@
         "category": "Industrial",
         "description": "A factory",
         "id": "ind_des_2x2_Factory_MS",
-        "biome": "Desert",
+        "biomes": ["Desert"],
         "power": 0,
         "price": 0,
         "tiles": {
@@ -1647,6 +1701,7 @@
         "category": "Residential",
         "subCategory": "Desert",
         "description": "Desert building",
+        "biomes": ["Desert"],
         "id": "res_1x1_des_desert_building_1_FN",
         "power": 0,
         "price": 0,
@@ -1669,6 +1724,7 @@
         "category": "Residential",
         "subCategory": "Desert",
         "description": "Pyramid",
+        "biomes": ["Desert"],
         "id": "res_1x1_des_pyramide_1_FN",
         "power": 0,
         "price": 0,
@@ -1690,6 +1746,7 @@
         "category": "Residential",
         "subCategory": "Medium Wealth",
         "description": "House with swimming pool",
+        "biomes": ["Desert"],
         "id": "res_1x1_des_swimming_pool_house_FN",
         "power": 0,
         "price": 0,
@@ -2072,7 +2129,7 @@
     },
     {
         "author": "Kingtut 101",
-        "biome": "GrassLands",
+        "biomes": ["GrassLands"],
         "category": "TerrainDecoration",
         "description": "A pile of rocks that can be found in the grasslands biome.",
         "id": "rocks_grassLands",
@@ -2097,7 +2154,7 @@
     },
     {
         "author": "Kingtut 101",
-        "biome": "Desert",
+        "biomes": ["Desert"],
         "category": "TerrainDecoration",
         "description": "A pile of rocks that can be found in the desert biome.",
         "id": "rocks_desert",
@@ -2122,7 +2179,7 @@
     },
     {
         "author": "Kingtut 101",
-        "biome": "Diamond",
+        "biomes": ["Diamond"],
         "category": "TerrainDecoration",
         "description": "A pile of rocks that can be found in the diamond biome.",
         "id": "rocks_diamond",
@@ -2147,7 +2204,7 @@
     },
     {
         "author": "Kingtut 101",
-        "biome": "Desert",
+        "biomes": ["Desert"],
         "category": "TerrainDecoration",
         "description": "A pile of rocks that can be found in the desert biome.",
         "id": "rocks_gold",
@@ -2172,7 +2229,7 @@
     },
     {
         "author": "Kingtut 101",
-        "biome": "Snow",
+        "biomes": ["Snow"],
         "category": "TerrainDecoration",
         "description": "A pile of rocks that can be found in the snow biome.",
         "id": "rocks_snowy",
@@ -6532,6 +6589,7 @@
         "category": "Residential",
         "subCategory": "Desert",
         "description": "TODO DESC",
+        "biomes": ["Desert"],
         "id": "res_1x1_des_building_1_FN",
         "power": 0,
         "price": 0,
@@ -7260,6 +7318,7 @@
         "category": "Residential",
         "subCategory": "Desert",
         "description": "TODO DESC",
+        "biomes": ["Desert"],
         "id": "res_2x2_des_building_2_FN",
         "power": 0,
         "price": 0,

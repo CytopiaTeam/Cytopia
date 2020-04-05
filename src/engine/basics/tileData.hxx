@@ -2,6 +2,7 @@
 #define TILEDATA_HXX_
 
 #include <string>
+#include <vector>
 #include "enums.hxx"
 
 /// min and max values for tileData
@@ -28,63 +29,96 @@
 #define TD_ID_MAX_CHARS 100
 #define TD_CATEGORY_MAX_CHARS 40
 
+BETTER_ENUM(TileType, int,
+            DEFAULT,          /// Default is for buildings and practically everything that'll be placed on the TERRAIN layer
+            TERRAIN,          /// Terrain itself
+            WATER,            /// Water terrain
+            BLUEPRINT,        /// Same as terrain, but gets placed on the BLUEPRINT layer
+            AUTOTILE,         /// Autotiling to itself, like roads, power lines, etc
+            ZONE,             /// Zones (rectangular placement)
+            GROUNDDECORATION, /// Draw this Tile on GROUNDDECORATION layer. Buildings can be placed over it
+            UNDERGROUND       /// same as AUTOTILE, but for the BLUEPRINT layer
+)
+
+//
+BETTER_ENUM(Zones, int,
+            NONE, /// not applicable
+            RESIDENTIAL, INDUSTRIAL, COMMERCIAL, AGRICULTURAL)
+
+BETTER_ENUM(Wealth, int,
+            NONE,   /// not applicable
+            LOW,    /// Low income
+            MEDIUM, /// Medium income
+            HIGH    /// High income
+)
+
+BETTER_ENUM(Style, int,
+            ALL,      /// Default, place the Building in all Styles
+            ASIAN,    /// This building will only appear in a game with the Style Asian
+            EUROPEAN, /// This building will only appear in a game with the Style European
+            US        /// This building will only appear in a game with the Style US
+)
+
+/**
+ * This enum holds all data related to the TileSet (Spritesheet)
+ **/
 struct TileSetData
 {
-  /**
-  * count is the number of images that are in the tile set. This is for things that 
-  * will have a random tile chosen from their set. 
-  *
-  * offset is where the first image in this tileset is, so a file could contain multiple
-  * tilesets and offset would define where to start this tileset and count would define
-  * how many images it has. offset = 0 is the first image, offset = 3 is the 4th tile. 
-  *
-  * rotations is the number of rotations that exist in this tileset (for buildings). 
-  * this is not applicable for terrain and roads, their orientation is figured out
-  * differently. For buildings that have multiple orientations, this isn't implemented
-  * yet but it prevents buildings with multiple orientations from being placed with 
-  * a random image (that might be the wrong size).
-  **/
-  std::string fileName;
-  int count = 1;
-  int clippingWidth = 0;
-  int clippingHeight = 0;
-  int offset = 0;    // The offset to start the spritesheet from in images (see above)
-  int rotations = 1; // The number of rotation images in this spritesheet (see above)
+  std::string fileName; /// the filename of the spritesheet
+  int count =
+      1; /// count is the number of images that are in the tile set. This is for things that will have a random tile chosen from their set.
+  int clippingWidth = 0;  /// the width of the clipRect. (Where the tile will be clipped from the spritesheet)
+  int clippingHeight = 0; /// the height of the clipRect. (Where the tile will be clipped from the spritesheet)
+  int offset =
+      0; /// offset is where the first image in this tileset is, so a file could contain multiple tilesets and offset would define where to start this tileset and count would define how many images it has. offset = 0 is the first image, offset = 3 is the 4th tile.
+  int rotations =
+      1; /// rotations is the number of rotations that exist in this tileset (for buildings).  this is not applicable for terrain and roads, their orientation is figured out differently. For buildings that have multiple orientations, this isn't implemented yet but it prevents buildings with multiple orientations from being placed with  a random image (that might be the wrong size).
 };
 
+/// How many tiles this building uses.
 struct RequiredTilesData
 {
-  unsigned int width;
-  unsigned int height;
+  unsigned int width = 1;
+  unsigned int height = 1;
 };
 
+/// Holds all releavted information to this specific tile
 struct TileData
 {
-  std::string id;
-  std::string category;
-  std::string subCategory;
+  std::string id;     /// 	The ID of this item. Must be unique and can be referenced in the code.
+  std::string author; /// The author of this item
+  std::string
+      category; /// The category this item resides in. Categories are used for the building menu in-game and for sorting the items in the editors tree view
+  std::string
+      subCategory; /// subcategories are used for the building menu in-game and for sorting the items in the editors tree view
   uint8_t buildingsize; /// the size that the building occupies in tiles.
-  std::string biome;    /// the biome the tile belongs to
-  TileSetData tiles;
+  std::vector<std::string>
+      biomes; /// Restrict this building to spawn only in the given biomes. Must correspond to a biome defined in resources/data/TerrainGen.json
+  TileSetData tiles;                     ///Tile Spritesheet information
   TileType tileType = TileType::DEFAULT; /// todo: String for now, should be an enum
-  TileSetData shoreTiles;
-  TileSetData slopeTiles;
-  std::string title;
-  std::string description;
-  int price = 0;      /// building cost
-  int upkeepCost = 0; /// monthly cost
-  int power = 0;      /// power production / consumption if negative
-  int water = 0;      /// water production / consumption if negative
-  std::string author;
-  bool drawGround = false;   /// draw ground below sprite (grass, flowers, ...)
-  bool placeOnGround = true; /// wether or not this building is placeable on ground
-  bool placeOnWater = false; /// whether or not this building is placeable on water
-  bool isOverPlacable;
-  int pollutionLevel = 0;  /// Pollution this building produces or prevents
-  int crimeLevel = 0;      /// Crime this building produces or prevents (police station)
-  int fireDangerLevel = 0; /// Fire Danger this building produces or prevents
-  int habitants = 0;
-  RequiredTilesData RequiredTiles;
+  TileSetData shoreTiles;                ///Shore Tile Spritesheet information
+  TileSetData slopeTiles;                /// Slope  Tile Spritesheet information
+  std::string title;                     /// The items title. It's shown ingame and in the editors tree-view
+  std::string description;               /// Description of the item that is shown in it's details
+  int price = 0;                         /// building cost
+  int upkeepCost = 0;                    /// monthly cost
+  int power = 0;                         /// power production / consumption if negative
+  int water = 0;                         /// water production / consumption if negative
+  Wealth wealth = +Wealth::LOW;          /// Restrict this building to a certain wealth level. See enum Wealth
+
+  std::string
+      groundTileDecoration; /// tileID of the item that should be drawn on ground below sprite instead of terrain(grass, concrete, ...). Must be a tileID with tileType GroundDecoration
+  bool placeOnGround = true;       /// wether or not this building is placeable on ground
+  bool placeOnWater = false;       /// whether or not this building is placeable on water
+  bool isOverPlacable;             /// Determines if other tiles can be placed over this one tile.
+  int pollutionLevel = 0;          /// Pollution this building produces or prevents
+  int crimeLevel = 0;              /// Crime this building produces or prevents (police station)
+  int fireHazardLevel = 0;         /// Fire Danger this building produces or prevents
+  int inhabitants = 0;             /// How many residents / workers this building can hold. Also how much jobs it provides
+  int educationLevel = 0;          /// How much education this building provides (educational building) / requires (job)
+  std::vector<Zones> zones;        /// Restrict this building to a zone type.
+  std::vector<Style> style;        /// Restrict this building to certain Art Styles.
+  RequiredTilesData RequiredTiles; /// How many tiles this building uses.
 };
 
 #endif

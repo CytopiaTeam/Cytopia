@@ -32,7 +32,6 @@ void Map::getNodeInformation(const Point &isoCoordinates) const
                 << mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getMapNodeDataForLayer(Layer::WATER).tileID;
   LOG(LOG_INFO) << "[Layer: BUILDINGS] ID: "
                 << mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getMapNodeDataForLayer(Layer::BUILDINGS).tileID;
-  LOG(LOG_INFO) << "Biome: " << tileData->biome;
   LOG(LOG_INFO) << "Category: " << tileData->category;
   LOG(LOG_INFO) << "FileName: " << tileData->tiles.fileName;
   LOG(LOG_INFO) << "Rotations: " << tileData->tiles.rotations;
@@ -65,6 +64,7 @@ Map::Map(int columns, int rows) : m_columns(columns), m_rows(rows)
   MapLayers::enableLayer(Layer::TERRAIN);
   MapLayers::enableLayer(Layer::BUILDINGS);
   MapLayers::enableLayer(Layer::WATER);
+  MapLayers::enableLayer(Layer::GROUND_DECORATION);
 }
 
 void Map::initMap()

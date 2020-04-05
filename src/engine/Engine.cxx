@@ -23,8 +23,6 @@ void Engine::decreaseHeight(const Point &isoCoordinates) const
 
 void Engine::toggleFullScreen() { WindowManager::instance().toggleFullScreen(); };
 
-void Engine::demolishNode(const Point &isoCoordinates) const { map->demolishNode(isoCoordinates, true); }
-
 void Engine::loadGame(const std::string &fileName)
 {
   Map *newMap = Map::loadMapFromFile(fileName);
