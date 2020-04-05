@@ -45,8 +45,6 @@ public:
     map->setTileIDOfNode<std::vector<Point>::iterator>(begin, end, tileID, isMultiObject);
   }
 
-  void demolishNode(const Point &isoCoordinates) const;
-
   /** @brief Checks if game is running
     * Checks if game is running
     * @returns Returns true if the game is running, and false otherwise

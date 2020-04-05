@@ -494,7 +494,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         }
         else if (demolishMode)
         {
-          engine.demolishNode(mouseIsoCoords);
+          engine.map->demolishNode(mouseIsoCoords, true);
         }
         else
         {
