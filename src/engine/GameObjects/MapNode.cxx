@@ -372,9 +372,14 @@ void MapNode::demolishNode(Layer layer)
 
   for (auto &layer : layersToDemolish)
   {
-    if (MapLayers::isLayerActive(layer))
+    if (MapLayers::isLayerActive(layer) && m_mapNodeData[layer].tileData)
     {
-      if (m_mapNodeData[layer].tileData && m_mapNodeData[layer].tileData->tileType == +TileType::ZONE)
+      if ((GameStates::instance().demolishMode == DemolishMode::DEFAULT &&
+           m_mapNodeData[layer].tileData->tileType == +TileType::ZONE) ||
+          (GameStates::instance().demolishMode == DemolishMode::DE_ZONE &&
+           m_mapNodeData[layer].tileData->tileType != +TileType::ZONE) ||
+          (GameStates::instance().demolishMode == DemolishMode::GROUND_DECORATION &&
+           m_mapNodeData[layer].tileData->tileType != +TileType::GROUNDDECORATION))
       {
         continue;
       }

@@ -15,6 +15,7 @@ struct GameStatesData
   bool rectangularRoads = false; /// place rectangular road tiles instead of diagonal tils
   LayerEditMode layerEditMode = LayerEditMode::TERRAIN; /// Specifies the Layer Editmode. Editing Terrain or Blueprint (water pipes, subway,..) 
   PlacementMode placementMode = PlacementMode::LINE; /// Specifies the placement mode when holding down the mouse - single, line, ...
+  DemolishMode demolishMode = DemolishMode::DEFAULT;
 };
 
 class GameStates : public GameStatesData, public Singleton<GameStates>

@@ -66,9 +66,11 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       case SDLK_0:
         break;
       case SDLK_LCTRL:
+        GameStates::instance().demolishMode = DemolishMode::GROUND_DECORATION;
         GameStates::instance().rectangularRoads = true;
         break;
       case SDLK_LSHIFT:
+        GameStates::instance().demolishMode = DemolishMode::DE_ZONE;
         if (GameStates::instance().placementMode == PlacementMode::LINE)
         {
           GameStates::instance().placementMode = PlacementMode::STRAIGHT_LINE;
@@ -168,9 +170,11 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       switch (event.key.keysym.sym)
       {
       case SDLK_LCTRL:
+        GameStates::instance().demolishMode = DemolishMode::DEFAULT;
         GameStates::instance().rectangularRoads = false;
         break;
       case SDLK_LSHIFT:
+        GameStates::instance().demolishMode = DemolishMode::DEFAULT;
         if (GameStates::instance().placementMode == PlacementMode::STRAIGHT_LINE)
         {
           GameStates::instance().placementMode = PlacementMode::LINE;
