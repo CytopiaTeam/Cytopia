@@ -214,6 +214,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       break;
     case SDL_MOUSEMOTION:
       m_placementAllowed = false;
+      m_cancelTileSelection = false;
       // check for UI events first
       for (const auto &it : m_uiManager.getAllUiElements())
       {
@@ -407,6 +408,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       if (event.button.button == SDL_BUTTON_RIGHT)
       {
         m_panning = true;
+        m_cancelTileSelection = true;
       }
       else if (event.button.button == SDL_BUTTON_LEFT)
       {
@@ -425,12 +427,19 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
 
     case SDL_MOUSEBUTTONUP:
     {
+      if (m_cancelTileSelection)
+      {
+        m_uiManager.closeOpenMenus();
+        tileToPlace.clear();
+        highlightSelection = false;
+      }
       if (m_panning)
       {
         Camera::centerIsoCoordinates =
             convertScreenToIsoCoordinates({Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2});
         m_panning = false;
       }
+
       // reset pinchCenterCoords when fingers are released
       m_pinchCenterCoords = {0, 0, 0, 0};
       // check for UI events first
