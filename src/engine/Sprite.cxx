@@ -69,9 +69,9 @@ void Sprite::refresh()
         if (m_SpriteData[currentLayer].clipRect.w != 0)
         {
           m_SpriteData[currentLayer].destRect.w =
-              static_cast<int>(std::round(static_cast<float>(m_SpriteData[currentLayer].clipRect.w) * m_currentZoomLevel));
+              static_cast<int>(std::round(static_cast<double>(m_SpriteData[currentLayer].clipRect.w) * m_currentZoomLevel));
           m_SpriteData[currentLayer].destRect.h =
-              static_cast<int>(std::round(static_cast<float>(m_SpriteData[currentLayer].clipRect.h) * m_currentZoomLevel));
+              static_cast<int>(std::round(static_cast<double>(m_SpriteData[currentLayer].clipRect.h) * m_currentZoomLevel));
         }
         else
         {
@@ -79,9 +79,9 @@ void Sprite::refresh()
                            &m_SpriteData[currentLayer].destRect.h);
 
           m_SpriteData[currentLayer].destRect.w =
-              static_cast<int>(std::round(static_cast<float>(m_SpriteData[currentLayer].clipRect.w) * m_currentZoomLevel));
+              static_cast<int>(std::round(static_cast<double>(m_SpriteData[currentLayer].clipRect.w) * m_currentZoomLevel));
           m_SpriteData[currentLayer].destRect.h =
-              static_cast<int>(std::round(static_cast<float>(m_SpriteData[currentLayer].clipRect.h) * m_currentZoomLevel));
+              static_cast<int>(std::round(static_cast<double>(m_SpriteData[currentLayer].clipRect.h) * m_currentZoomLevel));
         }
       }
     }

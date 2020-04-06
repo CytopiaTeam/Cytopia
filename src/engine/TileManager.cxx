@@ -4,7 +4,6 @@
 #include "Exception.hxx"
 #include "basics/Settings.hxx"
 #include "ResourcesManager.hxx"
-#include "enums.hxx"
 
 #include <bitset>
 
@@ -39,8 +38,14 @@ Layer TileManager::getTileLayer(const std::string &tileID) const
     case TileType::BLUEPRINT:
       layer = Layer::BLUEPRINT;
       break;
+    case TileType::WATER:
+      layer = Layer::WATER;
+      break;
     case TileType::UNDERGROUND:
       layer = Layer::UNDERGROUND;
+      break;
+    case TileType::GROUNDDECORATION:
+      layer = Layer::GROUND_DECORATION;
       break;
     default:
       layer = Layer::BUILDINGS;
@@ -164,7 +169,7 @@ size_t TileManager::calculateSlopeOrientation(unsigned char bitMaskElevation)
 TileOrientation TileManager::calculateTileOrientation(unsigned char bitMaskElevation)
 {
   TileOrientation orientation;
-  std::bitset<8> elevationMask(bitMaskElevation);
+  const std::bitset<8> elevationMask(bitMaskElevation);
 
   // Bits:
   // 0 = 2^0 = 1   = TOP
@@ -270,7 +275,7 @@ void TileManager::init()
 
   size_t idx = 0;
 
-  for (auto element : tileDataJSON.items())
+  for (const auto &element : tileDataJSON.items())
   {
     std::string id;
     id = element.value().value("id", "");
@@ -292,16 +297,84 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
   }
   else
   {
-    LOG(LOG_ERROR) << "In TileData.json in field with ID " << id << " the unsupported value " << tileTypeStr
-                   << " is used for the field tileType.";
+    throw ConfigurationError(TRACE_INFO "In TileData.json in field with ID " + id +
+                             " the field tileType uses the unsupported value " + tileTypeStr);
   }
 
   m_tileData[id].category = tileDataJSON[idx].value("category", "");
+  m_tileData[id].subCategory = tileDataJSON[idx].value("subCategory", "");
   m_tileData[id].price = tileDataJSON[idx].value("price", 0);
+  m_tileData[id].power = tileDataJSON[idx].value("power", 0);
   m_tileData[id].water = tileDataJSON[idx].value("water", 0);
+  m_tileData[id].upkeepCost = tileDataJSON[idx].value("upkeepCost", 0);
   m_tileData[id].isOverPlacable = tileDataJSON[idx].value("isOverPlacable", false);
-  m_tileData[id].drawGround = tileDataJSON[idx].value("draw ground", false);
+  m_tileData[id].groundTileDecoration = tileDataJSON[idx].value("groundTileDecoration", "");
   m_tileData[id].placeOnWater = tileDataJSON[idx].value("placeOnWater", false);
+  m_tileData[id].inhabitants = tileDataJSON[idx].value("inhabitants", 0);
+  m_tileData[id].fireHazardLevel = tileDataJSON[idx].value("fireHazardLevel", 0);
+  m_tileData[id].educationLevel = tileDataJSON[idx].value("educationLevel", 0);
+  m_tileData[id].crimeLevel = tileDataJSON[idx].value("crimeLevel", 0);
+  m_tileData[id].pollutionLevel = tileDataJSON[idx].value("pollutionLevel", 0);
+
+  std::string wealth = tileDataJSON[idx].value("wealth", "none");
+
+  if (Wealth::_is_valid_nocase(wealth.c_str()))
+  {
+    m_tileData[id].wealth = Wealth::_from_string_nocase(wealth.c_str());
+  }
+  else
+  {
+    throw ConfigurationError(TRACE_INFO "In TileData.json in field with ID " + id +
+                             " the field tileType uses the unsupported value " + wealth);
+  }
+
+  if (tileDataJSON[idx].find("zones") != tileDataJSON[idx].end())
+  {
+    for (auto zone : tileDataJSON[idx].at("zones").items())
+    {
+      if (Zones::_is_valid_nocase(zone.value().get<std::string>().c_str()))
+      {
+        m_tileData[id].zones.push_back(Zones::_from_string_nocase(zone.value().get<std::string>().c_str()));
+      }
+      else
+      {
+        throw ConfigurationError(TRACE_INFO "In TileData.json in field with ID " + id +
+                                 " the field tileType uses the unsupported value " + zone.value().get<std::string>());
+      }
+    }
+  }
+  else
+  {
+    m_tileData[id].zones.push_back(Zones::NONE);
+  }
+
+  if (tileDataJSON[idx].find("style") != tileDataJSON[idx].end())
+  {
+    for (auto style : tileDataJSON[idx].at("style").items())
+    {
+      if (Style::_is_valid_nocase(style.value().get<std::string>().c_str()))
+      {
+        m_tileData[id].style.push_back(Style::_from_string_nocase(style.value().get<std::string>().c_str()));
+      }
+      else
+      {
+        throw ConfigurationError(TRACE_INFO "In TileData.json in field with ID " + id +
+                                 " the field tileType uses the unsupported value " + style.value().get<std::string>());
+      }
+    }
+  }
+  else
+  {
+    m_tileData[id].style.push_back(Style::ALL);
+  }
+
+  if (tileDataJSON[idx].find("biomes") != tileDataJSON[idx].end())
+  {
+    for (auto biome : tileDataJSON[idx].at("biomes").items())
+    {
+      m_tileData[id].biomes.push_back(biome.value().get<std::string>());
+    }
+  }
 
   if (tileDataJSON[idx].find("RequiredTiles") != tileDataJSON[idx].end())
   {
@@ -326,17 +399,17 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
     ResourcesManager::instance().loadTexture(id, m_tileData[id].tiles.fileName);
   }
 
-  if (tileDataJSON[idx].find("cornerTiles") != tileDataJSON[idx].end())
+  if (tileDataJSON[idx].find("shoreLine") != tileDataJSON[idx].end())
   {
-    m_tileData[id].cornerTiles.fileName = tileDataJSON[idx]["cornerTiles"].value("fileName", "");
-    m_tileData[id].cornerTiles.count = tileDataJSON[idx]["cornerTiles"].value("count", 1);
-    m_tileData[id].cornerTiles.clippingWidth = tileDataJSON[idx]["cornerTiles"].value("clip_width", 0);
-    m_tileData[id].cornerTiles.clippingHeight = tileDataJSON[idx]["cornerTiles"].value("clip_height", 0);
-    m_tileData[id].cornerTiles.offset = tileDataJSON[idx]["cornerTiles"].value("offset", 0);
+    m_tileData[id].shoreTiles.fileName = tileDataJSON[idx]["shoreLine"].value("fileName", "");
+    m_tileData[id].shoreTiles.count = tileDataJSON[idx]["shoreLine"].value("count", 1);
+    m_tileData[id].shoreTiles.clippingWidth = tileDataJSON[idx]["shoreLine"].value("clip_width", 0);
+    m_tileData[id].shoreTiles.clippingHeight = tileDataJSON[idx]["shoreLine"].value("clip_height", 0);
+    m_tileData[id].shoreTiles.offset = tileDataJSON[idx]["shoreLine"].value("offset", 0);
 
-    if (!m_tileData[id].cornerTiles.fileName.empty())
+    if (!m_tileData[id].shoreTiles.fileName.empty())
     {
-      ResourcesManager::instance().loadTexture(id, m_tileData[id].cornerTiles.fileName);
+      ResourcesManager::instance().loadTexture(id + "_shore", m_tileData[id].shoreTiles.fileName);
     }
   }
 

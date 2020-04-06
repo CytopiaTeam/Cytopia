@@ -69,10 +69,10 @@ private:
   SDL_Window *m_window = nullptr;     /// pointer to the SDL_Window
   SDL_Renderer *m_renderer = nullptr; /// pointer to the SDL_Renderer
 
-  void initializeScreenResolutions();
-
   std::vector<SDL_DisplayMode *> m_resolutions;
 
   int m_numOfDisplays = 0;
   int m_activeDisplay = 0;
+
+  void initializeScreenResolutions();
 };

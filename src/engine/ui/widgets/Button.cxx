@@ -29,6 +29,7 @@ void Button::draw()
 void Button::setText(const std::string &text)
 {
   m_buttonLabel->setText(text);
+  elementData.text = text;
   centerTextLabel();
 }
 

@@ -133,8 +133,8 @@ public:
   /**
  * @brief Get the Ui Element By ID
  * Finds and returns an UiElement by its elementID parameter
- * @param UiElement ID of the element that should be returned.
- * @return UiElement* 
+ * @param UIElement ID of the element that should be returned.
+ * @return UIElement* 
  */
   UIElement *getUiElementByID(const std::string &ID) const;
 
@@ -143,9 +143,13 @@ public:
 
   void changeResolution(UIElement *sender);
   void changeFullScreenMode(UIElement *sender);
+  /**
+ * @brief Close all open menus but the build menu
+ */
+  void closeOpenMenus();
 
 private:
-  BUILDMENU_LAYOUT buildMenuLayout = BUILDMENU_LAYOUT::BOTTOM;
+  BUILDMENU_LAYOUT m_buildMenuLayout = BUILDMENU_LAYOUT::BOTTOM;
 
   UIManager() = default;
   ~UIManager() = default;
@@ -177,10 +181,10 @@ private:
    *        and scales the image to fit on a button of the default button size (maintaining the 
    *        aspect ration of the original image).
    * @param ret, the address of a rect that will contain the size of the scaled image
-   * @param btnW, the default button width
-   * @param btnH, the default button height
-   * @param imgW, the width of the image to scale
-   * @param imgH, the height of the image to scale
+   * @param btnW the default button width
+   * @param btnH the default button height
+   * @param imgW the width of the image to scale
+   * @param imgH the height of the image to scale
    */
   void scaleCenterButtonImage(SDL_Rect &ret, int btnW, int btnH, int imgW, int imgH);
   void createBuildMenu();
@@ -193,9 +197,9 @@ private:
    */
   void setupButtonTileImage(Button *button, const std::pair<std::string, TileData> &tile);
 
-  bool m_showDebugMenu = false;
-
   void addToLayoutGroup(const std::string &groupName, UIElement *widget);
+
+  bool m_showDebugMenu = false;
 };
 
 #endif

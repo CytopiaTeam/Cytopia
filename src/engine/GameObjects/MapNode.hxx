@@ -21,6 +21,7 @@ struct MapNodeData
   int32_t tileIndex = 0;
   Point origCornerPoint = UNDEFINED_POINT;
   bool shouldRender = true;
+  TileMap tileMap = TileMap::DEFAULT; // store information wheter we use normal, slope or shore tiles
 };
 
 /** @brief Class that holds map nodes
@@ -52,7 +53,7 @@ public:
 
   /** @brief sets the iso coordinates of this node
     * sets the iso coordinates of this node
-    * @param a pointer to the new iso coordinates for the node
+    * @param newIsoCoordinates the new iso coordinates for the node
     */
   void setCoordinates(const Point &newIsoCoordinates);
 
@@ -86,13 +87,13 @@ public:
     */
   const std::string &getTileID(Layer layer) const { return m_mapNodeData[layer].tileID; };
 
-  bool isPlacementAllowed(const std::string &tileID) const;
+  bool isPlacementAllowed(const std::string &newTileID) const;
 
   /// Overwrite m_mapData with the one loaded from a savegame. This function to be used only by loadGame
   void setMapNodeData(std::vector<MapNodeData> &&mapNodeData, const Point &isoCoordinates);
 
-  const std::vector<MapNodeData> getMapNodeData() const { return m_mapNodeData; };
-  const MapNodeData getMapNodeDataForLayer(Layer layer) const { return m_mapNodeData[layer]; };
+  const std::vector<MapNodeData> &getMapNodeData() const { return m_mapNodeData; };
+  const MapNodeData &getMapNodeDataForLayer(Layer layer) const { return m_mapNodeData[layer]; };
 
   const MapNodeData &getActiveMapNodeData() const;
 
@@ -107,15 +108,13 @@ public:
 
   void setTileID(const std::string &tileType, const Point &origPoint);
 
-  Point getOrigCornerPoint(Layer layer) { return getMapNodeDataForLayer(layer).origCornerPoint; }
-
-  size_t tileMap = TileMap::DEFAULT;
+  const Point &getOrigCornerPoint(Layer layer) const { return getMapNodeDataForLayer(layer).origCornerPoint; }
 
   /** @brief return topmost active layer.
     * check layers in order of significance for the topmost active layer that has an active tile on that layer
     * @return Layer enum of the topmost active layer
     */
-  unsigned int getTopMostActiveLayer() const;
+  Layer getTopMostActiveLayer() const;
 
   void setRenderFlag(Layer layer, bool shouldRender) { m_mapNodeData[layer].shouldRender = shouldRender; }
 

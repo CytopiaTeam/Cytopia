@@ -3,6 +3,7 @@
 
 #include "LOG.hxx"
 #include "../map/MapLayers.hxx"
+#include "GameStates.hxx"
 
 MapNode::MapNode(Point isoCoordinates, const std::string &terrainID, const std::string &tileID)
     : m_isoCoordinates(std::move(isoCoordinates))
@@ -71,14 +72,15 @@ void MapNode::setBitmask(unsigned char elevationBitmask, std::vector<uint8_t> au
 void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
 {
   TileData *tileData = TileManager::instance().getTileData(tileID);
-  if (tileData)
+  if (tileData && !tileID.empty())
   {
-    Layer layer = TileManager::instance().getTileLayer(tileID);
+    const Layer layer = TileManager::instance().getTileLayer(tileID);
     m_mapNodeData[layer].origCornerPoint = origCornerPoint;
     m_previousTileID = m_mapNodeData[layer].tileID;
     m_mapNodeData[layer].tileData = tileData;
     m_mapNodeData[layer].tileID = tileID;
 
+    // Determine if the tile should have a random rotation or not.
     if (m_mapNodeData[layer].tileData->tiles.rotations <= 1)
     {
       /** set tileIndex to a rand between 1 and count, this will be the displayed image
@@ -98,7 +100,7 @@ void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
   }
 }
 
-unsigned int MapNode::getTopMostActiveLayer() const
+Layer MapNode::getTopMostActiveLayer() const
 {
   if (MapLayers::isLayerActive(Layer::BUILDINGS) && m_mapNodeData[Layer::BUILDINGS].tileData)
   {
@@ -111,6 +113,10 @@ unsigned int MapNode::getTopMostActiveLayer() const
   else if (MapLayers::isLayerActive(Layer::BLUEPRINT) && m_mapNodeData[Layer::BLUEPRINT].tileData)
   {
     return Layer::BLUEPRINT;
+  }
+  else if (MapLayers::isLayerActive(Layer::GROUND_DECORATION) && m_mapNodeData[Layer::GROUND_DECORATION].tileData)
+  {
+    return Layer::GROUND_DECORATION;
   }
   // terrain is our fallback, since there's always terrain.
   else if (MapLayers::isLayerActive(Layer::TERRAIN) && m_mapNodeData[Layer::TERRAIN].tileData)
@@ -126,7 +132,7 @@ bool MapNode::isPlacableOnSlope(const std::string &tileID) const
   if (tileData && m_elevationOrientation != TileSlopes::DEFAULT_ORIENTATION)
   {
     // we need to check the terrain layer for it's orientation so we can calculate the resulting x offset in the spritesheet.
-    int clipRectX = tileData->slopeTiles.clippingWidth * static_cast<int>(m_autotileOrientation[Layer::TERRAIN]);
+    const int clipRectX = tileData->slopeTiles.clippingWidth * static_cast<int>(m_autotileOrientation[Layer::TERRAIN]);
     // while loading game, m_previousTileID will be equal to "terrain" for terrin tiles while it's empty "" when starting new game.
     // so the check here on m_previousTileID is needed both (temporary), empty and "terrain", this will be fixed in new PR.
     if (clipRectX >= static_cast<int>(tileData->slopeTiles.count) * tileData->slopeTiles.clippingWidth &&
@@ -141,37 +147,37 @@ bool MapNode::isPlacableOnSlope(const std::string &tileID) const
 bool MapNode::isPlacementAllowed(const std::string &newTileID) const
 {
   TileData *tileData = TileManager::instance().getTileData(newTileID);
-  Layer layer = TileManager::instance().getTileLayer(newTileID);
+  const Layer layer = TileManager::instance().getTileLayer(newTileID);
+
   if (tileData)
   {
     //this is a water tile and placeOnWater has not been set to true, building is not permitted. Also disallow placing of water tiles on non water tiles
-    if ((m_mapNodeData[Layer::WATER].tileData && !tileData->placeOnWater) ||
-        (!m_mapNodeData[Layer::WATER].tileData && tileData->placeOnWater))
+    if (tileData->tileType != +TileType::WATER && (m_mapNodeData[Layer::WATER].tileData && !tileData->placeOnWater ||
+                                                   !m_mapNodeData[Layer::WATER].tileData && tileData->placeOnWater))
     {
       return false;
     }
 
-    // check if the current tile is overplacable or allow overplacing autotiles if it's of the same tile ID
+    // check if the current tile has the property overplacable set or if it's of the same tile ID for certain TileTypes only (not DEFAULT)
     if (m_mapNodeData[layer].tileData &&
-        (m_mapNodeData[layer].tileData->isOverPlacable || ((m_mapNodeData[layer].tileData->tileType == +TileType::AUTOTILE ||
-                                                            m_mapNodeData[layer].tileData->tileType == +TileType::UNDERGROUND) &&
-                                                           m_mapNodeData[layer].tileID == newTileID)))
-
+        (m_mapNodeData[layer].tileData->isOverPlacable ||
+         (m_mapNodeData[layer].tileData->tileType != +TileType::DEFAULT && m_mapNodeData[layer].tileID == newTileID)))
     {
       return true;
     }
+
     return isPlacableOnSlope(newTileID) &&
-           (m_mapNodeData[layer].tileID == "" || m_mapNodeData[layer].tileData->tileType == +TileType::TERRAIN ||
+           (m_mapNodeData[layer].tileID.empty() || m_mapNodeData[layer].tileData->tileType == +TileType::TERRAIN ||
             m_mapNodeData[layer].tileData->tileType == +TileType::BLUEPRINT);
   }
+
   return false;
 }
 
 void MapNode::updateTexture()
 {
   SDL_Rect clipRect{0, 0, 0, 0};
-
-  tileMap = TileMap::DEFAULT;
+  //TODO: Refactor this
   m_elevationOrientation = TileManager::instance().calculateSlopeOrientation(m_elevationBitmask);
 
   for (auto currentLayer : allLayersOrdered)
@@ -179,15 +185,21 @@ void MapNode::updateTexture()
     if (m_mapNodeData[currentLayer].tileData)
     {
       size_t spriteCount = 1;
-
+      m_mapNodeData[currentLayer].tileMap = TileMap::DEFAULT;
       if (m_elevationOrientation == TileSlopes::DEFAULT_ORIENTATION)
       {
         if (m_mapNodeData[currentLayer].tileData->tileType == +TileType::WATER ||
             m_mapNodeData[currentLayer].tileData->tileType == +TileType::TERRAIN ||
             m_mapNodeData[currentLayer].tileData->tileType == +TileType::BLUEPRINT)
         {
-          tileMap = TileMap::DEFAULT;
-          m_autotileOrientation[currentLayer] = TileOrientation::TILE_DEFAULT_ORIENTATION;
+          m_autotileOrientation[currentLayer] = TileManager::instance().calculateTileOrientation(m_autotileBitmask[currentLayer]);
+          m_mapNodeData[currentLayer].tileMap = TileMap::DEFAULT;
+          if (currentLayer == Layer::TERRAIN && m_autotileOrientation[currentLayer] != TileOrientation::TILE_DEFAULT_ORIENTATION)
+          {
+            m_mapNodeData[Layer::TERRAIN].tileMap = TileMap::SHORE;
+            // for shoretiles, we need to reset the tileIndex to 0, else a random tile would be picked. This is a a litlte bit hacky.
+            m_mapNodeData[Layer::TERRAIN].tileIndex = 0;
+          }
         }
         // if the node should autotile, check if it needs to tile itself to another tile of the same ID
         else if (m_mapNodeData[currentLayer].tileData->tileType == +TileType::AUTOTILE ||
@@ -196,34 +208,21 @@ void MapNode::updateTexture()
           m_autotileOrientation[currentLayer] = TileManager::instance().calculateTileOrientation(m_autotileBitmask[currentLayer]);
         }
       }
-      else if (m_elevationOrientation >= TileSlopes::N && m_elevationOrientation <= TileSlopes::S)
+      else if (m_elevationOrientation >= TileSlopes::N && m_elevationOrientation <= TileSlopes::BETWEEN)
       {
         if (m_mapNodeData[currentLayer].tileData->slopeTiles.fileName.empty())
         {
-          tileMap = TileMap::DEFAULT;
+          m_mapNodeData[currentLayer].tileMap = TileMap::DEFAULT;
           m_autotileOrientation[currentLayer] = TileOrientation::TILE_DEFAULT_ORIENTATION;
         }
         else
         {
-          tileMap = TileMap::SLOPES; // TileSlopes [N,E,w,S]
-          m_autotileOrientation[currentLayer] = static_cast<TileOrientation>(m_elevationOrientation);
-        }
-      }
-      else if (m_elevationOrientation >= TileSlopes::NW && m_elevationOrientation <= TileSlopes::BETWEEN)
-      {
-        if (m_mapNodeData[currentLayer].tileData->cornerTiles.fileName.empty())
-        {
-          tileMap = TileMap::DEFAULT;
-          m_autotileOrientation[currentLayer] = TileOrientation::TILE_DEFAULT_ORIENTATION;
-        }
-        else
-        {
-          tileMap = TileMap::CORNERS; // TileSlopes [NW,NE,SE,SW,N_AND_W,N_AND_E,S_AND_E,S_AND_W]
+          m_mapNodeData[currentLayer].tileMap = TileMap::SLOPES; // TileSlopes [N,E,w,S]
           m_autotileOrientation[currentLayer] = static_cast<TileOrientation>(m_elevationOrientation);
         }
       }
 
-      switch (tileMap)
+      switch (m_mapNodeData[currentLayer].tileMap)
       {
       case TileMap::DEFAULT:
         m_clippingWidth = m_mapNodeData[currentLayer].tileData->tiles.clippingWidth;
@@ -233,6 +232,28 @@ void MapNode::updateTexture()
         }
         else
         {
+          // only check for rectangular roads when there are frames for it. Spritesheets with rect-roads have 20 items
+          if (GameStates::instance().rectangularRoads && m_mapNodeData[currentLayer].tileData->tiles.count == 20)
+          {
+            switch (m_autotileOrientation[currentLayer])
+            {
+            case TileOrientation::TILE_S_AND_W:
+              m_autotileOrientation[currentLayer] = TileOrientation::TILE_S_AND_W_RECT;
+              break;
+            case TileOrientation::TILE_S_AND_E:
+              m_autotileOrientation[currentLayer] = TileOrientation::TILE_S_AND_E_RECT;
+              break;
+            case TileOrientation::TILE_N_AND_E:
+              m_autotileOrientation[currentLayer] = TileOrientation::TILE_N_AND_E_RECT;
+              break;
+            case TileOrientation::TILE_N_AND_W:
+              m_autotileOrientation[currentLayer] = TileOrientation::TILE_N_AND_W_RECT;
+              break;
+
+            default:
+              break;
+            }
+          }
           clipRect.x = m_clippingWidth * static_cast<int>(m_autotileOrientation[currentLayer]);
         }
 
@@ -250,18 +271,30 @@ void MapNode::updateTexture()
 
         spriteCount = m_mapNodeData[currentLayer].tileData->tiles.count;
         break;
-      case TileMap::CORNERS:
-        m_clippingWidth = m_mapNodeData[currentLayer].tileData->cornerTiles.clippingWidth;
-        clipRect.x = m_clippingWidth * (static_cast<int>(m_autotileOrientation[currentLayer]) - 4);
-        spriteCount = m_mapNodeData[currentLayer].tileData->cornerTiles.count;
-        if (clipRect.x <= static_cast<int>(spriteCount) * m_clippingWidth)
+      case TileMap::SHORE:
+        m_clippingWidth = m_mapNodeData[currentLayer].tileData->shoreTiles.clippingWidth;
+        if (m_mapNodeData[currentLayer].tileIndex != 0)
         {
-          m_sprite->setClipRect({clipRect.x + m_mapNodeData[currentLayer].tileData->cornerTiles.offset * m_clippingWidth, 0,
-                                 m_clippingWidth, m_mapNodeData[currentLayer].tileData->cornerTiles.clippingHeight},
-                                static_cast<Layer>(currentLayer));
-          m_sprite->setTexture(TileManager::instance().getTexture(m_mapNodeData[currentLayer].tileID),
-                               static_cast<Layer>(currentLayer));
+          clipRect.x = m_clippingWidth * m_mapNodeData[currentLayer].tileIndex;
         }
+        else
+        {
+          clipRect.x = m_clippingWidth * static_cast<int>(m_autotileOrientation[currentLayer]);
+        }
+
+        if (!m_mapNodeData[currentLayer].tileID.empty())
+        {
+          m_sprite->setClipRect({clipRect.x + m_clippingWidth * m_mapNodeData[currentLayer].tileData->shoreTiles.offset, 0,
+                                 m_clippingWidth, m_mapNodeData[currentLayer].tileData->shoreTiles.clippingHeight},
+                                static_cast<Layer>(currentLayer));
+          if (m_mapNodeData[currentLayer].shouldRender)
+          {
+            m_sprite->setTexture(TileManager::instance().getTexture(m_mapNodeData[currentLayer].tileID + "_shore"),
+                                 static_cast<Layer>(currentLayer));
+          }
+        }
+
+        spriteCount = m_mapNodeData[currentLayer].tileData->shoreTiles.count;
         break;
       case TileMap::SLOPES:
         if (m_mapNodeData[currentLayer].tileData->slopeTiles.fileName.empty())
@@ -314,10 +347,8 @@ void MapNode::setMapNodeData(std::vector<MapNodeData> &&mapNodeData, const Point
   // updates the pointers to the tiles, after loading tileIDs from json
   for (auto &it : m_mapNodeData)
   {
-    if (it.tileData)
-    {
-      delete it.tileData;
-    }
+    delete it.tileData;
+
     it.tileData = TileManager::instance().getTileData(it.tileID);
     if (it.origCornerPoint != currNodeIsoCoordinates)
     {
@@ -328,7 +359,7 @@ void MapNode::setMapNodeData(std::vector<MapNodeData> &&mapNodeData, const Point
 
 void MapNode::demolishNode()
 {
-  Layer myLayers[] = {Layer::BUILDINGS, Layer::UNDERGROUND};
+  Layer myLayers[] = {Layer::BUILDINGS, Layer::UNDERGROUND, Layer::GROUND_DECORATION};
   for (auto &layer : myLayers)
   {
     if (MapLayers::isLayerActive(layer))
