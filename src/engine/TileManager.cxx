@@ -308,9 +308,9 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
   m_tileData[id].water = tileDataJSON[idx].value("water", 0);
   m_tileData[id].upkeepCost = tileDataJSON[idx].value("upkeepCost", 0);
   m_tileData[id].isOverPlacable = tileDataJSON[idx].value("isOverPlacable", false);
-  m_tileData[id].groundTileDecoration = tileDataJSON[idx].value("groundTileDecoration", "");
   m_tileData[id].placeOnWater = tileDataJSON[idx].value("placeOnWater", false);
   m_tileData[id].inhabitants = tileDataJSON[idx].value("inhabitants", 0);
+  m_tileData[id].happyness = tileDataJSON[idx].value("happyness", 0);
   m_tileData[id].fireHazardLevel = tileDataJSON[idx].value("fireHazardLevel", 0);
   m_tileData[id].educationLevel = tileDataJSON[idx].value("educationLevel", 0);
   m_tileData[id].crimeLevel = tileDataJSON[idx].value("crimeLevel", 0);
@@ -373,6 +373,14 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
     for (auto biome : tileDataJSON[idx].at("biomes").items())
     {
       m_tileData[id].biomes.push_back(biome.value().get<std::string>());
+    }
+  }
+
+  if (tileDataJSON[idx].find("groundTileDecoration") != tileDataJSON[idx].end())
+  {
+    for (auto groundTileDecoration : tileDataJSON[idx].at("groundTileDecoration").items())
+    {
+      m_tileData[id].groundTileDecoration.push_back(groundTileDecoration.value().get<std::string>());
     }
   }
 
