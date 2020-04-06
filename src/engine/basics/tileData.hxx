@@ -106,7 +106,7 @@ struct TileData
   int water = 0;                         /// water production / consumption if negative
   Wealth wealth = +Wealth::LOW;          /// Restrict this building to a certain wealth level. See enum Wealth
 
-  std::string
+  std::vector<std::string>
       groundTileDecoration; /// tileID of the item that should be drawn on ground below sprite instead of terrain(grass, concrete, ...). Must be a tileID with tileType GroundDecoration
   bool placeOnGround = true;       /// wether or not this building is placeable on ground
   bool placeOnWater = false;       /// whether or not this building is placeable on water
