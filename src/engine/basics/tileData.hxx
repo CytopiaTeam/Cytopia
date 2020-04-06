@@ -115,6 +115,7 @@ struct TileData
   int crimeLevel = 0;              /// Crime this building produces or prevents (police station)
   int fireHazardLevel = 0;         /// Fire Danger this building produces or prevents
   int inhabitants = 0;             /// How many residents / workers this building can hold. Also how much jobs it provides
+  int happyness = 0;               /// How many residents / workers this building can hold. Also how much jobs it provides
   int educationLevel = 0;          /// How much education this building provides (educational building) / requires (job)
   std::vector<Zones> zones;        /// Restrict this building to a zone type.
   std::vector<Style> style;        /// Restrict this building to certain Art Styles.
