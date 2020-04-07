@@ -92,8 +92,13 @@ public:
       for (auto it = begin; it != end; ++it)
       {
         bool shouldRender = !(!isMultiObjects && it != begin);
-        demolishNode(*it);
-        mapNodes[it->x * m_columns + it->y]->setRenderFlag(TileManager::instance().getTileLayer(tileID), shouldRender);
+        Layer layer = TileManager::instance().getTileLayer(tileID);
+        // only demolish nodes before placing if this is a bigger than 1x1 building
+        if (!isMultiObjects)
+        {
+          demolishNode(*it);
+        }
+        mapNodes[it->x * m_columns + it->y]->setRenderFlag(layer, shouldRender);
         mapNodes[it->x * m_columns + it->y]->setTileID(tileID, isMultiObjects ? *it : *begin);
         updateNeighborsOfNode(*it);
       }
