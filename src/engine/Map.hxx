@@ -89,6 +89,7 @@ public:
     }
     if (isOkToSet)
     {
+      int tileIndex = -1;
       for (auto it = begin; it != end; ++it)
       {
         bool shouldRender = !(!isMultiObjects && it != begin);
@@ -100,6 +101,19 @@ public:
         }
         mapNodes[it->x * m_columns + it->y]->setRenderFlag(layer, shouldRender);
         mapNodes[it->x * m_columns + it->y]->setTileID(tileID, isMultiObjects ? *it : *begin);
+        if (!mapNodes[it->x * m_columns + it->y]->getMapNodeDataForLayer(layer).tileData->groundTileDecoration.empty() &&
+            tileIndex == -1)
+        {
+          tileIndex =
+              rand() % mapNodes[it->x * m_columns + it->y]->getMapNodeDataForLayer(layer).tileData->groundTileDecoration.size();
+        }
+        if (tileIndex != -1)
+        {
+          mapNodes[it->x * m_columns + it->y]->setTileID(
+              mapNodes[it->x * m_columns + it->y]->getMapNodeDataForLayer(layer).tileData->groundTileDecoration[tileIndex],
+              isMultiObjects ? *it : *begin);
+        }
+
         updateNeighborsOfNode(*it);
       }
     }
