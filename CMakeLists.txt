@@ -304,6 +304,7 @@ if (WIN32)
     INSTALL(FILES ${CMAKE_SOURCE_DIR}/tools/itch/win32/.itch.toml
            DESTINATION ${CMAKE_BINARY_DIR}/redist
            )
+  endif()
 endif()
 
 include(FeatureSummary)
