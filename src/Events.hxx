@@ -19,7 +19,8 @@ using UIEvents = TypeList<struct TerminateEvent /* Add UI Events here */>;
 using GameEvents = TypeList<
 #ifdef USE_AUDIO
   /* All AudioEvents */
-  struct AudioTriggerEvent, struct AudioTrigger3DEvent, struct AudioPlayEvent, struct AudioPlay3DEvent,
+  struct AudioTriggerEvent, struct AudioTrigger3DEvent, struct AudioTriggerReverbEvent, struct AudioTriggerReverb3DEvent,
+  struct AudioPlayEvent, struct AudioPlay3DEvent, struct AudioPlayReverbEvent, struct AudioPlayReverb3DEvent,
   struct AudioMusicVolumeChangeEvent, struct AudioSoundVolumeChangeEvent, struct AudioSetMutedEvent,
   struct AudioStopEvent, struct AudioPruneEvent,
 #endif // USE_AUDIO

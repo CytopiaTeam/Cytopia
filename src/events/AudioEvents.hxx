@@ -20,15 +20,55 @@ struct Coordinate3D
 /**
  * @brief a standard reverb effect
  */
-struct StandardReverb
+struct StandardReverbProperties
 {
+	//AL_EAXREVERB_DENSITY, 
+	double flDensity;
+	//AL_EAXREVERB_DIFFUSION, 
+	double flDiffusion;
+	//AL_EAXREVERB_GAIN, 
+	double flGain;
+	//AL_EAXREVERB_GAINHF, 
+	double flGainHF;
+	//AL_EAXREVERB_GAINLF, 
+	double flGainLF;
+	//AL_EAXREVERB_DECAY_TIME, 
+	double flDecayTime;
+	//AL_EAXREVERB_DECAY_HFRATIO, 
+	double flDecayHFRatio;
+	//AL_EAXREVERB_DECAY_LFRATIO, 
+	double flDecayLFRatio;
+	//AL_EAXREVERB_REFLECTIONS_GAIN, 
+	double flReflectionsGain;
+	//AL_EAXREVERB_REFLECTIONS_DELAY, 
+	double flReflectionsDelay;
+	//alEffectfv(effect, AL_EAXREVERB_REFLECTIONS_PAN, double flReflectionsPan;
+	//AL_EAXREVERB_LATE_REVERB_GAIN, 
+	double flLateReverbGain;
+	//AL_EAXREVERB_LATE_REVERB_DELAY, 
+	double flLateReverbDelay;
+	//alEffectfv(effect, AL_EAXREVERB_LATE_REVERB_PAN, double flLateReverbPan;
+	//AL_EAXREVERB_ECHO_TIME, 
+	double flEchoTime;
+	//AL_EAXREVERB_ECHO_DEPTH, 
+	double flEchoDepth;
+	//AL_EAXREVERB_MODULATION_TIME, 
+	double flModulationTime;
+	//AL_EAXREVERB_MODULATION_DEPTH, 
+	double flModulationDepth;
+	//AL_EAXREVERB_HFREFERENCE, 
+	double flHFReference;
+	//AL_EAXREVERB_LFREFERENCE, 
+	double flLFReference;
+	//AL_EAXREVERB_AIR_ABSORPTION_GAINHF, 
+	double flAirAbsorptionGainHF;
+	//AL_EAXREVERB_ROOM_ROLLOFF_FACTOR, 
+	double flRoomRolloffFactor;
+	//AL_EAXREVERB_DECAY_HFLIMIT, 
+	//int iDecayHFLimit; 
 	
 };
 
-struct EAXReverb
-{
-	
-};
 
 /**
  * @brief event triggering a set of tracks
@@ -62,6 +102,44 @@ struct AudioPlay3DEvent
 {
   SoundtrackID ID;
   Coordinate3D position;
+};
+
+/**
+ * @brief event playing a track with reverb effect
+ */
+struct AudioPlayReverbEvent
+{
+  SoundtrackID ID;
+  StandardReverbProperties reverb_properties;	
+};
+
+/**
+ * @brief event triggering a track with reverb
+ */
+struct AudioTriggerReverbEvent
+{
+  AudioTrigger trigger;
+  StandardReverbProperties reverb_properties;
+};
+
+/**
+ * @brief event playing a track with reverb effect with 3D sound
+ */
+struct AudioPlayReverb3DEvent
+{
+  SoundtrackID ID;
+  Coordinate3D position;
+  StandardReverbProperties reverb_properties;	
+};
+
+/**
+ * @brief event triggering a track with reverb with 3D sound
+ */
+struct AudioTriggerReverb3DEvent
+{
+  AudioTrigger trigger;
+  Coordinate3D position;
+  StandardReverbProperties reverb_properties;
 };
 
 /**
@@ -107,9 +185,13 @@ struct AudioPruneEvent
  */
 using AudioEvents = TypeList<AudioTriggerEvent, 
   AudioTriggerEvent, 
-  AudioTrigger3DEvent, 
+  AudioTrigger3DEvent,
+  AudioTriggerReverbEvent,
+  AudioTriggerReverb3DEvent, 
   AudioPlayEvent, 
   AudioPlay3DEvent,
+  AudioPlayReverbEvent,
+  AudioPlayReverb3DEvent,
   AudioMusicVolumeChangeEvent, 
   AudioSoundVolumeChangeEvent, 
   AudioSetMutedEvent, 

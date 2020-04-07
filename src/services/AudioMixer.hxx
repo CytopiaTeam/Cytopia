@@ -16,6 +16,10 @@
 #ifdef USE_OPENAL_SOFT
 #include "AL/al.h"
 #include "AL/alc.h"
+
+#include "AL/alext.h" //header for OpenAL Soft
+#include "AL/efx.h"
+#include "AL/efx-presets.h"
 #endif
 
 template <typename Key, typename Value> using Mapping = std::unordered_map<Key, Value>;
@@ -69,6 +73,27 @@ public:
   void play(SoundtrackID &&ID, Coordinate3D &&position) noexcept;
 #endif
 
+  /**
+   * @brief Plays a Soundtrack given its ID and applies effect to it
+   * @param ID the SoundtrackID
+   * @param position the Coordinate3D position of the sound
+   * @param properties of standard reverb
+   */
+#ifdef USE_OPENAL_SOFT
+  void play(SoundtrackID &&ID, StandardReverbProperties &&reverb) noexcept;
+#endif
+
+/**
+   * @brief Plays a Soundtrack from a trigger and applies effect to it
+   * @param trigger the AudioTrigger
+   * @param position the Coordinate3D position of the sound
+   * @param properties of standard reverb
+   */
+#ifdef USE_OPENAL_SOFT
+  void play(AudioTrigger &&trigger, StandardReverbProperties &&reverb) noexcept;
+  
+#endif
+
 /**
    * @brief Plays a 3D Soundtrack from a trigger
    * @param trigger the AudioTrigger
@@ -78,6 +103,28 @@ public:
   void play(AudioTrigger &&trigger, Coordinate3D &&position) noexcept;
   
 #endif
+
+  /**
+   * @brief Plays a 3D Soundtrack given its ID and applies effect to it
+   * @param ID the SoundtrackID
+   * @param position the Coordinate3D position of the sound
+   * @param properties of standard reverb
+   */
+#ifdef USE_OPENAL_SOFT
+  void play(SoundtrackID &&ID, Coordinate3D &&position, StandardReverbProperties &&reverb_properties) noexcept;
+#endif
+
+/**
+   * @brief Plays a 3D Soundtrack from a trigger and applies effect to it
+   * @param trigger the AudioTrigger
+   * @param position the Coordinate3D position of the sound
+   * @param properties of standard reverb
+   */
+#ifdef USE_OPENAL_SOFT
+  void play(AudioTrigger &&trigger, Coordinate3D &&position, StandardReverbProperties &&reverb_properties) noexcept;
+#endif
+
+
   /**
    * @brief stops all sounds
    * @param isMuted is muted
@@ -149,6 +196,18 @@ private:
 #ifdef USE_OPENAL_SOFT
   void handleEvent(const AudioPlay3DEvent &&event);
 #endif
+#ifdef USE_OPENAL_SOFT
+  void handleEvent(const AudioPlayReverbEvent &&event);
+#endif
+#ifdef USE_OPENAL_SOFT
+  void handleEvent(const AudioTriggerReverbEvent &&event);
+#endif
+#ifdef USE_OPENAL_SOFT
+  void handleEvent(const AudioPlayReverb3DEvent &&event);
+#endif
+#ifdef USE_OPENAL_SOFT
+  void handleEvent(const AudioTriggerReverb3DEvent &&event);
+#endif
   void handleEvent(const AudioSoundVolumeChangeEvent &&event);
   void handleEvent(const AudioMusicVolumeChangeEvent &&event);
   void handleEvent(const AudioSetMutedEvent &&event);
@@ -162,7 +221,14 @@ private:
    * @param soundtrack the Soundtrack
    */
   void playSoundtrack(SoundtrackUPtr &soundtrack);
-
+  
+  /**
+   * @brief Plays the Soundtrack with reverb
+   * @param soundtrack the Soundtrack
+   * @param properties of reverb effect
+   */
+  void playSoundtrackWithReverb(SoundtrackUPtr &soundtrack,StandardReverbProperties properties);
+  
   /**
    * @brief Called whenever a Channel has finished playing
    * @param channelID the channel that has finished playing
