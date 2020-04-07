@@ -1,0 +1,866 @@
+{
+    "MixedPlains": {
+        "trees": {
+            "light": [
+                "tree_pine_light",
+				"tree_deciduous_light"
+            ],
+            "medium": [
+                ""
+            ],
+            "dense": [
+                ""
+            ]
+        },
+        "waterFlora": {
+            "light": [
+                "waterFlora_cattail_light",
+				"waterFlora_rice_light"
+            ],
+            "medium": [
+                ""
+            ],
+            "dense": [
+                ""
+            ]
+        },
+        "terrainFlora": {
+            "light": [
+              "flora_flower_light",
+			  "flora_tallgrass_light",
+			  "flora_ferns_light"
+            ],
+            "medium": [
+                "flora_tallgrass_medium",
+				"flora_ferns_medium"
+            ],
+            "dense": [
+                ""
+            ]
+        },
+        "bushes": {
+            "light": [
+               "bush_green_light",
+			   "bush_redberry_light"
+
+            ],
+            "medium": [
+                ""
+            ],
+            "dense": [
+                ""
+            ]
+        },
+        "terrain": [
+            "terrain_grass",
+			"terrain_grass_mint"
+        ],
+        "terrainDecoration": [
+				""
+        ],
+        "water": [
+            "water"
+        ],
+        "waterdecoration": [
+            "rocks_water",
+			"bd_2x2_sunkenship_kt"
+        ],
+        "terrainRocks": [
+            "rocks_grassLands"
+        ]
+    },
+    "PineTreePlains": {
+        "trees": {
+            "light": [
+                "tree_pine_light"
+            ],
+            "medium": [
+                ""
+            ],
+            "dense": [
+                ""
+            ]
+        },
+        "waterFlora": {
+            "light": [
+				"waterFlora_rice_light"
+            ],
+            "medium": [
+                ""
+            ],
+            "dense": [
+                ""
+            ]
+        },
+        "terrainFlora": {
+            "light": [
+              "flora_flower_light",
+			  "flora_tallgrass_light",
+			  "flora_ferns_light"
+            ],
+            "medium": [
+                "flora_ferns_medium"
+            ],
+            "dense": [
+                ""
+            ]
+        },
+        "bushes": {
+            "light": [
+               "bush_redberry_light"
+
+            ],
+            "medium": [
+                ""
+            ],
+            "dense": [
+                ""
+            ]
+        },
+        "terrain": [
+            "terrain_grass_mint"
+        ],
+        "terrainDecoration": [
+				""
+        ],
+        "water": [
+            "water"
+        ],
+        "waterdecoration": [
+            "rocks_water",
+			"bd_2x2_sunkenship_kt"
+        ],
+        "terrainRocks": [
+            "rocks_grassLands"
+        ]
+    },
+    "DeciduousPlains": {
+        "trees": {
+            "light": [
+				"tree_deciduous_light"
+            ],
+            "medium": [
+                ""
+            ],
+            "dense": [
+                ""
+            ]
+        },
+        "waterFlora": {
+            "light": [
+                "waterFlora_rice_light"
+            ],
+            "medium": [
+                ""
+            ],
+            "dense": [
+                ""
+            ]
+        },
+        "terrainFlora": {
+            "light": [
+              "flora_flower_light",
+			  "flora_ferns_light",
+			  "flora_tallgrass_light"
+            ],
+            "medium": [
+                "flora_tallgrass_medium"
+            ],
+            "dense": [
+                ""
+            ]
+        },
+        "bushes": {
+            "light": [
+               "flora_bush_light"
+
+            ],
+            "medium": [
+                ""
+            ],
+            "dense": [
+                ""
+            ]
+        },
+        "terrain": [
+            "terrain_grass"
+        ],
+        "terrainDecoration": [
+				""
+        ],
+        "water": [
+            "water"
+        ],
+        "waterdecoration": [
+            "rocks_water",
+			"bd_2x2_sunkenship_kt"
+        ],
+        "terrainRocks": [
+            "rocks_grassLands"
+        ]
+    },
+    "MixedForest": {
+        "trees": {
+            "light": [
+                "tree_deciduous_light",
+				"tree_pine_light"
+            ],
+            "medium": [
+                "tree_deciduous_medium",
+				"tree_pine_medium"
+            ],
+            "dense": [
+                "tree_deciduous_dense",
+				"tree_pine_dense"
+            ]
+        },
+        "waterFlora": {
+            "light": [
+                "waterFlora_rice_light",
+				"waterFlora_cattails_light",
+				"waterFlora_lilypads_light"
+            ],
+            "medium": [
+                "waterFlora_rice_medium",
+				"waterFlora_cattails_medium",
+				"waterFlora_lilypads_medium"
+            ],
+            "dense": [
+                "waterFlora_rice_dense",
+				"waterFlora_cattails_dense"
+            ]
+        },
+        "terrainFlora": {
+            "light": [
+                "flora_tallgrass_light",
+				"flora_ferns_light"
+            ],
+            "medium": [
+                "flora_tallgrass_medium",
+				"flora_ferns_medium"
+            ],
+            "dense": [
+                "flora_tallgrass_dense",
+				"flora_ferns_dense"
+            ]
+        },
+        "bushes": {
+            "light": [
+				"bush_green_light",
+				"bush_redberry_light"
+            ],
+            "medium": [
+                "bush_green_medium",
+				"bush_redberry_medium"
+            ],
+            "dense": [
+                "bush_green_dense",
+				"bush_redberry_dense"
+            ]
+        },
+        "terrain": [
+            "terrain_grass",
+			"terrain_grass_mint",
+			"terrain_grass_forest",
+			"terrain_grass_mint_forest"
+        ],
+        "terrainDecoration": [
+            
+        ],
+        "water": [
+            "water"
+        ],
+        "waterdecoration": [
+            "rocks_water"
+        ],
+        "terrainRocks": [
+            "rocks_grassLands",
+			"rocks_diamond"
+        ]
+    },
+    "PineForest": {
+        "trees": {
+            "light": [
+				"tree_pine_light"
+            ],
+            "medium": [
+				"tree_pine_medium"
+            ],
+            "dense": [
+				"tree_pine_dense"
+            ]
+        },
+        "waterFlora": {
+            "light": [
+				"waterFlora_cattails_light",
+				"waterFlora_lilypads_light"
+            ],
+            "medium": [
+				"waterFlora_cattails_medium",
+				"waterFlora_lilypads_medium"
+            ],
+            "dense": [
+				"waterFlora_cattails_dense"
+            ]
+        },
+        "terrainFlora": {
+            "light": [
+				"flora_tallgrass_light",
+				"flora_ferns_light"
+            ],
+            "medium": [
+				"flora_ferns_medium"
+            ],
+            "dense": [
+				"flora_ferns_dense"
+            ]
+        },
+        "bushes": {
+            "light": [
+				"bush_redberry_light",
+				"bush_green_light"
+            ],
+            "medium": [
+				"bush_redberry_medium"
+            ],
+            "dense": [
+				"bush_redberry_dense"
+            ]
+        },
+        "terrain": [
+			"terrain_grass_mint",
+			"terrain_grass_mint_forest"
+        ],
+        "terrainDecoration": [
+            
+        ],
+        "water": [
+            "water"
+        ],
+        "waterdecoration": [
+            "rocks_water"
+        ],
+        "terrainRocks": [
+            "rocks_grassLands",
+			"rocks_diamond"
+        ]
+    },
+    "DeciduousForest": {
+        "trees": {
+            "light": [
+                "tree_deciduous_light"
+            ],
+            "medium": [
+                "tree_deciduous_medium"
+            ],
+            "dense": [
+                "tree_deciduous_dense"
+            ]
+        },
+        "waterFlora": {
+            "light": [
+                "waterFlora_rice_light",
+				"waterFlora_lilypads_light"
+            ],
+            "medium": [
+                "waterFlora_rice_medium",
+				"waterFlora_lilypads_medium"
+            ],
+            "dense": [
+                "waterFlora_rice_dense"
+            ]
+        },
+        "terrainFlora": {
+            "light": [
+                "flora_ferns_light",
+				"flora_tallgrass_light"
+            ],
+            "medium": [
+                "flora_tallgrass_medium"
+            ],
+            "dense": [
+                "flora_tallgrass_dense"
+            ]
+        },
+        "bushes": {
+            "light": [
+				"bush_green_light",
+				"bush_redberry_light"
+            ],
+            "medium": [
+                "bush_green_medium"
+            ],
+            "dense": [
+                "bush_green_dense"
+            ]
+        },
+        "terrain": [
+            "terrain_grass",
+			"terrain_grass_forest"
+        ],
+        "terrainDecoration": [
+            
+        ],
+        "water": [
+            "water"
+        ],
+        "waterdecoration": [
+            "rocks_water"
+        ],
+        "terrainRocks": [
+            "rocks_grassLands",
+			"rocks_diamond"
+        ]
+    },
+	    "Beach": {
+        "trees": {
+            "light": [
+                "tree_palm_light"
+            ],
+            "medium": [
+                "tree_palm_medium"
+            ],
+            "dense": [
+                "tree_palm_dense"
+            ]
+        },
+        "waterFlora": {
+            "light": [
+                ""
+            ],
+            "medium": [
+                ""
+            ],
+            "dense": [
+                ""
+            ]
+        },
+        "terrainFlora": {
+            "light": [
+                ""
+            ],
+            "medium": [
+                ""
+            ],
+            "dense": [
+                ""
+            ]
+        },
+        "bushes": {
+            "light": [
+				"cactus_green_light",
+				"cactus_yellow_light"
+            ],
+            "medium": [
+                ""
+            ],
+            "dense": [
+                ""
+            ]
+        },
+        "terrain": [
+            "terrain_sand_beach"
+        ],
+        "terrainDecoration": [
+            "bd_2x2_sunkenship_kt"
+        ],
+        "water": [
+            "water"
+        ],
+        "waterdecoration": [
+            "rocks_water"
+        ],
+        "terrainRocks": [
+            "rocks_desert",
+			"rocks_gold"
+        ]
+    },
+    "Desert": {
+        "trees": {
+            "light": [
+                "tree_palm_light"
+            ],
+            "medium": [
+                ""
+            ],
+            "dense": [
+                ""
+            ]
+        },
+        "waterFlora": {
+            "light": [
+                ""
+            ],
+            "medium": [
+                ""
+            ],
+            "dense": [
+                ""
+            ]
+        },
+        "terrainFlora": {
+            "light": [
+                ""
+            ],
+            "medium": [
+                ""
+            ],
+            "dense": [
+                ""
+            ]
+        },
+        "bushes": {
+            "light": [
+				"cactus_green_light",
+				"cactus_yellow_light"
+            ],
+            "medium": [
+                "cactus_green_medium",
+				"cactus_yellow_medium"
+            ],
+            "dense": [
+                "cactus_green_dense",
+				"cactus_yellow_dense"
+            ]
+        },
+        "terrain": [
+            "terrain_sand_desert"
+        ],
+        "terrainDecoration": [
+            "bd_2x2_sunkenship_kt"
+        ],
+        "water": [
+            "water"
+        ],
+        "waterdecoration": [
+            "rocks_water"
+        ],
+        "terrainRocks": [
+            "rocks_desert",
+			"rocks_gold"
+        ]
+    },
+    "BloodDesert": {
+        "trees": {
+            "light": [
+                "tree_burned_light"
+            ],
+            "medium": [
+                "tree_burned_medium"
+            ],
+            "dense": [
+                ""
+            ]
+        },
+        "waterFlora": {
+            "light": [
+                ""
+            ],
+            "medium": [
+                ""
+            ],
+            "dense": [
+                ""
+            ]
+        },
+        "terrainFlora": {
+            "light": [
+                ""
+            ],
+            "medium": [
+                ""
+            ],
+            "dense": [
+                ""
+            ]
+        },
+        "bushes": {
+            "light": [
+				"cactus_green_light",
+				"cactus_yellow_light"
+            ],
+            "medium": [
+                "cactus_green_medium",
+				"cactus_yellow_medium"
+            ],
+            "dense": [
+                "cactus_green_dense",
+				"cactus_yellow_dense"
+            ]
+        },
+        "terrain": [
+            "terrain_sand_red"
+        ],
+        "terrainDecoration": [
+            "bd_2x2_sunkenship_kt"
+        ],
+        "water": [
+            "water"
+        ],
+        "waterdecoration": [
+            "rocks_water"
+        ],
+        "terrainRocks": [
+            "rocks_desert",
+			"rocks_gold"
+        ]
+    },
+	    "CorruptDesert": {
+        "trees": {
+            "light": [
+                "tree_burned_light"
+            ],
+            "medium": [
+                "tree_burned_medium"
+            ],
+            "dense": [
+                ""
+            ]
+        },
+        "waterFlora": {
+            "light": [
+                ""
+            ],
+            "medium": [
+                ""
+            ],
+            "dense": [
+                ""
+            ]
+        },
+        "terrainFlora": {
+            "light": [
+                ""
+            ],
+            "medium": [
+                ""
+            ],
+            "dense": [
+                ""
+            ]
+        },
+        "bushes": {
+            "light": [
+				""
+            ],
+            "medium": [
+                ""
+            ],
+            "dense": [
+                ""
+            ]
+        },
+        "terrain": [
+            "terrain_sand_black",
+			"terrain_basalt"
+        ],
+        "terrainDecoration": [
+            "bd_2x2_sunkenship_kt"
+        ],
+        "water": [
+            "water"
+        ],
+        "waterdecoration": [
+            "rocks_water"
+        ],
+        "terrainRocks": [
+            "rocks_desert",
+			"rocks_gold"
+        ]
+    },
+	    "Wasteland": {
+        "trees": {
+            "light": [
+				"tree_burned_light"
+            ],
+            "medium": [
+				"tree_burned_medium"
+            ],
+            "dense": [
+				"tree_burned_dense"
+            ]
+        },
+        "waterFlora": {
+            "light": [
+				"waterFlora_cattails_light",
+				"waterFlora_lilypads_light"
+            ],
+            "medium": [
+				""
+            ],
+            "dense": [
+				""
+            ]
+        },
+        "terrainFlora": {
+            "light": [
+				"flora_tallgrass_light"
+            ],
+            "medium": [
+				""
+            ],
+            "dense": [
+				""
+            ]
+        },
+        "bushes": {
+            "light": [
+				"bush_green_light"
+            ],
+            "medium": [
+				""
+            ],
+            "dense": [
+				""
+            ]
+        },
+        "terrain": [
+				"terrain_burned",
+				"terrain_dirt"
+        ],
+        "terrainDecoration": [
+				""
+        ],
+        "water": [
+            "water"
+        ],
+        "waterdecoration": [
+				"rocks_water"
+        ],
+        "terrainRocks": [
+				"rocks_grassLands",
+				"rocks_gold"
+        ]
+    },
+	    "BarrenMountain": {
+        "trees": {
+            "light": [
+				""
+            ],
+            "medium": [
+				""
+            ],
+            "dense": [
+				""
+            ]
+        },
+        "waterFlora": {
+            "light": [
+				""
+            ],
+            "medium": [
+				""
+            ],
+            "dense": [
+				""
+            ]
+        },
+        "terrainFlora": {
+            "light": [
+				""
+            ],
+            "medium": [
+				""
+            ],
+            "dense": [
+				""
+            ]
+        },
+        "bushes": {
+            "light": [
+				""
+            ],
+            "medium": [
+				""
+            ],
+            "dense": [
+				""
+            ]
+        },
+        "terrain": [
+				"terrain_stone",
+				"terrain_gravel",
+				"terrain_snow"
+        ],
+        "terrainDecoration": [
+				""
+        ],
+        "water": [
+            "water"
+        ],
+        "waterdecoration": [
+				"rocks_water"
+        ],
+        "terrainRocks": [
+				"rocks_grassLands",
+				"rocks_gold",
+				"rocks_diamond"
+        ]
+    },
+		    "Mountain": {
+        "trees": {
+            "light": [
+				""
+            ],
+            "medium": [
+				""
+            ],
+            "dense": [
+				""
+            ]
+        },
+        "waterFlora": {
+            "light": [
+				""
+            ],
+            "medium": [
+				""
+            ],
+            "dense": [
+				""
+            ]
+        },
+        "terrainFlora": {
+            "light": [
+				"flora_tallgrass_light",
+				"flora_ferns_light"
+            ],
+            "medium": [
+				""
+            ],
+            "dense": [
+				""
+            ]
+        },
+        "bushes": {
+            "light": [
+				"bush_green_light"
+            ],
+            "medium": [
+				""
+            ],
+            "dense": [
+				""
+            ]
+        },
+        "terrain": [
+				"terrain_stone",
+				"terrain_gravel",
+				"terrain_dirt"
+        ],
+        "terrainDecoration": [
+				""
+        ],
+        "water": [
+            "water"
+        ],
+        "waterdecoration": [
+				"rocks_water"
+        ],
+        "terrainRocks": [
+				"rocks_grassLands",
+				"rocks_gold",
+				"rocks_diamond"
+        ]
+    }
+}

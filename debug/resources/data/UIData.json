@@ -1,0 +1,57 @@
+{
+    "Button_NoIcon": {
+        "Texture_Default": "resources/images/ui/buttons/no_icon.png"
+    },
+    "Button_DebugMenu": {
+        "Texture_Default": "resources/images/ui/buttons/Debug Menu.png",
+        "Texture_Clicked": "resources/images/ui/buttons/Debug Menu pressed.png",
+        "Texture_Hovering": "resources/images/ui/buttons/Debug Menu hover.png"
+    },
+    "Button_ConstructionMenu": {
+        "Texture_Default": "resources/images/ui/buttons/Construction Menu.png",
+        "Texture_Clicked": "resources/images/ui/buttons/Construction Menu pressed.png",
+        "Texture_Hovering": "resources/images/ui/buttons/Construction Menu hover.png"
+    },
+    "Button_ConstructionMenu_Water": {
+        "Texture_Default": "resources/images/ui/buttons/water.png"
+    },
+    "Button_ConstructionMenu_Demolish": {
+        "Texture_Default": "resources/images/ui/buttons/demolish.png"
+    },
+    "Button_ConstructionMenu_RaiseTerrain": {
+        "Texture_Default": "resources/images/ui/buttons/raiseTerrain.png"
+    },
+    "Button_ConstructionMenu_LowerTerrain": {
+        "Texture_Default": "resources/images/ui/buttons/lowerTerrain.png"
+    },
+    "Button_ConstructionMenu_LevelTerrain": {
+        "Texture_Default": "resources/images/ui/buttons/levelTerrain.png"
+    },
+    "Button_RoadsMenu": {
+        "Texture_Default": "resources/images/ui/buttons/Roads Menu.png",
+        "Texture_Clicked": "resources/images/ui/buttons/Roads Menu pressed.png",
+        "Texture_Hovering": "resources/images/ui/buttons/Roads Menu hover.png"
+    },
+    "Button_RoadsMenu_PavedRoad": {
+        "Texture_Default": "resources/images/ui/buttons/paved_road.png"
+    },
+    "Button_RoadsMenu_DirtRoad": {
+        "Texture_Default": "resources/images/ui/buttons/dirt_road.png"
+    },
+    "Button_RoadsMenu_CountryRoad": {
+        "Texture_Default": "resources/images/ui/buttons/country_road.png"
+    },
+    "Button_PowerMenu": {
+        "Texture_Default": "resources/images/ui/buttons/Power Menu.png",
+        "Texture_Clicked": "resources/images/ui/buttons/Power Menu pressed.png",
+        "Texture_Hovering": "resources/images/ui/buttons/Power Menu hover.png"
+    },
+    "Button_WaterMenu": {
+        "Texture_Default": "resources/images/ui/buttons/Water Menu.png",
+        "Texture_Clicked": "resources/images/ui/buttons/Water Menu pressed.png",
+        "Texture_Hovering": "resources/images/ui/buttons/Water Menu hover.png"
+    },
+    "Cytopia_Logo": {
+        "Texture_Default": "resources/images/app_icons/logo_big_textured.png"
+    }
+}

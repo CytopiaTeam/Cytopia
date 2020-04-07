@@ -18,6 +18,19 @@ struct Coordinate3D
 };
 
 /**
+ * @brief a standard reverb effect
+ */
+struct StandardReverb
+{
+	
+};
+
+struct EAXReverb
+{
+	
+};
+
+/**
  * @brief event triggering a set of tracks
  */
 struct AudioTriggerEvent

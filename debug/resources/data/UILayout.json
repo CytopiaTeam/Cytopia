@@ -1,0 +1,330 @@
+{
+    "LayoutGroups": {
+        "TestLayout": [
+            {
+                "GroupName": "TestLayout",
+                "Alignment": "LEFT_CENTER",
+                "LayoutType": "HORIZONTAL"
+            }
+        ],
+        "TestLayout2": [
+            {
+                "GroupName": "TestLayout2",
+                "Alignment": "BOTTOM_CENTER",
+                "LayoutType": "VERTICAL",
+                "Padding": 12
+            }
+        ],
+        "PauseMenuButtons": [
+            {
+                "GroupName": "PauseMenuButtons",
+                "Alignment": "CENTER",
+                "LayoutType": "VERTICAL",
+                "Padding": 30
+            }
+        ]
+    },
+    "UiElements": {
+        "Test": [
+            {
+                "GroupVisibility": true
+            }
+        ],
+        "BottomBar": [
+            {
+                "GroupVisibility": true
+            },
+            {
+                "ID": "construction menu",
+                "Type": "ImageButton",
+                "SpriteID": "Button_ConstructionMenu",
+                "Position_x": 400,
+                "Position_y": 520,
+                "Action": "ToggleVisibilityOfGroup",
+                "ActionParameter": "ConstructionSubMenu",
+                "ButtonGroup": "BottomMenu",
+                "ToggleButton": true,
+                "TooltipText": "Construction",
+                "BuildMenuID": "Construction"
+            },
+            {
+                "ID": "roads menu",
+                "Type": "ImageButton",
+                "SpriteID": "Button_RoadsMenu",
+                "Action": "ToggleVisibilityOfGroup",
+                "ActionParameter": "RoadsSubMenu",
+                "Position_x": 480,
+                "Position_y": 520,
+                "ButtonGroup": "BottomMenu",
+                "ToggleButton": true,
+                "TooltipText": "Construction",
+                "BuildMenuID": "Roads"
+            },
+            {
+                "ID": "debug menu",
+                "Type": "ImageButton",
+                "SpriteID": "Button_DebugMenu",
+                "Action": "ToggleVisibilityOfGroup",
+                "ActionParameter": "DebugSubMenu",
+                "Position_x": 320,
+                "Position_y": 520,
+                "ButtonGroup": "BottomMenu",
+                "ToggleButton": true,
+                "TooltipText": "Debug Menu",
+                "BuildMenuID": "Debug"
+            },
+            {
+                "ID": "power menu",
+                "Type": "ImageButton",
+                "SpriteID": "Button_PowerMenu",
+                "Action": "ToggleVisibilityOfGroup",
+                "ActionParameter": "PowerSubMenu",
+                "Position_x": 240,
+                "Position_y": 520,
+                "ButtonGroup": "BottomMenu",
+                "ToggleButton": true,
+                "TooltipText": "Power",
+                "BuildMenuID": "Power"
+            },
+            {
+                "ID": "water menu",
+                "Type": "ImageButton",
+                "SpriteID": "Button_WaterMenu",
+                "Action": "ToggleVisibilityOfGroup",
+                "ActionParameter": "WaterSubMenu",
+                "Position_x": 160,
+                "Position_y": 520,
+                "ButtonGroup": "BottomMenu",
+                "ToggleButton": true,
+                "TooltipText": "Utilities",
+                "BuildMenuID": "Utilities"
+            }
+        ],
+        "ConstructionSubMenu": [
+            {
+                "GroupVisibility": false
+            },
+            {
+                "ID": "button demolish",
+                "Type": "ImageButton",
+                "SpriteID": "Button_ConstructionMenu_Demolish",
+                "Position_x": 340,
+                "Position_y": 470,
+                "Action": "Demolish",
+                "ButtonGroup": "BottomMenuExpansionGroup",
+                "ToggleButton": true,
+                "DrawFrame": true,
+                "TooltipText": "Demolish",
+                "BuildMenuID": "Construction_sub"
+            },
+            {
+                "ID": "button raise terrain",
+                "Type": "ImageButton",
+                "SpriteID": "Button_ConstructionMenu_RaiseTerrain",
+                "Position_x": 380,
+                "Position_y": 470,
+                "Action": "RaiseTerrain",
+                "ButtonGroup": "BottomMenuExpansionGroup",
+                "ToggleButton": true,
+                "DrawFrame": true,
+                "TooltipText": "Raise Terrain",
+                "BuildMenuID": "Construction_sub"
+            },
+            {
+                "ID": "button lower terrain",
+                "Type": "ImageButton",
+                "SpriteID": "Button_ConstructionMenu_LowerTerrain",
+                "Position_x": 420,
+                "Position_y": 470,
+                "Action": "LowerTerrain",
+                "ButtonGroup": "BottomMenuExpansionGroup",
+                "ToggleButton": true,
+                "DrawFrame": true,
+                "TooltipText": "Lower Terrain",
+                "BuildMenuID": "Construction_sub"
+            },
+            {
+                "ID": "button level terrain",
+                "Type": "ImageButton",
+                "SpriteID": "Button_ConstructionMenu_LevelTerrain",
+                "Position_x": 460,
+                "Position_y": 470,
+                "Action": "LevelTerrain",
+                "ButtonGroup": "BottomMenuExpansionGroup",
+                "ToggleButton": true,
+                "DrawFrame": true,
+                "TooltipText": "Level Terrain",
+                "BuildMenuID": "Construction_sub"
+            },
+            {
+                "ID": "button terrain water",
+                "Type": "ImageButton",
+                "SpriteID": "Button_ConstructionMenu_Water",
+                "Position_x": 500,
+                "Position_y": 470,
+                "Action": "ChangeTileType",
+                "ActionParameter": "water",
+                "ButtonGroup": "BottomMenuExpansionGroup",
+                "ToggleButton": true,
+                "DrawFrame": true,
+                "TooltipText": "Water",
+                "BuildMenuID": "Construction_sub"
+            }
+        ],
+        "PauseMenu": [
+            {
+                "GroupVisibility": false
+            },
+            {
+                "Type": "Frame",
+                "Position_x": 250,
+                "Position_y": 100,
+                "Width": 300,
+                "Height": 400
+            },
+            {
+                "Type": "TextButton",
+                "Text": "Settings",
+                "Position_x": 300,
+                "Position_y": 170,
+                "Width": 200,
+                "Height": 40,
+                "Action": "ToggleVisibilityOfGroup",
+                "ActionParameter": "SettingsMenu",
+                "GroupID": 2,
+                "LayoutGroup": "PauseMenuButtons"
+            },
+            {
+                "Type": "TextButton",
+                "Text": "New Game",
+                "Position_x": 300,
+                "Position_y": 240,
+                "Width": 200,
+                "Height": 40,
+                "Action": "NewGame",
+                "LayoutGroup": "PauseMenuButtons"
+            },
+            {
+                "Type": "TextButton",
+                "Text": "Save Game",
+                "Position_x": 300,
+                "Position_y": 240,
+                "Width": 200,
+                "Height": 40,
+                "Action": "SaveGame",
+                "LayoutGroup": "PauseMenuButtons"
+            },
+            {
+                "Type": "TextButton",
+                "Text": "Load Game",
+                "Position_x": 300,
+                "Position_y": 310,
+                "Width": 200,
+                "Height": 40,
+                "Action": "LoadGame",
+                "LayoutGroup": "PauseMenuButtons"
+            },
+            {
+                "Type": "TextButton",
+                "Text": "Quit Game",
+                "Position_x": 300,
+                "Position_y": 380,
+                "Width": 200,
+                "Height": 40,
+                "Action": "QuitGame",
+                "LayoutGroup": "PauseMenuButtons"
+            }
+        ],
+        "SettingsMenu": [
+            {
+                "GroupVisibility": false
+            },
+            {
+                "Type": "Frame",
+                "Position_x": 150,
+                "Position_y": 100,
+                "Width": 500,
+                "Height": 500
+            },
+            {
+                "Type": "Text",
+                "Text": "Settings",
+                "Position_x": 370,
+                "Position_y": 130
+            },
+            {
+                "Type": "Checkbox",
+                "Position_x": 290,
+                "Position_y": 190
+            },
+            {
+                "Type": "Checkbox",
+                "Position_x": 330,
+                "Position_y": 190
+            },
+            {
+                "Type": "TextButton",
+                "Text": "OK",
+                "Position_x": 270,
+                "Position_y": 500,
+                "Width": 100,
+                "Height": 30,
+                "Action": "SaveSettings",
+                "ActionParameter": "SettingsMenu"
+            },
+            {
+                "Type": "TextButton",
+                "Text": "Cancel",
+                "Position_x": 430,
+                "Position_y": 500,
+                "Width": 100,
+                "Height": 30,
+                "Action": "ToggleVisibilityOfGroup",
+                "ActionParameter": "SettingsMenu"
+            },
+            {
+                "Type": "Text",
+                "Text": "BuildMenu Layout",
+                "Position_x": 330,
+                "Position_y": 245
+            },
+            {
+                "Type": "Text",
+                "Text": "Screen Resolution",
+                "Position_x": 330,
+                "Position_y": 315
+            },
+            {
+                "Type": "Text",
+                "Text": "Fullscreen Mode",
+                "Position_x": 330,
+                "Position_y": 385
+            },
+            {
+                "ID": "$FullScreenSelector",
+                "Type": "ComboBox",
+                "Position_x": 420,
+                "Position_y": 370,
+                "Width": 200,
+                "Height": 30
+            },
+            {
+                "ID": "$ScreenResolutionSelector",
+                "Type": "ComboBox",
+                "Position_x": 420,
+                "Position_y": 300,
+                "Width": 200,
+                "Height": 30
+            },
+            {
+                "ID": "$BuildMenuLayout",
+                "Type": "ComboBox",
+                "Position_x": 420,
+                "Position_y": 230,
+                "Width": 200,
+                "Height": 30
+            }
+
+        ]
+    }
+}

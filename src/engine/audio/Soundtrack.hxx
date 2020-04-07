@@ -68,7 +68,14 @@ struct Soundtrack
    * to tell the system where the sound is made.
    */
   ALuint buffer;
-
+  
+  /**
+   * @brief The OpenAL effect slot of the sound track
+   * @details An object that tells the OpenAL system what effect to apply to the sound. Must be connected to a source
+   * to tell the system where the sound is made.
+   */
+  ALuint effect_slot;
+  
 #else // USE_OPENAL_SOFT
 
   /**
