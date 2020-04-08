@@ -46,4 +46,11 @@ enum class PlacementMode
   RECTANGLE      /// draw a rectangle between start and end point
 };
 
+enum class DemolishMode
+{
+  DEFAULT,          /// Demolish everything, but not
+  DE_ZONE,          /// Remove only zones
+  GROUND_DECORATION /// Remove only ground decoration
+};
+
 #endif

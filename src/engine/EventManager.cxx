@@ -66,9 +66,11 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       case SDLK_0:
         break;
       case SDLK_LCTRL:
+        GameStates::instance().demolishMode = DemolishMode::GROUND_DECORATION;
         GameStates::instance().rectangularRoads = true;
         break;
       case SDLK_LSHIFT:
+        GameStates::instance().demolishMode = DemolishMode::DE_ZONE;
         if (GameStates::instance().placementMode == PlacementMode::LINE)
         {
           GameStates::instance().placementMode = PlacementMode::STRAIGHT_LINE;
@@ -168,9 +170,11 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       switch (event.key.keysym.sym)
       {
       case SDLK_LCTRL:
+        GameStates::instance().demolishMode = DemolishMode::DEFAULT;
         GameStates::instance().rectangularRoads = false;
         break;
       case SDLK_LSHIFT:
+        GameStates::instance().demolishMode = DemolishMode::DEFAULT;
         if (GameStates::instance().placementMode == PlacementMode::STRAIGHT_LINE)
         {
           GameStates::instance().placementMode = PlacementMode::LINE;
@@ -474,8 +478,9 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       // gather all nodes the objects that'll be placed is going to occupy.
       std::vector targetObjectNodes = engine.map->getObjectCoords(mouseIsoCoords, tileToPlace);
 
-      if (event.button.button == SDL_BUTTON_LEFT && m_placementAllowed)
+      if (event.button.button == SDL_BUTTON_LEFT)
       {
+
         if (m_tileInfoMode)
         {
           engine.map->getNodeInformation({mouseIsoCoords.x, mouseIsoCoords.y, 0, 0});
@@ -488,7 +493,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         {
           engine.decreaseHeight(mouseIsoCoords);
         }
-        else if (!tileToPlace.empty())
+        else if (!tileToPlace.empty() && m_placementAllowed)
         {
           // if targetObject.size > 1 it is a tile bigger than 1x1
           if (targetObjectNodes.size() > 1 && isPointWithinMapBoundaries(targetObjectNodes))
@@ -501,13 +506,10 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
             engine.setTileIDOfNode(m_nodesToPlace.begin(), m_nodesToPlace.end(), tileToPlace, true);
           }
         }
+
         else if (demolishMode)
         {
-          engine.map->demolishNode(mouseIsoCoords, true);
-        }
-        else
-        {
-          LOG(LOG_INFO) << "CLICKED - Iso Coords: " << mouseIsoCoords.x << ", " << mouseIsoCoords.y;
+          engine.map->demolishNode(m_nodesToHighlight, true);
         }
       }
       // when we're done, reset highlighting
