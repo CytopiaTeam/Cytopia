@@ -404,6 +404,7 @@ void Map::demolishNode(const std::vector<Point> &isoCoordinates, bool updateNeig
     {
       // Check for multinode buildings first. Those are on the buildings layer, even if we want to demolish another layer than Buildings.
       // In case we add more Layers that support Multinode, add a for loop here
+      // If demolishNode is called for layer GROUNDECORATION, we'll still need to gather all nodes from the multinode building to delete the decoration under the entire building
       if (node->getMapNodeDataForLayer(Layer::BUILDINGS).tileData && isNodeMultiObject(isoCoord))
       {
         const Point origCornerPoint = mapNodes[isoCoord.x * m_columns + isoCoord.y]->getOrigCornerPoint(Layer::BUILDINGS);
