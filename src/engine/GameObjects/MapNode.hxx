@@ -104,7 +104,15 @@ public:
     */
   bool isPlacableOnSlope(const std::string &tileID) const;
 
-  void demolishNode();
+  /**
+ * @brief Demolish a node
+ * Removes all tiles on a node. This effects all layers where something to demolish is placed. (BUILDINGS, GROUND_DECORATION, UNDERGROUND) per default, but can be restricted to a single Layer. 
+ * @param isoCoordinates all coordinates that should be demolished
+ * @param updateNeighboringTiles wether the adjecent tiles should be updated. (only relevant for autotiling)
+ * @param layer restrict demolish to a single layer 
+ * @see MapNode#demolishNode
+ */
+  void demolishNode(Layer layer = Layer::NONE);
 
   void setTileID(const std::string &tileType, const Point &origPoint);
 
