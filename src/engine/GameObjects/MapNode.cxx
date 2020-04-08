@@ -160,7 +160,7 @@ bool MapNode::isPlacementAllowed(const std::string &newTileID) const
 
     // check if the current tile has the property overplacable set or if it's of the same tile ID for certain TileTypes only (not DEFAULT)
     if (m_mapNodeData[layer].tileData &&
-        (m_mapNodeData[layer].tileData->isOverPlacable ||
+        (m_mapNodeData[layer].tileData->tileType == +TileType::GROUNDDECORATION || m_mapNodeData[layer].tileData->isOverPlacable ||
          (m_mapNodeData[layer].tileData->tileType != +TileType::DEFAULT && m_mapNodeData[layer].tileID == newTileID)))
     {
       return true;
