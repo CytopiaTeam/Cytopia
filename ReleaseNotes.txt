@@ -17,6 +17,7 @@ v0.2.1
 - Added a "tileType" property to define certain behaviour, like "autotile" instead of handling this via tileCategory
 - Allow to place tiles over certain items, like trees.
 - Added a property to allow placement of tiles on water
+- Added a property to allow placement of ground decoration tiles beneath a building. 
 - [Gameplay]
 - Added 3 different selection Modes. Single, Rectangular and Line. The mode is chosen automitcally for the right tiles
 - Added RCI Zone tiles
