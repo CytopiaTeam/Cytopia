@@ -376,11 +376,11 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
     }
   }
 
-  if (tileDataJSON[idx].find("groundTileDecoration") != tileDataJSON[idx].end())
+  if (tileDataJSON[idx].find("groundDecoration") != tileDataJSON[idx].end())
   {
-    for (auto groundTileDecoration : tileDataJSON[idx].at("groundTileDecoration").items())
+    for (auto groundDecoration : tileDataJSON[idx].at("groundDecoration").items())
     {
-      m_tileData[id].groundTileDecoration.push_back(groundTileDecoration.value().get<std::string>());
+      m_tileData[id].groundDecoration.push_back(groundDecoration.value().get<std::string>());
     }
   }
 

@@ -102,16 +102,16 @@ public:
         }
         mapNodes[it->x * m_columns + it->y]->setRenderFlag(layer, shouldRender);
         mapNodes[it->x * m_columns + it->y]->setTileID(tileID, isMultiObjects ? *it : *begin);
-        if (!mapNodes[it->x * m_columns + it->y]->getMapNodeDataForLayer(layer).tileData->groundTileDecoration.empty() &&
+        if (!mapNodes[it->x * m_columns + it->y]->getMapNodeDataForLayer(layer).tileData->groundDecoration.empty() &&
             groundtileIndex == -1)
         {
           groundtileIndex =
-              rand() % mapNodes[it->x * m_columns + it->y]->getMapNodeDataForLayer(layer).tileData->groundTileDecoration.size();
+              rand() % mapNodes[it->x * m_columns + it->y]->getMapNodeDataForLayer(layer).tileData->groundDecoration.size();
         }
         if (groundtileIndex != -1)
         {
           mapNodes[it->x * m_columns + it->y]->setTileID(
-              mapNodes[it->x * m_columns + it->y]->getMapNodeDataForLayer(layer).tileData->groundTileDecoration[groundtileIndex],
+              mapNodes[it->x * m_columns + it->y]->getMapNodeDataForLayer(layer).tileData->groundDecoration[groundtileIndex],
               isMultiObjects ? *it : *begin);
         }
 

@@ -996,7 +996,7 @@
         "category": "Industrial",
         "description": "Industrial Building",
         "id": "ind_1x1_industry_1_FN1",
-        "groundTileDecoration": ["GD_NA_Pavement"],
+        "groundDecoration": ["GD_NA_Pavement"],
         "power": 0,
         "price": 0,
         "tiles": {
@@ -7942,7 +7942,7 @@
         "category": "Industrial",
         "description": "Big Warehouse",
         "id": "ind_4x4_warehouse_white_stedr1_RF",
-        "groundTileDecoration": ["GD_NA_Pavement",
+        "groundDecoration": ["GD_NA_Pavement",
                                  "GD_NA_PrettyConcrete"],
         "power": 0,
         "price": 0,
