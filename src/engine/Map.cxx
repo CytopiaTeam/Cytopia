@@ -437,6 +437,11 @@ bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int is
 
   for (auto &layer : layers)
   {
+    if (!MapLayers::isLayerActive(layer))
+    {
+      continue;
+    }
+
     SDL_Rect spriteRect = mapNodes[isoX * m_columns + isoY]->getSprite()->getDestRect(layer);
     SDL_Rect clipRect = mapNodes[isoX * m_columns + isoY]->getSprite()->getClipRect(layer);
     if (layer == Layer::TERRAIN)
