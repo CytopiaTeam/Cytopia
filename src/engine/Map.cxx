@@ -610,3 +610,13 @@ Map *Map::loadMapFromFile(const std::string &fileName)
 
   return map;
 }
+
+  bool Map::isNodeMultiObject(const Point &isoCoordinates, Layer layer)
+{
+    if (isPointWithinMapBoundaries(isoCoordinates) && mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y])
+  {
+    MapNode *mapNode = mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y].get();
+    return (mapNode->getTileData(layer)->RequiredTiles.height > 1 && mapNode->getTileData(layer)->RequiredTiles.width > 1);
+  }
+  return false;
+}

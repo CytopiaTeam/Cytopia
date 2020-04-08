@@ -122,6 +122,13 @@ public:
    */
   Point getNodeOrigCornerPoint(const Point &isoCoordinates, Layer layer = Layer::NONE);
 
+  /**
+ * @brief whether a node is a multiobject or not (bigger than 1x1 building)
+ * @param isoCoordinates Tile to inspect
+ * @param layer Which layer to inspect (default BUILDINGS)
+ */
+  bool isNodeMultiObject(const Point &isoCoordinates, Layer layer = Layer::BUILDINGS);
+
   /** \Brief Save Map to file
   * Serializes the Map class to json and writes the data to a file.
   * @param fileName The file the map should be written to
