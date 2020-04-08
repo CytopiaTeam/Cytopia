@@ -177,6 +177,11 @@ public:
   */
   std::string getTileID(const Point &isoCoordinates, Layer layer);
 
+  /** \Get a single mapNode at specific iso coordinates
+  * @param isoCoordinates: The node to retrieve
+  */
+  const MapNode *getMapNode(Point isoCoords) const { return mapNodes[isoCoords.x * m_columns + isoCoords.y].get(); };
+
 private:
   int m_columns;
   int m_rows;
