@@ -402,8 +402,9 @@ void Map::demolishNode(const std::vector<Point> &isoCoordinates, bool updateNeig
     MapNode *node = mapNodes[isoCoord.x * m_columns + isoCoord.y].get();
     if (isPointWithinMapBoundaries(isoCoord))
     {
-      // Check if there's something on the BUILDINGS layer before checking origCornerPoint
-      if (node->getMapNodeDataForLayer(Layer::BUILDINGS).tileData)
+      // Check for multinode buildings first. Those are on the buildings layer, even if we want to demolish another layer than Buildings.
+      // In case we add more Layers that support Multinode, add a for loop here
+      if (node->getMapNodeDataForLayer(Layer::BUILDINGS).tileData && isNodeMultiObject(isoCoord))
       {
         const Point origCornerPoint = mapNodes[isoCoord.x * m_columns + isoCoord.y]->getOrigCornerPoint(Layer::BUILDINGS);
         const size_t origIndex = origCornerPoint.x * m_columns + origCornerPoint.y;
@@ -423,7 +424,7 @@ void Map::demolishNode(const std::vector<Point> &isoCoordinates, bool updateNeig
           }
         }
       }
-      // add the points to the vector if they're not in it (if they're a multiobject there'd be duplicates)
+      // make sure to add the points from the parameter to the vector if they're not in it (if they're a multiobject there'd be duplicates)
       if (std::find(nodesToDemolish.begin(), nodesToDemolish.end(),
                     mapNodes[isoCoord.x * m_columns + isoCoord.y]->getCoordinates()) == nodesToDemolish.end())
       {
@@ -611,9 +612,9 @@ Map *Map::loadMapFromFile(const std::string &fileName)
   return map;
 }
 
-  bool Map::isNodeMultiObject(const Point &isoCoordinates, Layer layer)
+bool Map::isNodeMultiObject(const Point &isoCoordinates, Layer layer)
 {
-    if (isPointWithinMapBoundaries(isoCoordinates) && mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y])
+  if (isPointWithinMapBoundaries(isoCoordinates) && mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y])
   {
     MapNode *mapNode = mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y].get();
     return (mapNode->getTileData(layer)->RequiredTiles.height > 1 && mapNode->getTileData(layer)->RequiredTiles.width > 1);
