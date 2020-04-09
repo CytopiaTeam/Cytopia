@@ -22,50 +22,32 @@ struct Coordinate3D
  */
 struct StandardReverbProperties
 {
-	//AL_EAXREVERB_DENSITY, 
+	//AL_REVERB_DENSITY, 
 	double flDensity;
-	//AL_EAXREVERB_DIFFUSION, 
+	//AL_REVERB_DIFFUSION, 
 	double flDiffusion;
-	//AL_EAXREVERB_GAIN, 
+	//AL_REVERB_GAIN, 
 	double flGain;
-	//AL_EAXREVERB_GAINHF, 
+	//AL_REVERB_GAINHF, 
 	double flGainHF;
-	//AL_EAXREVERB_GAINLF, 
-	double flGainLF;
-	//AL_EAXREVERB_DECAY_TIME, 
+	//AL_REVERB_DECAY_TIME, 
 	double flDecayTime;
-	//AL_EAXREVERB_DECAY_HFRATIO, 
+	//AL_REVERB_DECAY_HFRATIO, 
 	double flDecayHFRatio;
-	//AL_EAXREVERB_DECAY_LFRATIO, 
-	double flDecayLFRatio;
-	//AL_EAXREVERB_REFLECTIONS_GAIN, 
+	//AL_REVERB_REFLECTIONS_GAIN, 
 	double flReflectionsGain;
-	//AL_EAXREVERB_REFLECTIONS_DELAY, 
+	//AL_REVERB_REFLECTIONS_DELAY, 
 	double flReflectionsDelay;
-	//alEffectfv(effect, AL_EAXREVERB_REFLECTIONS_PAN, double flReflectionsPan;
-	//AL_EAXREVERB_LATE_REVERB_GAIN, 
+	//AL_REVERB_LATE_REVERB_GAIN, 
 	double flLateReverbGain;
-	//AL_EAXREVERB_LATE_REVERB_DELAY, 
+	//AL_REVERB_LATE_REVERB_DELAY, 
 	double flLateReverbDelay;
-	//alEffectfv(effect, AL_EAXREVERB_LATE_REVERB_PAN, double flLateReverbPan;
-	//AL_EAXREVERB_ECHO_TIME, 
-	double flEchoTime;
-	//AL_EAXREVERB_ECHO_DEPTH, 
-	double flEchoDepth;
-	//AL_EAXREVERB_MODULATION_TIME, 
-	double flModulationTime;
-	//AL_EAXREVERB_MODULATION_DEPTH, 
-	double flModulationDepth;
-	//AL_EAXREVERB_HFREFERENCE, 
-	double flHFReference;
-	//AL_EAXREVERB_LFREFERENCE, 
-	double flLFReference;
-	//AL_EAXREVERB_AIR_ABSORPTION_GAINHF, 
+	//AL_REVERB_AIR_ABSORPTION_GAINHF, 
 	double flAirAbsorptionGainHF;
-	//AL_EAXREVERB_ROOM_ROLLOFF_FACTOR, 
+	//AL_REVERB_ROOM_ROLLOFF_FACTOR, 
 	double flRoomRolloffFactor;
-	//AL_EAXREVERB_DECAY_HFLIMIT, 
-	//int iDecayHFLimit; 
+	//AL_REVERB_DECAY_HFLIMIT, 
+	//int iDecayHFLimit;
 	
 };
 

@@ -148,28 +148,28 @@ void AudioMixer::play(AudioTrigger &&trigger, Coordinate3D &&position) noexcept
 #endif
 
 #ifdef USE_OPENAL_SOFT
-void AudioMixer::play(SoundtrackID &&ID, StandardReverbProperties &&reverb_properties) noexcept
+void AudioMixer::play(SoundtrackID &&ID, StandardReverbProperties& reverb_properties) noexcept
 {
   GetService<GameLoopMQ>().push(AudioPlayReverbEvent{ID, reverb_properties});
 }
 #endif
 
 #ifdef USE_OPENAL_SOFT
-void AudioMixer::play(AudioTrigger &&trigger, StandardReverbProperties &&reverb_properties) noexcept
+void AudioMixer::play(AudioTrigger &&trigger, StandardReverbProperties& reverb_properties) noexcept
 {
   GetService<GameLoopMQ>().push(AudioTriggerReverbEvent{trigger, reverb_properties});
 }
 #endif
 
 #ifdef USE_OPENAL_SOFT
-void AudioMixer::play(SoundtrackID &&ID, Coordinate3D &&position, StandardReverbProperties &&reverb_properties) noexcept
+void AudioMixer::play(SoundtrackID &&ID, Coordinate3D &&position, StandardReverbProperties& reverb_properties) noexcept
 {
   GetService<GameLoopMQ>().push(AudioPlayReverb3DEvent{ID, position, reverb_properties});
 }
 #endif
 
 #ifdef USE_OPENAL_SOFT
-void AudioMixer::play(AudioTrigger &&trigger, Coordinate3D &&position, StandardReverbProperties &&reverb_properties) noexcept
+void AudioMixer::play(AudioTrigger &&trigger, Coordinate3D &&position, StandardReverbProperties& reverb_properties) noexcept
 {
   GetService<GameLoopMQ>().push(AudioTriggerReverb3DEvent{trigger, position,reverb_properties});
 }
@@ -386,7 +386,7 @@ static LPALGETAUXILIARYEFFECTSLOTF alGetAuxiliaryEffectSlotf;
 static LPALGETAUXILIARYEFFECTSLOTFV alGetAuxiliaryEffectSlotfv;
 
 
-void AudioMixer::playSoundtrackWithReverb(SoundtrackUPtr &track,StandardReverbProperties reverb_properties)
+void AudioMixer::playSoundtrackWithReverb(SoundtrackUPtr &track,StandardReverbProperties& reverb_properties)
 {
 	if (!track)
     throw AudioError(TRACE_INFO "Received an invalid soundtrack");

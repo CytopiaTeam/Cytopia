@@ -80,7 +80,7 @@ public:
    * @param properties of standard reverb
    */
 #ifdef USE_OPENAL_SOFT
-  void play(SoundtrackID &&ID, StandardReverbProperties &&reverb) noexcept;
+  void play(SoundtrackID &&ID, StandardReverbProperties& reverb) noexcept;
 #endif
 
 /**
@@ -90,7 +90,7 @@ public:
    * @param properties of standard reverb
    */
 #ifdef USE_OPENAL_SOFT
-  void play(AudioTrigger &&trigger, StandardReverbProperties &&reverb) noexcept;
+  void play(AudioTrigger &&trigger, StandardReverbProperties& reverb) noexcept;
   
 #endif
 
@@ -111,7 +111,7 @@ public:
    * @param properties of standard reverb
    */
 #ifdef USE_OPENAL_SOFT
-  void play(SoundtrackID &&ID, Coordinate3D &&position, StandardReverbProperties &&reverb_properties) noexcept;
+  void play(SoundtrackID &&ID, Coordinate3D &&position, StandardReverbProperties& reverb_properties) noexcept;
 #endif
 
 /**
@@ -121,7 +121,7 @@ public:
    * @param properties of standard reverb
    */
 #ifdef USE_OPENAL_SOFT
-  void play(AudioTrigger &&trigger, Coordinate3D &&position, StandardReverbProperties &&reverb_properties) noexcept;
+  void play(AudioTrigger &&trigger, Coordinate3D &&position, StandardReverbProperties& reverb_properties) noexcept;
 #endif
 
 
@@ -227,7 +227,7 @@ private:
    * @param soundtrack the Soundtrack
    * @param properties of reverb effect
    */
-  void playSoundtrackWithReverb(SoundtrackUPtr &soundtrack,StandardReverbProperties properties);
+  void playSoundtrackWithReverb(SoundtrackUPtr &soundtrack,StandardReverbProperties& properties);
   
   /**
    * @brief Called whenever a Channel has finished playing
