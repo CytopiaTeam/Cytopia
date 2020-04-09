@@ -354,8 +354,9 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           {
             // If we place a ground decoration tile, we must add all tiles of bigger than 1x1 buildings from the Layer BUILDINGS
             Layer layer;
-            if (TileManager::instance().getTileData(tileToPlace) &&
-                TileManager::instance().getTileData(tileToPlace)->tileType == +TileType::GROUNDDECORATION)
+            if (engine.map->isNodeMultiObject(coords))
+            //if (TileManager::instance().getTileData(tileToPlace) &&
+            //    TileManager::instance().getTileData(tileToPlace)->tileType == +TileType::GROUNDDECORATION)
             {
               layer = Layer::BUILDINGS;
             }
