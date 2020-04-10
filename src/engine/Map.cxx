@@ -387,8 +387,23 @@ Point Map::findNodeInMap(const SDL_Point &screenCoordinates) const
   int isoX = calculatedIsoCoords.x;
   int isoY = calculatedIsoCoords.y;
 
+  // adjust caluclated valies that are outside of the map (which is legit, but they need to get pushed down)
+  if (isoY >= Settings::instance().mapSize)
+  {
+    int diff = isoY - Settings::instance().mapSize +1; // +1 here so we are below the max value
+    isoY -= diff;
+    isoX += diff;
+  }
+  if (isoX >= Settings::instance().mapSize)
+  {
+    int diff = isoY - Settings::instance().mapSize + 1;
+    isoY -= diff;
+    isoX += diff;
+  }
+
+
   // traverse a column from top to bottom (from the calculated coordinates)
-  while (isoX < Settings::instance().mapSize + 50 && isoY < Settings::instance().mapSize && isoY >= -50)
+  while (isoX < Settings::instance().mapSize  && isoY < Settings::instance().mapSize && isoY >= 0)
   {
     for (int i = 0; i <= 2; i++)
     {
