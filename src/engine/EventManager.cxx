@@ -352,7 +352,17 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           // if we touch a bigger than 1x1 tile also add all nodes of the building to highlight.
           for (const auto &coords : m_nodesToHighlight)
           {
-            const Layer layer = TileManager::instance().getTileLayer(tileToPlace);
+            // If we place a ground decoration tile, we must add all tiles of bigger than 1x1 buildings from the Layer BUILDINGS
+            Layer layer;
+            if (TileManager::instance().getTileData(tileToPlace) &&
+                TileManager::instance().getTileData(tileToPlace)->tileType == +TileType::GROUNDDECORATION)
+            {
+              layer = Layer::BUILDINGS;
+            }
+            else
+            {
+              layer = TileManager::instance().getTileLayer(tileToPlace);
+            }
             Point currentOriginPoint = engine.map->getNodeOrigCornerPoint(coords, layer);
 
             std::string currentTileID = engine.map->getTileID(currentOriginPoint, layer);
@@ -367,6 +377,13 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           }
           // add the nodes we've found
           m_nodesToHighlight.insert(m_nodesToHighlight.end(), nodesToAdd.begin(), nodesToAdd.end());
+
+          // for ground decoration, place all ground decoration files beneath the building
+          if (TileManager::instance().getTileData(tileToPlace) &&
+              TileManager::instance().getTileData(tileToPlace)->tileType == +TileType::GROUNDDECORATION)
+          {
+            m_nodesToPlace = m_nodesToHighlight;
+          }
 
           // we need to check if placement is allowed and set a bool to color ALL the highlighted tiles and not just those who can't be placed
           for (const auto &highlitNode : m_nodesToHighlight)

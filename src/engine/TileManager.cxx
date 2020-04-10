@@ -289,18 +289,6 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
   m_tileData[id].author = tileDataJSON[idx].value("author", "");
   m_tileData[id].title = tileDataJSON[idx].value("title", "");
   m_tileData[id].description = tileDataJSON[idx].value("description", "");
-  std::string tileTypeStr = tileDataJSON[idx].value("tileType", "default");
-
-  if (TileType::_is_valid_nocase(tileTypeStr.c_str()))
-  {
-    m_tileData[id].tileType = TileType::_from_string_nocase(tileTypeStr.c_str());
-  }
-  else
-  {
-    throw ConfigurationError(TRACE_INFO "In TileData.json in field with ID " + id +
-                             " the field tileType uses the unsupported value " + tileTypeStr);
-  }
-
   m_tileData[id].category = tileDataJSON[idx].value("category", "");
   m_tileData[id].subCategory = tileDataJSON[idx].value("subCategory", "");
   m_tileData[id].price = tileDataJSON[idx].value("price", 0);
@@ -315,6 +303,18 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
   m_tileData[id].educationLevel = tileDataJSON[idx].value("educationLevel", 0);
   m_tileData[id].crimeLevel = tileDataJSON[idx].value("crimeLevel", 0);
   m_tileData[id].pollutionLevel = tileDataJSON[idx].value("pollutionLevel", 0);
+
+  std::string tileTypeStr = tileDataJSON[idx].value("tileType", "default");
+
+  if (TileType::_is_valid_nocase(tileTypeStr.c_str()))
+  {
+    m_tileData[id].tileType = TileType::_from_string_nocase(tileTypeStr.c_str());
+  }
+  else
+  {
+    throw ConfigurationError(TRACE_INFO "In TileData.json in field with ID " + id +
+                             " the field tileType uses the unsupported value " + tileTypeStr);
+  }
 
   std::string wealth = tileDataJSON[idx].value("wealth", "none");
 
@@ -376,11 +376,11 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
     }
   }
 
-  if (tileDataJSON[idx].find("groundTileDecoration") != tileDataJSON[idx].end())
+  if (tileDataJSON[idx].find("groundDecoration") != tileDataJSON[idx].end())
   {
-    for (auto groundTileDecoration : tileDataJSON[idx].at("groundTileDecoration").items())
+    for (auto groundDecoration : tileDataJSON[idx].at("groundDecoration").items())
     {
-      m_tileData[id].groundTileDecoration.push_back(groundTileDecoration.value().get<std::string>());
+      m_tileData[id].groundDecoration.push_back(groundDecoration.value().get<std::string>());
     }
   }
 

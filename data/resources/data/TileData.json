@@ -4,6 +4,7 @@
         "category": "Decoration",
         "subCategory": "Ground Decoration",
         "tileType": "GroundDecoration",
+        "isOverPlacable": true,
         "description": "Pretty concrete",
         "id": "GD_NA_PrettyConcrete",
         "power": 0,
@@ -28,6 +29,7 @@
         "category": "Decoration",
         "subCategory": "Ground Decoration",
         "tileType": "GroundDecoration",
+        "isOverPlacable": true,
         "description": "Pavement",
         "id": "GD_NA_Pavement",
         "power": 0,
@@ -994,6 +996,7 @@
         "category": "Industrial",
         "description": "Industrial Building",
         "id": "ind_1x1_industry_1_FN1",
+        "groundDecoration": ["GD_NA_Pavement"],
         "power": 0,
         "price": 0,
         "tiles": {
@@ -7937,8 +7940,10 @@
     {
         "author": "RockFort",
         "category": "Industrial",
-        "description": "TODO DESC",
+        "description": "Big Warehouse",
         "id": "ind_4x4_warehouse_white_stedr1_RF",
+        "groundDecoration": ["GD_NA_Pavement",
+                                 "GD_NA_PrettyConcrete"],
         "power": 0,
         "price": 0,
         "tiles": {
@@ -7951,7 +7956,7 @@
             "width": 4,
             "height": 4
         },
-        "title": "TODO TITLE",
+        "title": "Big Warehouse",
         "upkeep cost": 0,
         "water": 0,
 

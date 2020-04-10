@@ -1,6 +1,5 @@
 ===Cytopia Changelog:===
 
-Here's my revised version:
 ===Cytopia v0.2.1 Changelog:===
 General:
 - Fixed a bug where the game would crash when the terrain was elevated and an in-between tile was created.
@@ -27,6 +26,8 @@ Tiles:
 - Added a "tileType" property to define certain behaviors, like "autotile" instead of handling this via tileCategory.
 - Items can now be placed over certain items, like trees, without deleting them first.
 - Added a property to allow placement of tiles on water
+- Added ground decoration tiles, that can be placed on a seperate layer underneath buildings.
+- Added a json property to define multiple ground decoration tiles that will be chosen randomly on placement
 UI:
 - Opening the settings menu now hides the category UI.
 - The UI can be hidden for screenshots by pressing the H key.

@@ -457,6 +457,11 @@ bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int is
 
   for (auto &layer : layers)
   {
+    if (!MapLayers::isLayerActive(layer))
+    {
+      continue;
+    }
+
     SDL_Rect spriteRect = mapNodes[isoX * m_columns + isoY]->getSprite()->getDestRect(layer);
     SDL_Rect clipRect = mapNodes[isoX * m_columns + isoY]->getSprite()->getClipRect(layer);
     if (layer == Layer::TERRAIN)
@@ -615,7 +620,7 @@ Map *Map::loadMapFromFile(const std::string &fileName)
 
 bool Map::isNodeMultiObject(const Point &isoCoordinates, Layer layer)
 {
-  if (isPointWithinMapBoundaries(isoCoordinates) && mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y])
+  if (isPointWithinMapBoundaries(isoCoordinates) && mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getTileData(layer))
   {
     MapNode *mapNode = mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y].get();
     return (mapNode->getTileData(layer)->RequiredTiles.height > 1 && mapNode->getTileData(layer)->RequiredTiles.width > 1);

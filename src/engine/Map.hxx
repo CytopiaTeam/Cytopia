@@ -89,12 +89,32 @@ public:
     }
     if (isOkToSet)
     {
+      int groundtileIndex = -1;
+
       for (auto it = begin; it != end; ++it)
       {
         bool shouldRender = !(!isMultiObjects && it != begin);
-        demolishNode(std::vector<Point>{*it}, 0, Layer::BUILDINGS);
-        mapNodes[it->x * m_columns + it->y]->setRenderFlag(TileManager::instance().getTileLayer(tileID), shouldRender);
+        Layer layer = TileManager::instance().getTileLayer(tileID);
+        // only demolish nodes before placing if this is a bigger than 1x1 building
+        if (!isMultiObjects)
+        {
+          demolishNode(std::vector<Point>{*it}, 0, Layer::BUILDINGS);
+        }
+        mapNodes[it->x * m_columns + it->y]->setRenderFlag(layer, shouldRender);
         mapNodes[it->x * m_columns + it->y]->setTileID(tileID, isMultiObjects ? *it : *begin);
+        if (!mapNodes[it->x * m_columns + it->y]->getMapNodeDataForLayer(layer).tileData->groundDecoration.empty() &&
+            groundtileIndex == -1)
+        {
+          groundtileIndex =
+              rand() % mapNodes[it->x * m_columns + it->y]->getMapNodeDataForLayer(layer).tileData->groundDecoration.size();
+        }
+        if (groundtileIndex != -1)
+        {
+          mapNodes[it->x * m_columns + it->y]->setTileID(
+              mapNodes[it->x * m_columns + it->y]->getMapNodeDataForLayer(layer).tileData->groundDecoration[groundtileIndex],
+              isMultiObjects ? *it : *begin);
+        }
+
         updateNeighborsOfNode(*it);
       }
     }
@@ -165,6 +185,11 @@ public:
   * @param layer: layer to check.
   */
   std::string getTileID(const Point &isoCoordinates, Layer layer);
+
+  /** \Get a single mapNode at specific iso coordinates
+  * @param isoCoordinates: The node to retrieve
+  */
+  const MapNode *getMapNode(Point isoCoords) const { return mapNodes[isoCoords.x * m_columns + isoCoords.y].get(); };
 
 private:
   int m_columns;
