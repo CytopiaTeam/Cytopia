@@ -390,7 +390,7 @@ Point Map::findNodeInMap(const SDL_Point &screenCoordinates) const
   // adjust caluclated valies that are outside of the map (which is legit, but they need to get pushed down)
   if (isoY >= Settings::instance().mapSize)
   {
-    int diff = isoY - Settings::instance().mapSize +1; // +1 here so we are below the max value
+    int diff = isoY - Settings::instance().mapSize + 1; // +1 here so we are below the max value
     isoY -= diff;
     isoX += diff;
   }
@@ -401,9 +401,8 @@ Point Map::findNodeInMap(const SDL_Point &screenCoordinates) const
     isoX += diff;
   }
 
-
   // traverse a column from top to bottom (from the calculated coordinates)
-  while (isoX < Settings::instance().mapSize  && isoY < Settings::instance().mapSize && isoY >= 0)
+  while (isoX < Settings::instance().mapSize && isoY < Settings::instance().mapSize && isoY >= 0)
   {
     for (int i = 0; i <= 2; i++)
     {
@@ -430,7 +429,7 @@ Point Map::findNodeInMap(const SDL_Point &screenCoordinates) const
   }
 
   return foundCoordinates;
- }
+}
 
 void Map::demolishNode(const std::vector<Point> &isoCoordinates, bool updateNeighboringTiles, Layer layer)
 {
