@@ -107,7 +107,7 @@ if (USE_PACKAGE_MANAGER)
     if (ENABLE_AUDIO)
         list(APPEND _link_libraries CONAN_PKG::sdl2_mixer)
     endif ()
-    
+
     if (ENABLE_AUDIO)
         list(APPEND _link_libraries CONAN_PKG::openal)
     endif ()
@@ -135,7 +135,7 @@ else (USE_PACKAGE_MANAGER)
     if (ENABLE_AUDIO)
         pkg_check_modules(SDL2_mixer REQUIRED SDL2_mixer)
     endif ()
-    
+
     if (ENABLE_AUDIO)
         pkg_check_modules(openal REQUIRED openal)
     endif ()
@@ -171,7 +171,7 @@ else (USE_PACKAGE_MANAGER)
     if (ENABLE_AUDIO)
         list(APPEND _link_libraries ${SDL2_mixer_LIBRARIES})
     endif ()
-    
+
     if (ENABLE_AUDIO)
         list(APPEND _link_libraries ${openal_LIBRARIES})
     endif ()
@@ -253,7 +253,7 @@ endif (ENABLE_MICROPROFILE)
 if (UNIX AND NOT APPLE)
     execute_process(COMMAND head -1 /etc/os-release OUTPUT_VARIABLE linux_distribution)
 endif ()
-    
+
 # Configuration for packaging
 include(CpackConfiguration)
 
@@ -293,6 +293,19 @@ if (DOXYGEN_FOUND)
             VERBATIM
     )
 endif ()
+
+# copy itch.toml to build folder to install our prerequisits
+if (WIN32)
+  if (CMAKE_SIZEOF_VOID_P EQUAL 8) ## 64 bit
+    INSTALL(FILES ${CMAKE_SOURCE_DIR}/tools/itch/win64/.itch.toml
+            DESTINATION ${CMAKE_BINARY_DIR}/redist
+            )
+  elseif(CMAKE_SIZEOF_VOID_P EQUAL 4) ## 32 bit
+    INSTALL(FILES ${CMAKE_SOURCE_DIR}/tools/itch/win32/.itch.toml
+           DESTINATION ${CMAKE_BINARY_DIR}/redist
+           )
+  endif()
+endif()
 
 include(FeatureSummary)
 feature_summary(WHAT ALL)
