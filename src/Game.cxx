@@ -365,6 +365,8 @@ template <typename MQType, typename Visitor> void Game::LoopMain(GameContext &co
       }
     }
   }
-  catch (std::exception &ex)  {    LOG(LOG_ERROR) << ex.what();    // @todo: Call shutdown() here in a safe way
-    }
+  catch (std::exception &ex)
+  {
+    LOG(LOG_ERROR) << ex.what(); // @todo: Call shutdown() here in a safe way
+  }
 }
