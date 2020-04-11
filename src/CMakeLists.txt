@@ -116,16 +116,16 @@ if (APPLE)
     set(MACOSX_BUNDLE_ICON_FILE cytopia_icon_iso.icns)
 
     # set each file as resources file for the app image.
-    foreach (resources_file ${MAC_RESOURCE_FILES})
-        get_filename_component(buildDirRelFilePath ${resources_file} DIRECTORY)
-        string(REPLACE "${CMAKE_SOURCE_DIR}/" "" buildDirRelFilePath ${buildDirRelFilePath})
-        set_source_files_properties(${resources_file} PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
-    endforeach ()
+    # foreach (resources_file ${MAC_RESOURCE_FILES})
+    #     get_filename_component(buildDirRelFilePath ${resources_file} DIRECTORY)
+    #     string(REPLACE "${CMAKE_SOURCE_DIR}/" "" buildDirRelFilePath ${buildDirRelFilePath})
+    #     set_source_files_properties(${resources_file} PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
+    # endforeach ()
     # set_source_files_properties(${PROJECT_SOURCE_DIR}/Cytopia_Resources/music  PROPERTIES MACOSX_PACKAGE_LOCATION Resources/resources/audio/music)
     set_source_files_properties(${ICON_PATH} PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
     set_source_files_properties(${myApp_ICON} PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
 
-    add_executable(${PROJECT_NAME} MACOSX_BUNDLE ${SOURCE_FILES} ${ICON_PATH} ${MAC_RESOURCE_FILES})
+    add_executable(${PROJECT_NAME} MACOSX_BUNDLE ${SOURCE_FILES} ${ICON_PATH} )
 else ()
     # create a new executable with the same name as the project
     add_executable(${PROJECT_NAME} ${SOURCE_FILES})
