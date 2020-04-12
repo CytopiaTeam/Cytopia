@@ -118,6 +118,7 @@ matrix:
       script:
         - make
         - cp -pR data/resources bin/Cytopia.App/Resources/resources
+        - cp -pR data/resources bin/resources
         - ctest
         - make copy_resources
         - make package
