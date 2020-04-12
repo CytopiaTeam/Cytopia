@@ -124,6 +124,7 @@ matrix:
         - make copy_resources
         - make package
         - rm -rf bin/Cytopia.App/Contents/MacOS/resources
+        - rm -rf bin/Cytopia.App/Resources
         - sh ./tools/CI/upload-CI-build.sh
 
       before_cache:
