@@ -118,11 +118,12 @@ matrix:
       script:
         - make
         - mkdir -p bin/Cytopia.App/Resources/resources
-        - cp -pR data/resources bin/Cytopia.App/Resources/resources
+        - cp -pR data/resources bin/Cytopia.App/Contents/Resources/
         - cp -pR data/resources bin/resources
         - ctest
         - make copy_resources
         - make package
+        - rm -rf bin/Cytopia.App/Contents/MacOS/resources
         - sh ./tools/CI/upload-CI-build.sh
 
       before_cache:
