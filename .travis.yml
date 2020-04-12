@@ -119,6 +119,7 @@ matrix:
         - make
         - cp -R data/resources bin/Cytopia.App/Resources/resources
         - ctest
+        - make copy_resources
         - make package
         - sh ./tools/CI/upload-CI-build.sh
 

@@ -9,7 +9,10 @@ then
     # Get butler
     curl -JOL https://broth.itch.ovh/butler/darwin-amd64/LATEST/archive/default
     mkdir redist
+    ls
+    ls bin/
     mv bin/Cytopia.app/ redist/
+    ls bin/Cytopia.app
     unzip butler-darwin-amd64.zip
     ./butler push redist cytopia/cytopia:osx-ci --userversion 0.2-CIBuild-${TRAVIS_JOB_NUMBER}
   else
