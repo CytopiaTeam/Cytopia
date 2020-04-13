@@ -7495,6 +7495,7 @@
         "subCategory": "BuildingsDecoration",
         "description": "A very old ship that crashed here long ago.  Its origin is unkown, but I think it's safe to say what happened to its crew",
         "id": "bd_2x2_sunkenship_kt",
+        "placeOnWater": true,
         "power": 0,
         "price": 0,
         "tiles": {
