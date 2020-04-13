@@ -309,7 +309,8 @@ std::vector<uint8_t> Map::calculateAutotileBitmask(const Point &isoCoordinates)
              mapNodes[it.first * m_columns + it.second]->getMapNodeDataForLayer(currentLayer).tileData &&
              mapNodes[x * m_columns + y] && mapNodes[x * m_columns + y]->getMapNodeDataForLayer(currentLayer).tileData &&
              mapNodes[it.first * m_columns + it.second]->getMapNodeDataForLayer(currentLayer).tileData->tileType ==
-                 mapNodes[x * m_columns + y]->getMapNodeDataForLayer(currentLayer).tileData->tileType))
+                 +TileType::AUTOTILE &&
+             mapNodes[x * m_columns + y]->getMapNodeDataForLayer(currentLayer).tileData->tileType == +TileType::AUTOTILE))
         // TODO: roads should be a seperate tiletype
         // remove the check for the same TileID for now to make roads tile to each other.
         // mapNodes[it.first * m_columns + it.second]->getMapNodeDataForLayer(currentLayer).tileID ==
