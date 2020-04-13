@@ -21,6 +21,13 @@
                 "MainTheme"
             ]
         },
+        "Helsinki": {
+            "path": "resources/audio/music/Helsinki.ogg",
+            "monopath": "resources/audio/music/Helsinki.ogg",
+            "triggers": [
+                "MainTheme"
+            ]
+        },
         "SarahTheme": {
             "path": "resources/audio/music/Sarah_Theme.ogg",
             "monopath": "resources/audio/music/Sarah_Theme_mono.ogg",
