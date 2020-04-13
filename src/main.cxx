@@ -26,10 +26,10 @@ int protected_main(int argc, char **argv)
       skipMenu = true;
     }
   }
-  
-  #ifdef __EMSCRIPTEN__
-    skipMenu = true;
-  #endif
+
+#ifdef __EMSCRIPTEN__
+  skipMenu = true;
+#endif
 
   LOG(LOG_DEBUG) << "Launching Cytopia";
 
