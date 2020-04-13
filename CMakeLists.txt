@@ -33,7 +33,7 @@ if("${CMAKE_SYSTEM_NAME}" STREQUAL "Emscripten")
 
   #Debug information
   #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --profiling-funcs -Oz -g4 -s PTHREAD_POOL_SIZE=8 -s DEMANGLE_SUPPORT=1 -pthread -s DISABLE_EXCEPTION_CATCHING=0 -s ASSERTIONS=1 -s USE_PTHREADS=1 -s USE_SDL_IMAGE=2  -s USE_SDL_TTF=2 -s USE_ZLIB=1"  )
-  
+
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --profiling-funcs -O3 -g0 --llvm-lto 1 --llvm-opts 3 -s PTHREAD_POOL_SIZE=8 -pthread -s DISABLE_EXCEPTION_CATCHING=1 -s USE_PTHREADS=1 -s USE_SDL_IMAGE=2  -s USE_SDL_TTF=2 -s USE_ZLIB=1"  )
 
 
@@ -43,7 +43,7 @@ if("${CMAKE_SYSTEM_NAME}" STREQUAL "Emscripten")
   #set(SDL2_MIXER_LIBRARIES "-s USE_SDL_MIXER=2")
   set(SDL2_TTF_LIBRARIES "--no-check-features -s USE_SDL_TTF=2")
   set(SDL2_ZLIB_LIBRARIES "-s USE_ZLIB=1")
-  
+
 endif()
 
 
@@ -148,7 +148,7 @@ if (USE_PACKAGE_MANAGER)
     "--preload-file ${CMAKE_CURRENT_BINARY_DIR}/resources@/resources" #include resources dir in .data file
         "-s USE_PTHREADS=1"
         "--use-preload-plugins"
-        # "--source-map-base" 
+        # "--source-map-base"
         "-s WASM=1"
         "-s WASM_MEM_MAX=512MB" # ALLOW_MEMORY_GROWTH demands MEM_MAX to be set
         "-s ALLOW_MEMORY_GROWTH=1" #seems necessary for pthreads and dynamic memory allocation
