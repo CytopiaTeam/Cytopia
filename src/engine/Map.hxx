@@ -25,8 +25,8 @@ public:
   void initMap();
 
   /** \brief Increase Height
-    * Increases the height of the node and checks the surrounding tiles. Either draw a slope sprite or elevate the tile if 
-    * necessary. 
+    * Increases the height of the node and checks the surrounding tiles. Either draw a slope sprite or elevate the tile if
+    * necessary.
     * @param isoCoordinates the isometric coordinates of the tile that should be elevated
     */
   void increaseHeight(const Point &isoCoordinates);
@@ -61,16 +61,16 @@ public:
 
   /**
  * @brief Returns the node at given screencoordinates
- * 
- * @param screenCoordinates 
- * @return Point 
+ *
+ * @param screenCoordinates
+ * @return Point
  */
   Point findNodeInMap(const SDL_Point &screenCoordinates) const;
 
   /**
  * @brief Set the Tile ID Of Node object
  * Also invokes all necessary texture updates (auto-tiling, slopes, ...)
- * @param isoCoordinates 
+ * @param isoCoordinates
  * @param tileID tileID which should be set
  */
   template <typename Iterator>
@@ -102,7 +102,8 @@ public:
         }
         mapNodes[it->x * m_columns + it->y]->setRenderFlag(layer, shouldRender);
         mapNodes[it->x * m_columns + it->y]->setTileID(tileID, isMultiObjects ? *it : *begin);
-        if (!mapNodes[it->x * m_columns + it->y]->getMapNodeDataForLayer(layer).tileData->groundDecoration.empty() &&
+        if (mapNodes[it->x * m_columns + it->y]->getMapNodeDataForLayer(layer).tileData &&
+            !mapNodes[it->x * m_columns + it->y]->getMapNodeDataForLayer(layer).tileData->groundDecoration.empty() &&
             groundtileIndex == -1)
         {
           groundtileIndex =
@@ -125,14 +126,14 @@ public:
  * This function gathers all tiles that should be demolished and invokes the nodes demolish function. When a building bigger than 1x1 is selected, all it's coordinates are added to the demolishing points.
  * @param isoCoordinates all coordinates that should be demolished
  * @param updateNeighboringTiles wether the adjecent tiles should be updated. (only relevant for autotiling)
- * @param layer restrict demolish to a single layer 
+ * @param layer restrict demolish to a single layer
  * @see MapNode#demolishNode
  */
   void demolishNode(const std::vector<Point> &isoCoordinates, bool updateNeighboringTiles = false, Layer layer = Layer::NONE);
 
   /**
    * @brief Refresh all the map tile textures
-   * 
+   *
    * @see Sprite#refresh
    */
   void refresh();
@@ -176,7 +177,7 @@ public:
   bool isPlacementOnNodeAllowed(const Point &isoCoordinates, const std::string &tileID) const;
 
   /** \brief Return vector of Points of an Object Tiles selection.
-  * 
+  *
   */
   std::vector<Point> getObjectCoords(const Point &isoCoordinates, const std::string &tileID);
 
@@ -205,8 +206,8 @@ private:
   */
   void updateNeighborsOfNode(const Point &isoCoordinates);
 
-  /**\brief Update all mapNodes 
-  * Updates all mapNode and its adjacent tiles regarding height information, draws slopes for adjacent tiles and 
+  /**\brief Update all mapNodes
+  * Updates all mapNode and its adjacent tiles regarding height information, draws slopes for adjacent tiles and
   * sets tiling for mapNode sprite if applicable
   */
   void updateAllNodes();
