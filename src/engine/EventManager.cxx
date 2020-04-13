@@ -531,6 +531,20 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       }
       // when we're done, reset highlighting
       unHighlightNodes();
+
+      if (highlightSelection)
+      {
+        m_nodesToHighlight.push_back(mouseIsoCoords);
+        if (!tileToPlace.empty() && !engine.map->isPlacementOnNodeAllowed(mouseIsoCoords, tileToPlace))
+        {
+          engine.map->highlightNode(mouseIsoCoords, SpriteHighlightColor::RED);
+        }
+        else
+        {
+          engine.map->highlightNode(mouseIsoCoords, SpriteHighlightColor::GRAY);
+        }
+      }
+
       break;
     }
     case SDL_MOUSEWHEEL:
