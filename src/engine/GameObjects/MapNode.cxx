@@ -160,7 +160,8 @@ bool MapNode::isPlacementAllowed(const std::string &newTileID) const
 
     // check if the current tile has the property overplacable set or if it's of the same tile ID for certain TileTypes only (not DEFAULT)
     if (m_mapNodeData[layer].tileData &&
-        (m_mapNodeData[layer].tileData->tileType == +TileType::GROUNDDECORATION || m_mapNodeData[layer].tileData->isOverPlacable ||
+        (m_mapNodeData[layer].tileData->tileType == +TileType::GROUNDDECORATION ||
+         m_mapNodeData[layer].tileData->isOverPlacable ||
          (m_mapNodeData[layer].tileData->tileType != +TileType::DEFAULT && m_mapNodeData[layer].tileID == newTileID)))
     {
       return true;
@@ -386,6 +387,8 @@ void MapNode::demolishNode(Layer demolishLayer)
 
       m_mapNodeData[layer].tileData = nullptr;
       m_mapNodeData[layer].tileID = "";
+      m_autotileOrientation[layer] =
+          TileOrientation::TILE_DEFAULT_ORIENTATION; // We need to reset TileOrientation, in case it's set (demolishing autotiles)
       m_mapNodeData[layer].origCornerPoint = this->getCoordinates();
       m_sprite->clearSprite(layer);
       updateTexture();
