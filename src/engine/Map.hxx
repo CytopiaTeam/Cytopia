@@ -102,7 +102,8 @@ public:
         }
         mapNodes[it->x * m_columns + it->y]->setRenderFlag(layer, shouldRender);
         mapNodes[it->x * m_columns + it->y]->setTileID(tileID, isMultiObjects ? *it : *begin);
-        if (!mapNodes[it->x * m_columns + it->y]->getMapNodeDataForLayer(layer).tileData->groundDecoration.empty() &&
+        if (mapNodes[it->x * m_columns + it->y]->getMapNodeDataForLayer(layer).tileData &&
+            !mapNodes[it->x * m_columns + it->y]->getMapNodeDataForLayer(layer).tileData->groundDecoration.empty() &&
             groundtileIndex == -1)
         {
           groundtileIndex =
