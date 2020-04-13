@@ -9,6 +9,7 @@ General:
 - Added support for diagonal roads.
 - Pressing ESC now stops the tile-placement mode.
 - Added shorelines.
+- Added two new fantastic soundtracks by MB22.
 Gameplay:
 - Added three different selection modes; single, rectangular, and line. The mode is chosen automatically for the right tiles.
 - Added RCI zone tiles by RockFort.
