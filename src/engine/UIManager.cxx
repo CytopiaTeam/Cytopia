@@ -169,8 +169,8 @@ void UIManager::init()
           break;
         case ElementType::Text:
           uiElement = std::make_unique<Text>();
-          dynamic_cast<Text *>(uiElement.get())->setText(text);
           dynamic_cast<Text *>(uiElement.get())->setPosition(elementRect.x, elementRect.y);
+          dynamic_cast<Text *>(uiElement.get())->setText(text);
           break;
         case ElementType::Frame:
           uiElement = std::make_unique<Frame>(elementRect);
@@ -261,6 +261,23 @@ void UIManager::init()
 
 void UIManager::setFPSCounterText(const std::string &fps) const { m_fpsCounter->setText(fps); }
 
+void UIManager::closeOpenMenus()
+{
+  for (const auto &[key, value] : m_uiGroups)
+  {
+    if (key == "_BuildMenu_")
+    {
+      continue;
+    }
+    for (auto element : value)
+    {
+      element->setVisibility(false);
+    }
+  }
+
+  return;
+}
+
 void UIManager::drawUI() const
 {
 #ifdef MICROPROFILE_ENABLED
@@ -287,7 +304,10 @@ void UIManager::toggleGroupVisibility(const std::string &groupID, UIElement *sen
   if (sender)
   {
     Button *button = dynamic_cast<Button *>(sender);
-
+    if (groupID == "SettingsMenu" && !(sender->getUiElementData().text == "Cancel" || sender->getUiElementData().text == "OK"))
+    {
+      closeOpenMenus();
+    }
     // cast the object to a Button to check if it's a toggle button.
     if (button && button->getUiElementData().isToggleButton)
     {
@@ -407,6 +427,7 @@ void UIManager::setCallbackFunctions()
           }
           if (!tileToPlace.empty())
           {
+
             if (TileManager::instance().getTileData(tileToPlace))
               switch (TileManager::instance().getTileData(tileToPlace)->tileType)
               {
@@ -416,10 +437,13 @@ void UIManager::setCallbackFunctions()
               case +TileType::AUTOTILE:
                 GameStates::instance().placementMode = PlacementMode::LINE;
                 break;
+              case +TileType::GROUNDDECORATION:
+              case +TileType::WATER:
               case +TileType::ZONE:
                 GameStates::instance().placementMode = PlacementMode::RECTANGLE;
                 break;
               case +TileType::UNDERGROUND:
+                GameStates::instance().placementMode = PlacementMode::LINE;
                 GameStates::instance().layerEditMode = LayerEditMode::BLUEPRINT;
                 MapLayers::setLayerEditMode(GameStates::instance().layerEditMode);
                 break;
@@ -444,7 +468,6 @@ void UIManager::setCallbackFunctions()
     else if (uiElement->getUiElementData().actionID == "ToggleVisibilityOfGroup")
     {
       uiElement->registerCallbackFunction(Signal::slot(this, &UIManager::toggleGroupVisibility));
-
       if (m_layoutGroups.find(uiElement->getUiElementData().actionParameter) != m_layoutGroups.end())
       {
         // set a pointer to the parent element for all UiElements that belong to the group that.
@@ -555,6 +578,7 @@ void UIManager::createBuildMenu()
   for (auto &tile : TileManager::instance().getAllTileData())
   {
     std::string category = tile.second.category;
+    std::string subCategory = tile.second.subCategory;
 
     // Skip all items that have no button group
     if (category == "Water" || category == "Terrain")
@@ -564,14 +588,17 @@ void UIManager::createBuildMenu()
 
     if (m_buttonGroups.find(category) == m_buttonGroups.end())
     {
-      std::string newCategory = "Debug_" + category;
-      if (m_buttonGroups.find("Debug_" + category) == m_buttonGroups.end())
+      std::string newSubCategory = "Debug_" + subCategory + "_sub";
+      std::string newCategory = "Debug_" + category + "_sub";
+      std::string newParentCategory = "Debug_sub";
+      if (m_buttonGroups.find(newCategory) == m_buttonGroups.end())
       {
-        m_buttonGroups["Debug_" + category] = new ButtonGroup;
-        if (m_buttonGroups.find("Debug_sub") == m_buttonGroups.end())
+        m_buttonGroups[newCategory] = new ButtonGroup;
+        if (m_buttonGroups.find(newParentCategory) == m_buttonGroups.end())
         {
-          m_buttonGroups["Debug_sub"] = new ButtonGroup;
+          m_buttonGroups[newParentCategory] = new ButtonGroup;
         }
+
         Button *button = new Button({0, 0, bWid, bHei});
 
         setupButtonTileImage(button, tile);
@@ -580,12 +607,15 @@ void UIManager::createBuildMenu()
         button->setToggleButton(true);
         button->setActionID("ToggleVisibilityOfGroup");
         button->setActionParameter(newCategory);
-        button->setMenuGroupID("Debug_sub");
+        button->setMenuGroupID(newParentCategory);
         button->setTooltipText(category);
-        button->setUIElementID("Debug_sub" + std::to_string(idx));
-        m_buttonGroups["Debug_sub"]->addToGroup(button);
+        button->setUIElementID(newParentCategory + std::to_string(idx));
+        m_buttonGroups[newParentCategory]->addToGroup(button);
         m_uiElements.push_back(std::unique_ptr<UIElement>(dynamic_cast<UIElement *>(button)));
       }
+      if (!subCategory.empty())
+        continue;
+
       Button *button = new Button({0, 0, bWid, bHei});
 
       setupButtonTileImage(button, tile);
@@ -599,7 +629,7 @@ void UIManager::createBuildMenu()
       button->setUIElementID(newCategory + std::to_string(idx++));
       m_uiElements.push_back(std::unique_ptr<UIElement>(dynamic_cast<UIElement *>(button)));
     }
-    else
+    else if (subCategory.empty())
     {
       Button *button = new Button({0, 0, bWid, bHei});
 
@@ -616,6 +646,67 @@ void UIManager::createBuildMenu()
       m_uiElements.push_back(std::unique_ptr<UIElement>(dynamic_cast<UIElement *>(button)));
     }
   }
+  // SUBCATEGORIES
+  for (auto &tile : TileManager::instance().getAllTileData())
+  {
+    std::string category = tile.second.category;
+    std::string subCategory = tile.second.subCategory;
+    if (m_buttonGroups.find(subCategory) == m_buttonGroups.end() && !subCategory.empty())
+    {
+      std::string newCategory = "Debug_sc_" + subCategory + "_sub";
+      std::string newParentCategory = "Debug_" + category + "_sub";
+      if (m_buttonGroups.find(newCategory) == m_buttonGroups.end())
+      {
+        m_buttonGroups[newCategory] = new ButtonGroup;
+        if (m_buttonGroups.find(newParentCategory) == m_buttonGroups.end())
+        {
+          m_buttonGroups[newParentCategory] = new ButtonGroup;
+        }
+        Button *button = new Button({0, 0, bWid, bHei});
+
+        setupButtonTileImage(button, tile);
+        button->drawImageButtonFrame(true);
+        button->setVisibility(false);
+        button->setToggleButton(true);
+        button->setActionID("ToggleVisibilityOfGroup");
+        button->setActionParameter(newCategory);
+        button->setMenuGroupID(newParentCategory + "_sub");
+        button->setTooltipText(subCategory);
+        button->setUIElementID(newParentCategory + std::to_string(idx));
+        m_buttonGroups[newParentCategory]->addToGroup(button);
+        m_uiElements.push_back(std::unique_ptr<UIElement>(dynamic_cast<UIElement *>(button)));
+      }
+      Button *button = new Button({0, 0, bWid, bHei});
+
+      setupButtonTileImage(button, tile);
+      button->drawImageButtonFrame(true);
+      button->setVisibility(false);
+      button->setToggleButton(true);
+      button->setActionID("ChangeTileType");
+      button->setActionParameter(tile.first);
+      button->setMenuGroupID(newCategory + "_sub");
+      button->setTooltipText(tile.second.title);
+      button->setUIElementID(newCategory + std::to_string(idx++));
+      m_uiElements.push_back(std::unique_ptr<UIElement>(dynamic_cast<UIElement *>(button)));
+    }
+    else if (!subCategory.empty())
+    {
+      Button *button = new Button({0, 0, bWid, bHei});
+
+      setupButtonTileImage(button, tile);
+      button->drawImageButtonFrame(true);
+      button->setVisibility(false);
+      button->setToggleButton(true);
+      button->setActionID("ChangeTileType");
+      button->setActionParameter(tile.first);
+      button->setMenuGroupID(subCategory + "_sub");
+      button->setTooltipText(tile.second.title);
+
+      // Add the newly created button to the container holding all UiElements
+      m_uiElements.push_back(std::unique_ptr<UIElement>(dynamic_cast<UIElement *>(button)));
+    }
+  }
+  // SUBCATEGORIES END
 
   // iterate over all elements and add everything that has a BuildMenu ID.
   for (const auto &element : m_uiElements)
@@ -670,7 +761,7 @@ void UIManager::setBuildMenuLayout()
   std::string layoutType = "HORIZONTAL";
   std::string subMenuAlignment = "HORIZONTAL";
 
-  switch (buildMenuLayout)
+  switch (m_buildMenuLayout)
   {
   case BUILDMENU_LAYOUT::LEFT:
     alignment = "LEFT_CENTER";
@@ -743,28 +834,28 @@ void UIManager::initializeDollarVariables()
         if (Settings::instance().buildMenuPosition == "LEFT")
         {
           combobox->setActiveID(static_cast<int>(combobox->count() - 1));
-          buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(combobox->count() - 1));
+          m_buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(combobox->count() - 1));
         }
         combobox->addElement("RIGHT");
         // TODO: #97 Ugly workaround until we have BetterEnums
         if (Settings::instance().buildMenuPosition == "RIGHT")
         {
           combobox->setActiveID(static_cast<int>(combobox->count() - 1));
-          buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(combobox->count() - 1));
+          m_buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(combobox->count() - 1));
         }
         combobox->addElement("TOP");
         // TODO: #97 Ugly workaround until we have BetterEnums
         if (Settings::instance().buildMenuPosition == "TOP")
         {
           combobox->setActiveID(static_cast<int>(combobox->count() - 1));
-          buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(combobox->count() - 1));
+          m_buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(combobox->count() - 1));
         }
         combobox->addElement("BOTTOM");
         // TODO: #97 Ugly workaround until we have BetterEnums
         if (Settings::instance().buildMenuPosition == "BOTTOM")
         {
           combobox->setActiveID(static_cast<int>(combobox->count() - 1));
-          buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(combobox->count() - 1));
+          m_buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(combobox->count() - 1));
         }
 
         combobox->registerCallbackFunction(Signal::slot(this, &UIManager::setBuildMenuPosition));
@@ -825,7 +916,7 @@ void UIManager::setBuildMenuPosition(UIElement *sender)
   if (comboBox)
   {
     Settings::instance().buildMenuPosition = comboBox->activeText;
-    buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(comboBox->getActiveID());
+    m_buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(comboBox->getActiveID());
     setBuildMenuLayout();
     Layout::arrangeElements();
   }

@@ -1,5 +1,55 @@
 [
     {
+        "author": "KingTut 101",
+        "category": "Decoration",
+        "subCategory": "Ground Decoration",
+        "tileType": "GroundDecoration",
+        "isOverPlacable": true,
+        "description": "Pretty concrete",
+        "id": "GD_NA_PrettyConcrete",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/decoration/ground/GD_NA_PrettyConcrete.png"
+        },
+        "title": "Concrete Ground Decoration",
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "decoration",
+            "ground",
+            "concrete"
+        ]
+    },
+    {
+        "author": "KingTut 101",
+        "category": "Decoration",
+        "subCategory": "Ground Decoration",
+        "tileType": "GroundDecoration",
+        "isOverPlacable": true,
+        "description": "Pavement",
+        "id": "GD_NA_Pavement",
+        "power": 0,
+        "price": 0,
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/decoration/ground/GD_NA_Pavement.png"
+        },
+        "title": "Concrete Ground Decoration",
+        "upkeep cost": 0,
+        "water": 0,
+        "tag": [
+            "decoration",
+            "ground",
+            "pavement"
+        ]
+    },
+    {
         "author": "Folesnaid",
         "category": "Decoration",
         "description": "A pile of coal",
@@ -23,6 +73,8 @@
     {
         "author": "Kingtut 101",
         "category": "Residential",
+        "subCategory": "Community Buildings",
+        "subCategory": "Low Wealth",
         "description": "An old day care that has since become someone's home.",
         "id": "Day Care Center",
         "power": 0,
@@ -51,7 +103,9 @@
     {
         "author": "Folesnaid",
         "category": "Residential",
+        "subCategory": "Low Wealth",
         "description": "Old Church",
+        "biomes": ["Desert"],
         "id": "Res_1x1_old_des_church_FN",
         "power": 0,
         "price": 0,
@@ -141,6 +195,7 @@
         "author": "Folesnaid",
         "category": "Commercial",
         "description": "I scream for ice cream!",
+        "biomes": ["Desert"],
         "id": "com_1x1_des_ice_cream_shop_FN",
         "power": 0,
         "price": 0,
@@ -163,6 +218,7 @@
         "author": "Folesnaid",
         "category": "Commercial",
         "description": "A petrol station",
+        "biomes": ["Desert"],
         "id": "com_1x1_des_petrol_station_FN",
         "power": 0,
         "price": 0,
@@ -315,6 +371,8 @@
     {
         "author": "Kingtut 101",
         "category": "Commercial",
+        "zones": ["commercial"],
+        "style": ["European"],
         "description": "A somewhat large fast food restaurant known for cheap food and questionable quality.",
         "id": "com_2x2_BorgsBurgers",
         "power": 0,
@@ -545,7 +603,7 @@
         "tiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 16,
+            "count": 20,
             "fileName": "resources/images/roads/road_1x1_ruralfrroad1brokenline_RF.png",
             "rotations": 16
         },
@@ -579,7 +637,7 @@
         "tiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 16,
+            "count": 20,
             "fileName": "resources/images/roads/road_1x1_ruralroadfr1straightline_RF.png",
             "rotations": 16
         },
@@ -613,7 +671,7 @@
         "tiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 16,
+            "count": 20,
             "fileName": "resources/images/roads/road_1x1_ruralroadfr1newsaph_RF.png",
             "rotations": 16
         },
@@ -646,7 +704,7 @@
         "tiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 16,
+            "count": 20,
             "fileName": "resources/images/roads/road_1x1_ruralroadfr1grained_RF.png",
             "rotations": 16
         },
@@ -677,7 +735,7 @@
         "tiles": {
             "clip_height": 16,
             "clip_width": 32,
-            "count": 16,
+            "count": 20,
             "fileName": "resources/images/roads/road_1x1_european.png",
             "rotations": 16
         },
@@ -707,7 +765,7 @@
         "tiles": {
             "clip_height": 16,
             "clip_width": 32,
-            "count": 16,
+            "count": 20,
             "fileName": "resources/images/roads/road_1x1_european_modern.png",
             "rotations": 16
         },
@@ -737,7 +795,7 @@
         "tiles": {
             "clip_height": 16,
             "clip_width": 32,
-            "count": 16,
+            "count": 20,
             "fileName": "resources/images/roads/road_1x1_european_nosidewalk.png",
             "rotations": 16
         },
@@ -768,7 +826,7 @@
         "tiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 16,
+            "count": 20,
             "fileName": "resources/images/roads/road_1x1_Country.png",
             "rotations": 16
         },
@@ -808,7 +866,7 @@
         "tiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 16,
+            "count": 20,
             "fileName": "resources/images/roads/road_1x1_dirt.png",
             "rotations": 16
         },
@@ -844,7 +902,7 @@
         "tiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 16,
+            "count": 20,
             "fileName": "resources/images/roads/road_1x1_alley.png",
             "rotations": 16
         },
@@ -874,7 +932,7 @@
         "tiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 16,
+            "count": 20,
             "fileName": "resources/images/roads/road_1x1_Highway.png",
             "rotations": 16
         },
@@ -915,6 +973,7 @@
         "author": "Folesnaid",
         "category": "Industrial",
         "description": "A petrol pump",
+        "biomes": ["Desert"],
         "id": "ind_1x1_des_petrol_1",
         "power": 0,
         "price": 0,
@@ -937,6 +996,7 @@
         "category": "Industrial",
         "description": "Industrial Building",
         "id": "ind_1x1_industry_1_FN1",
+        "groundDecoration": ["GD_NA_Pavement"],
         "power": 0,
         "price": 0,
         "tiles": {
@@ -1142,7 +1202,7 @@
         "category": "Industrial",
         "description": "A factory",
         "id": "ind_des_2x2_Factory_MS",
-        "biome": "Desert",
+        "biomes": ["Desert"],
         "power": 0,
         "price": 0,
         "tiles": {
@@ -1166,7 +1226,9 @@
     {
         "author": "RockFort",
         "category": "Zones",
+        "subCategory": "Commercial",
         "tileType": "zone",
+        "isOverPlacable": true,
         "description": "Commercial Zone (light).",
         "id": "zone_commercial_light",
         "power": 0,
@@ -1190,7 +1252,9 @@
     {
         "author": "RockFort",
         "category": "Zones",
+        "subCategory": "Commercial",
         "tileType": "zone",
+        "isOverPlacable": true,
         "description": "Commercial Zone (medium).",
         "id": "zone_commercial_medium",
         "power": 0,
@@ -1214,7 +1278,9 @@
     {
         "author": "RockFort",
         "category": "Zones",
+        "subCategory": "Commercial",
         "tileType": "zone",
+        "isOverPlacable": true,
         "description": "Commercial Zone (dense).",
         "id": "zone_commercial_dense",
         "power": 0,
@@ -1237,7 +1303,9 @@
     {
         "author": "RockFort",
         "category": "Zones",
+        "subCategory": "Residential",
         "tileType": "zone",
+        "isOverPlacable": true,
         "description": "Residential Zone (dense).",
         "id": "zone_residential_dense",
         "power": 0,
@@ -1260,7 +1328,9 @@
     {
         "author": "RockFort",
         "category": "Zones",
+        "subCategory": "Residential",
         "tileType": "zone",
+        "isOverPlacable": true,
         "description": "Residential Zone (medium).",
         "id": "zone_residential_medium",
         "power": 0,
@@ -1284,7 +1354,9 @@
     {
         "author": "RockFort",
         "category": "Zones",
+        "subCategory": "Residential",
         "tileType": "zone",
+        "isOverPlacable": true,
         "description": "Residential Zone (light).",
         "id": "zone_residential_light",
         "power": 0,
@@ -1308,7 +1380,9 @@
     {
         "author": "RockFort",
         "category": "Zones",
+        "subCategory": "Industrial",
         "tileType": "zone",
+        "isOverPlacable": true,
         "description": "Industrial Zone.",
         "id": "zone_industrial_light",
         "power": 0,
@@ -1331,8 +1405,10 @@
     },
     {
         "author": "RockFort",
-        "category": "Zones",
+        "category": "Zones",        
+        "subCategory": "Industrial",
         "tileType": "zone",
+        "isOverPlacable": true,
         "description": "Industrial Zone.",
         "id": "zone_industrial_medium",
         "power": 0,
@@ -1356,7 +1432,9 @@
     {
         "author": "RockFort",
         "category": "Zones",
+        "subCategory": "Industrial",
         "tileType": "zone",
+        "isOverPlacable": true,
         "description": "Industrial Zone.",
         "id": "zone_industrial_dense",
         "power": 0,
@@ -1394,7 +1472,7 @@
         "tiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 16,
+            "count": 20,
             "fileName": "resources/images/roads/road_1x1_paved.png",
             "rotations": 16
         },
@@ -1509,6 +1587,7 @@
     {
         "author": "Kingtut 101",
         "category": "Residential",
+        "subCategory": "Low Wealth",
         "description": "A small trailer house.",
         "id": "res_1x1_KTHouse2",
         "power": 0,
@@ -1531,6 +1610,7 @@
     {
         "author": "Kingtut 101",
         "category": "Residential",
+        "subCategory": "Low Wealth",
         "description": "A small trailer house",
         "id": "res_1x1_KTHouseNew2",
         "power": 0,
@@ -1553,6 +1633,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Low Wealth",
         "description": "A small  building",
         "id": "res_1x1_SmallRedHouse_RF",
         "power": 0,
@@ -1574,6 +1655,7 @@
     {
         "author": "Kingtut 101",
         "category": "Residential",
+        "subCategory": "Low Wealth",
         "description": "A tiny house that can only accommodate a few people.",
         "id": "res_1x1_SmallShack1",
         "power": 0,
@@ -1599,6 +1681,7 @@
     {
         "author": "Folesnaid",
         "category": "Residential",
+        "subCategory": "Low Wealth",
         "description": "Appartments",
         "id": "res_1x1_building_1_FN",
         "power": 0,
@@ -1619,7 +1702,9 @@
     {
         "author": "Folesnaid",
         "category": "Residential",
+        "subCategory": "Desert",
         "description": "Desert building",
+        "biomes": ["Desert"],
         "id": "res_1x1_des_desert_building_1_FN",
         "power": 0,
         "price": 0,
@@ -1640,7 +1725,9 @@
     {
         "author": "Folesnaid",
         "category": "Residential",
+        "subCategory": "Desert",
         "description": "Pyramid",
+        "biomes": ["Desert"],
         "id": "res_1x1_des_pyramide_1_FN",
         "power": 0,
         "price": 0,
@@ -1660,7 +1747,9 @@
     {
         "author": "Folesnaid",
         "category": "Residential",
+        "subCategory": "Medium Wealth",
         "description": "House with swimming pool",
+        "biomes": ["Desert"],
         "id": "res_1x1_des_swimming_pool_house_FN",
         "power": 0,
         "price": 0,
@@ -1682,6 +1771,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Medium Wealth",
         "description": "Appartment London",
         "id": "res_1x1_londonhouse_RF",
         "power": 0,
@@ -1703,6 +1793,7 @@
     {
         "author": "Folesnaid",
         "category": "Residential",
+        "subCategory": "Low Wealth",
         "description": "Old building",
         "id": "res_1x1_old_building_1_FN",
         "power": 0,
@@ -1724,6 +1815,7 @@
     {
         "author": "Folesnaid",
         "category": "Residential",
+        "subCategory": "Low Wealth",
         "description": "Old building",
         "id": "res_1x1_old_building_2_FN",
         "power": 0,
@@ -1745,6 +1837,7 @@
     {
         "author": "Folesnaid",
         "category": "Residential",
+        "subCategory": "Low Wealth",
         "description": "A big building",
         "id": "res_2x2_big_building_1_FN",
         "power": 0,
@@ -1772,6 +1865,7 @@
         "author": "RockFort",
         "category": "Residential",
         "description": "Bois Guillaume Appartment",
+        "subCategory": "High Wealth",
         "id": "res_2x2_bois_guillaume_appt1_RF",
         "power": 0,
         "price": 0,
@@ -1798,6 +1892,7 @@
     {
         "author": "Folesnaid",
         "category": "Residential",
+        "subCategory": "Low Wealth",
         "description": "Appartment",
         "id": "res_2x2_building_2_FN",
         "power": 0,
@@ -1824,6 +1919,7 @@
         "author": "Folesnaid",
         "category": "Residential",
         "description": "big Appartments",
+        "subCategory": "Medium Wealth",
         "id": "res_2x2_skyscraper_2_FN",
         "power": 0,
         "price": 0,
@@ -1849,6 +1945,7 @@
     {
         "author": "Folesnaid",
         "category": "Residential",
+        "subCategory": "Medium Wealth",
         "description": "big Appartments",
         "id": "res_2x2_skyscraper_2_FN1",
         "power": 0,
@@ -1875,6 +1972,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Medium Wealth",
         "description": "Medium Appartments",
         "id": "res_2x2_viennabuilding_RF",
         "power": 0,
@@ -1901,6 +1999,7 @@
     {
         "author": "Kingtut 101",
         "category": "Residential",
+        "subCategory": "Low Wealth",
         "description": "A bland-looking apartment building made out of concrete.",
         "id": "res_3x3_ConcreteTowerLRG",
         "power": 0,
@@ -1931,6 +2030,7 @@
     {
         "author": "KingTut 101",
         "category": "Residential",
+        "subCategory": "Low Wealth",
         "description": "An algae-green tower that is the home of lots of people.",
         "id": "res_3x3_GreenSkyScraper",
         "power": 0,
@@ -1960,6 +2060,7 @@
     {
         "author": "Kingtut 101",
         "category": "Water",
+        "subCategory": "Low Wealth",
         "tileType": "water",
         "description": "Water",
         "id": "water",
@@ -1968,14 +2069,7 @@
         "slopeTiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 4,
-            "fileName": "resources/images/terrain/water/liquid_water.png"
-        },
-        "cornerTiles": {
-            "clip_height": 23,
-            "clip_width": 32,
-            "count": 8,
-            "offset": 4,
+            "count": 13,
             "fileName": "resources/images/terrain/water/liquid_water.png"
         },
         "tiles": {
@@ -2038,7 +2132,7 @@
     },
     {
         "author": "Kingtut 101",
-        "biome": "GrassLands",
+        "biomes": ["GrassLands"],
         "category": "TerrainDecoration",
         "description": "A pile of rocks that can be found in the grasslands biome.",
         "id": "rocks_grassLands",
@@ -2063,7 +2157,7 @@
     },
     {
         "author": "Kingtut 101",
-        "biome": "Desert",
+        "biomes": ["Desert"],
         "category": "TerrainDecoration",
         "description": "A pile of rocks that can be found in the desert biome.",
         "id": "rocks_desert",
@@ -2088,7 +2182,7 @@
     },
     {
         "author": "Kingtut 101",
-        "biome": "Diamond",
+        "biomes": ["Diamond"],
         "category": "TerrainDecoration",
         "description": "A pile of rocks that can be found in the diamond biome.",
         "id": "rocks_diamond",
@@ -2113,7 +2207,7 @@
     },
     {
         "author": "Kingtut 101",
-        "biome": "Desert",
+        "biomes": ["Desert"],
         "category": "TerrainDecoration",
         "description": "A pile of rocks that can be found in the desert biome.",
         "id": "rocks_gold",
@@ -2138,7 +2232,7 @@
     },
     {
         "author": "Kingtut 101",
-        "biome": "Snow",
+        "biomes": ["Snow"],
         "category": "TerrainDecoration",
         "description": "A pile of rocks that can be found in the snow biome.",
         "id": "rocks_snowy",
@@ -2189,6 +2283,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Countries",
         "description": "Block of houses from the Boulevard des Belges , Rouen",
         "id": "res_2x2_blvdbelges_RF",
         "power": 0,
@@ -2219,6 +2314,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Countries",
         "description": "A classic house from Savannah , Georgia , USA",
         "id": "res_2x2_savannahgeorgia_RF",
         "power": 0,
@@ -2248,6 +2344,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Countries",
         "description": "A house from Vienna",
         "id": "res_2x2_viennabuilding2_RF",
         "power": 0,
@@ -2327,6 +2424,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Countries",
         "description": "A small french mansion ",
         "id": "res_2x2_frmanreworked_RF",
         "power": 0,
@@ -2354,6 +2452,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Countries",
         "description": "An appartement building from Bellevue , WA , USA",
         "id": "res_3x3_bellevueappt1_RF",
         "power": 0,
@@ -2383,6 +2482,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Countries",
         "description": "A house from Alabama , USA",
         "id": "res_2x2_fitzgeraldhousealabama_RF",
         "power": 0,
@@ -2410,6 +2510,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Countries",
         "description": "An apartment building from Montreal , Quebec",
         "id": "res_3x3_laciteapptmontreal_RF",
         "power": 0,
@@ -2438,6 +2539,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Countries",
         "description": "An apartment building from Vancouver , BC , Canada",
         "id": "res_3x3_vancouver1_RF",
         "power": 0,
@@ -2467,10 +2569,17 @@
     {
         "author": "Folesnaid",
         "category": "Farm",
-        "description": "TODO DESC",
+        "description": "A Wheat Field",
         "id": "Farm_1x1_wheat_field_FN",
         "power": 0,
         "price": 0,
+        "slopeTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 13,
+            "offset": 0,
+            "fileName": "resources/images/buildings/farm/Farm_1x1_wheat_field_FN.png"
+        },
         "tiles": {
             "clip_height": 18,
             "clip_width": 32,
@@ -2478,21 +2587,7 @@
             "offset": 12,
             "fileName": "resources/images/buildings/farm/Farm_1x1_wheat_field_FN.png"
         },
-        "cornerTiles": {
-            "clip_height": 23,
-            "clip_width": 32,
-            "count": 8,
-            "offset": 4,
-            "fileName": "resources/images/buildings/farm/Farm_1x1_wheat_field_FN.png"
-        },
-        "slopeTiles": {
-            "clip_height": 23,
-            "clip_width": 32,
-            "count": 4,
-            "offset": 0,
-            "fileName": "resources/images/buildings/farm/Farm_1x1_wheat_field_FN.png"
-        },
-        "title": "TODO TITLE",
+        "title": "Wheat Field",
         "upkeep cost": 0,
         "water": 0,
         "tag": [
@@ -2503,6 +2598,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Low Wealth",
         "description": "TODO DESC",
         "id": "res_2x2_sfbuilding1_RF",
         "power": 0,
@@ -2529,6 +2625,7 @@
     {
         "author": "JustKekman",
         "category": "Residential",
+        "subCategory": "Low Wealth",
         "description": "TODO DESC",
         "id": "res_1x1_illappt_jk",
         "power": 0,
@@ -2632,6 +2729,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Countries",
         "description": "TODO DESC",
         "id": "res_3x3_glasgow1_RF",
         "power": 0,
@@ -2658,6 +2756,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Low Wealth",
         "description": "TODO DESC",
         "id": "res_4x2_quailutece_sand_high_RF",
         "power": 0,
@@ -2683,6 +2782,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Low Wealth",
         "description": "TODO DESC",
         "id": "res_4x2_quailutece_sand_low_RF",
         "power": 0,
@@ -2733,6 +2833,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Low Wealth",
         "description": "TODO DESC",
         "id": "res_2x2_villedulacsale1_UT_RF",
         "power": 0,
@@ -3124,6 +3225,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Low Wealth",
         "description": "TODO DESC",
         "id": "res_3x3_corblocappartement_RF",
         "power": 0,
@@ -3170,6 +3272,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Countries",
         "description": "TODO DESC",
         "id": "res_3x3_honkkong1_RF",
         "power": 0,
@@ -3220,6 +3323,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Countries",
         "description": "TODO DESC",
         "id": "res_2x2_tokyo12_RF",
         "power": 0,
@@ -3245,6 +3349,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Countries",
         "description": "TODO DESC",
         "id": "res_3x3_lehavre1_RF",
         "power": 0,
@@ -3291,6 +3396,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Countries",
         "description": "TODO DESC",
         "id": "res_2x2_tacomahouse3_RF",
         "power": 0,
@@ -3342,6 +3448,7 @@
     {
         "author": "Folenaid",
         "category": "Residential",
+        "subCategory": "Low Wealth",
         "description": "A small piece of land where impoverished people reside.",
         "id": "Res_1x1_homeless_camp_FN",
         "power": 0,
@@ -3398,6 +3505,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Countries",
         "description": "TODO DESC",
         "id": "res_2x2_turkhousesgroup1_RF",
         "power": 0,
@@ -3476,6 +3584,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Countries",
         "description": "TODO DESC",
         "id": "res_2x2_lesrivesdeluciline1_RF",
         "power": 0,
@@ -3502,6 +3611,7 @@
     {
         "author": "Folesnaid",
         "category": "Residential",
+        "subCategory": "Medium Wealth",
         "description": "TODO DESC",
         "id": "res_1x2_house_1_FN",
         "power": 0,
@@ -3549,6 +3659,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Countries",
         "description": "TODO DESC",
         "id": "res_1x1_favela1_RF",
         "power": 0,
@@ -3690,6 +3801,7 @@
     {
         "author": "Folesnaid",
         "category": "Residential",
+        "subCategory": "Medium Wealth",
         "description": "TODO DESC",
         "id": "res_2x2_town_hall_fn",
         "power": 0,
@@ -3716,6 +3828,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Low Wealth",
         "description": "TODO DESC",
         "id": "res_2x2_invernessflats1_RF",
         "power": 0,
@@ -3742,6 +3855,7 @@
     {
         "author": "Panzerkampfwagen 2 ausf C",
         "category": "Residential",
+        "subCategory": "Countries",
         "description": "TODO DESC",
         "id": "res_2x2_Turkishbuilding6_pw",
         "power": 0,
@@ -3768,6 +3882,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "High Wealth",
         "description": "TODO DESC",
         "id": "res_4x3_bellevuemansion1_RF",
         "power": 0,
@@ -3794,6 +3909,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Countries",
         "description": "TODO DESC",
         "id": "res_2x2_montreal1_RF",
         "power": 0,
@@ -3820,6 +3936,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Countries",
         "description": "TODO DESC",
         "id": "res_1x1_honfleurhouse1_RF",
         "power": 0,
@@ -3841,6 +3958,7 @@
     {
         "author": "MaroonShaded",
         "category": "Residential",
+        "subCategory": "Small Houses",
         "description": "TODO DESC",
         "id": "res_1x1_ClassicHouse_MS",
         "power": 0,
@@ -3862,6 +3980,7 @@
     {
         "author": "Folesnaid",
         "category": "Residential",
+        "subCategory": "Low Wealth",
         "description": "TODO DESC",
         "id": "res_1x1_medieval_house_3_FN",
         "power": 0,
@@ -3963,6 +4082,7 @@
     {
         "author": "Panzerkampfwagen 2 ausf C",
         "category": "Residential",
+        "subCategory": "Countries",
         "description": "TODO DESC",
         "id": "res_4x4_NewYorkStyle_pw",
         "power": 0,
@@ -3989,6 +4109,7 @@
     {
         "author": "Yusuf8a684",
         "category": "Residential",
+        "subCategory": "Countries",
         "description": "TODO DESC",
         "id": "res_1x1_scandinavian_house1_Y8",
         "power": 0,
@@ -4036,6 +4157,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Countries",
         "description": "TODO DESC",
         "id": "res_1x1_perpignan1a_RF",
         "power": 0,
@@ -4057,6 +4179,7 @@
     {
         "author": "Folesnaid",
         "category": "Residential",
+        "subCategory": "Low Wealth",
         "description": "TODO DESC",
         "id": "res_1x1_middle_age_house_1_FN",
         "power": 0,
@@ -4104,6 +4227,7 @@
     {
         "author": "Yusuf8a684",
         "category": "Residential",
+        "subCategory": "Countries",
         "description": "TODO DESC",
         "id": "res_2x2_scandic_apart1_Y8",
         "power": 0,
@@ -4130,6 +4254,7 @@
     {
         "author": "Folesnaid",
         "category": "Residential",
+        "subCategory": "High Wealth",
         "description": "TODO DESC",
         "id": "res_2x2_modern_house_1_FN",
         "power": 0,
@@ -4156,6 +4281,7 @@
     {
         "author": "Yusuf8a684",
         "category": "Residential",
+        "subCategory": "Countries",
         "description": "TODO DESC",
         "id": "res_2x2_scandic_apart3_Y8",
         "power": 0,
@@ -4208,6 +4334,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Countries",
         "description": "TODO DESC",
         "id": "res_1x1_quaimaupassant1_RF",
         "power": 0,
@@ -4290,6 +4417,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "SkyScraper",
         "description": "TODO DESC",
         "id": "res_3x3_tourriva_RF",
         "power": 0,
@@ -4365,6 +4493,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Small Houses",
         "description": "TODO DESC",
         "id": "res_1x1_juterbog1_RF",
         "power": 0,
@@ -4386,6 +4515,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Countries",
         "description": "TODO DESC",
         "id": "res_2x2_scandinavia1_RF",
         "power": 0,
@@ -4495,6 +4625,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Medium Wealth",
         "description": "TODO DESC",
         "id": "res_1x1_rgh2_RF",
         "power": 0,
@@ -5023,6 +5154,7 @@
     {
         "author": "Kingtut 101",
         "category": "Residential",
+        "subCategory": "Low Wealth",
         "description": "A somewhat-large plot of land that is the home to many trailer houses.",
         "id": "res_5x5_TrailerPark_kt",
         "power": 0,
@@ -5054,6 +5186,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "SkyScraper",
         "description": "TODO DESC",
         "id": "res_3x3_torresblancas_RF",
         "power": 0,
@@ -5080,6 +5213,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "High Wealth",
         "description": "TODO DESC",
         "id": "res_2x2_redmansion1_RF",
         "power": 0,
@@ -5106,6 +5240,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Countries",
         "description": "TODO DESC",
         "id": "res_2x2_londonhouse3_RF",
         "power": 0,
@@ -5204,6 +5339,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Small Houses",
         "description": "TODO DESC",
         "id": "res_1x1_quaimaupassant2_RF",
         "power": 0,
@@ -5225,6 +5361,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "SkyScraper",
         "description": "TODO DESC",
         "id": "res_3x3_seattle2_RF",
         "power": 0,
@@ -5288,6 +5425,7 @@
     {
         "author": "Folesnaid",
         "category": "Residential",
+        "subCategory": "Low Wealth",
         "description": "TODO DESC",
         "id": "res_1x1_medieval_house_2_FN",
         "power": 0,
@@ -5335,6 +5473,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "SkyScraper",
         "description": "TODO DESC",
         "id": "res_4x2_quailutece_pink_high_RF",
         "power": 0,
@@ -5361,6 +5500,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Small Houses",
         "description": "TODO DESC",
         "id": "res_1x1_perpignan1b_RF",
         "power": 0,
@@ -5382,6 +5522,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Countries",
         "description": "TODO DESC",
         "id": "res_2x2_lecaire2_RF",
         "power": 0,
@@ -5408,6 +5549,7 @@
     {
         "author": "Folesnaid",
         "category": "Residential",
+        "subCategory": "Small Houses",
         "description": "TODO DESC",
         "id": "res_1x1_old_house_FN",
         "power": 0,
@@ -5429,6 +5571,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "SkyScraper",
         "description": "TODO DESC",
         "id": "res_3x3_buildingru1_ets2balt_RF",
         "power": 0,
@@ -5455,6 +5598,7 @@
     {
         "author": "MaroonShaded",
         "category": "Residential",
+        "subCategory": "SkyScraper",
         "description": "TODO DESC",
         "id": "res_2x2_BuildingTen_MS",
         "power": 0,
@@ -5481,6 +5625,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Low Wealth",
         "description": "TODO DESC",
         "id": "res_4x2_quailutece_white_high_RF",
         "power": 0,
@@ -5559,6 +5704,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "SkyScraper",
         "description": "TODO DESC",
         "id": "res_3x3_sfchateau1_RF",
         "power": 0,
@@ -5611,6 +5757,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "SkyScraper",
         "description": "TODO DESC",
         "id": "res_3x3_marommeN15_1_RF",
         "power": 0,
@@ -5692,6 +5839,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Small Houses",
         "description": "TODO DESC",
         "id": "res_1x1_maisonalsace1_RF",
         "power": 0,
@@ -5734,6 +5882,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Small Houses",
         "description": "TODO DESC",
         "id": "res_1x1_rgh1_RF",
         "power": 0,
@@ -5781,6 +5930,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "High Wealth",
         "description": "TODO DESC",
         "id": "res_2x2_elyNV_RF",
         "power": 0,
@@ -5807,6 +5957,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "High Wealth",
         "description": "TODO DESC",
         "id": "res_3x3_minnesota2_RF",
         "power": 0,
@@ -5859,6 +6010,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "SkyScraper",
         "description": "TODO DESC",
         "id": "res_3x3_ramponneau1modern_RF",
         "power": 0,
@@ -5911,6 +6063,7 @@
     {
         "author": "Yusuf8a684",
         "category": "Residential",
+        "subCategory": "Small Houses",
         "description": "TODO DESC",
         "id": "res_1x1_scandinavian_house3_Y8",
         "power": 0,
@@ -5932,6 +6085,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Countries",
         "description": "TODO DESC",
         "id": "res_2x2_pyongyang1_RF",
         "power": 0,
@@ -5958,6 +6112,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Countries",
         "description": "TODO DESC",
         "id": "res_2x2_tacomahouses2_RF",
         "power": 0,
@@ -5984,6 +6139,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Appartments",
         "description": "TODO DESC",
         "id": "res_3x3_rouen_imm_st_ange1_RF",
         "power": 0,
@@ -6010,6 +6166,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Appartments",
         "description": "TODO DESC",
         "id": "res_2x2_safranboluappt1_RF",
         "power": 0,
@@ -6062,6 +6219,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "High Wealth",
         "description": "TODO DESC",
         "id": "res_2x2_mn3_RF",
         "power": 0,
@@ -6088,6 +6246,7 @@
     {
         "author": "Yusuf8a684",
         "category": "Residential",
+        "subCategory": "Appartments",
         "description": "TODO DESC",
         "id": "res_1x1_scandic_apart2_Y8",
         "power": 0,
@@ -6109,6 +6268,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Countries",
         "description": "TODO DESC",
         "id": "res_1x1_quaimaupassant4_RF",
         "power": 0,
@@ -6130,6 +6290,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Appartments",
         "description": "TODO DESC",
         "id": "res_2x2_viennabuilding_RF",
         "power": 0,
@@ -6156,6 +6317,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Medium Wealth",
         "description": "TODO DESC",
         "id": "res_1x1_iledepaques1_RF",
         "power": 0,
@@ -6177,6 +6339,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "High Wealth",
         "description": "TODO DESC",
         "id": "res_2x2_brittishhouse1_RF",
         "power": 0,
@@ -6203,6 +6366,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "SkyScraper",
         "description": "TODO DESC",
         "id": "res_3x3_marseille1_RF",
         "power": 0,
@@ -6229,6 +6393,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Countries",
         "description": "TODO DESC",
         "id": "res_1x1_rgh3_RF",
         "power": 0,
@@ -6250,6 +6415,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "SkyScraper",
         "description": "TODO DESC",
         "id": "res_3x3_ramponneau1classic_RF",
         "power": 0,
@@ -6276,6 +6442,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "High Wealth",
         "description": "TODO DESC",
         "id": "res_2x2_tacomahouse1_RF",
         "power": 0,
@@ -6423,7 +6590,9 @@
     {
         "author": "Folesnaid",
         "category": "Residential",
+        "subCategory": "Desert",
         "description": "TODO DESC",
+        "biomes": ["Desert"],
         "id": "res_1x1_des_building_1_FN",
         "power": 0,
         "price": 0,
@@ -6444,6 +6613,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Appartments",
         "description": "TODO DESC",
         "id": "res_1x1_rouen4_RF",
         "power": 0,
@@ -6487,6 +6657,7 @@
     {
         "author": "Folesnaid",
         "category": "Residential",
+        "subCategory": "Low Wealth",
         "description": "TODO DESC",
         "id": "res_1x1_medieval_house_4_FN",
         "power": 0,
@@ -6534,6 +6705,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "High Wealth",
         "description": "TODO DESC",
         "id": "res_2x2_veuleslesroses4_RF",
         "power": 0,
@@ -6639,6 +6811,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "SkyScraper",
         "description": "TODO DESC",
         "id": "res_4x4_onerinconhillstowers_RF",
         "power": 0,
@@ -6665,6 +6838,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "High Wealth",
         "description": "TODO DESC",
         "id": "res_2x2_lillebonne1_RF",
         "power": 0,
@@ -6770,6 +6944,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Appartments",
         "description": "TODO DESC",
         "id": "res_2x2_north_scandinavian_houses1_RF",
         "power": 0,
@@ -6825,6 +7000,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Low Wealth",
         "description": "TODO DESC",
         "id": "res_4x2_quailutece_pink_low_RF",
         "power": 0,
@@ -6851,6 +7027,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Appartments",
         "description": "TODO DESC",
         "id": "res_2x2_maisonmoderne2_RF",
         "power": 0,
@@ -6877,6 +7054,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "High Wealth",
         "description": "TODO DESC",
         "id": "res_3x3_spokane1_RF",
         "power": 0,
@@ -6903,6 +7081,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Countries",
         "description": "TODO DESC",
         "id": "res_2x2_vancouverwashingtonUS1_RF",
         "power": 0,
@@ -6929,6 +7108,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Appartments",
         "description": "TODO DESC",
         "id": "res_2x2_lecaire1_RF",
         "power": 0,
@@ -6955,6 +7135,7 @@
     {
         "author": "Folesnaid",
         "category": "Residential",
+        "subCategory": "Appartments",
         "description": "TODO DESC",
         "id": "res_2x2_big_building_1_FN",
         "power": 0,
@@ -7030,6 +7211,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Appartments",
         "description": "TODO DESC",
         "id": "res_3x3_tacomabuilding4_RF",
         "power": 0,
@@ -7110,6 +7292,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Medium Wealth",
         "description": "TODO DESC",
         "id": "res_2x2_jura_house1_RF",
         "power": 0,
@@ -7136,7 +7319,9 @@
     {
         "author": "Folesnaid",
         "category": "Residential",
+        "subCategory": "Desert",
         "description": "TODO DESC",
+        "biomes": ["Desert"],
         "id": "res_2x2_des_building_2_FN",
         "power": 0,
         "price": 0,
@@ -7215,6 +7400,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Appartments",
         "description": "TODO DESC",
         "id": "res_1x1_monaco1_RF",
         "power": 0,
@@ -7236,6 +7422,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Medium Wealth",
         "description": "TODO DESC",
         "id": "res_1x1_quaimaupassant3_RF",
         "power": 0,
@@ -7283,6 +7470,7 @@
     {
         "author": "Folesnaid",
         "category": "Residential",
+        "subCategory": "Low Wealth",
         "description": "TODO DESC",
         "id": "res_1x1_medieval_house_5_FN",
         "power": 0,
@@ -7307,6 +7495,7 @@
         "subCategory": "BuildingsDecoration",
         "description": "A very old ship that crashed here long ago.  Its origin is unkown, but I think it's safe to say what happened to its crew",
         "id": "bd_2x2_sunkenship_kt",
+        "placeOnWater": true,
         "power": 0,
         "price": 0,
         "tiles": {
@@ -7333,7 +7522,7 @@
         "category": "Decoration",
         "tileType": "autotile",
         "subCategory": "NatureDecoration",
-        "description": "TODO - move this to decoration when the new attribute is implemented",
+        "description": "a little stream",
         "id": "ND_1x1_stream",
         "power": 0,
         "price": 0,
@@ -7389,6 +7578,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Medium Wealth",
         "description": "TODO DESC",
         "id": "res_2x2_swisshouse1_RF",
         "power": 0,
@@ -7415,6 +7605,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "High Wealth",
         "description": "TODO DESC",
         "id": "res_2x2_minnesotta_house1_RF",
         "power": 0,
@@ -7441,6 +7632,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "High Wealth",
         "description": "TODO DESC",
         "id": "res_2x2_villanormande1_RF",
         "power": 0,
@@ -7749,8 +7941,10 @@
     {
         "author": "RockFort",
         "category": "Industrial",
-        "description": "TODO DESC",
+        "description": "Big Warehouse",
         "id": "ind_4x4_warehouse_white_stedr1_RF",
+        "groundDecoration": ["GD_NA_Pavement",
+                                 "GD_NA_PrettyConcrete"],
         "power": 0,
         "price": 0,
         "tiles": {
@@ -7763,7 +7957,7 @@
             "width": 4,
             "height": 4
         },
-        "title": "TODO TITLE",
+        "title": "Big Warehouse",
         "upkeep cost": 0,
         "water": 0,
 
@@ -7801,6 +7995,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Appartments",
         "description": "TODO DESC",
         "id": "res_2x2_manaus1_RF",
         "power": 0,
@@ -7879,6 +8074,7 @@
     {
         "author": "Folesnaid",
         "category": "Residential",
+        "subCategory": "High Wealth",
         "description": "TODO DESC",
         "id": "Res_3x4_jimmy_dream_house_FN",
         "power": 0,
@@ -7931,6 +8127,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Low Wealth",
         "description": "TODO DESC",
         "id": "res_4x2_quailutece_white_low_RF",
         "power": 0,
@@ -7983,6 +8180,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Skyscraper",
         "description": "TODO DESC",
         "id": "res_4x4_srilanka1_RF",
         "power": 0,
@@ -8009,6 +8207,7 @@
     {
         "author": "Folesnaid",
         "category": "Residential",
+        "subCategory": "Low Wealth",
         "description": "TODO DESC",
         "id": "res_1x1_medieval_house_1_FN",
         "power": 0,
@@ -8056,6 +8255,7 @@
     {
         "author": "Yusuf8a684",
         "category": "Residential",
+        "subCategory": "Small Houses",
         "description": "TODO DESC",
         "id": "res_1x1_scandinavian_house2_Y8",
         "power": 0,
@@ -8077,6 +8277,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "High Wealth",
         "description": "TODO DESC",
         "id": "res_2x2_mannevillette1_RF",
         "power": 0,
@@ -8260,6 +8461,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Appartments",
         "description": "TODO DESC",
         "id": "res_2x2_caveeverte1lehavre_RF",
         "power": 0,
@@ -8286,6 +8488,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Appartments",
         "description": "TODO DESC",
         "id": "res_2x2_ketsuy1_RF",
         "power": 0,
@@ -8312,6 +8515,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Small Houses",
         "description": "TODO DESC",
         "id": "res_1x1_grand_est_alsace1_RF",
         "power": 0,
@@ -8354,6 +8558,7 @@
     {
         "author": "THEMAX",
         "category": "Residential",
+        "subCategory": "High Wealth",
         "description": "TODO DESC",
         "id": "res_3x3_mediterannean_house_mx",
         "power": 0,
@@ -8405,6 +8610,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Appartments",
         "description": "TODO DESC",
         "id": "res_3x3_barentin1large_RF",
         "power": 0,
@@ -8430,6 +8636,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Appartments",
         "description": "TODO DESC",
         "id": "res_2x2_apartvienna4_rf",
         "power": 0,
@@ -8455,6 +8662,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "High Wealth",
         "description": "TODO DESC",
         "id": "res_2x2_thann1_RF",
         "power": 0,
@@ -8480,6 +8688,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Medium Wealth",
         "description": "TODO DESC",
         "id": "res_2x2_mex1_RF",
         "power": 0,
@@ -8526,6 +8735,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "High Wealth",
         "description": "TODO DESC",
         "id": "res_3x3_barentin1med_RF",
         "power": 0,
@@ -8551,6 +8761,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "High Wealth",
         "description": "TODO DESC",
         "id": "res_2x2_semidetstouen1_RF",
         "power": 0,
@@ -8601,6 +8812,7 @@
     {
         "author": "Kingtut 101",
         "category": "Residential",
+        "subCategory": "High Wealth",
         "description": "TODO DESC",
         "id": "res_2x2_BigBlueHouse_kt",
         "power": 0,
@@ -8626,6 +8838,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Appartments",
         "description": "TODO DESC",
         "id": "res_3x3_siauliai7fullversion_RF",
         "power": 0,
@@ -8651,6 +8864,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Appartments",
         "description": "TODO DESC",
         "id": "res_3x3_romanianappt1_RF",
         "power": 0,
@@ -8676,6 +8890,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Appartments",
         "description": "TODO DESC",
         "id": "res_3x3_barentin1small_RF",
         "power": 0,
@@ -8777,14 +8992,7 @@
         "slopeTiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 4,
-            "fileName": "resources/images/terrain/blueprint/blueprint_PipeView.png"
-        },
-        "cornerTiles": {
-            "clip_height": 23,
-            "clip_width": 32,
-            "count": 8,
-            "offset": 4,
+            "count": 13,
             "fileName": "resources/images/terrain/blueprint/blueprint_PipeView.png"
         },
         "tiles": {
@@ -8814,14 +9022,7 @@
         "slopeTiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 4,
-            "fileName": "resources/images/terrain/terrain_basalt.png"
-        },
-        "cornerTiles": {
-            "clip_height": 23,
-            "clip_width": 32,
-            "count": 8,
-            "offset": 4,
+            "count": 13,
             "fileName": "resources/images/terrain/terrain_basalt.png"
         },
         "tiles": {
@@ -8851,14 +9052,7 @@
         "slopeTiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 4,
-            "fileName": "resources/images/terrain/terrain_sand_beach.png"
-        },
-        "cornerTiles": {
-            "clip_height": 23,
-            "clip_width": 32,
-            "count": 8,
-            "offset": 4,
+            "count": 13,
             "fileName": "resources/images/terrain/terrain_sand_beach.png"
         },
         "tiles": {
@@ -8889,14 +9083,7 @@
         "slopeTiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 4,
-            "fileName": "resources/images/terrain/terrain_sand_black.png"
-        },
-        "cornerTiles": {
-            "clip_height": 23,
-            "clip_width": 32,
-            "count": 8,
-            "offset": 4,
+            "count": 13,
             "fileName": "resources/images/terrain/terrain_sand_black.png"
         },
         "tiles": {
@@ -8927,14 +9114,7 @@
         "slopeTiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 4,
-            "fileName": "resources/images/terrain/terrain_burned.png"
-        },
-        "cornerTiles": {
-            "clip_height": 23,
-            "clip_width": 32,
-            "count": 8,
-            "offset": 4,
+            "count": 13,
             "fileName": "resources/images/terrain/terrain_burned.png"
         },
         "tiles": {
@@ -8964,14 +9144,7 @@
         "slopeTiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 4,
-            "fileName": "resources/images/terrain/terrain_sand_desert.png"
-        },
-        "cornerTiles": {
-            "clip_height": 23,
-            "clip_width": 32,
-            "count": 8,
-            "offset": 4,
+            "count": 13,
             "fileName": "resources/images/terrain/terrain_sand_desert.png"
         },
         "tiles": {
@@ -9002,14 +9175,7 @@
         "slopeTiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 4,
-            "fileName": "resources/images/terrain/terrain_dirt.png"
-        },
-        "cornerTiles": {
-            "clip_height": 23,
-            "clip_width": 32,
-            "count": 8,
-            "offset": 4,
+            "count": 13,
             "fileName": "resources/images/terrain/terrain_dirt.png"
         },
         "tiles": {
@@ -9039,14 +9205,7 @@
         "slopeTiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 4,
-            "fileName": "resources/images/terrain/terrain_grass.png"
-        },
-        "cornerTiles": {
-            "clip_height": 23,
-            "clip_width": 32,
-            "count": 9,
-            "offset": 4,
+            "count": 13,
             "fileName": "resources/images/terrain/terrain_grass.png"
         },
         "tiles": {
@@ -9055,6 +9214,13 @@
             "count": 3,
             "offset": 13,
             "fileName": "resources/images/terrain/terrain_grass.png"
+        },
+        "shoreLine": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 16,
+            "rotations": 16,
+            "fileName": "resources/images/terrain_shorelines/terrain_grass_shore.png"
         },
         "title": "Grassland",
         "upkeep cost": 0,
@@ -9076,14 +9242,7 @@
         "slopeTiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 4,
-            "fileName": "resources/images/terrain/terrain_grass_forest.png"
-        },
-        "cornerTiles": {
-            "clip_height": 23,
-            "clip_width": 32,
-            "count": 8,
-            "offset": 4,
+            "count": 13,
             "fileName": "resources/images/terrain/terrain_grass_forest.png"
         },
         "tiles": {
@@ -9114,14 +9273,7 @@
         "slopeTiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 4,
-            "fileName": "resources/images/terrain/terrain_grass_mint.png"
-        },
-        "cornerTiles": {
-            "clip_height": 23,
-            "clip_width": 32,
-            "count": 8,
-            "offset": 4,
+            "count": 13,
             "fileName": "resources/images/terrain/terrain_grass_mint.png"
         },
         "tiles": {
@@ -9152,14 +9304,7 @@
         "slopeTiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 4,
-            "fileName": "resources/images/terrain/terrain_grass_mint_forest.png"
-        },
-        "cornerTiles": {
-            "clip_height": 23,
-            "clip_width": 32,
-            "count": 8,
-            "offset": 4,
+            "count": 13,
             "fileName": "resources/images/terrain/terrain_grass_mint_forest.png"
         },
         "tiles": {
@@ -9191,14 +9336,7 @@
         "slopeTiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 4,
-            "fileName": "resources/images/terrain/terrain_gravel.png"
-        },
-        "cornerTiles": {
-            "clip_height": 23,
-            "clip_width": 32,
-            "count": 8,
-            "offset": 4,
+            "count": 13,
             "fileName": "resources/images/terrain/terrain_gravel.png"
         },
         "tiles": {
@@ -9228,14 +9366,7 @@
         "slopeTiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 4,
-            "fileName": "resources/images/terrain/terrain_mud.png"
-        },
-        "cornerTiles": {
-            "clip_height": 23,
-            "clip_width": 32,
-            "count": 8,
-            "offset": 4,
+            "count": 13,
             "fileName": "resources/images/terrain/terrain_mud.png"
         },
         "tiles": {
@@ -9265,14 +9396,7 @@
         "slopeTiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 4,
-            "fileName": "resources/images/terrain/terrain_sand_red.png"
-        },
-        "cornerTiles": {
-            "clip_height": 23,
-            "clip_width": 32,
-            "count": 8,
-            "offset": 4,
+            "count": 13,
             "fileName": "resources/images/terrain/terrain_sand_red.png"
         },
         "tiles": {
@@ -9303,14 +9427,7 @@
         "slopeTiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 4,
-            "fileName": "resources/images/terrain/terrain_rainstone.png"
-        },
-        "cornerTiles": {
-            "clip_height": 23,
-            "clip_width": 32,
-            "count": 8,
-            "offset": 4,
+            "count": 13,
             "fileName": "resources/images/terrain/terrain_rainstone.png"
         },
         "tiles": {
@@ -9341,14 +9458,7 @@
         "slopeTiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 4,
-            "fileName": "resources/images/terrain/terrain_shading.png"
-        },
-        "cornerTiles": {
-            "clip_height": 23,
-            "clip_width": 32,
-            "count": 8,
-            "offset": 4,
+            "count": 13,
             "fileName": "resources/images/terrain/terrain_shading.png"
         },
         "tiles": {
@@ -9378,14 +9488,7 @@
         "slopeTiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 4,
-            "fileName": "resources/images/terrain/terrain_snow.png"
-        },
-        "cornerTiles": {
-            "clip_height": 23,
-            "clip_width": 32,
-            "count": 8,
-            "offset": 4,
+            "count": 13,
             "fileName": "resources/images/terrain/terrain_snow.png"
         },
         "tiles": {
@@ -9415,14 +9518,7 @@
         "slopeTiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 4,
-            "fileName": "resources/images/terrain/terrain_soil.png"
-        },
-        "cornerTiles": {
-            "clip_height": 23,
-            "clip_width": 32,
-            "count": 8,
-            "offset": 4,
+            "count": 13,
             "fileName": "resources/images/terrain/terrain_soil.png"
         },
         "tiles": {
@@ -9452,14 +9548,7 @@
         "slopeTiles": {
             "clip_height": 23,
             "clip_width": 32,
-            "count": 4,
-            "fileName": "resources/images/terrain/terrain_stone.png"
-        },
-        "cornerTiles": {
-            "clip_height": 23,
-            "clip_width": 32,
-            "count": 8,
-            "offset": 4,
+            "count": 13,
             "fileName": "resources/images/terrain/terrain_stone.png"
         },
         "tiles": {
@@ -9590,6 +9679,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "High Wealth",
         "description": "TODO DESC",
         "id": "res_2x2_grainval1_RF",
         "power": 0,
@@ -9636,6 +9726,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "High Wealth",
         "description": "TODO DESC",
         "id": "res_2x2_siauliai8_RF",
         "power": 0,
@@ -9811,9 +9902,9 @@
     },
     {
         "author": "Kingtut 101",
-        "category": "Roads",
+        "category": "Prison",
         "tileType": "autotile",
-        "description": "TODO DESC",
+        "description": "A prison fence",
         "id": "prs_1x1_prisfen_kt",
         "power": 0,
         "price": 0,
@@ -9824,12 +9915,12 @@
             "rotations": 16,
             "fileName": "resources/images/buildings/prison/prs_1x1_prisfen_kt.png"
         },
-        "title": "TODO TITLE",
+        "title": "Prison Fence",
         "upkeep cost": 0,
         "water": 0,
         "tag": [
-            "todo",
-            "desc"
+            "prison",
+            "fence"
         ]
     },
     {
@@ -9919,6 +10010,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "High Wealth",
         "description": "TODO DESC",
         "id": "res_1x1_veuleslesroses5_RF",
         "power": 0,
@@ -9940,6 +10032,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "High Wealth",
         "description": "TODO DESC",
         "id": "res_2x2_bolbec1_RF",
         "power": 0,
@@ -10028,6 +10121,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Appartments",
         "description": "TODO DESC",
         "id": "res_2x2_mexsonora2_RF",
         "power": 0,
@@ -10053,6 +10147,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Appartments",
         "description": "TODO DESC",
         "id": "res_2x2_lillebonne2_RF",
         "power": 0,
@@ -10120,6 +10215,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Skyscraper",
         "description": "TODO DESC",
         "id": "res_3x3_mtgaillard1a_RF",
         "power": 0,
@@ -10145,6 +10241,7 @@
     {
         "author": "RockFort",
         "category": "Residential",
+        "subCategory": "Skyscraper",
         "description": "TODO DESC",
         "id": "res_3x3_containerhouse1_fr_RF",
         "power": 0,
@@ -10283,6 +10380,7 @@
     {
         "author": "Kingtut 101",
         "category": "Residential",
+        "subCategory": "Appartments",
         "description": "A nice residential building donned with white and orange concrete.",
         "id": "res_2x2_WhiteOrangeFrenchTower_KT",
         "power": 0,

@@ -59,7 +59,7 @@ private:
   SDL_Point m_screenCoordinates{0, 0};
 
   bool m_needsRefresh = false;
-  float m_currentZoomLevel = 0;
+  double m_currentZoomLevel = 0;
 
   std::vector<SpriteData> m_SpriteData;
 };

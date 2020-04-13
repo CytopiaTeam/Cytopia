@@ -4,34 +4,27 @@
 #include <stddef.h>
 #include "betterEnums.hxx"
 
+/// All Layers we have
 enum Layer : unsigned int
 {
-  NONE,            // 0- this must be FIRST !!!
-  BLUEPRINT,       // 1- Optional layer - Map Blueprint
-  UNDERGROUND,     // 2- Optional layer - Pipes, Subway-pipes and so onn
-  TERRAIN,         // 3- Terrain tiles, decorations, ... - must always be a "full" tile
-  WATER,           // 4- Water tiles
-  MOVABLE_OBJECTS, // 5- Cars, Pedestrians
-  BUILDINGS,       // 6- Buildings, Streets and everything that goes on the terrain
-  ANIMATIONS,      // 7- Animations like smoke
-  SYMBOLS,         // 8- Symbols to display over buildings like no power / water and so on
-  LAYERS_COUNT     // this must be LAST !!!
+  NONE,              /// 0- this must be FIRST !!!
+  BLUEPRINT,         /// 1- Optional layer - Map Blueprint
+  UNDERGROUND,       /// 2- Optional layer - Pipes, Subway-pipes and so onn
+  TERRAIN,           /// 3- Terrain tiles, decorations, ... - must always be a "full" tile
+  WATER,             /// 4- Water tiles
+  MOVABLE_OBJECTS,   /// 5- Cars, Pedestrians
+  BUILDINGS,         /// 6- Buildings, Streets and everything that goes on the terrain
+  ANIMATIONS,        /// 7- Animations like smoke
+  SYMBOLS,           /// 8- Symbols to display over buildings like no power / water and so on
+  GROUND_DECORATION, /// 9- Decoration to place beneath buildings. Like concrete or grass
+  LAYERS_COUNT       /// this must be LAST !!!
 };
 
-constexpr size_t FIRST_LAYER = NONE + 1; 
+constexpr size_t FIRST_LAYER = NONE + 1;
 
-/// This is a orderd list of all relevant layers we need to interact with
-static const Layer allLayersOrdered[] = {Layer::TERRAIN, Layer::WATER, Layer::BUILDINGS, Layer::BLUEPRINT, Layer::UNDERGROUND};
-
-BETTER_ENUM(TileType, int,
-            DEFAULT,    // Default is for buildings and practically everything that'll be placed on the TERRAIN layer
-            TERRAIN,    // Terrain itself
-            WATER,      // Water terrain
-            BLUEPRINT,  // Same as terrain, but gets placed on the BLUEPRINT layer
-            AUTOTILE,   // Autotiling to itself, like roads, power lines, etc
-            ZONE,       // Zones (rectangular placement)
-            UNDERGROUND // same as AUTOTILE, but for the BLUEPRINT layer
-)
+/// This is a ordered list of all relevant layers we need to interact with
+static const Layer allLayersOrdered[] = {Layer::TERRAIN,   Layer::WATER,     Layer::GROUND_DECORATION,
+                                         Layer::BUILDINGS, Layer::BLUEPRINT, Layer::UNDERGROUND};
 
 /**
  * @brief LayerEditMode.
@@ -41,15 +34,23 @@ BETTER_ENUM(TileType, int,
  */
 enum class LayerEditMode
 {
-  TERRAIN,
-  BLUEPRINT
+  TERRAIN,  /// Default "overworld" edit mode
+  BLUEPRINT /// Placing water pipes and underground transportation on the Blueprint layer
 };
 
 enum class PlacementMode
 {
-  SINGLE,
-  LINE,
-  RECTANGLE
+  SINGLE,        /// Place tiles on a single spot
+  STRAIGHT_LINE, /// Place tiles in a straight, rectangular line
+  LINE,          /// Place tiles in a line from start to end point
+  RECTANGLE      /// draw a rectangle between start and end point
+};
+
+enum class DemolishMode
+{
+  DEFAULT,          /// Demolish everything, but not
+  DE_ZONE,          /// Remove only zones
+  GROUND_DECORATION /// Remove only ground decoration
 };
 
 #endif

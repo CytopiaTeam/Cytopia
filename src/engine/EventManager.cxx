@@ -51,13 +51,32 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       switch (event.key.keysym.sym)
       {
       case SDLK_ESCAPE:
-        // TODO: Toggle last opened menu or settings menu if nothing is open
-        m_uiManager.toggleGroupVisibility("PauseMenu");
+        if (!tileToPlace.empty())
+        {
+          m_uiManager.closeOpenMenus();
+          tileToPlace.clear();
+          highlightSelection = false;
+        }
+        else
+        {
+          m_uiManager.toggleGroupVisibility("PauseMenu");
+        }
         break;
 
       case SDLK_0:
         break;
-      case SDLK_m:
+      case SDLK_LCTRL:
+        GameStates::instance().demolishMode = DemolishMode::GROUND_DECORATION;
+        GameStates::instance().rectangularRoads = true;
+        break;
+      case SDLK_LSHIFT:
+        GameStates::instance().demolishMode = DemolishMode::DE_ZONE;
+        if (GameStates::instance().placementMode == PlacementMode::LINE)
+        {
+          GameStates::instance().placementMode = PlacementMode::STRAIGHT_LINE;
+        }
+        break;
+      case SDLK_F11:
         m_uiManager.toggleDebugMenu();
         break;
       case SDLK_1:
@@ -82,6 +101,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       case SDLK_f:
         engine.toggleFullScreen();
         break;
+      case SDLK_UP:
       case SDLK_w:
         if (Camera::cameraOffset.y > -2 * Settings::instance().screenHeight * Camera::zoomLevel)
         {
@@ -96,6 +116,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           }
         }
         break;
+      case SDLK_LEFT:
       case SDLK_a:
         if (Camera::cameraOffset.x > -0.25 * Settings::instance().screenWidth * Camera::zoomLevel)
         {
@@ -110,7 +131,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           }
         }
         break;
-
+      case SDLK_DOWN:
       case SDLK_s:
         if (Camera::cameraOffset.y < 1.25 * Settings::instance().screenHeight * Camera::zoomLevel)
         {
@@ -125,7 +146,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           }
         }
         break;
-
+      case SDLK_RIGHT:
       case SDLK_d:
         if (Camera::cameraOffset.x < 5 * Settings::instance().screenWidth * Camera::zoomLevel)
         {
@@ -145,7 +166,24 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         break;
       }
       break;
+    case SDL_KEYUP:
+      switch (event.key.keysym.sym)
+      {
+      case SDLK_LCTRL:
+        GameStates::instance().demolishMode = DemolishMode::DEFAULT;
+        GameStates::instance().rectangularRoads = false;
+        break;
+      case SDLK_LSHIFT:
+        GameStates::instance().demolishMode = DemolishMode::DEFAULT;
+        if (GameStates::instance().placementMode == PlacementMode::STRAIGHT_LINE)
+        {
+          GameStates::instance().placementMode = PlacementMode::LINE;
+        }
+        break;
 
+      default:
+        break;
+      }
     case SDL_MULTIGESTURE:
       if (event.mgesture.numFingers == 2)
       {
@@ -154,13 +192,13 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         if (event.mgesture.dDist != 0)
         {
           // store pinchCenterCoords so they stay the same for all zoom levels
-          if (pinchCenterCoords.x == 0 && pinchCenterCoords.y == 0)
+          if (m_pinchCenterCoords.x == 0 && m_pinchCenterCoords.y == 0)
           {
-            pinchCenterCoords =
+            m_pinchCenterCoords =
                 convertScreenToIsoCoordinates({static_cast<int>(event.mgesture.x * Settings::instance().screenWidth),
                                                static_cast<int>(event.mgesture.y * Settings::instance().screenHeight)});
           }
-          Camera::setPinchDistance(event.mgesture.dDist * 15.0F, pinchCenterCoords.x, pinchCenterCoords.y);
+          Camera::setPinchDistance(event.mgesture.dDist * 15.0F, m_pinchCenterCoords.x, m_pinchCenterCoords.y);
           m_skipLeftClick = true;
           break;
         }
@@ -175,10 +213,12 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           m_skipLeftClick = true;
           break;
         }
+        m_skipLeftClick = true;
       }
-      m_skipLeftClick = true;
       break;
     case SDL_MOUSEMOTION:
+      m_placementAllowed = false;
+      m_cancelTileSelection = false;
       // check for UI events first
       for (const auto &it : m_uiManager.getAllUiElements())
       {
@@ -242,7 +282,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           return;
         }
         // check if we should highlight tiles and if we're in placement mode
-        else if (highlightSelection)
+        if (highlightSelection)
         {
           mouseScreenCoords = {event.button.x, event.button.y};
           mouseIsoCoords = convertScreenToIsoCoordinates(mouseScreenCoords);
@@ -290,6 +330,10 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
               m_nodesToPlace = createBresenhamLine(m_clickDownCoords, mouseIsoCoords);
               m_nodesToHighlight = m_nodesToPlace;
               break;
+            case PlacementMode::STRAIGHT_LINE:
+              m_nodesToPlace = getRectangularLineSelectionNodes(m_clickDownCoords, mouseIsoCoords);
+              m_nodesToHighlight = m_nodesToPlace;
+              break;
             case PlacementMode::RECTANGLE:
               m_nodesToPlace = getRectangleSelectionNodes(m_clickDownCoords, mouseIsoCoords);
               m_nodesToHighlight = m_nodesToPlace;
@@ -302,41 +346,62 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           {
             m_nodesToPlace.push_back(mouseIsoCoords);
           }
-          bool placementAllowed = false;
+          m_placementAllowed = false;
+          std::vector<Point> nodesToAdd;
 
           // if we touch a bigger than 1x1 tile also add all nodes of the building to highlight.
           for (const auto &coords : m_nodesToHighlight)
           {
-            Layer layer = TileManager::instance().getTileLayer(tileToPlace);
+            // If we place a ground decoration tile, we must add all tiles of bigger than 1x1 buildings from the Layer BUILDINGS
+            Layer layer;
+            if (TileManager::instance().getTileData(tileToPlace) &&
+                TileManager::instance().getTileData(tileToPlace)->tileType == +TileType::GROUNDDECORATION)
+            {
+              layer = Layer::BUILDINGS;
+            }
+            else
+            {
+              layer = TileManager::instance().getTileLayer(tileToPlace);
+            }
             Point currentOriginPoint = engine.map->getNodeOrigCornerPoint(coords, layer);
+
             std::string currentTileID = engine.map->getTileID(currentOriginPoint, layer);
             for (auto &foundNode : engine.map->getObjectCoords(currentOriginPoint, currentTileID))
             {
               // only add the node if it's unique
-              if (std::find(m_nodesToHighlight.begin(), m_nodesToHighlight.end(), foundNode) == m_nodesToHighlight.end() && foundNode != UNDEFINED_POINT)
+              if (std::find(m_nodesToHighlight.begin(), m_nodesToHighlight.end(), foundNode) == m_nodesToHighlight.end())
               {
-                m_nodesToHighlight.push_back(foundNode);
+                nodesToAdd.push_back(foundNode);
               }
             }
           }
-          // finally highlight all the tiles we've found
+          // add the nodes we've found
+          m_nodesToHighlight.insert(m_nodesToHighlight.end(), nodesToAdd.begin(), nodesToAdd.end());
+
+          // for ground decoration, place all ground decoration files beneath the building
+          if (TileManager::instance().getTileData(tileToPlace) &&
+              TileManager::instance().getTileData(tileToPlace)->tileType == +TileType::GROUNDDECORATION)
+          {
+            m_nodesToPlace = m_nodesToHighlight;
+          }
+
+          // we need to check if placement is allowed and set a bool to color ALL the highlighted tiles and not just those who can't be placed
           for (const auto &highlitNode : m_nodesToHighlight)
           {
             if (!engine.map->isPlacementOnNodeAllowed(highlitNode, tileToPlace) || demolishMode)
             {
               // already occupied tile, mark red
-              placementAllowed = false;
+              m_placementAllowed = false;
               break;
             }
-            else
-            {
-              // mark gray.
-              placementAllowed = true;
-            }
+
+            // mark gray.
+            m_placementAllowed = true;
           }
+          // finally highlight all the tiles we've found
           for (const auto &highlitNode : m_nodesToHighlight)
           {
-            if (placementAllowed)
+            if (m_placementAllowed)
             {
               engine.map->highlightNode(highlitNode, SpriteHighlightColor::GRAY);
             }
@@ -349,6 +414,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       }
       break;
     case SDL_MOUSEBUTTONDOWN:
+      m_placementAllowed = false;
       m_skipLeftClick = false;
       // check for UI events first
       for (const auto &it : m_uiManager.getAllUiElementsForEventHandling())
@@ -363,32 +429,40 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       if (event.button.button == SDL_BUTTON_RIGHT)
       {
         m_panning = true;
+        m_cancelTileSelection = true;
       }
       else if (event.button.button == SDL_BUTTON_LEFT)
       {
         // game event handling
         mouseScreenCoords = {event.button.x, event.button.y};
         mouseIsoCoords = convertScreenToIsoCoordinates(mouseScreenCoords);
+        const std::vector targetObjectNodes = engine.map->getObjectCoords(mouseIsoCoords, tileToPlace);
 
-        if (isPointWithinMapBoundaries(mouseIsoCoords))
+        if (isPointWithinMapBoundaries(mouseIsoCoords) && isPointWithinMapBoundaries(targetObjectNodes))
         {
           m_clickDownCoords = mouseIsoCoords;
+          m_placementAllowed = true;
         }
       }
       break;
 
     case SDL_MOUSEBUTTONUP:
     {
-      std::vector<Point> bresenhamLineNodes = m_nodesToPlace;
-
+      if (m_cancelTileSelection)
+      {
+        m_uiManager.closeOpenMenus();
+        tileToPlace.clear();
+        highlightSelection = false;
+      }
       if (m_panning)
       {
         Camera::centerIsoCoordinates =
             convertScreenToIsoCoordinates({Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2});
         m_panning = false;
       }
+
       // reset pinchCenterCoords when fingers are released
-      pinchCenterCoords = {0, 0, 0, 0};
+      m_pinchCenterCoords = {0, 0, 0, 0};
       // check for UI events first
       for (const auto &it : m_uiManager.getAllUiElementsForEventHandling())
       {
@@ -421,8 +495,9 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       // gather all nodes the objects that'll be placed is going to occupy.
       std::vector targetObjectNodes = engine.map->getObjectCoords(mouseIsoCoords, tileToPlace);
 
-      if (event.button.button == SDL_BUTTON_LEFT && isPointWithinMapBoundaries(targetObjectNodes))
+      if (event.button.button == SDL_BUTTON_LEFT)
       {
+
         if (m_tileInfoMode)
         {
           engine.map->getNodeInformation({mouseIsoCoords.x, mouseIsoCoords.y, 0, 0});
@@ -435,10 +510,10 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         {
           engine.decreaseHeight(mouseIsoCoords);
         }
-        else if (!tileToPlace.empty())
+        else if (!tileToPlace.empty() && m_placementAllowed)
         {
           // if targetObject.size > 1 it is a tile bigger than 1x1
-          if (targetObjectNodes.size() > 1)
+          if (targetObjectNodes.size() > 1 && isPointWithinMapBoundaries(targetObjectNodes))
           {
             // instead of using "nodesToPlace" which would be the origin-corner coordinate, we need to pass ALL occupied nodes for now.
             engine.setTileIDOfNode(targetObjectNodes.begin(), targetObjectNodes.end(), tileToPlace, false);
@@ -448,17 +523,28 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
             engine.setTileIDOfNode(m_nodesToPlace.begin(), m_nodesToPlace.end(), tileToPlace, true);
           }
         }
+
         else if (demolishMode)
         {
-          engine.demolishNode(mouseIsoCoords);
-        }
-        else
-        {
-          LOG(LOG_INFO) << "CLICKED - Iso Coords: " << mouseIsoCoords.x << ", " << mouseIsoCoords.y;
+          engine.map->demolishNode(m_nodesToHighlight, true);
         }
       }
       // when we're done, reset highlighting
       unHighlightNodes();
+
+      if (highlightSelection)
+      {
+        m_nodesToHighlight.push_back(mouseIsoCoords);
+        if (!tileToPlace.empty() && !engine.map->isPlacementOnNodeAllowed(mouseIsoCoords, tileToPlace))
+        {
+          engine.map->highlightNode(mouseIsoCoords, SpriteHighlightColor::RED);
+        }
+        else
+        {
+          engine.map->highlightNode(mouseIsoCoords, SpriteHighlightColor::GRAY);
+        }
+      }
+
       break;
     }
     case SDL_MOUSEWHEEL:
@@ -477,17 +563,17 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
     }
   }
 
-  for (auto &timer : timers)
+  for (auto &timer : m_timers)
   {
     if (timer)
       timer->checkTimeout();
   }
 
-  for (std::vector<Timer *>::iterator it = timers.begin(); it != timers.end();)
+  for (std::vector<Timer *>::iterator it = m_timers.begin(); it != m_timers.end();)
   {
     if (!(*it)->isActive())
     {
-      it = timers.erase(it);
+      it = m_timers.erase(it);
     }
     else
     {
@@ -496,4 +582,4 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
   }
 }
 
-void EventManager::registerTimer(Timer *timer) { timers.push_back(timer); }
+void EventManager::registerTimer(Timer *timer) { m_timers.push_back(timer); }
