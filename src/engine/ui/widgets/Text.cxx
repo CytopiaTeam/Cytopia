@@ -36,7 +36,6 @@ void Text::setFontSize(int fontSize)
 
 void Text::createTextTexture(const std::string &text, const SDL_Color &textColor)
 {
-  LOG(LOG_DEBUG) << "Creating a Text texture";
   string fontFName = SDL_GetBasePath() + Settings::instance().fontFileName.get();
 
   /* @todo: Remove comment once we have support for the filesystem library

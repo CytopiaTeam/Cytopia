@@ -82,7 +82,6 @@ bool Game::initialize()
 
 void Game::mainMenu()
 {
-  LOG(LOG_DEBUG) << "Starting main menu";
   SDL_Event event;
 
   int screenWidth = Settings::instance().screenWidth;

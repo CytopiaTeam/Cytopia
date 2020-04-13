@@ -36,7 +36,6 @@ int protected_main(int argc, char **argv)
 
   if (!skipMenu)
   {
-    LOG(LOG_DEBUG) << "Starting Main menu";
     game.mainMenu();
   }
 
