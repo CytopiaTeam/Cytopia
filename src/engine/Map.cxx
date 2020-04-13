@@ -387,23 +387,20 @@ Point Map::findNodeInMap(const SDL_Point &screenCoordinates) const
   int isoX = calculatedIsoCoords.x;
   int isoY = calculatedIsoCoords.y;
 
-  // adjust caluclated valies that are outside of the map (which is legit, but they need to get pushed down)
+  // adjust caluclated values that are outside of the map (which is legit, but they need to get pushed down)
+  // only y can be out of bounds on our map
   if (isoY >= Settings::instance().mapSize)
   {
-    int diff = isoY - Settings::instance().mapSize + 1; // +1 here so we are below the max value
-    isoY -= diff;
+    int diff = isoY - Settings::instance().mapSize; // the diff to reset the value to the edge of the map
+    // travel the column downwards.
     isoX += diff;
-  }
-  if (isoX >= Settings::instance().mapSize)
-  {
-    int diff = isoY - Settings::instance().mapSize + 1;
     isoY -= diff;
-    isoX += diff;
   }
 
-  // traverse a column from top to bottom (from the calculated coordinates)
-  while (isoX < Settings::instance().mapSize && isoY < Settings::instance().mapSize && isoY >= 0)
+  // traverse a column from top to bottom (from the calculated coordinates) our calculated point is always higher than the clicked point
+  while (isoX <= Settings::instance().mapSize && isoY <= Settings::instance().mapSize && isoY >= 0)
   {
+    // include 2 columns on each side, since calculated values can be that far off
     for (int i = 0; i <= 2; i++)
     {
       if (isClickWithinTile(screenCoordinates, isoX, isoY) &&
@@ -411,19 +408,18 @@ Point Map::findNodeInMap(const SDL_Point &screenCoordinates) const
       {
         foundCoordinates = mapNodes[isoX * m_columns + isoY]->getCoordinates();
       }
-      if (isClickWithinTile(screenCoordinates, isoX - i, isoY) &&
-          (foundCoordinates.z < mapNodes[(isoX - i) * m_columns + isoY]->getCoordinates().z))
+      if (isClickWithinTile(screenCoordinates, isoX + i, isoY) &&
+          (foundCoordinates.z < mapNodes[(isoX + i) * m_columns + isoY]->getCoordinates().z))
       {
-        foundCoordinates = mapNodes[(isoX - i) * m_columns + isoY]->getCoordinates();
+        foundCoordinates = mapNodes[(isoX + i) * m_columns + isoY]->getCoordinates();
       }
-      //check if isoY is already the last one
-      if (isClickWithinTile(screenCoordinates, isoX, isoY + i) &&
-          (foundCoordinates.z < mapNodes[isoX * m_columns + (isoY + i)]->getCoordinates().z))
+      if (isClickWithinTile(screenCoordinates, isoX, isoY - i) &&
+          (foundCoordinates.z < mapNodes[isoX * m_columns + (isoY - i)]->getCoordinates().z))
       {
-        foundCoordinates = mapNodes[isoX * m_columns + (isoY + i)]->getCoordinates();
+        foundCoordinates = mapNodes[isoX * m_columns + (isoY - i)]->getCoordinates();
       }
     }
-
+    // travel the column downwards.
     isoX++;
     isoY--;
   }
