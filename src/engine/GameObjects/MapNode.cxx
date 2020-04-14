@@ -160,7 +160,8 @@ bool MapNode::isPlacementAllowed(const std::string &newTileID) const
 
     // check if the current tile has the property overplacable set or if it's of the same tile ID for certain TileTypes only (not DEFAULT)
     if (m_mapNodeData[layer].tileData &&
-        (m_mapNodeData[layer].tileData->isOverPlacable ||
+        (m_mapNodeData[layer].tileData->tileType == +TileType::GROUNDDECORATION ||
+         m_mapNodeData[layer].tileData->isOverPlacable ||
          (m_mapNodeData[layer].tileData->tileType != +TileType::DEFAULT && m_mapNodeData[layer].tileID == newTileID)))
     {
       return true;
@@ -357,19 +358,40 @@ void MapNode::setMapNodeData(std::vector<MapNodeData> &&mapNodeData, const Point
   }
 }
 
-void MapNode::demolishNode()
+void MapNode::demolishNode(Layer demolishLayer)
 {
-  Layer myLayers[] = {Layer::BUILDINGS, Layer::UNDERGROUND, Layer::GROUND_DECORATION};
-  for (auto &layer : myLayers)
+  // allow to delete a single layer only
+  std::vector<Layer> layersToDemolish;
+  if (demolishLayer == Layer::NONE)
   {
-    if (MapLayers::isLayerActive(layer))
+    layersToDemolish = {Layer::BUILDINGS, Layer::UNDERGROUND, Layer::GROUND_DECORATION};
+  }
+  else
+  {
+    layersToDemolish.push_back(demolishLayer);
+  }
+
+  for (auto &layer : layersToDemolish)
+  {
+    if (MapLayers::isLayerActive(layer) && m_mapNodeData[layer].tileData)
     {
+      if ((GameStates::instance().demolishMode == DemolishMode::DEFAULT &&
+           m_mapNodeData[layer].tileData->tileType == +TileType::ZONE) ||
+          (GameStates::instance().demolishMode == DemolishMode::DE_ZONE &&
+           m_mapNodeData[layer].tileData->tileType != +TileType::ZONE) ||
+          (GameStates::instance().demolishMode == DemolishMode::GROUND_DECORATION &&
+           m_mapNodeData[layer].tileData->tileType != +TileType::GROUNDDECORATION))
+      {
+        continue;
+      }
+
       m_mapNodeData[layer].tileData = nullptr;
       m_mapNodeData[layer].tileID = "";
+      m_autotileOrientation[layer] =
+          TileOrientation::TILE_DEFAULT_ORIENTATION; // We need to reset TileOrientation, in case it's set (demolishing autotiles)
       m_mapNodeData[layer].origCornerPoint = this->getCoordinates();
       m_sprite->clearSprite(layer);
       updateTexture();
-      break;
     }
   }
 }

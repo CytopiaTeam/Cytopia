@@ -66,9 +66,11 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       case SDLK_0:
         break;
       case SDLK_LCTRL:
+        GameStates::instance().demolishMode = DemolishMode::GROUND_DECORATION;
         GameStates::instance().rectangularRoads = true;
         break;
       case SDLK_LSHIFT:
+        GameStates::instance().demolishMode = DemolishMode::DE_ZONE;
         if (GameStates::instance().placementMode == PlacementMode::LINE)
         {
           GameStates::instance().placementMode = PlacementMode::STRAIGHT_LINE;
@@ -168,9 +170,11 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       switch (event.key.keysym.sym)
       {
       case SDLK_LCTRL:
+        GameStates::instance().demolishMode = DemolishMode::DEFAULT;
         GameStates::instance().rectangularRoads = false;
         break;
       case SDLK_LSHIFT:
+        GameStates::instance().demolishMode = DemolishMode::DEFAULT;
         if (GameStates::instance().placementMode == PlacementMode::STRAIGHT_LINE)
         {
           GameStates::instance().placementMode = PlacementMode::LINE;
@@ -214,6 +218,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       break;
     case SDL_MOUSEMOTION:
       m_placementAllowed = false;
+      m_cancelTileSelection = false;
       // check for UI events first
       for (const auto &it : m_uiManager.getAllUiElements())
       {
@@ -347,7 +352,17 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           // if we touch a bigger than 1x1 tile also add all nodes of the building to highlight.
           for (const auto &coords : m_nodesToHighlight)
           {
-            const Layer layer = TileManager::instance().getTileLayer(tileToPlace);
+            // If we place a ground decoration tile, we must add all tiles of bigger than 1x1 buildings from the Layer BUILDINGS
+            Layer layer;
+            if (TileManager::instance().getTileData(tileToPlace) &&
+                TileManager::instance().getTileData(tileToPlace)->tileType == +TileType::GROUNDDECORATION)
+            {
+              layer = Layer::BUILDINGS;
+            }
+            else
+            {
+              layer = TileManager::instance().getTileLayer(tileToPlace);
+            }
             Point currentOriginPoint = engine.map->getNodeOrigCornerPoint(coords, layer);
 
             std::string currentTileID = engine.map->getTileID(currentOriginPoint, layer);
@@ -362,6 +377,13 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           }
           // add the nodes we've found
           m_nodesToHighlight.insert(m_nodesToHighlight.end(), nodesToAdd.begin(), nodesToAdd.end());
+
+          // for ground decoration, place all ground decoration files beneath the building
+          if (TileManager::instance().getTileData(tileToPlace) &&
+              TileManager::instance().getTileData(tileToPlace)->tileType == +TileType::GROUNDDECORATION)
+          {
+            m_nodesToPlace = m_nodesToHighlight;
+          }
 
           // we need to check if placement is allowed and set a bool to color ALL the highlighted tiles and not just those who can't be placed
           for (const auto &highlitNode : m_nodesToHighlight)
@@ -407,6 +429,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       if (event.button.button == SDL_BUTTON_RIGHT)
       {
         m_panning = true;
+        m_cancelTileSelection = true;
       }
       else if (event.button.button == SDL_BUTTON_LEFT)
       {
@@ -425,12 +448,19 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
 
     case SDL_MOUSEBUTTONUP:
     {
+      if (m_cancelTileSelection)
+      {
+        m_uiManager.closeOpenMenus();
+        tileToPlace.clear();
+        highlightSelection = false;
+      }
       if (m_panning)
       {
         Camera::centerIsoCoordinates =
             convertScreenToIsoCoordinates({Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2});
         m_panning = false;
       }
+
       // reset pinchCenterCoords when fingers are released
       m_pinchCenterCoords = {0, 0, 0, 0};
       // check for UI events first
@@ -465,8 +495,9 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       // gather all nodes the objects that'll be placed is going to occupy.
       std::vector targetObjectNodes = engine.map->getObjectCoords(mouseIsoCoords, tileToPlace);
 
-      if (event.button.button == SDL_BUTTON_LEFT && m_placementAllowed)
+      if (event.button.button == SDL_BUTTON_LEFT)
       {
+
         if (m_tileInfoMode)
         {
           engine.map->getNodeInformation({mouseIsoCoords.x, mouseIsoCoords.y, 0, 0});
@@ -479,7 +510,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         {
           engine.decreaseHeight(mouseIsoCoords);
         }
-        else if (!tileToPlace.empty())
+        else if (!tileToPlace.empty() && m_placementAllowed)
         {
           // if targetObject.size > 1 it is a tile bigger than 1x1
           if (targetObjectNodes.size() > 1 && isPointWithinMapBoundaries(targetObjectNodes))
@@ -492,17 +523,28 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
             engine.setTileIDOfNode(m_nodesToPlace.begin(), m_nodesToPlace.end(), tileToPlace, true);
           }
         }
+
         else if (demolishMode)
         {
-          engine.map->demolishNode(mouseIsoCoords, true);
-        }
-        else
-        {
-          LOG(LOG_INFO) << "CLICKED - Iso Coords: " << mouseIsoCoords.x << ", " << mouseIsoCoords.y;
+          engine.map->demolishNode(m_nodesToHighlight, true);
         }
       }
       // when we're done, reset highlighting
       unHighlightNodes();
+
+      if (highlightSelection)
+      {
+        m_nodesToHighlight.push_back(mouseIsoCoords);
+        if (!tileToPlace.empty() && !engine.map->isPlacementOnNodeAllowed(mouseIsoCoords, tileToPlace))
+        {
+          engine.map->highlightNode(mouseIsoCoords, SpriteHighlightColor::RED);
+        }
+        else
+        {
+          engine.map->highlightNode(mouseIsoCoords, SpriteHighlightColor::GRAY);
+        }
+      }
+
       break;
     }
     case SDL_MOUSEWHEEL:

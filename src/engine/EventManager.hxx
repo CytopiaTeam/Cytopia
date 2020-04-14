@@ -32,6 +32,7 @@ private:
   bool m_panning = false;
   bool m_skipLeftClick = false;
   bool m_tileInfoMode = false;
+  bool m_cancelTileSelection = false; /// determines if a right click should cancel tile selection
   Point m_pinchCenterCoords = {0, 0, 0, 0};
   Point m_clickDownCoords = {0, 0, 0, 0};
   std::vector<Point> m_nodesToPlace = {};

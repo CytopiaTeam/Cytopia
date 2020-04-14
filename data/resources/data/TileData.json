@@ -4,6 +4,7 @@
         "category": "Decoration",
         "subCategory": "Ground Decoration",
         "tileType": "GroundDecoration",
+        "isOverPlacable": true,
         "description": "Pretty concrete",
         "id": "GD_NA_PrettyConcrete",
         "power": 0,
@@ -28,6 +29,7 @@
         "category": "Decoration",
         "subCategory": "Ground Decoration",
         "tileType": "GroundDecoration",
+        "isOverPlacable": true,
         "description": "Pavement",
         "id": "GD_NA_Pavement",
         "power": 0,
@@ -719,36 +721,6 @@
         "author": "Yusuf8a684",
         "category": "Roads",
         "tileType": "autotile",
-        "description": "An european looking road.",
-        "id": "road_european",
-        "power": 0,
-        "price": 7,
-        "slopeTiles": {
-            "clip_height": 23,
-            "clip_width": 32,
-            "count": 4,
-            "offset": 20,
-            "fileName": "resources/images/roads/road_1x1_european.png"
-        },
-        "tiles": {
-            "clip_height": 16,
-            "clip_width": 32,
-            "count": 20,
-            "fileName": "resources/images/roads/road_1x1_european.png",
-            "rotations": 16
-        },
-        "title": "European Road",
-        "upkeep cost": 2,
-        "water": 0,
-        "tag": [
-            "road",
-            "european"
-        ]
-    },
-    {
-        "author": "Yusuf8a684",
-        "category": "Roads",
-        "tileType": "autotile",
         "description": "A modern european looking road.",
         "id": "road_european_modern",
         "power": 0,
@@ -994,6 +966,7 @@
         "category": "Industrial",
         "description": "Industrial Building",
         "id": "ind_1x1_industry_1_FN1",
+        "groundDecoration": ["GD_NA_Pavement"],
         "power": 0,
         "price": 0,
         "tiles": {
@@ -7492,6 +7465,7 @@
         "subCategory": "BuildingsDecoration",
         "description": "A very old ship that crashed here long ago.  Its origin is unkown, but I think it's safe to say what happened to its crew",
         "id": "bd_2x2_sunkenship_kt",
+        "placeOnWater": true,
         "power": 0,
         "price": 0,
         "tiles": {
@@ -7937,8 +7911,10 @@
     {
         "author": "RockFort",
         "category": "Industrial",
-        "description": "TODO DESC",
+        "description": "Big Warehouse",
         "id": "ind_4x4_warehouse_white_stedr1_RF",
+        "groundDecoration": ["GD_NA_Pavement",
+                                 "GD_NA_PrettyConcrete"],
         "power": 0,
         "price": 0,
         "tiles": {
@@ -7951,7 +7927,7 @@
             "width": 4,
             "height": 4
         },
-        "title": "TODO TITLE",
+        "title": "Big Warehouse",
         "upkeep cost": 0,
         "water": 0,
 

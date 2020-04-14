@@ -437,11 +437,13 @@ void UIManager::setCallbackFunctions()
               case +TileType::AUTOTILE:
                 GameStates::instance().placementMode = PlacementMode::LINE;
                 break;
+              case +TileType::GROUNDDECORATION:
               case +TileType::WATER:
               case +TileType::ZONE:
                 GameStates::instance().placementMode = PlacementMode::RECTANGLE;
                 break;
               case +TileType::UNDERGROUND:
+                GameStates::instance().placementMode = PlacementMode::LINE;
                 GameStates::instance().layerEditMode = LayerEditMode::BLUEPRINT;
                 MapLayers::setLayerEditMode(GameStates::instance().layerEditMode);
                 break;

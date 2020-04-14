@@ -289,6 +289,21 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
   m_tileData[id].author = tileDataJSON[idx].value("author", "");
   m_tileData[id].title = tileDataJSON[idx].value("title", "");
   m_tileData[id].description = tileDataJSON[idx].value("description", "");
+  m_tileData[id].category = tileDataJSON[idx].value("category", "");
+  m_tileData[id].subCategory = tileDataJSON[idx].value("subCategory", "");
+  m_tileData[id].price = tileDataJSON[idx].value("price", 0);
+  m_tileData[id].power = tileDataJSON[idx].value("power", 0);
+  m_tileData[id].water = tileDataJSON[idx].value("water", 0);
+  m_tileData[id].upkeepCost = tileDataJSON[idx].value("upkeepCost", 0);
+  m_tileData[id].isOverPlacable = tileDataJSON[idx].value("isOverPlacable", false);
+  m_tileData[id].placeOnWater = tileDataJSON[idx].value("placeOnWater", false);
+  m_tileData[id].inhabitants = tileDataJSON[idx].value("inhabitants", 0);
+  m_tileData[id].happyness = tileDataJSON[idx].value("happyness", 0);
+  m_tileData[id].fireHazardLevel = tileDataJSON[idx].value("fireHazardLevel", 0);
+  m_tileData[id].educationLevel = tileDataJSON[idx].value("educationLevel", 0);
+  m_tileData[id].crimeLevel = tileDataJSON[idx].value("crimeLevel", 0);
+  m_tileData[id].pollutionLevel = tileDataJSON[idx].value("pollutionLevel", 0);
+
   std::string tileTypeStr = tileDataJSON[idx].value("tileType", "default");
 
   if (TileType::_is_valid_nocase(tileTypeStr.c_str()))
@@ -300,21 +315,6 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
     throw ConfigurationError(TRACE_INFO "In TileData.json in field with ID " + id +
                              " the field tileType uses the unsupported value " + tileTypeStr);
   }
-
-  m_tileData[id].category = tileDataJSON[idx].value("category", "");
-  m_tileData[id].subCategory = tileDataJSON[idx].value("subCategory", "");
-  m_tileData[id].price = tileDataJSON[idx].value("price", 0);
-  m_tileData[id].power = tileDataJSON[idx].value("power", 0);
-  m_tileData[id].water = tileDataJSON[idx].value("water", 0);
-  m_tileData[id].upkeepCost = tileDataJSON[idx].value("upkeepCost", 0);
-  m_tileData[id].isOverPlacable = tileDataJSON[idx].value("isOverPlacable", false);
-  m_tileData[id].groundTileDecoration = tileDataJSON[idx].value("groundTileDecoration", "");
-  m_tileData[id].placeOnWater = tileDataJSON[idx].value("placeOnWater", false);
-  m_tileData[id].inhabitants = tileDataJSON[idx].value("inhabitants", 0);
-  m_tileData[id].fireHazardLevel = tileDataJSON[idx].value("fireHazardLevel", 0);
-  m_tileData[id].educationLevel = tileDataJSON[idx].value("educationLevel", 0);
-  m_tileData[id].crimeLevel = tileDataJSON[idx].value("crimeLevel", 0);
-  m_tileData[id].pollutionLevel = tileDataJSON[idx].value("pollutionLevel", 0);
 
   std::string wealth = tileDataJSON[idx].value("wealth", "none");
 
@@ -373,6 +373,14 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
     for (auto biome : tileDataJSON[idx].at("biomes").items())
     {
       m_tileData[id].biomes.push_back(biome.value().get<std::string>());
+    }
+  }
+
+  if (tileDataJSON[idx].find("groundDecoration") != tileDataJSON[idx].end())
+  {
+    for (auto groundDecoration : tileDataJSON[idx].at("groundDecoration").items())
+    {
+      m_tileData[id].groundDecoration.push_back(groundDecoration.value().get<std::string>());
     }
   }
 
