@@ -454,6 +454,9 @@ void AudioMixer::playSoundtrackWithReverb(SoundtrackUPtr &track,const StandardRe
   //load effect
   ALuint effect = 0;
   
+  /* Create the effect object and check if we can do EAX reverb. */
+  alGenEffects(1, &effect);
+  
   alEffecti(effect, AL_EFFECT_TYPE, AL_EFFECT_REVERB);
 
   alEffectf(effect, AL_REVERB_DENSITY, reverb.flDensity);
@@ -474,10 +477,11 @@ void AudioMixer::playSoundtrackWithReverb(SoundtrackUPtr &track,const StandardRe
 	ALenum err = alGetError();
 	if(err != AL_NO_ERROR)
 	{
-		fprintf(stderr, "OpenAL error: %s\n", alGetString(err));
 		if(alIsEffect(effect))
 			alDeleteEffects(1, &effect);
-		return;
+			
+		throw AudioError{TRACE_INFO "Unable to add reverb effect to track."};
+		fprintf(stderr, "OpenAL error: %s\n", alGetString(err));
 	}
 
   /* Create the effect slot object. This is what "plays" an effect on sources

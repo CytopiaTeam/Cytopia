@@ -272,9 +272,9 @@ void Game::run(bool SkipMenu)
 	StandardReverbProperties temp_rev_prop = {
 		1.0,	//flDensity
 		1.0,	//flDiffusion
-		0.32,	//flGain
+		0.8,	//flGain
 		0.89,	//flGainHF
-		1.49,	//flDecayTime
+		3.00,	//flDecayTime
 		0.83,	//flDecayHFRatio
 		0.05,	//flReflectionsGain
 		0.007,	//flReflectionsDelay
