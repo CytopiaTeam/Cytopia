@@ -246,14 +246,14 @@ void AudioMixer::handleEvent(const AudioTriggerReverbEvent &&event)
   SoundtrackID &trackID = *GetService<Randomizer>().choose(possibilities.begin(), possibilities.end());
   SoundtrackUPtr & track = GetService<ResourceManager>().get(trackID);
 
-  playSoundtrackWithReverb(track, event.reverb_properties);
+  playSoundtrackWithReverb(track, &event.reverb_properties);
 }
 
 void AudioMixer::handleEvent(const AudioPlayReverbEvent &&event)
 {
   SoundtrackUPtr & track = GetService<ResourceManager>().get(event.ID);
 
-  playSoundtrackWithReverb(track,event.reverb_properties);
+  playSoundtrackWithReverb(track,&event.reverb_properties);
 }
 
 void AudioMixer::handleEvent(const AudioTriggerReverb3DEvent &&event)
@@ -271,7 +271,7 @@ void AudioMixer::handleEvent(const AudioTriggerReverb3DEvent &&event)
    * converted to regular cartesian coordinate system */
   alSource3f(track->source, AL_POSITION, static_cast<ALfloat>(event.position.x), static_cast<ALfloat>(event.position.y),
              static_cast<ALfloat>(event.position.z));
-  playSoundtrackWithReverb(track, event.reverb_properties);
+  playSoundtrackWithReverb(track, &event.reverb_properties);
 }
 
 void AudioMixer::handleEvent(const AudioPlayReverb3DEvent &&event)
@@ -280,7 +280,7 @@ void AudioMixer::handleEvent(const AudioPlayReverb3DEvent &&event)
   /* set position of source in track */
   alSource3f(track->source, AL_POSITION, static_cast<ALfloat>(event.position.x), static_cast<ALfloat>(event.position.y),
              static_cast<ALfloat>(event.position.z));
-  playSoundtrackWithReverb(track,event.reverb_properties);
+  playSoundtrackWithReverb(track,&event.reverb_properties);
 }
 
 #endif // USE_OPENAL_SOFT
@@ -386,7 +386,7 @@ static LPALGETAUXILIARYEFFECTSLOTF alGetAuxiliaryEffectSlotf;
 static LPALGETAUXILIARYEFFECTSLOTFV alGetAuxiliaryEffectSlotfv;
 
 
-void AudioMixer::playSoundtrackWithReverb(SoundtrackUPtr &track,StandardReverbProperties& reverb_properties)
+void AudioMixer::playSoundtrackWithReverb(SoundtrackUPtr &track,const StandardReverbProperties* reverb_properties)
 {
 	if (!track)
     throw AudioError(TRACE_INFO "Received an invalid soundtrack");
@@ -438,18 +438,18 @@ void AudioMixer::playSoundtrackWithReverb(SoundtrackUPtr &track,StandardReverbPr
   EFXEAXREVERBPROPERTIES reverb = EFX_REVERB_PRESET_GENERIC;
 
   //assign custom properties
-  reverb.flDensity = reverb_properties.flDensity;
-  reverb.flDiffusion = reverb_properties.flDiffusion;
-  reverb.flGain = reverb_properties.flGain;
-  reverb.flGainHF = reverb_properties.flGainHF;
-  reverb.flDecayTime = reverb_properties.flDecayTime;
-  reverb.flDecayHFRatio = reverb_properties.flDecayHFRatio;
-  reverb.flReflectionsGain = reverb_properties.flReflectionsGain;
-  reverb.flReflectionsDelay = reverb_properties.flReflectionsDelay;
-  reverb.flLateReverbGain = reverb_properties.flLateReverbGain;
-  reverb.flLateReverbDelay = reverb_properties.flLateReverbDelay;
-  reverb.flAirAbsorptionGainHF = reverb_properties.flAirAbsorptionGainHF;
-  reverb.flRoomRolloffFactor = reverb_properties.flRoomRolloffFactor;
+  reverb.flDensity = reverb_properties->flDensity;
+  reverb.flDiffusion = reverb_properties->flDiffusion;
+  reverb.flGain = reverb_properties->flGain;
+  reverb.flGainHF = reverb_properties->flGainHF;
+  reverb.flDecayTime = reverb_properties->flDecayTime;
+  reverb.flDecayHFRatio = reverb_properties->flDecayHFRatio;
+  reverb.flReflectionsGain = reverb_properties->flReflectionsGain;
+  reverb.flReflectionsDelay = reverb_properties->flReflectionsDelay;
+  reverb.flLateReverbGain = reverb_properties->flLateReverbGain;
+  reverb.flLateReverbDelay = reverb_properties->flLateReverbDelay;
+  reverb.flAirAbsorptionGainHF = reverb_properties->flAirAbsorptionGainHF;
+  reverb.flRoomRolloffFactor = reverb_properties->flRoomRolloffFactor;
 
   //load effect
   ALuint effect = 0;

@@ -227,7 +227,7 @@ private:
    * @param soundtrack the Soundtrack
    * @param properties of reverb effect
    */
-  void playSoundtrackWithReverb(SoundtrackUPtr &soundtrack,StandardReverbProperties& properties);
+  void playSoundtrackWithReverb(SoundtrackUPtr &soundtrack,const StandardReverbProperties* reverb_properties);
   
   /**
    * @brief Called whenever a Channel has finished playing

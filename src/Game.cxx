@@ -284,7 +284,7 @@ void Game::run(bool SkipMenu)
 		0.0	//flRoomRolloffFactor
 	};
 	
-    m_GameClock.createRepeatedTask(8min, [this]() { m_AudioMixer.play(AudioTrigger::MainTheme,temp_rev_prop); });
+    m_GameClock.createRepeatedTask(8min, [this]() { m_AudioMixer.play(AudioTrigger::MainTheme); });
     m_GameClock.createRepeatedTask(3min, [this]() { m_AudioMixer.play(AudioTrigger::NatureSounds); });
   }
   else
