@@ -111,7 +111,7 @@ public:
    * @param properties of standard reverb
    */
 #ifdef USE_OPENAL_SOFT
-  void play(SoundtrackID &&ID, Coordinate3D &&position, StandardReverbProperties& reverb_properties) noexcept;
+  void play(SoundtrackID &&ID, Coordinate3D &&position,  StandardReverbProperties& reverb_properties) noexcept;
 #endif
 
 /**
@@ -227,7 +227,7 @@ private:
    * @param soundtrack the Soundtrack
    * @param properties of reverb effect
    */
-  void playSoundtrackWithReverb(SoundtrackUPtr &soundtrack,const StandardReverbProperties* reverb_properties);
+  void playSoundtrackWithReverb(SoundtrackUPtr &soundtrack,const StandardReverbProperties& reverb_properties);
   
   /**
    * @brief Called whenever a Channel has finished playing
