@@ -105,6 +105,10 @@ public:
     */
   bool isPlacableOnSlope(const std::string &tileID) const;
 
+  /** @brief check if current Node Terrain is Slope Terrain.
+    */
+  bool isSlopeNode(void) const;
+
   /**
  * @brief Demolish a node
  * Removes all tiles on a node. This effects all layers where something to demolish is placed. (BUILDINGS, GROUND_DECORATION, UNDERGROUND) per default, but can be restricted to a single Layer. 

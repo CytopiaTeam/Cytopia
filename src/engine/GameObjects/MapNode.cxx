@@ -138,6 +138,11 @@ Layer MapNode::getTopMostActiveLayer() const
 bool MapNode::isPlacableOnSlope(const std::string &tileID) const
 {
   TileData *tileData = TileManager::instance().getTileData(tileID);
+  if (tileData && tileData->tileType == +TileType::ZONE)
+  {
+    // zones are allowed to pass slopes.
+    return true;
+  }
   if (tileData && m_elevationOrientation != TileSlopes::DEFAULT_ORIENTATION)
   {
     // we need to check the terrain layer for it's orientation so we can calculate the resulting x offset in the spritesheet.
@@ -351,6 +356,11 @@ void MapNode::updateTexture(const Layer &layer)
       m_sprite->spriteCount = spriteCount;
     }
   }
+}
+
+bool MapNode::isSlopeNode() const
+{ 
+  return m_mapNodeData[Layer::TERRAIN].tileMap == TileMap::SLOPES; 
 }
 
 void MapNode::setCoordinates(const Point &newIsoCoordinates)
