@@ -77,20 +77,23 @@ void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
     const Layer layer = TileManager::instance().getTileLayer(tileID);
     m_mapNodeData[layer].origCornerPoint = origCornerPoint;
     m_previousTileID = m_mapNodeData[layer].tileID;
+    
+    if (m_mapNodeData[Layer::ZONE].tileData)
+    {
+      // TODO: check decorations.
+      if (tileData->category != "Flora" &&
+          tileData->category != m_mapNodeData[Layer::ZONE].tileData->subCategory)
+      {
+        // selected tile category != existed zone category.
+        this->clearLayer(Layer::ZONE);
+      }
+    }
     m_mapNodeData[layer].tileData = tileData;
     m_mapNodeData[layer].tileID = tileID;
 
     switch (layer)
     {
     case Layer::BUILDINGS:
-      if (m_mapNodeData[Layer::ZONE].tileData)
-      {
-        if (tileData->category != m_mapNodeData[Layer::ZONE].tileData->subCategory)
-        {
-          // TODO: in case this is building that is not suitable to the zone, clear ZONE.
-          this->clearLayer(Layer::ZONE);
-        }
-      }
       m_mapNodeData[Layer::ZONE].shouldRender = false;
       break;
     default:

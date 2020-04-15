@@ -80,6 +80,12 @@ void Map::increaseHeight(const Point &isoCoordinates)
 
   if (height < Settings::instance().maxElevationHeight)
   {
+    NeighborMatrix matrix;
+    getNeighbors(isoCoordinates, matrix);
+    for (const auto &it : matrix)
+    {
+      it->clearLayer(Layer::ZONE);
+    }
     demolishNode(std::vector<Point>{isoCoordinates});
     mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->increaseHeight();
     updateNeighborsOfNode(mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getCoordinates());
@@ -93,6 +99,12 @@ void Map::decreaseHeight(const Point &isoCoordinates)
 
   if (height > 0)
   {
+    NeighborMatrix matrix;
+    getNeighbors(isoCoordinates, matrix);
+    for (const auto &it : matrix)
+    {
+      it->clearLayer(Layer::ZONE);
+    }
     demolishNode(std::vector<Point>{isoCoordinates});
     mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->decreaseHeight();
     updateNeighborsOfNode(mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getCoordinates());
