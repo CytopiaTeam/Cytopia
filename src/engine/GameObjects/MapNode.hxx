@@ -89,6 +89,7 @@ public:
 
   bool isPlacementAllowed(const std::string &newTileID) const;
 
+
   /// Overwrite m_mapData with the one loaded from a savegame. This function to be used only by loadGame
   void setMapNodeData(std::vector<MapNodeData> &&mapNodeData, const Point &isoCoordinates);
 
@@ -143,7 +144,7 @@ private:
   std::vector<unsigned char> m_autotileBitmask;
   unsigned char m_elevationBitmask = 0;
 
-  void updateTexture();
+  void updateTexture(const Layer &layer = Layer::NONE);
 };
 
 #endif

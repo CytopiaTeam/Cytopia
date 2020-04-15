@@ -51,11 +51,23 @@ void Sprite::render() const
   }
 }
 
-void Sprite::refresh()
+void Sprite::refresh(const Layer &layer)
 {
+  std::vector<Layer> layersToGoOver;
+  if (layer != Layer::NONE)
+  {
+    // in case this is not the default value (which is NONE), we need to update only 1 layer.
+    layersToGoOver.push_back(layer);
+  }
+  else
+  {
+    int n = (sizeof(allLayersOrdered) / sizeof(allLayersOrdered[0]));
+    layersToGoOver = std::vector<Layer>(allLayersOrdered, allLayersOrdered + n);
+  }
+
   if (m_currentZoomLevel != Camera::zoomLevel || m_needsRefresh)
   {
-    for (auto currentLayer : allLayersOrdered)
+    for (auto currentLayer : layersToGoOver)
     {
       if (m_SpriteData[currentLayer].texture)
       {
@@ -107,7 +119,7 @@ void Sprite::setTexture(SDL_Texture *texture, Layer layer)
     throw UIError(TRACE_INFO "Called Sprite::setTexture() with a non valid texture");
   m_SpriteData[layer].texture = texture;
   m_needsRefresh = true;
-  refresh();
+  refresh(layer);
 }
 
 void Sprite::setClipRect(SDL_Rect clipRect, const Layer layer) { m_SpriteData[layer].clipRect = clipRect; }

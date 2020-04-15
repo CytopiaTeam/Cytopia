@@ -115,8 +115,12 @@ public:
               mapNodes[it->x * m_columns + it->y]->getMapNodeDataForLayer(layer).tileData->groundDecoration[groundtileIndex],
               isMultiObjects ? *it : *begin);
         }
-
-        updateNeighborsOfNode(*it);
+        //For layers that autotile to each other, we need to update their neighbors too
+        if (TileManager::instance().getTileData(tileID)->tileType == +TileType::AUTOTILE ||
+            TileManager::instance().getTileData(tileID)->tileType == +TileType::UNDERGROUND)
+        {
+          updateNeighborsOfNode(*it);
+        }
       }
     }
   }

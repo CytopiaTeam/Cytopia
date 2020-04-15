@@ -34,8 +34,8 @@ MapNode::MapNode(Point isoCoordinates, const std::string &terrainID, const std::
   }
   // always add blueprint tiles too when creating the node
   setTileID("terrain_blueprint", isoCoordinates);
-
-  updateTexture();
+  const Layer layer = TileManager::instance().getTileLayer(tileID);
+  updateTexture(layer);
 }
 
 void MapNode::increaseHeight()
@@ -80,6 +80,15 @@ void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
     m_mapNodeData[layer].tileData = tileData;
     m_mapNodeData[layer].tileID = tileID;
 
+    switch (layer)
+    {
+    case Layer::BUILDINGS:
+      m_mapNodeData[Layer::ZONE].shouldRender = false;
+      break;
+    default:
+      break;
+    }
+
     // Determine if the tile should have a random rotation or not.
     if (m_mapNodeData[layer].tileData->tiles.rotations <= 1)
     {
@@ -96,7 +105,7 @@ void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
       **/
       m_mapNodeData[layer].tileIndex = 0;
     }
-    updateTexture();
+    updateTexture(layer);
   }
 }
 
@@ -175,13 +184,24 @@ bool MapNode::isPlacementAllowed(const std::string &newTileID) const
   return false;
 }
 
-void MapNode::updateTexture()
+void MapNode::updateTexture(const Layer &layer)
 {
   SDL_Rect clipRect{0, 0, 0, 0};
   //TODO: Refactor this
   m_elevationOrientation = TileManager::instance().calculateSlopeOrientation(m_elevationBitmask);
+  std::vector<Layer> layersToGoOver;
+  if (layer != Layer::NONE)
+  {
+    // in case this is not the default value (which is NONE), we need to update only 1 layer.
+    layersToGoOver.push_back(layer);
+  }
+  else
+  {
+    int n = (sizeof(allLayersOrdered) / sizeof(allLayersOrdered[0]));
+    layersToGoOver = std::vector<Layer>(allLayersOrdered, allLayersOrdered + n);
+  }
 
-  for (auto currentLayer : allLayersOrdered)
+  for (auto currentLayer : layersToGoOver)
   {
     if (m_mapNodeData[currentLayer].tileData)
     {
@@ -326,7 +346,7 @@ void MapNode::updateTexture()
         {
           m_mapNodeData[currentLayer].tileData = nullptr;
         }
-        updateTexture();
+        updateTexture(currentLayer);
       }
       m_sprite->spriteCount = spriteCount;
     }
@@ -390,8 +410,12 @@ void MapNode::demolishNode(Layer demolishLayer)
       m_autotileOrientation[layer] =
           TileOrientation::TILE_DEFAULT_ORIENTATION; // We need to reset TileOrientation, in case it's set (demolishing autotiles)
       m_mapNodeData[layer].origCornerPoint = this->getCoordinates();
+      if (layer == Layer::BUILDINGS)
+      {
+        m_mapNodeData[Layer::ZONE].shouldRender = true;
+      }
       m_sprite->clearSprite(layer);
-      updateTexture();
+      updateTexture(demolishLayer);
     }
   }
 }
