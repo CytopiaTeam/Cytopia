@@ -279,8 +279,8 @@ if (USE_PACKAGE_MANAGER)
             CONAN_PKG::sdl2_mixer
             CONAN_PKG::libnoise
             CONAN_PKG::zlib
-            ${EXTRA_LIBS} 
-            
+            ${EXTRA_LIBS}
+
     )
   else ()
       target_link_libraries(
