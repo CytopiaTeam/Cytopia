@@ -62,6 +62,19 @@ if (APPLE AND NOT USE_PACKAGE_MANAGER)
     LINK_DIRECTORIES(${LINK_DIRECTORIES} /usr/local/lib)
 endif ()
 
+if (ANDROID)
+find_library(OpenGLES2_LIBRARY GLESv2 REQUIRED)
+find_library(ANDROID_LOG_LIBRARY log REQUIRED)
+find_library(ANDROID_LIBRARY_LIBRARY android REQUIRED)
+endif()
+if (ANDROID)
+  set (EXTRA_LIBS ${EXTRA_LIBS}
+    ${OpenGLES2_LIBRARY}
+    ${ANDROID_LOG_LIBRARY}
+    ${ANDROID_LIBRARY_LIBRARY}
+  )
+endif()
+
 if (USE_PACKAGE_MANAGER)
 
     function(get_variable_from_conan _var_name)
@@ -73,6 +86,8 @@ if (USE_PACKAGE_MANAGER)
     include(pmm)
 
     pmm(CONAN
+            PROFILE "${CMAKE_CURRENT_SOURCE_DIR}/cmake/conan/android.profile"
+
             REMOTES
             AFG https://api.bintray.com/conan/anotherfoxguy/conan-packages
             catchorg https://api.bintray.com/conan/catchorg/Catch2
@@ -102,6 +117,8 @@ if (USE_PACKAGE_MANAGER)
             CONAN_PKG::sdl2_ttf
             CONAN_PKG::libnoise
             CONAN_PKG::zlib
+            ${EXTRA_LIBS} 
+
             )
 
     if (ENABLE_AUDIO)
@@ -197,7 +214,7 @@ if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
   link_libraries(dbghelp.lib)
 else()
   # Needed for filesystem library
-  if(NOT APPLE)
+  if(NOT APPLE AND NOT ANDROID)
     # TODO: Link with stdc++fs on Apple with XCode11
     list(APPEND _link_libraries "stdc++fs")
   endif()

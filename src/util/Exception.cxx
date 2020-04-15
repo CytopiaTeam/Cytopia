@@ -42,10 +42,10 @@ void SIG_handler(int signal)
   exit(1);
 }
 
-#else
+#elif __unix__ && !__ANDROID_API__
 
 #include <unistd.h>
-#include <execinfo.h>
+//#include <execinfo.h>
 #include <signal.h>
 
 void SIG_handler(int signal)
@@ -93,7 +93,7 @@ SDL_AssertState AssertionHandler(const SDL_AssertData *data, void *)
   SYMBOL_INFO symbol;
   for (int i = 0; i < size; ++i)
     std::cout << "\tat " << symbol.Name << "\n";
-#else
+#elif __unix__ && !__ANDROID_API__
   /* We print the last 10 calls */
   void *buffer[10];
   size_t size;
