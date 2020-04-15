@@ -117,7 +117,7 @@ if (USE_PACKAGE_MANAGER)
             CONAN_PKG::sdl2_ttf
             CONAN_PKG::libnoise
             CONAN_PKG::zlib
-            ${EXTRA_LIBS} 
+            ${EXTRA_LIBS}
 
             )
 

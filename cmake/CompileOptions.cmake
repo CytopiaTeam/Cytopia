@@ -76,4 +76,3 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
         -stdlib=libc++
     )
 endif ()
-
