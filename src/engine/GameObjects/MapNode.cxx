@@ -83,6 +83,14 @@ void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
     switch (layer)
     {
     case Layer::BUILDINGS:
+      if (m_mapNodeData[Layer::ZONE].tileData)
+      {
+        if (tileData->category != m_mapNodeData[Layer::ZONE].tileData->subCategory)
+        {
+          // TODO: in case this is building that is not suitable to the zone, clear ZONE.
+          this->clearLayer(Layer::ZONE);
+        }
+      }
       m_mapNodeData[Layer::ZONE].shouldRender = false;
       break;
     default:
@@ -388,7 +396,18 @@ void MapNode::setMapNodeData(std::vector<MapNodeData> &&mapNodeData, const Point
   }
 }
 
-void MapNode::demolishNode(Layer demolishLayer)
+void MapNode::clearLayer(const Layer &layer)
+{
+  m_mapNodeData[layer].tileData = nullptr;
+  m_mapNodeData[layer].tileID = "";
+  m_autotileOrientation[layer] =
+      TileOrientation::TILE_DEFAULT_ORIENTATION; // We need to reset TileOrientation, in case it's set (demolishing autotiles)
+  m_mapNodeData[layer].origCornerPoint = this->getCoordinates();
+  m_mapNodeData[Layer::ZONE].shouldRender = true;
+  m_sprite->clearSprite(layer);
+}
+
+void MapNode::demolishNode(const Layer &demolishLayer)
 {
   // allow to delete a single layer only
   std::vector<Layer> layersToDemolish;
@@ -415,16 +434,7 @@ void MapNode::demolishNode(Layer demolishLayer)
         continue;
       }
 
-      m_mapNodeData[layer].tileData = nullptr;
-      m_mapNodeData[layer].tileID = "";
-      m_autotileOrientation[layer] =
-          TileOrientation::TILE_DEFAULT_ORIENTATION; // We need to reset TileOrientation, in case it's set (demolishing autotiles)
-      m_mapNodeData[layer].origCornerPoint = this->getCoordinates();
-      if (layer == Layer::BUILDINGS)
-      {
-        m_mapNodeData[Layer::ZONE].shouldRender = true;
-      }
-      m_sprite->clearSprite(layer);
+      clearLayer(layer);
       updateTexture(demolishLayer);
     }
   }

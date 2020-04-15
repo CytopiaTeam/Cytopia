@@ -117,7 +117,12 @@ public:
  * @param layer restrict demolish to a single layer 
  * @see MapNode#demolishNode
  */
-  void demolishNode(Layer layer = Layer::NONE);
+  void demolishNode(const Layer &layer = Layer::NONE);
+
+  /** @brief clear specific layer of a Node.
+    * @param layer - what layer should be cleared.
+    */
+  void clearLayer(const Layer &layer);
 
   void setTileID(const std::string &tileType, const Point &origPoint);
 
