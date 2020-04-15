@@ -1,0 +1,18 @@
+[settings]
+arch=armv7
+build_type=Release
+arch_build=x86_64
+arch=armv7
+compiler=clang
+compiler.libcxx=libc++
+compiler.version=8
+os=Android
+os.api_level=21
+os_build=Linux
+[build_requires]
+android_ndk_installer/r19c@bincrafters/stable
+[options]
+*:pic = True
+*:with_oss = False
+*:with_pulse = False
+*:shared = False
