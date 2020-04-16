@@ -424,7 +424,7 @@ void MapNode::demolishNode(const Layer &demolishLayer)
   std::vector<Layer> layersToDemolish;
   if (demolishLayer == Layer::NONE)
   {
-    layersToDemolish = {Layer::BUILDINGS, Layer::UNDERGROUND, Layer::GROUND_DECORATION};
+    layersToDemolish = {Layer::BUILDINGS, Layer::UNDERGROUND, Layer::GROUND_DECORATION, Layer::ZONE};
   }
   else
   {
