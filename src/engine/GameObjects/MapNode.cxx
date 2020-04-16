@@ -77,16 +77,19 @@ void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
     const Layer layer = TileManager::instance().getTileLayer(tileID);
     switch (layer)
     {
+    case Layer::ROAD:
+      // in case it's allowed then maybe a Tree Tile already exist, so we remove it.
+      clearLayer(Layer::BUILDINGS);
+      break;
     case Layer::BUILDINGS:
       m_mapNodeData[Layer::ZONE].shouldRender = false;
       break;
     case Layer::ZONE:
       // we are placing a zone.
-      if ((isLayerOccupied(Layer::BUILDINGS) && m_mapNodeData[Layer::BUILDINGS].tileData->category != "Flora")
-          || isLayerOccupied(Layer::WATER) 
-          || isSlopeNode() )//|| isLayerOccupied(Layer::ROAD))
+      if ((isLayerOccupied(Layer::BUILDINGS) && m_mapNodeData[Layer::BUILDINGS].tileData->category != "Flora") ||
+          isLayerOccupied(Layer::WATER) || isLayerOccupied(Layer::ROAD) || isSlopeNode())
       {
-          // zone layer should be ignored.
+        // zone layer should be ignored.
         return;
       }
       break;
@@ -184,9 +187,19 @@ bool MapNode::isPlacementAllowed(const std::string &newTileID) const
 
   if (tileData)
   {
+    switch (layer)
+    {
+    case Layer::ROAD:
+      if ((isLayerOccupied(Layer::BUILDINGS)
+             && m_mapNodeData[Layer::BUILDINGS].tileData->category != "Flora")
+          || isLayerOccupied(Layer::WATER) || !isPlacableOnSlope(newTileID))
+      {
+        return false;
+      }
+    }
     //this is a water tile and placeOnWater has not been set to true, building is not permitted. Also disallow placing of water tiles on non water tiles
-    if (tileData->tileType != +TileType::WATER && (m_mapNodeData[Layer::WATER].tileData && !tileData->placeOnWater ||
-                                                   !m_mapNodeData[Layer::WATER].tileData && tileData->placeOnWater))
+    if (tileData->tileType != +TileType::WATER &&
+        (isLayerOccupied(Layer::WATER) && !tileData->placeOnWater || !isLayerOccupied(Layer::WATER) && tileData->placeOnWater))
     {
       return false;
     }
@@ -377,10 +390,7 @@ void MapNode::updateTexture(const Layer &layer)
   }
 }
 
-bool MapNode::isSlopeNode() const
-{ 
-  return m_mapNodeData[Layer::TERRAIN].tileMap == TileMap::SLOPES; 
-}
+bool MapNode::isSlopeNode() const { return m_mapNodeData[Layer::TERRAIN].tileMap == TileMap::SLOPES; }
 
 void MapNode::setCoordinates(const Point &newIsoCoordinates)
 {
@@ -424,7 +434,7 @@ void MapNode::demolishNode(const Layer &demolishLayer)
   std::vector<Layer> layersToDemolish;
   if (demolishLayer == Layer::NONE)
   {
-    layersToDemolish = {Layer::BUILDINGS, Layer::UNDERGROUND, Layer::GROUND_DECORATION, Layer::ZONE};
+    layersToDemolish = {Layer::BUILDINGS, Layer::UNDERGROUND, Layer::GROUND_DECORATION, Layer::ZONE, Layer::ROAD};
   }
   else
   {

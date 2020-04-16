@@ -133,7 +133,7 @@ public:
     */
   Layer getTopMostActiveLayer() const;
 
-  bool isLayerOccupied(const Layer &layer) { return m_mapNodeData[layer].tileData != nullptr; }
+  bool isLayerOccupied(const Layer &layer) const { return m_mapNodeData[layer].tileData != nullptr; }
 
   void setRenderFlag(Layer layer, bool shouldRender) { m_mapNodeData[layer].shouldRender = shouldRender; }
 
