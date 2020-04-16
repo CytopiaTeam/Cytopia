@@ -89,7 +89,6 @@ public:
 
   bool isPlacementAllowed(const std::string &newTileID) const;
 
-
   /// Overwrite m_mapData with the one loaded from a savegame. This function to be used only by loadGame
   void setMapNodeData(std::vector<MapNodeData> &&mapNodeData, const Point &isoCoordinates);
 
@@ -133,6 +132,8 @@ public:
     * @return Layer enum of the topmost active layer
     */
   Layer getTopMostActiveLayer() const;
+
+  bool isLayerOccupied(const Layer &layer) { return m_mapNodeData[layer].tileData != nullptr; }
 
   void setRenderFlag(Layer layer, bool shouldRender) { m_mapNodeData[layer].shouldRender = shouldRender; }
 

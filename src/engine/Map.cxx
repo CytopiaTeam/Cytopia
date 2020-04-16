@@ -84,7 +84,10 @@ void Map::increaseHeight(const Point &isoCoordinates)
     getNeighbors(isoCoordinates, matrix);
     for (const auto &it : matrix)
     {
-      it->clearLayer(Layer::ZONE);
+      if (isPointWithinMapBoundaries(it->getCoordinates()) && it->isLayerOccupied(Layer::ZONE))
+      {
+        it->clearLayer(Layer::ZONE);
+      }
     }
     demolishNode(std::vector<Point>{isoCoordinates});
     mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->increaseHeight();
@@ -103,7 +106,10 @@ void Map::decreaseHeight(const Point &isoCoordinates)
     getNeighbors(isoCoordinates, matrix);
     for (const auto &it : matrix)
     {
-      it->clearLayer(Layer::ZONE);
+      if (isPointWithinMapBoundaries(it->getCoordinates()) && it->isLayerOccupied(Layer::ZONE))
+      {
+        it->clearLayer(Layer::ZONE);
+      }
     }
     demolishNode(std::vector<Point>{isoCoordinates});
     mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->decreaseHeight();
@@ -193,6 +199,10 @@ void Map::updateAllNodes()
 
 bool Map::isPlacementOnNodeAllowed(const Point &isoCoordinates, const std::string &tileID) const
 {
+  if (TileManager::instance().getTileLayer(tileID) == Layer::ZONE)
+  {
+    return true;
+  }
   if (mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y])
   {
     return mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->isPlacementAllowed(tileID);

@@ -94,11 +94,6 @@ public:
       for (auto it = begin; it != end; ++it)
       {
         bool shouldRender = !(!isMultiObjects && it != begin);
-        if (mapNodes[it->x * m_columns + it->y]->isSlopeNode())
-        {
-          // this is for the zones marking, becuase it's allowed to pass slopes.
-          shouldRender = false;
-        }
         Layer layer = TileManager::instance().getTileLayer(tileID);
         // only demolish nodes before placing if this is a bigger than 1x1 building
         if (!isMultiObjects)

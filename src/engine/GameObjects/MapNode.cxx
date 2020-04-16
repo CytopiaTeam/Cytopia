@@ -75,30 +75,38 @@ void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
   if (tileData && !tileID.empty())
   {
     const Layer layer = TileManager::instance().getTileLayer(tileID);
-    m_mapNodeData[layer].origCornerPoint = origCornerPoint;
-    m_previousTileID = m_mapNodeData[layer].tileID;
-    
-    if (m_mapNodeData[Layer::ZONE].tileData)
-    {
-      // TODO: check decorations.
-      if (tileData->category != "Flora" &&
-          tileData->category != m_mapNodeData[Layer::ZONE].tileData->subCategory)
-      {
-        // selected tile category != existed zone category.
-        this->clearLayer(Layer::ZONE);
-      }
-    }
-    m_mapNodeData[layer].tileData = tileData;
-    m_mapNodeData[layer].tileID = tileID;
-
     switch (layer)
     {
     case Layer::BUILDINGS:
       m_mapNodeData[Layer::ZONE].shouldRender = false;
       break;
+    case Layer::ZONE:
+      // we are placing a zone.
+      if ((isLayerOccupied(Layer::BUILDINGS) && m_mapNodeData[Layer::BUILDINGS].tileData->category != "Flora")
+          || isLayerOccupied(Layer::WATER) 
+          || isSlopeNode() )//|| isLayerOccupied(Layer::ROAD))
+      {
+          // zone layer should be ignored.
+        return;
+      }
+      break;
     default:
       break;
     }
+
+    if (isLayerOccupied(Layer::ZONE))
+    {
+      // TODO: check decorations.
+      if (tileData->category != "Flora" && tileData->category != m_mapNodeData[Layer::ZONE].tileData->subCategory)
+      {
+        // selected tile category != existed zone category.
+        clearLayer(Layer::ZONE);
+      }
+    }
+    m_mapNodeData[layer].origCornerPoint = origCornerPoint;
+    m_previousTileID = m_mapNodeData[layer].tileID;
+    m_mapNodeData[layer].tileData = tileData;
+    m_mapNodeData[layer].tileID = tileID;
 
     // Determine if the tile should have a random rotation or not.
     if (m_mapNodeData[layer].tileData->tiles.rotations <= 1)
