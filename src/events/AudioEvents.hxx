@@ -269,6 +269,6 @@ using AudioEvents = TypeList<AudioTriggerEvent,
   AudioSetMutedEvent, 
   AudioStopEvent, 
   AudioPruneEvent
->;
+  >;
 
 #endif

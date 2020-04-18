@@ -86,7 +86,6 @@ public:
   /**
    * @brief Plays a Soundtrack given its ID and applies effect to it
    * @param ID the SoundtrackID
-   * @param position the Coordinate3D position of the sound
    * @param properties of echo
    */
 #ifdef USE_OPENAL_SOFT
@@ -101,7 +100,15 @@ public:
    */
 #ifdef USE_OPENAL_SOFT
   void play(AudioTrigger &&trigger, StandardReverbProperties& reverb) noexcept;
-  
+#endif
+
+/**
+   * @brief Plays a Soundtrack from a trigger and applies effect to it
+   * @param trigger the AudioTrigger
+   * @param properties of standard reverb
+   */
+#ifdef USE_OPENAL_SOFT
+  void play(AudioTrigger &&trigger, EchoProperties& echo) noexcept;
 #endif
 
 /**
@@ -111,7 +118,6 @@ public:
    */
 #ifdef USE_OPENAL_SOFT
   void play(AudioTrigger &&trigger, Coordinate3D &&position) noexcept;
-  
 #endif
 
   /**
@@ -124,6 +130,16 @@ public:
   void play(SoundtrackID &&ID, Coordinate3D &&position,  StandardReverbProperties& reverb_properties) noexcept;
 #endif
 
+  /**
+   * @brief Plays a 3D Soundtrack given its ID and applies effect to it
+   * @param ID the SoundtrackID
+   * @param position the Coordinate3D position of the sound
+   * @param properties of echo
+   */
+#ifdef USE_OPENAL_SOFT
+  void play(SoundtrackID &&ID, Coordinate3D &&position,  EchoProperties& echo_properties) noexcept;
+#endif
+
 /**
    * @brief Plays a 3D Soundtrack from a trigger and applies effect to it
    * @param trigger the AudioTrigger
@@ -132,6 +148,16 @@ public:
    */
 #ifdef USE_OPENAL_SOFT
   void play(AudioTrigger &&trigger, Coordinate3D &&position, StandardReverbProperties& reverb_properties) noexcept;
+#endif
+
+/**
+   * @brief Plays a 3D Soundtrack from a trigger and applies effect to it
+   * @param trigger the AudioTrigger
+   * @param position the Coordinate3D position of the sound
+   * @param properties of echo
+   */
+#ifdef USE_OPENAL_SOFT
+  void play(AudioTrigger &&trigger, Coordinate3D &&position, EchoProperties& echo_properties) noexcept;
 #endif
 
 
@@ -216,6 +242,9 @@ private:
   void handleEvent(const AudioTriggerReverbEvent &&event);
 #endif
 #ifdef USE_OPENAL_SOFT
+  void handleEvent(const AudioTriggerEchoEvent &&event);
+#endif
+#ifdef USE_OPENAL_SOFT
   void handleEvent(const AudioPlayReverb3DEvent &&event);
 #endif
 #ifdef USE_OPENAL_SOFT
@@ -247,6 +276,13 @@ private:
    * @param properties of reverb effect
    */
   void playSoundtrackWithReverb(SoundtrackUPtr &soundtrack,const StandardReverbProperties& reverb_properties);
+  
+  /**
+   * @brief Plays the Soundtrack with echo
+   * @param soundtrack the Soundtrack
+   * @param properties of echo effect
+   */
+  void playSoundtrackWithEcho(SoundtrackUPtr &soundtrack,const EchoProperties& echo_properties);
   
   /**
    * @brief Called whenever a Channel has finished playing
