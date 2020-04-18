@@ -83,6 +83,16 @@ public:
   void play(SoundtrackID &&ID, StandardReverbProperties& reverb) noexcept;
 #endif
 
+  /**
+   * @brief Plays a Soundtrack given its ID and applies effect to it
+   * @param ID the SoundtrackID
+   * @param position the Coordinate3D position of the sound
+   * @param properties of echo
+   */
+#ifdef USE_OPENAL_SOFT
+  void play(SoundtrackID &&ID, EchoProperties& echo) noexcept;
+#endif
+
 /**
    * @brief Plays a Soundtrack from a trigger and applies effect to it
    * @param trigger the AudioTrigger
@@ -200,13 +210,22 @@ private:
   void handleEvent(const AudioPlayReverbEvent &&event);
 #endif
 #ifdef USE_OPENAL_SOFT
+  void handleEvent(const AudioPlayEchoEvent &&event);
+#endif
+#ifdef USE_OPENAL_SOFT
   void handleEvent(const AudioTriggerReverbEvent &&event);
 #endif
 #ifdef USE_OPENAL_SOFT
   void handleEvent(const AudioPlayReverb3DEvent &&event);
 #endif
 #ifdef USE_OPENAL_SOFT
+  void handleEvent(const AudioPlayEcho3DEvent &&event);
+#endif
+#ifdef USE_OPENAL_SOFT
   void handleEvent(const AudioTriggerReverb3DEvent &&event);
+#endif
+#ifdef USE_OPENAL_SOFT
+  void handleEvent(const AudioTriggerEcho3DEvent &&event);
 #endif
   void handleEvent(const AudioSoundVolumeChangeEvent &&event);
   void handleEvent(const AudioMusicVolumeChangeEvent &&event);
