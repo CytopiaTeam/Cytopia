@@ -118,10 +118,10 @@ public:
  */
   void demolishNode(const Layer &layer = Layer::NONE);
 
-  /** @brief clear specific layer of a Node.
-    * @param layer - what layer should be cleared.
+  /** @brief demolish specific layer of a Node.
+    * @param layer - what layer should be demolished.
     */
-  void clearLayer(const Layer &layer);
+  void demolishLayer(const Layer &layer);
 
   void setTileID(const std::string &tileType, const Point &origPoint);
 
