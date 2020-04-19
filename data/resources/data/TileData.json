@@ -717,6 +717,36 @@
             "french",
             "rural"        ]
     },
+    {	
+        "author": "Yusuf8a684",	
+        "category": "Roads",	
+        "tileType": "autotile",	
+        "description": "An european looking road.",	
+        "id": "road_european",	
+        "power": 0,	
+        "price": 7,	
+        "slopeTiles": {	
+            "clip_height": 23,	
+            "clip_width": 32,	
+            "count": 4,	
+            "offset": 20,	
+            "fileName": "resources/images/roads/road_1x1_european.png"	
+        },	
+        "tiles": {	
+            "clip_height": 16,	
+            "clip_width": 32,	
+            "count": 20,	
+            "fileName": "resources/images/roads/road_1x1_european.png",	
+            "rotations": 16	
+        },	
+        "title": "European Road",	
+        "upkeep cost": 2,	
+        "water": 0,	
+        "tag": [	
+            "road",	
+            "european"	
+        ]	
+    },
     {
         "author": "Yusuf8a684",
         "category": "Roads",

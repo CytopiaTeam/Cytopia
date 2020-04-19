@@ -39,6 +39,14 @@
             "path": "resources/audio/music/Sarah_Theme.ogg",
             "monopath": "resources/audio/music/Sarah_Theme_mono.ogg",
             "triggers": [
+                "MainTheme"
+            ]
+        },
+
+        "Above_the_Clouds": {
+            "path": "resources/audio/music/Above_the_Clouds.ogg",
+            "monopath": "resources/audio/music/Above_the_Clouds.ogg",
+            "triggers": [
                 "MainMenu"
             ]
         }
