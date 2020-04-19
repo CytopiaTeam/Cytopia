@@ -474,8 +474,7 @@ void MapNode::demolishNode(const Layer &demolishLayer)
       {
         continue;
       }
-
-      demolishLayer(layer);
+      this->demolishLayer(layer);
       updateTexture(demolishLayer);
     }
   }
