@@ -422,8 +422,7 @@
         },
         "title": "Small Commercial Center",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "commercial",
             "center"
@@ -448,8 +447,7 @@
         },
         "title": "Small Office Building",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "small",
             "office",
@@ -480,8 +478,7 @@
         },
         "title": "Big Office Building",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "big",
             "office",
@@ -507,8 +504,7 @@
         },
         "title": "Community Tower",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "large",
             "multistory",
@@ -545,8 +541,7 @@
         },
         "title": "Tour Front De Seine",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "tour",
             "front",
@@ -717,35 +712,35 @@
             "french",
             "rural"        ]
     },
-    {	
-        "author": "Yusuf8a684",	
-        "category": "Roads",	
-        "tileType": "autotile",	
-        "description": "An european looking road.",	
-        "id": "road_european",	
-        "power": 0,	
-        "price": 7,	
-        "slopeTiles": {	
-            "clip_height": 23,	
-            "clip_width": 32,	
-            "count": 4,	
-            "offset": 20,	
-            "fileName": "resources/images/roads/road_1x1_european.png"	
-        },	
-        "tiles": {	
-            "clip_height": 16,	
-            "clip_width": 32,	
-            "count": 20,	
-            "fileName": "resources/images/roads/road_1x1_european.png",	
-            "rotations": 16	
-        },	
-        "title": "European Road",	
-        "upkeep cost": 2,	
-        "water": 0,	
-        "tag": [	
-            "road",	
-            "european"	
-        ]	
+    {
+        "author": "Yusuf8a684",
+        "category": "Roads",
+        "tileType": "road",
+        "description": "An european looking road.",
+        "id": "road_european",
+        "power": 0,
+        "price": 7,
+        "slopeTiles": {
+            "clip_height": 23,
+            "clip_width": 32,
+            "count": 4,
+            "offset": 20,
+            "fileName": "resources/images/roads/road_1x1_european.png"
+        },
+        "tiles": {
+            "clip_height": 16,
+            "clip_width": 32,
+            "count": 20,
+            "fileName": "resources/images/roads/road_1x1_european.png",
+            "rotations": 16
+        },
+        "title": "European Road",
+        "upkeep cost": 2,
+        "water": 0,
+        "tag": [
+            "road",
+            "european"
+        ]
     },
     {
         "author": "Yusuf8a684",
@@ -1075,8 +1070,7 @@
         },
         "title": "Medium Depolluter",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "classic",
             "depolluter",
@@ -1105,8 +1099,7 @@
         },
         "title": "Factory",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "factory"
         ]
@@ -1130,8 +1123,7 @@
         },
         "title": "Old Power Plant",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "ancient",
             "coal",
@@ -1161,8 +1153,7 @@
         },
         "title": "Chemical Plant",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "chemical",
             "plant"
@@ -1187,8 +1178,7 @@
         },
         "title": "Big Depolluter",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "new",
             "factory",
@@ -1217,8 +1207,7 @@
         },
         "title": "Factory",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "factory"
         ]
@@ -1405,7 +1394,7 @@
     },
     {
         "author": "RockFort",
-        "category": "Zones",        
+        "category": "Zones",       
         "subCategory": "Industrial",
         "tileType": "zone",
         "isOverPlacable": true,
@@ -1535,8 +1524,7 @@
         },
         "title": "Coal Power Plant",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "coal",
             "power",
@@ -1568,8 +1556,7 @@
         },
         "title": "Small Coal Power Plant",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "small",
             "coal",
@@ -1855,7 +1842,6 @@
         "title": "Big Building",
         "upkeep cost": 0,
         "water": 0,
-
         "tag": [
             "big",
             "building"
@@ -1882,7 +1868,6 @@
         "title": "Bois Guillaume Appartment",
         "upkeep cost": 0,
         "water": 0,
-
         "tag": [
             "bois",
             "guillaume",
@@ -1910,7 +1895,6 @@
         "title": "Appartment",
         "upkeep cost": 0,
         "water": 0,
-
         "tag": [
             "appartment"
         ]
@@ -1935,8 +1919,7 @@
         },
         "title": "Big Appartments",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "big",
             "appartments"
@@ -1962,8 +1945,7 @@
         },
         "title": "Big Appartments",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "big",
             "appartments"
@@ -1989,8 +1971,7 @@
         },
         "title": "Medium Appartments",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "medium",
             "appartments"
@@ -2016,8 +1997,7 @@
         },
         "title": "Tall Concrete Tower",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "blandlooking",
             "apartment",
@@ -2047,8 +2027,7 @@
         },
         "title": "Skyscraper",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "algaegreen",
             "tower",
@@ -2300,8 +2279,7 @@
         },
         "title": "Apartment Building",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "block",
             "houses",
@@ -2331,8 +2309,7 @@
         },
         "title": "Mansion",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "classic",
             "house",
@@ -2361,8 +2338,7 @@
         },
         "title": "Apartment Building",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "house",
             "vienna"
@@ -2387,8 +2363,7 @@
         },
         "title": "Restaurant",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "restaurant",
             "paris"
@@ -2413,8 +2388,7 @@
         },
         "title": "Hotel",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "blue",
             "hotel",
@@ -2441,8 +2415,7 @@
         },
         "title": "Mansion",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "small",
             "french",
@@ -2469,8 +2442,7 @@
         },
         "title": "Apartment Building",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "appartement",
             "building",
@@ -2499,8 +2471,7 @@
         },
         "title": "house",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "house",
             "alabama",
@@ -2527,8 +2498,7 @@
         },
         "title": "Apartment Building",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "apartment",
             "building",
@@ -2556,8 +2526,7 @@
         },
         "title": "Apartment Building",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "apartment",
             "building",
@@ -2615,8 +2584,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -2642,8 +2610,7 @@
         },
         "title": "Appartment Building",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "appartment"
         ]
@@ -2667,8 +2634,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -2693,8 +2659,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -2719,8 +2684,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -2746,8 +2710,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -3413,8 +3376,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -3491,8 +3453,7 @@
         },
         "title": "Park Crossroads",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "nice",
             "park",
@@ -3522,8 +3483,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -3548,8 +3508,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -3574,8 +3533,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -3601,8 +3559,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -3649,8 +3606,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -3697,8 +3653,7 @@
         },
         "title": "Glass Tower",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "tall",
             "glass",
@@ -3730,8 +3685,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -3756,8 +3710,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -3782,8 +3735,7 @@
         },
         "title": "Pool",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "nice",
             "public",
@@ -3818,8 +3770,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -3845,8 +3796,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -3872,8 +3822,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -3899,8 +3848,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -3926,8 +3874,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -4072,8 +4019,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -4099,8 +4045,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -4147,8 +4092,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -4217,8 +4161,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -4244,8 +4187,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -4271,8 +4213,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -4298,8 +4239,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -4324,8 +4264,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -4372,8 +4311,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "nice",
             "reward",
@@ -4434,8 +4372,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -4483,8 +4420,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -4532,8 +4468,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -4558,8 +4493,7 @@
         },
         "title": "Tan Tower",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "might",
             "old",
@@ -4589,8 +4523,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -4615,8 +4548,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -5171,8 +5103,7 @@
         },
         "title": "Trailer Park",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "somewhatlarge",
             "plot",
@@ -5203,8 +5134,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -5230,8 +5160,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -5257,8 +5186,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -5283,8 +5211,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -5378,8 +5305,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -5463,8 +5389,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -5490,8 +5415,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -5539,8 +5463,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -5588,8 +5511,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -5615,8 +5537,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -5642,8 +5563,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -5668,8 +5588,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -5694,8 +5613,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -5721,8 +5639,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -5747,8 +5664,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -5774,8 +5690,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -5800,8 +5715,7 @@
         },
         "title": "Large Plaza Park",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "large",
             "plaza",
@@ -5829,8 +5743,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -5920,8 +5833,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -5947,8 +5859,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -5974,8 +5885,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -6000,8 +5910,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -6027,8 +5936,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -6053,8 +5961,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -6102,8 +6009,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -6129,8 +6035,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -6156,8 +6061,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -6183,8 +6087,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -6209,8 +6112,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -6236,8 +6138,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -6307,8 +6208,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -6356,8 +6256,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -6383,8 +6282,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -6432,8 +6330,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -6459,8 +6356,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -6485,8 +6381,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -6695,8 +6590,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -6722,8 +6616,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -6748,8 +6641,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -6828,8 +6720,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -6855,8 +6746,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -6881,8 +6771,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -6907,8 +6796,7 @@
         },
         "title": "Centerpiece Park",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "group",
             "benches",
@@ -6961,8 +6849,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -7017,8 +6904,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -7044,8 +6930,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -7071,8 +6956,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -7098,8 +6982,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -7125,8 +7008,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -7152,8 +7034,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -7228,8 +7109,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -7254,8 +7134,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -7309,8 +7188,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -7337,8 +7215,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -7363,8 +7240,7 @@
         },
         "title": "Classic Red Barn",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "stereotypical",
             "red",
@@ -7390,8 +7266,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -7460,8 +7335,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -7568,8 +7442,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -7595,8 +7468,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -7622,8 +7494,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -7649,8 +7520,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -7905,8 +7775,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -7931,8 +7800,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -7959,8 +7827,7 @@
         },
         "title": "Big Warehouse",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -7985,8 +7852,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -8012,8 +7878,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -8038,8 +7903,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -8064,8 +7928,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -8091,8 +7954,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -8117,8 +7979,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -8144,8 +8005,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -8197,8 +8057,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -8245,8 +8104,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -8294,8 +8152,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -8320,8 +8177,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -8367,8 +8223,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -8478,8 +8333,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -8505,8 +8359,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -8575,8 +8428,7 @@
         },
         "title": "TODO TITLE",
         "upkeep cost": 0,
-        "water": 0,
-
+        "water": 0,
         "tag": [
             "todo",
             "desc"
@@ -10424,4 +10276,4 @@
             "desc"
         ]
     }
-]
+]

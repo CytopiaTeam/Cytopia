@@ -162,8 +162,7 @@ bool MapNode::isDataAutoTile(const TileData *tileData)
 {
   if (tileData)
   {
-    if (tileData->tileType == +TileType::ROAD ||
-        tileData->tileType == +TileType::AUTOTILE ||
+    if (tileData->tileType == +TileType::ROAD || tileData->tileType == +TileType::AUTOTILE ||
         tileData->tileType == +TileType::UNDERGROUND)
     {
       return true;
@@ -255,8 +254,7 @@ void MapNode::updateTexture(const Layer &layer)
   }
   else
   {
-    int n = (sizeof(allLayersOrdered) / sizeof(allLayersOrdered[0]));
-    layersToGoOver = std::vector<Layer>(allLayersOrdered, allLayersOrdered + n);
+    layersToGoOver.insert(layersToGoOver.begin(), std::begin(allLayersOrdered), std::end(allLayersOrdered));
   }
 
   for (auto currentLayer : layersToGoOver)

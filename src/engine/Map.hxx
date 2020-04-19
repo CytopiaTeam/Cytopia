@@ -90,7 +90,6 @@ public:
     if (isOkToSet)
     {
       int groundtileIndex = -1;
-
       for (auto it = begin; it != end; ++it)
       {
         bool shouldRender = !(!isMultiObjects && it != begin);

@@ -61,8 +61,7 @@ void Sprite::refresh(const Layer &layer)
   }
   else
   {
-    int n = (sizeof(allLayersOrdered) / sizeof(allLayersOrdered[0]));
-    layersToGoOver = std::vector<Layer>(allLayersOrdered, allLayersOrdered + n);
+    layersToGoOver.insert(layersToGoOver.begin(), std::begin(allLayersOrdered), std::end(allLayersOrdered));
   }
 
   if (m_currentZoomLevel != Camera::zoomLevel || m_needsRefresh)
