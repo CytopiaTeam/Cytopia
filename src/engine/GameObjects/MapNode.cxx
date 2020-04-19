@@ -77,6 +77,7 @@ void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
     const Layer layer = TileManager::instance().getTileLayer(tileID);
     switch (layer)
     {
+    case Layer::WATER:
     case Layer::ROAD:
       // in case it's allowed then maybe a Tree Tile already exist, so we remove it.
       clearLayer(Layer::BUILDINGS);
@@ -157,7 +158,7 @@ Layer MapNode::getTopMostActiveLayer() const
   return Layer::NONE;
 }
 
-bool MapNode::isDataAutoTile(const TileData* tileData)
+bool MapNode::isDataAutoTile(const TileData *tileData)
 {
   if (tileData)
   {
@@ -171,10 +172,7 @@ bool MapNode::isDataAutoTile(const TileData* tileData)
   return false;
 }
 
-bool MapNode::isLayerAutoTile(const Layer &layer) const
-{ 
-  return isDataAutoTile(m_mapNodeData[layer].tileData);
-}
+bool MapNode::isLayerAutoTile(const Layer &layer) const { return isDataAutoTile(m_mapNodeData[layer].tileData); }
 
 bool MapNode::isPlacableOnSlope(const std::string &tileID) const
 {
@@ -209,9 +207,13 @@ bool MapNode::isPlacementAllowed(const std::string &newTileID) const
     switch (layer)
     {
     case Layer::ROAD:
-      if ((isLayerOccupied(Layer::BUILDINGS)
-             && m_mapNodeData[Layer::BUILDINGS].tileData->category != "Flora")
-          || isLayerOccupied(Layer::WATER) || !isPlacableOnSlope(newTileID))
+      if ((isLayerOccupied(Layer::BUILDINGS) && m_mapNodeData[Layer::BUILDINGS].tileData->category != "Flora") ||
+          isLayerOccupied(Layer::WATER) || !isPlacableOnSlope(newTileID))
+      {
+        return false;
+      }
+    case Layer::BUILDINGS:
+      if (isLayerOccupied(Layer::ROAD))
       {
         return false;
       }
