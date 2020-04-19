@@ -157,6 +157,25 @@ Layer MapNode::getTopMostActiveLayer() const
   return Layer::NONE;
 }
 
+bool MapNode::isDataAutoTile(const TileData* tileData)
+{
+  if (tileData)
+  {
+    if (tileData->tileType == +TileType::ROAD ||
+        tileData->tileType == +TileType::AUTOTILE ||
+        tileData->tileType == +TileType::UNDERGROUND)
+    {
+      return true;
+    }
+  }
+  return false;
+}
+
+bool MapNode::isLayerAutoTile(const Layer &layer) const
+{ 
+  return isDataAutoTile(m_mapNodeData[layer].tileData);
+}
+
 bool MapNode::isPlacableOnSlope(const std::string &tileID) const
 {
   TileData *tileData = TileManager::instance().getTileData(tileID);
@@ -260,8 +279,7 @@ void MapNode::updateTexture(const Layer &layer)
           }
         }
         // if the node should autotile, check if it needs to tile itself to another tile of the same ID
-        else if (m_mapNodeData[currentLayer].tileData->tileType == +TileType::AUTOTILE ||
-                 m_mapNodeData[currentLayer].tileData->tileType == +TileType::UNDERGROUND)
+        else if (isLayerAutoTile(currentLayer) && this->getTileID(currentLayer) == m_mapNodeData[currentLayer].tileID)
         {
           m_autotileOrientation[currentLayer] = TileManager::instance().calculateTileOrientation(m_autotileBitmask[currentLayer]);
         }

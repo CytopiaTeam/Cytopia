@@ -56,10 +56,6 @@ Layer TileManager::getTileLayer(const std::string &tileID) const
       layer = Layer::BUILDINGS;
       break;
     }
-    if (tileData->category == "Roads")
-    {
-      layer = Layer::ROAD;
-    }
   }
   return layer;
 }

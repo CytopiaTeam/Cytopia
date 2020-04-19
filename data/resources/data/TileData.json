@@ -588,7 +588,7 @@
     {
         "author": "RockFort",
         "category": "Roads",
-        "tileType": "autotile",
+        "tileType": "road",
         "description": "A rural road from france with fresh asphalt with a broken line.",
         "id": "road_ruralroadfr1straightline",
         "power": 0,
@@ -622,7 +622,7 @@
     {
         "author": "RockFort",
         "category": "Roads",
-        "tileType": "autotile",
+        "tileType": "road",
         "description": "A rural road from france with worn asphalth a straight line.",
         "id": "road_ruralroadfr1straightline",
         "power": 0,
@@ -656,7 +656,7 @@
     {
         "author": "RockFort",
         "category": "Roads",
-        "tileType": "autotile",
+        "tileType": "road",
         "description": "A rural road from france with fresh asphalt.",
         "id": "road_ruralroadfr1newsaph",
         "power": 0,
@@ -689,7 +689,7 @@
     {
         "author": "RockFort",
         "category": "Roads",
-        "tileType": "autotile",
+        "tileType": "road",
         "description": "A rural road from france with worn asphalt.",
         "id": "road_ruralroadfr1grained",
         "power": 0,
@@ -720,7 +720,7 @@
     {
         "author": "Yusuf8a684",
         "category": "Roads",
-        "tileType": "autotile",
+        "tileType": "road",
         "description": "A modern european looking road.",
         "id": "road_european_modern",
         "power": 0,
@@ -750,7 +750,7 @@
     {
         "author": "Yusuf8a684",
         "category": "Roads",
-        "tileType": "autotile",
+        "tileType": "road",
         "description": "A modern european looking road without a sidewalk.",
         "id": "road_european_nosidewalk",
         "power": 0,
@@ -781,7 +781,7 @@
     {
         "author": "Kingtut 101",
         "category": "Roads",
-        "tileType": "autotile",
+        "tileType": "road",
         "description": "An average road that'll you would commonly find out in the countryside.  It lacks a proper sidewalk though.",
         "id": "road_country",
         "power": 0,
@@ -821,7 +821,7 @@
     {
         "author": "Kingtut 101",
         "category": "Roads",
-        "tileType": "autotile",
+        "tileType": "road",
         "description": "An old dirt road that doesn't require much maintenance.  Not recommended for busy roadways.",
         "id": "road_dirt",
         "power": 0,
@@ -857,7 +857,7 @@
     {
         "author": "Kingtut 101",
         "category": "Roads",
-        "tileType": "autotile",
+        "tileType": "road",
         "description": "Alley road.",
         "id": "road_alley",
         "power": 0,
@@ -887,7 +887,7 @@
     {
         "author": "Kingtut 101",
         "category": "Roads",
-        "tileType": "autotile",
+        "tileType": "road",
         "description": "A highway! Cars go faaaaast here.",
         "id": "road_highway",
         "power": 0,
@@ -1427,7 +1427,7 @@
     {
         "author": "Kingtut 101",
         "category": "Roads",
-        "tileType": "autotile",
+        "tileType": "road",
         "description": "A nice paved road that are commonly found in the middle of large cities.  Includes a sidewalk.",
         "id": "road_paved",
         "power": 0,

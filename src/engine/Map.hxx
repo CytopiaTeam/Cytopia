@@ -116,8 +116,7 @@ public:
               isMultiObjects ? *it : *begin);
         }
         //For layers that autotile to each other, we need to update their neighbors too
-        if (TileManager::instance().getTileData(tileID)->tileType == +TileType::AUTOTILE ||
-            TileManager::instance().getTileData(tileID)->tileType == +TileType::UNDERGROUND)
+        if (MapNode::isDataAutoTile(TileManager::instance().getTileData(tileID)))
         {
           updateNeighborsOfNode(*it);
         }
@@ -195,6 +194,8 @@ public:
   * @param isoCoordinates: The node to retrieve
   */
   const MapNode *getMapNode(Point isoCoords) const { return mapNodes[isoCoords.x * m_columns + isoCoords.y].get(); };
+
+  bool isLayerAutoTile(const Point &isoCoordinates, const Layer &layer) const;
 
 private:
   int m_columns;
