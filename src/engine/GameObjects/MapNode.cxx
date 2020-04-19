@@ -80,7 +80,7 @@ void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
     case Layer::WATER:
     case Layer::ROAD:
       // in case it's allowed then maybe a Tree Tile already exist, so we remove it.
-      clearLayer(Layer::BUILDINGS);
+      demolishLayer(Layer::BUILDINGS);
       break;
     case Layer::BUILDINGS:
       m_mapNodeData[Layer::ZONE].shouldRender = false;
@@ -104,7 +104,7 @@ void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
       if (tileData->category != "Flora" && tileData->category != m_mapNodeData[Layer::ZONE].tileData->subCategory)
       {
         // selected tile category != existed zone category.
-        clearLayer(Layer::ZONE);
+        demolishLayer(Layer::ZONE);
       }
     }
     m_mapNodeData[layer].origCornerPoint = origCornerPoint;
@@ -437,7 +437,7 @@ void MapNode::setMapNodeData(std::vector<MapNodeData> &&mapNodeData, const Point
   }
 }
 
-void MapNode::clearLayer(const Layer &layer)
+void MapNode::demolishLayer(const Layer &layer)
 {
   m_mapNodeData[layer].tileData = nullptr;
   m_mapNodeData[layer].tileID = "";
@@ -475,7 +475,7 @@ void MapNode::demolishNode(const Layer &demolishLayer)
         continue;
       }
 
-      clearLayer(layer);
+      demolishLayer(layer);
       updateTexture(demolishLayer);
     }
   }

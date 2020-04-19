@@ -87,7 +87,7 @@ void Map::increaseHeight(const Point &isoCoordinates)
     {
       if (it && isPointWithinMapBoundaries(it->getCoordinates()) && it->isLayerOccupied(Layer::ZONE))
       {
-        it->clearLayer(Layer::ZONE);
+        it->demolishLayer(Layer::ZONE);
       }
     }
     demolishNode(std::vector<Point>{isoCoordinates});
@@ -109,7 +109,7 @@ void Map::decreaseHeight(const Point &isoCoordinates)
     {
       if (it && isPointWithinMapBoundaries(it->getCoordinates()) && it->isLayerOccupied(Layer::ZONE))
       {
-        it->clearLayer(Layer::ZONE);
+        it->demolishLayer(Layer::ZONE);
       }
     }
     demolishNode(std::vector<Point>{isoCoordinates});
