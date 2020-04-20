@@ -323,7 +323,6 @@ std::vector<uint8_t> Map::calculateAutotileBitmask(const Point &isoCoordinates)
     if (mapNodes[x * m_columns + y] && mapNodes[x * m_columns + y]->getMapNodeDataForLayer(currentLayer).tileData &&
         isLayerAutoTile(isoCoordinates, currentLayer))
     {
-
       unsigned int i = 0;
       for (const auto &it : adjecantNodesCoordinates)
       {

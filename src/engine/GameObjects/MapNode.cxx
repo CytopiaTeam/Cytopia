@@ -78,6 +78,8 @@ void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
     switch (layer)
     {
     case Layer::WATER:
+      demolishLayer(Layer::ROAD);
+      // no break on purpose.
     case Layer::ROAD:
       // in case it's allowed then maybe a Tree Tile already exist, so we remove it.
       demolishLayer(Layer::BUILDINGS);
