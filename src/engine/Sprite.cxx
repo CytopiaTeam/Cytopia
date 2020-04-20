@@ -35,12 +35,13 @@ void Sprite::render() const
 
       if (m_SpriteData[currentLayer].clipRect.w != 0)
       {
-        SDL_RenderCopy(WindowManager::instance().getRenderer(), m_SpriteData[currentLayer].texture, &m_SpriteData[currentLayer].clipRect,
-                       &m_SpriteData[currentLayer].destRect);
+        SDL_RenderCopy(WindowManager::instance().getRenderer(), m_SpriteData[currentLayer].texture,
+                       &m_SpriteData[currentLayer].clipRect, &m_SpriteData[currentLayer].destRect);
       }
       else
       {
-        SDL_RenderCopy(WindowManager::instance().getRenderer(), m_SpriteData[currentLayer].texture, nullptr, &m_SpriteData[currentLayer].destRect);
+        SDL_RenderCopy(WindowManager::instance().getRenderer(), m_SpriteData[currentLayer].texture, nullptr,
+                       &m_SpriteData[currentLayer].destRect);
       }
 
       if (highlightSprite)

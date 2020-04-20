@@ -137,7 +137,7 @@ public:
     * @return bool indicating whether layer item can be autotiled.
     */
   bool isLayerAutoTile(const Layer &layer) const;
-  
+
   /** @brief check if specific Tile Data is autotile category.
     * @return bool indicating whether Tile Data item can be autotiled.
     */
