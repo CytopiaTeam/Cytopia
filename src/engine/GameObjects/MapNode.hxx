@@ -63,7 +63,7 @@ public:
     */
   void increaseHeight();
 
-  /** @brief Decrease Height 
+  /** @brief Decrease Height
     * Decreases the height of the node and its sprite
     * This function should not be called directly, but only from where the neighboring nodes slopes are determined
     */
@@ -110,10 +110,10 @@ public:
 
   /**
  * @brief Demolish a node
- * Removes all tiles on a node. This effects all layers where something to demolish is placed. (BUILDINGS, GROUND_DECORATION, UNDERGROUND) per default, but can be restricted to a single Layer. 
+ * Removes all tiles on a node. This effects all layers where something to demolish is placed. (BUILDINGS, GROUND_DECORATION, UNDERGROUND) per default, but can be restricted to a single Layer.
  * @param isoCoordinates all coordinates that should be demolished
  * @param updateNeighboringTiles wether the adjecent tiles should be updated. (only relevant for autotiling)
- * @param layer restrict demolish to a single layer 
+ * @param layer restrict demolish to a single layer
  * @see MapNode#demolishNode
  */
   void demolishNode(const Layer &layer = Layer::NONE);
