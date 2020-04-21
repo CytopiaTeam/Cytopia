@@ -27,7 +27,6 @@ Layer TileManager::getTileLayer(const std::string &tileID) const
 {
   Layer layer = Layer::TERRAIN;
   TileData *tileData = TileManager::instance().getTileData(tileID);
-
   if (tileData)
   {
     switch (tileData->tileType)
@@ -47,12 +46,17 @@ Layer TileManager::getTileLayer(const std::string &tileID) const
     case TileType::GROUNDDECORATION:
       layer = Layer::GROUND_DECORATION;
       break;
+    case TileType::ZONE:
+      layer = Layer::ZONE;
+      break;
+    case TileType::ROAD:
+      layer = Layer::ROAD;
+      break;
     default:
       layer = Layer::BUILDINGS;
       break;
     }
   }
-
   return layer;
 }
 

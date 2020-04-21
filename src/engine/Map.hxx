@@ -90,7 +90,6 @@ public:
     if (isOkToSet)
     {
       int groundtileIndex = -1;
-
       for (auto it = begin; it != end; ++it)
       {
         bool shouldRender = !(!isMultiObjects && it != begin);
@@ -115,8 +114,11 @@ public:
               mapNodes[it->x * m_columns + it->y]->getMapNodeDataForLayer(layer).tileData->groundDecoration[groundtileIndex],
               isMultiObjects ? *it : *begin);
         }
-
-        updateNeighborsOfNode(*it);
+        //For layers that autotile to each other, we need to update their neighbors too
+        if (MapNode::isDataAutoTile(TileManager::instance().getTileData(tileID)))
+        {
+          updateNeighborsOfNode(*it);
+        }
       }
     }
   }
@@ -191,6 +193,8 @@ public:
   * @param isoCoordinates: The node to retrieve
   */
   const MapNode *getMapNode(Point isoCoords) const { return mapNodes[isoCoords.x * m_columns + isoCoords.y].get(); };
+
+  bool isLayerAutoTile(const Point &isoCoordinates, const Layer &layer) const;
 
 private:
   int m_columns;
