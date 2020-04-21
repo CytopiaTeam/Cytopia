@@ -48,9 +48,13 @@ void Game::quit()
 #ifdef USE_AUDIO
   m_AudioMixer.stopAll();
   if (!Settings::instance().audio3DStatus)
+  {
     m_AudioMixer.play(SoundtrackID{"NegativeSelect"});
+  }
   else
+  {
     m_AudioMixer.play(SoundtrackID{"NegativeSelect"}, Coordinate3D{0, 0, -4});
+  }
 #endif // USE_AUDIO
   Engine::instance().quitGame();
 }
