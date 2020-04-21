@@ -43,6 +43,18 @@ Game::Game()
   LOG(LOG_DEBUG) << "Created Game Object";
 }
 
+void Game::quite()
+{
+#ifdef USE_AUDIO
+  m_AudioMixer.stopAll();
+  if (!Settings::instance().audio3DStatus)
+    m_AudioMixer.play(SoundtrackID{"NegativeSelect"});
+  else
+    m_AudioMixer.play(SoundtrackID{"NegativeSelect"}, Coordinate3D{0, 0, -4});
+#endif // USE_AUDIO
+  Engine::instance().quitGame();
+}
+
 bool Game::initialize()
 {
   if (SDL_Init(SDL_INIT_VIDEO) != 0)
@@ -80,13 +92,14 @@ bool Game::initialize()
   return true;
 }
 
-void Game::mainMenu()
+bool Game::mainMenu()
 {
   SDL_Event event;
 
   int screenWidth = Settings::instance().screenWidth;
   int screenHeight = Settings::instance().screenHeight;
   bool mainMenuLoop = true;
+  bool quitGame = false;
 
 #ifdef USE_AUDIO
   /* Trigger MainMenu music */
@@ -135,15 +148,9 @@ void Game::mainMenu()
 
   Button quitGameButton({screenWidth / 2 - 100, screenHeight / 2 - 20 + loadGameButton.getUiElementRect().h * 4, 200, 40});
   quitGameButton.setText("Quit Game");
-  quitGameButton.registerCallbackFunction([this]() {
-#ifdef USE_AUDIO
-    m_AudioMixer.stopAll();
-    if (!Settings::instance().audio3DStatus)
-      m_AudioMixer.play(SoundtrackID{"NegativeSelect"});
-    else
-      m_AudioMixer.play(SoundtrackID{"NegativeSelect"}, Coordinate3D{0, 0, -4});
-#endif // USE_AUDIO
-    Engine::instance().quitGame();
+  quitGameButton.registerCallbackFunction([this, &quitGame]() {
+    quite(); 
+    quitGame = true;
   });
 
   // store elements in vector
@@ -189,6 +196,9 @@ void Game::mainMenu()
       {
         switch (event.type)
         {
+        case SDL_QUIT:
+          quite();
+          return true;
         case SDL_MOUSEBUTTONDOWN:
           it->onMouseButtonDown(event);
           break;
@@ -236,6 +246,8 @@ void Game::mainMenu()
     SDL_SetRenderDrawColor(WindowManager::instance().getRenderer(), 0, 0, 0, SDL_ALPHA_OPAQUE);
     SDL_RenderPresent(WindowManager::instance().getRenderer());
   }
+
+  return quitGame;
 }
 
 void Game::run(bool SkipMenu)

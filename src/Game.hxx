@@ -55,8 +55,9 @@ public:
 
   /** @brief initializes and displays the main menu
     * initializes and displays the main menu
+    * @return true in case game has been quit, othewise false.
     */
-  virtual void mainMenu();
+  virtual bool mainMenu();
 
 private:
   /* Game context */
@@ -108,6 +109,8 @@ private:
      */
     template <typename ArgumentType> void operator()(const ArgumentType &&event);
   };
+
+  void Game::quite();
 };
 
 #include "Game.inl.hxx"
