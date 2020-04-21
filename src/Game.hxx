@@ -63,7 +63,7 @@ private:
   /* Game context */
   using GameContext = GameService::ServiceTuple;
   GameContext m_GameContext;
-	
+
   /* Services */
   GameClock m_GameClock;
   Randomizer m_Randomizer;
@@ -73,7 +73,6 @@ private:
 #endif
   UILoopMQ m_UILoopMQ;
   GameLoopMQ m_GameLoopMQ;
-
 
   /* Threads */
   Thread m_UILoop;
