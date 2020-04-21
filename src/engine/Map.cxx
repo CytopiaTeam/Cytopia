@@ -65,6 +65,8 @@ Map::Map(int columns, int rows) : m_columns(columns), m_rows(rows)
   MapLayers::enableLayer(Layer::BUILDINGS);
   MapLayers::enableLayer(Layer::WATER);
   MapLayers::enableLayer(Layer::GROUND_DECORATION);
+  MapLayers::enableLayer(Layer::ZONE);
+  MapLayers::enableLayer(Layer::ROAD);
 }
 
 void Map::initMap()
@@ -79,6 +81,15 @@ void Map::increaseHeight(const Point &isoCoordinates)
 
   if (height < Settings::instance().maxElevationHeight)
   {
+    NeighborMatrix matrix;
+    getNeighbors(isoCoordinates, matrix);
+    for (const auto &it : matrix)
+    {
+      if (it && isPointWithinMapBoundaries(it->getCoordinates()) && it->isLayerOccupied(Layer::ZONE))
+      {
+        it->demolishLayer(Layer::ZONE);
+      }
+    }
     demolishNode(std::vector<Point>{isoCoordinates});
     mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->increaseHeight();
     updateNeighborsOfNode(mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getCoordinates());
@@ -92,6 +103,15 @@ void Map::decreaseHeight(const Point &isoCoordinates)
 
   if (height > 0)
   {
+    NeighborMatrix matrix;
+    getNeighbors(isoCoordinates, matrix);
+    for (const auto &it : matrix)
+    {
+      if (it && isPointWithinMapBoundaries(it->getCoordinates()) && it->isLayerOccupied(Layer::ZONE))
+      {
+        it->demolishLayer(Layer::ZONE);
+      }
+    }
     demolishNode(std::vector<Point>{isoCoordinates});
     mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->decreaseHeight();
     updateNeighborsOfNode(mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getCoordinates());
@@ -180,6 +200,10 @@ void Map::updateAllNodes()
 
 bool Map::isPlacementOnNodeAllowed(const Point &isoCoordinates, const std::string &tileID) const
 {
+  if (TileManager::instance().getTileLayer(tileID) == Layer::ZONE)
+  {
+    return true;
+  }
   if (mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y])
   {
     return mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->isPlacementAllowed(tileID);
@@ -297,10 +321,8 @@ std::vector<uint8_t> Map::calculateAutotileBitmask(const Point &isoCoordinates)
 
     // only auto-tile categories that can be tiled.
     if (mapNodes[x * m_columns + y] && mapNodes[x * m_columns + y]->getMapNodeDataForLayer(currentLayer).tileData &&
-        (mapNodes[x * m_columns + y]->getMapNodeDataForLayer(currentLayer).tileData->tileType == +TileType::AUTOTILE ||
-         mapNodes[x * m_columns + y]->getMapNodeDataForLayer(currentLayer).tileData->tileType == +TileType::UNDERGROUND))
+        isLayerAutoTile(isoCoordinates, currentLayer))
     {
-
       unsigned int i = 0;
       for (const auto &it : adjecantNodesCoordinates)
       {
@@ -310,13 +332,8 @@ std::vector<uint8_t> Map::calculateAutotileBitmask(const Point &isoCoordinates)
              mapNodes[x * m_columns + y] && mapNodes[x * m_columns + y]->getMapNodeDataForLayer(currentLayer).tileData &&
              ((mapNodes[it.first * m_columns + it.second]->getMapNodeDataForLayer(currentLayer).tileID ==
                mapNodes[x * m_columns + y]->getMapNodeDataForLayer(currentLayer).tileID) ||
-              (mapNodes[it.first * m_columns + it.second]->getMapNodeDataForLayer(currentLayer).tileData->tileType ==
-                   +TileType::AUTOTILE &&
-               mapNodes[x * m_columns + y]->getMapNodeDataForLayer(currentLayer).tileData->tileType == +TileType::AUTOTILE))
-
-                 ))
-
-        // TODO: roads should be a seperate tiletype
+              (mapNodes[it.first * m_columns + it.second]->isLayerAutoTile(currentLayer) &&
+               isLayerAutoTile(isoCoordinates, currentLayer)))))
         {
           // for each found tile add 2 ^ i to the bitmask
           tileOrientationBitmask[currentLayer] |= (1u << i);
@@ -561,6 +578,11 @@ std::string Map::getTileID(const Point &isoCoordinates, Layer layer)
     }
   }
   return "";
+}
+
+bool Map::isLayerAutoTile(const Point &isoCoordinates, const Layer &layer) const
+{
+  return mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->isLayerAutoTile(layer);
 }
 
 void Map::unHighlightNode(const Point &isoCoordinates)

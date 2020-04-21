@@ -35,12 +35,13 @@ void Sprite::render() const
 
       if (m_SpriteData[currentLayer].clipRect.w != 0)
       {
-        SDL_RenderCopy(WindowManager::instance().getRenderer(), m_SpriteData[currentLayer].texture, &m_SpriteData[currentLayer].clipRect,
-                       &m_SpriteData[currentLayer].destRect);
+        SDL_RenderCopy(WindowManager::instance().getRenderer(), m_SpriteData[currentLayer].texture,
+                       &m_SpriteData[currentLayer].clipRect, &m_SpriteData[currentLayer].destRect);
       }
       else
       {
-        SDL_RenderCopy(WindowManager::instance().getRenderer(), m_SpriteData[currentLayer].texture, nullptr, &m_SpriteData[currentLayer].destRect);
+        SDL_RenderCopy(WindowManager::instance().getRenderer(), m_SpriteData[currentLayer].texture, nullptr,
+                       &m_SpriteData[currentLayer].destRect);
       }
 
       if (highlightSprite)
@@ -51,11 +52,22 @@ void Sprite::render() const
   }
 }
 
-void Sprite::refresh()
+void Sprite::refresh(const Layer &layer)
 {
+  std::vector<Layer> layersToGoOver;
+  if (layer != Layer::NONE)
+  {
+    // in case this is not the default value (which is NONE), we need to update only 1 layer.
+    layersToGoOver.push_back(layer);
+  }
+  else
+  {
+    layersToGoOver.insert(layersToGoOver.begin(), std::begin(allLayersOrdered), std::end(allLayersOrdered));
+  }
+
   if (m_currentZoomLevel != Camera::zoomLevel || m_needsRefresh)
   {
-    for (auto currentLayer : allLayersOrdered)
+    for (auto currentLayer : layersToGoOver)
     {
       if (m_SpriteData[currentLayer].texture)
       {
@@ -107,7 +119,7 @@ void Sprite::setTexture(SDL_Texture *texture, Layer layer)
     throw UIError(TRACE_INFO "Called Sprite::setTexture() with a non valid texture");
   m_SpriteData[layer].texture = texture;
   m_needsRefresh = true;
-  refresh();
+  refresh(layer);
 }
 
 void Sprite::setClipRect(SDL_Rect clipRect, const Layer layer) { m_SpriteData[layer].clipRect = clipRect; }
