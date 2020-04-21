@@ -149,7 +149,7 @@ bool Game::mainMenu()
   Button quitGameButton({screenWidth / 2 - 100, screenHeight / 2 - 20 + loadGameButton.getUiElementRect().h * 4, 200, 40});
   quitGameButton.setText("Quit Game");
   quitGameButton.registerCallbackFunction([this, &quitGame]() {
-    quit(); 
+    quit();
     quitGame = true;
   });
 

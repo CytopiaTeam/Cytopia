@@ -42,8 +42,8 @@ int protected_main(int argc, char **argv)
 
   if (!quitGame)
   {
-   LOG(LOG_DEBUG) << "Running the Game";
-   game.run(skipMenu);
+    LOG(LOG_DEBUG) << "Running the Game";
+    game.run(skipMenu);
   }
 
   LOG(LOG_DEBUG) << "Closing the Game";
