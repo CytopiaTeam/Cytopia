@@ -43,7 +43,7 @@ Game::Game()
   LOG(LOG_DEBUG) << "Created Game Object";
 }
 
-void Game::quite()
+void Game::quit()
 {
 #ifdef USE_AUDIO
   m_AudioMixer.stopAll();
@@ -149,7 +149,7 @@ bool Game::mainMenu()
   Button quitGameButton({screenWidth / 2 - 100, screenHeight / 2 - 20 + loadGameButton.getUiElementRect().h * 4, 200, 40});
   quitGameButton.setText("Quit Game");
   quitGameButton.registerCallbackFunction([this, &quitGame]() {
-    quite(); 
+    quit(); 
     quitGame = true;
   });
 
@@ -197,7 +197,7 @@ bool Game::mainMenu()
         switch (event.type)
         {
         case SDL_QUIT:
-          quite();
+          quit();
           return true;
         case SDL_MOUSEBUTTONDOWN:
           it->onMouseButtonDown(event);

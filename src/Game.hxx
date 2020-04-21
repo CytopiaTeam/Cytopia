@@ -110,7 +110,7 @@ private:
     template <typename ArgumentType> void operator()(const ArgumentType &&event);
   };
 
-  void Game::quite();
+  void quit();
 };
 
 #include "Game.inl.hxx"
