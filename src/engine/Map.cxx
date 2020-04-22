@@ -331,9 +331,7 @@ std::vector<uint8_t> Map::calculateAutotileBitmask(const Point &isoCoordinates)
              mapNodes[it.first * m_columns + it.second]->getMapNodeDataForLayer(currentLayer).tileData &&
              mapNodes[x * m_columns + y] && mapNodes[x * m_columns + y]->getMapNodeDataForLayer(currentLayer).tileData &&
              ((mapNodes[it.first * m_columns + it.second]->getMapNodeDataForLayer(currentLayer).tileID ==
-               mapNodes[x * m_columns + y]->getMapNodeDataForLayer(currentLayer).tileID) ||
-              (mapNodes[it.first * m_columns + it.second]->isLayerAutoTile(currentLayer) &&
-               isLayerAutoTile(isoCoordinates, currentLayer)))))
+               mapNodes[x * m_columns + y]->getMapNodeDataForLayer(currentLayer).tileID))))
         {
           // for each found tile add 2 ^ i to the bitmask
           tileOrientationBitmask[currentLayer] |= (1u << i);
