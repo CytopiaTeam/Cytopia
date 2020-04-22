@@ -17,6 +17,8 @@ void MapLayers::setLayerEditMode(LayerEditMode layerEditMode)
       deactivateAllLayers();
       enableLayer(Layer::TERRAIN);
       enableLayer(Layer::WATER);
+      enableLayer(Layer::ROAD);
+      enableLayer(Layer::ZONE);
       enableLayer(Layer::BUILDINGS);
       break;
     }
