@@ -284,59 +284,67 @@ std::vector<uint8_t> Map::calculateAutotileBitmask(const Point &isoCoordinates)
     it = 0;
   }
 
-  int x = isoCoordinates.x;
-  int y = isoCoordinates.y;
+  const int x = isoCoordinates.x;
+  const int y = isoCoordinates.y;
 
   for (auto currentLayer : allLayersOrdered)
   {
-    std::pair<int, int> adjecantNodesCoordinates[8]{
-        std::make_pair(x, y + 1),     // 0 = 2^0 = 1   = TOP
-        std::make_pair(x, y - 1),     // 1 = 2^1 = 2   = BOTTOM
-        std::make_pair(x - 1, y),     // 2 = 2^2 = 4   = LEFT
-        std::make_pair(x + 1, y),     // 3 = 2^3 = 8   = RIGHT
-        std::make_pair(x - 1, y + 1), // 4 = 2^4 = 16  = TOP LEFT
-        std::make_pair(x + 1, y + 1), // 5 = 2^5 = 32  = TOP RIGHT
-        std::make_pair(x - 1, y - 1), // 6 = 2^6 = 64  = BOTTOM LEFT
-        std::make_pair(x + 1, y - 1)  // 7 = 2^7 = 128 = BOTTOM RIGHT
-    };
+    auto pCurrentTile = mapNodes[x * m_columns + y].get();
 
-    if (mapNodes[x * m_columns + y] && mapNodes[x * m_columns + y]->getMapNodeDataForLayer(currentLayer).tileData &&
-        (mapNodes[x * m_columns + y]->getMapNodeDataForLayer(currentLayer).tileData->tileType == +TileType::TERRAIN))
+    if (pCurrentTile)
     {
-      unsigned int i = 0;
-      for (const auto &it : adjecantNodesCoordinates)
-      {
-        if ((it.first >= 0 && it.first < m_rows && it.second >= 0 && it.second < m_columns) &&
-            (mapNodes[it.first * m_columns + it.second] &&
-             mapNodes[it.first * m_columns + it.second]->getMapNodeDataForLayer(Layer::WATER).tileData &&
-             mapNodes[it.first * m_columns + it.second]->getMapNodeDataForLayer(Layer::WATER).tileData->tileType ==
-                 +TileType::WATER))
-        {
-          // for each found tile add 2 ^ i to the bitmask
-          tileOrientationBitmask[currentLayer] |= (1u << i);
-        }
-        i++;
-      }
-    }
+      auto pCurrentTileData = pCurrentTile->getMapNodeDataForLayer(currentLayer).tileData;
 
-    // only auto-tile categories that can be tiled.
-    if (mapNodes[x * m_columns + y] && mapNodes[x * m_columns + y]->getMapNodeDataForLayer(currentLayer).tileData &&
-        isLayerAutoTile(isoCoordinates, currentLayer))
-    {
-      unsigned int i = 0;
-      for (const auto &it : adjecantNodesCoordinates)
+      if (pCurrentTileData)
       {
-        if ((it.first >= 0 && it.first < m_rows && it.second >= 0 && it.second < m_columns) &&
-            (mapNodes[it.first * m_columns + it.second] &&
-             mapNodes[it.first * m_columns + it.second]->getMapNodeDataForLayer(currentLayer).tileData &&
-             mapNodes[x * m_columns + y] && mapNodes[x * m_columns + y]->getMapNodeDataForLayer(currentLayer).tileData &&
-             ((mapNodes[it.first * m_columns + it.second]->getMapNodeDataForLayer(currentLayer).tileID ==
-               mapNodes[x * m_columns + y]->getMapNodeDataForLayer(currentLayer).tileID))))
+        std::pair<int, int> adjecantNodesCoordinates[8]{
+            std::make_pair(x, y + 1),     // 0 = 2^0 = 1   = TOP
+            std::make_pair(x, y - 1),     // 1 = 2^1 = 2   = BOTTOM
+            std::make_pair(x - 1, y),     // 2 = 2^2 = 4   = LEFT
+            std::make_pair(x + 1, y),     // 3 = 2^3 = 8   = RIGHT
+            std::make_pair(x - 1, y + 1), // 4 = 2^4 = 16  = TOP LEFT
+            std::make_pair(x + 1, y + 1), // 5 = 2^5 = 32  = TOP RIGHT
+            std::make_pair(x - 1, y - 1), // 6 = 2^6 = 64  = BOTTOM LEFT
+            std::make_pair(x + 1, y - 1)  // 7 = 2^7 = 128 = BOTTOM RIGHT
+        };
+
+        if (pCurrentTileData->tileType == +TileType::TERRAIN)
         {
-          // for each found tile add 2 ^ i to the bitmask
-          tileOrientationBitmask[currentLayer] |= (1u << i);
+          unsigned int i = 0;
+          for (const auto &it : adjecantNodesCoordinates)
+          {
+            if ((it.first >= 0 && it.first < m_rows && it.second >= 0 && it.second < m_columns) &&
+                (mapNodes[it.first * m_columns + it.second] &&
+                 mapNodes[it.first * m_columns + it.second]->getMapNodeDataForLayer(Layer::WATER).tileData &&
+                 mapNodes[it.first * m_columns + it.second]->getMapNodeDataForLayer(Layer::WATER).tileData->tileType ==
+                     +TileType::WATER))
+            {
+              // for each found tile add 2 ^ i to the bitmask
+              tileOrientationBitmask[currentLayer] |= (1u << i);
+            }
+            i++;
+          }
         }
-        i++;
+
+        // only auto-tile categories that can be tiled.
+        if (isLayerAutoTile(isoCoordinates, currentLayer))
+        {
+          unsigned int i = 0;
+          for (const auto &it : adjecantNodesCoordinates)
+          {
+            const int secondTileIdx = it.first * m_columns + it.second;
+            if ((it.first >= 0 && it.first < m_rows && it.second >= 0 && it.second < m_columns) &&
+                (mapNodes[secondTileIdx] && mapNodes[secondTileIdx]->getMapNodeDataForLayer(currentLayer).tileData &&
+                 ((mapNodes[secondTileIdx]->getMapNodeDataForLayer(currentLayer).tileID ==
+                   pCurrentTile->getMapNodeDataForLayer(currentLayer).tileID) ||
+                  (pCurrentTileData->tileType == +TileType::ROAD))))
+            {
+              // for each found tile add 2 ^ i to the bitmask
+              tileOrientationBitmask[currentLayer] |= (1u << i);
+            }
+            i++;
+          }
+        }
       }
     }
   }
