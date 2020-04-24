@@ -281,7 +281,7 @@ void MapNode::updateTexture(const Layer &layer)
           }
         }
         // if the node should autotile, check if it needs to tile itself to another tile of the same ID
-        else if (isLayerAutoTile(currentLayer) && this->getTileID(currentLayer) == m_mapNodeData[currentLayer].tileID)
+        else if (isLayerAutoTile(currentLayer) && (this->getTileID(currentLayer) == m_mapNodeData[currentLayer].tileID))
         {
           m_autotileOrientation[currentLayer] = TileManager::instance().calculateTileOrientation(m_autotileBitmask[currentLayer]);
         }
