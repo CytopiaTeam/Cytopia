@@ -87,6 +87,7 @@ public:
         break;
       }
     }
+
     if (isOkToSet)
     {
       int groundtileIndex = -1;
@@ -94,6 +95,13 @@ public:
       {
         bool shouldRender = !(!isMultiObjects && it != begin);
         Layer layer = TileManager::instance().getTileLayer(tileID);
+
+        // During road construction, do not place new road tile over the old one except it is the only tile for construction
+        if ((layer == ROAD) && mapNodes[it->x * m_columns + it->y]->isLayerOccupied(layer) && ((begin + 1) != end))
+        {
+          continue;
+        }
+
         // only demolish nodes before placing if this is a bigger than 1x1 building
         if (!isMultiObjects)
         {

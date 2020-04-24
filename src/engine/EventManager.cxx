@@ -497,7 +497,6 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
 
       if (event.button.button == SDL_BUTTON_LEFT)
       {
-
         if (m_tileInfoMode)
         {
           engine.map->getNodeInformation({mouseIsoCoords.x, mouseIsoCoords.y, 0, 0});
@@ -523,7 +522,6 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
             engine.setTileIDOfNode(m_nodesToPlace.begin(), m_nodesToPlace.end(), tileToPlace, true);
           }
         }
-
         else if (demolishMode)
         {
           engine.map->demolishNode(m_nodesToHighlight, true);

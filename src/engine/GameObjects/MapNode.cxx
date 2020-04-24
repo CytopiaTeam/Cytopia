@@ -208,8 +208,12 @@ bool MapNode::isPlacementAllowed(const std::string &newTileID) const
     switch (layer)
     {
     case Layer::ROAD:
-      if ((isLayerOccupied(Layer::BUILDINGS) && (m_mapNodeData[Layer::BUILDINGS].tileData->category != "Flora")) ||
-          isLayerOccupied(Layer::WATER) || !isPlacableOnSlope(newTileID))
+      if (isLayerOccupied(Layer::ROAD))
+      {
+        return true;
+      }
+      else if ((isLayerOccupied(Layer::BUILDINGS) && (m_mapNodeData[Layer::BUILDINGS].tileData->category != "Flora")) ||
+               isLayerOccupied(Layer::WATER) || !isPlacableOnSlope(newTileID))
       {
         return false;
       }
