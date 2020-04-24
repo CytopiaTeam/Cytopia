@@ -79,12 +79,6 @@ matrix:
             - ninja-build
             - doxygen
             - graphviz
-            - libsdl2-dev
-            - libsdl2-image-dev
-            - libsdl2-mixer-dev
-            - libsdl2-ttf-dev
-            - libnoise-dev
-            - libopenal-dev
             - clang-7
             - libc++-7-dev # C++17 support in libstd++
       env:
@@ -93,7 +87,7 @@ matrix:
         - TARGET="linux"
 
       before_script:
-        - cmake -GNinja -DCMAKE_BUILD_TYPE=Release -DUSE_PACKAGE_MANAGER=OFF -DENABLE_ANGELSCRIPT=OFF -DENABLE_MOFILEREADER=OFF .
+        - cmake -GNinja -DCMAKE_BUILD_TYPE=Release -DENABLE_ANGELSCRIPT=OFF -DENABLE_MOFILEREADER=OFF .
 
       script:
         - ninja
