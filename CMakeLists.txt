@@ -131,13 +131,14 @@ else (USE_PACKAGE_MANAGER)
     pkg_check_modules(SDL2_image REQUIRED SDL2_image)
     pkg_check_modules(SDL2_ttf REQUIRED SDL2_ttf)
     pkg_check_modules(ZLIB REQUIRED zlib)
-
+    
     if (ENABLE_AUDIO)
         pkg_check_modules(SDL2_mixer REQUIRED SDL2_mixer)
     endif ()
     
     if (ENABLE_AUDIO)
         pkg_check_modules(openal REQUIRED openal)
+        pkg_check_modules(ogg REQUIRED ogg)
     endif ()
 
     find_package(LIBNOISE REQUIRED)

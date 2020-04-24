@@ -639,24 +639,6 @@ void AudioMixer::playSoundtrackWithEcho(SoundtrackUPtr &track,const EchoProperti
 		LOAD_PROC(LPALGETAUXILIARYEFFECTSLOTFV, alGetAuxiliaryEffectSlotfv);
 	#undef LOAD_PROC
   
-  /*
-  //initialize reverb property
-  EFXEAXREVERBPROPERTIES reverb = EFX_REVERB_PRESET_GENERIC;
-
-  //assign custom properties
-  reverb.flDensity = reverb_properties.flDensity;
-  reverb.flDiffusion = reverb_properties.flDiffusion;
-  reverb.flGain = reverb_properties.flGain;
-  reverb.flGainHF = reverb_properties.flGainHF;
-  reverb.flDecayTime = reverb_properties.flDecayTime;
-  reverb.flDecayHFRatio = reverb_properties.flDecayHFRatio;
-  reverb.flReflectionsGain = reverb_properties.flReflectionsGain;
-  reverb.flReflectionsDelay = reverb_properties.flReflectionsDelay;
-  reverb.flLateReverbGain = reverb_properties.flLateReverbGain;
-  reverb.flLateReverbDelay = reverb_properties.flLateReverbDelay;
-  reverb.flAirAbsorptionGainHF = reverb_properties.flAirAbsorptionGainHF;
-  reverb.flRoomRolloffFactor = reverb_properties.flRoomRolloffFactor;
-  */
   
   //load effect
   ALuint effect = 0;

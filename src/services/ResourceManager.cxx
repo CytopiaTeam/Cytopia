@@ -9,6 +9,7 @@
 
 #include "common/JsonSerialization.hxx"
 #include <fstream>
+#include "ogg/ogg.h"
 
 using ifstream = std::ifstream;
 using nlohmann::json;
@@ -24,6 +25,47 @@ ResourceManager::ResourceManager(GameService::ServiceTuple &services) : GameServ
   ifs >> config_json;
   m_audioConfig = config_json;
 #endif // USE_AUDIO
+}
+
+
+
+static void LoadAudioWithOgg(std::string path)
+{
+  
+  ifstream file(path, ios::in | ios::binary);
+  
+  //find the first page of data
+  
+  ogg_sync_state state; // keep track of search for the page data
+  int ret = ogg_sync_init(&state); 
+  assert(ret==0);
+  
+  // Read pages and load data into buffer
+  
+  ogg_page page;
+  
+  //take any data current stored in the ogg_sync_state object and store it in the ogg_page
+  while(ogg_sync_pageout(&state, &page) != 1) 
+  {
+	//expose buffer with ogg_sync_buffer
+    char* buffer = ogg_sync_buffer(state, 4096);
+    assert(buffer);
+	
+	//reading data from the file into buffer
+    file.read(buffer, 4096);
+    
+    //tell libogg how many bytes of data we copied into the buffer
+    //called to advance the fill pointer by however much data was actually available
+    int ret = ogg_sync_wrote(&state, bytes);
+    assert(ret == 0);
+    
+  }
+  
+  //add a complete page to the bitstream
+  int ret = ogg_stream_pagein(&state, &page);
+  assert(ret==0);
+  
+  
 }
 
 #ifdef USE_AUDIO
@@ -49,7 +91,8 @@ void ResourceManager::fetch(SoundtrackID id)
   else
     filepath = SDL_GetBasePath() + config->stereoFilePath;
   LOG(LOG_INFO) << "Fetching " << id.get() << " at " << filepath;
-  Mix_Chunk *chunk = Mix_LoadWAV(filepath.c_str());
+  //Mix_Chunk *chunk = Mix_LoadWAV(filepath.c_str());
+  
   if (!chunk)
     throw AudioError(TRACE_INFO "Could not read sound file: " + string{Mix_GetError()});
   m_CacheSize += sizeof(Mix_Chunk) + sizeof(Soundtrack) + sizeof(SoundtrackResource) + chunk->alen;

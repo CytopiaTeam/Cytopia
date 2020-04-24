@@ -2,6 +2,7 @@
 #include "../util/Exception.hxx"
 #include "../util/LOG.hxx"
 #include "../basics/Settings.hxx"
+#include ""
 
 Soundtrack::Soundtrack(SoundtrackID id, ChannelID channelID, Mix_Chunk *chunks, RepeatCount repeat, bool isMusic, bool isPlaying, bool isPlayable, bool isTriggerable)
     : 
@@ -43,6 +44,11 @@ Soundtrack::Soundtrack(SoundtrackID id, ChannelID channelID, Mix_Chunk *chunks, 
   /* attach buffer to source */
   alSourcei(source, AL_BUFFER, buffer);
 
+}
+
+static void LoadBufferWithAudio()
+{
+	
 }
 
 Soundtrack::~Soundtrack()
