@@ -10,6 +10,7 @@
 #ifdef USE_OPENAL_SOFT
 #include "AL/al.h"
 #include "AL/alc.h"
+#include "ogg/ogg.h"
 #endif
 
 using std::string;
@@ -82,6 +83,11 @@ struct Soundtrack
    * @brief The WAVE data of the Soundtrack
    */
   Mix_Chunk *Chunks;
+  
+  /**
+   * @brief The audio data of the Soundtrack
+   */
+  
 
 #endif // USE_OPENAL_SOFT
 

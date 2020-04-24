@@ -3,13 +3,14 @@
 #ifdef USE_OPENAL_SOFT
 #include "AL/al.h"
 #include "AL/alc.h"
+#include "ogg/ogg.h"
 #endif
 #include "../util/Exception.hxx"
 #include "../util/LOG.hxx"
 
 #include "common/JsonSerialization.hxx"
 #include <fstream>
-#include "ogg/ogg.h"
+
 
 using ifstream = std::ifstream;
 using nlohmann::json;
@@ -32,7 +33,7 @@ ResourceManager::ResourceManager(GameService::ServiceTuple &services) : GameServ
 static void LoadAudioWithOgg(std::string path)
 {
   
-  ifstream file(path, ios::in | ios::binary);
+  ifstream file(path,  std::ifstream::in |  std::ifstream::binary);
   
   //find the first page of data
   
@@ -48,7 +49,7 @@ static void LoadAudioWithOgg(std::string path)
   while(ogg_sync_pageout(&state, &page) != 1) 
   {
 	//expose buffer with ogg_sync_buffer
-    char* buffer = ogg_sync_buffer(state, 4096);
+    char* buffer = ogg_sync_buffer(&state, 4096);
     assert(buffer);
 	
 	//reading data from the file into buffer
@@ -56,15 +57,21 @@ static void LoadAudioWithOgg(std::string path)
     
     //tell libogg how many bytes of data we copied into the buffer
     //called to advance the fill pointer by however much data was actually available
-    int ret = ogg_sync_wrote(&state, bytes);
+    int ret = ogg_sync_wrote(&state, 4096);
     assert(ret == 0);
     
   }
   
+  ogg_stream_state stream_state; 
+  
   //add a complete page to the bitstream
-  int ret = ogg_stream_pagein(&state, &page);
+  ret = ogg_stream_pagein(&stream_state, &page);
   assert(ret==0);
   
+  //get packet from bitstream
+  ogg_packet packet;
+  ret = ogg_stream_packetout(&stream_state, &packet);
+  assert(ret==1);
   
 }
 
