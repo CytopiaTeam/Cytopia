@@ -38,6 +38,7 @@ private:
   std::vector<Point> m_nodesToPlace = {};
   std::vector<Point> m_nodesToHighlight = {};
   std::vector<Timer *> m_timers;
+  Point m_selectedBuilding = UNDEFINED_POINT;
 };
 
 #endif

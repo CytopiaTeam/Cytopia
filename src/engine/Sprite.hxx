@@ -45,6 +45,7 @@ public:
 
   size_t spriteCount = 1;
   bool highlightSprite = false;
+  bool transparentSprite = false;
   SpriteRGBColor highlightColor = SpriteHighlightColor::GRAY;
 
   SDL_Rect getDestRect(Layer layer = Layer::TERRAIN) { return m_SpriteData[layer].destRect; };

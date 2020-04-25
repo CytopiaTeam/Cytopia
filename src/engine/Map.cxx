@@ -402,9 +402,9 @@ SDL_Color Map::getColorOfPixelInSurface(SDL_Surface *surface, int x, int y) cons
   return Color;
 }
 
-Point Map::findNodeInMap(const SDL_Point &screenCoordinates) const
+Point Map::findNodeInMap(const SDL_Point &screenCoordinates, const Layer &layer) const
 {
-  Point foundCoordinates{-1, -1, 0, 0};
+  Point foundCoordinates = UNDEFINED_POINT;
 
   // calculate clicked column (x coordinate) without height taken into account.
   const Point calculatedIsoCoords = calculateIsoCoordinates(screenCoordinates);
@@ -427,17 +427,17 @@ Point Map::findNodeInMap(const SDL_Point &screenCoordinates) const
     // include 2 columns on each side, since calculated values can be that far off
     for (int i = 0; i <= 2; i++)
     {
-      if (isClickWithinTile(screenCoordinates, isoX, isoY) &&
+      if (isClickWithinTile(screenCoordinates, isoX, isoY, layer) &&
           (foundCoordinates.z < mapNodes[isoX * m_columns + isoY]->getCoordinates().z))
       {
         foundCoordinates = mapNodes[isoX * m_columns + isoY]->getCoordinates();
       }
-      if (isClickWithinTile(screenCoordinates, isoX + i, isoY) &&
+      if (isClickWithinTile(screenCoordinates, isoX + i, isoY, layer) &&
           (foundCoordinates.z < mapNodes[(isoX + i) * m_columns + isoY]->getCoordinates().z))
       {
         foundCoordinates = mapNodes[(isoX + i) * m_columns + isoY]->getCoordinates();
       }
-      if (isClickWithinTile(screenCoordinates, isoX, isoY - i) &&
+      if (isClickWithinTile(screenCoordinates, isoX, isoY - i, layer) &&
           (foundCoordinates.z < mapNodes[isoX * m_columns + (isoY - i)]->getCoordinates().z))
       {
         foundCoordinates = mapNodes[isoX * m_columns + (isoY - i)]->getCoordinates();
@@ -502,17 +502,26 @@ void Map::demolishNode(const std::vector<Point> &isoCoordinates, bool updateNeig
   }
 }
 
-bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int isoY) const
+bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int isoY, const Layer &layer = Layer::NONE) const
 {
   if (!isPointWithinMapBoundaries(isoX, isoY))
   {
     return false;
   }
 
+  std::vector<Layer> layersToGoOver;
   // Layers ordered for hitcheck
-  Layer layers[] = {Layer::BUILDINGS, Layer::TERRAIN, Layer::WATER, Layer::UNDERGROUND, Layer::BLUEPRINT};
+  if (layer == Layer::NONE)
+  {
+    Layer layers[] = {Layer::TERRAIN, Layer::WATER, Layer::UNDERGROUND, Layer::BLUEPRINT};
+    layersToGoOver.insert(layersToGoOver.begin(), std::begin(layers), std::end(layers));
+  }
+  else
+  {
+    layersToGoOver.push_back(layer);
+  }
 
-  for (auto &layer : layers)
+  for (auto &layer : layersToGoOver)
   {
     if (!MapLayers::isLayerActive(layer))
     {

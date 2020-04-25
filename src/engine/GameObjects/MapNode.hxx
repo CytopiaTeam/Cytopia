@@ -147,6 +147,18 @@ public:
 
   void setRenderFlag(Layer layer, bool shouldRender) { m_mapNodeData[layer].shouldRender = shouldRender; }
 
+  /**
+   * @brief Sets a node to be Transparent
+   * This sets a node to be Transparent.
+   */
+  void makeNodeTransparent() const;
+
+  /**
+   * @brief Sets a node to be not transparent
+   * This sets a node to be not transparent.
+   */
+  void revertNodeTransparency() const;
+
 private:
   Point m_isoCoordinates;
   std::unique_ptr<Sprite> m_sprite;

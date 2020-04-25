@@ -285,6 +285,8 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         if (highlightSelection)
         {
           mouseScreenCoords = {event.button.x, event.button.y};
+          const Point terrainCoordinates = engine.map->findNodeInMap(mouseScreenCoords, Layer::TERRAIN);
+          const Point buildingCoordinates = engine.map->findNodeInMap(mouseScreenCoords, Layer::BUILDINGS);
           mouseIsoCoords = convertScreenToIsoCoordinates(mouseScreenCoords);
 
           // if it's a multi-node tile, get the origin corner point
@@ -296,6 +298,18 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
             origCornerPoint = mouseIsoCoords;
           }
 
+          if (buildingCoordinates != m_selectedBuilding)
+          {
+            if (buildingCoordinates != UNDEFINED_POINT)
+            {
+              (engine.map->getMapNode(buildingCoordinates))->makeNodeTransparent();
+            }
+            if (m_selectedBuilding != UNDEFINED_POINT)
+            {
+              (engine.map->getMapNode(m_selectedBuilding))->revertNodeTransparency();
+            }
+            m_selectedBuilding = buildingCoordinates;
+          }
           // if there's no tileToPlace use the current mouse coordinates
           if (tileToPlace.empty())
           {

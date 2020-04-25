@@ -65,7 +65,7 @@ public:
  * @param screenCoordinates
  * @return Point
  */
-  Point findNodeInMap(const SDL_Point &screenCoordinates) const;
+  Point findNodeInMap(const SDL_Point &screenCoordinates, const Layer &layer = Layer::NONE) const;
 
   /**
  * @brief Set the Tile ID Of Node object
@@ -192,7 +192,7 @@ public:
   /** \Get a single mapNode at specific iso coordinates
   * @param isoCoordinates: The node to retrieve
   */
-  const MapNode *getMapNode(Point isoCoords) const { return mapNodes[isoCoords.x * m_columns + isoCoords.y].get(); };
+  MapNode *getMapNode(Point isoCoords) const { return mapNodes[isoCoords.x * m_columns + isoCoords.y].get(); };
 
   bool isLayerAutoTile(const Point &isoCoordinates, const Layer &layer) const;
 
@@ -243,7 +243,7 @@ private:
 
   SDL_Color getColorOfPixelInSurface(SDL_Surface *surface, int x, int y) const;
 
-  bool isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int isoY) const;
+  bool isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int isoY, const Layer &layer) const;
 };
 
 #endif

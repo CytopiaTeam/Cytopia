@@ -13,6 +13,8 @@
 #include "microprofile.h"
 #endif
 
+#define ALPHA 100
+
 Sprite::Sprite(Point _isoCoordinates) : isoCoordinates(_isoCoordinates)
 {
   m_screenCoordinates = convertIsoToScreenCoordinates(_isoCoordinates);
@@ -30,7 +32,18 @@ void Sprite::render() const
     {
       if (highlightSprite)
       {
-        SDL_SetTextureColorMod(m_SpriteData[currentLayer].texture, highlightColor.r, highlightColor.g, highlightColor.b);
+        if (SDL_SetTextureColorMod(m_SpriteData[currentLayer].texture, highlightColor.r, highlightColor.g, highlightColor.b))
+        {
+          // indicates failure.
+        }
+      }
+
+      if (transparentSprite)
+      {
+        if (SDL_SetTextureAlphaMod(m_SpriteData[currentLayer].texture, ALPHA))
+        {
+          // indicates failure.
+        }
       }
 
       if (m_SpriteData[currentLayer].clipRect.w != 0)
@@ -46,7 +59,18 @@ void Sprite::render() const
 
       if (highlightSprite)
       {
-        SDL_SetTextureColorMod(m_SpriteData[currentLayer].texture, 255, 255, 255);
+        if (SDL_SetTextureColorMod(m_SpriteData[currentLayer].texture, 255, 255, 255))
+        {
+          // indicates failure.
+        }
+      }
+
+      if (transparentSprite)
+      {
+        if (SDL_SetTextureAlphaMod(m_SpriteData[currentLayer].texture, 255))
+        {
+          // indicates failure.
+        }
       }
     }
   }
