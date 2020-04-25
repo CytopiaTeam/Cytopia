@@ -695,3 +695,29 @@ bool Map::isNodeMultiObject(const Point &isoCoordinates, Layer layer)
   }
   return false;
 }
+
+bool Map::isAllowSetTileId(const Layer layer, const MapNode *const pMapNode)
+{
+  switch (layer)
+  {
+  case Layer::ROAD:
+    // During road construction, do not place new road tile over the old one
+    if (pMapNode->isLayerOccupied(layer))
+    {
+      return false;
+    }
+    break;
+  case Layer::ZONE:
+    if ((pMapNode->isLayerOccupied(Layer::BUILDINGS) &&
+         pMapNode->getMapNodeDataForLayer(Layer::BUILDINGS).tileData->category != "Flora") ||
+        pMapNode->isLayerOccupied(Layer::WATER) || pMapNode->isLayerOccupied(Layer::ROAD) || pMapNode->isSlopeNode())
+    {
+      return false;
+    }
+    break;
+  default:
+    break;
+  }
+
+  return true;
+}

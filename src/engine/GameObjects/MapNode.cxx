@@ -87,15 +87,6 @@ void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
     case Layer::BUILDINGS:
       m_mapNodeData[Layer::ZONE].shouldRender = false;
       break;
-    case Layer::ZONE:
-      // we are placing a zone.
-      if ((isLayerOccupied(Layer::BUILDINGS) && m_mapNodeData[Layer::BUILDINGS].tileData->category != "Flora") ||
-          isLayerOccupied(Layer::WATER) || isLayerOccupied(Layer::ROAD) || isSlopeNode())
-      {
-        // zone layer should be ignored.
-        return;
-      }
-      break;
     default:
       break;
     }

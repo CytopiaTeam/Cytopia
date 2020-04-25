@@ -95,9 +95,9 @@ public:
       {
         bool shouldRender = !(!isMultiObjects && it != begin);
         Layer layer = TileManager::instance().getTileLayer(tileID);
+        const auto pCurrentMapNode = mapNodes[it->x * m_columns + it->y].get();
 
-        // During road construction, do not place new road tile over the old one except it is the only tile for construction
-        if ((layer == ROAD) && mapNodes[it->x * m_columns + it->y]->isLayerOccupied(layer) && ((begin + 1) != end))
+        if (!isAllowSetTileId(layer, pCurrentMapNode))
         {
           continue;
         }
@@ -107,20 +107,18 @@ public:
         {
           demolishNode(std::vector<Point>{*it}, 0, Layer::BUILDINGS);
         }
-        mapNodes[it->x * m_columns + it->y]->setRenderFlag(layer, shouldRender);
-        mapNodes[it->x * m_columns + it->y]->setTileID(tileID, isMultiObjects ? *it : *begin);
-        if (mapNodes[it->x * m_columns + it->y]->getMapNodeDataForLayer(layer).tileData &&
-            !mapNodes[it->x * m_columns + it->y]->getMapNodeDataForLayer(layer).tileData->groundDecoration.empty() &&
-            groundtileIndex == -1)
+
+        pCurrentMapNode->setRenderFlag(layer, shouldRender);
+        pCurrentMapNode->setTileID(tileID, isMultiObjects ? *it : *begin);
+        if (pCurrentMapNode->getMapNodeDataForLayer(layer).tileData &&
+            !pCurrentMapNode->getMapNodeDataForLayer(layer).tileData->groundDecoration.empty() && groundtileIndex == -1)
         {
-          groundtileIndex =
-              rand() % mapNodes[it->x * m_columns + it->y]->getMapNodeDataForLayer(layer).tileData->groundDecoration.size();
+          groundtileIndex = rand() % pCurrentMapNode->getMapNodeDataForLayer(layer).tileData->groundDecoration.size();
         }
         if (groundtileIndex != -1)
         {
-          mapNodes[it->x * m_columns + it->y]->setTileID(
-              mapNodes[it->x * m_columns + it->y]->getMapNodeDataForLayer(layer).tileData->groundDecoration[groundtileIndex],
-              isMultiObjects ? *it : *begin);
+          pCurrentMapNode->setTileID(pCurrentMapNode->getMapNodeDataForLayer(layer).tileData->groundDecoration[groundtileIndex],
+                                     isMultiObjects ? *it : *begin);
         }
         //For layers that autotile to each other, we need to update their neighbors too
         if (MapNode::isDataAutoTile(TileManager::instance().getTileData(tileID)))
@@ -252,6 +250,14 @@ private:
   SDL_Color getColorOfPixelInSurface(SDL_Surface *surface, int x, int y) const;
 
   bool isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int isoY) const;
+
+  /* \brief Filter out tiles which should not be set over existing one.
+  * 
+  * @param layer Layer in which tileId should be set.
+  * @param pMapNode pointer to the MapNode which ID should be set.
+  * @return true in case that tileId is allowed to be set, otherwise false (filter it out).
+  */
+  bool isAllowSetTileId(const Layer layer, const MapNode *const pMapNode);
 };
 
 #endif
