@@ -59,6 +59,7 @@ constexpr struct
 Map::Map(int columns, int rows) : m_columns(columns), m_rows(rows)
 {
   const size_t vectorSize = static_cast<size_t>(m_rows * m_columns);
+  randomEngine.seed();
   mapNodes.resize(vectorSize);
   mapNodesInDrawingOrder.reserve(vectorSize);
   MapLayers::enableLayer(Layer::TERRAIN);

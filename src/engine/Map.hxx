@@ -2,6 +2,7 @@
 #define MAP_HXX_
 
 #include <vector>
+#include <random>
 
 #include "GameObjects/MapNode.hxx"
 #include "map/TerrainGenerator.hxx"
@@ -15,7 +16,7 @@ public:
   std::vector<std::unique_ptr<MapNode>> mapNodes;
   std::vector<MapNode *> mapNodesInDrawingOrder;
 
-  Map() = default;
+  Map() = delete;
   Map(int columns, int rows);
   ~Map() = default;
 
@@ -113,7 +114,9 @@ public:
         if (pCurrentMapNode->getMapNodeDataForLayer(layer).tileData &&
             !pCurrentMapNode->getMapNodeDataForLayer(layer).tileData->groundDecoration.empty() && groundtileIndex == -1)
         {
-          groundtileIndex = rand() % pCurrentMapNode->getMapNodeDataForLayer(layer).tileData->groundDecoration.size();
+          const int groundDecoSize = pCurrentMapNode->getMapNodeDataForLayer(layer).tileData->groundDecoration.size();
+          std::uniform_int_distribution<int> uniformDistribution(0, groundDecoSize - 1);
+          groundtileIndex = randDistribution(randomEngine);
         }
         if (groundtileIndex != -1)
         {
@@ -205,6 +208,7 @@ public:
 private:
   int m_columns;
   int m_rows;
+  std::default_random_engine randomEngine;
 
   TerrainGenerator m_terrainGen;
 
@@ -252,7 +256,6 @@ private:
   bool isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int isoY) const;
 
   /* \brief Filter out tiles which should not be set over existing one.
-  * 
   * @param layer Layer in which tileId should be set.
   * @param pMapNode pointer to the MapNode which ID should be set.
   * @return true in case that tileId is allowed to be set, otherwise false (filter it out).
