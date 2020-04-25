@@ -115,8 +115,8 @@ public:
             !pCurrentMapNode->getMapNodeDataForLayer(layer).tileData->groundDecoration.empty() && groundtileIndex == -1)
         {
           const int groundDecoSize = pCurrentMapNode->getMapNodeDataForLayer(layer).tileData->groundDecoration.size();
-          std::uniform_int_distribution<int> uniformDistribution(0, groundDecoSize - 1);
-          groundtileIndex = randDistribution(randomEngine);
+          std::uniform_int_distribution uniformDistribution(0, groundDecoSize - 1);
+          groundtileIndex = uniformDistribution(randomEngine);
         }
         if (groundtileIndex != -1)
         {
