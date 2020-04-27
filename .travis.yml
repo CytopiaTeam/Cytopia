@@ -32,15 +32,10 @@ matrix:
             - ninja-build
             - doxygen
             - graphviz
-            - libsdl2-dev
-            - libsdl2-image-dev
-            - libsdl2-mixer-dev
-            - libsdl2-ttf-dev
-            - libnoise-dev
-            - libopenal-dev
+            - gcc-8
 
       before_script:
-        - cmake -DCMAKE_BUILD_TYPE=Debug -DENABLE_COVERAGE=ON -DUSE_PACKAGE_MANAGER=OFF -DENABLE_ANGELSCRIPT=OFF -DENABLE_MOFILEREADER=OFF .
+        - cmake -DCMAKE_BUILD_TYPE=Debug -DENABLE_COVERAGE=ON -DENABLE_ANGELSCRIPT=OFF -DENABLE_MOFILEREADER=OFF .
 
       script:
         - >
