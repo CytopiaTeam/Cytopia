@@ -92,16 +92,8 @@ struct AudioPruneEvent
 /**
  * @brief All audio-related events
  */
-using AudioEvents = TypeList<AudioTriggerEvent, 
-  AudioTriggerEvent, 
-  AudioTrigger3DEvent, 
-  AudioPlayEvent, 
-  AudioPlay3DEvent,
-  AudioMusicVolumeChangeEvent, 
-  AudioSoundVolumeChangeEvent, 
-  AudioSetMutedEvent, 
-  AudioStopEvent, 
-  AudioPruneEvent
->;
+using AudioEvents =
+    TypeList<AudioTriggerEvent, AudioTriggerEvent, AudioTrigger3DEvent, AudioPlayEvent, AudioPlay3DEvent,
+             AudioMusicVolumeChangeEvent, AudioSoundVolumeChangeEvent, AudioSetMutedEvent, AudioStopEvent, AudioPruneEvent>;
 
 #endif

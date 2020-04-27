@@ -17,7 +17,6 @@ template <typename UITargetType, typename UpdateEventType> struct UIChangeEvent
  */
 struct WindowResizeEvent
 {
-
 };
 
 #endif // UI_EVENTS_HXX

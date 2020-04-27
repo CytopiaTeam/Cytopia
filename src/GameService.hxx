@@ -10,17 +10,13 @@ public:
   /**
    * @brief all concrete game services
    */
-  using Types = TypeList<
-    class UILoopMQ *, 
-    class GameLoopMQ *, 
+  using Types = TypeList<class UILoopMQ *, class GameLoopMQ *,
 #ifdef USE_AUDIO
-    class AudioMixer *, 
+                         class AudioMixer *,
 #endif // USE_AUDIO
-    class Randomizer *, 
-    class GameClock *,
-    class ResourceManager * 
-    /* Add other services here */
-    >;
+                         class Randomizer *, class GameClock *, class ResourceManager *
+                         /* Add other services here */
+                         >;
 
   /**
    * @brief a tuple of all services
