@@ -16,6 +16,7 @@ OpenSSL/1.1.1c@conan/stable
 @_CC_CATCH2@Catch2/2.9.2@catchorg/stable
 @_CC_OPENAL_SOFT@openal/1.19.0@bincrafters/stable
 zlib/1.2.11
+@_CC_VULKAN@vulkan-sdk/1.1.126@cytopia/stable
 
 [options]
 sdl2:iconv=False

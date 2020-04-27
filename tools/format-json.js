@@ -2,12 +2,12 @@
 const fs = require("fs");
 
 const fileList = [
-    "../data/resources/settings.json",
-    "../data/resources/data/AudioConfig.json",
-    "../data/resources/data/TerrainGen.json",
-    "../data/resources/data/TileData.json",
-    "../data/resources/data/UIData.json",
-    "../data/resources/data/UILayout.json"
+    `${__dirname}/data/resources/settings.json`,
+    `${__dirname}/data/resources/data/AudioConfig.json`,
+    `${__dirname}/data/resources/data/TerrainGen.json`,
+    `${__dirname}/data/resources/data/TileData.json`,
+    `${__dirname}/data/resources/data/UIData.json`,
+    `${__dirname}/data/resources/data/UILayout.json`
 ];
 
 function formatFile(file, index) {
