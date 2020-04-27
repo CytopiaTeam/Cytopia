@@ -1,7 +1,7 @@
 #ifndef GAME_SERVICE_HXX_
 #define GAME_SERVICE_HXX_
 
-#include "Events.hxx"
+#include "util/Meta.hxx"
 
 class GameService
 {
@@ -18,7 +18,9 @@ public:
 #endif // USE_AUDIO
     class Randomizer *, 
     class GameClock *,
-    class ResourceManager * 
+    class ResourceManager *, 
+    class MouseController *,
+    class LanguageManager *
     /* Add other services here */
     >;
 
@@ -39,16 +41,17 @@ public:
    * @tparam ServiceType the type to verify
    */
   template <typename ServiceType> struct require_service_type;
-
-private:
-  TupleType<Types>::type &m_Services;
-
-protected:
+  
   /**
    * @brief returns the required service
    * @tparam ServiceType the type of the service
    */
   template <typename ServiceType> ServiceType &GetService();
+  ServiceTuple & getGameContext();
+
+private:
+  TupleType<Types>::type &m_Services;
+
 };
 
 #include "GameService.inl.hxx"
