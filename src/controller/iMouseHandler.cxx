@@ -6,7 +6,7 @@
 
 iMouseHandler::~iMouseHandler() = default;
 
-void iMouseHandler::onMouseClick(ClickEvent &&) { }
-void iMouseHandler::onMouseHover() { }
-void iMouseHandler::onMouseLeave() { }
-void iMouseHandler::onScroll(ScrollEvent &&) { }
+void iMouseHandler::onMouseClick(ClickEvent &&) {}
+void iMouseHandler::onMouseHover() {}
+void iMouseHandler::onMouseLeave() {}
+void iMouseHandler::onScroll(ScrollEvent &&) {}

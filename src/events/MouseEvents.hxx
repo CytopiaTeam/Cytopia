@@ -14,8 +14,7 @@ struct MousePositionEvent
   int yPosition;
   int xVelocity;
   int yVelocity;
-  [[deprecated("Use sdl::fromEvent instead")]]
-  explicit MousePositionEvent(const SDL_Event &);
+  [[deprecated("Use sdl::fromEvent instead")]] explicit MousePositionEvent(const SDL_Event &);
 };
 
 /**
@@ -49,10 +48,6 @@ struct ScrollEvent
   explicit ScrollEvent(const SDL_Event &);
 };
 
-using MouseEvents = TypeList<
-  MousePositionEvent,
-  ClickEvent,
-  ScrollEvent
->;
+using MouseEvents = TypeList<MousePositionEvent, ClickEvent, ScrollEvent>;
 
 #endif // MOUSE_EVENTS_HXX

@@ -11,7 +11,7 @@
  */
 struct ActivitySwitchEvent
 {
- ActivityType activityType;
+  ActivityType activityType;
 };
 
 /**
@@ -19,7 +19,6 @@ struct ActivitySwitchEvent
  */
 struct WindowResizeEvent
 {
-
 };
 
 /**
@@ -27,7 +26,6 @@ struct WindowResizeEvent
  */
 struct WindowRedrawEvent
 {
-
 };
 
 /**
@@ -37,9 +35,10 @@ struct UIChangeEvent
 {
   std::function<void()> apply;
   template <typename DataArgs>
-  UIChangeEvent(ObserverSPtr<DataArgs> observer, typename Observer<DataArgs>::Notification && notification) : 
-    apply([observer, notification = std::move(notification)]() { observer->update(std::move(notification)); })
-    {}
+  UIChangeEvent(ObserverSPtr<DataArgs> observer, typename Observer<DataArgs>::Notification &&notification)
+      : apply([observer, notification = std::move(notification)]() { observer->update(std::move(notification)); })
+  {
+  }
 };
 
 #endif // UI_EVENTS_HXX

@@ -9,10 +9,8 @@ using nullptr_t = std::nullptr_t;
 
 template <bool value, typename ReturnType = void> using EnableIf = std::enable_if_t<value, ReturnType>;
 template <typename Type> using Decay = std::decay_t<Type>;
-template <typename Type, typename = void>
-constexpr bool IsIterator = false;
-template <typename Type>
-constexpr bool IsIterator<Type, typename std::iterator_traits<Type>::iterator_category> = true;
+template <typename Type, typename = void> constexpr bool IsIterator = false;
+template <typename Type> constexpr bool IsIterator<Type, typename std::iterator_traits<Type>::iterator_category> = true;
 
 /**
  * @struct TypeList

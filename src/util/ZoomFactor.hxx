@@ -19,41 +19,33 @@ public:
   /***********************
    *      Arithmetic     *
    ***********************/
-  
-  template <typename Factor>
-  constexpr ZoomFactor operator*(Factor) const noexcept;
-  template <typename Factor>
-  constexpr ZoomFactor operator/(Factor) const noexcept;
-  template <typename Factor>
-  constexpr ZoomFactor operator+(Factor) const noexcept;
-  template <typename Factor>
-  constexpr ZoomFactor operator-(Factor) const noexcept;
-  
-  template <typename Factor>
-  constexpr ZoomFactor &operator*=(Factor) noexcept;
-  template <typename Factor>
-  constexpr ZoomFactor &operator/=(Factor) noexcept;
-  template <typename Factor>
-  constexpr ZoomFactor &operator+=(Factor) noexcept;
-  template <typename Factor>
-  constexpr ZoomFactor &operator-=(Factor) noexcept;
+
+  template <typename Factor> constexpr ZoomFactor operator*(Factor) const noexcept;
+  template <typename Factor> constexpr ZoomFactor operator/(Factor) const noexcept;
+  template <typename Factor> constexpr ZoomFactor operator+(Factor) const noexcept;
+  template <typename Factor> constexpr ZoomFactor operator-(Factor) const noexcept;
+
+  template <typename Factor> constexpr ZoomFactor &operator*=(Factor) noexcept;
+  template <typename Factor> constexpr ZoomFactor &operator/=(Factor) noexcept;
+  template <typename Factor> constexpr ZoomFactor &operator+=(Factor) noexcept;
+  template <typename Factor> constexpr ZoomFactor &operator-=(Factor) noexcept;
 
   /***********************
    *      Comparison     *
    ***********************/
-  
+
   constexpr bool operator==(ZoomFactor) const noexcept;
   constexpr bool operator!=(ZoomFactor) const noexcept;
   constexpr bool operator<(ZoomFactor) const noexcept;
   constexpr bool operator>(ZoomFactor) const noexcept;
   constexpr bool operator<=(ZoomFactor) const noexcept;
   constexpr bool operator>=(ZoomFactor) const noexcept;
+
 private:
   IntegerType m_Zoom;
 };
 
-template <>
-class std::numeric_limits<ZoomFactor>
+template <> class std::numeric_limits<ZoomFactor>
 {
 public:
   static constexpr bool is_specialized = true;
@@ -73,13 +65,13 @@ public:
   static constexpr int digits10 = std::numeric_limits<ZoomFactor::IntegerType>::digits10;
   static constexpr int max_digits10 = std::numeric_limits<ZoomFactor::IntegerType>::max_digits10;
   static constexpr int radix = std::numeric_limits<ZoomFactor::IntegerType>::radix;
-  static constexpr int min_exponent = -digits/2 + 1;
+  static constexpr int min_exponent = -digits / 2 + 1;
   static constexpr int min_exponent10 = min_exponent * std::log10(2);
-  static constexpr int max_exponent = digits/2 + 1;
+  static constexpr int max_exponent = digits / 2 + 1;
   static constexpr int max_exponent10 = max_exponent * std::log10(2);
   static constexpr bool traps = std::numeric_limits<ZoomFactor::IntegerType>::traps;
   static constexpr bool tinyness_before = false;
-  
+
   static constexpr ZoomFactor min();
   static constexpr ZoomFactor lowest();
   static constexpr ZoomFactor max();

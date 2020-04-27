@@ -16,7 +16,7 @@ public:
   virtual void onMouseHover();
   virtual void onMouseLeave();
   virtual void onScroll(ScrollEvent &&);
-  virtual const iShape & getShape() = 0;
+  virtual const iShape &getShape() = 0;
 };
 
 using iMouseHandlerPtr = std::unique_ptr<iMouseHandler>;
