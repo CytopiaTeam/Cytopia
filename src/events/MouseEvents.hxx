@@ -26,7 +26,7 @@ struct ClickEvent
   int32_t yPosition;
   /**
    * @brief One-hot encoding for the state of the mouse or device
-   * @details Exactly one of {Left, Right, Middle} must be set 
+   * @details Exactly one of {Left, Right, Middle} must be set
    *          and exactly one of {Pressed, Released} must be set
    */
   static constexpr uint8_t Left = 0b1;

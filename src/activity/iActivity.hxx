@@ -44,7 +44,7 @@ protected:
   template <typename StateType, typename... Args> StateType &createState(Args &&... args);
 
   /**
-   * @returns the Window this Activity is assigned to 
+   * @returns the Window this Activity is assigned to
    */
   Window &getWindow() noexcept;
 };

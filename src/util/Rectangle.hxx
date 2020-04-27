@@ -6,7 +6,7 @@
 #include "SDL.h"
 
 /**
- * @brief     Represents an inclusive rectangle 
+ * @brief     Represents an inclusive rectangle
  * @details   All negative points are reserved
  *            for special values
  */
@@ -92,13 +92,13 @@ public:
 
   /**
    * @brief Intersects with another rectangle
-   * @post  Becomes EMPTY if the intersection is empty 
+   * @post  Becomes EMPTY if the intersection is empty
    *        or the other Rectangle is empty
    */
   void intersect(const Rectangle &) noexcept;
 
   /**
-   * @brief Scales by ZoomFactor 
+   * @brief Scales by ZoomFactor
    *        around the center of the Rectangle
    * @post  Becomes EMPTY if the ZoomFactor is 0
    */
