@@ -32,7 +32,7 @@ Game::Game()
 #ifdef USE_AUDIO
                     &m_AudioMixer,
 #endif // USE_AUDIO
-                    &m_Randomizer, &m_GameClock, &m_ResourceManager),
+                    &m_Randomizer, &m_GameClock, &m_ResourceManager, nullptr, nullptr),
       m_GameClock{m_GameContext}, m_Randomizer{m_GameContext}, m_ResourceManager{m_GameContext},
 #ifdef USE_AUDIO
       m_AudioMixer{m_GameContext},

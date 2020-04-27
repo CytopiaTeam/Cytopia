@@ -10,7 +10,19 @@ set(SOURCE_FILES
         util/Singleton.hxx
         util/Meta.hxx
         util/Exception.{hxx,cxx}
+        util/Range.hxx
+        util/Range.inl.hxx
+        util/Rectangle.{hxx,cxx}
+        util/ZoomFactor.hxx
+        util/ZoomFactor.inl.hxx
+        util/iShape.{hxx,cxx}
+        util/ZipRange.hxx
+        util/ZipRange.inl.hxx
+        util/Point.{hxx,cxx}
+        util/Color.{hxx,cxx}
+        util/SDLAdapter.{hxx,cxx}
         events/UIEvents.hxx
+        events/MouseEvents.hxx
         GameService.{hxx,cxx}
         GameService.inl.hxx
         services/Randomizer.{hxx,cxx}
@@ -18,6 +30,7 @@ set(SOURCE_FILES
         services/GameClock.inl.hxx
         services/ResourceManager.{hxx,cxx}
         services/ResourceManager.inl.hxx
+        services/MouseController.{hxx,cxx}
         engine/MessageQueue.hxx
         engine/MessageQueue.inl.hxx
         engine/basics/Camera.{hxx,cxx}
@@ -56,6 +69,15 @@ set(SOURCE_FILES
         engine/TileManager.{hxx,cxx}
         engine/UIManager.{hxx,cxx}
         engine/WindowManager.{hxx,cxx}
+        activity/iActivity.{hxx,cxx}
+        activity/iActivity.inl.hxx
+        renderer/iRenderer.{hxx,cxx}
+        controller/iController.{hxx,cxx}
+        controller/iMouseHandler.{hxx,cxx}
+        layout/iLayout.{hxx,cxx}
+        layout/iLayout.inl.hxx
+        model/iModel.{hxx,cxx}
+        view/iView.{hxx,cxx} 
         )
 
 list(APPEND _include_directories

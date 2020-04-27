@@ -8,6 +8,11 @@
 using nullptr_t = std::nullptr_t;
 
 template <bool value, typename ReturnType = void> using EnableIf = std::enable_if_t<value, ReturnType>;
+template <typename Type> using Decay = std::decay_t<Type>;
+template <typename Type, typename = void>
+constexpr bool IsIterator = false;
+template <typename Type>
+constexpr bool IsIterator<Type, typename std::iterator_traits<Type>::iterator_category> = true;
 
 /**
  * @struct TypeList
@@ -81,7 +86,7 @@ template <template <typename...> typename List, typename... Ts> struct TupleType
 template <typename List, typename Type> constexpr bool ContainsType = false; // lgtm [cpp/use-in-own-initializer]
 
 template <template <typename...> typename List, typename T1, typename T2, typename... Ts>
-constexpr bool ContainsType<List<T1, Ts...>, T2> = std::is_same_v<T1, T2> ? true : ContainsType<List<Ts...>, T2>;
+constexpr bool ContainsType<List<T1, Ts...>, T2> = std::is_same_v<Decay<T1>, Decay<T2>> ? true : ContainsType<List<Ts...>, T2>;
 
 /**
  * @struct Constant

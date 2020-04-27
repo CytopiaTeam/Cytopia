@@ -13,13 +13,11 @@ option(ENABLE_AUDIO "Enable Audio" ON)
 option(ENABLE_MICROPROFILE "Enable microprofile" OFF)
 option(ENABLE_ANGELSCRIPT "Enable AngelScript" ON)
 option(ENABLE_MOFILEREADER "Enable MofileReader" ON)
+option(ENABLE_VULKAN "Enable Vulkan" OFF)
 
 # Comment-out uneeded libs
 if (NOT ENABLE_AUDIO)
     set(_CC_SDL2_MIXER "# ")
-endif ()
-
-if (NOT ENABLE_AUDIO)
     set(_CC_OPENAL_SOFT "# ")
 endif ()
 
@@ -33,6 +31,10 @@ endif ()
 
 if (NOT ENABLE_MOFILEREADER)
     set(_CC_MOFILEREADER "# ")
+endif ()
+
+if (NOT ENABLE_VULKAN)
+  set(_CC_VULKAN "# ")
 endif ()
 
 if (WIN32)
@@ -103,7 +105,6 @@ if (USE_PACKAGE_MANAGER)
             CONAN_PKG::sdl2_ttf
             CONAN_PKG::libnoise
             CONAN_PKG::zlib
-            CONAN_PKG::vulkan-sdk
             )
 
     if (ENABLE_AUDIO)
@@ -122,6 +123,10 @@ if (USE_PACKAGE_MANAGER)
         list(APPEND _link_libraries CONAN_PKG::MofileReader)
     endif ()
 
+    if (ENABLE_VULKAN)
+        list(APPEND _link_libraries CONAN_PKG::vulkan-sdk)
+    endif()
+
     if (BUILD_TEST)
         list(APPEND _link_libraries CONAN_PKG::Catch2)
     endif ()
@@ -133,7 +138,6 @@ else (USE_PACKAGE_MANAGER)
     pkg_check_modules(SDL2_image REQUIRED SDL2_image)
     pkg_check_modules(SDL2_ttf REQUIRED SDL2_ttf)
     pkg_check_modules(ZLIB REQUIRED zlib)
-    pkg_check_modules(VULKAN REQUIRED vulkan)
 
     if (ENABLE_AUDIO)
         pkg_check_modules(SDL2_mixer REQUIRED SDL2_mixer)
@@ -142,6 +146,10 @@ else (USE_PACKAGE_MANAGER)
     if (ENABLE_AUDIO)
         pkg_check_modules(openal REQUIRED openal)
     endif ()
+    
+    if (ENABLE_VULKAN)
+        pkg_check_modules(VULKAN REQUIRED vulkan)
+    endif()
 
     find_package(LIBNOISE REQUIRED)
 
@@ -162,7 +170,6 @@ else (USE_PACKAGE_MANAGER)
             ${SDL2_image_INCLUDE_DIRS}
             ${SDL2_ttf_INCLUDE_DIRS}
             ${ZLIB_INCLUDEDIR}
-            ${VULKAN_INCLUDEDIR}
             )
     list(APPEND _link_libraries
             ${SDL2_LIBRARIES}
@@ -170,7 +177,6 @@ else (USE_PACKAGE_MANAGER)
             ${SDL2_ttf_LIBRARIES}
             LIBNOISE::LIBNOISE_LIBRARIES
             ${ZLIB_LIBRARIES}
-            ${VULKAN_LIBRARIES}
             )
 
     if (ENABLE_AUDIO)
@@ -185,6 +191,11 @@ else (USE_PACKAGE_MANAGER)
     if (ENABLE_ANGELSCRIPT)
         list(APPEND _link_libraries ${AngelScript_LIBRARY})
     endif ()
+    
+    if (ENABLE_VULKAN)
+        list(APPEND _link_libraries ${VULKAN_LIBRARIES})
+        list(APPEND _include_directories ${VULKAN_INCLUDEDIR})
+    endif()
 
     if (BUILD_TEST)
         list(APPEND _include_directories ${CATCH2_INCLUDEDIR})

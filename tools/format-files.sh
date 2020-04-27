@@ -5,4 +5,6 @@ if ! [ -x "$(command -v clang-format)" ]; then
   exit
 fi
 
-find .. -regex '.*\.\(hxx\|cxx\)' -not -path '*/external/*' -exec clang-format -style=file -i {} \;
+BASE_DIRECTORY=$(dirname "$0")
+
+find "${BASE_DIRECTORY}/../src" -regex '.*\.\(hxx\|cxx\)' -not -path '*/external/*' -exec clang-format -style=file -i {} \;
