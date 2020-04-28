@@ -1,16 +1,16 @@
-﻿AllowShortIfStatementsOnASingleLine: Never
-BreakBeforeBraces: Allman
+﻿BreakBeforeBraces: Allman
 IndentWidth: 2
 ReflowComments: false
 SpaceBeforeParens: ControlStatements
 SpaceInEmptyParentheses: false
 SpacesInParentheses: false
+ColumnLimit: 130
 ---
 Language: Cpp
 Cpp11BracedListStyle: true
 SortIncludes: false
 Standard: Cpp11
-ColumnLimit: 130
+AllowShortIfStatementsOnASingleLine: Never
 ---
 Language: JavaScript
-ColumnLimit: 250
+AllowShortIfStatementsOnASingleLine: Always
