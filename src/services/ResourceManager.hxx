@@ -60,7 +60,7 @@ public:
   template <typename ResourceID> struct resource_type;
 
   /**
-   * @brief Creates the ResourceManager 
+   * @brief Creates the ResourceManager
    *  @throws ConfigurationError when loading configuration results in an error
    */
   ResourceManager(GameService::ServiceTuple &);
