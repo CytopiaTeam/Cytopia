@@ -21,3 +21,6 @@ function formatFile(file, index) {
 }
 
 fileList.forEach(formatFile);
+
+
+
