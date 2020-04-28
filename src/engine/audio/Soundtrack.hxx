@@ -78,7 +78,7 @@ struct Soundtrack
 
 #endif // USE_OPENAL_SOFT
 
-  Soundtrack(SoundtrackID, ChannelID, Mix_Chunk*, RepeatCount, bool, bool, bool, bool);
+  Soundtrack(SoundtrackID, ChannelID, Mix_Chunk *, RepeatCount, bool, bool, bool, bool);
   ~Soundtrack();
 };
 

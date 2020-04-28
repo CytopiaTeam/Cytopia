@@ -25,7 +25,6 @@ template <typename Type> using Vector = std::vector<Type>;
 template <typename Type> using Set = std::unordered_set<Type>;
 template <typename Type> using List = std::list<Type>;
 
-
 /**
  * @class AudioMixer
  */
@@ -76,7 +75,7 @@ public:
    */
 #ifdef USE_OPENAL_SOFT
   void play(AudioTrigger &&trigger, Coordinate3D &&position) noexcept;
-  
+
 #endif
   /**
    * @brief stops all sounds

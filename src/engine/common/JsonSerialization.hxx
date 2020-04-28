@@ -212,10 +212,7 @@ inline void to_json(json &j, const Point &point)
 inline void to_json(json &j, const MapNodeData &mapNodeData)
 {
   j = json{
-      {"tileID", mapNodeData.tileID},
-      {"tileIndex", mapNodeData.tileIndex},
-      {"origCornerPoint", mapNodeData.origCornerPoint}
-  };
+      {"tileID", mapNodeData.tileID}, {"tileIndex", mapNodeData.tileIndex}, {"origCornerPoint", mapNodeData.origCornerPoint}};
 }
 
 // JSON serializer for MapNode class
@@ -252,7 +249,7 @@ inline void to_json(json &j, const SettingsData &s)
         {std::string("Font Filename"), s.fontFileName.get()},
         {std::string("SubMenuButtonWidth"), s.subMenuButtonWidth},
         {std::string("SubMenuButtonHeight"), s.subMenuButtonHeight},
-         {std::string("Language"), s.gameLanguage}}},
+        {std::string("Language"), s.gameLanguage}}},
       {std::string("ConfigFiles"),
        {{std::string("UIDataJSONFile"), s.uiDataJSONFile.get()},
         {std::string("TileDataJSONFile"), s.tileDataJSONFile.get()},
