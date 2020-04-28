@@ -56,6 +56,7 @@ set(SOURCE_FILES
         engine/TileManager.{hxx,cxx}
         engine/UIManager.{hxx,cxx}
         engine/WindowManager.{hxx,cxx}
+        view/iView.{hxx,cxx}
         )
 
 list(APPEND _include_directories
