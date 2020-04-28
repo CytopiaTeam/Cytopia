@@ -4,8 +4,10 @@
 #include "Exception.hxx"
 #include "LOG.hxx"
 
+#ifndef __EMSCRIPTEN__
 #include <signal.h>
 void SIG_handler(int signal);
+#endif
 
 SDL_AssertState AssertionHandler(const SDL_AssertData *, void *);
 
@@ -25,6 +27,10 @@ int protected_main(int argc, char **argv)
       skipMenu = true;
     }
   }
+  
+  #ifdef __EMSCRIPTEN__
+    skipMenu = true;
+  #endif
 
   LOG(LOG_DEBUG) << "Launching Cytopia";
 
@@ -55,11 +61,12 @@ int protected_main(int argc, char **argv)
 int main(int argc, char **argv)
 {
 
+#ifndef __EMSCRIPTEN__
   /* Register handler for Segmentation Fault, Interrupt, Terminate */
   signal(SIGSEGV, SIG_handler);
   signal(SIGINT, SIG_handler);
   signal(SIGTERM, SIG_handler);
-
+#endif
   /* All SDL2 Assertion failures must be handled
    * by our handler */
   SDL_SetAssertionHandler(AssertionHandler, 0);
