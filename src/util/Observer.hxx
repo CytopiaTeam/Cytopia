@@ -8,11 +8,11 @@ template <typename T> using LinkedList = std::forward_list<T>;
 template <typename... DataArgs> class Subject;
 
 /**
- * @class Observer
- * @brief Allows to listen to another Object's
- *        events
- * @see https://en.wikipedia.org/wiki/Observer_pattern
- * @example test/util/Observer.cxx
+ * @class     Observer
+ * @brief     Allows to listen to another Object's
+ *            events
+ * @see       https://en.wikipedia.org/wiki/Observer_pattern
+ * @example   tests/util/Observer.cxx
  */
 template <typename... DataArgs> class Observer
 {
@@ -30,11 +30,11 @@ template <typename... DataArgs> using ObserverWPtr = std::weak_ptr<Observer<Data
 template <typename... DataArgs> using ObserverSPtr = std::shared_ptr<Observer<DataArgs...>>;
 
 /**
- * @class Subject
- * @brief Allows to notify Observers about
- *        events
- * @see https://en.wikipedia.org/wiki/Observer_pattern
- * @example test/util/Observer.cxx
+ * @class     Subject
+ * @brief     Allows to notify Observers about
+ *            events
+ * @see       https://en.wikipedia.org/wiki/Observer_pattern
+ * @example   tests/util/Observer.cxx
  */
 template <typename... DataArgs> class Subject
 {
@@ -42,17 +42,13 @@ private:
   LinkedList<ObserverWPtr<DataArgs...>> m_Observers;
 
 protected:
-  /**
-   * @strong
-   */
   Subject() = default;
 
   using ObsIterator = typename LinkedList<ObserverWPtr<DataArgs...>>::iterator;
 
   /**
-   * @nothrow
-   * @brief notifies all affected observers
-   * @param args the data to be sent to observers
+   * @brief   notifies all affected observers
+   * @param   args the data to be sent to observers
    */
   inline void notifyObservers(DataArgs... args) noexcept
   {
@@ -81,30 +77,24 @@ protected:
   }
 
   /**
-   * @nothrow
-   * @brief is called whenever an observer expires
+   * @brief   is called whenever an observer expires
    * @details Implement this method to cleanup weak pointers
    */
   virtual inline void onObserverExpired(void) noexcept {}
 
-  /**
-   * @nothrow @racehazard
-   */
   virtual ~Subject() noexcept = 0;
 
   /**
-   * @nothrow @racehazard @const
    * @returns true if Subject should notify the observer
-   * @param observer the observer to be notified
-   * @param data the data to be sent to observer
+   * @param   observer the observer to be notified
+   * @param   data the data to be sent to observer
    */
   virtual inline bool mustNotify(ObserverWPtr<DataArgs...> observer, const DataArgs &... data) const noexcept { return true; }
 
 public:
   /**
-   * @strong @racehazard
-   * @brief Adds an observer to listen to Subject's events
-   * @param observer the observer to add
+   * @brief   Adds an observer to listen to Subject's events
+   * @param   observer the observer to add
    */
   inline void addObserver(ObserverSPtr<DataArgs...> observer) { m_Observers.emplace_front(observer); }
 };
