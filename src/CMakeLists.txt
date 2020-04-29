@@ -150,7 +150,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE ${_link_libraries})
 add_custom_target(
         copy_resources
         ALL
-        COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/data/resources/ $<TARGET_FILE_DIR:${PROJECT_NAME}>/resources/ 
+        COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/data/resources/ $<TARGET_FILE_DIR:${PROJECT_NAME}>/resources/
         COMMENT "Copy the resources to the compiled directory"
         VERBATIM
 )
