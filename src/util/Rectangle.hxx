@@ -2,6 +2,7 @@
 #define RECTANGLE_HXX
 
 #include <tuple>
+#include <iostream>
 #include "../util/iShape.hxx"
 
 class SDL_Rect;
