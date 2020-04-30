@@ -49,6 +49,7 @@ LIST(APPEND TEST_SOURCES
         util/MessageQueue.cxx
         util/LOG.cxx
         util/Rectangle.cxx
+        util/Range.cxx
         )
 
 # Generate source groups for use in IDEs

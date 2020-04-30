@@ -12,6 +12,9 @@ set(SOURCE_FILES
         util/Exception.{hxx,cxx}
         util/iShape.{hxx,cxx}
         util/Rectangle.{hxx,cxx}
+        util/Range.hxx
+        util/Range.inl.hxx
+        util/Point.{hxx,cxx}
         events/UIEvents.hxx
         GameService.{hxx,cxx}
         GameService.inl.hxx
