@@ -252,7 +252,7 @@ private:
   std::vector<uint8_t> calculateAutotileBitmask(const Point &isoCoordinates);
 
   SDL_Color getColorOfPixelInSurface(SDL_Surface *surface, int x, int y) const;
-  
+
   bool isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int isoY, const Layer &layer) const;
 
   /* \brief Filter out tiles which should not be set over existing one.

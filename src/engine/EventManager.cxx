@@ -438,7 +438,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
                 const TileData *tileData = engine.map->getMapNode(buildingCoordinates)->getTileData(Layer::BUILDINGS);
                 if (tileData && tileData->category != "Flora")
                 {
-                  (engine.map->getMapNode(buildingCoordinates))->setNodeTransparency((float)40/100);
+                  (engine.map->getMapNode(buildingCoordinates))->setNodeTransparency((float)40 / 100);
                   m_transparentBuildings.push_back(buildingCoordinates);
                 }
               }
