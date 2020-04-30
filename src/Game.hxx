@@ -55,14 +55,15 @@ public:
 
   /** @brief initializes and displays the main menu
     * initializes and displays the main menu
+    * @return true in case game has been quit, othewise false.
     */
-  virtual void mainMenu();
+  virtual bool mainMenu();
 
 private:
   /* Game context */
   using GameContext = GameService::ServiceTuple;
   GameContext m_GameContext;
-	
+
   /* Services */
   GameClock m_GameClock;
   Randomizer m_Randomizer;
@@ -72,7 +73,6 @@ private:
 #endif
   UILoopMQ m_UILoopMQ;
   GameLoopMQ m_GameLoopMQ;
-
 
   /* Threads */
   Thread m_UILoop;
@@ -108,6 +108,8 @@ private:
      */
     template <typename ArgumentType> void operator()(const ArgumentType &&event);
   };
+
+  void quit();
 };
 
 #include "Game.inl.hxx"
