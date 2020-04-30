@@ -1,5 +1,5 @@
-#ifndef POINT_HXX_
-#define POINT_HXX_
+#ifndef POINT_2D_HXX_
+#define POINT_2D_HXX_
 
 #include "Meta.hxx"
 
@@ -37,4 +37,4 @@ struct std::hash<SpatialBlock>
   std::size_t operator()(const SpatialBlock & b) const noexcept;
 };
 
-#endif
+#endif // POINT_2D_HXX_

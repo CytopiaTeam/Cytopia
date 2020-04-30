@@ -1,6 +1,6 @@
 #include "Rectangle.hxx"
 #include <catch2/catch.hpp>
-#include "Point.hxx"
+#include "Point2D.hxx"
 #include "LOG.hxx"
 
 TEST_CASE("I can create Rectangles", "[util]")

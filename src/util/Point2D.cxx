@@ -1,4 +1,4 @@
-#include "Point.hxx"
+#include "Point2D.hxx"
 #include "../events/MouseEvents.hxx"
 
 bool operator==(const Point2D & p1, const Point2D & p2)

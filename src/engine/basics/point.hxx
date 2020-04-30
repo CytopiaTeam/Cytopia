@@ -1,5 +1,3 @@
-#pragma once
-
 #ifndef POINT_HXX_
 #define POINT_HXX_
 

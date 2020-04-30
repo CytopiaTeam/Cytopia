@@ -1,7 +1,7 @@
 #include <iostream>
 #include "Rectangle.hxx"
 #include "../util/LOG.hxx"
-#include "../util/Point.hxx"
+#include "../util/Point2D.hxx"
 
 bool Rectangle::contains(const Point2D & p) const noexcept
 {
@@ -30,7 +30,7 @@ int Rectangle::width() const noexcept
 
 int Rectangle::height() const noexcept
 {
-  return m_x1 < 0 ? : m_y2 - m_y1 + 1;
+  return m_x1 < 0 ? 0 : m_y2 - m_y1 + 1;
 }
 
 std::pair<int, int> Rectangle::p1() const noexcept { return {m_x1, m_y1}; }
