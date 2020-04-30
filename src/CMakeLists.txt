@@ -16,6 +16,7 @@ set(SOURCE_FILES
         util/Range.inl.hxx
         util/Point.{hxx,cxx}
         events/UIEvents.hxx
+        events/MouseEvents.hxx
         GameService.{hxx,cxx}
         GameService.inl.hxx
         services/Randomizer.{hxx,cxx}
