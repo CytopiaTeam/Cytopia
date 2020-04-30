@@ -13,8 +13,6 @@
 #include "microprofile.h"
 #endif
 
-#define ALPHA 100
-
 Sprite::Sprite(Point _isoCoordinates) : isoCoordinates(_isoCoordinates)
 {
   m_screenCoordinates = convertIsoToScreenCoordinates(_isoCoordinates);
@@ -40,7 +38,7 @@ void Sprite::render() const
 
       if (transparentSprite)
       {
-        if (SDL_SetTextureAlphaMod(m_SpriteData[currentLayer].texture, ALPHA))
+        if (SDL_SetTextureAlphaMod(m_SpriteData[currentLayer].texture, alpha))
         {
           // indicates failure.
         }

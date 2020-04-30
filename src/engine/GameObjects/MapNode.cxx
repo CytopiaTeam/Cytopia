@@ -160,14 +160,11 @@ Layer MapNode::getTopMostActiveLayer() const
   return Layer::NONE;
 }
 
-void MapNode::makeNodeTransparent() const
+void MapNode::setNodeTransparency(const float percentage) const
 {
+  unsigned char alpha = percentage ? 255 * percentage : 255;
   m_sprite->transparentSprite = true;
-}
-
-void MapNode::revertNodeTransparency() const
-{ 
-  m_sprite->transparentSprite = false; 
+  m_sprite->alpha = alpha;
 }
 
 bool MapNode::isDataAutoTile(const TileData *tileData)

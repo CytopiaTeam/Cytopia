@@ -150,14 +150,9 @@ public:
   /**
    * @brief Sets a node to be Transparent
    * This sets a node to be Transparent.
+   * @parameter percentage- the percentage of how we want the node transperansy be.
    */
-  void makeNodeTransparent() const;
-
-  /**
-   * @brief Sets a node to be not transparent
-   * This sets a node to be not transparent.
-   */
-  void revertNodeTransparency() const;
+  void setNodeTransparency(const float percentage) const;
 
 private:
   Point m_isoCoordinates;
