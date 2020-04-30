@@ -48,6 +48,7 @@ LIST(APPEND TEST_SOURCES
         util/TransitiveModel.cxx
         util/MessageQueue.cxx
         util/LOG.cxx
+        util/Rectangle.cxx
         )
 
 # Generate source groups for use in IDEs

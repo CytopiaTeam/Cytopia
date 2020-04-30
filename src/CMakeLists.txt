@@ -10,6 +10,8 @@ set(SOURCE_FILES
         util/Singleton.hxx
         util/Meta.hxx
         util/Exception.{hxx,cxx}
+        util/iShape.{hxx,cxx}
+        util/Rectangle.{hxx,cxx}
         events/UIEvents.hxx
         GameService.{hxx,cxx}
         GameService.inl.hxx
