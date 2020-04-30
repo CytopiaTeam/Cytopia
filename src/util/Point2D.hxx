@@ -2,6 +2,7 @@
 #define POINT_2D_HXX_
 
 #include "Meta.hxx"
+#include <iostream>
 
 class MousePositionEvent;
 class ClickEvent;
@@ -13,6 +14,8 @@ struct Point2D
 };
 
 bool operator==(const Point2D &, const Point2D &);
+bool operator!=(const Point2D &, const Point2D &);
+std::ostream & operator<<(std::ostream &, const Point2D &);
 
 template<> struct std::hash<Point2D>
 {
@@ -30,6 +33,8 @@ struct SpatialBlock
 };
 
 bool operator==(const SpatialBlock &, const SpatialBlock &);
+bool operator!=(const SpatialBlock &, const SpatialBlock &);
+std::ostream & operator<<(std::ostream &, const SpatialBlock &);
 
 template <>
 struct std::hash<SpatialBlock>
