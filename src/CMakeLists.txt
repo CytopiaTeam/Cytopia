@@ -18,6 +18,7 @@ set(SOURCE_FILES
         util/Point2D.{hxx,cxx}
         util/BoxSizing.{hxx,cxx}
         util/BoxSizing.inl.hxx
+        util/Color.{hxx,cxx}
         events/UIEvents.hxx
         events/MouseEvents.hxx
         GameService.{hxx,cxx}
