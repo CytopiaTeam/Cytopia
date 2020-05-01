@@ -42,13 +42,13 @@ public:
 
   /**
    * @returns   The inclusive width of the Rectangle
-   * @example   A Rectangle of { x1: 0, x2: 9 } has a width of 10
+   * @details   A Rectangle of { x1: 0, x2: 9 } has a width of 10
    */
   int width() const noexcept;
   
   /**
    * @returns   The inclusive height of the Rectangle
-   * @example   A Rectangle of { y1: 1, y2: 10 } has a width of 10
+   * @details   A Rectangle of { y1: 1, y2: 10 } has a height of 10
    */
   int height() const noexcept;
   

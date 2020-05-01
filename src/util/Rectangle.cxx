@@ -6,7 +6,7 @@
 bool Rectangle::contains(const Point2D & p) const noexcept
 {
   return 
-    m_x1 != -1  && 
+    !isEmpty()  && 
     p.x <= m_x2 && 
     p.x >= m_x1 && 
     p.y <= m_y2 &&
@@ -25,12 +25,12 @@ SDL_Rect Rectangle::to_SDL() const noexcept
 
 int Rectangle::width() const noexcept
 {
-  return m_x1 < 0 ? 0 : m_x2 - m_x1 + 1;
+  return isEmpty() ? 0 : m_x2 - m_x1 + 1;
 }
 
 int Rectangle::height() const noexcept
 {
-  return m_x1 < 0 ? 0 : m_y2 - m_y1 + 1;
+  return isEmpty() ? 0 : m_y2 - m_y1 + 1;
 }
 
 std::pair<int, int> Rectangle::p1() const noexcept { return {m_x1, m_y1}; }
@@ -49,14 +49,14 @@ bool Rectangle::isEmpty() const noexcept { return m_x1 == -1; }
 
 void Rectangle::translateX(int x) noexcept
 {
-  if(m_x1 < 0) return;
+  if(isEmpty()) return;
   m_x1 += x;
   m_x2 += x;
 }
 
 void Rectangle::translateY(int y) noexcept
 {
-  if(m_x1 < 0) return;
+  if(isEmpty()) return;
   m_y1 += y;
   m_y2 += y;
 }
@@ -65,7 +65,7 @@ void Rectangle::intersect(const Rectangle & other) noexcept
 {
   auto [op1x, op1y] = other.p1();
   auto [op2x, op2y] = other.p2();
-  if(m_x2 < op1x || op2x < m_x1 || m_y2 < op1y || op2y < m_y1 || op1x < 0)
+  if(m_x2 < op1x || op2x < m_x1 || m_y2 < op1y || op2y < m_y1 || other.isEmpty())
   {
     // Empty intersection
     m_x1 = -1;
@@ -92,10 +92,10 @@ std::ostream& operator<<(std::ostream& os, const Rectangle& r)
 bool operator==(const Rectangle &r1, const Rectangle &r2)
 {
   return 
-    r1.m_x1 == r2.m_x1 &&
-    r1.m_x2 == r2.m_x2 &&
-    r1.m_y1 == r2.m_y1 &&
-    r1.m_y2 == r2.m_y2;
+    (r1.m_x1 == r2.m_x1) &&
+    (r1.m_x2 == r2.m_x2) &&
+    (r1.m_y1 == r2.m_y1) &&
+    (r1.m_y2 == r2.m_y2);
 }
 
 Rectangle Rectangle::EMPTY() noexcept

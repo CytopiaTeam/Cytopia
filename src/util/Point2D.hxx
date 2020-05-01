@@ -7,6 +7,9 @@
 class MousePositionEvent;
 class ClickEvent;
 
+/**
+ * @brief   A 2D point
+ */
 struct Point2D
 {
   int x;
@@ -22,6 +25,10 @@ template<> struct std::hash<Point2D>
   std::size_t operator()(const Point2D & p) const noexcept;
 };
 
+/**
+ * @brief   A block of space
+ * @details A SpatialBlock represents a Rectangle {x, y, x + BlockSize, y + BlockSize}
+ */
 struct SpatialBlock
 {
   int x;

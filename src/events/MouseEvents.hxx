@@ -3,8 +3,6 @@
 
 #include "../util/Meta.hxx"
 
-union SDL_Event;
-
 /**
  * @brief A change in the mouse (or device)'s position
  */
@@ -28,11 +26,17 @@ struct ClickEvent
    * @details Exactly one of {Left, Right, Middle} must be set 
    *          and exactly one of {Pressed, Released} must be set
    */
-  static constexpr uint8_t Left = 0b1;
-  static constexpr uint8_t Right = 0b10;
-  static constexpr uint8_t Middle = 0b100;
-  static constexpr uint8_t Pressed = 0b1000;
-  static constexpr uint8_t Released = 0b10000;
+  enum MouseButtonID : uint8_t
+  {
+    Left =      1 << 1,
+    Right =     1 << 2,
+    Middle =    1 << 3
+  };
+  enum MouseButtonState : uint8_t
+  {
+    Pressed =   1 << 4,
+    Released =  1 << 5
+  };
   uint8_t state;
 };
 
