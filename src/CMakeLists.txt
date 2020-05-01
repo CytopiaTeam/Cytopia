@@ -12,6 +12,7 @@ set(SOURCE_FILES
         util/Exception.{hxx,cxx}
         util/Range.hxx
         util/Range.inl.hxx
+        util/Color.{hxx,cxx}
         events/UIEvents.hxx
         GameService.{hxx,cxx}
         GameService.inl.hxx
