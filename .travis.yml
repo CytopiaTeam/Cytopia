@@ -8,6 +8,7 @@ env:
     - GITHUB_REPO: CytopiaTeam/Cytopia
     - TRAVIS: true
     - CTEST_OUTPUT_ON_FAILURE: 1
+    - SCCACHE_CACHE_SIZE: 500M
 
 matrix:
   include:
@@ -16,6 +17,9 @@ matrix:
       name: GCC 8 Build
       python: 3.7
       compiler: gcc-8
+      cache:
+        directories:
+        - $HOME/.cache/sccache
       addons:
         sonarcloud:
           organization: "cytopia"
@@ -39,6 +43,11 @@ matrix:
             - libnoise-dev
             - libopenal-dev
 
+      install:
+       - wget -nv https://github.com/mozilla/sccache/releases/download/0.2.13/sccache-0.2.13-x86_64-unknown-linux-musl.tar.gz
+       - tar xvzf sccache-0.2.13-x86_64-unknown-linux-musl.tar.gz
+       - sudo mv ./sccache-0.2.13-x86_64-unknown-linux-musl/sccache /usr/bin
+
       before_script:
         - cmake -DCMAKE_BUILD_TYPE=Debug -DENABLE_COVERAGE=ON -DUSE_PACKAGE_MANAGER=OFF -DENABLE_ANGELSCRIPT=OFF -DENABLE_MOFILEREADER=OFF .
 
@@ -60,11 +69,17 @@ matrix:
             sonar-scanner -Dsonar.cfamily.build-wrapper-output=bw-output
           fi;
 
+      before_cache:
+        - sccache --show-stats
+
     # clang build
     - os: linux
       name: CLANG 7 Build
       compiler: clang
       python: 3.7
+      cache:
+        directories:
+        - $HOME/.cache/sccache
       addons:
         apt:
           sources:
@@ -86,6 +101,11 @@ matrix:
         - MATRIX_EVAL="CC=clang-7.0 && CXX=clang++-7.0"
         - TARGET="linux"
 
+      install:
+       - wget -nv https://github.com/mozilla/sccache/releases/download/0.2.13/sccache-0.2.13-x86_64-unknown-linux-musl.tar.gz
+       - tar xvzf sccache-0.2.13-x86_64-unknown-linux-musl.tar.gz
+       - sudo mv ./sccache-0.2.13-x86_64-unknown-linux-musl/sccache /usr/bin
+
       before_script:
         - cmake -GNinja -DCMAKE_BUILD_TYPE=Release -DENABLE_ANGELSCRIPT=OFF -DENABLE_MOFILEREADER=OFF .
 
@@ -95,16 +115,23 @@ matrix:
         - sh ./tools/CI/upload-CI-build.sh
         - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then doxygen Doxyfile; fi
 
+      before_cache:
+        - sccache --show-stats
+
+
     - os: osx
       name: XCode 11.3 Build
       osx_image: xcode11.3
       env: TARGET=macOS
       language: objective-c
       python: 3.7
+      cache:
+        directories:
+        - $HOME/Library/Caches/Mozilla.sccache
 
       install:
         - brew update
-        - brew install conan
+        - brew install conan sccache
 
       before_script:
         - cmake -DCMAKE_BUILD_TYPE=Release .
@@ -123,6 +150,7 @@ matrix:
 
       before_cache:
         - cmake -P ./cmake/pmm.cmake /Conan /Clean
+        - sccache --show-stats
 
 deploy:
   provider: pages
