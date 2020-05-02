@@ -411,8 +411,6 @@ SDL_Color Map::getColorOfPixelInSurface(SDL_Surface *surface, int x, int y) cons
 
 Point Map::findNodeInMap(const SDL_Point &screenCoordinates) const
 {
-  Point foundCoordinates{-1, -1, 0, 0};
-
   // calculate clicked column (x coordinate) without height taken into account.
   const Point calculatedIsoCoords = calculateIsoCoordinates(screenCoordinates);
   int isoX = calculatedIsoCoords.x;
@@ -428,34 +426,34 @@ Point Map::findNodeInMap(const SDL_Point &screenCoordinates) const
     isoY -= diff;
   }
 
-  // traverse a column from top to bottom (from the calculated coordinates) our calculated point is always higher than the clicked point
-  while (isoX <= Settings::instance().mapSize && isoY <= Settings::instance().mapSize && isoY >= 0)
+  // Transerse a column form from calculated coordinates to the bottom of the map.
+  // It is necessary to include 2 neighbor nodes from both sides.
+  // Try to find map node in Z order.
+  // Node with the highest Z order has highest X and lowest Y coordinate, so search will be conducted in that order.
+  const int neighborReach = 2;
+  const int mapSize = Settings::instance().mapSize;
+
+  // Max X will reach end of the map or Y will reach 0.
+  const int xMax = std::min(isoX + neighborReach + isoY, mapSize - 1);
+  // Min X will reach 0 or x -2 neighbor node.
+  const int xMin = std::max(isoX - neighborReach, 0);
+
+  for (int x = xMax; x >= xMin; --x)
   {
-    // include 2 columns on each side, since calculated values can be that far off
-    for (int i = 0; i <= 2; i++)
+    const int diff = x - isoX;
+    const int yMiddlePoint = isoY - diff;
+
+    // Move y up and down 2 neighbors.
+    for (int y = std::max(yMiddlePoint - neighborReach, 0); (y <= yMiddlePoint + neighborReach) && (y < mapSize); ++y)
     {
-      if (isClickWithinTile(screenCoordinates, isoX, isoY) &&
-          (foundCoordinates.z < mapNodes[isoX * m_columns + isoY]->getCoordinates().z))
+      if (isClickWithinTile(screenCoordinates, x, y))
       {
-        foundCoordinates = mapNodes[isoX * m_columns + isoY]->getCoordinates();
-      }
-      if (isClickWithinTile(screenCoordinates, isoX + i, isoY) &&
-          (foundCoordinates.z < mapNodes[(isoX + i) * m_columns + isoY]->getCoordinates().z))
-      {
-        foundCoordinates = mapNodes[(isoX + i) * m_columns + isoY]->getCoordinates();
-      }
-      if (isClickWithinTile(screenCoordinates, isoX, isoY - i) &&
-          (foundCoordinates.z < mapNodes[isoX * m_columns + (isoY - i)]->getCoordinates().z))
-      {
-        foundCoordinates = mapNodes[isoX * m_columns + (isoY - i)]->getCoordinates();
+        return mapNodes[x * m_columns + y]->getCoordinates();
       }
     }
-    // travel the column downwards.
-    isoX++;
-    isoY--;
   }
 
-  return foundCoordinates;
+  return Point{-1, -1, 0, 0};
 }
 
 void Map::demolishNode(const std::vector<Point> &isoCoordinates, bool updateNeighboringTiles, Layer layer)
