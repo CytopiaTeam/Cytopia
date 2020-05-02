@@ -19,7 +19,7 @@ matrix:
       compiler: gcc-8
       cache:
         directories:
-        - $HOME/.cache/sccache
+          - $HOME/.cache/sccache
       addons:
         sonarcloud:
           organization: "cytopia"
@@ -44,10 +44,13 @@ matrix:
             - libopenal-dev
 
       install:
-       - wget -nv https://github.com/mozilla/sccache/releases/download/0.2.13/sccache-0.2.13-x86_64-unknown-linux-musl.tar.gz
-       - tar xvzf sccache-0.2.13-x86_64-unknown-linux-musl.tar.gz
-       - sudo mv ./sccache-0.2.13-x86_64-unknown-linux-musl/sccache /usr/bin
-
+       - >
+        if [ "${TRAVIS_SECURE_ENV_VARS}" == "false" ]; then
+          wget -nv https://github.com/mozilla/sccache/releases/download/0.2.13/sccache-0.2.13-x86_64-unknown-linux-musl.tar.gz
+          tar xvzf sccache-0.2.13-x86_64-unknown-linux-musl.tar.gz
+          sudo mv ./sccache-0.2.13-x86_64-unknown-linux-musl/sccache /usr/bin
+        fi;
+        
       before_script:
         - cmake -DCMAKE_BUILD_TYPE=Debug -DENABLE_COVERAGE=ON -DUSE_PACKAGE_MANAGER=OFF -DENABLE_ANGELSCRIPT=OFF -DENABLE_MOFILEREADER=OFF .
 
@@ -79,7 +82,8 @@ matrix:
       python: 3.7
       cache:
         directories:
-        - $HOME/.cache/sccache
+          - $HOME/.cache/sccache
+          - $HOME/.conan/
       addons:
         apt:
           sources:
@@ -107,27 +111,30 @@ matrix:
        - sudo mv ./sccache-0.2.13-x86_64-unknown-linux-musl/sccache /usr/bin
 
       before_script:
-        - cmake -GNinja -DCMAKE_BUILD_TYPE=Release -DENABLE_ANGELSCRIPT=OFF -DENABLE_MOFILEREADER=OFF .
+        - cmake -GNinja -DCMAKE_BUILD_TYPE=Release .
 
       script:
         - ninja
         - xvfb-run -a ctest
         - sh ./tools/CI/upload-CI-build.sh
-        - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then doxygen Doxyfile; fi
+        - if [ "${TRAVIS_BRANCH}" = "master" ]; then doxygen Doxyfile; fi
 
       before_cache:
+        - cmake -P ./cmake/pmm.cmake /Conan /Clean
         - sccache --show-stats
-
 
     - os: osx
       name: XCode 11.3 Build
       osx_image: xcode11.3
-      env: TARGET=macOS
+      env: 
+        - TARGET=macOS
+        - CONAN_USER_HOME=/tmp/conan
       language: objective-c
       python: 3.7
       cache:
         directories:
-        - $HOME/Library/Caches/Mozilla.sccache
+          - $HOME/Library/Caches/Mozilla.sccache
+          - /tmp/conan
 
       install:
         - brew update
