@@ -11,15 +11,10 @@ Settings::Settings() { readFile(); }
 
 void Settings::readFile()
 {
-  std::string settingsFileName = SDL_GetBasePath();
-  settingsFileName += SETTINGS_FILE_NAME;
-  std::ifstream i(settingsFileName);
-
-  if (!i)
-    throw ConfigurationError(TRACE_INFO "Can't open file " + settingsFileName);
+  std::string jsonFile = FileSystem::readStringFromFile(SETTINGS_FILE_NAME);
+  const json _settingsJSONObject = json::parse(jsonFile, nullptr, false);
 
   // check if json file can be parsed
-  const json _settingsJSONObject = json::parse(i, nullptr, false);
   if (_settingsJSONObject.is_discarded())
     throw ConfigurationError(TRACE_INFO "Error parsing JSON File " + string{SETTINGS_FILE_NAME});
 

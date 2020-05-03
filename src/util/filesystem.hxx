@@ -13,4 +13,9 @@ namespace fs = std::experimental::filesystem;
 #pragma message("Warning: Your compiler does not support the filesystem library. Please report this incident to the Cytopia Team")
 #endif
 
+struct FileSystem
+{
+  static std::string readStringFromFile(const std::string &fileName);
+};
+
 #endif
