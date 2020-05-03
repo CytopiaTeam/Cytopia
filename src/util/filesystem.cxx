@@ -7,7 +7,7 @@
 
 std::string FileSystem::readFileAsString(const std::string &fileName, bool binaryMode)
 {
-#ifndef __ANDROID__
+#ifdef __ANDROID__
   // on Android, files cannot be accessed directly without Java. SDL implements that for us, so we use SDL RWOps until we implemented JNI File Access ourselves
   // binary mode is ignored for now, savegames can't be loaded
 
