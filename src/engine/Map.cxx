@@ -627,16 +627,7 @@ void Map::saveMapToFile(const std::string &fileName)
 
 Map *Map::loadMapFromFile(const std::string &fileName)
 {
-  std::stringstream buffer;
-  {
-    std::ifstream file(SDL_GetBasePath() + fileName, std::ios_base::in | std::ios_base::binary);
-    if (!file)
-      throw ConfigurationError(TRACE_INFO "Could not load savegame file " + fileName);
-    buffer << file.rdbuf();
-  }
-
-  std::string jsonAsString;
-  jsonAsString = decompressString(buffer.str());
+  std::string jsonAsString = decompressString(FileSystem::readFileAsBinary(fileName));
 
   if (jsonAsString.empty())
     return nullptr;

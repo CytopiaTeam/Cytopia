@@ -266,7 +266,7 @@ TileOrientation TileManager::calculateTileOrientation(unsigned char bitMaskEleva
 
 void TileManager::init()
 {
-  std::string jsonFile = FileSystem::readStringFromFile(Settings::instance().tileDataJSONFile.get());
+  std::string jsonFile = FileSystem::readFileAsString(Settings::instance().tileDataJSONFile.get());
   const json tileDataJSON = json::parse(jsonFile, nullptr, false);
 
   // check if json file can be parsed

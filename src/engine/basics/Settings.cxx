@@ -11,7 +11,7 @@ Settings::Settings() { readFile(); }
 
 void Settings::readFile()
 {
-  std::string jsonFile = FileSystem::readStringFromFile(SETTINGS_FILE_NAME);
+  std::string jsonFile = FileSystem::readFileAsString(SETTINGS_FILE_NAME);
   const json _settingsJSONObject = json::parse(jsonFile, nullptr, false);
 
   // check if json file can be parsed

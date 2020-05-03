@@ -16,7 +16,7 @@ using nlohmann::json;
 ResourceManager::ResourceManager(GameService::ServiceTuple &services) : GameService(services), m_Age(0), m_CacheSize(0)
 {
 #ifdef USE_AUDIO
-  std::string jsonFileContent = FileSystem::readStringFromFile(Settings::instance().audioConfigJSONFile.get());
+  std::string jsonFileContent = FileSystem::readFileAsString(Settings::instance().audioConfigJSONFile.get());
   json config_json = json::parse(jsonFileContent, nullptr, false);
 
   // check if json file can be parsed
