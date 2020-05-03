@@ -10,9 +10,13 @@ set(SOURCE_FILES
         util/Singleton.hxx
         util/Meta.hxx
         util/Exception.{hxx,cxx}
+        util/iShape.{hxx,cxx}
+        util/Rectangle.{hxx,cxx}
         util/Range.hxx
         util/Range.inl.hxx
+        util/Point2D.{hxx,cxx}
         events/UIEvents.hxx
+        events/MouseEvents.hxx
         GameService.{hxx,cxx}
         GameService.inl.hxx
         services/Randomizer.{hxx,cxx}
@@ -152,7 +156,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE ${_link_libraries})
 add_custom_target(
         copy_resources
         ALL
-        COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/data/resources/ $<TARGET_FILE_DIR:${PROJECT_NAME}>/resources/ 
+        COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/data/resources/ $<TARGET_FILE_DIR:${PROJECT_NAME}>/resources/
         COMMENT "Copy the resources to the compiled directory"
         VERBATIM
 )
