@@ -13,6 +13,7 @@ option(ENABLE_AUDIO "Enable Audio" ON)
 option(ENABLE_MICROPROFILE "Enable microprofile" OFF)
 option(ENABLE_ANGELSCRIPT "Enable AngelScript" ON)
 option(ENABLE_MOFILEREADER "Enable MofileReader" ON)
+option(ENABLE_DEBUG "Enable Debug (asserts and logs)" OFF)
 
 # Comment-out uneeded libs
 if (NOT ENABLE_AUDIO)
@@ -44,6 +45,11 @@ endif ()
 set(_include_directories "${CMAKE_CURRENT_SOURCE_DIR}/external/header_only")
 set(_compile_definitions "")
 set(_link_libraries "")
+
+if ( ENABLE_DEBUG OR CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo")
+  set(_CC_MOFILEREADER "# ")
+  list(APPEND _compile_definitions DEBUG)
+endif ()
 
 # create the cmake project
 project(
@@ -186,12 +192,6 @@ else (USE_PACKAGE_MANAGER)
     endif ()
 
 endif (USE_PACKAGE_MANAGER)
-
-if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-  add_compile_definitions(DEBUG)
-elseif(CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo")
-  add_compile_definitions(DEBUG)
-endif()
 
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
   link_libraries(dbghelp.lib)
