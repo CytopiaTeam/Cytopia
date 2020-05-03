@@ -29,15 +29,15 @@ ResourceManager::ResourceManager(GameService::ServiceTuple &services) : GameServ
 #ifdef USE_AUDIO
 void ResourceManager::fetch(SoundtrackID id)
 {
-  if(m_soundtracks.count(id) > 0)
+  if (m_soundtracks.count(id) > 0)
   {
     m_soundtracks[id].age = m_Age++;
     return;
   }
   string filepath;
   bool isMusic = false;
-  const AudioConfig::SoundtrackConfiguration * config;
-  if(m_audioConfig.Music.count(id.get()) > 0)
+  const AudioConfig::SoundtrackConfiguration *config;
+  if (m_audioConfig.Music.count(id.get()) > 0)
   {
     config = &m_audioConfig.Music.at(id.get());
     isMusic = true;
@@ -54,9 +54,10 @@ void ResourceManager::fetch(SoundtrackID id)
     throw AudioError(TRACE_INFO "Could not read sound file: " + string{Mix_GetError()});
   m_CacheSize += sizeof(Mix_Chunk) + sizeof(Soundtrack) + sizeof(SoundtrackResource) + chunk->alen;
   auto soundtrack = new Soundtrack{id, ChannelID{-1}, chunk, RepeatCount{0}, isMusic, false, true, true};
-  m_soundtracks[id] = SoundtrackResource{ SoundtrackUPtr{soundtrack}, m_Age++ };
+  m_soundtracks[id] = SoundtrackResource{SoundtrackUPtr{soundtrack}, m_Age++};
   LOG(LOG_INFO) << "Resource cache is now at " << (m_CacheSize / 1000000) << "MB";
-  if (m_CacheSize > MAX_RESOURCE_BYTES::value) prune();
+  if (m_CacheSize > MAX_RESOURCE_BYTES::value)
+    prune();
 }
 #endif // USE_AUDIO
 
@@ -69,15 +70,12 @@ void ResourceManager::prune()
   total_size /= 2;
   std::vector<uint32_t> all_ages;
   using AgeIt = AgeIterator<Mapping<SoundtrackID, SoundtrackResource>::iterator>;
-  all_ages.insert<AgeIt>(
-      all_ages.cend(),
-      AgeIterator{m_soundtracks.begin()}, 
-      AgeIterator{m_soundtracks.end()});
+  all_ages.insert<AgeIt>(all_ages.cend(), AgeIterator{m_soundtracks.begin()}, AgeIterator{m_soundtracks.end()});
   std::nth_element(all_ages.begin(), all_ages.begin() + total_size, all_ages.end());
   uint32_t median = all_ages[total_size];
-  for(auto it = m_soundtracks.begin(); it != m_soundtracks.end();)
+  for (auto it = m_soundtracks.begin(); it != m_soundtracks.end();)
   {
-    if(it->second.age < median and !it->second.resource->isPlaying) 
+    if (it->second.age < median and !it->second.resource->isPlaying)
     {
       int sizeBytes = 0;
       alGetBufferi(it->second.resource->buffer, AL_SIZE, &sizeBytes);
@@ -87,11 +85,10 @@ void ResourceManager::prune()
     else
     {
       it->second.age = 0;
-      it++; 
+      it++;
     }
   }
 #endif // USE_AUDIO
   m_Age = 0;
   LOG(LOG_INFO) << "After eviction, cache is " << (m_CacheSize / 1000000) << "MB";
 }
-

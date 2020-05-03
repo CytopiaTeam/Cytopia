@@ -20,9 +20,8 @@ using namespace std::filesystem;
 using namespace std::experimental::filesystem;
 #endif
 
-
 std::string getBasePath() noexcept;
 
-};
+}; // namespace fs
 
 #endif // FILESYSTEM_HXX_
