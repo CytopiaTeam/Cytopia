@@ -47,7 +47,6 @@ set(_compile_definitions "")
 set(_link_libraries "")
 
 if ( ENABLE_DEBUG OR CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo")
-  set(_CC_MOFILEREADER "# ")
   list(APPEND _compile_definitions DEBUG)
 endif ()
 
