@@ -3,6 +3,16 @@ cmake_minimum_required(VERSION 3.11 FATAL_ERROR)
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
+find_program(SCCACHE_PROGRAM sccache)
+find_program(CCACHE_PROGRAM ccache)
+if (SCCACHE_PROGRAM)
+    set(CMAKE_CXX_COMPILER_LAUNCHER "${SCCACHE_PROGRAM}")
+    message("Using ${SCCACHE_PROGRAM} for speeding up build")
+elseif (CCACHE_PROGRAM)
+    set(CMAKE_CXX_COMPILER_LAUNCHER "${CCACHE_PROGRAM}")
+    message("Using ${CCACHE_PROGRAM} for speeding up build")
+endif ()
+
 include(CMakeDependentOption)
 include(SourceFileUtils)
 include(FetchContent)
@@ -14,6 +24,7 @@ option(ENABLE_MICROPROFILE "Enable microprofile" OFF)
 option(ENABLE_ANGELSCRIPT "Enable AngelScript" ON)
 option(ENABLE_MOFILEREADER "Enable MofileReader" ON)
 option(ENABLE_VULKAN "Enable Vulkan" OFF)
+option(ENABLE_DEBUG "Enable Debug (asserts and logs)" OFF)
 
 # Comment-out uneeded libs
 if (NOT ENABLE_AUDIO)
@@ -47,6 +58,10 @@ set(_include_directories "${CMAKE_CURRENT_SOURCE_DIR}/external/header_only")
 set(_compile_definitions "")
 set(_link_libraries "")
 
+if ( ENABLE_DEBUG OR CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo")
+  list(APPEND _compile_definitions DEBUG)
+endif ()
+
 # create the cmake project
 project(
         # this will be the ${PROJECT_NAME}
@@ -77,7 +92,6 @@ if (USE_PACKAGE_MANAGER)
     pmm(CONAN
             REMOTES
             AFG https://api.bintray.com/conan/anotherfoxguy/conan-packages
-            catchorg https://api.bintray.com/conan/catchorg/Catch2
             ror-dependencies https://api.bintray.com/conan/anotherfoxguy/ror-dependencies
             cytopia https://api.bintray.com/conan/cytopia/conan-packages
             BINCRAFTERS
@@ -202,12 +216,6 @@ else (USE_PACKAGE_MANAGER)
     endif ()
 
 endif (USE_PACKAGE_MANAGER)
-
-if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-  add_compile_definitions(DEBUG)
-elseif(CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo")
-  add_compile_definitions(DEBUG)
-endif()
 
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
   link_libraries(dbghelp.lib)
