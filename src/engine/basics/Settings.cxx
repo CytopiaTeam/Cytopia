@@ -29,14 +29,5 @@ void Settings::readFile()
 void Settings::writeFile()
 {
   const json settingsJsonObject = *this;
-
-  std::string settingsFileName = SDL_GetBasePath();
-  settingsFileName += SETTINGS_FILE_NAME;
-  std::ofstream settingsFile(settingsFileName);
-
-  if (!settingsFile)
-    throw ConfigurationError(TRACE_INFO "Could not write to file " + settingsFileName);
-
-  settingsFile << std::setw(4) << settingsJsonObject << std::endl;
-  settingsFile.close();
+  FileSystem::writeStringToFile(SETTINGS_FILE_NAME, settingsJsonObject.dump());
 }

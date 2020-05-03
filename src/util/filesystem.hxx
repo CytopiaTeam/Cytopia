@@ -15,9 +15,9 @@ namespace fs = std::experimental::filesystem;
 
 struct FileSystem
 {
-  static std::string readFileAsString(const std::string &fileName);
-  static std::string readFileAsBinary(const std::string &fileName);
-  static void writeStringToFile(const std::string &fileName, const std::string &stringToWrite);
+  static std::string readFileAsString(const std::string &fileName, bool binaryMode = false);
+  static void writeStringToFile(const std::string &fileName, const std::string &stringToWrite, bool binaryMode = false);
+  static void writeBinaryToFile(const std::string &fileName, const std::string &stringToWrite);
 };
 
 #endif

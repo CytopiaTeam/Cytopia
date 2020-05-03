@@ -5,12 +5,21 @@
 
 #include <SDL.h>
 
-std::string FileSystem::readFileAsString(const std::string &fileName)
+std::string FileSystem::readFileAsString(const std::string &fileName, bool binaryMode)
 {
-  std::ifstream stream(SDL_GetBasePath() + fileName);
+  std::ios::openmode mode;
+  if (binaryMode)
+    mode = std::ios_base::in | std::ios_base::binary;
+  else
+  {
+    mode = std::ios_base::in;
+  }
+
+  std::ifstream stream(SDL_GetBasePath() + fileName, mode);
 
   if (!stream)
   {
+    LOG(LOG_INFO) << "Open file " << fileName;
     throw ConfigurationError(TRACE_INFO "Can't open file " + fileName);
   }
 
@@ -21,23 +30,25 @@ std::string FileSystem::readFileAsString(const std::string &fileName)
   return buffer.str();
 }
 
-std::string FileSystem::readFileAsBinary(const std::string &fileName)
+void FileSystem::writeStringToFile(const std::string &fileName, const std::string &stringToWrite, bool binaryMode)
 {
-  std::ifstream stream(SDL_GetBasePath() + fileName, std::ios_base::in | std::ios_base::binary);
+  std::ios::openmode mode;
+  if (binaryMode)
+  {
+    mode = std::ios_base::out | std::ios_base::binary;
+  }
+  else
+  {
+    mode = std::ios_base::out;
+  }
+
+  std::ofstream stream(SDL_GetBasePath() + fileName, mode);
 
   if (!stream)
   {
-    throw ConfigurationError(TRACE_INFO "Can't open file " + fileName);
+    throw ConfigurationError(TRACE_INFO "Could not write to file " + SDL_GetBasePath() + fileName);
   }
 
-  std::stringstream buffer;
-  buffer << stream.rdbuf();
+  stream << stringToWrite << std::endl;
   stream.close();
-
-  return buffer.str();
-}
-
-void FileSystem::writeStringToFile(const std::string &fileName, const std::string &stringToWrite)
-{
-  // not implemented yet
 }
