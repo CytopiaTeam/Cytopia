@@ -52,3 +52,17 @@ void FileSystem::writeStringToFile(const std::string &fileName, const std::strin
   stream << stringToWrite << std::endl;
   stream.close();
 }
+
+fs::directory_iterator FileSystem::getDirectoryListing(const std::string &directory)
+{
+  std::string pathToSaveFiles = SDL_GetBasePath();
+  pathToSaveFiles.append(directory);
+  return fs::directory_iterator(std::filesystem::path(pathToSaveFiles));
+}
+
+std::vector<fs::path> FileSystem::getSaveGamePaths()
+{
+  std::vector<fs::path> saveGames;
+  forEachFileType("resources", ".cts", [&saveGames](const auto &path) { saveGames.emplace_back(path); });
+  return saveGames;
+}
