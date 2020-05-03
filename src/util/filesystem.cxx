@@ -100,3 +100,5 @@ std::vector<fs::path> FileSystem::getSaveGamePaths()
   forEachFileType("resources", ".cts", [&saveGames](const auto &path) { saveGames.emplace_back(path); });
   return saveGames;
 }
+
+bool FileSystem::fileExists(const std::string &filePath) { return fs::exists(fs::path(filePath)); }

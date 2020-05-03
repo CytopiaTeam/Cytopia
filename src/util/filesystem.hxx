@@ -38,6 +38,8 @@ struct FileSystem
    * @returns a std::vector containing paths with all savegames
    */
   static std::vector<fs::path> getSaveGamePaths();
+
+  static bool fileExists(const std::string &filePath);
 };
 
 template <typename Callback> void forEachFileType(fs::path &&path, std::string &&extension, Callback callback)
