@@ -426,6 +426,9 @@ Point Map::findNodeInMap(const SDL_Point &screenCoordinates) const
     isoY -= diff;
   }
 
+#ifdef DEBUG
+  int zOrder = INT_MAX;
+#endif
   // Transerse a column form from calculated coordinates to the bottom of the map.
   // It is necessary to include 2 neighbor nodes from both sides.
   // Try to find map node in Z order.
@@ -446,6 +449,11 @@ Point Map::findNodeInMap(const SDL_Point &screenCoordinates) const
     // Move y up and down 2 neighbors.
     for (int y = std::max(yMiddlePoint - neighborReach, 0); (y <= yMiddlePoint + neighborReach) && (y < mapSize); ++y)
     {
+#ifdef DEBUG
+      // Assert asumption that we test all nodes in correct Z order
+      assert(zOrder > mapNodes[x * m_columns + y]->getCoordinates().z);
+      zOrder = mapNodes[x * m_columns + y]->getCoordinates().z;
+#endif
       if (isClickWithinTile(screenCoordinates, x, y))
       {
         return mapNodes[x * m_columns + y]->getCoordinates();
