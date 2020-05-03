@@ -9,7 +9,7 @@ class SDL_Rect;
 
 /**
  * @class       Rectangle
- * @brief       Represents an inclusive rectangle 
+ * @brief       Represents an inclusive rectangle
  * @details     All negative points are reserved
  *              for special values
  * @example     tests/util/Rectangle.cxx
@@ -97,13 +97,13 @@ public:
 
   /**
    * @brief     Intersects with another rectangle
-   * @post      Becomes EMPTY if the intersection is empty 
+   * @post      Becomes EMPTY if the intersection is empty
    *            or the other Rectangle is empty
    */
   void intersect(const Rectangle &) noexcept;
 
   /**
-   * @brief     Scales by Factor 
+   * @brief     Scales by Factor
    *            around the center of the Rectangle
    * @tparam    Factor the Factor type
    * @post      Becomes EMPTY if the Factor is very
