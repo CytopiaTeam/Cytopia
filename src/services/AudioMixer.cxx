@@ -192,7 +192,7 @@ void AudioMixer::handleEvent(const AudioTrigger3DEvent &&event)
   SoundtrackID &trackID = *GetService<Randomizer>().choose(possibilities.begin(), possibilities.end());
   SoundtrackUPtr &track = GetService<ResourceManager>().get(trackID);
 
-  /* set position of source in track 
+  /* set position of source in track
    * converted to regular cartesian coordinate system */
   alSource3f(track->source, AL_POSITION, static_cast<ALfloat>(event.position.x), static_cast<ALfloat>(event.position.y),
              static_cast<ALfloat>(event.position.z));
