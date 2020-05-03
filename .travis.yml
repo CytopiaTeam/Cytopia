@@ -99,6 +99,14 @@ matrix:
             - doxygen
             - graphviz
             - clang-7
+            - libasound2-dev
+            - libjack-dev
+            - libx11-dev
+            - libxext-dev
+            - libxxf86vm-dev
+            - libxss-dev
+            - libaudio-dev
+            - libpulse-dev
             - libc++-7-dev # C++17 support in libstd++
       env:
         - DEPLOY_DOCUMENTATION=true
