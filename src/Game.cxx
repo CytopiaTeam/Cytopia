@@ -79,7 +79,7 @@ bool Game::initialize()
   WindowManager::instance().setWindowTitle(VERSION);
 
 #ifdef USE_MOFILEREADER
-  std::string moFilePath = SDL_GetBasePath();
+  std::string moFilePath = fs::getBasePath();
   moFilePath = moFilePath + "languages/" + Settings::instance().gameLanguage + "/Cytopia.mo";
 
   if (moFileLib::moFileReaderSingleton::GetInstance().ReadFile(moFilePath.c_str()) == moFileLib::moFileReader::EC_SUCCESS)

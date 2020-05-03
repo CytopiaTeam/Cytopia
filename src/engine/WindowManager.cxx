@@ -18,7 +18,7 @@ WindowManager::WindowManager()
   if (!m_renderer)
     throw UIError(TRACE_INFO "Failed to create Renderer: " + string{SDL_GetError()});
 
-  string iconFName = SDL_GetBasePath() + m_windowIcon;
+  string iconFName = fs::getBasePath() + m_windowIcon;
   SDL_Surface *icon = IMG_Load(iconFName.c_str());
 
   if (!icon)

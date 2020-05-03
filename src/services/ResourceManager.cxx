@@ -16,7 +16,7 @@ using nlohmann::json;
 ResourceManager::ResourceManager(GameService::ServiceTuple &services) : GameService(services), m_Age(0), m_CacheSize(0)
 {
 #ifdef USE_AUDIO
-  string fName = SDL_GetBasePath() + Settings::instance().audioConfigJSONFile.get();
+  string fName = fs::getBasePath() + Settings::instance().audioConfigJSONFile.get();
   ifstream ifs(fName);
   if (!ifs)
     throw ConfigurationError(TRACE_INFO "Couldn't open file " + fName);
@@ -45,9 +45,9 @@ void ResourceManager::fetch(SoundtrackID id)
   else if (m_audioConfig.Sound.count(id.get()) > 0)
     config = &m_audioConfig.Sound.at(id.get());
   if (Settings::instance().audio3DStatus)
-    filepath = SDL_GetBasePath() + config->monoFilePath;
+    filepath = fs::getBasePath() + config->monoFilePath;
   else
-    filepath = SDL_GetBasePath() + config->stereoFilePath;
+    filepath = fs::getBasePath() + config->stereoFilePath;
   LOG(LOG_INFO) << "Fetching " << id.get() << " at " << filepath;
   Mix_Chunk *chunk = Mix_LoadWAV(filepath.c_str());
   if (!chunk)

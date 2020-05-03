@@ -12,6 +12,7 @@
 #include <cassert>
 #include <string>
 #include <SDL.h>
+#include "filesystem.hxx"
 
 void print(const std::string &str) { printf("%s", str.c_str()); }
 
@@ -52,7 +53,7 @@ void ScriptEngine::init()
     return;
   }
 
-  std::string filePath = SDL_GetBasePath();
+  std::string filePath = fs::getBasePath();
   filePath = filePath + "resources/test.as";
   r = builder.AddSectionFromFile(filePath.c_str());
   if (r < 0)

@@ -614,11 +614,11 @@ void Map::saveMapToFile(const std::string &fileName)
   const json j =
       json{{"Savegame version", SAVEGAME_VERSION}, {"columns", this->m_columns}, {"rows", this->m_rows}, {"mapNode", mapNodes}};
 
-  std::ofstream file(SDL_GetBasePath() + fileName, std::ios_base::out | std::ios_base::binary);
+  std::ofstream file(fs::getBasePath() + fileName, std::ios_base::out | std::ios_base::binary);
 
 #ifdef DEBUG
   // Write uncompressed savegame for easier debugging
-  std::ofstream fileuncompressed(SDL_GetBasePath() + fileName + "_UNCOMPRESSED", std::ios_base::out | std::ios_base::binary);
+  std::ofstream fileuncompressed(fs::getBasePath() + fileName + "_UNCOMPRESSED", std::ios_base::out | std::ios_base::binary);
   fileuncompressed << j.dump();
 #endif
 
@@ -635,7 +635,7 @@ Map *Map::loadMapFromFile(const std::string &fileName)
 {
   std::stringstream buffer;
   {
-    std::ifstream file(SDL_GetBasePath() + fileName, std::ios_base::in | std::ios_base::binary);
+    std::ifstream file(fs::getBasePath() + fileName, std::ios_base::in | std::ios_base::binary);
     if (!file)
       throw ConfigurationError(TRACE_INFO "Could not load savegame file " + fileName);
     buffer << file.rdbuf();

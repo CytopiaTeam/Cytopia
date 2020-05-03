@@ -266,7 +266,7 @@ TileOrientation TileManager::calculateTileOrientation(unsigned char bitMaskEleva
 void TileManager::init()
 {
   // Read JSON File.
-  std::ifstream i(SDL_GetBasePath() + Settings::instance().tileDataJSONFile.get());
+  std::ifstream i(fs::getBasePath() + Settings::instance().tileDataJSONFile.get());
   if (!i)
     throw ConfigurationError(TRACE_INFO "Can't open file " + Settings::instance().tileDataJSONFile.get());
 

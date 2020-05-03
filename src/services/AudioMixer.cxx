@@ -19,7 +19,7 @@ std::function<void(int)> AudioMixer::onTrackFinishedFunc;
 
 AudioMixer::AudioMixer(GameService::ServiceTuple &context) : GameService(context)
 {
-  string fName = SDL_GetBasePath() + Settings::instance().audioConfigJSONFile.get();
+  string fName = fs::getBasePath() + Settings::instance().audioConfigJSONFile.get();
   ifstream ifs(fName);
   if (!ifs)
     throw ConfigurationError(TRACE_INFO "Couldn't open file " + fName);

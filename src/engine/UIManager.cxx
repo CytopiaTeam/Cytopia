@@ -30,7 +30,7 @@ void UIManager::init()
 {
   json uiLayout;
 
-  std::ifstream i(SDL_GetBasePath() + Settings::instance().uiLayoutJSONFile.get());
+  std::ifstream i(fs::getBasePath() + Settings::instance().uiLayoutJSONFile.get());
 
   if (!i)
     throw ConfigurationError(TRACE_INFO "Could not open UI config file " + Settings::instance().uiLayoutJSONFile.get());

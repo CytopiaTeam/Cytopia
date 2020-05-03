@@ -11,7 +11,7 @@ Settings::Settings() { readFile(); }
 
 void Settings::readFile()
 {
-  std::string settingsFileName = SDL_GetBasePath();
+  std::string settingsFileName = fs::getBasePath();
   settingsFileName += SETTINGS_FILE_NAME;
   std::ifstream i(settingsFileName);
 
@@ -35,7 +35,7 @@ void Settings::writeFile()
 {
   const json settingsJsonObject = *this;
 
-  std::string settingsFileName = SDL_GetBasePath();
+  std::string settingsFileName = fs::getBasePath();
   settingsFileName += SETTINGS_FILE_NAME;
   std::ofstream settingsFile(settingsFileName);
 

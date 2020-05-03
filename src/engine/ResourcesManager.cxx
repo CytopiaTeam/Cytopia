@@ -24,7 +24,7 @@ void ResourcesManager::loadTexture(const std::string &id, const std::string &fil
 
 void ResourcesManager::loadUITexture()
 {
-  string fName = SDL_GetBasePath() + Settings::instance().uiDataJSONFile.get();
+  string fName = fs::getBasePath() + Settings::instance().uiDataJSONFile.get();
   std::ifstream i(fName);
   if (!i)
     throw ConfigurationError(TRACE_INFO "Couldn't open file " + fName);
@@ -93,7 +93,7 @@ SDL_Surface *ResourcesManager::getTileSurface(const std::string &id)
 
 SDL_Surface *ResourcesManager::createSurfaceFromFile(const std::string &fileName)
 {
-  string fName = SDL_GetBasePath() + fileName;
+  string fName = fs::getBasePath() + fileName;
   SDL_Surface *surface = IMG_Load(fName.c_str());
 
   if (surface)

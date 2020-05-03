@@ -150,7 +150,7 @@ void TerrainGenerator::generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNode
 
 void TerrainGenerator::loadTerrainDataFromJSON()
 {
-  std::string terrainGenDataFileName = SDL_GetBasePath();
+  std::string terrainGenDataFileName = fs::getBasePath();
   terrainGenDataFileName.append(TERRAINGEN_DATA_FILE_NAME);
   std::ifstream i(terrainGenDataFileName);
 
