@@ -4,17 +4,13 @@ pull_requests:
 image: Visual Studio 2019
 configuration: Release
 clone_depth: 10
-cache:
-  - C:/Users/appveyor/.conan/
-  - C:/sccache
+cache: C:/Users/appveyor/.conan/
 environment:
   BUTLER_API_KEY:
     secure: PbT7/2muaC99K24vd6d+DMQETnal230eqmdPtw4tn+zqhwkKpSRIJgjRmJPxphBF
-  SCCACHE_DIR: C:\sccache
-  SCCACHE_CACHE_SIZE: 500M
 install:
   - cmd: >-
-      choco install ninja sccache -y
+      choco install ninja -y
 
       choco install conan -y -s="https://api.bintray.com/nuget/anotherfoxguy/choco-pkg"
 
@@ -41,7 +37,4 @@ deploy_script:
       7z x languages.zip -Oredist;
       butler push redist cytopia/cytopia:windows-ci --userversion $env:APPVEYOR_BUILD_VERSION;}
 on_success:
-  - cmd: >-
-      pmm-cli.bat /Conan /Clean
-
-      sccache -s
+  - cmd: cmake -P cmake/pmm.cmake /Conan /Clean
