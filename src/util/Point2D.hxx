@@ -18,11 +18,11 @@ struct Point2D
 
 bool operator==(const Point2D &, const Point2D &);
 bool operator!=(const Point2D &, const Point2D &);
-std::ostream & operator<<(std::ostream &, const Point2D &);
+std::ostream &operator<<(std::ostream &, const Point2D &);
 
-template<> struct std::hash<Point2D>
+template <> struct std::hash<Point2D>
 {
-  std::size_t operator()(const Point2D & p) const noexcept;
+  std::size_t operator()(const Point2D &p) const noexcept;
 };
 
 /**
@@ -41,12 +41,11 @@ struct SpatialBlock
 
 bool operator==(const SpatialBlock &, const SpatialBlock &);
 bool operator!=(const SpatialBlock &, const SpatialBlock &);
-std::ostream & operator<<(std::ostream &, const SpatialBlock &);
+std::ostream &operator<<(std::ostream &, const SpatialBlock &);
 
-template <>
-struct std::hash<SpatialBlock>
+template <> struct std::hash<SpatialBlock>
 {
-  std::size_t operator()(const SpatialBlock & b) const noexcept;
+  std::size_t operator()(const SpatialBlock &b) const noexcept;
 };
 
 #endif // POINT_2D_HXX_

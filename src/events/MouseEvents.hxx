@@ -28,14 +28,14 @@ struct ClickEvent
    */
   enum MouseButtonID : uint8_t
   {
-    Left =      1 << 0,
-    Right =     1 << 1,
-    Middle =    1 << 2
+    Left = 1 << 0,
+    Right = 1 << 1,
+    Middle = 1 << 2
   };
   enum MouseButtonState : uint8_t
   {
-    Pressed =   1 << 3,
-    Released =  1 << 4
+    Pressed = 1 << 3,
+    Released = 1 << 4
   };
   uint8_t state;
 };
@@ -49,10 +49,6 @@ struct ScrollEvent
   int32_t yDisplacement;
 };
 
-using MouseEvents = TypeList<
-  MousePositionEvent,
-  ClickEvent,
-  ScrollEvent
->;
+using MouseEvents = TypeList<MousePositionEvent, ClickEvent, ScrollEvent>;
 
 #endif // MOUSE_EVENTS_HXX
