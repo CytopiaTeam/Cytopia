@@ -2,6 +2,7 @@
 #include <catch2/catch.hpp>
 #include "Point2D.hxx"
 #include "LOG.hxx"
+#include <SDL2/SDL.h>
 
 TEST_CASE("I can create Rectangles", "[util]")
 {
@@ -14,6 +15,14 @@ TEST_CASE("I can create Rectangles", "[util]")
   REQUIRE(r3 == r4); REQUIRE(r4 == r3);
   REQUIRE(r4 == r1); REQUIRE(r1 == r4);
   REQUIRE(Rectangle::EMPTY() == Rectangle::EMPTY());
+  REQUIRE_NOTHROW(LOG(LOG_INFO) << r1);
+  REQUIRE_NOTHROW(LOG(LOG_INFO) << Rectangle::EMPTY());
+  SDL_Rect sdl_rect;
+  REQUIRE_NOTHROW(sdl_rect = r1.to_SDL());
+  REQUIRE(sdl_rect.x == r1.x1());
+  REQUIRE(sdl_rect.y == r1.y1());
+  REQUIRE(sdl_rect.w == r1.width());
+  REQUIRE(sdl_rect.h == r1.height());
 }
 
 TEST_CASE("I can test if Rectangles contain a Point", "[util]")
@@ -155,4 +164,9 @@ TEST_CASE("I can translate a Rectangle", "[util]")
   REQUIRE(r == Rectangle { 0, 100, 0, 100 });
   r.translateY(-100);
   REQUIRE(r == Rectangle { 0, 0, 0, 0 });
+  r = Rectangle::EMPTY();
+  r.translateX(100);
+  REQUIRE(r.isEmpty());
+  r.translateY(100);
+  REQUIRE(r.isEmpty());
 }

@@ -28,14 +28,14 @@ struct ClickEvent
    */
   enum MouseButtonID : uint8_t
   {
-    Left =      1 << 1,
-    Right =     1 << 2,
-    Middle =    1 << 3
+    Left =      1 << 0,
+    Right =     1 << 1,
+    Middle =    1 << 2
   };
   enum MouseButtonState : uint8_t
   {
-    Pressed =   1 << 4,
-    Released =  1 << 5
+    Pressed =   1 << 3,
+    Released =  1 << 4
   };
   uint8_t state;
 };

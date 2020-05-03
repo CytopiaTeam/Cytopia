@@ -20,7 +20,7 @@ Rectangle Rectangle::getBounds() const noexcept
 
 SDL_Rect Rectangle::to_SDL() const noexcept
 {
-  return SDL_Rect{m_x1, m_y1, m_x2 - m_x1, m_y2 - m_y1};
+  return SDL_Rect{m_x1, m_y1, width(), height()};
 }
 
 int Rectangle::width() const noexcept

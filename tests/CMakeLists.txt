@@ -12,6 +12,9 @@ list(APPEND _include_directories
         ${CMAKE_SOURCE_DIR}/src/engine/ui/widgets
         ${CMAKE_SOURCE_DIR}/src/engine/ui/menuGroups
         ${CMAKE_SOURCE_DIR}/src/util
+        ${CMAKE_SOURCE_DIR}/src/events
+        ${CMAKE_SOURCE_DIR}/src/layout
+        ${CMAKE_SOURCE_DIR}/src/services
         )
 
 if (NOT USE_PACKAGE_MANAGER)
