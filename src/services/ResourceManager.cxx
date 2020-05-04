@@ -3,8 +3,27 @@
 #ifdef USE_OPENAL_SOFT
 #include "AL/al.h"
 #include "AL/alc.h"
+
 #include "ogg/ogg.h"
+#include "vorbis/codec.h"
+#include "vorbis/vorbisfile.h"
+#include "vorbis/vorbisenc.h"
+
+
+#include <cstdio>
+#include <cstdlib>
+#include <cmath>
+
+//windows vorbisfile audio decoding, 
+//need to declare these libraries so that we can set stdin/stdout to binary
+//for audio decoding on windows
+#ifdef _WIN32
+#include <io.h>
+#include <fcntl.h>
 #endif
+
+#endif
+
 #include "../util/Exception.hxx"
 #include "../util/LOG.hxx"
 
@@ -29,51 +48,90 @@ ResourceManager::ResourceManager(GameService::ServiceTuple &services) : GameServ
 }
 
 
-
-static void LoadAudioWithOgg(std::string path)
+//#ifdef USE_OPENAL_SOFT
+int LoadAudioWithOggVorbis(std::string path, DecodedAudioData& dAudioBuffer)
 {
+  //0 means success
+  //-1 means failure
   
+  OggVorbis_File vf;
+  bool eof = false;
+  int current_section;
+  
+  //small buffer to store small quantities of data
+  char pcmout[4096];
+
+#ifdef _WIN32
+  _setmode( _fileno( stdin ), _O_BINARY );
+  _setmode( _fileno( stdout ), _O_BINARY );
+#endif
+
+  //open file
   ifstream file(path,  std::ifstream::in |  std::ifstream::binary);
   
-  //find the first page of data
-  
-  ogg_sync_state state; // keep track of search for the page data
-  int ret = ogg_sync_init(&state); 
-  assert(ret==0);
-  
-  // Read pages and load data into buffer
-  
-  ogg_page page;
-  
-  //take any data current stored in the ogg_sync_state object and store it in the ogg_page
-  while(ogg_sync_pageout(&state, &page) != 1) 
+  //check if file is an vorbis ogg file
+  if(ov_fopen(path.c_str(),&vf) < 0) 
   {
-	//expose buffer with ogg_sync_buffer
-    char* buffer = ogg_sync_buffer(&state, 4096);
-    assert(buffer);
-	
-	//reading data from the file into buffer
-    file.read(buffer, 4096);
-    
-    //tell libogg how many bytes of data we copied into the buffer
-    //called to advance the fill pointer by however much data was actually available
-    int ret = ogg_sync_wrote(&state, 4096);
-    assert(ret == 0);
-    
+      fprintf(stderr,"Input does not appear to be an Ogg bitstream.\n");
+      return -1;
+  }
+
+  {
+    char **ptr=ov_comment(&vf,-1)->user_comments;
+    vorbis_info *vi=ov_info(&vf,-1);
+    while(*ptr){
+      fprintf(stderr,"%s\n",*ptr);
+      ++ptr;
+    }
+    fprintf(stderr,"\nBitstream is %d channel, %ldHz\n",vi->channels,vi->rate);
+    fprintf(stderr,"Encoded by: %s\n\n",ov_comment(&vf,-1)->vendor);
   }
   
-  ogg_stream_state stream_state; 
+  //readwhile end of file has not been reached yet
+  while(!eof)
+  {
+	
+	//read content from file
+    long ret = ov_read(&vf,pcmout,sizeof(pcmout),0,2,1,&current_section);
+    
+    //if there is no more content
+    if (ret == 0) 
+    {
+      /* EOF */
+      eof = true;
+    } 
+    //if there is an error
+    else if (ret < 0) 
+    {
+      /* error in the stream.*/
+      return -1;
+    }
+    //else if no error
+    else
+    {
+		uint16_t vals[4096];
+		
+		//convert from char to uint and push into buffer
+		
+		for(size_t i=0; i < 4096; i++)
+		{
+			vals[i] = (uint16_t)pcmout[i];
+			dAudioBuffer.data_vec.push_back(vals[i]);
+		}
+	}
+  }
   
-  //add a complete page to the bitstream
-  ret = ogg_stream_pagein(&stream_state, &page);
-  assert(ret==0);
+  //clear data
+  ov_clear(&vf);
   
-  //get packet from bitstream
-  ogg_packet packet;
-  ret = ogg_stream_packetout(&stream_state, &packet);
-  assert(ret==1);
-  
+  //set number of bytes in buffer
+  dAudioBuffer.nBytes = dAudioBuffer.data_vec.size() * sizeof(uint16_t);
+      
+  LOG(LOG_DEBUG) << "Load Successful!\n";
+  return 0;
 }
+
+//#endif
 
 #ifdef USE_AUDIO
 void ResourceManager::fetch(SoundtrackID id)
@@ -99,11 +157,16 @@ void ResourceManager::fetch(SoundtrackID id)
     filepath = SDL_GetBasePath() + config->stereoFilePath;
   LOG(LOG_INFO) << "Fetching " << id.get() << " at " << filepath;
   //Mix_Chunk *chunk = Mix_LoadWAV(filepath.c_str());
-  
-  if (!chunk)
+  DecodedAudioData dataBuffer;
+  if( LoadAudioWithOggVorbis(filepath.c_str(),dataBuffer) == -1)
+  {
+	  throw AudioError(TRACE_INFO "Failed to read sound file with libogg.\n ");
+  }
+   
+  if (dataBuffer.data_vec.size() == 0)
     throw AudioError(TRACE_INFO "Could not read sound file: " + string{Mix_GetError()});
-  m_CacheSize += sizeof(Mix_Chunk) + sizeof(Soundtrack) + sizeof(SoundtrackResource) + chunk->alen;
-  auto soundtrack = new Soundtrack{id, ChannelID{-1}, chunk, RepeatCount{0}, isMusic, false, true, true};
+  m_CacheSize += sizeof(dataBuffer) + sizeof(Soundtrack) + sizeof(SoundtrackResource) + dataBuffer.nBytes;
+  auto soundtrack = new Soundtrack{id, ChannelID{-1}, &dataBuffer, RepeatCount{0}, isMusic, false, true, true};
   m_soundtracks[id] = SoundtrackResource{ SoundtrackUPtr{soundtrack}, m_Age++ };
   LOG(LOG_INFO) << "Resource cache is now at " << (m_CacheSize / 1000000) << "MB";
   if (m_CacheSize > MAX_RESOURCE_BYTES::value) prune();

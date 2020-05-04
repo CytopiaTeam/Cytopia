@@ -2,9 +2,9 @@
 #include "../util/Exception.hxx"
 #include "../util/LOG.hxx"
 #include "../basics/Settings.hxx"
-#include ""
 
-Soundtrack::Soundtrack(SoundtrackID id, ChannelID channelID, Mix_Chunk *chunks, RepeatCount repeat, bool isMusic, bool isPlaying, bool isPlayable, bool isTriggerable)
+
+Soundtrack::Soundtrack(SoundtrackID id, ChannelID channelID, DecodedAudioData *dAudioData, RepeatCount repeat, bool isMusic, bool isPlaying, bool isPlayable, bool isTriggerable)
     : 
 	ID(id), 
 	Channel(channelID),
@@ -16,7 +16,7 @@ Soundtrack::Soundtrack(SoundtrackID id, ChannelID channelID, Mix_Chunk *chunks, 
 #ifdef USE_OPENAL_SOFT
       source(0), buffer(0)
 #else  // USE_OPENAL_SOFT
-      Chunks(chunks)
+      dAudioDataBuffer(dAudioData)
 #endif // USE_OPENAL_SOFT
 {
   /* initialize buffer */
@@ -28,11 +28,17 @@ Soundtrack::Soundtrack(SoundtrackID id, ChannelID channelID, Mix_Chunk *chunks, 
   /* set buffer data */
   ALenum format = Settings::instance().audio3DStatus ? AL_FORMAT_MONO16 : AL_FORMAT_STEREO16;
   /* parameters: buffer, format, data, sample length, frequency(sample rate) */
-  alBufferData(buffer, format, chunks->abuf, chunks->alen,
-               44100);
+  //alBufferData(buffer, format, chunks->abuf, chunks->alen,
+  //             44100);
+  
+  alBufferData(buffer, format, &dAudioData->data_vec.front(), dAudioData->nBytes,44100);
+  
+  errorCode = alGetError();
+  if (errorCode != AL_NO_ERROR)
+    throw AudioError(TRACE_INFO "Failed to load audio data into buffer: Error " + std::to_string(errorCode));
 
   /* delete chunks */
-  Mix_FreeChunk(chunks);
+  //Mix_FreeChunk(chunks);
 
   /* initialize source */
   alGenSources(1, &source);
@@ -46,10 +52,6 @@ Soundtrack::Soundtrack(SoundtrackID id, ChannelID channelID, Mix_Chunk *chunks, 
 
 }
 
-static void LoadBufferWithAudio()
-{
-	
-}
 
 Soundtrack::~Soundtrack()
 {

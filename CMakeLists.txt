@@ -139,6 +139,9 @@ else (USE_PACKAGE_MANAGER)
     if (ENABLE_AUDIO)
         pkg_check_modules(openal REQUIRED openal)
         pkg_check_modules(ogg REQUIRED ogg)
+        pkg_check_modules(vorbis REQUIRED vorbis)
+        pkg_check_modules(vorbis REQUIRED vorbisfile)
+        
     endif ()
 
     find_package(LIBNOISE REQUIRED)
@@ -171,6 +174,8 @@ else (USE_PACKAGE_MANAGER)
 
     if (ENABLE_AUDIO)
         list(APPEND _link_libraries ${SDL2_mixer_LIBRARIES})
+        list(APPEND _link_libraries ${ogg_LIBRARIES})
+        list(APPEND _link_libraries ${vorbis_LIBRARIES})
     endif ()
     
     if (ENABLE_AUDIO)

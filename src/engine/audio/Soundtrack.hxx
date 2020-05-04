@@ -10,13 +10,22 @@
 #ifdef USE_OPENAL_SOFT
 #include "AL/al.h"
 #include "AL/alc.h"
-#include "ogg/ogg.h"
+
+#include <vector>
+
 #endif
 
 using std::string;
 using ChannelID = StrongType<int, struct ChannelIDTag>;
 using SoundtrackID = StrongType<string, struct SoundtrackIDTag>;
 using RepeatCount = StrongType<uint8_t, struct RepeatCountTag>;
+
+
+struct DecodedAudioData
+{
+	std::vector <uint16_t> data_vec; //pcm audio data
+	uint nBytes; //number of bytes in decoded audio data
+};
 
 struct Soundtrack
 {
@@ -82,16 +91,17 @@ struct Soundtrack
   /**
    * @brief The WAVE data of the Soundtrack
    */
-  Mix_Chunk *Chunks;
+  //Mix_Chunk *Chunks;
   
   /**
    * @brief The audio data of the Soundtrack
    */
-  
+  //ogg_packet oggBuffer;
+  DecodedAudioData dAudioDataBuffer;
 
 #endif // USE_OPENAL_SOFT
 
-  Soundtrack(SoundtrackID, ChannelID, Mix_Chunk*, RepeatCount, bool, bool, bool, bool);
+  Soundtrack(SoundtrackID, ChannelID, DecodedAudioData*, RepeatCount, bool, bool, bool, bool);
   ~Soundtrack();
 };
 
