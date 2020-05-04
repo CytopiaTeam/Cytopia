@@ -2,10 +2,10 @@
 #define OBSERVER_HXX_
 
 #include <memory>
-#include <forward_list>
+#include "Meta.hxx"
 
-template <typename T> using LinkedList = std::forward_list<T>;
-template <typename... DataArgs> class Subject;
+template <typename Data> struct DefaultSubjectDispatch;
+template <typename Data, typename DispatchPolicy = DefaultSubjectDispatch<Data>> class Subject;
 
 /**
  * @class     Observer
@@ -14,20 +14,35 @@ template <typename... DataArgs> class Subject;
  * @see       https://en.wikipedia.org/wiki/Observer_pattern
  * @example   tests/util/Observer.cxx
  */
-template <typename... DataArgs> class Observer
+template <typename Data> class Observer
 {
+public:
+  using Notification = Data;
+  virtual void update(Notification) noexcept = 0;
+
 protected:
   Observer() noexcept = default;
   virtual ~Observer() noexcept = 0;
 
 private:
-  virtual void update(DataArgs...) noexcept = 0;
-  friend Subject<DataArgs...>;
+  friend DefaultSubjectDispatch<Data>;
 };
 
-template <typename... DataArgs> inline Observer<DataArgs...>::~Observer() noexcept {}
-template <typename... DataArgs> using ObserverWPtr = std::weak_ptr<Observer<DataArgs...>>;
-template <typename... DataArgs> using ObserverSPtr = std::shared_ptr<Observer<DataArgs...>>;
+template <typename Data> Observer<Data>::~Observer() noexcept {}
+template <typename Data> using ObserverSPtr = std::shared_ptr<Observer<Data>>;
+
+/**
+ * @class     DefaultSubjectDispatch
+ * @brief     A synchronous dispatch to Observers
+ * @tparam    Data The data arguments
+ */
+template <typename Data> struct DefaultSubjectDispatch
+{
+  void dispatch(ObserverSPtr<Data> &observer, typename Observer<Data>::Notification &notification)
+  {
+    observer->update(notification);
+  }
+};
 
 /**
  * @class     Subject
@@ -36,51 +51,40 @@ template <typename... DataArgs> using ObserverSPtr = std::shared_ptr<Observer<Da
  * @see       https://en.wikipedia.org/wiki/Observer_pattern
  * @example   tests/util/Observer.cxx
  */
-template <typename... DataArgs> class Subject
+template <typename Data, typename DispatchPolicy> class Subject : DispatchPolicy
 {
+public:
+  using Listener = Observer<Data>;
+  using Notification = Data;
+
+  /**
+   * @brief   Adds an observer to listen to Subject's events
+   * @param   observer the observer to add
+   */
+  void addObserver(ObserverSPtr<Data> observer) { m_Observers.emplace_back(std::move(observer)); }
+
 private:
-  LinkedList<ObserverWPtr<DataArgs...>> m_Observers;
+  std::vector<ObserverSPtr<Data>> m_Observers;
 
 protected:
-  Subject() = default;
+  Subject(DispatchPolicy dispatch = {}) : DispatchPolicy(dispatch) {}
 
-  using ObsIterator = typename LinkedList<ObserverWPtr<DataArgs...>>::iterator;
+  using DispatchPolicy::dispatch;
 
   /**
    * @brief   notifies all affected observers
    * @param   args the data to be sent to observers
    */
-  inline void notifyObservers(DataArgs... args) noexcept
+  void notifyObservers(Notification &&notification) noexcept
   {
-    ObsIterator old;
-    bool mustCleanup = false;
-    m_Observers.remove_if([&mustCleanup](ObserverWPtr<DataArgs...> ptr) {
-      if (ptr.expired())
-      {
-        mustCleanup = true;
-        return true;
-      }
-      return false;
-    });
-    if (mustCleanup)
+    for (ObserverSPtr<Data> &it : m_Observers)
     {
-      onObserverExpired();
-    }
-    for (ObserverWPtr<DataArgs...> it : m_Observers)
-    {
-      auto observer = it.lock();
-      if (mustNotify(it, args...))
+      if (mustNotify(it, notification))
       {
-        observer->update(args...);
+        dispatch(it, notification);
       }
     }
   }
-
-  /**
-   * @brief   is called whenever an observer expires
-   * @details Implement this method to cleanup weak pointers
-   */
-  virtual inline void onObserverExpired(void) noexcept {}
 
   virtual ~Subject() noexcept = 0;
 
@@ -89,16 +93,9 @@ protected:
    * @param   observer the observer to be notified
    * @param   data the data to be sent to observer
    */
-  virtual inline bool mustNotify(ObserverWPtr<DataArgs...> observer, const DataArgs &... data) const noexcept { return true; }
-
-public:
-  /**
-   * @brief   Adds an observer to listen to Subject's events
-   * @param   observer the observer to add
-   */
-  inline void addObserver(ObserverSPtr<DataArgs...> observer) { m_Observers.emplace_front(observer); }
+  virtual bool mustNotify(ObserverSPtr<Data> &observer, const Notification &data) const noexcept { return true; }
 };
 
-template <typename... DataArgs> inline Subject<DataArgs...>::~Subject() noexcept {}
+template <typename Data, typename DispatchPolicy> Subject<Data, DispatchPolicy>::~Subject() noexcept {}
 
 #endif

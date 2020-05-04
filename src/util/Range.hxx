@@ -12,8 +12,7 @@
  * @example tests/util/Range.cxx      
             This is an example of how to use Ranges.
  */
-template <typename Iterator>
-class Range 
+template <typename Iterator> class Range
 {
 public:
   using iterator = Iterator;
@@ -26,16 +25,14 @@ public:
   /**
    * @brief   Create a Range from a Container
    */
-  template <typename Container>
-  Range(Container& ctn);
-  
+  template <typename Container> Range(Container &ctn);
+
   /**
    * @brief   Do not use. Will issue an error
    * @details Defined to prevent mistakes
    */
-  template <typename Container>
-  Range(const Container&&);
-  
+  template <typename Container> Range(const Container &&);
+
   /**
    * @brief   Create a Range from Iterators
    */
@@ -45,21 +42,16 @@ public:
   iterator end();
 
 private:
-
   iterator m_Begin;
   iterator m_End;
-
 };
 
 /* Deduction guides for Ranges */
-template <typename Container>
-Range(const Container&) -> Range<typename Container::const_iterator>;
+template <typename Container> Range(const Container &)->Range<typename Container::const_iterator>;
 
-template <typename Container>
-Range(Container&) -> Range<typename Container::iterator>;
+template <typename Container> Range(Container &)->Range<typename Container::iterator>;
 
-template <typename Iterator>
-Range(Iterator, Iterator) -> Range<Iterator>;
+template <typename Iterator> Range(Iterator, Iterator)->Range<Iterator>;
 
 #include "Range.inl.hxx"
 
