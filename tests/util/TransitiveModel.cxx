@@ -1,8 +1,8 @@
 #include <catch2/catch.hpp>
 #include <bitset>
 
-#include "../../src/util/TransitiveModel.hxx"
-#include "../../src/util/IEquatable.hxx"
+#include "TransitiveModel.hxx"
+#include "IEquatable.hxx"
 
 using namespace Catch::Matchers;
 template <class T> using vector = std::vector<T>;
@@ -249,7 +249,7 @@ public:
   explicit SimpleButtonView(TransitiveModel<ButtonModel> &model) : m_Listener(std::make_shared<Listener>(*this))
   {
     /* this button view subscribes only to PRESS events */
-    model.subscribe(m_Listener, ButtonModel::PRESS);
+    model.subscribe(m_Listener, { ButtonModel::PRESS });
   }
 };
 
@@ -276,7 +276,7 @@ SCENARIO("I can subscribe to all events", "[util]")
       model.click();
       THEN("I receive all events")
       {
-        vector<ButtonState::Event> expectedEvents{Transition{ButtonModel::ClickData{}}, Transition{ButtonModel::ActivateData{}},
+        vector<ButtonState::Notification> expectedEvents{Transition{ButtonModel::ClickData{}}, Transition{ButtonModel::ActivateData{}},
                                                   Transition{ButtonModel::HoverData{}}, Transition{ButtonModel::FocusData{}}};
         REQUIRE_THAT(view, Contains(expectedEvents));
         REQUIRE(view.size() == 4);
@@ -298,7 +298,7 @@ SCENARIO("I can subscribe to specific events", "[util]")
       THEN("I receive the event")
       {
         REQUIRE(view.size() == 1);
-        REQUIRE_THAT(view, Contains(vector<ButtonState::Event>{Transition{ButtonModel::PressData{}}}));
+        REQUIRE_THAT(view, Contains(vector<ButtonState::Notification>{Transition{ButtonModel::PressData{}}}));
       }
     }
     WHEN("The model sends an event I'm not subscribed to")
@@ -308,7 +308,7 @@ SCENARIO("I can subscribe to specific events", "[util]")
       THEN("I don't receive any event")
       {
         REQUIRE(view.size() == 0);
-        REQUIRE_THAT(view, !Contains(vector<ButtonState::Event>{Transition{ButtonModel::DisableData{}}}));
+        REQUIRE_THAT(view, !Contains(vector<ButtonState::Notification>{Transition{ButtonModel::DisableData{}}}));
       }
     }
   }

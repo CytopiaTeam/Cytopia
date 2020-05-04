@@ -19,22 +19,22 @@ public:
    * @brief   Called when the View is required to be drawn
    */
   virtual void draw(iRenderer &) const noexcept = 0;
-  
+
   /**
    * @brief   Returns the smallest 
    *          bounding box containing the iView
    * @details ::draw is never allowed to draw outside of
    *          this bounding box.
    */
-  virtual const Rectangle & getBounds() const noexcept = 0;
-  
+  virtual const Rectangle &getBounds() const noexcept = 0;
+
   /**
    * @brief   Sets the smallest
    *          bounding box containing the iView
    * @details Only Layouts are allowed to call this function
    */
   virtual void setBounds(Rectangle &&) noexcept = 0;
-  
+
   /**
    * @brief   Called when a Layout changed the bounding box
    *          of the iView
