@@ -426,7 +426,7 @@ Point Map::findNodeInMap(const SDL_Point &screenCoordinates) const
     isoY -= diff;
   }
 
-#ifdef DEBUG
+#ifndef NDEBUG
   int zOrder = INT_MAX;
 #endif
   // Transerse a column form from calculated coordinates to the bottom of the map.
@@ -449,7 +449,7 @@ Point Map::findNodeInMap(const SDL_Point &screenCoordinates) const
     // Move y up and down 2 neighbors.
     for (int y = std::max(yMiddlePoint - neighborReach, 0); (y <= yMiddlePoint + neighborReach) && (y < mapSize); ++y)
     {
-#ifdef DEBUG
+#ifndef NDEBUG
       // Assert asumption that we test all nodes in correct Z order
       assert(zOrder > mapNodes[x * m_columns + y]->getCoordinates().z);
       zOrder = mapNodes[x * m_columns + y]->getCoordinates().z;
