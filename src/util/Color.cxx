@@ -38,7 +38,7 @@ int RGBAColor::hue() const noexcept
 {
   std::array<uint8_t, 3> colors = { red(), green(), blue() };
   auto [min, max] = std::minmax_element(
-      colors.begin(), colors.end());
+      colors.data(), colors.data() + 3);
   int C = *max - *min;
   if(C == 0) return 0;
   int x = colors[(max - colors.data() + 1) % 3];
