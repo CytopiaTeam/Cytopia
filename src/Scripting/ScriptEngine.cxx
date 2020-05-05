@@ -6,6 +6,8 @@
 // add-ons to your project as well so that they will be compiled into the
 // application.
 
+#include <filesystem.hxx>
+
 #include <angelscript.h>
 #include <scriptstdstring/scriptstdstring.h>
 #include <scriptbuilder/scriptbuilder.h>
@@ -52,7 +54,7 @@ void ScriptEngine::init()
     return;
   }
 
-  std::string filePath = SDL_GetBasePath();
+  std::string filePath = fs::getBasePath();
   filePath = filePath + "resources/test.as";
   r = builder.AddSectionFromFile(filePath.c_str());
   if (r < 0)

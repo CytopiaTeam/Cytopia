@@ -43,8 +43,18 @@ directory_iterator getDirectoryListing(const std::string &directory);
    */
 std::vector<path> getSaveGamePaths();
 
+/** Check if a file (or folder) exists
+ * @param filePath Path to file or folder to check
+ * @returns a true if the path exists
+ */
+
 bool fileExists(const std::string &filePath);
-;
+
+/** Get Base Path (where cytopia is being run)
+ * A wrapper for SDL_GetBasePath, which is not run on Android because it hard-crashes the app. Memory is freed after the call.
+ * @returns the Base path
+ */
+std::string getBasePath();
 
 template <typename Callback> void forEachFileType(fs::path &&path, std::string &&extension, Callback callback)
 {

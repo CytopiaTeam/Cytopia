@@ -46,9 +46,9 @@ void ResourceManager::fetch(SoundtrackID id)
   else if (m_audioConfig.Sound.count(id.get()) > 0)
     config = &m_audioConfig.Sound.at(id.get());
   if (Settings::instance().audio3DStatus)
-    filepath = SDL_GetBasePath() + config->monoFilePath;
+    filepath = fs::getBasePath() + config->monoFilePath;
   else
-    filepath = SDL_GetBasePath() + config->stereoFilePath;
+    filepath = fs::getBasePath() + config->stereoFilePath;
   LOG(LOG_INFO) << "Fetching " << id.get() << " at " << filepath;
   Mix_Chunk *chunk = Mix_LoadWAV(filepath.c_str());
   if (!chunk)

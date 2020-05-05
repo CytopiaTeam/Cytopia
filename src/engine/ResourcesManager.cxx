@@ -89,7 +89,7 @@ SDL_Surface *ResourcesManager::getTileSurface(const std::string &id)
 
 SDL_Surface *ResourcesManager::createSurfaceFromFile(const std::string &fileName)
 {
-  string fName = SDL_GetBasePath() + fileName;
+  string fName = fs::getBasePath() + fileName;
   SDL_Surface *surface = IMG_Load(fName.c_str());
 
   if (surface)

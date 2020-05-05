@@ -51,7 +51,7 @@ std::string readFileAsString(const std::string &fileName, bool binaryMode)
     mode = std::ios_base::in;
   }
 
-  std::ifstream stream(SDL_GetBasePath() + fileName, mode);
+  std::ifstream stream(getBasePath() + fileName, mode);
 
   if (!stream)
   {
@@ -79,11 +79,11 @@ void writeStringToFile(const std::string &fileName, const std::string &stringToW
     mode = std::ios_base::out;
   }
 
-  std::ofstream stream(SDL_GetBasePath() + fileName, mode);
+  std::ofstream stream(getBasePath() + fileName, mode);
 
   if (!stream)
   {
-    throw ConfigurationError(TRACE_INFO "Could not write to file " + SDL_GetBasePath() + fileName);
+    throw ConfigurationError(TRACE_INFO "Could not write to file " + getBasePath() + fileName);
   }
 
   stream << stringToWrite << std::endl;
@@ -92,7 +92,7 @@ void writeStringToFile(const std::string &fileName, const std::string &stringToW
 
 directory_iterator getDirectoryListing(const std::string &directory)
 {
-  std::string pathToSaveFiles = SDL_GetBasePath();
+  std::string pathToSaveFiles = getBasePath();
   pathToSaveFiles.append(directory);
   return directory_iterator(std::filesystem::path(pathToSaveFiles));
 }
@@ -105,5 +105,25 @@ std::vector<path> getSaveGamePaths()
 }
 
 bool fileExists(const std::string &filePath) { return exists(path(filePath)); }
+
+std::string getBasePath()
+{
+  std::string sPath;
+
+#ifndef __ANDROID__
+  char *path = SDL_GetBasePath();
+  if (path)
+  {
+    sPath = {path};
+  }
+  else
+  {
+    throw CytopiaError(TRACE_INFO "SDL_GetBasePath() failed!");
+  }
+  SDL_free(path);
+#endif
+
+  return sPath;
+}
 
 } // namespace fs
