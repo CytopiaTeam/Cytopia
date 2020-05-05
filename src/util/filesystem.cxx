@@ -51,6 +51,11 @@ std::string readFileAsString(const std::string &fileName, bool binaryMode)
     mode = std::ios_base::in;
   }
 
+  if (!fileExists(getBasePath() + fileName))
+  {
+    throw ConfigurationError(TRACE_INFO "File doesn't exist:" + fileName);
+  }
+
   std::ifstream stream(getBasePath() + fileName, mode);
 
   if (!stream)
