@@ -160,7 +160,7 @@ else (USE_PACKAGE_MANAGER)
     if (ENABLE_AUDIO)
         pkg_check_modules(openal REQUIRED openal)
     endif ()
-    
+
     if (ENABLE_VULKAN)
         pkg_check_modules(VULKAN REQUIRED vulkan)
     endif()
@@ -205,7 +205,7 @@ else (USE_PACKAGE_MANAGER)
     if (ENABLE_ANGELSCRIPT)
         list(APPEND _link_libraries ${AngelScript_LIBRARY})
     endif ()
-    
+
     if (ENABLE_VULKAN)
         list(APPEND _link_libraries ${VULKAN_LIBRARIES})
         list(APPEND _include_directories ${VULKAN_INCLUDEDIR})
