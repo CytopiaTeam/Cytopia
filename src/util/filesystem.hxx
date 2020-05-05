@@ -20,7 +20,7 @@ using namespace std::experimental::filesystem;
 #endif
 
 /** Read contents from a file as string.
-   * @oaram fileName Name of the file to read
+   * @param fileName Name of the file to read
    * @param binaryMode (optional) open the file in binary mode. (default: false)
    * @returns the content of the file as string
    */
