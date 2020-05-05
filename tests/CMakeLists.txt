@@ -54,6 +54,7 @@ LIST(APPEND TEST_SOURCES
         util/Rectangle.cxx
         util/Point2D.cxx
         util/Range.cxx
+        util/Color.cxx
         )
 
 # Generate source groups for use in IDEs

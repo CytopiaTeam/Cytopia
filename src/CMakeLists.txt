@@ -14,6 +14,7 @@ set(SOURCE_FILES
         util/Rectangle.{hxx,cxx}
         util/Range.hxx
         util/Range.inl.hxx
+        util/Color.{hxx,cxx}
         util/Point2D.{hxx,cxx}
         events/UIEvents.hxx
         events/MouseEvents.hxx
