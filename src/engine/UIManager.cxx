@@ -28,7 +28,7 @@ BETTER_ENUM(Action, int, RaiseTerrain, LowerTerrain, QuitGame, Demolish, ChangeT
 
 void UIManager::init()
 {
-  std::string jsonFileContent = FileSystem::readFileAsString(Settings::instance().uiLayoutJSONFile.get());
+  std::string jsonFileContent = fs::readFileAsString(Settings::instance().uiLayoutJSONFile.get());
   json uiLayout = json::parse(jsonFileContent, nullptr, false);
 
   // check if json file can be parsed

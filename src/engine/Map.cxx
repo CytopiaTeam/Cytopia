@@ -617,20 +617,20 @@ void Map::saveMapToFile(const std::string &fileName)
 
 #ifdef DEBUG
   // Write uncompressed savegame for easier debugging
-  FileSystem::writeStringToFile(fileName + ".txt", j.dump());
+  fs::writeStringToFile(fileName + ".txt", j.dump());
 #endif
 
   const std::string compressedSaveGame = compressString(j.dump());
 
   if (!compressedSaveGame.empty())
   {
-    FileSystem::writeStringToFile(fileName, compressedSaveGame, true);
+    fs::writeStringToFile(fileName, compressedSaveGame, true);
   }
 }
 
 Map *Map::loadMapFromFile(const std::string &fileName)
 {
-  std::string jsonAsString = decompressString(FileSystem::readFileAsString(fileName, true));
+  std::string jsonAsString = decompressString(fs::readFileAsString(fileName, true));
 
   if (jsonAsString.empty())
     return nullptr;

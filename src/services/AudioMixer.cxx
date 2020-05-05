@@ -19,7 +19,7 @@ std::function<void(int)> AudioMixer::onTrackFinishedFunc;
 
 AudioMixer::AudioMixer(GameService::ServiceTuple &context) : GameService(context)
 {
-  std::string jsonFileContent = FileSystem::readFileAsString(Settings::instance().audioConfigJSONFile.get());
+  std::string jsonFileContent = fs::readFileAsString(Settings::instance().audioConfigJSONFile.get());
   json config_json = json::parse(jsonFileContent, nullptr, false);
 
   // check if json file can be parsed

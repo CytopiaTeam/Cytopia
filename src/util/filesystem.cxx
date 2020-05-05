@@ -5,7 +5,10 @@
 
 #include <SDL.h>
 
-std::string FileSystem::readFileAsString(const std::string &fileName, bool binaryMode)
+namespace fs
+{
+
+std::string readFileAsString(const std::string &fileName, bool binaryMode)
 {
 #ifdef __ANDROID__
   // on Android, files cannot be accessed directly without Java. SDL implements that for us, so we use SDL RWOps until we implemented JNI File Access ourselves
@@ -64,7 +67,7 @@ std::string FileSystem::readFileAsString(const std::string &fileName, bool binar
 #endif
 }
 
-void FileSystem::writeStringToFile(const std::string &fileName, const std::string &stringToWrite, bool binaryMode)
+void writeStringToFile(const std::string &fileName, const std::string &stringToWrite, bool binaryMode)
 {
   std::ios::openmode mode;
   if (binaryMode)
@@ -87,18 +90,20 @@ void FileSystem::writeStringToFile(const std::string &fileName, const std::strin
   stream.close();
 }
 
-fs::directory_iterator FileSystem::getDirectoryListing(const std::string &directory)
+directory_iterator getDirectoryListing(const std::string &directory)
 {
   std::string pathToSaveFiles = SDL_GetBasePath();
   pathToSaveFiles.append(directory);
-  return fs::directory_iterator(std::filesystem::path(pathToSaveFiles));
+  return directory_iterator(std::filesystem::path(pathToSaveFiles));
 }
 
-std::vector<fs::path> FileSystem::getSaveGamePaths()
+std::vector<path> getSaveGamePaths()
 {
-  std::vector<fs::path> saveGames;
+  std::vector<path> saveGames;
   forEachFileType("resources", ".cts", [&saveGames](const auto &path) { saveGames.emplace_back(path); });
   return saveGames;
 }
 
-bool FileSystem::fileExists(const std::string &filePath) { return fs::exists(fs::path(filePath)); }
+bool fileExists(const std::string &filePath) { return exists(path(filePath)); }
+
+} // namespace fs

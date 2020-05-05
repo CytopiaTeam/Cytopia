@@ -150,7 +150,7 @@ void TerrainGenerator::generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNode
 
 void TerrainGenerator::loadTerrainDataFromJSON()
 {
-  std::string jsonFileContent = FileSystem::readFileAsString(TERRAINGEN_DATA_FILE_NAME);
+  std::string jsonFileContent = fs::readFileAsString(TERRAINGEN_DATA_FILE_NAME);
   json biomeDataJsonObject = json::parse(jsonFileContent, nullptr, false);
 
   // check if json file can be parsed

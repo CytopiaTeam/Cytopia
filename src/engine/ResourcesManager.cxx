@@ -24,7 +24,7 @@ void ResourcesManager::loadTexture(const std::string &id, const std::string &fil
 
 void ResourcesManager::loadUITexture()
 {
-  std::string jsonFileContent = FileSystem::readFileAsString(Settings::instance().uiDataJSONFile.get());
+  std::string jsonFileContent = fs::readFileAsString(Settings::instance().uiDataJSONFile.get());
   const json uiDataJSON = json::parse(jsonFileContent, nullptr, false);
 
   // check if json file can be parsed
