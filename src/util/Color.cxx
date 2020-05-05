@@ -7,10 +7,10 @@
 SDL_Color RGBAColor::to_SDL() const noexcept
 {
   return SDL_Color {
-    static_cast<uint8_t>((m_Color >> 24) & 0xFF),
-    static_cast<uint8_t>((m_Color >> 16) & 0xFF),
-    static_cast<uint8_t>((m_Color >>  8) & 0xFF),
-    static_cast<uint8_t>((m_Color >>  0) & 0xFF)
+    static_cast<uint8_t>(m_Color >> 24),
+    static_cast<uint8_t>(m_Color >> 16),
+    static_cast<uint8_t>(m_Color >>  8),
+    static_cast<uint8_t>(m_Color)
   };
 }
 
@@ -21,33 +21,34 @@ uint8_t RGBAColor::red() const noexcept
 
 uint8_t RGBAColor::green() const noexcept
 {
-  return (m_Color >> 16) & 0xFF;
+  return m_Color >> 16;
 }
 
 uint8_t RGBAColor::blue() const noexcept
 {
-  return (m_Color >> 8) & 0xFF;
+  return m_Color >> 8;
 }
 
 uint8_t RGBAColor::alpha() const noexcept
 {
-  return m_Color & 0xFF;
+  return m_Color;
 }
 
 int RGBAColor::hue() const noexcept
 {
   std::array<uint8_t, 3> colors = { red(), green(), blue() };
-  auto it = std::max_element(
-      colors.begin(), colors.end()) - colors.begin();
-  if(colors[it] == 0) return 0;
-  int x = colors[(it + 1) % 3];
-  x -= colors[(it + 2) % 3];
-  x /= colors[it];
-  x += 2 * it;
+  auto [min, max] = std::minmax_element(
+      colors.begin(), colors.end());
+  int C = *max - *min;
+  if(C == 0) return 0;
+  int x = colors[(max - colors.data() + 1) % 3];
+  x -= colors[(max - colors.data() + 2) % 3];
+  x += 2 * (max - colors.data()) * C;
   x *= 60;
+  x /= C;
   x += 360;
   x %= 360;
-  return std::move(x);
+  return x;
 }
 
 int RGBAColor::lightness() const noexcept
@@ -59,11 +60,12 @@ int RGBAColor::lightness() const noexcept
 int RGBAColor::saturation() const noexcept
 {
   auto [min, max] = std::minmax({ red(), green(), blue() });
-  if(max + min == 0 || max + min == 510) return 0;
+  int L = max + min;
+  if(L == 0 || L == 510) return 0;
   int C = max - min;
   C *= 100;
-  C /= 255 - std::abs(2 * max - C / 100 - 255);
-  return std::move(C);
+  C /= 255 - std::abs(L - 255);
+  return C;
 }
 
 std::ostream & operator<<(std::ostream & os, const RGBAColor & c)
