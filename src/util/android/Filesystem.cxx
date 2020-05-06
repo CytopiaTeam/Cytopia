@@ -16,14 +16,15 @@ std::string readFileAsString(const std::string &fileName, bool binaryMode)
   SDL_RWops *rw = SDL_RWFromFile(fileName.c_str(), "rb");
   Sint64 res_size = SDL_RWsize(rw);
   char *res = (char *)malloc(res_size + 1);
+
   if (rw == NULL)
   {
     LOG(LOG_ERROR) << stderr << "Couldn't open " << fileName.c_str();
-    throw ConfigurationError(TRACE_INFO "Couldn't open " + fileName.c_str();
+    throw CytopiaError(TRACE_INFO "Couldn't read text file " + fileName + ": " + SDL_GetError());
   }
-
   Sint64 nb_read_total = 0, nb_read = 1;
   char *buf = res;
+
   while (nb_read_total < res_size && nb_read != 0)
   {
     nb_read = SDL_RWread(rw, buf, 1, (res_size - nb_read_total));
@@ -38,10 +39,11 @@ std::string readFileAsString(const std::string &fileName, bool binaryMode)
   if (nb_read_total != res_size)
   {
     free(res);
-    LOG(LOG_ERROR) << "ERROR loading file " << fileName.c_str();
+    LOG(LOG_ERROR) << "ERROR loading file " << fileName << SDL_GetError();
+    throw CytopiaError{TRACE_INFO "Couldn't read text file " + fileName + ": " + SDL_GetError()};
   }
 
-  return res;
+  return std::string(res);
 }
 
 void writeStringToFile(const std::string &fileName, const std::string &stringToWrite, bool binaryMode)
