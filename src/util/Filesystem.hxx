@@ -2,22 +2,11 @@
 #define FILESYSTEM_HXX_
 
 #include <ciso646>
-
-#if __has_include(<filesystem>)
-#include <filesystem>
-#elif __has_include(<experimental/filesystem>)
-#include <experimental/filesystem>
-#else
-#pragma message("Warning: Your compiler does not support the filesystem library. Please report this incident to the Cytopia Team")
-#endif
+#include <string>
+#include <vector>
 
 namespace fs
 {
-#if __has_include(<filesystem>)
-using namespace std::filesystem;
-#elif __has_include(<experimental/filesystem>)
-using namespace std::experimental::filesystem;
-#endif
 
 /** Read contents from a file as string.
    * @param fileName Name of the file to read
@@ -36,12 +25,12 @@ void writeStringToFile(const std::string &fileName, const std::string &stringToW
    * @oaram directory Name of the folder to retrieve the directory listing from
    * @returns a directory::iterator containing the folder content
    */
-directory_iterator getDirectoryListing(const std::string &directory);
+std::vector<std::string> getDirectoryListing(const std::string &directory);
 
 /** Get all savegames in the savegame directory
    * @returns a std::vector containing paths with all savegames
    */
-std::vector<path> getSaveGamePaths();
+std::vector<std::string> getSaveGamePaths();
 
 /** Check if a file (or folder) exists
  * @param filePath Path to file or folder to check
@@ -55,17 +44,6 @@ bool fileExists(const std::string &filePath);
  * @returns the Base path
  */
 std::string getBasePath();
-
-template <typename Callback> void forEachFileType(fs::path &&path, std::string &&extension, Callback callback)
-{
-  for (const auto &fp : fs::directory_iterator(path))
-  {
-    if (static_cast<std::filesystem::path>(fp).extension() == extension)
-    {
-      callback(fp);
-    }
-  }
-}
 
 } // namespace fs
 #endif

@@ -45,7 +45,8 @@ std::string readFileAsString(const std::string &fileName, bool binaryMode)
 
 void writeStringToFile(const std::string &fileName, const std::string &stringToWrite, bool binaryMode)
 {
-  LOG() << "fs::writeStringToFile() not implemented!";
+  throw()
+    LOG() << "fs::writeStringToFile() not implemented!";
 }
 
 directory_iterator getDirectoryListing(const std::string &directory) { LOG() << "fs::getDirectoryListing() not implemented!"; }

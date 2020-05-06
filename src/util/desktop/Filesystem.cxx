@@ -1,9 +1,37 @@
-#include <filesystem.hxx>
+#include <Filesystem.hxx>
 #include <Settings.hxx>
 #include <LOG.hxx>
 #include <fstream>
 
 #include <SDL.h>
+
+#if __has_include(<filesystem>)
+#include <filesystem>
+#elif __has_include(<experimental/filesystem>)
+#include <experimental/filesystem>
+#else
+#pragma message("Warning: Your compiler does not support the filesystem library. Please report this incident to the Cytopia Team")
+#endif
+
+namespace fs
+{
+#if __has_include(<filesystem>)
+using namespace std::filesystem;
+#elif __has_include(<experimental/filesystem>)
+using namespace std::experimental::filesystem;
+#endif
+} // namespace fs
+
+template <typename Callback> void forEachFileType(fs::path &&path, std::string &&extension, Callback callback)
+{
+  for (const auto &fp : fs::directory_iterator(path))
+  {
+    if (static_cast<std::filesystem::path>(fp).extension() == extension)
+    {
+      callback(fp);
+    }
+  }
+}
 
 std::string fs::readFileAsString(const std::string &fileName, bool binaryMode)
 {
@@ -58,17 +86,23 @@ void fs::writeStringToFile(const std::string &fileName, const std::string &strin
   stream.close();
 }
 
-fs::directory_iterator fs::getDirectoryListing(const std::string &directory)
+std::vector<std::string> fs::getDirectoryListing(const std::string &directory)
 {
+  std::vector<std::string> dirContent;
   std::string pathToSaveFiles = getBasePath();
   pathToSaveFiles.append(directory);
-  return directory_iterator(std::filesystem::path(pathToSaveFiles));
+  for (const auto &it : fs::directory_iterator(fs::path(pathToSaveFiles)))
+  {
+    dirContent.emplace_back(static_cast<path>(it).string());
+  }
+  return dirContent;
 }
 
-std::vector<fs::path> fs::getSaveGamePaths()
+std::vector<std::string> fs::getSaveGamePaths()
 {
-  std::vector<path> saveGames;
-  forEachFileType("resources", ".cts", [&saveGames](const auto &path) { saveGames.emplace_back(path); });
+  std::vector<std::string> saveGames;
+  forEachFileType("resources", ".cts",
+                  [&saveGames](const auto &path) { saveGames.emplace_back(static_cast<fs::path>(path).string()); });
   return saveGames;
 }
 
