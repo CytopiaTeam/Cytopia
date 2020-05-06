@@ -4,7 +4,7 @@ set(SOURCE_FILES
         Game.inl.hxx
         util/LOG.{hxx,cxx}
         util/LOG.inl.hxx
-        util/filesystem.{hxx,cxx}
+        util/Filesystem.{hxx,cxx}
         util/IEquatable.hxx
         util/IEquatable.inl.hxx
         util/Singleton.hxx
@@ -57,6 +57,16 @@ set(SOURCE_FILES
         engine/UIManager.{hxx,cxx}
         engine/WindowManager.{hxx,cxx}
         )
+
+if (ANDROID)
+  list (APPEND SOURCE_FILES
+    util/android/Filesystem.cxx
+  )
+else()
+  list (APPEND SOURCE_FILES
+    util/desktop/Filesystem.cxx
+  )
+endif()
 
 list(APPEND _include_directories
         engine
