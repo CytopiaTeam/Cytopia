@@ -16,13 +16,13 @@ namespace fs
 std::string readFileAsString(const std::string &fileName, bool binaryMode = false);
 
 /** Write a string to a file.
-   * @oaram fileName Name of the file to write
+   * @param fileName Name of the file to write
    * @param binaryMode (optional) open the file in binary mode. (default: false)
    */
 void writeStringToFile(const std::string &fileName, const std::string &stringToWrite, bool binaryMode = false);
 
 /** Get a directory listing of a given directory.
-   * @oaram directory Name of the folder to retrieve the directory listing from
+   * @param directory Name of the folder to retrieve the directory listing from
    * @returns a directory::iterator containing the folder content
    */
 std::vector<std::string> getDirectoryListing(const std::string &directory);
