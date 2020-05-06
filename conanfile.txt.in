@@ -18,11 +18,4 @@ OpenSSL/1.1.1c@conan/stable
 zlib/1.2.11
 
 [options]
-sdl2_mixer:flac=False
-sdl2_mixer:mpg123=False
-sdl2_mixer:mad=False
-sdl2_mixer:opus=False
-sdl2_mixer:mikmod=False
-sdl2_mixer:modplug=False
-sdl2_mixer:fluidsynth=False
 *:shared=False

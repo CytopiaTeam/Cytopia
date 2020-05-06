@@ -33,18 +33,6 @@ AudioMixer::AudioMixer(GameService::ServiceTuple &context) : GameService(context
     for (auto &trigger : item.second.triggers)
       m_Triggers[trigger].emplace_back(item.first);
 #ifdef USE_OPENAL_SOFT
-  if (Settings::instance().audio3DStatus)
-  {
-    LOG(LOG_INFO) << "Using mono sounds";
-    if (Mix_OpenAudio(44100, AUDIO_S16SYS, 1, 1024) == -1)
-      throw AudioError(TRACE_INFO + string{"Unable to open audio channels "} + Mix_GetError());
-  }
-  else
-  {
-    LOG(LOG_INFO) << "Using stereo sounds";
-    if (Mix_OpenAudio(44100, AUDIO_S16SYS, 2, 1024) == -1)
-      throw AudioError(TRACE_INFO + string{"Unable to open audio channels "} + Mix_GetError());
-  }
   /* use default audio device */
   gAudioDevice = alcOpenDevice(nullptr);
   if (!gAudioDevice)
@@ -85,12 +73,7 @@ AudioMixer::AudioMixer(GameService::ServiceTuple &context) : GameService(context
   GetService<GameClock>().createRepeatedTask(5min, [&mixer = *this]() { mixer.prune(); });
 
 #else  // USE_OPENAL_SOFT
-  LOG(LOG_INFO) << "Using stereo sounds";
-  if (Mix_OpenAudio(44100, AUDIO_S16SYS, DEFAULT_CHANNELS::value, 1024) == -1)
-    throw AudioError(TRACE_INFO + string{"Unable to open audio channels "} + Mix_GetError());
-  /* Set up the Mix_ChannelFinished callback */
-  onTrackFinishedFunc = [this](int channelID) { return onTrackFinished(channelID); };
-  Mix_ChannelFinished(onTrackFinishedFuncPtr);
+  
 #endif // USE_OPENAL_SOFT
   LOG(LOG_DEBUG) << "Created AudioMixer";
 }
@@ -100,11 +83,7 @@ AudioMixer::~AudioMixer()
   int num_opened = 0;
   int _discard;
   Uint16 _discard2;
-  num_opened = Mix_QuerySpec(&_discard, &_discard2, &_discard);
-  while (num_opened-- > 0)
-    Mix_CloseAudio();
-  while (Mix_Init(0))
-    Mix_Quit();
+  
 #ifdef USE_OPENAL_SOFT
   alcDestroyContext(alContext); //delete context
   alcCloseDevice(gAudioDevice); //close device
@@ -379,9 +358,7 @@ void AudioMixer::handleEvent(const AudioSetMutedEvent &&event) { throw Unimpleme
 
 void AudioMixer::handleEvent(const AudioStopEvent &&)
 {
-	#ifndef USE_OPENAL_SOFT
-	Mix_HaltChannel(-1);
-	#else // USE_OPENAL_SOFT
+	
   while(!m_Playing.empty())
   {
     auto it = m_Playing.begin();
@@ -389,7 +366,6 @@ void AudioMixer::handleEvent(const AudioStopEvent &&)
     (**it)->isPlaying = false;
     m_Playing.erase(it);
 	}
-	#endif // USE_OPENAL_SOFT
 }
 
 void AudioMixer::handleEvent(const AudioPruneEvent &&)
@@ -418,22 +394,11 @@ void AudioMixer::playSoundtrack(SoundtrackUPtr &track)
   if (!track)
     throw AudioError(TRACE_INFO "Received an invalid soundtrack");
 
-#ifndef USE_OPENAL_SOFT
-  track->Channel = Mix_PlayChannel(track->Channel.get(), track->Chunks, 0);
-  if (track->Channel.get() == -1)
-  {
-    /* We might need to allocate more channels */
-    int num_alloc = Mix_AllocateChannels(-1);
-    Mix_AllocateChannels(2 * num_alloc);
-    track->Channel = Mix_PlayChannel(track->Channel.get(), track->Chunks, 0);
-    if (track->Channel.get() == -1)
-      throw AudioError(TRACE_INFO "Failed to play track " + track->ID.get() + ": " + SDL_GetError());
-  }
-#else // USE_OPENAL_SOFT
   if (!track->source)
     throw AudioError{TRACE_INFO "Unable to play track because its source is uninitialized"};
   alSourcePlay(track->source);
-#endif // USE_OPENAL_SOFT
+
+
   m_Playing.push_front(&track);
   track->isPlaying = true;
 }
@@ -471,18 +436,6 @@ void AudioMixer::playSoundtrackWithReverb(SoundtrackUPtr &track,const StandardRe
 	if (!track)
     throw AudioError(TRACE_INFO "Received an invalid soundtrack");
 
-#ifndef USE_OPENAL_SOFT
-  track->Channel = Mix_PlayChannel(track->Channel.get(), track->Chunks, 0);
-  if (track->Channel.get() == -1)
-  {
-    /* We might need to allocate more channels */
-    int num_alloc = Mix_AllocateChannels(-1);
-    Mix_AllocateChannels(2 * num_alloc);
-    track->Channel = Mix_PlayChannel(track->Channel.get(), track->Chunks, 0);
-    if (track->Channel.get() == -1)
-      throw AudioError(TRACE_INFO "Failed to play track " + track->ID.get() + ": " + SDL_GetError());
-  }
-#else // USE_OPENAL_SOFT
   if (!track->source)
     throw AudioError{TRACE_INFO "Unable to play track because its source is uninitialized"};
   
@@ -585,7 +538,6 @@ void AudioMixer::playSoundtrackWithReverb(SoundtrackUPtr &track,const StandardRe
     
   alSourcePlay(track->source);
   
-#endif // USE_OPENAL_SOFT
   m_Playing.push_front(&track);
   track->isPlaying = true;
   
@@ -596,18 +548,7 @@ void AudioMixer::playSoundtrackWithEcho(SoundtrackUPtr &track,const EchoProperti
   if (!track)
     throw AudioError(TRACE_INFO "Received an invalid soundtrack");
 
-#ifndef USE_OPENAL_SOFT
-  track->Channel = Mix_PlayChannel(track->Channel.get(), track->Chunks, 0);
-  if (track->Channel.get() == -1)
-  {
-    /* We might need to allocate more channels */
-    int num_alloc = Mix_AllocateChannels(-1);
-    Mix_AllocateChannels(2 * num_alloc);
-    track->Channel = Mix_PlayChannel(track->Channel.get(), track->Chunks, 0);
-    if (track->Channel.get() == -1)
-      throw AudioError(TRACE_INFO "Failed to play track " + track->ID.get() + ": " + SDL_GetError());
-  }
-#else // USE_OPENAL_SOFT
+
   if (!track->source)
     throw AudioError{TRACE_INFO "Unable to play track because its source is uninitialized"};
   
@@ -686,7 +627,6 @@ void AudioMixer::playSoundtrackWithEcho(SoundtrackUPtr &track,const EchoProperti
     
   alSourcePlay(track->source);
   
-#endif // USE_OPENAL_SOFT
   m_Playing.push_front(&track);
   track->isPlaying = true;
 }
