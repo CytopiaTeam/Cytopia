@@ -28,7 +28,7 @@
 #include <mutex>
 
 #include "Meta.hxx"
-#include "filesystem.hxx"
+#include "Filesystem.hxx"
 
 using std::string;
 using std::stringstream;

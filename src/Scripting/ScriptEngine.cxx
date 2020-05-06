@@ -6,7 +6,7 @@
 // add-ons to your project as well so that they will be compiled into the
 // application.
 
-#include <filesystem.hxx>
+#include <Filesystem.hxx>
 
 #include <angelscript.h>
 #include <scriptstdstring/scriptstdstring.h>

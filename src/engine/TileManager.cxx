@@ -4,7 +4,7 @@
 #include "Exception.hxx"
 #include "basics/Settings.hxx"
 #include "ResourcesManager.hxx"
-#include <filesystem.hxx>
+#include <Filesystem.hxx>
 
 #include <bitset>
 
