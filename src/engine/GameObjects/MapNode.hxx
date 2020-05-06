@@ -63,7 +63,7 @@ public:
     */
   void increaseHeight();
 
-  /** @brief Decrease Height 
+  /** @brief Decrease Height
     * Decreases the height of the node and its sprite
     * This function should not be called directly, but only from where the neighboring nodes slopes are determined
     */
@@ -104,7 +104,24 @@ public:
     */
   bool isPlacableOnSlope(const std::string &tileID) const;
 
-  void demolishNode();
+  /** @brief check if current Node Terrain is Slope Terrain.
+    */
+  bool isSlopeNode(void) const;
+
+  /**
+ * @brief Demolish a node
+ * Removes all tiles on a node. This effects all layers where something to demolish is placed. (BUILDINGS, GROUND_DECORATION, UNDERGROUND) per default, but can be restricted to a single Layer.
+ * @param isoCoordinates all coordinates that should be demolished
+ * @param updateNeighboringTiles wether the adjecent tiles should be updated. (only relevant for autotiling)
+ * @param layer restrict demolish to a single layer
+ * @see MapNode#demolishNode
+ */
+  void demolishNode(const Layer &layer = Layer::NONE);
+
+  /** @brief demolish specific layer of a Node.
+    * @param layer - what layer should be demolished.
+    */
+  void demolishLayer(const Layer &layer);
 
   void setTileID(const std::string &tileType, const Point &origPoint);
 
@@ -115,6 +132,18 @@ public:
     * @return Layer enum of the topmost active layer
     */
   Layer getTopMostActiveLayer() const;
+
+  /** @brief check if specific layer can be autotiled.
+    * @return bool indicating whether layer item can be autotiled.
+    */
+  bool isLayerAutoTile(const Layer &layer) const;
+
+  /** @brief check if specific Tile Data is autotile category.
+    * @return bool indicating whether Tile Data item can be autotiled.
+    */
+  static bool isDataAutoTile(const TileData *tileData);
+
+  bool isLayerOccupied(const Layer &layer) const { return m_mapNodeData[layer].tileData != nullptr; }
 
   void setRenderFlag(Layer layer, bool shouldRender) { m_mapNodeData[layer].shouldRender = shouldRender; }
 
@@ -135,7 +164,7 @@ private:
   std::vector<unsigned char> m_autotileBitmask;
   unsigned char m_elevationBitmask = 0;
 
-  void updateTexture();
+  void updateTexture(const Layer &layer = Layer::NONE);
 };
 
 #endif

@@ -35,7 +35,7 @@ public:
   virtual ~Sprite() = default;
 
   void render() const;
-  void refresh();
+  void refresh(const Layer &layer = Layer::NONE);
 
   void setTexture(SDL_Texture *m_texture, Layer layer = Layer::TERRAIN);
   void setClipRect(SDL_Rect clipRect, Layer layer = Layer::TERRAIN);

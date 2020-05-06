@@ -34,8 +34,8 @@ MapNode::MapNode(Point isoCoordinates, const std::string &terrainID, const std::
   }
   // always add blueprint tiles too when creating the node
   setTileID("terrain_blueprint", isoCoordinates);
-
-  updateTexture();
+  const Layer layer = TileManager::instance().getTileLayer(tileID);
+  updateTexture(layer);
 }
 
 void MapNode::increaseHeight()
@@ -75,6 +75,31 @@ void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
   if (tileData && !tileID.empty())
   {
     const Layer layer = TileManager::instance().getTileLayer(tileID);
+    switch (layer)
+    {
+    case Layer::WATER:
+      demolishLayer(Layer::ROAD);
+      // no break on purpose.
+    case Layer::ROAD:
+      // in case it's allowed then maybe a Tree Tile already exist, so we remove it.
+      demolishLayer(Layer::BUILDINGS);
+      break;
+    case Layer::BUILDINGS:
+      m_mapNodeData[Layer::ZONE].shouldRender = false;
+      break;
+    default:
+      break;
+    }
+
+    if (isLayerOccupied(Layer::ZONE))
+    {
+      // TODO: check decorations.
+      if (tileData->category != "Flora" && tileData->category != m_mapNodeData[Layer::ZONE].tileData->subCategory)
+      {
+        // selected tile category != existed zone category.
+        demolishLayer(Layer::ZONE);
+      }
+    }
     m_mapNodeData[layer].origCornerPoint = origCornerPoint;
     m_previousTileID = m_mapNodeData[layer].tileID;
     m_mapNodeData[layer].tileData = tileData;
@@ -96,7 +121,7 @@ void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
       **/
       m_mapNodeData[layer].tileIndex = 0;
     }
-    updateTexture();
+    updateTexture(layer);
   }
 }
 
@@ -126,9 +151,29 @@ Layer MapNode::getTopMostActiveLayer() const
   return Layer::NONE;
 }
 
+bool MapNode::isDataAutoTile(const TileData *tileData)
+{
+  if (tileData)
+  {
+    if (tileData->tileType == +TileType::ROAD || tileData->tileType == +TileType::AUTOTILE ||
+        tileData->tileType == +TileType::UNDERGROUND)
+    {
+      return true;
+    }
+  }
+  return false;
+}
+
+bool MapNode::isLayerAutoTile(const Layer &layer) const { return isDataAutoTile(m_mapNodeData[layer].tileData); }
+
 bool MapNode::isPlacableOnSlope(const std::string &tileID) const
 {
   TileData *tileData = TileManager::instance().getTileData(tileID);
+  if (tileData && tileData->tileType == +TileType::ZONE)
+  {
+    // zones are allowed to pass slopes.
+    return true;
+  }
   if (tileData && m_elevationOrientation != TileSlopes::DEFAULT_ORIENTATION)
   {
     // we need to check the terrain layer for it's orientation so we can calculate the resulting x offset in the spritesheet.
@@ -151,16 +196,35 @@ bool MapNode::isPlacementAllowed(const std::string &newTileID) const
 
   if (tileData)
   {
+    switch (layer)
+    {
+    case Layer::ROAD:
+      if (isLayerOccupied(Layer::ROAD))
+      {
+        return true;
+      }
+      else if ((isLayerOccupied(Layer::BUILDINGS) && (m_mapNodeData[Layer::BUILDINGS].tileData->category != "Flora")) ||
+               isLayerOccupied(Layer::WATER) || !isPlacableOnSlope(newTileID))
+      {
+        return false;
+      }
+    case Layer::BUILDINGS:
+      if (isLayerOccupied(Layer::ROAD))
+      {
+        return false;
+      }
+    }
     //this is a water tile and placeOnWater has not been set to true, building is not permitted. Also disallow placing of water tiles on non water tiles
-    if (tileData->tileType != +TileType::WATER && (m_mapNodeData[Layer::WATER].tileData && !tileData->placeOnWater ||
-                                                   !m_mapNodeData[Layer::WATER].tileData && tileData->placeOnWater))
+    if (tileData->tileType != +TileType::WATER &&
+        (isLayerOccupied(Layer::WATER) && !tileData->placeOnWater || !isLayerOccupied(Layer::WATER) && tileData->placeOnWater))
     {
       return false;
     }
 
     // check if the current tile has the property overplacable set or if it's of the same tile ID for certain TileTypes only (not DEFAULT)
     if (m_mapNodeData[layer].tileData &&
-        (m_mapNodeData[layer].tileData->isOverPlacable ||
+        (m_mapNodeData[layer].tileData->tileType == +TileType::GROUNDDECORATION ||
+         m_mapNodeData[layer].tileData->isOverPlacable ||
          (m_mapNodeData[layer].tileData->tileType != +TileType::DEFAULT && m_mapNodeData[layer].tileID == newTileID)))
     {
       return true;
@@ -174,13 +238,23 @@ bool MapNode::isPlacementAllowed(const std::string &newTileID) const
   return false;
 }
 
-void MapNode::updateTexture()
+void MapNode::updateTexture(const Layer &layer)
 {
   SDL_Rect clipRect{0, 0, 0, 0};
   //TODO: Refactor this
   m_elevationOrientation = TileManager::instance().calculateSlopeOrientation(m_elevationBitmask);
+  std::vector<Layer> layersToGoOver;
+  if (layer != Layer::NONE)
+  {
+    // in case this is not the default value (which is NONE), we need to update only 1 layer.
+    layersToGoOver.push_back(layer);
+  }
+  else
+  {
+    layersToGoOver.insert(layersToGoOver.begin(), std::begin(allLayersOrdered), std::end(allLayersOrdered));
+  }
 
-  for (auto currentLayer : allLayersOrdered)
+  for (auto currentLayer : layersToGoOver)
   {
     if (m_mapNodeData[currentLayer].tileData)
     {
@@ -202,8 +276,7 @@ void MapNode::updateTexture()
           }
         }
         // if the node should autotile, check if it needs to tile itself to another tile of the same ID
-        else if (m_mapNodeData[currentLayer].tileData->tileType == +TileType::AUTOTILE ||
-                 m_mapNodeData[currentLayer].tileData->tileType == +TileType::UNDERGROUND)
+        else if (isLayerAutoTile(currentLayer) && (this->getTileID(currentLayer) == m_mapNodeData[currentLayer].tileID))
         {
           m_autotileOrientation[currentLayer] = TileManager::instance().calculateTileOrientation(m_autotileBitmask[currentLayer]);
         }
@@ -325,12 +398,14 @@ void MapNode::updateTexture()
         {
           m_mapNodeData[currentLayer].tileData = nullptr;
         }
-        updateTexture();
+        updateTexture(currentLayer);
       }
       m_sprite->spriteCount = spriteCount;
     }
   }
 }
+
+bool MapNode::isSlopeNode() const { return m_mapNodeData[Layer::TERRAIN].tileMap == TileMap::SLOPES; }
 
 void MapNode::setCoordinates(const Point &newIsoCoordinates)
 {
@@ -357,19 +432,45 @@ void MapNode::setMapNodeData(std::vector<MapNodeData> &&mapNodeData, const Point
   }
 }
 
-void MapNode::demolishNode()
+void MapNode::demolishLayer(const Layer &layer)
 {
-  Layer myLayers[] = {Layer::BUILDINGS, Layer::UNDERGROUND, Layer::GROUND_DECORATION};
-  for (auto &layer : myLayers)
+  m_mapNodeData[layer].tileData = nullptr;
+  m_mapNodeData[layer].tileID = "";
+  m_autotileOrientation[layer] =
+      TileOrientation::TILE_DEFAULT_ORIENTATION; // We need to reset TileOrientation, in case it's set (demolishing autotiles)
+  m_mapNodeData[layer].origCornerPoint = this->getCoordinates();
+  m_mapNodeData[Layer::ZONE].shouldRender = true;
+  m_sprite->clearSprite(layer);
+}
+
+void MapNode::demolishNode(const Layer &demolishLayer)
+{
+  // allow to delete a single layer only
+  std::vector<Layer> layersToDemolish;
+  if (demolishLayer == Layer::NONE)
   {
-    if (MapLayers::isLayerActive(layer))
+    layersToDemolish = {Layer::BUILDINGS, Layer::UNDERGROUND, Layer::GROUND_DECORATION, Layer::ZONE, Layer::ROAD};
+  }
+  else
+  {
+    layersToDemolish.push_back(demolishLayer);
+  }
+
+  for (auto &layer : layersToDemolish)
+  {
+    if (MapLayers::isLayerActive(layer) && m_mapNodeData[layer].tileData)
     {
-      m_mapNodeData[layer].tileData = nullptr;
-      m_mapNodeData[layer].tileID = "";
-      m_mapNodeData[layer].origCornerPoint = this->getCoordinates();
-      m_sprite->clearSprite(layer);
-      updateTexture();
-      break;
+      if ((GameStates::instance().demolishMode == DemolishMode::DEFAULT &&
+           m_mapNodeData[layer].tileData->tileType == +TileType::ZONE) ||
+          (GameStates::instance().demolishMode == DemolishMode::DE_ZONE &&
+           m_mapNodeData[layer].tileData->tileType != +TileType::ZONE) ||
+          (GameStates::instance().demolishMode == DemolishMode::GROUND_DECORATION &&
+           m_mapNodeData[layer].tileData->tileType != +TileType::GROUNDDECORATION))
+      {
+        continue;
+      }
+      this->demolishLayer(layer);
+      updateTexture(demolishLayer);
     }
   }
 }

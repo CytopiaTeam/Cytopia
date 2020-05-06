@@ -5,9 +5,10 @@ services:
 
 env:
   global:
-    - GITHUB_REPO:      CytopiaTeam/Cytopia
+    - GITHUB_REPO: CytopiaTeam/Cytopia
     - TRAVIS: true
     - CTEST_OUTPUT_ON_FAILURE: 1
+    - SCCACHE_CACHE_SIZE: 500M
 
 matrix:
   include:
@@ -16,11 +17,14 @@ matrix:
       name: GCC 8 Build
       python: 3.7
       compiler: gcc-8
+      cache:
+        directories:
+          - $HOME/.cache/sccache
       addons:
         sonarcloud:
-          organization: "vbfcdf134m3fasd123gfdgdfs"
+          organization: "cytopia"
           token:
-            secure: "QkapNhxUL2iArxTDmA3D88Tu8DMPBRcZEzrcNBecq8FZfy/rqlVApL84BQwvUt3olbfMRG9HcNm0KKDVzywj6+VBrs0hQJcy92WZWB+rRocL9bB3khPrxVPCAfAx8Gvhl8cS5RMpwR3CYG3SiNUcnWGdYssow0yNA00PUA+emqTXVEYxl61TPSl1JJKIqJZNjFpnl4AqSNyYPw3JgZe5Egi24kPgj0HteKESCjmkvDOO/zB1yl09PW2Qozvpbhk7L5b/SbLxNSRJ19QC/5QleAQM0HC+iWWC2BGAIJ+QHAWZzlz8rya65m+kH55GxU8ZiLpjHvqubcgiNfuJdB4Qk92Omrnv7WTBqWglhmNSt5ilk8U1jiNHdJ4nrAxUrymgqlbqHXQr8bcNGk/7Kf2fKzuIfLVbtKzW2ESbLkCGfImk2m3pxN0Aine7ugbJ22SJeMrwhE0oQsRdTioWQRs6t9CVEA28r6g3VDKYPnx3JLC+OR3SXMmBTEyMHIiOKDMzbqa7CKQzIH38cpSwkKxHVbg/CPmX8OTLnTeWLieSc1g4V+0H/Yr6e0KARx81mKkGJ/5EO1tx08XGYWxWLriIIwJx3pxgJlBcifNT350wFoIanvHYoXb4GQKT50kv28qPjW+p6jNCsd9kHWuDMXjt0Dk3jsK8YMqnzd+xy2q3mJY="
+            secure: "egsGg4LRt/ZXI9JQvFCwiz3U3sF6AtpX7f6Sop6umVxyTZV60DXxK8Hc7VuNI2004CPIvvsG6pLQ2feJwz6H9w1IozfH7BuRJSpo1mqZgWYdpv6IyL9ArGfn0EJM0lA52Fu1bU7qDSfMgdwjZvelhx+/MxtoEPcTgxLPfwilMelSlbVOmseuOdTXcrhxdCkLfzW7gtkK/L2EueEMddyMKst5MlweTVuDFm3KMGQd5zgmRRbeefm9SF+jC9kCFXS2y3AVw/p2NPv3gjM3vMeQ31WzRlsjBQQ+hrAKKHYEeHL12zY43oF4a7d35l3IEJIN5H0KsVKDe23mfRMCSoReHDwrxnR4T9QVmvJ2pDTccpp5bdyc9x1JfpecCHItp8oacIz/2OGnXfctP2vf5sRJ2Ja+tVJWbtsyHvJgS2GbGlWq0+15lfq91uKDgPfi+XxT9QhD/n8yDndDuXAt8V7qmuQgfWVeNzwmJJJrsF7x5hhQEaHhBzqVmHLJnTK+unvjlfd2Og8aLEaaBvlWY5m8gk9Xjm+iJwhYcDwtCw82LQJ/kZ5MyavnCsQCBZTGc4mMer66ux1j6rIzQZN4L08Wj3s6pdgg0OXqTpnCNC/n47N5/NuSTtVHai3VOmd/Gq5Qq3JsGT+dYV6PBUYIzUmjyhQ+ylWizc4Fr+DXgGdPaOk="
         apt:
           sources:
             # Official Kitware APT repository. Currently supports Bionic and Xenial.
@@ -39,6 +43,14 @@ matrix:
             - libnoise-dev
             - libopenal-dev
 
+      install:
+       - >
+        if [ "${TRAVIS_SECURE_ENV_VARS}" == "false" ]; then
+          wget -nv https://github.com/mozilla/sccache/releases/download/0.2.13/sccache-0.2.13-x86_64-unknown-linux-musl.tar.gz
+          tar xvzf sccache-0.2.13-x86_64-unknown-linux-musl.tar.gz
+          sudo mv ./sccache-0.2.13-x86_64-unknown-linux-musl/sccache /usr/bin
+        fi;
+        
       before_script:
         - cmake -DCMAKE_BUILD_TYPE=Debug -DENABLE_COVERAGE=ON -DUSE_PACKAGE_MANAGER=OFF -DENABLE_ANGELSCRIPT=OFF -DENABLE_MOFILEREADER=OFF .
 
@@ -47,21 +59,31 @@ matrix:
           if [ "${TRAVIS_SECURE_ENV_VARS}" == "true" ]; then
             echo "Running sonar build";
             build-wrapper-linux-x86-64 --out-dir bw-output make -j2;
-          fi;
-        - >
-          if [ "${TRAVIS_SECURE_ENV_VARS}" == "false" ]; then
-            echo "Running pullrequest build";
+          else
+            echo "Running pull request build";
             make -j2;
           fi;
         - xvfb-run -a ctest
-        - make gcov
-        - make copy_coverage
+        - >
+          if [ "${TRAVIS_SECURE_ENV_VARS}" == "true" ]; then
+            echo "Running the SonarCloud analysis";
+            make gcov
+            make copy_coverage
+            sonar-scanner -Dsonar.cfamily.build-wrapper-output=bw-output
+          fi;
+
+      before_cache:
+        - sccache --show-stats
 
     # clang build
     - os: linux
       name: CLANG 7 Build
       compiler: clang
       python: 3.7
+      cache:
+        directories:
+          - $HOME/.cache/sccache
+          - $HOME/.conan/
       addons:
         apt:
           sources:
@@ -76,52 +98,74 @@ matrix:
             - ninja-build
             - doxygen
             - graphviz
-            - libsdl2-dev
-            - libsdl2-image-dev
-            - libsdl2-mixer-dev
-            - libsdl2-ttf-dev
-            - libnoise-dev
-            - libopenal-dev
             - clang-7
+            - libasound2-dev
+            - libjack-dev
+            - libx11-dev
+            - libxext-dev
+            - libxxf86vm-dev
+            - libxss-dev
+            - libaudio-dev
+            - libpulse-dev
             - libc++-7-dev # C++17 support in libstd++
       env:
         - DEPLOY_DOCUMENTATION=true
         - MATRIX_EVAL="CC=clang-7.0 && CXX=clang++-7.0"
         - TARGET="linux"
-        
+
+      install:
+       - wget -nv https://github.com/mozilla/sccache/releases/download/0.2.13/sccache-0.2.13-x86_64-unknown-linux-musl.tar.gz
+       - tar xvzf sccache-0.2.13-x86_64-unknown-linux-musl.tar.gz
+       - sudo mv ./sccache-0.2.13-x86_64-unknown-linux-musl/sccache /usr/bin
+
       before_script:
-        - cmake -GNinja -DCMAKE_BUILD_TYPE=Release -DUSE_PACKAGE_MANAGER=OFF -DENABLE_ANGELSCRIPT=OFF -DENABLE_MOFILEREADER=OFF .
+        - cmake -GNinja -DCMAKE_BUILD_TYPE=Release .
 
       script:
         - ninja
         - xvfb-run -a ctest
         - sh ./tools/CI/upload-CI-build.sh
-        - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then doxygen Doxyfile; fi
+        - if [ "${TRAVIS_BRANCH}" = "master" ]; then doxygen Doxyfile; fi
+
+      before_cache:
+        - cmake -P ./cmake/pmm.cmake /Conan /Clean
+        - sccache --show-stats
 
     - os: osx
       name: XCode 11.3 Build
       osx_image: xcode11.3
-      env: TARGET=macOS
+      env: 
+        - TARGET=macOS
+        - CONAN_USER_HOME=/tmp/conan
       language: objective-c
       python: 3.7
+      cache:
+        directories:
+          - $HOME/Library/Caches/Mozilla.sccache
+          - /tmp/conan
 
       install:
         - brew update
-        - brew install conan
+        - brew install conan sccache
 
       before_script:
         - cmake -DCMAKE_BUILD_TYPE=Release .
 
       script:
         - make
-        - cp -R data/resources bin/resources
+        - mkdir -p bin/Cytopia.App/Resources/resources
+        - cp -pR data/resources bin/Cytopia.App/Contents/Resources/
+        - cp -pR data/resources bin/resources
         - ctest
         - make copy_resources
         - make package
+        - rm -rf bin/Cytopia.App/Contents/MacOS/resources
+        - rm -rf bin/Cytopia.App/Resources
         - sh ./tools/CI/upload-CI-build.sh
 
       before_cache:
         - cmake -P ./cmake/pmm.cmake /Conan /Clean
+        - sccache --show-stats
 
 deploy:
   provider: pages

@@ -36,6 +36,7 @@ BETTER_ENUM(TileType, int,
             BLUEPRINT,        /// Same as terrain, but gets placed on the BLUEPRINT layer
             AUTOTILE,         /// Autotiling to itself, like roads, power lines, etc
             ZONE,             /// Zones (rectangular placement)
+            ROAD,             /// Roads
             GROUNDDECORATION, /// Draw this Tile on GROUNDDECORATION layer. Buildings can be placed over it
             UNDERGROUND       /// same as AUTOTILE, but for the BLUEPRINT layer
 )
@@ -107,7 +108,7 @@ struct TileData
   Wealth wealth = +Wealth::LOW;          /// Restrict this building to a certain wealth level. See enum Wealth
 
   std::vector<std::string>
-      groundTileDecoration; /// tileID of the item that should be drawn on ground below sprite instead of terrain(grass, concrete, ...). Must be a tileID with tileType GroundDecoration
+      groundDecoration; /// tileID of the item that should be drawn on ground below sprite instead of terrain(grass, concrete, ...). Must be a tileID with tileType GroundDecoration
   bool placeOnGround = true;       /// wether or not this building is placeable on ground
   bool placeOnWater = false;       /// whether or not this building is placeable on water
   bool isOverPlacable;             /// Determines if other tiles can be placed over this one tile.

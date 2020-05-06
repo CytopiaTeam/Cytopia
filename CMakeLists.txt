@@ -3,6 +3,16 @@ cmake_minimum_required(VERSION 3.11 FATAL_ERROR)
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
+find_program(SCCACHE_PROGRAM sccache)
+find_program(CCACHE_PROGRAM ccache)
+if (SCCACHE_PROGRAM)
+    set(CMAKE_CXX_COMPILER_LAUNCHER "${SCCACHE_PROGRAM}")
+    message("Using ${SCCACHE_PROGRAM} for speeding up build")
+elseif (CCACHE_PROGRAM)
+    set(CMAKE_CXX_COMPILER_LAUNCHER "${CCACHE_PROGRAM}")
+    message("Using ${CCACHE_PROGRAM} for speeding up build")
+endif ()
+
 include(CMakeDependentOption)
 include(SourceFileUtils)
 include(FetchContent)
@@ -45,6 +55,10 @@ set(_include_directories "${CMAKE_CURRENT_SOURCE_DIR}/external/header_only")
 set(_compile_definitions "")
 set(_link_libraries "")
 
+if (CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo")
+  list(APPEND _compile_definitions DEBUG)
+endif ()
+
 # create the cmake project
 project(
         # this will be the ${PROJECT_NAME}
@@ -75,7 +89,6 @@ if (USE_PACKAGE_MANAGER)
     pmm(CONAN
             REMOTES
             AFG https://api.bintray.com/conan/anotherfoxguy/conan-packages
-            catchorg https://api.bintray.com/conan/catchorg/Catch2
             ror-dependencies https://api.bintray.com/conan/anotherfoxguy/ror-dependencies
             BINCRAFTERS
             CMakeCM ROLLING
@@ -129,7 +142,9 @@ else (USE_PACKAGE_MANAGER)
     pkg_check_modules(SDL2_image REQUIRED SDL2_image)
     pkg_check_modules(SDL2_ttf REQUIRED SDL2_ttf)
     pkg_check_modules(ZLIB REQUIRED zlib)
+
     
+
     if (ENABLE_AUDIO)
         pkg_check_modules(openal REQUIRED openal)
         pkg_check_modules(ogg REQUIRED ogg)
@@ -169,6 +184,9 @@ else (USE_PACKAGE_MANAGER)
     if (ENABLE_AUDIO)
         list(APPEND _link_libraries ${ogg_LIBRARIES})
         list(APPEND _link_libraries ${vorbis_LIBRARIES})
+    endif ()
+
+    if (ENABLE_AUDIO)
         list(APPEND _link_libraries ${openal_LIBRARIES})
     endif ()
 
@@ -182,12 +200,6 @@ else (USE_PACKAGE_MANAGER)
     endif ()
 
 endif (USE_PACKAGE_MANAGER)
-
-if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-  add_compile_definitions(DEBUG)
-elseif(CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo")
-  add_compile_definitions(DEBUG)
-endif()
 
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
   link_libraries(dbghelp.lib)
@@ -249,7 +261,7 @@ endif (ENABLE_MICROPROFILE)
 if (UNIX AND NOT APPLE)
     execute_process(COMMAND head -1 /etc/os-release OUTPUT_VARIABLE linux_distribution)
 endif ()
-    
+
 # Configuration for packaging
 include(CpackConfiguration)
 
@@ -289,6 +301,19 @@ if (DOXYGEN_FOUND)
             VERBATIM
     )
 endif ()
+
+# copy itch.toml to build folder to install our prerequisits
+if (WIN32)
+  if (CMAKE_SIZEOF_VOID_P EQUAL 8) ## 64 bit
+    INSTALL(FILES ${CMAKE_SOURCE_DIR}/tools/itch/win64/.itch.toml
+            DESTINATION ${CMAKE_BINARY_DIR}/redist
+            )
+  elseif(CMAKE_SIZEOF_VOID_P EQUAL 4) ## 32 bit
+    INSTALL(FILES ${CMAKE_SOURCE_DIR}/tools/itch/win32/.itch.toml
+           DESTINATION ${CMAKE_BINARY_DIR}/redist
+           )
+  endif()
+endif()
 
 include(FeatureSummary)
 feature_summary(WHAT ALL)

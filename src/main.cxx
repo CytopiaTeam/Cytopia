@@ -15,6 +15,7 @@ int protected_main(int argc, char **argv)
   (void)argv;
 
   bool skipMenu = false;
+  bool quitGame = false;
 
   // add commandline parameter to skipMenu
   for (int i = 1; i < argc; ++i)
@@ -36,12 +37,14 @@ int protected_main(int argc, char **argv)
 
   if (!skipMenu)
   {
-    LOG(LOG_DEBUG) << "Starting Main menu";
-    game.mainMenu();
+    quitGame = game.mainMenu();
   }
 
-  LOG(LOG_DEBUG) << "Running the Game";
-  game.run(skipMenu);
+  if (!quitGame)
+  {
+    LOG(LOG_DEBUG) << "Running the Game";
+    game.run(skipMenu);
+  }
 
   LOG(LOG_DEBUG) << "Closing the Game";
   game.shutdown();

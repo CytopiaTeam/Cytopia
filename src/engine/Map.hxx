@@ -2,6 +2,7 @@
 #define MAP_HXX_
 
 #include <vector>
+#include <random>
 
 #include "GameObjects/MapNode.hxx"
 #include "map/TerrainGenerator.hxx"
@@ -15,7 +16,7 @@ public:
   std::vector<std::unique_ptr<MapNode>> mapNodes;
   std::vector<MapNode *> mapNodesInDrawingOrder;
 
-  Map() = default;
+  Map() = delete;
   Map(int columns, int rows);
   ~Map() = default;
 
@@ -25,8 +26,8 @@ public:
   void initMap();
 
   /** \brief Increase Height
-    * Increases the height of the node and checks the surrounding tiles. Either draw a slope sprite or elevate the tile if 
-    * necessary. 
+    * Increases the height of the node and checks the surrounding tiles. Either draw a slope sprite or elevate the tile if
+    * necessary.
     * @param isoCoordinates the isometric coordinates of the tile that should be elevated
     */
   void increaseHeight(const Point &isoCoordinates);
@@ -61,16 +62,16 @@ public:
 
   /**
  * @brief Returns the node at given screencoordinates
- * 
- * @param screenCoordinates 
- * @return Point 
+ *
+ * @param screenCoordinates
+ * @return Point
  */
   Point findNodeInMap(const SDL_Point &screenCoordinates) const;
 
   /**
  * @brief Set the Tile ID Of Node object
  * Also invokes all necessary texture updates (auto-tiling, slopes, ...)
- * @param isoCoordinates 
+ * @param isoCoordinates
  * @param tileID tileID which should be set
  */
   template <typename Iterator>
@@ -87,31 +88,63 @@ public:
         break;
       }
     }
+
     if (isOkToSet)
     {
+      int groundtileIndex = -1;
       for (auto it = begin; it != end; ++it)
       {
         bool shouldRender = !(!isMultiObjects && it != begin);
-        demolishNode(*it);
-        mapNodes[it->x * m_columns + it->y]->setRenderFlag(TileManager::instance().getTileLayer(tileID), shouldRender);
-        mapNodes[it->x * m_columns + it->y]->setTileID(tileID, isMultiObjects ? *it : *begin);
-        updateNeighborsOfNode(*it);
+        Layer layer = TileManager::instance().getTileLayer(tileID);
+        const auto pCurrentMapNode = mapNodes[it->x * m_columns + it->y].get();
+
+        if (!isAllowSetTileId(layer, pCurrentMapNode))
+        {
+          continue;
+        }
+
+        // only demolish nodes before placing if this is a bigger than 1x1 building
+        if (!isMultiObjects)
+        {
+          demolishNode(std::vector<Point>{*it}, 0, Layer::BUILDINGS);
+        }
+
+        pCurrentMapNode->setRenderFlag(layer, shouldRender);
+        pCurrentMapNode->setTileID(tileID, isMultiObjects ? *it : *begin);
+        if (pCurrentMapNode->getMapNodeDataForLayer(layer).tileData &&
+            !pCurrentMapNode->getMapNodeDataForLayer(layer).tileData->groundDecoration.empty() && groundtileIndex == -1)
+        {
+          const int groundDecoSize = pCurrentMapNode->getMapNodeDataForLayer(layer).tileData->groundDecoration.size();
+          std::uniform_int_distribution uniformDistribution(0, groundDecoSize - 1);
+          groundtileIndex = uniformDistribution(randomEngine);
+        }
+        if (groundtileIndex != -1)
+        {
+          pCurrentMapNode->setTileID(pCurrentMapNode->getMapNodeDataForLayer(layer).tileData->groundDecoration[groundtileIndex],
+                                     isMultiObjects ? *it : *begin);
+        }
+        //For layers that autotile to each other, we need to update their neighbors too
+        if (MapNode::isDataAutoTile(TileManager::instance().getTileData(tileID)))
+        {
+          updateNeighborsOfNode(*it);
+        }
       }
     }
   }
 
   /**
  * @brief Demolish a node
- * Invokes the tiles demolish function
- * @param isoCoordinates 
- * @param updateNeighboringTiles 
+ * This function gathers all tiles that should be demolished and invokes the nodes demolish function. When a building bigger than 1x1 is selected, all it's coordinates are added to the demolishing points.
+ * @param isoCoordinates all coordinates that should be demolished
+ * @param updateNeighboringTiles wether the adjecent tiles should be updated. (only relevant for autotiling)
+ * @param layer restrict demolish to a single layer
  * @see MapNode#demolishNode
  */
-  void demolishNode(const Point &isoCoordinates, bool updateNeighboringTiles = false);
+  void demolishNode(const std::vector<Point> &isoCoordinates, bool updateNeighboringTiles = false, Layer layer = Layer::NONE);
 
   /**
    * @brief Refresh all the map tile textures
-   * 
+   *
    * @see Sprite#refresh
    */
   void refresh();
@@ -120,6 +153,13 @@ public:
    * @brief Get original corner point of given point within building borders.
    */
   Point getNodeOrigCornerPoint(const Point &isoCoordinates, Layer layer = Layer::NONE);
+
+  /**
+ * @brief whether a node is a multiobject or not (bigger than 1x1 building)
+ * @param isoCoordinates Tile to inspect
+ * @param layer Which layer to inspect (default BUILDINGS)
+ */
+  bool isNodeMultiObject(const Point &isoCoordinates, Layer layer = Layer::BUILDINGS);
 
   /** \Brief Save Map to file
   * Serializes the Map class to json and writes the data to a file.
@@ -148,7 +188,7 @@ public:
   bool isPlacementOnNodeAllowed(const Point &isoCoordinates, const std::string &tileID) const;
 
   /** \brief Return vector of Points of an Object Tiles selection.
-  * 
+  *
   */
   std::vector<Point> getObjectCoords(const Point &isoCoordinates, const std::string &tileID);
 
@@ -158,9 +198,17 @@ public:
   */
   std::string getTileID(const Point &isoCoordinates, Layer layer);
 
+  /** \Get a single mapNode at specific iso coordinates
+  * @param isoCoordinates: The node to retrieve
+  */
+  const MapNode *getMapNode(Point isoCoords) const { return mapNodes[isoCoords.x * m_columns + isoCoords.y].get(); };
+
+  bool isLayerAutoTile(const Point &isoCoordinates, const Layer &layer) const;
+
 private:
   int m_columns;
   int m_rows;
+  std::default_random_engine randomEngine;
 
   TerrainGenerator m_terrainGen;
 
@@ -172,8 +220,8 @@ private:
   */
   void updateNeighborsOfNode(const Point &isoCoordinates);
 
-  /**\brief Update all mapNodes 
-  * Updates all mapNode and its adjacent tiles regarding height information, draws slopes for adjacent tiles and 
+  /**\brief Update all mapNodes
+  * Updates all mapNode and its adjacent tiles regarding height information, draws slopes for adjacent tiles and
   * sets tiling for mapNode sprite if applicable
   */
   void updateAllNodes();
@@ -206,6 +254,13 @@ private:
   SDL_Color getColorOfPixelInSurface(SDL_Surface *surface, int x, int y) const;
 
   bool isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int isoY) const;
+
+  /* \brief Filter out tiles which should not be set over existing one.
+  * @param layer Layer in which tileId should be set.
+  * @param pMapNode pointer to the MapNode which ID should be set.
+  * @return true in case that tileId is allowed to be set, otherwise false (filter it out).
+  */
+  bool isAllowSetTileId(const Layer layer, const MapNode *const pMapNode);
 };
 
 #endif
