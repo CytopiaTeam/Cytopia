@@ -7,7 +7,7 @@ sdl2/2.0.9@bincrafters/stable
 sdl2_ttf/2.0.15@bincrafters/stable
 sdl2_image/2.0.5@bincrafters/stable 
 bzip2/1.0.8@conan/stable
-@_CC_SDL2_MIXER@sdl2_mixer/2.0.4@bincrafters/stable 
+@_CC_VORBIS@vorbis/1.3.6@bincrafters/stable 
 @_CC_MOFILEREADER@MofileReader/1.0.0@anotherfoxguy/stable
 libpng/1.6.37
 freetype/2.10.0@bincrafters/stable

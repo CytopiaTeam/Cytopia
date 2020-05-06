@@ -4,7 +4,7 @@
 #include "AL/al.h"
 #include "AL/alc.h"
 
-#include "ogg/ogg.h"
+//#include "ogg/ogg.h"
 #include "vorbis/codec.h"
 #include "vorbis/vorbisfile.h"
 #include "vorbis/vorbisenc.h"
@@ -49,7 +49,7 @@ ResourceManager::ResourceManager(GameService::ServiceTuple &services) : GameServ
 
 
 //#ifdef USE_OPENAL_SOFT
-int LoadAudioWithOggVorbis(std::string path, DecodedAudioData& dAudioBuffer)
+static int LoadAudioWithOggVorbis(std::string path, DecodedAudioData& dAudioBuffer)
 {
   //0 means success
   //-1 means failure
@@ -84,7 +84,7 @@ int LoadAudioWithOggVorbis(std::string path, DecodedAudioData& dAudioBuffer)
       ++ptr;
     }
     
-    LOG(LOG_DEBUG) << "\nBitstream is " << vi->channels << "channel, " << vi->rate;
+    LOG(LOG_DEBUG) << "Bitstream is " << vi->channels << "channel, " << vi->rate;
     LOG(LOG_DEBUG) << "Encoded by: " << ov_comment(&vf,-1)->vendor;
   }
   
