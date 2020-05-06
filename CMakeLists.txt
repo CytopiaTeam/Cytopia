@@ -105,10 +105,8 @@ if (USE_PACKAGE_MANAGER)
             )
 
     if (ENABLE_AUDIO)
-        list(APPEND _link_libraries CONAN_PKG::sdl2_mixer)
-    endif ()
-    
-    if (ENABLE_AUDIO)
+        list(APPEND _link_libraries CONAN_PKG::ogg)
+        list(APPEND _link_libraries CONAN_PKG::vorbis)
         list(APPEND _link_libraries CONAN_PKG::openal)
     endif ()
 
@@ -131,10 +129,6 @@ else (USE_PACKAGE_MANAGER)
     pkg_check_modules(SDL2_image REQUIRED SDL2_image)
     pkg_check_modules(SDL2_ttf REQUIRED SDL2_ttf)
     pkg_check_modules(ZLIB REQUIRED zlib)
-    
-    if (ENABLE_AUDIO)
-        pkg_check_modules(SDL2_mixer REQUIRED SDL2_mixer)
-    endif ()
     
     if (ENABLE_AUDIO)
         pkg_check_modules(openal REQUIRED openal)
@@ -173,12 +167,8 @@ else (USE_PACKAGE_MANAGER)
             )
 
     if (ENABLE_AUDIO)
-        list(APPEND _link_libraries ${SDL2_mixer_LIBRARIES})
         list(APPEND _link_libraries ${ogg_LIBRARIES})
         list(APPEND _link_libraries ${vorbis_LIBRARIES})
-    endif ()
-    
-    if (ENABLE_AUDIO)
         list(APPEND _link_libraries ${openal_LIBRARIES})
     endif ()
 
