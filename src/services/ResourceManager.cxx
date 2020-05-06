@@ -92,7 +92,14 @@ int LoadAudioWithOggVorbis(std::string path, DecodedAudioData& dAudioBuffer)
   {
 	
 	//read content from file
-    long ret = ov_read(&vf,pcmout,sizeof(pcmout),0,2,1,&current_section);
+	// length of buffer
+	// bingendianp bit packing = 0 = little endian
+	// word size = 2 = 16-bit
+	// sgned = 1 = signed
+	
+	//read to character buffer
+	//number of bytes returned
+    long ret = ov_read(&vf,pcmout,4096,0,2,1,&current_section);
     
     //if there is no more content
     if (ret == 0) 
@@ -100,32 +107,48 @@ int LoadAudioWithOggVorbis(std::string path, DecodedAudioData& dAudioBuffer)
       /* EOF */
       eof = true;
     } 
-    //if there is an error
-    else if (ret < 0) 
-    {
-      /* error in the stream.*/
-      return -1;
-    }
+    else if(ret == OV_HOLE)
+	{
+		LOG(LOG_INFO) << "ERROR: OV_HOLE found in initial read of buffer\n";
+		return -1;
+	}
+	else if(ret == OV_EBADLINK)
+	{
+		LOG(LOG_INFO) << "ERROR: OV_EBADLINK found in initial read of buffer\n";
+		return -1;
+	}
+	else if(ret == OV_EINVAL)
+	{
+		LOG(LOG_INFO) << "ERROR: OV_EINVAL found in initial read of buffer\n";
+		return -1;
+	}
     //else if no error
     else
     {
-		uint16_t vals[4096];
 		
 		//convert from char to uint and push into buffer
 		
+		/*
 		for(size_t i=0; i < 4096; i++)
 		{
-			vals[i] = (uint16_t)pcmout[i];
-			dAudioBuffer.data_vec.push_back(vals[i]);
+			uint16_t val = (uint16_t)pcmout[i];
+			dAudioBuffer.uint_data_vec.push_back(val);
 		}
+		*/
+		
+		dAudioBuffer.char_data_vec.insert(dAudioBuffer.char_data_vec.end(), pcmout, pcmout + ret);
 	}
   }
   
+  //set number of bytes in buffer
+  dAudioBuffer.nBytes = dAudioBuffer.char_data_vec.size() * sizeof(char);
+  
+  //get sample rate
+  vorbis_info* vorbisInfo = ov_info(&vf, -1);
+  dAudioBuffer.data_sample_rate = vorbisInfo->rate;
+  
   //clear data
   ov_clear(&vf);
-  
-  //set number of bytes in buffer
-  dAudioBuffer.nBytes = dAudioBuffer.data_vec.size() * sizeof(uint16_t);
       
   LOG(LOG_DEBUG) << "Load Successful!\n";
   return 0;
@@ -163,7 +186,7 @@ void ResourceManager::fetch(SoundtrackID id)
 	  throw AudioError(TRACE_INFO "Failed to read sound file with libogg.\n ");
   }
    
-  if (dataBuffer.data_vec.size() == 0)
+  if (dataBuffer.char_data_vec.size() == 0)
     throw AudioError(TRACE_INFO "Could not read sound file: " + string{Mix_GetError()});
   m_CacheSize += sizeof(dataBuffer) + sizeof(Soundtrack) + sizeof(SoundtrackResource) + dataBuffer.nBytes;
   auto soundtrack = new Soundtrack{id, ChannelID{-1}, &dataBuffer, RepeatCount{0}, isMusic, false, true, true};

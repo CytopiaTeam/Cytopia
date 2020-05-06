@@ -23,8 +23,10 @@ using RepeatCount = StrongType<uint8_t, struct RepeatCountTag>;
 
 struct DecodedAudioData
 {
-	std::vector <uint16_t> data_vec; //pcm audio data
-	uint nBytes; //number of bytes in decoded audio data
+	std::vector <uint16_t> uint_data_vec; //pcm audio data
+	std::vector <char> char_data_vec; //pcm audio data
+	long nBytes; //number of bytes in decoded audio data
+	int data_sample_rate; 
 };
 
 struct Soundtrack

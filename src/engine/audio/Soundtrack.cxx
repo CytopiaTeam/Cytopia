@@ -31,7 +31,8 @@ Soundtrack::Soundtrack(SoundtrackID id, ChannelID channelID, DecodedAudioData *d
   //alBufferData(buffer, format, chunks->abuf, chunks->alen,
   //             44100);
   
-  alBufferData(buffer, format, &dAudioData->data_vec.front(), dAudioData->nBytes,44100);
+  
+  alBufferData(buffer, format, dAudioData->char_data_vec.data(), dAudioData->nBytes,dAudioData->data_sample_rate);
   
   errorCode = alGetError();
   if (errorCode != AL_NO_ERROR)
