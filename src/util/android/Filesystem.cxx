@@ -19,6 +19,7 @@ std::string readFileAsString(const std::string &fileName, bool binaryMode)
   if (rw == NULL)
   {
     LOG(LOG_ERROR) << stderr << "Couldn't open " << fileName.c_str();
+    throw ConfigurationError(TRACE_INFO "Couldn't open " + fileName.c_str();
   }
 
   Sint64 nb_read_total = 0, nb_read = 1;
