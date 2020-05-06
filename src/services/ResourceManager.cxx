@@ -83,8 +83,9 @@ int LoadAudioWithOggVorbis(std::string path, DecodedAudioData& dAudioBuffer)
       fprintf(stderr,"%s\n",*ptr);
       ++ptr;
     }
-    fprintf(stderr,"\nBitstream is %d channel, %ldHz\n",vi->channels,vi->rate);
-    fprintf(stderr,"Encoded by: %s\n\n",ov_comment(&vf,-1)->vendor);
+    
+    LOG(LOG_DEBUG) << "\nBitstream is " << vi->channels << "channel, " << vi->rate;
+    LOG(LOG_DEBUG) << "Encoded by: " << ov_comment(&vf,-1)->vendor;
   }
   
   //readwhile end of file has not been reached yet
