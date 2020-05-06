@@ -1,5 +1,9 @@
 #include "LOG.hxx"
 
+#ifdef __ANDROID__
+#include <android/log.h>
+#endif
+
 Mutex LOG::StreamMutex;
 
 LOG::LOG(LogType type) : m_LogType(type) {}
@@ -13,7 +17,11 @@ LOG::~LOG()
 #ifndef DEBUG
     if (m_LogType != LOG_DEBUG)
 #endif
-      std::cout << Message << std::endl;
+#ifdef __ANDROID__
+      __android_log_print(ANDROID_LOG_INFO, "Cytopia", "%s", Message.str().c_str());
+#else
+    std::cout << Message << std::endl;
+#endif
   }
   else
   {
