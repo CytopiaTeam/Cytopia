@@ -11,16 +11,16 @@ LOG::LOG(LogType type) : m_LogType(type) {}
 LOG::~LOG()
 {
   LockGuard lock(StreamMutex);
-  string Message = getTimeStamp() + LOG_PREFIX[m_LogType] + m_Logger.str();
+  string message = getTimeStamp() + LOG_PREFIX[m_LogType] + m_Logger.str();
   if (!getenv("TERM"))
   {
 #ifndef DEBUG
     if (m_LogType != LOG_DEBUG)
 #endif
 #ifdef __ANDROID__
-      __android_log_print(ANDROID_LOG_INFO, "Cytopia", "%s", Message.str().c_str());
+      __android_log_print(ANDROID_LOG_INFO, "Cytopia", "%s", Message.c_str());
 #else
-    std::cout << Message << std::endl;
+    std::cout << message << std::endl;
 #endif
   }
   else
@@ -30,7 +30,7 @@ LOG::~LOG()
 #endif
       std::cout << getTimeStamp() << LOG_PREFIX_COLORED[m_LogType] << m_Logger.str() << std::endl;
   }
-  writeErrorLog(Message);
+  writeErrorLog(message);
 }
 
 std::string LOG::getTimeStamp()
