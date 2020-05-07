@@ -26,7 +26,7 @@ template <typename Callback> void forEachFileType(fs::path &&path, std::string &
 {
   for (const auto &fp : fs::directory_iterator(path))
   {
-    if (static_cast<std::filesystem::path>(fp).extension() == extension)
+    if (static_cast<fs::path>(fp).extension() == extension)
     {
       callback(fp);
     }
