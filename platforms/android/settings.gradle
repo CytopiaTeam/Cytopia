@@ -1,0 +1,3 @@
+include ':android-app'
+include ':SDL2'
+include ':libnoise'
