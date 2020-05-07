@@ -71,6 +71,14 @@ project(
         LANGUAGES CXX
 )
 
+if (APPLE)
+  set(CMAKE_OSX_DEPLOYMENT_TARGET "10.15")
+  if(EXISTS("/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk"))
+    set(CMAKE_OSX_SYSROOT "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk")
+    message(STATUS "Setting OSX SDK to MacOSX10.15")
+  endif()
+endif()
+
 # on macOS, usr/local/lib is not in the default search path for libraries. Homebrew install it's libraries there though.
 if (APPLE AND NOT USE_PACKAGE_MANAGER)
     LINK_DIRECTORIES(${LINK_DIRECTORIES} /usr/local/lib)
