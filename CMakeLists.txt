@@ -23,6 +23,7 @@ option(ENABLE_AUDIO "Enable Audio" ON)
 option(ENABLE_MICROPROFILE "Enable microprofile" OFF)
 option(ENABLE_ANGELSCRIPT "Enable AngelScript" ON)
 option(ENABLE_MOFILEREADER "Enable MofileReader" ON)
+option(BUILD_ANDROID "Crossbuild to Android" OFF)
 
 # Comment-out uneeded libs
 if (NOT ENABLE_AUDIO)
@@ -54,6 +55,51 @@ endif ()
 set(_include_directories "${CMAKE_CURRENT_SOURCE_DIR}/external/header_only")
 set(_compile_definitions "")
 set(_link_libraries "")
+
+if (BUILD_ANDROID)
+  find_library(OpenGLES2_LIBRARY GLESv2 REQUIRED)
+  find_library(OpenGLES3_LIBRARY GLESv3 REQUIRED)
+  find_library(ANDROID_LOG_LIBRARY log REQUIRED)
+  find_library(ANDROID_LIBRARY_LIBRARY android REQUIRED)
+
+  set(DISTRIBUTION_DIR ${CMAKE_SOURCE_DIR}/platforms/android/build/SDL2/intermediates/ndkBuild)
+  string(TOLOWER ${CMAKE_BUILD_TYPE} ANDROID_BUILD_DIR)
+  
+  set(SDL_LOCATION ${CMAKE_SOURCE_DIR}/contrib/)
+  
+  ##SDL2
+  set (SDL2_LOCATION ${DISTRIBUTION_DIR}/${ANDROID_BUILD_DIR}/obj/local/${ANDROID_ABI}/libSDL2.so)
+  add_library(SDL2 SHARED IMPORTED )
+  set_target_properties(SDL2 PROPERTIES IMPORTED_LOCATION ${SDL2_LOCATION})
+  
+  ## add includes 
+  # include_directories(${CMAKE_SOURCE_DIR}/contrib/SDL/include)
+  
+  ## SDL2_image
+  set (SDL2_IMAGE_LOCATION ${DISTRIBUTION_DIR}/${ANDROID_BUILD_DIR}/obj/local/${ANDROID_ABI}/libSDL2_image.so)
+  add_library(SDL2_IMAGE SHARED IMPORTED )
+  set_target_properties(SDL2_IMAGE PROPERTIES IMPORTED_LOCATION ${SDL2_IMAGE_LOCATION})
+  
+  ## SDL2_ttf
+  set (SDL2_TTF_LOCATION ${DISTRIBUTION_DIR}/${ANDROID_BUILD_DIR}/obj/local/${ANDROID_ABI}/libSDL2_ttf.so)
+  add_library(SDL2_TTF SHARED IMPORTED )
+  set_target_properties(SDL2_TTF PROPERTIES IMPORTED_LOCATION ${SDL2_TTF_LOCATION})
+  
+  ## SDL2_mixer
+  set (SDL2_MIXER_LOCATION ${DISTRIBUTION_DIR}/${ANDROID_BUILD_DIR}/obj/local/${ANDROID_ABI}/libSDL2_mixer.so)
+  add_library(SDL2_MIXER SHARED IMPORTED )
+  set_target_properties(SDL2_MIXER PROPERTIES IMPORTED_LOCATION ${SDL2_MIXER_LOCATION})
+  
+  ## bzip2
+  set (ZLIB_LOCATION ${DISTRIBUTION_DIR}/${ANDROID_BUILD_DIR}/obj/local/${ANDROID_ABI}/zlib.so)
+  add_library(ZLIB SHARED IMPORTED )
+  set_target_properties(ZLIB PROPERTIES IMPORTED_LOCATION ${ZLIB_LOCATION})
+  
+  
+  # Joysticks were causing trouble on android.
+  add_definitions(-DSDL_JOYSTICK=0)
+
+endif()
 
 if (CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo")
   list(APPEND _compile_definitions DEBUG)
@@ -136,8 +182,16 @@ if (USE_PACKAGE_MANAGER)
     if (BUILD_TEST)
         list(APPEND _link_libraries CONAN_PKG::Catch2)
     endif ()
-
-else (USE_PACKAGE_MANAGER)
+elseif (BUILD_ANDROID)
+    list(APPEND _link_libraries ${OpenGLES2_LIBRARY}
+                                ${ANDROID_LOG_LIBRARY}
+                                ${ANDROID_LIBRARY_LIBRARY}
+                                SDL2
+                                SDL2_IMAGE
+                                SDL2_TTF
+                                SDL2_MIXER
+    )
+elseif (USE_PACKAGE_MANAGER)
     find_package(PkgConfig REQUIRED)
 
     pkg_check_modules(SDL2 REQUIRED sdl2)

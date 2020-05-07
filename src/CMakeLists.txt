@@ -126,6 +126,10 @@ if (APPLE)
     set_source_files_properties(${myApp_ICON} PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
 
     add_executable(${PROJECT_NAME} MACOSX_BUNDLE ${SOURCE_FILES} ${ICON_PATH} ${MAC_RESOURCE_FILES})
+
+elseif(ANDROID)
+    # On android the final binary is a shared library not an executable.
+    add_library(${PROJECT_NAME} SHARED ${SOURCE_FILES})
 else ()
     # create a new executable with the same name as the project
     add_executable(${PROJECT_NAME} ${SOURCE_FILES})
