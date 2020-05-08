@@ -18,7 +18,7 @@ LOG::~LOG()
     if (m_LogType != LOG_DEBUG)
 #endif
 #ifdef __ANDROID__
-      __android_log_print(ANDROID_LOG_INFO, "Cytopia", "%s", Message.c_str());
+      __android_log_print(ANDROID_LOG_INFO, "Cytopia", "%s", message.c_str());
 #else
     std::cout << message << std::endl;
 #endif
