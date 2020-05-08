@@ -1,6 +1,6 @@
 #!/bin/bash -x
 
-pushd contrib
+pushd external/android/SDL
 
 wget https://www.libsdl.org/release/SDL2-2.0.9.tar.gz
 rm -rf SDL2
@@ -29,7 +29,7 @@ rm SDL2_ttf-2.0.15.tar.gz
 popd
 
 mkdir -p externLibs
-pushd externLibs
+pushd external/android/other
 
 rm -rf libnoise
 git clone https://github.com/qknight/libnoise.git
