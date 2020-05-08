@@ -29,8 +29,9 @@ android {
     externalNativeBuild {
         externalNativeBuild {
         ndkBuild {
-            // path '../../../externLibs/Android.mk'
-            path '../../../externLibs/zlib/Makefile'
+
+            path '../../../external/android/other/zlib/Makefile'
+
         }
       }
     }
