@@ -37,7 +37,7 @@ android {
         cmake {
             version "3.10.2"
             
-            path '../../../external/android/other/libnoise/Android.mk'
+            path '../../../external/android/other/libnoise/CMakeLists.txt'
 
             // Using one top level build dir for all build related files to reduce clutter.
             buildStagingDirectory file("${buildDir}/../.externalNativeBuild/${project.name}")
