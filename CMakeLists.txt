@@ -289,7 +289,7 @@ if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
   link_libraries(dbghelp.lib)
 else()
   # Needed for filesystem library
-  if(NOT APPLE)
+  if(NOT APPLE AND NOT BUILD_ANDROID)
     # TODO: Link with stdc++fs on Apple with XCode11
     list(APPEND _link_libraries "stdc++fs")
   endif()
