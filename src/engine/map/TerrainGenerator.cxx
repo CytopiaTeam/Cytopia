@@ -8,9 +8,10 @@
 #include "json.hxx"
 #include <noise.h>
 
+
 using json = nlohmann::json;
 
-void TerrainGenerator::generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNodeVector &mapNodesInDrawingOrder)
+void TerrainGenerator::generateTerrain(std::vector<MapNode> &mapNodes, std::vector<MapNode*> &mapNodesInDrawingOrder)
 {
   loadTerrainDataFromJSON();
 
@@ -87,14 +88,14 @@ void TerrainGenerator::generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNode
   {
     for (int y = m_terrainSettings.mapSize - 1; y >= 0; y--)
     {
+      const int nodeIdx = x * m_terrainSettings.mapSize + y;
       double rawHeight = terrainHeight.GetValue(x * 32, y * 32, 0.5);
       int height = static_cast<int>(rawHeight);
 
       if (height < m_terrainSettings.seaLevel)
       {
         height = m_terrainSettings.seaLevel;
-        mapNodes[x * m_terrainSettings.mapSize + y] =
-            std::make_unique<MapNode>(Point{x, y, z++, height}, m_biomeInformation[currentBiome].water[0]);
+        mapNodes[nodeIdx] = std::move(MapNode{Point{x, y, z++, height}, m_biomeInformation[currentBiome].water[0]});
       }
       else
       {
@@ -110,9 +111,8 @@ void TerrainGenerator::generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNode
             if (tileIndex < 20)
             {
               tileIndex = tileIndex % static_cast<int>(m_biomeInformation[currentBiome].treesLight.size());
-              mapNodes[x * m_terrainSettings.mapSize + y] =
-                  std::make_unique<MapNode>(Point{x, y, z++, height}, m_biomeInformation[currentBiome].terrain[0],
-                                            m_biomeInformation[currentBiome].treesLight[tileIndex]);
+              mapNodes[nodeIdx] = std::move(MapNode{Point{x, y, z++, height}, m_biomeInformation[currentBiome].terrain[0],
+                                                    m_biomeInformation[currentBiome].treesLight[tileIndex]});
               placed = true;
             }
           }
@@ -121,9 +121,8 @@ void TerrainGenerator::generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNode
             if (tileIndex < 50)
             {
               tileIndex = tileIndex % static_cast<int>(m_biomeInformation[currentBiome].treesMedium.size());
-              mapNodes[x * m_terrainSettings.mapSize + y] =
-                  std::make_unique<MapNode>(Point{x, y, z++, height}, m_biomeInformation[currentBiome].terrain[0],
-                                            m_biomeInformation[currentBiome].treesMedium[tileIndex]);
+              mapNodes[nodeIdx] = std::move(MapNode{Point{x, y, z++, height}, m_biomeInformation[currentBiome].terrain[0],
+                                                    m_biomeInformation[currentBiome].treesMedium[tileIndex]});
               placed = true;
             }
           }
@@ -131,19 +130,17 @@ void TerrainGenerator::generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNode
           {
             tileIndex = tileIndex % static_cast<int>(m_biomeInformation[currentBiome].treesDense.size());
 
-            mapNodes[x * m_terrainSettings.mapSize + y] =
-                std::make_unique<MapNode>(Point{x, y, z++, height}, m_biomeInformation[currentBiome].terrain[0],
-                                          m_biomeInformation[currentBiome].treesDense[tileIndex]);
+            mapNodes[nodeIdx] = std::move(MapNode{Point{x, y, z++, height}, m_biomeInformation[currentBiome].terrain[0],
+                                                  m_biomeInformation[currentBiome].treesDense[tileIndex]});
             placed = true;
           }
         }
         if (placed == false)
         {
-          mapNodes[x * m_terrainSettings.mapSize + y] =
-              std::make_unique<MapNode>(Point{x, y, z++, height}, m_biomeInformation[currentBiome].terrain[0]);
+          mapNodes[nodeIdx] = std::move(MapNode{Point{x, y, z++, height}, m_biomeInformation[currentBiome].terrain[0]});
         }
       }
-      mapNodesInDrawingOrder.push_back(mapNodes[x * m_terrainSettings.mapSize + y].get());
+      mapNodesInDrawingOrder.push_back(&mapNodes[nodeIdx]);
     }
   }
 }

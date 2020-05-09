@@ -32,6 +32,8 @@ class MapNode
 {
 public:
   MapNode(Point isoCoordinates, const std::string &terrainID, const std::string &newTileID = "");
+  MapNode(){};
+  MapNode(const MapNode &){};
 
   /**
     * @brief Destroys the MapNode object
@@ -147,19 +149,17 @@ public:
 
   void setRenderFlag(Layer layer, bool shouldRender) { m_mapNodeData[layer].shouldRender = shouldRender; }
 
+  MapNode &operator=(MapNode &&mapNode);
+
 private:
+  static const int m_maxHeight = 32;
+
   Point m_isoCoordinates;
   std::unique_ptr<Sprite> m_sprite;
-
-  int m_maxHeight = 32;
-
   std::string m_previousTileID = "terrain";
-
   std::vector<TileOrientation> m_autotileOrientation;
   size_t m_elevationOrientation = TileSlopes::DEFAULT_ORIENTATION;
-
   int m_clippingWidth = 0;
-
   std::vector<MapNodeData> m_mapNodeData;
   std::vector<unsigned char> m_autotileBitmask;
   unsigned char m_elevationBitmask = 0;

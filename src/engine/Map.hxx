@@ -10,7 +10,7 @@
 class Map
 {
 private:
-  std::vector<std::unique_ptr<MapNode>> mapNodes;
+  std::vector<MapNode> mapNodes;
   std::vector<MapNode *> mapNodesInDrawingOrder;
   int m_columns;
   int m_rows;
@@ -98,9 +98,9 @@ public:
       {
         bool shouldRender = !(!isMultiObjects && it != begin);
         Layer layer = TileManager::instance().getTileLayer(tileID);
-        const auto pCurrentMapNode = mapNodes[it->x * m_columns + it->y].get();
+        MapNode &currentMapNode = mapNodes[it->x * m_columns + it->y];
 
-        if (!isAllowSetTileId(layer, pCurrentMapNode))
+        if (!isAllowSetTileId(layer, &currentMapNode))
         {
           continue;
         }
@@ -111,19 +111,19 @@ public:
           demolishNode(std::vector<Point>{*it}, 0, Layer::BUILDINGS);
         }
 
-        pCurrentMapNode->setRenderFlag(layer, shouldRender);
-        pCurrentMapNode->setTileID(tileID, isMultiObjects ? *it : *begin);
-        if (pCurrentMapNode->getMapNodeDataForLayer(layer).tileData &&
-            !pCurrentMapNode->getMapNodeDataForLayer(layer).tileData->groundDecoration.empty() && groundtileIndex == -1)
+        currentMapNode.setRenderFlag(layer, shouldRender);
+        currentMapNode.setTileID(tileID, isMultiObjects ? *it : *begin);
+        if (currentMapNode.getMapNodeDataForLayer(layer).tileData &&
+            !currentMapNode.getMapNodeDataForLayer(layer).tileData->groundDecoration.empty() && groundtileIndex == -1)
         {
-          const int groundDecoSize = pCurrentMapNode->getMapNodeDataForLayer(layer).tileData->groundDecoration.size();
+          const int groundDecoSize = currentMapNode.getMapNodeDataForLayer(layer).tileData->groundDecoration.size();
           std::uniform_int_distribution uniformDistribution(0, groundDecoSize - 1);
           groundtileIndex = uniformDistribution(randomEngine);
         }
         if (groundtileIndex != -1)
         {
-          pCurrentMapNode->setTileID(pCurrentMapNode->getMapNodeDataForLayer(layer).tileData->groundDecoration[groundtileIndex],
-                                     isMultiObjects ? *it : *begin);
+          currentMapNode.setTileID(currentMapNode.getMapNodeDataForLayer(layer).tileData->groundDecoration[groundtileIndex],
+                                   isMultiObjects ? *it : *begin);
         }
         //For layers that autotile to each other, we need to update their neighbors too
         if (MapNode::isDataAutoTile(TileManager::instance().getTileData(tileID)))
@@ -200,19 +200,9 @@ public:
   */
   std::string getTileID(const Point &isoCoordinates, Layer layer);
 
-  /** \Get a single mapNode at specific iso coordinates
-  * @param isoCoordinates: The node to retrieve
-  */
-  const MapNode *getMapNode(Point isoCoords) const { return mapNodes[isoCoords.x * m_columns + isoCoords.y].get(); };
-
   bool isLayerAutoTile(const Point &isoCoordinates, const Layer &layer) const;
 
 private:
-  /** \brief Initialize the Map with node objects
-    * Initialize the Map with node objects
-    */
-  void initMap();
-
   /**\brief Update mapNode and its adjacent tiles
   * Updates mapNode height information, draws slopes for adjacent tiles and sets tiling for mapNode sprite if applicable
   * @param isoCoordinates - isometric coordinates of the tile that should be updated.
@@ -230,7 +220,7 @@ private:
     * @param isoCoordinates - isometric coordinates of the tile that's neighbors should be retrieved.
     * @param result - Pass a ref of type NeighborMatrix to store the found neighbors in.
     */
-  void getNeighbors(const Point &isoCoordinates, NeighborMatrix &result) const;
+  void getNeighbors(const Point &isoCoordinates, NeighborMatrix &result);
 
   /** \brief Get elevated neighbor positions in a bitmask
   * Checks all neighboring tiles and returns the elevated neighbors in a bitmask:
@@ -260,6 +250,8 @@ private:
   * @return true in case that tileId is allowed to be set, otherwise false (filter it out).
   */
   bool isAllowSetTileId(const Layer layer, const MapNode *const pMapNode);
+
+  inline int nodeIdx(const int x, const int y) const { return x * m_columns + y; }
 };
 
 #endif

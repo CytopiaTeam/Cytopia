@@ -49,10 +49,7 @@ public:
   TerrainGenerator() = default;
   ~TerrainGenerator() = default;
 
-  typedef std::vector<MapNode *> MapNodeVector;
-  typedef std::vector<std::unique_ptr<MapNode>> MapNodeUniquePtrVector;
-
-  void generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNodeVector &mapNodesInDrawingOrder);
+  void generateTerrain(std::vector<MapNode> &mapNodes, std::vector<MapNode *> &mapNodesInDrawingOrder);
 
   void loadTerrainDataFromJSON();
 

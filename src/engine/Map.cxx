@@ -24,26 +24,25 @@ using json = nlohmann::json;
 
 void Map::getNodeInformation(const Point &isoCoordinates) const
 {
-  const TileData *tileData = mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getActiveMapNodeData().tileData;
+  const MapNode &mapNode = mapNodes[nodeIdx(isoCoordinates.x, isoCoordinates.y)];
+  const MapNodeData &mapNodeData = mapNode.getActiveMapNodeData();
+  const TileData *tileData = mapNodeData.tileData;
   LOG(LOG_INFO) << "===== TILE at " << isoCoordinates.x << ", " << isoCoordinates.y << "=====";
-  LOG(LOG_INFO) << "[Layer: TERRAIN] ID: "
-                << mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getMapNodeDataForLayer(Layer::TERRAIN).tileID;
-  LOG(LOG_INFO) << "[Layer: WATER] ID: "
-                << mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getMapNodeDataForLayer(Layer::WATER).tileID;
-  LOG(LOG_INFO) << "[Layer: BUILDINGS] ID: "
-                << mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getMapNodeDataForLayer(Layer::BUILDINGS).tileID;
+  LOG(LOG_INFO) << "[Layer: TERRAIN] ID: " << mapNode.getMapNodeDataForLayer(Layer::TERRAIN).tileID;
+  LOG(LOG_INFO) << "[Layer: WATER] ID: " << mapNode.getMapNodeDataForLayer(Layer::WATER).tileID;
+  LOG(LOG_INFO) << "[Layer: BUILDINGS] ID: " << mapNode.getMapNodeDataForLayer(Layer::BUILDINGS).tileID;
   LOG(LOG_INFO) << "Category: " << tileData->category;
   LOG(LOG_INFO) << "FileName: " << tileData->tiles.fileName;
   LOG(LOG_INFO) << "Rotations: " << tileData->tiles.rotations;
-  LOG(LOG_INFO) << "TileMap: " << mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getActiveMapNodeData().tileMap;
-  LOG(LOG_INFO) << "TileIndex: " << mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getActiveMapNodeData().tileIndex;
+  LOG(LOG_INFO) << "TileMap: " << mapNodeData.tileMap;
+  LOG(LOG_INFO) << "TileIndex: " << mapNodeData.tileIndex;
 }
 
+// TODO clean this out
 constexpr struct
 {
   int x;
   int y;
-
 } adjecantNodesOffsets[9]{
     {-1, -1}, // 6 = 2^6 = 64  = BOTTOM LEFT
     {-1, 0},  // 2 = 2^2 = 4   = LEFT
@@ -59,25 +58,19 @@ constexpr struct
 Map::Map(int columns, int rows) : m_columns(columns), m_rows(rows)
 {
   const size_t vectorSize = static_cast<size_t>(m_rows * m_columns);
-// TODO move Random Engine out of map
+  // TODO move Random Engine out of map
   randomEngine.seed();
-  mapNodes.resize(vectorSize);
-  mapNodesInDrawingOrder.reserve(vectorSize);
   MapLayers::enableLayer({TERRAIN, BUILDINGS, WATER, GROUND_DECORATION, ZONE, ROAD});
-  initMap();
-}
-
-void Map::initMap()
-{
   m_terrainGen.generateTerrain(mapNodes, mapNodesInDrawingOrder);
   updateAllNodes();
 }
 
 void Map::increaseHeight(const Point &isoCoordinates)
 {
-  const int height = mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getCoordinates().height;
+  MapNode &mapNode = mapNodes[nodeIdx(isoCoordinates.x, isoCoordinates.y)];
+  const Point nodeCoords = mapNode.getCoordinates();
 
-  if (height < Settings::instance().maxElevationHeight)
+  if (nodeCoords.height < Settings::instance().maxElevationHeight)
   {
     NeighborMatrix matrix;
     getNeighbors(isoCoordinates, matrix);
@@ -89,15 +82,15 @@ void Map::increaseHeight(const Point &isoCoordinates)
       }
     }
     demolishNode(std::vector<Point>{isoCoordinates});
-    mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->increaseHeight();
-    updateNeighborsOfNode(mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getCoordinates());
-    mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getSprite()->refresh();
+    mapNode.increaseHeight();
+    updateNeighborsOfNode(nodeCoords);
+    mapNode.getSprite()->refresh();
   }
 }
 
 void Map::decreaseHeight(const Point &isoCoordinates)
 {
-  const int height = mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getCoordinates().height;
+  const int height = mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y].getCoordinates().height;
 
   if (height > 0)
   {
@@ -111,15 +104,15 @@ void Map::decreaseHeight(const Point &isoCoordinates)
       }
     }
     demolishNode(std::vector<Point>{isoCoordinates});
-    mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->decreaseHeight();
-    updateNeighborsOfNode(mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getCoordinates());
-    mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getSprite()->refresh();
+    mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y].decreaseHeight();
+    updateNeighborsOfNode(mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y].getCoordinates());
+    mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y].getSprite()->refresh();
   }
 }
 
 void Map::updateNeighborsOfNode(const Point &isoCoordinates)
 {
-  const int tileHeight = mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getCoordinates().height;
+  const int tileHeight = mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y].getCoordinates().height;
 
   NeighborMatrix matrix;
   getNeighbors(isoCoordinates, matrix);
@@ -192,7 +185,7 @@ void Map::updateAllNodes()
 {
   for (const auto &it : mapNodes)
   {
-    updateNeighborsOfNode(it->getCoordinates());
+    updateNeighborsOfNode(it.getCoordinates());
   }
 }
 
@@ -202,11 +195,8 @@ bool Map::isPlacementOnNodeAllowed(const Point &isoCoordinates, const std::strin
   {
     return true;
   }
-  if (mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y])
-  {
-    return mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->isPlacementAllowed(tileID);
-  }
-  return false;
+
+  return mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y].isPlacementAllowed(tileID);
 }
 
 std::vector<Point> Map::getObjectCoords(const Point &isoCoordinates, const std::string &tileID)
@@ -251,9 +241,9 @@ unsigned char Map::getElevatedNeighborBitmask(const Point &isoCoordinates)
   for (const auto &it : adjecantNodesCoordinates)
   {
     if ((it.first >= 0 && it.first < m_rows && it.second >= 0 && it.second < m_columns) &&
-        (mapNodes[it.first * m_columns + it.second]->getCoordinates().height >
-             mapNodes[x * m_columns + y]->getCoordinates().height &&
-         mapNodes[it.first * m_columns + it.second]))
+        (mapNodes[it.first * m_columns + it.second].getCoordinates().height >
+             mapNodes[x * m_columns + y].getCoordinates().height /*&&
+         mapNodes[it.first * m_columns + it.second]*/))
     {
       // for each found tile add 2 ^ i to the bitmask
       bitmask |= (1u << i);
@@ -268,7 +258,7 @@ Point Map::getNodeOrigCornerPoint(const Point &isoCoordinates, Layer layer)
   //Layer layer = TileManager::instance().getTileLayer(tileID);
   if (layer != Layer::NONE && isPointWithinMapBoundaries(isoCoordinates))
   {
-    return mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getOrigCornerPoint(layer);
+    return mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y].getOrigCornerPoint(layer);
   }
   return UNDEFINED_POINT;
 }
@@ -287,69 +277,66 @@ std::vector<uint8_t> Map::calculateAutotileBitmask(const Point &isoCoordinates)
 
   for (auto currentLayer : allLayersOrdered)
   {
-    auto pCurrentTile = mapNodes[x * m_columns + y].get();
+    MapNode &mapNode = mapNodes[x * m_columns + y];
 
-    if (pCurrentTile)
+    auto pCurrentTileData = mapNode.getMapNodeDataForLayer(currentLayer).tileData;
+
+    if (pCurrentTileData)
     {
-      auto pCurrentTileData = pCurrentTile->getMapNodeDataForLayer(currentLayer).tileData;
+      std::pair<int, int> adjecantNodesCoordinates[8]{
+          std::make_pair(x, y + 1),     // 0 = 2^0 = 1   = TOP
+          std::make_pair(x, y - 1),     // 1 = 2^1 = 2   = BOTTOM
+          std::make_pair(x - 1, y),     // 2 = 2^2 = 4   = LEFT
+          std::make_pair(x + 1, y),     // 3 = 2^3 = 8   = RIGHT
+          std::make_pair(x - 1, y + 1), // 4 = 2^4 = 16  = TOP LEFT
+          std::make_pair(x + 1, y + 1), // 5 = 2^5 = 32  = TOP RIGHT
+          std::make_pair(x - 1, y - 1), // 6 = 2^6 = 64  = BOTTOM LEFT
+          std::make_pair(x + 1, y - 1)  // 7 = 2^7 = 128 = BOTTOM RIGHT
+      };
 
-      if (pCurrentTileData)
+      if (pCurrentTileData->tileType == +TileType::TERRAIN)
       {
-        std::pair<int, int> adjecantNodesCoordinates[8]{
-            std::make_pair(x, y + 1),     // 0 = 2^0 = 1   = TOP
-            std::make_pair(x, y - 1),     // 1 = 2^1 = 2   = BOTTOM
-            std::make_pair(x - 1, y),     // 2 = 2^2 = 4   = LEFT
-            std::make_pair(x + 1, y),     // 3 = 2^3 = 8   = RIGHT
-            std::make_pair(x - 1, y + 1), // 4 = 2^4 = 16  = TOP LEFT
-            std::make_pair(x + 1, y + 1), // 5 = 2^5 = 32  = TOP RIGHT
-            std::make_pair(x - 1, y - 1), // 6 = 2^6 = 64  = BOTTOM LEFT
-            std::make_pair(x + 1, y - 1)  // 7 = 2^7 = 128 = BOTTOM RIGHT
-        };
-
-        if (pCurrentTileData->tileType == +TileType::TERRAIN)
+        unsigned int i = 0;
+        for (const auto &it : adjecantNodesCoordinates)
         {
-          unsigned int i = 0;
-          for (const auto &it : adjecantNodesCoordinates)
+          if ((it.first >= 0 && it.first < m_rows && it.second >= 0 && it.second < m_columns) &&
+              (mapNodes[it.first * m_columns + it.second].getMapNodeDataForLayer(Layer::WATER).tileData &&
+               mapNodes[it.first * m_columns + it.second].getMapNodeDataForLayer(Layer::WATER).tileData->tileType ==
+                   +TileType::WATER))
           {
-            if ((it.first >= 0 && it.first < m_rows && it.second >= 0 && it.second < m_columns) &&
-                (mapNodes[it.first * m_columns + it.second] &&
-                 mapNodes[it.first * m_columns + it.second]->getMapNodeDataForLayer(Layer::WATER).tileData &&
-                 mapNodes[it.first * m_columns + it.second]->getMapNodeDataForLayer(Layer::WATER).tileData->tileType ==
-                     +TileType::WATER))
-            {
-              // for each found tile add 2 ^ i to the bitmask
-              tileOrientationBitmask[currentLayer] |= (1u << i);
-            }
-            i++;
+            // for each found tile add 2 ^ i to the bitmask
+            tileOrientationBitmask[currentLayer] |= (1u << i);
           }
+          i++;
         }
+      }
 
-        // only auto-tile categories that can be tiled.
-        if (isLayerAutoTile(isoCoordinates, currentLayer))
+      // only auto-tile categories that can be tiled.
+      if (isLayerAutoTile(isoCoordinates, currentLayer))
+      {
+        unsigned int i = 0;
+        for (const auto &it : adjecantNodesCoordinates)
         {
-          unsigned int i = 0;
-          for (const auto &it : adjecantNodesCoordinates)
+          const int secondTileIdx = it.first * m_columns + it.second;
+          if ((it.first >= 0 && it.first < m_rows && it.second >= 0 && it.second < m_columns) &&
+              (mapNodes[secondTileIdx].getMapNodeDataForLayer(currentLayer).tileData &&
+               ((mapNodes[secondTileIdx].getMapNodeDataForLayer(currentLayer).tileID ==
+                 mapNode.getMapNodeDataForLayer(currentLayer).tileID) ||
+                (pCurrentTileData->tileType == +TileType::ROAD))))
           {
-            const int secondTileIdx = it.first * m_columns + it.second;
-            if ((it.first >= 0 && it.first < m_rows && it.second >= 0 && it.second < m_columns) &&
-                (mapNodes[secondTileIdx] && mapNodes[secondTileIdx]->getMapNodeDataForLayer(currentLayer).tileData &&
-                 ((mapNodes[secondTileIdx]->getMapNodeDataForLayer(currentLayer).tileID ==
-                   pCurrentTile->getMapNodeDataForLayer(currentLayer).tileID) ||
-                  (pCurrentTileData->tileType == +TileType::ROAD))))
-            {
-              // for each found tile add 2 ^ i to the bitmask
-              tileOrientationBitmask[currentLayer] |= (1u << i);
-            }
-            i++;
+            // for each found tile add 2 ^ i to the bitmask
+            tileOrientationBitmask[currentLayer] |= (1u << i);
           }
+          i++;
         }
       }
     }
   }
+
   return tileOrientationBitmask;
 }
 
-void Map::getNeighbors(const Point &isoCoordinates, NeighborMatrix &result) const
+void Map::getNeighbors(const Point &isoCoordinates, NeighborMatrix &result)
 {
   size_t idx = 0;
   for (const auto &it : adjecantNodesOffsets)
@@ -358,7 +345,7 @@ void Map::getNeighbors(const Point &isoCoordinates, NeighborMatrix &result) cons
     const int y = isoCoordinates.y + it.y;
     if (x >= 0 && x < m_rows && y >= 0 && y < m_columns)
     {
-      result[idx] = mapNodes[x * m_columns + y].get();
+      result[idx] = &mapNodes[x * m_columns + y];
     }
     else
     {
@@ -448,12 +435,12 @@ Point Map::findNodeInMap(const SDL_Point &screenCoordinates) const
     {
 #ifndef NDEBUG
       // Assert asumption that we test all nodes in correct Z order
-      assert(zOrder > mapNodes[x * m_columns + y]->getCoordinates().z);
-      zOrder = mapNodes[x * m_columns + y]->getCoordinates().z;
+      assert(zOrder > mapNodes[x * m_columns + y].getCoordinates().z);
+      zOrder = mapNodes[x * m_columns + y].getCoordinates().z;
 #endif
       if (isClickWithinTile(screenCoordinates, x, y))
       {
-        return mapNodes[x * m_columns + y]->getCoordinates();
+        return mapNodes[x * m_columns + y].getCoordinates();
       }
     }
   }
@@ -466,44 +453,44 @@ void Map::demolishNode(const std::vector<Point> &isoCoordinates, bool updateNeig
   std::vector<Point> nodesToDemolish;
   for (auto &isoCoord : isoCoordinates)
   {
-    MapNode *node = mapNodes[isoCoord.x * m_columns + isoCoord.y].get();
+    MapNode &node = mapNodes[isoCoord.x * m_columns + isoCoord.y];
     if (isPointWithinMapBoundaries(isoCoord))
     {
       // Check for multinode buildings first. Those are on the buildings layer, even if we want to demolish another layer than Buildings.
       // In case we add more Layers that support Multinode, add a for loop here
       // If demolishNode is called for layer GROUNDECORATION, we'll still need to gather all nodes from the multinode building to delete the decoration under the entire building
-      if (node->getMapNodeDataForLayer(Layer::BUILDINGS).tileData && isNodeMultiObject(isoCoord))
+      if (node.getMapNodeDataForLayer(Layer::BUILDINGS).tileData && isNodeMultiObject(isoCoord))
       {
-        const Point origCornerPoint = mapNodes[isoCoord.x * m_columns + isoCoord.y]->getOrigCornerPoint(Layer::BUILDINGS);
+        const Point origCornerPoint = node.getOrigCornerPoint(Layer::BUILDINGS);
         const size_t origIndex = origCornerPoint.x * m_columns + origCornerPoint.y;
 
-        if (origIndex < mapNodes.size() && mapNodes[origIndex])
+        if (origIndex < mapNodes.size())
         {
-          const std::string &tileID = mapNodes[origIndex]->getTileID(Layer::BUILDINGS);
+          const std::string &tileID = mapNodes[origIndex].getTileID(Layer::BUILDINGS);
           std::vector<Point> objectCoordinates = getObjectCoords(origCornerPoint, tileID);
 
           for (auto coords : objectCoordinates)
           {
             if (std::find(nodesToDemolish.begin(), nodesToDemolish.end(),
-                          mapNodes[coords.x * m_columns + coords.y]->getCoordinates()) == nodesToDemolish.end())
+                          mapNodes[coords.x * m_columns + coords.y].getCoordinates()) == nodesToDemolish.end())
             {
-              nodesToDemolish.push_back(mapNodes[coords.x * m_columns + coords.y]->getCoordinates());
+              nodesToDemolish.push_back(mapNodes[coords.x * m_columns + coords.y].getCoordinates());
             }
           }
         }
       }
       // make sure to add the points from the parameter to the vector if they're not in it (if they're a multiobject there'd be duplicates)
       if (std::find(nodesToDemolish.begin(), nodesToDemolish.end(),
-                    mapNodes[isoCoord.x * m_columns + isoCoord.y]->getCoordinates()) == nodesToDemolish.end())
+                    mapNodes[isoCoord.x * m_columns + isoCoord.y].getCoordinates()) == nodesToDemolish.end())
       {
-        nodesToDemolish.push_back(mapNodes[isoCoord.x * m_columns + isoCoord.y]->getCoordinates());
+        nodesToDemolish.push_back(mapNodes[isoCoord.x * m_columns + isoCoord.y].getCoordinates());
       }
     }
   }
 
   for (auto &coords : nodesToDemolish)
   {
-    mapNodes[coords.x * m_columns + coords.y]->demolishNode(layer);
+    mapNodes[coords.x * m_columns + coords.y].demolishNode(layer);
     if (updateNeighboringTiles)
     {
       updateNeighborsOfNode({coords.x, coords.y});
@@ -529,14 +516,14 @@ bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int is
       continue;
     }
 
-    SDL_Rect spriteRect = mapNodes[isoX * m_columns + isoY]->getSprite()->getDestRect(layer);
-    SDL_Rect clipRect = mapNodes[isoX * m_columns + isoY]->getSprite()->getClipRect(layer);
+    SDL_Rect spriteRect = mapNodes[isoX * m_columns + isoY].getSprite()->getDestRect(layer);
+    SDL_Rect clipRect = mapNodes[isoX * m_columns + isoY].getSprite()->getClipRect(layer);
     if (layer == Layer::TERRAIN)
       clipRect.h += 1; //HACK: We need to increase clipRect height by one pixel to match the drawRect. Rounding issue?
 
     if (SDL_PointInRect(&screenCoordinates, &spriteRect))
     {
-      std::string tileID = mapNodes[isoX * m_columns + isoY]->getMapNodeDataForLayer(layer).tileID;
+      std::string tileID = mapNodes[isoX * m_columns + isoY].getMapNodeDataForLayer(layer).tileID;
       // Calculate the position of the clicked pixel within the surface and "un-zoom" the position to match the un-adjusted surface
       const int pixelX = static_cast<int>((screenCoordinates.x - spriteRect.x) / Camera::zoomLevel) + clipRect.x;
       const int pixelY = static_cast<int>((screenCoordinates.y - spriteRect.y) / Camera::zoomLevel) + clipRect.y;
@@ -547,7 +534,7 @@ bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int is
       }
 
       if (layer == Layer::TERRAIN &&
-          mapNodes[isoX * m_columns + isoY]->getMapNodeDataForLayer(Layer::TERRAIN).tileMap == TileMap::SHORE)
+          mapNodes[isoX * m_columns + isoY].getMapNodeDataForLayer(Layer::TERRAIN).tileMap == TileMap::SHORE)
       {
         tileID.append("_shore");
       }
@@ -570,9 +557,9 @@ void Map::highlightNode(const Point &isoCoordinates, const SpriteRGBColor &rgbCo
 
   if (index < mapNodes.size())
   {
-    MapNode *node = mapNodes[index].get();
-    node->getSprite()->highlightColor = rgbColor;
-    node->getSprite()->highlightSprite = true;
+    const MapNode &node = mapNodes[index];
+    node.getSprite()->highlightColor = rgbColor;
+    node.getSprite()->highlightSprite = true;
   }
 }
 
@@ -581,18 +568,15 @@ std::string Map::getTileID(const Point &isoCoordinates, Layer layer)
   const size_t index = isoCoordinates.x * m_columns + isoCoordinates.y;
   if (index < mapNodes.size())
   {
-    MapNode *node = mapNodes[index].get();
-    if (node)
-    {
-      return node->getTileID(layer);
-    }
+    return mapNodes[index].getTileID(layer);
   }
+
   return "";
 }
 
 bool Map::isLayerAutoTile(const Point &isoCoordinates, const Layer &layer) const
 {
-  return mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->isLayerAutoTile(layer);
+  return mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y].isLayerAutoTile(layer);
 }
 
 void Map::unHighlightNode(const Point &isoCoordinates)
@@ -601,8 +585,7 @@ void Map::unHighlightNode(const Point &isoCoordinates)
 
   if (index < mapNodes.size())
   {
-    MapNode *node = mapNodes[index].get();
-    node->getSprite()->highlightSprite = false;
+    mapNodes[index].getSprite()->highlightSprite = false;
   }
 }
 
@@ -671,10 +654,10 @@ Map *Map::loadMapFromFile(const std::string &fileName)
     Point coordinates = json(it.value())["coordinates"].get<Point>();
     // set coordinates (height) of the map
     map->mapNodes[coordinates.x * columns + coordinates.y] =
-        std::make_unique<MapNode>(Point{coordinates.x, coordinates.y, coordinates.z, coordinates.height}, "");
+        std::move(MapNode{Point{coordinates.x, coordinates.y, coordinates.z, coordinates.height}, ""});
 
     // load back mapNodeData (tileIDs, Buildins, ...)
-    map->mapNodes[coordinates.x * columns + coordinates.y]->setMapNodeData(json(it.value())["mapNodeData"], coordinates);
+    map->mapNodes[coordinates.x * columns + coordinates.y].setMapNodeData(json(it.value())["mapNodeData"], coordinates);
   }
 
   // Now put those newly created nodes in correct drawing order
@@ -682,7 +665,7 @@ Map *Map::loadMapFromFile(const std::string &fileName)
   {
     for (int y = columns - 1; y >= 0; y--)
     {
-      map->mapNodesInDrawingOrder.push_back(map->mapNodes[x * columns + y].get());
+      map->mapNodesInDrawingOrder.push_back(&map->mapNodes[x * columns + y]);
     }
   }
   map->updateAllNodes();
@@ -692,10 +675,10 @@ Map *Map::loadMapFromFile(const std::string &fileName)
 
 bool Map::isNodeMultiObject(const Point &isoCoordinates, Layer layer)
 {
-  if (isPointWithinMapBoundaries(isoCoordinates) && mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getTileData(layer))
+  if (isPointWithinMapBoundaries(isoCoordinates) && mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y].getTileData(layer))
   {
-    MapNode *mapNode = mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y].get();
-    return (mapNode->getTileData(layer)->RequiredTiles.height > 1 && mapNode->getTileData(layer)->RequiredTiles.width > 1);
+    const MapNode &mapNode = mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y];
+    return ((mapNode.getTileData(layer)->RequiredTiles.height > 1) && (mapNode.getTileData(layer)->RequiredTiles.width > 1));
   }
   return false;
 }
