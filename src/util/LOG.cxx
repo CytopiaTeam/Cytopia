@@ -1,4 +1,5 @@
 #include "LOG.hxx"
+#include "Filesystem.hxx"
 
 Mutex LOG::StreamMutex;
 
