@@ -4,8 +4,10 @@
 #include "Exception.hxx"
 #include "LOG.hxx"
 
+#ifndef __ANDROID__ || __EMSCRIPTEN__
 #include <signal.h>
 void SIG_handler(int signal);
+#endif
 
 SDL_AssertState AssertionHandler(const SDL_AssertData *, void *);
 
