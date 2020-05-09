@@ -9,6 +9,7 @@
 
 #include "common/JsonSerialization.hxx"
 #include <fstream>
+#include "Filesystem.hxx"
 
 using ifstream = std::ifstream;
 using nlohmann::json;

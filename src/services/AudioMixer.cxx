@@ -7,6 +7,7 @@
 #include "../services/GameClock.hxx"
 #include "../services/Randomizer.hxx"
 #include "common/JsonSerialization.hxx"
+#include "Filesystem.hxx"
 
 #include <fstream>
 

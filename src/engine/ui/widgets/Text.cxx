@@ -2,6 +2,7 @@
 #include "LOG.hxx"
 #include "Exception.hxx"
 #include "Settings.hxx"
+#include "Filesystem.hxx"
 
 #ifdef USE_MOFILEREADER
 #include "moFileReader.h"

@@ -10,6 +10,7 @@
 #include "Exception.hxx"
 #include "GameStates.hxx"
 #include "MapLayers.hxx"
+#include "Filesystem.hxx"
 
 #include "json.hxx"
 #include "betterEnums.hxx"

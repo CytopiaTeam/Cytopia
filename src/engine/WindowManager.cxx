@@ -3,6 +3,7 @@
 #include "LOG.hxx"
 #include "Exception.hxx"
 #include "basics/Settings.hxx"
+#include "Filesystem.hxx"
 
 #include <SDL_image.h>
 

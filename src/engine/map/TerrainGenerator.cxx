@@ -4,6 +4,7 @@
 #include "LOG.hxx"
 #include "Exception.hxx"
 #include "JsonSerialization.hxx"
+#include "Filesystem.hxx"
 
 #include "json.hxx"
 #include <noise.h>

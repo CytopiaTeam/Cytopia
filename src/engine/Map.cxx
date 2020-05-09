@@ -10,6 +10,7 @@
 #include "ResourcesManager.hxx"
 #include "map/MapLayers.hxx"
 #include "common/JsonSerialization.hxx"
+#include "Filesystem.hxx"
 
 #include "json.hxx"
 

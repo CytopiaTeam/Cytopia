@@ -4,6 +4,7 @@
 #include "Exception.hxx"
 #include "Constants.hxx"
 #include "JsonSerialization.hxx"
+#include "Filesystem.hxx"
 
 #include <iomanip>
 
