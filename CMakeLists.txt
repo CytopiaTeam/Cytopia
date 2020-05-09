@@ -290,6 +290,8 @@ message(STATUS "Build configuration: " ${CMAKE_BUILD_TYPE})
 
 if (UNIX)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread -fdiagnostics-color=always")
+elseif (APPLE)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static-libstdc++")
 endif ()
 
 add_subdirectory(src)
