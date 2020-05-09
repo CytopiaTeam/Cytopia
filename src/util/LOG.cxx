@@ -1,6 +1,10 @@
 #include "LOG.hxx"
 #include "Filesystem.hxx"
 
+#ifdef __ANDROID__
+#include <android/log.h>
+#endif
+
 Mutex LOG::StreamMutex;
 
 LOG::LOG(LogType type) : m_LogType(type) {}
@@ -8,13 +12,17 @@ LOG::LOG(LogType type) : m_LogType(type) {}
 LOG::~LOG()
 {
   LockGuard lock(StreamMutex);
-  string Message = getTimeStamp() + LOG_PREFIX[m_LogType] + m_Logger.str();
+  string message = getTimeStamp() + LOG_PREFIX[m_LogType] + m_Logger.str();
   if (!getenv("TERM"))
   {
 #ifndef DEBUG
     if (m_LogType != LOG_DEBUG)
 #endif
-      std::cout << Message << std::endl;
+#ifdef __ANDROID__
+      __android_log_print(ANDROID_LOG_INFO, "Cytopia", "%s", message.c_str());
+#else
+    std::cout << message << std::endl;
+#endif
   }
   else
   {
@@ -23,7 +31,7 @@ LOG::~LOG()
 #endif
       std::cout << getTimeStamp() << LOG_PREFIX_COLORED[m_LogType] << m_Logger.str() << std::endl;
   }
-  writeErrorLog(Message);
+  writeErrorLog(message);
 }
 
 std::string LOG::getTimeStamp()
