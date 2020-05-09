@@ -88,8 +88,10 @@ if (BUILD_ANDROID)
   find_library(OpenGLES3_LIBRARY GLESv3 REQUIRED)
   find_library(ANDROID_LOG_LIBRARY log REQUIRED)
   find_library(ANDROID_LIBRARY_LIBRARY android REQUIRED)
+  find_library(zlib z)
 
   set(DISTRIBUTION_DIR ${CMAKE_SOURCE_DIR}/platforms/android/build/SDL2/intermediates/ndkBuild)
+  set(NOISE_DISTRIBUTION_DIR ${CMAKE_SOURCE_DIR}/platforms/android/build/libnoise/intermediates/cmake)
   string(TOLOWER ${CMAKE_BUILD_TYPE} ANDROID_BUILD_DIR)
   
   set(SDL_LOCATION ${CMAKE_SOURCE_DIR}/contrib/)
@@ -116,12 +118,11 @@ if (BUILD_ANDROID)
   set (SDL2_MIXER_LOCATION ${DISTRIBUTION_DIR}/${ANDROID_BUILD_DIR}/obj/local/${ANDROID_ABI}/libSDL2_mixer.so)
   add_library(SDL2_MIXER SHARED IMPORTED )
   set_target_properties(SDL2_MIXER PROPERTIES IMPORTED_LOCATION ${SDL2_MIXER_LOCATION})
-  
-  ## bzip2
-  set (ZLIB_LOCATION ${DISTRIBUTION_DIR}/${ANDROID_BUILD_DIR}/obj/local/${ANDROID_ABI}/zlib.so)
-  add_library(ZLIB SHARED IMPORTED )
-  set_target_properties(ZLIB PROPERTIES IMPORTED_LOCATION ${ZLIB_LOCATION})
-  
+
+  #libnoise
+  set (LIBNOISE_LOCATION ${NOISE_DISTRIBUTION_DIR}/${ANDROID_BUILD_DIR}/obj/${ANDROID_ABI}/libnoise.so)
+  add_library(LIBNOISE SHARED IMPORTED )
+  set_target_properties(LIBNOISE PROPERTIES IMPORTED_LOCATION ${LIBNOISE_LOCATION})
   
   # Joysticks were causing trouble on android.
   add_definitions(-DSDL_JOYSTICK=0)
@@ -132,6 +133,8 @@ if (BUILD_ANDROID)
                                 SDL2_IMAGE
                                 SDL2_TTF
                                 SDL2_MIXER
+                                LIBNOISE
+                                # z
     )
 endif()
 
@@ -213,6 +216,8 @@ elseif (BUILD_ANDROID)
                                 SDL2_IMAGE
                                 SDL2_TTF
                                 SDL2_MIXER
+                                z # zlib provided by android NDK
+                                LIBNOISE
     )
     # Include dirs.
     list(APPEND _include_directories ${CMAKE_SOURCE_DIR}/external/android/SDL/SDL2/include
@@ -220,7 +225,7 @@ elseif (BUILD_ANDROID)
                                      ${CMAKE_SOURCE_DIR}/external/android/SDL/SDL2_ttf
                                      ${CMAKE_SOURCE_DIR}/external/android/SDL/SDL2_mixer
                                      ${CMAKE_SOURCE_DIR}/external/android/other/libnoise/src/noise
-                                     ${CMAKE_SOURCE_DIR}/external/android/other/zlib
+                                    #  ${CMAKE_SOURCE_DIR}/external/android/other/zlib
         )
 else()
     find_package(PkgConfig REQUIRED)
