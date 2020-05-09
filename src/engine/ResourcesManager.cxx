@@ -100,7 +100,7 @@ SDL_Surface *ResourcesManager::createSurfaceFromFile(const std::string &fileName
   if (surface)
     return surface;
 
-  throw UIError(TRACE_INFO "Could not load Texture from file " + fName + ": " + IMG_GetError());
+  throw ConfigurationError(TRACE_INFO "Could not load Texture from file " + fName + ": " + IMG_GetError());
   return nullptr;
 }
 
