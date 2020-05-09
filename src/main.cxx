@@ -56,11 +56,12 @@ int protected_main(int argc, char **argv)
 
 int main(int argc, char **argv)
 {
-
+#ifndef __ANDROID__ || __EMSCRIPTEN__
   /* Register handler for Segmentation Fault, Interrupt, Terminate */
   signal(SIGSEGV, SIG_handler);
   signal(SIGINT, SIG_handler);
   signal(SIGTERM, SIG_handler);
+#endif 
 
   /* All SDL2 Assertion failures must be handled
    * by our handler */
