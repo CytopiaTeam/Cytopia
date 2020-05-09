@@ -14,7 +14,7 @@ std::string fs::readFileAsString(const std::string &fileName, bool binaryMode)
   {
     mode = std::ios_base::in;
   }
- 
+
   std::ifstream stream(getBasePath() + fileName, mode);
 
   if (!stream)
@@ -55,8 +55,8 @@ void fs::writeStringToFile(const std::string &fileName, const std::string &strin
 
 std::vector<std::string> fs::getDirectoryListing(const std::string &directory)
 {
-LOG(LOG_INFO) << "std::vector<std::string> fs::getDirectoryListing not implemented";
-return std::vector<std::string>();
+  LOG(LOG_INFO) << "std::vector<std::string> fs::getDirectoryListing not implemented";
+  return std::vector<std::string>();
 }
 
 std::vector<std::string> fs::getSaveGamePaths()
@@ -67,10 +67,7 @@ std::vector<std::string> fs::getSaveGamePaths()
   return saveGames;
 }
 
-bool fs::fileExists(const std::string &filePath) { 
-  LOG(LOG_INFO) << "fs::fileExists not implemented";
-  
-  return true; }
+bool fs::fileExists(const std::string &filePath) { return true; }
 
 std::string fs::getBasePath()
 {
