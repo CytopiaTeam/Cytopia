@@ -59,15 +59,12 @@ constexpr struct
 Map::Map(int columns, int rows) : m_columns(columns), m_rows(rows)
 {
   const size_t vectorSize = static_cast<size_t>(m_rows * m_columns);
+// TODO move Random Engine out of map
   randomEngine.seed();
   mapNodes.resize(vectorSize);
   mapNodesInDrawingOrder.reserve(vectorSize);
-  MapLayers::enableLayer(Layer::TERRAIN);
-  MapLayers::enableLayer(Layer::BUILDINGS);
-  MapLayers::enableLayer(Layer::WATER);
-  MapLayers::enableLayer(Layer::GROUND_DECORATION);
-  MapLayers::enableLayer(Layer::ZONE);
-  MapLayers::enableLayer(Layer::ROAD);
+  MapLayers::enableLayer({TERRAIN, BUILDINGS, WATER, GROUND_DECORATION, ZONE, ROAD});
+  initMap();
 }
 
 void Map::initMap()

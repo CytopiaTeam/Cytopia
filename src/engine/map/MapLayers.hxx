@@ -2,16 +2,16 @@
 #define MAP_LAYERS_HXX_
 
 #include "../common/enums.hxx"
+#include <vector>
 
 class MapLayers
 {
 public:
-  /** \brief Enable Drawing Layer
-* Enable Drawing Layer (use bitwise OR to add layer)
-* @param bitmapped uint32_t from enum "Layer"
+  /** \brief Enable drawing layers.
+* @param layers Layers to be enabled.
 * @see Layer
 */
-  static inline void enableLayer(unsigned int layer) { m_activeLayers |= (1U << layer); };
+  static void enableLayer(std::vector<unsigned int>&& layers);
 
   /** \brief Disable Drawing Layer
 * Disable Drawing Layer ( Turned off by using bitwise AND with inversed pattern)

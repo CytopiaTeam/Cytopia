@@ -9,21 +9,23 @@
 
 class Map
 {
+private:
+  std::vector<std::unique_ptr<MapNode>> mapNodes;
+  std::vector<MapNode *> mapNodesInDrawingOrder;
+  int m_columns;
+  int m_rows;
+  std::default_random_engine randomEngine;
+  TerrainGenerator m_terrainGen;
+
+  static const size_t m_saveGameVersion;
+
 public:
   //fixed MapNode* array to store neighbors.
   using NeighborMatrix = MapNode *[9];
 
-  std::vector<std::unique_ptr<MapNode>> mapNodes;
-  std::vector<MapNode *> mapNodesInDrawingOrder;
-
   Map() = delete;
   Map(int columns, int rows);
   ~Map() = default;
-
-  /** \brief Initialize the Map with node objects
-    * Initialize the Map with node objects
-    */
-  void initMap();
 
   /** \brief Increase Height
     * Increases the height of the node and checks the surrounding tiles. Either draw a slope sprite or elevate the tile if
@@ -206,13 +208,10 @@ public:
   bool isLayerAutoTile(const Point &isoCoordinates, const Layer &layer) const;
 
 private:
-  int m_columns;
-  int m_rows;
-  std::default_random_engine randomEngine;
-
-  TerrainGenerator m_terrainGen;
-
-  static const size_t m_saveGameVersion;
+  /** \brief Initialize the Map with node objects
+    * Initialize the Map with node objects
+    */
+  void initMap();
 
   /**\brief Update mapNode and its adjacent tiles
   * Updates mapNode height information, draws slopes for adjacent tiles and sets tiling for mapNode sprite if applicable
