@@ -36,7 +36,7 @@ constexpr ScreenMeasurement operator""_px(unsigned long long);
 constexpr ScreenMeasurement operator+(const ScreenMeasurement &, const ScreenMeasurement &);
 constexpr ScreenMeasurement operator-(const ScreenMeasurement &, const ScreenMeasurement &);
 
-/** 
+/**
  * @class       ScreenMeasurementValuation
  * @brief       Represents values of pixels to measure a ScreenMeasurement
  */
@@ -48,7 +48,7 @@ struct ScreenMeasurementValuation
   int layoutHeight;
 };
 
-/** 
+/**
  * @class       BoxSizing
  * @brief       Represents the desired dimensions of a Box
  */

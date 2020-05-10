@@ -50,7 +50,7 @@ template <typename Data> explicit Transition(Data data)->Transition<typename Dat
 /**
  * @class     TransitiveModel
  * @details   A Subject equivalent to a finite state machine.
- *            Specifically, for each possible transition in that Model 
+ *            Specifically, for each possible transition in that Model
  *            there exists a Transition<> type to represent it.
  *            Observers to this model must update(...) with those
  *            Transition objects, but they can only be subscribed to specific

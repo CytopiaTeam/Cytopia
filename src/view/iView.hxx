@@ -21,7 +21,7 @@ public:
   virtual void draw(iRenderer &) const noexcept = 0;
 
   /**
-   * @brief   Returns the smallest 
+   * @brief   Returns the smallest
    *          bounding box containing the iView
    * @details ::draw is never allowed to draw outside of
    *          this bounding box.
