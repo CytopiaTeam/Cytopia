@@ -62,14 +62,11 @@ public:
   /** @brief Increase Height
     * Increases the height of the node and its sprite
     * This function should not be called directly, but only from where the neighboring nodes slopes are determined
+    *
+    * @param higher pass true in case that height should be increased or false in case that height should be decreased.
+    * @return true in case that height is changed, otherwise false.
     */
-  void increaseHeight();
-
-  /** @brief Decrease Height
-    * Decreases the height of the node and its sprite
-    * This function should not be called directly, but only from where the neighboring nodes slopes are determined
-    */
-  void decreaseHeight();
+  bool changeHeight(const bool higher);
 
   /** @brief Render MapNode
   * Renders the sprite object(s) of the node
@@ -152,8 +149,6 @@ public:
   MapNode &operator=(MapNode &&mapNode);
 
 private:
-  static const int m_maxHeight = 32;
-
   Point m_isoCoordinates;
   std::unique_ptr<Sprite> m_sprite;
   std::string m_previousTileID = "terrain";

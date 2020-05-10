@@ -215,13 +215,6 @@ private:
   */
   void updateAllNodes();
 
-  /**\brief Get neighbor MapNode Objects
-    * Stores pointers to the neighboring nodes of the given coordinates in the passed parameter.
-    * @param isoCoordinates - isometric coordinates of the tile that's neighbors should be retrieved.
-    * @param result - Pass a ref of type NeighborMatrix to store the found neighbors in.
-    */
-  void getNeighbors(const Point &isoCoordinates, NeighborMatrix &result);
-
   /** \brief Get elevated neighbor positions in a bitmask
   * Checks all neighboring tiles and returns the elevated neighbors in a bitmask:
   * [ BR BL TR TL  R  L  B  T ]
@@ -252,6 +245,8 @@ private:
   bool isAllowSetTileId(const Layer layer, const MapNode *const pMapNode);
 
   inline int nodeIdx(const int x, const int y) const { return x * m_columns + y; }
+  std::vector<MapNode *> getNeighborNodes(const Point &isoCoordinates);
+  void changeHeight(const Point &isoCoordinates, const bool higher);
 };
 
 #endif

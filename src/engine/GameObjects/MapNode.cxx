@@ -55,26 +55,20 @@ MapNode &MapNode::operator=(MapNode &&mapNode)
   return *this;
 }
 
-void MapNode::increaseHeight()
+bool MapNode::changeHeight(const bool higher)
 {
-  const int height = m_isoCoordinates.height;
+  constexpr int maxHeight = 32;
+  constexpr int minHeight = 0;
+  auto &height = m_isoCoordinates.height;
 
-  if (height < m_maxHeight)
+  if ((higher && (height < maxHeight)) || (!higher && (height > minHeight)))
   {
-    m_isoCoordinates.height++;
+    higher ? ++height : --height;
     m_sprite->isoCoordinates = m_isoCoordinates;
+    return true;
   }
-}
 
-void MapNode::decreaseHeight()
-{
-  const int height = m_isoCoordinates.height;
-
-  if (height > 0)
-  {
-    m_isoCoordinates.height--;
-    m_sprite->isoCoordinates = m_isoCoordinates;
-  }
+  return false;
 }
 
 void MapNode::render() const { m_sprite->render(); }
