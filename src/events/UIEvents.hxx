@@ -7,11 +7,8 @@
 /**
  * @brief Events to be handled by the UI Loop
  */
-using UIEvents = TypeList<
-  struct TerminateEvent,
-  struct WindowResizeEvent,
-  struct WindowRedrawEvent,
-  struct UIChangeEvent /* Add UI Events here */>;
+using UIEvents = TypeList<struct TerminateEvent, struct WindowResizeEvent, struct WindowRedrawEvent,
+                          struct UIChangeEvent /* Add UI Events here */>;
 
 /**
  * @brief A change in the window's size
@@ -34,9 +31,10 @@ struct UIChangeEvent
 {
   std::function<void()> apply;
   template <typename DataArgs>
-  UIChangeEvent(ObserverSPtr<DataArgs> observer, typename Observer<DataArgs>::Notification && notification) : 
-    apply([observer, notification = std::move(notification)]() { observer->update(std::move(notification)); })
-    {}
+  UIChangeEvent(ObserverSPtr<DataArgs> observer, typename Observer<DataArgs>::Notification &&notification)
+      : apply([observer, notification = std::move(notification)]() { observer->update(std::move(notification)); })
+  {
+  }
 };
 
 #endif // UI_EVENTS_HXX

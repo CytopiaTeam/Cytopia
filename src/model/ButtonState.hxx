@@ -11,6 +11,7 @@ using ButtonNotifications = TypeList<ButtonStatus>;
 class ButtonState : public DataModel<ButtonNotifications>
 {
   ButtonStatus m_Status = ButtonStatus::Normal;
+
 public:
   using DataModel::DataModel;
   void setStatus(ButtonStatus);
