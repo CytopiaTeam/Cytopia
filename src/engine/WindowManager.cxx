@@ -3,6 +3,7 @@
 #include "LOG.hxx"
 #include "Exception.hxx"
 #include "basics/Settings.hxx"
+#include "Filesystem.hxx"
 
 #include <SDL_image.h>
 
@@ -18,7 +19,11 @@ WindowManager::WindowManager()
   if (!m_renderer)
     throw UIError(TRACE_INFO "Failed to create Renderer: " + string{SDL_GetError()});
 
-  string iconFName = SDL_GetBasePath() + m_windowIcon;
+  string iconFName = fs::getBasePath() + m_windowIcon;
+
+  if (!fs::fileExists(iconFName))
+    throw ConfigurationError(TRACE_INFO "File " + iconFName + " doesn't exist");
+
   SDL_Surface *icon = IMG_Load(iconFName.c_str());
 
   if (!icon)

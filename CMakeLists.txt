@@ -71,10 +71,11 @@ project(
         LANGUAGES CXX
 )
 
-# on macOS, usr/local/lib is not in the default search path for libraries. Homebrew install it's libraries there though.
 if (APPLE AND NOT USE_PACKAGE_MANAGER)
-    LINK_DIRECTORIES(${LINK_DIRECTORIES} /usr/local/lib)
-endif ()
+  # on macOS, usr/local/lib is not in the default search path for libraries. Homebrew install it's libraries there though.
+  LINK_DIRECTORIES(${LINK_DIRECTORIES} /usr/local/lib)
+endif()
+
 
 if (USE_PACKAGE_MANAGER)
 
@@ -207,6 +208,8 @@ else()
   if(NOT APPLE)
     # TODO: Link with stdc++fs on Apple with XCode11
     list(APPEND _link_libraries "stdc++fs")
+  # else()
+    #list(APPEND _link_libraries "c++experimental")
   endif()
 endif()
 
