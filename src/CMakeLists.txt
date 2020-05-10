@@ -71,6 +71,9 @@ set(SOURCE_FILES
         model/iModel.{hxx,cxx}
         model/DataModel.hxx
         model/ButtonState.{hxx,cxx}
+        view/iViewElement.{hxx,cxx}
+        layout/iLayout.{hxx,cxx}
+        layout/AbsoluteLayout.{hxx,cxx}
         )
 
 list(APPEND _include_directories
