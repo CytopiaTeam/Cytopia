@@ -42,7 +42,7 @@ void SIG_handler(int signal)
   exit(1);
 }
 
-#elif __unix__ && !__ANDROID__ && !__EMSCRIPTEN__
+#elif defined(__unix__) && defined (__APPLE__) && !defined(__ANDROID__) && !defined(__EMSCRIPTEN__)
 
 #include <unistd.h>
 #include <execinfo.h>
