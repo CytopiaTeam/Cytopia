@@ -31,7 +31,9 @@ LOG::~LOG()
 #endif
       std::cout << getTimeStamp() << LOG_PREFIX_COLORED[m_LogType] << m_Logger.str() << std::endl;
   }
+#ifndef __ANDROID__
   writeErrorLog(message);
+#endif
 }
 
 std::string LOG::getTimeStamp()
