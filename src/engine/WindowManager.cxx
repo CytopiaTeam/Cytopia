@@ -8,8 +8,19 @@
 
 WindowManager::WindowManager()
 {
+  Uint32 windowFlags = 0;
+
+#ifdef __ANDROID__
+  // Android is always fullscreen.. We also need to set screenWidth / screenHeight to the max. resolution in Fullscreen
+  windowFlags = SDL_WINDOW_FULLSCREEN;
+  SDL_DisplayMode mode;
+  SDL_GetDesktopDisplayMode(0, &mode);
+  Settings::instance().screenWidth = mode.w;
+  Settings::instance().screenHeight = mode.h;
+#endif
+
   m_window = SDL_CreateWindow(m_title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, Settings::instance().screenWidth,
-                              Settings::instance().screenHeight, 0);
+                              Settings::instance().screenHeight, windowFlags);
   if (!m_window)
     throw UIError(TRACE_INFO "Failed to create window: " + string{SDL_GetError()});
 
