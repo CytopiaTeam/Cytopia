@@ -7,6 +7,24 @@
 #include "GameObjects/MapNode.hxx"
 #include "map/TerrainGenerator.hxx"
 
+BETTER_ENUM(NeighbourNodesPosition, unsigned char,
+  BOTOM_LEFT = 1U << 6,
+  LEFT = 1U << 2,
+  TOP_LEFT = 1U << 4,
+  BOTTOM = 1U << 1,
+  CENTAR = 0U,
+  TOP = 1U,
+  BOTOM_RIGHT = 1U << 7,
+  RIGHT = 1U << 3,
+  TOP_RIGHT = 1U << 5
+);
+
+struct NeighbourNode
+{
+  MapNode *pNode;
+  NeighbourNodesPosition position;
+};
+
 class Map
 {
 private:
@@ -128,7 +146,7 @@ public:
         //For layers that autotile to each other, we need to update their neighbors too
         if (MapNode::isDataAutoTile(TileManager::instance().getTileData(tileID)))
         {
-          updateNeighborsOfNode(*it);
+          updateNodeNeighbors(*it);
         }
       }
     }
@@ -207,7 +225,7 @@ private:
   * Updates mapNode height information, draws slopes for adjacent tiles and sets tiling for mapNode sprite if applicable
   * @param isoCoordinates - isometric coordinates of the tile that should be updated.
   */
-  void updateNeighborsOfNode(const Point &isoCoordinates);
+  void updateNodeNeighbors(const Point &isoCoordinates);
 
   /**\brief Update all mapNodes
   * Updates all mapNode and its adjacent tiles regarding height information, draws slopes for adjacent tiles and
@@ -220,7 +238,7 @@ private:
   * [ BR BL TR TL  R  L  B  T ]
   * [ 0  0  0  0   0  0  0  0 ]
   * @param isoCoordinates isometric coordinates of the tile whose neighbors should be retrieved
-  * @returns  Uint that stores the elevated neighbor tiles
+  * @return Uint that stores the elevated neighbor tiles
   */
   unsigned char getElevatedNeighborBitmask(const Point &isoCoordinates);
 
@@ -229,7 +247,7 @@ private:
   * [ BR BL TR TL  R  L  B  T ]
   * [ 0  0  0  0   0  0  0  0 ]
   * @param isoCoordinates isometric coordinates of the tile whose neighbors should be retrieved
-  * @returns  Uint that stores the neighbor tiles
+  * @return Uint that stores the neighbor tiles
   */
   std::vector<uint8_t> calculateAutotileBitmask(const Point &isoCoordinates);
 
@@ -245,7 +263,7 @@ private:
   bool isAllowSetTileId(const Layer layer, const MapNode *const pMapNode);
 
   inline int nodeIdx(const int x, const int y) const { return x * m_columns + y; }
-  std::vector<MapNode *> getNeighborNodes(const Point &isoCoordinates);
+  std::vector<NeighbourNode> getNeighborNodes(const Point &isoCoordinates, const bool includeCentralNode);
   void changeHeight(const Point &isoCoordinates, const bool higher);
 };
 

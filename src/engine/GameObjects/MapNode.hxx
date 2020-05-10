@@ -75,8 +75,6 @@ public:
 
   void setBitmask(unsigned char elevationBitmask, std::vector<uint8_t> tileTypeBitmask);
 
-  //bool isLayerActive(Layer layer) const { return std::find(layers.begin(), layers.end(), layer) != layers.end(); };
-
   unsigned char getElevationBitmask() const { return m_elevationBitmask; };
 
   const TileData *getTileData(Layer layer) const { return m_mapNodeData[layer].tileData; };
