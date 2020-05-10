@@ -8,7 +8,7 @@
  * @class   UIMQDispatcher
  * @brief   An asynchronous dispatch to Observers
  *          based on a UIMessageQueue processed on another thread
- * @details This dispatch policy allows for the GameLoop to asynchronously 
+ * @details This dispatch policy allows for the GameLoop to asynchronously
  *          update the Views while modifying iModels
  * @tparam  DataArgs The data arguments
  */

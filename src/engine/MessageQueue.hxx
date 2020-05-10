@@ -41,7 +41,7 @@ public:
 
   /**
    * @details Blocks the thread until an event is received
-   * @returns an Enumerable of Events on the Queue 
+   * @returns an Enumerable of Events on the Queue
    * @post the Queue is emptied
    * @post Enumerable contains at least one Event
    */

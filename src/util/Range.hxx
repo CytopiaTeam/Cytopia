@@ -9,7 +9,7 @@
  * @brief   A Range is a range between two iterators within a container
  * @tparam  Iterator a type that must satisfy the LegacyIterator named requirement
  * @see     https://en.cppreference.com/w/cpp/named_req/Iterator
- * @example tests/util/Range.cxx      
+ * @example tests/util/Range.cxx
             This is an example of how to use Ranges.
  */
 template <typename Iterator> class Range

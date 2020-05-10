@@ -65,7 +65,7 @@ struct ButtonModel
   using OperationTypes =
       TypeList<ClickData, HoverData, DisableData, DisplayData, ViewData, AnimateData, FocusData, PressData, ActivateData>;
   /* This is our data representation
-   * Bit 0: Is the button active 
+   * Bit 0: Is the button active
    * Bit 1: Is the button hovered
    * Bit 2: Is the button disabled
    * Bit 3: Is the button displayed
@@ -73,7 +73,7 @@ struct ButtonModel
    * Bit 5: Is the button being animated
    * Bit 6: Is the button being focused
    * Bit 7: Is the button being pressed
-   * Bit 8: Is the button 
+   * Bit 8: Is the button
    * m_text: The display text
    * Why do we even bother with all these unused bits?
    * Well it's better to use a multiple of 8 bits
