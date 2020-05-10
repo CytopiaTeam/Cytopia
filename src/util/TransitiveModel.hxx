@@ -22,7 +22,7 @@ template <typename Model> struct Transition
   static_assert(std::is_enum<typename Model::Operations>::value, "Model::Operations must be an enum-type");
   static_assert(std::is_class<typename Model::OperationTypes>::value, "Model::OperationTypes must be a type list");
   /* Data associated with the transition */
-  using TransitionData = typename VariantType<typename Model::OperationTypes>::type;
+  using TransitionData = VariantType<typename Model::OperationTypes>;
   /* Type of the transition */
   using TransitionType = typename Model::Operations;
 
