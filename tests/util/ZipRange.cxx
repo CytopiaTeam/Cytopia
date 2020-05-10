@@ -5,7 +5,7 @@ TEST_CASE("I can use ZipRanges", "[util]")
 {
   const std::array myInts { 0, 1, 2, 3, 4 };
   const std::vector myChars { '0', '1', '2', '3', '4' };
-  const std::initializer_list myStrings { "0", "1", "2", "3", "4" };
+  const std::initializer_list<std::string> myStrings { "0", "1", "2", "3", "4" };
   int count = 0;
   for(const auto & [i, c, s] : ZipRange{myInts, myChars, myStrings})
   {
