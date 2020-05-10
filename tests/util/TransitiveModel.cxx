@@ -90,7 +90,7 @@ struct ButtonModel
  * which all use the same ButtonModel, but triggers
  * events differently. Moreover, our Observers
  * would work for all of these different states. */
-class ButtonState : public TransitiveModel<ButtonModel>
+class TestButton : public TransitiveModel<ButtonModel>
 {
 public:
   /* Here, we implement the operations */
@@ -130,7 +130,7 @@ std::ostream &operator<<(std::ostream &os, const Transition<ButtonModel> &transi
  * can be either toggled or not. It can also be
  * disabled
  */
-class ToggleButtonState : public TransitiveModel<ButtonModel>
+class ToggleTestButton : public TransitiveModel<ButtonModel>
 {
 public:
   void click(void) noexcept
@@ -261,14 +261,14 @@ public:
 
 TEST_CASE("I cannot call TransitiveModel::addObserver", "[util]")
 {
-  REQUIRE(!std::is_invocable<ButtonState, ObserverSPtr<Transition<ButtonModel>>>::value);
+  REQUIRE(!std::is_invocable<TestButton, ObserverSPtr<Transition<ButtonModel>>>::value);
 }
 
 SCENARIO("I can subscribe to all events", "[util]")
 {
   GIVEN("I'm an Observer subscribed to a model for all events")
   {
-    ButtonState model;
+    TestButton model;
     CompleteButtonView view(model);
     REQUIRE(view.size() == 0);
     WHEN("The model sends any event")
@@ -276,7 +276,7 @@ SCENARIO("I can subscribe to all events", "[util]")
       model.click();
       THEN("I receive all events")
       {
-        vector<ButtonState::Notification> expectedEvents{Transition{ButtonModel::ClickData{}}, Transition{ButtonModel::ActivateData{}},
+        vector<TestButton::Notification> expectedEvents{Transition{ButtonModel::ClickData{}}, Transition{ButtonModel::ActivateData{}},
                                                   Transition{ButtonModel::HoverData{}}, Transition{ButtonModel::FocusData{}}};
         REQUIRE_THAT(view, Contains(expectedEvents));
         REQUIRE(view.size() == 4);
@@ -289,7 +289,7 @@ SCENARIO("I can subscribe to specific events", "[util]")
 {
   GIVEN("I'm an Observer subscribed to a model for specific events")
   {
-    ToggleButtonState model;
+    ToggleTestButton model;
     SimpleButtonView view(model);
     REQUIRE(view.size() == 0);
     WHEN("The model sends an event I'm subscribed to")
@@ -298,7 +298,7 @@ SCENARIO("I can subscribe to specific events", "[util]")
       THEN("I receive the event")
       {
         REQUIRE(view.size() == 1);
-        REQUIRE_THAT(view, Contains(vector<ButtonState::Notification>{Transition{ButtonModel::PressData{}}}));
+        REQUIRE_THAT(view, Contains(vector<TestButton::Notification>{Transition{ButtonModel::PressData{}}}));
       }
     }
     WHEN("The model sends an event I'm not subscribed to")
@@ -308,7 +308,7 @@ SCENARIO("I can subscribe to specific events", "[util]")
       THEN("I don't receive any event")
       {
         REQUIRE(view.size() == 0);
-        REQUIRE_THAT(view, !Contains(vector<ButtonState::Notification>{Transition{ButtonModel::DisableData{}}}));
+        REQUIRE_THAT(view, !Contains(vector<TestButton::Notification>{Transition{ButtonModel::DisableData{}}}));
       }
     }
   }
