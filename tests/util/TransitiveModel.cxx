@@ -249,7 +249,7 @@ public:
   explicit SimpleButtonView(TransitiveModel<ButtonModel> &model) : m_Listener(std::make_shared<Listener>(*this))
   {
     /* this button view subscribes only to PRESS events */
-    model.subscribe(m_Listener, { ButtonModel::PRESS });
+    model.subscribe(m_Listener, {ButtonModel::PRESS});
   }
 };
 
@@ -276,8 +276,9 @@ SCENARIO("I can subscribe to all events", "[util]")
       model.click();
       THEN("I receive all events")
       {
-        vector<TestButton::Notification> expectedEvents{Transition{ButtonModel::ClickData{}}, Transition{ButtonModel::ActivateData{}},
-                                                  Transition{ButtonModel::HoverData{}}, Transition{ButtonModel::FocusData{}}};
+        vector<TestButton::Notification> expectedEvents{
+            Transition{ButtonModel::ClickData{}}, Transition{ButtonModel::ActivateData{}}, Transition{ButtonModel::HoverData{}},
+            Transition{ButtonModel::FocusData{}}};
         REQUIRE_THAT(view, Contains(expectedEvents));
         REQUIRE(view.size() == 4);
       }

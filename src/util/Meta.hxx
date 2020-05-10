@@ -66,8 +66,7 @@ template <template <typename...> typename List, typename... Ts> struct VariantTy
   using type = std::variant<Ts...>;
 };
 
-template <typename List>
-using VariantType = typename VariantType_t<List>::type;
+template <typename List> using VariantType = typename VariantType_t<List>::type;
 
 /**
  * @struct TupleType

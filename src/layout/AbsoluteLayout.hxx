@@ -7,13 +7,15 @@ class AbsoluteLayout : public iLayout
 {
 protected:
   void computeBoundaries() noexcept final;
-  iViewPtr addElement(iViewPtr, BoxSizing&&, AbsolutePosition &&);
+  iViewPtr addElement(iViewPtr, BoxSizing &&, AbsolutePosition &&);
+
 private:
   using iLayout::addElement;
   std::vector<BoxSizing> m_Sizes;
   std::vector<AbsolutePosition> m_Positions;
+
 public:
-  using iLayout::iLayout; 
+  using iLayout::iLayout;
 };
 
 #endif // ABSOLUTE_LAYOUT_HXX

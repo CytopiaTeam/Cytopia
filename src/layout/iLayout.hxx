@@ -14,18 +14,16 @@ class iLayout : public virtual iView
   using ElementList = std::vector<iViewPtr>;
   ElementList m_Elements;
   Rectangle m_Bounds;
-  
-public:
 
+public:
   virtual void draw(iRenderer &) const noexcept override;
 
   iLayout(Rectangle && = Rectangle{0, 0, 0, 0});
   virtual ~iLayout() = 0;
-  
+
   void setup(GameService &) noexcept override;
 
 protected:
-
   /**
    * @brief Adds a iView to the iLayout
    * @param iViewPtr the iView to add
@@ -40,7 +38,7 @@ protected:
    */
   virtual void computeBoundaries() noexcept = 0;
 
-  const Rectangle & getBounds() const noexcept final;
+  const Rectangle &getBounds() const noexcept final;
 
 private:
   void setBounds(Rectangle &&) noexcept final;
