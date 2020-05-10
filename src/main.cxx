@@ -4,7 +4,7 @@
 #include "Exception.hxx"
 #include "LOG.hxx"
 
-#ifndef __ANDROID__ || __EMSCRIPTEN__
+#if !defined(__ANDROID__) && !defined(__EMSCRIPTEN__)
 #include <signal.h>
 void SIG_handler(int signal);
 #endif
@@ -56,7 +56,7 @@ int protected_main(int argc, char **argv)
 
 int main(int argc, char **argv)
 {
-#ifndef __ANDROID__ || __EMSCRIPTEN__
+#if !defined( __ANDROID__) && !defined(__EMSCRIPTEN__)
   /* Register handler for Segmentation Fault, Interrupt, Terminate */
   signal(SIGSEGV, SIG_handler);
   signal(SIGINT, SIG_handler);
