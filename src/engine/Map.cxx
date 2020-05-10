@@ -10,6 +10,7 @@
 #include "ResourcesManager.hxx"
 #include "map/MapLayers.hxx"
 #include "common/JsonSerialization.hxx"
+#include "Filesystem.hxx"
 
 #include "json.hxx"
 
@@ -611,38 +612,26 @@ void Map::unHighlightNode(const Point &isoCoordinates)
 
 void Map::saveMapToFile(const std::string &fileName)
 {
+  //create savegame json string
   const json j =
       json{{"Savegame version", SAVEGAME_VERSION}, {"columns", this->m_columns}, {"rows", this->m_rows}, {"mapNode", mapNodes}};
 
-  std::ofstream file(SDL_GetBasePath() + fileName, std::ios_base::out | std::ios_base::binary);
-
 #ifdef DEBUG
   // Write uncompressed savegame for easier debugging
-  std::ofstream fileuncompressed(SDL_GetBasePath() + fileName + "_UNCOMPRESSED", std::ios_base::out | std::ios_base::binary);
-  fileuncompressed << j.dump();
+  fs::writeStringToFile(fileName + ".txt", j.dump());
 #endif
 
   const std::string compressedSaveGame = compressString(j.dump());
 
   if (!compressedSaveGame.empty())
   {
-    file << compressedSaveGame;
+    fs::writeStringToFile(fileName, compressedSaveGame, true);
   }
-  file.close();
 }
 
 Map *Map::loadMapFromFile(const std::string &fileName)
 {
-  std::stringstream buffer;
-  {
-    std::ifstream file(SDL_GetBasePath() + fileName, std::ios_base::in | std::ios_base::binary);
-    if (!file)
-      throw ConfigurationError(TRACE_INFO "Could not load savegame file " + fileName);
-    buffer << file.rdbuf();
-  }
-
-  std::string jsonAsString;
-  jsonAsString = decompressString(buffer.str());
+  std::string jsonAsString = decompressString(fs::readFileAsString(fileName, true));
 
   if (jsonAsString.empty())
     return nullptr;

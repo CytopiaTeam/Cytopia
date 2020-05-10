@@ -4,7 +4,7 @@ set(SOURCE_FILES
         Game.inl.hxx
         util/LOG.{hxx,cxx}
         util/LOG.inl.hxx
-        util/filesystem.hxx
+        util/Filesystem.{hxx,cxx}
         util/IEquatable.hxx
         util/IEquatable.inl.hxx
         util/Singleton.hxx
@@ -57,6 +57,20 @@ set(SOURCE_FILES
         engine/UIManager.{hxx,cxx}
         engine/WindowManager.{hxx,cxx}
         )
+
+if (ANDROID)
+  list (APPEND SOURCE_FILES
+    util/android/Filesystem.cxx
+  )
+elseif(APPLE)
+  list (APPEND SOURCE_FILES
+    util/macOS/Filesystem.cxx
+  )
+else()
+  list (APPEND SOURCE_FILES
+    util/desktop/Filesystem.cxx
+  )
+endif()
 
 list(APPEND _include_directories
         engine
@@ -153,7 +167,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE ${_link_libraries})
 add_custom_target(
         copy_resources
         ALL
-        COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/data/resources/ $<TARGET_FILE_DIR:${PROJECT_NAME}>/resources/ 
+        COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/data/resources/ $<TARGET_FILE_DIR:${PROJECT_NAME}>/resources/
         COMMENT "Copy the resources to the compiled directory"
         VERBATIM
 )

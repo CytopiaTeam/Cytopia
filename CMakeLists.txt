@@ -143,10 +143,11 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "RelWithDebIn
 endif ()
 
 
-# on macOS, usr/local/lib is not in the default search path for libraries. Homebrew install it's libraries there though.
 if (APPLE AND NOT USE_PACKAGE_MANAGER)
-    LINK_DIRECTORIES(${LINK_DIRECTORIES} /usr/local/lib)
-endif ()
+  # on macOS, usr/local/lib is not in the default search path for libraries. Homebrew install it's libraries there though.
+  LINK_DIRECTORIES(${LINK_DIRECTORIES} /usr/local/lib)
+endif()
+
 
 if (USE_PACKAGE_MANAGER)
     function(get_variable_from_conan _var_name)
@@ -297,6 +298,8 @@ else()
   if(NOT APPLE AND NOT BUILD_ANDROID)
     # TODO: Link with stdc++fs on Apple with XCode11
     list(APPEND _link_libraries "stdc++fs")
+  # else()
+    #list(APPEND _link_libraries "c++experimental")
   endif()
 endif()
 

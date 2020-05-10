@@ -1,4 +1,5 @@
 #include "LOG.hxx"
+#include "Filesystem.hxx"
 
 #ifdef __ANDROID__
 #include <android/log.h>
@@ -43,7 +44,7 @@ std::string LOG::getTimeStamp()
 
 void LOG::writeErrorLog(const std::string &errorMessage)
 {
-  string errfname = SDL_GetBasePath() + string{"error.log"};
+  string errfname = fs::getBasePath() + string{"error.log"};
 
   /* First we create the file if it doesn't exist */
   std::fstream fs(errfname, std::fstream::out | std::fstream::app);
@@ -68,7 +69,7 @@ void LOG::writeErrorLog(const std::string &errorMessage)
     stringstream truncatedstream;
     truncatedstream << fs.rdbuf();
     fs.close();
-    fs.open(SDL_GetBasePath() + string{"error.log"}, std::fstream::trunc | std::fstream::out);
+    fs.open(fs::getBasePath() + string{"error.log"}, std::fstream::trunc | std::fstream::out);
     fs << truncatedstream.str();
   }
 }
