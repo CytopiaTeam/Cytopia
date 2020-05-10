@@ -59,12 +59,15 @@ template <auto i, typename List> using GetType = typename GetType_t<i, List>::ty
  * @brief VariantType::type returns std::variant<All fields inside the TypeList>
  * @tparam List the TypeList
  */
-template <class List> struct VariantType;
+template <class List> struct VariantType_t;
 
-template <template <typename...> typename List, typename... Ts> struct VariantType<List<Ts...>>
+template <template <typename...> typename List, typename... Ts> struct VariantType_t<List<Ts...>>
 {
   using type = std::variant<Ts...>;
 };
+
+template <typename List>
+using VariantType = typename VariantType_t<List>::type;
 
 /**
  * @struct TupleType

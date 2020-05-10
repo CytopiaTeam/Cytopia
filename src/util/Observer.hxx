@@ -1,6 +1,7 @@
 #ifndef OBSERVER_HXX_
 #define OBSERVER_HXX_
 
+#include <vector>
 #include <memory>
 #include "Meta.hxx"
 
