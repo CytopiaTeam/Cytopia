@@ -66,6 +66,7 @@ set(SOURCE_FILES
         view/iView.{hxx,cxx}
         model/iModel.{hxx,cxx}
         model/DataModel.hxx
+        model/ButtonState.{hxx,cxx}
         )
 
 list(APPEND _include_directories
