@@ -1,11 +1,14 @@
 #include <catch2/catch.hpp>
+#include <array>
+#include <initializer_list>
+#include <vector>
 #include "ZipRange.hxx"
 
 TEST_CASE("I can use ZipRanges", "[util]")
 {
   const std::array myInts { 0, 1, 2, 3, 4 };
   const std::vector myChars { '0', '1', '2', '3', '4' };
-  const std::initializer_list myStrings { "0", "1", "2", "3", "4" };
+  const std::initializer_list<std::string> myStrings { "0", "1", "2", "3", "4" };
   int count = 0;
   for(const auto & [i, c, s] : ZipRange{myInts, myChars, myStrings})
   {
@@ -20,7 +23,7 @@ TEST_CASE("ZipRanges will not go past std::end", "[util]")
 {
   /* Consider a ZipRange of containers of different lengths... */
   const std::array myInts { 0, 1, 2, 3 };
-  const std::array<int, 0> empty;
+  const std::vector<int> empty;
   const ZipRange range { myInts, empty };
   REQUIRE(range.begin() == range.end());
   REQUIRE(!(range.begin() != range.end()));

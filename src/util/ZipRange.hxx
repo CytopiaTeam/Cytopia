@@ -49,8 +49,8 @@ public:
   template <typename Range, typename... Ranges>
   explicit ZipRange(const Range &&, const Ranges && ...);
 
-  ZipIterator begin();
-  ZipIterator end();
+  ZipIterator begin() const;
+  ZipIterator end() const;
 
   using value_type = typename ZipIterator::value_type;
   using difference_type = typename ZipIterator::difference_type;

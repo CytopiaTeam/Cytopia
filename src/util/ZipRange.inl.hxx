@@ -26,10 +26,10 @@ ZipRange(const Range && r1, const Ranges && ... ranges)
 }
 
 template<typename Iterator, typename... Iterators>
-typename ZipRange<Iterator, Iterators...>::ZipIterator ZipRange<Iterator, Iterators...>::begin() { return m_Begin; }
+typename ZipRange<Iterator, Iterators...>::ZipIterator ZipRange<Iterator, Iterators...>::begin() const { return m_Begin; }
 
 template<typename Iterator, typename... Iterators>
-typename ZipRange<Iterator, Iterators...>::ZipIterator ZipRange<Iterator, Iterators...>::end() { return m_End; }
+typename ZipRange<Iterator, Iterators...>::ZipIterator ZipRange<Iterator, Iterators...>::end() const { return m_End; }
 
 template<typename Iterator, typename... Iterators>
 ZipRange<Iterator, Iterators...>::ZipIterator::ZipIterator(Iterator it, Iterators... its) : m_It(it, its...) { }
