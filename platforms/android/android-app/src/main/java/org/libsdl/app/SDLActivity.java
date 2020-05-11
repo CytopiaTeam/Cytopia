@@ -784,7 +784,7 @@ public class SDLActivity extends Activity implements View.OnSystemUiVisibilityCh
   /**
      * This method is called by SDL using JNI.
      * This is a static method for JNI convenience, it calls a non-static method
-     * so that is can be overridden  
+     * so that is can be overridden
      */
   public static void setOrientation(int w, int h, boolean resizable, String hint)
   {
@@ -2137,7 +2137,7 @@ class DummyEdit extends View implements View.OnKeyListener
 
   @Override public boolean onKey(View v, int keyCode, KeyEvent event)
   {
-    /* 
+    /*
          * This handles the hardware keyboard input
          */
     if (event.getAction() == KeyEvent.ACTION_DOWN)
