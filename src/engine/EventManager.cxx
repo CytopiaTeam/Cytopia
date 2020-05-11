@@ -279,7 +279,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
 
           if (Engine::instance().map != nullptr)
             Engine::instance().map->refresh();
-          return;
+          break;
         }
         // check if we should highlight tiles and if we're in placement mode
         if (highlightSelection)
