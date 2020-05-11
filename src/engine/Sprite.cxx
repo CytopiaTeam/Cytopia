@@ -54,20 +54,9 @@ void Sprite::render() const
 
 void Sprite::refresh(const Layer &layer)
 {
-  std::vector<Layer> layersToGoOver;
-  if (layer != Layer::NONE)
-  {
-    // in case this is not the default value (which is NONE), we need to update only 1 layer.
-    layersToGoOver.push_back(layer);
-  }
-  else
-  {
-    layersToGoOver.insert(layersToGoOver.begin(), std::begin(allLayersOrdered), std::end(allLayersOrdered));
-  }
-
   if (m_currentZoomLevel != Camera::zoomLevel || m_needsRefresh)
   {
-    for (auto currentLayer : layersToGoOver)
+    for (auto currentLayer : allLayersOrdered)
     {
       if (m_SpriteData[currentLayer].texture)
       {
