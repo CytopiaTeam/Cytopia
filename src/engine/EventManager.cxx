@@ -424,7 +424,8 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
             const Point &buildingCoordinates =
                 engine.map->findNodeInMap(convertIsoToScreenCoordinates(highlitNode), Layer::BUILDINGS);
 
-            auto transparentBuildingIt = std::find(m_transparentBuildings.begin(), m_transparentBuildings.end(), buildingCoordinates);
+            auto transparentBuildingIt =
+                std::find(m_transparentBuildings.begin(), m_transparentBuildings.end(), buildingCoordinates);
             if (!(transparentBuildingIt != m_transparentBuildings.end()))
             {
               if (buildingCoordinates != UNDEFINED_POINT)
