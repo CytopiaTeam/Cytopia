@@ -153,7 +153,7 @@ Layer MapNode::getTopMostActiveLayer() const
 
 void MapNode::setNodeTransparency(const float percentage) const
 {
-  unsigned char alpha = percentage ? 255 * percentage : 255;
+  unsigned char alpha = (1 - percentage) * 255;
   m_sprite->transparentSprite = true;
   m_sprite->alpha = alpha;
 }

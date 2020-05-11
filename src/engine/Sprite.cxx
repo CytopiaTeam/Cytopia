@@ -32,7 +32,7 @@ void Sprite::render() const
       {
         if (SDL_SetTextureColorMod(m_SpriteData[currentLayer].texture, highlightColor.r, highlightColor.g, highlightColor.b))
         {
-          // indicates failure.
+          //TODO indicates failure - an approperiate LOG message should be printed.
         }
       }
 
@@ -40,7 +40,7 @@ void Sprite::render() const
       {
         if (SDL_SetTextureAlphaMod(m_SpriteData[currentLayer].texture, alpha))
         {
-          // indicates failure.
+          //TODO indicates failure - an approperiate LOG message should be printed.
         }
       }
 
@@ -59,7 +59,7 @@ void Sprite::render() const
       {
         if (SDL_SetTextureColorMod(m_SpriteData[currentLayer].texture, 255, 255, 255))
         {
-          // indicates failure.
+          //TODO indicates failure - an approperiate LOG message should be printed.
         }
       }
 
@@ -67,7 +67,7 @@ void Sprite::render() const
       {
         if (SDL_SetTextureAlphaMod(m_SpriteData[currentLayer].texture, 255))
         {
-          // indicates failure.
+          //TODO indicates failure - an approperiate LOG message should be printed.
         }
       }
     }
