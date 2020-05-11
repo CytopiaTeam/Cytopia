@@ -10,6 +10,7 @@
 #include "ResourcesManager.hxx"
 #include "map/MapLayers.hxx"
 #include "common/JsonSerialization.hxx"
+#include "Filesystem.hxx"
 
 #include "json.hxx"
 
@@ -411,8 +412,6 @@ SDL_Color Map::getColorOfPixelInSurface(SDL_Surface *surface, int x, int y) cons
 
 Point Map::findNodeInMap(const SDL_Point &screenCoordinates, const Layer &layer) const
 {
-  Point foundCoordinates = UNDEFINED_POINT;
-
   // calculate clicked column (x coordinate) without height taken into account.
   const Point calculatedIsoCoords = calculateIsoCoordinates(screenCoordinates);
   int isoX = calculatedIsoCoords.x;
@@ -428,34 +427,42 @@ Point Map::findNodeInMap(const SDL_Point &screenCoordinates, const Layer &layer)
     isoY -= diff;
   }
 
-  // traverse a column from top to bottom (from the calculated coordinates) our calculated point is always higher than the clicked point
-  while (isoX <= Settings::instance().mapSize && isoY <= Settings::instance().mapSize && isoY >= 0)
+#ifndef NDEBUG
+  int zOrder = INT_MAX;
+#endif
+  // Transerse a column form from calculated coordinates to the bottom of the map.
+  // It is necessary to include 2 neighbor nodes from both sides.
+  // Try to find map node in Z order.
+  // Node with the highest Z order has highest X and lowest Y coordinate, so search will be conducted in that order.
+  const int neighborReach = 2;
+  const int mapSize = Settings::instance().mapSize;
+
+  // Max X will reach end of the map or Y will reach 0.
+  const int xMax = std::min(isoX + neighborReach + isoY, mapSize - 1);
+  // Min X will reach 0 or x -2 neighbor node.
+  const int xMin = std::max(isoX - neighborReach, 0);
+
+  for (int x = xMax; x >= xMin; --x)
   {
-    // include 2 columns on each side, since calculated values can be that far off
-    for (int i = 0; i <= 2; i++)
+    const int diff = x - isoX;
+    const int yMiddlePoint = isoY - diff;
+
+    // Move y up and down 2 neighbors.
+    for (int y = std::max(yMiddlePoint - neighborReach, 0); (y <= yMiddlePoint + neighborReach) && (y < mapSize); ++y)
     {
-      if (isClickWithinTile(screenCoordinates, isoX, isoY, layer) &&
-          (foundCoordinates.z < mapNodes[isoX * m_columns + isoY]->getCoordinates().z))
+#ifndef NDEBUG
+      // Assert asumption that we test all nodes in correct Z order
+      assert(zOrder > mapNodes[x * m_columns + y]->getCoordinates().z);
+      zOrder = mapNodes[x * m_columns + y]->getCoordinates().z;
+#endif
+      if (isClickWithinTile(screenCoordinates, x, y, layer))
       {
-        foundCoordinates = mapNodes[isoX * m_columns + isoY]->getCoordinates();
-      }
-      if (isClickWithinTile(screenCoordinates, isoX + i, isoY, layer) &&
-          (foundCoordinates.z < mapNodes[(isoX + i) * m_columns + isoY]->getCoordinates().z))
-      {
-        foundCoordinates = mapNodes[(isoX + i) * m_columns + isoY]->getCoordinates();
-      }
-      if (isClickWithinTile(screenCoordinates, isoX, isoY - i, layer) &&
-          (foundCoordinates.z < mapNodes[isoX * m_columns + (isoY - i)]->getCoordinates().z))
-      {
-        foundCoordinates = mapNodes[isoX * m_columns + (isoY - i)]->getCoordinates();
+        return mapNodes[x * m_columns + y]->getCoordinates();
       }
     }
-    // travel the column downwards.
-    isoX++;
-    isoY--;
   }
 
-  return foundCoordinates;
+  return Point{-1, -1, 0, 0};
 }
 
 void Map::demolishNode(const std::vector<Point> &isoCoordinates, bool updateNeighboringTiles, Layer layer)
@@ -614,38 +621,26 @@ void Map::unHighlightNode(const Point &isoCoordinates)
 
 void Map::saveMapToFile(const std::string &fileName)
 {
+  //create savegame json string
   const json j =
       json{{"Savegame version", SAVEGAME_VERSION}, {"columns", this->m_columns}, {"rows", this->m_rows}, {"mapNode", mapNodes}};
 
-  std::ofstream file(SDL_GetBasePath() + fileName, std::ios_base::out | std::ios_base::binary);
-
 #ifdef DEBUG
   // Write uncompressed savegame for easier debugging
-  std::ofstream fileuncompressed(SDL_GetBasePath() + fileName + "_UNCOMPRESSED", std::ios_base::out | std::ios_base::binary);
-  fileuncompressed << j.dump();
+  fs::writeStringToFile(fileName + ".txt", j.dump());
 #endif
 
   const std::string compressedSaveGame = compressString(j.dump());
 
   if (!compressedSaveGame.empty())
   {
-    file << compressedSaveGame;
+    fs::writeStringToFile(fileName, compressedSaveGame, true);
   }
-  file.close();
 }
 
 Map *Map::loadMapFromFile(const std::string &fileName)
 {
-  std::stringstream buffer;
-  {
-    std::ifstream file(SDL_GetBasePath() + fileName, std::ios_base::in | std::ios_base::binary);
-    if (!file)
-      throw ConfigurationError(TRACE_INFO "Could not load savegame file " + fileName);
-    buffer << file.rdbuf();
-  }
-
-  std::string jsonAsString;
-  jsonAsString = decompressString(buffer.str());
+  std::string jsonAsString = decompressString(fs::readFileAsString(fileName, true));
 
   if (jsonAsString.empty())
     return nullptr;

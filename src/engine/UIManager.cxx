@@ -10,6 +10,7 @@
 #include "Exception.hxx"
 #include "GameStates.hxx"
 #include "MapLayers.hxx"
+#include "Filesystem.hxx"
 
 #include "json.hxx"
 #include "betterEnums.hxx"
@@ -28,16 +29,10 @@ BETTER_ENUM(Action, int, RaiseTerrain, LowerTerrain, QuitGame, Demolish, ChangeT
 
 void UIManager::init()
 {
-  json uiLayout;
-
-  std::ifstream i(SDL_GetBasePath() + Settings::instance().uiLayoutJSONFile.get());
-
-  if (!i)
-    throw ConfigurationError(TRACE_INFO "Could not open UI config file " + Settings::instance().uiLayoutJSONFile.get());
+  std::string jsonFileContent = fs::readFileAsString(Settings::instance().uiLayoutJSONFile.get());
+  json uiLayout = json::parse(jsonFileContent, nullptr, false);
 
   // check if json file can be parsed
-  uiLayout = json::parse(i, nullptr, false);
-
   if (uiLayout.is_discarded())
     throw ConfigurationError(TRACE_INFO "Error parsing JSON File " + Settings::instance().uiLayoutJSONFile.get());
 

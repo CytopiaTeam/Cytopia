@@ -3,6 +3,16 @@ cmake_minimum_required(VERSION 3.11 FATAL_ERROR)
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
+find_program(SCCACHE_PROGRAM sccache)
+find_program(CCACHE_PROGRAM ccache)
+if (SCCACHE_PROGRAM)
+    set(CMAKE_CXX_COMPILER_LAUNCHER "${SCCACHE_PROGRAM}")
+    message("Using ${SCCACHE_PROGRAM} for speeding up build")
+elseif (CCACHE_PROGRAM)
+    set(CMAKE_CXX_COMPILER_LAUNCHER "${CCACHE_PROGRAM}")
+    message("Using ${CCACHE_PROGRAM} for speeding up build")
+endif ()
+
 include(CMakeDependentOption)
 include(SourceFileUtils)
 include(FetchContent)
@@ -45,6 +55,10 @@ set(_include_directories "${CMAKE_CURRENT_SOURCE_DIR}/external/header_only")
 set(_compile_definitions "")
 set(_link_libraries "")
 
+if (CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo")
+  list(APPEND _compile_definitions DEBUG)
+endif ()
+
 # create the cmake project
 project(
         # this will be the ${PROJECT_NAME}
@@ -57,10 +71,11 @@ project(
         LANGUAGES CXX
 )
 
-# on macOS, usr/local/lib is not in the default search path for libraries. Homebrew install it's libraries there though.
 if (APPLE AND NOT USE_PACKAGE_MANAGER)
-    LINK_DIRECTORIES(${LINK_DIRECTORIES} /usr/local/lib)
-endif ()
+  # on macOS, usr/local/lib is not in the default search path for libraries. Homebrew install it's libraries there though.
+  LINK_DIRECTORIES(${LINK_DIRECTORIES} /usr/local/lib)
+endif()
+
 
 if (USE_PACKAGE_MANAGER)
 
@@ -75,7 +90,6 @@ if (USE_PACKAGE_MANAGER)
     pmm(CONAN
             REMOTES
             AFG https://api.bintray.com/conan/anotherfoxguy/conan-packages
-            catchorg https://api.bintray.com/conan/catchorg/Catch2
             ror-dependencies https://api.bintray.com/conan/anotherfoxguy/ror-dependencies
             BINCRAFTERS
             CMakeCM ROLLING
@@ -187,12 +201,6 @@ else (USE_PACKAGE_MANAGER)
 
 endif (USE_PACKAGE_MANAGER)
 
-if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-  add_compile_definitions(DEBUG)
-elseif(CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo")
-  add_compile_definitions(DEBUG)
-endif()
-
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
   link_libraries(dbghelp.lib)
 else()
@@ -200,6 +208,8 @@ else()
   if(NOT APPLE)
     # TODO: Link with stdc++fs on Apple with XCode11
     list(APPEND _link_libraries "stdc++fs")
+  # else()
+    #list(APPEND _link_libraries "c++experimental")
   endif()
 endif()
 
