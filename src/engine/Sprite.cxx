@@ -104,10 +104,13 @@ void Sprite::refresh(const Layer &layer)
 
   for (auto &it : m_SpriteData)
   {
-    // render the sprite in the middle of its bounding box so bigger than 1x1 sprites will render correctly
-    it.destRect.x = m_screenCoordinates.x - (it.destRect.w / 2);
-    // change y coordinates with sprites height taken into account to render the sprite at its base and not at its top.
-    it.destRect.y = m_screenCoordinates.y - it.destRect.h;
+    if (it.texture != nullptr)
+    {
+      // render the sprite in the middle of its bounding box so bigger than 1x1 sprites will render correctly
+      it.destRect.x = m_screenCoordinates.x - (it.destRect.w / 2);
+      // change y coordinates with sprites height taken into account to render the sprite at its base and not at its top.
+      it.destRect.y = m_screenCoordinates.y - it.destRect.h;
+    }
   }
 
   m_needsRefresh = false;

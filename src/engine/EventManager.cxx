@@ -274,6 +274,10 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         // if we're panning, move the camera and break
         if (m_panning)
         {
+          if (event.motion.xrel == 0 && event.motion.yrel == 0)
+          {
+            return;
+          }
           Camera::cameraOffset.x -= event.motion.xrel;
           Camera::cameraOffset.y -= event.motion.yrel;
 
