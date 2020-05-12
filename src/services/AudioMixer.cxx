@@ -7,6 +7,7 @@
 #include "../services/GameClock.hxx"
 #include "../services/Randomizer.hxx"
 #include "common/JsonSerialization.hxx"
+#include "Filesystem.hxx"
 
 #include <fstream>
 
@@ -19,20 +20,23 @@ std::function<void(int)> AudioMixer::onTrackFinishedFunc;
 
 AudioMixer::AudioMixer(GameService::ServiceTuple &context) : GameService(context)
 {
-  string fName = SDL_GetBasePath() + Settings::instance().audioConfigJSONFile.get();
-  ifstream ifs(fName);
-  if (!ifs)
-    throw ConfigurationError(TRACE_INFO "Couldn't open file " + fName);
-  json config_json;
-  ifs >> config_json;
+  std::string jsonFileContent = fs::readFileAsString(Settings::instance().audioConfigJSONFile.get());
+  json config_json = json::parse(jsonFileContent, nullptr, false);
+
+  // check if json file can be parsed
+  if (config_json.is_discarded())
+    throw ConfigurationError(TRACE_INFO "Error parsing JSON File " + Settings::instance().audioConfigJSONFile.get());
+
   AudioConfig audioConfig = config_json;
-  for(auto & item : audioConfig.Music)
-    for (auto & trigger : item.second.triggers)
+  for (auto &item : audioConfig.Music)
+    for (auto &trigger : item.second.triggers)
       m_Triggers[trigger].emplace_back(item.first);
   for (auto &item : audioConfig.Sound)
     for (auto &trigger : item.second.triggers)
       m_Triggers[trigger].emplace_back(item.first);
+
 #ifdef USE_AUDIO
+  
   /* use default audio device */
   gAudioDevice = alcOpenDevice(nullptr);
   if (!gAudioDevice)
@@ -71,11 +75,12 @@ AudioMixer::AudioMixer(GameService::ServiceTuple &context) : GameService(context
 
   /* Set a pruning repeated task to get rid of soundtracks that have finished playing */
   GetService<GameClock>().createRepeatedTask(5min, [&mixer = *this]() { mixer.prune(); });
-
+  
+  LOG(LOG_DEBUG) << "Created AudioMixer";
 #else  // USE_AUDIO
   
 #endif // USE_AUDIO
-  LOG(LOG_DEBUG) << "Created AudioMixer";
+  
 }
 
 AudioMixer::~AudioMixer()
@@ -203,13 +208,13 @@ void AudioMixer::handleEvent(const AudioTriggerEvent &&event)
     return;
   }
   SoundtrackID &trackID = *GetService<Randomizer>().choose(possibilities.begin(), possibilities.end());
-  SoundtrackUPtr & track = GetService<ResourceManager>().get(trackID);
+  SoundtrackUPtr &track = GetService<ResourceManager>().get(trackID);
   playSoundtrack(track);
 }
 
 void AudioMixer::handleEvent(const AudioPlayEvent &&event)
 {
-  SoundtrackUPtr & track = GetService<ResourceManager>().get(event.ID);
+  SoundtrackUPtr &track = GetService<ResourceManager>().get(event.ID);
   playSoundtrack(track);
 }
 
@@ -224,9 +229,9 @@ void AudioMixer::handleEvent(const AudioTrigger3DEvent &&event)
     return;
   }
   SoundtrackID &trackID = *GetService<Randomizer>().choose(possibilities.begin(), possibilities.end());
-  SoundtrackUPtr & track = GetService<ResourceManager>().get(trackID);
+  SoundtrackUPtr &track = GetService<ResourceManager>().get(trackID);
 
-  /* set position of source in track 
+  /* set position of source in track
    * converted to regular cartesian coordinate system */
   alSource3f(track->source, AL_POSITION, static_cast<ALfloat>(event.position.x), static_cast<ALfloat>(event.position.y),
              static_cast<ALfloat>(event.position.z));
@@ -235,7 +240,7 @@ void AudioMixer::handleEvent(const AudioTrigger3DEvent &&event)
 
 void AudioMixer::handleEvent(const AudioPlay3DEvent &&event)
 {
-  SoundtrackUPtr & track = GetService<ResourceManager>().get(event.ID);
+  SoundtrackUPtr &track = GetService<ResourceManager>().get(event.ID);
   /* set position of source in track */
   alSource3f(track->source, AL_POSITION, static_cast<ALfloat>(event.position.x), static_cast<ALfloat>(event.position.y),
              static_cast<ALfloat>(event.position.z));
@@ -359,28 +364,32 @@ void AudioMixer::handleEvent(const AudioSetMutedEvent &&event) { throw Unimpleme
 void AudioMixer::handleEvent(const AudioStopEvent &&)
 {
 	
-  while(!m_Playing.empty())
+  while (!m_Playing.empty())
   {
     auto it = m_Playing.begin();
     alSourceStop((**it)->source);
     (**it)->isPlaying = false;
     m_Playing.erase(it);
-	}
+  }
+
 }
 
 void AudioMixer::handleEvent(const AudioPruneEvent &&)
 {
-	for(auto it = m_Playing.begin(); it != m_Playing.end();)
-	{
-		int state = 0;
-		alGetSourcei((**it)->source, AL_SOURCE_STATE, &state);
-		if (state != AL_PLAYING)
-		{
-			(**it)->isPlaying = false;
-			it = m_Playing.erase(it);
-		}
-		else { ++it; }
-	}
+  for (auto it = m_Playing.begin(); it != m_Playing.end();)
+  {
+    int state = 0;
+    alGetSourcei((**it)->source, AL_SOURCE_STATE, &state);
+    if (state != AL_PLAYING)
+    {
+      (**it)->isPlaying = false;
+      it = m_Playing.erase(it);
+    }
+    else
+    {
+      ++it;
+    }
+  }
 }
 
 /*

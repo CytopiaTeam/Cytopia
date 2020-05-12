@@ -8,6 +8,8 @@
 #include "engine/ui/widgets/Image.hxx"
 #include "engine/basics/Settings.hxx"
 #include "engine/basics/GameStates.hxx"
+#include "Filesystem.hxx"
+
 #include <noise.h>
 #include <SDL.h>
 #include <SDL_ttf.h>
@@ -79,7 +81,7 @@ bool Game::initialize()
   WindowManager::instance().setWindowTitle(VERSION);
 
 #ifdef USE_MOFILEREADER
-  std::string moFilePath = SDL_GetBasePath();
+  std::string moFilePath = fs::getBasePath();
   moFilePath = moFilePath + "languages/" + Settings::instance().gameLanguage + "/Cytopia.mo";
 
   if (moFileLib::moFileReaderSingleton::GetInstance().ReadFile(moFilePath.c_str()) == moFileLib::moFileReader::EC_SUCCESS)
@@ -302,11 +304,11 @@ void Game::run(bool SkipMenu)
 	*/
 	
 	//use default values
-	EchoProperties temp_echo_prop;
+	//EchoProperties temp_echo_prop;
 	
-    m_GameClock.createRepeatedTask(8min, [this, &temp_echo_prop]() { m_AudioMixer.play(AudioTrigger::MainTheme,temp_echo_prop); });
+    //m_GameClock.createRepeatedTask(8min, [this, &temp_echo_prop]() { m_AudioMixer.play(AudioTrigger::MainTheme,temp_echo_prop); });
     //m_GameClock.createRepeatedTask(8min, [this, &temp_rev_prop]() { m_AudioMixer.play(AudioTrigger::MainTheme,temp_rev_prop); });
-    //m_GameClock.createRepeatedTask(8min, [this]() { m_AudioMixer.play(AudioTrigger::MainTheme); });
+    m_GameClock.createRepeatedTask(8min, [this]() { m_AudioMixer.play(AudioTrigger::MainTheme); });
     m_GameClock.createRepeatedTask(3min, [this]() { m_AudioMixer.play(AudioTrigger::NatureSounds); });
   }
   else
