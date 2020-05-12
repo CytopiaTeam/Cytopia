@@ -1,6 +1,6 @@
 #include "ResourceManager.hxx"
 
-#ifdef USE_OPENAL_SOFT
+#ifdef USE_AUDIO
 #include "AL/al.h"
 #include "AL/alc.h"
 
@@ -48,7 +48,7 @@ ResourceManager::ResourceManager(GameService::ServiceTuple &services) : GameServ
 }
 
 
-//#ifdef USE_OPENAL_SOFT
+//#ifdef USE_AUDIO
 static int LoadAudioWithOggVorbis(std::string path, DecodedAudioData& dAudioBuffer)
 {
   //0 means success
