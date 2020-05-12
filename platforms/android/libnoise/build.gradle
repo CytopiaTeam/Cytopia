@@ -14,7 +14,7 @@ android {
     externalNativeBuild {
         cmake {
             version "3.10.2"
-            
+
             arguments "-DBUILD_LIBNOISE_UTILS=OFF", "-DBUILD_LIBNOISE_EXAMPLES=OFF"
     }
     }
@@ -32,11 +32,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    
+
     externalNativeBuild {
         cmake {
             version "3.10.2"
-            
+
             path '../../../external/android/other/libnoise/CMakeLists.txt'
 
             // Using one top level build dir for all build related files to reduce clutter.
