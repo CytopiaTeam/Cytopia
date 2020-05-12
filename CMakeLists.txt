@@ -143,13 +143,13 @@ else (USE_PACKAGE_MANAGER)
     pkg_check_modules(SDL2_ttf REQUIRED SDL2_ttf)
     pkg_check_modules(ZLIB REQUIRED zlib)
 
-    
+
 
     if (ENABLE_AUDIO)
         pkg_check_modules(openal REQUIRED openal)
         pkg_check_modules(vorbis REQUIRED vorbis)
         pkg_check_modules(vorbis REQUIRED vorbisfile)
-        
+
     endif ()
 
     find_package(LIBNOISE REQUIRED)
