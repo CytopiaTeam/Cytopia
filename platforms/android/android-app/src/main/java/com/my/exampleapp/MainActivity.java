@@ -1,9 +1,9 @@
 package com.my.exampleapp;
 
-public class MainActivity extends org.libsdl.app.SDLActivity
-{
 
-  /**
+public class MainActivity extends org.libsdl.app.SDLActivity {
+
+    /**
      * This method is called by SDL before loading the native shared libraries.
      * It can be overridden to provide names of shared libraries to be loaded.
      * The default implementation returns the defaults. It never returns null.
@@ -12,8 +12,16 @@ public class MainActivity extends org.libsdl.app.SDLActivity
      *
      * @return names of shared libraries to be loaded (e.g. "SDL2", "main").
      */
-  @Override protected String[] getLibraries()
-  {
-    return new String[] {"SDL2", "SDL2_image", "SDL2_ttf", "SDL2_mixer", "noise", "Cytopia"};
-  }
+    @Override
+    protected String[] getLibraries() {
+        return new String[]{
+                "SDL2",
+                "SDL2_image",
+                "SDL2_ttf",
+                "SDL2_mixer",
+                "noise",
+                "Cytopia"
+        };
+    }
+
 }
