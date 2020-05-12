@@ -109,9 +109,6 @@ matrix:
             - libaudio-dev
             - libpulse-dev
             - libc++-7-dev # C++17 support in libstd++
-            - texlive
-            - texlive-latex-base
-            - texlive-latex-extra
       env:
         - DEPLOY_DOCUMENTATION=true
         - MATRIX_EVAL="CC=clang-7.0 && CXX=clang++-7.0"
