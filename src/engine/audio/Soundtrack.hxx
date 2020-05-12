@@ -7,7 +7,7 @@
 
 #include "../../util/Meta.hxx"
 
-#ifdef USE_OPENAL_SOFT
+#ifdef USE_AUDIO
 #include "AL/al.h"
 #include "AL/alc.h"
 
@@ -23,7 +23,6 @@ using RepeatCount = StrongType<uint8_t, struct RepeatCountTag>;
 
 struct DecodedAudioData
 {
-	std::vector <uint16_t> uint_data_vec; //pcm audio data
 	std::vector <char> char_data_vec; //pcm audio data
 	long nBytes; //number of bytes in decoded audio data
 	int data_sample_rate; 
@@ -65,7 +64,7 @@ struct Soundtrack
    */
   bool isPlayable : 1;
 
-#ifdef USE_OPENAL_SOFT
+#ifdef USE_AUDIO
 
   /**
    * @brief The OpenAL source of the sound track

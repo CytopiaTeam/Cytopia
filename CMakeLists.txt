@@ -228,9 +228,6 @@ if (ENABLE_AUDIO)
   list(APPEND _compile_definitions USE_AUDIO)
 endif ()
 
-if (ENABLE_AUDIO)
-    list(APPEND _compile_definitions USE_OPENAL_SOFT)
-endif (ENABLE_AUDIO)
 
 if (ENABLE_ANGELSCRIPT)
     list(APPEND _compile_definitions USE_ANGELSCRIPT)

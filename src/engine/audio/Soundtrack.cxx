@@ -13,7 +13,7 @@ Soundtrack::Soundtrack(SoundtrackID id, ChannelID channelID, DecodedAudioData *d
 	isPlaying(isPlaying), 
 	isPlayable(isPlayable),
     isTriggerable(isTriggerable),
-#ifdef USE_OPENAL_SOFT
+#ifdef USE_AUDIO
       source(0), buffer(0)
 #else  // USE_OPENAL_SOFT
       dAudioDataBuffer(dAudioData)
@@ -61,8 +61,8 @@ Soundtrack::~Soundtrack()
     alDeleteSources(1, &source);
   if (alIsBuffer(buffer))
     alDeleteBuffers(1, &buffer);
-#else // USE_OPENAL_SOFT
-  if (Chunks)
-    Mix_FreeChunk(Chunks);
+//#else // USE_OPENAL_SOFT
+  //if (Chunks)
+  //  Mix_FreeChunk(Chunks);
 #endif // USE_OPENAL_SOFT
 }
