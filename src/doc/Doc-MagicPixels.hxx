@@ -24,26 +24,26 @@
  * For each of these magic pixels, we apply the following filter
  * @f{align*}{
  *  H_o &= H_t\\
- *  S_o &= \textup{overlay}(S_i, S_t)\\
- *  L_o &= \textup{overlay}(L_i, L_t)\\
+ *  S_o &= \mathrm{overlay}(S_i, S_t)\\
+ *  L_o &= \mathrm{overlay}(L_i, L_t)\\
  * @f}
  * Where @f$H_o, S_o, L_o@f$ are the resulting hue, saturation, and lightness,
  * @f$H_i, S_i, L_i@f$ are the magic pixel's hue, saturation, and lightness,
  * @f$H_t, S_t, L_t@f$ are the target's hue, saturation, and lightness,
  * and we define @f{align*}{
- *  \textup{overlay}(X, Y) &= \begin{cases}
- *  \frac{2}{100}XY & \textup{if } X < 50\\
- *  100 - \frac{2}{100}(100-X)(100-Y) & \textup{otherwise}
+ *  \mathrm{overlay}(X, Y) &= \begin{cases}
+ *  \frac{2}{100}XY & \mathrm{if } X < 50\\
+ *  100 - \frac{2}{100}(100-X)(100-Y) & \mathrm{otherwise}
  *  \end{cases}
  * @f}
  * With RGB, we derive the following.
  * Given @f$X_{min}=\min\{R_o,G_o,B_o\}@f$ and @f$X_{max}=\max\{R_o,G_o,B_o\}@f$, we have that
  * @f{align*}{
- *  L_o &= \textup{mid}\{R_o,G_o,B_o\} = \textup{overlay}\left(\textup{mid}\{R_i, G_i, B_i\}, \textup{mid}\{R_t,G_t,B_t\}\right)\\
+ *  L_o &= \mathrm{mid}\{R_o,G_o,B_o\} = \mathrm{overlay}\left(\mathrm{mid}\{R_i, G_i, B_i\}, \mathrm{mid}\{R_t,G_t,B_t\}\right)\\
  *  X_{max} + X_{min} &= 2L_o & (1)\\
- *  S_o &= \frac{X_{max}-X_{min}}{\min\{L_o, 1-L_o\}} = \textup{overlay}\left(
- *  \frac{\max\{R_i,G_i,B_i\} - \min\{R_i,G_i,B_i\}}{\min\{\textup{mid}\{R_i,G_i,B_i\}, 1-\textup{mid}\{R_i,G_i,B_i\}\}},
- *  \frac{\max\{R_t,G_t,B_t\} - \min\{R_t,G_t,B_t\}}{\min\{\textup{mid}\{R_t,G_t,B_t\}, 1-\textup{mid}\{R_t,G_t,B_t\}\}},
+ *  S_o &= \frac{X_{max}-X_{min}}{\min\{L_o, 1-L_o\}} = \mathrm{overlay}\left(
+ *  \frac{\max\{R_i,G_i,B_i\} - \min\{R_i,G_i,B_i\}}{\min\{\mathrm{mid}\{R_i,G_i,B_i\}, 1-\mathrm{mid}\{R_i,G_i,B_i\}\}},
+ *  \frac{\max\{R_t,G_t,B_t\} - \min\{R_t,G_t,B_t\}}{\min\{\mathrm{mid}\{R_t,G_t,B_t\}, 1-\mathrm{mid}\{R_t,G_t,B_t\}\}},
  *  \right)\\
  *  X_{max}-X_{min} &=S_o\min\{L_o, 1-L_o\} & (2)\\
  * @f}
