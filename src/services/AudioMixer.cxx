@@ -36,7 +36,7 @@ AudioMixer::AudioMixer(GameService::ServiceTuple &context) : GameService(context
       m_Triggers[trigger].emplace_back(item.first);
 
 #ifdef USE_AUDIO
-  
+
   /* use default audio device */
   gAudioDevice = alcOpenDevice(nullptr);
   if (!gAudioDevice)
@@ -71,16 +71,14 @@ AudioMixer::AudioMixer(GameService::ServiceTuple &context) : GameService(context
      * forward x, forward y, forward z, up x, up y, up z */
   Array<float, 6> listener_orientation_vector{0.0f, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f};
   alListenerfv(AL_ORIENTATION, listener_orientation_vector.data());
-  
 
   /* Set a pruning repeated task to get rid of soundtracks that have finished playing */
   GetService<GameClock>().createRepeatedTask(5min, [&mixer = *this]() { mixer.prune(); });
-  
+
   LOG(LOG_DEBUG) << "Created AudioMixer";
-#else  // USE_AUDIO
-  
+#else // USE_AUDIO
+
 #endif // USE_AUDIO
-  
 }
 
 AudioMixer::~AudioMixer()
@@ -88,7 +86,7 @@ AudioMixer::~AudioMixer()
   int num_opened = 0;
   int _discard;
   Uint16 _discard2;
-  
+
 #ifdef USE_AUDIO
   alcDestroyContext(alContext); //delete context
   alcCloseDevice(gAudioDevice); //close device
@@ -132,58 +130,58 @@ void AudioMixer::play(AudioTrigger &&trigger, Coordinate3D &&position) noexcept
 #endif
 
 #ifdef USE_AUDIO
-void AudioMixer::play(SoundtrackID &&ID, StandardReverbProperties& reverb_properties) noexcept
+void AudioMixer::play(SoundtrackID &&ID, StandardReverbProperties &reverb_properties) noexcept
 {
   GetService<GameLoopMQ>().push(AudioPlayReverbEvent{ID, reverb_properties});
 }
 #endif
 
 #ifdef USE_AUDIO
-void AudioMixer::play(SoundtrackID &&ID, EchoProperties& echo_properties) noexcept
+void AudioMixer::play(SoundtrackID &&ID, EchoProperties &echo_properties) noexcept
 {
   GetService<GameLoopMQ>().push(AudioPlayEchoEvent{ID, echo_properties});
 }
 #endif
 
 #ifdef USE_AUDIO
-void AudioMixer::play(AudioTrigger &&trigger, StandardReverbProperties& reverb_properties) noexcept
+void AudioMixer::play(AudioTrigger &&trigger, StandardReverbProperties &reverb_properties) noexcept
 {
   GetService<GameLoopMQ>().push(AudioTriggerReverbEvent{trigger, reverb_properties});
 }
 #endif
 
 #ifdef USE_AUDIO
-void AudioMixer::play(AudioTrigger &&trigger, EchoProperties& echo_properties) noexcept
+void AudioMixer::play(AudioTrigger &&trigger, EchoProperties &echo_properties) noexcept
 {
   GetService<GameLoopMQ>().push(AudioTriggerEchoEvent{trigger, echo_properties});
 }
 #endif
 
 #ifdef USE_AUDIO
-void AudioMixer::play(SoundtrackID &&ID, Coordinate3D &&position, StandardReverbProperties& reverb_properties) noexcept
+void AudioMixer::play(SoundtrackID &&ID, Coordinate3D &&position, StandardReverbProperties &reverb_properties) noexcept
 {
   GetService<GameLoopMQ>().push(AudioPlayReverb3DEvent{ID, position, reverb_properties});
 }
 #endif
 
 #ifdef USE_AUDIO
-void AudioMixer::play(SoundtrackID &&ID, Coordinate3D &&position, EchoProperties& echo_properties) noexcept
+void AudioMixer::play(SoundtrackID &&ID, Coordinate3D &&position, EchoProperties &echo_properties) noexcept
 {
   GetService<GameLoopMQ>().push(AudioPlayEcho3DEvent{ID, position, echo_properties});
 }
 #endif
 
 #ifdef USE_AUDIO
-void AudioMixer::play(AudioTrigger &&trigger, Coordinate3D &&position, StandardReverbProperties& reverb_properties) noexcept
+void AudioMixer::play(AudioTrigger &&trigger, Coordinate3D &&position, StandardReverbProperties &reverb_properties) noexcept
 {
-  GetService<GameLoopMQ>().push(AudioTriggerReverb3DEvent{trigger, position,reverb_properties});
+  GetService<GameLoopMQ>().push(AudioTriggerReverb3DEvent{trigger, position, reverb_properties});
 }
 #endif
 
 #ifdef USE_AUDIO
-void AudioMixer::play(AudioTrigger &&trigger, Coordinate3D &&position, EchoProperties& echo_properties) noexcept
+void AudioMixer::play(AudioTrigger &&trigger, Coordinate3D &&position, EchoProperties &echo_properties) noexcept
 {
-  GetService<GameLoopMQ>().push(AudioTriggerEcho3DEvent{trigger, position,echo_properties});
+  GetService<GameLoopMQ>().push(AudioTriggerEcho3DEvent{trigger, position, echo_properties});
 }
 #endif
 
@@ -256,23 +254,23 @@ void AudioMixer::handleEvent(const AudioTriggerReverbEvent &&event)
     return;
   }
   SoundtrackID &trackID = *GetService<Randomizer>().choose(possibilities.begin(), possibilities.end());
-  SoundtrackUPtr & track = GetService<ResourceManager>().get(trackID);
+  SoundtrackUPtr &track = GetService<ResourceManager>().get(trackID);
 
   playSoundtrackWithReverb(track, event.reverb_properties);
 }
 
 void AudioMixer::handleEvent(const AudioPlayReverbEvent &&event)
 {
-  SoundtrackUPtr & track = GetService<ResourceManager>().get(event.ID);
+  SoundtrackUPtr &track = GetService<ResourceManager>().get(event.ID);
 
-  playSoundtrackWithReverb(track,event.reverb_properties);
+  playSoundtrackWithReverb(track, event.reverb_properties);
 }
 
 void AudioMixer::handleEvent(const AudioPlayEchoEvent &&event)
 {
-  SoundtrackUPtr & track = GetService<ResourceManager>().get(event.ID);
+  SoundtrackUPtr &track = GetService<ResourceManager>().get(event.ID);
 
-  playSoundtrackWithEcho(track,event.echo_properties);
+  playSoundtrackWithEcho(track, event.echo_properties);
 }
 
 void AudioMixer::handleEvent(const AudioTriggerEchoEvent &&event)
@@ -284,11 +282,10 @@ void AudioMixer::handleEvent(const AudioTriggerEchoEvent &&event)
     return;
   }
   SoundtrackID &trackID = *GetService<Randomizer>().choose(possibilities.begin(), possibilities.end());
-  SoundtrackUPtr & track = GetService<ResourceManager>().get(trackID);
+  SoundtrackUPtr &track = GetService<ResourceManager>().get(trackID);
 
-  playSoundtrackWithEcho(track,event.echo_properties);
+  playSoundtrackWithEcho(track, event.echo_properties);
 }
-
 
 void AudioMixer::handleEvent(const AudioTriggerReverb3DEvent &&event)
 {
@@ -299,7 +296,7 @@ void AudioMixer::handleEvent(const AudioTriggerReverb3DEvent &&event)
     return;
   }
   SoundtrackID &trackID = *GetService<Randomizer>().choose(possibilities.begin(), possibilities.end());
-  SoundtrackUPtr & track = GetService<ResourceManager>().get(trackID);
+  SoundtrackUPtr &track = GetService<ResourceManager>().get(trackID);
 
   /* set position of source in track 
    * converted to regular cartesian coordinate system */
@@ -317,35 +314,34 @@ void AudioMixer::handleEvent(const AudioTriggerEcho3DEvent &&event)
     return;
   }
   SoundtrackID &trackID = *GetService<Randomizer>().choose(possibilities.begin(), possibilities.end());
-  SoundtrackUPtr & track = GetService<ResourceManager>().get(trackID);
+  SoundtrackUPtr &track = GetService<ResourceManager>().get(trackID);
 
   /* set position of source in track 
    * converted to regular cartesian coordinate system */
   alSource3f(track->source, AL_POSITION, static_cast<ALfloat>(event.position.x), static_cast<ALfloat>(event.position.y),
              static_cast<ALfloat>(event.position.z));
-  
+
   playSoundtrackWithEcho(track, event.echo_properties);
 }
 
 void AudioMixer::handleEvent(const AudioPlayReverb3DEvent &&event)
 {
-  SoundtrackUPtr & track = GetService<ResourceManager>().get(event.ID);
+  SoundtrackUPtr &track = GetService<ResourceManager>().get(event.ID);
   /* set position of source in track */
   alSource3f(track->source, AL_POSITION, static_cast<ALfloat>(event.position.x), static_cast<ALfloat>(event.position.y),
              static_cast<ALfloat>(event.position.z));
-  playSoundtrackWithReverb(track,event.reverb_properties);
+  playSoundtrackWithReverb(track, event.reverb_properties);
 }
 
 void AudioMixer::handleEvent(const AudioPlayEcho3DEvent &&event)
 {
-  SoundtrackUPtr & track = GetService<ResourceManager>().get(event.ID);
+  SoundtrackUPtr &track = GetService<ResourceManager>().get(event.ID);
   /* set position of source in track */
   alSource3f(track->source, AL_POSITION, static_cast<ALfloat>(event.position.x), static_cast<ALfloat>(event.position.y),
              static_cast<ALfloat>(event.position.z));
-  
-  playSoundtrackWithEcho(track,event.echo_properties);
-}
 
+  playSoundtrackWithEcho(track, event.echo_properties);
+}
 
 #endif // USE_AUDIO
 
@@ -363,7 +359,7 @@ void AudioMixer::handleEvent(const AudioSetMutedEvent &&event) { throw Unimpleme
 
 void AudioMixer::handleEvent(const AudioStopEvent &&)
 {
-	
+
   while (!m_Playing.empty())
   {
     auto it = m_Playing.begin();
@@ -371,7 +367,6 @@ void AudioMixer::handleEvent(const AudioStopEvent &&)
     (**it)->isPlaying = false;
     m_Playing.erase(it);
   }
-
 }
 
 void AudioMixer::handleEvent(const AudioPruneEvent &&)
@@ -407,11 +402,9 @@ void AudioMixer::playSoundtrack(SoundtrackUPtr &track)
     throw AudioError{TRACE_INFO "Unable to play track because its source is uninitialized"};
   alSourcePlay(track->source);
 
-
   m_Playing.push_front(&track);
   track->isPlaying = true;
 }
-
 
 /* Effect object functions */
 static LPALGENEFFECTS alGenEffects;
@@ -439,43 +432,42 @@ static LPALGETAUXILIARYEFFECTSLOTIV alGetAuxiliaryEffectSlotiv;
 static LPALGETAUXILIARYEFFECTSLOTF alGetAuxiliaryEffectSlotf;
 static LPALGETAUXILIARYEFFECTSLOTFV alGetAuxiliaryEffectSlotfv;
 
-
-void AudioMixer::playSoundtrackWithReverb(SoundtrackUPtr &track,const StandardReverbProperties& reverb_properties)
+void AudioMixer::playSoundtrackWithReverb(SoundtrackUPtr &track, const StandardReverbProperties &reverb_properties)
 {
-	if (!track)
+  if (!track)
     throw AudioError(TRACE_INFO "Received an invalid soundtrack");
 
   if (!track->source)
     throw AudioError{TRACE_INFO "Unable to play track because its source is uninitialized"};
-  
-//set up effect
 
-    #define LOAD_PROC(T, x)  ((x) = (T)alGetProcAddress(#x))
-		LOAD_PROC(LPALGENEFFECTS, alGenEffects);
-		LOAD_PROC(LPALDELETEEFFECTS, alDeleteEffects);
-		LOAD_PROC(LPALISEFFECT, alIsEffect);
-		LOAD_PROC(LPALEFFECTI, alEffecti);
-		LOAD_PROC(LPALEFFECTIV, alEffectiv);
-		LOAD_PROC(LPALEFFECTF, alEffectf);
-		LOAD_PROC(LPALEFFECTFV, alEffectfv);
-		LOAD_PROC(LPALGETEFFECTI, alGetEffecti);
-		LOAD_PROC(LPALGETEFFECTIV, alGetEffectiv);
-		LOAD_PROC(LPALGETEFFECTF, alGetEffectf);
-		LOAD_PROC(LPALGETEFFECTFV, alGetEffectfv);
+    //set up effect
 
-		LOAD_PROC(LPALGENAUXILIARYEFFECTSLOTS, alGenAuxiliaryEffectSlots);
-		LOAD_PROC(LPALDELETEAUXILIARYEFFECTSLOTS, alDeleteAuxiliaryEffectSlots);
-		LOAD_PROC(LPALISAUXILIARYEFFECTSLOT, alIsAuxiliaryEffectSlot);
-		LOAD_PROC(LPALAUXILIARYEFFECTSLOTI, alAuxiliaryEffectSloti);
-		LOAD_PROC(LPALAUXILIARYEFFECTSLOTIV, alAuxiliaryEffectSlotiv);
-		LOAD_PROC(LPALAUXILIARYEFFECTSLOTF, alAuxiliaryEffectSlotf);
-		LOAD_PROC(LPALAUXILIARYEFFECTSLOTFV, alAuxiliaryEffectSlotfv);
-		LOAD_PROC(LPALGETAUXILIARYEFFECTSLOTI, alGetAuxiliaryEffectSloti);
-		LOAD_PROC(LPALGETAUXILIARYEFFECTSLOTIV, alGetAuxiliaryEffectSlotiv);
-		LOAD_PROC(LPALGETAUXILIARYEFFECTSLOTF, alGetAuxiliaryEffectSlotf);
-		LOAD_PROC(LPALGETAUXILIARYEFFECTSLOTFV, alGetAuxiliaryEffectSlotfv);
-	#undef LOAD_PROC
-  
+#define LOAD_PROC(T, x) ((x) = (T)alGetProcAddress(#x))
+  LOAD_PROC(LPALGENEFFECTS, alGenEffects);
+  LOAD_PROC(LPALDELETEEFFECTS, alDeleteEffects);
+  LOAD_PROC(LPALISEFFECT, alIsEffect);
+  LOAD_PROC(LPALEFFECTI, alEffecti);
+  LOAD_PROC(LPALEFFECTIV, alEffectiv);
+  LOAD_PROC(LPALEFFECTF, alEffectf);
+  LOAD_PROC(LPALEFFECTFV, alEffectfv);
+  LOAD_PROC(LPALGETEFFECTI, alGetEffecti);
+  LOAD_PROC(LPALGETEFFECTIV, alGetEffectiv);
+  LOAD_PROC(LPALGETEFFECTF, alGetEffectf);
+  LOAD_PROC(LPALGETEFFECTFV, alGetEffectfv);
+
+  LOAD_PROC(LPALGENAUXILIARYEFFECTSLOTS, alGenAuxiliaryEffectSlots);
+  LOAD_PROC(LPALDELETEAUXILIARYEFFECTSLOTS, alDeleteAuxiliaryEffectSlots);
+  LOAD_PROC(LPALISAUXILIARYEFFECTSLOT, alIsAuxiliaryEffectSlot);
+  LOAD_PROC(LPALAUXILIARYEFFECTSLOTI, alAuxiliaryEffectSloti);
+  LOAD_PROC(LPALAUXILIARYEFFECTSLOTIV, alAuxiliaryEffectSlotiv);
+  LOAD_PROC(LPALAUXILIARYEFFECTSLOTF, alAuxiliaryEffectSlotf);
+  LOAD_PROC(LPALAUXILIARYEFFECTSLOTFV, alAuxiliaryEffectSlotfv);
+  LOAD_PROC(LPALGETAUXILIARYEFFECTSLOTI, alGetAuxiliaryEffectSloti);
+  LOAD_PROC(LPALGETAUXILIARYEFFECTSLOTIV, alGetAuxiliaryEffectSlotiv);
+  LOAD_PROC(LPALGETAUXILIARYEFFECTSLOTF, alGetAuxiliaryEffectSlotf);
+  LOAD_PROC(LPALGETAUXILIARYEFFECTSLOTFV, alGetAuxiliaryEffectSlotfv);
+#undef LOAD_PROC
+
   //initialize reverb property
   EFXEAXREVERBPROPERTIES reverb = EFX_REVERB_PRESET_GENERIC;
 
@@ -495,10 +487,10 @@ void AudioMixer::playSoundtrackWithReverb(SoundtrackUPtr &track,const StandardRe
 
   //load effect
   ALuint effect = 0;
-  
+
   /* Create the effect object and check if we can do EAX reverb. */
   alGenEffects(1, &effect);
-  
+
   alEffecti(effect, AL_EFFECT_TYPE, AL_EFFECT_REVERB);
 
   alEffectf(effect, AL_REVERB_DENSITY, reverb.flDensity);
@@ -514,88 +506,85 @@ void AudioMixer::playSoundtrackWithReverb(SoundtrackUPtr &track,const StandardRe
   alEffectf(effect, AL_REVERB_AIR_ABSORPTION_GAINHF, reverb.flAirAbsorptionGainHF);
   alEffectf(effect, AL_REVERB_ROOM_ROLLOFF_FACTOR, reverb.flRoomRolloffFactor);
   alEffecti(effect, AL_REVERB_DECAY_HFLIMIT, reverb.iDecayHFLimit);
-  
-	/* Check if an error occured, and clean up if so. */
-	ALenum err = alGetError();
-	if(err != AL_NO_ERROR)
-	{
-		if(alIsEffect(effect))
-			alDeleteEffects(1, &effect);
-			
-		throw AudioError{TRACE_INFO "Unable to add reverb effect to track."};
-		fprintf(stderr, "OpenAL error: %s\n", alGetString(err));
-	}
+
+  /* Check if an error occured, and clean up if so. */
+  ALenum err = alGetError();
+  if (err != AL_NO_ERROR)
+  {
+    if (alIsEffect(effect))
+      alDeleteEffects(1, &effect);
+
+    throw AudioError{TRACE_INFO "Unable to add reverb effect to track."};
+    fprintf(stderr, "OpenAL error: %s\n", alGetString(err));
+  }
 
   /* Create the effect slot object. This is what "plays" an effect on sources
    * that connect to it. */
   alGenAuxiliaryEffectSlots(1, &track->effect_slot);
-  
+
   /* Tell the effect slot to use the loaded effect object. Note that the this
      * effectively copies the effect properties. You can modify or delete the
      * effect object afterward without affecting the effect slot.
      */
   alAuxiliaryEffectSloti(track->effect_slot, AL_EFFECTSLOT_EFFECT, (ALint)effect);
-  assert(alGetError()== AL_NO_ERROR && "Failed to set effect slot");
-  
+  assert(alGetError() == AL_NO_ERROR && "Failed to set effect slot");
+
   alDeleteEffects(1, &effect);
-  
+
   //apply effect to source
   alSource3i(track->source, AL_AUXILIARY_SEND_FILTER, (ALint)(track->effect_slot), 0, AL_FILTER_NULL);
-  assert(alGetError()== AL_NO_ERROR && "Failed to setup reverb for sound source send 0.");
-  
-//play sound  
-    
+  assert(alGetError() == AL_NO_ERROR && "Failed to setup reverb for sound source send 0.");
+
+  //play sound
+
   alSourcePlay(track->source);
-  
+
   m_Playing.push_front(&track);
   track->isPlaying = true;
-  
 }
 
-void AudioMixer::playSoundtrackWithEcho(SoundtrackUPtr &track,const EchoProperties& echo_properties)
+void AudioMixer::playSoundtrackWithEcho(SoundtrackUPtr &track, const EchoProperties &echo_properties)
 {
   if (!track)
     throw AudioError(TRACE_INFO "Received an invalid soundtrack");
 
-
   if (!track->source)
     throw AudioError{TRACE_INFO "Unable to play track because its source is uninitialized"};
-  
-//set up effect
 
-    #define LOAD_PROC(T, x)  ((x) = (T)alGetProcAddress(#x))
-		LOAD_PROC(LPALGENEFFECTS, alGenEffects);
-		LOAD_PROC(LPALDELETEEFFECTS, alDeleteEffects);
-		LOAD_PROC(LPALISEFFECT, alIsEffect);
-		LOAD_PROC(LPALEFFECTI, alEffecti);
-		LOAD_PROC(LPALEFFECTIV, alEffectiv);
-		LOAD_PROC(LPALEFFECTF, alEffectf);
-		LOAD_PROC(LPALEFFECTFV, alEffectfv);
-		LOAD_PROC(LPALGETEFFECTI, alGetEffecti);
-		LOAD_PROC(LPALGETEFFECTIV, alGetEffectiv);
-		LOAD_PROC(LPALGETEFFECTF, alGetEffectf);
-		LOAD_PROC(LPALGETEFFECTFV, alGetEffectfv);
+    //set up effect
 
-		LOAD_PROC(LPALGENAUXILIARYEFFECTSLOTS, alGenAuxiliaryEffectSlots);
-		LOAD_PROC(LPALDELETEAUXILIARYEFFECTSLOTS, alDeleteAuxiliaryEffectSlots);
-		LOAD_PROC(LPALISAUXILIARYEFFECTSLOT, alIsAuxiliaryEffectSlot);
-		LOAD_PROC(LPALAUXILIARYEFFECTSLOTI, alAuxiliaryEffectSloti);
-		LOAD_PROC(LPALAUXILIARYEFFECTSLOTIV, alAuxiliaryEffectSlotiv);
-		LOAD_PROC(LPALAUXILIARYEFFECTSLOTF, alAuxiliaryEffectSlotf);
-		LOAD_PROC(LPALAUXILIARYEFFECTSLOTFV, alAuxiliaryEffectSlotfv);
-		LOAD_PROC(LPALGETAUXILIARYEFFECTSLOTI, alGetAuxiliaryEffectSloti);
-		LOAD_PROC(LPALGETAUXILIARYEFFECTSLOTIV, alGetAuxiliaryEffectSlotiv);
-		LOAD_PROC(LPALGETAUXILIARYEFFECTSLOTF, alGetAuxiliaryEffectSlotf);
-		LOAD_PROC(LPALGETAUXILIARYEFFECTSLOTFV, alGetAuxiliaryEffectSlotfv);
-	#undef LOAD_PROC
-  
-  
+#define LOAD_PROC(T, x) ((x) = (T)alGetProcAddress(#x))
+  LOAD_PROC(LPALGENEFFECTS, alGenEffects);
+  LOAD_PROC(LPALDELETEEFFECTS, alDeleteEffects);
+  LOAD_PROC(LPALISEFFECT, alIsEffect);
+  LOAD_PROC(LPALEFFECTI, alEffecti);
+  LOAD_PROC(LPALEFFECTIV, alEffectiv);
+  LOAD_PROC(LPALEFFECTF, alEffectf);
+  LOAD_PROC(LPALEFFECTFV, alEffectfv);
+  LOAD_PROC(LPALGETEFFECTI, alGetEffecti);
+  LOAD_PROC(LPALGETEFFECTIV, alGetEffectiv);
+  LOAD_PROC(LPALGETEFFECTF, alGetEffectf);
+  LOAD_PROC(LPALGETEFFECTFV, alGetEffectfv);
+
+  LOAD_PROC(LPALGENAUXILIARYEFFECTSLOTS, alGenAuxiliaryEffectSlots);
+  LOAD_PROC(LPALDELETEAUXILIARYEFFECTSLOTS, alDeleteAuxiliaryEffectSlots);
+  LOAD_PROC(LPALISAUXILIARYEFFECTSLOT, alIsAuxiliaryEffectSlot);
+  LOAD_PROC(LPALAUXILIARYEFFECTSLOTI, alAuxiliaryEffectSloti);
+  LOAD_PROC(LPALAUXILIARYEFFECTSLOTIV, alAuxiliaryEffectSlotiv);
+  LOAD_PROC(LPALAUXILIARYEFFECTSLOTF, alAuxiliaryEffectSlotf);
+  LOAD_PROC(LPALAUXILIARYEFFECTSLOTFV, alAuxiliaryEffectSlotfv);
+  LOAD_PROC(LPALGETAUXILIARYEFFECTSLOTI, alGetAuxiliaryEffectSloti);
+  LOAD_PROC(LPALGETAUXILIARYEFFECTSLOTIV, alGetAuxiliaryEffectSlotiv);
+  LOAD_PROC(LPALGETAUXILIARYEFFECTSLOTF, alGetAuxiliaryEffectSlotf);
+  LOAD_PROC(LPALGETAUXILIARYEFFECTSLOTFV, alGetAuxiliaryEffectSlotfv);
+#undef LOAD_PROC
+
   //load effect
   ALuint effect = 0;
-  
+
   /* Create the effect object and check if we can do EAX reverb. */
   alGenEffects(1, &effect);
-  
+
   alEffecti(effect, AL_EFFECT_TYPE, AL_EFFECT_ECHO);
 
   alEffectf(effect, AL_ECHO_DELAY, echo_properties.flEchoDelay);
@@ -603,43 +592,42 @@ void AudioMixer::playSoundtrackWithEcho(SoundtrackUPtr &track,const EchoProperti
   alEffectf(effect, AL_ECHO_DAMPING, echo_properties.flEchoDamping);
   alEffectf(effect, AL_ECHO_FEEDBACK, echo_properties.flEchoFeedback);
   alEffectf(effect, AL_ECHO_SPREAD, echo_properties.flEchoSpread);
-  
-	/* Check if an error occured, and clean up if so. */
-	ALenum err = alGetError();
-	if(err != AL_NO_ERROR)
-	{
-		if(alIsEffect(effect))
-			alDeleteEffects(1, &effect);
-			
-		throw AudioError{TRACE_INFO "Unable to add reverb effect to track."};
-		fprintf(stderr, "OpenAL error: %s\n", alGetString(err));
-	}
+
+  /* Check if an error occured, and clean up if so. */
+  ALenum err = alGetError();
+  if (err != AL_NO_ERROR)
+  {
+    if (alIsEffect(effect))
+      alDeleteEffects(1, &effect);
+
+    throw AudioError{TRACE_INFO "Unable to add reverb effect to track."};
+    fprintf(stderr, "OpenAL error: %s\n", alGetString(err));
+  }
 
   /* Create the effect slot object. This is what "plays" an effect on sources
    * that connect to it. */
   alGenAuxiliaryEffectSlots(1, &track->effect_slot);
-  
+
   /* Tell the effect slot to use the loaded effect object. Note that the this
      * effectively copies the effect properties. You can modify or delete the
      * effect object afterward without affecting the effect slot.
      */
   alAuxiliaryEffectSloti(track->effect_slot, AL_EFFECTSLOT_EFFECT, (ALint)effect);
-  assert(alGetError()== AL_NO_ERROR && "Failed to set effect slot");
-  
+  assert(alGetError() == AL_NO_ERROR && "Failed to set effect slot");
+
   alDeleteEffects(1, &effect);
-  
+
   //apply effect to source
   alSource3i(track->source, AL_AUXILIARY_SEND_FILTER, (ALint)(track->effect_slot), 0, AL_FILTER_NULL);
-  assert(alGetError()== AL_NO_ERROR && "Failed to setup reverb for sound source send 0.");
-  
-//play sound  
-    
+  assert(alGetError() == AL_NO_ERROR && "Failed to setup reverb for sound source send 0.");
+
+  //play sound
+
   alSourcePlay(track->source);
-  
+
   m_Playing.push_front(&track);
   track->isPlaying = true;
 }
-
 
 void AudioMixer::onTrackFinished(int channelID)
 {

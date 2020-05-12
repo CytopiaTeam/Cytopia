@@ -20,12 +20,11 @@ using ChannelID = StrongType<int, struct ChannelIDTag>;
 using SoundtrackID = StrongType<string, struct SoundtrackIDTag>;
 using RepeatCount = StrongType<uint8_t, struct RepeatCountTag>;
 
-
 struct DecodedAudioData
 {
-	std::vector <char> char_data_vec; //pcm audio data
-	long nBytes; //number of bytes in decoded audio data
-	int data_sample_rate; 
+  std::vector<char> char_data_vec; //pcm audio data
+  long nBytes;                     //number of bytes in decoded audio data
+  int data_sample_rate;
 };
 
 struct Soundtrack
@@ -79,21 +78,21 @@ struct Soundtrack
    * to tell the system where the sound is made.
    */
   ALuint buffer;
-  
+
   /**
    * @brief The OpenAL effect slot of the sound track
    * @details An object that tells the OpenAL system what effect to apply to the sound. Must be connected to a source
    * to tell the system where the sound is made.
    */
   ALuint effect_slot;
-  
+
 #else // USE_OPENAL_SOFT
 
   /**
    * @brief The WAVE data of the Soundtrack
    */
   //Mix_Chunk *Chunks;
-  
+
   /**
    * @brief The audio data of the Soundtrack
    */
@@ -102,7 +101,7 @@ struct Soundtrack
 
 #endif // USE_OPENAL_SOFT
 
-  Soundtrack(SoundtrackID, ChannelID, DecodedAudioData*, RepeatCount, bool, bool, bool, bool);
+  Soundtrack(SoundtrackID, ChannelID, DecodedAudioData *, RepeatCount, bool, bool, bool, bool);
   ~Soundtrack();
 };
 

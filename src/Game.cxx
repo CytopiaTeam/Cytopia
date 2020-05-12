@@ -286,7 +286,7 @@ void Game::run(bool SkipMenu)
 #ifdef USE_AUDIO
   if (!Settings::instance().audio3DStatus)
   {
-	  /*
+    /*
 	StandardReverbProperties temp_rev_prop = {
 		1.0,	//flDensity
 		1.0,	//flDiffusion
@@ -302,10 +302,10 @@ void Game::run(bool SkipMenu)
 		0.0	//flRoomRolloffFactor
 	};
 	*/
-	
-	//use default values
-	//EchoProperties temp_echo_prop;
-	
+
+    //use default values
+    //EchoProperties temp_echo_prop;
+
     //m_GameClock.createRepeatedTask(8min, [this, &temp_echo_prop]() { m_AudioMixer.play(AudioTrigger::MainTheme,temp_echo_prop); });
     //m_GameClock.createRepeatedTask(8min, [this, &temp_rev_prop]() { m_AudioMixer.play(AudioTrigger::MainTheme,temp_rev_prop); });
     m_GameClock.createRepeatedTask(8min, [this]() { m_AudioMixer.play(AudioTrigger::MainTheme); });

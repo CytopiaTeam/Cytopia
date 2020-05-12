@@ -3,16 +3,10 @@
 #include "../util/LOG.hxx"
 #include "../basics/Settings.hxx"
 
-
-Soundtrack::Soundtrack(SoundtrackID id, ChannelID channelID, DecodedAudioData *dAudioData, RepeatCount repeat, bool isMusic, bool isPlaying, bool isPlayable, bool isTriggerable)
-    : 
-	ID(id), 
-	Channel(channelID),
-	Loop(repeat), 
-	isMusic(isMusic), 
-	isPlaying(isPlaying), 
-	isPlayable(isPlayable),
-    isTriggerable(isTriggerable),
+Soundtrack::Soundtrack(SoundtrackID id, ChannelID channelID, DecodedAudioData *dAudioData, RepeatCount repeat, bool isMusic,
+                       bool isPlaying, bool isPlayable, bool isTriggerable)
+    : ID(id), Channel(channelID), Loop(repeat), isMusic(isMusic), isPlaying(isPlaying), isPlayable(isPlayable),
+      isTriggerable(isTriggerable),
 #ifdef USE_AUDIO
       source(0), buffer(0)
 #else  // USE_OPENAL_SOFT
@@ -30,10 +24,9 @@ Soundtrack::Soundtrack(SoundtrackID id, ChannelID channelID, DecodedAudioData *d
   /* parameters: buffer, format, data, sample length, frequency(sample rate) */
   //alBufferData(buffer, format, chunks->abuf, chunks->alen,
   //             44100);
-  
-  
-  alBufferData(buffer, format, dAudioData->char_data_vec.data(), dAudioData->nBytes,dAudioData->data_sample_rate);
-  
+
+  alBufferData(buffer, format, dAudioData->char_data_vec.data(), dAudioData->nBytes, dAudioData->data_sample_rate);
+
   errorCode = alGetError();
   if (errorCode != AL_NO_ERROR)
     throw AudioError(TRACE_INFO "Failed to load audio data into buffer: Error " + std::to_string(errorCode));
@@ -50,9 +43,7 @@ Soundtrack::Soundtrack(SoundtrackID id, ChannelID channelID, DecodedAudioData *d
 
   /* attach buffer to source */
   alSourcei(source, AL_BUFFER, buffer);
-
 }
-
 
 Soundtrack::~Soundtrack()
 {
@@ -62,7 +53,7 @@ Soundtrack::~Soundtrack()
   if (alIsBuffer(buffer))
     alDeleteBuffers(1, &buffer);
 //#else // USE_OPENAL_SOFT
-  //if (Chunks)
-  //  Mix_FreeChunk(Chunks);
+//if (Chunks)
+//  Mix_FreeChunk(Chunks);
 #endif // USE_OPENAL_SOFT
 }

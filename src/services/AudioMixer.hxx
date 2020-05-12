@@ -29,7 +29,6 @@ template <typename Type> using Vector = std::vector<Type>;
 template <typename Type> using Set = std::unordered_set<Type>;
 template <typename Type> using List = std::list<Type>;
 
-
 /**
  * @class AudioMixer
  */
@@ -80,7 +79,7 @@ public:
    * @param properties of standard reverb
    */
 #ifdef USE_AUDIO
-  void play(SoundtrackID &&ID, StandardReverbProperties& reverb) noexcept;
+  void play(SoundtrackID &&ID, StandardReverbProperties &reverb) noexcept;
 #endif
 
   /**
@@ -89,7 +88,7 @@ public:
    * @param properties of echo
    */
 #ifdef USE_AUDIO
-  void play(SoundtrackID &&ID, EchoProperties& echo) noexcept;
+  void play(SoundtrackID &&ID, EchoProperties &echo) noexcept;
 #endif
 
 /**
@@ -99,7 +98,7 @@ public:
    * @param properties of standard reverb
    */
 #ifdef USE_AUDIO
-  void play(AudioTrigger &&trigger, StandardReverbProperties& reverb) noexcept;
+  void play(AudioTrigger &&trigger, StandardReverbProperties &reverb) noexcept;
 #endif
 
 /**
@@ -108,7 +107,7 @@ public:
    * @param properties of standard reverb
    */
 #ifdef USE_AUDIO
-  void play(AudioTrigger &&trigger, EchoProperties& echo) noexcept;
+  void play(AudioTrigger &&trigger, EchoProperties &echo) noexcept;
 #endif
 
 /**
@@ -127,7 +126,7 @@ public:
    * @param properties of standard reverb
    */
 #ifdef USE_AUDIO
-  void play(SoundtrackID &&ID, Coordinate3D &&position,  StandardReverbProperties& reverb_properties) noexcept;
+  void play(SoundtrackID &&ID, Coordinate3D &&position, StandardReverbProperties &reverb_properties) noexcept;
 #endif
 
   /**
@@ -137,7 +136,7 @@ public:
    * @param properties of echo
    */
 #ifdef USE_AUDIO
-  void play(SoundtrackID &&ID, Coordinate3D &&position,  EchoProperties& echo_properties) noexcept;
+  void play(SoundtrackID &&ID, Coordinate3D &&position, EchoProperties &echo_properties) noexcept;
 #endif
 
 /**
@@ -147,7 +146,7 @@ public:
    * @param properties of standard reverb
    */
 #ifdef USE_AUDIO
-  void play(AudioTrigger &&trigger, Coordinate3D &&position, StandardReverbProperties& reverb_properties) noexcept;
+  void play(AudioTrigger &&trigger, Coordinate3D &&position, StandardReverbProperties &reverb_properties) noexcept;
 #endif
 
 /**
@@ -157,9 +156,8 @@ public:
    * @param properties of echo
    */
 #ifdef USE_AUDIO
-  void play(AudioTrigger &&trigger, Coordinate3D &&position, EchoProperties& echo_properties) noexcept;
+  void play(AudioTrigger &&trigger, Coordinate3D &&position, EchoProperties &echo_properties) noexcept;
 #endif
-
 
   /**
    * @brief stops all sounds
@@ -269,21 +267,21 @@ private:
    * @param soundtrack the Soundtrack
    */
   void playSoundtrack(SoundtrackUPtr &soundtrack);
-  
+
   /**
    * @brief Plays the Soundtrack with reverb
    * @param soundtrack the Soundtrack
    * @param properties of reverb effect
    */
-  void playSoundtrackWithReverb(SoundtrackUPtr &soundtrack,const StandardReverbProperties& reverb_properties);
-  
+  void playSoundtrackWithReverb(SoundtrackUPtr &soundtrack, const StandardReverbProperties &reverb_properties);
+
   /**
    * @brief Plays the Soundtrack with echo
    * @param soundtrack the Soundtrack
    * @param properties of echo effect
    */
-  void playSoundtrackWithEcho(SoundtrackUPtr &soundtrack,const EchoProperties& echo_properties);
-  
+  void playSoundtrackWithEcho(SoundtrackUPtr &soundtrack, const EchoProperties &echo_properties);
+
   /**
    * @brief Called whenever a Channel has finished playing
    * @param channelID the channel that has finished playing

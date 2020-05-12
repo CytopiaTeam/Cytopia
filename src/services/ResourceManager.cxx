@@ -9,12 +9,11 @@
 #include "vorbis/vorbisfile.h"
 #include "vorbis/vorbisenc.h"
 
-
 #include <cstdio>
 #include <cstdlib>
 #include <cmath>
 
-//windows vorbisfile audio decoding, 
+//windows vorbisfile audio decoding,
 //need to declare these libraries so that we can set stdin/stdout to binary
 //for audio decoding on windows
 #ifdef _WIN32
@@ -30,7 +29,6 @@
 #include "common/JsonSerialization.hxx"
 #include <fstream>
 #include "Filesystem.hxx"
-
 
 using ifstream = std::ifstream;
 using nlohmann::json;
@@ -49,110 +47,110 @@ ResourceManager::ResourceManager(GameService::ServiceTuple &services) : GameServ
 #endif // USE_AUDIO
 }
 
-
 //#ifdef USE_AUDIO
-static int LoadAudioWithOggVorbis(std::string path, DecodedAudioData& dAudioBuffer)
+static int LoadAudioWithOggVorbis(std::string path, DecodedAudioData &dAudioBuffer)
 {
   //0 means success
   //-1 means failure
-  
+
   OggVorbis_File vf;
   bool eof = false;
   int current_section;
-  
+
   //small buffer to store small quantities of data
   char pcmout[4096];
 
 #ifdef _WIN32
-  _setmode( _fileno( stdin ), _O_BINARY );
-  _setmode( _fileno( stdout ), _O_BINARY );
+  _setmode(_fileno(stdin), _O_BINARY);
+  _setmode(_fileno(stdout), _O_BINARY);
 #endif
 
   //open file
-  ifstream file(path,  std::ifstream::in |  std::ifstream::binary);
-  
+  ifstream file(path, std::ifstream::in | std::ifstream::binary);
+
   //check if file is an vorbis ogg file
-  if(ov_fopen(path.c_str(),&vf) < 0) 
+  if (ov_fopen(path.c_str(), &vf) < 0)
   {
-      fprintf(stderr,"Input does not appear to be an Ogg bitstream.\n");
-      return -1;
+    fprintf(stderr, "Input does not appear to be an Ogg bitstream.\n");
+    return -1;
   }
 
   {
-    char **ptr=ov_comment(&vf,-1)->user_comments;
-    vorbis_info *vi=ov_info(&vf,-1);
-    while(*ptr){
-      fprintf(stderr,"%s\n",*ptr);
+    char **ptr = ov_comment(&vf, -1)->user_comments;
+    vorbis_info *vi = ov_info(&vf, -1);
+    while (*ptr)
+    {
+      fprintf(stderr, "%s\n", *ptr);
       ++ptr;
     }
-    
+
     LOG(LOG_DEBUG) << "Bitstream is " << vi->channels << "channel, " << vi->rate;
-    LOG(LOG_DEBUG) << "Encoded by: " << ov_comment(&vf,-1)->vendor;
+    LOG(LOG_DEBUG) << "Encoded by: " << ov_comment(&vf, -1)->vendor;
   }
-  
+
   //readwhile end of file has not been reached yet
-  while(!eof)
+  while (!eof)
   {
-	
-	//read content from file
-	// length of buffer
-	// bingendianp bit packing = 0 = little endian
-	// word size = 2 = 16-bit
-	// sgned = 1 = signed
-	
-	//read to character buffer
-	//number of bytes returned
-    long ret = ov_read(&vf,pcmout,4096,0,2,1,&current_section);
-    
+
+    //read content from file
+    // length of buffer
+    // bingendianp bit packing = 0 = little endian
+    // word size = 2 = 16-bit
+    // sgned = 1 = signed
+
+    //read to character buffer
+    //number of bytes returned
+    long ret = ov_read(&vf, pcmout, 4096, 0, 2, 1, &current_section);
+
     //if there is no more content
-    if (ret == 0) 
+    if (ret == 0)
     {
       /* EOF */
       eof = true;
-    } 
-    else if(ret == OV_HOLE)
-	{
-		LOG(LOG_INFO) << "ERROR: OV_HOLE found in initial read of buffer\n";
-		return -1;
-	}
-	else if(ret == OV_EBADLINK)
-	{
-		LOG(LOG_INFO) << "ERROR: OV_EBADLINK found in initial read of buffer\n";
-		return -1;
-	}
-	else if(ret == OV_EINVAL)
-	{
-		LOG(LOG_INFO) << "ERROR: OV_EINVAL found in initial read of buffer\n";
-		return -1;
-	}
+    }
+    else if (ret == OV_HOLE)
+    {
+      LOG(LOG_INFO) << "ERROR: OV_HOLE found in initial read of buffer\n";
+      return -1;
+    }
+    else if (ret == OV_EBADLINK)
+    {
+      LOG(LOG_INFO) << "ERROR: OV_EBADLINK found in initial read of buffer\n";
+      return -1;
+    }
+    else if (ret == OV_EINVAL)
+    {
+      LOG(LOG_INFO) << "ERROR: OV_EINVAL found in initial read of buffer\n";
+      return -1;
+    }
     //else if no error
     else
     {
-		
-		//convert from char to uint and push into buffer
-		
-		/*
+
+      //convert from char to uint and push into buffer
+
+      /*
 		for(size_t i=0; i < 4096; i++)
 		{
 			uint16_t val = (uint16_t)pcmout[i];
 			dAudioBuffer.uint_data_vec.push_back(val);
 		}
 		*/
-		
-		dAudioBuffer.char_data_vec.insert(dAudioBuffer.char_data_vec.end(), pcmout, pcmout + ret);
-	}
+
+      dAudioBuffer.char_data_vec.insert(dAudioBuffer.char_data_vec.end(), pcmout, pcmout + ret);
+    }
   }
-  
+
   //set number of bytes in buffer
   dAudioBuffer.nBytes = dAudioBuffer.char_data_vec.size() * sizeof(char);
-  
+
   //get sample rate
-  vorbis_info* vorbisInfo = ov_info(&vf, -1);
+  vorbis_info *vorbisInfo = ov_info(&vf, -1);
   dAudioBuffer.data_sample_rate = vorbisInfo->rate;
-  
+
   //clear data
   ov_clear(&vf);
-      
+
   LOG(LOG_DEBUG) << "Load Successful!\n";
   return 0;
 }
@@ -184,17 +182,17 @@ void ResourceManager::fetch(SoundtrackID id)
   LOG(LOG_INFO) << "Fetching " << id.get() << " at " << filepath;
   //Mix_Chunk *chunk = Mix_LoadWAV(filepath.c_str());
   DecodedAudioData dataBuffer;
-  if( LoadAudioWithOggVorbis(filepath.c_str(),dataBuffer) == -1)
+  if (LoadAudioWithOggVorbis(filepath.c_str(), dataBuffer) == -1)
   {
-	  throw AudioError(TRACE_INFO "Failed to read sound file with libogg.\n ");
+    throw AudioError(TRACE_INFO "Failed to read sound file with libogg.\n ");
   }
-   
+
   if (dataBuffer.char_data_vec.size() == 0)
     throw AudioError(TRACE_INFO "Could not read sound file: " + string{Mix_GetError()});
 
   m_CacheSize += sizeof(dataBuffer) + sizeof(Soundtrack) + sizeof(SoundtrackResource) + dataBuffer.nBytes;
   auto soundtrack = new Soundtrack{id, ChannelID{-1}, &dataBuffer, RepeatCount{0}, isMusic, false, true, true};
-  m_soundtracks[id] = SoundtrackResource{ SoundtrackUPtr{soundtrack}, m_Age++ };
+  m_soundtracks[id] = SoundtrackResource{SoundtrackUPtr{soundtrack}, m_Age++};
 
   LOG(LOG_INFO) << "Resource cache is now at " << (m_CacheSize / 1000000) << "MB";
   if (m_CacheSize > MAX_RESOURCE_BYTES::value)
