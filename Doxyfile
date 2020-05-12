@@ -36,3 +36,4 @@ EXAMPLE_PATH = .
 HTML_EXTRA_STYLESHEET = src/doc/Doc-styles.css
 USE_MATHJAX = YES
 MATHJAX_EXTENSIONS = TeX/AMSmath TeX/AMSsymbols
+MATHJAX_RELPATH = https://cdn.mathjax.org/mathjax/latest/
