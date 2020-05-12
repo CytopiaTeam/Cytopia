@@ -1,22 +1,22 @@
 /**
  * @page magic-pixels Magic Pixels
- * 
+ *
  * @tableofcontents
  *
  * @section magic-pixels-criteria Magic Pixel Criteria
- * A magic pixel is a pixel which has the same RED and BLUE values. 
+ * A magic pixel is a pixel which has the same RED and BLUE values.
  * This includes black, white, grays, purples, and greens. From this criteria,
  * there are @f$255 \times 255 \times 255 = 16581375@f$ possible magic pixels that you can use
  * (Pick a green, pick an alpha, and pick a red-blue). Magic pixels are less than
  * 0.4% of all the possible pixel colors you can use.
  *
- * @section magic-pixels-using How to use 
+ * @section magic-pixels-using How to use
  * When a sprite has magic pixels and is being tagged as recolorable,
  * Cytopia will be allowed to recolor those pixels at runtime. This can be
  * done randomly, or specifically depending on for what your asset is being
  * used. Randomly refers to picking a random color and recoloring all magic pixels
  * with it, while specifically refers to using a specific color.
- * 
+ *
  * @section magic-pixels-recoloring Recoloring algorithm
  * Recoloring is done in the following manner:
  * Given a sprite of RGBA pixels, and a target RGBA color,
@@ -47,7 +47,7 @@
  *  \right)\\
  *  X_{max}-X_{min} &=S_o\min\{L_o, 1-L_o\} & (2)\\
  * @f}
- * From Eqn (1), you can see that @f$L_o=0\implies X_{max}=-X_{min}=0@f$, 
+ * From Eqn (1), you can see that @f$L_o=0\implies X_{max}=-X_{min}=0@f$,
  * hence if there is no lightness, we always return black.
  * From Eqn (2), you can see that @f$S_o=0\implies X_{max}=X_{min}=L_o@f$,
  * hence if there is no saturation, we always return a grayscale color.
@@ -101,7 +101,7 @@
  *    return 255 - 2 * (255 - X) * (255 - Y) / 255;
  *  }
  *  function recolor_magic(magic, target) {
- *    // Not a magic pixel 
+ *    // Not a magic pixel
  *    if(magic[0] != magic[2]) return magic;
  *    var min_i = Math.min(...magic);
  *    var max_i = Math.max(...magic);
@@ -135,7 +135,7 @@
  *    }
  *    element.setAttribute("error", "false");
  *    color.style['background-color'] = element.value;
- *    return [ 
+ *    return [
  *      parseInt(match[1], 16),
  *      parseInt(match[2], 16),
  *      parseInt(match[3], 16)
@@ -143,7 +143,7 @@
  *  }
  *  function magic_pixel_update() {
  *    try {
- *      color_magic = get_color(document.getElementById("magic-pixel-value"), 
+ *      color_magic = get_color(document.getElementById("magic-pixel-value"),
  *          document.getElementById("magic-pixel"));
  *      color_target = get_color(document.getElementById("target-pixel-value"),
  *          document.getElementById("target-pixel"));
@@ -151,8 +151,8 @@
  *      console.log("Target: ", color_target);
  *      result_color = recolor_magic(color_magic, color_target);
  *      console.log("Result: ", result_color);
- *      result_color = "#" 
- *      + ("00" + result_color[0].toString(16)).substr(-2) 
+ *      result_color = "#"
+ *      + ("00" + result_color[0].toString(16)).substr(-2)
  *      + ("00" + result_color[1].toString(16)).substr(-2)
  *      + ("00" + result_color[2].toString(16)).substr(-2);
  *      document.getElementById("result-pixel-value").value = result_color;

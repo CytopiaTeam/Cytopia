@@ -4,7 +4,7 @@
  * Welcome to Cytopia's Developer Guide!
  *
  * @section building Building
- * To build Cytopia, please refer to the 
+ * To build Cytopia, please refer to the
  * <a href="https://github.com/CytopiaTeam/Cytopia/wiki/Build-instructions">
  * Build Instructions Page</a>.
  *
