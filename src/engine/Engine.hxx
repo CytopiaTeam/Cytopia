@@ -18,7 +18,7 @@ public:
   Engine &operator=(Engine const &) = delete;
 
   /** @brief Increase Height
-    * Increases the height of the given map node 
+    * Increases the height of the given map node
     * Calls the according function of the Map object that holds the terrain node and draws the slopes
     * @param isoCoordinates the isometric coordinates of the map node that should be raised
     * @see Map#increaseHeight
