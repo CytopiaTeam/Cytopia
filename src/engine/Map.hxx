@@ -156,7 +156,7 @@ public:
  * @brief Demolish a node
  * This function gathers all tiles that should be demolished and invokes the nodes demolish function. When a building bigger than 1x1 is selected, all it's coordinates are added to the demolishing points.
  * @param isoCoordinates all coordinates that should be demolished
- * @param updateNeighboringTiles wether the adjecent tiles should be updated. (only relevant for autotiling)
+ * @param updateNeighboringTiles whether the adjacent tiles should be updated. (only relevant for autotiling)
  * @param layer restrict demolish to a single layer
  * @see MapNode#demolishNode
  */
@@ -217,8 +217,6 @@ public:
   * @param layer: layer to check.
   */
   std::string getTileID(const Point &isoCoordinates, Layer layer);
-
-  bool isLayerAutoTile(const Point &isoCoordinates, const Layer &layer) const;
 
 private:
   /**\brief Update mapNode and its adjacent tiles
