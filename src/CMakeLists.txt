@@ -65,7 +65,11 @@ set(SOURCE_FILES
         engine/TileManager.{hxx,cxx}
         engine/UIManager.{hxx,cxx}
         engine/WindowManager.{hxx,cxx}
+        engine/UIMQDispatcher.hxx
         view/iView.{hxx,cxx}
+        model/iModel.{hxx,cxx}
+        model/DataModel.hxx
+        model/ButtonState.{hxx,cxx}
         )
 
 list(APPEND _include_directories
