@@ -7,7 +7,9 @@
  * @class       ScreenMeasurement
  * @brief       Represents a measurement made on the screen
  * @details     This class is used to encode linear combinations
- *              of absolute and relative measurements
+ *              of absolute and relative measurements. For example, you can 
+ *              specify that the width of an element should be 50_lw 
+ *              (50% of the enclosing layout)
  */
 struct ScreenMeasurement
 {
@@ -38,7 +40,8 @@ constexpr ScreenMeasurement operator-(const ScreenMeasurement &, const ScreenMea
 
 /** 
  * @class       ScreenMeasurementValuation
- * @brief       Represents values of pixels to measure a ScreenMeasurement
+ * @brief       Represents the values in pixels of the element width/height and layout width/height
+ * @details     Used to measure a ScreenMeasurement
  */
 struct ScreenMeasurementValuation
 {
@@ -61,6 +64,9 @@ struct BoxSizing
 /**
  * @class       PositionHint
  * @brief       Represents a hint to the position of a (or multiple) Box
+ * @details     A PositionHint is a way for Views to communicate their
+ *              desired position. They have no certainty that this is the
+ *              position they will end up being assigned.
  */
 struct PositionHint
 {
