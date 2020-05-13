@@ -461,7 +461,7 @@ void Map::demolishNode(const std::vector<Point> &isoCoordinates, bool updateNeig
   for (auto pNode : nodesToDemolish)
   {
     pNode->demolishNode(layer);
-    
+
     if (updateNeighboringTiles)
     {
       updateNodeNeighbors(pNode->getCoordinates());
@@ -477,6 +477,9 @@ bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int is
     return false;
   }
 
+  auto &node = mapNodes[nodeIdx(isoX, isoY)];
+  auto pSprite = node.getSprite();
+
   // Layers ordered for hitcheck
   Layer layers[] = {Layer::BUILDINGS, Layer::TERRAIN, Layer::WATER, Layer::UNDERGROUND, Layer::BLUEPRINT};
 
@@ -487,28 +490,28 @@ bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int is
       continue;
     }
 
-    SDL_Rect spriteRect = mapNodes[isoX * m_columns + isoY].getSprite()->getDestRect(layer);
-    SDL_Rect clipRect = mapNodes[isoX * m_columns + isoY].getSprite()->getClipRect(layer);
+    SDL_Rect spriteRect = pSprite->getDestRect(layer);
+    SDL_Rect clipRect = pSprite->getClipRect(layer);
+
     if (layer == Layer::TERRAIN)
+    {
       clipRect.h += 1; //HACK: We need to increase clipRect height by one pixel to match the drawRect. Rounding issue?
+    }
 
     if (SDL_PointInRect(&screenCoordinates, &spriteRect))
     {
-      std::string tileID = mapNodes[isoX * m_columns + isoY].getMapNodeDataForLayer(layer).tileID;
+      std::string tileID = node.getMapNodeDataForLayer(layer).tileID;
+      assert(!tileID.empty());
+
       // Calculate the position of the clicked pixel within the surface and "un-zoom" the position to match the un-adjusted surface
       const int pixelX = static_cast<int>((screenCoordinates.x - spriteRect.x) / Camera::zoomLevel) + clipRect.x;
       const int pixelY = static_cast<int>((screenCoordinates.y - spriteRect.y) / Camera::zoomLevel) + clipRect.y;
 
-      if (tileID.empty()) // should never happen, but better safe than sorry
-      {
-        break;
-      }
-
-      if (layer == Layer::TERRAIN &&
-          mapNodes[isoX * m_columns + isoY].getMapNodeDataForLayer(Layer::TERRAIN).tileMap == TileMap::SHORE)
+      if ((layer == Layer::TERRAIN) && (node.getMapNodeDataForLayer(Layer::TERRAIN).tileMap == TileMap::SHORE))
       {
         tileID.append("_shore");
       }
+
       // Check if the clicked Sprite is not transparent (we hit a point within the pixel)
       if (getColorOfPixelInSurface(ResourcesManager::instance().getTileSurface(tileID), pixelX, pixelY).a !=
           SDL_ALPHA_TRANSPARENT)
@@ -524,30 +527,25 @@ bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int is
 
 void Map::highlightNode(const Point &isoCoordinates, const SpriteRGBColor &rgbColor)
 {
-  const size_t index = isoCoordinates.x * m_columns + isoCoordinates.y;
+  const size_t index = nodeIdx(isoCoordinates.x, isoCoordinates.y);
 
   if (index < mapNodes.size())
   {
-    const MapNode &node = mapNodes[index];
-    node.getSprite()->highlightColor = rgbColor;
-    node.getSprite()->highlightSprite = true;
+    const auto pSprite = mapNodes[index].getSprite();
+    pSprite->highlightColor = rgbColor;
+    pSprite->highlightSprite = true;
   }
 }
 
 std::string Map::getTileID(const Point &isoCoordinates, Layer layer)
 {
-  const size_t index = isoCoordinates.x * m_columns + isoCoordinates.y;
-  if (index < mapNodes.size())
-  {
-    return mapNodes[index].getTileID(layer);
-  }
-
-  return "";
+  const size_t index = nodeIdx(isoCoordinates.x, isoCoordinates.y);
+  return (index < mapNodes.size()) ? mapNodes[index].getTileID(layer) : "";
 }
 
 void Map::unHighlightNode(const Point &isoCoordinates)
 {
-  const size_t index = isoCoordinates.x * m_columns + isoCoordinates.y;
+  const size_t index = nodeIdx(isoCoordinates.x, isoCoordinates.y);
 
   if (index < mapNodes.size())
   {
@@ -619,11 +617,11 @@ Map *Map::loadMapFromFile(const std::string &fileName)
   {
     Point coordinates = json(it.value())["coordinates"].get<Point>();
     // set coordinates (height) of the map
-    map->mapNodes[coordinates.x * columns + coordinates.y] =
-        std::move(MapNode{Point{coordinates.x, coordinates.y, coordinates.z, coordinates.height}, ""});
+    auto &node = map->mapNodes[coordinates.x * columns + coordinates.y];
+    node = std::move(MapNode{Point{coordinates.x, coordinates.y, coordinates.z, coordinates.height}, ""});
 
     // load back mapNodeData (tileIDs, Buildins, ...)
-    map->mapNodes[coordinates.x * columns + coordinates.y].setMapNodeData(json(it.value())["mapNodeData"], coordinates);
+    node.setMapNodeData(json(it.value())["mapNodeData"], coordinates);
   }
 
   // Now put those newly created nodes in correct drawing order
@@ -634,19 +632,10 @@ Map *Map::loadMapFromFile(const std::string &fileName)
       map->mapNodesInDrawingOrder.emplace_back(&map->mapNodes[x * columns + y]);
     }
   }
+
   map->updateAllNodes();
 
   return map;
-}
-
-bool Map::isNodeMultiObject(const Point &isoCoordinates, Layer layer)
-{
-  if (isPointWithinMapBoundaries(isoCoordinates) && mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y].getTileData(layer))
-  {
-    const MapNode &mapNode = mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y];
-    return ((mapNode.getTileData(layer)->RequiredTiles.height > 1) && (mapNode.getTileData(layer)->RequiredTiles.width > 1));
-  }
-  return false;
 }
 
 bool Map::isAllowSetTileId(const Layer layer, const MapNode *const pMapNode)
