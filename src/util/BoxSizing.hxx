@@ -80,13 +80,17 @@ struct PositionHint
  * @class       MarginConfiguration
  * @brief       Represents a PositionHint as margin around a Box
  */
-class MarginConfiguration : public PositionHint { };
+class MarginConfiguration : public PositionHint
+{
+};
 
 /**
  * @class       PaddingConfiguration
  * @brief       Represents a PositionHint as padding within a Box
  */
-class PaddingConfiguration : public PositionHint { };
+class PaddingConfiguration : public PositionHint
+{
+};
 
 #include "BoxSizing.inl.hxx"
 
