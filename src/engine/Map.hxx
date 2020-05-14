@@ -7,17 +7,8 @@
 #include "GameObjects/MapNode.hxx"
 #include "map/TerrainGenerator.hxx"
 
-BETTER_ENUM(NeighbourNodesPosition, unsigned char,
-  BOTOM_LEFT = 1U << 6,
-  LEFT = 1U << 2,
-  TOP_LEFT = 1U << 4,
-  BOTTOM = 1U << 1,
-  CENTAR = 0U,
-  TOP = 1U,
-  BOTOM_RIGHT = 1U << 7,
-  RIGHT = 1U << 3,
-  TOP_RIGHT = 1U << 5
-);
+BETTER_ENUM(NeighbourNodesPosition, unsigned char, BOTOM_LEFT = 1U << 6, LEFT = 1U << 2, TOP_LEFT = 1U << 4, BOTTOM = 1U << 1,
+            CENTAR = 0U, TOP = 1U, BOTOM_RIGHT = 1U << 7, RIGHT = 1U << 3, TOP_RIGHT = 1U << 5);
 
 struct NeighbourNode
 {
@@ -99,55 +90,53 @@ public:
   {
     static_assert(std::is_same_v<Point, typename std::iterator_traits<Iterator>::value_type>,
                   "Iterator value must be a const Point");
-    bool isOkToSet = true;
+
     for (Iterator it = begin; it != end; ++it)
     {
       if (!isPlacementOnNodeAllowed(*it, tileID))
       {
-        isOkToSet = false;
-        break;
+        return;
       }
     }
 
-    if (isOkToSet)
+    int groundtileIndex = -1;
+    for (auto it = begin; it != end; ++it)
     {
-      int groundtileIndex = -1;
-      for (auto it = begin; it != end; ++it)
+      const bool shouldRender = !(!isMultiObjects && (it != begin));
+      Layer layer = TileManager::instance().getTileLayer(tileID);
+      MapNode &currentMapNode = mapNodes[nodeIdx(it->x, it->y)];
+
+      if (!isAllowSetTileId(layer, &currentMapNode))
       {
-        bool shouldRender = !(!isMultiObjects && it != begin);
-        Layer layer = TileManager::instance().getTileLayer(tileID);
-        MapNode &currentMapNode = mapNodes[it->x * m_columns + it->y];
+        continue;
+      }
 
-        if (!isAllowSetTileId(layer, &currentMapNode))
-        {
-          continue;
-        }
+      // only demolish nodes before placing if this is a bigger than 1x1 building
+      if (!isMultiObjects)
+      {
+        demolishNode(std::vector<Point>{*it}, 0, Layer::BUILDINGS);
+      }
 
-        // only demolish nodes before placing if this is a bigger than 1x1 building
-        if (!isMultiObjects)
-        {
-          demolishNode(std::vector<Point>{*it}, 0, Layer::BUILDINGS);
-        }
+      currentMapNode.setRenderFlag(layer, shouldRender);
+      currentMapNode.setTileID(tileID, isMultiObjects ? *it : *begin);
+      auto pTileData = currentMapNode.getMapNodeDataForLayer(layer).tileData;
 
-        currentMapNode.setRenderFlag(layer, shouldRender);
-        currentMapNode.setTileID(tileID, isMultiObjects ? *it : *begin);
-        if (currentMapNode.getMapNodeDataForLayer(layer).tileData &&
-            !currentMapNode.getMapNodeDataForLayer(layer).tileData->groundDecoration.empty() && groundtileIndex == -1)
-        {
-          const int groundDecoSize = currentMapNode.getMapNodeDataForLayer(layer).tileData->groundDecoration.size();
-          std::uniform_int_distribution uniformDistribution(0, groundDecoSize - 1);
-          groundtileIndex = uniformDistribution(randomEngine);
-        }
-        if (groundtileIndex != -1)
-        {
-          currentMapNode.setTileID(currentMapNode.getMapNodeDataForLayer(layer).tileData->groundDecoration[groundtileIndex],
-                                   isMultiObjects ? *it : *begin);
-        }
-        //For layers that autotile to each other, we need to update their neighbors too
-        if (MapNode::isDataAutoTile(TileManager::instance().getTileData(tileID)))
-        {
-          updateNodeNeighbors(*it);
-        }
+      if (pTileData && !pTileData->groundDecoration.empty() && groundtileIndex == -1)
+      {
+        const int groundDecoSize = pTileData->groundDecoration.size();
+        std::uniform_int_distribution uniformDistribution(0, groundDecoSize - 1);
+        groundtileIndex = uniformDistribution(randomEngine);
+      }
+
+      if (groundtileIndex != -1)
+      {
+        currentMapNode.setTileID(pTileData->groundDecoration[groundtileIndex], isMultiObjects ? *it : *begin);
+      }
+
+      //For layers that autotile to each other, we need to update their neighbors too
+      if (MapNode::isDataAutoTile(TileManager::instance().getTileData(tileID)))
+      {
+        updateNodeNeighbors(*it);
       }
     }
   }
