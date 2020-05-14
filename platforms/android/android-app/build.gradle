@@ -10,7 +10,8 @@ android {
         versionName "1.0"
 
         // Set the apk base name.
-        setProperty("archivesBaseName", "simpleSDL")
+        // setProperty("archivesBaseName", "simpleSDL")
+        setProperty("archivesBaseName", "Cytopia")
 
         externalNativeBuild {
             cmake {
