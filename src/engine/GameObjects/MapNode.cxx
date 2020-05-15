@@ -153,6 +153,7 @@ Layer MapNode::getTopMostActiveLayer() const
 
 void MapNode::setNodeTransparency(const float transparencyFactor) const
 {
+  // TODO refactoring: Consider replacing magic number (255) with constexpr.
   unsigned char alpha = (1 - transparencyFactor) * 255;
   m_sprite->transparentSprite = true;
   m_sprite->alpha = alpha;
