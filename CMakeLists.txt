@@ -119,7 +119,7 @@ if (USE_PACKAGE_MANAGER)
             )
 
     if (ENABLE_AUDIO)
-        list(APPEND _link_libraries CONAN_PKG::vorbis)
+        list(APPEND _link_libraries CONAN_PKG::libvorbis)
         list(APPEND _link_libraries CONAN_PKG::openal)
     endif ()
 
