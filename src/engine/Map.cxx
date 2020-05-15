@@ -120,9 +120,7 @@ std::vector<NeighbourNode> Map::getNeighborNodes(const Point &isoCoordinates, co
 
 void Map::changeHeight(const Point &isoCoordinates, const bool higher)
 {
-  constexpr int minElevationHeight = 0;
   MapNode &mapNode = mapNodes[nodeIdx(isoCoordinates.x, isoCoordinates.y)];
-  const Point nodeCoords = mapNode.getCoordinates();
 
   if (mapNode.changeHeight(higher))
   {
@@ -135,7 +133,7 @@ void Map::changeHeight(const Point &isoCoordinates, const bool higher)
     }
 
     demolishNode({isoCoordinates});
-    updateNodeNeighbors(nodeCoords);
+    updateNodeNeighbors(mapNode.getCoordinates());
     mapNode.getSprite()->refresh();
   }
 }
@@ -146,7 +144,8 @@ void Map::decreaseHeight(const Point &isoCoordinates) { changeHeight(isoCoordina
 
 void Map::updateNodeNeighbors(const Point &isoCoordinates)
 {
-  const int tileHeight = mapNodes[nodeIdx(isoCoordinates.x, isoCoordinates.y)].getCoordinates().height;
+  const MapNode *const pMapNode = &mapNodes[nodeIdx(isoCoordinates.x, isoCoordinates.y)];
+  const int tileHeight = pMapNode->getCoordinates().height;
   constexpr unsigned char cardinalDirection =
       NeighbourNodesPosition::TOP | NeighbourNodesPosition::BOTTOM | NeighbourNodesPosition::LEFT | NeighbourNodesPosition::RIGHT;
   // those bitmask combinations require the tile to be elevated.
@@ -157,11 +156,11 @@ void Map::updateNodeNeighbors(const Point &isoCoordinates)
       NeighbourNodesPosition::TOP_RIGHT | NeighbourNodesPosition::LEFT | NeighbourNodesPosition::BOTTOM,
       NeighbourNodesPosition::BOTOM_LEFT | NeighbourNodesPosition::RIGHT | NeighbourNodesPosition::TOP,
       NeighbourNodesPosition::BOTOM_RIGHT | NeighbourNodesPosition::LEFT | NeighbourNodesPosition::TOP};
+  const auto &neighbours = getNeighborNodes(isoCoordinates, true);
 
-  for (const auto &neighbour : getNeighborNodes(isoCoordinates, true))
+  for (const auto &neighbour : neighbours)
   {
     const auto pNode = neighbour.pNode;
-    bool raise = false;
     const auto &nodeCoordinate = pNode->getCoordinates();
     const unsigned char elevationBitmask = getElevatedNeighborBitmask(nodeCoordinate);
 
@@ -172,9 +171,9 @@ void Map::updateNodeNeighbors(const Point &isoCoordinates)
     }
 
     // set elevation and tile bitmask for each neighbor
-    pNode->setBitmask(elevationBitmask, calculateAutotileBitmask(nodeCoordinate));
+    pNode->setBitmask(elevationBitmask, calculateAutotileBitmask(pMapNode, neighbours));
 
-    // there can't be a height difference greater then 1 between two map nodes. Only increase the cardinal directions.
+    // there can't be a height difference greater then 1 between two map nodes. Only change in the cardinal directions.
     if (cardinalDirection & neighbour.position)
     {
       const int heightDiff = tileHeight - nodeCoordinate.height;
@@ -189,11 +188,9 @@ void Map::updateNodeNeighbors(const Point &isoCoordinates)
     {
       if ((elevationBitmask & elBitMask) == elBitMask)
       {
-        increaseHeight(nodeCoordinate);
-
         if (terrainEditMode == TerrainEdit::LOWER)
         {
-          for (const auto &nn : getNeighborNodes(pNode->getCoordinates(), true))
+          for (const auto &nn : getNeighborNodes(pNode->getCoordinates(), false))
           {
             const auto &neighborCoords = nn.pNode->getCoordinates();
 
@@ -202,6 +199,10 @@ void Map::updateNodeNeighbors(const Point &isoCoordinates)
               decreaseHeight(neighborCoords);
             }
           }
+        }
+        else
+        {
+          increaseHeight(nodeCoordinate);
         }
 
         break;
@@ -279,19 +280,17 @@ Point Map::getNodeOrigCornerPoint(const Point &isoCoordinates, Layer layer)
   return UNDEFINED_POINT;
 }
 
-std::vector<uint8_t> Map::calculateAutotileBitmask(const Point &isoCoordinates)
+std::vector<uint8_t> Map::calculateAutotileBitmask(const MapNode *const pMapNode,
+                                                   const std::vector<NeighbourNode> &neighbourNodes)
 {
   std::vector<uint8_t> tileOrientationBitmask(LAYERS_COUNT, 0);
 
   for (auto currentLayer : allLayersOrdered)
   {
-    MapNode &mapNode = mapNodes[nodeIdx(isoCoordinates.x, isoCoordinates.y)];
-    auto pCurrentTileData = mapNode.getMapNodeDataForLayer(currentLayer).tileData;
+    auto pCurrentTileData = pMapNode->getMapNodeDataForLayer(currentLayer).tileData;
 
     if (pCurrentTileData)
     {
-      const auto &neighbourNodes = getNeighborNodes(isoCoordinates, false);
-
       if (pCurrentTileData->tileType == +TileType::TERRAIN)
       {
         for (const auto &neighbour : neighbourNodes)
@@ -306,9 +305,9 @@ std::vector<uint8_t> Map::calculateAutotileBitmask(const Point &isoCoordinates)
       }
 
       // only auto-tile categories that can be tiled.
-      if (mapNode.isLayerAutoTile(currentLayer))
+      if (pMapNode->isLayerAutoTile(currentLayer))
       {
-        const auto nodeTileId = mapNode.getMapNodeDataForLayer(currentLayer).tileID;
+        const auto nodeTileId = pMapNode->getMapNodeDataForLayer(currentLayer).tileID;
 
         for (const auto &neighbour : neighbourNodes)
         {

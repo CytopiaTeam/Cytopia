@@ -229,7 +229,8 @@ private:
   * @param isoCoordinates isometric coordinates of the tile whose neighbors should be retrieved
   * @return Uint that stores the neighbor tiles
   */
-  std::vector<uint8_t> calculateAutotileBitmask(const Point &isoCoordinates);
+  std::vector<uint8_t> Map::calculateAutotileBitmask(const MapNode *const pMapNode,
+                                                     const std::vector<NeighbourNode> &neighbourNodes);
 
   SDL_Color getColorOfPixelInSurface(SDL_Surface *surface, int x, int y) const;
 
