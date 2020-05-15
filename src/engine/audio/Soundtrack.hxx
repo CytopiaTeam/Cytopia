@@ -2,7 +2,6 @@
 #define SOUNDTRACK_HXX_
 
 #include <memory>
-#include <SDL_mixer.h>
 #include <string>
 
 #include "../../util/Meta.hxx"

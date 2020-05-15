@@ -87,8 +87,8 @@ if (USE_PACKAGE_MANAGER)
 
     include(pmm)
 
-    pmm(CONAN
-            REMOTES
+    pmm(CONAN 
+			REMOTES
             AFG https://api.bintray.com/conan/anotherfoxguy/conan-packages
             ror-dependencies https://api.bintray.com/conan/anotherfoxguy/ror-dependencies
             BINCRAFTERS

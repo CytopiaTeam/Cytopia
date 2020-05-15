@@ -186,11 +186,11 @@ void ResourceManager::fetch(SoundtrackID id)
   DecodedAudioData dataBuffer;
   if( LoadAudioWithOggVorbis(filepath.c_str(),dataBuffer) == -1)
   {
-	  throw AudioError(TRACE_INFO "Failed to read sound file with libogg.\n ");
+	  throw AudioError(TRACE_INFO "Failed to read sound file with libvorbis.\n ");
   }
    
   if (dataBuffer.char_data_vec.size() == 0)
-    throw AudioError(TRACE_INFO "Could not read sound file: " + string{Mix_GetError()});
+    throw AudioError(TRACE_INFO "Could not read sound file: It is empty" );
 
   m_CacheSize += sizeof(dataBuffer) + sizeof(Soundtrack) + sizeof(SoundtrackResource) + dataBuffer.nBytes;
   auto soundtrack = new Soundtrack{id, ChannelID{-1}, &dataBuffer, RepeatCount{0}, isMusic, false, true, true};
@@ -220,7 +220,7 @@ void ResourceManager::prune()
     {
       int sizeBytes = 0;
       alGetBufferi(it->second.resource->buffer, AL_SIZE, &sizeBytes);
-      m_CacheSize -= sizeof(Mix_Chunk) + sizeof(Soundtrack) + sizeof(SoundtrackUPtr) + sizeBytes;
+      m_CacheSize -= sizeof(DecodedAudioData) + sizeof(Soundtrack) + sizeof(SoundtrackUPtr) + sizeBytes;
       it = m_soundtracks.erase(it);
     }
     else
