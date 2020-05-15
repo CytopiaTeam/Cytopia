@@ -18,7 +18,7 @@ android {
                 version "3.10.2"
                 // Add any cmake options here.
 
-                arguments "-DUSE_PACKAGE_MANAGER=OFF", "-DENABLE_MOFILEREADER=OFF", "-DENABLE_ANGELSCRIPT=OFF", "-DBUILD_TEST=OFF", "-DUSE_PACKAGE_MANAGER=OFF", "-DENABLE_AUDIO=OFF", "-DBUILD_ANDROID=ON"
+                arguments "-DUSE_PACKAGE_MANAGER=OFF", "-DENABLE_MOFILEREADER=OFF", "-DENABLE_ANGELSCRIPT=OFF", "-DBUILD_TEST=OFF", "-DUSE_PACKAGE_MANAGER=OFF", "-DENABLE_AUDIO=ON", "-DBUILD_ANDROID=ON"
             }
         }
 
@@ -26,7 +26,7 @@ android {
             //abiFilters "armeabi", "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
 
             // Limiting to a smaller set of  ABIs to save time while testing:
-            abiFilters  "armeabi-v7a", "arm64-v8a", "x86"
+            abiFilters  "armeabi-v7a", "arm64-v8a"
         }
     }
 
@@ -60,6 +60,7 @@ dependencies {
     // Uncomment this line to build SDL2
     // Uncomment a line in ../gradle.settings as well
 	compile project(':SDL2')
+	compile project(':openal-soft')
     compile project(':libnoise:')
     // testCompile 'junit:junit:4.12'
 }

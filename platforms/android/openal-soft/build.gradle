@@ -14,8 +14,12 @@ android {
     externalNativeBuild {
         cmake {
             version "3.10.2"
-            
-            arguments "-DBUILD_LIBNOISE_UTILS=OFF", "-DBUILD_LIBNOISE_EXAMPLES=OFF"
+                    def ndkDir = android.ndkDirectory
+
+            // arguments "-DBUILD_LIBNOISE_UTILS=OFF", "-DBUILD_LIBNOISE_EXAMPLES=OFF"
+            arguments '-DALSOFT_REQUIRE_OPENSL=OFF', '-DALSOFT_NO_CONFIG_UTIL=ON', '-DALSOFT_EXAMPLES=OFF', '-DALSOFT_UTILS=OFF', '-DALSOFT_TESTS=OFF', '-DALSOFT_EMBED_HRTF_DATA=YES'
+            // arguments '-DCMAKE_TOOLCHAIN_FILE=XCompile-Android.txt', '-DALSOFT_NO_CONFIG_UTIL=ON', '-DALSOFT_EXAMPLES=OFF', '-DALSOFT_UTILS=OFF', '-DALSOFT_TESTS=OFF', '-DALSOFT_EMBED_HRTF_DATA=YES'
+// '-DALSOFT_NATIVE_TOOLS_PATH=C:/Path/To/bin/Prj/Subs/OpenAL/native-tools', '-DALSOFT_REQUIRE_OPENSL=ON',
     }
     }
 
@@ -37,7 +41,7 @@ android {
         cmake {
             version "3.10.2"
             
-            path '../../../external/android/other/libnoise/CMakeLists.txt'
+            path '../../../external/android/other/openal-soft/CMakeLists.txt'
 
             // Using one top level build dir for all build related files to reduce clutter.
             buildStagingDirectory file("${buildDir}/../.externalNativeBuild/${project.name}")

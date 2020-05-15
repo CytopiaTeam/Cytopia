@@ -92,6 +92,7 @@ if (BUILD_ANDROID)
 
   set(DISTRIBUTION_DIR ${CMAKE_SOURCE_DIR}/platforms/android/build/SDL2/intermediates/ndkBuild)
   set(NOISE_DISTRIBUTION_DIR ${CMAKE_SOURCE_DIR}/platforms/android/build/libnoise/intermediates/cmake)
+  set(OPENAL_DISTRIBUTION_DIR ${CMAKE_SOURCE_DIR}/platforms/android/build/openal-soft/intermediates/cmake)
   string(TOLOWER ${CMAKE_BUILD_TYPE} ANDROID_BUILD_DIR)
   
   set(SDL_LOCATION ${CMAKE_SOURCE_DIR}/contrib/)
@@ -124,6 +125,11 @@ if (BUILD_ANDROID)
   add_library(LIBNOISE SHARED IMPORTED )
   set_target_properties(LIBNOISE PROPERTIES IMPORTED_LOCATION ${LIBNOISE_LOCATION})
   
+  #openal
+  set (OPENAL_LOCATION ${OPENAL_DISTRIBUTION_DIR}/${ANDROID_BUILD_DIR}/obj/${ANDROID_ABI}/libopenal.so)
+  add_library(OPENAL SHARED IMPORTED )
+  set_target_properties(OPENAL PROPERTIES IMPORTED_LOCATION ${OPENAL_LOCATION})
+
   # Joysticks were causing trouble on android.
   add_definitions(-DSDL_JOYSTICK=0)
     list(APPEND _link_libraries ${OpenGLES2_LIBRARY}
@@ -134,6 +140,7 @@ if (BUILD_ANDROID)
                                 SDL2_TTF
                                 SDL2_MIXER
                                 LIBNOISE
+                             
                                 # z
     )
 endif()
@@ -217,6 +224,7 @@ elseif (BUILD_ANDROID)
                                 SDL2_IMAGE
                                 SDL2_TTF
                                 SDL2_MIXER
+                                OPENAL
                                 z # zlib provided by android NDK
                                 LIBNOISE
     )
@@ -226,6 +234,7 @@ elseif (BUILD_ANDROID)
                                      ${CMAKE_SOURCE_DIR}/external/android/SDL/SDL2_ttf
                                      ${CMAKE_SOURCE_DIR}/external/android/SDL/SDL2_mixer
                                      ${CMAKE_SOURCE_DIR}/external/android/other/libnoise/src/noise
+                                     ${CMAKE_SOURCE_DIR}/external/android/other/openal-soft/include
                                     #  ${CMAKE_SOURCE_DIR}/external/android/other/zlib
         )
 else()

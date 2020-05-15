@@ -1,3 +1,4 @@
 include ':Cytopia'
 include ':SDL2'
+include ':openal-soft'
 include ':libnoise'

@@ -38,4 +38,10 @@ rm -rf zlib
 wget https://www.zlib.net/zlib-1.2.11.tar.gz
 tar xf zlib-1.2.11.tar.gz
 mv zlib-1.2.11 zlib
+
+rm -rf openal-soft
+wget https://github.com/JogAmp/openal-soft/archive/openal-soft-1.19.1.tar.gz
+tar xf openal-soft-1.19.1.tar.gz
+mv openal-soft-openal-soft-1.19.1 openal-soft
+
 popd
