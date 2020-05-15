@@ -10,6 +10,7 @@
 #include "ResourcesManager.hxx"
 #include "map/MapLayers.hxx"
 #include "common/JsonSerialization.hxx"
+#include "Filesystem.hxx"
 
 #include "json.hxx"
 
@@ -59,6 +60,7 @@ constexpr struct
 Map::Map(int columns, int rows) : m_columns(columns), m_rows(rows)
 {
   const size_t vectorSize = static_cast<size_t>(m_rows * m_columns);
+  randomEngine.seed();
   mapNodes.resize(vectorSize);
   mapNodesInDrawingOrder.reserve(vectorSize);
   MapLayers::enableLayer(Layer::TERRAIN);
@@ -284,61 +286,67 @@ std::vector<uint8_t> Map::calculateAutotileBitmask(const Point &isoCoordinates)
     it = 0;
   }
 
-  int x = isoCoordinates.x;
-  int y = isoCoordinates.y;
+  const int x = isoCoordinates.x;
+  const int y = isoCoordinates.y;
 
   for (auto currentLayer : allLayersOrdered)
   {
-    std::pair<int, int> adjecantNodesCoordinates[8]{
-        std::make_pair(x, y + 1),     // 0 = 2^0 = 1   = TOP
-        std::make_pair(x, y - 1),     // 1 = 2^1 = 2   = BOTTOM
-        std::make_pair(x - 1, y),     // 2 = 2^2 = 4   = LEFT
-        std::make_pair(x + 1, y),     // 3 = 2^3 = 8   = RIGHT
-        std::make_pair(x - 1, y + 1), // 4 = 2^4 = 16  = TOP LEFT
-        std::make_pair(x + 1, y + 1), // 5 = 2^5 = 32  = TOP RIGHT
-        std::make_pair(x - 1, y - 1), // 6 = 2^6 = 64  = BOTTOM LEFT
-        std::make_pair(x + 1, y - 1)  // 7 = 2^7 = 128 = BOTTOM RIGHT
-    };
+    auto pCurrentTile = mapNodes[x * m_columns + y].get();
 
-    if (mapNodes[x * m_columns + y] && mapNodes[x * m_columns + y]->getMapNodeDataForLayer(currentLayer).tileData &&
-        (mapNodes[x * m_columns + y]->getMapNodeDataForLayer(currentLayer).tileData->tileType == +TileType::TERRAIN))
+    if (pCurrentTile)
     {
-      unsigned int i = 0;
-      for (const auto &it : adjecantNodesCoordinates)
-      {
-        if ((it.first >= 0 && it.first < m_rows && it.second >= 0 && it.second < m_columns) &&
-            (mapNodes[it.first * m_columns + it.second] &&
-             mapNodes[it.first * m_columns + it.second]->getMapNodeDataForLayer(Layer::WATER).tileData &&
-             mapNodes[it.first * m_columns + it.second]->getMapNodeDataForLayer(Layer::WATER).tileData->tileType ==
-                 +TileType::WATER))
-        {
-          // for each found tile add 2 ^ i to the bitmask
-          tileOrientationBitmask[currentLayer] |= (1u << i);
-        }
-        i++;
-      }
-    }
+      auto pCurrentTileData = pCurrentTile->getMapNodeDataForLayer(currentLayer).tileData;
 
-    // only auto-tile categories that can be tiled.
-    if (mapNodes[x * m_columns + y] && mapNodes[x * m_columns + y]->getMapNodeDataForLayer(currentLayer).tileData &&
-        isLayerAutoTile(isoCoordinates, currentLayer))
-    {
-      unsigned int i = 0;
-      for (const auto &it : adjecantNodesCoordinates)
+      if (pCurrentTileData)
       {
-        if ((it.first >= 0 && it.first < m_rows && it.second >= 0 && it.second < m_columns) &&
-            (mapNodes[it.first * m_columns + it.second] &&
-             mapNodes[it.first * m_columns + it.second]->getMapNodeDataForLayer(currentLayer).tileData &&
-             mapNodes[x * m_columns + y] && mapNodes[x * m_columns + y]->getMapNodeDataForLayer(currentLayer).tileData &&
-             ((mapNodes[it.first * m_columns + it.second]->getMapNodeDataForLayer(currentLayer).tileID ==
-               mapNodes[x * m_columns + y]->getMapNodeDataForLayer(currentLayer).tileID) ||
-              (mapNodes[it.first * m_columns + it.second]->isLayerAutoTile(currentLayer) &&
-               isLayerAutoTile(isoCoordinates, currentLayer)))))
+        std::pair<int, int> adjecantNodesCoordinates[8]{
+            std::make_pair(x, y + 1),     // 0 = 2^0 = 1   = TOP
+            std::make_pair(x, y - 1),     // 1 = 2^1 = 2   = BOTTOM
+            std::make_pair(x - 1, y),     // 2 = 2^2 = 4   = LEFT
+            std::make_pair(x + 1, y),     // 3 = 2^3 = 8   = RIGHT
+            std::make_pair(x - 1, y + 1), // 4 = 2^4 = 16  = TOP LEFT
+            std::make_pair(x + 1, y + 1), // 5 = 2^5 = 32  = TOP RIGHT
+            std::make_pair(x - 1, y - 1), // 6 = 2^6 = 64  = BOTTOM LEFT
+            std::make_pair(x + 1, y - 1)  // 7 = 2^7 = 128 = BOTTOM RIGHT
+        };
+
+        if (pCurrentTileData->tileType == +TileType::TERRAIN)
         {
-          // for each found tile add 2 ^ i to the bitmask
-          tileOrientationBitmask[currentLayer] |= (1u << i);
+          unsigned int i = 0;
+          for (const auto &it : adjecantNodesCoordinates)
+          {
+            if ((it.first >= 0 && it.first < m_rows && it.second >= 0 && it.second < m_columns) &&
+                (mapNodes[it.first * m_columns + it.second] &&
+                 mapNodes[it.first * m_columns + it.second]->getMapNodeDataForLayer(Layer::WATER).tileData &&
+                 mapNodes[it.first * m_columns + it.second]->getMapNodeDataForLayer(Layer::WATER).tileData->tileType ==
+                     +TileType::WATER))
+            {
+              // for each found tile add 2 ^ i to the bitmask
+              tileOrientationBitmask[currentLayer] |= (1u << i);
+            }
+            i++;
+          }
         }
-        i++;
+
+        // only auto-tile categories that can be tiled.
+        if (isLayerAutoTile(isoCoordinates, currentLayer))
+        {
+          unsigned int i = 0;
+          for (const auto &it : adjecantNodesCoordinates)
+          {
+            const int secondTileIdx = it.first * m_columns + it.second;
+            if ((it.first >= 0 && it.first < m_rows && it.second >= 0 && it.second < m_columns) &&
+                (mapNodes[secondTileIdx] && mapNodes[secondTileIdx]->getMapNodeDataForLayer(currentLayer).tileData &&
+                 ((mapNodes[secondTileIdx]->getMapNodeDataForLayer(currentLayer).tileID ==
+                   pCurrentTile->getMapNodeDataForLayer(currentLayer).tileID) ||
+                  (pCurrentTileData->tileType == +TileType::ROAD))))
+            {
+              // for each found tile add 2 ^ i to the bitmask
+              tileOrientationBitmask[currentLayer] |= (1u << i);
+            }
+            i++;
+          }
+        }
       }
     }
   }
@@ -404,8 +412,6 @@ SDL_Color Map::getColorOfPixelInSurface(SDL_Surface *surface, int x, int y) cons
 
 Point Map::findNodeInMap(const SDL_Point &screenCoordinates) const
 {
-  Point foundCoordinates{-1, -1, 0, 0};
-
   // calculate clicked column (x coordinate) without height taken into account.
   const Point calculatedIsoCoords = calculateIsoCoordinates(screenCoordinates);
   int isoX = calculatedIsoCoords.x;
@@ -421,34 +427,42 @@ Point Map::findNodeInMap(const SDL_Point &screenCoordinates) const
     isoY -= diff;
   }
 
-  // traverse a column from top to bottom (from the calculated coordinates) our calculated point is always higher than the clicked point
-  while (isoX <= Settings::instance().mapSize && isoY <= Settings::instance().mapSize && isoY >= 0)
+#ifndef NDEBUG
+  int zOrder = INT_MAX;
+#endif
+  // Transerse a column form from calculated coordinates to the bottom of the map.
+  // It is necessary to include 2 neighbor nodes from both sides.
+  // Try to find map node in Z order.
+  // Node with the highest Z order has highest X and lowest Y coordinate, so search will be conducted in that order.
+  const int neighborReach = 2;
+  const int mapSize = Settings::instance().mapSize;
+
+  // Max X will reach end of the map or Y will reach 0.
+  const int xMax = std::min(isoX + neighborReach + isoY, mapSize - 1);
+  // Min X will reach 0 or x -2 neighbor node.
+  const int xMin = std::max(isoX - neighborReach, 0);
+
+  for (int x = xMax; x >= xMin; --x)
   {
-    // include 2 columns on each side, since calculated values can be that far off
-    for (int i = 0; i <= 2; i++)
+    const int diff = x - isoX;
+    const int yMiddlePoint = isoY - diff;
+
+    // Move y up and down 2 neighbors.
+    for (int y = std::max(yMiddlePoint - neighborReach, 0); (y <= yMiddlePoint + neighborReach) && (y < mapSize); ++y)
     {
-      if (isClickWithinTile(screenCoordinates, isoX, isoY) &&
-          (foundCoordinates.z < mapNodes[isoX * m_columns + isoY]->getCoordinates().z))
+#ifndef NDEBUG
+      // Assert asumption that we test all nodes in correct Z order
+      assert(zOrder > mapNodes[x * m_columns + y]->getCoordinates().z);
+      zOrder = mapNodes[x * m_columns + y]->getCoordinates().z;
+#endif
+      if (isClickWithinTile(screenCoordinates, x, y))
       {
-        foundCoordinates = mapNodes[isoX * m_columns + isoY]->getCoordinates();
-      }
-      if (isClickWithinTile(screenCoordinates, isoX + i, isoY) &&
-          (foundCoordinates.z < mapNodes[(isoX + i) * m_columns + isoY]->getCoordinates().z))
-      {
-        foundCoordinates = mapNodes[(isoX + i) * m_columns + isoY]->getCoordinates();
-      }
-      if (isClickWithinTile(screenCoordinates, isoX, isoY - i) &&
-          (foundCoordinates.z < mapNodes[isoX * m_columns + (isoY - i)]->getCoordinates().z))
-      {
-        foundCoordinates = mapNodes[isoX * m_columns + (isoY - i)]->getCoordinates();
+        return mapNodes[x * m_columns + y]->getCoordinates();
       }
     }
-    // travel the column downwards.
-    isoX++;
-    isoY--;
   }
 
-  return foundCoordinates;
+  return Point{-1, -1, 0, 0};
 }
 
 void Map::demolishNode(const std::vector<Point> &isoCoordinates, bool updateNeighboringTiles, Layer layer)
@@ -598,38 +612,26 @@ void Map::unHighlightNode(const Point &isoCoordinates)
 
 void Map::saveMapToFile(const std::string &fileName)
 {
+  //create savegame json string
   const json j =
       json{{"Savegame version", SAVEGAME_VERSION}, {"columns", this->m_columns}, {"rows", this->m_rows}, {"mapNode", mapNodes}};
 
-  std::ofstream file(SDL_GetBasePath() + fileName, std::ios_base::out | std::ios_base::binary);
-
 #ifdef DEBUG
   // Write uncompressed savegame for easier debugging
-  std::ofstream fileuncompressed(SDL_GetBasePath() + fileName + "_UNCOMPRESSED", std::ios_base::out | std::ios_base::binary);
-  fileuncompressed << j.dump();
+  fs::writeStringToFile(fileName + ".txt", j.dump());
 #endif
 
   const std::string compressedSaveGame = compressString(j.dump());
 
   if (!compressedSaveGame.empty())
   {
-    file << compressedSaveGame;
+    fs::writeStringToFile(fileName, compressedSaveGame, true);
   }
-  file.close();
 }
 
 Map *Map::loadMapFromFile(const std::string &fileName)
 {
-  std::stringstream buffer;
-  {
-    std::ifstream file(SDL_GetBasePath() + fileName, std::ios_base::in | std::ios_base::binary);
-    if (!file)
-      throw ConfigurationError(TRACE_INFO "Could not load savegame file " + fileName);
-    buffer << file.rdbuf();
-  }
-
-  std::string jsonAsString;
-  jsonAsString = decompressString(buffer.str());
+  std::string jsonAsString = decompressString(fs::readFileAsString(fileName, true));
 
   if (jsonAsString.empty())
     return nullptr;
@@ -688,4 +690,30 @@ bool Map::isNodeMultiObject(const Point &isoCoordinates, Layer layer)
     return (mapNode->getTileData(layer)->RequiredTiles.height > 1 && mapNode->getTileData(layer)->RequiredTiles.width > 1);
   }
   return false;
+}
+
+bool Map::isAllowSetTileId(const Layer layer, const MapNode *const pMapNode)
+{
+  switch (layer)
+  {
+  case Layer::ROAD:
+    // During road construction, do not place new road tile over the old one
+    if (pMapNode->isLayerOccupied(layer))
+    {
+      return false;
+    }
+    break;
+  case Layer::ZONE:
+    if ((pMapNode->isLayerOccupied(Layer::BUILDINGS) &&
+         pMapNode->getMapNodeDataForLayer(Layer::BUILDINGS).tileData->category != "Flora") ||
+        pMapNode->isLayerOccupied(Layer::WATER) || pMapNode->isLayerOccupied(Layer::ROAD) || pMapNode->isSlopeNode())
+    {
+      return false;
+    }
+    break;
+  default:
+    break;
+  }
+
+  return true;
 }

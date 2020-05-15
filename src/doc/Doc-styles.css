@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300&display=swap');
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, table, div, p, dl {
+  font: lighter 14px/22px 'Inter', sans-serif;
+}
+
+p.reference, p.definition {
+  font: lighter 14px/22px 'Inter', sans-serif;
+}
+
+h1.groupheader {
+  font-size: 150%;
+}
+
+.title {
+  font: lighter 14px/28px 'Inter', sans-serif;
+  font-size: 150%;
+  font-weight: bold;
+  margin: 10px 2px;
+}
+
+#nav-path > ul {
+  background-image: none;
+  background-color: hsl(0, 0%, 90%);
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+ul.sm-dox {
+  background-image: none;
+  background-color: hsl(0, 0%, 90%);
+}
+
+ul.sm-dox > li > a {
+  background-image: none;
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  color: black;
+}
+
+ul.sm-dox > li > a:hover {
+  background-image: none;
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  color: black;
+  text-shadow: none;
+}
+
+ul.sm-dox > li > a:hover > span.sub-arrow {
+  border-color: #283A5D transparent transparent transparent;
+}
+
+ul.sm-dox > li > a.highlighted {
+  background-image: none;
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  color: black;
+  text-shadow: none;
+}
+
+.ui-resizable-e {
+  background-image: none;
+  background-color: hsl(0, 0%, 90%);
+}
+
+#powerTip div {
+  margin: 0px;
+  padding: 0px;
+  font: lighter 12px/16px 'Inter',sans-serif;
+}
+
+#projectname
+{
+  font: lighter 300% 'Inter',sans-serif;
+  margin: 0px;
+  padding: 2px 0px;
+}
+
+#projectbrief
+{
+  font: lighter 120% 'Inter',sans-serif;
+  margin: 0px;
+  padding: 0px;
+}
+
+#projectnumber
+{
+  font: lighter 50% 'Inter',sans-serif;
+  margin: 0px;
+  padding: 0px;
+}
+
+table.directory {
+  font: 300 14px 'Inter',sans-serif;
+}
+
+#titlearea {
+  padding-bottom: 10px;
+  border-bottom: none;
+}
+
+div.header {
+  background-color: hsl(0, 0%, 80%);
+  background-image: none;
+}
+
+#nav-tree {
+  background-image: none;
+}
+
+.contents a {
+  color: #FF771E;
+}
+
+.contents a:visited {
+  color: #FF771E;
+}
+
+.contents a:hover {
+  color: #FF771E;
+}
+
+h1, h2, h3, h4 {
+  font-weight: 300;
+}

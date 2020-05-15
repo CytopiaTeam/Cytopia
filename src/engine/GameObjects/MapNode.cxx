@@ -87,15 +87,6 @@ void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
     case Layer::BUILDINGS:
       m_mapNodeData[Layer::ZONE].shouldRender = false;
       break;
-    case Layer::ZONE:
-      // we are placing a zone.
-      if ((isLayerOccupied(Layer::BUILDINGS) && m_mapNodeData[Layer::BUILDINGS].tileData->category != "Flora") ||
-          isLayerOccupied(Layer::WATER) || isLayerOccupied(Layer::ROAD) || isSlopeNode())
-      {
-        // zone layer should be ignored.
-        return;
-      }
-      break;
     default:
       break;
     }
@@ -208,8 +199,12 @@ bool MapNode::isPlacementAllowed(const std::string &newTileID) const
     switch (layer)
     {
     case Layer::ROAD:
-      if ((isLayerOccupied(Layer::BUILDINGS) && (m_mapNodeData[Layer::BUILDINGS].tileData->category != "Flora")) ||
-          isLayerOccupied(Layer::WATER) || !isPlacableOnSlope(newTileID))
+      if (isLayerOccupied(Layer::ROAD))
+      {
+        return true;
+      }
+      else if ((isLayerOccupied(Layer::BUILDINGS) && (m_mapNodeData[Layer::BUILDINGS].tileData->category != "Flora")) ||
+               isLayerOccupied(Layer::WATER) || !isPlacableOnSlope(newTileID))
       {
         return false;
       }
@@ -281,7 +276,7 @@ void MapNode::updateTexture(const Layer &layer)
           }
         }
         // if the node should autotile, check if it needs to tile itself to another tile of the same ID
-        else if (isLayerAutoTile(currentLayer) && this->getTileID(currentLayer) == m_mapNodeData[currentLayer].tileID)
+        else if (isLayerAutoTile(currentLayer) && (this->getTileID(currentLayer) == m_mapNodeData[currentLayer].tileID))
         {
           m_autotileOrientation[currentLayer] = TileManager::instance().calculateTileOrientation(m_autotileBitmask[currentLayer]);
         }

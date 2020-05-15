@@ -2,6 +2,7 @@
 #include "LOG.hxx"
 #include "Exception.hxx"
 #include "Settings.hxx"
+#include "Filesystem.hxx"
 
 #ifdef USE_MOFILEREADER
 #include "moFileReader.h"
@@ -36,12 +37,10 @@ void Text::setFontSize(int fontSize)
 
 void Text::createTextTexture(const std::string &text, const SDL_Color &textColor)
 {
-  string fontFName = SDL_GetBasePath() + Settings::instance().fontFileName.get();
+  string fontFName = fs::getBasePath() + Settings::instance().fontFileName.get();
 
-  /* @todo: Remove comment once we have support for the filesystem library
-  if(!fs::is_regular_file(fontFName))
-    throw ConfigurationError(TRACE_INFO "File " + fontFName.string() + " doesn't exist");
-  */
+  if (!fs::fileExists(fontFName))
+    throw ConfigurationError(TRACE_INFO "File " + fontFName + " doesn't exist");
 
   TTF_Font *font = TTF_OpenFont(fontFName.c_str(), m_fontSize);
 

@@ -25,3 +25,4 @@ sdl2_mixer:opus=False
 sdl2_mixer:mikmod=False
 sdl2_mixer:modplug=False
 sdl2_mixer:fluidsynth=False
+*:shared=False

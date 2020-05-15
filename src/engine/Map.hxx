@@ -2,6 +2,7 @@
 #define MAP_HXX_
 
 #include <vector>
+#include <random>
 
 #include "GameObjects/MapNode.hxx"
 #include "map/TerrainGenerator.hxx"
@@ -15,7 +16,7 @@ public:
   std::vector<std::unique_ptr<MapNode>> mapNodes;
   std::vector<MapNode *> mapNodesInDrawingOrder;
 
-  Map() = default;
+  Map() = delete;
   Map(int columns, int rows);
   ~Map() = default;
 
@@ -87,6 +88,7 @@ public:
         break;
       }
     }
+
     if (isOkToSet)
     {
       int groundtileIndex = -1;
@@ -94,25 +96,32 @@ public:
       {
         bool shouldRender = !(!isMultiObjects && it != begin);
         Layer layer = TileManager::instance().getTileLayer(tileID);
+        const auto pCurrentMapNode = mapNodes[it->x * m_columns + it->y].get();
+
+        if (!isAllowSetTileId(layer, pCurrentMapNode))
+        {
+          continue;
+        }
+
         // only demolish nodes before placing if this is a bigger than 1x1 building
         if (!isMultiObjects)
         {
           demolishNode(std::vector<Point>{*it}, 0, Layer::BUILDINGS);
         }
-        mapNodes[it->x * m_columns + it->y]->setRenderFlag(layer, shouldRender);
-        mapNodes[it->x * m_columns + it->y]->setTileID(tileID, isMultiObjects ? *it : *begin);
-        if (mapNodes[it->x * m_columns + it->y]->getMapNodeDataForLayer(layer).tileData &&
-            !mapNodes[it->x * m_columns + it->y]->getMapNodeDataForLayer(layer).tileData->groundDecoration.empty() &&
-            groundtileIndex == -1)
+
+        pCurrentMapNode->setRenderFlag(layer, shouldRender);
+        pCurrentMapNode->setTileID(tileID, isMultiObjects ? *it : *begin);
+        if (pCurrentMapNode->getMapNodeDataForLayer(layer).tileData &&
+            !pCurrentMapNode->getMapNodeDataForLayer(layer).tileData->groundDecoration.empty() && groundtileIndex == -1)
         {
-          groundtileIndex =
-              rand() % mapNodes[it->x * m_columns + it->y]->getMapNodeDataForLayer(layer).tileData->groundDecoration.size();
+          const int groundDecoSize = pCurrentMapNode->getMapNodeDataForLayer(layer).tileData->groundDecoration.size();
+          std::uniform_int_distribution uniformDistribution(0, groundDecoSize - 1);
+          groundtileIndex = uniformDistribution(randomEngine);
         }
         if (groundtileIndex != -1)
         {
-          mapNodes[it->x * m_columns + it->y]->setTileID(
-              mapNodes[it->x * m_columns + it->y]->getMapNodeDataForLayer(layer).tileData->groundDecoration[groundtileIndex],
-              isMultiObjects ? *it : *begin);
+          pCurrentMapNode->setTileID(pCurrentMapNode->getMapNodeDataForLayer(layer).tileData->groundDecoration[groundtileIndex],
+                                     isMultiObjects ? *it : *begin);
         }
         //For layers that autotile to each other, we need to update their neighbors too
         if (MapNode::isDataAutoTile(TileManager::instance().getTileData(tileID)))
@@ -199,6 +208,7 @@ public:
 private:
   int m_columns;
   int m_rows;
+  std::default_random_engine randomEngine;
 
   TerrainGenerator m_terrainGen;
 
@@ -244,6 +254,13 @@ private:
   SDL_Color getColorOfPixelInSurface(SDL_Surface *surface, int x, int y) const;
 
   bool isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int isoY) const;
+
+  /* \brief Filter out tiles which should not be set over existing one.
+  * @param layer Layer in which tileId should be set.
+  * @param pMapNode pointer to the MapNode which ID should be set.
+  * @return true in case that tileId is allowed to be set, otherwise false (filter it out).
+  */
+  bool isAllowSetTileId(const Layer layer, const MapNode *const pMapNode);
 };
 
 #endif
