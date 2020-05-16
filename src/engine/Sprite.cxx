@@ -30,18 +30,12 @@ void Sprite::render() const
     {
       if (highlightSprite)
       {
-        if (SDL_SetTextureColorMod(m_SpriteData[currentLayer].texture, highlightColor.r, highlightColor.g, highlightColor.b))
-        {
-          //TODO indicates failure - an approperiate LOG message should be printed.
-        }
+        SDL_SetTextureColorMod(m_SpriteData[currentLayer].texture, highlightColor.r, highlightColor.g, highlightColor.b);
       }
 
       if (transparentSprite)
       {
-        if (SDL_SetTextureAlphaMod(m_SpriteData[currentLayer].texture, alpha))
-        {
-          //TODO indicates failure - an approperiate LOG message should be printed.
-        }
+        SDL_SetTextureAlphaMod(m_SpriteData[currentLayer].texture, alpha);
       }
 
       if (m_SpriteData[currentLayer].clipRect.w != 0)
@@ -57,18 +51,12 @@ void Sprite::render() const
 
       if (highlightSprite)
       {
-        if (SDL_SetTextureColorMod(m_SpriteData[currentLayer].texture, 255, 255, 255))
-        {
-          //TODO indicates failure - an approperiate LOG message should be printed.
-        }
+        SDL_SetTextureColorMod(m_SpriteData[currentLayer].texture, 255, 255, 255);
       }
 
       if (transparentSprite)
       {
-        if (SDL_SetTextureAlphaMod(m_SpriteData[currentLayer].texture, 255))
-        {
-          //TODO indicates failure - an approperiate LOG message should be printed.
-        }
+        SDL_SetTextureAlphaMod(m_SpriteData[currentLayer].texture, 255);
       }
     }
   }
