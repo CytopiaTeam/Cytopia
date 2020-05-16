@@ -245,7 +245,7 @@ private:
   void changeHeight(const Point &isoCoordinates, const bool higher);
   void updateNodeNeighbors(std::vector<MapNode *> &nodes);
   unsigned char getElevatedNeighborBitmask(MapNode *pMapNode, const std::vector<NeighbourNode> &neighbours);
-  bool updateHeight(MapNode &mapNode, const bool higher, std::vector<NeighbourNode> neighbours);
+  bool updateHeight(MapNode &mapNode, const bool higher, std::vector<NeighbourNode> &neighbours);
 };
 
 #endif

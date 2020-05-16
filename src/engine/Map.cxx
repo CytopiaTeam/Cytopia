@@ -69,7 +69,7 @@ void Map::getNodeInformation(const Point &isoCoordinates) const
   const MapNode &mapNode = mapNodes[nodeIdx(isoCoordinates.x, isoCoordinates.y)];
   const MapNodeData &mapNodeData = mapNode.getActiveMapNodeData();
   const TileData *tileData = mapNodeData.tileData;
-  LOG(LOG_INFO) << "===== TILE at " << isoCoordinates.x << ", " << isoCoordinates.y << "=====";
+  LOG(LOG_INFO) << "===== TILE at " << isoCoordinates.x << ", " << isoCoordinates.y << ", " << mapNode.getCoordinates().height << "=====";
   LOG(LOG_INFO) << "[Layer: TERRAIN] ID: " << mapNode.getMapNodeDataForLayer(Layer::TERRAIN).tileID;
   LOG(LOG_INFO) << "[Layer: WATER] ID: " << mapNode.getMapNodeDataForLayer(Layer::WATER).tileID;
   LOG(LOG_INFO) << "[Layer: BUILDINGS] ID: " << mapNode.getMapNodeDataForLayer(Layer::BUILDINGS).tileID;
@@ -118,7 +118,7 @@ std::vector<NeighbourNode> Map::getNeighborNodes(const Point &isoCoordinates, co
   return neighbors;
 }
 
-bool Map::updateHeight(MapNode &mapNode, const bool higher, std::vector<NeighbourNode> neighbours)
+bool Map::updateHeight(MapNode &mapNode, const bool higher, std::vector<NeighbourNode> &neighbours)
 {
   if (mapNode.changeHeight(higher))
   {
@@ -139,11 +139,30 @@ bool Map::updateHeight(MapNode &mapNode, const bool higher, std::vector<Neighbou
 void Map::changeHeight(const Point &isoCoordinates, const bool higher)
 {
   MapNode &mapNode = mapNodes[nodeIdx(isoCoordinates.x, isoCoordinates.y)];
+  std::vector<MapNode *> nodesToUpdate{&mapNode};
+  auto neighbours = getNeighborNodes(isoCoordinates, true);
 
-  if (updateHeight(mapNode, higher, getNeighborNodes(isoCoordinates, true)))
+  if (updateHeight(mapNode, higher, neighbours))
   {
     demolishNode({isoCoordinates});
-    updateNodeNeighbors(std::vector<MapNode *>{&mapNode});
+
+    // If lowering node height, than all nodes around should be lowered to be on same height with the central one.
+    if (!higher)
+    {
+      const int centarHeight = mapNode.getCoordinates().height;
+
+      for (auto &neighbour : neighbours)
+      {
+        if (centarHeight < neighbour.pNode->getCoordinates().height)
+        {
+          neighbour.pNode->changeHeight(false);
+          demolishNode({neighbour.pNode->getCoordinates()});
+          nodesToUpdate.push_back(neighbour.pNode);
+        }
+      }
+    }
+
+    updateNodeNeighbors(nodesToUpdate);
   }
 }
 
@@ -225,44 +244,23 @@ void Map::updateNodeNeighbors(std::vector<MapNode *> &nodes)
           }
         }
 
-        for (const auto &elBitMask : elevateTileComb)
+        if (terrainEditMode != TerrainEdit::LOWER)
         {
-          if ((nodeTemps[pNode].elevationBitmask & elBitMask) == elBitMask)
+          for (const auto &elBitMask : elevateTileComb)
           {
-            if (terrainEditMode == TerrainEdit::LOWER)
+            if ((nodeTemps[pNode].elevationBitmask & elBitMask) == elBitMask)
             {
-              for (const auto &nn : nodeTemps[pNode].neighbours)
               {
-                const auto &neighborCoords = nn.pNode->getCoordinates();
+                nodesToRecalculate.insert(pNode);
 
-                if (neighborCoords.height > tileHeight)
+                if (updateHeight(*pNode, true, nodeTemps[pNode].neighbours))
                 {
-                  if (nodeTemps.count(nn.pNode) == 0)
-                  {
-                    nodeTemps[nn.pNode] = {getNeighborNodes(nn.pNode->getCoordinates(), false), 0};
-                  }
-
-                  nodesToBeUpdated.insert(nn.pNode);
-                  nodesToRecalculate.insert(nn.pNode);
-
-                  if (updateHeight(*nn.pNode, false, nodeTemps[nn.pNode].neighbours))
-                  {
-                    nodeTemps[pNode].elevationBitmask = getElevatedNeighborBitmask(pNode, nodeTemps[pNode].neighbours);
-                  }
+                  nodeTemps[pNode].elevationBitmask = getElevatedNeighborBitmask(pNode, nodeTemps[pNode].neighbours);
                 }
               }
-            }
-            else
-            {
-              nodesToRecalculate.insert(pNode);
 
-              if (updateHeight(*pNode, true, nodeTemps[pNode].neighbours))
-              {
-                nodeTemps[pNode].elevationBitmask = getElevatedNeighborBitmask(pNode, nodeTemps[pNode].neighbours);
-              }
+              break;
             }
-
-            break;
           }
         }
       }
@@ -283,10 +281,7 @@ void Map::updateNodeNeighbors(std::vector<MapNode *> &nodes)
   }
 }
 
-void Map::updateAllNodes()
-{
-  updateNodeNeighbors(mapNodesInDrawingOrder);
-}
+void Map::updateAllNodes() { updateNodeNeighbors(mapNodesInDrawingOrder); }
 
 bool Map::isPlacementOnNodeAllowed(const Point &isoCoordinates, const std::string &tileID) const
 {
