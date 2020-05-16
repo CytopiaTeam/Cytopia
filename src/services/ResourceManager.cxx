@@ -90,31 +90,29 @@ int ResourceManager::LoadAudioWithOggVorbis(std::string path, DecodedAudioData& 
 	//number of bytes returned
     long ret = ov_read(&vf,pcmout,4096,0,2,1,&current_section);
     
-    //if there is no more content
-    if (ret == 0) 
+    //check for errors
+    //insert char data into audio buffer if there are no errors
+    switch(ret)
     {
-      /* EOF */
-      eof = true;
-    } 
-    else if(ret == OV_HOLE)
-	{
-		LOG(LOG_ERROR) << "ERROR: OV_HOLE found in initial read of buffer\n";
-		return -1;
+		case 0:
+			eof = true; break;
+		case OV_HOLE:
+			LOG(LOG_ERROR) << "ERROR: OV_HOLE found in initial read of buffer\n";
+			return -1;
+			break;
+		case OV_EBADLINK:
+			LOG(LOG_ERROR) << "ERROR: OV_EBADLINK found in initial read of buffer\n";
+			return -1;
+			break;
+		case OV_EINVAL:
+			LOG(LOG_ERROR) << "ERROR: OV_EINVAL found in initial read of buffer\n";
+			return -1;
+			break;
+		default:
+			dAudioBuffer.char_data_vec.insert(dAudioBuffer.char_data_vec.end(), pcmout, pcmout + ret);
+			break;
 	}
-	else if(ret == OV_EBADLINK)
-	{
-		LOG(LOG_ERROR) << "ERROR: OV_EBADLINK found in initial read of buffer\n";
-		return -1;
-	}
-	else if(ret == OV_EINVAL)
-	{
-		LOG(LOG_ERROR) << "ERROR: OV_EINVAL found in initial read of buffer\n";
-		return -1;
-	}
-    else
-    {
-		dAudioBuffer.char_data_vec.insert(dAudioBuffer.char_data_vec.end(), pcmout, pcmout + ret);
-	}
+	
   }
   
   //set number of bytes in buffer
