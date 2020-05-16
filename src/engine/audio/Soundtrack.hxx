@@ -6,20 +6,22 @@
 
 #include "../../util/Meta.hxx"
 
-#ifdef USE_AUDIO
 #include "AL/al.h"
 #include "AL/alc.h"
 
 #include <vector>
-
-#endif
 
 using std::string;
 using ChannelID = StrongType<int, struct ChannelIDTag>;
 using SoundtrackID = StrongType<string, struct SoundtrackIDTag>;
 using RepeatCount = StrongType<uint8_t, struct RepeatCountTag>;
 
-
+/**
+   * @brief Container for raw pcm data that read from .ogg sound file
+   * @details raw pcm data is held in a vector of type char. 
+   * @param nBytes is the length of sample in bytes
+   * @param data_sample_rate is the  sample rate of audio sample assuming it is just 1 sample rate
+   */
 struct DecodedAudioData
 {
 	std::vector <char> char_data_vec; //pcm audio data
@@ -63,7 +65,6 @@ struct Soundtrack
    */
   bool isPlayable : 1;
 
-#ifdef USE_AUDIO
 
   /**
    * @brief The OpenAL source of the sound track
@@ -86,20 +87,16 @@ struct Soundtrack
    */
   ALuint effect_slot;
   
-#else // USE_OPENAL_SOFT
 
   /**
    * @brief The WAVE data of the Soundtrack
    */
-  //Mix_Chunk *Chunks;
   
   /**
    * @brief The audio data of the Soundtrack
    */
-  //ogg_packet oggBuffer;
   DecodedAudioData dAudioDataBuffer;
 
-#endif // USE_OPENAL_SOFT
 
   Soundtrack(SoundtrackID, ChannelID, DecodedAudioData*, RepeatCount, bool, bool, bool, bool);
   ~Soundtrack();

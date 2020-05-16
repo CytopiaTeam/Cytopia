@@ -286,28 +286,6 @@ void Game::run(bool SkipMenu)
 #ifdef USE_AUDIO
   if (!Settings::instance().audio3DStatus)
   {
-	  /*
-	StandardReverbProperties temp_rev_prop = {
-		1.0,	//flDensity
-		1.0,	//flDiffusion
-		0.8,	//flGain
-		0.89,	//flGainHF
-		3.00,	//flDecayTime
-		0.83,	//flDecayHFRatio
-		0.05,	//flReflectionsGain
-		0.007,	//flReflectionsDelay
-		1.26,	//flLateReverbGain
-		0.011,	//flLateReverbDelay
-		0.994,	//flAirAbsorptionGainHF
-		0.0	//flRoomRolloffFactor
-	};
-	*/
-	
-	//use default values
-	//EchoProperties temp_echo_prop;
-	
-    //m_GameClock.createRepeatedTask(8min, [this, &temp_echo_prop]() { m_AudioMixer.play(AudioTrigger::MainTheme,temp_echo_prop); });
-    //m_GameClock.createRepeatedTask(8min, [this, &temp_rev_prop]() { m_AudioMixer.play(AudioTrigger::MainTheme,temp_rev_prop); });
     m_GameClock.createRepeatedTask(8min, [this]() { m_AudioMixer.play(AudioTrigger::MainTheme); });
     m_GameClock.createRepeatedTask(3min, [this]() { m_AudioMixer.play(AudioTrigger::NatureSounds); });
   }

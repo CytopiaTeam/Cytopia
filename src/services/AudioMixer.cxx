@@ -34,8 +34,6 @@ AudioMixer::AudioMixer(GameService::ServiceTuple &context) : GameService(context
   for (auto &item : audioConfig.Sound)
     for (auto &trigger : item.second.triggers)
       m_Triggers[trigger].emplace_back(item.first);
-
-#ifdef USE_AUDIO
   
   /* use default audio device */
   gAudioDevice = alcOpenDevice(nullptr);
@@ -77,9 +75,6 @@ AudioMixer::AudioMixer(GameService::ServiceTuple &context) : GameService(context
   GetService<GameClock>().createRepeatedTask(5min, [&mixer = *this]() { mixer.prune(); });
   
   LOG(LOG_DEBUG) << "Created AudioMixer";
-#else  // USE_AUDIO
-  
-#endif // USE_AUDIO
   
 }
 
@@ -89,10 +84,9 @@ AudioMixer::~AudioMixer()
   int _discard;
   Uint16 _discard2;
   
-#ifdef USE_AUDIO
   alcDestroyContext(alContext); //delete context
   alcCloseDevice(gAudioDevice); //close device
-#endif
+
   LOG(LOG_DEBUG) << "Destroyed AudioMixer";
 }
 
@@ -116,76 +110,57 @@ void AudioMixer::play(SoundtrackID &&ID) noexcept { GetService<GameLoopMQ>().pus
 
 void AudioMixer::play(AudioTrigger &&trigger) noexcept { GetService<GameLoopMQ>().push(AudioTriggerEvent{trigger}); }
 
-#ifdef USE_AUDIO
+
 void AudioMixer::play(SoundtrackID &&ID, Coordinate3D &&position) noexcept
 {
   GetService<GameLoopMQ>().push(AudioPlay3DEvent{ID, position});
 }
-#endif
 
-#ifdef USE_AUDIO
+
 void AudioMixer::play(AudioTrigger &&trigger, Coordinate3D &&position) noexcept
 {
   GetService<GameLoopMQ>().push(AudioTrigger3DEvent{trigger, position});
 }
 
-#endif
-
-#ifdef USE_AUDIO
 void AudioMixer::play(SoundtrackID &&ID, StandardReverbProperties& reverb_properties) noexcept
 {
   GetService<GameLoopMQ>().push(AudioPlayReverbEvent{ID, reverb_properties});
 }
-#endif
 
-#ifdef USE_AUDIO
 void AudioMixer::play(SoundtrackID &&ID, EchoProperties& echo_properties) noexcept
 {
   GetService<GameLoopMQ>().push(AudioPlayEchoEvent{ID, echo_properties});
 }
-#endif
 
-#ifdef USE_AUDIO
 void AudioMixer::play(AudioTrigger &&trigger, StandardReverbProperties& reverb_properties) noexcept
 {
   GetService<GameLoopMQ>().push(AudioTriggerReverbEvent{trigger, reverb_properties});
 }
-#endif
 
-#ifdef USE_AUDIO
 void AudioMixer::play(AudioTrigger &&trigger, EchoProperties& echo_properties) noexcept
 {
   GetService<GameLoopMQ>().push(AudioTriggerEchoEvent{trigger, echo_properties});
 }
-#endif
 
-#ifdef USE_AUDIO
 void AudioMixer::play(SoundtrackID &&ID, Coordinate3D &&position, StandardReverbProperties& reverb_properties) noexcept
 {
   GetService<GameLoopMQ>().push(AudioPlayReverb3DEvent{ID, position, reverb_properties});
 }
-#endif
 
-#ifdef USE_AUDIO
 void AudioMixer::play(SoundtrackID &&ID, Coordinate3D &&position, EchoProperties& echo_properties) noexcept
 {
   GetService<GameLoopMQ>().push(AudioPlayEcho3DEvent{ID, position, echo_properties});
 }
-#endif
 
-#ifdef USE_AUDIO
 void AudioMixer::play(AudioTrigger &&trigger, Coordinate3D &&position, StandardReverbProperties& reverb_properties) noexcept
 {
   GetService<GameLoopMQ>().push(AudioTriggerReverb3DEvent{trigger, position,reverb_properties});
 }
-#endif
 
-#ifdef USE_AUDIO
 void AudioMixer::play(AudioTrigger &&trigger, Coordinate3D &&position, EchoProperties& echo_properties) noexcept
 {
   GetService<GameLoopMQ>().push(AudioTriggerEcho3DEvent{trigger, position,echo_properties});
 }
-#endif
 
 void AudioMixer::setMuted(bool isMuted) noexcept { GetService<GameLoopMQ>().push(AudioSetMutedEvent{isMuted}); }
 
@@ -218,7 +193,6 @@ void AudioMixer::handleEvent(const AudioPlayEvent &&event)
   playSoundtrack(track);
 }
 
-#ifdef USE_AUDIO
 
 void AudioMixer::handleEvent(const AudioTrigger3DEvent &&event)
 {
@@ -346,8 +320,6 @@ void AudioMixer::handleEvent(const AudioPlayEcho3DEvent &&event)
   playSoundtrackWithEcho(track,event.echo_properties);
 }
 
-
-#endif // USE_AUDIO
 
 void AudioMixer::handleEvent(const AudioSoundVolumeChangeEvent &&event)
 {

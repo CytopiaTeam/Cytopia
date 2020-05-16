@@ -50,11 +50,9 @@ ResourceManager::ResourceManager(GameService::ServiceTuple &services) : GameServ
 }
 
 
-//#ifdef USE_AUDIO
-static int LoadAudioWithOggVorbis(std::string path, DecodedAudioData& dAudioBuffer)
+#ifdef USE_AUDIO
+int ResourceManager::LoadAudioWithOggVorbis(std::string path, DecodedAudioData& dAudioBuffer)
 {
-  //0 means success
-  //-1 means failure
   
   OggVorbis_File vf;
   bool eof = false;
@@ -74,20 +72,8 @@ static int LoadAudioWithOggVorbis(std::string path, DecodedAudioData& dAudioBuff
   //check if file is an vorbis ogg file
   if(ov_fopen(path.c_str(),&vf) < 0) 
   {
-      fprintf(stderr,"Input does not appear to be an Ogg bitstream.\n");
+	  LOG(LOG_ERROR) << "Input does not appear to be an Ogg bitstream. \n" << stderr;
       return -1;
-  }
-
-  {
-    char **ptr=ov_comment(&vf,-1)->user_comments;
-    vorbis_info *vi=ov_info(&vf,-1);
-    while(*ptr){
-      fprintf(stderr,"%s\n",*ptr);
-      ++ptr;
-    }
-    
-    LOG(LOG_DEBUG) << "Bitstream is " << vi->channels << "channel, " << vi->rate;
-    LOG(LOG_DEBUG) << "Encoded by: " << ov_comment(&vf,-1)->vendor;
   }
   
   //readwhile end of file has not been reached yet
@@ -112,33 +98,21 @@ static int LoadAudioWithOggVorbis(std::string path, DecodedAudioData& dAudioBuff
     } 
     else if(ret == OV_HOLE)
 	{
-		LOG(LOG_INFO) << "ERROR: OV_HOLE found in initial read of buffer\n";
+		LOG(LOG_ERROR) << "ERROR: OV_HOLE found in initial read of buffer\n";
 		return -1;
 	}
 	else if(ret == OV_EBADLINK)
 	{
-		LOG(LOG_INFO) << "ERROR: OV_EBADLINK found in initial read of buffer\n";
+		LOG(LOG_ERROR) << "ERROR: OV_EBADLINK found in initial read of buffer\n";
 		return -1;
 	}
 	else if(ret == OV_EINVAL)
 	{
-		LOG(LOG_INFO) << "ERROR: OV_EINVAL found in initial read of buffer\n";
+		LOG(LOG_ERROR) << "ERROR: OV_EINVAL found in initial read of buffer\n";
 		return -1;
 	}
-    //else if no error
     else
     {
-		
-		//convert from char to uint and push into buffer
-		
-		/*
-		for(size_t i=0; i < 4096; i++)
-		{
-			uint16_t val = (uint16_t)pcmout[i];
-			dAudioBuffer.uint_data_vec.push_back(val);
-		}
-		*/
-		
 		dAudioBuffer.char_data_vec.insert(dAudioBuffer.char_data_vec.end(), pcmout, pcmout + ret);
 	}
   }
@@ -153,13 +127,10 @@ static int LoadAudioWithOggVorbis(std::string path, DecodedAudioData& dAudioBuff
   //clear data
   ov_clear(&vf);
       
-  LOG(LOG_DEBUG) << "Load Successful!\n";
+  LOG(LOG_DEBUG) << "Audio data read successful! Loaded into decoded audio buffer.\n";
   return 0;
 }
 
-//#endif
-
-#ifdef USE_AUDIO
 void ResourceManager::fetch(SoundtrackID id)
 {
   if (m_soundtracks.count(id) > 0)
@@ -182,7 +153,7 @@ void ResourceManager::fetch(SoundtrackID id)
   else
     filepath = fs::getBasePath() + config->stereoFilePath;
   LOG(LOG_INFO) << "Fetching " << id.get() << " at " << filepath;
-  //Mix_Chunk *chunk = Mix_LoadWAV(filepath.c_str());
+  
   DecodedAudioData dataBuffer;
   if( LoadAudioWithOggVorbis(filepath.c_str(),dataBuffer) == -1)
   {

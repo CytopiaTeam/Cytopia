@@ -72,8 +72,18 @@ public:
    *  @throws AudioError when loading the file results in an error
    */
   void fetch(SoundtrackID);
-#endif // USE_AUDIO
 
+
+/**
+   *  @brief Reads audio data from vorbis .ogg file and loads it into dAudioBuffer
+   *  @param path is the filepath to the audio file
+   *  @param 
+   *  @throws AudioError when loading the file results in an error.
+   *  @return returns -1 if failed, returns 0 if successful
+   */ 
+int LoadAudioWithOggVorbis(std::string path, DecodedAudioData& dAudioBuffer);
+
+#endif // USE_AUDIO
   /**
    *  @brief Fetches and return a Soundtrack
    *  @param ResourceID the id of the resource

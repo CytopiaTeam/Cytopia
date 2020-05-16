@@ -17,3 +17,5 @@ OpenSSL/1.1.1c@conan/stable
 @_CC_OPENAL_SOFT@openal/1.19.0@bincrafters/stable
 zlib/1.2.11
 
+[options]
+sdl2:iconv=False
