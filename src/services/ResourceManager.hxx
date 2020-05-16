@@ -77,7 +77,7 @@ public:
 /**
    *  @brief Reads audio data from vorbis .ogg file and loads it into dAudioBuffer
    *  @param path is the filepath to the audio file
-   *  @param 
+   *  @param dAudioBuffer is the container for pcm audio data.
    *  @throws AudioError when loading the file results in an error.
    *  @return returns -1 if failed, returns 0 if successful
    */ 
