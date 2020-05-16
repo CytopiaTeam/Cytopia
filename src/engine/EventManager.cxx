@@ -299,11 +299,11 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           }
 
           // cancelling transparent buildings
-          for (auto it = m_transparentBuildings.begin(); it != m_transparentBuildings.end(); ++it)
+          for (const auto &it : m_transparentBuildings)
           {
-            if (*it != UNDEFINED_POINT)
+            if (it != UNDEFINED_POINT)
             {
-              (engine.map->getMapNode(*it))->setNodeTransparency(0);
+              (engine.map->getMapNode(it))->setNodeTransparency(0);
             }
           }
           m_transparentBuildings.clear();
