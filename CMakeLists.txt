@@ -71,6 +71,7 @@ set(_compile_definitions "")
 set(_link_libraries "")
 
 if (BUILD_ANDROID)
+  message (STATUS "Crossbuilding to Android")
   # Set some helper variables.
   string(TOLOWER "${CMAKE_SYSTEM_NAME}" targetSystem)
   set(projectDir  "${CMAKE_CURRENT_LIST_DIR}")
