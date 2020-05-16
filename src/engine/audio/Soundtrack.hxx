@@ -24,9 +24,9 @@ using RepeatCount = StrongType<uint8_t, struct RepeatCountTag>;
    */
 struct DecodedAudioData
 {
-	std::vector <char> char_data_vec; //pcm audio data
-	long nBytes; //number of bytes in decoded audio data
-	int data_sample_rate; 
+  std::vector<char> char_data_vec; //pcm audio data
+  long nBytes;                     //number of bytes in decoded audio data
+  int data_sample_rate;
 };
 
 struct Soundtrack
@@ -65,7 +65,6 @@ struct Soundtrack
    */
   bool isPlayable : 1;
 
-
   /**
    * @brief The OpenAL source of the sound track
    * @details An object that tells the OpenAL system where the sound making object is located in 3d space
@@ -79,26 +78,24 @@ struct Soundtrack
    * to tell the system where the sound is made.
    */
   ALuint buffer;
-  
+
   /**
    * @brief The OpenAL effect slot of the sound track
    * @details An object that tells the OpenAL system what effect to apply to the sound. Must be connected to a source
    * to tell the system where the sound is made.
    */
   ALuint effect_slot;
-  
 
   /**
    * @brief The WAVE data of the Soundtrack
    */
-  
+
   /**
    * @brief The audio data of the Soundtrack
    */
   DecodedAudioData dAudioDataBuffer;
 
-
-  Soundtrack(SoundtrackID, ChannelID, DecodedAudioData*, RepeatCount, bool, bool, bool, bool);
+  Soundtrack(SoundtrackID, ChannelID, DecodedAudioData *, RepeatCount, bool, bool, bool, bool);
   ~Soundtrack();
 };
 

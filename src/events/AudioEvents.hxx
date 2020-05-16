@@ -59,21 +59,21 @@ struct Coordinate3D
 	@param flRoomRolloffFactor, AL_REVERB_ROOM_ROLLOFF_FACTOR,  
 	description: attenuate the reflected sound, range: 0.0 to 10.0
  */
- 
+
 struct StandardReverbProperties
 {
-	double flDensity = 1.0;
-	double flDiffusion = 1.0;
-	double flGain = 0.32;
-	double flGainHF = 0.89;
-	double flDecayTime = 1.49;
-	double flDecayHFRatio = 0.83;
-	double flReflectionsGain = 0.05;
-	double flReflectionsDelay = 0.007;
-	double flLateReverbGain = 1.26;
-	double flLateReverbDelay = 0.011;
-	double flAirAbsorptionGainHF = 0.994;
-	double flRoomRolloffFactor = 0.0;
+  double flDensity = 1.0;
+  double flDiffusion = 1.0;
+  double flGain = 0.32;
+  double flGainHF = 0.89;
+  double flDecayTime = 1.49;
+  double flDecayHFRatio = 0.83;
+  double flReflectionsGain = 0.05;
+  double flReflectionsDelay = 0.007;
+  double flLateReverbGain = 1.26;
+  double flLateReverbDelay = 0.011;
+  double flAirAbsorptionGainHF = 0.994;
+  double flRoomRolloffFactor = 0.0;
 };
 
 /**
@@ -101,17 +101,16 @@ struct StandardReverbProperties
 */
 struct EchoProperties
 {
-	double flEchoDelay = 0.1;
-	
-	double flEchoLRDelay = 0.1;
-	
-	double flEchoDamping = 0.5;
-	
-	double flEchoFeedback = 0.5;
-	
-	double flEchoSpread = -1.0;
-};
+  double flEchoDelay = 0.1;
 
+  double flEchoLRDelay = 0.1;
+
+  double flEchoDamping = 0.5;
+
+  double flEchoFeedback = 0.5;
+
+  double flEchoSpread = -1.0;
+};
 
 /**
  * @brief event triggering a set of tracks
@@ -159,7 +158,7 @@ struct AudioPlay3DEvent
 struct AudioPlayReverbEvent
 {
   SoundtrackID ID;
-  StandardReverbProperties reverb_properties;	
+  StandardReverbProperties reverb_properties;
 };
 
 /**
@@ -170,9 +169,8 @@ struct AudioPlayReverbEvent
 struct AudioPlayEchoEvent
 {
   SoundtrackID ID;
-  EchoProperties echo_properties;	
+  EchoProperties echo_properties;
 };
-
 
 /**
  * @brief event triggering a track with reverb
@@ -206,7 +204,7 @@ struct AudioPlayReverb3DEvent
 {
   SoundtrackID ID;
   Coordinate3D position;
-  StandardReverbProperties reverb_properties;	
+  StandardReverbProperties reverb_properties;
 };
 
 /**
@@ -219,7 +217,7 @@ struct AudioPlayEcho3DEvent
 {
   SoundtrackID ID;
   Coordinate3D position;
-  EchoProperties echo_properties;	
+  EchoProperties echo_properties;
 };
 
 /**
@@ -289,24 +287,10 @@ struct AudioPruneEvent
 /**
  * @brief All audio-related events
  */
-using AudioEvents = TypeList<AudioTriggerEvent, 
-  AudioTriggerEvent, 
-  AudioTrigger3DEvent,
-  AudioTriggerReverbEvent,
-  AudioTriggerEchoEvent,
-  AudioTriggerReverb3DEvent, 
-  AudioTriggerEcho3DEvent,
-  AudioPlayEvent,
-  AudioPlayEchoEvent, 
-  AudioPlay3DEvent,
-  AudioPlayReverbEvent,
-  AudioPlayReverb3DEvent,
-  AudioPlayEcho3DEvent,
-  AudioMusicVolumeChangeEvent, 
-  AudioSoundVolumeChangeEvent, 
-  AudioSetMutedEvent, 
-  AudioStopEvent, 
-  AudioPruneEvent
-  >;
+using AudioEvents =
+    TypeList<AudioTriggerEvent, AudioTriggerEvent, AudioTrigger3DEvent, AudioTriggerReverbEvent, AudioTriggerEchoEvent,
+             AudioTriggerReverb3DEvent, AudioTriggerEcho3DEvent, AudioPlayEvent, AudioPlayEchoEvent, AudioPlay3DEvent,
+             AudioPlayReverbEvent, AudioPlayReverb3DEvent, AudioPlayEcho3DEvent, AudioMusicVolumeChangeEvent,
+             AudioSoundVolumeChangeEvent, AudioSetMutedEvent, AudioStopEvent, AudioPruneEvent>;
 
 #endif
