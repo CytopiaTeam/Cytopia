@@ -136,7 +136,7 @@ public:
       //For layers that autotile to each other, we need to update their neighbors too
       if (MapNode::isDataAutoTile(TileManager::instance().getTileData(tileID)))
       {
-        updateNodeNeighbors(*it);
+        updateNodeNeighbors(std::vector<MapNode *>{&currentMapNode});
       }
     }
   }
@@ -205,7 +205,6 @@ private:
   * Updates mapNode height information, draws slopes for adjacent tiles and sets tiling for mapNode sprite if applicable
   * @param isoCoordinates - isometric coordinates of the tile that should be updated.
   */
-  void updateNodeNeighbors(const Point &isoCoordinates);
 
   /**\brief Update all mapNodes
   * Updates all mapNode and its adjacent tiles regarding height information, draws slopes for adjacent tiles and
@@ -220,7 +219,6 @@ private:
   * @param isoCoordinates isometric coordinates of the tile whose neighbors should be retrieved
   * @return Uint that stores the elevated neighbor tiles
   */
-  unsigned char getElevatedNeighborBitmask(const Point &isoCoordinates);
 
   /** \brief Get a bitmask that represents same-tile neighbors
   * Checks all neighboring tiles and returns the elevated neighbors in a bitmask:
@@ -229,8 +227,7 @@ private:
   * @param isoCoordinates isometric coordinates of the tile whose neighbors should be retrieved
   * @return Uint that stores the neighbor tiles
   */
-  std::vector<uint8_t> Map::calculateAutotileBitmask(const MapNode *const pMapNode,
-                                                     const std::vector<NeighbourNode> &neighbourNodes);
+  std::vector<uint8_t> calculateAutotileBitmask(const MapNode *const pMapNode, const std::vector<NeighbourNode> &neighbourNodes);
 
   SDL_Color getColorOfPixelInSurface(SDL_Surface *surface, int x, int y) const;
 
@@ -246,6 +243,9 @@ private:
   inline int nodeIdx(const int x, const int y) const { return x * m_columns + y; }
   std::vector<NeighbourNode> getNeighborNodes(const Point &isoCoordinates, const bool includeCentralNode);
   void changeHeight(const Point &isoCoordinates, const bool higher);
+  void updateNodeNeighbors(std::vector<MapNode *> &nodes);
+  unsigned char getElevatedNeighborBitmask(MapNode *pMapNode, const std::vector<NeighbourNode> &neighbours);
+  bool updateHeight(MapNode &mapNode, const bool higher, std::vector<NeighbourNode> neighbours);
 };
 
 #endif

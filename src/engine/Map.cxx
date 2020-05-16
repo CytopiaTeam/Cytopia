@@ -118,13 +118,11 @@ std::vector<NeighbourNode> Map::getNeighborNodes(const Point &isoCoordinates, co
   return neighbors;
 }
 
-void Map::changeHeight(const Point &isoCoordinates, const bool higher)
+bool Map::updateHeight(MapNode &mapNode, const bool higher, std::vector<NeighbourNode> neighbours)
 {
-  MapNode &mapNode = mapNodes[nodeIdx(isoCoordinates.x, isoCoordinates.y)];
-
   if (mapNode.changeHeight(higher))
   {
-    for (const auto neighbour : getNeighborNodes(isoCoordinates, true))
+    for (const auto neighbour : neighbours)
     {
       if (neighbour.pNode->isLayerOccupied(Layer::ZONE))
       {
@@ -132,9 +130,20 @@ void Map::changeHeight(const Point &isoCoordinates, const bool higher)
       }
     }
 
+    return true;
+  }
+
+  return false;
+}
+
+void Map::changeHeight(const Point &isoCoordinates, const bool higher)
+{
+  MapNode &mapNode = mapNodes[nodeIdx(isoCoordinates.x, isoCoordinates.y)];
+
+  if (updateHeight(mapNode, higher, getNeighborNodes(isoCoordinates, true)))
+  {
     demolishNode({isoCoordinates});
-    updateNodeNeighbors(mapNode.getCoordinates());
-    mapNode.getSprite()->refresh();
+    updateNodeNeighbors(std::vector<MapNode *>{&mapNode});
   }
 }
 
@@ -142,10 +151,8 @@ void Map::increaseHeight(const Point &isoCoordinates) { changeHeight(isoCoordina
 
 void Map::decreaseHeight(const Point &isoCoordinates) { changeHeight(isoCoordinates, false); }
 
-void Map::updateNodeNeighbors(const Point &isoCoordinates)
+void Map::updateNodeNeighbors(std::vector<MapNode *> &nodes)
 {
-  const MapNode *const pMapNode = &mapNodes[nodeIdx(isoCoordinates.x, isoCoordinates.y)];
-  const int tileHeight = pMapNode->getCoordinates().height;
   constexpr unsigned char cardinalDirection =
       NeighbourNodesPosition::TOP | NeighbourNodesPosition::BOTTOM | NeighbourNodesPosition::LEFT | NeighbourNodesPosition::RIGHT;
   // those bitmask combinations require the tile to be elevated.
@@ -156,67 +163,129 @@ void Map::updateNodeNeighbors(const Point &isoCoordinates)
       NeighbourNodesPosition::TOP_RIGHT | NeighbourNodesPosition::LEFT | NeighbourNodesPosition::BOTTOM,
       NeighbourNodesPosition::BOTOM_LEFT | NeighbourNodesPosition::RIGHT | NeighbourNodesPosition::TOP,
       NeighbourNodesPosition::BOTOM_RIGHT | NeighbourNodesPosition::LEFT | NeighbourNodesPosition::TOP};
-  const auto &neighbours = getNeighborNodes(isoCoordinates, true);
 
-  for (const auto &neighbour : neighbours)
+  struct MapNodeTemps
   {
-    const auto pNode = neighbour.pNode;
-    const auto &nodeCoordinate = pNode->getCoordinates();
-    const unsigned char elevationBitmask = getElevatedNeighborBitmask(nodeCoordinate);
+    std::vector<NeighbourNode> neighbours;
+    unsigned char elevationBitmask;
+  };
 
-    // if the elevation bitmask changes (-> a new texture is drawn), demolish the tile
-    if (elevationBitmask != pNode->getElevationBitmask())
+  std::unordered_set<MapNode *> nodesToBeUpdated;
+  std::map<MapNode *, MapNodeTemps> nodeTemps;
+  std::unordered_set<MapNode *> nodesToRecalculate;
+
+  for (auto &pUpdateNode : nodes)
+  {
+    nodesToBeUpdated.insert(pUpdateNode);
+
+    if (nodeTemps.count(pUpdateNode) == 0)
     {
-      demolishNode({nodeCoordinate});
+      nodeTemps[pUpdateNode] = {getNeighborNodes(pUpdateNode->getCoordinates(), false), 0};
     }
 
-    // set elevation and tile bitmask for each neighbor
-    pNode->setBitmask(elevationBitmask, calculateAutotileBitmask(pMapNode, neighbours));
+    nodesToRecalculate.insert(pUpdateNode);
 
-    // there can't be a height difference greater then 1 between two map nodes. Only change in the cardinal directions.
-    if (cardinalDirection & neighbour.position)
+    while (!nodesToRecalculate.empty())
     {
-      const int heightDiff = tileHeight - nodeCoordinate.height;
+      const auto pRecalcNode = *nodesToRecalculate.begin();
+      nodesToRecalculate.erase(nodesToRecalculate.begin());
 
-      if (std::abs(heightDiff) > 1)
-      {
-        changeHeight(nodeCoordinate, (heightDiff > 1) ? true : false);
-      }
-    }
+      const int tileHeight = pRecalcNode->getCoordinates().height;
 
-    for (const auto &elBitMask : elevateTileComb)
-    {
-      if ((elevationBitmask & elBitMask) == elBitMask)
+      for (const auto &neighbour : nodeTemps[pRecalcNode].neighbours)
       {
-        if (terrainEditMode == TerrainEdit::LOWER)
+        const auto pNode = neighbour.pNode;
+        const auto &nodeCoordinate = pNode->getCoordinates();
+
+        if (nodeTemps.count(pNode) == 0)
         {
-          for (const auto &nn : getNeighborNodes(pNode->getCoordinates(), false))
-          {
-            const auto &neighborCoords = nn.pNode->getCoordinates();
+          nodeTemps[pNode] = {getNeighborNodes(pNode->getCoordinates(), false), 0};
+        }
 
-            if (neighborCoords.height > tileHeight)
+        nodeTemps[pNode].elevationBitmask = getElevatedNeighborBitmask(pNode, nodeTemps[pNode].neighbours);
+        // if the elevation bitmask changes (-> a new texture is drawn), demolish the tile
+        if (nodeTemps[pNode].elevationBitmask != pNode->getElevationBitmask())
+        {
+          nodesToBeUpdated.insert(pNode);
+        }
+
+        // there can't be a height difference greater then 1 between two map nodes. Only change in the cardinal directions.
+        if (cardinalDirection & neighbour.position)
+        {
+          const int heightDiff = tileHeight - nodeCoordinate.height;
+
+          if (std::abs(heightDiff) > 1)
+          {
+            nodesToBeUpdated.insert(pNode);
+            nodesToRecalculate.insert(pNode);
+            if (updateHeight(*pNode, (heightDiff > 1) ? true : false, nodeTemps[pNode].neighbours))
             {
-              decreaseHeight(neighborCoords);
+              nodeTemps[pNode].elevationBitmask = getElevatedNeighborBitmask(pNode, nodeTemps[pNode].neighbours);
             }
           }
         }
-        else
-        {
-          increaseHeight(nodeCoordinate);
-        }
 
-        break;
+        for (const auto &elBitMask : elevateTileComb)
+        {
+          if ((nodeTemps[pNode].elevationBitmask & elBitMask) == elBitMask)
+          {
+            if (terrainEditMode == TerrainEdit::LOWER)
+            {
+              for (const auto &nn : nodeTemps[pNode].neighbours)
+              {
+                const auto &neighborCoords = nn.pNode->getCoordinates();
+
+                if (neighborCoords.height > tileHeight)
+                {
+                  if (nodeTemps.count(nn.pNode) == 0)
+                  {
+                    nodeTemps[nn.pNode] = {getNeighborNodes(nn.pNode->getCoordinates(), false), 0};
+                  }
+
+                  nodesToBeUpdated.insert(nn.pNode);
+                  nodesToRecalculate.insert(nn.pNode);
+
+                  if (updateHeight(*nn.pNode, false, nodeTemps[nn.pNode].neighbours))
+                  {
+                    nodeTemps[pNode].elevationBitmask = getElevatedNeighborBitmask(pNode, nodeTemps[pNode].neighbours);
+                  }
+                }
+              }
+            }
+            else
+            {
+              nodesToRecalculate.insert(pNode);
+
+              if (updateHeight(*pNode, true, nodeTemps[pNode].neighbours))
+              {
+                nodeTemps[pNode].elevationBitmask = getElevatedNeighborBitmask(pNode, nodeTemps[pNode].neighbours);
+              }
+            }
+
+            break;
+          }
+        }
       }
     }
+  }
+
+  std::vector<Point> nodesToDemolish;
+  for (auto pNode : nodesToBeUpdated)
+  {
+    nodesToDemolish.emplace_back(pNode->getCoordinates());
+  }
+  demolishNode(nodesToDemolish);
+
+  // set elevation and tile bitmask for each neighbor
+  for (auto pNode : nodesToBeUpdated)
+  {
+    pNode->setBitmask(nodeTemps[pNode].elevationBitmask, calculateAutotileBitmask(pNode, nodeTemps[pNode].neighbours));
   }
 }
 
 void Map::updateAllNodes()
 {
-  for (const auto &it : mapNodes)
-  {
-    updateNodeNeighbors(it.getCoordinates());
-  }
+  updateNodeNeighbors(mapNodesInDrawingOrder);
 }
 
 bool Map::isPlacementOnNodeAllowed(const Point &isoCoordinates, const std::string &tileID) const
@@ -254,12 +323,12 @@ std::vector<Point> Map::getObjectCoords(const Point &isoCoordinates, const std::
   return ret;
 }
 
-unsigned char Map::getElevatedNeighborBitmask(const Point &isoCoordinates)
+unsigned char Map::getElevatedNeighborBitmask(MapNode *pMapNode, const std::vector<NeighbourNode> &neighbours)
 {
   unsigned char bitmask = 0;
-  const auto centralNodeHeight = mapNodes[nodeIdx(isoCoordinates.x, isoCoordinates.y)].getCoordinates().height;
+  const auto centralNodeHeight = pMapNode->getCoordinates().height;
 
-  for (const auto &neighbour : getNeighborNodes(isoCoordinates, false))
+  for (const auto &neighbour : neighbours)
   {
     if ((neighbour.pNode->getCoordinates().height > centralNodeHeight))
     {
@@ -457,15 +526,20 @@ void Map::demolishNode(const std::vector<Point> &isoCoordinates, bool updateNeig
     }
   }
 
+  std::vector<MapNode *> updateNodes;
   for (auto pNode : nodesToDemolish)
   {
     pNode->demolishNode(layer);
-
+    // TODO: Play soundeffect here
     if (updateNeighboringTiles)
     {
-      updateNodeNeighbors(pNode->getCoordinates());
+      updateNodes.push_back(pNode);
     }
-    // TODO: Play soundeffect here
+  }
+
+  if (!updateNodes.empty())
+  {
+    updateNodeNeighbors(updateNodes);
   }
 }
 
