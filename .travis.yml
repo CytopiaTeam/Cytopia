@@ -196,6 +196,14 @@ matrix:
           # add this if we want to run tests with the emulator
           # - sys-img-x86-android-26
           # - sys-img-armeabi-v7a-android-17
+      apt:
+        sources:
+          # Official Kitware APT repository. Currently supports Bionic and Xenial.
+          # More information at: https://apt.kitware.com
+          - sourceline: "deb https://apt.kitware.com/ubuntu/ xenial main"
+            key_url: "https://apt.kitware.com/keys/kitware-archive-latest.asc"
+        packages:
+          - ninja-build
       install:
         - echo y | sdkmanager "ndk-bundle"
         - echo y | sdkmanager "ndk;21.1.6352462"
