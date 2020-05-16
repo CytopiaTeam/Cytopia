@@ -25,6 +25,10 @@ void Settings::readFile()
   // init the actual resolution with the desired resolution
   currentScreenWidth = screenWidth;
   currentScreenHeight = screenHeight;
+#ifdef __ANDROID__
+  subMenuButtonHeight *= 2;
+  subMenuButtonWidth *= 2;
+#endif
 }
 
 void Settings::writeFile()
