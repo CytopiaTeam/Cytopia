@@ -204,7 +204,7 @@ endif (USE_PACKAGE_MANAGER)
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
     link_libraries(dbghelp.lib)
 elseif(NOT APPLE)
-    # Note: Apple supports std::filesystem with macOS10.15 and upwards. 
+    # Note: Apple supports std::filesystem with macOS10.15 and upwards.
     # Needed for filesystem library
     list(APPEND _link_libraries "stdc++fs")
 endif()
