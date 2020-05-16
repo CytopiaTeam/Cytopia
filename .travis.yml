@@ -204,7 +204,7 @@ matrix:
         - ANDROID_NDK_ROOT=$ANDROID_HOME/ndk-bundle
         - ANDROID_NDK_HOME=$ANDROID_NDK_ROOT
       before_script:
-        - sh ./get-dependencies.sh
+        - sh ./get_dependencies.sh
       script:
         - cd platforms/android
         - ./gradlew assemble
