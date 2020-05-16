@@ -132,6 +132,7 @@ matrix:
         - cmake -P ./cmake/pmm.cmake /Conan /Clean
         - sccache --show-stats
 
+    # MacOS
     - os: osx
       name: XCode 11.4 Build
       osx_image: xcode11.4
@@ -167,6 +168,46 @@ matrix:
       before_cache:
         - cmake -P ./cmake/pmm.cmake /Conan /Clean
         - sccache --show-stats
+
+    # Android Build
+
+
+    - language: android
+    dist: trusty
+    android:
+      components:
+        # Uncomment the lines below if you want to
+        # use the latest revision of Android SDK Tools
+        # - tools
+        # - platform-tools
+    
+        # The BuildTools version used by your project
+        - build-tools-26.0.2
+    
+        # The SDK version used to compile your project
+        - android-26
+    
+        # Additional components
+        - extra-google-google_play_services
+        - extra-google-m2repository
+        - extra-android-m2repository
+    
+        # Specify at least one system image,
+        # add this if we want to run tests with the emulator
+        # - sys-img-x86-android-26
+        # - sys-img-armeabi-v7a-android-17
+    install:
+      - echo y | sdkmanager "ndk-bundle"
+      - echo y | sdkmanager "ndk;21.1.6352462"
+      - echo y | sdkmanager "cmake;3.10.2.4988404"
+    env:
+      - ANDROID_NDK_ROOT=$ANDROID_HOME/ndk-bundle
+      - ANDROID_NDK_HOME=$ANDROID_NDK_ROOT
+    before_script:
+      - sh ./get-dependencies.sh
+    script:
+      - cd platforms/android
+      - ./gradlew assemble
 
 deploy:
   provider: pages
