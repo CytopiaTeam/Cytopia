@@ -1,6 +1,6 @@
 #!/bin/bash -x
 
-pushd external/android/SDL
+cd external/android/SDL
 
 wget https://www.libsdl.org/release/SDL2-2.0.9.tar.gz
 rm -rf SDL2
@@ -26,10 +26,10 @@ tar xf SDL2_ttf-2.0.15.tar.gz
 mv SDL2_ttf-2.0.15 SDL2_ttf
 rm SDL2_ttf-2.0.15.tar.gz
 
-popd
+cd ..
 
 mkdir -p externLibs
-pushd external/android/other
+cd other
 
 rm -rf libnoise
 git clone https://github.com/qknight/libnoise.git
@@ -44,4 +44,4 @@ wget https://github.com/kcat/openal-soft/archive/openal-soft-1.20.1.tar.gz
 tar xf openal-soft-1.20.1.tar.gz
 mv openal-soft-openal-soft-1.20.1 openal-soft
 
-popd
+cd ../../..
