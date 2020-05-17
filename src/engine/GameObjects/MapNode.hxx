@@ -146,6 +146,10 @@ public:
 
   MapNode &operator=(MapNode &&mapNode);
 
+  inline void setElevationBitMask(const unsigned char bitMask) { m_elevationBitmask = bitMask; }
+  inline void setAutotileBitMask(std::vector<unsigned char> &&bitMask) { m_autotileBitmask = std::move(bitMask); }
+  void updateTexture(const Layer &layer = Layer::NONE);
+
 private:
   Point m_isoCoordinates;
   std::unique_ptr<Sprite> m_sprite;
@@ -157,7 +161,6 @@ private:
   std::vector<unsigned char> m_autotileBitmask;
   unsigned char m_elevationBitmask = 0;
 
-  void updateTexture(const Layer &layer = Layer::NONE);
 };
 
 #endif
