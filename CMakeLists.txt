@@ -88,7 +88,7 @@ if (USE_PACKAGE_MANAGER)
     include(pmm)
 
     pmm(CONAN
-            REMOTES
+			REMOTES
             AFG https://api.bintray.com/conan/anotherfoxguy/conan-packages
             ror-dependencies https://api.bintray.com/conan/anotherfoxguy/ror-dependencies
             BINCRAFTERS
@@ -119,10 +119,7 @@ if (USE_PACKAGE_MANAGER)
             )
 
     if (ENABLE_AUDIO)
-        list(APPEND _link_libraries CONAN_PKG::sdl2_mixer)
-    endif ()
-
-    if (ENABLE_AUDIO)
+        list(APPEND _link_libraries CONAN_PKG::vorbis)
         list(APPEND _link_libraries CONAN_PKG::openal)
     endif ()
 
@@ -146,12 +143,13 @@ else (USE_PACKAGE_MANAGER)
     pkg_check_modules(SDL2_ttf REQUIRED SDL2_ttf)
     pkg_check_modules(ZLIB REQUIRED zlib)
 
-    if (ENABLE_AUDIO)
-        pkg_check_modules(SDL2_mixer REQUIRED SDL2_mixer)
-    endif ()
+
 
     if (ENABLE_AUDIO)
         pkg_check_modules(openal REQUIRED openal)
+        pkg_check_modules(vorbis REQUIRED vorbis)
+        pkg_check_modules(vorbis REQUIRED vorbisfile)
+
     endif ()
 
     find_package(LIBNOISE REQUIRED)
@@ -183,7 +181,7 @@ else (USE_PACKAGE_MANAGER)
             )
 
     if (ENABLE_AUDIO)
-        list(APPEND _link_libraries ${SDL2_mixer_LIBRARIES})
+        list(APPEND _link_libraries ${vorbis_LIBRARIES})
     endif ()
 
     if (ENABLE_AUDIO)
@@ -229,9 +227,6 @@ if (ENABLE_AUDIO)
   list(APPEND _compile_definitions USE_AUDIO)
 endif ()
 
-if (ENABLE_AUDIO)
-    list(APPEND _compile_definitions USE_OPENAL_SOFT)
-endif (ENABLE_AUDIO)
 
 if (ENABLE_ANGELSCRIPT)
     list(APPEND _compile_definitions USE_ANGELSCRIPT)
