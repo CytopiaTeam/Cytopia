@@ -217,6 +217,7 @@ matrix:
           - $HOME/.gradle/caches/
           - $HOME/.gradle/wrapper/
           - $HOME/.android/build-cache
+          - external/android
 
 deploy:
   provider: pages
