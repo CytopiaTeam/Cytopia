@@ -289,6 +289,8 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         if (highlightSelection)
         {
           mouseScreenCoords = {event.button.x, event.button.y};
+          const Point terrainCoordinates = engine.map->findNodeInMap(mouseScreenCoords, Layer::TERRAIN);
+          const Point buildingCoordinates = engine.map->findNodeInMap(mouseScreenCoords, Layer::BUILDINGS);
           mouseIsoCoords = convertScreenToIsoCoordinates(mouseScreenCoords);
 
           // if it's a multi-node tile, get the origin corner point
@@ -299,6 +301,16 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           {
             origCornerPoint = mouseIsoCoords;
           }
+
+          // cancelling transparent buildings
+          for (const auto &it : m_transparentBuildings)
+          {
+            if (it != UNDEFINED_POINT)
+            {
+              (engine.map->getMapNode(it))->setNodeTransparency(0);
+            }
+          }
+          m_transparentBuildings.clear();
 
           // if there's no tileToPlace use the current mouse coordinates
           if (tileToPlace.empty())
@@ -412,6 +424,23 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
             else
             {
               engine.map->highlightNode(highlitNode, SpriteHighlightColor::RED);
+            }
+            const Point &buildingCoordinates =
+                engine.map->findNodeInMap(convertIsoToScreenCoordinates(highlitNode), Layer::BUILDINGS);
+
+            auto transparentBuildingIt =
+                std::find(m_transparentBuildings.begin(), m_transparentBuildings.end(), buildingCoordinates);
+            if (!(transparentBuildingIt != m_transparentBuildings.end()))
+            {
+              if (buildingCoordinates != UNDEFINED_POINT)
+              {
+                const TileData *tileData = engine.map->getMapNode(buildingCoordinates)->getTileData(Layer::BUILDINGS);
+                if (tileData && tileData->category != "Flora")
+                {
+                  engine.map->getMapNode(buildingCoordinates)->setNodeTransparency(0.6f);
+                  m_transparentBuildings.push_back(buildingCoordinates);
+                }
+              }
             }
           }
         }

@@ -43,7 +43,8 @@ matrix:
             - libsdl2-ttf-dev
             - libnoise-dev
             - libopenal-dev
-
+            - libvorbis-dev
+            
       install:
        - >
         if [ "${TRAVIS_SECURE_ENV_VARS}" == "false" ]; then
