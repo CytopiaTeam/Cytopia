@@ -78,7 +78,7 @@ if (BUILD_ANDROID)
   set(sourceDir   "${projectDir}/source")
   set(targetName  "SimpleExample")
   set(binDir      "${projectDir}/bin")
-  
+
   # Define executable output dir.
   set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${binDir}/${targetSystem}")
   set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE "${binDir}/${targetSystem}")
@@ -97,24 +97,24 @@ if (BUILD_ANDROID)
   set(LIBOGG_DISTRIBUTION_DIR ${CMAKE_SOURCE_DIR}/platforms/android/build/libogg/intermediates/cmake)
   set(LIBVORBIS_DISTRIBUTION_DIR ${CMAKE_SOURCE_DIR}/platforms/android/build/libvorbis/intermediates/cmake)
   string(TOLOWER ${CMAKE_BUILD_TYPE} ANDROID_BUILD_DIR)
-  
+
   set(SDL_LOCATION ${CMAKE_SOURCE_DIR}/contrib/)
-  
+
   ##SDL2
   set (SDL2_LOCATION ${DISTRIBUTION_DIR}/${ANDROID_BUILD_DIR}/obj/local/${ANDROID_ABI}/libSDL2.so)
   add_library(SDL2 SHARED IMPORTED )
   set_target_properties(SDL2 PROPERTIES IMPORTED_LOCATION ${SDL2_LOCATION})
-  
+
   ## SDL2_image
   set (SDL2_IMAGE_LOCATION ${DISTRIBUTION_DIR}/${ANDROID_BUILD_DIR}/obj/local/${ANDROID_ABI}/libSDL2_image.so)
   add_library(SDL2_IMAGE SHARED IMPORTED )
   set_target_properties(SDL2_IMAGE PROPERTIES IMPORTED_LOCATION ${SDL2_IMAGE_LOCATION})
-  
+
   ## SDL2_ttf
   set (SDL2_TTF_LOCATION ${DISTRIBUTION_DIR}/${ANDROID_BUILD_DIR}/obj/local/${ANDROID_ABI}/libSDL2_ttf.so)
   add_library(SDL2_TTF SHARED IMPORTED )
   set_target_properties(SDL2_TTF PROPERTIES IMPORTED_LOCATION ${SDL2_TTF_LOCATION})
-  
+
   ## SDL2_mixer
   set (SDL2_MIXER_LOCATION ${DISTRIBUTION_DIR}/${ANDROID_BUILD_DIR}/obj/local/${ANDROID_ABI}/libSDL2_mixer.so)
   add_library(SDL2_MIXER SHARED IMPORTED )
@@ -124,7 +124,7 @@ if (BUILD_ANDROID)
   set (LIBNOISE_LOCATION ${NOISE_DISTRIBUTION_DIR}/${ANDROID_BUILD_DIR}/obj/${ANDROID_ABI}/libnoise.so)
   add_library(LIBNOISE SHARED IMPORTED )
   set_target_properties(LIBNOISE PROPERTIES IMPORTED_LOCATION ${LIBNOISE_LOCATION})
-  
+
   #openal
   set (OPENAL_LOCATION ${OPENAL_DISTRIBUTION_DIR}/${ANDROID_BUILD_DIR}/obj/${ANDROID_ABI}/libopenal.so)
   add_library(OPENAL SHARED IMPORTED )
