@@ -94,6 +94,8 @@ if (BUILD_ANDROID)
   set(DISTRIBUTION_DIR ${CMAKE_SOURCE_DIR}/platforms/android/build/SDL2/intermediates/ndkBuild)
   set(NOISE_DISTRIBUTION_DIR ${CMAKE_SOURCE_DIR}/platforms/android/build/libnoise/intermediates/cmake)
   set(OPENAL_DISTRIBUTION_DIR ${CMAKE_SOURCE_DIR}/platforms/android/build/openal-soft/intermediates/cmake)
+  set(LIBOGG_DISTRIBUTION_DIR ${CMAKE_SOURCE_DIR}/platforms/android/build/libogg/intermediates/cmake)
+  set(LIBVORBIS_DISTRIBUTION_DIR ${CMAKE_SOURCE_DIR}/platforms/android/build/libvorbis/intermediates/cmake)
   string(TOLOWER ${CMAKE_BUILD_TYPE} ANDROID_BUILD_DIR)
   
   set(SDL_LOCATION ${CMAKE_SOURCE_DIR}/contrib/)
@@ -102,9 +104,6 @@ if (BUILD_ANDROID)
   set (SDL2_LOCATION ${DISTRIBUTION_DIR}/${ANDROID_BUILD_DIR}/obj/local/${ANDROID_ABI}/libSDL2.so)
   add_library(SDL2 SHARED IMPORTED )
   set_target_properties(SDL2 PROPERTIES IMPORTED_LOCATION ${SDL2_LOCATION})
-  
-  ## add includes 
-  # include_directories(${CMAKE_SOURCE_DIR}/contrib/SDL/include)
   
   ## SDL2_image
   set (SDL2_IMAGE_LOCATION ${DISTRIBUTION_DIR}/${ANDROID_BUILD_DIR}/obj/local/${ANDROID_ABI}/libSDL2_image.so)
@@ -131,19 +130,17 @@ if (BUILD_ANDROID)
   add_library(OPENAL SHARED IMPORTED )
   set_target_properties(OPENAL PROPERTIES IMPORTED_LOCATION ${OPENAL_LOCATION})
 
+  #ogg
+  set (LIBOGG_LOCATION ${LIBOGG_DISTRIBUTION_DIR}/${ANDROID_BUILD_DIR}/obj/${ANDROID_ABI}/libogg.so)
+  add_library(LIBOGG SHARED IMPORTED )
+  set_target_properties(LIBOGG PROPERTIES IMPORTED_LOCATION ${LIBOGG_LOCATION})
+
+  #vorbis ./build/libvorbis/intermediates/cmake/debug/obj/x86/libvorbis.so
+  set (LIBVORBIS_LOCATION ${LIBVORBIS_DISTRIBUTION_DIR}/${ANDROID_BUILD_DIR}/obj/${ANDROID_ABI}/libvorbis.so)
+  add_library(LIBVORBIS SHARED IMPORTED )
+  set_target_properties(LIBVORBIS PROPERTIES IMPORTED_LOCATION ${LIBVORBIS_LOCATION})
   # Joysticks were causing trouble on android.
   add_definitions(-DSDL_JOYSTICK=0)
-    list(APPEND _link_libraries ${OpenGLES2_LIBRARY}
-                                ${ANDROID_LOG_LIBRARY}
-                                ${ANDROID_LIBRARY_LIBRARY}
-                                SDL2
-                                SDL2_IMAGE
-                                SDL2_TTF
-                                SDL2_MIXER
-                                LIBNOISE
-                             
-                                # z
-    )
 endif()
 
 if (CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo")
@@ -223,6 +220,8 @@ elseif (BUILD_ANDROID)
                                 SDL2_TTF
                                 SDL2_MIXER
                                 OPENAL
+                                LIBVORBIS
+                                LIBOGG
                                 z # zlib provided by android NDK
                                 LIBNOISE
     )
@@ -235,7 +234,6 @@ elseif (BUILD_ANDROID)
                                      ${CMAKE_SOURCE_DIR}/external/android/other/openal-soft/include
                                      ${CMAKE_SOURCE_DIR}/external/android/other/ogg/include
                                      ${CMAKE_SOURCE_DIR}/external/android/other/vorbis/include
-                                    #  ${CMAKE_SOURCE_DIR}/external/android/other/zlib
         )
 else()
     find_package(PkgConfig REQUIRED)
