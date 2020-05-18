@@ -52,7 +52,10 @@ void writeStringToFile(const std::string &fileName, const std::string &stringToW
   LOG(LOG_ERROR) << "fs::writeStringToFile() not implemented!";
 }
 
-std::vector<std::string> getDirectoryListing(const std::string &directory) { LOG(LOG_ERROR) << "fs::getDirectoryListing() not implemented!"; }
+std::vector<std::string> getDirectoryListing(const std::string &directory)
+{
+  LOG(LOG_ERROR) << "fs::getDirectoryListing() not implemented!";
+}
 
 std::vector<std::string> getSaveGamePaths() { LOG(LOG_ERROR) << "fs::getSaveGamePaths() not implemented!"; }
 

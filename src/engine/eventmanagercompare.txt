@@ -222,10 +222,10 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         LOG(LOG_DEBUG) << "no multiouch";
         m_isMultitouching=false;
       }
-      
+
       break;
     case SDL_MOUSEMOTION:
- 
+
       // if(m_isMultitouching)
       // {
       //   m_isMultitouching=false;
