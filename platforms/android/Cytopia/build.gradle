@@ -62,5 +62,6 @@ dependencies {
 	compile project(':SDL2')
 	compile project(':openal-soft')
     compile project(':libnoise:')
+    compile project(':libvorbis:')
     // testCompile 'junit:junit:4.12'
 }

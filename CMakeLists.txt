@@ -233,6 +233,8 @@ elseif (BUILD_ANDROID)
                                      ${CMAKE_SOURCE_DIR}/external/android/SDL/SDL2_mixer
                                      ${CMAKE_SOURCE_DIR}/external/android/other/libnoise/src/noise
                                      ${CMAKE_SOURCE_DIR}/external/android/other/openal-soft/include
+                                     ${CMAKE_SOURCE_DIR}/external/android/other/ogg/include
+                                     ${CMAKE_SOURCE_DIR}/external/android/other/vorbis/include
                                     #  ${CMAKE_SOURCE_DIR}/external/android/other/zlib
         )
 else()
