@@ -59,10 +59,7 @@ std::vector<std::string> getDirectoryListing(const std::string &directory)
 
 std::vector<std::string> getSaveGamePaths() { LOG(LOG_ERROR) << "fs::getSaveGamePaths() not implemented!"; }
 
-bool fileExists(const std::string &filePath)
-{
-  return true;
-}
+bool fileExists(const std::string &filePath) { return true; }
 
 std::string getBasePath() { return ""; }
 
