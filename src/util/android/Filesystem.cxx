@@ -61,7 +61,6 @@ std::vector<std::string> getSaveGamePaths() { LOG(LOG_ERROR) << "fs::getSaveGame
 
 bool fileExists(const std::string &filePath)
 {
-  LOG(LOG_ERROR) << "fs::fileExists() not implemented! Returning true to prevent game shutdown";
   return true;
 }
 
