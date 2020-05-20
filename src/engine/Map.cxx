@@ -16,6 +16,7 @@
 #include <sstream>
 #include <string>
 #include <set>
+#include <queue>
 
 #ifdef MICROPROFILE_ENABLED
 #include "microprofile.h"
@@ -69,7 +70,8 @@ void Map::getNodeInformation(const Point &isoCoordinates) const
   const MapNode &mapNode = mapNodes[nodeIdx(isoCoordinates.x, isoCoordinates.y)];
   const MapNodeData &mapNodeData = mapNode.getActiveMapNodeData();
   const TileData *tileData = mapNodeData.tileData;
-  LOG(LOG_INFO) << "===== TILE at " << isoCoordinates.x << ", " << isoCoordinates.y << ", " << mapNode.getCoordinates().height << "=====";
+  LOG(LOG_INFO) << "===== TILE at " << isoCoordinates.x << ", " << isoCoordinates.y << ", " << mapNode.getCoordinates().height
+                << "=====";
   LOG(LOG_INFO) << "[Layer: TERRAIN] ID: " << mapNode.getMapNodeDataForLayer(Layer::TERRAIN).tileID;
   LOG(LOG_INFO) << "[Layer: WATER] ID: " << mapNode.getMapNodeDataForLayer(Layer::WATER).tileID;
   LOG(LOG_INFO) << "[Layer: BUILDINGS] ID: " << mapNode.getMapNodeDataForLayer(Layer::BUILDINGS).tileID;
@@ -184,81 +186,83 @@ void Map::updateNodeNeighbors(std::vector<MapNode *> &nodes)
       NeighbourNodesPosition::BOTOM_RIGHT | NeighbourNodesPosition::LEFT | NeighbourNodesPosition::TOP};
 
   std::unordered_set<MapNode *> nodesToBeUpdated;
-  std::map<MapNode *, std::vector<NeighbourNode>> nodeTemps;
-  std::unordered_set<MapNode *> nodesToRecalculate;
+  std::map<MapNode *, std::vector<NeighbourNode>> nodeCache;
+  std::queue<MapNode *> nodesUpdatedHeight;
+  std::vector<MapNode *> nodesToEvelate;
   std::vector<Point> nodesToDemolish;
 
   for (auto &pUpdateNode : nodes)
   {
-    nodesToBeUpdated.insert(pUpdateNode);
+    nodesUpdatedHeight.push(pUpdateNode);
 
-    if (nodeTemps.count(pUpdateNode) == 0)
+    while (!nodesUpdatedHeight.empty() || !nodesToEvelate.empty())
     {
-      nodeTemps[pUpdateNode] = getNeighborNodes(pUpdateNode->getCoordinates(), false);
-    }
-
-    nodesToRecalculate.insert(pUpdateNode);
-
-    while (!nodesToRecalculate.empty())
-    {
-      const auto pRecalcNode = *nodesToRecalculate.begin();
-      nodesToRecalculate.erase(nodesToRecalculate.begin());
-
-      const int tileHeight = pRecalcNode->getCoordinates().height;
-
-      for (const auto &neighbour : nodeTemps[pRecalcNode])
+      while (!nodesUpdatedHeight.empty())
       {
-        nodesToBeUpdated.insert(neighbour.pNode);
-        const auto pNode = neighbour.pNode;
-        const auto &nodeCoordinate = pNode->getCoordinates();
+        const auto pHeighChangedNode = nodesUpdatedHeight.front();
+        nodesUpdatedHeight.pop();
+        const int tileHeight = pHeighChangedNode->getCoordinates().height;
 
-        if (nodeTemps.count(pNode) == 0)
+        if (nodeCache.count(pHeighChangedNode) == 0)
         {
-          nodeTemps[pNode] = getNeighborNodes(pNode->getCoordinates(), false);
+          nodeCache[pHeighChangedNode] = getNeighborNodes(pHeighChangedNode->getCoordinates(), false);
         }
 
-        const unsigned char elevationBitmask = getElevatedNeighborBitmask(pNode, nodeTemps[pNode]);
-        // if the elevation bitmask changes (-> a new texture is drawn), demolish the tile
-        if (elevationBitmask != pNode->getElevationBitmask())
+        if (std::find(nodesToEvelate.begin(), nodesToEvelate.end(), pHeighChangedNode) == nodesToEvelate.end())
         {
-          nodesToDemolish.push_back(pNode->getCoordinates());
-          pNode->setElevationBitMask(elevationBitmask);
+          nodesToEvelate.push_back(pHeighChangedNode);
         }
 
-        // there can't be a height difference greater then 1 between two map nodes. Only change in the cardinal directions.
-        if (cardinalDirection & neighbour.position)
+        for (const auto &neighbour : nodeCache[pHeighChangedNode])
         {
+          const auto pNode = neighbour.pNode;
+          const auto &nodeCoordinate = pNode->getCoordinates();
           const int heightDiff = tileHeight - nodeCoordinate.height;
+
+          if (nodeCache.count(pNode) == 0)
+          {
+            nodeCache[pNode] = getNeighborNodes(pNode->getCoordinates(), false);
+          }
+
+          if (std::find(nodesToEvelate.begin(), nodesToEvelate.end(), pNode) == nodesToEvelate.end())
+          {
+            nodesToEvelate.push_back(pNode);
+          }
 
           if (std::abs(heightDiff) > 1)
           {
-            nodesToRecalculate.insert(pNode);
-            if (updateHeight(*pNode, (heightDiff > 1) ? true : false, nodeTemps[pNode]))
-            {
-              pNode->setElevationBitMask(getElevatedNeighborBitmask(pNode, nodeTemps[pNode]));
-            }
+            nodesUpdatedHeight.push(pNode);
+            updateHeight(*pNode, (heightDiff > 1) ? true : false, nodeCache[pNode]);
           }
         }
+      }
 
-        if (terrainEditMode != TerrainEdit::LOWER)
+      while (nodesUpdatedHeight.empty() && !nodesToEvelate.empty())
+      {
+        MapNode* pEleNode = nodesToEvelate.back();
+        nodesToBeUpdated.insert(pEleNode);
+        nodesToEvelate.pop_back();
+
+        if (nodeCache.count(pEleNode) == 0)
         {
-          for (const auto &elBitMask : elevateTileComb)
+          nodeCache[pEleNode] = getNeighborNodes(pEleNode->getCoordinates(), false);
+        }
+
+        const unsigned char elevationBitmask = getElevatedNeighborBitmask(pEleNode, nodeCache[pEleNode]);
+
+        if (elevationBitmask != pEleNode->getElevationBitmask())
+        {
+          nodesToDemolish.push_back(pEleNode->getCoordinates());
+          pEleNode->setElevationBitMask(elevationBitmask);
+        }
+
+        for (const auto &elBitMask : elevateTileComb)
+        {
+          if ((elevationBitmask & elBitMask) == elBitMask)
           {
-            const unsigned char elevBitmask = pNode->getElevationBitmask();
-
-            if ((elevBitmask & elBitMask) == elBitMask)
-            {
-              {
-                nodesToRecalculate.insert(pNode);
-
-                if (updateHeight(*pNode, true, nodeTemps[pNode]))
-                {
-                  pNode->setElevationBitMask(getElevatedNeighborBitmask(pNode, nodeTemps[pNode]));
-                }
-              }
-
-              break;
-            }
+            updateHeight(*pEleNode, true, nodeCache[pEleNode]);
+            nodesUpdatedHeight.push(pEleNode);
+            break;
           }
         }
       }
@@ -272,7 +276,7 @@ void Map::updateNodeNeighbors(std::vector<MapNode *> &nodes)
 
   for (auto pNode : nodesToBeUpdated)
   {
-    pNode->setAutotileBitMask(calculateAutotileBitmask(pNode, nodeTemps[pNode]));
+    pNode->setAutotileBitMask(calculateAutotileBitmask(pNode, nodeCache[pNode]));
   }
 
   // set elevation and tile bitmask for each neighbor
