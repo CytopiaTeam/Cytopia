@@ -9,10 +9,9 @@
 #include "json.hxx"
 #include <noise.h>
 
-
 using json = nlohmann::json;
 
-void TerrainGenerator::generateTerrain(std::vector<MapNode> &mapNodes, std::vector<MapNode*> &mapNodesInDrawingOrder)
+void TerrainGenerator::generateTerrain(std::vector<MapNode> &mapNodes, std::vector<MapNode *> &mapNodesInDrawingOrder)
 {
   loadTerrainDataFromJSON();
 

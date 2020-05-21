@@ -11,7 +11,7 @@ public:
 * @param layers Layers to be enabled.
 * @see Layer
 */
-  static void enableLayer(std::vector<unsigned int>&& layers);
+  static void enableLayer(std::vector<unsigned int> &&layers);
 
   /** \brief Disable Drawing Layer
 * Disable Drawing Layer ( Turned off by using bitwise AND with inversed pattern)
