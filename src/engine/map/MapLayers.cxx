@@ -10,7 +10,7 @@ void MapLayers::setLayerEditMode(LayerEditMode layerEditMode)
     {
     case LayerEditMode::BLUEPRINT:
       deactivateAllLayers();
-      enableLayer({BLUEPRINT, BLUEPRINT});
+      enableLayer({BLUEPRINT, UNDERGROUND});
       break;
     case LayerEditMode::TERRAIN:
       deactivateAllLayers();

@@ -282,7 +282,7 @@ void MapNode::updateTexture(const Layer &layer)
           if (currentLayer == Layer::TERRAIN && m_autotileOrientation[currentLayer] != TileOrientation::TILE_DEFAULT_ORIENTATION)
           {
             m_mapNodeData[Layer::TERRAIN].tileMap = TileMap::SHORE;
-            // for shoretiles, we need to reset the tileIndex to 0, else a random tile would be picked. This is a a litlte bit hacky.
+            // for shore tiles, we need to reset the tileIndex to 0, else a random tile would be picked. This is a little bit hacky.
             m_mapNodeData[Layer::TERRAIN].tileIndex = 0;
           }
         }

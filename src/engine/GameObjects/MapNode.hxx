@@ -32,7 +32,19 @@ class MapNode
 {
 public:
   MapNode(Point isoCoordinates, const std::string &terrainID, const std::string &newTileID = "");
+
+  /**
+    * @brief Empty constructor.
+    *
+    * @attention This constructor should not be used.
+    */
   MapNode(){};
+
+  /**
+    * @brief Empty copy constructor.
+    *
+    * @attention This copy constructor should not be used.
+    */
   MapNode(const MapNode &){};
 
   /**
@@ -59,8 +71,8 @@ public:
     */
   void setCoordinates(const Point &newIsoCoordinates);
 
-  /** @brief Increase Height
-    * Increases the height of the node and its sprite
+  /** @brief Change Height
+    * Increases or decrease the height of the node and its sprite
     * This function should not be called directly, but only from where the neighboring nodes slopes are determined
     *
     * @param higher pass true in case that height should be increased or false in case that height should be decreased.
@@ -144,10 +156,20 @@ public:
 
   void setRenderFlag(Layer layer, bool shouldRender) { m_mapNodeData[layer].shouldRender = shouldRender; }
 
+  /** @brief Assignment operator.
+    */
   MapNode &operator=(MapNode &&mapNode);
 
+  /** @brief Set elevation bit mask.
+    */
   inline void setElevationBitMask(const unsigned char bitMask) { m_elevationBitmask = bitMask; }
+
+  /** @brief Set autotile bit mask.
+    */
   inline void setAutotileBitMask(std::vector<unsigned char> &&bitMask) { m_autotileBitmask = std::move(bitMask); }
+
+  /** @brief Update texture.
+    */
   void updateTexture(const Layer &layer = Layer::NONE);
 
 private:
@@ -160,7 +182,5 @@ private:
   std::vector<MapNodeData> m_mapNodeData;
   std::vector<unsigned char> m_autotileBitmask;
   unsigned char m_elevationBitmask = 0;
-
 };
-
 #endif

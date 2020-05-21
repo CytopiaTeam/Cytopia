@@ -92,10 +92,10 @@ Map::Map(int columns, int rows) : m_columns(columns), m_rows(rows)
   updateAllNodes();
 }
 
-std::vector<NeighbourNode> Map::getNeighborNodes(const Point &isoCoordinates, const bool includeCentralNode)
+std::vector<NeighborNode> Map::getNeighborNodes(const Point &isoCoordinates, const bool includeCentralNode)
 {
   constexpr int neighborRange = 1;
-  std::vector<NeighbourNode> neighbors;
+  std::vector<NeighborNode> neighbors;
   NeighbourNodesPosition position = NeighbourNodesPosition::BOTOM_LEFT;
 
   for (int xOffset = -neighborRange; xOffset <= neighborRange; ++xOffset)
@@ -120,11 +120,11 @@ std::vector<NeighbourNode> Map::getNeighborNodes(const Point &isoCoordinates, co
   return neighbors;
 }
 
-bool Map::updateHeight(MapNode &mapNode, const bool higher, std::vector<NeighbourNode> &neighbours)
+bool Map::updateHeight(MapNode &mapNode, const bool higher, std::vector<NeighborNode> &neighbors)
 {
   if (mapNode.changeHeight(higher))
   {
-    for (const auto neighbour : neighbours)
+    for (const auto neighbour : neighbors)
     {
       if (neighbour.pNode->isLayerOccupied(Layer::ZONE))
       {
@@ -174,8 +174,6 @@ void Map::decreaseHeight(const Point &isoCoordinates) { changeHeight(isoCoordina
 
 void Map::updateNodeNeighbors(std::vector<MapNode *> &nodes)
 {
-  constexpr unsigned char cardinalDirection =
-      NeighbourNodesPosition::TOP | NeighbourNodesPosition::BOTTOM | NeighbourNodesPosition::LEFT | NeighbourNodesPosition::RIGHT;
   // those bitmask combinations require the tile to be elevated.
   constexpr unsigned char elevateTileComb[] = {
       NeighbourNodesPosition::TOP | NeighbourNodesPosition::BOTTOM,
@@ -186,10 +184,10 @@ void Map::updateNodeNeighbors(std::vector<MapNode *> &nodes)
       NeighbourNodesPosition::BOTOM_RIGHT | NeighbourNodesPosition::LEFT | NeighbourNodesPosition::TOP};
 
   std::unordered_set<MapNode *> nodesToBeUpdated;
-  std::map<MapNode *, std::vector<NeighbourNode>> nodeCache;
+  std::map<MapNode *, std::vector<NeighborNode>> nodeCache;
   std::queue<MapNode *> nodesUpdatedHeight;
   std::vector<MapNode *> nodesToEvelate;
-  std::vector<Point> nodesToDemolish;
+  std::unordered_set<MapNode *> nodesToDemolish;
 
   for (auto &pUpdateNode : nodes)
   {
@@ -239,7 +237,7 @@ void Map::updateNodeNeighbors(std::vector<MapNode *> &nodes)
 
       while (nodesUpdatedHeight.empty() && !nodesToEvelate.empty())
       {
-        MapNode* pEleNode = nodesToEvelate.back();
+        MapNode *pEleNode = nodesToEvelate.back();
         nodesToBeUpdated.insert(pEleNode);
         nodesToEvelate.pop_back();
 
@@ -252,7 +250,7 @@ void Map::updateNodeNeighbors(std::vector<MapNode *> &nodes)
 
         if (elevationBitmask != pEleNode->getElevationBitmask())
         {
-          nodesToDemolish.push_back(pEleNode->getCoordinates());
+          nodesToDemolish.insert(pEleNode);
           pEleNode->setElevationBitMask(elevationBitmask);
         }
 
@@ -271,7 +269,10 @@ void Map::updateNodeNeighbors(std::vector<MapNode *> &nodes)
 
   if (!nodesToDemolish.empty())
   {
-    demolishNode(nodesToDemolish);
+    std::vector<Point> nodesToDemolishV(nodesToDemolish.size());
+    std::transform(nodesToDemolish.begin(), nodesToDemolish.end(), nodesToDemolishV.begin(),
+                   [](MapNode *mn) { return mn->getCoordinates(); });
+    demolishNode(nodesToDemolishV);
   }
 
   for (auto pNode : nodesToBeUpdated)
@@ -279,7 +280,6 @@ void Map::updateNodeNeighbors(std::vector<MapNode *> &nodes)
     pNode->setAutotileBitMask(calculateAutotileBitmask(pNode, nodeCache[pNode]));
   }
 
-  // set elevation and tile bitmask for each neighbor
   for (auto pNode : nodesToBeUpdated)
   {
     pNode->updateTexture();
@@ -323,12 +323,12 @@ std::vector<Point> Map::getObjectCoords(const Point &isoCoordinates, const std::
   return ret;
 }
 
-unsigned char Map::getElevatedNeighborBitmask(MapNode *pMapNode, const std::vector<NeighbourNode> &neighbours)
+unsigned char Map::getElevatedNeighborBitmask(MapNode *pMapNode, const std::vector<NeighborNode> &neighbors)
 {
   unsigned char bitmask = 0;
   const auto centralNodeHeight = pMapNode->getCoordinates().height;
 
-  for (const auto &neighbour : neighbours)
+  for (const auto &neighbour : neighbors)
   {
     if ((neighbour.pNode->getCoordinates().height > centralNodeHeight))
     {
@@ -350,7 +350,7 @@ Point Map::getNodeOrigCornerPoint(const Point &isoCoordinates, Layer layer)
 }
 
 std::vector<uint8_t> Map::calculateAutotileBitmask(const MapNode *const pMapNode,
-                                                   const std::vector<NeighbourNode> &neighbourNodes)
+                                                   const std::vector<NeighborNode> &neighborNodes)
 {
   std::vector<uint8_t> tileOrientationBitmask(LAYERS_COUNT, 0);
 
@@ -362,7 +362,7 @@ std::vector<uint8_t> Map::calculateAutotileBitmask(const MapNode *const pMapNode
     {
       if (pCurrentTileData->tileType == +TileType::TERRAIN)
       {
-        for (const auto &neighbour : neighbourNodes)
+        for (const auto &neighbour : neighborNodes)
         {
           const auto pTileData = neighbour.pNode->getMapNodeDataForLayer(Layer::WATER).tileData;
 
@@ -378,7 +378,7 @@ std::vector<uint8_t> Map::calculateAutotileBitmask(const MapNode *const pMapNode
       {
         const auto nodeTileId = pMapNode->getMapNodeDataForLayer(currentLayer).tileID;
 
-        for (const auto &neighbour : neighbourNodes)
+        for (const auto &neighbour : neighborNodes)
         {
           const MapNodeData &nodeData = neighbour.pNode->getMapNodeDataForLayer(currentLayer);
 
@@ -418,7 +418,7 @@ void Map::refresh()
   }
 }
 
-//TODO move it out of the MAP
+//TODO: move it out from the map
 SDL_Color Map::getColorOfPixelInSurface(SDL_Surface *surface, int x, int y) const
 {
   SDL_Color Color{0, 0, 0, SDL_ALPHA_TRANSPARENT};

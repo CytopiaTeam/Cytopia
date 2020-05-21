@@ -7,10 +7,12 @@
 #include "GameObjects/MapNode.hxx"
 #include "map/TerrainGenerator.hxx"
 
+/** \brief Position of the surrounding nodes and its bit mask values.
+  */
 BETTER_ENUM(NeighbourNodesPosition, unsigned char, BOTOM_LEFT = 1U << 6, LEFT = 1U << 2, TOP_LEFT = 1U << 4, BOTTOM = 1U << 1,
             CENTAR = 0U, TOP = 1U, BOTOM_RIGHT = 1U << 7, RIGHT = 1U << 3, TOP_RIGHT = 1U << 5);
 
-struct NeighbourNode
+struct NeighborNode
 {
   MapNode *pNode;
   NeighbourNodesPosition position;
@@ -18,16 +20,6 @@ struct NeighbourNode
 
 class Map
 {
-private:
-  std::vector<MapNode> mapNodes;
-  std::vector<MapNode *> mapNodesInDrawingOrder;
-  int m_columns;
-  int m_rows;
-  std::default_random_engine randomEngine;
-  TerrainGenerator m_terrainGen;
-
-  static const size_t m_saveGameVersion;
-
 public:
   //fixed MapNode* array to store neighbors.
   using NeighborMatrix = MapNode *[9];
@@ -91,6 +83,8 @@ public:
     static_assert(std::is_same_v<Point, typename std::iterator_traits<Iterator>::value_type>,
                   "Iterator value must be a const Point");
 
+    std::vector<MapNode *> nodesToBeUpdated;
+
     for (Iterator it = begin; it != end; ++it)
     {
       if (!isPlacementOnNodeAllowed(*it, tileID))
@@ -136,8 +130,13 @@ public:
       //For layers that autotile to each other, we need to update their neighbors too
       if (MapNode::isDataAutoTile(TileManager::instance().getTileData(tileID)))
       {
-        updateNodeNeighbors(std::vector<MapNode *>{&currentMapNode});
+        nodesToBeUpdated.push_back(&currentMapNode);
       }
+    }
+
+    if (!nodesToBeUpdated.empty())
+    {
+      updateNodeNeighbors(nodesToBeUpdated);
     }
   }
 
@@ -201,33 +200,21 @@ public:
   std::string getTileID(const Point &isoCoordinates, Layer layer);
 
 private:
-  /**\brief Update mapNode and its adjacent tiles
-  * Updates mapNode height information, draws slopes for adjacent tiles and sets tiling for mapNode sprite if applicable
-  * @param isoCoordinates - isometric coordinates of the tile that should be updated.
-  */
-
   /**\brief Update all mapNodes
   * Updates all mapNode and its adjacent tiles regarding height information, draws slopes for adjacent tiles and
   * sets tiling for mapNode sprite if applicable
   */
   void updateAllNodes();
 
-  /** \brief Get elevated neighbor positions in a bitmask
-  * Checks all neighboring tiles and returns the elevated neighbors in a bitmask:
-  * [ BR BL TR TL  R  L  B  T ]
-  * [ 0  0  0  0   0  0  0  0 ]
-  * @param isoCoordinates isometric coordinates of the tile whose neighbors should be retrieved
-  * @return Uint that stores the elevated neighbor tiles
-  */
-
   /** \brief Get a bitmask that represents same-tile neighbors
   * Checks all neighboring tiles and returns the elevated neighbors in a bitmask:
   * [ BR BL TR TL  R  L  B  T ]
   * [ 0  0  0  0   0  0  0  0 ]
-  * @param isoCoordinates isometric coordinates of the tile whose neighbors should be retrieved
+  * @param pMapNode Pointer to the map node to calculate mask for.
+  * @param neighborNodes Neighbor nodes.
   * @return Uint that stores the neighbor tiles
   */
-  std::vector<uint8_t> calculateAutotileBitmask(const MapNode *const pMapNode, const std::vector<NeighbourNode> &neighbourNodes);
+  std::vector<uint8_t> calculateAutotileBitmask(const MapNode *const pMapNode, const std::vector<NeighborNode> &neighborNodes);
 
   SDL_Color getColorOfPixelInSurface(SDL_Surface *surface, int x, int y) const;
 
@@ -240,12 +227,55 @@ private:
   */
   bool isAllowSetTileId(const Layer layer, const MapNode *const pMapNode);
 
+  /* \brief Calculate map index from coordinates.
+  * @param x x coordinate.
+  * @param y y coordinate.
+  * @return Index of map node.
+  */
   inline int nodeIdx(const int x, const int y) const { return x * m_columns + y; }
-  std::vector<NeighbourNode> getNeighborNodes(const Point &isoCoordinates, const bool includeCentralNode);
+
+  /* \brief Get all neighbor nodes from provided map node.
+  * @param isoCoordinates iso coordinates.
+  * @param includeCentralNode if set to true include the central node in the result.
+  * @return All neighbor nodes.
+  */
+  std::vector<NeighborNode> getNeighborNodes(const Point &isoCoordinates, const bool includeCentralNode);
+
+  /* \brief Change map node height.
+  * @param isoCoordinates iso coordinates.
+  * @param higher if set to true make node higher, otherwise lower.
+  */
   void changeHeight(const Point &isoCoordinates, const bool higher);
+
+  /* \brief Update the nodes and all affected node with the change.
+  * @param nodes Nodes which have to be updated.
+  */
   void updateNodeNeighbors(std::vector<MapNode *> &nodes);
-  unsigned char getElevatedNeighborBitmask(MapNode *pMapNode, const std::vector<NeighbourNode> &neighbours);
-  bool updateHeight(MapNode &mapNode, const bool higher, std::vector<NeighbourNode> &neighbours);
+
+  /* \brief Get elevated bit mask of the map node.
+  * @param pMapNode Pointer to the map node to calculate elevated bit mask.
+  * @param neighbors All neighbor map nodes.
+  * @return Map node elevated bit mask.
+  */
+  unsigned char getElevatedNeighborBitmask(MapNode *pMapNode, const std::vector<NeighborNode> &neighbors);
+
+  /* \brief Change map node height.
+  * @param mapNode Map node to change height.
+  * @param higher if set to true make node higher, otherwise lower.
+  * @param neighbors All neighbor map nodes.
+  * @return true in case that height has been changed, otherwise false.
+  */
+  bool updateHeight(MapNode &mapNode, const bool higher, std::vector<NeighborNode> &neighbors);
+
+private:
+  std::vector<MapNode> mapNodes;
+  std::vector<MapNode *> mapNodesInDrawingOrder;
+  int m_columns;
+  int m_rows;
+  std::default_random_engine randomEngine;
+  TerrainGenerator m_terrainGen;
+
+  static const size_t m_saveGameVersion;
 };
 
 #endif
