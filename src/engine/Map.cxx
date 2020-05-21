@@ -10,6 +10,7 @@
 #include "ResourcesManager.hxx"
 #include "map/MapLayers.hxx"
 #include "common/JsonSerialization.hxx"
+#include "Filesystem.hxx"
 
 #include "json.hxx"
 
@@ -349,8 +350,7 @@ Point Map::getNodeOrigCornerPoint(const Point &isoCoordinates, Layer layer)
   return UNDEFINED_POINT;
 }
 
-std::vector<uint8_t> Map::calculateAutotileBitmask(const MapNode *const pMapNode,
-                                                   const std::vector<NeighborNode> &neighborNodes)
+std::vector<uint8_t> Map::calculateAutotileBitmask(const MapNode *const pMapNode, const std::vector<NeighborNode> &neighborNodes)
 {
   std::vector<uint8_t> tileOrientationBitmask(LAYERS_COUNT, 0);
 
@@ -435,7 +435,7 @@ SDL_Color Map::getColorOfPixelInSurface(SDL_Surface *surface, int x, int y) cons
   return Color;
 }
 
-Point Map::findNodeInMap(const SDL_Point &screenCoordinates) const
+Point Map::findNodeInMap(const SDL_Point &screenCoordinates, const Layer &layer) const
 {
   // calculate clicked column (x coordinate) without height taken into account.
   const Point calculatedIsoCoords = calculateIsoCoordinates(screenCoordinates);
@@ -480,7 +480,7 @@ Point Map::findNodeInMap(const SDL_Point &screenCoordinates) const
       assert(zOrder > mapNodes[nodeIdx(x, y)].getCoordinates().z);
       zOrder = mapNodes[nodeIdx(x, y)].getCoordinates().z;
 #endif
-      if (isClickWithinTile(screenCoordinates, x, y))
+      if (isClickWithinTile(screenCoordinates, x, y, layer))
       {
         return mapNodes[nodeIdx(x, y)].getCoordinates();
       }
@@ -543,7 +543,7 @@ void Map::demolishNode(const std::vector<Point> &isoCoordinates, bool updateNeig
   }
 }
 
-bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int isoY) const
+bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int isoY, const Layer &layer = Layer::NONE) const
 {
   if (!isPointWithinMapBoundaries(isoX, isoY))
   {
@@ -552,35 +552,44 @@ bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int is
 
   auto &node = mapNodes[nodeIdx(isoX, isoY)];
   auto pSprite = node.getSprite();
+  std::vector<Layer> layersToGoOver;
 
   // Layers ordered for hitcheck
-  Layer layers[] = {Layer::BUILDINGS, Layer::TERRAIN, Layer::WATER, Layer::UNDERGROUND, Layer::BLUEPRINT};
-
-  for (auto &layer : layers)
+  if (layer == Layer::NONE)
   {
-    if (!MapLayers::isLayerActive(layer))
+    Layer layers[] = {Layer::TERRAIN, Layer::WATER, Layer::UNDERGROUND, Layer::BLUEPRINT};
+    layersToGoOver.insert(layersToGoOver.begin(), std::begin(layers), std::end(layers));
+  }
+  else
+  {
+    layersToGoOver.push_back(layer);
+  }
+
+  for (auto &curLayer : layersToGoOver)
+  {
+    if (!MapLayers::isLayerActive(curLayer))
     {
       continue;
     }
 
-    SDL_Rect spriteRect = pSprite->getDestRect(layer);
-    SDL_Rect clipRect = pSprite->getClipRect(layer);
+    SDL_Rect spriteRect = pSprite->getDestRect(curLayer);
+    SDL_Rect clipRect = pSprite->getClipRect(curLayer);
 
-    if (layer == Layer::TERRAIN)
+    if (curLayer == Layer::TERRAIN)
     {
       clipRect.h += 1; //HACK: We need to increase clipRect height by one pixel to match the drawRect. Rounding issue?
     }
 
     if (SDL_PointInRect(&screenCoordinates, &spriteRect))
     {
-      std::string tileID = node.getMapNodeDataForLayer(layer).tileID;
+      std::string tileID = node.getMapNodeDataForLayer(curLayer).tileID;
       assert(!tileID.empty());
 
       // Calculate the position of the clicked pixel within the surface and "un-zoom" the position to match the un-adjusted surface
       const int pixelX = static_cast<int>((screenCoordinates.x - spriteRect.x) / Camera::zoomLevel) + clipRect.x;
       const int pixelY = static_cast<int>((screenCoordinates.y - spriteRect.y) / Camera::zoomLevel) + clipRect.y;
 
-      if ((layer == Layer::TERRAIN) && (node.getMapNodeDataForLayer(Layer::TERRAIN).tileMap == TileMap::SHORE))
+      if ((curLayer == Layer::TERRAIN) && (node.getMapNodeDataForLayer(Layer::TERRAIN).tileMap == TileMap::SHORE))
       {
         tileID.append("_shore");
       }
@@ -628,38 +637,26 @@ void Map::unHighlightNode(const Point &isoCoordinates)
 
 void Map::saveMapToFile(const std::string &fileName)
 {
+  //create savegame json string
   const json j =
       json{{"Savegame version", SAVEGAME_VERSION}, {"columns", this->m_columns}, {"rows", this->m_rows}, {"mapNode", mapNodes}};
 
-  std::ofstream file(SDL_GetBasePath() + fileName, std::ios_base::out | std::ios_base::binary);
-
 #ifdef DEBUG
   // Write uncompressed savegame for easier debugging
-  std::ofstream fileuncompressed(SDL_GetBasePath() + fileName + "_UNCOMPRESSED", std::ios_base::out | std::ios_base::binary);
-  fileuncompressed << j.dump();
+  fs::writeStringToFile(fileName + ".txt", j.dump());
 #endif
 
   const std::string compressedSaveGame = compressString(j.dump());
 
   if (!compressedSaveGame.empty())
   {
-    file << compressedSaveGame;
+    fs::writeStringToFile(fileName, compressedSaveGame, true);
   }
-  file.close();
 }
 
 Map *Map::loadMapFromFile(const std::string &fileName)
 {
-  std::stringstream buffer;
-  {
-    std::ifstream file(SDL_GetBasePath() + fileName, std::ios_base::in | std::ios_base::binary);
-    if (!file)
-      throw ConfigurationError(TRACE_INFO "Could not load savegame file " + fileName);
-    buffer << file.rdbuf();
-  }
-
-  std::string jsonAsString;
-  jsonAsString = decompressString(buffer.str());
+  std::string jsonAsString = decompressString(fs::readFileAsString(fileName, true));
 
   if (jsonAsString.empty())
     return nullptr;

@@ -33,6 +33,7 @@ matrix:
               key_url: "https://apt.kitware.com/keys/kitware-archive-latest.asc"
           packages:
             - cmake
+            - gcc-8
             - ninja-build
             - doxygen
             - graphviz
@@ -42,7 +43,8 @@ matrix:
             - libsdl2-ttf-dev
             - libnoise-dev
             - libopenal-dev
-
+            - libvorbis-dev
+            
       install:
        - >
         if [ "${TRAVIS_SECURE_ENV_VARS}" == "false" ]; then
@@ -132,8 +134,8 @@ matrix:
         - sccache --show-stats
 
     - os: osx
-      name: XCode 11.3 Build
-      osx_image: xcode11.3
+      name: XCode 11.4 Build
+      osx_image: xcode11.4
       env: 
         - TARGET=macOS
         - CONAN_USER_HOME=/tmp/conan

@@ -38,6 +38,7 @@ private:
   std::vector<Point> m_nodesToPlace = {};
   std::vector<Point> m_nodesToHighlight = {};
   std::vector<Timer *> m_timers;
+  std::vector<Point> m_transparentBuildings;
 };
 
 #endif
