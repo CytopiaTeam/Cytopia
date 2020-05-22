@@ -85,7 +85,6 @@ void Map::getNodeInformation(const Point &isoCoordinates) const
 
 Map::Map(int columns, int rows, const bool generateTerrain) : m_columns(columns), m_rows(rows)
 {
-  const size_t vectorSize = static_cast<size_t>(m_rows * m_columns);
   // TODO move Random Engine out of map
   randomEngine.seed();
   MapLayers::enableLayers({TERRAIN, BUILDINGS, WATER, GROUND_DECORATION, ZONE, ROAD});
@@ -336,7 +335,7 @@ unsigned char Map::getElevatedNeighborBitmask(MapNode *pMapNode, const std::vect
 
   for (const auto &neighbour : neighbors)
   {
-    if ((neighbour.pNode->getCoordinates().height > centralNodeHeight))
+    if (neighbour.pNode->getCoordinates().height > centralNodeHeight)
     {
       bitmask |= neighbour.position;
     }
@@ -371,7 +370,7 @@ std::vector<uint8_t> Map::calculateAutotileBitmask(const MapNode *const pMapNode
         {
           const auto pTileData = neighbour.pNode->getMapNodeDataForLayer(Layer::WATER).tileData;
 
-          if ((pTileData && pTileData->tileType == +TileType::WATER))
+          if (pTileData && pTileData->tileType == +TileType::WATER)
           {
             tileOrientationBitmask[currentLayer] |= neighbour.position;
           }

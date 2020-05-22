@@ -269,7 +269,6 @@ private:
   */
   bool updateHeight(MapNode &mapNode, const bool higher, std::vector<NeighborNode> &neighbors);
 
-private:
   std::vector<MapNode> mapNodes;
   std::vector<MapNode *> mapNodesInDrawingOrder;
   int m_columns;
