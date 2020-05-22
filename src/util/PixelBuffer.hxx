@@ -4,6 +4,7 @@
 #include <vector>
 #include "../util/Rectangle.hxx"
 #include "../util/Range.hxx"
+#include "../util/Color.hxx"
 
 /**
  * @class     PixelBuffer
@@ -17,7 +18,8 @@ public:
    * @brief   Constructs an empty PixelBuffer from bounds
    * @post    All pixels are black and fully transparent
    */
-  explicit PixelBuffer(Rectangle &&);
+  explicit PixelBuffer(const Rectangle &&);
+  explicit PixelBuffer(const Rectangle &);
   
   /**
    * @brief   Construct a PixelBuffer from bounds and a range
@@ -25,7 +27,7 @@ public:
    *          std::distance(range.begin(), range.end()) != rectange.width() * rectangle.height()
    */
   template <typename Range>
-  explicit PixelBuffer(Rectangle &&, Range && range);
+  PixelBuffer(const Rectangle &, const Range & range);
   
   using Pixels = Range<std::vector<uint32_t>::const_iterator>;
 
@@ -43,7 +45,7 @@ public:
    * @brief   Scale the pixel buffer using nearest-neighbor 
    *          in both dimensions
    * @param   factor the scaling factor
-   * @throws  CytopiaError if factor <= 0
+   * @post    Becomes EMPTY if factor < 1 / min{width, height}
    */
   PixelBuffer & scale(float factor);
   
@@ -52,26 +54,28 @@ public:
    * @param   color the target color
    * @details A magic pixel is a pixel which satisfies
    *          the condition R == B
-   * @post    All magic pixels have the same hue and 
-   *          saturation as color, but preserve their lightness
+   * @post    All magic pixels have the same hue as color,
+   *          and their lightness and saturation is an overlay
+   *          blend of the pixel and color
    */
   PixelBuffer & colorMagicPixels(RGBAColor color);
 
+  bool isEmpty() const noexcept;
 
   /**
    * @brief   Constructs a PixelBuffer from a PNG file
    */
   static PixelBuffer fromPNG(std::string);
 
-  /**
-   *
-   */
-  static PixelBuffer 
-
+  static PixelBuffer EMPTY();
 
 private:
   Rectangle m_Bounds;
   std::vector<uint32_t> m_Pixels;
+
+  uint8_t overlay255(uint8_t i, uint8_t t);
 };
+
+#include "PixelBuffer.inl.hxx"
 
 #endif // PIXEL_BUFFER_HXX
