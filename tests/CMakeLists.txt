@@ -58,6 +58,7 @@ LIST(APPEND TEST_SOURCES
         util/ZipRange.cxx
         util/Color.cxx
         util/BoxSizing.cxx
+        util/PixelBuffer.cxx
         )
 
 # Generate source groups for use in IDEs

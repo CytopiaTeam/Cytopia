@@ -53,7 +53,7 @@ void Rectangle::intersect(const Rectangle &other) noexcept
   if (m_x2 < op1x || op2x < m_x1 || m_y2 < op1y || op2y < m_y1 || other.isEmpty())
   {
     // Empty intersection
-    m_x1 = -1;
+    *this = EMPTY();
     return;
   }
   m_x1 = std::clamp(m_x1, op1x, op2x);
@@ -76,4 +76,9 @@ bool operator==(const Rectangle &r1, const Rectangle &r2)
   return (r1.m_x1 == r2.m_x1) && (r1.m_x2 == r2.m_x2) && (r1.m_y1 == r2.m_y1) && (r1.m_y2 == r2.m_y2);
 }
 
-Rectangle Rectangle::EMPTY() noexcept { return {-1, -1, -1, -1}; }
+Rectangle Rectangle::EMPTY() noexcept
+{
+  Rectangle empty {0, 0, 0, 0};
+  empty.m_x1 = empty.m_y1 = -1;
+  return empty;
+}
