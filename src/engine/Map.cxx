@@ -88,7 +88,7 @@ Map::Map(int columns, int rows, const bool generateTerrain) : m_columns(columns)
   const size_t vectorSize = static_cast<size_t>(m_rows * m_columns);
   // TODO move Random Engine out of map
   randomEngine.seed();
-  MapLayers::enableLayer({TERRAIN, BUILDINGS, WATER, GROUND_DECORATION, ZONE, ROAD});
+  MapLayers::enableLayers({TERRAIN, BUILDINGS, WATER, GROUND_DECORATION, ZONE, ROAD});
 
   if (generateTerrain)
   {
@@ -157,11 +157,11 @@ void Map::changeHeight(const Point &isoCoordinates, const bool higher)
     // If lowering node height, than all nodes around should be lowered to be on same height with the central one.
     if (!higher)
     {
-      const int centarHeight = mapNode.getCoordinates().height;
+      const int centerHeight = mapNode.getCoordinates().height;
 
       for (auto &neighbour : neighbours)
       {
-        if (centarHeight < neighbour.pNode->getCoordinates().height)
+        if (centerHeight < neighbour.pNode->getCoordinates().height)
         {
           neighbour.pNode->changeHeight(false);
           demolishNode({neighbour.pNode->getCoordinates()});
@@ -192,14 +192,14 @@ void Map::updateNodeNeighbors(std::vector<MapNode *> &nodes)
   std::unordered_set<MapNode *> nodesToBeUpdated;
   std::map<MapNode *, std::vector<NeighborNode>> nodeCache;
   std::queue<MapNode *> nodesUpdatedHeight;
-  std::vector<MapNode *> nodesToEvelate;
+  std::vector<MapNode *> nodesToElevate;
   std::unordered_set<MapNode *> nodesToDemolish;
 
   for (auto &pUpdateNode : nodes)
   {
     nodesUpdatedHeight.push(pUpdateNode);
 
-    while (!nodesUpdatedHeight.empty() || !nodesToEvelate.empty())
+    while (!nodesUpdatedHeight.empty() || !nodesToElevate.empty())
     {
       while (!nodesUpdatedHeight.empty())
       {
@@ -212,9 +212,9 @@ void Map::updateNodeNeighbors(std::vector<MapNode *> &nodes)
           nodeCache[pHeighChangedNode] = getNeighborNodes(pHeighChangedNode->getCoordinates(), false);
         }
 
-        if (std::find(nodesToEvelate.begin(), nodesToEvelate.end(), pHeighChangedNode) == nodesToEvelate.end())
+        if (std::find(nodesToElevate.begin(), nodesToElevate.end(), pHeighChangedNode) == nodesToElevate.end())
         {
-          nodesToEvelate.push_back(pHeighChangedNode);
+          nodesToElevate.push_back(pHeighChangedNode);
         }
 
         for (const auto &neighbour : nodeCache[pHeighChangedNode])
@@ -228,9 +228,9 @@ void Map::updateNodeNeighbors(std::vector<MapNode *> &nodes)
             nodeCache[pNode] = getNeighborNodes(pNode->getCoordinates(), false);
           }
 
-          if (std::find(nodesToEvelate.begin(), nodesToEvelate.end(), pNode) == nodesToEvelate.end())
+          if (std::find(nodesToElevate.begin(), nodesToElevate.end(), pNode) == nodesToElevate.end())
           {
-            nodesToEvelate.push_back(pNode);
+            nodesToElevate.push_back(pNode);
           }
 
           if (std::abs(heightDiff) > 1)
@@ -241,11 +241,11 @@ void Map::updateNodeNeighbors(std::vector<MapNode *> &nodes)
         }
       }
 
-      while (nodesUpdatedHeight.empty() && !nodesToEvelate.empty())
+      while (nodesUpdatedHeight.empty() && !nodesToElevate.empty())
       {
-        MapNode *pEleNode = nodesToEvelate.back();
+        MapNode *pEleNode = nodesToElevate.back();
         nodesToBeUpdated.insert(pEleNode);
-        nodesToEvelate.pop_back();
+        nodesToElevate.pop_back();
 
         if (nodeCache.count(pEleNode) == 0)
         {

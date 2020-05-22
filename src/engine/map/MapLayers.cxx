@@ -10,17 +10,17 @@ void MapLayers::setLayerEditMode(LayerEditMode layerEditMode)
     {
     case LayerEditMode::BLUEPRINT:
       deactivateAllLayers();
-      enableLayer({BLUEPRINT, UNDERGROUND});
+      enableLayers({BLUEPRINT, UNDERGROUND});
       break;
     case LayerEditMode::TERRAIN:
       deactivateAllLayers();
-      enableLayer({TERRAIN, WATER, ROAD, ZONE, BUILDINGS});
+      enableLayers({TERRAIN, WATER, ROAD, ZONE, BUILDINGS});
       break;
     }
   };
 }
 
-void MapLayers::enableLayer(std::vector<unsigned int> &&layers)
+void MapLayers::enableLayers(std::vector<unsigned int> &&layers)
 {
   unsigned int enLayers = 0U;
 
