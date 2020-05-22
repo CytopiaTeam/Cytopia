@@ -21,11 +21,8 @@ struct NeighborNode
 class Map
 {
 public:
-  //fixed MapNode* array to store neighbors.
-  using NeighborMatrix = MapNode *[9];
-
   Map() = delete;
-  Map(int columns, int rows);
+  Map(int columns, int rows, const bool generateTerrain = true);
   ~Map() = default;
 
   /** \brief Increase Height

@@ -38,23 +38,6 @@ MapNode::MapNode(Point isoCoordinates, const std::string &terrainID, const std::
   updateTexture(layer);
 }
 
-MapNode &MapNode::operator=(MapNode &&mapNode)
-{
-  if (this != &mapNode)
-  {
-    m_isoCoordinates = std::move(mapNode.m_isoCoordinates);
-    m_sprite = std::move(mapNode.m_sprite);
-    m_previousTileID = std::move(mapNode.m_previousTileID);
-    m_autotileOrientation = std::move(mapNode.m_autotileOrientation);
-    m_elevationOrientation = mapNode.m_elevationOrientation;
-    m_clippingWidth = mapNode.m_clippingWidth;
-    m_mapNodeData = std::move(mapNode.m_mapNodeData);
-    m_autotileBitmask = std::move(mapNode.m_autotileBitmask);
-  }
-
-  return *this;
-}
-
 bool MapNode::changeHeight(const bool higher)
 {
   constexpr int maxHeight = 32;

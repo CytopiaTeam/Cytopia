@@ -83,13 +83,18 @@ void Map::getNodeInformation(const Point &isoCoordinates) const
   LOG(LOG_INFO) << "TileIndex: " << mapNodeData.tileIndex;
 }
 
-Map::Map(int columns, int rows) : m_columns(columns), m_rows(rows)
+Map::Map(int columns, int rows, const bool generateTerrain) : m_columns(columns), m_rows(rows)
 {
   const size_t vectorSize = static_cast<size_t>(m_rows * m_columns);
   // TODO move Random Engine out of map
   randomEngine.seed();
   MapLayers::enableLayer({TERRAIN, BUILDINGS, WATER, GROUND_DECORATION, ZONE, ROAD});
-  m_terrainGen.generateTerrain(mapNodes, mapNodesInDrawingOrder);
+
+  if (generateTerrain)
+  {
+    m_terrainGen.generateTerrain(mapNodes, mapNodesInDrawingOrder);
+  }
+
   updateAllNodes();
 }
 
@@ -530,7 +535,7 @@ void Map::demolishNode(const std::vector<Point> &isoCoordinates, bool updateNeig
   for (auto pNode : nodesToDemolish)
   {
     pNode->demolishNode(layer);
-    // TODO: Play soundeffect here
+    // TODO: Play sound effect here
     if (updateNeighboringTiles)
     {
       updateNodes.push_back(pNode);
@@ -681,17 +686,16 @@ Map *Map::loadMapFromFile(const std::string &fileName)
   if (columns == -1 || rows == -1)
     return nullptr;
 
-  Map *map = new Map(columns, rows);
+  Map *map = new Map(columns, rows, false);
+  map->mapNodes.reserve(columns * rows);
 
   for (const auto &it : saveGameJSON["mapNode"].items())
   {
     Point coordinates = json(it.value())["coordinates"].get<Point>();
     // set coordinates (height) of the map
-    auto &node = map->mapNodes[coordinates.x * columns + coordinates.y];
-    node = std::move(MapNode{Point{coordinates.x, coordinates.y, coordinates.z, coordinates.height}, ""});
-
+    map->mapNodes.emplace_back(MapNode{Point{coordinates.x, coordinates.y, coordinates.z, coordinates.height}, ""});
     // load back mapNodeData (tileIDs, Buildins, ...)
-    node.setMapNodeData(json(it.value())["mapNodeData"], coordinates);
+    map->mapNodes.back().setMapNodeData(json(it.value())["mapNodeData"], coordinates);
   }
 
   // Now put those newly created nodes in correct drawing order

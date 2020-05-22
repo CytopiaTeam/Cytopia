@@ -76,26 +76,26 @@ void TerrainGenerator::generateTerrain(std::vector<MapNode> &mapNodes, std::vect
   highFrequencyNoise.SetSeed(m_terrainSettings.seed + 42);
   highFrequencyNoise.SetFrequency(1);
 
-  const size_t vectorSize = static_cast<size_t>(m_terrainSettings.mapSize * m_terrainSettings.mapSize);
-  mapNodes.resize(vectorSize);
-  int z = 0;
+  const int mapSize = m_terrainSettings.mapSize;
+  const size_t vectorSize = static_cast<size_t>(mapSize * mapSize);
+  mapNodes.reserve(vectorSize);
 
   // For now, the biome string is read from settings.json for debugging
   std::string currentBiome = Settings::instance().biome;
 
   // nodes need to be created at the correct vector "coordinates", or else the Z-Order will be broken
-  for (int x = 0; x < m_terrainSettings.mapSize; x++)
+  for (int x = 0; x < mapSize; x++)
   {
-    for (int y = m_terrainSettings.mapSize - 1; y >= 0; y--)
+    for (int y = 0; y < mapSize; y++)
     {
-      const int nodeIdx = x * m_terrainSettings.mapSize + y;
+      const int z = (x + 1) * mapSize - y - 1;
       double rawHeight = terrainHeight.GetValue(x * 32, y * 32, 0.5);
       int height = static_cast<int>(rawHeight);
 
       if (height < m_terrainSettings.seaLevel)
       {
         height = m_terrainSettings.seaLevel;
-        mapNodes[nodeIdx] = std::move(MapNode{Point{x, y, z++, height}, m_biomeInformation[currentBiome].water[0]});
+        mapNodes.emplace_back(MapNode{Point{x, y, z, height}, m_biomeInformation[currentBiome].water[0]});
       }
       else
       {
@@ -111,8 +111,8 @@ void TerrainGenerator::generateTerrain(std::vector<MapNode> &mapNodes, std::vect
             if (tileIndex < 20)
             {
               tileIndex = tileIndex % static_cast<int>(m_biomeInformation[currentBiome].treesLight.size());
-              mapNodes[nodeIdx] = std::move(MapNode{Point{x, y, z++, height}, m_biomeInformation[currentBiome].terrain[0],
-                                                    m_biomeInformation[currentBiome].treesLight[tileIndex]});
+              mapNodes.emplace_back(MapNode{Point{x, y, z, height}, m_biomeInformation[currentBiome].terrain[0],
+                                            m_biomeInformation[currentBiome].treesLight[tileIndex]});
               placed = true;
             }
           }
@@ -121,8 +121,8 @@ void TerrainGenerator::generateTerrain(std::vector<MapNode> &mapNodes, std::vect
             if (tileIndex < 50)
             {
               tileIndex = tileIndex % static_cast<int>(m_biomeInformation[currentBiome].treesMedium.size());
-              mapNodes[nodeIdx] = std::move(MapNode{Point{x, y, z++, height}, m_biomeInformation[currentBiome].terrain[0],
-                                                    m_biomeInformation[currentBiome].treesMedium[tileIndex]});
+              mapNodes.emplace_back(MapNode{Point{x, y, z, height}, m_biomeInformation[currentBiome].terrain[0],
+                                            m_biomeInformation[currentBiome].treesMedium[tileIndex]});
               placed = true;
             }
           }
@@ -130,17 +130,24 @@ void TerrainGenerator::generateTerrain(std::vector<MapNode> &mapNodes, std::vect
           {
             tileIndex = tileIndex % static_cast<int>(m_biomeInformation[currentBiome].treesDense.size());
 
-            mapNodes[nodeIdx] = std::move(MapNode{Point{x, y, z++, height}, m_biomeInformation[currentBiome].terrain[0],
-                                                  m_biomeInformation[currentBiome].treesDense[tileIndex]});
+            mapNodes.emplace_back(MapNode{Point{x, y, z, height}, m_biomeInformation[currentBiome].terrain[0],
+                                          m_biomeInformation[currentBiome].treesDense[tileIndex]});
             placed = true;
           }
         }
         if (placed == false)
         {
-          mapNodes[nodeIdx] = std::move(MapNode{Point{x, y, z++, height}, m_biomeInformation[currentBiome].terrain[0]});
+          mapNodes.emplace_back(MapNode{Point{x, y, z, height}, m_biomeInformation[currentBiome].terrain[0]});
         }
       }
-      mapNodesInDrawingOrder.push_back(&mapNodes[nodeIdx]);
+    }
+  }
+
+  for (int x = 0; x < mapSize; x++)
+  {
+    for (int y = mapSize - 1; y >= 0; y--)
+    {
+      mapNodesInDrawingOrder.push_back(&mapNodes[x * mapSize + y]);
     }
   }
 }

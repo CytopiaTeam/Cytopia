@@ -33,19 +33,14 @@ class MapNode
 public:
   MapNode(Point isoCoordinates, const std::string &terrainID, const std::string &newTileID = "");
 
-  /**
-    * @brief Empty constructor.
-    *
-    * @attention This constructor should not be used.
+  /** @brief Move constructor.
     */
-  MapNode(){};
-
-  /**
-    * @brief Empty copy constructor.
-    *
-    * @attention This copy constructor should not be used.
-    */
-  MapNode(const MapNode &){};
+  MapNode(MapNode &&mn) noexcept
+      : m_isoCoordinates(std::move(mn.m_isoCoordinates)), m_sprite(std::move(mn.m_sprite)),
+        m_previousTileID(std::move(mn.m_previousTileID)), m_autotileOrientation(std::move(mn.m_autotileOrientation)),
+        m_elevationOrientation(mn.m_elevationOrientation), m_clippingWidth(mn.m_clippingWidth),
+        m_mapNodeData(std::move(mn.m_mapNodeData)), m_autotileBitmask(std::move(mn.m_autotileBitmask)),
+        m_elevationBitmask(mn.m_elevationBitmask){};
 
   /**
     * @brief Destroys the MapNode object
@@ -155,10 +150,6 @@ public:
   bool isLayerOccupied(const Layer &layer) const { return m_mapNodeData[layer].tileData != nullptr; }
 
   void setRenderFlag(Layer layer, bool shouldRender) { m_mapNodeData[layer].shouldRender = shouldRender; }
-
-  /** @brief Assignment operator.
-   */
-  MapNode &operator=(MapNode &&mapNode);
 
   /** @brief Set elevation bit mask.
     */
