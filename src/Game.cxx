@@ -356,10 +356,6 @@ void Game::shutdown()
   m_EventLoop.join();
   TTF_Quit();
 
-#ifdef USE_AUDIO
-  Mix_Quit();
-#endif
-
   SDL_Quit();
 }
 
