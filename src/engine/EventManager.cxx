@@ -471,6 +471,13 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         {
           m_clickDownCoords = mouseIsoCoords;
           m_placementAllowed = true;
+
+          // Nodes to place are collected during the mouse move.
+          // In case of multiple left clicks without moving the mouse, node to place will be the node of the mouse click.
+          if (m_nodesToPlace.empty())
+          {
+            m_nodesToPlace.push_back(mouseIsoCoords);
+          }
         }
       }
       break;
