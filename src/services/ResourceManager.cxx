@@ -64,8 +64,6 @@ int ResourceManager::LoadAudioWithOggVorbis(std::string path, DecodedAudioData &
 #endif
 
   //open file
-  //ifstream file(path, std::ifstream::in | std::ifstream::binary);
-  
   //read file in binary mode
   SDL_RWops *file = SDL_RWFromFile(path.c_str(), "rb");
 
