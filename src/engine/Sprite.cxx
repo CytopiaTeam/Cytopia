@@ -70,6 +70,10 @@ void Sprite::refresh(const Layer &layer)
     {
       if (m_SpriteData[currentLayer].texture)
       {
+        if (layer != NONE && currentLayer != layer)
+        {
+          continue;
+        }
         m_currentZoomLevel = Camera::zoomLevel;
         int spriteSheetHeight = 0;
         SDL_QueryTexture(m_SpriteData[currentLayer].texture, nullptr, nullptr, nullptr, &spriteSheetHeight);

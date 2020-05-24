@@ -281,9 +281,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           Camera::cameraOffset.x -= event.motion.xrel;
           Camera::cameraOffset.y -= event.motion.yrel;
 
-          if (Engine::instance().map != nullptr)
-            Engine::instance().map->refresh();
-          break;
+          Engine::instance().map->refresh();
         }
         // check if we should highlight tiles and if we're in placement mode
         if (highlightSelection)
