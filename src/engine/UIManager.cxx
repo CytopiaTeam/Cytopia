@@ -935,6 +935,11 @@ void UIManager::changeResolution(UIElement *sender)
   ComboBox *combobox = dynamic_cast<ComboBox *>(sender);
   WindowManager::instance().setScreenResolution(combobox->getActiveID());
   Layout::arrangeElements();
+
+  if (Engine::instance().map != nullptr)
+  {
+    Engine::instance().map->refresh();
+  }
 }
 
 void UIManager::changeFullScreenMode(UIElement *sender)
@@ -943,4 +948,9 @@ void UIManager::changeFullScreenMode(UIElement *sender)
   ComboBox *combobox = dynamic_cast<ComboBox *>(sender);
   WindowManager::instance().setFullScreenMode(static_cast<FULLSCREEN_MODE>(combobox->getActiveID()));
   Layout::arrangeElements();
+
+  if (Engine::instance().map != nullptr)
+  {
+    Engine::instance().map->refresh();
+  }
 }

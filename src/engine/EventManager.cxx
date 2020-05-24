@@ -298,7 +298,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
             origCornerPoint = mouseIsoCoords;
           }
 
-          // cancelling transparent buildings
+          // canceling transparent buildings
           for (const auto &it : m_transparentBuildings)
           {
             if (it != UNDEFINED_POINT)
