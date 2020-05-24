@@ -170,6 +170,11 @@ public:
    */
   void setNodeTransparency(const float transparencyFactor) const;
 
+  /**
+   * @brief Maximum height of the node.
+   */
+  static const int maxHeight = 32;
+
 private:
   Point m_isoCoordinates;
   std::unique_ptr<Sprite> m_sprite;

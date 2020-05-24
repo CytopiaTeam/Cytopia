@@ -40,7 +40,6 @@ MapNode::MapNode(Point isoCoordinates, const std::string &terrainID, const std::
 
 bool MapNode::changeHeight(const bool higher)
 {
-  constexpr int maxHeight = 32;
   constexpr int minHeight = 0;
   auto &height = m_isoCoordinates.height;
 

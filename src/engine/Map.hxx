@@ -269,8 +269,13 @@ private:
   */
   bool updateHeight(MapNode &mapNode, const bool higher, std::vector<NeighborNode> &neighbors);
 
+  /* \brief For implementing frustum culling, find all map nodes which are visible on the screen. Only visible nodes will be rendered.
+  */
+  void calculateVisibleMap(void);
+
   std::vector<MapNode> mapNodes;
   std::vector<MapNode *> mapNodesInDrawingOrder;
+  std::vector<MapNode *> mapNodesVisible;
   int m_columns;
   int m_rows;
   std::default_random_engine randomEngine;

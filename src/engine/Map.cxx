@@ -404,9 +404,9 @@ void Map::renderMap() const
   MICROPROFILE_SCOPEI("Map", "Render Map", MP_YELLOW);
 #endif
 
-  for (const auto &it : mapNodesInDrawingOrder)
+  for (const auto pNode : mapNodesVisible)
   {
-    it->render();
+    pNode->render();
   }
 }
 
@@ -416,9 +416,11 @@ void Map::refresh()
   MICROPROFILE_SCOPEI("Map", "Refresh Map", MP_YELLOW);
 #endif
 
-  for (const auto &it : mapNodesInDrawingOrder)
+  calculateVisibleMap();
+
+  for (const auto pNode : mapNodesVisible)
   {
-    it->getSprite()->refresh();
+    pNode->getSprite()->refresh();
   }
 }
 
@@ -735,4 +737,33 @@ bool Map::isAllowSetTileId(const Layer layer, const MapNode *const pMapNode)
   }
 
   return true;
+}
+
+void Map::calculateVisibleMap(void)
+{
+  const Point topLeft = calculateIsoCoordinates({0, 0});
+  const Point bottomRight = calculateIsoCoordinates({Settings::instance().screenWidth, Settings::instance().screenHeight});
+
+  // Screen edges
+  const int left = topLeft.x + topLeft.y - 2;
+  const int right = bottomRight.x + bottomRight.y + 1;
+  const int top = topLeft.y - topLeft.x + 1;
+  // Lower the bottom because of high terrain nodes under the screen which will be pushed into the view
+  const int bottom = bottomRight.y - bottomRight.x - 1 - MapNode::maxHeight;
+
+  mapNodesVisible.clear();
+
+  for (int x = 0; x < m_rows; x++)
+  {
+    for (int y = m_columns - 1; y >= 0; y--)
+    {
+      const int xVal = x + y;
+      const int yVal = y - x;
+
+      if ((xVal >= left) && (xVal <= right) && (yVal <= top) && (yVal >= bottom))
+      {
+        mapNodesVisible.emplace_back(&mapNodes[nodeIdx(x, y)]);
+      }
+    }
+  }
 }
