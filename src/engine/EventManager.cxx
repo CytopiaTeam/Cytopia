@@ -274,12 +274,14 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         // if we're panning, move the camera and break
         if (m_panning)
         {
+          if ((event.motion.xrel == 0) && (event.motion.yrel == 0))
+          {
+            return;
+          }
           Camera::cameraOffset.x -= event.motion.xrel;
           Camera::cameraOffset.y -= event.motion.yrel;
 
-          if (Engine::instance().map != nullptr)
-            Engine::instance().map->refresh();
-          return;
+          Engine::instance().map->refresh();
         }
         // check if we should highlight tiles and if we're in placement mode
         if (highlightSelection)
@@ -298,7 +300,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
             origCornerPoint = mouseIsoCoords;
           }
 
-          // cancelling transparent buildings
+          // canceling transparent buildings
           for (const auto &it : m_transparentBuildings)
           {
             if (it != UNDEFINED_POINT)
@@ -471,6 +473,13 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         {
           m_clickDownCoords = mouseIsoCoords;
           m_placementAllowed = true;
+
+          // Nodes to place are collected during the mouse move.
+          // In case of multiple left clicks without moving the mouse, node to place will be the node of the mouse click.
+          if (m_nodesToPlace.empty())
+          {
+            m_nodesToPlace.push_back(mouseIsoCoords);
+          }
         }
       }
       break;
