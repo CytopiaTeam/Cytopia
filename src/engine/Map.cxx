@@ -83,7 +83,8 @@ void Map::getNodeInformation(const Point &isoCoordinates) const
   LOG(LOG_INFO) << "TileIndex: " << mapNodeData.tileIndex;
 }
 
-Map::Map(int columns, int rows, const bool generateTerrain) : m_columns(columns), m_rows(rows)
+Map::Map(int columns, int rows, const bool generateTerrain)
+    : m_columns(columns), m_rows(rows), pMapNodesVisible(new Sprite *[columns * rows]), m_visibleNodesCount(0)
 {
   // TODO move Random Engine out of map
   randomEngine.seed();
@@ -96,6 +97,8 @@ Map::Map(int columns, int rows, const bool generateTerrain) : m_columns(columns)
 
   updateAllNodes();
 }
+
+Map::~Map() { delete pMapNodesVisible; }
 
 std::vector<NeighborNode> Map::getNeighborNodes(const Point &isoCoordinates, const bool includeCentralNode)
 {
@@ -404,9 +407,9 @@ void Map::renderMap() const
   MICROPROFILE_SCOPEI("Map", "Render Map", MP_YELLOW);
 #endif
 
-  for (const auto pNode : mapNodesVisible)
+  for (int i = 0; i < m_visibleNodesCount; ++i)
   {
-    pNode->render();
+    pMapNodesVisible[i]->render();
   }
 }
 
@@ -418,9 +421,9 @@ void Map::refresh()
 
   calculateVisibleMap();
 
-  for (const auto pNode : mapNodesVisible)
+  for (int i = 0; i < m_visibleNodesCount; ++i)
   {
-    pNode->getSprite()->refresh();
+    pMapNodesVisible[i]->refresh();
   }
 }
 
@@ -751,7 +754,7 @@ void Map::calculateVisibleMap(void)
   // Lower the bottom because of high terrain nodes under the screen which will be pushed into the view
   const int bottom = bottomRight.y - bottomRight.x - 1 - MapNode::maxHeight;
 
-  mapNodesVisible.clear();
+  m_visibleNodesCount = 0;
 
   for (int x = 0; x < m_rows; x++)
   {
@@ -762,7 +765,7 @@ void Map::calculateVisibleMap(void)
 
       if ((xVal >= left) && (xVal <= right) && (yVal <= top) && (yVal >= bottom))
       {
-        mapNodesVisible.emplace_back(&mapNodes[nodeIdx(x, y)]);
+        pMapNodesVisible[m_visibleNodesCount++] = mapNodes[nodeIdx(x, y)].getSprite();
       }
     }
   }

@@ -23,7 +23,7 @@ class Map
 public:
   Map() = delete;
   Map(int columns, int rows, const bool generateTerrain = true);
-  ~Map() = default;
+  ~Map();
 
   /** \brief Increase Height
     * Increases the height of the node and checks the surrounding tiles. Either draw a slope sprite or elevate the tile if
@@ -275,7 +275,8 @@ private:
 
   std::vector<MapNode> mapNodes;
   std::vector<MapNode *> mapNodesInDrawingOrder;
-  std::vector<MapNode *> mapNodesVisible;
+  Sprite **pMapNodesVisible;
+  int m_visibleNodesCount;
   int m_columns;
   int m_rows;
   std::default_random_engine randomEngine;
