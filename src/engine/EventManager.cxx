@@ -362,14 +362,15 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           }
           m_placementAllowed = false;
           std::vector<Point> nodesToAdd;
+          TileData* tileToPlaceData = TileManager::instance().getTileData(tileToPlace);
 
           // if we touch a bigger than 1x1 tile also add all nodes of the building to highlight.
           for (const auto &coords : m_nodesToHighlight)
           {
             // If we place a ground decoration tile, we must add all tiles of bigger than 1x1 buildings from the Layer BUILDINGS
             Layer layer;
-            if (TileManager::instance().getTileData(tileToPlace) &&
-                TileManager::instance().getTileData(tileToPlace)->tileType == +TileType::GROUNDDECORATION)
+            if (demolishMode ||
+                 (tileToPlaceData && tileToPlaceData->tileType == +TileType::GROUNDDECORATION))
             {
               layer = Layer::BUILDINGS;
             }
@@ -393,8 +394,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           m_nodesToHighlight.insert(m_nodesToHighlight.end(), nodesToAdd.begin(), nodesToAdd.end());
 
           // for ground decoration, place all ground decoration files beneath the building
-          if (TileManager::instance().getTileData(tileToPlace) &&
-              TileManager::instance().getTileData(tileToPlace)->tileType == +TileType::GROUNDDECORATION)
+          if (tileToPlaceData && tileToPlaceData->tileType == +TileType::GROUNDDECORATION)
           {
             m_nodesToPlace = m_nodesToHighlight;
           }
@@ -428,16 +428,13 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
 
             auto transparentBuildingIt =
                 std::find(m_transparentBuildings.begin(), m_transparentBuildings.end(), buildingCoordinates);
-            if (!(transparentBuildingIt != m_transparentBuildings.end()))
+            if (transparentBuildingIt == m_transparentBuildings.end() && buildingCoordinates != UNDEFINED_POINT)
             {
-              if (buildingCoordinates != UNDEFINED_POINT)
+              const TileData *tileData = engine.map->getMapNode(buildingCoordinates)->getTileData(Layer::BUILDINGS);
+              if (tileData && tileData->category != "Flora")
               {
-                const TileData *tileData = engine.map->getMapNode(buildingCoordinates)->getTileData(Layer::BUILDINGS);
-                if (tileData && tileData->category != "Flora")
-                {
-                  engine.map->getMapNode(buildingCoordinates)->setNodeTransparency(0.6f);
-                  m_transparentBuildings.push_back(buildingCoordinates);
-                }
+                engine.map->getMapNode(buildingCoordinates)->setNodeTransparency(0.6f);
+                m_transparentBuildings.push_back(buildingCoordinates);
               }
             }
           }
