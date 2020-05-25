@@ -732,6 +732,12 @@ bool Map::isAllowSetTileId(const Layer layer, const MapNode *const pMapNode)
       return false;
     }
     break;
+  case Layer::WATER:
+    if (pMapNode->isLayerOccupied(Layer::BUILDINGS) && pMapNode->getMapNodeDataForLayer(Layer::BUILDINGS).tileData->category != "Flora")
+    {
+      return false;
+    }
+    break;
   default:
     break;
   }
