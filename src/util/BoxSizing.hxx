@@ -7,8 +7,8 @@
  * @class       ScreenMeasurement
  * @brief       Represents a measurement made on the screen
  * @details     This class is used to encode linear combinations
- *              of absolute and relative measurements. For example, you can 
- *              specify that the width of an element should be 50_lw 
+ *              of absolute and relative measurements. For example, you can
+ *              specify that the width of an element should be 50_lw
  *              (50% of the enclosing layout)
  */
 struct ScreenMeasurement
@@ -38,7 +38,7 @@ constexpr ScreenMeasurement operator""_px(unsigned long long);
 constexpr ScreenMeasurement operator+(const ScreenMeasurement &, const ScreenMeasurement &);
 constexpr ScreenMeasurement operator-(const ScreenMeasurement &, const ScreenMeasurement &);
 
-/** 
+/**
  * @class       ScreenMeasurementValuation
  * @brief       Represents the values in pixels of the element width/height and layout width/height
  * @details     Used to measure a ScreenMeasurement
@@ -51,7 +51,7 @@ struct ScreenMeasurementValuation
   int layoutHeight;
 };
 
-/** 
+/**
  * @class       BoxSizing
  * @brief       Represents the desired dimensions of a Box
  */
@@ -80,13 +80,17 @@ struct PositionHint
  * @class       MarginConfiguration
  * @brief       Represents a PositionHint as margin around a Box
  */
-class MarginConfiguration : public PositionHint { };
+class MarginConfiguration : public PositionHint
+{
+};
 
 /**
  * @class       PaddingConfiguration
  * @brief       Represents a PositionHint as padding within a Box
  */
-class PaddingConfiguration : public PositionHint { };
+class PaddingConfiguration : public PositionHint
+{
+};
 
 #include "BoxSizing.inl.hxx"
 
