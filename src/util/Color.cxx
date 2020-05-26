@@ -6,38 +6,19 @@
 
 SDL_Color RGBAColor::to_SDL() const noexcept
 {
-  return SDL_Color {
-    static_cast<uint8_t>(m_Color >> 24),
-    static_cast<uint8_t>(m_Color >> 16),
-    static_cast<uint8_t>(m_Color >>  8),
-    static_cast<uint8_t>(m_Color)
-  };
+  return SDL_Color{static_cast<uint8_t>(m_Color >> 24), static_cast<uint8_t>(m_Color >> 16), static_cast<uint8_t>(m_Color >> 8),
+                   static_cast<uint8_t>(m_Color)};
 }
 
-uint8_t RGBAColor::red() const noexcept
-{
-  return m_Color >> 24;
-}
- 
-RGBAColor::operator uint32_t() const
-{
-  return m_Color;
-}
+RGBAColor::operator uint32_t() const { return m_Color; }
 
-uint8_t RGBAColor::green() const noexcept
-{
-  return m_Color >> 16;
-}
+uint8_t RGBAColor::red() const noexcept { return m_Color >> 24; }
 
-uint8_t RGBAColor::blue() const noexcept
-{
-  return m_Color >> 8;
-}
+uint8_t RGBAColor::green() const noexcept { return m_Color >> 16; }
 
-uint8_t RGBAColor::alpha() const noexcept
-{
-  return m_Color;
-}
+uint8_t RGBAColor::blue() const noexcept { return m_Color >> 8; }
+
+uint8_t RGBAColor::alpha() const noexcept { return m_Color; }
 
 uint8_t RGBAColor::hue() const noexcept
 {
@@ -90,10 +71,8 @@ RGBAColor RGBAColor::fromHSLA(uint8_t h, uint8_t s, uint8_t l, uint8_t a)
   return {r, g, b, a};
 }
 
-std::ostream & operator<<(std::ostream & os, const RGBAColor & c)
+std::ostream &operator<<(std::ostream &os, const RGBAColor &c)
 {
-  return os << "Color { red: " 
-    << static_cast<int>(c.red()) << ", green: " 
-    << static_cast<int>(c.green()) << ", blue: " 
-    << static_cast<int>(c.blue()) << " }";
+  return os << "Color { red: " << static_cast<int>(c.red()) << ", green: " << static_cast<int>(c.green())
+            << ", blue: " << static_cast<int>(c.blue()) << " }";
 }

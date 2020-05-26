@@ -39,19 +39,16 @@ private:
   uint32_t m_Color;
 };
 
-constexpr RGBAColor operator""_rgba(unsigned long long val)
-{
-  return RGBAColor{static_cast<uint32_t>(val)};
-}
+constexpr RGBAColor operator""_rgba(unsigned long long val) { return RGBAColor{static_cast<uint32_t>(val)}; }
 
-std::ostream & operator<<(std::ostream &, const RGBAColor &);
+std::ostream &operator<<(std::ostream &, const RGBAColor &);
 
 namespace Palette
 {
-  constexpr RGBAColor Gray = 0x575757FF_rgba;
-  constexpr RGBAColor Orange = 0xFF771EFF_rgba;
-  constexpr RGBAColor Black = 0x000000FF_rgba;
-  constexpr RGBAColor White = 0xFFFFFFFF_rgba;
-};
+constexpr RGBAColor Gray = 0x575757FF_rgba;
+constexpr RGBAColor Orange = 0xFF771EFF_rgba;
+constexpr RGBAColor Black = 0x000000FF_rgba;
+constexpr RGBAColor White = 0xFFFFFFFF_rgba;
+}; // namespace Palette
 
 #endif // COLOR_HXX_

@@ -11,7 +11,7 @@ class Map
 {
 public:
   //fixed MapNode* array to store neighbors.
-  using NeighborMatrix = MapNode * [9];
+  using NeighborMatrix = MapNode *[9];
 
   std::vector<std::unique_ptr<MapNode>> mapNodes;
   std::vector<MapNode *> mapNodesInDrawingOrder;
