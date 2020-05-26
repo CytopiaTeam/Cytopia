@@ -75,7 +75,7 @@ TEST_CASE("I can scale PixelBuffers", "[util]")
 
 TEST_CASE("I can recolor PixelBuffers", "[util]")
 {
-  /* These colors are not affected by 
+  /* These colors are not affected by
    * magic pixel recoloring because
    * They are either not magic pixels,
    * or they hit the extremes of overlay
@@ -113,7 +113,7 @@ TEST_CASE("I can recolor PixelBuffers", "[util]")
    * Hence, there are three situations we are interested in testing:
    */
 
-  /** grayscales: 
+  /** grayscales:
     * Pick a random digit X in [1, 254]
     * our Magic pixel is RGB { X, X, X }
     * Pick a random digit Y in [0, 255]
@@ -128,7 +128,7 @@ TEST_CASE("I can recolor PixelBuffers", "[util]")
     * There are 254 * 256 = 65,024 possibilities
     */
 
-  /** purples: 
+  /** purples:
     * Pick random digit X in [1, 254]
     * Pick random digit Y in [X, 255]
     * our Magic pixel is RGB { X, X, X }

@@ -22,7 +22,7 @@ public:
 
   /**
    * @brief   Construct a PixelBuffer from bounds and a range
-   * @throws  CytopiaError if 
+   * @throws  CytopiaError if
    *          std::distance(range.begin(), range.end()) != rectange.width() * rectangle.height()
    */
   template <typename Range> PixelBuffer(const Rectangle &, const Range &range);
@@ -40,7 +40,7 @@ public:
   const Rectangle &bounds() const;
 
   /**
-   * @brief   Scale the pixel buffer using nearest-neighbor 
+   * @brief   Scale the pixel buffer using nearest-neighbor
    *          in both dimensions
    * @param   factor the scaling factor
    * @post    Becomes EMPTY if factor < 1 / min{width, height}
