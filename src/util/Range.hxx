@@ -53,8 +53,7 @@ template <typename Container> Range(Container &)->Range<typename Container::iter
 
 template <typename Iterator> Range(Iterator, Iterator)->Range<Iterator>;
 
-template <typename Iterator1, typename Iterator2>
-bool operator==(const Range<Iterator1> &, const Range<Iterator2> &);
+template <typename Iterator1, typename Iterator2> bool operator==(const Range<Iterator1> &, const Range<Iterator2> &);
 
 #include "Range.inl.hxx"
 

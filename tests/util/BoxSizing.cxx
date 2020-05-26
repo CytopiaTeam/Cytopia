@@ -19,7 +19,7 @@ TEST_CASE("I can use ScreenMeasurement", "[util]")
   REQUIRE((2_ew - 1_ew).ew == 1);
   REQUIRE((2_px - 1_px).px == 1);
 
-  ScreenMeasurementValuation smv { 100, 200, 300, 400 };
+  ScreenMeasurementValuation smv{100, 200, 300, 400};
   REQUIRE((1_ew).measure(smv) == 1);
   REQUIRE((1_eh).measure(smv) == 2);
   REQUIRE((1_lw).measure(smv) == 3);
