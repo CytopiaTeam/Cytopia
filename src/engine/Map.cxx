@@ -84,7 +84,7 @@ void Map::getNodeInformation(const Point &isoCoordinates) const
 }
 
 Map::Map(int columns, int rows, const bool generateTerrain)
-    : m_columns(columns), m_rows(rows), pMapNodesVisible(new Sprite *[columns * rows]), m_visibleNodesCount(0)
+    : pMapNodesVisible(new Sprite *[columns * rows]), m_columns(columns), m_rows(rows)
 {
   // TODO move Random Engine out of map
   randomEngine.seed();
