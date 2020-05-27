@@ -28,7 +28,6 @@ public:
   Map(Map &&fp) = delete;
   Map const &operator=(Map &&fp) = delete;
 
-
   /** \brief Increase Height
     * Increases the height of the node and checks the surrounding tiles. Either draw a slope sprite or elevate the tile if
     * necessary.
