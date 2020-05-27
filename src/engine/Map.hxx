@@ -21,9 +21,13 @@ struct NeighborNode
 class Map
 {
 public:
-  Map() = delete;
   Map(int columns, int rows, const bool generateTerrain = true);
   ~Map();
+  Map(Map &other) = delete;
+  Map &operator=(const Map &other) = delete;
+  Map(Map &&fp) = delete;
+  Map const &operator=(Map &&fp) = delete;
+
 
   /** \brief Increase Height
     * Increases the height of the node and checks the surrounding tiles. Either draw a slope sprite or elevate the tile if

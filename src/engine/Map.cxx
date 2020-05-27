@@ -98,7 +98,7 @@ Map::Map(int columns, int rows, const bool generateTerrain)
   updateAllNodes();
 }
 
-Map::~Map() { delete pMapNodesVisible; }
+Map::~Map() { delete[] pMapNodesVisible; }
 
 std::vector<NeighborNode> Map::getNeighborNodes(const Point &isoCoordinates, const bool includeCentralNode)
 {
