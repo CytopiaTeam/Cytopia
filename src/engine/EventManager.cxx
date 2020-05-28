@@ -305,7 +305,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           {
             if (it != UNDEFINED_POINT)
             {
-              (engine.map->getMapNode(it))->setNodeTransparency(0);
+              (engine.map->getMapNode(it))->setNodeTransparency(0, Layer::BUILDINGS);
             }
           }
           m_transparentBuildings.clear();
@@ -433,7 +433,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
               const TileData *tileData = engine.map->getMapNode(buildingCoordinates)->getTileData(Layer::BUILDINGS);
               if (tileData && tileData->category != "Flora")
               {
-                engine.map->getMapNode(buildingCoordinates)->setNodeTransparency(0.6f);
+                engine.map->getMapNode(buildingCoordinates)->setNodeTransparency(0.6f, Layer::BUILDINGS);
                 m_transparentBuildings.push_back(buildingCoordinates);
               }
             }

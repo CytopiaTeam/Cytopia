@@ -33,10 +33,7 @@ void Sprite::render() const
         SDL_SetTextureColorMod(m_SpriteData[currentLayer].texture, highlightColor.r, highlightColor.g, highlightColor.b);
       }
 
-      if (transparentSprite)
-      {
-        SDL_SetTextureAlphaMod(m_SpriteData[currentLayer].texture, alpha);
-      }
+      SDL_SetTextureAlphaMod(m_SpriteData[currentLayer].texture, m_SpriteData[currentLayer].alpha);
 
       if (m_SpriteData[currentLayer].clipRect.w != 0)
       {
@@ -54,10 +51,7 @@ void Sprite::render() const
         SDL_SetTextureColorMod(m_SpriteData[currentLayer].texture, 255, 255, 255);
       }
 
-      if (transparentSprite)
-      {
-        SDL_SetTextureAlphaMod(m_SpriteData[currentLayer].texture, 255);
-      }
+      SDL_SetTextureAlphaMod(m_SpriteData[currentLayer].texture, 255);
     }
   }
 }

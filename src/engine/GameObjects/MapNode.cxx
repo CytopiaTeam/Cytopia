@@ -70,8 +70,13 @@ void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
     const Layer layer = TileManager::instance().getTileLayer(tileID);
     switch (layer)
     {
+	case Layer::ZONE:
+		//TODO: modify Zone Transparency here.
+		//this->setNodeTransparency(0.6f, Layer::ZONE);
+	  break;
     case Layer::WATER:
       demolishLayer(Layer::ROAD);
+	  //TODO: we need to modify neighbors TileTypes to Shore.
       // no break on purpose.
     case Layer::ROAD:
       // in case it's allowed then maybe a Tree Tile already exist, so we remove it.
@@ -144,12 +149,11 @@ Layer MapNode::getTopMostActiveLayer() const
   return Layer::NONE;
 }
 
-void MapNode::setNodeTransparency(const float transparencyFactor) const
+void MapNode::setNodeTransparency(const float transparencyFactor, const Layer& layer) const
 {
   // TODO refactoring: Consider replacing magic number (255) with constexpr.
   unsigned char alpha = (1 - transparencyFactor) * 255;
-  m_sprite->transparentSprite = true;
-  m_sprite->alpha = alpha;
+  m_sprite->setSpriteTranparencyFactor(layer, alpha);
 }
 
 bool MapNode::isDataAutoTile(const TileData *tileData)
