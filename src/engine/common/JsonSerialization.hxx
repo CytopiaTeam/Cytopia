@@ -42,6 +42,7 @@ inline void from_json(const json &j, SettingsData &s)
   s.mapSize = j["Game"].value("MapSize", 64);
   s.biome = j["Game"].value("Biome", "GrassLands");
   s.maxElevationHeight = j["Game"].value("MaxElevationHeight", 32);
+  s.zoneLayerTransperancy = j["Game"].value("ZoneLayerTransperancy", 0.5f);
   s.uiDataJSONFile = j["ConfigFiles"].value("UIDataJSONFile", "resources/data/TileData.json");
   s.tileDataJSONFile = j["ConfigFiles"].value("TileDataJSONFile", "resources/data/UIData.json");
   s.uiLayoutJSONFile = j["ConfigFiles"].value("UILayoutJSONFile", "resources/data/UILayout.json");

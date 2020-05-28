@@ -4,6 +4,7 @@
 #include "LOG.hxx"
 #include "../map/MapLayers.hxx"
 #include "GameStates.hxx"
+#include "Settings.hxx"
 
 MapNode::MapNode(Point isoCoordinates, const std::string &terrainID, const std::string &tileID)
     : m_isoCoordinates(std::move(isoCoordinates))
@@ -70,10 +71,9 @@ void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
     const Layer layer = TileManager::instance().getTileLayer(tileID);
     switch (layer)
     {
-	case Layer::ZONE:
-		//TODO: modify Zone Transparency here.
-		//this->setNodeTransparency(0.6f, Layer::ZONE);
-	  break;
+      case Layer::ZONE:
+      this->setNodeTransparency(Settings::instance().zoneLayerTransperancy, Layer::ZONE);
+      break;
     case Layer::WATER:
       demolishLayer(Layer::ROAD);
 	  //TODO: we need to modify neighbors TileTypes to Shore.
@@ -423,6 +423,7 @@ const MapNodeData &MapNode::getActiveMapNodeData() const { return m_mapNodeData[
 void MapNode::setMapNodeData(std::vector<MapNodeData> &&mapNodeData, const Point &currNodeIsoCoordinates)
 {
   m_mapNodeData.swap(mapNodeData);
+  this->setNodeTransparency(Settings::instance().zoneLayerTransperancy, Layer::ZONE);
 
   // updates the pointers to the tiles, after loading tileIDs from json
   for (auto &it : m_mapNodeData)

@@ -16,7 +16,8 @@
     "Game": {
         "Biome": "MixedForest",
         "MapSize": 128,
-        "MaxElevationHeight": 32
+        "MaxElevationHeight": 32,
+        "ZoneLayerTransperancy": 0.6
     },
     "Graphics": {
         "FullScreen": false,

@@ -57,6 +57,13 @@ struct SettingsData
   int maxElevationHeight;
 
   /**
+  * @brief the value of the zone layer transparency, (0 - 1.0).
+  * where 0 is full opaque and 1 for full transperancy.
+  * @todo add a typename
+  */
+  float zoneLayerTransperancy;
+
+  /**
    * @todo document what this field is
    * @todo add a typename
    */
