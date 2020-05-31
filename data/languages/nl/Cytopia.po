@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-05-26 19:11+0200\n"
-"PO-Revision-Date: 2019-10-21 11:13+0000\n"
+"PO-Revision-Date: 2020-05-31 10:56+0000\n"
 "Last-Translator: Edgar <Edgar@AnotherFoxGuy.com>, 2020\n"
 "Language-Team: Dutch (https://www.transifex.com/cytopia/teams/100140/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -465,34 +465,34 @@ msgid "Burned Trees"
 msgstr "Gebrande Bomen"
 
 msgid "Burned land"
-msgstr "gebrande land"
+msgstr "Verbrand land"
 
 msgid "Cancel"
-msgstr "annuleren"
+msgstr "Annuleren"
 
 msgid "Cattail"
 msgstr "Lisdodde"
 
 msgid "Centerpiece Park"
-msgstr "centerpiece Park"
+msgstr "Middelpunt Park"
 
 msgid "Chemical Plant"
 msgstr "Chemische fabriek"
 
 msgid "Classic Red Barn"
-msgstr "Classic Red Barn"
+msgstr "Klassieke rode schuur"
 
 msgid "Clock Store"
-msgstr "klok Store"
+msgstr "Klokkenwinkel"
 
 msgid "Coal Pile"
-msgstr "steenkoolstapel"
+msgstr "Steenkoolstapel"
 
 msgid "Coal Power Plant"
-msgstr "Coal Power Plant"
+msgstr "Kolencentrale"
 
 msgid "Commercial"
-msgstr "Reclame"
+msgstr "Commercial"
 
 msgid "Commercial Zone (dense)"
 msgstr "Commercial Zone (dichte)"
@@ -513,19 +513,19 @@ msgid "Commercial Zone (medium)."
 msgstr "Commercial Zone (gemiddeld)."
 
 msgid "Community Tower"
-msgstr "Community Tower"
+msgstr "Gemeenschapstoren"
 
 msgid "CompactFast Shop"
-msgstr "CompactFast Shop"
+msgstr "CompactFast Winkel"
 
 msgid "Concrete Ground Decoration"
-msgstr "Concrete Ground Decoration"
+msgstr "Betonnen gronddecoratie"
 
 msgid "Construction"
 msgstr "Bouw"
 
 msgid "Countries"
-msgstr "landen"
+msgstr "Platteland"
 
 msgid "Country Road"
 msgstr "Landweg"
@@ -534,13 +534,13 @@ msgid "Creme-Oran Tower"
 msgstr "Creme-Oran Tower"
 
 msgid "Crystal Trees"
-msgstr "Crystal Trees"
+msgstr "Kristal Bomen"
 
 msgid "Day Care Center"
-msgstr "Day Care Center"
+msgstr "Kinderdagverblijf"
 
 msgid "Debug Menu"
-msgstr "debug Menu"
+msgstr "Debug Menu"
 
 msgid "Deciduous tree"
 msgstr "Loofboom"
@@ -558,13 +558,13 @@ msgid "Desert Building"
 msgstr "Desert Building"
 
 msgid "Desert Rocks"
-msgstr "Rocks Desert"
+msgstr "Woestijn Rotsen"
 
 msgid "Desert building"
-msgstr "Desert gebouw"
+msgstr "Woestijn gebouw"
 
 msgid "Diamond Rocks"
-msgstr "Rocks Diamond"
+msgstr "Diamanten Rotsen"
 
 msgid "Dirt"
 msgstr "Aarde"
@@ -573,7 +573,7 @@ msgid "Dirt Road"
 msgstr "Zandweg"
 
 msgid "European Road"
-msgstr "European Road"
+msgstr "Europese weg"
 
 msgid "Factory"
 msgstr "Fabriek"
@@ -582,41 +582,41 @@ msgid "Farm"
 msgstr "Boerderij"
 
 msgid "Ferns"
-msgstr "Ferns"
+msgstr "Varens"
 
 msgid ""
 "Ferns are green flowerless plants with divided leaves that tend to grow in "
 "damp, shady areas."
 msgstr ""
-"Varens zijn groen flowerless planten met verdeelde bladeren die de neiging "
-"hebben om te groeien in vochtige, schaduwrijke plekken."
+"Varens zijn groene bloemloze planten met verdeelde bladeren die de neiging "
+"hebben om te groeien in vochtige, schaduwrijke gebieden."
 
 msgid "Flora"
 msgstr "Flora"
 
 msgid "Flowers"
-msgstr "bloemen"
+msgstr "Bloemen"
 
 msgid "Forest"
 msgstr "Woud"
 
 msgid "Fullscreen Mode"
-msgstr "fullscreen Mode"
+msgstr "Fullscreen Mode"
 
 msgid "Game Shop"
 msgstr "Game Shop"
 
 msgid "Glass Tower"
-msgstr "Glass Tower"
+msgstr "Glazen toren"
 
 msgid "Golden Rocks"
-msgstr "Golden Rocks"
+msgstr "Gouden rotsen"
 
 msgid "Grass Mint"
-msgstr "Grass Mint"
+msgstr "Muntgras"
 
 msgid "Grass Mint Forest"
-msgstr "Grass Mint Forest"
+msgstr "Muntgras bos"
 
 msgid "Grassland"
 msgstr "Grasland"
@@ -625,22 +625,22 @@ msgid "Gravel"
 msgstr "Grind"
 
 msgid "Green Bush"
-msgstr "Green Bush"
+msgstr "Groene struik"
 
 msgid "Green Cactus"
-msgstr "Green Cactus"
+msgstr "Groene Cactus"
 
 msgid "Ground Decoration"
-msgstr "Ground Decoration"
+msgstr "Gronddecoratie"
 
 msgid "High Wealth"
-msgstr "hoge Wealth"
+msgstr "Hoge welstand"
 
 msgid "Highway Road"
-msgstr "Highway Road"
+msgstr "Snelweg"
 
 msgid "Homeless Camp"
-msgstr "Homeless Camp"
+msgstr "Daklozen kamp"
 
 msgid "Hotel"
 msgstr "Hotel"
@@ -658,7 +658,7 @@ msgid "In the tall grass."
 msgstr "In het hoge gras."
 
 msgid "Industrial"
-msgstr "industrieel"
+msgstr "Industrieel"
 
 msgid "Industrial Building"
 msgstr "Industrie gebouw"
@@ -686,27 +686,27 @@ msgid "Level Terrain"
 msgstr "Level Terrain"
 
 msgid "Light Pole"
-msgstr "lichte Pool"
+msgstr "Straatlantaarn"
 
 msgid "Lily pads"
-msgstr "Lily pads"
+msgstr "Waterlelie"
 
 msgid ""
 "Lily pads are broad, rounded, heart- or shield-shaped leaves. Frogs like to "
 "sit on them!"
 msgstr ""
-"Lelieblaadjes zijn breed, afgerond, hart- en schild-vormig blad. Kikkers "
-"willen zitten op hen!"
+"Lelieblaadjes zijn brede, ronde, hart- of schildvormige bladeren. Kikkers "
+"zitten er graag op!"
 
 #: src/Game.cxx:143
 msgid "Load Game"
-msgstr "Spel laden"
+msgstr "Laad pel "
 
 msgid "Low Wealth"
-msgstr "low Wealth"
+msgstr "Lage welstand "
 
 msgid "Lower Terrain"
-msgstr "lagere Terrain"
+msgstr "Verlaag Terrein"
 
 msgid "Mansion"
 msgstr "Herenhuis"
@@ -715,28 +715,28 @@ msgid "Medical"
 msgstr "Medisch"
 
 msgid "Medium Appartments"
-msgstr "medium Appartments"
+msgstr "Middelgrote appartementen"
 
 msgid "Medium Depolluter"
-msgstr "medium Depolluter"
+msgstr "Middelgrote Depolluter"
 
 msgid "Medium Wealth"
-msgstr "medium Wealth"
+msgstr "Gemiddelde welstand "
 
 msgid "Mini Depolluter"
-msgstr "mini Depolluter"
+msgstr "Kleine Depolluter"
 
 msgid "Mud"
 msgstr "Modder"
 
 msgid "Mushroom Trees"
-msgstr "Mushroom Trees"
+msgstr "Paddestoel Bomen"
 
 msgid "Nature"
 msgstr "Natuur"
 
 msgid "NatureDecoration"
-msgstr "NatureDecoration"
+msgstr "Natuur decoratie"
 
 #: src/Game.cxx:128
 msgid "New Game"
@@ -755,7 +755,7 @@ msgid "Old Industrial Building"
 msgstr "Oud industrieel gebouw"
 
 msgid "Old Power Plant"
-msgstr "Oud Power Plant"
+msgstr "Oude Energiecentrale"
 
 msgid "Old building"
 msgstr "Oud gebouw"
@@ -764,7 +764,7 @@ msgid "Palm Trees"
 msgstr "Palmbomen"
 
 msgid "Park Crossroads"
-msgstr "Park Crossroads"
+msgstr "Park Kruispunt"
 
 msgid "Paved Road"
 msgstr "Geplaveide weg"
@@ -788,10 +788,10 @@ msgid "Phone Shop"
 msgstr "telefoon Winkel"
 
 msgid "Picnic Pavilion"
-msgstr "Picnic Pavilion"
+msgstr "Picknickpaviljoen"
 
 msgid "Picnic Tables"
-msgstr "picknicktafels"
+msgstr "Picknicktafels"
 
 msgid "Pine Trees"
 msgstr "Dennenbomen"
@@ -800,19 +800,19 @@ msgid "Pipes are used for transporting water."
 msgstr "Pijpen voor het transport van water."
 
 msgid "Pool"
-msgstr "zwembad"
+msgstr "Zwembad"
 
 msgid "Power"
-msgstr "macht"
+msgstr "Elektriciteit"
 
 msgid "Pretty concrete"
-msgstr "Pretty beton"
+msgstr "Mooi beton"
 
 msgid "Prison"
 msgstr "Gevangenis"
 
 msgid "Prison Fence"
-msgstr "gevangenis Fence"
+msgstr "Gevangenis Hek"
 
 msgid "Pyramid"
 msgstr "Piramide"
@@ -822,16 +822,16 @@ msgid "Quit Game"
 msgstr "Game beëindigen"
 
 msgid "Raise Terrain"
-msgstr "raise Terrain"
+msgstr "Verhoog terrein"
 
 msgid "Red Berry Bush"
-msgstr "Red Berry Bush"
+msgstr "Rode bessenstruik"
 
 msgid "Red Sand"
 msgstr "Rood zand"
 
 msgid "Residential"
-msgstr "woon-"
+msgstr "Residentieel"
 
 msgid "Residential Zone (dense)"
 msgstr "Residential Zone (dichte)"
@@ -867,12 +867,12 @@ msgid ""
 "Rice is normally grown as an annual plant, although in tropical areas it can"
 " survive as a perennial and can produce a ratoon crop for up to 30 years."
 msgstr ""
-"Rice wordt normaal gegroeid als een eenjarige plant, maar in tropische "
-"gebieden kan overleven als een vaste plant en kan een ratoon gewas te "
-"produceren voor maximaal 30 jaar."
+"Rijst wordt normaal gesproken gekweekt als eenjarige plant, hoewel het in "
+"tropische gebieden als een vaste plant kan overleven en tot 30 jaar lang een"
+" wereld van voedsel kan produceren."
 
 msgid "Roads"
-msgstr "wegen"
+msgstr "Wegen"
 
 msgid "Rocks"
 msgstr "Rocks"
@@ -881,16 +881,16 @@ msgid "Ruegroshorloge"
 msgstr "Ruegroshorloge"
 
 msgid "Rural French Road"
-msgstr "Landelijke Franse Road"
+msgstr "Landelijke Franse Weg"
 
 msgid "Rural French Road brokenlined"
-msgstr "Landelijke Franse Road brokenlined"
+msgstr "Landelijke Franse Weg - onderbroken streep"
 
 msgid "Rural French Road fresh"
-msgstr "Landelijke Franse Road vers"
+msgstr "Landelijke Franse Weg - nieuw"
 
 msgid "Rural French Road lined"
-msgstr "Landelijke Franse Road bekleed"
+msgstr "Landelijke Franse Weg - belijnd"
 
 msgid "Save Game"
 msgstr "Spel opslaan"
@@ -902,16 +902,16 @@ msgid "Screen Resolution"
 msgstr "Schermresolutie"
 
 msgid "Settings"
-msgstr "instellingen"
+msgstr "Instellingen"
 
 msgid "Shading"
-msgstr "shading"
+msgstr "Shading"
 
 msgid "Shop"
 msgstr "Winkel"
 
 msgid "Sign Platform"
-msgstr "Teken Platform"
+msgstr "Bord Platform"
 
 msgid "SkyScraper"
 msgstr "Wolkenkrabber"
@@ -920,46 +920,46 @@ msgid "Skyscraper"
 msgstr "Wolkenkrabber"
 
 msgid "Small Coal Power Plant"
-msgstr "Kleine Coal Power Plant"
+msgstr "Kleine Kolencentrale"
 
 msgid "Small Coal Power Plant2"
-msgstr "Kleine kolencentrale Plant2"
+msgstr "Kleine Kolencentrale V2"
 
 msgid "Small Commercial Center"
-msgstr "Kleine Commercial Center"
+msgstr "Klein Winkelcentrum"
 
 msgid "Small House"
 msgstr "Klein huis"
 
 msgid "Small Houses"
-msgstr "kleine Huizen"
+msgstr "Kleine huizen"
 
 msgid "Small Military Facility"
-msgstr "Kleine Military Facility"
+msgstr "Kleine Militaire faciliteit"
 
 msgid "Small Office Building"
-msgstr "Small Office Building"
+msgstr "Small Kantoorgebouw"
 
 msgid "Small Shack"
-msgstr "kleine Shack"
+msgstr "Kleine schuur"
 
 msgid "Small Shed"
-msgstr "kleine Loods"
+msgstr "Kleine Loods"
 
 msgid "Small Waiting Platform"
-msgstr "Kleine Waiting Platform"
+msgstr "Kleine Wacht Platform"
 
 msgid "Small Water Tower"
-msgstr "Kleine Water Tower"
+msgstr "Kleine Watertoren"
 
 msgid "Small house"
 msgstr "Klein huis"
 
 msgid "Snowy Rocks"
-msgstr "besneeuwde Rocks"
+msgstr "Besneeuwde Rotsen"
 
 msgid "Soil"
-msgstr "Bodem"
+msgstr "Aarde"
 
 msgid "Station"
 msgstr "Station"
@@ -980,82 +980,82 @@ msgid "TODO TITLE"
 msgstr "TODO TITLE"
 
 msgid "Tall Concrete Tower"
-msgstr "Tall Concrete Tower"
+msgstr "Hoge betonnen toren"
 
 msgid "Tall Grass"
 msgstr "Hoog gras"
 
 msgid "Tan Tower"
-msgstr "tan Tower"
+msgstr "Tan Toren"
 
 msgid "Terrain"
 msgstr "Terrein"
 
 msgid "Terrain Black Sand tiles"
-msgstr "Terrain Black Sand tegels"
+msgstr "Terrein - Zwart zand"
 
 msgid "Terrain Blueprint"
-msgstr "Terrain Blueprint"
+msgstr "Terrein - Blueprint"
 
 msgid "Terrain Desert tiles"
-msgstr "Terrain Desert tegels"
+msgstr "Terrein - Woestijn"
 
 msgid "Terrain Dirt tiles"
-msgstr "Terrain Dirt tegels"
+msgstr "Terrein - Modder"
 
 msgid "Terrain Grass Mint Forest tiles"
-msgstr "Terrain Grass Mint Forest tegels"
+msgstr "Terrein - Muntgras bos "
 
 msgid "Terrain Gravel tiles"
-msgstr "Terrain Gravel tegels"
+msgstr "Terrein - Grind"
 
 msgid "Terrain Rainstone tiles"
-msgstr "Terrain Rainstone tegels"
+msgstr "Terrein - Regensteen"
 
 msgid "Terrain Red Sand tiles"
-msgstr "Terrain Red Sand tegels"
+msgstr "Terrein - Rood zand"
 
 msgid "Terrain Snow tiles"
-msgstr "Terrein van de sneeuw tegels"
+msgstr "Terrein - Sneeuw"
 
 msgid "Terrain Stone tiles"
-msgstr "Terrein Stone tegels"
+msgstr "Terrein - Stone "
 
 msgid "Terrain basalt tiles"
-msgstr "Terrain basalt tegels"
+msgstr "Terrein - basalt"
 
 msgid "Terrain beach tiles"
-msgstr "Terrain strand tegels"
+msgstr "Terrein - strand"
 
 msgid "Terrain burned tiles"
-msgstr "Terrain verbrand tegels"
+msgstr "Terrein - verbrand "
 
 msgid "Terrain grass forest tiles"
-msgstr "Terrain gras bostegels"
+msgstr "Terrein - gras-bos"
 
 msgid "Terrain grass mint tiles"
-msgstr "Terrain gras mint tegels"
+msgstr "Terrein - Muntgras"
 
 msgid "Terrain grass tiles"
-msgstr "Terrain grastegels"
+msgstr "Terrein - gras"
 
 msgid "Terrain mud tiles"
-msgstr "Terrain modder tegels"
+msgstr "Terrein - modder"
 
 msgid "Terrain shading tiles"
-msgstr "Terrain shading tegels"
+msgstr "Terrein - shading"
 
 msgid "Terrain soil tiles"
-msgstr "Terrain bodem tegels"
+msgstr "Terrein - Zand"
 
 msgid "TerrainDecoration"
-msgstr "TerrainDecoration"
+msgstr "Terreindecoratie"
 
 msgid "Tour Front De Seine"
 msgstr "Tour Front De Seine"
 
 msgid "Trailer Park"
-msgstr "trailer Park"
+msgstr "Trailerpark"
 
 msgid "Utilities"
 msgstr "Gereedschap"
@@ -1064,7 +1064,7 @@ msgid "Water"
 msgstr "Water"
 
 msgid "Water Rocks"
-msgstr "Rocks water"
+msgstr "Water stenen"
 
 msgid "Water Tower"
 msgstr "Watertoren"
@@ -1082,19 +1082,19 @@ msgid "Wooden Sign"
 msgstr "Houten bordje"
 
 msgid "Yellow Cactus"
-msgstr "Yellow Cactus"
+msgstr "Gele Cactus"
 
 msgid "Zones"
-msgstr "zones"
+msgstr "Zones"
 
 msgid "a green bush"
-msgstr "een groene struik"
+msgstr "Een groene struik"
 
 msgid "a little stream"
-msgstr "een beekje"
+msgstr "Een beekje"
 
 msgid "big Appartments"
-msgstr "big Appartments"
+msgstr "grote appartementen"
 
 msgid "house"
 msgstr "huis"
