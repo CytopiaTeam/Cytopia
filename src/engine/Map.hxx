@@ -21,9 +21,12 @@ struct NeighborNode
 class Map
 {
 public:
-  Map() = delete;
   Map(int columns, int rows, const bool generateTerrain = true);
-  ~Map() = default;
+  ~Map();
+  Map(Map &other) = delete;
+  Map &operator=(const Map &other) = delete;
+  Map(Map &&fp) = delete;
+  Map const &operator=(Map &&fp) = delete;
 
   /** \brief Increase Height
     * Increases the height of the node and checks the surrounding tiles. Either draw a slope sprite or elevate the tile if
@@ -275,7 +278,8 @@ private:
 
   std::vector<MapNode> mapNodes;
   std::vector<MapNode *> mapNodesInDrawingOrder;
-  std::vector<MapNode *> mapNodesVisible;
+  Sprite **pMapNodesVisible;
+  int m_visibleNodesCount = 0;
   int m_columns;
   int m_rows;
   std::default_random_engine randomEngine;
