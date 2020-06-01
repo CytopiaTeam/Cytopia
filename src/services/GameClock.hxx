@@ -99,7 +99,7 @@ public:
 
   /**
   * @brief Remove real/game time clock.
-  *        After it is removed successfully it is guarantied it will not trigger callback 
+  *        After it is removed successfully it is guarantied it will not trigger callback
   * @param hndl Handle of clock which should be removed.
   * @return true in case clock is successfully removed, otherwise false.
   */
