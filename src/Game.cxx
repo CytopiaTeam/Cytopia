@@ -286,13 +286,25 @@ void Game::run(bool SkipMenu)
 #ifdef USE_AUDIO
   if (!Settings::instance().audio3DStatus)
   {
-    m_GameClock.createRepeatedTask(8min, [this]() { m_AudioMixer.play(AudioTrigger::MainTheme); });
-    m_GameClock.createRepeatedTask(3min, [this]() { m_AudioMixer.play(AudioTrigger::NatureSounds); });
+    m_AudioMixer.play(AudioTrigger::MainTheme);
+    m_GameClock.addRealTimeClockTask([this]() { m_AudioMixer.play(AudioTrigger::MainTheme); }, 8min, 8min);
+    m_AudioMixer.play(AudioTrigger::NatureSounds);
+    m_GameClock.addRealTimeClockTask([this]() { m_AudioMixer.play(AudioTrigger::NatureSounds); }, 3min, 3min);
   }
   else
   {
-    m_GameClock.createRepeatedTask(8min, [this]() { m_AudioMixer.play(AudioTrigger::MainTheme, Coordinate3D{0, 0.5, 0.1}); });
-    m_GameClock.createRepeatedTask(3min, [this]() { m_AudioMixer.play(AudioTrigger::NatureSounds, Coordinate3D{0, 0, -2}); });
+    m_AudioMixer.play(AudioTrigger::MainTheme, Coordinate3D{0, 0.5, 0.1});
+    m_GameClock.addRealTimeClockTask(
+        [this]() {
+          m_AudioMixer.play(AudioTrigger::MainTheme, Coordinate3D{0, 0.5, 0.1});
+        },
+        8min, 8min);
+    m_AudioMixer.play(AudioTrigger::NatureSounds, Coordinate3D{0, 0, -2});
+    m_GameClock.addRealTimeClockTask(
+        [this]() {
+          m_AudioMixer.play(AudioTrigger::NatureSounds, Coordinate3D{0, 0, -2});
+        },
+        3min, 3min);
   }
 #endif // USE_AUDIO
 
@@ -339,6 +351,7 @@ void Game::run(bool SkipMenu)
       fpsFrames = 0;
     }
 
+    m_GameClock.tick();
     SDL_Delay(1);
 
 #ifdef MICROPROFILE_ENABLED

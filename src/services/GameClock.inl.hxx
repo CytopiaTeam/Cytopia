@@ -1,15 +1,15 @@
-#include "GameClock.hxx"
-
-template <typename Duration> void GameClock::createDefferedTask(Duration && duration, Callback callback)
+template <typename DelayType, typename PeriodType>
+GameClock::ClockTaskHndl GameClock::addRealTimeClockTask(ClockCbk cbk, DelayType delay, PeriodType period)
 {
-  LockGuard lock(m_lock);
-  auto future = duration + std::chrono::system_clock::now();
-  m_Deffered.emplace(DefferedTask{callback, future.time_since_epoch().count()});
-}
-
-template <typename Duration> inline void GameClock::createRepeatedTask(Duration && duration, Callback callback) 
-{
-  LockGuard lock(m_lock);
-  auto future = std::chrono::system_clock::now();
-  m_Repeated.emplace(RepeatedTask{callback, future.time_since_epoch().count(), ClockDuration{duration}.count()});
+  if ((cbk != nullptr) && (TimePoint(delay) > TimePointZero) && (TimePoint(period) >= TimePointZero))
+  {
+    std::lock_guard<Mutex> lock(m_lock);
+    m_realTimeTasks.emplace(RealTimeClockTask(cbk, TimePoint(Clock::now() + (TimePoint(delay) - TimePointZero)),
+                                              TimePoint(period), ++m_unique_handle));
+    return m_unique_handle;
+  }
+  else
+  {
+    return ClockTaskHndlInvalid;
+  }
 }
