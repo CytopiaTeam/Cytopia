@@ -1,6 +1,6 @@
 #include "GameClock.hxx"
 
-GameClock::GameClock(GameService::ServiceTuple &services) : GameService(services), m_lock(), m_lastGameTickTime(Clock::now()) {}
+GameClock::GameClock(GameService::ServiceTuple &services) : GameService(services) {}
 
 void GameClock::tick(void)
 {

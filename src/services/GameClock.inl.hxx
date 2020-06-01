@@ -3,7 +3,7 @@ GameClock::ClockTaskHndl GameClock::addRealTimeClockTask(ClockCbk cbk, DelayType
 {
   if ((cbk != nullptr) && (TimePoint(delay) > TimePointZero) && (TimePoint(period) >= TimePointZero))
   {
-    std::lock_guard<Mutex> lock(m_lock);
+    std::lock_guard<std::mutex> lock(m_lock);
     m_realTimeTasks.emplace(RealTimeClockTask(cbk, TimePoint(Clock::now() + (TimePoint(delay) - TimePointZero)),
                                               TimePoint(period), ++m_unique_handle));
     return m_unique_handle;
