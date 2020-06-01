@@ -34,12 +34,12 @@ public:
   /**
   * @brief Represent 1 minute of game time.
   */
-  static const GameClockTime GameMinut = 1;
+  static const GameClockTime GameMinute = 1;
 
   /**
   * @brief Represent 1 hour of game time.
   */
-  static const GameClockTime GameHour = 60 * GameMinut;
+  static const GameClockTime GameHour = 60 * GameMinute;
 
   /**
   * @brief Represent 1 day of game time.
@@ -76,9 +76,9 @@ public:
   /**
   * @brief Add new game time clock task.
   * @param cbk Callback function to be called after delay time is passed.
-  * @param delay Delay in game timer ticks. Use provided values GameDay, GameHour, GameMinut and scale it as necessary.
+  * @param delay Delay in game timer ticks. Use provided values GameDay, GameHour, GameMinute and scale it as necessary.
   *        Callback function will be called after delay timer is passed.
-  * @param period Repeat period in game timer ticks. Use provided values GameDay, GameHour, GameMinut and scale it as necessary.
+  * @param period Repeat period in game timer ticks. Use provided values GameDay, GameHour, GameMinute and scale it as necessary.
   *        The timer will be reset again with new delay ticks in amount of period ticks.
   * @return Game time clock task handle. Can be used to remove clock and verify whether it is started correctly.
   *         In case of failure #ClockTaskHndlInvalid will be return.
