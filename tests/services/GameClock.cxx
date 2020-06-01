@@ -64,10 +64,7 @@ TEST_CASE("I can schedule multiple real time tasks", "[engine][clock]")
       clock.addRealTimeClockTask([&order, &rank]() { order[1] = rank++; }, 2s);
       tickingThread.join();
 
-      THEN("The deferred tasks execute according to their delays")
-      {
-        CHECK(order == std::array{1, 2, 3});
-      }
+      THEN("The deferred tasks execute according to their delays") { CHECK(order == std::array{1, 2, 3}); }
     }
   }
 }
@@ -247,10 +244,7 @@ TEST_CASE("I can speed up game time", "[engine][clock]")
       clock.setGameClockSpeed(4.0f);
       tickingThread.join();
 
-      THEN("The repeating task executes exact number of times. The removed tasks stop executing")
-      {
-        CHECK(counter == 4);
-      }
+      THEN("The repeating task executes exact number of times. The removed tasks stop executing") { CHECK(counter == 4); }
     }
   }
 }
