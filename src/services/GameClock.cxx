@@ -7,7 +7,7 @@ void GameClock::tick(void)
   auto now = Clock::now();
   std::lock_guard<std::mutex> lock(m_lock);
 
-  while (!m_realTimeTasks.empty() && (now > m_realTimeTasks.top().m_waketime))
+  while (!m_realTimeTasks.isEmpty() && (now > m_realTimeTasks.top().m_waketime))
   {
     const auto task = m_realTimeTasks.top();
     m_realTimeTasks.pop();
@@ -15,9 +15,8 @@ void GameClock::tick(void)
 
     if (task.m_period != TimePointZero)
     {
-      m_realTimeTasks.emplace(RealTimeClockTask(task.callback,
-                                                TimePoint(Clock::now() + (TimePoint(task.m_period) - TimePointZero)),
-                                                TimePoint(task.m_period), task.hndl));
+      m_realTimeTasks.add(RealTimeClockTask(task.callback, TimePoint(Clock::now() + (TimePoint(task.m_period) - TimePointZero)),
+                                            TimePoint(task.m_period), task.hndl));
     }
   }
 
@@ -26,7 +25,7 @@ void GameClock::tick(void)
     m_lastGameTickTime = now;
     m_gameTicks++;
 
-    while (!m_gameTimeTasks.empty() && (m_gameTicks >= m_gameTimeTasks.top().m_waketime))
+    while (!m_gameTimeTasks.isEmpty() && (m_gameTicks >= m_gameTimeTasks.top().m_waketime))
     {
       const auto task = m_gameTimeTasks.top();
       m_gameTimeTasks.pop();
@@ -34,7 +33,7 @@ void GameClock::tick(void)
 
       if (task.m_period != 0U)
       {
-        m_gameTimeTasks.emplace(GameTimeClockTask(task.callback, m_gameTicks + task.m_period, task.m_period, task.hndl));
+        m_gameTimeTasks.add(GameTimeClockTask(task.callback, m_gameTicks + task.m_period, task.m_period, task.hndl));
       }
     }
   }
@@ -60,7 +59,7 @@ GameClock::ClockTaskHndl GameClock::addGameTimeClockTask(ClockCbk cbk, GameClock
   {
     std::lock_guard<std::mutex> lock(m_lock);
     // Add +1 tick just to be sure timer is not fire before its timeout.
-    m_gameTimeTasks.emplace(GameTimeClockTask(cbk, delay + m_gameTicks + 1U, period, ++m_unique_handle));
+    m_gameTimeTasks.add(GameTimeClockTask(cbk, delay + m_gameTicks + 1U, period, ++m_unique_handle));
     return m_unique_handle;
   }
   else

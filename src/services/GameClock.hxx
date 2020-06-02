@@ -151,9 +151,34 @@ private:
   /**
   * @brief Wrap priority queue class to extend functionality.
   */
-  template <typename Task> class RemovablePriorityQueue : public std::priority_queue<Task, std::deque<Task>, std::greater<Task>>
+  template <typename Task> class RemovablePriorityQueue
   {
+    std::vector<Task> m_container;
+
   public:
+    /**
+    * @brief Check whether queue is empty.
+    * @return true if queue is empty otherwise false.
+    */
+    bool isEmpty() { return m_container.empty(); }
+
+    /**
+    * @brief Get top element from the queue.
+    *        Task which expire first.
+    * @return Top task from queue.
+    */
+    Task &top(void) { return m_container.front(); }
+
+    /**
+    * @brief Add new task to the queue.
+    */
+    void add(Task &&task);
+
+    /**
+    * @brief Remove first task from the queue.
+    */
+    void pop(void);
+
     /**
     * @brief Remove task from queue.
     * @param hndl Handle of the task to be removed.
