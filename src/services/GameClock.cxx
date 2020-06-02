@@ -81,18 +81,3 @@ void GameClock::clear(void)
   m_gameTimeTasks.clear();
   m_realTimeTasks.clear();
 }
-
-template <typename Task> bool GameClock::RemovablePriorityQueue<Task>::remove(GameClock::ClockTaskHndl hndl)
-{
-  auto task = std::find_if(c.begin(), c.end(), [hndl](auto it) { return it.hndl == hndl; });
-
-  if (task != c.end())
-  {
-    this->c.erase(task);
-    return true;
-  }
-
-  return false;
-}
-
-template <typename Task> void GameClock::RemovablePriorityQueue<Task>::clear(void) { c.clear(); }

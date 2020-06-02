@@ -109,7 +109,7 @@ TEST_CASE("I can schedule multiple real time tasks and remove some", "[engine][c
       auto task3 = clock.addRealTimeClockTask([&order]() { order[2]++; }, 1s, 1s);
       auto task4 = clock.addRealTimeClockTask([&order]() { order[3]++; }, 3s, 3s);
 
-      std::this_thread::sleep_for(3100ms);
+      std::this_thread::sleep_for(3500ms);
       bool isRemoved3 = clock.removeClockTask(task3);
       bool isRemoved2 = clock.removeClockTask(task2);
       tickingThread.join();
