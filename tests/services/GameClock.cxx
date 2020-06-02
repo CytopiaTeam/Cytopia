@@ -80,7 +80,7 @@ TEST_CASE("I can schedule real time repeating task", "[engine][clock]")
   {
     GameService::ServiceTuple ctx = GameService::ServiceTuple{};
     GameClock clock(ctx);
-    auto tickingThread = std::thread(tick_clock, 6500ms, std::ref(clock));
+    auto tickingThread = std::thread(tick_clock, 6900ms, std::ref(clock));
 
     WHEN("I schedule repeating real time task")
     {
@@ -238,7 +238,7 @@ TEST_CASE("I can speed up game time", "[engine][clock]")
   {
     GameService::ServiceTuple ctx = GameService::ServiceTuple{};
     GameClock clock(ctx);
-    auto tickingThread = std::thread(tick_clock, 2700ms, std::ref(clock));
+    auto tickingThread = std::thread(tick_clock, 2900ms, std::ref(clock));
 
     WHEN("I schedule game task and speed up game time 4 times")
     {
