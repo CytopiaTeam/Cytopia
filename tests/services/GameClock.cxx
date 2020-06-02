@@ -14,7 +14,7 @@ void tick_clock(std::chrono::microseconds duration, GameClock &clock)
   while (duration > std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - start))
   {
     clock.tick();
-    std::this_thread::sleep_for(100ms);
+    std::this_thread::sleep_for(10ms);
   }
 
   clock.tick();
