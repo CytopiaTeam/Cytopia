@@ -55,7 +55,7 @@ public:
   void setFullScreenMode(FULLSCREEN_MODE mode) const;
 
 private:
-  /** 
+  /**
   * \brief Construct a new WindowManager object.
   */
   WindowManager();
