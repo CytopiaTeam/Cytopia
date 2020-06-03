@@ -4,16 +4,16 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Edgar <Edgar@AnotherFoxGuy.com>, 2019
+# Edgar <Edgar@AnotherFoxGuy.com>, 2020
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-25 09:45+0200\n"
-"PO-Revision-Date: 2019-06-14 12:00+0000\n"
-"Last-Translator: Edgar <Edgar@AnotherFoxGuy.com>, 2019\n"
+"POT-Creation-Date: 2020-05-26 19:11+0200\n"
+"PO-Revision-Date: 2020-05-31 10:56+0000\n"
+"Last-Translator: Edgar <Edgar@AnotherFoxGuy.com>, 2020\n"
 "Language-Team: Dutch (https://www.transifex.com/cytopia/teams/100140/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,62 +24,205 @@ msgstr ""
 msgid "A  small coal power plant."
 msgstr "Een kleine kolencentrale."
 
-msgid "A Coal Power plant."
-msgstr "Een kolencentrale."
+msgid ""
+"A  small coal power plant.  It can supply a small town with electricity, but"
+" it produces a lot of pollution."
+msgstr ""
+"Een kleine kolencentrale. Het kan een kleine stad van stroom te voorzien, "
+"maar het produceert een veel vervuiling."
 
-msgid "A Power Plant, that has been built years ago"
-msgstr "Een energiecentrale, die al jaren geleden is gebouwd"
-
-msgid "A Road, that hasn't been cleaned often"
-msgstr "Een weg die niet vaak is schoongemaakt"
-
-msgid "A Shop that sells Bikes"
-msgstr "Een winkel die fietsen verkoopt"
-
-msgid "A Tower made out of concrete"
-msgstr "Een toren gemaakt van beton"
+msgid "A Wheat Field"
+msgstr "Een Tarwegebied"
 
 msgid "A beautiful water tower"
-msgstr "Een prachtige watertoren"
+msgstr "Een mooie watertoren"
 
 msgid "A big building"
 msgstr "Een groot gebouw"
 
+msgid "A bland-looking apartment building made out of concrete."
+msgstr "A-saaie zoek appartementengebouw gemaakt van beton."
+
+msgid "A blank train platform with nothing on it."
+msgstr "Een lege trein platform met niets op."
+
 msgid "A blue hotel from vienna"
-msgstr "Een blauw hotel uit Wenen"
+msgstr "Een blauwe hotel van Wenen"
+
+msgid "A bush with delicious red berries."
+msgstr "Een struik met heerlijke rode bessen."
 
 msgid "A chemical plant"
 msgstr "Een chemische fabriek"
 
+msgid "A classic depolluter building that has been recently repurposed."
+msgstr "Een klassiek depolluter gebouw dat onlangs is hergebruikt."
+
 msgid "A classic house from Savannah , Georgia , USA"
-msgstr "Een klassiek huis uit Savannah, Georgia, VS"
+msgstr "Een klassieke huis uit Savannah, Georgia, Verenigde Staten"
+
+msgid ""
+"A coal power plant.  It'll produce enough electricity to keep a town "
+"running, but it creates a lot of pollution."
+msgstr ""
+"Een kolencentrale. Het zal voldoende elektriciteit om een ​​stad draaiende "
+"te houden produceren, maar het creëert een veel vervuiling."
 
 msgid "A commercial center"
 msgstr "Een commercieel centrum"
 
+msgid "A deciduous tree"
+msgstr "Een loofboom"
+
 msgid "A factory"
 msgstr "Een fabriek"
 
+msgid "A few benches that offer a place to sit to your citizens."
+msgstr "Een paar banken die een plaats bieden aan uw burgers te zitten."
+
+msgid "A green cactus."
+msgstr "Een groene cactus."
+
+msgid "A group of beautiful pinetrees."
+msgstr "Een groep van prachtige pijnbomen."
+
+msgid "A group of benches that surround a nice decorative object."
+msgstr "Een groep van banken die een mooi decoratief object omringen."
+
+msgid "A group of burned trees."
+msgstr "Een groep van verbrande bomen."
+
+msgid "A group of crystal trees."
+msgstr "Een groep van kristal bomen."
+
+msgid ""
+"A group of mannequins you dressed up as people that can be used to decorate "
+"a town."
+msgstr ""
+"Een groep van mannequins je verkleed als mensen die kunnen worden gebruikt "
+"om een ​​stad te versieren."
+
+msgid "A group of mysterious mushroom trees."
+msgstr "Een groep van mysterieuze paddenstoel bomen."
+
+msgid "A group of palmtrees."
+msgstr "Een groep palmen."
+
+msgid "A group of picnic tables that your citizens can use to eat lunch at."
+msgstr ""
+"Een groep van picknicktafels die uw burgers kunnen gebruiken om te lunchen "
+"in."
+
+msgid "A group tall wetland plants well-known for their brown catkins."
+msgstr "Een groep hoge moerasplanten bekend om hun bruine katjes."
+
+msgid "A highway! Cars go faaaaast here."
+msgstr "Een snelweg! Auto's gaan faaaaast hier."
+
 msgid "A house from Alabama , USA"
-msgstr "Een huis uit Alabama, VS"
+msgstr "Een huis uit Alabama, USA"
 
 msgid "A house from Vienna"
 msgstr "Een huis uit Wenen"
+
+msgid ""
+"A large multi-story shopping mall with large windows. Urban legends say it "
+"was built by hand by the members of a distant community"
+msgstr ""
+"Een grote multi-verdiepingen tellende winkelcentrum met grote ramen. Urban "
+"legends zeggen dat het met de hand gebouwd door de leden van een verre "
+"gemeenschap"
+
+msgid "A large plaza with a pool of water in the middle."
+msgstr "Een groot plein met een pool van water in het midden."
+
+msgid "A lovely flower patch that blooms in all colors."
+msgstr "Een mooie bloem patch die bloeit in alle kleuren."
+
+msgid "A modern european looking road without a sidewalk."
+msgstr "Een moderne Europese kijkt weg zonder stoep."
+
+msgid "A modern european looking road."
+msgstr "Een moderne Europese kijkt weg."
+
+msgid "A new factory that was once a depolluter building."
+msgstr "Een nieuwe fabriek die was ooit een depolluter gebouw."
+
+msgid "A nice park that can be used as a good centerpiece."
+msgstr "Een mooi park, dat gebruikt kan worden als een goede middelpunt."
+
+msgid ""
+"A nice paved road that are commonly found in the middle of large cities.  "
+"Includes a sidewalk."
+msgstr ""
+"Een mooie verharde weg die gewoonlijk worden aangetroffen in het midden van "
+"de grote steden. Inclusief een trottoir."
+
+msgid ""
+"A nice public pool that is a great way to stay cool and keep your citizens "
+"happy."
+msgstr ""
+"Een mooi openbaar zwembad, dat is een geweldige manier om koel te blijven en"
+" houd je inwoners blij."
+
+msgid "A nice residential building donned with white and orange concrete."
+msgstr "Een mooi woongebouw trok met witte en oranje beton."
+
+msgid ""
+"A nice reward for your city-building efforts, although it might make your "
+"citizens question if they're in a simulation."
+msgstr ""
+"Een mooie beloning voor uw-stad de bouw van de inspanningen, maar het kan uw"
+" burgers vraag te maken als ze in een simulatie."
 
 msgid "A petrol pump"
 msgstr "Een benzinepomp"
 
 msgid "A petrol station"
-msgstr "Een benzinestation"
+msgstr "Een tankstation"
+
+msgid "A picnic pavilion is a great place for your citizens to eat lunch."
+msgstr ""
+"Een picknick paviljoen is een geweldige plek voor uw burgers te lunchen."
 
 msgid "A pile of coal"
-msgstr "Een stapel kolen"
+msgstr "Een stapel van steenkool"
 
-msgid "A shop that sells clocks"
-msgstr "Een winkel die klokken verkoopt"
+msgid "A pile of rocks that can be found in the desert biome."
+msgstr "Een stapel stenen die gevonden kunnen worden in de woestijn bioom."
 
-msgid "A shop that sells games. Even Cytopia is in store!"
-msgstr "Een winkel die games verkoopt. Zelfs Cytopia ligt in de winkel!"
+msgid "A pile of rocks that can be found in the diamond biome."
+msgstr "Een stapel stenen die gevonden kunnen worden in de diamant bioom."
+
+msgid "A pile of rocks that can be found in the grasslands biome."
+msgstr ""
+"Een stapel stenen die gevonden kunnen worden in de graslanden biotoop."
+
+msgid "A pile of rocks that can be found in the snow biome."
+msgstr "Een stapel stenen die gevonden kunnen worden in de sneeuw bioom."
+
+msgid "A pile of rocks that can be found in water."
+msgstr "Een stapel stenen die gevonden kunnen worden in water."
+
+msgid "A prison fence"
+msgstr "Een gevangenis hek"
+
+msgid "A rural road from france with fresh asphalt with a broken line."
+msgstr ""
+"Een landelijke weg uit Frankrijk met verse asfalt met een gebroken lijn."
+
+msgid "A rural road from france with fresh asphalt."
+msgstr "Een landelijke weg uit Frankrijk met verse asfalt."
+
+msgid "A rural road from france with worn asphalt."
+msgstr "Een landelijke weg uit Frankrijk met versleten asfalt."
+
+msgid "A rural road from france with worn asphalth a straight line."
+msgstr ""
+"Een landelijke weg uit Frankrijk met versleten asphalth een rechte lijn."
+
+msgid "A shop that sells games. Even Cytopia is sold here!"
+msgstr "Een winkel die spellen verkoopt. Zelfs Cytopia wordt hier verkocht!"
 
 msgid "A shop that sells phones. It has the new CyPhone X"
 msgstr "Een winkel die telefoons verkoopt. Het heeft de nieuwe CyPhone X"
@@ -87,35 +230,167 @@ msgstr "Een winkel die telefoons verkoopt. Het heeft de nieuwe CyPhone X"
 msgid "A shop!"
 msgstr "Een winkel!"
 
-msgid "A skyscaper"
-msgstr "Een wolkenkrabber"
-
 msgid "A small  building"
 msgstr "Een klein gebouw"
 
+msgid ""
+"A small building dedicated to small-scale inustrial-related military "
+"activity."
+msgstr ""
+"Een klein gebouw gewijd aan kleinschalige Inustrial gerelateerde militaire "
+"activiteiten."
+
 msgid "A small french mansion "
-msgstr "Een klein Frans landhuis"
+msgstr "Een klein Frans herenhuis"
 
-msgid "A small house"
-msgstr "Een klein huis"
+msgid "A small lantern that can be used to decorate your cities."
+msgstr ""
+"Een kleine lantaarn die kan worden gebruikt om uw steden te versieren."
 
-msgid "A small shack"
-msgstr "Een kleine hut"
+msgid ""
+"A small office building with a nice sidewalk and a unique blue entrance."
+msgstr ""
+"Een klein kantoorgebouw met een mooie stoep en een unieke blauwe ingang."
+
+msgid "A small piece of land where impoverished people reside."
+msgstr "Een klein stukje grond waar arme mensen wonen."
+
+msgid "A small shed used by nearby factories as a way to store things."
+msgstr ""
+"Een kleine schuur die door nabijgelegen fabrieken als een manier om dingen "
+"op te slaan."
+
+msgid "A small shop that sells bikes."
+msgstr "Een kleine winkel die fietsen verkoopt."
+
+msgid "A small trailer house"
+msgstr "Een kleine aanhangwagen huis"
+
+msgid "A small trailer house."
+msgstr "Een kleine aanhangwagen huis."
+
+msgid ""
+"A small train platform that has a small structure on it.  People can wait "
+"here until the train comes, although there isnt much room inside."
+msgstr ""
+"Een kleine trein platform dat een kleine structuur op het heeft. Mensen "
+"kunnen hier wachten tot de trein komt, maar er is niet veel ruimte binnen."
 
 msgid "A small water tower"
 msgstr "Een kleine watertoren"
 
+msgid ""
+"A small wooden sign that can be used to decorate a town.  It doesn't "
+"actually say anything though..."
+msgstr ""
+"Een kleine houten teken dat gebruikt kan worden om een ​​stad te versieren. "
+"Het doet er niet echt iets te zeggen hoewel ..."
+
+msgid ""
+"A somewhat large fast food restaurant known for cheap food and questionable "
+"quality."
+msgstr ""
+"Een ietwat grote fast food restaurant bekend om goedkoop eten en "
+"twijfelachtige kwaliteit."
+
+msgid "A somewhat-large plot of land that is the home to many trailer houses."
+msgstr ""
+"Een enigszins-groot stuk land, dat is de thuisbasis van vele trailer huizen."
+
+msgid "A stereotypical red barn."
+msgstr "Een stereotiepe rode schuur."
+
+msgid ""
+"A tall glass skyscraper that fears the day a stone-throwing competition is "
+"held in town."
+msgstr ""
+"Een groot glazen wolkenkrabber dat de dag een stenen gooien wedstrijd wordt "
+"gehouden in de stad vreest."
+
+msgid "A tall light pole that can be used to decorate a town."
+msgstr ""
+"Een lange lichte pool die kunnen worden gebruikt om een ​​stad te versieren."
+
+msgid "A tiny house that can only accommodate a few people."
+msgstr "Een klein huis dat slechts een paar mensen kunnen herbergen."
+
+msgid "A train platform with a couple of benches and a trash can."
+msgstr "Een trein platform met een paar bankjes en een prullenbak."
+
+msgid "A train platform with a large sign on it."
+msgstr "Een trein platform met een groot bord op."
+
+msgid ""
+"A very old ship that crashed here long ago.  Its origin is unkown, but I "
+"think it's safe to say what happened to its crew"
+msgstr ""
+"Een zeer oude schip dat hier al lang geleden gecrasht. Zijn oorsprong is "
+"onbekend, maar ik denk dat het veilig om te zeggen wat er gebeurd met de "
+"bemanning"
+
+msgid "A yellow cactus."
+msgstr "Een gele cactus."
+
+msgid "Alley Road"
+msgstr "Alley Road"
+
+msgid "Alley road."
+msgstr "Alley weg."
+
+msgid "An algae-green tower that is the home of lots of people."
+msgstr "Een algen-groene toren die is de thuisbasis van veel mensen."
+
+msgid "An ancient coal power plant that has been turned into a factory."
+msgstr "Een oude kolencentrale die is veranderd in een fabriek."
+
 msgid "An apartment building from Montreal , Quebec"
-msgstr "Een appartementengebouw uit Montreal, Quebec"
+msgstr "Een flatgebouw van Montreal, Quebec"
 
 msgid "An apartment building from Vancouver , BC , Canada"
-msgstr "Een appartementengebouw uit Vancouver, BC, Canada"
+msgstr "Een flatgebouw van Vancouver, BC, Canada"
 
 msgid "An appartement building from Bellevue , WA , USA"
-msgstr "Een appartementengebouw uit Bellevue, WA, VS"
+msgstr "Een appartement gebouw van Bellevue, WA, Verenigde Staten"
+
+msgid ""
+"An average road that'll you would commonly find out in the countryside.  It "
+"lacks a proper sidewalk though."
+msgstr ""
+"Een gemiddelde weg die je zou vaak te vinden op het platteland. Het "
+"ontbreekt aan een goede stoep wel."
+
+msgid "An european looking road."
+msgstr "Een europese op zoek weg."
 
 msgid "An oasis"
 msgstr "Een oase"
+
+msgid "An old blue phone booth that can be used to decorate your cities."
+msgstr ""
+"Een oude blauwe telefooncel die kan worden gebruikt om uw steden te "
+"versieren."
+
+msgid "An old clock store that sells and repairs clocks."
+msgstr "Een oude klok winkel die reparaties klokken verkoopt en."
+
+msgid "An old day care that has since become someone's home."
+msgstr "Een oude dag zorg die sindsdien iemand thuis is."
+
+msgid "An old depolluter building that has become a new industrial factory."
+msgstr ""
+"Een oude depolluter gebouw dat heeft een nieuwe industriële fabriek "
+"geworden."
+
+msgid ""
+"An old dirt road that doesn't require much maintenance.  Not recommended for"
+" busy roadways."
+msgstr ""
+"Een oude onverharde weg die niet veel onderhoud nodig heeft. Niet aanbevolen"
+" voor drukke wegen."
+
+msgid "An old phone booth that can be used to decorate your cities."
+msgstr ""
+"Een oude telefooncel die kan worden gebruikt om uw steden te versieren."
 
 msgid "Apartment Building"
 msgstr "Appartementencomplex"
@@ -124,49 +399,88 @@ msgid "Appartment"
 msgstr "Appartement"
 
 msgid "Appartment Building"
-msgstr "Appartementencomplex"
+msgstr "Flatgebouw"
 
 msgid "Appartment London"
-msgstr "Appartement London"
+msgstr "Appartement Londen"
 
 msgid "Appartments"
-msgstr "Appartementen"
+msgstr "Appartments"
+
+msgid "Basalt"
+msgstr "Bazalt"
+
+msgid "Beach"
+msgstr "Strand"
+
+msgid "Bench Platform"
+msgstr "Bench Platform"
+
+msgid "Benches"
+msgstr "Bankjes"
 
 msgid "Big Appartments"
-msgstr "Grootte Appartementen"
+msgstr "Big Appartments"
 
 msgid "Big Building"
 msgstr "Groot gebouw"
 
-msgid "Big Depollutor"
-msgstr "Grote Depollutor"
+msgid "Big Depolluter"
+msgstr "Big Depolluter"
 
 msgid "Big Office Building"
-msgstr "Groot kantoorgebouw"
+msgstr "Big Office Building"
+
+msgid "Big Warehouse"
+msgstr "groot pakhuis"
 
 msgid "BikeShop"
 msgstr "Fietsenwinkel"
 
+msgid "Black Sand"
+msgstr "Zwart zand"
+
+msgid "Blank Platform"
+msgstr "Blank Platform"
+
 msgid "Block of houses from the Boulevard des Belges , Rouen"
-msgstr "Blok van huizen van de Boulevard des Belges, Rouen"
+msgstr "Blok van huizen uit de Boulevard des Belges, Rouen"
+
+msgid "Blueprint"
+msgstr "plan"
 
 msgid "Bois Guillaume Appartment"
 msgstr "Bois Guillaume Appartement"
 
-msgid "Borgs Burgers"
-msgstr "Borgs Burgers"
-
-msgid "Borgs Burgers - We have the tastiest!"
-msgstr "Borgs Burgers - We hebben de lekkerste!"
+msgid "Borg's Burgers"
+msgstr "Borg Burgers"
 
 msgid "BuildMenu Layout"
-msgstr "Bouw menu indeling"
+msgstr "BuildMenu Layout"
+
+msgid "BuildingsDecoration"
+msgstr "BuildingsDecoration"
+
+msgid "Burned Trees"
+msgstr "Gebrande Bomen"
+
+msgid "Burned land"
+msgstr "Verbrand land"
 
 msgid "Cancel"
 msgstr "Annuleren"
 
+msgid "Cattail"
+msgstr "Lisdodde"
+
+msgid "Centerpiece Park"
+msgstr "Middelpunt Park"
+
 msgid "Chemical Plant"
 msgstr "Chemische fabriek"
+
+msgid "Classic Red Barn"
+msgstr "Klassieke rode schuur"
 
 msgid "Clock Store"
 msgstr "Klokkenwinkel"
@@ -175,10 +489,28 @@ msgid "Coal Pile"
 msgstr "Steenkoolstapel"
 
 msgid "Coal Power Plant"
-msgstr "Coal Power Plant"
+msgstr "Kolencentrale"
 
 msgid "Commercial"
-msgstr "Commercieel"
+msgstr "Commercial"
+
+msgid "Commercial Zone (dense)"
+msgstr "Commercial Zone (dichte)"
+
+msgid "Commercial Zone (dense)."
+msgstr "Commercial Zone (dichte)."
+
+msgid "Commercial Zone (light)"
+msgstr "Commercial Zone (licht)"
+
+msgid "Commercial Zone (light)."
+msgstr "Commercial Zone (licht)."
+
+msgid "Commercial Zone (medium)"
+msgstr "Commercial Zone (gemiddeld)"
+
+msgid "Commercial Zone (medium)."
+msgstr "Commercial Zone (gemiddeld)."
 
 msgid "Community Tower"
 msgstr "Gemeenschapstoren"
@@ -186,23 +518,32 @@ msgstr "Gemeenschapstoren"
 msgid "CompactFast Shop"
 msgstr "CompactFast Winkel"
 
-msgid "Concrete Tower"
-msgstr "Betonen Toren"
+msgid "Concrete Ground Decoration"
+msgstr "Betonnen gronddecoratie"
 
 msgid "Construction"
-msgstr "Constructie"
+msgstr "Bouw"
+
+msgid "Countries"
+msgstr "Platteland"
 
 msgid "Country Road"
 msgstr "Landweg"
 
-msgid "Country Road... takes you home!"
-msgstr "Country Road ... neemt je mee naar huis!"
+msgid "Creme-Oran Tower"
+msgstr "Creme-Oran Tower"
+
+msgid "Crystal Trees"
+msgstr "Kristal Bomen"
 
 msgid "Day Care Center"
-msgstr "Kinderopvang"
+msgstr "Kinderdagverblijf"
 
 msgid "Debug Menu"
 msgstr "Debug Menu"
+
+msgid "Deciduous tree"
+msgstr "Loofboom"
 
 msgid "Decoration"
 msgstr "Decoratie"
@@ -210,35 +551,96 @@ msgstr "Decoratie"
 msgid "Demolish"
 msgstr "Slopen"
 
-msgid "Depolluter Big"
-msgstr "Depollutor Groot"
-
-msgid "Depolluter Medium"
-msgstr "Depolluter Medium"
-
-msgid "Depolluter Small"
-msgstr "Depolluter Klein"
+msgid "Desert"
+msgstr "Woestijn"
 
 msgid "Desert Building"
-msgstr "Woestijn Gebouw"
+msgstr "Desert Building"
+
+msgid "Desert Rocks"
+msgstr "Woestijn Rotsen"
 
 msgid "Desert building"
 msgstr "Woestijn gebouw"
 
+msgid "Diamond Rocks"
+msgstr "Diamanten Rotsen"
+
+msgid "Dirt"
+msgstr "Aarde"
+
 msgid "Dirt Road"
 msgstr "Zandweg"
+
+msgid "European Road"
+msgstr "Europese weg"
 
 msgid "Factory"
 msgstr "Fabriek"
 
+msgid "Farm"
+msgstr "Boerderij"
+
+msgid "Ferns"
+msgstr "Varens"
+
+msgid ""
+"Ferns are green flowerless plants with divided leaves that tend to grow in "
+"damp, shady areas."
+msgstr ""
+"Varens zijn groene bloemloze planten met verdeelde bladeren die de neiging "
+"hebben om te groeien in vochtige, schaduwrijke gebieden."
+
 msgid "Flora"
 msgstr "Flora"
 
+msgid "Flowers"
+msgstr "Bloemen"
+
+msgid "Forest"
+msgstr "Woud"
+
 msgid "Fullscreen Mode"
-msgstr "Volledig scherm"
+msgstr "Fullscreen Mode"
 
 msgid "Game Shop"
-msgstr "Game Winkel"
+msgstr "Game Shop"
+
+msgid "Glass Tower"
+msgstr "Glazen toren"
+
+msgid "Golden Rocks"
+msgstr "Gouden rotsen"
+
+msgid "Grass Mint"
+msgstr "Muntgras"
+
+msgid "Grass Mint Forest"
+msgstr "Muntgras bos"
+
+msgid "Grassland"
+msgstr "Grasland"
+
+msgid "Gravel"
+msgstr "Grind"
+
+msgid "Green Bush"
+msgstr "Groene struik"
+
+msgid "Green Cactus"
+msgstr "Groene Cactus"
+
+msgid "Ground Decoration"
+msgstr "Gronddecoratie"
+
+msgid "High Wealth"
+msgstr "Hoge welstand"
+
+msgid "Highway Road"
+msgstr "Snelweg"
+
+msgid "Homeless Camp"
+msgstr "Daklozen kamp"
 
 msgid "Hotel"
 msgstr "Hotel"
@@ -247,40 +649,96 @@ msgid "House with swimming pool"
 msgstr "Huis met zwembad"
 
 msgid "I scream for ice cream!"
-msgstr "Ik gil voor ijs!"
+msgstr "Ik gil voor roomijs!"
 
 msgid "Ice Cream Shop"
 msgstr "Ijssalon"
+
+msgid "In the tall grass."
+msgstr "In het hoge gras."
 
 msgid "Industrial"
 msgstr "Industrieel"
 
 msgid "Industrial Building"
-msgstr "Industrieel gebouw"
+msgstr "Industrie gebouw"
+
+msgid "Industrial Zone (light)"
+msgstr "Industrial Zone (licht)"
+
+msgid "Industrial Zone (medium)"
+msgstr "Industrial Zone (gemiddeld)"
+
+msgid "Industrial Zone."
+msgstr "Industrie gebied."
+
+msgid "It might be an old, bland-looking tower, but it gets the job done."
+msgstr ""
+"Het is misschien een oude, saai uitziende toren, maar het klaart de klus."
+
+msgid "Lantern"
+msgstr "Lantaarn"
+
+msgid "Large Plaza Park"
+msgstr "Grote Plaza Park"
 
 msgid "Level Terrain"
-msgstr "Vlak Terrein"
+msgstr "Level Terrain"
 
-#: src/Game.cxx:99
+msgid "Light Pole"
+msgstr "Straatlantaarn"
+
+msgid "Lily pads"
+msgstr "Waterlelie"
+
+msgid ""
+"Lily pads are broad, rounded, heart- or shield-shaped leaves. Frogs like to "
+"sit on them!"
+msgstr ""
+"Lelieblaadjes zijn brede, ronde, hart- of schildvormige bladeren. Kikkers "
+"zitten er graag op!"
+
+#: src/Game.cxx:143
 msgid "Load Game"
-msgstr "Spel laden"
+msgstr "Laad pel "
+
+msgid "Low Wealth"
+msgstr "Lage welstand "
 
 msgid "Lower Terrain"
-msgstr "Verlaag terrein"
+msgstr "Verlaag Terrein"
 
 msgid "Mansion"
 msgstr "Herenhuis"
 
+msgid "Medical"
+msgstr "Medisch"
+
 msgid "Medium Appartments"
 msgstr "Middelgrote appartementen"
 
-msgid "Medium Depollutor"
-msgstr "Medium Depollutor"
+msgid "Medium Depolluter"
+msgstr "Middelgrote Depolluter"
+
+msgid "Medium Wealth"
+msgstr "Gemiddelde welstand "
+
+msgid "Mini Depolluter"
+msgstr "Kleine Depolluter"
+
+msgid "Mud"
+msgstr "Modder"
+
+msgid "Mushroom Trees"
+msgstr "Paddestoel Bomen"
 
 msgid "Nature"
 msgstr "Natuur"
 
-#: src/Game.cxx:94
+msgid "NatureDecoration"
+msgstr "Natuur decoratie"
+
+#: src/Game.cxx:128
 msgid "New Game"
 msgstr "Nieuw spel"
 
@@ -290,23 +748,32 @@ msgstr "OK"
 msgid "Oasis"
 msgstr "Oase"
 
-msgid "Office"
-msgstr "Kantoor"
-
 msgid "Old Church"
 msgstr "Oude Kerk"
 
 msgid "Old Industrial Building"
 msgstr "Oud industrieel gebouw"
 
+msgid "Old Power Plant"
+msgstr "Oude Energiecentrale"
+
 msgid "Old building"
 msgstr "Oud gebouw"
 
-msgid "OldPowerPlant"
-msgstr "Oude elektrische centrale"
+msgid "Palm Trees"
+msgstr "Palmbomen"
+
+msgid "Park Crossroads"
+msgstr "Park Kruispunt"
 
 msgid "Paved Road"
 msgstr "Geplaveide weg"
+
+msgid "Pavement"
+msgstr "Bestrating"
+
+msgid "People"
+msgstr "Mensen"
 
 msgid "Petrol Pump"
 msgstr "Benzinepomp"
@@ -314,24 +781,75 @@ msgstr "Benzinepomp"
 msgid "Petrol Station"
 msgstr "Benzinestation"
 
+msgid "Phone Booth"
+msgstr "Telefooncel"
+
 msgid "Phone Shop"
-msgstr "Telefoonwinkel"
+msgstr "telefoon Winkel"
+
+msgid "Picnic Pavilion"
+msgstr "Picknickpaviljoen"
+
+msgid "Picnic Tables"
+msgstr "Picknicktafels"
+
+msgid "Pine Trees"
+msgstr "Dennenbomen"
+
+msgid "Pipes are used for transporting water."
+msgstr "Pijpen voor het transport van water."
+
+msgid "Pool"
+msgstr "Zwembad"
 
 msgid "Power"
-msgstr "Stroom"
+msgstr "Elektriciteit"
+
+msgid "Pretty concrete"
+msgstr "Mooi beton"
+
+msgid "Prison"
+msgstr "Gevangenis"
+
+msgid "Prison Fence"
+msgstr "Gevangenis Hek"
 
 msgid "Pyramid"
 msgstr "Piramide"
 
-#: src/Game.cxx:103
+#: src/Game.cxx:156
 msgid "Quit Game"
-msgstr "Sluit spel"
+msgstr "Game beëindigen"
 
 msgid "Raise Terrain"
 msgstr "Verhoog terrein"
 
+msgid "Red Berry Bush"
+msgstr "Rode bessenstruik"
+
+msgid "Red Sand"
+msgstr "Rood zand"
+
 msgid "Residential"
 msgstr "Residentieel"
+
+msgid "Residential Zone (dense)"
+msgstr "Residential Zone (dichte)"
+
+msgid "Residential Zone (dense)."
+msgstr "Residential Zone (dichte)."
+
+msgid "Residential Zone (light)"
+msgstr "Residential Zone (licht)"
+
+msgid "Residential Zone (light)."
+msgstr "Residential Zone (licht)."
+
+msgid "Residential Zone (medium)"
+msgstr "Residential Zone (gemiddeld)"
+
+msgid "Residential Zone (medium)."
+msgstr "Residential Zone (gemiddeld)."
 
 msgid "Restaurant"
 msgstr "Restaurant"
@@ -339,20 +857,46 @@ msgstr "Restaurant"
 msgid "Restaurant in Paris"
 msgstr "Restaurant in Parijs"
 
+msgid "Reward"
+msgstr "Beloning"
+
+msgid "Rice"
+msgstr "Rijst"
+
+msgid ""
+"Rice is normally grown as an annual plant, although in tropical areas it can"
+" survive as a perennial and can produce a ratoon crop for up to 30 years."
+msgstr ""
+"Rijst wordt normaal gesproken gekweekt als eenjarige plant, hoewel het in "
+"tropische gebieden als een vaste plant kan overleven en tot 30 jaar lang een"
+" wereld van voedsel kan produceren."
+
 msgid "Roads"
 msgstr "Wegen"
 
 msgid "Rocks"
-msgstr "Rotsen"
-
-msgid "Rocks for the terrain"
-msgstr "Rotsen voor het terrein"
+msgstr "Rocks"
 
 msgid "Ruegroshorloge"
 msgstr "Ruegroshorloge"
 
+msgid "Rural French Road"
+msgstr "Landelijke Franse Weg"
+
+msgid "Rural French Road brokenlined"
+msgstr "Landelijke Franse Weg - onderbroken streep"
+
+msgid "Rural French Road fresh"
+msgstr "Landelijke Franse Weg - nieuw"
+
+msgid "Rural French Road lined"
+msgstr "Landelijke Franse Weg - belijnd"
+
 msgid "Save Game"
 msgstr "Spel opslaan"
+
+msgid "School"
+msgstr "School"
 
 msgid "Screen Resolution"
 msgstr "Schermresolutie"
@@ -360,53 +904,158 @@ msgstr "Schermresolutie"
 msgid "Settings"
 msgstr "Instellingen"
 
+msgid "Shading"
+msgstr "Shading"
+
 msgid "Shop"
 msgstr "Winkel"
+
+msgid "Sign Platform"
+msgstr "Bord Platform"
+
+msgid "SkyScraper"
+msgstr "Wolkenkrabber"
 
 msgid "Skyscraper"
 msgstr "Wolkenkrabber"
 
 msgid "Small Coal Power Plant"
-msgstr "Kleine kolencentrale"
+msgstr "Kleine Kolencentrale"
 
 msgid "Small Coal Power Plant2"
-msgstr "Kleine kolencentrale2"
+msgstr "Kleine Kolencentrale V2"
 
 msgid "Small Commercial Center"
-msgstr "Klein commercieel centrum"
-
-msgid "Small Depollutor"
-msgstr "Klein Depollutor"
+msgstr "Klein Winkelcentrum"
 
 msgid "Small House"
 msgstr "Klein huis"
 
+msgid "Small Houses"
+msgstr "Kleine huizen"
+
+msgid "Small Military Facility"
+msgstr "Kleine Militaire faciliteit"
+
+msgid "Small Office Building"
+msgstr "Small Kantoorgebouw"
+
 msgid "Small Shack"
-msgstr "Kleine hut"
+msgstr "Kleine schuur"
+
+msgid "Small Shed"
+msgstr "Kleine Loods"
+
+msgid "Small Waiting Platform"
+msgstr "Kleine Wacht Platform"
 
 msgid "Small Water Tower"
-msgstr "Kleine watertoren"
+msgstr "Kleine Watertoren"
 
 msgid "Small house"
 msgstr "Klein huis"
 
+msgid "Snowy Rocks"
+msgstr "Besneeuwde Rotsen"
+
+msgid "Soil"
+msgstr "Aarde"
+
+msgid "Station"
+msgstr "Station"
+
+msgid "Stone"
+msgstr "Steen"
+
+msgid "Stream"
+msgstr "Stroom"
+
+msgid "Sunken Ship"
+msgstr "Gezonken schip"
+
+msgid "TODO DESC"
+msgstr "TODO DESC"
+
+msgid "TODO TITLE"
+msgstr "TODO TITLE"
+
+msgid "Tall Concrete Tower"
+msgstr "Hoge betonnen toren"
+
+msgid "Tall Grass"
+msgstr "Hoog gras"
+
+msgid "Tan Tower"
+msgstr "Tan Toren"
+
 msgid "Terrain"
 msgstr "Terrein"
 
-msgid "Terrain tiles"
-msgstr "Terreintegels"
+msgid "Terrain Black Sand tiles"
+msgstr "Terrein - Zwart zand"
+
+msgid "Terrain Blueprint"
+msgstr "Terrein - Blueprint"
+
+msgid "Terrain Desert tiles"
+msgstr "Terrein - Woestijn"
+
+msgid "Terrain Dirt tiles"
+msgstr "Terrein - Modder"
+
+msgid "Terrain Grass Mint Forest tiles"
+msgstr "Terrein - Muntgras bos "
+
+msgid "Terrain Gravel tiles"
+msgstr "Terrein - Grind"
+
+msgid "Terrain Rainstone tiles"
+msgstr "Terrein - Regensteen"
+
+msgid "Terrain Red Sand tiles"
+msgstr "Terrein - Rood zand"
+
+msgid "Terrain Snow tiles"
+msgstr "Terrein - Sneeuw"
+
+msgid "Terrain Stone tiles"
+msgstr "Terrein - Stone "
+
+msgid "Terrain basalt tiles"
+msgstr "Terrein - basalt"
+
+msgid "Terrain beach tiles"
+msgstr "Terrein - strand"
+
+msgid "Terrain burned tiles"
+msgstr "Terrein - verbrand "
+
+msgid "Terrain grass forest tiles"
+msgstr "Terrein - gras-bos"
+
+msgid "Terrain grass mint tiles"
+msgstr "Terrein - Muntgras"
+
+msgid "Terrain grass tiles"
+msgstr "Terrein - gras"
+
+msgid "Terrain mud tiles"
+msgstr "Terrein - modder"
+
+msgid "Terrain shading tiles"
+msgstr "Terrein - shading"
+
+msgid "Terrain soil tiles"
+msgstr "Terrein - Zand"
 
 msgid "TerrainDecoration"
 msgstr "Terreindecoratie"
 
-msgid "The community gathers and works here"
-msgstr "De gemeenschap verzamelt zich en werkt hier"
-
 msgid "Tour Front De Seine"
 msgstr "Tour Front De Seine"
 
-msgid "Trees"
-msgstr "Bomen"
+msgid "Trailer Park"
+msgstr "Trailerpark"
 
 msgid "Utilities"
 msgstr "Gereedschap"
@@ -414,17 +1063,41 @@ msgstr "Gereedschap"
 msgid "Water"
 msgstr "Water"
 
+msgid "Water Rocks"
+msgstr "Water stenen"
+
 msgid "Water Tower"
 msgstr "Watertoren"
 
-msgid "Where people work"
-msgstr "Waar mensen werken"
+msgid "Water pipe"
+msgstr "Waterpijp"
+
+msgid "WaterFlora"
+msgstr "Waterflora"
+
+msgid "Wheat Field"
+msgstr "Tarwe veld"
+
+msgid "Wooden Sign"
+msgstr "Houten bordje"
+
+msgid "Yellow Cactus"
+msgstr "Gele Cactus"
+
+msgid "Zones"
+msgstr "Zones"
+
+msgid "a green bush"
+msgstr "Een groene struik"
+
+msgid "a little stream"
+msgstr "Een beekje"
 
 msgid "big Appartments"
-msgstr "grootte Appartementen"
+msgstr "grote appartementen"
 
 msgid "house"
 msgstr "huis"
 
-msgid "trees"
-msgstr "bomen"
+msgid "snow"
+msgstr "sneeuw"

@@ -402,10 +402,12 @@ endif ()
 # copy itch.toml to build folder to install our prerequisits
 if (WIN32)
   if (CMAKE_SIZEOF_VOID_P EQUAL 8) ## 64 bit
+    message(STATUS "Using Win64 itch.toml file")
     INSTALL(FILES ${CMAKE_SOURCE_DIR}/tools/itch/win64/.itch.toml
             DESTINATION ${CMAKE_BINARY_DIR}/redist
             )
   elseif(CMAKE_SIZEOF_VOID_P EQUAL 4) ## 32 bit
+    message(STATUS "Using Win64 itch.toml file")
     INSTALL(FILES ${CMAKE_SOURCE_DIR}/tools/itch/win32/.itch.toml
            DESTINATION ${CMAKE_BINARY_DIR}/redist
            )
