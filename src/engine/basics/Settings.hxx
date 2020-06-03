@@ -121,7 +121,7 @@ struct SettingsData
    */
   std::string buildMenuPosition;
 
-    /**
+  /**
    * @brief this is used for biomedata
    * @todo Remove this later when terraingen is using biomes
    * @todo replace by enum when BetterEnums is implemented

@@ -362,15 +362,14 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           }
           m_placementAllowed = false;
           std::vector<Point> nodesToAdd;
-          TileData* tileToPlaceData = TileManager::instance().getTileData(tileToPlace);
+          TileData *tileToPlaceData = TileManager::instance().getTileData(tileToPlace);
 
           // if we touch a bigger than 1x1 tile also add all nodes of the building to highlight.
           for (const auto &coords : m_nodesToHighlight)
           {
             // If we place a ground decoration tile, we must add all tiles of bigger than 1x1 buildings from the Layer BUILDINGS
             Layer layer;
-            if (demolishMode ||
-                 (tileToPlaceData && tileToPlaceData->tileType == +TileType::GROUNDDECORATION))
+            if (demolishMode || (tileToPlaceData && tileToPlaceData->tileType == +TileType::GROUNDDECORATION))
             {
               layer = Layer::BUILDINGS;
             }

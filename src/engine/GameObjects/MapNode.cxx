@@ -71,12 +71,12 @@ void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
     const Layer layer = TileManager::instance().getTileLayer(tileID);
     switch (layer)
     {
-      case Layer::ZONE:
+    case Layer::ZONE:
       this->setNodeTransparency(Settings::instance().zoneLayerTransperancy, Layer::ZONE);
       break;
     case Layer::WATER:
       demolishLayer(Layer::ROAD);
-	  //TODO: we need to modify neighbors TileTypes to Shore.
+      //TODO: we need to modify neighbors TileTypes to Shore.
       // no break on purpose.
     case Layer::ROAD:
       // in case it's allowed then maybe a Tree Tile already exist, so we remove it.
@@ -149,7 +149,7 @@ Layer MapNode::getTopMostActiveLayer() const
   return Layer::NONE;
 }
 
-void MapNode::setNodeTransparency(const float transparencyFactor, const Layer& layer) const
+void MapNode::setNodeTransparency(const float transparencyFactor, const Layer &layer) const
 {
   // TODO refactoring: Consider replacing magic number (255) with constexpr.
   unsigned char alpha = (1 - transparencyFactor) * 255;

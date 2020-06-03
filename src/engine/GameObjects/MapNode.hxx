@@ -169,7 +169,7 @@ public:
    * @parameter transparencyFactor (0-1.0) - The percentage of node transparency. 1 -> invisible, 0 -> opaque.
    * @parameter layer - what layer in Sprite should it's transperancy altered.
    */
-  void setNodeTransparency(const float transparencyFactor, const Layer& layer) const;
+  void setNodeTransparency(const float transparencyFactor, const Layer &layer) const;
 
   /**
    * @brief Maximum height of the node.
