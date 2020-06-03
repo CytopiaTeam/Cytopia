@@ -34,13 +34,13 @@ struct SettingsData
    */
   ScreenDimension screenWidth;
 
-  /** 
+  /**
    * @brief the screen height
    * @pre only apply for windowed or fullscreen mode
    */
   ScreenDimension screenHeight;
 
-  /** 
+  /**
    * @brief the actual screen width (can differ from the one that's set in borderless fullscreen)
    */
   ScreenDimension currentScreenWidth;
@@ -157,7 +157,7 @@ struct SettingsData
   FilePath audioConfig3DJSONFile;
 
   /**
-   * @brief The Game language 
+   * @brief The Game language
    */
   std::string gameLanguage;
 
@@ -167,13 +167,13 @@ struct SettingsData
   FilePath fontFileName;
 
   /**
-   * @brief The width in pixels of the buttons used in the 
+   * @brief The width in pixels of the buttons used in the
    * build sub menues on the UI
    */
   int subMenuButtonWidth;
 
   /**
-   * @brief The height in pixels of the buttons used in the 
+   * @brief The height in pixels of the buttons used in the
    * build sub menues on the UI
    */
   int subMenuButtonHeight;
