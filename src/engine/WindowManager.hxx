@@ -46,6 +46,7 @@ public:
   std::vector<SDL_DisplayMode *> getSupportedScreenResolutions() { return m_resolutions; };
 
   void setScreenResolution(int mode);
+  void setLastScreenResolution() { setScreenResolution(m_lastSelectedResolutionIdx); };
 
   /** \brief sets the game's window mode
   * Changes the game's window mode to fullscreen, borderless, or windowed
@@ -73,6 +74,7 @@ private:
 
   int m_numOfDisplays = 0;
   int m_activeDisplay = 0;
+  int m_lastSelectedResolutionIdx = 0;
 
   void initializeScreenResolutions();
 };
