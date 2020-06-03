@@ -8,6 +8,7 @@
 #include "common/enums.hxx"
 #include "LOG.hxx"
 #include "Exception.hxx"
+#include "Settings.hxx"
 
 #ifdef MICROPROFILE_ENABLED
 #include "microprofile.h"
@@ -33,7 +34,11 @@ void Sprite::render() const
         SDL_SetTextureColorMod(m_SpriteData[currentLayer].texture, highlightColor.r, highlightColor.g, highlightColor.b);
       }
 
-      SDL_SetTextureAlphaMod(m_SpriteData[currentLayer].texture, m_SpriteData[currentLayer].alpha);
+      if (currentLayer == Layer::ZONE)
+      {
+         unsigned char alpha = (1 - Settings::instance().zoneLayerTransperancy) * 255;
+         SDL_SetTextureAlphaMod(m_SpriteData[currentLayer].texture, alpha);
+      }
 
       if (m_SpriteData[currentLayer].clipRect.w != 0)
       {
@@ -51,7 +56,10 @@ void Sprite::render() const
         SDL_SetTextureColorMod(m_SpriteData[currentLayer].texture, 255, 255, 255);
       }
 
-      SDL_SetTextureAlphaMod(m_SpriteData[currentLayer].texture, 255);
+      if (currentLayer == Layer::ZONE)
+      {
+        SDL_SetTextureAlphaMod(m_SpriteData[currentLayer].texture, 255);
+      }
     }
   }
 }
