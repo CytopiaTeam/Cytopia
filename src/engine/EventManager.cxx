@@ -427,7 +427,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
 
             auto transparentBuildingIt =
                 std::find(m_transparentBuildings.begin(), m_transparentBuildings.end(), buildingCoordinates);
-            if (transparentBuildingIt == m_transparentBuildings.end() && buildingCoordinates != UNDEFINED_POINT)
+            if ((transparentBuildingIt == m_transparentBuildings.end()) && (buildingCoordinates != UNDEFINED_POINT))
             {
               const TileData *tileData = engine.map->getMapNode(buildingCoordinates)->getTileData(Layer::BUILDINGS);
               if (tileData && tileData->category != "Flora")
