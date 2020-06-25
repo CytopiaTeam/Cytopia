@@ -29,8 +29,9 @@ endif ()
 include(CMakeDependentOption)
 include(SourceFileUtils)
 
+set(PACKAGE_MANAGER "conan" CACHE STRING "Use conan for managing packages")
+set_property(CACHE PACKAGE_MANAGER PROPERTY STRINGS conan pkgconfig none)
 option(BUILD_TEST "Build Cytopia Tests" ON)
-option(USE_PACKAGE_MANAGER "Use conan for managing packages" ON)
 option(ENABLE_AUDIO "Enable Audio" ON)
 option(ENABLE_MICROPROFILE "Enable microprofile" OFF)
 option(ENABLE_ANGELSCRIPT "Enable AngelScript" ON)
@@ -58,7 +59,7 @@ if (NOT ENABLE_MOFILEREADER)
     set(_CC_MOFILEREADER "# ")
 endif ()
 
-if(USE_PACKAGE_MANAGER)
+if(PACKAGE_MANAGER STREQUAL "conan")
   if (WIN32)
       configure_file("${CMAKE_CURRENT_SOURCE_DIR}/conanfile-win.txt.in" "${CMAKE_CURRENT_SOURCE_DIR}/conanfile.txt")
   else()
@@ -148,13 +149,13 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "RelWithDebIn
 endif ()
 
 
-if (APPLE AND NOT USE_PACKAGE_MANAGER)
+if (APPLE AND NOT (PACKAGE_MANAGER STREQUAL "conan"))
   # on macOS, usr/local/lib is not in the default search path for libraries. Homebrew install it's libraries there though.
   LINK_DIRECTORIES(${LINK_DIRECTORIES} /usr/local/lib)
 endif()
 
 
-if (USE_PACKAGE_MANAGER)
+if (PACKAGE_MANAGER STREQUAL "conan")
     function(get_variable_from_conan _var_name)
         include("${CMAKE_CURRENT_BINARY_DIR}/conanbuildinfo.cmake")
         get_property(__propt VARIABLE PROPERTY ${_var_name})
@@ -235,7 +236,7 @@ elseif (BUILD_ANDROID)
                                      ${CMAKE_SOURCE_DIR}/external/android/other/ogg/include
                                      ${CMAKE_SOURCE_DIR}/external/android/other/vorbis/include
         )
-else()
+elseif(PACKAGE_MANAGER STREQUAL "pkgconfig")
     find_package(PkgConfig REQUIRED)
 
     pkg_check_modules(SDL2 REQUIRED sdl2)
@@ -243,13 +244,9 @@ else()
     pkg_check_modules(SDL2_ttf REQUIRED SDL2_ttf)
     pkg_check_modules(ZLIB REQUIRED zlib)
 
-
-
     if (ENABLE_AUDIO)
         pkg_check_modules(openal REQUIRED openal)
         pkg_check_modules(vorbis REQUIRED vorbis)
-        pkg_check_modules(vorbis REQUIRED vorbisfile)
-
     endif ()
 
     find_package(LIBNOISE REQUIRED)
@@ -296,7 +293,49 @@ else()
     if (BUILD_TEST)
         list(APPEND _include_directories ${CATCH2_INCLUDEDIR})
     endif ()
+elseif(PACKAGE_MANAGER STREQUAL "none")
+    macro(find_dependency _dep_name)
+      set("${_dep_name}_INCLUDE_DIRS" "Change me" CACHE PATH "Include directory for ${_dep_name}")
+      set("${_dep_name}_LIBRARIES" "Change me" CACHE PATH "Library binaries directory for ${_dep_name}")
+        if(NOT IS_DIRECTORY "${${_dep_name}_INCLUDE_DIRS}")
+          message(SEND_ERROR "For dependency ${_dep_name}: \"${${_dep_name}_INCLUDE_DIRS}\" is not a directory")
+        elseif(NOT IS_DIRECTORY "${${_dep_name}_LIBRARIES}")
+          message(SEND_ERROR "For dependency ${_dep_name}: \"${${_dep_name}\"_LIBRARIES} is not a directory")
+        else()
+          list(APPEND _include_directories ${${_dep_name}_INCLUDE_DIRS})
+          list(APPEND _link_libraries ${${_dep_name}_LIBRARY})
+          return()
+        endif()
+        list(APPEND _DEPENDENCY_ERRORS "${_dep_name}")
+    endmacro()
 
+    find_dependency(SDL2)
+    find_dependency(SDL2_image)
+    find_dependency(SDL2_ttf)
+    find_dependency(ZLIB)
+    find_dependency(LIBNOISE)
+    
+    if (ENABLE_AUDIO)
+        find_dependency(openal)
+        find_dependency(vorbis)
+    endif ()
+
+    if (ENABLE_ANGELSCRIPT)
+        find_dependency(AngelScript)
+    endif ()
+
+    if (ENABLE_MOFILEREADER)
+        find_dependency(MofileReader)
+    endif ()
+
+    if (BUILD_TEST)
+        find_dependency(Catch2)
+    endif (BUILD_TEST)
+
+    list(LENGTH _DEPENDENCY_ERRORS _ERROR_LENGTH)
+    if(_ERROR_LENGTH)
+      message(FATAL_ERROR "Could not find ${_ERROR_LENGTH} dependencies: ${_DEPENDENCY_ERRORS}")
+    endif ()
 endif ()
 
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
