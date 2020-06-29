@@ -53,7 +53,7 @@ matrix:
         fi;
         
       before_script:
-        - cmake -DCMAKE_BUILD_TYPE=Debug -DENABLE_COVERAGE=ON -DPACKAGE_MANAGER=pkgconfig -DENABLE_ANGELSCRIPT=OFF -DENABLE_MOFILEREADER=OFF .
+        - cmake -DCMAKE_BUILD_TYPE=Debug -DENABLE_COVERAGE=ON -DPACKAGE_MANAGER=pkgconfig -DENABLE_ANGELSCRIPT=OFF -DENABLE_MOFILEREADER=OFF -DBUILD_TEST=OFF .
 
       script:
         - >

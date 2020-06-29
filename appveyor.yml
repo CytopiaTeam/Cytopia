@@ -5,7 +5,7 @@ image: Visual Studio 2019
 configuration: Release
 clone_depth: 10
 cache:
-  - C:/Users/appveyor/.conan/
+  - C:/Users/appveyor/.conan/ -> conanfile-win.txt.in
   - C:/sccache
 environment:
   BUTLER_API_KEY:
@@ -34,8 +34,7 @@ test_script: ctest -VV
 deploy_script:
   - ps: >-
       if (($env:APPVEYOR_REPO_BRANCH -eq "master") -and (-Not $env:APPVEYOR_PULL_REQUEST_NUMBER)) {
-      iex (new-object net.webclient).downloadstring('https://get.scoop.sh');
-      scoop install https://raw.githubusercontent.com/AnotherFoxGuy/scoop-bucket/master/butler.json;
+      choco install butler -y;
       ninja install;
       wget https://cytopia.net/download/languages.zip -OutFile languages.zip;
       7z x languages.zip -Oredist;

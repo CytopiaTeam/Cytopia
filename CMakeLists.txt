@@ -164,12 +164,7 @@ if (PACKAGE_MANAGER STREQUAL "conan")
 
     include(pmm)
 
-    pmm(CONAN
-			REMOTES
-            AFG https://api.bintray.com/conan/anotherfoxguy/conan-packages
-            ror-dependencies https://api.bintray.com/conan/anotherfoxguy/ror-dependencies
-            cytopia https://api.bintray.com/conan/cytopia/conan-packages
-            BINCRAFTERS
+    pmm(CONAN REMOTES cytopia-deps https://conan.cloudsmith.io/cytopia/deps/ BINCRAFTERS
             CMakeCM ROLLING
             )
 
@@ -190,7 +185,6 @@ if (PACKAGE_MANAGER STREQUAL "conan")
     list(APPEND _link_libraries
             CONAN_PKG::sdl2
             CONAN_PKG::sdl2_image
-            CONAN_PKG::sdl2_ttf
             CONAN_PKG::sdl2_ttf
             CONAN_PKG::libnoise
             CONAN_PKG::zlib
@@ -214,7 +208,7 @@ if (PACKAGE_MANAGER STREQUAL "conan")
     endif()
 
     if (BUILD_TEST)
-        list(APPEND _link_libraries CONAN_PKG::Catch2)
+        list(APPEND _link_libraries CONAN_PKG::catch2)
     endif ()
 
 elseif (BUILD_ANDROID)
