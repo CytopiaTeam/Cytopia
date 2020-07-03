@@ -247,6 +247,7 @@ elseif(PACKAGE_MANAGER STREQUAL "pkgconfig")
     if (ENABLE_AUDIO)
         pkg_check_modules(openal REQUIRED openal)
         pkg_check_modules(vorbis REQUIRED vorbis)
+        pkg_check_modules(vorbisfile REQUIRED vorbisfile)
     endif ()
 
     find_package(LIBNOISE REQUIRED)
@@ -279,6 +280,7 @@ elseif(PACKAGE_MANAGER STREQUAL "pkgconfig")
 
     if (ENABLE_AUDIO)
         list(APPEND _link_libraries ${vorbis_LIBRARIES})
+        list(APPEND _link_libraries ${vorbisfile_LIBRARIES})
     endif ()
 
     if (ENABLE_AUDIO)
@@ -318,6 +320,7 @@ elseif(PACKAGE_MANAGER STREQUAL "none")
     if (ENABLE_AUDIO)
         find_dependency(openal)
         find_dependency(vorbis)
+        find_dependency(vorbisfile)
     endif ()
 
     if (ENABLE_ANGELSCRIPT)
