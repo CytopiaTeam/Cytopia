@@ -316,7 +316,7 @@ elseif(PACKAGE_MANAGER STREQUAL "none")
     find_dependency(SDL2_ttf)
     find_dependency(ZLIB)
     find_dependency(LIBNOISE)
-    
+
     if (ENABLE_AUDIO)
         find_dependency(openal)
         find_dependency(vorbis)
