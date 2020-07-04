@@ -18,7 +18,7 @@ list(APPEND _include_directories
         ${CMAKE_SOURCE_DIR}/src/services
         )
 
-if (NOT USE_PACKAGE_MANAGER)
+if (NOT PACKAGE_MANAGER STREQUAL "conan")
     include(pmm)
     pmm(CMakeCM ROLLING)
 endif()

@@ -1,4 +1,9 @@
 #include "LOG.hxx"
+#include "Filesystem.hxx"
+
+#ifdef __ANDROID__
+#include <android/log.h>
+#endif
 
 Mutex LOG::StreamMutex;
 
@@ -7,13 +12,17 @@ LOG::LOG(LogType type) : m_LogType(type) {}
 LOG::~LOG()
 {
   LockGuard lock(StreamMutex);
-  string Message = getTimeStamp() + LOG_PREFIX[m_LogType] + m_Logger.str();
+  string message = getTimeStamp() + LOG_PREFIX[m_LogType] + m_Logger.str();
   if (!getenv("TERM"))
   {
 #ifndef DEBUG
     if (m_LogType != LOG_DEBUG)
 #endif
-      std::cout << Message << std::endl;
+#ifdef __ANDROID__
+      __android_log_print(ANDROID_LOG_INFO, "Cytopia", "%s", message.c_str());
+#else
+    std::cout << message << std::endl;
+#endif
   }
   else
   {
@@ -22,7 +31,9 @@ LOG::~LOG()
 #endif
       std::cout << getTimeStamp() << LOG_PREFIX_COLORED[m_LogType] << m_Logger.str() << std::endl;
   }
-  writeErrorLog(Message);
+#ifndef __ANDROID__
+  writeErrorLog(message);
+#endif
 }
 
 std::string LOG::getTimeStamp()
@@ -35,7 +46,7 @@ std::string LOG::getTimeStamp()
 
 void LOG::writeErrorLog(const std::string &errorMessage)
 {
-  string errfname = SDL_GetBasePath() + string{"error.log"};
+  string errfname = fs::getBasePath() + string{"error.log"};
 
   /* First we create the file if it doesn't exist */
   std::fstream fs(errfname, std::fstream::out | std::fstream::app);
@@ -60,7 +71,7 @@ void LOG::writeErrorLog(const std::string &errorMessage)
     stringstream truncatedstream;
     truncatedstream << fs.rdbuf();
     fs.close();
-    fs.open(SDL_GetBasePath() + string{"error.log"}, std::fstream::trunc | std::fstream::out);
+    fs.open(fs::getBasePath() + string{"error.log"}, std::fstream::trunc | std::fstream::out);
     fs << truncatedstream.str();
   }
 }
