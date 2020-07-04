@@ -1,10 +1,11 @@
 /* Deduction guides for range initialization */
 template <typename Range, typename... Ranges>
-ZipRange(Range &&, Ranges &&...)->ZipRange<decltype(std::declval<Range>().begin()), decltype(std::declval<Ranges>().begin())...>;
+ZipRange(Range &&, Ranges &&...)
+    -> ZipRange<decltype(std::declval<Range>().begin()), decltype(std::declval<Ranges>().begin())...>;
 
 template <typename Range, typename... Ranges>
 ZipRange(const Range &&, const Ranges &&...)
-    ->ZipRange<decltype(std::declval<Range>().begin()), decltype(std::declval<Ranges>().begin())...>;
+    -> ZipRange<decltype(std::declval<Range>().begin()), decltype(std::declval<Ranges>().begin())...>;
 
 template <typename Iterator, typename... Iterators>
 template <typename Range, typename... Ranges>

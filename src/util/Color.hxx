@@ -9,11 +9,8 @@ class SDL_Color;
 struct RGBAColor
 {
 public:
-  constexpr RGBAColor(uint32_t color) : m_Color(color) { }
-  constexpr RGBAColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a) : 
-    m_Color((r << 24) | (g << 16) | (b << 8) | a)
-  {
-  }
+  constexpr RGBAColor(uint32_t color) : m_Color(color) {}
+  constexpr RGBAColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a) : m_Color((r << 24) | (g << 16) | (b << 8) | a) {}
 
   uint8_t hue() const noexcept;
   uint8_t lightness() const noexcept;
@@ -23,8 +20,7 @@ public:
   uint8_t blue() const noexcept;
   uint8_t alpha() const noexcept;
   operator uint32_t() const noexcept;
-  [[deprecated("Use sdl::toColor instead")]]
-  SDL_Color to_SDL() const noexcept;
+  [[deprecated("Use sdl::toColor instead")]] SDL_Color to_SDL() const noexcept;
 
   /**
    * @returns   An RGBA representation of an HSLA color

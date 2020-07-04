@@ -78,7 +78,7 @@ bool operator==(const Rectangle &r1, const Rectangle &r2)
 
 Rectangle Rectangle::EMPTY() noexcept
 {
-  Rectangle empty {0, 0, 0, 0};
+  Rectangle empty{0, 0, 0, 0};
   empty.m_x1 = empty.m_y1 = -1;
   return empty;
 }

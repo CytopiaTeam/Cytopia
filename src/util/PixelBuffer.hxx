@@ -13,22 +13,20 @@
 class PixelBuffer
 {
 public:
-  
   /**
    * @brief   Constructs an empty PixelBuffer from bounds
    * @post    All pixels are black and fully transparent
    */
   explicit PixelBuffer(const Rectangle &&);
   explicit PixelBuffer(const Rectangle &);
-  
+
   /**
    * @brief   Construct a PixelBuffer from bounds and a range
    * @throws  CytopiaError if 
    *          std::distance(range.begin(), range.end()) != rectange.width() * rectangle.height()
    */
-  template <typename Range>
-  PixelBuffer(const Rectangle &, const Range & range);
-  
+  template <typename Range> PixelBuffer(const Rectangle &, const Range &range);
+
   using Pixels = Range<std::vector<uint32_t>::const_iterator>;
 
   /**
@@ -39,7 +37,7 @@ public:
   /**
    * @brief   Read-only access to bounds
    */
-  const Rectangle & bounds() const;
+  const Rectangle &bounds() const;
 
   /**
    * @brief   Scale the pixel buffer using nearest-neighbor 
@@ -47,8 +45,8 @@ public:
    * @param   factor the scaling factor
    * @post    Becomes EMPTY if factor < 1 / min{width, height}
    */
-  PixelBuffer & scale(float factor);
-  
+  PixelBuffer &scale(float factor);
+
   /**
    * @brief   Recolors magic pixels
    * @param   color the target color
@@ -58,7 +56,7 @@ public:
    *          and their lightness and saturation is an overlay
    *          blend of the pixel and color
    */
-  PixelBuffer & colorMagicPixels(RGBAColor color);
+  PixelBuffer &colorMagicPixels(RGBAColor color);
 
   bool isEmpty() const noexcept;
 
