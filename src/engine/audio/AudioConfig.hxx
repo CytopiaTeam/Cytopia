@@ -14,7 +14,6 @@ template <typename Key, typename Value> using Mapping = std::unordered_map<Key, 
 using string = std::string;
 template <typename Type> using Vector = std::vector<Type>;
 
-
 /**
  * @brief the types of triggers
  */

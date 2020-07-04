@@ -131,7 +131,7 @@ std::vector<Point> getRectangularLineSelectionNodes(const Point &isoCoordinatesS
 
   uint32_t xDist = std::abs(isoCoordinatesStart.x - isoCoordinatesEnd.x);
   uint32_t yDist = std::abs(isoCoordinatesStart.y - isoCoordinatesEnd.y);
-  
+
   if (xDist == 0 && yDist == 1)
   {
     reverseDirection = true;

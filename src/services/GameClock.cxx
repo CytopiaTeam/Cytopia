@@ -1,8 +1,7 @@
 #include "GameClock.hxx"
 #include "../util/LOG.hxx"
 
-GameClock::GameClock(GameService::ServiceTuple & services) : 
-  GameService(services), m_lock(), m_thread{&GameClock::clockLoop, this}
+GameClock::GameClock(GameService::ServiceTuple &services) : GameService(services), m_lock(), m_thread{&GameClock::clockLoop, this}
 {
 }
 
@@ -28,7 +27,7 @@ void GameClock::clockLoop()
       }
       while (!m_Repeated.empty() and m_Repeated.top().waketime < now)
       {
-        RepeatedTask top {m_Repeated.top()};
+        RepeatedTask top{m_Repeated.top()};
         m_Repeated.pop();
         top.callback();
         top.waketime += top.interval;

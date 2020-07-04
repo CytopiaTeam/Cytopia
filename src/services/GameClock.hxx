@@ -44,7 +44,6 @@ class GameClock : public GameService
   using DefferedSchedule = std::priority_queue<DefferedTask, std::vector<DefferedTask>, std::greater<DefferedTask>>;
   using RepeatedSchedule = std::priority_queue<RepeatedTask, std::vector<RepeatedTask>, std::greater<RepeatedTask>>;
 
-
   DefferedSchedule m_Deffered;
   RepeatedSchedule m_Repeated;
   Mutex m_lock;
@@ -53,7 +52,6 @@ class GameClock : public GameService
   void clockLoop();
 
 public:
-
   GameClock(GameService::ServiceTuple &);
   ~GameClock();
 
@@ -75,8 +73,7 @@ public:
     *  @param duration the Duration
     *  @param callback the function to call at schedule
 	*/
-  template <typename Duration>
-  void createRepeatedTask(Duration &&, Callback);
+  template <typename Duration> void createRepeatedTask(Duration &&, Callback);
 };
 
 #include "GameClock.inl.hxx"

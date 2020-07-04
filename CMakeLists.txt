@@ -36,14 +36,13 @@ option(ENABLE_AUDIO "Enable Audio" ON)
 option(ENABLE_MICROPROFILE "Enable microprofile" OFF)
 option(ENABLE_ANGELSCRIPT "Enable AngelScript" ON)
 option(ENABLE_MOFILEREADER "Enable MofileReader" ON)
+option(ENABLE_VULKAN "Enable Vulkan" OFF)
+option(ENABLE_DEBUG "Enable Debug (asserts and logs)" OFF)
 option(BUILD_ANDROID "Crossbuild to Android" OFF)
 
 # Comment-out uneeded libs
 if (NOT ENABLE_AUDIO)
     set(_CC_SDL2_MIXER "# ")
-endif ()
-
-if (NOT ENABLE_AUDIO)
     set(_CC_OPENAL_SOFT "# ")
 endif ()
 
@@ -57,6 +56,10 @@ endif ()
 
 if (NOT ENABLE_MOFILEREADER)
     set(_CC_MOFILEREADER "# ")
+endif ()
+
+if (NOT ENABLE_VULKAN)
+  set(_CC_VULKAN "# ")
 endif ()
 
 if(PACKAGE_MANAGER STREQUAL "conan")
@@ -148,7 +151,6 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "RelWithDebIn
   list(APPEND _compile_definitions DEBUG)
 endif ()
 
-
 if (APPLE AND NOT (PACKAGE_MANAGER STREQUAL "conan"))
   # on macOS, usr/local/lib is not in the default search path for libraries. Homebrew install it's libraries there though.
   LINK_DIRECTORIES(${LINK_DIRECTORIES} /usr/local/lib)
@@ -168,6 +170,7 @@ if (PACKAGE_MANAGER STREQUAL "conan")
 			REMOTES
             AFG https://api.bintray.com/conan/anotherfoxguy/conan-packages
             ror-dependencies https://api.bintray.com/conan/anotherfoxguy/ror-dependencies
+            cytopia https://api.bintray.com/conan/cytopia/conan-packages
             BINCRAFTERS
             CMakeCM ROLLING
             )
@@ -207,6 +210,10 @@ if (PACKAGE_MANAGER STREQUAL "conan")
     if (ENABLE_MOFILEREADER)
         list(APPEND _link_libraries CONAN_PKG::MofileReader)
     endif ()
+
+    if (ENABLE_VULKAN)
+        list(APPEND _link_libraries CONAN_PKG::vulkan-sdk)
+    endif()
 
     if (BUILD_TEST)
         list(APPEND _link_libraries CONAN_PKG::Catch2)
@@ -250,6 +257,10 @@ elseif(PACKAGE_MANAGER STREQUAL "pkgconfig")
         pkg_check_modules(vorbisfile REQUIRED vorbisfile)
     endif ()
 
+    if (ENABLE_VULKAN)
+        pkg_check_modules(VULKAN REQUIRED vulkan)
+    endif()
+
     find_package(LIBNOISE REQUIRED)
 
     if (ENABLE_ANGELSCRIPT)
@@ -291,6 +302,11 @@ elseif(PACKAGE_MANAGER STREQUAL "pkgconfig")
     if (ENABLE_ANGELSCRIPT)
         list(APPEND _link_libraries ${AngelScript_LIBRARY})
     endif ()
+
+    if (ENABLE_VULKAN)
+        list(APPEND _link_libraries ${VULKAN_LIBRARIES})
+        list(APPEND _include_directories ${VULKAN_INCLUDEDIR})
+    endif()
 
     if (BUILD_TEST)
         list(APPEND _include_directories ${CATCH2_INCLUDEDIR})

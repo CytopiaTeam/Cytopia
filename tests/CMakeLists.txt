@@ -12,6 +12,10 @@ list(APPEND _include_directories
         ${CMAKE_SOURCE_DIR}/src/engine/ui/widgets
         ${CMAKE_SOURCE_DIR}/src/engine/ui/menuGroups
         ${CMAKE_SOURCE_DIR}/src/util
+        ${CMAKE_SOURCE_DIR}/src/events
+        ${CMAKE_SOURCE_DIR}/src/layout
+        ${CMAKE_SOURCE_DIR}/src/model
+        ${CMAKE_SOURCE_DIR}/src/services
         )
 
 if (NOT PACKAGE_MANAGER STREQUAL "conan")
@@ -48,6 +52,12 @@ LIST(APPEND TEST_SOURCES
         util/TransitiveModel.cxx
         util/MessageQueue.cxx
         util/LOG.cxx
+        util/Rectangle.cxx
+        util/Point2D.cxx
+        util/Range.cxx
+        util/ZipRange.cxx
+        util/Color.cxx
+        util/BoxSizing.cxx
         )
 
 # Generate source groups for use in IDEs

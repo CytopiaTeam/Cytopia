@@ -1,8 +1,8 @@
 #include <catch2/catch.hpp>
 #include <bitset>
 
-#include "../../src/util/TransitiveModel.hxx"
-#include "../../src/util/IEquatable.hxx"
+#include "TransitiveModel.hxx"
+#include "IEquatable.hxx"
 
 using namespace Catch::Matchers;
 template <class T> using vector = std::vector<T>;
@@ -65,7 +65,7 @@ struct ButtonModel
   using OperationTypes =
       TypeList<ClickData, HoverData, DisableData, DisplayData, ViewData, AnimateData, FocusData, PressData, ActivateData>;
   /* This is our data representation
-   * Bit 0: Is the button active 
+   * Bit 0: Is the button active
    * Bit 1: Is the button hovered
    * Bit 2: Is the button disabled
    * Bit 3: Is the button displayed
@@ -73,7 +73,7 @@ struct ButtonModel
    * Bit 5: Is the button being animated
    * Bit 6: Is the button being focused
    * Bit 7: Is the button being pressed
-   * Bit 8: Is the button 
+   * Bit 8: Is the button
    * m_text: The display text
    * Why do we even bother with all these unused bits?
    * Well it's better to use a multiple of 8 bits
@@ -90,7 +90,7 @@ struct ButtonModel
  * which all use the same ButtonModel, but triggers
  * events differently. Moreover, our Observers
  * would work for all of these different states. */
-class ButtonState : public TransitiveModel<ButtonModel>
+class TestButton : public TransitiveModel<ButtonModel>
 {
 public:
   /* Here, we implement the operations */
@@ -130,7 +130,7 @@ std::ostream &operator<<(std::ostream &os, const Transition<ButtonModel> &transi
  * can be either toggled or not. It can also be
  * disabled
  */
-class ToggleButtonState : public TransitiveModel<ButtonModel>
+class ToggleTestButton : public TransitiveModel<ButtonModel>
 {
 public:
   void click(void) noexcept
@@ -249,7 +249,7 @@ public:
   explicit SimpleButtonView(TransitiveModel<ButtonModel> &model) : m_Listener(std::make_shared<Listener>(*this))
   {
     /* this button view subscribes only to PRESS events */
-    model.subscribe(m_Listener, ButtonModel::PRESS);
+    model.subscribe(m_Listener, {ButtonModel::PRESS});
   }
 };
 
@@ -261,14 +261,14 @@ public:
 
 TEST_CASE("I cannot call TransitiveModel::addObserver", "[util]")
 {
-  REQUIRE(!std::is_invocable<ButtonState, ObserverSPtr<Transition<ButtonModel>>>::value);
+  REQUIRE(!std::is_invocable<TestButton, ObserverSPtr<Transition<ButtonModel>>>::value);
 }
 
 SCENARIO("I can subscribe to all events", "[util]")
 {
   GIVEN("I'm an Observer subscribed to a model for all events")
   {
-    ButtonState model;
+    TestButton model;
     CompleteButtonView view(model);
     REQUIRE(view.size() == 0);
     WHEN("The model sends any event")
@@ -276,8 +276,9 @@ SCENARIO("I can subscribe to all events", "[util]")
       model.click();
       THEN("I receive all events")
       {
-        vector<ButtonState::Event> expectedEvents{Transition{ButtonModel::ClickData{}}, Transition{ButtonModel::ActivateData{}},
-                                                  Transition{ButtonModel::HoverData{}}, Transition{ButtonModel::FocusData{}}};
+        vector<TestButton::Notification> expectedEvents{
+            Transition{ButtonModel::ClickData{}}, Transition{ButtonModel::ActivateData{}}, Transition{ButtonModel::HoverData{}},
+            Transition{ButtonModel::FocusData{}}};
         REQUIRE_THAT(view, Contains(expectedEvents));
         REQUIRE(view.size() == 4);
       }
@@ -289,7 +290,7 @@ SCENARIO("I can subscribe to specific events", "[util]")
 {
   GIVEN("I'm an Observer subscribed to a model for specific events")
   {
-    ToggleButtonState model;
+    ToggleTestButton model;
     SimpleButtonView view(model);
     REQUIRE(view.size() == 0);
     WHEN("The model sends an event I'm subscribed to")
@@ -298,7 +299,7 @@ SCENARIO("I can subscribe to specific events", "[util]")
       THEN("I receive the event")
       {
         REQUIRE(view.size() == 1);
-        REQUIRE_THAT(view, Contains(vector<ButtonState::Event>{Transition{ButtonModel::PressData{}}}));
+        REQUIRE_THAT(view, Contains(vector<TestButton::Notification>{Transition{ButtonModel::PressData{}}}));
       }
     }
     WHEN("The model sends an event I'm not subscribed to")
@@ -308,7 +309,7 @@ SCENARIO("I can subscribe to specific events", "[util]")
       THEN("I don't receive any event")
       {
         REQUIRE(view.size() == 0);
-        REQUIRE_THAT(view, !Contains(vector<ButtonState::Event>{Transition{ButtonModel::DisableData{}}}));
+        REQUIRE_THAT(view, !Contains(vector<TestButton::Notification>{Transition{ButtonModel::DisableData{}}}));
       }
     }
   }

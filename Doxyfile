@@ -1,5 +1,5 @@
 PROJECT_NAME = Cytopia
-PROJECT_NUMBER = 0.2
+PROJECT_NUMBER = 0.3
 PROJECT_BRIEF = "A city building simulation game"
 PROJECT_LOGO = ./data/resources/images/app_icons/cytopia_icon_iso.png
 SHOW_FILES = YES
