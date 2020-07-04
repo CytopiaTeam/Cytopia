@@ -43,5 +43,4 @@ void Engine::newGame()
   const int mapSize = Settings::instance().mapSize;
 
   map = new Map(mapSize, mapSize);
-  map->initMap();
 }

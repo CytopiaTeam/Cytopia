@@ -21,6 +21,7 @@ enabled: true
 exclude:
   - "**/node_modules/**/*"
   - "**/vendor/**/*"
+  - "**/platforms/android/**/*"
   - ".github/workflows/**/*" # https://github.com/restyled-io/restyler/issues/73
 
 # Push the style fixes directly to the original PR

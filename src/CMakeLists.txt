@@ -4,7 +4,7 @@ set(SOURCE_FILES
         Game.inl.hxx
         util/LOG.{hxx,cxx}
         util/LOG.inl.hxx
-        util/filesystem.hxx
+        util/Filesystem.{hxx,cxx}
         util/IEquatable.hxx
         util/IEquatable.inl.hxx
         util/Singleton.hxx
@@ -72,6 +72,20 @@ set(SOURCE_FILES
         model/DataModel.hxx
         model/ButtonState.{hxx,cxx}
         )
+
+if (ANDROID)
+  list (APPEND SOURCE_FILES
+    util/android/Filesystem.cxx
+  )
+elseif(APPLE)
+  list (APPEND SOURCE_FILES
+    util/macOS/Filesystem.cxx
+  )
+else()
+  list (APPEND SOURCE_FILES
+    util/desktop/Filesystem.cxx
+  )
+endif()
 
 list(APPEND _include_directories
         engine
@@ -141,6 +155,10 @@ if (APPLE)
     set_source_files_properties(${myApp_ICON} PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
 
     add_executable(${PROJECT_NAME} MACOSX_BUNDLE ${SOURCE_FILES} ${ICON_PATH} ${MAC_RESOURCE_FILES})
+
+elseif(ANDROID)
+    # On android the final binary is a shared library not an executable.
+    add_library(${PROJECT_NAME} SHARED ${SOURCE_FILES})
 else ()
     # create a new executable with the same name as the project
     add_executable(${PROJECT_NAME} ${SOURCE_FILES})

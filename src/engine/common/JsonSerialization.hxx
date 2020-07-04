@@ -216,16 +216,9 @@ inline void to_json(json &j, const MapNodeData &mapNodeData)
 }
 
 // JSON serializer for MapNode class
-inline void to_json(json &j, const std::unique_ptr<MapNode> &m)
+inline void to_json(json &j, const MapNode &m)
 {
-  if (m.get())
-  {
-    j = json{{"coordinates", m->getCoordinates()}, {"mapNodeData", m->getMapNodeData()}};
-  }
-  else
-  {
-    j = nullptr;
-  }
+  j = json{{"coordinates", m.getCoordinates()}, {"mapNodeData", m.getMapNodeData()}};
 }
 
 // JSON serializer for Settings struct
