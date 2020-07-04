@@ -45,7 +45,7 @@ template <typename Model> struct Transition
 };
 
 /* Deduction guide for constructors */
-template <typename Data> explicit Transition(Data data)->Transition<typename Data::MyModelType>;
+template <typename Data> explicit Transition(Data data) -> Transition<typename Data::MyModelType>;
 
 /**
  * @class     TransitiveModel

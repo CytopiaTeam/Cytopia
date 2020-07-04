@@ -47,11 +47,11 @@ private:
 };
 
 /* Deduction guides for Ranges */
-template <typename Container> Range(const Container &)->Range<typename Container::const_iterator>;
+template <typename Container> Range(const Container &) -> Range<typename Container::const_iterator>;
 
-template <typename Container> Range(Container &)->Range<typename Container::iterator>;
+template <typename Container> Range(Container &) -> Range<typename Container::iterator>;
 
-template <typename Iterator> Range(Iterator, Iterator)->Range<Iterator>;
+template <typename Iterator> Range(Iterator, Iterator) -> Range<Iterator>;
 
 #include "Range.inl.hxx"
 
