@@ -15,9 +15,9 @@ public:
   {
   }
 
-  uint8_t hue() const noexcept;
-  uint8_t lightness() const noexcept;
-  uint8_t saturation() const noexcept;
+  float hue() const noexcept;
+  float lightness() const noexcept;
+  float  saturation() const noexcept;
   uint8_t red() const noexcept;
   uint8_t green() const noexcept;
   uint8_t blue() const noexcept;
@@ -31,9 +31,8 @@ public:
    * @details   This operation is not invertible. This is due
    *            because HSL has less many possibilities than
    *            RGB.
-   * @throws    CytopiaError if h is not in [0, 360] or s or l are not in [0, 100]
    */
-  static RGBAColor fromHSLA(uint8_t h, uint8_t s, uint8_t l, uint8_t a);
+  static RGBAColor fromHSLA(float h, float s, float l, uint8_t a);
 
 private:
   uint32_t m_Color;

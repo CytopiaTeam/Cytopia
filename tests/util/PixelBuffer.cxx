@@ -160,8 +160,8 @@ TEST_CASE("I can recolor PixelBuffers", "[util]")
   const std::array<uint32_t, 5> expected_grayscales {
     0x171717FF_rgba,
     0x464646FF_rgba,
-    0xCDCDCDFF_rgba,
-    0xE6E6E6FF_rgba,
+    0xCCCCCCFF_rgba,
+    0xE5E5E5FF_rgba,
     0xF7F7F7FF_rgba
   };
   Rectangle r2 {1, 0, grayscales_colors.size(), 0};
@@ -183,11 +183,11 @@ TEST_CASE("I can recolor PixelBuffers", "[util]")
     0x010001FF_rgba
   };
   const std::array<uint32_t, 5> expected_purples {
-    0x2ae8e8ff, 
-    0x333333ff,
-    0x3232ff,
-    0xfffffff, 
-    0xff
+    0xe82828ff_rgba,
+    0x343232ff_rgba, 
+    0x340000ff_rgba,
+    0xff1111ff_rgba, 
+    0x10000ff_rgba 
   };
   Rectangle r3 {1, 0, purples_colors.size(), 0};
   PixelBuffer pb3 { r3, purples_colors };
@@ -220,11 +220,11 @@ TEST_CASE("I can recolor PixelBuffers", "[util]")
     0xB000B0FF_rgba
   };
   const std::array expected_greens {
-    0xdc6eff_rgba, 
-    0xfdfffeff_rgba, 
-    0xFF_rgba, 
-    0x93ffc9ff_rgba,
-    0x984cff_rgba
+    0xde0000ff_rgba, 
+    0xfffdfdff_rgba, 
+    0x000000FF_rgba, 
+    0xff9393ff_rgba, 
+    0x990000ff_rgba
   };
   Rectangle r4 {1, 0, greens_colors.size(), 0};
   PixelBuffer pb4 { r4, greens_colors };

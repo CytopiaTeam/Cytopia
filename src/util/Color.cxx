@@ -1,7 +1,8 @@
 #include "Color.hxx"
 #include <algorithm>
 #include <array>
-#include <SDL.h>
+#include <cmath>
+#include <SDL2/SDL.h>
 #include "LOG.hxx"
 
 SDL_Color RGBAColor::to_SDL() const noexcept
@@ -20,54 +21,52 @@ uint8_t RGBAColor::blue() const noexcept { return m_Color >> 8; }
 
 uint8_t RGBAColor::alpha() const noexcept { return m_Color; }
 
-uint8_t RGBAColor::hue() const noexcept
+float RGBAColor::hue() const noexcept
 {
   std::array<uint8_t, 3> colors = { red(), green(), blue() };
   auto [min, max] = std::minmax_element(
       colors.data(), colors.data() + 3);
   uint16_t C = *max - *min;
   if(C == 0) return 0;
-  uint16_t x = colors[(max - colors.data() + 1) % 3];
+  float x = colors[(max - colors.data() + 1) % 3];
   x -= colors[(max - colors.data() + 2) % 3];
-  x += 2 * (max - colors.data()) * C;
-  x *= 42;
+  x += 2.f * (max - colors.data()) * C;
+  x /= 6.f;
   x /= C;
-  x %= 256;
-  return static_cast<uint8_t>(x);
+  return std::fmod(x + 1.f, 1.f);
 }
 
-uint8_t RGBAColor::lightness() const noexcept
+float RGBAColor::lightness() const noexcept
 {
   auto [min, max] = std::minmax({ red(), green(), blue() });
-  uint16_t l = min;
+  float l = min;
   l += max;
-  l /= 2;
-  return static_cast<uint8_t>(l);
+  l /= 510.f;
+  return l;
 }
 
-uint8_t RGBAColor::saturation() const noexcept
+float RGBAColor::saturation() const noexcept
 {
   auto [min, max] = std::minmax({ red(), green(), blue() });
   uint16_t L = max;
   L += min;
   if(L == 0 || L == 510) return 0;
-  uint16_t C = max - min;
-  C *= 255;
+  float C = max - min;
   C /= 255 - std::abs(L - 255);
-  return static_cast<uint8_t>(C);
+  return C;
 }
 
-RGBAColor RGBAColor::fromHSLA(uint8_t h, uint8_t s, uint8_t l, uint8_t a)
+RGBAColor RGBAColor::fromHSLA(float h, float s, float l, uint8_t a)
 {
-  uint8_t k = (h / 21) % 12;
-  uint16_t m = s * std::min(l, static_cast<uint8_t>(255 - l));
-  uint8_t r = l - m * std::max(-1, std::min({k - 3, 9 - k, 1})) / 255; 
+  int k = static_cast<int>(h / 21) % 12;
+  float m = s * std::min(l, 1.f - l);
+  uint8_t r = 255 * (l - m * std::max(-1, std::min({k - 3, 9 - k, 1})));
   k += 4;
   k %= 12;
-  uint8_t b = l - m * std::max(-1, std::min({k - 3, 9 - k, 1})) / 255; 
+  uint8_t b = 255 * (l - m * std::max(-1, std::min({k - 3, 9 - k, 1}))); 
   k += 4;
   k %= 12;
-  uint8_t g = l - m * std::max(-1, std::min({k - 3, 9 - k, 1})) / 255; 
+  uint8_t g = 255 * (l - m * std::max(-1, std::min({k - 3, 9 - k, 1}))); 
   return {r, g, b, a};
 }
 

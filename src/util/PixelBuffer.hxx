@@ -73,7 +73,7 @@ private:
   Rectangle m_Bounds;
   std::vector<uint32_t> m_Pixels;
 
-  uint8_t overlay255(uint8_t i, uint8_t t);
+  float overlay(float i, float t);
 };
 
 #include "PixelBuffer.inl.hxx"

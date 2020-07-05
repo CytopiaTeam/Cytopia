@@ -51,9 +51,9 @@ PixelBuffer & PixelBuffer::scale(float factor)
 
 PixelBuffer & PixelBuffer::colorMagicPixels(RGBAColor color)
 {
-  const int h_t = color.hue();
-  const int s_t = color.saturation();
-  const int l_t = color.lightness();
+  const float h_t = color.hue();
+  const float s_t = color.saturation();
+  const float l_t = color.lightness();
   
   for(auto & pixel : m_Pixels)
   {
@@ -63,12 +63,8 @@ PixelBuffer & PixelBuffer::colorMagicPixels(RGBAColor color)
             a = pixel;
     if(r != b) continue;
     RGBAColor magic {r, g, b, a};
-    LOG(LOG_DEBUG) << "Saturation before: " << static_cast<int>(magic.saturation()); 
-    uint8_t s_n = overlay255(magic.saturation(), s_t);
-    LOG(LOG_DEBUG) << "Saturation after: " << static_cast<int>(s_n); 
-    LOG(LOG_DEBUG) << "Lightness before: " << static_cast<int>(magic.lightness());
-    uint8_t l_n = overlay255(magic.lightness(), l_t);
-    LOG(LOG_DEBUG) << "Lightness after: " << static_cast<int>(l_n);
+    float s_n = overlay(magic.saturation(), s_t);
+    float l_n = overlay(magic.lightness(), l_t);
     pixel = RGBAColor::fromHSLA(h_t, s_n, l_n, a);
   }
   return *this;
@@ -78,14 +74,14 @@ bool PixelBuffer::isEmpty() const noexcept
 {
   return m_Bounds.isEmpty() || m_Pixels.size() == 0;
 }
-  
-uint8_t PixelBuffer::overlay255(uint8_t x, uint8_t y)
+
+float PixelBuffer::overlay(float x, float y)
 {
-  if(x < 128)
+  if(x < 0.5)
   {
-    return 2 * x * y / 255;
+    return 2.f * x * y;
   }
-  return 255 - 2 * (255 - x) * (255 - y) / 255;
+  return 1.f - 2.f * (1.f - x) * (1.f - y);
 }
 
 PixelBuffer PixelBuffer::fromPNG(std::string filepath)
