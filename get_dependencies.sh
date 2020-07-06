@@ -8,19 +8,19 @@ rm SDL2-2.0.9.tar.gz
 mv SDL2-2.0.9 SDL2
 rm SDL2-2.0.9.tar.gz
 
-wget https://www.libsdl.org/projects/SDL_image/release/SDL2_image-2.0.5.tar.gz
-rm -rf SDL2_image
-tar xf SDL2_image-2.0.5.tar.gz
-rm SDL2_image-2.0.5.tar.gz
-mv SDL2_image-2.0.5 SDL2_image
-rm SDL2_image-2.0.5.tar.gz
-
 wget https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-2.0.15.tar.gz
 rm -rf SDL2_ttf
 tar xf SDL2_ttf-2.0.15.tar.gz
 rm SDL2_ttf-2.0.15.tar.gz
 mv SDL2_ttf-2.0.15 SDL2_ttf
 rm SDL2_ttf-2.0.15.tar.gz
+
+wget https://www.libsdl.org/projects/SDL_image/release/SDL2_image-2.0.5.tar.gz
+rm -rf SDL2_image
+tar xf SDL2_image-2.0.5.tar.gz
+rm SDL2_image-2.0.5.tar.gz
+mv SDL2_image-2.0.5 SDL2_image
+rm SDL2_image-2.0.5.tar.gz
 
 cd ..
 
