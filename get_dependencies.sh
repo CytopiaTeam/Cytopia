@@ -1,4 +1,3 @@
-#!/bin/bash -x
 
 cd external/android/SDL
 
