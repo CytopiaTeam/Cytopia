@@ -1,4 +1,3 @@
-
 cd external/android/SDL
 
 wget https://www.libsdl.org/release/SDL2-2.0.9.tar.gz
