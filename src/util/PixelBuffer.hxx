@@ -50,6 +50,13 @@ public:
   PixelBuffer & scale(float factor);
   
   /**
+   * @brief   Crop the pixel buffer around a region
+   * @param   region the region to crop to
+   * @details The cropped region is the intersection of region and bounds
+   */
+  PixelBuffer & crop(Rectangle && region);
+
+  /**
    * @brief   Recolors magic pixels
    * @param   color the target color
    * @details A magic pixel is a pixel which satisfies
@@ -59,6 +66,12 @@ public:
    *          blend of the pixel and color
    */
   PixelBuffer & colorMagicPixels(RGBAColor color);
+
+  /**
+   * @brief   Expands the sprite with a center cross to reach a dimension
+   * @param   target the target region to expand over
+   */
+  PixelBuffer & expandCenter(Rectangle && target);
 
   bool isEmpty() const noexcept;
 

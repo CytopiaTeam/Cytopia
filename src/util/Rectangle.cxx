@@ -50,7 +50,7 @@ void Rectangle::intersect(const Rectangle &other) noexcept
 {
   auto [op1x, op1y] = other.p1();
   auto [op2x, op2y] = other.p2();
-  if (m_x2 < op1x || op2x < m_x1 || m_y2 < op1y || op2y < m_y1 || other.isEmpty())
+  if (m_x2 < op1x || op2x < m_x1 || m_y2 < op1y || op2y < m_y1 || other.isEmpty() || isEmpty())
   {
     // Empty intersection
     *this = EMPTY();

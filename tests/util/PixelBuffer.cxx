@@ -97,6 +97,108 @@ TEST_CASE("I can scale PixelBuffers", "[util]")
   }
 }
 
+TEST_CASE("I can crop PixelBuffers", "[util]")
+{
+  /* Basic test on EMPTY */
+  PixelBuffer pb1 = PixelBuffer::EMPTY();
+  pb1.crop(Rectangle{0, 0, 0, 0});
+  REQUIRE(pb1.isEmpty());
+  pb1.crop(Rectangle{0, 10, 0, 10});
+  REQUIRE(pb1.isEmpty());
+  
+  const std::vector<uint32_t> pixels
+  { 0xFF0000FF, 0x00FF00FF, 0x0000FFFF, 0xFFFFFFFF };
+  PixelBuffer pb2(Rectangle{0, 0, 1, 1}, pixels);
+  REQUIRE(PixelBuffer(pb2).crop(Rectangle{2, 2, 2, 2}).isEmpty());
+  REQUIRE(*PixelBuffer(pb2).crop(Rectangle{0, 0, 0, 0}).pixels().begin() == 0xFF0000FF);
+  REQUIRE(*PixelBuffer(pb2).crop(Rectangle{0, 1, 0, 1}).pixels().begin() == 0x0000FFFF);
+  REQUIRE(*PixelBuffer(pb2).crop(Rectangle{1, 0, 1, 0}).pixels().begin() == 0x00FF00FF);
+  REQUIRE(*PixelBuffer(pb2).crop(Rectangle{1, 1, 1, 1}).pixels().begin() == 0xFFFFFFFF);
+}
+
+TEST_CASE("I can expand PixelBuffers", "[util]")
+{
+  /* Basic test on EMPTY */
+  PixelBuffer pb1 = PixelBuffer::EMPTY();
+  REQUIRE_THROWS(pb1.expandCenter(Rectangle::EMPTY()));
+  PixelBuffer pb2 (Rectangle{0, 0, 10, 10});
+  REQUIRE_THROWS(pb2.expandCenter(Rectangle::EMPTY()));
+
+  /* Complex test odd */
+  /*
+   * We generate the following picture,
+   * where 'x' is blue and 'o' is white
+   *                oxo
+   *                xxx
+   *                oxo
+   * From bounds R{0, 2, 0, 2} and expand to target
+   * R{0, 3, 0, 3} and expect the following picture
+   *                oxxo
+   *                xxxx
+   *                xxxx
+   *                oxxo
+   */
+  std::array pixels_odd {
+    0xFFFFFFFF_rgba,
+    0x0000FFFF_rgba,
+    0xFFFFFFFF_rgba,
+    0x0000FFFF_rgba,
+    0x0000FFFF_rgba,
+    0x0000FFFF_rgba,
+    0xFFFFFFFF_rgba,
+    0x0000FFFF_rgba,
+    0xFFFFFFFF_rgba,
+  };
+  PixelBuffer pb3(Rectangle{0, 0, 2, 2}, pixels_odd);
+  std::array<uint32_t, 16> expected_odd {
+    0xFFFFFFFF_rgba,
+    0x0000FFFF_rgba,
+    0x0000FFFF_rgba,
+    0xFFFFFFFF_rgba,
+    0x0000FFFF_rgba,
+    0x0000FFFF_rgba,
+    0x0000FFFF_rgba,
+    0x0000FFFF_rgba,
+    0x0000FFFF_rgba,
+    0x0000FFFF_rgba,
+    0x0000FFFF_rgba,
+    0x0000FFFF_rgba,
+    0xFFFFFFFF_rgba,
+    0x0000FFFF_rgba,
+    0x0000FFFF_rgba,
+    0xFFFFFFFF_rgba,
+  };
+  pb3.expandCenter(Rectangle{0, 0, 3, 3});
+  REQUIRE(pb3.bounds() == Rectangle{0, 0, 3, 3});
+  REQUIRE(pb3.pixels() == Range{expected_odd});
+  
+  /* Complex test even */
+  /*
+   * We generate the following picture,
+   * where 'x' is blue and 'o' is white
+   *                oxxo
+   *                xxxx
+   *                xxxx
+   *                oxxo
+   * From bounds R{0, 3, 0, 3} and expand to target
+   * R{0, 4, 0, 4} and expect the following picture
+   *                oxxxo
+   *                xxxxx
+   *                xxxxx
+   *                xxxxx
+   *                oxxxo
+   */
+  std::vector<uint32_t> expected_even(5*5, 0x0000FFFF_rgba);
+  expected_even[0] = 0xFFFFFFFF_rgba;
+  expected_even[4] = 0xFFFFFFFF_rgba;
+  expected_even[20] = 0xFFFFFFFF_rgba;
+  expected_even[24] = 0xFFFFFFFF_rgba;
+  PixelBuffer pb4(Rectangle{0, 0, 3, 3}, expected_odd);
+  pb4.expandCenter(Rectangle{0, 0, 4, 4});
+  REQUIRE(pb4.bounds() == Rectangle{0, 0, 4, 4});
+  REQUIRE(pb4.pixels() == Range{expected_even});
+}
+
 TEST_CASE("I can recolor PixelBuffers", "[util]")
 {
   /* These colors are not affected by 

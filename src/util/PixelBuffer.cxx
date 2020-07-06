@@ -48,6 +48,79 @@ PixelBuffer & PixelBuffer::scale(float factor)
   return *this;
 }
 
+PixelBuffer & PixelBuffer::crop(Rectangle && region)
+{
+  int oWidth = m_Bounds.width();
+  m_Bounds.intersect(region);
+  int x1 = m_Bounds.x1();
+  int x2 = m_Bounds.x2();
+  int y1 = m_Bounds.y1();
+  int y2 = m_Bounds.y2();
+  int width = m_Bounds.width();
+  if(m_Bounds.isEmpty())
+  {
+    m_Pixels.clear();
+    return *this;
+  }
+  std::vector<uint32_t> pixels(width * m_Bounds.height());
+  for(int i = x1; i <= x2; ++i)
+  {
+    for(int j = y1; j <= y2; ++j)
+    {
+      pixels[(i - x1) + width * (j - y1)] = m_Pixels[i + oWidth * j];
+    }
+  }
+  std::swap(m_Pixels, pixels);
+  return *this;
+}
+
+PixelBuffer & PixelBuffer::expandCenter(Rectangle && target)
+{
+  if(m_Bounds.width() >= target.width() ||
+     m_Bounds.height() >= target.height())
+  {
+    throw CytopiaError{TRACE_INFO "Target region is smaller than current bounds"};
+  }
+  if(isEmpty() || target.isEmpty())
+  {
+    throw CytopiaError{TRACE_INFO "Cannot expand an empty PixelBuffer or target"};
+  }
+  uint32_t ow = m_Bounds.width();
+  uint32_t oh = m_Bounds.height();
+  uint32_t dw = target.width();
+  uint32_t dh = target.height();
+
+  std::vector<uint32_t> rescaled(target.width() * target.height(), 0x0);
+
+  uint32_t min_x = ow / 2;
+  uint32_t max_x = dw - min_x - (ow % 2);
+  uint32_t min_y = oh / 2;
+  uint32_t max_y = dh - min_y - (oh % 2);
+  
+  for(size_t i = 0; i < dw * dh; ++i)
+  {
+    uint32_t x = i % dw;
+    uint32_t y = i / dw;
+    if(x >= min_x && x < max_x)
+      x = min_x;
+    else if(x >= max_x)
+    {
+      x -= max_x;
+      x += min_x;
+    }
+    if(y >= min_y && y < max_y)
+      y = min_y;
+    else if(y >= max_y)
+    {
+      y -= max_y;
+      y += min_y;
+    }
+    rescaled[i] = m_Pixels[x + y * ow];
+  }
+  std::swap(target, m_Bounds);
+  std::swap(rescaled, m_Pixels);
+  return *this;
+}
 
 PixelBuffer & PixelBuffer::colorMagicPixels(RGBAColor color)
 {
@@ -111,5 +184,5 @@ PixelBuffer PixelBuffer::fromPNG(std::string filepath)
 
 PixelBuffer PixelBuffer::EMPTY()
 {
-  return PixelBuffer { Rectangle::EMPTY() };
+  return PixelBuffer { Rectangle::EMPTY(), Pixels(Pixels::iterator(), Pixels::iterator()) };
 }
