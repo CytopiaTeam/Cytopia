@@ -42,7 +42,6 @@ option(BUILD_ANDROID "Crossbuild to Android" OFF)
 
 # Comment-out uneeded libs
 if (NOT ENABLE_AUDIO)
-    set(_CC_SDL2_MIXER "# ")
     set(_CC_OPENAL_SOFT "# ")
 endif ()
 
@@ -119,11 +118,6 @@ if (BUILD_ANDROID)
   add_library(SDL2_TTF SHARED IMPORTED )
   set_target_properties(SDL2_TTF PROPERTIES IMPORTED_LOCATION ${SDL2_TTF_LOCATION})
 
-  ## SDL2_mixer
-  set (SDL2_MIXER_LOCATION ${DISTRIBUTION_DIR}/${ANDROID_BUILD_DIR}/obj/local/${ANDROID_ABI}/libSDL2_mixer.so)
-  add_library(SDL2_MIXER SHARED IMPORTED )
-  set_target_properties(SDL2_MIXER PROPERTIES IMPORTED_LOCATION ${SDL2_MIXER_LOCATION})
-
   #libnoise
   set (LIBNOISE_LOCATION ${NOISE_DISTRIBUTION_DIR}/${ANDROID_BUILD_DIR}/obj/${ANDROID_ABI}/libnoise.so)
   add_library(LIBNOISE SHARED IMPORTED )
@@ -143,6 +137,10 @@ if (BUILD_ANDROID)
   set (LIBVORBIS_LOCATION ${LIBVORBIS_DISTRIBUTION_DIR}/${ANDROID_BUILD_DIR}/obj/${ANDROID_ABI}/libvorbis.so)
   add_library(LIBVORBIS SHARED IMPORTED )
   set_target_properties(LIBVORBIS PROPERTIES IMPORTED_LOCATION ${LIBVORBIS_LOCATION})
+
+  set (LIBVORBISFILE_LOCATION ${LIBVORBIS_DISTRIBUTION_DIR}/${ANDROID_BUILD_DIR}/obj/${ANDROID_ABI}/libvorbisfile.so)
+  add_library(LIBVORBISFILE SHARED IMPORTED )
+  set_target_properties(LIBVORBISFILE PROPERTIES IMPORTED_LOCATION ${LIBVORBISFILE_LOCATION})
   # Joysticks were causing trouble on android.
   add_definitions(-DSDL_JOYSTICK=0)
 endif()
@@ -226,9 +224,9 @@ elseif (BUILD_ANDROID)
                                 SDL2
                                 SDL2_IMAGE
                                 SDL2_TTF
-                                SDL2_MIXER
                                 OPENAL
                                 LIBVORBIS
+                                LIBVORBISFILE
                                 LIBOGG
                                 z # zlib provided by android NDK
                                 LIBNOISE
@@ -237,7 +235,6 @@ elseif (BUILD_ANDROID)
     list(APPEND _include_directories ${CMAKE_SOURCE_DIR}/external/android/SDL/SDL2/include
                                      ${CMAKE_SOURCE_DIR}/external/android/SDL/SDL2_image
                                      ${CMAKE_SOURCE_DIR}/external/android/SDL/SDL2_ttf
-                                     ${CMAKE_SOURCE_DIR}/external/android/SDL/SDL2_mixer
                                      ${CMAKE_SOURCE_DIR}/external/android/other/libnoise/src/noise
                                      ${CMAKE_SOURCE_DIR}/external/android/other/openal-soft/include
                                      ${CMAKE_SOURCE_DIR}/external/android/other/ogg/include
