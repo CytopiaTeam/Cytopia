@@ -209,6 +209,8 @@ matrix:
       script:
         - cd platforms/android
         - ./gradlew assemble
+        - cd ..
+        - sh ./tools/CI/upload-CI-build.sh
       before_cache:
         - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
         - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
@@ -218,6 +220,11 @@ matrix:
           - $HOME/.gradle/wrapper/
           - $HOME/.android/build-cache
           - external/android
+          - platforms/android/build/libnoise
+          - platforms/android/build/libogg
+          - platforms/android/build/libvorbis
+          - platforms/android/build/openal-soft
+          - platforms/android/build/SDL2
 
 deploy:
   provider: pages
