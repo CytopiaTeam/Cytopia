@@ -23,6 +23,13 @@ rm SDL2_mixer-2.0.4.tar.gz
 mv SDL2_mixer-2.0.4 SDL2_mixer
 rm SDL2_mixer-2.0.4.tar.gz
 
+wget https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-2.0.15.tar.gz
+rm -rf SDL2_ttf
+tar xf SDL2_ttf-2.0.15.tar.gz
+rm SDL2_ttf-2.0.15.tar.gz
+mv SDL2_ttf-2.0.15 SDL2_ttf
+rm SDL2_ttf-2.0.15.tar.gz
+
 cd ..
 
 mkdir -p externLibs
