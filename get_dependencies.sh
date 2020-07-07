@@ -16,13 +16,6 @@ rm SDL2_image-2.0.5.tar.gz
 mv SDL2_image-2.0.5 SDL2_image
 rm SDL2_image-2.0.5.tar.gz
 
-wget https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.4.tar.gz
-rm -rf SDL2_mixer
-tar xf SDL2_mixer-2.0.4.tar.gz
-rm SDL2_mixer-2.0.4.tar.gz
-mv SDL2_mixer-2.0.4 SDL2_mixer
-rm SDL2_mixer-2.0.4.tar.gz
-
 wget https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-2.0.15.tar.gz
 rm -rf SDL2_ttf
 tar xf SDL2_ttf-2.0.15.tar.gz
