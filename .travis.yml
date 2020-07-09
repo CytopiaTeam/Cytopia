@@ -200,7 +200,7 @@ matrix:
         - echo y | sdkmanager "ndk-bundle"
         - echo y | sdkmanager "ndk;21.1.6352462"
         - echo y | sdkmanager "cmake;3.10.2.4988404"
-        - sudo apt-get -y install ninja-build
+        - sudo apt-get -y install ninja-build p7zip-full
       env:
         - ANDROID_NDK_ROOT=$ANDROID_HOME/ndk-bundle
         - ANDROID_NDK_HOME=$ANDROID_NDK_ROOT
