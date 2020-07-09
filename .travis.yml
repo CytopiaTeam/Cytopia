@@ -209,8 +209,8 @@ matrix:
       script:
         - cd platforms/android
         - ./gradlew assemble
-        - cd ..
-        - sh ./tools/CI/upload-CI-build.sh
+        - cd ../..
+        - sh ./tools/CI/upload-CI-apk.sh
       before_cache:
         - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
         - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
