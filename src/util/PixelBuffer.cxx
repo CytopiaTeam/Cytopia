@@ -1,5 +1,7 @@
 #include "PixelBuffer.hxx"
 #include <SDL2/SDL_image.h>
+#include <png.h>
+#include <cstdio>
 
 PixelBuffer::PixelBuffer(const Rectangle && r) :
   m_Bounds(r),
@@ -159,27 +161,62 @@ float PixelBuffer::overlay(float x, float y)
 
 PixelBuffer PixelBuffer::fromPNG(std::string filepath)
 {
-  auto surface = IMG_Load(filepath.c_str());
-  if(!surface)
-  {
-    LOG(LOG_WARNING) << TRACE_INFO "Couldn't load image pixels: " << IMG_GetError();
-    return EMPTY();
+
+  fs::path fpath(GLOBAL_CONTEXT.BASE_PATH / "data");
+  error_code errc;
+  fpath = boost::filesystem::canonical(fs::path(rpath), fpath, errc);
+  if(errc) {
+    throw AssetError{TRACE_INFO "Cannot fetch assets which are not in the /data directory: " + rpath};
   }
-  auto w = surface->w, h = surface->h;
-  SDL_LockSurface(surface);
-  auto format = surface->format;
-  uint32_t* pixels = static_cast<uint32_t*>(surface->pixels);
-  std::vector<uint32_t> data(w * h, 0x0);
-  for(std::size_t i = 0; i < w * h; ++i)
-  {
-    data[i] = 
-      (pixels[i] & format->Rmask) >> format->Rshift << 24 |
-      (pixels[i] & format->Gmask) >> format->Gshift << 16 |
-      (pixels[i] & format->Bmask) >> format->Bshift << 8  |
-      (pixels[i] & format->Amask) >> format->Ashift << 0;
+
+  FILE* fp = fopen(fpath.c_str(), "rb");
+  if(!fp)
+    throw AssetError{TRACE_INFO "Could not load asset: " + fpath.generic_string()};
+  
+  /* Check for PNG */
+  unsigned char header[8];
+  fread(header, 1, 8, fp);
+  if(png_sig_cmp(header, 0, 8)) {
+    fclose(fp);
+    throw AssetError{TRACE_INFO "Tried to load a non-PNG asset: " + fpath.generic_string()};
   }
-  SDL_UnlockSurface(surface);
-  return { Rectangle{0, 0, w - 1, h - 1}, std::move(data) };
+
+  /* Create png object */
+  png_structp png = png_create_read_struct(PNG_LIBPNG_VER_STRING, 
+      nullptr, nullptr, nullptr);
+  if(!png) {
+    fclose(fp);
+    throw AssetError{TRACE_INFO "Could not allocate PNG object: " + fpath.generic_string()};
+  }
+
+  png_infop info = png_create_info_struct(png);
+  if(!info) {
+    fclose(fp);
+    png_destroy_read_struct(&png, nullptr, nullptr);
+    throw AssetError{TRACE_INFO "Could not allocate PNG info object: " + fpath.generic_string()};
+  }
+
+  png_init_io(png, fp);
+  png_set_sig_bytes(png, 8);
+  png_read_png(png, info, PNG_TRANSFORM_IDENTITY, nullptr);
+  int width = png_get_image_width(png, info);
+  int height = png_get_image_height(png, info);
+  int depth = png_get_bit_depth(png, info);
+  int channels = png_get_channels(png, info);
+  if(depth != 8 or channels != 4) {
+    fclose(fp);
+    png_destroy_read_struct(&png, &info, nullptr);
+    throw AssetError{TRACE_INFO "Unsupported PNG asset with depth = " 
+      + std::to_string(depth) + " and channels = " + std::to_string(channels)};
+  }
+  std::vector<unsigned char> pixels(width * height * channels, 0);
+  unsigned char ** rows = png_get_rows(png, info);
+  int rowBytes = width * channels;
+  for(int i = 0; i < height * rowBytes; ++i)
+    pixels[i] = rows[i / rowBytes][i % rowBytes];
+  fclose(fp);
+  png_destroy_read_struct(&png, &info, nullptr);
+  return {0, 0, width, height, std::move(pixels)};
 }
 
 PixelBuffer PixelBuffer::EMPTY()
