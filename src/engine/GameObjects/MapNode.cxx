@@ -4,6 +4,7 @@
 #include "LOG.hxx"
 #include "../map/MapLayers.hxx"
 #include "GameStates.hxx"
+#include "Settings.hxx"
 
 MapNode::MapNode(Point isoCoordinates, const std::string &terrainID, const std::string &tileID)
     : m_isoCoordinates(std::move(isoCoordinates))
@@ -70,8 +71,12 @@ void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
     const Layer layer = TileManager::instance().getTileLayer(tileID);
     switch (layer)
     {
+    case Layer::ZONE:
+      this->setNodeTransparency(Settings::instance().zoneLayerTransperancy, Layer::ZONE);
+      break;
     case Layer::WATER:
       demolishLayer(Layer::ROAD);
+      //TODO: we need to modify neighbors TileTypes to Shore.
       // no break on purpose.
     case Layer::ROAD:
       // in case it's allowed then maybe a Tree Tile already exist, so we remove it.
@@ -144,12 +149,11 @@ Layer MapNode::getTopMostActiveLayer() const
   return Layer::NONE;
 }
 
-void MapNode::setNodeTransparency(const float transparencyFactor) const
+void MapNode::setNodeTransparency(const float transparencyFactor, const Layer &layer) const
 {
   // TODO refactoring: Consider replacing magic number (255) with constexpr.
   unsigned char alpha = (1 - transparencyFactor) * 255;
-  m_sprite->transparentSprite = true;
-  m_sprite->alpha = alpha;
+  m_sprite->setSpriteTranparencyFactor(layer, alpha);
 }
 
 bool MapNode::isDataAutoTile(const TileData *tileData)
@@ -419,6 +423,7 @@ const MapNodeData &MapNode::getActiveMapNodeData() const { return m_mapNodeData[
 void MapNode::setMapNodeData(std::vector<MapNodeData> &&mapNodeData, const Point &currNodeIsoCoordinates)
 {
   m_mapNodeData.swap(mapNodeData);
+  this->setNodeTransparency(Settings::instance().zoneLayerTransperancy, Layer::ZONE);
 
   // updates the pointers to the tiles, after loading tileIDs from json
   for (auto &it : m_mapNodeData)
