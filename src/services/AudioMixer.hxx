@@ -111,6 +111,7 @@ public:
 
   void play(AudioTrigger &&trigger, Coordinate3D &&position) noexcept;
 
+
   /**
    * @brief Plays a 3D Soundtrack given its ID and applies effect to it
    * @param ID the SoundtrackID

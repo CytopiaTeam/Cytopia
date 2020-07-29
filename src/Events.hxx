@@ -9,11 +9,6 @@
 using std::string;
 
 /**
- * @brief Events to be handled by the UI Loop
- */
-using UIEvents = TypeList<struct TerminateEvent /* Add UI Events here */>;
-
-/**
  * @brief Events to be handled by the Game Loop
  */
 using GameEvents = TypeList<

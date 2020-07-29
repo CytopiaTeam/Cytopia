@@ -47,7 +47,7 @@ remote_files: []
 pull_requests: true
 
 # Leave comments on the original PR linking to the Restyle PR?
-comments: true
+comments: false
 
 # Set commit statuses?
 #
@@ -63,7 +63,7 @@ statuses:
   # Green status in the case of no differences found
   no_differences: true
   # Red status if we encounter errors restyling
-  error: true
+  error: false
 
 # Request review on the Restyle PR?
 #
@@ -196,10 +196,4 @@ ignore_labels:
 
 restylers: 
   - clang-format
-  - whitespace
   - jq
-  - prettier-yaml
-  - prettier-markdown
-  - black
-  - shellharden
-  - shfmt

@@ -52,8 +52,8 @@
  * From Eqn (2), you can see that @f$S_o=0\implies X_{max}=X_{min}=L_o@f$,
  * hence if there is no saturation, we always return a grayscale color.
  * Note that if any denominator in the @f$S_o@f$ equation is 0, then
- * @f$S_o=0@f$ to prevent dividing by 0. Finally for hue, there are many ways
- * to compute
+ * @f$S_o=0@f$ to prevent dividing by 0. Finally for hue, there are many ways to convert
+ * it back to RGB.
  * @htmlonly[block]
  *  <style type="text/css">
  *  .pixel-block {

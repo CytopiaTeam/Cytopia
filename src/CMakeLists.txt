@@ -10,7 +10,16 @@ set(SOURCE_FILES
         util/Singleton.hxx
         util/Meta.hxx
         util/Exception.{hxx,cxx}
+        util/iShape.{hxx,cxx}
+        util/Rectangle.{hxx,cxx}
+        util/Range.hxx
+        util/Range.inl.hxx
+        util/Color.{hxx,cxx}
+        util/Point2D.{hxx,cxx}
+        util/BoxSizing.{hxx,cxx}
+        util/BoxSizing.inl.hxx
         events/UIEvents.hxx
+        events/MouseEvents.hxx
         GameService.{hxx,cxx}
         GameService.inl.hxx
         services/Randomizer.{hxx,cxx}
@@ -56,6 +65,11 @@ set(SOURCE_FILES
         engine/TileManager.{hxx,cxx}
         engine/UIManager.{hxx,cxx}
         engine/WindowManager.{hxx,cxx}
+        engine/UIMQDispatcher.hxx
+        view/iView.{hxx,cxx}
+        model/iModel.{hxx,cxx}
+        model/DataModel.hxx
+        model/ButtonState.{hxx,cxx}
         )
 
 if (ANDROID)
@@ -155,7 +169,7 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
   CXX_STANDARD_REQUIRED YES
   CXX_EXTENSIONS NO)
 
-list(APPEND _compile_definitions VERSION="${PROJECT_NAME} ${PROJECT_VERSION} - tech preview")
+list(APPEND _compile_definitions VERSION="${PROJECT_NAME} ${PROJECT_VERSION} - Urban Update")
 
 
 target_include_directories(${PROJECT_NAME} PRIVATE ${_include_directories})

@@ -41,7 +41,7 @@ public:
 
   /**
    * @details Blocks the thread until an event is received
-   * @returns an Enumerable of Events on the Queue 
+   * @returns an Enumerable of Events on the Queue
    * @post the Queue is emptied
    * @post Enumerable contains at least one Event
    */
@@ -72,14 +72,14 @@ private:
 /**
  * @brief UI Actor's message queue
  */
-class UILoopMQ : public MessageQueue<typename VariantType<UIEvents>::type>
+class UILoopMQ : public MessageQueue<VariantType<UIEvents>>
 {
 };
 
 /**
  * @brief Game loop Actor's message queue
  */
-class GameLoopMQ : public MessageQueue<typename VariantType<GameEvents>::type>
+class GameLoopMQ : public MessageQueue<VariantType<GameEvents>>
 {
 };
 
