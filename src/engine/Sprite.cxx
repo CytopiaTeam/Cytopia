@@ -36,8 +36,7 @@ void Sprite::render() const
 
       if (currentLayer == Layer::ZONE)
       {
-        unsigned char alpha = (1 - Settings::instance().zoneLayerTransperancy) * 255;
-        SDL_SetTextureAlphaMod(m_SpriteData[currentLayer].texture, alpha);
+        SDL_SetTextureAlphaMod(m_SpriteData[currentLayer].texture, m_SpriteData[currentLayer].alpha);
       }
 
       if (m_SpriteData[currentLayer].clipRect.w != 0)
