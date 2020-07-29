@@ -39,12 +39,11 @@ matrix:
             - graphviz
             - libsdl2-dev
             - libsdl2-image-dev
-            - libsdl2-mixer-dev
             - libsdl2-ttf-dev
             - libnoise-dev
             - libopenal-dev
             - libvorbis-dev
-            
+        
       install:
        - >
         if [ "${TRAVIS_SECURE_ENV_VARS}" == "false" ]; then
@@ -54,7 +53,7 @@ matrix:
         fi;
         
       before_script:
-        - cmake -DCMAKE_BUILD_TYPE=Debug -DENABLE_COVERAGE=ON -DUSE_PACKAGE_MANAGER=OFF -DENABLE_ANGELSCRIPT=OFF -DENABLE_MOFILEREADER=OFF .
+        - cmake -DCMAKE_BUILD_TYPE=Debug -DENABLE_COVERAGE=ON -DPACKAGE_MANAGER=pkgconfig -DENABLE_ANGELSCRIPT=OFF -DENABLE_MOFILEREADER=OFF .
 
       script:
         - >
@@ -201,7 +200,7 @@ matrix:
         - echo y | sdkmanager "ndk-bundle"
         - echo y | sdkmanager "ndk;21.1.6352462"
         - echo y | sdkmanager "cmake;3.10.2.4988404"
-        - sudo apt-get -y install ninja-build
+        - sudo apt-get -y install ninja-build p7zip-full
       env:
         - ANDROID_NDK_ROOT=$ANDROID_HOME/ndk-bundle
         - ANDROID_NDK_HOME=$ANDROID_NDK_ROOT
@@ -210,6 +209,8 @@ matrix:
       script:
         - cd platforms/android
         - ./gradlew assemble
+        - cd ../..
+        - sh ./tools/CI/upload-CI-apk.sh
       before_cache:
         - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
         - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
@@ -219,6 +220,11 @@ matrix:
           - $HOME/.gradle/wrapper/
           - $HOME/.android/build-cache
           - external/android
+          - platforms/android/build/libnoise
+          - platforms/android/build/libogg
+          - platforms/android/build/libvorbis
+          - platforms/android/build/openal-soft
+          - platforms/android/build/SDL2
 
 deploy:
   provider: pages

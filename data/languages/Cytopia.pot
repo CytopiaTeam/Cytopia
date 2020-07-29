@@ -7,7 +7,7 @@
 msgid   ""
 msgstr  "Project-Id-Version: PACKAGE VERSION\n"
         "Report-Msgid-Bugs-To: \n"
-        "POT-Creation-Date: 2019-10-21 12:26+0200\n"
+        "POT-Creation-Date: 2020-05-26 19:11+0200\n"
         "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
         "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
         "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,6 +23,9 @@ msgid   "A  small coal power plant.  It can supply a small town with "
         "electricity, but it produces a lot of pollution."
 msgstr  ""
 
+msgid   "A Wheat Field"
+msgstr  ""
+
 msgid   "A beautiful water tower"
 msgstr  ""
 
@@ -36,6 +39,9 @@ msgid   "A blank train platform with nothing on it."
 msgstr  ""
 
 msgid   "A blue hotel from vienna"
+msgstr  ""
+
+msgid   "A bush with delicious red berries."
 msgstr  ""
 
 msgid   "A chemical plant"
@@ -54,13 +60,16 @@ msgstr  ""
 msgid   "A commercial center"
 msgstr  ""
 
+msgid   "A deciduous tree"
+msgstr  ""
+
 msgid   "A factory"
 msgstr  ""
 
 msgid   "A few benches that offer a place to sit to your citizens."
 msgstr  ""
 
-msgid   "A group of beautiful oak trees."
+msgid   "A green cactus."
 msgstr  ""
 
 msgid   "A group of beautiful pinetrees."
@@ -69,11 +78,29 @@ msgstr  ""
 msgid   "A group of benches that surround a nice decorative object."
 msgstr  ""
 
+msgid   "A group of burned trees."
+msgstr  ""
+
+msgid   "A group of crystal trees."
+msgstr  ""
+
 msgid   "A group of mannequins you dressed up as people that can be used to "
         "decorate a town."
 msgstr  ""
 
+msgid   "A group of mysterious mushroom trees."
+msgstr  ""
+
+msgid   "A group of palmtrees."
+msgstr  ""
+
 msgid   "A group of picnic tables that your citizens can use to eat lunch at."
+msgstr  ""
+
+msgid   "A group tall wetland plants well-known for their brown catkins."
+msgstr  ""
+
+msgid   "A highway! Cars go faaaaast here."
 msgstr  ""
 
 msgid   "A house from Alabama , USA"
@@ -89,6 +116,15 @@ msgstr  ""
 msgid   "A large plaza with a pool of water in the middle."
 msgstr  ""
 
+msgid   "A lovely flower patch that blooms in all colors."
+msgstr  ""
+
+msgid   "A modern european looking road without a sidewalk."
+msgstr  ""
+
+msgid   "A modern european looking road."
+msgstr  ""
+
 msgid   "A new factory that was once a depolluter building."
 msgstr  ""
 
@@ -101,6 +137,9 @@ msgstr  ""
 
 msgid   "A nice public pool that is a great way to stay cool and keep your "
         "citizens happy."
+msgstr  ""
+
+msgid   "A nice residential building donned with white and orange concrete."
 msgstr  ""
 
 msgid   "A nice reward for your city-building efforts, although it might make "
@@ -122,7 +161,31 @@ msgstr  ""
 msgid   "A pile of rocks that can be found in the desert biome."
 msgstr  ""
 
+msgid   "A pile of rocks that can be found in the diamond biome."
+msgstr  ""
+
 msgid   "A pile of rocks that can be found in the grasslands biome."
+msgstr  ""
+
+msgid   "A pile of rocks that can be found in the snow biome."
+msgstr  ""
+
+msgid   "A pile of rocks that can be found in water."
+msgstr  ""
+
+msgid   "A prison fence"
+msgstr  ""
+
+msgid   "A rural road from france with fresh asphalt with a broken line."
+msgstr  ""
+
+msgid   "A rural road from france with fresh asphalt."
+msgstr  ""
+
+msgid   "A rural road from france with worn asphalt."
+msgstr  ""
+
+msgid   "A rural road from france with worn asphalth a straight line."
 msgstr  ""
 
 msgid   "A shop that sells games. Even Cytopia is sold here!"
@@ -137,11 +200,11 @@ msgstr  ""
 msgid   "A small  building"
 msgstr  ""
 
-msgid   "A small french mansion "
+msgid   "A small building dedicated to small-scale inustrial-related military "
+        "activity."
 msgstr  ""
 
-msgid   "A small group of lilypads. These are commonly found in lakes and "
-        "ponds."
+msgid   "A small french mansion "
 msgstr  ""
 
 msgid   "A small lantern that can be used to decorate your cities."
@@ -209,6 +272,15 @@ msgid   "A very old ship that crashed here long ago.  Its origin is unkown, "
         "but I think it's safe to say what happened to its crew"
 msgstr  ""
 
+msgid   "A yellow cactus."
+msgstr  ""
+
+msgid   "Alley Road"
+msgstr  ""
+
+msgid   "Alley road."
+msgstr  ""
+
 msgid   "An algae-green tower that is the home of lots of people."
 msgstr  ""
 
@@ -226,6 +298,9 @@ msgstr  ""
 
 msgid   "An average road that'll you would commonly find out in the "
         "countryside.  It lacks a proper sidewalk though."
+msgstr  ""
+
+msgid   "An european looking road."
 msgstr  ""
 
 msgid   "An oasis"
@@ -289,6 +364,9 @@ msgstr  ""
 msgid   "Big Office Building"
 msgstr  ""
 
+msgid   "Big Warehouse"
+msgstr  ""
+
 msgid   "BikeShop"
 msgstr  ""
 
@@ -301,6 +379,9 @@ msgstr  ""
 msgid   "Block of houses from the Boulevard des Belges , Rouen"
 msgstr  ""
 
+msgid   "Blueprint"
+msgstr  ""
+
 msgid   "Bois Guillaume Appartment"
 msgstr  ""
 
@@ -310,10 +391,19 @@ msgstr  ""
 msgid   "BuildMenu Layout"
 msgstr  ""
 
+msgid   "BuildingsDecoration"
+msgstr  ""
+
+msgid   "Burned Trees"
+msgstr  ""
+
 msgid   "Burned land"
 msgstr  ""
 
 msgid   "Cancel"
+msgstr  ""
+
+msgid   "Cattail"
 msgstr  ""
 
 msgid   "Centerpiece Park"
@@ -337,22 +427,55 @@ msgstr  ""
 msgid   "Commercial"
 msgstr  ""
 
+msgid   "Commercial Zone (dense)"
+msgstr  ""
+
+msgid   "Commercial Zone (dense)."
+msgstr  ""
+
+msgid   "Commercial Zone (light)"
+msgstr  ""
+
+msgid   "Commercial Zone (light)."
+msgstr  ""
+
+msgid   "Commercial Zone (medium)"
+msgstr  ""
+
+msgid   "Commercial Zone (medium)."
+msgstr  ""
+
 msgid   "Community Tower"
 msgstr  ""
 
 msgid   "CompactFast Shop"
 msgstr  ""
 
+msgid   "Concrete Ground Decoration"
+msgstr  ""
+
 msgid   "Construction"
 msgstr  ""
 
+msgid   "Countries"
+msgstr  ""
+
 msgid   "Country Road"
+msgstr  ""
+
+msgid   "Creme-Oran Tower"
+msgstr  ""
+
+msgid   "Crystal Trees"
 msgstr  ""
 
 msgid   "Day Care Center"
 msgstr  ""
 
 msgid   "Debug Menu"
+msgstr  ""
+
+msgid   "Deciduous tree"
 msgstr  ""
 
 msgid   "Decoration"
@@ -367,7 +490,13 @@ msgstr  ""
 msgid   "Desert Building"
 msgstr  ""
 
+msgid   "Desert Rocks"
+msgstr  ""
+
 msgid   "Desert building"
+msgstr  ""
+
+msgid   "Diamond Rocks"
 msgstr  ""
 
 msgid   "Dirt"
@@ -376,13 +505,29 @@ msgstr  ""
 msgid   "Dirt Road"
 msgstr  ""
 
+msgid   "European Road"
+msgstr  ""
+
 msgid   "Factory"
 msgstr  ""
 
 msgid   "Farm"
 msgstr  ""
 
+msgid   "Ferns"
+msgstr  ""
+
+msgid   "Ferns are green flowerless plants with divided leaves that tend to "
+        "grow in damp, shady areas."
+msgstr  ""
+
 msgid   "Flora"
+msgstr  ""
+
+msgid   "Flowers"
+msgstr  ""
+
+msgid   "Forest"
 msgstr  ""
 
 msgid   "Fullscreen Mode"
@@ -394,7 +539,7 @@ msgstr  ""
 msgid   "Glass Tower"
 msgstr  ""
 
-msgid   "Grass"
+msgid   "Golden Rocks"
 msgstr  ""
 
 msgid   "Grass Mint"
@@ -403,10 +548,25 @@ msgstr  ""
 msgid   "Grass Mint Forest"
 msgstr  ""
 
-msgid   "GrassLand Rocks"
+msgid   "Grassland"
 msgstr  ""
 
 msgid   "Gravel"
+msgstr  ""
+
+msgid   "Green Bush"
+msgstr  ""
+
+msgid   "Green Cactus"
+msgstr  ""
+
+msgid   "Ground Decoration"
+msgstr  ""
+
+msgid   "High Wealth"
+msgstr  ""
+
+msgid   "Highway Road"
 msgstr  ""
 
 msgid   "Homeless Camp"
@@ -424,10 +584,22 @@ msgstr  ""
 msgid   "Ice Cream Shop"
 msgstr  ""
 
+msgid   "In the tall grass."
+msgstr  ""
+
 msgid   "Industrial"
 msgstr  ""
 
 msgid   "Industrial Building"
+msgstr  ""
+
+msgid   "Industrial Zone (light)"
+msgstr  ""
+
+msgid   "Industrial Zone (medium)"
+msgstr  ""
+
+msgid   "Industrial Zone."
 msgstr  ""
 
 msgid   "It might be an old, bland-looking tower, but it gets the job done."
@@ -445,11 +617,18 @@ msgstr  ""
 msgid   "Light Pole"
 msgstr  ""
 
-msgid   "Lilypads"
+msgid   "Lily pads"
 msgstr  ""
 
-#: src/Game.cxx:88
+msgid   "Lily pads are broad, rounded, heart- or shield-shaped leaves. Frogs "
+        "like to sit on them!"
+msgstr  ""
+
+#: src/Game.cxx:143
 msgid   "Load Game"
+msgstr  ""
+
+msgid   "Low Wealth"
 msgstr  ""
 
 msgid   "Lower Terrain"
@@ -467,16 +646,25 @@ msgstr  ""
 msgid   "Medium Depolluter"
 msgstr  ""
 
+msgid   "Medium Wealth"
+msgstr  ""
+
 msgid   "Mini Depolluter"
 msgstr  ""
 
 msgid   "Mud"
 msgstr  ""
 
+msgid   "Mushroom Trees"
+msgstr  ""
+
 msgid   "Nature"
 msgstr  ""
 
-#: src/Game.cxx:83
+msgid   "NatureDecoration"
+msgstr  ""
+
+#: src/Game.cxx:128
 msgid   "New Game"
 msgstr  ""
 
@@ -498,10 +686,16 @@ msgstr  ""
 msgid   "Old building"
 msgstr  ""
 
+msgid   "Palm Trees"
+msgstr  ""
+
 msgid   "Park Crossroads"
 msgstr  ""
 
 msgid   "Paved Road"
+msgstr  ""
+
+msgid   "Pavement"
 msgstr  ""
 
 msgid   "People"
@@ -525,29 +719,62 @@ msgstr  ""
 msgid   "Picnic Tables"
 msgstr  ""
 
+msgid   "Pine Trees"
+msgstr  ""
+
+msgid   "Pipes are used for transporting water."
+msgstr  ""
+
 msgid   "Pool"
 msgstr  ""
 
 msgid   "Power"
 msgstr  ""
 
+msgid   "Pretty concrete"
+msgstr  ""
+
 msgid   "Prison"
+msgstr  ""
+
+msgid   "Prison Fence"
 msgstr  ""
 
 msgid   "Pyramid"
 msgstr  ""
 
-#: src/Game.cxx:92
+#: src/Game.cxx:156
 msgid   "Quit Game"
 msgstr  ""
 
 msgid   "Raise Terrain"
 msgstr  ""
 
+msgid   "Red Berry Bush"
+msgstr  ""
+
 msgid   "Red Sand"
 msgstr  ""
 
 msgid   "Residential"
+msgstr  ""
+
+msgid   "Residential Zone (dense)"
+msgstr  ""
+
+msgid   "Residential Zone (dense)."
+msgstr  ""
+
+msgid   "Residential Zone (light)"
+msgstr  ""
+
+msgid   "Residential Zone (light)."
+msgstr  ""
+
+msgid   "Residential Zone (medium)"
+msgstr  ""
+
+msgid   "Residential Zone (medium)."
 msgstr  ""
 
 msgid   "Restaurant"
@@ -559,6 +786,14 @@ msgstr  ""
 msgid   "Reward"
 msgstr  ""
 
+msgid   "Rice"
+msgstr  ""
+
+msgid   "Rice is normally grown as an annual plant, although in tropical "
+        "areas it can survive as a perennial and can produce a ratoon crop "
+        "for up to 30 years."
+msgstr  ""
+
 msgid   "Roads"
 msgstr  ""
 
@@ -568,7 +803,16 @@ msgstr  ""
 msgid   "Ruegroshorloge"
 msgstr  ""
 
-msgid   "Sand"
+msgid   "Rural French Road"
+msgstr  ""
+
+msgid   "Rural French Road brokenlined"
+msgstr  ""
+
+msgid   "Rural French Road fresh"
+msgstr  ""
+
+msgid   "Rural French Road lined"
 msgstr  ""
 
 msgid   "Save Game"
@@ -592,6 +836,9 @@ msgstr  ""
 msgid   "Sign Platform"
 msgstr  ""
 
+msgid   "SkyScraper"
+msgstr  ""
+
 msgid   "Skyscraper"
 msgstr  ""
 
@@ -605,6 +852,12 @@ msgid   "Small Commercial Center"
 msgstr  ""
 
 msgid   "Small House"
+msgstr  ""
+
+msgid   "Small Houses"
+msgstr  ""
+
+msgid   "Small Military Facility"
 msgstr  ""
 
 msgid   "Small Office Building"
@@ -625,6 +878,9 @@ msgstr  ""
 msgid   "Small house"
 msgstr  ""
 
+msgid   "Snowy Rocks"
+msgstr  ""
+
 msgid   "Soil"
 msgstr  ""
 
@@ -632,6 +888,9 @@ msgid   "Station"
 msgstr  ""
 
 msgid   "Stone"
+msgstr  ""
+
+msgid   "Stream"
 msgstr  ""
 
 msgid   "Sunken Ship"
@@ -646,6 +905,9 @@ msgstr  ""
 msgid   "Tall Concrete Tower"
 msgstr  ""
 
+msgid   "Tall Grass"
+msgstr  ""
+
 msgid   "Tan Tower"
 msgstr  ""
 
@@ -653,6 +915,9 @@ msgid   "Terrain"
 msgstr  ""
 
 msgid   "Terrain Black Sand tiles"
+msgstr  ""
+
+msgid   "Terrain Blueprint"
 msgstr  ""
 
 msgid   "Terrain Desert tiles"
@@ -667,10 +932,10 @@ msgstr  ""
 msgid   "Terrain Gravel tiles"
 msgstr  ""
 
-msgid   "Terrain Red Sand tiles"
+msgid   "Terrain Rainstone tiles"
 msgstr  ""
 
-msgid   "Terrain Sand tiles"
+msgid   "Terrain Red Sand tiles"
 msgstr  ""
 
 msgid   "Terrain Snow tiles"
@@ -706,9 +971,6 @@ msgstr  ""
 msgid   "Terrain soil tiles"
 msgstr  ""
 
-msgid   "Terrain tiles"
-msgstr  ""
-
 msgid   "TerrainDecoration"
 msgstr  ""
 
@@ -718,19 +980,40 @@ msgstr  ""
 msgid   "Trailer Park"
 msgstr  ""
 
-msgid   "Trees"
-msgstr  ""
-
 msgid   "Utilities"
 msgstr  ""
 
 msgid   "Water"
 msgstr  ""
 
+msgid   "Water Rocks"
+msgstr  ""
+
 msgid   "Water Tower"
 msgstr  ""
 
+msgid   "Water pipe"
+msgstr  ""
+
+msgid   "WaterFlora"
+msgstr  ""
+
+msgid   "Wheat Field"
+msgstr  ""
+
 msgid   "Wooden Sign"
+msgstr  ""
+
+msgid   "Yellow Cactus"
+msgstr  ""
+
+msgid   "Zones"
+msgstr  ""
+
+msgid   "a green bush"
+msgstr  ""
+
+msgid   "a little stream"
 msgstr  ""
 
 msgid   "big Appartments"

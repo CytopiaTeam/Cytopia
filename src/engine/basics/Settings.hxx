@@ -34,13 +34,13 @@ struct SettingsData
    */
   ScreenDimension screenWidth;
 
-  /** 
+  /**
    * @brief the screen height
    * @pre only apply for windowed or fullscreen mode
    */
   ScreenDimension screenHeight;
 
-  /** 
+  /**
    * @brief the actual screen width (can differ from the one that's set in borderless fullscreen)
    */
   ScreenDimension currentScreenWidth;
@@ -55,6 +55,13 @@ struct SettingsData
    * @todo add a typename
    */
   int maxElevationHeight;
+
+  /**
+  * @brief the value of the zone layer transparency, (0 - 1.0).
+  * where 0 is full opaque and 1 for full transperancy.
+  * @todo add a typename
+  */
+  float zoneLayerTransperancy;
 
   /**
    * @todo document what this field is
@@ -114,7 +121,7 @@ struct SettingsData
    */
   std::string buildMenuPosition;
 
-    /**
+  /**
    * @brief this is used for biomedata
    * @todo Remove this later when terraingen is using biomes
    * @todo replace by enum when BetterEnums is implemented
@@ -150,7 +157,7 @@ struct SettingsData
   FilePath audioConfig3DJSONFile;
 
   /**
-   * @brief The Game language 
+   * @brief The Game language
    */
   std::string gameLanguage;
 
@@ -160,13 +167,13 @@ struct SettingsData
   FilePath fontFileName;
 
   /**
-   * @brief The width in pixels of the buttons used in the 
+   * @brief The width in pixels of the buttons used in the
    * build sub menues on the UI
    */
   int subMenuButtonWidth;
 
   /**
-   * @brief The height in pixels of the buttons used in the 
+   * @brief The height in pixels of the buttons used in the
    * build sub menues on the UI
    */
   int subMenuButtonHeight;

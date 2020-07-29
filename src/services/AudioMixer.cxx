@@ -328,7 +328,6 @@ void AudioMixer::handleEvent(const AudioSetMutedEvent &&event) { throw Unimpleme
 
 void AudioMixer::handleEvent(const AudioStopEvent &&)
 {
-
   while (!m_Playing.empty())
   {
     auto it = m_Playing.begin();
