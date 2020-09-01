@@ -9,6 +9,9 @@
 /**
  * @class     PixelBuffer
  * @brief     A software managed buffer of pixels meant for processing
+ * @details   PixelBuffer is used to process pixels displayed on the screen in software.
+ *            It is the pairing of a buffer of pixels with a Rectangle region describing
+ *            where these pixels are mapped.
  */
 class PixelBuffer
 {
@@ -33,11 +36,16 @@ public:
 
   /**
    * @brief   Read-only access to pixel data
+   * @details Each pixel is defined by an unsigned 32 bit integer following the
+   *          RGBA format with channel depth of 1 byte. In total, there are exactly
+   *          bounds().width() * bounds.height() pixels
    */
   Pixels pixels() const;
 
   /**
-   * @brief   Read-only access to bounds
+   * @brief   Read-only access to the bounds of the PixelBuffer
+   * @details Boundaries are the rectangle coordinates of the buffer 
+   *          describing their position, width, and height
    */
   const Rectangle & bounds() const;
 
@@ -74,11 +82,6 @@ public:
   PixelBuffer & expandCenter(Rectangle && target);
 
   bool isEmpty() const noexcept;
-
-  /**
-   * @brief   Constructs a PixelBuffer from a PNG file
-   */
-  static PixelBuffer fromPNG(std::string);
 
   static PixelBuffer EMPTY();
 
