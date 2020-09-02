@@ -18,6 +18,7 @@
 #include <string>
 #include <set>
 #include <queue>
+#include <unordered_set>
 
 #ifdef MICROPROFILE_ENABLED
 #include "microprofile.h"
