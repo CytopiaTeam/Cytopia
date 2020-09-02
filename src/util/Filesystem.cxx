@@ -62,7 +62,7 @@ PixelBuffer fs::readPNGFile(const std::string & fileName) {
     throw AssetError{TRACE_INFO "Unsupported PNG asset with depth = " 
       + std::to_string(depth) + " and channels = " + std::to_string(channels)};
   }
-  std::vector<unsigned char> pixels(width * height * channels, 0);
+  std::vector<unsigned char> pixels(static_cast<std::size_t>(width) * height * channels, 0);
   unsigned char ** rows = png_get_rows(png, info);
   int rowBytes = width * channels;
   for(int i = 0; i < height * rowBytes; ++i)

@@ -2,7 +2,7 @@
 
 PixelBuffer::PixelBuffer(const Rectangle && r) :
   m_Bounds(r),
-  m_Pixels(r.width() * r.height(), 0x0)
+  m_Pixels(static_cast<std::size_t>(r.width()) * r.height(), 0x0)
 {
 }
 
@@ -30,7 +30,7 @@ PixelBuffer & PixelBuffer::scale(float factor)
     m_Pixels.clear();
     return *this;
   }
-  std::vector<uint32_t> scaled(dw * dh, 0x0);
+  std::vector<uint32_t> scaled(static_cast<std::size_t>(dw) * dh, 0x0);
   for(int i = 0; i < dw * dh; ++i)
   {
     int x = (i % dw) / factor;
@@ -61,7 +61,7 @@ PixelBuffer & PixelBuffer::crop(Rectangle && region)
     m_Pixels.clear();
     return *this;
   }
-  std::vector<uint32_t> pixels(width * m_Bounds.height());
+  std::vector<uint32_t> pixels(static_cast<std::size_t>(width) * m_Bounds.height());
   for(int i = x1; i <= x2; ++i)
   {
     for(int j = y1; j <= y2; ++j)
@@ -89,14 +89,14 @@ PixelBuffer & PixelBuffer::expandCenter(Rectangle && target)
   uint32_t dw = target.width();
   uint32_t dh = target.height();
 
-  std::vector<uint32_t> rescaled(target.width() * target.height(), 0x0);
+  std::vector<uint32_t> rescaled(static_cast<std::size_t>(target.width()) * target.height(), 0x0);
 
   uint32_t min_x = ow / 2;
   uint32_t max_x = dw - min_x - (ow % 2);
   uint32_t min_y = oh / 2;
   uint32_t max_y = dh - min_y - (oh % 2);
   
-  for(size_t i = 0; i < dw * dh; ++i)
+  for(size_t i = 0; i < static_cast<std::size_t>(dw) * dh; ++i)
   {
     uint32_t x = i % dw;
     uint32_t y = i / dw;
