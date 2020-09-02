@@ -49,6 +49,12 @@ git clone https://github.com/xiph/ogg.git
 rm -rf vorbis
 git clone https://github.com/xiph/vorbis.git
 
+rm -rf libpng
+wget https://nchc.dl.sourceforge.net/project/libpng/libpng16/1.6.37/libpng-1.6.37.tar.xz
+tar xf libpng-1.6.37.tar.xz
+rm libpng-1.6.37.tar.xz
+mv libpng-1.6.37 libpng
+
 #adjust vorbis cmakelists to make it buildable on android
 sed -i '10istring(REPLACE "libvorbis" "libogg" OGG_BINARY_DIR ${CMAKE_BINARY_DIR})' vorbis/CMakeLists.txt
 sed -i '11istring(REPLACE "libvorbis" "libogg" OGG_LIBRARY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})' vorbis/CMakeLists.txt

@@ -2,7 +2,7 @@
 #include <algorithm>
 #include <array>
 #include <cmath>
-#include <SDL2/SDL.h>
+#include <SDL.h>
 #include "LOG.hxx"
 
 SDL_Color RGBAColor::to_SDL() const noexcept

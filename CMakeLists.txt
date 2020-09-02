@@ -99,6 +99,8 @@ if (BUILD_ANDROID)
   set(OPENAL_DISTRIBUTION_DIR ${CMAKE_SOURCE_DIR}/platforms/android/build/openal-soft/intermediates/cmake)
   set(LIBOGG_DISTRIBUTION_DIR ${CMAKE_SOURCE_DIR}/platforms/android/build/libogg/intermediates/cmake)
   set(LIBVORBIS_DISTRIBUTION_DIR ${CMAKE_SOURCE_DIR}/platforms/android/build/libvorbis/intermediates/cmake)
+  set(LIBPNG_DISTRIBUTION_DIR ${CMAKE_SOURCE_DIR}/platforms/android/build/libpng/intermediates/cmake)
+  set(ZLIB_DISTRIBUTION_DIR ${CMAKE_SOURCE_DIR}/platforms/android/build/zlib/intermediates/cmake)
   string(TOLOWER ${CMAKE_BUILD_TYPE} ANDROID_BUILD_DIR)
 
   set(SDL_LOCATION ${CMAKE_SOURCE_DIR}/contrib/)
@@ -132,6 +134,16 @@ if (BUILD_ANDROID)
   set (LIBOGG_LOCATION ${LIBOGG_DISTRIBUTION_DIR}/${ANDROID_BUILD_DIR}/obj/${ANDROID_ABI}/libogg.so)
   add_library(LIBOGG SHARED IMPORTED )
   set_target_properties(LIBOGG PROPERTIES IMPORTED_LOCATION ${LIBOGG_LOCATION})
+  
+  #zlib ./build/zlib/intermediates/cmake/debug/obj/x86/zlib.so
+  set (ZLIB_LOCATION ${ZLIB_DISTRIBUTION_DIR}/${ANDROID_BUILD_DIR}/obj/${ANDROID_ABI}/zlib.so)
+  add_library(ZLIB SHARED IMPORTED )
+  set_target_properties(ZLIB PROPERTIES IMPORTED_LOCATION ${ZLIB_LOCATION})
+  
+  #libpng ./build/libpng/intermediates/cmake/debug/obj/x86/libpng.so
+  set (LIBPNG_LOCATION ${LIBPNG_DISTRIBUTION_DIR}/${ANDROID_BUILD_DIR}/obj/${ANDROID_ABI}/libpng.so)
+  add_library(LIBPNG SHARED IMPORTED )
+  set_target_properties(LIBPNG PROPERTIES IMPORTED_LOCATION ${LIBPNG_LOCATION})
 
   #vorbis ./build/libvorbis/intermediates/cmake/debug/obj/x86/libvorbis.so
   set (LIBVORBIS_LOCATION ${LIBVORBIS_DISTRIBUTION_DIR}/${ANDROID_BUILD_DIR}/obj/${ANDROID_ABI}/libvorbis.so)
@@ -247,7 +259,7 @@ elseif(PACKAGE_MANAGER STREQUAL "pkgconfig")
     pkg_check_modules(SDL2_image REQUIRED SDL2_image)
     pkg_check_modules(SDL2_ttf REQUIRED SDL2_ttf)
     pkg_check_modules(ZLIB REQUIRED zlib)
-    pkg_check_modules(PNG REQUIRED png)
+    pkg_check_modules(PNG REQUIRED libpng)
 
     if (ENABLE_AUDIO)
         pkg_check_modules(openal REQUIRED openal)
@@ -260,6 +272,7 @@ elseif(PACKAGE_MANAGER STREQUAL "pkgconfig")
     endif()
 
     find_package(LIBNOISE REQUIRED)
+    find_package(LIBPNG REQUIRED)
 
     if (ENABLE_ANGELSCRIPT)
         find_package(AngelScript REQUIRED)
@@ -332,7 +345,7 @@ elseif(PACKAGE_MANAGER STREQUAL "none")
     find_dependency(SDL2_ttf)
     find_dependency(ZLIB)
     find_dependency(LIBNOISE)
-    find_dependency(LIB_PNG)
+    find_dependency(LIBPNG)
 
     if (ENABLE_AUDIO)
         find_dependency(openal)
