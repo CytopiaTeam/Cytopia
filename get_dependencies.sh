@@ -54,6 +54,7 @@ wget https://nchc.dl.sourceforge.net/project/libpng/libpng16/1.6.37/libpng-1.6.3
 tar xf libpng-1.6.37.tar.xz
 rm libpng-1.6.37.tar.xz
 mv libpng-1.6.37 libpng
+cp libpng/scripts/pnglibconf.h.prebuilt libpng/pnglibconf.h
 
 #adjust vorbis cmakelists to make it buildable on android
 sed -i '10istring(REPLACE "libvorbis" "libogg" OGG_BINARY_DIR ${CMAKE_BINARY_DIR})' vorbis/CMakeLists.txt

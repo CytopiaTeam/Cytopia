@@ -242,6 +242,8 @@ elseif (BUILD_ANDROID)
                                 LIBOGG
                                 z # zlib provided by android NDK
                                 LIBNOISE
+                                LIBPNG
+
     )
     # Include dirs.
     list(APPEND _include_directories ${CMAKE_SOURCE_DIR}/external/android/SDL/SDL2/include
@@ -251,6 +253,7 @@ elseif (BUILD_ANDROID)
                                      ${CMAKE_SOURCE_DIR}/external/android/other/openal-soft/include
                                      ${CMAKE_SOURCE_DIR}/external/android/other/ogg/include
                                      ${CMAKE_SOURCE_DIR}/external/android/other/vorbis/include
+                                     ${CMAKE_SOURCE_DIR}/external/android/other/libpng/
         )
 elseif(PACKAGE_MANAGER STREQUAL "pkgconfig")
     find_package(PkgConfig REQUIRED)
@@ -272,7 +275,6 @@ elseif(PACKAGE_MANAGER STREQUAL "pkgconfig")
     endif()
 
     find_package(LIBNOISE REQUIRED)
-    find_package(LIBPNG REQUIRED)
 
     if (ENABLE_ANGELSCRIPT)
         find_package(AngelScript REQUIRED)
