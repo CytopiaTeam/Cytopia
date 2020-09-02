@@ -22,7 +22,7 @@ std::string readFileAsString(const std::string &fileName, bool binaryMode = fals
  * @param   fileName Name of the PNG file to read
  * @returns A PixelBuffer centered at (0, 0) with pixel data
  */
-PixelBuffer readPNGFile(const std::string & fileName);
+PixelBuffer readPNGFile(const std::string &fileName);
 
 /** Write a string to a file.
    * @param fileName Name of the file to write

@@ -3,7 +3,8 @@
 #include <cstdio>
 #include <png.h>
 
-PixelBuffer fs::readPNGFile(const std::string & fileName) {
+PixelBuffer fs::readPNGFile(const std::string &fileName)
+{
   /**
    * @todo  There is a security concern here. This function should only ever
    *        be used for files in the resource directory. There is a code snippet here
@@ -22,28 +23,30 @@ PixelBuffer fs::readPNGFile(const std::string & fileName) {
   }
   **/
 
-  FILE* fp = fopen(fileName.c_str(), "rb");
-  if(!fp)
+  FILE *fp = fopen(fileName.c_str(), "rb");
+  if (!fp)
     throw AssetError{TRACE_INFO "Could not load asset: " + fileName};
-  
+
   /* Check for PNG */
   unsigned char header[8];
   fread(header, 1, 8, fp);
-  if(png_sig_cmp(header, 0, 8)) {
+  if (png_sig_cmp(header, 0, 8))
+  {
     fclose(fp);
     throw AssetError{TRACE_INFO "Tried to load a non-PNG asset: " + fileName};
   }
 
   /* Create png object */
-  png_structp png = png_create_read_struct(PNG_LIBPNG_VER_STRING, 
-      nullptr, nullptr, nullptr);
-  if(!png) {
+  png_structp png = png_create_read_struct(PNG_LIBPNG_VER_STRING, nullptr, nullptr, nullptr);
+  if (!png)
+  {
     fclose(fp);
     throw AssetError{TRACE_INFO "Could not allocate PNG object: " + fileName};
   }
 
   png_infop info = png_create_info_struct(png);
-  if(!info) {
+  if (!info)
+  {
     fclose(fp);
     png_destroy_read_struct(&png, nullptr, nullptr);
     throw AssetError{TRACE_INFO "Could not allocate PNG info object: " + fileName};
@@ -56,18 +59,19 @@ PixelBuffer fs::readPNGFile(const std::string & fileName) {
   int height = png_get_image_height(png, info);
   int depth = png_get_bit_depth(png, info);
   int channels = png_get_channels(png, info);
-  if(depth != 8 or channels != 4) {
+  if (depth != 8 or channels != 4)
+  {
     fclose(fp);
     png_destroy_read_struct(&png, &info, nullptr);
-    throw AssetError{TRACE_INFO "Unsupported PNG asset with depth = " 
-      + std::to_string(depth) + " and channels = " + std::to_string(channels)};
+    throw AssetError{TRACE_INFO "Unsupported PNG asset with depth = " + std::to_string(depth) +
+                     " and channels = " + std::to_string(channels)};
   }
   std::vector<unsigned char> pixels(static_cast<std::size_t>(width) * height * channels, 0);
-  unsigned char ** rows = png_get_rows(png, info);
+  unsigned char **rows = png_get_rows(png, info);
   int rowBytes = width * channels;
-  for(int i = 0; i < height * rowBytes; ++i)
+  for (int i = 0; i < height * rowBytes; ++i)
     pixels[i] = rows[i / rowBytes][i % rowBytes];
   fclose(fp);
   png_destroy_read_struct(&png, &info, nullptr);
-  return { Rectangle{ 0, 0, width, height}, std::move(pixels) };
+  return {Rectangle{0, 0, width, height}, std::move(pixels)};
 }

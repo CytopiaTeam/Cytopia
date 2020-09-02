@@ -12,7 +12,7 @@ SDL_Color RGBAColor::to_SDL() const noexcept
 }
 
 uint8_t RGBAColor::red() const noexcept { return m_Color >> 24; }
- 
+
 RGBAColor::operator uint32_t() const noexcept { return m_Color; }
 
 uint8_t RGBAColor::green() const noexcept { return m_Color >> 16; }
@@ -23,11 +23,11 @@ uint8_t RGBAColor::alpha() const noexcept { return m_Color; }
 
 float RGBAColor::hue() const noexcept
 {
-  std::array<uint8_t, 3> colors = { red(), green(), blue() };
-  auto [min, max] = std::minmax_element(
-      colors.data(), colors.data() + 3);
+  std::array<uint8_t, 3> colors = {red(), green(), blue()};
+  auto [min, max] = std::minmax_element(colors.data(), colors.data() + 3);
   uint16_t C = *max - *min;
-  if(C == 0) return 0;
+  if (C == 0)
+    return 0;
   float x = colors[(max - colors.data() + 1) % 3];
   x -= colors[(max - colors.data() + 2) % 3];
   x += 2.f * (max - colors.data()) * C;
@@ -38,7 +38,7 @@ float RGBAColor::hue() const noexcept
 
 float RGBAColor::lightness() const noexcept
 {
-  auto [min, max] = std::minmax({ red(), green(), blue() });
+  auto [min, max] = std::minmax({red(), green(), blue()});
   float l = min;
   l += max;
   l /= 510.f;
@@ -47,10 +47,11 @@ float RGBAColor::lightness() const noexcept
 
 float RGBAColor::saturation() const noexcept
 {
-  auto [min, max] = std::minmax({ red(), green(), blue() });
+  auto [min, max] = std::minmax({red(), green(), blue()});
   uint16_t L = max;
   L += min;
-  if(L == 0 || L == 510) return 0;
+  if (L == 0 || L == 510)
+    return 0;
   float C = max - min;
   C /= 255 - std::abs(L - 255);
   return C;
@@ -63,10 +64,10 @@ RGBAColor RGBAColor::fromHSLA(float h, float s, float l, uint8_t a)
   uint8_t r = 255 * (l - m * std::max(-1, std::min({k - 3, 9 - k, 1})));
   k += 4;
   k %= 12;
-  uint8_t b = 255 * (l - m * std::max(-1, std::min({k - 3, 9 - k, 1}))); 
+  uint8_t b = 255 * (l - m * std::max(-1, std::min({k - 3, 9 - k, 1})));
   k += 4;
   k %= 12;
-  uint8_t g = 255 * (l - m * std::max(-1, std::min({k - 3, 9 - k, 1}))); 
+  uint8_t g = 255 * (l - m * std::max(-1, std::min({k - 3, 9 - k, 1})));
   return {r, g, b, a};
 }
 
