@@ -247,6 +247,7 @@ elseif(PACKAGE_MANAGER STREQUAL "pkgconfig")
     pkg_check_modules(SDL2_image REQUIRED SDL2_image)
     pkg_check_modules(SDL2_ttf REQUIRED SDL2_ttf)
     pkg_check_modules(ZLIB REQUIRED zlib)
+    pkg_check_modules(PNG REQUIRED png)
 
     if (ENABLE_AUDIO)
         pkg_check_modules(openal REQUIRED openal)
@@ -277,6 +278,7 @@ elseif(PACKAGE_MANAGER STREQUAL "pkgconfig")
             ${SDL2_image_INCLUDE_DIRS}
             ${SDL2_ttf_INCLUDE_DIRS}
             ${ZLIB_INCLUDEDIR}
+            ${PNG_INCLUDE_DIRS}
             )
     list(APPEND _link_libraries
             ${SDL2_LIBRARIES}
@@ -284,6 +286,7 @@ elseif(PACKAGE_MANAGER STREQUAL "pkgconfig")
             ${SDL2_ttf_LIBRARIES}
             LIBNOISE::LIBNOISE_LIBRARIES
             ${ZLIB_LIBRARIES}
+            ${PNG_LIBRARIES}
             )
 
     if (ENABLE_AUDIO)
@@ -329,6 +332,7 @@ elseif(PACKAGE_MANAGER STREQUAL "none")
     find_dependency(SDL2_ttf)
     find_dependency(ZLIB)
     find_dependency(LIBNOISE)
+    find_dependency(LIB_PNG)
 
     if (ENABLE_AUDIO)
         find_dependency(openal)
