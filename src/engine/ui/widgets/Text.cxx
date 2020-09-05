@@ -45,7 +45,7 @@ void Text::createTextTexture(const std::string &text, const SDL_Color &textColor
   TTF_Font *font = TTF_OpenFont(fontFName.c_str(), m_fontSize);
 
   if (!font)
-    throw FontError(TRACE_INFO "Failed to load font " + fontFName + ": " + TTF_GetError());
+    throw AssetError(TRACE_INFO "Failed to load font " + fontFName + ": " + TTF_GetError());
 
   // destroy texture first to prevent memleaks
   if (m_texture)
