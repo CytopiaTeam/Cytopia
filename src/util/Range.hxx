@@ -38,8 +38,8 @@ public:
    */
   Range(iterator begin, iterator end);
 
-  iterator begin();
-  iterator end();
+  iterator begin() const;
+  iterator end() const;
 
 private:
   iterator m_Begin;
@@ -52,6 +52,9 @@ template <typename Container> Range(const Container &)->Range<typename Container
 template <typename Container> Range(Container &)->Range<typename Container::iterator>;
 
 template <typename Iterator> Range(Iterator, Iterator)->Range<Iterator>;
+
+template <typename Iterator1, typename Iterator2>
+bool operator==(const Range<Iterator1> &, const Range<Iterator2> &);
 
 #include "Range.inl.hxx"
 

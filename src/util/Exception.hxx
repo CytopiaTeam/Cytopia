@@ -42,9 +42,9 @@ class AudioError : public CytopiaError
 };
 
 /**
- * @brief A font-related error occured
+ * @brief An asset related error occured
  */
-class FontError : public CytopiaError
+class AssetError : public CytopiaError
 {
   using CytopiaError::CytopiaError;
 };
