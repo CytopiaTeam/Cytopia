@@ -43,6 +43,7 @@ matrix:
             - libnoise-dev
             - libopenal-dev
             - libvorbis-dev
+            - libpng-dev
         
       install:
        - >
