@@ -83,6 +83,10 @@ void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
       demolishLayer(Layer::BUILDINGS);
       break;
     case Layer::BUILDINGS:
+      if (tileData->category != "Flora")
+      {
+        this->setNodeTransparency(0.6, Layer::BLUEPRINT);
+      }
       m_mapNodeData[Layer::ZONE].shouldRender = false;
       break;
     default:
@@ -476,6 +480,10 @@ void MapNode::demolishNode(const Layer &demolishLayer)
         continue;
       }
       this->demolishLayer(layer);
+      if (layer == Layer::BUILDINGS)
+      {
+        this->setNodeTransparency(0, Layer::BLUEPRINT);
+      }
       updateTexture(demolishLayer);
     }
   }
