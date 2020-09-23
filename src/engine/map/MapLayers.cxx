@@ -13,7 +13,7 @@ void MapLayers::setLayerEditMode(LayerEditMode layerEditMode)
       deactivateAllLayers();
       if (Settings::instance().showBuildingsInBluePrint)
       {
-        enableLayers({ BUILDINGS });
+        enableLayers({BUILDINGS});
       }
       enableLayers({BLUEPRINT, UNDERGROUND, ROAD});
       break;

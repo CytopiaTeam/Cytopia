@@ -35,7 +35,8 @@ void Sprite::render() const
         SDL_SetTextureColorMod(m_SpriteData[currentLayer].texture, highlightColor.r, highlightColor.g, highlightColor.b);
       }
 
-      if (GameStates::instance().layerEditMode == LayerEditMode::BLUEPRINT && currentLayer != Layer::BLUEPRINT && currentLayer != Layer::UNDERGROUND)
+      if (GameStates::instance().layerEditMode == LayerEditMode::BLUEPRINT && currentLayer != Layer::BLUEPRINT &&
+          currentLayer != Layer::UNDERGROUND)
       {
         SDL_SetTextureAlphaMod(m_SpriteData[currentLayer].texture, 80);
       }
