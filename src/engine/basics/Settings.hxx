@@ -177,6 +177,11 @@ struct SettingsData
    * build sub menues on the UI
    */
   int subMenuButtonHeight;
+
+  /**
+   * @brief Indicates whether we want to see buildings inside BluePrint layer or not.
+   */
+  bool showBuildingsInBluePrint;
 };
 
 /**

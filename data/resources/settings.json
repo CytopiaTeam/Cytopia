@@ -17,7 +17,8 @@
     "Biome": "MixedForest",
     "MapSize": 128,
     "MaxElevationHeight": 32,
-    "ZoneLayerTransperancy": 0.6
+    "ZoneLayerTransperancy": 0.6,
+    "ShowBuildingsInBluePrint": false
   },
   "Graphics": {
     "FullScreen": false,
