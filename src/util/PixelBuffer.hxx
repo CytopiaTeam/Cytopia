@@ -83,7 +83,11 @@ public:
 
   bool isEmpty() const noexcept;
 
+  uint32_t * data() noexcept;
+  
   static PixelBuffer EMPTY();
+
+  SDL_Surface* toSurface() noexcept;
 
 private:
   Rectangle m_Bounds;

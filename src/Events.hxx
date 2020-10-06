@@ -20,7 +20,8 @@ using GameEvents = TypeList<
     struct AudioMusicVolumeChangeEvent, struct AudioSoundVolumeChangeEvent, struct AudioSetMutedEvent, struct AudioStopEvent,
     struct AudioPruneEvent,
 #endif // USE_AUDIO
-    struct TerminateEvent
+    struct TerminateEvent,
+    struct ActivitySwitchEvent
     /* Add Game Events here */
     >;
 

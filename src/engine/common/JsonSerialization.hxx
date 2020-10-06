@@ -230,6 +230,7 @@ inline void to_json(json &j, const SettingsData &s)
       {std::string("Graphics"),
        {
            {std::string("VSYNC"), s.vSync},
+           {std::string("NewUI"), s.newUI},
            {std::string("FullScreen"), s.fullScreen},
            {std::string("FullScreenMode"), s.fullScreenMode},
            {std::string("Resolution"),

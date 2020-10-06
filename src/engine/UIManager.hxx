@@ -152,7 +152,7 @@ private:
   BUILDMENU_LAYOUT m_buildMenuLayout = BUILDMENU_LAYOUT::BOTTOM;
 
   UIManager() = default;
-  ~UIManager() = default;
+  ~UIManager();
 
   // this container holds all UiElements and is the owner.
   std::vector<std::unique_ptr<UIElement>> m_uiElements;

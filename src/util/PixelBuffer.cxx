@@ -11,6 +11,10 @@ PixelBuffer::Pixels PixelBuffer::pixels() const
   return Pixels{ m_Pixels };
 }
 
+uint32_t * PixelBuffer::data() noexcept
+{
+  return m_Pixels.data();
+}
 
 const Rectangle & PixelBuffer::bounds() const
 {
@@ -159,4 +163,18 @@ float PixelBuffer::overlay(float x, float y)
 PixelBuffer PixelBuffer::EMPTY()
 {
   return PixelBuffer { Rectangle::EMPTY(), Pixels(Pixels::iterator(), Pixels::iterator()) };
+}
+
+SDL_Surface* PixelBuffer::toSurface() noexcept {
+  return SDL_CreateRGBSurfaceFrom(
+        m_Pixels.data(),
+        bounds().width(),
+        bounds().height(),
+        32,
+        4 * bounds().width(),
+        0xFF000000U,
+        0x00FF0000U,
+        0x0000FF00U,
+        0x000000FFU
+      );
 }

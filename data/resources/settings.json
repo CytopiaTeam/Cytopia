@@ -21,6 +21,8 @@
     "ShowBuildingsInBluePrint": false
   },
   "Graphics": {
+    "NewUI": false,
+    "SkipMenu": false,
     "FullScreen": false,
     "FullScreenMode": 0,
     "Resolution": {

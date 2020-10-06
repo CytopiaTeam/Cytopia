@@ -12,7 +12,7 @@ class EventManager : public Singleton<EventManager>
 {
 public:
   EventManager() = default;
-  ~EventManager() = default;
+  ~EventManager();
 
   void checkEvents(SDL_Event &event, Engine &engine);
   void registerTimer(Timer *timer);

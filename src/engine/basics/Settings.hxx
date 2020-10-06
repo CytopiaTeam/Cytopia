@@ -113,6 +113,16 @@ struct SettingsData
    * @brief Whether to play 3D sound or not
    */
   bool audio3DStatus;
+  
+  /**
+   * @brief Whether to use the new UI or not
+   */
+  bool newUI;
+  
+  /**
+   * @brief Whether to start the game immediately at startup
+   */
+  bool skipMenu;
 
   /**
    * @todo document what this field is
@@ -203,11 +213,16 @@ public:
    */
   void writeFile();
 
+  /**
+   * @brief Parses command line arguments to override settings
+   */
+  void parse_args(int argc, char** argv);
+
   using SettingsData::operator=;
 
 private:
   Settings();
-  ~Settings() = default;
+  ~Settings();
 };
 
 #endif

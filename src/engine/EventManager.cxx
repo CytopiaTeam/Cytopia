@@ -16,6 +16,11 @@
 #include "microprofile.h"
 #endif
 
+EventManager::~EventManager()
+{
+  LOG(LOG_DEBUG) << "Destroying Event Manager";
+}
+
 void EventManager::unHighlightNodes()
 {
   for (auto node : m_nodesToPlace)

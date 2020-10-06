@@ -14,7 +14,9 @@ enum class FULLSCREEN_MODE
   FULLSCREEN = 2
 };
 
-class WindowManager : public Singleton<WindowManager>
+class 
+[[deprecated("Use Window instead")]]
+WindowManager : public Singleton<WindowManager>
 {
 public:
   friend Singleton<WindowManager>;
@@ -52,6 +54,11 @@ public:
   * @param mode the new window mode, WINDOWED, BORDERLESS, or FULLSCREEN
   */
   void setFullScreenMode(FULLSCREEN_MODE mode) const;
+  
+  /**
+   * @todo Remove this when new UI is complete
+   */
+  void setRealWindow(class Window & window);
 
 private:
   /** 

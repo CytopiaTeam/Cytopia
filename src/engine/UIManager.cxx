@@ -27,6 +27,11 @@ BETTER_ENUM(ElementType, int, ImageButton, TextButton, Text, Frame, Checkbox, Co
 BETTER_ENUM(Action, int, RaiseTerrain, LowerTerrain, QuitGame, Demolish, ChangeTileType, ToggleVisibilityOfGroup, NewGame,
             SaveGame, LoadGame, SaveSettings, ChangeResolution)
 
+UIManager::~UIManager()
+{
+  LOG(LOG_DEBUG) << "Destroying UIManager";
+}
+
 void UIManager::init()
 {
   std::string jsonFileContent = fs::readFileAsString(Settings::instance().uiLayoutJSONFile.get());
