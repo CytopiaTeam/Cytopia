@@ -3,6 +3,7 @@
 #include "../util/LOG.hxx"
 #include "../util/Filesystem.hxx"
 #include "../GameService.hxx"
+#include "../engine/basics/Settings.hxx"
 
 using namespace std::chrono_literals;
 
@@ -16,8 +17,8 @@ Window::Window(GameService::ServiceTuple context, const char * title, unsigned i
   windowFlags = SDL_WINDOW_FULLSCREEN;
   SDL_DisplayMode mode;
   SDL_GetDesktopDisplayMode(0, &mode);
-  Settings::instance().screenWidth = width = mode.w;
-  Settings::instance().screenHeight = height = mode.h;
+  width = mode.w;
+  height = mode.h;
 #endif
   
   windowFlags |= SDL_WINDOW_INPUT_GRABBED;

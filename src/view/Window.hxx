@@ -2,7 +2,7 @@
 #define WINDOW_HXX_
 
 #include <string>
-#include <SDL2/SDL.h>
+#include <SDL.h>
 #include "../activity/iActivity.hxx"
 #include "../renderer/iRenderer.hxx"
 #include "../util/iShape.hxx"

@@ -1,6 +1,7 @@
 set(SOURCE_FILES
         main.cxx
         Game.{hxx,cxx}
+        Initializer.{hxx,cxx}
         util/LOG.{hxx,cxx}
         util/Filesystem.{hxx,cxx}
         util/IEquatable.hxx

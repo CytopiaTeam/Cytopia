@@ -4,9 +4,7 @@
 #include "Exception.hxx"
 #include "LOG.hxx"
 #include "engine/basics/Settings.hxx"
-#define SDL_MAIN_HANDLED
-#include <SDL.h>
-#include <SDL_ttf.h>
+#include "Initializer.hxx"
 
 #if !defined(__ANDROID__) && !defined(__EMSCRIPTEN__)
 #include <signal.h>
@@ -14,26 +12,6 @@ void SIG_handler(int signal);
 #endif
 
 SDL_AssertState AssertionHandler(const SDL_AssertData *, void *);
-
-class Initializer {
-public:
-  Initializer() {
-    SDL_SetMainReady();
-    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) != 0)
-    {
-      throw CytopiaError{TRACE_INFO "Failed to initialize SDL: " + std::string(SDL_GetError())};
-    }
-
-    if (TTF_Init() == -1)
-    {
-      throw CytopiaError{TRACE_INFO "Failed to initialize SDL_TTF: " + std::string(TTF_GetError())};
-    }
-  }
-  ~Initializer() {
-    TTF_Quit();
-    SDL_Quit();
-  }
-};
 
 int protected_main(int argc, char **argv)
 {

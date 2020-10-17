@@ -42,6 +42,7 @@ endforeach ()
 LIST(APPEND TEST_SOURCES
         main.cxx
         Example.cxx
+        GameFixture.cxx
         engine/ResourcesManager.cxx
         engine/Engine.cxx
         engine/WindowManager.cxx

@@ -1,7 +1,7 @@
 #ifndef SDL_RENDERER_HXX_
 #define SDL_RENDERER_HXX_
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_ttf.h>
+#include <SDL.h>
+#include <SDL_ttf.h>
 #include <vector>
 
 #include "iRenderer.hxx"
