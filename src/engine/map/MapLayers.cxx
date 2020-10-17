@@ -11,7 +11,7 @@ void MapLayers::setLayerEditMode(LayerEditMode layerEditMode)
     {
     case LayerEditMode::BLUEPRINT:
       deactivateAllLayers();
-      if (Settings::instance().showBuildingsInBluePrint)
+      if (Settings::instance().showBuildingsInBlueprint)
       {
         enableLayers({ BUILDINGS });
       }

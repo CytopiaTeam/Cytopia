@@ -4,7 +4,6 @@
 #include "../util/Exception.hxx"
 #include "../util/LOG.hxx"
 #include "../view/Window.hxx"
-#include "../services/MouseController.hxx"
 
 iActivity::iActivity(GameService::ServiceTuple & context, Window & w) : GameService(context), m_Window(w) { }
 

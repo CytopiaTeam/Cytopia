@@ -1,9 +1,7 @@
 #include "iLayout.hxx"
 #include "../util/LOG.hxx"
 #include "../util/Exception.hxx"
-#include "../controller/iMouseHandler.hxx"
 #include "../GameService.hxx"
-#include "../services/MouseController.hxx"
 
 iViewPtr iLayout::addElement(iViewPtr pw)
 {

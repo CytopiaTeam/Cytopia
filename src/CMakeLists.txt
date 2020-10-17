@@ -20,7 +20,6 @@ set(SOURCE_FILES
         services/Randomizer.{hxx,cxx}
         services/GameClock.{hxx,cxx}
         services/ResourceManager.{hxx,cxx}
-        services/MouseController.{hxx,cxx}
         engine/MessageQueue.hxx
         engine/basics/Camera.{hxx,cxx}
         engine/basics/isoMath.{hxx,cxx}
@@ -69,7 +68,6 @@ set(SOURCE_FILES
         model/MouseState.{hxx,cxx}
         activity/iActivity.{hxx,cxx}
         layout/iLayout.{hxx,cxx}
-        controller/iMouseHandler.{hxx,cxx}
         renderer/iRenderer.{hxx,cxx}
         renderer/SDLRenderer.{hxx,cxx}
         )

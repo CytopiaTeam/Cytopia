@@ -87,6 +87,11 @@ public:
   
   static PixelBuffer EMPTY();
 
+  /**
+   * @brief   Convert to SDL_Surface
+   * @details The lifetime of the returned surface must not exceed
+   *          the lifetime of the PixelBuffer
+   */
   SDL_Surface* toSurface() noexcept;
 
 private:

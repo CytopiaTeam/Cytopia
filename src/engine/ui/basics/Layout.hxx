@@ -5,6 +5,8 @@
 #include <string>
 #include <vector>
 
+#include "../../../util/Singleton.hxx"
+
 struct LayoutData
 {
   std::string alignment;             /// <mandatory> where the element should be place. e.g. CENTER
@@ -18,47 +20,47 @@ struct LayoutData
 };
 
 /**
+ * @class Layout
  * @brief Layout functionality
- * Parses the layout parameters from UiLayout and also adds elements to the buildings menu
+ * @details Parses the layout parameters from UiLayout and also adds elements to the buildings menu
  * Buttons from UiLayout.json are added as "main buttons" for certain categories.
  * All tiles from TileData.json that are in specific categories will be added to this group automatically. The "icon" parameter serves as image for the corresponding ImageButton.
  * All tiles that are not in certain categories will be added to the Debug Menu, which is only shown if Debug Mode has been enabled.
- * @note this is a static class and can not be instantiated.
  */
-class Layout
+class Layout : public Singleton<Layout>
 {
 public:
+  
   /**
- * @brief Arrange the layout elements
- *
- */
-  static void arrangeElements();
+   * @brief Arrange the layout elements
+   *
+   */
+  void arrangeElements();
 
+  /**
+   * @brief Sets the Window
+   * @todo  Remove this when New UI is complete
+   */
+  void setWindow(class Window *);
 private:
-  /**
- * @brief Construct a new Menu Group Build object
- *
- */
   Layout() = default;
-  /**
- * @brief Destroy the Layout object
- * 
- */
-  ~Layout() = default;
+  ~Layout();
+  friend Singleton;
 
   /**
-* @brief Arrange Elements that are aligned to a parent
-* This is a seperate function, so it can recurse if a parent element has a parent, so we can be sure that everything is initialized properly. 
-* @param groupLayout LayoutData from the group that should be layouted
-* @param groupElements Elenents of the group that should be layouted
-*/
-  static void arrangeChildElements(LayoutData &groupLayout, std::vector<UIElement *> groupElements);
+   * @brief Arrange Elements that are aligned to a parent
+   * This is a seperate function, so it can recurse if a parent element has a parent, so we can be sure that everything is initialized properly. 
+   * @param groupLayout LayoutData from the group that should be layouted
+   * @param groupElements Elenents of the group that should be layouted
+   */
+  void arrangeChildElements(LayoutData &groupLayout, std::vector<UIElement *> groupElements);
 
   /**
-* @brief Calculates height and width of layout groups
-* 
-*/
-  static void calculateLayoutGroupDimensions();
+   * @brief Calculates height and width of layout groups
+   */
+  void calculateLayoutGroupDimensions();
+
+  class Window * m_Window = nullptr;
 };
 
 #endif

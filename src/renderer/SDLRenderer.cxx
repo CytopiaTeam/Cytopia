@@ -2,6 +2,7 @@
 #include "../util/Exception.hxx"
 #include "../util/LOG.hxx"
 #include "../util/Filesystem.hxx"
+#include "../engine/basics/Settings.hxx"
 
 SDLRenderer::SDLRenderer(SDL_Window * sdl_window)
 {
@@ -18,7 +19,7 @@ SDLRenderer::SDLRenderer(SDL_Window * sdl_window)
     throw CytopiaError{TRACE_INFO "Failed to enable Alpha" + string{SDL_GetError()}};
   
   std::string font = fs::getBasePath();
-  font += "resources/fonts/arcadeclassics.ttf";
+  font += Settings::instance().fontFileName.get();
   m_Font = TTF_OpenFont(font.c_str(), 24);
   if(!m_Font)
     throw CytopiaError{TRACE_INFO "Failed to open font: " 
@@ -45,7 +46,7 @@ SDLRenderer::~SDLRenderer()
     LOG(LOG_ERROR) << "SDL Error: " << error;
   }
   SDL_ClearError();
-  //SDL_DestroyRenderer(m_Renderer);
+  SDL_DestroyRenderer(m_Renderer);
 }
 
 void SDLRenderer::drawText(
@@ -70,6 +71,7 @@ void SDLRenderer::drawText(
   }
   SDL_RenderCopy(m_Renderer, texture, nullptr, &rect);
   SDL_FreeSurface(surface);
+  SDL_DestroyTexture(texture);
 }
 
 void SDLRenderer::drawPicture(const Rectangle & rect, uint32_t * data)
@@ -105,6 +107,7 @@ void SDLRenderer::drawPicture(const Rectangle & rect, uint32_t * data)
     return;
   } 
   SDL_FreeSurface(surface);
+  SDL_DestroyTexture(texture);
 }
 
 void SDLRenderer::drawShape(const Rectangle & r, RGBAColor c)

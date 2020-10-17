@@ -11,7 +11,7 @@
 #include "map/MapLayers.hxx"
 #include "common/JsonSerialization.hxx"
 #include "Filesystem.hxx"
-
+#include "../view/Window.hxx"
 #include "json.hxx"
 
 #include <sstream>
@@ -25,6 +25,8 @@
 #endif
 
 using json = nlohmann::json;
+
+Window * Map::m_Window = nullptr;
 
 NeighbourNodesPosition operator++(NeighbourNodesPosition &nn, int)
 {
@@ -355,7 +357,7 @@ Point Map::getNodeOrigCornerPoint(const Point &isoCoordinates, Layer layer)
     return mapNodes[nodeIdx(isoCoordinates.x, isoCoordinates.y)].getOrigCornerPoint(layer);
   }
 
-  return UNDEFINED_POINT;
+  return Point::INVALID();
 }
 
 std::vector<uint8_t> Map::calculateAutotileBitmask(const MapNode *const pMapNode, const std::vector<NeighborNode> &neighborNodes)
@@ -596,8 +598,8 @@ bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int is
       assert(!tileID.empty());
 
       // Calculate the position of the clicked pixel within the surface and "un-zoom" the position to match the un-adjusted surface
-      const int pixelX = static_cast<int>((screenCoordinates.x - spriteRect.x) / Camera::zoomLevel) + clipRect.x;
-      const int pixelY = static_cast<int>((screenCoordinates.y - spriteRect.y) / Camera::zoomLevel) + clipRect.y;
+      const int pixelX = static_cast<int>((screenCoordinates.x - spriteRect.x) / Camera::instance().zoomLevel()) + clipRect.x;
+      const int pixelY = static_cast<int>((screenCoordinates.y - spriteRect.y) / Camera::instance().zoomLevel()) + clipRect.y;
 
       if ((curLayer == Layer::TERRAIN) && (node.getMapNodeDataForLayer(Layer::TERRAIN).tileMap == TileMap::SHORE))
       {
@@ -752,8 +754,12 @@ bool Map::isAllowSetTileId(const Layer layer, const MapNode *const pMapNode)
 
 void Map::calculateVisibleMap(void)
 {
+  if(!m_Window)
+  {
+    throw CytopiaError{TRACE_INFO "Cannot calculateVisibleMap without a Window"};
+  }
   const Point topLeft = calculateIsoCoordinates({0, 0});
-  const Point bottomRight = calculateIsoCoordinates({Settings::instance().screenWidth, Settings::instance().screenHeight});
+  const Point bottomRight = calculateIsoCoordinates({m_Window->getBounds().width(), m_Window->getBounds().height()});
 
   // Screen edges
   const int left = topLeft.x + topLeft.y - 2;
@@ -777,4 +783,8 @@ void Map::calculateVisibleMap(void)
       }
     }
   }
+}
+
+void Map::setWindow(Window * window) {
+  m_Window = window;
 }

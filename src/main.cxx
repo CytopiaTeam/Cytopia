@@ -31,7 +31,7 @@ public:
   }
   ~Initializer() {
     TTF_Quit();
-    //SDL_Quit();
+    SDL_Quit();
   }
 };
 

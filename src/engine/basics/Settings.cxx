@@ -27,9 +27,6 @@ void Settings::readFile()
   SettingsData data = _settingsJSONObject;
   *this = data;
 
-  // init the actual resolution with the desired resolution
-  currentScreenWidth = screenWidth;
-  currentScreenHeight = screenHeight;
 #ifdef __ANDROID__
   subMenuButtonHeight *= 2;
   subMenuButtonWidth *= 2;
@@ -76,4 +73,14 @@ void Settings::parse_args(int argc, char** argv) {
   js.merge_patch(patch);
   SettingsData data = js;
   *this = data;
+}
+
+int Settings::getDefaultWindowWidth() const noexcept
+{
+  return displayModes.at(defaultDisplayMode)[0];
+}
+  
+int Settings::getDefaultWindowHeight() const noexcept
+{
+  return displayModes.at(defaultDisplayMode)[1];
 }

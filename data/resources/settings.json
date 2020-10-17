@@ -18,23 +18,24 @@
     "MapSize": 128,
     "MaxElevationHeight": 32,
     "ZoneLayerTransperancy": 0.6,
-    "ShowBuildingsInBluePrint": false
+    "ShowBuildingsInBluePrint": false,
+    "Language": "en"
   },
   "Graphics": {
-    "NewUI": false,
-    "SkipMenu": false,
     "FullScreen": false,
-    "FullScreenMode": 0,
-    "Resolution": {
-      "Screen_Height": 600,
-      "Screen_Width": 800
+    "DisplayModes": {
+        "480p": [640, 480],
+        "720p": [960, 720],
+        "1080p": [1920, 1080]
     },
+    "DefaultDisplayMode": "480p",
     "VSYNC": false
   },
-  "User Interface": {
-    "BuildMenu Position": "BOTTOM",
-    "Font Filename": "resources/fonts/arcadeclassics.ttf",
-    "Language": "en",
+  "UI": {
+    "SkipMenu": false,
+    "NewUI": false,
+    "BuildMenuPosition": "BOTTOM",
+    "FontFilename": "resources/fonts/pixellocale-v-1-4.ttf",
     "SubMenuButtonHeight": 32,
     "SubMenuButtonWidth": 32
   }

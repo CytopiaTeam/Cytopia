@@ -67,7 +67,7 @@ void Sprite::render() const
 
 void Sprite::refresh(const Layer &layer)
 {
-  if (m_currentZoomLevel != Camera::zoomLevel || m_needsRefresh)
+  if (m_currentZoomLevel != Camera::instance().zoomLevel() || m_needsRefresh)
   {
     for (auto currentLayer : allLayersOrdered)
     {
@@ -77,7 +77,7 @@ void Sprite::refresh(const Layer &layer)
         {
           continue;
         }
-        m_currentZoomLevel = Camera::zoomLevel;
+        m_currentZoomLevel = Camera::instance().zoomLevel();
         int spriteSheetHeight = 0;
         SDL_QueryTexture(m_SpriteData[currentLayer].texture, nullptr, nullptr, nullptr, &spriteSheetHeight);
         // we need to offset the cliprect.y coodinate, because we've moved the "originpoint" for drawing the sprite to the screen on the bottom.

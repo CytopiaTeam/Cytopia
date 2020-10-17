@@ -2,6 +2,7 @@
 #define SETTINGS_HXX_
 
 #include <string>
+#include <vector>
 
 #include "../../util/Singleton.hxx"
 #include "../../util/Meta.hxx"
@@ -24,90 +25,56 @@ struct SettingsData
 
   /**
    * @brief the size of the map
-   * @todo add a typename
+   * @todo  must be removed when maps will be 'infinite'
    */
   int mapSize;
 
   /**
-   * @brief the screen width
-   * @pre only apply for windowed or fullscreen mode
-   */
-  ScreenDimension screenWidth;
-
-  /**
-   * @brief the screen height
-   * @pre only apply for windowed or fullscreen mode
-   */
-  ScreenDimension screenHeight;
-
-  /**
-   * @brief the actual screen width (can differ from the one that's set in borderless fullscreen)
-   */
-  ScreenDimension currentScreenWidth;
-
-  /**
-   * @brief the actual screen height (can differ from the one that's set in borderless fullscreen)
-   */
-  ScreenDimension currentScreenHeight;
-
-  /**
    * @brief the maximum elevation height
-   * @todo add a typename
    */
   int maxElevationHeight;
 
   /**
   * @brief the value of the zone layer transparency, (0 - 1.0).
-  * where 0 is full opaque and 1 for full transperancy.
-  * @todo add a typename
+  * where 0 is full opaque and 1 for full transparency.
   */
-  float zoneLayerTransperancy;
+  float zoneLayerTransparency;
 
   /**
-   * @todo document what this field is
-   * @todo add a typename
+   * @brief True if VSYNC is enabled
    */
   bool vSync;
 
   /**
-   * @todo document what this field is
-   * @todo add a typename
+   * @brief True if the game must be in fullscreen mode
    */
   bool fullScreen;
 
   /**
-   * @todo document what this field is
-   * @todo add a typename
-   */
-  int fullScreenMode;
-
-  /**
-   * @brief the volume of music
+   * @brief The volume of music between [0, 100]
    */
   VolumeLevel musicVolume;
 
   /**
-   * @brief the volume of sound effects
+   * @brief the volume of sound effects between [0, 100]
    */
   VolumeLevel soundEffectsVolume;
 
   /**
-   * @todo document what this field is
-   * @todo add a typename
+   * @brief True if music should be played
    */
   bool playMusic;
 
   /**
-   * @todo document what this field is
-   * @todo add a typename
+   * @brief True if sound effects should be played
    */
   bool playSoundEffects;
 
   /**
    * @brief the number of channels used for sound playback
-   * 1=Mono,2=Stereo
+   * 0=Mute, 1=Mono, 2=Stereo
    */
-  int audioChannels;
+  uint8_t audioChannels;
 
   /**
    * @brief Whether to play 3D sound or not
@@ -132,27 +99,24 @@ struct SettingsData
   std::string buildMenuPosition;
 
   /**
-   * @brief this is used for biomedata
-   * @todo Remove this later when terraingen is using biomes
-   * @todo replace by enum when BetterEnums is implemented
+   * @brief The biome type
+   * @todo  Remove this when we have support for Game saves
+   *        and NewGameActivity
    */
   std::string biome;
 
   /**
    * @brief JSONFile that contains uiData
-   * @todo add a typename
    */
   FilePath uiDataJSONFile;
 
   /**
    * @brief JSONFile that contains tileData
-   * @todo add a typename
    */
   FilePath tileDataJSONFile;
 
   /**
    * @todo document what this field is
-   * @todo add a typename
    */
   FilePath uiLayoutJSONFile;
 
@@ -189,9 +153,28 @@ struct SettingsData
   int subMenuButtonHeight;
 
   /**
-   * @brief Indicates whether we want to see buildings inside BluePrint layer or not.
+   * @brief Indicates whether we want to see buildings inside Blueprint layer or not.
    */
-  bool showBuildingsInBluePrint;
+  bool showBuildingsInBlueprint;
+
+  /**
+   * @brief   All display modes 
+   * @details Nth element is the (width, height) of the
+   *          Nth displayModeName
+   */
+  std::vector<std::array<int, 2>> displayModes;
+  
+  /**
+   * @details All the names of the display modes
+   *          to be used in the UI
+   */
+  std::vector<std::string> displayModeNames;
+
+  /**
+   * @brief   The current default display mode
+   * @details On game startup, is used if fullscreen is disabled
+   */
+  int defaultDisplayMode;
 };
 
 /**
@@ -213,6 +196,10 @@ public:
    */
   void writeFile();
 
+  int getDefaultWindowWidth() const noexcept;
+  
+  int getDefaultWindowHeight() const noexcept;
+  
   /**
    * @brief Parses command line arguments to override settings
    */

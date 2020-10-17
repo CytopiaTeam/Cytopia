@@ -141,12 +141,15 @@ public:
   void startTooltip(SDL_Event &event, const std::string &tooltipText) const;
   void stopTooltip() const;
 
-  void changeResolution(UIElement *sender);
-  void changeFullScreenMode(UIElement *sender);
   /**
  * @brief Close all open menus but the build menu
  */
   void closeOpenMenus();
+
+  /**
+   * @brief Destroy the UIElements early
+   */
+  void flush();
 
 private:
   BUILDMENU_LAYOUT m_buildMenuLayout = BUILDMENU_LAYOUT::BOTTOM;
@@ -198,6 +201,8 @@ private:
   void setupButtonTileImage(Button *button, const std::pair<std::string, TileData> &tile);
 
   void addToLayoutGroup(const std::string &groupName, UIElement *widget);
+
+  void changeResolution(UIElement * sender);
 
   bool m_showDebugMenu = false;
 };

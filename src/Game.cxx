@@ -41,8 +41,8 @@ Game::Game() :
       m_UILoop(&LoopMain<UILoopMQ, UIVisitor>, std::ref(m_GameContext), UIVisitor{}),
       m_EventLoop(&LoopMain<GameLoopMQ, GameVisitor>, std::ref(m_GameContext), GameVisitor{m_GameContext}),
       m_Window(m_GameContext, VERSION, 
-        Settings::instance().screenWidth, 
-        Settings::instance().screenHeight, 
+        Settings::instance().getDefaultWindowWidth(), 
+        Settings::instance().getDefaultWindowHeight(), 
         Settings::instance().fullScreen, 
         "resources/images/app_icons/cytopia_icon.png")
 {
@@ -77,6 +77,11 @@ bool Game::initialize()
   std::string moFilePath = fs::getBasePath();
   moFilePath = moFilePath + "languages/" + Settings::instance().gameLanguage + "/Cytopia.mo";
 
+
+  Layout::instance().setWindow(&m_Window);
+  EventManager::instance().setWindow(&m_Window);
+  Map::setWindow(&m_Window);
+  Camera::instance().setWindow(&m_Window);
   if (moFileLib::moFileReaderSingleton::GetInstance().ReadFile(moFilePath.c_str()) == moFileLib::moFileReader::EC_SUCCESS)
   {
     LOG(LOG_INFO) << "Loaded MO file " << moFilePath;
@@ -95,8 +100,8 @@ bool Game::mainMenu()
 {
   SDL_Event event;
 
-  int screenWidth = Settings::instance().screenWidth;
-  int screenHeight = Settings::instance().screenHeight;
+  int screenWidth = m_Window.getBounds().width();
+  int screenHeight = m_Window.getBounds().height();
   bool mainMenuLoop = true;
   bool quitGame = false;
 
@@ -263,7 +268,7 @@ void Game::run(bool SkipMenu)
   Engine &engine = Engine::instance();
 
   LOG(LOG_DEBUG) << "Map initialized in " << benchmarkTimer.getElapsedTime() << "ms";
-  Camera::centerScreenOnMapCenter();
+  Camera::instance().centerScreenOnMapCenter();
 
   SDL_Event event;
   EventManager &evManager = EventManager::instance();
@@ -348,6 +353,7 @@ void Game::shutdown()
   m_UILoop.join();
   m_EventLoop.join();
   ResourcesManager::instance().flush();
+  UIManager::instance().flush();
 }
 
 template <typename MQType, typename Visitor> void Game::LoopMain(GameContext &context, Visitor visitor)
@@ -383,22 +389,6 @@ void Game::GameVisitor::operator()(TerminateEvent &&)
 }
 
 void Game::GameVisitor::operator()(ActivitySwitchEvent && event)
-{
-  /**
-   *  @todo Implement this function
-   */
-  throw UnimplementedError{TRACE_INFO "Not implemented"};
-}
-
-void Game::GameVisitor::operator()(WindowRedrawEvent && event)
-{
-  /**
-   *  @todo Implement this function
-   */
-  throw UnimplementedError{TRACE_INFO "Not implemented"};
-}
-
-void Game::GameVisitor::operator()(WindowResizeEvent && event)
 {
   /**
    *  @todo Implement this function

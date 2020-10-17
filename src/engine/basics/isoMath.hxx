@@ -1,10 +1,11 @@
 #ifndef ISOMATH_HXX_
 #define ISOMATH_HXX_
 
-#include "point.hxx"
-#include "SDL.h"
 #include <vector>
 #include <algorithm>
+#include <SDL.h>
+
+#include "point.hxx"
 
 // calculate clicked column (x coordinate) without heigh taken into account.
 /** \brief Calculates screen space coordinates to isometric space coordinates.
