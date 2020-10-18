@@ -51,7 +51,7 @@ Window::~Window()
   SDL_DestroyWindow(m_Window);
 }
 
-void Window::setActivity(iActivityPtr activity)
+void Window::setActivity(iActivityPtr && activity)
 {
   m_Renderer->clear();
   std::swap(m_Activity, activity);
@@ -81,4 +81,9 @@ void Window::handleEvent(WindowRedrawEvent &&event)
   m_Renderer->clear();
   m_Activity->draw(*m_Renderer);
   m_Renderer->commit();
+}
+
+MouseState & Window::getMouseState() noexcept
+{
+  return m_MouseState;
 }

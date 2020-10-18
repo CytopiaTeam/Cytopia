@@ -58,20 +58,17 @@ float RGBAColor::saturation() const noexcept
 
 RGBAColor RGBAColor::fromHSLA(float h, float s, float l, uint8_t a)
 {
-  int k = static_cast<int>(h / 21) % 12;
+  float k = std::fmod(12.f * h, 12.f);
   float m = s * std::min(l, 1.f - l);
-  uint8_t r = 255 * (l - m * std::max(-1, std::min({k - 3, 9 - k, 1})));
-  k += 4;
-  k %= 12;
-  uint8_t b = 255 * (l - m * std::max(-1, std::min({k - 3, 9 - k, 1}))); 
-  k += 4;
-  k %= 12;
-  uint8_t g = 255 * (l - m * std::max(-1, std::min({k - 3, 9 - k, 1}))); 
+  uint8_t r = 255.f * (l - m * std::max(-1.f, std::min({k - 3.f, 9.f - k, 1.f})));
+  k = std::fmod(k + 4.f, 12.f);
+  uint8_t b = 255.f * (l - m * std::max(-1.f, std::min({k - 3.f, 9.f - k, 1.f}))); 
+  k = std::fmod(k + 4.f, 12.f);
+  uint8_t g = 255.f * (l - m * std::max(-1.f, std::min({k - 3.f, 9.f - k, 1.f}))); 
   return {r, g, b, a};
 }
 
 std::ostream &operator<<(std::ostream &os, const RGBAColor &c)
 {
-  return os << "Color { red: " << static_cast<int>(c.red()) << ", green: " << static_cast<int>(c.green())
-            << ", blue: " << static_cast<int>(c.blue()) << " }";
+  return os << "Color { #" << std::hex << (uint32_t(c) >> 8) << ", " << std::hex << int(c.alpha()) << " }";
 }

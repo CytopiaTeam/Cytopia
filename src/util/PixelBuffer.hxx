@@ -62,7 +62,7 @@ public:
    * @param   region the region to crop to
    * @details The cropped region is the intersection of region and bounds
    */
-  PixelBuffer & crop(Rectangle && region);
+  PixelBuffer & crop(const Rectangle & region);
 
   /**
    * @brief   Recolors magic pixels

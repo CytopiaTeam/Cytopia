@@ -51,7 +51,7 @@ PixelBuffer & PixelBuffer::scale(float factor)
   return *this;
 }
 
-PixelBuffer & PixelBuffer::crop(Rectangle && region)
+PixelBuffer & PixelBuffer::crop(const Rectangle & region)
 {
   int oWidth = m_Bounds.width();
   m_Bounds.intersect(region);
@@ -137,10 +137,12 @@ PixelBuffer & PixelBuffer::colorMagicPixels(RGBAColor color)
             g = pixel >> 16,
             b = pixel >> 8,
             a = pixel;
-    if(r != b) continue;
+    if(r != b) {
+      continue;
+    }
     RGBAColor magic {r, g, b, a};
-    float s_n = overlay(magic.saturation(), s_t);
-    float l_n = overlay(magic.lightness(), l_t);
+    float s_n = overlay(s_t, magic.saturation());
+    float l_n = overlay(l_t, magic.lightness());
     pixel = RGBAColor::fromHSLA(h_t, s_n, l_n, a);
   }
   return *this;

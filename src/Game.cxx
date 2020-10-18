@@ -33,16 +33,18 @@ Game::Game()
 #ifdef USE_AUDIO
                     &m_AudioMixer,
 #endif // USE_AUDIO
-                    &m_Randomizer, &m_GameClock, &m_ResourceManager),
-      m_GameClock{m_GameContext}, m_Randomizer{m_GameContext}, m_ResourceManager{m_GameContext},
-      m_UILoop(&LoopMain<UILoopMQ, UIVisitor>, std::ref(m_GameContext), UIVisitor{}),
-      m_EventLoop(&LoopMain<GameLoopMQ, GameVisitor>, std::ref(m_GameContext), GameVisitor{m_GameContext}),
+                    &m_Randomizer, &m_GameClock, &m_ResourceManager, &m_MouseController),
+      m_GameClock{m_GameContext}, m_Randomizer{m_GameContext}, m_ResourceManager{m_GameContext}, m_MouseController{m_GameContext},
 #ifdef USE_AUDIO
       m_AudioMixer{m_GameContext},
 #endif
-      m_Window(m_GameContext, VERSION, Settings::instance().getDefaultWindowWidth(),
-               Settings::instance().getDefaultWindowHeight(), Settings::instance().fullScreen,
-               "resources/images/app_icons/cytopia_icon.png")
+      m_UILoop(&LoopMain<UILoopMQ, UIVisitor>, std::ref(m_GameContext), UIVisitor{}),
+      m_EventLoop(&LoopMain<GameLoopMQ, GameVisitor>, std::ref(m_GameContext), GameVisitor{m_GameContext}),
+      m_Window(m_GameContext, VERSION, 
+        Settings::instance().getDefaultWindowWidth(), 
+        Settings::instance().getDefaultWindowHeight(), 
+        Settings::instance().fullScreen, 
+        "resources/images/app_icons/cytopia_icon.png")
 {
   LOG(LOG_DEBUG) << "Created Game Object";
   /**
@@ -91,6 +93,37 @@ bool Game::initialize()
 
   LOG(LOG_DEBUG) << "Initialized Game Object";
   return true;
+}
+
+void Game::newUI()
+{
+  m_UILoopMQ.push(ActivitySwitchEvent{ActivityType::MainMenu});
+  m_GameLoopMQ.push(ActivitySwitchEvent{ActivityType::MainMenu});
+  SDL_Event event;
+  for(;;)
+  {
+    while (SDL_WaitEvent(&event) != 0)
+    {
+      switch(event.type)
+      {
+        case SDL_QUIT:
+          shutdown();
+          return;
+        case SDL_WINDOWEVENT:
+          switch(event.window.event)
+          {
+            case SDL_WINDOWEVENT_SIZE_CHANGED:
+              m_UILoopMQ.push(WindowResizeEvent{});
+              continue;
+            default:
+              continue;
+          }
+          continue;
+        default:
+          continue;
+      }
+    }
+  }
 }
 
 bool Game::mainMenu()
@@ -411,27 +444,26 @@ template <> typename UILoopMQ::Enumerable Game::getEvents<UILoopMQ>(GameContext 
 
 template <typename MQType, typename Visitor> void Game::LoopMain(GameContext &context, Visitor visitor)
 {
-  try
+  while (true)
   {
-    while (true)
-    {
-      for (auto event : getEvents<MQType>(context))
+    for (auto event : getEvents<MQType>(context))
+      if (std::holds_alternative<TerminateEvent>(event))
       {
-        if (std::holds_alternative<TerminateEvent>(event))
-        {
-          return;
-        }
-        else
+        return;
+      }
+      else
+      {
+        try
         {
           std::visit(visitor, std::move(event));
+        } 
+        catch (std::exception &ex)
+        {
+          LOG(LOG_ERROR) << ex.what();
+          // @todo: Call shutdown() here in a safe way
         }
       }
     }
-  }
-  catch (std::exception &ex)
-  {
-    LOG(LOG_ERROR) << ex.what();
-    // @todo: Call shutdown() here in a safe way
   }
 }
 
@@ -443,11 +475,11 @@ void Game::GameVisitor::operator()(TerminateEvent &&)
 
 void Game::GameVisitor::operator()(ActivitySwitchEvent &&event)
 {
-  /**
-   *  @todo Implement this function
-   */
-  throw UnimplementedError{TRACE_INFO "Not implemented"};
+  GetService<MouseController>().handleEvent(std::move(event));
 }
+
+Game::UIVisitor::UIVisitor(Window & window, GameContext & context) :
+  m_Window(window), m_GameContext(context) { }
 
 void Game::UIVisitor::operator()(TerminateEvent &&)
 {
@@ -459,24 +491,15 @@ void Game::UIVisitor::operator()(UIChangeEvent &&event) { event.apply(); }
 
 void Game::UIVisitor::operator()(ActivitySwitchEvent &&event)
 {
-  /**
-   *  @todo Implement this function
-   */
-  throw UnimplementedError{TRACE_INFO "Not implemented"};
+  m_Window.setActivity(m_Window.fromActivityType(event.activityType, m_GameContext, m_Window));
 }
 
 void Game::UIVisitor::operator()(WindowResizeEvent &&event)
 {
-  /**
-   *  @todo Implement this function
-   */
-  throw UnimplementedError{TRACE_INFO "Not implemented"};
+  m_Window.handleEvent(WindowResizeEvent{});
 }
 
 void Game::UIVisitor::operator()(WindowRedrawEvent &&event)
 {
-  /**
-   *  @todo Implement this function
-   */
-  throw UnimplementedError{TRACE_INFO "Not implemented"};
+  m_Window.handleEvent(WindowRedrawEvent{});
 }

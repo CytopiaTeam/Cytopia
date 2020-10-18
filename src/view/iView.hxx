@@ -26,7 +26,7 @@ public:
    * @details ::draw is never allowed to draw outside of
    *          this bounding box.
    */
-  virtual const Rectangle &getBounds() const noexcept = 0;
+  virtual const Rectangle & getBounds() const noexcept = 0;
 
   /**
    * @brief   Sets the smallest

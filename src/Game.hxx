@@ -15,6 +15,7 @@
 #include "services/Randomizer.hxx"
 #include "services/GameClock.hxx"
 #include "services/ResourceManager.hxx"
+#include "services/MouseController.hxx"
 #include "LOG.hxx"
 #include "Exception.hxx"
 #include "view/Window.hxx"
@@ -61,6 +62,8 @@ public:
 
   void quit();
 
+  void newUI();
+
 private:
   /* Game context */
   using GameContext = GameService::ServiceTuple;
@@ -70,6 +73,7 @@ private:
   GameClock m_GameClock;
   Randomizer m_Randomizer;
   ResourceManager m_ResourceManager;
+  MouseController m_MouseController;
   UILoopMQ m_UILoopMQ;
   GameLoopMQ m_GameLoopMQ;
 #ifdef USE_AUDIO
@@ -90,6 +94,8 @@ private:
   struct UIVisitor
   {
 
+    UIVisitor(Window &, GameContext &);
+    
     /**
      * @brief   Do not call.
      * @throws  CytopiaError
@@ -121,6 +127,10 @@ private:
      * @tparam  ArgumentType the invalid event
      */
     template <typename ArgumentType> void operator()(ArgumentType &&event);
+  
+    private:
+      Window & m_Window;
+      GameContext & m_GameContext;
   };
 
   struct GameVisitor : public GameService
@@ -161,6 +171,7 @@ private:
      * @tparam  ArgumentType the invalid game event
      */
     template <typename ArgumentType> void operator()(const ArgumentType &&event);
+    
   };
 };
 
