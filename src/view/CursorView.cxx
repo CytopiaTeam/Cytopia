@@ -9,17 +9,11 @@ CursorView::CursorView()
   std::string path = fs::getBasePath();
   path += "resources/images/ui/general/cursors.png";
   PixelBuffer pb = fs::readPNGFile(path);
-  pb.scale(2.f);
+  float scaleFactor = 2.f;
+  pb.scale(scaleFactor);
   int swidth = pb.bounds().width(), sheight = pb.bounds().height();
-  swidth /= 6; // Currently support 6 different cursors
-  std::array cropsFrom = {
-    Rectangle{0*swidth, 0, 1*swidth-1, sheight-1},
-    Rectangle{1*swidth, 0, 2*swidth-1, sheight-1},
-    Rectangle{2*swidth, 0, 3*swidth-1, sheight-1},
-    Rectangle{3*swidth, 0, 4*swidth-1, sheight-1},
-    Rectangle{4*swidth, 0, 5*swidth-1, sheight-1},
-    Rectangle{5*swidth, 0, 6*swidth-1, sheight-1}
-  };
+  swidth /= CursorType::_size();
+  Rectangle crop_mask {0, 0, swidth-1, sheight-1};
   Rectangle rto {0, 0, swidth-1, sheight-1};
   Rectangle rscaled {
     0, 0, 
@@ -29,13 +23,14 @@ CursorView::CursorView()
   /**
    *  @todo: Maybe this should be configurable instead of hardcoded...
    */
-  std::array hot_xs = {1, 3, 5, 5, 5, 0};
-  std::array hot_ys = {1, 1, 8, 10, 7, 0};
-  auto range = ZipRange{CursorType::_values(), hot_xs, hot_ys, cropsFrom};
-  for(auto [type, hotx, hoty, rfrom] : range)
+  std::array hot_xs = {1, 3, 5, 5, 2, 2, 7, 5, 5, 0};
+  std::array hot_ys = {1, 1, 8, 5, 6, 7, 2, 5, 5, 0};
+  auto range = ZipRange{CursorType::_values(), hot_xs, hot_ys};
+  for(auto [type, hotx, hoty] : range)
   {
     PixelBuffer cursor_img {pb};
-    cursor_img.crop(std::move(rfrom));
+    cursor_img.crop(Rectangle{crop_mask});
+    crop_mask.translateX(swidth);
     SDL_Surface* surface = SDL_CreateRGBSurfaceFrom(
         cursor_img.data(), 
         cursor_img.bounds().width(), 
@@ -47,7 +42,7 @@ CursorView::CursorView()
         0x0000ff00,
         0x000000ff
         );
-    CursorPtr cursor { SDL_CreateColorCursor(surface, hotx, hoty) };
+    CursorPtr cursor { SDL_CreateColorCursor(surface, static_cast<int>(scaleFactor * hotx), static_cast<int>(scaleFactor * hoty)) };
     m_Cursors[type._to_integral()] = std::move(cursor);
   }
 }

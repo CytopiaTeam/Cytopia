@@ -4,7 +4,7 @@
 #include <betterEnums.hxx>
 #include "DataModel.hxx"
 
-BETTER_ENUM(CursorType, uint8_t, Arrow, Pointer, Grab, Grabbing, Caret, None);
+BETTER_ENUM(CursorType, uint8_t, Arrow, Pointer, Grab, Grabbing, Caret, ResizeN, ResizeE, ResizeNE, ResizeSW, None);
 
 struct MouseStateModel
 {

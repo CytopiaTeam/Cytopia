@@ -11,6 +11,7 @@
 #ifdef USE_AUDIO
 #include "../../services/AudioMixer.hxx"
 #endif // USE_AUDIO
+#include "../../util/ZipRange.hxx"
 
 using json = nlohmann::json;
 using DisplayMap = std::unordered_map<std::string, std::array<int, 2>>;
@@ -269,7 +270,12 @@ inline void to_json(json &j, const SettingsData &s)
   j["Graphics"] = json();
   j["/Graphics/FullScreen"_json_pointer] = s.fullScreen;
   j["/Graphics/VSYNC"_json_pointer] = s.vSync;
-  j["/Graphics/DefaultDisplayMode"_json_pointer] = s.defaultDisplayMode;
+  j["/Graphics/DefaultDisplayMode"_json_pointer] = s.displayModeNames.at(s.defaultDisplayMode);
+  auto & modes = j["/Graphics/DisplayModes"_json_pointer] = json();
+  for(const auto && [key, value] : ZipRange{s.displayModeNames, s.displayModes})
+  {
+    modes[key] = value;
+  }
   
   j["UI"] = json(); 
   j["/UI/SkipMenu"_json_pointer] = s.skipMenu;
