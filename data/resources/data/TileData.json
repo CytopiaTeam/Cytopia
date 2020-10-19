@@ -2864,7 +2864,7 @@
       "count": 7,
       "fileName": "resources/images/flora/trees/tree_1x1_pine_light.png"
     },
-    "title": "Pine Trees",
+    "title": "Pine Trees (Light)",
     "isOverPlacable": true,
     "upkeep cost": 0,
     "water": 0,
@@ -2887,7 +2887,7 @@
       "count": 8,
       "fileName": "resources/images/flora/trees/tree_1x1_pine_medium.png"
     },
-    "title": "Pine Trees",
+    "title": "Pine Trees (Medium)",
     "isOverPlacable": true,
     "upkeep cost": 0,
     "water": 0,
@@ -2910,7 +2910,7 @@
       "count": 10,
       "fileName": "resources/images/flora/trees/tree_1x1_pine_dense.png"
     },
-    "title": "Pine Trees",
+    "title": "Pine Trees (Dense)",
     "isOverPlacable": true,
     "upkeep cost": 0,
     "water": 0,
@@ -2933,7 +2933,7 @@
       "count": 16,
       "fileName": "resources/images/flora/trees/tree_1x1_mushroom_light.png"
     },
-    "title": "Mushroom Trees",
+    "title": "Mushrooms (Light)",
     "isOverPlacable": true,
     "upkeep cost": 0,
     "water": 0,
@@ -2956,7 +2956,7 @@
       "count": 12,
       "fileName": "resources/images/flora/trees/tree_1x1_mushroom_medium.png"
     },
-    "title": "Mushroom Trees",
+    "title": "Mushrooms (Medium)",
     "isOverPlacable": true,
     "upkeep cost": 0,
     "water": 0,
@@ -2979,7 +2979,7 @@
       "count": 12,
       "fileName": "resources/images/flora/trees/tree_1x1_mushroom_dense.png"
     },
-    "title": "Mushroom Trees",
+    "title": "Mushrooms (Dense)",
     "isOverPlacable": true,
     "upkeep cost": 0,
     "water": 0,
@@ -3002,7 +3002,7 @@
       "count": 7,
       "fileName": "resources/images/flora/trees/tree_1x1_burned_light.png"
     },
-    "title": "Burned Trees",
+    "title": "Burned Trees (Light)",
     "isOverPlacable": true,
     "upkeep cost": 0,
     "water": 0,
@@ -3025,7 +3025,7 @@
       "count": 7,
       "fileName": "resources/images/flora/trees/tree_1x1_burned_medium.png"
     },
-    "title": "Burned Trees",
+    "title": "Burned Trees (Medium)",
     "isOverPlacable": true,
     "upkeep cost": 0,
     "water": 0,
@@ -3048,7 +3048,7 @@
       "count": 7,
       "fileName": "resources/images/flora/trees/tree_1x1_burned_dense.png"
     },
-    "title": "Burned Trees",
+    "title": "Burned Trees (Dense)",
     "isOverPlacable": true,
     "upkeep cost": 0,
     "water": 0,
@@ -3071,7 +3071,7 @@
       "count": 20,
       "fileName": "resources/images/flora/trees/tree_1x1_crystal_light.png"
     },
-    "title": "Crystal Trees",
+    "title": "Crystal Trees (Light)",
     "isOverPlacable": true,
     "upkeep cost": 0,
     "water": 0,
@@ -3094,7 +3094,7 @@
       "count": 18,
       "fileName": "resources/images/flora/trees/tree_1x1_crystal_medium.png"
     },
-    "title": "Crystal Trees",
+    "title": "Crystal Trees (Medium)",
     "isOverPlacable": true,
     "upkeep cost": 0,
     "water": 0,
@@ -3117,7 +3117,7 @@
       "count": 18,
       "fileName": "resources/images/flora/trees/tree_1x1_crystal_dense.png"
     },
-    "title": "Crystal Trees",
+    "title": "Crystal Trees (Dense)",
     "isOverPlacable": true,
     "upkeep cost": 0,
     "water": 0,
@@ -3125,29 +3125,6 @@
       "group",
       "crystal",
       "trees"
-    ]
-  },
-  {
-    "author": "Kingtut 101",
-    "category": "Flora",
-    "description": "A group of palmtrees.",
-    "id": "tree_palm_dense",
-    "power": 0,
-    "price": 0,
-    "tiles": {
-      "clip_height": 33,
-      "clip_width": 32,
-      "count": 6,
-      "fileName": "resources/images/flora/trees/tree_1x1_palm_dense.png"
-    },
-    "title": "Palm Trees",
-    "isOverPlacable": true,
-    "upkeep cost": 0,
-    "water": 0,
-    "tag": [
-      "djungle",
-      "beach",
-      "palmtrees"
     ]
   },
   {
@@ -3163,12 +3140,12 @@
       "count": 12,
       "fileName": "resources/images/flora/trees/tree_1x1_palm_light.png"
     },
-    "title": "Palm Trees",
+    "title": "Palm Trees (Light)",
     "isOverPlacable": true,
     "upkeep cost": 0,
     "water": 0,
     "tag": [
-      "djungle",
+      "jungle",
       "beach",
       "palmtrees"
     ]
@@ -3186,12 +3163,35 @@
       "count": 7,
       "fileName": "resources/images/flora/trees/tree_1x1_palm_medium.png"
     },
-    "title": "Palm Trees",
+    "title": "Palm Trees (Medium)",
     "isOverPlacable": true,
     "upkeep cost": 0,
     "water": 0,
     "tag": [
-      "djungle",
+      "jungle",
+      "beach",
+      "palmtrees"
+    ]
+  },
+  {
+    "author": "Kingtut 101",
+    "category": "Flora",
+    "description": "A group of palmtrees.",
+    "id": "tree_palm_dense",
+    "power": 0,
+    "price": 0,
+    "tiles": {
+      "clip_height": 33,
+      "clip_width": 32,
+      "count": 6,
+      "fileName": "resources/images/flora/trees/tree_1x1_palm_dense.png"
+    },
+    "title": "Palm Trees (Dense)",
+    "isOverPlacable": true,
+    "upkeep cost": 0,
+    "water": 0,
+    "tag": [
+      "jungle",
       "beach",
       "palmtrees"
     ]
@@ -4362,29 +4362,6 @@
     ]
   },
   {
-    "author": "Kingtut 101",
-    "category": "Flora",
-    "description": "a green bush",
-    "id": "bush_green_dense",
-    "power": 0,
-    "price": 0,
-    "tiles": {
-      "clip_height": 15,
-      "clip_width": 32,
-      "count": 4,
-      "fileName": "resources/images/flora/bushes/bush_1x1_green_dense.png"
-    },
-    "title": "Green Bush",
-    "isOverPlacable": true,
-    "upkeep cost": 0,
-    "water": 0,
-    "tag": [
-      "flora",
-      "green",
-      "bush"
-    ]
-  },
-  {
     "author": "RockFort",
     "category": "Residential",
     "subCategory": "SkyScraper",
@@ -4408,29 +4385,6 @@
     "tag": [
       "todo",
       "desc"
-    ]
-  },
-  {
-    "author": "Kingtut 101",
-    "category": "Flora",
-    "description": "a green bush",
-    "id": "bush_green_medium",
-    "power": 0,
-    "price": 0,
-    "tiles": {
-      "clip_height": 15,
-      "clip_width": 32,
-      "count": 4,
-      "fileName": "resources/images/flora/bushes/bush_1x1_green_medium.png"
-    },
-    "title": "Green Bush",
-    "isOverPlacable": true,
-    "upkeep cost": 0,
-    "water": 0,
-    "tag": [
-      "flora",
-      "green",
-      "bush"
     ]
   },
   {
@@ -4624,7 +4578,7 @@
       "count": 2,
       "fileName": "resources/images/flora/waterFlora/waterFlora_1x1_cattail_light.png"
     },
-    "title": "Cattail",
+    "title": "Cattails (Light)",
     "upkeep cost": 0,
     "water": 0,
     "tag": [
@@ -4650,7 +4604,7 @@
       "count": 2,
       "fileName": "resources/images/flora/waterFlora/waterFlora_1x1_cattail_medium.png"
     },
-    "title": "Cattail",
+    "title": "Cattails (Medium)",
     "upkeep cost": 0,
     "water": 0,
     "tag": [
@@ -4676,7 +4630,7 @@
       "count": 2,
       "fileName": "resources/images/flora/waterFlora/waterFlora_1x1_cattail_dense.png"
     },
-    "title": "Cattail",
+    "title": "Cattails (Dense)",
     "upkeep cost": 0,
     "water": 0,
     "tag": [
@@ -4702,7 +4656,7 @@
       "count": 2,
       "fileName": "resources/images/flora/waterFlora/waterFlora_1x1_rice_light.png"
     },
-    "title": "Rice",
+    "title": "Wild Rice (Light)",
     "upkeep cost": 0,
     "water": 0,
     "tag": [
@@ -4728,7 +4682,7 @@
       "count": 2,
       "fileName": "resources/images/flora/waterFlora/waterFlora_1x1_rice_medium.png"
     },
-    "title": "Rice",
+    "title": "Wild Rice (Medium)",
     "upkeep cost": 0,
     "water": 0,
     "tag": [
@@ -4754,7 +4708,7 @@
       "count": 2,
       "fileName": "resources/images/flora/waterFlora/waterFlora_1x1_rice_dense.png"
     },
-    "title": "Rice",
+    "title": "Wild Rice (Dense)",
     "upkeep cost": 0,
     "water": 0,
     "tag": [
@@ -4780,7 +4734,7 @@
       "count": 2,
       "fileName": "resources/images/flora/waterFlora/waterFlora_1x1_lilypads_light.png"
     },
-    "title": "Lily pads",
+    "title": "Lily Pads (Light)",
     "upkeep cost": 0,
     "water": 0,
     "tag": [
@@ -4806,7 +4760,7 @@
       "count": 2,
       "fileName": "resources/images/flora/waterFlora/waterFlora_1x1_lilypads_medium.png"
     },
-    "title": "Lily pads",
+    "title": "Lily Pads (Medium)",
     "upkeep cost": 0,
     "water": 0,
     "tag": [
@@ -4832,7 +4786,7 @@
       "count": 2,
       "fileName": "resources/images/flora/waterFlora/waterFlora_1x1_lilypads_dense.png"
     },
-    "title": "Lily pads",
+    "title": "Lily Pads (Dense)",
     "upkeep cost": 0,
     "water": 0,
     "tag": [
@@ -4856,7 +4810,7 @@
       "count": 4,
       "fileName": "resources/images/flora/flora/flora_1x1_flower_light.png"
     },
-    "title": "Flowers",
+    "title": "Flowers (Light)",
     "isOverPlacable": true,
     "upkeep cost": 0,
     "water": 0,
@@ -4880,7 +4834,7 @@
       "count": 4,
       "fileName": "resources/images/flora/flora/flora_1x1_flower_medium.png"
     },
-    "title": "Flowers",
+    "title": "Flowers (Medium)",
     "isOverPlacable": true,
     "upkeep cost": 0,
     "water": 0,
@@ -4904,7 +4858,7 @@
       "count": 4,
       "fileName": "resources/images/flora/flora/flora_1x1_flower_dense.png"
     },
-    "title": "Flowers",
+    "title": "Flowers (Dense)",
     "isOverPlacable": true,
     "upkeep cost": 0,
     "water": 0,
@@ -4928,14 +4882,14 @@
       "count": 3,
       "fileName": "resources/images/flora/flora/flora_1x1_ferns_light.png"
     },
-    "title": "Ferns",
+    "title": "Ferns (Light)",
     "isOverPlacable": true,
     "upkeep cost": 0,
     "water": 0,
     "tag": [
       "flora",
       "ferns",
-      "djungle"
+      "jungle"
     ]
   },
   {
@@ -4952,14 +4906,14 @@
       "count": 2,
       "fileName": "resources/images/flora/flora/flora_1x1_ferns_medium.png"
     },
-    "title": "Ferns",
+    "title": "Ferns (Medium)",
     "isOverPlacable": true,
     "upkeep cost": 0,
     "water": 0,
     "tag": [
       "flora",
       "ferns",
-      "djungle"
+      "jungle"
     ]
   },
   {
@@ -4976,14 +4930,14 @@
       "count": 2,
       "fileName": "resources/images/flora/flora/flora_1x1_ferns_dense.png"
     },
-    "title": "Ferns",
+    "title": "Ferns (Dense)",
     "isOverPlacable": true,
     "upkeep cost": 0,
     "water": 0,
     "tag": [
       "flora",
       "ferns",
-      "djungle"
+      "jungle"
     ]
   },
   {
@@ -5000,7 +4954,7 @@
       "count": 2,
       "fileName": "resources/images/flora/flora/flora_1x1_tallgrass_light.png"
     },
-    "title": "Tall Grass",
+    "title": "Tall Grass (Light)",
     "isOverPlacable": true,
     "upkeep cost": 0,
     "water": 0,
@@ -5023,7 +4977,7 @@
       "count": 2,
       "fileName": "resources/images/flora/flora/flora_1x1_tallgrass_medium.png"
     },
-    "title": "Tall Grass",
+    "title": "Tall Grass (Medium)",
     "isOverPlacable": true,
     "upkeep cost": 0,
     "water": 0,
@@ -5046,7 +5000,7 @@
       "count": 2,
       "fileName": "resources/images/flora/flora/flora_1x1_tallgrass_dense.png"
     },
-    "title": "Tall Grass",
+    "title": "Tall Grass (Dense)",
     "isOverPlacable": true,
     "upkeep cost": 0,
     "water": 0,
@@ -5058,22 +5012,22 @@
   {
     "author": "Kingtut 101",
     "category": "Flora",
-    "description": "A deciduous tree",
-    "id": "tree_deciduous_light",
+    "description": "A poplar tree",
+    "id": "tree_poplar_light",
     "power": 0,
     "price": 0,
     "tiles": {
       "clip_height": 28,
       "clip_width": 32,
       "count": 7,
-      "fileName": "resources/images/flora/trees/tree_1x1_deciduous_light.png"
+      "fileName": "resources/images/flora/trees/tree_1x1_poplar_light.png"
     },
-    "title": "Deciduous tree",
+    "title": "Poplars (Light)",
     "isOverPlacable": true,
     "upkeep cost": 0,
     "water": 0,
     "tag": [
-      "deciduous",
+      "poplar",
       "tree",
       "light"
     ]
@@ -5081,22 +5035,22 @@
   {
     "author": "Kingtut 101",
     "category": "Flora",
-    "description": "A deciduous tree",
-    "id": "tree_deciduous_medium",
+    "description": "A poplar tree",
+    "id": "tree_poplar_medium",
     "power": 0,
     "price": 0,
     "tiles": {
       "clip_height": 30,
       "clip_width": 32,
       "count": 7,
-      "fileName": "resources/images/flora/trees/tree_1x1_deciduous_medium.png"
+      "fileName": "resources/images/flora/trees/tree_1x1_poplar_medium.png"
     },
-    "title": "Deciduous tree",
+    "title": "Poplars (Medium)",
     "isOverPlacable": true,
     "upkeep cost": 0,
     "water": 0,
     "tag": [
-      "deciduous",
+      "poplar",
       "tree",
       "medium"
     ]
@@ -5104,22 +5058,22 @@
   {
     "author": "Kingtut 101",
     "category": "Flora",
-    "description": "A deciduous tree",
-    "id": "tree_deciduous_dense",
+    "description": "A poplar tree",
+    "id": "tree_poplar_dense",
     "power": 0,
     "price": 0,
     "tiles": {
       "clip_height": 32,
       "clip_width": 32,
       "count": 9,
-      "fileName": "resources/images/flora/trees/tree_1x1_deciduous_dense.png"
+      "fileName": "resources/images/flora/trees/tree_1x1_poplar_dense.png"
     },
-    "title": "Deciduous tree",
+    "title": "Poplars (Dense)",
     "isOverPlacable": true,
     "upkeep cost": 0,
     "water": 0,
     "tag": [
-      "deciduous",
+      "poplar",
       "tree",
       "dense"
     ]
@@ -6583,7 +6537,7 @@
       "count": 2,
       "fileName": "resources/images/flora/flora_horse.png"
     },
-    "title": "TODO TITLE",
+    "title": "Horses",
     "isOverPlacable": true,
     "upkeep cost": 0,
     "water": 0,
@@ -6862,7 +6816,53 @@
       "count": 6,
       "fileName": "resources/images/flora/bushes/bush_1x1_green_light.png"
     },
-    "title": "Green Bush",
+    "title": "Green Bushes (Light)",
+    "isOverPlacable": true,
+    "upkeep cost": 0,
+    "water": 0,
+    "tag": [
+      "flora",
+      "green",
+      "bush"
+    ]
+  },
+  {
+    "author": "Kingtut 101",
+    "category": "Flora",
+    "description": "a green bush",
+    "id": "bush_green_medium",
+    "power": 0,
+    "price": 0,
+    "tiles": {
+      "clip_height": 15,
+      "clip_width": 32,
+      "count": 4,
+      "fileName": "resources/images/flora/bushes/bush_1x1_green_medium.png"
+    },
+    "title": "Green Bushes (Medium)",
+    "isOverPlacable": true,
+    "upkeep cost": 0,
+    "water": 0,
+    "tag": [
+      "flora",
+      "green",
+      "bush"
+    ]
+  },
+  {
+    "author": "Kingtut 101",
+    "category": "Flora",
+    "description": "a green bush",
+    "id": "bush_green_dense",
+    "power": 0,
+    "price": 0,
+    "tiles": {
+      "clip_height": 15,
+      "clip_width": 32,
+      "count": 4,
+      "fileName": "resources/images/flora/bushes/bush_1x1_green_dense.png"
+    },
+    "title": "Green Bushes (Dense)",
     "isOverPlacable": true,
     "upkeep cost": 0,
     "water": 0,
@@ -7584,7 +7584,7 @@
       "count": 6,
       "fileName": "resources/images/flora/bushes/bush_1x1_redberry_light.png"
     },
-    "title": "Red Berry Bush",
+    "title": "Red Berry Bushes (Light)",
     "isOverPlacable": true,
     "upkeep cost": 0,
     "water": 0,
@@ -7607,7 +7607,7 @@
       "count": 4,
       "fileName": "resources/images/flora/bushes/bush_1x1_redberry_medium.png"
     },
-    "title": "Red Berry Bush",
+    "title": "Red Berry Bushes (Medium)",
     "isOverPlacable": true,
     "upkeep cost": 0,
     "water": 0,
@@ -7630,30 +7630,7 @@
       "count": 4,
       "fileName": "resources/images/flora/bushes/bush_1x1_redberry_dense.png"
     },
-    "title": "Red Berry Bush",
-    "isOverPlacable": true,
-    "upkeep cost": 0,
-    "water": 0,
-    "tag": [
-      "bush",
-      "red",
-      "berries"
-    ]
-  },
-  {
-    "author": "Kingtut 101",
-    "category": "Flora",
-    "description": "A bush with delicious red berries.",
-    "id": "bush_redberry_dense",
-    "power": 0,
-    "price": 0,
-    "tiles": {
-      "clip_height": 15,
-      "clip_width": 32,
-      "count": 4,
-      "fileName": "resources/images/flora/bushes/bush_1x1_redberry_dense.png"
-    },
-    "title": "Red Berry Bush",
+    "title": "Red Berry Bushes (Dense)",
     "isOverPlacable": true,
     "upkeep cost": 0,
     "water": 0,
@@ -7676,7 +7653,7 @@
       "count": 8,
       "fileName": "resources/images/flora/bushes/bush_1x1_cactus_green_light.png"
     },
-    "title": "Green Cactus",
+    "title": "Green Cacti (Light)",
     "isOverPlacable": true,
     "upkeep cost": 0,
     "water": 0,
@@ -7699,7 +7676,7 @@
       "count": 6,
       "fileName": "resources/images/flora/bushes/bush_1x1_cactus_green_medium.png"
     },
-    "title": "Green Cactus",
+    "title": "Green Cacti (Medium)",
     "isOverPlacable": true,
     "upkeep cost": 0,
     "water": 0,
@@ -7722,7 +7699,7 @@
       "count": 6,
       "fileName": "resources/images/flora/bushes/bush_1x1_cactus_green_dense.png"
     },
-    "title": "Green Cactus",
+    "title": "Green Cacti (Dense)",
     "isOverPlacable": true,
     "upkeep cost": 0,
     "water": 0,
@@ -7745,7 +7722,7 @@
       "count": 8,
       "fileName": "resources/images/flora/bushes/bush_1x1_cactus_yellow_light.png"
     },
-    "title": "Yellow Cactus",
+    "title": "Yellow Cacti (Light)",
     "isOverPlacable": true,
     "upkeep cost": 0,
     "water": 0,
@@ -7768,7 +7745,7 @@
       "count": 6,
       "fileName": "resources/images/flora/bushes/bush_1x1_cactus_yellow_medium.png"
     },
-    "title": "Yellow Cactus",
+    "title": "Yellow Cacti (Medium)",
     "isOverPlacable": true,
     "upkeep cost": 0,
     "water": 0,
@@ -7791,7 +7768,7 @@
       "count": 6,
       "fileName": "resources/images/flora/bushes/bush_1x1_cactus_yellow_dense.png"
     },
-    "title": "Yellow Cactus",
+    "title": "Yellow Cacti (Dense)",
     "isOverPlacable": true,
     "upkeep cost": 0,
     "water": 0,
@@ -10321,6 +10298,420 @@
     "tag": [
       "todo",
       "desc"
+    ]
+  },
+  {
+    "author": "Kingtut 101",
+    "category": "Flora",
+    "description": "A group of tall bamboo plants.",
+    "id": "tree_bamboo_light",
+    "power": 0,
+    "price": 0,
+    "tiles": {
+      "clip_height": 29,
+      "clip_width": 32,
+      "count": 12,
+      "fileName": "resources/images/flora/trees/tree_1x1_Bamboo_light.png"
+    },
+    "title": "Bamboo (Light)",
+    "isOverPlacable": true,
+    "upkeep cost": 0,
+    "water": 0,
+    "tag": [
+      "group",
+      "beautiful",
+      "bamboo"
+    ]
+  },
+  {
+    "author": "Kingtut 101",
+    "category": "Flora",
+    "description": "A group of tall bamboo plants.",
+    "id": "tree_bamboo_medium",
+    "power": 0,
+    "price": 0,
+    "tiles": {
+      "clip_height": 30,
+      "clip_width": 32,
+      "count": 12,
+      "fileName": "resources/images/flora/trees/tree_1x1_Bamboo_medium.png"
+    },
+    "title": "Bamboo (Medium)",
+    "isOverPlacable": true,
+    "upkeep cost": 0,
+    "water": 0,
+    "tag": [
+      "group",
+      "beautiful",
+      "bamboo"
+    ]
+  },
+  {
+    "author": "Kingtut 101",
+    "category": "Flora",
+    "description": "A group of tall bamboo trees.",
+    "id": "tree_bamboo_dense",
+    "power": 0,
+    "price": 0,
+    "tiles": {
+      "clip_height": 30,
+      "clip_width": 32,
+      "count": 12,
+      "fileName": "resources/images/flora/trees/tree_1x1_Bamboo_dense.png"
+    },
+    "title": "Bamboo (Dense)",
+    "isOverPlacable": true,
+    "upkeep cost": 0,
+    "water": 0,
+    "tag": [
+      "group",
+      "beautiful",
+      "bamboo"
+    ]
+  },
+  {
+    "author": "Kingtut 101",
+    "category": "Flora",
+    "description": "A group of birch trees.",
+    "id": "tree_birch_light",
+    "power": 0,
+    "price": 0,
+    "tiles": {
+      "clip_height": 26,
+      "clip_width": 32,
+      "count": 12,
+      "fileName": "resources/images/flora/trees/tree_1x1_Birch_light.png"
+    },
+    "title": "Birch Trees (Light)",
+    "isOverPlacable": true,
+    "upkeep cost": 0,
+    "water": 0,
+    "tag": [
+      "group",
+      "beautiful",
+      "birch"
+    ]
+  },
+  {
+    "author": "Kingtut 101",
+    "category": "Flora",
+    "description": "A group of birch trees.",
+    "id": "tree_birch_medium",
+    "power": 0,
+    "price": 0,
+    "tiles": {
+      "clip_height": 29,
+      "clip_width": 32,
+      "count": 12,
+      "fileName": "resources/images/flora/trees/tree_1x1_Birch_medium.png"
+    },
+    "title": "Birch Trees (Medium)",
+    "isOverPlacable": true,
+    "upkeep cost": 0,
+    "water": 0,
+    "tag": [
+      "group",
+      "beautiful",
+      "birch"
+    ]
+  },
+  {
+    "author": "Kingtut 101",
+    "category": "Flora",
+    "description": "A group of birch trees.",
+    "id": "tree_birch_Dense",
+    "power": 0,
+    "price": 0,
+    "tiles": {
+      "clip_height": 30,
+      "clip_width": 32,
+      "count": 8,
+      "fileName": "resources/images/flora/trees/tree_1x1_Birch_dense.png"
+    },
+    "title": "Birch Trees (Dense)",
+    "isOverPlacable": true,
+    "upkeep cost": 0,
+    "water": 0,
+    "tag": [
+      "group",
+      "beautiful",
+      "birch"
+    ]
+  },
+  {
+    "author": "Kingtut 101",
+    "category": "Flora",
+    "description": "A group of cypress trees.",
+    "id": "tree_cypress_light",
+    "power": 0,
+    "price": 0,
+    "tiles": {
+      "clip_height": 27,
+      "clip_width": 32,
+      "count": 12,
+      "fileName": "resources/images/flora/trees/tree_1x1_Cypress_light.png"
+    },
+    "title": "Cypress Trees (Light)",
+    "isOverPlacable": true,
+    "upkeep cost": 0,
+    "water": 0,
+    "tag": [
+      "group",
+      "beautiful",
+      "cypress"
+    ]
+  },
+  {
+    "author": "Kingtut 101",
+    "category": "Flora",
+    "description": "A group of cypress trees.",
+    "id": "tree_cypress_medium",
+    "power": 0,
+    "price": 0,
+    "tiles": {
+      "clip_height": 30,
+      "clip_width": 32,
+      "count": 12,
+      "fileName": "resources/images/flora/trees/tree_1x1_Cypress_medium.png"
+    },
+    "title": "Cypress Trees (Medium)",
+    "isOverPlacable": true,
+    "upkeep cost": 0,
+    "water": 0,
+    "tag": [
+      "group",
+      "beautiful",
+      "cypress"
+    ]
+  },
+    {
+    "author": "Kingtut 101",
+    "category": "Flora",
+    "description": "A group of cypress trees.",
+    "id": "tree_cypress_dense",
+    "power": 0,
+    "price": 0,
+    "tiles": {
+      "clip_height": 30,
+      "clip_width": 32,
+      "count": 9,
+      "fileName": "resources/images/flora/trees/tree_1x1_Cypress_dense.png"
+    },
+    "title": "Cypress Trees (Dense)",
+    "isOverPlacable": true,
+    "upkeep cost": 0,
+    "water": 0,
+    "tag": [
+      "group",
+      "beautiful",
+      "cypress"
+    ]
+  },
+  {
+    "author": "Kingtut 101",
+    "category": "Flora",
+    "description": "A group of sakura trees.",
+    "id": "tree_sakura_light",
+    "power": 0,
+    "price": 0,
+    "tiles": {
+      "clip_height": 23,
+      "clip_width": 32,
+      "count": 12,
+      "fileName": "resources/images/flora/trees/tree_1x1_Sakura_light.png"
+    },
+    "title": "Sakura Trees (Light)",
+    "isOverPlacable": true,
+    "upkeep cost": 0,
+    "water": 0,
+    "tag": [
+      "group",
+      "beautiful",
+      "sakura"
+    ]
+  },
+  {
+    "author": "Kingtut 101",
+    "category": "Flora",
+    "description": "A group of sakura trees.",
+    "id": "tree_sakura_medium",
+    "power": 0,
+    "price": 0,
+    "tiles": {
+      "clip_height": 24,
+      "clip_width": 32,
+      "count": 12,
+      "fileName": "resources/images/flora/trees/tree_1x1_Sakura_medium.png"
+    },
+    "title": "Sakura Trees (Medium)",
+    "isOverPlacable": true,
+    "upkeep cost": 0,
+    "water": 0,
+    "tag": [
+      "group",
+      "beautiful",
+      "sakura"
+    ]
+  },
+  {
+    "author": "Kingtut 101",
+    "category": "Flora",
+    "description": "A group of sakura trees.",
+    "id": "tree_sakura_dense",
+    "power": 0,
+    "price": 0,
+    "tiles": {
+      "clip_height": 26,
+      "clip_width": 32,
+      "count": 8,
+      "fileName": "resources/images/flora/trees/tree_1x1_Sakura_dense.png"
+    },
+    "title": "Sakura Trees (Dense)",
+    "isOverPlacable": true,
+    "upkeep cost": 0,
+    "water": 0,
+    "tag": [
+      "group",
+      "beautiful",
+      "sakura"
+    ]
+  },
+  {
+    "author": "Kingtut 101",
+    "category": "Flora",
+    "description": "A group of stone pines.",
+    "id": "tree_StonePine_light",
+    "power": 0,
+    "price": 0,
+    "tiles": {
+      "clip_height": 28,
+      "clip_width": 32,
+      "count": 12,
+      "fileName": "resources/images/flora/trees/tree_1x1_StonePine_light.png"
+    },
+    "title": "Stone Pines (Light)",
+    "isOverPlacable": true,
+    "upkeep cost": 0,
+    "water": 0,
+    "tag": [
+      "group",
+      "beautiful",
+      "pinetrees"
+    ]
+  },
+  {
+    "author": "Kingtut 101",
+    "category": "Flora",
+    "description": "A group of stone pines.",
+    "id": "tree_StonePine_medium",
+    "power": 0,
+    "price": 0,
+    "tiles": {
+      "clip_height": 32,
+      "clip_width": 32,
+      "count": 12,
+      "fileName": "resources/images/flora/trees/tree_1x1_StonePine_medium.png"
+    },
+    "title": "Stone Pines (Medium)",
+    "isOverPlacable": true,
+    "upkeep cost": 0,
+    "water": 0,
+    "tag": [
+      "group",
+      "beautiful",
+      "pinetrees"
+    ]
+  },
+  {
+    "author": "Kingtut 101",
+    "category": "Flora",
+    "description": "A group of stone pines.",
+    "id": "tree_StonePine_dense",
+    "power": 0,
+    "price": 0,
+    "tiles": {
+      "clip_height": 32,
+      "clip_width": 32,
+      "count": 9,
+      "fileName": "resources/images/flora/trees/tree_1x1_StonePine_dense.png"
+    },
+    "title": "Stone Pines (Dense)",
+    "isOverPlacable": true,
+    "upkeep cost": 0,
+    "water": 0,
+    "tag": [
+      "group",
+      "beautiful",
+      "pinetrees"
+    ]
+  },
+  {
+    "author": "Kingtut 101",
+    "category": "Flora",
+    "description": "A group of plum trees.",
+    "id": "tree_ThundercloudPurpleLeadPlum_light",
+    "power": 0,
+    "price": 0,
+    "tiles": {
+      "clip_height": 24,
+      "clip_width": 32,
+      "count": 10,
+      "fileName": "resources/images/flora/trees/tree_1x1_ThundercloudPurpleLeafPlum_light.png"
+    },
+    "title": "Thundercloud Purple Leaf Plum Trees (Light)",
+    "isOverPlacable": true,
+    "upkeep cost": 0,
+    "water": 0,
+    "tag": [
+      "group",
+      "beautiful",
+      "plumtrees"
+    ]
+  },
+  {
+    "author": "Kingtut 101",
+    "category": "Flora",
+    "description": "A group of plum trees.",
+    "id": "tree_ThundercloudPurpleLeadPlum_medium",
+    "power": 0,
+    "price": 0,
+    "tiles": {
+      "clip_height": 25,
+      "clip_width": 32,
+      "count": 10,
+      "fileName": "resources/images/flora/trees/tree_1x1_ThundercloudPurpleLeafPlum_medium.png"
+    },
+    "title": "Thundercloud Purple Leaf Plum Trees (Medium)",
+    "isOverPlacable": true,
+    "upkeep cost": 0,
+    "water": 0,
+    "tag": [
+      "group",
+      "beautiful",
+      "plumtrees"
+    ]
+  },
+  {
+    "author": "Kingtut 101",
+    "category": "Flora",
+    "description": "A group of plum trees.",
+    "id": "tree_ThundercloudPurpleLeadPlum_dense",
+    "power": 0,
+    "price": 0,
+    "tiles": {
+      "clip_height": 25,
+      "clip_width": 32,
+      "count": 8,
+      "fileName": "resources/images/flora/trees/tree_1x1_ThundercloudPurpleLeafPlum_dense.png"
+    },
+    "title": "Thundercloud Purple Leaf Plum Trees (Dense)",
+    "isOverPlacable": true,
+    "upkeep cost": 0,
+    "water": 0,
+    "tag": [
+      "group",
+      "beautiful",
+      "plumtrees"
     ]
   }
 ]
