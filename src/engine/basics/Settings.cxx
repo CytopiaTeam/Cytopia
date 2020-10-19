@@ -34,5 +34,5 @@ void Settings::readFile()
 void Settings::writeFile()
 {
   const json settingsJsonObject = *this;
-  fs::writeStringToFile(SETTINGS_FILE_NAME, settingsJsonObject.dump());
+  fs::writeStringToFile(SETTINGS_FILE_NAME, settingsJsonObject.dump(2));
 }
