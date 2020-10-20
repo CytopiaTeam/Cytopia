@@ -114,7 +114,7 @@ matrix:
         - ninja
         - xvfb-run -a ctest
         - sh ./tools/CI/upload-CI-build.sh
-        - if [ "${TRAVIS_PULL_REQUEST}" != "false" ]; then doxygen Doxyfile; fi
+        - if [ "${TRAVIS_PULL_REQUEST}" == "false" ]; then doxygen Doxyfile; fi
 
       before_cache:
         - cmake -P ./cmake/pmm.cmake /Conan /Clean
