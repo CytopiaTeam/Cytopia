@@ -26,13 +26,7 @@ matrix:
           token:
             secure: "egsGg4LRt/ZXI9JQvFCwiz3U3sF6AtpX7f6Sop6umVxyTZV60DXxK8Hc7VuNI2004CPIvvsG6pLQ2feJwz6H9w1IozfH7BuRJSpo1mqZgWYdpv6IyL9ArGfn0EJM0lA52Fu1bU7qDSfMgdwjZvelhx+/MxtoEPcTgxLPfwilMelSlbVOmseuOdTXcrhxdCkLfzW7gtkK/L2EueEMddyMKst5MlweTVuDFm3KMGQd5zgmRRbeefm9SF+jC9kCFXS2y3AVw/p2NPv3gjM3vMeQ31WzRlsjBQQ+hrAKKHYEeHL12zY43oF4a7d35l3IEJIN5H0KsVKDe23mfRMCSoReHDwrxnR4T9QVmvJ2pDTccpp5bdyc9x1JfpecCHItp8oacIz/2OGnXfctP2vf5sRJ2Ja+tVJWbtsyHvJgS2GbGlWq0+15lfq91uKDgPfi+XxT9QhD/n8yDndDuXAt8V7qmuQgfWVeNzwmJJJrsF7x5hhQEaHhBzqVmHLJnTK+unvjlfd2Og8aLEaaBvlWY5m8gk9Xjm+iJwhYcDwtCw82LQJ/kZ5MyavnCsQCBZTGc4mMer66ux1j6rIzQZN4L08Wj3s6pdgg0OXqTpnCNC/n47N5/NuSTtVHai3VOmd/Gq5Qq3JsGT+dYV6PBUYIzUmjyhQ+ylWizc4Fr+DXgGdPaOk="
         apt:
-          sources:
-            # Official Kitware APT repository. Currently supports Bionic and Xenial.
-            # More information at: https://apt.kitware.com
-            - sourceline: "deb https://apt.kitware.com/ubuntu/ xenial main"
-              key_url: "https://apt.kitware.com/keys/kitware-archive-latest.asc"
           packages:
-            - cmake
             - gcc-8
             - ninja-build
             - doxygen
@@ -44,15 +38,14 @@ matrix:
             - libopenal-dev
             - libvorbis-dev
             - libpng-dev
-        
+
       install:
-       - >
-        if [ "${TRAVIS_SECURE_ENV_VARS}" == "false" ]; then
-          wget -nv https://github.com/mozilla/sccache/releases/download/0.2.13/sccache-0.2.13-x86_64-unknown-linux-musl.tar.gz
-          tar xvzf sccache-0.2.13-x86_64-unknown-linux-musl.tar.gz
-          sudo mv ./sccache-0.2.13-x86_64-unknown-linux-musl/sccache /usr/bin
-        fi;
-        
+        - curl "https://raw.githubusercontent.com/AnotherFoxGuy/ci-scripts/main/install-cmake.sh" | sudo bash
+        - >
+          if [ "${TRAVIS_SECURE_ENV_VARS}" == "false" ]; then
+            curl "https://raw.githubusercontent.com/AnotherFoxGuy/ci-scripts/main/install-sccache.sh" | sudo bash
+          fi;
+
       before_script:
         - cmake -DCMAKE_BUILD_TYPE=Debug -DENABLE_COVERAGE=ON -DPACKAGE_MANAGER=pkgconfig -DENABLE_ANGELSCRIPT=OFF -DENABLE_MOFILEREADER=OFF .
 
@@ -88,13 +81,7 @@ matrix:
           - $HOME/.conan/
       addons:
         apt:
-          sources:
-            # Official Kitware APT repository. Currently supports Bionic and Xenial.
-            # More information at: https://apt.kitware.com
-            - sourceline: "deb https://apt.kitware.com/ubuntu/ xenial main"
-              key_url: "https://apt.kitware.com/keys/kitware-archive-latest.asc"
           packages:
-            - cmake
             - ninja-build
             - p7zip-full
             - ninja-build
@@ -116,9 +103,9 @@ matrix:
         - TARGET="linux"
 
       install:
-       - wget -nv https://github.com/mozilla/sccache/releases/download/0.2.13/sccache-0.2.13-x86_64-unknown-linux-musl.tar.gz
-       - tar xvzf sccache-0.2.13-x86_64-unknown-linux-musl.tar.gz
-       - sudo mv ./sccache-0.2.13-x86_64-unknown-linux-musl/sccache /usr/bin
+        - curl "https://raw.githubusercontent.com/AnotherFoxGuy/ci-scripts/main/install-cmake.sh" | sudo bash
+        - curl "https://raw.githubusercontent.com/AnotherFoxGuy/ci-scripts/main/install-conan.sh" | sudo bash
+        - curl "https://raw.githubusercontent.com/AnotherFoxGuy/ci-scripts/main/install-sccache.sh" | sudo bash
 
       before_script:
         - cmake -GNinja -DCMAKE_BUILD_TYPE=Release .
@@ -127,7 +114,7 @@ matrix:
         - ninja
         - xvfb-run -a ctest
         - sh ./tools/CI/upload-CI-build.sh
-        - if [ "${TRAVIS_BRANCH}" = "master" ]; then doxygen Doxyfile; fi
+        - if [ "${TRAVIS_PULL_REQUEST}" == "false" ]; then doxygen Doxyfile; fi
 
       before_cache:
         - cmake -P ./cmake/pmm.cmake /Conan /Clean
@@ -137,7 +124,7 @@ matrix:
     - os: osx
       name: XCode 11.4 Build
       osx_image: xcode11.4
-      env: 
+      env:
         - TARGET=macOS
         - CONAN_USER_HOME=/tmp/conan
       language: objective-c
@@ -172,7 +159,6 @@ matrix:
 
     # Android Build
 
-
     - language: android
       dist: trusty
       android:
@@ -181,18 +167,18 @@ matrix:
           # use the latest revision of Android SDK Tools
           # - tools
           # - platform-tools
-      
+
           # The BuildTools version used by your project
           - build-tools-26.0.2
-      
+
           # The SDK version used to compile your project
           - android-26
-      
+
           # Additional components
           - extra-google-google_play_services
           - extra-google-m2repository
           - extra-android-m2repository
-      
+
           # Specify at least one system image,
           # add this if we want to run tests with the emulator
           # - sys-img-x86-android-26
