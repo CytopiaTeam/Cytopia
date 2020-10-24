@@ -3,7 +3,7 @@
         "trees": {
             "light": [
                 "tree_pine_light",
-				"tree_deciduous_light"
+				"tree_poplar_light"
             ],
             "medium": [
                 ""
@@ -134,10 +134,10 @@
             "rocks_grassLands"
         ]
     },
-    "DeciduousPlains": {
+    "PoplarPlains": {
         "trees": {
             "light": [
-				"tree_deciduous_light"
+				"tree_poplar_light"
             ],
             "medium": [
                 ""
@@ -202,15 +202,15 @@
     "MixedForest": {
         "trees": {
             "light": [
-                "tree_deciduous_light",
+                "tree_poplar_light",
 				"tree_pine_light"
             ],
             "medium": [
-                "tree_deciduous_medium",
+                "tree_poplar_medium",
 				"tree_pine_medium"
             ],
             "dense": [
-                "tree_deciduous_dense",
+                "tree_poplar_dense",
 				"tree_pine_dense"
             ]
         },
@@ -345,16 +345,16 @@
 			"rocks_diamond"
         ]
     },
-    "DeciduousForest": {
+    "PoplarForest": {
         "trees": {
             "light": [
-                "tree_deciduous_light"
+                "tree_poplar_light"
             ],
             "medium": [
-                "tree_deciduous_medium"
+                "tree_poplar_medium"
             ],
             "dense": [
-                "tree_deciduous_dense"
+                "tree_poplar_dense"
             ]
         },
         "waterFlora": {
