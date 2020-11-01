@@ -1,9 +1,11 @@
 
 template <typename ArgumentType> void Game::UIVisitor::operator()(ArgumentType &&event)
 {
-  static_assert(std::is_void_v<std::void_t<ArgumentType>>,
+  static_assert(
+      sizeof(ArgumentType) < 0,
                 "UIVisitor does not know how to handle this event. You must specialize the functor");
 }
+
 
 #ifdef USE_AUDIO
 template <typename AudioEventType>
@@ -15,5 +17,7 @@ EnableIf<ContainsType<AudioEvents, AudioEventType>, void> Game::GameVisitor::ope
 
 template <typename ArgumentType> void Game::GameVisitor::operator()(const ArgumentType &&event)
 {
-  throw UnimplementedError(TRACE_INFO "Unimplemented Error");
+  static_assert(
+      sizeof(ArgumentType) < 0,
+                "GameVisitor does not know how to handle this event. You must specialize the functor");
 }

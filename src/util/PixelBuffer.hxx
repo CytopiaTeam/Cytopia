@@ -83,7 +83,16 @@ public:
 
   bool isEmpty() const noexcept;
 
+  uint32_t * data() noexcept;
+  
   static PixelBuffer EMPTY();
+
+  /**
+   * @brief   Convert to SDL_Surface
+   * @details The lifetime of the returned surface must not exceed
+   *          the lifetime of the PixelBuffer
+   */
+  SDL_Surface* toSurface() noexcept;
 
 private:
   Rectangle m_Bounds;

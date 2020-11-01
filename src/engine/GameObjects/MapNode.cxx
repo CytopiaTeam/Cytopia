@@ -72,7 +72,7 @@ void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
     switch (layer)
     {
     case Layer::ZONE:
-      this->setNodeTransparency(Settings::instance().zoneLayerTransperancy, Layer::ZONE);
+      this->setNodeTransparency(Settings::instance().zoneLayerTransparency, Layer::ZONE);
       break;
     case Layer::WATER:
       demolishLayer(Layer::ROAD);
@@ -427,7 +427,7 @@ const MapNodeData &MapNode::getActiveMapNodeData() const { return m_mapNodeData[
 void MapNode::setMapNodeData(std::vector<MapNodeData> &&mapNodeData, const Point &currNodeIsoCoordinates)
 {
   m_mapNodeData.swap(mapNodeData);
-  this->setNodeTransparency(Settings::instance().zoneLayerTransperancy, Layer::ZONE);
+  this->setNodeTransparency(Settings::instance().zoneLayerTransparency, Layer::ZONE);
 
   // updates the pointers to the tiles, after loading tileIDs from json
   for (auto &it : m_mapNodeData)

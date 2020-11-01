@@ -234,8 +234,13 @@ private:
   void handleEvent(const AudioSetMutedEvent &&event);
   void handleEvent(const AudioStopEvent &&event);
   void handleEvent(const AudioPruneEvent &&event);
-
+  
   /* Helpers */
+  
+  /**
+   * @brief Get a descriptive error message from an error code
+   */
+  const char * get_al_error_msg(ALenum error);
 
   /**
    * @brief Plays the Soundtrack

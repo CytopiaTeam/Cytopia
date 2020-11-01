@@ -4,10 +4,14 @@
 #include "basics/mapEdit.hxx"
 #include "basics/Settings.hxx"
 #include "ResourcesManager.hxx"
+#include "../util/LOG.hxx"
 
 Engine::Engine() {}
 
-Engine::~Engine() { delete map; }
+Engine::~Engine() { 
+  LOG(LOG_DEBUG) << "Destroying Engine";
+  delete map;
+}
 
 void Engine::increaseHeight(const Point &isoCoordinates) const
 {

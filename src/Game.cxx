@@ -2,6 +2,7 @@
 #include "engine/Engine.hxx"
 #include "engine/EventManager.hxx"
 #include "engine/UIManager.hxx"
+#include "engine/ResourcesManager.hxx"
 #include "engine/WindowManager.hxx"
 #include "engine/basics/Camera.hxx"
 #include "LOG.hxx"
@@ -11,8 +12,6 @@
 #include "Filesystem.hxx"
 
 #include <noise.h>
-#include <SDL.h>
-#include <SDL_ttf.h>
 
 #ifdef USE_ANGELSCRIPT
 #include "Scripting/ScriptEngine.hxx"
@@ -29,8 +28,8 @@
 template void Game::LoopMain<GameLoopMQ, Game::GameVisitor>(Game::GameContext &, Game::GameVisitor);
 template void Game::LoopMain<UILoopMQ, Game::UIVisitor>(Game::GameContext &, Game::UIVisitor);
 
-Game::Game()
-    : m_GameContext(&m_UILoopMQ, &m_GameLoopMQ,
+Game::Game() : 
+      m_GameContext(&m_UILoopMQ, &m_GameLoopMQ,
 #ifdef USE_AUDIO
                     &m_AudioMixer,
 #endif // USE_AUDIO
@@ -40,9 +39,19 @@ Game::Game()
       m_AudioMixer{m_GameContext},
 #endif
       m_UILoop(&LoopMain<UILoopMQ, UIVisitor>, std::ref(m_GameContext), UIVisitor{}),
-      m_EventLoop(&LoopMain<GameLoopMQ, GameVisitor>, std::ref(m_GameContext), GameVisitor{m_GameContext})
+      m_EventLoop(&LoopMain<GameLoopMQ, GameVisitor>, std::ref(m_GameContext), GameVisitor{m_GameContext}),
+      m_Window(m_GameContext, VERSION, 
+        Settings::instance().getDefaultWindowWidth(), 
+        Settings::instance().getDefaultWindowHeight(), 
+        Settings::instance().fullScreen, 
+        "resources/images/app_icons/cytopia_icon.png")
 {
   LOG(LOG_DEBUG) << "Created Game Object";
+  /**
+   *  @todo Remove this when new ui is complete
+   *  This is just a temporary fix
+   */
+  WindowManager::instance().setRealWindow(m_Window);
 }
 
 void Game::quit()
@@ -63,27 +72,16 @@ void Game::quit()
 
 bool Game::initialize()
 {
-  if (SDL_Init(SDL_INIT_VIDEO) != 0)
-  {
-    LOG(LOG_ERROR) << "Failed to Init SDL";
-    LOG(LOG_ERROR) << "SDL Error: " << SDL_GetError();
-    return false;
-  }
-
-  if (TTF_Init() == -1)
-  {
-    LOG(LOG_ERROR) << "Failed to Init SDL_TTF";
-    LOG(LOG_ERROR) << "SDL Error: " << TTF_GetError();
-    return false;
-  }
-
-  // initialize window manager
-  WindowManager::instance().setWindowTitle(VERSION);
 
 #ifdef USE_MOFILEREADER
   std::string moFilePath = fs::getBasePath();
   moFilePath = moFilePath + "languages/" + Settings::instance().gameLanguage + "/Cytopia.mo";
 
+
+  Layout::instance().setWindow(&m_Window);
+  EventManager::instance().setWindow(&m_Window);
+  Map::setWindow(&m_Window);
+  Camera::instance().setWindow(&m_Window);
   if (moFileLib::moFileReaderSingleton::GetInstance().ReadFile(moFilePath.c_str()) == moFileLib::moFileReader::EC_SUCCESS)
   {
     LOG(LOG_INFO) << "Loaded MO file " << moFilePath;
@@ -102,8 +100,8 @@ bool Game::mainMenu()
 {
   SDL_Event event;
 
-  int screenWidth = Settings::instance().screenWidth;
-  int screenHeight = Settings::instance().screenHeight;
+  int screenWidth = m_Window.getBounds().width();
+  int screenHeight = m_Window.getBounds().height();
   bool mainMenuLoop = true;
   bool quitGame = false;
 
@@ -270,7 +268,7 @@ void Game::run(bool SkipMenu)
   Engine &engine = Engine::instance();
 
   LOG(LOG_DEBUG) << "Map initialized in " << benchmarkTimer.getElapsedTime() << "ms";
-  Camera::centerScreenOnMapCenter();
+  Camera::instance().centerScreenOnMapCenter();
 
   SDL_Event event;
   EventManager &evManager = EventManager::instance();
@@ -354,9 +352,8 @@ void Game::shutdown()
   m_GameLoopMQ.push(TerminateEvent{});
   m_UILoop.join();
   m_EventLoop.join();
-  TTF_Quit();
-
-  SDL_Quit();
+  ResourcesManager::instance().flush();
+  UIManager::instance().flush();
 }
 
 template <typename MQType, typename Visitor> void Game::LoopMain(GameContext &context, Visitor visitor)
@@ -384,3 +381,53 @@ template <typename MQType, typename Visitor> void Game::LoopMain(GameContext &co
     // @todo: Call shutdown() here in a safe way
   }
 }
+
+void Game::GameVisitor::operator()(TerminateEvent &&)
+{
+  // TerminateEvent is always handled in the base loop
+  throw CytopiaError{TRACE_INFO "Invalid dispatch: TerminateEvent"};
+}
+
+void Game::GameVisitor::operator()(ActivitySwitchEvent && event)
+{
+  /**
+   *  @todo Implement this function
+   */
+  throw UnimplementedError{TRACE_INFO "Not implemented"};
+}
+
+void Game::UIVisitor::operator()(TerminateEvent &&)
+{
+  // TerminateEvent is always handled in the base loop
+  throw CytopiaError{TRACE_INFO "Invalid dispatch: TerminateEvent"};
+}
+
+void Game::UIVisitor::operator()(UIChangeEvent && event)
+{
+  event.apply();
+}
+
+void Game::UIVisitor::operator()(ActivitySwitchEvent && event)
+{
+  /**
+   *  @todo Implement this function
+   */
+  throw UnimplementedError{TRACE_INFO "Not implemented"};
+}
+
+void Game::UIVisitor::operator()(WindowResizeEvent && event)
+{
+  /**
+   *  @todo Implement this function
+   */
+  throw UnimplementedError{TRACE_INFO "Not implemented"};
+}
+
+void Game::UIVisitor::operator()(WindowRedrawEvent && event)
+{
+  /**
+   *  @todo Implement this function
+   */
+  throw UnimplementedError{TRACE_INFO "Not implemented"};
+}
+

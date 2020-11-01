@@ -1,13 +1,20 @@
 #include "Layout.hxx"
 
-#include "LOG.hxx"
+#include "../../util/LOG.hxx"
+#include "../../util/Exception.hxx"
 #include "../../basics/Settings.hxx"
 #include "../../UIManager.hxx"
+#include "../../view/Window.hxx"
 
 void Layout::arrangeElements()
 {
-  const SDL_Point screenCenter{Settings::instance().currentScreenWidth / 2, Settings::instance().currentScreenHeight / 2};
-  const SDL_Point screenSize{Settings::instance().currentScreenWidth, Settings::instance().currentScreenHeight};
+  if(!m_Window) {
+    throw CytopiaError{TRACE_INFO "Cannot arrange UI elements without a Window"};
+  }
+  int screenWidth = m_Window->getBounds().width();
+  int screenHeight = m_Window->getBounds().height();
+  const SDL_Point screenCenter{screenWidth / 2, screenHeight / 2};
+  const SDL_Point screenSize{screenWidth, screenHeight};
 
   calculateLayoutGroupDimensions();
 
@@ -67,11 +74,11 @@ void Layout::arrangeElements()
         {
           xOffset = 0;
           x = static_cast<int>(xOffset + currentLength);
-          y = Settings::instance().currentScreenHeight - groupLayout.groupHeight;
+          y = screenHeight - groupLayout.groupHeight;
         }
         else if (groupLayout.layoutType == "VERTICAL")
         {
-          yOffset = Settings::instance().currentScreenHeight - groupLayout.groupHeight;
+          yOffset = screenHeight - groupLayout.groupHeight;
           x = 0;
           y = static_cast<int>(yOffset + currentLength);
         }
@@ -112,7 +119,7 @@ void Layout::arrangeElements()
         {
           xOffset = screenCenter.x - groupLayout.groupWidth / 2;
           x = static_cast<int>(xOffset + currentLength);
-          y = Settings::instance().currentScreenHeight - groupLayout.groupHeight;
+          y = screenHeight - groupLayout.groupHeight;
         }
         else if (groupLayout.layoutType == "VERTICAL")
         {
@@ -147,7 +154,7 @@ void Layout::arrangeElements()
         else if (groupLayout.layoutType == "VERTICAL")
         {
           yOffset = screenCenter.y - groupLayout.groupHeight / 2;
-          x = Settings::instance().currentScreenWidth - element->getUiElementRect().w;
+          x = screenWidth - element->getUiElementRect().w;
           y = static_cast<int>(yOffset + currentLength);
         }
       }
@@ -195,7 +202,9 @@ void Layout::arrangeElements()
 
 void Layout::arrangeChildElements(LayoutData &groupLayout, std::vector<UIElement *> groupElements)
 {
-
+  
+  int screenWidth = m_Window->getBounds().width();
+  int screenHeight = m_Window->getBounds().height();
   int xOffset = 0;
   int yOffset = 0;
   int x = 0;
@@ -203,7 +212,7 @@ void Layout::arrangeChildElements(LayoutData &groupLayout, std::vector<UIElement
 
   if (groupLayout.layoutType == "VERTICAL")
   {
-    yOffset = Settings::instance().currentScreenHeight / 2 - groupLayout.groupHeight / 2;
+    yOffset = m_Window->getBounds().height() / 2 - groupLayout.groupHeight / 2;
   }
 
   int currentLength = 0;
@@ -241,8 +250,8 @@ void Layout::arrangeChildElements(LayoutData &groupLayout, std::vector<UIElement
     if (groupLayout.alignment == "ALIGN_ABOVE_PARENT" || groupLayout.alignment == "ALIGN_BENEATH_PARENT")
     {
       xOffset = (parentElement->getUiElementRect().x - groupLayout.groupWidth / 2) + parentElement->getUiElementRect().w / 2;
-      if (xOffset < 0 || xOffset + groupLayout.groupWidth > Settings::instance().screenWidth)
-        xOffset = (Settings::instance().screenWidth / 2) - groupLayout.groupWidth / 2;
+      if (xOffset < 0 || xOffset + groupLayout.groupWidth > screenWidth)
+        xOffset = (screenWidth / 2) - groupLayout.groupWidth / 2;
 
       //LOG(LOG_INFO) << "X Offset " << xOffset;
       yOffset = 0;
@@ -339,4 +348,14 @@ void Layout::calculateLayoutGroupDimensions()
       groupLayout.groupHeight += static_cast<int>(groupLayout.padding * (group.second.uiElements.size() - 1));
     }
   }
+}
+
+void Layout::setWindow(Window * window)
+{
+  m_Window = window;
+}
+
+Layout::~Layout()
+{
+  LOG(LOG_INFO) << "Destroying Layout";
 }

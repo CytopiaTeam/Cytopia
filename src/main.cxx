@@ -3,6 +3,8 @@
 #include "Game.hxx"
 #include "Exception.hxx"
 #include "LOG.hxx"
+#include "engine/basics/Settings.hxx"
+#include "Initializer.hxx"
 
 #if !defined(__ANDROID__) && !defined(__EMSCRIPTEN__)
 #include <signal.h>
@@ -13,23 +15,13 @@ SDL_AssertState AssertionHandler(const SDL_AssertData *, void *);
 
 int protected_main(int argc, char **argv)
 {
-  (void)argc;
-  (void)argv;
-
-  bool skipMenu = false;
   bool quitGame = false;
-
-  // add commandline parameter to skipMenu
-  for (int i = 1; i < argc; ++i)
-  {
-    if (std::string(argv[i]) == "--skipMenu")
-    {
-      skipMenu = true;
-    }
-  }
+  Settings & settings = Settings::instance();
+  settings.parse_args(argc, argv);
 
   LOG(LOG_DEBUG) << "Launching Cytopia";
 
+  Initializer initializer;
   Game game;
 
   LOG(LOG_DEBUG) << "Initializing Cytopia";
@@ -37,7 +29,7 @@ int protected_main(int argc, char **argv)
   if (!game.initialize())
     return EXIT_FAILURE;
 
-  if (!skipMenu)
+  if (!settings.skipMenu)
   {
     quitGame = game.mainMenu();
   }
@@ -45,7 +37,7 @@ int protected_main(int argc, char **argv)
   if (!quitGame)
   {
     LOG(LOG_DEBUG) << "Running the Game";
-    game.run(skipMenu);
+    game.run();
   }
 
   LOG(LOG_DEBUG) << "Closing the Game";

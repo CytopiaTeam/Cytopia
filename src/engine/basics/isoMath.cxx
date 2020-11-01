@@ -10,13 +10,15 @@ bool reverseDirection = false;
 
 Point calculateIsoCoordinates(const SDL_Point &screenCoordinates)
 {
+  const SDL_Point & cameraOffset = Camera::instance().cameraOffset();
+  const double & zoomLevel = Camera::instance().zoomLevel();
+  const SDL_Point & tileSize = Camera::instance().tileSize();
+
   const int isoX =
-      static_cast<int>((screenCoordinates.x + Camera::cameraOffset.x + 2.0 * (screenCoordinates.y + Camera::cameraOffset.y)) /
-                           (Camera::tileSize.x * Camera::zoomLevel) +
-                       1);
+      static_cast<int>((screenCoordinates.x + cameraOffset.x + 2.0 * (screenCoordinates.y + cameraOffset.y)) / (tileSize.x * zoomLevel) + 1);
   const int isoY =
-      static_cast<int>((screenCoordinates.x + Camera::cameraOffset.x - 2.0 * (screenCoordinates.y + Camera::cameraOffset.y)) /
-                       (Camera::tileSize.x * Camera::zoomLevel));
+      static_cast<int>((screenCoordinates.x + cameraOffset.x - 2.0 * (screenCoordinates.y + cameraOffset.y)) /
+                       (tileSize.x * zoomLevel));
 
   return {isoX, isoY, 0, 0};
 }
@@ -24,22 +26,25 @@ Point calculateIsoCoordinates(const SDL_Point &screenCoordinates)
 SDL_Point convertIsoToScreenCoordinates(const Point &isoCoordinates, bool calcWithoutOffset)
 {
   const int heightOffset = 24;
+  const SDL_Point & cameraOffset = Camera::instance().cameraOffset();
+  const double & zoomLevel = Camera::instance().zoomLevel();
+  const SDL_Point & tileSize = Camera::instance().tileSize();
 
   int x = static_cast<int>(
-      std::round(static_cast<double>((isoCoordinates.x + isoCoordinates.y) * Camera::tileSize.x) * Camera::zoomLevel) / 2);
+      std::round(static_cast<double>((isoCoordinates.x + isoCoordinates.y) * tileSize.x) * zoomLevel) / 2);
   int y = static_cast<int>(
-      std::round(static_cast<double>((isoCoordinates.x - isoCoordinates.y) * Camera::tileSize.y) * Camera::zoomLevel) / 2);
+      std::round(static_cast<double>((isoCoordinates.x - isoCoordinates.y) * tileSize.y) * zoomLevel) / 2);
 
   if (!calcWithoutOffset)
   {
-    x -= Camera::cameraOffset.x;
-    y -= Camera::cameraOffset.y;
+    x -= cameraOffset.x;
+    y -= cameraOffset.y;
   }
 
   if (isoCoordinates.height > 0)
   {
     y -= static_cast<int>(
-        std::round(static_cast<double>((Camera::tileSize.x - heightOffset) * isoCoordinates.height) * Camera::zoomLevel));
+        std::round(static_cast<double>((tileSize.x - heightOffset) * isoCoordinates.height) * zoomLevel));
   }
 
   return {x, y};

@@ -2,13 +2,20 @@
 #define UI_EVENTS_HXX
 
 #include <functional>
-
+#include "../activity/ActivityType.hxx"
 #include "../util/Observer.hxx"
 /**
  * @brief Events to be handled by the UI Loop
  */
 using UIEvents = TypeList<struct TerminateEvent, struct WindowResizeEvent, struct WindowRedrawEvent,
-                          struct UIChangeEvent /* Add UI Events here */>;
+                          struct UIChangeEvent, struct ActivitySwitchEvent /* Add UI Events here */>;
+/**
+ * @brief A transition to another iActivity
+ */
+struct ActivitySwitchEvent
+{
+ ActivityType activityType;
+};
 
 /**
  * @brief A change in the window's size

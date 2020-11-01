@@ -8,6 +8,7 @@
 #include "basics/utils.hxx"
 #include "LOG.hxx"
 #include "Exception.hxx"
+#include "ZipRange.hxx"
 #include "GameStates.hxx"
 #include "MapLayers.hxx"
 #include "Filesystem.hxx"
@@ -26,6 +27,11 @@ using json = nlohmann::json;
 BETTER_ENUM(ElementType, int, ImageButton, TextButton, Text, Frame, Checkbox, ComboBox, Slider)
 BETTER_ENUM(Action, int, RaiseTerrain, LowerTerrain, QuitGame, Demolish, ChangeTileType, ToggleVisibilityOfGroup, NewGame,
             SaveGame, LoadGame, SaveSettings, ChangeResolution)
+
+UIManager::~UIManager()
+{
+  LOG(LOG_DEBUG) << "Destroying UIManager";
+}
 
 void UIManager::init()
 {
@@ -251,7 +257,7 @@ void UIManager::init()
 
   setBuildMenuLayout();
 
-  Layout::arrangeElements();
+  Layout::instance().arrangeElements();
 }
 
 void UIManager::setFPSCounterText(const std::string &fps) const { m_fpsCounter->setText(fps); }
@@ -496,10 +502,6 @@ void UIManager::setCallbackFunctions()
     else if (uiElement->getUiElementData().actionID == "SaveSettings")
     {
       uiElement->registerCallbackFunction([]() { Settings::instance().writeFile(); });
-    }
-    else if (uiElement->getUiElementData().actionID == "ChangeResolution")
-    {
-      uiElement->registerCallbackFunction(Signal::slot(this, &UIManager::changeResolution));
     }
   }
 }
@@ -869,40 +871,27 @@ void UIManager::initializeDollarVariables()
         }
 
         combobox->clear();
-        for (const auto &mode : WindowManager::instance().getSupportedScreenResolutions())
+        const auto & displayModeNames = Settings::instance().displayModeNames;
+        const auto & displayModes = Settings::instance().displayModes;
+        for (const auto & [name, dimensions] : ZipRange{displayModeNames, displayModes})
         {
-          std::string resolution = std::to_string(mode->w) + " x " + std::to_string(mode->h);
-          combobox->addElement(resolution);
-          // check if the added element is the active screen resolution
-          if (Settings::instance().screenHeight == mode->h && Settings::instance().screenWidth == mode->w)
-          {
-            combobox->setActiveID(static_cast<int>(combobox->count() - 1));
-          }
+          std::stringstream resolution;
+          resolution << name << " [ " << dimensions[0] << "px x " << dimensions[1] << "px ]";
+          combobox->addElement(resolution.str());
+        }
+        if(!Settings::instance().fullScreen)
+        {
+          combobox->setActiveID(Settings::instance().defaultDisplayMode);
         }
 
         combobox->registerCallbackFunction(Signal::slot(this, &UIManager::changeResolution));
       }
-      else if (it->getUiElementData().elementID == "$FullScreenSelector")
-      {
-        // This must be a ComboBox
-        ComboBox *combobox = dynamic_cast<ComboBox *>(it.get());
-
-        if (!combobox)
-        {
-          LOG(LOG_WARNING) << "Can't use element ID FullScreenSelector for an element other than a combobox!";
-          continue;
-        }
-
-        combobox->clear();
-        combobox->addElement("WINDOWED");
-        combobox->addElement("BORDERLESS");
-        combobox->addElement("FULLSCREEN");
-
-        combobox->setActiveID(Settings::instance().fullScreenMode);
-        combobox->registerCallbackFunction(Signal::slot(this, &UIManager::changeFullScreenMode));
-      }
     }
   }
+}
+
+void UIManager::changeResolution(UIElement * sender) {
+  LOG(LOG_ERROR) << "Changing the display mode is not properly implemented for the old UI";
 }
 
 void UIManager::setBuildMenuPosition(UIElement *sender)
@@ -914,7 +903,7 @@ void UIManager::setBuildMenuPosition(UIElement *sender)
     Settings::instance().buildMenuPosition = comboBox->activeText;
     m_buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(comboBox->getActiveID());
     setBuildMenuLayout();
-    Layout::arrangeElements();
+    Layout::instance().arrangeElements();
   }
   else
     throw UIError(TRACE_INFO "Only a combobox can have setBuildMenuPosition() as callback function");
@@ -929,28 +918,13 @@ void UIManager::addToLayoutGroup(const std::string &groupName, UIElement *widget
   }
 }
 
-void UIManager::changeResolution(UIElement *sender)
+void UIManager::flush()
 {
-  // TODO: Save settings
-  ComboBox *combobox = dynamic_cast<ComboBox *>(sender);
-  WindowManager::instance().setScreenResolution(combobox->getActiveID());
-  Layout::arrangeElements();
-
-  if (Engine::instance().map != nullptr)
-  {
-    Engine::instance().map->refresh();
-  }
-}
-
-void UIManager::changeFullScreenMode(UIElement *sender)
-{
-  // TODO: Save settings
-  ComboBox *combobox = dynamic_cast<ComboBox *>(sender);
-  WindowManager::instance().setFullScreenMode(static_cast<FULLSCREEN_MODE>(combobox->getActiveID()));
-  Layout::arrangeElements();
-
-  if (Engine::instance().map != nullptr)
-  {
-    Engine::instance().map->refresh();
-  }
+  m_uiElements.clear();
+  m_uiElementsForEventHandling.clear();
+  m_uiGroups.clear();
+  m_layoutGroups.clear();
+  m_buttonGroups.clear();
+  m_tooltip = nullptr;
+  m_fpsCounter = nullptr;
 }

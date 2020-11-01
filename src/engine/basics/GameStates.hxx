@@ -27,7 +27,7 @@ public:
 
 private:
   GameStates() = default;
-  ~GameStates() = default;
+  ~GameStates();
 };
 
 #endif

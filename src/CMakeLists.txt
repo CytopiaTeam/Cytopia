@@ -1,35 +1,27 @@
 set(SOURCE_FILES
         main.cxx
         Game.{hxx,cxx}
-        Game.inl.hxx
+        Initializer.{hxx,cxx}
         util/LOG.{hxx,cxx}
-        util/LOG.inl.hxx
         util/Filesystem.{hxx,cxx}
         util/IEquatable.hxx
-        util/IEquatable.inl.hxx
         util/Singleton.hxx
         util/Meta.hxx
         util/Exception.{hxx,cxx}
         util/iShape.{hxx,cxx}
         util/Rectangle.{hxx,cxx}
         util/Range.hxx
-        util/Range.inl.hxx
         util/Color.{hxx,cxx}
         util/Point2D.{hxx,cxx}
         util/BoxSizing.{hxx,cxx}
-        util/BoxSizing.inl.hxx
         util/PixelBuffer.{hxx,cxx}
         events/UIEvents.hxx
         events/MouseEvents.hxx
         GameService.{hxx,cxx}
-        GameService.inl.hxx
         services/Randomizer.{hxx,cxx}
         services/GameClock.{hxx,cxx}
-        services/GameClock.inl.hxx
         services/ResourceManager.{hxx,cxx}
-        services/ResourceManager.inl.hxx
         engine/MessageQueue.hxx
-        engine/MessageQueue.inl.hxx
         engine/basics/Camera.{hxx,cxx}
         engine/basics/isoMath.{hxx,cxx}
         engine/basics/mapEdit.{hxx,cxx}
@@ -68,9 +60,17 @@ set(SOURCE_FILES
         engine/WindowManager.{hxx,cxx}
         engine/UIMQDispatcher.hxx
         view/iView.{hxx,cxx}
+        view/iViewElement.{hxx,cxx}
+        view/CursorView.{hxx,cxx}
+        view/Window.{hxx,cxx}
         model/iModel.{hxx,cxx}
         model/DataModel.hxx
         model/ButtonState.{hxx,cxx}
+        model/MouseState.{hxx,cxx}
+        activity/iActivity.{hxx,cxx}
+        layout/iLayout.{hxx,cxx}
+        renderer/iRenderer.{hxx,cxx}
+        renderer/SDLRenderer.{hxx,cxx}
         )
 
 if (ANDROID)
