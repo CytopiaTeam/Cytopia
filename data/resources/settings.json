@@ -14,28 +14,37 @@
     "UILayoutJSONFile": "resources/data/UILayout.json"
   },
   "Game": {
-    "Biome": "MixedForest",
+    "Biome": "Showcase",
+    "Language": "en",
     "MapSize": 128,
     "MaxElevationHeight": 32,
-    "ZoneLayerTransperancy": 0.6,
     "ShowBuildingsInBluePrint": false,
-    "Language": "en"
+    "ZoneLayerTransperancy": 0.6000000238418579
   },
   "Graphics": {
-    "FullScreen": false,
-    "DisplayModes": {
-        "480p": [640, 480],
-        "720p": [960, 720],
-        "1080p": [1920, 1080]
-    },
     "DefaultDisplayMode": "480p",
+    "DisplayModes": {
+      "1080p": [
+        1920,
+        1080
+      ],
+      "480p": [
+        640,
+        480
+      ],
+      "720p": [
+        960,
+        720
+      ]
+    },
+    "FullScreen": false,
     "VSYNC": false
   },
   "UI": {
-    "SkipMenu": false,
-    "NewUI": false,
     "BuildMenuPosition": "BOTTOM",
     "FontFilename": "resources/fonts/pixellocale-v-1-4.ttf",
+    "NewUI": false,
+    "SkipMenu": false,
     "SubMenuButtonHeight": 32,
     "SubMenuButtonWidth": 32
   }
