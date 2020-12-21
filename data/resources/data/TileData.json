@@ -10713,5 +10713,74 @@
       "beautiful",
       "plumtrees"
     ]
+  },
+  {
+    "author": "Kingtut 101",
+    "category": "Flora",
+    "description": "A group of oak trees.",
+    "id": "tree_Oak_light",
+    "power": 0,
+    "price": 0,
+    "tiles": {
+      "clip_height": 29,
+      "clip_width": 32,
+      "count": 8,
+      "fileName": "resources/images/flora/trees/tree_1x1_Oak_light.png"
+    },
+    "title": "Oak Trees (Light)",
+    "isOverPlacable": true,
+    "upkeep cost": 0,
+    "water": 0,
+    "tag": [
+      "group",
+      "beautiful",
+      "oak"
+    ]
+  },
+  {
+    "author": "Kingtut 101",
+    "category": "Flora",
+    "description": "A group of oak trees.",
+    "id": "tree_Oak_medium",
+    "power": 0,
+    "price": 0,
+    "tiles": {
+      "clip_height": 28,
+      "clip_width": 32,
+      "count": 8,
+      "fileName": "resources/images/flora/trees/tree_1x1_Oak_medium.png"
+    },
+    "title": "Oak Trees (Medium)",
+    "isOverPlacable": true,
+    "upkeep cost": 0,
+    "water": 0,
+    "tag": [
+      "group",
+      "beautiful",
+      "oak"
+    ]
+  },
+  {
+    "author": "Kingtut 101",
+    "category": "Flora",
+    "description": "A group of oak trees.",
+    "id": "tree_Oak_dense",
+    "power": 0,
+    "price": 0,
+    "tiles": {
+      "clip_height": 31,
+      "clip_width": 32,
+      "count": 8,
+      "fileName": "resources/images/flora/trees/tree_1x1_Oak_dense.png"
+    },
+    "title": "Oak Trees (Dense)",
+    "isOverPlacable": true,
+    "upkeep cost": 0,
+    "water": 0,
+    "tag": [
+      "group",
+      "beautiful",
+      "oak"
+    ]
   }
 ]
