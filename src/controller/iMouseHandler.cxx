@@ -3,6 +3,7 @@
 #include "iMouseHandler.hxx"
 #include "../util/iShape.hxx"
 #include "../util/LOG.hxx"
+#include "../events/MouseEvents.hxx"
 
 iMouseHandler::~iMouseHandler() = default;
 

@@ -7,7 +7,7 @@
 #include "iActivity.hxx"
 #include "../util/LOG.hxx"
 
-class MainMenuActivity : public AbsoluteLayout, public iActivity
+class MainMenuActivity final : public AbsoluteLayout, public iActivity
 {
   void onNewGame();
   void onLoadGame();
@@ -16,8 +16,8 @@ class MainMenuActivity : public AbsoluteLayout, public iActivity
   void onPluginSelection();
 public:
   MainMenuActivity(GameService::ServiceTuple &, class Window &);
-  virtual ~MainMenuActivity() final;
-  void setup(class GameService & constext) noexcept final;
+  virtual ~MainMenuActivity();
+  void setup(class GameService & constext) noexcept;
 };
 
 #endif // MAIN_MENU_ACTIVITY_HXX

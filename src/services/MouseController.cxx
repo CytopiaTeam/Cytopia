@@ -2,6 +2,7 @@
 #include "../util/LOG.hxx"
 #include "../util/iShape.hxx"
 #include "../util/Rectangle.hxx"
+#include "../events/MouseEvents.hxx"
 
 MouseController::MouseController(GameService::ServiceTuple & context) :
 	GameService(context), m_LastHovered(nullptr)

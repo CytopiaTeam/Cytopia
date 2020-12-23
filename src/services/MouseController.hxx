@@ -25,6 +25,9 @@ private:
   friend class Game; 
 
   using HandlerList = std::vector<iMouseHandler *>;
+  /**
+   * @todo (ercadio): Use a vector instead of unordered_map
+   */
   std::unordered_map<SpatialBlock, HandlerList> m_SpatialMap;
   iMouseHandler * m_LastHovered;
 
