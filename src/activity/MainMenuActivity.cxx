@@ -61,9 +61,9 @@ MainMenuActivity::MainMenuActivity(GameService::ServiceTuple & context, Window &
     auto & mouseState = getWindow().getMouseState();
     for(auto [base_icon, lp, cb] : ZipRange{icons, positions, callbacks})
     {
-      std::string iconPath = "resources/images/ui/buttons/";
+      std::string iconPath = "resources/images/ui/general/";
       iconPath += base_icon;
-      IconButtonPtr button = std::make_shared<IconButton>(iconPath, 0x6f7272FF_rgba);
+      IconButtonPtr button = std::make_shared<IconButton>(iconPath, 0x858b8cFF_rgba);
       ButtonState & state = createState<ButtonState>();
       addElement(
           button, 

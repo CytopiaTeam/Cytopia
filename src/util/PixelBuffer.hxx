@@ -48,6 +48,16 @@ public:
    *          describing their position, width, and height
    */
   const Rectangle & bounds() const;
+  
+  /**
+   * @brief     Increments all x coordinates
+   */
+  void translateX(int x) noexcept;
+
+  /**
+   * @brief     Increments all y coordinates
+   */
+  void translateY(int y) noexcept;
 
   /**
    * @brief   Scale the pixel buffer using nearest-neighbor 

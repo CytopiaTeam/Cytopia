@@ -40,30 +40,29 @@ void IconButton::draw(iRenderer & renderer) const noexcept
   pb.colorMagicPixels(m_Color);
 
   /* Next, we expand the center of the sprite */
-  pb.scale(2.f);
+  pb.scale(2.f); // corner radius
   pb.expandCenter(Rectangle{target});
   
-  /* Finally, we draw the picture & icon*/
+  /* Finally, we draw the picture */
   renderer.drawPicture(target, pb.data());
   
-  /*
-  rect = Rectangle::RescaleCenter(getBounds(), (7<<16)/10);
-  rect.translateY(-2);
-  LOG(LOG_DEBUG) << rect;
-  if(m_At == 2)
-  {
-    rect.translateY(5);
-  }
-  sprite.clear();
-  std::tie(swidth, sheight) = AssetHelper::LoadImagePixels(m_IconPath, std::back_inserter(sprite));
-  pixels.resize(rect.width() * rect.height());
-  AssetHelper::ResizeNearest(
-      sprite.data(), 
-      pixels.data(), 
-      Rectangle{0, 0, swidth - 1, sheight - 1},
-      rect);
-  renderer.drawPicture(rect, pixels.data());
-  */
+  
+  /**
+   * @todo (vroch): Refactor this code into a "FIT" scale algorithm
+   *                in iRenderer
+   */
+  auto icon = fs::readPNGFile(m_IconPath);
+  const auto & iconBounds = icon.bounds();
+  float scaleX = target.width() - 6;
+  scaleX /= iconBounds.width();
+  float scaleY = target.height() - 15; // 7 pixels to account for the bevel effect
+  scaleY /= iconBounds.height();
+  float iconScale = std::min(scaleX, scaleY);
+  icon.scale(iconScale);
+  auto [x, y] = target.p1();
+  icon.translateX(x + (target.width() - iconBounds.width()) / 2);
+  icon.translateY(y + 4);
+  renderer.drawPicture(icon.bounds(), icon.data());
 }
 
 void IconButton::update(Notification notif) noexcept

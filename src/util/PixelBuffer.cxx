@@ -180,3 +180,11 @@ SDL_Surface* PixelBuffer::toSurface() noexcept {
         0x000000FFU
       );
 }
+
+void PixelBuffer::translateX(int x) noexcept {
+  m_Bounds.translateX(x);
+}
+
+void PixelBuffer::translateY(int y) noexcept {
+  m_Bounds.translateY(y);
+}

@@ -15,7 +15,7 @@ using Mutex = std::mutex;
 using MonitorUPtr = std::unique_ptr<Monitor>;
 using MutexUPtr = std::unique_ptr<Mutex>;
 template <typename Type> using Deque = std::deque<Type>;
-template <typename Semaphore> using Lock = std::unique_lock<Semaphore>;
+template <typename LockType> using Lock = std::unique_lock<LockType>;
 
 /**
  * @brief A Thread safe MessageQueue
