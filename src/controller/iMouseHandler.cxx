@@ -1,5 +1,3 @@
-#include <SDL2/SDL.h>
-
 #include "iMouseHandler.hxx"
 #include "../util/iShape.hxx"
 #include "../util/LOG.hxx"

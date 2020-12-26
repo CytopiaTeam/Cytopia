@@ -1,9 +1,9 @@
 
-template <typename StateType, typename... Args>
-StateType & iActivity::createState(Args &&... args)
+template <typename ModelType, typename... Args>
+ModelType & iActivity::createModel(Args &&... args)
 {
-  StateType* state = new StateType(std::forward<Args>(args)..., GetService<UILoopMQ>());
-  m_States.emplace_back(state);
+  ModelType* state = new ModelType(std::forward<Args>(args)..., GetService<UILoopMQ>());
+  m_Models.emplace_back(state);
   return *state;
 }
 

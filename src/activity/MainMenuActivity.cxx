@@ -41,7 +41,7 @@ MainMenuActivity::MainMenuActivity(GameService::ServiceTuple & context, Window &
     for(auto [text, tp, cb] : ZipRange{texts, topPositions, callbacks})
     {
       TextButtonPtr button = std::make_shared<TextButton>(text, 0x858b8cFF_rgba);
-      ButtonState & state = createState<ButtonState>();
+      ButtonState & state = createModel<ButtonState>();
       addElement(
           button, 
           BoxSizing{30_lw, 10_lh}, 
@@ -64,7 +64,7 @@ MainMenuActivity::MainMenuActivity(GameService::ServiceTuple & context, Window &
       std::string iconPath = "resources/images/ui/general/";
       iconPath += base_icon;
       IconButtonPtr button = std::make_shared<IconButton>(iconPath, 0x858b8cFF_rgba);
-      ButtonState & state = createState<ButtonState>();
+      ButtonState & state = createModel<ButtonState>();
       addElement(
           button, 
           BoxSizing{50_px, 50_px}, 

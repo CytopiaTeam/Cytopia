@@ -6,13 +6,14 @@
 class AbsoluteLayout : public iLayout
 {
 protected:
-  void computeBoundaries() noexcept final;
+  void arrangeElements() noexcept final;
   iViewPtr addElement(iViewPtr, BoxSizing&&, AbsolutePosition &&);
 private:
   using iLayout::addElement;
   std::vector<BoxSizing> m_Sizes;
   std::vector<AbsolutePosition> m_Positions;
 public:
+  // Inherit constructor from iLayout
   using iLayout::iLayout; 
 };
 

@@ -2,7 +2,6 @@
 #define I_MOUSE_HANDLER_HXX_
 
 #include <memory>
-#include <betterEnums.hxx>
 
 #include "../util/Point2D.hxx"
 #include "../controller/iController.hxx"

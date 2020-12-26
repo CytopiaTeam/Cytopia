@@ -25,11 +25,11 @@ float RGBAColor::hue() const noexcept
 {
   std::array<uint8_t, 3> colors = { red(), green(), blue() };
   auto [min, max] = std::minmax_element(
-      colors.data(), colors.data() + 3);
+      colors.data(), colors.data() + colors.size());
   uint16_t C = *max - *min;
   if(C == 0) return 0;
-  float x = colors[(max - colors.data() + 1) % 3];
-  x -= colors[(max - colors.data() + 2) % 3];
+  float x = colors[(max - colors.data() + 1) % colors.size()];
+  x -= colors[(max - colors.data() + 2) % colors.size()];
   x += 2.f * (max - colors.data()) * C;
   x /= 6.f;
   x /= C;

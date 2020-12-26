@@ -21,9 +21,11 @@ void ButtonHandler::onMouseHover()
 
 void ButtonHandler::onMouseClick(ClickEvent && event)
 {
-  if(event.state & ClickEvent::Pressed && event.state & ClickEvent::Left)
+  if((event.state & ClickEvent::Pressed) && event.state & ClickEvent::Left)
+  {
     m_State.setStatus(ButtonStatus::Pressed);
-  if(event.state & ClickEvent::Released && event.state & ClickEvent::Left)
+  }
+  if((event.state & ClickEvent::Released) && event.state & ClickEvent::Left)
   {
     m_State.setStatus(ButtonStatus::Hovered);
     m_HandleClick();

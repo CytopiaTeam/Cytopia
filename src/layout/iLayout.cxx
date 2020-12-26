@@ -57,7 +57,7 @@ void iLayout::setBounds(Rectangle && r) noexcept
 
 void iLayout::setup(GameService & context) noexcept
 {
-  computeBoundaries();
+  arrangeElements();
   for(auto & view : m_Elements)
   {
     view->setup(context);

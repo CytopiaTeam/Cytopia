@@ -15,7 +15,7 @@
 class iActivity : public GameService, public virtual iView
 {
   class Window & m_Window;
-  std::vector<iModelPtr> m_States;
+  std::vector<iModelPtr> m_Models;
   std::vector<iControllerPtr> m_Controllers;
   friend class Window;
 
@@ -34,12 +34,12 @@ protected:
 
   /**
    * @brief Creates a new iModel
-   * @tparam StateType the type of the state
-   * @tparam Args arguments to construct the state
-   * @returns a reference to the created state
+   * @tparam ModelType the type of the model
+   * @tparam Args arguments to construct the model
+   * @returns a reference to the created model
    */  
-  template <typename StateType, typename... Args>
-  StateType & createState(Args &&... args);
+  template <typename ModelType, typename... Args>
+  ModelType & createModel(Args &&... args);
   
   /**
    * @brief Creates a new iController

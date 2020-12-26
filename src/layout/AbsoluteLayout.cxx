@@ -9,7 +9,7 @@ iViewPtr AbsoluteLayout::addElement(iViewPtr pWid, BoxSizing&& bs, AbsolutePosit
   return addElement(pWid);
 }
 
-void AbsoluteLayout::computeBoundaries() noexcept
+void AbsoluteLayout::arrangeElements() noexcept
 {
   LOG(LOG_DEBUG) << "Computing boundaries";
   const auto & bounds = getBounds();

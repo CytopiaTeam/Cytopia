@@ -50,7 +50,7 @@ protected:
   /**
    * @brief compute the boundaries of all iViews
    */
-  virtual void computeBoundaries() noexcept = 0;
+  virtual void arrangeElements() noexcept = 0;
 
   const Rectangle & getBounds() const noexcept final;
 
