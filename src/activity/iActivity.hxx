@@ -14,18 +14,16 @@
 
 class iActivity : public GameService, public virtual iView
 {
-  class Window & m_Window;
+  class Window &m_Window;
   std::vector<iModelPtr> m_Models;
   std::vector<iControllerPtr> m_Controllers;
   friend class Window;
 
 public:
- 
   iActivity(GameService::ServiceTuple &, class Window &);
   virtual ~iActivity() = 0;
 
 protected:
-
   /**
    * @brief Switches to another iActivity
    * @param ActivityType the type of iActivity to switch to
@@ -37,23 +35,21 @@ protected:
    * @tparam ModelType the type of the model
    * @tparam Args arguments to construct the model
    * @returns a reference to the created model
-   */  
-  template <typename ModelType, typename... Args>
-  ModelType & createModel(Args &&... args);
-  
+   */
+  template <typename ModelType, typename... Args> ModelType &createModel(Args &&... args);
+
   /**
    * @brief Creates a new iController
    * @tparam ControllerType the type of the controller
    * @tparam Args arguments to construct the controller
    * @returns a referenece to the created controller
-   */  
-  template <typename ControllerType, typename... Args>
-  ControllerType & createController(Args &&... args);
+   */
+  template <typename ControllerType, typename... Args> ControllerType &createController(Args &&... args);
 
   /**
    * @returns the Window this Activity is assigned to 
    */
-  Window & getWindow() noexcept;
+  Window &getWindow() noexcept;
 };
 
 using iActivityPtr = std::unique_ptr<iActivity>;

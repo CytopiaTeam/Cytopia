@@ -14,10 +14,11 @@ class MainMenuActivity final : public AbsoluteLayout, public iActivity
   void onExit();
   void onLanguageSelection();
   void onPluginSelection();
+
 public:
   MainMenuActivity(GameService::ServiceTuple &, class Window &);
   virtual ~MainMenuActivity();
-  void setup(class GameService & constext) noexcept;
+  void setup(class GameService &constext) noexcept;
 };
 
 #endif // MAIN_MENU_ACTIVITY_HXX
