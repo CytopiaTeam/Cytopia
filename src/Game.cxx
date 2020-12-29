@@ -287,9 +287,19 @@ void Game::run(bool SkipMenu)
   if (!Settings::instance().audio3DStatus)
   {
     m_AudioMixer.play(AudioTrigger::MainTheme);
-    m_GameClock.addRealTimeClockTask([this]() { m_AudioMixer.play(AudioTrigger::MainTheme); }, 8min, 8min);
+    m_GameClock.addRealTimeClockTask(
+        [this]() {
+          m_AudioMixer.play(AudioTrigger::MainTheme);
+          return false;
+        },
+        8min, 8min);
     m_AudioMixer.play(AudioTrigger::NatureSounds);
-    m_GameClock.addRealTimeClockTask([this]() { m_AudioMixer.play(AudioTrigger::NatureSounds); }, 3min, 3min);
+    m_GameClock.addRealTimeClockTask(
+        [this]() {
+          m_AudioMixer.play(AudioTrigger::NatureSounds);
+          return false;
+        },
+        3min, 3min);
   }
   else
   {
@@ -297,12 +307,14 @@ void Game::run(bool SkipMenu)
     m_GameClock.addRealTimeClockTask(
         [this]() {
           m_AudioMixer.play(AudioTrigger::MainTheme, Coordinate3D{0, 0.5, 0.1});
+          return false;
         },
         8min, 8min);
     m_AudioMixer.play(AudioTrigger::NatureSounds, Coordinate3D{0, 0, -2});
     m_GameClock.addRealTimeClockTask(
         [this]() {
           m_AudioMixer.play(AudioTrigger::NatureSounds, Coordinate3D{0, 0, -2});
+          return false;
         },
         3min, 3min);
   }

@@ -9,6 +9,8 @@ set(SOURCE_FILES
         util/IEquatable.inl.hxx
         util/Singleton.hxx
         util/Meta.hxx
+        util/PriorityQueue.hxx
+        util/PriorityQueue.inl.hxx
         util/Exception.{hxx,cxx}
         events/UIEvents.hxx
         GameService.{hxx,cxx}

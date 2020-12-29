@@ -2,24 +2,32 @@
 
 GameClock::GameClock(GameService::ServiceTuple &services) : GameService(services) {}
 
-void GameClock::tick(void)
+void GameClock::tickRealTime()
 {
   auto now = Clock::now();
-  std::lock_guard<std::mutex> lock(m_lock);
 
   while (!m_realTimeTasks.isEmpty() && (now > m_realTimeTasks.top().m_waketime))
   {
     const auto task = m_realTimeTasks.top();
     m_realTimeTasks.pop();
-    task.callback();
+    const bool isCanceled = task.callback();
 
-    if (task.m_period != TimePointZero)
+    if (!isCanceled && (task.m_period != 0U))
     {
-      m_realTimeTasks.add(RealTimeClockTask(task.callback, TimePoint(Clock::now() + (TimePoint(task.m_period) - TimePointZero)),
-                                            TimePoint(task.m_period), task.hndl));
+      m_realTimeTasks.add(
+          RealTimeClockTask(task.callback, TimePoint(Clock::now() + (task.m_period - TimePointZero)), task.m_period, task.hndl));
     }
   }
+}
 
+void GameClock::tick(void)
+{
+  std::lock_guard<std::mutex> lock(m_lock);
+
+  // Todo: rework to fix code duplication
+  tickRealTime();
+
+  auto now = Clock::now();
   if ((now - m_lastGameTickTime) >= m_gameTickDuration)
   {
     m_lastGameTickTime = now;
@@ -29,9 +37,9 @@ void GameClock::tick(void)
     {
       const auto task = m_gameTimeTasks.top();
       m_gameTimeTasks.pop();
-      task.callback();
+      const bool isCanceled = task.callback();
 
-      if (task.m_period != 0U)
+      if (!isCanceled && (task.m_period != 0U))
       {
         m_gameTimeTasks.add(GameTimeClockTask(task.callback, m_gameTicks + task.m_period, task.m_period, task.hndl));
       }
@@ -39,18 +47,29 @@ void GameClock::tick(void)
   }
 }
 
+template <typename Queue> static bool removeTaskFromQueue(const GameClock::ClockTaskHndl hndl, Queue &queue)
+{
+  auto position = std::find_if(queue.begin(), queue.end(), [hndl](auto it) { return it.hndl == hndl; });
+
+  if (position != queue.end())
+  {
+    queue.remove(position);
+    return true;
+  }
+
+  return false;
+}
+
 bool GameClock::removeClockTask(ClockTaskHndl hndl)
 {
   std::lock_guard<std::mutex> lock(m_lock);
 
-  if (m_realTimeTasks.remove(hndl))
+  if (!removeTaskFromQueue(hndl, m_realTimeTasks))
   {
-    return true;
+    return removeTaskFromQueue(hndl, m_gameTimeTasks);
   }
-  else
-  {
-    return m_gameTimeTasks.remove(hndl);
-  }
+
+  return true;
 }
 
 GameClock::ClockTaskHndl GameClock::addGameTimeClockTask(ClockCbk cbk, GameClockTime delay, GameClockTime period)

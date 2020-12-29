@@ -37,6 +37,7 @@ TEST_CASE("I can schedule a real time task", "[engine][clock]")
           [&begin, &dt, &isDone]() {
             dt = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now() - begin);
             isDone = true;
+            return false;
           },
           3s);
       tickingThread.join();
@@ -64,9 +65,24 @@ TEST_CASE("I can schedule multiple real time tasks", "[engine][clock]")
       std::array order{0, 0, 0};
       int rank = 1;
 
-      clock.addRealTimeClockTask([&order, &rank]() { order[0] = rank++; }, 1s);
-      clock.addRealTimeClockTask([&order, &rank]() { order[2] = rank++; }, 3s);
-      clock.addRealTimeClockTask([&order, &rank]() { order[1] = rank++; }, 2s);
+      clock.addRealTimeClockTask(
+          [&order, &rank]() {
+            order[0] = rank++;
+            return false;
+          },
+          1s);
+      clock.addRealTimeClockTask(
+          [&order, &rank]() {
+            order[2] = rank++;
+            return false;
+          },
+          3s);
+      clock.addRealTimeClockTask(
+          [&order, &rank]() {
+            order[1] = rank++;
+            return false;
+          },
+          2s);
       tickingThread.join();
 
       THEN("The deferred tasks execute according to their delays") { CHECK(order == std::array{1, 2, 3}); }
@@ -86,7 +102,12 @@ TEST_CASE("I can schedule real time repeating task", "[engine][clock]")
     {
       int counter = 0;
 
-      clock.addRealTimeClockTask([&counter]() { counter++; }, 100ms, 1s);
+      clock.addRealTimeClockTask(
+          [&counter]() {
+            counter++;
+            return false;
+          },
+          100ms, 1s);
       tickingThread.join();
 
       THEN("The repeating task executes exact number of times") { CHECK(counter == 7); }
@@ -106,10 +127,30 @@ TEST_CASE("I can schedule multiple real time tasks and remove some", "[engine][c
     {
       std::array order{0, 0, 0, 0};
 
-      auto task1 = clock.addRealTimeClockTask([&order]() { order[0]++; }, 1s, 1s);
-      auto task2 = clock.addRealTimeClockTask([&order]() { order[1]++; }, 1s, 1s);
-      auto task3 = clock.addRealTimeClockTask([&order]() { order[2]++; }, 1s, 1s);
-      auto task4 = clock.addRealTimeClockTask([&order]() { order[3]++; }, 3s, 3s);
+      auto task1 = clock.addRealTimeClockTask(
+          [&order]() {
+            order[0]++;
+            return false;
+          },
+          1s, 1s);
+      auto task2 = clock.addRealTimeClockTask(
+          [&order]() {
+            order[1]++;
+            return false;
+          },
+          1s, 1s);
+      auto task3 = clock.addRealTimeClockTask(
+          [&order]() {
+            order[2]++;
+            return false;
+          },
+          1s, 1s);
+      auto task4 = clock.addRealTimeClockTask(
+          [&order]() {
+            order[3]++;
+            return false;
+          },
+          3s, 3s);
 
       std::this_thread::sleep_for(3500ms);
       bool isRemoved3 = clock.removeClockTask(task3);
@@ -143,6 +184,7 @@ TEST_CASE("I can schedule a game time task", "[engine][clock]")
           [&begin, &dt, &isDone]() {
             dt = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now() - begin);
             isDone = true;
+            return false;
           },
           2 * GameClock::GameMinute);
       tickingThread.join();
@@ -170,9 +212,24 @@ TEST_CASE("I can schedule multiple game time tasks", "[engine][clock]")
       std::array order{0, 0, 0};
       int rank = 1;
 
-      clock.addGameTimeClockTask([&order, &rank]() { order[0] = rank++; }, GameClock::GameMinute);
-      clock.addGameTimeClockTask([&order, &rank]() { order[2] = rank++; }, 3 * GameClock::GameMinute);
-      clock.addGameTimeClockTask([&order, &rank]() { order[1] = rank++; }, 2 * GameClock::GameMinute);
+      clock.addGameTimeClockTask(
+          [&order, &rank]() {
+            order[0] = rank++;
+            return false;
+          },
+          GameClock::GameMinute);
+      clock.addGameTimeClockTask(
+          [&order, &rank]() {
+            order[2] = rank++;
+            return false;
+          },
+          3 * GameClock::GameMinute);
+      clock.addGameTimeClockTask(
+          [&order, &rank]() {
+            order[1] = rank++;
+            return false;
+          },
+          2 * GameClock::GameMinute);
       tickingThread.join();
 
       THEN("The deferred tasks execute according to their delays") { CHECK(order == std::array{1, 2, 3}); }
@@ -192,7 +249,12 @@ TEST_CASE("I can schedule game time repeating task", "[engine][clock]")
     {
       int counter = 0;
 
-      clock.addGameTimeClockTask([&counter]() { counter++; }, GameClock::GameMinute, GameClock::GameMinute);
+      clock.addGameTimeClockTask(
+          [&counter]() {
+            counter++;
+            return false;
+          },
+          GameClock::GameMinute, GameClock::GameMinute);
       tickingThread.join();
 
       THEN("The repeating task executes exact number of times") { CHECK(counter == 4); }
@@ -212,10 +274,30 @@ TEST_CASE("I can schedule multiple game time tasks and remove some", "[engine][c
     {
       std::array order{0, 0, 0, 0};
 
-      auto task1 = clock.addGameTimeClockTask([&order]() { order[0]++; }, GameClock::GameMinute, GameClock::GameMinute);
-      auto task2 = clock.addGameTimeClockTask([&order]() { order[1]++; }, GameClock::GameMinute, GameClock::GameMinute);
-      auto task3 = clock.addGameTimeClockTask([&order]() { order[2]++; }, GameClock::GameMinute, GameClock::GameMinute);
-      auto task4 = clock.addGameTimeClockTask([&order]() { order[3]++; }, GameClock::GameMinute, 2 * GameClock::GameMinute);
+      auto task1 = clock.addGameTimeClockTask(
+          [&order]() {
+            order[0]++;
+            return false;
+          },
+          GameClock::GameMinute, GameClock::GameMinute);
+      auto task2 = clock.addGameTimeClockTask(
+          [&order]() {
+            order[1]++;
+            return false;
+          },
+          GameClock::GameMinute, GameClock::GameMinute);
+      auto task3 = clock.addGameTimeClockTask(
+          [&order]() {
+            order[2]++;
+            return false;
+          },
+          GameClock::GameMinute, GameClock::GameMinute);
+      auto task4 = clock.addGameTimeClockTask(
+          [&order]() {
+            order[3]++;
+            return false;
+          },
+          GameClock::GameMinute, 2 * GameClock::GameMinute);
 
       std::this_thread::sleep_for(6500ms);
       bool isRemoved3 = clock.removeClockTask(task3);
@@ -244,7 +326,12 @@ TEST_CASE("I can speed up game time", "[engine][clock]")
     {
       int counter = {0};
 
-      clock.addGameTimeClockTask([&counter]() { counter++; }, GameClock::GameMinute, GameClock::GameMinute);
+      clock.addGameTimeClockTask(
+          [&counter]() {
+            counter++;
+            return false;
+          },
+          GameClock::GameMinute, GameClock::GameMinute);
       // Game minute will be scaled from 2s to 500ms
       clock.setGameClockSpeed(4.0f);
       tickingThread.join();
@@ -266,7 +353,12 @@ TEST_CASE("I can slow down game time", "[engine][clock]")
     {
       int counter = {0};
 
-      clock.addGameTimeClockTask([&counter]() { counter++; }, GameClock::GameMinute, GameClock::GameMinute);
+      clock.addGameTimeClockTask(
+          [&counter]() {
+            counter++;
+            return false;
+          },
+          GameClock::GameMinute, GameClock::GameMinute);
       // Game minute will be scaled from 2s to 4s
       clock.setGameClockSpeed(0.5f);
       tickingThread.join();
@@ -288,9 +380,24 @@ TEST_CASE("I can schedule multiple real/game time tasks and clear them all", "[e
     {
       std::array order{0, 0, 0};
 
-      clock.addGameTimeClockTask([&order]() { order[0]++; }, GameClock::GameMinute, GameClock::GameMinute);
-      clock.addRealTimeClockTask([&order]() { order[2]++; }, 1s, 1s);
-      clock.addGameTimeClockTask([&order]() { order[1]++; }, 2 * GameClock::GameMinute);
+      clock.addGameTimeClockTask(
+          [&order]() {
+            order[0]++;
+            return false;
+          },
+          GameClock::GameMinute, GameClock::GameMinute);
+      clock.addRealTimeClockTask(
+          [&order]() {
+            order[2]++;
+            return false;
+          },
+          1s, 1s);
+      clock.addGameTimeClockTask(
+          [&order]() {
+            order[1]++;
+            return false;
+          },
+          2 * GameClock::GameMinute);
       std::this_thread::sleep_for(5500ms);
       clock.clear();
       tickingThread.join();
@@ -329,6 +436,40 @@ TEST_CASE("I try to remove non existing task", "[engine][clock]")
       auto res = clock.removeClockTask(0xFFFFFFFF);
 
       THEN("The task cannot be removed and false is returned") { CHECK(res == false); }
+    }
+  }
+}
+
+TEST_CASE("I can remove myself in callback", "[engine][clock]")
+{
+  GIVEN("I have a Game Clock running")
+  {
+    GameService::ServiceTuple ctx = GameService::ServiceTuple{};
+    GameClock clock(ctx);
+    auto tickingThread = std::thread(tick_clock, 500ms, std::ref(clock));
+
+    WHEN("I schedule game task and remove it during callback")
+    {
+      int counter = {0};
+
+      clock.addGameTimeClockTask(
+          [&counter]() {
+
+            if (counter == 2)
+            {
+              // remove itself
+              return true;
+            }
+
+            counter++;
+            return false;
+          },
+          GameClock::GameMinute, GameClock::GameMinute);
+      // Game minute will be scaled from 2s to 100ms
+      clock.setGameClockSpeed(20.f);
+      tickingThread.join();
+
+      THEN("The repeating must be executed only 2 times than it removes itself.") { CHECK(counter == 2); }
     }
   }
 }

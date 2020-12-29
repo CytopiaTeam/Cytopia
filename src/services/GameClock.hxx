@@ -1,16 +1,16 @@
 #ifndef GAME_CLOCK_HXX_
 #define GAME_CLOCK_HXX_
 
-#include <queue>
 #include <chrono>
 #include <mutex>
 #include <functional>
 #include "../GameService.hxx"
+#include "../util/PriorityQueue.hxx"
 
 using namespace std::chrono_literals;
 
 /**
- * @brief Game clock service. Implement two timer one real time timer and other game time timer.
+ * @brief Game clock service. Implement two timers one real time timer and other game time timer.
  * Both timers provide possibility to add task which will be triggered after delay time run out.
  * Game timer represent timer running in game time.
  * The game time can be scaled providing possibility to speed up or slow down game.
@@ -27,7 +27,7 @@ private:
 
 public:
   using TimePoint = std::chrono::time_point<Clock>;
-  using ClockCbk = std::function<void(void)>;
+  using ClockCbk = std::function<bool(void)>;
   using ClockTaskHndl = unsigned long;
   using GameClockTime = unsigned long;
 
@@ -108,91 +108,27 @@ public:
 private:
   static constexpr TimePoint TimePointZero = TimePoint{0s};
 
-  /**
-  * Structure represent real time clock task.
-  */
-  struct RealTimeClockTask
+  template <typename Time> struct ClockTask
   {
-    std::function<void(void)> callback;
-    TimePoint m_waketime;
-    TimePoint m_period;
+    ClockCbk callback;
+    Time m_waketime;
+    Time m_period;
     ClockTaskHndl hndl;
-    explicit RealTimeClockTask(ClockCbk cbk, TimePoint delay, TimePoint period, ClockTaskHndl hndl)
+
+    explicit ClockTask(ClockCbk cbk, Time delay, Time period, ClockTaskHndl hndl)
         : callback(cbk), m_waketime(delay), m_period(period), hndl(hndl)
     {
     }
 
-    inline friend bool operator>(const RealTimeClockTask &rt1, const RealTimeClockTask &rt2)
-    {
-      return rt1.m_waketime > rt2.m_waketime;
-    }
+    bool operator==(const ClockTask &task2) const {return hndl == task2.hndl};
+    bool operator>(const ClockTask &task2) const { return m_waketime > task2.m_waketime; }
   };
 
-  /**
-  * Structure represent game time clock task.
-  */
-  struct GameTimeClockTask
-  {
-    std::function<void(void)> callback;
-    GameClockTime m_waketime;
-    GameClockTime m_period;
-    ClockTaskHndl hndl;
-    explicit GameTimeClockTask(ClockCbk cbk, GameClockTime delay, GameClockTime period, ClockTaskHndl hndl)
-        : callback(cbk), m_waketime(delay), m_period(period), hndl(hndl)
-    {
-    }
+  using RealTimeClockTask = ClockTask<TimePoint>;
+  using GameTimeClockTask = ClockTask<GameClockTime>;
 
-    inline friend bool operator>(const GameTimeClockTask &gt1, const GameTimeClockTask &gt2)
-    {
-      return gt1.m_waketime > gt2.m_waketime;
-    }
-  };
-
-  /**
-  * @brief Wrap priority queue class to extend functionality.
-  */
-  template <typename Task> class RemovablePriorityQueue
-  {
-    std::vector<Task> m_container;
-
-  public:
-    /**
-    * @brief Check whether queue is empty.
-    * @return true if queue is empty otherwise false.
-    */
-    bool isEmpty() { return m_container.empty(); }
-
-    /**
-    * @brief Get top element from the queue.
-    *        Task which expire first.
-    * @return Top task from queue.
-    */
-    Task &top(void) { return m_container.front(); }
-
-    /**
-    * @brief Add new task to the queue.
-    */
-    void add(Task &&task);
-
-    /**
-    * @brief Remove first task from the queue.
-    */
-    void pop(void);
-
-    /**
-    * @brief Remove task from queue.
-    * @param hndl Handle of the task to be removed.
-    */
-    bool remove(ClockTaskHndl hndl);
-
-    /**
-    * @brief Remove all tasks from queue.
-    */
-    void clear(void);
-  };
-
-  RemovablePriorityQueue<RealTimeClockTask> m_realTimeTasks;
-  RemovablePriorityQueue<GameTimeClockTask> m_gameTimeTasks;
+  PriorityQueue<RealTimeClockTask> m_realTimeTasks;
+  PriorityQueue<GameTimeClockTask> m_gameTimeTasks;
   std::mutex m_lock;
   // Provide way to return unique handle for each task.
   ClockTaskHndl m_unique_handle = 0U;
@@ -202,8 +138,10 @@ private:
   TimePoint m_lastGameTickTime = Clock::now();
   // The current game tick duration on milliseconds.
   Clock::duration m_gameTickDuration = std::chrono::milliseconds(DefaultGameTickDuration);
+
+  void GameClock::tickRealTime();
 };
 
 #include "GameClock.inl.hxx"
 
-#endif
+#endif // GAME_CLOCK_HXX_

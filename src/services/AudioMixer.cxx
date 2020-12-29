@@ -72,7 +72,12 @@ AudioMixer::AudioMixer(GameService::ServiceTuple &context) : GameService(context
 
   /* Set a pruning repeated task to get rid of soundtracks that have finished playing */
   prune();
-  GetService<GameClock>().addRealTimeClockTask([&mixer = *this]() { mixer.prune(); }, 5min, 5min);
+  GetService<GameClock>().addRealTimeClockTask(
+      [&mixer = *this]() {
+        mixer.prune();
+        return false;
+      },
+      5min, 5min);
 
   LOG(LOG_DEBUG) << "Created AudioMixer";
 }
