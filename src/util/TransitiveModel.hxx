@@ -2,6 +2,7 @@
 #define TRANSITIVE_MODEL_HXX_
 
 #include "Meta.hxx"
+#include "TypeList.hxx"
 #include "Observer.hxx"
 
 #include <unordered_set>
@@ -20,9 +21,9 @@ template <typename Key, typename Value> using Map = std::unordered_map<Key, Valu
 template <typename Model> struct Transition
 {
   static_assert(std::is_enum<typename Model::Operations>::value, "Model::Operations must be an enum-type");
-  static_assert(std::is_class<typename Model::OperationTypes>::value, "Model::OperationTypes must be a type list");
+  static_assert(is_typelist<typename Model::OperationTypes>::value, "Model::OperationTypes must be a type list");
   /* Data associated with the transition */
-  using TransitionData = VariantType<typename Model::OperationTypes>;
+  using TransitionData = typename Model::OperationTypes::VariantType;
   /* Type of the transition */
   using TransitionType = typename Model::Operations;
 
@@ -36,9 +37,9 @@ template <typename Model> struct Transition
   /**
    * @brief   Create a Transition from TransitionData
    */
-  template <typename OperationData, EnableIf<ContainsType<typename Model::OperationTypes, OperationData>, int> = 0>
-  explicit Transition(OperationData data) : data(data)
+  template <typename OperationData> explicit Transition(OperationData data) : data(data)
   {
+    static_assert(Model::OperationTypes::template ContainsType<OperationData>, "Cannot create a Transition from this data");
   }
 
   constexpr bool operator==(const Transition &other) const noexcept { return data == other.data; }

@@ -4,7 +4,7 @@
 #include <string>
 
 #include "betterEnums.hxx"
-#include "util/Meta.hxx"
+#include "util/TypeList.hxx"
 
 using std::string;
 

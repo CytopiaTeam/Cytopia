@@ -1,7 +1,7 @@
 #ifndef MOUSE_EVENTS_HXX
 #define MOUSE_EVENTS_HXX
 
-#include "../util/Meta.hxx"
+#include "../util/TypeList.hxx"
 
 /**
  * @brief A change in the mouse (or device)'s position

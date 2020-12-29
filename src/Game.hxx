@@ -142,7 +142,7 @@ private:
      * @tparam  AudioEventType the Audio event
      */
     template <typename AudioEventType>
-    EnableIf<ContainsType<AudioEvents, AudioEventType>, void> operator()(AudioEventType &&event);
+    EnableIf<AudioEvents::ContainsType<AudioEventType>, void> operator()(AudioEventType &&event);
 #endif // USE_AUDIO
 
     /**

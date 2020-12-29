@@ -17,6 +17,8 @@ set(SOURCE_FILES
         util/Point2D.{hxx,cxx}
         util/BoxSizing.{hxx,cxx}
         util/PixelBuffer.{hxx,cxx}
+        util/TypeList.hxx
+        util/TypeList.inl.hxx
         events/UIEvents.hxx
         events/MouseEvents.hxx
         GameService.{hxx,cxx}

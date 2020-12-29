@@ -22,7 +22,7 @@ public:
   /**
    * @brief a tuple of all services
    */
-  using ServiceTuple = typename TupleType<Types>::type;
+  using ServiceTuple = typename Types::TupleType;
 
   /**
    * @brief Construct a GameService
@@ -36,7 +36,7 @@ public:
    * @tparam ServiceType the type to verify
    */
   template <typename ServiceType> struct require_service_type;
-  
+
   /**
    * @brief returns the required service
    * @tparam ServiceType the type of the service
@@ -44,8 +44,7 @@ public:
   template <typename ServiceType> ServiceType &GetService();
 
 private:
-  TupleType<Types>::type &m_Services;
-
+  Types::TupleType &m_Services;
 };
 
 #include "GameService.inl.hxx"

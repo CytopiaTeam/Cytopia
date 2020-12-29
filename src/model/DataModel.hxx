@@ -11,10 +11,10 @@
  * @tparam  DataList    A TypeList of UpdateEvents that form a Notification
  */
 template <typename DataList>
-struct DataModel : public iModel, public Subject<VariantType<DataList>, UIMQDispatcher<VariantType<DataList>>>
+struct DataModel : public iModel, public Subject<typename DataList::VariantType, UIMQDispatcher<typename DataList::VariantType>>
 {
-  using Dispatcher = UIMQDispatcher<VariantType<DataList>>;
-  using SubjectBase = Subject<VariantType<DataList>, Dispatcher>;
+  using Dispatcher = UIMQDispatcher<typename DataList::VariantType>;
+  using SubjectBase = Subject<typename DataList::VariantType, Dispatcher>;
   explicit DataModel(UILoopMQ &mq) : SubjectBase(Dispatcher{mq}) {}
 };
 
