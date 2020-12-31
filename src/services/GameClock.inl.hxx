@@ -3,31 +3,25 @@
 template <typename DelayType, typename PeriodType>
 inline GameClock::ClockTaskHndl GameClock::addRealTimeClockTask(ClockCbk cbk, DelayType delay, PeriodType period)
 {
-  if ((cbk != nullptr) && (TimePoint(delay) > TimePointZero) && (TimePoint(period) >= TimePointZero))
-  {
-    std::lock_guard<std::mutex> lock(m_lock);
+  assert((cbk != nullptr) && (TimePoint(delay) >= TimePointZero) && (TimePoint(period) >= TimePointZero));
 
-    m_realTimeTasks.add(RealTimeClockTask(cbk, Clock::now() + (TimePoint(delay) - TimePointZero),
-                                          (TimePoint)period - TimePointZero, ++m_unique_handle));
-    return m_unique_handle;
-  }
-  else
-  {
-    return ClockTaskHndlInvalid;
-  }
-}
+  std::lock_guard<std::mutex> lock(m_lock);
+  TimePoint delayConverted = (TimePoint)delay;
 
-template <typename Task, typename Now> void GameClock::tickTask(PriorityQueue<Task> &queue, Now now)
-{
-  while (!queue.isEmpty() && (now >= queue.top().m_waketime))
+  // If no delay required call callback immediately
+  if (delayConverted == TimePointZero)
   {
-    const auto task = queue.top();
-    queue.pop();
-    const bool isCanceled = task.callback();
+    const bool isCanceled = cbk();
 
-    if (!isCanceled && (task.m_period != decltype(task.m_period){0}))
+    if (isCanceled || ((TimePoint)period == TimePointZero))
     {
-      queue.add(Task(task.callback, now + task.m_period, task.m_period, task.hndl));
+      return ClockTaskHndlInvalid;
     }
+
+    delayConverted = (TimePoint)period;
   }
+
+  m_realTimeTasks.add(RealTimeClockTask(cbk, Clock::now() + (delayConverted - TimePointZero), (TimePoint)period - TimePointZero,
+                                        ++m_unique_handle));
+  return m_unique_handle;
 }

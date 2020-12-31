@@ -15,5 +15,3 @@ template <typename T> void PriorityQueue<T>::remove(Iterator position)
   m_container.erase(position);
   std::make_heap(m_container.begin(), m_container.end(), std::greater<T>{});
 }
-
-template <typename T> void PriorityQueue<T>::clear(void) { m_container.clear(); }

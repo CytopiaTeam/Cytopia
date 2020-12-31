@@ -4,18 +4,25 @@
 #include <vector>
 
 /**
-  * @brief Wrap priority queue class to extend functionality.
+  * @brief Priority queue with removing functionality.
   */
 template <typename T> class PriorityQueue
 {
   std::vector<T> m_container;
 
 public:
-  using Iterator = decltype(m_container.begin());
+  using Iterator = typename std::vector<T>::iterator;
 
+  /**
+    * @return Iterator to beginning of queue.
+    */
   Iterator begin() { return m_container.begin(); }
 
+  /**
+    * @return Iterator to end of queue.
+    */
   Iterator end() { return m_container.end(); }
+
   /**
     * @brief Check whether queue is empty.
     * @return true if queue is empty otherwise false.
@@ -24,31 +31,30 @@ public:
 
   /**
     * @brief Get top element from the queue.
-    *        Task which expire first.
-    * @return Top task from queue.
+    * @return Top element from queue.
     */
   T &top() { return m_container.front(); }
 
   /**
-    * @brief Add new task to the queue.
+    * @brief Add new element to the queue.
     */
   void add(T &&element);
 
   /**
-    * @brief Remove first task from the queue.
+    * @brief Remove first element from the queue (from top).
     */
   void pop();
 
   /**
     * @brief Remove task from queue.
-    * @param position Position of element to be removed.
+    * @param position Iterator of element to be removed.
     */
   void remove(Iterator position);
 
   /**
     * @brief Remove all elements from queue.
     */
-  void clear(void);
+  void clear(void) { m_container.clear(); }
 };
 
 #include "PriorityQueue.inl.hxx"

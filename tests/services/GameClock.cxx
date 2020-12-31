@@ -115,6 +115,106 @@ TEST_CASE("I can schedule real time repeating task", "[engine][clock]")
   }
 }
 
+TEST_CASE("I can schedule real time repeating task to trigger immediately", "[engine][clock]")
+{
+  GIVEN("I have a Game Clock running")
+  {
+    GameService::ServiceTuple ctx = GameService::ServiceTuple{};
+    GameClock clock(ctx);
+    auto tickingThread = std::thread(tick_clock, 2900ms, std::ref(clock));
+
+    WHEN("I schedule repeating real time task")
+    {
+      int counter = 0;
+
+      clock.addRealTimeClockTask(
+          [&counter]() {
+            counter++;
+            return false;
+          },
+          0s, 1s);
+      tickingThread.join();
+
+      THEN("The repeating task executes exact number of times") { CHECK(counter == 3); }
+    }
+  }
+}
+
+TEST_CASE("I can schedule real time task to trigger immediately", "[engine][clock]")
+{
+  GIVEN("I have a Game Clock running")
+  {
+    GameService::ServiceTuple ctx = GameService::ServiceTuple{};
+    GameClock clock(ctx);
+    auto tickingThread = std::thread(tick_clock, 2900ms, std::ref(clock));
+
+    WHEN("I schedule repeating real time task")
+    {
+      int counter = 0;
+
+      clock.addRealTimeClockTask(
+          [&counter]() {
+            counter++;
+            return false;
+          },
+          0s, 0s);
+      tickingThread.join();
+
+      THEN("The repeating task executes exact number of times") { CHECK(counter == 1); }
+    }
+  }
+}
+
+TEST_CASE("I can schedule game time repeating task to trigger immediately", "[engine][clock]")
+{
+  GIVEN("I have a Game Clock running")
+  {
+    GameService::ServiceTuple ctx = GameService::ServiceTuple{};
+    GameClock clock(ctx);
+    auto tickingThread = std::thread(tick_clock, 6900ms, std::ref(clock));
+
+    WHEN("I schedule repeating real time task")
+    {
+      int counter = 0;
+
+      clock.addGameTimeClockTask(
+          [&counter]() {
+            counter++;
+            return false;
+          },
+          0, 1);
+      tickingThread.join();
+
+      THEN("The repeating task executes exact number of times") { CHECK(counter == 3); }
+    }
+  }
+}
+
+TEST_CASE("I can schedule game time task to trigger immediately", "[engine][clock]")
+{
+  GIVEN("I have a Game Clock running")
+  {
+    GameService::ServiceTuple ctx = GameService::ServiceTuple{};
+    GameClock clock(ctx);
+    auto tickingThread = std::thread(tick_clock, 6900ms, std::ref(clock));
+
+    WHEN("I schedule repeating real time task")
+    {
+      int counter = 0;
+
+      clock.addGameTimeClockTask(
+          [&counter]() {
+            counter++;
+            return false;
+          },
+          0, 0);
+      tickingThread.join();
+
+      THEN("The repeating task executes exact number of times") { CHECK(counter == 1); }
+    }
+  }
+}
+
 TEST_CASE("I can schedule multiple real time tasks and remove some", "[engine][clock]")
 {
   GIVEN("I have a Game Clock running")
@@ -407,22 +507,6 @@ TEST_CASE("I can schedule multiple real/game time tasks and clear them all", "[e
   }
 }
 
-TEST_CASE("I get invalid handle in case of fault parameter provided", "[engine][clock]")
-{
-  GIVEN("I have a Game Clock running")
-  {
-    GameService::ServiceTuple ctx = GameService::ServiceTuple{};
-    GameClock clock(ctx);
-
-    WHEN("I schedule task with invalid parameter")
-    {
-      auto hndl = clock.addGameTimeClockTask(nullptr, GameClock::GameMinute, GameClock::GameMinute);
-
-      THEN("The task did not start and invalid handle is returned") { CHECK(hndl == GameClock::ClockTaskHndlInvalid); }
-    }
-  }
-}
-
 TEST_CASE("I try to remove non existing task", "[engine][clock]")
 {
   GIVEN("I have a Game Clock running")
@@ -432,7 +516,6 @@ TEST_CASE("I try to remove non existing task", "[engine][clock]")
 
     WHEN("I schedule one task and try to remove non existing one")
     {
-      clock.addGameTimeClockTask(nullptr, GameClock::GameMinute, GameClock::GameMinute);
       auto res = clock.removeClockTask(0xFFFFFFFF);
 
       THEN("The task cannot be removed and false is returned") { CHECK(res == false); }
@@ -454,7 +537,6 @@ TEST_CASE("I can remove myself in callback", "[engine][clock]")
 
       clock.addGameTimeClockTask(
           [&counter]() {
-
             if (counter == 2)
             {
               // remove itself

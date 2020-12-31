@@ -286,37 +286,33 @@ void Game::run(bool SkipMenu)
 #ifdef USE_AUDIO
   if (!Settings::instance().audio3DStatus)
   {
-    m_AudioMixer.play(AudioTrigger::MainTheme);
     m_GameClock.addRealTimeClockTask(
         [this]() {
           m_AudioMixer.play(AudioTrigger::MainTheme);
           return false;
         },
-        8min, 8min);
-    m_AudioMixer.play(AudioTrigger::NatureSounds);
+        0s, 8min);
     m_GameClock.addRealTimeClockTask(
         [this]() {
           m_AudioMixer.play(AudioTrigger::NatureSounds);
           return false;
         },
-        3min, 3min);
+        0s, 3min);
   }
   else
   {
-    m_AudioMixer.play(AudioTrigger::MainTheme, Coordinate3D{0, 0.5, 0.1});
     m_GameClock.addRealTimeClockTask(
         [this]() {
           m_AudioMixer.play(AudioTrigger::MainTheme, Coordinate3D{0, 0.5, 0.1});
           return false;
         },
-        8min, 8min);
-    m_AudioMixer.play(AudioTrigger::NatureSounds, Coordinate3D{0, 0, -2});
+        0s, 8min);
     m_GameClock.addRealTimeClockTask(
         [this]() {
           m_AudioMixer.play(AudioTrigger::NatureSounds, Coordinate3D{0, 0, -2});
           return false;
         },
-        3min, 3min);
+        0s, 3min);
   }
 #endif // USE_AUDIO
 

@@ -1,12 +1,25 @@
 #include "GameClock.hxx"
 
-GameClock::GameClock(GameService::ServiceTuple &services) : GameService(services) {}
+template <typename Task, typename Now> void GameClock::tickTask(PriorityQueue<Task> &queue, const Now now)
+{
+  while (!queue.isEmpty() && (now >= queue.top().m_waketime))
+  {
+    const auto task = queue.top();
+    queue.pop();
+    const bool isCanceled = task.callback();
+
+    if (!isCanceled && (task.m_period != decltype(task.m_period){0}))
+    {
+      queue.add(Task(task.callback, now + task.m_period, task.m_period, task.hndl));
+    }
+  }
+}
 
 void GameClock::tick(void)
 {
   std::lock_guard<std::mutex> lock(m_lock);
 
-  auto now = Clock::now();
+  const auto now = Clock::now();
 
   tickTask(m_realTimeTasks, now);
 
@@ -46,17 +59,26 @@ bool GameClock::removeClockTask(ClockTaskHndl hndl)
 
 GameClock::ClockTaskHndl GameClock::addGameTimeClockTask(ClockCbk cbk, GameClockTime delay, GameClockTime period)
 {
-  if ((cbk != nullptr) && (delay > 0U))
+  assert(cbk != nullptr);
+
+  std::lock_guard<std::mutex> lock(m_lock);
+
+  // If no delay required call callback immediately
+  if (delay == 0)
   {
-    std::lock_guard<std::mutex> lock(m_lock);
-    // Add +1 tick just to be sure timer is not fire before its timeout.
-    m_gameTimeTasks.add(GameTimeClockTask(cbk, delay + m_gameTicks + 1U, period, ++m_unique_handle));
-    return m_unique_handle;
+    const bool isCanceled = cbk();
+
+    if (isCanceled || (period == 0))
+    {
+      return ClockTaskHndlInvalid;
+    }
+
+    delay = period;
   }
-  else
-  {
-    return ClockTaskHndlInvalid;
-  }
+
+  // Add +1 tick just to be sure timer is not fire before its timeout.
+  m_gameTimeTasks.add(GameTimeClockTask(cbk, delay + m_gameTicks + 1U, period, ++m_unique_handle));
+  return m_unique_handle;
 }
 
 void GameClock::setGameClockSpeed(float speedFactor)

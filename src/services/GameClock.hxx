@@ -20,11 +20,6 @@ class GameClock : public GameService
 private:
   using Clock = std::chrono::high_resolution_clock;
 
-  /**
-  * @brief Duration of default game timer tick in ms.
-  */
-  const unsigned int DefaultGameTickDuration = 2000;
-
 public:
   using TimePoint = std::chrono::time_point<Clock>;
   using TimeDuration = Clock::duration;
@@ -48,15 +43,7 @@ public:
   */
   static const GameClockTime GameDay = 24 * GameHour;
 
-  /**
-  * @brief Invalid clock handle. Represent error value during clock task creation.
-  */
-  static constexpr ClockTaskHndl ClockTaskHndlInvalid = ClockTaskHndl(0);
-
-  /**
-  * @brief Constructor.
-  */
-  GameClock(GameService::ServiceTuple &);
+  GameClock(GameService::ServiceTuple &services) : GameService{services} {};
 
   /**
   * @brief This function provide the tick for both clocks.
@@ -108,8 +95,19 @@ public:
   bool removeClockTask(ClockTaskHndl hndl);
 
 private:
+  /**
+  * @brief Duration of default game timer tick in ms.
+  */
+  static constexpr unsigned int DefaultGameTickDuration = 2000;
   static constexpr TimePoint TimePointZero = TimePoint{0s};
+  /**
+  * @brief Invalid task handler. In case that clock is not added.
+  */
+  static constexpr ClockTaskHndl ClockTaskHndlInvalid = ClockTaskHndl{0};
 
+  /**
+  * @brief Template structure provide base for different clock tasks.
+  */
   template <typename Time, typename Duration> struct ClockTask
   {
     ClockCbk callback;
@@ -141,6 +139,11 @@ private:
   // The current game tick duration on milliseconds.
   Clock::duration m_gameTickDuration = std::chrono::milliseconds(DefaultGameTickDuration);
 
+  /**
+  * @brief Tick clock for given task type.
+  * @param queue Priority queue of tasks.
+  * @param now The time point when tick occurred.
+  */
   template <typename Task, typename Now> void tickTask(PriorityQueue<Task> &queue, Now now);
 };
 
