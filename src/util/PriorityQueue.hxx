@@ -43,7 +43,7 @@ public:
     * @brief Remove task from queue.
     * @param position Position of element to be removed.
     */
-  void remove(Iterator position) { m_container.erase(position); };
+  void remove(Iterator position);
 
   /**
     * @brief Remove all elements from queue.

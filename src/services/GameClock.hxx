@@ -27,9 +27,11 @@ private:
 
 public:
   using TimePoint = std::chrono::time_point<Clock>;
+  using TimeDuration = Clock::duration;
   using ClockCbk = std::function<bool(void)>;
   using ClockTaskHndl = unsigned long;
   using GameClockTime = unsigned long;
+  using GameClockDuration = unsigned long;
 
   /**
   * @brief Represent 1 minute of game time.
@@ -108,15 +110,15 @@ public:
 private:
   static constexpr TimePoint TimePointZero = TimePoint{0s};
 
-  template <typename Time> struct ClockTask
+  template <typename Time, typename Duration> struct ClockTask
   {
     ClockCbk callback;
     Time m_waketime;
-    Time m_period;
+    Duration m_period;
     ClockTaskHndl hndl;
 
-    explicit ClockTask(ClockCbk cbk, Time delay, Time period, ClockTaskHndl hndl)
-        : callback(cbk), m_waketime(delay), m_period(period), hndl(hndl)
+    explicit ClockTask(ClockCbk cbk, Time delay, Duration period, ClockTaskHndl hndl)
+        : callback{cbk}, m_waketime{delay}, m_period{period}, hndl{hndl}
     {
     }
 
@@ -124,8 +126,8 @@ private:
     bool operator>(const ClockTask &task2) const { return m_waketime > task2.m_waketime; }
   };
 
-  using RealTimeClockTask = ClockTask<TimePoint>;
-  using GameTimeClockTask = ClockTask<GameClockTime>;
+  using RealTimeClockTask = ClockTask<TimePoint, TimeDuration>;
+  using GameTimeClockTask = ClockTask<GameClockTime, GameClockDuration>;
 
   PriorityQueue<RealTimeClockTask> m_realTimeTasks;
   PriorityQueue<GameTimeClockTask> m_gameTimeTasks;
@@ -139,7 +141,7 @@ private:
   // The current game tick duration on milliseconds.
   Clock::duration m_gameTickDuration = std::chrono::milliseconds(DefaultGameTickDuration);
 
-  void GameClock::tickRealTime();
+  template <typename Task, typename Now> void tickTask(PriorityQueue<Task> &queue, Now now);
 };
 
 #include "GameClock.inl.hxx"
