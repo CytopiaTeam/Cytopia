@@ -40,12 +40,20 @@ public:
   bool peek(void) noexcept;
 
   /**
-   * @details Blocks the thread until an event is received
-   * @returns an Enumerable of Events on the Queue
+   * @details Blocks the thread until an event is received.
+   * @returns an Enumerable of the Queue Events.
    * @post the Queue is emptied
    * @post Enumerable contains at least one Event
    */
   Enumerable getEnumerable(void);
+
+  /**
+   * @details Blocks the thread until an event is received or timeout occurred.
+   * @returns an Enumerable of the Queue Events if at least one event received in queue before timeout occurred, otherwise TimeOut event.
+   * @post the Queue is emptied
+   * @post Enumerable contains at least one Event
+   */
+  template <typename Duration> Enumerable getEnumerableTimeout(Duration duration);
 
   /* These operators are deleted to prevent race hazards */
   MessageQueue(const MessageQueue &) = delete;
@@ -65,6 +73,8 @@ private:
   MonitorUPtr m_OnEvent = std::make_unique<Monitor>();
   MutexUPtr m_Semaphore = std::make_unique<Mutex>();
   Deque<Event> m_Queue;
+
+  Enumerable swapQueue(void);
 };
 
 #include "MessageQueue.inl.hxx"

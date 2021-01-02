@@ -22,6 +22,7 @@ set(SOURCE_FILES
         services/GameClock.{hxx,cxx}
         services/ResourceManager.{hxx,cxx}
         engine/MessageQueue.hxx
+        engine/MessageQueue.inl.hxx
         engine/basics/Camera.{hxx,cxx}
         engine/basics/isoMath.{hxx,cxx}
         engine/basics/mapEdit.{hxx,cxx}

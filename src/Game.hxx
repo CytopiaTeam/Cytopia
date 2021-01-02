@@ -93,6 +93,8 @@ private:
      * @throws  CytopiaError
      */
     void operator()(TerminateEvent &&);
+
+    void operator()(TimeoutEvent &&);
     
     /**
      * @brief   Handles window changes
@@ -154,7 +156,7 @@ private:
      * @throws  CytopiaError
      */
     void operator()(TerminateEvent &&);
-    
+    void operator()(TimeoutEvent &&);
     /**
      * @brief   handles invalid game events
      * @tparam  ArgumentType the invalid game event

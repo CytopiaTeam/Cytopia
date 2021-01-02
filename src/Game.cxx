@@ -362,15 +362,19 @@ template <typename MQType, typename Visitor> void Game::LoopMain(GameContext &co
   {
     while (true)
     {
-      for (auto event : std::get<MQType *>(context)->getEnumerable())
+      for (auto event : std::get<MQType *>(context)->getEnumerableTimeout(3s))
       {
         if (std::holds_alternative<TerminateEvent>(event))
         {
           return;
         }
-        else
+        else if (!std::holds_alternative<TimeoutEvent>(event))
         {
           std::visit(visitor, std::move(event));
+        }
+        else
+        {
+          LOG(LOG_INFO) << "Timeout event occurred";
         }
       }
     }
@@ -388,6 +392,12 @@ void Game::GameVisitor::operator()(TerminateEvent &&)
   throw CytopiaError{TRACE_INFO "Invalid dispatch: TerminateEvent"};
 }
 
+void Game::GameVisitor::operator()(TimeoutEvent &&)
+{
+  // TerminateEvent is always handled in the base loop
+  throw CytopiaError{TRACE_INFO "Invalid dispatch: TimeoutEvent"};
+}
+
 void Game::GameVisitor::operator()(ActivitySwitchEvent && event)
 {
   /**
@@ -400,6 +410,12 @@ void Game::UIVisitor::operator()(TerminateEvent &&)
 {
   // TerminateEvent is always handled in the base loop
   throw CytopiaError{TRACE_INFO "Invalid dispatch: TerminateEvent"};
+}
+
+void Game::UIVisitor::operator()(TimeoutEvent &&)
+{
+  // TerminateEvent is always handled in the base loop
+  throw CytopiaError{TRACE_INFO "Invalid dispatch: TimeoutEvent"};
 }
 
 void Game::UIVisitor::operator()(UIChangeEvent && event)
