@@ -49,7 +49,7 @@ public:
 
   /**
    * @details Blocks the thread until an event is received or timeout occurred.
-   * @returns an Enumerable of the Queue Events if at least one event received in queue before timeout occurred, otherwise TimeOut event.
+   * @returns an Enumerable of the Queue Events if at least one event received in queue before timeout occurred, otherwise empty queue.
    * @post the Queue is emptied
    * @post Enumerable contains at least one Event
    */
