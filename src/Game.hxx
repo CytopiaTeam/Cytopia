@@ -83,7 +83,8 @@ private:
   /* Window */
   Window m_Window;
 
-  template <typename MQType, typename Visitor> static void LoopMain(GameContext &context, Visitor visitor);
+  template <typename MQType, typename Visitor>
+  static void LoopMain(GameContext &context, Visitor visitor, typename MQType::Enumerable getEvents(GameContext &context));
 
   struct UIVisitor
   {
