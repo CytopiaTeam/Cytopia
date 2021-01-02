@@ -25,18 +25,17 @@
 #include "microprofile.h"
 #endif
 
-template <typename MQType> typename MQType::Enumerable getEvents(Game::GameContext &context);
 template void Game::LoopMain<GameLoopMQ, Game::GameVisitor>(Game::GameContext &, Game::GameVisitor,
                                                             GameLoopMQ::Enumerable getEvents(GameContext &context));
 template void Game::LoopMain<UILoopMQ, Game::UIVisitor>(Game::GameContext &, Game::UIVisitor,
                                                         UILoopMQ::Enumerable getEvents(GameContext &context));
 
-template <> typename GameLoopMQ::Enumerable getEvents<GameLoopMQ>(Game::GameContext &context)
+template <> typename GameLoopMQ::Enumerable Game::getEvents<GameLoopMQ>(GameContext &context)
 {
   return std::get<GameLoopMQ *>(context)->getEnumerable();
 }
 
-template <> typename UILoopMQ::Enumerable getEvents<UILoopMQ>(Game::GameContext &context)
+template <> typename UILoopMQ::Enumerable Game::getEvents<UILoopMQ>(GameContext &context)
 {
   auto const events = std::get<UILoopMQ *>(context)->getEnumerableTimeout(5s);
 

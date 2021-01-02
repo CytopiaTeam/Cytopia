@@ -86,6 +86,8 @@ private:
   template <typename MQType, typename Visitor>
   static void LoopMain(GameContext &context, Visitor visitor, typename MQType::Enumerable getEvents(GameContext &context));
 
+  template <typename MQType> static typename MQType::Enumerable getEvents(GameContext &context);
+
   struct UIVisitor
   {
 
