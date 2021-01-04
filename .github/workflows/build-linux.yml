@@ -1,0 +1,62 @@
+---
+name: Build Linux
+
+on: [push, pull_request]
+
+jobs:
+  build-gcc:
+    env:
+      sccache_CACHE_SIZE: 500M
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2.3.4
+        with:
+          submodules: true
+
+      - name: Prepare sccache timestamp
+        id: sccache_cache_timestamp
+        shell: cmake -P {0}
+        run: |
+          string(TIMESTAMP current_date "%Y-%m-%d-%H;%M;%S" UTC)
+          message("::set-output name=timestamp::${current_date}")
+
+      - name: sccache cache files
+        uses: actions/cache@v1.1.0
+        with:
+          path: ~/.cache/sccache
+          key: ubuntu-sccache-${{ steps.sccache_cache_timestamp.outputs.timestamp }}
+          restore-keys: |
+            ubuntu-sccache-
+
+      - name: Install dependencies
+        run: |
+          cd /tmp/
+          wget https://vps.anotherfoxguy.com/ipfs/QmYsuZ3TN77VYi5kS3tH8jjP6PWEogBXtGy4QbS9Tw5mBS -O catch2.deb
+          sudo dpkg -i catch2.deb
+          curl "https://raw.githubusercontent.com/AnotherFoxGuy/ci-scripts/main/install-cmake.sh" | sudo bash
+          curl "https://raw.githubusercontent.com/AnotherFoxGuy/ci-scripts/main/install-sccache.sh" | sudo bash
+          sudo apt-get update
+          sudo apt-get -y install \
+                  ninja-build \
+                  doxygen \
+                  graphviz \
+                  libsdl2-dev \
+                  libsdl2-image-dev \
+                  libsdl2-ttf-dev \
+                  libnoise-dev \
+                  libopenal-dev \
+                  libvorbis-dev \
+                  libpng-dev
+        shell: bash
+
+      - name: Build
+        run: |
+          cmake -GNinja -DCMAKE_BUILD_TYPE=Release -DPACKAGE_MANAGER=pkgconfig -DENABLE_ANGELSCRIPT=OFF -DENABLE_MOFILEREADER=OFF .
+          ninja
+          sccache --show-stats
+        shell: bash
+
+      - name: Test
+        uses: GabrielBB/xvfb-action@v1
+        with:
+          run: ctest -VV
