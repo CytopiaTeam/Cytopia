@@ -30,9 +30,6 @@ jobs:
 
       - name: Install dependencies
         run: |
-          cd /tmp/
-          wget https://vps.anotherfoxguy.com/ipfs/QmYsuZ3TN77VYi5kS3tH8jjP6PWEogBXtGy4QbS9Tw5mBS -O catch2.deb
-          sudo dpkg -i catch2.deb
           curl "https://raw.githubusercontent.com/AnotherFoxGuy/ci-scripts/main/install-cmake.sh" | sudo bash
           curl "https://raw.githubusercontent.com/AnotherFoxGuy/ci-scripts/main/install-sccache.sh" | sudo bash
           sudo apt-get update
@@ -51,7 +48,7 @@ jobs:
 
       - name: Build
         run: |
-          cmake -GNinja -DCMAKE_BUILD_TYPE=Release -DPACKAGE_MANAGER=pkgconfig -DENABLE_ANGELSCRIPT=OFF -DENABLE_MOFILEREADER=OFF .
+          cmake -GNinja -DCMAKE_BUILD_TYPE=Release -DPACKAGE_MANAGER=pkgconfig -DENABLE_ANGELSCRIPT=OFF -DENABLE_MOFILEREADER=OFF -DBUILD_TEST=ON .
           ninja
           sccache --show-stats
         shell: bash
