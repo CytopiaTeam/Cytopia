@@ -75,40 +75,42 @@ private:
 #endif
   UILoopMQ m_UILoopMQ;
   GameLoopMQ m_GameLoopMQ;
-  
+
   /* Threads */
   Thread m_UILoop;
   Thread m_EventLoop;
-  
+
   /* Window */
   Window m_Window;
 
   template <typename MQType, typename Visitor> static void LoopMain(GameContext &context, Visitor visitor);
 
+  template <typename MQType> static typename MQType::Enumerable getEvents(GameContext &context);
+
   struct UIVisitor
   {
-    
+
     /**
      * @brief   Do not call.
      * @throws  CytopiaError
      */
     void operator()(TerminateEvent &&);
-    
+
     /**
      * @brief   Handles window changes
      */
     void operator()(WindowResizeEvent &&);
-    
+
     /**
      * @brief   Handles window redrawing requests
      */
     void operator()(WindowRedrawEvent &&);
-    
+
     /**
      * @brief   Handles changes in the UI
      */
     void operator()(UIChangeEvent &&);
-    
+
     /**
      * @brief   Handles switching to a new Activity
      */
@@ -119,7 +121,6 @@ private:
      * @tparam  ArgumentType the invalid event
      */
     template <typename ArgumentType> void operator()(ArgumentType &&event);
-  
   };
 
   struct GameVisitor : public GameService
@@ -133,17 +134,17 @@ private:
     template <typename AudioEventType>
     EnableIf<ContainsType<AudioEvents, AudioEventType>, void> operator()(AudioEventType &&event);
 #endif // USE_AUDIO
-    
+
     /**
      * @brief   Handles window changes
      */
     void operator()(WindowResizeEvent &&);
-    
+
     /**
      * @brief   Handles window redrawing requests
      */
     void operator()(WindowRedrawEvent &&);
-    
+
     /**
      * @brief   Handles switching to a new Activity
      */
@@ -154,14 +155,13 @@ private:
      * @throws  CytopiaError
      */
     void operator()(TerminateEvent &&);
-    
+
     /**
      * @brief   handles invalid game events
      * @tparam  ArgumentType the invalid game event
      */
     template <typename ArgumentType> void operator()(const ArgumentType &&event);
   };
-
 };
 
 #include "Game.inl.hxx"

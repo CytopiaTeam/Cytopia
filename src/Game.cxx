@@ -28,8 +28,8 @@
 template void Game::LoopMain<GameLoopMQ, Game::GameVisitor>(Game::GameContext &, Game::GameVisitor);
 template void Game::LoopMain<UILoopMQ, Game::UIVisitor>(Game::GameContext &, Game::UIVisitor);
 
-Game::Game() : 
-      m_GameContext(&m_UILoopMQ, &m_GameLoopMQ,
+Game::Game()
+    : m_GameContext(&m_UILoopMQ, &m_GameLoopMQ,
 #ifdef USE_AUDIO
                     &m_AudioMixer,
 #endif // USE_AUDIO
@@ -40,11 +40,9 @@ Game::Game() :
 #endif
       m_UILoop(&LoopMain<UILoopMQ, UIVisitor>, std::ref(m_GameContext), UIVisitor{}),
       m_EventLoop(&LoopMain<GameLoopMQ, GameVisitor>, std::ref(m_GameContext), GameVisitor{m_GameContext}),
-      m_Window(m_GameContext, VERSION, 
-        Settings::instance().getDefaultWindowWidth(), 
-        Settings::instance().getDefaultWindowHeight(), 
-        Settings::instance().fullScreen, 
-        "resources/images/app_icons/cytopia_icon.png")
+      m_Window(m_GameContext, VERSION, Settings::instance().getDefaultWindowWidth(),
+               Settings::instance().getDefaultWindowHeight(), Settings::instance().fullScreen,
+               "resources/images/app_icons/cytopia_icon.png")
 {
   LOG(LOG_DEBUG) << "Created Game Object";
   /**
@@ -76,7 +74,6 @@ bool Game::initialize()
 #ifdef USE_MOFILEREADER
   std::string moFilePath = fs::getBasePath();
   moFilePath = moFilePath + "languages/" + Settings::instance().gameLanguage + "/Cytopia.mo";
-
 
   Layout::instance().setWindow(&m_Window);
   EventManager::instance().setWindow(&m_Window);
@@ -356,13 +353,34 @@ void Game::shutdown()
   UIManager::instance().flush();
 }
 
-template <typename MQType, typename Visitor> void Game::LoopMain(GameContext &context, Visitor visitor)
+// Primary template, this is default behavior: block indefinitely until an event arrive in queue.
+template <typename MQType> typename MQType::Enumerable Game::getEvents(GameContext &context)
+{
+  return std::get<MQType *>(context)->getEnumerable();
+}
+
+// Full specialized template for UILoopMQ.
+template <> typename UILoopMQ::Enumerable Game::getEvents<UILoopMQ>(GameContext &context)
+{
+  auto const events = std::get<UILoopMQ *>(context)->getEnumerableTimeout(5s);
+
+  /**
+    *  @todo (Bogi): this is just demo, will be replaced with timer tick
+    */
+  if (events.empty())
+    LOG(LOG_INFO) << "Timeout event occurred";
+
+  return events;
+}
+
+template <typename MQType, typename Visitor>
+void Game::LoopMain(GameContext &context, Visitor visitor)
 {
   try
   {
     while (true)
     {
-      for (auto event : std::get<MQType *>(context)->getEnumerable())
+      for (auto event : getEvents<MQType>(context))
       {
         if (std::holds_alternative<TerminateEvent>(event))
         {
@@ -388,7 +406,7 @@ void Game::GameVisitor::operator()(TerminateEvent &&)
   throw CytopiaError{TRACE_INFO "Invalid dispatch: TerminateEvent"};
 }
 
-void Game::GameVisitor::operator()(ActivitySwitchEvent && event)
+void Game::GameVisitor::operator()(ActivitySwitchEvent &&event)
 {
   /**
    *  @todo Implement this function
@@ -402,12 +420,9 @@ void Game::UIVisitor::operator()(TerminateEvent &&)
   throw CytopiaError{TRACE_INFO "Invalid dispatch: TerminateEvent"};
 }
 
-void Game::UIVisitor::operator()(UIChangeEvent && event)
-{
-  event.apply();
-}
+void Game::UIVisitor::operator()(UIChangeEvent &&event) { event.apply(); }
 
-void Game::UIVisitor::operator()(ActivitySwitchEvent && event)
+void Game::UIVisitor::operator()(ActivitySwitchEvent &&event)
 {
   /**
    *  @todo Implement this function
@@ -415,7 +430,7 @@ void Game::UIVisitor::operator()(ActivitySwitchEvent && event)
   throw UnimplementedError{TRACE_INFO "Not implemented"};
 }
 
-void Game::UIVisitor::operator()(WindowResizeEvent && event)
+void Game::UIVisitor::operator()(WindowResizeEvent &&event)
 {
   /**
    *  @todo Implement this function
@@ -423,11 +438,10 @@ void Game::UIVisitor::operator()(WindowResizeEvent && event)
   throw UnimplementedError{TRACE_INFO "Not implemented"};
 }
 
-void Game::UIVisitor::operator()(WindowRedrawEvent && event)
+void Game::UIVisitor::operator()(WindowRedrawEvent &&event)
 {
   /**
    *  @todo Implement this function
    */
   throw UnimplementedError{TRACE_INFO "Not implemented"};
 }
-
