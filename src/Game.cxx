@@ -360,7 +360,7 @@ template <typename MQType> static typename MQType::Enumerable Game::getEvents(Ga
 }
 
 // Full specialized template for UILoopMQ.
-template <> static typename UILoopMQ::Enumerable Game::getEvents<UILoopMQ>(GameContext &context)
+template <> typename UILoopMQ::Enumerable Game::getEvents<UILoopMQ>(GameContext &context)
 {
   auto const events = std::get<UILoopMQ *>(context)->getEnumerableTimeout(5s);
 
