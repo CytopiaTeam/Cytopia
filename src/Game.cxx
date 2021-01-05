@@ -354,7 +354,7 @@ void Game::shutdown()
 }
 
 // Primary template, this is default behavior: block indefinitely until an event arrive in queue.
-template <typename MQType> static typename MQType::Enumerable Game::getEvents(GameContext &context)
+template <typename MQType> typename MQType::Enumerable Game::getEvents(GameContext &context)
 {
   return std::get<MQType *>(context)->getEnumerable();
 }
