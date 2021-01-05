@@ -53,7 +53,7 @@ public:
    * @tparam Duration the type of the Duration
    * @param the duration value
    */
-  template <typename Duration> Enumerable getEnumerableTimeout(Duration&& duration);
+  template <typename Duration> Enumerable getEnumerableTimeout(Duration &&duration);
 
   /* These operators are deleted to prevent race hazards */
   MessageQueue(const MessageQueue &) = delete;
@@ -65,14 +65,14 @@ public:
 
 private:
   /**
-   * @pre This thread owns a m_Semaphore Lock
+   * @pre This thread owns a m_mutex Lock
    * @returns true if the queue contains an event
    */
   bool wakeCondition(void) const noexcept;
 
-  MonitorUPtr m_OnEvent = std::make_unique<Monitor>();
-  MutexUPtr m_Semaphore = std::make_unique<Mutex>();
-  Deque<Event> m_Queue;
+  MonitorUPtr m_onEvent = std::make_unique<Monitor>();
+  MutexUPtr m_mutex = std::make_unique<Mutex>();
+  Deque<Event> m_queue;
 
   Enumerable swapQueue(void);
 };
