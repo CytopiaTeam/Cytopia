@@ -32,10 +32,10 @@ template <typename Event> typename MessageQueue<Event>::Enumerable MessageQueue<
 
 template <typename Event>
 template <typename Duration>
-typename MessageQueue<Event>::Enumerable MessageQueue<Event>::getEnumerableTimeout(Duration duration)
+typename MessageQueue<Event>::Enumerable MessageQueue<Event>::getEnumerableTimeout(Duration && duration)
 {
   Lock<Mutex> lock(*m_Semaphore);
-  m_OnEvent->wait_for(lock, duration, std::bind(&MessageQueue::wakeCondition, this));
+  m_OnEvent->wait_for(lock, std::forward(duration), std::bind(&MessageQueue::wakeCondition, this));
   return swapQueue();
 }
 

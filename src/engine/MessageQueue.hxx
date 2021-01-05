@@ -50,8 +50,10 @@ public:
   /**
    * @details Blocks the thread until an event is received or timeout occurred.
    * @returns an Enumerable of the Queue Events if at least one event received before timeout occurred, otherwise empty enumerable of Queue Events.
+   * @tparam Duration the type of the Duration
+   * @param the duration value
    */
-  template <typename Duration> Enumerable getEnumerableTimeout(Duration duration);
+  template <typename Duration> Enumerable getEnumerableTimeout(Duration&& duration);
 
   /* These operators are deleted to prevent race hazards */
   MessageQueue(const MessageQueue &) = delete;

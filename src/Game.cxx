@@ -39,7 +39,9 @@ template <> typename UILoopMQ::Enumerable Game::getEvents<UILoopMQ>(GameContext 
 {
   auto const events = std::get<UILoopMQ *>(context)->getEnumerableTimeout(5s);
 
-  // TODO: this is just demo, will be replaced with timer tick
+  /**
+    *  @todo (bogi): this is just demo, will be replaced with timer tick
+    */
   if (events.empty())
     LOG(LOG_INFO) << "Timeout event occurred";
 
