@@ -1,6 +1,5 @@
 ![Cytopia Logo](data/resources/images/app_icons/logo_big_textured.png?raw=1)
 
-[![Build Status](https://travis-ci.org/CytopiaTeam/Cytopia.svg?branch=master)](https://travis-ci.org/CytopiaTeam/Cytopia)
 [![Discord](https://img.shields.io/discord/448344322887254018.svg?logo=discord)](https://discord.gg/qwa2H3G)
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/df211f806ce941a091ff18f0c73cc48f)](https://www.codacy.com/app/JimmySnails/Cytopia_2?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CytopiaTeam/Cytopia&amp;utm_campaign=Badge_Grade)

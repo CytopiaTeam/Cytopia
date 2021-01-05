@@ -1,0 +1,67 @@
+---
+name: Build Windows
+
+on: [push, pull_request]
+
+jobs:
+  build-msvc:
+    env:
+      SCCACHE_DIR: C:\sccache
+      SCCACHE_CACHE_SIZE: 500M
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2.3.4
+        with:
+          submodules: true
+
+      - name: Prepare sccache timestamp
+        id: sccache_cache_timestamp
+        shell: cmake -P {0}
+        run: |
+          string(TIMESTAMP current_date "%Y-%m-%d-%H;%M;%S" UTC)
+          message("::set-output name=timestamp::${current_date}")
+
+      - name: sccache cache files
+        uses: actions/cache@v1.1.0
+        with:
+          path: C:\sccache
+          key: windows-sccache-${{ steps.sccache_cache_timestamp.outputs.timestamp }}
+          restore-keys: |
+            windows-sccache-
+
+      - name: Cache conan
+        uses: actions/cache@v1
+        with:
+          key: conan-root-${{ hashFiles('**/conanfile-win.txt.in') }}
+          path: ~/.conan
+
+      - name: Install dependencies
+        run: |
+          choco install ninja sccache -y
+
+          choco install conan -y -s="https://api.bintray.com/nuget/anotherfoxguy/choco-pkg"
+
+          refreshenv
+        shell: cmd
+
+      - name: Build
+        run: |
+          call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+
+          SET PATH=%PATH%;C:\Program Files\Conan\conan\
+
+          cmake -GNinja -DCMAKE_BUILD_TYPE=Release .
+
+          ninja
+
+          sccache --show-stats
+        shell: cmd
+
+      - name: Test
+        run: ctest -VV
+        shell: cmd
+
+      - name: Clean Conan pkgs
+        run: |
+          "C:\Program Files\Conan\conan\conan.exe" remove * -fsb
+        shell: cmd
