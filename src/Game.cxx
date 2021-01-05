@@ -25,28 +25,8 @@
 #include "microprofile.h"
 #endif
 
-template void Game::LoopMain<GameLoopMQ, Game::GameVisitor>(Game::GameContext &, Game::GameVisitor,
-                                                            GameLoopMQ::Enumerable getEvents(GameContext &context));
-template void Game::LoopMain<UILoopMQ, Game::UIVisitor>(Game::GameContext &, Game::UIVisitor,
-                                                        UILoopMQ::Enumerable getEvents(GameContext &context));
-
-template <> typename GameLoopMQ::Enumerable Game::getEvents<GameLoopMQ>(GameContext &context)
-{
-  return std::get<GameLoopMQ *>(context)->getEnumerable();
-}
-
-template <> typename UILoopMQ::Enumerable Game::getEvents<UILoopMQ>(GameContext &context)
-{
-  auto const events = std::get<UILoopMQ *>(context)->getEnumerableTimeout(5s);
-
-  /**
-    *  @todo (bogi): this is just demo, will be replaced with timer tick
-    */
-  if (events.empty())
-    LOG(LOG_INFO) << "Timeout event occurred";
-
-  return events;
-}
+template void Game::LoopMain<GameLoopMQ, Game::GameVisitor>(Game::GameContext &, Game::GameVisitor);
+template void Game::LoopMain<UILoopMQ, Game::UIVisitor>(Game::GameContext &, Game::UIVisitor);
 
 Game::Game()
     : m_GameContext(&m_UILoopMQ, &m_GameLoopMQ,
@@ -58,8 +38,8 @@ Game::Game()
 #ifdef USE_AUDIO
       m_AudioMixer{m_GameContext},
 #endif
-      m_UILoop(&LoopMain<UILoopMQ, UIVisitor>, std::ref(m_GameContext), UIVisitor{}, getEvents<UILoopMQ>),
-      m_EventLoop(&LoopMain<GameLoopMQ, GameVisitor>, std::ref(m_GameContext), GameVisitor{m_GameContext}, getEvents<GameLoopMQ>),
+      m_UILoop(&LoopMain<UILoopMQ, UIVisitor>, std::ref(m_GameContext), UIVisitor{}),
+      m_EventLoop(&LoopMain<GameLoopMQ, GameVisitor>, std::ref(m_GameContext), GameVisitor{m_GameContext}),
       m_Window(m_GameContext, VERSION, Settings::instance().getDefaultWindowWidth(),
                Settings::instance().getDefaultWindowHeight(), Settings::instance().fullScreen,
                "resources/images/app_icons/cytopia_icon.png")
@@ -373,16 +353,34 @@ void Game::shutdown()
   UIManager::instance().flush();
 }
 
+// Primary template, this is default behavior: block indefinitely until an event arrive in queue.
+template <typename MQType> static typename MQType::Enumerable Game::getEvents(GameContext &context)
+{
+  return std::get<MQType *>(context)->getEnumerable();
+}
+
+// Full specialized template for UILoopMQ.
+template <> static typename UILoopMQ::Enumerable Game::getEvents<UILoopMQ>(GameContext &context)
+{
+  auto const events = std::get<UILoopMQ *>(context)->getEnumerableTimeout(5s);
+
+  /**
+    *  @todo (Bogi): this is just demo, will be replaced with timer tick
+    */
+  if (events.empty())
+    LOG(LOG_INFO) << "Timeout event occurred";
+
+  return events;
+}
+
 template <typename MQType, typename Visitor>
-void Game::LoopMain(GameContext &context, Visitor visitor, typename MQType::Enumerable getEvents(GameContext &context))
+void Game::LoopMain(GameContext &context, Visitor visitor)
 {
   try
   {
     while (true)
     {
-      const auto events = getEvents(context);
-
-      for (auto event : events)
+      for (auto event : getEvents<MQType>(context))
       {
         if (std::holds_alternative<TerminateEvent>(event))
         {
