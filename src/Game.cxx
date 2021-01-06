@@ -35,11 +35,11 @@ Game::Game()
 #endif // USE_AUDIO
                     &m_Randomizer, &m_GameClock, &m_ResourceManager),
       m_GameClock{m_GameContext}, m_Randomizer{m_GameContext}, m_ResourceManager{m_GameContext},
+      m_UILoop(&LoopMain<UILoopMQ, UIVisitor>, std::ref(m_GameContext), UIVisitor{}),
+      m_EventLoop(&LoopMain<GameLoopMQ, GameVisitor>, std::ref(m_GameContext), GameVisitor{m_GameContext}),
 #ifdef USE_AUDIO
       m_AudioMixer{m_GameContext},
 #endif
-      m_UILoop(&LoopMain<UILoopMQ, UIVisitor>, std::ref(m_GameContext), UIVisitor{}),
-      m_EventLoop(&LoopMain<GameLoopMQ, GameVisitor>, std::ref(m_GameContext), GameVisitor{m_GameContext}),
       m_Window(m_GameContext, VERSION, Settings::instance().getDefaultWindowWidth(),
                Settings::instance().getDefaultWindowHeight(), Settings::instance().fullScreen,
                "resources/images/app_icons/cytopia_icon.png")
@@ -281,13 +281,33 @@ void Game::run(bool SkipMenu)
 #ifdef USE_AUDIO
   if (!Settings::instance().audio3DStatus)
   {
-    m_GameClock.createRepeatedTask(8min, [this]() { m_AudioMixer.play(AudioTrigger::MainTheme); });
-    m_GameClock.createRepeatedTask(3min, [this]() { m_AudioMixer.play(AudioTrigger::NatureSounds); });
+    m_GameClock.addRealTimeClockTask(
+        [this]() {
+          m_AudioMixer.play(AudioTrigger::MainTheme);
+          return false;
+        },
+        0s, 8min);
+    m_GameClock.addRealTimeClockTask(
+        [this]() {
+          m_AudioMixer.play(AudioTrigger::NatureSounds);
+          return false;
+        },
+        0s, 3min);
   }
   else
   {
-    m_GameClock.createRepeatedTask(8min, [this]() { m_AudioMixer.play(AudioTrigger::MainTheme, Coordinate3D{0, 0.5, 0.1}); });
-    m_GameClock.createRepeatedTask(3min, [this]() { m_AudioMixer.play(AudioTrigger::NatureSounds, Coordinate3D{0, 0, -2}); });
+    m_GameClock.addRealTimeClockTask(
+        [this]() {
+          m_AudioMixer.play(AudioTrigger::MainTheme, Coordinate3D{0, 0.5, 0.1});
+          return false;
+        },
+        0s, 8min);
+    m_GameClock.addRealTimeClockTask(
+        [this]() {
+          m_AudioMixer.play(AudioTrigger::NatureSounds, Coordinate3D{0, 0, -2});
+          return false;
+        },
+        0s, 3min);
   }
 #endif // USE_AUDIO
 
@@ -353,6 +373,19 @@ void Game::shutdown()
   UIManager::instance().flush();
 }
 
+/**
+* @brief Check whether event queue contains event type.
+* @param events Queue contains events.
+* @tparam Event type to search for.
+* @tparam Queue type of queue which contains events. Let it be deduced from events parameter.
+* @return true in case event type is in the queue, otherwise false.
+*/
+template <typename Event, typename Queue> static bool containsEvent(const Queue &events)
+{
+  return (events.end() !=
+          std::find_if(events.begin(), events.end(), [](const auto event) { return std::holds_alternative<Event>(event); }));
+}
+
 // Primary template, this is default behavior: block indefinitely until an event arrive in queue.
 template <typename MQType> typename MQType::Enumerable Game::getEvents(GameContext &context)
 {
@@ -362,19 +395,21 @@ template <typename MQType> typename MQType::Enumerable Game::getEvents(GameConte
 // Full specialized template for UILoopMQ.
 template <> typename UILoopMQ::Enumerable Game::getEvents<UILoopMQ>(GameContext &context)
 {
-  auto const events = std::get<UILoopMQ *>(context)->getEnumerableTimeout(5s);
+  const auto events = std::get<UILoopMQ *>(context)->getEnumerableTimeout(16ms);
+  const auto pGameClock = std::get<GameClock *>(context);
 
-  /**
-    *  @todo (Bogi): this is just demo, will be replaced with timer tick
-    */
-  if (events.empty())
-    LOG(LOG_INFO) << "Timeout event occurred";
+  pGameClock->tick();
+
+  // Clear all timers in case of terminate event.
+  if (containsEvent<TerminateEvent>(events))
+  {
+    pGameClock->clear();
+  }
 
   return events;
 }
 
-template <typename MQType, typename Visitor>
-void Game::LoopMain(GameContext &context, Visitor visitor)
+template <typename MQType, typename Visitor> void Game::LoopMain(GameContext &context, Visitor visitor)
 {
   try
   {
