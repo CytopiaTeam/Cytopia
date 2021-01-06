@@ -1,8 +1,8 @@
 #include "GameClock.hxx"
 
-template <typename Task, typename Now> void GameClock::tickTask(PriorityQueue<Task> &queue, const Now now)
+template <typename Task, typename Cmp, typename Now> void GameClock::tickTask(PriorityQueue<Task, Cmp> &queue, const Now now)
 {
-  while (!queue.isEmpty() && (now >= queue.top().m_waketime))
+  while (!queue.empty() && (now >= queue.top().m_waketime))
   {
     const auto task = queue.top();
     queue.pop();
@@ -10,7 +10,7 @@ template <typename Task, typename Now> void GameClock::tickTask(PriorityQueue<Ta
 
     if (!isCanceled && (task.m_period != decltype(task.m_period){0}))
     {
-      queue.add(Task(task.callback, now + task.m_period, task.m_period, task.hndl));
+      queue.push(Task(task.callback, now + task.m_period, task.m_period, task.hndl));
     }
   }
 }
@@ -34,15 +34,7 @@ void GameClock::tick(void)
 
 template <typename Queue> static bool removeTaskFromQueue(const GameClock::ClockTaskHndl hndl, Queue &queue)
 {
-  auto position = std::find_if(queue.begin(), queue.end(), [hndl](auto it) { return it.hndl == hndl; });
-
-  if (position != queue.end())
-  {
-    queue.remove(position);
-    return true;
-  }
-
-  return false;
+  return queue.erase_if([hndl](const Queue::value_type &ct) { return ct.hndl == hndl; }) > 0;
 }
 
 bool GameClock::removeClockTask(ClockTaskHndl hndl)
@@ -77,7 +69,7 @@ GameClock::ClockTaskHndl GameClock::addGameTimeClockTask(ClockCbk cbk, GameClock
   }
 
   // Add +1 tick just to be sure timer is not fire before its timeout.
-  m_gameTimeTasks.add(GameTimeClockTask(cbk, delay + m_gameTicks + 1U, period, ++m_unique_handle));
+  m_gameTimeTasks.push(GameTimeClockTask(cbk, delay + m_gameTicks + 1U, period, ++m_unique_handle));
   return m_unique_handle;
 }
 

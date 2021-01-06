@@ -21,7 +21,7 @@ inline GameClock::ClockTaskHndl GameClock::addRealTimeClockTask(ClockCbk cbk, De
     delayConverted = (TimePoint)period;
   }
 
-  m_realTimeTasks.add(RealTimeClockTask(cbk, Clock::now() + (delayConverted - TimePointZero), (TimePoint)period - TimePointZero,
+  m_realTimeTasks.push(RealTimeClockTask(cbk, Clock::now() + (delayConverted - TimePointZero), (TimePoint)period - TimePointZero,
                                         ++m_unique_handle));
   return m_unique_handle;
 }

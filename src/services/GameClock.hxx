@@ -19,6 +19,7 @@ class GameClock : public GameService
 {
 private:
   using Clock = std::chrono::high_resolution_clock;
+  template <typename T, typename Comparator = std::less<T>> friend class PriorityQueue;
 
 public:
   using TimePoint = std::chrono::time_point<Clock>;
@@ -31,17 +32,17 @@ public:
   /**
   * @brief Represent 1 minute of game time.
   */
-  static const GameClockTime GameMinute = 1;
+  static constexpr GameClockTime GameMinute = 1;
 
   /**
   * @brief Represent 1 hour of game time.
   */
-  static const GameClockTime GameHour = 60 * GameMinute;
+  static constexpr GameClockTime GameHour = 60 * GameMinute;
 
   /**
   * @brief Represent 1 day of game time.
   */
-  static const GameClockTime GameDay = 24 * GameHour;
+  static constexpr GameClockTime GameDay = 24 * GameHour;
 
   GameClock(GameService::ServiceTuple &services) : GameService{services} {};
 
@@ -127,8 +128,8 @@ private:
   using RealTimeClockTask = ClockTask<TimePoint, TimeDuration>;
   using GameTimeClockTask = ClockTask<GameClockTime, GameClockDuration>;
 
-  PriorityQueue<RealTimeClockTask> m_realTimeTasks;
-  PriorityQueue<GameTimeClockTask> m_gameTimeTasks;
+  PriorityQueue<RealTimeClockTask, std::greater<RealTimeClockTask>> m_realTimeTasks;
+  PriorityQueue<GameTimeClockTask, std::greater<GameTimeClockTask>> m_gameTimeTasks;
   std::mutex m_lock;
   // Provide way to return unique handle for each task.
   ClockTaskHndl m_unique_handle = 0U;
@@ -144,7 +145,7 @@ private:
   * @param queue Priority queue of tasks.
   * @param now The time point when tick occurred.
   */
-  template <typename Task, typename Now> void tickTask(PriorityQueue<Task> &queue, Now now);
+  template <typename Task, typename Cmp, typename Now> void tickTask(PriorityQueue<Task, Cmp> &queue, Now now);
 };
 
 #include "GameClock.inl.hxx"

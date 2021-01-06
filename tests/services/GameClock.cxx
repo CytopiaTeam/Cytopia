@@ -182,7 +182,7 @@ TEST_CASE("I can schedule game time repeating task to trigger immediately", "[en
             counter++;
             return false;
           },
-          0, 1);
+          0, GameClock::GameMinute);
       tickingThread.join();
 
       THEN("The repeating task executes exact number of times") { CHECK(counter == 3); }
