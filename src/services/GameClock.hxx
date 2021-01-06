@@ -19,7 +19,7 @@ class GameClock : public GameService
 {
 private:
   using Clock = std::chrono::high_resolution_clock;
-  template <typename T, typename Comparator = std::less<T>> friend class PriorityQueue;
+  template <typename T, typename Comparator> friend class PriorityQueue;
 
 public:
   using TimePoint = std::chrono::time_point<Clock>;
