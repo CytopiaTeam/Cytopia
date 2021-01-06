@@ -121,7 +121,7 @@ private:
     {
     }
 
-    bool operator==(const ClockTask &task2) const {return hndl == task2.hndl};
+    bool operator==(const ClockTask &task2) const { return hndl == task2.hndl; };
     bool operator>(const ClockTask &task2) const { return m_waketime > task2.m_waketime; }
   };
 
