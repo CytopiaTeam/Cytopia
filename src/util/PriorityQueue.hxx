@@ -61,7 +61,7 @@ public:
     * @brief Remove all elements from queue for which predicate returns true.
     * @param predicate Unary predicate which returns true if element should be removed.
     */
-  template <typename Predicate> size_type erase_if(Predicate &predicate);
+  template <typename Predicate> size_type erase_if(Predicate &&predicate);
 
   /**
     * @brief Remove all elements from queue.

@@ -35,9 +35,9 @@ template <typename T, typename Comparator> void PriorityQueue<T, Comparator>::po
 
 template <typename T, typename Comparator>
 template <typename Predicate>
-typename PriorityQueue<T, Comparator>::size_type PriorityQueue<T, Comparator>::erase_if(Predicate &predicate)
+typename PriorityQueue<T, Comparator>::size_type PriorityQueue<T, Comparator>::erase_if(Predicate &&predicate)
 {
-  auto removedIter = std::remove_if(m_container.begin(), m_container.end(), predicate);
+  auto removedIter = std::remove_if(m_container.begin(), m_container.end(), std::forward<Predicate>(predicate));
   PriorityQueue<T, Comparator>::size_type numOfRemovedElements = 0;
 
   if (removedIter != m_container.end())
