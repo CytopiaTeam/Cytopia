@@ -34,7 +34,7 @@ void GameClock::tick(void)
 
 template <typename Queue> static bool removeTaskFromQueue(const GameClock::ClockTaskHndl hndl, Queue &queue)
 {
-  return queue.erase_if([hndl](const Queue::value_type &ct) { return ct.hndl == hndl; }) > 0;
+  return queue.erase_if([hndl](const typename Queue::value_type &ct) { return ct.hndl == hndl; }) > 0;
 }
 
 bool GameClock::removeClockTask(ClockTaskHndl hndl)
