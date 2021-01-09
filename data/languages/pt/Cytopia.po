@@ -2,43 +2,37 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 # Translators:
 # A Tua Mãe <macos.bbr@hotmail.com>, 2019
 # Maroon Shaded <maroonshaded@gmail.com>, 2019
-# 
+#
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-25 09:45+0200\n"
+"POT-Creation-Date: 2021-01-09 10:52+0100\n"
 "PO-Revision-Date: 2019-06-14 12:00+0000\n"
 "Last-Translator: Maroon Shaded <maroonshaded@gmail.com>, 2019\n"
-"Language-Team: Portuguese (https://www.transifex.com/cytopia/teams/100140/pt/)\n"
+"Language-Team: Portuguese (https://www.transifex.com/cytopia/teams/100140/"
+"pt/)\n"
+"Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pt\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "A  small coal power plant."
 msgstr "Uma central termoelétrica a carvão pequena."
 
-msgid "A Coal Power plant."
-msgstr "Uma central termoelétrica a carvão."
+msgid ""
+"A  small coal power plant.  It can supply a small town with electricity, but "
+"it produces a lot of pollution."
+msgstr ""
 
-msgid "A Power Plant, that has been built years ago"
-msgstr "Uma central elétrica que foi construída há anos"
-
-msgid "A Road, that hasn't been cleaned often"
-msgstr "Uma estrada que não tem sido limpa muitas vezes..."
-
-msgid "A Shop that sells Bikes"
-msgstr "Uma loja que vende bicicletas"
-
-msgid "A Tower made out of concrete"
-msgstr "Uma torre feita de cimento"
+msgid "A Wheat Field"
+msgstr ""
 
 msgid "A beautiful water tower"
 msgstr "Uma linda caixa d'água"
@@ -46,14 +40,33 @@ msgstr "Uma linda caixa d'água"
 msgid "A big building"
 msgstr "Um grande edifício"
 
+#, fuzzy
+#| msgid "An apartment building from Montreal , Quebec"
+msgid "A bland-looking apartment building made out of concrete."
+msgstr "Um prédio de Montreal, Quebec"
+
+msgid "A blank train platform with nothing on it."
+msgstr ""
+
 msgid "A blue hotel from vienna"
 msgstr "Um hotel azul de Viena"
+
+msgid "A bush with delicious red berries."
+msgstr ""
 
 msgid "A chemical plant"
 msgstr "Uma fábrica química"
 
+msgid "A classic depolluter building that has been recently repurposed."
+msgstr ""
+
 msgid "A classic house from Savannah , Georgia , USA"
 msgstr "Uma casa clássica de Savannah, Georgia, EUA"
+
+msgid ""
+"A coal power plant.  It'll produce enough electricity to keep a town "
+"running, but it creates a lot of pollution."
+msgstr ""
 
 msgid "A commercial center"
 msgstr "Um centro comercial"
@@ -61,11 +74,114 @@ msgstr "Um centro comercial"
 msgid "A factory"
 msgstr "Uma fábrica"
 
+msgid "A few benches that offer a place to sit to your citizens."
+msgstr ""
+
+msgid "A green cactus."
+msgstr ""
+
+msgid "A group of beautiful pinetrees."
+msgstr ""
+
+msgid "A group of benches that surround a nice decorative object."
+msgstr ""
+
+msgid "A group of birch trees."
+msgstr ""
+
+msgid "A group of burned trees."
+msgstr ""
+
+msgid "A group of crystal trees."
+msgstr ""
+
+msgid "A group of cypress trees."
+msgstr ""
+
+msgid ""
+"A group of mannequins you dressed up as people that can be used to decorate "
+"a town."
+msgstr ""
+
+msgid "A group of mysterious mushroom trees."
+msgstr ""
+
+msgid "A group of oak trees."
+msgstr ""
+
+msgid "A group of palmtrees."
+msgstr ""
+
+msgid "A group of picnic tables that your citizens can use to eat lunch at."
+msgstr ""
+
+msgid "A group of plum trees."
+msgstr ""
+
+msgid "A group of sakura trees."
+msgstr ""
+
+msgid "A group of stone pines."
+msgstr ""
+
+msgid "A group of tall bamboo plants."
+msgstr ""
+
+msgid "A group of tall bamboo trees."
+msgstr ""
+
+msgid "A group tall wetland plants well-known for their brown catkins."
+msgstr ""
+
+msgid "A highway! Cars go faaaaast here."
+msgstr ""
+
 msgid "A house from Alabama , USA"
 msgstr "Uma casa de Alabama, EUA"
 
 msgid "A house from Vienna"
 msgstr "Uma casa de Viena"
+
+msgid ""
+"A large multi-story shopping mall with large windows. Urban legends say it "
+"was built by hand by the members of a distant community"
+msgstr ""
+
+msgid "A large plaza with a pool of water in the middle."
+msgstr ""
+
+msgid "A lovely flower patch that blooms in all colors."
+msgstr ""
+
+msgid "A modern european looking road without a sidewalk."
+msgstr ""
+
+msgid "A modern european looking road."
+msgstr ""
+
+msgid "A new factory that was once a depolluter building."
+msgstr ""
+
+msgid "A nice park that can be used as a good centerpiece."
+msgstr ""
+
+msgid ""
+"A nice paved road that are commonly found in the middle of large cities.  "
+"Includes a sidewalk."
+msgstr ""
+
+msgid ""
+"A nice public pool that is a great way to stay cool and keep your citizens "
+"happy."
+msgstr ""
+
+msgid "A nice residential building donned with white and orange concrete."
+msgstr ""
+
+msgid ""
+"A nice reward for your city-building efforts, although it might make your "
+"citizens question if they're in a simulation."
+msgstr ""
 
 msgid "A petrol pump"
 msgstr "Uma bomba de gasolina"
@@ -73,13 +189,48 @@ msgstr "Uma bomba de gasolina"
 msgid "A petrol station"
 msgstr "Um posto de gasolina"
 
+msgid "A picnic pavilion is a great place for your citizens to eat lunch."
+msgstr ""
+
 msgid "A pile of coal"
 msgstr "Uma pilha de carvão"
 
-msgid "A shop that sells clocks"
-msgstr "Uma loja que vende relógios"
+msgid "A pile of rocks that can be found in the desert biome."
+msgstr ""
 
-msgid "A shop that sells games. Even Cytopia is in store!"
+msgid "A pile of rocks that can be found in the diamond biome."
+msgstr ""
+
+msgid "A pile of rocks that can be found in the grasslands biome."
+msgstr ""
+
+msgid "A pile of rocks that can be found in the snow biome."
+msgstr ""
+
+msgid "A pile of rocks that can be found in water."
+msgstr ""
+
+msgid "A poplar tree"
+msgstr ""
+
+msgid "A prison fence"
+msgstr ""
+
+msgid "A rural road from france with fresh asphalt with a broken line."
+msgstr ""
+
+msgid "A rural road from france with fresh asphalt."
+msgstr ""
+
+msgid "A rural road from france with worn asphalt."
+msgstr ""
+
+msgid "A rural road from france with worn asphalth a straight line."
+msgstr ""
+
+#, fuzzy
+#| msgid "A shop that sells games. Even Cytopia is in store!"
+msgid "A shop that sells games. Even Cytopia is sold here!"
 msgstr "Uma loja que vende jogos. Até Cytopia lá está!"
 
 msgid "A shop that sells phones. It has the new CyPhone X"
@@ -88,23 +239,109 @@ msgstr "Uma  loja que vende telemóveis. Têm o novo CyPhone X"
 msgid "A shop!"
 msgstr "Uma loja!"
 
-msgid "A skyscaper"
-msgstr "Um arranha-céus"
-
 msgid "A small  building"
 msgstr "Um pequeno edifício"
+
+msgid ""
+"A small building dedicated to small-scale inustrial-related military "
+"activity."
+msgstr ""
 
 msgid "A small french mansion "
 msgstr "Uma mansão francesa pequena"
 
-msgid "A small house"
+msgid "A small lantern that can be used to decorate your cities."
+msgstr ""
+
+msgid ""
+"A small office building with a nice sidewalk and a unique blue entrance."
+msgstr ""
+
+msgid "A small piece of land where impoverished people reside."
+msgstr ""
+
+msgid "A small shed used by nearby factories as a way to store things."
+msgstr ""
+
+#, fuzzy
+#| msgid "A Shop that sells Bikes"
+msgid "A small shop that sells bikes."
+msgstr "Uma loja que vende bicicletas"
+
+#, fuzzy
+#| msgid "A small house"
+msgid "A small trailer house"
 msgstr "Uma pequena casa"
 
-msgid "A small shack"
-msgstr "Uma pequena cabana"
+#, fuzzy
+#| msgid "A small house"
+msgid "A small trailer house."
+msgstr "Uma pequena casa"
+
+msgid ""
+"A small train platform that has a small structure on it.  People can wait "
+"here until the train comes, although there isnt much room inside."
+msgstr ""
 
 msgid "A small water tower"
 msgstr "Uma pequena caixa d'água"
+
+msgid ""
+"A small wooden sign that can be used to decorate a town.  It doesn't "
+"actually say anything though..."
+msgstr ""
+
+msgid ""
+"A somewhat large fast food restaurant known for cheap food and questionable "
+"quality."
+msgstr ""
+
+msgid "A somewhat-large plot of land that is the home to many trailer houses."
+msgstr ""
+
+msgid "A stereotypical red barn."
+msgstr ""
+
+msgid ""
+"A tall glass skyscraper that fears the day a stone-throwing competition is "
+"held in town."
+msgstr ""
+
+msgid "A tall light pole that can be used to decorate a town."
+msgstr ""
+
+msgid "A tiny house that can only accommodate a few people."
+msgstr ""
+
+msgid "A train platform with a couple of benches and a trash can."
+msgstr ""
+
+msgid "A train platform with a large sign on it."
+msgstr ""
+
+msgid ""
+"A very old ship that crashed here long ago.  Its origin is unkown, but I "
+"think it's safe to say what happened to its crew"
+msgstr ""
+
+msgid "A yellow cactus."
+msgstr ""
+
+#, fuzzy
+#| msgid "Paved Road"
+msgid "Alley Road"
+msgstr "Estrada Pavimentada"
+
+msgid "Alley road."
+msgstr ""
+
+msgid "An algae-green tower that is the home of lots of people."
+msgstr ""
+
+#, fuzzy
+#| msgid "A Power Plant, that has been built years ago"
+msgid "An ancient coal power plant that has been turned into a factory."
+msgstr "Uma central elétrica que foi construída há anos"
 
 msgid "An apartment building from Montreal , Quebec"
 msgstr "Um prédio de Montreal, Quebec"
@@ -115,8 +352,38 @@ msgstr "Um prédio de Vancouver, BC, Canada"
 msgid "An appartement building from Bellevue , WA , USA"
 msgstr "Um prédio de Bellevue, WA, EUA"
 
+msgid ""
+"An average road that'll you would commonly find out in the countryside.  It "
+"lacks a proper sidewalk though."
+msgstr ""
+
+msgid "An european looking road."
+msgstr ""
+
 msgid "An oasis"
 msgstr "Um oásis"
+
+msgid "An old blue phone booth that can be used to decorate your cities."
+msgstr ""
+
+#, fuzzy
+#| msgid "A shop that sells clocks"
+msgid "An old clock store that sells and repairs clocks."
+msgstr "Uma loja que vende relógios"
+
+msgid "An old day care that has since become someone's home."
+msgstr ""
+
+msgid "An old depolluter building that has become a new industrial factory."
+msgstr ""
+
+msgid ""
+"An old dirt road that doesn't require much maintenance.  Not recommended for "
+"busy roadways."
+msgstr ""
+
+msgid "An old phone booth that can be used to decorate your cities."
+msgstr ""
 
 msgid "Apartment Building"
 msgstr "Prédio"
@@ -133,41 +400,116 @@ msgstr "Londres de Apartamentos"
 msgid "Appartments"
 msgstr "Apartamentos"
 
+msgid "Bamboo (Dense)"
+msgstr ""
+
+msgid "Bamboo (Light)"
+msgstr ""
+
+msgid "Bamboo (Medium)"
+msgstr ""
+
+msgid "Basalt"
+msgstr ""
+
+msgid "Beach"
+msgstr ""
+
+msgid "Bench Platform"
+msgstr ""
+
+msgid "Benches"
+msgstr ""
+
 msgid "Big Appartments"
 msgstr "Apartamentos Grandes"
 
 msgid "Big Building"
 msgstr "Grande Edifício"
 
-msgid "Big Depollutor"
+#, fuzzy
+#| msgid "Big Depollutor"
+msgid "Big Depolluter"
 msgstr "Grande Depoluidor"
 
 msgid "Big Office Building"
 msgstr "Grande Edíficio de Escritórios"
 
+msgid "Big Warehouse"
+msgstr ""
+
 msgid "BikeShop"
 msgstr "Loja de Bicicletas"
+
+msgid "Birch Trees (Dense)"
+msgstr ""
+
+msgid "Birch Trees (Light)"
+msgstr ""
+
+msgid "Birch Trees (Medium)"
+msgstr ""
+
+msgid "Black Sand"
+msgstr ""
+
+msgid "Blank Platform"
+msgstr ""
 
 msgid "Block of houses from the Boulevard des Belges , Rouen"
 msgstr "Bloco de casas de Boulevard des Belges, Ruão"
 
+msgid "Blueprint"
+msgstr ""
+
 msgid "Bois Guillaume Appartment"
 msgstr "Apartamento Bois Guillaume"
 
-msgid "Borgs Burgers"
+#, fuzzy
+#| msgid "Borgs Burgers"
+msgid "Borg's Burgers"
 msgstr "Borgs Burgers"
-
-msgid "Borgs Burgers - We have the tastiest!"
-msgstr "Borgs Burgers - Nós temos o mais saboroso!"
 
 msgid "BuildMenu Layout"
 msgstr "Disposição do Menu de Construção"
 
+#, fuzzy
+#| msgid "Decoration"
+msgid "BuildingsDecoration"
+msgstr "Decoração"
+
+msgid "Burned Trees (Dense)"
+msgstr ""
+
+msgid "Burned Trees (Light)"
+msgstr ""
+
+msgid "Burned Trees (Medium)"
+msgstr ""
+
+msgid "Burned land"
+msgstr ""
+
 msgid "Cancel"
 msgstr "Cancelar"
 
+msgid "Cattails (Dense)"
+msgstr ""
+
+msgid "Cattails (Light)"
+msgstr ""
+
+msgid "Cattails (Medium)"
+msgstr ""
+
+msgid "Centerpiece Park"
+msgstr ""
+
 msgid "Chemical Plant"
 msgstr "Fábrica Química"
+
+msgid "Classic Red Barn"
+msgstr ""
 
 msgid "Clock Store"
 msgstr "Loja de Relógios"
@@ -181,23 +523,72 @@ msgstr "Central Termoelétrica de Carvão"
 msgid "Commercial"
 msgstr "Comercial"
 
+#, fuzzy
+#| msgid "A commercial center"
+msgid "Commercial Zone (dense)"
+msgstr "Um centro comercial"
+
+#, fuzzy
+#| msgid "A commercial center"
+msgid "Commercial Zone (dense)."
+msgstr "Um centro comercial"
+
+#, fuzzy
+#| msgid "Commercial"
+msgid "Commercial Zone (light)"
+msgstr "Comercial"
+
+msgid "Commercial Zone (light)."
+msgstr ""
+
+msgid "Commercial Zone (medium)"
+msgstr ""
+
+msgid "Commercial Zone (medium)."
+msgstr ""
+
 msgid "Community Tower"
 msgstr "Torre da Comunidade"
 
 msgid "CompactFast Shop"
 msgstr "Loja RápidoCompacto"
 
-msgid "Concrete Tower"
-msgstr "Torre de Cimento"
+#, fuzzy
+#| msgid "TerrainDecoration"
+msgid "Concrete Ground Decoration"
+msgstr "Decoração do Terreno"
 
 msgid "Construction"
 msgstr "Construção"
 
+msgid "Countries"
+msgstr ""
+
 msgid "Country Road"
 msgstr "Estrada Nacional"
 
-msgid "Country Road... takes you home!"
-msgstr "Estrada Nacional... leva-te para casa!"
+#, fuzzy
+#| msgid "Concrete Tower"
+msgid "Creme-Oran Tower"
+msgstr "Torre de Cimento"
+
+msgid "Crystal Trees (Dense)"
+msgstr ""
+
+msgid "Crystal Trees (Light)"
+msgstr ""
+
+msgid "Crystal Trees (Medium)"
+msgstr ""
+
+msgid "Cypress Trees (Dense)"
+msgstr ""
+
+msgid "Cypress Trees (Light)"
+msgstr ""
+
+msgid "Cypress Trees (Medium)"
+msgstr ""
 
 msgid "Day Care Center"
 msgstr "Creche"
@@ -211,35 +602,129 @@ msgstr "Decoração"
 msgid "Demolish"
 msgstr "Demolir"
 
-msgid "Depolluter Big"
-msgstr "Grande Depoluidor"
-
-msgid "Depolluter Medium"
-msgstr "Depoluídor Médio"
-
-msgid "Depolluter Small"
-msgstr "Depoluídor Pequeno"
+msgid "Desert"
+msgstr ""
 
 msgid "Desert Building"
 msgstr "Edifício do Deserto"
 
+msgid "Desert Rocks"
+msgstr ""
+
 msgid "Desert building"
 msgstr "Edifício deserto"
+
+msgid "Diamond Rocks"
+msgstr ""
+
+#, fuzzy
+#| msgid "Dirt Road"
+msgid "Dirt"
+msgstr "Estrada de Terra"
 
 msgid "Dirt Road"
 msgstr "Estrada de Terra"
 
+msgid "European Road"
+msgstr ""
+
 msgid "Factory"
 msgstr "Fábrica"
 
+msgid "Farm"
+msgstr ""
+
+msgid "Ferns (Dense)"
+msgstr ""
+
+msgid "Ferns (Light)"
+msgstr ""
+
+msgid "Ferns (Medium)"
+msgstr ""
+
+msgid ""
+"Ferns are green flowerless plants with divided leaves that tend to grow in "
+"damp, shady areas."
+msgstr ""
+
 msgid "Flora"
 msgstr "Flora"
+
+msgid "Flowers (Dense)"
+msgstr ""
+
+msgid "Flowers (Light)"
+msgstr ""
+
+#, fuzzy
+#| msgid "Depolluter Medium"
+msgid "Flowers (Medium)"
+msgstr "Depoluídor Médio"
+
+msgid "Forest"
+msgstr ""
 
 msgid "Fullscreen Mode"
 msgstr "Modo Ecrã-Inteiro"
 
 msgid "Game Shop"
 msgstr "Loja de jogos"
+
+#, fuzzy
+#| msgid "Water Tower"
+msgid "Glass Tower"
+msgstr "Caixa d'Água"
+
+msgid "Golden Rocks"
+msgstr ""
+
+msgid "Grass Mint"
+msgstr ""
+
+msgid "Grass Mint Forest"
+msgstr ""
+
+msgid "Grassland"
+msgstr ""
+
+msgid "Gravel"
+msgstr ""
+
+msgid "Green Bushes (Dense)"
+msgstr ""
+
+msgid "Green Bushes (Light)"
+msgstr ""
+
+msgid "Green Bushes (Medium)"
+msgstr ""
+
+msgid "Green Cacti (Dense)"
+msgstr ""
+
+msgid "Green Cacti (Light)"
+msgstr ""
+
+msgid "Green Cacti (Medium)"
+msgstr ""
+
+#, fuzzy
+#| msgid "Decoration"
+msgid "Ground Decoration"
+msgstr "Decoração"
+
+msgid "High Wealth"
+msgstr ""
+
+msgid "Highway Road"
+msgstr ""
+
+msgid "Homeless Camp"
+msgstr ""
+
+msgid "Horses"
+msgstr ""
 
 msgid "Hotel"
 msgstr "Hotel"
@@ -253,18 +738,65 @@ msgstr "Eu grito por gelado!"
 msgid "Ice Cream Shop"
 msgstr "Loja de Gelado"
 
+msgid "In the tall grass."
+msgstr ""
+
 msgid "Industrial"
 msgstr "Industrial"
 
 msgid "Industrial Building"
 msgstr "Edifício Industrial"
 
+#, fuzzy
+#| msgid "Industrial Building"
+msgid "Industrial Zone (light)"
+msgstr "Edifício Industrial"
+
+#, fuzzy
+#| msgid "Industrial Building"
+msgid "Industrial Zone (medium)"
+msgstr "Edifício Industrial"
+
+#, fuzzy
+#| msgid "Industrial"
+msgid "Industrial Zone."
+msgstr "Industrial"
+
+msgid "It might be an old, bland-looking tower, but it gets the job done."
+msgstr ""
+
+msgid "Lantern"
+msgstr ""
+
+msgid "Large Plaza Park"
+msgstr ""
+
 msgid "Level Terrain"
 msgstr "Nivelar Terreno"
 
-#: src/Game.cxx:99
+msgid "Light Pole"
+msgstr ""
+
+msgid "Lily Pads (Dense)"
+msgstr ""
+
+msgid "Lily Pads (Light)"
+msgstr ""
+
+msgid "Lily Pads (Medium)"
+msgstr ""
+
+msgid ""
+"Lily pads are broad, rounded, heart- or shield-shaped leaves. Frogs like to "
+"sit on them!"
+msgstr ""
+
+#: src/Game.cxx:138
 msgid "Load Game"
 msgstr "Carregar Jogo"
+
+msgid "Low Wealth"
+msgstr ""
 
 msgid "Lower Terrain"
 msgstr "Descer Terreno"
@@ -272,27 +804,65 @@ msgstr "Descer Terreno"
 msgid "Mansion"
 msgstr "Mansão"
 
+msgid "Medical"
+msgstr ""
+
 msgid "Medium Appartments"
 msgstr "Apartamentos Médios"
 
-msgid "Medium Depollutor"
+#, fuzzy
+#| msgid "Medium Depollutor"
+msgid "Medium Depolluter"
 msgstr "Depoluidor Médio"
+
+#, fuzzy
+#| msgid "Medium Depollutor"
+msgid "Medium Wealth"
+msgstr "Depoluidor Médio"
+
+#, fuzzy
+#| msgid "Big Depollutor"
+msgid "Mini Depolluter"
+msgstr "Grande Depoluidor"
+
+msgid "Mud"
+msgstr ""
+
+msgid "Mushrooms (Dense)"
+msgstr ""
+
+msgid "Mushrooms (Light)"
+msgstr ""
+
+msgid "Mushrooms (Medium)"
+msgstr ""
 
 msgid "Nature"
 msgstr "Natureza"
 
-#: src/Game.cxx:94
+#, fuzzy
+#| msgid "Decoration"
+msgid "NatureDecoration"
+msgstr "Decoração"
+
+#: src/Game.cxx:123
 msgid "New Game"
 msgstr "Novo Jogo"
 
 msgid "OK"
 msgstr "OK"
 
+msgid "Oak Trees (Dense)"
+msgstr ""
+
+msgid "Oak Trees (Light)"
+msgstr ""
+
+msgid "Oak Trees (Medium)"
+msgstr ""
+
 msgid "Oasis"
 msgstr "Oásis"
-
-msgid "Office"
-msgstr "Escritório"
 
 msgid "Old Church"
 msgstr "Igreja Antiga"
@@ -300,14 +870,34 @@ msgstr "Igreja Antiga"
 msgid "Old Industrial Building"
 msgstr "Edifício Industrial Antigo"
 
+#, fuzzy
+#| msgid "OldPowerPlant"
+msgid "Old Power Plant"
+msgstr "Central Elétrica Antiga"
+
 msgid "Old building"
 msgstr "Edifício Antigo"
 
-msgid "OldPowerPlant"
-msgstr "Central Elétrica Antiga"
+msgid "Palm Trees (Dense)"
+msgstr ""
+
+msgid "Palm Trees (Light)"
+msgstr ""
+
+msgid "Palm Trees (Medium)"
+msgstr ""
+
+msgid "Park Crossroads"
+msgstr ""
 
 msgid "Paved Road"
 msgstr "Estrada Pavimentada"
+
+msgid "Pavement"
+msgstr ""
+
+msgid "People"
+msgstr ""
 
 msgid "Petrol Pump"
 msgstr "Bomba de gasolina"
@@ -315,24 +905,110 @@ msgstr "Bomba de gasolina"
 msgid "Petrol Station"
 msgstr "Estação de gasolina"
 
+#, fuzzy
+#| msgid "Phone Shop"
+msgid "Phone Booth"
+msgstr "Loja de Telemóveis"
+
 msgid "Phone Shop"
 msgstr "Loja de Telemóveis"
+
+msgid "Picnic Pavilion"
+msgstr ""
+
+msgid "Picnic Tables"
+msgstr ""
+
+msgid "Pine Trees (Dense)"
+msgstr ""
+
+msgid "Pine Trees (Light)"
+msgstr ""
+
+msgid "Pine Trees (Medium)"
+msgstr ""
+
+msgid "Pipes are used for transporting water."
+msgstr ""
+
+msgid "Pool"
+msgstr ""
+
+msgid "Poplars (Dense)"
+msgstr ""
+
+msgid "Poplars (Light)"
+msgstr ""
+
+#, fuzzy
+#| msgid "Depolluter Medium"
+msgid "Poplars (Medium)"
+msgstr "Depoluídor Médio"
 
 msgid "Power"
 msgstr "Eletricidade"
 
+msgid "Pretty concrete"
+msgstr ""
+
+msgid "Prison"
+msgstr ""
+
+msgid "Prison Fence"
+msgstr ""
+
 msgid "Pyramid"
 msgstr "Pirâmide"
 
-#: src/Game.cxx:103
+#: src/Game.cxx:151
 msgid "Quit Game"
 msgstr "Sair do Jogo"
 
 msgid "Raise Terrain"
 msgstr "Subir Terreno"
 
+msgid "Red Berry Bushes (Dense)"
+msgstr ""
+
+msgid "Red Berry Bushes (Light)"
+msgstr ""
+
+msgid "Red Berry Bushes (Medium)"
+msgstr ""
+
+msgid "Red Sand"
+msgstr ""
+
 msgid "Residential"
 msgstr "Residencial"
+
+#, fuzzy
+#| msgid "Residential"
+msgid "Residential Zone (dense)"
+msgstr "Residencial"
+
+#, fuzzy
+#| msgid "Residential"
+msgid "Residential Zone (dense)."
+msgstr "Residencial"
+
+#, fuzzy
+#| msgid "Residential"
+msgid "Residential Zone (light)"
+msgstr "Residencial"
+
+#, fuzzy
+#| msgid "Residential"
+msgid "Residential Zone (light)."
+msgstr "Residencial"
+
+#, fuzzy
+#| msgid "Residential"
+msgid "Residential Zone (medium)"
+msgstr "Residencial"
+
+msgid "Residential Zone (medium)."
+msgstr ""
 
 msgid "Restaurant"
 msgstr "Restaurante"
@@ -340,20 +1016,49 @@ msgstr "Restaurante"
 msgid "Restaurant in Paris"
 msgstr "Restaurante de Paris"
 
+msgid "Reward"
+msgstr ""
+
+msgid ""
+"Rice is normally grown as an annual plant, although in tropical areas it can "
+"survive as a perennial and can produce a ratoon crop for up to 30 years."
+msgstr ""
+
 msgid "Roads"
 msgstr "Estradas"
 
 msgid "Rocks"
 msgstr "Pedras"
 
-msgid "Rocks for the terrain"
-msgstr "Pedras para o terreno"
-
 msgid "Ruegroshorloge"
 msgstr "Ruegroshorloge"
 
+msgid "Rural French Road"
+msgstr ""
+
+msgid "Rural French Road brokenlined"
+msgstr ""
+
+msgid "Rural French Road fresh"
+msgstr ""
+
+msgid "Rural French Road lined"
+msgstr ""
+
+msgid "Sakura Trees (Dense)"
+msgstr ""
+
+msgid "Sakura Trees (Light)"
+msgstr ""
+
+msgid "Sakura Trees (Medium)"
+msgstr ""
+
 msgid "Save Game"
 msgstr "Guardar Jogo"
+
+msgid "School"
+msgstr ""
 
 msgid "Screen Resolution"
 msgstr "Resolução de Ecrã"
@@ -361,8 +1066,19 @@ msgstr "Resolução de Ecrã"
 msgid "Settings"
 msgstr "Definições"
 
+msgid "Shading"
+msgstr ""
+
 msgid "Shop"
 msgstr "Loja"
+
+msgid "Sign Platform"
+msgstr ""
+
+#, fuzzy
+#| msgid "Skyscraper"
+msgid "SkyScraper"
+msgstr "Arranha-céus"
 
 msgid "Skyscraper"
 msgstr "Arranha-céus"
@@ -376,14 +1092,34 @@ msgstr "Pequena Central Termoelétrica a Carvão2"
 msgid "Small Commercial Center"
 msgstr "Pequeno Centro Comercial"
 
-msgid "Small Depollutor"
-msgstr "Pequeno Depoluídor"
-
 msgid "Small House"
 msgstr "Casa Pequena"
 
+#, fuzzy
+#| msgid "Small House"
+msgid "Small Houses"
+msgstr "Casa Pequena"
+
+msgid "Small Military Facility"
+msgstr ""
+
+#, fuzzy
+#| msgid "Big Office Building"
+msgid "Small Office Building"
+msgstr "Grande Edíficio de Escritórios"
+
 msgid "Small Shack"
 msgstr "Cabana Pequena"
+
+#, fuzzy
+#| msgid "Small Shack"
+msgid "Small Shed"
+msgstr "Cabana Pequena"
+
+#, fuzzy
+#| msgid "Small Water Tower"
+msgid "Small Waiting Platform"
+msgstr "Caixa d'Água Pequena"
 
 msgid "Small Water Tower"
 msgstr "Caixa d'Água Pequena"
@@ -391,23 +1127,175 @@ msgstr "Caixa d'Água Pequena"
 msgid "Small house"
 msgstr "Casa Pequena"
 
+#, fuzzy
+#| msgid "Rocks"
+msgid "Snowy Rocks"
+msgstr "Pedras"
+
+msgid "Soil"
+msgstr ""
+
+#, fuzzy
+#| msgid "Petrol Station"
+msgid "Station"
+msgstr "Estação de gasolina"
+
+msgid "Stone"
+msgstr ""
+
+msgid "Stone Pines (Dense)"
+msgstr ""
+
+msgid "Stone Pines (Light)"
+msgstr ""
+
+msgid "Stone Pines (Medium)"
+msgstr ""
+
+msgid "Stream"
+msgstr ""
+
+msgid "Sunken Ship"
+msgstr ""
+
+msgid "TODO DESC"
+msgstr ""
+
+msgid "TODO TITLE"
+msgstr ""
+
+#, fuzzy
+#| msgid "Concrete Tower"
+msgid "Tall Concrete Tower"
+msgstr "Torre de Cimento"
+
+msgid "Tall Grass (Dense)"
+msgstr ""
+
+msgid "Tall Grass (Light)"
+msgstr ""
+
+msgid "Tall Grass (Medium)"
+msgstr ""
+
+#, fuzzy
+#| msgid "Water Tower"
+msgid "Tan Tower"
+msgstr "Caixa d'Água"
+
 msgid "Terrain"
 msgstr "Terreno"
 
-msgid "Terrain tiles"
+#, fuzzy
+#| msgid "Terrain tiles"
+msgid "Terrain Black Sand tiles"
+msgstr "Peças do Terreno"
+
+#, fuzzy
+#| msgid "Terrain tiles"
+msgid "Terrain Blueprint"
+msgstr "Peças do Terreno"
+
+#, fuzzy
+#| msgid "Terrain tiles"
+msgid "Terrain Desert tiles"
+msgstr "Peças do Terreno"
+
+#, fuzzy
+#| msgid "Terrain tiles"
+msgid "Terrain Dirt tiles"
+msgstr "Peças do Terreno"
+
+msgid "Terrain Grass Mint Forest tiles"
+msgstr ""
+
+#, fuzzy
+#| msgid "Terrain tiles"
+msgid "Terrain Gravel tiles"
+msgstr "Peças do Terreno"
+
+#, fuzzy
+#| msgid "Terrain tiles"
+msgid "Terrain Rainstone tiles"
+msgstr "Peças do Terreno"
+
+#, fuzzy
+#| msgid "Terrain tiles"
+msgid "Terrain Red Sand tiles"
+msgstr "Peças do Terreno"
+
+#, fuzzy
+#| msgid "Terrain tiles"
+msgid "Terrain Snow tiles"
+msgstr "Peças do Terreno"
+
+#, fuzzy
+#| msgid "Terrain tiles"
+msgid "Terrain Stone tiles"
+msgstr "Peças do Terreno"
+
+#, fuzzy
+#| msgid "Terrain tiles"
+msgid "Terrain basalt tiles"
+msgstr "Peças do Terreno"
+
+#, fuzzy
+#| msgid "Terrain tiles"
+msgid "Terrain beach tiles"
+msgstr "Peças do Terreno"
+
+#, fuzzy
+#| msgid "Terrain tiles"
+msgid "Terrain burned tiles"
+msgstr "Peças do Terreno"
+
+#, fuzzy
+#| msgid "Terrain tiles"
+msgid "Terrain grass forest tiles"
+msgstr "Peças do Terreno"
+
+#, fuzzy
+#| msgid "Terrain tiles"
+msgid "Terrain grass mint tiles"
+msgstr "Peças do Terreno"
+
+#, fuzzy
+#| msgid "Terrain tiles"
+msgid "Terrain grass tiles"
+msgstr "Peças do Terreno"
+
+#, fuzzy
+#| msgid "Terrain tiles"
+msgid "Terrain mud tiles"
+msgstr "Peças do Terreno"
+
+#, fuzzy
+#| msgid "Terrain tiles"
+msgid "Terrain shading tiles"
+msgstr "Peças do Terreno"
+
+#, fuzzy
+#| msgid "Terrain tiles"
+msgid "Terrain soil tiles"
 msgstr "Peças do Terreno"
 
 msgid "TerrainDecoration"
 msgstr "Decoração do Terreno"
 
-msgid "The community gathers and works here"
-msgstr "A comunidade reúne-se e trabalha aqui"
+msgid "Thundercloud Purple Leaf Plum Trees (Dense)"
+msgstr ""
+
+msgid "Thundercloud Purple Leaf Plum Trees (Light)"
+msgstr ""
+
+msgid "Thundercloud Purple Leaf Plum Trees (Medium)"
+msgstr ""
 
 msgid "Tour Front De Seine"
 msgstr "Tour Front De Seine"
 
-msgid "Trees"
-msgstr "Árvores"
+msgid "Trailer Park"
+msgstr ""
 
 msgid "Utilities"
 msgstr "Utilidades"
@@ -415,11 +1303,56 @@ msgstr "Utilidades"
 msgid "Water"
 msgstr "Água"
 
+#, fuzzy
+#| msgid "Water Tower"
+msgid "Water Rocks"
+msgstr "Caixa d'Água"
+
 msgid "Water Tower"
 msgstr "Caixa d'Água"
 
-msgid "Where people work"
-msgstr "Onde as pessoas trabalham"
+#, fuzzy
+#| msgid "Water Tower"
+msgid "Water pipe"
+msgstr "Caixa d'Água"
+
+#, fuzzy
+#| msgid "Flora"
+msgid "WaterFlora"
+msgstr "Flora"
+
+msgid "Wheat Field"
+msgstr ""
+
+msgid "Wild Rice (Dense)"
+msgstr ""
+
+msgid "Wild Rice (Light)"
+msgstr ""
+
+msgid "Wild Rice (Medium)"
+msgstr ""
+
+msgid "Wooden Sign"
+msgstr ""
+
+msgid "Yellow Cacti (Dense)"
+msgstr ""
+
+msgid "Yellow Cacti (Light)"
+msgstr ""
+
+msgid "Yellow Cacti (Medium)"
+msgstr ""
+
+msgid "Zones"
+msgstr ""
+
+msgid "a green bush"
+msgstr ""
+
+msgid "a little stream"
+msgstr ""
 
 msgid "big Appartments"
 msgstr "Apartamentos Grandes"
@@ -427,5 +1360,53 @@ msgstr "Apartamentos Grandes"
 msgid "house"
 msgstr "casa"
 
-msgid "trees"
-msgstr "árvores"
+msgid "snow"
+msgstr ""
+
+#~ msgid "A Coal Power plant."
+#~ msgstr "Uma central termoelétrica a carvão."
+
+#~ msgid "A Road, that hasn't been cleaned often"
+#~ msgstr "Uma estrada que não tem sido limpa muitas vezes..."
+
+#~ msgid "A Tower made out of concrete"
+#~ msgstr "Uma torre feita de cimento"
+
+#~ msgid "A skyscaper"
+#~ msgstr "Um arranha-céus"
+
+#~ msgid "A small shack"
+#~ msgstr "Uma pequena cabana"
+
+#~ msgid "Borgs Burgers - We have the tastiest!"
+#~ msgstr "Borgs Burgers - Nós temos o mais saboroso!"
+
+#~ msgid "Country Road... takes you home!"
+#~ msgstr "Estrada Nacional... leva-te para casa!"
+
+#~ msgid "Depolluter Big"
+#~ msgstr "Grande Depoluidor"
+
+#~ msgid "Depolluter Small"
+#~ msgstr "Depoluídor Pequeno"
+
+#~ msgid "Office"
+#~ msgstr "Escritório"
+
+#~ msgid "Rocks for the terrain"
+#~ msgstr "Pedras para o terreno"
+
+#~ msgid "Small Depollutor"
+#~ msgstr "Pequeno Depoluídor"
+
+#~ msgid "The community gathers and works here"
+#~ msgstr "A comunidade reúne-se e trabalha aqui"
+
+#~ msgid "Trees"
+#~ msgstr "Árvores"
+
+#~ msgid "Where people work"
+#~ msgstr "Onde as pessoas trabalham"
+
+#~ msgid "trees"
+#~ msgstr "árvores"
