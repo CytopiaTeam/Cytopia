@@ -4,9 +4,7 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Paragoumba <paragoumba@gmail.com>, 2020
-# Edgar <Edgar@AnotherFoxGuy.com>, 2020
-# Vincent-Olivier Roch <vroch@edu.uwaterloo.ca>, 2020
+# Kris S <katjakristiina.schimek@gmail.com>, 2020
 # 
 #, fuzzy
 msgid ""
@@ -15,53 +13,51 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-05-26 19:11+0200\n"
 "PO-Revision-Date: 2020-05-31 10:56+0000\n"
-"Last-Translator: Vincent-Olivier Roch <vroch@edu.uwaterloo.ca>, 2020\n"
-"Language-Team: French (https://www.transifex.com/cytopia/teams/100140/fr/)\n"
+"Last-Translator: Kris S <katjakristiina.schimek@gmail.com>, 2020\n"
+"Language-Team: Finnish (https://www.transifex.com/cytopia/teams/100140/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fr\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: fi\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "A  small coal power plant."
-msgstr "Une petite centrale à charbon."
+msgstr "Pieni hiilivoimala"
 
 msgid ""
 "A  small coal power plant.  It can supply a small town with electricity, but"
 " it produces a lot of pollution."
 msgstr ""
-"Une petite centrale à charbon. Elle peut fournir de l'électricité pour une "
-"petite ville, mais elle produit beaucoup de pollution. "
 
 msgid "A Wheat Field"
 msgstr ""
 
 msgid "A beautiful water tower"
-msgstr "Un magnifique château d'eau"
+msgstr "Kaunis vesitorni."
 
 msgid "A big building"
-msgstr "Un grand bâtiment"
+msgstr "Iso rakennus"
 
 msgid "A bland-looking apartment building made out of concrete."
-msgstr "Un appartement terne fait de béton."
+msgstr ""
 
 msgid "A blank train platform with nothing on it."
-msgstr "Une gare de train vide."
+msgstr ""
 
 msgid "A blue hotel from vienna"
-msgstr "Un hôtel bleu de Vienne"
+msgstr ""
 
 msgid "A bush with delicious red berries."
 msgstr ""
 
 msgid "A chemical plant"
-msgstr "Une usine chimique"
+msgstr "Kemiantehdas"
 
 msgid "A classic depolluter building that has been recently repurposed."
-msgstr "Un bâtiment dépollueur classique qui a été récemment réutilisé."
+msgstr ""
 
 msgid "A classic house from Savannah , Georgia , USA"
-msgstr "Une maison classique de Savannah, Georgia, USA"
+msgstr ""
 
 msgid ""
 "A coal power plant.  It'll produce enough electricity to keep a town "
@@ -69,25 +65,25 @@ msgid ""
 msgstr ""
 
 msgid "A commercial center"
-msgstr "Un centre commercial"
+msgstr "Kauppakeskus"
 
 msgid "A deciduous tree"
 msgstr ""
 
 msgid "A factory"
-msgstr "Une usine"
+msgstr "Tehdas"
 
 msgid "A few benches that offer a place to sit to your citizens."
-msgstr "Quelques bancs offrant une place à vos citoyens pour s'asseoir."
+msgstr ""
 
 msgid "A green cactus."
 msgstr ""
 
 msgid "A group of beautiful pinetrees."
-msgstr "Un groupe de pins magnifiques"
+msgstr ""
 
 msgid "A group of benches that surround a nice decorative object."
-msgstr "Un groupe de bancs autours d'un objet décoratif."
+msgstr ""
 
 msgid "A group of burned trees."
 msgstr ""
@@ -108,8 +104,6 @@ msgstr ""
 
 msgid "A group of picnic tables that your citizens can use to eat lunch at."
 msgstr ""
-"Un groupe de tables de pique-nique qui peuvent être utilisées par vos "
-"citoyens pour le déjeuner."
 
 msgid "A group tall wetland plants well-known for their brown catkins."
 msgstr ""
@@ -118,10 +112,10 @@ msgid "A highway! Cars go faaaaast here."
 msgstr ""
 
 msgid "A house from Alabama , USA"
-msgstr "Une maison de l'Alabama, USA"
+msgstr ""
 
 msgid "A house from Vienna"
-msgstr "Une maison de Vienne"
+msgstr ""
 
 msgid ""
 "A large multi-story shopping mall with large windows. Urban legends say it "
@@ -155,8 +149,6 @@ msgid ""
 "A nice public pool that is a great way to stay cool and keep your citizens "
 "happy."
 msgstr ""
-"Une belle piscine publique qui est une belle façon de rester frais et garder"
-" vos citoyens contents."
 
 msgid "A nice residential building donned with white and orange concrete."
 msgstr ""
@@ -167,16 +159,16 @@ msgid ""
 msgstr ""
 
 msgid "A petrol pump"
-msgstr "Une pompe à essence"
+msgstr "Bensiinipumppu"
 
 msgid "A petrol station"
-msgstr "Une station essence"
+msgstr "Huoltoasema"
 
 msgid "A picnic pavilion is a great place for your citizens to eat lunch."
 msgstr ""
 
 msgid "A pile of coal"
-msgstr "Un tas de charbon"
+msgstr "Hiilikasa"
 
 msgid "A pile of rocks that can be found in the desert biome."
 msgstr ""
@@ -212,13 +204,14 @@ msgid "A shop that sells games. Even Cytopia is sold here!"
 msgstr ""
 
 msgid "A shop that sells phones. It has the new CyPhone X"
-msgstr "Un magasin qui vend des téléphones. Ils ont le nouveau CyPhone."
+msgstr ""
+"Kauppa, joka myy puhelimia. Kaupassa on saatavilla myös uusi CyPhone X."
 
 msgid "A shop!"
-msgstr "Un magasin !"
+msgstr "Kauppa!"
 
 msgid "A small  building"
-msgstr "Un petit bâtiment"
+msgstr "Pieni rakennus"
 
 msgid ""
 "A small building dedicated to small-scale inustrial-related military "
@@ -256,7 +249,7 @@ msgid ""
 msgstr ""
 
 msgid "A small water tower"
-msgstr "Une petit château d'eau"
+msgstr "Pieni vesitorni"
 
 msgid ""
 "A small wooden sign that can be used to decorate a town.  It doesn't "
@@ -272,14 +265,12 @@ msgid "A somewhat-large plot of land that is the home to many trailer houses."
 msgstr ""
 
 msgid "A stereotypical red barn."
-msgstr "Une grange rouge typique."
+msgstr ""
 
 msgid ""
 "A tall glass skyscraper that fears the day a stone-throwing competition is "
 "held in town."
 msgstr ""
-"Un grand gratte-ciel fait de vitre qui a peur du jour qu'une compétition du "
-"lancé de pierres soit tenue en ville."
 
 msgid "A tall light pole that can be used to decorate a town."
 msgstr ""
@@ -291,7 +282,7 @@ msgid "A train platform with a couple of benches and a trash can."
 msgstr ""
 
 msgid "A train platform with a large sign on it."
-msgstr "Une gare de train avec une enseigne."
+msgstr ""
 
 msgid ""
 "A very old ship that crashed here long ago.  Its origin is unkown, but I "
@@ -314,13 +305,13 @@ msgid "An ancient coal power plant that has been turned into a factory."
 msgstr ""
 
 msgid "An apartment building from Montreal , Quebec"
-msgstr "Un appartement de Montréal, Québec"
+msgstr ""
 
 msgid "An apartment building from Vancouver , BC , Canada"
-msgstr "Un appartement de Vancouver, BC, Canada"
+msgstr ""
 
 msgid "An appartement building from Bellevue , WA , USA"
-msgstr "Un appartement de Bellevue, WA, USA"
+msgstr ""
 
 msgid ""
 "An average road that'll you would commonly find out in the countryside.  It "
@@ -331,7 +322,7 @@ msgid "An european looking road."
 msgstr ""
 
 msgid "An oasis"
-msgstr "Une oasis"
+msgstr "Keidas"
 
 msgid "An old blue phone booth that can be used to decorate your cities."
 msgstr ""
@@ -357,52 +348,52 @@ msgid "Apartment Building"
 msgstr ""
 
 msgid "Appartment"
-msgstr "Appartement"
+msgstr "Asunto"
 
 msgid "Appartment Building"
-msgstr "Immeuble"
+msgstr "Kerrostalo"
 
 msgid "Appartment London"
-msgstr "Appartement Londres"
+msgstr "Asunto Lontoo"
 
 msgid "Appartments"
-msgstr "Appartements"
+msgstr "Asunnot"
 
 msgid "Basalt"
-msgstr "Basalte"
+msgstr ""
 
 msgid "Beach"
-msgstr "Plage"
+msgstr ""
 
 msgid "Bench Platform"
-msgstr "Banc"
+msgstr ""
 
 msgid "Benches"
-msgstr "Bancs"
+msgstr ""
 
 msgid "Big Appartments"
-msgstr "Grands Appartements"
+msgstr "Suuret asunnot"
 
 msgid "Big Building"
-msgstr "Gros Bâtiment"
+msgstr "Suuri rakennus"
 
 msgid "Big Depolluter"
 msgstr ""
 
 msgid "Big Office Building"
-msgstr "Grand Immeuble de Bureaux"
+msgstr "Iso toimistorakennus"
 
 msgid "Big Warehouse"
 msgstr ""
 
 msgid "BikeShop"
-msgstr "Magasin de vélos"
+msgstr "Pyöräkauppa"
 
 msgid "Black Sand"
-msgstr "Sable noir"
+msgstr ""
 
 msgid "Blank Platform"
-msgstr "Platforme vide"
+msgstr ""
 
 msgid "Block of houses from the Boulevard des Belges , Rouen"
 msgstr ""
@@ -411,13 +402,13 @@ msgid "Blueprint"
 msgstr ""
 
 msgid "Bois Guillaume Appartment"
-msgstr "Appartement Bois Guillaume"
+msgstr "Bois Guillame-asunto"
 
 msgid "Borg's Burgers"
-msgstr "Les burgers de Borg's"
+msgstr ""
 
 msgid "BuildMenu Layout"
-msgstr "Disposition du Menu de Construction"
+msgstr "Rakenna valikko ulkoasu"
 
 msgid "BuildingsDecoration"
 msgstr ""
@@ -426,10 +417,10 @@ msgid "Burned Trees"
 msgstr ""
 
 msgid "Burned land"
-msgstr "Terres brûlées"
+msgstr ""
 
 msgid "Cancel"
-msgstr "Annuler"
+msgstr "Peruuta"
 
 msgid "Cattail"
 msgstr ""
@@ -438,22 +429,22 @@ msgid "Centerpiece Park"
 msgstr ""
 
 msgid "Chemical Plant"
-msgstr "Centrale Chimique"
+msgstr "Kemiantehdas"
 
 msgid "Classic Red Barn"
 msgstr ""
 
 msgid "Clock Store"
-msgstr "Horlogerie"
+msgstr "Kellokauppa"
 
 msgid "Coal Pile"
-msgstr "Tas de Charbon"
+msgstr "Hiilikasa"
 
 msgid "Coal Power Plant"
-msgstr "Centrale à charbon"
+msgstr "Hiilivoimala"
 
 msgid "Commercial"
-msgstr "Spot publicitaire"
+msgstr "Mainos"
 
 msgid "Commercial Zone (dense)"
 msgstr ""
@@ -474,22 +465,22 @@ msgid "Commercial Zone (medium)."
 msgstr ""
 
 msgid "Community Tower"
-msgstr "Tour communautaire"
+msgstr "Yhdyskunta torni"
 
 msgid "CompactFast Shop"
-msgstr "Magasin CompactFast"
+msgstr "CompactFast kauppa"
 
 msgid "Concrete Ground Decoration"
 msgstr ""
 
 msgid "Construction"
-msgstr "Construction"
+msgstr "Rakennustyö"
 
 msgid "Countries"
 msgstr ""
 
 msgid "Country Road"
-msgstr "Route de Campagne"
+msgstr "Ajotie"
 
 msgid "Creme-Oran Tower"
 msgstr ""
@@ -498,49 +489,49 @@ msgid "Crystal Trees"
 msgstr ""
 
 msgid "Day Care Center"
-msgstr "Garderie"
+msgstr "Päiväkoti"
 
 msgid "Debug Menu"
-msgstr "Menu de Debug"
+msgstr "Debug menu"
 
 msgid "Deciduous tree"
 msgstr ""
 
 msgid "Decoration"
-msgstr "Décoration"
+msgstr "Koriste"
 
 msgid "Demolish"
-msgstr "Détruire"
+msgstr "Tuhota"
 
 msgid "Desert"
-msgstr "Désert"
+msgstr ""
 
 msgid "Desert Building"
-msgstr "Bâtiment du Désert"
+msgstr "Hylätty rakennus"
 
 msgid "Desert Rocks"
 msgstr ""
 
 msgid "Desert building"
-msgstr "Bâtiment du désert"
+msgstr "Hylätty rakennus"
 
 msgid "Diamond Rocks"
 msgstr ""
 
 msgid "Dirt"
-msgstr "Terre"
+msgstr ""
 
 msgid "Dirt Road"
-msgstr "Chemin de Terre"
+msgstr "Soratie"
 
 msgid "European Road"
 msgstr ""
 
 msgid "Factory"
-msgstr "Usine"
+msgstr "Tehdas"
 
 msgid "Farm"
-msgstr "Ferme"
+msgstr ""
 
 msgid "Ferns"
 msgstr ""
@@ -551,7 +542,7 @@ msgid ""
 msgstr ""
 
 msgid "Flora"
-msgstr "Flore"
+msgstr "Kasvisto"
 
 msgid "Flowers"
 msgstr ""
@@ -560,13 +551,13 @@ msgid "Forest"
 msgstr ""
 
 msgid "Fullscreen Mode"
-msgstr "Mode plein écran"
+msgstr "Kokoruututila"
 
 msgid "Game Shop"
-msgstr "Magasin de jeu"
+msgstr "Pelikauppa"
 
 msgid "Glass Tower"
-msgstr "Tour de vitre"
+msgstr ""
 
 msgid "Golden Rocks"
 msgstr ""
@@ -602,25 +593,25 @@ msgid "Homeless Camp"
 msgstr ""
 
 msgid "Hotel"
-msgstr "Hôtel"
+msgstr ""
 
 msgid "House with swimming pool"
-msgstr "Maison avec piscine"
+msgstr "Talo, jossa on uima-allas"
 
 msgid "I scream for ice cream!"
-msgstr "Je cris pour des glaces !"
+msgstr "Huudan jäätelöä!"
 
 msgid "Ice Cream Shop"
-msgstr "Glacier"
+msgstr "Jäätelökauppa"
 
 msgid "In the tall grass."
 msgstr ""
 
 msgid "Industrial"
-msgstr "Industriel"
+msgstr "Teollinen "
 
 msgid "Industrial Building"
-msgstr "Bâtiment Industriel"
+msgstr "Teollisuusrakennus"
 
 msgid "Industrial Zone (light)"
 msgstr ""
@@ -635,13 +626,13 @@ msgid "It might be an old, bland-looking tower, but it gets the job done."
 msgstr ""
 
 msgid "Lantern"
-msgstr "Lanterne"
+msgstr ""
 
 msgid "Large Plaza Park"
 msgstr ""
 
 msgid "Level Terrain"
-msgstr "Niveler le terrain"
+msgstr "Taso maasto"
 
 msgid "Light Pole"
 msgstr ""
@@ -656,22 +647,22 @@ msgstr ""
 
 #: src/Game.cxx:143
 msgid "Load Game"
-msgstr "Charger la partie"
+msgstr "Lataa peli"
 
 msgid "Low Wealth"
 msgstr ""
 
 msgid "Lower Terrain"
-msgstr "Abaisser le terrain"
+msgstr "Alempi maasto"
 
 msgid "Mansion"
 msgstr ""
 
 msgid "Medical"
-msgstr "Médical"
+msgstr ""
 
 msgid "Medium Appartments"
-msgstr "Appartements Moyens"
+msgstr "Keskikokoiset asunnot"
 
 msgid "Medium Depolluter"
 msgstr ""
@@ -683,38 +674,38 @@ msgid "Mini Depolluter"
 msgstr ""
 
 msgid "Mud"
-msgstr "Boue"
+msgstr ""
 
 msgid "Mushroom Trees"
 msgstr ""
 
 msgid "Nature"
-msgstr "Nature"
+msgstr "Luonto"
 
 msgid "NatureDecoration"
 msgstr ""
 
 #: src/Game.cxx:128
 msgid "New Game"
-msgstr "Nouvelle Partie"
+msgstr "Uusi peli"
 
 msgid "OK"
-msgstr "Ok"
+msgstr "OK"
 
 msgid "Oasis"
-msgstr "Oasis"
+msgstr "Keidas"
 
 msgid "Old Church"
-msgstr "Vieille Église"
+msgstr "Vanha kirkko"
 
 msgid "Old Industrial Building"
-msgstr "Vieux Bâtiment Industriel"
+msgstr "Vanha teollisuusrakennus"
 
 msgid "Old Power Plant"
 msgstr ""
 
 msgid "Old building"
-msgstr "Vieux bâtiment"
+msgstr "Vanha rakennus"
 
 msgid "Palm Trees"
 msgstr ""
@@ -723,25 +714,25 @@ msgid "Park Crossroads"
 msgstr ""
 
 msgid "Paved Road"
-msgstr "Route Pavée"
+msgstr "Päällystetty katu"
 
 msgid "Pavement"
 msgstr ""
 
 msgid "People"
-msgstr "Peuple"
+msgstr ""
 
 msgid "Petrol Pump"
-msgstr "Pompe à Essence"
+msgstr "Bensapumppu"
 
 msgid "Petrol Station"
-msgstr "Station Essence"
+msgstr "Huoltoasema"
 
 msgid "Phone Booth"
 msgstr ""
 
 msgid "Phone Shop"
-msgstr "Magasin de téléphones"
+msgstr "Puhelinkauppa"
 
 msgid "Picnic Pavilion"
 msgstr ""
@@ -756,10 +747,10 @@ msgid "Pipes are used for transporting water."
 msgstr ""
 
 msgid "Pool"
-msgstr "Piscine"
+msgstr ""
 
 msgid "Power"
-msgstr "Énergie"
+msgstr "Voima"
 
 msgid "Pretty concrete"
 msgstr ""
@@ -771,23 +762,23 @@ msgid "Prison Fence"
 msgstr ""
 
 msgid "Pyramid"
-msgstr "Pyramide"
+msgstr "Pyramidi"
 
 #: src/Game.cxx:156
 msgid "Quit Game"
-msgstr "Quitter la partie"
+msgstr "Lopeta peli"
 
 msgid "Raise Terrain"
-msgstr "Rehausser le terrain"
+msgstr "Ylempi maasto"
 
 msgid "Red Berry Bush"
 msgstr ""
 
 msgid "Red Sand"
-msgstr "Sables rouges"
+msgstr ""
 
 msgid "Residential"
-msgstr "Résidentiel"
+msgstr "Asuinalue"
 
 msgid "Residential Zone (dense)"
 msgstr ""
@@ -811,10 +802,10 @@ msgid "Restaurant"
 msgstr ""
 
 msgid "Restaurant in Paris"
-msgstr "Un restaurant de Paris"
+msgstr ""
 
 msgid "Reward"
-msgstr "Récompense"
+msgstr ""
 
 msgid "Rice"
 msgstr ""
@@ -825,13 +816,13 @@ msgid ""
 msgstr ""
 
 msgid "Roads"
-msgstr "Routes"
+msgstr "Kadut"
 
 msgid "Rocks"
-msgstr "Rochers"
+msgstr "Kivet"
 
 msgid "Ruegroshorloge"
-msgstr "Rue du Gros Horloge"
+msgstr ""
 
 msgid "Rural French Road"
 msgstr ""
@@ -846,22 +837,22 @@ msgid "Rural French Road lined"
 msgstr ""
 
 msgid "Save Game"
-msgstr "Sauvegarder la Partie"
+msgstr "Tallenna peli"
 
 msgid "School"
-msgstr "École"
+msgstr ""
 
 msgid "Screen Resolution"
-msgstr "Résolution d'Écran"
+msgstr "Näytön resoluutio"
 
 msgid "Settings"
-msgstr "Paramètres"
+msgstr "Asetukset"
 
 msgid "Shading"
 msgstr ""
 
 msgid "Shop"
-msgstr "Magasin"
+msgstr ""
 
 msgid "Sign Platform"
 msgstr ""
@@ -870,19 +861,19 @@ msgid "SkyScraper"
 msgstr ""
 
 msgid "Skyscraper"
-msgstr "Building"
+msgstr "Pilvenpiirtäjä"
 
 msgid "Small Coal Power Plant"
-msgstr "Petite centrale à charbon"
+msgstr "Pieni hiilivoimala "
 
 msgid "Small Coal Power Plant2"
-msgstr "Petite centrale à charbon2"
+msgstr "Pieni hiilivoimala2"
 
 msgid "Small Commercial Center"
-msgstr "Petit Centre Commercial"
+msgstr "Pieni kauppakeskus"
 
 msgid "Small House"
-msgstr "Petite Maison"
+msgstr "Pieni talo"
 
 msgid "Small Houses"
 msgstr ""
@@ -894,7 +885,7 @@ msgid "Small Office Building"
 msgstr ""
 
 msgid "Small Shack"
-msgstr "Petite Cabane"
+msgstr "Pieni mökki"
 
 msgid "Small Shed"
 msgstr ""
@@ -903,10 +894,10 @@ msgid "Small Waiting Platform"
 msgstr ""
 
 msgid "Small Water Tower"
-msgstr "Petit Château d'Eau"
+msgstr "Pieni vesitorni"
 
 msgid "Small house"
-msgstr "Petite maison"
+msgstr "Pieni talo"
 
 msgid "Snowy Rocks"
 msgstr ""
@@ -915,10 +906,10 @@ msgid "Soil"
 msgstr ""
 
 msgid "Station"
-msgstr "Station"
+msgstr ""
 
 msgid "Stone"
-msgstr "Pierre"
+msgstr ""
 
 msgid "Stream"
 msgstr ""
@@ -942,7 +933,7 @@ msgid "Tan Tower"
 msgstr ""
 
 msgid "Terrain"
-msgstr "Terrain"
+msgstr "Maasto"
 
 msgid "Terrain Black Sand tiles"
 msgstr ""
@@ -1002,25 +993,25 @@ msgid "Terrain soil tiles"
 msgstr ""
 
 msgid "TerrainDecoration"
-msgstr "TerrainDecoration"
+msgstr "Maaston koristus"
 
 msgid "Tour Front De Seine"
-msgstr "Tour Front De Seine"
+msgstr ""
 
 msgid "Trailer Park"
 msgstr ""
 
 msgid "Utilities"
-msgstr "Utilitaires"
+msgstr ""
 
 msgid "Water"
-msgstr "Eau"
+msgstr "Vesi"
 
 msgid "Water Rocks"
 msgstr ""
 
 msgid "Water Tower"
-msgstr "Château d'eau"
+msgstr "Vesitorni"
 
 msgid "Water pipe"
 msgstr ""
@@ -1047,7 +1038,7 @@ msgid "a little stream"
 msgstr ""
 
 msgid "big Appartments"
-msgstr "grands Appartements"
+msgstr "Isot asunnot"
 
 msgid "house"
 msgstr ""
