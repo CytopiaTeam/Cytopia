@@ -10,7 +10,7 @@ should be updated whenever new strings which need translation have been added to
 
 ```bash
 # Extract new translations template
-cmake -P extract_from_json.cmake
+node extract_from_json.js
 # Commit the data/languages/Cytopia.pot file and it will be automatically updated by Weblate
 ```
 
