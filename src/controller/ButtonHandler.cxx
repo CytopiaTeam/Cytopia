@@ -4,7 +4,7 @@
 #include "../model/MouseState.hxx"
 #include "../util/Rectangle.hxx"
 
-ButtonHandler::ButtonHandler(Callback callback, ButtonState &state, MouseState &mouse_state, const iView &view)
+ButtonHandler::ButtonHandler(Callback callback, ButtonModel &state, MouseState &mouse_state, const iView &view)
     : m_HandleClick(callback), m_State(state), m_MouseState(mouse_state), m_View(view)
 {
 }

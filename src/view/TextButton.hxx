@@ -1,24 +1,29 @@
 #ifndef TEXT_BUTTON_HXX_
 #define TEXT_BUTTON_HXX_
 
-#include "../model/ButtonState.hxx"
-#include "iViewElement.hxx"
-#include "../util/Color.hxx"
 #include <memory>
+#include <string>
+#include "ClassicButton.hxx"
 
-class TextButton : public iViewElement, public ButtonListener
+class TextButton : public ClassicButton<TextButton>
 {
-  int m_At;
-  RGBAColor m_Color;
-  const char * m_Text;
 public:
-  TextButton(const char *, RGBAColor = 0x9e9e9eFF);
-  virtual void draw(iRenderer &) const noexcept override;
+  TextButton(const std::string &, RGBAColor = Palette::Gray);
   virtual ~TextButton();
-  using MyController = class ButtonHandler;
-  using MyState = ButtonState;
-  void update(Notification) noexcept final;
-  void setup(class GameService & context) noexcept final;
+  
+  void drawButtonContent(iRenderer &) const noexcept;
+  void setupButton(class GameService & context) noexcept;
+  void onMouseLeave() noexcept;
+  void onDisable() noexcept;
+  void onPress() noexcept;
+  void onHover() noexcept;
+private:
+  static constexpr int16_t PADDING_BOTTOM_PRESSED = -10;
+  static constexpr int16_t PADDING_BOTTOM_DISABLED = -10;
+  static constexpr int16_t PADDING_BOTTOM_HOVERED = 5;
+  
+  int16_t m_TextPaddingBottom;
+  std::string m_Text;
 };
 
 using TextButtonPtr = std::shared_ptr<TextButton>;

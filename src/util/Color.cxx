@@ -41,7 +41,7 @@ float RGBAColor::lightness() const noexcept
   auto [min, max] = std::minmax({red(), green(), blue()});
   float l = min;
   l += max;
-  l /= 510.f;
+  l /= 2.f * std::numeric_limits<uint8_t>::max();
   return l;
 }
 
@@ -57,15 +57,23 @@ float RGBAColor::saturation() const noexcept
   return C;
 }
 
+float RGBAColor::hsla_chroma(float hue, float angle) {
+  return std::fmod(12.f * hue + angle, 12.f);
+}
+
+float RGBAColor::hsla_to_value(float lightness, float range, float chroma) {
+  return 255.f * (lightness - range * std::max(-1.f, std::min({chroma - 3.f, 9.f - chroma, 1.f})));
+}
+
 RGBAColor RGBAColor::fromHSLA(float h, float s, float l, uint8_t a)
 {
-  float k = std::fmod(12.f * h, 12.f);
+  float k = hsla_chroma(h, 0);
   float m = s * std::min(l, 1.f - l);
-  uint8_t r = 255.f * (l - m * std::max(-1.f, std::min({k - 3.f, 9.f - k, 1.f})));
-  k = std::fmod(k + 4.f, 12.f);
-  uint8_t b = 255.f * (l - m * std::max(-1.f, std::min({k - 3.f, 9.f - k, 1.f})));
-  k = std::fmod(k + 4.f, 12.f);
-  uint8_t g = 255.f * (l - m * std::max(-1.f, std::min({k - 3.f, 9.f - k, 1.f})));
+  uint8_t r = hsla_to_value(l, m, k);
+  k = hsla_chroma(h, 4);
+  uint8_t b = hsla_to_value(l, m, k);
+  k = hsla_chroma(h, 8);
+  uint8_t g = hsla_to_value(l, m, k);
   return {r, g, b, a};
 }
 

@@ -1,10 +1,10 @@
-#include "ButtonState.hxx"
+#include "ButtonModel.hxx"
 #include "../util/LOG.hxx"
 #include "../util/Exception.hxx"
 
-ButtonState::~ButtonState() = default;
+ButtonModel::~ButtonModel() = default;
 
-void ButtonState::setStatus(ButtonStatus status)
+void ButtonModel::setStatus(ButtonStatus status)
 {
   std::swap(m_Status, status);
   notifyObservers(Notification{m_Status});

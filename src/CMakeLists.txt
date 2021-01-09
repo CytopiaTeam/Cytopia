@@ -66,13 +66,15 @@ set(SOURCE_FILES
         view/iView.{hxx,cxx}
         view/iViewElement.{hxx,cxx}
         view/CursorView.{hxx,cxx}
+        view/ClassicButton.hxx
+        view/ClassicButton.inl.hxx
         view/TextButton.{hxx,cxx}
         view/IconButton.{hxx,cxx}
         view/ImageView.{hxx,cxx}
         view/Window.{hxx,cxx}
         model/iModel.{hxx,cxx}
         model/DataModel.hxx
-        model/ButtonState.{hxx,cxx}
+        model/ButtonModel.{hxx,cxx}
         model/MouseState.{hxx,cxx}
         activity/iActivity.{hxx,cxx}
         activity/MainMenuActivity.{hxx,cxx}

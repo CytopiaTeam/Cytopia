@@ -1,22 +1,23 @@
 #ifndef ICON_BUTTON_HXX_
 #define ICON_BUTTON_HXX_
 
-#include "iViewElement.hxx"
-#include "../model/ButtonState.hxx"
-#include "../util/Color.hxx"
 #include <memory>
+#include "ClassicButton.hxx"
 
-class IconButton : public iViewElement, public ButtonListener
+class IconButton : public ClassicButton<IconButton>
 {
-  std::string m_IconPath;
-  RGBAColor m_Color;
-  char m_At;
 public:
   IconButton(const std::string &, const RGBAColor& = Palette::Gray);
-  virtual void draw(iRenderer &) const noexcept override;
   virtual ~IconButton();
-  void update(Notification) noexcept final;
-  void setup(class GameService & context) noexcept final;
+  
+  void drawButtonContent(iRenderer &) const noexcept;
+  void setupButton(class GameService & context) noexcept;
+  void onMouseLeave() noexcept;
+  void onDisable() noexcept;
+  void onPress() noexcept;
+  void onHover() noexcept;
+private:
+  std::string m_IconPath;
 };
 
 using IconButtonPtr = std::shared_ptr<IconButton>;
