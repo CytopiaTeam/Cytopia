@@ -21,6 +21,9 @@ public:
 private:
   std::string m_Language;
   Localization m_Localization;
+  UILoopMQ &m_UiQueue;
 };
+
+using SettingsModelListener = SettingsModel::Listener;
 
 #endif // SETTINGS_MODEL_HXX_

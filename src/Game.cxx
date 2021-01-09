@@ -373,8 +373,7 @@ template <> typename UILoopMQ::Enumerable Game::getEvents<UILoopMQ>(GameContext 
   return events;
 }
 
-template <typename MQType, typename Visitor>
-void Game::LoopMain(GameContext &context, Visitor visitor)
+template <typename MQType, typename Visitor> void Game::LoopMain(GameContext &context, Visitor visitor)
 {
   try
   {

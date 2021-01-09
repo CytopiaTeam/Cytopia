@@ -35,6 +35,7 @@ private:
   iRendererPtr m_Renderer;
   iActivityPtr m_Activity;
   CursorViewPtr m_Cursor;
+
   MouseState m_MouseState;
   SettingsModel m_SettingsModel;
 

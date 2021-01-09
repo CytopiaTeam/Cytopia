@@ -64,6 +64,8 @@ void Settings::parse_args(int argc, char** argv) {
     if(patch[key].is_discarded()) {
       patch[key] = value;
     }
+
+    ++argv;
   }
   /**
    *  @todo This is a lazy implementation... We probably should get rid of singleton 

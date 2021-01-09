@@ -8,6 +8,7 @@ Localization ::Localization() : m_MoFileReader{}, m_IsInitilaized{false} {}
 
 void Localization::load(const string &language)
 {
+  m_MoFileReader.ClearTable();
   string moFilePath = fs::getBasePath() + "languages/" + language + "/Cytopia.mo";
 
   if (m_MoFileReader.ReadFile(moFilePath.c_str()) == moFileLib::moFileReader::EC_SUCCESS)
