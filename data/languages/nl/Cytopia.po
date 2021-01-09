@@ -1,25 +1,25 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Edgar <Edgar@AnotherFoxGuy.com>, 2020
+# Edgar <Edgar@anotherfoxguy.com>, 2021.
 #
 # Translators:
-# Edgar <Edgar@AnotherFoxGuy.com>, 2020
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-01-09 10:52+0100\n"
-"PO-Revision-Date: 2020-05-31 10:56+0000\n"
-"Last-Translator: Edgar <Edgar@AnotherFoxGuy.com>, 2020\n"
-"Language-Team: Dutch (https://www.transifex.com/cytopia/teams/100140/nl/)\n"
+"PO-Revision-Date: 2021-01-09 11:43+0000\n"
+"Last-Translator: Edgar <Edgar@anotherfoxguy.com>\n"
+"Language-Team: Dutch <https://hosted.weblate.org/projects/cytopia/game/nl/>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.4.1-dev\n"
 
 msgid "A  small coal power plant."
 msgstr "Een kleine kolencentrale."
@@ -86,10 +86,8 @@ msgstr "Een groep van prachtige pijnbomen."
 msgid "A group of benches that surround a nice decorative object."
 msgstr "Een groep van banken die een mooi decoratief object omringen."
 
-#, fuzzy
-#| msgid "A group of burned trees."
 msgid "A group of birch trees."
-msgstr "Een groep van verbrande bomen."
+msgstr "Een groep berkenbomen."
 
 msgid "A group of burned trees."
 msgstr "Een groep van verbrande bomen."
@@ -97,10 +95,8 @@ msgstr "Een groep van verbrande bomen."
 msgid "A group of crystal trees."
 msgstr "Een groep van kristal bomen."
 
-#, fuzzy
-#| msgid "A group of crystal trees."
 msgid "A group of cypress trees."
-msgstr "Een groep van kristal bomen."
+msgstr "Een groep cipressen."
 
 msgid ""
 "A group of mannequins you dressed up as people that can be used to decorate "
@@ -112,10 +108,8 @@ msgstr ""
 msgid "A group of mysterious mushroom trees."
 msgstr "Een groep van mysterieuze paddenstoel bomen."
 
-#, fuzzy
-#| msgid "A group of palmtrees."
 msgid "A group of oak trees."
-msgstr "Een groep palmen."
+msgstr "Een groep eiken."
 
 msgid "A group of palmtrees."
 msgstr "Een groep palmen."
@@ -125,30 +119,20 @@ msgstr ""
 "Een groep van picknicktafels die uw burgers kunnen gebruiken om te lunchen "
 "in."
 
-#, fuzzy
-#| msgid "A group of palmtrees."
 msgid "A group of plum trees."
-msgstr "Een groep palmen."
+msgstr "Een groep pruimenbomen."
 
-#, fuzzy
-#| msgid "A group of burned trees."
 msgid "A group of sakura trees."
-msgstr "Een groep van verbrande bomen."
+msgstr "Een groep sakurabomen."
 
-#, fuzzy
-#| msgid "A group of palmtrees."
 msgid "A group of stone pines."
-msgstr "Een groep palmen."
+msgstr "Een groep stenen dennen."
 
-#, fuzzy
-#| msgid "A group of palmtrees."
 msgid "A group of tall bamboo plants."
-msgstr "Een groep palmen."
+msgstr "Een groep hoge bamboeplanten."
 
-#, fuzzy
-#| msgid "A group of palmtrees."
 msgid "A group of tall bamboo trees."
-msgstr "Een groep palmen."
+msgstr "Een groep hoge bamboebomen."
 
 msgid "A group tall wetland plants well-known for their brown catkins."
 msgstr "Een groep hoge moerasplanten bekend om hun bruine katjes."
@@ -241,7 +225,7 @@ msgid "A pile of rocks that can be found in water."
 msgstr "Een stapel stenen die gevonden kunnen worden in water."
 
 msgid "A poplar tree"
-msgstr ""
+msgstr "Een populierboom"
 
 msgid "A prison fence"
 msgstr "Een gevangenis hek"
@@ -445,13 +429,13 @@ msgid "Appartments"
 msgstr "Appartments"
 
 msgid "Bamboo (Dense)"
-msgstr ""
+msgstr "Bamboe (Dicht)"
 
 msgid "Bamboo (Light)"
-msgstr ""
+msgstr "Bamboe (Licht)"
 
 msgid "Bamboo (Medium)"
-msgstr ""
+msgstr "Bamboe (Medium)"
 
 msgid "Basalt"
 msgstr "Bazalt"
@@ -484,13 +468,13 @@ msgid "BikeShop"
 msgstr "Fietsenwinkel"
 
 msgid "Birch Trees (Dense)"
-msgstr ""
+msgstr "Berken (Dicht)"
 
 msgid "Birch Trees (Light)"
-msgstr ""
+msgstr "Berken (Licht)"
 
 msgid "Birch Trees (Medium)"
-msgstr ""
+msgstr "Berken (Medium)"
 
 msgid "Black Sand"
 msgstr "Zwart zand"
@@ -516,20 +500,14 @@ msgstr "BuildMenu Layout"
 msgid "BuildingsDecoration"
 msgstr "BuildingsDecoration"
 
-#, fuzzy
-#| msgid "Burned Trees"
 msgid "Burned Trees (Dense)"
-msgstr "Gebrande Bomen"
+msgstr "Verbrande bomen (dicht)"
 
-#, fuzzy
-#| msgid "Burned Trees"
 msgid "Burned Trees (Light)"
-msgstr "Gebrande Bomen"
+msgstr "Verbrande bomen (Licht)"
 
-#, fuzzy
-#| msgid "Burned Trees"
 msgid "Burned Trees (Medium)"
-msgstr "Gebrande Bomen"
+msgstr "Verbrande bomen (Gemiddeld)"
 
 msgid "Burned land"
 msgstr "Verbrand land"
@@ -537,18 +515,14 @@ msgstr "Verbrand land"
 msgid "Cancel"
 msgstr "Annuleren"
 
-#, fuzzy
-#| msgid "Cattail"
 msgid "Cattails (Dense)"
-msgstr "Lisdodde"
+msgstr "Lisdodde (Dicht)"
 
-#, fuzzy
-#| msgid "Cattail"
 msgid "Cattails (Light)"
-msgstr "Lisdodde"
+msgstr "Lisdodde (Licht)"
 
 msgid "Cattails (Medium)"
-msgstr ""
+msgstr "Lisdodde (Medium)"
 
 msgid "Centerpiece Park"
 msgstr "Middelpunt Park"
@@ -610,29 +584,23 @@ msgstr "Landweg"
 msgid "Creme-Oran Tower"
 msgstr "Creme-Oran Tower"
 
-#, fuzzy
-#| msgid "Crystal Trees"
 msgid "Crystal Trees (Dense)"
-msgstr "Kristal Bomen"
+msgstr "Kristallen bomen (Dicht)"
 
-#, fuzzy
-#| msgid "Crystal Trees"
 msgid "Crystal Trees (Light)"
-msgstr "Kristal Bomen"
+msgstr "Kristallen bomen (Licht)"
 
-#, fuzzy
-#| msgid "Crystal Trees"
 msgid "Crystal Trees (Medium)"
-msgstr "Kristal Bomen"
+msgstr "Kristallen Bomen (Medium)"
 
 msgid "Cypress Trees (Dense)"
-msgstr ""
+msgstr "Cipressen (Dicht)"
 
 msgid "Cypress Trees (Light)"
-msgstr ""
+msgstr "Cipressen (Licht)"
 
 msgid "Cypress Trees (Medium)"
-msgstr ""
+msgstr "Cipressen (Medium)"
 
 msgid "Day Care Center"
 msgstr "Kinderdagverblijf"
@@ -677,13 +645,13 @@ msgid "Farm"
 msgstr "Boerderij"
 
 msgid "Ferns (Dense)"
-msgstr ""
+msgstr "Varens (Dicht)"
 
 msgid "Ferns (Light)"
-msgstr ""
+msgstr "Varens (Licht)"
 
 msgid "Ferns (Medium)"
-msgstr ""
+msgstr "Varens (Medium)"
 
 msgid ""
 "Ferns are green flowerless plants with divided leaves that tend to grow in "
@@ -695,20 +663,14 @@ msgstr ""
 msgid "Flora"
 msgstr "Flora"
 
-#, fuzzy
-#| msgid "Flowers"
 msgid "Flowers (Dense)"
-msgstr "Bloemen"
+msgstr "Bloemen (Dicht)"
 
-#, fuzzy
-#| msgid "Flowers"
 msgid "Flowers (Light)"
-msgstr "Bloemen"
+msgstr "Bloemen (Licht)"
 
-#, fuzzy
-#| msgid "Flowers"
 msgid "Flowers (Medium)"
-msgstr "Bloemen"
+msgstr "Bloemen (Medium)"
 
 msgid "Forest"
 msgstr "Woud"
@@ -737,35 +699,23 @@ msgstr "Grasland"
 msgid "Gravel"
 msgstr "Grind"
 
-#, fuzzy
-#| msgid "Green Bush"
 msgid "Green Bushes (Dense)"
-msgstr "Groene struik"
+msgstr "Groene struiken (Dicht)"
 
-#, fuzzy
-#| msgid "Green Bush"
 msgid "Green Bushes (Light)"
-msgstr "Groene struik"
+msgstr "Groene struiken (Licht)"
 
-#, fuzzy
-#| msgid "Green Bush"
 msgid "Green Bushes (Medium)"
-msgstr "Groene struik"
+msgstr "Groene struiken (Medium)"
 
-#, fuzzy
-#| msgid "Green Cactus"
 msgid "Green Cacti (Dense)"
-msgstr "Groene Cactus"
+msgstr "Groene cactussen (Dicht)"
 
-#, fuzzy
-#| msgid "Green Cactus"
 msgid "Green Cacti (Light)"
-msgstr "Groene Cactus"
+msgstr "Groene cactussen (Licht)"
 
-#, fuzzy
-#| msgid "Green Cactus"
 msgid "Green Cacti (Medium)"
-msgstr "Groene Cactus"
+msgstr "Groene Cactussen (Medium)"
 
 msgid "Ground Decoration"
 msgstr "Gronddecoratie"
@@ -780,7 +730,7 @@ msgid "Homeless Camp"
 msgstr "Daklozen kamp"
 
 msgid "Horses"
-msgstr ""
+msgstr "Paarden"
 
 msgid "Hotel"
 msgstr "Hotel"
@@ -828,18 +778,14 @@ msgstr "Level Terrain"
 msgid "Light Pole"
 msgstr "Straatlantaarn"
 
-#, fuzzy
-#| msgid "Lily pads"
 msgid "Lily Pads (Dense)"
-msgstr "Waterlelie"
+msgstr "Waterlelie (Dicht)"
 
-#, fuzzy
-#| msgid "Lily pads"
 msgid "Lily Pads (Light)"
-msgstr "Waterlelie"
+msgstr "Waterlelie (Licht)"
 
 msgid "Lily Pads (Medium)"
-msgstr ""
+msgstr "Waterlelies (Medium)"
 
 msgid ""
 "Lily pads are broad, rounded, heart- or shield-shaped leaves. Frogs like to "
@@ -879,18 +825,14 @@ msgstr "Kleine Depolluter"
 msgid "Mud"
 msgstr "Modder"
 
-#, fuzzy
-#| msgid "Mushroom Trees"
 msgid "Mushrooms (Dense)"
-msgstr "Paddestoel Bomen"
+msgstr "Paddestoelen (Dicht)"
 
 msgid "Mushrooms (Light)"
-msgstr ""
+msgstr "Paddestoelen (Licht)"
 
-#, fuzzy
-#| msgid "Mushroom Trees"
 msgid "Mushrooms (Medium)"
-msgstr "Paddestoel Bomen"
+msgstr "Paddestoelen (Medium)"
 
 msgid "Nature"
 msgstr "Natuur"
@@ -906,13 +848,13 @@ msgid "OK"
 msgstr "OK"
 
 msgid "Oak Trees (Dense)"
-msgstr ""
+msgstr "Eikenbomen (Dicht)"
 
 msgid "Oak Trees (Light)"
-msgstr ""
+msgstr "Eikenbomen (Licht)"
 
 msgid "Oak Trees (Medium)"
-msgstr ""
+msgstr "Eikenbomen (Medium)"
 
 msgid "Oasis"
 msgstr "Oase"
@@ -929,20 +871,14 @@ msgstr "Oude Energiecentrale"
 msgid "Old building"
 msgstr "Oud gebouw"
 
-#, fuzzy
-#| msgid "Palm Trees"
 msgid "Palm Trees (Dense)"
-msgstr "Palmbomen"
+msgstr "Palmbomen (Dicht)"
 
-#, fuzzy
-#| msgid "Palm Trees"
 msgid "Palm Trees (Light)"
-msgstr "Palmbomen"
+msgstr "Palmbomen (Licht)"
 
-#, fuzzy
-#| msgid "Palm Trees"
 msgid "Palm Trees (Medium)"
-msgstr "Palmbomen"
+msgstr "Palmbomen (Medium)"
 
 msgid "Park Crossroads"
 msgstr "Park Kruispunt"
@@ -974,20 +910,14 @@ msgstr "Picknickpaviljoen"
 msgid "Picnic Tables"
 msgstr "Picknicktafels"
 
-#, fuzzy
-#| msgid "Pine Trees"
 msgid "Pine Trees (Dense)"
-msgstr "Dennenbomen"
+msgstr "Dennenbomen (Dicht)"
 
-#, fuzzy
-#| msgid "Pine Trees"
 msgid "Pine Trees (Light)"
-msgstr "Dennenbomen"
+msgstr "Dennenbomen (Licht)"
 
-#, fuzzy
-#| msgid "Pine Trees"
 msgid "Pine Trees (Medium)"
-msgstr "Dennenbomen"
+msgstr "Dennenbomen (Medium)"
 
 msgid "Pipes are used for transporting water."
 msgstr "Pijpen voor het transport van water."
@@ -996,13 +926,13 @@ msgid "Pool"
 msgstr "Zwembad"
 
 msgid "Poplars (Dense)"
-msgstr ""
+msgstr "Populieren (Dicht)"
 
 msgid "Poplars (Light)"
-msgstr ""
+msgstr "Populieren (Licht)"
 
 msgid "Poplars (Medium)"
-msgstr ""
+msgstr "Populieren (Medium)"
 
 msgid "Power"
 msgstr "Elektriciteit"
@@ -1026,20 +956,14 @@ msgstr "Game beëindigen"
 msgid "Raise Terrain"
 msgstr "Verhoog terrein"
 
-#, fuzzy
-#| msgid "Red Berry Bush"
 msgid "Red Berry Bushes (Dense)"
-msgstr "Rode bessenstruik"
+msgstr "Rode bessenstruiken (Dicht)"
 
-#, fuzzy
-#| msgid "Red Berry Bush"
 msgid "Red Berry Bushes (Light)"
-msgstr "Rode bessenstruik"
+msgstr "Rode bessenstruiken (Licht)"
 
-#, fuzzy
-#| msgid "Red Berry Bush"
 msgid "Red Berry Bushes (Medium)"
-msgstr "Rode bessenstruik"
+msgstr "Rode bessenstruiken (Medium)"
 
 msgid "Red Sand"
 msgstr "Rood zand"
@@ -1104,13 +1028,13 @@ msgid "Rural French Road lined"
 msgstr "Landelijke Franse Weg - belijnd"
 
 msgid "Sakura Trees (Dense)"
-msgstr ""
+msgstr "Sakura bomen (Dicht)"
 
 msgid "Sakura Trees (Light)"
-msgstr ""
+msgstr "Sakura bomen (Licht)"
 
 msgid "Sakura Trees (Medium)"
-msgstr ""
+msgstr "Sakura bomen (Medium)"
 
 msgid "Save Game"
 msgstr "Spel opslaan"
@@ -1188,13 +1112,13 @@ msgid "Stone"
 msgstr "Steen"
 
 msgid "Stone Pines (Dense)"
-msgstr ""
+msgstr "Stenen dennen (Dicht)"
 
 msgid "Stone Pines (Light)"
-msgstr ""
+msgstr "Stenen dennen (Licht)"
 
 msgid "Stone Pines (Medium)"
-msgstr ""
+msgstr "Stenen dennen (Medium)"
 
 msgid "Stream"
 msgstr "Stroom"
@@ -1211,20 +1135,14 @@ msgstr "TODO TITLE"
 msgid "Tall Concrete Tower"
 msgstr "Hoge betonnen toren"
 
-#, fuzzy
-#| msgid "Tall Grass"
 msgid "Tall Grass (Dense)"
-msgstr "Hoog gras"
+msgstr "Hoog gras (Dicht)"
 
-#, fuzzy
-#| msgid "Tall Grass"
 msgid "Tall Grass (Light)"
-msgstr "Hoog gras"
+msgstr "Hoog gras (Licht)"
 
-#, fuzzy
-#| msgid "Tall Grass"
 msgid "Tall Grass (Medium)"
-msgstr "Hoog gras"
+msgstr "Hoog gras (Medium)"
 
 msgid "Tan Tower"
 msgstr "Tan Toren"
@@ -1293,13 +1211,13 @@ msgid "TerrainDecoration"
 msgstr "Terreindecoratie"
 
 msgid "Thundercloud Purple Leaf Plum Trees (Dense)"
-msgstr ""
+msgstr "Onweerswolk Paars blad Pruimenbomen (Dicht)"
 
 msgid "Thundercloud Purple Leaf Plum Trees (Light)"
-msgstr ""
+msgstr "Onweerswolk Paars blad Pruimenbomen (Licht)"
 
 msgid "Thundercloud Purple Leaf Plum Trees (Medium)"
-msgstr ""
+msgstr "Onweerswolk Paars blad Pruimenbomen (Medium)"
 
 msgid "Tour Front De Seine"
 msgstr "Tour Front De Seine"
@@ -1329,31 +1247,25 @@ msgid "Wheat Field"
 msgstr "Tarwe veld"
 
 msgid "Wild Rice (Dense)"
-msgstr ""
+msgstr "Wilde rijst (Dicht)"
 
 msgid "Wild Rice (Light)"
-msgstr ""
+msgstr "Wilde rijst (Licht)"
 
 msgid "Wild Rice (Medium)"
-msgstr ""
+msgstr "Wilde rijst (Medium)"
 
 msgid "Wooden Sign"
 msgstr "Houten bordje"
 
-#, fuzzy
-#| msgid "Yellow Cactus"
 msgid "Yellow Cacti (Dense)"
-msgstr "Gele Cactus"
+msgstr "Gele cactussen (Dicht)"
 
-#, fuzzy
-#| msgid "Yellow Cactus"
 msgid "Yellow Cacti (Light)"
-msgstr "Gele Cactus"
+msgstr "Gele cactussen (Licht)"
 
-#, fuzzy
-#| msgid "Yellow Cactus"
 msgid "Yellow Cacti (Medium)"
-msgstr "Gele Cactus"
+msgstr "Gele cactussen (Medium)"
 
 msgid "Zones"
 msgstr "Zones"
