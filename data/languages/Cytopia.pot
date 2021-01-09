@@ -7,7 +7,7 @@
 msgid   ""
 msgstr  "Project-Id-Version: PACKAGE VERSION\n"
         "Report-Msgid-Bugs-To: \n"
-        "POT-Creation-Date: 2020-05-26 19:11+0200\n"
+        "POT-Creation-Date: 2021-01-09 10:52+0100\n"
         "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
         "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
         "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -60,9 +60,6 @@ msgstr  ""
 msgid   "A commercial center"
 msgstr  ""
 
-msgid   "A deciduous tree"
-msgstr  ""
-
 msgid   "A factory"
 msgstr  ""
 
@@ -78,10 +75,16 @@ msgstr  ""
 msgid   "A group of benches that surround a nice decorative object."
 msgstr  ""
 
+msgid   "A group of birch trees."
+msgstr  ""
+
 msgid   "A group of burned trees."
 msgstr  ""
 
 msgid   "A group of crystal trees."
+msgstr  ""
+
+msgid   "A group of cypress trees."
 msgstr  ""
 
 msgid   "A group of mannequins you dressed up as people that can be used to "
@@ -91,10 +94,28 @@ msgstr  ""
 msgid   "A group of mysterious mushroom trees."
 msgstr  ""
 
+msgid   "A group of oak trees."
+msgstr  ""
+
 msgid   "A group of palmtrees."
 msgstr  ""
 
 msgid   "A group of picnic tables that your citizens can use to eat lunch at."
+msgstr  ""
+
+msgid   "A group of plum trees."
+msgstr  ""
+
+msgid   "A group of sakura trees."
+msgstr  ""
+
+msgid   "A group of stone pines."
+msgstr  ""
+
+msgid   "A group of tall bamboo plants."
+msgstr  ""
+
+msgid   "A group of tall bamboo trees."
 msgstr  ""
 
 msgid   "A group tall wetland plants well-known for their brown catkins."
@@ -171,6 +192,9 @@ msgid   "A pile of rocks that can be found in the snow biome."
 msgstr  ""
 
 msgid   "A pile of rocks that can be found in water."
+msgstr  ""
+
+msgid   "A poplar tree"
 msgstr  ""
 
 msgid   "A prison fence"
@@ -340,6 +364,15 @@ msgstr  ""
 msgid   "Appartments"
 msgstr  ""
 
+msgid   "Bamboo (Dense)"
+msgstr  ""
+
+msgid   "Bamboo (Light)"
+msgstr  ""
+
+msgid   "Bamboo (Medium)"
+msgstr  ""
+
 msgid   "Basalt"
 msgstr  ""
 
@@ -370,6 +403,15 @@ msgstr  ""
 msgid   "BikeShop"
 msgstr  ""
 
+msgid   "Birch Trees (Dense)"
+msgstr  ""
+
+msgid   "Birch Trees (Light)"
+msgstr  ""
+
+msgid   "Birch Trees (Medium)"
+msgstr  ""
+
 msgid   "Black Sand"
 msgstr  ""
 
@@ -394,7 +436,13 @@ msgstr  ""
 msgid   "BuildingsDecoration"
 msgstr  ""
 
-msgid   "Burned Trees"
+msgid   "Burned Trees (Dense)"
+msgstr  ""
+
+msgid   "Burned Trees (Light)"
+msgstr  ""
+
+msgid   "Burned Trees (Medium)"
 msgstr  ""
 
 msgid   "Burned land"
@@ -403,7 +451,13 @@ msgstr  ""
 msgid   "Cancel"
 msgstr  ""
 
-msgid   "Cattail"
+msgid   "Cattails (Dense)"
+msgstr  ""
+
+msgid   "Cattails (Light)"
+msgstr  ""
+
+msgid   "Cattails (Medium)"
 msgstr  ""
 
 msgid   "Centerpiece Park"
@@ -466,16 +520,28 @@ msgstr  ""
 msgid   "Creme-Oran Tower"
 msgstr  ""
 
-msgid   "Crystal Trees"
+msgid   "Crystal Trees (Dense)"
+msgstr  ""
+
+msgid   "Crystal Trees (Light)"
+msgstr  ""
+
+msgid   "Crystal Trees (Medium)"
+msgstr  ""
+
+msgid   "Cypress Trees (Dense)"
+msgstr  ""
+
+msgid   "Cypress Trees (Light)"
+msgstr  ""
+
+msgid   "Cypress Trees (Medium)"
 msgstr  ""
 
 msgid   "Day Care Center"
 msgstr  ""
 
 msgid   "Debug Menu"
-msgstr  ""
-
-msgid   "Deciduous tree"
 msgstr  ""
 
 msgid   "Decoration"
@@ -514,7 +580,13 @@ msgstr  ""
 msgid   "Farm"
 msgstr  ""
 
-msgid   "Ferns"
+msgid   "Ferns (Dense)"
+msgstr  ""
+
+msgid   "Ferns (Light)"
+msgstr  ""
+
+msgid   "Ferns (Medium)"
 msgstr  ""
 
 msgid   "Ferns are green flowerless plants with divided leaves that tend to "
@@ -524,7 +596,13 @@ msgstr  ""
 msgid   "Flora"
 msgstr  ""
 
-msgid   "Flowers"
+msgid   "Flowers (Dense)"
+msgstr  ""
+
+msgid   "Flowers (Light)"
+msgstr  ""
+
+msgid   "Flowers (Medium)"
 msgstr  ""
 
 msgid   "Forest"
@@ -554,10 +632,22 @@ msgstr  ""
 msgid   "Gravel"
 msgstr  ""
 
-msgid   "Green Bush"
+msgid   "Green Bushes (Dense)"
 msgstr  ""
 
-msgid   "Green Cactus"
+msgid   "Green Bushes (Light)"
+msgstr  ""
+
+msgid   "Green Bushes (Medium)"
+msgstr  ""
+
+msgid   "Green Cacti (Dense)"
+msgstr  ""
+
+msgid   "Green Cacti (Light)"
+msgstr  ""
+
+msgid   "Green Cacti (Medium)"
 msgstr  ""
 
 msgid   "Ground Decoration"
@@ -570,6 +660,9 @@ msgid   "Highway Road"
 msgstr  ""
 
 msgid   "Homeless Camp"
+msgstr  ""
+
+msgid   "Horses"
 msgstr  ""
 
 msgid   "Hotel"
@@ -617,14 +710,20 @@ msgstr  ""
 msgid   "Light Pole"
 msgstr  ""
 
-msgid   "Lily pads"
+msgid   "Lily Pads (Dense)"
+msgstr  ""
+
+msgid   "Lily Pads (Light)"
+msgstr  ""
+
+msgid   "Lily Pads (Medium)"
 msgstr  ""
 
 msgid   "Lily pads are broad, rounded, heart- or shield-shaped leaves. Frogs "
         "like to sit on them!"
 msgstr  ""
 
-#: src/Game.cxx:143
+#: src/Game.cxx:138
 msgid   "Load Game"
 msgstr  ""
 
@@ -655,7 +754,13 @@ msgstr  ""
 msgid   "Mud"
 msgstr  ""
 
-msgid   "Mushroom Trees"
+msgid   "Mushrooms (Dense)"
+msgstr  ""
+
+msgid   "Mushrooms (Light)"
+msgstr  ""
+
+msgid   "Mushrooms (Medium)"
 msgstr  ""
 
 msgid   "Nature"
@@ -664,11 +769,20 @@ msgstr  ""
 msgid   "NatureDecoration"
 msgstr  ""
 
-#: src/Game.cxx:128
+#: src/Game.cxx:123
 msgid   "New Game"
 msgstr  ""
 
 msgid   "OK"
+msgstr  ""
+
+msgid   "Oak Trees (Dense)"
+msgstr  ""
+
+msgid   "Oak Trees (Light)"
+msgstr  ""
+
+msgid   "Oak Trees (Medium)"
 msgstr  ""
 
 msgid   "Oasis"
@@ -686,7 +800,13 @@ msgstr  ""
 msgid   "Old building"
 msgstr  ""
 
-msgid   "Palm Trees"
+msgid   "Palm Trees (Dense)"
+msgstr  ""
+
+msgid   "Palm Trees (Light)"
+msgstr  ""
+
+msgid   "Palm Trees (Medium)"
 msgstr  ""
 
 msgid   "Park Crossroads"
@@ -719,13 +839,28 @@ msgstr  ""
 msgid   "Picnic Tables"
 msgstr  ""
 
-msgid   "Pine Trees"
+msgid   "Pine Trees (Dense)"
+msgstr  ""
+
+msgid   "Pine Trees (Light)"
+msgstr  ""
+
+msgid   "Pine Trees (Medium)"
 msgstr  ""
 
 msgid   "Pipes are used for transporting water."
 msgstr  ""
 
 msgid   "Pool"
+msgstr  ""
+
+msgid   "Poplars (Dense)"
+msgstr  ""
+
+msgid   "Poplars (Light)"
+msgstr  ""
+
+msgid   "Poplars (Medium)"
 msgstr  ""
 
 msgid   "Power"
@@ -743,14 +878,20 @@ msgstr  ""
 msgid   "Pyramid"
 msgstr  ""
 
-#: src/Game.cxx:156
+#: src/Game.cxx:151
 msgid   "Quit Game"
 msgstr  ""
 
 msgid   "Raise Terrain"
 msgstr  ""
 
-msgid   "Red Berry Bush"
+msgid   "Red Berry Bushes (Dense)"
+msgstr  ""
+
+msgid   "Red Berry Bushes (Light)"
+msgstr  ""
+
+msgid   "Red Berry Bushes (Medium)"
 msgstr  ""
 
 msgid   "Red Sand"
@@ -786,9 +927,6 @@ msgstr  ""
 msgid   "Reward"
 msgstr  ""
 
-msgid   "Rice"
-msgstr  ""
-
 msgid   "Rice is normally grown as an annual plant, although in tropical "
         "areas it can survive as a perennial and can produce a ratoon crop "
         "for up to 30 years."
@@ -813,6 +951,15 @@ msgid   "Rural French Road fresh"
 msgstr  ""
 
 msgid   "Rural French Road lined"
+msgstr  ""
+
+msgid   "Sakura Trees (Dense)"
+msgstr  ""
+
+msgid   "Sakura Trees (Light)"
+msgstr  ""
+
+msgid   "Sakura Trees (Medium)"
 msgstr  ""
 
 msgid   "Save Game"
@@ -890,6 +1037,15 @@ msgstr  ""
 msgid   "Stone"
 msgstr  ""
 
+msgid   "Stone Pines (Dense)"
+msgstr  ""
+
+msgid   "Stone Pines (Light)"
+msgstr  ""
+
+msgid   "Stone Pines (Medium)"
+msgstr  ""
+
 msgid   "Stream"
 msgstr  ""
 
@@ -905,7 +1061,13 @@ msgstr  ""
 msgid   "Tall Concrete Tower"
 msgstr  ""
 
-msgid   "Tall Grass"
+msgid   "Tall Grass (Dense)"
+msgstr  ""
+
+msgid   "Tall Grass (Light)"
+msgstr  ""
+
+msgid   "Tall Grass (Medium)"
 msgstr  ""
 
 msgid   "Tan Tower"
@@ -974,6 +1136,15 @@ msgstr  ""
 msgid   "TerrainDecoration"
 msgstr  ""
 
+msgid   "Thundercloud Purple Leaf Plum Trees (Dense)"
+msgstr  ""
+
+msgid   "Thundercloud Purple Leaf Plum Trees (Light)"
+msgstr  ""
+
+msgid   "Thundercloud Purple Leaf Plum Trees (Medium)"
+msgstr  ""
+
 msgid   "Tour Front De Seine"
 msgstr  ""
 
@@ -1001,10 +1172,25 @@ msgstr  ""
 msgid   "Wheat Field"
 msgstr  ""
 
+msgid   "Wild Rice (Dense)"
+msgstr  ""
+
+msgid   "Wild Rice (Light)"
+msgstr  ""
+
+msgid   "Wild Rice (Medium)"
+msgstr  ""
+
 msgid   "Wooden Sign"
 msgstr  ""
 
-msgid   "Yellow Cactus"
+msgid   "Yellow Cacti (Dense)"
+msgstr  ""
+
+msgid   "Yellow Cacti (Light)"
+msgstr  ""
+
+msgid   "Yellow Cacti (Medium)"
 msgstr  ""
 
 msgid   "Zones"
