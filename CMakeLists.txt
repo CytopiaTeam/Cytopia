@@ -63,9 +63,11 @@ endif ()
 
 if(PACKAGE_MANAGER STREQUAL "conan")
   if (WIN32)
-      configure_file("${CMAKE_CURRENT_SOURCE_DIR}/conanfile-win.txt.in" "${CMAKE_CURRENT_SOURCE_DIR}/conanfile.txt")
+    configure_file("${CMAKE_CURRENT_SOURCE_DIR}/conanfile-win.txt.in" "${CMAKE_CURRENT_SOURCE_DIR}/conanfile.txt")
+  elseif(APPLE)
+    configure_file("${CMAKE_CURRENT_SOURCE_DIR}/conanfile-mac.txt.in" "${CMAKE_CURRENT_SOURCE_DIR}/conanfile.txt")
   else()
-      configure_file("${CMAKE_CURRENT_SOURCE_DIR}/conanfile-linux.txt.in" "${CMAKE_CURRENT_SOURCE_DIR}/conanfile.txt")
+    configure_file("${CMAKE_CURRENT_SOURCE_DIR}/conanfile-linux.txt.in" "${CMAKE_CURRENT_SOURCE_DIR}/conanfile.txt")
   endif ()
 endif()
 
