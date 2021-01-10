@@ -20,4 +20,3 @@ zlib/1.2.11
 
 [options]
 *:shared=False
-sdl2:nas=False
