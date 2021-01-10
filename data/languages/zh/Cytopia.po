@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-09 10:52+0100\n"
+"POT-Creation-Date: 2021-01-10 13:52+0100\n"
 "PO-Revision-Date: 2019-06-14 12:00+0000\n"
 "Last-Translator: Elizabeth Sherrock <lizzyd710@gmail.com>, 2019\n"
 "Language-Team: Chinese (https://www.transifex.com/cytopia/teams/100140/zh/)\n"
@@ -790,7 +790,7 @@ msgid ""
 "sit on them!"
 msgstr ""
 
-#: src/Game.cxx:138
+#: D:\projects\Cytopia\src\Game.cxx:138
 msgid "Load Game"
 msgstr "加载游戏"
 
@@ -844,7 +844,7 @@ msgstr "自然"
 msgid "NatureDecoration"
 msgstr "装饰"
 
-#: src/Game.cxx:123
+#: D:\projects\Cytopia\src\Game.cxx:123
 msgid "New Game"
 msgstr "创建游戏"
 
@@ -959,7 +959,7 @@ msgstr ""
 msgid "Pyramid"
 msgstr "金字塔"
 
-#: src/Game.cxx:151
+#: D:\projects\Cytopia\src\Game.cxx:151
 msgid "Quit Game"
 msgstr "退出"
 
@@ -1155,12 +1155,6 @@ msgid "Stream"
 msgstr ""
 
 msgid "Sunken Ship"
-msgstr ""
-
-msgid "TODO DESC"
-msgstr ""
-
-msgid "TODO TITLE"
 msgstr ""
 
 #, fuzzy

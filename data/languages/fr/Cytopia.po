@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-09 10:52+0100\n"
+"POT-Creation-Date: 2021-01-10 13:52+0100\n"
 "PO-Revision-Date: 2021-01-10 03:31+0000\n"
 "Last-Translator: J. Lavoie <j.lavoie@net-c.ca>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/cytopia/game/fr/"
@@ -770,7 +770,7 @@ msgid ""
 "sit on them!"
 msgstr ""
 
-#: src/Game.cxx:138
+#: D:\projects\Cytopia\src\Game.cxx:138
 msgid "Load Game"
 msgstr "Charger la partie"
 
@@ -816,7 +816,7 @@ msgstr "Nature"
 msgid "NatureDecoration"
 msgstr ""
 
-#: src/Game.cxx:123
+#: D:\projects\Cytopia\src\Game.cxx:123
 msgid "New Game"
 msgstr "Nouvelle Partie"
 
@@ -925,7 +925,7 @@ msgstr ""
 msgid "Pyramid"
 msgstr "Pyramide"
 
-#: src/Game.cxx:151
+#: D:\projects\Cytopia\src\Game.cxx:151
 msgid "Quit Game"
 msgstr "Quitter la partie"
 
@@ -1098,12 +1098,6 @@ msgstr "Courant"
 
 msgid "Sunken Ship"
 msgstr "Navire coulé"
-
-msgid "TODO DESC"
-msgstr ""
-
-msgid "TODO TITLE"
-msgstr ""
 
 msgid "Tall Concrete Tower"
 msgstr ""
