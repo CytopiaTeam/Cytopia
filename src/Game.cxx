@@ -398,13 +398,13 @@ template <> typename UILoopMQ::Enumerable Game::getEvents<UILoopMQ>(GameContext 
   const auto events = std::get<UILoopMQ *>(context)->getEnumerableTimeout(16ms);
   const auto pGameClock = std::get<GameClock *>(context);
 
-  pGameClock->tick();
-
   // Clear all timers in case of terminate event.
   if (containsEvent<TerminateEvent>(events))
   {
     pGameClock->clear();
   }
+
+  pGameClock->tick();
 
   return events;
 }
