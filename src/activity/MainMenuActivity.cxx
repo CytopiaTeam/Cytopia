@@ -32,7 +32,7 @@ MainMenuActivity::MainMenuActivity(GameService::ServiceTuple &context, Window &w
                                 std::bind(&MainMenuActivity::onExit, this)};
     for (auto [text, tp, cb] : ZipRange{texts, topPositions, callbacks})
     {
-      TextButtonPtr button = std::make_shared<TextButton>(text, 0x858b8cFF_rgba);
+      TextButtonPtr button = std::make_shared<TextButton>(text);
       ButtonModel &state = createModel<ButtonModel>();
       addElement(button, BoxSizing{30_lw, 10_lh}, AbsolutePosition{35_lw, tp});
       createController<ButtonHandler>(cb, state, mouseState, *button);
@@ -43,14 +43,14 @@ MainMenuActivity::MainMenuActivity(GameService::ServiceTuple &context, Window &w
   {
     auto callbacks = std::array{std::bind(&MainMenuActivity::onLanguageSelection, this),
                                 std::bind(&MainMenuActivity::onPluginSelection, this)};
-    auto icons = std::array{"globe", "wrench"};
+    auto icons = std::array{"globe.png", "wrench.png"};
     auto positions = std::array{100_lw - 110_px, 100_lw - 55_px};
     auto &mouseState = getWindow().getMouseState();
     for (auto [base_icon, lp, cb] : ZipRange{icons, positions, callbacks})
     {
       std::string iconPath = "resources/images/ui/general/";
       iconPath += base_icon;
-      IconButtonPtr button = std::make_shared<IconButton>(iconPath, 0x858b8cFF_rgba);
+      IconButtonPtr button = std::make_shared<IconButton>(iconPath);
       ButtonModel &state = createModel<ButtonModel>();
       addElement(button, BoxSizing{50_px, 50_px}, AbsolutePosition{lp, 100_lh - 55_px});
       createController<ButtonHandler>(cb, state, mouseState, *button);

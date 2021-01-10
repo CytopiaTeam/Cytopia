@@ -54,7 +54,7 @@ std::ostream &operator<<(std::ostream &, const RGBAColor &);
 
 namespace Palette
 {
-constexpr RGBAColor Gray = 0x9E9E9EFF_rgba;
+constexpr RGBAColor Gray = 0x858b8cFF_rgba;
 constexpr RGBAColor Orange = 0xFF771EFF_rgba;
 constexpr RGBAColor Black = 0x000000FF_rgba;
 constexpr RGBAColor White = 0xFFFFFFFF_rgba;
