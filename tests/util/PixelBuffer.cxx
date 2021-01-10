@@ -208,8 +208,6 @@ TEST_CASE("I can recolor PixelBuffers", "[util]")
    * blending
    */
   const std::array unaffected_colors {
-    0x000000FF_rgba, /* Pure black: Always overlay back to black */
-    0xFFFFFFFF_rgba, /* Pure white: Always overlay back to white */
     0xFF0000FF_rgba, /* Pure red */
     0x0000FFFF_rgba  /* Pure blue */
     /* ... and more. There are tons of non-magic colors */
@@ -260,8 +258,8 @@ TEST_CASE("I can recolor PixelBuffers", "[util]")
     0xF0F0F0FF_rgba
   };
   const std::array<uint32_t, 5> expected_grayscales {
-    0x171717FF_rgba,
-    0x464646FF_rgba,
+    0x7F7F7FFF_rgba,
+    0x909090FF_rgba,
     0xCCCCCCFF_rgba,
     0xE5E5E5FF_rgba,
     0xF7F7F7FF_rgba
@@ -285,11 +283,11 @@ TEST_CASE("I can recolor PixelBuffers", "[util]")
     0x010001FF_rgba
   };
   const std::array<uint32_t, 5> expected_purples {
-    0xe82828ff_rgba,
-    0x343232ff_rgba, 
-    0x340000ff_rgba,
-    0xff1111ff_rgba, 
-    0x10000ff_rgba 
+    0x28a2e8ff_rgba,
+    0x20465cff_rgba, 
+    0x00324fff_rgba,
+    0x11a8ffff_rgba, 
+    0x001622ff_rgba 
   };
   Rectangle r3 {1, 0, purples_colors.size(), 0};
   PixelBuffer pb3 { r3, purples_colors };
@@ -322,15 +320,15 @@ TEST_CASE("I can recolor PixelBuffers", "[util]")
     0xB000B0FF_rgba
   };
   const std::array expected_greens {
-    0xde0000ff_rgba, 
-    0xfffdfdff_rgba, 
-    0x000000FF_rgba, 
-    0xff9393ff_rgba, 
-    0x990000ff_rgba
+    0xffcf4bff_rgba, 
+    0xfffefeff_rgba, 
+    0x987000FF_rgba, 
+    0xFFEDBCff_rgba, 
+    0xFFC014ff_rgba
   };
   Rectangle r4 {1, 0, greens_colors.size(), 0};
   PixelBuffer pb4 { r4, greens_colors };
-  pb4.colorMagicPixels(0xDEC06D_rgba);
+  pb4.colorMagicPixels(0xDEC06D00_rgba);
   REQUIRE(pb4.pixels() == Range{expected_greens});
   
 }

@@ -20,8 +20,9 @@ class Window
 public:
   Window(GameService::ServiceTuple context, const char * title, unsigned int width, unsigned int height, bool isFullScreen, const string & windowIcon);
   virtual ~Window();
-  void setActivity(iActivityPtr);
+  void setActivity(iActivityPtr &&);
   Rectangle getBounds() const noexcept;
+  MouseState & getMouseState() noexcept;
 private:
   /**
    * @todo Remove this when new ui is complete

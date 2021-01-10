@@ -36,6 +36,16 @@ public:
 
 private:
   uint32_t m_Color;
+  
+  /**
+   * @returns   Chroma of hue & angle
+   */
+  static float hsla_chroma(float hue, float angle);
+  
+  /**
+   * @returns   RGBA value from lightness, range, and chroma
+   */
+  static float hsla_to_value(float lightness, float range, float chroma);
 };
 
 constexpr RGBAColor operator""_rgba(unsigned long long val) { return RGBAColor{static_cast<uint32_t>(val)}; }
@@ -44,7 +54,7 @@ std::ostream &operator<<(std::ostream &, const RGBAColor &);
 
 namespace Palette
 {
-constexpr RGBAColor Gray = 0x575757FF_rgba;
+constexpr RGBAColor Gray = 0x858b8cFF_rgba;
 constexpr RGBAColor Orange = 0xFF771EFF_rgba;
 constexpr RGBAColor Black = 0x000000FF_rgba;
 constexpr RGBAColor White = 0xFFFFFFFF_rgba;

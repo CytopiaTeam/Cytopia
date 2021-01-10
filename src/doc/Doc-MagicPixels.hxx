@@ -109,13 +109,13 @@
  *    var min_t = Math.min(...target);
  *    var max_t = Math.max(...target);
  *    var mid_t = (max_t + min_t) / 2;
- *    var lo = overlay(mid_i, mid_t);
+ *    var lo = overlay(mid_t, mid_i);
  *    if(lo == 0) return [0, 0, 0];
  *    console.log("Midi: ", mid_i, " Midt: ", mid_t);
  *    if(mid_i == 0 || mid_i == 255 || mid_t == 0 || mid_t == 255) return [Math.floor(lo), Math.floor(lo), Math.floor(lo)];
  *    console.log("1: ", Math.floor(255 * (max_i - min_i) / Math.min(mid_i, 255-mid_i) / 2));
  *    console.log("2: ", Math.floor(255 * (max_t - min_t) / Math.min(mid_t, 255-mid_t) / 2));
- *    var so = overlay(Math.floor(255 * (max_i - min_i) / Math.min(mid_i, 255-mid_i) / 2), Math.floor(255 * (max_t - min_t) / Math.min(mid_t, 255-mid_t) / 2));
+ *    var so = overlay(Math.floor(255 * (max_t - min_t) / Math.min(mid_t, 255-mid_t) / 2), Math.floor(255 * (max_i - min_i) / Math.min(mid_i, 255-mid_i) / 2));
  *    console.log("sat: ", so);
  *    if(so == 0) return [Math.floor(lo), Math.floor(lo), Math.floor(lo)];
  *    var it = target.indexOf(max_t);

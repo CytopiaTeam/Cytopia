@@ -23,6 +23,7 @@ set(SOURCE_FILES
         services/Randomizer.{hxx,cxx}
         services/GameClock.{hxx,cxx}
         services/ResourceManager.{hxx,cxx}
+        services/MouseController.{hxx,cxx}
         engine/MessageQueue.hxx
         engine/MessageQueue.inl.hxx
         engine/basics/Camera.{hxx,cxx}
@@ -65,13 +66,23 @@ set(SOURCE_FILES
         view/iView.{hxx,cxx}
         view/iViewElement.{hxx,cxx}
         view/CursorView.{hxx,cxx}
+        view/ClassicButton.hxx
+        view/ClassicButton.inl.hxx
+        view/TextButton.{hxx,cxx}
+        view/IconButton.{hxx,cxx}
+        view/ImageView.{hxx,cxx}
         view/Window.{hxx,cxx}
         model/iModel.{hxx,cxx}
         model/DataModel.hxx
-        model/ButtonState.{hxx,cxx}
+        model/ButtonModel.{hxx,cxx}
         model/MouseState.{hxx,cxx}
         activity/iActivity.{hxx,cxx}
+        activity/MainMenuActivity.{hxx,cxx}
         layout/iLayout.{hxx,cxx}
+        layout/AbsoluteLayout.{hxx,cxx}
+        controller/iController.{hxx,cxx}
+        controller/iMouseHandler.{hxx,cxx}
+        controller/ButtonHandler.{hxx,cxx}
         renderer/iRenderer.{hxx,cxx}
         renderer/SDLRenderer.{hxx,cxx}
         )

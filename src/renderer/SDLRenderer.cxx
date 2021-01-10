@@ -20,7 +20,7 @@ SDLRenderer::SDLRenderer(SDL_Window * sdl_window)
   
   std::string font = fs::getBasePath();
   font += Settings::instance().fontFileName.get();
-  m_Font = TTF_OpenFont(font.c_str(), 24);
+  m_Font = TTF_OpenFont(font.c_str(), 16);
   if(!m_Font)
     throw CytopiaError{TRACE_INFO "Failed to open font: " 
       + string{TTF_GetError()}};

@@ -29,15 +29,22 @@ int protected_main(int argc, char **argv)
   if (!game.initialize())
     return EXIT_FAILURE;
 
-  if (!settings.skipMenu)
+  if(settings.newUI)
   {
-    quitGame = game.mainMenu();
+    game.newUI();
   }
-
-  if (!quitGame)
+  else
   {
-    LOG(LOG_DEBUG) << "Running the Game";
-    game.run();
+    if (!settings.skipMenu)
+    {
+      quitGame = game.mainMenu();
+    }
+
+    if (!quitGame)
+    {
+      LOG(LOG_DEBUG) << "Running the Game";
+      game.run();
+    }
   }
 
   LOG(LOG_DEBUG) << "Closing the Game";

@@ -3,9 +3,7 @@
 
 #include "Meta.hxx"
 #include <iostream>
-
-class MousePositionEvent;
-class ClickEvent;
+#include "../events/MouseEvents.hxx"
 
 /**
  * @brief   A 2D point

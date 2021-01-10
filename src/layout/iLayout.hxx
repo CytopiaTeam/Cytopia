@@ -15,24 +15,22 @@ class iLayout : public virtual iView
   ElementList m_Elements;
   PaddingConfiguration m_PaddingConfiguration;
   Rectangle m_Bounds;
-  
-public:
 
+public:
   /**
    * @returns the PaddingConfiguration of the iLayout
    * @details the PaddingConfiguration only contains pixel values
    */
-  const PaddingConfiguration & getPadding() const;
+  const PaddingConfiguration &getPadding() const;
 
   virtual void draw(iRenderer &) const noexcept override;
 
   iLayout(Rectangle && = Rectangle{0, 0, 0, 0});
   virtual ~iLayout() = 0;
-  
+
   void setup(GameService &) noexcept override;
 
 protected:
-
   /**
    * @brief Adds a iView to the iLayout
    * @param iViewPtr the iView to add
@@ -50,9 +48,9 @@ protected:
   /**
    * @brief compute the boundaries of all iViews
    */
-  virtual void computeBoundaries() noexcept = 0;
+  virtual void arrangeElements() noexcept = 0;
 
-  const Rectangle & getBounds() const noexcept final;
+  const Rectangle &getBounds() const noexcept final;
 
 private:
   void setBounds(Rectangle &&) noexcept final;

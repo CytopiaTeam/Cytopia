@@ -14,7 +14,8 @@ public:
 #ifdef USE_AUDIO
                          class AudioMixer *,
 #endif // USE_AUDIO
-                         class Randomizer *, class GameClock *, class ResourceManager *
+                         class Randomizer *, class GameClock *, class ResourceManager *,
+                         class MouseController *
                          /* Add other services here */
                          >;
 

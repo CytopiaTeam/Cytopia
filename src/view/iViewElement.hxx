@@ -11,7 +11,7 @@ class iViewElement : public iView
   Rectangle m_Bounds = Rectangle{0, 0, 0, 0};
 public:
   virtual ~iViewElement() = 0;
-  virtual const Rectangle & getBounds() const noexcept final;
+  const Rectangle & getBounds() const noexcept final;
   friend class AbsoluteLayout;
 private:
   void setBounds(Rectangle &&) noexcept override;

@@ -1,7 +1,6 @@
-
+#include "../activity/MainMenuActivity.hxx"
 /**
 @todo Uncomment these activities once they are implemented
-#include "../activity/MainMenuActivity.hxx"
 #include "../activity/NewGameActivity.hxx"
 #include "../activity/LoadGameActivity.hxx"
 #include "../activity/LanguageSelectionActivity.hxx"
@@ -13,11 +12,11 @@ iActivityPtr Window::fromActivityType(ActivityType type, Args&&... args)
 {
   switch(type)
   {
+    case ActivityType::MainMenu:
+      return std::make_unique<MainMenuActivity>(std::forward<Args>(args)...);
     /**
     @todo: Uncomment these cases once they are implemented 
     @todo: Add support for mods to add their own activities?
-    case ActivityType::MainMenu:
-      return std::make_unique<MainMenuActivity>(std::forward<Args>(args)...);
     case ActivityType::NewGame:
       return std::make_unique<NewGameActivity>(std::forward<Args>(args)...);
     case ActivityType::LoadGame:
