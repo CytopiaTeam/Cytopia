@@ -1,15 +1,27 @@
-#include "GameClock.hxx"
+#include "LOG.hxx"
 
-template <typename Duration> void GameClock::createDefferedTask(Duration &&duration, Callback callback)
+template <typename DelayType, typename PeriodType>
+inline GameClock::ClockTaskHndl GameClock::addRealTimeClockTask(ClockCbk cbk, DelayType delay, PeriodType period)
 {
-  LockGuard lock(m_lock);
-  auto future = duration + std::chrono::system_clock::now();
-  m_Deffered.emplace(DefferedTask{callback, future.time_since_epoch().count()});
-}
+  assert((cbk != nullptr) && (TimePoint(delay) >= TimePointZero) && (TimePoint(period) >= TimePointZero));
 
-template <typename Duration> inline void GameClock::createRepeatedTask(Duration &&duration, Callback callback)
-{
-  LockGuard lock(m_lock);
-  auto future = std::chrono::system_clock::now();
-  m_Repeated.emplace(RepeatedTask{callback, future.time_since_epoch().count(), ClockDuration{duration}.count()});
+  std::lock_guard<std::mutex> lock(m_lock);
+  TimePoint delayConverted = (TimePoint)delay;
+
+  // If no delay required call callback immediately
+  if (delayConverted == TimePointZero)
+  {
+    const bool isCanceled = cbk();
+
+    if (isCanceled || ((TimePoint)period == TimePointZero))
+    {
+      return ClockTaskHndlInvalid;
+    }
+
+    delayConverted = (TimePoint)period;
+  }
+
+  m_realTimeTasks.push(RealTimeClockTask(cbk, Clock::now() + (delayConverted - TimePointZero), (TimePoint)period - TimePointZero,
+                                        ++m_unique_handle));
+  return m_unique_handle;
 }

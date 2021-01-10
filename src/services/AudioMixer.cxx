@@ -39,7 +39,7 @@ AudioMixer::AudioMixer(GameService::ServiceTuple &context) : GameService(context
   gAudioDevice = alcOpenDevice(nullptr);
   if (!gAudioDevice)
   {
-    const char * error_msg = get_al_error_msg(alGetError());
+    const char *error_msg = get_al_error_msg(alGetError());
     LOG(LOG_WARNING) << "Unable to initialize default audio device! " << error_msg;
     return;
   }
@@ -48,7 +48,7 @@ AudioMixer::AudioMixer(GameService::ServiceTuple &context) : GameService(context
   alContext = alcCreateContext(gAudioDevice, nullptr);
   if (!alContext)
   {
-    const char * error_msg = get_al_error_msg(alGetError());
+    const char *error_msg = get_al_error_msg(alGetError());
     throw AudioError(TRACE_INFO "Unable to initialize OpenAL context! " + error_msg);
   }
   alcMakeContextCurrent(alContext);
@@ -77,14 +77,19 @@ AudioMixer::AudioMixer(GameService::ServiceTuple &context) : GameService(context
   alListenerfv(AL_ORIENTATION, listener_orientation_vector.data());
 
   /* Set a pruning repeated task to get rid of soundtracks that have finished playing */
-  GetService<GameClock>().createRepeatedTask(5min, [&mixer = *this]() { mixer.prune(); });
+  GetService<GameClock>().addRealTimeClockTask(
+      [&mixer = *this]() {
+        mixer.prune();
+        return false;
+      },
+      0s, 5min);
 
   LOG(LOG_DEBUG) << "Created AudioMixer";
 }
 
 AudioMixer::~AudioMixer()
 {
-  if(!gAudioDevice)
+  if (!gAudioDevice)
   {
     return;
   }
@@ -182,7 +187,7 @@ void AudioMixer::prune() noexcept { GetService<GameLoopMQ>().push(AudioPruneEven
 
 void AudioMixer::handleEvent(const AudioTriggerEvent &&event)
 {
-  if(!gAudioDevice)
+  if (!gAudioDevice)
   {
     return;
   }
@@ -199,7 +204,7 @@ void AudioMixer::handleEvent(const AudioTriggerEvent &&event)
 
 void AudioMixer::handleEvent(const AudioPlayEvent &&event)
 {
-  if(!gAudioDevice)
+  if (!gAudioDevice)
   {
     return;
   }
@@ -209,7 +214,7 @@ void AudioMixer::handleEvent(const AudioPlayEvent &&event)
 
 void AudioMixer::handleEvent(const AudioTrigger3DEvent &&event)
 {
-  if(!gAudioDevice)
+  if (!gAudioDevice)
   {
     return;
   }
@@ -231,7 +236,7 @@ void AudioMixer::handleEvent(const AudioTrigger3DEvent &&event)
 
 void AudioMixer::handleEvent(const AudioPlay3DEvent &&event)
 {
-  if(!gAudioDevice)
+  if (!gAudioDevice)
   {
     return;
   }
@@ -244,7 +249,7 @@ void AudioMixer::handleEvent(const AudioPlay3DEvent &&event)
 
 void AudioMixer::handleEvent(const AudioTriggerReverbEvent &&event)
 {
-  if(!gAudioDevice)
+  if (!gAudioDevice)
   {
     return;
   }
@@ -262,7 +267,7 @@ void AudioMixer::handleEvent(const AudioTriggerReverbEvent &&event)
 
 void AudioMixer::handleEvent(const AudioPlayReverbEvent &&event)
 {
-  if(!gAudioDevice)
+  if (!gAudioDevice)
   {
     return;
   }
@@ -273,7 +278,7 @@ void AudioMixer::handleEvent(const AudioPlayReverbEvent &&event)
 
 void AudioMixer::handleEvent(const AudioPlayEchoEvent &&event)
 {
-  if(!gAudioDevice)
+  if (!gAudioDevice)
   {
     return;
   }
@@ -284,7 +289,7 @@ void AudioMixer::handleEvent(const AudioPlayEchoEvent &&event)
 
 void AudioMixer::handleEvent(const AudioTriggerEchoEvent &&event)
 {
-  if(!gAudioDevice)
+  if (!gAudioDevice)
   {
     return;
   }
@@ -302,7 +307,7 @@ void AudioMixer::handleEvent(const AudioTriggerEchoEvent &&event)
 
 void AudioMixer::handleEvent(const AudioTriggerReverb3DEvent &&event)
 {
-  if(!gAudioDevice)
+  if (!gAudioDevice)
   {
     return;
   }
@@ -324,7 +329,7 @@ void AudioMixer::handleEvent(const AudioTriggerReverb3DEvent &&event)
 
 void AudioMixer::handleEvent(const AudioTriggerEcho3DEvent &&event)
 {
-  if(!gAudioDevice)
+  if (!gAudioDevice)
   {
     return;
   }
@@ -347,7 +352,7 @@ void AudioMixer::handleEvent(const AudioTriggerEcho3DEvent &&event)
 
 void AudioMixer::handleEvent(const AudioPlayReverb3DEvent &&event)
 {
-  if(!gAudioDevice)
+  if (!gAudioDevice)
   {
     return;
   }
@@ -360,7 +365,7 @@ void AudioMixer::handleEvent(const AudioPlayReverb3DEvent &&event)
 
 void AudioMixer::handleEvent(const AudioPlayEcho3DEvent &&event)
 {
-  if(!gAudioDevice)
+  if (!gAudioDevice)
   {
     return;
   }
@@ -386,7 +391,7 @@ void AudioMixer::handleEvent(const AudioSetMutedEvent &&event) { throw Unimpleme
 
 void AudioMixer::handleEvent(const AudioStopEvent &&)
 {
-  if(!gAudioDevice)
+  if (!gAudioDevice)
   {
     return;
   }
@@ -401,7 +406,7 @@ void AudioMixer::handleEvent(const AudioStopEvent &&)
 
 void AudioMixer::handleEvent(const AudioPruneEvent &&)
 {
-  if(!gAudioDevice)
+  if (!gAudioDevice)
   {
     return;
   }
@@ -679,23 +684,23 @@ void AudioMixer::onTrackFinished(int channelID)
   m_Playing.erase(it);
 }
 
-const char * AudioMixer::get_al_error_msg(ALenum error)
+const char *AudioMixer::get_al_error_msg(ALenum error)
 {
-  switch(error)
+  switch (error)
   {
-    case AL_INVALID_NAME:
-      return "a bad name (ID) was passed to an OpenAL function";
-    case AL_INVALID_ENUM:
-      return "an invalid enum value was passed to an OpenAL function";
-    case AL_INVALID_VALUE:
-      return "an invalid value was passed to an OpenAL function";
-    case AL_INVALID_OPERATION:
-      return "the requested operation is not valid";
-    case AL_OUT_OF_MEMORY:
-      return "the requested operation resulted in OpenAL running out of memory";
-    case AL_NO_ERROR:
-      return "there is not currently an error";
-    default:
-      return "Unknown error";
+  case AL_INVALID_NAME:
+    return "a bad name (ID) was passed to an OpenAL function";
+  case AL_INVALID_ENUM:
+    return "an invalid enum value was passed to an OpenAL function";
+  case AL_INVALID_VALUE:
+    return "an invalid value was passed to an OpenAL function";
+  case AL_INVALID_OPERATION:
+    return "the requested operation is not valid";
+  case AL_OUT_OF_MEMORY:
+    return "the requested operation resulted in OpenAL running out of memory";
+  case AL_NO_ERROR:
+    return "there is not currently an error";
+  default:
+    return "Unknown error";
   }
 }

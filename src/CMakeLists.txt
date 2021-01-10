@@ -9,6 +9,8 @@ set(SOURCE_FILES
         util/Meta.hxx
         util/Exception.{hxx,cxx}
         util/iShape.{hxx,cxx}
+        util/PriorityQueue.hxx
+        util/PriorityQueue.inl.hxx
         util/Rectangle.{hxx,cxx}
         util/Range.hxx
         util/Color.{hxx,cxx}

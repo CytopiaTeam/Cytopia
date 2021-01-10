@@ -70,11 +70,11 @@ private:
   GameClock m_GameClock;
   Randomizer m_Randomizer;
   ResourceManager m_ResourceManager;
+  UILoopMQ m_UILoopMQ;
+  GameLoopMQ m_GameLoopMQ;
 #ifdef USE_AUDIO
   AudioMixer m_AudioMixer;
 #endif
-  UILoopMQ m_UILoopMQ;
-  GameLoopMQ m_GameLoopMQ;
 
   /* Threads */
   Thread m_UILoop;

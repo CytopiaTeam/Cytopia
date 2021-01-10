@@ -1,81 +1,153 @@
 #ifndef GAME_CLOCK_HXX_
 #define GAME_CLOCK_HXX_
 
-#include <queue>
-#include <thread>
 #include <chrono>
 #include <mutex>
 #include <functional>
-
 #include "../GameService.hxx"
+#include "../util/PriorityQueue.hxx"
 
-using Thread = std::thread;
-using Mutex = std::mutex;
-using LockGuard = std::lock_guard<Mutex>;
 using namespace std::chrono_literals;
 
-using Seconds = std::chrono::seconds;
-using Minutes = std::chrono::minutes;
-using Hours = std::chrono::hours;
-using GameDay = std::chrono::duration<int, std::ratio<2592>>;
-using HalfDay = std::chrono::duration<int, std::ratio<1296>>;
-
+/**
+ * @brief Game clock service. Implement two timers one real time timer and other game time timer.
+ * Both timers provide possibility to add task which will be triggered after delay time run out.
+ * Game timer represent timer running in game time.
+ * The game time can be scaled providing possibility to speed up or slow down game.
+ */
 class GameClock : public GameService
 {
-
-  using ClockRep = std::chrono::system_clock::rep;
-  using ClockDuration = std::chrono::system_clock::duration;
-
-  struct DefferedTask
-  {
-    std::function<void(void)> callback;
-    ClockRep waketime;
-    inline friend bool operator>(const DefferedTask &dt1, const DefferedTask &dt2) { return dt1.waketime > dt2.waketime; }
-  };
-
-  struct RepeatedTask
-  {
-    std::function<void(void)> callback;
-    ClockRep waketime;
-    ClockRep interval;
-    inline friend bool operator>(const RepeatedTask &dt1, const RepeatedTask &dt2) { return dt1.waketime > dt2.waketime; }
-  };
-
-  using DefferedSchedule = std::priority_queue<DefferedTask, std::vector<DefferedTask>, std::greater<DefferedTask>>;
-  using RepeatedSchedule = std::priority_queue<RepeatedTask, std::vector<RepeatedTask>, std::greater<RepeatedTask>>;
-
-  DefferedSchedule m_Deffered;
-  RepeatedSchedule m_Repeated;
-  Mutex m_lock;
-  Thread m_thread;
-
-  void clockLoop();
+private:
+  using Clock = std::chrono::high_resolution_clock;
+  template <typename T, typename Comparator> friend class PriorityQueue;
 
 public:
-  GameClock(GameService::ServiceTuple &);
-  ~GameClock();
-
-  using Callback = std::function<void(void)>;
-
-  /**
-    *  @brief Registers a new deffered task
-    *  @details After duration time, callback will be called
-    *  @tparam Duration the duration type
-    *  @param duration the Duration
-    *  @param callback the function to call at schedule
-	*/
-  template <typename Duration> void createDefferedTask(Duration &&, Callback);
+  using TimePoint = std::chrono::time_point<Clock>;
+  using TimeDuration = Clock::duration;
+  using ClockCbk = std::function<bool(void)>;
+  using ClockTaskHndl = unsigned long;
+  using GameClockTime = unsigned long;
+  using GameClockDuration = unsigned long;
 
   /**
-    *  @brief Registers a new repeated task
-    *  @details Every duration time, callback will be called
-    *  @tparam Duration the duration type
-    *  @param duration the Duration
-    *  @param callback the function to call at schedule
-	*/
-  template <typename Duration> void createRepeatedTask(Duration &&, Callback);
+  * @brief Represent 1 minute of game time.
+  */
+  static constexpr GameClockTime GameMinute = 1;
+
+  /**
+  * @brief Represent 1 hour of game time.
+  */
+  static constexpr GameClockTime GameHour = 60 * GameMinute;
+
+  /**
+  * @brief Represent 1 day of game time.
+  */
+  static constexpr GameClockTime GameDay = 24 * GameHour;
+
+  GameClock(GameService::ServiceTuple &services) : GameService{services} {};
+
+  /**
+  * @brief This function provide the tick for both clocks.
+  * It must be called frequently. Call frequency determines clock precision.
+  */
+  void tick(void);
+
+  /**
+  * @brief Add new real time clock task.
+  * @param cbk Callback function to be called after delay time is passed.
+  * @param delay Delay in chrono literals (e.g. 1h, 2min, 3s ...), callback function will be called after delay timer is passed.
+  * @param period Repeat period in chrono literals (e.g. 1h, 2min, 3s ...) the timer will be reset again with new delay time in amount of period time.
+  * @return Real time clock task handle. Can be used to remove clock and verify whether it is started correctly.
+  *         In case of failure #ClockTaskHndlInvalid will be return.
+  */
+  template <typename DelayType, typename PeriodType = TimePoint>
+  GameClock::ClockTaskHndl addRealTimeClockTask(ClockCbk cbk, DelayType delay, PeriodType period = TimePointZero);
+
+  /**
+  * @brief Add new game time clock task.
+  * @param cbk Callback function to be called after delay time is passed.
+  * @param delay Delay in game timer ticks. Use provided values GameDay, GameHour, GameMinute and scale it as necessary.
+  *        Callback function will be called after delay timer is passed.
+  * @param period Repeat period in game timer ticks. Use provided values GameDay, GameHour, GameMinute and scale it as necessary.
+  *        The timer will be reset again with new delay ticks in amount of period ticks.
+  * @return Game time clock task handle. Can be used to remove clock and verify whether it is started correctly.
+  *         In case of failure #ClockTaskHndlInvalid will be return.
+  */
+  GameClock::ClockTaskHndl addGameTimeClockTask(ClockCbk cbk, GameClockTime delay, GameClockTime period = 0U);
+
+  /**
+  * @brief Set game clock speed.
+  * @param speedFactor Game clock scale factor.
+  * E.g. to run game clock 4 time faster provide 4.0f.
+  */
+  void setGameClockSpeed(float speedFactor);
+
+  /**
+  * @brief Remove all real time and game time clocks.
+  */
+  void clear(void);
+
+  /**
+  * @brief Remove real/game time clock.
+  *        After it is removed successfully it is guarantied it will not trigger callback
+  * @param hndl Handle of clock which should be removed.
+  * @return true in case clock is successfully removed, otherwise false.
+  */
+  bool removeClockTask(ClockTaskHndl hndl);
+
+private:
+  /**
+  * @brief Duration of default game timer tick in ms.
+  */
+  static constexpr unsigned int DefaultGameTickDuration = 2000;
+  static constexpr TimePoint TimePointZero = TimePoint{0s};
+  /**
+  * @brief Invalid task handler. In case that clock is not added.
+  */
+  static constexpr ClockTaskHndl ClockTaskHndlInvalid = ClockTaskHndl{0};
+
+  /**
+  * @brief Template structure provide base for different clock tasks.
+  */
+  template <typename Time, typename Duration> struct ClockTask
+  {
+    ClockCbk callback;
+    Time m_waketime;
+    Duration m_period;
+    ClockTaskHndl hndl;
+
+    explicit ClockTask(ClockCbk cbk, Time delay, Duration period, ClockTaskHndl hndl)
+        : callback{cbk}, m_waketime{delay}, m_period{period}, hndl{hndl}
+    {
+    }
+
+    bool operator==(const ClockTask &task2) const { return hndl == task2.hndl; };
+    bool operator>(const ClockTask &task2) const { return m_waketime > task2.m_waketime; }
+  };
+
+  using RealTimeClockTask = ClockTask<TimePoint, TimeDuration>;
+  using GameTimeClockTask = ClockTask<GameClockTime, GameClockDuration>;
+
+  PriorityQueue<RealTimeClockTask, std::greater<RealTimeClockTask>> m_realTimeTasks;
+  PriorityQueue<GameTimeClockTask, std::greater<GameTimeClockTask>> m_gameTimeTasks;
+  std::mutex m_lock;
+  // Provide way to return unique handle for each task.
+  ClockTaskHndl m_unique_handle = 0U;
+  // Current number of the game ticks.
+  GameClockTime m_gameTicks = 0U;
+  // Last time of the game tick.
+  TimePoint m_lastGameTickTime = Clock::now();
+  // The current game tick duration on milliseconds.
+  Clock::duration m_gameTickDuration = std::chrono::milliseconds(DefaultGameTickDuration);
+
+  /**
+  * @brief Tick clock for given task type.
+  * @param queue Priority queue of tasks.
+  * @param now The time point when tick occurred.
+  */
+  template <typename Task, typename Cmp, typename Now> void tickTask(PriorityQueue<Task, Cmp> &queue, Now now);
 };
 
 #include "GameClock.inl.hxx"
 
-#endif
+#endif // GAME_CLOCK_HXX_
