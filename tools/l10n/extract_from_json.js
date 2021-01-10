@@ -90,7 +90,7 @@ function AddPotContent(content, comment = null) {
         return
 
     PotContent += comment ? `
-# ${comment}
+#. ${comment}
 msgid "${content}"
 msgstr ""
 
