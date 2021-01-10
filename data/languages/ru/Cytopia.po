@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-09 10:52+0100\n"
+"POT-Creation-Date: 2021-01-10 13:52+0100\n"
 "PO-Revision-Date: 2020-05-31 10:56+0000\n"
 "Language-Team: Russian (https://www.transifex.com/cytopia/teams/100140/ru/)\n"
 "Language: ru\n"
@@ -741,7 +741,7 @@ msgid ""
 "sit on them!"
 msgstr ""
 
-#: src/Game.cxx:138
+#: D:\projects\Cytopia\src\Game.cxx:138
 msgid "Load Game"
 msgstr ""
 
@@ -787,7 +787,7 @@ msgstr ""
 msgid "NatureDecoration"
 msgstr ""
 
-#: src/Game.cxx:123
+#: D:\projects\Cytopia\src\Game.cxx:123
 msgid "New Game"
 msgstr ""
 
@@ -896,7 +896,7 @@ msgstr ""
 msgid "Pyramid"
 msgstr ""
 
-#: src/Game.cxx:151
+#: D:\projects\Cytopia\src\Game.cxx:151
 msgid "Quit Game"
 msgstr ""
 
@@ -1068,12 +1068,6 @@ msgid "Stream"
 msgstr ""
 
 msgid "Sunken Ship"
-msgstr ""
-
-msgid "TODO DESC"
-msgstr ""
-
-msgid "TODO TITLE"
 msgstr ""
 
 msgid "Tall Concrete Tower"

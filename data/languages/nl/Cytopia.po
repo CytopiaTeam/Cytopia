@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-09 10:52+0100\n"
+"POT-Creation-Date: 2021-01-10 13:52+0100\n"
 "PO-Revision-Date: 2021-01-09 11:43+0000\n"
 "Last-Translator: Edgar <Edgar@anotherfoxguy.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/cytopia/game/nl/>\n"
@@ -794,7 +794,7 @@ msgstr ""
 "Lelieblaadjes zijn brede, ronde, hart- of schildvormige bladeren. Kikkers "
 "zitten er graag op!"
 
-#: src/Game.cxx:138
+#: D:\projects\Cytopia\src\Game.cxx:138
 msgid "Load Game"
 msgstr "Laad pel "
 
@@ -840,7 +840,7 @@ msgstr "Natuur"
 msgid "NatureDecoration"
 msgstr "Natuur decoratie"
 
-#: src/Game.cxx:123
+#: D:\projects\Cytopia\src\Game.cxx:123
 msgid "New Game"
 msgstr "Nieuw spel"
 
@@ -949,7 +949,7 @@ msgstr "Gevangenis Hek"
 msgid "Pyramid"
 msgstr "Piramide"
 
-#: src/Game.cxx:151
+#: D:\projects\Cytopia\src\Game.cxx:151
 msgid "Quit Game"
 msgstr "Game beëindigen"
 
@@ -1126,12 +1126,6 @@ msgstr "Stroom"
 msgid "Sunken Ship"
 msgstr "Gezonken schip"
 
-msgid "TODO DESC"
-msgstr "TODO DESC"
-
-msgid "TODO TITLE"
-msgstr "TODO TITLE"
-
 msgid "Tall Concrete Tower"
 msgstr "Hoge betonnen toren"
 
@@ -1284,6 +1278,12 @@ msgstr "huis"
 
 msgid "snow"
 msgstr "sneeuw"
+
+#~ msgid "TODO DESC"
+#~ msgstr "TODO DESC"
+
+#~ msgid "TODO TITLE"
+#~ msgstr "TODO TITLE"
 
 #~ msgid "A deciduous tree"
 #~ msgstr "Een loofboom"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-09 10:52+0100\n"
+"POT-Creation-Date: 2021-01-10 13:52+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -18,8 +18,9 @@ msgstr ""
 msgid "A  small coal power plant."
 msgstr ""
 
-msgid "A  small coal power plant.  It can supply a small town with "
-"electricity, but it produces a lot of pollution."
+msgid ""
+"A  small coal power plant.  It can supply a small town with electricity, but "
+"it produces a lot of pollution."
 msgstr ""
 
 msgid "A Wheat Field"
@@ -52,7 +53,8 @@ msgstr ""
 msgid "A classic house from Savannah , Georgia , USA"
 msgstr ""
 
-msgid "A coal power plant.  It'll produce enough electricity to keep a town "
+msgid ""
+"A coal power plant.  It'll produce enough electricity to keep a town "
 "running, but it creates a lot of pollution."
 msgstr ""
 
@@ -86,8 +88,9 @@ msgstr ""
 msgid "A group of cypress trees."
 msgstr ""
 
-msgid "A group of mannequins you dressed up as people that can be used to "
-"decorate a town."
+msgid ""
+"A group of mannequins you dressed up as people that can be used to decorate "
+"a town."
 msgstr ""
 
 msgid "A group of mysterious mushroom trees."
@@ -129,8 +132,9 @@ msgstr ""
 msgid "A house from Vienna"
 msgstr ""
 
-msgid "A large multi-story shopping mall with large windows. Urban legends "
-"say it was built by hand by the members of a distant community"
+msgid ""
+"A large multi-story shopping mall with large windows. Urban legends say it "
+"was built by hand by the members of a distant community"
 msgstr ""
 
 msgid "A large plaza with a pool of water in the middle."
@@ -151,19 +155,22 @@ msgstr ""
 msgid "A nice park that can be used as a good centerpiece."
 msgstr ""
 
-msgid "A nice paved road that are commonly found in the middle of large "
-"cities.  Includes a sidewalk."
+msgid ""
+"A nice paved road that are commonly found in the middle of large cities.  "
+"Includes a sidewalk."
 msgstr ""
 
-msgid "A nice public pool that is a great way to stay cool and keep your "
-"citizens happy."
+msgid ""
+"A nice public pool that is a great way to stay cool and keep your citizens "
+"happy."
 msgstr ""
 
 msgid "A nice residential building donned with white and orange concrete."
 msgstr ""
 
-msgid "A nice reward for your city-building efforts, although it might make "
-"your citizens question if they're in a simulation."
+msgid ""
+"A nice reward for your city-building efforts, although it might make your "
+"citizens question if they're in a simulation."
 msgstr ""
 
 msgid "A petrol pump"
@@ -223,7 +230,8 @@ msgstr ""
 msgid "A small  building"
 msgstr ""
 
-msgid "A small building dedicated to small-scale inustrial-related military "
+msgid ""
+"A small building dedicated to small-scale inustrial-related military "
 "activity."
 msgstr ""
 
@@ -233,8 +241,8 @@ msgstr ""
 msgid "A small lantern that can be used to decorate your cities."
 msgstr ""
 
-msgid "A small office building with a nice sidewalk and a unique blue "
-"entrance."
+msgid ""
+"A small office building with a nice sidewalk and a unique blue entrance."
 msgstr ""
 
 msgid "A small piece of land where impoverished people reside."
@@ -252,31 +260,33 @@ msgstr ""
 msgid "A small trailer house."
 msgstr ""
 
-msgid "A small train platform that has a small structure on it.  People can "
-"wait here until the train comes, although there isnt much room "
-"inside."
+msgid ""
+"A small train platform that has a small structure on it.  People can wait "
+"here until the train comes, although there isnt much room inside."
 msgstr ""
 
 msgid "A small water tower"
 msgstr ""
 
-msgid "A small wooden sign that can be used to decorate a town.  It doesn't "
+msgid ""
+"A small wooden sign that can be used to decorate a town.  It doesn't "
 "actually say anything though..."
 msgstr ""
 
-msgid "A somewhat large fast food restaurant known for cheap food and "
-"questionable quality."
+msgid ""
+"A somewhat large fast food restaurant known for cheap food and questionable "
+"quality."
 msgstr ""
 
-msgid "A somewhat-large plot of land that is the home to many trailer "
-"houses."
+msgid "A somewhat-large plot of land that is the home to many trailer houses."
 msgstr ""
 
 msgid "A stereotypical red barn."
 msgstr ""
 
-msgid "A tall glass skyscraper that fears the day a stone-throwing "
-"competition is held in town."
+msgid ""
+"A tall glass skyscraper that fears the day a stone-throwing competition is "
+"held in town."
 msgstr ""
 
 msgid "A tall light pole that can be used to decorate a town."
@@ -291,8 +301,9 @@ msgstr ""
 msgid "A train platform with a large sign on it."
 msgstr ""
 
-msgid "A very old ship that crashed here long ago.  Its origin is unkown, "
-"but I think it's safe to say what happened to its crew"
+msgid ""
+"A very old ship that crashed here long ago.  Its origin is unkown, but I "
+"think it's safe to say what happened to its crew"
 msgstr ""
 
 msgid "A yellow cactus."
@@ -319,8 +330,9 @@ msgstr ""
 msgid "An appartement building from Bellevue , WA , USA"
 msgstr ""
 
-msgid "An average road that'll you would commonly find out in the "
-"countryside.  It lacks a proper sidewalk though."
+msgid ""
+"An average road that'll you would commonly find out in the countryside.  It "
+"lacks a proper sidewalk though."
 msgstr ""
 
 msgid "An european looking road."
@@ -341,8 +353,9 @@ msgstr ""
 msgid "An old depolluter building that has become a new industrial factory."
 msgstr ""
 
-msgid "An old dirt road that doesn't require much maintenance.  Not "
-"recommended for busy roadways."
+msgid ""
+"An old dirt road that doesn't require much maintenance.  Not recommended for "
+"busy roadways."
 msgstr ""
 
 msgid "An old phone booth that can be used to decorate your cities."
@@ -588,8 +601,9 @@ msgstr ""
 msgid "Ferns (Medium)"
 msgstr ""
 
-msgid "Ferns are green flowerless plants with divided leaves that tend to "
-"grow in damp, shady areas."
+msgid ""
+"Ferns are green flowerless plants with divided leaves that tend to grow in "
+"damp, shady areas."
 msgstr ""
 
 msgid "Flora"
@@ -718,11 +732,12 @@ msgstr ""
 msgid "Lily Pads (Medium)"
 msgstr ""
 
-msgid "Lily pads are broad, rounded, heart- or shield-shaped leaves. Frogs "
-"like to sit on them!"
+msgid ""
+"Lily pads are broad, rounded, heart- or shield-shaped leaves. Frogs like to "
+"sit on them!"
 msgstr ""
 
-#: src/Game.cxx:138
+#: D:\projects\Cytopia\src\Game.cxx:138
 msgid "Load Game"
 msgstr ""
 
@@ -768,7 +783,7 @@ msgstr ""
 msgid "NatureDecoration"
 msgstr ""
 
-#: src/Game.cxx:123
+#: D:\projects\Cytopia\src\Game.cxx:123
 msgid "New Game"
 msgstr ""
 
@@ -877,7 +892,7 @@ msgstr ""
 msgid "Pyramid"
 msgstr ""
 
-#: src/Game.cxx:151
+#: D:\projects\Cytopia\src\Game.cxx:151
 msgid "Quit Game"
 msgstr ""
 
@@ -926,9 +941,9 @@ msgstr ""
 msgid "Reward"
 msgstr ""
 
-msgid "Rice is normally grown as an annual plant, although in tropical "
-"areas it can survive as a perennial and can produce a ratoon crop "
-"for up to 30 years."
+msgid ""
+"Rice is normally grown as an annual plant, although in tropical areas it can "
+"survive as a perennial and can produce a ratoon crop for up to 30 years."
 msgstr ""
 
 msgid "Roads"
@@ -1049,12 +1064,6 @@ msgid "Stream"
 msgstr ""
 
 msgid "Sunken Ship"
-msgstr ""
-
-msgid "TODO DESC"
-msgstr ""
-
-msgid "TODO TITLE"
 msgstr ""
 
 msgid "Tall Concrete Tower"
