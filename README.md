@@ -9,6 +9,9 @@
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=cytopia&metric=alert_status)](https://sonarcloud.io/dashboard?id=cytopia)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=cytopia&metric=coverage)](https://sonarcloud.io/dashboard?id=cytopia)
 
+[![Translations](https://hosted.weblate.org/widgets/cytopia/-/game/svg-badge.svg)](https://hosted.weblate.org/projects/cytopia/)
+
+
 <b>Website/Forums</b> - Cytopia.net - <https://www.cytopia.net/><br>
 <b>YouTube</b> - Cytopia - <https://www.youtube.com/channel/UCJIzKBD3wl6KRohiX6i53GA><br>
 <b>Twitter</b> - @CytopiaGame - <https://twitter.com/CytopiaGame><br>
@@ -18,6 +21,7 @@
 <b>Itch io</b> - Cytopia - <https://cytopia.itch.io/cytopia><br>
 <b>GitHub</b> - Cytopia by CytopiaTeam - <https://github.com/CytopiaTeam/Cytopia><br>
 <b>Online Emscripten Port</b> - Cytopia - <https://game.cytopia.net/><br>
+<b>Translation project on Weblate</b> - Cytopia - <https://hosted.weblate.org/projects/cytopia/><br>
 
 Cytopia is a free, open source retro pixel-art city building game with a big focus on mods. It utilizes a custom isometric rendering engine based on SDL2.
 
@@ -73,10 +77,8 @@ See: <https://github.com/CytopiaTeam/Cytopia/wiki/Coding-guidelines>
 
 #### Work-in-Progress Screenshot
 
-![alt text](http://cytopia.net/github/Screenshot1.png)
-![alt text](https://www.cytopia.net/github/Screenshot2.jpg)
+![alt text](https://cytopia.net/github/Screenshot1.png)
+![alt text](https://cytopia.net/github/Screenshot2.jpg)
 
-We're proud to be part of Jetbrains opensource program!
-
-![alt text](https://www.cytopia.net/github/jetbrains.png)
-<https://www.jetbrains.com/?from=Cytopia>
+We're proud to be part of Jetbrains opensource program!  
+[<img src="https://cytopia.net/github/jetbrains.png" alt="Jetbrains logo" width="200" height="200"> ](https://www.jetbrains.com/?from=Cytopia)

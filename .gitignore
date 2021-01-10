@@ -27,11 +27,9 @@ _pmm
 conanfile\.txt
 Doxygen_Docs/*
 
-tools/l10n/languages/
+*.mo
 
-tools/l10n/tx/
-
-tools/l10n/TMP/
+tools/l10n/TMP
 
 #ignore redist directory
 redist/*
@@ -50,3 +48,5 @@ CPackSourceConfig.cmake
 cmake_install.cmake
 src/cmake_install.cmake
 src/Makefile
+
+tools/l10n/TMP.pot
