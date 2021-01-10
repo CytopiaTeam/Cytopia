@@ -38,7 +38,7 @@ Game::Game()
 #ifdef USE_AUDIO
       m_AudioMixer{m_GameContext},
 #endif
-      m_UILoop(&LoopMain<UILoopMQ, UIVisitor>, std::ref(m_GameContext), UIVisitor{}),
+      m_UILoop(&LoopMain<UILoopMQ, UIVisitor>, std::ref(m_GameContext), UIVisitor{m_Window, m_GameContext}),
       m_EventLoop(&LoopMain<GameLoopMQ, GameVisitor>, std::ref(m_GameContext), GameVisitor{m_GameContext}),
       m_Window(m_GameContext, VERSION, 
         Settings::instance().getDefaultWindowWidth(), 
@@ -447,6 +447,7 @@ template <typename MQType, typename Visitor> void Game::LoopMain(GameContext &co
   while (true)
   {
     for (auto event : getEvents<MQType>(context))
+    {
       if (std::holds_alternative<TerminateEvent>(event))
       {
         return;

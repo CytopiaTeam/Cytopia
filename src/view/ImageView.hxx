@@ -6,6 +6,10 @@
 
 #include "iViewElement.hxx"
 
+/**
+ * @class DisplayMode
+ * @brief The display mode for an Image
+ */
 BETTER_ENUM(DisplayMode, uint8_t, RepeatXY, NearestXY);
 
 class ImageView : public iViewElement
