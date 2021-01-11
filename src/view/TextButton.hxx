@@ -9,7 +9,7 @@
 class TextButton : public ClassicButton<TextButton>, public SettingsModelListener
 {
 public:
-  TextButton(const char *const pName, const std::string &, RGBAColor = Palette::Gray);
+  TextButton(const std::string &, const std::string &, RGBAColor = Palette::Gray);
   virtual ~TextButton();
 
   void drawButtonContent(iRenderer &) const noexcept;
@@ -26,7 +26,10 @@ private:
   static constexpr int16_t PADDING_BOTTOM_HOVERED = 5;
 
   int16_t m_TextPaddingBottom;
-  const char *const m_pName;
+
+  // Key for text translation.
+  const std::string m_TextKey;
+  // Text which will be rendered.
   std::string m_Text;
 };
 

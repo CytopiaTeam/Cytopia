@@ -14,6 +14,7 @@ void SettingsModel::setLanguage(std::string language)
     std::swap(m_Language, language);
     m_Localization.load(m_Language);
     notifyObservers(Notification{LanguageChangeEvent{m_Localization}});
+    // TODO: this should be removed once notification is reworked and cause UI to be redrawn
     m_UiQueue.push(WindowRedrawEvent{});
   }
 }

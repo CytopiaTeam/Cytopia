@@ -5,8 +5,8 @@
 #include "../util/LOG.hxx"
 #include "../util/Exception.hxx"
 
-TextButton::TextButton(const char *const pName, const std::string &text, RGBAColor color)
-    : m_TextPaddingBottom(0), m_pName(pName), m_Text(text)
+TextButton::TextButton(const std::string &keyText, const std::string &text, RGBAColor color)
+    : m_TextPaddingBottom(0), m_TextKey(keyText), m_Text(text)
 {
 }
 
@@ -32,5 +32,5 @@ void TextButton::onHover() noexcept { m_TextPaddingBottom = PADDING_BOTTOM_HOVER
 void TextButton::update(SettingsModelListener::Notification notif) noexcept
 {
   auto event = std::get<LanguageChangeEvent>(notif);
-  m_Text = event.localization.translateText(m_pName);
+  m_Text = event.localization.translateText(m_TextKey);
 }
