@@ -5,27 +5,32 @@
 #include "../util/LOG.hxx"
 #include "../util/Exception.hxx"
 
-TextButton::TextButton(const std::string & text, RGBAColor color) :
-  m_TextPaddingBottom(0), 
-  m_Text(text)
+TextButton::TextButton(const char *const pName, const std::string &text, RGBAColor color)
+    : m_TextPaddingBottom(0), m_pName(pName), m_Text(text)
 {
 }
 
 TextButton::~TextButton() = default;
 
-void TextButton::drawButtonContent(iRenderer & renderer) const noexcept
+void TextButton::drawButtonContent(iRenderer &renderer) const noexcept
 {
   Rectangle target = getBounds();
   target.translateY(m_TextPaddingBottom);
   renderer.drawText(m_Text.c_str(), RGBAColor{0xFFFFFFFF}, target, PositionType::Centered);
 }
 
-void TextButton::setupButton(class GameService & context) noexcept { };
+void TextButton::setupButton(class GameService &context) noexcept {};
 
-void TextButton::onMouseLeave() noexcept { }
+void TextButton::onMouseLeave() noexcept {}
 
 void TextButton::onDisable() noexcept { m_TextPaddingBottom = PADDING_BOTTOM_DISABLED; }
 
 void TextButton::onPress() noexcept { m_TextPaddingBottom = PADDING_BOTTOM_PRESSED; }
 
 void TextButton::onHover() noexcept { m_TextPaddingBottom = PADDING_BOTTOM_HOVERED; }
+
+void TextButton::update(SettingsModelListener::Notification notif) noexcept
+{
+  auto event = std::get<LanguageChangeEvent>(notif);
+  m_Text = event.localization.translateText(m_pName);
+}
