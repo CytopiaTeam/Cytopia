@@ -13,8 +13,8 @@ msgstr ""
 "POT-Creation-Date: 2021-01-10 14:12+0100\n"
 "PO-Revision-Date: 2021-01-11 08:59+0000\n"
 "Last-Translator: Emir <emir_sari@msn.com>\n"
-"Language-Team: Turkish <https://hosted.weblate.org/projects/cytopia/game/tr/>"
-"\n"
+"Language-Team: Turkish <https://hosted.weblate.org/projects/cytopia/game/tr/"
+">\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -537,7 +537,8 @@ msgstr ""
 
 #. This is a description for an object titled: Phone Booth
 msgid "An old phone booth that can be used to decorate your cities."
-msgstr "Kentinizi dekore etmek için kullanılabilecek eski bir telefon kulübesi."
+msgstr ""
+"Kentinizi dekore etmek için kullanılabilecek eski bir telefon kulübesi."
 
 #. This is a title for an object with the description: Block of houses from the Boulevard des Belges , Rouen
 #. This is a title for an object with the description: A house from Vienna
