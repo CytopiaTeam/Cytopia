@@ -13,10 +13,10 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-01-10 14:12+0100\n"
-"PO-Revision-Date: 2021-01-10 03:31+0000\n"
+"PO-Revision-Date: 2021-01-11 08:59+0000\n"
 "Last-Translator: J. Lavoie <j.lavoie@net-c.ca>\n"
-"Language-Team: French <https://hosted.weblate.org/projects/cytopia/game/fr/"
-">\n"
+"Language-Team: French <https://hosted.weblate.org/projects/cytopia/game/fr/>"
+"\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -372,16 +372,18 @@ msgstr ""
 
 #. This is a description for an object titled: Mansion
 msgid "A small french mansion "
-msgstr ""
+msgstr "Un petit manoir français "
 
 #. This is a description for an object titled: Lantern
 msgid "A small lantern that can be used to decorate your cities."
-msgstr ""
+msgstr "Une petite lanterne qui peut être utilisée pour décorer vos villes."
 
 #. This is a description for an object titled: Small Office Building
 msgid ""
 "A small office building with a nice sidewalk and a unique blue entrance."
 msgstr ""
+"Un petit immeuble de bureaux avec un joli trottoir et une entrée bleue "
+"unique."
 
 #. This is a description for an object titled: Homeless Camp
 msgid "A small piece of land where impoverished people reside."
@@ -1482,7 +1484,7 @@ msgstr ""
 
 #. This is a title for an object with the description: A small train platform that has a small structure on it.  People can wait here until the train comes, although there isnt much room inside.
 msgid "Small Waiting Platform"
-msgstr ""
+msgstr "Petit quai d’attente"
 
 #. This is a title for an object with the description: A small water tower
 msgid "Small Water Tower"
@@ -1502,7 +1504,7 @@ msgstr "Sol"
 
 #. This is a category
 msgid "Station"
-msgstr "Station"
+msgstr "Gare"
 
 #. This is a title for an object with the description: Terrain Stone tiles
 msgid "Stone"
