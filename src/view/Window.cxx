@@ -63,12 +63,16 @@ void Window::setActivity(iActivityPtr &&activity)
 
 Rectangle Window::getBounds() const noexcept { return m_Renderer->getDrawableSize(); }
 
+void Window::recreateRender()
+{
+  m_Renderer.reset();
+  m_Renderer = std::make_unique<SDLRenderer>(m_Window);
+}
+
 void Window::handleEvent(WindowResizeEvent &&event)
 {
   m_Renderer->clear();
-  // If window has been touched, new render must be created
-  m_Renderer.reset();
-  m_Renderer = std::make_unique<SDLRenderer>(m_Window);
+  recreateRender();
   m_Activity->setBounds(getBounds());
   m_Activity->setup(*m_Activity);
   m_Activity->draw(*m_Renderer);

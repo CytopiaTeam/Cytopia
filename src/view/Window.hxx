@@ -44,6 +44,12 @@ private:
   void handleEvent(WindowResizeEvent &&);
   void handleEvent(WindowRedrawEvent &&);
 
+  /**
+  * @brief Destroy old render and create new one.
+  * @attention If window has been touched from other thread than UI, new render must be created.
+  */
+  void recreateRender();
+
   template <typename... Args> iActivityPtr fromActivityType(ActivityType, Args &&...);
   friend class Game;
 };
