@@ -3,13 +3,13 @@
 
 template <typename ServiceType> struct GameService::require_service_type
 {
-  static_assert(ContainsType<Types, ServiceType>, "ServiceType must be registered as a Service in GameService::Types");
+  static_assert(Types::ContainsType<ServiceType>, "ServiceType must be registered as a Service in GameService::Types");
   using type = ServiceType;
 };
 
 template <typename ServiceInner, typename Tag> struct GameService::require_service_type<StrongType<ServiceInner, Tag>>
 {
-  static_assert(ContainsType<Types, StrongType<ServiceInner, Tag>>,
+  static_assert(Types::ContainsType<StrongType<ServiceInner, Tag>>,
                 "StrongType<ServiceInner, Tag> must be registered as a Service in GameService::Types");
   using type = ServiceInner;
 };

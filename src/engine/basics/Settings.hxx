@@ -3,10 +3,10 @@
 
 #include <string>
 #include <vector>
+#include <array>
 
 #include "../../util/Singleton.hxx"
 #include "../../util/Meta.hxx"
-
 using std::string;
 
 #include <cstddef>
@@ -80,12 +80,12 @@ struct SettingsData
    * @brief Whether to play 3D sound or not
    */
   bool audio3DStatus;
-  
+
   /**
    * @brief Whether to use the new UI or not
    */
   bool newUI;
-  
+
   /**
    * @brief Whether to start the game immediately at startup
    */
@@ -163,7 +163,7 @@ struct SettingsData
    *          Nth displayModeName
    */
   std::vector<std::array<int, 2>> displayModes;
-  
+
   /**
    * @details All the names of the display modes
    *          to be used in the UI
@@ -197,13 +197,13 @@ public:
   void writeFile();
 
   int getDefaultWindowWidth() const noexcept;
-  
+
   int getDefaultWindowHeight() const noexcept;
-  
+
   /**
    * @brief Parses command line arguments to override settings
    */
-  void parse_args(int argc, char** argv);
+  void parse_args(int argc, char **argv);
 
   using SettingsData::operator=;
 

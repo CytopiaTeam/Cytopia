@@ -82,14 +82,14 @@ private:
 /**
  * @brief UI Actor's message queue
  */
-class UILoopMQ : public MessageQueue<VariantType<UIEvents>>
+class UILoopMQ : public MessageQueue<typename UIEvents::VariantType>
 {
 };
 
 /**
  * @brief Game loop Actor's message queue
  */
-class GameLoopMQ : public MessageQueue<VariantType<GameEvents>>
+class GameLoopMQ : public MessageQueue<typename GameEvents::VariantType>
 {
 };
 
