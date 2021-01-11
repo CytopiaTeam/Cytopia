@@ -3,6 +3,9 @@
 
 #include <string>
 
+/**
+* Interface to the localization model.
+*/
 class iLocalization
 {
 public:

@@ -402,6 +402,8 @@ void Game::shutdown()
   m_GameLoopMQ.push(TerminateEvent{});
   m_UILoop.join();
   m_EventLoop.join();
+  
+  // TODO: this will eventually be reworked, but currently there is issue because new render is created on windows resizing
   ResourcesManager::instance().flush();
   UIManager::instance().flush();
 }

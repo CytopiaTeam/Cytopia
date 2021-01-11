@@ -16,6 +16,12 @@ public:
 
   std::string translateText(const std::string &text) const override;
   std::string translateText(const char *text) const override;
+  
+  /**
+  * @brief Load new language.
+  * 
+  * @param language String represents translated language. E.g. "nl"
+  */
   void load(const std::string &language);
 
 private:

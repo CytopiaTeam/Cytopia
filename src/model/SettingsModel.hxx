@@ -21,6 +21,8 @@ public:
 private:
   std::string m_Language;
   Localization m_Localization;
+
+  // TODO: this should be removed once notification is reworked and cause UI to be redrawn
   UILoopMQ &m_UiQueue;
 };
 
