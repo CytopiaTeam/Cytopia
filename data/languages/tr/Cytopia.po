@@ -11,10 +11,10 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-01-10 14:12+0100\n"
-"PO-Revision-Date: 2021-01-11 08:59+0000\n"
+"PO-Revision-Date: 2021-01-12 20:32+0000\n"
 "Last-Translator: Emir <emir_sari@msn.com>\n"
-"Language-Team: Turkish <https://hosted.weblate.org/projects/cytopia/game/tr/"
-">\n"
+"Language-Team: Turkish <https://hosted.weblate.org/projects/cytopia/game/tr/>"
+"\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,7 +24,7 @@ msgstr ""
 
 #. This is a description for an object titled: Small Coal Power Plant2
 msgid "A  small coal power plant."
-msgstr "Küçük kömür santrali."
+msgstr "Düşük kapasiteli bir termik santral."
 
 #. This is a description for an object titled: Small Coal Power Plant
 msgid ""
@@ -250,8 +250,8 @@ msgid ""
 "A nice paved road that are commonly found in the middle of large cities.  "
 "Includes a sidewalk."
 msgstr ""
-"Büyük şehirlerin ortasında yaygın olarak bulunan kaldırımlı güzel bir asfalt "
-"yol. "
+"Büyük şehirlerde yaygın olarak bulunan kaliteli kaplama asfalt yol. Kaldırım "
+"içerir."
 
 #. This is a description for an object titled: Pool
 msgid ""
@@ -341,12 +341,12 @@ msgstr "Oyun satan bir dükkan. Burada Cytopia bile satılıyor!"
 
 #. This is a description for an object titled: Phone Shop
 msgid "A shop that sells phones. It has the new CyPhone X"
-msgstr "Telefon satan bir dükkan. Yeni CyPhone X'e sahip."
+msgstr "Telefon satan bir dükkan. Yeni CyPhone X burada satılır."
 
 #. This is a description for an object titled: CompactFast Shop
 #. This is a description for an object titled: Shop
 msgid "A shop!"
-msgstr "Dükkan"
+msgstr "Bir dükkan!"
 
 #. This is a description for an object titled: Small house
 msgid "A small  building"
@@ -360,7 +360,7 @@ msgstr ""
 
 #. This is a description for an object titled: Mansion
 msgid "A small french mansion "
-msgstr "Küçük Fransız stilinde bir konak."
+msgstr "Küçük Fransız stilinde bir konak "
 
 #. This is a description for an object titled: Lantern
 msgid "A small lantern that can be used to decorate your cities."
@@ -390,7 +390,7 @@ msgstr "Küçük bir römork ev"
 
 #. This is a description for an object titled: Small House
 msgid "A small trailer house."
-msgstr "Küçük bir römork ev"
+msgstr "Küçük bir treyler ev."
 
 #. This is a description for an object titled: Small Waiting Platform
 msgid ""
@@ -458,7 +458,7 @@ msgid ""
 "think it's safe to say what happened to its crew"
 msgstr ""
 "Çok uzun zaman önce burada kaza yapan çok eski bir gemi. Nereden geldiği "
-"bilinmez, ancak mürettebatına neler olduğunu söylemek olanaklı."
+"bilinmez, ancak mürettebatına neler olduğu hakkında fikir yürütülebilir."
 
 #. This is a description for an object titled: Yellow Cacti (Light)
 #. This is a description for an object titled: Yellow Cacti (Medium)
@@ -672,64 +672,64 @@ msgstr ""
 
 #. This is a title for an object with the description: A group of burned trees.
 msgid "Burned Trees (Dense)"
-msgstr ""
+msgstr "Yanmış ağaçlar (yoğun)"
 
 #. This is a title for an object with the description: A group of burned trees.
 msgid "Burned Trees (Light)"
-msgstr ""
+msgstr "Yanmış ağaçlar (hafif)"
 
 #. This is a title for an object with the description: A group of burned trees.
 msgid "Burned Trees (Medium)"
-msgstr ""
+msgstr "Yanmış ağaçlar (orta)"
 
 #. This is a title for an object with the description: Terrain burned tiles
 msgid "Burned land"
-msgstr ""
+msgstr "Yanmış arazi"
 
 #. This is a UiElement with of the type: TextButton
 msgid "Cancel"
-msgstr ""
+msgstr "İptal"
 
 #. This is a title for an object with the description: A group tall wetland plants well-known for their brown catkins.
 msgid "Cattails (Dense)"
-msgstr ""
+msgstr "Sukamışları (yoğun)"
 
 #. This is a title for an object with the description: A group tall wetland plants well-known for their brown catkins.
 msgid "Cattails (Light)"
-msgstr ""
+msgstr "Sukamışları (hafif)"
 
 #. This is a title for an object with the description: A group tall wetland plants well-known for their brown catkins.
 msgid "Cattails (Medium)"
-msgstr ""
+msgstr "Sukamışları (orta)"
 
 #. This is a title for an object with the description: A group of benches that surround a nice decorative object.
 msgid "Centerpiece Park"
-msgstr ""
+msgstr "Merkez park"
 
 #. This is a title for an object with the description: A chemical plant
 msgid "Chemical Plant"
-msgstr ""
+msgstr "Kimyasal santral"
 
 #. This is a title for an object with the description: A stereotypical red barn.
 msgid "Classic Red Barn"
-msgstr ""
+msgstr "Klasik kırmızı ahır"
 
 #. This is a title for an object with the description: An old clock store that sells and repairs clocks.
 msgid "Clock Store"
-msgstr ""
+msgstr "Saat dükkanı"
 
 #. This is a title for an object with the description: A pile of coal
 msgid "Coal Pile"
-msgstr ""
+msgstr "Kömür yığını"
 
 #. This is a title for an object with the description: A coal power plant.  It'll produce enough electricity to keep a town running, but it creates a lot of pollution.
 msgid "Coal Power Plant"
-msgstr ""
+msgstr "Termik santral"
 
 #. This is a category
 #. This is a subCategory
 msgid "Commercial"
-msgstr ""
+msgstr "Ticari"
 
 #. This is a title for an object with the description: Commercial Zone (dense).
 msgid "Commercial Zone (dense)"
