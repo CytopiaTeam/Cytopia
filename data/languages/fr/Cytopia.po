@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Paragoumba <paragoumba@gmail.com>, 2020
+# Paragoumba <paragoumba@gmail.com>, 2020, 2021.
 # Edgar <Edgar@AnotherFoxGuy.com>, 2020
 # Vincent-Olivier Roch <vroch@edu.uwaterloo.ca>, 2020
 # J. Lavoie <j.lavoie@net-c.ca>, 2021.
@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-01-10 14:12+0100\n"
-"PO-Revision-Date: 2021-01-10 03:31+0000\n"
-"Last-Translator: J. Lavoie <j.lavoie@net-c.ca>\n"
+"PO-Revision-Date: 2021-01-11 08:59+0000\n"
+"Last-Translator: Paragoumba <paragoumba@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/cytopia/game/fr/"
 ">\n"
 "Language: fr\n"
@@ -307,19 +307,19 @@ msgstr "Un tas de roches qu'on peut trouver dans le biome du désert."
 
 #. This is a description for an object titled: Diamond Rocks
 msgid "A pile of rocks that can be found in the diamond biome."
-msgstr ""
+msgstr "Un tas de roches qui peut être trouvé dans le biome diamant."
 
 #. This is a description for an object titled: Rocks
 msgid "A pile of rocks that can be found in the grasslands biome."
-msgstr ""
+msgstr "Un tas de roches qui peut être trouvé dans le biome prairie."
 
 #. This is a description for an object titled: Snowy Rocks
 msgid "A pile of rocks that can be found in the snow biome."
-msgstr ""
+msgstr "Un tas de roches qui peut être trouvé dans le biome neige."
 
 #. This is a description for an object titled: Water Rocks
 msgid "A pile of rocks that can be found in water."
-msgstr ""
+msgstr "Un tas de roches qui peut être trouvé dans l'eau."
 
 #. This is a description for an object titled: Poplars (Light)
 #. This is a description for an object titled: Poplars (Medium)
@@ -329,23 +329,25 @@ msgstr "Un peuplier"
 
 #. This is a description for an object titled: Prison Fence
 msgid "A prison fence"
-msgstr ""
+msgstr "Une clôture de prison"
 
 #. This is a description for an object titled: Rural French Road brokenlined
 msgid "A rural road from france with fresh asphalt with a broken line."
 msgstr ""
+"Une route rurale de France avec de l’asphalte frais et une ligne pointillée."
 
 #. This is a description for an object titled: Rural French Road fresh
 msgid "A rural road from france with fresh asphalt."
-msgstr ""
+msgstr "Une route rurale de France avec de l'asphalte frais."
 
 #. This is a description for an object titled: Rural French Road
 msgid "A rural road from france with worn asphalt."
-msgstr ""
+msgstr "Une route rurale de France avec de l'asphalte usé."
 
 #. This is a description for an object titled: Rural French Road lined
 msgid "A rural road from france with worn asphalth a straight line."
 msgstr ""
+"Une route rurale de France avec de l'asphalte usé et une ligne continue."
 
 #. This is a description for an object titled: Game Shop
 msgid "A shop that sells games. Even Cytopia is sold here!"
@@ -369,19 +371,22 @@ msgid ""
 "A small building dedicated to small-scale inustrial-related military "
 "activity."
 msgstr ""
+"Un petit bâtiment dédié à une petite production liée à l'industrie militaire."
 
 #. This is a description for an object titled: Mansion
 msgid "A small french mansion "
-msgstr ""
+msgstr "Un petit manoir français "
 
 #. This is a description for an object titled: Lantern
 msgid "A small lantern that can be used to decorate your cities."
-msgstr ""
+msgstr "Une petite lanterne qui peut être utilisée pour décorer vos villes."
 
 #. This is a description for an object titled: Small Office Building
 msgid ""
 "A small office building with a nice sidewalk and a unique blue entrance."
 msgstr ""
+"Un petit immeuble de bureaux avec un joli trottoir et une entrée bleue "
+"unique."
 
 #. This is a description for an object titled: Homeless Camp
 msgid "A small piece of land where impoverished people reside."
@@ -1482,7 +1487,7 @@ msgstr ""
 
 #. This is a title for an object with the description: A small train platform that has a small structure on it.  People can wait here until the train comes, although there isnt much room inside.
 msgid "Small Waiting Platform"
-msgstr ""
+msgstr "Petit quai d’attente"
 
 #. This is a title for an object with the description: A small water tower
 msgid "Small Water Tower"
@@ -1502,7 +1507,7 @@ msgstr "Sol"
 
 #. This is a category
 msgid "Station"
-msgstr "Station"
+msgstr "Gare"
 
 #. This is a title for an object with the description: Terrain Stone tiles
 msgid "Stone"

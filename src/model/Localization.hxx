@@ -1,7 +1,7 @@
 #ifndef LOCALIZATION_HXX_
 #define LOCALIZATION_HXX_
 
-#include "moFileReader.h"
+#include "moFileReader.hpp"
 #include "iLocalization.hxx"
 
 class Localization : public iLocalization

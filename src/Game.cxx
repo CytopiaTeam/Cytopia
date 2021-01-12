@@ -10,7 +10,7 @@
 #include "engine/basics/Settings.hxx"
 #include "engine/basics/GameStates.hxx"
 #include "Filesystem.hxx"
-
+#include "moFileReader.hpp"
 #include <noise.h>
 
 #ifdef USE_ANGELSCRIPT

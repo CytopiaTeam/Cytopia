@@ -1,29 +1,30 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Yusuf ren <yusuferenyahsi@gmail.com>, 2020
+# Emir <emir_sari@msn.com>, 2021.
 #
 # Translators:
-# Yusuf ren <yusuferenyahsi@gmail.com>, 2020
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-01-10 14:12+0100\n"
-"PO-Revision-Date: 2019-10-21 11:13+0000\n"
-"Last-Translator: Yusuf ren <yusuferenyahsi@gmail.com>, 2020\n"
-"Language-Team: Turkish (https://www.transifex.com/cytopia/teams/100140/tr/)\n"
+"PO-Revision-Date: 2021-01-11 08:59+0000\n"
+"Last-Translator: Emir <emir_sari@msn.com>\n"
+"Language-Team: Turkish <https://hosted.weblate.org/projects/cytopia/game/tr/"
+">\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.4.1-dev\n"
 
 #. This is a description for an object titled: Small Coal Power Plant2
 msgid "A  small coal power plant."
-msgstr "Küçük kömür santrali"
+msgstr "Küçük kömür santrali."
 
 #. This is a description for an object titled: Small Coal Power Plant
 msgid ""
@@ -31,11 +32,11 @@ msgid ""
 "it produces a lot of pollution."
 msgstr ""
 "Küçük kömür santrali. Küçük bir kasabanın elektriğini sağlayacak güçte "
-"olmakla beraber çok fazla kirlilik oluşturur."
+"olmakla birlikte, çok fazla kirlilik oluşturur."
 
 #. This is a description for an object titled: Wheat Field
 msgid "A Wheat Field"
-msgstr ""
+msgstr "Buğday tarlası"
 
 #. This is a description for an object titled: Water Tower
 msgid "A beautiful water tower"
@@ -47,7 +48,7 @@ msgstr "Büyük bir bina"
 
 #. This is a description for an object titled: Tall Concrete Tower
 msgid "A bland-looking apartment building made out of concrete."
-msgstr "Betondan yapılmış düz bir apartman binası"
+msgstr "Betondan yapılmış düz bir apartman binası."
 
 #. This is a description for an object titled: Blank Platform
 msgid "A blank train platform with nothing on it."
@@ -61,11 +62,11 @@ msgstr "Viyana'dan mavi bir hotel"
 #. This is a description for an object titled: Red Berry Bushes (Medium)
 #. This is a description for an object titled: Red Berry Bushes (Dense)
 msgid "A bush with delicious red berries."
-msgstr ""
+msgstr "Kırmızı dutlu bir çalı."
 
 #. This is a description for an object titled: Chemical Plant
 msgid "A chemical plant"
-msgstr "Kimyasal tesis"
+msgstr "Kimyasal santral"
 
 #. This is a description for an object titled: Medium Depolluter
 msgid "A classic depolluter building that has been recently repurposed."
@@ -94,13 +95,13 @@ msgstr "Bir fabrika"
 
 #. This is a description for an object titled: Benches
 msgid "A few benches that offer a place to sit to your citizens."
-msgstr "Bir fabrika"
+msgstr "Yurttaşlara oturabilecekleri bir yer sağlayan birkaç sıra."
 
 #. This is a description for an object titled: Green Cacti (Light)
 #. This is a description for an object titled: Green Cacti (Medium)
 #. This is a description for an object titled: Green Cacti (Dense)
 msgid "A green cactus."
-msgstr ""
+msgstr "Yeşil kaktüs."
 
 #. This is a description for an object titled: Pine Trees (Light)
 #. This is a description for an object titled: Pine Trees (Medium)
@@ -110,112 +111,97 @@ msgstr "Güzel bir çam ağacı grubu."
 
 #. This is a description for an object titled: Centerpiece Park
 msgid "A group of benches that surround a nice decorative object."
-msgstr "Dekoratif bir objeyi çevreleyen bir grup bank."
+msgstr "Dekoratif bir nesneyi çevreleyen bir grup sıra."
 
 #. This is a description for an object titled: Birch Trees (Light)
 #. This is a description for an object titled: Birch Trees (Medium)
 #. This is a description for an object titled: Birch Trees (Dense)
-#, fuzzy
-#| msgid "A group of beautiful pinetrees."
 msgid "A group of birch trees."
-msgstr "Güzel bir çam ağacı grubu."
+msgstr "Bir grup huş ağacı."
 
 #. This is a description for an object titled: Burned Trees (Light)
 #. This is a description for an object titled: Burned Trees (Medium)
 #. This is a description for an object titled: Burned Trees (Dense)
 msgid "A group of burned trees."
-msgstr ""
+msgstr "Bir grup yanmış ağaç."
 
 #. This is a description for an object titled: Crystal Trees (Light)
 #. This is a description for an object titled: Crystal Trees (Medium)
 #. This is a description for an object titled: Crystal Trees (Dense)
 msgid "A group of crystal trees."
-msgstr ""
+msgstr "Bir grup kristal ağaç."
 
 #. This is a description for an object titled: Cypress Trees (Light)
 #. This is a description for an object titled: Cypress Trees (Medium)
 #. This is a description for an object titled: Cypress Trees (Dense)
-#, fuzzy
-#| msgid "A group of beautiful pinetrees."
 msgid "A group of cypress trees."
-msgstr "Güzel bir çam ağacı grubu."
+msgstr "Bir servilik grubu."
 
 #. This is a description for an object titled: People
 msgid ""
 "A group of mannequins you dressed up as people that can be used to decorate "
 "a town."
-msgstr "Şehrini dekore etmek için, insan gibi giydirilmiş bir grup manken."
+msgstr ""
+"Şehri dekore etmek kullanılabilecek, insan gibi giydirilmiş bir grup manken."
 
 #. This is a description for an object titled: Mushrooms (Light)
 #. This is a description for an object titled: Mushrooms (Medium)
 #. This is a description for an object titled: Mushrooms (Dense)
 msgid "A group of mysterious mushroom trees."
-msgstr ""
+msgstr "Bir grup gizemli mantar ağacı."
 
 #. This is a description for an object titled: Oak Trees (Light)
 #. This is a description for an object titled: Oak Trees (Medium)
 #. This is a description for an object titled: Oak Trees (Dense)
-#, fuzzy
-#| msgid "A group of beautiful pinetrees."
 msgid "A group of oak trees."
-msgstr "Güzel bir çam ağacı grubu."
+msgstr "Bir meşe ağacı grubu."
 
 #. This is a description for an object titled: Palm Trees (Light)
 #. This is a description for an object titled: Palm Trees (Medium)
 #. This is a description for an object titled: Palm Trees (Dense)
 msgid "A group of palmtrees."
-msgstr ""
+msgstr "Bir palmiye ağacı grubu."
 
 #. This is a description for an object titled: Picnic Tables
 msgid "A group of picnic tables that your citizens can use to eat lunch at."
-msgstr "sakinlerinin öğlen yemeği yemesi için piknik masaları."
+msgstr "Yurttaşların öğle yemeklerini yiyebilecekleri bir grup piknik masası."
 
 #. This is a description for an object titled: Thundercloud Purple Leaf Plum Trees (Light)
 #. This is a description for an object titled: Thundercloud Purple Leaf Plum Trees (Medium)
 #. This is a description for an object titled: Thundercloud Purple Leaf Plum Trees (Dense)
-#, fuzzy
-#| msgid "A group of beautiful pinetrees."
 msgid "A group of plum trees."
-msgstr "Güzel bir çam ağacı grubu."
+msgstr "Bir grup erik ağacı."
 
 #. This is a description for an object titled: Sakura Trees (Light)
 #. This is a description for an object titled: Sakura Trees (Medium)
 #. This is a description for an object titled: Sakura Trees (Dense)
-#, fuzzy
-#| msgid "A group of beautiful pinetrees."
 msgid "A group of sakura trees."
-msgstr "Güzel bir çam ağacı grubu."
+msgstr "Bir grup kiraz çiçeği ağacı."
 
 #. This is a description for an object titled: Stone Pines (Light)
 #. This is a description for an object titled: Stone Pines (Medium)
 #. This is a description for an object titled: Stone Pines (Dense)
-#, fuzzy
-#| msgid "A group of beautiful pinetrees."
 msgid "A group of stone pines."
-msgstr "Güzel bir çam ağacı grubu."
+msgstr "Bir grup çam fıstığı ağacı."
 
 #. This is a description for an object titled: Bamboo (Light)
 #. This is a description for an object titled: Bamboo (Medium)
-#, fuzzy
-#| msgid "A group of beautiful pinetrees."
 msgid "A group of tall bamboo plants."
-msgstr "Güzel bir çam ağacı grubu."
+msgstr "Bir grup uzun bambu bitkisi."
 
 #. This is a description for an object titled: Bamboo (Dense)
-#, fuzzy
-#| msgid "A group of beautiful pinetrees."
 msgid "A group of tall bamboo trees."
-msgstr "Güzel bir çam ağacı grubu."
+msgstr "Uzun bir bambu bitkisi grubu."
 
 #. This is a description for an object titled: Cattails (Light)
 #. This is a description for an object titled: Cattails (Medium)
 #. This is a description for an object titled: Cattails (Dense)
 msgid "A group tall wetland plants well-known for their brown catkins."
-msgstr ""
+msgstr "Bir grup kahverengi tırtıllarıyla ünlü sulak arazi bitkisi."
 
 #. This is a description for an object titled: Highway Road
 msgid "A highway! Cars go faaaaast here."
-msgstr ""
+msgstr "Otoyol! Araçlar burada pek hızzzlı giderler."
 
 #. This is a description for an object titled: house
 msgid "A house from Alabama , USA"
@@ -241,15 +227,15 @@ msgstr "Ortada su havuzu olan büyük bir meydan."
 #. This is a description for an object titled: Flowers (Medium)
 #. This is a description for an object titled: Flowers (Dense)
 msgid "A lovely flower patch that blooms in all colors."
-msgstr ""
+msgstr "Her renkte açan harika bir çiçek toprağı."
 
 #. This is a description for an object titled: European Road
 msgid "A modern european looking road without a sidewalk."
-msgstr ""
+msgstr "Avrupai görünümlü kaldırımsız yol."
 
 #. This is a description for an object titled: European Road
 msgid "A modern european looking road."
-msgstr ""
+msgstr "Avrupai görünümlü yol."
 
 #. This is a description for an object titled: Big Depolluter
 msgid "A new factory that was once a depolluter building."
@@ -276,7 +262,7 @@ msgstr ""
 
 #. This is a description for an object titled: Creme-Oran Tower
 msgid "A nice residential building donned with white and orange concrete."
-msgstr ""
+msgstr "Beyaz ve turuncu betonla giydirilmiş hoş bir meskun bina."
 
 #. This is a description for an object titled: TODO TITLE
 msgid ""
@@ -309,7 +295,7 @@ msgstr "Çöl biomunda bulunan bir yığın taş."
 
 #. This is a description for an object titled: Diamond Rocks
 msgid "A pile of rocks that can be found in the diamond biome."
-msgstr ""
+msgstr "Elmas biyomunda bulunabilecek bir kayalar yığını."
 
 #. This is a description for an object titled: Rocks
 msgid "A pile of rocks that can be found in the grasslands biome."
@@ -317,37 +303,37 @@ msgstr "Otlak biomunda bulunan bir yığın taş."
 
 #. This is a description for an object titled: Snowy Rocks
 msgid "A pile of rocks that can be found in the snow biome."
-msgstr ""
+msgstr "Kar biyomunda bulunabilecek bir kayalar yığını."
 
 #. This is a description for an object titled: Water Rocks
 msgid "A pile of rocks that can be found in water."
-msgstr ""
+msgstr "Suda bulunabilecek bir kayalar yığını."
 
 #. This is a description for an object titled: Poplars (Light)
 #. This is a description for an object titled: Poplars (Medium)
 #. This is a description for an object titled: Poplars (Dense)
 msgid "A poplar tree"
-msgstr ""
+msgstr "Kavak ağacı"
 
 #. This is a description for an object titled: Prison Fence
 msgid "A prison fence"
-msgstr ""
+msgstr "Hapishane çiti"
 
 #. This is a description for an object titled: Rural French Road brokenlined
 msgid "A rural road from france with fresh asphalt with a broken line."
-msgstr ""
+msgstr "Fransa'dan taze asfalt dökülmüş kesik çizgili köy yolu."
 
 #. This is a description for an object titled: Rural French Road fresh
 msgid "A rural road from france with fresh asphalt."
-msgstr ""
+msgstr "Fransa'dan taze asfalt dökülmüş köy yolu."
 
 #. This is a description for an object titled: Rural French Road
 msgid "A rural road from france with worn asphalt."
-msgstr ""
+msgstr "Fransa'dan bozuk asfaltlı köy yolu."
 
 #. This is a description for an object titled: Rural French Road lined
 msgid "A rural road from france with worn asphalth a straight line."
-msgstr ""
+msgstr "Fransa'dan bozuk asfaltlı düz çizgili köy yolu."
 
 #. This is a description for an object titled: Game Shop
 msgid "A shop that sells games. Even Cytopia is sold here!"
@@ -431,116 +417,128 @@ msgid ""
 "A somewhat large fast food restaurant known for cheap food and questionable "
 "quality."
 msgstr ""
+"Ucuz menüleri ve sorgulanabilir kalitesiyle tanınan büyükçe bir tez yemek "
+"restoranı."
 
 #. This is a description for an object titled: Trailer Park
 msgid "A somewhat-large plot of land that is the home to many trailer houses."
-msgstr ""
+msgstr "Pek çok treylere ev sahipliği yapan büyükçe bir arsa."
 
 #. This is a description for an object titled: Classic Red Barn
 msgid "A stereotypical red barn."
-msgstr ""
+msgstr "Bilindik bir kırmızı ahır."
 
 #. This is a description for an object titled: Glass Tower
 msgid ""
 "A tall glass skyscraper that fears the day a stone-throwing competition is "
 "held in town."
 msgstr ""
+"Şehirde bir taş atma yarışmasının düzenleneceği günden korkan uzun cam bir "
+"gökdelen."
 
 #. This is a description for an object titled: Light Pole
 msgid "A tall light pole that can be used to decorate a town."
-msgstr ""
+msgstr "Kenti dekore etmek için kullanılabilecek uzun bir ışık direği."
 
 #. This is a description for an object titled: Small Shack
 msgid "A tiny house that can only accommodate a few people."
-msgstr ""
+msgstr "Yalnızca birkaç kişiyi barındırabilecek ufak bir ev."
 
 #. This is a description for an object titled: Bench Platform
 msgid "A train platform with a couple of benches and a trash can."
-msgstr ""
+msgstr "Birkaç sıra ve bir çöp kutusu bulunduran bir tren platformu."
 
 #. This is a description for an object titled: Sign Platform
 msgid "A train platform with a large sign on it."
-msgstr ""
+msgstr "Büyük tabelalı bir tren platformu."
 
 #. This is a description for an object titled: Sunken Ship
 msgid ""
 "A very old ship that crashed here long ago.  Its origin is unkown, but I "
 "think it's safe to say what happened to its crew"
 msgstr ""
+"Çok uzun zaman önce burada kaza yapan çok eski bir gemi. Nereden geldiği "
+"bilinmez, ancak mürettebatına neler olduğunu söylemek olanaklı."
 
 #. This is a description for an object titled: Yellow Cacti (Light)
 #. This is a description for an object titled: Yellow Cacti (Medium)
 #. This is a description for an object titled: Yellow Cacti (Dense)
 msgid "A yellow cactus."
-msgstr ""
+msgstr "Sarı kaktüs."
 
 #. This is a title for an object with the description: Alley road.
 msgid "Alley Road"
-msgstr ""
+msgstr "Ara yol"
 
 #. This is a description for an object titled: Alley Road
 msgid "Alley road."
-msgstr ""
+msgstr "Ara yol."
 
 #. This is a description for an object titled: Skyscraper
 msgid "An algae-green tower that is the home of lots of people."
-msgstr ""
+msgstr "Pek çok kişiyi barındıran yosun yeşili bir kule."
 
 #. This is a description for an object titled: Old Power Plant
 msgid "An ancient coal power plant that has been turned into a factory."
-msgstr ""
+msgstr "Bir fabrikaya dönüştürülen antik bir kömür santrali."
 
 #. This is a description for an object titled: Apartment Building
 msgid "An apartment building from Montreal , Quebec"
-msgstr ""
+msgstr "Quebec, Montreal'den bir apartman"
 
 #. This is a description for an object titled: Apartment Building
 msgid "An apartment building from Vancouver , BC , Canada"
-msgstr ""
+msgstr "Kanada, Vancouver'dan bir apartman"
 
 #. This is a description for an object titled: Apartment Building
 msgid "An appartement building from Bellevue , WA , USA"
-msgstr ""
+msgstr "ABD, Bellevue'den bir apartman"
 
 #. This is a description for an object titled: Country Road
 msgid ""
 "An average road that'll you would commonly find out in the countryside.  It "
 "lacks a proper sidewalk though."
 msgstr ""
+"Köylük yerde sıklıkla görebileceğiniz ortalama bir yol. Düzgün bir kaldırımı "
+"yoktur."
 
 #. This is a description for an object titled: European Road
 msgid "An european looking road."
-msgstr ""
+msgstr "Avrupai görünümlü bir yol."
 
 #. This is a description for an object titled: Oasis
 msgid "An oasis"
-msgstr ""
+msgstr "Vaha"
 
 #. This is a description for an object titled: Phone Booth
 msgid "An old blue phone booth that can be used to decorate your cities."
 msgstr ""
+"Kentinizi dekore etmek için kullanabilecek eski bir mavi telefon kulübesi."
 
 #. This is a description for an object titled: Clock Store
 msgid "An old clock store that sells and repairs clocks."
-msgstr ""
+msgstr "Saat tamir eden ve satan eski bir saat dükkanı."
 
 #. This is a description for an object titled: Day Care Center
 msgid "An old day care that has since become someone's home."
-msgstr ""
+msgstr "Birilerine ev olmuş eski bir çocuk kreşi."
 
 #. This is a description for an object titled: Mini Depolluter
 msgid "An old depolluter building that has become a new industrial factory."
-msgstr ""
+msgstr "Artık bir fabrika olan eski bir temizleyici bina."
 
 #. This is a description for an object titled: Dirt Road
 msgid ""
 "An old dirt road that doesn't require much maintenance.  Not recommended for "
 "busy roadways."
 msgstr ""
+"Pek fazla bakım gerektirmeyen bir toprak yol. Yoğun karayolları için "
+"önerilmez."
 
 #. This is a description for an object titled: Phone Booth
 msgid "An old phone booth that can be used to decorate your cities."
 msgstr ""
+"Kentinizi dekore etmek için kullanılabilecek eski bir telefon kulübesi."
 
 #. This is a title for an object with the description: Block of houses from the Boulevard des Belges , Rouen
 #. This is a title for an object with the description: A house from Vienna
@@ -548,121 +546,121 @@ msgstr ""
 #. This is a title for an object with the description: An apartment building from Montreal , Quebec
 #. This is a title for an object with the description: An apartment building from Vancouver , BC , Canada
 msgid "Apartment Building"
-msgstr ""
+msgstr "Apartman"
 
 #. This is a title for an object with the description: Appartment
 #. This is a description for an object titled: Appartment
 msgid "Appartment"
-msgstr ""
+msgstr "Apartman"
 
 #. This is a title for an object with the description: Appartment Building
 #. This is a description for an object titled: Appartment Building
 #. This is a title for an object with the description: TODO DESC
 msgid "Appartment Building"
-msgstr ""
+msgstr "Apartman"
 
 #. This is a title for an object with the description: Appartment London
 #. This is a description for an object titled: Appartment London
 msgid "Appartment London"
-msgstr ""
+msgstr "Londra tarzı apartman"
 
 #. This is a title for an object with the description: Appartments
 #. This is a description for an object titled: Appartments
 #. This is a subCategory
 msgid "Appartments"
-msgstr ""
+msgstr "Apartmanlar"
 
 #. This is a title for an object with the description: A group of tall bamboo trees.
 msgid "Bamboo (Dense)"
-msgstr ""
+msgstr "Bambu (yoğun)"
 
 #. This is a title for an object with the description: A group of tall bamboo plants.
 msgid "Bamboo (Light)"
-msgstr ""
+msgstr "Bambu (hafif)"
 
 #. This is a title for an object with the description: A group of tall bamboo plants.
 msgid "Bamboo (Medium)"
-msgstr ""
+msgstr "Bambu (orta)"
 
 #. This is a title for an object with the description: Terrain basalt tiles
 msgid "Basalt"
-msgstr ""
+msgstr "Bazalt"
 
 #. This is a title for an object with the description: Terrain beach tiles
 msgid "Beach"
-msgstr ""
+msgstr "Plaj"
 
 #. This is a title for an object with the description: A train platform with a couple of benches and a trash can.
 msgid "Bench Platform"
-msgstr ""
+msgstr "Sıra platformu"
 
 #. This is a title for an object with the description: A few benches that offer a place to sit to your citizens.
 msgid "Benches"
-msgstr ""
+msgstr "Sıralar"
 
 #. This is a title for an object with the description: big Appartments
 #. This is a title for an object with the description: big Appartments
 msgid "Big Appartments"
-msgstr ""
+msgstr "Büyük apartmanlar"
 
 #. This is a title for an object with the description: A big building
 msgid "Big Building"
-msgstr ""
+msgstr "Büyük bina"
 
 #. This is a title for an object with the description: A new factory that was once a depolluter building.
 msgid "Big Depolluter"
-msgstr ""
+msgstr "Büyük kirlilik alıcı"
 
 #. This is a title for an object with the description: Big Office Building
 #. This is a description for an object titled: Big Office Building
 msgid "Big Office Building"
-msgstr ""
+msgstr "Büyük ofis binası"
 
 #. This is a title for an object with the description: Big Warehouse
 #. This is a description for an object titled: Big Warehouse
 msgid "Big Warehouse"
-msgstr ""
+msgstr "Büyük depo"
 
 #. This is a title for an object with the description: A small shop that sells bikes.
 msgid "BikeShop"
-msgstr ""
+msgstr "Bisiklet dükkanı"
 
 #. This is a title for an object with the description: A group of birch trees.
 msgid "Birch Trees (Dense)"
-msgstr ""
+msgstr "Huş ağaçları (yoğun)"
 
 #. This is a title for an object with the description: A group of birch trees.
 msgid "Birch Trees (Light)"
-msgstr ""
+msgstr "Huş ağacı (hafif)"
 
 #. This is a title for an object with the description: A group of birch trees.
 msgid "Birch Trees (Medium)"
-msgstr ""
+msgstr "Huş ağacı (orta)"
 
 #. This is a title for an object with the description: Terrain Black Sand tiles
 msgid "Black Sand"
-msgstr ""
+msgstr "Kara kum"
 
 #. This is a title for an object with the description: A blank train platform with nothing on it.
 msgid "Blank Platform"
-msgstr ""
+msgstr "Boş platform"
 
 #. This is a description for an object titled: Apartment Building
 msgid "Block of houses from the Boulevard des Belges , Rouen"
-msgstr ""
+msgstr "Boulevard des Belges'den bir evler bloku"
 
 #. This is a title for an object with the description: Terrain Blueprint
 msgid "Blueprint"
-msgstr ""
+msgstr "Mavi baskı"
 
 #. This is a title for an object with the description: Bois Guillaume Appartment
 #. This is a description for an object titled: Bois Guillaume Appartment
 msgid "Bois Guillaume Appartment"
-msgstr ""
+msgstr "Bois Guillaume apartmanı"
 
 #. This is a title for an object with the description: A somewhat large fast food restaurant known for cheap food and questionable quality.
 msgid "Borg's Burgers"
-msgstr ""
+msgstr "Borg'un Hamburgerleri"
 
 #. This is a UiElement with of the type: Text
 msgid "BuildMenu Layout"
@@ -1739,8 +1737,8 @@ msgstr ""
 
 #. This is a title for an object with the description: A house from Alabama , USA
 msgid "house"
-msgstr ""
+msgstr "ev"
 
 #. This is a title for an object with the description: Terrain Snow tiles
 msgid "snow"
-msgstr ""
+msgstr "kar"
