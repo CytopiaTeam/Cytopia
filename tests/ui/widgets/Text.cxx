@@ -1,4 +1,4 @@
-#include <catch2/catch.hpp>
+#include <catch.hpp>
 #include "../../src/engine/ui/widgets/Text.hxx"
 #include "../../src/engine/basics/Settings.hxx"
 #include "../../src/Game.hxx"

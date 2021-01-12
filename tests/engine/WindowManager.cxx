@@ -1,4 +1,4 @@
-#include <catch2/catch.hpp>
+#include <catch.hpp>
 #include "../../src/engine/WindowManager.hxx"
 #include "../GameFixture.hxx"
 #include "SDL.h"

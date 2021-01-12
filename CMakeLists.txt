@@ -44,10 +44,6 @@ if (NOT ENABLE_AUDIO)
     set(_CC_OPENAL_SOFT "# ")
 endif ()
 
-if (NOT BUILD_TEST)
-    set(_CC_CATCH2 "# ")
-endif ()
-
 if (NOT ENABLE_ANGELSCRIPT)
     set(_CC_ANGELSCRIPT "# ")
 endif ()
@@ -191,11 +187,6 @@ if (PACKAGE_MANAGER STREQUAL "conan")
     endif ()
 
 
-    if (BUILD_TEST)
-        get_variable_from_conan(CONAN_LIB_DIRS_CATCH2)
-        list(APPEND CMAKE_MODULE_PATH "${CONAN_LIB_DIRS_CATCH2}/cmake/Catch2")
-    endif ()
-
     list(APPEND _link_libraries
             CONAN_PKG::sdl2
             CONAN_PKG::sdl2_image
@@ -217,10 +208,6 @@ if (PACKAGE_MANAGER STREQUAL "conan")
     if (ENABLE_VULKAN)
         list(APPEND _link_libraries CONAN_PKG::vulkan-sdk)
     endif()
-
-    if (BUILD_TEST)
-        list(APPEND _link_libraries CONAN_PKG::Catch2)
-    endif ()
 
 elseif (BUILD_ANDROID)
     list(APPEND _link_libraries ${OpenGLES2_LIBRARY}
@@ -273,10 +260,6 @@ elseif(PACKAGE_MANAGER STREQUAL "pkgconfig")
         find_package(AngelScript REQUIRED)
     endif ()
 
-    if (BUILD_TEST)
-        find_package(Catch2 REQUIRED)
-    endif (BUILD_TEST)
-
     list(APPEND _include_directories
             ${SDL2_INCLUDE_DIRS}
             ${SDL2_image_INCLUDE_DIRS}
@@ -312,9 +295,6 @@ elseif(PACKAGE_MANAGER STREQUAL "pkgconfig")
         list(APPEND _include_directories ${VULKAN_INCLUDEDIR})
     endif()
 
-    if (BUILD_TEST)
-        list(APPEND _include_directories ${CATCH2_INCLUDEDIR})
-    endif ()
 elseif(PACKAGE_MANAGER STREQUAL "none")
     macro(find_dependency _dep_name)
       set("${_dep_name}_INCLUDE_DIRS" "Change me" CACHE PATH "Include directory for ${_dep_name}")
@@ -347,10 +327,6 @@ elseif(PACKAGE_MANAGER STREQUAL "none")
     if (ENABLE_ANGELSCRIPT)
         find_dependency(AngelScript)
     endif ()
-
-    if (BUILD_TEST)
-        find_dependency(Catch2)
-    endif (BUILD_TEST)
 
     list(LENGTH _DEPENDENCY_ERRORS _ERROR_LENGTH)
     if(_ERROR_LENGTH)

@@ -1,5 +1,7 @@
 set(TESTS_PROJECT_NAME Cytopia_Tests)
 
+find_package(Catch2 REQUIRED)
+
 include(Catch)
 
 list(APPEND _include_directories
@@ -76,7 +78,7 @@ add_executable(${TESTS_PROJECT_NAME} ${TEST_SOURCES})
 
 target_include_directories(${TESTS_PROJECT_NAME} PRIVATE ${_include_directories} src)
 target_compile_definitions(${TESTS_PROJECT_NAME} PRIVATE ${_compile_definitions})
-target_link_libraries(${TESTS_PROJECT_NAME} PRIVATE ${_link_libraries})
+target_link_libraries(${TESTS_PROJECT_NAME} PRIVATE ${_link_libraries} Catch2::Catch2)
 
 # enable C++17
 set_target_properties(${TESTS_PROJECT_NAME} PROPERTIES

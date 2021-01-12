@@ -1,4 +1,4 @@
-#include <catch2/catch.hpp>
+#include <catch.hpp>
 #include "../../src/engine/ResourcesManager.hxx"
 #include "Exception.hxx"
 #include "../GameFixture.hxx"
