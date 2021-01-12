@@ -78,9 +78,9 @@ set(SOURCE_FILES
         model/DataModel.hxx
         model/ButtonModel.{hxx,cxx}
         model/MouseState.{hxx,cxx}
-		model/iLocalization.hxx
-		model/Localization.{hxx,cxx}
-		model/SettingsModel.{hxx,cxx}
+        model/iLocalization.hxx
+        model/Localization.{hxx,cxx}
+        model/SettingsModel.{hxx,cxx}
         activity/iActivity.{hxx,cxx}
         activity/MainMenuActivity.{hxx,cxx}
         layout/iLayout.{hxx,cxx}
