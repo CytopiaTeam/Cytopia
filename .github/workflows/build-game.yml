@@ -1,3 +1,5 @@
+name: Build game
+
 on: [ push, pull_request ]
 
 jobs:
