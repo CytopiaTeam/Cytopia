@@ -26,7 +26,7 @@ public:
   Rectangle getBounds() const noexcept;
 
   MouseState &getMouseState() noexcept;
-  SettingsModel &Window::getSettingsModel() noexcept;
+  SettingsModel &getSettingsModel() noexcept;
 
 private:
   /**
