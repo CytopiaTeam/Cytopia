@@ -2,7 +2,7 @@
 #include "Filesystem.hxx"
 #include "../util/LOG.hxx"
 
-using namespace std;
+using std::string;
 
 Localization ::Localization() : m_MoFileReader{}, m_IsInitilaized{false} {}
 
