@@ -35,7 +35,6 @@ option(BUILD_TEST "Build Cytopia Tests" ON)
 option(ENABLE_AUDIO "Enable Audio" ON)
 option(ENABLE_MICROPROFILE "Enable microprofile" OFF)
 option(ENABLE_ANGELSCRIPT "Enable AngelScript" ON)
-option(ENABLE_MOFILEREADER "Enable MofileReader" ON)
 option(ENABLE_VULKAN "Enable Vulkan" OFF)
 option(ENABLE_DEBUG "Enable Debug (asserts and logs)" OFF)
 option(BUILD_ANDROID "Crossbuild to Android" OFF)
@@ -51,10 +50,6 @@ endif ()
 
 if (NOT ENABLE_ANGELSCRIPT)
     set(_CC_ANGELSCRIPT "# ")
-endif ()
-
-if (NOT ENABLE_MOFILEREADER)
-    set(_CC_MOFILEREADER "# ")
 endif ()
 
 if (NOT ENABLE_VULKAN)
@@ -219,10 +214,6 @@ if (PACKAGE_MANAGER STREQUAL "conan")
         list(APPEND _link_libraries CONAN_PKG::AngelScript)
     endif ()
 
-    if (ENABLE_MOFILEREADER)
-        list(APPEND _link_libraries CONAN_PKG::MofileReader)
-    endif ()
-
     if (ENABLE_VULKAN)
         list(APPEND _link_libraries CONAN_PKG::vulkan-sdk)
     endif()
@@ -280,10 +271,6 @@ elseif(PACKAGE_MANAGER STREQUAL "pkgconfig")
 
     if (ENABLE_ANGELSCRIPT)
         find_package(AngelScript REQUIRED)
-    endif ()
-
-    if (ENABLE_MOFILEREADER)
-        find_package(MofileReader REQUIRED)
     endif ()
 
     if (BUILD_TEST)
@@ -361,10 +348,6 @@ elseif(PACKAGE_MANAGER STREQUAL "none")
         find_dependency(AngelScript)
     endif ()
 
-    if (ENABLE_MOFILEREADER)
-        find_dependency(MofileReader)
-    endif ()
-
     if (BUILD_TEST)
         find_dependency(Catch2)
     endif (BUILD_TEST)
@@ -407,10 +390,6 @@ endif ()
 if (ENABLE_ANGELSCRIPT)
     list(APPEND _compile_definitions USE_ANGELSCRIPT)
     list(APPEND _include_directories ${CMAKE_SOURCE_DIR}/external/as_add_on)
-endif ()
-
-if (ENABLE_MOFILEREADER)
-    list(APPEND _compile_definitions USE_MOFILEREADER)
 endif ()
 
 if (ENABLE_MICROPROFILE)
