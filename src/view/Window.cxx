@@ -7,9 +7,9 @@
 
 using namespace std::chrono_literals;
 
-Window::Window(GameService::ServiceTuple context, const char * title, unsigned int width, unsigned int height, bool isFullScreen, const string & windowIcon) :
-  m_MouseState(*std::get<UILoopMQ*>(context)),
-  m_Cursor(new CursorView)
+Window::Window(GameService::ServiceTuple context, const char *title, unsigned int width, unsigned int height, bool isFullScreen,
+               const string &windowIcon)
+    : m_MouseState(*std::get<UILoopMQ *>(context)), m_SettingsModel(*std::get<UILoopMQ *>(context)), m_Cursor(new CursorView)
 {
   Uint32 windowFlags = isFullScreen ? SDL_WINDOW_FULLSCREEN : SDL_WINDOW_RESIZABLE;
 #ifdef __ANDROID__
@@ -20,10 +20,9 @@ Window::Window(GameService::ServiceTuple context, const char * title, unsigned i
   width = mode.w;
   height = mode.h;
 #endif
-  
+
   windowFlags |= SDL_WINDOW_ALWAYS_ON_TOP;
-  m_Window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 
-      width, height, windowFlags);
+  m_Window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, windowFlags);
   if (!m_Window)
     throw UIError(TRACE_INFO "Failed to create window: " + string{SDL_GetError()});
   SDL_RaiseWindow(m_Window);
@@ -31,8 +30,8 @@ Window::Window(GameService::ServiceTuple context, const char * title, unsigned i
   m_Renderer = std::make_unique<SDLRenderer>(m_Window);
   string iconFName = fs::getBasePath() + windowIcon;
   PixelBuffer iconPB = fs::readPNGFile(iconFName);
-  SDL_Surface* icon = iconPB.toSurface();
-  
+  SDL_Surface *icon = iconPB.toSurface();
+
   if (!icon)
     throw UIError(TRACE_INFO "Could not load icon " + iconFName + ": " + SDL_GetError());
 
@@ -51,7 +50,7 @@ Window::~Window()
   SDL_DestroyWindow(m_Window);
 }
 
-void Window::setActivity(iActivityPtr && activity)
+void Window::setActivity(iActivityPtr &&activity)
 {
   m_Renderer->clear();
   std::swap(m_Activity, activity);
@@ -62,14 +61,18 @@ void Window::setActivity(iActivityPtr && activity)
   m_Renderer->commit();
 }
 
-Rectangle Window::getBounds() const noexcept
+Rectangle Window::getBounds() const noexcept { return m_Renderer->getDrawableSize(); }
+
+void Window::recreateRender()
 {
-  return m_Renderer->getDrawableSize();
+  m_Renderer.reset();
+  m_Renderer = std::make_unique<SDLRenderer>(m_Window);
 }
 
 void Window::handleEvent(WindowResizeEvent &&event)
 {
   m_Renderer->clear();
+  recreateRender();
   m_Activity->setBounds(getBounds());
   m_Activity->setup(*m_Activity);
   m_Activity->draw(*m_Renderer);
@@ -83,7 +86,6 @@ void Window::handleEvent(WindowRedrawEvent &&event)
   m_Renderer->commit();
 }
 
-MouseState & Window::getMouseState() noexcept
-{
-  return m_MouseState;
-}
+MouseState &Window::getMouseState() noexcept { return m_MouseState; }
+
+SettingsModel &Window::getSettingsModel() noexcept { return m_SettingsModel; }

@@ -13,6 +13,8 @@
 MainMenuActivity::MainMenuActivity(GameService::ServiceTuple &context, Window &w)
     : iActivity(context, w), AbsoluteLayout(w.getBounds())
 {
+  auto &localization = w.getSettingsModel().getLocalization();
+
   /* Create background */
   {
     ImageViewPtr img = std::make_shared<ImageView>("/resources/images/ui/general/background", DisplayMode::RepeatXY);
@@ -32,11 +34,12 @@ MainMenuActivity::MainMenuActivity(GameService::ServiceTuple &context, Window &w
                                 std::bind(&MainMenuActivity::onExit, this)};
     for (auto [text, tp, cb] : ZipRange{texts, topPositions, callbacks})
     {
-      TextButtonPtr button = std::make_shared<TextButton>(text);
+      TextButtonPtr button = std::make_shared<TextButton>(text, localization.translateText(text));
       ButtonModel &state = createModel<ButtonModel>();
       addElement(button, BoxSizing{30_lw, 10_lh}, AbsolutePosition{35_lw, tp});
       createController<ButtonHandler>(cb, state, mouseState, *button);
       state.addObserver(button);
+      w.getSettingsModel().addObserver(button);
     }
   }
   /* Create all icons */

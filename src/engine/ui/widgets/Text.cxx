@@ -3,9 +3,7 @@
 #include "Exception.hxx"
 #include "Settings.hxx"
 #include "Filesystem.hxx"
-
 #include "moFileReader.hpp"
-
 #include <SDL_ttf.h>
 
 void Text::draw()

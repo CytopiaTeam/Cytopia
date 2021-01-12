@@ -10,14 +10,12 @@
 #include "engine/basics/Settings.hxx"
 #include "engine/basics/GameStates.hxx"
 #include "Filesystem.hxx"
-
+#include "moFileReader.hpp"
 #include <noise.h>
 
 #ifdef USE_ANGELSCRIPT
 #include "Scripting/ScriptEngine.hxx"
 #endif
-
-#include "moFileReader.hpp"
 
 #ifdef MICROPROFILE_ENABLED
 #include "microprofile.h"
@@ -38,11 +36,9 @@ Game::Game()
 #endif
       m_UILoop(&LoopMain<UILoopMQ, UIVisitor>, std::ref(m_GameContext), UIVisitor{m_Window, m_GameContext}),
       m_EventLoop(&LoopMain<GameLoopMQ, GameVisitor>, std::ref(m_GameContext), GameVisitor{m_GameContext}),
-      m_Window(m_GameContext, VERSION, 
-        Settings::instance().getDefaultWindowWidth(), 
-        Settings::instance().getDefaultWindowHeight(), 
-        Settings::instance().fullScreen, 
-        "resources/images/app_icons/cytopia_icon.png")
+      m_Window(m_GameContext, VERSION, Settings::instance().getDefaultWindowWidth(),
+               Settings::instance().getDefaultWindowHeight(), Settings::instance().fullScreen,
+               "resources/images/app_icons/cytopia_icon.png")
 {
   LOG(LOG_DEBUG) << "Created Game Object";
   /**
@@ -70,7 +66,6 @@ void Game::quit()
 
 bool Game::initialize()
 {
-
   std::string moFilePath = fs::getBasePath();
   moFilePath = moFilePath + "languages/" + Settings::instance().gameLanguage + "/Cytopia.mo";
 
@@ -96,27 +91,27 @@ void Game::newUI()
   m_UILoopMQ.push(ActivitySwitchEvent{ActivityType::MainMenu});
   m_GameLoopMQ.push(ActivitySwitchEvent{ActivityType::MainMenu});
   SDL_Event event;
-  for(;;)
+  for (;;)
   {
     while (SDL_WaitEvent(&event) != 0)
     {
-      switch(event.type)
+      switch (event.type)
       {
-        case SDL_QUIT:
-          shutdown();
-          return;
-        case SDL_WINDOWEVENT:
-          switch(event.window.event)
-          {
-            case SDL_WINDOWEVENT_SIZE_CHANGED:
-              m_UILoopMQ.push(WindowResizeEvent{});
-              continue;
-            default:
-              continue;
-          }
+      case SDL_QUIT:
+        shutdown();
+        return;
+      case SDL_WINDOWEVENT:
+        switch (event.window.event)
+        {
+        case SDL_WINDOWEVENT_SIZE_CHANGED:
+          m_UILoopMQ.push(WindowResizeEvent{});
           continue;
         default:
           continue;
+        }
+        continue;
+      default:
+        continue;
       }
     }
   }
@@ -398,6 +393,8 @@ void Game::shutdown()
   m_GameLoopMQ.push(TerminateEvent{});
   m_UILoop.join();
   m_EventLoop.join();
+
+  // TODO: this will eventually be reworked, but currently there is an issue because new render is created on windows resizing
   ResourcesManager::instance().flush();
   UIManager::instance().flush();
 }
@@ -453,7 +450,7 @@ template <typename MQType, typename Visitor> void Game::LoopMain(GameContext &co
         try
         {
           std::visit(visitor, std::move(event));
-        } 
+        }
         catch (std::exception &ex)
         {
           LOG(LOG_ERROR) << ex.what();
@@ -470,13 +467,9 @@ void Game::GameVisitor::operator()(TerminateEvent &&)
   throw CytopiaError{TRACE_INFO "Invalid dispatch: TerminateEvent"};
 }
 
-void Game::GameVisitor::operator()(ActivitySwitchEvent &&event)
-{
-  GetService<MouseController>().handleEvent(std::move(event));
-}
+void Game::GameVisitor::operator()(ActivitySwitchEvent &&event) { GetService<MouseController>().handleEvent(std::move(event)); }
 
-Game::UIVisitor::UIVisitor(Window & window, GameContext & context) :
-  m_Window(window), m_GameContext(context) { }
+Game::UIVisitor::UIVisitor(Window &window, GameContext &context) : m_Window(window), m_GameContext(context) {}
 
 void Game::UIVisitor::operator()(TerminateEvent &&)
 {
@@ -491,12 +484,6 @@ void Game::UIVisitor::operator()(ActivitySwitchEvent &&event)
   m_Window.setActivity(m_Window.fromActivityType(event.activityType, m_GameContext, m_Window));
 }
 
-void Game::UIVisitor::operator()(WindowResizeEvent &&event)
-{
-  m_Window.handleEvent(WindowResizeEvent{});
-}
+void Game::UIVisitor::operator()(WindowResizeEvent &&event) { m_Window.handleEvent(WindowResizeEvent{}); }
 
-void Game::UIVisitor::operator()(WindowRedrawEvent &&event)
-{
-  m_Window.handleEvent(WindowRedrawEvent{});
-}
+void Game::UIVisitor::operator()(WindowRedrawEvent &&event) { m_Window.handleEvent(WindowRedrawEvent{}); }
