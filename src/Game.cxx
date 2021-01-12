@@ -17,9 +17,7 @@
 #include "Scripting/ScriptEngine.hxx"
 #endif
 
-#ifdef USE_MOFILEREADER
-#include "moFileReader.h"
-#endif
+#include "moFileReader.hpp"
 
 #ifdef MICROPROFILE_ENABLED
 #include "microprofile.h"
@@ -73,7 +71,6 @@ void Game::quit()
 bool Game::initialize()
 {
 
-#ifdef USE_MOFILEREADER
   std::string moFilePath = fs::getBasePath();
   moFilePath = moFilePath + "languages/" + Settings::instance().gameLanguage + "/Cytopia.mo";
 
@@ -89,7 +86,6 @@ bool Game::initialize()
   {
     LOG(LOG_ERROR) << "Failed to load MO file " << moFilePath;
   }
-#endif
 
   LOG(LOG_DEBUG) << "Initialized Game Object";
   return true;

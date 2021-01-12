@@ -1,5 +1,5 @@
 #include "Range.hxx"
-#include <catch2/catch.hpp>
+#include <catch.hpp>
 #include <vector>
 #include <list>
 #include <unordered_map>

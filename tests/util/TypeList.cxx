@@ -1,4 +1,4 @@
-#include <catch2/catch.hpp>
+#include <catch.hpp>
 #include "../../util/TypeList.hxx"
 #include "../../util/Meta.hxx"
 #include <ratio>

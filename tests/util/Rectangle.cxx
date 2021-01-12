@@ -1,5 +1,5 @@
 #include "Rectangle.hxx"
-#include <catch2/catch.hpp>
+#include <catch.hpp>
 #include "Point2D.hxx"
 #include "LOG.hxx"
 #include <SDL2/SDL.h>

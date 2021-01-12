@@ -1,5 +1,5 @@
 #include "Color.hxx"
-#include <catch2/catch.hpp>
+#include <catch.hpp>
 #include "LOG.hxx"
 
 TEST_CASE("I can get a Color's hue", "[util]")

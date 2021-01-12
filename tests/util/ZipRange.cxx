@@ -1,4 +1,4 @@
-#include <catch2/catch.hpp>
+#include <catch.hpp>
 #include <array>
 #include <initializer_list>
 #include <vector>

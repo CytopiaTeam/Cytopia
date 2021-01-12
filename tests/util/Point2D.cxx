@@ -1,7 +1,7 @@
 #include "Point2D.hxx"
 #include "MouseEvents.hxx"
 #include "LOG.hxx"
-#include <catch2/catch.hpp>
+#include <catch.hpp>
 
 TEST_CASE("I can use 2D Points", "[util]")
 {

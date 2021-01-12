@@ -3,7 +3,7 @@
 #include <atomic>
 #include <thread>
 #include <future>
-#include <catch2/catch.hpp>
+#include <catch.hpp>
 
 /* Message Queues are useful to synchronize events
  * across threads. It's one of the easiest and most

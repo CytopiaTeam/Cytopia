@@ -1,4 +1,4 @@
-#include <catch2/catch.hpp>
+#include <catch.hpp>
 #include "BoxSizing.hxx"
 
 TEST_CASE("I can use ScreenMeasurement", "[util]")
