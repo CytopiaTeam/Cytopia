@@ -1,6 +1,6 @@
 #include "Localization.hxx"
 #include "Filesystem.hxx"
-#include "Log.hxx"
+#include "../util/LOG.hxx"
 
 using namespace std;
 
