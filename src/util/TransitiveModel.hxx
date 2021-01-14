@@ -4,14 +4,15 @@
 #include "Meta.hxx"
 #include "TypeList.hxx"
 #include "Observer.hxx"
-
 #include <unordered_set>
-#include <unordered_map>
 #include <map>
 #include <ciso646>
 
 template <typename Key> using Set = std::unordered_set<Key>;
-template <typename Key, typename Value> using Map = std::unordered_map<Key, Value>;
+
+template <typename Key, typename Value, typename Compare = std::less<Key>,
+          typename Allocator = std::allocator<std::pair<const Key, Value>>>
+using TreeMap = std::map<Key, Value, Compare, Allocator>;
 
 /**
  * @class     Transition
@@ -46,7 +47,7 @@ template <typename Model> struct Transition
 };
 
 /* Deduction guide for constructors */
-template <typename Data> explicit Transition(Data data)->Transition<typename Data::MyModelType>;
+template <typename Data> explicit Transition(Data data) -> Transition<typename Data::MyModelType>;
 
 /**
  * @class     TransitiveModel
@@ -82,20 +83,39 @@ public:
     m_Filters[observer].insert(ilist.begin(), ilist.end());
   }
 
+  void prune() final
+  {
+    Subject<Transition<Model>>::prune();
+
+    for (auto it = m_Filters.begin(); it != m_Filters.end(); ++it)
+    {
+      if (std::get<0>(*it).expired())
+      {
+        m_Filters.erase(it);
+      }
+    }
+  }
+
 private:
   using Subject<Notification>::addObserver;
-  using FilterType = Map<ObserverSPtr<Notification>, Set<typename Notification::TransitionType>>;
+  using FilterType = TreeMap<ObserverWPtr<Notification>, Set<typename Notification::TransitionType>,
+                             std::owner_less<ObserverWPtr<Notification>>>;
   FilterType m_Filters;
 
-  bool mustNotify(ObserverSPtr<Notification> &observer, const Notification &event) const noexcept final
+  bool mustNotify(ObserverWPtr<Notification> &observer, const Notification &event) const noexcept final
   {
-    auto it = m_Filters.find(observer);
-    if (it == m_Filters.end())
+    try
     {
-      return true;
+      if (m_Filters.count(observer) > 0)
+      {
+        return m_Filters.at(observer).count(event.getType()) == 1;
+      }
     }
-    return m_Filters.at(observer).count(event.getType()) == 1;
+    catch (...)
+    {
+    }
+    
+    return true;
   }
 };
-
 #endif

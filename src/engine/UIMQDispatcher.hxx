@@ -15,7 +15,7 @@
 template <typename DataArgs> struct UIMQDispatcher
 {
   class UILoopMQ &loop;
-  void dispatch(ObserverSPtr<DataArgs> observer, typename Observer<DataArgs>::Notification notification)
+  void dispatch(ObserverWPtr<DataArgs> observer, typename Observer<DataArgs>::Notification notification)
   {
     loop.push(UIChangeEvent{observer, std::move(notification)});
   }
