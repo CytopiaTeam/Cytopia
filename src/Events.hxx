@@ -5,6 +5,7 @@
 
 #include "betterEnums.hxx"
 #include "util/TypeList.hxx"
+#include "events/MouseEvents.hxx"
 
 using std::string;
 
@@ -20,7 +21,7 @@ using GameEvents = TypeList<
     struct AudioMusicVolumeChangeEvent, struct AudioSoundVolumeChangeEvent, struct AudioSetMutedEvent, struct AudioStopEvent,
     struct AudioPruneEvent,
 #endif // USE_AUDIO
-    struct TerminateEvent, struct ActivitySwitchEvent
+    struct TerminateEvent, struct ActivitySwitchEvent, struct MousePositionEvent
     /* Add Game Events here */
     >;
 

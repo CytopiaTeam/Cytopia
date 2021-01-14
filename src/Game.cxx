@@ -110,6 +110,9 @@ void Game::newUI()
           continue;
         }
         continue;
+      case SDL_MOUSEMOTION:
+        m_GameLoopMQ.push(MousePositionEvent{event.motion.x, event.motion.y, 0, 0});
+        continue;
       default:
         continue;
       }
@@ -468,6 +471,8 @@ void Game::GameVisitor::operator()(TerminateEvent &&)
 }
 
 void Game::GameVisitor::operator()(ActivitySwitchEvent &&event) { GetService<MouseController>().handleEvent(std::move(event)); }
+
+void Game::GameVisitor::operator()(MousePositionEvent &&event) { GetService<MouseController>().handleEvent(std::move(event)); }
 
 Game::UIVisitor::UIVisitor(Window &window, GameContext &context) : m_Window(window), m_GameContext(context) {}
 

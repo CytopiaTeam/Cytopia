@@ -10,9 +10,5 @@ template <typename ControllerType, typename... Args> ControllerType &iActivity::
 {
   ControllerType *controller = new ControllerType(std::forward<Args>(args)...);
   m_Controllers.emplace_back(controller);
-  if constexpr (std::is_base_of<iMouseHandler, ControllerType>::value)
-  {
-    GetService<MouseController>().addHandler(controller);
-  }
   return *controller;
 }

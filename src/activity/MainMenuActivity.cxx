@@ -10,6 +10,8 @@
 #include "../util/ZipRange.hxx"
 #include "../services/MouseController.hxx"
 
+#include <vector>
+
 MainMenuActivity::MainMenuActivity(GameService::ServiceTuple &context, Window &w)
     : iActivity(context, w), AbsoluteLayout(w.getBounds())
 {
@@ -69,4 +71,8 @@ void MainMenuActivity::onPluginSelection() { activitySwitch(ActivityType::Plugin
 
 MainMenuActivity::~MainMenuActivity() = default;
 
-void MainMenuActivity::setup(class GameService &context) noexcept { iLayout::setup(context); }
+void MainMenuActivity::setup(class GameService &context) noexcept
+{
+  iLayout::setup(context);
+  bindMouse();
+}

@@ -160,6 +160,8 @@ private:
      */
     void operator()(ActivitySwitchEvent &&);
 
+    void operator()(MousePositionEvent &&);
+
     /**
      * @brief   Do not call
      * @throws  CytopiaError
