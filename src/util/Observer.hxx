@@ -92,7 +92,7 @@ protected:
   {
     prune();
 
-    for (auto observer : m_Observers)
+    for (auto &observer : m_Observers)
     {
       if (mustNotify(observer, notification))
       {
