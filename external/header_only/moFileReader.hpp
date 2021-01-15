@@ -48,11 +48,11 @@
 //-------------------------------------------------------------
 // Path-Seperators are different on other OS.
 //-------------------------------------------------------------
-#ifndef moPATHSEP
+#ifndef MO_PATHSEP
     #ifdef WIN32
-        #define moPATHSEP std::string("\\")
+        #define MO_PATHSEP std::string("\\")
     #else
-        #define moPATHSEP std::string("/")
+        #define MO_PATHSEP std::string("/")
     #endif
 #endif
 
@@ -105,6 +105,13 @@
  *
  * <h2>Changelog</h2>
  *
+ * - Version 1.2.0
+ *     - Proper implementation of contexts strings
+ *          Now it uses a separate 2D map for storing strings with context
+ *     - Fixed MagicNumber check not working on Linux
+ *     - Removed duplicate code
+ *     - Added option to disable convenience Class
+ *
  * - Version 1.1.0
  *     - Converted library to a header-only library
  *
@@ -142,7 +149,6 @@
  *
  * Gettext is part of the GNU-Tools and (C) by the <a href="http://fsf.org">Free Software Foundation</a>.\n
  * Visual C++ Express is a registered Trademark of Microsoft, One Microsoft Way, Redmond, USA.\n
- * moFileReader is using NSIS for creating the setup-package. \n
  * All other Trademarks are property of their respective owners. \n
  * \n
  * Thanks for using this piece of OpenSource-Software.\n
@@ -291,12 +297,18 @@ class moFileReader
     /// \brief Type for the map which holds the translation-pairs later.
     typedef std::map<std::string, std::string> moLookupList;
 
+    /// \brief Type for the 2D map which holds the translation-pairs later.
+    typedef std::map<std::string, moLookupList> moContextLookupList;
+
   public:
     /// \brief The Magic Number describes the endianess of bytes on the system.
-    static const long MagicNumber = 0x950412DE;
+    static const unsigned int MagicNumber = 0x950412DE;
 
     /// \brief If the Magic Number is Reversed, we need to swap the bytes.
-    static const long MagicReversed = 0xDE120495;
+    static const unsigned int MagicReversed = 0xDE120495;
+
+    /// \brief The character that is used to separate context strings
+    static const char ContextSeparator = '\x04';
 
     /// \brief The possible errorcodes for methods of this class
     enum eErrorCode
@@ -336,14 +348,48 @@ class moFileReader
      */
     moFileReader::eErrorCode ParseData(const std::string &data)
     {
+        // Opening the file.
+        std::stringstream stream(data);
+
+        return ReadStream(stream);
+    }
+
+    /** \brief Reads a .mo-file
+     * \param[in] _filename The path to the file to load.
+     * \return SUCCESS on success or one of the other error-codes in eErrorCode on error.
+     *
+     * This is the core-feature. This method loads the .mo-file and stores
+     * all translation-pairs in a map. You can access this map via the method
+     * moFileReader::Lookup().
+     */
+    eErrorCode ReadFile(const char *filename)
+    {
+        // Opening the file.
+        std::ifstream stream(filename, std::ios_base::binary | std::ios_base::in);
+        if (!stream.is_open())
+        {
+            m_error = std::string("Cannot open File ") + std::string(filename);
+            return moFileReader::EC_FILENOTFOUND;
+        }
+
+        eErrorCode res = ReadStream(stream);
+        stream.close();
+
+        return res;
+    }
+
+    /** \brief Reads data from a stream
+     * \param[in] stream
+     * \return SUCCESS on success or one of the other error-codes in eErrorCode on error.
+     *
+     */
+    template <typename T> eErrorCode ReadStream(T &stream)
+    {
         // Creating a file-description.
         moFileInfo moInfo;
 
         // Reference to the List inside moInfo.
         moFileInfo::moTranslationPairList &TransPairInfo = moInfo.m_translationPairInformation;
-
-        // Opening the file.
-        std::stringstream stream(data);
 
         // Read in all the 4 bytes of fire-magic, offsets and stuff...
         stream.read((char *)&moInfo.m_magicNumber, 4);
@@ -357,7 +403,6 @@ class moFileReader
         if (stream.bad())
         {
             m_error = "Stream bad during reading. The .mo-file seems to be invalid or has bad descriptions!";
-            printf("%s", m_error.c_str());
             return moFileReader::EC_FILEINVALID;
         }
 
@@ -367,7 +412,6 @@ class moFileReader
             if (MagicReversed != moInfo.m_magicNumber)
             {
                 m_error = "The Magic Number does not match in all cases!";
-                printf("%s", m_error.c_str());
                 return moFileReader::EC_MAGICNUMBER_NOMATCH;
             }
             else
@@ -387,7 +431,6 @@ class moFileReader
             if (stream.bad())
             {
                 m_error = "Stream bad during reading. The .mo-file seems to be invalid or has bad descriptions!";
-                printf("%s", m_error.c_str());
                 return moFileReader::EC_FILEINVALID;
             }
 
@@ -404,7 +447,6 @@ class moFileReader
             if (stream.bad())
             {
                 m_error = "Stream bad during reading. The .mo-file seems to be invalid or has bad descriptions!";
-                printf("%s", m_error.c_str());
                 return moFileReader::EC_FILEINVALID;
             }
         }
@@ -431,7 +473,6 @@ class moFileReader
             if (stream.bad())
             {
                 m_error = "Stream bad during reading. The .mo-file seems to be invalid or has bad descriptions!";
-                printf("%s", m_error.c_str());
                 return moFileReader::EC_FILEINVALID;
             }
 
@@ -445,149 +486,34 @@ class moFileReader
             if (stream.bad())
             {
                 m_error = "Stream bad during reading. The .mo-file seems to be invalid or has bad descriptions!";
-                printf("%s", m_error.c_str());
                 return moFileReader::EC_FILEINVALID;
             }
 
+            std::string original_str    = original;
+            std::string translation_str = translation;
+            auto        ctxSeparator    = original_str.find(ContextSeparator);
+
             // Store it in the map.
-            m_lookup[std::string(original)] = std::string(translation);
-
-            // Cleanup...
-            delete[] original;
-            delete[] translation;
-        }
-
-        // Done :)
-        return moFileReader::EC_SUCCESS;
-    }
-
-    /** \brief Reads a .mo-file
-     * \param[in] _filename The path to the file to load.
-     * \return SUCCESS on success or one of the other error-codes in eErrorCode on error.
-     *
-     * This is the core-feature. This method loads the .mo-file and stores
-     * all translation-pairs in a map. You can access this map via the method
-     * moFileReader::Lookup().
-     */
-    eErrorCode ReadFile(const char *filename)
-    {
-        // Creating a file-description.
-        moFileInfo moInfo;
-
-        // Reference to the List inside moInfo.
-        moFileInfo::moTranslationPairList &TransPairInfo = moInfo.m_translationPairInformation;
-
-        // Opening the file.
-        std::ifstream stream(filename, std::ios_base::binary | std::ios_base::in);
-        if (!stream.is_open())
-        {
-            m_error = std::string("Cannot open File ") + std::string(filename);
-            return moFileReader::EC_FILENOTFOUND;
-        }
-
-        // Read in all the 4 bytes of fire-magic, offsets and stuff...
-        stream.read((char *)&moInfo.m_magicNumber, 4);
-        stream.read((char *)&moInfo.m_fileVersion, 4);
-        stream.read((char *)&moInfo.m_numStrings, 4);
-        stream.read((char *)&moInfo.m_offsetOriginal, 4);
-        stream.read((char *)&moInfo.m_offsetTranslation, 4);
-        stream.read((char *)&moInfo.m_sizeHashtable, 4);
-        stream.read((char *)&moInfo.m_offsetHashtable, 4);
-
-        if (stream.bad())
-        {
-            stream.close();
-            m_error = "Stream bad during reading. The .mo-file seems to be invalid or has bad descriptions!";
-            return moFileReader::EC_FILEINVALID;
-        }
-
-        // Checking the Magic Number
-        if (MagicNumber != moInfo.m_magicNumber)
-        {
-            if (MagicReversed != moInfo.m_magicNumber)
+            if (ctxSeparator == std::string::npos)
             {
-                m_error = "The Magic Number does not match in all cases!";
-                // return moFileReader::EC_MAGICNUMBER_NOMATCH;
+                m_lookup[original_str] = translation_str;
+                numStrings++;
             }
             else
             {
-                moInfo.m_reversed = true;
-                m_error           = "Magic Number is reversed. We do not support this yet!";
-                return moFileReader::EC_MAGICNUMBER_REVERSED;
+                // try-catch for handling out_of_range exceptions
+                try
+                {
+                    m_lookup_context[original_str.substr(0, ctxSeparator)]
+                                    [original_str.substr(ctxSeparator + 1, original_str.length())] = translation_str;
+                    numStrings++;
+                }
+                catch (...)
+                {
+                    m_error = "Stream bad during reading. The .mo-file seems to be invalid or has bad descriptions!";
+                    return moFileReader::EC_ERROR;
+                }
             }
-        }
-
-        // Now we search all Length & Offsets of the original strings
-        for (int i = 0; i < moInfo.m_numStrings; i++)
-        {
-            moTranslationPairInformation _str;
-            stream.read((char *)&_str.m_orLength, 4);
-            stream.read((char *)&_str.m_orOffset, 4);
-            if (stream.bad())
-            {
-                stream.close();
-                m_error = "Stream bad during reading. The .mo-file seems to be invalid or has bad descriptions!";
-                return moFileReader::EC_FILEINVALID;
-            }
-
-            TransPairInfo.push_back(_str);
-        }
-
-        // Get all Lengths & Offsets of the translated strings
-        // Be aware: The Descriptors already exist in our list, so we just mod. refs from the deque.
-        for (int i = 0; i < moInfo.m_numStrings; i++)
-        {
-            moTranslationPairInformation &_str = TransPairInfo[i];
-            stream.read((char *)&_str.m_trLength, 4);
-            stream.read((char *)&_str.m_trOffset, 4);
-            if (stream.bad())
-            {
-                stream.close();
-                m_error = "Stream bad during reading. The .mo-file seems to be invalid or has bad descriptions!";
-                return moFileReader::EC_FILEINVALID;
-            }
-        }
-
-        // Normally you would read the hash-table here, but we don't use it. :)
-
-        // Now to the interesting part, we read the strings-pairs now
-        for (int i = 0; i < moInfo.m_numStrings; i++)
-        {
-            // We need a length of +1 to catch the trailing \0.
-            int orLength = TransPairInfo[i].m_orLength + 1;
-            int trLength = TransPairInfo[i].m_trLength + 1;
-
-            int orOffset = TransPairInfo[i].m_orOffset;
-            int trOffset = TransPairInfo[i].m_trOffset;
-
-            // Original
-            char *original = new char[orLength];
-            memset(original, 0, sizeof(char) * orLength);
-
-            stream.seekg(orOffset);
-            stream.read(original, orLength);
-
-            if (stream.bad())
-            {
-                m_error = "Stream bad during reading. The .mo-file seems to be invalid or has bad descriptions!";
-                return moFileReader::EC_FILEINVALID;
-            }
-
-            // Translation
-            char *translation = new char[trLength];
-            memset(translation, 0, sizeof(char) * trLength);
-
-            stream.seekg(trOffset);
-            stream.read(translation, trLength);
-
-            if (stream.bad())
-            {
-                m_error = "Stream bad during reading. The .mo-file seems to be invalid or has bad descriptions!";
-                return moFileReader::EC_FILEINVALID;
-            }
-
-            // Store it in the map.
-            m_lookup[std::string(original)] = std::string(translation);
 
             // Cleanup...
             delete[] original;
@@ -595,7 +521,6 @@ class moFileReader
         }
 
         // Done :)
-        stream.close();
         return moFileReader::EC_SUCCESS;
     }
 
@@ -608,8 +533,7 @@ class moFileReader
         if (m_lookup.empty()) return id;
         auto iterator = m_lookup.find(id);
 
-        if (iterator == m_lookup.end()) { return id; }
-        return iterator->second;
+        return iterator == m_lookup.end() ? id : iterator->second;
     }
 
     /** \brief Returns the searched translation or returns the input, restricted to the context given by context.
@@ -620,15 +544,13 @@ class moFileReader
      */
     std::string LookupWithContext(const char *context, const char *id) const
     {
-        std::string idName = context;
-        idName += '\x04';
-        idName += id;
+        if (m_lookup_context.empty()) return id;
+        auto iterator = m_lookup_context.find(context);
 
-        if (m_lookup.empty()) return id;
-        auto iterator = m_lookup.find(idName);
+        if (iterator == m_lookup_context.end()) return id;
+        auto iterator2 = iterator->second.find(id);
 
-        if (iterator == m_lookup.end()) { return id; }
-        return iterator->second;
+        return iterator2 == iterator->second.end() ? id : iterator2->second;
     }
 
     /// \brief Returns the Error Description.
@@ -641,6 +563,8 @@ class moFileReader
     void ClearTable()
     {
         m_lookup.clear();
+        m_lookup_context.clear();
+        numStrings = 0;
     }
 
     /** \brief Returns the Number of Entries in our Lookup-Table.
@@ -649,7 +573,7 @@ class moFileReader
      */
     unsigned int GetNumStrings() const
     {
-        return m_lookup.size();
+        return numStrings;
     }
 
     /** \brief Exports the whole content of the .mo-File as .html
@@ -669,7 +593,7 @@ class moFileReader
 
         // Beautify Output
         std::string  fname;
-        unsigned int pos = infile.find_last_of(moPATHSEP);
+        unsigned int pos = infile.find_last_of(MO_PATHSEP);
         if (pos != std::string::npos) { fname = infile.substr(pos + 1, infile.length()); }
         else
         {
@@ -726,6 +650,17 @@ class moFileReader
             }
             stream << "</table><br/>" << std::endl;
 
+            // Separate tables for each context
+            for (const auto &it : reader.m_lookup_context)
+            {
+                stream << R"(<table border="1"><th colspan="2">)" << it.first << "</th>" << std::endl;
+                for (const auto &its : it.second)
+                {
+                    stream << "<tr><td>" << its.first << "</td><td>" << its.second << "</td></tr>" << std::endl;
+                }
+                stream << "</table><br/>" << std::endl;
+            }
+
             stream << "</center>" << std::endl;
             stream << "<div class=\"copyleft\">File generated by <a href=\"https://github.com/AnotherFoxGuy/MofileReader\" "
                       "target=\"_blank\">moFileReaderSDK</a></div>"
@@ -761,7 +696,10 @@ class moFileReader
 
   private:
     // Holds the lookup-table
-    moLookupList m_lookup;
+    moLookupList        m_lookup;
+    moContextLookupList m_lookup_context;
+
+    int numStrings = 0;
 
     // Replaces < with ( to satisfy html-rules.
     static void MakeHtmlConform(std::string &_inout)
@@ -812,7 +750,8 @@ class moFileReader
     }
 };
 
-/** \brief Convience Class
+#ifndef MO_NO_CONVENIENCE_CLASS
+/** \brief Convenience Class
  *
  *
  * This class derives from moFileReader and builds a singleton to access its methods
@@ -891,6 +830,7 @@ inline int moFileGetNumStrings()
     int r = moFileReaderSingleton::GetInstance().GetNumStrings();
     return r;
 }
+#endif
 
 #if defined(_MSC_VER)
     #pragma warning(default : 4251)
