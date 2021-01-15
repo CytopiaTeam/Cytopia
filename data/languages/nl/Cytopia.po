@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-01-10 14:12+0100\n"
-"PO-Revision-Date: 2021-01-09 11:43+0000\n"
+"PO-Revision-Date: 2021-01-16 00:35+0000\n"
 "Last-Translator: Edgar <Edgar@anotherfoxguy.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/cytopia/game/nl/>\n"
 "Language: nl\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.4.1-dev\n"
+"X-Generator: Weblate 4.5-dev\n"
 
 #. This is a description for an object titled: Small Coal Power Plant2
 msgid "A  small coal power plant."
@@ -1100,7 +1100,7 @@ msgstr ""
 #. This is a UiElement with the Action: LoadGame
 #: D:\projects\Cytopia\src\Game.cxx:138
 msgid "Load Game"
-msgstr "Laad pel "
+msgstr "Laad spel"
 
 #. This is a subCategory
 msgid "Low Wealth"
