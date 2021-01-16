@@ -12,6 +12,7 @@
 #include "Filesystem.hxx"
 #include "moFileReader.hpp"
 #include <noise.h>
+#include "events/EventHandler.hxx"
 
 #ifdef USE_ANGELSCRIPT
 #include "Scripting/ScriptEngine.hxx"
@@ -129,46 +130,8 @@ void Game::newUI()
 {
   m_UILoopMQ.push(ActivitySwitchEvent{ActivityType::MainMenu});
   m_GameLoopMQ.push(ActivitySwitchEvent{ActivityType::MainMenu});
-  SDL_Event event;
-  for (;;)
-  {
-    while (SDL_WaitEvent(&event) != 0)
-    {
-      switch (event.type)
-      {
-      case SDL_QUIT:
-      {
-        shutdown();
-        return;
-      }
-      case SDL_WINDOWEVENT:
-      {
-        switch (event.window.event)
-        {
-        case SDL_WINDOWEVENT_SIZE_CHANGED:
-          m_UILoopMQ.push(WindowResizeEvent{});
-          continue;
-        default:
-          continue;
-        }
-        continue;
-      }
-      case SDL_MOUSEMOTION:
-      {
-        m_MouseController.handleEvent(MousePositionEvent{event.motion.x, event.motion.y, 0, 0});
-        continue;
-      }
-      case SDL_MOUSEBUTTONDOWN:
-      {
-        m_MouseController.handleEvent(
-            ClickEvent{event.button.x, event.button.y, ClickEvent::MouseButtonID::Left | ClickEvent::MouseButtonState::Pressed});
-        continue;
-      }
-      default:
-        continue;
-      }
-    }
-  }
+  EventHandler::loop(m_UILoopMQ, m_MouseController);
+  shutdown();
 }
 
 bool Game::mainMenu()

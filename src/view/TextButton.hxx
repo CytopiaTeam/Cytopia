@@ -21,9 +21,9 @@ public:
   void update(SettingsModelListener::Notification) noexcept final;
 
 private:
-  static constexpr int16_t PADDING_BOTTOM_PRESSED = -10;
-  static constexpr int16_t PADDING_BOTTOM_DISABLED = -10;
-  static constexpr int16_t PADDING_BOTTOM_HOVERED = 5;
+  static constexpr int16_t PADDING_BOTTOM_PRESSED = 2;
+  static constexpr int16_t PADDING_BOTTOM_DISABLED = 2;
+  static constexpr int16_t PADDING_BOTTOM_HOVERED = 0;
 
   int16_t m_TextPaddingBottom;
 

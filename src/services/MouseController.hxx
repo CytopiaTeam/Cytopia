@@ -18,14 +18,12 @@ public:
   void addHandler(iMouseHandler *);
   void removeHandlers();
 
-private:
   void handleEvent(MousePositionEvent &&);
   void handleEvent(ClickEvent &&);
   void handleEvent(ScrollEvent &&);
   void handleEvent(ActivitySwitchEvent &&);
 
-  friend class Game;
-
+private:
   using HandlerList = std::vector<iMouseHandler *>;
   /**
    * @todo (ercadio): Use a vector instead of unordered_map
