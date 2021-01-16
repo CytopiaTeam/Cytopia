@@ -22,8 +22,7 @@ public:
 
 private:
   static constexpr int16_t PADDING_BOTTOM_PRESSED = 2;
-  static constexpr int16_t PADDING_BOTTOM_DISABLED = 2;
-  static constexpr int16_t PADDING_BOTTOM_HOVERED = 0;
+  static constexpr int16_t PADDING_BOTTOM_NORMAL = 0;
 
   int16_t m_TextPaddingBottom;
 

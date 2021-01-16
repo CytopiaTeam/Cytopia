@@ -63,8 +63,8 @@ MainMenuActivity::MainMenuActivity(GameService::ServiceTuple &context, Window &w
     }
   }
 }
-void MainMenuActivity::onNewGame() { activitySwitch(ActivityType::NewGame); }
-void MainMenuActivity::onLoadGame() { activitySwitch(ActivityType::LoadGame); }
+void MainMenuActivity::onNewGame() { /*activitySwitch(ActivityType::NewGame);*/ }
+void MainMenuActivity::onLoadGame() { /*activitySwitch(ActivityType::LoadGame);*/ }
 
 void MainMenuActivity::onExit()
 {
@@ -73,8 +73,8 @@ void MainMenuActivity::onExit()
   SDL_PushEvent(&shutDownEv);
 }
 
-void MainMenuActivity::onLanguageSelection() { activitySwitch(ActivityType::LanguageSelection); }
-void MainMenuActivity::onPluginSelection() { activitySwitch(ActivityType::PluginSelection); }
+void MainMenuActivity::onLanguageSelection() { /*activitySwitch(ActivityType::LanguageSelection);*/ }
+void MainMenuActivity::onPluginSelection() { /*activitySwitch(ActivityType::PluginSelection);*/ }
 
 MainMenuActivity::~MainMenuActivity() = default;
 

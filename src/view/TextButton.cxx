@@ -6,7 +6,7 @@
 #include "../util/Exception.hxx"
 
 TextButton::TextButton(const std::string &keyText, const std::string &text, RGBAColor color)
-    : m_TextPaddingBottom(0), m_TextKey(keyText), m_Text(text)
+    : m_TextPaddingBottom(PADDING_BOTTOM_NORMAL), m_TextKey(keyText), m_Text(text)
 {
 }
 
@@ -21,13 +21,13 @@ void TextButton::drawButtonContent(iRenderer &renderer) const noexcept
 
 void TextButton::setupButton(class GameService &context) noexcept {};
 
-void TextButton::onMouseLeave() noexcept {}
+void TextButton::onMouseLeave() noexcept { m_TextPaddingBottom = PADDING_BOTTOM_NORMAL; }
 
-void TextButton::onDisable() noexcept { m_TextPaddingBottom = PADDING_BOTTOM_DISABLED; }
+void TextButton::onDisable() noexcept { m_TextPaddingBottom = PADDING_BOTTOM_NORMAL; }
 
 void TextButton::onPress() noexcept { m_TextPaddingBottom = PADDING_BOTTOM_PRESSED; }
 
-void TextButton::onHover() noexcept { m_TextPaddingBottom = PADDING_BOTTOM_HOVERED; }
+void TextButton::onHover() noexcept { m_TextPaddingBottom = PADDING_BOTTOM_NORMAL; }
 
 void TextButton::update(SettingsModelListener::Notification notif) noexcept
 {

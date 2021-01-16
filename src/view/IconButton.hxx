@@ -18,7 +18,11 @@ public:
   void onHover() noexcept;
 
 private:
+  static constexpr int16_t PADDING_BOTTOM_PRESSED = 9;
+  static constexpr int16_t PADDING_BOTTOM_NORMAL = 5;
+
   std::string m_IconPath;
+  int16_t m_IconPaddingBottom;
 };
 
 using IconButtonPtr = std::shared_ptr<IconButton>;
