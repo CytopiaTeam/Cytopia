@@ -56,10 +56,54 @@ void MouseController::removeHandlers()
   m_LastHovered = nullptr;
 }
 
-void MouseController::handleEvent(ClickEvent &&event)
+void MouseController::leftButtonDown(ClickEvent &&event)
 {
   if (m_LastHovered)
-    m_LastHovered->onMouseClick(std::move(event));
+  {
+    m_Captured = m_LastHovered;
+    m_Captured->onMouseLeftButtonDown(std::move(event));
+  }
+}
+
+void MouseController::leftButtonUp(ClickEvent &&event)
+{
+  if (m_Captured)
+  {
+    m_Captured->onMouseLeftButtonUp(std::move(event));
+    m_Captured = nullptr;
+  }
+}
+
+void MouseController::middleButtonDown(ClickEvent &&event)
+{
+  if (m_LastHovered)
+  {
+    m_LastHovered->onMouseMiddleButtonDown(std::move(event));
+  }
+}
+
+void MouseController::middleButtonUp(ClickEvent &&event)
+{
+  if (m_LastHovered)
+  {
+    m_LastHovered->onMouseMiddleButtonDown(std::move(event));
+  }
+}
+
+void MouseController::rightButtonDown(ClickEvent &&event)
+{
+  if (m_LastHovered)
+  {
+    m_LastHovered->onMouseRightButtonDown(std::move(event));
+  }
+}
+
+void MouseController::rightButtonUp(ClickEvent &&event)
+{
+  if (m_LastHovered)
+  {
+    m_LastHovered->onMouseRightButtonDown(std::move(event));
+  }
 }
 
 void MouseController::handleEvent(ScrollEvent &&event)
@@ -68,7 +112,4 @@ void MouseController::handleEvent(ScrollEvent &&event)
     m_LastHovered->onScroll(std::move(event));
 }
 
-void MouseController::handleEvent(ActivitySwitchEvent &&)
-{
-  removeHandlers();
-}
+void MouseController::handleEvent(ActivitySwitchEvent &&) { removeHandlers(); }

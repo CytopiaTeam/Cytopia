@@ -36,53 +36,34 @@ void EventHandler::loop(UILoopMQ &uiLoopMq, MouseController &mouseCtrl)
       }
       case SDL_MOUSEBUTTONDOWN:
       {
-        uint8_t buttonId = 0;
-
-        LOG(LOG_ERROR) << (uint32_t)event.button.button;
-
         if (event.button.button == SDL_BUTTON_LEFT)
         {
-          buttonId = ClickEvent::MouseButtonID::Left;
+          mouseCtrl.leftButtonDown(ClickEvent{event.button.x, event.button.y});
         }
         else if (event.button.button == SDL_BUTTON_MIDDLE)
         {
-          buttonId = ClickEvent::MouseButtonID::Middle;
+          mouseCtrl.middleButtonDown(ClickEvent{event.button.x, event.button.y});
         }
         else if (event.button.button == SDL_BUTTON_RIGHT)
         {
-          buttonId = ClickEvent::MouseButtonID::Right;
-        }
-
-        if (buttonId)
-        {
-          mouseCtrl.handleEvent(
-              ClickEvent{event.button.x, event.button.y, (uint8_t)(buttonId | ClickEvent::MouseButtonState::Pressed)});
+          mouseCtrl.rightButtonDown(ClickEvent{event.button.x, event.button.y});
         }
         continue;
       }
       case SDL_MOUSEBUTTONUP:
       {
-        uint8_t buttonId = 0;
-
         if (event.button.button == SDL_BUTTON_LEFT)
         {
-          buttonId = ClickEvent::MouseButtonID::Left;
+          mouseCtrl.leftButtonUp(ClickEvent{event.button.x, event.button.y});
         }
         else if (event.button.button == SDL_BUTTON_MIDDLE)
         {
-          buttonId = ClickEvent::MouseButtonID::Middle;
+          mouseCtrl.middleButtonUp(ClickEvent{event.button.x, event.button.y});
         }
         else if (event.button.button == SDL_BUTTON_RIGHT)
         {
-          buttonId = ClickEvent::MouseButtonID::Right;
+          mouseCtrl.rightButtonUp(ClickEvent{event.button.x, event.button.y});
         }
-
-        if (buttonId)
-        {
-          mouseCtrl.handleEvent(
-              ClickEvent{event.button.x, event.button.y, (uint8_t)(buttonId | ClickEvent::MouseButtonState::Released)});
-        }
-
         continue;
       }
       default:

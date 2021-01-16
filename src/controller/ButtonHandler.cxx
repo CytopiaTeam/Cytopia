@@ -5,7 +5,7 @@
 #include "../util/Rectangle.hxx"
 
 ButtonHandler::ButtonHandler(Callback callback, ButtonModel &state, MouseState &mouse_state, const iView &view)
-    : m_HandleClick(callback), m_State(state), m_MouseState(mouse_state), m_View(view)
+    : m_HandleClick(callback), m_State(state), m_MouseState(mouse_state), m_View(view), m_IsHovered(false)
 {
 }
 
@@ -15,25 +15,26 @@ void ButtonHandler::onMouseHover()
 {
   m_MouseState.setCursor(CursorType::Pointer);
   m_State.setStatus(ButtonStatus::Hovered);
+  m_IsHovered = true;
 }
 
-void ButtonHandler::onMouseClick(ClickEvent &&event)
+void ButtonHandler::onMouseLeftButtonDown(ClickEvent &&event) { m_State.setStatus(ButtonStatus::Pressed); }
+
+void ButtonHandler::onMouseLeftButtonUp(ClickEvent &&event)
 {
-  if ((event.state & ClickEvent::Pressed) && event.state & ClickEvent::Left)
-  {
-    m_State.setStatus(ButtonStatus::Pressed);
-  }
-  if ((event.state & ClickEvent::Released) && event.state & ClickEvent::Left)
-  {
-    m_State.setStatus(ButtonStatus::Hovered);
-    m_HandleClick();
-  }
+    m_HandleClick(); 
+
+    if (m_IsHovered)
+    {
+      m_State.setStatus(ButtonStatus::Hovered);
+    }
 }
 
 void ButtonHandler::onMouseLeave()
 {
   m_MouseState.setCursor(CursorType::Arrow);
   m_State.setStatus(ButtonStatus::Normal);
+  m_IsHovered = false;
 }
 
 const iShape &ButtonHandler::getShape() { return m_View.getBounds(); }

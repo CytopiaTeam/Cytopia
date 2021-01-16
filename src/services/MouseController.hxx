@@ -18,8 +18,13 @@ public:
   void addHandler(iMouseHandler *);
   void removeHandlers();
 
+  void leftButtonDown(ClickEvent &&event);
+  void middleButtonDown(ClickEvent &&event);
+  void rightButtonDown(ClickEvent &&event);
+  void leftButtonUp(ClickEvent &&event);
+  void middleButtonUp(ClickEvent &&event);
+  void rightButtonUp(ClickEvent &&event);
   void handleEvent(MousePositionEvent &&);
-  void handleEvent(ClickEvent &&);
   void handleEvent(ScrollEvent &&);
   void handleEvent(ActivitySwitchEvent &&);
 
@@ -30,6 +35,7 @@ private:
    */
   std::unordered_map<SpatialBlock, HandlerList> m_SpatialMap;
   iMouseHandler *m_LastHovered;
+  iMouseHandler *m_Captured;
 };
 
 #endif // MOUSE_CONTROLLER_HXX
