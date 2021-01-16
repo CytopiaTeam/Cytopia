@@ -61,12 +61,23 @@ MainMenuActivity::MainMenuActivity(GameService::ServiceTuple &context, Window &w
     }
   }
 }
-void MainMenuActivity::onNewGame() { activitySwitch(ActivityType::NewGame); }
-void MainMenuActivity::onLoadGame() { activitySwitch(ActivityType::LoadGame); }
-void MainMenuActivity::onExit() {}
-void MainMenuActivity::onLanguageSelection() { activitySwitch(ActivityType::LanguageSelection); }
-void MainMenuActivity::onPluginSelection() { activitySwitch(ActivityType::PluginSelection); }
+void MainMenuActivity::onNewGame() { /*activitySwitch(ActivityType::NewGame);*/ }
+void MainMenuActivity::onLoadGame() { /*activitySwitch(ActivityType::LoadGame);*/ }
+
+void MainMenuActivity::onExit()
+{
+  SDL_Event shutDownEv;
+  shutDownEv.type = SDL_QUIT;
+  SDL_PushEvent(&shutDownEv);
+}
+
+void MainMenuActivity::onLanguageSelection() { /*activitySwitch(ActivityType::LanguageSelection);*/ }
+void MainMenuActivity::onPluginSelection() { /*activitySwitch(ActivityType::PluginSelection);*/ }
 
 MainMenuActivity::~MainMenuActivity() = default;
 
-void MainMenuActivity::setup(class GameService &context) noexcept { iLayout::setup(context); }
+void MainMenuActivity::setup(class GameService &context) noexcept
+{
+  iLayout::setup(context);
+  bindMouse();
+}

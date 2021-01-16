@@ -41,8 +41,8 @@ private:
   MouseState m_MouseState;
   SettingsModel m_SettingsModel;
 
-  void handleEvent(WindowResizeEvent &&);
-  void handleEvent(WindowRedrawEvent &&);
+  void resize();
+  void redraw();
 
   /**
   * @brief Destroy old render and create new one.

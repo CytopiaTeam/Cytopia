@@ -10,7 +10,12 @@ class iMouseHandler : public iController
 {
 public:
   virtual ~iMouseHandler() = 0;
-  virtual void onMouseClick(class ClickEvent &&);
+  virtual void onMouseLeftButtonDown(class ClickEvent &&);
+  virtual void onMouseMiddleButtonDown(class ClickEvent &&);
+  virtual void onMouseRightButtonDown(class ClickEvent &&);
+  virtual void onMouseLeftButtonUp(class ClickEvent &&);
+  virtual void onMouseMiddleButtonUp(class ClickEvent &&);
+  virtual void onMouseRightButtonUp(class ClickEvent &&);
   virtual void onMouseHover();
   virtual void onMouseLeave();
   virtual void onScroll(class ScrollEvent &&);

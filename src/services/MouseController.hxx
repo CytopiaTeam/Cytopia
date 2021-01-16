@@ -16,21 +16,26 @@ public:
   MouseController(GameService::ServiceTuple &);
   ~MouseController();
   void addHandler(iMouseHandler *);
+  void removeHandlers();
 
-private:
+  void leftButtonDown(ClickEvent &&event);
+  void middleButtonDown(ClickEvent &&event);
+  void rightButtonDown(ClickEvent &&event);
+  void leftButtonUp(ClickEvent &&event);
+  void middleButtonUp(ClickEvent &&event);
+  void rightButtonUp(ClickEvent &&event);
   void handleEvent(MousePositionEvent &&);
-  void handleEvent(ClickEvent &&);
   void handleEvent(ScrollEvent &&);
   void handleEvent(ActivitySwitchEvent &&);
 
-  friend class Game;
-
+private:
   using HandlerList = std::vector<iMouseHandler *>;
   /**
    * @todo (ercadio): Use a vector instead of unordered_map
    */
   std::unordered_map<SpatialBlock, HandlerList> m_SpatialMap;
   iMouseHandler *m_LastHovered;
+  iMouseHandler *m_Captured;
 };
 
 #endif // MOUSE_CONTROLLER_HXX

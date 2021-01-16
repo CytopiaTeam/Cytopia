@@ -15,7 +15,8 @@ public:
   using Callback = std::function<void()>;
   ButtonHandler(Callback, ButtonModel &, MouseState &, const iView &);
   ~ButtonHandler() override;
-  void onMouseClick(class ClickEvent &&) override;
+  void onMouseLeftButtonDown(class ClickEvent &&) override;
+  void onMouseLeftButtonUp(class ClickEvent &&) override;
   void onMouseHover() override;
   void onMouseLeave() override;
   const iShape & getShape() final;
@@ -24,6 +25,7 @@ private:
   MouseState & m_MouseState;
   Callback m_HandleClick;  
   const iView & m_View;
+  bool m_IsHovered;
 };
 
 #endif // BUTTON_CONTROLLER_HXX

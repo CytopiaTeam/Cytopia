@@ -57,8 +57,6 @@ void Window::setActivity(iActivityPtr &&activity)
   LOG(LOG_DEBUG) << "Setting up new activity";
   m_Activity->setup(*m_Activity);
   LOG(LOG_DEBUG) << "Drawing new activity";
-  m_Activity->draw(*m_Renderer);
-  m_Renderer->commit();
 }
 
 Rectangle Window::getBounds() const noexcept { return m_Renderer->getDrawableSize(); }
@@ -69,21 +67,22 @@ void Window::recreateRender()
   m_Renderer = std::make_unique<SDLRenderer>(m_Window);
 }
 
-void Window::handleEvent(WindowResizeEvent &&event)
+void Window::resize()
 {
   m_Renderer->clear();
   recreateRender();
   m_Activity->setBounds(getBounds());
   m_Activity->setup(*m_Activity);
-  m_Activity->draw(*m_Renderer);
-  m_Renderer->commit();
 }
 
-void Window::handleEvent(WindowRedrawEvent &&event)
+void Window::redraw()
 {
-  m_Renderer->clear();
-  m_Activity->draw(*m_Renderer);
-  m_Renderer->commit();
+  if (m_Activity)
+  {
+    m_Renderer->clear();
+    m_Activity->draw(*m_Renderer);
+    m_Renderer->commit();
+  }
 }
 
 MouseState &Window::getMouseState() noexcept { return m_MouseState; }

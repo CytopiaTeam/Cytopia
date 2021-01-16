@@ -12,6 +12,7 @@
 #include "Filesystem.hxx"
 #include "moFileReader.hpp"
 #include <noise.h>
+#include "events/EventHandler.hxx"
 
 #ifdef USE_ANGELSCRIPT
 #include "Scripting/ScriptEngine.hxx"
@@ -22,7 +23,46 @@
 #endif
 
 template void Game::LoopMain<GameLoopMQ, Game::GameVisitor>(Game::GameContext &, Game::GameVisitor);
-template void Game::LoopMain<UILoopMQ, Game::UIVisitor>(Game::GameContext &, Game::UIVisitor);
+
+template <> void Game::LoopMain<UILoopMQ, Game::UIVisitor>(Game::GameContext &context, Game::UIVisitor visitor)
+{
+  const auto pGameClock = std::get<GameClock *>(context);
+  bool redraw = false;
+
+  while (true)
+  {
+    for (auto &event : std::get<UILoopMQ *>(context)->getEnumerableTimeout(16ms))
+    {
+      if (std::holds_alternative<TerminateEvent>(event))
+      {
+        pGameClock->clear();
+        return;
+      }
+      else
+      {
+        try
+        {
+          std::visit(visitor, std::move(event));
+        }
+        catch (std::exception &ex)
+        {
+          LOG(LOG_ERROR) << ex.what();
+          // @todo: Call shutdown() here in a safe way
+        }
+
+        redraw = true;
+      }
+    }
+
+    if (redraw)
+    {
+      visitor.m_Window.redraw();
+      redraw = false;
+    }
+
+    pGameClock->tick();
+  }
+}
 
 Game::Game()
     : m_GameContext(&m_UILoopMQ, &m_GameLoopMQ,
@@ -90,31 +130,7 @@ void Game::newUI()
 {
   m_UILoopMQ.push(ActivitySwitchEvent{ActivityType::MainMenu});
   m_GameLoopMQ.push(ActivitySwitchEvent{ActivityType::MainMenu});
-  SDL_Event event;
-  for (;;)
-  {
-    while (SDL_WaitEvent(&event) != 0)
-    {
-      switch (event.type)
-      {
-      case SDL_QUIT:
-        shutdown();
-        return;
-      case SDL_WINDOWEVENT:
-        switch (event.window.event)
-        {
-        case SDL_WINDOWEVENT_SIZE_CHANGED:
-          m_UILoopMQ.push(WindowResizeEvent{});
-          continue;
-        default:
-          continue;
-        }
-        continue;
-      default:
-        continue;
-      }
-    }
-  }
+  EventHandler::loop(m_UILoopMQ, m_MouseController);
 }
 
 bool Game::mainMenu()
@@ -399,47 +415,11 @@ void Game::shutdown()
   UIManager::instance().flush();
 }
 
-/**
-* @brief Check whether event queue contains event type.
-* @param events Queue contains events.
-* @tparam Event type to search for.
-* @tparam Queue type of queue which contains events. Let it be deduced from events parameter.
-* @return true in case event type is in the queue, otherwise false.
-*/
-template <typename Event, typename Queue> static bool containsEvent(const Queue &events)
-{
-  return (events.end() !=
-          std::find_if(events.begin(), events.end(), [](const auto event) { return std::holds_alternative<Event>(event); }));
-}
-
-// Primary template, this is default behavior: block indefinitely until an event arrive in queue.
-template <typename MQType> typename MQType::Enumerable Game::getEvents(GameContext &context)
-{
-  return std::get<MQType *>(context)->getEnumerable();
-}
-
-// Full specialized template for UILoopMQ.
-template <> typename UILoopMQ::Enumerable Game::getEvents<UILoopMQ>(GameContext &context)
-{
-  const auto events = std::get<UILoopMQ *>(context)->getEnumerableTimeout(16ms);
-  const auto pGameClock = std::get<GameClock *>(context);
-
-  // Clear all timers in case of terminate event.
-  if (containsEvent<TerminateEvent>(events))
-  {
-    pGameClock->clear();
-  }
-
-  pGameClock->tick();
-
-  return events;
-}
-
 template <typename MQType, typename Visitor> void Game::LoopMain(GameContext &context, Visitor visitor)
 {
   while (true)
   {
-    for (auto event : getEvents<MQType>(context))
+    for (auto &event : std::get<MQType *>(context)->getEnumerable())
     {
       if (std::holds_alternative<TerminateEvent>(event))
       {
@@ -484,6 +464,6 @@ void Game::UIVisitor::operator()(ActivitySwitchEvent &&event)
   m_Window.setActivity(m_Window.fromActivityType(event.activityType, m_GameContext, m_Window));
 }
 
-void Game::UIVisitor::operator()(WindowResizeEvent &&event) { m_Window.handleEvent(WindowResizeEvent{}); }
+void Game::UIVisitor::operator()(WindowResizeEvent &&event) { m_Window.resize(); }
 
-void Game::UIVisitor::operator()(WindowRedrawEvent &&event) { m_Window.handleEvent(WindowRedrawEvent{}); }
+void Game::UIVisitor::operator()(WindowRedrawEvent &&event) { m_Window.redraw(); }
