@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <memory>
+#include <algorithm>
 #include "Meta.hxx"
 
 template <typename Data> struct DefaultSubjectDispatch;
