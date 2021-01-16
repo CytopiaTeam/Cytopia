@@ -7,8 +7,7 @@
 #include "../util/Filesystem.hxx"
 #include "../renderer/iRenderer.hxx"
 
-template <typename ButtonImpl>
-class ClassicButton : public iViewElement, public ButtonListener
+template <typename ButtonImpl> class ClassicButton : public iViewElement, public ButtonListener
 {
 public:
   using MyController = class ButtonHandler;
@@ -17,9 +16,10 @@ public:
   void draw(iRenderer &) const noexcept override;
   virtual ~ClassicButton();
   void update(Notification) noexcept final;
-  void setup(class GameService & context) noexcept override;
+  void setup(GameService &context) noexcept override;
+
 private:
-  static constexpr const char * BUTTON_SPRITE_PATH = "resources/images/ui/buttons/button.png";
+  static constexpr const char *BUTTON_SPRITE_PATH = "resources/images/ui/buttons/button.png";
   RGBAColor m_Color;
   uint16_t m_At;
 };

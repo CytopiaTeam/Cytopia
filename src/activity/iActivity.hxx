@@ -14,6 +14,7 @@
 
 class iActivity : public GameService, public virtual iView
 {
+private:
   class Window &m_Window;
   std::vector<iModelPtr> m_Models;
   std::vector<iControllerPtr> m_Controllers;
@@ -42,9 +43,15 @@ protected:
    * @brief Creates a new iController
    * @tparam ControllerType the type of the controller
    * @tparam Args arguments to construct the controller
-   * @returns a referenece to the created controller
+   * @returns a reference to the created controller
    */
   template <typename ControllerType, typename... Args> ControllerType &createController(Args &&... args);
+
+  /**
+   * @brief Bind mouse controller to the controller.
+   * @attention Must be called after layout is arranged.
+   */
+  void bindMouse();
 
   /**
    * @returns the Window this Activity is assigned to 

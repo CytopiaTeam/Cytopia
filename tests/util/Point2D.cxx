@@ -35,7 +35,7 @@ TEST_CASE("I can use Spatial Blocks", "[util]")
   std::hash<SpatialBlock> h;
   REQUIRE(h(sb1) == h(sb2));
   REQUIRE(h(sb1) != h(sb3));
-  REQUIRE(sb1 == SpatialBlock{ClickEvent{N * 3 / 2, N * 3 / 2, ClickEvent::Pressed | ClickEvent::Left}});
+  REQUIRE(sb1 == SpatialBlock{ClickEvent{N * 3 / 2, N * 3 / 2}});
   REQUIRE(sb1 == SpatialBlock{MousePositionEvent{N * 3 / 2, N * 3 / 2, 0, 0}});
   REQUIRE_NOTHROW(LOG(LOG_INFO) << sb1);
 }

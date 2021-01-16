@@ -6,7 +6,7 @@
 #include "ClassicButton.hxx"
 #include "../model/SettingsModel.hxx"
 
-class TextButton : public ClassicButton<TextButton>, public SettingsModelListener
+class TextButton final : public ClassicButton<TextButton>, public SettingsModelListener
 {
 public:
   TextButton(const std::string &, const std::string &, RGBAColor = Palette::Gray);
@@ -21,9 +21,8 @@ public:
   void update(SettingsModelListener::Notification) noexcept final;
 
 private:
-  static constexpr int16_t PADDING_BOTTOM_PRESSED = -10;
-  static constexpr int16_t PADDING_BOTTOM_DISABLED = -10;
-  static constexpr int16_t PADDING_BOTTOM_HOVERED = 5;
+  static constexpr int16_t PADDING_BOTTOM_PRESSED = 2;
+  static constexpr int16_t PADDING_BOTTOM_NORMAL = 0;
 
   int16_t m_TextPaddingBottom;
 

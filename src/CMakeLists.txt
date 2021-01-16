@@ -21,6 +21,7 @@ set(SOURCE_FILES
         util/TypeList.inl.hxx
         events/UIEvents.hxx
         events/MouseEvents.hxx
+        events/EventHandler.{hxx,cxx}
         GameService.{hxx,cxx}
         services/Randomizer.{hxx,cxx}
         services/GameClock.{hxx,cxx}

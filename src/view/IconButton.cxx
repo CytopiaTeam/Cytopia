@@ -5,21 +5,20 @@
 #include "../util/LOG.hxx"
 #include "../util/Exception.hxx"
 
-IconButton::IconButton(const std::string &icon, const RGBAColor &color) : 
-  ClassicButton(color),
-  m_IconPath(icon)
+IconButton::IconButton(const std::string &icon, const RGBAColor &color)
+    : ClassicButton(color), m_IconPath(icon), m_IconPaddingBottom(PADDING_BOTTOM_NORMAL)
 {
 }
 
 IconButton::~IconButton() = default;
 
-void IconButton::onMouseLeave() noexcept { }
+void IconButton::onMouseLeave() noexcept { m_IconPaddingBottom = PADDING_BOTTOM_NORMAL; }
 
-void IconButton::onDisable() noexcept { }
+void IconButton::onDisable() noexcept { m_IconPaddingBottom = PADDING_BOTTOM_NORMAL; }
 
-void IconButton::onPress() noexcept { }
+void IconButton::onPress() noexcept { m_IconPaddingBottom = PADDING_BOTTOM_PRESSED; }
 
-void IconButton::onHover() noexcept { }
+void IconButton::onHover() noexcept { m_IconPaddingBottom = PADDING_BOTTOM_NORMAL; }
 
 void IconButton::drawButtonContent(iRenderer &renderer) const noexcept
 {
@@ -28,7 +27,7 @@ void IconButton::drawButtonContent(iRenderer &renderer) const noexcept
    *                in iRenderer
    */
   auto target = getBounds();
-  auto icon = fs::readPNGFile(m_IconPath);
+  PixelBuffer icon = fs::readPNGFile(m_IconPath);
   const auto &iconBounds = icon.bounds();
   float scaleX = target.width() - 6;
   scaleX /= iconBounds.width();
@@ -38,7 +37,7 @@ void IconButton::drawButtonContent(iRenderer &renderer) const noexcept
   icon.scale(iconScale);
   auto [x, y] = target.p1();
   icon.translateX(x + (target.width() - iconBounds.width()) / 2);
-  icon.translateY(y + 4);
+  icon.translateY(y + m_IconPaddingBottom);
   renderer.drawPicture(icon.bounds(), icon.data());
 }
 

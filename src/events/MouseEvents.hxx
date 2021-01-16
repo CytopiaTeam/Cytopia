@@ -21,23 +21,6 @@ struct ClickEvent
 {
   int32_t xPosition;
   int32_t yPosition;
-  /**
-   * @brief One-hot encoding for the state of the mouse or device
-   * @details Exactly one of {Left, Right, Middle} must be set
-   *          and exactly one of {Pressed, Released} must be set
-   */
-  enum MouseButtonID : uint8_t
-  {
-    Left = 1 << 0,
-    Right = 1 << 1,
-    Middle = 1 << 2
-  };
-  enum MouseButtonState : uint8_t
-  {
-    Pressed = 1 << 3,
-    Released = 1 << 4
-  };
-  uint8_t state;
 };
 
 /**
