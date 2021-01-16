@@ -45,10 +45,10 @@ int protected_main(int argc, char **argv)
       LOG(LOG_DEBUG) << "Running the Game";
       game.run();
     }
-
-    LOG(LOG_DEBUG) << "Closing the Game";
-    game.shutdown();
   }
+
+  LOG(LOG_DEBUG) << "Closing the Game";
+  game.shutdown();
 
   return EXIT_SUCCESS;
 }

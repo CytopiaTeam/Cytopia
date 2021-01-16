@@ -131,7 +131,6 @@ void Game::newUI()
   m_UILoopMQ.push(ActivitySwitchEvent{ActivityType::MainMenu});
   m_GameLoopMQ.push(ActivitySwitchEvent{ActivityType::MainMenu});
   EventHandler::loop(m_UILoopMQ, m_MouseController);
-  shutdown();
 }
 
 bool Game::mainMenu()
