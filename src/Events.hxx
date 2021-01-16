@@ -5,7 +5,6 @@
 
 #include "betterEnums.hxx"
 #include "util/TypeList.hxx"
-#include "events/MouseEvents.hxx"
 
 using std::string;
 

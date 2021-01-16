@@ -10,8 +10,6 @@
 #include "../util/ZipRange.hxx"
 #include "../services/MouseController.hxx"
 
-#include <vector>
-
 MainMenuActivity::MainMenuActivity(GameService::ServiceTuple &context, Window &w)
     : iActivity(context, w), AbsoluteLayout(w.getBounds())
 {

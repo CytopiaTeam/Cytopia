@@ -27,7 +27,6 @@ void EventHandler::loop(UILoopMQ &uiLoopMq, MouseController &mouseCtrl)
         default:
           continue;
         }
-        continue;
       }
       case SDL_MOUSEMOTION:
       {
