@@ -16,7 +16,7 @@ SDL_AssertState AssertionHandler(const SDL_AssertData *, void *);
 int protected_main(int argc, char **argv)
 {
   bool quitGame = false;
-  Settings & settings = Settings::instance();
+  Settings &settings = Settings::instance();
   settings.parse_args(argc, argv);
 
   LOG(LOG_DEBUG) << "Launching Cytopia";
@@ -29,7 +29,7 @@ int protected_main(int argc, char **argv)
   if (!game.initialize())
     return EXIT_FAILURE;
 
-  if(settings.newUI)
+  if (settings.newUI)
   {
     game.newUI();
   }
@@ -45,10 +45,10 @@ int protected_main(int argc, char **argv)
       LOG(LOG_DEBUG) << "Running the Game";
       game.run();
     }
-  }
 
-  LOG(LOG_DEBUG) << "Closing the Game";
-  game.shutdown();
+    LOG(LOG_DEBUG) << "Closing the Game";
+    game.shutdown();
+  }
 
   return EXIT_SUCCESS;
 }
