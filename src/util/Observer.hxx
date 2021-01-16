@@ -1,7 +1,7 @@
 #ifndef OBSERVER_HXX_
 #define OBSERVER_HXX_
 
-#include <forward_list>
+#include <vector>
 #include <memory>
 #include "Meta.hxx"
 
@@ -66,18 +66,20 @@ public:
    * @brief   Adds an observer to listen to Subject's events
    * @param   observer the observer to add
    */
-  void addObserver(ObserverWPtr<Data> observer) { m_Observers.emplace_front(std::move(observer)); }
+  void addObserver(ObserverWPtr<Data> observer) { m_Observers.emplace_back(std::move(observer)); }
 
   /**
    * @brief Remove all non valid observers.
    */
   virtual void prune()
   {
-    m_Observers.remove_if([](ObserverWPtr<Data> wPtr) { return wPtr.expired(); });
+    m_Observers.erase(
+        std::remove_if(m_Observers.begin(), m_Observers.end(), [](ObserverWPtr<Data> wPtr) { return wPtr.expired(); }),
+        m_Observers.end());
   }
 
 private:
-  std::forward_list<ObserverWPtr<Data>> m_Observers;
+  std::vector<ObserverWPtr<Data>> m_Observers;
 
 protected:
   Subject(DispatchPolicy dispatch = {}) : DispatchPolicy(dispatch) {}

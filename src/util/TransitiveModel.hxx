@@ -104,17 +104,11 @@ private:
 
   bool mustNotify(ObserverWPtr<Notification> &observer, const Notification &event) const noexcept final
   {
-    try
+    if (m_Filters.count(observer) > 0)
     {
-      if (m_Filters.count(observer) > 0)
-      {
-        return m_Filters.at(observer).count(event.getType()) == 1;
-      }
+      return m_Filters.at(observer).count(event.getType()) == 1;
     }
-    catch (...)
-    {
-    }
-    
+
     return true;
   }
 };
