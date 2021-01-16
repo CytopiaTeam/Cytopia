@@ -16,6 +16,7 @@ public:
   MouseController(GameService::ServiceTuple &);
   ~MouseController();
   void addHandler(iMouseHandler *);
+  void removeHandlers();
 
 private:
   void handleEvent(MousePositionEvent &&);

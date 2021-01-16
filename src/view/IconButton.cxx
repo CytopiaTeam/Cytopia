@@ -5,21 +5,17 @@
 #include "../util/LOG.hxx"
 #include "../util/Exception.hxx"
 
-IconButton::IconButton(const std::string &icon, const RGBAColor &color) : 
-  ClassicButton(color),
-  m_IconPath(icon)
-{
-}
+IconButton::IconButton(const std::string &icon, const RGBAColor &color) : ClassicButton(color), m_IconPath(icon) {}
 
 IconButton::~IconButton() = default;
 
-void IconButton::onMouseLeave() noexcept { }
+void IconButton::onMouseLeave() noexcept {}
 
-void IconButton::onDisable() noexcept { }
+void IconButton::onDisable() noexcept {}
 
-void IconButton::onPress() noexcept { }
+void IconButton::onPress() noexcept {}
 
-void IconButton::onHover() noexcept { }
+void IconButton::onHover() noexcept {}
 
 void IconButton::drawButtonContent(iRenderer &renderer) const noexcept
 {
@@ -28,7 +24,7 @@ void IconButton::drawButtonContent(iRenderer &renderer) const noexcept
    *                in iRenderer
    */
   auto target = getBounds();
-  auto icon = fs::readPNGFile(m_IconPath);
+  PixelBuffer icon = fs::readPNGFile(m_IconPath);
   const auto &iconBounds = icon.bounds();
   float scaleX = target.width() - 6;
   scaleX /= iconBounds.width();

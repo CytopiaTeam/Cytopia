@@ -19,11 +19,15 @@ Window &iActivity::getWindow() noexcept { return m_Window; }
 
 void iActivity::bindMouse()
 {
+  MouseController &mouseCtrl = GetService<MouseController>();
+
+  mouseCtrl.removeHandlers();
+
   for (auto it = m_Controllers.cbegin(); it < m_Controllers.cend(); ++it)
   {
     if (auto handler = dynamic_cast<iMouseHandler *>(it->get()))
     {
-      GetService<MouseController>().addHandler(handler);
+      mouseCtrl.addHandler(handler);
     }
   }
 }

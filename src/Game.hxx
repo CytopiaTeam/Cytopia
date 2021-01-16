@@ -89,11 +89,9 @@ private:
 
   template <typename MQType, typename Visitor> static void LoopMain(GameContext &context, Visitor visitor);
 
-  template <typename MQType> static typename MQType::Enumerable getEvents(GameContext &context);
-
   struct UIVisitor
   {
-
+    friend class Game;
     UIVisitor(Window &, GameContext &);
     
     /**
@@ -159,8 +157,6 @@ private:
      * @brief   Handles switching to a new Activity
      */
     void operator()(ActivitySwitchEvent &&);
-
-    void operator()(MousePositionEvent &&);
 
     /**
      * @brief   Do not call

@@ -4,18 +4,19 @@
 #include <memory>
 #include "ClassicButton.hxx"
 
-class IconButton : public ClassicButton<IconButton>
+class IconButton final : public ClassicButton<IconButton>
 {
 public:
-  IconButton(const std::string &, const RGBAColor& = Palette::Gray);
+  IconButton(const std::string &, const RGBAColor & = Palette::Gray);
   virtual ~IconButton();
-  
+
   void drawButtonContent(iRenderer &) const noexcept;
-  void setupButton(class GameService & context) noexcept;
+  void setupButton(class GameService &context) noexcept;
   void onMouseLeave() noexcept;
   void onDisable() noexcept;
   void onPress() noexcept;
   void onHover() noexcept;
+
 private:
   std::string m_IconPath;
 };

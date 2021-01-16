@@ -6,7 +6,7 @@
 #include "ClassicButton.hxx"
 #include "../model/SettingsModel.hxx"
 
-class TextButton : public ClassicButton<TextButton>, public SettingsModelListener
+class TextButton final : public ClassicButton<TextButton>, public SettingsModelListener
 {
 public:
   TextButton(const std::string &, const std::string &, RGBAColor = Palette::Gray);

@@ -50,6 +50,12 @@ void MouseController::addHandler(iMouseHandler *handler)
     }
 }
 
+void MouseController::removeHandlers()
+{
+  m_SpatialMap.clear();
+  m_LastHovered = nullptr;
+}
+
 void MouseController::handleEvent(ClickEvent &&event)
 {
   if (m_LastHovered)
@@ -64,6 +70,5 @@ void MouseController::handleEvent(ScrollEvent &&event)
 
 void MouseController::handleEvent(ActivitySwitchEvent &&)
 {
-  m_SpatialMap.clear();
-  m_LastHovered = nullptr;
+  removeHandlers();
 }

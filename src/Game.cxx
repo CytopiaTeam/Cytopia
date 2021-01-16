@@ -22,7 +22,46 @@
 #endif
 
 template void Game::LoopMain<GameLoopMQ, Game::GameVisitor>(Game::GameContext &, Game::GameVisitor);
-template void Game::LoopMain<UILoopMQ, Game::UIVisitor>(Game::GameContext &, Game::UIVisitor);
+
+template <> void Game::LoopMain<UILoopMQ, Game::UIVisitor>(Game::GameContext &context, Game::UIVisitor visitor)
+{
+  const auto pGameClock = std::get<GameClock *>(context);
+  bool redraw = false;
+
+  while (true)
+  {
+    for (auto &event : std::get<UILoopMQ *>(context)->getEnumerableTimeout(16ms))
+    {
+      if (std::holds_alternative<TerminateEvent>(event))
+      {
+        pGameClock->clear();
+        return;
+      }
+      else
+      {
+        try
+        {
+          std::visit(visitor, std::move(event));
+        }
+        catch (std::exception &ex)
+        {
+          LOG(LOG_ERROR) << ex.what();
+          // @todo: Call shutdown() here in a safe way
+        }
+
+        redraw = true;
+      }
+    }
+
+    if (redraw)
+    {
+      visitor.m_Window.redraw();
+      redraw = false;
+    }
+
+    pGameClock->tick();
+  }
+}
 
 Game::Game()
     : m_GameContext(&m_UILoopMQ, &m_GameLoopMQ,
@@ -98,9 +137,12 @@ void Game::newUI()
       switch (event.type)
       {
       case SDL_QUIT:
+      {
         shutdown();
         return;
+      }
       case SDL_WINDOWEVENT:
+      {
         switch (event.window.event)
         {
         case SDL_WINDOWEVENT_SIZE_CHANGED:
@@ -110,9 +152,18 @@ void Game::newUI()
           continue;
         }
         continue;
+      }
       case SDL_MOUSEMOTION:
-        m_GameLoopMQ.push(MousePositionEvent{event.motion.x, event.motion.y, 0, 0});
+      {
+        m_MouseController.handleEvent(MousePositionEvent{event.motion.x, event.motion.y, 0, 0});
         continue;
+      }
+      case SDL_MOUSEBUTTONDOWN:
+      {
+        m_MouseController.handleEvent(
+            ClickEvent{event.button.x, event.button.y, ClickEvent::MouseButtonID::Left | ClickEvent::MouseButtonState::Pressed});
+        continue;
+      }
       default:
         continue;
       }
@@ -402,47 +453,11 @@ void Game::shutdown()
   UIManager::instance().flush();
 }
 
-/**
-* @brief Check whether event queue contains event type.
-* @param events Queue contains events.
-* @tparam Event type to search for.
-* @tparam Queue type of queue which contains events. Let it be deduced from events parameter.
-* @return true in case event type is in the queue, otherwise false.
-*/
-template <typename Event, typename Queue> static bool containsEvent(const Queue &events)
-{
-  return (events.end() !=
-          std::find_if(events.begin(), events.end(), [](const auto event) { return std::holds_alternative<Event>(event); }));
-}
-
-// Primary template, this is default behavior: block indefinitely until an event arrive in queue.
-template <typename MQType> typename MQType::Enumerable Game::getEvents(GameContext &context)
-{
-  return std::get<MQType *>(context)->getEnumerable();
-}
-
-// Full specialized template for UILoopMQ.
-template <> typename UILoopMQ::Enumerable Game::getEvents<UILoopMQ>(GameContext &context)
-{
-  const auto events = std::get<UILoopMQ *>(context)->getEnumerableTimeout(16ms);
-  const auto pGameClock = std::get<GameClock *>(context);
-
-  // Clear all timers in case of terminate event.
-  if (containsEvent<TerminateEvent>(events))
-  {
-    pGameClock->clear();
-  }
-
-  pGameClock->tick();
-
-  return events;
-}
-
 template <typename MQType, typename Visitor> void Game::LoopMain(GameContext &context, Visitor visitor)
 {
   while (true)
   {
-    for (auto event : getEvents<MQType>(context))
+    for (auto &event : std::get<MQType *>(context)->getEnumerable())
     {
       if (std::holds_alternative<TerminateEvent>(event))
       {
@@ -472,8 +487,6 @@ void Game::GameVisitor::operator()(TerminateEvent &&)
 
 void Game::GameVisitor::operator()(ActivitySwitchEvent &&event) { GetService<MouseController>().handleEvent(std::move(event)); }
 
-void Game::GameVisitor::operator()(MousePositionEvent &&event) { GetService<MouseController>().handleEvent(std::move(event)); }
-
 Game::UIVisitor::UIVisitor(Window &window, GameContext &context) : m_Window(window), m_GameContext(context) {}
 
 void Game::UIVisitor::operator()(TerminateEvent &&)
@@ -489,6 +502,6 @@ void Game::UIVisitor::operator()(ActivitySwitchEvent &&event)
   m_Window.setActivity(m_Window.fromActivityType(event.activityType, m_GameContext, m_Window));
 }
 
-void Game::UIVisitor::operator()(WindowResizeEvent &&event) { m_Window.handleEvent(WindowResizeEvent{}); }
+void Game::UIVisitor::operator()(WindowResizeEvent &&event) { m_Window.resize(); }
 
-void Game::UIVisitor::operator()(WindowRedrawEvent &&event) { m_Window.handleEvent(WindowRedrawEvent{}); }
+void Game::UIVisitor::operator()(WindowRedrawEvent &&event) { m_Window.redraw(); }
