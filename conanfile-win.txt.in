@@ -11,7 +11,6 @@ bzip2/1.0.8@conan/stable
 libpng/1.6.37
 freetype/2.10.0@bincrafters/stable
 libnoise/1.0.1@anotherfoxguy/stable
-openssl/1.1.1i
 @_CC_CATCH2@Catch2/2.9.2@catchorg/stable
 @_CC_OPENAL_SOFT@openal/1.21.0
 zlib/1.2.11
