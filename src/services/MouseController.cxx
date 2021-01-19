@@ -4,7 +4,7 @@
 #include "../util/Rectangle.hxx"
 #include "../events/MouseEvents.hxx"
 
-MouseController::MouseController(GameService::ServiceTuple &context) : GameService(context), m_LastHovered(nullptr)
+MouseController::MouseController(GameService::ServiceTuple &context) : GameService(context), m_LastHovered(nullptr), m_Captured(nullptr)
 {
   LOG(LOG_DEBUG) << "Created MouseController service";
 }
