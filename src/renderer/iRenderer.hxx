@@ -15,10 +15,13 @@ class iRenderer
 public:
   virtual ~iRenderer() = 0;
   virtual void drawText(const char *, RGBAColor, const Rectangle &, PositionType) = 0;
-  virtual void drawPicture(const Rectangle &, uint32_t*) = 0;
+  virtual void drawPicture(const Rectangle &, uint32_t *) = 0;
   virtual void drawShape(const Rectangle &, RGBAColor) = 0;
   virtual void drawLine() = 0;
   virtual Rectangle getDrawableSize() const noexcept = 0;
+  virtual void setViewport(const Rectangle &) = 0;
+  virtual void resetViewport() = 0;
+
 private:
   virtual void commit() = 0;
   virtual void clear() = 0;

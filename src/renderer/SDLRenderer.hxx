@@ -18,6 +18,8 @@ public:
   void drawShape(const Rectangle &, RGBAColor) final;
   void drawLine() final;
   Rectangle getDrawableSize() const noexcept final;
+  void setViewport(const Rectangle &) final;
+  void resetViewport() final;
   /**
    * @todo Remove this when new ui is complete
    */
