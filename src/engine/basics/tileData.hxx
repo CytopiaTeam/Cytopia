@@ -28,6 +28,9 @@
 #define TD_AUTHOR_MAX_CHARS 100
 #define TD_ID_MAX_CHARS 100
 #define TD_CATEGORY_MAX_CHARS 40
+#define TD_SUBCATEGORY_MAX_CHARS 40
+#define TD_REQUIREDTILES_MIN 1
+#define TD_REQUIREDTILES_MAX 20
 
 BETTER_ENUM(TileType, int,
             DEFAULT,          /// Default is for buildings and practically everything that'll be placed on the TERRAIN layer
@@ -95,6 +98,8 @@ struct TileData
   uint8_t buildingsize; /// the size that the building occupies in tiles.
   std::vector<std::string>
       biomes; /// Restrict this building to spawn only in the given biomes. Must correspond to a biome defined in resources/data/TerrainGen.json
+  std::vector<std::string> tags; /// Tags to filter buildings in the gui
+
   TileSetData tiles;                     ///Tile Spritesheet information
   TileType tileType = TileType::DEFAULT; /// todo: String for now, should be an enum
   TileSetData shoreTiles;                ///Shore Tile Spritesheet information
