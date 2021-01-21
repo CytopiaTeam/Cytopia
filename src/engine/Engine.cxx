@@ -9,7 +9,9 @@
 Engine::Engine() {}
 
 Engine::~Engine() { 
-  LOG(LOG_DEBUG) << "Destroying Engine";
+  debug_scope {
+    LOG(LOG_DEBUG) << "Destroying Engine";
+  }
   delete map;
 }
 

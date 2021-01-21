@@ -51,7 +51,9 @@ void CursorView::update(Notification notif) noexcept
 {
   CursorType type = std::get<MouseStateModel>(notif).cursorType;
   SDL_Cursor* cursor = m_Cursors[type._to_integral()].get();
-  LOG(LOG_DEBUG) << "Setting cursor";
+  debug_scope {
+    LOG(LOG_DEBUG) << "Setting cursor";
+  }
   SDL_SetCursor(cursor);
 }
 

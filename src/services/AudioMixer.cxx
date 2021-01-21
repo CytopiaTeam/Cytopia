@@ -84,7 +84,9 @@ AudioMixer::AudioMixer(GameService::ServiceTuple &context) : GameService(context
       },
       0s, 5min);
 
-  LOG(LOG_DEBUG) << "Created AudioMixer";
+  debug_scope {
+    LOG(LOG_DEBUG) << "Created AudioMixer";
+  }
 }
 
 AudioMixer::~AudioMixer()
@@ -100,7 +102,9 @@ AudioMixer::~AudioMixer()
   alcDestroyContext(alContext); //delete context
   alcCloseDevice(gAudioDevice); //close device
 
-  LOG(LOG_DEBUG) << "Destroyed AudioMixer";
+  debug_scope {
+    LOG(LOG_DEBUG) << "Destroyed AudioMixer";
+  }
 }
 
 /*

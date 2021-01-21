@@ -54,9 +54,13 @@ void Window::setActivity(iActivityPtr &&activity)
 {
   m_Renderer->clear();
   std::swap(m_Activity, activity);
-  LOG(LOG_DEBUG) << "Setting up new activity";
+  debug_scope {
+    LOG(LOG_DEBUG) << "Setting up new activity";
+  }
   m_Activity->setup(*m_Activity);
-  LOG(LOG_DEBUG) << "Drawing new activity";
+  debug_scope {
+    LOG(LOG_DEBUG) << "Drawing new activity";
+  }
 }
 
 Rectangle Window::getBounds() const noexcept { return m_Renderer->getDrawableSize(); }

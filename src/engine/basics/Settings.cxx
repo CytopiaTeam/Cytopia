@@ -12,7 +12,9 @@ Settings::Settings() { readFile(); }
 
 Settings::~Settings()
 {
-  LOG(LOG_DEBUG) << "Destroying Setttings";
+  debug_scope {
+    LOG(LOG_DEBUG) << "Destroying Setttings";
+  }
 }
 
 void Settings::readFile()

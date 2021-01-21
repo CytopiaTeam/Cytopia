@@ -19,12 +19,16 @@ int protected_main(int argc, char **argv)
   Settings &settings = Settings::instance();
   settings.parse_args(argc, argv);
 
-  LOG(LOG_DEBUG) << "Launching Cytopia";
+  debug_scope {
+    LOG(LOG_DEBUG) << "Launching Cytopia";
+  }
 
   Initializer initializer;
   Game game;
 
-  LOG(LOG_DEBUG) << "Initializing Cytopia";
+  debug_scope {
+    LOG(LOG_DEBUG) << "Initializing Cytopia";
+  }
 
   if (!game.initialize())
     return EXIT_FAILURE;
@@ -42,12 +46,13 @@ int protected_main(int argc, char **argv)
 
     if (!quitGame)
     {
-      LOG(LOG_DEBUG) << "Running the Game";
+      debug_scope {
+        LOG(LOG_DEBUG) << "Running the Game";
+      }
       game.run();
     }
   }
 
-  LOG(LOG_DEBUG) << "Closing the Game";
   return EXIT_SUCCESS;
 }
 

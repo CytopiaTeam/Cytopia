@@ -18,6 +18,12 @@
 #define __PRETTY_FUNCTION__ "Unknown_Method"
 #endif
 
+#ifdef DEBUG
+#define debug_scope
+#else
+#define debug_scope if constexpr(false)
+#endif
+
 #include <iostream>
 #include <chrono>
 #include <ctime>
