@@ -325,15 +325,28 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
 
   std::string wealth = tileDataJSON[idx].value("wealth", "none");
 
-  if (Wealth::_is_valid_nocase(wealth.c_str()))
+  if (tileDataJSON[idx].find("wealth") != tileDataJSON[idx].end())
   {
-    m_tileData[id].wealth = Wealth::_from_string_nocase(wealth.c_str());
+    for (auto wealth : tileDataJSON[idx].at("zones").items())
+    {
+      if (Wealth::_is_valid_nocase(wealth.value().get<std::string>().c_str()))
+      {
+        m_tileData[id].wealth.push_back(Wealth::_from_string_nocase(wealth.value().get<std::string>().c_str()));
+      }
+      else
+      {
+        throw ConfigurationError(TRACE_INFO "In TileData.json in field with ID " + id +
+                                 " the field wealth uses the unsupported value " + wealth.value().get<std::string>());
+      }
+    }
   }
   else
   {
-    throw ConfigurationError(TRACE_INFO "In TileData.json in field with ID " + id +
-                             " the field tileType uses the unsupported value " + wealth);
+    m_tileData[id].wealth.push_back(Wealth::HIGH);
+    m_tileData[id].wealth.push_back(Wealth::MEDIUM);
+    m_tileData[id].wealth.push_back(Wealth::LOW);
   }
+
 
   if (tileDataJSON[idx].find("zones") != tileDataJSON[idx].end())
   {
@@ -346,7 +359,7 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
       else
       {
         throw ConfigurationError(TRACE_INFO "In TileData.json in field with ID " + id +
-                                 " the field tileType uses the unsupported value " + zone.value().get<std::string>());
+                                 " the field zone uses the unsupported value " + zone.value().get<std::string>());
       }
     }
   }
@@ -366,7 +379,7 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
       else
       {
         throw ConfigurationError(TRACE_INFO "In TileData.json in field with ID " + id +
-                                 " the field tileType uses the unsupported value " + style.value().get<std::string>());
+                                 " the field style uses the unsupported value " + style.value().get<std::string>());
       }
     }
   }

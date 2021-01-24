@@ -110,7 +110,6 @@ struct TileData
   int upkeepCost = 0;                    /// monthly cost
   int power = 0;                         /// power production / consumption if negative
   int water = 0;                         /// water production / consumption if negative
-  Wealth wealth = +Wealth::LOW;          /// Restrict this building to a certain wealth level. See enum Wealth
 
   std::vector<std::string>
       groundDecoration; /// tileID of the item that should be drawn on ground below sprite instead of terrain(grass, concrete, ...). Must be a tileID with tileType GroundDecoration
@@ -125,6 +124,7 @@ struct TileData
   int educationLevel = 0;          /// How much education this building provides (educational building) / requires (job)
   std::vector<Zones> zones;        /// Restrict this building to a zone type.
   std::vector<Style> style;        /// Restrict this building to certain Art Styles.
+  std::vector<Wealth> wealth;      /// Restrict this building to a certain wealth level. See enum Wealth
   RequiredTilesData RequiredTiles; /// How many tiles this building uses.
 };
 
