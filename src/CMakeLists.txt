@@ -75,6 +75,7 @@ set(SOURCE_FILES
         view/IconButton.{hxx,cxx}
         view/ImageView.{hxx,cxx}
         view/Window.{hxx,cxx}
+        view/Window.inl.hxx
         model/iModel.{hxx,cxx}
         model/DataModel.hxx
         model/ButtonModel.{hxx,cxx}
@@ -84,6 +85,7 @@ set(SOURCE_FILES
         model/SettingsModel.{hxx,cxx}
         activity/iActivity.{hxx,cxx}
         activity/MainMenuActivity.{hxx,cxx}
+        activity/LanguageSelectionActivity.{hxx,cxx}
         layout/iLayout.{hxx,cxx}
         layout/AbsoluteLayout.{hxx,cxx}
         controller/iController.{hxx,cxx}
