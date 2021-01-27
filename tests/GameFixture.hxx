@@ -11,7 +11,7 @@ class GameFixture
 {
 public:
   GameFixture();
-  ~GameFixture();
+  ~GameFixture() = default;
 protected:
   Initializer m_Initializer;
   Game m_Game;
