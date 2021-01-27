@@ -10649,7 +10649,7 @@
     "author": "Kingtut 101",
     "category": "Flora",
     "description": "A group of plum trees.",
-    "id": "tree_ThundercloudPurpleLeadPlum_light",
+    "id": "tree_ThundercloudPurpleLeafPlum_light",
     "power": 0,
     "price": 0,
     "tiles": {
@@ -10672,7 +10672,7 @@
     "author": "Kingtut 101",
     "category": "Flora",
     "description": "A group of plum trees.",
-    "id": "tree_ThundercloudPurpleLeadPlum_medium",
+    "id": "tree_ThundercloudPurpleLeafPlum_medium",
     "power": 0,
     "price": 0,
     "tiles": {
@@ -10695,7 +10695,7 @@
     "author": "Kingtut 101",
     "category": "Flora",
     "description": "A group of plum trees.",
-    "id": "tree_ThundercloudPurpleLeadPlum_dense",
+    "id": "tree_ThundercloudPurpleLeafPlum_dense",
     "power": 0,
     "price": 0,
     "tiles": {
