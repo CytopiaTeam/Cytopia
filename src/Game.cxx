@@ -88,6 +88,20 @@ Game::Game()
   WindowManager::instance().setRealWindow(m_Window);
 }
 
+Game::~Game()
+{
+  LOG(LOG_DEBUG) << "In shutdown";
+  m_UILoopMQ.push(TerminateEvent{});
+  m_GameLoopMQ.push(TerminateEvent{});
+  m_UILoop.join();
+  m_EventLoop.join();
+
+  // TODO: this will eventually be reworked, but currently there is an issue because new render is created on windows resizing
+  ResourcesManager::instance().flush();
+  UIManager::instance().flush();
+}
+
+
 void Game::quit()
 {
 #ifdef USE_AUDIO
@@ -400,19 +414,6 @@ void Game::run(bool SkipMenu)
     MicroProfileFlip(nullptr);
 #endif
   }
-}
-
-void Game::shutdown()
-{
-  LOG(LOG_DEBUG) << "In shutdown";
-  m_UILoopMQ.push(TerminateEvent{});
-  m_GameLoopMQ.push(TerminateEvent{});
-  m_UILoop.join();
-  m_EventLoop.join();
-
-  // TODO: this will eventually be reworked, but currently there is an issue because new render is created on windows resizing
-  ResourcesManager::instance().flush();
-  UIManager::instance().flush();
 }
 
 template <typename MQType, typename Visitor> void Game::LoopMain(GameContext &context, Visitor visitor)
