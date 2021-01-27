@@ -53,6 +53,7 @@ Window::~Window()
 void Window::setActivity(iActivityPtr &&activity)
 {
   m_Renderer->clear();
+  m_MouseState.setCursor(CursorType::Arrow);
   std::swap(m_Activity, activity);
   LOG(LOG_DEBUG) << "Setting up new activity";
   m_Activity->setup(*m_Activity);

@@ -76,6 +76,7 @@ set(SOURCE_FILES
         view/ImageView.{hxx,cxx}
         view/Window.{hxx,cxx}
         view/Window.inl.hxx
+        view/TextView.{hxx,cxx}
         model/iModel.{hxx,cxx}
         model/DataModel.hxx
         model/ButtonModel.{hxx,cxx}

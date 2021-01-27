@@ -6,7 +6,7 @@
 #include "../view/Window.hxx"
 //#include "../layout/SelectionLayout.hxx"
 //#include "../SelectionLayoutController.hxx"
-//#include "../view/TextView.hxx"
+#include "../view/TextView.hxx"
 #include "../controller/ButtonHandler.hxx"
 #include "../util/LOG.hxx"
 #include "../util/Exception.hxx"
@@ -25,10 +25,11 @@ LanguageSelectionActivity::LanguageSelectionActivity(GameService::ServiceTuple &
   //  addElement(img, BoxSizing{100_lw, 100_lw}, AbsolutePosition::Origin());
   //}
   /* Create title */
-  /*{
-    TextViewPtr text = std::make_shared<TextView>("Select a language");
+  {
+    std::string title = "Select a language";
+    TextViewPtr text = std::make_shared<TextView>(title, localization.translateText(title));
     addElement(text, BoxSizing{50_lw, 10_lh}, AbsolutePosition{50_lw - 50_ew, 5_lh});
-  }*/
+  }
   /* Create all text buttons */
   {
     auto texts = std::array{"Back"};
