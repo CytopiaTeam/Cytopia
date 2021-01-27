@@ -65,6 +65,14 @@ void EventHandler::loop(UILoopMQ &uiLoopMq, MouseController &mouseCtrl)
         }
         continue;
       }
+      case SDL_MOUSEWHEEL:
+      {
+        if ((event.wheel.x != 0) || (event.wheel.y != 0))
+        {
+          mouseCtrl.scroll(ScrollEvent{(event.wheel.direction == SDL_MOUSEWHEEL_NORMAL) ? event.wheel.x : -event.wheel.x,
+                                       (event.wheel.direction == SDL_MOUSEWHEEL_NORMAL) ? event.wheel.y : -event.wheel.y});
+        }
+      }
       default:
         continue;
       }

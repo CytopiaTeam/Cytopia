@@ -17,7 +17,7 @@ void iActivity::activitySwitch(ActivityType type)
 
 Window &iActivity::getWindow() noexcept { return m_Window; }
 
-void iActivity::bindMouse()
+void iActivity::setup(GameService &context) noexcept
 {
   MouseController &mouseCtrl = GetService<MouseController>();
 
@@ -25,9 +25,6 @@ void iActivity::bindMouse()
 
   for (auto it = m_Controllers.cbegin(); it < m_Controllers.cend(); ++it)
   {
-    if (auto handler = dynamic_cast<iMouseHandler *>(it->get()))
-    {
-      mouseCtrl.addHandler(handler);
-    }
+    it->get()->setup(context);
   }
 }

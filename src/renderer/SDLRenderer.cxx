@@ -6,7 +6,8 @@
 
 SDLRenderer::SDLRenderer(SDL_Window *sdl_window)
 {
-  m_Renderer = SDL_CreateRenderer(sdl_window, -1, 0);
+  //TODO: Find proper renderer creation
+  m_Renderer = SDL_CreateRenderer(sdl_window, -1, SDL_RENDERER_SOFTWARE);
 
   if (!m_Renderer)
     throw UIError(TRACE_INFO "Failed to create Renderer: " + string{SDL_GetError()});
@@ -104,6 +105,8 @@ void SDLRenderer::drawShape(const Rectangle &r, RGBAColor c)
   SDL_SetRenderDrawColor(m_Renderer, color.r, color.g, color.b, color.a);
   SDL_Rect rect = r.to_SDL();
   SDL_RenderFillRect(m_Renderer, &rect);
+  // TODO: remove once proper handling of background picture is implemented
+  SDL_SetRenderDrawColor(m_Renderer, 0, 0, 0, 0);
 }
 
 void SDLRenderer::drawLine() { throw UnimplementedError{TRACE_INFO "Unimplemented"}; }

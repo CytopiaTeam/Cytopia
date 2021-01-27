@@ -10,7 +10,6 @@
 
 class iLayout : public virtual iView
 {
-
   using ElementList = std::vector<iViewPtr>;
   ElementList m_Elements;
   PaddingConfiguration m_PaddingConfiguration;
@@ -29,6 +28,11 @@ public:
   virtual ~iLayout() = 0;
 
   void setup(GameService &) noexcept override;
+
+  /**
+   * @brief Get number of elements in the layout.
+   */
+  const size_t getElemenentsCount() const noexcept { return m_Elements.size(); }
 
 protected:
   /**
@@ -51,6 +55,11 @@ protected:
   virtual void arrangeElements() noexcept = 0;
 
   const Rectangle &getBounds() const noexcept final;
+
+  /**
+   * @brief Provide access to the layout elements by index operator.
+   */
+  iViewPtr operator[](int idx) { return m_Elements[idx]; }
 
 private:
   void setBounds(Rectangle &&) noexcept final;

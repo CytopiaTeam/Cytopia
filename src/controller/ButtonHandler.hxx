@@ -19,12 +19,14 @@ public:
   void onMouseLeftButtonUp(class ClickEvent &&) override;
   void onMouseHover() override;
   void onMouseLeave() override;
-  const iShape & getShape() final;
+  const iShape &getShape() final;
+  void setup(GameService &) noexcept override;
+
 private:
-  ButtonModel & m_State;
-  MouseState & m_MouseState;
-  Callback m_HandleClick;  
-  const iView & m_View;
+  ButtonModel &m_State;
+  MouseState &m_MouseState;
+  Callback m_HandleClick;
+  const iView &m_View;
   bool m_IsHovered;
 };
 

@@ -16,6 +16,7 @@ public:
   virtual void onMouseLeftButtonUp(class ClickEvent &&);
   virtual void onMouseMiddleButtonUp(class ClickEvent &&);
   virtual void onMouseRightButtonUp(class ClickEvent &&);
+  virtual void onMouseMove(class MousePositionEvent &&);
   virtual void onMouseHover();
   virtual void onMouseLeave();
   virtual void onScroll(class ScrollEvent &&);

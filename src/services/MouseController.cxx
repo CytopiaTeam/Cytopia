@@ -4,34 +4,55 @@
 #include "../util/Rectangle.hxx"
 #include "../events/MouseEvents.hxx"
 
-MouseController::MouseController(GameService::ServiceTuple &context) : GameService(context), m_LastHovered(nullptr), m_Captured(nullptr)
+MouseController::MouseController(GameService::ServiceTuple &context)
+    : GameService(context), m_LastHovered(nullptr), m_Captured(nullptr)
 {
   LOG(LOG_DEBUG) << "Created MouseController service";
 }
 
 MouseController::~MouseController() { LOG(LOG_DEBUG) << "Destroying MouseController"; }
 
+static void mouseMoved(iMouseHandler *pViewCtrl, MousePositionEvent &event)
+{
+  auto [x1, y1] = pViewCtrl->getShape().getBounds().p1();
+  event.xPosition -= x1;
+  event.yPosition -= y1;
+  pViewCtrl->onMouseMove(std::move(event));
+}
+
 void MouseController::handleEvent(MousePositionEvent &&event)
 {
   Point2D point{event.xPosition, event.yPosition};
+
   if (m_LastHovered)
   {
     if (m_LastHovered->getShape().contains(point))
+    {
+      mouseMoved(m_LastHovered, event);
       return;
+    }
     else
+    {
       m_LastHovered->onMouseLeave();
+    }
   }
+
   SpatialBlock block{event};
+
   if (m_SpatialMap.count(block) > 0)
   {
     for (auto handler : m_SpatialMap.at(block))
+    {
       if (handler->getShape().contains(point))
       {
         handler->onMouseHover();
         m_LastHovered = handler;
+        mouseMoved(m_LastHovered, event);
         return;
       }
+    }
   }
+
   m_LastHovered = nullptr;
 }
 
@@ -69,6 +90,7 @@ void MouseController::leftButtonUp(ClickEvent &&event)
 {
   if (m_Captured)
   {
+
     m_Captured->onMouseLeftButtonUp(std::move(event));
     m_Captured = nullptr;
   }
@@ -106,7 +128,7 @@ void MouseController::rightButtonUp(ClickEvent &&event)
   }
 }
 
-void MouseController::handleEvent(ScrollEvent &&event)
+void MouseController::scroll(ScrollEvent &&event)
 {
   if (m_LastHovered)
     m_LastHovered->onScroll(std::move(event));

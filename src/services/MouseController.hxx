@@ -25,7 +25,7 @@ public:
   void middleButtonUp(ClickEvent &&event);
   void rightButtonUp(ClickEvent &&event);
   void handleEvent(MousePositionEvent &&);
-  void handleEvent(ScrollEvent &&);
+  void scroll(ScrollEvent &&);
   void handleEvent(ActivitySwitchEvent &&);
 
 private:

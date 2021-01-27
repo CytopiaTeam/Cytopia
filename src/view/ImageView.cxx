@@ -37,9 +37,9 @@ void ImageView::nearestXY(PixelBuffer & pb, Rectangle & target) const noexcept
   // Preserve aspect ratio
   Rectangle o_bounds = pb.bounds();
   float width_factor = o_bounds.width();
-  width_factor /= target.width();
+  width_factor = target.width() / width_factor;
   float height_factor = o_bounds.height();
-  height_factor /= target.height();
+  height_factor = target.height() / height_factor;
   float factor = std::min(width_factor, height_factor);
   pb.scale(factor);
   Rectangle nearest = pb.bounds();

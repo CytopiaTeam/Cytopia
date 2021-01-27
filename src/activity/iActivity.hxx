@@ -48,15 +48,14 @@ protected:
   template <typename ControllerType, typename... Args> ControllerType &createController(Args &&... args);
 
   /**
-   * @brief Bind mouse controller to the controller.
-   * @attention Must be called after layout is arranged.
-   */
-  void bindMouse();
-
-  /**
    * @returns the Window this Activity is assigned to 
    */
   Window &getWindow() noexcept;
+
+  /**
+   * @brief Reconfigure mouse controller mouse handlers, and setup all view elements.
+   */
+  void setup(GameService &) noexcept override;
 };
 
 using iActivityPtr = std::unique_ptr<iActivity>;

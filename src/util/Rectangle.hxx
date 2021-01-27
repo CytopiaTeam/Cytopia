@@ -4,6 +4,7 @@
 #include <tuple>
 #include <iostream>
 #include "../util/iShape.hxx"
+#include "Point2D.hxx"
 
 class SDL_Rect;
 

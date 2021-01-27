@@ -16,10 +16,10 @@ MainMenuActivity::MainMenuActivity(GameService::ServiceTuple &context, Window &w
   auto &localization = w.getSettingsModel().getLocalization();
 
   /* Create background */
-  {
-    ImageViewPtr img = std::make_shared<ImageView>("/resources/images/ui/general/background", DisplayMode::RepeatXY);
-    addElement(img, BoxSizing{100_lw, 100_lw}, AbsolutePosition::Origin());
-  }
+  //{
+  //  ImageViewPtr img = std::make_shared<ImageView>("/resources/images/ui/general/background", DisplayMode::RepeatXY);
+  //  addElement(img, BoxSizing{100_lw, 100_lw}, AbsolutePosition::Origin());
+  //}
   /* Create logo */
   {
     ImageViewPtr logo = std::make_shared<ImageView>("/resources/images/app_icons/logo_big_textured", DisplayMode::NearestXY);
@@ -71,7 +71,7 @@ void MainMenuActivity::onExit()
   SDL_PushEvent(&shutDownEv);
 }
 
-void MainMenuActivity::onLanguageSelection() { /*activitySwitch(ActivityType::LanguageSelection);*/ }
+void MainMenuActivity::onLanguageSelection() { activitySwitch(ActivityType::LanguageSelection); }
 void MainMenuActivity::onPluginSelection() { /*activitySwitch(ActivityType::PluginSelection);*/ }
 
 MainMenuActivity::~MainMenuActivity() = default;
@@ -79,5 +79,5 @@ MainMenuActivity::~MainMenuActivity() = default;
 void MainMenuActivity::setup(class GameService &context) noexcept
 {
   iLayout::setup(context);
-  bindMouse();
+  iActivity::setup(context);
 }
