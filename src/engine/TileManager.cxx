@@ -14,7 +14,9 @@ TileManager::TileManager() { init(); }
 
 TileManager::~TileManager()
 {
-  LOG(LOG_DEBUG) << "Destroying TileManager";
+  debug_scope {
+    LOG(LOG_DEBUG) << "Destroying TileManager";
+  }
 }
 
 SDL_Texture *TileManager::getTexture(const std::string &tileID) const

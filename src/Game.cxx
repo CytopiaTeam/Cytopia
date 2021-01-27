@@ -80,7 +80,9 @@ Game::Game()
                Settings::instance().getDefaultWindowHeight(), Settings::instance().fullScreen,
                "resources/images/app_icons/cytopia_icon.png")
 {
-  LOG(LOG_DEBUG) << "Created Game Object";
+  debug_scope {
+    LOG(LOG_DEBUG) << "Created Game Object";
+  }
   /**
    *  @todo Remove this when new ui is complete
    *  This is just a temporary fix
@@ -90,7 +92,9 @@ Game::Game()
 
 Game::~Game()
 {
-  LOG(LOG_DEBUG) << "In shutdown";
+  debug_scope {
+    LOG(LOG_DEBUG) << "Game shutting down";
+  }
   m_UILoopMQ.push(TerminateEvent{});
   m_GameLoopMQ.push(TerminateEvent{});
   m_UILoop.join();
@@ -136,7 +140,9 @@ bool Game::initialize()
     LOG(LOG_ERROR) << "Failed to load MO file " << moFilePath;
   }
 
-  LOG(LOG_DEBUG) << "Initialized Game Object";
+  debug_scope {
+    LOG(LOG_DEBUG) << "Initialized Game Object";
+  }
   return true;
 }
 
@@ -318,7 +324,9 @@ void Game::run(bool SkipMenu)
   benchmarkTimer.start();
   Engine &engine = Engine::instance();
 
-  LOG(LOG_DEBUG) << "Map initialized in " << benchmarkTimer.getElapsedTime() << "ms";
+  debug_scope {
+    LOG(LOG_DEBUG) << "Map initialized in " << benchmarkTimer.getElapsedTime() << "ms";
+  }
   Camera::instance().centerScreenOnMapCenter();
 
   SDL_Event event;

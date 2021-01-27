@@ -45,22 +45,30 @@ template <typename ButtonImpl> void ClassicButton<ButtonImpl>::update(Notificati
   {
   case ButtonStatus::Normal:
     m_At = 0;
-    LOG(LOG_DEBUG) << "Button back to normal";
+    debug_scope {
+      LOG(LOG_DEBUG) << "Button back to normal";
+    }
     impl->onMouseLeave();
     break;
   case ButtonStatus::Disabled:
     m_At = 2;
-    LOG(LOG_DEBUG) << "Button disabled";
+    debug_scope {
+      LOG(LOG_DEBUG) << "Button disabled";
+    }
     impl->onDisable();
     break;
   case ButtonStatus::Pressed:
     m_At = 2;
-    LOG(LOG_DEBUG) << "Button pressed";
+    debug_scope {
+      LOG(LOG_DEBUG) << "Button pressed";
+    }
     impl->onPress();
     break;
   case ButtonStatus::Hovered:
     m_At = 1;
-    LOG(LOG_DEBUG) << "Button hovered";
+    debug_scope {
+      LOG(LOG_DEBUG) << "Button hovered";
+    }
     impl->onHover();
     break;
   }
