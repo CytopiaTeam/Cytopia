@@ -77,6 +77,8 @@ set(SOURCE_FILES
         view/Window.{hxx,cxx}
         view/Window.inl.hxx
         view/TextView.{hxx,cxx}
+        view/SelectionItem.{hxx,cxx}
+        view/LanguageSelectionItem.{hxx,cxx}
         model/iModel.{hxx,cxx}
         model/DataModel.hxx
         model/ButtonModel.{hxx,cxx}
