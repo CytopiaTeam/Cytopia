@@ -17,6 +17,7 @@ private:
   int m_ContentHeight;
   float m_ScrollPosPct;
   int m_SeletedElementIdx;
+  int m_HoverElementIdx;
   static constexpr int PADDING_SCROLL_BAR = 8;
   static constexpr int PADDING_ELEMENT = 8;
   static constexpr int SCROLL_WIDTH = 10;

@@ -3,15 +3,33 @@
 
 #include "DataModel.hxx"
 
-using SelectionLayoutNotifications = TypeList<float, int>;
+struct SelectItemNotif
+{
+  int index;
+};
+
+struct HoverItemNotif
+{
+  int index;
+};
+
+struct ScrollPosNotif
+{
+  float position;
+};
+
+using SelectionLayoutNotifications = TypeList<SelectItemNotif, HoverItemNotif, ScrollPosNotif>;
 
 class SelectionLayoutModel : public DataModel<SelectionLayoutNotifications>
 {
 private:
   float m_ScrollPosition = 0.0f;
-  int m_SelectedIndex = -1;
+  int m_SelectedIndex = NOT_SELECTED_INDEX;
+  int m_HoverIndex = NOT_SELECTED_INDEX;
 
 public:
+  static constexpr int NOT_SELECTED_INDEX = -1;
+
   using DataModel::DataModel;
   /**
   * @brief Move scroll position.
@@ -28,6 +46,8 @@ public:
   * @brief Set selected item index.
   */
   void setSelectIndex(int idx);
+
+  void setHoverIndex(int idx);
 };
 
 using SelectionLayoutListener = SelectionLayoutModel::Listener;

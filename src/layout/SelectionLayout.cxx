@@ -7,8 +7,8 @@
 #include "../view/SelectionItem.hxx"
 
 SelectionLayout::SelectionLayout(Rectangle &&rect, ScreenMeasurement &&elementHeight)
-    : iLayout(std::move(rect)),
-      m_ElementHeight(elementHeight), m_ScrollPos{0}, m_ContentHeight{0}, m_ScrollPosPct{0.0f}, m_SeletedElementIdx{0}
+    : iLayout(std::move(rect)), m_ElementHeight(elementHeight), m_ScrollPos{0}, m_ContentHeight{0}, m_ScrollPosPct{0.0f},
+      m_SeletedElementIdx{0}, m_HoverElementIdx{-1}
 {
 }
 
@@ -78,18 +78,30 @@ void SelectionLayout::setup(class GameService &context) noexcept { iLayout::setu
 
 void SelectionLayout::update(Notification notif) noexcept
 {
-  // Selection index changed
-  if (std::holds_alternative<int>(notif))
+  if (std::holds_alternative<ScrollPosNotif>(notif))
   {
-    static_cast<SelectionItem *>((*this)[m_SeletedElementIdx].get())->select(false);
-    m_SeletedElementIdx = std::get<int>(notif);
-    static_cast<SelectionItem *>((*this)[m_SeletedElementIdx].get())->select(true);
+    m_ScrollPosPct = std::get<ScrollPosNotif>(notif).position;
+    calculateScrollPos();
   }
-  // Scroll position changed
+  else if (std::holds_alternative<HoverItemNotif>(notif))
+  {
+    if (m_HoverElementIdx >= 0)
+    {
+      static_cast<SelectionItem *>((*this)[m_HoverElementIdx].get())->hover(false);
+    }
+
+    m_HoverElementIdx = std::get<HoverItemNotif>(notif).index;
+
+    if (m_HoverElementIdx >= 0)
+    {
+      static_cast<SelectionItem *>((*this)[m_HoverElementIdx].get())->hover(true);
+    }
+  }
   else
   {
-    m_ScrollPosPct = std::get<float>(notif);
-    calculateScrollPos();
+    static_cast<SelectionItem *>((*this)[m_SeletedElementIdx].get())->select(false);
+    m_SeletedElementIdx = std::get<SelectItemNotif>(notif).index;
+    static_cast<SelectionItem *>((*this)[m_SeletedElementIdx].get())->select(true);
   }
 }
 

@@ -12,7 +12,11 @@ SelectionLayoutController::SelectionLayoutController(SelectionLayoutModel &model
 
 SelectionLayoutController::~SelectionLayoutController() {}
 
-void SelectionLayoutController::onScroll(class ScrollEvent &&event) { m_Model.moveScrollPos(m_Step * event.yDisplacement); }
+void SelectionLayoutController::onScroll(class ScrollEvent &&event)
+{
+  m_Model.moveScrollPos(m_Step * event.yDisplacement);
+  m_Model.setHoverIndex(SelectionLayoutModel::NOT_SELECTED_INDEX);
+}
 
 const iShape &SelectionLayoutController::getShape() { return m_View.getBounds(); }
 
@@ -23,7 +27,30 @@ void SelectionLayoutController::setup(GameService &context) noexcept
 
   auto &layoutView = dynamic_cast<const SelectionLayout &>(m_View);
   m_ContentHeight = layoutView.getContentHeight();
-  m_Step = 5.0f / m_ContentHeight;
+  m_Step = SCROLL_STEP_PX / m_ContentHeight;
+}
+
+void SelectionLayoutController::onMouseMove(class MousePositionEvent &&event)
+{
+  int wholeYPos = event.yPosition - m_ElementPadding + (m_ContentHeight * m_Model.getScrollPos());
+
+  if ((wholeYPos % (m_ElementHeight + m_ElementPadding)) <= m_ElementHeight)
+  {
+    const int index = wholeYPos / (m_ElementHeight + m_ElementPadding);
+
+    if ((index >= 0) && (index < m_ElementCount))
+    {
+      m_Model.setHoverIndex(index);
+    }
+    else
+    {
+      m_Model.setHoverIndex(SelectionLayoutModel::NOT_SELECTED_INDEX);
+    }
+  }
+  else
+  {
+    m_Model.setHoverIndex(SelectionLayoutModel::NOT_SELECTED_INDEX);
+  }
 }
 
 void SelectionLayoutController::onMouseLeftButtonUp(class ClickEvent &&event)
@@ -41,7 +68,7 @@ void SelectionLayoutController::onMouseLeftButtonUp(class ClickEvent &&event)
 
       if ((index >= 0) && (index < m_ElementCount))
       {
-        m_Model.setSelectIndex(wholeYPos / (m_ElementHeight + m_ElementPadding));
+        m_Model.setSelectIndex(index);
       }
     }
   }

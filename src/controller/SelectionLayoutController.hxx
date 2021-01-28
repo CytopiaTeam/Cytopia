@@ -17,6 +17,7 @@ public:
   ~SelectionLayoutController() override;
   void onScroll(class ScrollEvent &&) override;
   void onMouseLeftButtonUp(class ClickEvent &&) override;
+  void onMouseMove(class MousePositionEvent &&) override;
   const iShape &getShape() final;
   void setup(GameService &) noexcept override;
 
@@ -31,6 +32,7 @@ private:
   int m_ElementHeight;
   int m_ElementPadding;
   size_t m_ElementCount;
+  static constexpr float SCROLL_STEP_PX = 5.0f;
 };
 
 #endif // SELECTION_LAYOUT_CONTROLLER_HXX
