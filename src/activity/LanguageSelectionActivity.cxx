@@ -4,15 +4,15 @@
 #include "../view/ImageView.hxx"
 #include "../util/BoxSizing.hxx"
 #include "../view/Window.hxx"
-//#include "../layout/SelectionLayout.hxx"
-//#include "../SelectionLayoutController.hxx"
+#include "../layout/SelectionLayout.hxx"
+#include "../controller/SelectionLayoutController.hxx"
 #include "../view/TextView.hxx"
 #include "../controller/ButtonHandler.hxx"
 #include "../util/LOG.hxx"
 #include "../util/Exception.hxx"
 #include "../util/ZipRange.hxx"
 #include "../services/MouseController.hxx"
-//#include "../LanguageSelectionItem.hxx"
+#include "../view/LanguageSelectionItem.hxx"
 
 LanguageSelectionActivity::LanguageSelectionActivity(GameService::ServiceTuple &context, Window &w)
     : iActivity(context, w), AbsoluteLayout(w.getBounds())
@@ -47,29 +47,29 @@ LanguageSelectionActivity::LanguageSelectionActivity(GameService::ServiceTuple &
     }
   }
   /* Create Scrolling layout with language elements */
-  //{
-  //  auto languagesView = std::make_shared<SelectionLayout>(Rectangle::EMPTY(), 40_px);
+  {
+    auto languagesView = std::make_shared<SelectionLayout>(Rectangle::EMPTY(), 40_px);
 
-  //  for (auto lang : {"English", "French",  "German",  "VERYLONG______________________________VERYLONG",
-  //                    "English", "English", "English", "English",
-  //                    "English", "English", "English", "English",
-  //                    "English", "English", "English", "English",
-  //                    "English", "English", "English", "English",
-  //                    "English", "English", "English", "English",
-  //                    "English", "English", "English", "English",
-  //                    "English", "English", "English", "English",
-  //                    "English", "English", "English", "English",
-  //                    "LAST"})
-  //  {
-  //    auto pItem = std::make_shared<LanguageSelectionItem>(lang, std::strcmp(lang, "English"));
-  //    languagesView->addElement(pItem);
-  //  }
+    for (auto lang : {"English", "French",  "German",  "VERYLONG______________________________VERYLONG",
+                      "English", "English", "English", "English",
+                      "English", "English", "English", "English",
+                      "English", "English", "English", "English",
+                      "English", "English", "English", "English",
+                      "English", "English", "English", "English",
+                      "English", "English", "English", "English",
+                      "English", "English", "English", "English",
+                      "English", "English", "English", "English",
+                      "LAST"})
+    {
+      auto pItem = std::make_shared<LanguageSelectionItem>(lang, std::strcmp(lang, "English"));
+      languagesView->addElement(pItem);
+    }
 
-  //  addElement(languagesView, BoxSizing{70_lw, 70_lh}, AbsolutePosition{15_lw, 15_lh});
-  //  SelectionLayoutModel &model = createModel<SelectionLayoutModel>();
-  //  createController<SelectionLayoutController>(model, getWindow().getMouseState(), *languagesView);
-  //  model.addObserver(languagesView);
-  //}
+    addElement(languagesView, BoxSizing{70_lw, 70_lh}, AbsolutePosition{15_lw, 15_lh});
+    SelectionLayoutModel &model = createModel<SelectionLayoutModel>();
+    createController<SelectionLayoutController>(model, getWindow().getMouseState(), *languagesView);
+    model.addObserver(languagesView);
+  }
 }
 
 void LanguageSelectionActivity::onBack() { activitySwitch(ActivityType::MainMenu); }
