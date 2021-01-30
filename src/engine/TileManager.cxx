@@ -352,10 +352,7 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
       }
     }
   }
-  else
-  {
-    m_tileData[id].zones.push_back(Zones::NONE);
-  }
+
 
   if (tileDataJSON[idx].find("style") != tileDataJSON[idx].end())
   {

@@ -48,7 +48,6 @@ BETTER_ENUM(TileType, int,
 
 //
 BETTER_ENUM(Zones, int,
-            NONE, /// not applicable
             RESIDENTIAL, INDUSTRIAL, COMMERCIAL, AGRICULTURAL)
 
 BETTER_ENUM(Wealth, int,
