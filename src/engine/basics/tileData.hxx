@@ -59,7 +59,6 @@ BETTER_ENUM(Wealth, int,
 )
 
 BETTER_ENUM(Style, int,
-            ALL,      /// Default, place the Building in all Styles
             ASIAN,    /// This building will only appear in a game with the Style Asian
             EUROPEAN, /// This building will only appear in a game with the Style European
             US        /// This building will only appear in a game with the Style US

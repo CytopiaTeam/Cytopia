@@ -379,7 +379,8 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
   }
   else
   {
-    m_tileData[id].style.push_back(Style::ALL);
+    for (auto style : Style::_values())
+    m_tileData[id].style.push_back(style);
   }
 
   if (tileDataJSON[idx].find("biomes") != tileDataJSON[idx].end())
