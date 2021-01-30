@@ -325,17 +325,22 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
                              " the field tileType uses the unsupported value " + tileTypeStr);
   }
 
-  std::string wealth = tileDataJSON[idx].value("wealth", "none");
+  if (tileDataJSON[idx].find("wealth") != tileDataJSON[idx].end())
+  {
+    for (auto wealth : tileDataJSON[idx].at("zones").items())
+    {
+      if (Wealth::_is_valid_nocase(wealth.value().get<std::string>().c_str()))
+      {
+        m_tileData[id].wealth.push_back(Wealth::_from_string_nocase(wealth.value().get<std::string>().c_str()));
+      }
+      else
+      {
+        throw ConfigurationError(TRACE_INFO "In TileData.json in field with ID " + id +
+                                 " the field wealth uses the unsupported value " + wealth.value().get<std::string>());
+      }
+    }
+  }
 
-  if (Wealth::_is_valid_nocase(wealth.c_str()))
-  {
-    m_tileData[id].wealth = Wealth::_from_string_nocase(wealth.c_str());
-  }
-  else
-  {
-    throw ConfigurationError(TRACE_INFO "In TileData.json in field with ID " + id +
-                             " the field tileType uses the unsupported value " + wealth);
-  }
 
   if (tileDataJSON[idx].find("zones") != tileDataJSON[idx].end())
   {
@@ -348,14 +353,11 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
       else
       {
         throw ConfigurationError(TRACE_INFO "In TileData.json in field with ID " + id +
-                                 " the field tileType uses the unsupported value " + zone.value().get<std::string>());
+                                 " the field zone uses the unsupported value " + zone.value().get<std::string>());
       }
     }
   }
-  else
-  {
-    m_tileData[id].zones.push_back(Zones::NONE);
-  }
+
 
   if (tileDataJSON[idx].find("style") != tileDataJSON[idx].end())
   {
@@ -368,13 +370,9 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
       else
       {
         throw ConfigurationError(TRACE_INFO "In TileData.json in field with ID " + id +
-                                 " the field tileType uses the unsupported value " + style.value().get<std::string>());
+                                 " the field style uses the unsupported value " + style.value().get<std::string>());
       }
     }
-  }
-  else
-  {
-    m_tileData[id].style.push_back(Style::ALL);
   }
 
   if (tileDataJSON[idx].find("biomes") != tileDataJSON[idx].end())
@@ -383,6 +381,23 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
     {
       m_tileData[id].biomes.push_back(biome.value().get<std::string>());
     }
+  }
+
+  // TileData colors
+  if (tileDataJSON[idx].find("colors") != tileDataJSON[idx].end())
+  {
+    for (const auto &color : tileDataJSON[idx].at("colors").items())
+    {
+      LOG(LOG_INFO) << color.value();
+      //auto col = color.value();
+      //RGBAColor cola = color.value();
+      //m_tileData[id].colors.push_back(color.value());
+    }
+  }
+  else
+  {
+    // set default value
+    //m_tileData[id].wealth.push_back("#00000000");
   }
 
   if (tileDataJSON[idx].find("groundDecoration") != tileDataJSON[idx].end())
