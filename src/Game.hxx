@@ -36,7 +36,7 @@ public:
   /**
    * @brief Destroy a game
    */
-  virtual ~Game() = default;
+  virtual ~Game();
 
   /** @brief starts setting up the game
     * starts game initialization.
@@ -48,11 +48,6 @@ public:
     * @param SkipMenu if the main menu should be skipped or not
     */
   virtual void run(bool SkipMenu = false);
-
-  /** @brief ends the game
-    * shuts down the game
-    */
-  virtual void shutdown();
 
   /** @brief initializes and displays the main menu
     * initializes and displays the main menu

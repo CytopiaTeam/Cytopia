@@ -18,7 +18,9 @@
 
 EventManager::~EventManager()
 {
-  LOG(LOG_DEBUG) << "Destroying Event Manager";
+  debug_scope {
+    LOG(LOG_DEBUG) << "Destroying Event Manager";
+  }
 }
 
 void EventManager::unHighlightNodes()

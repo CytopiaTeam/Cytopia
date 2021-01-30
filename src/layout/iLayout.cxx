@@ -15,7 +15,9 @@ const PaddingConfiguration &iLayout::getPadding() const { return m_PaddingConfig
 
 void iLayout::draw(iRenderer &renderer) const noexcept
 {
-  LOG(LOG_DEBUG) << "Drawing a iLayout";
+  debug_scope {
+    LOG(LOG_DEBUG) << "Drawing a iLayout";
+  }
   for (auto &element : m_Elements)
     element->draw(renderer);
 }

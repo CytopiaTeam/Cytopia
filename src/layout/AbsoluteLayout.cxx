@@ -11,7 +11,9 @@ iViewPtr AbsoluteLayout::addElement(iViewPtr pWid, BoxSizing &&bs, AbsolutePosit
 
 void AbsoluteLayout::arrangeElements() noexcept
 {
-  LOG(LOG_DEBUG) << "Computing boundaries";
+  debug_scope {
+    LOG(LOG_DEBUG) << "Computing boundaries";
+  }
   const auto &bounds = getBounds();
   ScreenMeasurementValuation mv{0, 0, bounds.width(), bounds.height()};
   for (const auto &[size, position, element] : ZipRange{m_Sizes, m_Positions, elements()})

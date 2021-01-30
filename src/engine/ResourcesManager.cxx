@@ -17,7 +17,9 @@ ResourcesManager::ResourcesManager() { loadUITexture(); }
 
 ResourcesManager::~ResourcesManager()
 {
-  LOG(LOG_DEBUG) << "Destroying ResourcesManager"; 
+  debug_scope {
+    LOG(LOG_DEBUG) << "Destroying ResourcesManager"; 
+  }
   flush(); 
 }
 
