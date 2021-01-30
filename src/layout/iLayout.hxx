@@ -32,7 +32,7 @@ public:
   /**
    * @brief Get number of elements in the layout.
    */
-  const size_t getElemenentsCount() const noexcept { return m_Elements.size(); }
+  size_t getElemenentsCount() const noexcept { return m_Elements.size(); }
 
 protected:
   /**
