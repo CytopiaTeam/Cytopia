@@ -12,15 +12,24 @@ MouseController::MouseController(GameService::ServiceTuple &context)
 
 MouseController::~MouseController() { LOG(LOG_DEBUG) << "Destroying MouseController"; }
 
-static void mouseMoved(iMouseHandler *pViewCtrl, MousePositionEvent &event)
+void MouseController::mouseMoved(MousePositionEvent &event)
 {
-  auto [x1, y1] = pViewCtrl->getShape().getBounds().p1();
-  event.xPosition -= x1;
-  event.yPosition -= y1;
-  pViewCtrl->onMouseMove(std::move(event));
+  iMouseHandler *pViewCtrl = m_LastHovered;
+  if (m_Captured)
+  {
+    pViewCtrl = m_Captured;
+  }
+
+  if (pViewCtrl)
+  {
+    auto [x1, y1] = pViewCtrl->getShape().getBounds().p1();
+    event.xPosition -= x1;
+    event.yPosition -= y1;
+    pViewCtrl->onMouseMove(std::move(event));
+  }
 }
 
-void MouseController::handleEvent(MousePositionEvent &&event)
+void MouseController::mouseHover(MousePositionEvent &event)
 {
   Point2D point{event.xPosition, event.yPosition};
 
@@ -28,7 +37,6 @@ void MouseController::handleEvent(MousePositionEvent &&event)
   {
     if (m_LastHovered->getShape().contains(point))
     {
-      mouseMoved(m_LastHovered, event);
       return;
     }
     else
@@ -47,13 +55,18 @@ void MouseController::handleEvent(MousePositionEvent &&event)
       {
         handler->onMouseHover();
         m_LastHovered = handler;
-        mouseMoved(m_LastHovered, event);
         return;
       }
     }
   }
 
   m_LastHovered = nullptr;
+}
+
+void MouseController::handleEvent(MousePositionEvent &&event)
+{
+  mouseHover(event);
+  mouseMoved(event);
 }
 
 void MouseController::addHandler(iMouseHandler *handler)

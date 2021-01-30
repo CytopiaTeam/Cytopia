@@ -17,6 +17,7 @@ public:
   ~SelectionLayoutController() override;
   void onScroll(class ScrollEvent &&) override;
   void onMouseLeftButtonUp(class ClickEvent &&) override;
+  void onMouseLeftButtonDown(class ClickEvent &&) override;
   void onMouseMove(class MousePositionEvent &&) override;
   const iShape &getShape() final;
   void setup(GameService &) noexcept override;
@@ -31,6 +32,12 @@ private:
   int m_ContentHeight;
   int m_ElementHeight;
   int m_ElementPadding;
+  bool m_IsThumbCaptured;
+  int m_ThumbCapturedYMin;
+  int m_ThumbCapturedYMax;
+  int m_ThumbHeight;
+  int m_ScrollPading;
+  int m_ThumbWidth;
   size_t m_ElementCount;
   static constexpr float SCROLL_STEP_PX = 5.0f;
 };

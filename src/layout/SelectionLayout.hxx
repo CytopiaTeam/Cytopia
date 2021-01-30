@@ -35,6 +35,9 @@ public:
   int getContentHeight() const { return m_ContentHeight; }
   int getElementPadding() const { return PADDING_ELEMENT; }
   int getElementHeight() const { return m_ElementHeight.px; }
+  int getThumbHeight() const { return THUMB_HEIGHT; }
+  int getScrollBarWidth() const { return SCROLL_WIDTH; }
+  int getScrollBarPading() const { return PADDING_SCROLL_BAR; }
   using iLayout::addElement;
 };
 

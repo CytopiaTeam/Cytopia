@@ -2,7 +2,12 @@
 
 void SelectionLayoutModel::moveScrollPos(float steps)
 {
-  m_ScrollPosition = std::clamp(m_ScrollPosition + steps, 0.f, 1.f);
+  setScrollPos(m_ScrollPosition + steps);
+}
+
+void SelectionLayoutModel::setScrollPos(float pos)
+{
+  m_ScrollPosition = std::clamp(pos, 0.f, 1.f);
   notifyObservers(Notification{ScrollPosNotif{m_ScrollPosition}});
 }
 

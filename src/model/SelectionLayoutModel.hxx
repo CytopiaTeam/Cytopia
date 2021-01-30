@@ -31,11 +31,18 @@ public:
   static constexpr int NOT_SELECTED_INDEX = -1;
 
   using DataModel::DataModel;
+
   /**
   * @brief Move scroll position.
-  * @param steps Scroll steps.
+  * @param steps Scroll position increment.
   */
   void moveScrollPos(float steps);
+
+  /**
+  * @brief Set scroll position.
+  * @param pos New scroll position.
+  */
+  void setScrollPos(float pos);
 
   /**
   * @brief Get scroll position.
@@ -47,6 +54,9 @@ public:
   */
   void setSelectIndex(int idx);
 
+  /**
+  * @brief Set hovering item index.
+  */
   void setHoverIndex(int idx);
 };
 
