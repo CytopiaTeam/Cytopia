@@ -52,7 +52,6 @@ BETTER_ENUM(Zones, int,
             RESIDENTIAL, INDUSTRIAL, COMMERCIAL, AGRICULTURAL)
 
 BETTER_ENUM(Wealth, int,
-            NONE,   /// not applicable
             LOW,    /// Low income
             MEDIUM, /// Medium income
             HIGH    /// High income
