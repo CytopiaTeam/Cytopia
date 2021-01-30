@@ -12,10 +12,7 @@ using json = nlohmann::json;
 
 TileManager::TileManager() { init(); }
 
-TileManager::~TileManager()
-{
-  LOG(LOG_DEBUG) << "Destroying TileManager";
-}
+TileManager::~TileManager() { LOG(LOG_DEBUG) << "Destroying TileManager"; }
 
 SDL_Texture *TileManager::getTexture(const std::string &tileID) const
 {
@@ -323,8 +320,6 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
                              " the field tileType uses the unsupported value " + tileTypeStr);
   }
 
-  std::string wealth = tileDataJSON[idx].value("wealth", "none");
-
   if (tileDataJSON[idx].find("wealth") != tileDataJSON[idx].end())
   {
     for (auto wealth : tileDataJSON[idx].at("zones").items())
@@ -346,7 +341,6 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
     m_tileData[id].wealth.push_back(Wealth::MEDIUM);
     m_tileData[id].wealth.push_back(Wealth::LOW);
   }
-
 
   if (tileDataJSON[idx].find("zones") != tileDataJSON[idx].end())
   {
@@ -394,6 +388,23 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
     {
       m_tileData[id].biomes.push_back(biome.value().get<std::string>());
     }
+  }
+
+  // TileData colors
+  if (tileDataJSON[idx].find("colors") != tileDataJSON[idx].end())
+  {
+    for (const auto &color : tileDataJSON[idx].at("colors").items())
+    {
+      LOG(LOG_INFO) << color.value();
+      //auto col = color.value();
+      //RGBAColor cola = color.value();
+      //m_tileData[id].colors.push_back(color.value());
+    }
+  }
+  else
+  {
+    // set default value
+    //m_tileData[id].wealth.push_back("#00000000");
   }
 
   if (tileDataJSON[idx].find("groundDecoration") != tileDataJSON[idx].end())

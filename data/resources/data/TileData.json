@@ -1641,6 +1641,11 @@
     "id": "res_1x1_SmallRedHouse_RF",
     "power": 0,
     "price": 0,
+    "colors":
+    [
+      "#123456",
+      "#123456"
+    ],
     "tiles": {
       "clip_height": 25,
       "clip_width": 32,

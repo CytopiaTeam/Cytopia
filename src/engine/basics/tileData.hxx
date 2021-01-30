@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 #include "enums.hxx"
+#include "../../util/Color.hxx"
+
 
 /// min and max values for tileData
 #define TD_PRICE_MIN 0
@@ -125,6 +127,8 @@ struct TileData
   std::vector<Zones> zones;        /// Restrict this building to a zone type.
   std::vector<Style> style;        /// Restrict this building to certain Art Styles.
   std::vector<Wealth> wealth;      /// Restrict this building to a certain wealth level. See enum Wealth
+  std::vector<RGBAColor> colors;   /// Possible color variations for this tile (magic pixel colors)
+
   RequiredTilesData RequiredTiles; /// How many tiles this building uses.
 };
 
