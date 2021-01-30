@@ -1692,3 +1692,11 @@ msgstr  ""
 #. This is a title for an object with the description: Terrain Snow tiles
 msgid   "snow"
 msgstr  ""
+
+#. This is for a UiElement
+msgid   "Back"
+msgstr  ""
+
+#. This is for a Language Selection Activity
+msgid   "Select a language"
+msgstr  ""
