@@ -55,11 +55,11 @@ void SelectionLayout::draw(iRenderer &renderer) const noexcept
   // Scroll bar
   Rectangle scroller = Rectangle{target.x2() - PADDING_SCROLL_BAR - SCROLL_WIDTH, target.y1() + PADDING_SCROLL_BAR,
                                  target.x2() - PADDING_SCROLL_BAR, target.y2() - PADDING_SCROLL_BAR};
-  renderer.drawShape(scroller, RGBAColor(50, 255, 50, 255));
+  renderer.drawShape(scroller, Palette::Black);
 
   Rectangle thumb = Rectangle{target.x2() - PADDING_SCROLL_BAR - SCROLL_WIDTH, target.y1() + PADDING_SCROLL_BAR + m_ScrollPos,
-                              target.x2() - PADDING_SCROLL_BAR, target.y1() + PADDING_SCROLL_BAR + m_ScrollPos + 10};
-  renderer.drawShape(thumb, RGBAColor(255, 50, 50, 255));
+                              target.x2() - PADDING_SCROLL_BAR, target.y1() + PADDING_SCROLL_BAR + m_ScrollPos + THUMB_HEIGHT};
+  renderer.drawShape(thumb, Palette::Gray);
 
   auto &bonds = getBounds();
   Rectangle contentWindow = Rectangle{bonds.x1() + PADDING_SCROLL_BAR, bonds.y1() + PADDING_SCROLL_BAR,
@@ -115,7 +115,7 @@ void SelectionLayout::scrollItems(int scrollPos)
 
 void SelectionLayout::calculateScrollPos()
 {
-  m_ScrollPos = m_ScrollPosPct * (getBounds().height() - 2 * PADDING_SCROLL_BAR - SCROLL_WIDTH);
+  m_ScrollPos = m_ScrollPosPct * (getBounds().height() - 2 * PADDING_SCROLL_BAR - THUMB_HEIGHT);
   const int scroll = m_ScrollPosPct * m_ContentHeight;
   scrollItems(-scroll);
 }

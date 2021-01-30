@@ -21,6 +21,7 @@ private:
   static constexpr int PADDING_SCROLL_BAR = 8;
   static constexpr int PADDING_ELEMENT = 8;
   static constexpr int SCROLL_WIDTH = 10;
+  static constexpr int THUMB_HEIGHT = 24;
 
   void scrollItems(int scrollPos);
   void calculateScrollPos();
