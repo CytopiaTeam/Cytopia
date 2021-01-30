@@ -335,12 +335,7 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
       }
     }
   }
-  else
-  {
-    m_tileData[id].wealth.push_back(Wealth::HIGH);
-    m_tileData[id].wealth.push_back(Wealth::MEDIUM);
-    m_tileData[id].wealth.push_back(Wealth::LOW);
-  }
+
 
   if (tileDataJSON[idx].find("zones") != tileDataJSON[idx].end())
   {
@@ -376,11 +371,6 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
                                  " the field style uses the unsupported value " + style.value().get<std::string>());
       }
     }
-  }
-  else
-  {
-    for (auto style : Style::_values())
-    m_tileData[id].style.push_back(style);
   }
 
   if (tileDataJSON[idx].find("biomes") != tileDataJSON[idx].end())
