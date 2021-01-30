@@ -17,6 +17,7 @@ public:
   SettingsModel(UILoopMQ &mq);
   const iLocalization &getLocalization() { return m_Localization; }
   void setLanguage(std::string language);
+  std::string getLanguage() { return m_Language; }
 
 private:
   std::string m_Language;

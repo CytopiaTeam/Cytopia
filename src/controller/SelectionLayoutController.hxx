@@ -12,8 +12,9 @@
 class SelectionLayoutController : public iMouseHandler
 {
 public:
-  using Callback = std::function<void()>;
-  SelectionLayoutController(SelectionLayoutModel &model, MouseState &mouse_state, const SelectionLayout &view);
+  using OnItemSelectedCbk = std::function<void(int index)>;
+  SelectionLayoutController(SelectionLayoutModel &model, MouseState &mouse_state, const SelectionLayout &view,
+                            OnItemSelectedCbk onItemSelectCbk);
   ~SelectionLayoutController() override;
   void onScroll(class ScrollEvent &&) override;
   void onMouseLeftButtonUp(class ClickEvent &&) override;
@@ -21,10 +22,11 @@ public:
   void onMouseMove(class MousePositionEvent &&) override;
   const iShape &getShape() final;
   void setup(GameService &) noexcept override;
+  void setSelectionIndex(int index);
 
 private:
   MouseState &m_MouseState;
-  Callback m_HandleScroll;
+  OnItemSelectedCbk m_HandleItemSelection;
   const iView &m_View;
   SelectionLayoutModel &m_Model;
   int m_Size;

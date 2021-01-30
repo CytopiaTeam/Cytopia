@@ -3,10 +3,10 @@
 #include "../util/Rectangle.hxx"
 
 SelectionLayoutController::SelectionLayoutController(SelectionLayoutModel &model, MouseState &mouse_state,
-                                                     const SelectionLayout &view)
-    : m_Model(model), m_MouseState(mouse_state), m_View(view), m_Size{0}, m_Step{0}, m_ContentHeight{0},
-      m_ElementHeight{view.getElementHeight()}, m_ElementPadding{view.getElementPadding()}, m_IsThumbCaptured{false},
-      m_ThumbCapturedYMin{0}, m_ThumbCapturedYMax{0}, m_ThumbHeight{view.getThumbHeight()},
+                                                     const SelectionLayout &view, OnItemSelectedCbk onItemSelectCbk)
+    : m_Model(model), m_HandleItemSelection{onItemSelectCbk}, m_MouseState(mouse_state), m_View(view), m_Size{0}, m_Step{0},
+      m_ContentHeight{0}, m_ElementHeight{view.getElementHeight()}, m_ElementPadding{view.getElementPadding()},
+      m_IsThumbCaptured{false}, m_ThumbCapturedYMin{0}, m_ThumbCapturedYMax{0}, m_ThumbHeight{view.getThumbHeight()},
       m_ScrollPading{view.getScrollBarPading()}, m_ThumbWidth{view.getScrollBarWidth()}, m_ElementCount{view.getElemenentsCount()}
 {
 }
@@ -100,12 +100,19 @@ void SelectionLayoutController::onMouseLeftButtonUp(class ClickEvent &&event)
       if ((wholeYPos % (m_ElementHeight + m_ElementPadding)) <= m_ElementHeight)
       {
         const int index = wholeYPos / (m_ElementHeight + m_ElementPadding);
-
-        if ((index >= 0) && (index < m_ElementCount))
-        {
-          m_Model.setSelectIndex(index);
-        }
+        setSelectionIndex(index);
       }
+    }
+  }
+}
+
+void SelectionLayoutController::setSelectionIndex(int index)
+{
+  if ((index >= 0) && (index < m_ElementCount))
+  {
+    if (m_Model.setSelectIndex(index))
+    {
+      m_HandleItemSelection(index);
     }
   }
 }

@@ -11,13 +11,16 @@ void SelectionLayoutModel::setScrollPos(float pos)
   notifyObservers(Notification{ScrollPosNotif{m_ScrollPosition}});
 }
 
-void SelectionLayoutModel::setSelectIndex(int idx)
+bool SelectionLayoutModel::setSelectIndex(int idx)
 {
   if (m_SelectedIndex != idx)
   {
     m_SelectedIndex = idx;
     notifyObservers(Notification{SelectItemNotif{m_SelectedIndex}});
+    return true;
   }
+
+  return false;
 }
 
 void SelectionLayoutModel::setHoverIndex(int idx)

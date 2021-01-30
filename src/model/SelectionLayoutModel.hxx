@@ -51,8 +51,9 @@ public:
 
   /**
   * @brief Set selected item index.
+  * @return Whether selected item has been changed.
   */
-  void setSelectIndex(int idx);
+  bool setSelectIndex(int idx);
 
   /**
   * @brief Set hovering item index.

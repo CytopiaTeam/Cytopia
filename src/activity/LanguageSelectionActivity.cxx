@@ -15,8 +15,21 @@
 #include "../view/LanguageSelectionItem.hxx"
 
 LanguageSelectionActivity::LanguageSelectionActivity(GameService::ServiceTuple &context, Window &w)
-    : iActivity(context, w), AbsoluteLayout(w.getBounds())
+    : iActivity(context, w), AbsoluteLayout(w.getBounds()), m_Languages{}
 {
+  m_Languages.emplace_back(LanguageSelection{"Chinese", "zh", false});
+  m_Languages.emplace_back(LanguageSelection{"Dutch", "nl", true});
+  m_Languages.emplace_back(LanguageSelection{"English", "en", true});
+  m_Languages.emplace_back(LanguageSelection{"Finnish", "fi", false});
+  m_Languages.emplace_back(LanguageSelection{"French", "fr", false});
+  m_Languages.emplace_back(LanguageSelection{"Hungarian", "hu", false});
+  m_Languages.emplace_back(LanguageSelection{"Indonesian", "id", false});
+  m_Languages.emplace_back(LanguageSelection{"Norwegian Bokmal", "nb_NO", false});
+  m_Languages.emplace_back(LanguageSelection{"Portuguese", "pt", false});
+  m_Languages.emplace_back(LanguageSelection{"Russian", "ru", false});
+  m_Languages.emplace_back(LanguageSelection{"Spanish", "es", false});
+  m_Languages.emplace_back(LanguageSelection{"Turkish", "tr", true});
+
   auto &localization = w.getSettingsModel().getLocalization();
 
   ///* Create background */
@@ -30,49 +43,44 @@ LanguageSelectionActivity::LanguageSelectionActivity(GameService::ServiceTuple &
     TextViewPtr text = std::make_shared<TextView>(title, localization.translateText(title));
     addElement(text, BoxSizing{50_lw, 10_lh}, AbsolutePosition{50_lw - 50_ew, 5_lh});
   }
+
   /* Create all text buttons */
   {
-    auto texts = std::array{"Back"};
-    auto topPositions = std::array{87_lh};
-    auto callbacks = std::array{
-        std::bind(&LanguageSelectionActivity::onBack, this),
-    };
-    for (auto [text, tp, cb] : ZipRange{texts, topPositions, callbacks})
-    {
-      TextButtonPtr button = std::make_shared<TextButton>(text, localization.translateText(text));
-      ButtonModel &state = createModel<ButtonModel>();
-      addElement(button, BoxSizing{30_lw, 10_lh}, AbsolutePosition{50_lw - 50_ew, tp});
-      createController<ButtonHandler>(cb, state, getWindow().getMouseState(), *button);
-      state.addObserver(button);
-    }
+    std::string buttonText{"Back"};
+    TextButtonPtr button = std::make_shared<TextButton>(buttonText, localization.translateText(buttonText));
+    ButtonModel &state = createModel<ButtonModel>();
+    addElement(button, BoxSizing{30_lw, 10_lh}, AbsolutePosition{50_lw - 50_ew, 87_lh});
+    createController<ButtonHandler>(std::bind(&LanguageSelectionActivity::onBack, this), state, getWindow().getMouseState(),
+                                    *button);
+    state.addObserver(button);
   }
+
   /* Create Scrolling layout with language elements */
   {
     auto languagesView = std::make_shared<SelectionLayout>(Rectangle::EMPTY(), 40_px);
 
-    for (auto lang : {"English", "French",  "German",  "VERYLONG______________________________VERYLONG",
-                      "English", "English", "English", "English",
-                      "English", "English", "English", "English",
-                      "English", "English", "English", "English",
-                      "English", "English", "English", "English",
-                      "English", "English", "English", "English",
-                      "English", "English", "English", "English",
-                      "English", "English", "English", "English",
-                      "English", "English", "English", "English",
-                      "LAST"})
+    for (auto lang : m_Languages)
     {
-      auto pItem = std::make_shared<LanguageSelectionItem>(lang, std::strcmp(lang, "English"));
+      auto pItem = std::make_shared<LanguageSelectionItem>(lang.name, lang.isTranslated);
       languagesView->addElement(pItem);
     }
 
     addElement(languagesView, BoxSizing{70_lw, 70_lh}, AbsolutePosition{15_lw, 15_lh});
     SelectionLayoutModel &model = createModel<SelectionLayoutModel>();
-    createController<SelectionLayoutController>(model, getWindow().getMouseState(), *languagesView);
+    SelectionLayoutController &ctrl = createController<SelectionLayoutController>(
+        model, getWindow().getMouseState(), *languagesView,
+        std::bind(&LanguageSelectionActivity::onLanguageSelected, this, std::placeholders::_1));
     model.addObserver(languagesView);
+    ctrl.setSelectionIndex(getSelectedLanguageIndex());
   }
 }
 
 void LanguageSelectionActivity::onBack() { activitySwitch(ActivityType::MainMenu); }
+
+void LanguageSelectionActivity::onLanguageSelected(int index)
+{
+  getWindow().getSettingsModel().setLanguage(m_Languages[index].shortName);
+}
 
 LanguageSelectionActivity::~LanguageSelectionActivity() = default;
 
@@ -80,4 +88,18 @@ void LanguageSelectionActivity::setup(class GameService &context) noexcept
 {
   iLayout::setup(context);
   iActivity::setup(context);
+}
+
+int LanguageSelectionActivity::getSelectedLanguageIndex()
+{
+  std::string selectedLanguage = getWindow().getSettingsModel().getLanguage();
+  auto selectedLangugeIter = std::find_if(m_Languages.begin(), m_Languages.end(),
+                                          [&selectedLanguage](auto &language) { return language.shortName == selectedLanguage; });
+  int selectedLanguageIndex = SelectionLayoutModel::NOT_SELECTED_INDEX;
+  if (selectedLangugeIter != m_Languages.end())
+  {
+    selectedLanguageIndex = selectedLangugeIter - m_Languages.begin();
+  }
+
+  return selectedLanguageIndex;
 }
