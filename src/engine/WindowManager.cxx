@@ -13,7 +13,9 @@ WindowManager::WindowManager()
 
 WindowManager::~WindowManager()
 {
-  LOG(LOG_DEBUG) << "Destroying WindowManager";
+  debug_scope {
+    LOG(LOG_DEBUG) << "Destroying WindowManager";
+  }
 }
 
 void WindowManager::toggleFullScreen() const

@@ -30,7 +30,9 @@ BETTER_ENUM(Action, int, RaiseTerrain, LowerTerrain, QuitGame, Demolish, ChangeT
 
 UIManager::~UIManager()
 {
-  LOG(LOG_DEBUG) << "Destroying UIManager";
+  debug_scope {
+    LOG(LOG_DEBUG) << "Destroying UIManager";
+  }
 }
 
 void UIManager::init()

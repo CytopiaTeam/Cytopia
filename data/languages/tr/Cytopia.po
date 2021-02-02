@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-01-10 14:12+0100\n"
-"PO-Revision-Date: 2021-01-16 20:23+0000\n"
+"PO-Revision-Date: 2021-01-24 05:32+0000\n"
 "Last-Translator: Emir <emir_sari@msn.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/cytopia/game/tr/>"
 "\n"
@@ -724,7 +724,7 @@ msgstr "Kömür Yığını"
 
 #. This is a title for an object with the description: A coal power plant.  It'll produce enough electricity to keep a town running, but it creates a lot of pollution.
 msgid "Coal Power Plant"
-msgstr "Termik Santral"
+msgstr "Kömür Santrali"
 
 #. This is a category
 #. This is a subCategory
@@ -1455,11 +1455,11 @@ msgstr "Gökdelen"
 
 #. This is a title for an object with the description: A  small coal power plant.  It can supply a small town with electricity, but it produces a lot of pollution.
 msgid "Small Coal Power Plant"
-msgstr "Küçük Termik Santral"
+msgstr "Küçük Kömür Santrali"
 
 #. This is a title for an object with the description: A  small coal power plant.
 msgid "Small Coal Power Plant2"
-msgstr "Küçük Termik Santral 2"
+msgstr "Küçük Kömür Santrali 2"
 
 #. This is a title for an object with the description: A commercial center
 msgid "Small Commercial Center"
