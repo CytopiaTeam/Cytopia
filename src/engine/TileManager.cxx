@@ -424,7 +424,7 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
   m_tileData[id].tiles.clippingWidth = tileDataJSON[idx]["tiles"].value("clip_width", 0);
   m_tileData[id].tiles.offset = tileDataJSON[idx]["tiles"].value("offset", 0);
   m_tileData[id].tiles.count = tileDataJSON[idx]["tiles"].value("count", 1);
-  m_tileData[id].tiles.rotations = tileDataJSON[idx]["tiles"].value("rotations", 1);
+  m_tileData[id].tiles.pickRandomTile = tileDataJSON[idx]["tiles"].value("pickRandomTile", true);
 
   if (!m_tileData[id].tiles.fileName.empty())
   {

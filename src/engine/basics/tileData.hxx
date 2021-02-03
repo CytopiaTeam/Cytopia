@@ -74,6 +74,7 @@ struct TileSetData
   int clippingHeight = 0; /// the height of the clipRect. (Where the tile will be clipped from the spritesheet)
   int offset =
       0; /// offset is where the first image in this tileset is, so a file could contain multiple tilesets and offset would define where to start this tileset and count would define how many images it has. offset = 0 is the first image, offset = 3 is the 4th tile.
+  bool pickRandomTile = false; // determines if a random tile of the tileset should be used, if set to true
   int rotations =
       1; /// rotations is the number of rotations that exist in this tileset (for buildings).  this is not applicable for terrain and roads, their orientation is figured out differently. For buildings that have multiple orientations, this isn't implemented yet but it prevents buildings with multiple orientations from being placed with  a random image (that might be the wrong size).
 };

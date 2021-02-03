@@ -81,7 +81,7 @@ void Map::getNodeInformation(const Point &isoCoordinates) const
   LOG(LOG_INFO) << "[Layer: BUILDINGS] ID: " << mapNode.getMapNodeDataForLayer(Layer::BUILDINGS).tileID;
   LOG(LOG_INFO) << "Category: " << tileData->category;
   LOG(LOG_INFO) << "FileName: " << tileData->tiles.fileName;
-  LOG(LOG_INFO) << "Rotations: " << tileData->tiles.rotations;
+  LOG(LOG_INFO) << "PickRandomTile: " << tileData->tiles.pickRandomTile;
   LOG(LOG_INFO) << "TileMap: " << mapNodeData.tileMap;
   LOG(LOG_INFO) << "TileIndex: " << mapNodeData.tileIndex;
 }
