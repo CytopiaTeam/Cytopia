@@ -578,7 +578,7 @@
       "clip_width": 32,
       "count": 16,
       "fileName": "resources/images/underground/water/ug_1x1_pipes.png",
-      "rotations": 16
+      "pickRandomTile": false
     },
     "title": "Water pipe",
     "upkeep cost": 2,
@@ -609,7 +609,7 @@
       "clip_width": 32,
       "count": 20,
       "fileName": "resources/images/roads/road_1x1_ruralfrroad1brokenline_RF.png",
-      "rotations": 16
+      "pickRandomTile": false
     },
     "title": "Rural French Road brokenlined",
     "upkeep cost": 2,
@@ -643,7 +643,7 @@
       "clip_width": 32,
       "count": 20,
       "fileName": "resources/images/roads/road_1x1_ruralroadfr1straightline_RF.png",
-      "rotations": 16
+      "pickRandomTile": false
     },
     "title": "Rural French Road lined",
     "upkeep cost": 2,
@@ -677,7 +677,7 @@
       "clip_width": 32,
       "count": 20,
       "fileName": "resources/images/roads/road_1x1_ruralroadfr1newsaph_RF.png",
-      "rotations": 16
+      "pickRandomTile": false
     },
     "title": "Rural French Road fresh",
     "upkeep cost": 2,
@@ -710,7 +710,7 @@
       "clip_width": 32,
       "count": 20,
       "fileName": "resources/images/roads/road_1x1_ruralroadfr1grained_RF.png",
-      "rotations": 16
+      "pickRandomTile": false
     },
     "title": "Rural French Road",
     "upkeep cost": 2,
@@ -742,7 +742,7 @@
       "clip_width": 32,
       "count": 20,
       "fileName": "resources/images/roads/road_1x1_european.png",
-      "rotations": 16
+      "pickRandomTile": false
     },
     "title": "European Road",
     "upkeep cost": 2,
@@ -772,7 +772,7 @@
       "clip_width": 32,
       "count": 20,
       "fileName": "resources/images/roads/road_1x1_european_modern.png",
-      "rotations": 16
+      "pickRandomTile": false
     },
     "title": "European Road",
     "upkeep cost": 2,
@@ -802,7 +802,7 @@
       "clip_width": 32,
       "count": 20,
       "fileName": "resources/images/roads/road_1x1_european_nosidewalk.png",
-      "rotations": 16
+      "pickRandomTile": false
     },
     "title": "European Road",
     "upkeep cost": 2,
@@ -833,7 +833,7 @@
       "clip_width": 32,
       "count": 20,
       "fileName": "resources/images/roads/road_1x1_Country.png",
-      "rotations": 16
+      "pickRandomTile": false
     },
     "title": "Country Road",
     "upkeep cost": 2,
@@ -873,7 +873,7 @@
       "clip_width": 32,
       "count": 20,
       "fileName": "resources/images/roads/road_1x1_dirt.png",
-      "rotations": 16
+      "pickRandomTile": false
     },
     "title": "Dirt Road",
     "upkeep cost": 1,
@@ -909,7 +909,7 @@
       "clip_width": 32,
       "count": 20,
       "fileName": "resources/images/roads/road_1x1_alley.png",
-      "rotations": 16
+      "pickRandomTile": false
     },
     "title": "Alley Road",
     "upkeep cost": 1,
@@ -939,7 +939,7 @@
       "clip_width": 32,
       "count": 20,
       "fileName": "resources/images/roads/road_1x1_Highway.png",
-      "rotations": 16
+      "pickRandomTile": false
     },
     "title": "Highway Road",
     "upkeep cost": 3,
@@ -1479,7 +1479,7 @@
       "clip_width": 32,
       "count": 20,
       "fileName": "resources/images/roads/road_1x1_paved.png",
-      "rotations": 16
+      "pickRandomTile": false
     },
     "title": "Paved Road",
     "upkeep cost": 2,
@@ -7462,7 +7462,7 @@
       "clip_width": 32,
       "count": 16,
       "fileName": "resources/images/decoration/nature/ND_1x1_Stream.png",
-      "rotations": 16
+      "pickRandomTile": false
     },
     "title": "Stream",
     "upkeep cost": 0,
@@ -9100,7 +9100,6 @@
       "clip_height": 15,
       "clip_width": 32,
       "count": 16,
-      "rotations": 16,
       "fileName": "resources/images/terrain_shorelines/terrain_grass_shore.png"
     },
     "title": "Grassland",
@@ -9793,7 +9792,7 @@
       "clip_height": 19,
       "clip_width": 32,
       "count": 16,
-      "rotations": 16,
+      "pickRandomTile": false,
       "fileName": "resources/images/buildings/prison/prs_1x1_prisfen_kt.png"
     },
     "title": "Prison Fence",
