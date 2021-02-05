@@ -6,7 +6,6 @@
 #include "enums.hxx"
 #include "../../util/Color.hxx"
 
-
 /// min and max values for tileData
 #define TD_PRICE_MIN 0
 #define TD_PRICE_MAX 100000
@@ -43,12 +42,12 @@ BETTER_ENUM(TileType, int,
             ZONE,             /// Zones (rectangular placement)
             ROAD,             /// Roads
             GROUNDDECORATION, /// Draw this Tile on GROUNDDECORATION layer. Buildings can be placed over it
-            UNDERGROUND       /// same as AUTOTILE, but for the BLUEPRINT layer
+            UNDERGROUND,      /// same as AUTOTILE, but for the BLUEPRINT layer
+            RCI               /// Spawning automatically on RCI+ zones
 )
 
 //
-BETTER_ENUM(Zones, int,
-            RESIDENTIAL, INDUSTRIAL, COMMERCIAL, AGRICULTURAL)
+BETTER_ENUM(Zones, int, RESIDENTIAL, INDUSTRIAL, COMMERCIAL, AGRICULTURAL)
 
 BETTER_ENUM(Wealth, int,
             LOW,    /// Low income
@@ -113,19 +112,19 @@ struct TileData
 
   std::vector<std::string>
       groundDecoration; /// tileID of the item that should be drawn on ground below sprite instead of terrain(grass, concrete, ...). Must be a tileID with tileType GroundDecoration
-  bool placeOnGround = true;       /// wether or not this building is placeable on ground
-  bool placeOnWater = false;       /// whether or not this building is placeable on water
-  bool isOverPlacable;             /// Determines if other tiles can be placed over this one tile.
-  int pollutionLevel = 0;          /// Pollution this building produces or prevents
-  int crimeLevel = 0;              /// Crime this building produces or prevents (police station)
-  int fireHazardLevel = 0;         /// Fire Danger this building produces or prevents
-  int inhabitants = 0;             /// How many residents / workers this building can hold. Also how much jobs it provides
-  int happyness = 0;               /// The effect on happyness around this building.
-  int educationLevel = 0;          /// How much education this building provides (educational building) / requires (job)
-  std::vector<Zones> zones;        /// Restrict this building to a zone type.
-  std::vector<Style> style;        /// Restrict this building to certain Art Styles.
-  std::vector<Wealth> wealth;      /// Restrict this building to a certain wealth level. See enum Wealth
-  std::vector<RGBAColor> colors;   /// Possible color variations for this tile (magic pixel colors)
+  bool placeOnGround = true;     /// wether or not this building is placeable on ground
+  bool placeOnWater = false;     /// whether or not this building is placeable on water
+  bool isOverPlacable;           /// Determines if other tiles can be placed over this one tile.
+  int pollutionLevel = 0;        /// Pollution this building produces or prevents
+  int crimeLevel = 0;            /// Crime this building produces or prevents (police station)
+  int fireHazardLevel = 0;       /// Fire Danger this building produces or prevents
+  int inhabitants = 0;           /// How many residents / workers this building can hold. Also how much jobs it provides
+  int happyness = 0;             /// The effect on happyness around this building.
+  int educationLevel = 0;        /// How much education this building provides (educational building) / requires (job)
+  std::vector<Zones> zones;      /// Restrict this building to a zone type.
+  std::vector<Style> style;      /// Restrict this building to certain Art Styles.
+  std::vector<Wealth> wealth;    /// Restrict this building to a certain wealth level. See enum Wealth
+  std::vector<RGBAColor> colors; /// Possible color variations for this tile (magic pixel colors)
 
   RequiredTilesData RequiredTiles; /// How many tiles this building uses.
 };
