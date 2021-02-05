@@ -327,7 +327,7 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
 
   if (tileDataJSON[idx].find("wealth") != tileDataJSON[idx].end())
   {
-    for (auto wealth : tileDataJSON[idx].at("zones").items())
+    for (auto wealth : tileDataJSON[idx].at("wealth").items())
     {
       if (Wealth::_is_valid_nocase(wealth.value().get<std::string>().c_str()))
       {
