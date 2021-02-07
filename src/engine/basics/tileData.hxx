@@ -25,8 +25,8 @@
 #define TD_HABITANTS_MAX 100
 #define TD_FIREDANGER_MIN -100
 #define TD_FIREDANGER_MAX 100
-#define TD_HAPPYNESS_MIN -100
-#define TD_HAPPYNESS_MAX 100
+#define TD_HAPPINESS_MIN -100
+#define TD_HAPPINESS_MAX 100
 #define TD_TITLE_MAX_CHARS 100
 #define TD_DESCRIPTION_MAX_CHARS 100
 #define TD_BIOME_MAX_CHARS 100
@@ -123,7 +123,7 @@ struct TileData
   int crimeLevel = 0;            /// Crime this building produces or prevents (police station)
   int fireHazardLevel = 0;       /// Fire Danger this building produces or prevents
   int inhabitants = 0;           /// How many residents / workers this building can hold. Also how much jobs it provides
-  int happyness = 0;             /// The effect on happyness around this building.
+  int happiness = 0;             /// The effect on happiness around this building.
   int educationLevel = 0;        /// How much education this building provides (educational building) / requires (job)
   std::vector<Zones> zones;      /// Restrict this building to a zone type.
   std::vector<Style> style;      /// Restrict this building to certain Art Styles.
