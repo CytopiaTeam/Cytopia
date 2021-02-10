@@ -307,7 +307,7 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
   m_tileData[id].isOverPlacable = tileDataJSON[idx].value("isOverPlacable", false);
   m_tileData[id].placeOnWater = tileDataJSON[idx].value("placeOnWater", false);
   m_tileData[id].inhabitants = tileDataJSON[idx].value("inhabitants", 0);
-  m_tileData[id].happyness = tileDataJSON[idx].value("happyness", 0);
+  m_tileData[id].happiness = tileDataJSON[idx].value("happiness", 0);
   m_tileData[id].fireHazardLevel = tileDataJSON[idx].value("fireHazardLevel", 0);
   m_tileData[id].educationLevel = tileDataJSON[idx].value("educationLevel", 0);
   m_tileData[id].crimeLevel = tileDataJSON[idx].value("crimeLevel", 0);
