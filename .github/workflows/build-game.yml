@@ -42,29 +42,29 @@ jobs:
           choco install conan -y -s="https://api.bintray.com/nuget/anotherfoxguy/choco-pkg"
 
           refreshenv
-        shell: cmd
+        shell: pwsh
 
       - name: Build
         run: |
-          call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+          . "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
 
-          SET PATH=%PATH%;C:\Program Files\Conan\conan\
+          SET PATH="%PATH%;C:\Program Files\Conan\conan\"
 
           cmake -GNinja -DCMAKE_BUILD_TYPE=Release .
 
           ninja
 
           sccache --show-stats
-        shell: cmd
+        shell: pwsh
 
       - name: Test
         run: ctest -VV
-        shell: cmd
+        shell: pwsh
 
       - name: Clean Conan pkgs
         run: |
-          "C:\Program Files\Conan\conan\conan.exe" remove * -fsb
-        shell: cmd
+          & "C:\Program Files\Conan\conan\conan.exe" remove * -fsb
+        shell: pwsh
 
   build-gcc:
     name: Build Linux
