@@ -1261,8 +1261,8 @@
   },
   {
       "RequiredTiles": {
-          "height": 0,
-          "width": 0
+            "height": 1,
+            "width": 1
       },
       "author": "Kingtut 101",
       "category": "Flora",
@@ -5833,8 +5833,8 @@
   },
   {
       "RequiredTiles": {
-          "height": 0,
-          "width": 0
+            "height": 1,
+            "width": 1
       },
       "author": "Kingtut 101",
       "category": "Flora",
@@ -5872,8 +5872,8 @@
   },
   {
       "RequiredTiles": {
-          "height": 0,
-          "width": 0
+            "height": 1,
+            "width": 1
       },
       "author": "Kingtut 101",
       "category": "Flora",
@@ -5910,9 +5910,9 @@
       "water": 0
   },
   {
-      "RequiredTiles": {
-          "height": 0,
-          "width": 0
+        "RequiredTiles": {
+            "height": 1,
+            "width": 1
       },
       "author": "Kingtut 101",
       "category": "Flora",
@@ -5949,8 +5949,8 @@
   },
   {
       "RequiredTiles": {
-          "height": 0,
-          "width": 0
+            "height": 1,
+            "width": 1
       },
       "author": "Kingtut 101",
       "category": "Flora",
@@ -6024,9 +6024,9 @@
       "water": 0
   },
   {
-      "RequiredTiles": {
-          "height": 0,
-          "width": 0
+        "RequiredTiles": {
+            "height": 1,
+            "width": 1
       },
       "author": "Kingtut 101",
       "category": "Flora",
@@ -16635,52 +16635,8 @@
   },
   {
       "RequiredTiles": {
-          "height": 0,
-          "width": 0
-      },
-      "author": "Kingtut 101",
-      "biomes": [
-          "Desert"
-      ],
-      "category": "TerrainDecoration",
-      "crimeLevel": 0,
-      "description": "A pile of rocks that can be found in the desert biome.",
-      "educationLevel": 0,
-      "fireHazardLevel": 0,
-      "happiness": 0,
-      "id": "rocks_desert",
-      "inhabitants": 0,
-      "isOverPlacable": false,
-      "placeOnGround": true,
-      "placeOnWater": false,
-      "pollutionLevel": 0,
-      "power": 0,
-      "price": 5,
-      "subCategory": "",
-      "tags": [
-          "pile",
-          "rocks",
-          "found",
-          "desert",
-          "biome"
-      ],
-      "tileType": "DEFAULT",
-      "tiles": {
-          "clip_height": 15,
-          "clip_width": 32,
-          "count": 3,
-          "fileName": "resources/images/decoration/rocks/rock_1x1_desert.png",
-          "offset": 0,
-          "pickRandomTile": true
-      },
-      "title": "Desert Rocks",
-      "upkeep cost": 0,
-      "water": 0
-  },
-  {
-      "RequiredTiles": {
-          "height": 0,
-          "width": 0
+            "height": 1,
+            "width": 1
       },
       "author": "Kingtut 101",
       "biomes": [
@@ -16688,7 +16644,7 @@
       ],
       "category": "TerrainDecoration",
       "crimeLevel": 0,
-      "description": "A pile of rocks that can be found in the diamond biome.",
+        "description": "A pile of rocks containing diamond ore. Very rare, especially because diamonds normally don't appear above ground.",
       "educationLevel": 0,
       "fireHazardLevel": 0,
       "happiness": 0,
@@ -16723,8 +16679,8 @@
   },
   {
       "RequiredTiles": {
-          "height": 0,
-          "width": 0
+            "height": 1,
+            "width": 1
       },
       "author": "Kingtut 101",
       "biomes": [
@@ -16804,8 +16760,8 @@
   },
   {
       "RequiredTiles": {
-          "height": 0,
-          "width": 0
+            "height": 1,
+            "width": 1
       },
       "author": "Kingtut 101",
       "biomes": [
@@ -16847,9 +16803,9 @@
       "water": 0
   },
   {
-      "RequiredTiles": {
-          "height": 0,
-          "width": 0
+        "RequiredTiles": {
+            "height": 1,
+            "width": 1
       },
       "author": "Kingtut 101",
       "biomes": [
@@ -16857,7 +16813,7 @@
       ],
       "category": "TerrainDecoration",
       "crimeLevel": 0,
-      "description": "A pile of rocks that can be found in the snow biome.",
+        "description": "A pile of rocks that are commonly found jutting out of the water.",
       "educationLevel": 0,
       "fireHazardLevel": 0,
       "happiness": 0,
