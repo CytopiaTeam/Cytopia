@@ -1483,7 +1483,7 @@
         "pollutionLevel": 0,
         "power": 0,
         "price": 0,
-        "subCategory": "",
+        "subCategory": "Bushes",
         "tags": [
             "flora",
             "green",
@@ -1522,7 +1522,7 @@
         "pollutionLevel": 0,
         "power": 0,
         "price": 0,
-        "subCategory": "",
+        "subCategory": "Bushes",
         "tags": [
             "flora",
             "green",
@@ -1561,7 +1561,7 @@
         "pollutionLevel": 0,
         "power": 0,
         "price": 0,
-        "subCategory": "",
+        "subCategory": "Bushes",
         "tags": [
             "flora",
             "green",
@@ -1577,6 +1577,108 @@
             "pickRandomTile": true
         },
         "title": "Green Bushes (Medium)",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "RequiredTiles": {
+            "height": 1,
+            "width": 1
+        },
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "crimeLevel": 0,
+        "description": "Sugarcane is a tropical plant made famous for its use in candies and soda.",
+        "educationLevel": 0,
+        "fireHazardLevel": 0,
+        "happyness": 0,
+        "id": "bush_sugarcane_dense",
+        "inhabitants": 0,
+        "isOverPlacable": true,
+        "placeOnGround": true,
+        "placeOnWater": false,
+        "pollutionLevel": 0,
+        "power": 0,
+        "price": 0,
+        "subCategory": "Bushes",
+        "tileType": "DEFAULT",
+        "tiles": {
+            "clip_height": 19,
+            "clip_width": 32,
+            "count": 4,
+            "fileName": "resources/images/flora/bushes/flora_1x1_Sugarcane_dense.png",
+            "offset": 0,
+            "pickRandomTile": true
+        },
+        "title": "Sugarcane (Dense)",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "RequiredTiles": {
+            "height": 1,
+            "width": 1
+        },
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "crimeLevel": 0,
+        "description": "Sugarcane is a tropical plant made famous for its use in candies and soda.",
+        "educationLevel": 0,
+        "fireHazardLevel": 0,
+        "happyness": 0,
+        "id": "bush_sugarcane_light",
+        "inhabitants": 0,
+        "isOverPlacable": true,
+        "placeOnGround": true,
+        "placeOnWater": false,
+        "pollutionLevel": 0,
+        "power": 0,
+        "price": 0,
+        "subCategory": "Bushes",
+        "tileType": "DEFAULT",
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 32,
+            "count": 4,
+            "fileName": "resources/images/flora/bushes/flora_1x1_Sugarcane_light.png",
+            "offset": 0,
+            "pickRandomTile": true
+        },
+        "title": "Sugarcane (Light)",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "RequiredTiles": {
+            "height": 1,
+            "width": 1
+        },
+        "author": "Kingtut 101",
+        "category": "Flora",
+        "crimeLevel": 0,
+        "description": "Sugarcane is a tropical plant made famous for its use in candies and soda.",
+        "educationLevel": 0,
+        "fireHazardLevel": 0,
+        "happyness": 0,
+        "id": "bush_sugarcane_medium",
+        "inhabitants": 0,
+        "isOverPlacable": true,
+        "placeOnGround": true,
+        "placeOnWater": false,
+        "pollutionLevel": 0,
+        "power": 0,
+        "price": 0,
+        "subCategory": "Bushes",
+        "tileType": "DEFAULT",
+        "tiles": {
+            "clip_height": 17,
+            "clip_width": 32,
+            "count": 4,
+            "fileName": "resources/images/flora/bushes/flora_1x1_Sugarcane_medium.png",
+            "offset": 0,
+            "pickRandomTile": true
+        },
+        "title": "Sugarcane (Medium)",
         "upkeep cost": 0,
         "water": 0
     },
