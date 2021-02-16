@@ -14,9 +14,7 @@ TileManager::TileManager() { init(); }
 
 TileManager::~TileManager()
 {
-  debug_scope {
-    LOG(LOG_DEBUG) << "Destroying TileManager";
-  }
+  debug_scope { LOG(LOG_DEBUG) << "Destroying TileManager"; }
 }
 
 SDL_Texture *TileManager::getTexture(const std::string &tileID) const
@@ -341,7 +339,6 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
     }
   }
 
-
   if (tileDataJSON[idx].find("zones") != tileDataJSON[idx].end())
   {
     for (auto zone : tileDataJSON[idx].at("zones").items())
@@ -357,7 +354,6 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
       }
     }
   }
-
 
   if (tileDataJSON[idx].find("style") != tileDataJSON[idx].end())
   {
@@ -422,7 +418,14 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
   m_tileData[id].tiles.fileName = tileDataJSON[idx]["tiles"].value("fileName", "");
   m_tileData[id].tiles.clippingHeight = tileDataJSON[idx]["tiles"].value("clip_height", 0);
   m_tileData[id].tiles.clippingWidth = tileDataJSON[idx]["tiles"].value("clip_width", 0);
-  m_tileData[id].tiles.offset = tileDataJSON[idx]["tiles"].value("offset", 0);
+
+  // offset value can be negative in the json, for the tiledata editor, but never in Cytopia
+  int offset = tileDataJSON[idx]["tiles"].value("offset", 0);
+  if (offset < 0)
+  {
+    offset = 0;
+  }
+  m_tileData[id].tiles.offset = offset;
   m_tileData[id].tiles.count = tileDataJSON[idx]["tiles"].value("count", 1);
   m_tileData[id].tiles.pickRandomTile = tileDataJSON[idx]["tiles"].value("pickRandomTile", true);
 
@@ -437,7 +440,14 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
     m_tileData[id].shoreTiles.count = tileDataJSON[idx]["shoreLine"].value("count", 1);
     m_tileData[id].shoreTiles.clippingWidth = tileDataJSON[idx]["shoreLine"].value("clip_width", 0);
     m_tileData[id].shoreTiles.clippingHeight = tileDataJSON[idx]["shoreLine"].value("clip_height", 0);
-    m_tileData[id].shoreTiles.offset = tileDataJSON[idx]["shoreLine"].value("offset", 0);
+
+    // offset value can be negative in the json, for the tiledata editor, but never in Cytopia
+    int offset = tileDataJSON[idx]["shoreLine"].value("offset", 0);
+    if (offset < 0)
+    {
+      offset = 0;
+    }
+    m_tileData[id].shoreTiles.offset = offset;
 
     if (!m_tileData[id].shoreTiles.fileName.empty())
     {
@@ -452,7 +462,14 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
     m_tileData[id].slopeTiles.count = tileDataJSON[idx]["slopeTiles"].value("count", 1);
     m_tileData[id].slopeTiles.clippingWidth = tileDataJSON[idx]["slopeTiles"].value("clip_width", 0);
     m_tileData[id].slopeTiles.clippingHeight = tileDataJSON[idx]["slopeTiles"].value("clip_height", 0);
-    m_tileData[id].slopeTiles.offset = tileDataJSON[idx]["slopeTiles"].value("offset", 0);
+
+    // offset value can be negative in the json, for the tiledata editor, but never in Cytopia
+    int offset = tileDataJSON[idx]["slopeTiles"].value("offset", 0);
+    if (offset < 0)
+    {
+      offset = 0;
+    }
+    m_tileData[id].slopeTiles.offset = offset;
 
     if (!m_tileData[id].slopeTiles.fileName.empty())
     {
