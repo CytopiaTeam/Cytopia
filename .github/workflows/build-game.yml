@@ -55,6 +55,16 @@ jobs:
       - name: Test
         run: ctest -VV
 
+      - name: Upload build to itch.io
+        env:
+          BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
+        if: env.BUTLER_API_KEY != null && github.ref == 'refs/heads/master'
+        run: |
+          choco install butler -y
+          ninja install
+          butler push redist cytopia/cytopia:windows-ci --userversion CIBuild-%GITHUB_RUN_NUMBER%-Commit-%GITHUB_SHA%
+        shell: cmd
+
   build-gcc:
     name: Build Linux
     env:
@@ -111,6 +121,16 @@ jobs:
         with:
           run: ctest -VV
 
+      - name: Upload build to itch.io
+        env:
+          BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
+        if: env.BUTLER_API_KEY != null && github.ref == 'refs/heads/master'
+        run: |
+          curl "https://raw.githubusercontent.com/AnotherFoxGuy/ci-scripts/main/install-butler.sh" | sudo bash
+          ninja install
+          butler push redist cytopia/cytopia:linux-ci --userversion CIBuild-${GITHUB_RUN_NUMBER}-commit-${GITHUB_SHA}
+        shell: bash
+
   build-appleclang:
     name: Build Mac
     env:
@@ -164,4 +184,16 @@ jobs:
 
       - name: Test
         run: ctest -VV
+        shell: bash
+
+      - name: Upload build to itch.io
+        env:
+          BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
+        if: env.BUTLER_API_KEY != null && github.ref == 'refs/heads/master'
+        run: |
+          curl -JOL https://broth.itch.ovh/butler/darwin-amd64/LATEST/archive/default
+          mkdir redist
+          mv bin/Cytopia.app/ redist/
+          unzip butler-darwin-amd64.zip
+          ./butler push redist cytopia/cytopia:osx-ci --userversion CIBuild-${GITHUB_RUN_NUMBER}-commit-${GITHUB_SHA}
         shell: bash
