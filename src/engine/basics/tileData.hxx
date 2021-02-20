@@ -9,7 +9,7 @@
 /// min and max values for tileData
 #define TD_PRICE_MIN 0
 #define TD_PRICE_MAX 100000
-#define TD_UPKEEP_MIN 0
+#define TD_UPKEEP_MIN -10000
 #define TD_UPKEEP_MAX 10000
 #define TD_POWER_MIN -100
 #define TD_POWER_MAX 1000
@@ -23,8 +23,6 @@
 #define TD_CRIME_MAX 100
 #define TD_HABITANTS_MIN 0
 #define TD_HABITANTS_MAX 10000
-#define TD_UPKEEPCOST_MIN -10000
-#define TD_UPKEEPCOST_MAX 10000
 #define TD_FIREDANGER_MIN -100
 #define TD_FIREDANGER_MAX 100
 #define TD_HAPPINESS_MIN -100
