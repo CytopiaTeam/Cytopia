@@ -1,0 +1,13 @@
+{
+  "name": "cytopia",
+  "version-string": "0.2.1",
+  "dependencies": [
+    "sdl2",
+    "sdl2-image",
+    "sdl2-ttf",
+    "libnoise",
+    "angelscript",
+    "openal-soft",
+    "libvorbis"
+  ]
+}
