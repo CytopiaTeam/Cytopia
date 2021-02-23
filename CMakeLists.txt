@@ -138,9 +138,6 @@ endif ()
 
 
 if (PACKAGE_MANAGER STREQUAL "vcpkg")
-    include(pmm)
-    pmm(CMakeCM ROLLING)
-
     if (DEFINED ENV{CI})
         set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
         set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
@@ -149,21 +146,15 @@ if (PACKAGE_MANAGER STREQUAL "vcpkg")
         set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
     endif ()
 
+    find_package(Threads REQUIRED)
+
     find_package(Angelscript CONFIG REQUIRED)
     find_package(Vorbis CONFIG REQUIRED)
     find_package(OpenAL CONFIG REQUIRED)
     find_package(SDL2 CONFIG REQUIRED)
     find_package(sdl2-image CONFIG REQUIRED)
     find_package(sdl2-ttf CONFIG REQUIRED)
-    find_package(LIBNOISE REQUIRED)
-
-    if (LIBNOISE_FOUND)
-        add_library(libnoise::libnoise INTERFACE IMPORTED)
-        set_target_properties(libnoise::libnoise PROPERTIES
-                INTERFACE_INCLUDE_DIRECTORIES "${LIBNOISE_INCLUDE_DIR}"
-                INTERFACE_LINK_LIBRARIES "${LIBNOISE_LIBRARIES}"
-                )
-    endif ()
+    find_package(LibNoise REQUIRED)
 
     list(APPEND _link_libraries
             SDL2::SDL2
@@ -231,7 +222,7 @@ elseif (PACKAGE_MANAGER STREQUAL "pkgconfig")
         pkg_check_modules(VULKAN REQUIRED vulkan)
     endif ()
 
-    find_package(LIBNOISE REQUIRED)
+    find_package(LibNoise REQUIRED)
 
     if (ENABLE_ANGELSCRIPT)
         find_package(AngelScript REQUIRED)
@@ -248,7 +239,7 @@ elseif (PACKAGE_MANAGER STREQUAL "pkgconfig")
             ${SDL2_LIBRARIES}
             ${SDL2_image_LIBRARIES}
             ${SDL2_ttf_LIBRARIES}
-            LIBNOISE::LIBNOISE_LIBRARIES
+            libnoise::libnoise
             ${ZLIB_LIBRARIES}
             ${PNG_LIBRARIES}
             )

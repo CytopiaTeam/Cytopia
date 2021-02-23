@@ -8,6 +8,7 @@
     "libnoise",
     "angelscript",
     "openal-soft",
-    "libvorbis"
+    "libvorbis",
+    "catch2"
   ]
 }
