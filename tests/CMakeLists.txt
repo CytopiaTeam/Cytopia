@@ -1,6 +1,6 @@
 set(TESTS_PROJECT_NAME Cytopia_Tests)
 
-find_package(Catch2 REQUIRED)
+find_package(Catch2 CONFIG REQUIRED)
 
 include(Catch)
 
@@ -86,7 +86,7 @@ set_target_properties(${TESTS_PROJECT_NAME} PROPERTIES
   CXX_STANDARD_REQUIRED YES
   CXX_EXTENSIONS NO)
 
-catch_discover_tests(${TESTS_PROJECT_NAME})
+#catch_discover_tests(${TESTS_PROJECT_NAME})
 
 add_coverage(${TESTS_PROJECT_NAME})
 coverage_evaluate()
