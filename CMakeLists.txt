@@ -155,6 +155,7 @@ if (PACKAGE_MANAGER STREQUAL "vcpkg")
     find_package(sdl2-image CONFIG REQUIRED)
     find_package(sdl2-ttf CONFIG REQUIRED)
     find_package(LibNoise REQUIRED)
+    find_package(ZLIB REQUIRED)
 
     list(APPEND _link_libraries
             SDL2::SDL2
@@ -162,6 +163,7 @@ if (PACKAGE_MANAGER STREQUAL "vcpkg")
             SDL2::SDL2_image
             SDL2::SDL2_ttf
             libnoise::libnoise
+            ZLIB::ZLIB
             )
 
     if (ENABLE_AUDIO)
