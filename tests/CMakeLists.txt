@@ -1,6 +1,6 @@
 set(TESTS_PROJECT_NAME Cytopia_Tests)
 
-find_package(Catch2 CONFIG REQUIRED)
+find_package(Catch2 REQUIRED)
 
 include(Catch)
 
@@ -20,10 +20,9 @@ list(APPEND _include_directories
         ${CMAKE_SOURCE_DIR}/src/services
         )
 
-if (NOT PACKAGE_MANAGER STREQUAL "conan")
-    include(pmm)
-    pmm(CMakeCM ROLLING)
-endif()
+
+include(pmm)
+pmm(CMakeCM ROLLING)
 
 include(codecov)
 

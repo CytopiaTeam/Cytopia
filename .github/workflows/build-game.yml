@@ -1,44 +1,162 @@
 name: Build game
 
-on: [ push, pull_request ]
+on: [push, pull_request]
 
 jobs:
-  job:
-    name: ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ ubuntu-latest, macos-latest, windows-latest ]
-        include:
-          - os: windows-latest
-            triplet: x64-windows
-          - os: ubuntu-latest
-            triplet: x64-linux
-          - os: macos-latest
-            triplet: x64-osx
-
+  build-msvc:
+    name: Build Windows
+    env:
+      SCCACHE_DIR: C:\sccache
+      SCCACHE_CACHE_SIZE: 500M
+      BUILD_TOOLS_PATH: C:\apps\build-tools\
+    runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v1
+      - run: echo $env:BUILD_TOOLS_PATH | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+
+      - uses: actions/checkout@v2.3.4
         with:
           submodules: true
 
-      - uses: lukka/get-cmake@latest
-      - name: Setup vcpkg
-        uses: lukka/run-vcpkg@main
-        id: runvcpkg
+      - name: Prepare sccache timestamp
+        id: sccache_cache_timestamp
+        shell: cmake -P {0}
+        run: |
+          string(TIMESTAMP current_date "%Y-%m-%d-%H;%M;%S" UTC)
+          message("::set-output name=timestamp::${current_date}")
+
+      - name: sccache cache files
+        uses: actions/cache@v2.1.4
         with:
-          setupOnly: true
-          vcpkgTriplet: '${{ matrix.triplet }}'
-          vcpkgDirectory: '${{ runner.workspace }}/vcpkg'
-          vcpkgGitCommitId: 'a037d826492039db9d58af47a1e1248037d15f40'
+          path: C:\sccache
+          key: windows-sccache-${{ steps.sccache_cache_timestamp.outputs.timestamp }}
+          restore-keys: |
+            windows-sccache-
+
+      - name: Cache vcpkg
+        uses: actions/cache@v2.1.4
+        with:
+          key: vcpkg-root-${{ hashFiles('**/vcpkg.json') }}
+          path: C:/Users/runneradmin/AppData/Local/vcpkg/archives
+
+      - name: Install dependencies
+        run: choco install ninja sccache -y
+
+      - name: Enable Developer Command Prompt
+        uses: ilammy/msvc-dev-cmd@v1.6.0
+
       - name: Build
-        uses: lukka/run-cmake@main
-        id: runcmake
+        run: |
+          cmake -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=C:/vcpkg/scripts/buildsystems/vcpkg.cmake .
+          ninja
+          sccache --show-stats
+
+      - name: Test
+        run: ctest -VV
+
+  build-gcc:
+    name: Build Linux
+    env:
+      sccache_CACHE_SIZE: 500M
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2.3.4
         with:
-          cmakeGenerator: 'Ninja'
-          cmakeListsOrSettingsJson: 'CMakeListsTxtBasic'
-          cmakeListsTxtPath: '${{ github.workspace }}/CMakeLists.txt'
-          useVcpkgToolchainFile: true
-          buildWithCMakeArgs: '-- -v'
-          buildDirectory: '${{ runner.workspace }}/build'
+          submodules: true
+
+      - name: Prepare sccache timestamp
+        id: sccache_cache_timestamp
+        shell: cmake -P {0}
+        run: |
+          string(TIMESTAMP current_date "%Y-%m-%d-%H;%M;%S" UTC)
+          message("::set-output name=timestamp::${current_date}")
+
+      - name: sccache cache files
+        uses: actions/cache@v2.1.4
+        with:
+          path: ~/.cache/sccache
+          key: ubuntu-sccache-${{ steps.sccache_cache_timestamp.outputs.timestamp }}
+          restore-keys: |
+            ubuntu-sccache-
+
+      - name: Install dependencies
+        run: |
+          curl "https://raw.githubusercontent.com/AnotherFoxGuy/ci-scripts/main/install-cmake.sh" | sudo bash
+          curl "https://raw.githubusercontent.com/AnotherFoxGuy/ci-scripts/main/install-sccache.sh" | sudo bash
+          sudo apt-get update
+          sudo apt-get -y install \
+                  ninja-build \
+                  doxygen \
+                  graphviz \
+                  libsdl2-dev \
+                  libsdl2-image-dev \
+                  libsdl2-ttf-dev \
+                  libnoise-dev \
+                  libopenal-dev \
+                  libvorbis-dev \
+                  libpng-dev
+        shell: bash
+
+      - name: Build
+        run: |
+          cmake -GNinja -DCMAKE_BUILD_TYPE=Release -DPACKAGE_MANAGER=pkgconfig -DENABLE_ANGELSCRIPT=OFF -DBUILD_TEST=ON .
+          ninja
+          sccache --show-stats
+        shell: bash
+
+      - name: Test
+        uses: GabrielBB/xvfb-action@v1
+        with:
+          run: ctest -VV
+
+  build-appleclang:
+    name: Build Mac
+    env:
+      SCCACHE_CACHE_SIZE: 500M
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2.3.4
+        with:
+          submodules: true
+
+      - name: Prepare sccache timestamp
+        id: sccache_cache_timestamp
+        shell: cmake -P {0}
+        run: |
+          string(TIMESTAMP current_date "%Y-%m-%d-%H;%M;%S" UTC)
+          message("::set-output name=timestamp::${current_date}")
+
+      - name: sccache cache files
+        uses: actions/cache@v2.1.4
+        with:
+          path: ~/Library/Caches/Mozilla.sccache
+          key: macos-sccache-${{ steps.sccache_cache_timestamp.outputs.timestamp }}
+          restore-keys: |
+            macos-sccache-
+
+      - name: Cache vcpkg
+        uses: actions/cache@v2.1.4
+        with:
+          key: vcpkg-root-${{ hashFiles('**/vcpkg.json') }}
+          path: ~/.cache/vcpkg/archives/
+
+      - name: Install dependencies
+        run: brew install sccache ninja
+        shell: bash
+
+      - name: Build
+        run: |
+          cmake -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=/usr/local/share/vcpkg/scripts/buildsystems/vcpkg.cmake .
+          ninja
+          mkdir -p bin/Cytopia.App/Resources/resources
+          cp -pR data/resources bin/Cytopia.App/Contents/Resources/
+          cp -pR data/resources bin/resources
+          ninja copy_resources
+          ninja package
+          rm -rf bin/Cytopia.App/Contents/MacOS/resources
+          rm -rf bin/Cytopia.App/Resources
+          sccache --show-stats
+        shell: bash
+
+      - name: Test
+        run: ctest -VV
+        shell: bash
