@@ -1,10 +1,9 @@
 set(TESTS_PROJECT_NAME Cytopia_Tests)
 
-find_package(Catch2 REQUIRED)
-
-include(Catch)
+include(${CMAKE_SOURCE_DIR}/external/catch2/Catch.cmake)
 
 list(APPEND _include_directories
+        ${CMAKE_SOURCE_DIR}/external/catch2
         ${CMAKE_SOURCE_DIR}/src/engine
         ${CMAKE_SOURCE_DIR}/src/engine/basics
         ${CMAKE_SOURCE_DIR}/src/engine/common
@@ -77,7 +76,7 @@ add_executable(${TESTS_PROJECT_NAME} ${TEST_SOURCES})
 
 target_include_directories(${TESTS_PROJECT_NAME} PRIVATE ${_include_directories} src)
 target_compile_definitions(${TESTS_PROJECT_NAME} PRIVATE ${_compile_definitions})
-target_link_libraries(${TESTS_PROJECT_NAME} PRIVATE ${_link_libraries} Catch2::Catch2)
+target_link_libraries(${TESTS_PROJECT_NAME} PRIVATE ${_link_libraries})
 
 # enable C++17
 set_target_properties(${TESTS_PROJECT_NAME} PROPERTIES
@@ -85,7 +84,7 @@ set_target_properties(${TESTS_PROJECT_NAME} PROPERTIES
   CXX_STANDARD_REQUIRED YES
   CXX_EXTENSIONS NO)
 
-#catch_discover_tests(${TESTS_PROJECT_NAME})
+catch_discover_tests(${TESTS_PROJECT_NAME})
 
 add_coverage(${TESTS_PROJECT_NAME})
 coverage_evaluate()

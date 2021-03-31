@@ -9,7 +9,6 @@
     "angelscript",
     "openal-soft",
     "libvorbis",
-    "catch2",
     "zlib"
   ]
 }
