@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-31 14:54+0200\n"
-"PO-Revision-Date: 2021-04-01 07:26+0000\n"
+"PO-Revision-Date: 2021-04-01 23:26+0000\n"
 "Last-Translator: Emir <emir_sari@msn.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/cytopia/game/tr/>"
 "\n"
@@ -462,6 +462,7 @@ msgstr ""
 msgid ""
 "A relatively-small tower from oen of the dense urban areas of Hong Kong."
 msgstr ""
+"Hong Kong'un yoğun kentsel bölgelerinden birinden nispeten küçük bir kule."
 
 #. This is a description for an object titled: Rural French Road fresh	
 msgid "A rural road from france with fresh asphalt."
@@ -716,6 +717,9 @@ msgid ""
 "in prairies and fields, although it generally yields less than its "
 "domesticated cousin."
 msgstr ""
+"Evcilleştirilmiş buğday otunun vahşi bir çeşidi. Yabani buğday, genellikle "
+"evcilleştirilmiş kuzeninden daha az verimli olmasına rağmen, çayırlarda ve "
+"tarlalarda yetişirken bulunabilir."
 
 #. This is a description for an object titled: Simone's Car Emporium	
 msgid "After they repaired their window, business has been booming."
@@ -723,7 +727,7 @@ msgstr "Pencerelerini onardıktan sonra işleri açıldı."
 
 #. This is a title for an object with the description: A pair of brick buildings from Minnesota. Naturally, they sell snow shovels and winter coats.	
 msgid "Alexandria Shops"
-msgstr ""
+msgstr "İskenderiye Mağazaları"
 
 #. This is a title for an object with the description: A narrow road that is commonly used in crammed areas in-between buildings.	
 msgid "Alley Road"
@@ -732,13 +736,15 @@ msgstr "Ara Yol"
 #. This is a description for an object titled: Classical Casino	
 msgid ""
 "Although the outside looks posh, the inside is just like any other casino."
-msgstr ""
+msgstr "Dış görünüşü gösterişli olsa da, içi tıpkı diğer kumarhaneler gibi."
 
 #. This is a description for an object titled: Mini Borg's Burgers	
 msgid ""
 "Although they can only serve a handful of people at a time, these small "
 "restaurants are very popular in rural communities for their cheap prices."
 msgstr ""
+"Bir seferde yalnızca bir avuç insana hizmet edebilseler de, bu küçük "
+"restoranlar ucuz fiyatları nedeniyle kırsal topluluklarda çok popülerdir."
 
 #. This is a description for an object titled: Old Power Plant	
 #, fuzzy
@@ -760,7 +766,7 @@ msgstr "Bir apartman. Vancouver, Kanada."
 
 #. This is a description for an object titled: Classic White House	
 msgid "An average-looking white house."
-msgstr ""
+msgstr "Ortalama görünüşlü bir beyaz ev."
 
 #. This is a description for an object titled: European Road	
 msgid "An european looking road."
@@ -768,30 +774,28 @@ msgstr "Avrupai görünümlü bir yol."
 
 #. This is a description for an object titled: Maison Moderne	
 msgid "An expensive cube-shaped apartment complex."
-msgstr ""
+msgstr "Küp biçimli, pahalı bir apartman yerleşkesi."
 
 #. This is a description for an object titled: Lillebonne Residence	
 msgid "An expensive house with a nice front yard."
-msgstr ""
+msgstr "Güzel bir ön bahçeye sahip pahalı bir ev."
 
 #. This is a description for an object titled: Le Caire Condominium Ultra	
 msgid "An extra-fancy version of the original Le Caire Condominium."
-msgstr ""
+msgstr "Orijinal Le Caire Condominium'un ekstra şık bir sürümü."
 
 #. This is a description for an object titled: Lillebonne Brick House	
 msgid "An old and expensive property from France."
-msgstr ""
+msgstr "Fransa'dan eski ve pahalı bir mülk."
 
 #. This is a description for an object titled: SF Building	
 msgid ""
 "An old apartment building topped with a water tower and some advertisements."
-msgstr ""
+msgstr "Bir su kulesi ve bazı reklamlarla dolu eski bir apartman binası."
 
 #. This is a description for an object titled: Old Desert Church	
-#, fuzzy
-#| msgid "An old depolluter building that has become a new industrial factory."
 msgid "An old building that has been converted into a house."
-msgstr "Artık bir fabrika olan eski bir kirlilik giderici bina."
+msgstr "Bir eve dönüştürülmüş eski bir bina."
 
 #. This is a description for an object titled: Clock Store	
 msgid "An old clock store that sells and repairs clocks."
