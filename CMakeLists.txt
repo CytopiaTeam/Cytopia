@@ -39,6 +39,14 @@ option(ENABLE_VULKAN "Enable Vulkan" OFF)
 option(ENABLE_DEBUG "Enable Debug (asserts and logs)" OFF)
 option(BUILD_ANDROID "Crossbuild to Android" OFF)
 
+
+# setup paths
+SET(RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/")
+SET(LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib/")
+SET(ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib/")
+SET(EXECUTABLE_OUTPUT_PATH ${RUNTIME_OUTPUT_DIRECTORY})
+SET(LIBRARY_OUTPUT_PATH ${RUNTIME_OUTPUT_DIRECTORY})
+
 set(_include_directories "${CMAKE_CURRENT_SOURCE_DIR}/external/header_only")
 set(_compile_definitions "")
 set(_link_libraries "")
@@ -366,9 +374,6 @@ include(CompileOptions)
 
 # set install dir here for convenience
 set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/redist")
-
-# make sure, every binary lands in the root directory
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
 message(STATUS "Building Project:  ${PROJECT_NAME}")
 message(STATUS "Build configuration: " ${CMAKE_BUILD_TYPE})
