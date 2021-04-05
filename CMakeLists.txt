@@ -1,5 +1,13 @@
 cmake_minimum_required(VERSION 3.10 FATAL_ERROR)
-# add the path to our custom find modules
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+include(CMakeDependentOption)
+include(SourceFileUtils)
+
+set(PACKAGE_MANAGER "vcpkg" CACHE STRING "Use vcpkg for managing packages")
+set_property(CACHE PACKAGE_MANAGER PROPERTY STRINGS vcpkg pkgconfig none)
+if (PACKAGE_MANAGER STREQUAL "vcpkg")
+    set(CMAKE_TOOLCHAIN_FILE "${CMAKE_SOURCE_DIR}/external/vcpkg/scripts/buildsystems/vcpkg.cmake" CACHE STRING "Vcpkg toolchain file")
+endif()
 
 # create the cmake project
 project(
@@ -13,7 +21,7 @@ project(
         LANGUAGES CXX
 )
 
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 find_program(SCCACHE_PROGRAM sccache)
@@ -26,11 +34,8 @@ elseif (CCACHE_PROGRAM)
     message("Using ${CCACHE_PROGRAM} for speeding up build")
 endif ()
 
-include(CMakeDependentOption)
-include(SourceFileUtils)
 
-set(PACKAGE_MANAGER "vcpkg" CACHE STRING "Use vcpkg for managing packages")
-set_property(CACHE PACKAGE_MANAGER PROPERTY STRINGS vcpkg pkgconfig none)
+
 option(BUILD_TEST "Build Cytopia Tests" ON)
 option(ENABLE_AUDIO "Enable Audio" ON)
 option(ENABLE_MICROPROFILE "Enable microprofile" OFF)
@@ -146,6 +151,7 @@ endif ()
 
 
 if (PACKAGE_MANAGER STREQUAL "vcpkg")
+
     if (DEFINED ENV{CI})
         set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
         set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
