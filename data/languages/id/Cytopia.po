@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-31 14:54+0200\n"
-"PO-Revision-Date: 2021-02-28 00:50+0000\n"
+"PO-Revision-Date: 2021-04-07 21:26+0000\n"
 "Last-Translator: Reza Almanda <rezaalmanda27@gmail.com>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/cytopia/game/"
 "id/>\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.5\n"
+"X-Generator: Weblate 4.6-dev\n"
 
 #. This is a title for an object with the description: A completely legal operation located inside a foreboding concrete building.	
 msgid "\"Under the Table\" Tax Agency"
@@ -3770,66 +3770,62 @@ msgstr "Menara Kaca"
 
 #. This is a title for an object with the description: Rice is normally grown as an annual plant, although in tropical areas it can survive as a perennial and can produce a ratoon crop for up to 30 years.	
 msgid "Wild Rice (Dense)"
-msgstr ""
+msgstr "Padi liar (Padat)"
 
 #. This is a title for an object with the description: Rice is normally grown as an annual plant, although in tropical areas it can survive as a perennial and can produce a ratoon crop for up to 30 years.	
 msgid "Wild Rice (Light)"
-msgstr ""
+msgstr "Padi Liar (Ringan)"
 
 #. This is a title for an object with the description: Rice is normally grown as an annual plant, although in tropical areas it can survive as a perennial and can produce a ratoon crop for up to 30 years.	
 msgid "Wild Rice (Medium)"
-msgstr ""
+msgstr "Padi Liar (Sedang)"
 
 #. This is a title for an object with the description: A wild varient of domesticated wheat grass. Wild wheat can be found growing in prairies and fields, although it generally yields less than its domesticated cousin.	
 msgid "Wild Wheat (Dense)"
-msgstr ""
+msgstr "Gandum Liar (Padat)"
 
 #. This is a title for an object with the description: A wild varient of domesticated wheat grass. Wild wheat can be found growing in prairies and fields, although it generally yields less than its domesticated cousin.	
 msgid "Wild Wheat (Light)"
-msgstr ""
+msgstr "Gandum Liar (Ringan)"
 
 #. This is a title for an object with the description: A wild varient of domesticated wheat grass. Wild wheat can be found growing in prairies and fields, although it generally yields less than its domesticated cousin.	
-#, fuzzy
-#| msgid "Flowers (Medium)"
 msgid "Wild Wheat (Medium)"
-msgstr "Bunga (Sedang)"
+msgstr "Gandum Liar (Sedang)"
 
 #. This is a title for an object with the description: This place is home to a mother and her two children.	
 msgid "Wooden Scandinavian House"
-msgstr ""
+msgstr "Rumah Kayu Skandinavia"
 
 #. This is a title for an object with the description: A small wooden sign that can be used to decorate a town.  It doesn't actually say anything though...	
 msgid "Wooden Sign"
-msgstr ""
+msgstr "Tanda Kayu"
 
 #. This is a title for an object with the description: A brick building with multiple office floors.	
-#, fuzzy
-#| msgid "Office"
 msgid "Yakima Office"
-msgstr "Kantor"
+msgstr "Kantor Yakima"
 
 #. This is a description for an object titled: Blank Tile	
 msgid "You shouldn't be seeing this..."
-msgstr ""
+msgstr "Anda seharusnya tidak melihat ini ..."
 
 #. This is a description for an object titled: Johnson Family's Abode	
 msgid "You'd be surpised how little they actually use the fireplace."
-msgstr ""
+msgstr "Anda akan terkejut betapa sedikit mereka menggunakan perapian."
 
 #. This is a title for an object with the description: Several offices and stores are located in these buildings.	
 msgid "Zealandia Shops"
-msgstr ""
+msgstr "Toko Zealandia"
 
 #. This is a category	
 #. This is a UiElement with the ID: zones menu	
 msgid "Zones"
-msgstr ""
+msgstr "Zona"
 
 #. This is a description for an object titled: Green Bushes (Dense)	
 #. This is a description for an object titled: Green Bushes (Light)	
 #. This is a description for an object titled: Green Bushes (Medium)	
 msgid "a green bush"
-msgstr ""
+msgstr "sebuah semak hijau"
 
 #~ msgid "A  small coal power plant."
 #~ msgstr "Sebuah PLTU Kecil."
