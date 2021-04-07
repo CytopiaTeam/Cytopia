@@ -7,83 +7,87 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-31 14:54+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2021-04-07 21:26+0000\n"
+"Last-Translator: TELK <telk5093@gmail.com>\n"
+"Language-Team: Korean <https://hosted.weblate.org/projects/cytopia/game/ko/>"
+"\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.6-dev\n"
 
 #. This is a title for an object with the description: A completely legal operation located inside a foreboding concrete building.	
 msgid "\"Under the Table\" Tax Agency"
-msgstr ""
+msgstr "\"테이블 아래\" 세금 사무소"
 
 #. This is a description for an object titled: Fitzgerald's House	
 msgid "A big house for the Fitzgerald's big family."
-msgstr ""
+msgstr "피츠제랄드의 대가족이 사는 대저택입니다."
 
 #. This is a description for an object titled: Tall Concrete Tower	
 msgid "A bland-looking apartment building made out of concrete."
-msgstr ""
+msgstr "콘크리트로 만들어진 깔끔한 아파트 건물입니다."
 
 #. This is a description for an object titled: Blank Platform	
 msgid "A blank train platform with nothing on it."
-msgstr ""
+msgstr "아무 것도 없는 빈 열차 승강장입니다."
 
 #. This is a description for an object titled: Dual-Stack Factory	
 msgid "A brick building adorned with two smoke stacks."
-msgstr ""
+msgstr "굴뚝이 두 개 달린 벽돌 집입니다."
 
 #. This is a description for an object titled: Yakima Office	
 msgid "A brick building with multiple office floors."
-msgstr ""
+msgstr "여러 층의 사무실이 있는 벽돌 건물입니다."
 
 #. This is a description for an object titled: Berry Bushes (Dense)	
 #. This is a description for an object titled: Berry Bushes (Light)	
 #. This is a description for an object titled: Berry Bushes (Medium)	
 msgid "A bush with delicious red berries."
-msgstr ""
+msgstr "맛있는 딸기가 달린 수풀입니다."
 
 #. This is a description for an object titled: Medium Depolluter	
 msgid "A classic depolluter building that has been repurposed as a factory. "
 "Unfortunately, it is not used to purify the air anymore."
-msgstr ""
+msgstr "공장으로 용도가 변경된 오래된 오염 제거 건물입니다. 안타깝게도 더 이상 공기를 정화하는 데 사용하지 않습니다."
 
 #. This is a description for an object titled: Pyongyang Place	
 msgid "A common sight in the urban parts of North Korea."
-msgstr ""
+msgstr "북한의 도시 지역에서 흔히 볼 수있는 광경입니다."
 
 #. This is a description for an object titled: "Under the Table" Tax Agency	
+#, fuzzy
 msgid "A completely legal operation located inside a foreboding concrete "
 "building."
-msgstr ""
+msgstr "불길한 예감이 드는 콘크리트 건물 내부에서 이뤄지는 완전히 합법적인 작업입니다."
 
 #. This is a description for an object titled: Rough-Side Repeats	
 msgid "A couple of small homes. The owners try their best to keep their "
 "yards looking good."
-msgstr ""
+msgstr "몇 개의 작은 집입니다. 주인이 마당을 최선을 다해서 가꾸고 있습니다."
 
 #. This is a description for an object titled: Norman Villa	
 msgid "A cozy little home with brick accents."
-msgstr ""
+msgstr "벽돌로 포인트를 준 아늑한 작은 집입니다."
 
 #. This is a description for an object titled: Inverness Flats	
 msgid "A decades-old building that could use a few renovations."
-msgstr ""
+msgstr "몇 번의 개조를 할 수 있는 수십 년 된 건물입니다."
 
 #. This is a description for an object titled: Pavement	
 msgid "A decorative patch of road pavement that is often used in parking "
 "lots."
-msgstr ""
+msgstr "주차장에서 자주 사용하는 도로 포장 장식 바닥입니다."
 
 #. This is a description for an object titled: Sri Lanka Setup	
 msgid "A densely-packed skyscaper with black-tinted windows."
-msgstr ""
+msgstr "검은 색으로 반짝거리는 창문이 있는 밀집된 마천루입니다."
 
 #. This is a description for an object titled: Mud Brick	
 msgid "A fancy brick pattern made out of dirt-cheap materials."
-msgstr ""
+msgstr "더러워지지 않는 재료로 만든 화려한 벽돌 패턴입니다."
 
 #. This is a description for an object titled: The Block	
 msgid "A fancy department store with multiple floors."
@@ -3494,4 +3498,4 @@ msgstr ""
 #. This is a description for an object titled: Green Bushes (Light)	
 #. This is a description for an object titled: Green Bushes (Medium)	
 msgid "a green bush"
-msgstr ""
+msgstr "녹색 수풀"
