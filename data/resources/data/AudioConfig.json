@@ -49,6 +49,13 @@
             "triggers": [
                 "MainMenu"
             ]
+        },
+		"Reflections": {
+            "path": "resources/audio/music/Reflections.ogg",
+            "monopath": "resources/audio/music/Reflections.ogg",
+            "triggers": [
+                "MainTheme"
+            ]
         }
     },
     "Sound": {
