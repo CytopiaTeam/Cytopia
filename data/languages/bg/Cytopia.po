@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-31 14:54+0200\n"
-"PO-Revision-Date: 2021-02-28 00:50+0000\n"
+"PO-Revision-Date: 2021-04-11 04:22+0000\n"
 "Last-Translator: Georgi Georgiev <g.georgiev.shumen@gmail.com>\n"
 "Language-Team: Bulgarian <https://hosted.weblate.org/projects/cytopia/game/"
 "bg/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.5\n"
+"X-Generator: Weblate 4.6-dev\n"
 
 #. This is a title for an object with the description: A completely legal operation located inside a foreboding concrete building.	
 msgid "\"Under the Table\" Tax Agency"
@@ -207,10 +207,8 @@ msgstr "Няколко сливови дървета."
 #. This is a description for an object titled: Cacti (Dense)	
 #. This is a description for an object titled: Cacti (Light)	
 #. This is a description for an object titled: Cacti (Medium)	
-#, fuzzy
-#| msgid "A group of plum trees."
 msgid "A group of prickly cacti."
-msgstr "Няколко сливови дървета."
+msgstr "Няколко бодливи кактуси."
 
 #. This is a description for an object titled: Sakura Trees (Dense)	
 #. This is a description for an object titled: Sakura Trees (Light)	
@@ -264,16 +262,12 @@ msgid ""
 msgstr ""
 
 #. This is a description for an object titled: Community Tower	
-#, fuzzy
-#| msgid ""
-#| "A large multi-story shopping mall with large windows. Urban legends say "
-#| "it was built by hand by the members of a distant community"
 msgid ""
 "A large multi-story shopping mall with large windows. Urban legends say it "
 "was built by hand by the members of a distant community."
 msgstr ""
 "Голям многоетажен търговски център с големи прозорци. Според градските "
-"легенди, той е бил построен на ръка от някаква далечна общност"
+"легенди, той е бил построен на ръка от някаква далечна общност."
 
 #. This is a description for an object titled: Jim's Snail Shop	
 #, fuzzy
@@ -748,8 +742,6 @@ msgid "An apartment building from Montreal , Quebec"
 msgstr "Блок от Монреал в провинция Квебек, Канада"
 
 #. This is a description for an object titled: Vancouver Heights	
-#, fuzzy
-#| msgid "An apartment building from Vancouver , BC , Canada"
 msgid "An apartment building from Vancouver, Canada"
 msgstr "Блок от Ванкувър в провинция Британска Колумбия, Канада"
 
@@ -907,10 +899,8 @@ msgid "Beach Sandstone"
 msgstr "Черен пясък"
 
 #. This is a title for an object with the description: There is not a single bell within this entire building.	
-#, fuzzy
-#| msgid "Water Tower"
 msgid "Bell Tower"
-msgstr "Водонапорна кула"
+msgstr "Камбанария"
 
 #. This is a title for an object with the description: An ordinary skyscraper from Washington, USA.	
 msgid "Bellevue Heights"
@@ -1003,10 +993,8 @@ msgid "Blank Tile"
 msgstr ""
 
 #. This is a description for an object titled: Blvd Belges	
-#, fuzzy
-#| msgid "Block of houses from the Boulevard des Belges , Rouen"
 msgid "Block of houses from the Boulevard des Belges, Rouen."
-msgstr "Блок от булевард Белж в Руан, Франция"
+msgstr "Блок от булевард Белж в Руан, Франция."
 
 #. This is a title for an object with the description: Terrain Blueprint	
 msgid "Blueprint"
@@ -1097,22 +1085,16 @@ msgid "Bygone Apartment Building"
 msgstr "Блок"
 
 #. This is a title for an object with the description: A group of prickly cacti.	
-#, fuzzy
-#| msgid "Cattails (Dense)"
 msgid "Cacti (Dense)"
-msgstr "Папур (гъст)"
+msgstr "Кактуси (гъсти)"
 
 #. This is a title for an object with the description: A group of prickly cacti.	
-#, fuzzy
-#| msgid "Cattails (Light)"
 msgid "Cacti (Light)"
-msgstr "Папур (рядък)"
+msgstr "Кактуси (редки)"
 
 #. This is a title for an object with the description: A group of prickly cacti.	
-#, fuzzy
-#| msgid "Cattails (Medium)"
 msgid "Cacti (Medium)"
-msgstr "Папур (умерен)"
+msgstr "Кактуси (умерени)"
 
 #. This is a title for an object with the description: A three-story apartment building with a cafe at the bottom. However, the noise from the restaurant below has driven out all the residents.	
 #, fuzzy
