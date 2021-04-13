@@ -1,37 +1,38 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Lucas Cirrincione <llc6952@g.rit.edu>, 2020
+# David Leal <halfpacho@gmail.com>, 2021.
 #
 # Translators:
-# Lucas Cirrincione <llc6952@g.rit.edu>, 2020
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-31 14:54+0200\n"
-"PO-Revision-Date: 2020-05-31 10:56+0000\n"
-"Last-Translator: Lucas Cirrincione <llc6952@g.rit.edu>, 2020\n"
-"Language-Team: Spanish (https://www.transifex.com/cytopia/teams/100140/es/)\n"
+"PO-Revision-Date: 2021-04-13 16:26+0000\n"
+"Last-Translator: David Leal <halfpacho@gmail.com>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/cytopia/game/es/>"
+"\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.6-dev\n"
 
 #. This is a title for an object with the description: A completely legal operation located inside a foreboding concrete building.	
 msgid "\"Under the Table\" Tax Agency"
-msgstr ""
+msgstr "Agencia Tributaria \"bajo la mesa\""
 
 #. This is a description for an object titled: Fitzgerald's House	
 msgid "A big house for the Fitzgerald's big family."
-msgstr ""
+msgstr "Una gran casa para la gran familia Fitzgerald."
 
 #. This is a description for an object titled: Tall Concrete Tower	
 msgid "A bland-looking apartment building made out of concrete."
-msgstr ""
+msgstr "Un edificio de apartamentos de aspecto soso hecho de hormigón."
 
 #. This is a description for an object titled: Blank Platform	
 msgid "A blank train platform with nothing on it."
@@ -586,10 +587,8 @@ msgid "A stereotypical red barn."
 msgstr ""
 
 #. This is a description for an object titled: Phone Shop	
-#, fuzzy
-#| msgid "A shop that sells phones. It has the new CyPhone X"
 msgid "A store that sells phones. It even has the new CyPhone X"
-msgstr "Una tienda que vende teléfonos. Tiene el nuevo CyPhone X"
+msgstr "Una tienda que vende teléfonos. Hasta tiene el nuevo CyPhone X"
 
 #. This is a description for an object titled: Perpignan Residence	
 msgid "A tall building from Perpignan, France."
@@ -2410,10 +2409,8 @@ msgid "Rural French Road lined"
 msgstr ""
 
 #. This is a title for an object with the description: An old apartment building topped with a water tower and some advertisements.	
-#, fuzzy
-#| msgid "A big building"
 msgid "SF Building"
-msgstr "Un gran edificio"
+msgstr "Construcción SF"
 
 #. This is a title for an object with the description: Its white walls are sure to brighten up any city block.	
 msgid "SF Chateau"
