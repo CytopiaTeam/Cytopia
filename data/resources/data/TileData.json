@@ -509,6 +509,40 @@
         "author": "Kingtut 101",
         "category": "Decoration",
         "crimeLevel": 0,
+        "description": "Looks like this building has been in disrepair for ages. It's impossible to tell what it looked like before.",
+        "educationLevel": 0,
+        "fireHazardLevel": 0,
+        "happiness": 0,
+        "id": "BD_1x1_Ruins",
+        "inhabitants": 0,
+        "isOverPlacable": true,
+        "placeOnGround": true,
+        "placeOnWater": false,
+        "pollutionLevel": 20,
+        "power": 0,
+        "price": 0,
+        "subCategory": "",
+        "tileType": "DEFAULT",
+        "tiles": {
+            "clip_height": 16,
+            "clip_width": 32,
+            "count": 4,
+            "fileName": "resources/images/decoration/buildings/BD_1x1_Ruins.png",
+            "offset": 0,
+            "pickRandomTile": true
+        },
+        "title": "Ruins",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "RequiredTiles": {
+            "height": 1,
+            "width": 1
+        },
+        "author": "Kingtut 101",
+        "category": "Decoration",
+        "crimeLevel": 0,
         "description": "An old piece of junk that was left here years ago.",
         "educationLevel": 0,
         "fireHazardLevel": 0,
@@ -3009,6 +3043,61 @@
             "height": 1,
             "width": 1
         },
+        "author": "Kekman",
+        "category": "Commercial",
+        "crimeLevel": 0,
+        "description": "Despite the name, this is actually a family-friendly restaurant. The interior is future-themed and the kids love it.",
+        "educationLevel": 0,
+        "fireHazardLevel": 0,
+        "groundDecoration": [
+            "GD_CI_SidewalkConcrete",
+            "GD_CI_DarkConcrete",
+            "GD_CI_LightConcrete",
+            "GD_CI_SmoothStone"
+        ],
+        "happiness": 0,
+        "id": "com_1x1_AustralClub",
+        "inhabitants": 15,
+        "isOverPlacable": false,
+        "placeOnGround": true,
+        "placeOnWater": false,
+        "pollutionLevel": 0,
+        "power": 0,
+        "price": 0,
+        "style": [
+            "ASIAN",
+            "EUROPEAN",
+            "US"
+        ],
+        "subCategory": "High Commercial",
+        "tags": [
+            "concrete",
+            "white"
+        ],
+        "tileType": "RCI",
+        "tiles": {
+            "clip_height": 26,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/com_1x1_AustralClub_KM.png",
+            "offset": 0,
+            "pickRandomTile": false
+        },
+        "title": "Austral Club",
+        "upkeep cost": 0,
+        "water": 0,
+        "wealth": [
+            "HIGH"
+        ],
+        "zones": [
+            "COMMERCIAL"
+        ]
+    },
+    {
+        "RequiredTiles": {
+            "height": 1,
+            "width": 1
+        },
         "author": "Kingtut 101",
         "category": "Commercial",
         "crimeLevel": 0,
@@ -3146,17 +3235,20 @@
         "subCategory": "Low Commercial",
         "tags": [
             "old",
-            "clock",
-            "store"
+            "shop",
+            "brick",
+            "red",
+            "brown",
+            "tan"
         ],
         "tileType": "RCI",
         "tiles": {
-            "clip_height": 32,
+            "clip_height": 25,
             "clip_width": 32,
-            "count": 1,
-            "fileName": "resources/images/buildings/commercial/com_1x1_ClockStore1.png",
+            "count": 3,
+            "fileName": "resources/images/buildings/commercial/com_1x1_ClockStore.png",
             "offset": 0,
-            "pickRandomTile": false
+            "pickRandomTile": true
         },
         "title": "Clock Store",
         "upkeep cost": 0,
@@ -3215,6 +3307,61 @@
         "water": 0,
         "wealth": [
             "LOW"
+        ],
+        "zones": [
+            "COMMERCIAL"
+        ]
+    },
+    {
+        "RequiredTiles": {
+            "height": 1,
+            "width": 1
+        },
+        "author": "Kekman",
+        "category": "Commercial",
+        "crimeLevel": 0,
+        "description": "Creative engineers and innovative problem-solving.",
+        "educationLevel": 0,
+        "fireHazardLevel": 0,
+        "groundDecoration": [
+            "GD_CI_SidewalkConcrete",
+            "GD_CI_DarkConcrete",
+            "GD_CI_LightConcrete",
+            "GD_CI_SmoothStone"
+        ],
+        "happiness": 0,
+        "id": "com_1x1_IvybrickSolutions",
+        "inhabitants": 17,
+        "isOverPlacable": false,
+        "placeOnGround": true,
+        "placeOnWater": false,
+        "pollutionLevel": 0,
+        "power": 0,
+        "price": 0,
+        "style": [
+            "ASIAN",
+            "EUROPEAN",
+            "US"
+        ],
+        "subCategory": "High Commercial",
+        "tags": [
+            "concrete",
+            "white"
+        ],
+        "tileType": "RCI",
+        "tiles": {
+            "clip_height": 26,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/com_1x1_IvybrickSolutions_KM.png",
+            "offset": 0,
+            "pickRandomTile": false
+        },
+        "title": "Ivybrick Solutions",
+        "upkeep cost": 0,
+        "water": 0,
+        "wealth": [
+            "HIGH"
         ],
         "zones": [
             "COMMERCIAL"
@@ -3487,6 +3634,63 @@
         "water": 0,
         "wealth": [
             "LOW"
+        ],
+        "zones": [
+            "COMMERCIAL"
+        ]
+    },
+    {
+        "RequiredTiles": {
+            "height": 1,
+            "width": 1
+        },
+        "author": "Kekman",
+        "category": "Commercial",
+        "crimeLevel": 0,
+        "description": "That big plant was placed there by mistake. It was actually a regular houseplant at some point.",
+        "educationLevel": 0,
+        "fireHazardLevel": 0,
+        "groundDecoration": [
+            "GD_CI_SidewalkConcrete",
+            "GD_CI_DarkConcrete",
+            "GD_CI_LightConcrete",
+            "GD_CI_SmoothStone"
+        ],
+        "happiness": 0,
+        "id": "com_1x1_RichConcreteOffice",
+        "inhabitants": 13,
+        "isOverPlacable": false,
+        "placeOnGround": true,
+        "placeOnWater": false,
+        "pollutionLevel": 0,
+        "power": 0,
+        "price": 0,
+        "style": [
+            "ASIAN",
+            "EUROPEAN",
+            "US"
+        ],
+        "subCategory": "High Commercial",
+        "tags": [
+            "concrete",
+            "white",
+            "black",
+            "office"
+        ],
+        "tileType": "RCI",
+        "tiles": {
+            "clip_height": 24,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/com_1x1_RichConcreteOffice_KM.png",
+            "offset": 0,
+            "pickRandomTile": false
+        },
+        "title": "Rich Concrete Office",
+        "upkeep cost": 0,
+        "water": 0,
+        "wealth": [
+            "HIGH"
         ],
         "zones": [
             "COMMERCIAL"
@@ -4438,6 +4642,61 @@
             "height": 2,
             "width": 2
         },
+        "author": "Kekman",
+        "category": "Commercial",
+        "crimeLevel": 0,
+        "description": "A fine institution for all your banking needs. They also have a great view of the roadway.",
+        "educationLevel": 0,
+        "fireHazardLevel": 0,
+        "groundDecoration": [
+            "GD_CI_DarkConcrete",
+            "GD_CI_LightConcrete",
+            "GD_CI_SidewalkConcrete",
+            "GD_CI_SmoothStone"
+        ],
+        "happiness": 0,
+        "id": "com_2x2_AustralOne",
+        "inhabitants": 28,
+        "isOverPlacable": false,
+        "placeOnGround": true,
+        "placeOnWater": false,
+        "pollutionLevel": 0,
+        "power": 0,
+        "price": 0,
+        "style": [
+            "ASIAN",
+            "EUROPEAN",
+            "US"
+        ],
+        "subCategory": "High Commercial",
+        "tags": [
+            "white",
+            "tall"
+        ],
+        "tileType": "RCI",
+        "tiles": {
+            "clip_height": 59,
+            "clip_width": 64,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/com_2x2_AustralOne_KM.png",
+            "offset": 0,
+            "pickRandomTile": false
+        },
+        "title": "Austral One",
+        "upkeep cost": 0,
+        "water": 0,
+        "wealth": [
+            "HIGH"
+        ],
+        "zones": [
+            "COMMERCIAL"
+        ]
+    },
+    {
+        "RequiredTiles": {
+            "height": 2,
+            "width": 2
+        },
         "author": "Kingtut 101",
         "category": "Commercial",
         "crimeLevel": 0,
@@ -4535,6 +4794,62 @@
         "water": 0,
         "wealth": [
             "HIGH"
+        ],
+        "zones": [
+            "COMMERCIAL"
+        ]
+    },
+    {
+        "RequiredTiles": {
+            "height": 2,
+            "width": 2
+        },
+        "author": "Kekman",
+        "category": "Commercial",
+        "crimeLevel": 0,
+        "description": "Almost everything you can imagine can be bought here in bulk.",
+        "educationLevel": 0,
+        "fireHazardLevel": 0,
+        "groundDecoration": [
+            "GD_CI_DarkConcrete",
+            "GD_CI_LightConcrete",
+            "GD_CI_SidewalkConcrete",
+            "GD_CI_SmoothStone"
+        ],
+        "happiness": 0,
+        "id": "com_2x2_RandomTradingCo",
+        "inhabitants": 34,
+        "isOverPlacable": false,
+        "placeOnGround": true,
+        "placeOnWater": false,
+        "pollutionLevel": 0,
+        "power": 0,
+        "price": 0,
+        "style": [
+            "ASIAN",
+            "EUROPEAN",
+            "US"
+        ],
+        "subCategory": "Medium Commercial",
+        "tags": [
+            "black",
+            "white",
+            "big"
+        ],
+        "tileType": "RCI",
+        "tiles": {
+            "clip_height": 45,
+            "clip_width": 64,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/com_2x2_RandomTradingCo_KM.png",
+            "offset": 0,
+            "pickRandomTile": false
+        },
+        "title": "Random Trading Co.",
+        "upkeep cost": 0,
+        "water": 0,
+        "wealth": [
+            "MEDIUM"
         ],
         "zones": [
             "COMMERCIAL"
@@ -6035,6 +6350,59 @@
             "height": 3,
             "width": 3
         },
+        "author": "Kekman",
+        "category": "Commercial",
+        "crimeLevel": 0,
+        "description": "Many high-end electronic and clothing stores are located here.",
+        "educationLevel": 0,
+        "fireHazardLevel": 0,
+        "groundDecoration": [
+            "GD_res_SmoothGrass"
+        ],
+        "happiness": 0,
+        "id": "com_3x3_HexlandMall",
+        "inhabitants": 100,
+        "isOverPlacable": false,
+        "placeOnGround": true,
+        "placeOnWater": false,
+        "pollutionLevel": 0,
+        "power": 0,
+        "price": 0,
+        "style": [
+            "ASIAN",
+            "EUROPEAN",
+            "US"
+        ],
+        "subCategory": "High Commercial",
+        "tags": [
+            "big",
+            "white",
+            "colorful"
+        ],
+        "tileType": "RCI",
+        "tiles": {
+            "clip_height": 58,
+            "clip_width": 96,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/com_3x3_HexlandMall_KM.png",
+            "offset": 0,
+            "pickRandomTile": false
+        },
+        "title": "Hexland Mall",
+        "upkeep cost": 0,
+        "water": 0,
+        "wealth": [
+            "HIGH"
+        ],
+        "zones": [
+            "COMMERCIAL"
+        ]
+    },
+    {
+        "RequiredTiles": {
+            "height": 3,
+            "width": 3
+        },
         "author": "Yusuf8a684",
         "category": "Commercial",
         "crimeLevel": 0,
@@ -6093,64 +6461,6 @@
         "author": "dumbul",
         "category": "Commercial",
         "crimeLevel": 0,
-        "description": "This skyscraper belongs to a large banking firm. They handle customers from around the world here.",
-        "educationLevel": 0,
-        "fireHazardLevel": 0,
-        "groundDecoration": [
-            "GD_CI_SidewalkConcrete",
-            "GD_CI_DarkConcrete",
-            "GD_CI_LightConcrete",
-            "GD_CI_SmoothStone"
-        ],
-        "happiness": 0,
-        "id": "com_3x3_IFCBuilding",
-        "inhabitants": 180,
-        "isOverPlacable": false,
-        "placeOnGround": true,
-        "placeOnWater": false,
-        "pollutionLevel": 0,
-        "power": 0,
-        "price": 0,
-        "style": [
-            "ASIAN",
-            "EUROPEAN",
-            "US"
-        ],
-        "subCategory": "High Commercial",
-        "tags": [
-            "tall",
-            "tower",
-            "big",
-            "glass",
-            "blue"
-        ],
-        "tileType": "RCI",
-        "tiles": {
-            "clip_height": 208,
-            "clip_width": 128,
-            "count": 1,
-            "fileName": "resources/images/buildings/commercial/com_3x3_IFCBuilding_DB.png",
-            "offset": 0,
-            "pickRandomTile": false
-        },
-        "title": "IFC Building",
-        "upkeep cost": 0,
-        "water": 0,
-        "wealth": [
-            "HIGH"
-        ],
-        "zones": [
-            "COMMERCIAL"
-        ]
-    },
-    {
-        "RequiredTiles": {
-            "height": 3,
-            "width": 3
-        },
-        "author": "dumbul",
-        "category": "Commercial",
-        "crimeLevel": 0,
         "description": "A good place to spend your disposable income. They have a wide variety of clothes, collectables, and toys.",
         "educationLevel": 0,
         "fireHazardLevel": 0,
@@ -6189,6 +6499,59 @@
         "water": 0,
         "wealth": [
             "MEDIUM"
+        ],
+        "zones": [
+            "COMMERCIAL"
+        ]
+    },
+    {
+        "RequiredTiles": {
+            "height": 3,
+            "width": 3
+        },
+        "author": "Kekman",
+        "category": "Commercial",
+        "crimeLevel": 0,
+        "description": "The glowing neon sign looks beautiful at night. ",
+        "educationLevel": 0,
+        "fireHazardLevel": 0,
+        "groundDecoration": [
+            "GD_res_SmoothGrass"
+        ],
+        "happiness": 0,
+        "id": "com_3x3_TheOscian",
+        "inhabitants": 75,
+        "isOverPlacable": false,
+        "placeOnGround": true,
+        "placeOnWater": false,
+        "pollutionLevel": 0,
+        "power": 0,
+        "price": 0,
+        "style": [
+            "ASIAN",
+            "EUROPEAN",
+            "US"
+        ],
+        "subCategory": "High Commercial",
+        "tags": [
+            "big",
+            "white",
+            "colorful"
+        ],
+        "tileType": "RCI",
+        "tiles": {
+            "clip_height": 84,
+            "clip_width": 96,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/com_3x3_TheOscian_KM.png",
+            "offset": 0,
+            "pickRandomTile": false
+        },
+        "title": "The Oscian",
+        "upkeep cost": 0,
+        "water": 0,
+        "wealth": [
+            "HIGH"
         ],
         "zones": [
             "COMMERCIAL"
@@ -6926,7 +7289,7 @@
         ],
         "happiness": 0,
         "id": "com_3x5_RF2_CarDealer_pw",
-        "inhabitants": 70,
+        "inhabitants": 30,
         "isOverPlacable": false,
         "placeOnGround": true,
         "placeOnWater": false,
@@ -6982,7 +7345,7 @@
         ],
         "happiness": 0,
         "id": "com_4x4_Banque_Ouvriere_Anternoise_mx",
-        "inhabitants": 585,
+        "inhabitants": 360,
         "isOverPlacable": false,
         "placeOnGround": true,
         "placeOnWater": false,
@@ -7038,7 +7401,7 @@
         ],
         "happiness": 0,
         "id": "com_4x4_Clearview_CPH",
-        "inhabitants": 600,
+        "inhabitants": 385,
         "isOverPlacable": false,
         "placeOnGround": true,
         "placeOnWater": false,
@@ -7140,6 +7503,177 @@
             "height": 4,
             "width": 4
         },
+        "author": "dumbul",
+        "category": "Commercial",
+        "crimeLevel": 0,
+        "description": "This skyscraper belongs to a large banking firm. They handle customers from around the world here.",
+        "educationLevel": 0,
+        "fireHazardLevel": 0,
+        "groundDecoration": [
+            "GD_CI_SidewalkConcrete",
+            "GD_CI_DarkConcrete",
+            "GD_CI_LightConcrete",
+            "GD_CI_SmoothStone"
+        ],
+        "happiness": 0,
+        "id": "com_4x4_IFCBuilding",
+        "inhabitants": 180,
+        "isOverPlacable": false,
+        "placeOnGround": true,
+        "placeOnWater": false,
+        "pollutionLevel": 0,
+        "power": 0,
+        "price": 0,
+        "style": [
+            "ASIAN",
+            "EUROPEAN",
+            "US"
+        ],
+        "subCategory": "High Commercial",
+        "tags": [
+            "tall",
+            "tower",
+            "big",
+            "glass",
+            "blue"
+        ],
+        "tileType": "RCI",
+        "tiles": {
+            "clip_height": 208,
+            "clip_width": 128,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/com_4x4_IFCBuilding_DB.png",
+            "offset": 0,
+            "pickRandomTile": false
+        },
+        "title": "IFC Building",
+        "upkeep cost": 0,
+        "water": 0,
+        "wealth": [
+            "HIGH"
+        ],
+        "zones": [
+            "COMMERCIAL"
+        ]
+    },
+    {
+        "RequiredTiles": {
+            "height": 4,
+            "width": 4
+        },
+        "author": "Kekman",
+        "category": "Commercial",
+        "crimeLevel": 0,
+        "description": "The building looks like a rainbow that's guiding you to its entrance.",
+        "educationLevel": 0,
+        "fireHazardLevel": 0,
+        "groundDecoration": [
+            "GD_res_SmoothGrass"
+        ],
+        "happiness": 0,
+        "id": "com_4x4_KeksResort",
+        "inhabitants": 85,
+        "isOverPlacable": false,
+        "placeOnGround": true,
+        "placeOnWater": false,
+        "pollutionLevel": 0,
+        "power": 0,
+        "price": 0,
+        "style": [
+            "ASIAN",
+            "EUROPEAN",
+            "US"
+        ],
+        "subCategory": "High Commercial",
+        "tags": [
+            "tall",
+            "tower",
+            "big",
+            "colorful"
+        ],
+        "tileType": "RCI",
+        "tiles": {
+            "clip_height": 122,
+            "clip_width": 128,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/com_4x4_KeksResort_KM.png",
+            "offset": 0,
+            "pickRandomTile": false
+        },
+        "title": "Kek's Resort",
+        "upkeep cost": 0,
+        "water": 0,
+        "wealth": [
+            "HIGH"
+        ],
+        "zones": [
+            "COMMERCIAL"
+        ]
+    },
+    {
+        "RequiredTiles": {
+            "height": 4,
+            "width": 4
+        },
+        "author": "Kekman",
+        "category": "Commercial",
+        "crimeLevel": 0,
+        "description": "A beautiful building that reminds us of a better tomorrow.",
+        "educationLevel": 0,
+        "fireHazardLevel": 0,
+        "groundDecoration": [
+            "GD_CI_SidewalkConcrete",
+            "GD_CI_DarkConcrete",
+            "GD_CI_LightConcrete",
+            "GD_CI_SmoothStone"
+        ],
+        "happiness": 0,
+        "id": "com_4x4_VegaHotel",
+        "inhabitants": 350,
+        "isOverPlacable": false,
+        "placeOnGround": true,
+        "placeOnWater": false,
+        "pollutionLevel": 0,
+        "power": 0,
+        "price": 0,
+        "style": [
+            "ASIAN",
+            "EUROPEAN",
+            "US"
+        ],
+        "subCategory": "High Commercial",
+        "tags": [
+            "tall",
+            "tower",
+            "big",
+            "glass",
+            "colorful",
+            "white"
+        ],
+        "tileType": "RCI",
+        "tiles": {
+            "clip_height": 244,
+            "clip_width": 128,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/com_4x4_VegaHotel_KM.png",
+            "offset": 0,
+            "pickRandomTile": false
+        },
+        "title": "Vega Hotel",
+        "upkeep cost": 0,
+        "water": 0,
+        "wealth": [
+            "HIGH"
+        ],
+        "zones": [
+            "COMMERCIAL"
+        ]
+    },
+    {
+        "RequiredTiles": {
+            "height": 4,
+            "width": 4
+        },
         "author": "RockFort",
         "category": "Commercial",
         "crimeLevel": 0,
@@ -7211,7 +7745,7 @@
         ],
         "happiness": 0,
         "id": "com_4x4_bigglasstower_jk",
-        "inhabitants": 810,
+        "inhabitants": 680,
         "isOverPlacable": false,
         "placeOnGround": true,
         "placeOnWater": false,
@@ -7270,7 +7804,7 @@
         ],
         "happiness": 0,
         "id": "com_4x4_cityplaza1_connecticut_RF",
-        "inhabitants": 740,
+        "inhabitants": 540,
         "isOverPlacable": false,
         "placeOnGround": true,
         "placeOnWater": false,
@@ -7327,7 +7861,7 @@
         ],
         "happiness": 0,
         "id": "com_4x4_komtartower_RF",
-        "inhabitants": 700,
+        "inhabitants": 780,
         "isOverPlacable": false,
         "placeOnGround": true,
         "placeOnWater": false,
@@ -7495,7 +8029,7 @@
         ],
         "happiness": 0,
         "id": "com_4x4_work_tower_Y8",
-        "inhabitants": 440,
+        "inhabitants": 740,
         "isOverPlacable": false,
         "placeOnGround": true,
         "placeOnWater": false,
@@ -7592,6 +8126,61 @@
     },
     {
         "RequiredTiles": {
+            "height": 5,
+            "width": 5
+        },
+        "author": "Kekman",
+        "category": "Commercial",
+        "crimeLevel": 0,
+        "description": "From the ground level, this building looks like a beacon to heaven.",
+        "educationLevel": 0,
+        "fireHazardLevel": 0,
+        "groundDecoration": [
+            "GD_res_SmoothGrass"
+        ],
+        "happiness": 0,
+        "id": "com_5x5_TomorrowlandSpire",
+        "inhabitants": 725,
+        "isOverPlacable": false,
+        "placeOnGround": true,
+        "placeOnWater": false,
+        "pollutionLevel": 0,
+        "power": 0,
+        "price": 0,
+        "style": [
+            "ASIAN",
+            "EUROPEAN",
+            "US"
+        ],
+        "subCategory": "High Commercial",
+        "tags": [
+            "tall",
+            "tower",
+            "big",
+            "colorful",
+            "gray"
+        ],
+        "tileType": "RCI",
+        "tiles": {
+            "clip_height": 421,
+            "clip_width": 160,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/com_5x5_TomorrowlandSpire_KM.png",
+            "offset": 0,
+            "pickRandomTile": false
+        },
+        "title": "Tomorrowland Spire",
+        "upkeep cost": 0,
+        "water": 0,
+        "wealth": [
+            "HIGH"
+        ],
+        "zones": [
+            "COMMERCIAL"
+        ]
+    },
+    {
+        "RequiredTiles": {
             "height": 6,
             "width": 6
         },
@@ -7640,6 +8229,64 @@
             "pickRandomTile": false
         },
         "title": "Vilnius Municipality Building",
+        "upkeep cost": 0,
+        "water": 0,
+        "wealth": [
+            "HIGH"
+        ],
+        "zones": [
+            "COMMERCIAL"
+        ]
+    },
+    {
+        "RequiredTiles": {
+            "height": 8,
+            "width": 8
+        },
+        "author": "Kekman",
+        "category": "Commercial",
+        "crimeLevel": 0,
+        "description": "The coolest place to hang out in the modern era.",
+        "educationLevel": 0,
+        "fireHazardLevel": 0,
+        "groundDecoration": [
+            "GD_CI_SidewalkConcrete",
+            "GD_CI_DarkConcrete",
+            "GD_CI_LightConcrete",
+            "GD_CI_SmoothStone"
+        ],
+        "happiness": 0,
+        "id": "com_8x8_DaClub",
+        "inhabitants": 500,
+        "isOverPlacable": false,
+        "placeOnGround": true,
+        "placeOnWater": false,
+        "pollutionLevel": 0,
+        "power": 0,
+        "price": 0,
+        "style": [
+            "ASIAN",
+            "EUROPEAN",
+            "US"
+        ],
+        "subCategory": "High Commercial",
+        "tags": [
+            "tall",
+            "big",
+            "glass",
+            "colorful",
+            "white"
+        ],
+        "tileType": "RCI",
+        "tiles": {
+            "clip_height": 192,
+            "clip_width": 256,
+            "count": 1,
+            "fileName": "resources/images/buildings/commercial/com_8x8_DaClub_KM.png",
+            "offset": 0,
+            "pickRandomTile": false
+        },
+        "title": "Da Club",
         "upkeep cost": 0,
         "water": 0,
         "wealth": [
@@ -8563,20 +9210,18 @@
         "subCategory": "Low Industrial",
         "tags": [
             "old",
-            "depolluter",
-            "building",
-            "new",
-            "industrial",
-            "factory"
+            "blue",
+            "yellow",
+            "red"
         ],
         "tileType": "RCI",
         "tiles": {
             "clip_height": 26,
             "clip_width": 32,
-            "count": 1,
-            "fileName": "resources/images/buildings/industrial/ind_1x1_DepolluterMINI1.png",
+            "count": 3,
+            "fileName": "resources/images/buildings/industrial/ind_1x1_DepolluterMINI.png",
             "offset": 0,
-            "pickRandomTile": false
+            "pickRandomTile": true
         },
         "title": "Mini Depolluter",
         "upkeep cost": 0,
@@ -9413,7 +10058,7 @@
             "height": 3,
             "width": 3
         },
-        "author": "KingTut 101",
+        "author": "Kingtut 101",
         "category": "Industrial",
         "crimeLevel": 0,
         "description": "This building's sole purpose is to crush coal ore into small chunks for naughty children during the holidays.",
@@ -9524,7 +10169,7 @@
         "fireHazardLevel": 0,
         "happiness": 0,
         "id": "ind_3x3_chemical_plant_FN",
-        "inhabitants": 260,
+        "inhabitants": 120,
         "isOverPlacable": false,
         "placeOnGround": true,
         "placeOnWater": false,
@@ -9555,6 +10200,59 @@
         "water": 0,
         "wealth": [
             "HIGH"
+        ],
+        "zones": [
+            "INDUSTRIAL"
+        ]
+    },
+    {
+        "RequiredTiles": {
+            "height": 3,
+            "width": 3
+        },
+        "author": "Kekman",
+        "category": "Industrial",
+        "crimeLevel": 0,
+        "description": "This place produces concrete for construction projects around the city.",
+        "educationLevel": 0,
+        "fireHazardLevel": 0,
+        "groundDecoration": [
+            "GD_res_PollutedGrass"
+        ],
+        "happiness": 0,
+        "id": "ind_3x3_chemical_plant_FN1",
+        "inhabitants": 45,
+        "isOverPlacable": false,
+        "placeOnGround": true,
+        "placeOnWater": false,
+        "pollutionLevel": 0,
+        "power": 0,
+        "price": 0,
+        "style": [
+            "ASIAN",
+            "EUROPEAN",
+            "US"
+        ],
+        "subCategory": "High Industrial",
+        "tags": [
+            "old",
+            "blue",
+            "tall"
+        ],
+        "tileType": "RCI",
+        "tiles": {
+            "clip_height": 93,
+            "clip_width": 96,
+            "count": 1,
+            "fileName": "resources/images/buildings/industrial/ind_3x3_HDRN_KM.png",
+            "offset": 0,
+            "pickRandomTile": false
+        },
+        "title": "HDRN",
+        "upkeep cost": 0,
+        "water": 0,
+        "wealth": [
+            "LOW"
         ],
         "zones": [
             "INDUSTRIAL"
@@ -10243,6 +10941,44 @@
             "pickRandomTile": false
         },
         "title": "Small Police Station",
+        "upkeep cost": 0,
+        "water": 0
+    },
+    {
+        "RequiredTiles": {
+            "height": 1,
+            "width": 3
+        },
+        "author": "Kingtut 101",
+        "category": "Power",
+        "crimeLevel": 0,
+        "description": "Solar panels are one of the cleanest energy sources on Earth! However, they take up a lot of space and are somewhat expensive.",
+        "educationLevel": 0,
+        "fireHazardLevel": 0,
+        "happiness": 0,
+        "id": "pow_3x1_SolarPanels",
+        "inhabitants": 0,
+        "isOverPlacable": false,
+        "placeOnGround": true,
+        "placeOnWater": false,
+        "pollutionLevel": 80,
+        "power": 0,
+        "price": 0,
+        "subCategory": "",
+        "tags": [
+            "metal",
+            "blue"
+        ],
+        "tileType": "DEFAULT",
+        "tiles": {
+            "clip_height": 31,
+            "clip_width": 64,
+            "count": 4,
+            "fileName": "resources/images/buildings/power plants/pow_3x1_RF4_SolarPanels.png",
+            "offset": 0,
+            "pickRandomTile": true
+        },
+        "title": "Solar Panels",
         "upkeep cost": 0,
         "water": 0
     },
@@ -11675,6 +12411,60 @@
             "height": 1,
             "width": 1
         },
+        "author": "Kekman",
+        "category": "Residential",
+        "crimeLevel": 0,
+        "description": "Just an average house. Were you expecting something more?",
+        "educationLevel": 0,
+        "fireHazardLevel": 0,
+        "groundDecoration": [
+            "GD_NA_BlankTile",
+            "GD_res_PollutedGrass",
+            "GD_res_RoughGrass"
+        ],
+        "happiness": 0,
+        "id": "res_1x1_CelularmsAbode",
+        "inhabitants": 2,
+        "isOverPlacable": false,
+        "placeOnGround": true,
+        "placeOnWater": false,
+        "pollutionLevel": 0,
+        "power": 0,
+        "price": 0,
+        "style": [
+            "ASIAN",
+            "EUROPEAN",
+            "US"
+        ],
+        "subCategory": "Low Residential",
+        "tags": [
+            "small",
+            "tan"
+        ],
+        "tileType": "RCI",
+        "tiles": {
+            "clip_height": 20,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_1x1_CelularmsAbode_KM.png",
+            "offset": 0,
+            "pickRandomTile": false
+        },
+        "title": "Celularm's Abode",
+        "upkeep cost": 0,
+        "water": 0,
+        "wealth": [
+            "LOW"
+        ],
+        "zones": [
+            "RESIDENTIAL"
+        ]
+    },
+    {
+        "RequiredTiles": {
+            "height": 1,
+            "width": 1
+        },
         "author": "MaroonShaded",
         "category": "Residential",
         "crimeLevel": 0,
@@ -11732,6 +12522,220 @@
         "author": "Kingtut 101",
         "category": "Residential",
         "crimeLevel": 0,
+        "description": "The name's a bit redundant, isn't it?",
+        "educationLevel": 0,
+        "fireHazardLevel": 0,
+        "groundDecoration": [
+            "GD_res_SmoothGrass"
+        ],
+        "happiness": 0,
+        "id": "res_1x1_GreenHouseHouse",
+        "inhabitants": 5,
+        "isOverPlacable": false,
+        "placeOnGround": true,
+        "placeOnWater": false,
+        "pollutionLevel": 0,
+        "power": 0,
+        "price": 0,
+        "style": [
+            "ASIAN",
+            "EUROPEAN",
+            "US"
+        ],
+        "subCategory": "Medium Residential",
+        "tags": [
+            "small",
+            "glass",
+            "brick",
+            "red"
+        ],
+        "tileType": "RCI",
+        "tiles": {
+            "clip_height": 22,
+            "clip_width": 32,
+            "count": 2,
+            "fileName": "resources/images/buildings/residential/res_1x1_GreenhouseHouse.png",
+            "offset": 0,
+            "pickRandomTile": true
+        },
+        "title": "Greenhouse House",
+        "upkeep cost": 0,
+        "water": 0,
+        "wealth": [
+            "MEDIUM"
+        ],
+        "zones": [
+            "RESIDENTIAL"
+        ]
+    },
+    {
+        "RequiredTiles": {
+            "height": 1,
+            "width": 1
+        },
+        "author": "Kekman",
+        "category": "Residential",
+        "crimeLevel": 0,
+        "description": "This looks like something you'd see in a faraway space colony.",
+        "educationLevel": 0,
+        "fireHazardLevel": 0,
+        "groundDecoration": [
+            "GD_res_SmoothGrass"
+        ],
+        "happiness": 0,
+        "id": "res_1x1_HexlandsAptsShort",
+        "inhabitants": 10,
+        "isOverPlacable": false,
+        "placeOnGround": true,
+        "placeOnWater": false,
+        "pollutionLevel": 0,
+        "power": 0,
+        "price": 0,
+        "style": [
+            "ASIAN",
+            "EUROPEAN",
+            "US"
+        ],
+        "subCategory": "High Residential",
+        "tags": [
+            "tall",
+            "tower",
+            "concrete",
+            "white"
+        ],
+        "tileType": "RCI",
+        "tiles": {
+            "clip_height": 31,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_1x1_HexlandsAptsShort_KM.png",
+            "offset": 0,
+            "pickRandomTile": false
+        },
+        "title": "Short Hexlands Apartments",
+        "upkeep cost": 0,
+        "water": 0,
+        "wealth": [
+            "HIGH"
+        ],
+        "zones": [
+            "RESIDENTIAL"
+        ]
+    },
+    {
+        "RequiredTiles": {
+            "height": 1,
+            "width": 1
+        },
+        "author": "Kekman",
+        "category": "Residential",
+        "crimeLevel": 0,
+        "description": "If you like high rent and tall apartment buildings, this is the place for you!",
+        "educationLevel": 0,
+        "fireHazardLevel": 0,
+        "groundDecoration": [
+            "GD_res_SmoothGrass"
+        ],
+        "happiness": 0,
+        "id": "res_1x1_HexlandsAptsTall",
+        "inhabitants": 22,
+        "isOverPlacable": false,
+        "placeOnGround": true,
+        "placeOnWater": false,
+        "pollutionLevel": 0,
+        "power": 0,
+        "price": 0,
+        "style": [
+            "ASIAN",
+            "EUROPEAN",
+            "US"
+        ],
+        "subCategory": "High Residential",
+        "tags": [
+            "tall",
+            "tower",
+            "concrete",
+            "white"
+        ],
+        "tileType": "RCI",
+        "tiles": {
+            "clip_height": 49,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_1x1_HexlandsAptsTall_KM.png",
+            "offset": 0,
+            "pickRandomTile": false
+        },
+        "title": "Tall Hexlands Apartments",
+        "upkeep cost": 0,
+        "water": 0,
+        "wealth": [
+            "HIGH"
+        ],
+        "zones": [
+            "RESIDENTIAL"
+        ]
+    },
+    {
+        "RequiredTiles": {
+            "height": 1,
+            "width": 1
+        },
+        "author": "Kekman",
+        "category": "Residential",
+        "crimeLevel": 0,
+        "description": "It's small, but the interior is very beautiful. Every room is rainbow themed.",
+        "educationLevel": 0,
+        "fireHazardLevel": 0,
+        "groundDecoration": [
+            "GD_res_SmoothGrass"
+        ],
+        "happiness": 0,
+        "id": "res_1x1_HexlandsCondo",
+        "inhabitants": 5,
+        "isOverPlacable": false,
+        "placeOnGround": true,
+        "placeOnWater": false,
+        "pollutionLevel": 0,
+        "power": 0,
+        "price": 0,
+        "style": [
+            "ASIAN",
+            "EUROPEAN",
+            "US"
+        ],
+        "subCategory": "High Residential",
+        "tags": [
+            "concrete",
+            "gray"
+        ],
+        "tileType": "RCI",
+        "tiles": {
+            "clip_height": 20,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_1x1_HexlandsCondo_KM.png",
+            "offset": 0,
+            "pickRandomTile": false
+        },
+        "title": "Hexlands Condo",
+        "upkeep cost": 0,
+        "water": 0,
+        "wealth": [
+            "HIGH"
+        ],
+        "zones": [
+            "RESIDENTIAL"
+        ]
+    },
+    {
+        "RequiredTiles": {
+            "height": 1,
+            "width": 1
+        },
+        "author": "Kingtut 101",
+        "category": "Residential",
+        "crimeLevel": 0,
         "description": "Trailer houses are cheap buildings that are hauled to a lot by a semi truck.",
         "educationLevel": 0,
         "fireHazardLevel": 0,
@@ -11741,7 +12745,7 @@
         ],
         "happiness": 0,
         "id": "res_1x1_KTHouse2",
-        "inhabitants": 6,
+        "inhabitants": 5,
         "isOverPlacable": false,
         "placeOnGround": true,
         "placeOnWater": false,
@@ -11761,10 +12765,10 @@
         "tiles": {
             "clip_height": 18,
             "clip_width": 32,
-            "count": 1,
-            "fileName": "resources/images/buildings/residential/res_1x1_KTHouse2.png",
+            "count": 3,
+            "fileName": "resources/images/buildings/residential/res_1x1_KTHouse.png",
             "offset": 0,
-            "pickRandomTile": false
+            "pickRandomTile": true
         },
         "title": "Trailer House",
         "upkeep cost": 0,
@@ -11794,7 +12798,7 @@
         ],
         "happiness": 0,
         "id": "res_1x1_KTHouseNew",
-        "inhabitants": 8,
+        "inhabitants": 7,
         "isOverPlacable": false,
         "placeOnGround": true,
         "placeOnWater": false,
@@ -11813,12 +12817,12 @@
         ],
         "tileType": "RCI",
         "tiles": {
-            "clip_height": 20,
+            "clip_height": 19,
             "clip_width": 32,
-            "count": 1,
-            "fileName": "resources/images/buildings/residential/res_1x1_KTHouseNew2.png",
+            "count": 4,
+            "fileName": "resources/images/buildings/residential/res_1x1_KTHouseNew.png",
             "offset": 0,
-            "pickRandomTile": false
+            "pickRandomTile": true
         },
         "title": "Boxy House",
         "upkeep cost": 0,
@@ -11997,6 +13001,217 @@
             "height": 1,
             "width": 1
         },
+        "author": "Kekman",
+        "category": "Residential",
+        "crimeLevel": 0,
+        "description": "Decorative vines seem to be very popular with this home owner.",
+        "educationLevel": 0,
+        "fireHazardLevel": 0,
+        "groundDecoration": [
+            "GD_res_SmoothGrass"
+        ],
+        "happiness": 0,
+        "id": "res_1x1_OrangeMediterraneanHome",
+        "inhabitants": 10,
+        "isOverPlacable": false,
+        "placeOnGround": true,
+        "placeOnWater": false,
+        "pollutionLevel": 0,
+        "power": 0,
+        "price": 0,
+        "style": [
+            "EUROPEAN"
+        ],
+        "subCategory": "Low Residential",
+        "tags": [
+            "tan",
+            "orange",
+            "Mediterranea"
+        ],
+        "tileType": "RCI",
+        "tiles": {
+            "clip_height": 27,
+            "clip_width": 32,
+            "count": 4,
+            "fileName": "resources/images/buildings/residential/res_1x1_OrangeMediterraneanHome_KM.png",
+            "offset": 0,
+            "pickRandomTile": true
+        },
+        "title": "Orange Mediterranean Home",
+        "upkeep cost": 0,
+        "water": 0,
+        "wealth": [
+            "LOW"
+        ],
+        "zones": [
+            "RESIDENTIAL"
+        ]
+    },
+    {
+        "RequiredTiles": {
+            "height": 1,
+            "width": 1
+        },
+        "author": "Kekman",
+        "category": "Residential",
+        "crimeLevel": 0,
+        "description": "For some reason, the owner has an obsession with pickled cucumbers. Legends say that he turned himself into a pickle. It was the funniest thing I've ever heard.",
+        "educationLevel": 0,
+        "fireHazardLevel": 0,
+        "groundDecoration": [
+            "GD_res_PollutedGrass",
+            "GD_res_RoughGrass",
+            "GD_NA_BlankTile"
+        ],
+        "happiness": 0,
+        "id": "res_1x1_PicklemansHouse",
+        "inhabitants": 4,
+        "isOverPlacable": false,
+        "placeOnGround": true,
+        "placeOnWater": false,
+        "pollutionLevel": 0,
+        "power": 0,
+        "price": 0,
+        "style": [
+            "ASIAN",
+            "EUROPEAN",
+            "US"
+        ],
+        "subCategory": "Low Residential",
+        "tags": [
+            "small",
+            "green"
+        ],
+        "tileType": "RCI",
+        "tiles": {
+            "clip_height": 26,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_1x1_PicklemansHouse_KM.png",
+            "offset": 0,
+            "pickRandomTile": false
+        },
+        "title": "Pickleman's House",
+        "upkeep cost": 0,
+        "water": 0,
+        "wealth": [
+            "LOW"
+        ],
+        "zones": [
+            "RESIDENTIAL"
+        ]
+    },
+    {
+        "RequiredTiles": {
+            "height": 1,
+            "width": 1
+        },
+        "author": "Kekman",
+        "category": "Residential",
+        "crimeLevel": 0,
+        "description": "The most interesting fact about this home is how uninteresting it is. Now that's in-teresting-ception!",
+        "educationLevel": 0,
+        "fireHazardLevel": 0,
+        "groundDecoration": [
+            "GD_res_PollutedGrass",
+            "GD_res_RoughGrass",
+            "GD_NA_BlankTile"
+        ],
+        "happiness": 0,
+        "id": "res_1x1_QuaintEastEuroHouse",
+        "inhabitants": 7,
+        "isOverPlacable": false,
+        "placeOnGround": true,
+        "placeOnWater": false,
+        "pollutionLevel": 0,
+        "power": 0,
+        "price": 0,
+        "style": [
+            "EUROPEAN"
+        ],
+        "subCategory": "Low Residential",
+        "tags": [
+            "small",
+            "white"
+        ],
+        "tileType": "RCI",
+        "tiles": {
+            "clip_height": 36,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_1x1_QuaintEaternEuropeanHouse_KM.png",
+            "offset": 0,
+            "pickRandomTile": false
+        },
+        "title": "Quaint Eastern European House",
+        "upkeep cost": 0,
+        "water": 0,
+        "wealth": [
+            "LOW"
+        ],
+        "zones": [
+            "RESIDENTIAL"
+        ]
+    },
+    {
+        "RequiredTiles": {
+            "height": 1,
+            "width": 1
+        },
+        "author": "Kekman",
+        "category": "Residential",
+        "crimeLevel": 0,
+        "description": "It's the the colors are spilling off the roof of the building.",
+        "educationLevel": 0,
+        "fireHazardLevel": 0,
+        "groundDecoration": [
+            "GD_res_SmoothGrass"
+        ],
+        "happiness": 0,
+        "id": "res_1x1_RainbowFalls",
+        "inhabitants": 22,
+        "isOverPlacable": false,
+        "placeOnGround": true,
+        "placeOnWater": false,
+        "pollutionLevel": 0,
+        "power": 0,
+        "price": 0,
+        "style": [
+            "ASIAN",
+            "EUROPEAN",
+            "US"
+        ],
+        "subCategory": "High Residential",
+        "tags": [
+            "tall",
+            "tower",
+            "concrete",
+            "gray"
+        ],
+        "tileType": "RCI",
+        "tiles": {
+            "clip_height": 51,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_1x1_RainbowFalls_KM.png",
+            "offset": 0,
+            "pickRandomTile": false
+        },
+        "title": "Rainbow Falls",
+        "upkeep cost": 0,
+        "water": 0,
+        "wealth": [
+            "HIGH"
+        ],
+        "zones": [
+            "RESIDENTIAL"
+        ]
+    },
+    {
+        "RequiredTiles": {
+            "height": 1,
+            "width": 1
+        },
         "author": "Matison55557",
         "category": "Residential",
         "crimeLevel": 0,
@@ -12035,6 +13250,60 @@
             "pickRandomTile": true
         },
         "title": "Row House",
+        "upkeep cost": 0,
+        "water": 0,
+        "wealth": [
+            "LOW"
+        ],
+        "zones": [
+            "RESIDENTIAL"
+        ]
+    },
+    {
+        "RequiredTiles": {
+            "height": 1,
+            "width": 1
+        },
+        "author": "Kekman",
+        "category": "Residential",
+        "crimeLevel": 0,
+        "description": "This building is a couple square meters away from being a storage shed.",
+        "educationLevel": 0,
+        "fireHazardLevel": 0,
+        "groundDecoration": [
+            "GD_res_PollutedGrass",
+            "GD_res_RoughGrass",
+            "GD_NA_BlankTile"
+        ],
+        "happiness": 0,
+        "id": "res_1x1_ShortShack",
+        "inhabitants": 2,
+        "isOverPlacable": false,
+        "placeOnGround": true,
+        "placeOnWater": false,
+        "pollutionLevel": 0,
+        "power": 0,
+        "price": 0,
+        "style": [
+            "ASIAN",
+            "EUROPEAN",
+            "US"
+        ],
+        "subCategory": "Low Residential",
+        "tags": [
+            "small",
+            "red"
+        ],
+        "tileType": "RCI",
+        "tiles": {
+            "clip_height": 19,
+            "clip_width": 32,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_1x1_ShortShack_KM.png",
+            "offset": 0,
+            "pickRandomTile": false
+        },
+        "title": "Short Shack",
         "upkeep cost": 0,
         "water": 0,
         "wealth": [
@@ -12223,7 +13492,7 @@
         ],
         "happiness": 0,
         "id": "res_1x1_TinyShack",
-        "inhabitants": 5,
+        "inhabitants": 2,
         "isOverPlacable": false,
         "placeOnGround": true,
         "placeOnWater": false,
@@ -12244,10 +13513,10 @@
         "tiles": {
             "clip_height": 18,
             "clip_width": 32,
-            "count": 1,
-            "fileName": "resources/images/buildings/residential/res_1x1_SmallShack1.png",
+            "count": 2,
+            "fileName": "resources/images/buildings/residential/res_1x1_SmallShack.png",
             "offset": 0,
-            "pickRandomTile": false
+            "pickRandomTile": true
         },
         "title": "Small Shack",
         "upkeep cost": 0,
@@ -14725,6 +15994,114 @@
             "height": 2,
             "width": 2
         },
+        "author": "Kekman",
+        "category": "Residential",
+        "crimeLevel": 0,
+        "description": "The fence has sustained some damage over the years. Unfortunately, the store was sold out of wooden fences, so they had to settle for sheet metal.",
+        "educationLevel": 0,
+        "fireHazardLevel": 0,
+        "groundDecoration": [
+            "GD_res_PollutedGrass",
+            "GD_res_RoughGrass",
+            "GD_NA_BlankTile"
+        ],
+        "happiness": 0,
+        "id": "res_2x2_CasarmsPlace",
+        "inhabitants": 6,
+        "isOverPlacable": false,
+        "placeOnGround": true,
+        "placeOnWater": false,
+        "pollutionLevel": 0,
+        "power": 0,
+        "price": 0,
+        "style": [
+            "ASIAN",
+            "EUROPEAN",
+            "US"
+        ],
+        "subCategory": "Low Residential",
+        "tags": [
+            "white",
+            "purple"
+        ],
+        "tileType": "RCI",
+        "tiles": {
+            "clip_height": 35,
+            "clip_width": 64,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_2x2_CasarmsPlace_KM.png",
+            "offset": 0,
+            "pickRandomTile": false
+        },
+        "title": "Casarm's Place",
+        "upkeep cost": 0,
+        "water": 0,
+        "wealth": [
+            "LOW"
+        ],
+        "zones": [
+            "RESIDENTIAL"
+        ]
+    },
+    {
+        "RequiredTiles": {
+            "height": 2,
+            "width": 2
+        },
+        "author": "Kekman",
+        "category": "Residential",
+        "crimeLevel": 0,
+        "description": "From an aerial view, the building looks similar to a bird.",
+        "educationLevel": 0,
+        "fireHazardLevel": 0,
+        "groundDecoration": [
+            "GD_res_SmoothGrass"
+        ],
+        "happiness": 0,
+        "id": "res_2x2_FlyingColors",
+        "inhabitants": 42,
+        "isOverPlacable": false,
+        "placeOnGround": true,
+        "placeOnWater": false,
+        "pollutionLevel": 0,
+        "power": 0,
+        "price": 0,
+        "style": [
+            "ASIAN",
+            "EUROPEAN",
+            "US"
+        ],
+        "subCategory": "High Residential",
+        "tags": [
+            "tall",
+            "tower",
+            "white",
+            "colorful"
+        ],
+        "tileType": "RCI",
+        "tiles": {
+            "clip_height": 58,
+            "clip_width": 64,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_2x2_FlyingColors_KM.png",
+            "offset": 0,
+            "pickRandomTile": false
+        },
+        "title": "Flying Colors",
+        "upkeep cost": 0,
+        "water": 0,
+        "wealth": [
+            "HIGH"
+        ],
+        "zones": [
+            "RESIDENTIAL"
+        ]
+    },
+    {
+        "RequiredTiles": {
+            "height": 2,
+            "width": 2
+        },
         "author": "Yusuf8a684",
         "category": "Residential",
         "crimeLevel": 0,
@@ -15036,6 +16413,58 @@
             "pickRandomTile": false
         },
         "title": "Mango Residency",
+        "upkeep cost": 0,
+        "water": 0,
+        "wealth": [
+            "LOW"
+        ],
+        "zones": [
+            "RESIDENTIAL"
+        ]
+    },
+    {
+        "RequiredTiles": {
+            "height": 2,
+            "width": 2
+        },
+        "author": "Kingtut 101",
+        "category": "Residential",
+        "crimeLevel": 0,
+        "description": "The owner used to run a small diesel mechanic shop here. His garage is big enough to hold a semi truck.",
+        "educationLevel": 0,
+        "fireHazardLevel": 0,
+        "groundDecoration": [
+            "GD_res_PollutedGrass",
+            "GD_res_RoughGrass",
+            "GD_NA_BlankTile"
+        ],
+        "happiness": 0,
+        "id": "res_2x2_MobileMechanic",
+        "inhabitants": 7,
+        "isOverPlacable": false,
+        "placeOnGround": true,
+        "placeOnWater": false,
+        "pollutionLevel": 0,
+        "power": 0,
+        "price": 0,
+        "style": [
+            "US"
+        ],
+        "subCategory": "Low Residential",
+        "tags": [
+            "white",
+            "green"
+        ],
+        "tileType": "RCI",
+        "tiles": {
+            "clip_height": 32,
+            "clip_width": 64,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_2x2_MobileMechanic.png",
+            "offset": 0,
+            "pickRandomTile": false
+        },
+        "title": "Mobile Mechanic",
         "upkeep cost": 0,
         "water": 0,
         "wealth": [
@@ -18354,6 +19783,62 @@
             "height": 3,
             "width": 3
         },
+        "author": "Kekman",
+        "category": "Residential",
+        "crimeLevel": 0,
+        "description": "Whose idea was it to put that big hole in the middle of the building? We could've fit more residents there!",
+        "educationLevel": 0,
+        "fireHazardLevel": 0,
+        "groundDecoration": [
+            "GD_CI_DarkConcrete",
+            "GD_CI_LightConcrete",
+            "GD_CI_SidewalkConcrete",
+            "GD_CI_SmoothStone"
+        ],
+        "happiness": 0,
+        "id": "res_3x3_BlockBuilding",
+        "inhabitants": 52,
+        "isOverPlacable": false,
+        "placeOnGround": true,
+        "placeOnWater": false,
+        "pollutionLevel": 0,
+        "power": 0,
+        "price": 0,
+        "style": [
+            "ASIAN",
+            "EUROPEAN",
+            "US"
+        ],
+        "subCategory": "Medium Residential",
+        "tags": [
+            "tall",
+            "big",
+            "white"
+        ],
+        "tileType": "RCI",
+        "tiles": {
+            "clip_height": 73,
+            "clip_width": 96,
+            "count": 3,
+            "fileName": "resources/images/buildings/residential/res_3x3_BlockBuilding_KM.png",
+            "offset": 0,
+            "pickRandomTile": true
+        },
+        "title": "Block Building",
+        "upkeep cost": 0,
+        "water": 0,
+        "wealth": [
+            "MEDIUM"
+        ],
+        "zones": [
+            "RESIDENTIAL"
+        ]
+    },
+    {
+        "RequiredTiles": {
+            "height": 3,
+            "width": 3
+        },
         "author": "Kingtut 101",
         "category": "Residential",
         "crimeLevel": 0,
@@ -18411,10 +19896,10 @@
             "height": 3,
             "width": 3
         },
-        "author": "KingTut 101",
+        "author": "Kekman",
         "category": "Residential",
         "crimeLevel": 0,
-        "description": "An ugly algae-green tower that is begging to be demolished.",
+        "description": "The walls should be white and bright orange, but they haven't been cleaned in a while.",
         "educationLevel": 0,
         "fireHazardLevel": 0,
         "groundDecoration": [
@@ -18424,7 +19909,298 @@
             "GD_CI_SmoothStone"
         ],
         "happiness": 0,
-        "id": "res_3x3_GreenSkyScraper",
+        "id": "res_3x3_PeacefulLivingSolutions",
+        "inhabitants": 60,
+        "isOverPlacable": false,
+        "placeOnGround": true,
+        "placeOnWater": false,
+        "pollutionLevel": 0,
+        "power": 0,
+        "price": 0,
+        "style": [
+            "ASIAN",
+            "EUROPEAN",
+            "US"
+        ],
+        "subCategory": "Low Residential",
+        "tags": [
+            "tall",
+            "big",
+            "tower",
+            "gray",
+            "tan",
+            "orange",
+            "old"
+        ],
+        "tileType": "RCI",
+        "tiles": {
+            "clip_height": 102,
+            "clip_width": 96,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_3x3_PeacefulLivingSolutions_KM.png",
+            "offset": 0,
+            "pickRandomTile": false
+        },
+        "title": "Peaceful Living Solutions",
+        "upkeep cost": 0,
+        "water": 0,
+        "wealth": [
+            "LOW"
+        ],
+        "zones": [
+            "RESIDENTIAL"
+        ]
+    },
+    {
+        "RequiredTiles": {
+            "height": 3,
+            "width": 3
+        },
+        "author": "Kekman",
+        "category": "Residential",
+        "crimeLevel": 0,
+        "description": "Just a boring, old apartment complex... Just how the residents like it!",
+        "educationLevel": 0,
+        "fireHazardLevel": 0,
+        "groundDecoration": [
+            "GD_CI_DarkConcrete",
+            "GD_CI_LightConcrete",
+            "GD_CI_SidewalkConcrete",
+            "GD_CI_SmoothStone"
+        ],
+        "happiness": 0,
+        "id": "res_3x3_PlainridgeApts",
+        "inhabitants": 48,
+        "isOverPlacable": false,
+        "placeOnGround": true,
+        "placeOnWater": false,
+        "pollutionLevel": 0,
+        "power": 0,
+        "price": 0,
+        "style": [
+            "ASIAN",
+            "EUROPEAN",
+            "US"
+        ],
+        "subCategory": "Medium Residential",
+        "tags": [
+            "tall",
+            "big",
+            "white",
+            "tan"
+        ],
+        "tileType": "RCI",
+        "tiles": {
+            "clip_height": 90,
+            "clip_width": 96,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_3x3_PlainridgeApts_KM.png",
+            "offset": 0,
+            "pickRandomTile": false
+        },
+        "title": "Plainridge Apartments",
+        "upkeep cost": 0,
+        "water": 0,
+        "wealth": [
+            "MEDIUM"
+        ],
+        "zones": [
+            "RESIDENTIAL"
+        ]
+    },
+    {
+        "RequiredTiles": {
+            "height": 3,
+            "width": 3
+        },
+        "author": "Kekman",
+        "category": "Residential",
+        "crimeLevel": 0,
+        "description": "The rainbow is so close, yet so far.",
+        "educationLevel": 0,
+        "fireHazardLevel": 0,
+        "groundDecoration": [
+            "GD_CI_DarkConcrete",
+            "GD_CI_LightConcrete",
+            "GD_CI_SidewalkConcrete",
+            "GD_CI_SmoothStone"
+        ],
+        "happiness": 0,
+        "id": "res_3x3_RainbowResidencyMedium",
+        "inhabitants": 140,
+        "isOverPlacable": false,
+        "placeOnGround": true,
+        "placeOnWater": false,
+        "pollutionLevel": 0,
+        "power": 0,
+        "price": 0,
+        "style": [
+            "ASIAN",
+            "EUROPEAN",
+            "US"
+        ],
+        "subCategory": "High Residential",
+        "tags": [
+            "tall",
+            "big",
+            "tower",
+            "white",
+            "colorful"
+        ],
+        "tileType": "RCI",
+        "tiles": {
+            "clip_height": 105,
+            "clip_width": 96,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_3x3_RainbowResidencyMedium_KM.png",
+            "offset": 0,
+            "pickRandomTile": false
+        },
+        "title": "Medium Rainbow Residency",
+        "upkeep cost": 0,
+        "water": 0,
+        "wealth": [
+            "HIGH"
+        ],
+        "zones": [
+            "RESIDENTIAL"
+        ]
+    },
+    {
+        "RequiredTiles": {
+            "height": 3,
+            "width": 3
+        },
+        "author": "Kekman",
+        "category": "Residential",
+        "crimeLevel": 0,
+        "description": "It looks like the rainbow pattern got cut short...",
+        "educationLevel": 0,
+        "fireHazardLevel": 0,
+        "groundDecoration": [
+            "GD_CI_DarkConcrete",
+            "GD_CI_LightConcrete",
+            "GD_CI_SidewalkConcrete",
+            "GD_CI_SmoothStone"
+        ],
+        "happiness": 0,
+        "id": "res_3x3_RainbowResidencyShort",
+        "inhabitants": 90,
+        "isOverPlacable": false,
+        "placeOnGround": true,
+        "placeOnWater": false,
+        "pollutionLevel": 0,
+        "power": 0,
+        "price": 0,
+        "style": [
+            "ASIAN",
+            "EUROPEAN",
+            "US"
+        ],
+        "subCategory": "High Residential",
+        "tags": [
+            "tall",
+            "big",
+            "tower",
+            "white",
+            "colorful"
+        ],
+        "tileType": "RCI",
+        "tiles": {
+            "clip_height": 75,
+            "clip_width": 96,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_3x3_RainbowResidencyShort_KM.png",
+            "offset": 0,
+            "pickRandomTile": false
+        },
+        "title": "Short Rainbow Residency",
+        "upkeep cost": 0,
+        "water": 0,
+        "wealth": [
+            "HIGH"
+        ],
+        "zones": [
+            "RESIDENTIAL"
+        ]
+    },
+    {
+        "RequiredTiles": {
+            "height": 3,
+            "width": 3
+        },
+        "author": "Kekman",
+        "category": "Residential",
+        "crimeLevel": 0,
+        "description": "Only the buildings that soar highest get to see the whole rainbow.",
+        "educationLevel": 0,
+        "fireHazardLevel": 0,
+        "groundDecoration": [
+            "GD_CI_DarkConcrete",
+            "GD_CI_LightConcrete",
+            "GD_CI_SidewalkConcrete",
+            "GD_CI_SmoothStone"
+        ],
+        "happiness": 0,
+        "id": "res_3x3_RainbowResidencyTall",
+        "inhabitants": 220,
+        "isOverPlacable": false,
+        "placeOnGround": true,
+        "placeOnWater": false,
+        "pollutionLevel": 0,
+        "power": 0,
+        "price": 0,
+        "style": [
+            "ASIAN",
+            "EUROPEAN",
+            "US"
+        ],
+        "subCategory": "High Residential",
+        "tags": [
+            "tall",
+            "big",
+            "tower",
+            "white",
+            "colorful"
+        ],
+        "tileType": "RCI",
+        "tiles": {
+            "clip_height": 143,
+            "clip_width": 96,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_3x3_RainbowResidencyTall_KM.png",
+            "offset": 0,
+            "pickRandomTile": false
+        },
+        "title": "Tall Rainbow Residency",
+        "upkeep cost": 0,
+        "water": 0,
+        "wealth": [
+            "HIGH"
+        ],
+        "zones": [
+            "RESIDENTIAL"
+        ]
+    },
+    {
+        "RequiredTiles": {
+            "height": 3,
+            "width": 3
+        },
+        "author": "KingTut 101",
+        "category": "Residential",
+        "crimeLevel": 0,
+        "description": "An ugly tower that is begging to be demolished.",
+        "educationLevel": 0,
+        "fireHazardLevel": 0,
+        "groundDecoration": [
+            "GD_CI_DarkConcrete",
+            "GD_CI_LightConcrete",
+            "GD_CI_SidewalkConcrete",
+            "GD_CI_SmoothStone"
+        ],
+        "happiness": 0,
+        "id": "res_3x3_ShortSkyscraper",
         "inhabitants": 70,
         "isOverPlacable": false,
         "placeOnGround": true,
@@ -18441,18 +20217,21 @@
         "tags": [
             "tall",
             "tower",
-            "green"
+            "green",
+            "blue",
+            "red",
+            "purple"
         ],
         "tileType": "RCI",
         "tiles": {
-            "clip_height": 99,
+            "clip_height": 98,
             "clip_width": 96,
-            "count": 1,
-            "fileName": "resources/images/buildings/residential/res_3x3_GreenSkyScraper.png",
+            "count": 4,
+            "fileName": "resources/images/buildings/residential/res_3x3_ShortSkyScraper.png",
             "offset": 0,
-            "pickRandomTile": false
+            "pickRandomTile": true
         },
-        "title": "Whyson's Tower",
+        "title": "Short Skyscraper",
         "upkeep cost": 0,
         "water": 0,
         "wealth": [
@@ -20223,6 +22002,64 @@
             "height": 4,
             "width": 4
         },
+        "author": "Kekman",
+        "category": "Residential",
+        "crimeLevel": 0,
+        "description": "Residents living on the edges of the building feel like it will collapse at any moment. However, the tower is perfectly balanced.",
+        "educationLevel": 0,
+        "fireHazardLevel": 0,
+        "groundDecoration": [
+            "GD_CI_DarkConcrete",
+            "GD_CI_LightConcrete",
+            "GD_CI_SidewalkConcrete",
+            "GD_CI_SmoothStone"
+        ],
+        "happiness": 0,
+        "id": "res_4x4_TwistyTower",
+        "inhabitants": 140,
+        "isOverPlacable": false,
+        "placeOnGround": true,
+        "placeOnWater": false,
+        "pollutionLevel": 0,
+        "power": 0,
+        "price": 0,
+        "style": [
+            "ASIAN",
+            "EUROPEAN",
+            "US"
+        ],
+        "subCategory": "High Residential",
+        "tags": [
+            "tall",
+            "big",
+            "tower",
+            "white",
+            "black"
+        ],
+        "tileType": "RCI",
+        "tiles": {
+            "clip_height": 215,
+            "clip_width": 128,
+            "count": 1,
+            "fileName": "resources/images/buildings/residential/res_4x4_TwistyTower_KM.png",
+            "offset": 0,
+            "pickRandomTile": false
+        },
+        "title": "Twisty Tower",
+        "upkeep cost": 0,
+        "water": 0,
+        "wealth": [
+            "HIGH"
+        ],
+        "zones": [
+            "RESIDENTIAL"
+        ]
+    },
+    {
+        "RequiredTiles": {
+            "height": 4,
+            "width": 4
+        },
         "author": "RockFort",
         "category": "Residential",
         "crimeLevel": 0,
@@ -21271,6 +23108,48 @@
             "height": 1,
             "width": 1
         },
+        "author": "RockFort",
+        "category": "Roads",
+        "crimeLevel": 0,
+        "description": "You shouldn't be seeing this...",
+        "educationLevel": 0,
+        "fireHazardLevel": 0,
+        "happiness": 0,
+        "id": "road_ruralroadfr1straightline1",
+        "inhabitants": 0,
+        "isOverPlacable": true,
+        "placeOnGround": true,
+        "placeOnWater": false,
+        "pollutionLevel": 0,
+        "power": 0,
+        "price": 7,
+        "slopeTiles": {
+            "clip_height": 15,
+            "clip_width": 1,
+            "count": 4,
+            "fileName": "resources/images/BlankTile.png",
+            "offset": 20,
+            "pickRandomTile": false
+        },
+        "subCategory": "",
+        "tileType": "ROAD",
+        "tiles": {
+            "clip_height": 15,
+            "clip_width": 1,
+            "count": 24,
+            "fileName": "resources/images/BlankTile.png",
+            "offset": 0,
+            "pickRandomTile": false
+        },
+        "title": "Blank Road",
+        "upkeep cost": 2,
+        "water": 0
+    },
+    {
+        "RequiredTiles": {
+            "height": 1,
+            "width": 1
+        },
         "author": "Kingtut 101",
         "category": "Nature",
         "crimeLevel": 0,
@@ -21299,7 +23178,7 @@
             "clip_height": 15,
             "clip_width": 32,
             "count": 16,
-            "fileName": "resources/images/decoration/rocks/ND_1x1_CrystalOre.png",
+            "fileName": "resources/images/decoration/rocks/rock_1x1_CrystalOre.png",
             "offset": 0,
             "pickRandomTile": true
         },
@@ -21340,10 +23219,10 @@
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
-            "count": 1,
-            "fileName": "resources/images/decoration/rocks/rock_1x1_diamond.png",
+            "count": 2,
+            "fileName": "resources/images/decoration/rocks/rock_1x1_DiamondOre.png",
             "offset": 0,
-            "pickRandomTile": false
+            "pickRandomTile": true
         },
         "title": "Diamond Ore",
         "upkeep cost": 0,
@@ -21423,10 +23302,10 @@
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
-            "count": 1,
-            "fileName": "resources/images/decoration/rocks/rock_1x1_gold.png",
+            "count": 2,
+            "fileName": "resources/images/decoration/rocks/rock_1x1_GoldOre.png",
             "offset": 0,
-            "pickRandomTile": false
+            "pickRandomTile": true
         },
         "title": "Gold Ore",
         "upkeep cost": 0,
