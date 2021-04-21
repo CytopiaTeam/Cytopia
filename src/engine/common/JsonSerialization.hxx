@@ -12,6 +12,8 @@
 #include "../../services/AudioMixer.hxx"
 #endif // USE_AUDIO
 #include "../../util/ZipRange.hxx"
+#include "../../util/Color.hxx"
+#include "../../util/Exception.hxx"
 
 using json = nlohmann::json;
 using DisplayMap = std::unordered_map<std::string, std::array<int, 2>>;
@@ -44,7 +46,7 @@ inline void from_json(const json &j, SettingsData &s)
   s.audioChannels = j.value("/Audio/AudioChannels"_json_pointer, 2);
   s.musicVolume = j.value("/Audio/MusicVolume"_json_pointer, static_cast<uint8_t>(100));
   s.soundEffectsVolume = j.value("/Audio/SoundEffectsVolume"_json_pointer, static_cast<uint8_t>(100));
-      
+
   s.uiDataJSONFile = j.value("/ConfigFiles/UIDataJSONFile"_json_pointer, "resources/data/UIData.json");
   s.tileDataJSONFile = j.value("/ConfigFiles/TileDataJSONFile"_json_pointer, "resources/data/TileData.json");
   s.uiLayoutJSONFile = j.value("/ConfigFiles/UILayoutJSONFile"_json_pointer, "resources/data/UILayout.json");
@@ -61,22 +63,52 @@ inline void from_json(const json &j, SettingsData &s)
   s.vSync = j.value("/Graphics/VSYNC"_json_pointer, false);
   std::string defaultMode = j.value("/Graphics/DefaultDisplayMode"_json_pointer, "");
   s.defaultDisplayMode = 0;
-  for(auto & [key, values] : j.value("/Graphics/DisplayModes"_json_pointer, DisplayMap())) {
+  for (auto &[key, values] : j.value("/Graphics/DisplayModes"_json_pointer, DisplayMap()))
+  {
     // Merge all display modes
     s.displayModes.push_back(values);
     // Preserve all display mode names
     s.displayModeNames.push_back(key);
-    if(defaultMode == key) {
+    if (defaultMode == key)
+    {
       s.defaultDisplayMode = s.displayModeNames.size() - 1;
     }
   }
-  
+
   s.skipMenu = j.value("/UI/SkipMenu"_json_pointer, false);
   s.newUI = j.value("/UI/NewUI"_json_pointer, false);
   s.buildMenuPosition = j.value("/UI/BuildMenuPosition"_json_pointer, "BOTTOM");
   s.fontFileName = j.value("/UI/FontFilename"_json_pointer, "resources/fonts/arcadeclassics.ttf");
   s.subMenuButtonHeight = j.value("/UI/SubMenuButtonHeight"_json_pointer, 32);
   s.subMenuButtonWidth = j.value("/UI/SubMenuButtonWidth"_json_pointer, 32);
+}
+
+// JSON deserializer for Color (Magic Pixel color for buildings)
+
+inline void from_json(const json &j, RGBAColor &color)
+{
+  std::string value;
+  j.get_to(value);
+  bool invalid = value.size() != 7;
+  invalid &= value.size() != 9;
+  if (invalid || value[0] != '#')
+  {
+    throw ConfigurationError{TRACE_INFO "Invalid color '" + value + "'"};
+  }
+  value = value.substr(1);
+  try
+  {
+    uint32_t color_raw = std::stoi(value, nullptr, 16);
+    if (value.size() == 6)
+    {
+      color_raw = (color_raw << 8) | 0xFF;
+    }
+    color = RGBAColor{color_raw};
+  }
+  catch (std::invalid_argument &e)
+  {
+    throw ConfigurationError{TRACE_INFO "Invalid color '#" + value + "'"};
+  }
 }
 
 // JSON deserializer for BiomeData struct (Terrain Gen)
@@ -252,8 +284,8 @@ inline void to_json(json &j, const SettingsData &s)
   j["/Audio/AudioChannels"_json_pointer] = s.audioChannels;
   j["/Audio/MusicVolume"_json_pointer] = s.musicVolume.get();
   j["/Audio/SoundEffectsVolume"_json_pointer] = s.soundEffectsVolume.get();
-      
-  j["ConfigFiles"]  = json();
+
+  j["ConfigFiles"] = json();
   j["/ConfigFiles/UIDataJSONFile"_json_pointer] = s.uiDataJSONFile.get();
   j["/ConfigFiles/TileDataJSONFile"_json_pointer] = s.tileDataJSONFile.get();
   j["/ConfigFiles/UILayoutJSONFile"_json_pointer] = s.uiLayoutJSONFile.get();
@@ -271,13 +303,13 @@ inline void to_json(json &j, const SettingsData &s)
   j["/Graphics/FullScreen"_json_pointer] = s.fullScreen;
   j["/Graphics/VSYNC"_json_pointer] = s.vSync;
   j["/Graphics/DefaultDisplayMode"_json_pointer] = s.displayModeNames.at(s.defaultDisplayMode);
-  auto & modes = j["/Graphics/DisplayModes"_json_pointer] = json();
-  for(const auto && [key, value] : ZipRange{s.displayModeNames, s.displayModes})
+  auto &modes = j["/Graphics/DisplayModes"_json_pointer] = json();
+  for (const auto &&[key, value] : ZipRange{s.displayModeNames, s.displayModes})
   {
     modes[key] = value;
   }
-  
-  j["UI"] = json(); 
+
+  j["UI"] = json();
   j["/UI/SkipMenu"_json_pointer] = s.skipMenu;
   j["/UI/NewUI"_json_pointer] = s.newUI;
   j["/UI/BuildMenuPosition"_json_pointer] = s.buildMenuPosition;

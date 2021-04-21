@@ -102,18 +102,18 @@ set(SOURCE_FILES
         )
 
 if (ANDROID)
-  list (APPEND SOURCE_FILES
-    util/android/Filesystem.cxx
-  )
-elseif(APPLE)
-  list (APPEND SOURCE_FILES
-    util/macOS/Filesystem.cxx
-  )
-else()
-  list (APPEND SOURCE_FILES
-    util/desktop/Filesystem.cxx
-  )
-endif()
+    list(APPEND SOURCE_FILES
+            util/android/Filesystem.cxx
+            )
+elseif (APPLE)
+    list(APPEND SOURCE_FILES
+            util/macOS/Filesystem.cxx
+            )
+else ()
+    list(APPEND SOURCE_FILES
+            util/desktop/Filesystem.cxx
+            )
+endif ()
 
 list(APPEND _include_directories
         engine
@@ -184,7 +184,7 @@ if (APPLE)
 
     add_executable(${PROJECT_NAME} MACOSX_BUNDLE ${SOURCE_FILES} ${ICON_PATH} ${MAC_RESOURCE_FILES})
 
-elseif(ANDROID)
+elseif (ANDROID)
     # On android the final binary is a shared library not an executable.
     add_library(${PROJECT_NAME} SHARED ${SOURCE_FILES})
 else ()
@@ -194,9 +194,9 @@ endif ()
 
 # enable C++17
 set_target_properties(${PROJECT_NAME} PROPERTIES
-  CXX_STANDARD 17
-  CXX_STANDARD_REQUIRED YES
-  CXX_EXTENSIONS NO)
+        CXX_STANDARD 17
+        CXX_STANDARD_REQUIRED YES
+        CXX_EXTENSIONS NO)
 
 list(APPEND _compile_definitions VERSION="${PROJECT_NAME} ${PROJECT_VERSION} - Urban Update")
 
@@ -232,8 +232,14 @@ if (MSVC)
 endif ()
 
 install(TARGETS ${PROJECT_NAME} DESTINATION .)
+
+if (WIN32)
+    install(DIRECTORY "$<TARGET_FILE_DIR:${PROJECT_NAME}>/" DESTINATION . FILES_MATCHING PATTERN "*.dll")
+endif ()
+
 if (NOT APPLE)
     install(DIRECTORY ${CMAKE_SOURCE_DIR}/data/resources/ DESTINATION resources)
+    install(DIRECTORY ${CMAKE_SOURCE_DIR}/data/languages/ DESTINATION languages FILES_MATCHING PATTERN "*.mo")
 endif ()
 
 install(FILES ${CMAKE_SOURCE_DIR}/ReleaseNotes.txt ${CMAKE_SOURCE_DIR}/credits.txt DESTINATION .)

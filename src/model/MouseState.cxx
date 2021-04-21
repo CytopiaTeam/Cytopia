@@ -3,7 +3,9 @@
 
 MouseState::~MouseState()
 {
-  LOG(LOG_DEBUG) << "Destroying MouseState";
+  debug_scope {
+    LOG(LOG_DEBUG) << "Destroying MouseState";
+  }
 }
 
 void MouseState::setPosition(int x, int y, int vx, int vy)

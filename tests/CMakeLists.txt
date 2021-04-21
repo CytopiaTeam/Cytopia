@@ -1,10 +1,9 @@
 set(TESTS_PROJECT_NAME Cytopia_Tests)
 
-find_package(Catch2 REQUIRED)
-
-include(Catch)
+include(${CMAKE_SOURCE_DIR}/external/catch2/Catch.cmake)
 
 list(APPEND _include_directories
+        ${CMAKE_SOURCE_DIR}/external/catch2
         ${CMAKE_SOURCE_DIR}/src/engine
         ${CMAKE_SOURCE_DIR}/src/engine/basics
         ${CMAKE_SOURCE_DIR}/src/engine/common
@@ -20,10 +19,9 @@ list(APPEND _include_directories
         ${CMAKE_SOURCE_DIR}/src/services
         )
 
-if (NOT PACKAGE_MANAGER STREQUAL "conan")
-    include(pmm)
-    pmm(CMakeCM ROLLING)
-endif()
+
+include(pmm)
+pmm(CMakeCM ROLLING)
 
 include(codecov)
 
@@ -78,7 +76,7 @@ add_executable(${TESTS_PROJECT_NAME} ${TEST_SOURCES})
 
 target_include_directories(${TESTS_PROJECT_NAME} PRIVATE ${_include_directories} src)
 target_compile_definitions(${TESTS_PROJECT_NAME} PRIVATE ${_compile_definitions})
-target_link_libraries(${TESTS_PROJECT_NAME} PRIVATE ${_link_libraries} Catch2::Catch2)
+target_link_libraries(${TESTS_PROJECT_NAME} PRIVATE ${_link_libraries})
 
 # enable C++17
 set_target_properties(${TESTS_PROJECT_NAME} PROPERTIES

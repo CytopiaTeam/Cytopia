@@ -89,6 +89,8 @@ function AddPotContent(content, comment = null) {
     if (!content)
         return
 
+    content = content.replace(/"/g, '\\"')
+
     PotContent += comment ? `
 #. ${comment}
 msgid "${content}"

@@ -7,10 +7,16 @@
 MouseController::MouseController(GameService::ServiceTuple &context)
     : GameService(context), m_LastHovered(nullptr), m_Captured(nullptr)
 {
-  LOG(LOG_DEBUG) << "Created MouseController service";
+  debug_scope {
+    LOG(LOG_DEBUG) << "Created MouseController service";
+  }
 }
 
-MouseController::~MouseController() { LOG(LOG_DEBUG) << "Destroying MouseController"; }
+MouseController::~MouseController() { 
+  debug_scope {
+    LOG(LOG_DEBUG) << "Destroying MouseController";
+  }
+}
 
 void MouseController::mouseMoved(MousePositionEvent &event)
 {
@@ -72,14 +78,18 @@ void MouseController::handleEvent(MousePositionEvent &&event)
 void MouseController::addHandler(iMouseHandler *handler)
 {
   Rectangle bounds = handler->getShape().getBounds();
-  LOG(LOG_DEBUG) << "Adding a mouse handler for region " << bounds;
+  debug_scope {
+    LOG(LOG_DEBUG) << "Adding a mouse handler for region " << bounds;
+  }
   auto [x1, y1] = bounds.p1();
   auto [x2, y2] = bounds.p2();
   constexpr int block = SpatialBlock::BlockSize::value;
   for (int i = x1 / block; i <= x2 / block; ++i)
     for (int j = y1 / block; j <= y2 / block; ++j)
     {
-      LOG(LOG_DEBUG) << "Adding it to region (" << i << ", " << j << ")";
+      debug_scope {
+        LOG(LOG_DEBUG) << "Adding it to region (" << i << ", " << j << ")";
+      }
       m_SpatialMap[SpatialBlock{i, j}].push_back(handler);
     }
 }

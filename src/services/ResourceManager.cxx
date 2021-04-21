@@ -123,7 +123,9 @@ int ResourceManager::LoadAudioWithOggVorbis(std::string path, DecodedAudioData &
   //clear data
   ov_clear(&vf);
 
-  LOG(LOG_DEBUG) << "Audio data read successful! Loaded into decoded audio buffer.\n";
+  debug_scope {
+    LOG(LOG_DEBUG) << "Audio data read successful! Loaded into decoded audio buffer.\n";
+  }
   return 0;
 }
 
