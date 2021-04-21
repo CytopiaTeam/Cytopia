@@ -1,26 +1,26 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Victor Xia <victorxia.xia@gmail.com>, 2019
+# Elizabeth Sherrock <lizzyd710@gmail.com>, 2019, 2021.
 #
 # Translators:
-# Victor Xia <victorxia.xia@gmail.com>, 2019
-# Elizabeth Sherrock <lizzyd710@gmail.com>, 2019
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-31 14:54+0200\n"
-"PO-Revision-Date: 2019-06-14 12:00+0000\n"
-"Last-Translator: Elizabeth Sherrock <lizzyd710@gmail.com>, 2019\n"
-"Language-Team: Chinese (https://www.transifex.com/cytopia/teams/100140/zh/)\n"
+"PO-Revision-Date: 2021-04-21 17:29+0000\n"
+"Last-Translator: Elizabeth Sherrock <lizzyd710@gmail.com>\n"
+"Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
+"cytopia/game/zh_Hans/>\n"
 "Language: zh\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.7-dev\n"
 
 #. This is a title for an object with the description: A completely legal operation located inside a foreboding concrete building.	
 msgid "\"Under the Table\" Tax Agency"
@@ -913,8 +913,6 @@ msgid "Big Warehouse"
 msgstr ""
 
 #. This is a title for an object with the description: A small shop that sells bikes.	
-#, fuzzy
-#| msgid "BikeShop"
 msgid "Bike Shop"
 msgstr "自行车商店"
 
@@ -989,8 +987,6 @@ msgid "Bolboc Manor"
 msgstr ""
 
 #. This is a title for an object with the description: A somewhat large fast food restaurant known for cheap food and questionable quality.	
-#, fuzzy
-#| msgid "Borgs Burgers"
 msgid "Borg's Burgers"
 msgstr "博格的汉堡"
 
@@ -1691,7 +1687,7 @@ msgstr ""
 
 #. This is a title for an object with the description: The wild stallions roam the Cytopian plains.	
 msgid "Horses"
-msgstr ""
+msgstr "马"
 
 #. This is a title for an object with the description: A small Scandinavian house. It is a lot less interesting than its colorful cousin.	
 msgid "Humble Gray Home"
@@ -1859,11 +1855,11 @@ msgstr ""
 
 #. This is a title for an object with the description: A small lantern that can be used to decorate your cities.	
 msgid "Lantern"
-msgstr ""
+msgstr "灯笼"
 
 #. This is a title for an object with the description: This large campus can teach hundreds of children and has a built-in playground.	
 msgid "Large Elementary School"
-msgstr ""
+msgstr "大的小学校"
 
 #. This is a title for an object with the description: These tall concrete towers store grain for livestock and food manufacturers.	
 msgid "Large Grain Silos"
@@ -1871,7 +1867,7 @@ msgstr ""
 
 #. This is a title for an object with the description: This large building can provide thousands of your citizens with top-of-the-line medical help.	
 msgid "Large Hospital"
-msgstr ""
+msgstr "大的医院"
 
 #. This is a title for an object with the description: A home so ornate that it has its own breed of palm trees.	
 msgid "Lavish Landing"
@@ -2371,7 +2367,7 @@ msgstr ""
 
 #. This is a title for an object with the description: A nice public pool that is a great way to stay cool and keep your citizens happy.	
 msgid "Pool"
-msgstr ""
+msgstr "游泳池"
 
 #. This is a title for an object with the description: A poplar tree	
 msgid "Poplars (Dense)"
@@ -2676,7 +2672,7 @@ msgstr ""
 
 #. This is a category	
 msgid "School"
-msgstr ""
+msgstr "学校"
 
 #. This is a UiElement with of the type: Text	
 msgid "Screen Resolution"
@@ -2775,7 +2771,7 @@ msgstr "水泥塔楼"
 
 #. This is a title for an object with the description: This school is perfect for small communities. It's not flashy, but it has everything it needs to teach young students.	
 msgid "Small Elementary School"
-msgstr ""
+msgstr "小的小学校"
 
 #. This is a title for an object with the description: A small building dedicated to industrial testing for the military.	
 msgid "Small Military Facility"
