@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-31 14:54+0200\n"
-"PO-Revision-Date: 2021-04-01 23:26+0000\n"
+"PO-Revision-Date: 2021-04-24 00:40+0000\n"
 "Last-Translator: Emir <emir_sari@msn.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/cytopia/game/tr/>"
 "\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.6-dev\n"
+"X-Generator: Weblate 4.7-dev\n"
 
 #. This is a title for an object with the description: A completely legal operation located inside a foreboding concrete building.	
 msgid "\"Under the Table\" Tax Agency"
@@ -747,20 +747,18 @@ msgstr ""
 "restoranlar ucuz fiyatları nedeniyle kırsal topluluklarda çok popülerdir."
 
 #. This is a description for an object titled: Old Power Plant	
-#, fuzzy
-#| msgid "An ancient coal power plant that has been turned into a factory."
 msgid ""
 "An ancient coal power plant that has been turned into a factory. Its safety "
 "regulations are just as outdated as the building itself."
-msgstr "Bir fabrikaya dönüştürülen antik bir kömür santrali."
+msgstr ""
+"Bir fabrikaya dönüştürülen antik bir kömür santrali. Güvenlik yönetmeliği de "
+"aynı binanın kendisi gibi artık miadını doldurmuş."
 
 #. This is a description for an object titled: Apartment Building	
 msgid "An apartment building from Montreal , Quebec"
 msgstr "Bir apartman. Quebec, Montreal."
 
 #. This is a description for an object titled: Vancouver Heights	
-#, fuzzy
-#| msgid "An apartment building from Vancouver , BC , Canada"
 msgid "An apartment building from Vancouver, Canada"
 msgstr "Bir apartman. Vancouver, Kanada."
 
@@ -815,17 +813,15 @@ msgstr ""
 
 #. This is a description for an object titled: Vichy Hotel	
 msgid "An old hotel with a waiting area on the ground floor."
-msgstr ""
+msgstr "Zemin katta bir bekleme salonu olan eski bir otel."
 
 #. This is a description for an object titled: Middle Age Lodging	
 msgid "An old house that has been refurbished for modern homeowners."
-msgstr ""
+msgstr "Yeni ev sahipleri için renovasyondan geçirilmiş eski bir ev."
 
 #. This is a description for an object titled: Ferman's Manor	
-#, fuzzy
-#| msgid "An old day care that has since become someone's home."
 msgid "An old mansion that has become slighty overgrown."
-msgstr "Artık birilerine ev olmuş eski bir çocuk kreşi."
+msgstr "Büyükçene eski bir mansiyon."
 
 #. This is a description for an object titled: Phone Booth	
 msgid "An old phone booth that can be used to decorate your cities."
@@ -834,39 +830,35 @@ msgstr ""
 
 #. This is a description for an object titled: Run-Down Skinny Shop	
 msgid "An old post office that has been repurposed as an antique store."
-msgstr ""
+msgstr "Bir antikacıya dönüştürülmüş eski bir postane."
 
 #. This is a description for an object titled: Old Power Plant	
-#, fuzzy
-#| msgid "An ancient coal power plant that has been turned into a factory."
 msgid "An old power plant that was converted into a shirt factory."
-msgstr "Bir fabrikaya dönüştürülen antik bir kömür santrali."
+msgstr "Tekstil fabrikasına dönüştürülen eski bir elektrik santrali."
 
 #. This is a description for an object titled: Bellevue Heights	
 msgid "An ordinary skyscraper from Washington, USA."
-msgstr ""
+msgstr "Washington, ABD'den sıradan bir gökdelen."
 
 #. This is a description for an object titled: Veinna Hotel	
 msgid ""
 "An overwhelming number of reviews say this hotel is \"nice,\" but the owners "
 "are unsure why."
 msgstr ""
+"Otel yorumları genelde oteli pek bir övüyorlar; ancak otel sahipleri bunun "
+"nedeninden pek emin değil."
 
 #. This is a description for an object titled: Whyson's Tower	
-#, fuzzy
-#| msgid "An algae-green tower that is the home of lots of people."
 msgid "An ugly algae-green tower that is begging to be demolished."
-msgstr "Pek çok kişiyi barındıran yosun yeşili bir kule."
+msgstr "Beni yıkın diye yalvaran yosun yeşili çirkincene bir kule."
 
 #. This is a title for an object with the description: An apartment building from Montreal , Quebec	
 msgid "Apartment Building"
 msgstr "Apartman"
 
 #. This is a title for an object with the description: This small apartment building is home to a small shop on the ground floor. 	
-#, fuzzy
-#| msgid "Appartment"
 msgid "Apartment Shop"
-msgstr "Apartman"
+msgstr "Zemin Kat Dükkanı"
 
 #. This is a description for an object titled: Highway Road	
 msgid ""
