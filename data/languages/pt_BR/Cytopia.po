@@ -7,13 +7,16 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-31 14:54+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2021-04-26 07:31+0000\n"
+"Last-Translator: ruan sousa mota <theruanbr01@gmail.com>\n"
+"Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
+"cytopia/game/pt_BR/>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.7-dev\n"
 
 #. This is a title for an object with the description: A completely legal operation located inside a foreboding concrete building.	
 msgid "\"Under the Table\" Tax Agency"
@@ -21,7 +24,7 @@ msgstr ""
 
 #. This is a description for an object titled: Fitzgerald's House	
 msgid "A big house for the Fitzgerald's big family."
-msgstr ""
+msgstr "Uma grande casa para a grande família de Fitzgerald."
 
 #. This is a description for an object titled: Tall Concrete Tower	
 msgid "A bland-looking apartment building made out of concrete."
