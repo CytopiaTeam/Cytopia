@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-26 18:11+0000\n"
-"PO-Revision-Date: 2021-01-11 08:59+0000\n"
+"PO-Revision-Date: 2021-04-28 02:31+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/cytopia/"
 "game/nb_NO/>\n"
@@ -16,23 +16,23 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.4.1-dev\n"
+"X-Generator: Weblate 4.7-dev\n"
 
 #. This is a title for an object with the description: A completely legal operation located inside a foreboding concrete building.
 msgid "\"Under the Table\" Tax Agency"
-msgstr ""
+msgstr "«Under bordet»-fogden"
 
 #. This is a description for an object titled: Rustic Park
 msgid "A beautiful area to enjoy modern art and nature."
-msgstr ""
+msgstr "Et flott område å nye moderne kunst og naturen."
 
 #. This is a description for an object titled: Vega Hotel
 msgid "A beautiful building that reminds us of a better tomorrow."
-msgstr ""
+msgstr "En flott bygning som minner oss om en bedre morgendag."
 
 #. This is a description for an object titled: Fitzgerald's House
 msgid "A big house for the Fitzgerald's big family."
-msgstr ""
+msgstr "Et stort hus for Fitzgeralds store familie."
 
 #. This is a description for an object titled: Deep Snow
 #, fuzzy
@@ -177,7 +177,7 @@ msgstr ""
 
 #. This is a description for an object titled: Labor Tower
 msgid "A glass tower with a concrete base."
-msgstr ""
+msgstr "Et glasstårn med støpt grunnmur."
 
 #. This is a description for an object titled: Korean Shopping Center
 msgid ""
@@ -191,11 +191,11 @@ msgstr ""
 
 #. This is a description for an object titled: Picnic Area
 msgid "A great place to relax and eat lunch."
-msgstr ""
+msgstr "Et godt sted å slappe av og spise lunsj."
 
 #. This is a description for an object titled: Presents
 msgid "A great way to show your appreciation to friends and family."
-msgstr ""
+msgstr "En god måte å vise at du bryr deg om venner og familie."
 
 #. This is a description for an object titled: Pine Trees (Dense)
 #. This is a description for an object titled: Pine Trees (Light)
