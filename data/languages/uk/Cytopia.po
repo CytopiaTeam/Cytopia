@@ -7,99 +7,109 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-26 18:11+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2021-04-27 13:16+0000\n"
+"Last-Translator: Tymofij Lytvynenko <till.svit@gmail.com>\n"
+"Language-Team: Ukrainian <https://hosted.weblate.org/projects/cytopia/game/"
+"uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.7-dev\n"
 
 #. This is a title for an object with the description: A completely legal operation located inside a foreboding concrete building.
 msgid "\"Under the Table\" Tax Agency"
-msgstr ""
+msgstr "Податкове агентство \"Під столом\""
 
 #. This is a description for an object titled: Rustic Park
 msgid "A beautiful area to enjoy modern art and nature."
-msgstr ""
+msgstr "Красивий район, щоб насолодитися сучасним мистецтвом і природою."
 
 #. This is a description for an object titled: Vega Hotel
 msgid "A beautiful building that reminds us of a better tomorrow."
-msgstr ""
+msgstr "Чудова споруда, що нагадує нам про краще майбутнє."
 
 #. This is a description for an object titled: Fitzgerald's House
 msgid "A big house for the Fitzgerald's big family."
-msgstr ""
+msgstr "Великий будинок для великої родини Фіцджеральдів."
 
 #. This is a description for an object titled: Deep Snow
 msgid "A big pile of snow."
-msgstr ""
+msgstr "Велика купа снігу."
 
 #. This is a description for an object titled: Tall Concrete Tower
 msgid "A bland-looking apartment building made out of concrete."
-msgstr ""
+msgstr "Бетонний багатоквартирний будинок."
 
 #. This is a description for an object titled: Blank Platform
 msgid "A blank train platform with nothing on it."
-msgstr ""
+msgstr "Порожня залізнична платформа."
 
 #. This is a description for an object titled: Dual-Stack Factory
 msgid "A brick building adorned with two smoke stacks."
-msgstr ""
+msgstr "Цегляна будівля, прикрашене двома димарями."
 
 #. This is a description for an object titled: Yakima Office
 msgid "A brick building with multiple office floors."
-msgstr ""
+msgstr "Цегляна будівля з кількома офісними поверхами."
 
 #. This is a description for an object titled: Berry Bushes (Dense)
 #. This is a description for an object titled: Berry Bushes (Light)
 #. This is a description for an object titled: Berry Bushes (Medium)
 msgid "A bush with delicious red berries."
-msgstr ""
+msgstr "Кущик зі смачними ягодами"
 
 #. This is a description for an object titled: Row House
 msgid "A cheap way to shelter groups of citizens."
-msgstr ""
+msgstr "Дешевий спосіб прихистку груп громадян."
 
 #. This is a description for an object titled: Tall Row House
 msgid "A cheap way to shelter larger groups of citizens. "
-msgstr ""
+msgstr "Дешевий спосіб прихистити більші групи громадян. "
 
 #. This is a description for an object titled: Medium Depolluter
 msgid "A classic depolluter building that has been repurposed as a factory. "
 "Unfortunately, it is not used to purify the air anymore."
 msgstr ""
+"Класична споруда, яку було перепрофільовано під виробню. На жаль, вона "
+"більше не використовується для очищення повітря."
 
 #. This is a description for an object titled: Pyongyang Place
 msgid "A common sight in the urban parts of North Korea."
-msgstr ""
+msgstr "Поширене видовище в міських районах Північної Кореї."
 
 #. This is a description for an object titled: Basic Log Cabin
 msgid "A common type of house in lakeside or forest areas."
-msgstr ""
+msgstr "Поширений тип будинків на узбережжі озера чи в лісовій місцевості."
 
 #. This is a description for an object titled: "Under the Table" Tax Agency
 msgid "A completely legal operation located inside a foreboding concrete "
 "building."
-msgstr ""
+msgstr "Повністю легальна операція, розташована всередині бетонної будівлі."
 
 #. This is a description for an object titled: Rough-Side Repeats
 msgid "A couple of small homes. The owners try their best to keep their "
 "yards looking good."
 msgstr ""
+"Пара маленьких будинків. Власники намагаються з усіх сил, щоб їх двори "
+"виглядали добре."
 
 #. This is a description for an object titled: Norman Villa
 msgid "A cozy little home with brick accents."
-msgstr ""
+msgstr "Затишний маленький будинок з цегляними акцентами."
 
 #. This is a description for an object titled: Inverness Flats
 msgid "A decades-old building that could use a few renovations."
-msgstr ""
+msgstr "Десятирічна споруда, яку можна полагодити."
 
 #. This is a description for an object titled: Pavement
 msgid "A decorative patch of road pavement that is often used in parking "
 "lots."
 msgstr ""
+"Декоративна наліпка дорожнього покриття, яку часто використовують на "
+"автостоянках."
 
 #. This is a description for an object titled: Sri Lanka Setup
 msgid "A densely-packed skyscaper with black-tinted windows."
