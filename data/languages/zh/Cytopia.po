@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-26 18:11+0000\n"
-"PO-Revision-Date: 2021-04-24 00:39+0000\n"
+"PO-Revision-Date: 2021-05-06 04:31+0000\n"
 "Last-Translator: Elizabeth Sherrock <lizzyd710@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "cytopia/game/zh_Hans/>\n"
@@ -1055,7 +1055,7 @@ msgstr ""
 
 #. This is a title for an object with the description: Batter up!
 msgid "Baseball Field"
-msgstr ""
+msgstr "棒球场"
 
 #. This is a title for an object with the description: A common type of house in lakeside or forest areas.
 msgid "Basic Log Cabin"
@@ -1122,8 +1122,6 @@ msgid "Big Complex"
 msgstr ""
 
 #. This is a title for an object with the description: A new factory that was once a depolluter building.
-#, fuzzy
-#| msgid "Big Depollutor"
 msgid "Big Depolluter"
 msgstr "大的污染清洁厂"
 
@@ -2026,7 +2024,7 @@ msgstr "装饰"
 
 #. This is a title for an object with the description: This place produces concrete for construction projects around the city.
 msgid "HDRN"
-msgstr ""
+msgstr "HDRN"
 
 #. This is a title for an object with the description: How do the residents get any privacy with all those big glass windows?
 msgid "Hanhwa Heights"
@@ -2301,7 +2299,7 @@ msgstr ""
 
 #. This is a title for an object with the description: Contrary to popular belief, these hotel rooms are normal-sized.
 msgid "Japanese Hotel"
-msgstr ""
+msgstr "日本的酒店"
 
 #. This is a title for an object with the description: A large pet store that sells pet snails.
 msgid "Jim's Snail Shop"
@@ -2376,10 +2374,8 @@ msgid "Korean Villa"
 msgstr ""
 
 #. This is a title for an object with the description: A series of shops adorned by a street full of lamps.
-#, fuzzy
-#| msgid "Shop"
 msgid "L Shops"
-msgstr "商店"
+msgstr "L商店"
 
 #. This is a title for an object with the description: A glass tower with a concrete base.
 #, fuzzy
@@ -3615,7 +3611,7 @@ msgstr ""
 
 #. This is a title for an object with the description: Outside of North America, soccer is one of the most popular sports. All it takes to play is a couple nets and a ball.
 msgid "Soccer Field"
-msgstr ""
+msgstr "提球场"
 
 #. This is a title for an object with the description: Terrain soil tiles
 msgid "Soil"
@@ -3725,17 +3721,15 @@ msgstr ""
 
 #. This is a title for an object with the description: A nice public pool that is a great way to stay cool and keep your citizens happy.
 msgid "Swimming Pool"
-msgstr ""
+msgstr "游泳池"
 
 #. This is a title for an object with the description: The rooms here are comparable to college dorm rooms.
 msgid "Swiss Housing"
 msgstr ""
 
 #. This is a title for an object with the description: The owners took one look at the floor plan and instantly knew what to name the place.
-#, fuzzy
-#| msgid "Small House"
 msgid "T House"
-msgstr "小的房子"
+msgstr "T房子"
 
 #. This is a title for an object with the description: A rather plain hotel with rather average service.
 msgid "Tacoma Hotel"
@@ -3805,7 +3799,7 @@ msgstr "水塔"
 
 #. This is a title for an object with the description: A firm rectangular surface with some low nets stretched across the center. Tennis is a great outdoor activity for casuals and professionals alike.
 msgid "Tennis Court"
-msgstr ""
+msgstr "网球场"
 
 #. This is a title for an object with the description: A relaxing vacation in the wildness is a great way to escape from modern life.
 msgid "Tents"
