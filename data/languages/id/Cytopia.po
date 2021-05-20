@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-26 18:11+0000\n"
-"PO-Revision-Date: 2021-04-07 21:26+0000\n"
+"PO-Revision-Date: 2021-05-20 19:34+0000\n"
 "Last-Translator: Reza Almanda <rezaalmanda27@gmail.com>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/cytopia/game/"
 "id/>\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.6-dev\n"
+"X-Generator: Weblate 4.7-dev\n"
 
 #. This is a title for an object with the description: A completely legal operation located inside a foreboding concrete building.
 msgid "\"Under the Table\" Tax Agency"
@@ -39,10 +39,8 @@ msgid "A big house for the Fitzgerald's big family."
 msgstr ""
 
 #. This is a description for an object titled: Deep Snow
-#, fuzzy
-#| msgid "A pile of coal"
 msgid "A big pile of snow."
-msgstr "Sejumlah Tumpukan Batubara"
+msgstr "Tumpukan besar salju."
 
 #. This is a description for an object titled: Tall Concrete Tower
 msgid "A bland-looking apartment building made out of concrete."
@@ -131,17 +129,15 @@ msgstr ""
 
 #. This is a description for an object titled: Sao Paulo Tower
 msgid "A fancy multi-story mall from Brazil."
-msgstr ""
+msgstr "Mal mewah bertingkat dari Brasil."
 
 #. This is a description for an object titled: Tour Front De Seine
 msgid "A fancy office building from Paris, France."
-msgstr ""
+msgstr "Gedung perkantoran mewah dari Paris, Prancis."
 
 #. This is a description for an object titled: Benches
-#, fuzzy
-#| msgid "A few benches that offer a place to sit to your citizens."
 msgid "A few benches that offer a place for your civilians to sit."
-msgstr "Beberapa bangku untuk tempat duduk warga."
+msgstr "Beberapa tempat duduk bagi warga sipil."
 
 #. This is a description for an object titled: Grape Fields
 msgid ""
