@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # TDM OF TDM <dillonmanyo@gmail.com>, 2019
 # Reza Almanda <rezaalmanda27@gmail.com>, 2021.
+# Jacque Fresco <aidter@use.startmail.com>, 2021.
 #
 # Translators:
 #
@@ -11,8 +12,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-26 18:11+0000\n"
-"PO-Revision-Date: 2021-05-20 19:34+0000\n"
-"Last-Translator: Reza Almanda <rezaalmanda27@gmail.com>\n"
+"PO-Revision-Date: 2021-05-28 00:41+0000\n"
+"Last-Translator: Jacque Fresco <aidter@use.startmail.com>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/cytopia/game/"
 "id/>\n"
 "Language: id\n"
@@ -1059,7 +1060,7 @@ msgstr ""
 
 #. This is a title for an object with the description: The 018's even smaller counterpart.
 msgid "Barentin 006"
-msgstr ""
+msgstr "Barentin 006"
 
 #. This is a title for an object with the description: The 018's smaller counterpart.
 msgid "Barentin 010"
@@ -1095,7 +1096,7 @@ msgstr ""
 
 #. This is a title for an object with the description: Terrain beach tiles
 msgid "Beach Sand"
-msgstr ""
+msgstr "Pasir Pantai"
 
 #. This is a title for an object with the description: A smoothened tile made out of beach sand.
 msgid "Beach Sandstone"
@@ -1109,7 +1110,7 @@ msgstr "Menara Kaca"
 
 #. This is a title for an object with the description: An ordinary skyscraper from Washington, USA.
 msgid "Bellevue Heights"
-msgstr ""
+msgstr "Bellevue Heights"
 
 #. This is a title for an object with the description: This huge estate has a patio and a large pool.
 #, fuzzy
@@ -1123,7 +1124,7 @@ msgstr ""
 
 #. This is a title for an object with the description: A few benches that offer a place for your civilians to sit.
 msgid "Benches"
-msgstr ""
+msgstr "Bangku"
 
 #. This is a title for an object with the description: A bush with delicious red berries.
 msgid "Berry Bushes (Dense)"
@@ -1159,7 +1160,7 @@ msgstr "Apartemen Bois Guillaume"
 
 #. This is a title for an object with the description: This place stores goods for a local shipping company.
 msgid "Big Warehouse"
-msgstr ""
+msgstr "Gudang Besar"
 
 #. This is a title for an object with the description: A small shop that sells bikes.
 #, fuzzy
@@ -1187,7 +1188,7 @@ msgstr "Bangunan Besar"
 
 #. This is a title for an object with the description: Terrain Black Sand tiles
 msgid "Black Sand"
-msgstr ""
+msgstr "Pasir Hitam"
 
 #. This is a title for an object with the description: A smoothened tile made out of black sand.
 #, fuzzy
@@ -1333,7 +1334,7 @@ msgstr ""
 
 #. This is a subCategory
 msgid "Bushes"
-msgstr ""
+msgstr "Semak"
 
 #. This is a title for an object with the description: This place should have been condemned three decades ago...
 #, fuzzy
@@ -1830,7 +1831,7 @@ msgstr ""
 
 #. This is a category
 msgid "Farm"
-msgstr ""
+msgstr "Tanah pertanian"
 
 #. This is a title for an object with the description: Farm Zone
 #. This is a description for an object titled: Farm Zone
@@ -1839,7 +1840,7 @@ msgstr ""
 
 #. This is a title for an object with the description: A type of low-income housing from Brazil.
 msgid "Favela"
-msgstr ""
+msgstr "Favela"
 
 #. This is a title for an object with the description: An old mansion that has become slighty overgrown.
 msgid "Ferman's Manor"
@@ -1884,7 +1885,7 @@ msgstr ""
 
 #. This is a title for an object with the description: A lovely flower patch that blooms in all colors.
 msgid "Flowers (Light)"
-msgstr ""
+msgstr "Bunga (Ringan)"
 
 #. This is a title for an object with the description: A lovely flower patch that blooms in all colors.
 msgid "Flowers (Medium)"
@@ -2007,7 +2008,7 @@ msgstr ""
 
 #. This is a title for an object with the description: Terrain grass tiles
 msgid "Grass"
-msgstr ""
+msgstr "Rumput"
 
 #. This is a title for an object with the description: Terrain Gravel tiles
 msgid "Gravel"
@@ -2050,7 +2051,7 @@ msgstr "Dekorasi Tanah"
 
 #. This is a title for an object with the description: This place produces concrete for construction projects around the city.
 msgid "HDRN"
-msgstr ""
+msgstr "HDRN"
 
 #. This is a title for an object with the description: How do the residents get any privacy with all those big glass windows?
 msgid "Hanhwa Heights"
@@ -2128,7 +2129,7 @@ msgstr ""
 
 #. This is a title for an object with the description: The wild stallions roam the Cytopian plains.
 msgid "Horses"
-msgstr ""
+msgstr "Kuda"
 
 #. This is a description for an object titled: Hanhwa Heights
 msgid "How do the residents get any privacy with all those big glass windows?"
@@ -2453,7 +2454,7 @@ msgstr ""
 
 #. This is a title for an object with the description: A tall light pole that can be used to decorate a town.
 msgid "Light Pole"
-msgstr ""
+msgstr "Tiang Lampu"
 
 #. This is a title for an object with the description: Lighthouses shine bright lights into the skies to warn ships about nearby coastlines. Unfortunately, this one doesn't seem to function anymore.
 #, fuzzy
@@ -2740,11 +2741,11 @@ msgstr ""
 
 #. This is a title for an object with the description: A large building where Muslims gather to celebrate their religion.
 msgid "Mosque"
-msgstr ""
+msgstr "Mesjid"
 
 #. This is a title for an object with the description: Terrain mud tiles
 msgid "Mud"
-msgstr ""
+msgstr "Lumpur"
 
 #. This is a title for an object with the description: A fancy brick pattern made out of dirt-cheap materials.
 msgid "Mud Brick"
@@ -2942,7 +2943,7 @@ msgstr ""
 
 #. This is a title for an object with the description: A group of people hanging out in your town.
 msgid "People"
-msgstr ""
+msgstr "Orang"
 
 #. This is a title for an object with the description: A tall building from Perpignan, France.
 msgid "Perpignan Residence"
@@ -3036,7 +3037,7 @@ msgstr ""
 
 #. This is a title for an object with the description: A small body of water surrounded by cattails and wild rice.
 msgid "Pond"
-msgstr ""
+msgstr "Kolam"
 
 #. This is a title for an object with the description: A poplar tree
 msgid "Poplars (Dense)"
@@ -3071,7 +3072,7 @@ msgstr "Listrik"
 
 #. This is a title for an object with the description: A great way to show your appreciation to friends and family.
 msgid "Presents"
-msgstr ""
+msgstr "Hadiah"
 
 #. This is a title for an object with the description: A square of decorative concrete adorned with a fancy pattern.
 msgid "Pretty Concrete"
@@ -3157,7 +3158,7 @@ msgstr ""
 
 #. This is a title for an object with the description: Terrain Red Sand tiles
 msgid "Red Sand"
-msgstr ""
+msgstr "Pasir Merah"
 
 #. This is a title for an object with the description: A smoothened tile made out of red sand.
 msgid "Red Sandstone"
@@ -3275,7 +3276,7 @@ msgstr ""
 
 #. This is a title for an object with the description: Looks like this building has been in disrepair for ages. It's impossible to tell what it looked like before.
 msgid "Ruins"
-msgstr ""
+msgstr "Reruntuhan"
 
 #. This is a title for an object with the description: An old post office that has been repurposed as an antique store.
 msgid "Run-Down Skinny Shop"
@@ -3609,7 +3610,7 @@ msgstr ""
 
 #. This is a title for an object with the description: Terrain Snow tiles
 msgid "Snow"
-msgstr ""
+msgstr "Salju"
 
 #. This is a title for an object with the description: Some snowmen with coal eyes and carrot noses. Despite the snow, it is rumoured that they like warm hugs.
 msgid "Snowmen"
@@ -3621,7 +3622,7 @@ msgstr ""
 
 #. This is a title for an object with the description: Terrain soil tiles
 msgid "Soil"
-msgstr ""
+msgstr "Tanah Subur"
 
 #. This is a title for an object with the description: Solar panels are one of the cleanest energy sources on Earth! However, they take up a lot of space and are somewhat expensive.
 msgid "Solar Panels"
@@ -3665,7 +3666,7 @@ msgstr "Rumah Kecil"
 
 #. This is a title for an object with the description: Terrain Stone tiles
 msgid "Stone"
-msgstr ""
+msgstr "Batu"
 
 #. This is a title for an object with the description: A series of stone bricks that have been placed on the ground.
 msgid "Stone Bricks"
@@ -3689,7 +3690,7 @@ msgstr ""
 
 #. This is a title for an object with the description: Streams can be found throughout the landscape near larger sources of water.
 msgid "Stream"
-msgstr ""
+msgstr "Aliran"
 
 #. This is a description for an object titled: Stream
 msgid ""
@@ -3723,7 +3724,7 @@ msgstr ""
 
 #. This is a title for an object with the description: A very old ship that crashed here long ago. Its origin is unkown, but I think it's safe to say what happened to its crew.
 msgid "Sunken Ship"
-msgstr ""
+msgstr "Kapal Tenggelam"
 
 #. This is a title for an object with the description: A nice public pool that is a great way to stay cool and keep your citizens happy.
 msgid "Swimming Pool"
@@ -4825,7 +4826,7 @@ msgstr ""
 
 #. This is a title for an object with the description: This golden plant is the cornerstone of the human diet. It can be turned into bread, cereal, and more!
 msgid "Wheat Field"
-msgstr ""
+msgstr "Ladang Gandum"
 
 #. This is a description for an object titled: Small Brick House
 msgid ""
