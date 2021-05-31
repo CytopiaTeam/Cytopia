@@ -25,7 +25,7 @@ jobs:
           message("::set-output name=timestamp::${current_date}")
 
       - name: sccache cache files
-        uses: actions/cache@v2.1.5
+        uses: actions/cache@v2.1.6
         with:
           path: C:\sccache
           key: windows-sccache-${{ steps.sccache_cache_timestamp.outputs.timestamp }}
@@ -33,7 +33,7 @@ jobs:
             windows-sccache-
 
       - name: Cache vcpkg
-        uses: actions/cache@v2.1.5
+        uses: actions/cache@v2.1.6
         with:
           key: vcpkg-windows-${{ hashFiles('**/vcpkg.json') }}
           path: C:/Users/runneradmin/AppData/Local/vcpkg/archives
@@ -83,7 +83,7 @@ jobs:
           message("::set-output name=timestamp::${current_date}")
 
       - name: sccache cache files
-        uses: actions/cache@v2.1.5
+        uses: actions/cache@v2.1.6
         with:
           path: ~/.cache/sccache
           key: ubuntu-sccache-${{ steps.sccache_cache_timestamp.outputs.timestamp }}
@@ -149,7 +149,7 @@ jobs:
           message("::set-output name=timestamp::${current_date}")
 
       - name: sccache cache files
-        uses: actions/cache@v2.1.5
+        uses: actions/cache@v2.1.6
         with:
           path: ~/Library/Caches/Mozilla.sccache
           key: macos-sccache-${{ steps.sccache_cache_timestamp.outputs.timestamp }}
@@ -157,7 +157,7 @@ jobs:
             macos-sccache-
 
       - name: Cache vcpkg
-        uses: actions/cache@v2.1.5
+        uses: actions/cache@v2.1.6
         with:
           key: vcpkg-macos-${{ hashFiles('**/vcpkg.json') }}
           path: ~/.cache/vcpkg/archives/
