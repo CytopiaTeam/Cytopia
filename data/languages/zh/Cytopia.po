@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Victor Xia <victorxia.xia@gmail.com>, 2019
 # Elizabeth Sherrock <lizzyd710@gmail.com>, 2019, 2021.
+# Liu Tao <lyuutau@outlook.com>, 2021.
 #
 # Translators:
 #
@@ -11,8 +12,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-26 18:11+0000\n"
-"PO-Revision-Date: 2021-05-06 04:31+0000\n"
-"Last-Translator: Elizabeth Sherrock <lizzyd710@gmail.com>\n"
+"PO-Revision-Date: 2021-06-03 08:33+0000\n"
+"Last-Translator: Liu Tao <lyuutau@outlook.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "cytopia/game/zh_Hans/>\n"
 "Language: zh\n"
@@ -28,240 +29,238 @@ msgstr ""
 
 #. This is a description for an object titled: Rustic Park
 msgid "A beautiful area to enjoy modern art and nature."
-msgstr ""
+msgstr "一个美丽的地区，可以享受现代艺术和自然风光。"
 
 #. This is a description for an object titled: Vega Hotel
 msgid "A beautiful building that reminds us of a better tomorrow."
-msgstr ""
+msgstr "一座美丽的建筑，提醒我们美好的明天。"
 
 #. This is a description for an object titled: Fitzgerald's House
 msgid "A big house for the Fitzgerald's big family."
-msgstr ""
+msgstr "菲茨杰拉德大家族的大房子。"
 
 #. This is a description for an object titled: Deep Snow
-#, fuzzy
-#| msgid "A pile of coal"
 msgid "A big pile of snow."
-msgstr "一堆煤"
+msgstr "一大堆雪。"
 
 #. This is a description for an object titled: Tall Concrete Tower
 msgid "A bland-looking apartment building made out of concrete."
-msgstr ""
+msgstr "由混凝土建造的平淡无奇的公寓楼。"
 
 #. This is a description for an object titled: Blank Platform
 msgid "A blank train platform with nothing on it."
-msgstr ""
+msgstr "一个空荡荡的火车月台，上面什么都没有。"
 
 #. This is a description for an object titled: Dual-Stack Factory
 msgid "A brick building adorned with two smoke stacks."
-msgstr ""
+msgstr "装饰有两个烟囱的砖砌建筑。"
 
 #. This is a description for an object titled: Yakima Office
 msgid "A brick building with multiple office floors."
-msgstr ""
+msgstr "一栋有多层办公楼层的砖砌建筑。"
 
 #. This is a description for an object titled: Berry Bushes (Dense)
 #. This is a description for an object titled: Berry Bushes (Light)
 #. This is a description for an object titled: Berry Bushes (Medium)
 msgid "A bush with delicious red berries."
-msgstr ""
+msgstr "带有美味红色浆果的灌木。"
 
 #. This is a description for an object titled: Row House
 msgid "A cheap way to shelter groups of citizens."
-msgstr ""
+msgstr "一种保护公民群体的廉价方式。"
 
 #. This is a description for an object titled: Tall Row House
 msgid "A cheap way to shelter larger groups of citizens. "
-msgstr ""
+msgstr "一种庇护更多公民的廉价方式。 "
 
 #. This is a description for an object titled: Medium Depolluter
 msgid ""
 "A classic depolluter building that has been repurposed as a factory. "
 "Unfortunately, it is not used to purify the air anymore."
-msgstr ""
+msgstr "一座经典的净化器建筑，已被改建为工厂。不幸的是，它不再用于净化空气。"
 
 #. This is a description for an object titled: Pyongyang Place
 msgid "A common sight in the urban parts of North Korea."
-msgstr ""
+msgstr "朝鲜城市地区常见的景象。"
 
 #. This is a description for an object titled: Basic Log Cabin
 msgid "A common type of house in lakeside or forest areas."
-msgstr ""
+msgstr "湖边或林区常见的房屋类型。"
 
 #. This is a description for an object titled: "Under the Table" Tax Agency
 msgid ""
 "A completely legal operation located inside a foreboding concrete building."
-msgstr ""
+msgstr "位于不祥的混凝土建筑内的完全合法的操作。"
 
 #. This is a description for an object titled: Rough-Side Repeats
 msgid ""
 "A couple of small homes. The owners try their best to keep their yards "
 "looking good."
-msgstr ""
+msgstr "几个小房子。业主尽最大努力让他们的院子看起来不错。"
 
 #. This is a description for an object titled: Norman Villa
 msgid "A cozy little home with brick accents."
-msgstr ""
+msgstr "一个有砖块装饰的舒适的小家。"
 
 #. This is a description for an object titled: Inverness Flats
 msgid "A decades-old building that could use a few renovations."
-msgstr ""
+msgstr "一座有几十年历史的建筑，可能需要进行一些翻新。"
 
 #. This is a description for an object titled: Pavement
 msgid "A decorative patch of road pavement that is often used in parking lots."
-msgstr ""
+msgstr "一种装饰性的路面，通常用于停车场。"
 
 #. This is a description for an object titled: Sri Lanka Setup
 msgid "A densely-packed skyscaper with black-tinted windows."
-msgstr ""
+msgstr "一座密密麻麻的摩天大楼，窗户是黑色的。"
 
 #. This is a description for an object titled: Single Light
 msgid "A fancier version of the light pole."
-msgstr ""
+msgstr "灯杆的更高级版本。"
 
 #. This is a description for an object titled: Mud Brick
 msgid "A fancy brick pattern made out of dirt-cheap materials."
-msgstr ""
+msgstr "用廉价的材料制成的花哨的砖块图案。"
 
 #. This is a description for an object titled: The Block
 msgid "A fancy department store with multiple floors."
-msgstr ""
+msgstr "一家拥有多层楼层的高档百货公司。"
 
 #. This is a description for an object titled: Sao Paulo Tower
 msgid "A fancy multi-story mall from Brazil."
-msgstr ""
+msgstr "来自巴西的一个花哨的多层购物中心。"
 
 #. This is a description for an object titled: Tour Front De Seine
 msgid "A fancy office building from Paris, France."
-msgstr ""
+msgstr "来自法国巴黎的一栋豪华办公楼。"
 
 #. This is a description for an object titled: Benches
 msgid "A few benches that offer a place for your civilians to sit."
-msgstr ""
+msgstr "一些长凳，为您的平民提供了一个坐下的地方。"
 
 #. This is a description for an object titled: Grape Fields
 msgid ""
 "A field of grapes that will be sent to a local winery when they are done "
 "growing."
-msgstr ""
+msgstr "一片葡萄田，当它们生长完毕后，将被送往当地的一个酿酒厂。"
 
 #. This is a description for an object titled: Austral One
 msgid ""
 "A fine institution for all your banking needs. They also have a great view "
 "of the roadway."
-msgstr ""
+msgstr "满足您所有银行业务需求的优质机构。他们还可以欣赏到道路的美景。"
 
 #. This is a description for an object titled: Concrete Path
 msgid "A fine place for pedestrians to walk."
-msgstr ""
+msgstr "一个供行人行走的好地方。"
 
 #. This is a description for an object titled: Tennis Court
 msgid ""
 "A firm rectangular surface with some low nets stretched across the center. "
 "Tennis is a great outdoor activity for casuals and professionals alike."
-msgstr ""
+msgstr "一个坚固的长方形表面，中间延伸着一些低矮的球网。网球是一项很好的户外活动，对休闲者和专业人士来说都是如此。"
 
 #. This is a description for an object titled: Honfleur House
 msgid "A four-floor home from France's Normandy region."
-msgstr ""
+msgstr "一个来自法国诺曼底地区的四层楼房。"
 
 #. This is a description for an object titled: Luciline Banks Aprtments
 msgid "A french apartment building with a penthouse at the top."
-msgstr ""
+msgstr "一座法式公寓楼，顶层有一栋顶楼。"
 
 #. This is a description for an object titled: Mailing Office
 msgid "A french building dedicated to processing and shipping packages."
-msgstr ""
+msgstr "专门用于处理和运输包裹的法国建筑。"
 
 #. This is a description for an object titled: Chateau de Pierrefonds
 msgid ""
 "A giant fortress that was built in France during the 14th century. It was "
 "torn down by Louis XIII in the 17th century and rebuilt many decades later."
-msgstr ""
+msgstr "一座巨大的堡垒，建于 14 世纪的法国。它在 17 世纪被路易十三拆除，几十年后重建。"
 
 #. This is a description for an object titled: Labor Tower
 msgid "A glass tower with a concrete base."
-msgstr ""
+msgstr "一个有混凝土底座的玻璃塔。"
 
 #. This is a description for an object titled: Korean Shopping Center
 msgid ""
 "A good place to spend your disposable income. They have a wide variety of "
 "clothes, collectables, and toys."
-msgstr ""
+msgstr "一个花掉你的可支配收入的好地方。他们有各种各样的衣服、收藏品和玩具。"
 
 #. This is a description for an object titled: Small Police Station
 msgid "A great choice for protecting an area from crime."
-msgstr ""
+msgstr "保护某个地区免受犯罪侵害的绝佳选择。"
 
 #. This is a description for an object titled: Picnic Area
 msgid "A great place to relax and eat lunch."
-msgstr ""
+msgstr "一个放松和吃午饭的好地方。"
 
 #. This is a description for an object titled: Presents
 msgid "A great way to show your appreciation to friends and family."
-msgstr ""
+msgstr "表达对朋友和家人感激之情的好方法。"
 
 #. This is a description for an object titled: Pine Trees (Dense)
 #. This is a description for an object titled: Pine Trees (Light)
 #. This is a description for an object titled: Pine Trees (Medium)
 msgid "A group of beautiful pinetrees."
-msgstr ""
+msgstr "一群美丽的松树。"
 
 #. This is a description for an object titled: Centerpiece Park
 msgid "A group of benches that surround a nice decorative object."
-msgstr ""
+msgstr "一组长椅，围绕着一个漂亮的装饰物。"
 
 #. This is a description for an object titled: Birch Trees (Dense)
 #. This is a description for an object titled: Birch Trees (Light)
 #. This is a description for an object titled: Birch Trees (Medium)
 msgid "A group of birch trees."
-msgstr ""
+msgstr "一组白桦树。"
 
 #. This is a description for an object titled: Burned Trees (Dense)
 #. This is a description for an object titled: Burned Trees (Light)
 #. This is a description for an object titled: Burned Trees (Medium)
 msgid "A group of burned trees."
-msgstr ""
+msgstr "一组被烧毁的树木。"
 
 #. This is a description for an object titled: Crystal Trees (Dense)
 #. This is a description for an object titled: Crystal Trees (Light)
 #. This is a description for an object titled: Crystal Trees (Medium)
 msgid "A group of crystal trees."
-msgstr ""
+msgstr "一组水晶树。"
 
 #. This is a description for an object titled: Cypress Trees (Dense)
 #. This is a description for an object titled: Cypress Trees (Light)
 #. This is a description for an object titled: Cypress Trees (Medium)
 msgid "A group of cypress trees."
-msgstr ""
+msgstr "一组柏树。"
 
 #. This is a description for an object titled: Turkish Block
 msgid ""
 "A group of houses that share a community garden. It is rather pleasant, "
 "albeit a bit cramped."
-msgstr ""
+msgstr "一组共享社区花园的房屋。它相当令人愉快，尽管有点拥挤。"
 
 #. This is a description for an object titled: Mushrooms (Dense)
 #. This is a description for an object titled: Mushrooms (Light)
 #. This is a description for an object titled: Mushrooms (Medium)
 msgid "A group of mysterious mushroom trees."
-msgstr ""
+msgstr "一组神秘的蘑菇树。"
 
 #. This is a description for an object titled: Oak Trees (Dense)
 #. This is a description for an object titled: Oak Trees (Light)
 #. This is a description for an object titled: Oak Trees (Medium)
 msgid "A group of oak trees."
-msgstr ""
+msgstr "一组栎树。"
 
 #. This is a description for an object titled: Palm Trees (Dense)
 #. This is a description for an object titled: Palm Trees (Light)
 #. This is a description for an object titled: Palm Trees (Medium)
 msgid "A group of palmtrees."
-msgstr ""
+msgstr "一组棕榈树。"
 
 #. This is a description for an object titled: People
 msgid "A group of people hanging out in your town."
-msgstr ""
+msgstr "一群人在你的小镇上闲逛。"
 
 #. This is a description for an object titled: Picnic Tables
 msgid "A group of picnic tables that your citizens can use to eat lunch at."
@@ -271,81 +270,81 @@ msgstr ""
 #. This is a description for an object titled: Thundercloud Purple Leaf Plum Trees (Light)
 #. This is a description for an object titled: Thundercloud Purple Leaf Plum Trees (Medium)
 msgid "A group of plum trees."
-msgstr ""
+msgstr "一组李子树。"
 
 #. This is a description for an object titled: Cacti (Dense)
 #. This is a description for an object titled: Cacti (Light)
 #. This is a description for an object titled: Cacti (Medium)
 msgid "A group of prickly cacti."
-msgstr ""
+msgstr "一组带刺的仙人掌。"
 
 #. This is a description for an object titled: Sakura Trees (Dense)
 #. This is a description for an object titled: Sakura Trees (Light)
 #. This is a description for an object titled: Sakura Trees (Medium)
 msgid "A group of sakura trees."
-msgstr ""
+msgstr "一组樱花树。"
 
 #. This is a description for an object titled: Stone Pines (Dense)
 #. This is a description for an object titled: Stone Pines (Light)
 #. This is a description for an object titled: Stone Pines (Medium)
 msgid "A group of stone pines."
-msgstr ""
+msgstr "一组石松。"
 
 #. This is a description for an object titled: Bamboo (Light)
 #. This is a description for an object titled: Bamboo (Medium)
 msgid "A group of tall bamboo plants."
-msgstr ""
+msgstr "一组高大的竹子植物。"
 
 #. This is a description for an object titled: Bamboo (Dense)
 msgid "A group of tall bamboo trees."
-msgstr ""
+msgstr "一组高大的竹树。"
 
 #. This is a description for an object titled: Cattails (Dense)
 #. This is a description for an object titled: Cattails (Light)
 #. This is a description for an object titled: Cattails (Medium)
 msgid "A group tall wetland plants well-known for their brown catkins."
-msgstr ""
+msgstr "一组高大的湿地植物，以其棕色柔荑花序而闻名。"
 
 #. This is a description for an object titled: Lavish Landing
 msgid "A home so ornate that it has its own breed of palm trees."
-msgstr ""
+msgstr "一个华丽到有自己品种的棕榈树的住宅。"
 
 #. This is a description for an object titled: Juterbog Purple House
 msgid "A house like this will stand out in any neighborhood."
-msgstr ""
+msgstr "这样的房子在任何街区都会很显眼。"
 
 #. This is a description for an object titled: Cathedrale
 msgid ""
 "A huge building that is hundreds of years old. These can be found all around "
 "Europe."
-msgstr ""
+msgstr "一座有数百年历史的巨大建筑。这些可以在欧洲各地找到。"
 
 #. This is a description for an object titled: Vilnius Municipality Building
 msgid "A huge glass tower located in the capital city of Lithuania."
-msgstr ""
+msgstr "一座巨大的玻璃塔，位于立陶宛首都。"
 
 #. This is a description for an object titled: Huggings Building
 msgid ""
 "A huge office building built in John D. Huggings name. He'd be very proud."
-msgstr ""
+msgstr "一座以约翰-D-哈金斯的名字建造的巨大的办公大楼。他一定会非常自豪。"
 
 #. This is a description for an object titled: Sports Stadium
 msgid ""
 "A huge stadium that is used for professional soccer matches. This particular "
 "building is the Stade Oceane, which is located in Le Havre, France."
-msgstr ""
+msgstr "一个巨大的体育场，用于职业足球比赛。这个特殊的建筑是位于法国勒阿弗尔的海洋体育场。"
 
 #. This is a description for an object titled: Big Complex
 msgid "A huge, low-cost apartment complex."
-msgstr ""
+msgstr "一个巨大的、低成本的公寓楼。"
 
 #. This is a description for an object titled: Hayloft
 msgid "A large building made to store hay for livestock."
-msgstr ""
+msgstr "一座大建筑，用来储存牲畜的干草。"
 
 #. This is a description for an object titled: Mosque
 msgid "A large building where Muslims gather to celebrate their religion."
-msgstr ""
+msgstr "一座大型建筑，穆斯林聚集在这里庆祝他们的宗教。"
 
 #. This is a description for an object titled: Glass Citadel
 msgid "A large glass building that towers over the local landscape."
