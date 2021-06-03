@@ -4,6 +4,7 @@
 # Victor Xia <victorxia.xia@gmail.com>, 2019
 # Elizabeth Sherrock <lizzyd710@gmail.com>, 2019, 2021.
 # Liu Tao <lyuutau@outlook.com>, 2021.
+# Donald Yiu <1456762857@qq.com>, 2021.
 #
 # Translators:
 #
@@ -13,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-26 18:11+0000\n"
 "PO-Revision-Date: 2021-06-04 02:33+0000\n"
-"Last-Translator: Liu Tao <lyuutau@outlook.com>\n"
+"Last-Translator: Donald Yiu <1456762857@qq.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "cytopia/game/zh_Hans/>\n"
 "Language: zh\n"
@@ -25,7 +26,7 @@ msgstr ""
 
 #. This is a title for an object with the description: A completely legal operation located inside a foreboding concrete building.
 msgid "\"Under the Table\" Tax Agency"
-msgstr ""
+msgstr "不为人知的税务组"
 
 #. This is a description for an object titled: Rustic Park
 msgid "A beautiful area to enjoy modern art and nature."
