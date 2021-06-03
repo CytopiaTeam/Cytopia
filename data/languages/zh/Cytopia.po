@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-26 18:11+0000\n"
-"PO-Revision-Date: 2021-06-03 08:33+0000\n"
+"PO-Revision-Date: 2021-06-04 02:33+0000\n"
 "Last-Translator: Liu Tao <lyuutau@outlook.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "cytopia/game/zh_Hans/>\n"
@@ -264,7 +264,7 @@ msgstr "一群人在你的小镇上闲逛。"
 
 #. This is a description for an object titled: Picnic Tables
 msgid "A group of picnic tables that your citizens can use to eat lunch at."
-msgstr ""
+msgstr "一组野餐桌，你的公民可以用来吃午餐。"
 
 #. This is a description for an object titled: Thundercloud Purple Leaf Plum Trees (Dense)
 #. This is a description for an object titled: Thundercloud Purple Leaf Plum Trees (Light)
@@ -348,379 +348,377 @@ msgstr "一座大型建筑，穆斯林聚集在这里庆祝他们的宗教。"
 
 #. This is a description for an object titled: Glass Citadel
 msgid "A large glass building that towers over the local landscape."
-msgstr ""
+msgstr "一座耸立在当地景观之上的大型玻璃建筑。"
 
 #. This is a description for an object titled: Boise Shopping Mall
 msgid ""
 "A large mall that is open 24/7. Its grandeur attracts people from all around "
 "the country."
-msgstr ""
+msgstr "一个24小时开放的大型商场。它的宏伟壮观吸引了来自全国各地的人们。"
 
 #. This is a description for an object titled: Community Tower
 msgid ""
 "A large multi-story shopping mall with large windows. Urban legends say it "
 "was built by hand by the members of a distant community."
-msgstr ""
+msgstr "一个带有大窗户的大型多层购物中心。都市传说说它是由遥远社区的成员手工建造的。"
 
 #. This is a description for an object titled: Jim's Snail Shop
-#, fuzzy
-#| msgid "A shop that sells clocks"
 msgid "A large pet store that sells pet snails."
-msgstr "一个钟表店"
+msgstr "一家出售宠物蜗牛的大型宠物店。"
 
 #. This is a description for an object titled: Radio Tower
 #. This is a description for an object titled: Coal Pile
 msgid ""
 "A large pile of coal. The dust coming from these piles can pose a risk to "
 "the local area."
-msgstr ""
+msgstr "一大堆的煤。从这些煤堆里出来的粉尘会对当地造成危险。"
 
 #. This is a description for an object titled: Plaza Park
 msgid "A large plaza with a pool of water in the middle."
-msgstr ""
+msgstr "一个大广场，中间有一池水。"
 
 #. This is a description for an object titled: Hanhwa Tooza
 msgid "A large tower dedicated to inventing products of the future."
-msgstr ""
+msgstr "一座专门用于发明未来产品的大塔。"
 
 #. This is a description for an object titled: Flowers (Dense)
 #. This is a description for an object titled: Flowers (Light)
 #. This is a description for an object titled: Flowers (Medium)
 msgid "A lovely flower patch that blooms in all colors."
-msgstr ""
+msgstr "一片可爱的花地，盛开着各种颜色的花朵。"
 
 #. This is a description for an object titled: Clearview
 msgid "A massive building with many stores, offices, and event spaces."
-msgstr ""
+msgstr "一座有许多商店、办公室和活动场所的庞大建筑。"
 
 #. This is a description for an object titled: Le Havre Block
 msgid "A modern building from a dense urban region of France."
-msgstr ""
+msgstr "一座来自法国密集城市地区的现代建筑。"
 
 #. This is a description for an object titled: Maromme High-Rise
 msgid ""
 "A modern structure with an elegant paintjob. It looks stunning when the sun "
 "is rising."
-msgstr ""
+msgstr "一个现代化的结构，有着优雅的涂装。当太阳升起时，它看起来很迷人。"
 
 #. This is a description for an object titled: Silver Villa
 msgid "A modern-looking home that is large enough for a small family."
-msgstr ""
+msgstr "一个现代风格的房子，足以容纳一个小家庭。"
 
 #. This is a description for an object titled: Alley Road
 msgid "A narrow road that is commonly used in crammed areas between buildings."
-msgstr ""
+msgstr "一条狭窄的道路，通常用于建筑物之间的拥挤区域。"
 
 #. This is a description for an object titled: Big Depolluter
 msgid "A new factory that was once a depolluter building."
-msgstr ""
+msgstr "一个新工厂，曾经是一个净化器建筑。"
 
 #. This is a description for an object titled: Grand Est Building
 msgid "A nice building from the Grand Est region of France."
-msgstr ""
+msgstr "法国大东地区的一座漂亮的建筑。"
 
 #. This is a description for an object titled: Mannevillette Manor
 msgid "A nice home that originates from France."
-msgstr ""
+msgstr "一个源自法国的美好家园。"
 
 #. This is a description for an object titled: Rainer Residence
 msgid "A nice house from the Mount Rainer region of Washington, USA."
-msgstr ""
+msgstr "来自美国华盛顿雷纳山地区的一栋漂亮的房子。"
 
 #. This is a description for an object titled: The Brick Block
 msgid ""
 "A nice multi-floor cafe. I've heard they have a good breakfast menu here."
-msgstr ""
+msgstr "一家不错的多楼层咖啡馆。我听说他们这里的早餐菜单不错。"
 
 #. This is a description for an object titled: Crossroads Park
 msgid "A nice park that can be used as a good centerpiece."
-msgstr ""
+msgstr "一个不错的公园，可以作为一个好的中心点。"
 
 #. This is a description for an object titled: Paved Road
 msgid "A nice paved road that is perfect for city streets."
-msgstr ""
+msgstr "一条漂亮的铺装道路，非常适合城市街道。"
 
 #. This is a description for an object titled: Swimming Pool
 msgid ""
 "A nice public pool that is a great way to stay cool and keep your citizens "
 "happy."
-msgstr ""
+msgstr "一个漂亮的公共游泳池，是保持凉爽和让您的市民开心的好方法。"
 
 #. This is a description for an object titled: Creme-Oran Tower
 msgid "A nice residential building donned with white and orange concrete."
-msgstr ""
+msgstr "一座用白色和橙色混凝土装饰的漂亮住宅楼。"
 
 #. This is a description for an object titled: Cytopia House
 msgid ""
 "A nice reward for your city-building efforts, although it might make your "
 "citizens question if they're in a simulation."
-msgstr ""
+msgstr "这是对你的城市建设努力的一个很好的奖励，尽管它可能会让你的市民质疑他们是否在一个模拟的环境中。"
 
 #. This is a description for an object titled: Siauliai Shack
 msgid "A not-so-humble name for such a nice house."
-msgstr ""
+msgstr "对于这么好的房子来说，这是一个不那么谦虚的名字。"
 
 #. This is a description for an object titled: Alexandria Shops
 msgid ""
 "A pair of brick buildings from Minnesota. Naturally, they sell snow shovels "
 "and winter coats."
-msgstr ""
+msgstr "一对来自明尼苏达州的砖砌建筑。自然，他们出售雪铲和冬衣。"
 
 #. This is a description for an object titled: Double Dwellings
 msgid "A pair of small houses that share a backyard."
-msgstr ""
+msgstr "一对小房子，共用一个后院。"
 
 #. This is a description for an object titled: Framed Concrete
 msgid "A patch of black concrete with a nice border."
-msgstr ""
+msgstr "一块带有漂亮边框的黑色混凝土。"
 
 #. This is a description for an object titled: Picnic Pavilion
 msgid "A picnic pavilion is a great place for your citizens to eat lunch."
-msgstr ""
+msgstr "一个野餐亭是你的公民吃午餐的好地方。"
 
 #. This is a description for an object titled: Granite Rocks
 msgid "A pile of rocks commonly found in grasslands and forests."
-msgstr ""
+msgstr "草原和森林中常见的一堆石头。"
 
 #. This is a description for an object titled: Dumortierite Rocks
 msgid "A pile of rocks commonly found in snowy areas. "
-msgstr ""
+msgstr "在雪地上常见的一堆石头。 "
 
 #. This is a description for an object titled: Diamond Ore
 msgid ""
 "A pile of rocks containing diamond ore. Very rare, especially because "
 "diamonds normally don't appear above ground."
-msgstr ""
+msgstr "一堆含有钻石矿石的岩石。非常罕见，特别是因为钻石通常不会出现在地面上。"
 
 #. This is a description for an object titled: Gold Ore
 msgid "A pile of rocks containing gold ore."
-msgstr ""
+msgstr "一堆含有金矿的岩石。"
 
 #. This is a description for an object titled: Limestone Rocks
 msgid "A pile of rocks that are commonly found jutting out of the water."
-msgstr ""
+msgstr "一堆常见的凸出水面的岩石。"
 
 #. This is a description for an object titled: Sandstone Rocks
 msgid "A pile of sandstone rocks commonly found in deserts."
-msgstr ""
+msgstr "一堆常见于沙漠中的砂岩。"
 
 #. This is a description for an object titled: Scandic Office
 msgid "A plain brown office building with a few tree out front."
-msgstr ""
+msgstr "一座普通的棕色办公楼，门外有几棵树。"
 
 #. This is a description for an object titled: Poplars (Dense)
 #. This is a description for an object titled: Poplars (Light)
 #. This is a description for an object titled: Poplars (Medium)
 msgid "A poplar tree"
-msgstr ""
+msgstr "一棵杨树"
 
 #. This is a description for an object titled: Veules-les-Roses Cottage
 msgid ""
 "A posh building made of old bricks. It has many beautiful windows for its "
 "residents to see out of."
-msgstr ""
+msgstr "一座由旧砖砌成的豪华建筑。它有许多美丽的窗户，让居民看到外面。"
 
 #. This is a description for an object titled: Bob's House
 msgid "A quant home with one bedroom and a small sunroom."
-msgstr ""
+msgstr "一间带一间卧室和一间小日光浴室的量化住宅。"
 
 #. This is a description for an object titled: Tacoma Hotel
 msgid "A rather plain hotel with rather average service."
-msgstr ""
+msgstr "一个相当普通的酒店，服务相当一般。"
 
 #. This is a description for an object titled: Smooth Stone
 msgid "A refined version of the stone tiles you can find around the world."
-msgstr ""
+msgstr "你可以在世界各地找到的石砖的精致版本。"
 
 #. This is a description for an object titled: Hong Kong Highrise
 msgid ""
 "A relatively-small tower from oen of the dense urban areas of Hong Kong."
-msgstr ""
+msgstr "一座相对较小的塔楼，来自香港密集的市区。"
 
 #. This is a description for an object titled: Tents
 msgid ""
 "A relaxing vacation in the wildness is a great way to escape from modern "
 "life."
-msgstr ""
+msgstr "在野外放松度假是逃离现代生活的好方法。"
 
 #. This is a description for an object titled: Granite
 msgid "A rough type of stone that is great for decorating with."
-msgstr ""
+msgstr "一种粗糙的石头，非常适合用来装饰。"
 
 #. This is a description for an object titled: Rural French Road fresh
 msgid "A rural road from france with fresh asphalt."
-msgstr ""
+msgstr "一条来自法国的乡村公路，铺着新鲜的沥青。"
 
 #. This is a description for an object titled: Rural French Road
 msgid "A rural road from france with worn asphalt."
-msgstr ""
+msgstr "一条来自法国的农村公路，沥青已经磨损。"
 
 #. This is a description for an object titled: Rural French Road lined
 msgid "A rural road from france with worn asphalth a straight line."
-msgstr ""
+msgstr "一条来自法国的乡村公路，沥青路面磨损成一条直线。"
 
 #. This is a description for an object titled: L Shops
 msgid "A series of shops adorned by a street full of lamps."
-msgstr ""
+msgstr "一系列的商店被满街的灯饰装饰着。"
 
 #. This is a description for an object titled: Main Street Market
 msgid "A series of shops located in the middle of a small town"
-msgstr ""
+msgstr "位于一个小镇中央的一系列商店"
 
 #. This is a description for an object titled: Stone Bricks
 msgid "A series of stone bricks that have been placed on the ground."
-msgstr ""
+msgstr "一系列放置在地上的石砖。"
 
 #. This is a description for an object titled: Rue Jacques Huet
 msgid "A series of stores from France."
-msgstr ""
+msgstr "一系列来自法国的商店。"
 
 #. This is a description for an object titled: Anicro Home
 msgid "A simple house for a new island mayor."
-msgstr ""
+msgstr "给新岛市长的简单房子。"
 
 #. This is a description for an object titled: Highway Walls
 msgid "A sloped wall that is commonly used in sunken highway systems."
-msgstr ""
+msgstr "通常用于下沉式公路系统的倾斜墙。"
 
 #. This is a description for an object titled: Humble Gray Home
 msgid ""
 "A small Scandinavian house. It is a lot less interesting than its colorful "
 "cousin."
-msgstr ""
+msgstr "斯堪的纳维亚小房子。它远没有它色彩缤纷的表亲那么有趣。"
 
 #. This is a description for an object titled: Green-Laced Apartments
 msgid "A small apartment building with cheap rooms for rent."
-msgstr ""
+msgstr "一栋小公寓楼，有便宜的房间出租。"
 
 #. This is a description for an object titled: Pond
 msgid "A small body of water surrounded by cattails and wild rice."
-msgstr ""
+msgstr "一个被香蒲和野稻包围的小水体。"
 
 #. This is a description for an object titled: Small Military Facility
 msgid "A small building dedicated to industrial testing for the military."
-msgstr ""
+msgstr "一座专门为军队进行工业测试的小楼。"
 
 #. This is a description for an object titled: Compact FastShop
 msgid ""
 "A small convenience store that stocks a wide range of everyday items. Their "
 "larger variants are normally found in cities."
-msgstr ""
+msgstr "一家小型便利店，备有各种日常用品。它们较大的变种通常出现在城市中。"
 
 #. This is a description for an object titled: Boxy House
 msgid "A small four-bedroom house with a flat roof."
-msgstr ""
+msgstr "一座有四间卧室的小房子，屋顶是平的。"
 
 #. This is a description for an object titled: Snails Incorporated
 msgid "A small game company that makes platformers and shoot-em-ups."
-msgstr ""
+msgstr "一家制作平台游戏和射击游戏的小型游戏公司。"
 
 #. This is a description for an object titled: Tacoma Residence
 msgid "A small home from the suburban United States."
-msgstr ""
+msgstr "一个来自美国郊区的小房子。"
 
 #. This is a description for an object titled: Anicro Abode
 msgid "A small house from an island far, far away."
-msgstr ""
+msgstr "一座来自很远很远的岛屿的小房子。"
 
 #. This is a description for an object titled: Small Shack
 msgid "A small house that can only accommodate a few people."
-msgstr ""
+msgstr "一个只能容纳几个人的小房子。"
 
 #. This is a description for an object titled: Brown Abode
 msgid "A small house with a two-floor garage."
-msgstr ""
+msgstr "一栋有两层车库的小房子。"
 
 #. This is a description for an object titled: Lantern
 msgid "A small lantern that can be used to decorate your cities."
-msgstr ""
+msgstr "一个小灯笼，可以用来装饰你的城市。"
 
 #. This is a description for an object titled: Small Office Building
 msgid ""
 "A small office building with a nice sidewalk and a unique blue entrance."
-msgstr ""
+msgstr "一座小办公楼，有一条漂亮的人行道和一个独特的蓝色入口。"
 
 #. This is a description for an object titled: Small Shantytown
 msgid "A small piece of land where impoverished people reside."
-msgstr ""
+msgstr "贫民居住的一小块土地。"
 
 #. This is a description for an object titled: Oasis
 msgid ""
 "A small pond that can be found rarely in deserts. Fortunately, this one "
 "isn't a mirage."
-msgstr ""
+msgstr "一个在沙漠中很少能找到的小池塘。幸运的是，这个并不是海市蜃楼。"
 
 #. This is a description for an object titled: Small Storage Shed
 msgid "A small shed used by nearby factories as a way to store things."
-msgstr ""
+msgstr "附近工厂用来存放东西的小棚子。"
 
 #. This is a description for an object titled: Bike Shop
-#, fuzzy
-#| msgid "A Shop that sells Bikes"
 msgid "A small shop that sells bikes."
-msgstr "自行车店"
+msgstr "一家卖自行车的小商店。"
 
 #. This is a description for an object titled: JoJo Mart
-#, fuzzy
-#| msgid "A shop that sells clocks"
 msgid "A small store that sells food, medicine, and clothes."
-msgstr "一个钟表店"
+msgstr "一家卖食品、药品和衣服的小商店。"
 
 #. This is a description for an object titled: Thirft-4-Dayz
 msgid "A small thirft shop whose owners live on the second floor."
-msgstr ""
+msgstr "一家小旧货店，店主住在二楼。"
 
 #. This is a description for an object titled: Small Waiting Platform
 msgid ""
 "A small train platform that has a small structure on it.  People can wait "
 "here until the train comes, although there isnt much room inside."
-msgstr ""
+msgstr "一个小火车平台，上面有一个小结构。人们可以在这里等火车来，虽然里面的空间不大。"
 
 #. This is a description for an object titled: Wooden Sign
 msgid ""
 "A small wooden sign that can be used to decorate a town.  It doesn't "
 "actually say anything though..."
-msgstr ""
+msgstr "一个可以用来装饰城镇的小木牌。虽然它实际上并没有说什么......"
 
 #. This is a description for an object titled: Beach Sandstone
+#, fuzzy
 msgid "A smoothened tile made out of beach sand."
-msgstr ""
+msgstr "用沙滩上的沙子制成的光滑的瓷砖。"
 
 #. This is a description for an object titled: Black Sandstone
+#, fuzzy
 msgid "A smoothened tile made out of black sand."
-msgstr ""
+msgstr "由黑沙制成的光滑瓷砖。"
 
 #. This is a description for an object titled: Desert Sandstone
+#, fuzzy
 msgid "A smoothened tile made out of desert sand."
-msgstr ""
+msgstr "用沙漠中的沙子制成的光滑的瓷砖。"
 
 #. This is a description for an object titled: Red Sandstone
+#, fuzzy
 msgid "A smoothened tile made out of red sand."
-msgstr ""
+msgstr "由红沙制成的光滑瓷砖。"
 
 #. This is a description for an object titled: Borg's Burgers
 msgid ""
 "A somewhat large fast food restaurant known for cheap food and questionable "
 "quality."
-msgstr ""
+msgstr "一家有点大的快餐店，以食物便宜和质量有问题而闻名。"
 
 #. This is a description for an object titled: Country Road
 msgid ""
 "A somewhat-cheap road that is commonly found in the countryside. It lacks a "
 "proper sidewalk though."
-msgstr ""
+msgstr "一条在乡下常见的有点廉价的道路。不过它缺乏适当的人行道。"
 
 #. This is a description for an object titled: Trailer Park
 msgid "A somewhat-large plot of land that is the home to many trailer houses."
-msgstr ""
+msgstr "一块有点大的土地，是许多拖车屋的家。"
 
 #. This is a description for an object titled: Pretty Concrete
 msgid "A square of decorative concrete adorned with a fancy pattern."
-msgstr ""
+msgstr "一块方形的装饰混凝土，上面装饰有花纹。"
 
 #. This is a description for an object titled: Classic Red Barn
 msgid "A stereotypical red barn."
-msgstr ""
+msgstr "一个典型的红色谷仓。"
 
 #. This is a description for an object titled: Phone Shop
 #, fuzzy
@@ -730,69 +728,74 @@ msgstr "一个手机店。店里有新的CyPhone X"
 
 #. This is a description for an object titled: Perpignan Residence
 msgid "A tall building from Perpignan, France."
-msgstr ""
+msgstr "一座来自法国佩皮尼昂的高楼。"
 
 #. This is a description for an object titled: Glass Tower
+#, fuzzy
 msgid ""
 "A tall glass skyscraper that fears the day a stone-throwing competition is "
 "held in town."
-msgstr ""
+msgstr "一座高大的玻璃摩天大楼，在镇上举行投掷石块比赛的日子里，让人感到恐惧。"
 
 #. This is a description for an object titled: Light Pole
 msgid "A tall light pole that can be used to decorate a town."
-msgstr ""
+msgstr "一根高大的灯杆，可以用来装饰一个城镇。"
 
 #. This is a description for an object titled: Sandstone Tower
 msgid "A tall sandstone building plastered with ads."
-msgstr ""
+msgstr "一座高大的砂岩建筑上贴满了广告。"
 
 #. This is a description for an object titled: Fancy White House
+#, fuzzy
 msgid "A tall white home with an orange accent."
-msgstr ""
+msgstr "一个高大的白色房子，有一个橙色的点缀。"
 
 #. This is a description for an object titled: Anicro Camp
+#, fuzzy
 msgid "A temporary shelter commonly used on faraway islands."
-msgstr ""
+msgstr "在遥远的岛屿上常用的一种临时住所。"
 
 #. This is a description for an object titled: Cafe Apartment
 msgid ""
 "A three-story apartment building with a cafe at the bottom. However, the "
 "noise from the restaurant below has driven out all the residents."
-msgstr ""
+msgstr "一栋三层公寓楼，底部有一间咖啡馆。然而，下面餐厅的噪音已经把所有居民都赶了出去。"
 
 #. This is a description for an object titled: Bench Platform
 msgid "A train platform with a couple of benches and a trash can."
-msgstr ""
+msgstr "一个有几个长凳和一个垃圾桶的火车月台。"
 
 #. This is a description for an object titled: Sign Platform
 msgid "A train platform with a large sign on it."
-msgstr ""
+msgstr "一个火车站台，上面有一个大牌子。"
 
 #. This is a description for an object titled: Tutor's Home
+#, fuzzy
 msgid "A tutor from a local school lives here with her family."
-msgstr ""
+msgstr "当地学校的一名辅导员和她的家人住在这里。"
 
 #. This is a description for an object titled: Crossview Mall
 msgid "A two-story shopping mall with windows on all sides."
-msgstr ""
+msgstr "一个两层楼的购物中心，四面都是窗户。"
 
 #. This is a description for an object titled: Favela
 msgid "A type of low-income housing from Brazil."
-msgstr ""
+msgstr "一种来自巴西的低收入住房。"
 
 #. This is a description for an object titled: Multi-Floor Strip Mall
+#, fuzzy
 msgid "A variety of services and goods are provided here."
-msgstr ""
+msgstr "这里提供各种服务和商品。"
 
 #. This is a description for an object titled: Tour StSever Tower
 msgid "A very fancy shopping mall with hundreds of stores."
-msgstr ""
+msgstr "一个非常高档的购物中心，拥有数百家商店。"
 
 #. This is a description for an object titled: Sunken Ship
 msgid ""
 "A very old ship that crashed here long ago. Its origin is unkown, but I "
 "think it's safe to say what happened to its crew."
-msgstr ""
+msgstr "一艘非常古老的船，很久以前在这里坠毁。它的起源不详，但我认为可以说它的船员发生了什么事。"
 
 #. This is a description for an object titled: Small Suburb
 #, fuzzy
@@ -802,25 +805,26 @@ msgstr "一个小的房子"
 
 #. This is a description for an object titled: Nasus Building
 msgid "A white building with asymmetrical architecture."
-msgstr ""
+msgstr "一座白色的建筑，不对称的建筑。"
 
 #. This is a description for an object titled: Basic Mansion
 msgid ""
 "A white mansion with a fancy porch. It's pretty average, relatively speaking."
-msgstr ""
+msgstr "一座白色豪宅，有一个华丽的门廊。相对而言，这很普通。"
 
 #. This is a description for an object titled: Wild Wheat (Dense)
 #. This is a description for an object titled: Wild Wheat (Light)
 #. This is a description for an object titled: Wild Wheat (Medium)
+#, fuzzy
 msgid ""
 "A wild varient of domesticated wheat grass. Wild wheat can be found growing "
 "in prairies and fields, although it generally yields less than its "
 "domesticated cousin."
-msgstr ""
+msgstr "驯化的小麦草的一个野生变种。可以发现野生小麦生长在草原和田野上，尽管它的产量通常低于其驯化的表弟。"
 
 #. This is a description for an object titled: Little L House
 msgid "A wood house with a tiny porch in the middle."
-msgstr ""
+msgstr "一座木头房子，中间有一个小门廊。"
 
 #. This is a title for an object with the description: These structures are usually found deep in the woods. No one knows who built them, but it's obvious that they aren't around anymore.
 #, fuzzy
