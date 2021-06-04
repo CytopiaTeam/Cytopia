@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-26 18:11+0000\n"
-"PO-Revision-Date: 2021-06-04 02:33+0000\n"
-"Last-Translator: Donald Yiu <1456762857@qq.com>\n"
+"PO-Revision-Date: 2021-06-04 21:33+0000\n"
+"Last-Translator: Liu Tao <lyuutau@outlook.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "cytopia/game/zh_Hans/>\n"
 "Language: zh\n"
@@ -834,12 +834,13 @@ msgid "Abandoned Buildings"
 msgstr "产业建筑"
 
 #. This is a description for an object titled: Simone's Car Emporium
+#, fuzzy
 msgid "After they repaired their window, business has been booming."
-msgstr ""
+msgstr "他们修好窗户后，生意兴隆。"
 
 #. This is a title for an object with the description: A pair of brick buildings from Minnesota. Naturally, they sell snow shovels and winter coats.
 msgid "Alexandria Shops"
-msgstr ""
+msgstr "亚历山大商店"
 
 #. This is a title for an object with the description: A narrow road that is commonly used in crammed areas between buildings.
 #, fuzzy
@@ -849,24 +850,25 @@ msgstr "泊油路"
 
 #. This is a description for an object titled: Random Trading Co.
 msgid "Almost everything you can imagine can be bought here in bulk."
-msgstr ""
+msgstr "几乎所有你能想象到的东西都可以在这里批量购买。"
 
 #. This is a description for an object titled: Classical Casino
 msgid ""
 "Although the outside looks posh, the inside is just like any other casino."
-msgstr ""
+msgstr "虽然外面看起来很豪华，但里面就像其他赌场一样。"
 
 #. This is a description for an object titled: Mini Borg's Burgers
 msgid ""
 "Although they can only serve a handful of people at a time, these small "
 "restaurants are very popular in rural communities for their cheap prices."
-msgstr ""
+msgstr "虽然他们每次只能为少数人服务，但这些小餐馆因其价格便宜而在农村社区非常受欢迎。"
 
 #. This is a description for an object titled: Samson's HQ
+#, fuzzy
 msgid ""
 "An absolutely massive building that helps manage a large tech company. They "
 "employ marketers, engineers, CEOs, and more."
-msgstr ""
+msgstr "一座绝对庞大的建筑，帮助管理一家大型科技公司。他们雇用营销人员、工程师、首席执行官等等。"
 
 #. This is a description for an object titled: Old Power Plant
 #, fuzzy
@@ -877,46 +879,49 @@ msgid ""
 msgstr "一个发电厂，多年前建的"
 
 #. This is a description for an object titled: Apartment Building
+#, fuzzy
 msgid "An apartment building from Montreal , Quebec"
-msgstr ""
+msgstr "魁北克蒙特利尔的一栋公寓楼"
 
 #. This is a description for an object titled: Vancouver Heights
+#, fuzzy
 msgid "An apartment building from Vancouver, Canada"
-msgstr ""
+msgstr "加拿大温哥华的一栋公寓楼"
 
 #. This is a description for an object titled: Classic White House
 msgid "An average-looking white house."
-msgstr ""
+msgstr "一个普通的白色房子。"
 
 #. This is a description for an object titled: Maison Moderne
 msgid "An expensive cube-shaped apartment complex."
-msgstr ""
+msgstr "一个昂贵的立方体形状的公寓楼。"
 
 #. This is a description for an object titled: Lillebonne Residence
 msgid "An expensive house with a nice front yard."
-msgstr ""
+msgstr "一个昂贵的房子，有一个漂亮的前院。"
 
 #. This is a description for an object titled: Le Caire Condominium Ultra
+#, fuzzy
 msgid "An extra-fancy version of the original Le Caire Condominium."
-msgstr ""
+msgstr "原有的勒凯尔公寓的一个额外花哨的版本。"
 
 #. This is a description for an object titled: Crystal Ore
 msgid ""
 "An incredibly rare and valuable ore that is only found in the crystal jungle."
-msgstr ""
+msgstr "一种只有在水晶丛林中才能发现的极其稀有和珍贵的矿石。"
 
 #. This is a description for an object titled: Phelps Co.
 msgid "An office building that specializes in water-based technology."
-msgstr ""
+msgstr "一座专门从事水基技术的办公大楼。"
 
 #. This is a description for an object titled: Lillebonne Brick House
 msgid "An old and expensive property from France."
-msgstr ""
+msgstr "一个来自法国的古老而昂贵的财产。"
 
 #. This is a description for an object titled: SF Building
 msgid ""
 "An old apartment building topped with a water tower and some advertisements."
-msgstr ""
+msgstr "一座旧公寓楼，上面有一座水塔和一些广告。"
 
 #. This is a description for an object titled: Old Desert Church
 #, fuzzy
@@ -932,37 +937,37 @@ msgstr "一个钟表店"
 
 #. This is a description for an object titled: Day Care Center
 msgid "An old day care that has since become someone's home."
-msgstr ""
+msgstr "一个旧的日托所，后来变成了某人的家。"
 
 #. This is a description for an object titled: Dirt Road
 msgid ""
 "An old dirt road that doesn't require much maintenance.  Not recommended for "
 "busy roadways."
-msgstr ""
+msgstr "一条不需要太多维护的旧土路。不推荐用于繁忙的道路。"
 
 #. This is a description for an object titled: Vichy Hotel
 msgid "An old hotel with a waiting area on the ground floor."
-msgstr ""
+msgstr "一个古老的酒店，底层有一个等候区。"
 
 #. This is a description for an object titled: Middle Age Lodging
 msgid "An old house that has been refurbished for modern homeowners."
-msgstr ""
+msgstr "一座为现代房主翻修过的老房子。"
 
 #. This is a description for an object titled: Ferman's Manor
 msgid "An old mansion that has become slighty overgrown."
-msgstr ""
+msgstr "一座古老的豪宅，已经变得略微杂草丛生。"
 
 #. This is a description for an object titled: Phone Booth
 msgid "An old phone booth that can be used to decorate your cities."
-msgstr ""
+msgstr "一个旧电话亭，可以用来装饰你的城市。"
 
 #. This is a description for an object titled: Rusty Cars
 msgid "An old piece of junk that was left here years ago."
-msgstr ""
+msgstr "一件多年前留在这里的旧垃圾。"
 
 #. This is a description for an object titled: Run-Down Skinny Shop
 msgid "An old post office that has been repurposed as an antique store."
-msgstr ""
+msgstr "一个旧邮局，已被改作古董店。"
 
 #. This is a description for an object titled: Old Power Plant
 #, fuzzy
@@ -972,34 +977,39 @@ msgstr "一个发电厂，多年前建的"
 
 #. This is a description for an object titled: Wooden Ship
 msgid "An old sailboat that was recently renovated."
-msgstr ""
+msgstr "一艘最近翻新过的旧帆船。"
 
 #. This is a description for an object titled: Bellevue Heights
+#, fuzzy
 msgid "An ordinary skyscraper from Washington, USA."
-msgstr ""
+msgstr "一座来自美国华盛顿的普通摩天大楼。"
 
 #. This is a description for an object titled: Veinna Hotel
+#, fuzzy
 msgid ""
 "An overwhelming number of reviews say this hotel is \"nice,\" but the owners "
 "are unsure why."
-msgstr ""
+msgstr "绝大多数评论都说这家酒店 \"不错\"，但业主不清楚原因。"
 
 #. This is a description for an object titled: Short Skyscraper
 msgid "An ugly tower that is begging to be demolished."
-msgstr ""
+msgstr "一座丑陋的塔，正在乞求被拆毁。"
 
 #. This is a title for an object with the description: A small house from an island far, far away.
+#, fuzzy
 msgid "Anicro Abode"
-msgstr ""
+msgstr "无微不至的居所"
 
 #. This is a title for an object with the description: A temporary shelter commonly used on faraway islands.
+#, fuzzy
 msgid "Anicro Camp"
-msgstr ""
+msgstr "安微营"
 
 #. This is a title for an object with the description: A simple house for a new island mayor.
 #. This is a title for an object with the description: It's not very large, but it's perfect for a quant village.
+#, fuzzy
 msgid "Anicro Home"
-msgstr ""
+msgstr "阿尼奇罗之家"
 
 #. This is a title for an object with the description: An apartment building from Montreal , Quebec
 #, fuzzy
@@ -1017,11 +1027,12 @@ msgstr "公寓住宅"
 msgid ""
 "Aroad where cars can travely very fast! However, it comes with much higher "
 "maintenance costs than other road types."
-msgstr ""
+msgstr "汽车可以快速行驶的道路！但是，与其他道路类型相比，它的维护成本要高得多。"
 
 #. This is a title for an object with the description: Despite the name, this is actually a family-friendly restaurant. The interior is future-themed and the kids love it.
+#, fuzzy
 msgid "Austral Club"
-msgstr ""
+msgstr "澳大利亚俱乐部"
 
 #. This is a title for an object with the description: A fine institution for all your banking needs. They also have a great view of the roadway.
 #, fuzzy
@@ -1030,32 +1041,38 @@ msgid "Austral One"
 msgstr "产业"
 
 #. This is a title for an object with the description: A group of tall bamboo trees.
+#, fuzzy
 msgid "Bamboo (Dense)"
-msgstr ""
+msgstr "竹子（密集）"
 
 #. This is a title for an object with the description: A group of tall bamboo plants.
+#, fuzzy
 msgid "Bamboo (Light)"
-msgstr ""
+msgstr "竹（轻）"
 
 #. This is a title for an object with the description: A group of tall bamboo plants.
+#, fuzzy
 msgid "Bamboo (Medium)"
-msgstr ""
+msgstr "竹子（中）"
 
 #. This is a title for an object with the description: The 018's even smaller counterpart.
+#, fuzzy
 msgid "Barentin 006"
-msgstr ""
+msgstr "巴伦丁 006"
 
 #. This is a title for an object with the description: The 018's smaller counterpart.
+#, fuzzy
 msgid "Barentin 010"
-msgstr ""
+msgstr "巴伦丁 010"
 
 #. This is a title for an object with the description: It's pristine white walls are hard to come by in polluted cityscapes. The extra zero in its name hints at something even taller...
+#, fuzzy
 msgid "Barentin 018"
-msgstr ""
+msgstr "巴伦丁 018"
 
 #. This is a title for an object with the description: Terrain basalt tiles
 msgid "Basalt"
-msgstr ""
+msgstr "玄武岩"
 
 #. This is a title for an object with the description: Batter up!
 msgid "Baseball Field"
@@ -1063,23 +1080,25 @@ msgstr "棒球场"
 
 #. This is a title for an object with the description: A common type of house in lakeside or forest areas.
 msgid "Basic Log Cabin"
-msgstr ""
+msgstr "基本小木屋"
 
 #. This is a title for an object with the description: A white mansion with a fancy porch. It's pretty average, relatively speaking.
+#, fuzzy
 msgid "Basic Mansion"
-msgstr ""
+msgstr "基本大厦"
 
 #. This is a description for an object titled: Baseball Field
 msgid "Batter up!"
-msgstr ""
+msgstr "加油！"
 
 #. This is a title for an object with the description: Terrain beach tiles
+#, fuzzy
 msgid "Beach Sand"
-msgstr ""
+msgstr "海滩沙子"
 
 #. This is a title for an object with the description: A smoothened tile made out of beach sand.
 msgid "Beach Sandstone"
-msgstr ""
+msgstr "海滩砂岩"
 
 #. This is a title for an object with the description: There is not a single bell within this entire building.
 #, fuzzy
@@ -1089,23 +1108,23 @@ msgstr "水塔"
 
 #. This is a title for an object with the description: An ordinary skyscraper from Washington, USA.
 msgid "Bellevue Heights"
-msgstr ""
+msgstr "贝尔维尤高地"
 
 #. This is a title for an object with the description: This huge estate has a patio and a large pool.
 msgid "Bellevue Mansion"
-msgstr ""
+msgstr "贝尔维尤大厦"
 
 #. This is a title for an object with the description: A train platform with a couple of benches and a trash can.
 msgid "Bench Platform"
-msgstr ""
+msgstr "长椅平台"
 
 #. This is a title for an object with the description: A few benches that offer a place for your civilians to sit.
 msgid "Benches"
-msgstr ""
+msgstr "长椅"
 
 #. This is a title for an object with the description: A bush with delicious red berries.
 msgid "Berry Bushes (Dense)"
-msgstr ""
+msgstr "浆果丛（密集）"
 
 #. This is a title for an object with the description: A bush with delicious red berries.
 msgid "Berry Bushes (Light)"
@@ -1119,11 +1138,11 @@ msgstr "污染清洁厂  中"
 
 #. This is a title for an object with the description: This building has no affiliation with a certain orange bear. It does have a nice sunroom though.
 msgid "Big Blue House"
-msgstr ""
+msgstr "大蓝屋"
 
 #. This is a title for an object with the description: A huge, low-cost apartment complex.
 msgid "Big Complex"
-msgstr ""
+msgstr "大型综合体"
 
 #. This is a title for an object with the description: A new factory that was once a depolluter building.
 msgid "Big Depolluter"
@@ -1137,15 +1156,16 @@ msgstr "波基澳木公寓住宅"
 
 #. This is a title for an object with the description: This place stores goods for a local shipping company.
 msgid "Big Warehouse"
-msgstr ""
+msgstr "大仓库"
 
 #. This is a title for an object with the description: A small shop that sells bikes.
 msgid "Bike Shop"
 msgstr "自行车商店"
 
 #. This is a title for an object with the description: A group of birch trees.
+#, fuzzy
 msgid "Birch Trees (Dense)"
-msgstr ""
+msgstr "桦树（密集）"
 
 #. This is a title for an object with the description: A group of birch trees.
 msgid "Birch Trees (Light)"
