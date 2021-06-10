@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-26 18:11+0000\n"
 "PO-Revision-Date: 2021-06-11 03:33+0000\n"
-"Last-Translator: Liu Tao <lyuutau@outlook.com>\n"
+"Last-Translator: Elizabeth Sherrock <lizzyd710@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "cytopia/game/zh_Hans/>\n"
 "Language: zh\n"
@@ -2007,7 +2007,7 @@ msgstr ""
 
 #. This is a title for an object with the description: Terrain grass tiles
 msgid "Grass"
-msgstr ""
+msgstr "草"
 
 #. This is a title for an object with the description: Terrain Gravel tiles
 msgid "Gravel"
