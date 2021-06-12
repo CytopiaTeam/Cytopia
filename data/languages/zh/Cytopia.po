@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-26 18:11+0000\n"
-"PO-Revision-Date: 2021-06-11 03:33+0000\n"
-"Last-Translator: Elizabeth Sherrock <lizzyd710@gmail.com>\n"
+"PO-Revision-Date: 2021-06-12 23:33+0000\n"
+"Last-Translator: Liu Tao <lyuutau@outlook.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "cytopia/game/zh_Hans/>\n"
 "Language: zh\n"
@@ -2503,7 +2503,7 @@ msgstr ""
 msgid ""
 "Lily pads are broad, rounded, heart- or shield-shaped leaves. Frogs like to "
 "sit on them!"
-msgstr ""
+msgstr "睡莲叶是宽的、圆形的、心形或盾形的叶子。青蛙喜欢坐在上面！"
 
 #. This is a title for an object with the description: A pile of rocks that are commonly found jutting out of the water.
 #, fuzzy
@@ -2538,13 +2538,13 @@ msgstr ""
 
 #. This is a title for an object with the description: Unfortunately, the floors are not as noise-proof as the brick walls.
 msgid "London Apartment Complex"
-msgstr ""
+msgstr "伦敦公寓大楼"
 
 #. This is a description for an object titled: Lithuania Major
 msgid ""
 "Look at the number of parking spaces. Where in the world have these people "
 "been parking their cars?"
-msgstr ""
+msgstr "看看停车位的数量。这些人到底把他们的车停在哪里了？"
 
 #. This is a title for an object with the description: The two windows make passersby feel uneasy.
 msgid "Looking House"
@@ -2594,7 +2594,7 @@ msgstr ""
 
 #. This is a title for an object with the description: Custom orders are made here for businesses and homes alike.
 msgid "Machining Shop"
-msgstr ""
+msgstr "加工车间"
 
 #. This is a title for an object with the description: A french building dedicated to processing and shipping packages.
 #, fuzzy
@@ -2628,15 +2628,15 @@ msgstr "住宅"
 
 #. This is a title for an object with the description: A nice home that originates from France.
 msgid "Mannevillette Manor"
-msgstr ""
+msgstr "曼内维莱特庄园"
 
 #. This is a description for an object titled: Hexland Mall
 msgid "Many high-end electronic and clothing stores are located here."
-msgstr ""
+msgstr "许多高端电子和服装店都位于这里。"
 
 #. This is a description for an object titled: Islander Hut
 msgid "Many of the inhabitants of Easter Island live in buildings like this."
-msgstr ""
+msgstr "复活节岛的许多居民都住在这样的建筑里。"
 
 #. This is a description for an object titled: Lakeside Lodge
 msgid ""
