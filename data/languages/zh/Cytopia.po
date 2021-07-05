@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-26 18:11+0000\n"
-"PO-Revision-Date: 2021-06-12 23:33+0000\n"
+"PO-Revision-Date: 2021-07-05 17:33+0000\n"
 "Last-Translator: Liu Tao <lyuutau@outlook.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "cytopia/game/zh_Hans/>\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.7-dev\n"
+"X-Generator: Weblate 4.8-dev\n"
 
 #. This is a title for an object with the description: A completely legal operation located inside a foreboding concrete building.
 msgid "\"Under the Table\" Tax Agency"
@@ -2045,10 +2045,8 @@ msgid "Greenhouse House"
 msgstr ""
 
 #. This is a category
-#, fuzzy
-#| msgid "Decoration"
 msgid "Ground Decoration"
-msgstr "装饰"
+msgstr "地面装饰"
 
 #. This is a title for an object with the description: This place produces concrete for construction projects around the city.
 msgid "HDRN"
@@ -2083,13 +2081,13 @@ msgstr "赫克斯兰公寓"
 #, fuzzy
 #| msgid "Commercial"
 msgid "High Commercial"
-msgstr "商业"
+msgstr "高级商业"
 
 #. This is a subCategory
 #, fuzzy
 #| msgid "Industrial"
 msgid "High Industrial"
-msgstr "产业"
+msgstr "高等工业"
 
 #. This is a title for an object with the description: TODO DESC
 msgid "High Quailutece Condos"
@@ -2934,37 +2932,37 @@ msgstr ""
 
 #. This is a title for an object with the description: A group of palmtrees.
 msgid "Palm Trees (Medium)"
-msgstr ""
+msgstr "棕榈树（中）"
 
 #. This is a description for an object titled: Ramponneau
 msgid "Parking vouchers cost the residents an arm and a leg."
-msgstr ""
+msgstr "停车券要花去居民的一条胳膊和一条腿。"
 
 #. This is a title for an object with the description: A nice paved road that is perfect for city streets.
 msgid "Paved Road"
 msgstr "泊油路"
 
 #. This is a title for an object with the description: A decorative patch of road pavement that is often used in parking lots.
+#, fuzzy
 msgid "Pavement"
-msgstr ""
+msgstr "人行道"
 
 #. This is a title for an object with the description: The walls should be white and bright orange, but they haven't been cleaned in a while.
 msgid "Peaceful Living Solutions"
-msgstr ""
+msgstr "和平生活解决方案"
 
 #. This is a title for an object with the description: A group of people hanging out in your town.
+#, fuzzy
 msgid "People"
-msgstr ""
+msgstr "人"
 
 #. This is a title for an object with the description: A tall building from Perpignan, France.
 msgid "Perpignan Residence"
-msgstr ""
+msgstr "佩皮尼昂住宅"
 
 #. This is a title for an object with the description: This apartment building has a fancy lobby at the bottom.
-#, fuzzy
-#| msgid "Water Tower"
 msgid "Perpignan Tower"
-msgstr "水塔"
+msgstr "佩皮尼昂塔"
 
 #. This is a title for an object with the description: The cornerstone of any small town.
 msgid "Petrol Station"
@@ -2972,13 +2970,11 @@ msgstr "加油站"
 
 #. This is a title for an object with the description: An office building that specializes in water-based technology.
 msgid "Phelps Co."
-msgstr ""
+msgstr "菲尔普斯公司"
 
 #. This is a title for an object with the description: An old phone booth that can be used to decorate your cities.
-#, fuzzy
-#| msgid "Phone Shop"
 msgid "Phone Booth"
-msgstr "手机商店"
+msgstr "电话亭"
 
 #. This is a title for an object with the description: A store that sells phones. It even has the new CyPhone X
 msgid "Phone Shop"
@@ -2988,31 +2984,31 @@ msgstr "手机商店"
 #, fuzzy
 #| msgid "Small House"
 msgid "Pickleman's House"
-msgstr "小的房子"
+msgstr "皮克尔曼之家"
 
 #. This is a title for an object with the description: A great place to relax and eat lunch.
 msgid "Picnic Area"
-msgstr ""
+msgstr "野餐区"
 
 #. This is a title for an object with the description: A picnic pavilion is a great place for your citizens to eat lunch.
 msgid "Picnic Pavilion"
-msgstr ""
+msgstr "野餐亭"
 
 #. This is a title for an object with the description: A group of picnic tables that your citizens can use to eat lunch at.
 msgid "Picnic Tables"
-msgstr ""
+msgstr "野餐桌"
 
 #. This is a title for an object with the description: A group of beautiful pinetrees.
 msgid "Pine Trees (Dense)"
-msgstr ""
+msgstr "松树（密）"
 
 #. This is a title for an object with the description: A group of beautiful pinetrees.
 msgid "Pine Trees (Light)"
-msgstr ""
+msgstr "松树（疏）"
 
 #. This is a title for an object with the description: A group of beautiful pinetrees.
 msgid "Pine Trees (Medium)"
-msgstr ""
+msgstr "松树（中）"
 
 #. This is a title for an object with the description: The view from the top floor would be great if the windows didn't just point towards the sky.
 msgid "Pinetree Place"
@@ -3024,7 +3020,7 @@ msgstr ""
 
 #. This is a description for an object titled: Water Pipes
 msgid "Pipes are used for transporting water."
-msgstr ""
+msgstr "管道用于输送水。"
 
 #. This is a title for an object with the description: Just a boring, old apartment complex... Just how the residents like it!
 #, fuzzy
@@ -3034,7 +3030,7 @@ msgstr "大的公寓住宅"
 
 #. This is a title for an object with the description: Great for park centers or other areas where large groups of people gather.
 msgid "Plaza"
-msgstr ""
+msgstr "广场"
 
 #. This is a title for an object with the description: A large plaza with a pool of water in the middle.
 msgid "Plaza Park"
@@ -3065,7 +3061,6 @@ msgid "Poplars (Medium)"
 msgstr "杨树（中）"
 
 #. This is a title for an object with the description: The best BBQ food west of the Mississippi River!
-#, fuzzy
 msgid "Port Angeles BBQ"
 msgstr "安吉利斯港烧烤"
 
@@ -3130,10 +3125,8 @@ msgid "Quit Game"
 msgstr "退出"
 
 #. This is a title for an object with the description: A large pile of coal. The dust coming from these piles can pose a risk to the local area.
-#, fuzzy
-#| msgid "Water Tower"
 msgid "Radio Tower"
-msgstr "水塔"
+msgstr "无线电塔"
 
 #. This is a title for an object with the description: It's the the colors are spilling off the roof of the building.
 msgid "Rainbow Falls"
@@ -3162,13 +3155,10 @@ msgstr "随机贸易公司"
 
 #. This is a category
 #. This is a UiElement with the ID: recreation menu
-#, fuzzy
-#| msgid "Decoration"
 msgid "Recreation"
-msgstr "装饰"
+msgstr "娱乐"
 
 #. This is a title for an object with the description: The owner is incredibly proud of the name she gave the house, even if her friends think its's cliche.
-#, fuzzy
 msgid "Red Retreat"
 msgstr "红色撤退"
 
@@ -3186,41 +3176,34 @@ msgid "Residential"
 msgstr "住宅"
 
 #. This is a title for an object with the description: Residential Zone (dense).
-#, fuzzy
-#| msgid "Residential"
 msgid "Residential Zone (dense)"
-msgstr "住宅"
+msgstr "住宅区（密）"
 
 #. This is a description for an object titled: Residential Zone (dense)
 msgid "Residential Zone (dense)."
 msgstr "住宅区（密）。"
 
 #. This is a title for an object with the description: Residential Zone (light).
-#, fuzzy
-#| msgid "Residential"
 msgid "Residential Zone (light)"
-msgstr "住宅"
+msgstr "住宅区（疏）"
 
 #. This is a description for an object titled: Residential Zone (light)
 msgid "Residential Zone (light)."
 msgstr "住宅区（疏）。"
 
 #. This is a title for an object with the description: Residential Zone (medium).
-#, fuzzy
-#| msgid "Residential"
 msgid "Residential Zone (medium)"
-msgstr "住宅"
+msgstr "住宅区（中）"
 
 #. This is a description for an object titled: Residential Zone (medium)
 msgid "Residential Zone (medium)."
 msgstr ""
 
 #. This is a description for an object titled: Twisty Tower
-#, fuzzy
 msgid ""
 "Residents living on the edges of the building feel like it will collapse at "
 "any moment. However, the tower is perfectly balanced."
-msgstr "住在大楼边缘的居民感觉它随时都会倒塌。然而，该塔是完美的平衡。"
+msgstr "住在大楼边缘的居民觉得它随时都会倒塌。然而，塔是完全平衡的。"
 
 #. This is a category
 #, fuzzy
@@ -3252,8 +3235,9 @@ msgid "Roads"
 msgstr "马路"
 
 #. This is a title for an object with the description: The bushes outside the building grow berries every year. The children love to eat them.
+#, fuzzy
 msgid "Romanian Living Units"
-msgstr ""
+msgstr "罗马尼亚生活单元"
 
 #. This is a title for an object with the description: The residents here are quite nice.
 msgid "Rouen Flats"
@@ -3273,16 +3257,12 @@ msgid "Rough-Side Repeats"
 msgstr ""
 
 #. This is a title for an object with the description: Several companies have offices located here.
-#, fuzzy
-#| msgid "Office"
 msgid "Round Office"
-msgstr "办公室"
+msgstr "圆形办公室"
 
 #. This is a title for an object with the description: A cheap way to shelter groups of citizens.
-#, fuzzy
-#| msgid "Small House"
 msgid "Row House"
-msgstr "小的房子"
+msgstr "排屋"
 
 #. This is a description for an object titled: Multi-Minnesotan Houses
 msgid ""
@@ -3348,27 +3328,23 @@ msgstr "樱花树（密）"
 
 #. This is a title for an object with the description: A group of sakura trees.
 msgid "Sakura Trees (Light)"
-msgstr ""
+msgstr "樱花树（疏）"
 
 #. This is a title for an object with the description: A group of sakura trees.
 msgid "Sakura Trees (Medium)"
-msgstr ""
+msgstr "樱花树（中）"
 
 #. This is a title for an object with the description: An absolutely massive building that helps manage a large tech company. They employ marketers, engineers, CEOs, and more.
 msgid "Samson's HQ"
 msgstr ""
 
 #. This is a title for an object with the description: A pile of sandstone rocks commonly found in deserts.
-#, fuzzy
-#| msgid "Rocks"
 msgid "Sandstone Rocks"
-msgstr "石头"
+msgstr "砂岩岩体"
 
 #. This is a title for an object with the description: A tall sandstone building plastered with ads.
-#, fuzzy
-#| msgid "Water Tower"
 msgid "Sandstone Tower"
-msgstr "水塔"
+msgstr "砂岩塔"
 
 #. This is a title for an object with the description: Unfortunately, this place does NOT have air conditioning.
 msgid "Sandy Digs"
@@ -3376,13 +3352,11 @@ msgstr ""
 
 #. This is a title for an object with the description: The exterior is beautiful, and the prices are great.
 msgid "Sao Paulo Department Store"
-msgstr ""
+msgstr "圣保罗百货公司"
 
 #. This is a title for an object with the description: A fancy multi-story mall from Brazil.
-#, fuzzy
-#| msgid "Small Water Tower"
 msgid "Sao Paulo Tower"
-msgstr "小的水塔"
+msgstr "圣保罗塔"
 
 #. This is a UiElement with the Action: SaveGame
 msgid "Save Game"
@@ -3392,23 +3366,21 @@ msgstr "保存游戏"
 #, fuzzy
 #| msgid "Office"
 msgid "Scandic Office"
-msgstr "办公室"
+msgstr "斯堪的办公室"
 
 #. This is a title for an object with the description: Low-cost rooms inside a small purple building.
-#, fuzzy
-#| msgid "Medium Appartments"
 msgid "Scandinavian Apartments"
-msgstr "中等公寓住宅"
+msgstr "斯堪的纳维亚公寓"
 
 #. This is a title for an object with the description: The workers here spend all day making useful programs for the world.
 msgid "Scandinavian Office"
-msgstr ""
+msgstr "斯堪的纳维亚办公室"
 
 #. This is a description for an object titled: Colored Scandinavian House
 msgid ""
 "Scandinavians are well known for their colorful homes, and this building is "
 "no exception."
-msgstr ""
+msgstr "斯堪的纳维亚人以五颜六色的家而闻名，这栋建筑也不例外。"
 
 #. This is a category
 msgid "School"
@@ -3419,12 +3391,13 @@ msgid "Screen Resolution"
 msgstr "屏幕分辨率"
 
 #. This is a title for an object with the description: This tower also grazes the clouds in the sky.
+#, fuzzy
 msgid "Seattle Infinite"
-msgstr ""
+msgstr "西雅图无限"
 
 #. This is a title for an object with the description: Despite the fancy exterior, the inside is filled with rows of bland cubicals.
 msgid "Seattle Office Tower"
-msgstr ""
+msgstr "西雅图办公大楼"
 
 #. This is a description for an object titled: Diggity Dog's
 msgid "Selling North America's favorite cuisine for over 70 years!"
@@ -3445,15 +3418,15 @@ msgstr "设置"
 
 #. This is a title for an object with the description: Why did they name it this way? It's obviously a rectangle!
 msgid "Settled Square"
-msgstr ""
+msgstr "定居广场"
 
 #. This is a description for an object titled: Multi-Store
 msgid "Several businesses are located in this small area."
-msgstr ""
+msgstr "几家企业位于这个小区域。"
 
 #. This is a description for an object titled: Round Office
 msgid "Several companies have offices located here."
-msgstr ""
+msgstr "几家公司在这里设有办事处。"
 
 #. This is a description for an object titled: Zealandia Shops
 msgid "Several offices and stores are located in these buildings."
@@ -3474,16 +3447,12 @@ msgid "Short Rainbow Residency"
 msgstr ""
 
 #. This is a title for an object with the description: This building is a couple square meters away from being a storage shed.
-#, fuzzy
-#| msgid "Small Shack"
 msgid "Short Shack"
-msgstr "一个小棚子"
+msgstr "矮脚屋"
 
 #. This is a title for an object with the description: An ugly tower that is begging to be demolished.
-#, fuzzy
-#| msgid "Skyscraper"
 msgid "Short Skyscraper"
-msgstr "摩天大桜"
+msgstr "短摩天大楼"
 
 #. This is a title for an object with the description: A not-so-humble name for such a nice house.
 #, fuzzy
@@ -3775,10 +3744,8 @@ msgid "Tall Rainbow Residency"
 msgstr ""
 
 #. This is a title for an object with the description: A cheap way to shelter larger groups of citizens. 
-#, fuzzy
-#| msgid "Small House"
 msgid "Tall Row House"
-msgstr "小的房子"
+msgstr "高排屋"
 
 #. This is a title for an object with the description: It can only fit a small number of residents due to its tall ceilings.
 #, fuzzy
@@ -3796,13 +3763,13 @@ msgstr "小的房子"
 #, fuzzy
 #| msgid "Water Tower"
 msgid "Tan Tower"
-msgstr "水塔"
+msgstr "谭塔"
 
 #. This is a title for an object with the description: Every room comes with a great view of the city.
 #, fuzzy
 #| msgid "Water Tower"
 msgid "Ten Tower"
-msgstr "水塔"
+msgstr "十塔"
 
 #. This is a title for an object with the description: A firm rectangular surface with some low nets stretched across the center. Tennis is a great outdoor activity for casuals and professionals alike.
 msgid "Tennis Court"
@@ -3810,7 +3777,7 @@ msgstr "网球场"
 
 #. This is a title for an object with the description: A relaxing vacation in the wildness is a great way to escape from modern life.
 msgid "Tents"
-msgstr ""
+msgstr "帐篷"
 
 #. This is a category
 msgid "Terrain"
@@ -3823,10 +3790,8 @@ msgid "Terrain Black Sand tiles"
 msgstr "地形网格"
 
 #. This is a description for an object titled: Blueprint
-#, fuzzy
-#| msgid "Terrain tiles"
 msgid "Terrain Blueprint"
-msgstr "地形网格"
+msgstr "地形蓝图"
 
 #. This is a description for an object titled: Desert Sand
 #, fuzzy
@@ -4052,17 +4017,17 @@ msgstr ""
 
 #. This is a description for an object titled: Petrol Station
 msgid "The cornerstone of any small town."
-msgstr ""
+msgstr "任何小城镇的基石。"
 
 #. This is a description for an object titled: Cyber Apartments
 msgid "The cyan paint and large windows give this building a futuristic look."
-msgstr ""
+msgstr "青色的油漆和大窗户让这栋建筑看起来很有未来感。"
 
 #. This is a description for an object titled: Wacky House
 msgid ""
 "The design of this home is eccentric, to say the least. Some say it is owned "
 "by a retired magician."
-msgstr ""
+msgstr "这座房子的设计至少可以说是很古怪的。有人说它的主人是一位退休的魔术师。"
 
 #. This is a description for an object titled: Sao Paulo Department Store
 msgid "The exterior is beautiful, and the prices are great."
@@ -4070,7 +4035,7 @@ msgstr ""
 
 #. This is a description for an object titled: White-Striped Flats
 msgid "The exterior walls are almost as gloomy as London's weather usually is."
-msgstr ""
+msgstr "外墙几乎和伦敦平时的天气一样阴沉。"
 
 #. This is a description for an object titled: Vienna Dwellings
 msgid ""
@@ -4081,17 +4046,17 @@ msgstr ""
 msgid ""
 "The fence has sustained some damage over the years. Unfortunately, the store "
 "was sold out of wooden fences, so they had to settle for sheet metal."
-msgstr ""
+msgstr "多年来，栅栏受到了一些损害。不幸的是，店里的木制围栏已经卖完了，所以他们不得不选择金属板。"
 
 #. This is a description for an object titled: Fisherman's Home
 msgid ""
 "The fish they used to process here were so smelly that they built an extra "
 "room onto the house."
-msgstr ""
+msgstr "他们以前在这里加工的鱼太臭了，以至于他们在房子上多建了一个房间。"
 
 #. This is a description for an object titled: The Oscian
 msgid "The glowing neon sign looks beautiful at night. "
-msgstr ""
+msgstr "发光的霓虹灯在晚上看起来很美。 "
 
 #. This is a description for an object titled: Skyview
 msgid ""
@@ -4101,7 +4066,7 @@ msgstr ""
 
 #. This is a description for an object titled: Ely Estate
 msgid "The house my be small, but the owners take pride in their perfect lawn."
-msgstr ""
+msgstr "房子虽小，但主人对他们完美的草坪感到自豪。"
 
 #. This is a description for an object titled: Glascow Tower
 msgid ""
