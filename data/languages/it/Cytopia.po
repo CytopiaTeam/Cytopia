@@ -1,0 +1,4479 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Ludovico Besana <ludovicobesanaguide@gmail.com>, 2021.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-04-26 18:11+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. This is a title for an object with the description: A completely legal operation located inside a foreboding concrete building.
+msgid "\"Under the Table\" Tax Agency"
+msgstr ""
+
+#. This is a description for an object titled: Rustic Park
+msgid "A beautiful area to enjoy modern art and nature."
+msgstr ""
+
+#. This is a description for an object titled: Vega Hotel
+msgid "A beautiful building that reminds us of a better tomorrow."
+msgstr ""
+
+#. This is a description for an object titled: Fitzgerald's House
+msgid "A big house for the Fitzgerald's big family."
+msgstr ""
+
+#. This is a description for an object titled: Deep Snow
+msgid "A big pile of snow."
+msgstr ""
+
+#. This is a description for an object titled: Tall Concrete Tower
+msgid "A bland-looking apartment building made out of concrete."
+msgstr ""
+
+#. This is a description for an object titled: Blank Platform
+msgid "A blank train platform with nothing on it."
+msgstr ""
+
+#. This is a description for an object titled: Dual-Stack Factory
+msgid "A brick building adorned with two smoke stacks."
+msgstr ""
+
+#. This is a description for an object titled: Yakima Office
+msgid "A brick building with multiple office floors."
+msgstr ""
+
+#. This is a description for an object titled: Berry Bushes (Dense)
+#. This is a description for an object titled: Berry Bushes (Light)
+#. This is a description for an object titled: Berry Bushes (Medium)
+msgid "A bush with delicious red berries."
+msgstr ""
+
+#. This is a description for an object titled: Row House
+msgid "A cheap way to shelter groups of citizens."
+msgstr ""
+
+#. This is a description for an object titled: Tall Row House
+msgid "A cheap way to shelter larger groups of citizens. "
+msgstr ""
+
+#. This is a description for an object titled: Medium Depolluter
+msgid "A classic depolluter building that has been repurposed as a factory. "
+"Unfortunately, it is not used to purify the air anymore."
+msgstr ""
+
+#. This is a description for an object titled: Pyongyang Place
+msgid "A common sight in the urban parts of North Korea."
+msgstr ""
+
+#. This is a description for an object titled: Basic Log Cabin
+msgid "A common type of house in lakeside or forest areas."
+msgstr ""
+
+#. This is a description for an object titled: "Under the Table" Tax Agency
+msgid "A completely legal operation located inside a foreboding concrete "
+"building."
+msgstr ""
+
+#. This is a description for an object titled: Rough-Side Repeats
+msgid "A couple of small homes. The owners try their best to keep their "
+"yards looking good."
+msgstr ""
+
+#. This is a description for an object titled: Norman Villa
+msgid "A cozy little home with brick accents."
+msgstr ""
+
+#. This is a description for an object titled: Inverness Flats
+msgid "A decades-old building that could use a few renovations."
+msgstr ""
+
+#. This is a description for an object titled: Pavement
+msgid "A decorative patch of road pavement that is often used in parking "
+"lots."
+msgstr ""
+
+#. This is a description for an object titled: Sri Lanka Setup
+msgid "A densely-packed skyscaper with black-tinted windows."
+msgstr ""
+
+#. This is a description for an object titled: Single Light
+msgid "A fancier version of the light pole."
+msgstr ""
+
+#. This is a description for an object titled: Mud Brick
+msgid "A fancy brick pattern made out of dirt-cheap materials."
+msgstr ""
+
+#. This is a description for an object titled: The Block
+msgid "A fancy department store with multiple floors."
+msgstr ""
+
+#. This is a description for an object titled: Sao Paulo Tower
+msgid "A fancy multi-story mall from Brazil."
+msgstr ""
+
+#. This is a description for an object titled: Tour Front De Seine
+msgid "A fancy office building from Paris, France."
+msgstr ""
+
+#. This is a description for an object titled: Benches
+msgid "A few benches that offer a place for your civilians to sit."
+msgstr ""
+
+#. This is a description for an object titled: Grape Fields
+msgid "A field of grapes that will be sent to a local winery when they are "
+"done growing."
+msgstr ""
+
+#. This is a description for an object titled: Austral One
+msgid "A fine institution for all your banking needs. They also have a "
+"great view of the roadway."
+msgstr ""
+
+#. This is a description for an object titled: Concrete Path
+msgid "A fine place for pedestrians to walk."
+msgstr ""
+
+#. This is a description for an object titled: Tennis Court
+msgid "A firm rectangular surface with some low nets stretched across the "
+"center. Tennis is a great outdoor activity for casuals and "
+"professionals alike."
+msgstr ""
+
+#. This is a description for an object titled: Honfleur House
+msgid "A four-floor home from France's Normandy region."
+msgstr ""
+
+#. This is a description for an object titled: Luciline Banks Aprtments
+msgid "A french apartment building with a penthouse at the top."
+msgstr ""
+
+#. This is a description for an object titled: Mailing Office
+msgid "A french building dedicated to processing and shipping packages."
+msgstr ""
+
+#. This is a description for an object titled: Chateau de Pierrefonds
+msgid "A giant fortress that was built in France during the 14th century. "
+"It was torn down by Louis XIII in the 17th century and rebuilt many "
+"decades later."
+msgstr ""
+
+#. This is a description for an object titled: Labor Tower
+msgid "A glass tower with a concrete base."
+msgstr ""
+
+#. This is a description for an object titled: Korean Shopping Center
+msgid "A good place to spend your disposable income. They have a wide "
+"variety of clothes, collectables, and toys."
+msgstr ""
+
+#. This is a description for an object titled: Small Police Station
+msgid "A great choice for protecting an area from crime."
+msgstr ""
+
+#. This is a description for an object titled: Picnic Area
+msgid "A great place to relax and eat lunch."
+msgstr ""
+
+#. This is a description for an object titled: Presents
+msgid "A great way to show your appreciation to friends and family."
+msgstr ""
+
+#. This is a description for an object titled: Pine Trees (Dense)
+#. This is a description for an object titled: Pine Trees (Light)
+#. This is a description for an object titled: Pine Trees (Medium)
+msgid "A group of beautiful pinetrees."
+msgstr ""
+
+#. This is a description for an object titled: Centerpiece Park
+msgid "A group of benches that surround a nice decorative object."
+msgstr ""
+
+#. This is a description for an object titled: Birch Trees (Dense)
+#. This is a description for an object titled: Birch Trees (Light)
+#. This is a description for an object titled: Birch Trees (Medium)
+msgid "A group of birch trees."
+msgstr ""
+
+#. This is a description for an object titled: Burned Trees (Dense)
+#. This is a description for an object titled: Burned Trees (Light)
+#. This is a description for an object titled: Burned Trees (Medium)
+msgid "A group of burned trees."
+msgstr ""
+
+#. This is a description for an object titled: Crystal Trees (Dense)
+#. This is a description for an object titled: Crystal Trees (Light)
+#. This is a description for an object titled: Crystal Trees (Medium)
+msgid "A group of crystal trees."
+msgstr ""
+
+#. This is a description for an object titled: Cypress Trees (Dense)
+#. This is a description for an object titled: Cypress Trees (Light)
+#. This is a description for an object titled: Cypress Trees (Medium)
+msgid "A group of cypress trees."
+msgstr ""
+
+#. This is a description for an object titled: Turkish Block
+msgid "A group of houses that share a community garden. It is rather "
+"pleasant, albeit a bit cramped."
+msgstr ""
+
+#. This is a description for an object titled: Mushrooms (Dense)
+#. This is a description for an object titled: Mushrooms (Light)
+#. This is a description for an object titled: Mushrooms (Medium)
+msgid "A group of mysterious mushroom trees."
+msgstr ""
+
+#. This is a description for an object titled: Oak Trees (Dense)
+#. This is a description for an object titled: Oak Trees (Light)
+#. This is a description for an object titled: Oak Trees (Medium)
+msgid "A group of oak trees."
+msgstr ""
+
+#. This is a description for an object titled: Palm Trees (Dense)
+#. This is a description for an object titled: Palm Trees (Light)
+#. This is a description for an object titled: Palm Trees (Medium)
+msgid "A group of palmtrees."
+msgstr ""
+
+#. This is a description for an object titled: People
+msgid "A group of people hanging out in your town."
+msgstr ""
+
+#. This is a description for an object titled: Picnic Tables
+msgid "A group of picnic tables that your citizens can use to eat lunch at."
+msgstr ""
+
+#. This is a description for an object titled: Thundercloud Purple Leaf Plum Trees (Dense)
+#. This is a description for an object titled: Thundercloud Purple Leaf Plum Trees (Light)
+#. This is a description for an object titled: Thundercloud Purple Leaf Plum Trees (Medium)
+msgid "A group of plum trees."
+msgstr ""
+
+#. This is a description for an object titled: Cacti (Dense)
+#. This is a description for an object titled: Cacti (Light)
+#. This is a description for an object titled: Cacti (Medium)
+msgid "A group of prickly cacti."
+msgstr ""
+
+#. This is a description for an object titled: Sakura Trees (Dense)
+#. This is a description for an object titled: Sakura Trees (Light)
+#. This is a description for an object titled: Sakura Trees (Medium)
+msgid "A group of sakura trees."
+msgstr ""
+
+#. This is a description for an object titled: Stone Pines (Dense)
+#. This is a description for an object titled: Stone Pines (Light)
+#. This is a description for an object titled: Stone Pines (Medium)
+msgid "A group of stone pines."
+msgstr ""
+
+#. This is a description for an object titled: Bamboo (Light)
+#. This is a description for an object titled: Bamboo (Medium)
+msgid "A group of tall bamboo plants."
+msgstr ""
+
+#. This is a description for an object titled: Bamboo (Dense)
+msgid "A group of tall bamboo trees."
+msgstr ""
+
+#. This is a description for an object titled: Cattails (Dense)
+#. This is a description for an object titled: Cattails (Light)
+#. This is a description for an object titled: Cattails (Medium)
+msgid "A group tall wetland plants well-known for their brown catkins."
+msgstr ""
+
+#. This is a description for an object titled: Lavish Landing
+msgid "A home so ornate that it has its own breed of palm trees."
+msgstr ""
+
+#. This is a description for an object titled: Juterbog Purple House
+msgid "A house like this will stand out in any neighborhood."
+msgstr ""
+
+#. This is a description for an object titled: Cathedrale
+msgid "A huge building that is hundreds of years old. These can be found "
+"all around Europe."
+msgstr ""
+
+#. This is a description for an object titled: Vilnius Municipality Building
+msgid "A huge glass tower located in the capital city of Lithuania."
+msgstr ""
+
+#. This is a description for an object titled: Huggings Building
+msgid "A huge office building built in John D. Huggings name. He'd be very "
+"proud."
+msgstr ""
+
+#. This is a description for an object titled: Sports Stadium
+msgid "A huge stadium that is used for professional soccer matches. This "
+"particular building is the Stade Oceane, which is located in Le "
+"Havre, France."
+msgstr ""
+
+#. This is a description for an object titled: Big Complex
+msgid "A huge, low-cost apartment complex."
+msgstr ""
+
+#. This is a description for an object titled: Hayloft
+msgid "A large building made to store hay for livestock."
+msgstr ""
+
+#. This is a description for an object titled: Mosque
+msgid "A large building where Muslims gather to celebrate their religion."
+msgstr ""
+
+#. This is a description for an object titled: Glass Citadel
+msgid "A large glass building that towers over the local landscape."
+msgstr ""
+
+#. This is a description for an object titled: Boise Shopping Mall
+msgid "A large mall that is open 24/7. Its grandeur attracts people from "
+"all around the country."
+msgstr ""
+
+#. This is a description for an object titled: Community Tower
+msgid "A large multi-story shopping mall with large windows. Urban legends "
+"say it was built by hand by the members of a distant community."
+msgstr ""
+
+#. This is a description for an object titled: Jim's Snail Shop
+msgid "A large pet store that sells pet snails."
+msgstr ""
+
+#. This is a description for an object titled: Radio Tower
+#. This is a description for an object titled: Coal Pile
+msgid "A large pile of coal. The dust coming from these piles can pose a "
+"risk to the local area."
+msgstr ""
+
+#. This is a description for an object titled: Plaza Park
+msgid "A large plaza with a pool of water in the middle."
+msgstr ""
+
+#. This is a description for an object titled: Hanhwa Tooza
+msgid "A large tower dedicated to inventing products of the future."
+msgstr ""
+
+#. This is a description for an object titled: Flowers (Dense)
+#. This is a description for an object titled: Flowers (Light)
+#. This is a description for an object titled: Flowers (Medium)
+msgid "A lovely flower patch that blooms in all colors."
+msgstr ""
+
+#. This is a description for an object titled: Clearview
+msgid "A massive building with many stores, offices, and event spaces."
+msgstr ""
+
+#. This is a description for an object titled: Le Havre Block
+msgid "A modern building from a dense urban region of France."
+msgstr ""
+
+#. This is a description for an object titled: Maromme High-Rise
+msgid "A modern structure with an elegant paintjob. It looks stunning when "
+"the sun is rising."
+msgstr ""
+
+#. This is a description for an object titled: Silver Villa
+msgid "A modern-looking home that is large enough for a small family."
+msgstr ""
+
+#. This is a description for an object titled: Alley Road
+msgid "A narrow road that is commonly used in crammed areas between "
+"buildings."
+msgstr ""
+
+#. This is a description for an object titled: Big Depolluter
+msgid "A new factory that was once a depolluter building."
+msgstr ""
+
+#. This is a description for an object titled: Grand Est Building
+msgid "A nice building from the Grand Est region of France."
+msgstr ""
+
+#. This is a description for an object titled: Mannevillette Manor
+msgid "A nice home that originates from France."
+msgstr ""
+
+#. This is a description for an object titled: Rainer Residence
+msgid "A nice house from the Mount Rainer region of Washington, USA."
+msgstr ""
+
+#. This is a description for an object titled: The Brick Block
+msgid "A nice multi-floor cafe. I've heard they have a good breakfast menu "
+"here."
+msgstr ""
+
+#. This is a description for an object titled: Crossroads Park
+msgid "A nice park that can be used as a good centerpiece."
+msgstr ""
+
+#. This is a description for an object titled: Paved Road
+msgid "A nice paved road that is perfect for city streets."
+msgstr ""
+
+#. This is a description for an object titled: Swimming Pool
+msgid "A nice public pool that is a great way to stay cool and keep your "
+"citizens happy."
+msgstr ""
+
+#. This is a description for an object titled: Creme-Oran Tower
+msgid "A nice residential building donned with white and orange concrete."
+msgstr ""
+
+#. This is a description for an object titled: Cytopia House
+msgid "A nice reward for your city-building efforts, although it might make "
+"your citizens question if they're in a simulation."
+msgstr ""
+
+#. This is a description for an object titled: Siauliai Shack
+msgid "A not-so-humble name for such a nice house."
+msgstr ""
+
+#. This is a description for an object titled: Alexandria Shops
+msgid "A pair of brick buildings from Minnesota. Naturally, they sell snow "
+"shovels and winter coats."
+msgstr ""
+
+#. This is a description for an object titled: Double Dwellings
+msgid "A pair of small houses that share a backyard."
+msgstr ""
+
+#. This is a description for an object titled: Framed Concrete
+msgid "A patch of black concrete with a nice border."
+msgstr ""
+
+#. This is a description for an object titled: Picnic Pavilion
+msgid "A picnic pavilion is a great place for your citizens to eat lunch."
+msgstr ""
+
+#. This is a description for an object titled: Granite Rocks
+msgid "A pile of rocks commonly found in grasslands and forests."
+msgstr ""
+
+#. This is a description for an object titled: Dumortierite Rocks
+msgid "A pile of rocks commonly found in snowy areas. "
+msgstr ""
+
+#. This is a description for an object titled: Diamond Ore
+msgid "A pile of rocks containing diamond ore. Very rare, especially "
+"because diamonds normally don't appear above ground."
+msgstr ""
+
+#. This is a description for an object titled: Gold Ore
+msgid "A pile of rocks containing gold ore."
+msgstr ""
+
+#. This is a description for an object titled: Limestone Rocks
+msgid "A pile of rocks that are commonly found jutting out of the water."
+msgstr ""
+
+#. This is a description for an object titled: Sandstone Rocks
+msgid "A pile of sandstone rocks commonly found in deserts."
+msgstr ""
+
+#. This is a description for an object titled: Scandic Office
+msgid "A plain brown office building with a few tree out front."
+msgstr ""
+
+#. This is a description for an object titled: Poplars (Dense)
+#. This is a description for an object titled: Poplars (Light)
+#. This is a description for an object titled: Poplars (Medium)
+msgid "A poplar tree"
+msgstr ""
+
+#. This is a description for an object titled: Veules-les-Roses Cottage
+msgid "A posh building made of old bricks. It has many beautiful windows "
+"for its residents to see out of."
+msgstr ""
+
+#. This is a description for an object titled: Bob's House
+msgid "A quant home with one bedroom and a small sunroom."
+msgstr ""
+
+#. This is a description for an object titled: Tacoma Hotel
+msgid "A rather plain hotel with rather average service."
+msgstr ""
+
+#. This is a description for an object titled: Smooth Stone
+msgid "A refined version of the stone tiles you can find around the world."
+msgstr ""
+
+#. This is a description for an object titled: Hong Kong Highrise
+msgid "A relatively-small tower from oen of the dense urban areas of Hong "
+"Kong."
+msgstr ""
+
+#. This is a description for an object titled: Tents
+msgid "A relaxing vacation in the wildness is a great way to escape from "
+"modern life."
+msgstr ""
+
+#. This is a description for an object titled: Granite
+msgid "A rough type of stone that is great for decorating with."
+msgstr ""
+
+#. This is a description for an object titled: Rural French Road fresh
+msgid "A rural road from france with fresh asphalt."
+msgstr ""
+
+#. This is a description for an object titled: Rural French Road
+msgid "A rural road from france with worn asphalt."
+msgstr ""
+
+#. This is a description for an object titled: Rural French Road lined
+msgid "A rural road from france with worn asphalth a straight line."
+msgstr ""
+
+#. This is a description for an object titled: L Shops
+msgid "A series of shops adorned by a street full of lamps."
+msgstr ""
+
+#. This is a description for an object titled: Main Street Market
+msgid "A series of shops located in the middle of a small town"
+msgstr ""
+
+#. This is a description for an object titled: Stone Bricks
+msgid "A series of stone bricks that have been placed on the ground."
+msgstr ""
+
+#. This is a description for an object titled: Rue Jacques Huet
+msgid "A series of stores from France."
+msgstr ""
+
+#. This is a description for an object titled: Anicro Home
+msgid "A simple house for a new island mayor."
+msgstr ""
+
+#. This is a description for an object titled: Highway Walls
+msgid "A sloped wall that is commonly used in sunken highway systems."
+msgstr ""
+
+#. This is a description for an object titled: Humble Gray Home
+msgid "A small Scandinavian house. It is a lot less interesting than its "
+"colorful cousin."
+msgstr ""
+
+#. This is a description for an object titled: Green-Laced Apartments
+msgid "A small apartment building with cheap rooms for rent."
+msgstr ""
+
+#. This is a description for an object titled: Pond
+msgid "A small body of water surrounded by cattails and wild rice."
+msgstr ""
+
+#. This is a description for an object titled: Small Military Facility
+msgid "A small building dedicated to industrial testing for the military."
+msgstr ""
+
+#. This is a description for an object titled: Compact FastShop
+msgid "A small convenience store that stocks a wide range of everyday "
+"items. Their larger variants are normally found in cities."
+msgstr ""
+
+#. This is a description for an object titled: Boxy House
+msgid "A small four-bedroom house with a flat roof."
+msgstr ""
+
+#. This is a description for an object titled: Snails Incorporated
+msgid "A small game company that makes platformers and shoot-em-ups."
+msgstr ""
+
+#. This is a description for an object titled: Tacoma Residence
+msgid "A small home from the suburban United States."
+msgstr ""
+
+#. This is a description for an object titled: Anicro Abode
+msgid "A small house from an island far, far away."
+msgstr ""
+
+#. This is a description for an object titled: Small Shack
+msgid "A small house that can only accommodate a few people."
+msgstr ""
+
+#. This is a description for an object titled: Brown Abode
+msgid "A small house with a two-floor garage."
+msgstr ""
+
+#. This is a description for an object titled: Lantern
+msgid "A small lantern that can be used to decorate your cities."
+msgstr ""
+
+#. This is a description for an object titled: Small Office Building
+msgid "A small office building with a nice sidewalk and a unique blue "
+"entrance."
+msgstr ""
+
+#. This is a description for an object titled: Small Shantytown
+msgid "A small piece of land where impoverished people reside."
+msgstr ""
+
+#. This is a description for an object titled: Oasis
+msgid "A small pond that can be found rarely in deserts. Fortunately, this "
+"one isn't a mirage."
+msgstr ""
+
+#. This is a description for an object titled: Small Storage Shed
+msgid "A small shed used by nearby factories as a way to store things."
+msgstr ""
+
+#. This is a description for an object titled: Bike Shop
+msgid "A small shop that sells bikes."
+msgstr ""
+
+#. This is a description for an object titled: JoJo Mart
+msgid "A small store that sells food, medicine, and clothes."
+msgstr ""
+
+#. This is a description for an object titled: Thirft-4-Dayz
+msgid "A small thirft shop whose owners live on the second floor."
+msgstr ""
+
+#. This is a description for an object titled: Small Waiting Platform
+msgid "A small train platform that has a small structure on it.  People can "
+"wait here until the train comes, although there isnt much room "
+"inside."
+msgstr ""
+
+#. This is a description for an object titled: Wooden Sign
+msgid "A small wooden sign that can be used to decorate a town.  It doesn't "
+"actually say anything though..."
+msgstr ""
+
+#. This is a description for an object titled: Beach Sandstone
+msgid "A smoothened tile made out of beach sand."
+msgstr ""
+
+#. This is a description for an object titled: Black Sandstone
+msgid "A smoothened tile made out of black sand."
+msgstr ""
+
+#. This is a description for an object titled: Desert Sandstone
+msgid "A smoothened tile made out of desert sand."
+msgstr ""
+
+#. This is a description for an object titled: Red Sandstone
+msgid "A smoothened tile made out of red sand."
+msgstr ""
+
+#. This is a description for an object titled: Borg's Burgers
+msgid "A somewhat large fast food restaurant known for cheap food and "
+"questionable quality."
+msgstr ""
+
+#. This is a description for an object titled: Country Road
+msgid "A somewhat-cheap road that is commonly found in the countryside. It "
+"lacks a proper sidewalk though."
+msgstr ""
+
+#. This is a description for an object titled: Trailer Park
+msgid "A somewhat-large plot of land that is the home to many trailer "
+"houses."
+msgstr ""
+
+#. This is a description for an object titled: Pretty Concrete
+msgid "A square of decorative concrete adorned with a fancy pattern."
+msgstr ""
+
+#. This is a description for an object titled: Classic Red Barn
+msgid "A stereotypical red barn."
+msgstr ""
+
+#. This is a description for an object titled: Phone Shop
+msgid "A store that sells phones. It even has the new CyPhone X"
+msgstr ""
+
+#. This is a description for an object titled: Perpignan Residence
+msgid "A tall building from Perpignan, France."
+msgstr ""
+
+#. This is a description for an object titled: Glass Tower
+msgid "A tall glass skyscraper that fears the day a stone-throwing "
+"competition is held in town."
+msgstr ""
+
+#. This is a description for an object titled: Light Pole
+msgid "A tall light pole that can be used to decorate a town."
+msgstr ""
+
+#. This is a description for an object titled: Sandstone Tower
+msgid "A tall sandstone building plastered with ads."
+msgstr ""
+
+#. This is a description for an object titled: Fancy White House
+msgid "A tall white home with an orange accent."
+msgstr ""
+
+#. This is a description for an object titled: Anicro Camp
+msgid "A temporary shelter commonly used on faraway islands."
+msgstr ""
+
+#. This is a description for an object titled: Cafe Apartment
+msgid "A three-story apartment building with a cafe at the bottom. However, "
+"the noise from the restaurant below has driven out all the residents."
+msgstr ""
+
+#. This is a description for an object titled: Bench Platform
+msgid "A train platform with a couple of benches and a trash can."
+msgstr ""
+
+#. This is a description for an object titled: Sign Platform
+msgid "A train platform with a large sign on it."
+msgstr ""
+
+#. This is a description for an object titled: Tutor's Home
+msgid "A tutor from a local school lives here with her family."
+msgstr ""
+
+#. This is a description for an object titled: Crossview Mall
+msgid "A two-story shopping mall with windows on all sides."
+msgstr ""
+
+#. This is a description for an object titled: Favela
+msgid "A type of low-income housing from Brazil."
+msgstr ""
+
+#. This is a description for an object titled: Multi-Floor Strip Mall
+msgid "A variety of services and goods are provided here."
+msgstr ""
+
+#. This is a description for an object titled: Tour StSever Tower
+msgid "A very fancy shopping mall with hundreds of stores."
+msgstr ""
+
+#. This is a description for an object titled: Sunken Ship
+msgid "A very old ship that crashed here long ago. Its origin is unkown, "
+"but I think it's safe to say what happened to its crew."
+msgstr ""
+
+#. This is a description for an object titled: Small Suburb
+msgid "A very small family lives here."
+msgstr ""
+
+#. This is a description for an object titled: Nasus Building
+msgid "A white building with asymmetrical architecture."
+msgstr ""
+
+#. This is a description for an object titled: Basic Mansion
+msgid "A white mansion with a fancy porch. It's pretty average, relatively "
+"speaking."
+msgstr ""
+
+#. This is a description for an object titled: Wild Wheat (Dense)
+#. This is a description for an object titled: Wild Wheat (Light)
+#. This is a description for an object titled: Wild Wheat (Medium)
+msgid "A wild varient of domesticated wheat grass. Wild wheat can be found "
+"growing in prairies and fields, although it generally yields less "
+"than its domesticated cousin."
+msgstr ""
+
+#. This is a description for an object titled: Little L House
+msgid "A wood house with a tiny porch in the middle."
+msgstr ""
+
+#. This is a title for an object with the description: These structures are usually found deep in the woods. No one knows who built them, but it's obvious that they aren't around anymore.
+msgid "Abandoned Buildings"
+msgstr ""
+
+#. This is a description for an object titled: Simone's Car Emporium
+msgid "After they repaired their window, business has been booming."
+msgstr ""
+
+#. This is a title for an object with the description: A pair of brick buildings from Minnesota. Naturally, they sell snow shovels and winter coats.
+msgid "Alexandria Shops"
+msgstr ""
+
+#. This is a title for an object with the description: A narrow road that is commonly used in crammed areas between buildings.
+msgid "Alley Road"
+msgstr ""
+
+#. This is a description for an object titled: Random Trading Co.
+msgid "Almost everything you can imagine can be bought here in bulk."
+msgstr ""
+
+#. This is a description for an object titled: Classical Casino
+msgid "Although the outside looks posh, the inside is just like any other "
+"casino."
+msgstr ""
+
+#. This is a description for an object titled: Mini Borg's Burgers
+msgid "Although they can only serve a handful of people at a time, these "
+"small restaurants are very popular in rural communities for their "
+"cheap prices."
+msgstr ""
+
+#. This is a description for an object titled: Samson's HQ
+msgid "An absolutely massive building that helps manage a large tech "
+"company. They employ marketers, engineers, CEOs, and more."
+msgstr ""
+
+#. This is a description for an object titled: Old Power Plant
+msgid "An ancient coal power plant that has been turned into a factory. Its "
+"safety regulations are just as outdated as the building itself."
+msgstr ""
+
+#. This is a description for an object titled: Apartment Building
+msgid "An apartment building from Montreal , Quebec"
+msgstr ""
+
+#. This is a description for an object titled: Vancouver Heights
+msgid "An apartment building from Vancouver, Canada"
+msgstr ""
+
+#. This is a description for an object titled: Classic White House
+msgid "An average-looking white house."
+msgstr ""
+
+#. This is a description for an object titled: Maison Moderne
+msgid "An expensive cube-shaped apartment complex."
+msgstr ""
+
+#. This is a description for an object titled: Lillebonne Residence
+msgid "An expensive house with a nice front yard."
+msgstr ""
+
+#. This is a description for an object titled: Le Caire Condominium Ultra
+msgid "An extra-fancy version of the original Le Caire Condominium."
+msgstr ""
+
+#. This is a description for an object titled: Crystal Ore
+msgid "An incredibly rare and valuable ore that is only found in the "
+"crystal jungle."
+msgstr ""
+
+#. This is a description for an object titled: Phelps Co.
+msgid "An office building that specializes in water-based technology."
+msgstr ""
+
+#. This is a description for an object titled: Lillebonne Brick House
+msgid "An old and expensive property from France."
+msgstr ""
+
+#. This is a description for an object titled: SF Building
+msgid "An old apartment building topped with a water tower and some "
+"advertisements."
+msgstr ""
+
+#. This is a description for an object titled: Old Desert Church
+msgid "An old building that has been converted into a house."
+msgstr ""
+
+#. This is a description for an object titled: Clock Store
+msgid "An old clock store that sells and repairs clocks."
+msgstr ""
+
+#. This is a description for an object titled: Day Care Center
+msgid "An old day care that has since become someone's home."
+msgstr ""
+
+#. This is a description for an object titled: Dirt Road
+msgid "An old dirt road that doesn't require much maintenance.  Not "
+"recommended for busy roadways."
+msgstr ""
+
+#. This is a description for an object titled: Vichy Hotel
+msgid "An old hotel with a waiting area on the ground floor."
+msgstr ""
+
+#. This is a description for an object titled: Middle Age Lodging
+msgid "An old house that has been refurbished for modern homeowners."
+msgstr ""
+
+#. This is a description for an object titled: Ferman's Manor
+msgid "An old mansion that has become slighty overgrown."
+msgstr ""
+
+#. This is a description for an object titled: Phone Booth
+msgid "An old phone booth that can be used to decorate your cities."
+msgstr ""
+
+#. This is a description for an object titled: Rusty Cars
+msgid "An old piece of junk that was left here years ago."
+msgstr ""
+
+#. This is a description for an object titled: Run-Down Skinny Shop
+msgid "An old post office that has been repurposed as an antique store."
+msgstr ""
+
+#. This is a description for an object titled: Old Power Plant
+msgid "An old power plant that was converted into a shirt factory."
+msgstr ""
+
+#. This is a description for an object titled: Wooden Ship
+msgid "An old sailboat that was recently renovated."
+msgstr ""
+
+#. This is a description for an object titled: Bellevue Heights
+msgid "An ordinary skyscraper from Washington, USA."
+msgstr ""
+
+#. This is a description for an object titled: Veinna Hotel
+msgid "An overwhelming number of reviews say this hotel is \"nice,\" but "
+"the owners are unsure why."
+msgstr ""
+
+#. This is a description for an object titled: Short Skyscraper
+msgid "An ugly tower that is begging to be demolished."
+msgstr ""
+
+#. This is a title for an object with the description: A small house from an island far, far away.
+msgid "Anicro Abode"
+msgstr ""
+
+#. This is a title for an object with the description: A temporary shelter commonly used on faraway islands.
+msgid "Anicro Camp"
+msgstr ""
+
+#. This is a title for an object with the description: A simple house for a new island mayor.
+#. This is a title for an object with the description: It's not very large, but it's perfect for a quant village.
+msgid "Anicro Home"
+msgstr ""
+
+#. This is a title for an object with the description: An apartment building from Montreal , Quebec
+msgid "Apartment Building"
+msgstr ""
+
+#. This is a title for an object with the description: This small apartment building is home to a small shop on the ground floor. 
+msgid "Apartment Shop"
+msgstr ""
+
+#. This is a description for an object titled: Highway Road
+msgid "Aroad where cars can travely very fast! However, it comes with much "
+"higher maintenance costs than other road types."
+msgstr ""
+
+#. This is a title for an object with the description: Despite the name, this is actually a family-friendly restaurant. The interior is future-themed and the kids love it.
+msgid "Austral Club"
+msgstr ""
+
+#. This is a title for an object with the description: A fine institution for all your banking needs. They also have a great view of the roadway.
+msgid "Austral One"
+msgstr ""
+
+#. This is a title for an object with the description: A group of tall bamboo trees.
+msgid "Bamboo (Dense)"
+msgstr ""
+
+#. This is a title for an object with the description: A group of tall bamboo plants.
+msgid "Bamboo (Light)"
+msgstr ""
+
+#. This is a title for an object with the description: A group of tall bamboo plants.
+msgid "Bamboo (Medium)"
+msgstr ""
+
+#. This is a title for an object with the description: The 018's even smaller counterpart.
+msgid "Barentin 006"
+msgstr ""
+
+#. This is a title for an object with the description: The 018's smaller counterpart.
+msgid "Barentin 010"
+msgstr ""
+
+#. This is a title for an object with the description: It's pristine white walls are hard to come by in polluted cityscapes. The extra zero in its name hints at something even taller...
+msgid "Barentin 018"
+msgstr ""
+
+#. This is a title for an object with the description: Terrain basalt tiles
+msgid "Basalt"
+msgstr ""
+
+#. This is a title for an object with the description: Batter up!
+msgid "Baseball Field"
+msgstr ""
+
+#. This is a title for an object with the description: A common type of house in lakeside or forest areas.
+msgid "Basic Log Cabin"
+msgstr ""
+
+#. This is a title for an object with the description: A white mansion with a fancy porch. It's pretty average, relatively speaking.
+msgid "Basic Mansion"
+msgstr ""
+
+#. This is a description for an object titled: Baseball Field
+msgid "Batter up!"
+msgstr ""
+
+#. This is a title for an object with the description: Terrain beach tiles
+msgid "Beach Sand"
+msgstr ""
+
+#. This is a title for an object with the description: A smoothened tile made out of beach sand.
+msgid "Beach Sandstone"
+msgstr ""
+
+#. This is a title for an object with the description: There is not a single bell within this entire building.
+msgid "Bell Tower"
+msgstr ""
+
+#. This is a title for an object with the description: An ordinary skyscraper from Washington, USA.
+msgid "Bellevue Heights"
+msgstr ""
+
+#. This is a title for an object with the description: This huge estate has a patio and a large pool.
+msgid "Bellevue Mansion"
+msgstr ""
+
+#. This is a title for an object with the description: A train platform with a couple of benches and a trash can.
+msgid "Bench Platform"
+msgstr ""
+
+#. This is a title for an object with the description: A few benches that offer a place for your civilians to sit.
+msgid "Benches"
+msgstr ""
+
+#. This is a title for an object with the description: A bush with delicious red berries.
+msgid "Berry Bushes (Dense)"
+msgstr ""
+
+#. This is a title for an object with the description: A bush with delicious red berries.
+msgid "Berry Bushes (Light)"
+msgstr ""
+
+#. This is a title for an object with the description: A bush with delicious red berries.
+msgid "Berry Bushes (Medium)"
+msgstr ""
+
+#. This is a title for an object with the description: This building has no affiliation with a certain orange bear. It does have a nice sunroom though.
+msgid "Big Blue House"
+msgstr ""
+
+#. This is a title for an object with the description: A huge, low-cost apartment complex.
+msgid "Big Complex"
+msgstr ""
+
+#. This is a title for an object with the description: A new factory that was once a depolluter building.
+msgid "Big Depolluter"
+msgstr ""
+
+#. This is a title for an object with the description: This building can protect large towns from fires and other disasters.
+msgid "Big Fire Department"
+msgstr ""
+
+#. This is a title for an object with the description: This place stores goods for a local shipping company.
+msgid "Big Warehouse"
+msgstr ""
+
+#. This is a title for an object with the description: A small shop that sells bikes.
+msgid "Bike Shop"
+msgstr ""
+
+#. This is a title for an object with the description: A group of birch trees.
+msgid "Birch Trees (Dense)"
+msgstr ""
+
+#. This is a title for an object with the description: A group of birch trees.
+msgid "Birch Trees (Light)"
+msgstr ""
+
+#. This is a title for an object with the description: A group of birch trees.
+msgid "Birch Trees (Medium)"
+msgstr ""
+
+#. This is a title for an object with the description: Old building
+msgid "Black Box Building"
+msgstr ""
+
+#. This is a title for an object with the description: Terrain Black Sand tiles
+msgid "Black Sand"
+msgstr ""
+
+#. This is a title for an object with the description: A smoothened tile made out of black sand.
+msgid "Black Sandstone"
+msgstr ""
+
+#. This is a title for an object with the description: A blank train platform with nothing on it.
+msgid "Blank Platform"
+msgstr ""
+
+#. This is a title for an object with the description: You shouldn't be seeing this...
+msgid "Blank Road"
+msgstr ""
+
+#. This is a title for an object with the description: You shouldn't be seeing this...
+msgid "Blank Tile"
+msgstr ""
+
+#. This is a title for an object with the description: Whose idea was it to put that big hole in the middle of the building? We could've fit more residents there!
+msgid "Block Building"
+msgstr ""
+
+#. This is a description for an object titled: Blvd Belges
+msgid "Block of houses from the Boulevard des Belges, Rouen."
+msgstr ""
+
+#. This is a title for an object with the description: They specialize in making plastic molds and industrial machinery.
+msgid "Blue Roof Production Co."
+msgstr ""
+
+#. This is a title for an object with the description: Terrain Blueprint
+msgid "Blueprint"
+msgstr ""
+
+#. This is a title for an object with the description: Block of houses from the Boulevard des Belges, Rouen.
+msgid "Blvd Belges"
+msgstr ""
+
+#. This is a title for an object with the description: A quant home with one bedroom and a small sunroom.
+msgid "Bob's House"
+msgstr ""
+
+#. This is a title for an object with the description: Why did the owner buy a building with the wrong name on the sign? No one knows...
+msgid "Bob's Kebab House"
+msgstr ""
+
+#. This is a title for an object with the description: Oddly enough, the owner of the restaurant is named John.
+msgid "Bob's Kebabs"
+msgstr ""
+
+#. This is a title for an object with the description: Posh apartments for incredibly rich people.
+msgid "Bois Guillaume Apartments"
+msgstr ""
+
+#. This is a title for an object with the description: A large mall that is open 24/7. Its grandeur attracts people from all around the country.
+msgid "Boise Shopping Mall"
+msgstr ""
+
+#. This is a title for an object with the description: This fancy building has hedges and a small garage. 
+msgid "Bolboc Manor"
+msgstr ""
+
+#. This is a title for an object with the description: Whatever died here must have been massive! Let's hope it doesn't have any descendants...
+msgid "Bones"
+msgstr ""
+
+#. This is a title for an object with the description: The kind of road you'd see at an amusment park.
+msgid "Bordered Asphalt Road"
+msgstr ""
+
+#. This is a title for an object with the description: The kind of path you'd see at an amusment park.
+msgid "Bordered Concrete Path"
+msgstr ""
+
+#. This is a title for an object with the description: A somewhat large fast food restaurant known for cheap food and questionable quality.
+msgid "Borg's Burgers"
+msgstr ""
+
+#. This is a title for an object with the description: A small four-bedroom house with a flat roof.
+msgid "Boxy House"
+msgstr ""
+
+#. This is a title for an object with the description: Cheap rooms in a classic-looking apartment building. It even has the clunky elevators we all know and love.
+msgid "Brick Block Dwellings"
+msgstr ""
+
+#. This is a title for an object with the description: Ironically, this factory makes steel beams, not bricks.
+msgid "Brick Factory"
+msgstr ""
+
+#. This is a title for an object with the description: This building has a nice garden in the back. The owners love growing roses every year.
+msgid "Brick Shack"
+msgstr ""
+
+#. This is a title for an object with the description: This building used to be an industrial warehouse, but now it sells goods to the local neighborhood.
+msgid "Brick Warehouse Shop"
+msgstr ""
+
+#. This is a title for an object with the description: Equiped with a fancy front lawn and a lavish brick exterior.
+msgid "British Mansion"
+msgstr ""
+
+#. This is a title for an object with the description: A small house with a two-floor garage.
+msgid "Brown Abode"
+msgstr ""
+
+#. This is a UiElement with of the type: Text
+msgid "BuildMenu Layout"
+msgstr ""
+
+#. This is a title for an object with the description: A group of burned trees.
+msgid "Burned Trees (Dense)"
+msgstr ""
+
+#. This is a title for an object with the description: A group of burned trees.
+msgid "Burned Trees (Light)"
+msgstr ""
+
+#. This is a title for an object with the description: A group of burned trees.
+msgid "Burned Trees (Medium)"
+msgstr ""
+
+#. This is a title for an object with the description: Terrain burned tiles
+msgid "Burned land"
+msgstr ""
+
+#. This is a subCategory
+msgid "Bushes"
+msgstr ""
+
+#. This is a title for an object with the description: This place should have been condemned three decades ago...
+msgid "Bygone Apartment Building"
+msgstr ""
+
+#. This is a title for an object with the description: A group of prickly cacti.
+msgid "Cacti (Dense)"
+msgstr ""
+
+#. This is a title for an object with the description: A group of prickly cacti.
+msgid "Cacti (Light)"
+msgstr ""
+
+#. This is a title for an object with the description: A group of prickly cacti.
+msgid "Cacti (Medium)"
+msgstr ""
+
+#. This is a title for an object with the description: A three-story apartment building with a cafe at the bottom. However, the noise from the restaurant below has driven out all the residents.
+msgid "Cafe Apartment"
+msgstr ""
+
+#. This is a description for an object titled: The Red Block
+msgid "Can you guess how this building got its name?"
+msgstr ""
+
+#. This is a UiElement with of the type: TextButton
+msgid "Cancel"
+msgstr ""
+
+#. This is a title for an object with the description: Their cars are fine, but it feels like their salesmen are holding you at gunpoint sometimes.
+msgid "Car Dealership"
+msgstr ""
+
+#. This is a title for an object with the description: The fence has sustained some damage over the years. Unfortunately, the store was sold out of wooden fences, so they had to settle for sheet metal.
+msgid "Casarm's Place"
+msgstr ""
+
+#. This is a title for an object with the description: Its pillars and railings reminded the architechs of a medieval fortress.
+msgid "Castletop Living Spaces"
+msgstr ""
+
+#. This is a title for an object with the description: A huge building that is hundreds of years old. These can be found all around Europe.
+msgid "Cathedrale"
+msgstr ""
+
+#. This is a title for an object with the description: A group tall wetland plants well-known for their brown catkins.
+msgid "Cattails (Dense)"
+msgstr ""
+
+#. This is a title for an object with the description: A group tall wetland plants well-known for their brown catkins.
+msgid "Cattails (Light)"
+msgstr ""
+
+#. This is a title for an object with the description: A group tall wetland plants well-known for their brown catkins.
+msgid "Cattails (Medium)"
+msgstr ""
+
+#. This is a title for an object with the description: This place doesn't have an elevator, so its inhabitants are blessed with having to carry furniture up six flights of stairs.
+msgid "Caveeverte Condos"
+msgstr ""
+
+#. This is a title for an object with the description: Just an average house. Were you expecting something more?
+msgid "Celularm's Abode"
+msgstr ""
+
+#. This is a title for an object with the description: A group of benches that surround a nice decorative object.
+msgid "Centerpiece Park"
+msgstr ""
+
+#. This is a title for an object with the description: A giant fortress that was built in France during the 14th century. It was torn down by Louis XIII in the 17th century and rebuilt many decades later.
+msgid "Chateau de Pierrefonds"
+msgstr ""
+
+#. This is a description for an object titled: Concrete Accommodations
+msgid "Cheap apartments for low-income workers."
+msgstr ""
+
+#. This is a description for an object titled: Brick Block Dwellings
+msgid "Cheap rooms in a classic-looking apartment building. It even has the "
+"clunky elevators we all know and love."
+msgstr ""
+
+#. This is a title for an object with the description: The building's unique wall pattern is what earned its title.
+msgid "Checkerboard Property"
+msgstr ""
+
+#. This is a title for an object with the description: Various materials are stored here for nearby factories.
+msgid "Chemcial Storage"
+msgstr ""
+
+#. This is a title for an object with the description: Making chemicals for high school science experients since 1876!
+msgid "Chemical Plant"
+msgstr ""
+
+#. This is a title for an object with the description: This large structure can serve as a center of commerce for large cities.
+msgid "City Plaza Pillar"
+msgstr ""
+
+#. This is a title for an object with the description: A stereotypical red barn.
+msgid "Classic Red Barn"
+msgstr ""
+
+#. This is a title for an object with the description: An average-looking white house.
+msgid "Classic White House"
+msgstr ""
+
+#. This is a title for an object with the description: Although the outside looks posh, the inside is just like any other casino.
+msgid "Classical Casino"
+msgstr ""
+
+#. This is a title for an object with the description: A massive building with many stores, offices, and event spaces.
+msgid "Clearview"
+msgstr ""
+
+#. This is a title for an object with the description: An old clock store that sells and repairs clocks.
+msgid "Clock Store"
+msgstr ""
+
+#. This is a title for an object with the description: This building's sole purpose is to crush coal ore into small chunks for naughty children during the holidays.
+msgid "Coal Factory"
+msgstr ""
+
+#. This is a title for an object with the description: A large pile of coal. The dust coming from these piles can pose a risk to the local area.
+msgid "Coal Pile"
+msgstr ""
+
+#. This is a title for an object with the description: Coal power plants are somewhat good at producing electricity, but they also produce a lot of pollution.
+msgid "Coal Power Plant"
+msgstr ""
+
+#. This is a description for an object titled: Coal Power Plant
+msgid "Coal power plants are somewhat good at producing electricity, but "
+"they also produce a lot of pollution."
+msgstr ""
+
+#. This is a title for an object with the description: Scandinavians are well known for their colorful homes, and this building is no exception.
+msgid "Colored Scandinavian House"
+msgstr ""
+
+#. This is a category
+msgid "Commercial"
+msgstr ""
+
+#. This is a title for an object with the description: Commercial Zone (dense).
+msgid "Commercial Zone (dense)"
+msgstr ""
+
+#. This is a description for an object titled: Commercial Zone (dense)
+msgid "Commercial Zone (dense)."
+msgstr ""
+
+#. This is a title for an object with the description: Commercial Zone (light).
+msgid "Commercial Zone (light)"
+msgstr ""
+
+#. This is a description for an object titled: Commercial Zone (light)
+msgid "Commercial Zone (light)."
+msgstr ""
+
+#. This is a title for an object with the description: Commercial Zone (medium).
+msgid "Commercial Zone (medium)"
+msgstr ""
+
+#. This is a description for an object titled: Commercial Zone (medium)
+msgid "Commercial Zone (medium)."
+msgstr ""
+
+#. This is a title for an object with the description: A large multi-story shopping mall with large windows. Urban legends say it was built by hand by the members of a distant community.
+msgid "Community Tower"
+msgstr ""
+
+#. This is a title for an object with the description: A small convenience store that stocks a wide range of everyday items. Their larger variants are normally found in cities.
+msgid "Compact FastShop"
+msgstr ""
+
+#. This is a title for an object with the description: Cheap apartments for low-income workers.
+msgid "Concrete Accommodations"
+msgstr ""
+
+#. This is a title for an object with the description: A fine place for pedestrians to walk.
+msgid "Concrete Path"
+msgstr ""
+
+#. This is a title for an object with the description: One of the fanciest way to get around town.
+msgid "Concrete Tram Rails"
+msgstr ""
+
+#. This is a description for an object titled: Sidewalk Concrete
+msgid "Concrete like this can be found on roadsides all around the world."
+msgstr ""
+
+#. This is a UiElement with the ID: construction menu
+#. This is a UiElement with the ID: roads menu
+msgid "Construction"
+msgstr ""
+
+#. This is a title for an object with the description: It seems like the local harbor has had some of their freight stolen and placed onto this building.
+msgid "Container House"
+msgstr ""
+
+#. This is a description for an object titled: Japanese Hotel
+msgid "Contrary to popular belief, these hotel rooms are normal-sized."
+msgstr ""
+
+#. This is a title for an object with the description: The roof makes the residents feel like they're living at a resort 24/7. 
+msgid "Corblo Apartments"
+msgstr ""
+
+#. This is a title for an object with the description: A somewhat-cheap road that is commonly found in the countryside. It lacks a proper sidewalk though.
+msgid "Country Road"
+msgstr ""
+
+#. This is a description for an object titled: Ivybrick Solutions
+msgid "Creative engineers and innovative problem-solving."
+msgstr ""
+
+#. This is a title for an object with the description: A nice residential building donned with white and orange concrete.
+msgid "Creme-Oran Tower"
+msgstr ""
+
+#. This is a title for an object with the description: A nice park that can be used as a good centerpiece.
+msgid "Crossroads Park"
+msgstr ""
+
+#. This is a title for an object with the description: A two-story shopping mall with windows on all sides.
+msgid "Crossview Mall"
+msgstr ""
+
+#. This is a title for an object with the description: An incredibly rare and valuable ore that is only found in the crystal jungle.
+msgid "Crystal Ore"
+msgstr ""
+
+#. This is a title for an object with the description: A group of crystal trees.
+msgid "Crystal Trees (Dense)"
+msgstr ""
+
+#. This is a title for an object with the description: A group of crystal trees.
+msgid "Crystal Trees (Light)"
+msgstr ""
+
+#. This is a title for an object with the description: A group of crystal trees.
+msgid "Crystal Trees (Medium)"
+msgstr ""
+
+#. This is a description for an object titled: Machining Shop
+msgid "Custom orders are made here for businesses and homes alike."
+msgstr ""
+
+#. This is a title for an object with the description: The cyan paint and large windows give this building a futuristic look.
+msgid "Cyber Apartments"
+msgstr ""
+
+#. This is a title for an object with the description: A group of cypress trees.
+msgid "Cypress Trees (Dense)"
+msgstr ""
+
+#. This is a title for an object with the description: A group of cypress trees.
+msgid "Cypress Trees (Light)"
+msgstr ""
+
+#. This is a title for an object with the description: A group of cypress trees.
+msgid "Cypress Trees (Medium)"
+msgstr ""
+
+#. This is a title for an object with the description: A nice reward for your city-building efforts, although it might make your citizens question if they're in a simulation.
+msgid "Cytopia House"
+msgstr ""
+
+#. This is a title for an object with the description: The coolest place to hang out in the modern era.
+msgid "Da Club"
+msgstr ""
+
+#. This is a title for an object with the description: This place is home to many shops and services in addition to a great dance floor.
+msgid "Dancing House of Prague"
+msgstr ""
+
+#. This is a title for an object with the description: This concrete is as dark as it is rough.
+msgid "Dark Concrete"
+msgstr ""
+
+#. This is a title for an object with the description: An old day care that has since become someone's home.
+msgid "Day Care Center"
+msgstr ""
+
+#. This is a UiElement with the ID: debug menu
+msgid "Debug"
+msgstr ""
+
+#. This is a title for an object with the description: It's a wonder this building is still standing. It looks like it's been around for decades.
+msgid "Decaying Hay Barn"
+msgstr ""
+
+#. This is a category
+msgid "Decoration"
+msgstr ""
+
+#. This is a description for an object titled: Orange Mediterranean Home
+msgid "Decorative vines seem to be very popular with this home owner."
+msgstr ""
+
+#. This is a title for an object with the description: A big pile of snow.
+msgid "Deep Snow"
+msgstr ""
+
+#. This is a UiElement with the ID: button demolish
+msgid "Demolish"
+msgstr ""
+
+#. This is a title for an object with the description: This building processes textiles into clothes for the people of the desert.
+msgid "Desert Factory"
+msgstr ""
+
+#. This is a title for an object with the description: This desert house has a small pool on the roof. Its inhabitants live in constant fear of ceiling leaks.
+msgid "Desert House With Swimming Pool"
+msgstr ""
+
+#. This is a title for an object with the description: Terrain Desert tiles
+msgid "Desert Sand"
+msgstr ""
+
+#. This is a title for an object with the description: A smoothened tile made out of desert sand.
+msgid "Desert Sandstone"
+msgstr ""
+
+#. This is a description for an object titled: Trifecta Corner
+msgid "Despite how it may look, this building was designed to look this "
+"way. Unfortunately, it is hard to appreciate its unique exterior "
+"from the ground."
+msgstr ""
+
+#. This is a description for an object titled: Four-Way Medieval Abode
+msgid "Despite its age, people still live here."
+msgstr ""
+
+#. This is a description for an object titled: Montreal Special
+msgid "Despite looking somewhat-old, this building is equiped with "
+"everything a modern person would need. It even has an elevator in "
+"the red tower."
+msgstr ""
+
+#. This is a description for an object titled: Seattle Office Tower
+msgid "Despite the fancy exterior, the inside is filled with rows of bland "
+"cubicals."
+msgstr ""
+
+#. This is a description for an object titled: Austral Club
+msgid "Despite the name, this is actually a family-friendly restaurant. The "
+"interior is future-themed and the kids love it."
+msgstr ""
+
+#. This is a title for an object with the description: A pile of rocks containing diamond ore. Very rare, especially because diamonds normally don't appear above ground.
+msgid "Diamond Ore"
+msgstr ""
+
+#. This is a title for an object with the description: Selling North America's favorite cuisine for over 70 years!
+msgid "Diggity Dog's"
+msgstr ""
+
+#. This is a title for an object with the description: Terrain Dirt tiles
+msgid "Dirt"
+msgstr ""
+
+#. This is a title for an object with the description: An old dirt road that doesn't require much maintenance.  Not recommended for busy roadways.
+msgid "Dirt Road"
+msgstr ""
+
+#. This is a description for an object titled: Triangle Abode
+msgid "Do you think the number of residents is a coincidence?"
+msgstr ""
+
+#. This is a title for an object with the description: A pair of small houses that share a backyard.
+msgid "Double Dwellings"
+msgstr ""
+
+#. This is a title for an object with the description: Twice as bright as the single light.
+msgid "Double Light"
+msgstr ""
+
+#. This is a title for an object with the description: One shop sells goldfish, while the other sells fishing equipment. The shops' owners love being passive-agressive to each other.
+msgid "Dual Spanish Shops"
+msgstr ""
+
+#. This is a title for an object with the description: A brick building adorned with two smoke stacks.
+msgid "Dual-Stack Factory"
+msgstr ""
+
+#. This is a title for an object with the description: A pile of rocks commonly found in snowy areas. 
+msgid "Dumortierite Rocks"
+msgstr ""
+
+#. This is a title for an object with the description: The name of the owner and the shape of the house are completely unrelated.
+msgid "Ell's Quarters"
+msgstr ""
+
+#. This is a title for an object with the description: The house my be small, but the owners take pride in their perfect lawn.
+msgid "Ely Estate"
+msgstr ""
+
+#. This is a category
+#. This is a UiElement with the ID: emergency menu
+msgid "Emergency"
+msgstr ""
+
+#. This is a description for an object titled: British Mansion
+msgid "Equiped with a fancy front lawn and a lavish brick exterior."
+msgstr ""
+
+#. This is a description for an object titled: Lizzie's Dream House
+msgid "Equiped with a hedge wall and a nice pool, this house is the perfect "
+"place to live."
+msgstr ""
+
+#. This is a title for an object with the description: Just your average apartment building.
+msgid "Etz-Balt Tower"
+msgstr ""
+
+#. This is a title for an object with the description: 
+msgid "European Road"
+msgstr ""
+
+#. This is a description for an object titled: Ten Tower
+msgid "Every room comes with a great view of the city."
+msgstr ""
+
+#. This is a description for an object titled: Rick's Residential Rentals
+msgid "Everyone pays Rick rent, but no one knows his last name..."
+msgstr ""
+
+#. This is a title for an object with the description: This large building is owned by a worldwide news company. Some of their news segments are recorded inside.
+msgid "FNC Building"
+msgstr ""
+
+#. This is a title for an object with the description: This restaurant is from the heart of Paris. They serve only the fanciest foods.
+msgid "Fancy French Restaurant"
+msgstr ""
+
+#. This is a title for an object with the description: A tall white home with an orange accent.
+msgid "Fancy White House"
+msgstr ""
+
+#. This is a description for an object titled: Ketsuy
+msgid "Fancy apartments for rich people."
+msgstr ""
+
+#. This is a category
+msgid "Farm"
+msgstr ""
+
+#. This is a title for an object with the description: Farm Zone
+#. This is a description for an object titled: Farm Zone
+msgid "Farm Zone"
+msgstr ""
+
+#. This is a title for an object with the description: A type of low-income housing from Brazil.
+msgid "Favela"
+msgstr ""
+
+#. This is a title for an object with the description: An old mansion that has become slighty overgrown.
+msgid "Ferman's Manor"
+msgstr ""
+
+#. This is a title for an object with the description: Ferns are green flowerless plants with divided leaves that tend to grow in damp, shady areas.
+msgid "Ferns (Dense)"
+msgstr ""
+
+#. This is a title for an object with the description: Ferns are green flowerless plants with divided leaves that tend to grow in damp, shady areas.
+msgid "Ferns (Light)"
+msgstr ""
+
+#. This is a title for an object with the description: Ferns are green flowerless plants with divided leaves that tend to grow in damp, shady areas.
+msgid "Ferns (Medium)"
+msgstr ""
+
+#. This is a description for an object titled: Ferns (Dense)
+#. This is a description for an object titled: Ferns (Light)
+#. This is a description for an object titled: Ferns (Medium)
+msgid "Ferns are green flowerless plants with divided leaves that tend to "
+"grow in damp, shady areas."
+msgstr ""
+
+#. This is a title for an object with the description: The fish they used to process here were so smelly that they built an extra room onto the house.
+msgid "Fisherman's Home"
+msgstr ""
+
+#. This is a title for an object with the description: A big house for the Fitzgerald's big family.
+msgid "Fitzgerald's House"
+msgstr ""
+
+#. This is a category
+#. This is a subCategory
+msgid "Flora"
+msgstr ""
+
+#. This is a title for an object with the description: A lovely flower patch that blooms in all colors.
+msgid "Flowers (Dense)"
+msgstr ""
+
+#. This is a title for an object with the description: A lovely flower patch that blooms in all colors.
+msgid "Flowers (Light)"
+msgstr ""
+
+#. This is a title for an object with the description: A lovely flower patch that blooms in all colors.
+msgid "Flowers (Medium)"
+msgstr ""
+
+#. This is a title for an object with the description: From an aerial view, the building looks similar to a bird.
+msgid "Flying Colors"
+msgstr ""
+
+#. This is a description for an object titled: Manaus Brown Building
+msgid "For some reason, the building makes passersby hungry for ice cream..."
+msgstr ""
+
+#. This is a description for an object titled: Pickleman's House
+msgid "For some reason, the owner has an obsession with pickled cucumbers. "
+"Legends say that he turned himself into a pickle. It was the "
+"funniest thing I've ever heard."
+msgstr ""
+
+#. This is a title for an object with the description: Terrain grass forest tiles
+msgid "Forest Grass"
+msgstr ""
+
+#. This is a title for an object with the description: Despite its age, people still live here.
+msgid "Four-Way Medieval Abode"
+msgstr ""
+
+#. This is a title for an object with the description: A patch of black concrete with a nice border.
+msgid "Framed Concrete"
+msgstr ""
+
+#. This is a description for an object titled: Flying Colors
+msgid "From an aerial view, the building looks similar to a bird."
+msgstr ""
+
+#. This is a description for an object titled: Tomorrowland Spire
+msgid "From the ground level, this building looks like a beacon to heaven."
+msgstr ""
+
+#. This is a UiElement with of the type: Text
+msgid "Fullscreen Mode"
+msgstr ""
+
+#. This is a title for an object with the description: This building is famous for it's modern design. It stands out in the average city's skyline
+msgid "Future Freespace"
+msgstr ""
+
+#. This is a title for an object with the description: The Creme-Oran Tower's older brother.
+msgid "Gaillarda Tower"
+msgstr ""
+
+#. This is a title for an object with the description: Ironically, Cytopia is one of the few games that isn't sold here.
+msgid "Game Shop"
+msgstr ""
+
+#. This is a title for an object with the description: These legendary structures can only be found in remote parts of the world. They are sought after for their rich colors and beautiful gleam.
+msgid "Giant Crystals"
+msgstr ""
+
+#. This is a title for an object with the description: The inhabitants feel a lot happier than the gloomy exterior would suggest.
+msgid "Glascow Tower"
+msgstr ""
+
+#. This is a title for an object with the description: A large glass building that towers over the local landscape.
+msgid "Glass Citadel"
+msgstr ""
+
+#. This is a title for an object with the description: A tall glass skyscraper that fears the day a stone-throwing competition is held in town.
+msgid "Glass Tower"
+msgstr ""
+
+#. This is a title for an object with the description: A pile of rocks containing gold ore.
+msgid "Gold Ore"
+msgstr ""
+
+#. This is a title for an object with the description: Those brown patches aren't dirt, its actually dead grass from the 8 months of winter the house must endure.
+msgid "Golly Family's Home"
+msgstr ""
+
+#. This is a title for an object with the description: Stores a variety of grains and makes them into cereal and bread.
+msgid "Grain Processing Plant"
+msgstr ""
+
+#. This is a title for an object with the description: The owner brags about the hedges and fences he had installed, but everyone knows he just hired a landscaper.
+msgid "Grainval's Dwelling"
+msgstr ""
+
+#. This is a title for an object with the description: A nice building from the Grand Est region of France.
+msgid "Grand Est Building"
+msgstr ""
+
+#. This is a title for an object with the description: The old woman who lives here is very sweet and welcoming, earning her the nickname "Grandma" by the local community.
+msgid "Grandma's House"
+msgstr ""
+
+#. This is a title for an object with the description: A rough type of stone that is great for decorating with.
+msgid "Granite"
+msgstr ""
+
+#. This is a title for an object with the description: A pile of rocks commonly found in grasslands and forests.
+msgid "Granite Rocks"
+msgstr ""
+
+#. This is a title for an object with the description: A field of grapes that will be sent to a local winery when they are done growing.
+msgid "Grape Fields"
+msgstr ""
+
+#. This is a title for an object with the description: Terrain grass tiles
+msgid "Grass"
+msgstr ""
+
+#. This is a title for an object with the description: Terrain Gravel tiles
+msgid "Gravel"
+msgstr ""
+
+#. This is a description for an object titled: Plaza
+msgid "Great for park centers or other areas where large groups of people "
+"gather."
+msgstr ""
+
+#. This is a title for an object with the description: a green bush
+msgid "Green Bushes (Dense)"
+msgstr ""
+
+#. This is a title for an object with the description: a green bush
+msgid "Green Bushes (Light)"
+msgstr ""
+
+#. This is a title for an object with the description: a green bush
+msgid "Green Bushes (Medium)"
+msgstr ""
+
+#. This is a title for an object with the description: This building is used for storing farm equipment and supplies. Despite its cheap material, sheet metal is surprisingly durable.
+msgid "Green Sheet Metal Barn"
+msgstr ""
+
+#. This is a title for an object with the description: A small apartment building with cheap rooms for rent.
+msgid "Green-Laced Apartments"
+msgstr ""
+
+#. This is a title for an object with the description: The name's a bit redundant, isn't it?
+msgid "Greenhouse House"
+msgstr ""
+
+#. This is a category
+msgid "Ground Decoration"
+msgstr ""
+
+#. This is a title for an object with the description: This place produces concrete for construction projects around the city.
+msgid "HDRN"
+msgstr ""
+
+#. This is a title for an object with the description: How do the residents get any privacy with all those big glass windows?
+msgid "Hanhwa Heights"
+msgstr ""
+
+#. This is a title for an object with the description: A large tower dedicated to inventing products of the future.
+msgid "Hanhwa Tooza"
+msgstr ""
+
+#. This is a title for an object with the description: A large building made to store hay for livestock.
+msgid "Hayloft"
+msgstr ""
+
+#. This is a title for an object with the description: This small apartment complex has surpisingly large rooms.
+msgid "Hazel Housing"
+msgstr ""
+
+#. This is a title for an object with the description: Many high-end electronic and clothing stores are located here.
+msgid "Hexland Mall"
+msgstr ""
+
+#. This is a title for an object with the description: It's small, but the interior is very beautiful. Every room is rainbow themed.
+msgid "Hexlands Condo"
+msgstr ""
+
+#. This is a subCategory
+msgid "High Commercial"
+msgstr ""
+
+#. This is a subCategory
+msgid "High Industrial"
+msgstr ""
+
+#. This is a title for an object with the description: TODO DESC
+msgid "High Quailutece Condos"
+msgstr ""
+
+#. This is a subCategory
+msgid "High Residential"
+msgstr ""
+
+#. This is a title for an object with the description: Aroad where cars can travely very fast! However, it comes with much higher maintenance costs than other road types.
+msgid "Highway Road"
+msgstr ""
+
+#. This is a title for an object with the description: A sloped wall that is commonly used in sunken highway systems.
+msgid "Highway Walls"
+msgstr ""
+
+#. This is a title for an object with the description: It looks like these are already decorated for the winter holidays.
+msgid "Holiday Trees"
+msgstr ""
+
+#. This is a title for an object with the description: This water tower's unique shape makes it one of a kind! It can also provide enough water to satisfy a small town.
+msgid "Hometown Water Tower"
+msgstr ""
+
+#. This is a title for an object with the description: A four-floor home from France's Normandy region.
+msgid "Honfleur House"
+msgstr ""
+
+#. This is a title for an object with the description: A relatively-small tower from oen of the dense urban areas of Hong Kong.
+msgid "Hong Kong Highrise"
+msgstr ""
+
+#. This is a title for an object with the description: The wild stallions roam the Cytopian plains.
+msgid "Horses"
+msgstr ""
+
+#. This is a description for an object titled: Hanhwa Heights
+msgid "How do the residents get any privacy with all those big glass "
+"windows?"
+msgstr ""
+
+#. This is a title for an object with the description: A huge office building built in John D. Huggings name. He'd be very proud.
+msgid "Huggings Building"
+msgstr ""
+
+#. This is a title for an object with the description: A small Scandinavian house. It is a lot less interesting than its colorful cousin.
+msgid "Humble Gray Home"
+msgstr ""
+
+#. This is a title for an object with the description: The interior is as futuristic as the outside.
+msgid "Hyperlane Tower"
+msgstr ""
+
+#. This is a description for an object titled: PinkCone Ice Cream Parlor
+msgid "I scream for ice cream!"
+msgstr ""
+
+#. This is a title for an object with the description: This skyscraper belongs to a large banking firm. They handle customers from around the world here.
+msgid "IFC Building"
+msgstr ""
+
+#. This is a description for an object titled: Tall Hexlands Apartments
+msgid "If you like high rent and tall apartment buildings, this is the "
+"place for you!"
+msgstr ""
+
+#. This is a description for an object titled: One Rincon Hill Towers
+msgid "If you live here, I hope you aren't afraid of heights."
+msgstr ""
+
+#. This is a description for an object titled: Wishing Well
+msgid "If you throw a coin into it, your wishes might come true!"
+msgstr ""
+
+#. This is a title for an object with the description: Local residents nicknamed this building the "Fiery Pillar" for its fancy decals and exorbitant rent.
+msgid "Ima Zinheung Apartments"
+msgstr ""
+
+#. This is a description for an object titled: New York Style 
+msgid "In classic NYC fashion, this building has a billboard attached to it."
+msgstr ""
+
+#. This is a description for an object titled: Tall Grass (Dense)
+#. This is a description for an object titled: Tall Grass (Light)
+#. This is a description for an object titled: Tall Grass (Medium)
+msgid "In the tall grass."
+msgstr ""
+
+#. This is a category
+msgid "Industrial"
+msgstr ""
+
+#. This is a title for an object with the description: Produces wood planks and sawdust for other industries.
+msgid "Industrial Wood Mill"
+msgstr ""
+
+#. This is a title for an object with the description: Industrial Zone (dense)
+#. This is a description for an object titled: Industrial Zone (dense)
+msgid "Industrial Zone (dense)"
+msgstr ""
+
+#. This is a title for an object with the description: Industrial Zone (light)
+#. This is a description for an object titled: Industrial Zone (light)
+msgid "Industrial Zone (light)"
+msgstr ""
+
+#. This is a title for an object with the description: Industrial Zone (medium)
+#. This is a description for an object titled: Industrial Zone (medium)
+msgid "Industrial Zone (medium)"
+msgstr ""
+
+#. This is a title for an object with the description: This small home has a built-in garage.
+msgid "Integrated House"
+msgstr ""
+
+#. This is a title for an object with the description: A decades-old building that could use a few renovations.
+msgid "Inverness Flats"
+msgstr ""
+
+#. This is a description for an object titled: Game Shop
+msgid "Ironically, Cytopia is one of the few games that isn't sold here."
+msgstr ""
+
+#. This is a description for an object titled: Brick Factory
+msgid "Ironically, this factory makes steel beams, not bricks."
+msgstr ""
+
+#. This is a title for an object with the description: Many of the inhabitants of Easter Island live in buildings like this.
+msgid "Islander Hut"
+msgstr ""
+
+#. This is a description for an object titled: Komtar Tower
+msgid "It can be hard to organize square cubicals in a round building."
+msgstr ""
+
+#. This is a description for an object titled: Tall Tower Abode
+msgid "It can only fit a small number of residents due to its tall ceilings."
+msgstr ""
+
+#. This is a description for an object titled: Short Rainbow Residency
+msgid "It looks like the rainbow pattern got cut short..."
+msgstr ""
+
+#. This is a description for an object titled: Holiday Trees
+msgid "It looks like these are already decorated for the winter holidays."
+msgstr ""
+
+#. This is a description for an object titled: Tan Tower
+msgid "It might be an old, bland-looking tower, but it gets the job done."
+msgstr ""
+
+#. This is a description for an object titled: Small Complex
+msgid "It might not be very big, but several families live here."
+msgstr ""
+
+#. This is a description for an object titled: Toxic Waste
+msgid "It seems like someone left their mess here..."
+msgstr ""
+
+#. This is a description for an object titled: Container House
+msgid "It seems like the local harbor has had some of their freight stolen "
+"and placed onto this building."
+msgstr ""
+
+#. This is a description for an object titled: Decaying Hay Barn
+msgid "It's a wonder this building is still standing. It looks like it's "
+"been around for decades."
+msgstr ""
+
+#. This is a description for an object titled: Mystical Mansion
+msgid "It's not big enough to be a real mansion, but the owner insisted it "
+"be called that."
+msgstr ""
+
+#. This is a description for an object titled: Anicro Home
+msgid "It's not very large, but it's perfect for a quant village."
+msgstr ""
+
+#. This is a description for an object titled: Barentin 018
+msgid "It's pristine white walls are hard to come by in polluted "
+"cityscapes. The extra zero in its name hints at something even "
+"taller..."
+msgstr ""
+
+#. This is a description for an object titled: Hexlands Condo
+msgid "It's small, but the interior is very beautiful. Every room is "
+"rainbow themed."
+msgstr ""
+
+#. This is a description for an object titled: Rainbow Falls
+msgid "It's the the colors are spilling off the roof of the building."
+msgstr ""
+
+#. This is a description for an object titled: Castletop Living Spaces
+msgid "Its pillars and railings reminded the architechs of a medieval "
+"fortress."
+msgstr ""
+
+#. This is a description for an object titled: Tourriva
+msgid "Its unique exterior is reminiscent of paint splatterings."
+msgstr ""
+
+#. This is a description for an object titled: SF Chateau
+msgid "Its white walls are sure to brighten up any city block."
+msgstr ""
+
+#. This is a title for an object with the description: Creative engineers and innovative problem-solving.
+msgid "Ivybrick Solutions"
+msgstr ""
+
+#. This is a title for an object with the description: Contrary to popular belief, these hotel rooms are normal-sized.
+msgid "Japanese Hotel"
+msgstr ""
+
+#. This is a title for an object with the description: A large pet store that sells pet snails.
+msgid "Jim's Snail Shop"
+msgstr ""
+
+#. This is a title for an object with the description: The scent of fresh bread makes this shop's products hard to resist.
+msgid "Jimmy's Bread"
+msgstr ""
+
+#. This is a title for an object with the description: A small store that sells food, medicine, and clothes.
+msgid "JoJo Mart"
+msgstr ""
+
+#. This is a title for an object with the description: You'd be surpised how little they actually use the fireplace.
+msgid "Johnson Family's Abode"
+msgstr ""
+
+#. This is a title for an object with the description: These houses have been around for years. You can even see the remains of an old advertisement on one of them.
+msgid "Jura Houses"
+msgstr ""
+
+#. This is a description for an object titled: Plainridge Apartments
+msgid "Just a boring, old apartment complex... Just how the residents like "
+"it!"
+msgstr ""
+
+#. This is a description for an object titled: Celularm's Abode
+msgid "Just an average house. Were you expecting something more?"
+msgstr ""
+
+#. This is a description for an object titled: Etz-Balt Tower
+msgid "Just your average apartment building."
+msgstr ""
+
+#. This is a title for an object with the description: A house like this will stand out in any neighborhood.
+msgid "Juterbog Purple House"
+msgstr ""
+
+#. This is a title for an object with the description: The building looks like a rainbow that's guiding you to its entrance.
+msgid "Kek's Resort"
+msgstr ""
+
+#. This is a title for an object with the description: Fancy apartments for rich people.
+msgid "Ketsuy"
+msgstr ""
+
+#. This is a title for an object with the description: It can be hard to organize square cubicals in a round building.
+msgid "Komtar Tower"
+msgstr ""
+
+#. This is a title for an object with the description: The large windows make many passersby think it's a store of some kind.
+msgid "Korean Block Apartments"
+msgstr ""
+
+#. This is a title for an object with the description: The unique design of the building ensures that rain ALWAYS drips off the roof and onto passersby. It's good at its job, much to the dismay of pedestrians without umbrellas.
+msgid "Korean Cornerside Apartments"
+msgstr ""
+
+#. This is a title for an object with the description: A good place to spend your disposable income. They have a wide variety of clothes, collectables, and toys.
+msgid "Korean Shopping Center"
+msgstr ""
+
+#. This is a title for an object with the description: That's not grass on the roof, they just painted it green. Maybe they wanted to remind the residents want plants look like?
+msgid "Korean Villa"
+msgstr ""
+
+#. This is a title for an object with the description: A series of shops adorned by a street full of lamps.
+msgid "L Shops"
+msgstr ""
+
+#. This is a title for an object with the description: A glass tower with a concrete base.
+msgid "Labor Tower"
+msgstr ""
+
+#. This is a title for an object with the description: Many rich Minnesotans have an extra house near a lake, although most aren't this extravagant.
+msgid "Lakeside Lodge"
+msgstr ""
+
+#. This is a title for an object with the description: A small lantern that can be used to decorate your cities.
+msgid "Lantern"
+msgstr ""
+
+#. This is a title for an object with the description: This large campus can teach hundreds of children and has a built-in playground.
+msgid "Large Elementary School"
+msgstr ""
+
+#. This is a title for an object with the description: These tall concrete towers store grain for livestock and food manufacturers.
+msgid "Large Grain Silos"
+msgstr ""
+
+#. This is a title for an object with the description: This large building can provide thousands of your citizens with top-of-the-line medical help.
+msgid "Large Hospital"
+msgstr ""
+
+#. This is a title for an object with the description: A home so ornate that it has its own breed of palm trees.
+msgid "Lavish Landing"
+msgstr ""
+
+#. This is a title for an object with the description: The beautiful turquoise windows made this building a local landmark for many in the area.
+msgid "Le Caire Condominium"
+msgstr ""
+
+#. This is a title for an object with the description: An extra-fancy version of the original Le Caire Condominium.
+msgid "Le Caire Condominium Ultra"
+msgstr ""
+
+#. This is a title for an object with the description: A modern building from a dense urban region of France.
+msgid "Le Havre Block"
+msgstr ""
+
+#. This is a UiElement with the ID: button level terrain
+msgid "Level Terrain"
+msgstr ""
+
+#. This is a title for an object with the description: This type of conrete is great for businesses and parks.
+msgid "Light Concrete"
+msgstr ""
+
+#. This is a title for an object with the description: A tall light pole that can be used to decorate a town.
+msgid "Light Pole"
+msgstr ""
+
+#. This is a title for an object with the description: Lighthouses shine bright lights into the skies to warn ships about nearby coastlines. Unfortunately, this one doesn't seem to function anymore.
+msgid "Lighthouse"
+msgstr ""
+
+#. This is a description for an object titled: Lighthouse
+msgid "Lighthouses shine bright lights into the skies to warn ships about "
+"nearby coastlines. Unfortunately, this one doesn't seem to function "
+"anymore."
+msgstr ""
+
+#. This is a title for an object with the description: An old and expensive property from France.
+msgid "Lillebonne Brick House"
+msgstr ""
+
+#. This is a title for an object with the description: An expensive house with a nice front yard.
+msgid "Lillebonne Residence"
+msgstr ""
+
+#. This is a title for an object with the description: Lily pads are broad, rounded, heart- or shield-shaped leaves. Frogs like to sit on them!
+msgid "Lily Pads (Dense)"
+msgstr ""
+
+#. This is a title for an object with the description: Lily pads are broad, rounded, heart- or shield-shaped leaves. Frogs like to sit on them!
+msgid "Lily Pads (Light)"
+msgstr ""
+
+#. This is a title for an object with the description: Lily pads are broad, rounded, heart- or shield-shaped leaves. Frogs like to sit on them!
+msgid "Lily Pads (Medium)"
+msgstr ""
+
+#. This is a description for an object titled: Lily Pads (Dense)
+#. This is a description for an object titled: Lily Pads (Light)
+#. This is a description for an object titled: Lily Pads (Medium)
+msgid "Lily pads are broad, rounded, heart- or shield-shaped leaves. Frogs "
+"like to sit on them!"
+msgstr ""
+
+#. This is a title for an object with the description: A pile of rocks that are commonly found jutting out of the water.
+msgid "Limestone Rocks"
+msgstr ""
+
+#. This is a title for an object with the description: Look at the number of parking spaces. Where in the world have these people been parking their cars?
+msgid "Lithuania Major"
+msgstr ""
+
+#. This is a title for an object with the description: A wood house with a tiny porch in the middle.
+msgid "Little L House"
+msgstr ""
+
+#. This is a title for an object with the description: Equiped with a hedge wall and a nice pool, this house is the perfect place to live.
+msgid "Lizzie's Dream House"
+msgstr ""
+
+#. This is a UiElement with the Action: LoadGame
+#: /workspaces/Cytopia/src/Game.cxx:198
+msgid "Load Game"
+msgstr ""
+
+#. This is a description for an object titled: Ima Zinheung Apartments
+msgid "Local residents nicknamed this building the \"Fiery Pillar\" for its "
+"fancy decals and exorbitant rent."
+msgstr ""
+
+#. This is a title for an object with the description: Unfortunately, the floors are not as noise-proof as the brick walls.
+msgid "London Apartment Complex"
+msgstr ""
+
+#. This is a description for an object titled: Lithuania Major
+msgid "Look at the number of parking spaces. Where in the world have these "
+"people been parking their cars?"
+msgstr ""
+
+#. This is a title for an object with the description: The two windows make passersby feel uneasy.
+msgid "Looking House"
+msgstr ""
+
+#. This is a description for an object titled: Ruins
+msgid "Looks like this building has been in disrepair for ages. It's "
+"impossible to tell what it looked like before."
+msgstr ""
+
+#. This is a title for an object with the description: This tower is adorned with a beautiful red accent.
+msgid "Lovely Apartments"
+msgstr ""
+
+#. This is a subCategory
+msgid "Low Commercial"
+msgstr ""
+
+#. This is a subCategory
+msgid "Low Industrial"
+msgstr ""
+
+#. This is a subCategory
+msgid "Low Residential"
+msgstr ""
+
+#. This is a description for an object titled: Scandinavian Apartments
+msgid "Low-cost rooms inside a small purple building."
+msgstr ""
+
+#. This is a UiElement with the ID: button lower terrain
+msgid "Lower Terrain"
+msgstr ""
+
+#. This is a title for an object with the description: A french apartment building with a penthouse at the top.
+msgid "Luciline Banks Aprtments"
+msgstr ""
+
+#. This is a title for an object with the description: Custom orders are made here for businesses and homes alike.
+msgid "Machining Shop"
+msgstr ""
+
+#. This is a title for an object with the description: A french building dedicated to processing and shipping packages.
+msgid "Mailing Office"
+msgstr ""
+
+#. This is a title for an object with the description: A series of shops located in the middle of a small town
+msgid "Main Street Market"
+msgstr ""
+
+#. This is a title for an object with the description: An expensive cube-shaped apartment complex.
+msgid "Maison Moderne"
+msgstr ""
+
+#. This is a description for an object titled: Chemical Plant
+msgid "Making chemicals for high school science experients since 1876!"
+msgstr ""
+
+#. This is a title for an object with the description: For some reason, the building makes passersby hungry for ice cream...
+msgid "Manaus Brown Building"
+msgstr ""
+
+#. This is a title for an object with the description: There's a rumor that the walls of this building taste like fruit. They're false, of course (not that I tried it or anything).
+msgid "Mango Residency"
+msgstr ""
+
+#. This is a title for an object with the description: A nice home that originates from France.
+msgid "Mannevillette Manor"
+msgstr ""
+
+#. This is a description for an object titled: Hexland Mall
+msgid "Many high-end electronic and clothing stores are located here."
+msgstr ""
+
+#. This is a description for an object titled: Islander Hut
+msgid "Many of the inhabitants of Easter Island live in buildings like this."
+msgstr ""
+
+#. This is a description for an object titled: Lakeside Lodge
+msgid "Many rich Minnesotans have an extra house near a lake, although most "
+"aren't this extravagant."
+msgstr ""
+
+#. This is a description for an object titled: Tri-Box Tower
+msgid "Many shops and offices can be found within this slim tower's "
+"interior."
+msgstr ""
+
+#. This is a description for an object titled: Waterson's House
+msgid "Many years of shenanigans have taken place here."
+msgstr ""
+
+#. This is a title for an object with the description: A modern structure with an elegant paintjob. It looks stunning when the sun is rising.
+msgid "Maromme High-Rise"
+msgstr ""
+
+#. This is a title for an object with the description: The blue roof and orange accents make this house stand out.
+msgid "Matt's House"
+msgstr ""
+
+#. This is a title for an object with the description: They serve almost any food you can imagine here. There are sections dedicated to foods from each part of the world.
+msgid "McDalle's Buffet and More"
+msgstr ""
+
+#. This is a subCategory
+msgid "Medium Commercial"
+msgstr ""
+
+#. This is a title for an object with the description: A classic depolluter building that has been repurposed as a factory. Unfortunately, it is not used to purify the air anymore.
+msgid "Medium Depolluter"
+msgstr ""
+
+#. This is a subCategory
+msgid "Medium Industrial"
+msgstr ""
+
+#. This is a title for an object with the description: The rainbow is so close, yet so far.
+msgid "Medium Rainbow Residency"
+msgstr ""
+
+#. This is a subCategory
+msgid "Medium Residential"
+msgstr ""
+
+#. This is a title for an object with the description: One of the most comfortable hotels from the southern US.
+msgid "Miami Central Hotel"
+msgstr ""
+
+#. This is a title for an object with the description: This house is barely large enough to support a single person. Most would mistake it for a garden shed.
+msgid "Micro Cottage"
+msgstr ""
+
+#. This is a title for an object with the description: An old house that has been refurbished for modern homeowners.
+msgid "Middle Age Lodging"
+msgstr ""
+
+#. This is a title for an object with the description: Although they can only serve a handful of people at a time, these small restaurants are very popular in rural communities for their cheap prices.
+msgid "Mini Borg's Burgers"
+msgstr ""
+
+#. This is a title for an object with the description: This building converts pollution into cans of compressed air and hairspray. However, it is too small to have an effect on the environment.
+msgid "Mini Depolluter"
+msgstr ""
+
+#. This is a title for an object with the description: Terrain Grass Mint Forest tiles
+msgid "Minty Forest Grass"
+msgstr ""
+
+#. This is a title for an object with the description: Terrain grass mint tiles
+msgid "Minty Grass"
+msgstr ""
+
+#. This is a title for an object with the description: The owner used to run a small diesel mechanic shop here. His garage is big enough to hold a semi truck.
+msgid "Mobile Mechanic"
+msgstr ""
+
+#. This is a title for an object with the description: 
+msgid "Modern European Road"
+msgstr ""
+
+#. This is a title for an object with the description: This place is equiped with rose bushes and an outdoor pool. The owner never seems to go swimming though. Maybe he's allergic to water or something.
+msgid "Modern Luxurious House"
+msgstr ""
+
+#. This is a title for an object with the description: The building owners takes pride in the plants they grow in front of the building.
+msgid "Monaco Tan Tower"
+msgstr ""
+
+#. This is a title for an object with the description: Despite looking somewhat-old, this building is equiped with everything a modern person would need. It even has an elevator in the red tower.
+msgid "Montreal Special"
+msgstr ""
+
+#. This is a title for an object with the description: A large building where Muslims gather to celebrate their religion.
+msgid "Mosque"
+msgstr ""
+
+#. This is a title for an object with the description: Terrain mud tiles
+msgid "Mud"
+msgstr ""
+
+#. This is a title for an object with the description: A fancy brick pattern made out of dirt-cheap materials.
+msgid "Mud Brick"
+msgstr ""
+
+#. This is a title for an object with the description: A variety of services and goods are provided here.
+msgid "Multi-Floor Strip Mall"
+msgstr ""
+
+#. This is a title for an object with the description: Rows of identical houses like this are common in suburban areas around the United States.
+msgid "Multi-Minnesotan Houses"
+msgstr ""
+
+#. This is a title for an object with the description: Several businesses are located in this small area.
+msgid "Multi-Store"
+msgstr ""
+
+#. This is a title for an object with the description: A group of mysterious mushroom trees.
+msgid "Mushrooms (Dense)"
+msgstr ""
+
+#. This is a title for an object with the description: A group of mysterious mushroom trees.
+msgid "Mushrooms (Light)"
+msgstr ""
+
+#. This is a title for an object with the description: A group of mysterious mushroom trees.
+msgid "Mushrooms (Medium)"
+msgstr ""
+
+#. This is a title for an object with the description: It's not big enough to be a real mansion, but the owner insisted it be called that.
+msgid "Mystical Mansion"
+msgstr ""
+
+#. This is a title for an object with the description: A white building with asymmetrical architecture.
+msgid "Nasus Building"
+msgstr ""
+
+#. This is a category
+#. This is a UiElement with the ID: nature menu
+msgid "Nature"
+msgstr ""
+
+#. This is a UiElement with the Action: NewGame
+#: /workspaces/Cytopia/src/Game.cxx:183
+msgid "New Game"
+msgstr ""
+
+#. This is a title for an object with the description: In classic NYC fashion, this building has a billboard attached to it.
+msgid "New York Style "
+msgstr ""
+
+#. This is a subCategory
+msgid "Normal Trees"
+msgstr ""
+
+#. This is a title for an object with the description: A cozy little home with brick accents.
+msgid "Norman Villa"
+msgstr ""
+
+#. This is a title for an object with the description: This large building is made of wood and stone. There is a fancy fireplace in the right-most building.
+msgid "Northern Scandinavian Estate"
+msgstr ""
+
+#. This is a description for an object titled: Villagers
+msgid "Not a phone in sight, just a bunch of primitive people living in the "
+"moment."
+msgstr ""
+
+#. This is a UiElement with the Action: SaveSettings
+msgid "OK"
+msgstr ""
+
+#. This is a title for an object with the description: A group of oak trees.
+msgid "Oak Trees (Dense)"
+msgstr ""
+
+#. This is a title for an object with the description: A group of oak trees.
+msgid "Oak Trees (Light)"
+msgstr ""
+
+#. This is a title for an object with the description: A group of oak trees.
+msgid "Oak Trees (Medium)"
+msgstr ""
+
+#. This is a title for an object with the description: A small pond that can be found rarely in deserts. Fortunately, this one isn't a mirage.
+msgid "Oasis"
+msgstr ""
+
+#. This is a description for an object titled: Bob's Kebabs
+msgid "Oddly enough, the owner of the restaurant is named John."
+msgstr ""
+
+#. This is a title for an object with the description: Pumps oil from deep underground.
+msgid "Oil Pump"
+msgstr ""
+
+#. This is a title for an object with the description: An old building that has been converted into a house.
+msgid "Old Desert Church"
+msgstr ""
+
+#. This is a title for an object with the description: 
+msgid "Old European Road"
+msgstr ""
+
+#. This is a title for an object with the description: This building looks like it has been around for decades, although no one knows what is stored inside.
+msgid "Old Industrial Warehouse"
+msgstr ""
+
+#. This is a title for an object with the description: An old power plant that was converted into a shirt factory.
+#. This is a title for an object with the description: An ancient coal power plant that has been turned into a factory. Its safety regulations are just as outdated as the building itself.
+msgid "Old Power Plant"
+msgstr ""
+
+#. This is a description for an object titled: Black Box Building
+msgid "Old building"
+msgstr ""
+
+#. This is a title for an object with the description: If you live here, I hope you aren't afraid of heights.
+msgid "One Rincon Hill Towers"
+msgstr ""
+
+#. This is a description for an object titled: Concrete Tram Rails
+msgid "One of the fanciest way to get around town."
+msgstr ""
+
+#. This is a description for an object titled: Miami Central Hotel
+msgid "One of the most comfortable hotels from the southern US."
+msgstr ""
+
+#. This is a description for an object titled: Dual Spanish Shops
+msgid "One shop sells goldfish, while the other sells fishing equipment. "
+"The shops' owners love being passive-agressive to each other."
+msgstr ""
+
+#. This is a description for an object titled: Tall Rainbow Residency
+msgid "Only the buildings that soar highest get to see the whole rainbow."
+msgstr ""
+
+#. This is a description for an object titled: Tour Vauban
+msgid "Only the luckiest office workers get to sit by the windows."
+msgstr ""
+
+#. This is a title for an object with the description: Decorative vines seem to be very popular with this home owner.
+msgid "Orange Mediterranean Home"
+msgstr ""
+
+#. This is a description for an object titled: Soccer Field
+msgid "Outside of North America, soccer is one of the most popular sports. "
+"All it takes to play is a couple nets and a ball."
+msgstr ""
+
+#. This is a title for an object with the description: The tower was useful for surveying the local area hundreds of years ago.
+msgid "Overviewer's Dwelling"
+msgstr ""
+
+#. This is a title for an object with the description: A group of palmtrees.
+msgid "Palm Trees (Dense)"
+msgstr ""
+
+#. This is a title for an object with the description: A group of palmtrees.
+msgid "Palm Trees (Light)"
+msgstr ""
+
+#. This is a title for an object with the description: A group of palmtrees.
+msgid "Palm Trees (Medium)"
+msgstr ""
+
+#. This is a description for an object titled: Ramponneau
+msgid "Parking vouchers cost the residents an arm and a leg."
+msgstr ""
+
+#. This is a title for an object with the description: A nice paved road that is perfect for city streets.
+msgid "Paved Road"
+msgstr ""
+
+#. This is a title for an object with the description: A decorative patch of road pavement that is often used in parking lots.
+msgid "Pavement"
+msgstr ""
+
+#. This is a title for an object with the description: The walls should be white and bright orange, but they haven't been cleaned in a while.
+msgid "Peaceful Living Solutions"
+msgstr ""
+
+#. This is a title for an object with the description: A group of people hanging out in your town.
+msgid "People"
+msgstr ""
+
+#. This is a title for an object with the description: A tall building from Perpignan, France.
+msgid "Perpignan Residence"
+msgstr ""
+
+#. This is a title for an object with the description: This apartment building has a fancy lobby at the bottom.
+msgid "Perpignan Tower"
+msgstr ""
+
+#. This is a title for an object with the description: The cornerstone of any small town.
+msgid "Petrol Station"
+msgstr ""
+
+#. This is a title for an object with the description: An office building that specializes in water-based technology.
+msgid "Phelps Co."
+msgstr ""
+
+#. This is a title for an object with the description: An old phone booth that can be used to decorate your cities.
+msgid "Phone Booth"
+msgstr ""
+
+#. This is a title for an object with the description: A store that sells phones. It even has the new CyPhone X
+msgid "Phone Shop"
+msgstr ""
+
+#. This is a title for an object with the description: For some reason, the owner has an obsession with pickled cucumbers. Legends say that he turned himself into a pickle. It was the funniest thing I've ever heard.
+msgid "Pickleman's House"
+msgstr ""
+
+#. This is a title for an object with the description: A great place to relax and eat lunch.
+msgid "Picnic Area"
+msgstr ""
+
+#. This is a title for an object with the description: A picnic pavilion is a great place for your citizens to eat lunch.
+msgid "Picnic Pavilion"
+msgstr ""
+
+#. This is a title for an object with the description: A group of picnic tables that your citizens can use to eat lunch at.
+msgid "Picnic Tables"
+msgstr ""
+
+#. This is a title for an object with the description: A group of beautiful pinetrees.
+msgid "Pine Trees (Dense)"
+msgstr ""
+
+#. This is a title for an object with the description: A group of beautiful pinetrees.
+msgid "Pine Trees (Light)"
+msgstr ""
+
+#. This is a title for an object with the description: A group of beautiful pinetrees.
+msgid "Pine Trees (Medium)"
+msgstr ""
+
+#. This is a title for an object with the description: The view from the top floor would be great if the windows didn't just point towards the sky.
+msgid "Pinetree Place"
+msgstr ""
+
+#. This is a title for an object with the description: I scream for ice cream!
+msgid "PinkCone Ice Cream Parlor"
+msgstr ""
+
+#. This is a description for an object titled: Water Pipes
+msgid "Pipes are used for transporting water."
+msgstr ""
+
+#. This is a title for an object with the description: Just a boring, old apartment complex... Just how the residents like it!
+msgid "Plainridge Apartments"
+msgstr ""
+
+#. This is a title for an object with the description: Great for park centers or other areas where large groups of people gather.
+msgid "Plaza"
+msgstr ""
+
+#. This is a title for an object with the description: A large plaza with a pool of water in the middle.
+msgid "Plaza Park"
+msgstr ""
+
+#. This is a title for an object with the description: The residents love to grow flowers on the balconies.
+msgid "Pleasant White Home "
+msgstr ""
+
+#. This is a title for an object with the description: This poor grass is wilting from a lack of maintenance.
+msgid "Polluted Grass"
+msgstr ""
+
+#. This is a title for an object with the description: A small body of water surrounded by cattails and wild rice.
+msgid "Pond"
+msgstr ""
+
+#. This is a title for an object with the description: A poplar tree
+msgid "Poplars (Dense)"
+msgstr ""
+
+#. This is a title for an object with the description: A poplar tree
+msgid "Poplars (Light)"
+msgstr ""
+
+#. This is a title for an object with the description: A poplar tree
+msgid "Poplars (Medium)"
+msgstr ""
+
+#. This is a title for an object with the description: The best BBQ food west of the Mississippi River!
+msgid "Port Angeles BBQ"
+msgstr ""
+
+#. This is a title for an object with the description: The bushes in front of the building stay green year-round.
+msgid "Posh Apartments"
+msgstr ""
+
+#. This is a description for an object titled: Bois Guillaume Apartments
+msgid "Posh apartments for incredibly rich people."
+msgstr ""
+
+#. This is a category
+#. This is a UiElement with the ID: power menu
+msgid "Power"
+msgstr ""
+
+#. This is a title for an object with the description: A great way to show your appreciation to friends and family.
+msgid "Presents"
+msgstr ""
+
+#. This is a title for an object with the description: A square of decorative concrete adorned with a fancy pattern.
+msgid "Pretty Concrete"
+msgstr ""
+
+#. This is a category
+msgid "Prison"
+msgstr ""
+
+#. This is a title for an object with the description: 
+msgid "Prison Fence"
+msgstr ""
+
+#. This is a description for an object titled: Industrial Wood Mill
+msgid "Produces wood planks and sawdust for other industries."
+msgstr ""
+
+#. This is a description for an object titled: Oil Pump
+msgid "Pumps oil from deep underground."
+msgstr ""
+
+#. This is a title for an object with the description: A common sight in the urban parts of North Korea.
+msgid "Pyongyang Place"
+msgstr ""
+
+#. This is a title for an object with the description: While this building has a unique shape, it lacks any windows or alternate exits.
+msgid "Pyramid"
+msgstr ""
+
+#. This is a title for an object with the description: The big windows make it look like a store, but it is actually the lobby of the building.
+msgid "Quailutece Condos"
+msgstr ""
+
+#. This is a title for an object with the description: The most interesting fact about this home is how uninteresting it is. Now that's in-teresting-ception!
+msgid "Quaint Eastern European House"
+msgstr ""
+
+#. This is a UiElement with the Action: QuitGame
+#: /workspaces/Cytopia/src/Game.cxx:211
+msgid "Quit Game"
+msgstr ""
+
+#. This is a title for an object with the description: A large pile of coal. The dust coming from these piles can pose a risk to the local area.
+msgid "Radio Tower"
+msgstr ""
+
+#. This is a title for an object with the description: It's the the colors are spilling off the roof of the building.
+msgid "Rainbow Falls"
+msgstr ""
+
+#. This is a title for an object with the description: A nice house from the Mount Rainer region of Washington, USA.
+msgid "Rainer Residence"
+msgstr ""
+
+#. This is a title for an object with the description: Terrain Rainstone tiles
+msgid "Rainstone"
+msgstr ""
+
+#. This is a UiElement with the ID: button raise terrain
+msgid "Raise Terrain"
+msgstr ""
+
+#. This is a title for an object with the description: Parking vouchers cost the residents an arm and a leg.
+msgid "Ramponneau"
+msgstr ""
+
+#. This is a title for an object with the description: Almost everything you can imagine can be bought here in bulk.
+msgid "Random Trading Co."
+msgstr ""
+
+#. This is a category
+#. This is a UiElement with the ID: recreation menu
+msgid "Recreation"
+msgstr ""
+
+#. This is a title for an object with the description: The owner is incredibly proud of the name she gave the house, even if her friends think its's cliche.
+msgid "Red Retreat"
+msgstr ""
+
+#. This is a title for an object with the description: Terrain Red Sand tiles
+msgid "Red Sand"
+msgstr ""
+
+#. This is a title for an object with the description: A smoothened tile made out of red sand.
+msgid "Red Sandstone"
+msgstr ""
+
+#. This is a category
+msgid "Residential"
+msgstr ""
+
+#. This is a title for an object with the description: Residential Zone (dense).
+msgid "Residential Zone (dense)"
+msgstr ""
+
+#. This is a description for an object titled: Residential Zone (dense)
+msgid "Residential Zone (dense)."
+msgstr ""
+
+#. This is a title for an object with the description: Residential Zone (light).
+msgid "Residential Zone (light)"
+msgstr ""
+
+#. This is a description for an object titled: Residential Zone (light)
+msgid "Residential Zone (light)."
+msgstr ""
+
+#. This is a title for an object with the description: Residential Zone (medium).
+msgid "Residential Zone (medium)"
+msgstr ""
+
+#. This is a description for an object titled: Residential Zone (medium)
+msgid "Residential Zone (medium)."
+msgstr ""
+
+#. This is a description for an object titled: Twisty Tower
+msgid "Residents living on the edges of the building feel like it will "
+"collapse at any moment. However, the tower is perfectly balanced."
+msgstr ""
+
+#. This is a category
+msgid "Reward"
+msgstr ""
+
+#. This is a description for an object titled: Wild Rice (Dense)
+#. This is a description for an object titled: Wild Rice (Light)
+#. This is a description for an object titled: Wild Rice (Medium)
+msgid "Rice is normally grown as an annual plant, although in tropical "
+"areas it can survive as a perennial and can produce a ratoon crop "
+"for up to 30 years."
+msgstr ""
+
+#. This is a title for an object with the description: That big plant was placed there by mistake. It was actually a regular houseplant at some point.
+msgid "Rich Concrete Office"
+msgstr ""
+
+#. This is a title for an object with the description: Everyone pays Rick rent, but no one knows his last name...
+msgid "Rick's Residential Rentals"
+msgstr ""
+
+#. This is a category
+msgid "Roads"
+msgstr ""
+
+#. This is a title for an object with the description: The bushes outside the building grow berries every year. The children love to eat them.
+msgid "Romanian Living Units"
+msgstr ""
+
+#. This is a title for an object with the description: The residents here are quite nice.
+msgid "Rouen Flats"
+msgstr ""
+
+#. This is a title for an object with the description: This building is well-known for its awesome gardens.
+msgid "Rouen Imm St. Ange"
+msgstr ""
+
+#. This is a title for an object with the description: This patch of grass could use a trimming soon.
+msgid "Rough Grass"
+msgstr ""
+
+#. This is a title for an object with the description: A couple of small homes. The owners try their best to keep their yards looking good.
+msgid "Rough-Side Repeats"
+msgstr ""
+
+#. This is a title for an object with the description: Several companies have offices located here.
+msgid "Round Office"
+msgstr ""
+
+#. This is a title for an object with the description: A cheap way to shelter groups of citizens.
+msgid "Row House"
+msgstr ""
+
+#. This is a description for an object titled: Multi-Minnesotan Houses
+msgid "Rows of identical houses like this are common in suburban areas "
+"around the United States."
+msgstr ""
+
+#. This is a title for an object with the description: This tall building has a small floral shop at the bottom.
+msgid "Rue Gros Horloge Store"
+msgstr ""
+
+#. This is a title for an object with the description: A series of stores from France.
+msgid "Rue Jacques Huet"
+msgstr ""
+
+#. This is a title for an object with the description: Looks like this building has been in disrepair for ages. It's impossible to tell what it looked like before.
+msgid "Ruins"
+msgstr ""
+
+#. This is a title for an object with the description: An old post office that has been repurposed as an antique store.
+msgid "Run-Down Skinny Shop"
+msgstr ""
+
+#. This is a title for an object with the description: A rural road from france with worn asphalt.
+msgid "Rural French Road"
+msgstr ""
+
+#. This is a title for an object with the description: A rural road from france with fresh asphalt.
+msgid "Rural French Road fresh"
+msgstr ""
+
+#. This is a title for an object with the description: A rural road from france with worn asphalth a straight line.
+msgid "Rural French Road lined"
+msgstr ""
+
+#. This is a title for an object with the description: A beautiful area to enjoy modern art and nature.
+msgid "Rustic Park"
+msgstr ""
+
+#. This is a title for an object with the description: An old piece of junk that was left here years ago.
+msgid "Rusty Cars"
+msgstr ""
+
+#. This is a title for an object with the description: An old apartment building topped with a water tower and some advertisements.
+msgid "SF Building"
+msgstr ""
+
+#. This is a title for an object with the description: Its white walls are sure to brighten up any city block.
+msgid "SF Chateau"
+msgstr ""
+
+#. This is a title for an object with the description: The backyard garden is so serene that a few residents have fallen asleep there.
+msgid "Safranbolu Rentals"
+msgstr ""
+
+#. This is a title for an object with the description: A group of sakura trees.
+msgid "Sakura Trees (Dense)"
+msgstr ""
+
+#. This is a title for an object with the description: A group of sakura trees.
+msgid "Sakura Trees (Light)"
+msgstr ""
+
+#. This is a title for an object with the description: A group of sakura trees.
+msgid "Sakura Trees (Medium)"
+msgstr ""
+
+#. This is a title for an object with the description: An absolutely massive building that helps manage a large tech company. They employ marketers, engineers, CEOs, and more.
+msgid "Samson's HQ"
+msgstr ""
+
+#. This is a title for an object with the description: A pile of sandstone rocks commonly found in deserts.
+msgid "Sandstone Rocks"
+msgstr ""
+
+#. This is a title for an object with the description: A tall sandstone building plastered with ads.
+msgid "Sandstone Tower"
+msgstr ""
+
+#. This is a title for an object with the description: Unfortunately, this place does NOT have air conditioning.
+msgid "Sandy Digs"
+msgstr ""
+
+#. This is a title for an object with the description: The exterior is beautiful, and the prices are great.
+msgid "Sao Paulo Department Store"
+msgstr ""
+
+#. This is a title for an object with the description: A fancy multi-story mall from Brazil.
+msgid "Sao Paulo Tower"
+msgstr ""
+
+#. This is a UiElement with the Action: SaveGame
+msgid "Save Game"
+msgstr ""
+
+#. This is a title for an object with the description: A plain brown office building with a few tree out front.
+msgid "Scandic Office"
+msgstr ""
+
+#. This is a title for an object with the description: Low-cost rooms inside a small purple building.
+msgid "Scandinavian Apartments"
+msgstr ""
+
+#. This is a title for an object with the description: The workers here spend all day making useful programs for the world.
+msgid "Scandinavian Office"
+msgstr ""
+
+#. This is a description for an object titled: Colored Scandinavian House
+msgid "Scandinavians are well known for their colorful homes, and this "
+"building is no exception."
+msgstr ""
+
+#. This is a category
+msgid "School"
+msgstr ""
+
+#. This is a UiElement with of the type: Text
+msgid "Screen Resolution"
+msgstr ""
+
+#. This is a title for an object with the description: This tower also grazes the clouds in the sky.
+msgid "Seattle Infinite"
+msgstr ""
+
+#. This is a title for an object with the description: Despite the fancy exterior, the inside is filled with rows of bland cubicals.
+msgid "Seattle Office Tower"
+msgstr ""
+
+#. This is a description for an object titled: Diggity Dog's
+msgid "Selling North America's favorite cuisine for over 70 years!"
+msgstr ""
+
+#. This is a title for an object with the description: This modern house comes in four amazing colors.
+msgid "Semi D."
+msgstr ""
+
+#. This is a title for an object with the description: The owner named his house this way to convince his peers that he could speak French. He failed.
+msgid "Semistouen Block"
+msgstr ""
+
+#. This is a UiElement with of the type: TextButton
+#. This is a UiElement with of the type: Text
+msgid "Settings"
+msgstr ""
+
+#. This is a title for an object with the description: Why did they name it this way? It's obviously a rectangle!
+msgid "Settled Square"
+msgstr ""
+
+#. This is a description for an object titled: Multi-Store
+msgid "Several businesses are located in this small area."
+msgstr ""
+
+#. This is a description for an object titled: Round Office
+msgid "Several companies have offices located here."
+msgstr ""
+
+#. This is a description for an object titled: Zealandia Shops
+msgid "Several offices and stores are located in these buildings."
+msgstr ""
+
+#. This is a title for an object with the description: Terrain shading tiles
+msgid "Shading"
+msgstr ""
+
+#. This is a title for an object with the description: This looks like something you'd see in a faraway space colony.
+msgid "Short Hexlands Apartments"
+msgstr ""
+
+#. This is a title for an object with the description: It looks like the rainbow pattern got cut short...
+msgid "Short Rainbow Residency"
+msgstr ""
+
+#. This is a title for an object with the description: This building is a couple square meters away from being a storage shed.
+msgid "Short Shack"
+msgstr ""
+
+#. This is a title for an object with the description: An ugly tower that is begging to be demolished.
+msgid "Short Skyscraper"
+msgstr ""
+
+#. This is a title for an object with the description: A not-so-humble name for such a nice house.
+msgid "Siauliai Shack"
+msgstr ""
+
+#. This is a title for an object with the description: Concrete like this can be found on roadsides all around the world.
+msgid "Sidewalk Concrete"
+msgstr ""
+
+#. This is a title for an object with the description: A train platform with a large sign on it.
+msgid "Sign Platform"
+msgstr ""
+
+#. This is a title for an object with the description: A modern-looking home that is large enough for a small family.
+msgid "Silver Villa"
+msgstr ""
+
+#. This is a title for an object with the description: After they repaired their window, business has been booming.
+msgid "Simone's Car Emporium"
+msgstr ""
+
+#. This is a title for an object with the description: This home has an outside stairway that leads to the roof.
+msgid "Simple Desert House"
+msgstr ""
+
+#. This is a title for an object with the description: A fancier version of the light pole.
+msgid "Single Light"
+msgstr ""
+
+#. This is a title for an object with the description: The great views it provides and its rich blue hue gave this building its name.
+msgid "Skyview"
+msgstr ""
+
+#. This is a title for an object with the description: These shops used to look vibrant, but decades of rain and ocean waves slowly eroded their paint.
+msgid "Slanted Beach Shop"
+msgstr ""
+
+#. This is a title for an object with the description: This building used to be a coal power plant before it was converted to a factory. Its windows are so dirty that it is impossible to see what is made inside.
+msgid "Small Brick Factory"
+msgstr ""
+
+#. This is a title for an object with the description: While it lacks a large backyard, the brick exterior makes this house very desirable.
+msgid "Small Brick House"
+msgstr ""
+
+#. This is a title for an object with the description: It might not be very big, but several families live here.
+msgid "Small Complex"
+msgstr ""
+
+#. This is a title for an object with the description: Small warehouses like this are used all around the world for storage of goods.
+msgid "Small Concrete Warehouse"
+msgstr ""
+
+#. This is a title for an object with the description: This school is perfect for small communities. It's not flashy, but it has everything it needs to teach young students.
+msgid "Small Elementary School"
+msgstr ""
+
+#. This is a title for an object with the description: This building is perfect for proecting small towns from deadly fires.
+msgid "Small Fire Department"
+msgstr ""
+
+#. This is a title for an object with the description: A small building dedicated to industrial testing for the military.
+msgid "Small Military Facility"
+msgstr ""
+
+#. This is a title for an object with the description: A small office building with a nice sidewalk and a unique blue entrance.
+msgid "Small Office Building"
+msgstr ""
+
+#. This is a title for an object with the description: A great choice for protecting an area from crime.
+msgid "Small Police Station"
+msgstr ""
+
+#. This is a title for an object with the description: A small house that can only accommodate a few people.
+msgid "Small Shack"
+msgstr ""
+
+#. This is a title for an object with the description: A small piece of land where impoverished people reside.
+msgid "Small Shantytown"
+msgstr ""
+
+#. This is a title for an object with the description: A small shed used by nearby factories as a way to store things.
+msgid "Small Storage Shed"
+msgstr ""
+
+#. This is a title for an object with the description: A very small family lives here.
+msgid "Small Suburb"
+msgstr ""
+
+#. This is a title for an object with the description: A small train platform that has a small structure on it.  People can wait here until the train comes, although there isnt much room inside.
+msgid "Small Waiting Platform"
+msgstr ""
+
+#. This is a title for an object with the description: This tower can provide enough water for a small community.
+msgid "Small Water Tower"
+msgstr ""
+
+#. This is a description for an object titled: Small Concrete Warehouse
+msgid "Small warehouses like this are used all around the world for storage "
+"of goods."
+msgstr ""
+
+#. This is a description for an object titled: Village Huts
+msgid "Small wooden structures made to protect their residents against the "
+"elements."
+msgstr ""
+
+#. This is a title for an object with the description: This dirt has been refined so that all the trigs and rocks are removed.
+msgid "Smooth Dirt"
+msgstr ""
+
+#. This is a title for an object with the description: This pristine type of grass can be found in public parks and outside big mansions.
+msgid "Smooth Grass"
+msgstr ""
+
+#. This is a title for an object with the description: A refined version of the stone tiles you can find around the world.
+msgid "Smooth Stone"
+msgstr ""
+
+#. This is a title for an object with the description: A small game company that makes platformers and shoot-em-ups.
+msgid "Snails Incorporated"
+msgstr ""
+
+#. This is a title for an object with the description: Terrain Snow tiles
+msgid "Snow"
+msgstr ""
+
+#. This is a title for an object with the description: Some snowmen with coal eyes and carrot noses. Despite the snow, it is rumoured that they like warm hugs.
+msgid "Snowmen"
+msgstr ""
+
+#. This is a title for an object with the description: Outside of North America, soccer is one of the most popular sports. All it takes to play is a couple nets and a ball.
+msgid "Soccer Field"
+msgstr ""
+
+#. This is a title for an object with the description: Terrain soil tiles
+msgid "Soil"
+msgstr ""
+
+#. This is a title for an object with the description: Solar panels are one of the cleanest energy sources on Earth! However, they take up a lot of space and are somewhat expensive.
+msgid "Solar Panels"
+msgstr ""
+
+#. This is a description for an object titled: Solar Panels
+msgid "Solar panels are one of the cleanest energy sources on Earth! "
+"However, they take up a lot of space and are somewhat expensive."
+msgstr ""
+
+#. This is a description for an object titled: Snowmen
+msgid "Some snowmen with coal eyes and carrot noses. Despite the snow, it "
+"is rumoured that they like warm hugs."
+msgstr ""
+
+#. This is a title for an object with the description: The roof is a popular place for the residents to relax and socialize.
+msgid "Sonora Flats"
+msgstr ""
+
+#. This is a title for an object with the description: A huge stadium that is used for professional soccer matches. This particular building is the Stade Oceane, which is located in Le Havre, France.
+msgid "Sports Stadium"
+msgstr ""
+
+#. This is a title for an object with the description: A densely-packed skyscaper with black-tinted windows.
+msgid "Sri Lanka Setup"
+msgstr ""
+
+#. This is a title for an object with the description: This place sells guitars and antiques.
+msgid "Stair-Step Shop"
+msgstr ""
+
+#. This is a title for an object with the description: This brightly-colored warhouse is used by medium-sized businesses.
+msgid "Steel Warehouse"
+msgstr ""
+
+#. This is a title for an object with the description: Terrain Stone tiles
+msgid "Stone"
+msgstr ""
+
+#. This is a title for an object with the description: A series of stone bricks that have been placed on the ground.
+msgid "Stone Bricks"
+msgstr ""
+
+#. This is a title for an object with the description: A group of stone pines.
+msgid "Stone Pines (Dense)"
+msgstr ""
+
+#. This is a title for an object with the description: A group of stone pines.
+msgid "Stone Pines (Light)"
+msgstr ""
+
+#. This is a title for an object with the description: A group of stone pines.
+msgid "Stone Pines (Medium)"
+msgstr ""
+
+#. This is a description for an object titled: Grain Processing Plant
+msgid "Stores a variety of grains and makes them into cereal and bread."
+msgstr ""
+
+#. This is a title for an object with the description: Streams can be found throughout the landscape near larger sources of water.
+msgid "Stream"
+msgstr ""
+
+#. This is a description for an object titled: Stream
+msgid "Streams can be found throughout the landscape near larger sources of "
+"water."
+msgstr ""
+
+#. This is a title for an object with the description: Sugarcane is a tropical plant made famous for its use in candies and soda.
+msgid "Sugarcane (Dense)"
+msgstr ""
+
+#. This is a title for an object with the description: Sugarcane is a tropical plant made famous for its use in candies and soda.
+msgid "Sugarcane (Light)"
+msgstr ""
+
+#. This is a title for an object with the description: Sugarcane is a tropical plant made famous for its use in candies and soda.
+msgid "Sugarcane (Medium)"
+msgstr ""
+
+#. This is a description for an object titled: Sugarcane (Dense)
+#. This is a description for an object titled: Sugarcane (Light)
+#. This is a description for an object titled: Sugarcane (Medium)
+msgid "Sugarcane is a tropical plant made famous for its use in candies and "
+"soda."
+msgstr ""
+
+#. This is a title for an object with the description: A very old ship that crashed here long ago. Its origin is unkown, but I think it's safe to say what happened to its crew.
+msgid "Sunken Ship"
+msgstr ""
+
+#. This is a title for an object with the description: A nice public pool that is a great way to stay cool and keep your citizens happy.
+msgid "Swimming Pool"
+msgstr ""
+
+#. This is a title for an object with the description: The rooms here are comparable to college dorm rooms.
+msgid "Swiss Housing"
+msgstr ""
+
+#. This is a title for an object with the description: The owners took one look at the floor plan and instantly knew what to name the place.
+msgid "T House"
+msgstr ""
+
+#. This is a title for an object with the description: A rather plain hotel with rather average service.
+msgid "Tacoma Hotel"
+msgstr ""
+
+#. This is a title for an object with the description: A small home from the suburban United States.
+msgid "Tacoma Residence"
+msgstr ""
+
+#. This is a title for an object with the description: A bland-looking apartment building made out of concrete.
+msgid "Tall Concrete Tower"
+msgstr ""
+
+#. This is a title for an object with the description: In the tall grass.
+msgid "Tall Grass (Dense)"
+msgstr ""
+
+#. This is a title for an object with the description: In the tall grass.
+msgid "Tall Grass (Light)"
+msgstr ""
+
+#. This is a title for an object with the description: In the tall grass.
+msgid "Tall Grass (Medium)"
+msgstr ""
+
+#. This is a title for an object with the description: If you like high rent and tall apartment buildings, this is the place for you!
+msgid "Tall Hexlands Apartments"
+msgstr ""
+
+#. This is a title for an object with the description: Only the buildings that soar highest get to see the whole rainbow.
+msgid "Tall Rainbow Residency"
+msgstr ""
+
+#. This is a title for an object with the description: A cheap way to shelter larger groups of citizens. 
+msgid "Tall Row House"
+msgstr ""
+
+#. This is a title for an object with the description: It can only fit a small number of residents due to its tall ceilings.
+msgid "Tall Tower Abode"
+msgstr ""
+
+#. This is a title for an object with the description: This small building can accommodate a few small families.
+msgid "Tall Turned House"
+msgstr ""
+
+#. This is a title for an object with the description: It might be an old, bland-looking tower, but it gets the job done.
+msgid "Tan Tower"
+msgstr ""
+
+#. This is a title for an object with the description: Every room comes with a great view of the city.
+msgid "Ten Tower"
+msgstr ""
+
+#. This is a title for an object with the description: A firm rectangular surface with some low nets stretched across the center. Tennis is a great outdoor activity for casuals and professionals alike.
+msgid "Tennis Court"
+msgstr ""
+
+#. This is a title for an object with the description: A relaxing vacation in the wildness is a great way to escape from modern life.
+msgid "Tents"
+msgstr ""
+
+#. This is a category
+msgid "Terrain"
+msgstr ""
+
+#. This is a description for an object titled: Black Sand
+msgid "Terrain Black Sand tiles"
+msgstr ""
+
+#. This is a description for an object titled: Blueprint
+msgid "Terrain Blueprint"
+msgstr ""
+
+#. This is a description for an object titled: Desert Sand
+msgid "Terrain Desert tiles"
+msgstr ""
+
+#. This is a description for an object titled: Dirt
+msgid "Terrain Dirt tiles"
+msgstr ""
+
+#. This is a description for an object titled: Minty Forest Grass
+msgid "Terrain Grass Mint Forest tiles"
+msgstr ""
+
+#. This is a description for an object titled: Gravel
+msgid "Terrain Gravel tiles"
+msgstr ""
+
+#. This is a description for an object titled: Rainstone
+msgid "Terrain Rainstone tiles"
+msgstr ""
+
+#. This is a description for an object titled: Red Sand
+msgid "Terrain Red Sand tiles"
+msgstr ""
+
+#. This is a description for an object titled: Snow
+msgid "Terrain Snow tiles"
+msgstr ""
+
+#. This is a description for an object titled: Stone
+msgid "Terrain Stone tiles"
+msgstr ""
+
+#. This is a description for an object titled: Basalt
+msgid "Terrain basalt tiles"
+msgstr ""
+
+#. This is a description for an object titled: Beach Sand
+msgid "Terrain beach tiles"
+msgstr ""
+
+#. This is a description for an object titled: Burned land
+msgid "Terrain burned tiles"
+msgstr ""
+
+#. This is a description for an object titled: Forest Grass
+msgid "Terrain grass forest tiles"
+msgstr ""
+
+#. This is a description for an object titled: Minty Grass
+msgid "Terrain grass mint tiles"
+msgstr ""
+
+#. This is a description for an object titled: Grass
+msgid "Terrain grass tiles"
+msgstr ""
+
+#. This is a description for an object titled: Mud
+msgid "Terrain mud tiles"
+msgstr ""
+
+#. This is a description for an object titled: Shading
+msgid "Terrain shading tiles"
+msgstr ""
+
+#. This is a description for an object titled: Soil
+msgid "Terrain soil tiles"
+msgstr ""
+
+#. This is a category
+msgid "TerrainTile"
+msgstr ""
+
+#. This is a title for an object with the description: This place was two separate buildings at one point in time.
+msgid "Thanns End"
+msgstr ""
+
+#. This is a description for an object titled: Rich Concrete Office
+msgid "That big plant was placed there by mistake. It was actually a "
+"regular houseplant at some point."
+msgstr ""
+
+#. This is a description for an object titled: Korean Villa
+msgid "That's not grass on the roof, they just painted it green. Maybe they "
+"wanted to remind the residents want plants look like?"
+msgstr ""
+
+#. This is a description for an object titled: Barentin 006
+msgid "The 018's even smaller counterpart."
+msgstr ""
+
+#. This is a description for an object titled: Barentin 010
+msgid "The 018's smaller counterpart."
+msgstr ""
+
+#. This is a title for an object with the description: A fancy department store with multiple floors.
+msgid "The Block"
+msgstr ""
+
+#. This is a title for an object with the description: A nice multi-floor cafe. I've heard they have a good breakfast menu here.
+msgid "The Brick Block"
+msgstr ""
+
+#. This is a description for an object titled: Gaillarda Tower
+msgid "The Creme-Oran Tower's older brother."
+msgstr ""
+
+#. This is a title for an object with the description: This old shop has been repairing vehicles for decades. Ironically, the building itself is in disrepair.
+msgid "The Garage on Route 66"
+msgstr ""
+
+#. This is a title for an object with the description: The glowing neon sign looks beautiful at night. 
+msgid "The Oscian"
+msgstr ""
+
+#. This is a title for an object with the description: Can you guess how this building got its name?
+msgid "The Red Block"
+msgstr ""
+
+#. This is a description for an object titled: Safranbolu Rentals
+msgid "The backyard garden is so serene that a few residents have fallen "
+"asleep there."
+msgstr ""
+
+#. This is a description for an object titled: Le Caire Condominium
+msgid "The beautiful turquoise windows made this building a local landmark "
+"for many in the area."
+msgstr ""
+
+#. This is a description for an object titled: Port Angeles BBQ
+msgid "The best BBQ food west of the Mississippi River!"
+msgstr ""
+
+#. This is a description for an object titled: Tyres-R-Us
+msgid "The big windows are used to show off their products. However, this "
+"has little effect on their sales because no one cares about tires."
+msgstr ""
+
+#. This is a description for an object titled: Quailutece Condos
+msgid "The big windows make it look like a store, but it is actually the "
+"lobby of the building."
+msgstr ""
+
+#. This is a description for an object titled: Tranquil Apartments
+msgid "The blue accents remind people of clear blue skies."
+msgstr ""
+
+#. This is a description for an object titled: Matt's House
+msgid "The blue roof and orange accents make this house stand out."
+msgstr ""
+
+#. This is a description for an object titled: Kek's Resort
+msgid "The building looks like a rainbow that's guiding you to its entrance."
+msgstr ""
+
+#. This is a description for an object titled: Monaco Tan Tower
+msgid "The building owners takes pride in the plants they grow in front of "
+"the building."
+msgstr ""
+
+#. This is a description for an object titled: Torres Blancas
+msgid "The building's name sounds cool to everyone but Spanish speakers."
+msgstr ""
+
+#. This is a description for an object titled: Checkerboard Property
+msgid "The building's unique wall pattern is what earned its title."
+msgstr ""
+
+#. This is a description for an object titled: Posh Apartments
+msgid "The bushes in front of the building stay green year-round."
+msgstr ""
+
+#. This is a description for an object titled: Romanian Living Units
+msgid "The bushes outside the building grow berries every year. The "
+"children love to eat them."
+msgstr ""
+
+#. This is a description for an object titled: Da Club
+msgid "The coolest place to hang out in the modern era."
+msgstr ""
+
+#. This is a description for an object titled: Petrol Station
+msgid "The cornerstone of any small town."
+msgstr ""
+
+#. This is a description for an object titled: Cyber Apartments
+msgid "The cyan paint and large windows give this building a futuristic "
+"look."
+msgstr ""
+
+#. This is a description for an object titled: Wacky House
+msgid "The design of this home is eccentric, to say the least. Some say it "
+"is owned by a retired magician."
+msgstr ""
+
+#. This is a description for an object titled: Sao Paulo Department Store
+msgid "The exterior is beautiful, and the prices are great."
+msgstr ""
+
+#. This is a description for an object titled: White-Striped Flats
+msgid "The exterior walls are almost as gloomy as London's weather usually "
+"is."
+msgstr ""
+
+#. This is a description for an object titled: Vienna Dwellings
+msgid "The fancy garden behind the building is a great pastime for the "
+"residents."
+msgstr ""
+
+#. This is a description for an object titled: Casarm's Place
+msgid "The fence has sustained some damage over the years. Unfortunately, "
+"the store was sold out of wooden fences, so they had to settle for "
+"sheet metal."
+msgstr ""
+
+#. This is a description for an object titled: Fisherman's Home
+msgid "The fish they used to process here were so smelly that they built an "
+"extra room onto the house."
+msgstr ""
+
+#. This is a description for an object titled: The Oscian
+msgid "The glowing neon sign looks beautiful at night. "
+msgstr ""
+
+#. This is a description for an object titled: Skyview
+msgid "The great views it provides and its rich blue hue gave this building "
+"its name."
+msgstr ""
+
+#. This is a description for an object titled: Ely Estate
+msgid "The house my be small, but the owners take pride in their perfect "
+"lawn."
+msgstr ""
+
+#. This is a description for an object titled: Glascow Tower
+msgid "The inhabitants feel a lot happier than the gloomy exterior would "
+"suggest."
+msgstr ""
+
+#. This is a description for an object titled: Veules-les-Roses Residence
+msgid "The inhabitants like to use comically-large telescopes to spy on "
+"their neighbors from the attic."
+msgstr ""
+
+#. This is a description for an object titled: Hyperlane Tower
+msgid "The interior is as futuristic as the outside."
+msgstr ""
+
+#. This is a description for an object titled: Bordered Concrete Path
+msgid "The kind of path you'd see at an amusment park."
+msgstr ""
+
+#. This is a description for an object titled: Bordered Asphalt Road
+msgid "The kind of road you'd see at an amusment park."
+msgstr ""
+
+#. This is a description for an object titled: Korean Block Apartments
+msgid "The large windows make many passersby think it's a store of some "
+"kind."
+msgstr ""
+
+#. This is a description for an object titled: Quaint Eastern European House
+msgid "The most interesting fact about this home is how uninteresting it "
+"is. Now that's in-teresting-ception!"
+msgstr ""
+
+#. This is a description for an object titled: Ell's Quarters
+msgid "The name of the owner and the shape of the house are completely "
+"unrelated."
+msgstr ""
+
+#. This is a description for an object titled: Greenhouse House
+msgid "The name's a bit redundant, isn't it?"
+msgstr ""
+
+#. This is a description for an object titled: Grandma's House
+msgid "The old woman who lives here is very sweet and welcoming, earning "
+"her the nickname \"Grandma\" by the local community."
+msgstr ""
+
+#. This is a description for an object titled: Grainval's Dwelling
+msgid "The owner brags about the hedges and fences he had installed, but "
+"everyone knows he just hired a landscaper."
+msgstr ""
+
+#. This is a description for an object titled: Red Retreat
+msgid "The owner is incredibly proud of the name she gave the house, even "
+"if her friends think its's cliche."
+msgstr ""
+
+#. This is a description for an object titled: Semistouen Block
+msgid "The owner named his house this way to convince his peers that he "
+"could speak French. He failed."
+msgstr ""
+
+#. This is a description for an object titled: Mobile Mechanic
+msgid "The owner used to run a small diesel mechanic shop here. His garage "
+"is big enough to hold a semi truck."
+msgstr ""
+
+#. This is a description for an object titled: T House
+msgid "The owners took one look at the floor plan and instantly knew what "
+"to name the place."
+msgstr ""
+
+#. This is a description for an object titled: Town Hall
+msgid "The perfect place to manage a small town and handle legal conflicts."
+msgstr ""
+
+#. This is a description for an object titled: Medium Rainbow Residency
+msgid "The rainbow is so close, yet so far."
+msgstr ""
+
+#. This is a description for an object titled: Rouen Flats
+msgid "The residents here are quite nice."
+msgstr ""
+
+#. This is a description for an object titled: Pleasant White Home 
+msgid "The residents love to grow flowers on the balconies."
+msgstr ""
+
+#. This is a description for an object titled: Sonora Flats
+msgid "The roof is a popular place for the residents to relax and socialize."
+msgstr ""
+
+#. This is a description for an object titled: Corblo Apartments
+msgid "The roof makes the residents feel like they're living at a resort "
+"24/7. "
+msgstr ""
+
+#. This is a description for an object titled: Swiss Housing
+msgid "The rooms here are comparable to college dorm rooms."
+msgstr ""
+
+#. This is a description for an object titled: Jimmy's Bread
+msgid "The scent of fresh bread makes this shop's products hard to resist."
+msgstr ""
+
+#. This is a description for an object titled: Vienna Corner
+msgid "The sort of building you'd find next to an intersection. The "
+"residents hate the noise from all the passing vehicles."
+msgstr ""
+
+#. This is a description for an object titled: Overviewer's Dwelling
+msgid "The tower was useful for surveying the local area hundreds of years "
+"ago."
+msgstr ""
+
+#. This is a description for an object titled: Looking House
+msgid "The two windows make passersby feel uneasy."
+msgstr ""
+
+#. This is a description for an object titled: Korean Cornerside Apartments
+msgid "The unique design of the building ensures that rain ALWAYS drips off "
+"the roof and onto passersby. It's good at its job, much to the "
+"dismay of pedestrians without umbrellas."
+msgstr ""
+
+#. This is a description for an object titled: Pinetree Place
+msgid "The view from the top floor would be great if the windows didn't "
+"just point towards the sky."
+msgstr ""
+
+#. This is a description for an object titled: Peaceful Living Solutions
+msgid "The walls should be white and bright orange, but they haven't been "
+"cleaned in a while."
+msgstr ""
+
+#. This is a description for an object titled: Vienna Accommodations
+msgid "The white trim makes this building look fancier than it really is."
+msgstr ""
+
+#. This is a description for an object titled: Horses
+msgid "The wild stallions roam the Cytopian plains."
+msgstr ""
+
+#. This is a description for an object titled: Scandinavian Office
+msgid "The workers here spend all day making useful programs for the world."
+msgstr ""
+
+#. This is a description for an object titled: Car Dealership
+msgid "Their cars are fine, but it feels like their salesmen are holding "
+"you at gunpoint sometimes."
+msgstr ""
+
+#. This is a description for an object titled: Bell Tower
+msgid "There is not a single bell within this entire building."
+msgstr ""
+
+#. This is a description for an object titled: Mango Residency
+msgid "There's a rumor that the walls of this building taste like fruit. "
+"They're false, of course (not that I tried it or anything)."
+msgstr ""
+
+#. This is a description for an object titled: Jura Houses
+msgid "These houses have been around for years. You can even see the "
+"remains of an old advertisement on one of them."
+msgstr ""
+
+#. This is a description for an object titled: Giant Crystals
+msgid "These legendary structures can only be found in remote parts of the "
+"world. They are sought after for their rich colors and beautiful "
+"gleam."
+msgstr ""
+
+#. This is a description for an object titled: Slanted Beach Shop
+msgid "These shops used to look vibrant, but decades of rain and ocean "
+"waves slowly eroded their paint."
+msgstr ""
+
+#. This is a description for an object titled: Abandoned Buildings
+msgid "These structures are usually found deep in the woods. No one knows "
+"who built them, but it's obvious that they aren't around anymore."
+msgstr ""
+
+#. This is a description for an object titled: Large Grain Silos
+msgid "These tall concrete towers store grain for livestock and food "
+"manufacturers."
+msgstr ""
+
+#. This is a description for an object titled: Tutoring Center
+msgid "They help children in need here."
+msgstr ""
+
+#. This is a description for an object titled: McDalle's Buffet and More
+msgid "They serve almost any food you can imagine here. There are sections "
+"dedicated to foods from each part of the world."
+msgstr ""
+
+#. This is a description for an object titled: Blue Roof Production Co.
+msgid "They specialize in making plastic molds and industrial machinery."
+msgstr ""
+
+#. This is a title for an object with the description: A small thirft shop whose owners live on the second floor.
+msgid "Thirft-4-Dayz"
+msgstr ""
+
+#. This is a description for an object titled: Perpignan Tower
+msgid "This apartment building has a fancy lobby at the bottom."
+msgstr ""
+
+#. This is a description for an object titled: Steel Warehouse
+msgid "This brightly-colored warhouse is used by medium-sized businesses."
+msgstr ""
+
+#. This is a description for an object titled: Big Fire Department
+msgid "This building can protect large towns from fires and other disasters."
+msgstr ""
+
+#. This is a description for an object titled: Mini Depolluter
+msgid "This building converts pollution into cans of compressed air and "
+"hairspray. However, it is too small to have an effect on the "
+"environment."
+msgstr ""
+
+#. This is a description for an object titled: Brick Shack
+msgid "This building has a nice garden in the back. The owners love growing "
+"roses every year."
+msgstr ""
+
+#. This is a description for an object titled: Big Blue House
+msgid "This building has no affiliation with a certain orange bear. It does "
+"have a nice sunroom though."
+msgstr ""
+
+#. This is a description for an object titled: Short Shack
+msgid "This building is a couple square meters away from being a storage "
+"shed."
+msgstr ""
+
+#. This is a description for an object titled: Future Freespace
+msgid "This building is famous for it's modern design. It stands out in the "
+"average city's skyline"
+msgstr ""
+
+#. This is a description for an object titled: Small Fire Department
+msgid "This building is perfect for proecting small towns from deadly fires."
+msgstr ""
+
+#. This is a description for an object titled: Green Sheet Metal Barn
+msgid "This building is used for storing farm equipment and supplies. "
+"Despite its cheap material, sheet metal is surprisingly durable."
+msgstr ""
+
+#. This is a description for an object titled: Rouen Imm St. Ange
+msgid "This building is well-known for its awesome gardens."
+msgstr ""
+
+#. This is a description for an object titled: Old Industrial Warehouse
+msgid "This building looks like it has been around for decades, although no "
+"one knows what is stored inside."
+msgstr ""
+
+#. This is a description for an object titled: Desert Factory
+msgid "This building processes textiles into clothes for the people of the "
+"desert."
+msgstr ""
+
+#. This is a description for an object titled: Small Brick Factory
+msgid "This building used to be a coal power plant before it was converted "
+"to a factory. Its windows are so dirty that it is impossible to see "
+"what is made inside."
+msgstr ""
+
+#. This is a description for an object titled: Brick Warehouse Shop
+msgid "This building used to be an industrial warehouse, but now it sells "
+"goods to the local neighborhood."
+msgstr ""
+
+#. This is a description for an object titled: Coal Factory
+msgid "This building's sole purpose is to crush coal ore into small chunks "
+"for naughty children during the holidays."
+msgstr ""
+
+#. This is a description for an object titled: Dark Concrete
+msgid "This concrete is as dark as it is rough."
+msgstr ""
+
+#. This is a description for an object titled: Desert House With Swimming Pool
+msgid "This desert house has a small pool on the roof. Its inhabitants live "
+"in constant fear of ceiling leaks."
+msgstr ""
+
+#. This is a description for an object titled: Smooth Dirt
+msgid "This dirt has been refined so that all the trigs and rocks are "
+"removed."
+msgstr ""
+
+#. This is a description for an object titled: Uncle Joe's Fuel 'em Up
+msgid "This family-owned gas station has served the local area for three "
+"decades."
+msgstr ""
+
+#. This is a description for an object titled: Bolboc Manor
+msgid "This fancy building has hedges and a small garage. "
+msgstr ""
+
+#. This is a description for an object titled: Wheat Field
+msgid "This golden plant is the cornerstone of the human diet. It can be "
+"turned into bread, cereal, and more!"
+msgstr ""
+
+#. This is a description for an object titled: Simple Desert House
+msgid "This home has an outside stairway that leads to the roof."
+msgstr ""
+
+#. This is a description for an object titled: Micro Cottage
+msgid "This house is barely large enough to support a single person. Most "
+"would mistake it for a garden shed."
+msgstr ""
+
+#. This is a description for an object titled: Bellevue Mansion
+msgid "This huge estate has a patio and a large pool."
+msgstr ""
+
+#. This is a description for an object titled: Large Hospital
+msgid "This large building can provide thousands of your citizens with top-"
+"of-the-line medical help."
+msgstr ""
+
+#. This is a description for an object titled: Northern Scandinavian Estate
+msgid "This large building is made of wood and stone. There is a fancy "
+"fireplace in the right-most building."
+msgstr ""
+
+#. This is a description for an object titled: FNC Building
+msgid "This large building is owned by a worldwide news company. Some of "
+"their news segments are recorded inside."
+msgstr ""
+
+#. This is a description for an object titled: Large Elementary School
+msgid "This large campus can teach hundreds of children and has a built-in "
+"playground."
+msgstr ""
+
+#. This is a description for an object titled: City Plaza Pillar
+msgid "This large structure can serve as a center of commerce for large "
+"cities."
+msgstr ""
+
+#. This is a description for an object titled: Short Hexlands Apartments
+msgid "This looks like something you'd see in a faraway space colony."
+msgstr ""
+
+#. This is a description for an object titled: Semi D.
+msgid "This modern house comes in four amazing colors."
+msgstr ""
+
+#. This is a description for an object titled: The Garage on Route 66
+msgid "This old shop has been repairing vehicles for decades. Ironically, "
+"the building itself is in disrepair."
+msgstr ""
+
+#. This is a description for an object titled: Rough Grass
+msgid "This patch of grass could use a trimming soon."
+msgstr ""
+
+#. This is a description for an object titled: Caveeverte Condos
+msgid "This place doesn't have an elevator, so its inhabitants are blessed "
+"with having to carry furniture up six flights of stairs."
+msgstr ""
+
+#. This is a description for an object titled: Modern Luxurious House
+msgid "This place is equiped with rose bushes and an outdoor pool. The "
+"owner never seems to go swimming though. Maybe he's allergic to "
+"water or something."
+msgstr ""
+
+#. This is a description for an object titled: Wooden Scandinavian House
+msgid "This place is home to a mother and her two children."
+msgstr ""
+
+#. This is a description for an object titled: Dancing House of Prague
+msgid "This place is home to many shops and services in addition to a great "
+"dance floor."
+msgstr ""
+
+#. This is a description for an object titled: HDRN
+msgid "This place produces concrete for construction projects around the "
+"city."
+msgstr ""
+
+#. This is a description for an object titled: Stair-Step Shop
+msgid "This place sells guitars and antiques."
+msgstr ""
+
+#. This is a description for an object titled: Bygone Apartment Building
+msgid "This place should have been condemned three decades ago..."
+msgstr ""
+
+#. This is a description for an object titled: Big Warehouse
+msgid "This place stores goods for a local shipping company."
+msgstr ""
+
+#. This is a description for an object titled: Thanns End
+msgid "This place was two separate buildings at one point in time."
+msgstr ""
+
+#. This is a description for an object titled: Polluted Grass
+msgid "This poor grass is wilting from a lack of maintenance."
+msgstr ""
+
+#. This is a description for an object titled: Smooth Grass
+msgid "This pristine type of grass can be found in public parks and outside "
+"big mansions."
+msgstr ""
+
+#. This is a description for an object titled: Fancy French Restaurant
+msgid "This restaurant is from the heart of Paris. They serve only the "
+"fanciest foods."
+msgstr ""
+
+#. This is a description for an object titled: Small Elementary School
+msgid "This school is perfect for small communities. It's not flashy, but "
+"it has everything it needs to teach young students."
+msgstr ""
+
+#. This is a description for an object titled: IFC Building
+msgid "This skyscraper belongs to a large banking firm. They handle "
+"customers from around the world here."
+msgstr ""
+
+#. This is a description for an object titled: Apartment Shop
+msgid "This small apartment building is home to a small shop on the ground "
+"floor. "
+msgstr ""
+
+#. This is a description for an object titled: Hazel Housing
+msgid "This small apartment complex has surpisingly large rooms."
+msgstr ""
+
+#. This is a description for an object titled: Tall Turned House
+msgid "This small building can accommodate a few small families."
+msgstr ""
+
+#. This is a description for an object titled: Turned House
+msgid "This small building can accommodate small families."
+msgstr ""
+
+#. This is a description for an object titled: Integrated House
+msgid "This small home has a built-in garage."
+msgstr ""
+
+#. This is a description for an object titled: Rue Gros Horloge Store
+msgid "This tall building has a small floral shop at the bottom."
+msgstr ""
+
+#. This is a description for an object titled: White Water Heights
+msgid "This tall structure is from the port city of Marseille, France."
+msgstr ""
+
+#. This is a description for an object titled: Seattle Infinite
+msgid "This tower also grazes the clouds in the sky."
+msgstr ""
+
+#. This is a description for an object titled: Small Water Tower
+msgid "This tower can provide enough water for a small community."
+msgstr ""
+
+#. This is a description for an object titled: Lovely Apartments
+msgid "This tower is adorned with a beautiful red accent."
+msgstr ""
+
+#. This is a description for an object titled: Light Concrete
+msgid "This type of conrete is great for businesses and parks."
+msgstr ""
+
+#. This is a description for an object titled: Hometown Water Tower
+msgid "This water tower's unique shape makes it one of a kind! It can also "
+"provide enough water to satisfy a small town."
+msgstr ""
+
+#. This is a description for an object titled: Golly Family's Home
+msgid "Those brown patches aren't dirt, its actually dead grass from the 8 "
+"months of winter the house must endure."
+msgstr ""
+
+#. This is a title for an object with the description: A group of plum trees.
+msgid "Thundercloud Purple Leaf Plum Trees (Dense)"
+msgstr ""
+
+#. This is a title for an object with the description: A group of plum trees.
+msgid "Thundercloud Purple Leaf Plum Trees (Light)"
+msgstr ""
+
+#. This is a title for an object with the description: A group of plum trees.
+msgid "Thundercloud Purple Leaf Plum Trees (Medium)"
+msgstr ""
+
+#. This is a title for an object with the description: From the ground level, this building looks like a beacon to heaven.
+msgid "Tomorrowland Spire"
+msgstr ""
+
+#. This is a title for an object with the description: The building's name sounds cool to everyone but Spanish speakers.
+msgid "Torres Blancas"
+msgstr ""
+
+#. This is a title for an object with the description: A fancy office building from Paris, France.
+msgid "Tour Front De Seine"
+msgstr ""
+
+#. This is a title for an object with the description: A very fancy shopping mall with hundreds of stores.
+msgid "Tour StSever Tower"
+msgstr ""
+
+#. This is a title for an object with the description: Only the luckiest office workers get to sit by the windows.
+msgid "Tour Vauban"
+msgstr ""
+
+#. This is a title for an object with the description: Its unique exterior is reminiscent of paint splatterings.
+msgid "Tourriva"
+msgstr ""
+
+#. This is a title for an object with the description: The perfect place to manage a small town and handle legal conflicts.
+msgid "Town Hall"
+msgstr ""
+
+#. This is a title for an object with the description: It seems like someone left their mess here...
+msgid "Toxic Waste"
+msgstr ""
+
+#. This is a title for an object with the description: Trailer houses are cheap buildings that are hauled to a lot by a semi truck.
+msgid "Trailer House"
+msgstr ""
+
+#. This is a title for an object with the description: A somewhat-large plot of land that is the home to many trailer houses.
+msgid "Trailer Park"
+msgstr ""
+
+#. This is a description for an object titled: Trailer House
+msgid "Trailer houses are cheap buildings that are hauled to a lot by a "
+"semi truck."
+msgstr ""
+
+#. This is a category
+msgid "Trains"
+msgstr ""
+
+#. This is a title for an object with the description: The blue accents remind people of clear blue skies.
+msgid "Tranquil Apartments"
+msgstr ""
+
+#. This is a title for an object with the description: Many shops and offices can be found within this slim tower's interior.
+msgid "Tri-Box Tower"
+msgstr ""
+
+#. This is a title for an object with the description: Do you think the number of residents is a coincidence?
+msgid "Triangle Abode"
+msgstr ""
+
+#. This is a title for an object with the description: Despite how it may look, this building was designed to look this way. Unfortunately, it is hard to appreciate its unique exterior from the ground.
+msgid "Trifecta Corner"
+msgstr ""
+
+#. This is a title for an object with the description: A group of houses that share a community garden. It is rather pleasant, albeit a bit cramped.
+msgid "Turkish Block"
+msgstr ""
+
+#. This is a title for an object with the description: This small building can accommodate small families.
+msgid "Turned House"
+msgstr ""
+
+#. This is a title for an object with the description: A tutor from a local school lives here with her family.
+msgid "Tutor's Home"
+msgstr ""
+
+#. This is a title for an object with the description: They help children in need here.
+msgid "Tutoring Center"
+msgstr ""
+
+#. This is a description for an object titled: Double Light
+msgid "Twice as bright as the single light."
+msgstr ""
+
+#. This is a title for an object with the description: Residents living on the edges of the building feel like it will collapse at any moment. However, the tower is perfectly balanced.
+msgid "Twisty Tower"
+msgstr ""
+
+#. This is a title for an object with the description: The big windows are used to show off their products. However, this has little effect on their sales because no one cares about tires.
+msgid "Tyres-R-Us"
+msgstr ""
+
+#. This is a title for an object with the description: This family-owned gas station has served the local area for three decades.
+msgid "Uncle Joe's Fuel 'em Up"
+msgstr ""
+
+#. This is a description for an object titled: London Apartment Complex
+msgid "Unfortunately, the floors are not as noise-proof as the brick walls."
+msgstr ""
+
+#. This is a description for an object titled: Sandy Digs
+msgid "Unfortunately, this place does NOT have air conditioning."
+msgstr ""
+
+#. This is a title for an object with the description: An apartment building from Vancouver, Canada
+msgid "Vancouver Heights"
+msgstr ""
+
+#. This is a description for an object titled: Chemcial Storage
+msgid "Various materials are stored here for nearby factories."
+msgstr ""
+
+#. This is a title for an object with the description: A beautiful building that reminds us of a better tomorrow.
+msgid "Vega Hotel"
+msgstr ""
+
+#. This is a title for an object with the description: An overwhelming number of reviews say this hotel is "nice," but the owners are unsure why.
+msgid "Veinna Hotel"
+msgstr ""
+
+#. This is a title for an object with the description: A posh building made of old bricks. It has many beautiful windows for its residents to see out of.
+msgid "Veules-les-Roses Cottage"
+msgstr ""
+
+#. This is a title for an object with the description: The inhabitants like to use comically-large telescopes to spy on their neighbors from the attic.
+msgid "Veules-les-Roses Residence"
+msgstr ""
+
+#. This is a title for an object with the description: An old hotel with a waiting area on the ground floor.
+msgid "Vichy Hotel"
+msgstr ""
+
+#. This is a title for an object with the description: The white trim makes this building look fancier than it really is.
+msgid "Vienna Accommodations"
+msgstr ""
+
+#. This is a title for an object with the description: The sort of building you'd find next to an intersection. The residents hate the noise from all the passing vehicles.
+msgid "Vienna Corner"
+msgstr ""
+
+#. This is a title for an object with the description: The fancy garden behind the building is a great pastime for the residents.
+msgid "Vienna Dwellings"
+msgstr ""
+
+#. This is a title for an object with the description: Small wooden structures made to protect their residents against the elements.
+msgid "Village Huts"
+msgstr ""
+
+#. This is a title for an object with the description: Not a phone in sight, just a bunch of primitive people living in the moment.
+msgid "Villagers"
+msgstr ""
+
+#. This is a title for an object with the description: A huge glass tower located in the capital city of Lithuania.
+msgid "Vilnius Municipality Building"
+msgstr ""
+
+#. This is a title for an object with the description: The design of this home is eccentric, to say the least. Some say it is owned by a retired magician.
+msgid "Wacky House"
+msgstr ""
+
+#. This is a subCategory
+msgid "Wacky Trees"
+msgstr ""
+
+#. This is a title for an object with the description: Water
+#. This is a description for an object titled: Water
+#. This is a UiElement with the ID: button terrain water
+msgid "Water"
+msgstr ""
+
+#. This is a title for an object with the description: Pipes are used for transporting water.
+msgid "Water Pipes"
+msgstr ""
+
+#. This is a subCategory
+msgid "WaterFlora"
+msgstr ""
+
+#. This is a title for an object with the description: Many years of shenanigans have taken place here.
+msgid "Waterson's House"
+msgstr ""
+
+#. This is a category
+#. This is a UiElement with the ID: water menu
+msgid "Waterworks"
+msgstr ""
+
+#. This is a description for an object titled: Bones
+msgid "Whatever died here must have been massive! Let's hope it doesn't "
+"have any descendants..."
+msgstr ""
+
+#. This is a title for an object with the description: This golden plant is the cornerstone of the human diet. It can be turned into bread, cereal, and more!
+msgid "Wheat Field"
+msgstr ""
+
+#. This is a description for an object titled: Small Brick House
+msgid "While it lacks a large backyard, the brick exterior makes this house "
+"very desirable."
+msgstr ""
+
+#. This is a description for an object titled: Pyramid
+msgid "While this building has a unique shape, it lacks any windows or "
+"alternate exits."
+msgstr ""
+
+#. This is a title for an object with the description: This tall structure is from the port city of Marseille, France.
+msgid "White Water Heights"
+msgstr ""
+
+#. This is a title for an object with the description: The exterior walls are almost as gloomy as London's weather usually is.
+msgid "White-Striped Flats"
+msgstr ""
+
+#. This is a description for an object titled: Block Building
+msgid "Whose idea was it to put that big hole in the middle of the "
+"building? We could've fit more residents there!"
+msgstr ""
+
+#. This is a description for an object titled: Bob's Kebab House
+msgid "Why did the owner buy a building with the wrong name on the sign? No "
+"one knows..."
+msgstr ""
+
+#. This is a description for an object titled: Settled Square
+msgid "Why did they name it this way? It's obviously a rectangle!"
+msgstr ""
+
+#. This is a title for an object with the description: Rice is normally grown as an annual plant, although in tropical areas it can survive as a perennial and can produce a ratoon crop for up to 30 years.
+msgid "Wild Rice (Dense)"
+msgstr ""
+
+#. This is a title for an object with the description: Rice is normally grown as an annual plant, although in tropical areas it can survive as a perennial and can produce a ratoon crop for up to 30 years.
+msgid "Wild Rice (Light)"
+msgstr ""
+
+#. This is a title for an object with the description: Rice is normally grown as an annual plant, although in tropical areas it can survive as a perennial and can produce a ratoon crop for up to 30 years.
+msgid "Wild Rice (Medium)"
+msgstr ""
+
+#. This is a title for an object with the description: A wild varient of domesticated wheat grass. Wild wheat can be found growing in prairies and fields, although it generally yields less than its domesticated cousin.
+msgid "Wild Wheat (Dense)"
+msgstr ""
+
+#. This is a title for an object with the description: A wild varient of domesticated wheat grass. Wild wheat can be found growing in prairies and fields, although it generally yields less than its domesticated cousin.
+msgid "Wild Wheat (Light)"
+msgstr ""
+
+#. This is a title for an object with the description: A wild varient of domesticated wheat grass. Wild wheat can be found growing in prairies and fields, although it generally yields less than its domesticated cousin.
+msgid "Wild Wheat (Medium)"
+msgstr ""
+
+#. This is a title for an object with the description: If you throw a coin into it, your wishes might come true!
+msgid "Wishing Well"
+msgstr ""
+
+#. This is a title for an object with the description: This place is home to a mother and her two children.
+msgid "Wooden Scandinavian House"
+msgstr ""
+
+#. This is a title for an object with the description: An old sailboat that was recently renovated.
+msgid "Wooden Ship"
+msgstr ""
+
+#. This is a title for an object with the description: A small wooden sign that can be used to decorate a town.  It doesn't actually say anything though...
+msgid "Wooden Sign"
+msgstr ""
+
+#. This is a title for an object with the description: A brick building with multiple office floors.
+msgid "Yakima Office"
+msgstr ""
+
+#. This is a description for an object titled: Blank Tile
+#. This is a description for an object titled: Blank Road
+msgid "You shouldn't be seeing this..."
+msgstr ""
+
+#. This is a description for an object titled: Johnson Family's Abode
+msgid "You'd be surpised how little they actually use the fireplace."
+msgstr ""
+
+#. This is a title for an object with the description: Several offices and stores are located in these buildings.
+msgid "Zealandia Shops"
+msgstr ""
+
+#. This is a category
+#. This is a UiElement with the ID: zones menu
+msgid "Zones"
+msgstr ""
+
+#. This is a description for an object titled: Green Bushes (Dense)
+#. This is a description for an object titled: Green Bushes (Light)
+#. This is a description for an object titled: Green Bushes (Medium)
+msgid "a green bush"
+msgstr ""
