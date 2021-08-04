@@ -21,7 +21,6 @@ Window::Window(GameService::ServiceTuple context, const char *title, unsigned in
   height = mode.h;
 #endif
 
-  windowFlags |= SDL_WINDOW_ALWAYS_ON_TOP;
   m_Window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, windowFlags);
   if (!m_Window)
     throw UIError(TRACE_INFO "Failed to create window: " + string{SDL_GetError()});
