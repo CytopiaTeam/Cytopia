@@ -13,7 +13,7 @@ jobs:
     steps:
       - run: echo $env:BUILD_TOOLS_PATH | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
 
-      - uses: actions/checkout@v2.3.4
+      - uses: actions/checkout@v2.3.5
         with:
           submodules: true
 
@@ -71,7 +71,7 @@ jobs:
       sccache_CACHE_SIZE: 500M
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2.3.4
+      - uses: actions/checkout@v2.3.5
         with:
           submodules: true
 
@@ -137,7 +137,7 @@ jobs:
       SCCACHE_CACHE_SIZE: 500M
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v2.3.4
+      - uses: actions/checkout@v2.3.5
         with:
           submodules: true
 
