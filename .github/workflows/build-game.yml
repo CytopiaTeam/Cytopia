@@ -44,7 +44,7 @@ jobs:
         run: choco install ninja sccache -y
 
       - name: Enable Developer Command Prompt
-        uses: ilammy/msvc-dev-cmd@v1.9.0
+        uses: ilammy/msvc-dev-cmd@v1.10.0
 
       - name: Build
         run: |
