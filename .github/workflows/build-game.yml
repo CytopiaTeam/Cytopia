@@ -117,7 +117,7 @@ jobs:
         shell: bash
 
       - name: Test
-        uses: GabrielBB/xvfb-action@v1.5
+        uses: GabrielBB/xvfb-action@v1.6
         with:
           run: ctest -VV
 
