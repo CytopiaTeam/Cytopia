@@ -158,7 +158,8 @@ if (MSVC)
 endif ()
 
 if (APPLE)
-    file(GLOB_RECURSE MAC_RESOURCE_FILES ${CMAKE_BINARY_DIR}/resources/*)
+    file(GLOB_RECURSE MAC_RESOURCE_FILES ${CMAKE_SOURCE_DIR}/data/resources/*)
+    # file(GLOB_RECURSE MAC_RESOURCE_FILES ${CMAKE_BINARY_DIR}/resources/*)
 
     # not working now, we need a special icon file for apple
     set(ICON_PATH ${CMAKE_SOURCE_DIR}/data/resources/images/app_icons/cytopia_icon_iso.icns)
@@ -167,9 +168,11 @@ if (APPLE)
     # set each file as resources file for the app image.
     foreach (resources_file ${MAC_RESOURCE_FILES})
         get_filename_component(buildDirRelFilePath ${resources_file} DIRECTORY)
-        string(REPLACE "${CMAKE_SOURCE_DIR}/" "" buildDirRelFilePath ${buildDirRelFilePath})
-        set_source_files_properties(${resources_file} PROPERTIES MACOSX_PACKAGE_LOCATION "/Resources/${buildDirRelFilePath}")
+        string(REPLACE "${CMAKE_SOURCE_DIR}/data/" "" buildDirRelFilePath ${buildDirRelFilePath})
+        message (STATUS "resources: ${resources_file}")
+        set_source_files_properties(${resources_file} PROPERTIES MACOSX_PACKAGE_LOCATION Resources/${buildDirRelFilePath})
     endforeach ()
+ 
     # set_source_files_properties(${PROJECT_SOURCE_DIR}/Cytopia_Resources/music  PROPERTIES MACOSX_PACKAGE_LOCATION Resources/resources/audio/music)
     set_source_files_properties(${ICON_PATH} PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
     set_source_files_properties(${myApp_ICON} PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
