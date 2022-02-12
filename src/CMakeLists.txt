@@ -200,16 +200,17 @@ target_include_directories(${PROJECT_NAME} PRIVATE ${_include_directories})
 target_compile_definitions(${PROJECT_NAME} PRIVATE ${_compile_definitions})
 target_link_libraries(${PROJECT_NAME} PRIVATE ${_link_libraries})
 
-# copy the resources to the compiled directory
-
-add_custom_target(
-        copy_resources
-        ALL
-        COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/data/resources/ $<TARGET_FILE_DIR:${PROJECT_NAME}>/resources/
-        COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/data/languages/ $<TARGET_FILE_DIR:${PROJECT_NAME}>/languages/
-        COMMENT "Copy the resources to the compiled directory"
-        VERBATIM
-)
+# copy the resources to the compiled directory. On Apple those files are used from the resources dir, not from the root dir.
+if (NOT APPLE)
+    add_custom_target(
+            copy_resources
+            ALL
+            COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/data/resources/ $<TARGET_FILE_DIR:${PROJECT_NAME}>/resources/
+            COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/data/languages/ $<TARGET_FILE_DIR:${PROJECT_NAME}>/languages/
+            COMMENT "Copy the resources to the compiled directory"
+            VERBATIM
+    )
+endif()
 
 if (MSVC)
     # set startup project for Visual Studio Builds
