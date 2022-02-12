@@ -162,7 +162,9 @@ if (PACKAGE_MANAGER STREQUAL "vcpkg")
 
     find_package(Threads REQUIRED)
 
-    find_package(Angelscript CONFIG REQUIRED)
+    if (ENABLE_ANGELSCRIPT)
+        find_package(Angelscript CONFIG REQUIRED)
+    endif()
     find_package(Vorbis CONFIG REQUIRED)
     find_package(OpenAL CONFIG REQUIRED)
     find_package(SDL2 CONFIG REQUIRED)
