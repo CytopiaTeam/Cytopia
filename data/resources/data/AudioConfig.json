@@ -56,6 +56,13 @@
             "triggers": [
                 "MainTheme"
             ]
+        },
+		"Tranquil Abduction": {
+            "path": "resources/audio/music/Tranquil_Abduction.ogg",
+            "monopath": "resources/audio/music/Tranquil_Abduction.ogg",
+            "triggers": [
+                "MainTheme"
+            ]
         }
     },
     "Sound": {

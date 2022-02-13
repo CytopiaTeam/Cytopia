@@ -13,7 +13,7 @@ jobs:
     steps:
       - run: echo $env:BUILD_TOOLS_PATH | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
 
-      - uses: actions/checkout@v2.3.4
+      - uses: actions/checkout@v2.4.0
         with:
           submodules: true
 
@@ -25,7 +25,7 @@ jobs:
           message("::set-output name=timestamp::${current_date}")
 
       - name: sccache cache files
-        uses: actions/cache@v2.1.5
+        uses: actions/cache@v2.1.7
         with:
           path: C:\sccache
           key: windows-sccache-${{ steps.sccache_cache_timestamp.outputs.timestamp }}
@@ -33,7 +33,7 @@ jobs:
             windows-sccache-
 
       - name: Cache vcpkg
-        uses: actions/cache@v2.1.5
+        uses: actions/cache@v2.1.7
         with:
           key: vcpkg-windows-${{ hashFiles('**/vcpkg.json') }}
           path: C:/Users/runneradmin/AppData/Local/vcpkg/archives
@@ -44,7 +44,7 @@ jobs:
         run: choco install ninja sccache -y
 
       - name: Enable Developer Command Prompt
-        uses: ilammy/msvc-dev-cmd@v1.7.0
+        uses: ilammy/msvc-dev-cmd@v1.10.0
 
       - name: Build
         run: |
@@ -71,7 +71,7 @@ jobs:
       sccache_CACHE_SIZE: 500M
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2.3.4
+      - uses: actions/checkout@v2.4.0
         with:
           submodules: true
 
@@ -83,7 +83,7 @@ jobs:
           message("::set-output name=timestamp::${current_date}")
 
       - name: sccache cache files
-        uses: actions/cache@v2.1.5
+        uses: actions/cache@v2.1.7
         with:
           path: ~/.cache/sccache
           key: ubuntu-sccache-${{ steps.sccache_cache_timestamp.outputs.timestamp }}
@@ -117,7 +117,7 @@ jobs:
         shell: bash
 
       - name: Test
-        uses: GabrielBB/xvfb-action@v1.5
+        uses: GabrielBB/xvfb-action@v1.6
         with:
           run: ctest -VV
 
@@ -137,7 +137,7 @@ jobs:
       SCCACHE_CACHE_SIZE: 500M
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v2.3.4
+      - uses: actions/checkout@v2.4.0
         with:
           submodules: true
 
@@ -149,7 +149,7 @@ jobs:
           message("::set-output name=timestamp::${current_date}")
 
       - name: sccache cache files
-        uses: actions/cache@v2.1.5
+        uses: actions/cache@v2.1.7
         with:
           path: ~/Library/Caches/Mozilla.sccache
           key: macos-sccache-${{ steps.sccache_cache_timestamp.outputs.timestamp }}
@@ -157,7 +157,7 @@ jobs:
             macos-sccache-
 
       - name: Cache vcpkg
-        uses: actions/cache@v2.1.5
+        uses: actions/cache@v2.1.7
         with:
           key: vcpkg-macos-${{ hashFiles('**/vcpkg.json') }}
           path: ~/.cache/vcpkg/archives/

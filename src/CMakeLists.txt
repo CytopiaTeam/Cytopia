@@ -166,7 +166,8 @@ if (MSVC)
 endif ()
 
 if (APPLE)
-    file(GLOB_RECURSE MAC_RESOURCE_FILES ${CMAKE_BINARY_DIR}/resources/*)
+    file(GLOB_RECURSE MAC_RESOURCE_FILES ${CMAKE_SOURCE_DIR}/data/resources/* ${CMAKE_SOURCE_DIR}/data/languages/*)
+    # file(GLOB_RECURSE MAC_RESOURCE_FILES ${CMAKE_BINARY_DIR}/resources/*)
 
     # not working now, we need a special icon file for apple
     set(ICON_PATH ${CMAKE_SOURCE_DIR}/data/resources/images/app_icons/cytopia_icon_iso.icns)
@@ -175,9 +176,11 @@ if (APPLE)
     # set each file as resources file for the app image.
     foreach (resources_file ${MAC_RESOURCE_FILES})
         get_filename_component(buildDirRelFilePath ${resources_file} DIRECTORY)
-        string(REPLACE "${CMAKE_SOURCE_DIR}/" "" buildDirRelFilePath ${buildDirRelFilePath})
-        set_source_files_properties(${resources_file} PROPERTIES MACOSX_PACKAGE_LOCATION "/Resources/${buildDirRelFilePath}")
+        string(REPLACE "${CMAKE_SOURCE_DIR}/data/" "" buildDirRelFilePath ${buildDirRelFilePath})
+        message (STATUS "resources: ${resources_file}")
+        set_source_files_properties(${resources_file} PROPERTIES MACOSX_PACKAGE_LOCATION Resources/${buildDirRelFilePath})
     endforeach ()
+ 
     # set_source_files_properties(${PROJECT_SOURCE_DIR}/Cytopia_Resources/music  PROPERTIES MACOSX_PACKAGE_LOCATION Resources/resources/audio/music)
     set_source_files_properties(${ICON_PATH} PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
     set_source_files_properties(${myApp_ICON} PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
@@ -205,16 +208,17 @@ target_include_directories(${PROJECT_NAME} PRIVATE ${_include_directories})
 target_compile_definitions(${PROJECT_NAME} PRIVATE ${_compile_definitions})
 target_link_libraries(${PROJECT_NAME} PRIVATE ${_link_libraries})
 
-# copy the resources to the compiled directory
-
-add_custom_target(
-        copy_resources
-        ALL
-        COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/data/resources/ $<TARGET_FILE_DIR:${PROJECT_NAME}>/resources/
-        COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/data/languages/ $<TARGET_FILE_DIR:${PROJECT_NAME}>/languages/
-        COMMENT "Copy the resources to the compiled directory"
-        VERBATIM
-)
+# copy the resources to the compiled directory. On Apple those files are used from the resources dir, not from the root dir.
+if (NOT APPLE)
+    add_custom_target(
+            copy_resources
+            ALL
+            COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/data/resources/ $<TARGET_FILE_DIR:${PROJECT_NAME}>/resources/
+            COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/data/languages/ $<TARGET_FILE_DIR:${PROJECT_NAME}>/languages/
+            COMMENT "Copy the resources to the compiled directory"
+            VERBATIM
+    )
+endif()
 
 if (MSVC)
     # set startup project for Visual Studio Builds
