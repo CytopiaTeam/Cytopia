@@ -3,13 +3,13 @@
 
 #include <betterEnums.hxx>
 
-BETTER_ENUM(ActivityType, uint8_t, MainMenu, NewGame, LoadGame, LanguageSelection, PluginSelection);
+BETTER_ENUM(ActivityType, uint8_t, MainMenu, NewGame, LoadGame, LanguageSelection, Settings);
 using ActivityImplementations = TypeList<
   class MainMenuActivity,
   class NewGameActivity,
   class LoadGameActivity,
   class LanguageSelectionActivity,
-  class PluginSelectionActivity
+  class SettingsActivity
 >;
 
 #endif // ACTIVITY_TYPE_HXX

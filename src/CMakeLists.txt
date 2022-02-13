@@ -68,6 +68,7 @@ set(SOURCE_FILES
         engine/UIMQDispatcher.hxx
         view/iView.{hxx,cxx}
         view/iViewElement.{hxx,cxx}
+        view/CheckBoxButton.{hxx,cxx}
         view/CursorView.{hxx,cxx}
         view/ClassicButton.hxx
         view/ClassicButton.inl.hxx
@@ -90,6 +91,7 @@ set(SOURCE_FILES
         activity/iActivity.{hxx,cxx}
         activity/MainMenuActivity.{hxx,cxx}
         activity/LanguageSelectionActivity.{hxx,cxx}
+        activity/SettingsActivity.{hxx,cxx}
         layout/iLayout.{hxx,cxx}
         layout/AbsoluteLayout.{hxx,cxx}
         layout/SelectionLayout.{hxx,cxx}

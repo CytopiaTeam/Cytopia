@@ -43,7 +43,7 @@
   "UI": {
     "BuildMenuPosition": "BOTTOM",
     "FontFilename": "resources/fonts/pixellocale-v-1-4.ttf",
-    "NewUI": false,
+    "NewUI": true,
     "SkipMenu": false,
     "SubMenuButtonHeight": 32,
     "SubMenuButtonWidth": 32

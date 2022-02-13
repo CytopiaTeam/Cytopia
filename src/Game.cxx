@@ -148,8 +148,8 @@ bool Game::initialize()
 
 void Game::newUI()
 {
-  m_UILoopMQ.push(ActivitySwitchEvent{ActivityType::MainMenu});
-  m_GameLoopMQ.push(ActivitySwitchEvent{ActivityType::MainMenu});
+  m_UILoopMQ.push(ActivitySwitchEvent{ActivityType::Settings});
+  m_GameLoopMQ.push(ActivitySwitchEvent{ActivityType::Settings});
   EventHandler::loop(m_UILoopMQ, m_MouseController);
 }
 
@@ -313,8 +313,16 @@ bool Game::mainMenu()
 
 void Game::run(bool SkipMenu)
 {
+  m_UILoopMQ.push(ActivitySwitchEvent{ActivityType::NewGame});
+  m_GameLoopMQ.push(ActivitySwitchEvent{ActivityType::NewGame});
+  
+}
+
+void Game::runOLD(bool SkipMenu)
+{
   Timer benchmarkTimer;
   LOG(LOG_INFO) << VERSION;
+
 
   if (SkipMenu)
   {

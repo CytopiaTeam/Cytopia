@@ -48,6 +48,7 @@ public:
     * @param SkipMenu if the main menu should be skipped or not
     */
   virtual void run(bool SkipMenu = false);
+  virtual void runOLD(bool SkipMenu = false);
 
   /** @brief initializes and displays the main menu
     * initializes and displays the main menu

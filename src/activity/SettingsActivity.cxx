@@ -1,4 +1,4 @@
-#include "LanguageSelectionActivity.hxx"
+#include "SettingsActivity.hxx"
 #include "../view/TextButton.hxx"
 #include "../view/IconButton.hxx"
 #include "../view/ImageView.hxx"
@@ -7,6 +7,7 @@
 #include "../layout/SelectionLayout.hxx"
 #include "../controller/SelectionLayoutController.hxx"
 #include "../view/TextView.hxx"
+#include "../view/CheckBoxButton.hxx"
 #include "../controller/ButtonHandler.hxx"
 #include "../util/LOG.hxx"
 #include "../util/Exception.hxx"
@@ -14,7 +15,7 @@
 #include "../services/MouseController.hxx"
 #include "../view/LanguageSelectionItem.hxx"
 
-LanguageSelectionActivity::LanguageSelectionActivity(GameService::ServiceTuple &context, Window &w)
+SettingsActivity::SettingsActivity(GameService::ServiceTuple &context, Window &w)
     : iActivity(context, w), AbsoluteLayout(w.getBounds()), m_Languages{}
 {
   m_Languages.emplace_back(LanguageSelection{"Chinese", "zh", false});
@@ -34,14 +35,39 @@ LanguageSelectionActivity::LanguageSelectionActivity(GameService::ServiceTuple &
 
   ///* Create background */
   //{
-  //  ImageViewPtr ix^mg = std::make_shared<ImageView>("/resources/images/ui/general/background", DisplayMode::RepeatXY);
+  //  ImageViewPtr img = std::make_shared<ImageView>("/resources/images/ui/general/background", DisplayMode::RepeatXY);
   //  addElement(img, BoxSizing{100_lw, 100_lw}, AbsolutePosition::Origin());
   //}
   /* Create title */
   {
-    std::string title = "Select a language";
+    std::string title = "Settings";
     TextViewPtr text = std::make_shared<TextView>(title, localization.translateText(title));
     addElement(text, BoxSizing{50_lw, 10_lh}, AbsolutePosition{50_lw - 50_ew, 5_lh});
+  }
+  /* Create all text buttons */
+  {
+    std::string fullScreenText = "Full Screen";
+    TextViewPtr text = std::make_shared<TextView>(fullScreenText, localization.translateText(fullScreenText));
+    addElement(text, BoxSizing{50_lw, 10_lh}, AbsolutePosition{50_lw - 80_ew, 20_lh});
+  }
+
+  /* checkbox */
+  {
+    // std::string fullScreenText = "Full Screen";
+    CheckBoxButtonPtr checkbox = std::make_shared<CheckBoxButton>(true);
+    // TextViewPtr text = std::make_shared<TextView>(fullScreenText, localization.translateText(fullScreenText));
+    addElement(checkbox, BoxSizing{50_lw, 10_lh}, AbsolutePosition{50_lw - 70_ew, 20_lh});
+  }
+
+    /* Create all text buttons */
+  {
+    std::string buttonText{"Back"};
+    TextButtonPtr button = std::make_shared<TextButton>(buttonText, localization.translateText(buttonText));
+    ButtonModel &state = createModel<ButtonModel>();
+    addElement(button, BoxSizing{30_lw, 10_lh}, AbsolutePosition{50_lw - 50_ew, 87_lh});
+    createController<ButtonHandler>(std::bind(&SettingsActivity::onBack, this), state, getWindow().getMouseState(),
+                                    *button);
+    state.addObserver(button);
   }
 
   /* Create all text buttons */
@@ -50,47 +76,30 @@ LanguageSelectionActivity::LanguageSelectionActivity(GameService::ServiceTuple &
     TextButtonPtr button = std::make_shared<TextButton>(buttonText, localization.translateText(buttonText));
     ButtonModel &state = createModel<ButtonModel>();
     addElement(button, BoxSizing{30_lw, 10_lh}, AbsolutePosition{50_lw - 50_ew, 87_lh});
-    createController<ButtonHandler>(std::bind(&LanguageSelectionActivity::onBack, this), state, getWindow().getMouseState(),
+    createController<ButtonHandler>(std::bind(&SettingsActivity::onBack, this), state, getWindow().getMouseState(),
                                     *button);
     state.addObserver(button);
   }
 
-  /* Create Scrolling layout with language elements */
-  {
-    auto languagesView = std::make_shared<SelectionLayout>(Rectangle::EMPTY(), 40_px);
-
-    for (auto lang : m_Languages)
-    {
-      auto pItem = std::make_shared<LanguageSelectionItem>(lang.name, lang.isTranslated);
-      languagesView->addElement(pItem);
-    }
-
-    addElement(languagesView, BoxSizing{70_lw, 70_lh}, AbsolutePosition{15_lw, 15_lh});
-    SelectionLayoutModel &model = createModel<SelectionLayoutModel>();
-    SelectionLayoutController &ctrl = createController<SelectionLayoutController>(
-        model, getWindow().getMouseState(), *languagesView,
-        std::bind(&LanguageSelectionActivity::onLanguageSelected, this, std::placeholders::_1));
-    model.addObserver(languagesView);
-    ctrl.setSelectionIndex(getSelectedLanguageIndex());
-  }
+  
 }
 
-void LanguageSelectionActivity::onBack() { activitySwitch(ActivityType::MainMenu); }
+void SettingsActivity::onBack() { activitySwitch(ActivityType::MainMenu); }
 
-void LanguageSelectionActivity::onLanguageSelected(int index)
+void SettingsActivity::onLanguageSelected(int index)
 {
   getWindow().getSettingsModel().setLanguage(m_Languages[index].shortName);
 }
 
-LanguageSelectionActivity::~LanguageSelectionActivity() = default;
+SettingsActivity::~SettingsActivity() = default;
 
-void LanguageSelectionActivity::setup(class GameService &context) noexcept
+void SettingsActivity::setup(class GameService &context) noexcept
 {
   iLayout::setup(context);
   iActivity::setup(context);
 }
 
-int LanguageSelectionActivity::getSelectedLanguageIndex()
+int SettingsActivity::getSelectedLanguageIndex()
 {
   std::string selectedLanguage = getWindow().getSettingsModel().getLanguage();
   auto selectedLangugeIter = std::find_if(m_Languages.begin(), m_Languages.end(),

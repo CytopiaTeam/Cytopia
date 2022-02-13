@@ -45,7 +45,7 @@ MainMenuActivity::MainMenuActivity(GameService::ServiceTuple &context, Window &w
   /* Create all icons */
   {
     auto callbacks = std::array{std::bind(&MainMenuActivity::onLanguageSelection, this),
-                                std::bind(&MainMenuActivity::onPluginSelection, this)};
+                                std::bind(&MainMenuActivity::onSettingsSelection, this)};
     auto icons = std::array{"globe.png", "wrench.png"};
     auto positions = std::array{100_lw - 110_px, 100_lw - 55_px};
     auto &mouseState = getWindow().getMouseState();
@@ -72,7 +72,7 @@ void MainMenuActivity::onExit()
 }
 
 void MainMenuActivity::onLanguageSelection() { activitySwitch(ActivityType::LanguageSelection); }
-void MainMenuActivity::onPluginSelection() { /*activitySwitch(ActivityType::PluginSelection);*/ }
+void MainMenuActivity::onSettingsSelection() { activitySwitch(ActivityType::Settings); }
 
 MainMenuActivity::~MainMenuActivity() = default;
 

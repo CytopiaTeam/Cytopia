@@ -13,7 +13,7 @@ class MainMenuActivity final : public AbsoluteLayout, public iActivity
   void onLoadGame();
   void onExit();
   void onLanguageSelection();
-  void onPluginSelection();
+  void onSettingsSelection();
 
 public:
   MainMenuActivity(GameService::ServiceTuple &, class Window &);
