@@ -175,7 +175,6 @@ jobs:
           mkdir -p bin/Cytopia.App/Resources/resources
           cp -pR data/resources bin/Cytopia.App/Contents/Resources/
           cp -pR data/resources bin/resources
-          ninja copy_resources
           ninja package
           rm -rf bin/Cytopia.App/Contents/MacOS/resources
           rm -rf bin/Cytopia.App/Resources
