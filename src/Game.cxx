@@ -10,7 +10,6 @@
 #include "engine/basics/GameStates.hxx"
 #include "Filesystem.hxx"
 
-#include <noise.h>
 #include <SDL.h>
 #include <SDL_ttf.h>
 
