@@ -150,17 +150,13 @@ void TerrainGenerator::generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNode
 
 void TerrainGenerator::loadTerrainDataFromJSON()
 {
-  std::string terrainGenDataFileName = SDL_GetBasePath();
-  terrainGenDataFileName.append(TERRAINGEN_DATA_FILE_NAME);
-  std::ifstream i(terrainGenDataFileName);
-
-  if (!i)
-    throw ConfigurationError(TRACE_INFO "Could not open file " + string{TERRAINGEN_DATA_FILE_NAME});
+  std::string jsonFileContent = FileSystem::readStringFromFile(TERRAINGEN_DATA_FILE_NAME);
+  json biomeDataJsonObject = json::parse(jsonFileContent, nullptr, false);
 
   // check if json file can be parsed
-  json biomeDataJsonObject = json::parse(i, nullptr, false);
   if (biomeDataJsonObject.is_discarded())
     throw ConfigurationError(TRACE_INFO "Error parsing JSON File " + string{TERRAINGEN_DATA_FILE_NAME});
+
   // parse biome objects
   for (const auto &it : biomeDataJsonObject.items())
   {

@@ -59,6 +59,7 @@ constexpr struct
 Map::Map(int columns, int rows) : m_columns(columns), m_rows(rows)
 {
   const size_t vectorSize = static_cast<size_t>(m_rows * m_columns);
+  randomEngine.seed();
   mapNodes.resize(vectorSize);
   mapNodesInDrawingOrder.reserve(vectorSize);
   MapLayers::enableLayer(Layer::TERRAIN);
@@ -694,4 +695,30 @@ bool Map::isNodeMultiObject(const Point &isoCoordinates, Layer layer)
     return (mapNode->getTileData(layer)->RequiredTiles.height > 1 && mapNode->getTileData(layer)->RequiredTiles.width > 1);
   }
   return false;
+}
+
+bool Map::isAllowSetTileId(const Layer layer, const MapNode *const pMapNode)
+{
+  switch (layer)
+  {
+  case Layer::ROAD:
+    // During road construction, do not place new road tile over the old one
+    if (pMapNode->isLayerOccupied(layer))
+    {
+      return false;
+    }
+    break;
+  case Layer::ZONE:
+    if ((pMapNode->isLayerOccupied(Layer::BUILDINGS) &&
+         pMapNode->getMapNodeDataForLayer(Layer::BUILDINGS).tileData->category != "Flora") ||
+        pMapNode->isLayerOccupied(Layer::WATER) || pMapNode->isLayerOccupied(Layer::ROAD) || pMapNode->isSlopeNode())
+    {
+      return false;
+    }
+    break;
+  default:
+    break;
+  }
+
+  return true;
 }

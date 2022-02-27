@@ -4,7 +4,7 @@ set(SOURCE_FILES
         Game.inl.hxx
         util/LOG.{hxx,cxx}
         util/LOG.inl.hxx
-        util/filesystem.hxx
+        util/filesystem.{hxx,cxx}
         util/IEquatable.hxx
         util/IEquatable.inl.hxx
         util/Singleton.hxx

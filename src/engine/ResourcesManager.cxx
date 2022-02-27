@@ -24,16 +24,12 @@ void ResourcesManager::loadTexture(const std::string &id, const std::string &fil
 
 void ResourcesManager::loadUITexture()
 {
-  string fName = SDL_GetBasePath() + Settings::instance().uiDataJSONFile.get();
-  std::ifstream i(fName);
-  if (!i)
-    throw ConfigurationError(TRACE_INFO "Couldn't open file " + fName);
+  std::string jsonFileContent = FileSystem::readStringFromFile(Settings::instance().uiDataJSONFile.get());
+  const json uiDataJSON = json::parse(jsonFileContent, nullptr, false);
 
   // check if json file can be parsed
-  const json uiDataJSON = json::parse(i, nullptr, false);
-
   if (uiDataJSON.is_discarded())
-    throw ConfigurationError(TRACE_INFO "Error parsing JSON File " + fName);
+    throw ConfigurationError(TRACE_INFO "Error parsing JSON File " + Settings::instance().uiDataJSONFile.get());
 
   for (const auto &tileID : uiDataJSON.items())
   {
