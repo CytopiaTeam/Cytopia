@@ -78,7 +78,7 @@ public:
 
 private:
   TileManager();
-  ~TileManager() = default;
+  ~TileManager();
 
   std::unordered_map<std::string, TileData> m_tileData;
   void addJSONObjectToTileData(const nlohmann::json &tileDataJSON, size_t idx, const std::string &id);

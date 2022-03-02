@@ -29,19 +29,18 @@ endif ()
 include(CMakeDependentOption)
 include(SourceFileUtils)
 
+set(PACKAGE_MANAGER "conan" CACHE STRING "Use conan for managing packages")
+set_property(CACHE PACKAGE_MANAGER PROPERTY STRINGS conan pkgconfig none)
 option(BUILD_TEST "Build Cytopia Tests" ON)
-option(USE_PACKAGE_MANAGER "Use conan for managing packages" ON)
 option(ENABLE_AUDIO "Enable Audio" ON)
 option(ENABLE_MICROPROFILE "Enable microprofile" OFF)
 option(ENABLE_ANGELSCRIPT "Enable AngelScript" ON)
 option(ENABLE_MOFILEREADER "Enable MofileReader" ON)
+option(ENABLE_VULKAN "Enable Vulkan" OFF)
+option(ENABLE_DEBUG "Enable Debug (asserts and logs)" OFF)
 option(BUILD_ANDROID "Crossbuild to Android" OFF)
 
 # Comment-out uneeded libs
-if (NOT ENABLE_AUDIO)
-    set(_CC_SDL2_MIXER "# ")
-endif ()
-
 if (NOT ENABLE_AUDIO)
     set(_CC_OPENAL_SOFT "# ")
 endif ()
@@ -58,11 +57,17 @@ if (NOT ENABLE_MOFILEREADER)
     set(_CC_MOFILEREADER "# ")
 endif ()
 
-if(USE_PACKAGE_MANAGER)
+if (NOT ENABLE_VULKAN)
+  set(_CC_VULKAN "# ")
+endif ()
+
+if(PACKAGE_MANAGER STREQUAL "conan")
   if (WIN32)
-      configure_file("${CMAKE_CURRENT_SOURCE_DIR}/conanfile-win.txt.in" "${CMAKE_CURRENT_SOURCE_DIR}/conanfile.txt")
+    configure_file("${CMAKE_CURRENT_SOURCE_DIR}/conanfile-win.txt.in" "${CMAKE_CURRENT_SOURCE_DIR}/conanfile.txt")
+  elseif(APPLE)
+    configure_file("${CMAKE_CURRENT_SOURCE_DIR}/conanfile-mac.txt.in" "${CMAKE_CURRENT_SOURCE_DIR}/conanfile.txt")
   else()
-      configure_file("${CMAKE_CURRENT_SOURCE_DIR}/conanfile.txt.in" "${CMAKE_CURRENT_SOURCE_DIR}/conanfile.txt")
+    configure_file("${CMAKE_CURRENT_SOURCE_DIR}/conanfile-linux.txt.in" "${CMAKE_CURRENT_SOURCE_DIR}/conanfile.txt")
   endif ()
 endif()
 
@@ -96,6 +101,8 @@ if (BUILD_ANDROID)
   set(OPENAL_DISTRIBUTION_DIR ${CMAKE_SOURCE_DIR}/platforms/android/build/openal-soft/intermediates/cmake)
   set(LIBOGG_DISTRIBUTION_DIR ${CMAKE_SOURCE_DIR}/platforms/android/build/libogg/intermediates/cmake)
   set(LIBVORBIS_DISTRIBUTION_DIR ${CMAKE_SOURCE_DIR}/platforms/android/build/libvorbis/intermediates/cmake)
+  set(LIBPNG_DISTRIBUTION_DIR ${CMAKE_SOURCE_DIR}/platforms/android/build/libpng/intermediates/cmake)
+  set(ZLIB_DISTRIBUTION_DIR ${CMAKE_SOURCE_DIR}/platforms/android/build/zlib/intermediates/cmake)
   string(TOLOWER ${CMAKE_BUILD_TYPE} ANDROID_BUILD_DIR)
 
   set(SDL_LOCATION ${CMAKE_SOURCE_DIR}/contrib/)
@@ -115,11 +122,6 @@ if (BUILD_ANDROID)
   add_library(SDL2_TTF SHARED IMPORTED )
   set_target_properties(SDL2_TTF PROPERTIES IMPORTED_LOCATION ${SDL2_TTF_LOCATION})
 
-  ## SDL2_mixer
-  set (SDL2_MIXER_LOCATION ${DISTRIBUTION_DIR}/${ANDROID_BUILD_DIR}/obj/local/${ANDROID_ABI}/libSDL2_mixer.so)
-  add_library(SDL2_MIXER SHARED IMPORTED )
-  set_target_properties(SDL2_MIXER PROPERTIES IMPORTED_LOCATION ${SDL2_MIXER_LOCATION})
-
   #libnoise
   set (LIBNOISE_LOCATION ${NOISE_DISTRIBUTION_DIR}/${ANDROID_BUILD_DIR}/obj/${ANDROID_ABI}/libnoise.so)
   add_library(LIBNOISE SHARED IMPORTED )
@@ -134,11 +136,25 @@ if (BUILD_ANDROID)
   set (LIBOGG_LOCATION ${LIBOGG_DISTRIBUTION_DIR}/${ANDROID_BUILD_DIR}/obj/${ANDROID_ABI}/libogg.so)
   add_library(LIBOGG SHARED IMPORTED )
   set_target_properties(LIBOGG PROPERTIES IMPORTED_LOCATION ${LIBOGG_LOCATION})
+  
+  #zlib ./build/zlib/intermediates/cmake/debug/obj/x86/zlib.so
+  set (ZLIB_LOCATION ${ZLIB_DISTRIBUTION_DIR}/${ANDROID_BUILD_DIR}/obj/${ANDROID_ABI}/zlib.so)
+  add_library(ZLIB SHARED IMPORTED )
+  set_target_properties(ZLIB PROPERTIES IMPORTED_LOCATION ${ZLIB_LOCATION})
+  
+  #libpng ./build/libpng/intermediates/cmake/debug/obj/x86/libpng.so
+  set (LIBPNG_LOCATION ${LIBPNG_DISTRIBUTION_DIR}/${ANDROID_BUILD_DIR}/obj/${ANDROID_ABI}/libpng.so)
+  add_library(LIBPNG SHARED IMPORTED )
+  set_target_properties(LIBPNG PROPERTIES IMPORTED_LOCATION ${LIBPNG_LOCATION})
 
   #vorbis ./build/libvorbis/intermediates/cmake/debug/obj/x86/libvorbis.so
   set (LIBVORBIS_LOCATION ${LIBVORBIS_DISTRIBUTION_DIR}/${ANDROID_BUILD_DIR}/obj/${ANDROID_ABI}/libvorbis.so)
   add_library(LIBVORBIS SHARED IMPORTED )
   set_target_properties(LIBVORBIS PROPERTIES IMPORTED_LOCATION ${LIBVORBIS_LOCATION})
+
+  set (LIBVORBISFILE_LOCATION ${LIBVORBIS_DISTRIBUTION_DIR}/${ANDROID_BUILD_DIR}/obj/${ANDROID_ABI}/libvorbisfile.so)
+  add_library(LIBVORBISFILE SHARED IMPORTED )
+  set_target_properties(LIBVORBISFILE PROPERTIES IMPORTED_LOCATION ${LIBVORBISFILE_LOCATION})
   # Joysticks were causing trouble on android.
   add_definitions(-DSDL_JOYSTICK=0)
 endif()
@@ -147,14 +163,13 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "RelWithDebIn
   list(APPEND _compile_definitions DEBUG)
 endif ()
 
-
-if (APPLE AND NOT USE_PACKAGE_MANAGER)
+if (APPLE AND NOT (PACKAGE_MANAGER STREQUAL "conan"))
   # on macOS, usr/local/lib is not in the default search path for libraries. Homebrew install it's libraries there though.
   LINK_DIRECTORIES(${LINK_DIRECTORIES} /usr/local/lib)
 endif()
 
 
-if (USE_PACKAGE_MANAGER)
+if (PACKAGE_MANAGER STREQUAL "conan")
     function(get_variable_from_conan _var_name)
         include("${CMAKE_CURRENT_BINARY_DIR}/conanbuildinfo.cmake")
         get_property(__propt VARIABLE PROPERTY ${_var_name})
@@ -167,6 +182,7 @@ if (USE_PACKAGE_MANAGER)
 			REMOTES
             AFG https://api.bintray.com/conan/anotherfoxguy/conan-packages
             ror-dependencies https://api.bintray.com/conan/anotherfoxguy/ror-dependencies
+            cytopia https://api.bintray.com/conan/cytopia/conan-packages
             BINCRAFTERS
             CMakeCM ROLLING
             )
@@ -207,6 +223,10 @@ if (USE_PACKAGE_MANAGER)
         list(APPEND _link_libraries CONAN_PKG::MofileReader)
     endif ()
 
+    if (ENABLE_VULKAN)
+        list(APPEND _link_libraries CONAN_PKG::vulkan-sdk)
+    endif()
+
     if (BUILD_TEST)
         list(APPEND _link_libraries CONAN_PKG::Catch2)
     endif ()
@@ -218,39 +238,43 @@ elseif (BUILD_ANDROID)
                                 SDL2
                                 SDL2_IMAGE
                                 SDL2_TTF
-                                SDL2_MIXER
                                 OPENAL
                                 LIBVORBIS
+                                LIBVORBISFILE
                                 LIBOGG
                                 z # zlib provided by android NDK
                                 LIBNOISE
+                                LIBPNG
+
     )
     # Include dirs.
     list(APPEND _include_directories ${CMAKE_SOURCE_DIR}/external/android/SDL/SDL2/include
                                      ${CMAKE_SOURCE_DIR}/external/android/SDL/SDL2_image
                                      ${CMAKE_SOURCE_DIR}/external/android/SDL/SDL2_ttf
-                                     ${CMAKE_SOURCE_DIR}/external/android/SDL/SDL2_mixer
                                      ${CMAKE_SOURCE_DIR}/external/android/other/libnoise/src/noise
                                      ${CMAKE_SOURCE_DIR}/external/android/other/openal-soft/include
                                      ${CMAKE_SOURCE_DIR}/external/android/other/ogg/include
                                      ${CMAKE_SOURCE_DIR}/external/android/other/vorbis/include
+                                     ${CMAKE_SOURCE_DIR}/external/android/other/libpng/
         )
-else()
+elseif(PACKAGE_MANAGER STREQUAL "pkgconfig")
     find_package(PkgConfig REQUIRED)
 
     pkg_check_modules(SDL2 REQUIRED sdl2)
     pkg_check_modules(SDL2_image REQUIRED SDL2_image)
     pkg_check_modules(SDL2_ttf REQUIRED SDL2_ttf)
     pkg_check_modules(ZLIB REQUIRED zlib)
-
-
+    pkg_check_modules(PNG REQUIRED libpng)
 
     if (ENABLE_AUDIO)
         pkg_check_modules(openal REQUIRED openal)
         pkg_check_modules(vorbis REQUIRED vorbis)
-        pkg_check_modules(vorbis REQUIRED vorbisfile)
-
+        pkg_check_modules(vorbisfile REQUIRED vorbisfile)
     endif ()
+
+    if (ENABLE_VULKAN)
+        pkg_check_modules(VULKAN REQUIRED vulkan)
+    endif()
 
     find_package(LIBNOISE REQUIRED)
 
@@ -271,6 +295,7 @@ else()
             ${SDL2_image_INCLUDE_DIRS}
             ${SDL2_ttf_INCLUDE_DIRS}
             ${ZLIB_INCLUDEDIR}
+            ${PNG_INCLUDE_DIRS}
             )
     list(APPEND _link_libraries
             ${SDL2_LIBRARIES}
@@ -278,10 +303,12 @@ else()
             ${SDL2_ttf_LIBRARIES}
             LIBNOISE::LIBNOISE_LIBRARIES
             ${ZLIB_LIBRARIES}
+            ${PNG_LIBRARIES}
             )
 
     if (ENABLE_AUDIO)
         list(APPEND _link_libraries ${vorbis_LIBRARIES})
+        list(APPEND _link_libraries ${vorbisfile_LIBRARIES})
     endif ()
 
     if (ENABLE_AUDIO)
@@ -293,10 +320,59 @@ else()
         list(APPEND _link_libraries ${AngelScript_LIBRARY})
     endif ()
 
+    if (ENABLE_VULKAN)
+        list(APPEND _link_libraries ${VULKAN_LIBRARIES})
+        list(APPEND _include_directories ${VULKAN_INCLUDEDIR})
+    endif()
+
     if (BUILD_TEST)
         list(APPEND _include_directories ${CATCH2_INCLUDEDIR})
     endif ()
+elseif(PACKAGE_MANAGER STREQUAL "none")
+    macro(find_dependency _dep_name)
+      set("${_dep_name}_INCLUDE_DIRS" "Change me" CACHE PATH "Include directory for ${_dep_name}")
+      set("${_dep_name}_LIBRARIES" "Change me" CACHE PATH "Library binaries directory for ${_dep_name}")
+        if(NOT IS_DIRECTORY "${${_dep_name}_INCLUDE_DIRS}")
+          message(SEND_ERROR "For dependency ${_dep_name}: \"${${_dep_name}_INCLUDE_DIRS}\" is not a directory")
+        elseif(NOT IS_DIRECTORY "${${_dep_name}_LIBRARIES}")
+          message(SEND_ERROR "For dependency ${_dep_name}: \"${${_dep_name}\"_LIBRARIES} is not a directory")
+        else()
+          list(APPEND _include_directories ${${_dep_name}_INCLUDE_DIRS})
+          list(APPEND _link_libraries ${${_dep_name}_LIBRARY})
+          return()
+        endif()
+        list(APPEND _DEPENDENCY_ERRORS "${_dep_name}")
+    endmacro()
 
+    find_dependency(SDL2)
+    find_dependency(SDL2_image)
+    find_dependency(SDL2_ttf)
+    find_dependency(ZLIB)
+    find_dependency(LIBNOISE)
+    find_dependency(LIBPNG)
+
+    if (ENABLE_AUDIO)
+        find_dependency(openal)
+        find_dependency(vorbis)
+        find_dependency(vorbisfile)
+    endif ()
+
+    if (ENABLE_ANGELSCRIPT)
+        find_dependency(AngelScript)
+    endif ()
+
+    if (ENABLE_MOFILEREADER)
+        find_dependency(MofileReader)
+    endif ()
+
+    if (BUILD_TEST)
+        find_dependency(Catch2)
+    endif (BUILD_TEST)
+
+    list(LENGTH _DEPENDENCY_ERRORS _ERROR_LENGTH)
+    if(_ERROR_LENGTH)
+      message(FATAL_ERROR "Could not find ${_ERROR_LENGTH} dependencies: ${_DEPENDENCY_ERRORS}")
+    endif ()
 endif ()
 
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
@@ -402,10 +478,12 @@ endif ()
 # copy itch.toml to build folder to install our prerequisits
 if (WIN32)
   if (CMAKE_SIZEOF_VOID_P EQUAL 8) ## 64 bit
+    message(STATUS "Using Win64 itch.toml file")
     INSTALL(FILES ${CMAKE_SOURCE_DIR}/tools/itch/win64/.itch.toml
             DESTINATION ${CMAKE_BINARY_DIR}/redist
             )
   elseif(CMAKE_SIZEOF_VOID_P EQUAL 4) ## 32 bit
+    message(STATUS "Using Win64 itch.toml file")
     INSTALL(FILES ${CMAKE_SOURCE_DIR}/tools/itch/win32/.itch.toml
            DESTINATION ${CMAKE_BINARY_DIR}/redist
            )

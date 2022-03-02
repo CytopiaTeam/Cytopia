@@ -4,16 +4,25 @@
 #include <ciso646>
 #include <string>
 #include <vector>
+#include "../util/PixelBuffer.hxx"
 
 namespace fs
 {
 
-/** Read contents from a file as string.
-   * @param fileName Name of the file to read
-   * @param binaryMode (optional) open the file in binary mode. (default: false)
-   * @returns the content of the file as string
-   */
+/**
+ * @brief   Read contents from a file as string.
+ * @param   fileName Name of the file to read
+ * @param   binaryMode (optional) open the file in binary mode. (default: false)
+ * @returns the content of the file as string
+ */
 std::string readFileAsString(const std::string &fileName, bool binaryMode = false);
+
+/**
+ * @brief   Read contents from a PNG file
+ * @param   fileName Name of the PNG file to read
+ * @returns A PixelBuffer centered at (0, 0) with pixel data
+ */
+PixelBuffer readPNGFile(const std::string & fileName);
 
 /** Write a string to a file.
    * @param fileName Name of the file to write

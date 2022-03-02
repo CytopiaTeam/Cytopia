@@ -12,7 +12,7 @@ class EventManager : public Singleton<EventManager>
 {
 public:
   EventManager() = default;
-  ~EventManager() = default;
+  ~EventManager();
 
   void checkEvents(SDL_Event &event, Engine &engine);
   void registerTimer(Timer *timer);
@@ -21,6 +21,7 @@ public:
  * This sets a node to be unhighlited.
  */
   void unHighlightNodes();
+  void setWindow(class Window*);
 
 private:
   UIManager &m_uiManager = UIManager::instance();
@@ -39,6 +40,7 @@ private:
   std::vector<Point> m_nodesToHighlight = {};
   std::vector<Timer *> m_timers;
   std::vector<Point> m_transparentBuildings;
+  class Window * m_Window = nullptr;
 };
 
 #endif

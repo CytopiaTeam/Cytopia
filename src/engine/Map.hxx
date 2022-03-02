@@ -21,9 +21,12 @@ struct NeighborNode
 class Map
 {
 public:
-  Map() = delete;
   Map(int columns, int rows, const bool generateTerrain = true);
-  ~Map() = default;
+  ~Map();
+  Map(Map &other) = delete;
+  Map &operator=(const Map &other) = delete;
+  Map(Map &&fp) = delete;
+  Map const &operator=(Map &&fp) = delete;
 
   /** \brief Increase Height
     * Increases the height of the node and checks the surrounding tiles. Either draw a slope sprite or elevate the tile if
@@ -201,6 +204,12 @@ public:
   */
   const MapNode *getMapNode(Point isoCoords) const { return &mapNodes[nodeIdx(isoCoords.x, isoCoords.y)]; };
 
+  /**
+   * @brief Sets the Window
+   * @todo  Remove this when the New UI is complete
+   */
+  static void setWindow(class Window *);
+
 private:
   /**\brief Update all mapNodes
   * Updates all mapNode and its adjacent tiles regarding height information, draws slopes for adjacent tiles and
@@ -275,12 +284,13 @@ private:
 
   std::vector<MapNode> mapNodes;
   std::vector<MapNode *> mapNodesInDrawingOrder;
-  std::vector<MapNode *> mapNodesVisible;
+  Sprite **pMapNodesVisible;
+  int m_visibleNodesCount = 0;
   int m_columns;
   int m_rows;
   std::default_random_engine randomEngine;
   TerrainGenerator m_terrainGen;
-
+  static class Window * m_Window;
   static const size_t m_saveGameVersion;
 };
 

@@ -1,6 +1,7 @@
 #ifndef AUDIO_EVENTS_HXX
 #define AUDIO_EVENTS_HXX
 
+#include "../util/TypeList.hxx"
 #include "../engine/audio/Soundtrack.hxx"
 #include "../engine/audio/AudioConfig.hxx"
 

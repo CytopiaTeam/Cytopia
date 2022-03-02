@@ -23,8 +23,8 @@ enum Layer : unsigned int
 };
 
 /// This is a ordered list of all relevant layers we need to interact with
-static Layer allLayersOrdered[] = {Layer::TERRAIN, Layer::WATER,     Layer::GROUND_DECORATION, Layer::ZONE,
-                                   Layer::ROAD,    Layer::BUILDINGS, Layer::BLUEPRINT,         Layer::UNDERGROUND};
+static Layer allLayersOrdered[] = {Layer::BLUEPRINT, Layer::UNDERGROUND, Layer::TERRAIN, Layer::WATER,
+                                    Layer::GROUND_DECORATION, Layer::ZONE, Layer::ROAD,    Layer::BUILDINGS};
 
 /**
  * @brief LayerEditMode.

@@ -16,12 +16,12 @@ rm SDL2_image-2.0.5.tar.gz
 mv SDL2_image-2.0.5 SDL2_image
 rm SDL2_image-2.0.5.tar.gz
 
-wget https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.4.tar.gz
-rm -rf SDL2_mixer
-tar xf SDL2_mixer-2.0.4.tar.gz
-rm SDL2_mixer-2.0.4.tar.gz
-mv SDL2_mixer-2.0.4 SDL2_mixer
-rm SDL2_mixer-2.0.4.tar.gz
+wget https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-2.0.15.tar.gz
+rm -rf SDL2_ttf
+tar xf SDL2_ttf-2.0.15.tar.gz
+rm SDL2_ttf-2.0.15.tar.gz
+mv SDL2_ttf-2.0.15 SDL2_ttf
+rm SDL2_ttf-2.0.15.tar.gz
 
 cd ..
 
@@ -48,6 +48,13 @@ git clone https://github.com/xiph/ogg.git
 
 rm -rf vorbis
 git clone https://github.com/xiph/vorbis.git
+
+rm -rf libpng
+wget https://nchc.dl.sourceforge.net/project/libpng/libpng16/1.6.37/libpng-1.6.37.tar.xz
+tar xf libpng-1.6.37.tar.xz
+rm libpng-1.6.37.tar.xz
+mv libpng-1.6.37 libpng
+cp libpng/scripts/pnglibconf.h.prebuilt libpng/pnglibconf.h
 
 #adjust vorbis cmakelists to make it buildable on android
 sed -i '10istring(REPLACE "libvorbis" "libogg" OGG_BINARY_DIR ${CMAKE_BINARY_DIR})' vorbis/CMakeLists.txt

@@ -38,20 +38,26 @@ AudioMixer::AudioMixer(GameService::ServiceTuple &context) : GameService(context
   /* use default audio device */
   gAudioDevice = alcOpenDevice(nullptr);
   if (!gAudioDevice)
-    throw AudioError(TRACE_INFO "Unable to initialize default audio device! " + *alGetString(alGetError()));
+  {
+    const char *error_msg = get_al_error_msg(alGetError());
+    LOG(LOG_WARNING) << "Unable to initialize default audio device! " << error_msg;
+    return;
+  }
 
   /* create context */
   alContext = alcCreateContext(gAudioDevice, nullptr);
   if (!alContext)
-    throw AudioError(TRACE_INFO "Unable to initialize OpenAL context! " + *alGetString(alGetError()));
-  else
-    alcMakeContextCurrent(alContext);
+  {
+    const char *error_msg = get_al_error_msg(alGetError());
+    throw AudioError(TRACE_INFO "Unable to initialize OpenAL context! " + error_msg);
+  }
+  alcMakeContextCurrent(alContext);
 
   /* Check if an error occured, and clean up if so. */
   ALenum err;
   err = alGetError();
   if (err != AL_NO_ERROR)
-    throw AudioError(TRACE_INFO "OpenAL error occured: " + alGetString(err));
+    throw AudioError(TRACE_INFO "OpenAL error occured: " + get_al_error_msg(err));
 
   /* set listener position one space behind origin */
   Array<float, 3> listener_position_vector{0.0f, 0.0f, 1.0f};
@@ -71,13 +77,22 @@ AudioMixer::AudioMixer(GameService::ServiceTuple &context) : GameService(context
   alListenerfv(AL_ORIENTATION, listener_orientation_vector.data());
 
   /* Set a pruning repeated task to get rid of soundtracks that have finished playing */
-  GetService<GameClock>().createRepeatedTask(5min, [&mixer = *this]() { mixer.prune(); });
+  GetService<GameClock>().addRealTimeClockTask(
+      [&mixer = *this]() {
+        mixer.prune();
+        return false;
+      },
+      0s, 5min);
 
   LOG(LOG_DEBUG) << "Created AudioMixer";
 }
 
 AudioMixer::~AudioMixer()
 {
+  if (!gAudioDevice)
+  {
+    return;
+  }
   int num_opened = 0;
   int _discard;
   Uint16 _discard2;
@@ -172,6 +187,10 @@ void AudioMixer::prune() noexcept { GetService<GameLoopMQ>().push(AudioPruneEven
 
 void AudioMixer::handleEvent(const AudioTriggerEvent &&event)
 {
+  if (!gAudioDevice)
+  {
+    return;
+  }
   auto &possibilities = m_Triggers[event.trigger];
   if (possibilities.size() == 0)
   {
@@ -185,12 +204,20 @@ void AudioMixer::handleEvent(const AudioTriggerEvent &&event)
 
 void AudioMixer::handleEvent(const AudioPlayEvent &&event)
 {
+  if (!gAudioDevice)
+  {
+    return;
+  }
   SoundtrackUPtr &track = GetService<ResourceManager>().get(event.ID);
   playSoundtrack(track);
 }
 
 void AudioMixer::handleEvent(const AudioTrigger3DEvent &&event)
 {
+  if (!gAudioDevice)
+  {
+    return;
+  }
   auto &possibilities = m_Triggers[event.trigger];
   if (possibilities.size() == 0)
   {
@@ -209,6 +236,10 @@ void AudioMixer::handleEvent(const AudioTrigger3DEvent &&event)
 
 void AudioMixer::handleEvent(const AudioPlay3DEvent &&event)
 {
+  if (!gAudioDevice)
+  {
+    return;
+  }
   SoundtrackUPtr &track = GetService<ResourceManager>().get(event.ID);
   /* set position of source in track */
   alSource3f(track->source, AL_POSITION, static_cast<ALfloat>(event.position.x), static_cast<ALfloat>(event.position.y),
@@ -218,6 +249,10 @@ void AudioMixer::handleEvent(const AudioPlay3DEvent &&event)
 
 void AudioMixer::handleEvent(const AudioTriggerReverbEvent &&event)
 {
+  if (!gAudioDevice)
+  {
+    return;
+  }
   auto &possibilities = m_Triggers[event.trigger];
   if (possibilities.size() == 0)
   {
@@ -232,6 +267,10 @@ void AudioMixer::handleEvent(const AudioTriggerReverbEvent &&event)
 
 void AudioMixer::handleEvent(const AudioPlayReverbEvent &&event)
 {
+  if (!gAudioDevice)
+  {
+    return;
+  }
   SoundtrackUPtr &track = GetService<ResourceManager>().get(event.ID);
 
   playSoundtrackWithReverb(track, event.reverb_properties);
@@ -239,6 +278,10 @@ void AudioMixer::handleEvent(const AudioPlayReverbEvent &&event)
 
 void AudioMixer::handleEvent(const AudioPlayEchoEvent &&event)
 {
+  if (!gAudioDevice)
+  {
+    return;
+  }
   SoundtrackUPtr &track = GetService<ResourceManager>().get(event.ID);
 
   playSoundtrackWithEcho(track, event.echo_properties);
@@ -246,6 +289,10 @@ void AudioMixer::handleEvent(const AudioPlayEchoEvent &&event)
 
 void AudioMixer::handleEvent(const AudioTriggerEchoEvent &&event)
 {
+  if (!gAudioDevice)
+  {
+    return;
+  }
   auto &possibilities = m_Triggers[event.trigger];
   if (possibilities.size() == 0)
   {
@@ -260,6 +307,10 @@ void AudioMixer::handleEvent(const AudioTriggerEchoEvent &&event)
 
 void AudioMixer::handleEvent(const AudioTriggerReverb3DEvent &&event)
 {
+  if (!gAudioDevice)
+  {
+    return;
+  }
   auto &possibilities = m_Triggers[event.trigger];
   if (possibilities.size() == 0)
   {
@@ -278,6 +329,10 @@ void AudioMixer::handleEvent(const AudioTriggerReverb3DEvent &&event)
 
 void AudioMixer::handleEvent(const AudioTriggerEcho3DEvent &&event)
 {
+  if (!gAudioDevice)
+  {
+    return;
+  }
   auto &possibilities = m_Triggers[event.trigger];
   if (possibilities.size() == 0)
   {
@@ -297,6 +352,10 @@ void AudioMixer::handleEvent(const AudioTriggerEcho3DEvent &&event)
 
 void AudioMixer::handleEvent(const AudioPlayReverb3DEvent &&event)
 {
+  if (!gAudioDevice)
+  {
+    return;
+  }
   SoundtrackUPtr &track = GetService<ResourceManager>().get(event.ID);
   /* set position of source in track */
   alSource3f(track->source, AL_POSITION, static_cast<ALfloat>(event.position.x), static_cast<ALfloat>(event.position.y),
@@ -306,6 +365,10 @@ void AudioMixer::handleEvent(const AudioPlayReverb3DEvent &&event)
 
 void AudioMixer::handleEvent(const AudioPlayEcho3DEvent &&event)
 {
+  if (!gAudioDevice)
+  {
+    return;
+  }
   SoundtrackUPtr &track = GetService<ResourceManager>().get(event.ID);
   /* set position of source in track */
   alSource3f(track->source, AL_POSITION, static_cast<ALfloat>(event.position.x), static_cast<ALfloat>(event.position.y),
@@ -328,7 +391,10 @@ void AudioMixer::handleEvent(const AudioSetMutedEvent &&event) { throw Unimpleme
 
 void AudioMixer::handleEvent(const AudioStopEvent &&)
 {
-
+  if (!gAudioDevice)
+  {
+    return;
+  }
   while (!m_Playing.empty())
   {
     auto it = m_Playing.begin();
@@ -340,6 +406,10 @@ void AudioMixer::handleEvent(const AudioStopEvent &&)
 
 void AudioMixer::handleEvent(const AudioPruneEvent &&)
 {
+  if (!gAudioDevice)
+  {
+    return;
+  }
   for (auto it = m_Playing.begin(); it != m_Playing.end();)
   {
     int state = 0;
@@ -612,4 +682,25 @@ void AudioMixer::onTrackFinished(int channelID)
       track->Channel = -1;
   }
   m_Playing.erase(it);
+}
+
+const char *AudioMixer::get_al_error_msg(ALenum error)
+{
+  switch (error)
+  {
+  case AL_INVALID_NAME:
+    return "a bad name (ID) was passed to an OpenAL function";
+  case AL_INVALID_ENUM:
+    return "an invalid enum value was passed to an OpenAL function";
+  case AL_INVALID_VALUE:
+    return "an invalid value was passed to an OpenAL function";
+  case AL_INVALID_OPERATION:
+    return "the requested operation is not valid";
+  case AL_OUT_OF_MEMORY:
+    return "the requested operation resulted in OpenAL running out of memory";
+  case AL_NO_ERROR:
+    return "there is not currently an error";
+  default:
+    return "Unknown error";
+  }
 }

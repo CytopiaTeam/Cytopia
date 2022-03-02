@@ -2,6 +2,7 @@
 #include "engine/Engine.hxx"
 #include "engine/EventManager.hxx"
 #include "engine/UIManager.hxx"
+#include "engine/ResourcesManager.hxx"
 #include "engine/WindowManager.hxx"
 #include "engine/basics/Camera.hxx"
 #include "LOG.hxx"
@@ -11,8 +12,6 @@
 #include "Filesystem.hxx"
 
 #include <noise.h>
-#include <SDL.h>
-#include <SDL_ttf.h>
 
 #ifdef USE_ANGELSCRIPT
 #include "Scripting/ScriptEngine.hxx"
@@ -34,15 +33,25 @@ Game::Game()
 #ifdef USE_AUDIO
                     &m_AudioMixer,
 #endif // USE_AUDIO
-                    &m_Randomizer, &m_GameClock, &m_ResourceManager),
-      m_GameClock{m_GameContext}, m_Randomizer{m_GameContext}, m_ResourceManager{m_GameContext},
+                    &m_Randomizer, &m_GameClock, &m_ResourceManager, &m_MouseController),
+      m_GameClock{m_GameContext}, m_Randomizer{m_GameContext}, m_ResourceManager{m_GameContext}, m_MouseController{m_GameContext},
 #ifdef USE_AUDIO
       m_AudioMixer{m_GameContext},
 #endif
-      m_UILoop(&LoopMain<UILoopMQ, UIVisitor>, std::ref(m_GameContext), UIVisitor{}),
-      m_EventLoop(&LoopMain<GameLoopMQ, GameVisitor>, std::ref(m_GameContext), GameVisitor{m_GameContext})
+      m_UILoop(&LoopMain<UILoopMQ, UIVisitor>, std::ref(m_GameContext), UIVisitor{m_Window, m_GameContext}),
+      m_EventLoop(&LoopMain<GameLoopMQ, GameVisitor>, std::ref(m_GameContext), GameVisitor{m_GameContext}),
+      m_Window(m_GameContext, VERSION, 
+        Settings::instance().getDefaultWindowWidth(), 
+        Settings::instance().getDefaultWindowHeight(), 
+        Settings::instance().fullScreen, 
+        "resources/images/app_icons/cytopia_icon.png")
 {
   LOG(LOG_DEBUG) << "Created Game Object";
+  /**
+   *  @todo Remove this when new ui is complete
+   *  This is just a temporary fix
+   */
+  WindowManager::instance().setRealWindow(m_Window);
 }
 
 void Game::quit()
@@ -63,27 +72,15 @@ void Game::quit()
 
 bool Game::initialize()
 {
-  if (SDL_Init(SDL_INIT_VIDEO) != 0)
-  {
-    LOG(LOG_ERROR) << "Failed to Init SDL";
-    LOG(LOG_ERROR) << "SDL Error: " << SDL_GetError();
-    return false;
-  }
-
-  if (TTF_Init() == -1)
-  {
-    LOG(LOG_ERROR) << "Failed to Init SDL_TTF";
-    LOG(LOG_ERROR) << "SDL Error: " << TTF_GetError();
-    return false;
-  }
-
-  // initialize window manager
-  WindowManager::instance().setWindowTitle(VERSION);
 
 #ifdef USE_MOFILEREADER
   std::string moFilePath = fs::getBasePath();
   moFilePath = moFilePath + "languages/" + Settings::instance().gameLanguage + "/Cytopia.mo";
 
+  Layout::instance().setWindow(&m_Window);
+  EventManager::instance().setWindow(&m_Window);
+  Map::setWindow(&m_Window);
+  Camera::instance().setWindow(&m_Window);
   if (moFileLib::moFileReaderSingleton::GetInstance().ReadFile(moFilePath.c_str()) == moFileLib::moFileReader::EC_SUCCESS)
   {
     LOG(LOG_INFO) << "Loaded MO file " << moFilePath;
@@ -98,12 +95,43 @@ bool Game::initialize()
   return true;
 }
 
+void Game::newUI()
+{
+  m_UILoopMQ.push(ActivitySwitchEvent{ActivityType::MainMenu});
+  m_GameLoopMQ.push(ActivitySwitchEvent{ActivityType::MainMenu});
+  SDL_Event event;
+  for(;;)
+  {
+    while (SDL_WaitEvent(&event) != 0)
+    {
+      switch(event.type)
+      {
+        case SDL_QUIT:
+          shutdown();
+          return;
+        case SDL_WINDOWEVENT:
+          switch(event.window.event)
+          {
+            case SDL_WINDOWEVENT_SIZE_CHANGED:
+              m_UILoopMQ.push(WindowResizeEvent{});
+              continue;
+            default:
+              continue;
+          }
+          continue;
+        default:
+          continue;
+      }
+    }
+  }
+}
+
 bool Game::mainMenu()
 {
   SDL_Event event;
 
-  int screenWidth = Settings::instance().screenWidth;
-  int screenHeight = Settings::instance().screenHeight;
+  int screenWidth = m_Window.getBounds().width();
+  int screenHeight = m_Window.getBounds().height();
   bool mainMenuLoop = true;
   bool quitGame = false;
 
@@ -270,7 +298,7 @@ void Game::run(bool SkipMenu)
   Engine &engine = Engine::instance();
 
   LOG(LOG_DEBUG) << "Map initialized in " << benchmarkTimer.getElapsedTime() << "ms";
-  Camera::centerScreenOnMapCenter();
+  Camera::instance().centerScreenOnMapCenter();
 
   SDL_Event event;
   EventManager &evManager = EventManager::instance();
@@ -286,13 +314,33 @@ void Game::run(bool SkipMenu)
 #ifdef USE_AUDIO
   if (!Settings::instance().audio3DStatus)
   {
-    m_GameClock.createRepeatedTask(8min, [this]() { m_AudioMixer.play(AudioTrigger::MainTheme); });
-    m_GameClock.createRepeatedTask(3min, [this]() { m_AudioMixer.play(AudioTrigger::NatureSounds); });
+    m_GameClock.addRealTimeClockTask(
+        [this]() {
+          m_AudioMixer.play(AudioTrigger::MainTheme);
+          return false;
+        },
+        0s, 8min);
+    m_GameClock.addRealTimeClockTask(
+        [this]() {
+          m_AudioMixer.play(AudioTrigger::NatureSounds);
+          return false;
+        },
+        0s, 3min);
   }
   else
   {
-    m_GameClock.createRepeatedTask(8min, [this]() { m_AudioMixer.play(AudioTrigger::MainTheme, Coordinate3D{0, 0.5, 0.1}); });
-    m_GameClock.createRepeatedTask(3min, [this]() { m_AudioMixer.play(AudioTrigger::NatureSounds, Coordinate3D{0, 0, -2}); });
+    m_GameClock.addRealTimeClockTask(
+        [this]() {
+          m_AudioMixer.play(AudioTrigger::MainTheme, Coordinate3D{0, 0.5, 0.1});
+          return false;
+        },
+        0s, 8min);
+    m_GameClock.addRealTimeClockTask(
+        [this]() {
+          m_AudioMixer.play(AudioTrigger::NatureSounds, Coordinate3D{0, 0, -2});
+          return false;
+        },
+        0s, 3min);
   }
 #endif // USE_AUDIO
 
@@ -354,33 +402,105 @@ void Game::shutdown()
   m_GameLoopMQ.push(TerminateEvent{});
   m_UILoop.join();
   m_EventLoop.join();
-  TTF_Quit();
+  ResourcesManager::instance().flush();
+  UIManager::instance().flush();
+}
 
-  SDL_Quit();
+/**
+* @brief Check whether event queue contains event type.
+* @param events Queue contains events.
+* @tparam Event type to search for.
+* @tparam Queue type of queue which contains events. Let it be deduced from events parameter.
+* @return true in case event type is in the queue, otherwise false.
+*/
+template <typename Event, typename Queue> static bool containsEvent(const Queue &events)
+{
+  return (events.end() !=
+          std::find_if(events.begin(), events.end(), [](const auto event) { return std::holds_alternative<Event>(event); }));
+}
+
+// Primary template, this is default behavior: block indefinitely until an event arrive in queue.
+template <typename MQType> typename MQType::Enumerable Game::getEvents(GameContext &context)
+{
+  return std::get<MQType *>(context)->getEnumerable();
+}
+
+// Full specialized template for UILoopMQ.
+template <> typename UILoopMQ::Enumerable Game::getEvents<UILoopMQ>(GameContext &context)
+{
+  const auto events = std::get<UILoopMQ *>(context)->getEnumerableTimeout(16ms);
+  const auto pGameClock = std::get<GameClock *>(context);
+
+  // Clear all timers in case of terminate event.
+  if (containsEvent<TerminateEvent>(events))
+  {
+    pGameClock->clear();
+  }
+
+  pGameClock->tick();
+
+  return events;
 }
 
 template <typename MQType, typename Visitor> void Game::LoopMain(GameContext &context, Visitor visitor)
 {
-  try
+  while (true)
   {
-    while (true)
+    for (auto event : getEvents<MQType>(context))
     {
-      for (auto event : std::get<MQType *>(context)->getEnumerable())
+      if (std::holds_alternative<TerminateEvent>(event))
       {
-        if (std::holds_alternative<TerminateEvent>(event))
-        {
-          return;
-        }
-        else
+        return;
+      }
+      else
+      {
+        try
         {
           std::visit(visitor, std::move(event));
+        } 
+        catch (std::exception &ex)
+        {
+          LOG(LOG_ERROR) << ex.what();
+          // @todo: Call shutdown() here in a safe way
         }
       }
     }
   }
-  catch (std::exception &ex)
-  {
-    LOG(LOG_ERROR) << ex.what();
-    // @todo: Call shutdown() here in a safe way
-  }
+}
+
+void Game::GameVisitor::operator()(TerminateEvent &&)
+{
+  // TerminateEvent is always handled in the base loop
+  throw CytopiaError{TRACE_INFO "Invalid dispatch: TerminateEvent"};
+}
+
+void Game::GameVisitor::operator()(ActivitySwitchEvent &&event)
+{
+  GetService<MouseController>().handleEvent(std::move(event));
+}
+
+Game::UIVisitor::UIVisitor(Window & window, GameContext & context) :
+  m_Window(window), m_GameContext(context) { }
+
+void Game::UIVisitor::operator()(TerminateEvent &&)
+{
+  // TerminateEvent is always handled in the base loop
+  throw CytopiaError{TRACE_INFO "Invalid dispatch: TerminateEvent"};
+}
+
+void Game::UIVisitor::operator()(UIChangeEvent &&event) { event.apply(); }
+
+void Game::UIVisitor::operator()(ActivitySwitchEvent &&event)
+{
+  m_Window.setActivity(m_Window.fromActivityType(event.activityType, m_GameContext, m_Window));
+}
+
+void Game::UIVisitor::operator()(WindowResizeEvent &&event)
+{
+  m_Window.handleEvent(WindowResizeEvent{});
+}
+
+void Game::UIVisitor::operator()(WindowRedrawEvent &&event)
+{
+  m_Window.handleEvent(WindowRedrawEvent{});
 }

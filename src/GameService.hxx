@@ -10,22 +10,19 @@ public:
   /**
    * @brief all concrete game services
    */
-  using Types = TypeList<
-    class UILoopMQ *, 
-    class GameLoopMQ *, 
+  using Types = TypeList<class UILoopMQ *, class GameLoopMQ *,
 #ifdef USE_AUDIO
-    class AudioMixer *, 
+                         class AudioMixer *,
 #endif // USE_AUDIO
-    class Randomizer *, 
-    class GameClock *,
-    class ResourceManager * 
-    /* Add other services here */
-    >;
+                         class Randomizer *, class GameClock *, class ResourceManager *,
+                         class MouseController *
+                         /* Add other services here */
+                         >;
 
   /**
    * @brief a tuple of all services
    */
-  using ServiceTuple = typename TupleType<Types>::type;
+  using ServiceTuple = typename Types::TupleType;
 
   /**
    * @brief Construct a GameService
@@ -40,15 +37,14 @@ public:
    */
   template <typename ServiceType> struct require_service_type;
 
-private:
-  TupleType<Types>::type &m_Services;
-
-protected:
   /**
    * @brief returns the required service
    * @tparam ServiceType the type of the service
    */
   template <typename ServiceType> ServiceType &GetService();
+
+private:
+  Types::TupleType &m_Services;
 };
 
 #include "GameService.inl.hxx"

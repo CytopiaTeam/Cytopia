@@ -1,7 +1,9 @@
 #ifndef JSON_SERIALIZATION_HXX_
 #define JSON_SERIALIZATION_HXX_
 
-#include "json.hxx"
+#include <json.hxx>
+#include <unordered_map>
+#include <array>
 #include "point.hxx"
 #include "GameObjects/MapNode.hxx"
 #include "TerrainGenerator.hxx"
@@ -9,9 +11,10 @@
 #ifdef USE_AUDIO
 #include "../../services/AudioMixer.hxx"
 #endif // USE_AUDIO
+#include "../../util/ZipRange.hxx"
 
 using json = nlohmann::json;
-
+using DisplayMap = std::unordered_map<std::string, std::array<int, 2>>;
 // ************** DE-SERIALIZER **************
 
 // JSON deserializer for Point class
@@ -34,29 +37,46 @@ inline void from_json(const json &j, MapNodeData &mapNodeData)
 // JSON deserializer for Settings struct
 inline void from_json(const json &j, SettingsData &s)
 {
-  s.screenWidth = j["Graphics"]["Resolution"].value("Screen_Width", 800);
-  s.screenHeight = j["Graphics"]["Resolution"].value("Screen_Height", 600);
-  s.vSync = j["Graphics"].value("VSYNC", false);
-  s.fullScreen = j["Graphics"].value("FullScreen", false);
-  s.fullScreenMode = j["Graphics"].value("FullScreenMode", 0);
-  s.mapSize = j["Game"].value("MapSize", 64);
-  s.biome = j["Game"].value("Biome", "GrassLands");
-  s.maxElevationHeight = j["Game"].value("MaxElevationHeight", 32);
-  s.uiDataJSONFile = j["ConfigFiles"].value("UIDataJSONFile", "resources/data/TileData.json");
-  s.tileDataJSONFile = j["ConfigFiles"].value("TileDataJSONFile", "resources/data/UIData.json");
-  s.uiLayoutJSONFile = j["ConfigFiles"].value("UILayoutJSONFile", "resources/data/UILayout.json");
-  s.audioConfigJSONFile = j["ConfigFiles"].value("AudioConfigJSONFile", "resources/data/AudioConfig.json");
-  s.audio3DStatus = j["Audio"].value("Audio3DStatus", true);
-  s.playMusic = j["Audio"].value("PlayMusic", true);
-  s.playSoundEffects = j["Audio"].value("PlaySoundEffects", false);
-  s.audioChannels = j["Audio"].value("AudioChannels", 2);
-  s.musicVolume = j["Audio"].value("MusicVolume", static_cast<uint8_t>(50));
-  s.soundEffectsVolume = j["Audio"].value("SoundEffectsVolume", static_cast<uint8_t>(100));
-  s.buildMenuPosition = j["User Interface"].value("BuildMenu Position", "BOTTOM");
-  s.gameLanguage = j["User Interface"].value("Language", "en");
-  s.fontFileName = j["User Interface"].value("Font Filename", "resources/fonts/arcadeclassics.ttf");
-  s.subMenuButtonWidth = j["User Interface"].value("SubMenuButtonWidth", 32);
-  s.subMenuButtonHeight = j["User Interface"].value("SubMenuButtonHeight", 32);
+
+  s.audio3DStatus = j.value("/Audio/Audio3DStatus"_json_pointer, true);
+  s.playMusic = j.value("/Audio/PlayMusic"_json_pointer, true);
+  s.playSoundEffects = j.value("/Audio/PlaySoundEffects"_json_pointer, true);
+  s.audioChannels = j.value("/Audio/AudioChannels"_json_pointer, 2);
+  s.musicVolume = j.value("/Audio/MusicVolume"_json_pointer, static_cast<uint8_t>(100));
+  s.soundEffectsVolume = j.value("/Audio/SoundEffectsVolume"_json_pointer, static_cast<uint8_t>(100));
+      
+  s.uiDataJSONFile = j.value("/ConfigFiles/UIDataJSONFile"_json_pointer, "resources/data/UIData.json");
+  s.tileDataJSONFile = j.value("/ConfigFiles/TileDataJSONFile"_json_pointer, "resources/data/TileData.json");
+  s.uiLayoutJSONFile = j.value("/ConfigFiles/UILayoutJSONFile"_json_pointer, "resources/data/UILayout.json");
+  s.audioConfigJSONFile = j.value("/ConfigFiles/AudioConfigJSONFile"_json_pointer, "resources/data/AudioConfig.json");
+
+  s.mapSize = j.value("/Game/MapSize"_json_pointer, 64);
+  s.biome = j.value("/Game/Biome"_json_pointer, "GrassLands");
+  s.maxElevationHeight = j.value("/Game/MaxElevationHeight"_json_pointer, 32);
+  s.zoneLayerTransparency = j.value("/Game/ZoneLayerTransperancy"_json_pointer, 0.5f);
+  s.showBuildingsInBlueprint = j.value("/Game/ShowBuildingsInBluePrint"_json_pointer, false);
+  s.gameLanguage = j.value("/Game/Language"_json_pointer, "en");
+
+  s.fullScreen = j.value("/Graphics/FullScreen"_json_pointer, false);
+  s.vSync = j.value("/Graphics/VSYNC"_json_pointer, false);
+  std::string defaultMode = j.value("/Graphics/DefaultDisplayMode"_json_pointer, "");
+  s.defaultDisplayMode = 0;
+  for(auto & [key, values] : j.value("/Graphics/DisplayModes"_json_pointer, DisplayMap())) {
+    // Merge all display modes
+    s.displayModes.push_back(values);
+    // Preserve all display mode names
+    s.displayModeNames.push_back(key);
+    if(defaultMode == key) {
+      s.defaultDisplayMode = s.displayModeNames.size() - 1;
+    }
+  }
+  
+  s.skipMenu = j.value("/UI/SkipMenu"_json_pointer, false);
+  s.newUI = j.value("/UI/NewUI"_json_pointer, false);
+  s.buildMenuPosition = j.value("/UI/BuildMenuPosition"_json_pointer, "BOTTOM");
+  s.fontFileName = j.value("/UI/FontFilename"_json_pointer, "resources/fonts/arcadeclassics.ttf");
+  s.subMenuButtonHeight = j.value("/UI/SubMenuButtonHeight"_json_pointer, 32);
+  s.subMenuButtonWidth = j.value("/UI/SubMenuButtonWidth"_json_pointer, 32);
 }
 
 // JSON deserializer for BiomeData struct (Terrain Gen)
@@ -224,41 +244,46 @@ inline void to_json(json &j, const MapNode &m)
 // JSON serializer for Settings struct
 inline void to_json(json &j, const SettingsData &s)
 {
-  j = {
-      {std::string("Graphics"),
-       {
-           {std::string("VSYNC"), s.vSync},
-           {std::string("FullScreen"), s.fullScreen},
-           {std::string("FullScreenMode"), s.fullScreenMode},
-           {std::string("Resolution"),
-            {{std::string("Screen_Width"), s.screenWidth}, {std::string("Screen_Height"), s.screenHeight}}},
-       }},
-      {std::string("Game"),
-       {{std::string("MapSize"), s.mapSize},
-        {std::string("Biome"), s.biome},
-        {std::string("MaxElevationHeight"), s.maxElevationHeight}}},
-      {std::string("User Interface"),
-       {{std::string("BuildMenu Position"), s.buildMenuPosition},
-        {std::string("Font Filename"), s.fontFileName.get()},
-        {std::string("SubMenuButtonWidth"), s.subMenuButtonWidth},
-        {std::string("SubMenuButtonHeight"), s.subMenuButtonHeight},
-        {std::string("Language"), s.gameLanguage}}},
-      {std::string("ConfigFiles"),
-       {{std::string("UIDataJSONFile"), s.uiDataJSONFile.get()},
-        {std::string("TileDataJSONFile"), s.tileDataJSONFile.get()},
-        {std::string("UILayoutJSONFile"), s.uiLayoutJSONFile.get()},
-        {std::string("AudioConfigJSONFile"), s.audioConfigJSONFile.get()}}},
-      {std::string("Audio"),
-       {
-           {std::string("Audio3DStatus"), s.audio3DStatus},
-           {std::string("PlayMusic"), s.playMusic},
-           {std::string("PlaySoundEffects"), s.playSoundEffects},
-           {std::string("AudioChannels"), s.audioChannels},
-           {std::string("MusicVolume"), s.musicVolume.get()},
-           {std::string("SoundEffectsVolume"), s.soundEffectsVolume.get()},
-       }},
+  j = json();
+  j["Audio"] = json();
+  j["/Audio/Audio3DStatus"_json_pointer] = s.audio3DStatus;
+  j["/Audio/PlayMusic"_json_pointer] = s.playMusic;
+  j["/Audio/PlaySoundEffects"_json_pointer] = s.playSoundEffects;
+  j["/Audio/AudioChannels"_json_pointer] = s.audioChannels;
+  j["/Audio/MusicVolume"_json_pointer] = s.musicVolume.get();
+  j["/Audio/SoundEffectsVolume"_json_pointer] = s.soundEffectsVolume.get();
+      
+  j["ConfigFiles"]  = json();
+  j["/ConfigFiles/UIDataJSONFile"_json_pointer] = s.uiDataJSONFile.get();
+  j["/ConfigFiles/TileDataJSONFile"_json_pointer] = s.tileDataJSONFile.get();
+  j["/ConfigFiles/UILayoutJSONFile"_json_pointer] = s.uiLayoutJSONFile.get();
+  j["/ConfigFiles/AudioConfigJSONFile"_json_pointer] = s.audioConfigJSONFile.get();
 
-  };
+  j["Game"] = json();
+  j["/Game/MapSize"_json_pointer] = s.mapSize;
+  j["/Game/Biome"_json_pointer] = s.biome;
+  j["/Game/MaxElevationHeight"_json_pointer] = s.maxElevationHeight;
+  j["/Game/ZoneLayerTransperancy"_json_pointer] = s.zoneLayerTransparency;
+  j["/Game/ShowBuildingsInBluePrint"_json_pointer] = s.showBuildingsInBlueprint;
+  j["/Game/Language"_json_pointer] = s.gameLanguage;
+
+  j["Graphics"] = json();
+  j["/Graphics/FullScreen"_json_pointer] = s.fullScreen;
+  j["/Graphics/VSYNC"_json_pointer] = s.vSync;
+  j["/Graphics/DefaultDisplayMode"_json_pointer] = s.displayModeNames.at(s.defaultDisplayMode);
+  auto & modes = j["/Graphics/DisplayModes"_json_pointer] = json();
+  for(const auto && [key, value] : ZipRange{s.displayModeNames, s.displayModes})
+  {
+    modes[key] = value;
+  }
+  
+  j["UI"] = json(); 
+  j["/UI/SkipMenu"_json_pointer] = s.skipMenu;
+  j["/UI/NewUI"_json_pointer] = s.newUI;
+  j["/UI/BuildMenuPosition"_json_pointer] = s.buildMenuPosition;
+  j["/UI/FontFilename"_json_pointer] = s.fontFileName.get();
+  j["/UI/SubMenuButtonHeight"_json_pointer] = s.subMenuButtonHeight;
+  j["/UI/SubMenuButtonWidth"_json_pointer] = s.subMenuButtonWidth;
 }
 
 #endif

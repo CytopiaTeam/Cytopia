@@ -14,8 +14,9 @@ freetype/2.10.0@bincrafters/stable
 libnoise/1.0.1@anotherfoxguy/stable
 OpenSSL/1.1.1c@conan/stable
 @_CC_CATCH2@Catch2/2.9.2@catchorg/stable
-@_CC_OPENAL_SOFT@openal/1.19.0@bincrafters/stable
+@_CC_OPENAL_SOFT@openal/1.21.0
 zlib/1.2.11
+@_CC_VULKAN@vulkan-sdk/1.1.126@cytopia/stable
 
 [options]
 *:shared=False

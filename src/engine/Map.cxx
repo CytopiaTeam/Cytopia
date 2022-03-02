@@ -11,19 +11,22 @@
 #include "map/MapLayers.hxx"
 #include "common/JsonSerialization.hxx"
 #include "Filesystem.hxx"
-
+#include "../view/Window.hxx"
 #include "json.hxx"
 
 #include <sstream>
 #include <string>
 #include <set>
 #include <queue>
+#include <unordered_set>
 
 #ifdef MICROPROFILE_ENABLED
 #include "microprofile.h"
 #endif
 
 using json = nlohmann::json;
+
+Window * Map::m_Window = nullptr;
 
 NeighbourNodesPosition operator++(NeighbourNodesPosition &nn, int)
 {
@@ -83,7 +86,8 @@ void Map::getNodeInformation(const Point &isoCoordinates) const
   LOG(LOG_INFO) << "TileIndex: " << mapNodeData.tileIndex;
 }
 
-Map::Map(int columns, int rows, const bool generateTerrain) : m_columns(columns), m_rows(rows)
+Map::Map(int columns, int rows, const bool generateTerrain)
+    : pMapNodesVisible(new Sprite *[columns * rows]), m_columns(columns), m_rows(rows)
 {
   // TODO move Random Engine out of map
   randomEngine.seed();
@@ -96,6 +100,8 @@ Map::Map(int columns, int rows, const bool generateTerrain) : m_columns(columns)
 
   updateAllNodes();
 }
+
+Map::~Map() { delete[] pMapNodesVisible; }
 
 std::vector<NeighborNode> Map::getNeighborNodes(const Point &isoCoordinates, const bool includeCentralNode)
 {
@@ -351,7 +357,7 @@ Point Map::getNodeOrigCornerPoint(const Point &isoCoordinates, Layer layer)
     return mapNodes[nodeIdx(isoCoordinates.x, isoCoordinates.y)].getOrigCornerPoint(layer);
   }
 
-  return UNDEFINED_POINT;
+  return Point::INVALID();
 }
 
 std::vector<uint8_t> Map::calculateAutotileBitmask(const MapNode *const pMapNode, const std::vector<NeighborNode> &neighborNodes)
@@ -404,9 +410,9 @@ void Map::renderMap() const
   MICROPROFILE_SCOPEI("Map", "Render Map", MP_YELLOW);
 #endif
 
-  for (const auto pNode : mapNodesVisible)
+  for (int i = 0; i < m_visibleNodesCount; ++i)
   {
-    pNode->render();
+    pMapNodesVisible[i]->render();
   }
 }
 
@@ -418,9 +424,9 @@ void Map::refresh()
 
   calculateVisibleMap();
 
-  for (const auto pNode : mapNodesVisible)
+  for (int i = 0; i < m_visibleNodesCount; ++i)
   {
-    pNode->getSprite()->refresh();
+    pMapNodesVisible[i]->refresh();
   }
 }
 
@@ -592,8 +598,8 @@ bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int is
       assert(!tileID.empty());
 
       // Calculate the position of the clicked pixel within the surface and "un-zoom" the position to match the un-adjusted surface
-      const int pixelX = static_cast<int>((screenCoordinates.x - spriteRect.x) / Camera::zoomLevel) + clipRect.x;
-      const int pixelY = static_cast<int>((screenCoordinates.y - spriteRect.y) / Camera::zoomLevel) + clipRect.y;
+      const int pixelX = static_cast<int>((screenCoordinates.x - spriteRect.x) / Camera::instance().zoomLevel()) + clipRect.x;
+      const int pixelY = static_cast<int>((screenCoordinates.y - spriteRect.y) / Camera::instance().zoomLevel()) + clipRect.y;
 
       if ((curLayer == Layer::TERRAIN) && (node.getMapNodeDataForLayer(Layer::TERRAIN).tileMap == TileMap::SHORE))
       {
@@ -732,6 +738,13 @@ bool Map::isAllowSetTileId(const Layer layer, const MapNode *const pMapNode)
       return false;
     }
     break;
+  case Layer::WATER:
+    if (pMapNode->isLayerOccupied(Layer::BUILDINGS) &&
+        pMapNode->getMapNodeDataForLayer(Layer::BUILDINGS).tileData->category != "Flora")
+    {
+      return false;
+    }
+    break;
   default:
     break;
   }
@@ -741,8 +754,12 @@ bool Map::isAllowSetTileId(const Layer layer, const MapNode *const pMapNode)
 
 void Map::calculateVisibleMap(void)
 {
+  if(!m_Window)
+  {
+    throw CytopiaError{TRACE_INFO "Cannot calculateVisibleMap without a Window"};
+  }
   const Point topLeft = calculateIsoCoordinates({0, 0});
-  const Point bottomRight = calculateIsoCoordinates({Settings::instance().screenWidth, Settings::instance().screenHeight});
+  const Point bottomRight = calculateIsoCoordinates({m_Window->getBounds().width(), m_Window->getBounds().height()});
 
   // Screen edges
   const int left = topLeft.x + topLeft.y - 2;
@@ -751,7 +768,7 @@ void Map::calculateVisibleMap(void)
   // Lower the bottom because of high terrain nodes under the screen which will be pushed into the view
   const int bottom = bottomRight.y - bottomRight.x - 1 - MapNode::maxHeight;
 
-  mapNodesVisible.clear();
+  m_visibleNodesCount = 0;
 
   for (int x = 0; x < m_rows; x++)
   {
@@ -762,8 +779,12 @@ void Map::calculateVisibleMap(void)
 
       if ((xVal >= left) && (xVal <= right) && (yVal <= top) && (yVal >= bottom))
       {
-        mapNodesVisible.emplace_back(&mapNodes[nodeIdx(x, y)]);
+        pMapNodesVisible[m_visibleNodesCount++] = mapNodes[nodeIdx(x, y)].getSprite();
       }
     }
   }
+}
+
+void Map::setWindow(Window * window) {
+  m_Window = window;
 }

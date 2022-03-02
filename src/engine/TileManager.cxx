@@ -12,6 +12,11 @@ using json = nlohmann::json;
 
 TileManager::TileManager() { init(); }
 
+TileManager::~TileManager()
+{
+  LOG(LOG_DEBUG) << "Destroying TileManager";
+}
+
 SDL_Texture *TileManager::getTexture(const std::string &tileID) const
 {
   return ResourcesManager::instance().getTileTexture(tileID);

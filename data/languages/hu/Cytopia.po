@@ -2,429 +2,1892 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 # Translators:
 # litoll <litoll@freemail.hu>, 2019
-# 
+#
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-25 09:45+0200\n"
+"POT-Creation-Date: 2021-01-10 14:12+0100\n"
 "PO-Revision-Date: 2019-06-14 12:00+0000\n"
 "Last-Translator: litoll <litoll@freemail.hu>, 2019\n"
-"Language-Team: Hungarian (https://www.transifex.com/cytopia/teams/100140/hu/)\n"
+"Language-Team: Hungarian (https://www.transifex.com/cytopia/teams/100140/"
+"hu/)\n"
+"Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: hu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#. This is a description for an object titled: Small Coal Power Plant2
 msgid "A  small coal power plant."
 msgstr "Egy kis szénerőmű."
 
-msgid "A Coal Power plant."
-msgstr "Egy szénerőmű."
+#. This is a description for an object titled: Small Coal Power Plant
+msgid ""
+"A  small coal power plant.  It can supply a small town with electricity, but "
+"it produces a lot of pollution."
+msgstr ""
 
-msgid "A Power Plant, that has been built years ago"
-msgstr "Egy erőmű, amelyet évekkel ezelőtt építettek"
+#. This is a description for an object titled: Wheat Field
+msgid "A Wheat Field"
+msgstr ""
 
-msgid "A Road, that hasn't been cleaned often"
-msgstr "Egy út, amelyet nem gyakran tisztítottak"
-
-msgid "A Shop that sells Bikes"
-msgstr "Egy bolt, amely kerékpárokat árul"
-
-msgid "A Tower made out of concrete"
-msgstr "Egy betonból készül torony"
-
+#. This is a description for an object titled: Water Tower
 msgid "A beautiful water tower"
 msgstr "Egy gyönyörű víztorony"
 
+#. This is a description for an object titled: Big Building
 msgid "A big building"
 msgstr "Egy nagy épület"
 
+#. This is a description for an object titled: Tall Concrete Tower
+#, fuzzy
+#| msgid "An apartment building from Montreal , Quebec"
+msgid "A bland-looking apartment building made out of concrete."
+msgstr "Egy apartman épület innen: Montréal, Québec"
+
+#. This is a description for an object titled: Blank Platform
+msgid "A blank train platform with nothing on it."
+msgstr ""
+
+#. This is a description for an object titled: Hotel
 msgid "A blue hotel from vienna"
 msgstr "Egy kék hotel Bécsből"
 
+#. This is a description for an object titled: Red Berry Bushes (Light)
+#. This is a description for an object titled: Red Berry Bushes (Medium)
+#. This is a description for an object titled: Red Berry Bushes (Dense)
+msgid "A bush with delicious red berries."
+msgstr ""
+
+#. This is a description for an object titled: Chemical Plant
 msgid "A chemical plant"
 msgstr "Egy vegyi üzem"
 
+#. This is a description for an object titled: Medium Depolluter
+msgid "A classic depolluter building that has been recently repurposed."
+msgstr ""
+
+#. This is a description for an object titled: Mansion
 msgid "A classic house from Savannah , Georgia , USA"
 msgstr "Egy klasszikus ház innen: Savannah , Georgia , USA"
 
+#. This is a description for an object titled: Coal Power Plant
+msgid ""
+"A coal power plant.  It'll produce enough electricity to keep a town "
+"running, but it creates a lot of pollution."
+msgstr ""
+
+#. This is a description for an object titled: Small Commercial Center
 msgid "A commercial center"
 msgstr "Egy kereskedelmi központ"
 
+#. This is a description for an object titled: Factory
+#. This is a description for an object titled: Factory
 msgid "A factory"
 msgstr "Egy gyár"
 
+#. This is a description for an object titled: Benches
+msgid "A few benches that offer a place to sit to your citizens."
+msgstr ""
+
+#. This is a description for an object titled: Green Cacti (Light)
+#. This is a description for an object titled: Green Cacti (Medium)
+#. This is a description for an object titled: Green Cacti (Dense)
+msgid "A green cactus."
+msgstr ""
+
+#. This is a description for an object titled: Pine Trees (Light)
+#. This is a description for an object titled: Pine Trees (Medium)
+#. This is a description for an object titled: Pine Trees (Dense)
+msgid "A group of beautiful pinetrees."
+msgstr ""
+
+#. This is a description for an object titled: Centerpiece Park
+msgid "A group of benches that surround a nice decorative object."
+msgstr ""
+
+#. This is a description for an object titled: Birch Trees (Light)
+#. This is a description for an object titled: Birch Trees (Medium)
+#. This is a description for an object titled: Birch Trees (Dense)
+msgid "A group of birch trees."
+msgstr ""
+
+#. This is a description for an object titled: Burned Trees (Light)
+#. This is a description for an object titled: Burned Trees (Medium)
+#. This is a description for an object titled: Burned Trees (Dense)
+msgid "A group of burned trees."
+msgstr ""
+
+#. This is a description for an object titled: Crystal Trees (Light)
+#. This is a description for an object titled: Crystal Trees (Medium)
+#. This is a description for an object titled: Crystal Trees (Dense)
+msgid "A group of crystal trees."
+msgstr ""
+
+#. This is a description for an object titled: Cypress Trees (Light)
+#. This is a description for an object titled: Cypress Trees (Medium)
+#. This is a description for an object titled: Cypress Trees (Dense)
+msgid "A group of cypress trees."
+msgstr ""
+
+#. This is a description for an object titled: People
+msgid ""
+"A group of mannequins you dressed up as people that can be used to decorate "
+"a town."
+msgstr ""
+
+#. This is a description for an object titled: Mushrooms (Light)
+#. This is a description for an object titled: Mushrooms (Medium)
+#. This is a description for an object titled: Mushrooms (Dense)
+msgid "A group of mysterious mushroom trees."
+msgstr ""
+
+#. This is a description for an object titled: Oak Trees (Light)
+#. This is a description for an object titled: Oak Trees (Medium)
+#. This is a description for an object titled: Oak Trees (Dense)
+msgid "A group of oak trees."
+msgstr ""
+
+#. This is a description for an object titled: Palm Trees (Light)
+#. This is a description for an object titled: Palm Trees (Medium)
+#. This is a description for an object titled: Palm Trees (Dense)
+msgid "A group of palmtrees."
+msgstr ""
+
+#. This is a description for an object titled: Picnic Tables
+msgid "A group of picnic tables that your citizens can use to eat lunch at."
+msgstr ""
+
+#. This is a description for an object titled: Thundercloud Purple Leaf Plum Trees (Light)
+#. This is a description for an object titled: Thundercloud Purple Leaf Plum Trees (Medium)
+#. This is a description for an object titled: Thundercloud Purple Leaf Plum Trees (Dense)
+msgid "A group of plum trees."
+msgstr ""
+
+#. This is a description for an object titled: Sakura Trees (Light)
+#. This is a description for an object titled: Sakura Trees (Medium)
+#. This is a description for an object titled: Sakura Trees (Dense)
+msgid "A group of sakura trees."
+msgstr ""
+
+#. This is a description for an object titled: Stone Pines (Light)
+#. This is a description for an object titled: Stone Pines (Medium)
+#. This is a description for an object titled: Stone Pines (Dense)
+msgid "A group of stone pines."
+msgstr ""
+
+#. This is a description for an object titled: Bamboo (Light)
+#. This is a description for an object titled: Bamboo (Medium)
+msgid "A group of tall bamboo plants."
+msgstr ""
+
+#. This is a description for an object titled: Bamboo (Dense)
+msgid "A group of tall bamboo trees."
+msgstr ""
+
+#. This is a description for an object titled: Cattails (Light)
+#. This is a description for an object titled: Cattails (Medium)
+#. This is a description for an object titled: Cattails (Dense)
+msgid "A group tall wetland plants well-known for their brown catkins."
+msgstr ""
+
+#. This is a description for an object titled: Highway Road
+msgid "A highway! Cars go faaaaast here."
+msgstr ""
+
+#. This is a description for an object titled: house
 msgid "A house from Alabama , USA"
 msgstr "Egy ház innen: Alabama , USA"
 
+#. This is a description for an object titled: Apartment Building
 msgid "A house from Vienna"
 msgstr "Egy bécsi ház"
 
+#. This is a description for an object titled: Community Tower
+msgid ""
+"A large multi-story shopping mall with large windows. Urban legends say it "
+"was built by hand by the members of a distant community"
+msgstr ""
+
+#. This is a description for an object titled: Large Plaza Park
+msgid "A large plaza with a pool of water in the middle."
+msgstr ""
+
+#. This is a description for an object titled: Flowers (Light)
+#. This is a description for an object titled: Flowers (Medium)
+#. This is a description for an object titled: Flowers (Dense)
+msgid "A lovely flower patch that blooms in all colors."
+msgstr ""
+
+#. This is a description for an object titled: European Road
+msgid "A modern european looking road without a sidewalk."
+msgstr ""
+
+#. This is a description for an object titled: European Road
+msgid "A modern european looking road."
+msgstr ""
+
+#. This is a description for an object titled: Big Depolluter
+msgid "A new factory that was once a depolluter building."
+msgstr ""
+
+#. This is a description for an object titled: Park Crossroads
+msgid "A nice park that can be used as a good centerpiece."
+msgstr ""
+
+#. This is a description for an object titled: Paved Road
+msgid ""
+"A nice paved road that are commonly found in the middle of large cities.  "
+"Includes a sidewalk."
+msgstr ""
+
+#. This is a description for an object titled: Pool
+msgid ""
+"A nice public pool that is a great way to stay cool and keep your citizens "
+"happy."
+msgstr ""
+
+#. This is a description for an object titled: Creme-Oran Tower
+msgid "A nice residential building donned with white and orange concrete."
+msgstr ""
+
+#. This is a description for an object titled: TODO TITLE
+msgid ""
+"A nice reward for your city-building efforts, although it might make your "
+"citizens question if they're in a simulation."
+msgstr ""
+
+#. This is a description for an object titled: Petrol Pump
 msgid "A petrol pump"
 msgstr "Egy benzinszivattyú"
 
+#. This is a description for an object titled: Petrol Station
 msgid "A petrol station"
 msgstr "Egy benzinkút"
 
+#. This is a description for an object titled: Picnic Pavilion
+msgid "A picnic pavilion is a great place for your citizens to eat lunch."
+msgstr ""
+
+#. This is a description for an object titled: Coal Pile
 msgid "A pile of coal"
 msgstr "Egy halom szén"
 
-msgid "A shop that sells clocks"
-msgstr "Egy órákat áruló bolt"
+#. This is a description for an object titled: Desert Rocks
+#. This is a description for an object titled: Golden Rocks
+msgid "A pile of rocks that can be found in the desert biome."
+msgstr ""
 
-msgid "A shop that sells games. Even Cytopia is in store!"
+#. This is a description for an object titled: Diamond Rocks
+msgid "A pile of rocks that can be found in the diamond biome."
+msgstr ""
+
+#. This is a description for an object titled: Rocks
+msgid "A pile of rocks that can be found in the grasslands biome."
+msgstr ""
+
+#. This is a description for an object titled: Snowy Rocks
+msgid "A pile of rocks that can be found in the snow biome."
+msgstr ""
+
+#. This is a description for an object titled: Water Rocks
+msgid "A pile of rocks that can be found in water."
+msgstr ""
+
+#. This is a description for an object titled: Poplars (Light)
+#. This is a description for an object titled: Poplars (Medium)
+#. This is a description for an object titled: Poplars (Dense)
+msgid "A poplar tree"
+msgstr ""
+
+#. This is a description for an object titled: Prison Fence
+msgid "A prison fence"
+msgstr ""
+
+#. This is a description for an object titled: Rural French Road brokenlined
+msgid "A rural road from france with fresh asphalt with a broken line."
+msgstr ""
+
+#. This is a description for an object titled: Rural French Road fresh
+msgid "A rural road from france with fresh asphalt."
+msgstr ""
+
+#. This is a description for an object titled: Rural French Road
+msgid "A rural road from france with worn asphalt."
+msgstr ""
+
+#. This is a description for an object titled: Rural French Road lined
+msgid "A rural road from france with worn asphalth a straight line."
+msgstr ""
+
+#. This is a description for an object titled: Game Shop
+#, fuzzy
+#| msgid "A shop that sells games. Even Cytopia is in store!"
+msgid "A shop that sells games. Even Cytopia is sold here!"
 msgstr "Egy videójátékokat áruló bolt. Még a Cytopia is megvan nekik!"
 
+#. This is a description for an object titled: Phone Shop
 msgid "A shop that sells phones. It has the new CyPhone X"
 msgstr "Egy telefonokat áruló bolt. Megvan nekik az új CyPhone X"
 
+#. This is a description for an object titled: CompactFast Shop
+#. This is a description for an object titled: Shop
 msgid "A shop!"
 msgstr "Egy bolt!"
 
-msgid "A skyscaper"
-msgstr "Egy felhőkarcoló"
-
+#. This is a description for an object titled: Small house
 msgid "A small  building"
 msgstr "Egy kis épület"
 
+#. This is a description for an object titled: Small Military Facility
+msgid ""
+"A small building dedicated to small-scale inustrial-related military "
+"activity."
+msgstr ""
+
+#. This is a description for an object titled: Mansion
 msgid "A small french mansion "
 msgstr "Egy kis francia kúria"
 
-msgid "A small house"
+#. This is a description for an object titled: Lantern
+msgid "A small lantern that can be used to decorate your cities."
+msgstr ""
+
+#. This is a description for an object titled: Small Office Building
+msgid ""
+"A small office building with a nice sidewalk and a unique blue entrance."
+msgstr ""
+
+#. This is a description for an object titled: Homeless Camp
+msgid "A small piece of land where impoverished people reside."
+msgstr ""
+
+#. This is a description for an object titled: Small Shed
+msgid "A small shed used by nearby factories as a way to store things."
+msgstr ""
+
+#. This is a description for an object titled: BikeShop
+#, fuzzy
+#| msgid "A Shop that sells Bikes"
+msgid "A small shop that sells bikes."
+msgstr "Egy bolt, amely kerékpárokat árul"
+
+#. This is a description for an object titled: Small House
+#, fuzzy
+#| msgid "A small house"
+msgid "A small trailer house"
 msgstr "Egy kis ház"
 
-msgid "A small shack"
-msgstr "Egy kis kunyhó"
+#. This is a description for an object titled: Small House
+#, fuzzy
+#| msgid "A small house"
+msgid "A small trailer house."
+msgstr "Egy kis ház"
 
+#. This is a description for an object titled: Small Waiting Platform
+msgid ""
+"A small train platform that has a small structure on it.  People can wait "
+"here until the train comes, although there isnt much room inside."
+msgstr ""
+
+#. This is a description for an object titled: Small Water Tower
 msgid "A small water tower"
 msgstr "Egy kis víztorony"
 
+#. This is a description for an object titled: Wooden Sign
+msgid ""
+"A small wooden sign that can be used to decorate a town.  It doesn't "
+"actually say anything though..."
+msgstr ""
+
+#. This is a description for an object titled: Borg's Burgers
+msgid ""
+"A somewhat large fast food restaurant known for cheap food and questionable "
+"quality."
+msgstr ""
+
+#. This is a description for an object titled: Trailer Park
+msgid "A somewhat-large plot of land that is the home to many trailer houses."
+msgstr ""
+
+#. This is a description for an object titled: Classic Red Barn
+msgid "A stereotypical red barn."
+msgstr ""
+
+#. This is a description for an object titled: Glass Tower
+msgid ""
+"A tall glass skyscraper that fears the day a stone-throwing competition is "
+"held in town."
+msgstr ""
+
+#. This is a description for an object titled: Light Pole
+msgid "A tall light pole that can be used to decorate a town."
+msgstr ""
+
+#. This is a description for an object titled: Small Shack
+msgid "A tiny house that can only accommodate a few people."
+msgstr ""
+
+#. This is a description for an object titled: Bench Platform
+msgid "A train platform with a couple of benches and a trash can."
+msgstr ""
+
+#. This is a description for an object titled: Sign Platform
+msgid "A train platform with a large sign on it."
+msgstr ""
+
+#. This is a description for an object titled: Sunken Ship
+msgid ""
+"A very old ship that crashed here long ago.  Its origin is unkown, but I "
+"think it's safe to say what happened to its crew"
+msgstr ""
+
+#. This is a description for an object titled: Yellow Cacti (Light)
+#. This is a description for an object titled: Yellow Cacti (Medium)
+#. This is a description for an object titled: Yellow Cacti (Dense)
+msgid "A yellow cactus."
+msgstr ""
+
+#. This is a title for an object with the description: Alley road.
+#, fuzzy
+#| msgid "Paved Road"
+msgid "Alley Road"
+msgstr "Kövezett út"
+
+#. This is a description for an object titled: Alley Road
+msgid "Alley road."
+msgstr ""
+
+#. This is a description for an object titled: Skyscraper
+msgid "An algae-green tower that is the home of lots of people."
+msgstr ""
+
+#. This is a description for an object titled: Old Power Plant
+#, fuzzy
+#| msgid "A Power Plant, that has been built years ago"
+msgid "An ancient coal power plant that has been turned into a factory."
+msgstr "Egy erőmű, amelyet évekkel ezelőtt építettek"
+
+#. This is a description for an object titled: Apartment Building
 msgid "An apartment building from Montreal , Quebec"
 msgstr "Egy apartman épület innen: Montréal, Québec"
 
+#. This is a description for an object titled: Apartment Building
 msgid "An apartment building from Vancouver , BC , Canada"
 msgstr "Egy apartman épület innen: Vancouver BC, Kanada"
 
+#. This is a description for an object titled: Apartment Building
 msgid "An appartement building from Bellevue , WA , USA"
 msgstr "Egy apartman épület innen: Bellevue, WA, USA"
 
+#. This is a description for an object titled: Country Road
+msgid ""
+"An average road that'll you would commonly find out in the countryside.  It "
+"lacks a proper sidewalk though."
+msgstr ""
+
+#. This is a description for an object titled: European Road
+msgid "An european looking road."
+msgstr ""
+
+#. This is a description for an object titled: Oasis
 msgid "An oasis"
 msgstr "Egy oázis"
 
+#. This is a description for an object titled: Phone Booth
+msgid "An old blue phone booth that can be used to decorate your cities."
+msgstr ""
+
+#. This is a description for an object titled: Clock Store
+#, fuzzy
+#| msgid "A shop that sells clocks"
+msgid "An old clock store that sells and repairs clocks."
+msgstr "Egy órákat áruló bolt"
+
+#. This is a description for an object titled: Day Care Center
+msgid "An old day care that has since become someone's home."
+msgstr ""
+
+#. This is a description for an object titled: Mini Depolluter
+msgid "An old depolluter building that has become a new industrial factory."
+msgstr ""
+
+#. This is a description for an object titled: Dirt Road
+msgid ""
+"An old dirt road that doesn't require much maintenance.  Not recommended for "
+"busy roadways."
+msgstr ""
+
+#. This is a description for an object titled: Phone Booth
+msgid "An old phone booth that can be used to decorate your cities."
+msgstr ""
+
+#. This is a title for an object with the description: Block of houses from the Boulevard des Belges , Rouen
+#. This is a title for an object with the description: A house from Vienna
+#. This is a title for an object with the description: An appartement building from Bellevue , WA , USA
+#. This is a title for an object with the description: An apartment building from Montreal , Quebec
+#. This is a title for an object with the description: An apartment building from Vancouver , BC , Canada
 msgid "Apartment Building"
 msgstr "Apartman épület"
 
+#. This is a title for an object with the description: Appartment
+#. This is a description for an object titled: Appartment
 msgid "Appartment"
 msgstr "Apartman"
 
+#. This is a title for an object with the description: Appartment Building
+#. This is a description for an object titled: Appartment Building
+#. This is a title for an object with the description: TODO DESC
 msgid "Appartment Building"
 msgstr "Apartman épület"
 
+#. This is a title for an object with the description: Appartment London
+#. This is a description for an object titled: Appartment London
 msgid "Appartment London"
 msgstr "Londoni apartman"
 
+#. This is a title for an object with the description: Appartments
+#. This is a description for an object titled: Appartments
+#. This is a subCategory
 msgid "Appartments"
 msgstr "Apartmanok"
 
+#. This is a title for an object with the description: A group of tall bamboo trees.
+msgid "Bamboo (Dense)"
+msgstr ""
+
+#. This is a title for an object with the description: A group of tall bamboo plants.
+msgid "Bamboo (Light)"
+msgstr ""
+
+#. This is a title for an object with the description: A group of tall bamboo plants.
+msgid "Bamboo (Medium)"
+msgstr ""
+
+#. This is a title for an object with the description: Terrain basalt tiles
+msgid "Basalt"
+msgstr ""
+
+#. This is a title for an object with the description: Terrain beach tiles
+msgid "Beach"
+msgstr ""
+
+#. This is a title for an object with the description: A train platform with a couple of benches and a trash can.
+msgid "Bench Platform"
+msgstr ""
+
+#. This is a title for an object with the description: A few benches that offer a place to sit to your citizens.
+msgid "Benches"
+msgstr ""
+
+#. This is a title for an object with the description: big Appartments
+#. This is a title for an object with the description: big Appartments
 msgid "Big Appartments"
 msgstr "Nagy apartmanok"
 
+#. This is a title for an object with the description: A big building
 msgid "Big Building"
 msgstr "Nagy épület"
 
-msgid "Big Depollutor"
+#. This is a title for an object with the description: A new factory that was once a depolluter building.
+#, fuzzy
+#| msgid "Big Depollutor"
+msgid "Big Depolluter"
 msgstr "Nagy szennyezésmentesítő"
 
+#. This is a title for an object with the description: Big Office Building
+#. This is a description for an object titled: Big Office Building
 msgid "Big Office Building"
 msgstr "Nagy irodaépület"
 
+#. This is a title for an object with the description: Big Warehouse
+#. This is a description for an object titled: Big Warehouse
+msgid "Big Warehouse"
+msgstr ""
+
+#. This is a title for an object with the description: A small shop that sells bikes.
 msgid "BikeShop"
 msgstr "Kerékpárbolt"
 
+#. This is a title for an object with the description: A group of birch trees.
+msgid "Birch Trees (Dense)"
+msgstr ""
+
+#. This is a title for an object with the description: A group of birch trees.
+msgid "Birch Trees (Light)"
+msgstr ""
+
+#. This is a title for an object with the description: A group of birch trees.
+msgid "Birch Trees (Medium)"
+msgstr ""
+
+#. This is a title for an object with the description: Terrain Black Sand tiles
+msgid "Black Sand"
+msgstr ""
+
+#. This is a title for an object with the description: A blank train platform with nothing on it.
+msgid "Blank Platform"
+msgstr ""
+
+#. This is a description for an object titled: Apartment Building
 msgid "Block of houses from the Boulevard des Belges , Rouen"
 msgstr "Egy háztömb innen: Boulevard des Belges , Rouen"
 
+#. This is a title for an object with the description: Terrain Blueprint
+msgid "Blueprint"
+msgstr ""
+
+#. This is a title for an object with the description: Bois Guillaume Appartment
+#. This is a description for an object titled: Bois Guillaume Appartment
 msgid "Bois Guillaume Appartment"
 msgstr "Bois Guillaume Apartman"
 
-msgid "Borgs Burgers"
+#. This is a title for an object with the description: A somewhat large fast food restaurant known for cheap food and questionable quality.
+#, fuzzy
+#| msgid "Borgs Burgers"
+msgid "Borg's Burgers"
 msgstr "Borg burgerfalodája"
 
-msgid "Borgs Burgers - We have the tastiest!"
-msgstr "Borg burgerfalodája - Nálunk a legízletesebb!"
-
+#. This is a UiElement with of the type: Text
 msgid "BuildMenu Layout"
 msgstr "Építésmenü elrendezés"
 
+#. This is a subCategory
+#, fuzzy
+#| msgid "Decoration"
+msgid "BuildingsDecoration"
+msgstr "Díszítés "
+
+#. This is a title for an object with the description: A group of burned trees.
+msgid "Burned Trees (Dense)"
+msgstr ""
+
+#. This is a title for an object with the description: A group of burned trees.
+msgid "Burned Trees (Light)"
+msgstr ""
+
+#. This is a title for an object with the description: A group of burned trees.
+msgid "Burned Trees (Medium)"
+msgstr ""
+
+#. This is a title for an object with the description: Terrain burned tiles
+msgid "Burned land"
+msgstr ""
+
+#. This is a UiElement with of the type: TextButton
 msgid "Cancel"
 msgstr "Mégse"
 
+#. This is a title for an object with the description: A group tall wetland plants well-known for their brown catkins.
+msgid "Cattails (Dense)"
+msgstr ""
+
+#. This is a title for an object with the description: A group tall wetland plants well-known for their brown catkins.
+msgid "Cattails (Light)"
+msgstr ""
+
+#. This is a title for an object with the description: A group tall wetland plants well-known for their brown catkins.
+msgid "Cattails (Medium)"
+msgstr ""
+
+#. This is a title for an object with the description: A group of benches that surround a nice decorative object.
+msgid "Centerpiece Park"
+msgstr ""
+
+#. This is a title for an object with the description: A chemical plant
 msgid "Chemical Plant"
 msgstr "Vegyi üzem"
 
+#. This is a title for an object with the description: A stereotypical red barn.
+msgid "Classic Red Barn"
+msgstr ""
+
+#. This is a title for an object with the description: An old clock store that sells and repairs clocks.
 msgid "Clock Store"
 msgstr "Órabolt"
 
+#. This is a title for an object with the description: A pile of coal
 msgid "Coal Pile"
 msgstr "Szénhalom "
 
+#. This is a title for an object with the description: A coal power plant.  It'll produce enough electricity to keep a town running, but it creates a lot of pollution.
 msgid "Coal Power Plant"
 msgstr "Szénerőmű"
 
+#. This is a category
+#. This is a subCategory
 msgid "Commercial"
 msgstr "Kereskedelmi"
 
+#. This is a title for an object with the description: Commercial Zone (dense).
+#, fuzzy
+#| msgid "A commercial center"
+msgid "Commercial Zone (dense)"
+msgstr "Egy kereskedelmi központ"
+
+#. This is a description for an object titled: Commercial Zone (dense)
+#, fuzzy
+#| msgid "A commercial center"
+msgid "Commercial Zone (dense)."
+msgstr "Egy kereskedelmi központ"
+
+#. This is a title for an object with the description: Commercial Zone (light).
+#, fuzzy
+#| msgid "Commercial"
+msgid "Commercial Zone (light)"
+msgstr "Kereskedelmi"
+
+#. This is a description for an object titled: Commercial Zone (light)
+msgid "Commercial Zone (light)."
+msgstr ""
+
+#. This is a title for an object with the description: Commercial Zone (medium).
+msgid "Commercial Zone (medium)"
+msgstr ""
+
+#. This is a description for an object titled: Commercial Zone (medium)
+msgid "Commercial Zone (medium)."
+msgstr ""
+
+#. This is a title for an object with the description: A large multi-story shopping mall with large windows. Urban legends say it was built by hand by the members of a distant community
 msgid "Community Tower"
 msgstr "Közösségi torony"
 
+#. This is a title for an object with the description: A shop!
 msgid "CompactFast Shop"
 msgstr "KompaktGyors Bolt"
 
-msgid "Concrete Tower"
-msgstr "Betontorony "
+#. This is a title for an object with the description: Pretty concrete
+#. This is a title for an object with the description: Pavement
+#, fuzzy
+#| msgid "TerrainDecoration"
+msgid "Concrete Ground Decoration"
+msgstr "Terepdísz"
 
+#. This is a UiElement with the ID: construction menu
+#. This is a UiElement with the ID: roads menu
 msgid "Construction"
 msgstr "Építés"
 
+#. This is a subCategory
+msgid "Countries"
+msgstr ""
+
+#. This is a title for an object with the description: An average road that'll you would commonly find out in the countryside.  It lacks a proper sidewalk though.
 msgid "Country Road"
 msgstr "Országút"
 
-msgid "Country Road... takes you home!"
-msgstr "Országút... hazavisz!"
+#. This is a title for an object with the description: A nice residential building donned with white and orange concrete.
+#, fuzzy
+#| msgid "Concrete Tower"
+msgid "Creme-Oran Tower"
+msgstr "Betontorony "
 
+#. This is a title for an object with the description: A group of crystal trees.
+msgid "Crystal Trees (Dense)"
+msgstr ""
+
+#. This is a title for an object with the description: A group of crystal trees.
+msgid "Crystal Trees (Light)"
+msgstr ""
+
+#. This is a title for an object with the description: A group of crystal trees.
+msgid "Crystal Trees (Medium)"
+msgstr ""
+
+#. This is a title for an object with the description: A group of cypress trees.
+msgid "Cypress Trees (Dense)"
+msgstr ""
+
+#. This is a title for an object with the description: A group of cypress trees.
+msgid "Cypress Trees (Light)"
+msgstr ""
+
+#. This is a title for an object with the description: A group of cypress trees.
+msgid "Cypress Trees (Medium)"
+msgstr ""
+
+#. This is a title for an object with the description: An old day care that has since become someone's home.
 msgid "Day Care Center"
 msgstr "Napközi otthon"
 
+#. This is a UiElement with the ID: debug menu
 msgid "Debug Menu"
 msgstr "Hibakereső menü"
 
+#. This is a category
 msgid "Decoration"
 msgstr "Díszítés "
 
+#. This is a UiElement with the ID: button demolish
 msgid "Demolish"
 msgstr "Lerombolás"
 
-msgid "Depolluter Big"
-msgstr "Szennyezésmentesítő nagy"
+#. This is a title for an object with the description: Terrain Desert tiles
+#. This is a subCategory
+msgid "Desert"
+msgstr ""
 
-msgid "Depolluter Medium"
-msgstr "Szennyezésmentesítő közepes "
-
-msgid "Depolluter Small"
-msgstr "Szennyezésmentesítő kicsi"
-
+#. This is a title for an object with the description: Desert building
 msgid "Desert Building"
 msgstr "Sivatagi épület"
 
+#. This is a title for an object with the description: A pile of rocks that can be found in the desert biome.
+msgid "Desert Rocks"
+msgstr ""
+
+#. This is a description for an object titled: Desert Building
 msgid "Desert building"
 msgstr "Sivatagi épület"
 
+#. This is a title for an object with the description: A pile of rocks that can be found in the diamond biome.
+msgid "Diamond Rocks"
+msgstr ""
+
+#. This is a title for an object with the description: Terrain Dirt tiles
+#, fuzzy
+#| msgid "Dirt Road"
+msgid "Dirt"
+msgstr "Földút"
+
+#. This is a title for an object with the description: An old dirt road that doesn't require much maintenance.  Not recommended for busy roadways.
 msgid "Dirt Road"
 msgstr "Földút"
 
+#. This is a title for an object with the description: An european looking road.
+#. This is a title for an object with the description: A modern european looking road.
+#. This is a title for an object with the description: A modern european looking road without a sidewalk.
+msgid "European Road"
+msgstr ""
+
+#. This is a title for an object with the description: A factory
+#. This is a title for an object with the description: A factory
 msgid "Factory"
 msgstr "Gyár"
 
+#. This is a category
+msgid "Farm"
+msgstr ""
+
+#. This is a title for an object with the description: Ferns are green flowerless plants with divided leaves that tend to grow in damp, shady areas.
+msgid "Ferns (Dense)"
+msgstr ""
+
+#. This is a title for an object with the description: Ferns are green flowerless plants with divided leaves that tend to grow in damp, shady areas.
+msgid "Ferns (Light)"
+msgstr ""
+
+#. This is a title for an object with the description: Ferns are green flowerless plants with divided leaves that tend to grow in damp, shady areas.
+msgid "Ferns (Medium)"
+msgstr ""
+
+#. This is a description for an object titled: Ferns (Light)
+#. This is a description for an object titled: Ferns (Medium)
+#. This is a description for an object titled: Ferns (Dense)
+msgid ""
+"Ferns are green flowerless plants with divided leaves that tend to grow in "
+"damp, shady areas."
+msgstr ""
+
+#. This is a category
+#. This is a subCategory
 msgid "Flora"
 msgstr "Növényzet"
 
+#. This is a title for an object with the description: A lovely flower patch that blooms in all colors.
+msgid "Flowers (Dense)"
+msgstr ""
+
+#. This is a title for an object with the description: A lovely flower patch that blooms in all colors.
+msgid "Flowers (Light)"
+msgstr ""
+
+#. This is a title for an object with the description: A lovely flower patch that blooms in all colors.
+#, fuzzy
+#| msgid "Depolluter Medium"
+msgid "Flowers (Medium)"
+msgstr "Szennyezésmentesítő közepes "
+
+#. This is a title for an object with the description: Terrain grass forest tiles
+msgid "Forest"
+msgstr ""
+
+#. This is a UiElement with of the type: Text
 msgid "Fullscreen Mode"
 msgstr "Teljes képernyős mód"
 
+#. This is a title for an object with the description: A shop that sells games. Even Cytopia is sold here!
 msgid "Game Shop"
 msgstr "Videojáték-szaküzlet"
 
+#. This is a title for an object with the description: A tall glass skyscraper that fears the day a stone-throwing competition is held in town.
+#, fuzzy
+#| msgid "Water Tower"
+msgid "Glass Tower"
+msgstr "Víztorony"
+
+#. This is a title for an object with the description: A pile of rocks that can be found in the desert biome.
+msgid "Golden Rocks"
+msgstr ""
+
+#. This is a title for an object with the description: Terrain grass mint tiles
+msgid "Grass Mint"
+msgstr ""
+
+#. This is a title for an object with the description: Terrain Grass Mint Forest tiles
+msgid "Grass Mint Forest"
+msgstr ""
+
+#. This is a title for an object with the description: Terrain grass tiles
+msgid "Grassland"
+msgstr ""
+
+#. This is a title for an object with the description: Terrain Gravel tiles
+msgid "Gravel"
+msgstr ""
+
+#. This is a title for an object with the description: a green bush
+msgid "Green Bushes (Dense)"
+msgstr ""
+
+#. This is a title for an object with the description: a green bush
+msgid "Green Bushes (Light)"
+msgstr ""
+
+#. This is a title for an object with the description: a green bush
+msgid "Green Bushes (Medium)"
+msgstr ""
+
+#. This is a title for an object with the description: A green cactus.
+msgid "Green Cacti (Dense)"
+msgstr ""
+
+#. This is a title for an object with the description: A green cactus.
+msgid "Green Cacti (Light)"
+msgstr ""
+
+#. This is a title for an object with the description: A green cactus.
+msgid "Green Cacti (Medium)"
+msgstr ""
+
+#. This is a subCategory
+#, fuzzy
+#| msgid "Decoration"
+msgid "Ground Decoration"
+msgstr "Díszítés "
+
+#. This is a subCategory
+msgid "High Wealth"
+msgstr ""
+
+#. This is a title for an object with the description: A highway! Cars go faaaaast here.
+msgid "Highway Road"
+msgstr ""
+
+#. This is a title for an object with the description: A small piece of land where impoverished people reside.
+msgid "Homeless Camp"
+msgstr ""
+
+#. This is a title for an object with the description: TODO DESC
+msgid "Horses"
+msgstr ""
+
+#. This is a title for an object with the description: A blue hotel from vienna
 msgid "Hotel"
 msgstr "Hotel"
 
+#. This is a title for an object with the description: House with swimming pool
+#. This is a description for an object titled: House with swimming pool
 msgid "House with swimming pool"
 msgstr "Úszómedencés ház"
 
+#. This is a description for an object titled: Ice Cream Shop
 msgid "I scream for ice cream!"
 msgstr "Nyaljuk a fagylaltot!"
 
+#. This is a title for an object with the description: I scream for ice cream!
 msgid "Ice Cream Shop"
 msgstr "Fagyizó"
 
+#. This is a description for an object titled: Tall Grass (Light)
+#. This is a description for an object titled: Tall Grass (Medium)
+#. This is a description for an object titled: Tall Grass (Dense)
+msgid "In the tall grass."
+msgstr ""
+
+#. This is a category
+#. This is a subCategory
 msgid "Industrial"
 msgstr "Ipari"
 
+#. This is a title for an object with the description: Industrial Building
+#. This is a description for an object titled: Industrial Building
+#. This is a title for an object with the description: Industrial Building
+#. This is a description for an object titled: Industrial Building
 msgid "Industrial Building"
 msgstr "Ipari épület"
 
+#. This is a title for an object with the description: Industrial Zone.
+#, fuzzy
+#| msgid "Industrial Building"
+msgid "Industrial Zone (light)"
+msgstr "Ipari épület"
+
+#. This is a title for an object with the description: Industrial Zone.
+#. This is a title for an object with the description: Industrial Zone.
+#, fuzzy
+#| msgid "Industrial Building"
+msgid "Industrial Zone (medium)"
+msgstr "Ipari épület"
+
+#. This is a description for an object titled: Industrial Zone (light)
+#. This is a description for an object titled: Industrial Zone (medium)
+#. This is a description for an object titled: Industrial Zone (medium)
+#, fuzzy
+#| msgid "Industrial"
+msgid "Industrial Zone."
+msgstr "Ipari"
+
+#. This is a description for an object titled: Tan Tower
+msgid "It might be an old, bland-looking tower, but it gets the job done."
+msgstr ""
+
+#. This is a title for an object with the description: A small lantern that can be used to decorate your cities.
+msgid "Lantern"
+msgstr ""
+
+#. This is a title for an object with the description: A large plaza with a pool of water in the middle.
+msgid "Large Plaza Park"
+msgstr ""
+
+#. This is a UiElement with the ID: button level terrain
 msgid "Level Terrain"
 msgstr "Terep kiegyenlítése"
 
-#: src/Game.cxx:99
+#. This is a title for an object with the description: A tall light pole that can be used to decorate a town.
+msgid "Light Pole"
+msgstr ""
+
+#. This is a title for an object with the description: Lily pads are broad, rounded, heart- or shield-shaped leaves. Frogs like to sit on them!
+msgid "Lily Pads (Dense)"
+msgstr ""
+
+#. This is a title for an object with the description: Lily pads are broad, rounded, heart- or shield-shaped leaves. Frogs like to sit on them!
+msgid "Lily Pads (Light)"
+msgstr ""
+
+#. This is a title for an object with the description: Lily pads are broad, rounded, heart- or shield-shaped leaves. Frogs like to sit on them!
+msgid "Lily Pads (Medium)"
+msgstr ""
+
+#. This is a description for an object titled: Lily Pads (Light)
+#. This is a description for an object titled: Lily Pads (Medium)
+#. This is a description for an object titled: Lily Pads (Dense)
+msgid ""
+"Lily pads are broad, rounded, heart- or shield-shaped leaves. Frogs like to "
+"sit on them!"
+msgstr ""
+
+#. This is a UiElement with the Action: LoadGame
+#: D:\projects\Cytopia\src\Game.cxx:138
 msgid "Load Game"
 msgstr "Játék betöltése"
 
+#. This is a subCategory
+msgid "Low Wealth"
+msgstr ""
+
+#. This is a UiElement with the ID: button lower terrain
 msgid "Lower Terrain"
 msgstr "Terep lesüllyesztése"
 
+#. This is a title for an object with the description: A classic house from Savannah , Georgia , USA
+#. This is a title for an object with the description: A small french mansion 
 msgid "Mansion"
 msgstr "Kúria"
 
+#. This is a category
+msgid "Medical"
+msgstr ""
+
+#. This is a title for an object with the description: Medium Appartments
+#. This is a description for an object titled: Medium Appartments
 msgid "Medium Appartments"
 msgstr "Közepes apartmanok"
 
-msgid "Medium Depollutor"
+#. This is a title for an object with the description: A classic depolluter building that has been recently repurposed.
+#, fuzzy
+#| msgid "Medium Depollutor"
+msgid "Medium Depolluter"
 msgstr "Közepes szennyezésmentesítő"
 
+#. This is a subCategory
+#, fuzzy
+#| msgid "Medium Depollutor"
+msgid "Medium Wealth"
+msgstr "Közepes szennyezésmentesítő"
+
+#. This is a title for an object with the description: An old depolluter building that has become a new industrial factory.
+#, fuzzy
+#| msgid "Big Depollutor"
+msgid "Mini Depolluter"
+msgstr "Nagy szennyezésmentesítő"
+
+#. This is a title for an object with the description: Terrain mud tiles
+msgid "Mud"
+msgstr ""
+
+#. This is a title for an object with the description: A group of mysterious mushroom trees.
+msgid "Mushrooms (Dense)"
+msgstr ""
+
+#. This is a title for an object with the description: A group of mysterious mushroom trees.
+msgid "Mushrooms (Light)"
+msgstr ""
+
+#. This is a title for an object with the description: A group of mysterious mushroom trees.
+msgid "Mushrooms (Medium)"
+msgstr ""
+
+#. This is a category
 msgid "Nature"
 msgstr "Természet"
 
-#: src/Game.cxx:94
+#. This is a subCategory
+#, fuzzy
+#| msgid "Decoration"
+msgid "NatureDecoration"
+msgstr "Díszítés "
+
+#. This is a UiElement with the Action: NewGame
+#: D:\projects\Cytopia\src\Game.cxx:123
 msgid "New Game"
 msgstr "Új játék"
 
+#. This is a UiElement with the Action: SaveSettings
 msgid "OK"
 msgstr "OK"
 
+#. This is a title for an object with the description: A group of oak trees.
+msgid "Oak Trees (Dense)"
+msgstr ""
+
+#. This is a title for an object with the description: A group of oak trees.
+msgid "Oak Trees (Light)"
+msgstr ""
+
+#. This is a title for an object with the description: A group of oak trees.
+msgid "Oak Trees (Medium)"
+msgstr ""
+
+#. This is a title for an object with the description: An oasis
 msgid "Oasis"
 msgstr "Oázis"
 
-msgid "Office"
-msgstr "Iroda"
-
+#. This is a title for an object with the description: Old Church
+#. This is a description for an object titled: Old Church
 msgid "Old Church"
 msgstr "Öreg templom"
 
+#. This is a title for an object with the description: Old Industrial Building
+#. This is a description for an object titled: Old Industrial Building
 msgid "Old Industrial Building"
 msgstr "Régi ipari épület"
 
+#. This is a title for an object with the description: An ancient coal power plant that has been turned into a factory.
+#, fuzzy
+#| msgid "OldPowerPlant"
+msgid "Old Power Plant"
+msgstr "Régierőmű"
+
+#. This is a title for an object with the description: Old building
+#. This is a description for an object titled: Old building
+#. This is a title for an object with the description: Old building
+#. This is a description for an object titled: Old building
 msgid "Old building"
 msgstr "Régi épület"
 
-msgid "OldPowerPlant"
-msgstr "Régierőmű"
+#. This is a title for an object with the description: A group of palmtrees.
+msgid "Palm Trees (Dense)"
+msgstr ""
 
+#. This is a title for an object with the description: A group of palmtrees.
+msgid "Palm Trees (Light)"
+msgstr ""
+
+#. This is a title for an object with the description: A group of palmtrees.
+msgid "Palm Trees (Medium)"
+msgstr ""
+
+#. This is a title for an object with the description: A nice park that can be used as a good centerpiece.
+msgid "Park Crossroads"
+msgstr ""
+
+#. This is a title for an object with the description: A nice paved road that are commonly found in the middle of large cities.  Includes a sidewalk.
 msgid "Paved Road"
 msgstr "Kövezett út"
 
+#. This is a description for an object titled: Concrete Ground Decoration
+msgid "Pavement"
+msgstr ""
+
+#. This is a title for an object with the description: A group of mannequins you dressed up as people that can be used to decorate a town.
+msgid "People"
+msgstr ""
+
+#. This is a title for an object with the description: A petrol pump
 msgid "Petrol Pump"
 msgstr "Benzinszivattyú"
 
+#. This is a title for an object with the description: A petrol station
 msgid "Petrol Station"
 msgstr "Benzinkút"
 
+#. This is a title for an object with the description: An old phone booth that can be used to decorate your cities.
+#. This is a title for an object with the description: An old blue phone booth that can be used to decorate your cities.
+#, fuzzy
+#| msgid "Phone Shop"
+msgid "Phone Booth"
+msgstr "Telefonbolt"
+
+#. This is a title for an object with the description: A shop that sells phones. It has the new CyPhone X
 msgid "Phone Shop"
 msgstr "Telefonbolt"
 
+#. This is a title for an object with the description: A picnic pavilion is a great place for your citizens to eat lunch.
+msgid "Picnic Pavilion"
+msgstr ""
+
+#. This is a title for an object with the description: A group of picnic tables that your citizens can use to eat lunch at.
+msgid "Picnic Tables"
+msgstr ""
+
+#. This is a title for an object with the description: A group of beautiful pinetrees.
+msgid "Pine Trees (Dense)"
+msgstr ""
+
+#. This is a title for an object with the description: A group of beautiful pinetrees.
+msgid "Pine Trees (Light)"
+msgstr ""
+
+#. This is a title for an object with the description: A group of beautiful pinetrees.
+msgid "Pine Trees (Medium)"
+msgstr ""
+
+#. This is a description for an object titled: Water pipe
+msgid "Pipes are used for transporting water."
+msgstr ""
+
+#. This is a title for an object with the description: A nice public pool that is a great way to stay cool and keep your citizens happy.
+msgid "Pool"
+msgstr ""
+
+#. This is a title for an object with the description: A poplar tree
+msgid "Poplars (Dense)"
+msgstr ""
+
+#. This is a title for an object with the description: A poplar tree
+msgid "Poplars (Light)"
+msgstr ""
+
+#. This is a title for an object with the description: A poplar tree
+#, fuzzy
+#| msgid "Depolluter Medium"
+msgid "Poplars (Medium)"
+msgstr "Szennyezésmentesítő közepes "
+
+#. This is a category
+#. This is a UiElement with the ID: power menu
 msgid "Power"
 msgstr "Erő"
 
+#. This is a description for an object titled: Concrete Ground Decoration
+msgid "Pretty concrete"
+msgstr ""
+
+#. This is a category
+msgid "Prison"
+msgstr ""
+
+#. This is a title for an object with the description: A prison fence
+msgid "Prison Fence"
+msgstr ""
+
+#. This is a title for an object with the description: Pyramid
+#. This is a description for an object titled: Pyramid
 msgid "Pyramid"
 msgstr "Piramis"
 
-#: src/Game.cxx:103
+#. This is a UiElement with the Action: QuitGame
+#: D:\projects\Cytopia\src\Game.cxx:151
 msgid "Quit Game"
 msgstr "Kilépés a játékból"
 
+#. This is a UiElement with the ID: button raise terrain
 msgid "Raise Terrain"
 msgstr "Terep megemelése"
 
+#. This is a title for an object with the description: A bush with delicious red berries.
+msgid "Red Berry Bushes (Dense)"
+msgstr ""
+
+#. This is a title for an object with the description: A bush with delicious red berries.
+msgid "Red Berry Bushes (Light)"
+msgstr ""
+
+#. This is a title for an object with the description: A bush with delicious red berries.
+msgid "Red Berry Bushes (Medium)"
+msgstr ""
+
+#. This is a title for an object with the description: Terrain Red Sand tiles
+#. This is a title for an object with the description: Terrain Rainstone tiles
+msgid "Red Sand"
+msgstr ""
+
+#. This is a category
+#. This is a subCategory
 msgid "Residential"
 msgstr "Lakossági"
 
+#. This is a title for an object with the description: Residential Zone (dense).
+#, fuzzy
+#| msgid "Residential"
+msgid "Residential Zone (dense)"
+msgstr "Lakossági"
+
+#. This is a description for an object titled: Residential Zone (dense)
+#, fuzzy
+#| msgid "Residential"
+msgid "Residential Zone (dense)."
+msgstr "Lakossági"
+
+#. This is a title for an object with the description: Residential Zone (light).
+#, fuzzy
+#| msgid "Residential"
+msgid "Residential Zone (light)"
+msgstr "Lakossági"
+
+#. This is a description for an object titled: Residential Zone (light)
+#, fuzzy
+#| msgid "Residential"
+msgid "Residential Zone (light)."
+msgstr "Lakossági"
+
+#. This is a title for an object with the description: Residential Zone (medium).
+#, fuzzy
+#| msgid "Residential"
+msgid "Residential Zone (medium)"
+msgstr "Lakossági"
+
+#. This is a description for an object titled: Residential Zone (medium)
+msgid "Residential Zone (medium)."
+msgstr ""
+
+#. This is a title for an object with the description: Restaurant in Paris
 msgid "Restaurant"
 msgstr "Étterem"
 
+#. This is a description for an object titled: Restaurant
 msgid "Restaurant in Paris"
 msgstr "Párizsi étterem"
 
+#. This is a category
+msgid "Reward"
+msgstr ""
+
+#. This is a description for an object titled: Wild Rice (Light)
+#. This is a description for an object titled: Wild Rice (Medium)
+#. This is a description for an object titled: Wild Rice (Dense)
+msgid ""
+"Rice is normally grown as an annual plant, although in tropical areas it can "
+"survive as a perennial and can produce a ratoon crop for up to 30 years."
+msgstr ""
+
+#. This is a category
 msgid "Roads"
 msgstr "Utak"
 
+#. This is a title for an object with the description: A pile of rocks that can be found in the grasslands biome.
 msgid "Rocks"
 msgstr "Sziklák"
 
-msgid "Rocks for the terrain"
-msgstr "Sziklák a terepre"
-
+#. This is a title for an object with the description: Ruegroshorloge
+#. This is a description for an object titled: Ruegroshorloge
 msgid "Ruegroshorloge"
 msgstr "Ruegroshorloge"
 
+#. This is a title for an object with the description: A rural road from france with worn asphalt.
+msgid "Rural French Road"
+msgstr ""
+
+#. This is a title for an object with the description: A rural road from france with fresh asphalt with a broken line.
+msgid "Rural French Road brokenlined"
+msgstr ""
+
+#. This is a title for an object with the description: A rural road from france with fresh asphalt.
+msgid "Rural French Road fresh"
+msgstr ""
+
+#. This is a title for an object with the description: A rural road from france with worn asphalth a straight line.
+msgid "Rural French Road lined"
+msgstr ""
+
+#. This is a title for an object with the description: A group of sakura trees.
+msgid "Sakura Trees (Dense)"
+msgstr ""
+
+#. This is a title for an object with the description: A group of sakura trees.
+msgid "Sakura Trees (Light)"
+msgstr ""
+
+#. This is a title for an object with the description: A group of sakura trees.
+msgid "Sakura Trees (Medium)"
+msgstr ""
+
+#. This is a UiElement with the Action: SaveGame
 msgid "Save Game"
 msgstr "Játék mentése"
 
+#. This is a category
+msgid "School"
+msgstr ""
+
+#. This is a UiElement with of the type: Text
 msgid "Screen Resolution"
 msgstr "Képernyőfelbontás"
 
+#. This is a UiElement with of the type: TextButton
+#. This is a UiElement with of the type: Text
 msgid "Settings"
 msgstr "Beállítások"
 
+#. This is a title for an object with the description: Terrain shading tiles
+msgid "Shading"
+msgstr ""
+
+#. This is a title for an object with the description: A shop!
 msgid "Shop"
 msgstr "Bolt"
 
+#. This is a title for an object with the description: A train platform with a large sign on it.
+msgid "Sign Platform"
+msgstr ""
+
+#. This is a subCategory
+#, fuzzy
+#| msgid "Skyscraper"
+msgid "SkyScraper"
+msgstr "Felhőkarcoló"
+
+#. This is a title for an object with the description: An algae-green tower that is the home of lots of people.
+#. This is a subCategory
 msgid "Skyscraper"
 msgstr "Felhőkarcoló"
 
+#. This is a title for an object with the description: A  small coal power plant.  It can supply a small town with electricity, but it produces a lot of pollution.
 msgid "Small Coal Power Plant"
 msgstr "Kis szénerőmű"
 
+#. This is a title for an object with the description: A  small coal power plant.
 msgid "Small Coal Power Plant2"
 msgstr "Kis szénerőmű2"
 
+#. This is a title for an object with the description: A commercial center
 msgid "Small Commercial Center"
 msgstr "Kis kereskedelmi központ"
 
-msgid "Small Depollutor"
-msgstr "Kis szennyezésmentesítő"
-
+#. This is a title for an object with the description: A small trailer house.
+#. This is a title for an object with the description: A small trailer house
 msgid "Small House"
 msgstr "Kis ház"
 
+#. This is a subCategory
+#, fuzzy
+#| msgid "Small House"
+msgid "Small Houses"
+msgstr "Kis ház"
+
+#. This is a title for an object with the description: A small building dedicated to small-scale inustrial-related military activity.
+msgid "Small Military Facility"
+msgstr ""
+
+#. This is a title for an object with the description: A small office building with a nice sidewalk and a unique blue entrance.
+#, fuzzy
+#| msgid "Big Office Building"
+msgid "Small Office Building"
+msgstr "Nagy irodaépület"
+
+#. This is a title for an object with the description: A tiny house that can only accommodate a few people.
 msgid "Small Shack"
 msgstr "Kis kunyhó"
 
+#. This is a title for an object with the description: A small shed used by nearby factories as a way to store things.
+#, fuzzy
+#| msgid "Small Shack"
+msgid "Small Shed"
+msgstr "Kis kunyhó"
+
+#. This is a title for an object with the description: A small train platform that has a small structure on it.  People can wait here until the train comes, although there isnt much room inside.
+#, fuzzy
+#| msgid "Small Water Tower"
+msgid "Small Waiting Platform"
+msgstr "Kis víztorony"
+
+#. This is a title for an object with the description: A small water tower
 msgid "Small Water Tower"
 msgstr "Kis víztorony"
 
+#. This is a title for an object with the description: A small  building
 msgid "Small house"
 msgstr "Kis ház"
 
+#. This is a title for an object with the description: A pile of rocks that can be found in the snow biome.
+#, fuzzy
+#| msgid "Rocks"
+msgid "Snowy Rocks"
+msgstr "Sziklák"
+
+#. This is a title for an object with the description: Terrain soil tiles
+msgid "Soil"
+msgstr ""
+
+#. This is a category
+#, fuzzy
+#| msgid "Petrol Station"
+msgid "Station"
+msgstr "Benzinkút"
+
+#. This is a title for an object with the description: Terrain Stone tiles
+msgid "Stone"
+msgstr ""
+
+#. This is a title for an object with the description: A group of stone pines.
+msgid "Stone Pines (Dense)"
+msgstr ""
+
+#. This is a title for an object with the description: A group of stone pines.
+msgid "Stone Pines (Light)"
+msgstr ""
+
+#. This is a title for an object with the description: A group of stone pines.
+msgid "Stone Pines (Medium)"
+msgstr ""
+
+#. This is a title for an object with the description: a little stream
+msgid "Stream"
+msgstr ""
+
+#. This is a title for an object with the description: A very old ship that crashed here long ago.  Its origin is unkown, but I think it's safe to say what happened to its crew
+msgid "Sunken Ship"
+msgstr ""
+
+#. This is a title for an object with the description: A bland-looking apartment building made out of concrete.
+#, fuzzy
+#| msgid "Concrete Tower"
+msgid "Tall Concrete Tower"
+msgstr "Betontorony "
+
+#. This is a title for an object with the description: In the tall grass.
+msgid "Tall Grass (Dense)"
+msgstr ""
+
+#. This is a title for an object with the description: In the tall grass.
+msgid "Tall Grass (Light)"
+msgstr ""
+
+#. This is a title for an object with the description: In the tall grass.
+msgid "Tall Grass (Medium)"
+msgstr ""
+
+#. This is a title for an object with the description: It might be an old, bland-looking tower, but it gets the job done.
+#, fuzzy
+#| msgid "Water Tower"
+msgid "Tan Tower"
+msgstr "Víztorony"
+
+#. This is a category
 msgid "Terrain"
 msgstr "Terep"
 
-msgid "Terrain tiles"
+#. This is a description for an object titled: Black Sand
+#, fuzzy
+#| msgid "Terrain tiles"
+msgid "Terrain Black Sand tiles"
 msgstr "Terep mezők"
 
+#. This is a description for an object titled: Blueprint
+#, fuzzy
+#| msgid "Terrain tiles"
+msgid "Terrain Blueprint"
+msgstr "Terep mezők"
+
+#. This is a description for an object titled: Desert
+#, fuzzy
+#| msgid "Terrain tiles"
+msgid "Terrain Desert tiles"
+msgstr "Terep mezők"
+
+#. This is a description for an object titled: Dirt
+#, fuzzy
+#| msgid "Terrain tiles"
+msgid "Terrain Dirt tiles"
+msgstr "Terep mezők"
+
+#. This is a description for an object titled: Grass Mint Forest
+msgid "Terrain Grass Mint Forest tiles"
+msgstr ""
+
+#. This is a description for an object titled: Gravel
+#, fuzzy
+#| msgid "Terrain tiles"
+msgid "Terrain Gravel tiles"
+msgstr "Terep mezők"
+
+#. This is a description for an object titled: Red Sand
+#, fuzzy
+#| msgid "Terrain tiles"
+msgid "Terrain Rainstone tiles"
+msgstr "Terep mezők"
+
+#. This is a description for an object titled: Red Sand
+#, fuzzy
+#| msgid "Terrain tiles"
+msgid "Terrain Red Sand tiles"
+msgstr "Terep mezők"
+
+#. This is a description for an object titled: snow
+#, fuzzy
+#| msgid "Terrain tiles"
+msgid "Terrain Snow tiles"
+msgstr "Terep mezők"
+
+#. This is a description for an object titled: Stone
+#, fuzzy
+#| msgid "Terrain tiles"
+msgid "Terrain Stone tiles"
+msgstr "Terep mezők"
+
+#. This is a description for an object titled: Basalt
+#, fuzzy
+#| msgid "Terrain tiles"
+msgid "Terrain basalt tiles"
+msgstr "Terep mezők"
+
+#. This is a description for an object titled: Beach
+#, fuzzy
+#| msgid "Terrain tiles"
+msgid "Terrain beach tiles"
+msgstr "Terep mezők"
+
+#. This is a description for an object titled: Burned land
+#, fuzzy
+#| msgid "Terrain tiles"
+msgid "Terrain burned tiles"
+msgstr "Terep mezők"
+
+#. This is a description for an object titled: Forest
+#, fuzzy
+#| msgid "Terrain tiles"
+msgid "Terrain grass forest tiles"
+msgstr "Terep mezők"
+
+#. This is a description for an object titled: Grass Mint
+#, fuzzy
+#| msgid "Terrain tiles"
+msgid "Terrain grass mint tiles"
+msgstr "Terep mezők"
+
+#. This is a description for an object titled: Grassland
+#, fuzzy
+#| msgid "Terrain tiles"
+msgid "Terrain grass tiles"
+msgstr "Terep mezők"
+
+#. This is a description for an object titled: Mud
+#, fuzzy
+#| msgid "Terrain tiles"
+msgid "Terrain mud tiles"
+msgstr "Terep mezők"
+
+#. This is a description for an object titled: Shading
+#, fuzzy
+#| msgid "Terrain tiles"
+msgid "Terrain shading tiles"
+msgstr "Terep mezők"
+
+#. This is a description for an object titled: Soil
+#, fuzzy
+#| msgid "Terrain tiles"
+msgid "Terrain soil tiles"
+msgstr "Terep mezők"
+
+#. This is a category
 msgid "TerrainDecoration"
 msgstr "Terepdísz"
 
-msgid "The community gathers and works here"
-msgstr "A közösség itt gyülekezik és dologzik"
+#. This is a title for an object with the description: A group of plum trees.
+msgid "Thundercloud Purple Leaf Plum Trees (Dense)"
+msgstr ""
 
+#. This is a title for an object with the description: A group of plum trees.
+msgid "Thundercloud Purple Leaf Plum Trees (Light)"
+msgstr ""
+
+#. This is a title for an object with the description: A group of plum trees.
+msgid "Thundercloud Purple Leaf Plum Trees (Medium)"
+msgstr ""
+
+#. This is a title for an object with the description: Tour Front De Seine
+#. This is a description for an object titled: Tour Front De Seine
 msgid "Tour Front De Seine"
 msgstr "Tour Front De Seine"
 
-msgid "Trees"
-msgstr "Fák"
+#. This is a title for an object with the description: A somewhat-large plot of land that is the home to many trailer houses.
+msgid "Trailer Park"
+msgstr ""
 
+#. This is a category
+#. This is a UiElement with the ID: water menu
 msgid "Utilities"
 msgstr "Közművek"
 
+#. This is a title for an object with the description: Water
+#. This is a description for an object titled: Water
+#. This is a category
+#. This is a UiElement with the ID: button terrain water
 msgid "Water"
 msgstr "Víz"
 
+#. This is a title for an object with the description: A pile of rocks that can be found in water.
+#, fuzzy
+#| msgid "Water Tower"
+msgid "Water Rocks"
+msgstr "Víztorony"
+
+#. This is a title for an object with the description: A beautiful water tower
 msgid "Water Tower"
 msgstr "Víztorony"
 
-msgid "Where people work"
-msgstr "Ahol az emberek dolgoznak"
+#. This is a title for an object with the description: Pipes are used for transporting water.
+#, fuzzy
+#| msgid "Water Tower"
+msgid "Water pipe"
+msgstr "Víztorony"
 
+#. This is a subCategory
+#, fuzzy
+#| msgid "Flora"
+msgid "WaterFlora"
+msgstr "Növényzet"
+
+#. This is a title for an object with the description: A Wheat Field
+msgid "Wheat Field"
+msgstr ""
+
+#. This is a title for an object with the description: Rice is normally grown as an annual plant, although in tropical areas it can survive as a perennial and can produce a ratoon crop for up to 30 years.
+msgid "Wild Rice (Dense)"
+msgstr ""
+
+#. This is a title for an object with the description: Rice is normally grown as an annual plant, although in tropical areas it can survive as a perennial and can produce a ratoon crop for up to 30 years.
+msgid "Wild Rice (Light)"
+msgstr ""
+
+#. This is a title for an object with the description: Rice is normally grown as an annual plant, although in tropical areas it can survive as a perennial and can produce a ratoon crop for up to 30 years.
+msgid "Wild Rice (Medium)"
+msgstr ""
+
+#. This is a title for an object with the description: A small wooden sign that can be used to decorate a town.  It doesn't actually say anything though...
+msgid "Wooden Sign"
+msgstr ""
+
+#. This is a title for an object with the description: A yellow cactus.
+msgid "Yellow Cacti (Dense)"
+msgstr ""
+
+#. This is a title for an object with the description: A yellow cactus.
+msgid "Yellow Cacti (Light)"
+msgstr ""
+
+#. This is a title for an object with the description: A yellow cactus.
+msgid "Yellow Cacti (Medium)"
+msgstr ""
+
+#. This is a category
+msgid "Zones"
+msgstr ""
+
+#. This is a description for an object titled: Green Bushes (Light)
+#. This is a description for an object titled: Green Bushes (Medium)
+#. This is a description for an object titled: Green Bushes (Dense)
+msgid "a green bush"
+msgstr ""
+
+#. This is a description for an object titled: Stream
+msgid "a little stream"
+msgstr ""
+
+#. This is a description for an object titled: Big Appartments
+#. This is a description for an object titled: Big Appartments
 msgid "big Appartments"
 msgstr "nagy apartmanok"
 
+#. This is a title for an object with the description: A house from Alabama , USA
 msgid "house"
 msgstr "ház"
 
-msgid "trees"
-msgstr "fák"
+#. This is a title for an object with the description: Terrain Snow tiles
+msgid "snow"
+msgstr ""
+
+#~ msgid "A Coal Power plant."
+#~ msgstr "Egy szénerőmű."
+
+#~ msgid "A Road, that hasn't been cleaned often"
+#~ msgstr "Egy út, amelyet nem gyakran tisztítottak"
+
+#~ msgid "A Tower made out of concrete"
+#~ msgstr "Egy betonból készül torony"
+
+#~ msgid "A skyscaper"
+#~ msgstr "Egy felhőkarcoló"
+
+#~ msgid "A small shack"
+#~ msgstr "Egy kis kunyhó"
+
+#~ msgid "Borgs Burgers - We have the tastiest!"
+#~ msgstr "Borg burgerfalodája - Nálunk a legízletesebb!"
+
+#~ msgid "Country Road... takes you home!"
+#~ msgstr "Országút... hazavisz!"
+
+#~ msgid "Depolluter Big"
+#~ msgstr "Szennyezésmentesítő nagy"
+
+#~ msgid "Depolluter Small"
+#~ msgstr "Szennyezésmentesítő kicsi"
+
+#~ msgid "Office"
+#~ msgstr "Iroda"
+
+#~ msgid "Rocks for the terrain"
+#~ msgstr "Sziklák a terepre"
+
+#~ msgid "Small Depollutor"
+#~ msgstr "Kis szennyezésmentesítő"
+
+#~ msgid "The community gathers and works here"
+#~ msgstr "A közösség itt gyülekezik és dologzik"
+
+#~ msgid "Trees"
+#~ msgstr "Fák"
+
+#~ msgid "Where people work"
+#~ msgstr "Ahol az emberek dolgoznak"
+
+#~ msgid "trees"
+#~ msgstr "fák"

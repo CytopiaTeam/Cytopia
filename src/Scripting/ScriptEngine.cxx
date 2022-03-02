@@ -19,6 +19,7 @@ void print(const std::string &str) { printf("%s", str.c_str()); }
 
 ScriptEngine::~ScriptEngine()
 {
+  LOG(LOG_DEBUG) << "Destroying Script Engine";
   // Clean up
   context->Release();
   engine->ShutDownAndRelease();

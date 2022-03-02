@@ -111,6 +111,7 @@ public:
 
   void play(AudioTrigger &&trigger, Coordinate3D &&position) noexcept;
 
+
   /**
    * @brief Plays a 3D Soundtrack given its ID and applies effect to it
    * @param ID the SoundtrackID
@@ -233,8 +234,13 @@ private:
   void handleEvent(const AudioSetMutedEvent &&event);
   void handleEvent(const AudioStopEvent &&event);
   void handleEvent(const AudioPruneEvent &&event);
-
+  
   /* Helpers */
+  
+  /**
+   * @brief Get a descriptive error message from an error code
+   */
+  const char * get_al_error_msg(ALenum error);
 
   /**
    * @brief Plays the Soundtrack

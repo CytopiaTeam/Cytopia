@@ -34,6 +34,8 @@ public:
   SDL_Surface *getTileSurface(const std::string &id);
 
   void loadTexture(const std::string &id, const std::string &fileName);
+  
+  void flush();
 
 private:
   ResourcesManager();
@@ -46,9 +48,6 @@ private:
   */
   void loadUITexture();
 
-  /** Delete everything. should be called from the destuctor only
-  */
-  void flush();
 
   SDL_Surface *createSurfaceFromFile(const std::string &fileName);
   SDL_Texture *createTextureFromSurface(SDL_Surface *surface);
