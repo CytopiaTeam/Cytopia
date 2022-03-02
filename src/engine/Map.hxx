@@ -7,23 +7,23 @@
 #include "GameObjects/MapNode.hxx"
 #include "map/TerrainGenerator.hxx"
 
+/** \brief Position of the surrounding nodes and its bit mask values.
+  */
+BETTER_ENUM(NeighbourNodesPosition, unsigned char, BOTOM_LEFT = 1U << 6, LEFT = 1U << 2, TOP_LEFT = 1U << 4, BOTTOM = 1U << 1,
+            CENTAR = 0U, TOP = 1U, BOTOM_RIGHT = 1U << 7, RIGHT = 1U << 3, TOP_RIGHT = 1U << 5);
+
+struct NeighborNode
+{
+  MapNode *pNode;
+  NeighbourNodesPosition position;
+};
+
 class Map
 {
 public:
-  //fixed MapNode* array to store neighbors.
-  using NeighborMatrix = MapNode *[9];
-
-  std::vector<std::unique_ptr<MapNode>> mapNodes;
-  std::vector<MapNode *> mapNodesInDrawingOrder;
-
   Map() = delete;
-  Map(int columns, int rows);
+  Map(int columns, int rows, const bool generateTerrain = true);
   ~Map() = default;
-
-  /** \brief Initialize the Map with node objects
-    * Initialize the Map with node objects
-    */
-  void initMap();
 
   /** \brief Increase Height
     * Increases the height of the node and checks the surrounding tiles. Either draw a slope sprite or elevate the tile if
@@ -66,7 +66,7 @@ public:
  * @param screenCoordinates
  * @return Point
  */
-  Point findNodeInMap(const SDL_Point &screenCoordinates) const;
+  Point findNodeInMap(const SDL_Point &screenCoordinates, const Layer &layer = Layer::NONE) const;
 
   /**
  * @brief Set the Tile ID Of Node object
@@ -79,56 +79,61 @@ public:
   {
     static_assert(std::is_same_v<Point, typename std::iterator_traits<Iterator>::value_type>,
                   "Iterator value must be a const Point");
-    bool isOkToSet = true;
+
+    std::vector<MapNode *> nodesToBeUpdated;
+
     for (Iterator it = begin; it != end; ++it)
     {
       if (!isPlacementOnNodeAllowed(*it, tileID))
       {
-        isOkToSet = false;
-        break;
+        return;
       }
     }
 
-    if (isOkToSet)
+    int groundtileIndex = -1;
+    for (auto it = begin; it != end; ++it)
     {
-      int groundtileIndex = -1;
-      for (auto it = begin; it != end; ++it)
+      const bool shouldRender = !(!isMultiObjects && (it != begin));
+      Layer layer = TileManager::instance().getTileLayer(tileID);
+      MapNode &currentMapNode = mapNodes[nodeIdx(it->x, it->y)];
+
+      if (!isAllowSetTileId(layer, &currentMapNode))
       {
-        bool shouldRender = !(!isMultiObjects && it != begin);
-        Layer layer = TileManager::instance().getTileLayer(tileID);
-        const auto pCurrentMapNode = mapNodes[it->x * m_columns + it->y].get();
-
-        if (!isAllowSetTileId(layer, pCurrentMapNode))
-        {
-          continue;
-        }
-
-        // only demolish nodes before placing if this is a bigger than 1x1 building
-        if (!isMultiObjects)
-        {
-          demolishNode(std::vector<Point>{*it}, 0, Layer::BUILDINGS);
-        }
-
-        pCurrentMapNode->setRenderFlag(layer, shouldRender);
-        pCurrentMapNode->setTileID(tileID, isMultiObjects ? *it : *begin);
-        if (pCurrentMapNode->getMapNodeDataForLayer(layer).tileData &&
-            !pCurrentMapNode->getMapNodeDataForLayer(layer).tileData->groundDecoration.empty() && groundtileIndex == -1)
-        {
-          const int groundDecoSize = pCurrentMapNode->getMapNodeDataForLayer(layer).tileData->groundDecoration.size();
-          std::uniform_int_distribution uniformDistribution(0, groundDecoSize - 1);
-          groundtileIndex = uniformDistribution(randomEngine);
-        }
-        if (groundtileIndex != -1)
-        {
-          pCurrentMapNode->setTileID(pCurrentMapNode->getMapNodeDataForLayer(layer).tileData->groundDecoration[groundtileIndex],
-                                     isMultiObjects ? *it : *begin);
-        }
-        //For layers that autotile to each other, we need to update their neighbors too
-        if (MapNode::isDataAutoTile(TileManager::instance().getTileData(tileID)))
-        {
-          updateNeighborsOfNode(*it);
-        }
+        continue;
       }
+
+      // only demolish nodes before placing if this is a bigger than 1x1 building
+      if (!isMultiObjects)
+      {
+        demolishNode(std::vector<Point>{*it}, 0, Layer::BUILDINGS);
+      }
+
+      currentMapNode.setRenderFlag(layer, shouldRender);
+      currentMapNode.setTileID(tileID, isMultiObjects ? *it : *begin);
+      auto pTileData = currentMapNode.getMapNodeDataForLayer(layer).tileData;
+
+      if (pTileData && !pTileData->groundDecoration.empty() && groundtileIndex == -1)
+      {
+        const int groundDecoSize = pTileData->groundDecoration.size();
+        std::uniform_int_distribution uniformDistribution(0, groundDecoSize - 1);
+        groundtileIndex = uniformDistribution(randomEngine);
+      }
+
+      if (groundtileIndex != -1)
+      {
+        currentMapNode.setTileID(pTileData->groundDecoration[groundtileIndex], isMultiObjects ? *it : *begin);
+      }
+
+      //For layers that autotile to each other, we need to update their neighbors too
+      if (MapNode::isDataAutoTile(TileManager::instance().getTileData(tileID)))
+      {
+        nodesToBeUpdated.push_back(&currentMapNode);
+      }
+    }
+
+    if (!nodesToBeUpdated.empty())
+    {
+      updateNodeNeighbors(nodesToBeUpdated);
     }
   }
 
@@ -136,7 +141,7 @@ public:
  * @brief Demolish a node
  * This function gathers all tiles that should be demolished and invokes the nodes demolish function. When a building bigger than 1x1 is selected, all it's coordinates are added to the demolishing points.
  * @param isoCoordinates all coordinates that should be demolished
- * @param updateNeighboringTiles wether the adjecent tiles should be updated. (only relevant for autotiling)
+ * @param updateNeighboringTiles whether the adjacent tiles should be updated. (only relevant for autotiling)
  * @param layer restrict demolish to a single layer
  * @see MapNode#demolishNode
  */
@@ -153,13 +158,6 @@ public:
    * @brief Get original corner point of given point within building borders.
    */
   Point getNodeOrigCornerPoint(const Point &isoCoordinates, Layer layer = Layer::NONE);
-
-  /**
- * @brief whether a node is a multiobject or not (bigger than 1x1 building)
- * @param isoCoordinates Tile to inspect
- * @param layer Which layer to inspect (default BUILDINGS)
- */
-  bool isNodeMultiObject(const Point &isoCoordinates, Layer layer = Layer::BUILDINGS);
 
   /** \Brief Save Map to file
   * Serializes the Map class to json and writes the data to a file.
@@ -198,62 +196,31 @@ public:
   */
   std::string getTileID(const Point &isoCoordinates, Layer layer);
 
-  /** \Get a single mapNode at specific iso coordinates
-  * @param isoCoordinates: The node to retrieve
+  /** \brief Get pointer to a single mapNode at specific iso coordinates.
+  * @param isoCoordinates: The node to retrieve.
   */
-  const MapNode *getMapNode(Point isoCoords) const { return mapNodes[isoCoords.x * m_columns + isoCoords.y].get(); };
-
-  bool isLayerAutoTile(const Point &isoCoordinates, const Layer &layer) const;
+  const MapNode *getMapNode(Point isoCoords) const { return &mapNodes[nodeIdx(isoCoords.x, isoCoords.y)]; };
 
 private:
-  int m_columns;
-  int m_rows;
-  std::default_random_engine randomEngine;
-
-  TerrainGenerator m_terrainGen;
-
-  static const size_t m_saveGameVersion;
-
-  /**\brief Update mapNode and its adjacent tiles
-  * Updates mapNode height information, draws slopes for adjacent tiles and sets tiling for mapNode sprite if applicable
-  * @param isoCoordinates - isometric coordinates of the tile that should be updated.
-  */
-  void updateNeighborsOfNode(const Point &isoCoordinates);
-
   /**\brief Update all mapNodes
   * Updates all mapNode and its adjacent tiles regarding height information, draws slopes for adjacent tiles and
   * sets tiling for mapNode sprite if applicable
   */
   void updateAllNodes();
 
-  /**\brief Get neighbor MapNode Objects
-    * Stores pointers to the neighboring nodes of the given coordinates in the passed parameter.
-    * @param isoCoordinates - isometric coordinates of the tile that's neighbors should be retrieved.
-    * @param result - Pass a ref of type NeighborMatrix to store the found neighbors in.
-    */
-  void getNeighbors(const Point &isoCoordinates, NeighborMatrix &result) const;
-
-  /** \brief Get elevated neighbor positions in a bitmask
-  * Checks all neighboring tiles and returns the elevated neighbors in a bitmask:
-  * [ BR BL TR TL  R  L  B  T ]
-  * [ 0  0  0  0   0  0  0  0 ]
-  * @param isoCoordinates isometric coordinates of the tile whose neighbors should be retrieved
-  * @returns  Uint that stores the elevated neighbor tiles
-  */
-  unsigned char getElevatedNeighborBitmask(const Point &isoCoordinates);
-
   /** \brief Get a bitmask that represents same-tile neighbors
   * Checks all neighboring tiles and returns the elevated neighbors in a bitmask:
   * [ BR BL TR TL  R  L  B  T ]
   * [ 0  0  0  0   0  0  0  0 ]
-  * @param isoCoordinates isometric coordinates of the tile whose neighbors should be retrieved
-  * @returns  Uint that stores the neighbor tiles
+  * @param pMapNode Pointer to the map node to calculate mask for.
+  * @param neighborNodes Neighbor nodes.
+  * @return Uint that stores the neighbor tiles
   */
-  std::vector<uint8_t> calculateAutotileBitmask(const Point &isoCoordinates);
+  std::vector<uint8_t> calculateAutotileBitmask(const MapNode *const pMapNode, const std::vector<NeighborNode> &neighborNodes);
 
   SDL_Color getColorOfPixelInSurface(SDL_Surface *surface, int x, int y) const;
 
-  bool isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int isoY) const;
+  bool isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int isoY, const Layer &layer) const;
 
   /* \brief Filter out tiles which should not be set over existing one.
   * @param layer Layer in which tileId should be set.
@@ -261,6 +228,60 @@ private:
   * @return true in case that tileId is allowed to be set, otherwise false (filter it out).
   */
   bool isAllowSetTileId(const Layer layer, const MapNode *const pMapNode);
+
+  /* \brief Calculate map index from coordinates.
+  * @param x x coordinate.
+  * @param y y coordinate.
+  * @return Index of map node.
+  */
+  inline int nodeIdx(const int x, const int y) const { return x * m_columns + y; }
+
+  /* \brief Get all neighbor nodes from provided map node.
+  * @param isoCoordinates iso coordinates.
+  * @param includeCentralNode if set to true include the central node in the result.
+  * @return All neighbor nodes.
+  */
+  std::vector<NeighborNode> getNeighborNodes(const Point &isoCoordinates, const bool includeCentralNode);
+
+  /* \brief Change map node height.
+  * @param isoCoordinates iso coordinates.
+  * @param higher if set to true make node higher, otherwise lower.
+  */
+  void changeHeight(const Point &isoCoordinates, const bool higher);
+
+  /* \brief Update the nodes and all affected node with the change.
+  * @param nodes Nodes which have to be updated.
+  */
+  void updateNodeNeighbors(std::vector<MapNode *> &nodes);
+
+  /* \brief Get elevated bit mask of the map node.
+  * @param pMapNode Pointer to the map node to calculate elevated bit mask.
+  * @param neighbors All neighbor map nodes.
+  * @return Map node elevated bit mask.
+  */
+  unsigned char getElevatedNeighborBitmask(MapNode *pMapNode, const std::vector<NeighborNode> &neighbors);
+
+  /* \brief Change map node height.
+  * @param mapNode Map node to change height.
+  * @param higher if set to true make node higher, otherwise lower.
+  * @param neighbors All neighbor map nodes.
+  * @return true in case that height has been changed, otherwise false.
+  */
+  bool updateHeight(MapNode &mapNode, const bool higher, std::vector<NeighborNode> &neighbors);
+
+  /* \brief For implementing frustum culling, find all map nodes which are visible on the screen. Only visible nodes will be rendered.
+  */
+  void calculateVisibleMap(void);
+
+  std::vector<MapNode> mapNodes;
+  std::vector<MapNode *> mapNodesInDrawingOrder;
+  std::vector<MapNode *> mapNodesVisible;
+  int m_columns;
+  int m_rows;
+  std::default_random_engine randomEngine;
+  TerrainGenerator m_terrainGen;
+
+  static const size_t m_saveGameVersion;
 };
 
 #endif

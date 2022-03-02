@@ -10,6 +10,7 @@
 #include "Exception.hxx"
 #include "GameStates.hxx"
 #include "MapLayers.hxx"
+#include "Filesystem.hxx"
 
 #include "json.hxx"
 #include "betterEnums.hxx"
@@ -28,7 +29,7 @@ BETTER_ENUM(Action, int, RaiseTerrain, LowerTerrain, QuitGame, Demolish, ChangeT
 
 void UIManager::init()
 {
-  std::string jsonFileContent = FileSystem::readStringFromFile(Settings::instance().uiLayoutJSONFile.get());
+  std::string jsonFileContent = fs::readFileAsString(Settings::instance().uiLayoutJSONFile.get());
   json uiLayout = json::parse(jsonFileContent, nullptr, false);
 
   // check if json file can be parsed
@@ -934,6 +935,11 @@ void UIManager::changeResolution(UIElement *sender)
   ComboBox *combobox = dynamic_cast<ComboBox *>(sender);
   WindowManager::instance().setScreenResolution(combobox->getActiveID());
   Layout::arrangeElements();
+
+  if (Engine::instance().map != nullptr)
+  {
+    Engine::instance().map->refresh();
+  }
 }
 
 void UIManager::changeFullScreenMode(UIElement *sender)
@@ -942,4 +948,9 @@ void UIManager::changeFullScreenMode(UIElement *sender)
   ComboBox *combobox = dynamic_cast<ComboBox *>(sender);
   WindowManager::instance().setFullScreenMode(static_cast<FULLSCREEN_MODE>(combobox->getActiveID()));
   Layout::arrangeElements();
+
+  if (Engine::instance().map != nullptr)
+  {
+    Engine::instance().map->refresh();
+  }
 }

@@ -33,6 +33,15 @@ class MapNode
 public:
   MapNode(Point isoCoordinates, const std::string &terrainID, const std::string &newTileID = "");
 
+  /** @brief Move constructor.
+    */
+  MapNode(MapNode &&mn) noexcept
+      : m_isoCoordinates(std::move(mn.m_isoCoordinates)), m_sprite(std::move(mn.m_sprite)),
+        m_previousTileID(std::move(mn.m_previousTileID)), m_autotileOrientation(std::move(mn.m_autotileOrientation)),
+        m_elevationOrientation(mn.m_elevationOrientation), m_clippingWidth(mn.m_clippingWidth),
+        m_mapNodeData(std::move(mn.m_mapNodeData)), m_autotileBitmask(std::move(mn.m_autotileBitmask)),
+        m_elevationBitmask(mn.m_elevationBitmask){};
+
   /**
     * @brief Destroys the MapNode object
     */
@@ -57,17 +66,14 @@ public:
     */
   void setCoordinates(const Point &newIsoCoordinates);
 
-  /** @brief Increase Height
-    * Increases the height of the node and its sprite
+  /** @brief Change Height
+    * Increases or decrease the height of the node and its sprite
     * This function should not be called directly, but only from where the neighboring nodes slopes are determined
+    *
+    * @param higher pass true in case that height should be increased or false in case that height should be decreased.
+    * @return true in case that height is changed, otherwise false.
     */
-  void increaseHeight();
-
-  /** @brief Decrease Height
-    * Decreases the height of the node and its sprite
-    * This function should not be called directly, but only from where the neighboring nodes slopes are determined
-    */
-  void decreaseHeight();
+  bool changeHeight(const bool higher);
 
   /** @brief Render MapNode
   * Renders the sprite object(s) of the node
@@ -75,8 +81,6 @@ public:
   void render() const;
 
   void setBitmask(unsigned char elevationBitmask, std::vector<uint8_t> tileTypeBitmask);
-
-  //bool isLayerActive(Layer layer) const { return std::find(layers.begin(), layers.end(), layer) != layers.end(); };
 
   unsigned char getElevationBitmask() const { return m_elevationBitmask; };
 
@@ -147,24 +151,39 @@ public:
 
   void setRenderFlag(Layer layer, bool shouldRender) { m_mapNodeData[layer].shouldRender = shouldRender; }
 
+  /** @brief Set elevation bit mask.
+    */
+  inline void setElevationBitMask(const unsigned char bitMask) { m_elevationBitmask = bitMask; }
+
+  /** @brief Set autotile bit mask.
+    */
+  inline void setAutotileBitMask(std::vector<unsigned char> &&bitMask) { m_autotileBitmask = std::move(bitMask); }
+
+  /** @brief Update texture.
+    */
+  void updateTexture(const Layer &layer = Layer::NONE);
+
+  /**
+   * @brief Sets a node to be Transparent
+   * This sets a node to be Transparent.
+   * @parameter transparencyFactor (0-1.0) - The percentage of node transparency. 1 -> invisible, 0 -> opaque.
+   */
+  void setNodeTransparency(const float transparencyFactor) const;
+
+  /**
+   * @brief Maximum height of the node.
+   */
+  static const int maxHeight = 32;
+
 private:
   Point m_isoCoordinates;
   std::unique_ptr<Sprite> m_sprite;
-
-  int m_maxHeight = 32;
-
   std::string m_previousTileID = "terrain";
-
   std::vector<TileOrientation> m_autotileOrientation;
   size_t m_elevationOrientation = TileSlopes::DEFAULT_ORIENTATION;
-
   int m_clippingWidth = 0;
-
   std::vector<MapNodeData> m_mapNodeData;
   std::vector<unsigned char> m_autotileBitmask;
   unsigned char m_elevationBitmask = 0;
-
-  void updateTexture(const Layer &layer = Layer::NONE);
 };
-
 #endif

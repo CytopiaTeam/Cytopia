@@ -13,10 +13,12 @@
 #include "../GameService.hxx"
 #include "../util/Meta.hxx"
 
-#ifdef USE_OPENAL_SOFT
 #include "AL/al.h"
 #include "AL/alc.h"
-#endif
+
+#include "AL/alext.h" //header for OpenAL Soft
+#include "AL/efx.h"
+#include "AL/efx-presets.h"
 
 template <typename Key, typename Value> using Mapping = std::unordered_map<Key, Value>;
 template <typename Type, size_t N> using Array = std::array<Type, N>;
@@ -24,7 +26,6 @@ using string = std::string;
 template <typename Type> using Vector = std::vector<Type>;
 template <typename Type> using Set = std::unordered_set<Type>;
 template <typename Type> using List = std::list<Type>;
-
 
 /**
  * @class AudioMixer
@@ -65,19 +66,87 @@ public:
    * @param ID the SoundtrackID
    * @param position the Coordinate3D position of the sound
    */
-#ifdef USE_OPENAL_SOFT
-  void play(SoundtrackID &&ID, Coordinate3D &&position) noexcept;
-#endif
 
-/**
+  void play(SoundtrackID &&ID, Coordinate3D &&position) noexcept;
+
+  /**
+   * @brief Plays a Soundtrack given its ID and applies effect to it
+   * @param ID the SoundtrackID
+   * @param position the Coordinate3D position of the sound
+   * @param properties of standard reverb
+   */
+
+  void play(SoundtrackID &&ID, StandardReverbProperties &reverb) noexcept;
+
+  /**
+   * @brief Plays a Soundtrack given its ID and applies effect to it
+   * @param ID the SoundtrackID
+   * @param properties of echo
+   */
+
+  void play(SoundtrackID &&ID, EchoProperties &echo) noexcept;
+
+  /**
+   * @brief Plays a Soundtrack from a trigger and applies effect to it
+   * @param trigger the AudioTrigger
+   * @param position the Coordinate3D position of the sound
+   * @param properties of standard reverb
+   */
+
+  void play(AudioTrigger &&trigger, StandardReverbProperties &reverb) noexcept;
+
+  /**
+   * @brief Plays a Soundtrack from a trigger and applies effect to it
+   * @param trigger the AudioTrigger
+   * @param properties of standard reverb
+   */
+
+  void play(AudioTrigger &&trigger, EchoProperties &echo) noexcept;
+
+  /**
    * @brief Plays a 3D Soundtrack from a trigger
    * @param trigger the AudioTrigger
    * @param position the Coordinate3D position of the sound
    */
-#ifdef USE_OPENAL_SOFT
+
   void play(AudioTrigger &&trigger, Coordinate3D &&position) noexcept;
-  
-#endif
+
+  /**
+   * @brief Plays a 3D Soundtrack given its ID and applies effect to it
+   * @param ID the SoundtrackID
+   * @param position the Coordinate3D position of the sound
+   * @param properties of standard reverb
+   */
+
+  void play(SoundtrackID &&ID, Coordinate3D &&position, StandardReverbProperties &reverb_properties) noexcept;
+
+  /**
+   * @brief Plays a 3D Soundtrack given its ID and applies effect to it
+   * @param ID the SoundtrackID
+   * @param position the Coordinate3D position of the sound
+   * @param properties of echo
+   */
+
+  void play(SoundtrackID &&ID, Coordinate3D &&position, EchoProperties &echo_properties) noexcept;
+
+  /**
+   * @brief Plays a 3D Soundtrack from a trigger and applies effect to it
+   * @param trigger the AudioTrigger
+   * @param position the Coordinate3D position of the sound
+   * @param properties of standard reverb
+   */
+
+  void play(AudioTrigger &&trigger, Coordinate3D &&position, StandardReverbProperties &reverb_properties) noexcept;
+
+  /**
+   * @brief Plays a 3D Soundtrack from a trigger and applies effect to it
+   * @param trigger the AudioTrigger
+   * @param position the Coordinate3D position of the sound
+   * @param properties of echo
+   */
+
+  void play(AudioTrigger &&trigger, Coordinate3D &&position, EchoProperties &echo_properties) noexcept;
+
   /**
    * @brief stops all sounds
    * @param isMuted is muted
@@ -142,13 +211,23 @@ private:
 
   /* Event handlers */
   void handleEvent(const AudioTriggerEvent &&event);
-#ifdef USE_OPENAL_SOFT
   void handleEvent(const AudioTrigger3DEvent &&event);
-#endif
+
   void handleEvent(const AudioPlayEvent &&event);
-#ifdef USE_OPENAL_SOFT
   void handleEvent(const AudioPlay3DEvent &&event);
-#endif
+
+  void handleEvent(const AudioPlayReverbEvent &&event);
+  void handleEvent(const AudioPlayEchoEvent &&event);
+
+  void handleEvent(const AudioTriggerReverbEvent &&event);
+  void handleEvent(const AudioTriggerEchoEvent &&event);
+
+  void handleEvent(const AudioPlayReverb3DEvent &&event);
+  void handleEvent(const AudioPlayEcho3DEvent &&event);
+
+  void handleEvent(const AudioTriggerReverb3DEvent &&event);
+  void handleEvent(const AudioTriggerEcho3DEvent &&event);
+
   void handleEvent(const AudioSoundVolumeChangeEvent &&event);
   void handleEvent(const AudioMusicVolumeChangeEvent &&event);
   void handleEvent(const AudioSetMutedEvent &&event);
@@ -162,6 +241,20 @@ private:
    * @param soundtrack the Soundtrack
    */
   void playSoundtrack(SoundtrackUPtr &soundtrack);
+
+  /**
+   * @brief Plays the Soundtrack with reverb
+   * @param soundtrack the Soundtrack
+   * @param properties of reverb effect
+   */
+  void playSoundtrackWithReverb(SoundtrackUPtr &soundtrack, const StandardReverbProperties &reverb_properties);
+
+  /**
+   * @brief Plays the Soundtrack with echo
+   * @param soundtrack the Soundtrack
+   * @param properties of echo effect
+   */
+  void playSoundtrackWithEcho(SoundtrackUPtr &soundtrack, const EchoProperties &echo_properties);
 
   /**
    * @brief Called whenever a Channel has finished playing
@@ -183,9 +276,6 @@ private:
 
   friend class Game;
 
-//openal soft stuff
-#ifdef USE_OPENAL_SOFT
-
   //OpenAL Soft sound setup variables
   /**
    * @brief OpenAL Soft setup, audio device to be used
@@ -196,8 +286,6 @@ private:
    * @brief OpenAL Soft setup, context of where audio is played
    */
   ALCcontext *alContext;
-
-#endif
 };
 
 #endif

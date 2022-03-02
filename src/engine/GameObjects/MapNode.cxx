@@ -38,26 +38,19 @@ MapNode::MapNode(Point isoCoordinates, const std::string &terrainID, const std::
   updateTexture(layer);
 }
 
-void MapNode::increaseHeight()
+bool MapNode::changeHeight(const bool higher)
 {
-  const int height = m_isoCoordinates.height;
+  constexpr int minHeight = 0;
+  auto &height = m_isoCoordinates.height;
 
-  if (height < m_maxHeight)
+  if ((higher && (height < maxHeight)) || (!higher && (height > minHeight)))
   {
-    m_isoCoordinates.height++;
+    higher ? ++height : --height;
     m_sprite->isoCoordinates = m_isoCoordinates;
+    return true;
   }
-}
 
-void MapNode::decreaseHeight()
-{
-  const int height = m_isoCoordinates.height;
-
-  if (height > 0)
-  {
-    m_isoCoordinates.height--;
-    m_sprite->isoCoordinates = m_isoCoordinates;
-  }
+  return false;
 }
 
 void MapNode::render() const { m_sprite->render(); }
@@ -149,6 +142,14 @@ Layer MapNode::getTopMostActiveLayer() const
     return Layer::TERRAIN;
   }
   return Layer::NONE;
+}
+
+void MapNode::setNodeTransparency(const float transparencyFactor) const
+{
+  // TODO refactoring: Consider replacing magic number (255) with constexpr.
+  unsigned char alpha = (1 - transparencyFactor) * 255;
+  m_sprite->transparentSprite = true;
+  m_sprite->alpha = alpha;
 }
 
 bool MapNode::isDataAutoTile(const TileData *tileData)
@@ -271,7 +272,7 @@ void MapNode::updateTexture(const Layer &layer)
           if (currentLayer == Layer::TERRAIN && m_autotileOrientation[currentLayer] != TileOrientation::TILE_DEFAULT_ORIENTATION)
           {
             m_mapNodeData[Layer::TERRAIN].tileMap = TileMap::SHORE;
-            // for shoretiles, we need to reset the tileIndex to 0, else a random tile would be picked. This is a a litlte bit hacky.
+            // for shore tiles, we need to reset the tileIndex to 0, else a random tile would be picked. This is a little bit hacky.
             m_mapNodeData[Layer::TERRAIN].tileIndex = 0;
           }
         }

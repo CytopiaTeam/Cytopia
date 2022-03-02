@@ -4,7 +4,7 @@
 #include "Exception.hxx"
 #include "basics/Settings.hxx"
 #include "ResourcesManager.hxx"
-#include <filesystem.hxx>
+#include "Filesystem.hxx"
 
 #include <bitset>
 
@@ -266,7 +266,7 @@ TileOrientation TileManager::calculateTileOrientation(unsigned char bitMaskEleva
 
 void TileManager::init()
 {
-  std::string jsonFile = FileSystem::readStringFromFile(Settings::instance().tileDataJSONFile.get());
+  std::string jsonFile = fs::readFileAsString(Settings::instance().tileDataJSONFile.get());
   const json tileDataJSON = json::parse(jsonFile, nullptr, false);
 
   // check if json file can be parsed

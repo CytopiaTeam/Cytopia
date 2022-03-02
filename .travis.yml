@@ -8,6 +8,7 @@ env:
     - GITHUB_REPO: CytopiaTeam/Cytopia
     - TRAVIS: true
     - CTEST_OUTPUT_ON_FAILURE: 1
+    - SCCACHE_CACHE_SIZE: 500M
 
 matrix:
   include:
@@ -16,6 +17,9 @@ matrix:
       name: GCC 8 Build
       python: 3.7
       compiler: gcc-8
+      cache:
+        directories:
+          - $HOME/.cache/sccache
       addons:
         sonarcloud:
           organization: "cytopia"
@@ -29,6 +33,7 @@ matrix:
               key_url: "https://apt.kitware.com/keys/kitware-archive-latest.asc"
           packages:
             - cmake
+            - gcc-8
             - ninja-build
             - doxygen
             - graphviz
@@ -38,7 +43,16 @@ matrix:
             - libsdl2-ttf-dev
             - libnoise-dev
             - libopenal-dev
-
+            - libvorbis-dev
+            
+      install:
+       - >
+        if [ "${TRAVIS_SECURE_ENV_VARS}" == "false" ]; then
+          wget -nv https://github.com/mozilla/sccache/releases/download/0.2.13/sccache-0.2.13-x86_64-unknown-linux-musl.tar.gz
+          tar xvzf sccache-0.2.13-x86_64-unknown-linux-musl.tar.gz
+          sudo mv ./sccache-0.2.13-x86_64-unknown-linux-musl/sccache /usr/bin
+        fi;
+        
       before_script:
         - cmake -DCMAKE_BUILD_TYPE=Debug -DENABLE_COVERAGE=ON -DUSE_PACKAGE_MANAGER=OFF -DENABLE_ANGELSCRIPT=OFF -DENABLE_MOFILEREADER=OFF .
 
@@ -60,11 +74,18 @@ matrix:
             sonar-scanner -Dsonar.cfamily.build-wrapper-output=bw-output
           fi;
 
+      before_cache:
+        - sccache --show-stats
+
     # clang build
     - os: linux
       name: CLANG 7 Build
       compiler: clang
       python: 3.7
+      cache:
+        directories:
+          - $HOME/.cache/sccache
+          - $HOME/.conan/
       addons:
         apt:
           sources:
@@ -80,31 +101,55 @@ matrix:
             - doxygen
             - graphviz
             - clang-7
+            - libasound2-dev
+            - libjack-dev
+            - libx11-dev
+            - libxext-dev
+            - libxxf86vm-dev
+            - libxss-dev
+            - libaudio-dev
+            - libpulse-dev
             - libc++-7-dev # C++17 support in libstd++
       env:
         - DEPLOY_DOCUMENTATION=true
         - MATRIX_EVAL="CC=clang-7.0 && CXX=clang++-7.0"
         - TARGET="linux"
 
+      install:
+       - wget -nv https://github.com/mozilla/sccache/releases/download/0.2.13/sccache-0.2.13-x86_64-unknown-linux-musl.tar.gz
+       - tar xvzf sccache-0.2.13-x86_64-unknown-linux-musl.tar.gz
+       - sudo mv ./sccache-0.2.13-x86_64-unknown-linux-musl/sccache /usr/bin
+
       before_script:
-        - cmake -GNinja -DCMAKE_BUILD_TYPE=Release -DENABLE_ANGELSCRIPT=OFF -DENABLE_MOFILEREADER=OFF .
+        - cmake -GNinja -DCMAKE_BUILD_TYPE=Release .
 
       script:
         - ninja
         - xvfb-run -a ctest
         - sh ./tools/CI/upload-CI-build.sh
-        - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then doxygen Doxyfile; fi
+        - if [ "${TRAVIS_BRANCH}" = "master" ]; then doxygen Doxyfile; fi
 
+      before_cache:
+        - cmake -P ./cmake/pmm.cmake /Conan /Clean
+        - sccache --show-stats
+
+    # MacOS
     - os: osx
-      name: XCode 11.3 Build
-      osx_image: xcode11.3
-      env: TARGET=macOS
+      name: XCode 11.4 Build
+      osx_image: xcode11.4
+      env: 
+        - TARGET=macOS
+        - CONAN_USER_HOME=/tmp/conan
       language: objective-c
       python: 3.7
+      cache:
+        directories:
+          - $HOME/Library/Caches/Mozilla.sccache
+          - /tmp/conan
 
       install:
         - brew update
-        - brew install conan
+        - brew install conan sccache
 
       before_script:
         - cmake -DCMAKE_BUILD_TYPE=Release .
@@ -123,6 +168,57 @@ matrix:
 
       before_cache:
         - cmake -P ./cmake/pmm.cmake /Conan /Clean
+        - sccache --show-stats
+
+    # Android Build
+
+
+    - language: android
+      dist: trusty
+      android:
+        components:
+          # Uncomment the lines below if you want to
+          # use the latest revision of Android SDK Tools
+          # - tools
+          # - platform-tools
+      
+          # The BuildTools version used by your project
+          - build-tools-26.0.2
+      
+          # The SDK version used to compile your project
+          - android-26
+      
+          # Additional components
+          - extra-google-google_play_services
+          - extra-google-m2repository
+          - extra-android-m2repository
+      
+          # Specify at least one system image,
+          # add this if we want to run tests with the emulator
+          # - sys-img-x86-android-26
+          # - sys-img-armeabi-v7a-android-17
+      install:
+        - echo y | sdkmanager "ndk-bundle"
+        - echo y | sdkmanager "ndk;21.1.6352462"
+        - echo y | sdkmanager "cmake;3.10.2.4988404"
+        - sudo apt-get -y install ninja-build
+      env:
+        - ANDROID_NDK_ROOT=$ANDROID_HOME/ndk-bundle
+        - ANDROID_NDK_HOME=$ANDROID_NDK_ROOT
+      before_script:
+        - sh ./get_dependencies.sh
+      script:
+        - cd platforms/android
+        - ./gradlew assemble
+      before_cache:
+        - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+        - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+      cache:
+        directories:
+          - $HOME/.gradle/caches/
+          - $HOME/.gradle/wrapper/
+          - $HOME/.android/build-cache
+          - external/android
 
 deploy:
   provider: pages

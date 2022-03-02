@@ -1,11 +1,33 @@
-cmake_minimum_required(VERSION 3.11 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.10 FATAL_ERROR)
 # add the path to our custom find modules
+
+# create the cmake project
+project(
+        # this will be the ${PROJECT_NAME}
+        Cytopia
+        # this will provide ${PROJECT_VERSION}
+        VERSION 0.2.1
+        # Description
+        DESCRIPTION "A city-building game"
+        # we are using C++
+        LANGUAGES CXX
+)
+
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
+find_program(SCCACHE_PROGRAM sccache)
+find_program(CCACHE_PROGRAM ccache)
+if (SCCACHE_PROGRAM)
+    set(CMAKE_CXX_COMPILER_LAUNCHER "${SCCACHE_PROGRAM}")
+    message("Using ${SCCACHE_PROGRAM} for speeding up build")
+elseif (CCACHE_PROGRAM)
+    set(CMAKE_CXX_COMPILER_LAUNCHER "${CCACHE_PROGRAM}")
+    message("Using ${CCACHE_PROGRAM} for speeding up build")
+endif ()
+
 include(CMakeDependentOption)
 include(SourceFileUtils)
-include(FetchContent)
 
 option(BUILD_TEST "Build Cytopia Tests" ON)
 option(USE_PACKAGE_MANAGER "Use conan for managing packages" ON)
@@ -13,6 +35,7 @@ option(ENABLE_AUDIO "Enable Audio" ON)
 option(ENABLE_MICROPROFILE "Enable microprofile" OFF)
 option(ENABLE_ANGELSCRIPT "Enable AngelScript" ON)
 option(ENABLE_MOFILEREADER "Enable MofileReader" ON)
+option(BUILD_ANDROID "Crossbuild to Android" OFF)
 
 # Comment-out uneeded libs
 if (NOT ENABLE_AUDIO)
@@ -35,35 +58,103 @@ if (NOT ENABLE_MOFILEREADER)
     set(_CC_MOFILEREADER "# ")
 endif ()
 
-if (WIN32)
-    configure_file("${CMAKE_CURRENT_SOURCE_DIR}/conanfile-win.txt.in" "${CMAKE_CURRENT_SOURCE_DIR}/conanfile.txt")
-else()
-    configure_file("${CMAKE_CURRENT_SOURCE_DIR}/conanfile.txt.in" "${CMAKE_CURRENT_SOURCE_DIR}/conanfile.txt")
-endif ()
+if(USE_PACKAGE_MANAGER)
+  if (WIN32)
+      configure_file("${CMAKE_CURRENT_SOURCE_DIR}/conanfile-win.txt.in" "${CMAKE_CURRENT_SOURCE_DIR}/conanfile.txt")
+  else()
+      configure_file("${CMAKE_CURRENT_SOURCE_DIR}/conanfile.txt.in" "${CMAKE_CURRENT_SOURCE_DIR}/conanfile.txt")
+  endif ()
+endif()
 
 set(_include_directories "${CMAKE_CURRENT_SOURCE_DIR}/external/header_only")
 set(_compile_definitions "")
 set(_link_libraries "")
 
-# create the cmake project
-project(
-        # this will be the ${PROJECT_NAME}
-        Cytopia
-        # this will provide ${PROJECT_VERSION}
-        VERSION 0.2.1
-        # Description
-        DESCRIPTION "A city-building game"
-        # we are using C++
-        LANGUAGES CXX
-)
+if (BUILD_ANDROID)
+  message (STATUS "Crossbuilding to Android")
+  # Set some helper variables.
+  string(TOLOWER "${CMAKE_SYSTEM_NAME}" targetSystem)
+  set(projectDir  "${CMAKE_CURRENT_LIST_DIR}")
+  set(sourceDir   "${projectDir}/source")
+  set(targetName  "SimpleExample")
+  set(binDir      "${projectDir}/bin")
 
-# on macOS, usr/local/lib is not in the default search path for libraries. Homebrew install it's libraries there though.
-if (APPLE AND NOT USE_PACKAGE_MANAGER)
-    LINK_DIRECTORIES(${LINK_DIRECTORIES} /usr/local/lib)
+  # Define executable output dir.
+  set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${binDir}/${targetSystem}")
+  set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE "${binDir}/${targetSystem}")
+  set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_MINSIZEREL "${binDir}/${targetSystem}")
+  set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG "${binDir}/${targetSystem}_debug")
+
+  find_library(OpenGLES2_LIBRARY GLESv2 REQUIRED)
+  find_library(OpenGLES3_LIBRARY GLESv3 REQUIRED)
+  find_library(ANDROID_LOG_LIBRARY log REQUIRED)
+  find_library(ANDROID_LIBRARY_LIBRARY android REQUIRED)
+  find_library(zlib z)
+
+  set(DISTRIBUTION_DIR ${CMAKE_SOURCE_DIR}/platforms/android/build/SDL2/intermediates/ndkBuild)
+  set(NOISE_DISTRIBUTION_DIR ${CMAKE_SOURCE_DIR}/platforms/android/build/libnoise/intermediates/cmake)
+  set(OPENAL_DISTRIBUTION_DIR ${CMAKE_SOURCE_DIR}/platforms/android/build/openal-soft/intermediates/cmake)
+  set(LIBOGG_DISTRIBUTION_DIR ${CMAKE_SOURCE_DIR}/platforms/android/build/libogg/intermediates/cmake)
+  set(LIBVORBIS_DISTRIBUTION_DIR ${CMAKE_SOURCE_DIR}/platforms/android/build/libvorbis/intermediates/cmake)
+  string(TOLOWER ${CMAKE_BUILD_TYPE} ANDROID_BUILD_DIR)
+
+  set(SDL_LOCATION ${CMAKE_SOURCE_DIR}/contrib/)
+
+  ##SDL2
+  set (SDL2_LOCATION ${DISTRIBUTION_DIR}/${ANDROID_BUILD_DIR}/obj/local/${ANDROID_ABI}/libSDL2.so)
+  add_library(SDL2 SHARED IMPORTED )
+  set_target_properties(SDL2 PROPERTIES IMPORTED_LOCATION ${SDL2_LOCATION})
+
+  ## SDL2_image
+  set (SDL2_IMAGE_LOCATION ${DISTRIBUTION_DIR}/${ANDROID_BUILD_DIR}/obj/local/${ANDROID_ABI}/libSDL2_image.so)
+  add_library(SDL2_IMAGE SHARED IMPORTED )
+  set_target_properties(SDL2_IMAGE PROPERTIES IMPORTED_LOCATION ${SDL2_IMAGE_LOCATION})
+
+  ## SDL2_ttf
+  set (SDL2_TTF_LOCATION ${DISTRIBUTION_DIR}/${ANDROID_BUILD_DIR}/obj/local/${ANDROID_ABI}/libSDL2_ttf.so)
+  add_library(SDL2_TTF SHARED IMPORTED )
+  set_target_properties(SDL2_TTF PROPERTIES IMPORTED_LOCATION ${SDL2_TTF_LOCATION})
+
+  ## SDL2_mixer
+  set (SDL2_MIXER_LOCATION ${DISTRIBUTION_DIR}/${ANDROID_BUILD_DIR}/obj/local/${ANDROID_ABI}/libSDL2_mixer.so)
+  add_library(SDL2_MIXER SHARED IMPORTED )
+  set_target_properties(SDL2_MIXER PROPERTIES IMPORTED_LOCATION ${SDL2_MIXER_LOCATION})
+
+  #libnoise
+  set (LIBNOISE_LOCATION ${NOISE_DISTRIBUTION_DIR}/${ANDROID_BUILD_DIR}/obj/${ANDROID_ABI}/libnoise.so)
+  add_library(LIBNOISE SHARED IMPORTED )
+  set_target_properties(LIBNOISE PROPERTIES IMPORTED_LOCATION ${LIBNOISE_LOCATION})
+
+  #openal
+  set (OPENAL_LOCATION ${OPENAL_DISTRIBUTION_DIR}/${ANDROID_BUILD_DIR}/obj/${ANDROID_ABI}/libopenal.so)
+  add_library(OPENAL SHARED IMPORTED )
+  set_target_properties(OPENAL PROPERTIES IMPORTED_LOCATION ${OPENAL_LOCATION})
+
+  #ogg
+  set (LIBOGG_LOCATION ${LIBOGG_DISTRIBUTION_DIR}/${ANDROID_BUILD_DIR}/obj/${ANDROID_ABI}/libogg.so)
+  add_library(LIBOGG SHARED IMPORTED )
+  set_target_properties(LIBOGG PROPERTIES IMPORTED_LOCATION ${LIBOGG_LOCATION})
+
+  #vorbis ./build/libvorbis/intermediates/cmake/debug/obj/x86/libvorbis.so
+  set (LIBVORBIS_LOCATION ${LIBVORBIS_DISTRIBUTION_DIR}/${ANDROID_BUILD_DIR}/obj/${ANDROID_ABI}/libvorbis.so)
+  add_library(LIBVORBIS SHARED IMPORTED )
+  set_target_properties(LIBVORBIS PROPERTIES IMPORTED_LOCATION ${LIBVORBIS_LOCATION})
+  # Joysticks were causing trouble on android.
+  add_definitions(-DSDL_JOYSTICK=0)
+endif()
+
+if (CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo")
+  list(APPEND _compile_definitions DEBUG)
 endif ()
 
-if (USE_PACKAGE_MANAGER)
 
+if (APPLE AND NOT USE_PACKAGE_MANAGER)
+  # on macOS, usr/local/lib is not in the default search path for libraries. Homebrew install it's libraries there though.
+  LINK_DIRECTORIES(${LINK_DIRECTORIES} /usr/local/lib)
+endif()
+
+
+if (USE_PACKAGE_MANAGER)
     function(get_variable_from_conan _var_name)
         include("${CMAKE_CURRENT_BINARY_DIR}/conanbuildinfo.cmake")
         get_property(__propt VARIABLE PROPERTY ${_var_name})
@@ -73,9 +164,8 @@ if (USE_PACKAGE_MANAGER)
     include(pmm)
 
     pmm(CONAN
-            REMOTES
+			REMOTES
             AFG https://api.bintray.com/conan/anotherfoxguy/conan-packages
-            catchorg https://api.bintray.com/conan/catchorg/Catch2
             ror-dependencies https://api.bintray.com/conan/anotherfoxguy/ror-dependencies
             BINCRAFTERS
             CMakeCM ROLLING
@@ -105,10 +195,7 @@ if (USE_PACKAGE_MANAGER)
             )
 
     if (ENABLE_AUDIO)
-        list(APPEND _link_libraries CONAN_PKG::sdl2_mixer)
-    endif ()
-
-    if (ENABLE_AUDIO)
+        list(APPEND _link_libraries CONAN_PKG::vorbis)
         list(APPEND _link_libraries CONAN_PKG::openal)
     endif ()
 
@@ -124,7 +211,31 @@ if (USE_PACKAGE_MANAGER)
         list(APPEND _link_libraries CONAN_PKG::Catch2)
     endif ()
 
-else (USE_PACKAGE_MANAGER)
+elseif (BUILD_ANDROID)
+    list(APPEND _link_libraries ${OpenGLES2_LIBRARY}
+                                ${ANDROID_LOG_LIBRARY}
+                                ${ANDROID_LIBRARY_LIBRARY}
+                                SDL2
+                                SDL2_IMAGE
+                                SDL2_TTF
+                                SDL2_MIXER
+                                OPENAL
+                                LIBVORBIS
+                                LIBOGG
+                                z # zlib provided by android NDK
+                                LIBNOISE
+    )
+    # Include dirs.
+    list(APPEND _include_directories ${CMAKE_SOURCE_DIR}/external/android/SDL/SDL2/include
+                                     ${CMAKE_SOURCE_DIR}/external/android/SDL/SDL2_image
+                                     ${CMAKE_SOURCE_DIR}/external/android/SDL/SDL2_ttf
+                                     ${CMAKE_SOURCE_DIR}/external/android/SDL/SDL2_mixer
+                                     ${CMAKE_SOURCE_DIR}/external/android/other/libnoise/src/noise
+                                     ${CMAKE_SOURCE_DIR}/external/android/other/openal-soft/include
+                                     ${CMAKE_SOURCE_DIR}/external/android/other/ogg/include
+                                     ${CMAKE_SOURCE_DIR}/external/android/other/vorbis/include
+        )
+else()
     find_package(PkgConfig REQUIRED)
 
     pkg_check_modules(SDL2 REQUIRED sdl2)
@@ -132,12 +243,13 @@ else (USE_PACKAGE_MANAGER)
     pkg_check_modules(SDL2_ttf REQUIRED SDL2_ttf)
     pkg_check_modules(ZLIB REQUIRED zlib)
 
-    if (ENABLE_AUDIO)
-        pkg_check_modules(SDL2_mixer REQUIRED SDL2_mixer)
-    endif ()
+
 
     if (ENABLE_AUDIO)
         pkg_check_modules(openal REQUIRED openal)
+        pkg_check_modules(vorbis REQUIRED vorbis)
+        pkg_check_modules(vorbis REQUIRED vorbisfile)
+
     endif ()
 
     find_package(LIBNOISE REQUIRED)
@@ -169,7 +281,7 @@ else (USE_PACKAGE_MANAGER)
             )
 
     if (ENABLE_AUDIO)
-        list(APPEND _link_libraries ${SDL2_mixer_LIBRARIES})
+        list(APPEND _link_libraries ${vorbis_LIBRARIES})
     endif ()
 
     if (ENABLE_AUDIO)
@@ -185,22 +297,14 @@ else (USE_PACKAGE_MANAGER)
         list(APPEND _include_directories ${CATCH2_INCLUDEDIR})
     endif ()
 
-endif (USE_PACKAGE_MANAGER)
-
-if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-  add_compile_definitions(DEBUG)
-elseif(CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo")
-  add_compile_definitions(DEBUG)
-endif()
+endif ()
 
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
-  link_libraries(dbghelp.lib)
-else()
-  # Needed for filesystem library
-  if(NOT APPLE)
-    # TODO: Link with stdc++fs on Apple with XCode11
+    link_libraries(dbghelp.lib)
+elseif(NOT APPLE AND NOT BUILD_ANDROID)
+    # Note: Apple supports std::filesystem with macOS10.15 and upwards.
+    # Needed for filesystem library
     list(APPEND _link_libraries "stdc++fs")
-  endif()
 endif()
 
 if (ENABLE_MICROPROFILE)
@@ -223,9 +327,6 @@ if (ENABLE_AUDIO)
   list(APPEND _compile_definitions USE_AUDIO)
 endif ()
 
-if (ENABLE_AUDIO)
-    list(APPEND _compile_definitions USE_OPENAL_SOFT)
-endif (ENABLE_AUDIO)
 
 if (ENABLE_ANGELSCRIPT)
     list(APPEND _compile_definitions USE_ANGELSCRIPT)
@@ -237,6 +338,8 @@ if (ENABLE_MOFILEREADER)
 endif ()
 
 if (ENABLE_MICROPROFILE)
+    include(FetchContent)
+
     FetchContent_Declare(
             microprofile
             GIT_REPOSITORY https://github.com/jonasmr/microprofile.git
@@ -282,8 +385,10 @@ if (BUILD_TEST)
     add_subdirectory(tests)
 endif (BUILD_TEST)
 
-# use Doxygen to generate the documentation
-find_package(Doxygen)
+if (NOT BUILD_ANDROID)
+  # use Doxygen to generate the documentation
+  find_package(Doxygen)
+endif()
 
 if (DOXYGEN_FOUND)
     add_custom_target(

@@ -33,6 +33,11 @@ void Sprite::render() const
         SDL_SetTextureColorMod(m_SpriteData[currentLayer].texture, highlightColor.r, highlightColor.g, highlightColor.b);
       }
 
+      if (transparentSprite)
+      {
+        SDL_SetTextureAlphaMod(m_SpriteData[currentLayer].texture, alpha);
+      }
+
       if (m_SpriteData[currentLayer].clipRect.w != 0)
       {
         SDL_RenderCopy(WindowManager::instance().getRenderer(), m_SpriteData[currentLayer].texture,
@@ -48,29 +53,27 @@ void Sprite::render() const
       {
         SDL_SetTextureColorMod(m_SpriteData[currentLayer].texture, 255, 255, 255);
       }
+
+      if (transparentSprite)
+      {
+        SDL_SetTextureAlphaMod(m_SpriteData[currentLayer].texture, 255);
+      }
     }
   }
 }
 
 void Sprite::refresh(const Layer &layer)
 {
-  std::vector<Layer> layersToGoOver;
-  if (layer != Layer::NONE)
-  {
-    // in case this is not the default value (which is NONE), we need to update only 1 layer.
-    layersToGoOver.push_back(layer);
-  }
-  else
-  {
-    layersToGoOver.insert(layersToGoOver.begin(), std::begin(allLayersOrdered), std::end(allLayersOrdered));
-  }
-
   if (m_currentZoomLevel != Camera::zoomLevel || m_needsRefresh)
   {
-    for (auto currentLayer : layersToGoOver)
+    for (auto currentLayer : allLayersOrdered)
     {
       if (m_SpriteData[currentLayer].texture)
       {
+        if (layer != NONE && currentLayer != layer)
+        {
+          continue;
+        }
         m_currentZoomLevel = Camera::zoomLevel;
         int spriteSheetHeight = 0;
         SDL_QueryTexture(m_SpriteData[currentLayer].texture, nullptr, nullptr, nullptr, &spriteSheetHeight);
@@ -104,10 +107,13 @@ void Sprite::refresh(const Layer &layer)
 
   for (auto &it : m_SpriteData)
   {
-    // render the sprite in the middle of its bounding box so bigger than 1x1 sprites will render correctly
-    it.destRect.x = m_screenCoordinates.x - (it.destRect.w / 2);
-    // change y coordinates with sprites height taken into account to render the sprite at its base and not at its top.
-    it.destRect.y = m_screenCoordinates.y - it.destRect.h;
+    if (it.texture != nullptr)
+    {
+      // render the sprite in the middle of its bounding box so bigger than 1x1 sprites will render correctly
+      it.destRect.x = m_screenCoordinates.x - (it.destRect.w / 2);
+      // change y coordinates with sprites height taken into account to render the sprite at its base and not at its top.
+      it.destRect.y = m_screenCoordinates.y - it.destRect.h;
+    }
   }
 
   m_needsRefresh = false;

@@ -4,6 +4,7 @@
 #include "Exception.hxx"
 #include "Constants.hxx"
 #include "JsonSerialization.hxx"
+#include "Filesystem.hxx"
 
 #include <iomanip>
 
@@ -11,7 +12,7 @@ Settings::Settings() { readFile(); }
 
 void Settings::readFile()
 {
-  std::string jsonFile = FileSystem::readStringFromFile(SETTINGS_FILE_NAME);
+  std::string jsonFile = fs::readFileAsString(SETTINGS_FILE_NAME);
   const json _settingsJSONObject = json::parse(jsonFile, nullptr, false);
 
   // check if json file can be parsed
@@ -24,19 +25,14 @@ void Settings::readFile()
   // init the actual resolution with the desired resolution
   currentScreenWidth = screenWidth;
   currentScreenHeight = screenHeight;
+#ifdef __ANDROID__
+  subMenuButtonHeight *= 2;
+  subMenuButtonWidth *= 2;
+#endif
 }
 
 void Settings::writeFile()
 {
   const json settingsJsonObject = *this;
-
-  std::string settingsFileName = SDL_GetBasePath();
-  settingsFileName += SETTINGS_FILE_NAME;
-  std::ofstream settingsFile(settingsFileName);
-
-  if (!settingsFile)
-    throw ConfigurationError(TRACE_INFO "Could not write to file " + settingsFileName);
-
-  settingsFile << std::setw(4) << settingsJsonObject << std::endl;
-  settingsFile.close();
+  fs::writeStringToFile(SETTINGS_FILE_NAME, settingsJsonObject.dump());
 }

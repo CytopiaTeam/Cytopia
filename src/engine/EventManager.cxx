@@ -274,17 +274,21 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         // if we're panning, move the camera and break
         if (m_panning)
         {
+          if ((event.motion.xrel == 0) && (event.motion.yrel == 0))
+          {
+            return;
+          }
           Camera::cameraOffset.x -= event.motion.xrel;
           Camera::cameraOffset.y -= event.motion.yrel;
 
-          if (Engine::instance().map != nullptr)
-            Engine::instance().map->refresh();
-          return;
+          Engine::instance().map->refresh();
         }
         // check if we should highlight tiles and if we're in placement mode
         if (highlightSelection)
         {
           mouseScreenCoords = {event.button.x, event.button.y};
+          const Point terrainCoordinates = engine.map->findNodeInMap(mouseScreenCoords, Layer::TERRAIN);
+          const Point buildingCoordinates = engine.map->findNodeInMap(mouseScreenCoords, Layer::BUILDINGS);
           mouseIsoCoords = convertScreenToIsoCoordinates(mouseScreenCoords);
 
           // if it's a multi-node tile, get the origin corner point
@@ -295,6 +299,16 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           {
             origCornerPoint = mouseIsoCoords;
           }
+
+          // canceling transparent buildings
+          for (const auto &it : m_transparentBuildings)
+          {
+            if (it != UNDEFINED_POINT)
+            {
+              (engine.map->getMapNode(it))->setNodeTransparency(0);
+            }
+          }
+          m_transparentBuildings.clear();
 
           // if there's no tileToPlace use the current mouse coordinates
           if (tileToPlace.empty())
@@ -409,6 +423,23 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
             {
               engine.map->highlightNode(highlitNode, SpriteHighlightColor::RED);
             }
+            const Point &buildingCoordinates =
+                engine.map->findNodeInMap(convertIsoToScreenCoordinates(highlitNode), Layer::BUILDINGS);
+
+            auto transparentBuildingIt =
+                std::find(m_transparentBuildings.begin(), m_transparentBuildings.end(), buildingCoordinates);
+            if (!(transparentBuildingIt != m_transparentBuildings.end()))
+            {
+              if (buildingCoordinates != UNDEFINED_POINT)
+              {
+                const TileData *tileData = engine.map->getMapNode(buildingCoordinates)->getTileData(Layer::BUILDINGS);
+                if (tileData && tileData->category != "Flora")
+                {
+                  engine.map->getMapNode(buildingCoordinates)->setNodeTransparency(0.6f);
+                  m_transparentBuildings.push_back(buildingCoordinates);
+                }
+              }
+            }
           }
         }
       }
@@ -442,6 +473,13 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         {
           m_clickDownCoords = mouseIsoCoords;
           m_placementAllowed = true;
+
+          // Nodes to place are collected during the mouse move.
+          // In case of multiple left clicks without moving the mouse, node to place will be the node of the mouse click.
+          if (m_nodesToPlace.empty())
+          {
+            m_nodesToPlace.push_back(mouseIsoCoords);
+          }
         }
       }
       break;
