@@ -17,7 +17,7 @@ android {
                 version "3.10.2"
                 // Add any cmake options here.
 
-                arguments "-DPACKAGE_MANAGER=pkgconfig", "-DENABLE_MOFILEREADER=OFF", "-DENABLE_ANGELSCRIPT=OFF", "-DBUILD_TEST=OFF", "-DENABLE_AUDIO=ON", "-DBUILD_ANDROID=ON"
+                arguments "-DPACKAGE_MANAGER=pkgconfig", "-DENABLE_ANGELSCRIPT=OFF", "-DBUILD_TEST=OFF", "-DENABLE_AUDIO=ON", "-DBUILD_ANDROID=ON"
             }
         }
 

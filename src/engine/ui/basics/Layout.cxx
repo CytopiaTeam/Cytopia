@@ -11,8 +11,8 @@ void Layout::arrangeElements()
   if(!m_Window) {
     throw CytopiaError{TRACE_INFO "Cannot arrange UI elements without a Window"};
   }
-  int screenWidth = m_Window->getBounds().width();
-  int screenHeight = m_Window->getBounds().height();
+  int screenWidth = Settings::instance().currentScreenWidth;
+  int screenHeight = Settings::instance().currentScreenHeight;
   const SDL_Point screenCenter{screenWidth / 2, screenHeight / 2};
   const SDL_Point screenSize{screenWidth, screenHeight};
 

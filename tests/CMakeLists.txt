@@ -1,8 +1,9 @@
 set(TESTS_PROJECT_NAME Cytopia_Tests)
 
-include(Catch)
+include(${CMAKE_SOURCE_DIR}/external/catch2/Catch.cmake)
 
 list(APPEND _include_directories
+        ${CMAKE_SOURCE_DIR}/external/catch2
         ${CMAKE_SOURCE_DIR}/src/engine
         ${CMAKE_SOURCE_DIR}/src/engine/basics
         ${CMAKE_SOURCE_DIR}/src/engine/common
@@ -14,10 +15,9 @@ list(APPEND _include_directories
         ${CMAKE_SOURCE_DIR}/src/util
         )
 
-if (NOT USE_PACKAGE_MANAGER)
-    include(pmm)
-    pmm(CMakeCM ROLLING)
-endif()
+
+include(pmm)
+pmm(CMakeCM ROLLING)
 
 include(codecov)
 
