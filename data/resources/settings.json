@@ -22,7 +22,7 @@
     "ZoneLayerTransperancy": 0.6000000238418579
   },
   "Graphics": {
-    "DefaultDisplayMode": "480p",
+    "DefaultDisplayMode": "720p",
     "DisplayModes": {
       "1080p": [
         1920,
