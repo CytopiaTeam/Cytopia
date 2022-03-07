@@ -49,18 +49,17 @@ std::string readFileAsString(const std::string &fileName, bool binaryMode)
 
 void writeStringToFile(const std::string &fileName, const std::string &stringToWrite, bool binaryMode)
 {
-  LOG() << "fs::writeStringToFile() not implemented!";
+  LOG(LOG_ERROR) << "fs::writeStringToFile() not implemented!";
 }
 
-directory_iterator getDirectoryListing(const std::string &directory) { LOG() << "fs::getDirectoryListing() not implemented!"; }
-
-std::vector<path> getSaveGamePaths() { LOG() << "fs::getSaveGamePaths() not implemented!"; }
-
-bool fileExists(const std::string &filePath)
+std::vector<std::string> getDirectoryListing(const std::string &directory)
 {
-  LOG() << "fs::fileExists() not implemented! Returning true to prevent game shutdown";
-  return true;
+  LOG(LOG_ERROR) << "fs::getDirectoryListing() not implemented!";
 }
+
+std::vector<std::string> getSaveGamePaths() { LOG(LOG_ERROR) << "fs::getSaveGamePaths() not implemented!"; }
+
+bool fileExists(const std::string &filePath) { return true; }
 
 std::string getBasePath() { return ""; }
 
