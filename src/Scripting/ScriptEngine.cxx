@@ -6,8 +6,6 @@
 // add-ons to your project as well so that they will be compiled into the
 // application.
 
-#include <Filesystem.hxx>
-
 #include <angelscript.h>
 #include <scriptstdstring/scriptstdstring.h>
 #include <scriptbuilder/scriptbuilder.h>
@@ -19,7 +17,6 @@ void print(const std::string &str) { printf("%s", str.c_str()); }
 
 ScriptEngine::~ScriptEngine()
 {
-  LOG(LOG_DEBUG) << "Destroying Script Engine";
   // Clean up
   context->Release();
   engine->ShutDownAndRelease();
@@ -55,7 +52,7 @@ void ScriptEngine::init()
     return;
   }
 
-  std::string filePath = fs::getBasePath();
+  std::string filePath = SDL_GetBasePath();
   filePath = filePath + "resources/test.as";
   r = builder.AddSectionFromFile(filePath.c_str());
   if (r < 0)

@@ -2,32 +2,20 @@
 #define SOUNDTRACK_HXX_
 
 #include <memory>
+#include <SDL_mixer.h>
 #include <string>
 
 #include "../../util/Meta.hxx"
 
+#ifdef USE_OPENAL_SOFT
 #include "AL/al.h"
 #include "AL/alc.h"
-
-#include <vector>
+#endif
 
 using std::string;
 using ChannelID = StrongType<int, struct ChannelIDTag>;
 using SoundtrackID = StrongType<string, struct SoundtrackIDTag>;
 using RepeatCount = StrongType<uint8_t, struct RepeatCountTag>;
-
-/**
-   * @brief Container for raw pcm data that read from .ogg sound file
-   * @details raw pcm data is held in a vector of type char.
-   * @param nBytes is the length of sample in bytes
-   * @param data_sample_rate is the  sample rate of audio sample assuming it is just 1 sample rate
-   */
-struct DecodedAudioData
-{
-  std::vector<char> char_data_vec; //pcm audio data
-  long nBytes;                     //number of bytes in decoded audio data
-  int data_sample_rate;
-};
 
 struct Soundtrack
 {
@@ -65,6 +53,8 @@ struct Soundtrack
    */
   bool isPlayable : 1;
 
+#ifdef USE_OPENAL_SOFT
+
   /**
    * @brief The OpenAL source of the sound track
    * @details An object that tells the OpenAL system where the sound making object is located in 3d space
@@ -79,23 +69,16 @@ struct Soundtrack
    */
   ALuint buffer;
 
-  /**
-   * @brief The OpenAL effect slot of the sound track
-   * @details An object that tells the OpenAL system what effect to apply to the sound. Must be connected to a source
-   * to tell the system where the sound is made.
-   */
-  ALuint effect_slot;
+#else // USE_OPENAL_SOFT
 
   /**
    * @brief The WAVE data of the Soundtrack
    */
+  Mix_Chunk *Chunks;
 
-  /**
-   * @brief The audio data of the Soundtrack
-   */
-  DecodedAudioData dAudioDataBuffer;
+#endif // USE_OPENAL_SOFT
 
-  Soundtrack(SoundtrackID, ChannelID, DecodedAudioData *, RepeatCount, bool, bool, bool, bool);
+  Soundtrack(SoundtrackID, ChannelID, Mix_Chunk*, RepeatCount, bool, bool, bool, bool);
   ~Soundtrack();
 };
 

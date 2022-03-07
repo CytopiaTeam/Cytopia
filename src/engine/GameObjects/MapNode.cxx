@@ -4,7 +4,6 @@
 #include "LOG.hxx"
 #include "../map/MapLayers.hxx"
 #include "GameStates.hxx"
-#include "Settings.hxx"
 
 MapNode::MapNode(Point isoCoordinates, const std::string &terrainID, const std::string &tileID)
     : m_isoCoordinates(std::move(isoCoordinates))
@@ -39,19 +38,26 @@ MapNode::MapNode(Point isoCoordinates, const std::string &terrainID, const std::
   updateTexture(layer);
 }
 
-bool MapNode::changeHeight(const bool higher)
+void MapNode::increaseHeight()
 {
-  constexpr int minHeight = 0;
-  auto &height = m_isoCoordinates.height;
+  const int height = m_isoCoordinates.height;
 
-  if ((higher && (height < maxHeight)) || (!higher && (height > minHeight)))
+  if (height < m_maxHeight)
   {
-    higher ? ++height : --height;
+    m_isoCoordinates.height++;
     m_sprite->isoCoordinates = m_isoCoordinates;
-    return true;
   }
+}
 
-  return false;
+void MapNode::decreaseHeight()
+{
+  const int height = m_isoCoordinates.height;
+
+  if (height > 0)
+  {
+    m_isoCoordinates.height--;
+    m_sprite->isoCoordinates = m_isoCoordinates;
+  }
 }
 
 void MapNode::render() const { m_sprite->render(); }
@@ -71,22 +77,14 @@ void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
     const Layer layer = TileManager::instance().getTileLayer(tileID);
     switch (layer)
     {
-    case Layer::ZONE:
-      this->setNodeTransparency(Settings::instance().zoneLayerTransparency, Layer::ZONE);
-      break;
     case Layer::WATER:
       demolishLayer(Layer::ROAD);
-      //TODO: we need to modify neighbors TileTypes to Shore.
       // no break on purpose.
     case Layer::ROAD:
       // in case it's allowed then maybe a Tree Tile already exist, so we remove it.
       demolishLayer(Layer::BUILDINGS);
       break;
     case Layer::BUILDINGS:
-      if (tileData->category != "Flora")
-      {
-        this->setNodeTransparency(0.6, Layer::BLUEPRINT);
-      }
       m_mapNodeData[Layer::ZONE].shouldRender = false;
       break;
     default:
@@ -151,13 +149,6 @@ Layer MapNode::getTopMostActiveLayer() const
     return Layer::TERRAIN;
   }
   return Layer::NONE;
-}
-
-void MapNode::setNodeTransparency(const float transparencyFactor, const Layer &layer) const
-{
-  // TODO refactoring: Consider replacing magic number (255) with constexpr.
-  unsigned char alpha = (1 - transparencyFactor) * 255;
-  m_sprite->setSpriteTranparencyFactor(layer, alpha);
 }
 
 bool MapNode::isDataAutoTile(const TileData *tileData)
@@ -280,7 +271,7 @@ void MapNode::updateTexture(const Layer &layer)
           if (currentLayer == Layer::TERRAIN && m_autotileOrientation[currentLayer] != TileOrientation::TILE_DEFAULT_ORIENTATION)
           {
             m_mapNodeData[Layer::TERRAIN].tileMap = TileMap::SHORE;
-            // for shore tiles, we need to reset the tileIndex to 0, else a random tile would be picked. This is a little bit hacky.
+            // for shoretiles, we need to reset the tileIndex to 0, else a random tile would be picked. This is a a litlte bit hacky.
             m_mapNodeData[Layer::TERRAIN].tileIndex = 0;
           }
         }
@@ -427,7 +418,6 @@ const MapNodeData &MapNode::getActiveMapNodeData() const { return m_mapNodeData[
 void MapNode::setMapNodeData(std::vector<MapNodeData> &&mapNodeData, const Point &currNodeIsoCoordinates)
 {
   m_mapNodeData.swap(mapNodeData);
-  this->setNodeTransparency(Settings::instance().zoneLayerTransparency, Layer::ZONE);
 
   // updates the pointers to the tiles, after loading tileIDs from json
   for (auto &it : m_mapNodeData)
@@ -480,10 +470,6 @@ void MapNode::demolishNode(const Layer &demolishLayer)
         continue;
       }
       this->demolishLayer(layer);
-      if (layer == Layer::BUILDINGS)
-      {
-        this->setNodeTransparency(0, Layer::BLUEPRINT);
-      }
       updateTexture(demolishLayer);
     }
   }

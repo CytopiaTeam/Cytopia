@@ -10,15 +10,11 @@
 #include "ResourcesManager.hxx"
 #include "map/MapLayers.hxx"
 #include "common/JsonSerialization.hxx"
-#include "Filesystem.hxx"
-#include "../view/Window.hxx"
+
 #include "json.hxx"
 
 #include <sstream>
 #include <string>
-#include <set>
-#include <queue>
-#include <unordered_set>
 
 #ifdef MICROPROFILE_ENABLED
 #include "microprofile.h"
@@ -26,278 +22,182 @@
 
 using json = nlohmann::json;
 
-Window * Map::m_Window = nullptr;
-
-NeighbourNodesPosition operator++(NeighbourNodesPosition &nn, int)
-{
-  NeighbourNodesPosition res = nn;
-
-  switch (nn)
-  {
-  case NeighbourNodesPosition::BOTOM_LEFT:
-    nn = NeighbourNodesPosition::LEFT;
-    break;
-  case NeighbourNodesPosition::LEFT:
-    nn = NeighbourNodesPosition::TOP_LEFT;
-    break;
-  case NeighbourNodesPosition::TOP_LEFT:
-    nn = NeighbourNodesPosition::BOTTOM;
-    break;
-  case NeighbourNodesPosition::BOTTOM:
-    nn = NeighbourNodesPosition::CENTAR;
-    break;
-  case NeighbourNodesPosition::CENTAR:
-    nn = NeighbourNodesPosition::TOP;
-    break;
-  case NeighbourNodesPosition::TOP:
-    nn = NeighbourNodesPosition::BOTOM_RIGHT;
-    break;
-  case NeighbourNodesPosition::BOTOM_RIGHT:
-    nn = NeighbourNodesPosition::RIGHT;
-    break;
-  case NeighbourNodesPosition::RIGHT:
-    nn = NeighbourNodesPosition::TOP_RIGHT;
-    break;
-  case NeighbourNodesPosition::TOP_RIGHT:
-    nn = NeighbourNodesPosition::BOTOM_LEFT;
-    break;
-  default:
-    assert(false);
-    break;
-  }
-
-  return res;
-}
-
 void Map::getNodeInformation(const Point &isoCoordinates) const
 {
-  const MapNode &mapNode = mapNodes[nodeIdx(isoCoordinates.x, isoCoordinates.y)];
-  const MapNodeData &mapNodeData = mapNode.getActiveMapNodeData();
-  const TileData *tileData = mapNodeData.tileData;
-  LOG(LOG_INFO) << "===== TILE at " << isoCoordinates.x << ", " << isoCoordinates.y << ", " << mapNode.getCoordinates().height
-                << "=====";
-  LOG(LOG_INFO) << "[Layer: TERRAIN] ID: " << mapNode.getMapNodeDataForLayer(Layer::TERRAIN).tileID;
-  LOG(LOG_INFO) << "[Layer: WATER] ID: " << mapNode.getMapNodeDataForLayer(Layer::WATER).tileID;
-  LOG(LOG_INFO) << "[Layer: BUILDINGS] ID: " << mapNode.getMapNodeDataForLayer(Layer::BUILDINGS).tileID;
+  const TileData *tileData = mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getActiveMapNodeData().tileData;
+  LOG(LOG_INFO) << "===== TILE at " << isoCoordinates.x << ", " << isoCoordinates.y << "=====";
+  LOG(LOG_INFO) << "[Layer: TERRAIN] ID: "
+                << mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getMapNodeDataForLayer(Layer::TERRAIN).tileID;
+  LOG(LOG_INFO) << "[Layer: WATER] ID: "
+                << mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getMapNodeDataForLayer(Layer::WATER).tileID;
+  LOG(LOG_INFO) << "[Layer: BUILDINGS] ID: "
+                << mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getMapNodeDataForLayer(Layer::BUILDINGS).tileID;
   LOG(LOG_INFO) << "Category: " << tileData->category;
   LOG(LOG_INFO) << "FileName: " << tileData->tiles.fileName;
   LOG(LOG_INFO) << "Rotations: " << tileData->tiles.rotations;
-  LOG(LOG_INFO) << "TileMap: " << mapNodeData.tileMap;
-  LOG(LOG_INFO) << "TileIndex: " << mapNodeData.tileIndex;
+  LOG(LOG_INFO) << "TileMap: " << mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getActiveMapNodeData().tileMap;
+  LOG(LOG_INFO) << "TileIndex: " << mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getActiveMapNodeData().tileIndex;
 }
 
-Map::Map(int columns, int rows, const bool generateTerrain)
-    : pMapNodesVisible(new Sprite *[columns * rows]), m_columns(columns), m_rows(rows)
+constexpr struct
 {
-  // TODO move Random Engine out of map
+  int x;
+  int y;
+
+} adjecantNodesOffsets[9]{
+    {-1, -1}, // 6 = 2^6 = 64  = BOTTOM LEFT
+    {-1, 0},  // 2 = 2^2 = 4   = LEFT
+    {-1, 1},  // 4 = 2^4 = 16  = TOP LEFT
+    {0, -1},  // 1 = 2^1 = 2   = BOTTOM
+    {0, 0},   // center
+    {0, 1},   // 0 = 2^0 = 1   = TOP
+    {1, -1},  // 7 = 2^7 = 128 = BOTTOM RIGHT
+    {1, 0},   // 3 = 2^3 = 8   = RIGHT
+    {1, 1}    // 5 = 2^5 = 32  = TOP RIGHT
+};
+
+Map::Map(int columns, int rows) : m_columns(columns), m_rows(rows)
+{
+  const size_t vectorSize = static_cast<size_t>(m_rows * m_columns);
   randomEngine.seed();
-  MapLayers::enableLayers({TERRAIN, BUILDINGS, WATER, GROUND_DECORATION, ZONE, ROAD});
+  mapNodes.resize(vectorSize);
+  mapNodesInDrawingOrder.reserve(vectorSize);
+  MapLayers::enableLayer(Layer::TERRAIN);
+  MapLayers::enableLayer(Layer::BUILDINGS);
+  MapLayers::enableLayer(Layer::WATER);
+  MapLayers::enableLayer(Layer::GROUND_DECORATION);
+  MapLayers::enableLayer(Layer::ZONE);
+  MapLayers::enableLayer(Layer::ROAD);
+}
 
-  if (generateTerrain)
-  {
-    m_terrainGen.generateTerrain(mapNodes, mapNodesInDrawingOrder);
-  }
-
+void Map::initMap()
+{
+  m_terrainGen.generateTerrain(mapNodes, mapNodesInDrawingOrder);
   updateAllNodes();
 }
 
-Map::~Map() { delete[] pMapNodesVisible; }
-
-std::vector<NeighborNode> Map::getNeighborNodes(const Point &isoCoordinates, const bool includeCentralNode)
+void Map::increaseHeight(const Point &isoCoordinates)
 {
-  constexpr int neighborRange = 1;
-  std::vector<NeighborNode> neighbors;
-  NeighbourNodesPosition position = NeighbourNodesPosition::BOTOM_LEFT;
+  const int height = mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getCoordinates().height;
 
-  for (int xOffset = -neighborRange; xOffset <= neighborRange; ++xOffset)
+  if (height < Settings::instance().maxElevationHeight)
   {
-    for (int yOffset = -neighborRange; yOffset <= neighborRange; ++yOffset, position++)
+    NeighborMatrix matrix;
+    getNeighbors(isoCoordinates, matrix);
+    for (const auto &it : matrix)
     {
-      if (!includeCentralNode && (xOffset == 0) && (yOffset == 0))
+      if (it && isPointWithinMapBoundaries(it->getCoordinates()) && it->isLayerOccupied(Layer::ZONE))
       {
-        continue;
-      }
-
-      const int neighborX = isoCoordinates.x + xOffset;
-      const int neighborY = isoCoordinates.y + yOffset;
-
-      if (isPointWithinMapBoundaries(neighborX, neighborY))
-      {
-        neighbors.push_back({&mapNodes[nodeIdx(neighborX, neighborY)], position});
+        it->demolishLayer(Layer::ZONE);
       }
     }
-  }
-
-  return neighbors;
-}
-
-bool Map::updateHeight(MapNode &mapNode, const bool higher, std::vector<NeighborNode> &neighbors)
-{
-  if (mapNode.changeHeight(higher))
-  {
-    for (const auto neighbour : neighbors)
-    {
-      if (neighbour.pNode->isLayerOccupied(Layer::ZONE))
-      {
-        neighbour.pNode->demolishLayer(Layer::ZONE);
-      }
-    }
-
-    return true;
-  }
-
-  return false;
-}
-
-void Map::changeHeight(const Point &isoCoordinates, const bool higher)
-{
-  MapNode &mapNode = mapNodes[nodeIdx(isoCoordinates.x, isoCoordinates.y)];
-  std::vector<MapNode *> nodesToUpdate{&mapNode};
-  auto neighbours = getNeighborNodes(isoCoordinates, true);
-
-  if (updateHeight(mapNode, higher, neighbours))
-  {
-    demolishNode({isoCoordinates});
-
-    // If lowering node height, than all nodes around should be lowered to be on same height with the central one.
-    if (!higher)
-    {
-      const int centerHeight = mapNode.getCoordinates().height;
-
-      for (auto &neighbour : neighbours)
-      {
-        if (centerHeight < neighbour.pNode->getCoordinates().height)
-        {
-          neighbour.pNode->changeHeight(false);
-          demolishNode({neighbour.pNode->getCoordinates()});
-          nodesToUpdate.push_back(neighbour.pNode);
-        }
-      }
-    }
-
-    updateNodeNeighbors(nodesToUpdate);
+    demolishNode(std::vector<Point>{isoCoordinates});
+    mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->increaseHeight();
+    updateNeighborsOfNode(mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getCoordinates());
+    mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getSprite()->refresh();
   }
 }
 
-void Map::increaseHeight(const Point &isoCoordinates) { changeHeight(isoCoordinates, true); }
-
-void Map::decreaseHeight(const Point &isoCoordinates) { changeHeight(isoCoordinates, false); }
-
-void Map::updateNodeNeighbors(std::vector<MapNode *> &nodes)
+void Map::decreaseHeight(const Point &isoCoordinates)
 {
-  // those bitmask combinations require the tile to be elevated.
-  constexpr unsigned char elevateTileComb[] = {
-      NeighbourNodesPosition::TOP | NeighbourNodesPosition::BOTTOM,
-      NeighbourNodesPosition::LEFT | NeighbourNodesPosition::RIGHT,
-      NeighbourNodesPosition::TOP_LEFT | NeighbourNodesPosition::RIGHT | NeighbourNodesPosition::BOTTOM,
-      NeighbourNodesPosition::TOP_RIGHT | NeighbourNodesPosition::LEFT | NeighbourNodesPosition::BOTTOM,
-      NeighbourNodesPosition::BOTOM_LEFT | NeighbourNodesPosition::RIGHT | NeighbourNodesPosition::TOP,
-      NeighbourNodesPosition::BOTOM_RIGHT | NeighbourNodesPosition::LEFT | NeighbourNodesPosition::TOP};
+  const int height = mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getCoordinates().height;
 
-  std::unordered_set<MapNode *> nodesToBeUpdated;
-  std::map<MapNode *, std::vector<NeighborNode>> nodeCache;
-  std::queue<MapNode *> nodesUpdatedHeight;
-  std::vector<MapNode *> nodesToElevate;
-  std::unordered_set<MapNode *> nodesToDemolish;
-
-  for (auto &pUpdateNode : nodes)
+  if (height > 0)
   {
-    nodesUpdatedHeight.push(pUpdateNode);
-
-    while (!nodesUpdatedHeight.empty() || !nodesToElevate.empty())
+    NeighborMatrix matrix;
+    getNeighbors(isoCoordinates, matrix);
+    for (const auto &it : matrix)
     {
-      while (!nodesUpdatedHeight.empty())
+      if (it && isPointWithinMapBoundaries(it->getCoordinates()) && it->isLayerOccupied(Layer::ZONE))
       {
-        const auto pHeighChangedNode = nodesUpdatedHeight.front();
-        nodesUpdatedHeight.pop();
-        const int tileHeight = pHeighChangedNode->getCoordinates().height;
+        it->demolishLayer(Layer::ZONE);
+      }
+    }
+    demolishNode(std::vector<Point>{isoCoordinates});
+    mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->decreaseHeight();
+    updateNeighborsOfNode(mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getCoordinates());
+    mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getSprite()->refresh();
+  }
+}
 
-        if (nodeCache.count(pHeighChangedNode) == 0)
+void Map::updateNeighborsOfNode(const Point &isoCoordinates)
+{
+  const int tileHeight = mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getCoordinates().height;
+
+  NeighborMatrix matrix;
+  getNeighbors(isoCoordinates, matrix);
+
+  int i = 0;
+  for (const auto &it : matrix)
+  {
+    if (it)
+    {
+      bool raise = false;
+      const unsigned char elevationBitmask = getElevatedNeighborBitmask(it->getCoordinates());
+
+      // if the elevation bitmask changes (-> a new texture is drawn), demolish the tile
+      if (elevationBitmask != it->getElevationBitmask())
+      {
+        demolishNode(std::vector<Point>{it->getCoordinates()});
+      }
+
+      // set elevation and tile bitmask for each neighbor
+
+      it->setBitmask(elevationBitmask, calculateAutotileBitmask(it->getCoordinates()));
+
+      // there can't be a height difference greater then 1 between two map nodes.
+      // only increase the cardinal directions
+      if (i % 2)
+      {
+        if (tileHeight - it->getCoordinates().height > 1)
         {
-          nodeCache[pHeighChangedNode] = getNeighborNodes(pHeighChangedNode->getCoordinates(), false);
+
+          increaseHeight(it->getCoordinates());
         }
-
-        if (std::find(nodesToElevate.begin(), nodesToElevate.end(), pHeighChangedNode) == nodesToElevate.end())
+        else if (tileHeight - it->getCoordinates().height < -1)
         {
-          nodesToElevate.push_back(pHeighChangedNode);
-        }
-
-        for (const auto &neighbour : nodeCache[pHeighChangedNode])
-        {
-          const auto pNode = neighbour.pNode;
-          const auto &nodeCoordinate = pNode->getCoordinates();
-          const int heightDiff = tileHeight - nodeCoordinate.height;
-
-          if (nodeCache.count(pNode) == 0)
-          {
-            nodeCache[pNode] = getNeighborNodes(pNode->getCoordinates(), false);
-          }
-
-          if (std::find(nodesToElevate.begin(), nodesToElevate.end(), pNode) == nodesToElevate.end())
-          {
-            nodesToElevate.push_back(pNode);
-          }
-
-          if (std::abs(heightDiff) > 1)
-          {
-            nodesUpdatedHeight.push(pNode);
-            updateHeight(*pNode, (heightDiff > 1) ? true : false, nodeCache[pNode]);
-          }
+          decreaseHeight(it->getCoordinates());
         }
       }
 
-      while (nodesUpdatedHeight.empty() && !nodesToElevate.empty())
+      // those bitmask combinations require the tile to be elevated.
+      std::vector<unsigned char> bits{3, 12, 26, 38, 73, 133};
+      for (const auto &elevationBit : bits)
       {
-        MapNode *pEleNode = nodesToElevate.back();
-        nodesToBeUpdated.insert(pEleNode);
-        nodesToElevate.pop_back();
-
-        if (nodeCache.count(pEleNode) == 0)
+        if ((elevationBitmask & elevationBit) == elevationBit)
         {
-          nodeCache[pEleNode] = getNeighborNodes(pEleNode->getCoordinates(), false);
+          raise = true;
         }
-
-        const unsigned char elevationBitmask = getElevatedNeighborBitmask(pEleNode, nodeCache[pEleNode]);
-
-        if (elevationBitmask != pEleNode->getElevationBitmask())
+      }
+      if (raise)
+      {
+        increaseHeight(it->getCoordinates());
+        if (terrainEditMode == TerrainEdit::LOWER)
         {
-          nodesToDemolish.insert(pEleNode);
-          pEleNode->setElevationBitMask(elevationBitmask);
-        }
-
-        for (const auto &elBitMask : elevateTileComb)
-        {
-          if ((elevationBitmask & elBitMask) == elBitMask)
+          //decreaseHeight(it->getCoordinates());
+          NeighborMatrix loweredNodesNeighbors;
+          getNeighbors(it->getCoordinates(), loweredNodesNeighbors);
+          for (const auto &neighbor : loweredNodesNeighbors)
           {
-            updateHeight(*pEleNode, true, nodeCache[pEleNode]);
-            nodesUpdatedHeight.push(pEleNode);
-            break;
+            if (neighbor && neighbor->getCoordinates().height > tileHeight)
+            {
+              decreaseHeight(neighbor->getCoordinates());
+            }
           }
         }
       }
     }
-  }
-
-  if (!nodesToDemolish.empty())
-  {
-    std::vector<Point> nodesToDemolishV(nodesToDemolish.size());
-    std::transform(nodesToDemolish.begin(), nodesToDemolish.end(), nodesToDemolishV.begin(),
-                   [](MapNode *mn) { return mn->getCoordinates(); });
-    demolishNode(nodesToDemolishV);
-  }
-
-  for (auto pNode : nodesToBeUpdated)
-  {
-    pNode->setAutotileBitMask(calculateAutotileBitmask(pNode, nodeCache[pNode]));
-  }
-
-  for (auto pNode : nodesToBeUpdated)
-  {
-    pNode->updateTexture();
+    i++;
   }
 }
 
-void Map::updateAllNodes() { updateNodeNeighbors(mapNodesInDrawingOrder); }
+void Map::updateAllNodes()
+{
+  for (const auto &it : mapNodes)
+  {
+    updateNeighborsOfNode(it->getCoordinates());
+  }
+}
 
 bool Map::isPlacementOnNodeAllowed(const Point &isoCoordinates, const std::string &tileID) const
 {
@@ -305,103 +205,170 @@ bool Map::isPlacementOnNodeAllowed(const Point &isoCoordinates, const std::strin
   {
     return true;
   }
-
-  return mapNodes[nodeIdx(isoCoordinates.x, isoCoordinates.y)].isPlacementAllowed(tileID);
+  if (mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y])
+  {
+    return mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->isPlacementAllowed(tileID);
+  }
+  return false;
 }
 
 std::vector<Point> Map::getObjectCoords(const Point &isoCoordinates, const std::string &tileID)
 {
   std::vector<Point> ret;
   TileData *tileData = TileManager::instance().getTileData(tileID);
-
   if (!tileData)
   {
     return ret;
   }
-
   Point coords = isoCoordinates;
-
   for (int i = 0; i < tileData->RequiredTiles.width; i++)
   {
     for (int j = 0; j < tileData->RequiredTiles.height; j++)
     {
       coords.x = isoCoordinates.x - i;
       coords.y = isoCoordinates.y + j;
-      ret.emplace_back(coords);
+      ret.push_back(coords);
     }
   }
-
   return ret;
 }
 
-unsigned char Map::getElevatedNeighborBitmask(MapNode *pMapNode, const std::vector<NeighborNode> &neighbors)
+unsigned char Map::getElevatedNeighborBitmask(const Point &isoCoordinates)
 {
   unsigned char bitmask = 0;
-  const auto centralNodeHeight = pMapNode->getCoordinates().height;
+  int x = isoCoordinates.x;
+  int y = isoCoordinates.y;
 
-  for (const auto &neighbour : neighbors)
+  std::pair<int, int> adjecantNodesCoordinates[8]{
+      std::make_pair(x, y + 1),     // 0 = 2^0 = 1   = TOP
+      std::make_pair(x, y - 1),     // 1 = 2^1 = 2   = BOTTOM
+      std::make_pair(x - 1, y),     // 2 = 2^2 = 4   = LEFT
+      std::make_pair(x + 1, y),     // 3 = 2^3 = 8   = RIGHT
+      std::make_pair(x - 1, y + 1), // 4 = 2^4 = 16  = TOP LEFT
+      std::make_pair(x + 1, y + 1), // 5 = 2^5 = 32  = TOP RIGHT
+      std::make_pair(x - 1, y - 1), // 6 = 2^6 = 64  = BOTTOM LEFT
+      std::make_pair(x + 1, y - 1)  // 7 = 2^7 = 128 = BOTTOM RIGHT
+  };
+
+  unsigned int i = 0;
+  for (const auto &it : adjecantNodesCoordinates)
   {
-    if (neighbour.pNode->getCoordinates().height > centralNodeHeight)
+    if ((it.first >= 0 && it.first < m_rows && it.second >= 0 && it.second < m_columns) &&
+        (mapNodes[it.first * m_columns + it.second]->getCoordinates().height >
+             mapNodes[x * m_columns + y]->getCoordinates().height &&
+         mapNodes[it.first * m_columns + it.second]))
     {
-      bitmask |= neighbour.position;
+      // for each found tile add 2 ^ i to the bitmask
+      bitmask |= (1u << i);
     }
+    i++;
   }
-
   return bitmask;
 }
 
 Point Map::getNodeOrigCornerPoint(const Point &isoCoordinates, Layer layer)
 {
-  if ((layer != Layer::NONE) && isPointWithinMapBoundaries(isoCoordinates))
+  //Layer layer = TileManager::instance().getTileLayer(tileID);
+  if (layer != Layer::NONE && isPointWithinMapBoundaries(isoCoordinates))
   {
-    return mapNodes[nodeIdx(isoCoordinates.x, isoCoordinates.y)].getOrigCornerPoint(layer);
+    return mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getOrigCornerPoint(layer);
   }
-
-  return Point::INVALID();
+  return UNDEFINED_POINT;
 }
 
-std::vector<uint8_t> Map::calculateAutotileBitmask(const MapNode *const pMapNode, const std::vector<NeighborNode> &neighborNodes)
+std::vector<uint8_t> Map::calculateAutotileBitmask(const Point &isoCoordinates)
 {
-  std::vector<uint8_t> tileOrientationBitmask(LAYERS_COUNT, 0);
+  std::vector<uint8_t> tileOrientationBitmask;
+  tileOrientationBitmask.resize(LAYERS_COUNT);
+  for (auto it : tileOrientationBitmask)
+  {
+    it = 0;
+  }
+
+  const int x = isoCoordinates.x;
+  const int y = isoCoordinates.y;
 
   for (auto currentLayer : allLayersOrdered)
   {
-    auto pCurrentTileData = pMapNode->getMapNodeDataForLayer(currentLayer).tileData;
+    auto pCurrentTile = mapNodes[x * m_columns + y].get();
 
-    if (pCurrentTileData)
+    if (pCurrentTile)
     {
-      if (pCurrentTileData->tileType == +TileType::TERRAIN)
-      {
-        for (const auto &neighbour : neighborNodes)
-        {
-          const auto pTileData = neighbour.pNode->getMapNodeDataForLayer(Layer::WATER).tileData;
+      auto pCurrentTileData = pCurrentTile->getMapNodeDataForLayer(currentLayer).tileData;
 
-          if (pTileData && pTileData->tileType == +TileType::WATER)
+      if (pCurrentTileData)
+      {
+        std::pair<int, int> adjecantNodesCoordinates[8]{
+            std::make_pair(x, y + 1),     // 0 = 2^0 = 1   = TOP
+            std::make_pair(x, y - 1),     // 1 = 2^1 = 2   = BOTTOM
+            std::make_pair(x - 1, y),     // 2 = 2^2 = 4   = LEFT
+            std::make_pair(x + 1, y),     // 3 = 2^3 = 8   = RIGHT
+            std::make_pair(x - 1, y + 1), // 4 = 2^4 = 16  = TOP LEFT
+            std::make_pair(x + 1, y + 1), // 5 = 2^5 = 32  = TOP RIGHT
+            std::make_pair(x - 1, y - 1), // 6 = 2^6 = 64  = BOTTOM LEFT
+            std::make_pair(x + 1, y - 1)  // 7 = 2^7 = 128 = BOTTOM RIGHT
+        };
+
+        if (pCurrentTileData->tileType == +TileType::TERRAIN)
+        {
+          unsigned int i = 0;
+          for (const auto &it : adjecantNodesCoordinates)
           {
-            tileOrientationBitmask[currentLayer] |= neighbour.position;
+            if ((it.first >= 0 && it.first < m_rows && it.second >= 0 && it.second < m_columns) &&
+                (mapNodes[it.first * m_columns + it.second] &&
+                 mapNodes[it.first * m_columns + it.second]->getMapNodeDataForLayer(Layer::WATER).tileData &&
+                 mapNodes[it.first * m_columns + it.second]->getMapNodeDataForLayer(Layer::WATER).tileData->tileType ==
+                     +TileType::WATER))
+            {
+              // for each found tile add 2 ^ i to the bitmask
+              tileOrientationBitmask[currentLayer] |= (1u << i);
+            }
+            i++;
           }
         }
-      }
 
-      // only auto-tile categories that can be tiled.
-      if (pMapNode->isLayerAutoTile(currentLayer))
-      {
-        const auto nodeTileId = pMapNode->getMapNodeDataForLayer(currentLayer).tileID;
-
-        for (const auto &neighbour : neighborNodes)
+        // only auto-tile categories that can be tiled.
+        if (isLayerAutoTile(isoCoordinates, currentLayer))
         {
-          const MapNodeData &nodeData = neighbour.pNode->getMapNodeDataForLayer(currentLayer);
-
-          if (nodeData.tileData && ((nodeData.tileID == nodeTileId) || (pCurrentTileData->tileType == +TileType::ROAD)))
+          unsigned int i = 0;
+          for (const auto &it : adjecantNodesCoordinates)
           {
-            tileOrientationBitmask[currentLayer] |= neighbour.position;
+            const int secondTileIdx = it.first * m_columns + it.second;
+            if ((it.first >= 0 && it.first < m_rows && it.second >= 0 && it.second < m_columns) &&
+                (mapNodes[secondTileIdx] && mapNodes[secondTileIdx]->getMapNodeDataForLayer(currentLayer).tileData &&
+                 ((mapNodes[secondTileIdx]->getMapNodeDataForLayer(currentLayer).tileID ==
+                   pCurrentTile->getMapNodeDataForLayer(currentLayer).tileID) ||
+                  (pCurrentTileData->tileType == +TileType::ROAD))))
+            {
+              // for each found tile add 2 ^ i to the bitmask
+              tileOrientationBitmask[currentLayer] |= (1u << i);
+            }
+            i++;
           }
         }
       }
     }
   }
-
   return tileOrientationBitmask;
+}
+
+void Map::getNeighbors(const Point &isoCoordinates, NeighborMatrix &result) const
+{
+  size_t idx = 0;
+  for (const auto &it : adjecantNodesOffsets)
+  {
+    const int x = isoCoordinates.x + it.x;
+    const int y = isoCoordinates.y + it.y;
+    if (x >= 0 && x < m_rows && y >= 0 && y < m_columns)
+    {
+      result[idx] = mapNodes[x * m_columns + y].get();
+    }
+    else
+    {
+      result[idx] = nullptr;
+    }
+    ++idx;
+  }
 }
 
 void Map::renderMap() const
@@ -410,9 +377,9 @@ void Map::renderMap() const
   MICROPROFILE_SCOPEI("Map", "Render Map", MP_YELLOW);
 #endif
 
-  for (int i = 0; i < m_visibleNodesCount; ++i)
+  for (const auto &it : mapNodesInDrawingOrder)
   {
-    pMapNodesVisible[i]->render();
+    it->render();
   }
 }
 
@@ -421,24 +388,19 @@ void Map::refresh()
 #ifdef MICROPROFILE_ENABLED
   MICROPROFILE_SCOPEI("Map", "Refresh Map", MP_YELLOW);
 #endif
-
-  calculateVisibleMap();
-
-  for (int i = 0; i < m_visibleNodesCount; ++i)
+  for (const auto &it : mapNodesInDrawingOrder)
   {
-    pMapNodesVisible[i]->refresh();
+    it->getSprite()->refresh();
   }
 }
 
-//TODO: move it out from the map
 SDL_Color Map::getColorOfPixelInSurface(SDL_Surface *surface, int x, int y) const
 {
   SDL_Color Color{0, 0, 0, SDL_ALPHA_TRANSPARENT};
-
   if (surface)
   {
     const int bpp = surface->format->BytesPerPixel;
-    Uint8 *p = &static_cast<Uint8 *>(surface->pixels)[y * surface->pitch + x * bpp];
+    Uint8 *p = static_cast<Uint8 *>(surface->pixels) + y * surface->pitch + x * bpp;
     const Uint32 pixel = *reinterpret_cast<Uint32 *>(p);
 
     SDL_GetRGBA(pixel, surface->format, &Color.r, &Color.g, &Color.b, &Color.a);
@@ -447,14 +409,16 @@ SDL_Color Map::getColorOfPixelInSurface(SDL_Surface *surface, int x, int y) cons
   return Color;
 }
 
-Point Map::findNodeInMap(const SDL_Point &screenCoordinates, const Layer &layer) const
+Point Map::findNodeInMap(const SDL_Point &screenCoordinates) const
 {
+  Point foundCoordinates{-1, -1, 0, 0};
+
   // calculate clicked column (x coordinate) without height taken into account.
   const Point calculatedIsoCoords = calculateIsoCoordinates(screenCoordinates);
   int isoX = calculatedIsoCoords.x;
   int isoY = calculatedIsoCoords.y;
 
-  // adjust calculated values that are outside of the map (which is legit, but they need to get pushed down)
+  // adjust caluclated values that are outside of the map (which is legit, but they need to get pushed down)
   // only y can be out of bounds on our map
   if (isoY >= Settings::instance().mapSize)
   {
@@ -464,148 +428,126 @@ Point Map::findNodeInMap(const SDL_Point &screenCoordinates, const Layer &layer)
     isoY -= diff;
   }
 
-#ifndef NDEBUG
-  int zOrder = INT_MAX;
-#endif
-  // Transverse a column form from calculated coordinates to the bottom of the map.
-  // It is necessary to include 2 neighbor nodes from both sides.
-  // Try to find map node in Z order.
-  // Node with the highest Z order has highest X and lowest Y coordinate, so search will be conducted in that order.
-  const int neighborReach = 2;
-  const int mapSize = Settings::instance().mapSize;
-
-  // Max X will reach end of the map or Y will reach 0.
-  const int xMax = std::min(isoX + neighborReach + isoY, mapSize - 1);
-  // Min X will reach 0 or x -2 neighbor node.
-  const int xMin = std::max(isoX - neighborReach, 0);
-
-  for (int x = xMax; x >= xMin; --x)
+  // traverse a column from top to bottom (from the calculated coordinates) our calculated point is always higher than the clicked point
+  while (isoX <= Settings::instance().mapSize && isoY <= Settings::instance().mapSize && isoY >= 0)
   {
-    const int diff = x - isoX;
-    const int yMiddlePoint = isoY - diff;
-
-    // Move y up and down 2 neighbors.
-    for (int y = std::max(yMiddlePoint - neighborReach, 0); (y <= yMiddlePoint + neighborReach) && (y < mapSize); ++y)
+    // include 2 columns on each side, since calculated values can be that far off
+    for (int i = 0; i <= 2; i++)
     {
-#ifndef NDEBUG
-      // Assert assumption that we test all nodes in correct Z order
-      assert(zOrder > mapNodes[nodeIdx(x, y)].getCoordinates().z);
-      zOrder = mapNodes[nodeIdx(x, y)].getCoordinates().z;
-#endif
-      if (isClickWithinTile(screenCoordinates, x, y, layer))
+      if (isClickWithinTile(screenCoordinates, isoX, isoY) &&
+          (foundCoordinates.z < mapNodes[isoX * m_columns + isoY]->getCoordinates().z))
       {
-        return mapNodes[nodeIdx(x, y)].getCoordinates();
+        foundCoordinates = mapNodes[isoX * m_columns + isoY]->getCoordinates();
+      }
+      if (isClickWithinTile(screenCoordinates, isoX + i, isoY) &&
+          (foundCoordinates.z < mapNodes[(isoX + i) * m_columns + isoY]->getCoordinates().z))
+      {
+        foundCoordinates = mapNodes[(isoX + i) * m_columns + isoY]->getCoordinates();
+      }
+      if (isClickWithinTile(screenCoordinates, isoX, isoY - i) &&
+          (foundCoordinates.z < mapNodes[isoX * m_columns + (isoY - i)]->getCoordinates().z))
+      {
+        foundCoordinates = mapNodes[isoX * m_columns + (isoY - i)]->getCoordinates();
       }
     }
+    // travel the column downwards.
+    isoX++;
+    isoY--;
   }
 
-  return Point{-1, -1, 0, 0};
+  return foundCoordinates;
 }
 
 void Map::demolishNode(const std::vector<Point> &isoCoordinates, bool updateNeighboringTiles, Layer layer)
 {
-  std::unordered_set<MapNode *> nodesToDemolish;
-
+  std::vector<Point> nodesToDemolish;
   for (auto &isoCoord : isoCoordinates)
   {
+    MapNode *node = mapNodes[isoCoord.x * m_columns + isoCoord.y].get();
     if (isPointWithinMapBoundaries(isoCoord))
     {
-      MapNode &node = mapNodes[nodeIdx(isoCoord.x, isoCoord.y)];
-
-      // Check for multi-node buildings first. Those are on the buildings layer, even if we want to demolish another layer than Buildings.
-      // In case we add more Layers that support Multi-node, add a for loop here
-      // If demolishNode is called for layer GROUNDECORATION, we'll still need to gather all nodes from the multi-node building to delete the decoration under the entire building
-      auto pNodeTileData = node.getMapNodeDataForLayer(Layer::BUILDINGS).tileData;
-
-      if (pNodeTileData && ((pNodeTileData->RequiredTiles.height > 1) || (pNodeTileData->RequiredTiles.width > 1)))
+      // Check for multinode buildings first. Those are on the buildings layer, even if we want to demolish another layer than Buildings.
+      // In case we add more Layers that support Multinode, add a for loop here
+      // If demolishNode is called for layer GROUNDECORATION, we'll still need to gather all nodes from the multinode building to delete the decoration under the entire building
+      if (node->getMapNodeDataForLayer(Layer::BUILDINGS).tileData && isNodeMultiObject(isoCoord))
       {
-        const Point origCornerPoint = node.getOrigCornerPoint(Layer::BUILDINGS);
-        const size_t origIndex = nodeIdx(origCornerPoint.x, origCornerPoint.y);
+        const Point origCornerPoint = mapNodes[isoCoord.x * m_columns + isoCoord.y]->getOrigCornerPoint(Layer::BUILDINGS);
+        const size_t origIndex = origCornerPoint.x * m_columns + origCornerPoint.y;
 
-        if (origIndex < mapNodes.size())
+        if (origIndex < mapNodes.size() && mapNodes[origIndex])
         {
-          const std::string &tileID = mapNodes[origIndex].getTileID(Layer::BUILDINGS);
+          const std::string &tileID = mapNodes[origIndex]->getTileID(Layer::BUILDINGS);
           std::vector<Point> objectCoordinates = getObjectCoords(origCornerPoint, tileID);
 
           for (auto coords : objectCoordinates)
           {
-            nodesToDemolish.insert(&mapNodes[nodeIdx(coords.x, coords.y)]);
+            if (std::find(nodesToDemolish.begin(), nodesToDemolish.end(),
+                          mapNodes[coords.x * m_columns + coords.y]->getCoordinates()) == nodesToDemolish.end())
+            {
+              nodesToDemolish.push_back(mapNodes[coords.x * m_columns + coords.y]->getCoordinates());
+            }
           }
         }
       }
-
-      nodesToDemolish.insert(&node);
+      // make sure to add the points from the parameter to the vector if they're not in it (if they're a multiobject there'd be duplicates)
+      if (std::find(nodesToDemolish.begin(), nodesToDemolish.end(),
+                    mapNodes[isoCoord.x * m_columns + isoCoord.y]->getCoordinates()) == nodesToDemolish.end())
+      {
+        nodesToDemolish.push_back(mapNodes[isoCoord.x * m_columns + isoCoord.y]->getCoordinates());
+      }
     }
   }
 
-  std::vector<MapNode *> updateNodes;
-  for (auto pNode : nodesToDemolish)
+  for (auto &coords : nodesToDemolish)
   {
-    pNode->demolishNode(layer);
-    // TODO: Play sound effect here
+    mapNodes[coords.x * m_columns + coords.y]->demolishNode(layer);
     if (updateNeighboringTiles)
     {
-      updateNodes.push_back(pNode);
+      updateNeighborsOfNode({coords.x, coords.y});
     }
-  }
-
-  if (!updateNodes.empty())
-  {
-    updateNodeNeighbors(updateNodes);
+    // TODO: Play soundeffect here
   }
 }
 
-bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int isoY, const Layer &layer = Layer::NONE) const
+bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int isoY) const
 {
   if (!isPointWithinMapBoundaries(isoX, isoY))
   {
     return false;
   }
 
-  auto &node = mapNodes[nodeIdx(isoX, isoY)];
-  auto pSprite = node.getSprite();
-  std::vector<Layer> layersToGoOver;
-
   // Layers ordered for hitcheck
-  if (layer == Layer::NONE)
-  {
-    Layer layers[] = {Layer::TERRAIN, Layer::WATER, Layer::UNDERGROUND, Layer::BLUEPRINT};
-    layersToGoOver.insert(layersToGoOver.begin(), std::begin(layers), std::end(layers));
-  }
-  else
-  {
-    layersToGoOver.push_back(layer);
-  }
+  Layer layers[] = {Layer::BUILDINGS, Layer::TERRAIN, Layer::WATER, Layer::UNDERGROUND, Layer::BLUEPRINT};
 
-  for (auto &curLayer : layersToGoOver)
+  for (auto &layer : layers)
   {
-    if (!MapLayers::isLayerActive(curLayer))
+    if (!MapLayers::isLayerActive(layer))
     {
       continue;
     }
 
-    SDL_Rect spriteRect = pSprite->getDestRect(curLayer);
-    SDL_Rect clipRect = pSprite->getClipRect(curLayer);
-
-    if (curLayer == Layer::TERRAIN)
-    {
+    SDL_Rect spriteRect = mapNodes[isoX * m_columns + isoY]->getSprite()->getDestRect(layer);
+    SDL_Rect clipRect = mapNodes[isoX * m_columns + isoY]->getSprite()->getClipRect(layer);
+    if (layer == Layer::TERRAIN)
       clipRect.h += 1; //HACK: We need to increase clipRect height by one pixel to match the drawRect. Rounding issue?
-    }
 
     if (SDL_PointInRect(&screenCoordinates, &spriteRect))
     {
-      std::string tileID = node.getMapNodeDataForLayer(curLayer).tileID;
-      assert(!tileID.empty());
-
+      std::string tileID = mapNodes[isoX * m_columns + isoY]->getMapNodeDataForLayer(layer).tileID;
       // Calculate the position of the clicked pixel within the surface and "un-zoom" the position to match the un-adjusted surface
-      const int pixelX = static_cast<int>((screenCoordinates.x - spriteRect.x) / Camera::instance().zoomLevel()) + clipRect.x;
-      const int pixelY = static_cast<int>((screenCoordinates.y - spriteRect.y) / Camera::instance().zoomLevel()) + clipRect.y;
+      const int pixelX = static_cast<int>((screenCoordinates.x - spriteRect.x) / Camera::zoomLevel) + clipRect.x;
+      const int pixelY = static_cast<int>((screenCoordinates.y - spriteRect.y) / Camera::zoomLevel) + clipRect.y;
 
-      if ((curLayer == Layer::TERRAIN) && (node.getMapNodeDataForLayer(Layer::TERRAIN).tileMap == TileMap::SHORE))
+      if (tileID.empty()) // should never happen, but better safe than sorry
+      {
+        break;
+      }
+
+      if (layer == Layer::TERRAIN &&
+          mapNodes[isoX * m_columns + isoY]->getMapNodeDataForLayer(Layer::TERRAIN).tileMap == TileMap::SHORE)
       {
         tileID.append("_shore");
       }
-
       // Check if the clicked Sprite is not transparent (we hit a point within the pixel)
       if (getColorOfPixelInSurface(ResourcesManager::instance().getTileSurface(tileID), pixelX, pixelY).a !=
           SDL_ALPHA_TRANSPARENT)
@@ -621,54 +563,80 @@ bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int is
 
 void Map::highlightNode(const Point &isoCoordinates, const SpriteRGBColor &rgbColor)
 {
-  const size_t index = nodeIdx(isoCoordinates.x, isoCoordinates.y);
+  const size_t index = isoCoordinates.x * m_columns + isoCoordinates.y;
 
   if (index < mapNodes.size())
   {
-    const auto pSprite = mapNodes[index].getSprite();
-    pSprite->highlightColor = rgbColor;
-    pSprite->highlightSprite = true;
+    MapNode *node = mapNodes[index].get();
+    node->getSprite()->highlightColor = rgbColor;
+    node->getSprite()->highlightSprite = true;
   }
 }
 
 std::string Map::getTileID(const Point &isoCoordinates, Layer layer)
 {
-  const size_t index = nodeIdx(isoCoordinates.x, isoCoordinates.y);
-  return (index < mapNodes.size()) ? mapNodes[index].getTileID(layer) : "";
+  const size_t index = isoCoordinates.x * m_columns + isoCoordinates.y;
+  if (index < mapNodes.size())
+  {
+    MapNode *node = mapNodes[index].get();
+    if (node)
+    {
+      return node->getTileID(layer);
+    }
+  }
+  return "";
+}
+
+bool Map::isLayerAutoTile(const Point &isoCoordinates, const Layer &layer) const
+{
+  return mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->isLayerAutoTile(layer);
 }
 
 void Map::unHighlightNode(const Point &isoCoordinates)
 {
-  const size_t index = nodeIdx(isoCoordinates.x, isoCoordinates.y);
+  const size_t index = isoCoordinates.x * m_columns + isoCoordinates.y;
 
   if (index < mapNodes.size())
   {
-    mapNodes[index].getSprite()->highlightSprite = false;
+    MapNode *node = mapNodes[index].get();
+    node->getSprite()->highlightSprite = false;
   }
 }
 
 void Map::saveMapToFile(const std::string &fileName)
 {
-  //create savegame json string
   const json j =
       json{{"Savegame version", SAVEGAME_VERSION}, {"columns", this->m_columns}, {"rows", this->m_rows}, {"mapNode", mapNodes}};
 
+  std::ofstream file(SDL_GetBasePath() + fileName, std::ios_base::out | std::ios_base::binary);
+
 #ifdef DEBUG
   // Write uncompressed savegame for easier debugging
-  fs::writeStringToFile(fileName + ".txt", j.dump());
+  std::ofstream fileuncompressed(SDL_GetBasePath() + fileName + "_UNCOMPRESSED", std::ios_base::out | std::ios_base::binary);
+  fileuncompressed << j.dump();
 #endif
 
   const std::string compressedSaveGame = compressString(j.dump());
 
   if (!compressedSaveGame.empty())
   {
-    fs::writeStringToFile(fileName, compressedSaveGame, true);
+    file << compressedSaveGame;
   }
+  file.close();
 }
 
 Map *Map::loadMapFromFile(const std::string &fileName)
 {
-  std::string jsonAsString = decompressString(fs::readFileAsString(fileName, true));
+  std::stringstream buffer;
+  {
+    std::ifstream file(SDL_GetBasePath() + fileName, std::ios_base::in | std::ios_base::binary);
+    if (!file)
+      throw ConfigurationError(TRACE_INFO "Could not load savegame file " + fileName);
+    buffer << file.rdbuf();
+  }
+
+  std::string jsonAsString;
+  jsonAsString = decompressString(buffer.str());
 
   if (jsonAsString.empty())
     return nullptr;
@@ -693,16 +661,17 @@ Map *Map::loadMapFromFile(const std::string &fileName)
   if (columns == -1 || rows == -1)
     return nullptr;
 
-  Map *map = new Map(columns, rows, false);
-  map->mapNodes.reserve(columns * rows);
+  Map *map = new Map(columns, rows);
 
   for (const auto &it : saveGameJSON["mapNode"].items())
   {
     Point coordinates = json(it.value())["coordinates"].get<Point>();
     // set coordinates (height) of the map
-    map->mapNodes.emplace_back(MapNode{Point{coordinates.x, coordinates.y, coordinates.z, coordinates.height}, ""});
+    map->mapNodes[coordinates.x * columns + coordinates.y] =
+        std::make_unique<MapNode>(Point{coordinates.x, coordinates.y, coordinates.z, coordinates.height}, "");
+
     // load back mapNodeData (tileIDs, Buildins, ...)
-    map->mapNodes.back().setMapNodeData(json(it.value())["mapNodeData"], coordinates);
+    map->mapNodes[coordinates.x * columns + coordinates.y]->setMapNodeData(json(it.value())["mapNodeData"], coordinates);
   }
 
   // Now put those newly created nodes in correct drawing order
@@ -710,13 +679,22 @@ Map *Map::loadMapFromFile(const std::string &fileName)
   {
     for (int y = columns - 1; y >= 0; y--)
     {
-      map->mapNodesInDrawingOrder.emplace_back(&map->mapNodes[x * columns + y]);
+      map->mapNodesInDrawingOrder.push_back(map->mapNodes[x * columns + y].get());
     }
   }
-
   map->updateAllNodes();
 
   return map;
+}
+
+bool Map::isNodeMultiObject(const Point &isoCoordinates, Layer layer)
+{
+  if (isPointWithinMapBoundaries(isoCoordinates) && mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y]->getTileData(layer))
+  {
+    MapNode *mapNode = mapNodes[isoCoordinates.x * m_columns + isoCoordinates.y].get();
+    return (mapNode->getTileData(layer)->RequiredTiles.height > 1 && mapNode->getTileData(layer)->RequiredTiles.width > 1);
+  }
+  return false;
 }
 
 bool Map::isAllowSetTileId(const Layer layer, const MapNode *const pMapNode)
@@ -738,53 +716,9 @@ bool Map::isAllowSetTileId(const Layer layer, const MapNode *const pMapNode)
       return false;
     }
     break;
-  case Layer::WATER:
-    if (pMapNode->isLayerOccupied(Layer::BUILDINGS) &&
-        pMapNode->getMapNodeDataForLayer(Layer::BUILDINGS).tileData->category != "Flora")
-    {
-      return false;
-    }
-    break;
   default:
     break;
   }
 
   return true;
-}
-
-void Map::calculateVisibleMap(void)
-{
-  if(!m_Window)
-  {
-    throw CytopiaError{TRACE_INFO "Cannot calculateVisibleMap without a Window"};
-  }
-  const Point topLeft = calculateIsoCoordinates({0, 0});
-  const Point bottomRight = calculateIsoCoordinates({m_Window->getBounds().width(), m_Window->getBounds().height()});
-
-  // Screen edges
-  const int left = topLeft.x + topLeft.y - 2;
-  const int right = bottomRight.x + bottomRight.y + 1;
-  const int top = topLeft.y - topLeft.x + 1;
-  // Lower the bottom because of high terrain nodes under the screen which will be pushed into the view
-  const int bottom = bottomRight.y - bottomRight.x - 1 - MapNode::maxHeight;
-
-  m_visibleNodesCount = 0;
-
-  for (int x = 0; x < m_rows; x++)
-  {
-    for (int y = m_columns - 1; y >= 0; y--)
-    {
-      const int xVal = x + y;
-      const int yVal = y - x;
-
-      if ((xVal >= left) && (xVal <= right) && (yVal <= top) && (yVal >= bottom))
-      {
-        pMapNodesVisible[m_visibleNodesCount++] = mapNodes[nodeIdx(x, y)].getSprite();
-      }
-    }
-  }
-}
-
-void Map::setWindow(Window * window) {
-  m_Window = window;
 }

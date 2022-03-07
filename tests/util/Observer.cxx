@@ -1,4 +1,4 @@
-#include <catch2/catch.hpp>
+#include <catch.hpp>
 #include <string>
 
 #include "../../src/util/Observer.hxx"

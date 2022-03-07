@@ -4,14 +4,13 @@
 #include "LOG.hxx"
 #include "Exception.hxx"
 #include "JsonSerialization.hxx"
-#include "Filesystem.hxx"
 
 #include "json.hxx"
 #include <noise.h>
 
 using json = nlohmann::json;
 
-void TerrainGenerator::generateTerrain(std::vector<MapNode> &mapNodes, std::vector<MapNode *> &mapNodesInDrawingOrder)
+void TerrainGenerator::generateTerrain(MapNodeUniquePtrVector &mapNodes, MapNodeVector &mapNodesInDrawingOrder)
 {
   loadTerrainDataFromJSON();
 
@@ -76,26 +75,26 @@ void TerrainGenerator::generateTerrain(std::vector<MapNode> &mapNodes, std::vect
   highFrequencyNoise.SetSeed(m_terrainSettings.seed + 42);
   highFrequencyNoise.SetFrequency(1);
 
-  const int mapSize = m_terrainSettings.mapSize;
-  const size_t vectorSize = static_cast<size_t>(mapSize * mapSize);
-  mapNodes.reserve(vectorSize);
+  const size_t vectorSize = static_cast<size_t>(m_terrainSettings.mapSize * m_terrainSettings.mapSize);
+  mapNodes.resize(vectorSize);
+  int z = 0;
 
   // For now, the biome string is read from settings.json for debugging
   std::string currentBiome = Settings::instance().biome;
 
   // nodes need to be created at the correct vector "coordinates", or else the Z-Order will be broken
-  for (int x = 0; x < mapSize; x++)
+  for (int x = 0; x < m_terrainSettings.mapSize; x++)
   {
-    for (int y = 0; y < mapSize; y++)
+    for (int y = m_terrainSettings.mapSize - 1; y >= 0; y--)
     {
-      const int z = (x + 1) * mapSize - y - 1;
       double rawHeight = terrainHeight.GetValue(x * 32, y * 32, 0.5);
       int height = static_cast<int>(rawHeight);
 
       if (height < m_terrainSettings.seaLevel)
       {
         height = m_terrainSettings.seaLevel;
-        mapNodes.emplace_back(MapNode{Point{x, y, z, height}, m_biomeInformation[currentBiome].water[0]});
+        mapNodes[x * m_terrainSettings.mapSize + y] =
+            std::make_unique<MapNode>(Point{x, y, z++, height}, m_biomeInformation[currentBiome].water[0]);
       }
       else
       {
@@ -111,8 +110,9 @@ void TerrainGenerator::generateTerrain(std::vector<MapNode> &mapNodes, std::vect
             if (tileIndex < 20)
             {
               tileIndex = tileIndex % static_cast<int>(m_biomeInformation[currentBiome].treesLight.size());
-              mapNodes.emplace_back(MapNode{Point{x, y, z, height}, m_biomeInformation[currentBiome].terrain[0],
-                                            m_biomeInformation[currentBiome].treesLight[tileIndex]});
+              mapNodes[x * m_terrainSettings.mapSize + y] =
+                  std::make_unique<MapNode>(Point{x, y, z++, height}, m_biomeInformation[currentBiome].terrain[0],
+                                            m_biomeInformation[currentBiome].treesLight[tileIndex]);
               placed = true;
             }
           }
@@ -121,8 +121,9 @@ void TerrainGenerator::generateTerrain(std::vector<MapNode> &mapNodes, std::vect
             if (tileIndex < 50)
             {
               tileIndex = tileIndex % static_cast<int>(m_biomeInformation[currentBiome].treesMedium.size());
-              mapNodes.emplace_back(MapNode{Point{x, y, z, height}, m_biomeInformation[currentBiome].terrain[0],
-                                            m_biomeInformation[currentBiome].treesMedium[tileIndex]});
+              mapNodes[x * m_terrainSettings.mapSize + y] =
+                  std::make_unique<MapNode>(Point{x, y, z++, height}, m_biomeInformation[currentBiome].terrain[0],
+                                            m_biomeInformation[currentBiome].treesMedium[tileIndex]);
               placed = true;
             }
           }
@@ -130,37 +131,36 @@ void TerrainGenerator::generateTerrain(std::vector<MapNode> &mapNodes, std::vect
           {
             tileIndex = tileIndex % static_cast<int>(m_biomeInformation[currentBiome].treesDense.size());
 
-            mapNodes.emplace_back(MapNode{Point{x, y, z, height}, m_biomeInformation[currentBiome].terrain[0],
-                                          m_biomeInformation[currentBiome].treesDense[tileIndex]});
+            mapNodes[x * m_terrainSettings.mapSize + y] =
+                std::make_unique<MapNode>(Point{x, y, z++, height}, m_biomeInformation[currentBiome].terrain[0],
+                                          m_biomeInformation[currentBiome].treesDense[tileIndex]);
             placed = true;
           }
         }
         if (placed == false)
         {
-          mapNodes.emplace_back(MapNode{Point{x, y, z, height}, m_biomeInformation[currentBiome].terrain[0]});
+          mapNodes[x * m_terrainSettings.mapSize + y] =
+              std::make_unique<MapNode>(Point{x, y, z++, height}, m_biomeInformation[currentBiome].terrain[0]);
         }
       }
-    }
-  }
-
-  for (int x = 0; x < mapSize; x++)
-  {
-    for (int y = mapSize - 1; y >= 0; y--)
-    {
-      mapNodesInDrawingOrder.push_back(&mapNodes[x * mapSize + y]);
+      mapNodesInDrawingOrder.push_back(mapNodes[x * m_terrainSettings.mapSize + y].get());
     }
   }
 }
 
 void TerrainGenerator::loadTerrainDataFromJSON()
 {
-  std::string jsonFileContent = fs::readFileAsString(TERRAINGEN_DATA_FILE_NAME);
-  json biomeDataJsonObject = json::parse(jsonFileContent, nullptr, false);
+  std::string terrainGenDataFileName = SDL_GetBasePath();
+  terrainGenDataFileName.append(TERRAINGEN_DATA_FILE_NAME);
+  std::ifstream i(terrainGenDataFileName);
+
+  if (!i)
+    throw ConfigurationError(TRACE_INFO "Could not open file " + string{TERRAINGEN_DATA_FILE_NAME});
 
   // check if json file can be parsed
+  json biomeDataJsonObject = json::parse(i, nullptr, false);
   if (biomeDataJsonObject.is_discarded())
     throw ConfigurationError(TRACE_INFO "Error parsing JSON File " + string{TERRAINGEN_DATA_FILE_NAME});
-
   // parse biome objects
   for (const auto &it : biomeDataJsonObject.items())
   {

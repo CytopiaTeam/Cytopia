@@ -4,18 +4,12 @@
 #include "Exception.hxx"
 #include "basics/Settings.hxx"
 #include "ResourcesManager.hxx"
-#include "Filesystem.hxx"
 
 #include <bitset>
 
 using json = nlohmann::json;
 
 TileManager::TileManager() { init(); }
-
-TileManager::~TileManager()
-{
-  LOG(LOG_DEBUG) << "Destroying TileManager";
-}
 
 SDL_Texture *TileManager::getTexture(const std::string &tileID) const
 {
@@ -271,10 +265,13 @@ TileOrientation TileManager::calculateTileOrientation(unsigned char bitMaskEleva
 
 void TileManager::init()
 {
-  std::string jsonFile = fs::readFileAsString(Settings::instance().tileDataJSONFile.get());
-  const json tileDataJSON = json::parse(jsonFile, nullptr, false);
+  // Read JSON File.
+  std::ifstream i(SDL_GetBasePath() + Settings::instance().tileDataJSONFile.get());
+  if (!i)
+    throw ConfigurationError(TRACE_INFO "Can't open file " + Settings::instance().tileDataJSONFile.get());
 
-  // check if json file can be parsed
+  /* check if json file can be parsed */
+  const json tileDataJSON = json::parse(i, nullptr, false);
   if (tileDataJSON.is_discarded())
     throw ConfigurationError(TRACE_INFO "Error parsing JSON File " + Settings::instance().tileDataJSONFile.get());
 

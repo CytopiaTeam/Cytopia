@@ -12,7 +12,6 @@ struct SpriteData
   SDL_Texture *texture = nullptr;
   SDL_Rect clipRect{0, 0, 0, 0};
   SDL_Rect destRect{0, 0, 0, 0};
-  unsigned char alpha = 255;
 };
 
 struct SpriteRGBColor
@@ -52,7 +51,6 @@ public:
   SDL_Rect getClipRect(Layer layer = Layer::TERRAIN) { return m_SpriteData[layer].clipRect; };
   SDL_Rect getActiveClipRect();
   SDL_Rect getActiveDestRect();
-  void setSpriteTranparencyFactor(const Layer &layer, unsigned char alpha) { m_SpriteData[layer].alpha = alpha; }
   bool isLayerUsed(Layer layer);
 
   Point isoCoordinates{0, 0, 0, 0};

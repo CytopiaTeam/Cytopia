@@ -11,12 +11,10 @@
  **/
 struct GameStatesData
 {
-  bool drawUI = true;            ///  Draw UI. This is a temporary variable until the new UI has been implemented.
+  bool drawUI = true; ///  Draw UI. This is a temporary variable until the new UI has been implemented.
   bool rectangularRoads = false; /// place rectangular road tiles instead of diagonal tils
-  LayerEditMode layerEditMode =
-      LayerEditMode::TERRAIN; /// Specifies the Layer Editmode. Editing Terrain or Blueprint (water pipes, subway,..)
-  PlacementMode placementMode =
-      PlacementMode::LINE; /// Specifies the placement mode when holding down the mouse - single, line, ...
+  LayerEditMode layerEditMode = LayerEditMode::TERRAIN; /// Specifies the Layer Editmode. Editing Terrain or Blueprint (water pipes, subway,..) 
+  PlacementMode placementMode = PlacementMode::LINE; /// Specifies the placement mode when holding down the mouse - single, line, ...
   DemolishMode demolishMode = DemolishMode::DEFAULT;
 };
 
@@ -25,9 +23,10 @@ class GameStates : public GameStatesData, public Singleton<GameStates>
 public:
   friend Singleton<GameStates>;
 
+
 private:
   GameStates() = default;
-  ~GameStates();
+  ~GameStates() = default;
 };
 
 #endif

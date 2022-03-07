@@ -9,17 +9,12 @@
 #include "map/MapLayers.hxx"
 #include "Map.hxx"
 #include "Sprite.hxx"
-#include "../../view/Window.hxx"
+
 #include "LOG.hxx"
 
 #ifdef MICROPROFILE_ENABLED
 #include "microprofile.h"
 #endif
-
-EventManager::~EventManager()
-{
-  LOG(LOG_DEBUG) << "Destroying Event Manager";
-}
 
 void EventManager::unHighlightNodes()
 {
@@ -108,60 +103,60 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         break;
       case SDLK_UP:
       case SDLK_w:
-        if (Camera::instance().cameraOffset().y > -2 * m_Window->getBounds().height()* Camera::instance().zoomLevel())
+        if (Camera::cameraOffset.y > -2 * Settings::instance().screenHeight * Camera::zoomLevel)
         {
           // check if map exists to see, if we're ingame already.
           if (Engine::instance().map)
           {
-            Camera::instance().moveCameraY(m_Window->getBounds().height() / 16);
+            Camera::cameraOffset.y -= (Settings::instance().screenHeight / 16);
             // set the center coordinates for scrolling
-            Camera::instance().setCenterIsoCoordinates(
-                convertScreenToIsoCoordinates({m_Window->getBounds().width() / 2, m_Window->getBounds().height() / 2}));
+            Camera::centerIsoCoordinates =
+                convertScreenToIsoCoordinates({Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2});
             Engine::instance().map->refresh();
           }
         }
         break;
       case SDLK_LEFT:
       case SDLK_a:
-        if (Camera::instance().cameraOffset().x > -0.25 * m_Window->getBounds().width() * Camera::instance().zoomLevel())
+        if (Camera::cameraOffset.x > -0.25 * Settings::instance().screenWidth * Camera::zoomLevel)
         {
           // check if map exists to see, if we're ingame already.
           if (Engine::instance().map)
           {
-            Camera::instance().moveCameraX(m_Window->getBounds().width() / 16);
+            Camera::cameraOffset.x -= (Settings::instance().screenWidth / 16);
             // set the center coordinates for scrolling
-            Camera::instance().setCenterIsoCoordinates(
-                convertScreenToIsoCoordinates({m_Window->getBounds().width() / 2, m_Window->getBounds().height() / 2}));
+            Camera::centerIsoCoordinates =
+                convertScreenToIsoCoordinates({Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2});
             Engine::instance().map->refresh();
           }
         }
         break;
       case SDLK_DOWN:
       case SDLK_s:
-        if (Camera::instance().cameraOffset().y < 1.25 * m_Window->getBounds().height() * Camera::instance().zoomLevel())
+        if (Camera::cameraOffset.y < 1.25 * Settings::instance().screenHeight * Camera::zoomLevel)
         {
           // check if map exists to see, if we're ingame already.
           if (Engine::instance().map)
           {
-            Camera::instance().moveCameraY(-m_Window->getBounds().height() / 16);
+            Camera::cameraOffset.y += (Settings::instance().screenHeight / 16);
             // set the center coordinates for scrolling
-            Camera::instance().setCenterIsoCoordinates(
-                convertScreenToIsoCoordinates({m_Window->getBounds().width() / 2, m_Window->getBounds().height() / 2}));
+            Camera::centerIsoCoordinates =
+                convertScreenToIsoCoordinates({Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2});
             Engine::instance().map->refresh();
           }
         }
         break;
       case SDLK_RIGHT:
       case SDLK_d:
-        if (Camera::instance().cameraOffset().x < 5 * m_Window->getBounds().width() * Camera::instance().zoomLevel())
+        if (Camera::cameraOffset.x < 5 * Settings::instance().screenWidth * Camera::zoomLevel)
         {
           // check if map exists to see, if we're ingame already.
           if (Engine::instance().map)
           {
-            Camera::instance().moveCameraX(-m_Window->getBounds().width() / 16);
+            Camera::cameraOffset.x += (Settings::instance().screenWidth / 16);
             // set the center coordinates for scrolling
-            Camera::instance().setCenterIsoCoordinates(
-                convertScreenToIsoCoordinates({m_Window->getBounds().width() / 2, m_Window->getBounds().height() / 2}));
+            Camera::centerIsoCoordinates =
+                convertScreenToIsoCoordinates({Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2});
             Engine::instance().map->refresh();
           }
         }
@@ -200,20 +195,20 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           if (m_pinchCenterCoords.x == 0 && m_pinchCenterCoords.y == 0)
           {
             m_pinchCenterCoords =
-                convertScreenToIsoCoordinates({static_cast<int>(event.mgesture.x * m_Window->getBounds().width()),
-                                               static_cast<int>(event.mgesture.y * m_Window->getBounds().height())});
+                convertScreenToIsoCoordinates({static_cast<int>(event.mgesture.x * Settings::instance().screenWidth),
+                                               static_cast<int>(event.mgesture.y * Settings::instance().screenHeight)});
           }
-          Camera::instance().setPinchDistance(event.mgesture.dDist * 15.0F, m_pinchCenterCoords.x, m_pinchCenterCoords.y);
+          Camera::setPinchDistance(event.mgesture.dDist * 15.0F, m_pinchCenterCoords.x, m_pinchCenterCoords.y);
           m_skipLeftClick = true;
           break;
         }
 
         if (m_panning)
         {
-          Camera::instance().moveCameraX(static_cast<int>(m_Window->getBounds().width() * event.tfinger.dx));
-          Camera::instance().moveCameraY(static_cast<int>(m_Window->getBounds().height() * event.tfinger.dy));
-          Camera::instance().setCenterIsoCoordinates(
-              convertScreenToIsoCoordinates({m_Window->getBounds().width() / 2, m_Window->getBounds().height() / 2}));
+          Camera::cameraOffset.x -= static_cast<int>(Settings::instance().screenWidth * event.tfinger.dx);
+          Camera::cameraOffset.y -= static_cast<int>(Settings::instance().screenHeight * event.tfinger.dy);
+          Camera::centerIsoCoordinates =
+              convertScreenToIsoCoordinates({Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2});
           Engine::instance().map->refresh();
           m_skipLeftClick = true;
           break;
@@ -279,41 +274,27 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         // if we're panning, move the camera and break
         if (m_panning)
         {
-          if ((event.motion.xrel == 0) && (event.motion.yrel == 0))
-          {
-            return;
-          }
-          Camera::instance().moveCameraX(event.motion.xrel);
-          Camera::instance().moveCameraY(event.motion.yrel);
+          Camera::cameraOffset.x -= event.motion.xrel;
+          Camera::cameraOffset.y -= event.motion.yrel;
 
-          Engine::instance().map->refresh();
+          if (Engine::instance().map != nullptr)
+            Engine::instance().map->refresh();
+          return;
         }
         // check if we should highlight tiles and if we're in placement mode
         if (highlightSelection)
         {
           mouseScreenCoords = {event.button.x, event.button.y};
-          const Point terrainCoordinates = engine.map->findNodeInMap(mouseScreenCoords, Layer::TERRAIN);
-          const Point buildingCoordinates = engine.map->findNodeInMap(mouseScreenCoords, Layer::BUILDINGS);
           mouseIsoCoords = convertScreenToIsoCoordinates(mouseScreenCoords);
 
           // if it's a multi-node tile, get the origin corner point
           Point origCornerPoint =
               engine.map->getNodeOrigCornerPoint(mouseIsoCoords, TileManager::instance().getTileLayer(tileToPlace));
 
-          if (origCornerPoint == Point::INVALID())
+          if (origCornerPoint == UNDEFINED_POINT)
           {
             origCornerPoint = mouseIsoCoords;
           }
-
-          // canceling transparent buildings
-          for (const auto &it : m_transparentBuildings)
-          {
-            if (it != Point::INVALID())
-            {
-              (engine.map->getMapNode(it))->setNodeTransparency(0, Layer::BUILDINGS);
-            }
-          }
-          m_transparentBuildings.clear();
 
           // if there's no tileToPlace use the current mouse coordinates
           if (tileToPlace.empty())
@@ -326,7 +307,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
             for (auto &node : engine.map->getObjectCoords(mouseIsoCoords, tileToPlace))
             {
               // if we don't geta correct coordinate, fall back to the click coordinates
-              if (node == Point::INVALID() && isPointWithinMapBoundaries(mouseIsoCoords))
+              if (node == UNDEFINED_POINT && isPointWithinMapBoundaries(mouseIsoCoords))
               {
                 m_nodesToHighlight.push_back(mouseIsoCoords);
               }
@@ -367,14 +348,14 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           }
           m_placementAllowed = false;
           std::vector<Point> nodesToAdd;
-          TileData *tileToPlaceData = TileManager::instance().getTileData(tileToPlace);
 
           // if we touch a bigger than 1x1 tile also add all nodes of the building to highlight.
           for (const auto &coords : m_nodesToHighlight)
           {
             // If we place a ground decoration tile, we must add all tiles of bigger than 1x1 buildings from the Layer BUILDINGS
             Layer layer;
-            if (demolishMode || (tileToPlaceData && tileToPlaceData->tileType == +TileType::GROUNDDECORATION))
+            if (TileManager::instance().getTileData(tileToPlace) &&
+                TileManager::instance().getTileData(tileToPlace)->tileType == +TileType::GROUNDDECORATION)
             {
               layer = Layer::BUILDINGS;
             }
@@ -398,7 +379,8 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           m_nodesToHighlight.insert(m_nodesToHighlight.end(), nodesToAdd.begin(), nodesToAdd.end());
 
           // for ground decoration, place all ground decoration files beneath the building
-          if (tileToPlaceData && tileToPlaceData->tileType == +TileType::GROUNDDECORATION)
+          if (TileManager::instance().getTileData(tileToPlace) &&
+              TileManager::instance().getTileData(tileToPlace)->tileType == +TileType::GROUNDDECORATION)
           {
             m_nodesToPlace = m_nodesToHighlight;
           }
@@ -426,20 +408,6 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
             else
             {
               engine.map->highlightNode(highlitNode, SpriteHighlightColor::RED);
-            }
-            const Point &buildingCoordinates =
-                engine.map->findNodeInMap(convertIsoToScreenCoordinates(highlitNode), Layer::BUILDINGS);
-
-            auto transparentBuildingIt =
-                std::find(m_transparentBuildings.begin(), m_transparentBuildings.end(), buildingCoordinates);
-            if ((transparentBuildingIt == m_transparentBuildings.end()) && (buildingCoordinates != Point::INVALID()))
-            {
-              const TileData *tileData = engine.map->getMapNode(buildingCoordinates)->getTileData(Layer::BUILDINGS);
-              if (tileData && tileData->category != "Flora")
-              {
-                engine.map->getMapNode(buildingCoordinates)->setNodeTransparency(0.6f, Layer::BUILDINGS);
-                m_transparentBuildings.push_back(buildingCoordinates);
-              }
             }
           }
         }
@@ -474,13 +442,6 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         {
           m_clickDownCoords = mouseIsoCoords;
           m_placementAllowed = true;
-
-          // Nodes to place are collected during the mouse move.
-          // In case of multiple left clicks without moving the mouse, node to place will be the node of the mouse click.
-          if (m_nodesToPlace.empty())
-          {
-            m_nodesToPlace.push_back(mouseIsoCoords);
-          }
         }
       }
       break;
@@ -495,8 +456,8 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       }
       if (m_panning)
       {
-        Camera::instance().setCenterIsoCoordinates(
-            convertScreenToIsoCoordinates({m_Window->getBounds().width() / 2, m_Window->getBounds().height() / 2}));
+        Camera::centerIsoCoordinates =
+            convertScreenToIsoCoordinates({Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2});
         m_panning = false;
       }
 
@@ -587,11 +548,11 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
     case SDL_MOUSEWHEEL:
       if (event.wheel.y > 0)
       {
-        Camera::instance().increaseZoomLevel();
+        Camera::increaseZoomLevel();
       }
       else if (event.wheel.y < 0)
       {
-        Camera::instance().decreaseZoomLevel();
+        Camera::decreaseZoomLevel();
       }
       break;
 
@@ -620,7 +581,3 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
 }
 
 void EventManager::registerTimer(Timer *timer) { m_timers.push_back(timer); }
-
-void EventManager::setWindow(Window* window) {
-  m_Window = window;
-}

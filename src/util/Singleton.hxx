@@ -20,7 +20,9 @@ public:
 
 protected:
   Singleton() noexcept = default;
-  ~Singleton() noexcept = default;
+  virtual ~Singleton() noexcept = 0;
 };
+
+template <typename T> inline Singleton<T>::~Singleton() noexcept {}
 
 #endif

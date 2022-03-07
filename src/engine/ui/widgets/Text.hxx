@@ -19,7 +19,7 @@ public:
   /**
    * @brief Destructor
    */
-  ~Text() override;
+  ~Text() override = default;
 
   /**
    * @brief implements draw function. Renders the SDL_Texture generated from the TTF.

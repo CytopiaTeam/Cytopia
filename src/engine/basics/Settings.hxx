@@ -2,11 +2,10 @@
 #define SETTINGS_HXX_
 
 #include <string>
-#include <vector>
-#include <array>
 
 #include "../../util/Singleton.hxx"
 #include "../../util/Meta.hxx"
+
 using std::string;
 
 #include <cstddef>
@@ -25,71 +24,88 @@ struct SettingsData
 
   /**
    * @brief the size of the map
-   * @todo  must be removed when maps will be 'infinite'
+   * @todo add a typename
    */
   int mapSize;
 
   /**
+   * @brief the screen width
+   * @pre only apply for windowed or fullscreen mode
+   */
+  ScreenDimension screenWidth;
+
+  /** 
+   * @brief the screen height
+   * @pre only apply for windowed or fullscreen mode
+   */
+  ScreenDimension screenHeight;
+
+  /** 
+   * @brief the actual screen width (can differ from the one that's set in borderless fullscreen)
+   */
+  ScreenDimension currentScreenWidth;
+
+  /**
+   * @brief the actual screen height (can differ from the one that's set in borderless fullscreen)
+   */
+  ScreenDimension currentScreenHeight;
+
+  /**
    * @brief the maximum elevation height
+   * @todo add a typename
    */
   int maxElevationHeight;
 
   /**
-  * @brief the value of the zone layer transparency, (0 - 1.0).
-  * where 0 is full opaque and 1 for full transparency.
-  */
-  float zoneLayerTransparency;
-
-  /**
-   * @brief True if VSYNC is enabled
+   * @todo document what this field is
+   * @todo add a typename
    */
   bool vSync;
 
   /**
-   * @brief True if the game must be in fullscreen mode
+   * @todo document what this field is
+   * @todo add a typename
    */
   bool fullScreen;
 
   /**
-   * @brief The volume of music between [0, 100]
+   * @todo document what this field is
+   * @todo add a typename
+   */
+  int fullScreenMode;
+
+  /**
+   * @brief the volume of music
    */
   VolumeLevel musicVolume;
 
   /**
-   * @brief the volume of sound effects between [0, 100]
+   * @brief the volume of sound effects
    */
   VolumeLevel soundEffectsVolume;
 
   /**
-   * @brief True if music should be played
+   * @todo document what this field is
+   * @todo add a typename
    */
   bool playMusic;
 
   /**
-   * @brief True if sound effects should be played
+   * @todo document what this field is
+   * @todo add a typename
    */
   bool playSoundEffects;
 
   /**
    * @brief the number of channels used for sound playback
-   * 0=Mute, 1=Mono, 2=Stereo
+   * 1=Mono,2=Stereo
    */
-  uint8_t audioChannels;
+  int audioChannels;
 
   /**
    * @brief Whether to play 3D sound or not
    */
   bool audio3DStatus;
-
-  /**
-   * @brief Whether to use the new UI or not
-   */
-  bool newUI;
-
-  /**
-   * @brief Whether to start the game immediately at startup
-   */
-  bool skipMenu;
 
   /**
    * @todo document what this field is
@@ -98,25 +114,28 @@ struct SettingsData
    */
   std::string buildMenuPosition;
 
-  /**
-   * @brief The biome type
-   * @todo  Remove this when we have support for Game saves
-   *        and NewGameActivity
+    /**
+   * @brief this is used for biomedata
+   * @todo Remove this later when terraingen is using biomes
+   * @todo replace by enum when BetterEnums is implemented
    */
   std::string biome;
 
   /**
    * @brief JSONFile that contains uiData
+   * @todo add a typename
    */
   FilePath uiDataJSONFile;
 
   /**
    * @brief JSONFile that contains tileData
+   * @todo add a typename
    */
   FilePath tileDataJSONFile;
 
   /**
    * @todo document what this field is
+   * @todo add a typename
    */
   FilePath uiLayoutJSONFile;
 
@@ -131,7 +150,7 @@ struct SettingsData
   FilePath audioConfig3DJSONFile;
 
   /**
-   * @brief The Game language
+   * @brief The Game language 
    */
   std::string gameLanguage;
 
@@ -141,40 +160,16 @@ struct SettingsData
   FilePath fontFileName;
 
   /**
-   * @brief The width in pixels of the buttons used in the
+   * @brief The width in pixels of the buttons used in the 
    * build sub menues on the UI
    */
   int subMenuButtonWidth;
 
   /**
-   * @brief The height in pixels of the buttons used in the
+   * @brief The height in pixels of the buttons used in the 
    * build sub menues on the UI
    */
   int subMenuButtonHeight;
-
-  /**
-   * @brief Indicates whether we want to see buildings inside Blueprint layer or not.
-   */
-  bool showBuildingsInBlueprint;
-
-  /**
-   * @brief   All display modes 
-   * @details Nth element is the (width, height) of the
-   *          Nth displayModeName
-   */
-  std::vector<std::array<int, 2>> displayModes;
-
-  /**
-   * @details All the names of the display modes
-   *          to be used in the UI
-   */
-  std::vector<std::string> displayModeNames;
-
-  /**
-   * @brief   The current default display mode
-   * @details On game startup, is used if fullscreen is disabled
-   */
-  int defaultDisplayMode;
 };
 
 /**
@@ -196,20 +191,11 @@ public:
    */
   void writeFile();
 
-  int getDefaultWindowWidth() const noexcept;
-
-  int getDefaultWindowHeight() const noexcept;
-
-  /**
-   * @brief Parses command line arguments to override settings
-   */
-  void parse_args(int argc, char **argv);
-
   using SettingsData::operator=;
 
 private:
   Settings();
-  ~Settings();
+  ~Settings() = default;
 };
 
 #endif

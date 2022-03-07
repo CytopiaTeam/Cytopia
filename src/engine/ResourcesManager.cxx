@@ -2,10 +2,9 @@
 
 #include "WindowManager.hxx"
 #include "TileManager.hxx"
-#include "Settings.hxx"
+#include "basics/Settings.hxx"
 #include "LOG.hxx"
 #include "Exception.hxx"
-#include "Filesystem.hxx"
 
 #include <SDL_image.h>
 
@@ -15,11 +14,7 @@ using json = nlohmann::json;
 
 ResourcesManager::ResourcesManager() { loadUITexture(); }
 
-ResourcesManager::~ResourcesManager()
-{
-  LOG(LOG_DEBUG) << "Destroying ResourcesManager"; 
-  flush(); 
-}
+ResourcesManager::~ResourcesManager() { flush(); }
 
 void ResourcesManager::loadTexture(const std::string &id, const std::string &fileName)
 {
@@ -29,12 +24,16 @@ void ResourcesManager::loadTexture(const std::string &id, const std::string &fil
 
 void ResourcesManager::loadUITexture()
 {
-  std::string jsonFileContent = fs::readFileAsString(Settings::instance().uiDataJSONFile.get());
-  const json uiDataJSON = json::parse(jsonFileContent, nullptr, false);
+  string fName = SDL_GetBasePath() + Settings::instance().uiDataJSONFile.get();
+  std::ifstream i(fName);
+  if (!i)
+    throw ConfigurationError(TRACE_INFO "Couldn't open file " + fName);
 
   // check if json file can be parsed
+  const json uiDataJSON = json::parse(i, nullptr, false);
+
   if (uiDataJSON.is_discarded())
-    throw ConfigurationError(TRACE_INFO "Error parsing JSON File " + Settings::instance().uiDataJSONFile.get());
+    throw ConfigurationError(TRACE_INFO "Error parsing JSON File " + fName);
 
   for (const auto &tileID : uiDataJSON.items())
   {
@@ -94,17 +93,13 @@ SDL_Surface *ResourcesManager::getTileSurface(const std::string &id)
 
 SDL_Surface *ResourcesManager::createSurfaceFromFile(const std::string &fileName)
 {
-  string fName = fs::getBasePath() + fileName;
-
-  if (!fs::fileExists(fName))
-    throw ConfigurationError(TRACE_INFO "File " + fName + " doesn't exist");
-
+  string fName = SDL_GetBasePath() + fileName;
   SDL_Surface *surface = IMG_Load(fName.c_str());
 
   if (surface)
     return surface;
 
-  throw ConfigurationError(TRACE_INFO "Could not load Texture from file " + fName + ": " + IMG_GetError());
+  throw UIError(TRACE_INFO "Could not load Texture from file " + fName + ": " + IMG_GetError());
   return nullptr;
 }
 

@@ -2,7 +2,6 @@
 #include "LOG.hxx"
 #include "Exception.hxx"
 #include "Settings.hxx"
-#include "Filesystem.hxx"
 
 #ifdef USE_MOFILEREADER
 #include "moFileReader.h"
@@ -16,11 +15,6 @@ void Text::draw()
   {
     renderTexture();
   }
-}
-
-Text::~Text() {
-  if (m_texture)
-    SDL_DestroyTexture(m_texture);
 }
 
 void Text::setText(const std::string &text)
@@ -42,15 +36,17 @@ void Text::setFontSize(int fontSize)
 
 void Text::createTextTexture(const std::string &text, const SDL_Color &textColor)
 {
-  string fontFName = fs::getBasePath() + Settings::instance().fontFileName.get();
+  string fontFName = SDL_GetBasePath() + Settings::instance().fontFileName.get();
 
-  if (!fs::fileExists(fontFName))
-    throw ConfigurationError(TRACE_INFO "File " + fontFName + " doesn't exist");
+  /* @todo: Remove comment once we have support for the filesystem library
+  if(!fs::is_regular_file(fontFName))
+    throw ConfigurationError(TRACE_INFO "File " + fontFName.string() + " doesn't exist");
+  */
 
   TTF_Font *font = TTF_OpenFont(fontFName.c_str(), m_fontSize);
 
   if (!font)
-    throw AssetError(TRACE_INFO "Failed to load font " + fontFName + ": " + TTF_GetError());
+    throw FontError(TRACE_INFO "Failed to load font " + fontFName + ": " + TTF_GetError());
 
   // destroy texture first to prevent memleaks
   if (m_texture)

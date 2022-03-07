@@ -15,10 +15,9 @@
 #include "services/Randomizer.hxx"
 #include "services/GameClock.hxx"
 #include "services/ResourceManager.hxx"
-#include "services/MouseController.hxx"
 #include "LOG.hxx"
 #include "Exception.hxx"
-#include "view/Window.hxx"
+
 #include <thread>
 
 using Thread = std::thread;
@@ -60,10 +59,6 @@ public:
     */
   virtual bool mainMenu();
 
-  void quit();
-
-  void newUI();
-
 private:
   /* Game context */
   using GameContext = GameService::ServiceTuple;
@@ -73,64 +68,26 @@ private:
   GameClock m_GameClock;
   Randomizer m_Randomizer;
   ResourceManager m_ResourceManager;
-  MouseController m_MouseController;
-  UILoopMQ m_UILoopMQ;
-  GameLoopMQ m_GameLoopMQ;
 #ifdef USE_AUDIO
   AudioMixer m_AudioMixer;
 #endif
+  UILoopMQ m_UILoopMQ;
+  GameLoopMQ m_GameLoopMQ;
 
   /* Threads */
   Thread m_UILoop;
   Thread m_EventLoop;
 
-  /* Window */
-  Window m_Window;
-
   template <typename MQType, typename Visitor> static void LoopMain(GameContext &context, Visitor visitor);
-
-  template <typename MQType> static typename MQType::Enumerable getEvents(GameContext &context);
 
   struct UIVisitor
   {
 
-    UIVisitor(Window &, GameContext &);
-    
     /**
-     * @brief   Do not call.
-     * @throws  CytopiaError
-     */
-    void operator()(TerminateEvent &&);
-
-    /**
-     * @brief   Handles window changes
-     */
-    void operator()(WindowResizeEvent &&);
-
-    /**
-     * @brief   Handles window redrawing requests
-     */
-    void operator()(WindowRedrawEvent &&);
-
-    /**
-     * @brief   Handles changes in the UI
-     */
-    void operator()(UIChangeEvent &&);
-
-    /**
-     * @brief   Handles switching to a new Activity
-     */
-    void operator()(ActivitySwitchEvent &&);
-
-    /**
-     * @brief   handles invalid UI events
-     * @tparam  ArgumentType the invalid event
+     * @brief handles invalid UI events
+     * @tparam ArgumentType the invalid event
      */
     template <typename ArgumentType> void operator()(ArgumentType &&event);
-  
-    private:
-      Window & m_Window;
-      GameContext & m_GameContext;
   };
 
   struct GameVisitor : public GameService
@@ -138,41 +95,21 @@ private:
 
 #ifdef USE_AUDIO
     /**
-     * @brief   handles valid Audio events
-     * @tparam  AudioEventType the Audio event
+     * @brief handles valid Audio events
+     * @tparam AudioEventType the Audio event
      */
     template <typename AudioEventType>
-    EnableIf<AudioEvents::ContainsType<AudioEventType>, void> operator()(AudioEventType &&event);
+    EnableIf<ContainsType<AudioEvents, AudioEventType>, void> operator()(AudioEventType &&event);
 #endif // USE_AUDIO
 
     /**
-     * @brief   Handles window changes
-     */
-    void operator()(WindowResizeEvent &&);
-
-    /**
-     * @brief   Handles window redrawing requests
-     */
-    void operator()(WindowRedrawEvent &&);
-
-    /**
-     * @brief   Handles switching to a new Activity
-     */
-    void operator()(ActivitySwitchEvent &&);
-
-    /**
-     * @brief   Do not call
-     * @throws  CytopiaError
-     */
-    void operator()(TerminateEvent &&);
-
-    /**
-     * @brief   handles invalid game events
-     * @tparam  ArgumentType the invalid game event
+     * @brief handles invalid game events
+     * @tparam ArgumentType the invalid game event
      */
     template <typename ArgumentType> void operator()(const ArgumentType &&event);
-    
   };
+
+  void quit();
 };
 
 #include "Game.inl.hxx"

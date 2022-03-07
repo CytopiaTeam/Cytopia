@@ -1,16 +1,18 @@
 set(SOURCE_FILES
         main.cxx
         Game.{hxx,cxx}
-        Initializer.{hxx,cxx}
+        Game.inl.hxx
         util/LOG.{hxx,cxx}
         util/LOG.inl.hxx
-        util/Filesystem.{hxx,cxx}
+        util/filesystem.hxx
         util/IEquatable.hxx
         util/IEquatable.inl.hxx
         util/Singleton.hxx
         util/Meta.hxx
         util/Exception.{hxx,cxx}
         events/UIEvents.hxx
+        GameService.{hxx,cxx}
+        GameService.inl.hxx
         services/Randomizer.{hxx,cxx}
         services/GameClock.{hxx,cxx}
         services/GameClock.inl.hxx
@@ -55,20 +57,6 @@ set(SOURCE_FILES
         engine/UIManager.{hxx,cxx}
         engine/WindowManager.{hxx,cxx}
         )
-
-if (ANDROID)
-    list(APPEND SOURCE_FILES
-            util/android/Filesystem.cxx
-            )
-elseif (APPLE)
-    list(APPEND SOURCE_FILES
-            util/macOS/Filesystem.cxx
-            )
-else ()
-    list(APPEND SOURCE_FILES
-            util/desktop/Filesystem.cxx
-            )
-endif ()
 
 list(APPEND _include_directories
         engine

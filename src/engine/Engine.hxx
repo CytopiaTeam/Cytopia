@@ -18,7 +18,7 @@ public:
   Engine &operator=(Engine const &) = delete;
 
   /** @brief Increase Height
-    * Increases the height of the given map node
+    * Increases the height of the given map node 
     * Calls the according function of the Map object that holds the terrain node and draws the slopes
     * @param isoCoordinates the isometric coordinates of the map node that should be raised
     * @see Map#increaseHeight
@@ -38,8 +38,7 @@ public:
     */
   void toggleFullScreen();
 
-  template <typename Iterator>
-  void setTileIDOfNode(const Iterator &begin, const Iterator &end, const std::string &tileID, bool isMultiObject) const
+  template <typename Iterator> void setTileIDOfNode(const Iterator &begin, const Iterator &end, const std::string &tileID, bool isMultiObject) const
   {
     static_assert(std::is_same_v<Point, typename std::iterator_traits<Iterator>::value_type>,
                   "Iterator value must be a const Point");

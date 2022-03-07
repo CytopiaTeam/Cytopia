@@ -14,9 +14,7 @@ enum class FULLSCREEN_MODE
   FULLSCREEN = 2
 };
 
-class 
-[[deprecated("Use Window instead")]]
-WindowManager : public Singleton<WindowManager>
+class WindowManager : public Singleton<WindowManager>
 {
 public:
   friend Singleton<WindowManager>;
@@ -44,10 +42,16 @@ public:
   * \return Pointer to the SDL_Window
   */
   SDL_Window *getWindow() const { return m_window; };
-  /**
-   * @todo Remove this when new UI is complete
-   */
-  void setRealWindow(class Window & window);
+
+  std::vector<SDL_DisplayMode *> getSupportedScreenResolutions() { return m_resolutions; };
+
+  void setScreenResolution(int mode);
+
+  /** \brief sets the game's window mode
+  * Changes the game's window mode to fullscreen, borderless, or windowed
+  * @param mode the new window mode, WINDOWED, BORDERLESS, or FULLSCREEN
+  */
+  void setFullScreenMode(FULLSCREEN_MODE mode) const;
 
 private:
   /** 
@@ -67,6 +71,8 @@ private:
 
   std::vector<SDL_DisplayMode *> m_resolutions;
 
+  int m_numOfDisplays = 0;
   int m_activeDisplay = 0;
 
+  void initializeScreenResolutions();
 };
