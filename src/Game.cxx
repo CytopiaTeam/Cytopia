@@ -8,6 +8,8 @@
 #include "engine/ui/widgets/Image.hxx"
 #include "engine/basics/Settings.hxx"
 #include "engine/basics/GameStates.hxx"
+#include "Filesystem.hxx"
+
 #include <noise.h>
 #include <SDL.h>
 #include <SDL_ttf.h>
@@ -79,7 +81,7 @@ bool Game::initialize()
   WindowManager::instance().setWindowTitle(VERSION);
 
 #ifdef USE_MOFILEREADER
-  std::string moFilePath = SDL_GetBasePath();
+  std::string moFilePath = fs::getBasePath();
   moFilePath = moFilePath + "languages/" + Settings::instance().gameLanguage + "/Cytopia.mo";
 
   if (moFileLib::moFileReaderSingleton::GetInstance().ReadFile(moFilePath.c_str()) == moFileLib::moFileReader::EC_SUCCESS)
@@ -353,10 +355,6 @@ void Game::shutdown()
   m_UILoop.join();
   m_EventLoop.join();
   TTF_Quit();
-
-#ifdef USE_AUDIO
-  Mix_Quit();
-#endif
 
   SDL_Quit();
 }
