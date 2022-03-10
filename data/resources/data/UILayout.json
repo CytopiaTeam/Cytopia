@@ -48,25 +48,12 @@
                 "BuildMenuID": "Construction"
             },
             {
-                "ID": "nature menu",
-                "Type": "ImageButton",
-                "SpriteID": "Button_NatureMenu",
-                "Position_x": 480,
-                "Position_y": 520,
-                "Action": "ToggleVisibilityOfGroup",
-                "ActionParameter": "NatureSubMenu",
-                "ButtonGroup": "BottomMenu",
-                "ToggleButton": true,
-                "TooltipText": "Nature",
-                "BuildMenuID": "Nature"
-            },
-            {
                 "ID": "roads menu",
                 "Type": "ImageButton",
                 "SpriteID": "Button_RoadsMenu",
                 "Action": "ToggleVisibilityOfGroup",
                 "ActionParameter": "RoadsSubMenu",
-                "Position_x": 560,
+                "Position_x": 480,
                 "Position_y": 520,
                 "ButtonGroup": "BottomMenu",
                 "ToggleButton": true,
@@ -74,30 +61,17 @@
                 "BuildMenuID": "Roads"
             },
             {
-                "ID": "zones menu",
+                "ID": "debug menu",
                 "Type": "ImageButton",
-                "SpriteID": "Button_ZonesMenu",
+                "SpriteID": "Button_DebugMenu",
                 "Action": "ToggleVisibilityOfGroup",
-                "ActionParameter": "ZonesSubMenu",
-                "Position_x": 640,
+                "ActionParameter": "DebugSubMenu",
+                "Position_x": 320,
                 "Position_y": 520,
                 "ButtonGroup": "BottomMenu",
                 "ToggleButton": true,
-                "TooltipText": "Zones",
-                "BuildMenuID": "Zones"
-            },
-            {
-                "ID": "recreation menu",
-                "Type": "ImageButton",
-                "SpriteID": "Button_RecreationMenu",
-                "Action": "ToggleVisibilityOfGroup",
-                "ActionParameter": "RecreationSubMenu",
-                "Position_x": 720,
-                "Position_y": 520,
-                "ButtonGroup": "BottomMenu",
-                "ToggleButton": true,
-                "TooltipText": "Recreation",
-                "BuildMenuID": "Recreation"
+                "TooltipText": "Debug Menu",
+                "BuildMenuID": "Debug"
             },
             {
                 "ID": "power menu",
@@ -105,7 +79,7 @@
                 "SpriteID": "Button_PowerMenu",
                 "Action": "ToggleVisibilityOfGroup",
                 "ActionParameter": "PowerSubMenu",
-                "Position_x": 800,
+                "Position_x": 240,
                 "Position_y": 520,
                 "ButtonGroup": "BottomMenu",
                 "ToggleButton": true,
@@ -118,38 +92,12 @@
                 "SpriteID": "Button_WaterMenu",
                 "Action": "ToggleVisibilityOfGroup",
                 "ActionParameter": "WaterSubMenu",
-                "Position_x": 880,
+                "Position_x": 160,
                 "Position_y": 520,
                 "ButtonGroup": "BottomMenu",
                 "ToggleButton": true,
-                "TooltipText": "Waterworks",
-                "BuildMenuID": "Waterworks"
-            },
-            {
-                "ID": "emergency menu",
-                "Type": "ImageButton",
-                "SpriteID": "Button_EmergencyMenu",
-                "Action": "ToggleVisibilityOfGroup",
-                "ActionParameter": "EmergencySubMenu",
-                "Position_x": 960,
-                "Position_y": 520,
-                "ButtonGroup": "BottomMenu",
-                "ToggleButton": true,
-                "TooltipText": "Emergency",
-                "BuildMenuID": "Emergency"
-            },
-            {
-                "ID": "debug menu",
-                "Type": "ImageButton",
-                "SpriteID": "Button_DebugMenu",
-                "Action": "ToggleVisibilityOfGroup",
-                "ActionParameter": "DebugSubMenu",
-                "Position_x": 1040,
-                "Position_y": 520,
-                "ButtonGroup": "BottomMenu",
-                "ToggleButton": true,
-                "TooltipText": "Debug",
-                "BuildMenuID": "Debug"
+                "TooltipText": "Utilities",
+                "BuildMenuID": "Utilities"
             }
         ],
         "ConstructionSubMenu": [
