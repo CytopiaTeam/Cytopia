@@ -1,51 +1,37 @@
 {
-  "Audio": {
-    "Audio3DStatus": false,
-    "AudioChannels": 2,
-    "MusicVolume": 50,
-    "PlayMusic": true,
-    "PlaySoundEffects": true,
-    "SoundEffectsVolume": 100
-  },
-  "ConfigFiles": {
-    "AudioConfigJSONFile": "resources/data/AudioConfig.json",
-    "TileDataJSONFile": "resources/data/TileData.json",
-    "UIDataJSONFile": "resources/data/UIData.json",
-    "UILayoutJSONFile": "resources/data/UILayout.json"
-  },
-  "Game": {
-    "Biome": "Showcase",
-    "Language": "en",
-    "MapSize": 128,
-    "MaxElevationHeight": 32,
-    "ShowBuildingsInBluePrint": false,
-    "ZoneLayerTransperancy": 0.6000000238418579
-  },
-  "Graphics": {
-    "DefaultDisplayMode": "720p",
-    "DisplayModes": {
-      "1080p": [
-        1920,
-        1080
-      ],
-      "480p": [
-        640,
-        480
-      ],
-      "720p": [
-        960,
-        720
-      ]
+    "Audio": {
+        "Audio3DStatus": false,
+        "AudioChannels": 2,
+        "MusicVolume": 50,
+        "PlayMusic": true,
+        "PlaySoundEffects": true,
+        "SoundEffectsVolume": 100
     },
-    "FullScreen": false,
-    "VSYNC": false
-  },
-  "UI": {
-    "BuildMenuPosition": "BOTTOM",
-    "FontFilename": "resources/fonts/pixellocale-v-1-4.ttf",
-    "NewUI": false,
-    "SkipMenu": false,
-    "SubMenuButtonHeight": 32,
-    "SubMenuButtonWidth": 32
-  }
+    "ConfigFiles": {
+        "AudioConfigJSONFile": "resources/data/AudioConfig.json",
+        "TileDataJSONFile": "resources/data/TileData.json",
+        "UIDataJSONFile": "resources/data/UIData.json",
+        "UILayoutJSONFile": "resources/data/UILayout.json"
+    },
+    "Game": {
+        "Biome": "MixedForest",
+        "MapSize": 128,
+        "MaxElevationHeight": 32
+    },
+    "Graphics": {
+        "FullScreen": false,
+        "FullScreenMode": 0,
+        "Resolution": {
+            "Screen_Height": 600,
+            "Screen_Width": 800
+        },
+        "VSYNC": false
+    },
+    "User Interface": {
+        "BuildMenu Position": "BOTTOM",
+        "Font Filename": "resources/fonts/arcadeclassics.ttf",
+        "Language": "en",
+        "SubMenuButtonHeight": 32,
+        "SubMenuButtonWidth": 32
+    }
 }
