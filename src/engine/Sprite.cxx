@@ -8,6 +8,7 @@
 #include "common/enums.hxx"
 #include "LOG.hxx"
 #include "Exception.hxx"
+#include "GameStates.hxx"
 
 #ifdef MICROPROFILE_ENABLED
 #include "microprofile.h"
@@ -33,9 +34,13 @@ void Sprite::render() const
         SDL_SetTextureColorMod(m_SpriteData[currentLayer].texture, highlightColor.r, highlightColor.g, highlightColor.b);
       }
 
-      if (transparentSprite)
+      if (GameStates::instance().layerEditMode == LayerEditMode::BLUEPRINT && currentLayer != Layer::BLUEPRINT && currentLayer != Layer::UNDERGROUND)
       {
-        SDL_SetTextureAlphaMod(m_SpriteData[currentLayer].texture, alpha);
+        SDL_SetTextureAlphaMod(m_SpriteData[currentLayer].texture, 80);
+      }
+      else
+      {
+        SDL_SetTextureAlphaMod(m_SpriteData[currentLayer].texture, m_SpriteData[currentLayer].alpha);
       }
 
       if (m_SpriteData[currentLayer].clipRect.w != 0)
@@ -54,10 +59,7 @@ void Sprite::render() const
         SDL_SetTextureColorMod(m_SpriteData[currentLayer].texture, 255, 255, 255);
       }
 
-      if (transparentSprite)
-      {
-        SDL_SetTextureAlphaMod(m_SpriteData[currentLayer].texture, 255);
-      }
+      SDL_SetTextureAlphaMod(m_SpriteData[currentLayer].texture, 255);
     }
   }
 }
@@ -70,6 +72,10 @@ void Sprite::refresh(const Layer &layer)
     {
       if (m_SpriteData[currentLayer].texture)
       {
+        if (layer != NONE && currentLayer != layer)
+        {
+          continue;
+        }
         m_currentZoomLevel = Camera::zoomLevel;
         int spriteSheetHeight = 0;
         SDL_QueryTexture(m_SpriteData[currentLayer].texture, nullptr, nullptr, nullptr, &spriteSheetHeight);
