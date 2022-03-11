@@ -5,12 +5,18 @@ unsigned int MapLayers::m_activeLayers = 0;
 
 void MapLayers::setLayerEditMode(LayerEditMode layerEditMode)
 {
+  bool showBuildingsInBlueprint = true; // TODO IMPORTANT should be ettings::instance().showBuildingsInBlueprint
+
   {
     switch (layerEditMode)
     {
     case LayerEditMode::BLUEPRINT:
       deactivateAllLayers();
-      enableLayers({BLUEPRINT, UNDERGROUND});
+      if (showBuildingsInBlueprint)
+      {
+        enableLayers({ BUILDINGS });
+      }
+      enableLayers({BLUEPRINT, UNDERGROUND, ROAD});
       break;
     case LayerEditMode::TERRAIN:
       deactivateAllLayers();
