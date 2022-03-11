@@ -297,7 +297,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           Point origCornerPoint =
               engine.map->getNodeOrigCornerPoint(mouseIsoCoords, TileManager::instance().getTileLayer(tileToPlace));
 
-          if (origCornerPoint == UNDEFINED_POINT)
+          if (origCornerPoint == Point::INVALID())
           {
             origCornerPoint = mouseIsoCoords;
           }
@@ -305,7 +305,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           // canceling transparent buildings
           for (const auto &it : m_transparentBuildings)
           {
-            if (it != UNDEFINED_POINT)
+            if (it != Point::INVALID())
             {
               (engine.map->getMapNode(it))->setNodeTransparency(0);
             }
@@ -323,7 +323,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
             for (auto &node : engine.map->getObjectCoords(mouseIsoCoords, tileToPlace))
             {
               // if we don't geta correct coordinate, fall back to the click coordinates
-              if (node == UNDEFINED_POINT && isPointWithinMapBoundaries(mouseIsoCoords))
+              if (node == Point::INVALID() && isPointWithinMapBoundaries(mouseIsoCoords))
               {
                 m_nodesToHighlight.push_back(mouseIsoCoords);
               }
@@ -430,16 +430,13 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
 
             auto transparentBuildingIt =
                 std::find(m_transparentBuildings.begin(), m_transparentBuildings.end(), buildingCoordinates);
-            if (!(transparentBuildingIt != m_transparentBuildings.end()))
+            if ((transparentBuildingIt == m_transparentBuildings.end()) && (buildingCoordinates != Point::INVALID()))
             {
-              if (buildingCoordinates != UNDEFINED_POINT)
+              const TileData *tileData = engine.map->getMapNode(buildingCoordinates)->getTileData(Layer::BUILDINGS);
+              if (tileData && tileData->category != "Flora")
               {
-                const TileData *tileData = engine.map->getMapNode(buildingCoordinates)->getTileData(Layer::BUILDINGS);
-                if (tileData && tileData->category != "Flora")
-                {
                   engine.map->getMapNode(buildingCoordinates)->setNodeTransparency(0.6f);
                   m_transparentBuildings.push_back(buildingCoordinates);
-                }
               }
             }
           }

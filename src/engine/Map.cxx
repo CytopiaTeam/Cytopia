@@ -351,7 +351,7 @@ Point Map::getNodeOrigCornerPoint(const Point &isoCoordinates, Layer layer)
     return mapNodes[nodeIdx(isoCoordinates.x, isoCoordinates.y)].getOrigCornerPoint(layer);
   }
 
-  return UNDEFINED_POINT;
+  return Point::INVALID();
 }
 
 std::vector<uint8_t> Map::calculateAutotileBitmask(const MapNode *const pMapNode, const std::vector<NeighborNode> &neighborNodes)

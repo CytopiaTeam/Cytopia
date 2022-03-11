@@ -19,7 +19,7 @@ struct MapNodeData
   std::string tileID;
   TileData *tileData = nullptr;
   int32_t tileIndex = 0;
-  Point origCornerPoint = UNDEFINED_POINT;
+  Point origCornerPoint = Point::INVALID();
   bool shouldRender = true;
   TileMap tileMap = TileMap::DEFAULT; // store information wheter we use normal, slope or shore tiles
 };
