@@ -117,12 +117,12 @@ struct TileData
 
   std::vector<std::string>
       groundDecoration; /// tileID of the item that should be drawn on ground below sprite instead of terrain(grass, concrete, ...). Must be a tileID with tileType GroundDecoration
-  bool placeOnGround = true;       /// wether or not this building is placeable on ground
-  bool placeOnWater = false;       /// whether or not this building is placeable on water
-  bool isOverPlacable;             /// Determines if other tiles can be placed over this one tile.
-  int pollutionLevel = 0;          /// Pollution this building produces or prevents
-  int crimeLevel = 0;              /// Crime this building produces or prevents (police station)
-  int fireHazardLevel = 0;         /// Fire Danger this building produces or prevents
+  bool placeOnGround = true;     /// wether or not this building is placeable on ground
+  bool placeOnWater = false;     /// whether or not this building is placeable on water
+  bool isOverPlacable;           /// Determines if other tiles can be placed over this one tile.
+  int pollutionLevel = 0;        /// Pollution this building produces or prevents
+  int crimeLevel = 0;            /// Crime this building produces or prevents (police station)
+  int fireHazardLevel = 0;       /// Fire Danger this building produces or prevents
   int inhabitants = 0;           /// How many residents / workers this building can hold. Also how much jobs it provides
   int happiness = 0;             /// The effect on happiness around this building.
   int educationLevel = 0;        /// How much education this building provides (educational building) / requires (job)
