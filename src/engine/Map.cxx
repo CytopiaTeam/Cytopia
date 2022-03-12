@@ -78,12 +78,13 @@ void Map::getNodeInformation(const Point &isoCoordinates) const
   LOG(LOG_INFO) << "[Layer: BUILDINGS] ID: " << mapNode.getMapNodeDataForLayer(Layer::BUILDINGS).tileID;
   LOG(LOG_INFO) << "Category: " << tileData->category;
   LOG(LOG_INFO) << "FileName: " << tileData->tiles.fileName;
-  LOG(LOG_INFO) << "Rotations: " << tileData->tiles.rotations;
+  LOG(LOG_INFO) << "PickRandomTile: " << tileData->tiles.pickRandomTile;
   LOG(LOG_INFO) << "TileMap: " << mapNodeData.tileMap;
   LOG(LOG_INFO) << "TileIndex: " << mapNodeData.tileIndex;
 }
 
-Map::Map(int columns, int rows, const bool generateTerrain) : m_columns(columns), m_rows(rows)
+Map::Map(int columns, int rows, const bool generateTerrain)
+    : pMapNodesVisible(new Sprite *[columns * rows]), m_columns(columns), m_rows(rows)
 {
   // TODO move Random Engine out of map
   randomEngine.seed();
@@ -96,6 +97,8 @@ Map::Map(int columns, int rows, const bool generateTerrain) : m_columns(columns)
 
   updateAllNodes();
 }
+
+Map::~Map() { delete[] pMapNodesVisible; }
 
 std::vector<NeighborNode> Map::getNeighborNodes(const Point &isoCoordinates, const bool includeCentralNode)
 {
@@ -404,9 +407,9 @@ void Map::renderMap() const
   MICROPROFILE_SCOPEI("Map", "Render Map", MP_YELLOW);
 #endif
 
-  for (const auto pNode : mapNodesVisible)
+  for (int i = 0; i < m_visibleNodesCount; ++i)
   {
-    pNode->render();
+    pMapNodesVisible[i]->render();
   }
 }
 
@@ -418,9 +421,9 @@ void Map::refresh()
 
   calculateVisibleMap();
 
-  for (const auto pNode : mapNodesVisible)
+  for (int i = 0; i < m_visibleNodesCount; ++i)
   {
-    pNode->getSprite()->refresh();
+    pMapNodesVisible[i]->refresh();
   }
 }
 
@@ -732,6 +735,13 @@ bool Map::isAllowSetTileId(const Layer layer, const MapNode *const pMapNode)
       return false;
     }
     break;
+  case Layer::WATER:
+    if (pMapNode->isLayerOccupied(Layer::BUILDINGS) &&
+        pMapNode->getMapNodeDataForLayer(Layer::BUILDINGS).tileData->category != "Flora")
+    {
+      return false;
+    }
+    break;
   default:
     break;
   }
@@ -751,7 +761,7 @@ void Map::calculateVisibleMap(void)
   // Lower the bottom because of high terrain nodes under the screen which will be pushed into the view
   const int bottom = bottomRight.y - bottomRight.x - 1 - MapNode::maxHeight;
 
-  mapNodesVisible.clear();
+  m_visibleNodesCount = 0;
 
   for (int x = 0; x < m_rows; x++)
   {
@@ -762,7 +772,7 @@ void Map::calculateVisibleMap(void)
 
       if ((xVal >= left) && (xVal <= right) && (yVal <= top) && (yVal >= bottom))
       {
-        mapNodesVisible.emplace_back(&mapNodes[nodeIdx(x, y)]);
+        pMapNodesVisible[m_visibleNodesCount++] = mapNodes[nodeIdx(x, y)].getSprite();
       }
     }
   }

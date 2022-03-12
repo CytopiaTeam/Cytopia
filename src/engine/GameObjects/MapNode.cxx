@@ -108,11 +108,10 @@ void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
     m_mapNodeData[layer].tileID = tileID;
 
     // Determine if the tile should have a random rotation or not.
-    if (m_mapNodeData[layer].tileData->tiles.rotations <= 1)
+    if (m_mapNodeData[layer].tileData->tiles.pickRandomTile && m_mapNodeData[layer].tileData->tiles.count > 1)
     {
-      /** set tileIndex to a rand between 1 and count, this will be the displayed image
-      * if this tile has any purposefully set rotation images (roads and buildings
-      * with rotations) then always set tileIndex to 0.
+      /** set tileIndex to a rand between 1 and count, this will be the displayed image of the entire tileset
+      * if this tile has ordered frames, like roads then pickRandomTile must be set to 0.
       **/
       m_mapNodeData[layer].tileIndex = rand() % m_mapNodeData[layer].tileData->tiles.count;
     }
