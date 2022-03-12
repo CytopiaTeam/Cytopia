@@ -53,11 +53,11 @@ AudioMixer::AudioMixer(GameService::ServiceTuple &context) : GameService(context
   }
   alcMakeContextCurrent(alContext);
 
-  /* Check if an error occured, and clean up if so. */
+  /* Check if an error occurred, and clean up if so. */
   ALenum err;
   err = alGetError();
   if (err != AL_NO_ERROR)
-    throw AudioError(TRACE_INFO "OpenAL error occured: " + get_al_error_msg(err));
+    throw AudioError(TRACE_INFO "OpenAL error occurred: " + get_al_error_msg(err));
 
   /* set listener position one space behind origin */
   Array<float, 3> listener_position_vector{0.0f, 0.0f, 1.0f};
@@ -77,7 +77,13 @@ AudioMixer::AudioMixer(GameService::ServiceTuple &context) : GameService(context
   alListenerfv(AL_ORIENTATION, listener_orientation_vector.data());
 
   /* Set a pruning repeated task to get rid of soundtracks that have finished playing */
-  GetService<GameClock>().createRepeatedTask(5min, [&mixer = *this]() { mixer.prune(); });
+  GetService<GameClock>().addRealTimeClockTask(
+    [&mixer = *this]
+    {
+      mixer.prune();
+      return false;
+    },
+    0s, 5min);
 
   LOG(LOG_DEBUG) << "Created AudioMixer";
 }

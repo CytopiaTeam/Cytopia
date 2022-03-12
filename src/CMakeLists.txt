@@ -7,6 +7,8 @@ set(SOURCE_FILES
         util/Filesystem.{hxx,cxx}
         util/IEquatable.hxx
         util/IEquatable.inl.hxx
+        util/PriorityQueue.hxx
+        util/PriorityQueue.inl.hxx
         util/Singleton.hxx
         util/Meta.hxx
         util/Exception.{hxx,cxx}

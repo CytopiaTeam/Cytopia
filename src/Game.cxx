@@ -36,11 +36,11 @@ Game::Game()
 #endif // USE_AUDIO
                     &m_Randomizer, &m_GameClock, &m_ResourceManager),
       m_GameClock{m_GameContext}, m_Randomizer{m_GameContext}, m_ResourceManager{m_GameContext},
-#ifdef USE_AUDIO
-      m_AudioMixer{m_GameContext},
-#endif
       m_UILoop(&LoopMain<UILoopMQ, UIVisitor>, std::ref(m_GameContext), UIVisitor{}),
       m_EventLoop(&LoopMain<GameLoopMQ, GameVisitor>, std::ref(m_GameContext), GameVisitor{m_GameContext})
+#ifdef USE_AUDIO
+      , m_AudioMixer{m_GameContext}
+#endif
 {
   LOG(LOG_DEBUG) << "Created Game Object";
 }
@@ -286,13 +286,37 @@ void Game::run(bool SkipMenu)
 #ifdef USE_AUDIO
   if (!Settings::instance().audio3DStatus)
   {
-    m_GameClock.createRepeatedTask(8min, [this]() { m_AudioMixer.play(AudioTrigger::MainTheme); });
-    m_GameClock.createRepeatedTask(3min, [this]() { m_AudioMixer.play(AudioTrigger::NatureSounds); });
+    m_GameClock.addRealTimeClockTask(
+        [this]()
+        {
+          m_AudioMixer.play(AudioTrigger::MainTheme);
+          return false;
+        },
+        0s, 8min);
+    m_GameClock.addRealTimeClockTask(
+        [this]()
+        {
+          m_AudioMixer.play(AudioTrigger::NatureSounds);
+          return false;
+        },
+        0s, 3min);
   }
   else
   {
-    m_GameClock.createRepeatedTask(8min, [this]() { m_AudioMixer.play(AudioTrigger::MainTheme, Coordinate3D{0, 0.5, 0.1}); });
-    m_GameClock.createRepeatedTask(3min, [this]() { m_AudioMixer.play(AudioTrigger::NatureSounds, Coordinate3D{0, 0, -2}); });
+    m_GameClock.addRealTimeClockTask(
+        [this]()
+        {
+          m_AudioMixer.play(AudioTrigger::MainTheme, Coordinate3D{0, 0.5, 0.1});
+          return false;
+        },
+        0s, 8min);
+    m_GameClock.addRealTimeClockTask(
+        [this]()
+        {
+          m_AudioMixer.play(AudioTrigger::NatureSounds, Coordinate3D{0, 0, -2});
+          return false;
+        },
+        0s, 3min);
   }
 #endif // USE_AUDIO
 
@@ -339,7 +363,7 @@ void Game::run(bool SkipMenu)
       fpsFrames = 0;
     }
 
-    SDL_Delay(1);
+    m_GameClock.tick();
 
 #ifdef MICROPROFILE_ENABLED
     MicroProfileFlip(nullptr);
