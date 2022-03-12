@@ -84,6 +84,10 @@ AudioMixer::AudioMixer(GameService::ServiceTuple &context) : GameService(context
 
 AudioMixer::~AudioMixer()
 {
+  if (!gAudioDevice)
+  {
+    return;
+  }
   int num_opened = 0;
   int _discard;
   Uint16 _discard2;
@@ -178,6 +182,10 @@ void AudioMixer::prune() noexcept { GetService<GameLoopMQ>().push(AudioPruneEven
 
 void AudioMixer::handleEvent(const AudioTriggerEvent &&event)
 {
+  if (!gAudioDevice)
+  {
+    return;
+  }
   auto &possibilities = m_Triggers[event.trigger];
   if (possibilities.size() == 0)
   {
@@ -191,12 +199,20 @@ void AudioMixer::handleEvent(const AudioTriggerEvent &&event)
 
 void AudioMixer::handleEvent(const AudioPlayEvent &&event)
 {
+  if (!gAudioDevice)
+  {
+    return;
+  }
   SoundtrackUPtr &track = GetService<ResourceManager>().get(event.ID);
   playSoundtrack(track);
 }
 
 void AudioMixer::handleEvent(const AudioTrigger3DEvent &&event)
 {
+  if (!gAudioDevice)
+  {
+    return;
+  }
   auto &possibilities = m_Triggers[event.trigger];
   if (possibilities.size() == 0)
   {
@@ -215,6 +231,10 @@ void AudioMixer::handleEvent(const AudioTrigger3DEvent &&event)
 
 void AudioMixer::handleEvent(const AudioPlay3DEvent &&event)
 {
+  if (!gAudioDevice)
+  {
+    return;
+  }
   SoundtrackUPtr &track = GetService<ResourceManager>().get(event.ID);
   /* set position of source in track */
   alSource3f(track->source, AL_POSITION, static_cast<ALfloat>(event.position.x), static_cast<ALfloat>(event.position.y),
@@ -224,6 +244,10 @@ void AudioMixer::handleEvent(const AudioPlay3DEvent &&event)
 
 void AudioMixer::handleEvent(const AudioTriggerReverbEvent &&event)
 {
+  if (!gAudioDevice)
+  {
+    return;
+  }
   auto &possibilities = m_Triggers[event.trigger];
   if (possibilities.size() == 0)
   {
@@ -238,6 +262,10 @@ void AudioMixer::handleEvent(const AudioTriggerReverbEvent &&event)
 
 void AudioMixer::handleEvent(const AudioPlayReverbEvent &&event)
 {
+  if (!gAudioDevice)
+  {
+    return;
+  }
   SoundtrackUPtr &track = GetService<ResourceManager>().get(event.ID);
 
   playSoundtrackWithReverb(track, event.reverb_properties);
@@ -245,6 +273,10 @@ void AudioMixer::handleEvent(const AudioPlayReverbEvent &&event)
 
 void AudioMixer::handleEvent(const AudioPlayEchoEvent &&event)
 {
+  if (!gAudioDevice)
+  {
+    return;
+  }
   SoundtrackUPtr &track = GetService<ResourceManager>().get(event.ID);
 
   playSoundtrackWithEcho(track, event.echo_properties);
@@ -252,6 +284,10 @@ void AudioMixer::handleEvent(const AudioPlayEchoEvent &&event)
 
 void AudioMixer::handleEvent(const AudioTriggerEchoEvent &&event)
 {
+  if (!gAudioDevice)
+  {
+    return;
+  }
   auto &possibilities = m_Triggers[event.trigger];
   if (possibilities.size() == 0)
   {
@@ -266,6 +302,10 @@ void AudioMixer::handleEvent(const AudioTriggerEchoEvent &&event)
 
 void AudioMixer::handleEvent(const AudioTriggerReverb3DEvent &&event)
 {
+  if (!gAudioDevice)
+  {
+    return;
+  }
   auto &possibilities = m_Triggers[event.trigger];
   if (possibilities.size() == 0)
   {
@@ -284,6 +324,10 @@ void AudioMixer::handleEvent(const AudioTriggerReverb3DEvent &&event)
 
 void AudioMixer::handleEvent(const AudioTriggerEcho3DEvent &&event)
 {
+  if (!gAudioDevice)
+  {
+    return;
+  }
   auto &possibilities = m_Triggers[event.trigger];
   if (possibilities.size() == 0)
   {
@@ -303,6 +347,10 @@ void AudioMixer::handleEvent(const AudioTriggerEcho3DEvent &&event)
 
 void AudioMixer::handleEvent(const AudioPlayReverb3DEvent &&event)
 {
+  if (!gAudioDevice)
+  {
+    return;
+  }
   SoundtrackUPtr &track = GetService<ResourceManager>().get(event.ID);
   /* set position of source in track */
   alSource3f(track->source, AL_POSITION, static_cast<ALfloat>(event.position.x), static_cast<ALfloat>(event.position.y),
@@ -312,6 +360,10 @@ void AudioMixer::handleEvent(const AudioPlayReverb3DEvent &&event)
 
 void AudioMixer::handleEvent(const AudioPlayEcho3DEvent &&event)
 {
+  if (!gAudioDevice)
+  {
+    return;
+  }
   SoundtrackUPtr &track = GetService<ResourceManager>().get(event.ID);
   /* set position of source in track */
   alSource3f(track->source, AL_POSITION, static_cast<ALfloat>(event.position.x), static_cast<ALfloat>(event.position.y),
@@ -334,7 +386,10 @@ void AudioMixer::handleEvent(const AudioSetMutedEvent &&event) { throw Unimpleme
 
 void AudioMixer::handleEvent(const AudioStopEvent &&)
 {
-
+  if (!gAudioDevice)
+  {
+    return;
+  }
   while (!m_Playing.empty())
   {
     auto it = m_Playing.begin();
@@ -346,6 +401,10 @@ void AudioMixer::handleEvent(const AudioStopEvent &&)
 
 void AudioMixer::handleEvent(const AudioPruneEvent &&)
 {
+  if (!gAudioDevice)
+  {
+    return;
+  }
   for (auto it = m_Playing.begin(); it != m_Playing.end();)
   {
     int state = 0;
