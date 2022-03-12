@@ -1,9 +1,87 @@
 {
-    "MixedPlains": {
+    "Showcase": {
         "trees": {
             "light": [
                 "tree_pine_light",
-				"tree_deciduous_light"
+				"tree_poplar_light",
+				"tree_birch_light",
+				"tree_Oak_light"
+            ],
+            "medium": [
+                "tree_pine_medium",
+				"tree_poplar_medium",
+				"tree_birch_medium",
+				"tree_Oak_medium"
+            ],
+            "dense": [
+                "tree_pine_dense",
+				"tree_poplar_dense",
+				"tree_birch_dense",
+				"tree_Oak_dense"
+            ]
+        },
+        "waterFlora": {
+            "light": [
+                "waterFlora_cattail_light",
+				"waterFlora_rice_light"
+            ],
+            "medium": [
+                ""
+            ],
+            "dense": [
+                ""
+            ]
+        },
+        "terrainFlora": {
+            "light": [
+              "flora_flower_light",
+			  "flora_tallgrass_light",
+			  "flora_ferns_light"
+            ],
+            "medium": [
+                "flora_tallgrass_medium",
+				"flora_ferns_medium"
+            ],
+            "dense": [
+                ""
+            ]
+        },
+        "bushes": {
+            "light": [
+               "bush_green_light",
+			   "bush_redberry_light"
+
+            ],
+            "medium": [
+                ""
+            ],
+            "dense": [
+                ""
+            ]
+        },
+        "terrain": [
+            "terrain_grass",
+			"terrain_grass_mint"
+        ],
+        "terrainDecoration": [
+				""
+        ],
+        "water": [
+            "water"
+        ],
+        "waterdecoration": [
+            "rocks_water",
+			"bd_2x2_sunkenship_kt"
+        ],
+        "terrainRocks": [
+            "rocks_grassLands"
+        ]
+    },
+	"MixedPlains": {
+        "trees": {
+            "light": [
+                "tree_pine_light",
+				"tree_poplar_light"
             ],
             "medium": [
                 ""
@@ -134,10 +212,10 @@
             "rocks_grassLands"
         ]
     },
-    "DeciduousPlains": {
+    "PoplarPlains": {
         "trees": {
             "light": [
-				"tree_deciduous_light"
+				"tree_poplar_light"
             ],
             "medium": [
                 ""
@@ -202,15 +280,15 @@
     "MixedForest": {
         "trees": {
             "light": [
-                "tree_deciduous_light",
+                "tree_poplar_light",
 				"tree_pine_light"
             ],
             "medium": [
-                "tree_deciduous_medium",
+                "tree_poplar_medium",
 				"tree_pine_medium"
             ],
             "dense": [
-                "tree_deciduous_dense",
+                "tree_poplar_dense",
 				"tree_pine_dense"
             ]
         },
@@ -345,16 +423,16 @@
 			"rocks_diamond"
         ]
     },
-    "DeciduousForest": {
+    "PoplarForest": {
         "trees": {
             "light": [
-                "tree_deciduous_light"
+                "tree_poplar_light"
             ],
             "medium": [
-                "tree_deciduous_medium"
+                "tree_poplar_medium"
             ],
             "dense": [
-                "tree_deciduous_dense"
+                "tree_poplar_dense"
             ]
         },
         "waterFlora": {
