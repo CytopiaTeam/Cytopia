@@ -49,6 +49,20 @@
             "triggers": [
                 "MainMenu"
             ]
+        },
+		"Reflections": {
+            "path": "resources/audio/music/Reflections.ogg",
+            "monopath": "resources/audio/music/Reflections.ogg",
+            "triggers": [
+                "MainTheme"
+            ]
+        },
+		"Tranquil Abduction": {
+            "path": "resources/audio/music/Tranquil_Abduction.ogg",
+            "monopath": "resources/audio/music/Tranquil_Abduction.ogg",
+            "triggers": [
+                "MainTheme"
+            ]
         }
     },
     "Sound": {
