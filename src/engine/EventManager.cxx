@@ -103,60 +103,56 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         break;
       case SDLK_UP:
       case SDLK_w:
-        if (Camera::cameraOffset.y > -2 * Settings::instance().screenHeight * Camera::zoomLevel)
+        if (Camera::instance().cameraOffset().y > -2 * Settings::instance().screenHeight * Camera::instance().zoomLevel())
         {
           // check if map exists to see, if we're ingame already.
           if (Engine::instance().map)
           {
-            Camera::cameraOffset.y -= (Settings::instance().screenHeight / 16);
+            Camera::instance().moveCameraY(Settings::instance().screenHeight / 16);
             // set the center coordinates for scrolling
-            Camera::centerIsoCoordinates =
-                convertScreenToIsoCoordinates({Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2});
+            Camera::instance().setCenterIsoCoordinates(convertScreenToIsoCoordinates({Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2}));
             Engine::instance().map->refresh();
           }
         }
         break;
       case SDLK_LEFT:
       case SDLK_a:
-        if (Camera::cameraOffset.x > -0.25 * Settings::instance().screenWidth * Camera::zoomLevel)
+        if (Camera::instance().cameraOffset().x > -0.25 * Settings::instance().screenWidth * Camera::instance().zoomLevel())
         {
           // check if map exists to see, if we're ingame already.
           if (Engine::instance().map)
           {
-            Camera::cameraOffset.x -= (Settings::instance().screenWidth / 16);
+            Camera::instance().moveCameraX(Settings::instance().screenWidth / 16);
             // set the center coordinates for scrolling
-            Camera::centerIsoCoordinates =
-                convertScreenToIsoCoordinates({Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2});
+            Camera::instance().setCenterIsoCoordinates(convertScreenToIsoCoordinates({Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2}));
             Engine::instance().map->refresh();
           }
         }
         break;
       case SDLK_DOWN:
       case SDLK_s:
-        if (Camera::cameraOffset.y < 1.25 * Settings::instance().screenHeight * Camera::zoomLevel)
+        if (Camera::instance().cameraOffset().y < 1.25 * Settings::instance().screenHeight * Camera::instance().zoomLevel())
         {
           // check if map exists to see, if we're ingame already.
           if (Engine::instance().map)
           {
-            Camera::cameraOffset.y += (Settings::instance().screenHeight / 16);
+            Camera::instance().moveCameraY(-Settings::instance().screenHeight / 16);
             // set the center coordinates for scrolling
-            Camera::centerIsoCoordinates =
-                convertScreenToIsoCoordinates({Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2});
+            Camera::instance().setCenterIsoCoordinates(convertScreenToIsoCoordinates({Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2}));
             Engine::instance().map->refresh();
           }
         }
         break;
       case SDLK_RIGHT:
       case SDLK_d:
-        if (Camera::cameraOffset.x < 5 * Settings::instance().screenWidth * Camera::zoomLevel)
+        if (Camera::instance().cameraOffset().x < 5 * Settings::instance().screenWidth * Camera::instance().zoomLevel())
         {
           // check if map exists to see, if we're ingame already.
           if (Engine::instance().map)
           {
-            Camera::cameraOffset.x += (Settings::instance().screenWidth / 16);
+            Camera::instance().moveCameraX(-Settings::instance().screenWidth / 16);
             // set the center coordinates for scrolling
-            Camera::centerIsoCoordinates =
-                convertScreenToIsoCoordinates({Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2});
+            Camera::instance().setCenterIsoCoordinates(convertScreenToIsoCoordinates({Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2}));
             Engine::instance().map->refresh();
           }
         }
@@ -198,17 +194,16 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
                 convertScreenToIsoCoordinates({static_cast<int>(event.mgesture.x * Settings::instance().screenWidth),
                                                static_cast<int>(event.mgesture.y * Settings::instance().screenHeight)});
           }
-          Camera::setPinchDistance(event.mgesture.dDist * 15.0F, m_pinchCenterCoords.x, m_pinchCenterCoords.y);
+          Camera::instance().setPinchDistance(event.mgesture.dDist * 15.0F, m_pinchCenterCoords.x, m_pinchCenterCoords.y);
           m_skipLeftClick = true;
           break;
         }
 
         if (m_panning)
         {
-          Camera::cameraOffset.x -= static_cast<int>(Settings::instance().screenWidth * event.tfinger.dx);
-          Camera::cameraOffset.y -= static_cast<int>(Settings::instance().screenHeight * event.tfinger.dy);
-          Camera::centerIsoCoordinates =
-              convertScreenToIsoCoordinates({Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2});
+          Camera::instance().moveCameraX(static_cast<int>(Settings::instance().screenWidth * event.tfinger.dx));
+          Camera::instance().moveCameraY(static_cast<int>(Settings::instance().screenHeight * event.tfinger.dy));
+          Camera::instance().setCenterIsoCoordinates(convertScreenToIsoCoordinates({Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2}));
           Engine::instance().map->refresh();
           m_skipLeftClick = true;
           break;
@@ -278,12 +273,10 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           {
             return;
           }
-          Camera::cameraOffset.x -= event.motion.xrel;
-          Camera::cameraOffset.y -= event.motion.yrel;
+          Camera::instance().moveCameraX(event.motion.xrel);
+          Camera::instance().moveCameraY(event.motion.yrel);
 
-          if (Engine::instance().map != nullptr)
-            Engine::instance().map->refresh();
-          break;
+          Engine::instance().map->refresh();
         }
         // check if we should highlight tiles and if we're in placement mode
         if (highlightSelection)
@@ -492,8 +485,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       }
       if (m_panning)
       {
-        Camera::centerIsoCoordinates =
-            convertScreenToIsoCoordinates({Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2});
+        Camera::instance().setCenterIsoCoordinates(convertScreenToIsoCoordinates({Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2}));
         m_panning = false;
       }
 
@@ -584,11 +576,11 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
     case SDL_MOUSEWHEEL:
       if (event.wheel.y > 0)
       {
-        Camera::increaseZoomLevel();
+        Camera::instance().increaseZoomLevel();
       }
       else if (event.wheel.y < 0)
       {
-        Camera::decreaseZoomLevel();
+        Camera::instance().decreaseZoomLevel();
       }
       break;
 

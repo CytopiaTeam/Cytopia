@@ -270,7 +270,7 @@ void Game::run(bool SkipMenu)
   Engine &engine = Engine::instance();
 
   LOG(LOG_DEBUG) << "Map initialized in " << benchmarkTimer.getElapsedTime() << "ms";
-  Camera::centerScreenOnMapCenter();
+  Camera::instance().centerScreenOnMapCenter();
 
   SDL_Event event;
   EventManager &evManager = EventManager::instance();
