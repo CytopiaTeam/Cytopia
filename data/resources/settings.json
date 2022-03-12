@@ -19,7 +19,7 @@
     "MapSize": 128,
     "MaxElevationHeight": 32,
     "ShowBuildingsInBluePrint": false,
-    "ZoneLayerTransperancy": 0.6000000238418579
+    "ZoneLayerTransperancy": 0.6
   },
     "Graphics": {
         "FullScreen": false,

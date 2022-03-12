@@ -4,6 +4,7 @@
 #include "LOG.hxx"
 #include "../map/MapLayers.hxx"
 #include "GameStates.hxx"
+#include "Settings.hxx"
 
 MapNode::MapNode(Point isoCoordinates, const std::string &terrainID, const std::string &tileID)
     : m_isoCoordinates(std::move(isoCoordinates))
@@ -71,8 +72,7 @@ void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
     switch (layer)
     {
     case Layer::ZONE:
-      // IMPORTANT TODO: Change 0.5 here to settings::mapnodetransparency after updating settings class.
-      this->setNodeTransparency(0.5, Layer::ZONE);
+      this->setNodeTransparency(Settings::instance().zoneLayerTransparency, Layer::ZONE);
       break;
     case Layer::WATER:
       demolishLayer(Layer::ROAD);
@@ -426,8 +426,7 @@ const MapNodeData &MapNode::getActiveMapNodeData() const { return m_mapNodeData[
 void MapNode::setMapNodeData(std::vector<MapNodeData> &&mapNodeData, const Point &currNodeIsoCoordinates)
 {
   m_mapNodeData.swap(mapNodeData);
-  // IMPORTANT TODO: Change 0.5 here to settings::mapnodetransparency after updating settings class.
-  this->setNodeTransparency(0.5, Layer::ZONE);
+  this->setNodeTransparency(Settings::instance().zoneLayerTransparency, Layer::ZONE);
 
   // updates the pointers to the tiles, after loading tileIDs from json
   for (auto &it : m_mapNodeData)

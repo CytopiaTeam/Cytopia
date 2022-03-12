@@ -57,6 +57,12 @@ struct SettingsData
   int maxElevationHeight;
 
   /**
+  * @brief the value of the zone layer transparency, (0 - 1.0).
+  * where 0 is full opaque and 1 for full transparency.
+  */
+  float zoneLayerTransparency;
+  
+  /**
    * @todo document what this field is
    * @todo add a typename
    */
@@ -148,7 +154,7 @@ struct SettingsData
   FilePath audioConfig3DJSONFile;
 
   /**
-   * @brief The Game language 
+   * @brief The Game language
    */
   std::string gameLanguage;
 
@@ -158,16 +164,17 @@ struct SettingsData
   FilePath fontFileName;
 
   /**
-   * @brief The width in pixels of the buttons used in the 
+   * @brief The width in pixels of the buttons used in the
    * build sub menues on the UI
    */
   int subMenuButtonWidth;
 
   /**
-   * @brief The height in pixels of the buttons used in the 
+   * @brief The height in pixels of the buttons used in the
    * build sub menues on the UI
    */
   int subMenuButtonHeight;
+
   /**
    * @brief Indicates whether we want to see buildings inside Blueprint layer or not.
    */
