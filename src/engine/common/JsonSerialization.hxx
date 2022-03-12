@@ -42,6 +42,7 @@ inline void from_json(const json &j, SettingsData &s)
   s.mapSize = j["Game"].value("MapSize", 64);
   s.biome = j["Game"].value("Biome", "GrassLands");
   s.maxElevationHeight = j["Game"].value("MaxElevationHeight", 32);
+  s.showBuildingsInBlueprint = j["Game"].value("showBuildingsInBlueprint", false);
   s.uiDataJSONFile = j["ConfigFiles"].value("UIDataJSONFile", "resources/data/TileData.json");
   s.tileDataJSONFile = j["ConfigFiles"].value("TileDataJSONFile", "resources/data/UIData.json");
   s.uiLayoutJSONFile = j["ConfigFiles"].value("UILayoutJSONFile", "resources/data/UILayout.json");
@@ -236,7 +237,8 @@ inline void to_json(json &j, const SettingsData &s)
       {std::string("Game"),
        {{std::string("MapSize"), s.mapSize},
         {std::string("Biome"), s.biome},
-        {std::string("MaxElevationHeight"), s.maxElevationHeight}}},
+        {std::string("MaxElevationHeight"), s.maxElevationHeight},
+        {std::string("showBuildingsInBlueprint"), s.showBuildingsInBlueprint}}},
       {std::string("User Interface"),
        {{std::string("BuildMenu Position"), s.buildMenuPosition},
         {std::string("Font Filename"), s.fontFileName.get()},

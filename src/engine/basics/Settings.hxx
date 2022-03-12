@@ -75,24 +75,22 @@ struct SettingsData
   int fullScreenMode;
 
   /**
-   * @brief the volume of music
+   * @brief The volume of music between [0, 100]
    */
   VolumeLevel musicVolume;
 
   /**
-   * @brief the volume of sound effects
+   * @brief the volume of sound effects between [0, 100]
    */
   VolumeLevel soundEffectsVolume;
 
   /**
-   * @todo document what this field is
-   * @todo add a typename
+   * @brief True if music should be played
    */
   bool playMusic;
 
   /**
-   * @todo document what this field is
-   * @todo add a typename
+   * @brief True if sound effects should be played
    */
   bool playSoundEffects;
 
@@ -170,6 +168,10 @@ struct SettingsData
    * build sub menues on the UI
    */
   int subMenuButtonHeight;
+  /**
+   * @brief Indicates whether we want to see buildings inside Blueprint layer or not.
+   */
+  bool showBuildingsInBlueprint;
 };
 
 /**

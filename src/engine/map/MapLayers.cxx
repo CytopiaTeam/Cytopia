@@ -1,17 +1,17 @@
 #include "MapLayers.hxx"
+#include "Settings.hxx"
 
 // static variables
 unsigned int MapLayers::m_activeLayers = 0;
 
 void MapLayers::setLayerEditMode(LayerEditMode layerEditMode)
 {
-  bool showBuildingsInBlueprint = true; // TODO IMPORTANT should be ettings::instance().showBuildingsInBlueprint
   {
     switch (layerEditMode)
     {
     case LayerEditMode::BLUEPRINT:
       deactivateAllLayers();
-      if (showBuildingsInBlueprint)
+      if (Settings::instance().showBuildingsInBlueprint)
       {
         enableLayers({ BUILDINGS });
       }
