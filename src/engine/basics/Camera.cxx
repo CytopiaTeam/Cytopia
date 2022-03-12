@@ -2,9 +2,6 @@
 #include "isoMath.hxx"
 #include "Settings.hxx"
 #include "../Engine.hxx"
-#include "../../view/Window.hxx"
-#include "../../util/Exception.hxx"
-#include "../../util/LOG.hxx"
 
 void Camera::increaseZoomLevel()
 {
@@ -60,14 +57,9 @@ void Camera::centerScreenOnPoint(const Point &isoCoordinates)
   {
     m_CenterIsoCoordinates = isoCoordinates;
     const SDL_Point screenCoordinates = convertIsoToScreenCoordinates(isoCoordinates, true);
-    if(!m_Window) {
-      throw CytopiaError{TRACE_INFO "Cannot center screen on a point without a Window"};
-    }
-    int screenWidth = m_Window->getBounds().width(); 
-    int screenHeight = m_Window->getBounds().height(); 
 
-    int x = static_cast<int>((screenCoordinates.x + (m_TileSize.x * m_ZoomLevel) * 0.5) - screenWidth * 0.5);
-    int y = static_cast<int>((screenCoordinates.y + (m_TileSize.y * m_ZoomLevel) * 0.25) - screenHeight * 0.5);
+    int x = static_cast<int>((screenCoordinates.x + (m_TileSize.x * m_ZoomLevel) * 0.5) - Settings::instance().screenWidth * 0.5);
+    int y = static_cast<int>((screenCoordinates.y + (m_TileSize.y * m_ZoomLevel) * 0.25) - Settings::instance().screenHeight * 0.5);
 
     x -= static_cast<int>((m_TileSize.x * m_ZoomLevel) * 0.75);
     y -= static_cast<int>(m_TileSize.y * m_ZoomLevel);
@@ -84,11 +76,6 @@ void Camera::centerScreenOnMapCenter()
   m_CenterIsoCoordinates = {Settings::instance().mapSize / 2, Settings::instance().mapSize / 2, 0, 0};
   centerScreenOnPoint(m_CenterIsoCoordinates);
 }
-
-void Camera::setWindow(Window * window) {
-  m_Window = window;
-}
-
 void Camera::setCenterIsoCoordinates(Point && p) {
   std::swap(m_CenterIsoCoordinates, p);
 }
@@ -114,9 +101,4 @@ const double & Camera::zoomLevel() const noexcept
 const SDL_Point & Camera::tileSize() const noexcept
 {
   return m_TileSize;
-}
-
-Camera::~Camera()
-{
-  LOG(LOG_INFO) << "Destroying Camera";
 }

@@ -15,13 +15,7 @@ using json = nlohmann::json;
 
 ResourcesManager::ResourcesManager() { loadUITexture(); }
 
-ResourcesManager::~ResourcesManager()
-{
-  debug_scope {
-    LOG(LOG_DEBUG) << "Destroying ResourcesManager"; 
-  }
-  flush(); 
-}
+ResourcesManager::~ResourcesManager() { flush(); }
 
 void ResourcesManager::loadTexture(const std::string &id, const std::string &fileName)
 {

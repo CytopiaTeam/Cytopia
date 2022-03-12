@@ -9,19 +9,12 @@
 #include "map/MapLayers.hxx"
 #include "Map.hxx"
 #include "Sprite.hxx"
-#include "../../view/Window.hxx"
+
 #include "LOG.hxx"
 
 #ifdef MICROPROFILE_ENABLED
 #include "microprofile.h"
 #endif
-
-EventManager::~EventManager()
-{
-  debug_scope {
-    LOG(LOG_DEBUG) << "Destroying Event Manager";
-  }
-}
 
 void EventManager::unHighlightNodes()
 {
@@ -110,60 +103,56 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         break;
       case SDLK_UP:
       case SDLK_w:
-        if (Camera::instance().cameraOffset().y > -2 * m_Window->getBounds().height()* Camera::instance().zoomLevel())
+        if (Camera::instance().cameraOffset().y > -2 * Settings::instance().screenHeight * Camera::instance().zoomLevel())
         {
           // check if map exists to see, if we're ingame already.
           if (Engine::instance().map)
           {
-            Camera::instance().moveCameraY(m_Window->getBounds().height() / 16);
+            Camera::instance().moveCameraY(Settings::instance().screenHeight / 16);
             // set the center coordinates for scrolling
-            Camera::instance().setCenterIsoCoordinates(
-                convertScreenToIsoCoordinates({m_Window->getBounds().width() / 2, m_Window->getBounds().height() / 2}));
+            Camera::instance().setCenterIsoCoordinates(convertScreenToIsoCoordinates({Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2}));
             Engine::instance().map->refresh();
           }
         }
         break;
       case SDLK_LEFT:
       case SDLK_a:
-        if (Camera::instance().cameraOffset().x > -0.25 * m_Window->getBounds().width() * Camera::instance().zoomLevel())
+        if (Camera::instance().cameraOffset().x > -0.25 * Settings::instance().screenWidth * Camera::instance().zoomLevel())
         {
           // check if map exists to see, if we're ingame already.
           if (Engine::instance().map)
           {
-            Camera::instance().moveCameraX(m_Window->getBounds().width() / 16);
+            Camera::instance().moveCameraX(Settings::instance().screenWidth / 16);
             // set the center coordinates for scrolling
-            Camera::instance().setCenterIsoCoordinates(
-                convertScreenToIsoCoordinates({m_Window->getBounds().width() / 2, m_Window->getBounds().height() / 2}));
+            Camera::instance().setCenterIsoCoordinates(convertScreenToIsoCoordinates({Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2}));
             Engine::instance().map->refresh();
           }
         }
         break;
       case SDLK_DOWN:
       case SDLK_s:
-        if (Camera::instance().cameraOffset().y < 1.25 * m_Window->getBounds().height() * Camera::instance().zoomLevel())
+        if (Camera::instance().cameraOffset().y < 1.25 * Settings::instance().screenHeight * Camera::instance().zoomLevel())
         {
           // check if map exists to see, if we're ingame already.
           if (Engine::instance().map)
           {
-            Camera::instance().moveCameraY(-m_Window->getBounds().height() / 16);
+            Camera::instance().moveCameraY(-Settings::instance().screenHeight / 16);
             // set the center coordinates for scrolling
-            Camera::instance().setCenterIsoCoordinates(
-                convertScreenToIsoCoordinates({m_Window->getBounds().width() / 2, m_Window->getBounds().height() / 2}));
+            Camera::instance().setCenterIsoCoordinates(convertScreenToIsoCoordinates({Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2}));
             Engine::instance().map->refresh();
           }
         }
         break;
       case SDLK_RIGHT:
       case SDLK_d:
-        if (Camera::instance().cameraOffset().x < 5 * m_Window->getBounds().width() * Camera::instance().zoomLevel())
+        if (Camera::instance().cameraOffset().x < 5 * Settings::instance().screenWidth * Camera::instance().zoomLevel())
         {
           // check if map exists to see, if we're ingame already.
           if (Engine::instance().map)
           {
-            Camera::instance().moveCameraX(-m_Window->getBounds().width() / 16);
+            Camera::instance().moveCameraX(-Settings::instance().screenWidth / 16);
             // set the center coordinates for scrolling
-            Camera::instance().setCenterIsoCoordinates(
-                convertScreenToIsoCoordinates({m_Window->getBounds().width() / 2, m_Window->getBounds().height() / 2}));
+            Camera::instance().setCenterIsoCoordinates(convertScreenToIsoCoordinates({Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2}));
             Engine::instance().map->refresh();
           }
         }
@@ -202,8 +191,8 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           if (m_pinchCenterCoords.x == 0 && m_pinchCenterCoords.y == 0)
           {
             m_pinchCenterCoords =
-                convertScreenToIsoCoordinates({static_cast<int>(event.mgesture.x * m_Window->getBounds().width()),
-                                               static_cast<int>(event.mgesture.y * m_Window->getBounds().height())});
+                convertScreenToIsoCoordinates({static_cast<int>(event.mgesture.x * Settings::instance().screenWidth),
+                                               static_cast<int>(event.mgesture.y * Settings::instance().screenHeight)});
           }
           Camera::instance().setPinchDistance(event.mgesture.dDist * 15.0F, m_pinchCenterCoords.x, m_pinchCenterCoords.y);
           m_skipLeftClick = true;
@@ -212,10 +201,9 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
 
         if (m_panning)
         {
-          Camera::instance().moveCameraX(static_cast<int>(m_Window->getBounds().width() * event.tfinger.dx));
-          Camera::instance().moveCameraY(static_cast<int>(m_Window->getBounds().height() * event.tfinger.dy));
-          Camera::instance().setCenterIsoCoordinates(
-              convertScreenToIsoCoordinates({m_Window->getBounds().width() / 2, m_Window->getBounds().height() / 2}));
+          Camera::instance().moveCameraX(static_cast<int>(Settings::instance().screenWidth * event.tfinger.dx));
+          Camera::instance().moveCameraY(static_cast<int>(Settings::instance().screenHeight * event.tfinger.dy));
+          Camera::instance().setCenterIsoCoordinates(convertScreenToIsoCoordinates({Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2}));
           Engine::instance().map->refresh();
           m_skipLeftClick = true;
           break;
@@ -497,8 +485,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       }
       if (m_panning)
       {
-        Camera::instance().setCenterIsoCoordinates(
-            convertScreenToIsoCoordinates({m_Window->getBounds().width() / 2, m_Window->getBounds().height() / 2}));
+        Camera::instance().setCenterIsoCoordinates(convertScreenToIsoCoordinates({Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2}));
         m_panning = false;
       }
 
@@ -622,7 +609,3 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
 }
 
 void EventManager::registerTimer(Timer *timer) { m_timers.push_back(timer); }
-
-void EventManager::setWindow(Window* window) {
-  m_Window = window;
-}

@@ -66,7 +66,7 @@ public:
 
 private:
   Camera() = default;
-  ~Camera();
+  ~Camera() = default;
   friend Singleton;
   
   float m_PinchDistance = 0.f;
@@ -74,7 +74,6 @@ private:
   SDL_Point m_CameraOffset {0, 0};
   double m_ZoomLevel = 1.0;
   Point m_CenterIsoCoordinates;
-  class Window * m_Window = nullptr;
 };
 
 #endif

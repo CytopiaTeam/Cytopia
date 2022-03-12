@@ -77,16 +77,9 @@ AudioMixer::AudioMixer(GameService::ServiceTuple &context) : GameService(context
   alListenerfv(AL_ORIENTATION, listener_orientation_vector.data());
 
   /* Set a pruning repeated task to get rid of soundtracks that have finished playing */
-  GetService<GameClock>().addRealTimeClockTask(
-      [&mixer = *this]() {
-        mixer.prune();
-        return false;
-      },
-      0s, 5min);
+  GetService<GameClock>().createRepeatedTask(5min, [&mixer = *this]() { mixer.prune(); });
 
-  debug_scope {
-    LOG(LOG_DEBUG) << "Created AudioMixer";
-  }
+  LOG(LOG_DEBUG) << "Created AudioMixer";
 }
 
 AudioMixer::~AudioMixer()
@@ -102,9 +95,7 @@ AudioMixer::~AudioMixer()
   alcDestroyContext(alContext); //delete context
   alcCloseDevice(gAudioDevice); //close device
 
-  debug_scope {
-    LOG(LOG_DEBUG) << "Destroyed AudioMixer";
-  }
+  LOG(LOG_DEBUG) << "Destroyed AudioMixer";
 }
 
 /*

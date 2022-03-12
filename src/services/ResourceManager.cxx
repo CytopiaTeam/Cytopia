@@ -64,8 +64,7 @@ int ResourceManager::LoadAudioWithOggVorbis(std::string path, DecodedAudioData &
 #endif
 
   //open file
-  //read file in binary mode
-  SDL_RWops *file = SDL_RWFromFile(path.c_str(), "rb");
+  ifstream file(path, std::ifstream::in | std::ifstream::binary);
 
   //check if file is an vorbis ogg file
   if (ov_fopen(path.c_str(), &vf) < 0)
@@ -123,9 +122,7 @@ int ResourceManager::LoadAudioWithOggVorbis(std::string path, DecodedAudioData &
   //clear data
   ov_clear(&vf);
 
-  debug_scope {
-    LOG(LOG_DEBUG) << "Audio data read successful! Loaded into decoded audio buffer.\n";
-  }
+  LOG(LOG_DEBUG) << "Audio data read successful! Loaded into decoded audio buffer.\n";
   return 0;
 }
 

@@ -3,7 +3,11 @@
 #include "Exception.hxx"
 #include "Settings.hxx"
 #include "Filesystem.hxx"
-#include "moFileReader.hpp"
+
+#ifdef USE_MOFILEREADER
+#include "moFileReader.h"
+#endif
+
 #include <SDL_ttf.h>
 
 void Text::draw()
@@ -21,7 +25,11 @@ Text::~Text() {
 
 void Text::setText(const std::string &text)
 {
+#ifdef USE_MOFILEREADER
   elementData.text = moFileLib::moFileReaderSingleton::GetInstance().Lookup(text.c_str());
+#else
+  elementData.text = text;
+#endif
   createTextTexture(elementData.text, SDL_Color{255, 255, 255});
 }
 
@@ -42,7 +50,7 @@ void Text::createTextTexture(const std::string &text, const SDL_Color &textColor
   TTF_Font *font = TTF_OpenFont(fontFName.c_str(), m_fontSize);
 
   if (!font)
-    throw AssetError(TRACE_INFO "Failed to load font " + fontFName + ": " + TTF_GetError());
+    throw FontError(TRACE_INFO "Failed to load font " + fontFName + ": " + TTF_GetError());
 
   // destroy texture first to prevent memleaks
   if (m_texture)

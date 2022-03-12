@@ -11,22 +11,19 @@
 #include "map/MapLayers.hxx"
 #include "common/JsonSerialization.hxx"
 #include "Filesystem.hxx"
-#include "../view/Window.hxx"
+
 #include "json.hxx"
 
 #include <sstream>
 #include <string>
 #include <set>
 #include <queue>
-#include <unordered_set>
 
 #ifdef MICROPROFILE_ENABLED
 #include "microprofile.h"
 #endif
 
 using json = nlohmann::json;
-
-Window * Map::m_Window = nullptr;
 
 NeighbourNodesPosition operator++(NeighbourNodesPosition &nn, int)
 {
@@ -754,12 +751,8 @@ bool Map::isAllowSetTileId(const Layer layer, const MapNode *const pMapNode)
 
 void Map::calculateVisibleMap(void)
 {
-  if(!m_Window)
-  {
-    throw CytopiaError{TRACE_INFO "Cannot calculateVisibleMap without a Window"};
-  }
   const Point topLeft = calculateIsoCoordinates({0, 0});
-  const Point bottomRight = calculateIsoCoordinates({m_Window->getBounds().width(), m_Window->getBounds().height()});
+  const Point bottomRight = calculateIsoCoordinates({Settings::instance().screenWidth, Settings::instance().screenHeight});
 
   // Screen edges
   const int left = topLeft.x + topLeft.y - 2;
@@ -783,8 +776,4 @@ void Map::calculateVisibleMap(void)
       }
     }
   }
-}
-
-void Map::setWindow(Window * window) {
-  m_Window = window;
 }

@@ -1,32 +1,23 @@
 set(SOURCE_FILES
         main.cxx
         Game.{hxx,cxx}
-        Initializer.{hxx,cxx}
+        Game.inl.hxx
         util/LOG.{hxx,cxx}
+        util/LOG.inl.hxx
         util/Filesystem.{hxx,cxx}
         util/IEquatable.hxx
+        util/IEquatable.inl.hxx
         util/Singleton.hxx
         util/Meta.hxx
         util/Exception.{hxx,cxx}
-        util/iShape.{hxx,cxx}
-        util/PriorityQueue.hxx
-        util/PriorityQueue.inl.hxx
-        util/Rectangle.{hxx,cxx}
-        util/Range.hxx
-        util/Color.{hxx,cxx}
-        util/Point2D.{hxx,cxx}
-        util/BoxSizing.{hxx,cxx}
-        util/PixelBuffer.{hxx,cxx}
-        util/TypeList.hxx
-        util/TypeList.inl.hxx
         events/UIEvents.hxx
-        events/MouseEvents.hxx
-        events/EventHandler.{hxx,cxx}
         GameService.{hxx,cxx}
+        GameService.inl.hxx
         services/Randomizer.{hxx,cxx}
         services/GameClock.{hxx,cxx}
+        services/GameClock.inl.hxx
         services/ResourceManager.{hxx,cxx}
-        services/MouseController.{hxx,cxx}
+        services/ResourceManager.inl.hxx
         engine/MessageQueue.hxx
         engine/MessageQueue.inl.hxx
         engine/basics/Camera.{hxx,cxx}
@@ -65,47 +56,21 @@ set(SOURCE_FILES
         engine/TileManager.{hxx,cxx}
         engine/UIManager.{hxx,cxx}
         engine/WindowManager.{hxx,cxx}
-        engine/UIMQDispatcher.hxx
-        view/iView.{hxx,cxx}
-        view/iViewElement.{hxx,cxx}
-        view/CursorView.{hxx,cxx}
-        view/ClassicButton.hxx
-        view/ClassicButton.inl.hxx
-        view/TextButton.{hxx,cxx}
-        view/IconButton.{hxx,cxx}
-        view/ImageView.{hxx,cxx}
-        view/Window.{hxx,cxx}
-        model/iModel.{hxx,cxx}
-        model/DataModel.hxx
-        model/ButtonModel.{hxx,cxx}
-        model/MouseState.{hxx,cxx}
-        model/iLocalization.hxx
-        model/Localization.{hxx,cxx}
-        model/SettingsModel.{hxx,cxx}
-        activity/iActivity.{hxx,cxx}
-        activity/MainMenuActivity.{hxx,cxx}
-        layout/iLayout.{hxx,cxx}
-        layout/AbsoluteLayout.{hxx,cxx}
-        controller/iController.{hxx,cxx}
-        controller/iMouseHandler.{hxx,cxx}
-        controller/ButtonHandler.{hxx,cxx}
-        renderer/iRenderer.{hxx,cxx}
-        renderer/SDLRenderer.{hxx,cxx}
         )
 
 if (ANDROID)
-    list(APPEND SOURCE_FILES
-            util/android/Filesystem.cxx
-            )
-elseif (APPLE)
-    list(APPEND SOURCE_FILES
-            util/macOS/Filesystem.cxx
-            )
-else ()
-    list(APPEND SOURCE_FILES
-            util/desktop/Filesystem.cxx
-            )
-endif ()
+  list (APPEND SOURCE_FILES
+    util/android/Filesystem.cxx
+  )
+elseif(APPLE)
+  list (APPEND SOURCE_FILES
+    util/macOS/Filesystem.cxx
+  )
+else()
+  list (APPEND SOURCE_FILES
+    util/desktop/Filesystem.cxx
+  )
+endif()
 
 list(APPEND _include_directories
         engine
@@ -158,7 +123,8 @@ if (MSVC)
 endif ()
 
 if (APPLE)
-    file(GLOB_RECURSE MAC_RESOURCE_FILES ${CMAKE_BINARY_DIR}/resources/*)
+    file(GLOB_RECURSE MAC_RESOURCE_FILES ${CMAKE_SOURCE_DIR}/data/resources/* ${CMAKE_SOURCE_DIR}/data/languages/*)
+    # file(GLOB_RECURSE MAC_RESOURCE_FILES ${CMAKE_BINARY_DIR}/resources/*)
 
     # not working now, we need a special icon file for apple
     set(ICON_PATH ${CMAKE_SOURCE_DIR}/data/resources/images/app_icons/cytopia_icon_iso.icns)
@@ -167,9 +133,11 @@ if (APPLE)
     # set each file as resources file for the app image.
     foreach (resources_file ${MAC_RESOURCE_FILES})
         get_filename_component(buildDirRelFilePath ${resources_file} DIRECTORY)
-        string(REPLACE "${CMAKE_SOURCE_DIR}/" "" buildDirRelFilePath ${buildDirRelFilePath})
-        set_source_files_properties(${resources_file} PROPERTIES MACOSX_PACKAGE_LOCATION "/Resources/${buildDirRelFilePath}")
+        string(REPLACE "${CMAKE_SOURCE_DIR}/data/" "" buildDirRelFilePath ${buildDirRelFilePath})
+        message (STATUS "resources: ${resources_file}")
+        set_source_files_properties(${resources_file} PROPERTIES MACOSX_PACKAGE_LOCATION Resources/${buildDirRelFilePath})
     endforeach ()
+ 
     # set_source_files_properties(${PROJECT_SOURCE_DIR}/Cytopia_Resources/music  PROPERTIES MACOSX_PACKAGE_LOCATION Resources/resources/audio/music)
     set_source_files_properties(${ICON_PATH} PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
     set_source_files_properties(${myApp_ICON} PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
@@ -197,16 +165,17 @@ target_include_directories(${PROJECT_NAME} PRIVATE ${_include_directories})
 target_compile_definitions(${PROJECT_NAME} PRIVATE ${_compile_definitions})
 target_link_libraries(${PROJECT_NAME} PRIVATE ${_link_libraries})
 
-# copy the resources to the compiled directory
-
-add_custom_target(
-        copy_resources
-        ALL
-        COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/data/resources/ $<TARGET_FILE_DIR:${PROJECT_NAME}>/resources/
-        COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/data/languages/ $<TARGET_FILE_DIR:${PROJECT_NAME}>/languages/
-        COMMENT "Copy the resources to the compiled directory"
-        VERBATIM
-)
+# copy the resources to the compiled directory. On Apple those files are used from the resources dir, not from the root dir.
+if (NOT APPLE)
+    add_custom_target(
+            copy_resources
+            ALL
+            COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/data/resources/ $<TARGET_FILE_DIR:${PROJECT_NAME}>/resources/
+            COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/data/languages/ $<TARGET_FILE_DIR:${PROJECT_NAME}>/languages/
+            COMMENT "Copy the resources to the compiled directory"
+            VERBATIM
+    )
+endif()
 
 if (MSVC)
     # set startup project for Visual Studio Builds

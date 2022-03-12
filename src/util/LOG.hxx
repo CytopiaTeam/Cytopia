@@ -18,17 +18,6 @@
 #define __PRETTY_FUNCTION__ "Unknown_Method"
 #endif
 
-/**
- * @def debug_scope
- * Creates a scope which only gets
- * executed for debug builds
- */
-#ifdef DEBUG
-#define debug_scope
-#else
-#define debug_scope if constexpr(false)
-#endif
-
 #include <iostream>
 #include <chrono>
 #include <ctime>

@@ -204,12 +204,6 @@ public:
   */
   const MapNode *getMapNode(Point isoCoords) const { return &mapNodes[nodeIdx(isoCoords.x, isoCoords.y)]; };
 
-  /**
-   * @brief Sets the Window
-   * @todo  Remove this when the New UI is complete
-   */
-  static void setWindow(class Window *);
-
 private:
   /**\brief Update all mapNodes
   * Updates all mapNode and its adjacent tiles regarding height information, draws slopes for adjacent tiles and
@@ -290,7 +284,7 @@ private:
   int m_rows;
   std::default_random_engine randomEngine;
   TerrainGenerator m_terrainGen;
-  static class Window * m_Window;
+
   static const size_t m_saveGameVersion;
 };
 

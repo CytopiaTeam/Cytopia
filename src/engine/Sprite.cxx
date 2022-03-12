@@ -8,7 +8,6 @@
 #include "common/enums.hxx"
 #include "LOG.hxx"
 #include "Exception.hxx"
-#include "Settings.hxx"
 #include "GameStates.hxx"
 
 #ifdef MICROPROFILE_ENABLED

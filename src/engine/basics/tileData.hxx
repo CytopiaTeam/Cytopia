@@ -4,7 +4,6 @@
 #include <string>
 #include <vector>
 #include "enums.hxx"
-#include "../../util/Color.hxx"
 
 /// min and max values for tileData
 #define TD_PRICE_MIN 0
@@ -54,12 +53,14 @@ BETTER_ENUM(TileType, int,
 BETTER_ENUM(Zones, int, RESIDENTIAL, INDUSTRIAL, COMMERCIAL, AGRICULTURAL)
 
 BETTER_ENUM(Wealth, int,
+            NONE,   /// not applicable
             LOW,    /// Low income
             MEDIUM, /// Medium income
             HIGH    /// High income
 )
 
 BETTER_ENUM(Style, int,
+            ALL,      /// Default, place the Building in all Styles
             ASIAN,    /// This building will only appear in a game with the Style Asian
             EUROPEAN, /// This building will only appear in a game with the Style European
             US        /// This building will only appear in a game with the Style US
@@ -128,8 +129,6 @@ struct TileData
   std::vector<Zones> zones;      /// Restrict this building to a zone type.
   std::vector<Style> style;      /// Restrict this building to certain Art Styles.
   std::vector<Wealth> wealth;    /// Restrict this building to a certain wealth level. See enum Wealth
-  std::vector<RGBAColor> colors; /// Possible color variations for this tile (magic pixel colors)
-
   RequiredTilesData RequiredTiles; /// How many tiles this building uses.
 };
 
