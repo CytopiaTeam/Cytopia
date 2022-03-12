@@ -31,8 +31,8 @@
         "VSYNC": false
     },
     "User Interface": {
-        "BuildMenu Position": "BOTTOM",
-        "Font Filename": "resources/fonts/arcadeclassics.ttf",
+    "BuildMenuPosition": "BOTTOM",
+    "FontFilename": "resources/fonts/arcadeclassics.ttf",
         "Language": "en",
         "SubMenuButtonHeight": 32,
         "SubMenuButtonWidth": 32

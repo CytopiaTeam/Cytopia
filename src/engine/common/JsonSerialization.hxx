@@ -52,9 +52,9 @@ inline void from_json(const json &j, SettingsData &s)
   s.audioChannels = j["Audio"].value("AudioChannels", 2);
   s.musicVolume = j["Audio"].value("MusicVolume", static_cast<uint8_t>(50));
   s.soundEffectsVolume = j["Audio"].value("SoundEffectsVolume", static_cast<uint8_t>(100));
-  s.buildMenuPosition = j["User Interface"].value("BuildMenu Position", "BOTTOM");
+  s.buildMenuPosition = j["User Interface"].value("BuildMenuPosition", "BOTTOM");
   s.gameLanguage = j["User Interface"].value("Language", "en");
-  s.fontFileName = j["User Interface"].value("Font Filename", "resources/fonts/arcadeclassics.ttf");
+  s.fontFileName = j["User Interface"].value("FontFilename", "resources/fonts/arcadeclassics.ttf");
   s.subMenuButtonWidth = j["User Interface"].value("SubMenuButtonWidth", 32);
   s.subMenuButtonHeight = j["User Interface"].value("SubMenuButtonHeight", 32);
 }
