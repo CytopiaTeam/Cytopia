@@ -39,7 +39,7 @@ endif ()
 option(BUILD_TEST "Build Cytopia Tests" ON)
 option(ENABLE_AUDIO "Enable Audio" ON)
 option(ENABLE_MICROPROFILE "Enable microprofile" OFF)
-option(ENABLE_ANGELSCRIPT "Enable AngelScript" ON)
+option(ENABLE_ANGELSCRIPT "Enable AngelScript" OFF) # package is not available on macOS - disabled it
 option(ENABLE_VULKAN "Enable Vulkan" OFF)
 option(ENABLE_DEBUG "Enable Debug (asserts and logs)" OFF)
 option(BUILD_ANDROID "Crossbuild to Android" OFF)
