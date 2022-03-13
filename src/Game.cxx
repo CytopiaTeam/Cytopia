@@ -34,8 +34,8 @@ Game::Game()
 #ifdef USE_AUDIO
                     &m_AudioMixer,
 #endif // USE_AUDIO
-                    &m_Randomizer, &m_GameClock, &m_ResourceManager),
-      m_GameClock{m_GameContext}, m_Randomizer{m_GameContext}, m_ResourceManager{m_GameContext},
+                    &m_Randomizer, &m_ResourceManager),
+      m_Randomizer{m_GameContext}, m_ResourceManager{m_GameContext},
       m_UILoop(&LoopMain<UILoopMQ, UIVisitor>, std::ref(m_GameContext), UIVisitor{}),
       m_EventLoop(&LoopMain<GameLoopMQ, GameVisitor>, std::ref(m_GameContext), GameVisitor{m_GameContext})
 #ifdef USE_AUDIO
@@ -258,7 +258,6 @@ bool Game::mainMenu()
 
 void Game::run(bool SkipMenu)
 {
-  Timer benchmarkTimer;
   LOG(LOG_INFO) << VERSION;
 
   if (SkipMenu)
@@ -266,10 +265,7 @@ void Game::run(bool SkipMenu)
     Engine::instance().newGame();
   }
 
-  benchmarkTimer.start();
   Engine &engine = Engine::instance();
-
-  LOG(LOG_DEBUG) << "Map initialized in " << benchmarkTimer.getElapsedTime() << "ms";
   Camera::instance().centerScreenOnMapCenter();
 
   SDL_Event event;
@@ -277,6 +273,8 @@ void Game::run(bool SkipMenu)
 
   UIManager &uiManager = UIManager::instance();
   uiManager.init();
+
+  GameClock &gameClock = GameClock::instance();
 
 #ifdef USE_ANGELSCRIPT
   ScriptEngine &scriptEngine = ScriptEngine::instance();
@@ -286,37 +284,37 @@ void Game::run(bool SkipMenu)
 #ifdef USE_AUDIO
   if (!Settings::instance().audio3DStatus)
   {
-    m_GameClock.addRealTimeClockTask(
-        [this]()
-        {
-          m_AudioMixer.play(AudioTrigger::MainTheme);
-          return false;
-        },
-        0s, 8min);
-    m_GameClock.addRealTimeClockTask(
-        [this]()
-        {
-          m_AudioMixer.play(AudioTrigger::NatureSounds);
-          return false;
-        },
-        0s, 3min);
+    gameClock.addRealTimeClockTask(
+      [this]()
+      {
+        m_AudioMixer.play(AudioTrigger::MainTheme);
+        return false;
+      },
+      0s, 8min);
+    gameClock.addRealTimeClockTask(
+      [this]()
+      {
+        m_AudioMixer.play(AudioTrigger::NatureSounds);
+        return false;
+      },
+      0s, 3min);
   }
   else
   {
-    m_GameClock.addRealTimeClockTask(
-        [this]()
-        {
-          m_AudioMixer.play(AudioTrigger::MainTheme, Coordinate3D{0, 0.5, 0.1});
-          return false;
-        },
-        0s, 8min);
-    m_GameClock.addRealTimeClockTask(
-        [this]()
-        {
-          m_AudioMixer.play(AudioTrigger::NatureSounds, Coordinate3D{0, 0, -2});
-          return false;
-        },
-        0s, 3min);
+    gameClock.addRealTimeClockTask(
+      [this]()
+      {
+        m_AudioMixer.play(AudioTrigger::MainTheme, Coordinate3D{0, 0.5, 0.1});
+        return false;
+      },
+      0s, 8min);
+    gameClock.addRealTimeClockTask(
+      [this]()
+      {
+        m_AudioMixer.play(AudioTrigger::NatureSounds, Coordinate3D{0, 0, -2});
+        return false;
+      },
+      0s, 3min);
   }
 #endif // USE_AUDIO
 
@@ -334,6 +332,7 @@ void Game::run(bool SkipMenu)
     SDL_RenderClear(WindowManager::instance().getRenderer());
 
     evManager.checkEvents(event, engine);
+    gameClock.tick();
 
     // render the tileMap
     if (engine.map != nullptr)
@@ -362,8 +361,6 @@ void Game::run(bool SkipMenu)
       uiManager.setFPSCounterText(std::to_string(fpsFrames) + " FPS");
       fpsFrames = 0;
     }
-
-    m_GameClock.tick();
 
 #ifdef MICROPROFILE_ENABLED
     MicroProfileFlip(nullptr);

@@ -17,7 +17,6 @@ public:
     class AudioMixer *, 
 #endif // USE_AUDIO
     class Randomizer *, 
-    class GameClock *,
     class ResourceManager * 
     /* Add other services here */
     >;

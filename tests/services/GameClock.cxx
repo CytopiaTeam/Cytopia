@@ -24,8 +24,7 @@ TEST_CASE("I can schedule a real time task", "[engine][clock]")
 {
   GIVEN("I have a Game Clock running")
   {
-    GameService::ServiceTuple ctx = GameService::ServiceTuple{};
-    GameClock clock(ctx);
+    GameClock clock;
     auto tickingThread = std::thread(tick_clock, 7000ms, std::ref(clock));
 
     WHEN("I schedule a callback to run in 3 seconds")
@@ -56,8 +55,7 @@ TEST_CASE("I can schedule multiple real time tasks", "[engine][clock]")
 {
   GIVEN("I have a Game Clock running")
   {
-    GameService::ServiceTuple ctx = GameService::ServiceTuple{};
-    GameClock clock(ctx);
+    GameClock clock;
     auto tickingThread = std::thread(tick_clock, 3500ms, std::ref(clock));
 
     WHEN("I schedule multiple real tasks with different delays")
@@ -94,8 +92,7 @@ TEST_CASE("I can schedule real time repeating task", "[engine][clock]")
 {
   GIVEN("I have a Game Clock running")
   {
-    GameService::ServiceTuple ctx = GameService::ServiceTuple{};
-    GameClock clock(ctx);
+    GameClock clock;
     auto tickingThread = std::thread(tick_clock, 6900ms, std::ref(clock));
 
     WHEN("I schedule repeating real time task")
@@ -119,8 +116,7 @@ TEST_CASE("I can schedule real time repeating task to trigger immediately", "[en
 {
   GIVEN("I have a Game Clock running")
   {
-    GameService::ServiceTuple ctx = GameService::ServiceTuple{};
-    GameClock clock(ctx);
+    GameClock clock;
     auto tickingThread = std::thread(tick_clock, 2900ms, std::ref(clock));
 
     WHEN("I schedule repeating real time task")
@@ -144,8 +140,7 @@ TEST_CASE("I can schedule real time task to trigger immediately", "[engine][cloc
 {
   GIVEN("I have a Game Clock running")
   {
-    GameService::ServiceTuple ctx = GameService::ServiceTuple{};
-    GameClock clock(ctx);
+    GameClock clock;
     auto tickingThread = std::thread(tick_clock, 2900ms, std::ref(clock));
 
     WHEN("I schedule repeating real time task")
@@ -169,8 +164,7 @@ TEST_CASE("I can schedule game time repeating task to trigger immediately", "[en
 {
   GIVEN("I have a Game Clock running")
   {
-    GameService::ServiceTuple ctx = GameService::ServiceTuple{};
-    GameClock clock(ctx);
+    GameClock clock;
     auto tickingThread = std::thread(tick_clock, 6900ms, std::ref(clock));
 
     WHEN("I schedule repeating real time task")
@@ -194,8 +188,7 @@ TEST_CASE("I can schedule game time task to trigger immediately", "[engine][cloc
 {
   GIVEN("I have a Game Clock running")
   {
-    GameService::ServiceTuple ctx = GameService::ServiceTuple{};
-    GameClock clock(ctx);
+    GameClock clock;
     auto tickingThread = std::thread(tick_clock, 6900ms, std::ref(clock));
 
     WHEN("I schedule repeating real time task")
@@ -219,8 +212,7 @@ TEST_CASE("I can schedule multiple real time tasks and remove some", "[engine][c
 {
   GIVEN("I have a Game Clock running")
   {
-    GameService::ServiceTuple ctx = GameService::ServiceTuple{};
-    GameClock clock(ctx);
+    GameClock clock;
     auto tickingThread = std::thread(tick_clock, 6500ms, std::ref(clock));
 
     WHEN("I schedule multiple tasks with different delays")
@@ -271,8 +263,7 @@ TEST_CASE("I can schedule a game time task", "[engine][clock]")
 {
   GIVEN("I have a Game Clock running")
   {
-    GameService::ServiceTuple ctx = GameService::ServiceTuple{};
-    GameClock clock(ctx);
+    GameClock clock;
     auto tickingThread = std::thread(tick_clock, 9000ms, std::ref(clock));
 
     WHEN("I schedule a callback to run after 2 game minutes (4s)")
@@ -303,8 +294,7 @@ TEST_CASE("I can schedule multiple game time tasks", "[engine][clock]")
 {
   GIVEN("I have a Game Clock running")
   {
-    GameService::ServiceTuple ctx = GameService::ServiceTuple{};
-    GameClock clock(ctx);
+    GameClock clock;
     auto tickingThread = std::thread(tick_clock, 9000ms, std::ref(clock));
 
     WHEN("I schedule multiple game tasks with different delays")
@@ -341,8 +331,7 @@ TEST_CASE("I can schedule game time repeating task", "[engine][clock]")
 {
   GIVEN("I have a Game Clock running")
   {
-    GameService::ServiceTuple ctx = GameService::ServiceTuple{};
-    GameClock clock(ctx);
+    GameClock clock;
     auto tickingThread = std::thread(tick_clock, 11000ms, std::ref(clock));
 
     WHEN("I schedule repeating real time task")
@@ -366,8 +355,7 @@ TEST_CASE("I can schedule multiple game time tasks and remove some", "[engine][c
 {
   GIVEN("I have a Game Clock running")
   {
-    GameService::ServiceTuple ctx = GameService::ServiceTuple{};
-    GameClock clock(ctx);
+    GameClock clock;
     auto tickingThread = std::thread(tick_clock, 15000ms, std::ref(clock));
 
     WHEN("I schedule multiple tasks with different delays")
@@ -418,8 +406,7 @@ TEST_CASE("I can speed up game time", "[engine][clock]")
 {
   GIVEN("I have a Game Clock running")
   {
-    GameService::ServiceTuple ctx = GameService::ServiceTuple{};
-    GameClock clock(ctx);
+    GameClock clock;
     auto tickingThread = std::thread(tick_clock, 2900ms, std::ref(clock));
 
     WHEN("I schedule game task and speed up game time 4 times")
@@ -445,8 +432,7 @@ TEST_CASE("I can slow down game time", "[engine][clock]")
 {
   GIVEN("I have a Game Clock running")
   {
-    GameService::ServiceTuple ctx = GameService::ServiceTuple{};
-    GameClock clock(ctx);
+    GameClock clock;
     auto tickingThread = std::thread(tick_clock, 13000ms, std::ref(clock));
 
     WHEN("I schedule game task and slow down game time 2 times")
@@ -472,8 +458,7 @@ TEST_CASE("I can schedule multiple real/game time tasks and clear them all", "[e
 {
   GIVEN("I have a Game Clock running")
   {
-    GameService::ServiceTuple ctx = GameService::ServiceTuple{};
-    GameClock clock(ctx);
+    GameClock clock;
     auto tickingThread = std::thread(tick_clock, 9000ms, std::ref(clock));
 
     WHEN("I schedule multiple tasks with different delays")
@@ -511,8 +496,7 @@ TEST_CASE("I try to remove non existing task", "[engine][clock]")
 {
   GIVEN("I have a Game Clock running")
   {
-    GameService::ServiceTuple ctx = GameService::ServiceTuple{};
-    GameClock clock(ctx);
+    GameClock clock;
 
     WHEN("I schedule one task and try to remove non existing one")
     {
@@ -527,8 +511,7 @@ TEST_CASE("I can remove myself in callback", "[engine][clock]")
 {
   GIVEN("I have a Game Clock running")
   {
-    GameService::ServiceTuple ctx = GameService::ServiceTuple{};
-    GameClock clock(ctx);
+    GameClock clock;
     auto tickingThread = std::thread(tick_clock, 500ms, std::ref(clock));
 
     WHEN("I schedule game task and remove it during callback")

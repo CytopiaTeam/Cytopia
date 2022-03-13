@@ -65,7 +65,6 @@ private:
   GameContext m_GameContext;
 
   /* Services */
-  GameClock m_GameClock;
   Randomizer m_Randomizer;
   ResourceManager m_ResourceManager;
   UILoopMQ m_UILoopMQ;

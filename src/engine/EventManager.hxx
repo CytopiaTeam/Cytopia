@@ -15,7 +15,6 @@ public:
   ~EventManager() = default;
 
   void checkEvents(SDL_Event &event, Engine &engine);
-  void registerTimer(Timer *timer);
   /**
  * @brief Unhighlight Highlited Nodes.
  * This sets a node to be unhighlited.
@@ -37,7 +36,6 @@ private:
   Point m_clickDownCoords = {0, 0, 0, 0};
   std::vector<Point> m_nodesToPlace = {};
   std::vector<Point> m_nodesToHighlight = {};
-  std::vector<Timer *> m_timers;
   std::vector<Point> m_transparentBuildings;
 };
 

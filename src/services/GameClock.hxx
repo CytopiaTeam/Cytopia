@@ -6,6 +6,7 @@
 #include <functional>
 #include "../GameService.hxx"
 #include "../util/PriorityQueue.hxx"
+#include "../util/Singleton.hxx"
 
 using namespace std::chrono_literals;
 
@@ -15,7 +16,7 @@ using namespace std::chrono_literals;
  * Game timer represent timer running in game time.
  * The game time can be scaled providing possibility to speed up or slow down game.
  */
-class GameClock : public GameService
+class GameClock : public Singleton<GameClock>
 {
 private:
   using Clock = std::chrono::high_resolution_clock;
@@ -43,8 +44,6 @@ public:
   * @brief Represent 1 day of game time.
   */
   static constexpr GameClockTime GameDay = 24 * GameHour;
-
-  GameClock(GameService::ServiceTuple &services) : GameService{services} {};
 
   /**
   * @brief This function provide the tick for both clocks.

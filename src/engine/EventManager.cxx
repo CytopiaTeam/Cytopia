@@ -594,24 +594,5 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       break;
     }
   }
-
-  for (auto &timer : m_timers)
-  {
-    if (timer)
-      timer->checkTimeout();
-  }
-
-  for (std::vector<Timer *>::iterator it = m_timers.begin(); it != m_timers.end();)
-  {
-    if (!(*it)->isActive())
-    {
-      it = m_timers.erase(it);
-    }
-    else
-    {
-      ++it;
-    }
-  }
 }
 
-void EventManager::registerTimer(Timer *timer) { m_timers.push_back(timer); }

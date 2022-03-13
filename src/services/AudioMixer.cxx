@@ -77,7 +77,7 @@ AudioMixer::AudioMixer(GameService::ServiceTuple &context) : GameService(context
   alListenerfv(AL_ORIENTATION, listener_orientation_vector.data());
 
   /* Set a pruning repeated task to get rid of soundtracks that have finished playing */
-  GetService<GameClock>().addRealTimeClockTask(
+  GameClock::instance().addRealTimeClockTask(
     [&mixer = *this]
     {
       mixer.prune();

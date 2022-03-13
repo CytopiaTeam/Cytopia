@@ -28,7 +28,6 @@ set(SOURCE_FILES
         engine/basics/Settings.{hxx,cxx}
         engine/basics/GameStates.{hxx,cxx}
         engine/basics/signal.hxx
-        engine/basics/Timer.{hxx,cxx}
         engine/basics/utils.{hxx,cxx}
         engine/common/Constants.hxx
         engine/common/enums.hxx
