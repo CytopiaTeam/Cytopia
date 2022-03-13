@@ -8,7 +8,7 @@
 #include "engine/ui/widgets/Image.hxx"
 #include "engine/basics/Settings.hxx"
 #include "engine/basics/GameStates.hxx"
-#include "Filesystem.hxx"
+#include "filesystem.hxx"
 
 #include <noise.h>
 #include <SDL.h>
@@ -259,6 +259,7 @@ bool Game::mainMenu()
 void Game::run(bool SkipMenu)
 {
   Timer benchmarkTimer;
+
   LOG(LOG_INFO) << VERSION;
 
   if (SkipMenu)
@@ -267,6 +268,11 @@ void Game::run(bool SkipMenu)
   }
 
   benchmarkTimer.start();
+  m_GameTimer.registerCallbackFunction(Signal::slot(this, &Game::updateZones));
+  m_GameTimer.setTimer(1000);
+  m_GameTimer.loopTimer(true);
+  m_GameTimer.start();
+
   Engine &engine = Engine::instance();
 
   LOG(LOG_DEBUG) << "Map initialized in " << benchmarkTimer.getElapsedTime() << "ms";
@@ -309,6 +315,9 @@ void Game::run(bool SkipMenu)
 #endif
     SDL_RenderClear(WindowManager::instance().getRenderer());
 
+
+
+    
     evManager.checkEvents(event, engine);
 
     // render the tileMap
@@ -357,6 +366,12 @@ void Game::shutdown()
   TTF_Quit();
 
   SDL_Quit();
+}
+
+void Game::updateZones()
+{
+  LOG(LOG_INFO) << "GameTick passed";
+
 }
 
 template <typename MQType, typename Visitor> void Game::LoopMain(GameContext &context, Visitor visitor)
