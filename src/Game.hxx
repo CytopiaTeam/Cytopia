@@ -67,27 +67,15 @@ private:
   /* Services */
   Randomizer m_Randomizer;
   ResourceManager m_ResourceManager;
-  UILoopMQ m_UILoopMQ;
   GameLoopMQ m_GameLoopMQ;
 #ifdef USE_AUDIO
   AudioMixer m_AudioMixer;
 #endif
 
   /* Threads */
-  Thread m_UILoop;
   Thread m_EventLoop;
 
   template <typename MQType, typename Visitor> static void LoopMain(GameContext &context, Visitor visitor);
-
-  struct UIVisitor
-  {
-
-    /**
-     * @brief handles invalid UI events
-     * @tparam ArgumentType the invalid event
-     */
-    template <typename ArgumentType> void operator()(ArgumentType &&event);
-  };
 
   struct GameVisitor : public GameService
   {

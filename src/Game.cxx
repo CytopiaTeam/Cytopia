@@ -27,16 +27,14 @@
 #endif
 
 template void Game::LoopMain<GameLoopMQ, Game::GameVisitor>(Game::GameContext &, Game::GameVisitor);
-template void Game::LoopMain<UILoopMQ, Game::UIVisitor>(Game::GameContext &, Game::UIVisitor);
 
 Game::Game()
-    : m_GameContext(&m_UILoopMQ, &m_GameLoopMQ,
+    : m_GameContext(&m_GameLoopMQ,
 #ifdef USE_AUDIO
                     &m_AudioMixer,
 #endif // USE_AUDIO
                     &m_Randomizer, &m_ResourceManager),
       m_Randomizer{m_GameContext}, m_ResourceManager{m_GameContext},
-      m_UILoop(&LoopMain<UILoopMQ, UIVisitor>, std::ref(m_GameContext), UIVisitor{}),
       m_EventLoop(&LoopMain<GameLoopMQ, GameVisitor>, std::ref(m_GameContext), GameVisitor{m_GameContext})
 #ifdef USE_AUDIO
       , m_AudioMixer{m_GameContext}
@@ -371,9 +369,7 @@ void Game::run(bool SkipMenu)
 void Game::shutdown()
 {
   LOG(LOG_DEBUG) << "In shutdown";
-  m_UILoopMQ.push(TerminateEvent{});
   m_GameLoopMQ.push(TerminateEvent{});
-  m_UILoop.join();
   m_EventLoop.join();
   TTF_Quit();
 

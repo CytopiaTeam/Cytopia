@@ -70,13 +70,6 @@ private:
 #include "MessageQueue.inl.hxx"
 
 /**
- * @brief UI Actor's message queue
- */
-class UILoopMQ : public MessageQueue<typename VariantType<UIEvents>::type>
-{
-};
-
-/**
  * @brief Game loop Actor's message queue
  */
 class GameLoopMQ : public MessageQueue<typename VariantType<GameEvents>::type>
