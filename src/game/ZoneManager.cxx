@@ -2,13 +2,16 @@
 #include "Engine.hxx"
 #include "LOG.hxx"
 
+#include <algorithm>
+#include <random>
+
 // Engine::instance().map-
 
 void ZoneManager::updateZones()
 {
   LOG(LOG_INFO) << "Updating zones" << m_MapNodes.size();
   m_MapNodes.clear();
-  for(auto &node : Engine::instance().map->mapNodes)
+  for (auto &node : Engine::instance().map->mapNodes)
   {
     if (node.getTileData(ZONE)) // if there's a zone this layer is not null
     {
@@ -20,15 +23,27 @@ void ZoneManager::updateZones()
 
 void ZoneManager::spawnBuildings()
 {
-  for(auto node : m_MapNodes)
+  int amountOfBuildingsToSpawn = 4;
+  int buildingsSpawned = 0;
+
+  // shuffle mapNodes
+  auto rd = std::random_device{};
+  auto rng = std::default_random_engine{rd()};
+  std::shuffle(std::begin(m_MapNodes), std::end(m_MapNodes), rng);
+
+  for (auto node : m_MapNodes)
   {
-  LOG(LOG_INFO) << "Spawning buildings in zones";
+    if (buildingsSpawned >= amountOfBuildingsToSpawn)
+    {
+      break;
+    }
+    LOG(LOG_INFO) << "Spawning buildings in zones";
 
     std::string tileToPlace = "res_1x1_scandinavian_house2_Y8";
-     std::vector targetObjectNodes = Engine::instance().map->getObjectCoords(node->getCoordinates(), tileToPlace);
-     Engine::instance().setTileIDOfNode(targetObjectNodes.begin(), targetObjectNodes.end(), tileToPlace, false);
+    std::vector targetObjectNodes = Engine::instance().map->getObjectCoords(node->getCoordinates(), tileToPlace);
+    Engine::instance().setTileIDOfNode(targetObjectNodes.begin(), targetObjectNodes.end(), tileToPlace, false);
 
     //  node->setTileID("res_1x1_scandinavian_house2_Y8", node->getCoordinates());
-     
+    buildingsSpawned++;
   }
 }
