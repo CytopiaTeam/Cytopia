@@ -373,7 +373,6 @@ void Game::updateZones()
   // LOG(LOG_INFO) << "GameTick passed";
   m_zoneManager.updateZones();
   m_zoneManager.spawnBuildings();
-
 }
 
 template <typename MQType, typename Visitor> void Game::LoopMain(GameContext &context, Visitor visitor)

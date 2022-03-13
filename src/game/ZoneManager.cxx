@@ -9,13 +9,12 @@
 
 void ZoneManager::updateZones()
 {
-  LOG(LOG_INFO) << "Updating zones" << m_MapNodes.size();
+  LOG(LOG_INFO) << "Number of Items in zone vector: " << m_MapNodes.size();
   m_MapNodes.clear();
   for (auto &node : Engine::instance().map->mapNodes)
   {
     if (node.getTileData(ZONE)) // if there's a zone this layer is not null
     {
-      LOG(LOG_INFO) << "Adding zones for " << node.getTileID(ZONE);
       m_MapNodes.emplace_back(&node);
     }
   }
@@ -23,7 +22,7 @@ void ZoneManager::updateZones()
 
 void ZoneManager::spawnBuildings()
 {
-  int amountOfBuildingsToSpawn = 4;
+  int amountOfBuildingsToSpawn = 5;
   int buildingsSpawned = 0;
 
   // shuffle mapNodes
@@ -37,9 +36,12 @@ void ZoneManager::spawnBuildings()
     {
       break;
     }
-    LOG(LOG_INFO) << "Spawning buildings in zones";
 
-    std::string tileToPlace = "res_1x1_scandinavian_house2_Y8";
+    // get all tiles from Category
+    std::vector<std::string> myVec = TileManager::instance().getTileIDsOfCategory("abc");
+    int randomIndex = rand() % myVec.size();
+
+    std::string tileToPlace = myVec[randomIndex];
     std::vector targetObjectNodes = Engine::instance().map->getObjectCoords(node->getCoordinates(), tileToPlace);
     Engine::instance().setTileIDOfNode(targetObjectNodes.begin(), targetObjectNodes.end(), tileToPlace, false);
 

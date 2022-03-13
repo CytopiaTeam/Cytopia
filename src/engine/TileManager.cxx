@@ -5,6 +5,7 @@
 #include "basics/Settings.hxx"
 #include "ResourcesManager.hxx"
 #include "Filesystem.hxx"
+#include "tileData.hxx"
 
 #include <bitset>
 
@@ -22,6 +23,19 @@ TileData *TileManager::getTileData(const std::string &id) noexcept
   if (m_tileData.count(id))
     return &m_tileData[id];
   return nullptr;
+}
+
+std::vector<std::string> TileManager::getTileIDsOfCategory(std::string category)
+{
+  std::vector<std::string> results;
+  for (auto it : m_tileData)
+  {
+    if (std::find(it.second.zones.begin(), it.second.zones.end(), +Zones::RESIDENTIAL) != it.second.zones.end())
+    {
+      results.emplace_back(it.first);
+    }
+  }
+  return results;
 }
 
 Layer TileManager::getTileLayer(const std::string &tileID) const
