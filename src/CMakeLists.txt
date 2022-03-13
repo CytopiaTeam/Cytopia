@@ -56,6 +56,7 @@ set(SOURCE_FILES
         engine/TileManager.{hxx,cxx}
         engine/UIManager.{hxx,cxx}
         engine/WindowManager.{hxx,cxx}
+        game/Zones.{hxx,cxx}
         )
 
 if (ANDROID)
