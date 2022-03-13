@@ -18,6 +18,7 @@
 #include "LOG.hxx"
 #include "Exception.hxx"
 #include "Timer.hxx"
+#include "../game/ZoneManager.hxx"
 
 #include <thread>
 
@@ -79,8 +80,8 @@ private:
   Thread m_UILoop;
   Thread m_EventLoop;
 
-  Timer m_GameTimer; // Simple timer that "ticks" the game every 5 secondws
-
+  Timer m_GameTimer; // Simple timer that "ticks" the game every 5 seconds
+  ZoneManager m_zoneManager;
 
   template <typename MQType, typename Visitor> static void LoopMain(GameContext &context, Visitor visitor);
 

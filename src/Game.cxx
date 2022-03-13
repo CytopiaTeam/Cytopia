@@ -370,7 +370,9 @@ void Game::shutdown()
 
 void Game::updateZones()
 {
-  LOG(LOG_INFO) << "GameTick passed";
+  // LOG(LOG_INFO) << "GameTick passed";
+  m_zoneManager.updateZones();
+  m_zoneManager.spawnBuildings();
 
 }
 
