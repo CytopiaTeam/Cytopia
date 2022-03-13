@@ -38,7 +38,7 @@ void ZoneManager::spawnBuildings()
     }
 
     // get all tiles from Category
-    std::vector<std::string> myVec = TileManager::instance().getTileIDsOfCategory("abc");
+    std::vector<std::string> myVec = TileManager::instance().getTileIDsOfCategory(Zones::RESIDENTIAL);
     int randomIndex = rand() % myVec.size();
 
     std::string tileToPlace = myVec[randomIndex];

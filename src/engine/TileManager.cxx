@@ -25,12 +25,12 @@ TileData *TileManager::getTileData(const std::string &id) noexcept
   return nullptr;
 }
 
-std::vector<std::string> TileManager::getTileIDsOfCategory(std::string category)
+std::vector<std::string> TileManager::getTileIDsOfCategory(Zones zone)
 {
   std::vector<std::string> results;
   for (auto it : m_tileData)
   {
-    if (std::find(it.second.zones.begin(), it.second.zones.end(), +Zones::RESIDENTIAL) != it.second.zones.end())
+    if (std::find(it.second.zones.begin(), it.second.zones.end(), +zone) != it.second.zones.end())
     {
       results.emplace_back(it.first);
     }
