@@ -17,6 +17,7 @@
 #include "services/ResourceManager.hxx"
 #include "LOG.hxx"
 #include "Exception.hxx"
+#include "Timer.hxx"
 
 #include <thread>
 
@@ -78,6 +79,9 @@ private:
   Thread m_UILoop;
   Thread m_EventLoop;
 
+  Timer m_GameTimer; // Simple timer that "ticks" the game every 5 secondws
+
+
   template <typename MQType, typename Visitor> static void LoopMain(GameContext &context, Visitor visitor);
 
   struct UIVisitor
@@ -110,6 +114,8 @@ private:
   };
 
   void quit();
+
+  void updateZones();
 };
 
 #include "Game.inl.hxx"
