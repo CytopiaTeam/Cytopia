@@ -271,6 +271,7 @@ void Game::run(bool SkipMenu)
 
   GameClock &gameClock = GameClock::instance();
 
+  //TODO: Use a gametime task here once the values are adjusted
   gameClock.addRealTimeClockTask(
   [this]()
   {
