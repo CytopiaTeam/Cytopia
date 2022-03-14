@@ -7,6 +7,8 @@ set(SOURCE_FILES
         util/Filesystem.{hxx,cxx}
         util/IEquatable.hxx
         util/IEquatable.inl.hxx
+        util/PriorityQueue.hxx
+        util/PriorityQueue.inl.hxx
         util/Singleton.hxx
         util/Meta.hxx
         util/Exception.{hxx,cxx}
@@ -26,7 +28,6 @@ set(SOURCE_FILES
         engine/basics/Settings.{hxx,cxx}
         engine/basics/GameStates.{hxx,cxx}
         engine/basics/signal.hxx
-        engine/basics/Timer.{hxx,cxx}
         engine/basics/utils.{hxx,cxx}
         engine/common/Constants.hxx
         engine/common/enums.hxx

@@ -2,8 +2,6 @@
 
 Tooltip::Tooltip()
 {
-  m_tooltipTimer.registerCallbackFunction(Signal::slot(this, &Tooltip::showTooltip));
-  m_tooltipTimer.setTimer(700);
   setVisibility(false);
 }
 
@@ -18,9 +16,18 @@ void Tooltip::draw()
 
 void Tooltip::startTimer()
 {
-  setVisibility(false);
-  m_tooltipTimer.start();
-  m_active = true;
+  if (!m_active)
+  {
+    setVisibility(false);
+    clockHndl = GameClock::instance().addRealTimeClockTask(
+        [this]
+        {
+          showTooltip();
+          return true;
+        },
+        700ms, 0s);
+    m_active = true;
+  }
 }
 
 void Tooltip::showTooltip() { setVisibility(true); }
@@ -30,7 +37,7 @@ void Tooltip::reset()
   if (m_active)
   {
     setVisibility(false);
-    m_tooltipTimer.stop();
+    GameClock::instance().removeClockTask(clockHndl);
     m_active = false;
   }
 }
