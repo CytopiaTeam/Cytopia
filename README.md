@@ -43,7 +43,7 @@ Cytopia is a free, open source retro pixel-art city building game with a big foc
 - Android / iOS
 - Scripting language for mods (like LUA)
 
-For code documentation see the projects [Doxygen Documentation](https://CytopiaTeam.github.io/Cytopia/).
+For code documentation see the projects [Doxygen Documentation](https://cytopia-docs.netlify.app/).
 
 If you have questions or if you want to join the project, visit the [Projects Discord Server](https://discord.gg/qwa2H3G)
 If discord is not for you, visit our IRC channel on freenode at #Cytopia
