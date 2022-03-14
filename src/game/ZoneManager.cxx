@@ -7,7 +7,6 @@
 
 void ZoneManager::updateZones()
 {
-  LOG(LOG_INFO) << "Number of Items in zone vector: " << m_MapNodes.size();
   m_MapNodes.clear();
   for (const MapNode &node : Engine::instance().map->getMapNodes())
   {
@@ -39,7 +38,7 @@ void ZoneManager::spawnBuildings()
 
     if (!node->getTileData(Layer::ZONE))
     {
-      LOG(LOG_ERROR) << "Something is wrong with this tile - Report this to the Cytopia Team!";
+      LOG(LOG_ERROR) << "Something is wrong with a zone tile - Report this to the Cytopia Team!";
       continue;
     }
     // get the right zone enum of the zone zile
