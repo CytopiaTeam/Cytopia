@@ -268,12 +268,16 @@ void Game::run(bool SkipMenu)
   {
     Engine::instance().newGame();
   }
-  Timer benchmarkTimer;
-  benchmarkTimer.start();
-  m_GameTimer.registerCallbackFunction(Signal::slot(this, &Game::updateZones));
-  m_GameTimer.setTimer(1000);
-  m_GameTimer.loopTimer(true);
-  m_GameTimer.start();
+
+  GameClock &gameClock = GameClock::instance();
+
+  gameClock.addRealTimeClockTask(
+  [this]()
+  {
+    Game::updateZones();
+    return false;
+  },
+  1s, 1s);
 
   Engine &engine = Engine::instance();
   Camera::instance().centerScreenOnMapCenter();
@@ -284,7 +288,6 @@ void Game::run(bool SkipMenu)
   UIManager &uiManager = UIManager::instance();
   uiManager.init();
 
-  GameClock &gameClock = GameClock::instance();
 
 #ifdef USE_ANGELSCRIPT
   ScriptEngine &scriptEngine = ScriptEngine::instance();
