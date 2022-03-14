@@ -1,10 +1,3 @@
-
-template <typename ArgumentType> void Game::UIVisitor::operator()(ArgumentType &&event)
-{
-  static_assert(std::is_void_v<std::void_t<ArgumentType>>,
-                "UIVisitor does not know how to handle this event. You must specialize the functor");
-}
-
 #ifdef USE_AUDIO
 template <typename AudioEventType>
 EnableIf<ContainsType<AudioEvents, AudioEventType>, void> Game::GameVisitor::operator()(AudioEventType &&event)

@@ -27,20 +27,18 @@
 #endif
 
 template void Game::LoopMain<GameLoopMQ, Game::GameVisitor>(Game::GameContext &, Game::GameVisitor);
-template void Game::LoopMain<UILoopMQ, Game::UIVisitor>(Game::GameContext &, Game::UIVisitor);
 
 Game::Game()
-    : m_GameContext(&m_UILoopMQ, &m_GameLoopMQ,
+    : m_GameContext(&m_GameLoopMQ,
 #ifdef USE_AUDIO
                     &m_AudioMixer,
 #endif // USE_AUDIO
-                    &m_Randomizer, &m_GameClock, &m_ResourceManager),
-      m_GameClock{m_GameContext}, m_Randomizer{m_GameContext}, m_ResourceManager{m_GameContext},
-#ifdef USE_AUDIO
-      m_AudioMixer{m_GameContext},
-#endif
-      m_UILoop(&LoopMain<UILoopMQ, UIVisitor>, std::ref(m_GameContext), UIVisitor{}),
+                    &m_Randomizer, &m_ResourceManager),
+      m_Randomizer{m_GameContext}, m_ResourceManager{m_GameContext},
       m_EventLoop(&LoopMain<GameLoopMQ, GameVisitor>, std::ref(m_GameContext), GameVisitor{m_GameContext})
+#ifdef USE_AUDIO
+      , m_AudioMixer{m_GameContext}
+#endif
 {
   LOG(LOG_DEBUG) << "Created Game Object";
 }
@@ -258,7 +256,6 @@ bool Game::mainMenu()
 
 void Game::run(bool SkipMenu)
 {
-  Timer benchmarkTimer;
   LOG(LOG_INFO) << VERSION;
 
   if (SkipMenu)
@@ -266,10 +263,7 @@ void Game::run(bool SkipMenu)
     Engine::instance().newGame();
   }
 
-  benchmarkTimer.start();
   Engine &engine = Engine::instance();
-
-  LOG(LOG_DEBUG) << "Map initialized in " << benchmarkTimer.getElapsedTime() << "ms";
   Camera::instance().centerScreenOnMapCenter();
 
   SDL_Event event;
@@ -277,6 +271,8 @@ void Game::run(bool SkipMenu)
 
   UIManager &uiManager = UIManager::instance();
   uiManager.init();
+
+  GameClock &gameClock = GameClock::instance();
 
 #ifdef USE_ANGELSCRIPT
   ScriptEngine &scriptEngine = ScriptEngine::instance();
@@ -286,13 +282,37 @@ void Game::run(bool SkipMenu)
 #ifdef USE_AUDIO
   if (!Settings::instance().audio3DStatus)
   {
-    m_GameClock.createRepeatedTask(8min, [this]() { m_AudioMixer.play(AudioTrigger::MainTheme); });
-    m_GameClock.createRepeatedTask(3min, [this]() { m_AudioMixer.play(AudioTrigger::NatureSounds); });
+    gameClock.addRealTimeClockTask(
+      [this]()
+      {
+        m_AudioMixer.play(AudioTrigger::MainTheme);
+        return false;
+      },
+      0s, 8min);
+    gameClock.addRealTimeClockTask(
+      [this]()
+      {
+        m_AudioMixer.play(AudioTrigger::NatureSounds);
+        return false;
+      },
+      0s, 3min);
   }
   else
   {
-    m_GameClock.createRepeatedTask(8min, [this]() { m_AudioMixer.play(AudioTrigger::MainTheme, Coordinate3D{0, 0.5, 0.1}); });
-    m_GameClock.createRepeatedTask(3min, [this]() { m_AudioMixer.play(AudioTrigger::NatureSounds, Coordinate3D{0, 0, -2}); });
+    gameClock.addRealTimeClockTask(
+      [this]()
+      {
+        m_AudioMixer.play(AudioTrigger::MainTheme, Coordinate3D{0, 0.5, 0.1});
+        return false;
+      },
+      0s, 8min);
+    gameClock.addRealTimeClockTask(
+      [this]()
+      {
+        m_AudioMixer.play(AudioTrigger::NatureSounds, Coordinate3D{0, 0, -2});
+        return false;
+      },
+      0s, 3min);
   }
 #endif // USE_AUDIO
 
@@ -310,6 +330,7 @@ void Game::run(bool SkipMenu)
     SDL_RenderClear(WindowManager::instance().getRenderer());
 
     evManager.checkEvents(event, engine);
+    gameClock.tick();
 
     // render the tileMap
     if (engine.map != nullptr)
@@ -339,8 +360,6 @@ void Game::run(bool SkipMenu)
       fpsFrames = 0;
     }
 
-    SDL_Delay(1);
-
 #ifdef MICROPROFILE_ENABLED
     MicroProfileFlip(nullptr);
 #endif
@@ -350,9 +369,7 @@ void Game::run(bool SkipMenu)
 void Game::shutdown()
 {
   LOG(LOG_DEBUG) << "In shutdown";
-  m_UILoopMQ.push(TerminateEvent{});
   m_GameLoopMQ.push(TerminateEvent{});
-  m_UILoop.join();
   m_EventLoop.join();
   TTF_Quit();
 

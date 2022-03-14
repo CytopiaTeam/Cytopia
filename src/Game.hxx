@@ -55,7 +55,7 @@ public:
 
   /** @brief initializes and displays the main menu
     * initializes and displays the main menu
-    * @return true in case game has been quit, othewise false.
+    * @return true in case game has been quit, otherwise false.
     */
   virtual bool mainMenu();
 
@@ -65,30 +65,17 @@ private:
   GameContext m_GameContext;
 
   /* Services */
-  GameClock m_GameClock;
   Randomizer m_Randomizer;
   ResourceManager m_ResourceManager;
+  GameLoopMQ m_GameLoopMQ;
 #ifdef USE_AUDIO
   AudioMixer m_AudioMixer;
 #endif
-  UILoopMQ m_UILoopMQ;
-  GameLoopMQ m_GameLoopMQ;
 
   /* Threads */
-  Thread m_UILoop;
   Thread m_EventLoop;
 
   template <typename MQType, typename Visitor> static void LoopMain(GameContext &context, Visitor visitor);
-
-  struct UIVisitor
-  {
-
-    /**
-     * @brief handles invalid UI events
-     * @tparam ArgumentType the invalid event
-     */
-    template <typename ArgumentType> void operator()(ArgumentType &&event);
-  };
 
   struct GameVisitor : public GameService
   {
