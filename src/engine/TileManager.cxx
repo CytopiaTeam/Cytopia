@@ -32,7 +32,7 @@ std::vector<std::string> TileManager::getTileIDsOfCategory(Zones zone)
   {
     if (std::find(it.second.zones.begin(), it.second.zones.end(), +zone) != it.second.zones.end())
     {
-      results.emplace_back(it.first);
+      results.push_back(it.first);
     }
   }
   return results;

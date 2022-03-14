@@ -1,7 +1,7 @@
 #ifndef ZONEMANAGER_HXX_
 #define ZONEMANAGER_HXX_
 
-#include "GameObjects/MapNode.hxx"
+#include "../engine/GameObjects/MapNode.hxx"
 
 class ZoneManager
 {

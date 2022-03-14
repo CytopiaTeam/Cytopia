@@ -40820,7 +40820,10 @@
         },
         "title": "Commercial Zone (dense)",
         "upkeep cost": 2,
-        "water": 0
+        "water": 0,
+        "zones": [
+            "COMMERCIAL"
+        ]
     },
     {
         "RequiredTiles": {
@@ -40867,7 +40870,10 @@
         },
         "title": "Commercial Zone (light)",
         "upkeep cost": 2,
-        "water": 0
+        "water": 0,
+        "zones": [
+            "COMMERCIAL"
+        ]
     },
     {
         "RequiredTiles": {
@@ -40914,7 +40920,10 @@
         },
         "title": "Commercial Zone (medium)",
         "upkeep cost": 2,
-        "water": 0
+        "water": 0,
+        "zones": [
+            "COMMERCIAL"
+        ]
     },
     {
         "RequiredTiles": {
@@ -40961,7 +40970,10 @@
         },
         "title": "Farm Zone",
         "upkeep cost": 2,
-        "water": 0
+        "water": 0,
+        "zones": [
+            "AGRICULTURAL"
+        ]
     },
     {
         "RequiredTiles": {
@@ -41008,7 +41020,10 @@
         },
         "title": "Industrial Zone (dense)",
         "upkeep cost": 2,
-        "water": 0
+        "water": 0,
+        "zones": [
+            "INDUSTRIAL"
+        ]
     },
     {
         "RequiredTiles": {
@@ -41055,7 +41070,10 @@
         },
         "title": "Industrial Zone (light)",
         "upkeep cost": 2,
-        "water": 0
+        "water": 0,
+        "zones": [
+            "INDUSTRIAL"
+        ]
     },
     {
         "RequiredTiles": {
@@ -41102,7 +41120,10 @@
         },
         "title": "Industrial Zone (medium)",
         "upkeep cost": 2,
-        "water": 0
+        "water": 0,
+        "zones": [
+            "INDUSTRIAL"
+        ]
     },
     {
         "RequiredTiles": {
@@ -41149,7 +41170,10 @@
         },
         "title": "Residential Zone (dense)",
         "upkeep cost": 2,
-        "water": 0
+        "water": 0,
+        "zones": [
+            "RESIDENTIAL"
+        ]
     },
     {
         "RequiredTiles": {
@@ -41196,7 +41220,10 @@
         },
         "title": "Residential Zone (light)",
         "upkeep cost": 2,
-        "water": 0
+        "water": 0,
+        "zones": [
+            "RESIDENTIAL"
+        ]
     },
     {
         "RequiredTiles": {
@@ -41243,6 +41270,9 @@
         },
         "title": "Residential Zone (medium)",
         "upkeep cost": 2,
-        "water": 0
+        "water": 0,
+        "zones": [
+            "RESIDENTIAL"
+        ]
     }
 ]

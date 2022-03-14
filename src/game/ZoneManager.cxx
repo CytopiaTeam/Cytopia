@@ -30,22 +30,51 @@ void ZoneManager::spawnBuildings()
   auto rng = std::default_random_engine{rd()};
   std::shuffle(std::begin(m_MapNodes), std::end(m_MapNodes), rng);
 
+  // pick every single zone node we have
   for (auto node : m_MapNodes)
   {
+    std::vector<const std::string> myVec;
     if (buildingsSpawned >= amountOfBuildingsToSpawn)
     {
       break;
     }
 
-    // get all tiles from Category
-    std::vector<std::string> myVec = TileManager::instance().getTileIDsOfCategory(Zones::RESIDENTIAL);
+    if (!node->getTileData(Layer::ZONE))
+    {
+      LOG(LOG_ERROR) << "Something is wrong with this tile - Report this to the Cytopia Team!";
+      continue;
+    }
+    // get the right zone enum of the zone zile
+    for (auto zone : node->getTileData(Layer::ZONE)->zones)
+    {
+      if (TileManager::instance().getTileIDsOfCategory(zone).empty())
+      {
+        LOG(LOG_ERROR) << "No buildings available for zone: " << zone;
+        continue;
+      }
+      else
+      {
+        // add all the tileIDs that are available for this zone to our vector
+        for (auto ID : TileManager::instance().getTileIDsOfCategory(zone))
+        {
+          myVec.emplace_back(ID);
+        }
+      }
+    }
+
+    if (myVec.empty())
+    {
+      LOG(LOG_ERROR) << "No buildings available! Aborting!";
+      break;
+    }
+    // pick a random tileID from the vector
+    // TODO: Check how many neighboring tiles are available and pick a building with correct tilesize
     int randomIndex = rand() % myVec.size();
 
     std::string tileToPlace = myVec[randomIndex];
     std::vector targetObjectNodes = Engine::instance().map->getObjectCoords(node->getCoordinates(), tileToPlace);
     Engine::instance().setTileIDOfNode(targetObjectNodes.begin(), targetObjectNodes.end(), tileToPlace, false);
 
-    //  node->setTileID("res_1x1_scandinavian_house2_Y8", node->getCoordinates());
     buildingsSpawned++;
   }
 }
