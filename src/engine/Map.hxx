@@ -203,9 +203,10 @@ public:
   * @param isoCoordinates: The node to retrieve.
   */
   const MapNode *getMapNode(Point isoCoords) const { return &mapNodes[nodeIdx(isoCoords.x, isoCoords.y)]; };
-  
-  // TODO: add function to access mapNodes...
-  std::vector<MapNode> mapNodes;
+
+  /** \brief Get all mapnodes as a vector
+   */
+  const std::vector<MapNode> &getMapNodes() { return mapNodes; };
 
 private:
   /**\brief Update all mapNodes
@@ -279,6 +280,7 @@ private:
   */
   void calculateVisibleMap(void);
 
+  std::vector<MapNode> mapNodes;
   std::vector<MapNode *> mapNodesInDrawingOrder;
   Sprite **pMapNodesVisible;
   int m_visibleNodesCount = 0;

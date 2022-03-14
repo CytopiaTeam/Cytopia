@@ -5,13 +5,11 @@
 #include <algorithm>
 #include <random>
 
-// Engine::instance().map-
-
 void ZoneManager::updateZones()
 {
   LOG(LOG_INFO) << "Number of Items in zone vector: " << m_MapNodes.size();
   m_MapNodes.clear();
-  for (auto &node : Engine::instance().map->mapNodes)
+  for (const MapNode &node : Engine::instance().map->getMapNodes())
   {
     if (node.getTileData(ZONE)) // if there's a zone this layer is not null
     {

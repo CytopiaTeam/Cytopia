@@ -13,8 +13,7 @@ public:
   void spawnBuildings();
 
 private:
-  std::vector<MapNode *> m_MapNodes;
+  std::vector<const MapNode *> m_MapNodes;
 };
-
 
 #endif
