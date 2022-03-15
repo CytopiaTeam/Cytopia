@@ -17,7 +17,7 @@
 #include "services/ResourceManager.hxx"
 #include "LOG.hxx"
 #include "Exception.hxx"
-#include "../game/ZoneManager.hxx"
+#include "../game/GamePlay.hxx"
 
 #include <thread>
 
@@ -75,7 +75,7 @@ private:
 
   /* Threads */
   Thread m_EventLoop;
-  ZoneManager m_zoneManager;
+  GamePlay m_GamePlay ;
 
   template <typename MQType, typename Visitor> static void LoopMain(GameContext &context, Visitor visitor);
 

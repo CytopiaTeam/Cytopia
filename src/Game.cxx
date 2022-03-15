@@ -269,16 +269,7 @@ void Game::run(bool SkipMenu)
     Engine::instance().newGame();
   }
 
-  GameClock &gameClock = GameClock::instance();
-
-  //TODO: Use a gametime task here once the values are adjusted
-  gameClock.addRealTimeClockTask(
-  [this]()
-  {
-    m_zoneManager.update();
-    return false;
-  },
-  1s, 1s);
+  m_GamePlay.tick();
 
   Engine &engine = Engine::instance();
   Camera::instance().centerScreenOnMapCenter();
@@ -289,6 +280,7 @@ void Game::run(bool SkipMenu)
   UIManager &uiManager = UIManager::instance();
   uiManager.init();
 
+  GameClock &gameClock = GameClock::instance();
 
 #ifdef USE_ANGELSCRIPT
   ScriptEngine &scriptEngine = ScriptEngine::instance();
