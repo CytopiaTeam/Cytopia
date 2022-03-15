@@ -2,8 +2,8 @@
   "Audio": {
     "Audio3DStatus": false,
     "AudioChannels": 2,
-    "MusicVolume": 0,
-    "PlayMusic": false,
+    "MusicVolume": 50,
+    "PlayMusic": true,
     "PlaySoundEffects": true,
     "SoundEffectsVolume": 100
   },
