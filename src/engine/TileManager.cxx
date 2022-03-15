@@ -28,7 +28,7 @@ TileData *TileManager::getTileData(const std::string &id) noexcept
 std::vector<std::string> TileManager::getTileIDsOfCategory(Zones zone)
 {
   std::vector<std::string> results;
-  for (auto it : m_tileData)
+  for (auto& tileData : m_tileData)
   {
     if (std::find(it.second.zones.begin(), it.second.zones.end(), +zone) != it.second.zones.end())
     {
