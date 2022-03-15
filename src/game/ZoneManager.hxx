@@ -8,7 +8,9 @@ class ZoneManager
 public:
   ZoneManager() = default;
   ~ZoneManager() = default;
+  void update();
 
+private:
   void updateZones();
   void spawnBuildings();
 

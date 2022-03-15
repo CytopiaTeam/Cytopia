@@ -275,7 +275,7 @@ void Game::run(bool SkipMenu)
   gameClock.addRealTimeClockTask(
   [this]()
   {
-    Game::updateZones();
+    m_zoneManager.update();
     return false;
   },
   1s, 1s);
@@ -393,13 +393,6 @@ void Game::shutdown()
   TTF_Quit();
 
   SDL_Quit();
-}
-
-void Game::updateZones()
-{
-  // LOG(LOG_INFO) << "GameTick passed";
-  m_zoneManager.updateZones();
-  m_zoneManager.spawnBuildings();
 }
 
 template <typename MQType, typename Visitor> void Game::LoopMain(GameContext &context, Visitor visitor)

@@ -99,8 +99,6 @@ private:
   };
 
   void quit();
-
-  void updateZones();
 };
 
 #include "Game.inl.hxx"

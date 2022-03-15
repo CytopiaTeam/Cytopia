@@ -5,6 +5,12 @@
 #include <algorithm>
 #include <random>
 
+void ZoneManager::update()
+{
+  updateZones();
+  spawnBuildings();
+}
+
 void ZoneManager::updateZones()
 {
   m_MapNodes.clear();
