@@ -1,6 +1,7 @@
 #include "ZoneManager.hxx"
 #include "Engine.hxx"
 #include "LOG.hxx"
+#include "../util/RandomEngine.hxx"
 
 #include <algorithm>
 #include <random>
@@ -29,9 +30,7 @@ void ZoneManager::spawnBuildings()
   int buildingsSpawned = 0;
 
   // shuffle mapNodes
-  auto rd = std::random_device{};
-  auto rng = std::default_random_engine{rd()};
-  std::shuffle(std::begin(m_MapNodes), std::end(m_MapNodes), rng);
+  std::shuffle(std::begin(m_MapNodes), std::end(m_MapNodes), RandomEngine::instance().getRandomEngine());
 
   // pick every single zone node we have
   for (auto& node : m_MapNodes)
