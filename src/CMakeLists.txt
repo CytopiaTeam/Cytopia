@@ -1,7 +1,6 @@
 set(SOURCE_FILES
         main.cxx
         Game.{hxx,cxx}
-        Game.inl.hxx
         util/LOG.{hxx,cxx}
         util/LOG.inl.hxx
         util/Filesystem.{hxx,cxx}
@@ -12,7 +11,6 @@ set(SOURCE_FILES
         util/Singleton.hxx
         util/Meta.hxx
         util/Exception.{hxx,cxx}
-        events/UIEvents.hxx
         GameService.{hxx,cxx}
         GameService.inl.hxx
         services/Randomizer.{hxx,cxx}
@@ -91,7 +89,6 @@ if (ENABLE_AUDIO)
     list(APPEND SOURCE_FILES
             engine/audio/Soundtrack.{hxx,cxx}
             services/AudioMixer.{hxx,cxx}
-            events/AudioEvents.hxx
             )
 endif ()
 

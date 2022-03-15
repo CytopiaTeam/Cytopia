@@ -1,3 +1,4 @@
+#include <cassert>
 #include "GameClock.hxx"
 
 template <typename Task, typename Cmp, typename Now> void GameClock::tickTask(PriorityQueue<Task, Cmp> &queue, const Now now)

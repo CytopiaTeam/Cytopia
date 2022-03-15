@@ -65,42 +65,15 @@ private:
   using GameContext = GameService::ServiceTuple;
   GameContext m_GameContext;
 
+  void quit();
+
   /* Services */
   Randomizer m_Randomizer;
   ResourceManager m_ResourceManager;
-  GameLoopMQ m_GameLoopMQ;
 #ifdef USE_AUDIO
   AudioMixer m_AudioMixer;
 #endif
-
-  /* Threads */
-  Thread m_EventLoop;
-  GamePlay m_GamePlay ;
-
-  template <typename MQType, typename Visitor> static void LoopMain(GameContext &context, Visitor visitor);
-
-  struct GameVisitor : public GameService
-  {
-
-#ifdef USE_AUDIO
-    /**
-     * @brief handles valid Audio events
-     * @tparam AudioEventType the Audio event
-     */
-    template <typename AudioEventType>
-    EnableIf<ContainsType<AudioEvents, AudioEventType>, void> operator()(AudioEventType &&event);
-#endif // USE_AUDIO
-
-    /**
-     * @brief handles invalid game events
-     * @tparam ArgumentType the invalid game event
-     */
-    template <typename ArgumentType> void operator()(const ArgumentType &&event);
-  };
-
-  void quit();
+  GamePlay m_GamePlay;
 };
-
-#include "Game.inl.hxx"
 
 #endif
