@@ -74,9 +74,9 @@ void ZoneManager::spawnBuildings()
     // TODO: Check how many neighboring tiles are available and pick a building with correct tilesize
     int randomIndex = rand() % myVec.size();
 
-    std::string tileToPlace = myVec[randomIndex];
-    std::vector targetObjectNodes = Engine::instance().map->getObjectCoords(node->getCoordinates(), tileToPlace);
-    Engine::instance().setTileIDOfNode(targetObjectNodes.begin(), targetObjectNodes.end(), tileToPlace, false);
+    std::string building = myVec[randomIndex];
+    std::vector targetObjectNodes = Engine::instance().map->getObjectCoords(node->getCoordinates(), building);
+    Engine::instance().setTileIDOfNode(targetObjectNodes.begin(), targetObjectNodes.end(), building, false);
 
     buildingsSpawned++;
   }
