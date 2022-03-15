@@ -26,16 +26,13 @@
 #include "microprofile.h"
 #endif
 
-template void Game::LoopMain<GameLoopMQ, Game::GameVisitor>(Game::GameContext &, Game::GameVisitor);
-
 Game::Game()
-    : m_GameContext(&m_GameLoopMQ,
+    : m_GameContext(
 #ifdef USE_AUDIO
                     &m_AudioMixer,
 #endif // USE_AUDIO
                     &m_Randomizer, &m_ResourceManager),
-      m_Randomizer{m_GameContext}, m_ResourceManager{m_GameContext},
-      m_EventLoop(&LoopMain<GameLoopMQ, GameVisitor>, std::ref(m_GameContext), GameVisitor{m_GameContext})
+      m_Randomizer{m_GameContext}, m_ResourceManager{m_GameContext}
 #ifdef USE_AUDIO
       , m_AudioMixer{m_GameContext}
 #endif
@@ -375,35 +372,7 @@ void Game::run(bool SkipMenu)
 void Game::shutdown()
 {
   LOG(LOG_DEBUG) << "In shutdown";
-  m_GameLoopMQ.push(TerminateEvent{});
-  m_EventLoop.join();
   TTF_Quit();
-
   SDL_Quit();
 }
 
-template <typename MQType, typename Visitor> void Game::LoopMain(GameContext &context, Visitor visitor)
-{
-  try
-  {
-    while (true)
-    {
-      for (auto event : std::get<MQType *>(context)->getEnumerable())
-      {
-        if (std::holds_alternative<TerminateEvent>(event))
-        {
-          return;
-        }
-        else
-        {
-          std::visit(visitor, std::move(event));
-        }
-      }
-    }
-  }
-  catch (std::exception &ex)
-  {
-    LOG(LOG_ERROR) << ex.what();
-    // @todo: Call shutdown() here in a safe way
-  }
-}

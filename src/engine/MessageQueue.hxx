@@ -8,8 +8,6 @@
 #include <functional>
 #include <ciso646>
 
-#include "../Events.hxx"
-
 using Monitor = std::condition_variable;
 using Mutex = std::mutex;
 using MonitorUPtr = std::unique_ptr<Monitor>;
@@ -68,12 +66,5 @@ private:
 };
 
 #include "MessageQueue.inl.hxx"
-
-/**
- * @brief Game loop Actor's message queue
- */
-class GameLoopMQ : public MessageQueue<typename VariantType<GameEvents>::type>
-{
-};
 
 #endif

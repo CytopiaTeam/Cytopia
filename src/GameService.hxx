@@ -1,24 +1,22 @@
 #ifndef GAME_SERVICE_HXX_
 #define GAME_SERVICE_HXX_
 
-#include "Events.hxx"
+#include "betterEnums.hxx"
+#include "util/Meta.hxx"
 
 class GameService
 {
-
 public:
   /**
    * @brief all concrete game services
    */
   using Types = TypeList<
-    class GameLoopMQ *, 
 #ifdef USE_AUDIO
-    class AudioMixer *, 
+      class AudioMixer *,
 #endif // USE_AUDIO
-    class Randomizer *, 
-    class ResourceManager * 
-    /* Add other services here */
-    >;
+      class Randomizer *, class ResourceManager *
+      /* Add other services here */
+      >;
 
   /**
    * @brief a tuple of all services
