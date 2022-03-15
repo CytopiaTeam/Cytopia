@@ -47,7 +47,7 @@ void ZoneManager::spawnBuildings()
       LOG(LOG_ERROR) << "Something is wrong with a zone tile - Report this to the Cytopia Team!";
       continue;
     }
-    // get the right zone enum of the zone zile
+    // get the right zone enum of the zone tile
     for (auto zone : node->getTileData(Layer::ZONE)->zones)
     {
       if (TileManager::instance().getTileIDsOfCategory(zone).empty())
