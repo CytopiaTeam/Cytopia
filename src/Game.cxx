@@ -355,12 +355,8 @@ void Game::run(bool SkipMenu)
       uiManager.drawUI();
     }
 
-    // TODO: Move this into WindowManager class
-    // reset renderer color back to black
-    SDL_SetRenderDrawColor(WindowManager::instance().getRenderer(), 0, 0, 0, SDL_ALPHA_OPAQUE);
-
-    // Render the Frame
-    SDL_RenderPresent(WindowManager::instance().getRenderer());
+    // preset the game screen
+    WindowManager::instance().renderScreen();
 
     fpsFrames++;
 
