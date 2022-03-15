@@ -58,7 +58,7 @@ void ZoneManager::spawnBuildings()
       else
       {
         // add all the tileIDs that are available for this zone to our vector
-        for (auto ID : TileManager::instance().getTileIDsOfCategory(zone))
+        for (const auto &ID : TileManager::instance().getTileIDsOfCategory(zone))
         {
           myVec.emplace_back(ID);
         }
