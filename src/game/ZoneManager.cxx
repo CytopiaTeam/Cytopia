@@ -48,7 +48,7 @@ void ZoneManager::spawnBuildings()
       continue;
     }
     // get the right zone enum of the zone tile
-    for (auto zone : node->getTileData(Layer::ZONE)->zones)
+    for (auto& zone : node->getTileData(Layer::ZONE)->zones)
     {
       if (TileManager::instance().getTileIDsOfCategory(zone).empty())
       {
