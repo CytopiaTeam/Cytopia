@@ -1,19 +1,7 @@
 #include "GamePlay.hxx"
 
-void GamePlay::tick()
+void GamePlay::update()
 {
-  initZoneTimer();
-}
-
-void GamePlay::initZoneTimer()
-{
-
-  //TODO: Use a gametime task here once the values are adjusted
-  m_GameClock.addRealTimeClockTask(
-  [this]()
-  {
-    m_ZoneManager.update();
-    return false;
-  },
-  1s, 1s);
+  // Here call all gameplay class updates
+  m_ZoneManager.update();
 }

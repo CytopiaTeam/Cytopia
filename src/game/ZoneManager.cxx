@@ -2,14 +2,29 @@
 #include "Engine.hxx"
 #include "LOG.hxx"
 #include "../util/RandomEngine.hxx"
+#include "../services/GameClock.hxx"
 
 #include <algorithm>
 #include <random>
 
-void ZoneManager::update()
+ZoneManager::ZoneManager()
 {
+  GameClock::instance().addRealTimeClockTask(
+    [this]()
+    {
+      spawnBuildings();
+      return false;
+    },
+    1s, 1s);
+}
+
+// Nothing here right now
+void ZoneManager::update() {}
+
+void ZoneManager::spawnBuildings() 
+{ 
   updateZones();
-  spawnBuildings();
+  spawn();
 }
 
 void ZoneManager::updateZones()
@@ -24,9 +39,9 @@ void ZoneManager::updateZones()
   }
 }
 
-void ZoneManager::spawnBuildings()
+void ZoneManager::spawn()
 {
-  int amountOfBuildingsToSpawn = 5;
+  constexpr int amountOfBuildingsToSpawn = 5;
   int buildingsSpawned = 0;
 
   // shuffle mapNodes

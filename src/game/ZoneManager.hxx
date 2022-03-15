@@ -6,15 +6,14 @@
 class ZoneManager
 {
 public:
-  ZoneManager() = default;
-  ~ZoneManager() = default;
+  ZoneManager();
   void update();
 
 private:
   void updateZones();
   void spawnBuildings();
+  void spawn();
 
-private:
   std::vector<const MapNode *> m_MapNodes;
 };
 

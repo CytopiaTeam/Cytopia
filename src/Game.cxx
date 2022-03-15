@@ -269,8 +269,6 @@ void Game::run(bool SkipMenu)
     Engine::instance().newGame();
   }
 
-  m_GamePlay.tick();
-
   Engine &engine = Engine::instance();
   Camera::instance().centerScreenOnMapCenter();
 
@@ -341,6 +339,7 @@ void Game::run(bool SkipMenu)
     // TODO: Add Gameplay class and call Gameplay.DoStuff() here instead of zonemanager stuff
     gameClock.tick();
 
+    m_GamePlay.update();
 
     // render the tileMap
     if (engine.map != nullptr)
