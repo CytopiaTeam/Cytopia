@@ -163,3 +163,12 @@ void WindowManager::setScreenResolution(int mode)
     throw UIError(TRACE_INFO "Cannot set screen mode " + std::to_string(mode));
   }
 }
+
+void WindowManager::renderScreen()
+{
+  // reset renderer color back to black
+  SDL_SetRenderDrawColor(WindowManager::instance().getRenderer(), 0, 0, 0, SDL_ALPHA_OPAQUE);
+
+  // Render the Frame
+  SDL_RenderPresent(WindowManager::instance().getRenderer());
+}
