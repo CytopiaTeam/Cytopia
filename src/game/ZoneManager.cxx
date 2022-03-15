@@ -36,7 +36,7 @@ void ZoneManager::spawnBuildings()
   // pick every single zone node we have
   for (auto& node : m_MapNodes)
   {
-    std::vector<const std::string> myVec;
+    std::vector<std::string> myVec;
     if (buildingsSpawned >= amountOfBuildingsToSpawn)
     {
       break;
