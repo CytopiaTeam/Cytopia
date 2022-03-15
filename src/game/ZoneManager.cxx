@@ -34,7 +34,7 @@ void ZoneManager::spawnBuildings()
   std::shuffle(std::begin(m_MapNodes), std::end(m_MapNodes), rng);
 
   // pick every single zone node we have
-  for (auto node : m_MapNodes)
+  for (auto& node : m_MapNodes)
   {
     std::vector<const std::string> myVec;
     if (buildingsSpawned >= amountOfBuildingsToSpawn)
