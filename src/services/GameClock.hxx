@@ -132,11 +132,11 @@ private:
   std::mutex m_lock;
   // Provide way to return unique handle for each task.
   ClockTaskHndl m_unique_handle = 0U;
-  // Current number of the game ticks.
+  /// Current number of the game ticks.
   GameClockTime m_gameTicks = 0U;
-  // Last time of the game tick.
+  /// Last time of the game tick.
   TimePoint m_lastGameTickTime = Clock::now();
-  // The current game tick duration on milliseconds.
+  /// The current game tick duration on milliseconds.
   Clock::duration m_gameTickDuration = std::chrono::milliseconds(DefaultGameTickDuration);
 
   /**

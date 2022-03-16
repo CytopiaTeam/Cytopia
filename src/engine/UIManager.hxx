@@ -193,7 +193,7 @@ private:
   /**
    * @brief Draws the tile (defined by the string, tiledata pair) onto the button
    * @param button, the button to draw this image on
-   * @param The id string, tileData pair of the tile that defines the image to be drawn
+   * @param tile The id string, tileData pair of the tile that defines the image to be drawn
    */
   void setupButtonTileImage(Button *button, const std::pair<std::string, TileData> &tile);
 

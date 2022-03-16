@@ -25,7 +25,7 @@ class ConfigurationError : public CytopiaError
   using CytopiaError::CytopiaError;
 };
 
-/*
+/**
  * @brief An unimplemented function was called
  */
 class UnimplementedError : public CytopiaError

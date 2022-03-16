@@ -42,7 +42,7 @@ public:
     */
   void decreaseHeight(const Point &isoCoordinates);
 
-  /** \Brief Render the elements contained in the Map
+  /** \brief Render the elements contained in the Map
     * call the render() function of the sprite in the all contained MapNode elements
     * @see Sprite#render
     */
@@ -162,13 +162,13 @@ public:
    */
   Point getNodeOrigCornerPoint(const Point &isoCoordinates, Layer layer = Layer::NONE);
 
-  /** \Brief Save Map to file
+  /** \brief Save Map to file
   * Serializes the Map class to json and writes the data to a file.
   * @param fileName The file the map should be written to
   */
   void saveMapToFile(const std::string &fileName);
 
-  /** \Brief Load Map from file
+  /** \brief Load Map from file
   * Deserializes the Map class from a json file, creates a new Map and returns it.
   * @param fileName The file the map should be written to
   * @returns Map* Pointer to the newly created Map.
@@ -182,7 +182,7 @@ public:
  */
   void getNodeInformation(const Point &isoCoordinates) const;
 
-  /** \Brief check if Tile is occupied
+  /** \brief check if Tile is occupied
   * @param isoCoordinates Tile to inspect
   * @param tileID tileID which should be checked
   */
@@ -193,7 +193,7 @@ public:
   */
   std::vector<Point> getObjectCoords(const Point &isoCoordinates, const std::string &tileID);
 
-  /** \Brief get Tile ID of specific layer of specific iso coordinates
+  /** \brief get Tile ID of specific layer of specific iso coordinates
   * @param isoCoordinates: Tile to inspect
   * @param layer: layer to check.
   */
@@ -205,7 +205,7 @@ public:
   const MapNode *getMapNode(Point isoCoords) const { return &mapNodes[nodeIdx(isoCoords.x, isoCoords.y)]; };
 
 private:
-  /**\brief Update all mapNodes
+  /** \brief Update all mapNodes
   * Updates all mapNode and its adjacent tiles regarding height information, draws slopes for adjacent tiles and
   * sets tiling for mapNode sprite if applicable
   */
@@ -225,46 +225,46 @@ private:
 
   bool isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int isoY, const Layer &layer) const;
 
-  /* \brief Filter out tiles which should not be set over existing one.
+  /** \brief Filter out tiles which should not be set over existing one.
   * @param layer Layer in which tileId should be set.
   * @param pMapNode pointer to the MapNode which ID should be set.
   * @return true in case that tileId is allowed to be set, otherwise false (filter it out).
   */
   bool isAllowSetTileId(const Layer layer, const MapNode *const pMapNode);
 
-  /* \brief Calculate map index from coordinates.
+  /** \brief Calculate map index from coordinates.
   * @param x x coordinate.
   * @param y y coordinate.
   * @return Index of map node.
   */
   inline int nodeIdx(const int x, const int y) const { return x * m_columns + y; }
 
-  /* \brief Get all neighbor nodes from provided map node.
+  /** \brief Get all neighbor nodes from provided map node.
   * @param isoCoordinates iso coordinates.
   * @param includeCentralNode if set to true include the central node in the result.
   * @return All neighbor nodes.
   */
   std::vector<NeighborNode> getNeighborNodes(const Point &isoCoordinates, const bool includeCentralNode);
 
-  /* \brief Change map node height.
+  /** \brief Change map node height.
   * @param isoCoordinates iso coordinates.
   * @param higher if set to true make node higher, otherwise lower.
   */
   void changeHeight(const Point &isoCoordinates, const bool higher);
 
-  /* \brief Update the nodes and all affected node with the change.
+  /** \brief Update the nodes and all affected node with the change.
   * @param nodes Nodes which have to be updated.
   */
   void updateNodeNeighbors(std::vector<MapNode *> &nodes);
 
-  /* \brief Get elevated bit mask of the map node.
+  /** \brief Get elevated bit mask of the map node.
   * @param pMapNode Pointer to the map node to calculate elevated bit mask.
   * @param neighbors All neighbor map nodes.
   * @return Map node elevated bit mask.
   */
   unsigned char getElevatedNeighborBitmask(MapNode *pMapNode, const std::vector<NeighborNode> &neighbors);
 
-  /* \brief Change map node height.
+  /** \brief Change map node height.
   * @param mapNode Map node to change height.
   * @param higher if set to true make node higher, otherwise lower.
   * @param neighbors All neighbor map nodes.
@@ -272,7 +272,7 @@ private:
   */
   bool updateHeight(MapNode &mapNode, const bool higher, std::vector<NeighborNode> &neighbors);
 
-  /* \brief For implementing frustum culling, find all map nodes which are visible on the screen. Only visible nodes will be rendered.
+  /** \brief For implementing frustum culling, find all map nodes which are visible on the screen. Only visible nodes will be rendered.
   */
   void calculateVisibleMap(void);
 

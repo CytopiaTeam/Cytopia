@@ -20,7 +20,7 @@ using RepeatCount = StrongType<uint8_t, struct RepeatCountTag>;
    * @brief Container for raw pcm data that read from .ogg sound file
    * @details raw pcm data is held in a vector of type char.
    * @param nBytes is the length of sample in bytes
-   * @param data_sample_rate is the  sample rate of audio sample assuming it is just 1 sample rate
+   * @param data_sample_rate is the sample rate of audio sample assuming it is just 1 sample rate
    */
 struct DecodedAudioData
 {
