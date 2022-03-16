@@ -15,7 +15,8 @@ using ScreenDimension = int;
 using VolumeLevel = StrongType<uint8_t, struct VolumeLevelTag>;
 using FilePath = StrongType<string, struct FilePathTag>;
 
-/* @todo This and Settings must be refactored into a TransitiveModel class
+/**
+ * @todo This and Settings must be refactored into a TransitiveModel class
  * @todo This TransitiveModel must be subscribed to by the Settings iView
  * @todo We must create a ServiceController class with setters and Events for each field
  */
@@ -144,12 +145,12 @@ struct SettingsData
   FilePath uiLayoutJSONFile;
 
   /**
-   * The file path to Audio Configuration
+   * @brief The file path to Audio Configuration
    */
   FilePath audioConfigJSONFile;
 
   /**
-   * The file path to Audio Configuration 3D
+   * @brief The file path to Audio Configuration 3D
    */
   FilePath audioConfig3DJSONFile;
 

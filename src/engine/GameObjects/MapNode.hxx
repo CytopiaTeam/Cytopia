@@ -123,7 +123,7 @@ public:
   void demolishNode(const Layer &layer = Layer::NONE);
 
   /** @brief demolish specific layer of a Node.
-    * @param layer - what layer should be demolished.
+    * @param layer what layer should be demolished.
     */
   void demolishLayer(const Layer &layer);
 
@@ -166,8 +166,8 @@ public:
   /**
    * @brief Sets a node to be Transparent
    * This sets a node to be Transparent.
-   * @parameter transparencyFactor (0-1.0) - The percentage of node transparency. 1 -> invisible, 0 -> opaque.
-   * @parameter layer - what layer in Sprite should it's transperancy altered.
+   * @param transparencyFactor (0-1.0) - The percentage of node transparency. 1 -> invisible, 0 -> opaque.
+   * @param layer what layer in Sprite should it's transperancy altered.
    */
   void setNodeTransparency(const float transparencyFactor, const Layer &layer) const;
 

@@ -139,7 +139,7 @@ public:
 
 // Begin Namespace Signal
 
-/**\brief Signal is a template type providing an interface for arbitrary callback lists.
+/** \brief Signal is a template type providing an interface for arbitrary callback lists.
 * A signal type needs to be declared with the function signature of its callbacks,
 * and optionally a return result collector class type.
 * Signal callbacks can be added with operator+= to a signal and removed with operator-=, using
