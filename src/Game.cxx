@@ -8,7 +8,7 @@
 #include "engine/ui/widgets/Image.hxx"
 #include "engine/basics/Settings.hxx"
 #include "engine/basics/GameStates.hxx"
-#include "Filesystem.hxx"
+#include "filesystem.hxx"
 
 #include <noise.h>
 #include <SDL.h>
@@ -125,37 +125,43 @@ bool Game::mainMenu()
   Button newGameButton({screenWidth / 2 - 100, screenHeight / 2 - 20, 200, 40});
   newGameButton.setText("New Game");
   newGameButton.setUIElementID("newgame");
-  newGameButton.registerCallbackFunction([this]() {
+  newGameButton.registerCallbackFunction(
+      [this]()
+      {
 #ifdef USE_AUDIO
-    m_AudioMixer.stopAll();
-    if (!Settings::instance().audio3DStatus)
-      m_AudioMixer.play(SoundtrackID{"MajorSelection"});
-    else
-      m_AudioMixer.play(SoundtrackID{"MajorSelection"}, Coordinate3D{0, 0, -4});
+        m_AudioMixer.stopAll();
+        if (!Settings::instance().audio3DStatus)
+          m_AudioMixer.play(SoundtrackID{"MajorSelection"});
+        else
+          m_AudioMixer.play(SoundtrackID{"MajorSelection"}, Coordinate3D{0, 0, -4});
 #endif //  USE_AUDIO
 
-    Engine::instance().newGame();
-  });
+        Engine::instance().newGame();
+      });
 
   Button loadGameButton({screenWidth / 2 - 100, screenHeight / 2 - 20 + newGameButton.getUiElementRect().h * 2, 200, 40});
   loadGameButton.setText("Load Game");
-  loadGameButton.registerCallbackFunction([this]() {
+  loadGameButton.registerCallbackFunction(
+      [this]()
+      {
 #ifdef USE_AUDIO
-    m_AudioMixer.stopAll();
-    if (!Settings::instance().audio3DStatus)
-      m_AudioMixer.play(SoundtrackID{"MajorSelection"});
-    else
-      m_AudioMixer.play(SoundtrackID{"MajorSelection"}, Coordinate3D{0, 0, -4});
+        m_AudioMixer.stopAll();
+        if (!Settings::instance().audio3DStatus)
+          m_AudioMixer.play(SoundtrackID{"MajorSelection"});
+        else
+          m_AudioMixer.play(SoundtrackID{"MajorSelection"}, Coordinate3D{0, 0, -4});
 #endif // USE_AUDIO
-    Engine::instance().loadGame("resources/save.cts");
-  });
+        Engine::instance().loadGame("resources/save.cts");
+      });
 
   Button quitGameButton({screenWidth / 2 - 100, screenHeight / 2 - 20 + loadGameButton.getUiElementRect().h * 4, 200, 40});
   quitGameButton.setText("Quit Game");
-  quitGameButton.registerCallbackFunction([this, &quitGame]() {
-    quit();
-    quitGame = true;
-  });
+  quitGameButton.registerCallbackFunction(
+      [this, &quitGame]()
+      {
+        quit();
+        quitGame = true;
+      });
 
   // store elements in vector
   std::vector<UIElement *> uiElements;
@@ -330,7 +336,10 @@ void Game::run(bool SkipMenu)
     SDL_RenderClear(WindowManager::instance().getRenderer());
 
     evManager.checkEvents(event, engine);
+    // TODO: Add Gameplay class and call Gameplay.DoStuff() here instead of zonemanager stuff
     gameClock.tick();
+
+    m_GamePlay.update();
 
     // render the tileMap
     if (engine.map != nullptr)
@@ -345,11 +354,8 @@ void Game::run(bool SkipMenu)
       uiManager.drawUI();
     }
 
-    // reset renderer color back to black
-    SDL_SetRenderDrawColor(WindowManager::instance().getRenderer(), 0, 0, 0, SDL_ALPHA_OPAQUE);
-
-    // Render the Frame
-    SDL_RenderPresent(WindowManager::instance().getRenderer());
+    // preset the game screen
+    WindowManager::instance().renderScreen();
 
     fpsFrames++;
 

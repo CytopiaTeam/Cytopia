@@ -76,6 +76,8 @@ public:
   const std::unordered_map<std::string, TileData> &getAllTileData() const { return m_tileData; };
   void init();
 
+  std::vector<std::string> getTileIDsOfCategory(Zones zone);
+
 private:
   TileManager();
   ~TileManager() = default;

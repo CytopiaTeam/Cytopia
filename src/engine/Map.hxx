@@ -204,6 +204,10 @@ public:
   */
   const MapNode *getMapNode(Point isoCoords) const { return &mapNodes[nodeIdx(isoCoords.x, isoCoords.y)]; };
 
+  /** \brief Get all mapnodes as a vector
+   */
+  const std::vector<MapNode> &getMapNodes() { return mapNodes; };
+
 private:
   /** \brief Update all mapNodes
   * Updates all mapNode and its adjacent tiles regarding height information, draws slopes for adjacent tiles and

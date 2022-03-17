@@ -53,6 +53,8 @@ public:
   */
   void setFullScreenMode(FULLSCREEN_MODE mode) const;
 
+  void renderScreen();
+
 private:
   /** 
   * \brief Construct a new WindowManager object.
