@@ -68,7 +68,6 @@ private:
   void quit();
 
   /* Services */
-  Randomizer m_Randomizer;
   ResourceManager m_ResourceManager;
 #ifdef USE_AUDIO
   AudioMixer m_AudioMixer;

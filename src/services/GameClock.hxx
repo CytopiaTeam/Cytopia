@@ -4,7 +4,6 @@
 #include <chrono>
 #include <mutex>
 #include <functional>
-#include "../GameService.hxx"
 #include "../util/PriorityQueue.hxx"
 #include "../util/Singleton.hxx"
 

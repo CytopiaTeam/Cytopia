@@ -119,7 +119,7 @@ SoundtrackUPtr &AudioMixer::getTrack(const AudioTrigger &trigger)
     LOG(LOG_WARNING) << "No Soundtracks are triggered by " << trigger._to_string();
     return noResoruce;
   }
-  const SoundtrackID &trackID = *GetService<Randomizer>().choose(possibilities.begin(), possibilities.end());
+  const SoundtrackID &trackID = *Randomizer::instance().choose(possibilities.begin(), possibilities.end());
   return GetService<ResourceManager>().get(trackID);
 }
 
