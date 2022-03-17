@@ -1,28 +1,25 @@
 #include "ZoneManager.hxx"
 #include "Engine.hxx"
 #include "LOG.hxx"
-#include "../util/RandomEngine.hxx"
 #include "../services/GameClock.hxx"
-
-#include <algorithm>
-#include <random>
+#include "../services/Randomizer.hxx"
 
 ZoneManager::ZoneManager()
 {
   GameClock::instance().addRealTimeClockTask(
-    [this]()
-    {
-      spawnBuildings();
-      return false;
-    },
-    1s, 1s);
+      [this]()
+      {
+        spawnBuildings();
+        return false;
+      },
+      1s, 1s);
 }
 
 // Nothing here right now
 void ZoneManager::update() {}
 
-void ZoneManager::spawnBuildings() 
-{ 
+void ZoneManager::spawnBuildings()
+{
   updateZones();
   spawn();
 }
@@ -32,7 +29,8 @@ void ZoneManager::updateZones()
   m_MapNodes.clear();
   for (const MapNode &node : Engine::instance().map->getMapNodes())
   {
-    if (node.getTileData(ZONE)) // if there's a zone this layer is not null
+    // if there's a zone this layer is not null
+    if (node.getTileData(ZONE) && !node.getTileData(BUILDINGS))
     {
       m_MapNodes.emplace_back(&node);
     }
@@ -42,15 +40,15 @@ void ZoneManager::updateZones()
 void ZoneManager::spawn()
 {
   constexpr int amountOfBuildingsToSpawn = 5;
-  int buildingsSpawned = 0;
+  auto &randomizer = Randomizer::instance();
 
   // shuffle mapNodes
-  std::shuffle(std::begin(m_MapNodes), std::end(m_MapNodes), RandomEngine::instance().getRandomEngine());
+  randomizer.shuffle(m_MapNodes.begin(), m_MapNodes.end());
 
   // pick every single zone node we have
-  for (auto& node : m_MapNodes)
+  int buildingsSpawned = 0;
+  for (auto &node : m_MapNodes)
   {
-    std::vector<std::string> myVec;
     if (buildingsSpawned >= amountOfBuildingsToSpawn)
     {
       break;
@@ -61,10 +59,14 @@ void ZoneManager::spawn()
       LOG(LOG_ERROR) << "Something is wrong with a zone tile - Report this to the Cytopia Team!";
       continue;
     }
+
     // get the right zone enum of the zone tile
-    for (auto& zone : node->getTileData(Layer::ZONE)->zones)
+    std::vector<std::string> availableZoneTiles;
+    for (auto &zone : node->getTileData(Layer::ZONE)->zones)
     {
-      if (TileManager::instance().getTileIDsOfCategory(zone).empty())
+      auto &zoneTiles = TileManager::instance().getTileIDsOfCategory(zone);
+
+      if (zoneTiles.empty())
       {
         LOG(LOG_ERROR) << "No buildings available for zone: " << zone;
         continue;
@@ -72,26 +74,21 @@ void ZoneManager::spawn()
       else
       {
         // add all the tileIDs that are available for this zone to our vector
-        for (const auto &ID : TileManager::instance().getTileIDsOfCategory(zone))
-        {
-          myVec.emplace_back(ID);
-        }
+        availableZoneTiles.insert(availableZoneTiles.end(), zoneTiles.begin(), zoneTiles.end());
       }
     }
 
-    if (myVec.empty())
+    if (availableZoneTiles.empty())
     {
       LOG(LOG_ERROR) << "No buildings available! Aborting!";
       break;
     }
+
     // pick a random tileID from the vector
     // TODO: Check how many neighboring tiles are available and pick a building with correct tilesize
-    int randomIndex = rand() % myVec.size();
-
-    std::string building = myVec[randomIndex];
+    std::string building = *randomizer.choose(availableZoneTiles.begin(), availableZoneTiles.end());
     std::vector targetObjectNodes = Engine::instance().map->getObjectCoords(node->getCoordinates(), building);
     Engine::instance().setTileIDOfNode(targetObjectNodes.begin(), targetObjectNodes.end(), building, false);
-
     buildingsSpawned++;
   }
 }

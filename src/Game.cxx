@@ -29,12 +29,15 @@
 Game::Game()
     : m_GameContext(
 #ifdef USE_AUDIO
-                    &m_AudioMixer,
+          &m_AudioMixer,
 #endif // USE_AUDIO
-                    &m_Randomizer, &m_ResourceManager),
-      m_Randomizer{m_GameContext}, m_ResourceManager{m_GameContext}
+          &m_ResourceManager),
+      m_ResourceManager
+{
+  m_GameContext
+}
 #ifdef USE_AUDIO
-      , m_AudioMixer{m_GameContext}
+, m_AudioMixer { m_GameContext }
 #endif
 {
   LOG(LOG_DEBUG) << "Created Game Object";
@@ -286,36 +289,36 @@ void Game::run(bool SkipMenu)
   if (!Settings::instance().audio3DStatus)
   {
     gameClock.addRealTimeClockTask(
-      [this]()
-      {
-        m_AudioMixer.play(AudioTrigger::MainTheme);
-        return false;
-      },
-      0s, 8min);
+        [this]()
+        {
+          m_AudioMixer.play(AudioTrigger::MainTheme);
+          return false;
+        },
+        0s, 8min);
     gameClock.addRealTimeClockTask(
-      [this]()
-      {
-        m_AudioMixer.play(AudioTrigger::NatureSounds);
-        return false;
-      },
-      0s, 3min);
+        [this]()
+        {
+          m_AudioMixer.play(AudioTrigger::NatureSounds);
+          return false;
+        },
+        0s, 3min);
   }
   else
   {
     gameClock.addRealTimeClockTask(
-      [this]()
-      {
-        m_AudioMixer.play(AudioTrigger::MainTheme, Coordinate3D{0, 0.5, 0.1});
-        return false;
-      },
-      0s, 8min);
+        [this]()
+        {
+          m_AudioMixer.play(AudioTrigger::MainTheme, Coordinate3D{0, 0.5, 0.1});
+          return false;
+        },
+        0s, 8min);
     gameClock.addRealTimeClockTask(
-      [this]()
-      {
-        m_AudioMixer.play(AudioTrigger::NatureSounds, Coordinate3D{0, 0, -2});
-        return false;
-      },
-      0s, 3min);
+        [this]()
+        {
+          m_AudioMixer.play(AudioTrigger::NatureSounds, Coordinate3D{0, 0, -2});
+          return false;
+        },
+        0s, 3min);
   }
 #endif // USE_AUDIO
 
@@ -375,4 +378,3 @@ void Game::shutdown()
   TTF_Quit();
   SDL_Quit();
 }
-
