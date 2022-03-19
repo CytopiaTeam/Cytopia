@@ -132,7 +132,7 @@ public:
     }
     return collector.result();
   }
-  // Number of connected slots.
+  /// Number of connected slots.
   std::size_t size() { return callback_list_.size(); }
 };
 } // namespace Lib

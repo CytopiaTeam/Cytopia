@@ -37,33 +37,33 @@
 #define TD_REQUIREDTILES_MAX 20
 
 BETTER_ENUM(TileType, int,
-            DEFAULT,          /// Default is for buildings and practically everything that'll be placed on the TERRAIN layer
-            TERRAIN,          /// Terrain itself
-            WATER,            /// Water terrain
-            BLUEPRINT,        /// Same as terrain, but gets placed on the BLUEPRINT layer
-            AUTOTILE,         /// Autotiling to itself, like roads, power lines, etc
-            ZONE,             /// Zones (rectangular placement)
-            ROAD,             /// Roads
-            GROUNDDECORATION, /// Draw this Tile on GROUNDDECORATION layer. Buildings can be placed over it
-            UNDERGROUND,      /// same as AUTOTILE, but for the BLUEPRINT layer
-            RCI               /// Spawning automatically on RCI+ zones
+            DEFAULT,          ///< Default is for buildings and practically everything that'll be placed on the TERRAIN layer
+            TERRAIN,          ///< Terrain itself
+            WATER,            ///< Water terrain
+            BLUEPRINT,        ///< Same as terrain, but gets placed on the BLUEPRINT layer
+            AUTOTILE,         ///< Autotiling to itself, like roads, power lines, etc
+            ZONE,             ///< Zones (rectangular placement)
+            ROAD,             ///< Roads
+            GROUNDDECORATION, ///< Draw this Tile on GROUNDDECORATION layer. Buildings can be placed over it
+            UNDERGROUND,      ///< same as AUTOTILE, but for the BLUEPRINT layer
+            RCI               ///< Spawning automatically on RCI+ zones
 )
 
 //
 BETTER_ENUM(Zones, int, RESIDENTIAL, INDUSTRIAL, COMMERCIAL, AGRICULTURAL)
 
 BETTER_ENUM(Wealth, int,
-            NONE,   /// not applicable
-            LOW,    /// Low income
-            MEDIUM, /// Medium income
-            HIGH    /// High income
+            NONE,   ///< not applicable
+            LOW,    ///< Low income
+            MEDIUM, ///< Medium income
+            HIGH    ///< High income
 )
 
 BETTER_ENUM(Style, int,
-            ALL,      /// Default, place the Building in all Styles
-            ASIAN,    /// This building will only appear in a game with the Style Asian
-            EUROPEAN, /// This building will only appear in a game with the Style European
-            US        /// This building will only appear in a game with the Style US
+            ALL,      ///< Default, place the Building in all Styles
+            ASIAN,    ///< This building will only appear in a game with the Style Asian
+            EUROPEAN, ///< This building will only appear in a game with the Style European
+            US        ///< This building will only appear in a game with the Style US
 )
 
 /// This enum holds all data related to the TileSet (Spritesheet)
