@@ -8,9 +8,9 @@ class ZoneManager
 public:
   ZoneManager();
   void update();
+  void addZoneNode(MapNode *node);
 
 private:
-  void updateZones();
   void spawnBuildings();
   void spawn();
 
