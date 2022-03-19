@@ -64,7 +64,7 @@ void ZoneManager::spawn()
     std::vector<std::string> availableZoneTiles;
     for (auto &zone : node->getTileData(Layer::ZONE)->zones)
     {
-      auto &zoneTiles = TileManager::instance().getTileIDsOfCategory(zone);
+      const auto &zoneTiles = TileManager::instance().getTileIDsOfCategory(zone);
 
       if (zoneTiles.empty())
       {
