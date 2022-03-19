@@ -6,6 +6,7 @@
 
 #include "GameObjects/MapNode.hxx"
 #include "map/TerrainGenerator.hxx"
+#include "../game/GamePlay.hxx"
 
 /** \brief Position of the surrounding nodes and its bit mask values.
   */
@@ -132,6 +133,8 @@ public:
       {
         nodesToBeUpdated.push_back(&currentMapNode);
       }
+
+      GamePlay::instance().getZoneManager()->addZoneNode(&currentMapNode);
     }
 
     if (!nodesToBeUpdated.empty())
