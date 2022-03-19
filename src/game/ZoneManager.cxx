@@ -82,12 +82,8 @@ void ZoneManager::spawn()
 void ZoneManager::addZoneNode(MapNode *node) { m_MapNodes.emplace_back(node); }
 void ZoneManager::removeZoneNode(MapNode *node)
 {
-  // std::vector<MapNode *>::iterator i = std::remove(m_MapNodes.begin(), m_MapNodes.end(), node);
-  LOG(LOG_INFO) << "REMOVING. Size before: " << m_MapNodes.size();
   if (node)
   {
     m_MapNodes.erase(std::remove(m_MapNodes.begin(), m_MapNodes.end(), node));
   }
-  LOG(LOG_INFO) << "size after: " << m_MapNodes.size();
-  // std::erase(i, m_MapNodes.end());
 }
