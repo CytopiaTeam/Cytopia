@@ -15,7 +15,8 @@ using ScreenDimension = int;
 using VolumeLevel = StrongType<uint8_t, struct VolumeLevelTag>;
 using FilePath = StrongType<string, struct FilePathTag>;
 
-/* @todo This and Settings must be refactored into a TransitiveModel class
+/**
+ * @todo This and Settings must be refactored into a TransitiveModel class
  * @todo This TransitiveModel must be subscribed to by the Settings iView
  * @todo We must create a ServiceController class with setters and Events for each field
  */
@@ -57,6 +58,12 @@ struct SettingsData
   int maxElevationHeight;
 
   /**
+  * @brief the value of the zone layer transparency, (0 - 1.0).
+  * where 0 is full opaque and 1 for full transparency.
+  */
+  float zoneLayerTransparency;
+  
+  /**
    * @todo document what this field is
    * @todo add a typename
    */
@@ -75,24 +82,22 @@ struct SettingsData
   int fullScreenMode;
 
   /**
-   * @brief the volume of music
+   * @brief The volume of music between [0, 100]
    */
   VolumeLevel musicVolume;
 
   /**
-   * @brief the volume of sound effects
+   * @brief the volume of sound effects between [0, 100]
    */
   VolumeLevel soundEffectsVolume;
 
   /**
-   * @todo document what this field is
-   * @todo add a typename
+   * @brief True if music should be played
    */
   bool playMusic;
 
   /**
-   * @todo document what this field is
-   * @todo add a typename
+   * @brief True if sound effects should be played
    */
   bool playSoundEffects;
 
@@ -140,17 +145,17 @@ struct SettingsData
   FilePath uiLayoutJSONFile;
 
   /**
-   * The file path to Audio Configuration
+   * @brief The file path to Audio Configuration
    */
   FilePath audioConfigJSONFile;
 
   /**
-   * The file path to Audio Configuration 3D
+   * @brief The file path to Audio Configuration 3D
    */
   FilePath audioConfig3DJSONFile;
 
   /**
-   * @brief The Game language 
+   * @brief The Game language
    */
   std::string gameLanguage;
 
@@ -160,16 +165,21 @@ struct SettingsData
   FilePath fontFileName;
 
   /**
-   * @brief The width in pixels of the buttons used in the 
+   * @brief The width in pixels of the buttons used in the
    * build sub menues on the UI
    */
   int subMenuButtonWidth;
 
   /**
-   * @brief The height in pixels of the buttons used in the 
+   * @brief The height in pixels of the buttons used in the
    * build sub menues on the UI
    */
   int subMenuButtonHeight;
+
+  /**
+   * @brief Indicates whether we want to see buildings inside Blueprint layer or not.
+   */
+  bool showBuildingsInBlueprint;
 };
 
 /**

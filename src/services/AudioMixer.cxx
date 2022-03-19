@@ -38,20 +38,26 @@ AudioMixer::AudioMixer(GameService::ServiceTuple &context) : GameService(context
   /* use default audio device */
   gAudioDevice = alcOpenDevice(nullptr);
   if (!gAudioDevice)
-    throw AudioError(TRACE_INFO "Unable to initialize default audio device! " + *alGetString(alGetError()));
+  {
+    const char *error_msg = get_al_error_msg(alGetError());
+    LOG(LOG_WARNING) << "Unable to initialize default audio device! " << error_msg;
+    return;
+  }
 
   /* create context */
   alContext = alcCreateContext(gAudioDevice, nullptr);
   if (!alContext)
-    throw AudioError(TRACE_INFO "Unable to initialize OpenAL context! " + *alGetString(alGetError()));
-  else
-    alcMakeContextCurrent(alContext);
+  {
+    const char *error_msg = get_al_error_msg(alGetError());
+    throw AudioError(TRACE_INFO "Unable to initialize OpenAL context! " + error_msg);
+  }
+  alcMakeContextCurrent(alContext);
 
-  /* Check if an error occured, and clean up if so. */
+  /* Check if an error occurred, and clean up if so. */
   ALenum err;
   err = alGetError();
   if (err != AL_NO_ERROR)
-    throw AudioError(TRACE_INFO "OpenAL error occured: " + alGetString(err));
+    throw AudioError(TRACE_INFO "OpenAL error occurred: " + get_al_error_msg(err));
 
   /* set listener position one space behind origin */
   Array<float, 3> listener_position_vector{0.0f, 0.0f, 1.0f};
@@ -71,13 +77,23 @@ AudioMixer::AudioMixer(GameService::ServiceTuple &context) : GameService(context
   alListenerfv(AL_ORIENTATION, listener_orientation_vector.data());
 
   /* Set a pruning repeated task to get rid of soundtracks that have finished playing */
-  GetService<GameClock>().createRepeatedTask(5min, [&mixer = *this]() { mixer.prune(); });
+  GameClock::instance().addRealTimeClockTask(
+      [&mixer = *this]
+      {
+        mixer.prune();
+        return false;
+      },
+      0s, 5min);
 
   LOG(LOG_DEBUG) << "Created AudioMixer";
 }
 
 AudioMixer::~AudioMixer()
 {
+  if (!gAudioDevice)
+  {
+    return;
+  }
   int num_opened = 0;
   int _discard;
   Uint16 _discard2;
@@ -88,246 +104,182 @@ AudioMixer::~AudioMixer()
   LOG(LOG_DEBUG) << "Destroyed AudioMixer";
 }
 
+static SoundtrackUPtr noResoruce = nullptr;
+
+SoundtrackUPtr &AudioMixer::getTrack(const AudioTrigger &trigger)
+{
+  if (!gAudioDevice)
+  {
+    return noResoruce;
+  }
+
+  auto &possibilities = m_Triggers[trigger];
+  if (possibilities.size() == 0)
+  {
+    LOG(LOG_WARNING) << "No Soundtracks are triggered by " << trigger._to_string();
+    return noResoruce;
+  }
+  const SoundtrackID &trackID = *Randomizer::instance().choose(possibilities.begin(), possibilities.end());
+  return GetService<ResourceManager>().get(trackID);
+}
+
+SoundtrackUPtr &AudioMixer::getTrack(const SoundtrackID &id)
+{
+  if (!gAudioDevice)
+  {
+    return noResoruce;
+  }
+
+  return GetService<ResourceManager>().get(id);
+}
+
 /*
    +---------------------+
    |  Service Interface  |
    +---------------------+
    */
 
-void AudioMixer::setMusicVolume(VolumeLevel volume) noexcept
+void AudioMixer::setMusicVolume(VolumeLevel volume) { throw UnimplementedError(TRACE_INFO "Unimplemented Error"); }
+
+void AudioMixer::setSoundEffectVolume(VolumeLevel volume) { throw UnimplementedError(TRACE_INFO "Unimplemented Error"); }
+
+void AudioMixer::play(const SoundtrackID &id)
 {
-  GetService<GameLoopMQ>().push(AudioMusicVolumeChangeEvent{volume});
-}
-
-void AudioMixer::setSoundEffectVolume(VolumeLevel volume) noexcept
-{
-  GetService<GameLoopMQ>().push(AudioSoundVolumeChangeEvent{volume});
-}
-
-void AudioMixer::play(SoundtrackID &&ID) noexcept { GetService<GameLoopMQ>().push(AudioPlayEvent{ID}); }
-
-void AudioMixer::play(AudioTrigger &&trigger) noexcept { GetService<GameLoopMQ>().push(AudioTriggerEvent{trigger}); }
-
-void AudioMixer::play(SoundtrackID &&ID, Coordinate3D &&position) noexcept
-{
-  GetService<GameLoopMQ>().push(AudioPlay3DEvent{ID, position});
-}
-
-void AudioMixer::play(AudioTrigger &&trigger, Coordinate3D &&position) noexcept
-{
-  GetService<GameLoopMQ>().push(AudioTrigger3DEvent{trigger, position});
-}
-
-void AudioMixer::play(SoundtrackID &&ID, StandardReverbProperties &reverb_properties) noexcept
-{
-  GetService<GameLoopMQ>().push(AudioPlayReverbEvent{ID, reverb_properties});
-}
-
-void AudioMixer::play(SoundtrackID &&ID, EchoProperties &echo_properties) noexcept
-{
-  GetService<GameLoopMQ>().push(AudioPlayEchoEvent{ID, echo_properties});
-}
-
-void AudioMixer::play(AudioTrigger &&trigger, StandardReverbProperties &reverb_properties) noexcept
-{
-  GetService<GameLoopMQ>().push(AudioTriggerReverbEvent{trigger, reverb_properties});
-}
-
-void AudioMixer::play(AudioTrigger &&trigger, EchoProperties &echo_properties) noexcept
-{
-  GetService<GameLoopMQ>().push(AudioTriggerEchoEvent{trigger, echo_properties});
-}
-
-void AudioMixer::play(SoundtrackID &&ID, Coordinate3D &&position, StandardReverbProperties &reverb_properties) noexcept
-{
-  GetService<GameLoopMQ>().push(AudioPlayReverb3DEvent{ID, position, reverb_properties});
-}
-
-void AudioMixer::play(SoundtrackID &&ID, Coordinate3D &&position, EchoProperties &echo_properties) noexcept
-{
-  GetService<GameLoopMQ>().push(AudioPlayEcho3DEvent{ID, position, echo_properties});
-}
-
-void AudioMixer::play(AudioTrigger &&trigger, Coordinate3D &&position, StandardReverbProperties &reverb_properties) noexcept
-{
-  GetService<GameLoopMQ>().push(AudioTriggerReverb3DEvent{trigger, position, reverb_properties});
-}
-
-void AudioMixer::play(AudioTrigger &&trigger, Coordinate3D &&position, EchoProperties &echo_properties) noexcept
-{
-  GetService<GameLoopMQ>().push(AudioTriggerEcho3DEvent{trigger, position, echo_properties});
-}
-
-void AudioMixer::setMuted(bool isMuted) noexcept { GetService<GameLoopMQ>().push(AudioSetMutedEvent{isMuted}); }
-
-void AudioMixer::stopAll() noexcept { GetService<GameLoopMQ>().push(AudioStopEvent{}); }
-
-void AudioMixer::prune() noexcept { GetService<GameLoopMQ>().push(AudioPruneEvent{}); }
-
-/*
-   +------------------+
-   |  Event Handlers  |
-   +------------------+
-   */
-
-void AudioMixer::handleEvent(const AudioTriggerEvent &&event)
-{
-  auto &possibilities = m_Triggers[event.trigger];
-  if (possibilities.size() == 0)
+  auto &track = getTrack(id);
+  if (track)
   {
-    LOG(LOG_WARNING) << "No Soundtracks are triggered by " << event.trigger._to_string();
+    playSoundtrack(track);
+  }
+}
+
+void AudioMixer::play(const AudioTrigger &trigger)
+{
+  auto &track = getTrack(trigger);
+  if (track)
+  {
+    playSoundtrack(track);
+  }
+}
+
+void AudioMixer::play(const SoundtrackID &id, const Coordinate3D &position)
+{
+  auto &track = getTrack(id);
+  if (track)
+  {
+    /* set position of source in track */
+    alSource3f(track->source, AL_POSITION, static_cast<ALfloat>(position.x), static_cast<ALfloat>(position.y),
+               static_cast<ALfloat>(position.z));
+    playSoundtrack(track);
+  }
+}
+
+void AudioMixer::play(const AudioTrigger &trigger, const Coordinate3D &position)
+{
+  auto &track = getTrack(trigger);
+  if (track)
+  {
+    /* set position of source in track
+   * converted to regular Cartesian coordinate system */
+    alSource3f(track->source, AL_POSITION, static_cast<ALfloat>(position.x), static_cast<ALfloat>(position.y),
+               static_cast<ALfloat>(position.z));
+    playSoundtrack(track);
+  }
+}
+
+void AudioMixer::play(const SoundtrackID &id, const StandardReverbProperties &reverb_properties)
+{
+  auto &track = getTrack(id);
+  if (track)
+  {
+    playSoundtrackWithReverb(track, reverb_properties);
+  }
+}
+
+void AudioMixer::play(const SoundtrackID &id, const EchoProperties &echo_properties)
+{
+  auto &track = getTrack(id);
+  if (track)
+  {
+    playSoundtrackWithEcho(track, echo_properties);
+  }
+}
+
+void AudioMixer::play(const AudioTrigger &trigger, const StandardReverbProperties &reverb_properties)
+{
+  auto &track = getTrack(trigger);
+  if (track)
+  {
+    playSoundtrackWithReverb(track, reverb_properties);
+  }
+}
+
+void AudioMixer::play(const AudioTrigger &trigger, const EchoProperties &echo_properties)
+{
+  auto &track = getTrack(trigger);
+  if (track)
+  {
+    playSoundtrackWithEcho(track, echo_properties);
+  }
+}
+
+void AudioMixer::play(const SoundtrackID &id, const Coordinate3D &position, const StandardReverbProperties &reverb_properties)
+{
+  auto &track = getTrack(id);
+  if (track)
+  {
+    /* set position of source in track */
+    alSource3f(track->source, AL_POSITION, static_cast<ALfloat>(position.x), static_cast<ALfloat>(position.y),
+               static_cast<ALfloat>(position.z));
+    playSoundtrackWithReverb(track, reverb_properties);
+  }
+}
+
+void AudioMixer::play(const SoundtrackID &id, const Coordinate3D &position, const EchoProperties &echo_properties)
+{
+  auto &track = getTrack(id);
+  if (track)
+  {
+    /* set position of source in track */
+    alSource3f(track->source, AL_POSITION, static_cast<ALfloat>(position.x), static_cast<ALfloat>(position.y),
+               static_cast<ALfloat>(position.z));
+    playSoundtrackWithEcho(track, echo_properties);
+  }
+}
+
+void AudioMixer::play(const AudioTrigger &trigger, const Coordinate3D &position,
+                      const StandardReverbProperties &reverb_properties)
+{
+  auto &track = getTrack(trigger);
+  if (track)
+  {
+    /* set position of source in track converted to regular Cartesian coordinate system */
+    alSource3f(track->source, AL_POSITION, static_cast<ALfloat>(position.x), static_cast<ALfloat>(position.y),
+               static_cast<ALfloat>(position.z));
+    playSoundtrackWithReverb(track, reverb_properties);
+  }
+}
+
+void AudioMixer::play(const AudioTrigger &trigger, const Coordinate3D &position, const EchoProperties &echo_properties)
+{
+  auto &track = getTrack(trigger);
+  if (track)
+  {
+    /* set position of source in track
+   * converted to regular Cartesian coordinate system */
+    alSource3f(track->source, AL_POSITION, static_cast<ALfloat>(position.x), static_cast<ALfloat>(position.y),
+               static_cast<ALfloat>(position.z));
+    playSoundtrackWithEcho(track, echo_properties);
+  }
+}
+
+void AudioMixer::setMuted(bool isMuted) { throw UnimplementedError(TRACE_INFO "Unimplemented Error"); }
+
+void AudioMixer::stopAll()
+{
+  if (!gAudioDevice)
+  {
     return;
   }
-  SoundtrackID &trackID = *GetService<Randomizer>().choose(possibilities.begin(), possibilities.end());
-  SoundtrackUPtr &track = GetService<ResourceManager>().get(trackID);
-  playSoundtrack(track);
-}
-
-void AudioMixer::handleEvent(const AudioPlayEvent &&event)
-{
-  SoundtrackUPtr &track = GetService<ResourceManager>().get(event.ID);
-  playSoundtrack(track);
-}
-
-void AudioMixer::handleEvent(const AudioTrigger3DEvent &&event)
-{
-  auto &possibilities = m_Triggers[event.trigger];
-  if (possibilities.size() == 0)
-  {
-    LOG(LOG_WARNING) << "Warning: no Soundtracks are triggered by " << event.trigger._to_string();
-    return;
-  }
-  SoundtrackID &trackID = *GetService<Randomizer>().choose(possibilities.begin(), possibilities.end());
-  SoundtrackUPtr &track = GetService<ResourceManager>().get(trackID);
-
-  /* set position of source in track
-   * converted to regular cartesian coordinate system */
-  alSource3f(track->source, AL_POSITION, static_cast<ALfloat>(event.position.x), static_cast<ALfloat>(event.position.y),
-             static_cast<ALfloat>(event.position.z));
-  playSoundtrack(track);
-}
-
-void AudioMixer::handleEvent(const AudioPlay3DEvent &&event)
-{
-  SoundtrackUPtr &track = GetService<ResourceManager>().get(event.ID);
-  /* set position of source in track */
-  alSource3f(track->source, AL_POSITION, static_cast<ALfloat>(event.position.x), static_cast<ALfloat>(event.position.y),
-             static_cast<ALfloat>(event.position.z));
-  playSoundtrack(track);
-}
-
-void AudioMixer::handleEvent(const AudioTriggerReverbEvent &&event)
-{
-  auto &possibilities = m_Triggers[event.trigger];
-  if (possibilities.size() == 0)
-  {
-    LOG(LOG_WARNING) << "Warning: no Soundtracks are triggered by " << event.trigger._to_string();
-    return;
-  }
-  SoundtrackID &trackID = *GetService<Randomizer>().choose(possibilities.begin(), possibilities.end());
-  SoundtrackUPtr &track = GetService<ResourceManager>().get(trackID);
-
-  playSoundtrackWithReverb(track, event.reverb_properties);
-}
-
-void AudioMixer::handleEvent(const AudioPlayReverbEvent &&event)
-{
-  SoundtrackUPtr &track = GetService<ResourceManager>().get(event.ID);
-
-  playSoundtrackWithReverb(track, event.reverb_properties);
-}
-
-void AudioMixer::handleEvent(const AudioPlayEchoEvent &&event)
-{
-  SoundtrackUPtr &track = GetService<ResourceManager>().get(event.ID);
-
-  playSoundtrackWithEcho(track, event.echo_properties);
-}
-
-void AudioMixer::handleEvent(const AudioTriggerEchoEvent &&event)
-{
-  auto &possibilities = m_Triggers[event.trigger];
-  if (possibilities.size() == 0)
-  {
-    LOG(LOG_WARNING) << "Warning: no Soundtracks are triggered by " << event.trigger._to_string();
-    return;
-  }
-  SoundtrackID &trackID = *GetService<Randomizer>().choose(possibilities.begin(), possibilities.end());
-  SoundtrackUPtr &track = GetService<ResourceManager>().get(trackID);
-
-  playSoundtrackWithEcho(track, event.echo_properties);
-}
-
-void AudioMixer::handleEvent(const AudioTriggerReverb3DEvent &&event)
-{
-  auto &possibilities = m_Triggers[event.trigger];
-  if (possibilities.size() == 0)
-  {
-    LOG(LOG_WARNING) << "Warning: no Soundtracks are triggered by " << event.trigger._to_string();
-    return;
-  }
-  SoundtrackID &trackID = *GetService<Randomizer>().choose(possibilities.begin(), possibilities.end());
-  SoundtrackUPtr &track = GetService<ResourceManager>().get(trackID);
-
-  /* set position of source in track
-   * converted to regular cartesian coordinate system */
-  alSource3f(track->source, AL_POSITION, static_cast<ALfloat>(event.position.x), static_cast<ALfloat>(event.position.y),
-             static_cast<ALfloat>(event.position.z));
-  playSoundtrackWithReverb(track, event.reverb_properties);
-}
-
-void AudioMixer::handleEvent(const AudioTriggerEcho3DEvent &&event)
-{
-  auto &possibilities = m_Triggers[event.trigger];
-  if (possibilities.size() == 0)
-  {
-    LOG(LOG_WARNING) << "Warning: no Soundtracks are triggered by " << event.trigger._to_string();
-    return;
-  }
-  SoundtrackID &trackID = *GetService<Randomizer>().choose(possibilities.begin(), possibilities.end());
-  SoundtrackUPtr &track = GetService<ResourceManager>().get(trackID);
-
-  /* set position of source in track
-   * converted to regular cartesian coordinate system */
-  alSource3f(track->source, AL_POSITION, static_cast<ALfloat>(event.position.x), static_cast<ALfloat>(event.position.y),
-             static_cast<ALfloat>(event.position.z));
-
-  playSoundtrackWithEcho(track, event.echo_properties);
-}
-
-void AudioMixer::handleEvent(const AudioPlayReverb3DEvent &&event)
-{
-  SoundtrackUPtr &track = GetService<ResourceManager>().get(event.ID);
-  /* set position of source in track */
-  alSource3f(track->source, AL_POSITION, static_cast<ALfloat>(event.position.x), static_cast<ALfloat>(event.position.y),
-             static_cast<ALfloat>(event.position.z));
-  playSoundtrackWithReverb(track, event.reverb_properties);
-}
-
-void AudioMixer::handleEvent(const AudioPlayEcho3DEvent &&event)
-{
-  SoundtrackUPtr &track = GetService<ResourceManager>().get(event.ID);
-  /* set position of source in track */
-  alSource3f(track->source, AL_POSITION, static_cast<ALfloat>(event.position.x), static_cast<ALfloat>(event.position.y),
-             static_cast<ALfloat>(event.position.z));
-
-  playSoundtrackWithEcho(track, event.echo_properties);
-}
-
-void AudioMixer::handleEvent(const AudioSoundVolumeChangeEvent &&event)
-{
-  throw UnimplementedError(TRACE_INFO "Unimplemented Error");
-}
-
-void AudioMixer::handleEvent(const AudioMusicVolumeChangeEvent &&event)
-{
-  throw UnimplementedError(TRACE_INFO "Unimplemented Error");
-}
-
-void AudioMixer::handleEvent(const AudioSetMutedEvent &&event) { throw UnimplementedError(TRACE_INFO "Unimplemented Error"); }
-
-void AudioMixer::handleEvent(const AudioStopEvent &&)
-{
 
   while (!m_Playing.empty())
   {
@@ -338,8 +290,13 @@ void AudioMixer::handleEvent(const AudioStopEvent &&)
   }
 }
 
-void AudioMixer::handleEvent(const AudioPruneEvent &&)
+void AudioMixer::prune()
 {
+  if (!gAudioDevice)
+  {
+    return;
+  }
+
   for (auto it = m_Playing.begin(); it != m_Playing.end();)
   {
     int state = 0;
@@ -600,10 +557,12 @@ void AudioMixer::playSoundtrackWithEcho(SoundtrackUPtr &track, const EchoPropert
 
 void AudioMixer::onTrackFinished(int channelID)
 {
-  auto it = std::find_if(m_Playing.begin(), m_Playing.end(), [channelID](const auto trackptr) {
-    const auto &track = *trackptr;
-    return track && track->Channel.get() == channelID;
-  });
+  auto it = std::find_if(m_Playing.begin(), m_Playing.end(),
+                         [channelID](const auto trackptr)
+                         {
+                           const auto &track = *trackptr;
+                           return track && track->Channel.get() == channelID;
+                         });
   auto &track = **it;
   if (track)
   {
@@ -612,4 +571,25 @@ void AudioMixer::onTrackFinished(int channelID)
       track->Channel = -1;
   }
   m_Playing.erase(it);
+}
+
+const char *AudioMixer::get_al_error_msg(ALenum error)
+{
+  switch (error)
+  {
+  case AL_INVALID_NAME:
+    return "a bad name (ID) was passed to an OpenAL function";
+  case AL_INVALID_ENUM:
+    return "an invalid enum value was passed to an OpenAL function";
+  case AL_INVALID_VALUE:
+    return "an invalid value was passed to an OpenAL function";
+  case AL_INVALID_OPERATION:
+    return "the requested operation is not valid";
+  case AL_OUT_OF_MEMORY:
+    return "the requested operation resulted in OpenAL running out of memory";
+  case AL_NO_ERROR:
+    return "there is not currently an error";
+  default:
+    return "Unknown error";
+  }
 }

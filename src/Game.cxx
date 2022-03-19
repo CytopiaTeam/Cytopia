@@ -8,7 +8,7 @@
 #include "engine/ui/widgets/Image.hxx"
 #include "engine/basics/Settings.hxx"
 #include "engine/basics/GameStates.hxx"
-#include "Filesystem.hxx"
+#include "filesystem.hxx"
 
 #include <noise.h>
 #include <SDL.h>
@@ -26,21 +26,19 @@
 #include "microprofile.h"
 #endif
 
-template void Game::LoopMain<GameLoopMQ, Game::GameVisitor>(Game::GameContext &, Game::GameVisitor);
-template void Game::LoopMain<UILoopMQ, Game::UIVisitor>(Game::GameContext &, Game::UIVisitor);
-
 Game::Game()
-    : m_GameContext(&m_UILoopMQ, &m_GameLoopMQ,
+    : m_GameContext(
 #ifdef USE_AUDIO
-                    &m_AudioMixer,
+          &m_AudioMixer,
 #endif // USE_AUDIO
-                    &m_Randomizer, &m_GameClock, &m_ResourceManager),
-      m_GameClock{m_GameContext}, m_Randomizer{m_GameContext}, m_ResourceManager{m_GameContext},
+          &m_ResourceManager),
+      m_ResourceManager
+{
+  m_GameContext
+}
 #ifdef USE_AUDIO
-      m_AudioMixer{m_GameContext},
+, m_AudioMixer { m_GameContext }
 #endif
-      m_UILoop(&LoopMain<UILoopMQ, UIVisitor>, std::ref(m_GameContext), UIVisitor{}),
-      m_EventLoop(&LoopMain<GameLoopMQ, GameVisitor>, std::ref(m_GameContext), GameVisitor{m_GameContext})
 {
   LOG(LOG_DEBUG) << "Created Game Object";
 }
@@ -127,37 +125,43 @@ bool Game::mainMenu()
   Button newGameButton({screenWidth / 2 - 100, screenHeight / 2 - 20, 200, 40});
   newGameButton.setText("New Game");
   newGameButton.setUIElementID("newgame");
-  newGameButton.registerCallbackFunction([this]() {
+  newGameButton.registerCallbackFunction(
+      [this]()
+      {
 #ifdef USE_AUDIO
-    m_AudioMixer.stopAll();
-    if (!Settings::instance().audio3DStatus)
-      m_AudioMixer.play(SoundtrackID{"MajorSelection"});
-    else
-      m_AudioMixer.play(SoundtrackID{"MajorSelection"}, Coordinate3D{0, 0, -4});
+        m_AudioMixer.stopAll();
+        if (!Settings::instance().audio3DStatus)
+          m_AudioMixer.play(SoundtrackID{"MajorSelection"});
+        else
+          m_AudioMixer.play(SoundtrackID{"MajorSelection"}, Coordinate3D{0, 0, -4});
 #endif //  USE_AUDIO
 
-    Engine::instance().newGame();
-  });
+        Engine::instance().newGame();
+      });
 
   Button loadGameButton({screenWidth / 2 - 100, screenHeight / 2 - 20 + newGameButton.getUiElementRect().h * 2, 200, 40});
   loadGameButton.setText("Load Game");
-  loadGameButton.registerCallbackFunction([this]() {
+  loadGameButton.registerCallbackFunction(
+      [this]()
+      {
 #ifdef USE_AUDIO
-    m_AudioMixer.stopAll();
-    if (!Settings::instance().audio3DStatus)
-      m_AudioMixer.play(SoundtrackID{"MajorSelection"});
-    else
-      m_AudioMixer.play(SoundtrackID{"MajorSelection"}, Coordinate3D{0, 0, -4});
+        m_AudioMixer.stopAll();
+        if (!Settings::instance().audio3DStatus)
+          m_AudioMixer.play(SoundtrackID{"MajorSelection"});
+        else
+          m_AudioMixer.play(SoundtrackID{"MajorSelection"}, Coordinate3D{0, 0, -4});
 #endif // USE_AUDIO
-    Engine::instance().loadGame("resources/save.cts");
-  });
+        Engine::instance().loadGame("resources/save.cts");
+      });
 
   Button quitGameButton({screenWidth / 2 - 100, screenHeight / 2 - 20 + loadGameButton.getUiElementRect().h * 4, 200, 40});
   quitGameButton.setText("Quit Game");
-  quitGameButton.registerCallbackFunction([this, &quitGame]() {
-    quit();
-    quitGame = true;
-  });
+  quitGameButton.registerCallbackFunction(
+      [this, &quitGame]()
+      {
+        quit();
+        quitGame = true;
+      });
 
   // store elements in vector
   std::vector<UIElement *> uiElements;
@@ -258,7 +262,6 @@ bool Game::mainMenu()
 
 void Game::run(bool SkipMenu)
 {
-  Timer benchmarkTimer;
   LOG(LOG_INFO) << VERSION;
 
   if (SkipMenu)
@@ -266,17 +269,16 @@ void Game::run(bool SkipMenu)
     Engine::instance().newGame();
   }
 
-  benchmarkTimer.start();
   Engine &engine = Engine::instance();
-
-  LOG(LOG_DEBUG) << "Map initialized in " << benchmarkTimer.getElapsedTime() << "ms";
-  Camera::centerScreenOnMapCenter();
+  Camera::instance().centerScreenOnMapCenter();
 
   SDL_Event event;
   EventManager &evManager = EventManager::instance();
 
   UIManager &uiManager = UIManager::instance();
   uiManager.init();
+
+  GameClock &gameClock = GameClock::instance();
 
 #ifdef USE_ANGELSCRIPT
   ScriptEngine &scriptEngine = ScriptEngine::instance();
@@ -286,13 +288,37 @@ void Game::run(bool SkipMenu)
 #ifdef USE_AUDIO
   if (!Settings::instance().audio3DStatus)
   {
-    m_GameClock.createRepeatedTask(8min, [this]() { m_AudioMixer.play(AudioTrigger::MainTheme); });
-    m_GameClock.createRepeatedTask(3min, [this]() { m_AudioMixer.play(AudioTrigger::NatureSounds); });
+    gameClock.addRealTimeClockTask(
+        [this]()
+        {
+          m_AudioMixer.play(AudioTrigger::MainTheme);
+          return false;
+        },
+        0s, 8min);
+    gameClock.addRealTimeClockTask(
+        [this]()
+        {
+          m_AudioMixer.play(AudioTrigger::NatureSounds);
+          return false;
+        },
+        0s, 3min);
   }
   else
   {
-    m_GameClock.createRepeatedTask(8min, [this]() { m_AudioMixer.play(AudioTrigger::MainTheme, Coordinate3D{0, 0.5, 0.1}); });
-    m_GameClock.createRepeatedTask(3min, [this]() { m_AudioMixer.play(AudioTrigger::NatureSounds, Coordinate3D{0, 0, -2}); });
+    gameClock.addRealTimeClockTask(
+        [this]()
+        {
+          m_AudioMixer.play(AudioTrigger::MainTheme, Coordinate3D{0, 0.5, 0.1});
+          return false;
+        },
+        0s, 8min);
+    gameClock.addRealTimeClockTask(
+        [this]()
+        {
+          m_AudioMixer.play(AudioTrigger::NatureSounds, Coordinate3D{0, 0, -2});
+          return false;
+        },
+        0s, 3min);
   }
 #endif // USE_AUDIO
 
@@ -310,6 +336,10 @@ void Game::run(bool SkipMenu)
     SDL_RenderClear(WindowManager::instance().getRenderer());
 
     evManager.checkEvents(event, engine);
+    // TODO: Add Gameplay class and call Gameplay.DoStuff() here instead of zonemanager stuff
+    gameClock.tick();
+
+    m_GamePlay.update();
 
     // render the tileMap
     if (engine.map != nullptr)
@@ -324,11 +354,8 @@ void Game::run(bool SkipMenu)
       uiManager.drawUI();
     }
 
-    // reset renderer color back to black
-    SDL_SetRenderDrawColor(WindowManager::instance().getRenderer(), 0, 0, 0, SDL_ALPHA_OPAQUE);
-
-    // Render the Frame
-    SDL_RenderPresent(WindowManager::instance().getRenderer());
+    // preset the game screen
+    WindowManager::instance().renderScreen();
 
     fpsFrames++;
 
@@ -339,8 +366,6 @@ void Game::run(bool SkipMenu)
       fpsFrames = 0;
     }
 
-    SDL_Delay(1);
-
 #ifdef MICROPROFILE_ENABLED
     MicroProfileFlip(nullptr);
 #endif
@@ -350,37 +375,6 @@ void Game::run(bool SkipMenu)
 void Game::shutdown()
 {
   LOG(LOG_DEBUG) << "In shutdown";
-  m_UILoopMQ.push(TerminateEvent{});
-  m_GameLoopMQ.push(TerminateEvent{});
-  m_UILoop.join();
-  m_EventLoop.join();
   TTF_Quit();
-
   SDL_Quit();
-}
-
-template <typename MQType, typename Visitor> void Game::LoopMain(GameContext &context, Visitor visitor)
-{
-  try
-  {
-    while (true)
-    {
-      for (auto event : std::get<MQType *>(context)->getEnumerable())
-      {
-        if (std::holds_alternative<TerminateEvent>(event))
-        {
-          return;
-        }
-        else
-        {
-          std::visit(visitor, std::move(event));
-        }
-      }
-    }
-  }
-  catch (std::exception &ex)
-  {
-    LOG(LOG_ERROR) << ex.what();
-    // @todo: Call shutdown() here in a safe way
-  }
 }

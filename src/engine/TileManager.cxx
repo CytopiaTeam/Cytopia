@@ -5,6 +5,7 @@
 #include "basics/Settings.hxx"
 #include "ResourcesManager.hxx"
 #include "Filesystem.hxx"
+#include "tileData.hxx"
 
 #include <bitset>
 
@@ -22,6 +23,19 @@ TileData *TileManager::getTileData(const std::string &id) noexcept
   if (m_tileData.count(id))
     return &m_tileData[id];
   return nullptr;
+}
+
+std::vector<std::string> TileManager::getTileIDsOfCategory(Zones zone)
+{
+  std::vector<std::string> results;
+  for (auto& tileData : m_tileData)
+  {
+    if (std::find(tileData.second.zones.begin(), tileData.second.zones.end(), +zone) != tileData.second.zones.end())
+    {
+      results.push_back(tileData.first);
+    }
+  }
+  return results;
 }
 
 Layer TileManager::getTileLayer(const std::string &tileID) const
@@ -300,7 +314,7 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
   m_tileData[id].isOverPlacable = tileDataJSON[idx].value("isOverPlacable", false);
   m_tileData[id].placeOnWater = tileDataJSON[idx].value("placeOnWater", false);
   m_tileData[id].inhabitants = tileDataJSON[idx].value("inhabitants", 0);
-  m_tileData[id].happyness = tileDataJSON[idx].value("happyness", 0);
+  m_tileData[id].happiness = tileDataJSON[idx].value("happiness", 0);
   m_tileData[id].fireHazardLevel = tileDataJSON[idx].value("fireHazardLevel", 0);
   m_tileData[id].educationLevel = tileDataJSON[idx].value("educationLevel", 0);
   m_tileData[id].crimeLevel = tileDataJSON[idx].value("crimeLevel", 0);
@@ -318,16 +332,20 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
                              " the field tileType uses the unsupported value " + tileTypeStr);
   }
 
-  std::string wealth = tileDataJSON[idx].value("wealth", "none");
-
-  if (Wealth::_is_valid_nocase(wealth.c_str()))
+  if (tileDataJSON[idx].find("wealth") != tileDataJSON[idx].end())
   {
-    m_tileData[id].wealth = Wealth::_from_string_nocase(wealth.c_str());
-  }
-  else
-  {
-    throw ConfigurationError(TRACE_INFO "In TileData.json in field with ID " + id +
-                             " the field tileType uses the unsupported value " + wealth);
+    for (auto wealth : tileDataJSON[idx].at("wealth").items())
+    {
+      if (Wealth::_is_valid_nocase(wealth.value().get<std::string>().c_str()))
+      {
+        m_tileData[id].wealth.push_back(Wealth::_from_string_nocase(wealth.value().get<std::string>().c_str()));
+      }
+      else
+      {
+        throw ConfigurationError(TRACE_INFO "In TileData.json in field with ID " + id +
+                                 " the field wealth uses the unsupported value " + wealth.value().get<std::string>());
+      }
+    }
   }
 
   if (tileDataJSON[idx].find("zones") != tileDataJSON[idx].end())
@@ -341,13 +359,9 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
       else
       {
         throw ConfigurationError(TRACE_INFO "In TileData.json in field with ID " + id +
-                                 " the field tileType uses the unsupported value " + zone.value().get<std::string>());
+                                 " the field zone uses the unsupported value " + zone.value().get<std::string>());
       }
     }
-  }
-  else
-  {
-    m_tileData[id].zones.push_back(Zones::NONE);
   }
 
   if (tileDataJSON[idx].find("style") != tileDataJSON[idx].end())
@@ -361,13 +375,9 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
       else
       {
         throw ConfigurationError(TRACE_INFO "In TileData.json in field with ID " + id +
-                                 " the field tileType uses the unsupported value " + style.value().get<std::string>());
+                                 " the field style uses the unsupported value " + style.value().get<std::string>());
       }
     }
-  }
-  else
-  {
-    m_tileData[id].style.push_back(Style::ALL);
   }
 
   if (tileDataJSON[idx].find("biomes") != tileDataJSON[idx].end())
@@ -400,9 +410,16 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
   m_tileData[id].tiles.fileName = tileDataJSON[idx]["tiles"].value("fileName", "");
   m_tileData[id].tiles.clippingHeight = tileDataJSON[idx]["tiles"].value("clip_height", 0);
   m_tileData[id].tiles.clippingWidth = tileDataJSON[idx]["tiles"].value("clip_width", 0);
-  m_tileData[id].tiles.offset = tileDataJSON[idx]["tiles"].value("offset", 0);
+
+  // offset value can be negative in the json, for the tiledata editor, but never in Cytopia
+  int offset = tileDataJSON[idx]["tiles"].value("offset", 0);
+  if (offset < 0)
+  {
+    offset = 0;
+  }
+  m_tileData[id].tiles.offset = offset;
   m_tileData[id].tiles.count = tileDataJSON[idx]["tiles"].value("count", 1);
-  m_tileData[id].tiles.rotations = tileDataJSON[idx]["tiles"].value("rotations", 1);
+  m_tileData[id].tiles.pickRandomTile = tileDataJSON[idx]["tiles"].value("pickRandomTile", true);
 
   if (!m_tileData[id].tiles.fileName.empty())
   {
@@ -415,7 +432,14 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
     m_tileData[id].shoreTiles.count = tileDataJSON[idx]["shoreLine"].value("count", 1);
     m_tileData[id].shoreTiles.clippingWidth = tileDataJSON[idx]["shoreLine"].value("clip_width", 0);
     m_tileData[id].shoreTiles.clippingHeight = tileDataJSON[idx]["shoreLine"].value("clip_height", 0);
-    m_tileData[id].shoreTiles.offset = tileDataJSON[idx]["shoreLine"].value("offset", 0);
+
+    // offset value can be negative in the json, for the tiledata editor, but never in Cytopia
+    int offset = tileDataJSON[idx]["shoreLine"].value("offset", 0);
+    if (offset < 0)
+    {
+      offset = 0;
+    }
+    m_tileData[id].shoreTiles.offset = offset;
 
     if (!m_tileData[id].shoreTiles.fileName.empty())
     {
@@ -430,7 +454,14 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
     m_tileData[id].slopeTiles.count = tileDataJSON[idx]["slopeTiles"].value("count", 1);
     m_tileData[id].slopeTiles.clippingWidth = tileDataJSON[idx]["slopeTiles"].value("clip_width", 0);
     m_tileData[id].slopeTiles.clippingHeight = tileDataJSON[idx]["slopeTiles"].value("clip_height", 0);
-    m_tileData[id].slopeTiles.offset = tileDataJSON[idx]["slopeTiles"].value("offset", 0);
+
+    // offset value can be negative in the json, for the tiledata editor, but never in Cytopia
+    int offset = tileDataJSON[idx]["slopeTiles"].value("offset", 0);
+    if (offset < 0)
+    {
+      offset = 0;
+    }
+    m_tileData[id].slopeTiles.offset = offset;
 
     if (!m_tileData[id].slopeTiles.fileName.empty())
     {

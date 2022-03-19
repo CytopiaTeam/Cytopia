@@ -12,6 +12,41 @@
         "Texture_Clicked": "resources/images/ui/buttons/Construction Menu pressed.png",
         "Texture_Hovering": "resources/images/ui/buttons/Construction Menu hover.png"
     },
+    "Button_RoadsMenu": {
+        "Texture_Default": "resources/images/ui/buttons/Roads Menu.png",
+        "Texture_Clicked": "resources/images/ui/buttons/Roads Menu pressed.png",
+        "Texture_Hovering": "resources/images/ui/buttons/Roads Menu hover.png"
+    },
+    "Button_PowerMenu": {
+        "Texture_Default": "resources/images/ui/buttons/Power Menu.png",
+        "Texture_Clicked": "resources/images/ui/buttons/Power Menu pressed.png",
+        "Texture_Hovering": "resources/images/ui/buttons/Power Menu hover.png"
+    },
+    "Button_WaterMenu": {
+        "Texture_Default": "resources/images/ui/buttons/Water Menu.png",
+        "Texture_Clicked": "resources/images/ui/buttons/Water Menu pressed.png",
+        "Texture_Hovering": "resources/images/ui/buttons/Water Menu hover.png"
+    },
+    "Button_ZonesMenu": {
+        "Texture_Default": "resources/images/ui/buttons/Zones Menu.png",
+        "Texture_Clicked": "resources/images/ui/buttons/Zones Menu pressed.png",
+        "Texture_Hovering": "resources/images/ui/buttons/Zones Menu hover.png"
+    },
+    "Button_NatureMenu": {
+        "Texture_Default": "resources/images/ui/buttons/Nature Menu.png",
+        "Texture_Clicked": "resources/images/ui/buttons/Nature Menu pressed.png",
+        "Texture_Hovering": "resources/images/ui/buttons/Nature Menu hover.png"
+    },
+    "Button_EmergencyMenu": {
+        "Texture_Default": "resources/images/ui/buttons/Emergency Menu.png",
+        "Texture_Clicked": "resources/images/ui/buttons/Emergency Menu pressed.png",
+        "Texture_Hovering": "resources/images/ui/buttons/Emergency Menu hover.png"
+    },
+    "Button_RecreationMenu": {
+        "Texture_Default": "resources/images/ui/buttons/Recreation Menu.png",
+        "Texture_Clicked": "resources/images/ui/buttons/Recreation Menu pressed.png",
+        "Texture_Hovering": "resources/images/ui/buttons/Recreation Menu hover.png"
+    },
     "Button_ConstructionMenu_Water": {
         "Texture_Default": "resources/images/ui/buttons/water.png"
     },
@@ -27,11 +62,6 @@
     "Button_ConstructionMenu_LevelTerrain": {
         "Texture_Default": "resources/images/ui/buttons/levelTerrain.png"
     },
-    "Button_RoadsMenu": {
-        "Texture_Default": "resources/images/ui/buttons/Roads Menu.png",
-        "Texture_Clicked": "resources/images/ui/buttons/Roads Menu pressed.png",
-        "Texture_Hovering": "resources/images/ui/buttons/Roads Menu hover.png"
-    },
     "Button_RoadsMenu_PavedRoad": {
         "Texture_Default": "resources/images/ui/buttons/paved_road.png"
     },
@@ -41,16 +71,7 @@
     "Button_RoadsMenu_CountryRoad": {
         "Texture_Default": "resources/images/ui/buttons/country_road.png"
     },
-    "Button_PowerMenu": {
-        "Texture_Default": "resources/images/ui/buttons/Power Menu.png",
-        "Texture_Clicked": "resources/images/ui/buttons/Power Menu pressed.png",
-        "Texture_Hovering": "resources/images/ui/buttons/Power Menu hover.png"
-    },
-    "Button_WaterMenu": {
-        "Texture_Default": "resources/images/ui/buttons/Water Menu.png",
-        "Texture_Clicked": "resources/images/ui/buttons/Water Menu pressed.png",
-        "Texture_Hovering": "resources/images/ui/buttons/Water Menu hover.png"
-    },
+
     "Cytopia_Logo": {
         "Texture_Default": "resources/images/app_icons/logo_big_textured.png"
     }

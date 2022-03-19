@@ -4,6 +4,7 @@
 #include "LOG.hxx"
 #include "../map/MapLayers.hxx"
 #include "GameStates.hxx"
+#include "Settings.hxx"
 
 MapNode::MapNode(Point isoCoordinates, const std::string &terrainID, const std::string &tileID)
     : m_isoCoordinates(std::move(isoCoordinates))
@@ -70,14 +71,22 @@ void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
     const Layer layer = TileManager::instance().getTileLayer(tileID);
     switch (layer)
     {
+    case Layer::ZONE:
+      this->setNodeTransparency(Settings::instance().zoneLayerTransparency, Layer::ZONE);
+      break;
     case Layer::WATER:
       demolishLayer(Layer::ROAD);
+      //TODO: we need to modify neighbors TileTypes to Shore.
       // no break on purpose.
     case Layer::ROAD:
       // in case it's allowed then maybe a Tree Tile already exist, so we remove it.
       demolishLayer(Layer::BUILDINGS);
       break;
     case Layer::BUILDINGS:
+      if (tileData->category != "Flora")
+      {
+        this->setNodeTransparency(0.6, Layer::BLUEPRINT);
+      }
       m_mapNodeData[Layer::ZONE].shouldRender = false;
       break;
     default:
@@ -99,11 +108,10 @@ void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
     m_mapNodeData[layer].tileID = tileID;
 
     // Determine if the tile should have a random rotation or not.
-    if (m_mapNodeData[layer].tileData->tiles.rotations <= 1)
+    if (m_mapNodeData[layer].tileData->tiles.pickRandomTile && m_mapNodeData[layer].tileData->tiles.count > 1)
     {
-      /** set tileIndex to a rand between 1 and count, this will be the displayed image
-      * if this tile has any purposefully set rotation images (roads and buildings
-      * with rotations) then always set tileIndex to 0.
+      /** set tileIndex to a rand between 1 and count, this will be the displayed image of the entire tileset
+      * if this tile has ordered frames, like roads then pickRandomTile must be set to 0.
       **/
       m_mapNodeData[layer].tileIndex = rand() % m_mapNodeData[layer].tileData->tiles.count;
     }
@@ -144,12 +152,11 @@ Layer MapNode::getTopMostActiveLayer() const
   return Layer::NONE;
 }
 
-void MapNode::setNodeTransparency(const float transparencyFactor) const
+void MapNode::setNodeTransparency(const float transparencyFactor, const Layer &layer) const
 {
   // TODO refactoring: Consider replacing magic number (255) with constexpr.
   unsigned char alpha = (1 - transparencyFactor) * 255;
-  m_sprite->transparentSprite = true;
-  m_sprite->alpha = alpha;
+  m_sprite->setSpriteTranparencyFactor(layer, alpha);
 }
 
 bool MapNode::isDataAutoTile(const TileData *tileData)
@@ -419,6 +426,7 @@ const MapNodeData &MapNode::getActiveMapNodeData() const { return m_mapNodeData[
 void MapNode::setMapNodeData(std::vector<MapNodeData> &&mapNodeData, const Point &currNodeIsoCoordinates)
 {
   m_mapNodeData.swap(mapNodeData);
+  this->setNodeTransparency(Settings::instance().zoneLayerTransparency, Layer::ZONE);
 
   // updates the pointers to the tiles, after loading tileIDs from json
   for (auto &it : m_mapNodeData)
@@ -471,6 +479,10 @@ void MapNode::demolishNode(const Layer &demolishLayer)
         continue;
       }
       this->demolishLayer(layer);
+      if (layer == Layer::BUILDINGS)
+      {
+        this->setNodeTransparency(0, Layer::BLUEPRINT);
+      }
       updateTexture(demolishLayer);
     }
   }

@@ -18,8 +18,9 @@ struct LayoutData
 };
 
 /**
+ * @class Layout
  * @brief Layout functionality
- * Parses the layout parameters from UiLayout and also adds elements to the buildings menu
+ * @details Parses the layout parameters from UiLayout and also adds elements to the buildings menu
  * Buttons from UiLayout.json are added as "main buttons" for certain categories.
  * All tiles from TileData.json that are in specific categories will be added to this group automatically. The "icon" parameter serves as image for the corresponding ImageButton.
  * All tiles that are not in certain categories will be added to the Debug Menu, which is only shown if Debug Mode has been enabled.

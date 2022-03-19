@@ -78,7 +78,7 @@ void Map::getNodeInformation(const Point &isoCoordinates) const
   LOG(LOG_INFO) << "[Layer: BUILDINGS] ID: " << mapNode.getMapNodeDataForLayer(Layer::BUILDINGS).tileID;
   LOG(LOG_INFO) << "Category: " << tileData->category;
   LOG(LOG_INFO) << "FileName: " << tileData->tiles.fileName;
-  LOG(LOG_INFO) << "Rotations: " << tileData->tiles.rotations;
+  LOG(LOG_INFO) << "PickRandomTile: " << tileData->tiles.pickRandomTile;
   LOG(LOG_INFO) << "TileMap: " << mapNodeData.tileMap;
   LOG(LOG_INFO) << "TileIndex: " << mapNodeData.tileIndex;
 }
@@ -354,7 +354,7 @@ Point Map::getNodeOrigCornerPoint(const Point &isoCoordinates, Layer layer)
     return mapNodes[nodeIdx(isoCoordinates.x, isoCoordinates.y)].getOrigCornerPoint(layer);
   }
 
-  return UNDEFINED_POINT;
+  return Point::INVALID();
 }
 
 std::vector<uint8_t> Map::calculateAutotileBitmask(const MapNode *const pMapNode, const std::vector<NeighborNode> &neighborNodes)
@@ -595,8 +595,8 @@ bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int is
       assert(!tileID.empty());
 
       // Calculate the position of the clicked pixel within the surface and "un-zoom" the position to match the un-adjusted surface
-      const int pixelX = static_cast<int>((screenCoordinates.x - spriteRect.x) / Camera::zoomLevel) + clipRect.x;
-      const int pixelY = static_cast<int>((screenCoordinates.y - spriteRect.y) / Camera::zoomLevel) + clipRect.y;
+      const int pixelX = static_cast<int>((screenCoordinates.x - spriteRect.x) / Camera::instance().zoomLevel()) + clipRect.x;
+      const int pixelY = static_cast<int>((screenCoordinates.y - spriteRect.y) / Camera::instance().zoomLevel()) + clipRect.y;
 
       if ((curLayer == Layer::TERRAIN) && (node.getMapNodeDataForLayer(Layer::TERRAIN).tileMap == TileMap::SHORE))
       {
@@ -731,6 +731,13 @@ bool Map::isAllowSetTileId(const Layer layer, const MapNode *const pMapNode)
     if ((pMapNode->isLayerOccupied(Layer::BUILDINGS) &&
          pMapNode->getMapNodeDataForLayer(Layer::BUILDINGS).tileData->category != "Flora") ||
         pMapNode->isLayerOccupied(Layer::WATER) || pMapNode->isLayerOccupied(Layer::ROAD) || pMapNode->isSlopeNode())
+    {
+      return false;
+    }
+    break;
+  case Layer::WATER:
+    if (pMapNode->isLayerOccupied(Layer::BUILDINGS) &&
+        pMapNode->getMapNodeDataForLayer(Layer::BUILDINGS).tileData->category != "Flora")
     {
       return false;
     }

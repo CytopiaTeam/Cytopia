@@ -1,23 +1,26 @@
 {
-    "Audio": {
-        "Audio3DStatus": false,
-        "AudioChannels": 2,
-        "MusicVolume": 50,
-        "PlayMusic": true,
-        "PlaySoundEffects": true,
-        "SoundEffectsVolume": 100
-    },
-    "ConfigFiles": {
-        "AudioConfigJSONFile": "resources/data/AudioConfig.json",
-        "TileDataJSONFile": "resources/data/TileData.json",
-        "UIDataJSONFile": "resources/data/UIData.json",
-        "UILayoutJSONFile": "resources/data/UILayout.json"
-    },
-    "Game": {
-        "Biome": "MixedForest",
-        "MapSize": 128,
-        "MaxElevationHeight": 32
-    },
+  "Audio": {
+    "Audio3DStatus": false,
+    "AudioChannels": 2,
+    "MusicVolume": 50,
+    "PlayMusic": true,
+    "PlaySoundEffects": true,
+    "SoundEffectsVolume": 100
+  },
+  "ConfigFiles": {
+    "AudioConfigJSONFile": "resources/data/AudioConfig.json",
+    "TileDataJSONFile": "resources/data/TileData.json",
+    "UIDataJSONFile": "resources/data/UIData.json",
+    "UILayoutJSONFile": "resources/data/UILayout.json"
+  },
+  "Game": {
+    "Biome": "Showcase",
+    "Language": "en",
+    "MapSize": 128,
+    "MaxElevationHeight": 32,
+    "ShowBuildingsInBluePrint": false,
+    "ZoneLayerTransperancy": 0.6
+  },
     "Graphics": {
         "FullScreen": false,
         "FullScreenMode": 0,
@@ -28,8 +31,8 @@
         "VSYNC": false
     },
     "User Interface": {
-        "BuildMenu Position": "BOTTOM",
-        "Font Filename": "resources/fonts/arcadeclassics.ttf",
+    "BuildMenuPosition": "BOTTOM",
+    "FontFilename": "resources/fonts/arcadeclassics.ttf",
         "Language": "en",
         "SubMenuButtonHeight": 32,
         "SubMenuButtonWidth": 32

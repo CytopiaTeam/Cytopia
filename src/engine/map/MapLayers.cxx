@@ -1,4 +1,5 @@
 #include "MapLayers.hxx"
+#include "Settings.hxx"
 
 // static variables
 unsigned int MapLayers::m_activeLayers = 0;
@@ -10,7 +11,11 @@ void MapLayers::setLayerEditMode(LayerEditMode layerEditMode)
     {
     case LayerEditMode::BLUEPRINT:
       deactivateAllLayers();
-      enableLayers({BLUEPRINT, UNDERGROUND});
+      if (Settings::instance().showBuildingsInBlueprint)
+      {
+        enableLayers({ BUILDINGS });
+      }
+      enableLayers({BLUEPRINT, UNDERGROUND, ROAD});
       break;
     case LayerEditMode::TERRAIN:
       deactivateAllLayers();

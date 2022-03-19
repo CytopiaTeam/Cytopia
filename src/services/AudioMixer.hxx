@@ -7,7 +7,6 @@
 #include <memory>
 #include <list>
 
-#include "../events/AudioEvents.hxx"
 #include "audio/Soundtrack.hxx"
 #include "audio/AudioConfig.hxx"
 #include "../GameService.hxx"
@@ -28,6 +27,114 @@ template <typename Type> using Set = std::unordered_set<Type>;
 template <typename Type> using List = std::list<Type>;
 
 /**
+ * @brief the volume level
+ */
+using VolumeLevel = StrongType<uint8_t, struct VolumeLevelTag>;
+
+/**
+ * @brief a 3-dimensional coordinate
+ * @param x, x coordinate, horizontal position
+ * @param y, y coordinate, height
+ * @param z, z coordinate, vertical position
+ */
+struct Coordinate3D
+{
+  double x, y, z;
+};
+
+/**
+ * @brief a standard reverb effect
+ *
+	@param flDensity, AL_REVERB_DENSITY,
+	description: coloration of the late reverb, range: 0.0 to 1.0.
+
+	@param flDiffusion, AL_REVERB_DIFFUSION,
+	description: echo density in the reverberation decay, range: 0.0 to 1.0
+
+	@param flGain, AL_REVERB_GAIN,
+	description: master volume control for the reflected sound, range: 0.0 to 1.0
+
+	@param flGainHF, AL_REVERB_GAINHF,
+	description: attenuation it at high frequencies, range: 0.0 to 1.0
+
+	@param flDecayTime, AL_REVERB_DECAY_TIME,
+	description: reverberation decay time, range: 0.1 to 20.0
+
+	@param flDecayHFRatio, AL_REVERB_DECAY_HFRATIO,
+	description: ratio of high-frequency decay time relative to the time set by Decay Time, range: 0.1 to 2.0
+
+	@param flReflectionsGain, AL_REVERB_REFLECTIONS_GAIN,
+	description: controls the overall amount of initial reflections relative to the Gain property, range: 0.0 to 3.16
+
+	@param flReflectionsDelay, AL_REVERB_REFLECTIONS_DELAY,
+	description: amount of delay between the arrival time of the direct path from the source to the first reflection from the source, range: 0.0 to 0.3
+
+	@param flLateReverbGain, AL_REVERB_LATE_REVERB_GAIN,
+	description: overall amount of later reverberation relative to the Gain property, range: 0.0 to 10.0
+
+	@param flLateReverbDelay, AL_REVERB_LATE_REVERB_DELAY,
+	description: begin time of the late reverberation relative to the time of the initial reflection, range: 0.0 to 0.1
+
+	@param flAirAbsorptionGainHF, AL_REVERB_AIR_ABSORPTION_GAINHF,
+	description: the distance-dependent attenuation at high frequencies caused by the propagation medium, range: 0.892 to 1.0
+
+	@param flRoomRolloffFactor, AL_REVERB_ROOM_ROLLOFF_FACTOR,
+	description: attenuate the reflected sound, range: 0.0 to 10.0
+ */
+
+struct StandardReverbProperties
+{
+  double flDensity = 1.0;
+  double flDiffusion = 1.0;
+  double flGain = 0.32;
+  double flGainHF = 0.89;
+  double flDecayTime = 1.49;
+  double flDecayHFRatio = 0.83;
+  double flReflectionsGain = 0.05;
+  double flReflectionsDelay = 0.007;
+  double flLateReverbGain = 1.26;
+  double flLateReverbDelay = 0.011;
+  double flAirAbsorptionGainHF = 0.994;
+  double flRoomRolloffFactor = 0.0;
+};
+
+/**
+  @brief an echo effect
+
+
+	@param flEchoDelay,AL_ECHO_DELAY,
+	description: delay between the original sound and the first ‘tap’, or echo instance,range: 0.0 to 0.207
+
+
+	@param flEchoLRDelay,AL_ECHO_LRDELAY,
+	description: delay between the first ‘tap’ and the second ‘tap’.,range: 0.0 to 0.404
+
+
+	@param flEchoDamping,AL_ECHO_DAMPING,
+	description: amount of high frequency damping applied to each echo, range: 0.0 to 0.99
+
+
+	@param flEchoFeedback,AL_ECHO_FEEDBACK,
+	description: amount of feedback the output signal fed back into the input, range: 0.0 to 1.0
+
+
+	@param flEchoSpread,AL_ECHO_SPREAD,
+	description: how hard panned the individual echoes are, range: -1.0 to 1.0
+*/
+struct EchoProperties
+{
+  double flEchoDelay = 0.1;
+
+  double flEchoLRDelay = 0.1;
+
+  double flEchoDamping = 0.5;
+
+  double flEchoFeedback = 0.5;
+
+  double flEchoSpread = -1.0;
+};
+
+/**
  * @class AudioMixer
  */
 class AudioMixer : public GameService
@@ -40,68 +147,61 @@ public:
    * @pre   volume must be within [0, 128]
    * @post  Settings::MusicVolume is changed
    */
-  void setMusicVolume(VolumeLevel volume) noexcept;
+  void setMusicVolume(VolumeLevel volume);
 
   /**
    * @brief sets the sound effects volume
    * @pre   volume must be within [0, 128]
    * @post  Settings::SoundEffectsVolume is changed
    */
-  void setSoundEffectVolume(VolumeLevel volume) noexcept;
+  void setSoundEffectVolume(VolumeLevel volume);
 
   /**
    * @brief Plays a Soundtrack given its ID
    * @param ID the SoundtrackID
    */
-  void play(SoundtrackID &&ID) noexcept;
+  void play(const SoundtrackID &id);
 
   /**
    * @brief Plays a random Soundtrack from a trigger
    * @param trigger the AudioTrigger
    */
-  void play(AudioTrigger &&trigger) noexcept;
+  void play(const AudioTrigger &trigger);
 
   /**
    * @brief Plays a 3D Soundtrack given its ID
    * @param ID the SoundtrackID
    * @param position the Coordinate3D position of the sound
    */
-
-  void play(SoundtrackID &&ID, Coordinate3D &&position) noexcept;
-
-  /**
-   * @brief Plays a Soundtrack given its ID and applies effect to it
-   * @param ID the SoundtrackID
-   * @param position the Coordinate3D position of the sound
-   * @param properties of standard reverb
-   */
-
-  void play(SoundtrackID &&ID, StandardReverbProperties &reverb) noexcept;
+  void play(const SoundtrackID &id, const Coordinate3D &position);
 
   /**
    * @brief Plays a Soundtrack given its ID and applies effect to it
    * @param ID the SoundtrackID
-   * @param properties of echo
+   * @param reverb_properties properties of standard reverb
    */
+  void play(const SoundtrackID &id, const StandardReverbProperties &reverb_properties);
 
-  void play(SoundtrackID &&ID, EchoProperties &echo) noexcept;
+  /**
+   * @brief Plays a Soundtrack given its ID and applies effect to it
+   * @param id the SoundtrackID
+   * @param echo_properties properties of echo
+   */
+  void play(const SoundtrackID &id, const EchoProperties &echo_properties);
 
   /**
    * @brief Plays a Soundtrack from a trigger and applies effect to it
    * @param trigger the AudioTrigger
-   * @param position the Coordinate3D position of the sound
-   * @param properties of standard reverb
+   * @param reverb_properties properties of standard reverb
    */
-
-  void play(AudioTrigger &&trigger, StandardReverbProperties &reverb) noexcept;
+  void play(const AudioTrigger &trigger, const StandardReverbProperties &reverb_properties);
 
   /**
    * @brief Plays a Soundtrack from a trigger and applies effect to it
    * @param trigger the AudioTrigger
-   * @param properties of standard reverb
+   * @param echo_properties properties of standard reverb
    */
-
-  void play(AudioTrigger &&trigger, EchoProperties &echo) noexcept;
+  void play(const AudioTrigger &trigger, const EchoProperties &echo_properties);
 
   /**
    * @brief Plays a 3D Soundtrack from a trigger
@@ -109,59 +209,56 @@ public:
    * @param position the Coordinate3D position of the sound
    */
 
-  void play(AudioTrigger &&trigger, Coordinate3D &&position) noexcept;
+  void play(const AudioTrigger &trigger, const Coordinate3D &position);
 
   /**
    * @brief Plays a 3D Soundtrack given its ID and applies effect to it
-   * @param ID the SoundtrackID
+   * @param id the SoundtrackID
    * @param position the Coordinate3D position of the sound
-   * @param properties of standard reverb
+   * @param reverb_properties properties of standard reverb
    */
-
-  void play(SoundtrackID &&ID, Coordinate3D &&position, StandardReverbProperties &reverb_properties) noexcept;
+  void play(const SoundtrackID &id, const Coordinate3D &position, const StandardReverbProperties &reverb_properties);
 
   /**
    * @brief Plays a 3D Soundtrack given its ID and applies effect to it
-   * @param ID the SoundtrackID
+   * @param id the SoundtrackID
    * @param position the Coordinate3D position of the sound
-   * @param properties of echo
+   * @param echo_properties properties of echo
    */
 
-  void play(SoundtrackID &&ID, Coordinate3D &&position, EchoProperties &echo_properties) noexcept;
+  void play(const SoundtrackID &id, const Coordinate3D &position, const EchoProperties &echo_properties);
 
   /**
    * @brief Plays a 3D Soundtrack from a trigger and applies effect to it
    * @param trigger the AudioTrigger
    * @param position the Coordinate3D position of the sound
-   * @param properties of standard reverb
+   * @param reverb_properties properties of standard reverb
    */
-
-  void play(AudioTrigger &&trigger, Coordinate3D &&position, StandardReverbProperties &reverb_properties) noexcept;
+  void play(const AudioTrigger &trigger, const Coordinate3D &position, const StandardReverbProperties &reverb_properties);
 
   /**
    * @brief Plays a 3D Soundtrack from a trigger and applies effect to it
    * @param trigger the AudioTrigger
    * @param position the Coordinate3D position of the sound
-   * @param properties of echo
+   * @param echo_properties properties of echo
    */
-
-  void play(AudioTrigger &&trigger, Coordinate3D &&position, EchoProperties &echo_properties) noexcept;
+  void play(const AudioTrigger &trigger, const Coordinate3D &position, const EchoProperties &echo_properties);
 
   /**
    * @brief stops all sounds
    * @param isMuted is muted
    */
-  void setMuted(bool isMuted) noexcept;
+  void setMuted(bool isMuted);
 
   /**
    * @brief Stops all soundtracks
    */
-  void stopAll() noexcept;
+  void stopAll();
 
   /**
    * @brief Updates soundtracks that are no longer playing
    */
-  void prune() noexcept;
+  void prune();
 
   /**
    * @pre GameClock must be initialized
@@ -209,32 +306,12 @@ private:
    */
   List<SoundtrackUPtr *> m_Playing;
 
-  /* Event handlers */
-  void handleEvent(const AudioTriggerEvent &&event);
-  void handleEvent(const AudioTrigger3DEvent &&event);
-
-  void handleEvent(const AudioPlayEvent &&event);
-  void handleEvent(const AudioPlay3DEvent &&event);
-
-  void handleEvent(const AudioPlayReverbEvent &&event);
-  void handleEvent(const AudioPlayEchoEvent &&event);
-
-  void handleEvent(const AudioTriggerReverbEvent &&event);
-  void handleEvent(const AudioTriggerEchoEvent &&event);
-
-  void handleEvent(const AudioPlayReverb3DEvent &&event);
-  void handleEvent(const AudioPlayEcho3DEvent &&event);
-
-  void handleEvent(const AudioTriggerReverb3DEvent &&event);
-  void handleEvent(const AudioTriggerEcho3DEvent &&event);
-
-  void handleEvent(const AudioSoundVolumeChangeEvent &&event);
-  void handleEvent(const AudioMusicVolumeChangeEvent &&event);
-  void handleEvent(const AudioSetMutedEvent &&event);
-  void handleEvent(const AudioStopEvent &&event);
-  void handleEvent(const AudioPruneEvent &&event);
-
   /* Helpers */
+
+  /**
+   * @brief Get a descriptive error message from an error code
+   */
+  const char *get_al_error_msg(ALenum error);
 
   /**
    * @brief Plays the Soundtrack
@@ -273,6 +350,9 @@ private:
    *          involves creating the onTrackFinishedFunc global function object which captures the AudioMixer object
    */
   static void onTrackFinishedFuncPtr(int channelID) { onTrackFinishedFunc(channelID); }
+
+  SoundtrackUPtr &getTrack(const AudioTrigger &trigger);
+  SoundtrackUPtr &getTrack(const SoundtrackID &id);
 
   friend class Game;
 

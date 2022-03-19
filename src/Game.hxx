@@ -17,6 +17,7 @@
 #include "services/ResourceManager.hxx"
 #include "LOG.hxx"
 #include "Exception.hxx"
+#include "../game/GamePlay.hxx"
 
 #include <thread>
 
@@ -55,7 +56,7 @@ public:
 
   /** @brief initializes and displays the main menu
     * initializes and displays the main menu
-    * @return true in case game has been quit, othewise false.
+    * @return true in case game has been quit, otherwise false.
     */
   virtual bool mainMenu();
 
@@ -64,54 +65,14 @@ private:
   using GameContext = GameService::ServiceTuple;
   GameContext m_GameContext;
 
+  void quit();
+
   /* Services */
-  GameClock m_GameClock;
-  Randomizer m_Randomizer;
   ResourceManager m_ResourceManager;
 #ifdef USE_AUDIO
   AudioMixer m_AudioMixer;
 #endif
-  UILoopMQ m_UILoopMQ;
-  GameLoopMQ m_GameLoopMQ;
-
-  /* Threads */
-  Thread m_UILoop;
-  Thread m_EventLoop;
-
-  template <typename MQType, typename Visitor> static void LoopMain(GameContext &context, Visitor visitor);
-
-  struct UIVisitor
-  {
-
-    /**
-     * @brief handles invalid UI events
-     * @tparam ArgumentType the invalid event
-     */
-    template <typename ArgumentType> void operator()(ArgumentType &&event);
-  };
-
-  struct GameVisitor : public GameService
-  {
-
-#ifdef USE_AUDIO
-    /**
-     * @brief handles valid Audio events
-     * @tparam AudioEventType the Audio event
-     */
-    template <typename AudioEventType>
-    EnableIf<ContainsType<AudioEvents, AudioEventType>, void> operator()(AudioEventType &&event);
-#endif // USE_AUDIO
-
-    /**
-     * @brief handles invalid game events
-     * @tparam ArgumentType the invalid game event
-     */
-    template <typename ArgumentType> void operator()(const ArgumentType &&event);
-  };
-
-  void quit();
+  GamePlay m_GamePlay;
 };
-
-#include "Game.inl.hxx"
 
 #endif

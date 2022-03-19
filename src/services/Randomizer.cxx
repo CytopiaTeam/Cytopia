@@ -1,3 +1,3 @@
 #include "Randomizer.hxx"
 
-thread_local RNG Randomizer::generator{std::random_device{}()};
+thread_local std::mt19937 Randomizer::generator{std::random_device{}()};

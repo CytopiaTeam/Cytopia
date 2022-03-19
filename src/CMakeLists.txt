@@ -1,16 +1,16 @@
 set(SOURCE_FILES
         main.cxx
         Game.{hxx,cxx}
-        Game.inl.hxx
         util/LOG.{hxx,cxx}
         util/LOG.inl.hxx
         util/Filesystem.{hxx,cxx}
         util/IEquatable.hxx
         util/IEquatable.inl.hxx
+        util/PriorityQueue.hxx
+        util/PriorityQueue.inl.hxx
         util/Singleton.hxx
         util/Meta.hxx
         util/Exception.{hxx,cxx}
-        events/UIEvents.hxx
         GameService.{hxx,cxx}
         GameService.inl.hxx
         services/Randomizer.{hxx,cxx}
@@ -26,7 +26,6 @@ set(SOURCE_FILES
         engine/basics/Settings.{hxx,cxx}
         engine/basics/GameStates.{hxx,cxx}
         engine/basics/signal.hxx
-        engine/basics/Timer.{hxx,cxx}
         engine/basics/utils.{hxx,cxx}
         engine/common/Constants.hxx
         engine/common/enums.hxx
@@ -56,6 +55,8 @@ set(SOURCE_FILES
         engine/TileManager.{hxx,cxx}
         engine/UIManager.{hxx,cxx}
         engine/WindowManager.{hxx,cxx}
+        game/ZoneManager.{hxx,cxx}
+        game/GamePlay.{hxx,cxx}
         )
 
 if (ANDROID)
@@ -88,7 +89,6 @@ if (ENABLE_AUDIO)
     list(APPEND SOURCE_FILES
             engine/audio/Soundtrack.{hxx,cxx}
             services/AudioMixer.{hxx,cxx}
-            events/AudioEvents.hxx
             )
 endif ()
 
@@ -123,7 +123,8 @@ if (MSVC)
 endif ()
 
 if (APPLE)
-    file(GLOB_RECURSE MAC_RESOURCE_FILES ${CMAKE_BINARY_DIR}/resources/*)
+    file(GLOB_RECURSE MAC_RESOURCE_FILES ${CMAKE_SOURCE_DIR}/data/resources/* ${CMAKE_SOURCE_DIR}/data/languages/*)
+    # file(GLOB_RECURSE MAC_RESOURCE_FILES ${CMAKE_BINARY_DIR}/resources/*)
 
     # not working now, we need a special icon file for apple
     set(ICON_PATH ${CMAKE_SOURCE_DIR}/data/resources/images/app_icons/cytopia_icon_iso.icns)
@@ -132,16 +133,18 @@ if (APPLE)
     # set each file as resources file for the app image.
     foreach (resources_file ${MAC_RESOURCE_FILES})
         get_filename_component(buildDirRelFilePath ${resources_file} DIRECTORY)
-        string(REPLACE "${CMAKE_SOURCE_DIR}/" "" buildDirRelFilePath ${buildDirRelFilePath})
-        set_source_files_properties(${resources_file} PROPERTIES MACOSX_PACKAGE_LOCATION "/Resources/${buildDirRelFilePath}")
+        string(REPLACE "${CMAKE_SOURCE_DIR}/data/" "" buildDirRelFilePath ${buildDirRelFilePath})
+        message (STATUS "resources: ${resources_file}")
+        set_source_files_properties(${resources_file} PROPERTIES MACOSX_PACKAGE_LOCATION Resources/${buildDirRelFilePath})
     endforeach ()
+ 
     # set_source_files_properties(${PROJECT_SOURCE_DIR}/Cytopia_Resources/music  PROPERTIES MACOSX_PACKAGE_LOCATION Resources/resources/audio/music)
     set_source_files_properties(${ICON_PATH} PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
     set_source_files_properties(${myApp_ICON} PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
 
     add_executable(${PROJECT_NAME} MACOSX_BUNDLE ${SOURCE_FILES} ${ICON_PATH} ${MAC_RESOURCE_FILES})
 
-elseif(ANDROID)
+elseif (ANDROID)
     # On android the final binary is a shared library not an executable.
     add_library(${PROJECT_NAME} SHARED ${SOURCE_FILES})
 else ()
@@ -151,26 +154,28 @@ endif ()
 
 # enable C++17
 set_target_properties(${PROJECT_NAME} PROPERTIES
-  CXX_STANDARD 17
-  CXX_STANDARD_REQUIRED YES
-  CXX_EXTENSIONS NO)
+        CXX_STANDARD 17
+        CXX_STANDARD_REQUIRED YES
+        CXX_EXTENSIONS NO)
 
-list(APPEND _compile_definitions VERSION="${PROJECT_NAME} ${PROJECT_VERSION} - tech preview")
+list(APPEND _compile_definitions VERSION="${PROJECT_NAME} ${PROJECT_VERSION} - Urban Update")
 
 
 target_include_directories(${PROJECT_NAME} PRIVATE ${_include_directories})
 target_compile_definitions(${PROJECT_NAME} PRIVATE ${_compile_definitions})
 target_link_libraries(${PROJECT_NAME} PRIVATE ${_link_libraries})
 
-# copy the resources to the compiled directory
-
-add_custom_target(
-        copy_resources
-        ALL
-        COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/data/resources/ $<TARGET_FILE_DIR:${PROJECT_NAME}>/resources/
-        COMMENT "Copy the resources to the compiled directory"
-        VERBATIM
-)
+# copy the resources to the compiled directory. On Apple those files are used from the resources dir, not from the root dir.
+if (NOT APPLE)
+    add_custom_target(
+            copy_resources
+            ALL
+            COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/data/resources/ $<TARGET_FILE_DIR:${PROJECT_NAME}>/resources/
+            COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/data/languages/ $<TARGET_FILE_DIR:${PROJECT_NAME}>/languages/
+            COMMENT "Copy the resources to the compiled directory"
+            VERBATIM
+    )
+endif()
 
 if (MSVC)
     # set startup project for Visual Studio Builds
@@ -188,8 +193,14 @@ if (MSVC)
 endif ()
 
 install(TARGETS ${PROJECT_NAME} DESTINATION .)
+
+if (WIN32)
+    install(DIRECTORY "$<TARGET_FILE_DIR:${PROJECT_NAME}>/" DESTINATION . FILES_MATCHING PATTERN "*.dll")
+endif ()
+
 if (NOT APPLE)
     install(DIRECTORY ${CMAKE_SOURCE_DIR}/data/resources/ DESTINATION resources)
+    install(DIRECTORY ${CMAKE_SOURCE_DIR}/data/languages/ DESTINATION languages FILES_MATCHING PATTERN "*.mo")
 endif ()
 
 install(FILES ${CMAKE_SOURCE_DIR}/ReleaseNotes.txt ${CMAKE_SOURCE_DIR}/credits.txt DESTINATION .)

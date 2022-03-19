@@ -6,7 +6,7 @@
 #include "../basics/UIElement.hxx"
 
 /**
- * @Brief A Text GUI Widget
+ * @brief A Text GUI Widget
  */
 class Text : public UIElement
 {
@@ -19,7 +19,7 @@ public:
   /**
    * @brief Destructor
    */
-  ~Text() override = default;
+  ~Text() override;
 
   /**
    * @brief implements draw function. Renders the SDL_Texture generated from the TTF.
