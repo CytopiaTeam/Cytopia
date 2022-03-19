@@ -5,6 +5,7 @@
 #include "../map/MapLayers.hxx"
 #include "GameStates.hxx"
 #include "Settings.hxx"
+#include "../../game/GamePlay.hxx"
 
 MapNode::MapNode(Point isoCoordinates, const std::string &terrainID, const std::string &tileID)
     : m_isoCoordinates(std::move(isoCoordinates))
@@ -450,6 +451,10 @@ void MapNode::demolishLayer(const Layer &layer)
   m_mapNodeData[layer].origCornerPoint = this->getCoordinates();
   m_mapNodeData[Layer::ZONE].shouldRender = true;
   m_sprite->clearSprite(layer);
+  if (layer == +Layer::ZONE)
+  {
+    GamePlay::instance().getZoneManager()->removeZoneNode(this);
+  }
 }
 
 void MapNode::demolishNode(const Layer &demolishLayer)
