@@ -4,24 +4,16 @@
 class Point
 {
 public:
-  /**
-   * The x coordinate.
-   */
+  /// The x coordinate.
   int x;
 
-  /**
-   * The y coordinate.
-   */
+  /// The y coordinate.
   int y;
 
-  /**
-   * The z coordinate.
-   */
+  /// The z coordinate.
   int z;
 
-  /**
-   * The height level.
-   */
+  /// The height level.
   int height;
 
   //TODO: need to add z axis in the future, currently it is not supported.
