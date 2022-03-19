@@ -66,21 +66,19 @@ BETTER_ENUM(Style, int,
             US        /// This building will only appear in a game with the Style US
 )
 
-/**
- * This enum holds all data related to the TileSet (Spritesheet)
- **/
+/// This enum holds all data related to the TileSet (Spritesheet)
 struct TileSetData
 {
-  std::string fileName; /// the filename of the spritesheet
+  std::string fileName; ///< the filename of the spritesheet
   int count =
-      1; /// count is the number of images that are in the tile set. This is for things that will have a random tile chosen from their set.
-  int clippingWidth = 0;  /// the width of the clipRect. (Where the tile will be clipped from the spritesheet)
-  int clippingHeight = 0; /// the height of the clipRect. (Where the tile will be clipped from the spritesheet)
+      1; ///< count is the number of images that are in the tile set. This is for things that will have a random tile chosen from their set.
+  int clippingWidth = 0;  ///< the width of the clipRect. (Where the tile will be clipped from the spritesheet)
+  int clippingHeight = 0; ///< the height of the clipRect. (Where the tile will be clipped from the spritesheet)
   int offset =
-      0; /// offset is where the first image in this tileset is, so a file could contain multiple tilesets and offset would define where to start this tileset and count would define how many images it has. offset = 0 is the first image, offset = 3 is the 4th tile.
-  bool pickRandomTile = false; // determines if a random tile of the tileset should be used, if set to true
+      0; ///< offset is where the first image in this tileset is, so a file could contain multiple tilesets and offset would define where to start this tileset and count would define how many images it has. offset = 0 is the first image, offset = 3 is the 4th tile.
+  bool pickRandomTile = false; ///< determines if a random tile of the tileset should be used, if set to true
   int rotations =
-      1; /// rotations is the number of rotations that exist in this tileset (for buildings).  this is not applicable for terrain and roads, their orientation is figured out differently. For buildings that have multiple orientations, this isn't implemented yet but it prevents buildings with multiple orientations from being placed with  a random image (that might be the wrong size).
+      1; ///< rotations is the number of rotations that exist in this tileset (for buildings).  this is not applicable for terrain and roads, their orientation is figured out differently. For buildings that have multiple orientations, this isn't implemented yet but it prevents buildings with multiple orientations from being placed with  a random image (that might be the wrong size).
 };
 
 /// How many tiles this building uses.
@@ -93,43 +91,43 @@ struct RequiredTilesData
 /// Holds all releavted information to this specific tile
 struct TileData
 {
-  std::string id;     /// 	The ID of this item. Must be unique and can be referenced in the code.
-  std::string author; /// The author of this item
+  std::string id;     ///< The ID of this item. Must be unique and can be referenced in the code.
+  std::string author; ///< The author of this item
   std::string
-      category; /// The category this item resides in. Categories are used for the building menu in-game and for sorting the items in the editors tree view
+      category; ///< The category this item resides in. Categories are used for the building menu in-game and for sorting the items in the editors tree view
   std::string
-      subCategory; /// subcategories are used for the building menu in-game and for sorting the items in the editors tree view
-  uint8_t buildingsize; /// the size that the building occupies in tiles.
+      subCategory; ///< subcategories are used for the building menu in-game and for sorting the items in the editors tree view
+  uint8_t buildingsize; ///< the size that the building occupies in tiles.
   std::vector<std::string>
-      biomes; /// Restrict this building to spawn only in the given biomes. Must correspond to a biome defined in resources/data/TerrainGen.json
-  std::vector<std::string> tags; /// Tags to filter buildings in the gui
+      biomes; ///< Restrict this building to spawn only in the given biomes. Must correspond to a biome defined in resources/data/TerrainGen.json
+  std::vector<std::string> tags; ///< Tags to filter buildings in the gui
 
-  TileSetData tiles;                     ///Tile Spritesheet information
-  TileType tileType = TileType::DEFAULT; /// todo: String for now, should be an enum
-  TileSetData shoreTiles;                ///Shore Tile Spritesheet information
-  TileSetData slopeTiles;                /// Slope  Tile Spritesheet information
-  std::string title;                     /// The items title. It's shown ingame and in the editors tree-view
-  std::string description;               /// Description of the item that is shown in it's details
-  int price = 0;                         /// building cost
-  int upkeepCost = 0;                    /// monthly cost
-  int power = 0;                         /// power production / consumption if negative
-  int water = 0;                         /// water production / consumption if negative
+  TileSetData tiles;                     ///< Tile Spritesheet information
+  TileType tileType = TileType::DEFAULT; ///< todo: String for now, should be an enum
+  TileSetData shoreTiles;                ///< Shore Tile Spritesheet information
+  TileSetData slopeTiles;                ///< Slope Tile Spritesheet information
+  std::string title;                     ///< The items title. It's shown ingame and in the editors tree-view
+  std::string description;               ///< Description of the item that is shown in it's details
+  int price = 0;                         ///< building cost
+  int upkeepCost = 0;                    ///< monthly cost
+  int power = 0;                         ///< power production / consumption if negative
+  int water = 0;                         ///< water production / consumption if negative
 
   std::vector<std::string>
-      groundDecoration; /// tileID of the item that should be drawn on ground below sprite instead of terrain(grass, concrete, ...). Must be a tileID with tileType GroundDecoration
-  bool placeOnGround = true;     /// wether or not this building is placeable on ground
-  bool placeOnWater = false;     /// whether or not this building is placeable on water
-  bool isOverPlacable;           /// Determines if other tiles can be placed over this one tile.
-  int pollutionLevel = 0;        /// Pollution this building produces or prevents
-  int crimeLevel = 0;            /// Crime this building produces or prevents (police station)
-  int fireHazardLevel = 0;       /// Fire Danger this building produces or prevents
-  int inhabitants = 0;           /// How many residents / workers this building can hold. Also how much jobs it provides
-  int happiness = 0;             /// The effect on happiness around this building.
-  int educationLevel = 0;        /// How much education this building provides (educational building) / requires (job)
-  std::vector<Zones> zones;      /// Restrict this building to a zone type.
-  std::vector<Style> style;      /// Restrict this building to certain Art Styles.
-  std::vector<Wealth> wealth;    /// Restrict this building to a certain wealth level. See enum Wealth
-  RequiredTilesData RequiredTiles; /// How many tiles this building uses.
+      groundDecoration; ///< tileID of the item that should be drawn on ground below sprite instead of terrain(grass, concrete, ...). Must be a tileID with tileType GroundDecoration
+  bool placeOnGround = true;     ///< whether or not this building is placeable on ground
+  bool placeOnWater = false;     ///< whether or not this building is placeable on water
+  bool isOverPlacable;           ///< Determines if other tiles can be placed over this one tile.
+  int pollutionLevel = 0;        ///< Pollution this building produces or prevents
+  int crimeLevel = 0;            ///< Crime this building produces or prevents (police station)
+  int fireHazardLevel = 0;       ///< Fire Danger this building produces or prevents
+  int inhabitants = 0;           ///< How many residents / workers this building can hold. Also how much jobs it provides
+  int happiness = 0;             ///< The effect on happiness around this building.
+  int educationLevel = 0;        ///< How much education this building provides (educational building) / requires (job)
+  std::vector<Zones> zones;      ///< Restrict this building to a zone type.
+  std::vector<Style> style;      ///< Restrict this building to certain Art Styles.
+  std::vector<Wealth> wealth;    ///< Restrict this building to a certain wealth level. See enum Wealth
+  RequiredTilesData RequiredTiles; ///< How many tiles this building uses.
 };
 
 #endif
