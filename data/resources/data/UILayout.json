@@ -361,7 +361,7 @@
             {
                 "ID": "$MusicVolumeSlider",
                 "Type": "Slider",
-                "Position_x": 420, //isn't in the same place as comboboxes. look at later
+                "Position_x": 420,
                 "Position_y": 440,
                 "Width": 200,
                 "Height": 30
