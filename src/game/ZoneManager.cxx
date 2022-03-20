@@ -4,8 +4,6 @@
 #include "../services/GameClock.hxx"
 #include "../services/Randomizer.hxx"
 
-#include <algorithm>
-
 ZoneManager::ZoneManager()
 {
   GameClock::instance().addRealTimeClockTask(
