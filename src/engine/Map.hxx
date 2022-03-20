@@ -194,7 +194,7 @@ public:
   */
   bool isPlacementOnNodeAllowed(const Point &isoCoordinates, const std::string &tileID) const;
 
-  /** \brief Return vector of Points of an Object Tiles selection.
+  /** \brief Return vector of Points occupied by a tileID
   *
   */
   std::vector<Point> getObjectCoords(const Point &isoCoordinates, const std::string &tileID);
@@ -233,7 +233,7 @@ private:
 
   SDL_Color getColorOfPixelInSurface(SDL_Surface *surface, int x, int y) const;
 
-  bool isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int isoY, const Layer &layer) const;
+  bool isClickWithinTile(const SDL_Point &screenCoordinates, Point isoCoordinate, const Layer &layer) const;
 
   /** \brief Filter out tiles which should not be set over existing one.
   * @param layer Layer in which tileId should be set.

@@ -321,11 +321,11 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
             for (auto &node : engine.map->getObjectCoords(mouseIsoCoords, tileToPlace))
             {
               // if we don't geta correct coordinate, fall back to the click coordinates
-              if (node == Point::INVALID() && isPointWithinMapBoundaries(mouseIsoCoords))
+              if (node == Point::INVALID() && mouseIsoCoords.isWithinMapBoundaries())
               {
                 m_nodesToHighlight.push_back(mouseIsoCoords);
               }
-              else if (isPointWithinMapBoundaries(node))
+              else if (node.isWithinMapBoundaries())
               {
                 m_nodesToHighlight.push_back(node);
               }
@@ -465,7 +465,22 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         mouseIsoCoords = convertScreenToIsoCoordinates(mouseScreenCoords);
         const std::vector targetObjectNodes = engine.map->getObjectCoords(mouseIsoCoords, tileToPlace);
 
-        if (isPointWithinMapBoundaries(mouseIsoCoords) && isPointWithinMapBoundaries(targetObjectNodes))
+        //check if the coords for the click and for the occpuied tiles of the tileID we want to place are within map boundaries
+        bool canPlaceTileID = false;
+        if (mouseIsoCoords.isWithinMapBoundaries())
+        {
+          canPlaceTileID = true;
+          for (auto coordinate : targetObjectNodes)
+          {
+            if (!coordinate.isWithinMapBoundaries())
+            {
+              canPlaceTileID = false;
+              break;
+            }
+          }
+        }
+
+        if (canPlaceTileID)
         {
           m_clickDownCoords = mouseIsoCoords;
           m_placementAllowed = true;
