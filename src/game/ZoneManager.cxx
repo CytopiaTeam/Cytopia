@@ -18,24 +18,7 @@ ZoneManager::ZoneManager()
 // Nothing here right now
 void ZoneManager::update() {}
 
-void ZoneManager::spawnBuildings()
-{
-  updateZones();
-  spawn();
-}
-
-void ZoneManager::updateZones()
-{
-  m_MapNodes.clear();
-  for (const MapNode &node : Engine::instance().map->getMapNodes())
-  {
-    // if there's a zone this layer is not null
-    if (node.getTileData(ZONE) && !node.getTileData(BUILDINGS))
-    {
-      m_MapNodes.emplace_back(&node);
-    }
-  }
-}
+void ZoneManager::spawnBuildings() { spawn(); }
 
 void ZoneManager::spawn()
 {
@@ -64,7 +47,7 @@ void ZoneManager::spawn()
     std::vector<std::string> availableZoneTiles;
     for (auto &zone : node->getTileData(Layer::ZONE)->zones)
     {
-      auto &zoneTiles = TileManager::instance().getTileIDsOfCategory(zone);
+      const auto &zoneTiles = TileManager::instance().getTileIDsOfCategory(zone);
 
       if (zoneTiles.empty())
       {
@@ -90,5 +73,14 @@ void ZoneManager::spawn()
     std::vector targetObjectNodes = Engine::instance().map->getObjectCoords(node->getCoordinates(), building);
     Engine::instance().setTileIDOfNode(targetObjectNodes.begin(), targetObjectNodes.end(), building, false);
     buildingsSpawned++;
+  }
+}
+
+void ZoneManager::addZoneNode(MapNode *node) { m_MapNodes.emplace_back(node); }
+void ZoneManager::removeZoneNode(MapNode *node)
+{
+  if (node)
+  {
+    m_MapNodes.erase(std::remove(m_MapNodes.begin(), m_MapNodes.end(), node));
   }
 }

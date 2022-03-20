@@ -6,6 +6,7 @@
 
 #include "GameObjects/MapNode.hxx"
 #include "map/TerrainGenerator.hxx"
+#include "../game/GamePlay.hxx"
 
 /** \brief Position of the surrounding nodes and its bit mask values.
   */
@@ -127,10 +128,15 @@ public:
         currentMapNode.setTileID(pTileData->groundDecoration[groundtileIndex], isMultiObjects ? *it : *begin);
       }
 
-      //For layers that autotile to each other, we need to update their neighbors too
+      // For layers that autotile to each other, we need to update their neighbors too
       if (MapNode::isDataAutoTile(TileManager::instance().getTileData(tileID)))
       {
         nodesToBeUpdated.push_back(&currentMapNode);
+      }
+      // If we place a zone tile, add it to the ZoneManager
+      if (currentMapNode.getTileData(Layer::ZONE))
+      {
+        GamePlay::instance().getZoneManager().addZoneNode(&currentMapNode);
       }
     }
 
