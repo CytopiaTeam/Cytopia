@@ -453,7 +453,7 @@ void MapNode::demolishLayer(const Layer &layer)
   m_sprite->clearSprite(layer);
   if (layer == +Layer::ZONE)
   {
-    GamePlay::instance().getZoneManager()->removeZoneNode(this);
+    GamePlay::instance().getZoneManager().removeZoneNode(this);
   }
 }
 

@@ -136,7 +136,7 @@ public:
       // If we place a zone tile, add it to the ZoneManager
       if (currentMapNode.getTileData(Layer::ZONE))
       {
-        GamePlay::instance().getZoneManager()->addZoneNode(&currentMapNode);
+        GamePlay::instance().getZoneManager().addZoneNode(&currentMapNode);
       }
     }
 
