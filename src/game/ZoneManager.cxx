@@ -5,7 +5,6 @@
 #include "../services/Randomizer.hxx"
 
 #include <algorithm>
-#include <vector>
 
 ZoneManager::ZoneManager()
 {
