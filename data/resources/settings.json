@@ -2,10 +2,10 @@
   "Audio": {
     "Audio3DStatus": false,
     "AudioChannels": 2,
-    "MusicVolume": 50,
+    "MusicVolume": 0.5,
     "PlayMusic": true,
     "PlaySoundEffects": true,
-    "SoundEffectsVolume": 100
+    "SoundEffectsVolume": 1
   },
   "ConfigFiles": {
     "AudioConfigJSONFile": "resources/data/AudioConfig.json",

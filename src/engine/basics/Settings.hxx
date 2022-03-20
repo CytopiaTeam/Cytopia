@@ -12,7 +12,6 @@ using std::string;
 
 /* Settings Types */
 using ScreenDimension = int;
-using VolumeLevel = StrongType<uint8_t, struct VolumeLevelTag>;
 using FilePath = StrongType<string, struct FilePathTag>;
 
 /**
@@ -82,14 +81,14 @@ struct SettingsData
   int fullScreenMode;
 
   /**
-   * @brief The volume of music between [0, 100]
+   * @brief The volume of music as flot between [0, 1]
    */
-  VolumeLevel musicVolume;
+  float musicVolume;
 
   /**
-   * @brief the volume of sound effects between [0, 100]
+   * @brief the volume of sound effects as float between [0, 1]
    */
-  VolumeLevel soundEffectsVolume;
+  float soundEffectsVolume;
 
   /**
    * @brief True if music should be played
