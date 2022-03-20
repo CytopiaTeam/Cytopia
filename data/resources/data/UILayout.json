@@ -366,6 +366,20 @@
                 "Position_y": 385
             },
             {
+                "Type": "Text",
+                "Text": "Music Volume",
+                "Position_x": 330,
+                "Position_y": 455
+            },
+            {
+                "ID": "$MusicVolumeSlider",
+                "Type": "Slider",
+                "Position_x": 420, //isn't in the same place as comboboxes. look at later
+                "Position_y": 440,
+                "Width": 200,
+                "Height": 30
+            },
+            {
                 "ID": "$FullScreenSelector",
                 "Type": "ComboBox",
                 "Position_x": 420,
