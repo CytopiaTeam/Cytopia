@@ -115,12 +115,13 @@ std::vector<NeighborNode> Map::getNeighborNodes(const Point &isoCoordinates, con
         continue;
       }
 
-      const int neighborX = isoCoordinates.x + xOffset;
-      const int neighborY = isoCoordinates.y + yOffset;
+      Point neighbor;
+      neighbor.x = isoCoordinates.x + xOffset;
+      neighbor.y = isoCoordinates.y + yOffset;
 
-      if (isPointWithinMapBoundaries(neighborX, neighborY))
+      if (neighbor.isWithinMapBoundaries())
       {
-        neighbors.push_back({&mapNodes[nodeIdx(neighborX, neighborY)], position});
+        neighbors.push_back({&mapNodes[nodeIdx(neighbor.x, neighbor.y)], position});
       }
     }
   }
@@ -349,7 +350,7 @@ unsigned char Map::getElevatedNeighborBitmask(MapNode *pMapNode, const std::vect
 
 Point Map::getNodeOrigCornerPoint(const Point &isoCoordinates, Layer layer)
 {
-  if ((layer != Layer::NONE) && isPointWithinMapBoundaries(isoCoordinates))
+  if ((layer != Layer::NONE) && isoCoordinates.isWithinMapBoundaries())
   {
     return mapNodes[nodeIdx(isoCoordinates.x, isoCoordinates.y)].getOrigCornerPoint(layer);
   }
@@ -484,12 +485,13 @@ Point Map::findNodeInMap(const SDL_Point &screenCoordinates, const Layer &layer)
     // Move y up and down 2 neighbors.
     for (int y = std::max(yMiddlePoint - neighborReach, 0); (y <= yMiddlePoint + neighborReach) && (y < mapSize); ++y)
     {
+      Point coordinate = Point(x, y);
 #ifndef NDEBUG
       // Assert assumption that we test all nodes in correct Z order
       assert(zOrder > mapNodes[nodeIdx(x, y)].getCoordinates().z);
       zOrder = mapNodes[nodeIdx(x, y)].getCoordinates().z;
 #endif
-      if (isClickWithinTile(screenCoordinates, x, y, layer))
+      if (isClickWithinTile(screenCoordinates, coordinate, layer))
       {
         return mapNodes[nodeIdx(x, y)].getCoordinates();
       }
@@ -505,7 +507,7 @@ void Map::demolishNode(const std::vector<Point> &isoCoordinates, bool updateNeig
 
   for (auto &isoCoord : isoCoordinates)
   {
-    if (isPointWithinMapBoundaries(isoCoord))
+    if(isoCoord.isWithinMapBoundaries())
     {
       MapNode &node = mapNodes[nodeIdx(isoCoord.x, isoCoord.y)];
 
@@ -552,14 +554,14 @@ void Map::demolishNode(const std::vector<Point> &isoCoordinates, bool updateNeig
   }
 }
 
-bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int isoY, const Layer &layer = Layer::NONE) const
+bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, Point isoCoordinate, const Layer &layer = Layer::NONE) const
 {
-  if (!isPointWithinMapBoundaries(isoX, isoY))
+  if (!isoCoordinate.isWithinMapBoundaries())
   {
     return false;
   }
 
-  auto &node = mapNodes[nodeIdx(isoX, isoY)];
+  auto &node = mapNodes[nodeIdx(isoCoordinate.x, isoCoordinate.y)];
   auto pSprite = node.getSprite();
   std::vector<Layer> layersToGoOver;
 

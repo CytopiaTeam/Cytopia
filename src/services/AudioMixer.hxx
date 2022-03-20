@@ -27,11 +27,6 @@ template <typename Type> using Set = std::unordered_set<Type>;
 template <typename Type> using List = std::list<Type>;
 
 /**
- * @brief the volume level
- */
-using VolumeLevel = StrongType<uint8_t, struct VolumeLevelTag>;
-
-/**
  * @brief a 3-dimensional coordinate
  * @param x, x coordinate, horizontal position
  * @param y, y coordinate, height
@@ -103,11 +98,11 @@ struct StandardReverbProperties
 
 
 	@param flEchoDelay,AL_ECHO_DELAY,
-	description: delay between the original sound and the first ‘tap’, or echo instance,range: 0.0 to 0.207
+	description: delay between the original sound and the first 'tap', or echo instance,range: 0.0 to 0.207
 
 
 	@param flEchoLRDelay,AL_ECHO_LRDELAY,
-	description: delay between the first ‘tap’ and the second ‘tap’.,range: 0.0 to 0.404
+	description: delay between the first 'tap' and the second 'tap'.,range: 0.0 to 0.404
 
 
 	@param flEchoDamping,AL_ECHO_DAMPING,
@@ -144,17 +139,17 @@ public:
 
   /**
    * @brief sets the music volume
-   * @pre   volume must be within [0, 128]
+   * @pre   volume must be a float within [0, 1]
    * @post  Settings::MusicVolume is changed
    */
-  void setMusicVolume(VolumeLevel volume);
+  void setMusicVolume(float volume);
 
   /**
    * @brief sets the sound effects volume
-   * @pre   volume must be within [0, 128]
+   * @pre   volume must be a float within [0, 1]
    * @post  Settings::SoundEffectsVolume is changed
    */
-  void setSoundEffectVolume(VolumeLevel volume);
+  void setSoundEffectVolume(float volume);
 
   /**
    * @brief Plays a Soundtrack given its ID

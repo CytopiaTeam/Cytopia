@@ -83,22 +83,11 @@ Point convertScreenToIsoCoordinates(const SDL_Point &screenCoordinates)
   return foundCoordinates;
 }
 
-bool isPointWithinMapBoundaries(int x, int y)
-{
-  return (x >= 0 && x < Settings::instance().mapSize) && (y >= 0 && y < Settings::instance().mapSize);
-}
-
-bool isPointWithinMapBoundaries(const Point &isoCoordinates)
-{
-  return (isoCoordinates.x >= 0 && isoCoordinates.x < Settings::instance().mapSize) &&
-         (isoCoordinates.y >= 0 && isoCoordinates.y < Settings::instance().mapSize);
-}
-
 bool isPointWithinMapBoundaries(const std::vector<Point> &isoCoordinates)
 {
   for (auto p : isoCoordinates)
   {
-    if (!isPointWithinMapBoundaries(p))
+    if (!(p.isWithinMapBoundaries()))
     {
       return false;
     }
