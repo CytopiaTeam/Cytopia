@@ -901,6 +901,18 @@ void UIManager::initializeDollarVariables()
         combobox->setActiveID(Settings::instance().fullScreenMode);
         combobox->registerCallbackFunction(Signal::slot(this, &UIManager::changeFullScreenMode));
       }
+      else if (it->getUiElementData().elementID == "$MusicVolumeSlider")
+      {
+        Slider *slider = dynamic_cast<Slider *>(it.get());
+
+        if (!slider)
+        {
+          LOG(LOG_WARNING) << "Can't use element ID MusicVolumeSlider for an element other than a slider!";
+          continue;
+        }
+
+        slider->setValue(Settings::instance().musicVolume * 100);
+      }
     }
   }
 }
