@@ -52,8 +52,8 @@ inline void from_json(const json &j, SettingsData &s)
   s.playMusic = j["Audio"].value("PlayMusic", true);
   s.playSoundEffects = j["Audio"].value("PlaySoundEffects", false);
   s.audioChannels = j["Audio"].value("AudioChannels", 2);
-  s.musicVolume = j["Audio"].value("MusicVolume", static_cast<uint8_t>(50));
-  s.soundEffectsVolume = j["Audio"].value("SoundEffectsVolume", static_cast<uint8_t>(100));
+  s.musicVolume = j["Audio"].value("MusicVolume", 0.5f);
+  s.soundEffectsVolume = j["Audio"].value("SoundEffectsVolume", 0.5f);
   s.buildMenuPosition = j["User Interface"].value("BuildMenuPosition", "BOTTOM");
   s.gameLanguage = j["User Interface"].value("Language", "en");
   s.fontFileName = j["User Interface"].value("FontFilename", "resources/fonts/arcadeclassics.ttf");
@@ -258,8 +258,8 @@ inline void to_json(json &j, const SettingsData &s)
            {std::string("PlayMusic"), s.playMusic},
            {std::string("PlaySoundEffects"), s.playSoundEffects},
            {std::string("AudioChannels"), s.audioChannels},
-           {std::string("MusicVolume"), s.musicVolume.get()},
-           {std::string("SoundEffectsVolume"), s.soundEffectsVolume.get()},
+           {std::string("MusicVolume"), s.musicVolume},
+           {std::string("SoundEffectsVolume"), s.soundEffectsVolume},
        }},
 
   };

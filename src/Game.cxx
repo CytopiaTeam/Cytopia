@@ -104,9 +104,11 @@ bool Game::mainMenu()
   int screenHeight = Settings::instance().screenHeight;
   bool mainMenuLoop = true;
   bool quitGame = false;
-
+  
 #ifdef USE_AUDIO
   /* Trigger MainMenu music */
+    m_AudioMixer.setMusicVolume(Settings::instance().musicVolume);
+    m_AudioMixer.setSoundEffectVolume(Settings::instance().soundEffectsVolume); // does nothing right now
   if (!Settings::instance().audio3DStatus)
     m_AudioMixer.play(AudioTrigger::MainMenu);
   else

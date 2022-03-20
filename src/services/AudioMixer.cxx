@@ -139,9 +139,20 @@ SoundtrackUPtr &AudioMixer::getTrack(const SoundtrackID &id)
    +---------------------+
    */
 
-void AudioMixer::setMusicVolume(VolumeLevel volume) { throw UnimplementedError(TRACE_INFO "Unimplemented Error"); }
+void AudioMixer::setMusicVolume(float volume)
+{
+  // alSourcef(currentSourceID, AL_GAIN, newVolume);
+  // this would set the volume, but idk how to get the "currentSourceID"
 
-void AudioMixer::setSoundEffectVolume(VolumeLevel volume) { throw UnimplementedError(TRACE_INFO "Unimplemented Error"); }
+  // for now set the volume for everything.
+  alListenerf(AL_GAIN, volume);
+}
+
+void AudioMixer::setSoundEffectVolume(float volume)
+{
+  // find out how to set those volumes seperately
+  //alListenerf(AL_GAIN, volume);
+}
 
 void AudioMixer::play(const SoundtrackID &id)
 {
