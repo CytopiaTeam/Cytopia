@@ -2,6 +2,7 @@
 
 #include "basics/Camera.hxx"
 #include "basics/isoMath.hxx"
+#include "basics/PointFunctions.hxx"
 #include "basics/mapEdit.hxx"
 #include "basics/Settings.hxx"
 #include "basics/GameStates.hxx"
@@ -341,7 +342,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
               m_nodesToPlace.push_back(mouseIsoCoords);
               break;
             case PlacementMode::LINE:
-              m_nodesToPlace = createBresenhamLine(m_clickDownCoords, mouseIsoCoords);
+              m_nodesToPlace = PointFunctions::getLine(m_clickDownCoords, mouseIsoCoords);
               m_nodesToHighlight = m_nodesToPlace;
               break;
             case PlacementMode::STRAIGHT_LINE:
