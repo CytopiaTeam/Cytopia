@@ -24,6 +24,11 @@ public:
    */
   void setValue(int);
 
+  /** @brief gets the slider's current value
+  * @returns the current value of the slider
+  */
+  int getValue();
+
   /** @brief finds the slider's value based on where the button is on the line
    * uses the button's coordinates to calculate the corresponding value
    * @param x the x coordinate of the center of the sliderButton
