@@ -3,6 +3,7 @@
 
 #include "point.hxx"
 #include "../../util/LOG.hxx"
+#include "betterEnums.hxx"
 #include <vector>
 
 class PointFunctions
@@ -31,6 +32,13 @@ public:
 * @return std::vector<Point>() - contains coordinates for each tile between start and end coordinates, including start and end
 */
   static std::vector<Point> getArea(const Point &isoCoordinatesStart, const Point &isoCoordinatesEnd);
+
+  /** \brief Get all neighboring coordinate from provided map node isocoordinate.
+  * @param isoCoordinates iso coordinates.
+  * @param includeCentralNode if set to true include the central node in the result.
+  * @return std::vector<Point>() - All neighboring node coordinates.
+  */
+  static std::vector<Point> getNeighbors(const Point &isoCoordinates, const bool includeCentralNode);
 };
 
 #endif

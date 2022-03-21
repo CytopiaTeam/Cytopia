@@ -4,6 +4,7 @@
 static std::vector<Point> getLine;
 static std::vector<Point> getStraightLine;
 static std::vector<Point> getArea;
+static std::vector<Point> getNeighbors;
 
 std::vector<Point> PointFunctions::getLine(Point isoCoordinatesStart, Point isoCoordinatesEnd)
 {
@@ -103,7 +104,6 @@ std::vector<Point> PointFunctions::getLine(Point isoCoordinatesStart, Point isoC
   return line;
 }
 
-
 std::vector<Point> PointFunctions::getStraightLine(const Point &isoCoordinatesStart, const Point &isoCoordinatesEnd)
 {
   std::vector<Point> rectangle;
@@ -154,7 +154,6 @@ std::vector<Point> PointFunctions::getStraightLine(const Point &isoCoordinatesSt
   return rectangle;
 }
 
-
 std::vector<Point> PointFunctions::getArea(const Point &isoCoordinatesStart, const Point &isoCoordinatesEnd)
 {
   std::vector<Point> rectangle;
@@ -172,4 +171,32 @@ std::vector<Point> PointFunctions::getArea(const Point &isoCoordinatesStart, con
   }
 
   return rectangle;
+}
+
+std::vector<Point> PointFunctions::getNeighbors(const Point &isoCoordinates, const bool includeCentralNode)
+{
+  constexpr int neighborRange = 1;
+  std::vector<Point> neighbors;
+
+  for (int xOffset = -neighborRange; xOffset <= neighborRange; ++xOffset)
+  {
+    for (int yOffset = -neighborRange; yOffset <= neighborRange; ++yOffset)
+    {
+      if (!includeCentralNode && (xOffset == 0) && (yOffset == 0))
+      {
+        continue;
+      }
+
+      Point neighbor;
+      neighbor.x = isoCoordinates.x + xOffset;
+      neighbor.y = isoCoordinates.y + yOffset;
+
+      if (neighbor.isWithinMapBoundaries())
+      {
+        neighbors.push_back(neighbor);
+      }
+    }
+  }
+
+  return neighbors;
 }
