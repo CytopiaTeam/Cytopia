@@ -203,24 +203,10 @@ std::vector<Point> PointFunctions::getNeighbors(const Point &isoCoordinates, con
 
 NeighbourNodesPosition PointFunctions::getNeighborPositionToOrigin(const Point &neighboringPoint, const Point &originPoint)
 {
-  constexpr int neighborRange = 1;
-  //   std::vector<NeighborNode> neighbors;
-  NeighbourNodesPosition position = NeighbourNodesPosition::BOTOM_LEFT;
+  NeighbourNodesPosition position;
 
-  int neighborOffsetX = 0;
-  int neighborOffsetY = 0;
-
-  neighborOffsetX = neighboringPoint.x - originPoint.x;
-  neighborOffsetY = neighboringPoint.y - originPoint.y;
-
-  bool left = false;
-  bool right = false;
-  bool top = false;
-  bool bottom = false;
-
-  LOG(LOG_INFO) << "Calculating offset for " << neighboringPoint.x << ", " << neighboringPoint.y << "to " << originPoint.x << ", "
-                << originPoint.y;
-  LOG(LOG_INFO) << "Offsets are: " << neighborOffsetX << ", " << neighborOffsetY;
+  int neighborOffsetX = neighboringPoint.x - originPoint.x;
+  int neighborOffsetY = neighboringPoint.y - originPoint.y;
 
   switch (neighborOffsetX)
   {
@@ -228,58 +214,45 @@ NeighbourNodesPosition PointFunctions::getNeighborPositionToOrigin(const Point &
     switch (neighborOffsetY)
     {
     case 0:
-      position = NeighbourNodesPosition::CENTAR;
+      position = NeighbourNodesPosition::CENTER;
+      break;
     case 1:
       position = NeighbourNodesPosition::TOP;
+      break;
     case -1:
       position = NeighbourNodesPosition::BOTTOM;
+      break;
     }
+    break;
   case 1:
     switch (neighborOffsetY)
     {
     case 0:
       position = NeighbourNodesPosition::RIGHT;
+      break;
     case 1:
-      position = NeighbourNodesPosition::BOTOM_RIGHT;
-
+      position = NeighbourNodesPosition::TOP_RIGHT;
+      break;
     case -1:
-      position = NeighbourNodesPosition::BOTOM_LEFT;
+      position = NeighbourNodesPosition::BOTTOM_RIGHT;
+      break;
     }
+    break;
   case -1:
     switch (neighborOffsetY)
     {
     case 0:
       position = NeighbourNodesPosition::LEFT;
+      break;
     case 1:
-      position = NeighbourNodesPosition::BOTOM_LEFT;
-
-    case -1:
       position = NeighbourNodesPosition::TOP_LEFT;
+      break;
+    case -1:
+      position = NeighbourNodesPosition::BOTTOM_LEFT;
+      break;
     }
+    break;
   }
-
-  LOG(LOG_INFO) << "Found Position " << position._to_string();
-  //   for (auto it : PointFunctions::getNeighbors(isoCoordinates, includeCentralNode))
-  //   {
-  //   }
-
-  //   for (int xOffset = -neighborRange; xOffset <= neighborRange; ++xOffset)
-  //   {
-  //     for (int yOffset = -neighborRange; yOffset <= neighborRange; ++yOffset, position++)
-  //     {
-
-  //       Point neighbor;
-  //       neighbor.x = isoCoordinates.x + xOffset;
-  //       neighbor.y = isoCoordinates.y + yOffset;
-
-  //       if (neighbor.isWithinMapBoundaries())
-  //       {
-  //         neighbors.push_back({&mapNodes[nodeIdx(neighbor.x, neighbor.y)], position});
-  //       }
-  //     }
-  //   }
-
-  //   return neighbors;
 
   return position;
 }
