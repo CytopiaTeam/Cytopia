@@ -200,3 +200,86 @@ std::vector<Point> PointFunctions::getNeighbors(const Point &isoCoordinates, con
 
   return neighbors;
 }
+
+NeighbourNodesPosition PointFunctions::getNeighborPositionToOrigin(const Point &neighboringPoint, const Point &originPoint)
+{
+  constexpr int neighborRange = 1;
+  //   std::vector<NeighborNode> neighbors;
+  NeighbourNodesPosition position = NeighbourNodesPosition::BOTOM_LEFT;
+
+  int neighborOffsetX = 0;
+  int neighborOffsetY = 0;
+
+  neighborOffsetX = neighboringPoint.x - originPoint.x;
+  neighborOffsetY = neighboringPoint.y - originPoint.y;
+
+  bool left = false;
+  bool right = false;
+  bool top = false;
+  bool bottom = false;
+
+  LOG(LOG_INFO) << "Calculating offset for " << neighboringPoint.x << ", " << neighboringPoint.y << "to " << originPoint.x << ", "
+                << originPoint.y;
+  LOG(LOG_INFO) << "Offsets are: " << neighborOffsetX << ", " << neighborOffsetY;
+
+  switch (neighborOffsetX)
+  {
+  case 0:
+    switch (neighborOffsetY)
+    {
+    case 0:
+      position = NeighbourNodesPosition::CENTAR;
+    case 1:
+      position = NeighbourNodesPosition::TOP;
+    case -1:
+      position = NeighbourNodesPosition::BOTTOM;
+    }
+  case 1:
+    switch (neighborOffsetY)
+    {
+    case 0:
+      position = NeighbourNodesPosition::RIGHT;
+    case 1:
+      position = NeighbourNodesPosition::BOTOM_RIGHT;
+
+    case -1:
+      position = NeighbourNodesPosition::BOTOM_LEFT;
+    }
+  case -1:
+    switch (neighborOffsetY)
+    {
+    case 0:
+      position = NeighbourNodesPosition::LEFT;
+    case 1:
+      position = NeighbourNodesPosition::BOTOM_LEFT;
+
+    case -1:
+      position = NeighbourNodesPosition::TOP_LEFT;
+    }
+  }
+
+  LOG(LOG_INFO) << "Found Position " << position._to_string();
+  //   for (auto it : PointFunctions::getNeighbors(isoCoordinates, includeCentralNode))
+  //   {
+  //   }
+
+  //   for (int xOffset = -neighborRange; xOffset <= neighborRange; ++xOffset)
+  //   {
+  //     for (int yOffset = -neighborRange; yOffset <= neighborRange; ++yOffset, position++)
+  //     {
+
+  //       Point neighbor;
+  //       neighbor.x = isoCoordinates.x + xOffset;
+  //       neighbor.y = isoCoordinates.y + yOffset;
+
+  //       if (neighbor.isWithinMapBoundaries())
+  //       {
+  //         neighbors.push_back({&mapNodes[nodeIdx(neighbor.x, neighbor.y)], position});
+  //       }
+  //     }
+  //   }
+
+  //   return neighbors;
+
+  return position;
+}

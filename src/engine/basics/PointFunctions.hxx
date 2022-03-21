@@ -6,6 +6,10 @@
 #include "betterEnums.hxx"
 #include <vector>
 
+BETTER_ENUM(NeighbourNodesPosition, unsigned char, BOTOM_LEFT = 1U << 6, LEFT = 1U << 2, TOP_LEFT = 1U << 4, BOTTOM = 1U << 1,
+            CENTAR = 0U, TOP = 1U, BOTOM_RIGHT = 1U << 7, RIGHT = 1U << 3, TOP_RIGHT = 1U << 5);
+
+
 class PointFunctions
 {
 public:
@@ -39,6 +43,13 @@ public:
   * @return std::vector<Point>() - All neighboring node coordinates.
   */
   static std::vector<Point> getNeighbors(const Point &isoCoordinates, const bool includeCentralNode);
+
+    /** \brief Get all neighboring coordinate from provided map node isocoordinate.
+  * @param isoCoordinates iso coordinates.
+  * @param includeCentralNode if set to true include the central node in the result.
+  * @return std::vector<Point>() - All neighboring node coordinates.
+  */
+  static NeighbourNodesPosition getNeighborPositionToOrigin(const Point &neighboringPoint, const Point &originPoint);
 };
 
 #endif
