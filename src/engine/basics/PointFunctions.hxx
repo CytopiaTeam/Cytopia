@@ -44,10 +44,10 @@ public:
   */
   static std::vector<Point> getNeighbors(const Point &isoCoordinates, const bool includeCentralNode);
 
-    /** \brief Get all neighboring coordinate from provided map node isocoordinate.
-  * @param isoCoordinates iso coordinates.
-  * @param includeCentralNode if set to true include the central node in the result.
-  * @return std::vector<Point>() - All neighboring node coordinates.
+    /** \brief Get the position of the neighboring node to the originpoint (center of the neighborgroup).
+  * @param neighboringPoint the neighboring point
+  * @param originPoint the center of the neighbor group we want to get the direction to
+  * @return NeighbourNodesPosition - An enum representing the Direction from the neighboring point to the origin point
   */
   static NeighbourNodesPosition getNeighborPositionToOrigin(const Point &neighboringPoint, const Point &originPoint);
 };
