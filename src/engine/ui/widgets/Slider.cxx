@@ -31,6 +31,8 @@ void Slider::setValue(int val)
   curVal = val;
 }
 
+int Slider::getValue() { return curVal; }
+
 int Slider::getValue(int x)
 {
   int range = m_maxVal - m_minVal;

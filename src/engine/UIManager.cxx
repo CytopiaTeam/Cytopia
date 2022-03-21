@@ -934,6 +934,7 @@ void UIManager::initializeDollarVariables()
         }
 
         slider->setValue(Settings::instance().musicVolume * 100);
+        slider->registerCallbackFunction(Signal::slot(this, &UIManager::changeMusicVolume));
       }
     }
   }
@@ -987,4 +988,12 @@ void UIManager::changeFullScreenMode(UIElement *sender)
   {
     Engine::instance().map->refresh();
   }
+}
+
+void UIManager::changeMusicVolume(UIElement* sender) 
+{
+  // TODO: Save settings
+  Slider *slider = dynamic_cast<Slider *>(sender);
+  // actually set the setting
+  Settings::instance().musicVolume = (float)(slider->getValue() / 100);
 }
