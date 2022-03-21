@@ -66,7 +66,7 @@ public:
  * @param screenCoordinates
  * @return Point
  */
-  Point findNodeInMap(const SDL_Point &screenCoordinates, const Layer &layer = Layer::NONE) const;
+  Point findNodeInMap(const SDL_Point &screenCoordinates, const Layer &layer = Layer::NONE);
 
   /**
  * @brief Set the Tile ID Of Node object
@@ -204,7 +204,7 @@ public:
   /** \brief Get pointer to a single mapNode at specific iso coordinates.
   * @param isoCoordinates: The node to retrieve.
   */
-  const MapNode &getMapNode(Point isoCoords) const { return mapNodes[nodeIdx(isoCoords.x, isoCoords.y)]; };
+  MapNode &getMapNode(Point isoCoords) { return mapNodes[nodeIdx(isoCoords.x, isoCoords.y)]; };
 
   /** \brief Get all mapnodes as a vector
    */

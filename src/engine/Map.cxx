@@ -137,6 +137,7 @@ void Map::changeHeight(const Point &isoCoordinates, const bool higher)
   MapNode &mapNode = mapNodes[nodeIdx(isoCoordinates.x, isoCoordinates.y)];
   std::vector<MapNode *> nodesToUpdate{&mapNode};
   auto neighbours = getNeighborNodes(isoCoordinates, true);
+  std::vector<Point> neighorCoordinates = PointFunctions::getNeighbors(isoCoordinates, true);
 
   if (updateHeight(mapNode, higher, neighbours))
   {
@@ -147,17 +148,18 @@ void Map::changeHeight(const Point &isoCoordinates, const bool higher)
     {
       const int centerHeight = mapNode.getCoordinates().height;
 
-      for (auto &neighbour : neighbours)
+      for (Point &neighbourCoord : neighorCoordinates)
       {
-        if (centerHeight < neighbour.pNode->getCoordinates().height)
+        MapNode &neighborNode = getMapNode(neighbourCoord);
+        if (centerHeight < neighborNode.getCoordinates().height)
         {
-          neighbour.pNode->changeHeight(false);
-          demolishNode({neighbour.pNode->getCoordinates()});
-          nodesToUpdate.push_back(neighbour.pNode);
+          neighborNode.changeHeight(false);
+          // demolishNode(std::vector<Point>(){neighbourCoord});
+          nodesToUpdate.push_back(&neighborNode);
         }
       }
     }
-
+    demolishNode(neighorCoordinates);
     updateNodeNeighbors(nodesToUpdate);
   }
 }
@@ -430,7 +432,7 @@ SDL_Color Map::getColorOfPixelInSurface(SDL_Surface *surface, int x, int y) cons
   return Color;
 }
 
-Point Map::findNodeInMap(const SDL_Point &screenCoordinates, const Layer &layer) const
+Point Map::findNodeInMap(const SDL_Point &screenCoordinates, const Layer &layer)
 {
   // calculate clicked column (x coordinate) without height taken into account.
   const Point calculatedIsoCoords = calculateIsoCoordinates(screenCoordinates);
