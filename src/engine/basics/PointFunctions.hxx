@@ -9,7 +9,6 @@
 BETTER_ENUM(NeighbourNodesPosition, unsigned char, BOTTOM_LEFT = 1U << 6, LEFT = 1U << 2, TOP_LEFT = 1U << 4, BOTTOM = 1U << 1,
             CENTER = 0U, TOP = 1U, BOTTOM_RIGHT = 1U << 7, RIGHT = 1U << 3, TOP_RIGHT = 1U << 5);
 
-
 class PointFunctions
 {
 public:
@@ -44,7 +43,7 @@ public:
   */
   static std::vector<Point> getNeighbors(const Point &isoCoordinates, const bool includeCentralNode);
 
-    /** \brief Get the position of the neighboring node to the originpoint (center of the neighborgroup).
+  /** \brief Get the position of the neighboring node to the originpoint (center of the neighborgroup).
   * @param neighboringPoint the neighboring point
   * @param originPoint the center of the neighbor group we want to get the direction to
   * @return NeighbourNodesPosition - An enum representing the Direction from the neighboring point to the origin point
