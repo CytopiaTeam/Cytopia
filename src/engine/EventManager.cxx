@@ -346,7 +346,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
               m_nodesToHighlight = m_nodesToPlace;
               break;
             case PlacementMode::STRAIGHT_LINE:
-              m_nodesToPlace = getRectangularLineSelectionNodes(m_clickDownCoords, mouseIsoCoords);
+              m_nodesToPlace = PointFunctions::getStraightLine(m_clickDownCoords, mouseIsoCoords);
               m_nodesToHighlight = m_nodesToPlace;
               break;
             case PlacementMode::RECTANGLE:
