@@ -621,11 +621,9 @@ bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, Point isoCoordin
 
 void Map::highlightNode(const Point &isoCoordinates, const SpriteRGBColor &rgbColor)
 {
-  const size_t index = nodeIdx(isoCoordinates.x, isoCoordinates.y);
-
-  if (index < mapNodes.size())
+  if (isoCoordinates.isWithinMapBoundaries())
   {
-    const auto pSprite = mapNodes[index].getSprite();
+    const auto pSprite = getMapNode(isoCoordinates).getSprite();
     pSprite->highlightColor = rgbColor;
     pSprite->highlightSprite = true;
   }
@@ -633,17 +631,14 @@ void Map::highlightNode(const Point &isoCoordinates, const SpriteRGBColor &rgbCo
 
 std::string Map::getTileID(const Point &isoCoordinates, Layer layer)
 {
-  const size_t index = nodeIdx(isoCoordinates.x, isoCoordinates.y);
-  return (index < mapNodes.size()) ? mapNodes[index].getTileID(layer) : "";
+  return (isoCoordinates.isWithinMapBoundaries()) ? getMapNode(isoCoordinates).getTileID(layer) : "";
 }
 
 void Map::unHighlightNode(const Point &isoCoordinates)
 {
-  const size_t index = nodeIdx(isoCoordinates.x, isoCoordinates.y);
-
-  if (index < mapNodes.size())
+  if (isoCoordinates.isWithinMapBoundaries())
   {
-    mapNodes[index].getSprite()->highlightSprite = false;
+    getMapNode(isoCoordinates).getSprite()->highlightSprite = false;
   }
 }
 
