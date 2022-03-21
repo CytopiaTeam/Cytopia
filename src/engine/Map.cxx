@@ -239,7 +239,7 @@ void Map::updateNodeNeighbors(std::vector<MapNode *> &nodes)
           nodeCache[pEleNode] = getNeighborNodes(pEleNode->getCoordinates(), false);
         }
 
-        const unsigned char elevationBitmask = getElevatedNeighborBitmask(pEleNode, nodeCache[pEleNode]);
+        const unsigned char elevationBitmask = getElevatedNeighborBitmask(pEleNode->getCoordinates());
 
         if (elevationBitmask != pEleNode->getElevationBitmask())
         {
@@ -316,16 +316,16 @@ std::vector<Point> Map::getObjectCoords(const Point &isoCoordinates, const std::
   return ret;
 }
 
-unsigned char Map::getElevatedNeighborBitmask(MapNode *pMapNode, const std::vector<NeighborNode> &neighbors)
+unsigned char Map::getElevatedNeighborBitmask(Point centerCoordinates)
 {
   unsigned char bitmask = 0;
-  const auto centralNodeHeight = pMapNode->getCoordinates().height;
+  const auto centralNodeHeight = getMapNode(centerCoordinates).getCoordinates().height;
 
-  for (const auto &neighbour : neighbors)
+  for (const auto &neighborCoordinates : PointFunctions::getNeighbors(centerCoordinates, false))
   {
-    if (neighbour.pNode->getCoordinates().height > centralNodeHeight)
+    if (getMapNode(neighborCoordinates).getCoordinates().height > centralNodeHeight)
     {
-      bitmask |= neighbour.position;
+      bitmask |= PointFunctions::getNeighborPositionToOrigin(neighborCoordinates, centerCoordinates);
     }
   }
 

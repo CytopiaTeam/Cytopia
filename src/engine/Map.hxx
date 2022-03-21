@@ -268,7 +268,7 @@ private:
   * @param neighbors All neighbor map nodes.
   * @return Map node elevated bit mask.
   */
-  unsigned char getElevatedNeighborBitmask(MapNode *pMapNode, const std::vector<NeighborNode> &neighbors);
+  unsigned char getElevatedNeighborBitmask(Point centerCoordinates);
 
   /** \brief Change map node height.
   * @param mapNode Map node to change height.
