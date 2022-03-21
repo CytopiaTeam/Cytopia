@@ -3,6 +3,7 @@
 // forward declarations
 static std::vector<Point> getLine;
 static std::vector<Point> getStraightLine;
+static std::vector<Point> getArea;
 
 std::vector<Point> PointFunctions::getLine(Point isoCoordinatesStart, Point isoCoordinatesEnd)
 {
@@ -148,6 +149,26 @@ std::vector<Point> PointFunctions::getStraightLine(const Point &isoCoordinatesSt
   for (int y = isoCoordinatesStart.y; y != isoCoordinatesEnd.y; y += directionY)
   {
     rectangle.push_back(Point{staticX, y});
+  }
+
+  return rectangle;
+}
+
+
+std::vector<Point> PointFunctions::getArea(const Point &isoCoordinatesStart, const Point &isoCoordinatesEnd)
+{
+  std::vector<Point> rectangle;
+  SDL_Point startRect;
+  SDL_Point endRect;
+  std::tie(startRect.x, endRect.x) = std::minmax(isoCoordinatesStart.x, isoCoordinatesEnd.x);
+  std::tie(startRect.y, endRect.y) = std::minmax(isoCoordinatesStart.y, isoCoordinatesEnd.y);
+
+  for (int x = startRect.x; x <= endRect.x; x++)
+  {
+    for (int y = startRect.y; y <= endRect.y; y++)
+    {
+      rectangle.push_back(Point{x, y});
+    }
   }
 
   return rectangle;
