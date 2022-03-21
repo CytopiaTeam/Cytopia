@@ -143,6 +143,13 @@ public:
 
   void changeResolution(UIElement *sender);
   void changeFullScreenMode(UIElement *sender);
+
+ /**
+ * @brief Changes the volume of music
+ * @param sender the UI element that triggered the function
+ */
+  void changeMusicVolume(UIElement *sender);
+
   /**
  * @brief Close all open menus but the build menu
  */
