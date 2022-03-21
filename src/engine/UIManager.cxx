@@ -178,6 +178,7 @@ void UIManager::init()
           break;
         case ElementType::Slider:
           uiElement = std::make_unique<Slider>(elementRect);
+          dynamic_cast<Slider *>(uiElement.get())->setPosition(elementRect.x, elementRect.y);
           break;
         default:
           LOG(LOG_WARNING) << "An element without a type can not be created, check your UiLayout JSON File "

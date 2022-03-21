@@ -62,6 +62,8 @@ public:
    */
   bool isMouseOver(int, int) override;
 
+  void setPosition(int x, int y) override;
+
 private:
   /// Thickness of the slider line
   int m_lineThickness = 6;
