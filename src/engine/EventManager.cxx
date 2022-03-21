@@ -542,8 +542,14 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       mouseScreenCoords = {event.button.x, event.button.y};
       mouseIsoCoords = convertScreenToIsoCoordinates(mouseScreenCoords);
       // gather all nodes the objects that'll be placed is going to occupy.
-      std::vector targetObjectNodes = engine.map->getObjectCoords(mouseIsoCoords, tileToPlace);
-
+      std::vector<Point> targetObjectNodes;
+      for (auto coord : engine.map->getObjectCoords(mouseIsoCoords, tileToPlace))
+      {
+        if (coord.isWithinMapBoundaries())
+        {
+          targetObjectNodes.push_back(coord);
+        }
+      }
       if (event.button.button == SDL_BUTTON_LEFT)
       {
         if (m_tileInfoMode)
@@ -561,7 +567,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         else if (!tileToPlace.empty() && m_placementAllowed)
         {
           // if targetObject.size > 1 it is a tile bigger than 1x1
-          if (targetObjectNodes.size() > 1 && isPointWithinMapBoundaries(targetObjectNodes))
+          if (targetObjectNodes.size() > 1)
           {
             // instead of using "nodesToPlace" which would be the origin-corner coordinate, we need to pass ALL occupied nodes for now.
             engine.setTileIDOfNode(targetObjectNodes.begin(), targetObjectNodes.end(), tileToPlace, false);
@@ -610,4 +616,3 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
     }
   }
 }
-
