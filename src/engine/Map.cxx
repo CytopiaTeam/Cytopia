@@ -141,12 +141,10 @@ void Map::changeHeight(const Point &isoCoordinates, const bool higher)
 
   if (updateHeight(mapNode, higher, neighbours))
   {
-    demolishNode({isoCoordinates});
-
     // If lowering node height, than all nodes around should be lowered to be on same height with the central one.
     if (!higher)
     {
-      const int centerHeight = mapNode.getCoordinates().height;
+      const int centerHeight = getMapNode(isoCoordinates).getCoordinates().height;
 
       for (Point &neighbourCoord : neighorCoordinates)
       {
@@ -154,7 +152,6 @@ void Map::changeHeight(const Point &isoCoordinates, const bool higher)
         if (centerHeight < neighborNode.getCoordinates().height)
         {
           neighborNode.changeHeight(false);
-          // demolishNode(std::vector<Point>(){neighbourCoord});
           nodesToUpdate.push_back(&neighborNode);
         }
       }
