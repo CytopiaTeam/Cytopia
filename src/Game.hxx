@@ -8,7 +8,6 @@
 #include "Scripting/ScriptEngine.hxx"
 #include "engine/MessageQueue.hxx"
 #include "util/Meta.hxx"
-#include "GameService.hxx"
 #ifdef USE_AUDIO
 #include "services/AudioMixer.hxx"
 #endif
@@ -61,17 +60,8 @@ public:
   virtual bool mainMenu();
 
 private:
-  /* Game context */
-  using GameContext = GameService::ServiceTuple;
-  GameContext m_GameContext;
-
   void quit();
 
-  /* Services */
-  ResourceManager m_ResourceManager;
-#ifdef USE_AUDIO
-  AudioMixer m_AudioMixer;
-#endif
   GamePlay m_GamePlay;
 };
 

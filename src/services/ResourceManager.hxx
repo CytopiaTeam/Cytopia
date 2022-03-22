@@ -8,12 +8,12 @@
 #include "audio/AudioConfig.hxx"
 #include "audio/Soundtrack.hxx"
 #endif // USE_AUDIO
-#include "../GameService.hxx"
+#include "../util/Singleton.hxx"
 #include "../util/Meta.hxx"
 
 template <typename Key, typename Value> using Mapping = std::unordered_map<Key, Value>;
 
-class ResourceManager : public GameService
+class ResourceManager : public Singleton<ResourceManager>
 {
 
   template <typename ResourceType> struct ResourceItem
@@ -63,7 +63,7 @@ public:
    * @brief Creates the ResourceManager
    *  @throws ConfigurationError when loading configuration results in an error
    */
-  ResourceManager(GameService::ServiceTuple &);
+  ResourceManager();
 
 #ifdef USE_AUDIO
   /**
