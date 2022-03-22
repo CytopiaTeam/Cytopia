@@ -92,6 +92,11 @@ bool Slider::isMouseOver(int x, int y) { return overSliderButton(x, y) || overSl
 void Slider::setPosition(int x, int y) 
 {
   sliderLine.x = x;
-  sliderLine.y = y + 20 - (m_lineThickness / 2);
+  sliderLine.y = y + (sliderButton.h / 2) - (m_lineThickness / 2);
   sliderButton.y = y;
+}
+
+void Slider::registerCallbackFunction(std::function<void(UIElement* sender)> const& cb) 
+{
+  //smth
 }

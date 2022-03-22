@@ -64,6 +64,8 @@ public:
 
   void setPosition(int x, int y) override;
 
+  void registerCallbackFunction(std::function<void(UIElement *sender)> const &cb) override;
+
 private:
   /// Thickness of the slider line
   int m_lineThickness = 6;
