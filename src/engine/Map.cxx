@@ -490,7 +490,6 @@ Point Map::findNodeInMap(const SDL_Point &screenCoordinates, const Layer &layer)
 #ifndef NDEBUG
       // Assert assumption that we test all nodes in correct Z order
       assert(zOrder > coordinate.z);
-      assert(zOrder > coordinate.z);
       zOrder = coordinate.z;
 #endif
       if (isClickWithinTile(screenCoordinates, coordinate, layer))
