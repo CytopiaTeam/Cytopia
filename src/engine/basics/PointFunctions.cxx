@@ -173,14 +173,13 @@ std::vector<Point> PointFunctions::getArea(const Point &isoCoordinatesStart, con
   return rectangle;
 }
 
-std::vector<Point> PointFunctions::getNeighbors(const Point &isoCoordinates, const bool includeCentralNode)
+std::vector<Point> PointFunctions::getNeighbors(const Point &isoCoordinates, const bool includeCentralNode, int distance)
 {
-  constexpr int neighborRange = 1;
   std::vector<Point> neighbors;
 
-  for (int xOffset = -neighborRange; xOffset <= neighborRange; ++xOffset)
+  for (int xOffset = -distance; xOffset <= distance; ++xOffset)
   {
-    for (int yOffset = -neighborRange; yOffset <= neighborRange; ++yOffset)
+    for (int yOffset = -distance; yOffset <= distance; ++yOffset)
     {
       if (!includeCentralNode && (xOffset == 0) && (yOffset == 0))
       {

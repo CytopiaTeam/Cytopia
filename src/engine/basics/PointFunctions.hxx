@@ -41,7 +41,7 @@ public:
   * @param includeCentralNode if set to true include the central node in the result.
   * @return std::vector<Point>() - All neighboring node coordinates.
   */
-  static std::vector<Point> getNeighbors(const Point &isoCoordinates, const bool includeCentralNode);
+  static std::vector<Point> getNeighbors(const Point &isoCoordinates, const bool includeCentralNode, int distance = 1);
 
   /** \brief Get the position of the neighboring node to the originpoint (center of the neighborgroup).
   * @param neighboringPoint the neighboring point
