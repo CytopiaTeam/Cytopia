@@ -974,5 +974,5 @@ void UIManager::changeMusicVolume(UIElement* sender)
   // TODO: Save settings
   Slider *slider = dynamic_cast<Slider *>(sender);
   // actually set the setting
-  Settings::instance().musicVolume = (float)(slider->getValue() / 100);
+  Settings::instance().musicVolume = static_cast<float>(slider->getValue() / 100.0f);
 }
