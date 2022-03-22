@@ -9,8 +9,8 @@
 
 #include "audio/Soundtrack.hxx"
 #include "audio/AudioConfig.hxx"
-#include "../GameService.hxx"
 #include "../util/Meta.hxx"
+#include "../util/Singleton.hxx"
 
 #include "AL/al.h"
 #include "AL/alc.h"
@@ -132,7 +132,7 @@ struct EchoProperties
 /**
  * @class AudioMixer
  */
-class AudioMixer : public GameService
+class AudioMixer : public Singleton<AudioMixer>
 {
 public:
   using DEFAULT_CHANNELS = Constant<4>;
@@ -258,8 +258,12 @@ public:
   /**
    * @pre GameClock must be initialized
    */
-  AudioMixer(GameService::ServiceTuple &);
+  AudioMixer();
   ~AudioMixer();
+  AudioMixer(const AudioMixer &) = delete;
+  AudioMixer(AudioMixer &&) = delete;
+  AudioMixer &operator=(const AudioMixer &) = delete;
+  AudioMixer &operator=(AudioMixer &&) = delete;
 
   //for orientation of listener
   enum class ORIENTATION_INDEX : int
