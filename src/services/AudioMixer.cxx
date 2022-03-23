@@ -18,7 +18,7 @@ template <typename Type, size_t N> using Array = std::array<Type, N>;
 
 std::function<void(int)> AudioMixer::onTrackFinishedFunc;
 
-AudioMixer::AudioMixer(GameService::ServiceTuple &context) : GameService(context)
+AudioMixer::AudioMixer()
 {
   std::string jsonFileContent = fs::readFileAsString(Settings::instance().audioConfigJSONFile.get());
   json config_json = json::parse(jsonFileContent, nullptr, false);
@@ -120,7 +120,7 @@ SoundtrackUPtr &AudioMixer::getTrack(const AudioTrigger &trigger)
     return noResoruce;
   }
   const SoundtrackID &trackID = *Randomizer::instance().choose(possibilities.begin(), possibilities.end());
-  return GetService<ResourceManager>().get(trackID);
+  return ResourceManager::instance().get(trackID);
 }
 
 SoundtrackUPtr &AudioMixer::getTrack(const SoundtrackID &id)
@@ -130,7 +130,7 @@ SoundtrackUPtr &AudioMixer::getTrack(const SoundtrackID &id)
     return noResoruce;
   }
 
-  return GetService<ResourceManager>().get(id);
+  return ResourceManager::instance().get(id);
 }
 
 /*
