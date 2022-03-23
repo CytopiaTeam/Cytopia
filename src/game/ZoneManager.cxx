@@ -76,12 +76,7 @@ void ZoneManager::spawn()
   }
 }
 
-void ZoneManager::addZoneNode(MapNode *node)
-{
-  m_MapNodes.emplace_back(node);
-  LOG(LOG_INFO) << "called addZoneNode";
-  getNodeArea(node);
-}
+void ZoneManager::addZoneNode(MapNode *node) { m_MapNodes.emplace_back(node); }
 void ZoneManager::removeZoneNode(MapNode *node)
 {
   if (node)
@@ -116,4 +111,31 @@ void ZoneManager::getNodeArea(MapNode *node)
       }
     }
   }
+}
+
+
+TileSize ZoneManager::getPossibleTileSize(Point originPoint)
+{
+  TileSize possibleSize;
+  
+  for (int distance = 1; distance <= possibleSize.sizeX || distance <= possibleSize.sizeY; distance++)
+  {
+    if(getZoneNodeWithCoordinate({originPoint.x + distance, originPoint.y})->getTileData(Layer::ZONE))
+    {
+      possibleSize.sizeX++;
+    }
+  }
+  return possibleSize;
+}
+
+const MapNode* ZoneManager::getZoneNodeWithCoordinate(Point coordinate)
+{
+  for (const MapNode* node : m_MapNodes)
+  {
+    if (node->getCoordinates().x == coordinate.x && node->getCoordinates().y == coordinate.y)
+    {
+      return node;
+    }
+  }
+  return nullptr;
 }

@@ -3,6 +3,11 @@
 
 #include "../engine/GameObjects/MapNode.hxx"
 
+struct TileSize
+{
+  int sizeX = 1;
+  int sizeY = 1;
+};
 class ZoneManager
 {
 public:
@@ -15,6 +20,12 @@ public:
 private:
   void spawnBuildings();
   void spawn();
+  const MapNode* getZoneNodeWithCoordinate(Point coordinate);
+
+  /** Returns the possible size of buildings we can add.
+   * 
+   **/
+  TileSize getPossibleTileSize(Point originPoint);
 
   std::vector<const MapNode *> m_MapNodes;
 };
