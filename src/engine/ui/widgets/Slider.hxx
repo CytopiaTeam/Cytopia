@@ -81,6 +81,9 @@ private:
   int curVal;
   /// whether or not the button is to follow the mouse
   bool dragMode;
+
+  // Signal
+  Signal::Signal<void(UIElement *sender)> sliderSignal;
 };
 
 #endif
