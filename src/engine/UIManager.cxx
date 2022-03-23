@@ -398,6 +398,28 @@ void UIManager::setCallbackFunctions()
           if (demolishMode)
           {
             GameStates::instance().placementMode = PlacementMode::RECTANGLE;
+            GameStates::instance().demolishMode = DemolishMode::DEFAULT;
+          }
+          return;
+        }
+
+        demolishMode = !demolishMode;
+        demolishMode ? highlightSelection = true : highlightSelection = false;
+      });
+    }
+     else if (uiElement->getUiElementData().actionID == "DeZone")
+    {
+      uiElement->registerCallbackFunction([](UIElement *sender) {
+        Button *button = dynamic_cast<Button *>(sender);
+
+        if (button && button->getUiElementData().isToggleButton)
+        {
+          button->checkState() ? demolishMode = true : demolishMode = false;
+          button->checkState() ? highlightSelection = true : highlightSelection = false;
+          if (demolishMode)
+          {
+            GameStates::instance().placementMode = PlacementMode::RECTANGLE;
+            GameStates::instance().demolishMode = DemolishMode::DE_ZONE;
           }
           return;
         }

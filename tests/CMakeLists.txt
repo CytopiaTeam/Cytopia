@@ -44,8 +44,6 @@ LIST(APPEND TEST_SOURCES
         services/GameClock.cxx
         ui/widgets/Text.cxx
         util/Meta.cxx
-        util/Observer.cxx
-        util/TransitiveModel.cxx
         util/MessageQueue.cxx
         util/LOG.cxx
         )
