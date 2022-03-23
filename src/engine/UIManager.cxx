@@ -11,6 +11,7 @@
 #include "GameStates.hxx"
 #include "MapLayers.hxx"
 #include "Filesystem.hxx"
+#include "../services/AudioMixer.hxx"
 
 #include "json.hxx"
 #include "betterEnums.hxx"
@@ -995,6 +996,6 @@ void UIManager::changeMusicVolume(UIElement* sender)
 {
   // TODO: Save settings
   Slider *slider = dynamic_cast<Slider *>(sender);
-  // actually set the setting
   Settings::instance().musicVolume = static_cast<float>(slider->getValue() / 100.0f);
+  AudioMixer::instance().setMusicVolume(Settings::instance().musicVolume);
 }

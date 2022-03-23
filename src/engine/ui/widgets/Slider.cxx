@@ -58,6 +58,7 @@ bool Slider::onMouseButtonDown(const SDL_Event &event)
   {
     sliderButton.x = event.button.x - sliderButton.w / 2; // sets the middle of the button to where the user clicked
     curVal = getValue(event.button.x);
+    sliderSignal.emit(this);
     return true;
   }
   if (overSliderButton(event.button.x, event.button.y))
@@ -83,6 +84,7 @@ void Slider::onMouseMove(const SDL_Event &event)
     {
       sliderButton.x = event.motion.x - sliderButton.w / 2;
       curVal = getValue(event.motion.x);
+      sliderSignal.emit(this);
     }
   }
 }
@@ -96,7 +98,4 @@ void Slider::setPosition(int x, int y)
   sliderButton.y = y;
 }
 
-void Slider::registerCallbackFunction(std::function<void(UIElement* sender)> const& cb) 
-{
-  //smth
-}
+void Slider::registerCallbackFunction(std::function<void(UIElement *sender)> const &cb) { sliderSignal.connect(cb); }
