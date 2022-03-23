@@ -36,7 +36,7 @@ private:
    * @param originPoint - coordinate where we want to know how many free zone tiles there are next to it
    * @return TileSize - struct with height and with for the possible tilesize that can be placed on this coordinate
    */
-  TileSize getPossibleTileSize(Point originPoint);
+  TileSize getMaximumTileSize(Point originPoint);
 
   std::vector<const MapNode *> m_MapNodes;
 };
