@@ -209,6 +209,19 @@
                 "BuildMenuID": "Construction_sub"
             },
             {
+                "ID": "button dezone",
+                "Type": "ImageButton",
+                "SpriteID": "Button_ConstructionMenu_DeZone",
+                "Position_x": 540,
+                "Position_y": 470,
+                "Action": "DeZone",
+                "ButtonGroup": "BottomMenuExpansionGroup",
+                "ToggleButton": true,
+                "DrawFrame": true,
+                "TooltipText": "De-zone",
+                "BuildMenuID": "Construction_sub"
+            },
+            {
                 "ID": "button terrain water",
                 "Type": "ImageButton",
                 "SpriteID": "Button_ConstructionMenu_Water",
