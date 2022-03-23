@@ -55,7 +55,7 @@ public:
   * @param direction - An enum representing the Direction from the neighboring point to the origin point
   * @return Point - The coordinate of the neighbor in a certain direction
   */
-  static Point getNeighborWithDirection(const Point &originPoint, NeighbourNodesPosition direction);
+  static Point getNeighborWithDirection(const Point &originPoint, NeighbourNodesPosition direction, int distance = 1);
 };
 
 #endif

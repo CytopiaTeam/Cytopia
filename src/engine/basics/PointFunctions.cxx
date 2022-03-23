@@ -162,9 +162,9 @@ std::vector<Point> PointFunctions::getArea(const Point &isoCoordinatesStart, con
   std::tie(startRect.x, endRect.x) = std::minmax(isoCoordinatesStart.x, isoCoordinatesEnd.x);
   std::tie(startRect.y, endRect.y) = std::minmax(isoCoordinatesStart.y, isoCoordinatesEnd.y);
 
-  for (int x = startRect.x; x <= endRect.x; x++)
+  for (int x = startRect.x; x <= endRect.x; x + distance)
   {
-    for (int y = startRect.y; y <= endRect.y; y++)
+    for (int y = startRect.y; y <= endRect.y; y + distance)
     {
       rectangle.push_back(Point{x, y});
     }
@@ -177,9 +177,9 @@ std::vector<Point> PointFunctions::getNeighbors(const Point &isoCoordinates, con
 {
   std::vector<Point> neighbors;
 
-  for (int xOffset = -distance; xOffset <= distance; ++xOffset)
+  for (int xOffset = -distance; xOffset <= distance; + distancexOffset)
   {
-    for (int yOffset = -distance; yOffset <= distance; ++yOffset)
+    for (int yOffset = -distance; yOffset <= distance; + distanceyOffset)
     {
       if (!includeCentralNode && (xOffset == 0) && (yOffset == 0))
       {
@@ -246,7 +246,7 @@ NeighbourNodesPosition PointFunctions::getNeighborPositionToOrigin(const Point &
   return NeighbourNodesPosition::CENTER;
 }
 
-Point PointFunctions::getNeighborWithDirection(const Point &originPoint, NeighbourNodesPosition direction)
+Point PointFunctions::getNeighborWithDirection(const Point &originPoint, NeighbourNodesPosition direction, int distance)
 {
   Point neighbor = originPoint;
   switch (direction)
@@ -254,32 +254,32 @@ Point PointFunctions::getNeighborWithDirection(const Point &originPoint, Neighbo
   case NeighbourNodesPosition::CENTER:
     break;
   case NeighbourNodesPosition::TOP:
-    neighbor.y--;
+    neighbor.y - distance;
     break;
   case NeighbourNodesPosition::BOTTOM:
-    neighbor.y ++;
+    neighbor.y + distance;
     break;
   case NeighbourNodesPosition::LEFT:
-    neighbor.x--;
+    neighbor.x - distance;
     break;
   case NeighbourNodesPosition::RIGHT:
-    neighbor.x ++;
+    neighbor.x + distance;
     break;
   case NeighbourNodesPosition::TOP_LEFT:
-    neighbor.x --;
-    neighbor.y --;
+    neighbor.x - distance;
+    neighbor.y - distance;
     break;
   case NeighbourNodesPosition::TOP_RIGHT:
-    neighbor.x ++;
-    neighbor.y --;
+    neighbor.x + distance;
+    neighbor.y - distance;
     break;
   case NeighbourNodesPosition::BOTTOM_LEFT:
-    neighbor.x --;
-    neighbor.y ++;
+    neighbor.x - distance;
+    neighbor.y + distance;
     break;
   case NeighbourNodesPosition::BOTTOM_RIGHT:
-    neighbor.x ++;
-    neighbor.y ++;
+    neighbor.x + distance;
+    neighbor.y + distance;
     break;
   }
 
