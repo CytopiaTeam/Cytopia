@@ -352,7 +352,7 @@ Point Map::getNodeOrigCornerPoint(const Point &isoCoordinates, Layer layer)
 {
   if ((layer != Layer::NONE) && isoCoordinates.isWithinMapBoundaries())
   {
-    return mapNodes[nodeIdx(isoCoordinates.x, isoCoordinates.y)].getOrigCornerPoint(layer);
+    return getMapNode(isoCoordinates).getOrigCornerPoint(layer);
   }
 
   return Point::INVALID();
@@ -485,15 +485,16 @@ Point Map::findNodeInMap(const SDL_Point &screenCoordinates, const Layer &layer)
     // Move y up and down 2 neighbors.
     for (int y = std::max(yMiddlePoint - neighborReach, 0); (y <= yMiddlePoint + neighborReach) && (y < mapSize); ++y)
     {
-      Point coordinate = Point(x, y);
+      //get all coordinates for node at x,y
+      Point coordinate = getMapNode(Point(x, y)).getCoordinates();
 #ifndef NDEBUG
       // Assert assumption that we test all nodes in correct Z order
-      assert(zOrder > mapNodes[nodeIdx(x, y)].getCoordinates().z);
-      zOrder = mapNodes[nodeIdx(x, y)].getCoordinates().z;
+      assert(zOrder > coordinate.z);
+      zOrder = coordinate.z;
 #endif
       if (isClickWithinTile(screenCoordinates, coordinate, layer))
       {
-        return mapNodes[nodeIdx(x, y)].getCoordinates();
+        return coordinate;
       }
     }
   }
@@ -519,16 +520,15 @@ void Map::demolishNode(const std::vector<Point> &isoCoordinates, bool updateNeig
       if (pNodeTileData && ((pNodeTileData->RequiredTiles.height > 1) || (pNodeTileData->RequiredTiles.width > 1)))
       {
         const Point origCornerPoint = node.getOrigCornerPoint(Layer::BUILDINGS);
-        const size_t origIndex = nodeIdx(origCornerPoint.x, origCornerPoint.y);
 
-        if (origIndex < mapNodes.size())
+        if (origCornerPoint.isWithinMapBoundaries())
         {
-          const std::string &tileID = mapNodes[origIndex].getTileID(Layer::BUILDINGS);
-          std::vector<Point> objectCoordinates = getObjectCoords(origCornerPoint, tileID);
+          const std::string &tileID = getMapNode(origCornerPoint).getTileID(Layer::BUILDINGS);
 
-          for (auto coords : objectCoordinates)
+          // get all the occupied nodes and demolish them
+          for (auto buildingCoords : getObjectCoords(origCornerPoint, tileID))
           {
-            nodesToDemolish.insert(&mapNodes[nodeIdx(coords.x, coords.y)]);
+            nodesToDemolish.insert(&mapNodes[nodeIdx(buildingCoords.x, buildingCoords.y)]);
           }
         }
       }
@@ -620,11 +620,9 @@ bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, Point isoCoordin
 
 void Map::highlightNode(const Point &isoCoordinates, const SpriteRGBColor &rgbColor)
 {
-  const size_t index = nodeIdx(isoCoordinates.x, isoCoordinates.y);
-
-  if (index < mapNodes.size())
+  if (isoCoordinates.isWithinMapBoundaries())
   {
-    const auto pSprite = mapNodes[index].getSprite();
+    const auto pSprite = getMapNode(isoCoordinates).getSprite();
     pSprite->highlightColor = rgbColor;
     pSprite->highlightSprite = true;
   }
@@ -632,17 +630,14 @@ void Map::highlightNode(const Point &isoCoordinates, const SpriteRGBColor &rgbCo
 
 std::string Map::getTileID(const Point &isoCoordinates, Layer layer)
 {
-  const size_t index = nodeIdx(isoCoordinates.x, isoCoordinates.y);
-  return (index < mapNodes.size()) ? mapNodes[index].getTileID(layer) : "";
+  return (isoCoordinates.isWithinMapBoundaries()) ? getMapNode(isoCoordinates).getTileID(layer) : "";
 }
 
 void Map::unHighlightNode(const Point &isoCoordinates)
 {
-  const size_t index = nodeIdx(isoCoordinates.x, isoCoordinates.y);
-
-  if (index < mapNodes.size())
+  if (isoCoordinates.isWithinMapBoundaries())
   {
-    mapNodes[index].getSprite()->highlightSprite = false;
+    getMapNode(isoCoordinates).getSprite()->highlightSprite = false;
   }
 }
 

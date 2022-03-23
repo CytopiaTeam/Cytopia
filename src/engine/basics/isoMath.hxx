@@ -36,15 +36,6 @@ SDL_Point convertIsoToScreenCoordinates(const Point &isoCoordinates, bool calcWi
 */
 Point convertScreenToIsoCoordinates(const SDL_Point &screenCoordinates);
 
-/** \brief Check if given coordinates are within map boundaries
-* Checks if coordinates are within map boundaries
-* @param Point object - coordinates to check
-* @return bool - true if coordinates are inside the map bounds.
-*/
-// bool isPointWithinMapBoundaries(int x, int y);
-// bool isPointWithinMapBoundaries(const Point &isoCoordinates);
-bool isPointWithinMapBoundaries(const std::vector<Point> &isoCoordinates);
-
 /** \brief Creates a line between two points using the Bresenham Line algorithm
 * Creates a line between two points using the Bresenham Line algorithm
 * @param Point() - start coordinates

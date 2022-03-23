@@ -10,15 +10,14 @@ bool reverseDirection = false;
 
 Point calculateIsoCoordinates(const SDL_Point &screenCoordinates)
 {
-  const SDL_Point & cameraOffset = Camera::instance().cameraOffset();
-  const double & zoomLevel = Camera::instance().zoomLevel();
-  const SDL_Point & tileSize = Camera::instance().tileSize();
+  const SDL_Point &cameraOffset = Camera::instance().cameraOffset();
+  const double &zoomLevel = Camera::instance().zoomLevel();
+  const SDL_Point &tileSize = Camera::instance().tileSize();
 
-  const int isoX =
-      static_cast<int>((screenCoordinates.x + cameraOffset.x + 2.0 * (screenCoordinates.y + cameraOffset.y)) / (tileSize.x * zoomLevel) + 1);
-  const int isoY =
-      static_cast<int>((screenCoordinates.x + cameraOffset.x - 2.0 * (screenCoordinates.y + cameraOffset.y)) /
-                       (tileSize.x * zoomLevel));
+  const int isoX = static_cast<int>(
+      (screenCoordinates.x + cameraOffset.x + 2.0 * (screenCoordinates.y + cameraOffset.y)) / (tileSize.x * zoomLevel) + 1);
+  const int isoY = static_cast<int>((screenCoordinates.x + cameraOffset.x - 2.0 * (screenCoordinates.y + cameraOffset.y)) /
+                                    (tileSize.x * zoomLevel));
 
   return {isoX, isoY, 0, 0};
 }
@@ -26,14 +25,12 @@ Point calculateIsoCoordinates(const SDL_Point &screenCoordinates)
 SDL_Point convertIsoToScreenCoordinates(const Point &isoCoordinates, bool calcWithoutOffset)
 {
   const int heightOffset = 24;
-  const SDL_Point & cameraOffset = Camera::instance().cameraOffset();
-  const double & zoomLevel = Camera::instance().zoomLevel();
-  const SDL_Point & tileSize = Camera::instance().tileSize();
+  const SDL_Point &cameraOffset = Camera::instance().cameraOffset();
+  const double &zoomLevel = Camera::instance().zoomLevel();
+  const SDL_Point &tileSize = Camera::instance().tileSize();
 
-  int x = static_cast<int>(
-      std::round(static_cast<double>((isoCoordinates.x + isoCoordinates.y) * tileSize.x) * zoomLevel) / 2);
-  int y = static_cast<int>(
-      std::round(static_cast<double>((isoCoordinates.x - isoCoordinates.y) * tileSize.y) * zoomLevel) / 2);
+  int x = static_cast<int>(std::round(static_cast<double>((isoCoordinates.x + isoCoordinates.y) * tileSize.x) * zoomLevel) / 2);
+  int y = static_cast<int>(std::round(static_cast<double>((isoCoordinates.x - isoCoordinates.y) * tileSize.y) * zoomLevel) / 2);
 
   if (!calcWithoutOffset)
   {
@@ -43,8 +40,7 @@ SDL_Point convertIsoToScreenCoordinates(const Point &isoCoordinates, bool calcWi
 
   if (isoCoordinates.height > 0)
   {
-    y -= static_cast<int>(
-        std::round(static_cast<double>((tileSize.x - heightOffset) * isoCoordinates.height) * zoomLevel));
+    y -= static_cast<int>(std::round(static_cast<double>((tileSize.x - heightOffset) * isoCoordinates.height) * zoomLevel));
   }
 
   return {x, y};
@@ -81,18 +77,6 @@ Point convertScreenToIsoCoordinates(const SDL_Point &screenCoordinates)
     }
   }
   return foundCoordinates;
-}
-
-bool isPointWithinMapBoundaries(const std::vector<Point> &isoCoordinates)
-{
-  for (auto p : isoCoordinates)
-  {
-    if (!(p.isWithinMapBoundaries()))
-    {
-      return false;
-    }
-  }
-  return true;
 }
 
 std::vector<Point> getRectangleSelectionNodes(const Point &isoCoordinatesStart, const Point &isoCoordinatesEnd)

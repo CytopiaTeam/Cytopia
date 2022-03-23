@@ -208,7 +208,7 @@ public:
   /** \brief Get pointer to a single mapNode at specific iso coordinates.
   * @param isoCoordinates: The node to retrieve.
   */
-  const MapNode *getMapNode(Point isoCoords) const { return &mapNodes[nodeIdx(isoCoords.x, isoCoords.y)]; };
+  const MapNode &getMapNode(Point isoCoords) const { return mapNodes[nodeIdx(isoCoords.x, isoCoords.y)]; };
 
   /** \brief Get all mapnodes as a vector
    */

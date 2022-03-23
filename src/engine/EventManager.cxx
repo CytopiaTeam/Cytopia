@@ -305,7 +305,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           {
             if (it != Point::INVALID())
             {
-              (engine.map->getMapNode(it))->setNodeTransparency(0, Layer::BUILDINGS);
+              (engine.map->getMapNode(it)).setNodeTransparency(0, Layer::BUILDINGS);
             }
           }
           m_transparentBuildings.clear();
@@ -429,10 +429,10 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
                 std::find(m_transparentBuildings.begin(), m_transparentBuildings.end(), buildingCoordinates);
             if ((transparentBuildingIt == m_transparentBuildings.end()) && (buildingCoordinates != Point::INVALID()))
             {
-              const TileData *tileData = engine.map->getMapNode(buildingCoordinates)->getTileData(Layer::BUILDINGS);
+              const TileData *tileData = engine.map->getMapNode(buildingCoordinates).getTileData(Layer::BUILDINGS);
               if (tileData && tileData->category != "Flora")
               {
-                engine.map->getMapNode(buildingCoordinates)->setNodeTransparency(0.6f, Layer::BUILDINGS);
+                engine.map->getMapNode(buildingCoordinates).setNodeTransparency(0.6f, Layer::BUILDINGS);
                 m_transparentBuildings.push_back(buildingCoordinates);
               }
             }
@@ -542,8 +542,19 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       mouseScreenCoords = {event.button.x, event.button.y};
       mouseIsoCoords = convertScreenToIsoCoordinates(mouseScreenCoords);
       // gather all nodes the objects that'll be placed is going to occupy.
-      std::vector targetObjectNodes = engine.map->getObjectCoords(mouseIsoCoords, tileToPlace);
-
+      std::vector<Point> targetObjectNodes;
+      for (auto coord : engine.map->getObjectCoords(mouseIsoCoords, tileToPlace))
+      {
+        if (coord.isWithinMapBoundaries())
+        {
+          targetObjectNodes.push_back(coord);
+        }
+        else // if one coordinate is outside of mapboundaries, the placement is invalid. Clear the vector and abort
+        {
+          targetObjectNodes.clear();
+          break;
+        }
+      }
       if (event.button.button == SDL_BUTTON_LEFT)
       {
         if (m_tileInfoMode)
@@ -561,7 +572,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         else if (!tileToPlace.empty() && m_placementAllowed)
         {
           // if targetObject.size > 1 it is a tile bigger than 1x1
-          if (targetObjectNodes.size() > 1 && isPointWithinMapBoundaries(targetObjectNodes))
+          if (targetObjectNodes.size() > 1)
           {
             // instead of using "nodesToPlace" which would be the origin-corner coordinate, we need to pass ALL occupied nodes for now.
             engine.setTileIDOfNode(targetObjectNodes.begin(), targetObjectNodes.end(), tileToPlace, false);
@@ -610,4 +621,3 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
     }
   }
 }
-
