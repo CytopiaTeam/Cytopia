@@ -62,6 +62,9 @@
     "Button_ConstructionMenu_LevelTerrain": {
         "Texture_Default": "resources/images/ui/buttons/levelTerrain.png"
     },
+    "Button_ConstructionMenu_DeZone": {
+        "Texture_Default": "resources/images/ui/buttons/dezone.png"
+    },
     "Button_RoadsMenu_PavedRoad": {
         "Texture_Default": "resources/images/ui/buttons/paved_road.png"
     },

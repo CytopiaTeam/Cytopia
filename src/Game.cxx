@@ -26,26 +26,12 @@
 #include "microprofile.h"
 #endif
 
-Game::Game()
-    : m_GameContext(
-#ifdef USE_AUDIO
-          &m_AudioMixer,
-#endif // USE_AUDIO
-          &m_ResourceManager),
-      m_ResourceManager
-{
-  m_GameContext
-}
-#ifdef USE_AUDIO
-, m_AudioMixer { m_GameContext }
-#endif
-{
-  LOG(LOG_DEBUG) << "Created Game Object";
-}
+Game::Game() { LOG(LOG_DEBUG) << "Created Game Object"; }
 
 void Game::quit()
 {
 #ifdef USE_AUDIO
+  auto &m_AudioMixer = AudioMixer::instance();
   m_AudioMixer.stopAll();
   if (!Settings::instance().audio3DStatus)
   {
@@ -96,6 +82,18 @@ bool Game::initialize()
   return true;
 }
 
+#ifdef USE_AUDIO
+static void playAudioMajorSelection()
+{
+  auto &m_AudioMixer = AudioMixer::instance();
+  m_AudioMixer.stopAll();
+  if (!Settings::instance().audio3DStatus)
+    m_AudioMixer.play(SoundtrackID{"MajorSelection"});
+  else
+    m_AudioMixer.play(SoundtrackID{"MajorSelection"}, Coordinate3D{0, 0, -4});
+}
+#endif // USE_AUDIO
+
 bool Game::mainMenu()
 {
   SDL_Event event;
@@ -104,11 +102,12 @@ bool Game::mainMenu()
   int screenHeight = Settings::instance().screenHeight;
   bool mainMenuLoop = true;
   bool quitGame = false;
-  
+
 #ifdef USE_AUDIO
+  auto &m_AudioMixer = AudioMixer::instance();
   /* Trigger MainMenu music */
-    m_AudioMixer.setMusicVolume(Settings::instance().musicVolume);
-    m_AudioMixer.setSoundEffectVolume(Settings::instance().soundEffectsVolume); // does nothing right now
+  m_AudioMixer.setMusicVolume(Settings::instance().musicVolume);
+  m_AudioMixer.setSoundEffectVolume(Settings::instance().soundEffectsVolume); // does nothing right now
   if (!Settings::instance().audio3DStatus)
     m_AudioMixer.play(AudioTrigger::MainMenu);
   else
@@ -128,14 +127,10 @@ bool Game::mainMenu()
   newGameButton.setText("New Game");
   newGameButton.setUIElementID("newgame");
   newGameButton.registerCallbackFunction(
-      [this]()
+      []()
       {
 #ifdef USE_AUDIO
-        m_AudioMixer.stopAll();
-        if (!Settings::instance().audio3DStatus)
-          m_AudioMixer.play(SoundtrackID{"MajorSelection"});
-        else
-          m_AudioMixer.play(SoundtrackID{"MajorSelection"}, Coordinate3D{0, 0, -4});
+        playAudioMajorSelection();
 #endif //  USE_AUDIO
 
         Engine::instance().newGame();
@@ -144,14 +139,10 @@ bool Game::mainMenu()
   Button loadGameButton({screenWidth / 2 - 100, screenHeight / 2 - 20 + newGameButton.getUiElementRect().h * 2, 200, 40});
   loadGameButton.setText("Load Game");
   loadGameButton.registerCallbackFunction(
-      [this]()
+      []()
       {
 #ifdef USE_AUDIO
-        m_AudioMixer.stopAll();
-        if (!Settings::instance().audio3DStatus)
-          m_AudioMixer.play(SoundtrackID{"MajorSelection"});
-        else
-          m_AudioMixer.play(SoundtrackID{"MajorSelection"}, Coordinate3D{0, 0, -4});
+        playAudioMajorSelection();
 #endif // USE_AUDIO
         Engine::instance().loadGame("resources/save.cts");
       });
@@ -293,14 +284,14 @@ void Game::run(bool SkipMenu)
     gameClock.addRealTimeClockTask(
         [this]()
         {
-          m_AudioMixer.play(AudioTrigger::MainTheme);
+          AudioMixer::instance().play(AudioTrigger::MainTheme);
           return false;
         },
         0s, 8min);
     gameClock.addRealTimeClockTask(
         [this]()
         {
-          m_AudioMixer.play(AudioTrigger::NatureSounds);
+          AudioMixer::instance().play(AudioTrigger::NatureSounds);
           return false;
         },
         0s, 3min);
@@ -310,14 +301,14 @@ void Game::run(bool SkipMenu)
     gameClock.addRealTimeClockTask(
         [this]()
         {
-          m_AudioMixer.play(AudioTrigger::MainTheme, Coordinate3D{0, 0.5, 0.1});
+          AudioMixer::instance().play(AudioTrigger::MainTheme, Coordinate3D{0, 0.5, 0.1});
           return false;
         },
         0s, 8min);
     gameClock.addRealTimeClockTask(
         [this]()
         {
-          m_AudioMixer.play(AudioTrigger::NatureSounds, Coordinate3D{0, 0, -2});
+          AudioMixer::instance().play(AudioTrigger::NatureSounds, Coordinate3D{0, 0, -2});
           return false;
         },
         0s, 3min);
