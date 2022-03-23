@@ -38,7 +38,7 @@ void ZoneManager::spawn()
     }
 
     TileSize tileSize = getPossibleTileSize(node->getCoordinates());
-    LOG(LOG_INFO) << "I can spawn a building with size: " << tileSize.sizeX << ", " << tileSize.sizeY;
+    LOG(LOG_INFO) << "I can spawn a building with size: " << tileSize.width << ", " << tileSize.height;
 
     if (!node->getTileData(Layer::ZONE))
     {
@@ -120,17 +120,17 @@ TileSize ZoneManager::getPossibleTileSize(Point originPoint)
 {
   TileSize possibleSize;
 
-  for (int distance = 1; distance <= possibleSize.sizeX || distance <= possibleSize.sizeY; distance++)
+  for (int distance = 1; distance <= possibleSize.width || distance <= possibleSize.height; distance++)
   {
     const MapNode *currentNodeInXDirection = getZoneNodeWithCoordinate({originPoint.x + distance, originPoint.y});
     const MapNode *currentNodeInYDirection = getZoneNodeWithCoordinate({originPoint.x + distance, originPoint.y});
     if (currentNodeInXDirection && currentNodeInXDirection->getTileData(Layer::ZONE))
     {
-      possibleSize.sizeX++;
+      possibleSize.width++;
     }
     if (currentNodeInYDirection && currentNodeInYDirection->getTileData(Layer::ZONE))
     {
-      possibleSize.sizeY++;
+      possibleSize.height++;
     }
   }
   return possibleSize;

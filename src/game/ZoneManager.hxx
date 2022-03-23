@@ -3,11 +3,6 @@
 
 #include "../engine/GameObjects/MapNode.hxx"
 
-struct TileSize
-{
-  int sizeX = 1;
-  int sizeY = 1;
-};
 class ZoneManager
 {
 public:
