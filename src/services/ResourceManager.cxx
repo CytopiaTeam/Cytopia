@@ -33,7 +33,7 @@
 using ifstream = std::ifstream;
 using nlohmann::json;
 
-ResourceManager::ResourceManager(GameService::ServiceTuple &services) : GameService(services), m_Age(0), m_CacheSize(0)
+ResourceManager::ResourceManager() : m_Age(0), m_CacheSize(0)
 {
 #ifdef USE_AUDIO
   std::string jsonFileContent = fs::readFileAsString(Settings::instance().audioConfigJSONFile.get());

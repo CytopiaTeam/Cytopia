@@ -11,8 +11,6 @@ set(SOURCE_FILES
         util/Singleton.hxx
         util/Meta.hxx
         util/Exception.{hxx,cxx}
-        GameService.{hxx,cxx}
-        GameService.inl.hxx
         services/Randomizer.{hxx,cxx}
         services/GameClock.{hxx,cxx}
         services/GameClock.inl.hxx
