@@ -37,6 +37,9 @@ void ZoneManager::spawn()
       break;
     }
 
+    TileSize tileSize = getPossibleTileSize(node->getCoordinates());
+    LOG(LOG_INFO) << "I can spawn a building with size: " << tileSize.sizeX << ", " << tileSize.sizeY;
+
     if (!node->getTileData(Layer::ZONE))
     {
       LOG(LOG_ERROR) << "Something is wrong with a zone tile - Report this to the Cytopia Team!";
@@ -113,24 +116,29 @@ void ZoneManager::getNodeArea(MapNode *node)
   }
 }
 
-
 TileSize ZoneManager::getPossibleTileSize(Point originPoint)
 {
   TileSize possibleSize;
-  
+
   for (int distance = 1; distance <= possibleSize.sizeX || distance <= possibleSize.sizeY; distance++)
   {
-    if(getZoneNodeWithCoordinate({originPoint.x + distance, originPoint.y})->getTileData(Layer::ZONE))
+    const MapNode *currentNodeInXDirection = getZoneNodeWithCoordinate({originPoint.x + distance, originPoint.y});
+    const MapNode *currentNodeInYDirection = getZoneNodeWithCoordinate({originPoint.x + distance, originPoint.y});
+    if (currentNodeInXDirection && currentNodeInXDirection->getTileData(Layer::ZONE))
     {
       possibleSize.sizeX++;
+    }
+    if (currentNodeInYDirection && currentNodeInYDirection->getTileData(Layer::ZONE))
+    {
+      possibleSize.sizeY++;
     }
   }
   return possibleSize;
 }
 
-const MapNode* ZoneManager::getZoneNodeWithCoordinate(Point coordinate)
+const MapNode *ZoneManager::getZoneNodeWithCoordinate(Point coordinate)
 {
-  for (const MapNode* node : m_MapNodes)
+  for (const MapNode *node : m_MapNodes)
   {
     if (node->getCoordinates().x == coordinate.x && node->getCoordinates().y == coordinate.y)
     {
