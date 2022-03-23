@@ -6,6 +6,7 @@
 #include "ResourcesManager.hxx"
 #include "Filesystem.hxx"
 #include "tileData.hxx"
+#include "../services/Randomizer.hxx"
 
 #include <bitset>
 
@@ -25,7 +26,7 @@ TileData *TileManager::getTileData(const std::string &id) noexcept
   return nullptr;
 }
 
-std::vector<std::string> TileManager::getTileIDsOfCategory(Zones zone, TileSize tileSize)
+std::vector<std::string> TileManager::getAllTileIDsForZone(Zones zone, TileSize tileSize)
 {
   std::vector<std::string> results;
   for (auto &tileData : m_tileData)
@@ -37,6 +38,33 @@ std::vector<std::string> TileManager::getTileIDsOfCategory(Zones zone, TileSize 
     }
   }
   return results;
+}
+
+const std::string &TileManager::getRandomTileIDForZoneWithRandomSize(Zones zone, TileSize minTileSize, TileSize maxTileSize)
+{
+  TileSize randomTileSize;
+  // TODO: Replace this with a list of all possible tilesize combinations.
+  randomTileSize.width = rand() % maxTileSize.width + minTileSize.width;
+  // randomTileSize.width = rand() % (maxTileSize.width - minTileSize.width) + minTileSize.width;
+  randomTileSize.height = randomTileSize.width ;
+  // randomTileSize.height = rand() % (maxTileSize.height - minTileSize.width) + minTileSize.height;
+  
+  LOG(LOG_INFO) << "RandomSize " << randomTileSize.width << ", " << randomTileSize.height;
+  return getRandomTileIDForZone(zone, randomTileSize);
+}
+const std::string &TileManager::getRandomTileIDForZone(Zones zone, TileSize tileSize)
+{
+  auto &randomizer = Randomizer::instance();
+  // gett all tile IDs for the according zone
+  const auto &tileIDsForThisZone = TileManager::instance().getAllTileIDsForZone(zone, tileSize);
+  // choose a random tileID and return it
+
+  if (tileIDsForThisZone.empty())
+  {
+    LOG(LOG_ERROR) << "No buildings available for zone: " << zone;
+    return "";
+  }
+  return *randomizer.choose(tileIDsForThisZone.begin(), tileIDsForThisZone.end());
 }
 
 Layer TileManager::getTileLayer(const std::string &tileID) const

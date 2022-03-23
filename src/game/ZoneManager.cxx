@@ -33,7 +33,7 @@ void ZoneManager::spawn()
   {
     if (node->getTileData(Layer::BUILDINGS)) // if a building is occupied skip
     {
-      
+
       continue;
     }
     if (buildingsSpawned >= amountOfBuildingsToSpawn)
@@ -57,31 +57,13 @@ void ZoneManager::spawn()
       thisZone = node->getTileData(Layer::ZONE)->zones[0];
     }
 
-    TileSize maxTileSize = getMaximumTileSize(node->getCoordinates());
-    int max = 1;
-    if (maxTileSize.width < 4 && maxTileSize.height < 4)
-    {
-      max = std::min(maxTileSize.width, maxTileSize.height);
-    }
-    else
-    {
-      max = rand() % 4;
-    }
+    unsigned int maxSize = std::min(4, static_cast<int>(getMaximumTileSize(node->getCoordinates()).width));
+    TileSize maxTileSize = {maxSize, maxSize};
+    std::string building =
+        TileManager::instance().getRandomTileIDForZoneWithRandomSize(thisZone, {1, 1}, maxTileSize);
 
-    TileSize TileSizeWeNeed;
-    TileSizeWeNeed.width = max;
-    TileSizeWeNeed.height = max;
-    // all the tileIDs that are elligible for placement on this node
-    const auto &tileIDsForThisZone = TileManager::instance().getTileIDsOfCategory(thisZone, TileSizeWeNeed);
+    // place the building
 
-    if (tileIDsForThisZone.empty())
-    {
-      LOG(LOG_ERROR) << "No buildings available for zone: " << thisZone;
-      continue;
-    }
-
-    // pick a random tileID from the vector
-    std::string building = *randomizer.choose(tileIDsForThisZone.begin(), tileIDsForThisZone.end());
     std::vector targetObjectNodes = Engine::instance().map->getObjectCoords(node->getCoordinates(), building);
     Engine::instance().setTileIDOfNode(targetObjectNodes.begin(), targetObjectNodes.end(), building, false);
     buildingsSpawned++;
@@ -132,7 +114,7 @@ TileSize ZoneManager::getMaximumTileSize(Point originPoint)
   for (int distance = 1; distance <= possibleSize.width || distance <= possibleSize.height; distance++)
   {
     const MapNode *currentNodeInXDirection = getZoneNodeWithCoordinate({originPoint.x - distance, originPoint.y});
-    const MapNode *currentNodeInYDirection = getZoneNodeWithCoordinate({originPoint.x , originPoint.y +distance});
+    const MapNode *currentNodeInYDirection = getZoneNodeWithCoordinate({originPoint.x, originPoint.y + distance});
     if (currentNodeInXDirection && currentNodeInXDirection->getTileData(Layer::ZONE))
     {
       possibleSize.width++;

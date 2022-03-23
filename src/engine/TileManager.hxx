@@ -76,7 +76,10 @@ public:
   const std::unordered_map<std::string, TileData> &getAllTileData() const { return m_tileData; };
   void init();
 
-  std::vector<std::string> getTileIDsOfCategory(Zones zone, TileSize tileSize = {1,1});
+  std::vector<std::string> getAllTileIDsForZone(Zones zone, TileSize tileSize = {1, 1});
+  const std::string &getRandomTileIDForZone(Zones zone, TileSize tileSize = {1, 1});
+  const std::string &getRandomTileIDForZoneWithRandomSize(Zones zone, TileSize minTileSize = {1, 1},
+                                                          TileSize maxTileSize = {1, 1});
 
 private:
   TileManager();
