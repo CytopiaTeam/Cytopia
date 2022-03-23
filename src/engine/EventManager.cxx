@@ -550,6 +550,11 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         {
           targetObjectNodes.push_back(coord);
         }
+        else // if one coordinate is outside of mapboundaries, the placement is invalid. Clear the vector and abort
+        {
+          targetObjectNodes.clear();
+          break;
+        }
       }
       if (event.button.button == SDL_BUTTON_LEFT)
       {

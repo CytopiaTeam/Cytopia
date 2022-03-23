@@ -36,6 +36,14 @@ SDL_Point convertIsoToScreenCoordinates(const Point &isoCoordinates, bool calcWi
 */
 Point convertScreenToIsoCoordinates(const SDL_Point &screenCoordinates);
 
+/** \brief Creates a line between two points using the Bresenham Line algorithm
+* Creates a line between two points using the Bresenham Line algorithm
+* @param Point() - start coordinates
+* @param Point() - end coordinates
+* @return std::vector<Point>() - contains coordinates for each tile between start and end coordinates, including start and end
+*/
+std::vector<Point> createBresenhamLine(const Point &isoCoordinatesStart, const Point &isoCoordinatesEnd);
+
 /** \brief Gets all nodes in a rectangle between start and end point
 * Gets all nodes in a rectangle between start and end point
 * @param Point() - start coordinates
