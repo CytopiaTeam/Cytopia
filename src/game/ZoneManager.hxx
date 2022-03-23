@@ -10,6 +10,7 @@ public:
   void update();
   void addZoneNode(MapNode *node);
   void removeZoneNode(MapNode *node);
+  void getNodeArea(MapNode *node);
 
 private:
   void spawnBuildings();

@@ -31,7 +31,7 @@ NeighbourNodesPosition operator++(NeighbourNodesPosition &nn, int)
 
   switch (nn)
   {
-  case NeighbourNodesPosition::BOTOM_LEFT:
+  case NeighbourNodesPosition::BOTTOM_LEFT:
     nn = NeighbourNodesPosition::LEFT;
     break;
   case NeighbourNodesPosition::LEFT:
@@ -41,22 +41,22 @@ NeighbourNodesPosition operator++(NeighbourNodesPosition &nn, int)
     nn = NeighbourNodesPosition::BOTTOM;
     break;
   case NeighbourNodesPosition::BOTTOM:
-    nn = NeighbourNodesPosition::CENTAR;
+    nn = NeighbourNodesPosition::CENTER;
     break;
-  case NeighbourNodesPosition::CENTAR:
+  case NeighbourNodesPosition::CENTER:
     nn = NeighbourNodesPosition::TOP;
     break;
   case NeighbourNodesPosition::TOP:
-    nn = NeighbourNodesPosition::BOTOM_RIGHT;
+    nn = NeighbourNodesPosition::BOTTOM_RIGHT;
     break;
-  case NeighbourNodesPosition::BOTOM_RIGHT:
+  case NeighbourNodesPosition::BOTTOM_RIGHT:
     nn = NeighbourNodesPosition::RIGHT;
     break;
   case NeighbourNodesPosition::RIGHT:
     nn = NeighbourNodesPosition::TOP_RIGHT;
     break;
   case NeighbourNodesPosition::TOP_RIGHT:
-    nn = NeighbourNodesPosition::BOTOM_LEFT;
+    nn = NeighbourNodesPosition::BOTTOM_LEFT;
     break;
   default:
     assert(false);
@@ -104,26 +104,11 @@ std::vector<NeighborNode> Map::getNeighborNodes(const Point &isoCoordinates, con
 {
   constexpr int neighborRange = 1;
   std::vector<NeighborNode> neighbors;
-  NeighbourNodesPosition position = NeighbourNodesPosition::BOTOM_LEFT;
 
-  for (int xOffset = -neighborRange; xOffset <= neighborRange; ++xOffset)
+  for (auto it : PointFunctions::getNeighbors(isoCoordinates, includeCentralNode))
   {
-    for (int yOffset = -neighborRange; yOffset <= neighborRange; ++yOffset, position++)
-    {
-      if (!includeCentralNode && (xOffset == 0) && (yOffset == 0))
-      {
-        continue;
-      }
-
-      Point neighbor;
-      neighbor.x = isoCoordinates.x + xOffset;
-      neighbor.y = isoCoordinates.y + yOffset;
-
-      if (neighbor.isWithinMapBoundaries())
-      {
-        neighbors.push_back({&mapNodes[nodeIdx(neighbor.x, neighbor.y)], position});
-      }
-    }
+    PointFunctions::getNeighborPositionToOrigin(it, isoCoordinates);
+    neighbors.push_back({&mapNodes[nodeIdx(it.x, it.y)], PointFunctions::getNeighborPositionToOrigin(it, isoCoordinates)});
   }
 
   return neighbors;
@@ -152,27 +137,26 @@ void Map::changeHeight(const Point &isoCoordinates, const bool higher)
   MapNode &mapNode = mapNodes[nodeIdx(isoCoordinates.x, isoCoordinates.y)];
   std::vector<MapNode *> nodesToUpdate{&mapNode};
   auto neighbours = getNeighborNodes(isoCoordinates, true);
+  std::vector<Point> neighorCoordinates = PointFunctions::getNeighbors(isoCoordinates, true);
 
   if (updateHeight(mapNode, higher, neighbours))
   {
-    demolishNode({isoCoordinates});
-
     // If lowering node height, than all nodes around should be lowered to be on same height with the central one.
     if (!higher)
     {
-      const int centerHeight = mapNode.getCoordinates().height;
+      const int centerHeight = getMapNode(isoCoordinates).getCoordinates().height;
 
-      for (auto &neighbour : neighbours)
+      for (Point &neighbourCoord : neighorCoordinates)
       {
-        if (centerHeight < neighbour.pNode->getCoordinates().height)
+        MapNode &neighborNode = getMapNode(neighbourCoord);
+        if (centerHeight < neighborNode.getCoordinates().height)
         {
-          neighbour.pNode->changeHeight(false);
-          demolishNode({neighbour.pNode->getCoordinates()});
-          nodesToUpdate.push_back(neighbour.pNode);
+          neighborNode.changeHeight(false);
+          nodesToUpdate.push_back(&neighborNode);
         }
       }
     }
-
+    demolishNode(neighorCoordinates);
     updateNodeNeighbors(nodesToUpdate);
   }
 }
@@ -189,8 +173,8 @@ void Map::updateNodeNeighbors(std::vector<MapNode *> &nodes)
       NeighbourNodesPosition::LEFT | NeighbourNodesPosition::RIGHT,
       NeighbourNodesPosition::TOP_LEFT | NeighbourNodesPosition::RIGHT | NeighbourNodesPosition::BOTTOM,
       NeighbourNodesPosition::TOP_RIGHT | NeighbourNodesPosition::LEFT | NeighbourNodesPosition::BOTTOM,
-      NeighbourNodesPosition::BOTOM_LEFT | NeighbourNodesPosition::RIGHT | NeighbourNodesPosition::TOP,
-      NeighbourNodesPosition::BOTOM_RIGHT | NeighbourNodesPosition::LEFT | NeighbourNodesPosition::TOP};
+      NeighbourNodesPosition::BOTTOM_LEFT | NeighbourNodesPosition::RIGHT | NeighbourNodesPosition::TOP,
+      NeighbourNodesPosition::BOTTOM_RIGHT | NeighbourNodesPosition::LEFT | NeighbourNodesPosition::TOP};
 
   std::unordered_set<MapNode *> nodesToBeUpdated;
   std::map<MapNode *, std::vector<NeighborNode>> nodeCache;
@@ -255,7 +239,7 @@ void Map::updateNodeNeighbors(std::vector<MapNode *> &nodes)
           nodeCache[pEleNode] = getNeighborNodes(pEleNode->getCoordinates(), false);
         }
 
-        const unsigned char elevationBitmask = getElevatedNeighborBitmask(pEleNode, nodeCache[pEleNode]);
+        const unsigned char elevationBitmask = getElevatedNeighborBitmask(pEleNode->getCoordinates());
 
         if (elevationBitmask != pEleNode->getElevationBitmask())
         {
@@ -332,16 +316,16 @@ std::vector<Point> Map::getObjectCoords(const Point &isoCoordinates, const std::
   return ret;
 }
 
-unsigned char Map::getElevatedNeighborBitmask(MapNode *pMapNode, const std::vector<NeighborNode> &neighbors)
+unsigned char Map::getElevatedNeighborBitmask(Point centerCoordinates)
 {
   unsigned char bitmask = 0;
-  const auto centralNodeHeight = pMapNode->getCoordinates().height;
+  const auto centralNodeHeight = getMapNode(centerCoordinates).getCoordinates().height;
 
-  for (const auto &neighbour : neighbors)
+  for (const auto &neighborCoordinates : PointFunctions::getNeighbors(centerCoordinates, false))
   {
-    if (neighbour.pNode->getCoordinates().height > centralNodeHeight)
+    if (getMapNode(neighborCoordinates).getCoordinates().height > centralNodeHeight)
     {
-      bitmask |= neighbour.position;
+      bitmask |= PointFunctions::getNeighborPositionToOrigin(neighborCoordinates, centerCoordinates);
     }
   }
 
@@ -445,7 +429,7 @@ SDL_Color Map::getColorOfPixelInSurface(SDL_Surface *surface, int x, int y) cons
   return Color;
 }
 
-Point Map::findNodeInMap(const SDL_Point &screenCoordinates, const Layer &layer) const
+Point Map::findNodeInMap(const SDL_Point &screenCoordinates, const Layer &layer)
 {
   // calculate clicked column (x coordinate) without height taken into account.
   const Point calculatedIsoCoords = calculateIsoCoordinates(screenCoordinates);
@@ -508,7 +492,7 @@ void Map::demolishNode(const std::vector<Point> &isoCoordinates, bool updateNeig
 
   for (auto &isoCoord : isoCoordinates)
   {
-    if(isoCoord.isWithinMapBoundaries())
+    if (isoCoord.isWithinMapBoundaries())
     {
       MapNode &node = mapNodes[nodeIdx(isoCoord.x, isoCoord.y)];
 

@@ -8,7 +8,7 @@
 #include "engine/ui/widgets/Image.hxx"
 #include "engine/basics/Settings.hxx"
 #include "engine/basics/GameStates.hxx"
-#include "filesystem.hxx"
+#include "Filesystem.hxx"
 
 #include <noise.h>
 #include <SDL.h>

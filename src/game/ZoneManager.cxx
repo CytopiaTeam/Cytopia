@@ -76,11 +76,44 @@ void ZoneManager::spawn()
   }
 }
 
-void ZoneManager::addZoneNode(MapNode *node) { m_MapNodes.emplace_back(node); }
+void ZoneManager::addZoneNode(MapNode *node)
+{
+  m_MapNodes.emplace_back(node);
+  LOG(LOG_INFO) << "called addZoneNode";
+  getNodeArea(node);
+}
 void ZoneManager::removeZoneNode(MapNode *node)
 {
   if (node)
   {
     m_MapNodes.erase(std::remove(m_MapNodes.begin(), m_MapNodes.end(), node));
+  }
+}
+
+void ZoneManager::getNodeArea(MapNode *node)
+{
+  LOG(LOG_INFO) << "Starting at " << node->getCoordinates().x << ", " << node->getCoordinates().y;
+
+  for (auto coord : PointFunctions::getNeighbors(node->getCoordinates(), true, 2))
+  {
+    LOG(LOG_INFO) << "Found " << coord.x << ", " << coord.y;
+  }
+  if (node)
+  {
+    int nodeX = node->getCoordinates().x;
+    int nodeY = node->getCoordinates().y;
+
+    std::vector<Point> areaCoordinates;
+    LOG(LOG_INFO) << "Starting ";
+
+    int dist = 1;
+    for (int x = nodeX - dist; x <= nodeX + dist; x++)
+    {
+      for (int y = nodeY - dist; y <= nodeY + dist; y++)
+      {
+
+        // LOG(LOG_INFO) << "Found " << x << ", " << y;
+      }
+    }
   }
 }
