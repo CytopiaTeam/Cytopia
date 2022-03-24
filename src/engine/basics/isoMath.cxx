@@ -79,3 +79,14 @@ Point convertScreenToIsoCoordinates(const SDL_Point &screenCoordinates)
   return foundCoordinates;
 }
 
+bool isPointWithinMapBoundaries(const std::vector<Point> &isoCoordinates)
+{
+  for (auto p : isoCoordinates)
+  {
+    if (!(p.isWithinMapBoundaries()))
+    {
+      return false;
+    }
+  }
+  return true;
+}

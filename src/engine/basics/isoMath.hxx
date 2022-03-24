@@ -52,6 +52,15 @@ std::vector<Point> createBresenhamLine(const Point &isoCoordinatesStart, const P
 */
 std::vector<Point> getRectangleSelectionNodes(const Point &isoCoordinatesStart, const Point &isoCoordinatesEnd);
 
+/** \brief Check if given coordinates are within map boundaries
+ * Checks if coordinates are within map boundaries
+ * @param Point object - coordinates to check
+ * @return bool - true if coordinates are inside the map bounds.
+ */
+// bool isPointWithinMapBoundaries(int x, int y);
+// bool isPointWithinMapBoundaries(const Point &isoCoordinates);
+bool isPointWithinMapBoundaries(const std::vector<Point> &isoCoordinates);
+
 /// Clamp value
 //TODO: Remove this when switching to C++17 and use std::clamp instead
 template <typename T> T clamp(const T &n, const T &lower, const T &upper) { return std::max(lower, std::min(n, upper)); }
