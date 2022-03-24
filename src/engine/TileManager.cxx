@@ -43,21 +43,16 @@ std::vector<std::string> TileManager::getAllTileIDsForZone(Zones zone, TileSize 
 const std::string &TileManager::getRandomTileIDForZoneWithRandomSize(Zones zone, TileSize minTileSize, TileSize maxTileSize)
 {
   TileSize randomTileSize;
+  
   // TODO: Replace this with a list of all possible tilesize combinations.
   randomTileSize.width = rand() % maxTileSize.width + minTileSize.width;
   // randomTileSize.width = rand() % (maxTileSize.width - minTileSize.width) + minTileSize.width;
-  randomTileSize.height = randomTileSize.width ;
+  randomTileSize.height = randomTileSize.width;
   // randomTileSize.height = rand() % (maxTileSize.height - minTileSize.width) + minTileSize.height;
-  
-  LOG(LOG_INFO) << "RandomSize " << randomTileSize.width << ", " << randomTileSize.height;
-  return getRandomTileIDForZone(zone, randomTileSize);
-}
-const std::string &TileManager::getRandomTileIDForZone(Zones zone, TileSize tileSize)
-{
+
   auto &randomizer = Randomizer::instance();
-  // gett all tile IDs for the according zone
-  const auto &tileIDsForThisZone = TileManager::instance().getAllTileIDsForZone(zone, tileSize);
-  // choose a random tileID and return it
+  // get all tile IDs for the according zone
+  const auto &tileIDsForThisZone = getAllTileIDsForZone(zone, randomTileSize);
 
   if (tileIDsForThisZone.empty())
   {
@@ -435,6 +430,12 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
     m_tileData[id].RequiredTiles.width = 1;
     m_tileData[id].RequiredTiles.height = 1;
   }
+
+  // add possible TileSize combinations to tileSizeCombinations
+//   // tileSizeCombinations.insert(m_tileData[id].RequiredTiles);
+// tileSizeCombinations.push_back(m_tileData[id].RequiredTiles);
+// std::sort( tileSizeCombinations.begin(), tileSizeCombinations.end() );
+// tileSizeCombinations.erase( std:unique( tileSizeCombinations.begin(), tileSizeCombinations.end() ), tileSizeCombinations.end() );
 
   m_tileData[id].tiles.fileName = tileDataJSON[idx]["tiles"].value("fileName", "");
   m_tileData[id].tiles.clippingHeight = tileDataJSON[idx]["tiles"].value("clip_height", 0);
