@@ -48,7 +48,7 @@ const std::string &TileManager::getRandomTileIDForZoneWithRandomSize(Zones zone,
   for (auto tileSize : m_tileSizeCombinations)
   {
     // for now only pick square buildings. non square buildings don't work yet.
-    if (tileSize.height <= maxTileSize.width && tileSize.height == tileSize.width)
+    if (tileSize.height <= maxTileSize.height && tileSize.width <= maxTileSize.width && tileSize.height == tileSize.width)
     {
       elligibleTileSizes.insert(tileSize);
     }
