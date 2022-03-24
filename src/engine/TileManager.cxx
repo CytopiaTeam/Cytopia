@@ -42,27 +42,23 @@ std::vector<std::string> TileManager::getAllTileIDsForZone(Zones zone, TileSize 
 
 const std::string &TileManager::getRandomTileIDForZoneWithRandomSize(Zones zone, TileSize minTileSize, TileSize maxTileSize)
 {
-  TileSize randomTileSize;
-
   std::unordered_set<TileSize> elligibleTileSizes;
 
-     for (auto tileSize : m_tileSizeCombinations)
-    {
-        if (tileSize.height <= maxTileSize.width && tileSize.height <= maxTileSize.height)
-        std::cout << "Content " << tileSize.width << ", " << tileSize.height << "\n";
-        elligibleTileSizes.insert(tileSize);
-    }
-
-  // TODO: Replace this with a list of all possible tilesize combinations.
-  randomTileSize.width = rand() % maxTileSize.width + minTileSize.width;
-  if (maxTileSize.height < randomTileSize.width)
+  // filter out the tilesizes that are below the maximum from all available tilesizes
+  for (auto tileSize : m_tileSizeCombinations)
   {
-    randomTileSize.width = maxTileSize.height;
+    // for now only pick square buildings. non square buildings don't work yet.
+    if (tileSize.height <= maxTileSize.width && tileSize.height == tileSize.width)
+    {
+      elligibleTileSizes.insert(tileSize);
+    }
   }
-  randomTileSize.height = randomTileSize.width;
 
+  // pick a random tilesize from the new set of elligible tilesizes
   auto &randomizer = Randomizer::instance();
-  // get all tile IDs for the according zone
+  TileSize randomTileSize = *randomizer.choose(elligibleTileSizes.begin(), elligibleTileSizes.end());
+
+  // get all tile IDs for the according zone and tilesize
   const auto &tileIDsForThisZone = getAllTileIDsForZone(zone, randomTileSize);
 
   if (tileIDsForThisZone.empty())
@@ -70,6 +66,7 @@ const std::string &TileManager::getRandomTileIDForZoneWithRandomSize(Zones zone,
     LOG(LOG_ERROR) << "No buildings available for zone: " << zone;
     return "";
   }
+  // return a random tileID
   return *randomizer.choose(tileIDsForThisZone.begin(), tileIDsForThisZone.end());
 }
 
@@ -443,8 +440,6 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
   }
 
   m_tileSizeCombinations.insert(m_tileData[id].RequiredTiles);
-  // add possible TileSize combinations to tileSizeCombinations here
-
   m_tileData[id].tiles.fileName = tileDataJSON[idx]["tiles"].value("fileName", "");
   m_tileData[id].tiles.clippingHeight = tileDataJSON[idx]["tiles"].value("clip_height", 0);
   m_tileData[id].tiles.clippingWidth = tileDataJSON[idx]["tiles"].value("clip_width", 0);
