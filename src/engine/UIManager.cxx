@@ -994,7 +994,6 @@ void UIManager::changeFullScreenMode(UIElement *sender)
 
 void UIManager::changeMusicVolume(UIElement* sender) 
 {
-  // TODO: Save settings
   Slider *slider = dynamic_cast<Slider *>(sender);
   Settings::instance().musicVolume = static_cast<float>(slider->getValue() / 100.0f);
   AudioMixer::instance().setMusicVolume(Settings::instance().musicVolume);
