@@ -106,7 +106,6 @@ std::vector<NeighborNode> Map::getNeighborNodes(const Point &isoCoordinates, con
 
   for (auto it : PointFunctions::getNeighbors(isoCoordinates, includeCentralNode))
   {
-    PointFunctions::getNeighborPositionToOrigin(it, isoCoordinates);
     neighbors.push_back({&mapNodes[nodeIdx(it.x, it.y)], PointFunctions::getNeighborPositionToOrigin(it, isoCoordinates)});
   }
 
