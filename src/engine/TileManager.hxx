@@ -128,11 +128,10 @@ public:
    * @brief Pick a single random tileID for a zone with a random tilesize within the supplied max Size
    * 
    * @param zone - The Zone we want tileIDs for
-   * @param minTileSize - minimum tileSize we want
    * @param maxTileSize - maximum tileSize we want 
    * @return A random tileID matching the supplied parameters
    */
-  const std::string &getRandomTileIDForZoneWithRandomSize(Zones zone, TileSize minTileSize = {1, 1},
+  const std::string &getRandomTileIDForZoneWithRandomSize(Zones zone,
                                                           TileSize maxTileSize = {1, 1});
 
   /**
