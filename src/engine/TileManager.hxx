@@ -76,7 +76,7 @@ public:
    * @brief Get the Texture for the tileID
    * 
    * @param tileID - TileID
-   * @return SDL_Texture* - An SDL Texture we can render
+   * @return An SDL Texture we can render
    */
   SDL_Texture *getTexture(const std::string &tileID) const;
 
@@ -84,7 +84,7 @@ public:
    * @brief Get the TileData struct for this tileID with all informations associated with it
    * 
    * @param id - TileID
-   * @return TileData* a pointer to the TileData Struct
+   * @return A pointer to the TileData Struct
    */
   TileData *getTileData(const std::string &id) noexcept;
 
@@ -92,7 +92,7 @@ public:
    * @brief Get the Layer that is associated with a tileID. The Tile will be placed on this layer
    * 
    * @param tileID the tileID to get the Layer for
-   * @return Layer The layer this tileID has to be placed on
+   * @return The layer this tileID has to be placed on
    */
   Layer getTileLayer(const std::string &tileID) const;
 
@@ -100,7 +100,7 @@ public:
    * @brief Calculates the TileOrintation for elevated tiles to pick the correct slope Sprite
    * 
    * @param bitMaskElevation a bitmask of neighboring tiles and their elevation
-   * @return size_t elevation bitmask
+   * @return Elevation bitmask
    */
   size_t calculateSlopeOrientation(unsigned char bitMaskElevation);
 
@@ -108,7 +108,7 @@ public:
    * @brief Calculates the TileOrintation for elevated tiles to pick the correct Sprite
    * 
    * @param bitMaskElevation a bitmask of neighboring tiles and their elevation
-   * @return TileOrientation The orientation the tile should have to it's elevated neighbors.
+   * @return The orientation the tile should have to it's elevated neighbors.
    */
   TileOrientation calculateTileOrientation(unsigned char bitMaskElevation);
 
@@ -119,7 +119,7 @@ public:
    * 
    * @param zone - The Zone we want tileIDs for
    * @param tileSize - Get buildings with a certain tile size
-   * @return std::vector<std::string> - all tileIDs that match the zone and tileSize
+   * @return All tileIDs that match the zone and tileSize
    */
   std::vector<std::string> getAllTileIDsForZone(Zones zone, TileSize tileSize = {1, 1});
 
@@ -129,7 +129,7 @@ public:
    * @param zone - The Zone we want tileIDs for
    * @param minTileSize - minimum tileSize we want
    * @param maxTileSize - maximum tileSize we want 
-   * @return const std::string& - a random tileID matching the supplied parameters
+   * @return A random tileID matching the supplied parameters
    */
   const std::string &getRandomTileIDForZoneWithRandomSize(Zones zone, TileSize minTileSize = {1, 1},
                                                           TileSize maxTileSize = {1, 1});

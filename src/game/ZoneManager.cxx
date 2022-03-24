@@ -18,9 +18,7 @@ ZoneManager::ZoneManager()
 // Nothing here right now
 void ZoneManager::update() {}
 
-void ZoneManager::spawnBuildings() { spawn(); }
-
-void ZoneManager::spawn()
+void ZoneManager::spawnBuildings()
 {
   constexpr int amountOfBuildingsToSpawn = 5;
   auto &randomizer = Randomizer::instance();
