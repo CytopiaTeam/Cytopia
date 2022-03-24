@@ -435,11 +435,7 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
     m_tileData[id].RequiredTiles.height = 1;
   }
 
-  // add possible TileSize combinations to tileSizeCombinations
-//   // tileSizeCombinations.insert(m_tileData[id].RequiredTiles);
-// tileSizeCombinations.push_back(m_tileData[id].RequiredTiles);
-// std::sort( tileSizeCombinations.begin(), tileSizeCombinations.end() );
-// tileSizeCombinations.erase( std:unique( tileSizeCombinations.begin(), tileSizeCombinations.end() ), tileSizeCombinations.end() );
+  // add possible TileSize combinations to tileSizeCombinations here
 
   m_tileData[id].tiles.fileName = tileDataJSON[idx]["tiles"].value("fileName", "");
   m_tileData[id].tiles.clippingHeight = tileDataJSON[idx]["tiles"].value("clip_height", 0);
