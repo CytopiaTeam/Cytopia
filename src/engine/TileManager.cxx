@@ -43,16 +43,14 @@ std::vector<std::string> TileManager::getAllTileIDsForZone(Zones zone, TileSize 
 const std::string &TileManager::getRandomTileIDForZoneWithRandomSize(Zones zone, TileSize minTileSize, TileSize maxTileSize)
 {
   TileSize randomTileSize;
-  
+
   // TODO: Replace this with a list of all possible tilesize combinations.
   randomTileSize.width = rand() % maxTileSize.width + minTileSize.width;
-  // randomTileSize.width = rand() % (maxTileSize.width - minTileSize.width) + minTileSize.width;
   if (maxTileSize.height < randomTileSize.width)
   {
-  randomTileSize.width = maxTileSize.height;
+    randomTileSize.width = maxTileSize.height;
   }
   randomTileSize.height = randomTileSize.width;
-  // randomTileSize.height = rand() % (maxTileSize.height - minTileSize.width) + minTileSize.height;
 
   auto &randomizer = Randomizer::instance();
   // get all tile IDs for the according zone
