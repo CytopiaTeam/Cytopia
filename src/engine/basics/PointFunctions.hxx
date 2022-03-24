@@ -50,12 +50,6 @@ public:
   */
   static NeighbourNodesPosition getNeighborPositionToOrigin(const Point &neighboringPoint, const Point &originPoint);
   
-  /** \brief Get the neighbor of the neighboriginPoint from a certain position
-  * @param originPoint the origin point
-  * @param direction - An enum representing the Direction from the neighboring point to the origin point
-  * @return Point - The coordinate of the neighbor in a certain direction
-  */
-  static Point getNeighborWithDirection(const Point &originPoint, NeighbourNodesPosition direction);
-};
+ };
 
 #endif

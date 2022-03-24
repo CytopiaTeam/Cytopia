@@ -24,64 +24,49 @@ void ZoneManager::spawn()
 {
   constexpr int amountOfBuildingsToSpawn = 5;
   auto &randomizer = Randomizer::instance();
-
-  // shuffle mapNodes
+  // shuffle mapNodes so placement of building looks random
   randomizer.shuffle(m_MapNodes.begin(), m_MapNodes.end());
 
-  // pick every single zone node we have
   int buildingsSpawned = 0;
+  // pick every single zone node we have
   for (auto &node : m_MapNodes)
   {
     if (buildingsSpawned >= amountOfBuildingsToSpawn)
     {
       break;
     }
-
-    if (!node->getTileData(Layer::ZONE))
+    // if a building is bigger than one node, the adjacent nodes will no longer be a zone node and buildings can't be spawned there
+    // consider that we're in a loop and if the zones stay, they will still be in the vector we're iterating over.
+    if (!node || !node->getTileData(Layer::ZONE))
     {
-      LOG(LOG_ERROR) << "Something is wrong with a zone tile - Report this to the Cytopia Team!";
-      continue;
+      continue; // if the node that is still in the vector is no longer a zone node, skip
     }
 
-    // get the right zone enum of the zone tile
+    // a building can be tied to multiple zones. So get all elligible zones for this building
     std::vector<std::string> availableZoneTiles;
-    for (auto &zone : node->getTileData(Layer::ZONE)->zones)
-    {
-      const auto &zoneTiles = TileManager::instance().getTileIDsOfCategory(zone);
 
-      if (zoneTiles.empty())
-      {
-        LOG(LOG_ERROR) << "No buildings available for zone: " << zone;
-        continue;
-      }
-      else
-      {
-        // add all the tileIDs that are available for this zone to our vector
-        availableZoneTiles.insert(availableZoneTiles.end(), zoneTiles.begin(), zoneTiles.end());
-      }
+    Zones thisZone = Zones::RESIDENTIAL; // initialize zone with residential. Maybe add invalid later?
+    // a zone tile only has one zone tied to it. the one it represents, so pick first element of vector
+    if (node->getTileData(Layer::ZONE)->zones[0])
+    {
+      thisZone = node->getTileData(Layer::ZONE)->zones[0];
     }
 
-    if (availableZoneTiles.empty())
-    {
-      LOG(LOG_ERROR) << "No buildings available! Aborting!";
-      break;
-    }
+    // get the maximum size we can spawn at this node, but limit it by 4x4 tiles
+    unsigned int maxSizeX = std::min(4, static_cast<int>(getMaximumTileSize(node->getCoordinates()).width));
+    unsigned int maxSizeY = std::min(4, static_cast<int>(getMaximumTileSize(node->getCoordinates()).height));
+    TileSize maxTileSize = {maxSizeX, maxSizeY};
+    std::string building = TileManager::instance().getRandomTileIDForZoneWithRandomSize(thisZone, {1, 1}, maxTileSize);
 
-    // pick a random tileID from the vector
-    // TODO: Check how many neighboring tiles are available and pick a building with correct tilesize
-    std::string building = *randomizer.choose(availableZoneTiles.begin(), availableZoneTiles.end());
+    // place the building
+
     std::vector targetObjectNodes = Engine::instance().map->getObjectCoords(node->getCoordinates(), building);
     Engine::instance().setTileIDOfNode(targetObjectNodes.begin(), targetObjectNodes.end(), building, false);
     buildingsSpawned++;
   }
 }
 
-void ZoneManager::addZoneNode(MapNode *node)
-{
-  m_MapNodes.emplace_back(node);
-  LOG(LOG_INFO) << "called addZoneNode";
-  getNodeArea(node);
-}
+void ZoneManager::addZoneNode(MapNode *node) { m_MapNodes.emplace_back(node); }
 void ZoneManager::removeZoneNode(MapNode *node)
 {
   if (node)
@@ -116,4 +101,37 @@ void ZoneManager::getNodeArea(MapNode *node)
       }
     }
   }
+}
+
+TileSize ZoneManager::getMaximumTileSize(Point originPoint)
+{
+  TileSize possibleSize;
+
+  for (int distance = 1; distance <= possibleSize.width || distance <= possibleSize.height; distance++)
+  {
+    const MapNode *currentNodeInXDirection = getZoneNodeWithCoordinate({originPoint.x - distance, originPoint.y});
+    const MapNode *currentNodeInYDirection = getZoneNodeWithCoordinate({originPoint.x, originPoint.y + distance});
+
+    if (currentNodeInXDirection && currentNodeInXDirection->getTileData(Layer::ZONE))
+    {
+      possibleSize.width++;
+    }
+    if (currentNodeInYDirection && currentNodeInYDirection->getTileData(Layer::ZONE))
+    {
+      possibleSize.height++;
+    }
+  }
+  return possibleSize;
+}
+
+const MapNode *ZoneManager::getZoneNodeWithCoordinate(Point coordinate)
+{
+  for (const MapNode *node : m_MapNodes)
+  {
+    if (node->getCoordinates().x == coordinate.x && node->getCoordinates().y == coordinate.y)
+    {
+      return node;
+    }
+  }
+  return nullptr;
 }

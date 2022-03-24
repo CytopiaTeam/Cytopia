@@ -82,7 +82,7 @@ struct TileSetData
 };
 
 /// How many tiles this building uses.
-struct RequiredTilesData
+struct TileSize
 {
   unsigned int width = 1;
   unsigned int height = 1;
@@ -127,7 +127,7 @@ struct TileData
   std::vector<Zones> zones;      ///< Restrict this building to a zone type.
   std::vector<Style> style;      ///< Restrict this building to certain Art Styles.
   std::vector<Wealth> wealth;    ///< Restrict this building to a certain wealth level. See enum Wealth
-  RequiredTilesData RequiredTiles; ///< How many tiles this building uses.
+  TileSize RequiredTiles; ///< How many tiles this building uses.
 };
 
 #endif
