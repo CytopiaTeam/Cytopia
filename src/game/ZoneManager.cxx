@@ -27,24 +27,19 @@ void ZoneManager::spawn()
   // shuffle mapNodes so placement of building looks random
   randomizer.shuffle(m_MapNodes.begin(), m_MapNodes.end());
 
-  // pick every single zone node we have
   int buildingsSpawned = 0;
+  // pick every single zone node we have
   for (auto &node : m_MapNodes)
   {
-    if (node->getTileData(Layer::BUILDINGS)) // if a building is occupied skip
-    {
-
-      continue;
-    }
     if (buildingsSpawned >= amountOfBuildingsToSpawn)
     {
       break;
     }
-
-    if (!node->getTileData(Layer::ZONE))
+    // if a building is bigger than one node, the adjacent nodes will no longer be a zone node and buildings can't be spawned there
+    // consider that we're in a loop and if the zones stay, they will still be in the vector we're iterating over.
+    if (!node || !node->getTileData(Layer::ZONE))
     {
-      LOG(LOG_ERROR) << "Something is wrong with a zone tile - Report this to the Cytopia Team!";
-      continue;
+      continue; // if the node that is still in the vector is no longer a zone node, skip
     }
 
     // a building can be tied to multiple zones. So get all elligible zones for this building
@@ -57,10 +52,10 @@ void ZoneManager::spawn()
       thisZone = node->getTileData(Layer::ZONE)->zones[0];
     }
 
+    // get the maximum size we can spawn at this node, but limit it by 4x4 tiles
     unsigned int maxSize = std::min(4, static_cast<int>(getMaximumTileSize(node->getCoordinates()).width));
     TileSize maxTileSize = {maxSize, maxSize};
-    std::string building =
-        TileManager::instance().getRandomTileIDForZoneWithRandomSize(thisZone, {1, 1}, maxTileSize);
+    std::string building = TileManager::instance().getRandomTileIDForZoneWithRandomSize(thisZone, {1, 1}, maxTileSize);
 
     // place the building
 
@@ -115,6 +110,7 @@ TileSize ZoneManager::getMaximumTileSize(Point originPoint)
   {
     const MapNode *currentNodeInXDirection = getZoneNodeWithCoordinate({originPoint.x - distance, originPoint.y});
     const MapNode *currentNodeInYDirection = getZoneNodeWithCoordinate({originPoint.x, originPoint.y + distance});
+
     if (currentNodeInXDirection && currentNodeInXDirection->getTileData(Layer::ZONE))
     {
       possibleSize.width++;
