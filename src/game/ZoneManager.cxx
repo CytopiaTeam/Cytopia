@@ -53,8 +53,9 @@ void ZoneManager::spawn()
     }
 
     // get the maximum size we can spawn at this node, but limit it by 4x4 tiles
-    unsigned int maxSize = std::min(4, static_cast<int>(getMaximumTileSize(node->getCoordinates()).width));
-    TileSize maxTileSize = {maxSize, maxSize};
+    unsigned int maxSizeX = std::min(4, static_cast<int>(getMaximumTileSize(node->getCoordinates()).width));
+    unsigned int maxSizeY = std::min(4, static_cast<int>(getMaximumTileSize(node->getCoordinates()).height));
+    TileSize maxTileSize = {maxSizeX, maxSizeY};
     std::string building = TileManager::instance().getRandomTileIDForZoneWithRandomSize(thisZone, {1, 1}, maxTileSize);
 
     // place the building
