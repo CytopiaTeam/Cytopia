@@ -102,7 +102,6 @@ Map::~Map() { delete[] pMapNodesVisible; }
 
 std::vector<NeighborNode> Map::getNeighborNodes(const Point &isoCoordinates, const bool includeCentralNode)
 {
-  constexpr int neighborRange = 1;
   std::vector<NeighborNode> neighbors;
 
   for (auto it : PointFunctions::getNeighbors(isoCoordinates, includeCentralNode))
