@@ -86,11 +86,11 @@ struct TileSetData
  * 
  */
 struct TileSize {
-    int width;
-    int height;
+    unsigned int width;
+    unsigned int height;
 
-    TileSize() : width(0), height(0) {};
-    TileSize(const int& x, const int& y) : width(x), height(y) {};
+    TileSize() : width(1), height(1) {};
+    TileSize(unsigned int width, unsigned int height) : width(width), height(height) {};
     TileSize(const TileSize& other){
         width = other.width;
         height = other.height;
