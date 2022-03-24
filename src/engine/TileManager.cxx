@@ -44,6 +44,15 @@ const std::string &TileManager::getRandomTileIDForZoneWithRandomSize(Zones zone,
 {
   TileSize randomTileSize;
 
+  std::unordered_set<TileSize> elligibleTileSizes;
+
+     for (auto tileSize : m_tileSizeCombinations)
+    {
+        if (tileSize.height <= maxTileSize.width && tileSize.height <= maxTileSize.height)
+        std::cout << "Content " << tileSize.width << ", " << tileSize.height << "\n";
+        elligibleTileSizes.insert(tileSize);
+    }
+
   // TODO: Replace this with a list of all possible tilesize combinations.
   randomTileSize.width = rand() % maxTileSize.width + minTileSize.width;
   if (maxTileSize.height < randomTileSize.width)
@@ -433,6 +442,7 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
     m_tileData[id].RequiredTiles.height = 1;
   }
 
+  m_tileSizeCombinations.insert(m_tileData[id].RequiredTiles);
   // add possible TileSize combinations to tileSizeCombinations here
 
   m_tileData[id].tiles.fileName = tileDataJSON[idx]["tiles"].value("fileName", "");
