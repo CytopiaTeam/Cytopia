@@ -117,7 +117,6 @@ struct TileSize {
         return false;
     };
 
-    // this could be moved in to std::hash<TileSize>::operator()
     size_t operator()(const TileSize& TileSizeToHash) const noexcept {
         size_t hash = TileSizeToHash.width + 10 * TileSizeToHash.height;
         return hash;
