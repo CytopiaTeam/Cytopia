@@ -31,15 +31,13 @@ void Slider::setValue(int val)
   curVal = val;
 }
 
-int Slider::getValue() { return curVal; }
-
-int Slider::getValue(int x)
+void Slider::calculateValue(int x)
 {
+  sliderButton.x = x - sliderButton.w / 2; // sets the middle of the button to where the user clicked
   int range = m_maxVal - m_minVal;
-  double ratio = (x - sliderLine.x) / (double)sliderLine.w;
-  int val = ratio * range + m_minVal;
-  sliderSignal.emit(val);
-  return val;
+  double ratio = (x - sliderLine.x) / static_cast<double>(sliderLine.w);
+  curVal = static_cast<int>(ratio * range + m_minVal);
+  sliderSignal.emit(curVal);
 }
 
 bool Slider::overSliderButton(int x, int y)
@@ -57,8 +55,7 @@ bool Slider::onMouseButtonDown(const SDL_Event &event)
 {
   if (overSliderLine(event.button.x, event.button.y))
   {
-    sliderButton.x = event.button.x - sliderButton.w / 2; // sets the middle of the button to where the user clicked
-    curVal = getValue(event.button.x);
+    calculateValue(event.button.x);
     return true;
   }
   if (overSliderButton(event.button.x, event.button.y))
@@ -82,8 +79,7 @@ void Slider::onMouseMove(const SDL_Event &event)
     // button's center will follow mouse
     if (event.motion.x >= sliderLine.x && event.motion.x <= sliderLine.x + sliderLine.w)
     {
-      sliderButton.x = event.motion.x - sliderButton.w / 2;
-      curVal = getValue(event.motion.x);
+      calculateValue(event.motion.x);
     }
   }
 }
@@ -97,4 +93,4 @@ void Slider::setPosition(int x, int y)
   sliderButton.y = y;
 }
 
-void Slider::registerCallbackFunction(std::function<void(int value)> const &cb) { sliderSignal.connect(cb); }
+void Slider::registerOnValueChanged(std::function<void(int value)> const &cb) { sliderSignal.connect(cb); }
