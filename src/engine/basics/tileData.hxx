@@ -52,7 +52,7 @@ BETTER_ENUM(TileType, int,
 //
 BETTER_ENUM(Zones, int, RESIDENTIAL, INDUSTRIAL, COMMERCIAL, AGRICULTURAL)
 
-BETTER_ENUM(Wealth, int,
+BETTER_ENUM(ZoneDensity, int,
             NONE,   ///< not applicable
             LOW,    ///< Low income
             MEDIUM, ///< Medium income
@@ -126,7 +126,7 @@ struct TileData
   int educationLevel = 0;        ///< How much education this building provides (educational building) / requires (job)
   std::vector<Zones> zones;      ///< Restrict this building to a zone type.
   std::vector<Style> style;      ///< Restrict this building to certain Art Styles.
-  std::vector<Wealth> wealth;    ///< Restrict this building to a certain wealth level. See enum Wealth
+  std::vector<ZoneDensity> zoneDensity;    ///< Restrict this building to a certain zone density. See enum ZoneDensity
   TileSize RequiredTiles; ///< How many tiles this building uses.
 };
 

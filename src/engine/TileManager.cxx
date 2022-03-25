@@ -360,16 +360,16 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
 
   if (tileDataJSON[idx].find("wealth") != tileDataJSON[idx].end())
   {
-    for (auto wealth : tileDataJSON[idx].at("wealth").items())
+    for (auto zoneDensity : tileDataJSON[idx].at("wealth").items())
     {
-      if (Wealth::_is_valid_nocase(wealth.value().get<std::string>().c_str()))
+      if (ZoneDensity::_is_valid_nocase(zoneDensity.value().get<std::string>().c_str()))
       {
-        m_tileData[id].wealth.push_back(Wealth::_from_string_nocase(wealth.value().get<std::string>().c_str()));
+        m_tileData[id].zoneDensity.push_back(ZoneDensity::_from_string_nocase(zoneDensity.value().get<std::string>().c_str()));
       }
       else
       {
         throw ConfigurationError(TRACE_INFO "In TileData.json in field with ID " + id +
-                                 " the field wealth uses the unsupported value " + wealth.value().get<std::string>());
+                                 " the field wealth uses the unsupported value " + zoneDensity.value().get<std::string>());
       }
     }
   }
