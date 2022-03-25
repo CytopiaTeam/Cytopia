@@ -936,7 +936,12 @@ void UIManager::initializeDollarVariables()
         }
 
         slider->setValue(Settings::instance().musicVolume * 100);
-        slider->registerCallbackFunction(Signal::slot(this, &UIManager::changeMusicVolume));
+        slider->registerCallbackFunction(
+            [](int sliderValue)
+            {
+              Settings::instance().musicVolume = static_cast<float>(sliderValue / 100.0f);
+              AudioMixer::instance().setMusicVolume(Settings::instance().musicVolume);
+            });
       }
     }
   }
@@ -990,11 +995,4 @@ void UIManager::changeFullScreenMode(UIElement *sender)
   {
     Engine::instance().map->refresh();
   }
-}
-
-void UIManager::changeMusicVolume(UIElement* sender) 
-{
-  Slider *slider = dynamic_cast<Slider *>(sender);
-  Settings::instance().musicVolume = static_cast<float>(slider->getValue() / 100.0f);
-  AudioMixer::instance().setMusicVolume(Settings::instance().musicVolume);
 }
