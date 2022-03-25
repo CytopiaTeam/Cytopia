@@ -64,7 +64,7 @@ public:
 
   void setPosition(int x, int y) override;
 
-  void registerCallbackFunction(std::function<void(UIElement *sender)> const &cb) override;
+  void registerCallbackFunction(std::function<void(int value)> const &cb);
 
 private:
   /// Thickness of the slider line
@@ -83,7 +83,7 @@ private:
   bool dragMode;
 
   // Signal
-  Signal::Signal<void(UIElement *sender)> sliderSignal;
+  Signal::Signal<void(int value)> sliderSignal;
 };
 
 #endif
