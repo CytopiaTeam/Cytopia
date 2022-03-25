@@ -38,7 +38,7 @@ int Slider::getValue(int x)
   int range = m_maxVal - m_minVal;
   double ratio = (x - sliderLine.x) / (double)sliderLine.w;
   int val = ratio * range + m_minVal;
-  sliderSignal.emit(this);
+  sliderSignal.emit(val);
   return val;
 }
 
@@ -97,4 +97,4 @@ void Slider::setPosition(int x, int y)
   sliderButton.y = y;
 }
 
-void Slider::registerCallbackFunction(std::function<void(UIElement *sender)> const &cb) { sliderSignal.connect(cb); }
+void Slider::registerCallbackFunction(std::function<void(int value)> const &cb) { sliderSignal.connect(cb); }
