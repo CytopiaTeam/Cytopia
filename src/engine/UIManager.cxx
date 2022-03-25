@@ -936,11 +936,12 @@ void UIManager::initializeDollarVariables()
         }
 
         slider->setValue(Settings::instance().musicVolume * 100);
-        slider->registerCallbackFunction(
+        slider->registerOnValueChanged(
             [](int sliderValue)
             {
-              Settings::instance().musicVolume = static_cast<float>(sliderValue / 100.0f);
-              AudioMixer::instance().setMusicVolume(Settings::instance().musicVolume);
+              const float musicVolume = static_cast<float>(sliderValue / 100.0f);
+              Settings::instance().musicVolume = musicVolume;
+              AudioMixer::instance().setMusicVolume(musicVolume);
             });
       }
     }

@@ -24,18 +24,6 @@ public:
    */
   void setValue(int);
 
-  /** @brief gets the slider's current value
-  * @returns the current value of the slider
-  */
-  int getValue();
-
-  /** @brief finds the slider's value based on where the button is on the line
-   * uses the button's coordinates to calculate the corresponding value
-   * @param x the x coordinate of the center of the sliderButton
-   * @returns the current value of the slider
-   */
-  int getValue(int);
-
   /** @brief Checks if the mouse is over the button of the slider
    * checks if the mouse is over the sliderButton
    * @param x,y the current coordinates of the mouse
@@ -64,9 +52,16 @@ public:
 
   void setPosition(int x, int y) override;
 
-  void registerCallbackFunction(std::function<void(int value)> const &cb);
+  void registerOnValueChanged(std::function<void(int value)> const &cb);
 
 private:
+  /** @brief finds the slider's value based on where the button is on the line
+   * uses the button's coordinates to calculate the corresponding value
+   *
+   * @param x the x coordinate of the center of the sliderButton
+   */
+  void calculateValue(int x);
+
   /// Thickness of the slider line
   int m_lineThickness = 6;
   /// coordinates / dimensions of the slider line
