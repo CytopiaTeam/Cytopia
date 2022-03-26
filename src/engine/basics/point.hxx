@@ -9,6 +9,7 @@ constexpr Point() : x(0), y(0), z(0), height(0) { };
 constexpr Point(int x, int y) : x(x), y(y), z(0), height(0) { };
 constexpr Point(int x, int y, int z) : x(x), y(y), z(z), height(0) { };
 constexpr Point(int x, int y, int z, int height) : x(x), y(y), z(z), height(height) { };
+
   /// The x coordinate.
   int x;
 
