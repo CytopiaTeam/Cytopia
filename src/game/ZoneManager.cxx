@@ -65,6 +65,28 @@ void ZoneManager::spawnBuildings()
 }
 
 void ZoneManager::addZoneNode(MapNode *node) { m_MapNodes.emplace_back(node); }
+
+void ZoneManager::addZoneNode(Point coordinate, Zones zone, ZoneDensity ZoneDensity)
+{
+  // NOTE: Ignore density for agricultural zone
+  // do
+  ZoneNode newZone;
+  newZone.coordinate = coordinate;
+  newZone.zone = zone;
+  newZone.ZoneDensity = ZoneDensity;
+
+  m_AllNodes.push_back(newZone);
+  updateZoneAreas();
+}
+void ZoneManager::updateZoneAreas()
+{
+  for (auto zoneNode : m_AllNodes)
+  {
+    ZoneArea zoneArea;
+    zoneArea.addZoneNode(zoneNode.coordinate);
+  }
+}
+
 void ZoneManager::removeZoneNode(MapNode *node)
 {
   if (node)

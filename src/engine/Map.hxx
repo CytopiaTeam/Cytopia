@@ -130,9 +130,13 @@ public:
         nodesToBeUpdated.push_back(&currentMapNode);
       }
       // If we place a zone tile, add it to the ZoneManager
-      if (currentMapNode.getTileData(Layer::ZONE))
+      if (currentMapNode.getTileData(Layer::ZONE) && !currentMapNode.getTileData(Layer::ZONE)->zones.empty() &&
+          !currentMapNode.getTileData(Layer::ZONE)->zoneDensity.empty())
       {
-        GamePlay::instance().getZoneManager().addZoneNode(&currentMapNode);
+        // a zone tile only has one zone tied to it. the one it represents, so pick first element of vector
+        GamePlay::instance().getZoneManager().addZoneNode(currentMapNode.getCoordinates(),
+                                                          currentMapNode.getTileData(Layer::ZONE)->zones[0],
+                                                          currentMapNode.getTileData(Layer::ZONE)->zoneDensity[0]);
       }
     }
 

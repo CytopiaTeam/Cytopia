@@ -7,7 +7,7 @@
 class ZoneArea
 {
 public:
-  ZoneArea() = default;
+  ZoneArea();
 
   /**
    * @brief Add coordinates to a mapNode that has a zone placed on it.

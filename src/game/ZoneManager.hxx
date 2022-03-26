@@ -1,7 +1,15 @@
 #ifndef ZONEMANAGER_HXX_
 #define ZONEMANAGER_HXX_
 
+#include "ZoneArea.hxx"
 #include "../engine/GameObjects/MapNode.hxx"
+
+struct ZoneNode
+{
+  Point coordinate = Point::INVALID();
+  Zones zone = Zones::RESIDENTIAL;
+  ZoneDensity ZoneDensity = ZoneDensity::LOW;
+};
 
 class ZoneManager
 {
@@ -9,6 +17,7 @@ public:
   ZoneManager();
   void update();
   void addZoneNode(MapNode *node);
+  void addZoneNode(Point coordinate, Zones zone, ZoneDensity ZoneDensity);
   void removeZoneNode(MapNode *node);
 
   /**
@@ -41,7 +50,11 @@ private:
    */
   TileSize getMaximumTileSize(Point originPoint);
 
+  void updateZoneAreas();
+
   std::vector<const MapNode *> m_MapNodes;
+  std::vector<ZoneArea> m_zoneAreas;
+  std::vector<ZoneNode> m_AllNodes; // keep track of all Points we have so we can sort them out
 };
 
 #endif
