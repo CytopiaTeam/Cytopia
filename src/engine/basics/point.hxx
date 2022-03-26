@@ -9,6 +9,7 @@ Point() = default;
 Point(int x, int y) : x(x), y(y) { };
 Point(int x, int y, int z) : x(x), y(y), z(z) { };
 Point(int x, int y, int z, int height) : x(x), y(y), z(z), height(height) { };
+
   /// The x coordinate.
   int x;
 
