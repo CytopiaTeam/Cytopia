@@ -4,12 +4,6 @@
 #include "ZoneArea.hxx"
 #include "../engine/GameObjects/MapNode.hxx"
 
-struct ZoneNode
-{
-  Point coordinate = Point::INVALID();
-  Zones zone = Zones::RESIDENTIAL;
-  ZoneDensity ZoneDensity = ZoneDensity::LOW;
-};
 
 class ZoneManager
 {
@@ -50,7 +44,11 @@ private:
    */
   TileSize getMaximumTileSize(Point originPoint);
 
-  void updateZoneAreas();
+  /**
+   * @brief Clears m_zoneAreas and fills it again.
+   * 
+   */
+  void rebuildZoneAreas();
 
   std::vector<const MapNode *> m_MapNodes;
   std::vector<ZoneArea> m_zoneAreas;

@@ -76,14 +76,15 @@ void ZoneManager::addZoneNode(Point coordinate, Zones zone, ZoneDensity ZoneDens
   newZone.ZoneDensity = ZoneDensity;
 
   m_AllNodes.push_back(newZone);
-  updateZoneAreas();
+  rebuildZoneAreas();
 }
-void ZoneManager::updateZoneAreas()
+void ZoneManager::rebuildZoneAreas()
 {
+
   for (auto zoneNode : m_AllNodes)
   {
     ZoneArea zoneArea;
-    zoneArea.addZoneNode(zoneNode.coordinate);
+    zoneArea.addZoneNode(zoneNode);
   }
 }
 
