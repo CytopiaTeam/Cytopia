@@ -80,18 +80,38 @@ void ZoneManager::addZoneNode(Point coordinate, Zones zone, ZoneDensity ZoneDens
 }
 void ZoneManager::rebuildZoneAreas()
 {
-  ZoneArea zoneArea;
+  m_zoneAreas.clear(); // clear the vector, we want to rebuild it
+  ZoneArea firstZoneArea;
+  m_zoneAreas.push_back(firstZoneArea);
+  bool isFirst=true;
 
   for (auto zoneNode : m_AllNodes)
   {
-    zoneArea.addZoneNode(zoneNode);
-
-    if (zoneArea.isPartOfZone(zoneNode.coordinate))
+    bool isNewArea = true;
+    // check if this node is part of existing area, if so add it.
+    for (auto zoneArea : m_zoneAreas)
     {
-
-      // zoneArea.addZoneNode(zoneNode);
+      if (zoneArea.isPartOfZone(zoneNode.coordinate))
+      {
+        LOG(LOG_INFO) << "it is part";
+        isNewArea = false;
+        zoneArea.addZoneNode(zoneNode);
+      }
     }
+
+    if (isNewArea && !isFirst)
+    {
+        LOG(LOG_INFO) << "it is new!";
+      ZoneArea newZoneArea;
+      // add node to new area
+      newZoneArea.addZoneNode(zoneNode);
+      // add new area to vector
+      m_zoneAreas.push_back(newZoneArea);
+    }
+    isFirst = false;
   }
+
+  LOG(LOG_INFO) << "I have " << m_zoneAreas.size() << "areas!";
 }
 
 void ZoneManager::removeZoneNode(MapNode *node)
