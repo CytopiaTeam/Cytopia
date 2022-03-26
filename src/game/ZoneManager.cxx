@@ -54,10 +54,10 @@ void ZoneManager::spawnBuildings()
     unsigned int maxSizeX = std::min(4, static_cast<int>(getMaximumTileSize(node->getCoordinates()).width));
     unsigned int maxSizeY = std::min(4, static_cast<int>(getMaximumTileSize(node->getCoordinates()).height));
     TileSize maxTileSize = {maxSizeX, maxSizeY};
-    std::string building = TileManager::instance().getRandomTileIDForZoneWithRandomSize(thisZone, {1, 1}, maxTileSize);
+
+    std::string building = TileManager::instance().getRandomTileIDForZoneWithRandomSize(thisZone, maxTileSize);
 
     // place the building
-
     std::vector targetObjectNodes = Engine::instance().map->getObjectCoords(node->getCoordinates(), building);
     Engine::instance().setTileIDOfNode(targetObjectNodes.begin(), targetObjectNodes.end(), building, false);
     buildingsSpawned++;

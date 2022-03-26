@@ -3,6 +3,7 @@
 
 #include <SDL.h>
 #include <unordered_map>
+#include <unordered_set>
 #include <string>
 
 #include "tileData.hxx"
@@ -127,12 +128,10 @@ public:
    * @brief Pick a single random tileID for a zone with a random tilesize within the supplied max Size
    * 
    * @param zone - The Zone we want tileIDs for
-   * @param minTileSize - minimum tileSize we want
    * @param maxTileSize - maximum tileSize we want 
    * @return A random tileID matching the supplied parameters
    */
-  const std::string &getRandomTileIDForZoneWithRandomSize(Zones zone, TileSize minTileSize = {1, 1},
-                                                          TileSize maxTileSize = {1, 1});
+  const std::string &getRandomTileIDForZoneWithRandomSize(Zones zone, TileSize maxTileSize = {1, 1});
 
   /**
  * @brief Parse the tileData JSON and set up the tileManager
@@ -145,6 +144,7 @@ private:
   ~TileManager() = default;
 
   std::unordered_map<std::string, TileData> m_tileData;
+  std::unordered_set<TileSize> m_tileSizeCombinations;
   void addJSONObjectToTileData(const nlohmann::json &tileDataJSON, size_t idx, const std::string &id);
 };
 
