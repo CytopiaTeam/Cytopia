@@ -6,6 +6,7 @@
 #include "ResourcesManager.hxx"
 #include "Filesystem.hxx"
 #include "tileData.hxx"
+#include "../services/Randomizer.hxx"
 
 #include <bitset>
 
@@ -25,17 +26,49 @@ TileData *TileManager::getTileData(const std::string &id) noexcept
   return nullptr;
 }
 
-std::vector<std::string> TileManager::getTileIDsOfCategory(Zones zone)
+std::vector<std::string> TileManager::getAllTileIDsForZone(Zones zone, TileSize tileSize)
 {
   std::vector<std::string> results;
-  for (auto& tileData : m_tileData)
+  for (auto &tileData : m_tileData)
   {
-    if (std::find(tileData.second.zones.begin(), tileData.second.zones.end(), +zone) != tileData.second.zones.end())
+    if (std::find(tileData.second.zones.begin(), tileData.second.zones.end(), +zone) != tileData.second.zones.end() &&
+        tileData.second.RequiredTiles.height == tileSize.height && tileData.second.RequiredTiles.width == tileSize.width)
     {
       results.push_back(tileData.first);
     }
   }
   return results;
+}
+
+const std::string &TileManager::getRandomTileIDForZoneWithRandomSize(Zones zone, TileSize maxTileSize)
+{
+  std::unordered_set<TileSize> elligibleTileSizes;
+
+  // filter out the tilesizes that are below the maximum from all available tilesizes
+  for (auto tileSize : m_tileSizeCombinations)
+  {
+    // for now only pick square buildings. non square buildings don't work yet.
+    if (tileSize.height <= maxTileSize.height && tileSize.width <= maxTileSize.width && tileSize.height == tileSize.width)
+    {
+      elligibleTileSizes.insert(tileSize);
+    }
+  }
+
+  // pick a random tilesize from the new set of elligible tilesizes
+  auto &randomizer = Randomizer::instance();
+  TileSize randomTileSize = *randomizer.choose(elligibleTileSizes.begin(), elligibleTileSizes.end());
+
+  // get all tile IDs for the according zone and tilesize
+  const auto &tileIDsForThisZone = getAllTileIDsForZone(zone, randomTileSize);
+
+  if (tileIDsForThisZone.empty())
+  {
+    LOG(LOG_ERROR) << "No buildings available for zone: " << zone;
+    return "";
+  }
+  
+  // return a random tileID
+  return *randomizer.choose(tileIDsForThisZone.begin(), tileIDsForThisZone.end());
 }
 
 Layer TileManager::getTileLayer(const std::string &tileID) const
@@ -406,6 +439,8 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
     m_tileData[id].RequiredTiles.width = 1;
     m_tileData[id].RequiredTiles.height = 1;
   }
+
+  m_tileSizeCombinations.insert(m_tileData[id].RequiredTiles);
 
   m_tileData[id].tiles.fileName = tileDataJSON[idx]["tiles"].value("fileName", "");
   m_tileData[id].tiles.clippingHeight = tileDataJSON[idx]["tiles"].value("clip_height", 0);

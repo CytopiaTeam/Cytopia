@@ -5,10 +5,10 @@
 class Point
 {
 public:
-Point() = default;
-Point(int x, int y) : x(x), y(y) { };
-Point(int x, int y, int z) : x(x), y(y), z(z) { };
-Point(int x, int y, int z, int height) : x(x), y(y), z(z), height(height) { };
+constexpr Point() : x(0), y(0), z(0), height(0) { };
+constexpr Point(int x, int y) : x(x), y(y), z(0), height(0) { };
+constexpr Point(int x, int y, int z) : x(x), y(y), z(z), height(0) { };
+constexpr Point(int x, int y, int z, int height) : x(x), y(y), z(z), height(height) { };
 
   /// The x coordinate.
   int x;
@@ -26,7 +26,7 @@ Point(int x, int y, int z, int height) : x(x), y(y), z(z), height(height) { };
   bool operator==(const Point &p) const { return x == p.x && y == p.y /*&& z == p.z*/; }
   bool operator!=(const Point &p) const { return !(*this == p); }
 
-  static Point INVALID() { return {-1, -1, -1, -1}; }
+  static constexpr Point INVALID() { return {-1, -1, -1, -1}; }
 
   bool isWithinMapBoundaries() const
   {

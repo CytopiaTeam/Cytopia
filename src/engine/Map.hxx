@@ -7,11 +7,7 @@
 #include "GameObjects/MapNode.hxx"
 #include "map/TerrainGenerator.hxx"
 #include "../game/GamePlay.hxx"
-
-/** \brief Position of the surrounding nodes and its bit mask values.
-  */
-BETTER_ENUM(NeighbourNodesPosition, unsigned char, BOTOM_LEFT = 1U << 6, LEFT = 1U << 2, TOP_LEFT = 1U << 4, BOTTOM = 1U << 1,
-            CENTAR = 0U, TOP = 1U, BOTOM_RIGHT = 1U << 7, RIGHT = 1U << 3, TOP_RIGHT = 1U << 5);
+#include "PointFunctions.hxx"
 
 struct NeighborNode
 {
@@ -70,7 +66,7 @@ public:
  * @param screenCoordinates
  * @return Point
  */
-  Point findNodeInMap(const SDL_Point &screenCoordinates, const Layer &layer = Layer::NONE) const;
+  Point findNodeInMap(const SDL_Point &screenCoordinates, const Layer &layer = Layer::NONE);
 
   /**
  * @brief Set the Tile ID Of Node object
@@ -208,7 +204,7 @@ public:
   /** \brief Get pointer to a single mapNode at specific iso coordinates.
   * @param isoCoordinates: The node to retrieve.
   */
-  const MapNode *getMapNode(Point isoCoords) const { return &mapNodes[nodeIdx(isoCoords.x, isoCoords.y)]; };
+  MapNode &getMapNode(Point isoCoords) { return mapNodes[nodeIdx(isoCoords.x, isoCoords.y)]; };
 
   /** \brief Get all mapnodes as a vector
    */
@@ -272,7 +268,7 @@ private:
   * @param neighbors All neighbor map nodes.
   * @return Map node elevated bit mask.
   */
-  unsigned char getElevatedNeighborBitmask(MapNode *pMapNode, const std::vector<NeighborNode> &neighbors);
+  unsigned char getElevatedNeighborBitmask(Point centerCoordinates);
 
   /** \brief Change map node height.
   * @param mapNode Map node to change height.
