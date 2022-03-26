@@ -80,11 +80,17 @@ void ZoneManager::addZoneNode(Point coordinate, Zones zone, ZoneDensity ZoneDens
 }
 void ZoneManager::rebuildZoneAreas()
 {
+  ZoneArea zoneArea;
 
   for (auto zoneNode : m_AllNodes)
   {
-    ZoneArea zoneArea;
     zoneArea.addZoneNode(zoneNode);
+
+    if (zoneArea.isPartOfZone(zoneNode.coordinate))
+    {
+
+      // zoneArea.addZoneNode(zoneNode);
+    }
   }
 }
 

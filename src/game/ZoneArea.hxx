@@ -4,17 +4,24 @@
 #include "../engine/basics/point.hxx"
 #include "../engine/basics/tileData.hxx"
 
+struct ZoneNode
+{
+  Point coordinate = Point::INVALID();
+  Zones zone = Zones::RESIDENTIAL;
+  ZoneDensity ZoneDensity = ZoneDensity::LOW;
+};
+
 class ZoneArea
 {
 public:
-  ZoneArea();
+  ZoneArea() = default;
 
   /**
    * @brief Add coordinates to a mapNode that has a zone placed on it.
    * 
    * @param Coordinates of the mapNode with a zone tile
    */
-  void addZoneNode(Point Coordinate) { m_zoneNodes.push_back(Coordinate); };
+  void addZoneNode(ZoneNode zoneNode) { m_zoneNodes.push_back(zoneNode); };
 
   /**
    * @brief Remove a coordinates to a mapNode that has a zone placed on it.
@@ -70,7 +77,7 @@ public:
    * 
    * @param zone for this area
    */
-  void setZone(Zones zone){m_zone = zone; };
+  void setZone(Zones zone) { m_zone = zone; };
   ;
 
   /**
@@ -95,16 +102,23 @@ public:
   ZoneDensity getZoneDensity() { return m_zoneDensity; };
 
   /**
+   * @brief If this coordinate part of this zone area.
+   * 
+   * @param coordinate The point to check
+   * @return neighbor of this zoneArea
+   */
+  bool isPartOfZone(Point coordinate);
+  /**
  * @brief Spawn buildings on nodes in this area if all demands are fulfilled
  * 
  */
   void spawnBuildings();
 
 private:
-  std::vector<Point> m_zoneNodes;
+  std::vector<ZoneNode> m_zoneNodes;
   std::vector<Point> m_zoneNodesEmpty;
-  Zones m_zone;
-  ZoneDensity m_zoneDensity;
+  Zones m_zone = Zones::RESIDENTIAL;
+  ZoneDensity m_zoneDensity = ZoneDensity::LOW;
   bool m_hasPower;
   bool m_hasWater;
 };
