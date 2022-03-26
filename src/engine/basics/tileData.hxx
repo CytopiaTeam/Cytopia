@@ -122,8 +122,6 @@ struct TileSize {
         return hash;
     };
 
-};
-
 namespace std {
     template<> struct hash<TileSize>
     {

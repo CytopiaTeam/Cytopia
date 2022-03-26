@@ -11,6 +11,7 @@
 #include "GameStates.hxx"
 #include "MapLayers.hxx"
 #include "Filesystem.hxx"
+#include "../services/AudioMixer.hxx"
 
 #include "json.hxx"
 #include "betterEnums.hxx"
@@ -178,6 +179,7 @@ void UIManager::init()
           break;
         case ElementType::Slider:
           uiElement = std::make_unique<Slider>(elementRect);
+          dynamic_cast<Slider *>(uiElement.get())->setPosition(elementRect.x, elementRect.y);
           break;
         default:
           LOG(LOG_WARNING) << "An element without a type can not be created, check your UiLayout JSON File "
@@ -922,6 +924,25 @@ void UIManager::initializeDollarVariables()
 
         combobox->setActiveID(Settings::instance().fullScreenMode);
         combobox->registerCallbackFunction(Signal::slot(this, &UIManager::changeFullScreenMode));
+      }
+      else if (it->getUiElementData().elementID == "$MusicVolumeSlider")
+      {
+        Slider *slider = dynamic_cast<Slider *>(it.get());
+
+        if (!slider)
+        {
+          LOG(LOG_WARNING) << "Can't use element ID MusicVolumeSlider for an element other than a slider!";
+          continue;
+        }
+
+        slider->setValue(Settings::instance().musicVolume * 100);
+        slider->registerOnValueChanged(
+            [](int sliderValue)
+            {
+              const float musicVolume = static_cast<float>(sliderValue / 100.0f);
+              Settings::instance().musicVolume = musicVolume;
+              AudioMixer::instance().setMusicVolume(musicVolume);
+            });
       }
     }
   }

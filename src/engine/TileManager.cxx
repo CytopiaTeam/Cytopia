@@ -66,6 +66,7 @@ const std::string &TileManager::getRandomTileIDForZoneWithRandomSize(Zones zone,
     LOG(LOG_ERROR) << "No buildings available for zone: " << zone;
     return "";
   }
+  
   // return a random tileID
   return *randomizer.choose(tileIDsForThisZone.begin(), tileIDsForThisZone.end());
 }
@@ -440,6 +441,7 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
   }
 
   m_tileSizeCombinations.insert(m_tileData[id].RequiredTiles);
+
   m_tileData[id].tiles.fileName = tileDataJSON[idx]["tiles"].value("fileName", "");
   m_tileData[id].tiles.clippingHeight = tileDataJSON[idx]["tiles"].value("clip_height", 0);
   m_tileData[id].tiles.clippingWidth = tileDataJSON[idx]["tiles"].value("clip_width", 0);

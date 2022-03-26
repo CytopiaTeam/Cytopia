@@ -143,6 +143,7 @@ public:
 
   void changeResolution(UIElement *sender);
   void changeFullScreenMode(UIElement *sender);
+
   /**
  * @brief Close all open menus but the build menu
  */
