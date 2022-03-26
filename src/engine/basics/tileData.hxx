@@ -121,6 +121,7 @@ struct TileSize {
         size_t hash = TileSizeToHash.width + 10 * TileSizeToHash.height;
         return hash;
     };
+};
 
 namespace std {
     template<> struct hash<TileSize>
