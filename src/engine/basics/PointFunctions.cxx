@@ -243,3 +243,22 @@ NeighbourNodesPosition PointFunctions::getNeighborPositionToOrigin(const Point &
   }
   assert(false); // this should never happen!
 }
+
+bool PointFunctions::isNeighborOf(Point coordinateOne, Point coordinateTwo)
+{
+  for (int xOffset = -1; xOffset <= 1; ++xOffset)
+  {
+    for (int yOffset = -1; yOffset <= 1; ++yOffset)
+    {
+      Point neighbor;
+      neighbor.x = coordinateTwo.x + xOffset;
+      neighbor.y = coordinateTwo.y + yOffset;
+
+      if (neighbor.isWithinMapBoundaries() && neighbor == coordinateOne)
+      {
+        return true;
+      }
+    }
+  }
+  return false;
+}
