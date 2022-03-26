@@ -6,6 +6,7 @@
 #include "ResourcesManager.hxx"
 #include "Filesystem.hxx"
 #include "tileData.hxx"
+#include "../services/Randomizer.hxx"
 
 #include <bitset>
 
@@ -25,17 +26,42 @@ TileData *TileManager::getTileData(const std::string &id) noexcept
   return nullptr;
 }
 
-std::vector<std::string> TileManager::getTileIDsOfCategory(Zones zone)
+std::vector<std::string> TileManager::getAllTileIDsForZone(Zones zone, TileSize tileSize)
 {
   std::vector<std::string> results;
-  for (auto& tileData : m_tileData)
+  for (auto &tileData : m_tileData)
   {
-    if (std::find(tileData.second.zones.begin(), tileData.second.zones.end(), +zone) != tileData.second.zones.end())
+    if (std::find(tileData.second.zones.begin(), tileData.second.zones.end(), +zone) != tileData.second.zones.end() &&
+        tileData.second.RequiredTiles.height == tileSize.height && tileData.second.RequiredTiles.width == tileSize.width)
     {
       results.push_back(tileData.first);
     }
   }
   return results;
+}
+
+const std::string &TileManager::getRandomTileIDForZoneWithRandomSize(Zones zone, TileSize minTileSize, TileSize maxTileSize)
+{
+  TileSize randomTileSize;
+
+  // TODO: Replace this with a list of all possible tilesize combinations.
+  randomTileSize.width = rand() % maxTileSize.width + minTileSize.width;
+  if (maxTileSize.height < randomTileSize.width)
+  {
+    randomTileSize.width = maxTileSize.height;
+  }
+  randomTileSize.height = randomTileSize.width;
+
+  auto &randomizer = Randomizer::instance();
+  // get all tile IDs for the according zone
+  const auto &tileIDsForThisZone = getAllTileIDsForZone(zone, randomTileSize);
+
+  if (tileIDsForThisZone.empty())
+  {
+    LOG(LOG_ERROR) << "No buildings available for zone: " << zone;
+    return "";
+  }
+  return *randomizer.choose(tileIDsForThisZone.begin(), tileIDsForThisZone.end());
 }
 
 Layer TileManager::getTileLayer(const std::string &tileID) const
@@ -406,6 +432,8 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
     m_tileData[id].RequiredTiles.width = 1;
     m_tileData[id].RequiredTiles.height = 1;
   }
+
+  // add possible TileSize combinations to tileSizeCombinations here
 
   m_tileData[id].tiles.fileName = tileDataJSON[idx]["tiles"].value("fileName", "");
   m_tileData[id].tiles.clippingHeight = tileDataJSON[idx]["tiles"].value("clip_height", 0);

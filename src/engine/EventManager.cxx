@@ -2,6 +2,7 @@
 
 #include "basics/Camera.hxx"
 #include "basics/isoMath.hxx"
+#include "basics/PointFunctions.hxx"
 #include "basics/mapEdit.hxx"
 #include "basics/Settings.hxx"
 #include "basics/GameStates.hxx"
@@ -305,7 +306,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           {
             if (it != Point::INVALID())
             {
-              (engine.map->getMapNode(it))->setNodeTransparency(0, Layer::BUILDINGS);
+              (engine.map->getMapNode(it)).setNodeTransparency(0, Layer::BUILDINGS);
             }
           }
           m_transparentBuildings.clear();
@@ -341,15 +342,15 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
               m_nodesToPlace.push_back(mouseIsoCoords);
               break;
             case PlacementMode::LINE:
-              m_nodesToPlace = createBresenhamLine(m_clickDownCoords, mouseIsoCoords);
+              m_nodesToPlace = PointFunctions::getLine(m_clickDownCoords, mouseIsoCoords);
               m_nodesToHighlight = m_nodesToPlace;
               break;
             case PlacementMode::STRAIGHT_LINE:
-              m_nodesToPlace = getRectangularLineSelectionNodes(m_clickDownCoords, mouseIsoCoords);
+              m_nodesToPlace = PointFunctions::getStraightLine(m_clickDownCoords, mouseIsoCoords);
               m_nodesToHighlight = m_nodesToPlace;
               break;
             case PlacementMode::RECTANGLE:
-              m_nodesToPlace = getRectangleSelectionNodes(m_clickDownCoords, mouseIsoCoords);
+              m_nodesToPlace = PointFunctions::getArea(m_clickDownCoords, mouseIsoCoords);
               m_nodesToHighlight = m_nodesToPlace;
               break;
             }
@@ -429,10 +430,10 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
                 std::find(m_transparentBuildings.begin(), m_transparentBuildings.end(), buildingCoordinates);
             if ((transparentBuildingIt == m_transparentBuildings.end()) && (buildingCoordinates != Point::INVALID()))
             {
-              const TileData *tileData = engine.map->getMapNode(buildingCoordinates)->getTileData(Layer::BUILDINGS);
+              const TileData *tileData = engine.map->getMapNode(buildingCoordinates).getTileData(Layer::BUILDINGS);
               if (tileData && tileData->category != "Flora")
               {
-                engine.map->getMapNode(buildingCoordinates)->setNodeTransparency(0.6f, Layer::BUILDINGS);
+                engine.map->getMapNode(buildingCoordinates).setNodeTransparency(0.6f, Layer::BUILDINGS);
                 m_transparentBuildings.push_back(buildingCoordinates);
               }
             }
@@ -543,7 +544,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       mouseIsoCoords = convertScreenToIsoCoordinates(mouseScreenCoords);
       // gather all nodes the objects that'll be placed is going to occupy.
       std::vector targetObjectNodes = engine.map->getObjectCoords(mouseIsoCoords, tileToPlace);
-
+      
       if (event.button.button == SDL_BUTTON_LEFT)
       {
         if (m_tileInfoMode)
@@ -610,4 +611,3 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
     }
   }
 }
-
