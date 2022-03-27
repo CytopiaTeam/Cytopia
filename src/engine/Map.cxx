@@ -20,7 +20,7 @@
 #include <queue>
 
 #ifdef MICROPROFILE_ENABLED
-#include "microprofile.h"
+#include "microprofile/microprofile.h"
 #endif
 
 using json = nlohmann::json;

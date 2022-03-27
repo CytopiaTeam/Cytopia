@@ -49,10 +49,8 @@ cmd_option(
 option(${_PREFIX}FORCE_SYSTEM_DEPENDENCIES "Force the use of system packages")
 
 option(BUILD_TEST "Build Cytopia Tests" ON)
-option(ENABLE_MICROPROFILE "Enable microprofile" OFF)
 option(ENABLE_DEBUG "Enable Debug (asserts and logs)" OFF)
 option(BUILD_ANDROID "Crossbuild to Android" OFF)
-
 
 # setup paths
 set(RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/")
@@ -177,41 +175,11 @@ elseif (NOT APPLE AND NOT BUILD_ANDROID)
     list(APPEND _link_libraries "stdc++fs")
 endif ()
 
-if (ENABLE_MICROPROFILE)
-    list(APPEND _include_directories ${microprofile_SOURCE_DIR})
-    list(APPEND _compile_definitions
-            MICROPROFILE_ENABLED
-            MICROPROFILE_GPU_TIMERS=0
-            )
-    if (WIN32)
-        list(APPEND _link_libraries ws2_32.lib)
-    endif (WIN32)
-endif (ENABLE_MICROPROFILE)
-
 if (MINGW)
     # need to link with mingw32 before SDL2
     list(APPEND _link_libraries mingw32)
 endif ()
 
-if (ENABLE_AUDIO)
-    list(APPEND _compile_definitions USE_AUDIO)
-endif ()
-
-
-if (ENABLE_MICROPROFILE)
-    include(FetchContent)
-
-    FetchContent_Declare(
-            microprofile
-            GIT_REPOSITORY https://github.com/jonasmr/microprofile.git
-    )
-
-    FetchContent_GetProperties(microprofile)
-    if (NOT microprofile_POPULATED)
-        FetchContent_Populate(microprofile)
-    endif ()
-    set(TREAT_WARNINGS_AS_ERRORS OFF CACHE INTERNAL "" FORCE)
-endif (ENABLE_MICROPROFILE)
 
 # get linux distribution
 if (UNIX AND NOT APPLE)

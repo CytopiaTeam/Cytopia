@@ -11,7 +11,7 @@
 #include "GameStates.hxx"
 
 #ifdef MICROPROFILE_ENABLED
-#include "microprofile.h"
+#include "microprofile/microprofile.h"
 #endif
 
 Sprite::Sprite(Point _isoCoordinates) : isoCoordinates(_isoCoordinates)

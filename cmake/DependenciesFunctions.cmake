@@ -32,7 +32,7 @@ set(CONAN_RESOLVE_LIST)
 function(add_external_lib package conan_package_name)
     list(REMOVE_AT ARGV 0 1)
     better_parse_args(
-            . REQUIRED FIND_PACKAGE ALWAYS_ALLOW_CONAN_FALLBACK HAS_ONLY_DEBUG_RELEASE
+            . REQUIRED FIND_PACKAGE ALWAYS_ALLOW_CONAN_FALLBACK HAS_ONLY_DEBUG_RELEASE BY_DEFAULT_DISABLED
             - OPTION_NAME SYMBOL INTERFACE_NAME CONAN_PKG_NAME
             + CONAN_OPTIONS FIND_PACKAGE_OPTIONS PKG_CONFIG
     )
@@ -81,6 +81,10 @@ function(add_external_lib package conan_package_name)
     else ()
         set(default "CONAN")
     endif ()
+
+    if (ARG_BY_DEFAULT_DISABLED)
+        set(default "OFF")
+    endif()
 
     if (NOT ARG_REQUIRED)
         set(reqopt "OFF")

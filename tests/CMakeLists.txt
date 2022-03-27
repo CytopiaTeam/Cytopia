@@ -74,6 +74,12 @@ target_link_libraries(
 
 if (ENABLE_AUDIO)
     target_link_libraries(${TESTS_PROJECT_NAME} PRIVATE OpenAL::OpenAL VorbisFile::VorbisFile)
+    target_compile_definitions(${TESTS_PROJECT_NAME} PRIVATE USE_AUDIO)
+endif ()
+
+if (USE_MICROPROFILE)
+    target_link_libraries(${TESTS_PROJECT_NAME} PRIVATE Microprofile::Microprofile)
+    target_compile_definitions(${TESTS_PROJECT_NAME} PRIVATE MICROPROFILE_ENABLED MICROPROFILE_GPU_TIMERS=0)
 endif ()
 
 if (USE_ANGELSCRIPT)
