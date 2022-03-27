@@ -42,23 +42,19 @@ add_external_lib(
         PKG_CONFIG "libpng"
 )
 
+add_external_lib(
+        OpenAL
+        openal/1.19.1
+        PKG_CONFIG "openal >= 1.18"
+        FIND_PACKAGE_OPTIONS CONFIG
+)
 
-if (ENABLE_AUDIO)
-    add_external_lib(
-            OpenAL
-            openal/1.19.1
-            PKG_CONFIG "openal >= 1.18"
-            FIND_PACKAGE_OPTIONS CONFIG
-    )
-
-    add_external_lib(
-            VorbisFile
-            vorbis/1.3.7
-            REQUIRED
-            PKG_CONFIG "vorbis >= 1.2, vorbisfile >= 1.2"
-            FIND_PACKAGE
-    )
-endif ()
+add_external_lib(
+        VorbisFile
+        vorbis/1.3.7
+        PKG_CONFIG "vorbis >= 1.2, vorbisfile >= 1.2"
+        FIND_PACKAGE
+)
 
 # add_external_lib(
 #         Angelscript

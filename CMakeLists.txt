@@ -39,19 +39,17 @@ endif ()
 
 # Allow user to globally set the library preference for external libraries
 cmd_option(
-    ${_PREFIX}LIB_PREFERENCE
-    "Library preference [SYSTEM (if available), CONAN]"
-    "CONAN"
-    STRINGS "SYSTEM" "CONAN"
+        ${_PREFIX}LIB_PREFERENCE
+        "Library preference [SYSTEM (if available), CONAN]"
+        "CONAN"
+        STRINGS "SYSTEM" "CONAN"
 )
 
 # Special mode, that will force dependencies to the packages provided by system unless they were set to conan explicitly.
 option(${_PREFIX}FORCE_SYSTEM_DEPENDENCIES "Force the use of system packages")
 
 option(BUILD_TEST "Build Cytopia Tests" ON)
-option(ENABLE_AUDIO "Enable Audio" ON)
 option(ENABLE_MICROPROFILE "Enable microprofile" OFF)
-option(ENABLE_VULKAN "Enable Vulkan" OFF)
 option(ENABLE_DEBUG "Enable Debug (asserts and logs)" OFF)
 option(BUILD_ANDROID "Crossbuild to Android" OFF)
 
@@ -273,6 +271,3 @@ if (WIN32)
                 )
     endif ()
 endif ()
-
-include(FeatureSummary)
-feature_summary(WHAT ALL)
