@@ -4169,7 +4169,7 @@
             "GD_CI_SmoothStone"
         ],
         "happiness": 0,
-        "id": "com_1x1_LisieuxBricks&Mortar",
+        "id": "com_1x1_LisieuxBricksAndMortar",
         "inhabitants": 8,
         "isOverPlacable": false,
         "placeOnGround": true,
@@ -4192,7 +4192,7 @@
             "clip_height": 42,
             "clip_width": 32,
             "count": 1,
-            "fileName": "resources/images/buildings/commercial/com_1x1_LisieuxBricks&Mortar_RF.png",
+            "fileName": "resources/images/buildings/commercial/com_1x1_LisieuxBricksAndMortar_RF.png",
             "offset": 0,
             "pickRandomTile": false
         },
@@ -15439,7 +15439,7 @@
             "clip_height": 20,
             "clip_width": 32,
             "count": 1,
-            "fileName": "resources/images/buildings/residential/res_1x1_Bob'sHouse.png",
+            "fileName": "resources/images/buildings/residential/res_1x1_BobsHouse.png",
             "offset": 0,
             "pickRandomTile": false
         },
@@ -22675,7 +22675,7 @@
             "GD_CI_RoughConcrete"
         ],
         "happiness": 0,
-        "id": "res_2x2_BrooklynRenting&Living",
+        "id": "res_2x2_BrooklynRentingAndLiving",
         "inhabitants": 38,
         "isOverPlacable": false,
         "placeOnGround": true,
@@ -22697,7 +22697,7 @@
             "clip_height": 80,
             "clip_width": 64,
             "count": 2,
-            "fileName": "resources/images/buildings/residential/res_2x2_BrooklynRenting&Living_RF.png",
+            "fileName": "resources/images/buildings/residential/res_2x2_BrooklynRentingAndLiving_RF.png",
             "offset": 0,
             "pickRandomTile": true
         },
@@ -24066,7 +24066,7 @@
             "GD_NA_BlankTile"
         ],
         "happiness": 0,
-        "id": "res_2x2_ItalianHerbs&Spices",
+        "id": "res_2x2_ItalianHerbsAndSpices",
         "inhabitants": 5,
         "isOverPlacable": false,
         "placeOnGround": true,
@@ -24089,7 +24089,7 @@
             "clip_height": 35,
             "clip_width": 64,
             "count": 1,
-            "fileName": "resources/images/buildings/residential/res_2x2_ItalianHerbs&Spices_RF.png",
+            "fileName": "resources/images/buildings/residential/res_2x2_ItalianHerbsAndSpices_RF.png",
             "offset": 0,
             "pickRandomTile": false
         },
@@ -36711,7 +36711,7 @@
             "count": 4,
             "fileName": "resources/images/roads/road_1x1_Highway.png",
             "offset": 20,
-            "pickRandomTile": false
+            "pickRandomTile": true
         },
         "subCategory": "",
         "tags": [
@@ -40867,7 +40867,10 @@
         },
         "title": "Commercial Zone (dense)",
         "upkeep cost": 2,
-        "water": 0
+        "water": 0,
+        "zones": [
+            "COMMERCIAL"
+        ]
     },
     {
         "RequiredTiles": {
@@ -40914,7 +40917,10 @@
         },
         "title": "Commercial Zone (light)",
         "upkeep cost": 2,
-        "water": 0
+        "water": 0,
+        "zones": [
+            "COMMERCIAL"
+        ]
     },
     {
         "RequiredTiles": {
@@ -40961,7 +40967,10 @@
         },
         "title": "Commercial Zone (medium)",
         "upkeep cost": 2,
-        "water": 0
+        "water": 0,
+        "zones": [
+            "COMMERCIAL"
+        ]
     },
     {
         "RequiredTiles": {
@@ -41008,7 +41017,10 @@
         },
         "title": "Farm Zone",
         "upkeep cost": 2,
-        "water": 0
+        "water": 0,
+        "zones": [
+            "AGRICULTURAL"
+        ]
     },
     {
         "RequiredTiles": {
@@ -41055,7 +41067,10 @@
         },
         "title": "Industrial Zone (dense)",
         "upkeep cost": 2,
-        "water": 0
+        "water": 0,
+        "zones": [
+            "INDUSTRIAL"
+        ]
     },
     {
         "RequiredTiles": {
@@ -41102,7 +41117,10 @@
         },
         "title": "Industrial Zone (light)",
         "upkeep cost": 2,
-        "water": 0
+        "water": 0,
+        "zones": [
+            "INDUSTRIAL"
+        ]
     },
     {
         "RequiredTiles": {
@@ -41149,7 +41167,10 @@
         },
         "title": "Industrial Zone (medium)",
         "upkeep cost": 2,
-        "water": 0
+        "water": 0,
+        "zones": [
+            "INDUSTRIAL"
+        ]
     },
     {
         "RequiredTiles": {
@@ -41196,7 +41217,10 @@
         },
         "title": "Residential Zone (dense)",
         "upkeep cost": 2,
-        "water": 0
+        "water": 0,
+        "zones": [
+            "RESIDENTIAL"
+        ]
     },
     {
         "RequiredTiles": {
@@ -41243,7 +41267,10 @@
         },
         "title": "Residential Zone (light)",
         "upkeep cost": 2,
-        "water": 0
+        "water": 0,
+        "zones": [
+            "RESIDENTIAL"
+        ]
     },
     {
         "RequiredTiles": {
@@ -41290,6 +41317,9 @@
         },
         "title": "Residential Zone (medium)",
         "upkeep cost": 2,
-        "water": 0
+        "water": 0,
+        "zones": [
+            "RESIDENTIAL"
+        ]
     }
 ]
