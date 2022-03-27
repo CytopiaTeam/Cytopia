@@ -11,15 +11,16 @@
 #include "GameStates.hxx"
 #include "MapLayers.hxx"
 #include "Filesystem.hxx"
-#include "../services/AudioMixer.hxx"
-
 #include "json.hxx"
 #include "betterEnums.hxx"
+#ifdef USE_AUDIO
+#include "../services/AudioMixer.hxx"
+#endif
 
 #include <cmath>
 
 #ifdef MICROPROFILE_ENABLED
-#include "microprofile.h"
+#include "microprofile/microprofile.h"
 #endif
 
 using json = nlohmann::json;
@@ -927,6 +928,7 @@ void UIManager::initializeDollarVariables()
       }
       else if (it->getUiElementData().elementID == "$MusicVolumeSlider")
       {
+#ifdef USE_AUDIO
         Slider *slider = dynamic_cast<Slider *>(it.get());
 
         if (!slider)
@@ -943,6 +945,7 @@ void UIManager::initializeDollarVariables()
               Settings::instance().musicVolume = musicVolume;
               AudioMixer::instance().setMusicVolume(musicVolume);
             });
+#endif
       }
     }
   }

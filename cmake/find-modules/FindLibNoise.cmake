@@ -13,11 +13,12 @@ find_library(LibNoise_LIBRARY
 find_package_handle_standard_args(LibNoise DEFAULT_MSG LibNoise_INCLUDE_DIR LibNoise_LIBRARY)
 
 if (LibNoise_FOUND)
-    add_library(libnoise::libnoise INTERFACE IMPORTED)
-    set_target_properties(libnoise::libnoise PROPERTIES
+    add_library(LibNoise::LibNoise INTERFACE IMPORTED)
+    set_target_properties(LibNoise::LibNoise PROPERTIES
             INTERFACE_INCLUDE_DIRECTORIES "${LibNoise_INCLUDE_DIR}"
             INTERFACE_LINK_LIBRARIES "${LibNoise_LIBRARY}"
             )
 endif ()
 
 mark_as_advanced(LibNoise_INCLUDE_DIR LibNoise_LIBRARY)
+

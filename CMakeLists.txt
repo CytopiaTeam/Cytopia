@@ -1,13 +1,15 @@
 cmake_minimum_required(VERSION 3.10 FATAL_ERROR)
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake" "${CMAKE_SOURCE_DIR}/cmake/find-modules")
 include(CMakeDependentOption)
+include(Macros)
+include(FeatureSummary)
 include(SourceFileUtils)
+set(_PREFIX "CYTOPIA_")
 
-set(PACKAGE_MANAGER "vcpkg" CACHE STRING "Use vcpkg for managing packages")
-set_property(CACHE PACKAGE_MANAGER PROPERTY STRINGS vcpkg pkgconfig none)
-if (PACKAGE_MANAGER STREQUAL "vcpkg")
-    set(CMAKE_TOOLCHAIN_FILE "${CMAKE_SOURCE_DIR}/external/vcpkg/scripts/buildsystems/vcpkg.cmake" CACHE STRING "Vcpkg toolchain file")
-endif()
+# Test if conan is installed
+find_program(CONAN_CMD_TEST conan NO_CACHE)
+cmake_dependent_option(USE_PACKAGE_MANAGER "Use conan" ON "NOT CONAN_CMD_TEST STREQUAL CONAN_CMD_TEST-NOTFOUND" OFF)
+message(STATUS "Using conan: ${USE_PACKAGE_MANAGER}")
 
 # create the cmake project
 project(
@@ -35,22 +37,36 @@ elseif (CCACHE_PROGRAM)
 endif ()
 
 
+# Allow user to globally set the library preference for external libraries
+cmd_option(
+        ${_PREFIX}LIB_PREFERENCE
+        "Library preference [SYSTEM (if available), CONAN]"
+        "CONAN"
+        STRINGS "SYSTEM" "CONAN"
+)
+
+# Special mode, that will force dependencies to the packages provided by system unless they were set to conan explicitly.
+option(${_PREFIX}FORCE_SYSTEM_DEPENDENCIES "Force the use of system packages")
 
 option(BUILD_TEST "Build Cytopia Tests" ON)
-option(ENABLE_AUDIO "Enable Audio" ON)
-option(ENABLE_MICROPROFILE "Enable microprofile" OFF)
-option(ENABLE_ANGELSCRIPT "Enable AngelScript" OFF) # package is not available on macOS - disabled it
-option(ENABLE_VULKAN "Enable Vulkan" OFF)
 option(ENABLE_DEBUG "Enable Debug (asserts and logs)" OFF)
 option(BUILD_ANDROID "Crossbuild to Android" OFF)
 
-
 # setup paths
-SET(RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/")
-SET(LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib/")
-SET(ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib/")
-SET(EXECUTABLE_OUTPUT_PATH ${RUNTIME_OUTPUT_DIRECTORY})
-SET(LIBRARY_OUTPUT_PATH ${RUNTIME_OUTPUT_DIRECTORY})
+set(RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/")
+set(LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib/")
+set(ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib/")
+set(EXECUTABLE_OUTPUT_PATH ${RUNTIME_OUTPUT_DIRECTORY})
+set(LIBRARY_OUTPUT_PATH ${RUNTIME_OUTPUT_DIRECTORY})
+
+if (WIN32)
+    set(CMAKE_CONFIGURATION_TYPES "Debug" "Release" CACHE STRING "Configuration types")
+    # fix executable paths for windows
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${RUNTIME_OUTPUT_DIRECTORY})
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${RUNTIME_OUTPUT_DIRECTORY})
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELWITHDEBINFO ${RUNTIME_OUTPUT_DIRECTORY})
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${RUNTIME_OUTPUT_DIRECTORY})
+endif ()
 
 set(_include_directories "${CMAKE_CURRENT_SOURCE_DIR}/external/header_only")
 set(_compile_definitions "")
@@ -144,181 +160,12 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "RelWithDebIn
     list(APPEND _compile_definitions DEBUG)
 endif ()
 
-if (APPLE AND NOT (PACKAGE_MANAGER STREQUAL "vcpkg"))
-    # on macOS, usr/local/lib is not in the default search path for libraries. Homebrew install it's libraries there though.
-    LINK_DIRECTORIES(${LINK_DIRECTORIES} /usr/local/lib)
-endif ()
 
-
-if (PACKAGE_MANAGER STREQUAL "vcpkg")
-
-    if (DEFINED ENV{CI})
-        set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
-        set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
-        set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELWITHDEBINFO ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
-        set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_MINSIZEREL ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
-        set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
-    endif ()
-
-    find_package(Threads REQUIRED)
-
-    if (ENABLE_ANGELSCRIPT)
-        find_package(Angelscript CONFIG REQUIRED)
-    endif()
-    find_package(Vorbis CONFIG REQUIRED)
-    find_package(OpenAL CONFIG REQUIRED)
-    find_package(SDL2 CONFIG REQUIRED)
-    find_package(sdl2-image CONFIG REQUIRED)
-    find_package(sdl2-ttf CONFIG REQUIRED)
-    find_package(LibNoise REQUIRED)
-    find_package(ZLIB REQUIRED)
-
-    list(APPEND _link_libraries
-            SDL2::SDL2
-            SDL2::SDL2main
-            SDL2::SDL2_image
-            SDL2::SDL2_ttf
-            libnoise::libnoise
-            ZLIB::ZLIB
-            )
-
-    if (ENABLE_AUDIO)
-        list(APPEND _link_libraries Vorbis::vorbis Vorbis::vorbisenc Vorbis::vorbisfile)
-        list(APPEND _link_libraries OpenAL::OpenAL)
-    endif ()
-
-    if (ENABLE_ANGELSCRIPT)
-        list(APPEND _link_libraries Angelscript::angelscript)
-    endif ()
-
-    if (ENABLE_VULKAN)
-        list(APPEND _link_libraries vulkan::vulkan-sdk)
-    endif ()
-
-elseif (BUILD_ANDROID)
-    list(APPEND _link_libraries ${OpenGLES2_LIBRARY}
-            ${ANDROID_LOG_LIBRARY}
-            ${ANDROID_LIBRARY_LIBRARY}
-            SDL2
-            SDL2_IMAGE
-            SDL2_TTF
-            OPENAL
-            LIBVORBIS
-            LIBVORBISFILE
-            LIBOGG
-            z # zlib provided by android NDK
-            LIBNOISE
-            LIBPNG
-
-            )
-    # Include dirs.
-    list(APPEND _include_directories ${CMAKE_SOURCE_DIR}/external/android/SDL/SDL2/include
-            ${CMAKE_SOURCE_DIR}/external/android/SDL/SDL2_image
-            ${CMAKE_SOURCE_DIR}/external/android/SDL/SDL2_ttf
-            ${CMAKE_SOURCE_DIR}/external/android/other/libnoise/src/noise
-            ${CMAKE_SOURCE_DIR}/external/android/other/openal-soft/include
-            ${CMAKE_SOURCE_DIR}/external/android/other/ogg/include
-            ${CMAKE_SOURCE_DIR}/external/android/other/vorbis/include
-            ${CMAKE_SOURCE_DIR}/external/android/other/libpng/
-            )
-elseif (PACKAGE_MANAGER STREQUAL "pkgconfig")
-    find_package(PkgConfig REQUIRED)
-
-    pkg_check_modules(SDL2 REQUIRED sdl2)
-    pkg_check_modules(SDL2_image REQUIRED SDL2_image)
-    pkg_check_modules(SDL2_ttf REQUIRED SDL2_ttf)
-    pkg_check_modules(ZLIB REQUIRED zlib)
-    pkg_check_modules(PNG REQUIRED libpng)
-
-    if (ENABLE_AUDIO)
-        pkg_check_modules(openal REQUIRED openal)
-        pkg_check_modules(vorbis REQUIRED vorbis)
-        pkg_check_modules(vorbisfile REQUIRED vorbisfile)
-    endif ()
-
-    if (ENABLE_VULKAN)
-        pkg_check_modules(VULKAN REQUIRED vulkan)
-    endif ()
-
-    find_package(LibNoise REQUIRED)
-
-    if (ENABLE_ANGELSCRIPT)
-        find_package(AngelScript REQUIRED)
-    endif ()
-
-    list(APPEND _include_directories
-            ${SDL2_INCLUDE_DIRS}
-            ${SDL2_image_INCLUDE_DIRS}
-            ${SDL2_ttf_INCLUDE_DIRS}
-            ${ZLIB_INCLUDEDIR}
-            ${PNG_INCLUDE_DIRS}
-            )
-    list(APPEND _link_libraries
-            ${SDL2_LIBRARIES}
-            ${SDL2_image_LIBRARIES}
-            ${SDL2_ttf_LIBRARIES}
-            libnoise::libnoise
-            ${ZLIB_LIBRARIES}
-            ${PNG_LIBRARIES}
-            )
-
-    if (ENABLE_AUDIO)
-        list(APPEND _link_libraries ${vorbis_LIBRARIES})
-        list(APPEND _link_libraries ${vorbisfile_LIBRARIES})
-    endif ()
-
-    if (ENABLE_AUDIO)
-        list(APPEND _link_libraries ${openal_LIBRARIES})
-    endif ()
-
-
-    if (ENABLE_ANGELSCRIPT)
-        list(APPEND _link_libraries ${AngelScript_LIBRARY})
-    endif ()
-
-    if (ENABLE_VULKAN)
-        list(APPEND _link_libraries ${VULKAN_LIBRARIES})
-        list(APPEND _include_directories ${VULKAN_INCLUDEDIR})
-    endif ()
-
-elseif (PACKAGE_MANAGER STREQUAL "none")
-    macro(find_dependency _dep_name)
-        set("${_dep_name}_INCLUDE_DIRS" "Change me" CACHE PATH "Include directory for ${_dep_name}")
-        set("${_dep_name}_LIBRARIES" "Change me" CACHE PATH "Library binaries directory for ${_dep_name}")
-        if (NOT IS_DIRECTORY "${${_dep_name}_INCLUDE_DIRS}")
-            message(SEND_ERROR "For dependency ${_dep_name}: \"${${_dep_name}_INCLUDE_DIRS}\" is not a directory")
-        elseif (NOT IS_DIRECTORY "${${_dep_name}_LIBRARIES}")
-            message(SEND_ERROR "For dependency ${_dep_name}: \"${${_dep_name}\"_LIBRARIES} is not a directory")
-        else ()
-            list(APPEND _include_directories ${${_dep_name}_INCLUDE_DIRS})
-            list(APPEND _link_libraries ${${_dep_name}_LIBRARY})
-            return()
-        endif ()
-        list(APPEND _DEPENDENCY_ERRORS "${_dep_name}")
-    endmacro()
-
-    find_dependency(SDL2)
-    find_dependency(SDL2_image)
-    find_dependency(SDL2_ttf)
-    find_dependency(ZLIB)
-    find_dependency(LIBNOISE)
-    find_dependency(LIBPNG)
-
-    if (ENABLE_AUDIO)
-        find_dependency(openal)
-        find_dependency(vorbis)
-        find_dependency(vorbisfile)
-    endif ()
-
-    if (ENABLE_ANGELSCRIPT)
-        find_dependency(AngelScript)
-    endif ()
-
-    list(LENGTH _DEPENDENCY_ERRORS _ERROR_LENGTH)
-    if (_ERROR_LENGTH)
-        message(FATAL_ERROR "Could not find ${_ERROR_LENGTH} dependencies: ${_DEPENDENCY_ERRORS}")
-    endif ()
-endif ()
+################################################################################
+# Check for dependencies
+################################################################################
+include(DependenciesConfig)
+resolve_conan_dependencies()
 
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
     link_libraries(dbghelp.lib)
@@ -328,46 +175,11 @@ elseif (NOT APPLE AND NOT BUILD_ANDROID)
     list(APPEND _link_libraries "stdc++fs")
 endif ()
 
-if (ENABLE_MICROPROFILE)
-    list(APPEND _include_directories ${microprofile_SOURCE_DIR})
-    list(APPEND _compile_definitions
-            MICROPROFILE_ENABLED
-            MICROPROFILE_GPU_TIMERS=0
-            )
-    if (WIN32)
-        list(APPEND _link_libraries ws2_32.lib)
-    endif (WIN32)
-endif (ENABLE_MICROPROFILE)
-
 if (MINGW)
     # need to link with mingw32 before SDL2
     list(APPEND _link_libraries mingw32)
 endif ()
 
-if (ENABLE_AUDIO)
-    list(APPEND _compile_definitions USE_AUDIO)
-endif ()
-
-
-if (ENABLE_ANGELSCRIPT)
-    list(APPEND _compile_definitions USE_ANGELSCRIPT)
-    list(APPEND _include_directories ${CMAKE_SOURCE_DIR}/external/as_add_on)
-endif ()
-
-if (ENABLE_MICROPROFILE)
-    include(FetchContent)
-
-    FetchContent_Declare(
-            microprofile
-            GIT_REPOSITORY https://github.com/jonasmr/microprofile.git
-    )
-
-    FetchContent_GetProperties(microprofile)
-    if (NOT microprofile_POPULATED)
-        FetchContent_Populate(microprofile)
-    endif ()
-    set(TREAT_WARNINGS_AS_ERRORS OFF CACHE INTERNAL "" FORCE)
-endif (ENABLE_MICROPROFILE)
 
 # get linux distribution
 if (UNIX AND NOT APPLE)
@@ -427,6 +239,3 @@ if (WIN32)
                 )
     endif ()
 endif ()
-
-include(FeatureSummary)
-feature_summary(WHAT ALL)

@@ -40,7 +40,7 @@ std::vector<std::string> TileManager::getAllTileIDsForZone(Zones zone, TileSize 
   return results;
 }
 
-const std::string &TileManager::getRandomTileIDForZoneWithRandomSize(Zones zone, TileSize maxTileSize)
+std::string TileManager::getRandomTileIDForZoneWithRandomSize(Zones zone, TileSize maxTileSize)
 {
   std::unordered_set<TileSize> elligibleTileSizes;
 

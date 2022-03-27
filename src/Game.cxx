@@ -10,7 +10,6 @@
 #include "engine/basics/GameStates.hxx"
 #include "Filesystem.hxx"
 
-#include <noise.h>
 #include <SDL.h>
 #include <SDL_ttf.h>
 
@@ -23,7 +22,7 @@
 #endif
 
 #ifdef MICROPROFILE_ENABLED
-#include "microprofile.h"
+#include "microprofile/microprofile.h"
 #endif
 
 Game::Game() { LOG(LOG_DEBUG) << "Created Game Object"; }

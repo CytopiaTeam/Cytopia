@@ -50,3 +50,5 @@ src/cmake_install.cmake
 src/Makefile
 
 tools/l10n/TMP.pot
+
+_build/
