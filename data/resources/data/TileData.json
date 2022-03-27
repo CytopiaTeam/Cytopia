@@ -4169,7 +4169,7 @@
             "GD_CI_SmoothStone"
         ],
         "happiness": 0,
-        "id": "com_1x1_LisieuxBricks&Mortar",
+        "id": "com_1x1_LisieuxBricksAndMortar",
         "inhabitants": 8,
         "isOverPlacable": false,
         "placeOnGround": true,
@@ -4192,7 +4192,7 @@
             "clip_height": 42,
             "clip_width": 32,
             "count": 1,
-            "fileName": "resources/images/buildings/commercial/com_1x1_LisieuxBricks&Mortar_RF.png",
+            "fileName": "resources/images/buildings/commercial/com_1x1_LisieuxBricksAndMortar_RF.png",
             "offset": 0,
             "pickRandomTile": false
         },
@@ -13925,6 +13925,53 @@
             "width": 1
         },
         "author": "Kingtut 101",
+        "category": "Power",
+        "crimeLevel": 0,
+        "description": "A simple system for distributing power.",
+        "educationLevel": 0,
+        "fireHazardLevel": 0,
+        "happiness": 0,
+        "id": "pow_RuralPowerLines",
+        "inhabitants": 0,
+        "isOverPlacable": false,
+        "placeOnGround": true,
+        "placeOnWater": false,
+        "pollutionLevel": 0,
+        "power": 0,
+        "price": 7,
+        "slopeTiles": {
+            "clip_height": 37,
+            "clip_width": 32,
+            "count": 4,
+            "fileName": "resources/images/buildings/power plants/pow_1x1_RuralPowerlines.png",
+            "offset": 20,
+            "pickRandomTile": false
+        },
+        "subCategory": "",
+        "tags": [
+            "utilities",
+            "power",
+            "powerlines"
+        ],
+        "tileType": "AUTOTILE",
+        "tiles": {
+            "clip_height": 37,
+            "clip_width": 32,
+            "count": 24,
+            "fileName": "resources/images/buildings/power plants/pow_1x1_RuralPowerlines.png",
+            "offset": 0,
+            "pickRandomTile": false
+        },
+        "title": "Rural Power Lines",
+        "upkeep cost": 2,
+        "water": 0
+    },
+    {
+        "RequiredTiles": {
+            "height": 1,
+            "width": 1
+        },
+        "author": "Kingtut 101",
         "category": "Prison",
         "crimeLevel": 0,
         "description": "TODO DESC",
@@ -15392,7 +15439,7 @@
             "clip_height": 20,
             "clip_width": 32,
             "count": 1,
-            "fileName": "resources/images/buildings/residential/res_1x1_Bob'sHouse.png",
+            "fileName": "resources/images/buildings/residential/res_1x1_BobsHouse.png",
             "offset": 0,
             "pickRandomTile": false
         },
@@ -22628,7 +22675,7 @@
             "GD_CI_RoughConcrete"
         ],
         "happiness": 0,
-        "id": "res_2x2_BrooklynRenting&Living",
+        "id": "res_2x2_BrooklynRentingAndLiving",
         "inhabitants": 38,
         "isOverPlacable": false,
         "placeOnGround": true,
@@ -22650,7 +22697,7 @@
             "clip_height": 80,
             "clip_width": 64,
             "count": 2,
-            "fileName": "resources/images/buildings/residential/res_2x2_BrooklynRenting&Living_RF.png",
+            "fileName": "resources/images/buildings/residential/res_2x2_BrooklynRentingAndLiving_RF.png",
             "offset": 0,
             "pickRandomTile": true
         },
@@ -24019,7 +24066,7 @@
             "GD_NA_BlankTile"
         ],
         "happiness": 0,
-        "id": "res_2x2_ItalianHerbs&Spices",
+        "id": "res_2x2_ItalianHerbsAndSpices",
         "inhabitants": 5,
         "isOverPlacable": false,
         "placeOnGround": true,
@@ -24042,7 +24089,7 @@
             "clip_height": 35,
             "clip_width": 64,
             "count": 1,
-            "fileName": "resources/images/buildings/residential/res_2x2_ItalianHerbs&Spices_RF.png",
+            "fileName": "resources/images/buildings/residential/res_2x2_ItalianHerbsAndSpices_RF.png",
             "offset": 0,
             "pickRandomTile": false
         },

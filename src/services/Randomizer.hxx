@@ -3,6 +3,7 @@
 
 #include <random>
 #include <iterator>
+#include <algorithm>
 #include "../util/Singleton.hxx"
 
 class Randomizer : public Singleton<Randomizer>
