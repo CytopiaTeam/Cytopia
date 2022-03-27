@@ -56,9 +56,15 @@ add_external_lib(
         FIND_PACKAGE
 )
 
-# add_external_lib(
-#         Angelscript
-#         angelscript/2.35.1
-#         FIND_PACKAGE
-# )
-set(USE_ANGELSCRIPT OFF)
+add_external_lib(
+        Angelscript
+        angelscript/2.35.1
+        FIND_PACKAGE
+        BY_DEFAULT_DISABLED
+)
+add_external_lib(
+        Microprofile
+        microprofile/3.1
+        FIND_PACKAGE
+        BY_DEFAULT_DISABLED
+)

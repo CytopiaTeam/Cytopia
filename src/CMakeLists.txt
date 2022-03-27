@@ -178,6 +178,11 @@ if (ENABLE_AUDIO)
     target_compile_definitions(${PROJECT_NAME} PRIVATE USE_AUDIO)
 endif ()
 
+if (USE_MICROPROFILE)
+    target_link_libraries(${PROJECT_NAME} PRIVATE Microprofile::Microprofile)
+    target_compile_definitions(${PROJECT_NAME} PRIVATE MICROPROFILE_ENABLED MICROPROFILE_GPU_TIMERS=0)
+endif ()
+
 if (USE_ANGELSCRIPT)
     target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/external/as_add_on)
     target_link_libraries(${PROJECT_NAME} PRIVATE Angelscript::Angelscript)

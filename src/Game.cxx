@@ -22,7 +22,7 @@
 #endif
 
 #ifdef MICROPROFILE_ENABLED
-#include "microprofile.h"
+#include "microprofile/microprofile.h"
 #endif
 
 Game::Game() { LOG(LOG_DEBUG) << "Created Game Object"; }
