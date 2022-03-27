@@ -60,8 +60,9 @@ if (ENABLE_AUDIO)
     )
 endif ()
 
-add_external_lib(
-        Angelscript
-        angelscript/2.35.0
-        FIND_PACKAGE
-)
+# add_external_lib(
+#         Angelscript
+#         angelscript/2.35.1
+#         FIND_PACKAGE
+# )
+set(USE_ANGELSCRIPT OFF)

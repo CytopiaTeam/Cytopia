@@ -112,9 +112,6 @@ jobs:
                   libnoise-dev
           curl "https://raw.githubusercontent.com/AnotherFoxGuy/ci-scripts/main/install-cmake.sh" | sudo bash
           curl "https://raw.githubusercontent.com/AnotherFoxGuy/ci-scripts/main/install-sccache.sh" | sudo bash
-          curl "https://cdn.anotherfoxguy.com/makedeb/install-makedeb.sh" | sudo bash
-          git clone https://mpr.makedeb.org/angelscript.git && cd angelscript
-          makedeb -is
         shell: bash
 
       - name: Build
