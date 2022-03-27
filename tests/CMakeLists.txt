@@ -69,10 +69,12 @@ target_link_libraries(
         SDL::SDL_image
         SDL::TTF
         LibNoise::LibNoise
-        OpenAL::OpenAL
         ZLIB::ZLIB
-        VorbisFile::VorbisFile
 )
+
+if (ENABLE_AUDIO)
+    target_link_libraries(${TESTS_PROJECT_NAME} PRIVATE OpenAL::OpenAL VorbisFile::VorbisFile)
+endif ()
 
 if (USE_ANGELSCRIPT)
     target_include_directories(${TESTS_PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/external/as_add_on)

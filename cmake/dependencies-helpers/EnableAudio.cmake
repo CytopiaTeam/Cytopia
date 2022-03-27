@@ -1,0 +1,7 @@
+if (USE_OPENAL AND USE_VORBISFILE)
+    set(ENABLE_AUDIO ON CACHE INTERNAL "" FORCE)
+    message(STATUS "Audio enabled")
+else ()
+    set(ENABLE_AUDIO OFF CACHE INTERNAL "" FORCE)
+    message(WARNING "OpenAL/VorbisFile not found, disabling audio!")
+endif ()

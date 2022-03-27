@@ -59,18 +59,18 @@ set(SOURCE_FILES
         )
 
 if (ANDROID)
-  list (APPEND SOURCE_FILES
-    util/android/Filesystem.cxx
-  )
-elseif(APPLE)
-  list (APPEND SOURCE_FILES
-    util/macOS/Filesystem.cxx
-  )
-else()
-  list (APPEND SOURCE_FILES
-    util/desktop/Filesystem.cxx
-  )
-endif()
+    list(APPEND SOURCE_FILES
+            util/android/Filesystem.cxx
+            )
+elseif (APPLE)
+    list(APPEND SOURCE_FILES
+            util/macOS/Filesystem.cxx
+            )
+else ()
+    list(APPEND SOURCE_FILES
+            util/desktop/Filesystem.cxx
+            )
+endif ()
 
 if (ENABLE_AUDIO)
     list(APPEND SOURCE_FILES
@@ -170,10 +170,13 @@ target_link_libraries(
         SDL::TTF
         SDL::SDL_image
         LibNoise::LibNoise
-        OpenAL::OpenAL
         ZLIB::ZLIB
-        VorbisFile::VorbisFile
 )
+
+if (ENABLE_AUDIO)
+    target_link_libraries(${PROJECT_NAME} PRIVATE OpenAL::OpenAL VorbisFile::VorbisFile)
+    target_compile_definitions(${PROJECT_NAME} PRIVATE USE_AUDIO)
+endif ()
 
 if (USE_ANGELSCRIPT)
     target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/external/as_add_on)
