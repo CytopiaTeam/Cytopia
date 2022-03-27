@@ -81,35 +81,115 @@ void ZoneManager::addZoneNode(Point coordinate, Zones zone, ZoneDensity ZoneDens
 void ZoneManager::rebuildZoneAreas()
 {
   m_zoneAreas.clear(); // clear the vector, we want to rebuild it
-  ZoneArea firstZoneArea;
-  m_zoneAreas.push_back(firstZoneArea);
-  bool isFirst=true;
+
+  std::vector<Point> sortedZoneNodes;
 
   for (auto zoneNode : m_AllNodes)
   {
-    bool isNewArea = true;
-    // check if this node is part of existing area, if so add it.
-    for (auto zoneArea : m_zoneAreas)
+    LOG(LOG_INFO) << "unsorted: " << zoneNode.coordinate.x << ", " << zoneNode.coordinate.y;
+  }
+
+  std::sort(m_AllNodes.begin(), m_AllNodes.end(),
+            [](const auto &x, const auto &y)
+            {
+              // LOG(LOG_INFO) << "I sort " << x.coordinate.x << ", " << x.coordinate.y;
+              // LOG(LOG_INFO) << "my calculation " << x.coordinate.x << ", " << x.coordinate.y;
+              int xIdx = (x.coordinate.x + x.coordinate.y) * Settings::instance().mapSize;
+              int yIdx = (y.coordinate.x + y.coordinate.y) * Settings::instance().mapSize;
+              // int xIdx = (x.coordinate.x - Settings::instance().mapSize) + (x.coordinate.y - Settings::instance().mapSize);
+              // int yIdx = (y.coordinate.x - Settings::instance().mapSize) + ( y.coordinate.y - Settings::instance().mapSize);
+
+              int size = Settings::instance().mapSize;
+              // int xZ = x.coordinate.x + x.coordinate.y;
+              // int yZ = y.coordinate.x + y.coordinate.y;
+
+              int xX = x.coordinate.x - x.coordinate.y;
+              int yX = y.coordinate.x - y.coordinate.y;
+              int xY = x.coordinate.y + x.coordinate.y;
+              int yY = y.coordinate.y + y.coordinate.y;
+              // return xZ < x.coordinate.x;
+              // return xX <= yX || yX <= yY;
+
+              LOG(LOG_INFO) << "Coord" << x.coordinate.x << ", " << x.coordinate.y << " - Index: " << xIdx << ", " << yIdx;
+              return xIdx < yIdx;
+
+              if (xX != yY)
+              {
+                return xX < yX;
+              }
+              else
+              {
+                return xY > yY;
+              }
+              return std::tie(xX, xY) < std::tie(yX, yY);
+              // return (x.coordinate.x <= y.coordinate.x && x.coordinate.y <= y.coordinate.y);
+              // return (x.coordinate.x + size <= y.coordinate.x) || (x.coordinate.y + size <= y.coordinate.y);
+            });
+
+  for (auto zoneNode : m_AllNodes)
+  {
+    LOG(LOG_INFO) << "sorted: " << zoneNode.coordinate.x << ", " << zoneNode.coordinate.y;
+  }
+
+  // return;
+  // TODO: iterate over nodes - iterate over zoneareas - iterate over all zone nodes within the area and check if the new tile is a neighbor of any existing.
+  // pick a node, get it's neighbor coords and look if we have one.
+  for (auto zoneNode : m_AllNodes)
+  {
+    bool foundNodeInArea = false;
+
+    // get all possible neighbors for this node
+    for (auto possibleNeighbor : PointFunctions::getNeighbors(zoneNode.coordinate, false))
     {
-      if (zoneArea.isPartOfZone(zoneNode.coordinate))
+      // iterate over all zoneAreas and check if a neighbor is already part of a zone
+      for (auto zoneArea : m_zoneAreas)
       {
-        LOG(LOG_INFO) << "it is part";
-        isNewArea = false;
-        zoneArea.addZoneNode(zoneNode);
+        // LOG(LOG_INFO) << "I check for isPartOf zone";
+        if (zoneArea.isPartOfZone(possibleNeighbor))
+        {
+          // LOG(LOG_INFO) << "It is";
+
+          // if we've found that this node is a neighbor, add it to the zoneArea.
+          zoneArea.addZoneNode(zoneNode);
+          foundNodeInArea = true;
+          continue; // possibly only breaks the second forloop
+        }
       }
     }
-
-    if (isNewArea && !isFirst)
+    if (!foundNodeInArea)
     {
-        LOG(LOG_INFO) << "it is new!";
+      // LOG(LOG_INFO) << "Didn't find it. add a new one";
       ZoneArea newZoneArea;
-      // add node to new area
       newZoneArea.addZoneNode(zoneNode);
-      // add new area to vector
       m_zoneAreas.push_back(newZoneArea);
     }
-    isFirst = false;
   }
+
+  // for (auto zoneNode : m_AllNodes)
+  // {
+  //   bool isNewArea = true;
+  //   // check if this node is part of existing area, if so add it.
+  //   for (auto zoneArea : m_zoneAreas)
+  //   {
+  //     if (zoneArea.isPartOfZone(zoneNode.coordinate))
+  //     {
+  //       // LOG(LOG_INFO) << "it is part";
+  //       isNewArea = false;
+  //       zoneArea.addZoneNode(zoneNode);
+  //     }
+  //   }
+
+  //   if (isNewArea && !isFirst)
+  //   {
+  //     // LOG(LOG_INFO) << "it is new!";
+  //     ZoneArea newZoneArea;
+  //     // add node to new area
+  //     newZoneArea.addZoneNode(zoneNode);
+  //     // add new area to vector
+  //     m_zoneAreas.push_back(newZoneArea);
+  //   }
+  //   isFirst = false;
+  // }
 
   LOG(LOG_INFO) << "I have " << m_zoneAreas.size() << "areas!";
 }
@@ -118,7 +198,8 @@ void ZoneManager::removeZoneNode(MapNode *node)
 {
   if (node)
   {
-    m_MapNodes.erase(std::remove(m_MapNodes.begin(), m_MapNodes.end(), node));
+    LOG(LOG_INFO) << "Removing tiles does not yet work.";
+    // m_MapNodes.erase(std::remove(m_MapNodes.begin(), m_MapNodes.end(), node));
   }
 }
 
