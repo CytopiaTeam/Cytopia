@@ -13925,6 +13925,53 @@
             "width": 1
         },
         "author": "Kingtut 101",
+        "category": "Power",
+        "crimeLevel": 0,
+        "description": "A simple system for distributing power.",
+        "educationLevel": 0,
+        "fireHazardLevel": 0,
+        "happiness": 0,
+        "id": "pow_RuralPowerLines",
+        "inhabitants": 0,
+        "isOverPlacable": false,
+        "placeOnGround": true,
+        "placeOnWater": false,
+        "pollutionLevel": 0,
+        "power": 0,
+        "price": 7,
+        "slopeTiles": {
+            "clip_height": 37,
+            "clip_width": 32,
+            "count": 4,
+            "fileName": "resources/images/buildings/power plants/pow_1x1_RuralPowerlines.png",
+            "offset": 20,
+            "pickRandomTile": false
+        },
+        "subCategory": "",
+        "tags": [
+            "utilities",
+            "power",
+            "powerlines"
+        ],
+        "tileType": "AUTOTILE",
+        "tiles": {
+            "clip_height": 37,
+            "clip_width": 32,
+            "count": 24,
+            "fileName": "resources/images/buildings/power plants/pow_1x1_RuralPowerlines.png",
+            "offset": 0,
+            "pickRandomTile": false
+        },
+        "title": "Rural Power Lines",
+        "upkeep cost": 2,
+        "water": 0
+    },
+    {
+        "RequiredTiles": {
+            "height": 1,
+            "width": 1
+        },
+        "author": "Kingtut 101",
         "category": "Prison",
         "crimeLevel": 0,
         "description": "TODO DESC",
