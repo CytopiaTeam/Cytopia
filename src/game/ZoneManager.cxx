@@ -78,12 +78,13 @@ void ZoneManager::addZoneNode(Point coordinate, Zones zone, ZoneDensity ZoneDens
   m_AllNodes.push_back(newZone);
   rebuildZoneAreas();
 }
+
 void ZoneManager::rebuildZoneAreas()
 {
   m_zoneAreas.clear(); // clear the vector, we want to rebuild it
 
   std::vector<Point> sortedZoneNodes;
-
+  // std::sort(m_AllNodes.begin(), m_AllNodes.end(), compare_xy());
   for (auto zoneNode : m_AllNodes)
   {
     LOG(LOG_INFO) << "unsorted: " << zoneNode.coordinate.x << ", " << zoneNode.coordinate.y;
@@ -92,43 +93,32 @@ void ZoneManager::rebuildZoneAreas()
   std::sort(m_AllNodes.begin(), m_AllNodes.end(),
             [](const auto &x, const auto &y)
             {
-              // LOG(LOG_INFO) << "I sort " << x.coordinate.x << ", " << x.coordinate.y;
-              // LOG(LOG_INFO) << "my calculation " << x.coordinate.x << ", " << x.coordinate.y;
-              int xIdx = (x.coordinate.x + x.coordinate.y) * Settings::instance().mapSize;
-              int yIdx = (y.coordinate.x + y.coordinate.y) * Settings::instance().mapSize;
-              // int xIdx = (x.coordinate.x - Settings::instance().mapSize) + (x.coordinate.y - Settings::instance().mapSize);
-              // int yIdx = (y.coordinate.x - Settings::instance().mapSize) + ( y.coordinate.y - Settings::instance().mapSize);
+    
+              // return (x.coordinate.x == y.coordinate.x ? x.coordinate.y < y.coordinate.y : x.coordinate.x < y.coordinate.x);
 
-              int size = Settings::instance().mapSize;
-              // int xZ = x.coordinate.x + x.coordinate.y;
-              // int yZ = y.coordinate.x + y.coordinate.y;
-
-              int xX = x.coordinate.x - x.coordinate.y;
-              int yX = y.coordinate.x - y.coordinate.y;
-              int xY = x.coordinate.y + x.coordinate.y;
-              int yY = y.coordinate.y + y.coordinate.y;
-              // return xZ < x.coordinate.x;
-              // return xX <= yX || yX <= yY;
-
-              LOG(LOG_INFO) << "Coord" << x.coordinate.x << ", " << x.coordinate.y << " - Index: " << xIdx << ", " << yIdx;
-              return xIdx < yIdx;
-
-              if (xX != yY)
-              {
-                return xX < yX;
-              }
-              else
-              {
-                return xY > yY;
-              }
-              return std::tie(xX, xY) < std::tie(yX, yY);
-              // return (x.coordinate.x <= y.coordinate.x && x.coordinate.y <= y.coordinate.y);
-              // return (x.coordinate.x + size <= y.coordinate.x) || (x.coordinate.y + size <= y.coordinate.y);
+              int xIdx = (x.coordinate.x - Settings::instance().mapSize) + (x.coordinate.y - Settings::instance().mapSize);
+              int yIdx = (y.coordinate.x - Settings::instance().mapSize) + (y.coordinate.y - Settings::instance().mapSize);
+              int distanceFromAToB = x.coordinate.manhattanDistanceTo(y.coordinate);
+              Point zero = {0, 0};
+              int distX = zero.distanceTo(x.coordinate);
+              int distY = zero.distanceTo(y.coordinate);
+              LOG(LOG_INFO) << "Distance from " << x.coordinate.x << ", " << x.coordinate.y << " to " << y.coordinate.x << ", "
+                            << y.coordinate.y << " is: " << x.coordinate.distanceTo(y.coordinate);
+              LOG(LOG_INFO) << "X Distance to zero: " << distX;
+              LOG(LOG_INFO) << "Y Distance to zero: " << distY;
+              return distX < distY; //x.coordinate.y.manhattanDistanceTo(y.coordinate.y);
             });
 
   for (auto zoneNode : m_AllNodes)
   {
     LOG(LOG_INFO) << "sorted: " << zoneNode.coordinate.x << ", " << zoneNode.coordinate.y;
+  }
+
+// debug print coords and distance
+  for (auto it : m_AllNodes)
+  {
+    Point zero = {0, 0};
+    std::cout << it.coordinate.x << ", " << it.coordinate.y << "( " << zero.manhattanDistanceTo(it.coordinate) << " ) | ";
   }
 
   // return;
