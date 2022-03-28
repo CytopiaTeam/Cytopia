@@ -35,9 +35,10 @@ public:
     return (x >= 0 && x < Settings::instance().mapSize) && (y >= 0 && y < Settings::instance().mapSize);
   }
 
-  int manhattanDistanceTo(Point target) { return abs(x - target.x) + abs(y - target.y); }
+  //int manhattanDistanceTo(Point target) const { return abs(target.x - x) + abs(target.y - y); }
+  int manhattanDistanceTo(Point target) const { return abs(x - target.x) + abs(y - target.y); }
 
-  int distanceTo(Point target) { return sqrt((x - target.x) * (x - target.x) + (y - target.y) * (y - target.y)); }
+  int distanceTo(Point target) const { return sqrt((x - target.x) * (x - target.x) + (y - target.y) * (y - target.y)); }
 };
 
 #endif
