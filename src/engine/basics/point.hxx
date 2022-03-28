@@ -2,13 +2,15 @@
 #define POINT_HXX_
 
 #include "Settings.hxx"
+#include <cmath>
+
 class Point
 {
 public:
-constexpr Point() : x(0), y(0), z(0), height(0) { };
-constexpr Point(int x, int y) : x(x), y(y), z(0), height(0) { };
-constexpr Point(int x, int y, int z) : x(x), y(y), z(z), height(0) { };
-constexpr Point(int x, int y, int z, int height) : x(x), y(y), z(z), height(height) { };
+  constexpr Point() : x(0), y(0), z(0), height(0){};
+  constexpr Point(int x, int y) : x(x), y(y), z(0), height(0){};
+  constexpr Point(int x, int y, int z) : x(x), y(y), z(z), height(0){};
+  constexpr Point(int x, int y, int z, int height) : x(x), y(y), z(z), height(height){};
 
   /// The x coordinate.
   int x;
@@ -32,6 +34,10 @@ constexpr Point(int x, int y, int z, int height) : x(x), y(y), z(z), height(heig
   {
     return (x >= 0 && x < Settings::instance().mapSize) && (y >= 0 && y < Settings::instance().mapSize);
   }
+
+  int manhattanDistanceTo(Point target) { return abs(x - target.x) + abs(y - target.y); }
+
+  int distanceTo(Point target) { return sqrt((x - target.x) * (x - target.x) + (y - target.y) * (y - target.y)); }
 };
 
 #endif
