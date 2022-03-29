@@ -14,14 +14,34 @@ struct ZoneNode
 class ZoneArea
 {
 public:
-  ZoneArea() = default;
+  ZoneArea(ZoneNode zoneNode);
 
   /**
    * @brief Add coordinates to a mapNode that has a zone placed on it.
    * 
    * @param Coordinates of the mapNode with a zone tile
    */
-  void addZoneNode(ZoneNode zoneNode) { m_zoneNodes.push_back(zoneNode); };
+  void addZoneNode(ZoneNode zoneNode)
+  {
+    m_zoneNodes.push_back(zoneNode);
+  
+    if (zoneNode.coordinate.x == xmin)
+    {
+      xmin = std::max(0, xmin - 1);
+    }
+    else if (zoneNode.coordinate.x == xmax)
+    {
+      xmax = std::min(Settings::instance().mapSize, xmax + 1);
+    }
+    else if (zoneNode.coordinate.y == ymin)
+    {
+      ymin = std::max(0, ymin - 1);
+    }
+    else if (zoneNode.coordinate.y == ymax)
+    {
+      ymax = std::min(Settings::instance().mapSize, ymax + 1);
+    }
+  };
 
   /**
    * @brief Remove a coordinates to a mapNode that has a zone placed on it.
@@ -85,7 +105,7 @@ public:
    * 
    * @return zone for this area
    */
-  Zones getZone() { return m_zone; };
+  Zones getZone() const { return m_zone; };
 
   /**
    * @brief Set the zone density for this Area
@@ -107,7 +127,7 @@ public:
    * @param coordinate The point to check
    * @return neighbor of this zoneArea
    */
-  bool isNeighborOfZone(Point coordinate);
+  bool isNeighborOfZone(Point coordinate) const;
 
   /**
    * @brief If this coordinate part of this zone area.
@@ -124,6 +144,11 @@ public:
 
   size_t getSize() { return m_zoneNodes.size(); };
 
+  bool isWithinBoundaries(Point coordinate) const
+  {
+    return (xmin <= coordinate.x) && (xmax >= coordinate.x) && (ymin <= coordinate.y) && (ymax >= coordinate.y);
+  }
+
 private:
   std::vector<ZoneNode> m_zoneNodes;
   std::vector<Point> m_zoneNodesEmpty;
@@ -131,6 +156,8 @@ private:
   ZoneDensity m_zoneDensity = ZoneDensity::LOW;
   bool m_hasPower;
   bool m_hasWater;
+
+  int xmin, xmax, ymin, ymax;
 };
 
 #endif
