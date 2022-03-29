@@ -520,7 +520,12 @@ void UIManager::setCallbackFunctions()
     }
     else if (uiElement->getUiElementData().actionID == "SaveSettings")
     {
-      uiElement->registerCallbackFunction([]() { Settings::instance().writeFile(); });
+      uiElement->registerCallbackFunction(
+        [this]() 
+        {
+          Settings::instance().writeFile();
+          toggleGroupVisibility("SettingsMenu");
+        });
     }
     else if (uiElement->getUiElementData().actionID == "ChangeResolution")
     {
