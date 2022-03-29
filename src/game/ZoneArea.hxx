@@ -122,6 +122,8 @@ public:
  */
   void spawnBuildings();
 
+  size_t getSize() { return m_zoneNodes.size(); };
+
 private:
   std::vector<ZoneNode> m_zoneNodes;
   std::vector<Point> m_zoneNodesEmpty;

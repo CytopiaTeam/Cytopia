@@ -34,7 +34,7 @@ private:
    * @param coordinate - What mapNode to retrieve 
    * @return MapNode pointer
    */
-  const MapNode *getZoneNodeWithCoordinate(Point coordinate);
+  ZoneNode getZoneNodeWithCoordinate(Point coordinate);
 
   /**
    * @brief Returns the possible size of buildings that can be placed on this coordinate in a zone
