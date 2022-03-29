@@ -102,6 +102,14 @@ public:
   ZoneDensity getZoneDensity() { return m_zoneDensity; };
 
   /**
+   * @brief If this coordinate is a neighbor of one of the tiles in this zone area.
+   * 
+   * @param coordinate The point to check
+   * @return neighbor of this zoneArea
+   */
+  bool isNeighborOfZone(Point coordinate);
+
+  /**
    * @brief If this coordinate part of this zone area.
    * 
    * @param coordinate The point to check
