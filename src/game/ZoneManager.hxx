@@ -50,7 +50,7 @@ private:
    */
   void rebuildZoneAreas();
 
-  std::vector<ZoneArea *> findAllSutableZoneArea(const ZoneNode &zoneNode);
+  std::vector<int> findAllSutableZoneArea(const ZoneNode &zoneNode);
 
   std::vector<const MapNode *> m_MapNodes;
   std::vector<ZoneArea> m_zoneAreas;

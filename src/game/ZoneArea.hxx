@@ -11,6 +11,9 @@ struct ZoneNode
   ZoneDensity ZoneDensity = ZoneDensity::LOW;
 };
 
+class ZoneArea;
+void mergeZoneAreas(ZoneArea &mainZone, ZoneArea &toBeMerged);
+
 class ZoneArea
 {
 public:
@@ -158,6 +161,8 @@ private:
   bool m_hasWater;
 
   int xmin, xmax, ymin, ymax;
+
+  friend void mergeZoneAreas(ZoneArea &mainZone, ZoneArea &toBeMerged);
 };
 
 #endif

@@ -66,15 +66,20 @@ void ZoneManager::spawnBuildings()
 
 void ZoneManager::addZoneNode(MapNode *node) { m_MapNodes.emplace_back(node); }
 
-std::vector<ZoneArea *> ZoneManager::findAllSutableZoneArea(const ZoneNode &zoneNode)
+std::vector<int> ZoneManager::findAllSutableZoneArea(const ZoneNode &zoneNode)
 {
-  std::vector<ZoneArea *> neighborZones;
+  std::vector<int> neighborZones;
+  int i = 0;
+
   for (auto &zoneArea : m_zoneAreas)
   {
-    if ((zoneArea.getZone() == zoneNode.zone) && zoneArea.isWithinBoundaries(zoneNode.coordinate) && zoneArea.isNeighborOfZone(zoneNode.coordinate))
+    if ((zoneArea.getZone() == zoneNode.zone) && zoneArea.isWithinBoundaries(zoneNode.coordinate) &&
+        zoneArea.isNeighborOfZone(zoneNode.coordinate))
     {
-      neighborZones.push_back(&zoneArea);
+      neighborZones.push_back(i);
     }
+
+    ++i;
   }
 
   return neighborZones;
@@ -99,11 +104,23 @@ void ZoneManager::addZoneNode(Point coordinate, Zones zone, ZoneDensity ZoneDens
   else if (zoneNeighbour.size() == 1)
   {
     // add to this zone
-    zoneNeighbour[0]->addZoneNode(newZone);
+    m_zoneAreas[zoneNeighbour[0]].addZoneNode(newZone);
   }
   else
   {
-    // mergezones
+    // merge zone areas
+    ZoneArea &mergedZone = m_zoneAreas[zoneNeighbour[0]];
+    mergedZone.addZoneNode(newZone);
+
+    for (int idx = 1; idx < zoneNeighbour.size(); ++idx)
+    {
+      mergeZoneAreas(mergedZone, m_zoneAreas[zoneNeighbour[idx]]);
+    }
+
+    for (int idx = zoneNeighbour.size() - 1; idx > 0; --idx)
+    {
+      m_zoneAreas.erase(m_zoneAreas.begin() + zoneNeighbour[idx]);
+    }
   }
 
   m_AllNodes.push_back(newZone);
