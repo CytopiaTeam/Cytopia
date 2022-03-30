@@ -856,37 +856,35 @@ void UIManager::initializeDollarVariables()
 
         combobox->clear();
         combobox->addElement("LEFT");
+        combobox->addElement("RIGHT");
+        combobox->addElement("TOP");
+        combobox->addElement("BOTTOM");
+
+        // Load the option from existing settings
         // TODO: #97 Ugly workaround until we have BetterEnums
         if (Settings::instance().buildMenuPosition == "LEFT")
         {
-          combobox->setActiveID(static_cast<int>(combobox->count() - 1));
-          m_buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(combobox->count() - 1));
+          combobox->setActiveID(static_cast<int>(BUILDMENU_LAYOUT::LEFT));
+          m_buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(BUILDMENU_LAYOUT::LEFT));
         }
-        combobox->addElement("RIGHT");
-        // TODO: #97 Ugly workaround until we have BetterEnums
-        if (Settings::instance().buildMenuPosition == "RIGHT")
+        else if (Settings::instance().buildMenuPosition == "RIGHT")
         {
-          combobox->setActiveID(static_cast<int>(combobox->count() - 1));
-          m_buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(combobox->count() - 1));
+          combobox->setActiveID(static_cast<int>(BUILDMENU_LAYOUT::RIGHT));
+          m_buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(BUILDMENU_LAYOUT::RIGHT));
         }
-        combobox->addElement("TOP");
-        // TODO: #97 Ugly workaround until we have BetterEnums
-        if (Settings::instance().buildMenuPosition == "TOP")
+        else if (Settings::instance().buildMenuPosition == "TOP")
         {
-          combobox->setActiveID(static_cast<int>(combobox->count() - 1));
-          m_buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(combobox->count() - 1));
+          combobox->setActiveID(static_cast<int>(BUILDMENU_LAYOUT::TOP));
+          m_buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(BUILDMENU_LAYOUT::TOP));
         }
-        combobox->addElement("BOTTOM");
-        // TODO: #97 Ugly workaround until we have BetterEnums
-        if (Settings::instance().buildMenuPosition == "BOTTOM")
+        else if (Settings::instance().buildMenuPosition == "BOTTOM")
         {
-          combobox->setActiveID(static_cast<int>(combobox->count() - 1));
-          m_buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(combobox->count() - 1));
+          combobox->setActiveID(static_cast<int>(BUILDMENU_LAYOUT::BOTTOM));
+          m_buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(BUILDMENU_LAYOUT::BOTTOM));
         }
 
         combobox->registerCallbackFunction(Signal::slot(this, &UIManager::setBuildMenuPosition));
       }
-
       else if (it->getUiElementData().elementID == "$ScreenResolutionSelector")
       {
         // This must be a ComboBox
@@ -947,7 +945,7 @@ void UIManager::initializeDollarVariables()
             [](int sliderValue)
             {
               const float musicVolume = static_cast<float>(sliderValue / 100.0f);
-              Settings::instance().musicVolume = musicVolume;
+              // Settings::instance().musicVolume = musicVolume;
               AudioMixer::instance().setMusicVolume(musicVolume);
             });
 #endif
