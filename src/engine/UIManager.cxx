@@ -410,7 +410,7 @@ void UIManager::setCallbackFunctions()
         demolishMode ? highlightSelection = true : highlightSelection = false;
       });
     }
-     else if (uiElement->getUiElementData().actionID == "DeZone")
+    else if (uiElement->getUiElementData().actionID == "DeZone")
     {
       uiElement->registerCallbackFunction([](UIElement *sender) {
         Button *button = dynamic_cast<Button *>(sender);
@@ -524,6 +524,16 @@ void UIManager::setCallbackFunctions()
         [this]() 
         {
           Settings::instance().writeFile();
+          toggleGroupVisibility("SettingsMenu");
+        });
+    }
+    else if (uiElement->getUiElementData().actionID == "CancelSettings")
+    {
+      uiElement->registerCallbackFunction(
+        [this]()
+        { 
+          Settings::instance().readFile();
+          initializeDollarVariables();
           toggleGroupVisibility("SettingsMenu");
         });
     }
@@ -945,7 +955,6 @@ void UIManager::initializeDollarVariables()
             [](int sliderValue)
             {
               const float musicVolume = static_cast<float>(sliderValue / 100.0f);
-              // Settings::instance().musicVolume = musicVolume;
               AudioMixer::instance().setMusicVolume(musicVolume);
             });
 #endif
@@ -980,7 +989,6 @@ void UIManager::addToLayoutGroup(const std::string &groupName, UIElement *widget
 
 void UIManager::changeResolution(UIElement *sender)
 {
-  // TODO: Save settings
   ComboBox *combobox = dynamic_cast<ComboBox *>(sender);
   WindowManager::instance().setScreenResolution(combobox->getActiveID());
   Layout::arrangeElements();
@@ -993,7 +1001,6 @@ void UIManager::changeResolution(UIElement *sender)
 
 void UIManager::changeFullScreenMode(UIElement *sender)
 {
-  // TODO: Save settings
   ComboBox *combobox = dynamic_cast<ComboBox *>(sender);
   WindowManager::instance().setFullScreenMode(static_cast<FULLSCREEN_MODE>(combobox->getActiveID()));
   Layout::arrangeElements();
