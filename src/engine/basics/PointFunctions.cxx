@@ -1,4 +1,5 @@
 #include "PointFunctions.hxx"
+#include <cassert>
 
 // forward declarations
 static std::vector<Point> getLine;
@@ -241,7 +242,7 @@ NeighbourNodesPosition PointFunctions::getNeighborPositionToOrigin(const Point &
     }
     break;
   }
-  assert(false); // this should never happen!
+  //assert(false); // this should never happen!
 }
 
 bool PointFunctions::isNeighborOf(Point coordinateOne, Point coordinateTwo)

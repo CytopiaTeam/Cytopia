@@ -50,6 +50,8 @@ private:
    */
   void rebuildZoneAreas();
 
+  std::vector<int> findAllSutableZoneArea(const ZoneNode &zoneNode);
+
   std::vector<const MapNode *> m_MapNodes;
   std::vector<ZoneArea> m_zoneAreas;
   std::vector<ZoneNode> m_AllNodes; // keep track of all Points we have so we can sort them out

@@ -66,6 +66,25 @@ void ZoneManager::spawnBuildings()
 
 void ZoneManager::addZoneNode(MapNode *node) { m_MapNodes.emplace_back(node); }
 
+std::vector<int> ZoneManager::findAllSutableZoneArea(const ZoneNode &zoneNode)
+{
+  std::vector<int> neighborZones;
+  int i = 0;
+
+  for (auto &zoneArea : m_zoneAreas)
+  {
+    if ((zoneArea.getZone() == zoneNode.zone) && zoneArea.isWithinBoundaries(zoneNode.coordinate) &&
+        zoneArea.isNeighborOfZone(zoneNode.coordinate))
+    {
+      neighborZones.push_back(i);
+    }
+
+    ++i;
+  }
+
+  return neighborZones;
+}
+
 void ZoneManager::addZoneNode(Point coordinate, Zones zone, ZoneDensity ZoneDensity)
 {
   // NOTE: Ignore density for agricultural zone
@@ -75,72 +94,99 @@ void ZoneManager::addZoneNode(Point coordinate, Zones zone, ZoneDensity ZoneDens
   newZone.zone = zone;
   newZone.ZoneDensity = ZoneDensity;
 
-  m_AllNodes.push_back(newZone);
+  auto zoneNeighbour = findAllSutableZoneArea(newZone);
 
-  rebuildZoneAreas();
+  if (zoneNeighbour.empty())
+  {
+    // new zonearea
+    m_zoneAreas.emplace_back(newZone);
+  }
+  else if (zoneNeighbour.size() == 1)
+  {
+    // add to this zone
+    m_zoneAreas[zoneNeighbour[0]].addZoneNode(newZone);
+  }
+  else
+  {
+    // merge zone areas
+    ZoneArea &mergedZone = m_zoneAreas[zoneNeighbour[0]];
+    mergedZone.addZoneNode(newZone);
+
+    for (int idx = 1; idx < zoneNeighbour.size(); ++idx)
+    {
+      mergeZoneAreas(mergedZone, m_zoneAreas[zoneNeighbour[idx]]);
+    }
+
+    for (int idx = zoneNeighbour.size() - 1; idx > 0; --idx)
+    {
+      m_zoneAreas.erase(m_zoneAreas.begin() + zoneNeighbour[idx]);
+    }
+  }
+
+  m_AllNodes.push_back(newZone);
 }
 
 void ZoneManager::rebuildZoneAreas()
 {
-  // just a stub imoplementation to add one single area and all the nodes we have to it
-  for (auto node : m_AllNodes)
-  {
-    // if t here is no zone area yet, create the first one and add the current node.
-    ZoneArea newZoneArea;
-    LOG(LOG_INFO) << "Size " << m_zoneAreas.size();
-    if (m_zoneAreas.size() == 0)
-    {
-      newZoneArea.addZoneNode(node);
-      m_zoneAreas.push_back(newZoneArea);
-      continue;
-    }
+  //// just a stub imoplementation to add one single area and all the nodes we have to it
+  //for (auto node : m_AllNodes)
+  //{
+  //  // if t here is no zone area yet, create the first one and add the current node.
+  //  ZoneArea newZoneArea;
+  //  LOG(LOG_INFO) << "Size " << m_zoneAreas.size();
+  //  if (m_zoneAreas.size() == 0)
+  //  {
+  //    newZoneArea.addZoneNode(node);
+  //    m_zoneAreas.push_back(newZoneArea);
+  //    continue;
+  //  }
 
-    bool scanMoreNeighbors = true;
-    // now we scan all neighbors of our current loop until we don't find more neighbors.
-    int distance = 0;
-    LOG(LOG_INFO) << "neihbor+1";
-    while (scanMoreNeighbors)
-    {
-      bool nextIteration = false;
-      distance++;
-      for (auto coords : PointFunctions::getNeighbors(node.coordinate, false, distance))
-      {
-        LOG(LOG_INFO) << "Distance: " << distance;
-        if (nextIteration)
-          LOG(LOG_INFO) << "next iteration = true";
-        for (auto zoneArea : m_zoneAreas)
-        {
-          // LOG(LOG_INFO) << "scanning neighbor";
-          if (!zoneArea.isPartOfZone(coords))
-            LOG(LOG_INFO) << "it is not part of an existing zone";
-          if (zoneArea.isNeighborOfZone(coords))
-          {
-            LOG(LOG_INFO) << coords.x << ", " << coords.y << "it is a neighbor of an existing zone - adding it";
+  //  bool scanMoreNeighbors = true;
+  //  // now we scan all neighbors of our current loop until we don't find more neighbors.
+  //  int distance = 0;
+  //  LOG(LOG_INFO) << "neihbor+1";
+  //  while (scanMoreNeighbors)
+  //  {
+  //    bool nextIteration = false;
+  //    distance++;
+  //    for (auto coords : PointFunctions::getNeighbors(node.coordinate, false, distance))
+  //    {
+  //      LOG(LOG_INFO) << "Distance: " << distance;
+  //      if (nextIteration)
+  //        LOG(LOG_INFO) << "next iteration = true";
+  //      for (auto zoneArea : m_zoneAreas)
+  //      {
+  //        // LOG(LOG_INFO) << "scanning neighbor";
+  //        if (!zoneArea.isPartOfZone(coords))
+  //          LOG(LOG_INFO) << "it is not part of an existing zone";
+  //        if (zoneArea.isNeighborOfZone(coords))
+  //        {
+  //          LOG(LOG_INFO) << coords.x << ", " << coords.y << "it is a neighbor of an existing zone - adding it";
 
-            zoneArea.addZoneNode(getZoneNodeWithCoordinate(coords));
-            nextIteration = true;
-            break;
-          }
-        }
-      }
-      if (!nextIteration)
-      {
-        scanMoreNeighbors = false;
-      }
-    }
-    if (newZoneArea.getSize() != 0)
-    {
-      m_zoneAreas.push_back(newZoneArea);
-    }
-  }
+  //          zoneArea.addZoneNode(getZoneNodeWithCoordinate(coords));
+  //          nextIteration = true;
+  //          break;
+  //        }
+  //      }
+  //    }
+  //    if (!nextIteration)
+  //    {
+  //      scanMoreNeighbors = false;
+  //    }
+  //  }
+  //  if (newZoneArea.getSize() != 0)
+  //  {
+  //    m_zoneAreas.push_back(newZoneArea);
+  //  }
+  //}
 
-  LOG(LOG_INFO) << "Found areas: " << m_zoneAreas.size();
-  for (auto zone : m_zoneAreas)
-  {
-    int it = 1;
-    LOG(LOG_INFO) << "Zone " << it << " - size: " << zone.getSize();
-    it++;
-  }
+  //LOG(LOG_INFO) << "Found areas: " << m_zoneAreas.size();
+  //for (auto zone : m_zoneAreas)
+  //{
+  //  int it = 1;
+  //  LOG(LOG_INFO) << "Zone " << it << " - size: " << zone.getSize();
+  //  it++;
+  //}
 }
 
 void ZoneManager::removeZoneNode(MapNode *node)
@@ -222,5 +268,7 @@ ZoneNode ZoneManager::getZoneNodeWithCoordinate(Point coordinate)
       return node;
     }
   }
-  assert("This should not happen");
+
+  // "This should not happen"
+  //6assert(false);
 }
