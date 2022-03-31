@@ -537,10 +537,6 @@ void UIManager::setCallbackFunctions()
           toggleGroupVisibility("SettingsMenu");
         });
     }
-    else if (uiElement->getUiElementData().actionID == "ChangeResolution")
-    {
-      uiElement->registerCallbackFunction(Signal::slot(this, &UIManager::changeResolution));
-    }
   }
 }
 
