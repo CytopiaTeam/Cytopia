@@ -9,7 +9,7 @@ class ZoneManager
 {
 public:
   ZoneManager();
-  void addZoneNode(Point coordinate, Zones zone, ZoneDensity ZoneDensity);
+  void addZoneNode(Point coordinate, Zones zone, ZoneDensity zoneDensity);
   void removeZoneNode(Point coordinate);
 
 private:

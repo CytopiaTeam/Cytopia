@@ -23,6 +23,7 @@ void ZoneManager::spawnBuildings()
     LOG(LOG_INFO) << "zone area size: " << zoneArea.getSize();
     LOG(LOG_INFO) << "all nodes: " << m_AllNodes.size();
   }
+  LOG(LOG_DEBUG) << " Number of areas: " << m_zoneAreas.size();
 }
 
 std::vector<int> ZoneManager::findAllSuitableZoneArea(const ZoneNode &zoneNode)
@@ -32,7 +33,7 @@ std::vector<int> ZoneManager::findAllSuitableZoneArea(const ZoneNode &zoneNode)
 
   for (auto &zoneArea : m_zoneAreas)
   {
-    if ((zoneArea.getZone() == zoneNode.zone) && zoneArea.isWithinBoundaries(zoneNode.coordinate) &&
+    if (zoneArea.getZone() == zoneNode.zone && (zoneArea.getZoneDensity() == zoneNode.ZoneDensity) && zoneArea.isWithinBoundaries(zoneNode.coordinate) &&
         zoneArea.isNeighborOfZone(zoneNode.coordinate))
     {
       neighborZones.push_back(i);
@@ -43,14 +44,14 @@ std::vector<int> ZoneManager::findAllSuitableZoneArea(const ZoneNode &zoneNode)
   return neighborZones;
 }
 
-void ZoneManager::addZoneNode(Point coordinate, Zones zone, ZoneDensity ZoneDensity)
+void ZoneManager::addZoneNode(Point coordinate, Zones zone, ZoneDensity zoneDensity)
 {
   // NOTE: Ignore density for agricultural zone
   // do
   ZoneNode newZone;
   newZone.coordinate = coordinate;
   newZone.zone = zone;
-  newZone.ZoneDensity = ZoneDensity;
+  newZone.ZoneDensity = zoneDensity;
 
   LOG(LOG_INFO) << "ZoneManager::addZoneNode - " << coordinate.x << ", " << coordinate.y;
 
