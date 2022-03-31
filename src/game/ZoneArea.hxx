@@ -163,6 +163,15 @@ private:
   int xmin, xmax, ymin, ymax;
 
   friend void mergeZoneAreas(ZoneArea &mainZone, ZoneArea &toBeMerged);
+
+    /**
+   * @brief Returns the possible size of buildings that can be placed on this coordinate in a zone
+   * 
+   * @param originPoint - coordinate where we want to know how many free zone tiles there are next to it
+   * @return struct with height and with for the possible tilesize that can be placed on this coordinate
+   */
+  TileSize getMaximumTileSize(Point originPoint);
+
 };
 
 #endif
