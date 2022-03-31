@@ -26,12 +26,15 @@ TileData *TileManager::getTileData(const std::string &id) noexcept
   return nullptr;
 }
 
-std::vector<std::string> TileManager::getAllTileIDsForZone(Zones zone, TileSize tileSize)
+std::vector<std::string> TileManager::getAllTileIDsForZone(Zones zone, ZoneDensity zoneDensity, TileSize tileSize)
 {
   std::vector<std::string> results;
   for (auto &tileData : m_tileData)
   {
+    // TODO: AGRICULTURAL tiles do not have zone density
     if (std::find(tileData.second.zones.begin(), tileData.second.zones.end(), +zone) != tileData.second.zones.end() &&
+        std::find(tileData.second.zoneDensity.begin(), tileData.second.zoneDensity.end(), +zoneDensity) !=
+            tileData.second.zoneDensity.end() &&
         tileData.second.RequiredTiles.height == tileSize.height && tileData.second.RequiredTiles.width == tileSize.width)
     {
       results.push_back(tileData.first);
@@ -40,7 +43,7 @@ std::vector<std::string> TileManager::getAllTileIDsForZone(Zones zone, TileSize 
   return results;
 }
 
-std::string TileManager::getRandomTileIDForZoneWithRandomSize(Zones zone, TileSize maxTileSize)
+std::string TileManager::getRandomTileIDForZoneWithRandomSize(Zones zone, ZoneDensity zoneDensity, TileSize maxTileSize)
 {
   std::unordered_set<TileSize> elligibleTileSizes;
 
@@ -59,14 +62,14 @@ std::string TileManager::getRandomTileIDForZoneWithRandomSize(Zones zone, TileSi
   TileSize randomTileSize = *randomizer.choose(elligibleTileSizes.begin(), elligibleTileSizes.end());
 
   // get all tile IDs for the according zone and tilesize
-  const auto &tileIDsForThisZone = getAllTileIDsForZone(zone, randomTileSize);
+  const auto &tileIDsForThisZone = getAllTileIDsForZone(zone, zoneDensity, randomTileSize);
 
   if (tileIDsForThisZone.empty())
   {
     LOG(LOG_ERROR) << "No buildings available for zone: " << zone;
     return "";
   }
-  
+
   // return a random tileID
   return *randomizer.choose(tileIDsForThisZone.begin(), tileIDsForThisZone.end());
 }
