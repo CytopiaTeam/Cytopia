@@ -66,7 +66,7 @@ void ZoneManager::spawnBuildings()
 
 void ZoneManager::addZoneNode(MapNode *node) { m_MapNodes.emplace_back(node); }
 
-std::vector<int> ZoneManager::findAllSutableZoneArea(const ZoneNode &zoneNode)
+std::vector<int> ZoneManager::findAllSuitableZoneArea(const ZoneNode &zoneNode)
 {
   std::vector<int> neighborZones;
   int i = 0;
@@ -94,7 +94,7 @@ void ZoneManager::addZoneNode(Point coordinate, Zones zone, ZoneDensity ZoneDens
   newZone.zone = zone;
   newZone.ZoneDensity = ZoneDensity;
 
-  auto zoneNeighbour = findAllSutableZoneArea(newZone);
+  auto zoneNeighbour = findAllSuitableZoneArea(newZone);
 
   if (zoneNeighbour.empty())
   {
