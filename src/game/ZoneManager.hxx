@@ -9,10 +9,8 @@ class ZoneManager
 {
 public:
   ZoneManager();
-  void update();
-  void addZoneNode(MapNode *node);
   void addZoneNode(Point coordinate, Zones zone, ZoneDensity ZoneDensity);
-  void removeZoneNode(MapNode *node);
+  void removeZoneNode(Point coordinate);
 
 private:
   /**
@@ -31,7 +29,6 @@ private:
 
   std::vector<int> findAllSuitableZoneArea(const ZoneNode &zoneNode);
 
-  std::vector<const MapNode *> m_MapNodes;
   std::vector<ZoneArea> m_zoneAreas;
   std::vector<ZoneNode> m_AllNodes; // keep track of all Points we have so we can sort them out
 };

@@ -15,18 +15,15 @@ ZoneManager::ZoneManager()
       1s, 1s);
 }
 
-// Nothing here right now
-void ZoneManager::update() {}
-
 void ZoneManager::spawnBuildings()
 {
- for (auto zoneArea : m_zoneAreas)
- {
-   zoneArea.spawnBuildings();
- }
+  for (auto zoneArea : m_zoneAreas)
+  {
+    zoneArea.spawnBuildings();
+    LOG(LOG_INFO) << "zone area size: " << zoneArea.getSize();
+    LOG(LOG_INFO) << "all nodes: " << m_AllNodes.size();
+  }
 }
-
-void ZoneManager::addZoneNode(MapNode *node) { m_MapNodes.emplace_back(node); }
 
 std::vector<int> ZoneManager::findAllSuitableZoneArea(const ZoneNode &zoneNode)
 {
@@ -40,7 +37,6 @@ std::vector<int> ZoneManager::findAllSuitableZoneArea(const ZoneNode &zoneNode)
     {
       neighborZones.push_back(i);
     }
-
     ++i;
   }
 
@@ -55,6 +51,8 @@ void ZoneManager::addZoneNode(Point coordinate, Zones zone, ZoneDensity ZoneDens
   newZone.coordinate = coordinate;
   newZone.zone = zone;
   newZone.ZoneDensity = ZoneDensity;
+
+  LOG(LOG_INFO) << "ZoneManager::addZoneNode - " << coordinate.x << ", " << coordinate.y;
 
   auto zoneNeighbour = findAllSuitableZoneArea(newZone);
 
@@ -88,13 +86,38 @@ void ZoneManager::addZoneNode(Point coordinate, Zones zone, ZoneDensity ZoneDens
   m_AllNodes.push_back(newZone);
 }
 
-void ZoneManager::removeZoneNode(MapNode *node)
+void ZoneManager::removeZoneNode(Point coordinate)
 {
-  if (node)
+  LOG(LOG_INFO) << "ZoneManager::removeZoneNode - " << coordinate.x << ", " << coordinate.y;
+  for (auto zone : m_zoneAreas)
   {
-    LOG(LOG_INFO) << "Removing tiles does not yet work.";
-    // m_MapNodes.erase(std::remove(m_MapNodes.begin(), m_MapNodes.end(), node));
+    if (zone.isPartOfZone(coordinate))
+    {
+      zone.removeZoneNode(coordinate);
+    }
   }
+
+  LOG(LOG_DEBUG) << "size before " << m_AllNodes.size();
+
+  // remove if should remove elements from the vector
+  m_AllNodes.erase(std::remove_if(m_AllNodes.begin(), m_AllNodes.end(),
+                                  [coordinate](const ZoneNode &zone) { return zone.coordinate == coordinate; }),
+                   m_AllNodes.end());
+
+  LOG(LOG_DEBUG) << "size after " << m_AllNodes.size();
+
+  // this should also work, but doesn't
+  // for (auto it = m_AllNodes.begin(); it != m_AllNodes.end(); /* NOTHING */)
+  // {
+  //   if ((*it).coordinate == coordinate)
+  //   {
+  //     it = m_AllNodes.erase(it);
+  //   }
+  //   else
+  //   {
+  //     it++;
+  //   }
+  // }
 }
 
 ZoneNode ZoneManager::getZoneNodeWithCoordinate(Point coordinate)

@@ -24,34 +24,14 @@ public:
    * 
    * @param Coordinates of the mapNode with a zone tile
    */
-  void addZoneNode(ZoneNode zoneNode)
-  {
-    m_zoneNodes.push_back(zoneNode);
-  
-    if (zoneNode.coordinate.x == xmin)
-    {
-      xmin = std::max(0, xmin - 1);
-    }
-    else if (zoneNode.coordinate.x == xmax)
-    {
-      xmax = std::min(Settings::instance().mapSize, xmax + 1);
-    }
-    else if (zoneNode.coordinate.y == ymin)
-    {
-      ymin = std::max(0, ymin - 1);
-    }
-    else if (zoneNode.coordinate.y == ymax)
-    {
-      ymax = std::min(Settings::instance().mapSize, ymax + 1);
-    }
-  };
+  void addZoneNode(ZoneNode zoneNode);
 
   /**
    * @brief Remove a coordinates to a mapNode that has a zone placed on it.
    * 
    * @param Coordinates of the mapNode with a zone tile
    */
-  void removeZoneNode(Point Coordinate);
+  void removeZoneNode(Point coordinate);
 
   /**
    * @brief Add coordinates to a vacant mapNode (without a building) that has a zone placed on it.
