@@ -222,6 +222,11 @@ bool MapNode::isPlacementAllowed(const std::string &newTileID) const
       {
         return false;
       }
+      if (m_mapNodeData[layer].tileData && m_mapNodeData[layer].tileData->tileType == +TileType::DEFAULT &&
+          m_mapNodeData[layer].tileID == newTileID)
+      {
+        return false;
+      }
     }
     //this is a water tile and placeOnWater has not been set to true, building is not permitted. Also disallow placing of water tiles on non water tiles
     if (tileData->tileType != +TileType::WATER &&
