@@ -30,7 +30,7 @@ void Sprite::render() const
     if (MapLayers::isLayerActive(currentLayer) && m_SpriteData[currentLayer].texture)
     {
       // Don't draw zones when there is a building on this sprite
-      if(currentLayer == Layer::ZONE && m_SpriteData[Layer::BUILDINGS].texture)
+      if(currentLayer == Layer::ZONE && m_SpriteData[Layer::BUILDINGS].texture && MapLayers::isLayerActive(BUILDINGS))
       {
         continue;
       }

@@ -92,6 +92,12 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       case SDLK_4:
         MapLayers::toggleLayer(Layer::UNDERGROUND);
         break;
+      case SDLK_5:
+        MapLayers::toggleLayer(Layer::ZONE);
+        break;
+      case SDLK_6:
+        MapLayers::toggleLayer(Layer::GROUND_DECORATION);
+        break;
       case SDLK_i:
         m_tileInfoMode = !m_tileInfoMode;
         break;
@@ -544,7 +550,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       mouseIsoCoords = convertScreenToIsoCoordinates(mouseScreenCoords);
       // gather all nodes the objects that'll be placed is going to occupy.
       std::vector targetObjectNodes = engine.map->getObjectCoords(mouseIsoCoords, tileToPlace);
-      
+
       if (event.button.button == SDL_BUTTON_LEFT)
       {
         if (m_tileInfoMode)
