@@ -699,13 +699,14 @@ bool Map::isAllowSetTileId(const Layer layer, const MapNode *const pMapNode)
 {
   switch (layer)
   {
-  case Layer::ROAD:
-    // During road construction, do not place new road tile over the old one
-    if (pMapNode->isLayerOccupied(layer))
-    {
-      return false;
-    }
-    break;
+  // Lisa: I disabled this check. This should not be explicitly forbidden by roads and rather be handled via the isOverplacable flag.
+  // case Layer::ROAD:
+  //   // During road construction, do not place new road tile over the old one
+  //   if (pMapNode->isLayerOccupied(layer))
+  //   {
+  //     return false;
+  //   }
+  //   break;
   case Layer::ZONE:
     if ((pMapNode->isLayerOccupied(Layer::BUILDINGS) &&
          pMapNode->getMapNodeDataForLayer(Layer::BUILDINGS).tileData->category != "Flora") ||
