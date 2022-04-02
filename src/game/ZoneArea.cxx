@@ -16,9 +16,9 @@ void mergeZoneAreas(ZoneArea &mainZone, ZoneArea &toBeMerged)
 };
 
 ZoneArea::ZoneArea(ZoneNode zoneNode)
-    : m_zoneNodes{zoneNode}, xmin(std::max(0, zoneNode.coordinate.x - 1)), m_zone(zoneNode.zone), m_zoneDensity(zoneNode.zoneDensity),
-      xmax(std::min(Settings::instance().mapSize, zoneNode.coordinate.x + 1)), ymin(std::max(0, zoneNode.coordinate.y - 1)),
-      ymax(std::min(Settings::instance().mapSize, zoneNode.coordinate.y + 1))
+    : m_zoneNodes{zoneNode}, xmin(std::max(0, zoneNode.coordinate.x - 1)), m_zone(zoneNode.zone),
+      m_zoneDensity(zoneNode.zoneDensity), xmax(std::min(Settings::instance().mapSize, zoneNode.coordinate.x + 1)),
+      ymin(std::max(0, zoneNode.coordinate.y - 1)), ymax(std::min(Settings::instance().mapSize, zoneNode.coordinate.y + 1))
 {
 }
 
@@ -137,12 +137,12 @@ void ZoneArea::removeZoneNode(Point coordinate)
 {
   LOG(LOG_INFO) << "ZoneArea::removeZoneNode - " << coordinate.x << ", " << coordinate.y;
 
-      LOG(LOG_DEBUG) << "Before removal. Size" << getSize();
+  LOG(LOG_DEBUG) << "Before removal. Size" << getSize();
 
-m_zoneNodes.erase(std::remove_if(m_zoneNodes.begin(), m_zoneNodes.end(),
-                          [coordinate](const ZoneNode& zone){ return zone.coordinate == coordinate; }),
-           m_zoneNodes.end());
-      LOG(LOG_DEBUG) << "After removal. Size" << getSize();
+  m_zoneNodes.erase(std::remove_if(m_zoneNodes.begin(), m_zoneNodes.end(),
+                                   [coordinate](const ZoneNode &zone) { return zone.coordinate == coordinate; }),
+                    m_zoneNodes.end());
+  LOG(LOG_DEBUG) << "After removal. Size" << getSize();
 
   // for (auto it = m_zoneNodes.begin(); it != m_zoneNodes.end(); /* NOTHING */)
   // {

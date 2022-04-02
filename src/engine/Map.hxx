@@ -294,10 +294,12 @@ private:
 
   // Signals
   Signal::Signal<void(const MapNode &)> placeTilesSignal;
+  Signal::Signal<void(MapNode *)> demolishNodesSignal;
 
 public:
   // Callback functions
   void registerCallbackFunction(std::function<void(const MapNode &)> const &cb) { placeTilesSignal.connect(cb); }
+  void registerCallbackFunction(std::function<void(MapNode *)> const &cb) { demolishNodesSignal.connect(cb); }
 };
 
 #endif

@@ -23,6 +23,17 @@ ZoneManager::ZoneManager()
         }
       });
 
+  Engine::instance().map->registerCallbackFunction(
+      [this](const MapNode *mapNode)
+      {
+        // If we place a zone tile, add it to the ZoneManager
+        if (mapNode->getTileData(Layer::ZONE) && !mapNode->getTileData(Layer::ZONE)->zones.empty() &&
+            !mapNode->getTileData(Layer::ZONE)->zoneDensity.empty())
+        {
+          removeZoneNode(mapNode->getCoordinates());
+        }
+      });
+
   GameClock::instance().addRealTimeClockTask(
       [this]()
       {
@@ -36,11 +47,15 @@ void ZoneManager::spawnBuildings()
 {
   for (auto zoneArea : m_zoneAreas)
   {
-    zoneArea.spawnBuildings();
-    LOG(LOG_INFO) << "zone area size: " << zoneArea.getSize();
-    LOG(LOG_INFO) << "all nodes: " << m_AllNodes.size();
+    // check if there are any buildings to spawn, if not, do nothing.
+    if (zoneArea.getSize() != 0)
+    {
+      zoneArea.spawnBuildings();
+    }
+    // LOG(LOG_INFO) << "zone area size: " << zoneArea.getSize();
+    // LOG(LOG_INFO) << "all nodes: " << m_AllNodes.size();
   }
-  LOG(LOG_DEBUG) << " Number of areas: " << m_zoneAreas.size();
+  // LOG(LOG_DEBUG) << " Number of areas: " << m_zoneAreas.size();
 }
 
 std::vector<int> ZoneManager::findAllSuitableZoneArea(const ZoneNode &zoneNode)
@@ -69,8 +84,6 @@ void ZoneManager::addZoneNode(Point coordinate, Zones zone, ZoneDensity zoneDens
   newZone.coordinate = coordinate;
   newZone.zone = zone;
   newZone.zoneDensity = zoneDensity;
-
-  LOG(LOG_INFO) << "ZoneManager::addZoneNode - " << coordinate.x << ", " << coordinate.y;
 
   auto zoneNeighbour = findAllSuitableZoneArea(newZone);
 
