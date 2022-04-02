@@ -8,6 +8,7 @@
 #include "map/TerrainGenerator.hxx"
 #include "../game/GamePlay.hxx"
 #include "PointFunctions.hxx"
+#include "basics/signal.hxx"
 
 struct NeighborNode
 {
@@ -129,15 +130,9 @@ public:
       {
         nodesToBeUpdated.push_back(&currentMapNode);
       }
-      // If we place a zone tile, add it to the ZoneManager
-      if (currentMapNode.getTileData(Layer::ZONE) && !currentMapNode.getTileData(Layer::ZONE)->zones.empty() &&
-          !currentMapNode.getTileData(Layer::ZONE)->zoneDensity.empty())
-      {
-        // a zone tile only has one zone tied to it. the one it represents, so pick first element of vector
-        GamePlay::instance().getZoneManager().addZoneNode(currentMapNode.getCoordinates(),
-                                                          currentMapNode.getTileData(Layer::ZONE)->zones[0],
-                                                          currentMapNode.getTileData(Layer::ZONE)->zoneDensity[0]);
-      }
+
+      // emit a signal to notify manager
+      placeTilesSignal.emit(currentMapNode);
     }
 
     if (!nodesToBeUpdated.empty())
@@ -296,6 +291,13 @@ private:
   TerrainGenerator m_terrainGen;
 
   static const size_t m_saveGameVersion;
+
+  // Signals
+  Signal::Signal<void(const MapNode &)> placeTilesSignal;
+
+public:
+  // Callback functions
+  void registerCallbackFunction(std::function<void(const MapNode &)> const &cb) { placeTilesSignal.connect(cb); }
 };
 
 #endif

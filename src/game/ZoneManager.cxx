@@ -6,6 +6,23 @@
 
 ZoneManager::ZoneManager()
 {
+  if (!Engine::instance().map)
+  {
+    LOG(LOG_ERROR) << "ZoneManager() constructor has been called with no valid map object available!";
+  }
+
+  Engine::instance().map->registerCallbackFunction(
+      [this](const MapNode &mapNode)
+      {
+        // If we place a zone tile, add it to the ZoneManager
+        if (mapNode.getTileData(Layer::ZONE) && !mapNode.getTileData(Layer::ZONE)->zones.empty() &&
+            !mapNode.getTileData(Layer::ZONE)->zoneDensity.empty())
+        {
+          addZoneNode(mapNode.getCoordinates(), mapNode.getTileData(Layer::ZONE)->zones[0],
+                      mapNode.getTileData(Layer::ZONE)->zoneDensity[0]);
+        }
+      });
+
   GameClock::instance().addRealTimeClockTask(
       [this]()
       {
@@ -33,8 +50,8 @@ std::vector<int> ZoneManager::findAllSuitableZoneArea(const ZoneNode &zoneNode)
 
   for (auto &zoneArea : m_zoneAreas)
   {
-    if (zoneArea.getZone() == zoneNode.zone && (zoneArea.getZoneDensity() == zoneNode.zoneDensity) && zoneArea.isWithinBoundaries(zoneNode.coordinate) &&
-        zoneArea.isNeighborOfZone(zoneNode.coordinate))
+    if (zoneArea.getZone() == zoneNode.zone && (zoneArea.getZoneDensity() == zoneNode.zoneDensity) &&
+        zoneArea.isWithinBoundaries(zoneNode.coordinate) && zoneArea.isNeighborOfZone(zoneNode.coordinate))
     {
       neighborZones.push_back(i);
     }
