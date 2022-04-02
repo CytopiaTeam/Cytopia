@@ -93,15 +93,6 @@ void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
       break;
     }
 
-    if (isLayerOccupied(Layer::ZONE))
-    {
-      // TODO: check decorations.
-      if (tileData->category != "Flora" && tileData->category != m_mapNodeData[Layer::ZONE].tileData->subCategory)
-      {
-        // selected tile category != existed zone category.
-        demolishLayer(Layer::ZONE);
-      }
-    }
     m_mapNodeData[layer].origCornerPoint = origCornerPoint;
     m_previousTileID = m_mapNodeData[layer].tileID;
     m_mapNodeData[layer].tileData = tileData;
