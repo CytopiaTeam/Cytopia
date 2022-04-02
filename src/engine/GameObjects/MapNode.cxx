@@ -223,7 +223,7 @@ bool MapNode::isPlacementAllowed(const std::string &newTileID) const
         return false;
       }
       if (m_mapNodeData[layer].tileData && m_mapNodeData[layer].tileData->tileType == +TileType::DEFAULT &&
-          m_mapNodeData[layer].tileID == newTileID)
+          !m_mapNodeData[layer].tileData->isOverPlacable)
       {
         return false;
       }
