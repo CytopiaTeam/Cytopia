@@ -24,15 +24,31 @@ ZoneArea::ZoneArea(ZoneNode zoneNode)
 
 void ZoneArea::spawnBuildings()
 {
+
   constexpr int amountOfBuildingsToSpawn = 5;
   auto &randomizer = Randomizer::instance();
   // shuffle mapNodes so placement of building looks random
   randomizer.shuffle(m_zoneNodes.begin(), m_zoneNodes.end());
 
   int buildingsSpawned = 0;
+
+    //   auto it = std::find_if(m_zoneNodes.begin(), m_zoneNodes.end(),[](const ZoneNode& node) { 
+    //     return node.occupied == false;
+    // });
+    // if (it != m_zoneNodes.end())
+    // {
+    //   LOG(LOG_INFO) << "Free building at " << (*it).coordinate.x << ", " << (*it).coordinate.y;
+    //   // std::cout <<  (*it).coordinate.x << "\n"; 
+    // }   
+
   // pick every single zone node we have
   for (auto &node : m_zoneNodes)
   {
+    if (node.occupied)
+    {
+      continue;
+    }
+    #
     if (buildingsSpawned >= amountOfBuildingsToSpawn)
     {
       break;
@@ -111,6 +127,15 @@ TileSize ZoneArea::getMaximumTileSize(Point originPoint)
 
 void ZoneArea::addZoneNode(ZoneNode zoneNode)
 {
+
+//   if (std::find(m_zoneNodes.begin(), m_zoneNodes.end(), zoneNode) != m_zoneNodes.end()
+//   {return;}
+// )
+  // if (std::find_if(m_zoneNodes.begin(), m_zoneNodes.end(),
+  //                                  [zoneNode](const ZoneNode &zone) { return zone.coordinate == zoneNode.coordinate; }),
+  //                   m_zoneNodes.end())
+
+  // TODO: need to only add a zonenode if it is not already in the vector
   m_zoneNodes.push_back(zoneNode);
 
   if (zoneNode.coordinate.x == xmin)

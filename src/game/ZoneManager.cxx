@@ -22,6 +22,21 @@ ZoneManager::ZoneManager()
           addZoneNode(mapNode.getCoordinates(), mapNode.getTileData(Layer::ZONE)->zones[0],
                       mapNode.getTileData(Layer::ZONE)->zoneDensity[0]);
         }
+        if (mapNode.getTileData(Layer::BUILDINGS) && mapNode.getTileData(Layer::ZONE))
+        {
+          for (auto zoneArea : m_zoneAreas)
+          {
+            zoneArea.occupyZoneNode(mapNode.getCoordinates());
+            int occupied = 0;
+            for (auto node : zoneArea.m_zoneNodes)
+            {
+              if (node.occupied)
+              occupied++;
+            }
+            // TODO: This still has debug stuff in it.
+            LOG(LOG_INFO) << "occupied nodes: " << occupied << " of " << zoneArea.getSize();
+          }
+        }
       });
 
   Engine::instance().map->registerCallbackFunction(
