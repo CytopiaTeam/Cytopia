@@ -272,6 +272,9 @@ void Game::run(bool SkipMenu)
 
   GameClock &gameClock = GameClock::instance();
 
+  GamePlay &m_GamePlay = GamePlay::instance();
+
+
 #ifdef USE_ANGELSCRIPT
   ScriptEngine &scriptEngine = ScriptEngine::instance();
   scriptEngine.init();
@@ -319,6 +322,7 @@ void Game::run(bool SkipMenu)
   Uint32 fpsLastTime = SDL_GetTicks();
   Uint32 fpsFrames = 0;
 
+
   // GameLoop
   while (engine.isGameRunning())
   {
@@ -328,7 +332,7 @@ void Game::run(bool SkipMenu)
     SDL_RenderClear(WindowManager::instance().getRenderer());
 
     evManager.checkEvents(event, engine);
-    // TODO: Add Gameplay class and call Gameplay.DoStuff() here instead of zonemanager stuff
+    // TODO: Add Gameplay class and call Gameplay.DoStuff() here instead of ^er stuff
     gameClock.tick();
 
     m_GamePlay.update();
