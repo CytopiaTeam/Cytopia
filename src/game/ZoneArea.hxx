@@ -35,13 +35,6 @@ public:
   void removeZoneNode(Point coordinate);
 
   /**
-   * @brief Add coordinates to a vacant mapNode (without a building) that has a zone placed on it.
-   * 
-   * @param Coordinates of the mapNode with a zone tile
-   */
-  void addEmptyZoneNode(Point Coordinate) { m_zoneNodesEmpty.push_back(Coordinate); };
-
-  /**
    * @brief Remove coordinates to a vacant mapNode (without a building) that has a zone placed on it.
    * 
    * @param Coordinates of the mapNode with a zone tile
