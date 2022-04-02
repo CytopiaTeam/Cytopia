@@ -33,7 +33,7 @@ std::vector<int> ZoneManager::findAllSuitableZoneArea(const ZoneNode &zoneNode)
 
   for (auto &zoneArea : m_zoneAreas)
   {
-    if (zoneArea.getZone() == zoneNode.zone && (zoneArea.getZoneDensity() == zoneNode.ZoneDensity) && zoneArea.isWithinBoundaries(zoneNode.coordinate) &&
+    if (zoneArea.getZone() == zoneNode.zone && (zoneArea.getZoneDensity() == zoneNode.zoneDensity) && zoneArea.isWithinBoundaries(zoneNode.coordinate) &&
         zoneArea.isNeighborOfZone(zoneNode.coordinate))
     {
       neighborZones.push_back(i);
@@ -51,7 +51,7 @@ void ZoneManager::addZoneNode(Point coordinate, Zones zone, ZoneDensity zoneDens
   ZoneNode newZone;
   newZone.coordinate = coordinate;
   newZone.zone = zone;
-  newZone.ZoneDensity = zoneDensity;
+  newZone.zoneDensity = zoneDensity;
 
   LOG(LOG_INFO) << "ZoneManager::addZoneNode - " << coordinate.x << ", " << coordinate.y;
 

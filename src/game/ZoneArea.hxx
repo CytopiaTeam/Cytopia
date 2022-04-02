@@ -8,7 +8,7 @@ struct ZoneNode
 {
   Point coordinate = Point::INVALID();
   Zones zone = Zones::RESIDENTIAL;
-  ZoneDensity ZoneDensity = ZoneDensity::LOW;
+  ZoneDensity zoneDensity = ZoneDensity::LOW;
 };
 
 class ZoneArea;
