@@ -9,6 +9,7 @@ struct ZoneNode
   Point coordinate = Point::INVALID();
   Zones zone = Zones::RESIDENTIAL;
   ZoneDensity zoneDensity = ZoneDensity::LOW;
+  bool occupied = false;
 };
 
 class ZoneArea;
@@ -132,9 +133,11 @@ public:
     return (xmin <= coordinate.x) && (xmax >= coordinate.x) && (ymin <= coordinate.y) && (ymax >= coordinate.y);
   }
 
+  void occupyZoneNode(Point coordinate);
+  void freeZoneNode(Point coordinate);
+
 private:
   std::vector<ZoneNode> m_zoneNodes;
-  std::vector<Point> m_zoneNodesEmpty;
   Zones m_zone = Zones::RESIDENTIAL;
   ZoneDensity m_zoneDensity = ZoneDensity::LOW;
   bool m_hasPower;
@@ -144,14 +147,13 @@ private:
 
   friend void mergeZoneAreas(ZoneArea &mainZone, ZoneArea &toBeMerged);
 
-    /**
+  /**
    * @brief Returns the possible size of buildings that can be placed on this coordinate in a zone
    * 
    * @param originPoint - coordinate where we want to know how many free zone tiles there are next to it
    * @return struct with height and with for the possible tilesize that can be placed on this coordinate
    */
   TileSize getMaximumTileSize(Point originPoint);
-
 };
 
 #endif

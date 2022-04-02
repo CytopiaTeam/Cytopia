@@ -111,8 +111,6 @@ TileSize ZoneArea::getMaximumTileSize(Point originPoint)
 
 void ZoneArea::addZoneNode(ZoneNode zoneNode)
 {
-  LOG(LOG_INFO) << "ZoneArea::addZoneNode - " << zoneNode.coordinate.x << ", " << zoneNode.coordinate.y;
-
   m_zoneNodes.push_back(zoneNode);
 
   if (zoneNode.coordinate.x == xmin)
@@ -142,6 +140,7 @@ void ZoneArea::removeZoneNode(Point coordinate)
   m_zoneNodes.erase(std::remove_if(m_zoneNodes.begin(), m_zoneNodes.end(),
                                    [coordinate](const ZoneNode &zone) { return zone.coordinate == coordinate; }),
                     m_zoneNodes.end());
+
   LOG(LOG_DEBUG) << "After removal. Size" << getSize();
 
   // for (auto it = m_zoneNodes.begin(); it != m_zoneNodes.end(); /* NOTHING */)
@@ -158,4 +157,20 @@ void ZoneArea::removeZoneNode(Point coordinate)
   //     it++;
   //   }
   // }
+}
+
+void ZoneArea::occupyZoneNode(Point coordinate)
+{
+  for (auto &zoneNode : m_zoneNodes)
+  {
+    zoneNode.occupied = true;
+  }
+}
+
+void ZoneArea::freeZoneNode(Point coordinate)
+{
+  for (auto &zoneNode : m_zoneNodes)
+  {
+    zoneNode.occupied = false;
+  }
 }
