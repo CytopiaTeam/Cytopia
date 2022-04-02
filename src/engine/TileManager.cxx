@@ -35,7 +35,7 @@ std::vector<std::string> TileManager::getAllTileIDsForZone(Zones zone, ZoneDensi
     if (std::find(tileData.second.zones.begin(), tileData.second.zones.end(), +zone) != tileData.second.zones.end() &&
         std::find(tileData.second.zoneDensity.begin(), tileData.second.zoneDensity.end(), +zoneDensity) !=
             tileData.second.zoneDensity.end() &&
-        tileData.second.RequiredTiles.height == tileSize.height && tileData.second.RequiredTiles.width == tileSize.width)
+        tileData.second.RequiredTiles.height == tileSize.height && tileData.second.RequiredTiles.width == tileSize.width && tileData.second.tileType != +TileType::ZONE)
     {
       results.push_back(tileData.first);
     }
