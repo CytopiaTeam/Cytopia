@@ -27,7 +27,9 @@ private:
    */
   ZoneNode getZoneNodeWithCoordinate(Point coordinate);
 
-  std::vector<int> findAllSuitableZoneArea(const ZoneNode &zoneNode);
+  std::vector<int> findAllSuitableZoneArea(const ZoneNode &zoneNode, std::vector<ZoneArea> &zoneAreas);
+  void addZoneNodeToArea(ZoneNode &zoneNode, std::vector<ZoneArea> &zoneAreas);
+  std::vector<ZoneArea> rebuildZoneArea(ZoneArea &zoneArea);
 
   std::vector<ZoneArea> m_zoneAreas;
   std::vector<ZoneNode> m_AllNodes; // keep track of all Points we have so we can sort them out

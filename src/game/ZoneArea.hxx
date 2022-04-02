@@ -18,7 +18,7 @@ void mergeZoneAreas(ZoneArea &mainZone, ZoneArea &toBeMerged);
 class ZoneArea
 {
 public:
-// TODO: This must not be public, only for debug now
+  // TODO: This must not be public, only for debug now
   std::vector<ZoneNode> m_zoneNodes;
 
   ZoneArea(ZoneNode zoneNode);
@@ -131,6 +131,9 @@ public:
 
   void occupyZoneNode(Point coordinate);
   void freeZoneNode(Point coordinate);
+
+  auto begin() { return m_zoneNodes.begin(); }
+  auto end() { return m_zoneNodes.end(); }
 
 private:
   Zones m_zone = Zones::RESIDENTIAL;

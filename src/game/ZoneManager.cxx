@@ -31,7 +31,7 @@ ZoneManager::ZoneManager()
             for (auto node : zoneArea.m_zoneNodes)
             {
               if (node.occupied)
-              occupied++;
+                occupied++;
             }
             // TODO: This still has debug stuff in it.
             LOG(LOG_INFO) << "occupied nodes: " << occupied << " of " << zoneArea.getSize();
@@ -97,12 +97,12 @@ void ZoneManager::spawnBuildings()
   // LOG(LOG_DEBUG) << " Number of areas: " << m_zoneAreas.size();
 }
 
-std::vector<int> ZoneManager::findAllSuitableZoneArea(const ZoneNode &zoneNode)
+std::vector<int> ZoneManager::findAllSuitableZoneArea(const ZoneNode &zoneNode, std::vector<ZoneArea> &zoneAreas)
 {
   std::vector<int> neighborZones;
   int i = 0;
 
-  for (auto &zoneArea : m_zoneAreas)
+  for (auto &zoneArea : zoneAreas)
   {
     if (zoneArea.getZone() == zoneNode.zone && (zoneArea.getZoneDensity() == zoneNode.zoneDensity) &&
         zoneArea.isWithinBoundaries(zoneNode.coordinate) && zoneArea.isNeighborOfZone(zoneNode.coordinate))
@@ -118,76 +118,88 @@ std::vector<int> ZoneManager::findAllSuitableZoneArea(const ZoneNode &zoneNode)
 void ZoneManager::addZoneNode(Point coordinate, Zones zone, ZoneDensity zoneDensity)
 {
   // NOTE: Ignore density for agricultural zone
-  // do
-  ZoneNode newZone;
-  newZone.coordinate = coordinate;
-  newZone.zone = zone;
-  newZone.zoneDensity = zoneDensity;
+  ZoneNode newZone{coordinate, zone, zoneDensity, false};
+  addZoneNodeToArea(newZone, m_zoneAreas);
+  m_AllNodes.push_back(newZone);
+}
 
-  auto zoneNeighbour = findAllSuitableZoneArea(newZone);
+void ZoneManager::addZoneNodeToArea(ZoneNode &zoneNode, std::vector<ZoneArea> &zoneAreas)
+{
+  auto zoneNeighbour = findAllSuitableZoneArea(zoneNode, zoneAreas);
 
   if (zoneNeighbour.empty())
   {
     // new zonearea
-    m_zoneAreas.emplace_back(newZone);
+    zoneAreas.emplace_back(zoneNode);
   }
   else if (zoneNeighbour.size() == 1)
   {
     // add to this zone
-    m_zoneAreas[zoneNeighbour[0]].addZoneNode(newZone);
+    zoneAreas[zoneNeighbour[0]].addZoneNode(zoneNode);
   }
   else
   {
     // merge zone areas
-    ZoneArea &mergedZone = m_zoneAreas[zoneNeighbour[0]];
-    mergedZone.addZoneNode(newZone);
+    ZoneArea &mergedZone = zoneAreas[zoneNeighbour[0]];
+    mergedZone.addZoneNode(zoneNode);
 
     for (int idx = 1; idx < zoneNeighbour.size(); ++idx)
     {
-      mergeZoneAreas(mergedZone, m_zoneAreas[zoneNeighbour[idx]]);
+      mergeZoneAreas(mergedZone, zoneAreas[zoneNeighbour[idx]]);
     }
 
     for (int idx = zoneNeighbour.size() - 1; idx > 0; --idx)
     {
-      m_zoneAreas.erase(m_zoneAreas.begin() + zoneNeighbour[idx]);
+      zoneAreas.erase(zoneAreas.begin() + zoneNeighbour[idx]);
     }
   }
+}
 
-  m_AllNodes.push_back(newZone);
+std::vector<ZoneArea> ZoneManager::rebuildZoneArea(ZoneArea &zoneArea)
+{
+  std::vector<ZoneArea> newZoneAreas;
+
+  for (ZoneNode zoneNode : zoneArea)
+  {
+    addZoneNodeToArea(zoneNode, newZoneAreas);
+  }
+
+  return newZoneAreas;
 }
 
 void ZoneManager::removeZoneNode(Point coordinate)
 {
-  LOG(LOG_INFO) << "ZoneManager::removeZoneNode - " << coordinate.x << ", " << coordinate.y;
-  for (auto zone : m_zoneAreas)
+  for (auto zoneIt = m_zoneAreas.begin(); zoneIt != m_zoneAreas.end(); zoneIt++)
   {
-    if (zone.isPartOfZone(coordinate))
+    if (zoneIt->isPartOfZone(coordinate))
     {
-      zone.removeZoneNode(coordinate);
+      zoneIt->removeZoneNode(coordinate);
+
+      if (zoneIt->getSize() == 0)
+      {
+        m_zoneAreas.erase(zoneIt);
+      }
+      else
+      {
+        auto zoneAreas = rebuildZoneArea(*zoneIt);
+        assert(zoneAreas.size() > 0);
+        // If zoneAreas size is 1, means zoneArea is still compact, nothing to be done
+
+        if (zoneAreas.size() > 1)
+        {
+          m_zoneAreas.erase(zoneIt);
+          m_zoneAreas.insert(m_zoneAreas.end(), zoneAreas.begin(), zoneAreas.end());
+        }
+      }
+
+      break;
     }
   }
-
-  LOG(LOG_DEBUG) << "size before " << m_AllNodes.size();
 
   // remove if should remove elements from the vector
   m_AllNodes.erase(std::remove_if(m_AllNodes.begin(), m_AllNodes.end(),
                                   [coordinate](const ZoneNode &zone) { return zone.coordinate == coordinate; }),
                    m_AllNodes.end());
-
-  LOG(LOG_DEBUG) << "size after " << m_AllNodes.size();
-
-  // this should also work, but doesn't
-  // for (auto it = m_AllNodes.begin(); it != m_AllNodes.end(); /* NOTHING */)
-  // {
-  //   if ((*it).coordinate == coordinate)
-  //   {
-  //     it = m_AllNodes.erase(it);
-  //   }
-  //   else
-  //   {
-  //     it++;
-  //   }
-  // }
 }
 
 ZoneNode ZoneManager::getZoneNodeWithCoordinate(Point coordinate)
