@@ -66,7 +66,6 @@ std::string TileManager::getRandomTileIDForZoneWithRandomSize(Zones zone, ZoneDe
 
   if (tileIDsForThisZone.empty())
   {
-    LOG(LOG_ERROR) << "No buildings available for zone: " << zone;
     return "";
   }
 
