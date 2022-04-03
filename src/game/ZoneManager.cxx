@@ -15,23 +15,17 @@ ZoneManager::ZoneManager()
   Engine::instance().map->registerCallbackFunction(
       [this](const MapNode &mapNode)
       {
-        // If we place a zone tile, add it to the ZoneManager
-
+        // If we place a building on zone tile, occupy the node
         if (mapNode.getTileData(Layer::BUILDINGS) && mapNode.getTileData(Layer::ZONE))
         {
           for (auto &zoneArea : m_zoneAreas)
           {
             zoneArea.occupyZoneNode(mapNode.getCoordinates());
-            int occupied = 0;
-
-            // TODO: This still has debug stuff in it.
-            LOG(LOG_INFO) << "occupied nodes: " << occupied << " of " << zoneArea.getSize();
           }
         }
-        else if (mapNode.getTileData(Layer::ZONE) && !mapNode.getTileData(Layer::ZONE)->zones.empty() &&
-                 !mapNode.getTileData(Layer::ZONE)->zoneDensity.empty())
+        // If we place a zone tile, add it
+        else if (mapNode.getTileData(Layer::ZONE))
         {
-          LOG(LOG_INFO) << "Adding a node";
           addZoneNode(mapNode.getCoordinates(), mapNode.getTileData(Layer::ZONE)->zones[0],
                       mapNode.getTileData(Layer::ZONE)->zoneDensity[0]);
         }
