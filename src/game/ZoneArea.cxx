@@ -32,15 +32,6 @@ void ZoneArea::spawnBuildings()
 
   int buildingsSpawned = 0;
 
-  //   auto it = std::find_if(m_zoneNodes.begin(), m_zoneNodes.end(),[](const ZoneNode& node) {
-  //     return node.occupied == false;
-  // });
-  // if (it != m_zoneNodes.end())
-  // {
-  //   LOG(LOG_INFO) << "Free building at " << (*it).coordinate.x << ", " << (*it).coordinate.y;
-  //   // std::cout <<  (*it).coordinate.x << "\n";
-  // }
-
   // pick every single zone node we have
   for (auto &node : m_zoneNodes)
   {
@@ -48,33 +39,18 @@ void ZoneArea::spawnBuildings()
     {
       continue;
     }
-#
+
     if (buildingsSpawned >= amountOfBuildingsToSpawn)
     {
       break;
     }
-
-    // !! --- -IMPORTANT ----- check if neighboring node is already occupied
-    // if a building is bigger than one node, the adjacent nodes will no longer be a zone node and buildings can't be spawned there
-    // consider that we're in a loop and if the zones stay, they will still be in the vector we're iterating over.
-    // if (!node || !node->getTileData(Layer::ZONE))
-    // {
-    //   continue; // if the node that is still in the vector is no longer a zone node, skip
-    // }
-
-    // a building can be tied to multiple zones. So get all elligible zones for this building
-    std::vector<std::string> availableZoneTiles;
-
-    // get the maximum size we can spawn at this node, but limit it by 4x4 tiles
-    unsigned int maxSizeX = std::min(4, static_cast<int>(getMaximumTileSize(node.coordinate).width));
-    unsigned int maxSizeY = std::min(4, static_cast<int>(getMaximumTileSize(node.coordinate).height));
-    TileSize maxTileSize = {maxSizeX, maxSizeY};
-
-    std::string building = TileManager::instance().getRandomTileIDForZoneWithRandomSize(getZone(), getZoneDensity(), maxTileSize);
+    // get the maximum size we can spawn at this node
+    TileSize maxTileSize = {getMaximumTileSize(node.coordinate).width, getMaximumTileSize(node.coordinate).height};
+    std::string buildingTileID = TileManager::instance().getRandomTileIDForZoneWithRandomSize(getZone(), getZoneDensity(), maxTileSize);
 
     // place the building
-    std::vector targetObjectNodes = Engine::instance().map->getObjectCoords(node.coordinate, building);
-    Engine::instance().setTileIDOfNode(targetObjectNodes.begin(), targetObjectNodes.end(), building, false);
+    std::vector targetObjectNodes = Engine::instance().map->getObjectCoords(node.coordinate, buildingTileID);
+    Engine::instance().setTileIDOfNode(targetObjectNodes.begin(), targetObjectNodes.end(), buildingTileID, false);
     buildingsSpawned++;
   }
 }
@@ -127,15 +103,6 @@ TileSize ZoneArea::getMaximumTileSize(Point originPoint)
 
 void ZoneArea::addZoneNode(ZoneNode zoneNode)
 {
-
-  //   if (std::find(m_zoneNodes.begin(), m_zoneNodes.end(), zoneNode) != m_zoneNodes.end()
-  //   {return;}
-  // )
-  // if (std::find_if(m_zoneNodes.begin(), m_zoneNodes.end(),
-  //                                  [zoneNode](const ZoneNode &zone) { return zone.coordinate == zoneNode.coordinate; }),
-  //                   m_zoneNodes.end())
-
-  // TODO: need to only add a zonenode if it is not already in the vector
   m_zoneNodes.push_back(zoneNode);
 
   if (zoneNode.coordinate.x == xmin)
