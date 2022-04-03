@@ -118,6 +118,14 @@ std::vector<int> ZoneManager::findAllSuitableZoneArea(const ZoneNode &zoneNode, 
 void ZoneManager::addZoneNode(Point coordinate, Zones zone, ZoneDensity zoneDensity)
 {
   // NOTE: Ignore density for agricultural zone
+  for(auto zoneArea : m_zoneAreas)
+  {
+    if (zoneArea.isPartOfZone(coordinate))
+    {
+      LOG(LOG_INFO)<< "already part of zone! ";
+      return;
+    }
+  }
   ZoneNode newZone{coordinate, zone, zoneDensity, false};
   addZoneNodeToArea(newZone, m_zoneAreas);
   m_AllNodes.push_back(newZone);
