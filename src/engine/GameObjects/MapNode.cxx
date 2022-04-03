@@ -233,11 +233,18 @@ bool MapNode::isPlacementAllowed(const std::string &newTileID) const
       break;
     }
 
-    //this is a water tile and placeOnWater has not been set to true, building is not permitted. Also disallow placing of water tiles on non water tiles
-    if (tileData->tileType != +TileType::WATER &&
-        (isLayerOccupied(Layer::WATER) && !tileData->placeOnWater || !isLayerOccupied(Layer::WATER) && tileData->placeOnWater))
+    if (isLayerOccupied(Layer::WATER) && tileData->tileType != +TileType::WATER && !tileData->placeOnWater)
+    // Disallow placement on water for tiles that are:
+    // not of tiletype water
+    // not flag placeOnWater enabled
+      {
+      return false;
+    }
+
+    if (!isLayerOccupied(Layer::WATER) && !tileData->placeOnGround)
+    // Disallow placement on ground (meaning a tile that is not water) for tiles that have:
+    // not flag placeOnGround enabled
     {
-      LOG(LOG_INFO) << "not water case";
       return false;
     }
 
