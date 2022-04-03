@@ -207,16 +207,17 @@ bool MapNode::isPlacementAllowed(const std::string &newTileID) const
   {
     switch (layer)
     {
+
     case Layer::ROAD:
-      if (isLayerOccupied(Layer::ROAD))
-      {
-        return true;
-      }
-      else if ((isLayerOccupied(Layer::BUILDINGS) && (m_mapNodeData[Layer::BUILDINGS].tileData->category != "Flora")) ||
-               isLayerOccupied(Layer::WATER) || !isPlacableOnSlope(newTileID))
-      {
+      if ((isLayerOccupied(Layer::BUILDINGS) && (m_mapNodeData[Layer::BUILDINGS].tileData->category != "Flora")) ||
+          isLayerOccupied(Layer::WATER) || !isPlacableOnSlope(newTileID))
+      { // roads cannot be placed:
+        // - on buildings that are not category flora.
+        // - on water
+        // - on slopetiles that don't have a tileID
         return false;
       }
+      return true;
     case Layer::BUILDINGS:
       if (isLayerOccupied(Layer::ROAD))
       {
@@ -227,6 +228,7 @@ bool MapNode::isPlacementAllowed(const std::string &newTileID) const
       {
         return false;
       }
+      break;
     }
     //this is a water tile and placeOnWater has not been set to true, building is not permitted. Also disallow placing of water tiles on non water tiles
     if (tileData->tileType != +TileType::WATER &&
