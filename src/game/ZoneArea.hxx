@@ -7,7 +7,7 @@
 struct ZoneNode
 {
   Point coordinate = Point::INVALID();
-  Zones zone = Zones::RESIDENTIAL;
+  ZoneType zone = ZoneType::RESIDENTIAL;
   ZoneDensity zoneDensity = ZoneDensity::LOW;
   bool occupied = false;
 };
@@ -77,7 +77,7 @@ public:
    * 
    * @param zone for this area
    */
-  void setZone(Zones zone) { m_zone = zone; };
+  void setZone(ZoneType zone) { m_zone = zone; };
   ;
 
   /**
@@ -85,7 +85,7 @@ public:
    * 
    * @return zone for this area
    */
-  Zones getZone() const { return m_zone; };
+  ZoneType getZone() const { return m_zone; };
 
   /**
    * @brief Set the zone density for this Area
@@ -144,7 +144,7 @@ public:
   auto end() { return m_zoneNodes.end(); }
 
 private:
-  Zones m_zone = Zones::RESIDENTIAL;
+  ZoneType m_zone = ZoneType::RESIDENTIAL;
   ZoneDensity m_zoneDensity = ZoneDensity::LOW;
   bool m_hasPower;
   bool m_hasWater;

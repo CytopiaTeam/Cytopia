@@ -21,10 +21,10 @@ private:
    * @brief Add a zoneNode node. It will automatically added to zone areas
    * 
    * @param coordinate - coordinate of the zone to add
-   * @param zone - Zone type of Zones enum
+   * @param zone - Zone type of ZoneType enum
    * @param zoneDensity - Zone density of ZoneDensity enum
    */
-  void addZoneNode(Point coordinate, Zones zone, ZoneDensity zoneDensity);
+  void addZoneNode(Point coordinate, ZoneType zone, ZoneDensity zoneDensity);
   /**
    * @brief Removes a zonenode
    * 

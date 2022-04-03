@@ -26,13 +26,13 @@ TileData *TileManager::getTileData(const std::string &id) noexcept
   return nullptr;
 }
 
-std::vector<std::string> TileManager::getAllTileIDsForZone(Zones zone, ZoneDensity zoneDensity, TileSize tileSize)
+std::vector<std::string> TileManager::getAllTileIDsForZone(ZoneType zone, ZoneDensity zoneDensity, TileSize tileSize)
 {
   std::vector<std::string> results;
   for (auto &tileData : m_tileData)
   {
     if (std::find(tileData.second.zones.begin(), tileData.second.zones.end(), +zone) != tileData.second.zones.end() &&
-        (zone == +Zones::AGRICULTURAL || std::find(tileData.second.zoneDensity.begin(), tileData.second.zoneDensity.end(),
+        (zone == +ZoneType::AGRICULTURAL || std::find(tileData.second.zoneDensity.begin(), tileData.second.zoneDensity.end(),
                                                    +zoneDensity) != tileData.second.zoneDensity.end()) &&
         tileData.second.RequiredTiles.height == tileSize.height && tileData.second.RequiredTiles.width == tileSize.width &&
         tileData.second.tileType != +TileType::ZONE)
@@ -43,7 +43,7 @@ std::vector<std::string> TileManager::getAllTileIDsForZone(Zones zone, ZoneDensi
   return results;
 }
 
-std::string TileManager::getRandomTileIDForZoneWithRandomSize(Zones zone, ZoneDensity zoneDensity, TileSize maxTileSize)
+std::string TileManager::getRandomTileIDForZoneWithRandomSize(ZoneType zone, ZoneDensity zoneDensity, TileSize maxTileSize)
 {
   std::unordered_set<TileSize> elligibleTileSizes;
 
@@ -387,9 +387,9 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
   {
     for (auto zone : tileDataJSON[idx].at("zones").items())
     {
-      if (Zones::_is_valid_nocase(zone.value().get<std::string>().c_str()))
+      if (ZoneType::_is_valid_nocase(zone.value().get<std::string>().c_str()))
       {
-        m_tileData[id].zones.push_back(Zones::_from_string_nocase(zone.value().get<std::string>().c_str()));
+        m_tileData[id].zones.push_back(ZoneType::_from_string_nocase(zone.value().get<std::string>().c_str()));
       }
       else
       {
