@@ -79,10 +79,16 @@ void ZoneArea::spawnBuildings()
   }
 }
 
-bool ZoneArea::isPartOfZone(Point coordinate)
+bool ZoneArea::isPartOfZone(Point coordinate) const
 {
   return m_zoneNodes.end() != std::find_if(m_zoneNodes.begin(), m_zoneNodes.end(),
                                            [&coordinate](const ZoneNode &node) { return node.coordinate == coordinate; });
+}
+
+bool ZoneArea::isVacant() const
+{
+  return m_zoneNodes.end() !=
+         std::find_if(m_zoneNodes.begin(), m_zoneNodes.end(), [](const ZoneNode &node) { return node.occupied == false; });
 }
 
 bool ZoneArea::isNeighborOfZone(Point coordinate) const
@@ -152,37 +158,19 @@ void ZoneArea::addZoneNode(ZoneNode zoneNode)
 
 void ZoneArea::removeZoneNode(Point coordinate)
 {
-  LOG(LOG_INFO) << "ZoneArea::removeZoneNode - " << coordinate.x << ", " << coordinate.y;
-
-  LOG(LOG_DEBUG) << "Before removal. Size" << getSize();
-
   m_zoneNodes.erase(std::remove_if(m_zoneNodes.begin(), m_zoneNodes.end(),
                                    [coordinate](const ZoneNode &zone) { return zone.coordinate == coordinate; }),
                     m_zoneNodes.end());
-
-  LOG(LOG_DEBUG) << "After removal. Size" << getSize();
-
-  // for (auto it = m_zoneNodes.begin(); it != m_zoneNodes.end(); /* NOTHING */)
-  // {
-  //   if ((*it).coordinate == coordinate)
-  //   {
-  //     LOG(LOG_DEBUG) << "Found " << coordinate.x << ", " << coordinate.y;
-  //     LOG(LOG_DEBUG) << "Before removal. Size" << getSize();
-  //     it = m_zoneNodes.erase(it);
-  //     LOG(LOG_DEBUG) << "After  removal. Size" << getSize();
-  //   }
-  //   else
-  //   {
-  //     it++;
-  //   }
-  // }
 }
 
 void ZoneArea::occupyZoneNode(Point coordinate)
 {
   for (auto &zoneNode : m_zoneNodes)
   {
-    zoneNode.occupied = true;
+    if (zoneNode.coordinate == coordinate)
+    {
+      zoneNode.occupied = true;
+    }
   }
 }
 
@@ -190,6 +178,9 @@ void ZoneArea::freeZoneNode(Point coordinate)
 {
   for (auto &zoneNode : m_zoneNodes)
   {
-    zoneNode.occupied = false;
+    if (zoneNode.coordinate == coordinate)
+    {
+      zoneNode.occupied = false;
+    }
   }
 }

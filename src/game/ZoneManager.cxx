@@ -16,26 +16,24 @@ ZoneManager::ZoneManager()
       [this](const MapNode &mapNode)
       {
         // If we place a zone tile, add it to the ZoneManager
-        if (mapNode.getTileData(Layer::ZONE) && !mapNode.getTileData(Layer::ZONE)->zones.empty() &&
-            !mapNode.getTileData(Layer::ZONE)->zoneDensity.empty())
-        {
-          addZoneNode(mapNode.getCoordinates(), mapNode.getTileData(Layer::ZONE)->zones[0],
-                      mapNode.getTileData(Layer::ZONE)->zoneDensity[0]);
-        }
+
         if (mapNode.getTileData(Layer::BUILDINGS) && mapNode.getTileData(Layer::ZONE))
         {
-          for (auto zoneArea : m_zoneAreas)
+          for (auto &zoneArea : m_zoneAreas)
           {
             zoneArea.occupyZoneNode(mapNode.getCoordinates());
             int occupied = 0;
-            for (auto node : zoneArea.m_zoneNodes)
-            {
-              if (node.occupied)
-                occupied++;
-            }
+
             // TODO: This still has debug stuff in it.
             LOG(LOG_INFO) << "occupied nodes: " << occupied << " of " << zoneArea.getSize();
           }
+        }
+        if (mapNode.getTileData(Layer::ZONE) && !mapNode.getTileData(Layer::ZONE)->zones.empty() &&
+            !mapNode.getTileData(Layer::ZONE)->zoneDensity.empty())
+        {
+          LOG(LOG_INFO) << "Adding a node";
+          addZoneNode(mapNode.getCoordinates(), mapNode.getTileData(Layer::ZONE)->zones[0],
+                      mapNode.getTileData(Layer::ZONE)->zoneDensity[0]);
         }
       });
 
@@ -49,7 +47,7 @@ ZoneManager::ZoneManager()
           if (GameStates::instance().demolishMode == DemolishMode::DE_ZONE)
           {
             LOG(LOG_DEBUG) << "dezone - removing a a zone node";
-            for (auto zoneArea : m_zoneAreas)
+            for (auto &zoneArea : m_zoneAreas)
             {
               zoneArea.freeZoneNode(mapNode->getCoordinates());
             }
@@ -57,7 +55,7 @@ ZoneManager::ZoneManager()
           else
           {
             LOG(LOG_DEBUG) << "removing a a zone node without dezone";
-            for (auto zoneArea : m_zoneAreas)
+            for (auto &zoneArea : m_zoneAreas)
             {
               zoneArea.freeZoneNode(mapNode->getCoordinates());
             }
@@ -87,14 +85,12 @@ void ZoneManager::spawnBuildings()
   for (auto zoneArea : m_zoneAreas)
   {
     // check if there are any buildings to spawn, if not, do nothing.
-    if (zoneArea.getSize() != 0)
+    if (zoneArea.isVacant())
     {
+      // LOG(LOG_INFO) << "Spawning";
       zoneArea.spawnBuildings();
     }
-    // LOG(LOG_INFO) << "zone area size: " << zoneArea.getSize();
-    // LOG(LOG_INFO) << "all nodes: " << m_AllNodes.size();
   }
-  // LOG(LOG_DEBUG) << " Number of areas: " << m_zoneAreas.size();
 }
 
 std::vector<int> ZoneManager::findAllSuitableZoneArea(const ZoneNode &zoneNode, std::vector<ZoneArea> &zoneAreas)
@@ -118,11 +114,11 @@ std::vector<int> ZoneManager::findAllSuitableZoneArea(const ZoneNode &zoneNode, 
 void ZoneManager::addZoneNode(Point coordinate, Zones zone, ZoneDensity zoneDensity)
 {
   // NOTE: Ignore density for agricultural zone
-  for(auto zoneArea : m_zoneAreas)
+  for (const auto &zoneArea : m_zoneAreas)
   {
     if (zoneArea.isPartOfZone(coordinate))
     {
-      LOG(LOG_INFO)<< "already part of zone! ";
+      LOG(LOG_INFO) << "already part of zone! ";
       return;
     }
   }

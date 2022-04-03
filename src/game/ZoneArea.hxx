@@ -115,11 +115,19 @@ public:
    * @param coordinate The point to check
    * @return neighbor of this zoneArea
    */
-  bool isPartOfZone(Point coordinate);
+  bool isPartOfZone(Point coordinate) const;
+
+    /**
+   * @brief If this area has unoccupied nodes left
+   * 
+   * @return neighbor of this zoneArea
+   */
+  bool isVacant() const;
+
   /**
- * @brief Spawn buildings on nodes in this area if all demands are fulfilled
- * 
- */
+   * @brief Spawn buildings on nodes in this area if all demands are fulfilled
+   * 
+   */
   void spawnBuildings();
 
   size_t getSize() { return m_zoneNodes.size(); };
