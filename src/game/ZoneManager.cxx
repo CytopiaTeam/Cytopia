@@ -29,7 +29,7 @@ ZoneManager::ZoneManager()
           }
         }
         else if (mapNode.getTileData(Layer::ZONE) && !mapNode.getTileData(Layer::ZONE)->zones.empty() &&
-            !mapNode.getTileData(Layer::ZONE)->zoneDensity.empty())
+                 !mapNode.getTileData(Layer::ZONE)->zoneDensity.empty())
         {
           LOG(LOG_INFO) << "Adding a node";
           addZoneNode(mapNode.getCoordinates(), mapNode.getTileData(Layer::ZONE)->zones[0],
@@ -40,23 +40,21 @@ ZoneManager::ZoneManager()
   Engine::instance().map->registerCallbackFunction(
       [this](const MapNode *mapNode)
       {
-        // If we are in dezone mode and  the tile has a zone tile, remove it from the ZoneManager
-        if (GameStates::instance().demolishMode == DemolishMode::DE_ZONE && mapNode->getTileData(Layer::ZONE))
+        switch (GameStates::instance().demolishMode)
         {
-          LOG(LOG_DEBUG) << "dezone - removing a a zone node";
+        case DemolishMode::DE_ZONE:
+        {
           removeZoneNode(mapNode->getCoordinates());
+          break;
         }
-
-        // If we are in demolish mode and the tile is a building that is on a zone tile, remove it from the empty zone ZoneManager
-        if (GameStates::instance().demolishMode == DemolishMode::DEFAULT && mapNode->getTileData(Layer::BUILDINGS) &&
-            mapNode->getTileData(Layer::ZONE))
+        case DemolishMode::DEFAULT:
         {
-          LOG(LOG_DEBUG) << "demolish a building on a zone node";
-          // removeZoneNode(mapNode->getCoordinates());
           for (auto &zoneArea : m_zoneAreas)
           {
             zoneArea.freeZoneNode(mapNode->getCoordinates());
           }
+          break;
+        }
         }
       });
 
