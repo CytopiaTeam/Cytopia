@@ -220,6 +220,12 @@ bool MapNode::isPlacementAllowed(const std::string &newTileID) const
         return false;
       }
       return true;
+    case Layer::GROUND_DECORATION:
+      if (m_mapNodeData[Layer::GROUND_DECORATION].tileData || m_mapNodeData[Layer::BUILDINGS].tileData)
+      { // allow placement of ground decoration on existing ground decoration and on buildings.
+        return true;
+      }
+      break;
     case Layer::BUILDINGS:
       TileData *tileDataBuildings = m_mapNodeData[Layer::BUILDINGS].tileData;
       if (tileDataBuildings && tileDataBuildings->isOverPlacable)
@@ -237,7 +243,7 @@ bool MapNode::isPlacementAllowed(const std::string &newTileID) const
     // Disallow placement on water for tiles that are:
     // not of tiletype water
     // not flag placeOnWater enabled
-      {
+    {
       return false;
     }
 
@@ -248,14 +254,7 @@ bool MapNode::isPlacementAllowed(const std::string &newTileID) const
       return false;
     }
 
-    // check if the current tile has the property overplacable set or if it's of the same tile ID for certain TileTypes only (not DEFAULT)
-    if (m_mapNodeData[layer].tileData && (m_mapNodeData[layer].tileData->tileType == +TileType::GROUNDDECORATION))
-    {
-      LOG(LOG_INFO) << "big if case";
-      return true;
-    }
     LOG(LOG_INFO) << "weird return at the end";
-
     return isPlacableOnSlope(newTileID) &&
            (m_mapNodeData[layer].tileID.empty() || m_mapNodeData[layer].tileData->tileType == +TileType::TERRAIN ||
             m_mapNodeData[layer].tileData->tileType == +TileType::BLUEPRINT);
