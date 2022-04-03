@@ -221,37 +221,39 @@ bool MapNode::isPlacementAllowed(const std::string &newTileID) const
       }
       return true;
     case Layer::BUILDINGS:
-      if (isLayerOccupied(Layer::ROAD))
-      {
-        return false;
+      TileData *tileDataBuildings = m_mapNodeData[Layer::BUILDINGS].tileData;
+      if (tileDataBuildings && tileDataBuildings->isOverPlacable)
+      { // buildings with overplacable flag
+        return true;
       }
-      if (m_mapNodeData[layer].tileData && m_mapNodeData[layer].tileData->tileType == +TileType::DEFAULT &&
-          !m_mapNodeData[layer].tileData->isOverPlacable)
-      {
+      if (isLayerOccupied(Layer::ROAD))
+      { // buildings cannot be placed on water
         return false;
       }
       break;
     }
+
     //this is a water tile and placeOnWater has not been set to true, building is not permitted. Also disallow placing of water tiles on non water tiles
     if (tileData->tileType != +TileType::WATER &&
         (isLayerOccupied(Layer::WATER) && !tileData->placeOnWater || !isLayerOccupied(Layer::WATER) && tileData->placeOnWater))
     {
+      LOG(LOG_INFO) << "not water case";
       return false;
     }
 
     // check if the current tile has the property overplacable set or if it's of the same tile ID for certain TileTypes only (not DEFAULT)
-    if (m_mapNodeData[layer].tileData &&
-        (m_mapNodeData[layer].tileData->tileType == +TileType::GROUNDDECORATION ||
-         m_mapNodeData[layer].tileData->isOverPlacable ||
-         (m_mapNodeData[layer].tileData->tileType != +TileType::DEFAULT && m_mapNodeData[layer].tileID == newTileID)))
+    if (m_mapNodeData[layer].tileData && (m_mapNodeData[layer].tileData->tileType == +TileType::GROUNDDECORATION))
     {
+      LOG(LOG_INFO) << "big if case";
       return true;
     }
+    LOG(LOG_INFO) << "weird return at the end";
 
     return isPlacableOnSlope(newTileID) &&
            (m_mapNodeData[layer].tileID.empty() || m_mapNodeData[layer].tileData->tileType == +TileType::TERRAIN ||
             m_mapNodeData[layer].tileData->tileType == +TileType::BLUEPRINT);
   }
+  LOG(LOG_INFO) << "not handled";
 
   return false;
 }
