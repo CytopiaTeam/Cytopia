@@ -80,7 +80,7 @@ std::vector<int> ZoneManager::getAdjacentZoneAreas(const ZoneNode &zoneNode, std
 
   for (auto &zoneArea : zoneAreas)
   {
-    if (zoneArea.getZone() == zoneNode.zone && (zoneArea.getZoneDensity() == zoneNode.zoneDensity) &&
+    if (zoneArea.getZone() == zoneNode.zoneType && (zoneArea.getZoneDensity() == zoneNode.zoneDensity) &&
         zoneArea.isWithinBoundaries(zoneNode.coordinate) && zoneArea.isNeighborOfZone(zoneNode.coordinate))
     {
       neighborZones.push_back(i);
@@ -91,7 +91,7 @@ std::vector<int> ZoneManager::getAdjacentZoneAreas(const ZoneNode &zoneNode, std
   return neighborZones;
 }
 
-void ZoneManager::addZoneNode(Point coordinate, ZoneType zone, ZoneDensity zoneDensity)
+void ZoneManager::addZoneNode(Point coordinate, ZoneType zoneType, ZoneDensity zoneDensity)
 {
   // Prevent adding of duplicate items. 
   // NOTE: This shouldn't happen and did not occur during my tests. Remove it?
@@ -102,7 +102,7 @@ void ZoneManager::addZoneNode(Point coordinate, ZoneType zone, ZoneDensity zoneD
       return;
     }
   }
-  ZoneNode newZone{coordinate, zone, zoneDensity, false};
+  ZoneNode newZone{coordinate, zoneType, zoneDensity, false};
   addZoneNodeToArea(newZone, m_zoneAreas);
   m_AllNodes.push_back(newZone);
 }
