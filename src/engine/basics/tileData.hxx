@@ -50,13 +50,13 @@ BETTER_ENUM(TileType, int,
 )
 
 //
-BETTER_ENUM(ZoneType, int, RESIDENTIAL, INDUSTRIAL, COMMERCIAL, AGRICULTURAL)
+BETTER_ENUM(ZoneType, int, NONE, RESIDENTIAL, INDUSTRIAL, COMMERCIAL, AGRICULTURAL)
 
 BETTER_ENUM(ZoneDensity, int,
             NONE,   ///< not applicable
-            LOW,    ///< Low income
-            MEDIUM, ///< Medium income
-            HIGH    ///< High income
+            LOW,    ///< Low density
+            MEDIUM, ///< Medium density
+            HIGH    ///< High density
 )
 
 BETTER_ENUM(Style, int,
