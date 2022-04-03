@@ -68,17 +68,12 @@ void ZoneManager::spawnBuildings()
     // check if there are any buildings to spawn, if not, do nothing.
     if (zoneArea.isVacant())
     {
-      LOG(LOG_INFO) << "Spawning " << zoneArea.getSize();
       zoneArea.spawnBuildings();
-    }
-    else
-    {
-      LOG(LOG_INFO) << "no zone nodes free - number of areas: " << zoneArea.getSize();
     }
   }
 }
 
-std::vector<int> ZoneManager::findAllSuitableZoneArea(const ZoneNode &zoneNode, std::vector<ZoneArea> &zoneAreas)
+std::vector<int> ZoneManager::getAdjacentZoneAreas(const ZoneNode &zoneNode, std::vector<ZoneArea> &zoneAreas)
 {
   std::vector<int> neighborZones;
   int i = 0;
@@ -98,6 +93,8 @@ std::vector<int> ZoneManager::findAllSuitableZoneArea(const ZoneNode &zoneNode, 
 
 void ZoneManager::addZoneNode(Point coordinate, Zones zone, ZoneDensity zoneDensity)
 {
+  // Prevent adding of duplicate items. 
+  // NOTE: This shouldn't happen and did not occur during my tests. Remove it?
   for (const auto &zoneArea : m_zoneAreas)
   {
     if (zoneArea.isPartOfZone(coordinate))
@@ -112,7 +109,7 @@ void ZoneManager::addZoneNode(Point coordinate, Zones zone, ZoneDensity zoneDens
 
 void ZoneManager::addZoneNodeToArea(ZoneNode &zoneNode, std::vector<ZoneArea> &zoneAreas)
 {
-  auto zoneNeighbour = findAllSuitableZoneArea(zoneNode, zoneAreas);
+  auto zoneNeighbour = getAdjacentZoneAreas(zoneNode, zoneAreas);
 
   if (zoneNeighbour.empty())
   {
@@ -187,18 +184,4 @@ void ZoneManager::removeZoneNode(Point coordinate)
   m_AllNodes.erase(std::remove_if(m_AllNodes.begin(), m_AllNodes.end(),
                                   [coordinate](const ZoneNode &zone) { return zone.coordinate == coordinate; }),
                    m_AllNodes.end());
-}
-
-ZoneNode ZoneManager::getZoneNodeWithCoordinate(Point coordinate)
-{
-  for (const ZoneNode node : m_AllNodes)
-  {
-    if (node.coordinate == coordinate)
-    {
-      return node;
-    }
-  }
-
-  // "This should not happen"
-  //assert(false);
 }
