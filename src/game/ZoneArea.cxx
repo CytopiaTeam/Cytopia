@@ -46,7 +46,7 @@ void ZoneArea::spawnBuildings()
     }
     // get the maximum size we can spawn at this node
     TileSize maxTileSize = {getMaximumTileSize(node.coordinate).width, getMaximumTileSize(node.coordinate).height};
-    std::string buildingTileID = TileManager::instance().getRandomTileIDForZoneWithRandomSize(getZone(), getZoneDensity(), maxTileSize);
+    std::string buildingTileID = TileManager::instance().getRandomTileIDForZoneWithRandomSize(m_zoneType, m_zoneDensity, maxTileSize);
 
     // place the building
     std::vector targetObjectNodes = Engine::instance().map->getObjectCoords(node.coordinate, buildingTileID);
