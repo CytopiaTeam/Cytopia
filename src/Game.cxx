@@ -274,7 +274,6 @@ void Game::run(bool SkipMenu)
 
   GamePlay &m_GamePlay = GamePlay::instance();
 
-
 #ifdef USE_ANGELSCRIPT
   ScriptEngine &scriptEngine = ScriptEngine::instance();
   scriptEngine.init();
