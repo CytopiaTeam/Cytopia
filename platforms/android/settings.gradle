@@ -1,8 +1,0 @@
-include ':Cytopia'
-include ':SDL2'
-include ':openal-soft'
-include ':libnoise'
-include ':libvorbis'
-include ':libogg'
-include ':zlib'
-include ':libpng'

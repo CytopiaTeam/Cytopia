@@ -59,24 +59,19 @@ set(SOURCE_FILES
         )
 
 if (ANDROID)
-    list(APPEND SOURCE_FILES
-            util/android/Filesystem.cxx
-            )
+    list(APPEND SOURCE_FILES util/android/Filesystem.cxx)
 elseif (APPLE)
-    list(APPEND SOURCE_FILES
-            util/macOS/Filesystem.cxx
-            )
+    list(APPEND SOURCE_FILES util/macOS/Filesystem.cxx)
 else ()
-    list(APPEND SOURCE_FILES
-            util/desktop/Filesystem.cxx
-            )
+    list(APPEND SOURCE_FILES util/desktop/Filesystem.cxx)
 endif ()
 
 if (ENABLE_AUDIO)
-    list(APPEND SOURCE_FILES
+    list(
+            APPEND SOURCE_FILES
             engine/audio/Soundtrack.{hxx,cxx}
             services/AudioMixer.{hxx,cxx}
-            )
+    )
 endif ()
 
 if (USE_ANGELSCRIPT)
@@ -172,6 +167,10 @@ target_link_libraries(
         LibNoise::LibNoise
         ZLIB::ZLIB
 )
+
+if (ANDROID)
+    target_link_libraries(${PROJECT_NAME} PRIVATE ${ANDROID_LOG_LIBRARY} ${ANDROID_LIBRARY_LIBRARY})
+endif ()
 
 if (ENABLE_AUDIO)
     target_link_libraries(${PROJECT_NAME} PRIVATE OpenAL::OpenAL VorbisFile::VorbisFile)
