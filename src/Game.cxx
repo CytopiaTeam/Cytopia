@@ -329,7 +329,6 @@ void Game::run(bool SkipMenu)
     SDL_RenderClear(WindowManager::instance().getRenderer());
 
     evManager.checkEvents(event, engine);
-    // TODO: Add Gameplay class and call Gameplay.DoStuff() here instead of ^er stuff
     gameClock.tick();
 
     m_GamePlay.update();
