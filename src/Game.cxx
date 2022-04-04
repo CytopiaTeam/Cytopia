@@ -320,7 +320,6 @@ void Game::run(bool SkipMenu)
   Uint32 fpsLastTime = SDL_GetTicks();
   Uint32 fpsFrames = 0;
 
-
   // GameLoop
   while (engine.isGameRunning())
   {
