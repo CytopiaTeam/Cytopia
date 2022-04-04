@@ -7,8 +7,8 @@
 struct ZoneNode
 {
   Point coordinate = Point::INVALID();
-  ZoneType zoneType = ZoneType::NONE;
-  ZoneDensity zoneDensity = ZoneDensity::NONE;
+  ZoneType zoneType;
+  ZoneDensity zoneDensity;
   bool occupied = false;
 };
 
@@ -144,8 +144,8 @@ public:
   auto end() { return m_zoneNodes.end(); }
 
 private:
-  ZoneType m_zoneType = ZoneType::NONE;
-  ZoneDensity m_zoneDensity = ZoneDensity::NONE;
+  ZoneType m_zoneType;
+  ZoneDensity m_zoneDensity;
   bool m_hasPower;
   bool m_hasWater;
 
