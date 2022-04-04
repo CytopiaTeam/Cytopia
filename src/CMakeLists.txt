@@ -55,6 +55,7 @@ set(SOURCE_FILES
         engine/UIManager.{hxx,cxx}
         engine/WindowManager.{hxx,cxx}
         game/ZoneManager.{hxx,cxx}
+        game/PowerManager.{hxx,cxx}
         game/GamePlay.{hxx,cxx}
         )
 

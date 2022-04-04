@@ -2,6 +2,7 @@
 #define GAMEPLAY_HXX_
 
 #include "ZoneManager.hxx"
+#include "PowerManager.hxx"
 #include "Singleton.hxx"
 
 class GamePlay : public Singleton<GamePlay>
@@ -14,6 +15,7 @@ public:
 
 private:
   ZoneManager m_ZoneManager;
+  PowerManager m_PowerManager;
 };
 
 #endif
