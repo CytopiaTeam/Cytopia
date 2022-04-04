@@ -46,10 +46,11 @@ void ZoneArea::spawnBuildings()
     }
     // get the maximum size we can spawn at this node
     TileSize maxTileSize = {getMaximumTileSize(node.coordinate).width, getMaximumTileSize(node.coordinate).height};
-    std::string buildingTileID = TileManager::instance().getRandomTileIDForZoneWithRandomSize(m_zoneType, m_zoneDensity, maxTileSize);
+    std::string buildingTileID =
+        TileManager::instance().getRandomTileIDForZoneWithRandomSize(m_zoneType, m_zoneDensity, maxTileSize);
 
     // place the building
-    // see Issue refactor setTileID #853 
+    // see Issue refactor setTileID #853
     std::vector targetObjectNodes = Engine::instance().map->getObjectCoords(node.coordinate, buildingTileID);
     Engine::instance().setTileIDOfNode(targetObjectNodes.begin(), targetObjectNodes.end(), buildingTileID, false);
     buildingsSpawned++;
@@ -84,17 +85,38 @@ bool ZoneArea::isNeighborOfZone(Point coordinate) const
 
 TileSize ZoneArea::getMaximumTileSize(Point originPoint)
 {
-  TileSize possibleSize;
+  TileSize possibleSize = {1, 1};
 
   for (int distance = 1; distance <= possibleSize.width || distance <= possibleSize.height; distance++)
   {
+    std::vector<Point> xDirection = PointFunctions::getArea({originPoint.x - distance, originPoint.y}, originPoint);
+    std::vector<Point> yDirection = PointFunctions::getArea(originPoint, {originPoint.x, originPoint.y + distance});
     // check if there's a tile in x direction (top of the origin point)
-    if (isPartOfZone({originPoint.x - distance, originPoint.y}))
+    bool increaseX = true;
+    bool increaseY = true;
+
+    for (auto coord : xDirection)
+    {
+      if (!isPartOfZone(coord))
+      {
+        increaseX = false;
+        break;
+      }
+    }
+    for (auto coord : yDirection)
+    {
+      if (!isPartOfZone(coord))
+      {
+        increaseY = false;
+        break;
+      }
+    }
+
+    if (increaseX)
     {
       possibleSize.width++;
     }
-    // check if there's a tile in y direction (right of the origin point)
-    if (isPartOfZone({originPoint.x, originPoint.y + distance}))
+    if (increaseY)
     {
       possibleSize.height++;
     }
