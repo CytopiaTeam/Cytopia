@@ -455,6 +455,7 @@ void UIManager::setCallbackFunctions()
                 GameStates::instance().placementMode = PlacementMode::SINGLE;
                 break;
               case +TileType::ROAD:
+              case +TileType::POWERLINE:
               case +TileType::AUTOTILE:
                 GameStates::instance().placementMode = PlacementMode::LINE;
                 break;

@@ -164,7 +164,7 @@ bool MapNode::isDataAutoTile(const TileData *tileData)
 {
   if (tileData)
   {
-    if (tileData->tileType == +TileType::ROAD || tileData->tileType == +TileType::AUTOTILE ||
+    if (tileData->tileType == +TileType::POWERLINE || tileData->tileType == +TileType::ROAD || tileData->tileType == +TileType::AUTOTILE ||
         tileData->tileType == +TileType::UNDERGROUND)
     {
       return true;

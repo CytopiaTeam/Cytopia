@@ -44,6 +44,7 @@ BETTER_ENUM(TileType, int,
             AUTOTILE,         ///< Autotiling to itself, like roads, power lines, etc
             ZONE,             ///< Zones (rectangular placement)
             ROAD,             ///< Roads
+            POWERLINE,        ///< Powerlines
             GROUNDDECORATION, ///< Draw this Tile on GROUNDDECORATION layer. Buildings can be placed over it
             UNDERGROUND,      ///< same as AUTOTILE, but for the BLUEPRINT layer
             RCI               ///< Spawning automatically on RCI+ zones

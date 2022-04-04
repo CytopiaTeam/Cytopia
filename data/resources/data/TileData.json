@@ -13953,7 +13953,7 @@
             "power",
             "powerlines"
         ],
-        "tileType": "AUTOTILE",
+        "tileType": "POWERLINE",
         "tiles": {
             "clip_height": 37,
             "clip_width": 32,
