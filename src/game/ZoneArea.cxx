@@ -49,6 +49,7 @@ void ZoneArea::spawnBuildings()
     std::string buildingTileID = TileManager::instance().getRandomTileIDForZoneWithRandomSize(m_zoneType, m_zoneDensity, maxTileSize);
 
     // place the building
+    // see Issue refactor setTileID #853 
     std::vector targetObjectNodes = Engine::instance().map->getObjectCoords(node.coordinate, buildingTileID);
     Engine::instance().setTileIDOfNode(targetObjectNodes.begin(), targetObjectNodes.end(), buildingTileID, false);
     buildingsSpawned++;
