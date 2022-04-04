@@ -271,7 +271,6 @@ void Game::run(bool SkipMenu)
   uiManager.init();
 
   GameClock &gameClock = GameClock::instance();
-
   GamePlay &m_GamePlay = GamePlay::instance();
 
 #ifdef USE_ANGELSCRIPT
