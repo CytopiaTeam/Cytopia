@@ -49,15 +49,6 @@ public:
   * @return NeighbourNodesPosition - An enum representing the Direction from the neighboring point to the origin point
   */
   static NeighbourNodesPosition getNeighborPositionToOrigin(const Point &neighboringPoint, const Point &originPoint);
-  
-  /**
-   * @brief Checks if two given points are neighbors
-   * 
-   * @param coordinateOne Point One
-   * @param coordinateTwo Point Two
-   * @return if the two points are neighbors
-   */
-  static bool isNeighborOf(Point coordinateOne, Point coordinateTwo);
- };
+};
 
 #endif

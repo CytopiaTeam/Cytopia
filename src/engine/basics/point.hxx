@@ -35,6 +35,31 @@ public:
     return (x >= 0 && x < Settings::instance().mapSize) && (y >= 0 && y < Settings::instance().mapSize);
   }
 
+  /**
+   * @brief Checks if a given points is a neighbor of this point
+   * 
+   * @param coordinateOne Point to check if it's adjacent
+   * @return if the two points are neighbors
+   */
+  bool isNeighborOf(Point cooridnate) const
+  {
+    for (int xOffset = -1; xOffset <= 1; ++xOffset)
+    {
+      for (int yOffset = -1; yOffset <= 1; ++yOffset)
+      {
+        Point neighbor;
+        Point thisPoint = {x, y};
+        neighbor.x = cooridnate.x + xOffset;
+        neighbor.y = cooridnate.y + yOffset;
+        if (neighbor.isWithinMapBoundaries() && neighbor == thisPoint)
+        {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
   //int manhattanDistanceTo(Point target) const { return abs(target.x - x) + abs(target.y - y); }
   int manhattanDistanceTo(Point target) const { return abs(x - target.x) + abs(y - target.y); }
 
