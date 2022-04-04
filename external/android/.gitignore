@@ -1,5 +1,0 @@
-# exclude everything in subfolders
-*/*
-
-# exception to the rule - keep Android.mk
-!*/Android.mk
