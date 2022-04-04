@@ -205,6 +205,7 @@ bool MapNode::isPlacementAllowed(const std::string &newTileID) const
 
   if (tileData)
   {
+    // layer specific checks:
     switch (layer)
     {
     case Layer::ZONE:
@@ -239,6 +240,7 @@ bool MapNode::isPlacementAllowed(const std::string &newTileID) const
       break;
     }
 
+    // checks for all layers:
     if (isLayerOccupied(Layer::WATER) && tileData->tileType != +TileType::WATER && !tileData->placeOnWater)
     // Disallow placement on water for tiles that are:
     // not of tiletype water
@@ -254,13 +256,23 @@ bool MapNode::isPlacementAllowed(const std::string &newTileID) const
       return false;
     }
 
-    LOG(LOG_INFO) << "weird return at the end";
-    return isPlacableOnSlope(newTileID) &&
-           (m_mapNodeData[layer].tileID.empty() || m_mapNodeData[layer].tileData->tileType == +TileType::TERRAIN ||
-            m_mapNodeData[layer].tileData->tileType == +TileType::BLUEPRINT);
-  }
-  LOG(LOG_INFO) << "not handled";
+    if(!isPlacableOnSlope(newTileID))
+    { // Check if a tile can be placed on a slop tile
+      return false;
+    }
 
+    if(tileData->tileType == +TileType::UNDERGROUND)
+    { // Underground tiletype (pipes, metro tunnels, ... ) can overplace each other
+      LOG(LOG_ERROR) << "Underground";
+      return true;
+    }
+
+    if (m_mapNodeData[layer].tileID.empty())
+    { // of course allow placement on empty tiles
+      return true;
+    }
+  }
+  // every case that is not handled is false
   return false;
 }
 
