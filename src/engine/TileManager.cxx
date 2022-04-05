@@ -40,7 +40,8 @@ std::vector<std::string> TileManager::getAllTileIDsForZone(Zones zone, TileSize 
   return results;
 }
 
-std::vector<Point> TileManager::getTargetCoordsOfTile(const Point& isoCoordinates, const std::string& tileID) {
+std::vector<Point> TileManager::getTargetCoordsOfTile(const Point &targetCoordinates, const std::string &tileID)
+{
   std::vector<Point> occupiedCoords;
   TileData *tileData = getTileData(tileID);
 
@@ -49,13 +50,13 @@ std::vector<Point> TileManager::getTargetCoordsOfTile(const Point& isoCoordinate
     return occupiedCoords;
   }
 
-  Point coords = isoCoordinates;
+  Point coords = targetCoordinates;
 
   for (int i = 0; i < tileData->RequiredTiles.width; i++)
   {
     for (int j = 0; j < tileData->RequiredTiles.height; j++)
     {
-      Point coords = {isoCoordinates.x - i, isoCoordinates.y + j};
+      Point coords = {targetCoordinates.x - i, targetCoordinates.y + j};
       if (!coords.isWithinMapBoundaries())
       { // boundary check
         occupiedCoords.clear();

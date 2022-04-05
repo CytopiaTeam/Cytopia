@@ -559,11 +559,13 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           if (targetObjectNodes.size() > 1 && isPointWithinMapBoundaries(targetObjectNodes))
           {
             // instead of using "nodesToPlace" which would be the origin-corner coordinate, we need to pass ALL occupied nodes for now.
-            engine.setTileIDOfNode(targetObjectNodes.begin(), targetObjectNodes.end(), tileToPlace, false);
+            //engine.setTileIDOfNode(targetObjectNodes.begin(), targetObjectNodes.end(), tileToPlace, false);
+            engine.map->setTileID(tileToPlace, mouseIsoCoords);
           }
           else
           {
-            engine.setTileIDOfNode(m_nodesToPlace.begin(), m_nodesToPlace.end(), tileToPlace, true);
+            engine.map->setTileID(tileToPlace, mouseIsoCoords);
+            //engine.setTileIDOfNode(m_nodesToPlace.begin(), m_nodesToPlace.end(), tileToPlace, true);
           }
         }
         else if (demolishMode)

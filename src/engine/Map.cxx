@@ -758,3 +758,133 @@ void Map::calculateVisibleMap(void)
     }
   }
 }
+
+void Map::setTileID(std::string tileID, Point coordinate)
+{
+  if (!TileManager::instance().getTileData(tileID) || !coordinate.isWithinMapBoundaries() ||
+      !isPlacementOnNodeAllowed(coordinate, tileID))
+  {
+    return;
+  }
+
+  TileData *tileData = TileManager::instance().getTileData(tileID);
+  Layer layer = TileManager::instance().getTileLayer(tileID);
+
+  if (tileData->RequiredTiles.height > 1 || tileData->RequiredTiles.width > 1)
+  { // if the building is bigger than 1x1 demolish the nodes it will occupy before placing it.
+    if (TileManager::instance().getTargetCoordsOfTile(coordinate, tileID).empty())
+    { // if the node c
+      return;
+    }
+    for (auto coord : TileManager::instance().getTargetCoordsOfTile(coordinate, tileID))
+    { // first check all nodes if it is possible to place the building before doing anything
+      if (!isPlacementOnNodeAllowed(coord, tileID))
+      { //make sure every target coordinate is valid for placement, not just the origin coordinate.
+        return;
+      }
+    }
+
+
+    for (auto coord : TileManager::instance().getTargetCoordsOfTile(coordinate, tileID))
+    { // now we can place our building
+      
+      MapNode &currentMapNode = mapNodes[nodeIdx(coord.x, coord.y)];
+
+      
+    // clear all the nodes that are going to be occupied.
+      demolishNode(TileManager::instance().getTargetCoordsOfTile(coord, tileID), 0, Layer::BUILDINGS);
+      if (coord != coordinate)
+      { // set every node that will be occupied to invisible exepct of the originnode
+        currentMapNode.setRenderFlag(layer, false);
+      }
+      if (coord == coordinate)
+      { // set the tileID for the mapNode for the origin coordinates only
+        currentMapNode.setTileID(tileID, coord);
+      }
+    }
+  }
+  else
+  {
+    MapNode &currentMapNode = mapNodes[nodeIdx(coordinate.x, coordinate.y)];
+    demolishNode(TileManager::instance().getTargetCoordsOfTile(coordinate, tileID), 0, Layer::BUILDINGS);
+    currentMapNode.setRenderFlag(layer, true);
+    currentMapNode.setTileID(tileID, coordinate);
+  }
+
+
+
+}
+
+//void Map::setTileID(std::string tileID, std::vector<Point> coordinates)
+//{
+//  bool isMultiObjects = false;
+//  std::vector<MapNode *> nodesToBeUpdated;
+//  int groundtileIndex = -1;
+//
+//  // check if we got valid coordinates
+//  for (auto coordinate : coordinates)
+//  {
+//    if (!isPlacementOnNodeAllowed(coordinate, tileID) || !coordinate.isWithinMapBoundaries())
+//    {
+//      return;
+//    }
+//  }
+//  if (TileManager::instance().getTileData(tileID) && (TileManager::instance().getTileData(tileID)->RequiredTiles.height > 1 ||
+//                                                      TileManager::instance().getTileData(tileID)->RequiredTiles.width > 1))
+//  {
+//    isMultiObjects = true;
+//  }
+//  for (auto coordinate : coordinates)
+//  {
+//    //idk what this does
+//    //const bool shouldRender = !(!isMultiObjects && (it != begin));
+//
+//    const bool shouldRender = !isMultiObjects;
+//    Layer layer = TileManager::instance().getTileLayer(tileID);
+//
+//    MapNode &currentMapNode = mapNodes[nodeIdx(coordinate.x, coordinate.y)];
+//
+//    if (!isAllowSetTileId(layer, &currentMapNode))
+//    {
+//      continue;
+//    }
+//
+//    // only demolish nodes before placing if this is a bigger than 1x1 building
+//    if (!isMultiObjects)
+//    {
+//      demolishNode(std::vector<Point>{*it}, 0, Layer::BUILDINGS);
+//    }
+//
+//    currentMapNode.setRenderFlag(layer, shouldRender);
+//    currentMapNode.setTileID(tileID, isMultiObjects ? *it : *begin);
+//    auto pTileData = currentMapNode.getMapNodeDataForLayer(layer).tileData;
+//
+//    if (pTileData && !pTileData->groundDecoration.empty() && groundtileIndex == -1)
+//    {
+//      const int groundDecoSize = pTileData->groundDecoration.size();
+//      std::uniform_int_distribution uniformDistribution(0, groundDecoSize - 1);
+//      groundtileIndex = uniformDistribution(randomEngine);
+//    }
+//
+//    if (groundtileIndex != -1)
+//    {
+//      currentMapNode.setTileID(pTileData->groundDecoration[groundtileIndex], isMultiObjects ? *it : *begin);
+//    }
+//
+//    // For layers that autotile to each other, we need to update their neighbors too
+//    if (MapNode::isDataAutoTile(TileManager::instance().getTileData(tileID)))
+//    {
+//      nodesToBeUpdated.push_back(&currentMapNode);
+//    }
+//    // If we place a zone tile, add it to the ZoneManager
+//    if (currentMapNode.getTileData(Layer::ZONE))
+//    {
+//      GamePlay::instance().getZoneManager().addZoneNode(&currentMapNode);
+//    }
+//  }
+//
+//  if (!nodesToBeUpdated.empty())
+//  {
+//    updateNodeNeighbors(nodesToBeUpdated);
+//  }
+//}

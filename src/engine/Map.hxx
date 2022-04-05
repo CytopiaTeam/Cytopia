@@ -68,6 +68,10 @@ public:
  */
   Point findNodeInMap(const SDL_Point &screenCoordinates, const Layer &layer = Layer::NONE);
 
+  // new function to set tileID for a single node
+  void setTileID(std::string tileID, Point coordinate);
+  void setTileID(std::string tileID, std::vector<Point> coordinates);
+
   /**
  * @brief Set the Tile ID Of Node object
  * Also invokes all necessary texture updates (auto-tiling, slopes, ...)
