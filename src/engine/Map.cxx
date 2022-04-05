@@ -769,14 +769,15 @@ void Map::setTileID(std::string tileID, Point coordinate)
 
   TileData *tileData = TileManager::instance().getTileData(tileID);
   Layer layer = TileManager::instance().getTileLayer(tileID);
+  std::vector<Point> targetCoordinates = TileManager::instance().getTargetCoordsOfTile(coordinate, tileID);
 
   if (true)
   { // if the building is bigger than 1x1 we will need to handle all the tiles it occupies
-    if (TileManager::instance().getTargetCoordsOfTile(coordinate, tileID).empty())
+    if (targetCoordinates.empty())
     { // if the node c
       return;
     }
-    for (auto coord : TileManager::instance().getTargetCoordsOfTile(coordinate, tileID))
+    for (auto coord : targetCoordinates)
     { // first check all nodes if it is possible to place the building before doing anything
       if (!isPlacementOnNodeAllowed(coord, tileID))
       { //make sure every target coordinate is valid for placement, not just the origin coordinate.
@@ -785,20 +786,45 @@ void Map::setTileID(std::string tileID, Point coordinate)
     }
 
     // clear all the nodes that are going to be occupied.
-    demolishNode(TileManager::instance().getTargetCoordsOfTile(coordinate, tileID), 0, Layer::BUILDINGS);
+    demolishNode(targetCoordinates, 0, Layer::BUILDINGS);
 
-    for (auto coord : TileManager::instance().getTargetCoordsOfTile(coordinate, tileID))
+    for (auto coord : targetCoordinates)
     { // now we can place our building
 
       MapNode &currentMapNode = mapNodes[nodeIdx(coord.x, coord.y)];
 
-      if (coord != coordinate)
-      { // set every node that will be occupied to invisible exepct of the originnode
+      if (coord != coordinate && targetCoordinates.size() > 1)
+      { // for buildings >1x1 set every node on the layer that will be occupied to invisible exepct of the originnode
         currentMapNode.setRenderFlag(layer, false);
       }
-      if (coord == coordinate)
-      { // set the tileID for the mapNode for the origin coordinates only
+      else
+      { //1x1 buildings should be set to visible
+        currentMapNode.setRenderFlag(layer, true);
+      }
+      if (targetCoordinates.size() > 1)
+      { // set the tileID for the mapNode for the origin coordinates only on (when we iterate over the origin coordinate)
+        currentMapNode.setTileID(tileID, coordinate);
+      }
+      else
+      { // if it's not a >1x1 building, place tileID on the current coordinate (e.g. ground decoration beneath a > 1x1 building)
         currentMapNode.setTileID(tileID, coord);
+      }
+
+      // ground deco
+      TileData *pTileData = currentMapNode.getMapNodeDataForLayer(layer).tileData;
+      int groundtileIndex = -1;
+      if (pTileData && !pTileData->groundDecoration.empty() && groundtileIndex == -1)
+      {
+        const int groundDecoSize = pTileData->groundDecoration.size();
+        std::uniform_int_distribution uniformDistribution(0, groundDecoSize - 1);
+        groundtileIndex = uniformDistribution(randomEngine);
+      }
+      LOG(LOG_INFO) << "placing mapnode on " << coord.x << ", " << coord.y;
+
+      if (groundtileIndex != -1)
+      {
+        LOG(LOG_INFO) << "placing mapnode on " << coord.x << ", " << coord.y;
+        currentMapNode.setTileID(pTileData->groundDecoration[groundtileIndex], coord);
       }
     }
   }
