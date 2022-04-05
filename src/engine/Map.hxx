@@ -69,9 +69,9 @@ public:
   Point findNodeInMap(const SDL_Point &screenCoordinates, const Layer &layer = Layer::NONE);
 
   // new function to set tileID for a single node
-  void setTileID(std::string tileID, Point coordinate);
+  void setTileID(const std::string &tileID, Point coordinate);
   // set multiple nodes with the same tileID
-  void setTileID(std::string tileID, std::vector<Point> coordinates);
+  void setTileID(const std::string &tileID, const std::vector<Point> &coordinates);
 
   /**
  * @brief Set the Tile ID Of Node object

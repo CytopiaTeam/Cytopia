@@ -759,7 +759,7 @@ void Map::calculateVisibleMap(void)
   }
 }
 
-void Map::setTileID(std::string tileID, Point coordinate)
+void Map::setTileID(const std::string &tileID, Point coordinate)
 {
   std::vector<MapNode *> nodesToBeUpdated;
 
@@ -849,7 +849,7 @@ void Map::setTileID(std::string tileID, Point coordinate)
   }
 }
 
-void Map::setTileID(std::string tileID, std::vector<Point> coordinates)
+void Map::setTileID(const std::string &tileID, const std::vector<Point> &coordinates)
 {
   for (auto coord : coordinates)
   {
