@@ -40,6 +40,33 @@ std::vector<std::string> TileManager::getAllTileIDsForZone(Zones zone, TileSize 
   return results;
 }
 
+std::vector<Point> TileManager::getTargetCoordsOfTile(const Point& isoCoordinates, const std::string& tileID) {
+  std::vector<Point> occupiedCoords;
+  TileData *tileData = getTileData(tileID);
+
+  if (!tileData)
+  {
+    return occupiedCoords;
+  }
+
+  Point coords = isoCoordinates;
+
+  for (int i = 0; i < tileData->RequiredTiles.width; i++)
+  {
+    for (int j = 0; j < tileData->RequiredTiles.height; j++)
+    {
+      Point coords = {isoCoordinates.x - i, isoCoordinates.y + j};
+      if (!coords.isWithinMapBoundaries())
+      { // boundary check
+        occupiedCoords.clear();
+        return occupiedCoords;
+      }
+      occupiedCoords.emplace_back(coords);
+    }
+  }
+  return occupiedCoords;
+}
+
 std::string TileManager::getRandomTileIDForZoneWithRandomSize(Zones zone, TileSize maxTileSize)
 {
   std::unordered_set<TileSize> elligibleTileSizes;

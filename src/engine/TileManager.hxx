@@ -10,6 +10,7 @@
 #include "json.hxx"
 #include "Singleton.hxx"
 #include "../common/enums.hxx"
+#include "basics/point.hxx"
 
 enum TileMap : size_t
 {
@@ -132,6 +133,13 @@ public:
    * @return A random tileID matching the supplied parameters
    */
   std::string getRandomTileIDForZoneWithRandomSize(Zones zone, TileSize maxTileSize = {1, 1});
+
+  /** \brief Return a vector of Points that would be occupied by a tileID
+  * @param targetCoordinates - where the tile should be placed
+  * @param tileID - the tileID to place
+  * @return vector of points that will be occupied by this tileID
+  */
+  std::vector<Point> getTargetCoordsOfTile(const Point &targetCoordinates, const std::string &tileID);
 
   /**
  * @brief Parse the tileData JSON and set up the tileManager

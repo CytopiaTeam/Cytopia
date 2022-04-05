@@ -289,7 +289,8 @@ bool Map::isPlacementOnNodeAllowed(const Point &isoCoordinates, const std::strin
   return mapNodes[nodeIdx(isoCoordinates.x, isoCoordinates.y)].isPlacementAllowed(tileID);
 }
 
-std::vector<Point> Map::getObjectCoords(const Point &isoCoordinates, const std::string &tileID)
+// TODO: Remove this function after the other PRs are merged and we can replace it in the functions that are not yet in master
+std::vector<Point> Map::getObjectCoords(const Point &targetCoordinates, const std::string &tileID)
 {
   std::vector<Point> ret;
   TileData *tileData = TileManager::instance().getTileData(tileID);
@@ -299,14 +300,14 @@ std::vector<Point> Map::getObjectCoords(const Point &isoCoordinates, const std::
     return ret;
   }
 
-  Point coords = isoCoordinates;
+  Point coords = targetCoordinates;
 
   for (int i = 0; i < tileData->RequiredTiles.width; i++)
   {
     for (int j = 0; j < tileData->RequiredTiles.height; j++)
     {
-      coords.x = isoCoordinates.x - i;
-      coords.y = isoCoordinates.y + j;
+      coords.x = targetCoordinates.x - i;
+      coords.y = targetCoordinates.y + j;
       ret.emplace_back(coords);
     }
   }
@@ -508,7 +509,7 @@ void Map::demolishNode(const std::vector<Point> &isoCoordinates, bool updateNeig
           const std::string &tileID = getMapNode(origCornerPoint).getTileID(Layer::BUILDINGS);
 
           // get all the occupied nodes and demolish them
-          for (auto buildingCoords : getObjectCoords(origCornerPoint, tileID))
+          for (auto buildingCoords : TileManager::instance().getTargetCoordsOfTile(origCornerPoint, tileID))
           {
             nodesToDemolish.insert(&mapNodes[nodeIdx(buildingCoords.x, buildingCoords.y)]);
           }

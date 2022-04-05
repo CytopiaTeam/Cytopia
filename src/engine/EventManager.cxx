@@ -318,18 +318,12 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           }
           else
           {
+            m_nodesToHighlight = TileManager::instance().getTargetCoordsOfTile(mouseIsoCoords, tileToPlace);
             // get all node coordinates the tile we'll place occupies
-            for (auto &node : engine.map->getObjectCoords(mouseIsoCoords, tileToPlace))
+            
+            if (m_nodesToHighlight.empty() && mouseIsoCoords.isWithinMapBoundaries())
             {
-              // if we don't geta correct coordinate, fall back to the click coordinates
-              if (node == Point::INVALID() && mouseIsoCoords.isWithinMapBoundaries())
-              {
-                m_nodesToHighlight.push_back(mouseIsoCoords);
-              }
-              else if (node.isWithinMapBoundaries())
-              {
-                m_nodesToHighlight.push_back(node);
-              }
+              m_nodesToHighlight.push_back(mouseIsoCoords);
             }
           }
 
@@ -381,7 +375,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
             Point currentOriginPoint = engine.map->getNodeOrigCornerPoint(coords, layer);
 
             std::string currentTileID = engine.map->getTileID(currentOriginPoint, layer);
-            for (auto &foundNode : engine.map->getObjectCoords(currentOriginPoint, currentTileID))
+            for (auto &foundNode : TileManager::instance().getTargetCoordsOfTile(currentOriginPoint, currentTileID))
             {
               // only add the node if it's unique
               if (std::find(m_nodesToHighlight.begin(), m_nodesToHighlight.end(), foundNode) == m_nodesToHighlight.end())
@@ -464,7 +458,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         // game event handling
         mouseScreenCoords = {event.button.x, event.button.y};
         mouseIsoCoords = convertScreenToIsoCoordinates(mouseScreenCoords);
-        const std::vector targetObjectNodes = engine.map->getObjectCoords(mouseIsoCoords, tileToPlace);
+        const std::vector targetObjectNodes = TileManager::instance().getTargetCoordsOfTile(mouseIsoCoords, tileToPlace);
 
         //check if the coords for the click and for the occpuied tiles of the tileID we want to place are within map boundaries
         bool canPlaceTileID = false;
@@ -543,7 +537,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       mouseScreenCoords = {event.button.x, event.button.y};
       mouseIsoCoords = convertScreenToIsoCoordinates(mouseScreenCoords);
       // gather all nodes the objects that'll be placed is going to occupy.
-      std::vector targetObjectNodes = engine.map->getObjectCoords(mouseIsoCoords, tileToPlace);
+      std::vector targetObjectNodes =TileManager::instance().getTargetCoordsOfTile(mouseIsoCoords, tileToPlace);
       
       if (event.button.button == SDL_BUTTON_LEFT)
       {
