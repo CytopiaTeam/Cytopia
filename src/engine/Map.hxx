@@ -70,6 +70,7 @@ public:
 
   // new function to set tileID for a single node
   void setTileID(std::string tileID, Point coordinate);
+  // set multiple nodes with the same tileID
   void setTileID(std::string tileID, std::vector<Point> coordinates);
 
   /**
