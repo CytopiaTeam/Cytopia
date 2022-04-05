@@ -771,6 +771,13 @@ void Map::setTileID(std::string tileID, Point coordinate)
   Layer layer = TileManager::instance().getTileLayer(tileID);
   std::vector<Point> targetCoordinates = TileManager::instance().getTargetCoordsOfTile(coordinate, tileID);
 
+  int groundtileIndex = -1;
+  if (tileData && !tileData->groundDecoration.empty() && groundtileIndex == -1)
+  {
+    const int groundDecoSize = tileData->groundDecoration.size();
+    std::uniform_int_distribution uniformDistribution(0, groundDecoSize - 1);
+    groundtileIndex = uniformDistribution(randomEngine);
+  }
   if (true)
   { // if the building is bigger than 1x1 we will need to handle all the tiles it occupies
     if (targetCoordinates.empty())
@@ -798,7 +805,7 @@ void Map::setTileID(std::string tileID, Point coordinate)
         currentMapNode.setRenderFlag(layer, false);
       }
       else
-      { //1x1 buildings should be set to visible
+      { // 1x1 buildings should be set to visible
         currentMapNode.setRenderFlag(layer, true);
       }
       if (targetCoordinates.size() > 1)
@@ -811,20 +818,13 @@ void Map::setTileID(std::string tileID, Point coordinate)
       }
 
       // ground deco
-      TileData *pTileData = currentMapNode.getMapNodeDataForLayer(layer).tileData;
-      int groundtileIndex = -1;
-      if (pTileData && !pTileData->groundDecoration.empty() && groundtileIndex == -1)
-      {
-        const int groundDecoSize = pTileData->groundDecoration.size();
-        std::uniform_int_distribution uniformDistribution(0, groundDecoSize - 1);
-        groundtileIndex = uniformDistribution(randomEngine);
-      }
+
       LOG(LOG_INFO) << "placing mapnode on " << coord.x << ", " << coord.y;
 
       if (groundtileIndex != -1)
       {
         LOG(LOG_INFO) << "placing mapnode on " << coord.x << ", " << coord.y;
-        currentMapNode.setTileID(pTileData->groundDecoration[groundtileIndex], coord);
+        currentMapNode.setTileID(tileData->groundDecoration[groundtileIndex], coord);
       }
     }
   }
