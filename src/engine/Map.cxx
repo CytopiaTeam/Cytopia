@@ -770,8 +770,8 @@ void Map::setTileID(std::string tileID, Point coordinate)
   TileData *tileData = TileManager::instance().getTileData(tileID);
   Layer layer = TileManager::instance().getTileLayer(tileID);
 
-  if (tileData->RequiredTiles.height > 1 || tileData->RequiredTiles.width > 1)
-  { // if the building is bigger than 1x1 demolish the nodes it will occupy before placing it.
+  if (true)
+  { // if the building is bigger than 1x1 we will need to handle all the tiles it occupies
     if (TileManager::instance().getTargetCoordsOfTile(coordinate, tileID).empty())
     { // if the node c
       return;
@@ -784,15 +784,14 @@ void Map::setTileID(std::string tileID, Point coordinate)
       }
     }
 
+    // clear all the nodes that are going to be occupied.
+    demolishNode(TileManager::instance().getTargetCoordsOfTile(coordinate, tileID), 0, Layer::BUILDINGS);
 
     for (auto coord : TileManager::instance().getTargetCoordsOfTile(coordinate, tileID))
     { // now we can place our building
-      
+
       MapNode &currentMapNode = mapNodes[nodeIdx(coord.x, coord.y)];
 
-      
-    // clear all the nodes that are going to be occupied.
-      demolishNode(TileManager::instance().getTargetCoordsOfTile(coord, tileID), 0, Layer::BUILDINGS);
       if (coord != coordinate)
       { // set every node that will be occupied to invisible exepct of the originnode
         currentMapNode.setRenderFlag(layer, false);
@@ -810,9 +809,6 @@ void Map::setTileID(std::string tileID, Point coordinate)
     currentMapNode.setRenderFlag(layer, true);
     currentMapNode.setTileID(tileID, coordinate);
   }
-
-
-
 }
 
 //void Map::setTileID(std::string tileID, std::vector<Point> coordinates)
