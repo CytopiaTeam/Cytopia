@@ -560,11 +560,11 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           {
             // instead of using "nodesToPlace" which would be the origin-corner coordinate, we need to pass ALL occupied nodes for now.
             //engine.setTileIDOfNode(targetObjectNodes.begin(), targetObjectNodes.end(), tileToPlace, false);
-            engine.map->setTileID(tileToPlace, mouseIsoCoords);
+            engine.map->setTileID(tileToPlace, targetObjectNodes);
           }
           else
           {
-            engine.map->setTileID(tileToPlace, mouseIsoCoords);
+            engine.map->setTileID(tileToPlace, m_nodesToPlace);
             //engine.setTileIDOfNode(m_nodesToPlace.begin(), m_nodesToPlace.end(), tileToPlace, true);
           }
         }
