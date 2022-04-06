@@ -18,9 +18,6 @@ void mergeZoneAreas(ZoneArea &mainZone, ZoneArea &toBeMerged);
 class ZoneArea
 {
 public:
-  // TODO: This must not be public, only for debug now
-  std::vector<ZoneNode> m_zoneNodes;
-
   ZoneArea(ZoneNode zoneNode);
 
   /**
@@ -146,6 +143,8 @@ public:
 private:
   ZoneType m_zoneType;
   ZoneDensity m_zoneDensity;
+  std::vector<ZoneNode> m_zoneNodes;
+
   bool m_hasPower;
   bool m_hasWater;
   bool m_isVacant = false;
