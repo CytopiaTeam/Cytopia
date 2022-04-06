@@ -12,26 +12,26 @@ ZoneManager::ZoneManager()
     LOG(LOG_ERROR) << "ZoneManager() constructor has been called with no valid map object available!";
   }
 
-  Engine::instance().map->registerCallbackFunction(
+  Engine::instance().map->registerCbPlaceBuilding(
       [this](const MapNode &mapNode)
       {
         // If we place a building on zone tile, occupy the node
-        if (mapNode.getTileData(Layer::BUILDINGS) && mapNode.getTileData(Layer::ZONE))
+        for (auto &zoneArea : m_zoneAreas)
         {
-          for (auto &zoneArea : m_zoneAreas)
-          {
-            zoneArea.occupyZoneNode(mapNode.getCoordinates());
-          }
-        }
-        // If we place a zone tile, add it
-        else if (mapNode.getTileData(Layer::ZONE))
-        {
-          addZoneNode(mapNode.getCoordinates(), mapNode.getTileData(Layer::ZONE)->zones[0],
-                      mapNode.getTileData(Layer::ZONE)->zoneDensity[0]);
+          zoneArea.occupyZoneNode(mapNode.getCoordinates());
         }
       });
 
-  Engine::instance().map->registerCallbackFunction(
+  Engine::instance().map->registerCbPlaceZone(
+      [this](const MapNode &mapNode)
+      {
+        // If we place a building on zone tile, occupy the node
+     
+        addZoneNode(mapNode.getCoordinates(), mapNode.getTileData(Layer::ZONE)->zones[0],
+                      mapNode.getTileData(Layer::ZONE)->zoneDensity[0]);        
+      });
+
+  Engine::instance().map->registerCbDemolish(
       [this](const MapNode *mapNode)
       {
         switch (GameStates::instance().demolishMode)
@@ -93,7 +93,7 @@ std::vector<int> ZoneManager::getAdjacentZoneAreas(const ZoneNode &zoneNode, std
 
 void ZoneManager::addZoneNode(Point coordinate, ZoneType zoneType, ZoneDensity zoneDensity)
 {
-  // Prevent adding of duplicate items. 
+  // Prevent adding of duplicate items.
   // NOTE: This shouldn't happen and did not occur during my tests. Remove it?
   for (const auto &zoneArea : m_zoneAreas)
   {

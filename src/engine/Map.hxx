@@ -132,7 +132,14 @@ public:
       }
 
       // emit a signal to notify manager
-      placeTilesSignal.emit(currentMapNode);
+      if (currentMapNode.getTileData(Layer::BUILDINGS) && currentMapNode.getTileData(Layer::ZONE))
+      {
+        signalPlaceBuilding.emit(currentMapNode);
+      }
+      else if (currentMapNode.getTileData(Layer::ZONE))
+      {
+        signalPlaceZone.emit(currentMapNode);
+      }
     }
 
     if (!nodesToBeUpdated.empty())
@@ -293,13 +300,15 @@ private:
   static const size_t m_saveGameVersion;
 
   // Signals
-  Signal::Signal<void(const MapNode &)> placeTilesSignal;
-  Signal::Signal<void(MapNode *)> demolishNodesSignal;
+  Signal::Signal<void(const MapNode &)> signalPlaceBuilding;
+  Signal::Signal<void(const MapNode &)> signalPlaceZone;
+  Signal::Signal<void(MapNode *)> signalDemolish;
 
 public:
   // Callback functions
-  void registerCallbackFunction(std::function<void(const MapNode &)> const &cb) { placeTilesSignal.connect(cb); }
-  void registerCallbackFunction(std::function<void(MapNode *)> const &cb) { demolishNodesSignal.connect(cb); }
+  void registerCbPlaceBuilding(std::function<void(const MapNode &)> const &cb) { signalPlaceBuilding.connect(cb); }
+  void registerCbPlaceZone(std::function<void(const MapNode &)> const &cb) { signalPlaceZone.connect(cb); }
+  void registerCbDemolish(std::function<void(MapNode *)> const &cb) { signalDemolish.connect(cb); }
 };
 
 #endif
