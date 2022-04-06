@@ -58,7 +58,6 @@ private:
   std::vector<ZoneArea> rebuildZoneArea(ZoneArea &zoneArea);
 
   std::vector<ZoneArea> m_zoneAreas; /// All zoneAreas
-  std::vector<ZoneNode> m_AllNodes; /// All Nodes that have a zone tile
 };
 
 #endif

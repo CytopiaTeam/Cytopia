@@ -104,7 +104,6 @@ void ZoneManager::addZoneNode(Point coordinate, ZoneType zoneType, ZoneDensity z
   }
   ZoneNode newZone{coordinate, zoneType, zoneDensity, false};
   addZoneNodeToArea(newZone, m_zoneAreas);
-  m_AllNodes.push_back(newZone);
 }
 
 void ZoneManager::addZoneNodeToArea(ZoneNode &zoneNode, std::vector<ZoneArea> &zoneAreas)
@@ -179,9 +178,4 @@ void ZoneManager::removeZoneNode(Point coordinate)
       break;
     }
   }
-
-  // remove if should remove elements from the vector
-  m_AllNodes.erase(std::remove_if(m_AllNodes.begin(), m_AllNodes.end(),
-                                  [coordinate](const ZoneNode &zone) { return zone.coordinate == coordinate; }),
-                   m_AllNodes.end());
 }
