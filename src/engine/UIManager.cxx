@@ -525,6 +525,7 @@ void UIManager::setCallbackFunctions()
         {
           Settings::instance().writeFile();
           toggleGroupVisibility("SettingsMenu");
+            toggleGroupVisibility("PauseMenu");
         });
     }
     else if (uiElement->getUiElementData().actionID == "CancelSettings")
@@ -533,8 +534,55 @@ void UIManager::setCallbackFunctions()
         [this]()
         { 
           Settings::instance().readFile();
-          initializeDollarVariables();
+          for (const auto &it : getAllUiElements())
+          {
+            if (utils::strings::startsWith(it->getUiElementData().elementID, "$"))
+            {
+              if (it->getUiElementData().elementID == "$BuildMenuLayout")
+              {
+                ComboBox *combobox = dynamic_cast<ComboBox *>(it.get());
+                if (Settings::instance().buildMenuPosition == "LEFT")
+                {
+                  combobox->setActiveID(static_cast<int>(BUILDMENU_LAYOUT::LEFT));
+                  m_buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(BUILDMENU_LAYOUT::LEFT));
+                }
+                else if (Settings::instance().buildMenuPosition == "RIGHT")
+                {
+                  combobox->setActiveID(static_cast<int>(BUILDMENU_LAYOUT::RIGHT));
+                  m_buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(BUILDMENU_LAYOUT::RIGHT));
+                }
+                else if (Settings::instance().buildMenuPosition == "TOP")
+                {
+                  combobox->setActiveID(static_cast<int>(BUILDMENU_LAYOUT::TOP));
+                  m_buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(BUILDMENU_LAYOUT::TOP));
+                }
+                else if (Settings::instance().buildMenuPosition == "BOTTOM")
+                {
+                  combobox->setActiveID(static_cast<int>(BUILDMENU_LAYOUT::BOTTOM));
+                  m_buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(BUILDMENU_LAYOUT::BOTTOM));
+                }
+              }
+              else if (it->getUiElementData().elementID == "$ScreenResolutionSelector")
+              {
+                // TODO: Come back to this when screen resolution is fixed
+              }
+              else if (it->getUiElementData().elementID == "$FullScreenSelector")
+              {
+                // This must be a ComboBox
+                ComboBox *combobox = dynamic_cast<ComboBox *>(it.get());
+                combobox->setActiveID(Settings::instance().fullScreenMode);
+              }
+              else if (it->getUiElementData().elementID == "$MusicVolumeSlider")
+              {
+#ifdef USE_AUDIO
+                Slider *slider = dynamic_cast<Slider *>(it.get());
+                slider->setValue(Settings::instance().musicVolume * 100);
+#endif
+              }
+            }
+          }
           toggleGroupVisibility("SettingsMenu");
+          toggleGroupVisibility("PauseMenu");
         });
     }
   }
