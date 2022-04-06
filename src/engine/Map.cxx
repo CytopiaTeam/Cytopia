@@ -789,8 +789,11 @@ void Map::setTileID(const std::string &tileID, Point coordinate)
         *Randomizer::instance().choose(tileData->groundDecoration.begin(), tileData->groundDecoration.end());
   }
 
-  // clear all the nodes that are going to be occupied.
-  demolishNode(targetCoordinates, 0, Layer::BUILDINGS);
+  // for >1x1 buildings, clear all the nodes that are going to be occupied before placing anything.
+  if (targetCoordinates.size() > 1)
+  {
+    demolishNode(targetCoordinates, 0, Layer::BUILDINGS);
+  }
 
   for (auto coord : targetCoordinates)
   { // now we can place our building
@@ -798,21 +801,24 @@ void Map::setTileID(const std::string &tileID, Point coordinate)
     MapNode &currentMapNode = mapNodes[nodeIdx(coord.x, coord.y)];
 
     if (coord != coordinate && targetCoordinates.size() > 1)
-    { // for buildings >1x1 set every node on the layer that will be occupied to invisible exepct of the originnode
+    { // for buildings >1x1 set every node on the layer that will be occupied to invisible exepct of the origin node
       currentMapNode.setRenderFlag(layer, false);
     }
     else
     { // 1x1 buildings should be set to visible
       currentMapNode.setRenderFlag(layer, true);
     }
-    if (targetCoordinates.size() == 1)
-    { // if it's not a >1x1 building, place tileID on the current coordinate (e.g. ground decoration beneath a > 1x1 building)
-      currentMapNode.setTileID(tileID, coord);
-    }
-    else if (coord == coordinate)
-    {   // set the tileID for the mapNode for the origin coordinates only on (when we iterate over the origin coordinate)
-      currentMapNode.setTileID(tileID, coord);
-    }
+
+    currentMapNode.setTileID(tileID, coord);
+
+    //if (targetCoordinates.size() == 1)
+    //{ // if it's not a >1x1 building, place tileID on the current coordinate (e.g. ground decoration beneath a > 1x1 building)
+    //  currentMapNode.setTileID(tileID, coord);
+    //}
+    //else if (coord == coordinate)
+    //{   // set the tileID for the mapNode for the origin coordinates only on (when we iterate over the origin coordinate)
+    //  currentMapNode.setTileID(tileID, coord);
+    //}
 
     // place ground deco if we have one
     if (!randomGroundDecorationTileID.empty())
