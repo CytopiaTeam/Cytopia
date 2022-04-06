@@ -21,25 +21,18 @@ public:
   ZoneArea(ZoneNode zoneNode);
 
   /**
-   * @brief Add coordinates to a mapNode that has a zone placed on it.
+   * @brief Add a zoneNode to this zoneArea
    * 
-   * @param Coordinates of the mapNode with a zone tile
+   * @param zoneNode to add
    */
   void addZoneNode(ZoneNode zoneNode);
 
   /**
-   * @brief Remove a coordinates to a mapNode that has a zone placed on it.
+   * @brief Remove a zoneNode on a given coordinate from this zoneArea
    * 
    * @param Coordinates of the mapNode with a zone tile
    */
   void removeZoneNode(Point coordinate);
-
-  /**
-   * @brief Remove coordinates to a vacant mapNode (without a building) that has a zone placed on it.
-   * 
-   * @param Coordinates of the mapNode with a zone tile
-   */
-  void removeEmptyZoneNode(Point Coordinate);
 
   /**
    * @brief Set the power supply for this Area
