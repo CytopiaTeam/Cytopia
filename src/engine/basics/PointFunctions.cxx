@@ -242,5 +242,5 @@ NeighbourNodesPosition PointFunctions::getNeighborPositionToOrigin(const Point &
     }
     break;
   }
-  //assert(false); // this should never happen!
+  assert(false); // this should never happen!
 }
