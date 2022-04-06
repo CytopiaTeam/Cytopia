@@ -95,7 +95,7 @@ public:
     /**
    * @brief If this area has unoccupied nodes left
    * 
-   * @return neighbor of this zoneArea
+   * @return if this zoneArea is vacant or not
    */
   bool isVacant() const { return m_isVacant; };
 
