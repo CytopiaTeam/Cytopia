@@ -63,26 +63,11 @@ public:
   bool hasWaterSupply() { return m_hasWater; };
 
   /**
-   * @brief Set the zone for this Area
-   * 
-   * @param zone for this area
-   */
-  void setZone(ZoneType zoneType) { m_zoneType = zoneType; };
-  ;
-
-  /**
    * @brief Get the zone for this Area
    * 
    * @return zone for this area
    */
   ZoneType getZone() const { return m_zoneType; };
-
-  /**
-   * @brief Set the zone density for this Area
-   * 
-   * @param zone density for this area
-   */
-  void setZoneDensity(ZoneDensity zoneDensity) { m_zoneDensity = zoneDensity; };
 
   /**
    * @brief Get the zone density for this Area
