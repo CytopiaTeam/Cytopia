@@ -88,15 +88,6 @@ std::vector<int> ZoneManager::getAdjacentZoneAreas(const ZoneNode &zoneNode, std
 
 void ZoneManager::addZoneNode(Point coordinate, ZoneType zoneType, ZoneDensity zoneDensity)
 {
-  // Prevent adding of duplicate items.
-  // NOTE: This shouldn't happen and did not occur during my tests. Remove it?
-  for (const auto &zoneArea : m_zoneAreas)
-  {
-    if (zoneArea.isPartOfZone(coordinate))
-    {
-      return;
-    }
-  }
   ZoneNode newZone{coordinate, zoneType, zoneDensity, false};
   addZoneNodeToArea(newZone, m_zoneAreas);
 }
