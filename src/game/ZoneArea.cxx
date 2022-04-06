@@ -71,7 +71,7 @@ bool ZoneArea::checkVacancy() const
 
 bool ZoneArea::isNeighborOfZone(Point coordinate) const
 {
-  for (ZoneNode node : m_zoneNodes)
+  for (const ZoneNode &node : m_zoneNodes)
   {
     if ((node.coordinate.x == coordinate.x) && (std::abs(node.coordinate.y - coordinate.y) <= 1) ||
         (node.coordinate.y == coordinate.y) && (std::abs(node.coordinate.x - coordinate.x) <= 1))
@@ -163,7 +163,7 @@ void ZoneArea::occupyZoneNode(Point coordinate)
     }
   }
   //update vacancy
-   m_isVacant = checkVacancy();
+  m_isVacant = checkVacancy();
 }
 
 void ZoneArea::freeZoneNode(Point coordinate)
@@ -176,4 +176,5 @@ void ZoneArea::freeZoneNode(Point coordinate)
     }
   }
   //update vacancy
-  m_isVacant = checkVacancy();}
+  m_isVacant = checkVacancy();
+}
