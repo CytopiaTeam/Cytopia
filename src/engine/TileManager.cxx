@@ -45,7 +45,7 @@ std::vector<std::string> TileManager::getAllTileIDsForZone(ZoneType zone, ZoneDe
 
 std::string TileManager::getRandomTileIDForZoneWithRandomSize(ZoneType zone, ZoneDensity zoneDensity, TileSize maxTileSize)
 {
-  std::unordered_set<TileSize> elligibleTileSizes;
+  std::vector<TileSize> elligibleTileSizes;
 
   // filter out the tilesizes that are below the maximum from all available tilesizes
   for (auto tileSize : m_tileSizeCombinations)
@@ -53,7 +53,7 @@ std::string TileManager::getRandomTileIDForZoneWithRandomSize(ZoneType zone, Zon
     // for now only pick square buildings. non square buildings don't work yet.
     if (tileSize.height <= maxTileSize.height && tileSize.width <= maxTileSize.width && tileSize.height == tileSize.width)
     {
-      elligibleTileSizes.insert(tileSize);
+      elligibleTileSizes.push_back(tileSize);
     }
   }
 
