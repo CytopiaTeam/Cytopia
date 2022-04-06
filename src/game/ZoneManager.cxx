@@ -140,7 +140,7 @@ void ZoneManager::removeZoneNode(Point coordinate)
 {
   for (auto zoneIt = m_zoneAreas.begin(); zoneIt != m_zoneAreas.end(); zoneIt++)
   {
-    if (zoneIt->isPartOfZone(coordinate))
+    if (zoneIt->isWithinZone(coordinate))
     {
       zoneIt->removeZoneNode(coordinate);
 

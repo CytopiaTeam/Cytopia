@@ -90,7 +90,7 @@ public:
    * @param coordinate The point to check
    * @return neighbor of this zoneArea
    */
-  bool isPartOfZone(Point coordinate) const;
+  bool isWithinZone(Point coordinate) const;
 
     /**
    * @brief If this area has unoccupied nodes left

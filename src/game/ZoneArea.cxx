@@ -57,7 +57,7 @@ void ZoneArea::spawnBuildings()
   }
 }
 
-bool ZoneArea::isPartOfZone(Point coordinate) const
+bool ZoneArea::isWithinZone(Point coordinate) const
 {
   return m_zoneNodes.end() != std::find_if(m_zoneNodes.begin(), m_zoneNodes.end(),
                                            [&coordinate](const ZoneNode &node) { return node.coordinate == coordinate; });
@@ -97,7 +97,7 @@ TileSize ZoneArea::getMaximumTileSize(Point originPoint)
 
     for (auto coord : xDirection)
     {
-      if (!isPartOfZone(coord))
+      if (!isWithinZone(coord))
       {
         increaseX = false;
         break;
@@ -105,7 +105,7 @@ TileSize ZoneArea::getMaximumTileSize(Point originPoint)
     }
     for (auto coord : yDirection)
     {
-      if (!isPartOfZone(coord))
+      if (!isWithinZone(coord))
       {
         increaseY = false;
         break;
