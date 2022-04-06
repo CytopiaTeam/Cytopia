@@ -11,6 +11,7 @@
 #include "map/MapLayers.hxx"
 #include "common/JsonSerialization.hxx"
 #include "Filesystem.hxx"
+#include "../services/Randomizer.hxx"
 
 #include "json.hxx"
 
@@ -761,36 +762,31 @@ void Map::calculateVisibleMap(void)
 
 void Map::setTileID(const std::string &tileID, Point coordinate)
 {
-  std::vector<MapNode *> nodesToBeUpdated;
-
-  if (!TileManager::instance().getTileData(tileID) || !coordinate.isWithinMapBoundaries() ||
-      !isPlacementOnNodeAllowed(coordinate, tileID))
-  {
-    return;
-  }
-
   TileData *tileData = TileManager::instance().getTileData(tileID);
-  Layer layer = TileManager::instance().getTileLayer(tileID);
   std::vector<Point> targetCoordinates = TileManager::instance().getTargetCoordsOfTile(coordinate, tileID);
-
-  int groundtileIndex = -1;
-  if (tileData && !tileData->groundDecoration.empty() && groundtileIndex == -1)
-  {
-    const int groundDecoSize = tileData->groundDecoration.size();
-    std::uniform_int_distribution uniformDistribution(0, groundDecoSize - 1);
-    groundtileIndex = uniformDistribution(randomEngine);
-  }
-
-  if (targetCoordinates.empty())
-  { // if the node c
+  //TODO: isPlacementOnNodeAllowed should also allow std::vector<Point>, but this is locked until #851 is merged. we can then remove the loop check
+  if (!tileData || targetCoordinates.empty() || !isPlacementOnNodeAllowed(coordinate, tileID))
+  { // if the node would not outside of map boundaries, targetCoordinates would be empty
     return;
   }
+
   for (auto coord : targetCoordinates)
   { // first check all nodes if it is possible to place the building before doing anything
     if (!isPlacementOnNodeAllowed(coord, tileID))
     { //make sure every target coordinate is valid for placement, not just the origin coordinate.
       return;
     }
+  }
+
+  Layer layer = TileManager::instance().getTileLayer(tileID);
+  std::string randomGroundDecorationTileID;
+  std::vector<MapNode *> nodesToBeUpdated;
+
+  // if this building has groundDeco, grab a random tileID from the list
+  if (!tileData->groundDecoration.empty())
+  {
+    randomGroundDecorationTileID =
+        *Randomizer::instance().choose(tileData->groundDecoration.begin(), tileData->groundDecoration.end());
   }
 
   // clear all the nodes that are going to be occupied.
@@ -809,23 +805,19 @@ void Map::setTileID(const std::string &tileID, Point coordinate)
     { // 1x1 buildings should be set to visible
       currentMapNode.setRenderFlag(layer, true);
     }
-    if (targetCoordinates.size() > 1)
-    { // set the tileID for the mapNode for the origin coordinates only on (when we iterate over the origin coordinate)
-      currentMapNode.setTileID(tileID, coordinate);
-    }
-    else
+    if (targetCoordinates.size() == 1)
     { // if it's not a >1x1 building, place tileID on the current coordinate (e.g. ground decoration beneath a > 1x1 building)
       currentMapNode.setTileID(tileID, coord);
     }
+    else if (coord == coordinate)
+    {   // set the tileID for the mapNode for the origin coordinates only on (when we iterate over the origin coordinate)
+      currentMapNode.setTileID(tileID, coord);
+    }
 
-    // ground deco
-
-    LOG(LOG_INFO) << "placing mapnode on " << coord.x << ", " << coord.y;
-
-    if (groundtileIndex != -1)
+    // place ground deco if we have one
+    if (!randomGroundDecorationTileID.empty())
     {
-      LOG(LOG_INFO) << "placing mapnode on " << coord.x << ", " << coord.y;
-      currentMapNode.setTileID(tileData->groundDecoration[groundtileIndex], coord);
+      currentMapNode.setTileID(randomGroundDecorationTileID, coord);
     }
 
     //autotile stuff

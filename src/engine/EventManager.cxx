@@ -556,11 +556,15 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         else if (!tileToPlace.empty() && m_placementAllowed)
         {
           // if targetObject.size > 1 it is a tile bigger than 1x1
+            // TODO: Remove the check here, there is no need for handling this differently
           if (targetObjectNodes.size() > 1 && isPointWithinMapBoundaries(targetObjectNodes))
           {
             // instead of using "nodesToPlace" which would be the origin-corner coordinate, we need to pass ALL occupied nodes for now.
             //engine.setTileIDOfNode(targetObjectNodes.begin(), targetObjectNodes.end(), tileToPlace, false);
-            engine.map->setTileID(tileToPlace, targetObjectNodes);
+            // TODO: If a building is selected, it still allows for line seelction.  m_nodesToPlace would contain more buildings figure out what this is.
+            engine.map->setTileID(tileToPlace, mouseIsoCoords); // use this for now to workaround wrongly allowed line selection
+            //engine.map->setTileID(tileToPlace, m_nodesToPlace);
+
           }
           else
           {
