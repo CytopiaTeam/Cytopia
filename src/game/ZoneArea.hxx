@@ -122,7 +122,7 @@ public:
    * 
    * @return neighbor of this zoneArea
    */
-  bool isVacant() const;
+  bool isVacant() const { return m_isVacant; };
 
   /**
    * @brief Spawn buildings on nodes in this area if all demands are fulfilled
@@ -148,8 +148,11 @@ private:
   ZoneDensity m_zoneDensity;
   bool m_hasPower;
   bool m_hasWater;
-
+  bool m_isVacant = false;
   int xmin, xmax, ymin, ymax;
+
+  /// internal function to check for vacancy
+  bool checkVacancy() const;
 
   friend void mergeZoneAreas(ZoneArea &mainZone, ZoneArea &toBeMerged);
 

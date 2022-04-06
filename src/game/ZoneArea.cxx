@@ -63,7 +63,7 @@ bool ZoneArea::isPartOfZone(Point coordinate) const
                                            [&coordinate](const ZoneNode &node) { return node.coordinate == coordinate; });
 }
 
-bool ZoneArea::isVacant() const
+bool ZoneArea::checkVacancy() const
 {
   return m_zoneNodes.end() !=
          std::find_if(m_zoneNodes.begin(), m_zoneNodes.end(), [](const ZoneNode &node) { return node.occupied == false; });
@@ -162,6 +162,8 @@ void ZoneArea::occupyZoneNode(Point coordinate)
       zoneNode.occupied = true;
     }
   }
+  //update vacancy
+   m_isVacant = checkVacancy();
 }
 
 void ZoneArea::freeZoneNode(Point coordinate)
@@ -173,4 +175,5 @@ void ZoneArea::freeZoneNode(Point coordinate)
       zoneNode.occupied = false;
     }
   }
-}
+  //update vacancy
+  m_isVacant = checkVacancy();}
