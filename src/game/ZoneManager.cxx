@@ -7,11 +7,6 @@
 
 ZoneManager::ZoneManager()
 {
-  if (!Engine::instance().map)
-  {
-    LOG(LOG_ERROR) << "ZoneManager() constructor has been called with no valid map object available!";
-  }
-
   Engine::instance().map->registerCbPlaceBuilding(
       [this](const MapNode &mapNode)
       {
