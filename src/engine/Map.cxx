@@ -809,16 +809,16 @@ void Map::setTileID(const std::string &tileID, Point coordinate)
       currentMapNode.setRenderFlag(layer, true);
     }
 
-    currentMapNode.setTileID(tileID, coord);
-
-    //if (targetCoordinates.size() == 1)
-    //{ // if it's not a >1x1 building, place tileID on the current coordinate (e.g. ground decoration beneath a > 1x1 building)
-    //  currentMapNode.setTileID(tileID, coord);
-    //}
-    //else if (coord == coordinate)
-    //{   // set the tileID for the mapNode for the origin coordinates only on (when we iterate over the origin coordinate)
-    //  currentMapNode.setTileID(tileID, coord);
-    //}
+    if (!targetCoordinates.size() == 1)
+    { // if it's not a >1x1 building, place tileID on the current coordinate (e.g. ground decoration beneath a > 1x1 building)
+      currentMapNode.setTileID(tileID, coord);
+    }
+    else
+    { // set the tileID for the mapNode of the origin coordinates only on the origin coordinate
+      {
+        currentMapNode.setTileID(tileID, coordinate);
+      }
+    }
 
     // place ground deco if we have one
     if (!randomGroundDecorationTileID.empty())

@@ -562,8 +562,8 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
             // instead of using "nodesToPlace" which would be the origin-corner coordinate, we need to pass ALL occupied nodes for now.
             //engine.setTileIDOfNode(targetObjectNodes.begin(), targetObjectNodes.end(), tileToPlace, false);
             // TODO: If a building is selected, it still allows for line seelction.  m_nodesToPlace would contain more buildings figure out what this is.
-            engine.map->setTileID(tileToPlace, mouseIsoCoords); // use this for now to workaround wrongly allowed line selection
-            //engine.map->setTileID(tileToPlace, m_nodesToPlace);
+            //engine.map->setTileID(tileToPlace, mouseIsoCoords); // use this for now to workaround wrongly allowed line selection
+            engine.map->setTileID(tileToPlace, m_nodesToPlace);
 
           }
           else
