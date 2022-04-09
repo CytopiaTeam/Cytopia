@@ -34,15 +34,15 @@ void ZoneArea::spawnBuildings()
   // pick every single zone node we have
   for (auto &node : m_zoneNodes)
   {
-    if (node.occupied)
-    {
-      continue;
-    }
-
     if (buildingsSpawned >= amountOfBuildingsToSpawn)
     {
       break;
     }
+    if (node.occupied)
+    {
+      continue;
+    }
+    
     // get the maximum size we can spawn at this node
     TileSize maxTileSize = {getMaximumTileSize(node.coordinate).width, getMaximumTileSize(node.coordinate).height};
     std::string buildingTileID =
