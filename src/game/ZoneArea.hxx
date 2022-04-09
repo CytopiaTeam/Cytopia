@@ -123,8 +123,8 @@ private:
   ZoneDensity m_zoneDensity;
   std::vector<ZoneNode> m_zoneNodes;
 
-  bool m_hasPower;
-  bool m_hasWater;
+  bool m_hasPower = false;
+  bool m_hasWater = false;
   bool m_isVacant = false;
   int xmin, xmax, ymin, ymax;
 
