@@ -62,7 +62,7 @@ void ZoneManager::update()
       {
         if (zoneArea.isWithinZone(nodeToVacate))
         {
-          zoneArea.freeZoneNode(nodeToVacate);
+          zoneArea.setVacancy(nodeToVacate, true);
           break;
         }
       }
@@ -79,7 +79,7 @@ void ZoneManager::update()
       {
         if (zoneArea.isWithinZone(nodeToOccupy))
         {
-          zoneArea.occupyZoneNode(nodeToOccupy);
+          zoneArea.setVacancy(nodeToOccupy, false);
           break;
         }
       }

@@ -112,8 +112,13 @@ public:
     return (xmin <= coordinate.x) && (xmax >= coordinate.x) && (ymin <= coordinate.y) && (ymax >= coordinate.y);
   }
 
-  void occupyZoneNode(Point coordinate);
-  void freeZoneNode(Point coordinate);
+  /**
+   * @brief Set vacancy for this tile
+   * 
+   * @param coordinate What tile to vacate / occupy
+   * @param vacancy true if vacant, false if occupied
+   */
+  void setVacancy(Point coordinate, bool vacancy);
 
   auto begin() { return m_zoneNodes.begin(); }
   auto end() { return m_zoneNodes.end(); }

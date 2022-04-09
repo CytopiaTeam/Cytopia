@@ -156,22 +156,27 @@ void ZoneArea::removeZoneNode(Point coordinate)
   m_isVacant = checkVacancy();
 }
 
-void ZoneArea::occupyZoneNode(Point coordinate)
+void ZoneArea::setVacancy(Point coordinate, bool vacancy)
 {
-  std::find_if(m_zoneNodes.begin(), m_zoneNodes.end(),
-               [coordinate](const ZoneNode &node) { return node.coordinate == coordinate; })
-      ->occupied = true;
+  std::vector<ZoneNode>::iterator  node = std::find_if(m_zoneNodes.begin(), m_zoneNodes.end(),
+                           [coordinate](const ZoneNode &node) { return node.coordinate == coordinate; });
+  if (node != m_zoneNodes.end())
+  {
+    if (vacancy)
+    {
+      node->occupied = false;
+      // std::find_if(m_zoneNodes.begin(), m_zoneNodes.end(),
+      //            [coordinate](const ZoneNode &node) { return node.coordinate == coordinate; })
+      //   ->occupied = false;
+    }
+    else
+    {
+      node->occupied = true;
 
-  //update vacancy
-  m_isVacant = checkVacancy();
-}
-
-void ZoneArea::freeZoneNode(Point coordinate)
-{
-    std::find_if(m_zoneNodes.begin(), m_zoneNodes.end(),
-               [coordinate](const ZoneNode &node) { return node.coordinate == coordinate; })
-      ->occupied = false;
-      
-  //update vacancy
-  m_isVacant = checkVacancy();
+      // std::find_if(m_zoneNodes.begin(), m_zoneNodes.end(),
+      //              [coordinate](const ZoneNode &node) { return node.coordinate == coordinate; })
+      //     ->occupied = true;
+    }
+    m_isVacant = checkVacancy();
+  }
 }
