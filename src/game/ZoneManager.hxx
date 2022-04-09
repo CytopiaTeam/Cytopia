@@ -17,14 +17,12 @@ private:
    */
   void spawnBuildings();
 
-  /**
-   * @brief Add a zoneNode node. It will automatically added to zone areas
+    /**
+   * @brief Spawn Buildings on the gathered tileMap
    * 
-   * @param coordinate - coordinate of the zone to add
-   * @param zoneType - Zone type of ZoneType enum
-   * @param zoneDensity - Zone density of ZoneDensity enum
    */
-  void addZoneNode(Point coordinate, ZoneType zoneType, ZoneDensity zoneDensity);
+  void update();
+
   /**
    * @brief Removes a zonenode
    * 
@@ -45,7 +43,7 @@ private:
    * @brief Adds a zoneNode to a given area
    * 
    * @param zoneNode - node to add
-   * @param zoneAreas - zone the node should be added too.
+   * @param zoneAreas - all zoneAreas
    */
   void addZoneNodeToArea(ZoneNode &zoneNode, std::vector<ZoneArea> &zoneAreas);
 
@@ -58,6 +56,10 @@ private:
   std::vector<ZoneArea> rebuildZoneArea(ZoneArea &zoneArea);
 
   std::vector<ZoneArea> m_zoneAreas; /// All zoneAreas
+  std::vector<ZoneNode> m_nodesToAdd; /// All zoneAreas
+  std::vector<Point> m_nodesToOccupy; /// All zoneAreas
+  std::vector<Point> m_nodesToVacate; /// All zoneAreas
+  std::vector<Point> m_nodesToRemove; /// All zoneAreas
 };
 
 #endif

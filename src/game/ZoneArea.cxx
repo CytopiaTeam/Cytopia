@@ -24,7 +24,6 @@ ZoneArea::ZoneArea(ZoneNode zoneNode)
 
 void ZoneArea::spawnBuildings()
 {
-
   constexpr int amountOfBuildingsToSpawn = 5;
   auto &randomizer = Randomizer::instance();
   // shuffle mapNodes so placement of building looks random
@@ -127,6 +126,8 @@ TileSize ZoneArea::getMaximumTileSize(Point originPoint)
 void ZoneArea::addZoneNode(ZoneNode zoneNode)
 {
   m_zoneNodes.push_back(zoneNode);
+  //update vacancy
+  m_isVacant = checkVacancy();
 
   if (zoneNode.coordinate.x == xmin)
   {
@@ -151,30 +152,26 @@ void ZoneArea::removeZoneNode(Point coordinate)
   m_zoneNodes.erase(std::remove_if(m_zoneNodes.begin(), m_zoneNodes.end(),
                                    [coordinate](const ZoneNode &zone) { return zone.coordinate == coordinate; }),
                     m_zoneNodes.end());
+  //update vacancy
+  m_isVacant = checkVacancy();
 }
 
 void ZoneArea::occupyZoneNode(Point coordinate)
 {
-  for (auto &zoneNode : m_zoneNodes)
-  {
-    if (zoneNode.coordinate == coordinate)
-    {
-      zoneNode.occupied = true;
-    }
-  }
+  std::find_if(m_zoneNodes.begin(), m_zoneNodes.end(),
+               [coordinate](const ZoneNode &node) { return node.coordinate == coordinate; })
+      ->occupied = true;
+
   //update vacancy
   m_isVacant = checkVacancy();
 }
 
 void ZoneArea::freeZoneNode(Point coordinate)
 {
-  for (auto &zoneNode : m_zoneNodes)
-  {
-    if (zoneNode.coordinate == coordinate)
-    {
-      zoneNode.occupied = false;
-    }
-  }
+    std::find_if(m_zoneNodes.begin(), m_zoneNodes.end(),
+               [coordinate](const ZoneNode &node) { return node.coordinate == coordinate; })
+      ->occupied = false;
+      
   //update vacancy
   m_isVacant = checkVacancy();
 }

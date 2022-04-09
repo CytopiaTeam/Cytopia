@@ -92,7 +92,7 @@ public:
    */
   bool isWithinZone(Point coordinate) const;
 
-    /**
+  /**
    * @brief If this area has unoccupied nodes left
    * 
    * @return if this zoneArea is vacant or not

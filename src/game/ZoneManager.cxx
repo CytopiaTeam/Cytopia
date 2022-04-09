@@ -8,22 +8,15 @@
 ZoneManager::ZoneManager()
 {
   Engine::instance().map->registerCbPlaceBuilding(
-      [this](const MapNode &mapNode)
-      {
-        // If we place a building on zone tile, occupy the node
-        for (auto &zoneArea : m_zoneAreas)
-        {
-          zoneArea.occupyZoneNode(mapNode.getCoordinates());
-        }
+      [this](const MapNode &mapNode) { // If we place a building on zone tile, add it to the cache to update next tick
+        m_nodesToOccupy.push_back(mapNode.getCoordinates());
       });
 
   Engine::instance().map->registerCbPlaceZone(
-      [this](const MapNode &mapNode)
-      {
-        // If we place a building on zone tile, occupy the node
-     
-        addZoneNode(mapNode.getCoordinates(), mapNode.getTileData(Layer::ZONE)->zones[0],
-                      mapNode.getTileData(Layer::ZONE)->zoneDensity[0]);        
+      [this](const MapNode &mapNode) { // If we place a zone tile, add it to the cache to update next tick
+        ZoneNode nodeToAdd = {mapNode.getCoordinates(), mapNode.getTileData(Layer::ZONE)->zones[0],
+                              mapNode.getTileData(Layer::ZONE)->zoneDensity[0]};
+        m_nodesToAdd.push_back(nodeToAdd);
       });
 
   Engine::instance().map->registerCbDemolish(
@@ -33,15 +26,16 @@ ZoneManager::ZoneManager()
         {
         case DemolishMode::DE_ZONE:
         {
-          removeZoneNode(mapNode->getCoordinates());
+          m_nodesToRemove.push_back(mapNode->getCoordinates());
           break;
         }
         case DemolishMode::DEFAULT:
         {
-          for (auto &zoneArea : m_zoneAreas)
+          if (!mapNode->getTileData(Layer::BUILDINGS))
           {
-            zoneArea.freeZoneNode(mapNode->getCoordinates());
+            m_nodesToVacate.push_back(mapNode->getCoordinates());
           }
+
           break;
         }
         }
@@ -50,10 +44,68 @@ ZoneManager::ZoneManager()
   GameClock::instance().addRealTimeClockTask(
       [this]()
       {
+        update();
         spawnBuildings();
         return false;
       },
       1s, 1s);
+}
+
+void ZoneManager::update()
+{
+  // Vacate nodes (Demolish Buildings on zones)
+  if (!m_nodesToVacate.empty())
+  {
+    for (auto nodeToVacate : m_nodesToVacate)
+    {
+      for (auto &zoneArea : m_zoneAreas)
+      {
+        if (zoneArea.isWithinZone(nodeToVacate))
+        {
+          zoneArea.freeZoneNode(nodeToVacate);
+          break;
+        }
+      }
+    }
+    m_nodesToVacate.clear();
+  }
+
+  // Occupy nodes (building has been spawned on a zone node)
+  if (!m_nodesToOccupy.empty())
+  {
+    for (auto nodeToOccupy : m_nodesToOccupy)
+    {
+      for (auto &zoneArea : m_zoneAreas)
+      {
+        if (zoneArea.isWithinZone(nodeToOccupy))
+        {
+          zoneArea.occupyZoneNode(nodeToOccupy);
+          break;
+        }
+      }
+    }
+    m_nodesToOccupy.clear();
+  }
+
+  // Add new nodes (zone has been placed)
+  if (!m_nodesToAdd.empty())
+  {
+    for (auto nodeToAdd : m_nodesToAdd)
+    {
+      addZoneNodeToArea(nodeToAdd, m_zoneAreas);
+    }
+    m_nodesToAdd.clear();
+  }
+
+  // Remove nodes (Dezone on zone tiles)
+  if (!m_nodesToRemove.empty())
+  {
+    for (auto m_nodeToRemove : m_nodesToRemove)
+    {
+      removeZoneNode(m_nodeToRemove);
+    }
+    m_nodesToRemove.clear();
+  }
 }
 
 void ZoneManager::spawnBuildings()
@@ -63,7 +115,23 @@ void ZoneManager::spawnBuildings()
     // check if there are any buildings to spawn, if not, do nothing.
     if (zoneArea.isVacant())
     {
+      int occupied = 0;
+      int free = 0;
+      for (auto node : zoneArea)
+      {
+        if (node.occupied)
+        {
+          occupied++;
+        }
+        else
+          free++;
+      }
+      LOG(LOG_DEBUG) << "spawn " << free << "/" << occupied << " - " << zoneArea.getSize();
       zoneArea.spawnBuildings();
+    }
+    else
+    {
+      LOG(LOG_DEBUG) << "not vacant";
     }
   }
 }
@@ -84,12 +152,6 @@ std::vector<int> ZoneManager::getAdjacentZoneAreas(const ZoneNode &zoneNode, std
   }
 
   return neighborZones;
-}
-
-void ZoneManager::addZoneNode(Point coordinate, ZoneType zoneType, ZoneDensity zoneDensity)
-{
-  ZoneNode newZone{coordinate, zoneType, zoneDensity, false};
-  addZoneNodeToArea(newZone, m_zoneAreas);
 }
 
 void ZoneManager::addZoneNodeToArea(ZoneNode &zoneNode, std::vector<ZoneArea> &zoneAreas)
