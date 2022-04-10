@@ -126,12 +126,7 @@ void ZoneManager::spawnBuildings()
         else
           free++;
       }
-      LOG(LOG_DEBUG) << "spawn " << free << "/" << occupied << " - " << zoneArea.getSize();
       zoneArea.spawnBuildings();
-    }
-    else
-    {
-      LOG(LOG_DEBUG) << "not vacant";
     }
   }
 }
@@ -206,7 +201,7 @@ void ZoneManager::removeZoneNode(Point coordinate)
     {
       zoneIt->removeZoneNode(coordinate);
 
-      if (zoneIt->getSize() == 0)
+      if (zoneIt->size() == 0)
       {
         m_zoneAreas.erase(zoneIt);
       }

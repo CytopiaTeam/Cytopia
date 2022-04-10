@@ -20,6 +20,8 @@ class ZoneArea
 public:
   ZoneArea(ZoneNode zoneNode);
 
+  size_t size() { return m_zoneNodes.size(); };
+
   /**
    * @brief Add a zoneNode to this zoneArea
    * 
@@ -104,8 +106,6 @@ public:
    * 
    */
   void spawnBuildings();
-
-  size_t getSize() { return m_zoneNodes.size(); };
 
   /**
    * @brief Check if a given point is with the boundaries of this zone area
