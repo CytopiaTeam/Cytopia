@@ -74,8 +74,7 @@ bool ZoneArea::isNeighborOfZone(Point coordinate) const
 {
   for (const ZoneNode &node : m_zoneNodes)
   {
-    if ((node.coordinate.x == coordinate.x) && (std::abs(node.coordinate.y - coordinate.y) <= 1) ||
-        (node.coordinate.y == coordinate.y) && (std::abs(node.coordinate.x - coordinate.x) <= 1))
+    if(node.coordinate.isDirectNeighborOf(coordinate))
     {
       return true;
     }
