@@ -234,7 +234,7 @@ bool MapNode::isPlacementAllowed(const std::string &newTileID) const
         return true;
       }
       if (isLayerOccupied(Layer::ROAD))
-      { // buildings cannot be placed on water
+      { // buildings cannot be placed on roads
         return false;
       }
       break;
