@@ -241,27 +241,26 @@ bool MapNode::isPlacementAllowed(const std::string &newTileID) const
     }
 
     // checks for all layers:
-    if (isLayerOccupied(Layer::WATER) && tileData->tileType != +TileType::WATER && !tileData->placeOnWater)
-    // Disallow placement on water for tiles that are:
-    // not of tiletype water
-    // not flag placeOnWater enabled
+    if (isLayerOccupied(Layer::WATER))
     {
+      if ((tileData->tileType != +TileType::WATER && !tileData->placeOnWater) || !tileData->placeOnGround)
+      // Disallow placement on water for tiles that are:
+      // not of tiletype water
+      // not flag placeOnWater enabled
+      // OR
+      // Disallow placement on ground (meaning a tile that is not water) for tiles that have:
+      // not flag placeOnGround enabled
+      {
+        return false;
+      }
+    }
+
+    if (!isPlacableOnSlope(newTileID))
+    { // Check if a tile has slope frames and therefore can be placed on a node with a slope
       return false;
     }
 
-    if (!isLayerOccupied(Layer::WATER) && !tileData->placeOnGround)
-    // Disallow placement on ground (meaning a tile that is not water) for tiles that have:
-    // not flag placeOnGround enabled
-    {
-      return false;
-    }
-
-    if(!isPlacableOnSlope(newTileID))
-    { // Check if a tile can be placed on a slop tile
-      return false;
-    }
-
-    if(tileData->tileType == +TileType::UNDERGROUND)
+    if (tileData->tileType == +TileType::UNDERGROUND)
     { // Underground tiletype (pipes, metro tunnels, ... ) can overplace each other
       return true;
     }
