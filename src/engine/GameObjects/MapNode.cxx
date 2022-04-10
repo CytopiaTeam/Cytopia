@@ -201,10 +201,10 @@ bool MapNode::isPlacableOnSlope(const std::string &tileID) const
 bool MapNode::isPlacementAllowed(const std::string &newTileID) const
 {
   TileData *tileData = TileManager::instance().getTileData(newTileID);
-  const Layer layer = TileManager::instance().getTileLayer(newTileID);
 
   if (tileData)
   {
+    const Layer layer = TileManager::instance().getTileLayer(newTileID);
     // layer specific checks:
     switch (layer)
     {
@@ -243,7 +243,7 @@ bool MapNode::isPlacementAllowed(const std::string &newTileID) const
     // checks for all layers:
     if (isLayerOccupied(Layer::WATER))
     {
-      if (tileData->tileType != +TileType::WATER && !tileData->placeOnWater) 
+      if (tileData->tileType != +TileType::WATER && !tileData->placeOnWater)
       // Disallow placement on water for tiles that are:
       // not of tiletype water
       // not flag placeOnWater enabled
