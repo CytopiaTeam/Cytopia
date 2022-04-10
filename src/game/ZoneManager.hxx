@@ -18,7 +18,7 @@ private:
   void spawnBuildings();
 
     /**
-   * @brief Spawn Buildings on the gathered tileMap
+   * @brief Process previously cached nodes to update
    * 
    */
   void update();

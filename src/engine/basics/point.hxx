@@ -76,9 +76,20 @@ public:
     }
   }
 
-  //int manhattanDistanceTo(Point target) const { return abs(target.x - x) + abs(target.y - y); }
+  /**
+   * @brief Calculate the manhattan distance between this point and a given point
+   * 
+   * @param target the point to calculate the manhattan distance to
+   * @return number of nodes between this point and the target
+   */
   int manhattanDistanceTo(Point target) const { return abs(x - target.x) + abs(y - target.y); }
 
+  /**
+   * @brief Calculate the direct distance between this point and a given point
+   * 
+   * @param target the point to calculate the direct distance to
+   * @return number of nodes between this point and the target
+   */
   int distanceTo(Point target) const { return sqrt((x - target.x) * (x - target.x) + (y - target.y) * (y - target.y)); }
 };
 

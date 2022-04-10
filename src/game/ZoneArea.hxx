@@ -107,6 +107,12 @@ public:
 
   size_t getSize() { return m_zoneNodes.size(); };
 
+  /**
+   * @brief Check if a given point is with the boundaries of this zone area
+   * 
+   * @param coordinate point to check
+   * @return if a given point is with the boundaries of this zone area
+   */
   bool isWithinBoundaries(Point coordinate) const
   {
     return (xmin <= coordinate.x) && (xmax >= coordinate.x) && (ymin <= coordinate.y) && (ymax >= coordinate.y);
