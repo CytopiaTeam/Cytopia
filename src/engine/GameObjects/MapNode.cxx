@@ -263,7 +263,6 @@ bool MapNode::isPlacementAllowed(const std::string &newTileID) const
 
     if(tileData->tileType == +TileType::UNDERGROUND)
     { // Underground tiletype (pipes, metro tunnels, ... ) can overplace each other
-      LOG(LOG_ERROR) << "Underground";
       return true;
     }
 
