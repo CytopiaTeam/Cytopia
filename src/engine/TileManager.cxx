@@ -43,7 +43,7 @@ std::vector<std::string> TileManager::getAllTileIDsForZone(ZoneType zone, ZoneDe
   return results;
 }
 
-std::string TileManager::getRandomTileIDForZoneWithRandomSize(ZoneType zone, ZoneDensity zoneDensity, TileSize maxTileSize)
+std::optional<std::string> TileManager::getRandomTileIDForZoneWithRandomSize(ZoneType zone, ZoneDensity zoneDensity, TileSize maxTileSize)
 {
   std::vector<TileSize> elligibleTileSizes;
 
@@ -66,7 +66,7 @@ std::string TileManager::getRandomTileIDForZoneWithRandomSize(ZoneType zone, Zon
 
   if (tileIDsForThisZone.empty())
   {
-    return "";
+    return std::nullopt;
   }
 
   // return a random tileID

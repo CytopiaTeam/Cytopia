@@ -20,6 +20,8 @@ ZoneArea::ZoneArea(ZoneNode zoneNode)
       m_zoneDensity(zoneNode.zoneDensity), xmax(std::min(Settings::instance().mapSize, zoneNode.coordinate.x + 1)),
       ymin(std::max(0, zoneNode.coordinate.y - 1)), ymax(std::min(Settings::instance().mapSize, zoneNode.coordinate.y + 1))
 {
+  //update vacancy in case constructor is called with a zonenode
+  m_isVacant = checkVacancy();
 }
 
 void ZoneArea::spawnBuildings()
@@ -46,7 +48,7 @@ void ZoneArea::spawnBuildings()
     // get the maximum size we can spawn at this node
     TileSize maxTileSize = getMaximumTileSize(node.coordinate);
     std::string buildingTileID =
-        TileManager::instance().getRandomTileIDForZoneWithRandomSize(m_zoneType, m_zoneDensity, maxTileSize);
+        TileManager::instance().getRandomTileIDForZoneWithRandomSize(m_zoneType, m_zoneDensity, maxTileSize).value_or("");
 
     // place the building
     // see Issue refactor setTileID #853
@@ -126,6 +128,7 @@ TileSize ZoneArea::getMaximumTileSize(Point originPoint)
 void ZoneArea::addZoneNode(ZoneNode zoneNode)
 {
   m_zoneNodes.push_back(zoneNode);
+
   //update vacancy
   m_isVacant = checkVacancy();
 
@@ -158,8 +161,8 @@ void ZoneArea::removeZoneNode(Point coordinate)
 
 void ZoneArea::setVacancy(Point coordinate, bool vacancy)
 {
-  std::vector<ZoneNode>::iterator  node = std::find_if(m_zoneNodes.begin(), m_zoneNodes.end(),
-                           [coordinate](const ZoneNode &node) { return node.coordinate == coordinate; });
+  std::vector<ZoneNode>::iterator node = std::find_if(
+      m_zoneNodes.begin(), m_zoneNodes.end(), [coordinate](const ZoneNode &node) { return node.coordinate == coordinate; });
   if (node != m_zoneNodes.end())
   {
     if (vacancy)

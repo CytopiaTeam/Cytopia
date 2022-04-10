@@ -131,12 +131,13 @@ public:
    * @param maxTileSize - maximum tileSize we want 
    * @return A random tileID matching the supplied parameters
    */
-  std::string getRandomTileIDForZoneWithRandomSize(ZoneType zone, ZoneDensity zoneDensity, TileSize maxTileSize = {1, 1});
+  std::optional<std::string> getRandomTileIDForZoneWithRandomSize(ZoneType zone, ZoneDensity zoneDensity,
+                                                                  TileSize maxTileSize = {1, 1});
 
   /**
- * @brief Parse the tileData JSON and set up the tileManager
- * 
- */
+  * @brief Parse the tileData JSON and set up the tileManager
+  * 
+  */
   void init();
 
 private:
