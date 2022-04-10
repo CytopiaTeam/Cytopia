@@ -243,11 +243,17 @@ bool MapNode::isPlacementAllowed(const std::string &newTileID) const
     // checks for all layers:
     if (isLayerOccupied(Layer::WATER))
     {
-      if ((tileData->tileType != +TileType::WATER && !tileData->placeOnWater) || !tileData->placeOnGround)
+      if (tileData->tileType != +TileType::WATER && !tileData->placeOnWater) 
       // Disallow placement on water for tiles that are:
       // not of tiletype water
       // not flag placeOnWater enabled
-      // OR
+      {
+        return false;
+      }
+    }
+    else // not water
+    {
+      if (!tileData->placeOnGround)
       // Disallow placement on ground (meaning a tile that is not water) for tiles that have:
       // not flag placeOnGround enabled
       {
