@@ -344,7 +344,7 @@
                 "Position_y": 500,
                 "Width": 100,
                 "Height": 30,
-                "Action": "ToggleVisibilityOfGroup",
+                "Action": "CancelSettings",
                 "ActionParameter": "SettingsMenu"
             },
             {
