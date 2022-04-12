@@ -10,6 +10,7 @@
 WindowManager::WindowManager()
 {
   Uint32 windowFlags = 0;
+  Uint32 rendererFlags = 0;
 
 #ifdef __ANDROID__
   // Android is always fullscreen.. We also need to set screenWidth / screenHeight to the max. resolution in Fullscreen
@@ -25,7 +26,15 @@ WindowManager::WindowManager()
   if (!m_window)
     throw UIError(TRACE_INFO "Failed to create window: " + string{SDL_GetError()});
 
-  m_renderer = SDL_CreateRenderer(m_window, -1, 0);
+  if (Settings::instance().vSync)
+  {
+    rendererFlags = SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC;
+  }
+  else
+  {
+    rendererFlags = SDL_RENDERER_ACCELERATED;
+  }
+  m_renderer = SDL_CreateRenderer(m_window, -1, rendererFlags);
 
   if (!m_renderer)
     throw UIError(TRACE_INFO "Failed to create Renderer: " + string{SDL_GetError()});
