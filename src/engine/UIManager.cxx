@@ -355,35 +355,39 @@ void UIManager::setCallbackFunctions()
 
     if (uiElement->getUiElementData().actionID == "RaiseTerrain")
     {
-      uiElement->registerCallbackFunction([](UIElement *sender) {
-        Button *button = dynamic_cast<Button *>(sender);
+      uiElement->registerCallbackFunction(
+          [](UIElement *sender)
+          {
+            Button *button = dynamic_cast<Button *>(sender);
 
-        if (button && button->getUiElementData().isToggleButton)
-        {
-          terrainEditMode = button->checkState() ? TerrainEdit::RAISE : TerrainEdit::NONE;
-          highlightSelection = button->checkState();
-          return;
-        }
+            if (button && button->getUiElementData().isToggleButton)
+            {
+              terrainEditMode = button->checkState() ? TerrainEdit::RAISE : TerrainEdit::NONE;
+              highlightSelection = button->checkState();
+              return;
+            }
 
-        terrainEditMode = (terrainEditMode == TerrainEdit::RAISE) ? TerrainEdit::NONE : TerrainEdit::RAISE;
-        highlightSelection = terrainEditMode != TerrainEdit::NONE;
-      });
+            terrainEditMode = (terrainEditMode == TerrainEdit::RAISE) ? TerrainEdit::NONE : TerrainEdit::RAISE;
+            highlightSelection = terrainEditMode != TerrainEdit::NONE;
+          });
     }
     else if (uiElement->getUiElementData().actionID == "LowerTerrain")
     {
-      uiElement->registerCallbackFunction([](UIElement *sender) {
-        Button *button = dynamic_cast<Button *>(sender);
+      uiElement->registerCallbackFunction(
+          [](UIElement *sender)
+          {
+            Button *button = dynamic_cast<Button *>(sender);
 
-        if (button && button->getUiElementData().isToggleButton)
-        {
-          button->checkState() ? terrainEditMode = TerrainEdit::LOWER : terrainEditMode = TerrainEdit::NONE;
-          button->checkState() ? highlightSelection = true : highlightSelection = false;
-          return;
-        }
+            if (button && button->getUiElementData().isToggleButton)
+            {
+              button->checkState() ? terrainEditMode = TerrainEdit::LOWER : terrainEditMode = TerrainEdit::NONE;
+              button->checkState() ? highlightSelection = true : highlightSelection = false;
+              return;
+            }
 
-        terrainEditMode == TerrainEdit::LOWER ? terrainEditMode = TerrainEdit::NONE : terrainEditMode = TerrainEdit::LOWER;
-        terrainEditMode == TerrainEdit::NONE ? highlightSelection = true : highlightSelection = false;
-      });
+            terrainEditMode == TerrainEdit::LOWER ? terrainEditMode = TerrainEdit::NONE : terrainEditMode = TerrainEdit::LOWER;
+            terrainEditMode == TerrainEdit::NONE ? highlightSelection = true : highlightSelection = false;
+          });
     }
     else if (uiElement->getUiElementData().actionID == "QuitGame")
     {
@@ -391,100 +395,108 @@ void UIManager::setCallbackFunctions()
     }
     else if (uiElement->getUiElementData().actionID == "Demolish")
     {
-      uiElement->registerCallbackFunction([](UIElement *sender) {
-        Button *button = dynamic_cast<Button *>(sender);
-
-        if (button && button->getUiElementData().isToggleButton)
-        {
-          button->checkState() ? demolishMode = true : demolishMode = false;
-          button->checkState() ? highlightSelection = true : highlightSelection = false;
-          if (demolishMode)
+      uiElement->registerCallbackFunction(
+          [](UIElement *sender)
           {
-            GameStates::instance().placementMode = PlacementMode::RECTANGLE;
-            GameStates::instance().demolishMode = DemolishMode::DEFAULT;
-          }
-          return;
-        }
+            Button *button = dynamic_cast<Button *>(sender);
 
-        demolishMode = !demolishMode;
-        demolishMode ? highlightSelection = true : highlightSelection = false;
-      });
+            if (button && button->getUiElementData().isToggleButton)
+            {
+              button->checkState() ? demolishMode = true : demolishMode = false;
+              button->checkState() ? highlightSelection = true : highlightSelection = false;
+              if (demolishMode)
+              {
+                GameStates::instance().placementMode = PlacementMode::RECTANGLE;
+                GameStates::instance().demolishMode = DemolishMode::DEFAULT;
+              }
+              return;
+            }
+
+            demolishMode = !demolishMode;
+            demolishMode ? highlightSelection = true : highlightSelection = false;
+          });
     }
     else if (uiElement->getUiElementData().actionID == "DeZone")
     {
-      uiElement->registerCallbackFunction([](UIElement *sender) {
-        Button *button = dynamic_cast<Button *>(sender);
-
-        if (button && button->getUiElementData().isToggleButton)
-        {
-          button->checkState() ? demolishMode = true : demolishMode = false;
-          button->checkState() ? highlightSelection = true : highlightSelection = false;
-          if (demolishMode)
+      uiElement->registerCallbackFunction(
+          [](UIElement *sender)
           {
-            GameStates::instance().placementMode = PlacementMode::RECTANGLE;
-            GameStates::instance().demolishMode = DemolishMode::DE_ZONE;
-          }
-          return;
-        }
+            Button *button = dynamic_cast<Button *>(sender);
 
-        demolishMode = !demolishMode;
-        demolishMode ? highlightSelection = true : highlightSelection = false;
-      });
+            if (button && button->getUiElementData().isToggleButton)
+            {
+              button->checkState() ? demolishMode = true : demolishMode = false;
+              button->checkState() ? highlightSelection = true : highlightSelection = false;
+              if (demolishMode)
+              {
+                GameStates::instance().placementMode = PlacementMode::RECTANGLE;
+                GameStates::instance().demolishMode = DemolishMode::DE_ZONE;
+              }
+              return;
+            }
+
+            demolishMode = !demolishMode;
+            demolishMode ? highlightSelection = true : highlightSelection = false;
+          });
     }
     else if (uiElement->getUiElementData().actionID == "ChangeTileType")
     {
-      uiElement->registerCallbackFunction([actionParameter](UIElement *sender) {
-        Button *button = dynamic_cast<Button *>(sender);
-
-        if (button && button->getUiElementData().isToggleButton)
-        {
-          button->checkState() ? tileToPlace = actionParameter : tileToPlace = "";
-          button->checkState() ? highlightSelection = true : highlightSelection = false;
-          if (GameStates::instance().layerEditMode == LayerEditMode::BLUEPRINT)
+      uiElement->registerCallbackFunction(
+          [actionParameter](UIElement *sender)
           {
-            GameStates::instance().layerEditMode = LayerEditMode::TERRAIN;
-            MapLayers::setLayerEditMode(GameStates::instance().layerEditMode);
-          }
-          if (!tileToPlace.empty())
-          {
+            Button *button = dynamic_cast<Button *>(sender);
 
-            if (TileManager::instance().getTileData(tileToPlace))
-              switch (TileManager::instance().getTileData(tileToPlace)->tileType)
+            if (button && button->getUiElementData().isToggleButton)
+            {
+              button->checkState() ? tileToPlace = actionParameter : tileToPlace = "";
+              button->checkState() ? highlightSelection = true : highlightSelection = false;
+              if (GameStates::instance().layerEditMode == LayerEditMode::BLUEPRINT)
               {
-              case +TileType::DEFAULT:
-                GameStates::instance().placementMode = PlacementMode::SINGLE;
-                break;
-              case +TileType::ROAD:
-              case +TileType::AUTOTILE:
-                GameStates::instance().placementMode = PlacementMode::LINE;
-                break;
-              case +TileType::GROUNDDECORATION:
-              case +TileType::WATER:
-              case +TileType::ZONE:
-                GameStates::instance().placementMode = PlacementMode::RECTANGLE;
-                break;
-              case +TileType::UNDERGROUND:
-                GameStates::instance().placementMode = PlacementMode::LINE;
-                GameStates::instance().layerEditMode = LayerEditMode::BLUEPRINT;
+                GameStates::instance().layerEditMode = LayerEditMode::TERRAIN;
                 MapLayers::setLayerEditMode(GameStates::instance().layerEditMode);
-                break;
               }
-          }
-          return;
-        }
+              if (!tileToPlace.empty())
+              {
 
-        tileToPlace == actionParameter ? tileToPlace = "" : tileToPlace = actionParameter;
-        tileToPlace == actionParameter ? highlightSelection = true : highlightSelection = false;
-      });
+                if (TileManager::instance().getTileData(tileToPlace))
+                  switch (TileManager::instance().getTileData(tileToPlace)->tileType)
+                  {
+                  case +TileType::DEFAULT:
+                    GameStates::instance().placementMode = PlacementMode::SINGLE;
+                    break;
+                  case +TileType::ROAD:
+                  case +TileType::AUTOTILE:
+                    GameStates::instance().placementMode = PlacementMode::LINE;
+                    break;
+                  case +TileType::GROUNDDECORATION:
+                  case +TileType::WATER:
+                  case +TileType::ZONE:
+                    GameStates::instance().placementMode = PlacementMode::RECTANGLE;
+                    break;
+                  case +TileType::UNDERGROUND:
+                    GameStates::instance().placementMode = PlacementMode::LINE;
+                    GameStates::instance().layerEditMode = LayerEditMode::BLUEPRINT;
+                    MapLayers::setLayerEditMode(GameStates::instance().layerEditMode);
+                    break;
+                  }
+              }
+              return;
+            }
+
+            tileToPlace == actionParameter ? tileToPlace = "" : tileToPlace = actionParameter;
+            tileToPlace == actionParameter ? highlightSelection = true : highlightSelection = false;
+          });
       if (uiElement->getUiElementData().actionParameter == "underground_pipes")
-        uiElement->registerCallbackFunction([actionParameter](UIElement *sender) {
-          Button *button = dynamic_cast<Button *>(sender);
+        uiElement->registerCallbackFunction(
+            [actionParameter](UIElement *sender)
+            {
+              Button *button = dynamic_cast<Button *>(sender);
 
-          if (button->getButtonState() == ButtonState::BUTTONSTATE_CLICKED)
-            GameStates::instance().layerEditMode = LayerEditMode::BLUEPRINT;
-          else
-            GameStates::instance().layerEditMode = LayerEditMode::TERRAIN;
-        });
+              if (button->getButtonState() == ButtonState::BUTTONSTATE_CLICKED)
+                GameStates::instance().layerEditMode = LayerEditMode::BLUEPRINT;
+              else
+                GameStates::instance().layerEditMode = LayerEditMode::TERRAIN;
+            });
     }
     else if (uiElement->getUiElementData().actionID == "ToggleVisibilityOfGroup")
     {
@@ -963,6 +975,32 @@ void UIManager::initializeDollarVariables()
         }
 
         combobox->registerCallbackFunction(Signal::slot(this, &UIManager::changeResolution));
+      }
+      else if (it->getUiElementData().elementID == "$VSYNCButton")
+      {
+        Checkbox *checkbox = dynamic_cast<Checkbox *>(it.get());
+
+        if (!checkbox)
+        {
+          LOG(LOG_WARNING) << "Can't use element ID VSYNC for an element other than a checkbox!";
+          continue;
+        }
+        checkbox->setCheckState(Settings::instance().vSync);
+
+        checkbox->registerCallbackFunction(
+            [](UIElement *sender)
+            {
+              Checkbox *checkbox = dynamic_cast<Checkbox *>(sender);
+
+              if (checkbox)
+              {
+                LOG(LOG_ERROR) << "can parse";
+                Settings::instance().vSync = checkbox->getCheckState();
+                return;
+              }
+              else
+                LOG(LOG_ERROR) << "cant parse";
+            });
       }
       else if (it->getUiElementData().elementID == "$FullScreenSelector")
       {
