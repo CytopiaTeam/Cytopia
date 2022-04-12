@@ -319,13 +319,8 @@
             },
             {
                 "Type": "Checkbox",
-                "Position_x": 290,
-                "Position_y": 190
-            },
-            {
-                "Type": "Checkbox",
-                "Position_x": 330,
-                "Position_y": 190
+                "Position_x": 420,
+                "Position_y": 175
             },
             {
                 "Type": "TextButton",
@@ -346,6 +341,12 @@
                 "Height": 30,
                 "Action": "CancelSettings",
                 "ActionParameter": "SettingsMenu"
+            },
+            {
+                "Type": "Text",
+                "Text": "Enable VSYNC",
+                "Position_x": 330,
+                "Position_y": 175
             },
             {
                 "Type": "Text",
