@@ -28,7 +28,7 @@
             "Screen_Height": 600,
             "Screen_Width": 800
         },
-        "VSYNC": false
+        "VSYNC": true
     },
     "User Interface": {
     "BuildMenuPosition": "BOTTOM",
