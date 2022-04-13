@@ -743,9 +743,10 @@ void Map::calculateVisibleMap(void)
 
   m_visibleNodesCount = 0;
 
-  for (int x = 0; x < m_rows; x++)
+  // ZOrder starts from topmost node to the right. (0,127) =1,(1,127) =2, ...
+  for (int y = m_columns - 1; y >= 0; y--)
   {
-    for (int y = m_columns - 1; y >= 0; y--)
+    for (int x = 0; x < m_rows; x++)
     {
       const int xVal = x + y;
       const int yVal = y - x;
