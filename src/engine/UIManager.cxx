@@ -11,14 +11,16 @@
 #include "GameStates.hxx"
 #include "MapLayers.hxx"
 #include "Filesystem.hxx"
-
 #include "json.hxx"
 #include "betterEnums.hxx"
+#ifdef USE_AUDIO
+#include "../services/AudioMixer.hxx"
+#endif
 
 #include <cmath>
 
 #ifdef MICROPROFILE_ENABLED
-#include "microprofile.h"
+#include "microprofile/microprofile.h"
 #endif
 
 using json = nlohmann::json;
@@ -178,6 +180,7 @@ void UIManager::init()
           break;
         case ElementType::Slider:
           uiElement = std::make_unique<Slider>(elementRect);
+          dynamic_cast<Slider *>(uiElement.get())->setPosition(elementRect.x, elementRect.y);
           break;
         default:
           LOG(LOG_WARNING) << "An element without a type can not be created, check your UiLayout JSON File "
@@ -352,35 +355,39 @@ void UIManager::setCallbackFunctions()
 
     if (uiElement->getUiElementData().actionID == "RaiseTerrain")
     {
-      uiElement->registerCallbackFunction([](UIElement *sender) {
-        Button *button = dynamic_cast<Button *>(sender);
+      uiElement->registerCallbackFunction(
+          [](UIElement *sender)
+          {
+            Button *button = dynamic_cast<Button *>(sender);
 
-        if (button && button->getUiElementData().isToggleButton)
-        {
-          terrainEditMode = button->checkState() ? TerrainEdit::RAISE : TerrainEdit::NONE;
-          highlightSelection = button->checkState();
-          return;
-        }
+            if (button && button->getUiElementData().isToggleButton)
+            {
+              terrainEditMode = button->checkState() ? TerrainEdit::RAISE : TerrainEdit::NONE;
+              highlightSelection = button->checkState();
+              return;
+            }
 
-        terrainEditMode = (terrainEditMode == TerrainEdit::RAISE) ? TerrainEdit::NONE : TerrainEdit::RAISE;
-        highlightSelection = terrainEditMode != TerrainEdit::NONE;
-      });
+            terrainEditMode = (terrainEditMode == TerrainEdit::RAISE) ? TerrainEdit::NONE : TerrainEdit::RAISE;
+            highlightSelection = terrainEditMode != TerrainEdit::NONE;
+          });
     }
     else if (uiElement->getUiElementData().actionID == "LowerTerrain")
     {
-      uiElement->registerCallbackFunction([](UIElement *sender) {
-        Button *button = dynamic_cast<Button *>(sender);
+      uiElement->registerCallbackFunction(
+          [](UIElement *sender)
+          {
+            Button *button = dynamic_cast<Button *>(sender);
 
-        if (button && button->getUiElementData().isToggleButton)
-        {
-          button->checkState() ? terrainEditMode = TerrainEdit::LOWER : terrainEditMode = TerrainEdit::NONE;
-          button->checkState() ? highlightSelection = true : highlightSelection = false;
-          return;
-        }
+            if (button && button->getUiElementData().isToggleButton)
+            {
+              button->checkState() ? terrainEditMode = TerrainEdit::LOWER : terrainEditMode = TerrainEdit::NONE;
+              button->checkState() ? highlightSelection = true : highlightSelection = false;
+              return;
+            }
 
-        terrainEditMode == TerrainEdit::LOWER ? terrainEditMode = TerrainEdit::NONE : terrainEditMode = TerrainEdit::LOWER;
-        terrainEditMode == TerrainEdit::NONE ? highlightSelection = true : highlightSelection = false;
-      });
+            terrainEditMode == TerrainEdit::LOWER ? terrainEditMode = TerrainEdit::NONE : terrainEditMode = TerrainEdit::LOWER;
+            terrainEditMode == TerrainEdit::NONE ? highlightSelection = true : highlightSelection = false;
+          });
     }
     else if (uiElement->getUiElementData().actionID == "QuitGame")
     {
@@ -388,78 +395,108 @@ void UIManager::setCallbackFunctions()
     }
     else if (uiElement->getUiElementData().actionID == "Demolish")
     {
-      uiElement->registerCallbackFunction([](UIElement *sender) {
-        Button *button = dynamic_cast<Button *>(sender);
-
-        if (button && button->getUiElementData().isToggleButton)
-        {
-          button->checkState() ? demolishMode = true : demolishMode = false;
-          button->checkState() ? highlightSelection = true : highlightSelection = false;
-          if (demolishMode)
+      uiElement->registerCallbackFunction(
+          [](UIElement *sender)
           {
-            GameStates::instance().placementMode = PlacementMode::RECTANGLE;
-          }
-          return;
-        }
+            Button *button = dynamic_cast<Button *>(sender);
 
-        demolishMode = !demolishMode;
-        demolishMode ? highlightSelection = true : highlightSelection = false;
-      });
+            if (button && button->getUiElementData().isToggleButton)
+            {
+              button->checkState() ? demolishMode = true : demolishMode = false;
+              button->checkState() ? highlightSelection = true : highlightSelection = false;
+              if (demolishMode)
+              {
+                GameStates::instance().placementMode = PlacementMode::RECTANGLE;
+                GameStates::instance().demolishMode = DemolishMode::DEFAULT;
+              }
+              return;
+            }
+
+            demolishMode = !demolishMode;
+            demolishMode ? highlightSelection = true : highlightSelection = false;
+          });
+    }
+    else if (uiElement->getUiElementData().actionID == "DeZone")
+    {
+      uiElement->registerCallbackFunction(
+          [](UIElement *sender)
+          {
+            Button *button = dynamic_cast<Button *>(sender);
+
+            if (button && button->getUiElementData().isToggleButton)
+            {
+              button->checkState() ? demolishMode = true : demolishMode = false;
+              button->checkState() ? highlightSelection = true : highlightSelection = false;
+              if (demolishMode)
+              {
+                GameStates::instance().placementMode = PlacementMode::RECTANGLE;
+                GameStates::instance().demolishMode = DemolishMode::DE_ZONE;
+              }
+              return;
+            }
+
+            demolishMode = !demolishMode;
+            demolishMode ? highlightSelection = true : highlightSelection = false;
+          });
     }
     else if (uiElement->getUiElementData().actionID == "ChangeTileType")
     {
-      uiElement->registerCallbackFunction([actionParameter](UIElement *sender) {
-        Button *button = dynamic_cast<Button *>(sender);
-
-        if (button && button->getUiElementData().isToggleButton)
-        {
-          button->checkState() ? tileToPlace = actionParameter : tileToPlace = "";
-          button->checkState() ? highlightSelection = true : highlightSelection = false;
-          if (GameStates::instance().layerEditMode == LayerEditMode::BLUEPRINT)
+      uiElement->registerCallbackFunction(
+          [actionParameter](UIElement *sender)
           {
-            GameStates::instance().layerEditMode = LayerEditMode::TERRAIN;
-            MapLayers::setLayerEditMode(GameStates::instance().layerEditMode);
-          }
-          if (!tileToPlace.empty())
-          {
+            Button *button = dynamic_cast<Button *>(sender);
 
-            if (TileManager::instance().getTileData(tileToPlace))
-              switch (TileManager::instance().getTileData(tileToPlace)->tileType)
+            if (button && button->getUiElementData().isToggleButton)
+            {
+              button->checkState() ? tileToPlace = actionParameter : tileToPlace = "";
+              button->checkState() ? highlightSelection = true : highlightSelection = false;
+              if (GameStates::instance().layerEditMode == LayerEditMode::BLUEPRINT)
               {
-              case +TileType::DEFAULT:
-                GameStates::instance().placementMode = PlacementMode::SINGLE;
-                break;
-              case +TileType::ROAD:
-              case +TileType::AUTOTILE:
-                GameStates::instance().placementMode = PlacementMode::LINE;
-                break;
-              case +TileType::GROUNDDECORATION:
-              case +TileType::WATER:
-              case +TileType::ZONE:
-                GameStates::instance().placementMode = PlacementMode::RECTANGLE;
-                break;
-              case +TileType::UNDERGROUND:
-                GameStates::instance().placementMode = PlacementMode::LINE;
-                GameStates::instance().layerEditMode = LayerEditMode::BLUEPRINT;
+                GameStates::instance().layerEditMode = LayerEditMode::TERRAIN;
                 MapLayers::setLayerEditMode(GameStates::instance().layerEditMode);
-                break;
               }
-          }
-          return;
-        }
+              if (!tileToPlace.empty())
+              {
 
-        tileToPlace == actionParameter ? tileToPlace = "" : tileToPlace = actionParameter;
-        tileToPlace == actionParameter ? highlightSelection = true : highlightSelection = false;
-      });
+                if (TileManager::instance().getTileData(tileToPlace))
+                  switch (TileManager::instance().getTileData(tileToPlace)->tileType)
+                  {
+                  case +TileType::DEFAULT:
+                    GameStates::instance().placementMode = PlacementMode::SINGLE;
+                    break;
+                  case +TileType::ROAD:
+                  case +TileType::AUTOTILE:
+                    GameStates::instance().placementMode = PlacementMode::LINE;
+                    break;
+                  case +TileType::GROUNDDECORATION:
+                  case +TileType::WATER:
+                  case +TileType::ZONE:
+                    GameStates::instance().placementMode = PlacementMode::RECTANGLE;
+                    break;
+                  case +TileType::UNDERGROUND:
+                    GameStates::instance().placementMode = PlacementMode::LINE;
+                    GameStates::instance().layerEditMode = LayerEditMode::BLUEPRINT;
+                    MapLayers::setLayerEditMode(GameStates::instance().layerEditMode);
+                    break;
+                  }
+              }
+              return;
+            }
+
+            tileToPlace == actionParameter ? tileToPlace = "" : tileToPlace = actionParameter;
+            tileToPlace == actionParameter ? highlightSelection = true : highlightSelection = false;
+          });
       if (uiElement->getUiElementData().actionParameter == "underground_pipes")
-        uiElement->registerCallbackFunction([actionParameter](UIElement *sender) {
-          Button *button = dynamic_cast<Button *>(sender);
+        uiElement->registerCallbackFunction(
+            [actionParameter](UIElement *sender)
+            {
+              Button *button = dynamic_cast<Button *>(sender);
 
-          if (button->getButtonState() == ButtonState::BUTTONSTATE_CLICKED)
-            GameStates::instance().layerEditMode = LayerEditMode::BLUEPRINT;
-          else
-            GameStates::instance().layerEditMode = LayerEditMode::TERRAIN;
-        });
+              if (button->getButtonState() == ButtonState::BUTTONSTATE_CLICKED)
+                GameStates::instance().layerEditMode = LayerEditMode::BLUEPRINT;
+              else
+                GameStates::instance().layerEditMode = LayerEditMode::TERRAIN;
+            });
     }
     else if (uiElement->getUiElementData().actionID == "ToggleVisibilityOfGroup")
     {
@@ -495,11 +532,70 @@ void UIManager::setCallbackFunctions()
     }
     else if (uiElement->getUiElementData().actionID == "SaveSettings")
     {
-      uiElement->registerCallbackFunction([]() { Settings::instance().writeFile(); });
+      uiElement->registerCallbackFunction(
+        [this]() 
+        {
+          Settings::instance().writeFile();
+          toggleGroupVisibility("SettingsMenu");
+            toggleGroupVisibility("PauseMenu");
+        });
     }
-    else if (uiElement->getUiElementData().actionID == "ChangeResolution")
+    else if (uiElement->getUiElementData().actionID == "CancelSettings")
     {
-      uiElement->registerCallbackFunction(Signal::slot(this, &UIManager::changeResolution));
+      uiElement->registerCallbackFunction(
+        [this]()
+        { 
+          Settings::instance().readFile();
+          for (const auto &it : getAllUiElements())
+          {
+            if (utils::strings::startsWith(it->getUiElementData().elementID, "$"))
+            {
+              if (it->getUiElementData().elementID == "$BuildMenuLayout")
+              {
+                ComboBox *combobox = dynamic_cast<ComboBox *>(it.get());
+                if (Settings::instance().buildMenuPosition == "LEFT")
+                {
+                  combobox->setActiveID(static_cast<int>(BUILDMENU_LAYOUT::LEFT));
+                  m_buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(BUILDMENU_LAYOUT::LEFT));
+                }
+                else if (Settings::instance().buildMenuPosition == "RIGHT")
+                {
+                  combobox->setActiveID(static_cast<int>(BUILDMENU_LAYOUT::RIGHT));
+                  m_buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(BUILDMENU_LAYOUT::RIGHT));
+                }
+                else if (Settings::instance().buildMenuPosition == "TOP")
+                {
+                  combobox->setActiveID(static_cast<int>(BUILDMENU_LAYOUT::TOP));
+                  m_buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(BUILDMENU_LAYOUT::TOP));
+                }
+                else if (Settings::instance().buildMenuPosition == "BOTTOM")
+                {
+                  combobox->setActiveID(static_cast<int>(BUILDMENU_LAYOUT::BOTTOM));
+                  m_buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(BUILDMENU_LAYOUT::BOTTOM));
+                }
+              }
+              else if (it->getUiElementData().elementID == "$ScreenResolutionSelector")
+              {
+                // TODO: Come back to this when screen resolution is fixed
+              }
+              else if (it->getUiElementData().elementID == "$FullScreenSelector")
+              {
+                // This must be a ComboBox
+                ComboBox *combobox = dynamic_cast<ComboBox *>(it.get());
+                combobox->setActiveID(Settings::instance().fullScreenMode);
+              }
+              else if (it->getUiElementData().elementID == "$MusicVolumeSlider")
+              {
+#ifdef USE_AUDIO
+                Slider *slider = dynamic_cast<Slider *>(it.get());
+                slider->setValue(Settings::instance().musicVolume * 100);
+#endif
+              }
+            }
+          }
+          toggleGroupVisibility("SettingsMenu");
+          toggleGroupVisibility("PauseMenu");
+        });
     }
   }
 }
@@ -826,37 +922,35 @@ void UIManager::initializeDollarVariables()
 
         combobox->clear();
         combobox->addElement("LEFT");
+        combobox->addElement("RIGHT");
+        combobox->addElement("TOP");
+        combobox->addElement("BOTTOM");
+
+        // Load the option from existing settings
         // TODO: #97 Ugly workaround until we have BetterEnums
         if (Settings::instance().buildMenuPosition == "LEFT")
         {
-          combobox->setActiveID(static_cast<int>(combobox->count() - 1));
-          m_buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(combobox->count() - 1));
+          combobox->setActiveID(static_cast<int>(BUILDMENU_LAYOUT::LEFT));
+          m_buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(BUILDMENU_LAYOUT::LEFT));
         }
-        combobox->addElement("RIGHT");
-        // TODO: #97 Ugly workaround until we have BetterEnums
-        if (Settings::instance().buildMenuPosition == "RIGHT")
+        else if (Settings::instance().buildMenuPosition == "RIGHT")
         {
-          combobox->setActiveID(static_cast<int>(combobox->count() - 1));
-          m_buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(combobox->count() - 1));
+          combobox->setActiveID(static_cast<int>(BUILDMENU_LAYOUT::RIGHT));
+          m_buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(BUILDMENU_LAYOUT::RIGHT));
         }
-        combobox->addElement("TOP");
-        // TODO: #97 Ugly workaround until we have BetterEnums
-        if (Settings::instance().buildMenuPosition == "TOP")
+        else if (Settings::instance().buildMenuPosition == "TOP")
         {
-          combobox->setActiveID(static_cast<int>(combobox->count() - 1));
-          m_buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(combobox->count() - 1));
+          combobox->setActiveID(static_cast<int>(BUILDMENU_LAYOUT::TOP));
+          m_buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(BUILDMENU_LAYOUT::TOP));
         }
-        combobox->addElement("BOTTOM");
-        // TODO: #97 Ugly workaround until we have BetterEnums
-        if (Settings::instance().buildMenuPosition == "BOTTOM")
+        else if (Settings::instance().buildMenuPosition == "BOTTOM")
         {
-          combobox->setActiveID(static_cast<int>(combobox->count() - 1));
-          m_buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(combobox->count() - 1));
+          combobox->setActiveID(static_cast<int>(BUILDMENU_LAYOUT::BOTTOM));
+          m_buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(BUILDMENU_LAYOUT::BOTTOM));
         }
 
         combobox->registerCallbackFunction(Signal::slot(this, &UIManager::setBuildMenuPosition));
       }
-
       else if (it->getUiElementData().elementID == "$ScreenResolutionSelector")
       {
         // This must be a ComboBox
@@ -882,6 +976,32 @@ void UIManager::initializeDollarVariables()
 
         combobox->registerCallbackFunction(Signal::slot(this, &UIManager::changeResolution));
       }
+      else if (it->getUiElementData().elementID == "$VSYNCButton")
+      {
+        Checkbox *checkbox = dynamic_cast<Checkbox *>(it.get());
+
+        if (!checkbox)
+        {
+          LOG(LOG_WARNING) << "Can't use element ID VSYNC for an element other than a checkbox!";
+          continue;
+        }
+        checkbox->setCheckState(Settings::instance().vSync);
+
+        checkbox->registerCallbackFunction(
+            [](UIElement *sender)
+            {
+              Checkbox *checkbox = dynamic_cast<Checkbox *>(sender);
+
+              if (checkbox)
+              {
+                LOG(LOG_ERROR) << "can parse";
+                Settings::instance().vSync = checkbox->getCheckState();
+                return;
+              }
+              else
+                LOG(LOG_ERROR) << "cant parse";
+            });
+      }
       else if (it->getUiElementData().elementID == "$FullScreenSelector")
       {
         // This must be a ComboBox
@@ -900,6 +1020,26 @@ void UIManager::initializeDollarVariables()
 
         combobox->setActiveID(Settings::instance().fullScreenMode);
         combobox->registerCallbackFunction(Signal::slot(this, &UIManager::changeFullScreenMode));
+      }
+      else if (it->getUiElementData().elementID == "$MusicVolumeSlider")
+      {
+#ifdef USE_AUDIO
+        Slider *slider = dynamic_cast<Slider *>(it.get());
+
+        if (!slider)
+        {
+          LOG(LOG_WARNING) << "Can't use element ID MusicVolumeSlider for an element other than a slider!";
+          continue;
+        }
+
+        slider->setValue(Settings::instance().musicVolume * 100);
+        slider->registerOnValueChanged(
+            [](int sliderValue)
+            {
+              const float musicVolume = static_cast<float>(sliderValue / 100.0f);
+              AudioMixer::instance().setMusicVolume(musicVolume);
+            });
+#endif
       }
     }
   }
@@ -931,7 +1071,6 @@ void UIManager::addToLayoutGroup(const std::string &groupName, UIElement *widget
 
 void UIManager::changeResolution(UIElement *sender)
 {
-  // TODO: Save settings
   ComboBox *combobox = dynamic_cast<ComboBox *>(sender);
   WindowManager::instance().setScreenResolution(combobox->getActiveID());
   Layout::arrangeElements();
@@ -944,7 +1083,6 @@ void UIManager::changeResolution(UIElement *sender)
 
 void UIManager::changeFullScreenMode(UIElement *sender)
 {
-  // TODO: Save settings
   ComboBox *combobox = dynamic_cast<ComboBox *>(sender);
   WindowManager::instance().setFullScreenMode(static_cast<FULLSCREEN_MODE>(combobox->getActiveID()));
   WindowManager::instance().setLastScreenResolution();

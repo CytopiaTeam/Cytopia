@@ -118,6 +118,7 @@ void ComboBox::setActiveID(int ID)
 {
   m_activeID = ID;
   m_buttonLabel->setText(m_textField->getTextFromID(m_activeID));
+  clickSignalSender.emit(this);
 }
 
 bool ComboBox::onMouseButtonUp(const SDL_Event &event)

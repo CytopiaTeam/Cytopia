@@ -6,11 +6,8 @@
 
 #include "GameObjects/MapNode.hxx"
 #include "map/TerrainGenerator.hxx"
-
-/** \brief Position of the surrounding nodes and its bit mask values.
-  */
-BETTER_ENUM(NeighbourNodesPosition, unsigned char, BOTOM_LEFT = 1U << 6, LEFT = 1U << 2, TOP_LEFT = 1U << 4, BOTTOM = 1U << 1,
-            CENTAR = 0U, TOP = 1U, BOTOM_RIGHT = 1U << 7, RIGHT = 1U << 3, TOP_RIGHT = 1U << 5);
+#include "../game/GamePlay.hxx"
+#include "PointFunctions.hxx"
 
 struct NeighborNode
 {
@@ -69,7 +66,7 @@ public:
  * @param screenCoordinates
  * @return Point
  */
-  Point findNodeInMap(const SDL_Point &screenCoordinates, const Layer &layer = Layer::NONE) const;
+  Point findNodeInMap(const SDL_Point &screenCoordinates, const Layer &layer = Layer::NONE);
 
   /**
  * @brief Set the Tile ID Of Node object
@@ -127,10 +124,15 @@ public:
         currentMapNode.setTileID(pTileData->groundDecoration[groundtileIndex], isMultiObjects ? *it : *begin);
       }
 
-      //For layers that autotile to each other, we need to update their neighbors too
+      // For layers that autotile to each other, we need to update their neighbors too
       if (MapNode::isDataAutoTile(TileManager::instance().getTileData(tileID)))
       {
         nodesToBeUpdated.push_back(&currentMapNode);
+      }
+      // If we place a zone tile, add it to the ZoneManager
+      if (currentMapNode.getTileData(Layer::ZONE))
+      {
+        GamePlay::instance().getZoneManager().addZoneNode(&currentMapNode);
       }
     }
 
@@ -188,7 +190,7 @@ public:
   */
   bool isPlacementOnNodeAllowed(const Point &isoCoordinates, const std::string &tileID) const;
 
-  /** \brief Return vector of Points of an Object Tiles selection.
+  /** \brief Return vector of Points occupied by a tileID
   *
   */
   std::vector<Point> getObjectCoords(const Point &isoCoordinates, const std::string &tileID);
@@ -202,7 +204,7 @@ public:
   /** \brief Get pointer to a single mapNode at specific iso coordinates.
   * @param isoCoordinates: The node to retrieve.
   */
-  const MapNode *getMapNode(Point isoCoords) const { return &mapNodes[nodeIdx(isoCoords.x, isoCoords.y)]; };
+  MapNode &getMapNode(Point isoCoords) { return mapNodes[nodeIdx(isoCoords.x, isoCoords.y)]; };
 
   /** \brief Get all mapnodes as a vector
    */
@@ -227,7 +229,7 @@ private:
 
   SDL_Color getColorOfPixelInSurface(SDL_Surface *surface, int x, int y) const;
 
-  bool isClickWithinTile(const SDL_Point &screenCoordinates, int isoX, int isoY, const Layer &layer) const;
+  bool isClickWithinTile(const SDL_Point &screenCoordinates, Point isoCoordinate, const Layer &layer) const;
 
   /** \brief Filter out tiles which should not be set over existing one.
   * @param layer Layer in which tileId should be set.
@@ -266,7 +268,7 @@ private:
   * @param neighbors All neighbor map nodes.
   * @return Map node elevated bit mask.
   */
-  unsigned char getElevatedNeighborBitmask(MapNode *pMapNode, const std::vector<NeighborNode> &neighbors);
+  unsigned char getElevatedNeighborBitmask(Point centerCoordinates);
 
   /** \brief Change map node height.
   * @param mapNode Map node to change height.

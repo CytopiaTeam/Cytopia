@@ -66,11 +66,11 @@ private:
   */
   ~WindowManager();
 
-  std::string m_title = "Cytopia";                                                /// title of the window
-  const std::string m_windowIcon = "resources/images/app_icons/cytopia_icon.png"; /// the window's icon
+  std::string m_title = "Cytopia";                                                ///< title of the window
+  const std::string m_windowIcon = "resources/images/app_icons/cytopia_icon.png"; ///< the window's icon
 
-  SDL_Window *m_window = nullptr;     /// pointer to the SDL_Window
-  SDL_Renderer *m_renderer = nullptr; /// pointer to the SDL_Renderer
+  SDL_Window *m_window = nullptr;     ///< pointer to the SDL_Window
+  SDL_Renderer *m_renderer = nullptr; ///< pointer to the SDL_Renderer
 
   std::vector<SDL_DisplayMode *> m_resolutions;
 

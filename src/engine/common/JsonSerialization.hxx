@@ -43,7 +43,7 @@ inline void from_json(const json &j, SettingsData &s)
   s.biome = j["Game"].value("Biome", "GrassLands");
   s.maxElevationHeight = j["Game"].value("MaxElevationHeight", 32);
   s.showBuildingsInBlueprint = j["Game"].value("ShowBuildingsInBlueprint", false);
-  s.zoneLayerTransparency = j["Game"].value("ZoneLayerTransperancy", 0.5f);
+  s.zoneLayerTransparency = j["Game"].value("ZoneLayerTransparency", 0.5f);
   s.uiDataJSONFile = j["ConfigFiles"].value("UIDataJSONFile", "resources/data/TileData.json");
   s.tileDataJSONFile = j["ConfigFiles"].value("TileDataJSONFile", "resources/data/UIData.json");
   s.uiLayoutJSONFile = j["ConfigFiles"].value("UILayoutJSONFile", "resources/data/UILayout.json");
@@ -52,8 +52,8 @@ inline void from_json(const json &j, SettingsData &s)
   s.playMusic = j["Audio"].value("PlayMusic", true);
   s.playSoundEffects = j["Audio"].value("PlaySoundEffects", false);
   s.audioChannels = j["Audio"].value("AudioChannels", 2);
-  s.musicVolume = j["Audio"].value("MusicVolume", static_cast<uint8_t>(50));
-  s.soundEffectsVolume = j["Audio"].value("SoundEffectsVolume", static_cast<uint8_t>(100));
+  s.musicVolume = j["Audio"].value("MusicVolume", 0.5f);
+  s.soundEffectsVolume = j["Audio"].value("SoundEffectsVolume", 0.5f);
   s.buildMenuPosition = j["User Interface"].value("BuildMenuPosition", "BOTTOM");
   s.gameLanguage = j["User Interface"].value("Language", "en");
   s.fontFileName = j["User Interface"].value("FontFilename", "resources/fonts/arcadeclassics.ttf");
@@ -242,8 +242,8 @@ inline void to_json(json &j, const SettingsData &s)
         {std::string("ZoneLayerTransparency"), s.zoneLayerTransparency},
         {std::string("ShowBuildingsInBlueprint"), s.showBuildingsInBlueprint}}},
       {std::string("User Interface"),
-       {{std::string("BuildMenu Position"), s.buildMenuPosition},
-        {std::string("Font Filename"), s.fontFileName.get()},
+       {{std::string("BuildMenuPosition"), s.buildMenuPosition},
+        {std::string("FontFilename"), s.fontFileName.get()},
         {std::string("SubMenuButtonWidth"), s.subMenuButtonWidth},
         {std::string("SubMenuButtonHeight"), s.subMenuButtonHeight},
         {std::string("Language"), s.gameLanguage}}},
@@ -258,8 +258,8 @@ inline void to_json(json &j, const SettingsData &s)
            {std::string("PlayMusic"), s.playMusic},
            {std::string("PlaySoundEffects"), s.playSoundEffects},
            {std::string("AudioChannels"), s.audioChannels},
-           {std::string("MusicVolume"), s.musicVolume.get()},
-           {std::string("SoundEffectsVolume"), s.soundEffectsVolume.get()},
+           {std::string("MusicVolume"), s.musicVolume},
+           {std::string("SoundEffectsVolume"), s.soundEffectsVolume},
        }},
 
   };

@@ -1,0 +1,203 @@
+name: Build game
+
+on: [push, pull_request]
+
+jobs:
+  build-msvc:
+    name: Build Windows
+    env:
+      SCCACHE_DIR: C:\sccache
+      SCCACHE_CACHE_SIZE: 500M
+      BUILD_TOOLS_PATH: C:\Program Files\Conan\conan
+    runs-on: windows-latest
+    steps:
+      - run: echo $env:BUILD_TOOLS_PATH | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+
+      - uses: actions/checkout@v3
+        with:
+          submodules: true
+
+      - name: Prepare sccache timestamp
+        id: sccache_cache_timestamp
+        shell: cmake -P {0}
+        run: |
+          string(TIMESTAMP current_date "%Y-%m-%d-%H;%M;%S" UTC)
+          message("::set-output name=timestamp::${current_date}")
+
+      - name: sccache cache files
+        uses: actions/cache@v2.1.7
+        with:
+          path: C:\sccache
+          key: windows-sccache-${{ steps.sccache_cache_timestamp.outputs.timestamp }}
+          restore-keys: |
+            windows-sccache-
+
+      - name: Cache conan
+        uses: actions/cache@v2.1.7
+        with:
+          key: conan-${{ hashFiles('cmake/DependenciesConfig.cmake') }}
+          path: ~/.conan/
+
+      - name: Install dependencies
+        run: choco install conan ninja sccache -y
+
+      - name: Enable Developer Command Prompt
+        uses: ilammy/msvc-dev-cmd@v1.10.0
+
+      - name: Build
+        run: |
+          cmake -GNinja -DCMAKE_BUILD_TYPE=Release .
+          ninja
+          sccache --show-stats
+
+      - name: Test
+        run: ctest -VV
+
+      - name: Upload build to itch.io
+        env:
+          BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
+        if: env.BUTLER_API_KEY != null && github.ref == 'refs/heads/master'
+        run: |
+          choco install butler -y
+          ninja install
+          butler push redist cytopia/cytopia:windows-ci --userversion CIBuild-%GITHUB_RUN_NUMBER%-Commit-%GITHUB_SHA%
+        shell: cmd
+
+      - name: Clean Conan pkgs
+        run: conan remove "*" -fsb
+
+  build-gcc:
+    name: Build Linux
+    env:
+      sccache_CACHE_SIZE: 500M
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: true
+
+      - name: Prepare sccache timestamp
+        id: sccache_cache_timestamp
+        shell: cmake -P {0}
+        run: |
+          string(TIMESTAMP current_date "%Y-%m-%d-%H;%M;%S" UTC)
+          message("::set-output name=timestamp::${current_date}")
+
+      - name: sccache cache files
+        uses: actions/cache@v2.1.7
+        with:
+          path: ~/.cache/sccache
+          key: ubuntu-sccache-${{ steps.sccache_cache_timestamp.outputs.timestamp }}
+          restore-keys: |
+            ubuntu-sccache-
+
+      - name: Install dependencies
+        run: |
+          echo -e 'pcm.!default {\n type plug\n slave.pcm "null"\n}' > ~/.asoundrc
+          sudo apt-get update
+          sudo apt-get -y install \
+                  ninja-build \
+                  doxygen \
+                  graphviz \
+                  fakeroot \
+                  libarchive-tools \
+                  zstd \
+                  gettext \
+                  libsdl2-dev \
+                  libsdl2-image-dev \
+                  libsdl2-ttf-dev \
+                  libopenal-dev \
+                  libvorbis-dev \
+                  libpng-dev \
+                  libnoise-dev
+          curl "https://raw.githubusercontent.com/AnotherFoxGuy/ci-scripts/main/install-cmake.sh" | sudo bash
+          curl "https://raw.githubusercontent.com/AnotherFoxGuy/ci-scripts/main/install-sccache.sh" | sudo bash
+        shell: bash
+
+      - name: Build
+        run: |
+          cmake -GNinja -DCMAKE_BUILD_TYPE=Release .
+          ninja
+          sccache --show-stats
+        shell: bash
+
+      - name: Test
+        uses: GabrielBB/xvfb-action@v1.6
+        with:
+          run: ctest -VV
+
+      - name: Upload build to itch.io
+        env:
+          BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
+        if: env.BUTLER_API_KEY != null && github.ref == 'refs/heads/master'
+        run: |
+          curl "https://raw.githubusercontent.com/AnotherFoxGuy/ci-scripts/main/install-butler.sh" | sudo bash
+          ninja install
+          butler push redist cytopia/cytopia:linux-ci --userversion CIBuild-${GITHUB_RUN_NUMBER}-commit-${GITHUB_SHA}
+        shell: bash
+
+  build-appleclang:
+    name: Build Mac
+    env:
+      SCCACHE_CACHE_SIZE: 500M
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: true
+
+      - name: Prepare sccache timestamp
+        id: sccache_cache_timestamp
+        shell: cmake -P {0}
+        run: |
+          string(TIMESTAMP current_date "%Y-%m-%d-%H;%M;%S" UTC)
+          message("::set-output name=timestamp::${current_date}")
+
+      - name: sccache cache files
+        uses: actions/cache@v2.1.7
+        with:
+          path: ~/Library/Caches/Mozilla.sccache
+          key: macos-sccache-${{ steps.sccache_cache_timestamp.outputs.timestamp }}
+          restore-keys: |
+            macos-sccache-
+
+      - name: Cache conan
+        uses: actions/cache@v2.1.7
+        with:
+          key: conan-${{ hashFiles('cmake/DependenciesConfig.cmake') }}
+          path: ~/.conan/
+
+      - name: Install dependencies
+        run: brew install conan sccache ninja
+
+      - name: Build
+        run: |
+          cmake -GNinja -DCMAKE_BUILD_TYPE=Release .
+          ninja
+          mkdir -p bin/Cytopia.App/Resources/resources
+          cp -pR data/resources bin/Cytopia.App/Contents/Resources/
+          cp -pR data/resources bin/resources
+          ninja package
+          rm -rf bin/Cytopia.App/Contents/MacOS/resources
+          rm -rf bin/Cytopia.App/Resources
+          sccache --show-stats
+        shell: bash
+
+      - name: Test
+        run: ctest -VV
+        shell: bash
+
+      - name: Upload build to itch.io
+        env:
+          BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
+        if: env.BUTLER_API_KEY != null && github.ref == 'refs/heads/master'
+        run: |
+          curl -JOL https://broth.itch.ovh/butler/darwin-amd64/LATEST/archive/default
+          mkdir redist
+          mv bin/Cytopia.app/ redist/
+          unzip butler-darwin-amd64.zip
+          ./butler push redist cytopia/cytopia:osx-ci --userversion CIBuild-${GITHUB_RUN_NUMBER}-commit-${GITHUB_SHA}
+        shell: bash
+
+      - name: Clean Conan pkgs
+        run: conan remove "*" -fsb

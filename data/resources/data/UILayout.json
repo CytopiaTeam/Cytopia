@@ -209,6 +209,19 @@
                 "BuildMenuID": "Construction_sub"
             },
             {
+                "ID": "button dezone",
+                "Type": "ImageButton",
+                "SpriteID": "Button_ConstructionMenu_DeZone",
+                "Position_x": 540,
+                "Position_y": 470,
+                "Action": "DeZone",
+                "ButtonGroup": "BottomMenuExpansionGroup",
+                "ToggleButton": true,
+                "DrawFrame": true,
+                "TooltipText": "De-zone",
+                "BuildMenuID": "Construction_sub"
+            },
+            {
                 "ID": "button terrain water",
                 "Type": "ImageButton",
                 "SpriteID": "Button_ConstructionMenu_Water",
@@ -306,13 +319,8 @@
             },
             {
                 "Type": "Checkbox",
-                "Position_x": 290,
-                "Position_y": 190
-            },
-            {
-                "Type": "Checkbox",
-                "Position_x": 330,
-                "Position_y": 190
+                "Position_x": 420,
+                "Position_y": 175
             },
             {
                 "Type": "TextButton",
@@ -331,8 +339,14 @@
                 "Position_y": 500,
                 "Width": 100,
                 "Height": 30,
-                "Action": "ToggleVisibilityOfGroup",
+                "Action": "CancelSettings",
                 "ActionParameter": "SettingsMenu"
+            },
+            {
+                "Type": "Text",
+                "Text": "Enable VSYNC",
+                "Position_x": 330,
+                "Position_y": 175
             },
             {
                 "Type": "Text",
@@ -351,6 +365,20 @@
                 "Text": "Fullscreen Mode",
                 "Position_x": 330,
                 "Position_y": 385
+            },
+            {
+                "Type": "Text",
+                "Text": "Music Volume",
+                "Position_x": 330,
+                "Position_y": 455
+            },
+            {
+                "ID": "$MusicVolumeSlider",
+                "Type": "Slider",
+                "Position_x": 420,
+                "Position_y": 440,
+                "Width": 200,
+                "Height": 30
             },
             {
                 "ID": "$FullScreenSelector",

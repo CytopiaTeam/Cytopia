@@ -53,7 +53,7 @@ void Camera::setPinchDistance(float pinchDistance, int isoX, int isoY)
 
 void Camera::centerScreenOnPoint(const Point &isoCoordinates)
 {
-  if (isPointWithinMapBoundaries(isoCoordinates))
+  if (isoCoordinates.isWithinMapBoundaries())
   {
     m_CenterIsoCoordinates = isoCoordinates;
     const SDL_Point screenCoordinates = convertIsoToScreenCoordinates(isoCoordinates, true);

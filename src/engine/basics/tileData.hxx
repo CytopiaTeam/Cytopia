@@ -37,36 +37,36 @@
 #define TD_REQUIREDTILES_MAX 20
 
 BETTER_ENUM(TileType, int,
-            DEFAULT,          /// Default is for buildings and practically everything that'll be placed on the TERRAIN layer
-            TERRAIN,          /// Terrain itself
-            WATER,            /// Water terrain
-            BLUEPRINT,        /// Same as terrain, but gets placed on the BLUEPRINT layer
-            AUTOTILE,         /// Autotiling to itself, like roads, power lines, etc
-            ZONE,             /// Zones (rectangular placement)
-            ROAD,             /// Roads
-            GROUNDDECORATION, /// Draw this Tile on GROUNDDECORATION layer. Buildings can be placed over it
-            UNDERGROUND,      /// same as AUTOTILE, but for the BLUEPRINT layer
-            RCI               /// Spawning automatically on RCI+ zones
+            DEFAULT,          ///< Default is for buildings and practically everything that'll be placed on the TERRAIN layer
+            TERRAIN,          ///< Terrain itself
+            WATER,            ///< Water terrain
+            BLUEPRINT,        ///< Same as terrain, but gets placed on the BLUEPRINT layer
+            AUTOTILE,         ///< Autotiling to itself, like roads, power lines, etc
+            ZONE,             ///< Zones (rectangular placement)
+            ROAD,             ///< Roads
+            GROUNDDECORATION, ///< Draw this Tile on GROUNDDECORATION layer. Buildings can be placed over it
+            UNDERGROUND,      ///< same as AUTOTILE, but for the BLUEPRINT layer
+            RCI               ///< Spawning automatically on RCI+ zones
 )
 
 //
 BETTER_ENUM(Zones, int, RESIDENTIAL, INDUSTRIAL, COMMERCIAL, AGRICULTURAL)
 
 BETTER_ENUM(Wealth, int,
-            NONE,   /// not applicable
-            LOW,    /// Low income
-            MEDIUM, /// Medium income
-            HIGH    /// High income
+            NONE,   ///< not applicable
+            LOW,    ///< Low income
+            MEDIUM, ///< Medium income
+            HIGH    ///< High income
 )
 
 BETTER_ENUM(Style, int,
-            ALL,      /// Default, place the Building in all Styles
-            ASIAN,    /// This building will only appear in a game with the Style Asian
-            EUROPEAN, /// This building will only appear in a game with the Style European
-            US        /// This building will only appear in a game with the Style US
+            ALL,      ///< Default, place the Building in all Styles
+            ASIAN,    ///< This building will only appear in a game with the Style Asian
+            EUROPEAN, ///< This building will only appear in a game with the Style European
+            US        ///< This building will only appear in a game with the Style US
 )
 
-/// This enum holds all data related to the TileSet (Spritesheet)
+/// This struct holds all data related to the TileSet (Spritesheet)
 struct TileSetData
 {
   std::string fileName; ///< the filename of the spritesheet
@@ -81,12 +81,57 @@ struct TileSetData
       1; ///< rotations is the number of rotations that exist in this tileset (for buildings).  this is not applicable for terrain and roads, their orientation is figured out differently. For buildings that have multiple orientations, this isn't implemented yet but it prevents buildings with multiple orientations from being placed with  a random image (that might be the wrong size).
 };
 
-/// How many tiles this building uses.
-struct RequiredTilesData
-{
-  unsigned int width = 1;
-  unsigned int height = 1;
+/**
+ * @brief How many tiles are occupied by a building
+ * 
+ */
+struct TileSize {
+    unsigned int width;
+    unsigned int height;
+
+    TileSize() : width(1), height(1) {};
+    TileSize(unsigned int width, unsigned int height) : width(width), height(height) {};
+    TileSize(const TileSize& other){
+        width = other.width;
+        height = other.height;
+    };
+
+    TileSize& operator=(const TileSize& other) {
+        width = other.width;
+        height = other.height;
+        return *this;
+    };
+
+    bool operator==(const TileSize& other) const {
+        if (width == other.width && height == other.height)
+            return true;
+        return false;
+    };
+
+    bool operator<(const TileSize& other) {
+        if (width < other.width )
+            return true;
+        else if (width == other.width && height == other.height)
+            return true;
+
+        return false;
+    };
+
+    size_t operator()(const TileSize& TileSizeToHash) const noexcept {
+        size_t hash = TileSizeToHash.width + 10 * TileSizeToHash.height;
+        return hash;
+    };
 };
+
+namespace std {
+    template<> struct hash<TileSize>
+    {
+        std::size_t operator()(const TileSize& p) const noexcept
+        {
+            return p(p);
+        }
+    };
+}
 
 /// Holds all releavted information to this specific tile
 struct TileData
@@ -127,7 +172,7 @@ struct TileData
   std::vector<Zones> zones;      ///< Restrict this building to a zone type.
   std::vector<Style> style;      ///< Restrict this building to certain Art Styles.
   std::vector<Wealth> wealth;    ///< Restrict this building to a certain wealth level. See enum Wealth
-  RequiredTilesData RequiredTiles; ///< How many tiles this building uses.
+  TileSize RequiredTiles; ///< How many tiles this building uses.
 };
 
 #endif

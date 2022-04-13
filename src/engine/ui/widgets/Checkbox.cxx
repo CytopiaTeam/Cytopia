@@ -21,7 +21,6 @@ bool Checkbox::onMouseButtonUp(const SDL_Event &event)
 {
   if (isMouseOver(event.button.x, event.button.y))
   {
-    clickSignal.emit();
 
     if (!elementData.actionParameter.empty())
     {
@@ -31,8 +30,12 @@ bool Checkbox::onMouseButtonUp(const SDL_Event &event)
     if (!m_isMouseButtonDown)
     {
       changeButtonState(getButtonState() == BUTTONSTATE_CLICKED ? BUTTONSTATE_DEFAULT : BUTTONSTATE_CLICKED);
+
     }
     m_isMouseButtonDown = false;
+    m_checkState = (getButtonState() == BUTTONSTATE_CLICKED ? true : false);
+    clickSignal.emit();
+    clickSignalSender.emit(this);
     return true;
   }
   return false;
@@ -64,4 +67,12 @@ void Checkbox::onMouseLeave(const SDL_Event &event)
   {
     changeButtonState(getButtonState() == BUTTONSTATE_DEFAULT ? BUTTONSTATE_CLICKED : BUTTONSTATE_DEFAULT);
   }
+}
+
+void Checkbox::setCheckState(bool checkState)
+{
+  //if (checkstat)
+  //std::cout << "setting button state";
+  changeButtonState(checkState ? BUTTONSTATE_CLICKED : BUTTONSTATE_DEFAULT);
+  m_checkState = checkState;
 }

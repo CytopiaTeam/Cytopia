@@ -11,8 +11,6 @@ set(SOURCE_FILES
         util/Singleton.hxx
         util/Meta.hxx
         util/Exception.{hxx,cxx}
-        GameService.{hxx,cxx}
-        GameService.inl.hxx
         services/Randomizer.{hxx,cxx}
         services/GameClock.{hxx,cxx}
         services/GameClock.inl.hxx
@@ -23,6 +21,7 @@ set(SOURCE_FILES
         engine/basics/Camera.{hxx,cxx}
         engine/basics/isoMath.{hxx,cxx}
         engine/basics/mapEdit.{hxx,cxx}
+        engine/basics/PointFunctions.{hxx,cxx}
         engine/basics/Settings.{hxx,cxx}
         engine/basics/GameStates.{hxx,cxx}
         engine/basics/signal.hxx
@@ -60,39 +59,22 @@ set(SOURCE_FILES
         )
 
 if (ANDROID)
-  list (APPEND SOURCE_FILES
-    util/android/Filesystem.cxx
-  )
-elseif(APPLE)
-  list (APPEND SOURCE_FILES
-    util/macOS/Filesystem.cxx
-  )
-else()
-  list (APPEND SOURCE_FILES
-    util/desktop/Filesystem.cxx
-  )
-endif()
-
-list(APPEND _include_directories
-        engine
-        engine/basics
-        engine/common
-        engine/GameObjects
-        engine/map
-        engine/ui/basics/
-        engine/ui/widgets
-        engine/ui/menuGroups
-        util
-        )
-
-if (ENABLE_AUDIO)
-    list(APPEND SOURCE_FILES
-            engine/audio/Soundtrack.{hxx,cxx}
-            services/AudioMixer.{hxx,cxx}
-            )
+    list(APPEND SOURCE_FILES util/android/Filesystem.cxx)
+elseif (APPLE)
+    list(APPEND SOURCE_FILES util/macOS/Filesystem.cxx)
+else ()
+    list(APPEND SOURCE_FILES util/desktop/Filesystem.cxx)
 endif ()
 
-if (ENABLE_ANGELSCRIPT)
+if (ENABLE_AUDIO)
+    list(
+            APPEND SOURCE_FILES
+            engine/audio/Soundtrack.{hxx,cxx}
+            services/AudioMixer.{hxx,cxx}
+    )
+endif ()
+
+if (USE_ANGELSCRIPT)
     list(APPEND SOURCE_FILES
             ${CMAKE_SOURCE_DIR}/external/as_add_on/scriptbuilder/scriptbuilder.cpp
             ${CMAKE_SOURCE_DIR}/external/as_add_on/scriptbuilder/scriptbuilder.h
@@ -134,10 +116,10 @@ if (APPLE)
     foreach (resources_file ${MAC_RESOURCE_FILES})
         get_filename_component(buildDirRelFilePath ${resources_file} DIRECTORY)
         string(REPLACE "${CMAKE_SOURCE_DIR}/data/" "" buildDirRelFilePath ${buildDirRelFilePath})
-        message (STATUS "resources: ${resources_file}")
+        message(STATUS "resources: ${resources_file}")
         set_source_files_properties(${resources_file} PROPERTIES MACOSX_PACKAGE_LOCATION Resources/${buildDirRelFilePath})
     endforeach ()
- 
+
     # set_source_files_properties(${PROJECT_SOURCE_DIR}/Cytopia_Resources/music  PROPERTIES MACOSX_PACKAGE_LOCATION Resources/resources/audio/music)
     set_source_files_properties(${ICON_PATH} PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
     set_source_files_properties(${myApp_ICON} PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
@@ -153,29 +135,64 @@ else ()
 endif ()
 
 # enable C++17
-set_target_properties(${PROJECT_NAME} PROPERTIES
+set_target_properties(
+        ${PROJECT_NAME} PROPERTIES
         CXX_STANDARD 17
         CXX_STANDARD_REQUIRED YES
-        CXX_EXTENSIONS NO)
+        CXX_EXTENSIONS NO
+)
 
 list(APPEND _compile_definitions VERSION="${PROJECT_NAME} ${PROJECT_VERSION} - Urban Update")
 
-
-target_include_directories(${PROJECT_NAME} PRIVATE ${_include_directories})
+target_include_directories(
+        ${PROJECT_NAME} PRIVATE
+        ${CMAKE_SOURCE_DIR}/external/header_only
+        engine
+        engine/basics
+        engine/common
+        engine/GameObjects
+        engine/map
+        engine/ui/basics/
+        engine/ui/widgets
+        engine/ui/menuGroups
+        util
+)
 target_compile_definitions(${PROJECT_NAME} PRIVATE ${_compile_definitions})
-target_link_libraries(${PROJECT_NAME} PRIVATE ${_link_libraries})
+target_link_libraries(
+        ${PROJECT_NAME} PRIVATE
+        LIBPNG::LIBPNG
+        SDL::SDL
+        SDL::TTF
+        SDL::SDL_image
+        LibNoise::LibNoise
+        ZLIB::ZLIB
+)
+
+if (ANDROID)
+    target_link_libraries(${PROJECT_NAME} PRIVATE ${ANDROID_LOG_LIBRARY} ${ANDROID_LIBRARY_LIBRARY})
+endif ()
+
+if (ENABLE_AUDIO)
+    target_link_libraries(${PROJECT_NAME} PRIVATE OpenAL::OpenAL VorbisFile::VorbisFile)
+    target_compile_definitions(${PROJECT_NAME} PRIVATE USE_AUDIO)
+endif ()
+
+if (USE_MICROPROFILE)
+    target_link_libraries(${PROJECT_NAME} PRIVATE Microprofile::Microprofile)
+    target_compile_definitions(${PROJECT_NAME} PRIVATE MICROPROFILE_ENABLED MICROPROFILE_GPU_TIMERS=0)
+endif ()
+
+if (USE_ANGELSCRIPT)
+    target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/external/as_add_on)
+    target_link_libraries(${PROJECT_NAME} PRIVATE Angelscript::Angelscript)
+    target_compile_definitions(${PROJECT_NAME} PRIVATE USE_ANGELSCRIPT)
+endif ()
 
 # copy the resources to the compiled directory. On Apple those files are used from the resources dir, not from the root dir.
 if (NOT APPLE)
-    add_custom_target(
-            copy_resources
-            ALL
-            COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/data/resources/ $<TARGET_FILE_DIR:${PROJECT_NAME}>/resources/
-            COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/data/languages/ $<TARGET_FILE_DIR:${PROJECT_NAME}>/languages/
-            COMMENT "Copy the resources to the compiled directory"
-            VERBATIM
-    )
-endif()
+    fast_copy("${CMAKE_SOURCE_DIR}/data/resources" "${RUNTIME_OUTPUT_DIRECTORY}/resources")
+    fast_copy("${CMAKE_SOURCE_DIR}/data/languages" "${RUNTIME_OUTPUT_DIRECTORY}/languages")
+endif ()
 
 if (MSVC)
     # set startup project for Visual Studio Builds
@@ -188,7 +205,7 @@ if (MSVC)
     set_target_properties(
             ${PROJECT_NAME}
             PROPERTIES
-            VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/$(Configuration)"
+            VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
     )
 endif ()
 

@@ -18,16 +18,16 @@ class UIElement
 protected:
   struct ElementData
   {
-    std::string elementID;       /// ID to reference to this element
-    std::string text;            /// Text label that is shown on the button
-    std::string tooltipText;     /// Tooltip text that is shown when hovering over the button
-    std::string actionID;        /// ID of the action this button invokes
-    std::string actionParameter; /// Parameter for the function that's been called when the button is clicked.
-    std::string textureID;       /// ID of the texture this item uses
+    std::string elementID;       ///< ID to reference to this element
+    std::string text;            ///< Text label that is shown on the button
+    std::string tooltipText;     ///< Tooltip text that is shown when hovering over the button
+    std::string actionID;        ///< ID of the action this button invokes
+    std::string actionParameter; ///< Parameter for the function that's been called when the button is clicked.
+    std::string textureID;       ///< ID of the texture this item uses
     std::string buildMenuID;
     std::string layoutGroupName;
-    UIElement *parent = nullptr; /// The object that toggles this items visibility
-    bool isToggleButton = false; /// specifies if this is a toggle button
+    UIElement *parent = nullptr; ///< The object that toggles this items visibility
+    bool isToggleButton = false; ///< specifies if this is a toggle button
   };
 
   ElementData elementData;
@@ -84,7 +84,7 @@ public:
   * provide custom handling if necessary (e.g. Combobox) 
   * Per default, it's the same implementation as isMouseOver
   * @param x, y coordinates of the mouseclick
-  * @return Wether the element is hovered over
+  * @return Whether the element is hovered over
   */
   virtual bool isMouseOverHoverableArea(int x, int y);
 
@@ -177,7 +177,7 @@ private:
   bool m_directTexture = false; //was this texture set directly?
 
 protected:
-  SDL_Texture *m_texture = nullptr; /// a pointer to the element's texture
+  SDL_Texture *m_texture = nullptr; ///< a pointer to the element's texture
   SDL_Rect m_uiElementRect{0, 0, 0, 0};
   SDL_Rect m_uiElementClipRect{0, 0, 0, 0};
   SDL_Rect m_uiTextureRect{0, 0, 0, 0};
@@ -193,8 +193,8 @@ protected:
 
   /** \brief Draws a line to the screen.
   * Draws a line to the screen.
-  * @param x1, y1 The lines starting point.
-  * @param x2, y2 The lines ending point.
+  * @param x1, y1 The line's starting point.
+  * @param x2, y2 The line's ending point.
   * @param color The color of the line.
   */
   void drawLine(int x1, int y1, int x2, int y2, const SDL_Color &color) const;

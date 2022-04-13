@@ -18,7 +18,7 @@ template <typename Type, size_t N> using Array = std::array<Type, N>;
 
 std::function<void(int)> AudioMixer::onTrackFinishedFunc;
 
-AudioMixer::AudioMixer(GameService::ServiceTuple &context) : GameService(context)
+AudioMixer::AudioMixer()
 {
   std::string jsonFileContent = fs::readFileAsString(Settings::instance().audioConfigJSONFile.get());
   json config_json = json::parse(jsonFileContent, nullptr, false);
@@ -120,7 +120,7 @@ SoundtrackUPtr &AudioMixer::getTrack(const AudioTrigger &trigger)
     return noResoruce;
   }
   const SoundtrackID &trackID = *Randomizer::instance().choose(possibilities.begin(), possibilities.end());
-  return GetService<ResourceManager>().get(trackID);
+  return ResourceManager::instance().get(trackID);
 }
 
 SoundtrackUPtr &AudioMixer::getTrack(const SoundtrackID &id)
@@ -130,7 +130,7 @@ SoundtrackUPtr &AudioMixer::getTrack(const SoundtrackID &id)
     return noResoruce;
   }
 
-  return GetService<ResourceManager>().get(id);
+  return ResourceManager::instance().get(id);
 }
 
 /*
@@ -139,9 +139,20 @@ SoundtrackUPtr &AudioMixer::getTrack(const SoundtrackID &id)
    +---------------------+
    */
 
-void AudioMixer::setMusicVolume(VolumeLevel volume) { throw UnimplementedError(TRACE_INFO "Unimplemented Error"); }
+void AudioMixer::setMusicVolume(float volume)
+{
+  // alSourcef(currentSourceID, AL_GAIN, newVolume);
+  // this would set the volume, but idk how to get the "currentSourceID"
 
-void AudioMixer::setSoundEffectVolume(VolumeLevel volume) { throw UnimplementedError(TRACE_INFO "Unimplemented Error"); }
+  // for now set the volume for everything.
+  alListenerf(AL_GAIN, volume);
+}
+
+void AudioMixer::setSoundEffectVolume(float volume)
+{
+  // find out how to set those volumes seperately
+  //alListenerf(AL_GAIN, volume);
+}
 
 void AudioMixer::play(const SoundtrackID &id)
 {

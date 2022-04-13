@@ -9,8 +9,8 @@
 
 #include "audio/Soundtrack.hxx"
 #include "audio/AudioConfig.hxx"
-#include "../GameService.hxx"
 #include "../util/Meta.hxx"
+#include "../util/Singleton.hxx"
 
 #include "AL/al.h"
 #include "AL/alc.h"
@@ -25,11 +25,6 @@ using string = std::string;
 template <typename Type> using Vector = std::vector<Type>;
 template <typename Type> using Set = std::unordered_set<Type>;
 template <typename Type> using List = std::list<Type>;
-
-/**
- * @brief the volume level
- */
-using VolumeLevel = StrongType<uint8_t, struct VolumeLevelTag>;
 
 /**
  * @brief a 3-dimensional coordinate
@@ -103,11 +98,11 @@ struct StandardReverbProperties
 
 
 	@param flEchoDelay,AL_ECHO_DELAY,
-	description: delay between the original sound and the first ‘tap’, or echo instance,range: 0.0 to 0.207
+	description: delay between the original sound and the first 'tap', or echo instance,range: 0.0 to 0.207
 
 
 	@param flEchoLRDelay,AL_ECHO_LRDELAY,
-	description: delay between the first ‘tap’ and the second ‘tap’.,range: 0.0 to 0.404
+	description: delay between the first 'tap' and the second 'tap'.,range: 0.0 to 0.404
 
 
 	@param flEchoDamping,AL_ECHO_DAMPING,
@@ -137,24 +132,24 @@ struct EchoProperties
 /**
  * @class AudioMixer
  */
-class AudioMixer : public GameService
+class AudioMixer : public Singleton<AudioMixer>
 {
 public:
   using DEFAULT_CHANNELS = Constant<4>;
 
   /**
    * @brief sets the music volume
-   * @pre   volume must be within [0, 128]
+   * @pre   volume must be a float within [0, 1]
    * @post  Settings::MusicVolume is changed
    */
-  void setMusicVolume(VolumeLevel volume);
+  void setMusicVolume(float volume);
 
   /**
    * @brief sets the sound effects volume
-   * @pre   volume must be within [0, 128]
+   * @pre   volume must be a float within [0, 1]
    * @post  Settings::SoundEffectsVolume is changed
    */
-  void setSoundEffectVolume(VolumeLevel volume);
+  void setSoundEffectVolume(float volume);
 
   /**
    * @brief Plays a Soundtrack given its ID
@@ -263,8 +258,12 @@ public:
   /**
    * @pre GameClock must be initialized
    */
-  AudioMixer(GameService::ServiceTuple &);
+  AudioMixer();
   ~AudioMixer();
+  AudioMixer(const AudioMixer &) = delete;
+  AudioMixer(AudioMixer &&) = delete;
+  AudioMixer &operator=(const AudioMixer &) = delete;
+  AudioMixer &operator=(AudioMixer &&) = delete;
 
   //for orientation of listener
   enum class ORIENTATION_INDEX : int
