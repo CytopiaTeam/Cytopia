@@ -444,9 +444,6 @@ Point Map::findNodeInMap(const SDL_Point &screenCoordinates, const Layer &layer)
     isoY -= diff;
   }
 
-#ifndef NDEBUG
-  int zOrder = INT_MAX;
-#endif
   // Transverse a column form from calculated coordinates to the bottom of the map.
   // It is necessary to include 2 neighbor nodes from both sides.
   // Try to find map node in Z order.
@@ -469,11 +466,7 @@ Point Map::findNodeInMap(const SDL_Point &screenCoordinates, const Layer &layer)
     {
       //get all coordinates for node at x,y
       Point coordinate = getMapNode(Point(x, y)).getCoordinates();
-#ifndef NDEBUG
-      // Assert assumption that we test all nodes in correct Z order
-      assert(zOrder > coordinate.z);
-      zOrder = coordinate.z;
-#endif
+
       if (isClickWithinTile(screenCoordinates, coordinate, layer))
       {
         return coordinate;
