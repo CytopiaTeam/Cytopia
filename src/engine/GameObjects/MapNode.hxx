@@ -172,6 +172,12 @@ public:
   void setNodeTransparency(const float transparencyFactor, const Layer &layer) const;
 
   /**
+  * Update the Z-Index of this mapNode
+  * @param the new Z-Index
+  */
+  void setZIndex(int zIndex) { m_isoCoordinates.z = zIndex; };
+
+  /**
    * @brief Maximum height of the node.
    */
   static const int maxHeight = 32;
