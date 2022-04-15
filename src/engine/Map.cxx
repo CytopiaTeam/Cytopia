@@ -516,6 +516,7 @@ void Map::demolishNode(const std::vector<Point> &isoCoordinates, bool updateNeig
   for (auto pNode : nodesToDemolish)
   {
     pNode->demolishNode(layer);
+    signalDemolish.emit(pNode);
     // TODO: Play sound effect here
     if (updateNeighboringTiles)
     {

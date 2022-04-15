@@ -42,7 +42,7 @@ BETTER_ENUM(TileType, int,
             WATER,            ///< Water terrain
             BLUEPRINT,        ///< Same as terrain, but gets placed on the BLUEPRINT layer
             AUTOTILE,         ///< Autotiling to itself, like roads, power lines, etc
-            ZONE,             ///< Zones (rectangular placement)
+            ZONE,             ///< ZoneType (rectangular placement)
             ROAD,             ///< Roads
             GROUNDDECORATION, ///< Draw this Tile on GROUNDDECORATION layer. Buildings can be placed over it
             UNDERGROUND,      ///< same as AUTOTILE, but for the BLUEPRINT layer
@@ -50,13 +50,12 @@ BETTER_ENUM(TileType, int,
 )
 
 //
-BETTER_ENUM(Zones, int, RESIDENTIAL, INDUSTRIAL, COMMERCIAL, AGRICULTURAL)
+BETTER_ENUM(ZoneType, int, RESIDENTIAL, INDUSTRIAL, COMMERCIAL, AGRICULTURAL)
 
-BETTER_ENUM(Wealth, int,
-            NONE,   ///< not applicable
-            LOW,    ///< Low income
-            MEDIUM, ///< Medium income
-            HIGH    ///< High income
+BETTER_ENUM(ZoneDensity, int,
+            LOW,    ///< Low density
+            MEDIUM, ///< Medium density
+            HIGH    ///< High density
 )
 
 BETTER_ENUM(Style, int,
@@ -169,9 +168,9 @@ struct TileData
   int inhabitants = 0;           ///< How many residents / workers this building can hold. Also how much jobs it provides
   int happiness = 0;             ///< The effect on happiness around this building.
   int educationLevel = 0;        ///< How much education this building provides (educational building) / requires (job)
-  std::vector<Zones> zones;      ///< Restrict this building to a zone type.
+  std::vector<ZoneType> zones;      ///< Restrict this building to a zone type.
   std::vector<Style> style;      ///< Restrict this building to certain Art Styles.
-  std::vector<Wealth> wealth;    ///< Restrict this building to a certain wealth level. See enum Wealth
+  std::vector<ZoneDensity> zoneDensity;    ///< Restrict this building to a certain zone density. See enum ZoneDensity
   TileSize RequiredTiles; ///< How many tiles this building uses.
 };
 
