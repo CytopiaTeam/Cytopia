@@ -31,7 +31,7 @@ std::vector<std::string> TileManager::getAllTileIDsForZone(ZoneType zone, ZoneDe
   std::vector<std::string> results;
   for (auto &tileData : m_tileData)
   {
-    if (std::find(tileData.second.zones.begin(), tileData.second.zones.end(), +zone) != tileData.second.zones.end() &&
+    if (std::find(tileData.second.zoneTypes.begin(), tileData.second.zoneTypes.end(), +zone) != tileData.second.zoneTypes.end() &&
         (zone == +ZoneType::AGRICULTURAL || std::find(tileData.second.zoneDensity.begin(), tileData.second.zoneDensity.end(),
                                                    +zoneDensity) != tileData.second.zoneDensity.end()) &&
         tileData.second.RequiredTiles.height == tileSize.height && tileData.second.RequiredTiles.width == tileSize.width &&
@@ -367,9 +367,9 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
                              " the field tileType uses the unsupported value " + tileTypeStr);
   }
 
-  if (tileDataJSON[idx].find("wealth") != tileDataJSON[idx].end())
+  if (tileDataJSON[idx].find("zoneDensity") != tileDataJSON[idx].end())
   {
-    for (auto zoneDensity : tileDataJSON[idx].at("wealth").items())
+    for (auto zoneDensity : tileDataJSON[idx].at("zoneDensity").items())
     {
       if (ZoneDensity::_is_valid_nocase(zoneDensity.value().get<std::string>().c_str()))
       {
@@ -378,23 +378,23 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
       else
       {
         throw ConfigurationError(TRACE_INFO "In TileData.json in field with ID " + id +
-                                 " the field wealth uses the unsupported value " + zoneDensity.value().get<std::string>());
+                                 " the field zoneDensity uses the unsupported value " + zoneDensity.value().get<std::string>());
       }
     }
   }
 
-  if (tileDataJSON[idx].find("zones") != tileDataJSON[idx].end())
+  if (tileDataJSON[idx].find("zoneType") != tileDataJSON[idx].end())
   {
-    for (auto zone : tileDataJSON[idx].at("zones").items())
+    for (auto zoneType : tileDataJSON[idx].at("zoneType").items())
     {
-      if (ZoneType::_is_valid_nocase(zone.value().get<std::string>().c_str()))
+      if (ZoneType::_is_valid_nocase(zoneType.value().get<std::string>().c_str()))
       {
-        m_tileData[id].zones.push_back(ZoneType::_from_string_nocase(zone.value().get<std::string>().c_str()));
+        m_tileData[id].zoneTypes.push_back(ZoneType::_from_string_nocase(zoneType.value().get<std::string>().c_str()));
       }
       else
       {
         throw ConfigurationError(TRACE_INFO "In TileData.json in field with ID " + id +
-                                 " the field zone uses the unsupported value " + zone.value().get<std::string>());
+                                 " the field zone uses the unsupported value " + zoneType.value().get<std::string>());
       }
     }
   }
