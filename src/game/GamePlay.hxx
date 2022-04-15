@@ -4,7 +4,7 @@
 #include "ZoneManager.hxx"
 #include "Singleton.hxx"
 
-class GamePlay : public Singleton<GamePlay>
+class GamePlay
 {
 public:
   GamePlay() = default;

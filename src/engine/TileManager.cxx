@@ -26,13 +26,16 @@ TileData *TileManager::getTileData(const std::string &id) noexcept
   return nullptr;
 }
 
-std::vector<std::string> TileManager::getAllTileIDsForZone(Zones zone, TileSize tileSize)
+std::vector<std::string> TileManager::getAllTileIDsForZone(ZoneType zone, ZoneDensity zoneDensity, TileSize tileSize)
 {
   std::vector<std::string> results;
   for (auto &tileData : m_tileData)
   {
     if (std::find(tileData.second.zones.begin(), tileData.second.zones.end(), +zone) != tileData.second.zones.end() &&
-        tileData.second.RequiredTiles.height == tileSize.height && tileData.second.RequiredTiles.width == tileSize.width)
+        (zone == +ZoneType::AGRICULTURAL || std::find(tileData.second.zoneDensity.begin(), tileData.second.zoneDensity.end(),
+                                                   +zoneDensity) != tileData.second.zoneDensity.end()) &&
+        tileData.second.RequiredTiles.height == tileSize.height && tileData.second.RequiredTiles.width == tileSize.width &&
+        tileData.second.tileType != +TileType::ZONE)
     {
       results.push_back(tileData.first);
     }
@@ -68,9 +71,10 @@ std::vector<Point> TileManager::getTargetCoordsOfTile(const Point &targetCoordin
   return occupiedCoords;
 }
 
-std::string TileManager::getRandomTileIDForZoneWithRandomSize(Zones zone, TileSize maxTileSize)
+std::optional<std::string> TileManager::getRandomTileIDForZoneWithRandomSize(ZoneType zone, ZoneDensity zoneDensity, TileSize maxTileSize)
+
 {
-  std::unordered_set<TileSize> elligibleTileSizes;
+  std::vector<TileSize> elligibleTileSizes;
 
   // filter out the tilesizes that are below the maximum from all available tilesizes
   for (auto tileSize : m_tileSizeCombinations)
@@ -78,7 +82,7 @@ std::string TileManager::getRandomTileIDForZoneWithRandomSize(Zones zone, TileSi
     // for now only pick square buildings. non square buildings don't work yet.
     if (tileSize.height <= maxTileSize.height && tileSize.width <= maxTileSize.width && tileSize.height == tileSize.width)
     {
-      elligibleTileSizes.insert(tileSize);
+      elligibleTileSizes.push_back(tileSize);
     }
   }
 
@@ -87,14 +91,13 @@ std::string TileManager::getRandomTileIDForZoneWithRandomSize(Zones zone, TileSi
   TileSize randomTileSize = *randomizer.choose(elligibleTileSizes.begin(), elligibleTileSizes.end());
 
   // get all tile IDs for the according zone and tilesize
-  const auto &tileIDsForThisZone = getAllTileIDsForZone(zone, randomTileSize);
+  const auto &tileIDsForThisZone = getAllTileIDsForZone(zone, zoneDensity, randomTileSize);
 
   if (tileIDsForThisZone.empty())
   {
-    LOG(LOG_ERROR) << "No buildings available for zone: " << zone;
-    return "";
+    return std::nullopt;
   }
-  
+
   // return a random tileID
   return *randomizer.choose(tileIDsForThisZone.begin(), tileIDsForThisZone.end());
 }
@@ -395,16 +398,16 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
 
   if (tileDataJSON[idx].find("wealth") != tileDataJSON[idx].end())
   {
-    for (auto wealth : tileDataJSON[idx].at("wealth").items())
+    for (auto zoneDensity : tileDataJSON[idx].at("wealth").items())
     {
-      if (Wealth::_is_valid_nocase(wealth.value().get<std::string>().c_str()))
+      if (ZoneDensity::_is_valid_nocase(zoneDensity.value().get<std::string>().c_str()))
       {
-        m_tileData[id].wealth.push_back(Wealth::_from_string_nocase(wealth.value().get<std::string>().c_str()));
+        m_tileData[id].zoneDensity.push_back(ZoneDensity::_from_string_nocase(zoneDensity.value().get<std::string>().c_str()));
       }
       else
       {
         throw ConfigurationError(TRACE_INFO "In TileData.json in field with ID " + id +
-                                 " the field wealth uses the unsupported value " + wealth.value().get<std::string>());
+                                 " the field wealth uses the unsupported value " + zoneDensity.value().get<std::string>());
       }
     }
   }
@@ -413,9 +416,9 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
   {
     for (auto zone : tileDataJSON[idx].at("zones").items())
     {
-      if (Zones::_is_valid_nocase(zone.value().get<std::string>().c_str()))
+      if (ZoneType::_is_valid_nocase(zone.value().get<std::string>().c_str()))
       {
-        m_tileData[id].zones.push_back(Zones::_from_string_nocase(zone.value().get<std::string>().c_str()));
+        m_tileData[id].zones.push_back(ZoneType::_from_string_nocase(zone.value().get<std::string>().c_str()));
       }
       else
       {

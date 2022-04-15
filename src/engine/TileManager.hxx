@@ -5,6 +5,7 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <string>
+#include <optional> // required  for windows
 
 #include "tileData.hxx"
 #include "json.hxx"
@@ -123,7 +124,7 @@ public:
    * @param tileSize - Get buildings with a certain tile size
    * @return All tileIDs that match the zone and tileSize
    */
-  std::vector<std::string> getAllTileIDsForZone(Zones zone, TileSize tileSize = {1, 1});
+  std::vector<std::string> getAllTileIDsForZone(ZoneType zone, ZoneDensity zoneDensity, TileSize tileSize = {1, 1});
 
   /**
    * @brief Pick a single random tileID for a zone with a random tilesize within the supplied max Size
@@ -132,7 +133,8 @@ public:
    * @param maxTileSize - maximum tileSize we want 
    * @return A random tileID matching the supplied parameters
    */
-  std::string getRandomTileIDForZoneWithRandomSize(Zones zone, TileSize maxTileSize = {1, 1});
+  std::optional<std::string> getRandomTileIDForZoneWithRandomSize(ZoneType zone, ZoneDensity zoneDensity,
+                                                                  TileSize maxTileSize = {1, 1});
 
   /** \brief Return a vector of Points that would be occupied by a tileID
   * @param targetCoordinates - where the tile should be placed
@@ -142,9 +144,9 @@ public:
   std::vector<Point> getTargetCoordsOfTile(const Point &targetCoordinates, const std::string &tileID);
 
   /**
- * @brief Parse the tileData JSON and set up the tileManager
- * 
- */
+  * @brief Parse the tileData JSON and set up the tileManager
+  * 
+  */
   void init();
 
 private:

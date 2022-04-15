@@ -446,9 +446,6 @@ Point Map::findNodeInMap(const SDL_Point &screenCoordinates, const Layer &layer)
     isoY -= diff;
   }
 
-#ifndef NDEBUG
-  int zOrder = INT_MAX;
-#endif
   // Transverse a column form from calculated coordinates to the bottom of the map.
   // It is necessary to include 2 neighbor nodes from both sides.
   // Try to find map node in Z order.
@@ -471,11 +468,7 @@ Point Map::findNodeInMap(const SDL_Point &screenCoordinates, const Layer &layer)
     {
       //get all coordinates for node at x,y
       Point coordinate = getMapNode(Point(x, y)).getCoordinates();
-#ifndef NDEBUG
-      // Assert assumption that we test all nodes in correct Z order
-      assert(zOrder > coordinate.z);
-      zOrder = coordinate.z;
-#endif
+
       if (isClickWithinTile(screenCoordinates, coordinate, layer))
       {
         return coordinate;
@@ -525,6 +518,7 @@ void Map::demolishNode(const std::vector<Point> &isoCoordinates, bool updateNeig
   for (auto pNode : nodesToDemolish)
   {
     pNode->demolishNode(layer);
+    signalDemolish.emit(pNode);
     // TODO: Play sound effect here
     if (updateNeighboringTiles)
     {
@@ -745,9 +739,10 @@ void Map::calculateVisibleMap(void)
 
   m_visibleNodesCount = 0;
 
-  for (int x = 0; x < m_rows; x++)
+  // ZOrder starts from topmost node to the right. (0,127) =1,(1,127) =2, ...
+  for (int y = m_columns - 1; y >= 0; y--)
   {
-    for (int y = m_columns - 1; y >= 0; y--)
+    for (int x = 0; x < m_rows; x++)
     {
       const int xVal = x + y;
       const int yVal = y - x;

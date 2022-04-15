@@ -29,6 +29,7 @@ void Slider::setValue(int val)
   // translate that to position on the slider (For the button)
   sliderButton.x = x - sliderButton.w / 2;
   curVal = val;
+  sliderSignal.emit(curVal);
 }
 
 void Slider::calculateValue(int x)

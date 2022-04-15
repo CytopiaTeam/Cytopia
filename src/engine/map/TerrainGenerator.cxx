@@ -93,7 +93,7 @@ void TerrainGenerator::generateTerrain(std::vector<MapNode> &mapNodes, std::vect
   {
     for (int y = 0; y < mapSize; y++)
     {
-      const int z = (x + 1) * mapSize - y - 1;
+      const int z = 0; // it's not possible to calculate the correct z-index, so set it later in a for loop
       double rawHeight = terrainHeight.GetValue(x * 32, y * 32, 0.5);
       int height = static_cast<int>(rawHeight);
 
@@ -148,10 +148,14 @@ void TerrainGenerator::generateTerrain(std::vector<MapNode> &mapNodes, std::vect
     }
   }
 
-  for (int x = 0; x < mapSize; x++)
+  int z = 0;
+  // set the z-Index for the mapNodes. It is not used, but it's better to have the correct z-index set
+  for (int y = mapSize - 1; y >= 0; y--)
   {
-    for (int y = mapSize - 1; y >= 0; y--)
+    for (int x = 0; x < mapSize; x++)
     {
+      z++;
+      mapNodes[x * mapSize + y].setZIndex(z);
       mapNodesInDrawingOrder.push_back(&mapNodes[x * mapSize + y]);
     }
   }

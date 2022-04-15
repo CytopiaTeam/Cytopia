@@ -1,4 +1,5 @@
 #include "PointFunctions.hxx"
+#include <cassert>
 
 // forward declarations
 static std::vector<Point> getLine;
@@ -241,7 +242,5 @@ NeighbourNodesPosition PointFunctions::getNeighborPositionToOrigin(const Point &
     }
     break;
   }
-
-  LOG(LOG_ERROR) << "No position found! This should never happen";
-  return NeighbourNodesPosition::CENTER;
+  assert(false); // this should never happen!
 }

@@ -8,6 +8,7 @@
 #include "map/TerrainGenerator.hxx"
 #include "../game/GamePlay.hxx"
 #include "PointFunctions.hxx"
+#include "basics/signal.hxx"
 
 struct NeighborNode
 {
@@ -134,10 +135,15 @@ public:
       {
         nodesToBeUpdated.push_back(&currentMapNode);
       }
-      // If we place a zone tile, add it to the ZoneManager
-      if (currentMapNode.getTileData(Layer::ZONE))
+
+      // emit a signal to notify manager
+      if (currentMapNode.getTileData(Layer::BUILDINGS) && currentMapNode.getTileData(Layer::ZONE))
       {
-        GamePlay::instance().getZoneManager().addZoneNode(&currentMapNode);
+        signalPlaceBuilding.emit(currentMapNode);
+      }
+      else if (currentMapNode.getTileData(Layer::ZONE))
+      {
+        signalPlaceZone.emit(currentMapNode);
       }
     }
 
@@ -299,6 +305,17 @@ private:
   TerrainGenerator m_terrainGen;
 
   static const size_t m_saveGameVersion;
+
+  // Signals
+  Signal::Signal<void(const MapNode &)> signalPlaceBuilding;
+  Signal::Signal<void(const MapNode &)> signalPlaceZone;
+  Signal::Signal<void(MapNode *)> signalDemolish;
+
+public:
+  // Callback functions
+  void registerCbPlaceBuilding(std::function<void(const MapNode &)> const &cb) { signalPlaceBuilding.connect(cb); }
+  void registerCbPlaceZone(std::function<void(const MapNode &)> const &cb) { signalPlaceZone.connect(cb); }
+  void registerCbDemolish(std::function<void(MapNode *)> const &cb) { signalDemolish.connect(cb); }
 };
 
 #endif
