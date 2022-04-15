@@ -40828,7 +40828,7 @@
             "width": 1
         },
         "author": "Kingtut 101",
-        "category": "zoneType",
+        "category": "Zones",
         "crimeLevel": 0,
         "description": "Commercial Zone (dense).",
         "educationLevel": 0,
@@ -40881,7 +40881,7 @@
             "width": 1
         },
         "author": "Kingtut 101",
-        "category": "zoneType",
+        "category": "Zones",
         "crimeLevel": 0,
         "description": "Commercial Zone (light).",
         "educationLevel": 0,
@@ -40934,7 +40934,7 @@
             "width": 1
         },
         "author": "Kingtut 101",
-        "category": "zoneType",
+        "category": "Zones",
         "crimeLevel": 0,
         "description": "Commercial Zone (medium).",
         "educationLevel": 0,
@@ -40987,7 +40987,7 @@
             "width": 1
         },
         "author": "Kingtut 101",
-        "category": "zoneType",
+        "category": "Zones",
         "crimeLevel": 0,
         "description": "Farm Zone",
         "educationLevel": 0,
@@ -41040,7 +41040,7 @@
             "width": 1
         },
         "author": "Kingtut 101",
-        "category": "zoneType",
+        "category": "Zones",
         "crimeLevel": 0,
         "description": "Industrial Zone (dense)",
         "educationLevel": 0,
@@ -41093,7 +41093,7 @@
             "width": 1
         },
         "author": "Kingtut 101",
-        "category": "zoneType",
+        "category": "Zones",
         "crimeLevel": 0,
         "description": "Industrial Zone (light)",
         "educationLevel": 0,
@@ -41146,7 +41146,7 @@
             "width": 1
         },
         "author": "Kingtut 101",
-        "category": "zoneType",
+        "category": "Zones",
         "crimeLevel": 0,
         "description": "Industrial Zone (medium)",
         "educationLevel": 0,
@@ -41199,7 +41199,7 @@
             "width": 1
         },
         "author": "Kingtut 101",
-        "category": "zoneType",
+        "category": "Zones",
         "crimeLevel": 0,
         "description": "Residential Zone (dense).",
         "educationLevel": 0,
@@ -41252,7 +41252,7 @@
             "width": 1
         },
         "author": "Kingtut 101",
-        "category": "zoneType",
+        "category": "Zones",
         "crimeLevel": 0,
         "description": "Residential Zone (light).",
         "educationLevel": 0,
@@ -41305,7 +41305,7 @@
             "width": 1
         },
         "author": "Kingtut 101",
-        "category": "zoneType",
+        "category": "Zones",
         "crimeLevel": 0,
         "description": "Residential Zone (medium).",
         "educationLevel": 0,
