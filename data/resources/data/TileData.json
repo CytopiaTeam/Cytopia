@@ -3150,7 +3150,7 @@
         "power": 0,
         "price": 0,
         "subCategory": "Bushes",
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
@@ -3184,7 +3184,7 @@
         "power": 0,
         "price": 0,
         "subCategory": "Bushes",
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
@@ -3218,7 +3218,7 @@
         "power": 0,
         "price": 0,
         "subCategory": "Bushes",
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 14,
             "clip_width": 32,
@@ -3252,7 +3252,7 @@
         "power": 0,
         "price": 0,
         "subCategory": "Bushes",
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 17,
             "clip_width": 32,
@@ -3286,7 +3286,7 @@
         "power": 0,
         "price": 0,
         "subCategory": "Bushes",
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
@@ -3320,7 +3320,7 @@
         "power": 0,
         "price": 0,
         "subCategory": "Bushes",
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 16,
             "clip_width": 32,
@@ -3359,7 +3359,7 @@
             "green",
             "bush"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
@@ -3398,7 +3398,7 @@
             "green",
             "bush"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
@@ -3437,7 +3437,7 @@
             "green",
             "bush"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
@@ -3471,7 +3471,7 @@
         "power": 0,
         "price": 0,
         "subCategory": "Bushes",
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 19,
             "clip_width": 32,
@@ -3505,7 +3505,7 @@
         "power": 0,
         "price": 0,
         "subCategory": "Bushes",
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
@@ -3539,7 +3539,7 @@
         "power": 0,
         "price": 0,
         "subCategory": "Bushes",
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 17,
             "clip_width": 32,
@@ -10555,7 +10555,7 @@
             "ferns",
             "jungle"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
@@ -10594,7 +10594,7 @@
             "ferns",
             "jungle"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
@@ -10633,7 +10633,7 @@
             "ferns",
             "jungle"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
@@ -10672,7 +10672,7 @@
             "flowers",
             "colorful"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
@@ -10711,7 +10711,7 @@
             "flowers",
             "colorful"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
@@ -10750,7 +10750,7 @@
             "flowers",
             "colorful"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
@@ -10825,7 +10825,7 @@
             "flora",
             "grass"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 16,
             "clip_width": 32,
@@ -10863,7 +10863,7 @@
             "flora",
             "grass"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 16,
             "clip_width": 32,
@@ -10901,7 +10901,7 @@
             "flora",
             "grass"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 16,
             "clip_width": 32,
@@ -10935,7 +10935,7 @@
         "power": 0,
         "price": 0,
         "subCategory": "Flora",
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
@@ -10969,7 +10969,7 @@
         "power": 0,
         "price": 0,
         "subCategory": "Flora",
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
@@ -11003,7 +11003,7 @@
         "power": 0,
         "price": 0,
         "subCategory": "Flora",
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
@@ -13945,7 +13945,7 @@
             "count": 4,
             "fileName": "resources/images/buildings/power plants/pow_1x1_RuralPowerlines.png",
             "offset": 20,
-            "pickRandomTile": false
+            "pickRandomTile": true
         },
         "subCategory": "",
         "tags": [
@@ -13953,14 +13953,14 @@
             "power",
             "powerlines"
         ],
-        "tileType": "AUTOTILE",
+        "tileType": "POWERLINE",
         "tiles": {
             "clip_height": 37,
             "clip_width": 32,
             "count": 24,
             "fileName": "resources/images/buildings/power plants/pow_1x1_RuralPowerlines.png",
             "offset": 0,
-            "pickRandomTile": false
+            "pickRandomTile": true
         },
         "title": "Rural Power Lines",
         "upkeep cost": 2,
@@ -38492,7 +38492,7 @@
         "tags": [
             "tree"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
@@ -38529,7 +38529,7 @@
         "tags": [
             "tree"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
@@ -38566,7 +38566,7 @@
         "tags": [
             "tree"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
@@ -38603,7 +38603,7 @@
         "tags": [
             "colorful"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 34,
             "clip_width": 32,
@@ -38640,7 +38640,7 @@
         "tags": [
             "colorful"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 31,
             "clip_width": 32,
@@ -38677,7 +38677,7 @@
         "tags": [
             "colorful"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 29,
             "clip_width": 32,
@@ -38716,7 +38716,7 @@
             "beautiful",
             "oak"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 31,
             "clip_width": 32,
@@ -38755,7 +38755,7 @@
             "beautiful",
             "oak"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 29,
             "clip_width": 32,
@@ -38794,7 +38794,7 @@
             "beautiful",
             "oak"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 28,
             "clip_width": 32,
@@ -38833,7 +38833,7 @@
             "beautiful",
             "pinetrees"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 32,
             "clip_width": 32,
@@ -38872,7 +38872,7 @@
             "beautiful",
             "pinetrees"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 28,
             "clip_width": 32,
@@ -38911,7 +38911,7 @@
             "beautiful",
             "pinetrees"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 32,
             "clip_width": 32,
@@ -38950,7 +38950,7 @@
             "beautiful",
             "plumtrees"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 25,
             "clip_width": 32,
@@ -38989,7 +38989,7 @@
             "beautiful",
             "plumtrees"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 24,
             "clip_width": 32,
@@ -39028,7 +39028,7 @@
             "beautiful",
             "plumtrees"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 25,
             "clip_width": 32,
@@ -39067,7 +39067,7 @@
             "beautiful",
             "swamp"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 28,
             "clip_width": 32,
@@ -39106,7 +39106,7 @@
             "beautiful",
             "swamp"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 25,
             "clip_width": 32,
@@ -39145,7 +39145,7 @@
             "beautiful",
             "swamp"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 26,
             "clip_width": 32,
@@ -39184,7 +39184,7 @@
             "beautiful",
             "bamboo"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 30,
             "clip_width": 32,
@@ -39223,7 +39223,7 @@
             "beautiful",
             "bamboo"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 29,
             "clip_width": 32,
@@ -39262,7 +39262,7 @@
             "beautiful",
             "bamboo"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 30,
             "clip_width": 32,
@@ -39301,7 +39301,7 @@
             "beautiful",
             "birch"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 30,
             "clip_width": 32,
@@ -39340,7 +39340,7 @@
             "beautiful",
             "birch"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 26,
             "clip_width": 32,
@@ -39379,7 +39379,7 @@
             "beautiful",
             "birch"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 29,
             "clip_width": 32,
@@ -39418,7 +39418,7 @@
             "burned",
             "trees"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 29,
             "clip_width": 32,
@@ -39457,7 +39457,7 @@
             "burned",
             "trees"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 28,
             "clip_width": 32,
@@ -39496,7 +39496,7 @@
             "burned",
             "trees"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 28,
             "clip_width": 32,
@@ -39535,7 +39535,7 @@
             "crystal",
             "trees"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 22,
             "clip_width": 32,
@@ -39574,7 +39574,7 @@
             "crystal",
             "trees"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 19,
             "clip_width": 32,
@@ -39613,7 +39613,7 @@
             "crystal",
             "trees"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 22,
             "clip_width": 32,
@@ -39652,7 +39652,7 @@
             "beautiful",
             "cypress"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 30,
             "clip_width": 32,
@@ -39691,7 +39691,7 @@
             "beautiful",
             "cypress"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 27,
             "clip_width": 32,
@@ -39730,7 +39730,7 @@
             "beautiful",
             "cypress"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 30,
             "clip_width": 32,
@@ -39769,7 +39769,7 @@
             "mysterious",
             "mushroom"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 24,
             "clip_width": 32,
@@ -39808,7 +39808,7 @@
             "mysterious",
             "mushroom"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 22,
             "clip_width": 32,
@@ -39847,7 +39847,7 @@
             "mysterious",
             "mushroom"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 22,
             "clip_width": 32,
@@ -39886,7 +39886,7 @@
             "beach",
             "palmtrees"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 33,
             "clip_width": 32,
@@ -39925,7 +39925,7 @@
             "beach",
             "palmtrees"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 30,
             "clip_width": 32,
@@ -39964,7 +39964,7 @@
             "beach",
             "palmtrees"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 33,
             "clip_width": 32,
@@ -40003,7 +40003,7 @@
             "beautiful",
             "pinetrees"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 33,
             "clip_width": 32,
@@ -40042,7 +40042,7 @@
             "beautiful",
             "pinetrees"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 28,
             "clip_width": 32,
@@ -40081,7 +40081,7 @@
             "beautiful",
             "pinetrees"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 33,
             "clip_width": 32,
@@ -40120,7 +40120,7 @@
             "tree",
             "dense"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 32,
             "clip_width": 32,
@@ -40159,7 +40159,7 @@
             "tree",
             "light"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 28,
             "clip_width": 32,
@@ -40198,7 +40198,7 @@
             "tree",
             "medium"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 30,
             "clip_width": 32,
@@ -40237,7 +40237,7 @@
             "beautiful",
             "sakura"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 26,
             "clip_width": 32,
@@ -40276,7 +40276,7 @@
             "beautiful",
             "sakura"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 23,
             "clip_width": 32,
@@ -40315,7 +40315,7 @@
             "beautiful",
             "sakura"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 24,
             "clip_width": 32,
@@ -40489,7 +40489,7 @@
             "cattail",
             "waterflora"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
@@ -40529,7 +40529,7 @@
             "cattail",
             "waterflora"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
@@ -40569,7 +40569,7 @@
             "cattail",
             "waterflora"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
@@ -40609,7 +40609,7 @@
             "lilypads",
             "waterflora"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
@@ -40649,7 +40649,7 @@
             "lilypads",
             "waterflora"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
@@ -40689,7 +40689,7 @@
             "lilypads",
             "waterflora"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
@@ -40729,7 +40729,7 @@
             "rice",
             "waterflora"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
@@ -40769,7 +40769,7 @@
             "rice",
             "waterflora"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
@@ -40809,7 +40809,7 @@
             "rice",
             "waterflora"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
@@ -40867,13 +40867,7 @@
         },
         "title": "Commercial Zone (dense)",
         "upkeep cost": 2,
-        "water": 0,
-        "zoneType": [
-            "COMMERCIAL"
-        ],
-        "zoneDensity": [
-            "HIGH"
-        ]
+        "water": 0
     },
     {
         "RequiredTiles": {
@@ -40921,11 +40915,11 @@
         "title": "Commercial Zone (light)",
         "upkeep cost": 2,
         "water": 0,
-        "zoneType": [
-            "COMMERCIAL"
-        ],
         "zoneDensity": [
             "LOW"
+        ],
+        "zoneType": [
+            "COMMERCIAL"
         ]
     },
     {
@@ -40974,11 +40968,11 @@
         "title": "Commercial Zone (medium)",
         "upkeep cost": 2,
         "water": 0,
-        "zoneType": [
-            "COMMERCIAL"
-        ],
         "zoneDensity": [
             "MEDIUM"
+        ],
+        "zoneType": [
+            "COMMERCIAL"
         ]
     },
     {
@@ -41027,11 +41021,11 @@
         "title": "Farm Zone",
         "upkeep cost": 2,
         "water": 0,
-        "zoneType": [
-            "AGRICULTURAL"
-        ],
         "zoneDensity": [
             "LOW"
+        ],
+        "zoneType": [
+            "AGRICULTURAL"
         ]
     },
     {
@@ -41080,11 +41074,11 @@
         "title": "Industrial Zone (dense)",
         "upkeep cost": 2,
         "water": 0,
-        "zoneType": [
-            "INDUSTRIAL"
-        ],
         "zoneDensity": [
             "HIGH"
+        ],
+        "zoneType": [
+            "INDUSTRIAL"
         ]
     },
     {
@@ -41133,11 +41127,11 @@
         "title": "Industrial Zone (light)",
         "upkeep cost": 2,
         "water": 0,
-        "zoneType": [
-            "INDUSTRIAL"
-        ],
         "zoneDensity": [
             "LOW"
+        ],
+        "zoneType": [
+            "INDUSTRIAL"
         ]
     },
     {
@@ -41186,11 +41180,11 @@
         "title": "Industrial Zone (medium)",
         "upkeep cost": 2,
         "water": 0,
-        "zoneType": [
-            "INDUSTRIAL"
-        ],
         "zoneDensity": [
             "MEDIUM"
+        ],
+        "zoneType": [
+            "INDUSTRIAL"
         ]
     },
     {
@@ -41239,11 +41233,11 @@
         "title": "Residential Zone (dense)",
         "upkeep cost": 2,
         "water": 0,
-        "zoneType": [
-            "RESIDENTIAL"
-        ],
         "zoneDensity": [
             "HIGH"
+        ],
+        "zoneType": [
+            "RESIDENTIAL"
         ]
     },
     {
@@ -41292,11 +41286,11 @@
         "title": "Residential Zone (light)",
         "upkeep cost": 2,
         "water": 0,
-        "zoneType": [
-            "RESIDENTIAL"
-        ],
         "zoneDensity": [
             "LOW"
+        ],
+        "zoneType": [
+            "RESIDENTIAL"
         ]
     },
     {
@@ -41345,11 +41339,11 @@
         "title": "Residential Zone (medium)",
         "upkeep cost": 2,
         "water": 0,
-        "zoneType": [
-            "RESIDENTIAL"
-        ],
         "zoneDensity": [
             "MEDIUM"
+        ],
+        "zoneType": [
+            "RESIDENTIAL"
         ]
     }
 ]
