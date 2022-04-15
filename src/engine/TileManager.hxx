@@ -5,6 +5,7 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <string>
+#include <optional> // required  for windows
 
 #include "tileData.hxx"
 #include "json.hxx"
