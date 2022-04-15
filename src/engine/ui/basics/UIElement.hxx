@@ -74,8 +74,8 @@ public:
 
   /** \brief Checks if the mouse cursor is over the current UI Element
   * Check if the coordinates match the ones stored in m_uiElementRect
-  * @param x, y coordinates of the mouseclick
-  * @return Wether the element is hovered over
+  * @param x, y coordinates of the mouse
+  * @return Whether the element is hovered over
   */
   virtual bool isMouseOver(int x, int y);
 
@@ -88,14 +88,12 @@ public:
   */
   virtual bool isMouseOverHoverableArea(int x, int y);
 
-  /** \brief Check the UI Elements visibility.
-  * Check if the UI Element is visibile
+  /** \brief Check the UI Element's visibility.
   * @return Visibility of the UI Element.
   */
   bool isVisible() { return m_visible; };
 
-  /** \brief Sets the UI Elements visibility.
-  * Set the UI Elements visibility.
+  /** \brief Sets the UI Element's visibility.
   * @param Visibility of the UI Element.
   */
   void setVisibility(bool visibility) { m_visible = visibility; };

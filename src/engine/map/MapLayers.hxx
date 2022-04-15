@@ -33,11 +33,6 @@ public:
 */
   static inline bool isLayerActive(unsigned int layer) { return (m_activeLayers & (1U << layer)); };
 
-  /** \brief Toggle Drawing Layer
-* Toggle Drawing Layer (use bitwise XOR to toggle layer)
-* @param bitmapped uint32_t from enum "Layer"
-* @see Layer
-*/
   static void setLayerEditMode(LayerEditMode layerEditMode);
 
 private:
@@ -46,11 +41,6 @@ private:
 
   static unsigned int m_activeLayers;
 
-  /** \brief Toggle Drawing Layer
-* Toggle Drawing Layer (use bitwise XOR to toggle layer)
-* @param bitmapped uint32_t from enum "Layer"
-* @see Layer
-*/
   static inline void deactivateAllLayers()
   {
     for (auto layer : allLayersOrdered)

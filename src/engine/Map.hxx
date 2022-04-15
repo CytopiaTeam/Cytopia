@@ -61,7 +61,7 @@ public:
   void unHighlightNode(const Point &isoCoordinates);
 
   /**
- * @brief Returns the node at given screencoordinates
+ * @brief Returns the node at given screen coordinates
  *
  * @param screenCoordinates
  * @return Point

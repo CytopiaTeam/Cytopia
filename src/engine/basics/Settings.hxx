@@ -81,7 +81,7 @@ struct SettingsData
   int fullScreenMode;
 
   /**
-   * @brief The volume of music as flot between [0, 1]
+   * @brief The volume of music as float between [0, 1]
    */
   float musicVolume;
 
@@ -138,7 +138,7 @@ struct SettingsData
   FilePath tileDataJSONFile;
 
   /**
-   * @todo document what this field is
+   * @brief The file path to the UI layout file
    * @todo add a typename
    */
   FilePath uiLayoutJSONFile;

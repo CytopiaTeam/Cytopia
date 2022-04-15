@@ -72,7 +72,7 @@ private:
   float m_PinchDistance = 0.f;
   SDL_Point m_TileSize {32, 16};
   SDL_Point m_CameraOffset {0, 0};
-  double m_ZoomLevel = 1.0;
+  double m_ZoomLevel = 1.0; ///< the current zoom level of the camera
   Point m_CenterIsoCoordinates;
 };
 

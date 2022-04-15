@@ -55,13 +55,11 @@ public:
   Sprite *getSprite() const { return m_sprite.get(); };
 
   /** @brief get iso coordinates of this node
-    * gets the iso coordinates of this node
     * @returns a pointer to the node's iso coordinates
     */
   const Point &getCoordinates() const { return m_isoCoordinates; };
 
   /** @brief sets the iso coordinates of this node
-    * sets the iso coordinates of this node
     * @param newIsoCoordinates the new iso coordinates for the node
     */
   void setCoordinates(const Point &newIsoCoordinates);
@@ -172,14 +170,12 @@ public:
   void setNodeTransparency(const float transparencyFactor, const Layer &layer) const;
 
   /**
-  * Update the Z-Index of this mapNode
+  * @brief Update the Z-Index of this mapNode
   * @param the new Z-Index
   */
   void setZIndex(int zIndex) { m_isoCoordinates.z = zIndex; };
 
-  /**
-   * @brief Maximum height of the node.
-   */
+  /// Maximum height of the node.
   static const int maxHeight = 32;
 
 private:

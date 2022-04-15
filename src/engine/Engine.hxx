@@ -34,7 +34,6 @@ public:
   void decreaseHeight(const Point &isoCoordinates) const;
 
   /** @brief Toggle Fullscreen Mode
-    * Toggle Fullscreen Mode
     */
   void toggleFullScreen();
 
@@ -47,28 +46,27 @@ public:
   }
 
   /** @brief Checks if game is running
-    * Checks if game is running
     * @returns Returns true if the game is running, and false otherwise
     */
   bool isGameRunning() const { return m_running; };
 
   /** @brief Quits the game
-    * Sets m_running to false and quitting the game.
+    * Sets m_running to false and quits the game.
     */
   void quitGame() { m_running = false; };
 
   /** @brief Loads a saved game
-    * Loads a saved Game
     * @param fileName FileName of the saved game
     * @see Map#loadMapFromFile
     */
   void loadGame(const std::string &fileName);
 
+  /** @brief Saves the game to a file
+  * @param fileName name of the file to save the data to
+  */
   void saveGame(const std::string &fileName) const { map->saveMapToFile(fileName); };
 
-  /** @brief Creates a new game
-    * Creates a new game
-    */
+  /// Creates a new game
   void newGame();
 
   Map *map;

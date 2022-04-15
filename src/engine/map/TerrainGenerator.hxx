@@ -8,23 +8,23 @@
 
 struct BiomeData
 {
-  std::vector<std::string> terrain;            // Terrain IDs
-  std::vector<std::string> water;              // Water IDs
-  std::vector<std::string> waterDecoration;    // Water Decoration IDs
-  std::vector<std::string> waterFloraLight;    // Water Flora Light IDs
-  std::vector<std::string> waterFloraMedium;   // Water Flora Medium IDs
-  std::vector<std::string> waterFloraDense;    // Water Flora Dense IDs
-  std::vector<std::string> terrainRocks;       // Terrain Rocks IDs
-  std::vector<std::string> terrainDecoration;  // Terrain Decoration IDs
-  std::vector<std::string> terrainFloraLight;  // Terrain Flora (Flowers) Light IDs
-  std::vector<std::string> terrainFloraMedium; // Terrain Flora (Flowers) Medium IDs
-  std::vector<std::string> terrainFloraDense;  // Terrain Flora (Flowers) Dense IDs
-  std::vector<std::string> bushesLight;        // Bushes Light IDs
-  std::vector<std::string> bushesMedium;       // Bushes Medium IDs
-  std::vector<std::string> bushesDense;        // Bushes Dense IDs
-  std::vector<std::string> treesLight;         // Trees Light IDs
-  std::vector<std::string> treesMedium;        // Trees Medium IDs
-  std::vector<std::string> treesDense;         // Trees Dense IDs
+  std::vector<std::string> terrain;            ///< Terrain IDs
+  std::vector<std::string> water;              ///< Water IDs
+  std::vector<std::string> waterDecoration;    ///< Water Decoration IDs
+  std::vector<std::string> waterFloraLight;    ///< Water Flora Light IDs
+  std::vector<std::string> waterFloraMedium;   ///< Water Flora Medium IDs
+  std::vector<std::string> waterFloraDense;    ///< Water Flora Dense IDs
+  std::vector<std::string> terrainRocks;       ///< Terrain Rocks IDs
+  std::vector<std::string> terrainDecoration;  ///< Terrain Decoration IDs
+  std::vector<std::string> terrainFloraLight;  ///< Terrain Flora (Flowers) Light IDs
+  std::vector<std::string> terrainFloraMedium; ///< Terrain Flora (Flowers) Medium IDs
+  std::vector<std::string> terrainFloraDense;  ///< Terrain Flora (Flowers) Dense IDs
+  std::vector<std::string> bushesLight;        ///< Bushes Light IDs
+  std::vector<std::string> bushesMedium;       ///< Bushes Medium IDs
+  std::vector<std::string> bushesDense;        ///< Bushes Dense IDs
+  std::vector<std::string> treesLight;         ///< Trees Light IDs
+  std::vector<std::string> treesMedium;        ///< Trees Medium IDs
+  std::vector<std::string> treesDense;         ///< Trees Dense IDs
 };
 
 struct TerrainSettings
@@ -38,9 +38,9 @@ struct TerrainSettings
   int waterAmount = 5; // Density of freshwater in addition to coastlines and rivers. Expects 0-100.
   int coasts =
       1; // 4 least significant bits are bitmasked, where 0 is a land border and 1 is a coastline. Remaining bits reserved for future use.
-  int rivers = 1;              // Number of rivers to attempt generating.
-  std::string biomes = "{}";   // JSON string of biomes to attempt using, plus any options associated with them.
-  std::string advanced = "{}"; // JSON string of arbitrary advanced option data for future use or mods.
+  int rivers = 1;              ///< Number of rivers to attempt generating.
+  std::string biomes = "{}";   ///< JSON string of biomes to attempt using, plus any options associated with them.
+  std::string advanced = "{}"; ///< JSON string of arbitrary advanced option data for future use or mods.
 };
 
 class TerrainGenerator
