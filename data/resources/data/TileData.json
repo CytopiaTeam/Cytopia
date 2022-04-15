@@ -40870,6 +40870,9 @@
         "water": 0,
         "zones": [
             "COMMERCIAL"
+        ],
+        "wealth": [
+            "HIGH"
         ]
     },
     {
@@ -40920,6 +40923,9 @@
         "water": 0,
         "zones": [
             "COMMERCIAL"
+        ],
+        "wealth": [
+            "LOW"
         ]
     },
     {
@@ -40970,6 +40976,9 @@
         "water": 0,
         "zones": [
             "COMMERCIAL"
+        ],
+        "wealth": [
+            "MEDIUM"
         ]
     },
     {
@@ -41020,6 +41029,9 @@
         "water": 0,
         "zones": [
             "AGRICULTURAL"
+        ],
+        "wealth": [
+            "LOW"
         ]
     },
     {
@@ -41070,6 +41082,9 @@
         "water": 0,
         "zones": [
             "INDUSTRIAL"
+        ],
+        "wealth": [
+            "HIGH"
         ]
     },
     {
@@ -41120,6 +41135,9 @@
         "water": 0,
         "zones": [
             "INDUSTRIAL"
+        ],
+        "wealth": [
+            "LOW"
         ]
     },
     {
@@ -41170,6 +41188,9 @@
         "water": 0,
         "zones": [
             "INDUSTRIAL"
+        ],
+        "wealth": [
+            "MEDIUM"
         ]
     },
     {
@@ -41220,6 +41241,9 @@
         "water": 0,
         "zones": [
             "RESIDENTIAL"
+        ],
+        "wealth": [
+            "HIGH"
         ]
     },
     {
@@ -41270,6 +41294,9 @@
         "water": 0,
         "zones": [
             "RESIDENTIAL"
+        ],
+        "wealth": [
+            "LOW"
         ]
     },
     {
@@ -41320,6 +41347,9 @@
         "water": 0,
         "zones": [
             "RESIDENTIAL"
+        ],
+        "wealth": [
+            "MEDIUM"
         ]
     }
 ]

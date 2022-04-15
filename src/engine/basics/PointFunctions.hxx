@@ -49,7 +49,6 @@ public:
   * @return NeighbourNodesPosition - An enum representing the Direction from the neighboring point to the origin point
   */
   static NeighbourNodesPosition getNeighborPositionToOrigin(const Point &neighboringPoint, const Point &originPoint);
-  
- };
+};
 
 #endif
