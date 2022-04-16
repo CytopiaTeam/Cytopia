@@ -95,4 +95,12 @@ public:
   int toIndex() const { return x * Settings::instance().mapSize + y; };
 };
 
+namespace std
+{
+template <> struct hash<Point>
+{
+  const size_t operator()(const Point &p) const { return std::hash<int>()(p.x) ^ std::hash<int>()(p.y); }
+};
+} // namespace std
+
 #endif
