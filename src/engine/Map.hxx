@@ -269,7 +269,7 @@ private:
   * @param isoCoordinates iso coordinates.
   * @param higher if set to true make node higher, otherwise lower.
   */
-  void changeHeight(const Point &isoCoordinates, const bool higher);
+  void changeHeight(const Point &isoCoordinates, const bool elevate);
 
   /** \brief Update the nodes and all affected node with the change.
   * @param nodes Nodes which have to be updated.

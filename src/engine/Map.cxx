@@ -148,17 +148,16 @@ bool Map::updateHeight(MapNode &mapNode, const bool higher, std::vector<Neighbor
   return false;
 }
 
-void Map::changeHeight(const Point &isoCoordinates, const bool higher)
+void Map::changeHeight(const Point &isoCoordinates, const bool elevate)
 {
-  MapNode &mapNode = mapNodes[nodeIdx(isoCoordinates.x, isoCoordinates.y)];
-  std::vector<MapNode *> nodesToUpdate{&mapNode};
+  std::vector<Point> nodesToUpdate{isoCoordinates};
   auto neighbours = getNeighborNodes(isoCoordinates, true);
   std::vector<Point> neighorCoordinates = PointFunctions::getNeighbors(isoCoordinates, true);
 
-  if (updateHeight(mapNode, higher, neighbours))
+  if (updateHeight(isoCoordinates, elevate))
   {
     // If lowering node height, than all nodes around should be lowered to be on same height with the central one.
-    if (!higher)
+    if (!elevate)
     {
       const int centerHeight = getMapNode(isoCoordinates).getCoordinates().height;
 
@@ -168,21 +167,12 @@ void Map::changeHeight(const Point &isoCoordinates, const bool higher)
         if (centerHeight < neighborNode.getCoordinates().height)
         {
           neighborNode.changeHeight(false);
-          nodesToUpdate.push_back(&neighborNode);
+          nodesToUpdate.push_back(neighborNode.getCoordinates());
         }
       }
     }
     demolishNode(neighorCoordinates);
-    // updateNodeNeighbors(nodesToUpdate);
-
-    std::vector<Point> nodes;
-
-    for (auto it : nodesToUpdate)
-    {
-      nodes.push_back(it->getCoordinates());
-    }
-    updateNodeNeighbors(nodes);
-    // updateNodeNeighbors(nodesToUpdate, nodes);
+    updateNodeNeighbors(nodesToUpdate);
   }
 }
 
