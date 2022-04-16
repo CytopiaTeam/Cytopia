@@ -16,6 +16,12 @@ struct NeighborNode
   NeighbourNodesPosition position;
 };
 
+struct NeighborNodePoint
+{
+  Point coordinate;
+  NeighbourNodesPosition position;
+};
+
 class Map
 {
 public:
@@ -232,6 +238,7 @@ private:
   * @return Uint that stores the neighbor tiles
   */
   std::vector<uint8_t> calculateAutotileBitmask(const MapNode *const pMapNode, const std::vector<NeighborNode> &neighborNodes);
+  std::vector<uint8_t> calculateAutotileBitmask(Point coordinate);
 
   SDL_Color getColorOfPixelInSurface(SDL_Surface *surface, int x, int y) const;
 
@@ -268,6 +275,8 @@ private:
   * @param nodes Nodes which have to be updated.
   */
   void updateNodeNeighbors(std::vector<MapNode *> &nodes);
+  void updateNodeNeighbors(std::vector<MapNode *> &nodes, std::vector<Point> nodePoints);
+  void updateNodeNeighbors(std::vector<Point> nodes);
 
   /** \brief Get elevated bit mask of the map node.
   * @param pMapNode Pointer to the map node to calculate elevated bit mask.
@@ -283,6 +292,7 @@ private:
   * @return true in case that height has been changed, otherwise false.
   */
   bool updateHeight(MapNode &mapNode, const bool higher, std::vector<NeighborNode> &neighbors);
+  bool updateHeight(Point coordinate, const bool elevate);
 
   /** \brief For implementing frustum culling, find all map nodes which are visible on the screen. Only visible nodes will be rendered.
   */
