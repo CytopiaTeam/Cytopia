@@ -286,8 +286,8 @@ private:
   unsigned char getElevatedNeighborBitmask(Point centerCoordinates);
 
   /** \brief Change map node height.
-  * @param mapNode Map node to change height.
-  * @param higher if set to true make node higher, otherwise lower.
+  * @param coordinate of the map node to change height.
+  * @param elevate if set to true make node higher, otherwise lower.
   * @param neighbors All neighbor map nodes.
   * @return true in case that height has been changed, otherwise false.
   */
