@@ -193,21 +193,20 @@ void Map::updateNodeNeighbors(std::vector<Point> nodes)
 
   std::unordered_set<Point> nodesToBeUpdated;
   std::map<int, std::vector<Point>> nodeCache;
-  std::queue<Point> nodesUpdatedHeight;
-  // std::queue<MapNode *> nodesUpdatedHeight;
+  std::queue<Point> updatedNodes;
   std::vector<Point> nodesToElevate;
   std::vector<Point> nodesToDemolish;
 
-  for (auto pUpdateNode : nodes)
+  for (auto currentNode : nodes)
   {
-    nodesUpdatedHeight.push(pUpdateNode);
+    updatedNodes.push(currentNode);
 
-    while (!nodesUpdatedHeight.empty() || !nodesToElevate.empty())
+    while (!updatedNodes.empty() || !nodesToElevate.empty())
     {
-      while (!nodesUpdatedHeight.empty())
+      while (!updatedNodes.empty())
       {
-        const Point pHeighChangedNode = getMapNode(nodesUpdatedHeight.front()).getCoordinates();
-        nodesUpdatedHeight.pop();
+        const Point pHeighChangedNode = getMapNode(updatedNodes.front()).getCoordinates();
+        updatedNodes.pop();
         const int tileHeight = pHeighChangedNode.height;
 
         if (nodeCache.count(pHeighChangedNode.toIndex()) == 0)
@@ -224,8 +223,6 @@ void Map::updateNodeNeighbors(std::vector<Point> nodes)
         {
           // get real coords that include height
           const Point pNode = getMapNode(neighbour).getCoordinates();
-          // const auto pNode = &getMapNode(neighbour);
-          // const Point nodeCoordinate = pNode->getCoordinates();
           const int heightDiff = tileHeight - pNode.height;
 
           if (nodeCache.count(pNode.toIndex()) == 0)
@@ -238,17 +235,15 @@ void Map::updateNodeNeighbors(std::vector<Point> nodes)
             nodesToElevate.push_back(pNode);
           }
 
-
-
           if (std::abs(heightDiff) > 1)
           {
-            nodesUpdatedHeight.push(getMapNode(pNode).getCoordinates());
+            updatedNodes.push(getMapNode(pNode).getCoordinates());
             updateHeight(pNode, (heightDiff > 1) ? true : false);
           }
         }
       }
 
-      while (nodesUpdatedHeight.empty() && !nodesToElevate.empty())
+      while (updatedNodes.empty() && !nodesToElevate.empty())
       {
         Point pEleNode = nodesToElevate.back();
         // MapNode *pEleNode = &getMapNode(nodesToElevate.back());
@@ -272,7 +267,7 @@ void Map::updateNodeNeighbors(std::vector<Point> nodes)
           if ((elevationBitmask & elBitMask) == elBitMask)
           {
             updateHeight(pEleNode, true);
-            nodesUpdatedHeight.push(getMapNode(pEleNode).getCoordinates());
+            updatedNodes.push(getMapNode(pEleNode).getCoordinates());
             break;
           }
         }
@@ -412,7 +407,12 @@ void Map::updateNodeNeighbors(std::vector<MapNode *> &nodes)
   }
 }
 
-void Map::updateAllNodes() { updateNodeNeighbors(mapNodesInDrawingOrder); }
+void Map::updateAllNodes()
+{
+  std::vector<Point> allCoords(mapNodes.size());
+  std::transform(mapNodes.begin(), mapNodes.end(), allCoords.begin(), [](MapNode &mn) { return mn.getCoordinates(); });
+  updateNodeNeighbors(allCoords);
+}
 
 bool Map::isPlacementOnNodeAllowed(const Point &isoCoordinates, const std::string &tileID) const
 {
