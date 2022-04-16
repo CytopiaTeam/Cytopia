@@ -66,10 +66,11 @@ public:
    * @param coordinate - Point to check if it is a direct neighbor
    * @return if point is a direct neighbor in a cardinal direction (top, bottom, left, right)
    */
-  bool isDirectNeighborOf(Point coordinate) const{
-        Point thisPoint = {x, y};
+  bool isDirectNeighborOf(Point coordinate) const
+  {
+    Point thisPoint = {x, y};
 
-        if ((thisPoint.x == coordinate.x) && (std::abs(thisPoint.y - coordinate.y) <= 1) ||
+    if ((thisPoint.x == coordinate.x) && (std::abs(thisPoint.y - coordinate.y) <= 1) ||
         (thisPoint.y == coordinate.y) && (std::abs(thisPoint.x - coordinate.x) <= 1))
     {
       return true;
@@ -91,6 +92,7 @@ public:
    * @return number of nodes between this point and the target
    */
   int distanceTo(Point target) const { return sqrt((x - target.x) * (x - target.x) + (y - target.y) * (y - target.y)); }
+  int toIndex() const { return x * Settings::instance().mapSize + y; };
 };
 
 #endif
