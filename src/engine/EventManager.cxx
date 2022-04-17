@@ -326,7 +326,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           {
             m_nodesToHighlight = TileManager::instance().getTargetCoordsOfTile(mouseIsoCoords, tileToPlace);
             // get all node coordinates the tile we'll place occupies
-            
+
             if (m_nodesToHighlight.empty() && mouseIsoCoords.isWithinMapBoundaries())
             {
               m_nodesToHighlight.push_back(mouseIsoCoords);
@@ -543,7 +543,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       mouseScreenCoords = {event.button.x, event.button.y};
       mouseIsoCoords = convertScreenToIsoCoordinates(mouseScreenCoords);
       // gather all nodes the objects that'll be placed is going to occupy.
-      std::vector targetObjectNodes =TileManager::instance().getTargetCoordsOfTile(mouseIsoCoords, tileToPlace);
+      std::vector targetObjectNodes = TileManager::instance().getTargetCoordsOfTile(mouseIsoCoords, tileToPlace);
 
       if (event.button.button == SDL_BUTTON_LEFT)
       {
@@ -561,22 +561,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         }
         else if (!tileToPlace.empty() && m_placementAllowed)
         {
-          // if targetObject.size > 1 it is a tile bigger than 1x1
-            // TODO: Remove the check here, there is no need for handling this differently
-          if (targetObjectNodes.size() > 1 && isPointWithinMapBoundaries(targetObjectNodes))
-          {
-            // instead of using "nodesToPlace" which would be the origin-corner coordinate, we need to pass ALL occupied nodes for now.
-            //engine.setTileIDOfNode(targetObjectNodes.begin(), targetObjectNodes.end(), tileToPlace, false);
-            // TODO: If a building is selected, it still allows for line seelction.  m_nodesToPlace would contain more buildings figure out what this is.
-            //engine.map->setTileID(tileToPlace, mouseIsoCoords); // use this for now to workaround wrongly allowed line selection
-            engine.map->setTileID(tileToPlace, m_nodesToPlace);
-
-          }
-          else
-          {
-            engine.map->setTileID(tileToPlace, m_nodesToPlace);
-            //engine.setTileIDOfNode(m_nodesToPlace.begin(), m_nodesToPlace.end(), tileToPlace, true);
-          }
+          engine.map->setTileID(tileToPlace, m_nodesToPlace);
         }
         else if (demolishMode)
         {
