@@ -282,11 +282,6 @@ void Map::updateAllNodes() { updateNodeNeighbors(mapNodesInDrawingOrder); }
 
 bool Map::isPlacementOnNodeAllowed(const Point &isoCoordinates, const std::string &tileID) const
 {
-  if (TileManager::instance().getTileLayer(tileID) == Layer::ZONE)
-  {
-    return true;
-  }
-
   return mapNodes[nodeIdx(isoCoordinates.x, isoCoordinates.y)].isPlacementAllowed(tileID);
 }
 
@@ -733,8 +728,8 @@ void Map::setTileID(const std::string &tileID, Point coordinate)
 {
   TileData *tileData = TileManager::instance().getTileData(tileID);
   std::vector<Point> targetCoordinates = TileManager::instance().getTargetCoordsOfTile(coordinate, tileID);
-  //TODO: isPlacementOnNodeAllowed should also allow std::vector<Point>, but this is locked until #851 is merged. we can then remove the loop check
-  if (!tileData || targetCoordinates.empty() || !isPlacementOnNodeAllowed(coordinate, tileID))
+
+  if (!tileData || targetCoordinates.empty())
   { // if the node would not outside of map boundaries, targetCoordinates would be empty
     return;
   }
