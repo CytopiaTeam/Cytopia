@@ -290,32 +290,6 @@ bool Map::isPlacementOnNodeAllowed(const Point &isoCoordinates, const std::strin
   return mapNodes[nodeIdx(isoCoordinates.x, isoCoordinates.y)].isPlacementAllowed(tileID);
 }
 
-// TODO: Remove this function after the other PRs are merged and we can replace it in the functions that are not yet in master
-std::vector<Point> Map::getObjectCoords(const Point &targetCoordinates, const std::string &tileID)
-{
-  std::vector<Point> ret;
-  TileData *tileData = TileManager::instance().getTileData(tileID);
-
-  if (!tileData)
-  {
-    return ret;
-  }
-
-  Point coords = targetCoordinates;
-
-  for (int i = 0; i < tileData->RequiredTiles.width; i++)
-  {
-    for (int j = 0; j < tileData->RequiredTiles.height; j++)
-    {
-      coords.x = targetCoordinates.x - i;
-      coords.y = targetCoordinates.y + j;
-      ret.emplace_back(coords);
-    }
-  }
-
-  return ret;
-}
-
 unsigned char Map::getElevatedNeighborBitmask(Point centerCoordinates)
 {
   unsigned char bitmask = 0;

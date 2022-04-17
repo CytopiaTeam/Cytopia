@@ -132,12 +132,6 @@ public:
   */
   bool isPlacementOnNodeAllowed(const Point &isoCoordinates, const std::string &tileID) const;
 
-  // TODO: Remove this function after the other PRs are merged and we can replace it in the functions that are not yet in master
-  /** \brief Return vector of Points occupied by a tileID
-  *  @param targetCoordinates - Where the tileID should be placed
-  *  @param tileID - the tileID to place
-  */
-  std::vector<Point> getObjectCoords(const Point &targetCoordinates, const std::string &tileID);
 
   /** \brief get Tile ID of specific layer of specific iso coordinates
   * @param isoCoordinates: Tile to inspect
