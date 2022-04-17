@@ -14,7 +14,7 @@ ZoneManager::ZoneManager()
 
   Engine::instance().map->registerCbPlaceZone(
       [this](const MapNode &mapNode) { // If we place a zone tile, add it to the cache to update next tick
-        ZoneNode nodeToAdd = {mapNode.getCoordinates(), mapNode.getTileData(Layer::ZONE)->zones[0],
+        ZoneNode nodeToAdd = {mapNode.getCoordinates(), mapNode.getTileData(Layer::ZONE)->zoneTypes[0],
                               mapNode.getTileData(Layer::ZONE)->zoneDensity[0]};
         m_nodesToAdd.push_back(nodeToAdd);
       });
