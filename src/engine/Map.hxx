@@ -61,7 +61,7 @@ public:
  */
   void unHighlightNode(const Point &isoCoordinates);
 
-  /**
+/**
  * @brief Returns the node at given screencoordinates
  *
  * @param screenCoordinates
@@ -69,9 +69,19 @@ public:
  */
   Point findNodeInMap(const SDL_Point &screenCoordinates, const Layer &layer = Layer::NONE);
 
-  // new function to set tileID for a single node
+/**
+ * @brief Set the Tile ID Of Node object
+ * Also invokes all necessary texture updates (auto-tiling, slopes, ...)
+ * @param tileID the new tileID to set
+ * @param coordinate Points where the tileID which should be set
+ */
   void setTileID(const std::string &tileID, Point coordinate);
-  // set multiple nodes with the same tileID
+/**
+ * @brief Set the Tile ID Of multiple Node objects
+ * Also invokes all necessary texture updates (auto-tiling, slopes, ...)
+ * @param tileID the new tileID to set
+ * @param coordinates a vector of Points where the tileIDs which should be set
+ */
   void setTileID(const std::string &tileID, const std::vector<Point> &coordinates);
 
   /**
