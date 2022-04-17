@@ -13945,7 +13945,7 @@
             "count": 4,
             "fileName": "resources/images/buildings/power plants/pow_1x1_RuralPowerlines.png",
             "offset": 20,
-            "pickRandomTile": true
+            "pickRandomTile": false
         },
         "subCategory": "",
         "tags": [
@@ -13960,7 +13960,7 @@
             "count": 24,
             "fileName": "resources/images/buildings/power plants/pow_1x1_RuralPowerlines.png",
             "offset": 0,
-            "pickRandomTile": true
+            "pickRandomTile": false
         },
         "title": "Rural Power Lines",
         "upkeep cost": 2,
