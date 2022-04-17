@@ -333,7 +333,7 @@ std::vector<uint8_t> Map::calculateAutotileBitmask(const MapNode *const pMapNode
           }
         }
       }
-
+      
       // only auto-tile categories that can be tiled.
       if (pMapNode->isLayerAutoTile(currentLayer))
       {
@@ -791,7 +791,7 @@ void Map::setTileID(const std::string &tileID, Point coordinate)
     }
 
     // For layers that autotile to each other, we need to update their neighbors too
-    if(TileManager::instance().isTileIDAutoTile(tileID))
+    if (TileManager::instance().isTileIDAutoTile(tileID))
     {
       nodesToBeUpdated.push_back(&currentMapNode);
     }
