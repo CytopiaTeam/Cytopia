@@ -142,11 +142,6 @@ public:
     */
   bool isLayerAutoTile(const Layer &layer) const;
 
-  /** @brief check if specific Tile Data is autotile category.
-    * @return bool indicating whether Tile Data item can be autotiled.
-    */
-  static bool isDataAutoTile(const TileData *tileData);
-
   bool isLayerOccupied(const Layer &layer) const { return m_mapNodeData[layer].tileData != nullptr; }
 
   void setRenderFlag(Layer layer, bool shouldRender) { m_mapNodeData[layer].shouldRender = shouldRender; }

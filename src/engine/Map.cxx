@@ -790,10 +790,8 @@ void Map::setTileID(const std::string &tileID, Point coordinate)
       currentMapNode.setTileID(randomGroundDecorationTileID, coord);
     }
 
-    //autotile stuff
     // For layers that autotile to each other, we need to update their neighbors too
-    //TODO: isDataAutoTile should take a tile id and can most likely be handled somewhere else
-    if (MapNode::isDataAutoTile(TileManager::instance().getTileData(tileID)))
+    if(TileManager::instance().isTileIDAutoTile(tileID))
     {
       nodesToBeUpdated.push_back(&currentMapNode);
     }

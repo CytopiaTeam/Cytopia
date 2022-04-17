@@ -150,20 +150,10 @@ void MapNode::setNodeTransparency(const float transparencyFactor, const Layer &l
   m_sprite->setSpriteTranparencyFactor(layer, alpha);
 }
 
-bool MapNode::isDataAutoTile(const TileData *tileData)
+bool MapNode::isLayerAutoTile(const Layer &layer) const
 {
-  if (tileData)
-  {
-    if (tileData->tileType == +TileType::ROAD || tileData->tileType == +TileType::AUTOTILE ||
-        tileData->tileType == +TileType::UNDERGROUND)
-    {
-      return true;
-    }
-  }
-  return false;
+  return TileManager::instance().isTileIDAutoTile(m_mapNodeData[layer].tileID);
 }
-
-bool MapNode::isLayerAutoTile(const Layer &layer) const { return isDataAutoTile(m_mapNodeData[layer].tileData); }
 
 bool MapNode::isPlacableOnSlope(const std::string &tileID) const
 {
