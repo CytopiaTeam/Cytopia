@@ -658,13 +658,13 @@ Point Map::findNodeInMap(const SDL_Point &screenCoordinates, const Layer &layer)
 
 void Map::demolishNode(const std::vector<Point> &isoCoordinates, bool updateNeighboringTiles, Layer layer)
 {
-  std::unordered_set<MapNode *> nodesToDemolish;
+  std::vector<Point> nodesToDemolish;
 
-  for (auto &isoCoord : isoCoordinates)
+  for (Point currentCoordinate : isoCoordinates)
   {
-    if (isoCoord.isWithinMapBoundaries())
+    if (currentCoordinate.isWithinMapBoundaries())
     {
-      MapNode &node = mapNodes[nodeIdx(isoCoord.x, isoCoord.y)];
+      MapNode &node = getMapNode(currentCoordinate);
 
       // Check for multi-node buildings first. Those are on the buildings layer, even if we want to demolish another layer than Buildings.
       // In case we add more Layers that support Multi-node, add a for loop here
@@ -682,24 +682,24 @@ void Map::demolishNode(const std::vector<Point> &isoCoordinates, bool updateNeig
           // get all the occupied nodes and demolish them
           for (auto buildingCoords : getObjectCoords(origCornerPoint, tileID))
           {
-            nodesToDemolish.insert(&mapNodes[nodeIdx(buildingCoords.x, buildingCoords.y)]);
+            nodesToDemolish.push_back(buildingCoords);
           }
         }
       }
-
-      nodesToDemolish.insert(&node);
+      // add the current coorindate
+      nodesToDemolish.push_back(currentCoordinate);
     }
   }
 
-  std::vector<MapNode *> updateNodes;
-  for (auto pNode : nodesToDemolish)
+  std::vector<Point> updateNodes;
+  for (auto nodeCoordinate : nodesToDemolish)
   {
-    pNode->demolishNode(layer);
-    signalDemolish.emit(pNode);
+    getMapNode(nodeCoordinate).demolishNode(layer);
+    signalDemolish.emit(&getMapNode(nodeCoordinate));
     // TODO: Play sound effect here
     if (updateNeighboringTiles)
     {
-      updateNodes.push_back(pNode);
+      updateNodes.push_back(nodeCoordinate);
     }
   }
 
