@@ -137,11 +137,6 @@ public:
     */
   Layer getTopMostActiveLayer() const;
 
-  /** @brief check if specific layer can be autotiled.
-    * @return bool indicating whether layer item can be autotiled.
-    */
-  bool isLayerAutoTile(const Layer &layer) const;
-
   bool isLayerOccupied(const Layer &layer) const { return m_mapNodeData[layer].tileData != nullptr; }
 
   void setRenderFlag(Layer layer, bool shouldRender) { m_mapNodeData[layer].shouldRender = shouldRender; }

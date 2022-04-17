@@ -333,12 +333,11 @@ std::vector<uint8_t> Map::calculateAutotileBitmask(const MapNode *const pMapNode
           }
         }
       }
-      
-      // only auto-tile categories that can be tiled.
-      if (pMapNode->isLayerAutoTile(currentLayer))
-      {
-        const auto nodeTileId = pMapNode->getMapNodeDataForLayer(currentLayer).tileID;
 
+      // only auto-tile categories that can be tiled.
+      const std::string& nodeTileId = pMapNode->getMapNodeDataForLayer(currentLayer).tileID;
+      if (TileManager::instance().isTileIDAutoTile(nodeTileId))
+      {
         for (const auto &neighbour : neighborNodes)
         {
           const MapNodeData &nodeData = neighbour.pNode->getMapNodeDataForLayer(currentLayer);
