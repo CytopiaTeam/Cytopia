@@ -829,9 +829,14 @@ void Map::setTileID(const std::string &tileID, Point coordinate)
       nodesToBeUpdated.push_back(&currentMapNode);
     }
     // If we place a zone tile, add it to the ZoneManager
-    if (currentMapNode.getTileData(Layer::ZONE))
+    // emit a signal to notify manager
+    if (currentMapNode.getTileData(Layer::BUILDINGS) && currentMapNode.getTileData(Layer::ZONE))
     {
-      GamePlay::instance().getZoneManager().addZoneNode(&currentMapNode);
+      signalPlaceBuilding.emit(currentMapNode);
+    }
+    else if (currentMapNode.getTileData(Layer::ZONE))
+    {
+      signalPlaceZone.emit(currentMapNode);
     }
   }
 
