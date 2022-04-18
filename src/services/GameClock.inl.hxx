@@ -1,3 +1,4 @@
+#include <cassert>
 #include "LOG.hxx"
 
 template <typename DelayType, typename PeriodType>
