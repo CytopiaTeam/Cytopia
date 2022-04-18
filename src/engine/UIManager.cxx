@@ -452,22 +452,7 @@ void UIManager::setCallbackFunctions()
               button->checkState() ? highlightSelection = true : highlightSelection = false;
               if (GameStates::instance().layerEditMode == LayerEditMode::BLUEPRINT)
               {
-              case +TileType::DEFAULT:
-                GameStates::instance().placementMode = PlacementMode::SINGLE;
-                break;
-              case +TileType::ROAD:
-              case +TileType::POWERLINE:
-              case +TileType::AUTOTILE:
-                GameStates::instance().placementMode = PlacementMode::LINE;
-                break;
-              case +TileType::GROUNDDECORATION:
-              case +TileType::WATER:
-              case +TileType::ZONE:
-                GameStates::instance().placementMode = PlacementMode::RECTANGLE;
-                break;
-              case +TileType::UNDERGROUND:
-                GameStates::instance().placementMode = PlacementMode::LINE;
-                GameStates::instance().layerEditMode = LayerEditMode::BLUEPRINT;
+                GameStates::instance().layerEditMode = LayerEditMode::TERRAIN;
                 MapLayers::setLayerEditMode(GameStates::instance().layerEditMode);
               }
               if (!tileToPlace.empty())
