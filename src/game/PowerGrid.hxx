@@ -29,6 +29,22 @@ public:
    */
   void removePowerNode(Point coordinate);
   
+    /**
+   * @brief If this coordinate is a neighbor of one of the tiles in this power grid.
+   * 
+   * @param coordinate The point to check
+   * @return neighbor of this power grid
+   */
+  bool isNeighbor(Point coordinate) const;
+
+  /**
+   * @brief If this coordinate part of this power grid.
+   * 
+   * @param coordinate The point to check
+   * @return neighbor of this power grid
+   */
+  bool isMemberOf(Point coordinate) const;
+
 private:
   //TODO: figure out how to handle multi node power plants
   std::vector<PowerNode> m_powerNodes;
