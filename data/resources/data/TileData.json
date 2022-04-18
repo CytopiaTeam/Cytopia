@@ -1446,10 +1446,10 @@
         "title": "Grape Fields",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "AGRICULTURAL"
         ]
     },
@@ -1504,10 +1504,10 @@
         "title": "Wheat Field",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "AGRICULTURAL"
         ]
     },
@@ -2859,10 +2859,10 @@
         "title": "Small Shantytown",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -2912,10 +2912,10 @@
         "title": "Old Desert Church",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -2962,10 +2962,10 @@
         "title": "Lizzie's Dream House",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -3150,7 +3150,7 @@
         "power": 0,
         "price": 0,
         "subCategory": "Bushes",
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
@@ -3184,7 +3184,7 @@
         "power": 0,
         "price": 0,
         "subCategory": "Bushes",
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
@@ -3218,7 +3218,7 @@
         "power": 0,
         "price": 0,
         "subCategory": "Bushes",
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 14,
             "clip_width": 32,
@@ -3252,7 +3252,7 @@
         "power": 0,
         "price": 0,
         "subCategory": "Bushes",
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 17,
             "clip_width": 32,
@@ -3286,7 +3286,7 @@
         "power": 0,
         "price": 0,
         "subCategory": "Bushes",
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
@@ -3320,7 +3320,7 @@
         "power": 0,
         "price": 0,
         "subCategory": "Bushes",
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 16,
             "clip_width": 32,
@@ -3359,7 +3359,7 @@
             "green",
             "bush"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
@@ -3398,7 +3398,7 @@
             "green",
             "bush"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
@@ -3437,7 +3437,7 @@
             "green",
             "bush"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
@@ -3471,7 +3471,7 @@
         "power": 0,
         "price": 0,
         "subCategory": "Bushes",
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 19,
             "clip_width": 32,
@@ -3505,7 +3505,7 @@
         "power": 0,
         "price": 0,
         "subCategory": "Bushes",
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
@@ -3539,7 +3539,7 @@
         "power": 0,
         "price": 0,
         "subCategory": "Bushes",
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 17,
             "clip_width": 32,
@@ -3600,10 +3600,10 @@
         "title": "AmmuNation",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -3655,10 +3655,10 @@
         "title": "Austral Club",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -3711,10 +3711,10 @@
         "title": "Bike Shop",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -3766,10 +3766,10 @@
         "title": "Cafe Apartment",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -3822,10 +3822,10 @@
         "title": "Clock Store",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -3874,10 +3874,10 @@
         "title": "Compact FastShop",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -3929,10 +3929,10 @@
         "title": "Ivybrick Solutions",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -3982,10 +3982,10 @@
         "title": "Jimmy's Bread",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -4033,10 +4033,10 @@
         "title": "JoJo Mart",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -4089,10 +4089,10 @@
         "title": "L Shops",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -4144,10 +4144,10 @@
         "title": "Phelps Co.",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -4199,10 +4199,10 @@
         "title": "Lisieux Bricks & Mortar",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -4254,10 +4254,10 @@
         "title": "Lisieux Plant Care",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -4308,10 +4308,10 @@
         "title": "Lisieux Shoppe",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -4365,10 +4365,10 @@
         "title": "Mini Borg's Burgers",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -4422,10 +4422,10 @@
         "title": "Rich Concrete Office",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -4476,10 +4476,10 @@
         "title": "Run-Down Skinny Shop",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -4533,10 +4533,10 @@
         "title": "Slanted Beach Shop",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -4591,10 +4591,10 @@
         "title": "Brick Warehouse Shop",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -4646,10 +4646,10 @@
         "title": "Stair-Step Shop",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -4701,10 +4701,10 @@
         "title": "Tarragona Center",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -4757,10 +4757,10 @@
         "title": "Terrasse Cafe",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -4813,10 +4813,10 @@
         "title": "Thirft-4-Dayz",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -4868,10 +4868,10 @@
         "title": "Crossview Mall",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -4928,10 +4928,10 @@
         "title": "PinkCone Ice Cream Parlor",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -4985,10 +4985,10 @@
         "title": "Petrol Station",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -5045,10 +5045,10 @@
         "title": "Game Shop",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -5093,10 +5093,10 @@
         "title": "Diggity Dog's",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -5148,10 +5148,10 @@
         "title": "Bob's Kebabs",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -5205,10 +5205,10 @@
         "title": "Apartment Shop",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -5255,10 +5255,10 @@
         "title": "Phone Shop",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -5309,10 +5309,10 @@
         "title": "Port Angeles BBQ",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -5364,10 +5364,10 @@
         "title": "Rue Gros Horloge Store",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -5420,10 +5420,10 @@
         "title": "Tyres-R-Us",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -5474,10 +5474,10 @@
         "title": "Dual Spanish Shops",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -5529,10 +5529,10 @@
         "title": "Austral One",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -5586,10 +5586,10 @@
         "title": "Balt Office",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -5640,10 +5640,10 @@
         "title": "Borg's Burgers",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -5695,10 +5695,10 @@
         "title": "Chicago Fic Varianta",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -5751,10 +5751,10 @@
         "title": "Chicago Mid",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -5806,10 +5806,10 @@
         "title": "Deauville Department Store",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -5857,10 +5857,10 @@
         "title": "Dieppe Store",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -5910,10 +5910,10 @@
         "title": "Japanese Hotel",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -5965,10 +5965,10 @@
         "title": "Lisieux Center",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -6020,10 +6020,10 @@
         "title": "London Tower Shop",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -6075,10 +6075,10 @@
         "title": "Pizza Mafia Front",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -6131,10 +6131,10 @@
         "title": "Random Trading Co.",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -6190,10 +6190,10 @@
         "title": "Tan Tower",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -6247,10 +6247,10 @@
         "title": "Waterside Motel",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -6302,10 +6302,10 @@
         "title": "Alexandria Shops",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -6358,10 +6358,10 @@
         "title": "Multi-Floor Strip Mall",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -6414,10 +6414,10 @@
         "title": "Car Dealership",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -6469,10 +6469,10 @@
         "title": "Dancing House of Prague",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -6525,10 +6525,10 @@
         "title": "Hyperlane Tower",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -6580,10 +6580,10 @@
         "title": "Jim's Snail Shop",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -6635,10 +6635,10 @@
         "title": "Bob's Kebab House",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -6690,10 +6690,10 @@
         "title": "Fancy French Restaurant",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -6746,10 +6746,10 @@
         "title": "Tutoring Center",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -6801,10 +6801,10 @@
         "title": "Miami Central Hotel",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -6856,10 +6856,10 @@
         "title": "\"Under the Table\" Tax Agency",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -6914,10 +6914,10 @@
         "title": "Small Office Building",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -6966,10 +6966,10 @@
         "title": "The Garage on Route 66",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -7022,10 +7022,10 @@
         "title": "The Block",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -7078,10 +7078,10 @@
         "title": "Multi-Store",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -7135,10 +7135,10 @@
         "title": "The Brick Block",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -7192,10 +7192,10 @@
         "title": "Sao Paulo Tower",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -7248,10 +7248,10 @@
         "title": "Sao Paulo Department Store",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -7302,10 +7302,10 @@
         "title": "Scandinavian Office",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -7357,10 +7357,10 @@
         "title": "Seattle Office Tower",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -7407,10 +7407,10 @@
         "title": "Uncle Joe's Fuel 'em Up",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -7460,10 +7460,10 @@
         "title": "Vichy Hotel",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -7508,10 +7508,10 @@
         "title": "Veinna Hotel",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -7564,10 +7564,10 @@
         "title": "Yakima Office",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -7621,10 +7621,10 @@
         "title": "Community Tower",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -7678,10 +7678,10 @@
         "title": "Glass Tower",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -7731,10 +7731,10 @@
         "title": "Hexland Mall",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -7790,10 +7790,10 @@
         "title": "Hotel Antartica",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -7845,10 +7845,10 @@
         "title": "Huggings Building",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -7896,10 +7896,10 @@
         "title": "Korean Shopping Center",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -7951,10 +7951,10 @@
         "title": "Monoprix",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -8004,10 +8004,10 @@
         "title": "The Oscian",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -8061,10 +8061,10 @@
         "title": "Tour Thomas Hotel",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -8116,10 +8116,10 @@
         "title": "Toyama Buffet",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -8164,10 +8164,10 @@
         "title": "Boise Shopping Mall",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -8221,10 +8221,10 @@
         "title": "Main Street Market",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -8274,10 +8274,10 @@
         "title": "Mailing Office",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -8329,10 +8329,10 @@
         "title": "Classical Casino",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -8384,10 +8384,10 @@
         "title": "Snails Incorporated",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -8439,10 +8439,10 @@
         "title": "McDalle's Buffet and More",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -8495,10 +8495,10 @@
         "title": "Tacoma Hotel",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -8552,10 +8552,10 @@
         "title": "Round Office",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -8605,10 +8605,10 @@
         "title": "Scandic Office",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -8662,10 +8662,10 @@
         "title": "Tour Front De Seine",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -8719,10 +8719,10 @@
         "title": "Tour StSever Tower",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -8773,10 +8773,10 @@
         "title": "Tour Vauban",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -8829,10 +8829,10 @@
         "title": "Zealandia Shops",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -8885,10 +8885,10 @@
         "title": "Simone's Car Emporium",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -8942,10 +8942,10 @@
         "title": "Tri-Box Tower",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -8999,10 +8999,10 @@
         "title": "Clearview",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -9057,10 +9057,10 @@
         "title": "FNC Building",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -9115,10 +9115,10 @@
         "title": "IFC Building",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -9169,10 +9169,10 @@
         "title": "Kek's Resort",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -9221,10 +9221,10 @@
         "title": "Tokyo 30B",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -9274,10 +9274,10 @@
         "title": "Tokyo Buisiness Offices",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -9328,10 +9328,10 @@
         "title": "Unknown Locus Business Tower",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -9387,10 +9387,10 @@
         "title": "Vega Hotel",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -9444,10 +9444,10 @@
         "title": "Bell Tower",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -9503,10 +9503,10 @@
         "title": "Glass Citadel",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -9560,10 +9560,10 @@
         "title": "City Plaza Pillar",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -9616,10 +9616,10 @@
         "title": "Komtar Tower",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -9673,10 +9673,10 @@
         "title": "Nasus Building",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -9728,10 +9728,10 @@
         "title": "Rue Jacques Huet",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -9786,10 +9786,10 @@
         "title": "Labor Tower",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -9843,10 +9843,10 @@
         "title": "C-MAC GM Marseille",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -9899,10 +9899,10 @@
         "title": "Hanhwa Tooza",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -9954,10 +9954,10 @@
         "title": "Tomorrowland Spire",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -10011,10 +10011,10 @@
         "title": "Elisa Mare Central Plaza",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -10070,10 +10070,10 @@
         "title": "Vilnius Municipality Building",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -10128,10 +10128,10 @@
         "title": "Da Club",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -10185,10 +10185,10 @@
         "title": "Samson's HQ",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -10233,10 +10233,10 @@
         "title": "Classic Red Barn",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "AGRICULTURAL"
         ]
     },
@@ -10286,10 +10286,10 @@
         "title": "Decaying Hay Barn",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "AGRICULTURAL"
         ]
     },
@@ -10339,10 +10339,10 @@
         "title": "Hayloft",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "AGRICULTURAL"
         ]
     },
@@ -10392,10 +10392,10 @@
         "title": "Normandy Farm",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "AGRICULTURAL"
         ]
     },
@@ -10442,10 +10442,10 @@
         "title": "Green Sheet Metal Barn",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "AGRICULTURAL"
         ]
     },
@@ -10555,7 +10555,7 @@
             "ferns",
             "jungle"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
@@ -10594,7 +10594,7 @@
             "ferns",
             "jungle"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
@@ -10633,7 +10633,7 @@
             "ferns",
             "jungle"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
@@ -10672,7 +10672,7 @@
             "flowers",
             "colorful"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
@@ -10711,7 +10711,7 @@
             "flowers",
             "colorful"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
@@ -10750,7 +10750,7 @@
             "flowers",
             "colorful"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
@@ -10825,7 +10825,7 @@
             "flora",
             "grass"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 16,
             "clip_width": 32,
@@ -10863,7 +10863,7 @@
             "flora",
             "grass"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 16,
             "clip_width": 32,
@@ -10901,7 +10901,7 @@
             "flora",
             "grass"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 16,
             "clip_width": 32,
@@ -10935,7 +10935,7 @@
         "power": 0,
         "price": 0,
         "subCategory": "Flora",
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
@@ -10969,7 +10969,7 @@
         "power": 0,
         "price": 0,
         "subCategory": "Flora",
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
@@ -11003,7 +11003,7 @@
         "power": 0,
         "price": 0,
         "subCategory": "Flora",
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
@@ -11063,10 +11063,10 @@
         "title": "Small Cahots Carbone",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "INDUSTRIAL"
         ]
     },
@@ -11121,10 +11121,10 @@
         "title": "Small Brick Factory",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "INDUSTRIAL"
         ]
     },
@@ -11172,10 +11172,10 @@
         "title": "Mini Depolluter",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "INDUSTRIAL"
         ]
     },
@@ -11226,10 +11226,10 @@
         "title": "Garage Gonne Villela",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "INDUSTRIAL"
         ]
     },
@@ -11281,10 +11281,10 @@
         "title": "Machining Shop",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "INDUSTRIAL"
         ]
     },
@@ -11340,10 +11340,10 @@
         "title": "Small Storage Shed",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "INDUSTRIAL"
         ]
     },
@@ -11391,10 +11391,10 @@
         "title": "Old Power Plant",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "INDUSTRIAL"
         ]
     },
@@ -11448,10 +11448,10 @@
         "title": "Small Military Facility",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "INDUSTRIAL"
         ]
     },
@@ -11504,10 +11504,10 @@
         "title": "Chemcial Storage",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -11558,10 +11558,10 @@
         "title": "Small Concrete Warehouse",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "INDUSTRIAL"
         ]
     },
@@ -11614,10 +11614,10 @@
         "title": "Oil Pump",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "INDUSTRIAL"
         ]
     },
@@ -11666,10 +11666,10 @@
         "title": "Industrial Wood Mill",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "INDUSTRIAL"
         ]
     },
@@ -11721,10 +11721,10 @@
         "title": "Dual-Stack Factory",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "INDUSTRIAL"
         ]
     },
@@ -11777,10 +11777,10 @@
         "title": "Old Industrial Warehouse",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "INDUSTRIAL"
         ]
     },
@@ -11833,10 +11833,10 @@
         "title": "Steel Warehouse",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "INDUSTRIAL"
         ]
     },
@@ -11886,10 +11886,10 @@
         "title": "Medium Depolluter",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "INDUSTRIAL"
         ]
     },
@@ -11935,10 +11935,10 @@
         "title": "Forklift Depot",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "INDUSTRIAL"
         ]
     },
@@ -11990,10 +11990,10 @@
         "title": "Forklift Storage Center",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "INDUSTRIAL"
         ]
     },
@@ -12046,10 +12046,10 @@
         "title": "Inde 1",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "INDUSTRIAL"
         ]
     },
@@ -12102,10 +12102,10 @@
         "title": "Inde Pipe Tower",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "INDUSTRIAL"
         ]
     },
@@ -12158,10 +12158,10 @@
         "title": "Inde XP",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "INDUSTRIAL"
         ]
     },
@@ -12219,10 +12219,10 @@
         "title": "Old Tower Factory",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "INDUSTRIAL"
         ]
     },
@@ -12275,10 +12275,10 @@
         "title": "S-Point Machining Co.",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "INDUSTRIAL"
         ]
     },
@@ -12324,10 +12324,10 @@
         "title": "Brick Factory",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "INDUSTRIAL"
         ]
     },
@@ -12376,10 +12376,10 @@
         "title": "Large Grain Silos",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "INDUSTRIAL"
         ]
     },
@@ -12433,10 +12433,10 @@
         "title": "Blue Roof Production Co.",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "INDUSTRIAL"
         ]
     },
@@ -12487,10 +12487,10 @@
         "title": "Cahots Carbone",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "INDUSTRIAL"
         ]
     },
@@ -12536,10 +12536,10 @@
         "title": "Coal Factory",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "INDUSTRIAL"
         ]
     },
@@ -12590,10 +12590,10 @@
         "title": "Old Power Plant",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "INDUSTRIAL"
         ]
     },
@@ -12639,10 +12639,10 @@
         "title": "Chemical Plant",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "INDUSTRIAL"
         ]
     },
@@ -12692,10 +12692,10 @@
         "title": "HDRN",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "INDUSTRIAL"
         ]
     },
@@ -12750,10 +12750,10 @@
         "title": "Cheese Factory",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "INDUSTRIAL"
         ]
     },
@@ -12802,10 +12802,10 @@
         "title": "Big Depolluter",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "INDUSTRIAL"
         ]
     },
@@ -12856,10 +12856,10 @@
         "title": "Enterprise Glos",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "INDUSTRIAL"
         ]
     },
@@ -12910,10 +12910,10 @@
         "title": "Forklift Garage",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "INDUSTRIAL"
         ]
     },
@@ -12964,10 +12964,10 @@
         "title": "Industrie",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "INDUSTRIAL"
         ]
     },
@@ -13020,10 +13020,10 @@
         "title": "Jim's Shipping Logistics",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "INDUSTRIAL"
         ]
     },
@@ -13076,10 +13076,10 @@
         "title": "Two Tower F1",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "INDUSTRIAL"
         ]
     },
@@ -13129,10 +13129,10 @@
         "title": "Big Warehouse",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "INDUSTRIAL"
         ]
     },
@@ -13179,10 +13179,10 @@
         "title": "Grain Processing Plant",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "INDUSTRIAL"
         ]
     },
@@ -13237,10 +13237,10 @@
         "title": "Desert Factory",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "INDUSTRIAL"
         ]
     },
@@ -14926,10 +14926,10 @@
         "title": "25B of Tokyo",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -14977,10 +14977,10 @@
         "title": "Ancona Home",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -15029,10 +15029,10 @@
         "title": "Anicro Abode",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -15079,10 +15079,10 @@
         "title": "Anicro Camp",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -15130,10 +15130,10 @@
         "title": "Anicro Home",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -15181,10 +15181,10 @@
         "title": "Anicro Home",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -15232,10 +15232,10 @@
         "title": "Basic Log Cabin",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -15283,10 +15283,10 @@
         "title": "Bergen Brick House",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -15339,10 +15339,10 @@
         "title": "Big Wave Tokyo",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -15392,10 +15392,10 @@
         "title": "Blue Bergen House",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -15446,10 +15446,10 @@
         "title": "Bob's House",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -15497,10 +15497,10 @@
         "title": "Breaute Beaut",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -15553,10 +15553,10 @@
         "title": "Bresle Village",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -15608,10 +15608,10 @@
         "title": "Brick Shack",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -15662,10 +15662,10 @@
         "title": "Brown Abode",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -15716,10 +15716,10 @@
         "title": "Small Suburb",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -15767,10 +15767,10 @@
         "title": "Caen Views",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -15821,10 +15821,10 @@
         "title": "Canapville Hut",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -15875,10 +15875,10 @@
         "title": "Celularm's Abode",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -15929,10 +15929,10 @@
         "title": "Chartres Housing",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -15983,10 +15983,10 @@
         "title": "Classic White House",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -16036,10 +16036,10 @@
         "title": "Deutsche Haus",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -16090,10 +16090,10 @@
         "title": "Doof House",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -16144,10 +16144,10 @@
         "title": "Tall Doof House",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -16197,10 +16197,10 @@
         "title": "FC7",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -16250,10 +16250,10 @@
         "title": "Fancy Turkish Tower",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -16304,10 +16304,10 @@
         "title": "Fecamp Tops",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -16358,10 +16358,10 @@
         "title": "Firenze Place",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -16410,10 +16410,10 @@
         "title": "French Abode",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -16464,10 +16464,10 @@
         "title": "Fricsou House",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -16520,10 +16520,10 @@
         "title": "Gonneville Flat",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -16575,10 +16575,10 @@
         "title": "Gonneville Rental",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -16629,10 +16629,10 @@
         "title": "Greenhouse House",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -16683,10 +16683,10 @@
         "title": "Harry's Place",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -16737,10 +16737,10 @@
         "title": "Short Hexlands Apartments",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -16791,10 +16791,10 @@
         "title": "Tall Hexlands Apartments",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -16843,10 +16843,10 @@
         "title": "Hexlands Condo",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -16897,10 +16897,10 @@
         "title": "House for Eveque",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -16952,10 +16952,10 @@
         "title": "Tall House for Eveque",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -17008,10 +17008,10 @@
         "title": "Immles Impressionistes",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -17063,10 +17063,10 @@
         "title": "It House",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -17114,10 +17114,10 @@
         "title": "Ito's Place",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -17166,10 +17166,10 @@
         "title": "Trailer House",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -17220,10 +17220,10 @@
         "title": "Boxy House",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -17274,10 +17274,10 @@
         "title": "Lisieux Apartment",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -17329,10 +17329,10 @@
         "title": "Little L House",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -17384,10 +17384,10 @@
         "title": "Livarot House",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -17439,10 +17439,10 @@
         "title": "London Rentals",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -17494,10 +17494,10 @@
         "title": "Lonely John's House",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -17548,10 +17548,10 @@
         "title": "Lons le Saunier Dwelling",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -17602,10 +17602,10 @@
         "title": "Lorient Portview",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -17655,10 +17655,10 @@
         "title": "Matt's House",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -17709,10 +17709,10 @@
         "title": "Mediterranean Home",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -17763,10 +17763,10 @@
         "title": "Micro Cottage",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -17814,10 +17814,10 @@
         "title": "Nakamura Family's House",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -17869,10 +17869,10 @@
         "title": "Napoli Tower",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -17923,10 +17923,10 @@
         "title": "Nogent le Roi Abode",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -17981,10 +17981,10 @@
         "title": "Old Madrid Flat",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -18032,10 +18032,10 @@
         "title": "Orange Mediterranean Home",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -18086,10 +18086,10 @@
         "title": "Osterreich Home",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -18140,10 +18140,10 @@
         "title": "Pickleman's House",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -18195,10 +18195,10 @@
         "title": "QC1",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -18247,10 +18247,10 @@
         "title": "Quaint Eastern European House",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -18301,10 +18301,10 @@
         "title": "Rainbow Falls",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -18355,10 +18355,10 @@
         "title": "Rosy Bergen House",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -18407,10 +18407,10 @@
         "title": "Row House",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -18462,10 +18462,10 @@
         "title": "See's Cloudy Bank",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -18516,10 +18516,10 @@
         "title": "Short Shack",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -18569,10 +18569,10 @@
         "title": "Small Brick House",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -18625,10 +18625,10 @@
         "title": "Suita A",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -18680,10 +18680,10 @@
         "title": "Suita B",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -18736,10 +18736,10 @@
         "title": "T House",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -18788,10 +18788,10 @@
         "title": "Tall Row House",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -18843,10 +18843,10 @@
         "title": "Targu Mures Habitation",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -18897,10 +18897,10 @@
         "title": "Tarragona Apartments",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -18952,10 +18952,10 @@
         "title": "Tarragonna Heights",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -19007,10 +19007,10 @@
         "title": "Tarragonna Living Spaces",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -19062,10 +19062,10 @@
         "title": "The Angelicas' House",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -19119,10 +19119,10 @@
         "title": "The Tokyo Slope",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -19173,10 +19173,10 @@
         "title": "Small Shack",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -19225,10 +19225,10 @@
         "title": "Tokyo Comfy Living",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -19277,10 +19277,10 @@
         "title": "Tokyo End",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -19333,10 +19333,10 @@
         "title": "Tokyoway 405",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -19387,10 +19387,10 @@
         "title": "Triangle Abode",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -19443,10 +19443,10 @@
         "title": "Turkish Apartments",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -19496,10 +19496,10 @@
         "title": "Turkish Cityview",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -19548,10 +19548,10 @@
         "title": "Turned House",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -19600,10 +19600,10 @@
         "title": "Tall Turned House",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -19654,10 +19654,10 @@
         "title": "Tutor's Home",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -19709,10 +19709,10 @@
         "title": "USBT",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -19764,10 +19764,10 @@
         "title": "Vichy High-End Rental",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -19820,10 +19820,10 @@
         "title": "Villa Francillon",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -19872,10 +19872,10 @@
         "title": "Waterson's House",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -19926,10 +19926,10 @@
         "title": "Yellow Bergen House",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -19984,10 +19984,10 @@
         "title": "Green-Laced Apartments",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -20044,10 +20044,10 @@
         "title": "Sandstone Tower",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -20096,10 +20096,10 @@
         "title": "Simple Desert House",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -20148,10 +20148,10 @@
         "title": "Pyramid",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -20201,10 +20201,10 @@
         "title": "Desert House With Swimming Pool",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -20258,10 +20258,10 @@
         "title": "Favela",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -20309,10 +20309,10 @@
         "title": "Grand Est Building",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -20363,10 +20363,10 @@
         "title": "Honfleur House",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -20417,10 +20417,10 @@
         "title": "Islander Hut",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -20473,10 +20473,10 @@
         "title": "Concrete Accommodations",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -20526,10 +20526,10 @@
         "title": "Juterbog Purple House",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -20582,10 +20582,10 @@
         "title": "London Apartment Complex",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -20632,10 +20632,10 @@
         "title": "Checkerboard Property",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -20685,10 +20685,10 @@
         "title": "Four-Way Medieval Abode",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -20738,10 +20738,10 @@
         "title": "Looking House",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -20791,10 +20791,10 @@
         "title": "Overviewer's Dwelling",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -20844,10 +20844,10 @@
         "title": "Fisherman's Home",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -20897,10 +20897,10 @@
         "title": "Ell's Quarters",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -20948,10 +20948,10 @@
         "title": "Middle Age Lodging",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -21003,10 +21003,10 @@
         "title": "Monaco Tan Tower",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -21058,10 +21058,10 @@
         "title": "Bygone Apartment Building",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -21113,10 +21113,10 @@
         "title": "Black Box Building",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -21166,10 +21166,10 @@
         "title": "Mystical Mansion",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -21218,10 +21218,10 @@
         "title": "Perpignan Residence",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -21270,10 +21270,10 @@
         "title": "Perpignan Tower",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -21323,10 +21323,10 @@
         "title": "Fancy White House",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -21376,10 +21376,10 @@
         "title": "Pleasant White Home ",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -21423,10 +21423,10 @@
         "title": "Posh Apartments",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -21476,10 +21476,10 @@
         "title": "Integrated House",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -21532,10 +21532,10 @@
         "title": "Hazel Housing",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -21588,10 +21588,10 @@
         "title": "Tall Tower Abode",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -21644,10 +21644,10 @@
         "title": "Lovely Apartments",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -21697,10 +21697,10 @@
         "title": "Rouen Flats",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -21750,10 +21750,10 @@
         "title": "Scandinavian Apartments",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -21803,10 +21803,10 @@
         "title": "Colored Scandinavian House",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -21855,10 +21855,10 @@
         "title": "Humble Gray Home",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -21908,10 +21908,10 @@
         "title": "Wooden Scandinavian House",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -21962,10 +21962,10 @@
         "title": "Veules-les-Roses Residence",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -22014,10 +22014,10 @@
         "title": "Basic Mansion",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -22067,10 +22067,10 @@
         "title": "Anna's House",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -22122,10 +22122,10 @@
         "title": "Balt Vilnius Block",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -22172,10 +22172,10 @@
         "title": "Balt Vilnius House",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -22226,10 +22226,10 @@
         "title": "Balt Vilnius Housing",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -22279,10 +22279,10 @@
         "title": "Bed Bugz Hi-Quality Housing",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -22332,10 +22332,10 @@
         "title": "Big Blue House",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -22386,10 +22386,10 @@
         "title": "Boulevard Belges Block",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -22442,10 +22442,10 @@
         "title": "Boise Tower",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -22496,10 +22496,10 @@
         "title": "Briem Family's Place",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -22546,10 +22546,10 @@
         "title": "Brionne RN 138",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -22600,10 +22600,10 @@
         "title": "Brionne Streetside",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -22653,10 +22653,10 @@
         "title": "Brooklyn Brick Residences",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -22704,10 +22704,10 @@
         "title": "Brooklyn Renting & Living",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -22757,10 +22757,10 @@
         "title": "Brown House 204",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -22813,10 +22813,10 @@
         "title": "Ten Tower",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -22867,10 +22867,10 @@
         "title": "Caen Settlements",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -22921,10 +22921,10 @@
         "title": "Casarm's Place",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -22975,10 +22975,10 @@
         "title": "Charantonnay House",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -23031,10 +23031,10 @@
         "title": "Cheap Spaces in Tokyo",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -23086,10 +23086,10 @@
         "title": "Cite Roguet",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -23141,10 +23141,10 @@
         "title": "Day Care Center",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -23196,10 +23196,10 @@
         "title": "Dieppe Block Apartments",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -23248,10 +23248,10 @@
         "title": "Dual British Housing",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -23301,10 +23301,10 @@
         "title": "Fecamp Brick Apartments",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -23354,10 +23354,10 @@
         "title": "Fecamp Two Towers",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -23408,10 +23408,10 @@
         "title": "Flying Colors",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -23462,10 +23462,10 @@
         "title": "Frigid Apartments",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -23515,10 +23515,10 @@
         "title": "Grand Rapids Double",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -23566,10 +23566,10 @@
         "title": "Grand Rapids Single",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -23619,10 +23619,10 @@
         "title": "Grandma's House",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -23674,10 +23674,10 @@
         "title": "Helsinki Heights",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -23725,10 +23725,10 @@
         "title": "Honfleur Villa",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -23776,10 +23776,10 @@
         "title": "Icelandic Rentals",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -23828,10 +23828,10 @@
         "title": "Ikepler",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -23884,10 +23884,10 @@
         "title": "Ima Zinheung Apartments",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -23936,10 +23936,10 @@
         "title": "Imm les Impressionnistes Estate",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -23990,10 +23990,10 @@
         "title": "Imm les Impressionnistes Silhouette",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -24042,10 +24042,10 @@
         "title": "Ishinomaki First",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -24096,10 +24096,10 @@
         "title": "Italian Herbs & Spices",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -24149,10 +24149,10 @@
         "title": "Italian Pinewood Lodge",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -24203,10 +24203,10 @@
         "title": "Korean Block Apartments",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -24257,10 +24257,10 @@
         "title": "Korean Cornerside Apartments",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -24311,10 +24311,10 @@
         "title": "Korean Villa",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -24366,10 +24366,10 @@
         "title": "L'Aigle End",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -24421,10 +24421,10 @@
         "title": "L'Aigle Corner",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -24476,10 +24476,10 @@
         "title": "London Triwings",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -24528,10 +24528,10 @@
         "title": "Luxury Vienna Rooms",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -24582,10 +24582,10 @@
         "title": "Mango Residency",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -24634,10 +24634,10 @@
         "title": "Marco's House",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -24686,10 +24686,10 @@
         "title": "Miss Lucia's Home",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -24738,10 +24738,10 @@
         "title": "Mobile Mechanic",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -24788,10 +24788,10 @@
         "title": "Montfort Surrisle",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -24843,10 +24843,10 @@
         "title": "Nagoya Condos",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -24898,10 +24898,10 @@
         "title": "Nagoya One",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -24955,10 +24955,10 @@
         "title": "Nice Turkish Flats",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -25008,10 +25008,10 @@
         "title": "Old Giovanni's Manor",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -25063,10 +25063,10 @@
         "title": "Quai Maupassant Viewpoint",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -25113,10 +25113,10 @@
         "title": "RN Federation Housing",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -25163,10 +25163,10 @@
         "title": "Roses Sur Mer",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -25217,10 +25217,10 @@
         "title": "Rossi's Rentals",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -25271,10 +25271,10 @@
         "title": "Rouen Apartments 13 S",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -25326,10 +25326,10 @@
         "title": "Rouen Apartments 13 T",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -25382,10 +25382,10 @@
         "title": "San Fransisco Double-Up",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -25435,10 +25435,10 @@
         "title": "San Sebastian Bayview",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -25491,10 +25491,10 @@
         "title": "San Sebastian Views",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -25545,10 +25545,10 @@
         "title": "Sandei",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -25596,10 +25596,10 @@
         "title": "Semi D.",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -25653,10 +25653,10 @@
         "title": "Shaded Place of Tokyo",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -25706,10 +25706,10 @@
         "title": "Shoddy Living Spaces",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -25759,10 +25759,10 @@
         "title": "Small Complex",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -25809,10 +25809,10 @@
         "title": "The Smiths' Arizona Home",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -25861,10 +25861,10 @@
         "title": "Southampton Flats",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -25914,10 +25914,10 @@
         "title": "Southern Japanese House",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -25964,10 +25964,10 @@
         "title": "Takemura's Place",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -26017,10 +26017,10 @@
         "title": "Tall Deutsch Haus",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -26072,10 +26072,10 @@
         "title": "Tarragona Mansion",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -26125,10 +26125,10 @@
         "title": "Tarragona Trisection",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -26181,10 +26181,10 @@
         "title": "Tokyo",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -26237,10 +26237,10 @@
         "title": "Tokyo Building 18",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -26293,10 +26293,10 @@
         "title": "Tokyo Business Central",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -26349,10 +26349,10 @@
         "title": "Tokyo Finale",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -26405,10 +26405,10 @@
         "title": "Tokyo Rocky Fort",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -26460,10 +26460,10 @@
         "title": "Tokyo Tower 4x",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -26510,10 +26510,10 @@
         "title": "Tokyo Twinspace",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -26561,10 +26561,10 @@
         "title": "Topped Malachite of Rouen",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -26615,10 +26615,10 @@
         "title": "Cyber Apartments",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -26671,10 +26671,10 @@
         "title": "US Public Housing",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -26726,10 +26726,10 @@
         "title": "Unknown Bend",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -26781,10 +26781,10 @@
         "title": "Villa Lune et Soleil",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -26836,10 +26836,10 @@
         "title": "Creme-Oran Tower",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -26890,10 +26890,10 @@
         "title": "The Wilsons' Humble Home",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -26944,10 +26944,10 @@
         "title": "Vienna Dwellings",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -26997,10 +26997,10 @@
         "title": "Rick's Residential Rentals",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -27052,10 +27052,10 @@
         "title": "Bois Guillaume Apartments",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -27105,10 +27105,10 @@
         "title": "Bolbec Manor",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -27157,10 +27157,10 @@
         "title": "British Mansion",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -27215,10 +27215,10 @@
         "title": "Sandy Digs",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -27270,10 +27270,10 @@
         "title": "Caveeverte Condos",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -27329,10 +27329,10 @@
         "title": "The Red Block",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -27380,10 +27380,10 @@
         "title": "Ely Estate",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -27433,10 +27433,10 @@
         "title": "Fitzgerald's House",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -27484,10 +27484,10 @@
         "title": "Ferman's Manor",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -27536,10 +27536,10 @@
         "title": "Grainval's Dwelling",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -27591,10 +27591,10 @@
         "title": "Inverness Flats",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -27646,10 +27646,10 @@
         "title": "Jura Houses",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -27702,10 +27702,10 @@
         "title": "Ketsuy",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -27756,10 +27756,10 @@
         "title": "Le Caire Condominium",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -27810,10 +27810,10 @@
         "title": "Le Caire Condominium Ultra",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -27865,10 +27865,10 @@
         "title": "Luciline Banks Aprtments",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -27915,10 +27915,10 @@
         "title": "Lillebonne Residence",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -27967,10 +27967,10 @@
         "title": "Lillebonne Brick House",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -28020,10 +28020,10 @@
         "title": "White-Striped Flats",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -28072,10 +28072,10 @@
         "title": "Maison Moderne",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -28128,10 +28128,10 @@
         "title": "Manaus Brown Building",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -28178,10 +28178,10 @@
         "title": "Mannevillette Manor",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -28231,10 +28231,10 @@
         "title": "Double Dwellings",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -28284,10 +28284,10 @@
         "title": "Sonora Flats",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -28338,10 +28338,10 @@
         "title": "Golly Family's Home",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -28392,10 +28392,10 @@
         "title": "Multi-Minnesotan Houses",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -28444,10 +28444,10 @@
         "title": "Modern Luxurious House",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -28498,10 +28498,10 @@
         "title": "Montreal Special",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -28554,10 +28554,10 @@
         "title": "Northern Scandinavian Estate",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -28611,10 +28611,10 @@
         "title": "Pyongyang Place",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -28662,10 +28662,10 @@
         "title": "Red Retreat",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -28718,10 +28718,10 @@
         "title": "Safranbolu Rentals",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -28770,10 +28770,10 @@
         "title": "Johnson Family's Abode",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -28824,10 +28824,10 @@
         "title": "Pinetree Place",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -28877,10 +28877,10 @@
         "title": "Tranquil Apartments",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -28931,10 +28931,10 @@
         "title": "Settled Square",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -28982,10 +28982,10 @@
         "title": "Semistouen Block",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -29037,10 +29037,10 @@
         "title": "SF Building",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -29087,10 +29087,10 @@
         "title": "Siauliai Shack",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -29145,10 +29145,10 @@
         "title": "Skyview",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -29196,10 +29196,10 @@
         "title": "Future Freespace",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -29249,10 +29249,10 @@
         "title": "Swiss Housing",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -29299,10 +29299,10 @@
         "title": "Tacoma Residence",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -29349,10 +29349,10 @@
         "title": "Rainer Residence",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -29401,10 +29401,10 @@
         "title": "Rough-Side Repeats",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -29456,10 +29456,10 @@
         "title": "Thanns End",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -29515,10 +29515,10 @@
         "title": "Trifecta Corner",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -29608,10 +29608,10 @@
         "title": "Turkish Block",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -29659,10 +29659,10 @@
         "title": "Wacky House",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -29715,10 +29715,10 @@
         "title": "Veules-les-Roses Cottage",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -29769,10 +29769,10 @@
         "title": "Vienna Accommodations",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -29824,10 +29824,10 @@
         "title": "Vienna Corner",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -29875,10 +29875,10 @@
         "title": "Norman Villa",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -29926,10 +29926,10 @@
         "title": "Silver Villa",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -29978,10 +29978,10 @@
         "title": "Armenian Major",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -30032,10 +30032,10 @@
         "title": "Barentin H",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -30086,10 +30086,10 @@
         "title": "Barentin M",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -30140,10 +30140,10 @@
         "title": "Barentin S",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -30196,10 +30196,10 @@
         "title": "Block Building",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -30253,10 +30253,10 @@
         "title": "Brooklyn Urbanside",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -30306,10 +30306,10 @@
         "title": "Cedar City Pad",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -30363,10 +30363,10 @@
         "title": "Cite Des Sapins Tower",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -30420,10 +30420,10 @@
         "title": "Tall Concrete Tower",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -30472,10 +30472,10 @@
         "title": "Conde Egidio Pinatti Gamba",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -30525,10 +30525,10 @@
         "title": "Detroit Horseshoe",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -30577,10 +30577,10 @@
         "title": "ETS Rentals",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -30630,10 +30630,10 @@
         "title": "L'Aigle Rentals",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -30682,10 +30682,10 @@
         "title": "Les Petites Dalles Mansion",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -30734,10 +30734,10 @@
         "title": "Looking Glass London",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -30788,10 +30788,10 @@
         "title": "Minneapolis Skyscraper",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -30842,10 +30842,10 @@
         "title": "Mont Gaillard Skyrise A",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -30896,10 +30896,10 @@
         "title": "Mont Gaillard Skyrise B",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -30950,10 +30950,10 @@
         "title": "Mont Gaillard Skyrise C",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -31004,10 +31004,10 @@
         "title": "Mont Gaillard Skyrise D",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -31057,10 +31057,10 @@
         "title": "The Multicube",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -31115,10 +31115,10 @@
         "title": "Nova Ipanema",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -31175,10 +31175,10 @@
         "title": "Peaceful Living Solutions",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -31232,10 +31232,10 @@
         "title": "Plainridge Apartments",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -31290,10 +31290,10 @@
         "title": "Medium Rainbow Residency",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -31348,10 +31348,10 @@
         "title": "Short Rainbow Residency",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -31406,10 +31406,10 @@
         "title": "Tall Rainbow Residency",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -31458,10 +31458,10 @@
         "title": "Rich Harfleur Housing",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -31511,10 +31511,10 @@
         "title": "RockFort MC1",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -31567,10 +31567,10 @@
         "title": "Russian Rise 1",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -31623,10 +31623,10 @@
         "title": "Russian Rise 2",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -31679,10 +31679,10 @@
         "title": "Russian Rise 3",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -31735,10 +31735,10 @@
         "title": "Seskine Pillar",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -31794,10 +31794,10 @@
         "title": "Short Skyscraper",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -31850,10 +31850,10 @@
         "title": "Siberian Living",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -31902,10 +31902,10 @@
         "title": "Southampton End",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -31958,10 +31958,10 @@
         "title": "Spectrum Residences",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -32014,10 +32014,10 @@
         "title": "Suita Full",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -32070,10 +32070,10 @@
         "title": "Tour Marseille",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -32122,10 +32122,10 @@
         "title": "Triplary Butterfly",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -32175,10 +32175,10 @@
         "title": "Trouville Luxury Apartments",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -32228,10 +32228,10 @@
         "title": "Walker's Block",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -32282,10 +32282,10 @@
         "title": "Wilson's Apartments",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -32338,10 +32338,10 @@
         "title": "Barentin 018",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -32394,10 +32394,10 @@
         "title": "Barentin 010",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -32450,10 +32450,10 @@
         "title": "Barentin 006",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -32500,10 +32500,10 @@
         "title": "Bellevue Heights",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -32558,10 +32558,10 @@
         "title": "Etz-Balt Tower",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -32616,10 +32616,10 @@
         "title": "Container House",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -32673,10 +32673,10 @@
         "title": "Corblo Apartments",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -32729,10 +32729,10 @@
         "title": "Glascow Tower",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -32785,10 +32785,10 @@
         "title": "Hong Kong Highrise",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -32836,10 +32836,10 @@
         "title": "Apartment Building",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -32891,10 +32891,10 @@
         "title": "Le Havre Block",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -32948,10 +32948,10 @@
         "title": "Maromme High-Rise",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -33004,10 +33004,10 @@
         "title": "White Water Heights",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -33054,10 +33054,10 @@
         "title": "Lavish Landing",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -33104,10 +33104,10 @@
         "title": "Lakeside Lodge",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -33161,10 +33161,10 @@
         "title": "Gaillarda Tower",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -33215,10 +33215,10 @@
         "title": "Ramponneau",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -33269,10 +33269,10 @@
         "title": "Romanian Living Units",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -33321,10 +33321,10 @@
         "title": "Rouen Imm St. Ange",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -33377,10 +33377,10 @@
         "title": "Seattle Infinite",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -33433,10 +33433,10 @@
         "title": "SF Chateau",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -33489,10 +33489,10 @@
         "title": "Lithuania Major",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -33544,10 +33544,10 @@
         "title": "Castletop Living Spaces",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -33600,10 +33600,10 @@
         "title": "Brick Block Dwellings",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -33650,10 +33650,10 @@
         "title": "Torres Blancas",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -33708,10 +33708,10 @@
         "title": "Tourriva",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -33765,10 +33765,10 @@
         "title": "Vancouver Heights",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -33819,10 +33819,10 @@
         "title": "High Quailutece Condos",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -33873,10 +33873,10 @@
         "title": "Quailutece Condos",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -33924,10 +33924,10 @@
         "title": "Bellevue Mansion",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -33978,10 +33978,10 @@
         "title": "Au Bord de L'eau T1",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -34032,10 +34032,10 @@
         "title": "Au Bord de L'eau T2",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -34086,10 +34086,10 @@
         "title": "Au Bord de L'eau T3",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -34140,10 +34140,10 @@
         "title": "Au Bord de L'eau T4",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -34197,10 +34197,10 @@
         "title": "Big Complex",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -34252,10 +34252,10 @@
         "title": "Busan Upper Living",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -34306,10 +34306,10 @@
         "title": "Central Square Tower",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -34360,10 +34360,10 @@
         "title": "Cheap Russian Highrise",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -34413,10 +34413,10 @@
         "title": "Cite Roguet Show Stopper",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -34468,10 +34468,10 @@
         "title": "Lettercorner",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -34525,10 +34525,10 @@
         "title": "New York Style ",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -34581,10 +34581,10 @@
         "title": "Origin Tower 1a",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -34637,10 +34637,10 @@
         "title": "Origin Tower 1b",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -34693,10 +34693,10 @@
         "title": "Origin Tower 1c",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -34747,10 +34747,10 @@
         "title": "Average Romanian Apartment Block",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -34801,10 +34801,10 @@
         "title": "Huge Romanian Apartment Block",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -34855,10 +34855,10 @@
         "title": "Tiny Romanian Apartment Block",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -34908,10 +34908,10 @@
         "title": "Shining Pearl of Tokyo",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -34963,10 +34963,10 @@
         "title": "The Smolensk Wall",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -35016,10 +35016,10 @@
         "title": "Third Wing Complex (Short)",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -35069,10 +35069,10 @@
         "title": "Third Wing Complex (Tall)",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -35122,10 +35122,10 @@
         "title": "Tour Neyrat (Large)",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -35175,10 +35175,10 @@
         "title": "Tour Neyrat (Small)",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -35231,10 +35231,10 @@
         "title": "Tour Nuage mk1",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -35287,10 +35287,10 @@
         "title": "Tour Nuage mk2",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -35343,10 +35343,10 @@
         "title": "Tour Nuage mk3",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -35401,10 +35401,10 @@
         "title": "Twisty Tower",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -35455,10 +35455,10 @@
         "title": "Waterside Locke",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -35510,10 +35510,10 @@
         "title": "One Rincon Hill Towers",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -35567,10 +35567,10 @@
         "title": "Sri Lanka Setup",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -35621,10 +35621,10 @@
         "title": "Green Harbor Tower",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -35678,10 +35678,10 @@
         "title": "Hanhwa Heights",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -35731,10 +35731,10 @@
         "title": "Layered Tower",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -35785,10 +35785,10 @@
         "title": "Le Grand Pavois Marseille",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "HIGH"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -35840,10 +35840,10 @@
         "title": "St. Petersburg Ascent",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -35893,10 +35893,10 @@
         "title": "Trailer Park",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "LOW"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -35949,10 +35949,10 @@
         "title": "Le Havre Dense Housing",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -36005,10 +36005,10 @@
         "title": "Mont Gaillard Hall",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -36061,10 +36061,10 @@
         "title": "Le Havre Housing Facility",
         "upkeep cost": 0,
         "water": 0,
-        "wealth": [
+        "zoneDensity": [
             "MEDIUM"
         ],
-        "zones": [
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -38492,7 +38492,7 @@
         "tags": [
             "tree"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
@@ -38529,7 +38529,7 @@
         "tags": [
             "tree"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
@@ -38566,7 +38566,7 @@
         "tags": [
             "tree"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
@@ -38603,7 +38603,7 @@
         "tags": [
             "colorful"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 34,
             "clip_width": 32,
@@ -38640,7 +38640,7 @@
         "tags": [
             "colorful"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 31,
             "clip_width": 32,
@@ -38677,7 +38677,7 @@
         "tags": [
             "colorful"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 29,
             "clip_width": 32,
@@ -38716,7 +38716,7 @@
             "beautiful",
             "oak"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 31,
             "clip_width": 32,
@@ -38755,7 +38755,7 @@
             "beautiful",
             "oak"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 29,
             "clip_width": 32,
@@ -38794,7 +38794,7 @@
             "beautiful",
             "oak"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 28,
             "clip_width": 32,
@@ -38833,7 +38833,7 @@
             "beautiful",
             "pinetrees"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 32,
             "clip_width": 32,
@@ -38872,7 +38872,7 @@
             "beautiful",
             "pinetrees"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 28,
             "clip_width": 32,
@@ -38911,7 +38911,7 @@
             "beautiful",
             "pinetrees"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 32,
             "clip_width": 32,
@@ -38950,7 +38950,7 @@
             "beautiful",
             "plumtrees"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 25,
             "clip_width": 32,
@@ -38989,7 +38989,7 @@
             "beautiful",
             "plumtrees"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 24,
             "clip_width": 32,
@@ -39028,7 +39028,7 @@
             "beautiful",
             "plumtrees"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 25,
             "clip_width": 32,
@@ -39067,7 +39067,7 @@
             "beautiful",
             "swamp"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 28,
             "clip_width": 32,
@@ -39106,7 +39106,7 @@
             "beautiful",
             "swamp"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 25,
             "clip_width": 32,
@@ -39145,7 +39145,7 @@
             "beautiful",
             "swamp"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 26,
             "clip_width": 32,
@@ -39184,7 +39184,7 @@
             "beautiful",
             "bamboo"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 30,
             "clip_width": 32,
@@ -39223,7 +39223,7 @@
             "beautiful",
             "bamboo"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 29,
             "clip_width": 32,
@@ -39262,7 +39262,7 @@
             "beautiful",
             "bamboo"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 30,
             "clip_width": 32,
@@ -39301,7 +39301,7 @@
             "beautiful",
             "birch"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 30,
             "clip_width": 32,
@@ -39340,7 +39340,7 @@
             "beautiful",
             "birch"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 26,
             "clip_width": 32,
@@ -39379,7 +39379,7 @@
             "beautiful",
             "birch"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 29,
             "clip_width": 32,
@@ -39418,7 +39418,7 @@
             "burned",
             "trees"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 29,
             "clip_width": 32,
@@ -39457,7 +39457,7 @@
             "burned",
             "trees"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 28,
             "clip_width": 32,
@@ -39496,7 +39496,7 @@
             "burned",
             "trees"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 28,
             "clip_width": 32,
@@ -39535,7 +39535,7 @@
             "crystal",
             "trees"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 22,
             "clip_width": 32,
@@ -39574,7 +39574,7 @@
             "crystal",
             "trees"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 19,
             "clip_width": 32,
@@ -39613,7 +39613,7 @@
             "crystal",
             "trees"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 22,
             "clip_width": 32,
@@ -39652,7 +39652,7 @@
             "beautiful",
             "cypress"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 30,
             "clip_width": 32,
@@ -39691,7 +39691,7 @@
             "beautiful",
             "cypress"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 27,
             "clip_width": 32,
@@ -39730,7 +39730,7 @@
             "beautiful",
             "cypress"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 30,
             "clip_width": 32,
@@ -39769,7 +39769,7 @@
             "mysterious",
             "mushroom"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 24,
             "clip_width": 32,
@@ -39808,7 +39808,7 @@
             "mysterious",
             "mushroom"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 22,
             "clip_width": 32,
@@ -39847,7 +39847,7 @@
             "mysterious",
             "mushroom"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 22,
             "clip_width": 32,
@@ -39886,7 +39886,7 @@
             "beach",
             "palmtrees"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 33,
             "clip_width": 32,
@@ -39925,7 +39925,7 @@
             "beach",
             "palmtrees"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 30,
             "clip_width": 32,
@@ -39964,7 +39964,7 @@
             "beach",
             "palmtrees"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 33,
             "clip_width": 32,
@@ -40003,7 +40003,7 @@
             "beautiful",
             "pinetrees"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 33,
             "clip_width": 32,
@@ -40042,7 +40042,7 @@
             "beautiful",
             "pinetrees"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 28,
             "clip_width": 32,
@@ -40081,7 +40081,7 @@
             "beautiful",
             "pinetrees"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 33,
             "clip_width": 32,
@@ -40120,7 +40120,7 @@
             "tree",
             "dense"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 32,
             "clip_width": 32,
@@ -40159,7 +40159,7 @@
             "tree",
             "light"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 28,
             "clip_width": 32,
@@ -40198,7 +40198,7 @@
             "tree",
             "medium"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 30,
             "clip_width": 32,
@@ -40237,7 +40237,7 @@
             "beautiful",
             "sakura"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 26,
             "clip_width": 32,
@@ -40276,7 +40276,7 @@
             "beautiful",
             "sakura"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 23,
             "clip_width": 32,
@@ -40315,7 +40315,7 @@
             "beautiful",
             "sakura"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 24,
             "clip_width": 32,
@@ -40489,7 +40489,7 @@
             "cattail",
             "waterflora"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
@@ -40529,7 +40529,7 @@
             "cattail",
             "waterflora"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
@@ -40569,7 +40569,7 @@
             "cattail",
             "waterflora"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
@@ -40609,7 +40609,7 @@
             "lilypads",
             "waterflora"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
@@ -40649,7 +40649,7 @@
             "lilypads",
             "waterflora"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
@@ -40689,7 +40689,7 @@
             "lilypads",
             "waterflora"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
@@ -40729,7 +40729,7 @@
             "rice",
             "waterflora"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
@@ -40769,7 +40769,7 @@
             "rice",
             "waterflora"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
@@ -40809,7 +40809,7 @@
             "rice",
             "waterflora"
         ],
-        "tileType": "DEFAULT",
+        "tileType": "FLORA",
         "tiles": {
             "clip_height": 15,
             "clip_width": 32,
@@ -40867,10 +40867,7 @@
         },
         "title": "Commercial Zone (dense)",
         "upkeep cost": 2,
-        "water": 0,
-        "zones": [
-            "COMMERCIAL"
-        ]
+        "water": 0
     },
     {
         "RequiredTiles": {
@@ -40918,7 +40915,10 @@
         "title": "Commercial Zone (light)",
         "upkeep cost": 2,
         "water": 0,
-        "zones": [
+        "zoneDensity": [
+            "LOW"
+        ],
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -40968,7 +40968,10 @@
         "title": "Commercial Zone (medium)",
         "upkeep cost": 2,
         "water": 0,
-        "zones": [
+        "zoneDensity": [
+            "MEDIUM"
+        ],
+        "zoneType": [
             "COMMERCIAL"
         ]
     },
@@ -41018,7 +41021,10 @@
         "title": "Farm Zone",
         "upkeep cost": 2,
         "water": 0,
-        "zones": [
+        "zoneDensity": [
+            "LOW"
+        ],
+        "zoneType": [
             "AGRICULTURAL"
         ]
     },
@@ -41068,7 +41074,10 @@
         "title": "Industrial Zone (dense)",
         "upkeep cost": 2,
         "water": 0,
-        "zones": [
+        "zoneDensity": [
+            "HIGH"
+        ],
+        "zoneType": [
             "INDUSTRIAL"
         ]
     },
@@ -41118,7 +41127,10 @@
         "title": "Industrial Zone (light)",
         "upkeep cost": 2,
         "water": 0,
-        "zones": [
+        "zoneDensity": [
+            "LOW"
+        ],
+        "zoneType": [
             "INDUSTRIAL"
         ]
     },
@@ -41168,7 +41180,10 @@
         "title": "Industrial Zone (medium)",
         "upkeep cost": 2,
         "water": 0,
-        "zones": [
+        "zoneDensity": [
+            "MEDIUM"
+        ],
+        "zoneType": [
             "INDUSTRIAL"
         ]
     },
@@ -41218,7 +41233,10 @@
         "title": "Residential Zone (dense)",
         "upkeep cost": 2,
         "water": 0,
-        "zones": [
+        "zoneDensity": [
+            "HIGH"
+        ],
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -41268,7 +41286,10 @@
         "title": "Residential Zone (light)",
         "upkeep cost": 2,
         "water": 0,
-        "zones": [
+        "zoneDensity": [
+            "LOW"
+        ],
+        "zoneType": [
             "RESIDENTIAL"
         ]
     },
@@ -41318,7 +41339,10 @@
         "title": "Residential Zone (medium)",
         "upkeep cost": 2,
         "water": 0,
-        "zones": [
+        "zoneDensity": [
+            "MEDIUM"
+        ],
+        "zoneType": [
             "RESIDENTIAL"
         ]
     }

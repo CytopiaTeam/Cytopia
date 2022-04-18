@@ -271,6 +271,7 @@ void Game::run(bool SkipMenu)
   uiManager.init();
 
   GameClock &gameClock = GameClock::instance();
+  GamePlay m_GamePlay;
 
 #ifdef USE_ANGELSCRIPT
   ScriptEngine &scriptEngine = ScriptEngine::instance();
@@ -328,7 +329,6 @@ void Game::run(bool SkipMenu)
     SDL_RenderClear(WindowManager::instance().getRenderer());
 
     evManager.checkEvents(event, engine);
-    // TODO: Add Gameplay class and call Gameplay.DoStuff() here instead of zonemanager stuff
     gameClock.tick();
 
     m_GamePlay.update();

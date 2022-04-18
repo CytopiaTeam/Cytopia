@@ -21,6 +21,7 @@ set(SOURCE_FILES
         engine/basics/Camera.{hxx,cxx}
         engine/basics/isoMath.{hxx,cxx}
         engine/basics/mapEdit.{hxx,cxx}
+        engine/basics/point.hxx
         engine/basics/PointFunctions.{hxx,cxx}
         engine/basics/Settings.{hxx,cxx}
         engine/basics/GameStates.{hxx,cxx}
@@ -54,6 +55,7 @@ set(SOURCE_FILES
         engine/TileManager.{hxx,cxx}
         engine/UIManager.{hxx,cxx}
         engine/WindowManager.{hxx,cxx}
+        game/ZoneArea.{hxx,cxx}
         game/ZoneManager.{hxx,cxx}
         game/PowerManager.{hxx,cxx}
         game/PowerGrid.{hxx,cxx}
