@@ -65,7 +65,6 @@ SDL_Texture *ResourcesManager::getUITexture(const std::string &uiElement, int bu
     return m_uiTextureMap[uiElement].at("Texture_Default");
   }
   throw UIError(TRACE_INFO "No texture found for " + uiElement);
-  return nullptr;
 }
 
 SDL_Texture *ResourcesManager::getTileTexture(const std::string &id)
@@ -75,7 +74,6 @@ SDL_Texture *ResourcesManager::getTileTexture(const std::string &id)
     return m_tileTextureMap.at(id);
   }
   throw UIError(TRACE_INFO "No texture found for " + id);
-  return nullptr;
 }
 
 SDL_Surface *ResourcesManager::getTileSurface(const std::string &id)
@@ -85,7 +83,6 @@ SDL_Surface *ResourcesManager::getTileSurface(const std::string &id)
     return m_surfaceMap.at(id);
   }
   throw UIError(TRACE_INFO "No surface found for " + id);
-  return nullptr;
 }
 
 SDL_Surface *ResourcesManager::createSurfaceFromFile(const std::string &fileName)
@@ -101,7 +98,6 @@ SDL_Surface *ResourcesManager::createSurfaceFromFile(const std::string &fileName
     return surface;
 
   throw ConfigurationError(TRACE_INFO "Could not load Texture from file " + fName + ": " + IMG_GetError());
-  return nullptr;
 }
 
 SDL_Texture *ResourcesManager::createTextureFromSurface(SDL_Surface *surface)
@@ -112,7 +108,6 @@ SDL_Texture *ResourcesManager::createTextureFromSurface(SDL_Surface *surface)
     return texture;
 
   throw UIError(TRACE_INFO "Texture could not be created! SDL Error: " + string{SDL_GetError()});
-  return nullptr;
 }
 
 void ResourcesManager::flush()
