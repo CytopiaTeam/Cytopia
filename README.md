@@ -57,13 +57,16 @@ Mac
 
 #### Prerequisites
 
-CMake 3.11 or later
-
-<https://cmake.org/>
-
-Conan
-
-<https://conan.io>
+- [CMake 3.11 or later](https://cmake.org/)
+- [Conan](https://conan.io)
+- [SDL2](https://www.libsdl.org/)
+- [SDL2_tff](https://www.libsdl.org/)
+- [SDL2_image](https://www.libsdl.org/)
+- [OpenAL](https://www.openal.org/)
+- [zlib](https://www.zlib.net/)
+- [libnoise](http://libnoise.sourceforge.net/)
+- [libogg](https://www.xiph.org/ogg/)
+- [libvorbis](https://www.xiph.org/vorbis/)
 
 #### Build instructions
 
