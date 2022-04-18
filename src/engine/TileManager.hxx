@@ -122,12 +122,13 @@ public:
   std::optional<std::string> getRandomTileIDForZoneWithRandomSize(ZoneType zone, ZoneDensity zoneDensity,
                                                                   TileSize maxTileSize = {1, 1});
 
-  /** @brief Return a vector of Points that would be occupied by a tileID
-  * @param targetCoordinates - where the tile should be placed
+  /** @brief Return a vector of Points on a target node (origin corner) that would be occupied 
+  * by a given tileID if the placement is valid
+  * @param targetCoordinates - the origin node where the tile should be placed
   * @param tileID - the tileID to place
-  * @return vector of points that will be occupied by this tileID
+  * @return vector of points that will be occupied by this tileID, empty if placement is not allowed
   */
-  std::vector<Point> getTargetCoordsOfTile(const Point &targetCoordinates, const std::string &tileID);
+  std::vector<Point> getTargetCoordsOfTileID(const Point &targetCoordinates, const std::string &tileID);
 
   /** @brief check if given TileID can autotile (meaning there 
    * are textures that look differently according to the position of tiles to each other).

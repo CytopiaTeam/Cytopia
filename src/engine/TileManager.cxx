@@ -43,7 +43,7 @@ std::vector<std::string> TileManager::getAllTileIDsForZone(ZoneType zone, ZoneDe
   return results;
 }
 
-std::vector<Point> TileManager::getTargetCoordsOfTile(const Point &targetCoordinates, const std::string &tileID)
+std::vector<Point> TileManager::getTargetCoordsOfTileID(const Point &targetCoordinates, const std::string &tileID)
 {
   std::vector<Point> occupiedCoords;
   TileData *tileData = getTileData(tileID);

@@ -471,7 +471,7 @@ void Map::demolishNode(const std::vector<Point> &isoCoordinates, bool updateNeig
           const std::string &tileID = getMapNode(origCornerPoint).getTileID(Layer::BUILDINGS);
 
           // get all the occupied nodes and demolish them
-          for (auto buildingCoords : TileManager::instance().getTargetCoordsOfTile(origCornerPoint, tileID))
+          for (auto buildingCoords : TileManager::instance().getTargetCoordsOfTileID(origCornerPoint, tileID))
           {
             nodesToDemolish.insert(&mapNodes[nodeIdx(buildingCoords.x, buildingCoords.y)]);
           }
@@ -726,7 +726,7 @@ void Map::calculateVisibleMap(void)
 void Map::setTileID(const std::string &tileID, Point coordinate)
 {
   TileData *tileData = TileManager::instance().getTileData(tileID);
-  std::vector<Point> targetCoordinates = TileManager::instance().getTargetCoordsOfTile(coordinate, tileID);
+  std::vector<Point> targetCoordinates = TileManager::instance().getTargetCoordsOfTileID(coordinate, tileID);
 
   if (!tileData || targetCoordinates.empty())
   { // if the node would not outside of map boundaries, targetCoordinates would be empty
