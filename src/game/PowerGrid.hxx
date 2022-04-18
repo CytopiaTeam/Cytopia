@@ -22,14 +22,14 @@ public:
    */
   void addPowerNode(PowerNode powerNode);
 
-    /**
+  /**
    * @brief Remove a powernode on a given coordinate from this powerGrid
    * 
    * @param Coordinates of the mapNode with a power tile
    */
   void removePowerNode(Point coordinate);
-  
-    /**
+
+  /**
    * @brief If this coordinate is a neighbor of one of the tiles in this power grid.
    * 
    * @param coordinate The point to check
@@ -44,6 +44,9 @@ public:
    * @return neighbor of this power grid
    */
   bool isMemberOf(Point coordinate) const;
+ 
+  auto begin() { return m_powerNodes.begin(); }
+  auto end() { return m_powerNodes.end(); }
 
 private:
   //TODO: figure out how to handle multi node power plants
