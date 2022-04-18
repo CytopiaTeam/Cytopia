@@ -136,6 +136,10 @@ public:
       {
         signalPlaceBuilding.emit(currentMapNode);
       }
+      else if (currentMapNode.getTileData(Layer::BUILDINGS) && currentMapNode.getTileData(Layer::BUILDINGS)->category == "Power")
+      {
+        signalPlacePowerBuilding.emit(currentMapNode);
+      }
       else if (currentMapNode.getTileData(Layer::ZONE))
       {
         signalPlaceZone.emit(currentMapNode);
@@ -300,12 +304,14 @@ private:
   static const size_t m_saveGameVersion;
 
   // Signals
+  Signal::Signal<void(const MapNode &)> signalPlacePowerBuilding;
   Signal::Signal<void(const MapNode &)> signalPlaceBuilding;
   Signal::Signal<void(const MapNode &)> signalPlaceZone;
   Signal::Signal<void(MapNode *)> signalDemolish;
 
 public:
   // Callback functions
+  void registerCbPlacePowerBuilding(std::function<void(const MapNode &)> const &cb) { signalPlacePowerBuilding.connect(cb); }
   void registerCbPlaceBuilding(std::function<void(const MapNode &)> const &cb) { signalPlaceBuilding.connect(cb); }
   void registerCbPlaceZone(std::function<void(const MapNode &)> const &cb) { signalPlaceZone.connect(cb); }
   void registerCbDemolish(std::function<void(MapNode *)> const &cb) { signalDemolish.connect(cb); }

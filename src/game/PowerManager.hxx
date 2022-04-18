@@ -11,7 +11,9 @@ public:
 private:
   int m_powerProduced = 0;
 
-  void tick();
+  void update();
+
+  std::vector<PowerNode> m_nodesToAdd;
 };
 
 #endif
