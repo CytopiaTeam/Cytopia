@@ -4,11 +4,6 @@
 #include <string>
 #include "Exception.hxx"
 
-#define STRINGIFY(x) #x
-#define STRINGIFY2(x) STRINGIFY(x)
-#define __line__ STRINGIFY2(__LINE__)
-#define TRACE_INFO "Exception thrown from " + string(__PRETTY_FUNCTION__) + " at " __FILE__ ":" __line__ " - "
-
 // Required to use std::getenv without warning on MSVC
 #define _CRT_SECURE_NO_WARNINGS
 

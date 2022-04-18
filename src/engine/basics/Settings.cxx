@@ -1,6 +1,6 @@
 #include "Settings.hxx"
 
-#include "LOG.hxx"
+// #include "LOG.hxx"
 #include "Exception.hxx"
 #include "Constants.hxx"
 #include "JsonSerialization.hxx"
