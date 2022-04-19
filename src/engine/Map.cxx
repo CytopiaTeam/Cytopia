@@ -470,10 +470,9 @@ std::vector<uint8_t> Map::calculateAutotileBitmask(Point coordinate)
       }
 
       // only auto-tile categories that can be tiled.
-      if (getMapNode(coordinate).isLayerAutoTile(currentLayer))
+      const std::string& nodeTileId = getMapNode(coordinate).getMapNodeDataForLayer(currentLayer).tileID;
+      if (TileManager::instance().isTileIDAutoTile(nodeTileId))
       {
-        const auto nodeTileId = getMapNode(coordinate).getMapNodeDataForLayer(currentLayer).tileID;
-
         for (const auto &neighbour : getNeighborNodes(coordinate, false))
         {
           const MapNodeData &nodeData = neighbour.pNode->getMapNodeDataForLayer(currentLayer);
