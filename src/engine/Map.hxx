@@ -212,7 +212,6 @@ private:
   * @param neighbors All neighbor map nodes.
   * @return true in case that height has been changed, otherwise false.
   */
-  // bool updateHeight(MapNode &mapNode, const bool higher, std::vector<NeighborNode> &neighbors);
   bool updateHeight(Point coordinate, const bool elevate);
 
   /** \brief For implementing frustum culling, find all map nodes which are visible on the screen. Only visible nodes will be rendered.
