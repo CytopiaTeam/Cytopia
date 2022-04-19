@@ -141,7 +141,7 @@ public:
   /** \brief Get pointer to a single mapNode at specific iso coordinates.
   * @param isoCoordinates: The node to retrieve.
   */
-  MapNode &getMapNode(Point isoCoords) { return mapNodes[nodeIdx(isoCoords.x, isoCoords.y)]; };
+  MapNode &getMapNode(Point isoCoords) { return mapNodes[isoCoords.toIndex()]; };
 
   /** \brief Get all mapnodes as a vector
    */
@@ -173,13 +173,6 @@ private:
   * @return true in case that tileId is allowed to be set, otherwise false (filter it out).
   */
   bool isAllowSetTileId(const Layer layer, const MapNode *const pMapNode);
-
-  /** \brief Calculate map index from coordinates.
-  * @param x x coordinate.
-  * @param y y coordinate.
-  * @return Index of map node.
-  */
-  inline int nodeIdx(const int x, const int y) const { return x * m_columns + y; }
 
   /** \brief Get all neighbor nodes from provided map node.
   * @param isoCoordinates iso coordinates.

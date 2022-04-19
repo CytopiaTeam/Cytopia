@@ -69,7 +69,7 @@ NeighborNodesPosition operator++(NeighborNodesPosition &nn, int)
 
 void Map::getNodeInformation(const Point &isoCoordinates) const
 {
-  const MapNode &mapNode = mapNodes[nodeIdx(isoCoordinates.x, isoCoordinates.y)];
+  const MapNode &mapNode = mapNodes[isoCoordinates.toIndex()];
   const MapNodeData &mapNodeData = mapNode.getActiveMapNodeData();
   const TileData *tileData = mapNodeData.tileData;
   LOG(LOG_INFO) << "===== TILE at " << isoCoordinates.x << ", " << isoCoordinates.y << ", " << mapNode.getCoordinates().height
@@ -107,7 +107,7 @@ std::vector<NeighborNode> Map::getNeighborNodes(const Point &isoCoordinates, con
 
   for (auto it : PointFunctions::getNeighbors(isoCoordinates, includeCentralNode))
   {
-    neighbors.push_back({&mapNodes[nodeIdx(it.x, it.y)], PointFunctions::getNeighborPositionToOrigin(it, isoCoordinates)});
+    neighbors.push_back({&getMapNode(it), PointFunctions::getNeighborPositionToOrigin(it, isoCoordinates)});
   }
 
   return neighbors;
@@ -282,7 +282,7 @@ void Map::updateAllNodes()
 
 bool Map::isPlacementOnNodeAllowed(const Point &isoCoordinates, const std::string &tileID) const
 {
-  return mapNodes[nodeIdx(isoCoordinates.x, isoCoordinates.y)].isPlacementAllowed(tileID);
+  return mapNodes[isoCoordinates.toIndex()].isPlacementAllowed(tileID);
 }
 
 unsigned char Map::getElevatedNeighborBitmask(Point centerCoordinates)
@@ -506,7 +506,7 @@ bool Map::isClickWithinTile(const SDL_Point &screenCoordinates, Point isoCoordin
     return false;
   }
 
-  auto &node = mapNodes[nodeIdx(isoCoordinate.x, isoCoordinate.y)];
+  auto &node = mapNodes[isoCoordinate.toIndex()];
   auto pSprite = node.getSprite();
   std::vector<Layer> layersToGoOver;
 
@@ -716,7 +716,7 @@ void Map::calculateVisibleMap(void)
 
       if ((xVal >= left) && (xVal <= right) && (yVal <= top) && (yVal >= bottom))
       {
-        pMapNodesVisible[m_visibleNodesCount++] = mapNodes[nodeIdx(x, y)].getSprite();
+        pMapNodesVisible[m_visibleNodesCount++] = getMapNode({x,y}).getSprite();
       }
     }
   }
@@ -760,7 +760,7 @@ void Map::setTileID(const std::string &tileID, Point coordinate)
   for (auto coord : targetCoordinates)
   { // now we can place our building
 
-    MapNode &currentMapNode = mapNodes[nodeIdx(coord.x, coord.y)];
+    MapNode &currentMapNode = getMapNode(coord);
 
     if (coord != coordinate && targetCoordinates.size() > 1)
     { // for buildings >1x1 set every node on the layer that will be occupied to invisible exepct of the origin node
