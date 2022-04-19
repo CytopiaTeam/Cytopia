@@ -26,38 +26,38 @@
 
 using json = nlohmann::json;
 
-NeighbourNodesPosition operator++(NeighbourNodesPosition &nn, int)
+NeighborNodesPosition operator++(NeighborNodesPosition &nn, int)
 {
-  NeighbourNodesPosition res = nn;
+  NeighborNodesPosition res = nn;
 
   switch (nn)
   {
-  case NeighbourNodesPosition::BOTTOM_LEFT:
-    nn = NeighbourNodesPosition::LEFT;
+  case NeighborNodesPosition::BOTTOM_LEFT:
+    nn = NeighborNodesPosition::LEFT;
     break;
-  case NeighbourNodesPosition::LEFT:
-    nn = NeighbourNodesPosition::TOP_LEFT;
+  case NeighborNodesPosition::LEFT:
+    nn = NeighborNodesPosition::TOP_LEFT;
     break;
-  case NeighbourNodesPosition::TOP_LEFT:
-    nn = NeighbourNodesPosition::BOTTOM;
+  case NeighborNodesPosition::TOP_LEFT:
+    nn = NeighborNodesPosition::BOTTOM;
     break;
-  case NeighbourNodesPosition::BOTTOM:
-    nn = NeighbourNodesPosition::CENTER;
+  case NeighborNodesPosition::BOTTOM:
+    nn = NeighborNodesPosition::CENTER;
     break;
-  case NeighbourNodesPosition::CENTER:
-    nn = NeighbourNodesPosition::TOP;
+  case NeighborNodesPosition::CENTER:
+    nn = NeighborNodesPosition::TOP;
     break;
-  case NeighbourNodesPosition::TOP:
-    nn = NeighbourNodesPosition::BOTTOM_RIGHT;
+  case NeighborNodesPosition::TOP:
+    nn = NeighborNodesPosition::BOTTOM_RIGHT;
     break;
-  case NeighbourNodesPosition::BOTTOM_RIGHT:
-    nn = NeighbourNodesPosition::RIGHT;
+  case NeighborNodesPosition::BOTTOM_RIGHT:
+    nn = NeighborNodesPosition::RIGHT;
     break;
-  case NeighbourNodesPosition::RIGHT:
-    nn = NeighbourNodesPosition::TOP_RIGHT;
+  case NeighborNodesPosition::RIGHT:
+    nn = NeighborNodesPosition::TOP_RIGHT;
     break;
-  case NeighbourNodesPosition::TOP_RIGHT:
-    nn = NeighbourNodesPosition::BOTTOM_LEFT;
+  case NeighborNodesPosition::TOP_RIGHT:
+    nn = NeighborNodesPosition::BOTTOM_LEFT;
     break;
   default:
     assert(false);
@@ -131,28 +131,10 @@ bool Map::updateHeight(Point coordinate, const bool elevate)
   return false;
 }
 
-bool Map::updateHeight(MapNode &mapNode, const bool higher, std::vector<NeighborNode> &neighbors)
-{
-  if (mapNode.changeHeight(higher))
-  {
-    for (const auto neighbour : neighbors)
-    {
-      if (neighbour.pNode->isLayerOccupied(Layer::ZONE))
-      {
-        neighbour.pNode->demolishLayer(Layer::ZONE);
-      }
-    }
-
-    return true;
-  }
-
-  return false;
-}
-
 void Map::changeHeight(const Point &isoCoordinates, const bool elevate)
 {
   std::vector<Point> nodesToUpdate{isoCoordinates};
-  auto neighbours = getNeighborNodes(isoCoordinates, true);
+  auto neighbors = getNeighborNodes(isoCoordinates, true);
   std::vector<Point> neighorCoordinates = PointFunctions::getNeighbors(isoCoordinates, true);
 
   if (updateHeight(isoCoordinates, elevate))
@@ -162,9 +144,9 @@ void Map::changeHeight(const Point &isoCoordinates, const bool elevate)
     {
       const int centerHeight = getMapNode(isoCoordinates).getCoordinates().height;
 
-      for (Point &neighbourCoord : neighorCoordinates)
+      for (Point &neighborCoord : neighorCoordinates)
       {
-        MapNode &neighborNode = getMapNode(neighbourCoord);
+        MapNode &neighborNode = getMapNode(neighborCoord);
         if (centerHeight < neighborNode.getCoordinates().height)
         {
           neighborNode.changeHeight(false);
@@ -185,12 +167,12 @@ void Map::updateNodeNeighbors(std::vector<Point> nodes)
 {
   // those bitmask combinations require the tile to be elevated.
   constexpr unsigned char elevateTileComb[] = {
-      NeighbourNodesPosition::TOP | NeighbourNodesPosition::BOTTOM,
-      NeighbourNodesPosition::LEFT | NeighbourNodesPosition::RIGHT,
-      NeighbourNodesPosition::TOP_LEFT | NeighbourNodesPosition::RIGHT | NeighbourNodesPosition::BOTTOM,
-      NeighbourNodesPosition::TOP_RIGHT | NeighbourNodesPosition::LEFT | NeighbourNodesPosition::BOTTOM,
-      NeighbourNodesPosition::BOTTOM_LEFT | NeighbourNodesPosition::RIGHT | NeighbourNodesPosition::TOP,
-      NeighbourNodesPosition::BOTTOM_RIGHT | NeighbourNodesPosition::LEFT | NeighbourNodesPosition::TOP};
+      NeighborNodesPosition::TOP | NeighborNodesPosition::BOTTOM,
+      NeighborNodesPosition::LEFT | NeighborNodesPosition::RIGHT,
+      NeighborNodesPosition::TOP_LEFT | NeighborNodesPosition::RIGHT | NeighborNodesPosition::BOTTOM,
+      NeighborNodesPosition::TOP_RIGHT | NeighborNodesPosition::LEFT | NeighborNodesPosition::BOTTOM,
+      NeighborNodesPosition::BOTTOM_LEFT | NeighborNodesPosition::RIGHT | NeighborNodesPosition::TOP,
+      NeighborNodesPosition::BOTTOM_RIGHT | NeighborNodesPosition::LEFT | NeighborNodesPosition::TOP};
 
   std::vector<Point> nodesToBeUpdated;
   std::map<int, std::vector<Point>> nodeCache;
@@ -220,54 +202,54 @@ void Map::updateNodeNeighbors(std::vector<Point> nodes)
           nodesToElevate.push_back(pHeighChangedNode);
         }
 
-        for (auto neighbour : nodeCache[pHeighChangedNode.toIndex()])
+        for (auto neighbor : nodeCache[pHeighChangedNode.toIndex()])
         {
           // get real coords that include height
-          const Point pNode = getMapNode(neighbour).getCoordinates();
-          const int heightDiff = tileHeight - pNode.height;
+          const Point neighborCoords = getMapNode(neighbor).getCoordinates();
+          const int heightDiff = tileHeight - neighborCoords.height;
 
-          if (nodeCache.count(pNode.toIndex()) == 0)
+          if (nodeCache.count(neighborCoords.toIndex()) == 0)
           {
-            nodeCache[pNode.toIndex()] = PointFunctions::getNeighbors(pNode, false);
+            nodeCache[neighborCoords.toIndex()] = PointFunctions::getNeighbors(neighborCoords, false);
           }
 
-          if (std::find(nodesToElevate.begin(), nodesToElevate.end(), pNode) == nodesToElevate.end())
+          if (std::find(nodesToElevate.begin(), nodesToElevate.end(), neighborCoords) == nodesToElevate.end())
           {
-            nodesToElevate.push_back(pNode);
+            nodesToElevate.push_back(neighborCoords);
           }
 
           if (std::abs(heightDiff) > 1)
           {
-            updatedNodes.push(getMapNode(pNode).getCoordinates());
-            updateHeight(pNode, (heightDiff > 1) ? true : false);
+            updatedNodes.push(getMapNode(neighborCoords).getCoordinates());
+            updateHeight(neighborCoords, (heightDiff > 1) ? true : false);
           }
         }
       }
 
       while (updatedNodes.empty() && !nodesToElevate.empty())
       {
-        Point pEleNode = nodesToElevate.back();
-        nodesToBeUpdated.push_back(pEleNode);
+        Point nodeToElevate = nodesToElevate.back();
+        nodesToBeUpdated.push_back(nodeToElevate);
         nodesToElevate.pop_back();
 
-        if (nodeCache.count(pEleNode.toIndex()) == 0)
+        if (nodeCache.count(nodeToElevate.toIndex()) == 0)
         {
-          nodeCache[pEleNode.toIndex()] = PointFunctions::getNeighbors(pEleNode, false);
+          nodeCache[nodeToElevate.toIndex()] = PointFunctions::getNeighbors(nodeToElevate, false);
         }
-        const unsigned char elevationBitmask = getElevatedNeighborBitmask(pEleNode);
+        const unsigned char elevationBitmask = getElevatedNeighborBitmask(nodeToElevate);
 
-        if (elevationBitmask != getMapNode(pEleNode).getElevationBitmask())
+        if (elevationBitmask != getMapNode(nodeToElevate).getElevationBitmask())
         {
-          nodesToDemolish.push_back(pEleNode);
-          getMapNode(pEleNode).setElevationBitMask(elevationBitmask);
+          nodesToDemolish.push_back(nodeToElevate);
+          getMapNode(nodeToElevate).setElevationBitMask(elevationBitmask);
         }
 
         for (const auto &elBitMask : elevateTileComb)
         {
           if ((elevationBitmask & elBitMask) == elBitMask)
           {
-            updateHeight(pEleNode, true);
-            updatedNodes.push(getMapNode(pEleNode).getCoordinates());
+            updateHeight(nodeToElevate, true);
+            updatedNodes.push(getMapNode(nodeToElevate).getCoordinates());
             break;
           }
         }
@@ -341,13 +323,13 @@ std::vector<uint8_t> Map::calculateAutotileBitmask(Point coordinate)
     {
       if (pCurrentTileData->tileType == +TileType::TERRAIN)
       {
-        for (const auto &neighbour : getNeighborNodes(coordinate, false))
+        for (const auto &neighbor : getNeighborNodes(coordinate, false))
         {
-          const auto pTileData = neighbour.pNode->getMapNodeDataForLayer(Layer::WATER).tileData;
+          const auto pTileData = neighbor.pNode->getMapNodeDataForLayer(Layer::WATER).tileData;
 
           if (pTileData && pTileData->tileType == +TileType::WATER)
           {
-            tileOrientationBitmask[currentLayer] |= neighbour.position;
+            tileOrientationBitmask[currentLayer] |= neighbor.position;
           }
         }
       }
@@ -356,13 +338,13 @@ std::vector<uint8_t> Map::calculateAutotileBitmask(Point coordinate)
       const std::string &nodeTileId = getMapNode(coordinate).getMapNodeDataForLayer(currentLayer).tileID;
       if (TileManager::instance().isTileIDAutoTile(nodeTileId))
       {
-        for (const auto &neighbour : getNeighborNodes(coordinate, false))
+        for (const auto &neighbor : getNeighborNodes(coordinate, false))
         {
-          const MapNodeData &nodeData = neighbour.pNode->getMapNodeDataForLayer(currentLayer);
+          const MapNodeData &nodeData = neighbor.pNode->getMapNodeDataForLayer(currentLayer);
 
           if (nodeData.tileData && ((nodeData.tileID == nodeTileId) || (pCurrentTileData->tileType == +TileType::ROAD)))
           {
-            tileOrientationBitmask[currentLayer] |= neighbour.position;
+            tileOrientationBitmask[currentLayer] |= neighbor.position;
           }
         }
       }
