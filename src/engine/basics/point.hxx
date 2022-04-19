@@ -66,14 +66,16 @@ public:
    * @param coordinate - Point to check if it is a direct neighbor
    * @return if point is a direct neighbor in a cardinal direction (top, bottom, left, right)
    */
-  bool isDirectNeighborOf(Point coordinate) const{
-        Point thisPoint = {x, y};
+  bool isDirectNeighborOf(Point coordinate) const
+  {
+    Point thisPoint = {x, y};
 
-        if ((thisPoint.x == coordinate.x) && (std::abs(thisPoint.y - coordinate.y) <= 1) ||
+    if ((thisPoint.x == coordinate.x) && (std::abs(thisPoint.y - coordinate.y) <= 1) ||
         (thisPoint.y == coordinate.y) && (std::abs(thisPoint.x - coordinate.x) <= 1))
     {
       return true;
     }
+    return false;
   }
 
   /**
