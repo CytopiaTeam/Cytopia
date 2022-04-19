@@ -64,7 +64,7 @@ TEST_CASE("Point::isWithinMapBoundaries", "[point]")
   CHECK(!Point(1, -1).isWithinMapBoundaries());
 }
 
-TEST_CASE("Point::isNeighbourOf()", "[point]")
+TEST_CASE("Point::isNeighbourOf", "[point]")
 {
   Point p(1, 2);
   for (int xoff = -1; xoff <= 1; ++xoff) {
@@ -77,6 +77,10 @@ TEST_CASE("Point::isNeighbourOf()", "[point]")
   CHECK(!Point(3, 7).isNeighborOf(Point(3, 5)));
 
   CHECK(p.isNeighborOf(Point(p.x, p.y, 3, 4)));
+
+  // FIXME Not symmetric?
+  CHECK(!Point(-1, 1).isNeighborOf(Point( 0, 1)));
+  CHECK( Point( 0, 1).isNeighborOf(Point(-1, 1)));
 }
 
 
