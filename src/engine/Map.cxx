@@ -393,14 +393,14 @@ void Map::updateNodeNeighbors(std::vector<MapNode *> &nodes)
     demolishNode(nodesToDemolishV);
   }
 
-  for (auto pNode : nodesToBeUpdated)
+  for (auto node : nodesToBeUpdated)
   {
-    pNode->setAutotileBitMask(calculateAutotileBitmask(pNode, nodeCache[pNode]));
+    // node->setAutotileBitMask(calculateAutotileBitmask(nodesToBeUpdated));
   }
 
-  for (auto pNode : nodesToBeUpdated)
+  for (auto node : nodesToBeUpdated)
   {
-    pNode->updateTexture();
+    node->updateTexture();
   }
 }
 
@@ -481,50 +481,6 @@ std::vector<uint8_t> Map::calculateAutotileBitmask(Point coordinate)
       }
     }
   }
-
-  return tileOrientationBitmask;
-}
-
-std::vector<uint8_t> Map::calculateAutotileBitmask(const MapNode *const pMapNode, const std::vector<NeighborNode> &neighborNodes)
-{
-  std::vector<uint8_t> tileOrientationBitmask(LAYERS_COUNT, 0);
-
-  for (auto currentLayer : allLayersOrdered)
-  {
-    auto pCurrentTileData = pMapNode->getMapNodeDataForLayer(currentLayer).tileData;
-
-    if (pCurrentTileData)
-    {
-      if (pCurrentTileData->tileType == +TileType::TERRAIN)
-      {
-        for (const auto &neighbour : neighborNodes)
-        {
-          const auto pTileData = neighbour.pNode->getMapNodeDataForLayer(Layer::WATER).tileData;
-
-          if (pTileData && pTileData->tileType == +TileType::WATER)
-          {
-            tileOrientationBitmask[currentLayer] |= neighbour.position;
-          }
-        }
-      }
-
-      // only auto-tile categories that can be tiled.
-      const std::string &nodeTileId = pMapNode->getMapNodeDataForLayer(currentLayer).tileID;
-      if (TileManager::instance().isTileIDAutoTile(nodeTileId))
-      {
-        for (const auto &neighbour : neighborNodes)
-        {
-          const MapNodeData &nodeData = neighbour.pNode->getMapNodeDataForLayer(currentLayer);
-
-          if (nodeData.tileData && ((nodeData.tileID == nodeTileId) || (pCurrentTileData->tileType == +TileType::ROAD)))
-          {
-            tileOrientationBitmask[currentLayer] |= neighbour.position;
-          }
-        }
-      }
-    }
-  }
-
   return tileOrientationBitmask;
 }
 

@@ -164,11 +164,9 @@ private:
   * Checks all neighboring tiles and returns the elevated neighbors in a bitmask:
   * [ BR BL TR TL  R  L  B  T ]
   * [ 0  0  0  0   0  0  0  0 ]
-  * @param pMapNode Pointer to the map node to calculate mask for.
-  * @param neighborNodes Neighbor nodes.
-  * @return Uint that stores the neighbor tiles
+  * @param coordinate of the map node to calculate mask for.
+  * @return Uint that represents a bitmask of the neighbor tiles and their elevation to the center coordinate
   */
-  std::vector<uint8_t> calculateAutotileBitmask(const MapNode *const pMapNode, const std::vector<NeighborNode> &neighborNodes);
   std::vector<uint8_t> calculateAutotileBitmask(Point coordinate);
 
   SDL_Color getColorOfPixelInSurface(SDL_Surface *surface, int x, int y) const;
