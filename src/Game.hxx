@@ -61,8 +61,6 @@ public:
 
 private:
   void quit();
-
-  GamePlay m_GamePlay;
 };
 
 #endif

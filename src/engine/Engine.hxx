@@ -38,14 +38,6 @@ public:
     */
   void toggleFullScreen();
 
-  template <typename Iterator>
-  void setTileIDOfNode(const Iterator &begin, const Iterator &end, const std::string &tileID, bool isMultiObject) const
-  {
-    static_assert(std::is_same_v<Point, typename std::iterator_traits<Iterator>::value_type>,
-                  "Iterator value must be a const Point");
-    map->setTileIDOfNode<std::vector<Point>::iterator>(begin, end, tileID, isMultiObject);
-  }
-
   /** @brief Checks if game is running
     * Checks if game is running
     * @returns Returns true if the game is running, and false otherwise

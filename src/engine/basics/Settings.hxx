@@ -61,7 +61,7 @@ struct SettingsData
   * where 0 is full opaque and 1 for full transparency.
   */
   float zoneLayerTransparency;
-  
+
   /**
    * @todo document what this field is
    * @todo add a typename
@@ -118,7 +118,7 @@ struct SettingsData
    */
   std::string buildMenuPosition;
 
-    /**
+  /**
    * @brief this is used for biomedata
    * @todo Remove this later when terraingen is using biomes
    * @todo replace by enum when BetterEnums is implemented
@@ -179,6 +179,12 @@ struct SettingsData
    * @brief Indicates whether we want to see buildings inside Blueprint layer or not.
    */
   bool showBuildingsInBlueprint;
+
+  /**
+   * @brief Write errors to a log file
+   * 
+   */
+  bool writeErrorLogFile;
 };
 
 /**

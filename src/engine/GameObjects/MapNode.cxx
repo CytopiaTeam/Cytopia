@@ -5,7 +5,6 @@
 #include "../map/MapLayers.hxx"
 #include "GameStates.hxx"
 #include "Settings.hxx"
-#include "../../game/GamePlay.hxx"
 
 MapNode::MapNode(Point isoCoordinates, const std::string &terrainID, const std::string &tileID)
     : m_isoCoordinates(std::move(isoCoordinates))
@@ -94,15 +93,6 @@ void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
       break;
     }
 
-    if (isLayerOccupied(Layer::ZONE))
-    {
-      // TODO: check decorations.
-      if (tileData->category != "Flora" && tileData->category != m_mapNodeData[Layer::ZONE].tileData->subCategory)
-      {
-        // selected tile category != existed zone category.
-        demolishLayer(Layer::ZONE);
-      }
-    }
     m_mapNodeData[layer].origCornerPoint = origCornerPoint;
     m_previousTileID = m_mapNodeData[layer].tileID;
     m_mapNodeData[layer].tileData = tileData;
@@ -160,21 +150,6 @@ void MapNode::setNodeTransparency(const float transparencyFactor, const Layer &l
   m_sprite->setSpriteTranparencyFactor(layer, alpha);
 }
 
-bool MapNode::isDataAutoTile(const TileData *tileData)
-{
-  if (tileData)
-  {
-    if (tileData->tileType == +TileType::ROAD || tileData->tileType == +TileType::AUTOTILE ||
-        tileData->tileType == +TileType::UNDERGROUND)
-    {
-      return true;
-    }
-  }
-  return false;
-}
-
-bool MapNode::isLayerAutoTile(const Layer &layer) const { return isDataAutoTile(m_mapNodeData[layer].tileData); }
-
 bool MapNode::isPlacableOnSlope(const std::string &tileID) const
 {
   TileData *tileData = TileManager::instance().getTileData(tileID);
@@ -201,54 +176,82 @@ bool MapNode::isPlacableOnSlope(const std::string &tileID) const
 bool MapNode::isPlacementAllowed(const std::string &newTileID) const
 {
   TileData *tileData = TileManager::instance().getTileData(newTileID);
-  const Layer layer = TileManager::instance().getTileLayer(newTileID);
 
   if (tileData)
   {
+    const Layer layer = TileManager::instance().getTileLayer(newTileID);
+    // layer specific checks:
     switch (layer)
     {
+    case Layer::ZONE:
+      // zones can overplace themselves and everything else
+      return true;
     case Layer::ROAD:
-      if (isLayerOccupied(Layer::ROAD))
-      {
+      if ((isLayerOccupied(Layer::BUILDINGS) && (m_mapNodeData[Layer::BUILDINGS].tileData->category != "Flora")) ||
+          isLayerOccupied(Layer::WATER) || !isPlacableOnSlope(newTileID))
+      { // roads cannot be placed:
+        // - on buildings that are not category flora.
+        // - on water
+        // - on slopetiles that don't have a tileID
+        return false;
+      }
+      return true;
+    case Layer::GROUND_DECORATION:
+      if (m_mapNodeData[Layer::GROUND_DECORATION].tileData || m_mapNodeData[Layer::BUILDINGS].tileData)
+      { // allow placement of ground decoration on existing ground decoration and on buildings.
         return true;
       }
-      else if ((isLayerOccupied(Layer::BUILDINGS) && (m_mapNodeData[Layer::BUILDINGS].tileData->category != "Flora")) ||
-               isLayerOccupied(Layer::WATER) || !isPlacableOnSlope(newTileID))
-      {
-        return false;
-      }
+      break;
     case Layer::BUILDINGS:
+      TileData *tileDataBuildings = m_mapNodeData[Layer::BUILDINGS].tileData;
+      if (tileDataBuildings && tileDataBuildings->isOverPlacable)
+      { // buildings with overplacable flag
+        return true;
+      }
       if (isLayerOccupied(Layer::ROAD))
-      {
+      { // buildings cannot be placed on roads
         return false;
       }
-      if (m_mapNodeData[layer].tileData && m_mapNodeData[layer].tileData->tileType == +TileType::DEFAULT &&
-          !m_mapNodeData[layer].tileData->isOverPlacable)
+      break;
+    }
+
+    // checks for all layers:
+    if (isLayerOccupied(Layer::WATER))
+    {
+      if (tileData->tileType != +TileType::WATER && !tileData->placeOnWater)
+      // Disallow placement on water for tiles that are:
+      // not of tiletype water
+      // not flag placeOnWater enabled
       {
         return false;
       }
     }
-    //this is a water tile and placeOnWater has not been set to true, building is not permitted. Also disallow placing of water tiles on non water tiles
-    if (tileData->tileType != +TileType::WATER &&
-        (isLayerOccupied(Layer::WATER) && !tileData->placeOnWater || !isLayerOccupied(Layer::WATER) && tileData->placeOnWater))
+    else // not water
     {
+      if (!tileData->placeOnGround)
+      // Disallow placement on ground (meaning a tile that is not water) for tiles that have:
+      // not flag placeOnGround enabled
+      {
+        return false;
+      }
+    }
+
+    if (!isPlacableOnSlope(newTileID))
+    { // Check if a tile has slope frames and therefore can be placed on a node with a slope
       return false;
     }
 
-    // check if the current tile has the property overplacable set or if it's of the same tile ID for certain TileTypes only (not DEFAULT)
-    if (m_mapNodeData[layer].tileData &&
-        (m_mapNodeData[layer].tileData->tileType == +TileType::GROUNDDECORATION ||
-         m_mapNodeData[layer].tileData->isOverPlacable ||
-         (m_mapNodeData[layer].tileData->tileType != +TileType::DEFAULT && m_mapNodeData[layer].tileID == newTileID)))
-    {
+    if (tileData->tileType == +TileType::UNDERGROUND)
+    { // Underground tiletype (pipes, metro tunnels, ... ) can overplace each other
       return true;
     }
 
-    return isPlacableOnSlope(newTileID) &&
-           (m_mapNodeData[layer].tileID.empty() || m_mapNodeData[layer].tileData->tileType == +TileType::TERRAIN ||
-            m_mapNodeData[layer].tileData->tileType == +TileType::BLUEPRINT);
+    if (m_mapNodeData[layer].tileID.empty())
+    { // of course allow placement on empty tiles
+      return true;
+    }
   }
-
+  // every case that is not handled is false
   return false;
 }
 
@@ -289,8 +292,8 @@ void MapNode::updateTexture(const Layer &layer)
             m_mapNodeData[Layer::TERRAIN].tileIndex = 0;
           }
         }
-        // if the node should autotile, check if it needs to tile itself to another tile of the same ID
-        else if (isLayerAutoTile(currentLayer) && (this->getTileID(currentLayer) == m_mapNodeData[currentLayer].tileID))
+        // if the node can autotile, calculate it's tile orientation
+        else if (TileManager::instance().isTileIDAutoTile(getTileID(currentLayer)))
         {
           m_autotileOrientation[currentLayer] = TileManager::instance().calculateTileOrientation(m_autotileBitmask[currentLayer]);
         }
@@ -456,10 +459,6 @@ void MapNode::demolishLayer(const Layer &layer)
   m_mapNodeData[layer].origCornerPoint = this->getCoordinates();
   m_mapNodeData[Layer::ZONE].shouldRender = true;
   m_sprite->clearSprite(layer);
-  if (layer == +Layer::ZONE)
-  {
-    GamePlay::instance().getZoneManager().removeZoneNode(this);
-  }
 }
 
 void MapNode::demolishNode(const Layer &demolishLayer)
