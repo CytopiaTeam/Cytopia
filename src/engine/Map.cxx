@@ -290,119 +290,6 @@ void Map::updateNodeNeighbors(std::vector<Point> nodes)
     getMapNode(node).updateTexture();
   }
 }
-void Map::updateNodeNeighbors(std::vector<MapNode *> &nodes)
-{
-  // those bitmask combinations require the tile to be elevated.
-  constexpr unsigned char elevateTileComb[] = {
-      NeighbourNodesPosition::TOP | NeighbourNodesPosition::BOTTOM,
-      NeighbourNodesPosition::LEFT | NeighbourNodesPosition::RIGHT,
-      NeighbourNodesPosition::TOP_LEFT | NeighbourNodesPosition::RIGHT | NeighbourNodesPosition::BOTTOM,
-      NeighbourNodesPosition::TOP_RIGHT | NeighbourNodesPosition::LEFT | NeighbourNodesPosition::BOTTOM,
-      NeighbourNodesPosition::BOTTOM_LEFT | NeighbourNodesPosition::RIGHT | NeighbourNodesPosition::TOP,
-      NeighbourNodesPosition::BOTTOM_RIGHT | NeighbourNodesPosition::LEFT | NeighbourNodesPosition::TOP};
-
-  std::unordered_set<MapNode *> nodesToBeUpdated;
-  std::map<MapNode *, std::vector<NeighborNode>> nodeCache;
-  std::queue<MapNode *> nodesUpdatedHeight;
-  std::vector<MapNode *> nodesToElevate;
-  std::unordered_set<MapNode *> nodesToDemolish;
-
-  for (auto &pUpdateNode : nodes)
-  {
-    nodesUpdatedHeight.push(pUpdateNode);
-
-    while (!nodesUpdatedHeight.empty() || !nodesToElevate.empty())
-    {
-      while (!nodesUpdatedHeight.empty())
-      {
-        const auto pHeighChangedNode = nodesUpdatedHeight.front();
-        nodesUpdatedHeight.pop();
-        const int tileHeight = pHeighChangedNode->getCoordinates().height;
-
-        if (nodeCache.count(pHeighChangedNode) == 0)
-        {
-          nodeCache[pHeighChangedNode] = getNeighborNodes(pHeighChangedNode->getCoordinates(), false);
-        }
-
-        if (std::find(nodesToElevate.begin(), nodesToElevate.end(), pHeighChangedNode) == nodesToElevate.end())
-        {
-          nodesToElevate.push_back(pHeighChangedNode);
-        }
-
-        for (const auto &neighbour : nodeCache[pHeighChangedNode])
-        {
-          const auto pNode = neighbour.pNode;
-          const auto &nodeCoordinate = pNode->getCoordinates();
-          const int heightDiff = tileHeight - nodeCoordinate.height;
-
-          if (nodeCache.count(pNode) == 0)
-          {
-            nodeCache[pNode] = getNeighborNodes(pNode->getCoordinates(), false);
-          }
-
-          if (std::find(nodesToElevate.begin(), nodesToElevate.end(), pNode) == nodesToElevate.end())
-          {
-            nodesToElevate.push_back(pNode);
-          }
-
-          if (std::abs(heightDiff) > 1)
-          {
-            nodesUpdatedHeight.push(pNode);
-            updateHeight(*pNode, (heightDiff > 1) ? true : false, nodeCache[pNode]);
-          }
-        }
-      }
-
-      while (nodesUpdatedHeight.empty() && !nodesToElevate.empty())
-      {
-        MapNode *pEleNode = nodesToElevate.back();
-        nodesToBeUpdated.insert(pEleNode);
-        nodesToElevate.pop_back();
-
-        if (nodeCache.count(pEleNode) == 0)
-        {
-          nodeCache[pEleNode] = getNeighborNodes(pEleNode->getCoordinates(), false);
-        }
-
-        const unsigned char elevationBitmask = getElevatedNeighborBitmask(pEleNode->getCoordinates());
-
-        if (elevationBitmask != pEleNode->getElevationBitmask())
-        {
-          nodesToDemolish.insert(pEleNode);
-          pEleNode->setElevationBitMask(elevationBitmask);
-        }
-
-        for (const auto &elBitMask : elevateTileComb)
-        {
-          if ((elevationBitmask & elBitMask) == elBitMask)
-          {
-            updateHeight(*pEleNode, true, nodeCache[pEleNode]);
-            nodesUpdatedHeight.push(pEleNode);
-            break;
-          }
-        }
-      }
-    }
-  }
-
-  if (!nodesToDemolish.empty())
-  {
-    std::vector<Point> nodesToDemolishV(nodesToDemolish.size());
-    std::transform(nodesToDemolish.begin(), nodesToDemolish.end(), nodesToDemolishV.begin(),
-                   [](MapNode *mn) { return mn->getCoordinates(); });
-    demolishNode(nodesToDemolishV);
-  }
-
-  for (auto node : nodesToBeUpdated)
-  {
-    // node->setAutotileBitMask(calculateAutotileBitmask(nodesToBeUpdated));
-  }
-
-  for (auto node : nodesToBeUpdated)
-  {
-    node->updateTexture();
-  }
-}
 
 void Map::updateAllNodes()
 {
@@ -873,7 +760,7 @@ void Map::setTileID(const std::string &tileID, Point coordinate)
 
   Layer layer = TileManager::instance().getTileLayer(tileID);
   std::string randomGroundDecorationTileID;
-  std::vector<MapNode *> nodesToBeUpdated;
+  std::vector<Point> nodesToBeUpdated;
 
   // if this building has groundDeco, grab a random tileID from the list
   if (!tileData->groundDecoration.empty())
@@ -922,7 +809,7 @@ void Map::setTileID(const std::string &tileID, Point coordinate)
     // For layers that autotile to each other, we need to update their neighbors too
     if (TileManager::instance().isTileIDAutoTile(tileID))
     {
-      nodesToBeUpdated.push_back(&currentMapNode);
+      nodesToBeUpdated.push_back(currentMapNode.getCoordinates());
     }
     // If we place a zone tile, add it to the ZoneManager
     // emit a signal to notify manager
@@ -938,7 +825,6 @@ void Map::setTileID(const std::string &tileID, Point coordinate)
 
   if (!nodesToBeUpdated.empty())
   {
-    // TODO: use points instead of mapnode*
     updateNodeNeighbors(nodesToBeUpdated);
   }
 }

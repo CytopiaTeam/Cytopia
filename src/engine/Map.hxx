@@ -201,10 +201,8 @@ private:
   void changeHeight(const Point &isoCoordinates, const bool elevate);
 
   /** \brief Update the nodes and all affected node with the change.
-  * @param nodes Nodes which have to be updated.
+  * @param nodes vector of coordinates to be updated.
   */
-  void updateNodeNeighbors(std::vector<MapNode *> &nodes);
-  void updateNodeNeighbors(std::vector<MapNode *> &nodes, std::vector<Point> nodePoints);
   void updateNodeNeighbors(std::vector<Point> nodes);
 
   /** \brief Get elevated bit mask of the map node.
