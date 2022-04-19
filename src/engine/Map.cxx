@@ -192,7 +192,7 @@ void Map::updateNodeNeighbors(std::vector<Point> nodes)
       NeighbourNodesPosition::BOTTOM_LEFT | NeighbourNodesPosition::RIGHT | NeighbourNodesPosition::TOP,
       NeighbourNodesPosition::BOTTOM_RIGHT | NeighbourNodesPosition::LEFT | NeighbourNodesPosition::TOP};
 
-  std::unordered_set<Point> nodesToBeUpdated;
+  std::vector<Point> nodesToBeUpdated;
   std::map<int, std::vector<Point>> nodeCache;
   std::queue<Point> updatedNodes;
   std::vector<Point> nodesToElevate;
@@ -247,8 +247,7 @@ void Map::updateNodeNeighbors(std::vector<Point> nodes)
       while (updatedNodes.empty() && !nodesToElevate.empty())
       {
         Point pEleNode = nodesToElevate.back();
-        // MapNode *pEleNode = &getMapNode(nodesToElevate.back());
-        nodesToBeUpdated.insert(pEleNode);
+        nodesToBeUpdated.push_back(pEleNode);
         nodesToElevate.pop_back();
 
         if (nodeCache.count(pEleNode.toIndex()) == 0)
@@ -278,20 +277,17 @@ void Map::updateNodeNeighbors(std::vector<Point> nodes)
 
   if (!nodesToDemolish.empty())
   {
-    // std::vector<Point> nodesToDemolishV(nodesToDemolish.size());
-    // std::transform(nodesToDemolish.begin(), nodesToDemolish.end(), nodesToDemolishV.begin(),
-    //                [](MapNode *mn) { return mn->getCoordinates(); });
     demolishNode(nodesToDemolish);
   }
 
-  for (Point pNode : nodesToBeUpdated)
+  for (Point node : nodesToBeUpdated)
   {
-    getMapNode(pNode).setAutotileBitMask(calculateAutotileBitmask(pNode));
+    getMapNode(node).setAutotileBitMask(calculateAutotileBitmask(node));
   }
 
-  for (Point pNode : nodesToBeUpdated)
+  for (Point node : nodesToBeUpdated)
   {
-    getMapNode(pNode).updateTexture();
+    getMapNode(node).updateTexture();
   }
 }
 void Map::updateNodeNeighbors(std::vector<MapNode *> &nodes)
@@ -470,7 +466,7 @@ std::vector<uint8_t> Map::calculateAutotileBitmask(Point coordinate)
       }
 
       // only auto-tile categories that can be tiled.
-      const std::string& nodeTileId = getMapNode(coordinate).getMapNodeDataForLayer(currentLayer).tileID;
+      const std::string &nodeTileId = getMapNode(coordinate).getMapNodeDataForLayer(currentLayer).tileID;
       if (TileManager::instance().isTileIDAutoTile(nodeTileId))
       {
         for (const auto &neighbour : getNeighborNodes(coordinate, false))
@@ -513,7 +509,7 @@ std::vector<uint8_t> Map::calculateAutotileBitmask(const MapNode *const pMapNode
       }
 
       // only auto-tile categories that can be tiled.
-      const std::string& nodeTileId = pMapNode->getMapNodeDataForLayer(currentLayer).tileID;
+      const std::string &nodeTileId = pMapNode->getMapNodeDataForLayer(currentLayer).tileID;
       if (TileManager::instance().isTileIDAutoTile(nodeTileId))
       {
         for (const auto &neighbour : neighborNodes)
