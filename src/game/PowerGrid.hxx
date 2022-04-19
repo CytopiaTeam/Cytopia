@@ -10,10 +10,12 @@ struct PowerNode
   int powerProduction = 0;
 };
 
+class PowerGrid;
+void mergePowerGrids(PowerGrid &mainGrid, PowerGrid &toBeMerged);
 class PowerGrid
 {
 public:
-  PowerGrid();
+  PowerGrid(PowerNode powerNode);
 
   /**
    * @brief Add a powernode to this powergrid
@@ -44,13 +46,16 @@ public:
    * @return neighbor of this power grid
    */
   bool isMemberOf(Point coordinate) const;
- 
+
   auto begin() { return m_powerNodes.begin(); }
   auto end() { return m_powerNodes.end(); }
 
 private:
   //TODO: figure out how to handle multi node power plants
   std::vector<PowerNode> m_powerNodes;
+  friend void mergePowerGrids(PowerGrid &mainGrid, PowerGrid &toBeMerged);
+
+  int m_powerLevel = 0;
 };
 
 #endif
