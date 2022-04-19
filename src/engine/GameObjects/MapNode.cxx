@@ -150,21 +150,6 @@ void MapNode::setNodeTransparency(const float transparencyFactor, const Layer &l
   m_sprite->setSpriteTranparencyFactor(layer, alpha);
 }
 
-bool MapNode::isDataAutoTile(const TileData *tileData)
-{
-  if (tileData)
-  {
-    if (tileData->tileType == +TileType::ROAD || tileData->tileType == +TileType::AUTOTILE ||
-        tileData->tileType == +TileType::UNDERGROUND)
-    {
-      return true;
-    }
-  }
-  return false;
-}
-
-bool MapNode::isLayerAutoTile(const Layer &layer) const { return isDataAutoTile(m_mapNodeData[layer].tileData); }
-
 bool MapNode::isPlacableOnSlope(const std::string &tileID) const
 {
   TileData *tileData = TileManager::instance().getTileData(tileID);
@@ -307,8 +292,8 @@ void MapNode::updateTexture(const Layer &layer)
             m_mapNodeData[Layer::TERRAIN].tileIndex = 0;
           }
         }
-        // if the node should autotile, check if it needs to tile itself to another tile of the same ID
-        else if (isLayerAutoTile(currentLayer) && (this->getTileID(currentLayer) == m_mapNodeData[currentLayer].tileID))
+        // if the node can autotile, calculate it's tile orientation
+        else if (TileManager::instance().isTileIDAutoTile(getTileID(currentLayer)))
         {
           m_autotileOrientation[currentLayer] = TileManager::instance().calculateTileOrientation(m_autotileBitmask[currentLayer]);
         }

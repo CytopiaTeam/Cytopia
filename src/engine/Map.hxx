@@ -72,81 +72,17 @@ public:
   /**
  * @brief Set the Tile ID Of Node object
  * Also invokes all necessary texture updates (auto-tiling, slopes, ...)
- * @param isoCoordinates
- * @param tileID tileID which should be set
+ * @param tileID the new tileID to set
+ * @param coordinate Points where the tileID which should be set
  */
-  template <typename Iterator>
-  void setTileIDOfNode(const Iterator &begin, const Iterator &end, const std::string &tileID, bool isMultiObjects)
-  {
-    static_assert(std::is_same_v<Point, typename std::iterator_traits<Iterator>::value_type>,
-                  "Iterator value must be a const Point");
-
-    std::vector<MapNode *> nodesToBeUpdated;
-
-    for (Iterator it = begin; it != end; ++it)
-    {
-      if (!isPlacementOnNodeAllowed(*it, tileID))
-      {
-        return;
-      }
-    }
-
-    int groundtileIndex = -1;
-    for (auto it = begin; it != end; ++it)
-    {
-      const bool shouldRender = !(!isMultiObjects && (it != begin));
-      Layer layer = TileManager::instance().getTileLayer(tileID);
-      MapNode &currentMapNode = mapNodes[nodeIdx(it->x, it->y)];
-
-      if (!isAllowSetTileId(layer, &currentMapNode))
-      {
-        continue;
-      }
-
-      // only demolish nodes before placing if this is a bigger than 1x1 building
-      if (!isMultiObjects)
-      {
-        demolishNode(std::vector<Point>{*it}, 0, Layer::BUILDINGS);
-      }
-
-      currentMapNode.setRenderFlag(layer, shouldRender);
-      currentMapNode.setTileID(tileID, isMultiObjects ? *it : *begin);
-      auto pTileData = currentMapNode.getMapNodeDataForLayer(layer).tileData;
-
-      if (pTileData && !pTileData->groundDecoration.empty() && groundtileIndex == -1)
-      {
-        const int groundDecoSize = pTileData->groundDecoration.size();
-        std::uniform_int_distribution uniformDistribution(0, groundDecoSize - 1);
-        groundtileIndex = uniformDistribution(randomEngine);
-      }
-
-      if (groundtileIndex != -1)
-      {
-        currentMapNode.setTileID(pTileData->groundDecoration[groundtileIndex], isMultiObjects ? *it : *begin);
-      }
-
-      // For layers that autotile to each other, we need to update their neighbors too
-      if (MapNode::isDataAutoTile(TileManager::instance().getTileData(tileID)))
-      {
-        nodesToBeUpdated.push_back(&currentMapNode);
-      }
-
-      // emit a signal to notify manager
-      if (currentMapNode.getTileData(Layer::BUILDINGS) && currentMapNode.getTileData(Layer::ZONE))
-      {
-        signalPlaceBuilding.emit(currentMapNode);
-      }
-      else if (currentMapNode.getTileData(Layer::ZONE))
-      {
-        signalPlaceZone.emit(currentMapNode);
-      }
-    }
-
-    if (!nodesToBeUpdated.empty())
-    {
-      updateNodeNeighbors(nodesToBeUpdated);
-    }
-  }
+  void setTileID(const std::string &tileID, Point coordinate);
+  /**
+ * @brief Set the Tile ID Of multiple Node objects
+ * Also invokes all necessary texture updates (auto-tiling, slopes, ...)
+ * @param tileID the new tileID to set
+ * @param coordinates a vector of Points where the tileIDs which should be set
+ */
+  void setTileID(const std::string &tileID, const std::vector<Point> &coordinates);
 
   /**
  * @brief Demolish a node
@@ -195,11 +131,6 @@ public:
   * @param tileID tileID which should be checked
   */
   bool isPlacementOnNodeAllowed(const Point &isoCoordinates, const std::string &tileID) const;
-
-  /** \brief Return vector of Points occupied by a tileID
-  *
-  */
-  std::vector<Point> getObjectCoords(const Point &isoCoordinates, const std::string &tileID);
 
   /** \brief get Tile ID of specific layer of specific iso coordinates
   * @param isoCoordinates: Tile to inspect
