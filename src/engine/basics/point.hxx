@@ -37,7 +37,7 @@ public:
 
   /**
    * @brief Checks if a given points is a neighbor of this point
-   * 
+   *
    * @param coordinateOne Point to check if it's adjacent
    * @return if the two points are neighbors
    */
@@ -62,7 +62,7 @@ public:
 
   /**
    * @brief Check if a given point is a direct neighbor (cardinal direction) of this point
-   * 
+   *
    * @param coordinate - Point to check if it is a direct neighbor
    * @return if point is a direct neighbor in a cardinal direction (top, bottom, left, right)
    */
@@ -74,11 +74,13 @@ public:
     {
       return true;
     }
+
+    return false;
   }
 
   /**
    * @brief Calculate the manhattan distance between this point and a given point
-   * 
+   *
    * @param target the point to calculate the manhattan distance to
    * @return number of nodes between this point and the target
    */
@@ -86,7 +88,7 @@ public:
 
   /**
    * @brief Calculate the direct distance between this point and a given point
-   * 
+   *
    * @param target the point to calculate the direct distance to
    * @return number of nodes between this point and the target
    */
