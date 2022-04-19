@@ -51,9 +51,7 @@ void ZoneArea::spawnBuildings()
         TileManager::instance().getRandomTileIDForZoneWithRandomSize(m_zoneType, m_zoneDensity, maxTileSize).value_or("");
 
     // place the building
-    // see Issue refactor setTileID #853
-    std::vector targetObjectNodes = Engine::instance().map->getObjectCoords(node.coordinate, buildingTileID);
-    Engine::instance().setTileIDOfNode(targetObjectNodes.begin(), targetObjectNodes.end(), buildingTileID, false);
+    Engine::instance().map->setTileID(buildingTileID, node.coordinate);
     buildingsSpawned++;
   }
 }

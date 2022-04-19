@@ -33,7 +33,7 @@ std::vector<std::string> TileManager::getAllTileIDsForZone(ZoneType zone, ZoneDe
   {
     if (std::find(tileData.second.zoneTypes.begin(), tileData.second.zoneTypes.end(), +zone) != tileData.second.zoneTypes.end() &&
         (zone == +ZoneType::AGRICULTURAL || std::find(tileData.second.zoneDensity.begin(), tileData.second.zoneDensity.end(),
-                                                   +zoneDensity) != tileData.second.zoneDensity.end()) &&
+                                                      +zoneDensity) != tileData.second.zoneDensity.end()) &&
         tileData.second.RequiredTiles.height == tileSize.height && tileData.second.RequiredTiles.width == tileSize.width &&
         tileData.second.tileType != +TileType::ZONE)
     {
@@ -43,7 +43,37 @@ std::vector<std::string> TileManager::getAllTileIDsForZone(ZoneType zone, ZoneDe
   return results;
 }
 
-std::optional<std::string> TileManager::getRandomTileIDForZoneWithRandomSize(ZoneType zone, ZoneDensity zoneDensity, TileSize maxTileSize)
+std::vector<Point> TileManager::getTargetCoordsOfTileID(const Point &targetCoordinates, const std::string &tileID)
+{
+  std::vector<Point> occupiedCoords;
+  TileData *tileData = getTileData(tileID);
+
+  if (!tileData)
+  {
+    return occupiedCoords;
+  }
+
+  Point coords = targetCoordinates;
+
+  for (int i = 0; i < tileData->RequiredTiles.width; i++)
+  {
+    for (int j = 0; j < tileData->RequiredTiles.height; j++)
+    {
+      Point coords = {targetCoordinates.x - i, targetCoordinates.y + j};
+      if (!coords.isWithinMapBoundaries())
+      { // boundary check
+        occupiedCoords.clear();
+        return occupiedCoords;
+      }
+      occupiedCoords.emplace_back(coords);
+    }
+  }
+  return occupiedCoords;
+}
+
+std::optional<std::string> TileManager::getRandomTileIDForZoneWithRandomSize(ZoneType zone, ZoneDensity zoneDensity,
+                                                                             TileSize maxTileSize)
+
 {
   std::vector<TileSize> elligibleTileSizes;
 
@@ -505,4 +535,22 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
       ResourcesManager::instance().loadTexture(id, m_tileData[id].slopeTiles.fileName);
     }
   }
+}
+
+bool TileManager::isTileIDAutoTile(const std::string &tileID)
+{
+  TileData *tileData = getTileData(tileID);
+  if (tileData)
+    switch (tileData->tileType)
+    {
+    case +TileType::ROAD:
+    case +TileType::AUTOTILE:
+    case +TileType::UNDERGROUND:
+    case +TileType::POWERLINE:
+      return true;
+    default:
+      return false;
+    }
+
+  return false;
 }

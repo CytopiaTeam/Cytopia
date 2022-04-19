@@ -11,6 +11,7 @@
 #include "map/MapLayers.hxx"
 #include "common/JsonSerialization.hxx"
 #include "Filesystem.hxx"
+#include "../services/Randomizer.hxx"
 
 #include "json.hxx"
 
@@ -416,37 +417,7 @@ void Map::updateAllNodes()
 
 bool Map::isPlacementOnNodeAllowed(const Point &isoCoordinates, const std::string &tileID) const
 {
-  if (TileManager::instance().getTileLayer(tileID) == Layer::ZONE)
-  {
-    return true;
-  }
-
   return mapNodes[nodeIdx(isoCoordinates.x, isoCoordinates.y)].isPlacementAllowed(tileID);
-}
-
-std::vector<Point> Map::getObjectCoords(const Point &isoCoordinates, const std::string &tileID)
-{
-  std::vector<Point> ret;
-  TileData *tileData = TileManager::instance().getTileData(tileID);
-
-  if (!tileData)
-  {
-    return ret;
-  }
-
-  Point coords = isoCoordinates;
-
-  for (int i = 0; i < tileData->RequiredTiles.width; i++)
-  {
-    for (int j = 0; j < tileData->RequiredTiles.height; j++)
-    {
-      coords.x = isoCoordinates.x - i;
-      coords.y = isoCoordinates.y + j;
-      ret.emplace_back(coords);
-    }
-  }
-
-  return ret;
 }
 
 unsigned char Map::getElevatedNeighborBitmask(Point centerCoordinates)
@@ -543,10 +514,9 @@ std::vector<uint8_t> Map::calculateAutotileBitmask(const MapNode *const pMapNode
       }
 
       // only auto-tile categories that can be tiled.
-      if (pMapNode->isLayerAutoTile(currentLayer))
+      const std::string& nodeTileId = pMapNode->getMapNodeDataForLayer(currentLayer).tileID;
+      if (TileManager::instance().isTileIDAutoTile(nodeTileId))
       {
-        const auto nodeTileId = pMapNode->getMapNodeDataForLayer(currentLayer).tileID;
-
         for (const auto &neighbour : neighborNodes)
         {
           const MapNodeData &nodeData = neighbour.pNode->getMapNodeDataForLayer(currentLayer);
@@ -680,7 +650,7 @@ void Map::demolishNode(const std::vector<Point> &isoCoordinates, bool updateNeig
           const std::string &tileID = getMapNode(origCornerPoint).getTileID(Layer::BUILDINGS);
 
           // get all the occupied nodes and demolish them
-          for (auto buildingCoords : getObjectCoords(origCornerPoint, tileID))
+          for (auto buildingCoords : TileManager::instance().getTargetCoordsOfTileID(origCornerPoint, tileID))
           {
             nodesToDemolish.push_back(buildingCoords);
           }
@@ -929,5 +899,103 @@ void Map::calculateVisibleMap(void)
         pMapNodesVisible[m_visibleNodesCount++] = mapNodes[nodeIdx(x, y)].getSprite();
       }
     }
+  }
+}
+
+void Map::setTileID(const std::string &tileID, Point coordinate)
+{
+  TileData *tileData = TileManager::instance().getTileData(tileID);
+  std::vector<Point> targetCoordinates = TileManager::instance().getTargetCoordsOfTileID(coordinate, tileID);
+
+  if (!tileData || targetCoordinates.empty())
+  { // if the node would not outside of map boundaries, targetCoordinates would be empty
+    return;
+  }
+
+  for (auto coord : targetCoordinates)
+  { // first check all nodes if it is possible to place the building before doing anything
+    if (!isPlacementOnNodeAllowed(coord, tileID))
+    { //make sure every target coordinate is valid for placement, not just the origin coordinate.
+      return;
+    }
+  }
+
+  Layer layer = TileManager::instance().getTileLayer(tileID);
+  std::string randomGroundDecorationTileID;
+  std::vector<MapNode *> nodesToBeUpdated;
+
+  // if this building has groundDeco, grab a random tileID from the list
+  if (!tileData->groundDecoration.empty())
+  {
+    randomGroundDecorationTileID =
+        *Randomizer::instance().choose(tileData->groundDecoration.begin(), tileData->groundDecoration.end());
+  }
+
+  // for >1x1 buildings, clear all the nodes that are going to be occupied before placing anything.
+  if (targetCoordinates.size() > 1)
+  {
+    demolishNode(targetCoordinates, 0, Layer::BUILDINGS);
+  }
+
+  for (auto coord : targetCoordinates)
+  { // now we can place our building
+
+    MapNode &currentMapNode = mapNodes[nodeIdx(coord.x, coord.y)];
+
+    if (coord != coordinate && targetCoordinates.size() > 1)
+    { // for buildings >1x1 set every node on the layer that will be occupied to invisible exepct of the origin node
+      currentMapNode.setRenderFlag(layer, false);
+    }
+    else
+    { // 1x1 buildings should be set to visible
+      currentMapNode.setRenderFlag(layer, true);
+    }
+
+    if (!targetCoordinates.size() == 1)
+    { // if it's not a >1x1 building, place tileID on the current coordinate (e.g. ground decoration beneath a > 1x1 building)
+      currentMapNode.setTileID(tileID, coord);
+    }
+    else
+    { // set the tileID for the mapNode of the origin coordinates only on the origin coordinate
+      {
+        currentMapNode.setTileID(tileID, coordinate);
+      }
+    }
+
+    // place ground deco if we have one
+    if (!randomGroundDecorationTileID.empty())
+    {
+      currentMapNode.setTileID(randomGroundDecorationTileID, coord);
+    }
+
+    // For layers that autotile to each other, we need to update their neighbors too
+    if (TileManager::instance().isTileIDAutoTile(tileID))
+    {
+      nodesToBeUpdated.push_back(&currentMapNode);
+    }
+    // If we place a zone tile, add it to the ZoneManager
+    // emit a signal to notify manager
+    if (currentMapNode.getTileData(Layer::BUILDINGS) && currentMapNode.getTileData(Layer::ZONE))
+    {
+      signalPlaceBuilding.emit(currentMapNode);
+    }
+    else if (currentMapNode.getTileData(Layer::ZONE))
+    {
+      signalPlaceZone.emit(currentMapNode);
+    }
+  }
+
+  if (!nodesToBeUpdated.empty())
+  {
+    // TODO: use points instead of mapnode*
+    updateNodeNeighbors(nodesToBeUpdated);
+  }
+}
+
+void Map::setTileID(const std::string &tileID, const std::vector<Point> &coordinates)
+{
+  for (auto coord : coordinates)
+  {
+    setTileID(tileID, coord);
   }
 }

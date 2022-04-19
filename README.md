@@ -20,7 +20,6 @@
 <b>Patreon</b> - Cytopia by Jimmy Snails - <https://www.patreon.com/cytopia><br>
 <b>Itch io</b> - Cytopia - <https://cytopia.itch.io/cytopia><br>
 <b>GitHub</b> - Cytopia by CytopiaTeam - <https://github.com/CytopiaTeam/Cytopia><br>
-<b>Online Emscripten Port</b> - Cytopia - <https://game.cytopia.net/><br>
 <b>Translation project on Weblate</b> - Cytopia - <https://hosted.weblate.org/projects/cytopia/><br>
 
 Cytopia is a free, open source retro pixel-art city building game with a big focus on mods. It utilizes a custom isometric rendering engine based on SDL2.
@@ -50,7 +49,6 @@ If discord is not for you, visit our IRC channel on freenode at #Cytopia
 
 In case you want to support our project on patreon, visit our [Patreon Page](https://patreon.com/cytopia)
 
-Try out Cytopia in your Browser (Chrome based Browsers on PC supported) without installing it, take a look at our [emscripten port](https://game.cytopia.net/)
 
 #### Supported Platforms
 Linux (clang / g++-5 or higher)
@@ -59,13 +57,16 @@ Mac
 
 #### Prerequisites
 
-CMake 3.11 or later
-
-<https://cmake.org/>
-
-Conan
-
-<https://conan.io>
+- [CMake 3.11 or later](https://cmake.org/)
+- [Conan](https://conan.io)
+- [SDL2](https://www.libsdl.org/)
+- [SDL2_tff](https://www.libsdl.org/)
+- [SDL2_image](https://www.libsdl.org/)
+- [OpenAL](https://www.openal.org/)
+- [zlib](https://www.zlib.net/)
+- [libnoise](http://libnoise.sourceforge.net/)
+- [libogg](https://www.xiph.org/ogg/)
+- [libvorbis](https://www.xiph.org/vorbis/)
 
 #### Build instructions
 
