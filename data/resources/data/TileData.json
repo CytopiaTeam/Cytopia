@@ -40867,7 +40867,13 @@
         },
         "title": "Commercial Zone (dense)",
         "upkeep cost": 2,
-        "water": 0
+        "water": 0,
+        "zoneDensity": [
+            "HIGH"
+        ],
+        "zoneType": [
+            "COMMERCIAL"
+        ]
     },
     {
         "RequiredTiles": {

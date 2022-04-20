@@ -7,27 +7,11 @@
 #include "Settings.hxx"
 
 MapNode::MapNode(Point isoCoordinates, const std::string &terrainID, const std::string &tileID)
-    : m_isoCoordinates(std::move(isoCoordinates))
+    : m_isoCoordinates(std::move(isoCoordinates)), m_sprite{std::make_unique<Sprite>(m_isoCoordinates)},
+      m_autotileOrientation(LAYERS_COUNT, TileOrientation::TILE_DEFAULT_ORIENTATION),
+      m_mapNodeData{std::vector(LAYERS_COUNT, MapNodeData{"", nullptr, 0, m_isoCoordinates, true, TileMap::DEFAULT})},
+      m_autotileBitmask(LAYERS_COUNT)
 {
-  m_mapNodeData.resize(LAYERS_COUNT);
-  m_autotileBitmask.resize(LAYERS_COUNT);
-  m_autotileOrientation.resize(LAYERS_COUNT);
-  m_sprite = std::make_unique<Sprite>(m_isoCoordinates);
-
-  //initialize vectors
-  for (auto &it : m_autotileBitmask)
-  {
-    it = 0;
-  }
-  for (auto &it : m_autotileOrientation)
-  {
-    it = TileOrientation::TILE_DEFAULT_ORIENTATION;
-  }
-  for (auto &it : m_mapNodeData)
-  {
-    it.origCornerPoint = isoCoordinates;
-  }
-
   setTileID(terrainID, isoCoordinates);
   if (!tileID.empty()) // in case tileID is not supplied skip it
   {
@@ -307,8 +291,8 @@ void MapNode::updateTexture(const Layer &layer)
             m_mapNodeData[Layer::TERRAIN].tileIndex = 0;
           }
         }
-        // if the node should autotile, check if it needs to tile itself to another tile of the same ID
-        else if (isLayerAutoTile(currentLayer) && (this->getTileID(currentLayer) == m_mapNodeData[currentLayer].tileID))
+        // if the node can autotile, calculate it's tile orientation
+        else if (TileManager::instance().isTileIDAutoTile(getTileID(currentLayer)))
         {
           m_autotileOrientation[currentLayer] = TileManager::instance().calculateTileOrientation(m_autotileBitmask[currentLayer]);
         }
