@@ -134,21 +134,6 @@ void MapNode::setNodeTransparency(const float transparencyFactor, const Layer &l
   m_sprite->setSpriteTranparencyFactor(layer, alpha);
 }
 
-bool MapNode::isDataAutoTile(const TileData *tileData)
-{
-  if (tileData)
-  {
-    if (tileData->tileType == +TileType::POWERLINE || tileData->tileType == +TileType::ROAD || tileData->tileType == +TileType::AUTOTILE ||
-        tileData->tileType == +TileType::UNDERGROUND)
-    {
-      return true;
-    }
-  }
-  return false;
-}
-
-bool MapNode::isLayerAutoTile(const Layer &layer) const { return isDataAutoTile(m_mapNodeData[layer].tileData); }
-
 bool MapNode::isPlacableOnSlope(const std::string &tileID) const
 {
   TileData *tileData = TileManager::instance().getTileData(tileID);
