@@ -335,7 +335,7 @@ std::vector<uint8_t> Map::calculateAutotileBitmask(const MapNode *const pMapNode
       }
 
       // only auto-tile categories that can be tiled.
-      const std::string& nodeTileId = pMapNode->getMapNodeDataForLayer(currentLayer).tileID;
+      const std::string &nodeTileId = pMapNode->getMapNodeDataForLayer(currentLayer).tileID;
       if (TileManager::instance().isTileIDAutoTile(nodeTileId))
       {
         for (const auto &neighbour : neighborNodes)
@@ -799,6 +799,10 @@ void Map::setTileID(const std::string &tileID, Point coordinate)
     if (currentMapNode.getTileData(Layer::BUILDINGS) && currentMapNode.getTileData(Layer::ZONE))
     {
       signalPlaceBuilding.emit(currentMapNode);
+    }
+    else if (currentMapNode.getTileData(Layer::BUILDINGS) && currentMapNode.getTileData(Layer::BUILDINGS)->category == "Power")
+    {
+      signalPlacePowerBuilding.emit(currentMapNode);
     }
     else if (currentMapNode.getTileData(Layer::ZONE))
     {
