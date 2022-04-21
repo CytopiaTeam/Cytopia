@@ -28,7 +28,12 @@ void PowerManager::update()
       addPowerNodeToGrid(nodeToAdd, m_powerGrids);
     }
     m_nodesToAdd.clear();
-    // LOG(LOG_DEBUG) << "Number of power areas: " << m_powerGrids.size();
+    LOG(LOG_DEBUG) << "Number of power areas: " << m_powerGrids.size();
+    int i = 0;
+    for (auto grid : m_powerGrids)
+    {
+      LOG(LOG_DEBUG) << "Grid #"<<++i <<"/"<<m_powerGrids.size() << " - Power Production: " << grid.getPowerLevel();
+    }
   }
   // do stuff like update power production, update powerlines, ...
 }

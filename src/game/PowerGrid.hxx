@@ -47,6 +47,9 @@ public:
    */
   bool isMemberOf(Point coordinate) const;
 
+  int getPowerLevel() const { return m_powerLevel; };
+  void setPowerLevel(int powerLevel) { m_powerLevel = powerLevel; };
+
   auto begin() { return m_powerNodes.begin(); }
   auto end() { return m_powerNodes.end(); }
 
@@ -55,6 +58,7 @@ private:
   std::vector<PowerNode> m_powerNodes;
   friend void mergePowerGrids(PowerGrid &mainGrid, PowerGrid &toBeMerged);
 
+void updatePowerLevel();
   int m_powerLevel = 0;
 };
 

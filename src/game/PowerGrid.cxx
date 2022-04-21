@@ -1,4 +1,6 @@
 #include "PowerGrid.hxx"
+#include "Engine.hxx"
+#include "LOG.hxx"
 
 PowerGrid::PowerGrid(PowerNode powerNode) : m_powerNodes{powerNode} {}
 
@@ -8,7 +10,25 @@ void mergePowerGrids(PowerGrid &mainGrid, PowerGrid &toBeMerged)
   mainGrid.m_powerLevel = toBeMerged.m_powerLevel;
 };
 
-void PowerGrid::addPowerNode(PowerNode powerNode) { m_powerNodes.push_back(powerNode); }
+void PowerGrid::addPowerNode(PowerNode powerNode)
+{
+  m_powerNodes.push_back(powerNode);
+  updatePowerLevel();
+}
+
+void PowerGrid::updatePowerLevel()
+{
+  m_powerLevel = 0; // reset the powerlevels
+  for (auto node : m_powerNodes)
+  {
+    // For multi-tile buildings, each tile has the same tiledata (including power level). 
+    // so make sure we only add it once (if it's the origin node)
+    if (Engine::instance().map->getMapNode(node.coordinate).isOriginNode())
+    {
+      m_powerLevel += node.powerProduction;
+    }
+  }
+}
 
 void PowerGrid::removePowerNode(Point coordinate)
 {
