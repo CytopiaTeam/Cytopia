@@ -14,8 +14,11 @@ private:
   void update();
   std::vector<int> getAdjacentPowerGrids(const PowerNode &powerNode, std::vector<PowerGrid> &powerGrids);
   void addPowerNodeToGrid(PowerNode &powerNode, std::vector<PowerGrid> &powerGrids);
+  void removePowerNode(Point coordinate);
+  std::vector<PowerGrid> rebuildZoneArea(PowerGrid &powerGrid);
 
   std::vector<PowerNode> m_nodesToAdd;
+  std::vector<Point> m_nodesToRemove;
   std::vector<PowerGrid> m_powerGrids;
 };
 

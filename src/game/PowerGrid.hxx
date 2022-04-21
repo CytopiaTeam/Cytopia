@@ -17,6 +17,8 @@ class PowerGrid
 public:
   PowerGrid(PowerNode powerNode);
 
+  size_t size() { return m_powerNodes.size(); };
+
   /**
    * @brief Add a powernode to this powergrid
    * 
@@ -58,7 +60,7 @@ private:
   std::vector<PowerNode> m_powerNodes;
   friend void mergePowerGrids(PowerGrid &mainGrid, PowerGrid &toBeMerged);
 
-void updatePowerLevel();
+  void updatePowerLevel();
   int m_powerLevel = 0;
 };
 

@@ -1,15 +1,31 @@
 #include "PowerManager.hxx"
 #include "../engine/Engine.hxx"
 #include "../services/GameClock.hxx"
+#include "GameStates.hxx"
 
 PowerManager::PowerManager()
 {
   Engine::instance().map->registerCbPlacePowerBuilding(
-      [this](const MapNode &mapNode) { // If we place a zone tile, add it to the cache to update next tick
+      [this](const MapNode &mapNode) { // If we place a power tile, add it to the cache to update next tick
         PowerNode nodeToAdd = {mapNode.getCoordinates(), mapNode.getTileData(Layer::BUILDINGS)->power};
         m_nodesToAdd.push_back(nodeToAdd);
       });
-
+  Engine::instance().map->registerCbDemolish(
+      [this](const MapNode *mapNode) { // If we demolish a power tile, add it to the cache to update next tick
+        switch (GameStates::instance().demolishMode)
+        {
+        case DemolishMode::DEFAULT:
+        {
+          if (!mapNode->getTileData(Layer::BUILDINGS))
+          { // if there's no building it has been succesfully demolished
+            m_nodesToRemove.push_back(mapNode->getCoordinates());
+          }
+          break;
+        }
+        default:
+          break;
+        }
+      });
   GameClock::instance().addRealTimeClockTask(
       [this]()
       {
@@ -21,6 +37,16 @@ PowerManager::PowerManager()
 
 void PowerManager::update()
 {
+  // Remove nodes (Demolish on power tiles)
+  if (!m_nodesToRemove.empty())
+  {
+    for (auto m_nodeToRemove : m_nodesToRemove)
+    {
+      removePowerNode(m_nodeToRemove);
+    }
+    m_nodesToRemove.clear();
+  }
+
   if (!m_nodesToAdd.empty())
   {
     for (auto nodeToAdd : m_nodesToAdd)
@@ -32,7 +58,7 @@ void PowerManager::update()
     int i = 0;
     for (auto grid : m_powerGrids)
     {
-      LOG(LOG_DEBUG) << "Grid #"<<++i <<"/"<<m_powerGrids.size() << " - Power Production: " << grid.getPowerLevel();
+      LOG(LOG_DEBUG) << "Grid #" << ++i << "/" << m_powerGrids.size() << " - Power Production: " << grid.getPowerLevel();
     }
   }
   // do stuff like update power production, update powerlines, ...
@@ -82,4 +108,46 @@ void PowerManager::addPowerNodeToGrid(PowerNode &powerNode, std::vector<PowerGri
       powerGrids.erase(powerGrids.begin() + gridNeighbour[idx]);
     }
   }
+}
+
+void PowerManager::removePowerNode(Point coordinate)
+{
+  for (auto gridIt = m_powerGrids.begin(); gridIt != m_powerGrids.end(); gridIt++)
+  {
+    if (gridIt->isMemberOf(coordinate))
+    {
+      gridIt->removePowerNode(coordinate);
+
+      if (gridIt->size() == 0)
+      {
+        m_powerGrids.erase(gridIt);
+      }
+      else
+      {
+        auto powerGrids = rebuildZoneArea(*gridIt);
+        assert(powerGrids.size() > 0);
+        // If powerGrids size is 1, means powerGrid is still compact, nothing to be done
+
+        if (powerGrids.size() > 1)
+        {
+          m_powerGrids.erase(gridIt);
+          m_powerGrids.insert(m_powerGrids.end(), powerGrids.begin(), powerGrids.end());
+        }
+      }
+
+      break;
+    }
+  }
+}
+
+std::vector<PowerGrid> PowerManager::rebuildZoneArea(PowerGrid &powerGrid)
+{
+  std::vector<PowerGrid> newPowerGrids;
+
+  for (PowerNode powerNode : powerGrid)
+  {
+    addPowerNodeToGrid(powerNode, newPowerGrids);
+  }
+
+  return newPowerGrids;
 }
