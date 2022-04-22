@@ -227,7 +227,7 @@ private:
   int m_rows;
   std::default_random_engine randomEngine;
   TerrainGenerator m_terrainGen;
-
+  void sortMapByZIndex();
   static const size_t m_saveGameVersion;
 
   // Signals

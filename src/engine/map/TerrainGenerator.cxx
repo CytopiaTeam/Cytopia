@@ -11,7 +11,7 @@
 #ifdef NOISE_IN_SUBDIR
 #include <noise/noise.h>
 #else
-#include <noise.h>
+#include <noise/noise.h>
 #endif
 
 using json = nlohmann::json;
@@ -150,15 +150,17 @@ void TerrainGenerator::generateTerrain(std::vector<MapNode> &mapNodes, std::vect
 
   int z = 0;
   // set the z-Index for the mapNodes. It is not used, but it's better to have the correct z-index set
-  for (int y = mapSize - 1; y >= 0; y--)
-  {
-    for (int x = 0; x < mapSize; x++)
-    {
+  //for (int y = mapSize - 1; y >= 0; y--)
+  //for (int y = mapSize - 1; y >= 0; y--)
+  //  for (int x = mapSize - 1; x >= 0; x--)
+    for (int y = 0; y < mapSize; y++)
+    for (int x = mapSize - 1; x >= 0; x--)
+    //for (int x = 0; x < mapSize; x++)
+      {
       z++;
       mapNodes[x * mapSize + y].setZIndex(z);
       mapNodesInDrawingOrder.push_back(&mapNodes[x * mapSize + y]);
     }
-  }
 }
 
 void TerrainGenerator::loadTerrainDataFromJSON()

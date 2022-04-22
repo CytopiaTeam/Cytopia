@@ -5,6 +5,7 @@
 #include "../map/MapLayers.hxx"
 #include "GameStates.hxx"
 #include "Settings.hxx"
+#include "Engine.hxx"
 
 MapNode::MapNode(Point isoCoordinates, const std::string &terrainID, const std::string &tileID)
     : m_isoCoordinates(std::move(isoCoordinates)), m_sprite{std::make_unique<Sprite>(m_isoCoordinates)},
@@ -52,6 +53,26 @@ void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
   TileData *tileData = TileManager::instance().getTileData(tileID);
   if (tileData && !tileID.empty())
   {
+    std::vector<Point> targetCoordinates = TileManager::instance().getTargetCoordsOfTileID(origCornerPoint, tileID);
+    if (targetCoordinates.size() > 1 && m_isoCoordinates == origCornerPoint)
+    { // multibuilding placed on this node
+      for (auto coord : targetCoordinates)
+      {
+        if (coord == origCornerPoint)
+        {
+          LOG(LOG_INFO) << "i'm the origin coordinate";
+
+        }
+        else
+        {
+          Engine::instance().map->getMapNode(coord).setTileID(tileID, origCornerPoint);
+          Engine::instance().map->getMapNode(coord).setRenderFlag(Layer::BUILDINGS,false);
+        
+          LOG(LOG_INFO) << "i'm a multinode";
+        }
+      }
+      
+    }
     const Layer layer = TileManager::instance().getTileLayer(tileID);
     switch (layer)
     {
@@ -442,6 +463,7 @@ void MapNode::demolishLayer(const Layer &layer)
       TileOrientation::TILE_DEFAULT_ORIENTATION; // We need to reset TileOrientation, in case it's set (demolishing autotiles)
   m_mapNodeData[layer].origCornerPoint = this->getCoordinates();
   m_mapNodeData[Layer::ZONE].shouldRender = true;
+  //LOG(LOG_INFO) << "reset render to true";
   m_sprite->clearSprite(layer);
 }
 

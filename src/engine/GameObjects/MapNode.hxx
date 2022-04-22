@@ -139,7 +139,10 @@ public:
 
   bool isLayerOccupied(const Layer &layer) const { return m_mapNodeData[layer].tileData != nullptr; }
 
-  void setRenderFlag(Layer layer, bool shouldRender) { m_mapNodeData[layer].shouldRender = shouldRender; }
+  void setRenderFlag(Layer layer, bool shouldRender) {
+    //LOG(LOG_INFO) << "reset render to true";
+    m_mapNodeData[layer].shouldRender = shouldRender;
+  }
 
   /** @brief Set elevation bit mask.
     */

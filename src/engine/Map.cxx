@@ -77,6 +77,7 @@ void Map::getNodeInformation(const Point &isoCoordinates) const
   LOG(LOG_INFO) << "[Layer: TERRAIN] ID: " << mapNode.getMapNodeDataForLayer(Layer::TERRAIN).tileID;
   LOG(LOG_INFO) << "[Layer: WATER] ID: " << mapNode.getMapNodeDataForLayer(Layer::WATER).tileID;
   LOG(LOG_INFO) << "[Layer: BUILDINGS] ID: " << mapNode.getMapNodeDataForLayer(Layer::BUILDINGS).tileID;
+  LOG(LOG_INFO) << "Z-Index: " << mapNode.getCoordinates().z;
   LOG(LOG_INFO) << "Category: " << tileData->category;
   LOG(LOG_INFO) << "FileName: " << tileData->tiles.fileName;
   LOG(LOG_INFO) << "PickRandomTile: " << tileData->tiles.pickRandomTile;
@@ -360,9 +361,16 @@ void Map::renderMap() const
   MICROPROFILE_SCOPEI("Map", "Render Map", MP_YELLOW);
 #endif
 
-  for (int i = 0; i < m_visibleNodesCount; ++i)
+  //for (int i = m_visibleNodesCount-1; i > 0; --i)
+  //  //for (int i = 0; i < m_visibleNodesCount; ++i)
+  //{
+  //  //LOG(LOG_INFO) << "Rendering " << pMapNodesVisible[i].get << "," << y;
+  //  pMapNodesVisible[i]->render();
+  //}
+
+  for (auto node : mapNodesInDrawingOrder)
   {
-    pMapNodesVisible[i]->render();
+    node->render();
   }
 }
 
@@ -373,11 +381,24 @@ void Map::refresh()
 #endif
 
   calculateVisibleMap();
+  sortMapByZIndex();
 
-  for (int i = 0; i < m_visibleNodesCount; ++i)
+  //for (int i = m_visibleNodesCount - 1; i > 0; --i)
+  //  //for (int i = 0; i < m_visibleNodesCount; ++i)
+  //{
+  //  pMapNodesVisible[i]->refresh();
+  //}
+  for (auto node : mapNodesInDrawingOrder)
   {
-    pMapNodesVisible[i]->refresh();
+    node->getSprite()->refresh();
   }
+}
+
+void Map::sortMapByZIndex()
+{
+  LOG(LOG_INFO) << "sorting " << mapNodesInDrawingOrder.size() << " nodes";
+  std::sort(mapNodesInDrawingOrder.begin(), mapNodesInDrawingOrder.end(),
+            [](MapNode *lhs, MapNode *rhs) { return lhs->getCoordinates().z > rhs->getCoordinates().z; });
 }
 
 //TODO: move it out from the map
@@ -432,7 +453,8 @@ Point Map::findNodeInMap(const SDL_Point &screenCoordinates, const Layer &layer)
     const int yMiddlePoint = isoY - diff;
 
     // Move y up and down 2 neighbors.
-    for (int y = std::max(yMiddlePoint - neighborReach, 0); (y <= yMiddlePoint + neighborReach) && (y < mapSize); ++y)
+    for (int y = std::max(yMiddlePoint + neighborReach, 0); (y >= yMiddlePoint - neighborReach) && (y < mapSize); --y)
+      //for (int y = std::max(yMiddlePoint - neighborReach, 0); (y <= yMiddlePoint + neighborReach) && (y < mapSize); ++y)
     {
       //get all coordinates for node at x,y
       Point coordinate = getMapNode(Point(x, y)).getCoordinates();
@@ -710,13 +732,15 @@ void Map::calculateVisibleMap(void)
   // ZOrder starts from topmost node to the right. (0,127) =1,(1,127) =2, ...
   for (int y = m_columns - 1; y >= 0; y--)
   {
-    for (int x = 0; x < m_rows; x++)
+    //for (int y = 0; y <= m_columns - 1; y++)
+    //for (int x = 0; x < m_rows; x++)
+    for (int x = m_rows - 1; x > 0; x--)
     {
       const int xVal = x + y;
       const int yVal = y - x;
-
       if ((xVal >= left) && (xVal <= right) && (yVal <= top) && (yVal >= bottom))
       {
+        //LOG(LOG_INFO) << "Rendering " << x << "," << y;
         pMapNodesVisible[m_visibleNodesCount++] = mapNodes[nodeIdx(x, y)].getSprite();
       }
     }
@@ -758,9 +782,13 @@ void Map::setTileID(const std::string &tileID, Point coordinate)
     demolishNode(targetCoordinates, 0, Layer::BUILDINGS);
   }
 
+  MapNode &currentNode = getMapNode(coordinate);
+  currentNode.setTileID(tileID, coordinate);
+
+
   for (auto coord : targetCoordinates)
   { // now we can place our building
-
+    break; // don't doanything
     MapNode &currentMapNode = mapNodes[nodeIdx(coord.x, coord.y)];
 
     if (coord != coordinate && targetCoordinates.size() > 1)
@@ -774,7 +802,7 @@ void Map::setTileID(const std::string &tileID, Point coordinate)
 
     if (!targetCoordinates.size() == 1)
     { // if it's not a >1x1 building, place tileID on the current coordinate (e.g. ground decoration beneath a > 1x1 building)
-      currentMapNode.setTileID(tileID, coord);
+      //currentMapNode.setTileID(tileID, coord);
     }
     else
     { // set the tileID for the mapNode of the origin coordinates only on the origin coordinate
