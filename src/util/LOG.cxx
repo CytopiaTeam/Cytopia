@@ -1,5 +1,6 @@
 #include "LOG.hxx"
 #include "Filesystem.hxx"
+#include "Settings.hxx"
 
 #ifdef __ANDROID__
 #include <android/log.h>
@@ -32,7 +33,10 @@ LOG::~LOG()
       std::cout << getTimeStamp() << LOG_PREFIX_COLORED[m_LogType] << m_Logger.str() << std::endl;
   }
 #ifndef __ANDROID__
-  writeErrorLog(message);
+  if (Settings::instance().writeErrorLogFile)
+  {
+    writeErrorLog(message);
+  }
 #endif
 }
 

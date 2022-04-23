@@ -21,6 +21,7 @@ set(SOURCE_FILES
         engine/basics/Camera.{hxx,cxx}
         engine/basics/isoMath.{hxx,cxx}
         engine/basics/mapEdit.{hxx,cxx}
+        engine/basics/point.hxx
         engine/basics/PointFunctions.{hxx,cxx}
         engine/basics/Settings.{hxx,cxx}
         engine/basics/GameStates.{hxx,cxx}
@@ -54,6 +55,7 @@ set(SOURCE_FILES
         engine/TileManager.{hxx,cxx}
         engine/UIManager.{hxx,cxx}
         engine/WindowManager.{hxx,cxx}
+        game/ZoneArea.{hxx,cxx}
         game/ZoneManager.{hxx,cxx}
         game/GamePlay.{hxx,cxx}
         )
@@ -187,6 +189,22 @@ if (USE_ANGELSCRIPT)
     target_link_libraries(${PROJECT_NAME} PRIVATE Angelscript::Angelscript)
     target_compile_definitions(${PROJECT_NAME} PRIVATE USE_ANGELSCRIPT)
 endif ()
+
+if (ENABLE_ASAN)
+	target_compile_options(${PROJECT_NAME} PUBLIC -fsanitize=address -fno-sanitize-recover=all)
+	target_link_options(${PROJECT_NAME} PUBLIC -fsanitize=address)
+endif ()
+
+if (ENABLE_UBSAN)
+	target_compile_options(${PROJECT_NAME} PUBLIC -fsanitize=undefined -fno-sanitize-recover=all)
+	target_link_options(${PROJECT_NAME} PUBLIC -fsanitize=undefined)
+endif ()
+
+if (ENABLE_TSAN)
+	target_compile_options(${PROJECT_NAME} PUBLIC -fsanitize=thread -fno-sanitize-recover=all)
+	target_link_options(${PROJECT_NAME} PUBLIC -fsanitize=thread)
+endif ()
+
 
 # copy the resources to the compiled directory. On Apple those files are used from the resources dir, not from the root dir.
 if (NOT APPLE)

@@ -36,5 +36,9 @@
         "Language": "en",
         "SubMenuButtonHeight": 32,
         "SubMenuButtonWidth": 32
+    },
+    "Debug": {
+      "WriteErrorLogToFile": false
+
     }
 }

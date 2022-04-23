@@ -3,133 +3,222 @@
 #include "LOG.hxx"
 #include "../services/GameClock.hxx"
 #include "../services/Randomizer.hxx"
+#include "GameStates.hxx"
 
 ZoneManager::ZoneManager()
 {
+  Engine::instance().map->registerCbPlaceBuilding(
+      [this](const MapNode &mapNode) { // If we place a building on zone tile, add it to the cache to update next tick
+        m_nodesToOccupy.push_back(mapNode.getCoordinates());
+      });
+
+  Engine::instance().map->registerCbPlaceZone(
+      [this](const MapNode &mapNode) { // If we place a zone tile, add it to the cache to update next tick
+        ZoneNode nodeToAdd = {mapNode.getCoordinates(), mapNode.getTileData(Layer::ZONE)->zoneTypes[0],
+                              mapNode.getTileData(Layer::ZONE)->zoneDensity[0]};
+        m_nodesToAdd.push_back(nodeToAdd);
+      });
+
+  Engine::instance().map->registerCbDemolish(
+      [this](const MapNode *mapNode)
+      {
+        switch (GameStates::instance().demolishMode)
+        {
+        case DemolishMode::DE_ZONE:
+        {
+          m_nodesToRemove.push_back(mapNode->getCoordinates());
+          break;
+        }
+        case DemolishMode::DEFAULT:
+        {
+          if (!mapNode->getTileData(Layer::BUILDINGS))
+          {
+            m_nodesToVacate.push_back(mapNode->getCoordinates());
+          }
+
+          break;
+        }
+        }
+      });
+
   GameClock::instance().addRealTimeClockTask(
       [this]()
       {
+        update();
         spawnBuildings();
         return false;
       },
       1s, 1s);
 }
 
-// Nothing here right now
-void ZoneManager::update() {}
+void ZoneManager::update()
+{
+  // Vacate nodes (Demolish Buildings on zones)
+  if (!m_nodesToVacate.empty())
+  {
+    for (auto nodeToVacate : m_nodesToVacate)
+    {
+      for (auto &zoneArea : m_zoneAreas)
+      {
+        if (zoneArea.isWithinZone(nodeToVacate))
+        {
+          zoneArea.setVacancy(nodeToVacate, true);
+          break;
+        }
+      }
+    }
+    m_nodesToVacate.clear();
+  }
+
+  // Occupy nodes (building has been spawned on a zone node)
+  if (!m_nodesToOccupy.empty())
+  {
+    for (auto nodeToOccupy : m_nodesToOccupy)
+    {
+      for (auto &zoneArea : m_zoneAreas)
+      {
+        if (zoneArea.isWithinZone(nodeToOccupy))
+        {
+          zoneArea.setVacancy(nodeToOccupy, false);
+          break;
+        }
+      }
+    }
+    m_nodesToOccupy.clear();
+  }
+
+  // Add new nodes (zone has been placed)
+  if (!m_nodesToAdd.empty())
+  {
+    for (auto nodeToAdd : m_nodesToAdd)
+    {
+      addZoneNodeToArea(nodeToAdd, m_zoneAreas);
+    }
+    m_nodesToAdd.clear();
+  }
+
+  // Remove nodes (Dezone on zone tiles)
+  if (!m_nodesToRemove.empty())
+  {
+    for (auto m_nodeToRemove : m_nodesToRemove)
+    {
+      removeZoneNode(m_nodeToRemove);
+    }
+    m_nodesToRemove.clear();
+  }
+}
 
 void ZoneManager::spawnBuildings()
 {
-  constexpr int amountOfBuildingsToSpawn = 5;
-  auto &randomizer = Randomizer::instance();
-  // shuffle mapNodes so placement of building looks random
-  randomizer.shuffle(m_MapNodes.begin(), m_MapNodes.end());
-
-  int buildingsSpawned = 0;
-  // pick every single zone node we have
-  for (auto &node : m_MapNodes)
+  for (auto &zoneArea : m_zoneAreas)
   {
-    if (buildingsSpawned >= amountOfBuildingsToSpawn)
+    // check if there are any buildings to spawn, if not, do nothing.
+    if (zoneArea.isVacant())
     {
+      int occupied = 0;
+      int free = 0;
+      for (auto node : zoneArea)
+      {
+        if (node.occupied)
+        {
+          occupied++;
+        }
+        else
+          free++;
+      }
+      zoneArea.spawnBuildings();
+    }
+  }
+}
+
+std::vector<int> ZoneManager::getAdjacentZoneAreas(const ZoneNode &zoneNode, std::vector<ZoneArea> &zoneAreas)
+{
+  std::vector<int> neighborZones;
+  int i = 0;
+
+  for (auto &zoneArea : zoneAreas)
+  {
+    if (zoneArea.getZone() == zoneNode.zoneType && (zoneArea.getZoneDensity() == zoneNode.zoneDensity) &&
+        zoneArea.isWithinBoundaries(zoneNode.coordinate) && zoneArea.isNeighborOfZone(zoneNode.coordinate))
+    {
+      neighborZones.push_back(i);
+    }
+    ++i;
+  }
+
+  return neighborZones;
+}
+
+void ZoneManager::addZoneNodeToArea(ZoneNode &zoneNode, std::vector<ZoneArea> &zoneAreas)
+{
+  auto zoneNeighbour = getAdjacentZoneAreas(zoneNode, zoneAreas);
+
+  if (zoneNeighbour.empty())
+  {
+    // new zonearea
+    zoneAreas.emplace_back(zoneNode);
+  }
+  else if (zoneNeighbour.size() == 1)
+  {
+    // add to this zone
+    zoneAreas[zoneNeighbour[0]].addZoneNode(zoneNode);
+  }
+  else
+  {
+    // merge zone areas
+    ZoneArea &mergedZone = zoneAreas[zoneNeighbour[0]];
+    mergedZone.addZoneNode(zoneNode);
+
+    for (int idx = 1; idx < zoneNeighbour.size(); ++idx)
+    {
+      mergeZoneAreas(mergedZone, zoneAreas[zoneNeighbour[idx]]);
+    }
+
+    for (int idx = zoneNeighbour.size() - 1; idx > 0; --idx)
+    {
+      zoneAreas.erase(zoneAreas.begin() + zoneNeighbour[idx]);
+    }
+  }
+}
+
+std::vector<ZoneArea> ZoneManager::rebuildZoneArea(ZoneArea &zoneArea)
+{
+  std::vector<ZoneArea> newZoneAreas;
+
+  for (ZoneNode zoneNode : zoneArea)
+  {
+    addZoneNodeToArea(zoneNode, newZoneAreas);
+  }
+
+  return newZoneAreas;
+}
+
+void ZoneManager::removeZoneNode(Point coordinate)
+{
+  for (auto zoneIt = m_zoneAreas.begin(); zoneIt != m_zoneAreas.end(); zoneIt++)
+  {
+    if (zoneIt->isWithinZone(coordinate))
+    {
+      zoneIt->removeZoneNode(coordinate);
+
+      if (zoneIt->size() == 0)
+      {
+        m_zoneAreas.erase(zoneIt);
+      }
+      else
+      {
+        auto zoneAreas = rebuildZoneArea(*zoneIt);
+        assert(zoneAreas.size() > 0);
+        // If zoneAreas size is 1, means zoneArea is still compact, nothing to be done
+
+        if (zoneAreas.size() > 1)
+        {
+          m_zoneAreas.erase(zoneIt);
+          m_zoneAreas.insert(m_zoneAreas.end(), zoneAreas.begin(), zoneAreas.end());
+        }
+      }
+
       break;
     }
-    // if a building is bigger than one node, the adjacent nodes will no longer be a zone node and buildings can't be spawned there
-    // consider that we're in a loop and if the zones stay, they will still be in the vector we're iterating over.
-    if (!node || !node->getTileData(Layer::ZONE))
-    {
-      continue; // if the node that is still in the vector is no longer a zone node, skip
-    }
-
-    // a building can be tied to multiple zones. So get all elligible zones for this building
-    std::vector<std::string> availableZoneTiles;
-
-    Zones thisZone = Zones::RESIDENTIAL; // initialize zone with residential. Maybe add invalid later?
-    // a zone tile only has one zone tied to it. the one it represents, so pick first element of vector
-    if (node->getTileData(Layer::ZONE)->zones[0])
-    {
-      thisZone = node->getTileData(Layer::ZONE)->zones[0];
-    }
-
-    // get the maximum size we can spawn at this node, but limit it by 4x4 tiles
-    unsigned int maxSizeX = std::min(4, static_cast<int>(getMaximumTileSize(node->getCoordinates()).width));
-    unsigned int maxSizeY = std::min(4, static_cast<int>(getMaximumTileSize(node->getCoordinates()).height));
-    TileSize maxTileSize = {maxSizeX, maxSizeY};
-
-    std::string building = TileManager::instance().getRandomTileIDForZoneWithRandomSize(thisZone, maxTileSize);
-
-    // place the building
-    std::vector targetObjectNodes = Engine::instance().map->getObjectCoords(node->getCoordinates(), building);
-    Engine::instance().setTileIDOfNode(targetObjectNodes.begin(), targetObjectNodes.end(), building, false);
-    buildingsSpawned++;
   }
-}
-
-void ZoneManager::addZoneNode(MapNode *node) { m_MapNodes.emplace_back(node); }
-void ZoneManager::removeZoneNode(MapNode *node)
-{
-  if (node)
-  {
-    m_MapNodes.erase(std::remove(m_MapNodes.begin(), m_MapNodes.end(), node));
-  }
-}
-
-void ZoneManager::getNodeArea(MapNode *node)
-{
-  LOG(LOG_INFO) << "Starting at " << node->getCoordinates().x << ", " << node->getCoordinates().y;
-
-  for (auto coord : PointFunctions::getNeighbors(node->getCoordinates(), true, 2))
-  {
-    LOG(LOG_INFO) << "Found " << coord.x << ", " << coord.y;
-  }
-  if (node)
-  {
-    int nodeX = node->getCoordinates().x;
-    int nodeY = node->getCoordinates().y;
-
-    std::vector<Point> areaCoordinates;
-    LOG(LOG_INFO) << "Starting ";
-
-    int dist = 1;
-    for (int x = nodeX - dist; x <= nodeX + dist; x++)
-    {
-      for (int y = nodeY - dist; y <= nodeY + dist; y++)
-      {
-
-        // LOG(LOG_INFO) << "Found " << x << ", " << y;
-      }
-    }
-  }
-}
-
-TileSize ZoneManager::getMaximumTileSize(Point originPoint)
-{
-  TileSize possibleSize;
-
-  for (int distance = 1; distance <= possibleSize.width || distance <= possibleSize.height; distance++)
-  {
-    const MapNode *currentNodeInXDirection = getZoneNodeWithCoordinate({originPoint.x - distance, originPoint.y});
-    const MapNode *currentNodeInYDirection = getZoneNodeWithCoordinate({originPoint.x, originPoint.y + distance});
-
-    if (currentNodeInXDirection && currentNodeInXDirection->getTileData(Layer::ZONE))
-    {
-      possibleSize.width++;
-    }
-    if (currentNodeInYDirection && currentNodeInYDirection->getTileData(Layer::ZONE))
-    {
-      possibleSize.height++;
-    }
-  }
-  return possibleSize;
-}
-
-const MapNode *ZoneManager::getZoneNodeWithCoordinate(Point coordinate)
-{
-  for (const MapNode *node : m_MapNodes)
-  {
-    if (node->getCoordinates().x == coordinate.x && node->getCoordinates().y == coordinate.y)
-    {
-      return node;
-    }
-  }
-  return nullptr;
 }
