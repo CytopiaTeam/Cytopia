@@ -43,6 +43,7 @@ bool endsWith(const std::string &mainStr, const std::string &toMatch);
 * @param mainStr string to scan through
 * @param toMatch substring to search for
 * @returns if substring is at the start of the main string
+*/
 bool startsWith(const std::string &mainStr, const std::string &toMatch);
 
 } // namespace strings
