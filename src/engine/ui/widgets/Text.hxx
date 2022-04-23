@@ -39,7 +39,6 @@ public:
   void setFontSize(int fontSize);
 
   /** @brief gets the Font size of this element
-   * gets the font size of the element
    * @returns the element's font size
    */
   int getFontSize() const { return m_fontSize; }

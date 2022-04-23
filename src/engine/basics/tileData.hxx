@@ -38,7 +38,7 @@
 
 BETTER_ENUM(TileType, int,
             DEFAULT,          ///< Default is for buildings and practically everything that'll be placed on the TERRAIN layer
-            FLORA,            /// Flora and Fauna,Trees and son on
+            FLORA,            ///< Flora and Fauna,Trees and so on
             TERRAIN,          ///< Terrain itself
             WATER,            ///< Water terrain
             BLUEPRINT,        ///< Same as terrain, but gets placed on the BLUEPRINT layer
@@ -72,20 +72,17 @@ struct TileSetData
 {
   std::string fileName; ///< the filename of the spritesheet
   int count =
-      1; ///< count is the number of images that are in the tile set. This is for things that will have a random tile chosen from their set.
+      1; ///< number of images that are in the tile set. This is for things that will have a random tile chosen from their set.
   int clippingWidth = 0;  ///< the width of the clipRect. (Where the tile will be clipped from the spritesheet)
   int clippingHeight = 0; ///< the height of the clipRect. (Where the tile will be clipped from the spritesheet)
   int offset =
-      0; ///< offset is where the first image in this tileset is, so a file could contain multiple tilesets and offset would define where to start this tileset and count would define how many images it has. offset = 0 is the first image, offset = 3 is the 4th tile.
+      0; ///< where the first image in this tileset is, so a file could contain multiple tilesets and offset would define where to start this tileset and count would define how many images it has. offset = 0 is the first image, offset = 3 is the 4th tile.
   bool pickRandomTile = false; ///< determines if a random tile of the tileset should be used, if set to true
   int rotations =
-      1; ///< rotations is the number of rotations that exist in this tileset (for buildings).  this is not applicable for terrain and roads, their orientation is figured out differently. For buildings that have multiple orientations, this isn't implemented yet but it prevents buildings with multiple orientations from being placed with  a random image (that might be the wrong size).
+      1; ///< number of rotations that exist in this tileset (for buildings).  this is not applicable for terrain and roads, their orientation is figured out differently. For buildings that have multiple orientations, this isn't implemented yet but it prevents buildings with multiple orientations from being placed with  a random image (that might be the wrong size).
 };
 
-/**
- * @brief How many tiles are occupied by a building
- * 
- */
+/// How many tiles are occupied by a building
 struct TileSize {
     unsigned int width;
     unsigned int height;

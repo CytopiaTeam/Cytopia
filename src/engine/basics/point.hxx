@@ -38,7 +38,7 @@ public:
   /**
    * @brief Checks if a given points is a neighbor of this point
    *
-   * @param coordinateOne Point to check if it's adjacent
+   * @param coordinate Point to check if it's adjacent
    * @return if the two points are neighbors
    */
   bool isNeighborOf(Point coordinate) const
@@ -49,7 +49,7 @@ public:
   /**
    * @brief Check if a given point is a direct neighbor (cardinal direction) of this point
    *
-   * @param coordinate - Point to check if it is a direct neighbor
+   * @param coordinate Point to check if it is a direct neighbor
    * @return if point is a direct neighbor in a cardinal direction (top, bottom, left, right)
    */
   bool isDirectNeighborOf(Point coordinate) const

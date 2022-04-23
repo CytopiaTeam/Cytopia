@@ -25,7 +25,6 @@ public:
   void startTimer();
 
   /** @brief makes the Tooltip visible
-   * makes the Tooltip visible
    */
   void showTooltip();
 
