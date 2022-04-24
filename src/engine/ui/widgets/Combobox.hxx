@@ -4,7 +4,7 @@
 #include <memory>
 
 #include "../basics/UIElement.hxx"
-#include "TextField.hxx"
+#include "DropdownMenu.hxx"
 
 class ComboBox : public UIElement
 {
@@ -55,7 +55,7 @@ private:
   /// represents the whole UIElement including the opened menu
   SDL_Rect m_wholeElementRect;
   /// pointer to the textField of this comboBox
-  std::unique_ptr<TextField> m_textField;
+  std::unique_ptr<DropdownMenu> m_textField;
 
   bool m_isMenuOpened = false;
 

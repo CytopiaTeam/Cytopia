@@ -12,7 +12,7 @@
 #include "ui/widgets/Combobox.hxx"
 #include "ui/widgets/Frame.hxx"
 #include "ui/widgets/Text.hxx"
-#include "ui/widgets/TextField.hxx"
+#include "ui/widgets/DropdownMenu.hxx"
 #include "ui/widgets/Tooltip.hxx"
 #include "ui/widgets/Slider.hxx"
 #include "../util/Singleton.hxx"
