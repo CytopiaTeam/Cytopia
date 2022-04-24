@@ -389,14 +389,9 @@ void Map::refresh()
   MICROPROFILE_SCOPEI("Map", "Refresh Map", MP_YELLOW);
 #endif
 
-  // calculateVisibleMap();
+  calculateVisibleMap();
   sortMapByZIndex();
 
-  //for (int i = m_visibleNodesCount - 1; i > 0; --i)
-  //  //for (int i = 0; i < m_visibleNodesCount; ++i)
-  //{
-  //  pMapNodesVisible[i]->refresh();
-  //}
   for (auto node : mapNodesInDrawingOrder)
   {
     node->getSprite()->refresh();
@@ -737,7 +732,7 @@ void Map::calculateVisibleMap(void)
   const int bottom = bottomRight.y - bottomRight.x - 1 - MapNode::maxHeight;
 
   m_visibleNodesCount = 0;
-
+mapNodesInDrawingOrder.clear();
   // ZOrder starts from topmost node to the right. (0,127) =1,(1,127) =2, ...
   for (int y = m_columns - 1; y >= 0; y--)
   {
@@ -749,8 +744,7 @@ void Map::calculateVisibleMap(void)
       const int yVal = y - x;
       if ((xVal >= left) && (xVal <= right) && (yVal <= top) && (yVal >= bottom))
       {
-        //LOG(LOG_INFO) << "Rendering " << x << "," << y;
-        pMapNodesVisible[m_visibleNodesCount++] = mapNodes[nodeIdx(x, y)].getSprite();
+        mapNodesInDrawingOrder.push_back(&mapNodes[nodeIdx(x, y)]);
       }
     }
   }
