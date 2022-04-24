@@ -34,7 +34,7 @@ public:
 
   bool onMouseButtonUp(const SDL_Event &event) override;
   void onMouseMove(const SDL_Event &event) override;
-  void onMouseLeave(const SDL_Event &event) override;
+  // void onMouseLeave(const SDL_Event &event) override;
 
   /** @brief Get the number of items in the menu
   * @returns number of items in the menu

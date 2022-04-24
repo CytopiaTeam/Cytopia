@@ -14,7 +14,8 @@ ComboBox::ComboBox(const SDL_Rect &uiElementRect)
   m_dropdownMenu->setVisibility(false);
 
   // set TextFields text alignment to center as default
-  m_dropdownMenu->textAlignment = TextFieldAlignment::CENTERED;
+  // REDUNDANT
+  // m_dropdownMenu->textAlignment = TextFieldAlignment::CENTERED;
 }
 
 void ComboBox::draw()
@@ -165,7 +166,8 @@ bool ComboBox::onMouseButtonDown(const SDL_Event &event)
 
 void ComboBox::onMouseLeave(const SDL_Event &event)
 {
-  m_dropdownMenu->onMouseLeave(event);
+  // m_dropdownMenu->onMouseLeave(event);
+  m_dropdownMenu->hoveredID = -1;
   changeButtonState(BUTTONSTATE_DEFAULT);
 }
 

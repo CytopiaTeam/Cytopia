@@ -109,8 +109,8 @@ bool DropdownMenu::onMouseButtonUp(const SDL_Event &event)
 void DropdownMenu::onMouseMove(const SDL_Event &event)
 {
   // TODO: Calculation deviates by 4 pixel in height because of the frame
-  if (hoveredID != ((m_itemHeight + event.button.y - m_uiElementRect.y) / m_itemHeight) - 1)
-  {
+  //if (hoveredID != ((m_itemHeight + event.button.y - m_uiElementRect.y) / m_itemHeight) - 1)
+  //{
     hoveredID = ((m_itemHeight + event.button.y - m_uiElementRect.y) / m_itemHeight) - 1;
     // because of the -4 pixel offset that's been added in the constructor, the id would exceed the size of the vector, if the bottom of the dropdown is clicked
     if (hoveredID >= static_cast<int>(m_numItems))
@@ -118,11 +118,11 @@ void DropdownMenu::onMouseMove(const SDL_Event &event)
       hoveredID = static_cast<int>(m_numItems - 1);
     }
     m_highlightingRect.y = ((hoveredID)*m_itemHeight) + m_uiElementRect.y;
-  }
+  //}
 }
 
-void DropdownMenu::onMouseLeave(const SDL_Event &)
+/* void DropdownMenu::onMouseLeave(const SDL_Event &)
 {
   // reset the hovering
   hoveredID = -1;
-}
+}*/
