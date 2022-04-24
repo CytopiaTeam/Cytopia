@@ -336,7 +336,7 @@ std::vector<uint8_t> Map::calculateAutotileBitmask(const MapNode *const pMapNode
       }
 
       // only auto-tile categories that can be tiled.
-      const std::string& nodeTileId = pMapNode->getMapNodeDataForLayer(currentLayer).tileID;
+      const std::string &nodeTileId = pMapNode->getMapNodeDataForLayer(currentLayer).tileID;
       if (TileManager::instance().isTileIDAutoTile(nodeTileId))
       {
         for (const auto &neighbour : neighborNodes)
@@ -357,6 +357,7 @@ std::vector<uint8_t> Map::calculateAutotileBitmask(const MapNode *const pMapNode
 
 void Map::renderMap() const
 {
+
 #ifdef MICROPROFILE_ENABLED
   MICROPROFILE_SCOPEI("Map", "Render Map", MP_YELLOW);
 #endif
@@ -368,11 +369,19 @@ void Map::renderMap() const
   //  pMapNodesVisible[i]->render();
   //}
 
-  for (auto node : mapNodesInDrawingOrder)
+  // for (auto node : mapNodesInDrawingOrder)
+  // {
+  //   node->render();
+  // }
+  for (auto currentLayer : allLayersOrdered)
   {
-    node->render();
+    for (auto node : mapNodesInDrawingOrder)
+    {
+      node->render(currentLayer);
+    }
   }
 }
+
 
 void Map::refresh()
 {
@@ -380,7 +389,7 @@ void Map::refresh()
   MICROPROFILE_SCOPEI("Map", "Refresh Map", MP_YELLOW);
 #endif
 
-  calculateVisibleMap();
+  // calculateVisibleMap();
   sortMapByZIndex();
 
   //for (int i = m_visibleNodesCount - 1; i > 0; --i)
@@ -398,7 +407,7 @@ void Map::sortMapByZIndex()
 {
   LOG(LOG_INFO) << "sorting " << mapNodesInDrawingOrder.size() << " nodes";
   std::sort(mapNodesInDrawingOrder.begin(), mapNodesInDrawingOrder.end(),
-            [](MapNode *lhs, MapNode *rhs) { return lhs->getCoordinates().z > rhs->getCoordinates().z; });
+            [](MapNode *lhs, MapNode *rhs) { return lhs->getCoordinates().z < rhs->getCoordinates().z; });
 }
 
 //TODO: move it out from the map
@@ -454,7 +463,7 @@ Point Map::findNodeInMap(const SDL_Point &screenCoordinates, const Layer &layer)
 
     // Move y up and down 2 neighbors.
     for (int y = std::max(yMiddlePoint + neighborReach, 0); (y >= yMiddlePoint - neighborReach) && (y < mapSize); --y)
-      //for (int y = std::max(yMiddlePoint - neighborReach, 0); (y <= yMiddlePoint + neighborReach) && (y < mapSize); ++y)
+    //for (int y = std::max(yMiddlePoint - neighborReach, 0); (y <= yMiddlePoint + neighborReach) && (y < mapSize); ++y)
     {
       //get all coordinates for node at x,y
       Point coordinate = getMapNode(Point(x, y)).getCoordinates();
@@ -785,9 +794,14 @@ void Map::setTileID(const std::string &tileID, Point coordinate)
   MapNode &currentNode = getMapNode(coordinate);
   currentNode.setTileID(tileID, coordinate);
 
+  // for (auto coord : targetCoordinates)
+  // {
 
+  //   MapNode &currentMapNode = mapNodes[nodeIdx(coord.x, coord.y)];
+  //   nodesToBeUpdated.push_back(&currentMapNode);
+  // }
   for (auto coord : targetCoordinates)
-  { // now we can place our building
+  {        // now we can place our building
     break; // don't doanything
     MapNode &currentMapNode = mapNodes[nodeIdx(coord.x, coord.y)];
 
@@ -802,7 +816,8 @@ void Map::setTileID(const std::string &tileID, Point coordinate)
 
     if (!targetCoordinates.size() == 1)
     { // if it's not a >1x1 building, place tileID on the current coordinate (e.g. ground decoration beneath a > 1x1 building)
-      //currentMapNode.setTileID(tileID, coord);
+      LOG(LOG_INFO) << "yes";
+      currentMapNode.setTileID(tileID, coord);
     }
     else
     { // set the tileID for the mapNode of the origin coordinates only on the origin coordinate
@@ -810,6 +825,7 @@ void Map::setTileID(const std::string &tileID, Point coordinate)
         currentMapNode.setTileID(tileID, coordinate);
       }
     }
+    // currentMapNode.setZIndex( currentMapNode.getCoordinates().z - Settings::instance().mapSize*3 - 3);
 
     // place ground deco if we have one
     if (!randomGroundDecorationTileID.empty())

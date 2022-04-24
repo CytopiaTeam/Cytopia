@@ -153,10 +153,15 @@ void TerrainGenerator::generateTerrain(std::vector<MapNode> &mapNodes, std::vect
   //for (int y = mapSize - 1; y >= 0; y--)
   //for (int y = mapSize - 1; y >= 0; y--)
   //  for (int x = mapSize - 1; x >= 0; x--)
-    for (int y = 0; y < mapSize; y++)
-    for (int x = mapSize - 1; x >= 0; x--)
-    //for (int x = 0; x < mapSize; x++)
-      {
+  // for (int y = 0; y < mapSize; y++)
+  // for (int x = mapSize - 1; x >= 0; x--)
+  // for (int y = mapSize - 1; y >= 0; y--)
+
+
+    for (int x = 0; x < mapSize; x++)
+      for (int y = mapSize - 1; y >= 0; y--)
+    //for (i    for (int x = 0; x < mapSize; x++)nt x = 0; x < mapSize; x++)
+    {
       z++;
       mapNodes[x * mapSize + y].setZIndex(z);
       mapNodesInDrawingOrder.push_back(&mapNodes[x * mapSize + y]);

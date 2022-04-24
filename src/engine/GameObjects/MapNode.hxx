@@ -78,6 +78,7 @@ public:
   /** @brief Render MapNode
   * Renders the sprite object(s) of the node
   */
+  void render(Layer currentLayer) const;
   void render() const;
 
   void setBitmask(unsigned char elevationBitmask, std::vector<uint8_t> tileTypeBitmask);
@@ -139,10 +140,7 @@ public:
 
   bool isLayerOccupied(const Layer &layer) const { return m_mapNodeData[layer].tileData != nullptr; }
 
-  void setRenderFlag(Layer layer, bool shouldRender) {
-    //LOG(LOG_INFO) << "reset render to true";
-    m_mapNodeData[layer].shouldRender = shouldRender;
-  }
+  void setRenderFlag(Layer layer, bool shouldRender) { m_mapNodeData[layer].shouldRender = shouldRender; }
 
   /** @brief Set elevation bit mask.
     */
@@ -168,7 +166,11 @@ public:
   * Update the Z-Index of this mapNode
   * @param the new Z-Index
   */
-  void setZIndex(int zIndex) { m_isoCoordinates.z = zIndex; };
+  void setZIndex(int zIndex)
+  {
+    m_isoCoordinates.z = zIndex;
+    m_originalZ = zIndex;
+  };
 
   /**
    * @brief Maximum height of the node.
@@ -177,12 +179,14 @@ public:
 
 private:
   Point m_isoCoordinates;
+  int m_originalZ = -1;
   std::unique_ptr<Sprite> m_sprite;
   std::string m_previousTileID = "terrain";
   std::vector<TileOrientation> m_autotileOrientation;
   size_t m_elevationOrientation = TileSlopes::DEFAULT_ORIENTATION;
   int m_clippingWidth = 0;
   std::vector<MapNodeData> m_mapNodeData;
+  std::vector<MapNode *> m_multiTileNodes; // keep pointers to other nodes if this is a multile building
   std::vector<unsigned char> m_autotileBitmask;
   unsigned char m_elevationBitmask = 0;
 };

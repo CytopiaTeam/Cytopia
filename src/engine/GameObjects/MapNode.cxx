@@ -8,7 +8,8 @@
 #include "Engine.hxx"
 
 MapNode::MapNode(Point isoCoordinates, const std::string &terrainID, const std::string &tileID)
-    : m_isoCoordinates(std::move(isoCoordinates)), m_sprite{std::make_unique<Sprite>(m_isoCoordinates)},
+    : m_originalZ(isoCoordinates.z),
+      m_isoCoordinates(std::move(isoCoordinates)), m_sprite{std::make_unique<Sprite>(m_isoCoordinates)},
       m_autotileOrientation(LAYERS_COUNT, TileOrientation::TILE_DEFAULT_ORIENTATION),
       m_mapNodeData{std::vector(LAYERS_COUNT, MapNodeData{"", nullptr, 0, m_isoCoordinates, true, TileMap::DEFAULT})},
       m_autotileBitmask(LAYERS_COUNT)
@@ -40,6 +41,7 @@ bool MapNode::changeHeight(const bool higher)
 }
 
 void MapNode::render() const { m_sprite->render(); }
+void MapNode::render(Layer currentLayer) const { m_sprite->render(currentLayer); }
 
 void MapNode::setBitmask(unsigned char elevationBitmask, std::vector<uint8_t> autotileBitmask)
 {
@@ -56,22 +58,42 @@ void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
     std::vector<Point> targetCoordinates = TileManager::instance().getTargetCoordsOfTileID(origCornerPoint, tileID);
     if (targetCoordinates.size() > 1 && m_isoCoordinates == origCornerPoint)
     { // multibuilding placed on this node
+      int minZ = m_isoCoordinates.z;
+      LOG(LOG_INFO) << "old z " << minZ;
+      int minY=0;
+    for (auto coord : targetCoordinates)
+    {
+        if(coord.x == origCornerPoint.x)
+        {
+          minZ = std::min(minZ, Engine::instance().map->getMapNode(coord).getCoordinates().z);
+          LOG(LOG_INFO) << "Setting new z " << minZ;
+        }
+    }
       for (auto coord : targetCoordinates)
       {
+
         if (coord == origCornerPoint)
         {
-          LOG(LOG_INFO) << "i'm the origin coordinate";
-
+          // LOG(LOG_INFO) << "i'm the origin coordinate";
         }
         else
         {
+          m_multiTileNodes.push_back(&Engine::instance().map->getMapNode(coord));
+          Engine::instance().map->getMapNode(coord).setRenderFlag(Layer::BUILDINGS, false);
+          // Engine::instance().map->getMapNode(coord).setRenderFlag(Layer::TERRAIN, false);
+          Engine::instance().map->getMapNode(coord).updateTexture(Layer::BUILDINGS);
+          // Engine::instance().map->getMapNode(coord).updateTexture(Layer::TERRAIN);
           Engine::instance().map->getMapNode(coord).setTileID(tileID, origCornerPoint);
-          Engine::instance().map->getMapNode(coord).setRenderFlag(Layer::BUILDINGS,false);
-        
-          LOG(LOG_INFO) << "i'm a multinode";
+          Engine::instance().map->getMapNode(coord).setTileID("terrain_basalt", origCornerPoint);
+          Engine::instance().map->getMapNode(coord).setZIndex(minZ);
+
+          // LOG(LOG_INFO) << "i'm a multinode";
         }
       }
-      
+      m_isoCoordinates.z = minZ;
+      LOG(LOG_INFO) << "new z " << minZ;
+
+      // m_isoCoordinates.z = m_isoCoordinates.z - Settings::instance().mapSize;
     }
     const Layer layer = TileManager::instance().getTileLayer(tileID);
     switch (layer)
@@ -496,6 +518,11 @@ void MapNode::demolishNode(const Layer &demolishLayer)
       this->demolishLayer(layer);
       if (layer == Layer::BUILDINGS)
       {
+        for (auto *node : m_multiTileNodes)
+        {
+          node->demolishNode(layer);
+          node->setRenderFlag(layer, true);
+        }
         this->setNodeTransparency(0, Layer::BLUEPRINT);
       }
       updateTexture(demolishLayer);
