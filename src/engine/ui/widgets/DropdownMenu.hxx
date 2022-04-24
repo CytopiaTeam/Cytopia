@@ -22,7 +22,7 @@ public:
 
   ~DropdownMenu() override = default;
 
-  void addText(const std::string &text);
+  void addItem(const std::string &text);
 
   std::string getTextFromID(int id) const;
 
@@ -36,7 +36,7 @@ public:
   void onMouseMove(const SDL_Event &event) override;
   void onMouseLeave(const SDL_Event &event) override;
 
-  size_t count() const { return m_count; };
+  size_t count() const { return m_numItems; };
   bool centerText = true;
 
   int selectedID = -1;
@@ -44,14 +44,15 @@ public:
 
   TextFieldAlignment textAlignment = TextFieldAlignment::CENTERED;
 
-  void clear() { m_textElements.clear(); }
+  void clear() { m_items.clear(); }
 
 private:
-  size_t m_count = 0;
+  size_t m_numItems = 0;
 
-  std::vector<std::unique_ptr<Text>> m_textElements;
-  /// height of this element's text
-  int m_textElementHeight = 0;
+  std::vector<std::unique_ptr<Text>> m_items;
+
+  /// height of each item
+  int m_itemHeight = 0;
 
   // a rect is drawn beneath the current text to hover it
   SDL_Rect m_highlightingRect;

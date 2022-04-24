@@ -19,21 +19,21 @@ void DropdownMenu::draw()
     {
       drawSolidRect(m_highlightingRect, SDL_Color({150, 150, 150}));
     }
-    for (const auto &text : m_textElements)
+    for (const auto &text : m_items)
     {
       text->draw();
     }
   }
 }
 
-void DropdownMenu::addText(const std::string &text)
+void DropdownMenu::addItem(const std::string &text)
 {
   SDL_Rect textRect = m_uiElementRect;
 
   Text *label = new Text();
   label->setText(text);
   textRect.h = label->getUiElementRect().h; // get height of text after instantiating
-  textRect.y = static_cast<int>(m_uiElementRect.y + m_count * textRect.h);
+  textRect.y = static_cast<int>(m_uiElementRect.y + m_numItems * textRect.h);
 
   // center text
   if (centerText)
@@ -41,21 +41,21 @@ void DropdownMenu::addText(const std::string &text)
     textRect.x = m_uiElementRect.x + (m_uiElementRect.w / 2 - label->getUiElementRect().w / 2);
   }
 
-  m_textElementHeight = textRect.h;
+  m_itemHeight = textRect.h;
 
-  m_uiElementRect.h += m_textElementHeight;
-  m_highlightingRect.h = m_textElementHeight;
+  m_uiElementRect.h += m_itemHeight;
+  m_highlightingRect.h = m_itemHeight;
 
   label->setPosition(textRect.x, textRect.y);
-  m_textElements.emplace_back(label);
-  m_count = static_cast<int>(m_textElements.size());
+  m_items.emplace_back(label);
+  m_numItems = static_cast<int>(m_items.size());
 }
 
 std::string DropdownMenu::getTextFromID(int id) const
 {
-  if (id < static_cast<int>(m_count) && static_cast<int>(m_count) > 0 && id >= 0)
+  if (id < static_cast<int>(m_numItems) && static_cast<int>(m_numItems) > 0 && id >= 0)
   {
-    return m_textElements[id]->getUiElementData().text;
+    return m_items[id]->getUiElementData().text;
   }
   return "";
 }
@@ -67,7 +67,7 @@ void DropdownMenu::setPosition(int x, int y)
   m_highlightingRect.x = x + 4;
 
   int currentElement = 0;
-  for (const auto &text : m_textElements)
+  for (const auto &text : m_items)
   {
     //SDL_Rect textRect;
     switch (textAlignment)
@@ -82,7 +82,7 @@ void DropdownMenu::setPosition(int x, int y)
       // for LEFT alignment, we use the same values as the uiElementRect
       break;
     }
-    y = m_uiElementRect.y + (m_textElementHeight * currentElement++);
+    y = m_uiElementRect.y + (m_itemHeight * currentElement++);
     text->setPosition(x, y);
   }
 }
@@ -91,14 +91,14 @@ bool DropdownMenu::onMouseButtonUp(const SDL_Event &event)
 {
   if (isMouseOver(event.button.x, event.button.y))
   {
-    if (!m_textElements.empty())
+    if (!m_items.empty())
     {
-      selectedID = ((m_textElementHeight + event.button.y - m_uiElementRect.y) / m_textElementHeight) - 1;
+      selectedID = ((m_itemHeight + event.button.y - m_uiElementRect.y) / m_itemHeight) - 1;
       // because of the -4 pixel offset that's been added in the constructor, the id would exceed the size of the vector, if the bottom of the dropdown is clicked
 
-      if (selectedID >= static_cast<int>(m_count))
+      if (selectedID >= static_cast<int>(m_numItems))
       {
-        selectedID = static_cast<int>(m_count - 1);
+        selectedID = static_cast<int>(m_numItems - 1);
       }
     }
     return true;
@@ -109,15 +109,15 @@ bool DropdownMenu::onMouseButtonUp(const SDL_Event &event)
 void DropdownMenu::onMouseMove(const SDL_Event &event)
 {
   // TODO: Calculation deviates by 4 pixel in height because of the frame
-  if (hoveredID != ((m_textElementHeight + event.button.y - m_uiElementRect.y) / m_textElementHeight) - 1)
+  if (hoveredID != ((m_itemHeight + event.button.y - m_uiElementRect.y) / m_itemHeight) - 1)
   {
-    hoveredID = ((m_textElementHeight + event.button.y - m_uiElementRect.y) / m_textElementHeight) - 1;
+    hoveredID = ((m_itemHeight + event.button.y - m_uiElementRect.y) / m_itemHeight) - 1;
     // because of the -4 pixel offset that's been added in the constructor, the id would exceed the size of the vector, if the bottom of the dropdown is clicked
-    if (hoveredID >= static_cast<int>(m_count))
+    if (hoveredID >= static_cast<int>(m_numItems))
     {
-      hoveredID = static_cast<int>(m_count - 1);
+      hoveredID = static_cast<int>(m_numItems - 1);
     }
-    m_highlightingRect.y = ((hoveredID)*m_textElementHeight) + m_uiElementRect.y;
+    m_highlightingRect.y = ((hoveredID)*m_itemHeight) + m_uiElementRect.y;
   }
 }
 
