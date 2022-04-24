@@ -36,6 +36,9 @@ public:
   void onMouseMove(const SDL_Event &event) override;
   void onMouseLeave(const SDL_Event &event) override;
 
+  /** @brief Get the number of items in the menu
+  * @returns number of items in the menu
+  */
   size_t count() const { return m_numItems; };
   bool centerText = true;
 
@@ -44,11 +47,13 @@ public:
 
   TextFieldAlignment textAlignment = TextFieldAlignment::CENTERED;
 
+  /// deletes all items from the selection menu
   void clear() { m_items.clear(); }
 
 private:
-  size_t m_numItems = 0;
+  size_t m_numItems = 0; ///< the number of items in the dropdown menu
 
+  /// the items in the dropdown menu as Text widgets
   std::vector<std::unique_ptr<Text>> m_items;
 
   /// height of each item

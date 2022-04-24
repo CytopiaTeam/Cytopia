@@ -39,6 +39,8 @@ public:
   void setActiveID(int ID);
 
   size_t count() const { return m_dropdownMenu->count(); };
+
+  /// the text displayed in the Combobox
   std::string activeText;
 
   void registerCallbackFunction(std::function<void(UIElement *sender)> const &cb) override;
@@ -60,6 +62,7 @@ private:
 
   bool m_isMenuOpened = false;
 
+  /// the current item as a Text widget
   std::unique_ptr<Text> m_selectedItem;
 
   void centerTextLabel() const;
