@@ -40,8 +40,7 @@ bool MapNode::changeHeight(const bool higher)
   return false;
 }
 
-void MapNode::render() const { m_sprite->render(); }
-void MapNode::render(Layer currentLayer) const { m_sprite->render(currentLayer); }
+void MapNode::render(Layer layer) const { m_sprite->render(layer); }
 
 void MapNode::setBitmask(unsigned char elevationBitmask, std::vector<uint8_t> autotileBitmask)
 {

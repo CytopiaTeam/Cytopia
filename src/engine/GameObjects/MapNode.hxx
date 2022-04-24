@@ -75,11 +75,12 @@ public:
     */
   bool changeHeight(const bool higher);
 
-  /** @brief Render MapNode
+  /** @brief Render the sprite object of a layer of MapNode
   * Renders the sprite object(s) of the node
+  * @param layer the layer that should be rendered
+  * @see Sprite#render
   */
-  void render(Layer currentLayer) const;
-  void render() const;
+  void render(Layer layer) const;
 
   void setBitmask(unsigned char elevationBitmask, std::vector<uint8_t> tileTypeBitmask);
 

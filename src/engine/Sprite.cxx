@@ -20,90 +20,46 @@ Sprite::Sprite(Point _isoCoordinates) : isoCoordinates(_isoCoordinates)
   m_SpriteData.resize(LAYERS_COUNT); // resize the spritedata vector to the amount of layers we have.
 }
 
-void Sprite::render(Layer currentLayer) const
+void Sprite::render(Layer layer) const
 {
 #ifdef MICROPROFILE_ENABLED
   MICROPROFILE_SCOPEI("Map", "Sprite render", MP_RED);
 #endif
 
-    if (MapLayers::isLayerActive(currentLayer) && m_SpriteData[currentLayer].texture)
-    {
-      if (highlightSprite)
-      {
-        SDL_SetTextureColorMod(m_SpriteData[currentLayer].texture, highlightColor.r, highlightColor.g, highlightColor.b);
-      }
-
-      if (GameStates::instance().layerEditMode == LayerEditMode::BLUEPRINT && currentLayer != Layer::BLUEPRINT && currentLayer != Layer::UNDERGROUND)
-      {
-        SDL_SetTextureAlphaMod(m_SpriteData[currentLayer].texture, 80);
-      }
-      else
-      {
-        SDL_SetTextureAlphaMod(m_SpriteData[currentLayer].texture, m_SpriteData[currentLayer].alpha);
-      }
-
-      if (m_SpriteData[currentLayer].clipRect.w != 0)
-      {
-        SDL_RenderCopy(WindowManager::instance().getRenderer(), m_SpriteData[currentLayer].texture,
-                       &m_SpriteData[currentLayer].clipRect, &m_SpriteData[currentLayer].destRect);
-      }
-      else
-      {
-        SDL_RenderCopy(WindowManager::instance().getRenderer(), m_SpriteData[currentLayer].texture, nullptr,
-                       &m_SpriteData[currentLayer].destRect);
-      }
-
-      if (highlightSprite)
-      {
-        SDL_SetTextureColorMod(m_SpriteData[currentLayer].texture, 255, 255, 255);
-      }
-
-      SDL_SetTextureAlphaMod(m_SpriteData[currentLayer].texture, 255);
-    }
-  
-}
-
-void Sprite::render() const
-{
-#ifdef MICROPROFILE_ENABLED
-  MICROPROFILE_SCOPEI("Map", "Sprite render", MP_RED);
-#endif
-  for (auto currentLayer : allLayersOrdered)
+  if (MapLayers::isLayerActive(layer) && m_SpriteData[layer].texture)
   {
-    if (MapLayers::isLayerActive(currentLayer) && m_SpriteData[currentLayer].texture)
+    if (highlightSprite)
     {
-      if (highlightSprite)
-      {
-        SDL_SetTextureColorMod(m_SpriteData[currentLayer].texture, highlightColor.r, highlightColor.g, highlightColor.b);
-      }
-
-      if (GameStates::instance().layerEditMode == LayerEditMode::BLUEPRINT && currentLayer != Layer::BLUEPRINT && currentLayer != Layer::UNDERGROUND)
-      {
-        SDL_SetTextureAlphaMod(m_SpriteData[currentLayer].texture, 80);
-      }
-      else
-      {
-        SDL_SetTextureAlphaMod(m_SpriteData[currentLayer].texture, m_SpriteData[currentLayer].alpha);
-      }
-
-      if (m_SpriteData[currentLayer].clipRect.w != 0)
-      {
-        SDL_RenderCopy(WindowManager::instance().getRenderer(), m_SpriteData[currentLayer].texture,
-                       &m_SpriteData[currentLayer].clipRect, &m_SpriteData[currentLayer].destRect);
-      }
-      else
-      {
-        SDL_RenderCopy(WindowManager::instance().getRenderer(), m_SpriteData[currentLayer].texture, nullptr,
-                       &m_SpriteData[currentLayer].destRect);
-      }
-
-      if (highlightSprite)
-      {
-        SDL_SetTextureColorMod(m_SpriteData[currentLayer].texture, 255, 255, 255);
-      }
-
-      SDL_SetTextureAlphaMod(m_SpriteData[currentLayer].texture, 255);
+      SDL_SetTextureColorMod(m_SpriteData[layer].texture, highlightColor.r, highlightColor.g, highlightColor.b);
     }
+
+    if (GameStates::instance().layerEditMode == LayerEditMode::BLUEPRINT && layer != Layer::BLUEPRINT &&
+        layer != Layer::UNDERGROUND)
+    {
+      SDL_SetTextureAlphaMod(m_SpriteData[layer].texture, 80);
+    }
+    else
+    {
+      SDL_SetTextureAlphaMod(m_SpriteData[layer].texture, m_SpriteData[layer].alpha);
+    }
+
+    if (m_SpriteData[layer].clipRect.w != 0)
+    {
+      SDL_RenderCopy(WindowManager::instance().getRenderer(), m_SpriteData[layer].texture, &m_SpriteData[layer].clipRect,
+                     &m_SpriteData[layer].destRect);
+    }
+    else
+    {
+      SDL_RenderCopy(WindowManager::instance().getRenderer(), m_SpriteData[layer].texture, nullptr,
+                     &m_SpriteData[layer].destRect);
+    }
+
+    if (highlightSprite)
+    {
+      SDL_SetTextureColorMod(m_SpriteData[layer].texture, 255, 255, 255);
+    }
+
+    SDL_SetTextureAlphaMod(m_SpriteData[layer].texture, 255);
   }
 }
 

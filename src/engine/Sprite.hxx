@@ -35,9 +35,7 @@ public:
   explicit Sprite(Point isoCoordinates);
   virtual ~Sprite() = default;
 
-  void render() const;
-  void render(Layer currentLayer) const;
-  void renderLayer(Layer currentLayer) const;
+  void render(Layer layer) const;
   void refresh(const Layer &layer = Layer::NONE);
 
   void setTexture(SDL_Texture *m_texture, Layer layer = Layer::TERRAIN);
