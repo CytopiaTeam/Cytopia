@@ -1,21 +1,20 @@
 #include "Combobox.hxx"
 
 #include "LOG.hxx"
+#include "Text.hxx"
 
 ComboBox::ComboBox(const SDL_Rect &uiElementRect)
     : UIElement(uiElementRect), m_dropdownRect(uiElementRect), m_wholeElementRect(uiElementRect),
-      m_dropdownMenu(std::make_unique<DropdownMenu>(m_dropdownRect)), m_selectedItem(std::make_unique<Text>())
+      m_selectedItem(std::make_unique<Text>())
 {
+  // initialize height with an offset of 4 so the frame doesn't overlap with the last text element
+  // this elements height will be adjusted accordingly when the textField is filled.
+  m_dropdownRect.h = 4;
+  m_highlightingRect = m_dropdownRect;
+  m_highlightingRect.x += 4;
+  m_highlightingRect.w -= 8;
   // the Dropdown frame starts directly beneath the button element of the combobox
   m_dropdownRect.y = m_uiElementRect.y + m_uiElementRect.h;
-  m_dropdownMenu->setPosition(m_dropdownRect.x, m_dropdownRect.y);
-
-  // ComboBox is collapsed when element is instantiated
-  m_dropdownMenu->setVisibility(false);
-
-  // set TextFields text alignment to center as default
-  // REDUNDANT
-  // m_dropdownMenu->textAlignment = TextFieldAlignment::CENTERED;
 }
 
 void ComboBox::draw()
@@ -49,7 +48,14 @@ void ComboBox::draw()
   if (m_isMenuOpened)
   {
     drawButtonFrame(m_dropdownRect, false);
-    m_dropdownMenu->draw();
+    if (hoveredID != -1)
+    {
+      drawSolidRect(m_highlightingRect, SDL_Color({150, 150, 150}));
+    }
+    for (const auto &text : m_items)
+    {
+      text->draw();
+    }
   }
   m_selectedItem->draw();
 }
@@ -69,7 +75,29 @@ void ComboBox::setPosition(int x, int y)
   m_wholeElementRect.y = y;
 
   // reposition the text field
-  m_dropdownMenu->setPosition(m_dropdownRect.x, m_dropdownRect.y);
+  m_dropdownRect.x = x;
+  m_dropdownRect.y = y;
+  m_highlightingRect.x = x + 4;
+
+  int currentElement = 0;
+  for (const auto &text : m_items)
+  {
+    //SDL_Rect textRect;
+    switch (textAlignment)
+    {
+    case TextFieldAlignment::RIGHT:
+      x = m_dropdownRect.x + m_dropdownRect.w - text->getUiElementRect().w;
+      break;
+    case TextFieldAlignment::CENTERED:
+      x = m_dropdownRect.x + (m_dropdownRect.w / 2 - text->getUiElementRect().w / 2);
+      break;
+    default: //AKA TextFieldAlignment::LEFT
+      // for LEFT alignment, we use the same values as the dropdownRect
+      break;
+    }
+    y = m_dropdownRect.y + (m_itemHeight * currentElement++);
+    text->setPosition(x, y);
+  }
 
   // center the Label on the button element
   centerTextLabel();
@@ -99,17 +127,33 @@ bool ComboBox::checkBoundaries(int x, int y) const
 
 void ComboBox::addElement(const std::string &text)
 {
-  m_dropdownMenu->addItem(text);
+  SDL_Rect textRect = m_dropdownRect;
 
-  // if the added element is the active one, set the main text to the added elements text.
-  if (m_activeID == static_cast<int>(m_dropdownMenu->count() - 1))
+  Text *label = new Text();
+  label->setText(text);
+  textRect.h = label->getUiElementRect().h; // get height of text after instantiating
+  textRect.y = static_cast<int>(m_dropdownRect.y + count() * textRect.h);
+
+  // center text
+  if (centerText)
   {
-    m_selectedItem->setText(m_dropdownMenu->getTextFromID(m_activeID));
-    centerTextLabel();
+    textRect.x = m_dropdownRect.x + (m_dropdownRect.w / 2 - label->getUiElementRect().w / 2);
   }
 
-  //set dropdown frame to the same height as DropdownMenu
-  m_dropdownRect.h = m_dropdownMenu->getUiElementRect().h;
+  m_itemHeight = textRect.h;
+
+  m_dropdownRect.h += m_itemHeight;
+  m_highlightingRect.h = m_itemHeight;
+
+  label->setPosition(textRect.x, textRect.y);
+  m_items.emplace_back(label);
+
+  // if the added element is the active one, set the main text to the added elements text.
+  if (m_activeID == static_cast<int>(count() - 1))
+  {
+    m_selectedItem->setText(getTextFromID(m_activeID));
+    centerTextLabel();
+  }
 
   // increase the size of the rect that represents the whole element
   m_wholeElementRect.h = m_uiElementRect.h + m_dropdownRect.h;
@@ -118,8 +162,17 @@ void ComboBox::addElement(const std::string &text)
 void ComboBox::setActiveID(int ID)
 {
   m_activeID = ID;
-  m_selectedItem->setText(m_dropdownMenu->getTextFromID(m_activeID));
+  m_selectedItem->setText(getTextFromID(m_activeID));
   clickSignalSender.emit(this);
+}
+
+std::string ComboBox::getTextFromID(int id) const
+{
+  if (id < static_cast<int>(count()) && static_cast<int>(count()) > 0 && id >= 0)
+  {
+    return m_items[id]->getUiElementData().text;
+  }
+  return "";
 }
 
 bool ComboBox::onMouseButtonUp(const SDL_Event &event)
@@ -133,20 +186,26 @@ bool ComboBox::onMouseButtonUp(const SDL_Event &event)
     if (x > m_uiElementRect.x && x < m_uiElementRect.x + m_uiElementRect.w && y > m_uiElementRect.y &&
         y < m_uiElementRect.y + m_uiElementRect.h)
     {
-      // toggle the dropdown menu, it's textfield and set the buttonState to hovering
+      // toggle the dropdown menu and set the buttonState to hovering
       m_isMenuOpened = !m_isMenuOpened;
-      m_dropdownMenu->setVisibility(m_isMenuOpened);
       changeButtonState(BUTTONSTATE_HOVERING);
       return true;
     }
 
     // if the click event is outside the button, handle a click on the dropdown menu
-    m_dropdownMenu->onMouseButtonUp(event); //trigger DropdownMenu onMouseButtonUp event
-    m_activeID = m_dropdownMenu->selectedID;
-    activeText = m_dropdownMenu->getTextFromID(m_activeID);
+    if (!m_items.empty())
+    {
+      m_activeID = ((m_itemHeight + event.button.y - m_dropdownRect.y) / m_itemHeight) - 1;
+      // because of the -4 pixel offset that's been added in the constructor, the id would exceed the size of the vector, if the bottom of the dropdown is clicked
+
+      if (m_activeID >= static_cast<int>(count()))
+      {
+        m_activeID = static_cast<int>(count() - 1);
+      }
+    }
+    activeText = getTextFromID(m_activeID);
     m_selectedItem->setText(activeText);
     m_isMenuOpened = false;
-    m_dropdownMenu->setVisibility(false);
     centerTextLabel();
     clickSignalSender.emit(this);
     return true;
@@ -166,8 +225,7 @@ bool ComboBox::onMouseButtonDown(const SDL_Event &event)
 
 void ComboBox::onMouseLeave(const SDL_Event &event)
 {
-  // m_dropdownMenu->onMouseLeave(event);
-  m_dropdownMenu->hoveredID = -1;
+  hoveredID = -1;
   changeButtonState(BUTTONSTATE_DEFAULT);
 }
 
@@ -176,7 +234,6 @@ void ComboBox::onMouseMove(const SDL_Event &event)
   int x = event.button.x;
   int y = event.button.y;
 
-  // LOG(LOG_INFO) << "ComboBox text field: " << m_dropdownMenu->
   if (checkBoundaries(x, y))
   {
 
@@ -188,16 +245,19 @@ void ComboBox::onMouseMove(const SDL_Event &event)
       {
         changeButtonState(BUTTONSTATE_HOVERING);
       }
-      if (m_dropdownMenu->hoveredID != -1)
-      {
-        m_dropdownMenu->onMouseLeave(event);
-      }
+      hoveredID = -1;
     }
     else
     {
       changeButtonState(BUTTONSTATE_DEFAULT);
       {
-        m_dropdownMenu->onMouseMove(event);
+        hoveredID = ((m_itemHeight + event.button.y - m_dropdownRect.y) / m_itemHeight) - 1;
+        // because of the -4 pixel offset that's been added in the constructor, the id would exceed the size of the vector, if the bottom of the dropdown is clicked
+        if (hoveredID >= static_cast<int>(count()))
+        {
+          hoveredID = static_cast<int>(count() - 1);
+        }
+        m_highlightingRect.y = ((hoveredID)*m_itemHeight) + m_dropdownRect.y;
       }
     }
   }

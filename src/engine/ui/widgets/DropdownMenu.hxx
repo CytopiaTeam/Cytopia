@@ -3,13 +3,14 @@
 
 #include "../basics/UIElement.hxx"
 #include "Text.hxx"
+#include "Combobox.hxx"
 
-enum class TextFieldAlignment
+/* enum class TextFieldAlignment
 {
   LEFT,
   RIGHT,
   CENTERED
-};
+};*/
 
 /**
  * @brief A DropdownMenu GUI Widget

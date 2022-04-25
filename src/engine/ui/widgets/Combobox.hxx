@@ -4,7 +4,15 @@
 #include <memory>
 
 #include "../basics/UIElement.hxx"
-#include "DropdownMenu.hxx"
+#include "Text.hxx"
+
+
+enum class TextFieldAlignment
+{
+  LEFT,
+  RIGHT,
+  CENTERED
+};
 
 class ComboBox : public UIElement
 {
@@ -38,17 +46,24 @@ public:
   */
   void setActiveID(int ID);
 
-  size_t count() const { return m_dropdownMenu->count(); };
+  size_t count() const { return m_items.size(); };
 
   /// the text displayed in the Combobox
   std::string activeText;
+  // this could probably be private tbh
+  bool centerText = true;
 
+  int hoveredID = -1;
+
+  TextFieldAlignment textAlignment = TextFieldAlignment::CENTERED;
   void registerCallbackFunction(std::function<void(UIElement *sender)> const &cb) override;
 
   /** @brief Clears the element's items
   * clears the items in the dropdown menu of the comboBox
   */
-  void clear() { m_dropdownMenu->clear(); }
+  void clear() { m_items.clear(); }
+
+  std::string getTextFromID(int id) const;
 
 private:
   /// the active element's ID
@@ -57,13 +72,17 @@ private:
   SDL_Rect m_dropdownRect;
   /// represents the whole UIElement including the opened menu
   SDL_Rect m_wholeElementRect;
-  /// pointer to the DropdownMenu of this comboBox
-  std::unique_ptr<DropdownMenu> m_dropdownMenu;
+  // a rect is drawn beneath the current text to hover it
+  SDL_Rect m_highlightingRect;
 
-  bool m_isMenuOpened = false;
-
+  /// the items in the dropdown menu as Text widgets
+  std::vector<std::unique_ptr<Text>> m_items;
   /// the current item as a Text widget
   std::unique_ptr<Text> m_selectedItem;
+  /// height of each item
+  int m_itemHeight = 0;
+
+  bool m_isMenuOpened = false;
 
   void centerTextLabel() const;
 

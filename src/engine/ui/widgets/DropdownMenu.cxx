@@ -1,5 +1,6 @@
 #include "DropdownMenu.hxx"
 #include "Text.hxx"
+#include "Combobox.hxx"
 
 DropdownMenu::DropdownMenu(const SDL_Rect &uiElementRect) : UIElement(uiElementRect), m_highlightingRect(uiElementRect)
 {
