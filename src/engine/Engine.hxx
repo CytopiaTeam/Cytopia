@@ -13,12 +13,12 @@ class Engine : public Singleton<Engine>
 public:
   friend Singleton<Engine>;
 
-  // Disable copy and assignemnt operators
+  // Disable copy and assignment operators
   Engine(Engine const &) = delete;
   Engine &operator=(Engine const &) = delete;
 
   /** @brief Increase Height
-    * Increases the height of the given map node
+    * @details Increases the height of the given map node
     * Calls the according function of the Map object that holds the terrain node and draws the slopes
     * @param isoCoordinates the isometric coordinates of the map node that should be raised
     * @see Map#increaseHeight
@@ -26,7 +26,7 @@ public:
   void increaseHeight(const Point &isoCoordinates) const;
 
   /** @brief Decrease Height
-    * Decreases the height of the given map node
+    * @details Decreases the height of the given map node
     * Calls the according function of the Map object that holds the terrain node and draws the slopes.
     * @param isoCoordinates the isometric coordinates of the map node that should be lowered
     * @see Map#decreaseHeight
@@ -43,7 +43,7 @@ public:
   bool isGameRunning() const { return m_running; };
 
   /** @brief Quits the game
-    * Sets m_running to false and quits the game.
+    * @details Sets m_running to false and quits the game.
     */
   void quitGame() { m_running = false; };
 

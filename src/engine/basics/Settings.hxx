@@ -99,7 +99,7 @@ struct SettingsData
 
   /**
    * @brief location of the build menu
-   * Acceptable values are "LEFT", "RIGHT", "TOP", and "BOTTOM"
+   * @details Acceptable values are "LEFT", "RIGHT", "TOP", and "BOTTOM"
    * @todo add a typename
    * @todo replace by enum when BetterEnums is implemented
    */
