@@ -39,94 +39,38 @@ struct Coordinate3D
 
 /**
  * @brief a standard reverb effect
- *
-	@param flDensity, AL_REVERB_DENSITY,
-	description: coloration of the late reverb, range: 0.0 to 1.0.
-
-	@param flDiffusion, AL_REVERB_DIFFUSION,
-	description: echo density in the reverberation decay, range: 0.0 to 1.0
-
-	@param flGain, AL_REVERB_GAIN,
-	description: master volume control for the reflected sound, range: 0.0 to 1.0
-
-	@param flGainHF, AL_REVERB_GAINHF,
-	description: attenuation it at high frequencies, range: 0.0 to 1.0
-
-	@param flDecayTime, AL_REVERB_DECAY_TIME,
-	description: reverberation decay time, range: 0.1 to 20.0
-
-	@param flDecayHFRatio, AL_REVERB_DECAY_HFRATIO,
-	description: ratio of high-frequency decay time relative to the time set by Decay Time, range: 0.1 to 2.0
-
-	@param flReflectionsGain, AL_REVERB_REFLECTIONS_GAIN,
-	description: controls the overall amount of initial reflections relative to the Gain property, range: 0.0 to 3.16
-
-	@param flReflectionsDelay, AL_REVERB_REFLECTIONS_DELAY,
-	description: amount of delay between the arrival time of the direct path from the source to the first reflection from the source, range: 0.0 to 0.3
-
-	@param flLateReverbGain, AL_REVERB_LATE_REVERB_GAIN,
-	description: overall amount of later reverberation relative to the Gain property, range: 0.0 to 10.0
-
-	@param flLateReverbDelay, AL_REVERB_LATE_REVERB_DELAY,
-	description: begin time of the late reverberation relative to the time of the initial reflection, range: 0.0 to 0.1
-
-	@param flAirAbsorptionGainHF, AL_REVERB_AIR_ABSORPTION_GAINHF,
-	description: the distance-dependent attenuation at high frequencies caused by the propagation medium, range: 0.892 to 1.0
-
-	@param flRoomRolloffFactor, AL_REVERB_ROOM_ROLLOFF_FACTOR,
-	description: attenuate the reflected sound, range: 0.0 to 10.0
  */
 
 struct StandardReverbProperties
 {
-  double flDensity = 1.0;
-  double flDiffusion = 1.0;
-  double flGain = 0.32;
-  double flGainHF = 0.89;
-  double flDecayTime = 1.49;
-  double flDecayHFRatio = 0.83;
-  double flReflectionsGain = 0.05;
-  double flReflectionsDelay = 0.007;
-  double flLateReverbGain = 1.26;
-  double flLateReverbDelay = 0.011;
-  double flAirAbsorptionGainHF = 0.994;
-  double flRoomRolloffFactor = 0.0;
+  double flDensity = 1.0; ///< coloration of the late reverb, range: 0.0 to 1.0.
+  double flDiffusion = 1.0; ///< echo density in the reverberation decay, range: 0.0 to 1.0
+  double flGain = 0.32; ///< master volume control for the reflected sound, range: 0.0 to 1.0
+  double flGainHF = 0.89; ///< attenuation it at high frequencies, range: 0.0 to 1.0
+  double flDecayTime = 1.49; ///< reverberation decay time, range: 0.1 to 20.0
+  double flDecayHFRatio = 0.83; ///< ratio of high-frequency decay time relative to the time set by Decay Time, range: 0.1 to 2.0
+  double flReflectionsGain = 0.05; ///< controls the overall amount of initial reflections relative to the Gain property, range: 0.0 to 3.16
+  double flReflectionsDelay = 0.007; ///< amount of delay between the arrival time of the direct path from the source to the first reflection from the source, range: 0.0 to 0.3
+  double flLateReverbGain = 1.26; ///< overall amount of later reverberation relative to the Gain property, range: 0.0 to 10.0
+  double flLateReverbDelay = 0.011; ///< begin time of the late reverberation relative to the time of the initial reflection, range: 0.0 to 0.1
+  double flAirAbsorptionGainHF = 0.994; ///< the distance-dependent attenuation at high frequencies caused by the propagation medium, range: 0.892 to 1.0
+  double flRoomRolloffFactor = 0.0; ///< attenuate the reflected sound, range: 0.0 to 10.0
 };
 
 /**
-  @brief an echo effect
-
-
-	@param flEchoDelay,AL_ECHO_DELAY,
-	description: delay between the original sound and the first 'tap', or echo instance,range: 0.0 to 0.207
-
-
-	@param flEchoLRDelay,AL_ECHO_LRDELAY,
-	description: delay between the first 'tap' and the second 'tap'.,range: 0.0 to 0.404
-
-
-	@param flEchoDamping,AL_ECHO_DAMPING,
-	description: amount of high frequency damping applied to each echo, range: 0.0 to 0.99
-
-
-	@param flEchoFeedback,AL_ECHO_FEEDBACK,
-	description: amount of feedback the output signal fed back into the input, range: 0.0 to 1.0
-
-
-	@param flEchoSpread,AL_ECHO_SPREAD,
-	description: how hard panned the individual echoes are, range: -1.0 to 1.0
+  @brief an echo effect 
 */
 struct EchoProperties
 {
-  double flEchoDelay = 0.1;
+  double flEchoDelay = 0.1; ///< delay between the original sound and the first 'tap', or echo instance,range: 0.0 to 0.207
 
-  double flEchoLRDelay = 0.1;
+  double flEchoLRDelay = 0.1; ///< delay between the first 'tap' and the second 'tap'.,range: 0.0 to 0.404
 
-  double flEchoDamping = 0.5;
+  double flEchoDamping = 0.5; ///< amount of high frequency damping applied to each echo, range: 0.0 to 0.99
 
-  double flEchoFeedback = 0.5;
+  double flEchoFeedback = 0.5; ///< amount of feedback the output signal fed back into the input, range: 0.0 to 1.0
 
-  double flEchoSpread = -1.0;
+  double flEchoSpread = -1.0; ///< how hard panned the individual echoes are, range: -1.0 to 1.0
 };
 
 /**
