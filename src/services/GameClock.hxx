@@ -11,7 +11,7 @@ using namespace std::chrono_literals;
 
 /**
  * @brief Game clock service. Implement two timers one real time timer and other game time timer.
- * Both timers provide possibility to add task which will be triggered after delay time run out.
+ * @details Both timers provide possibility to add task which will be triggered after delay time run out.
  * Game timer represent timer running in game time.
  * The game time can be scaled providing possibility to speed up or slow down game.
  */
@@ -45,8 +45,8 @@ public:
   static constexpr GameClockTime GameDay = 24 * GameHour;
 
   /**
-  * @brief This function provide the tick for both clocks.
-  * It must be called frequently. Call frequency determines clock precision.
+  * @brief This function provides the tick for both clocks.
+  * @details It must be called frequently. Call frequency determines clock precision.
   */
   void tick(void);
 

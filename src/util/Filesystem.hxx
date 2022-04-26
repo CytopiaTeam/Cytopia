@@ -17,6 +17,7 @@ std::string readFileAsString(const std::string &fileName, bool binaryMode = fals
 
 /** @brief Write a string to a file.
    * @param fileName Name of the file to write
+   * @param stringToWrite string to be written
    * @param binaryMode (optional) open the file in binary mode. (default: false)
    */
 void writeStringToFile(const std::string &fileName, const std::string &stringToWrite, bool binaryMode = false);
@@ -39,8 +40,8 @@ std::vector<std::string> getSaveGamePaths();
 
 bool fileExists(const std::string &filePath);
 
-/** @brief Get Base Path (where cytopia is being run)
- * A wrapper for SDL_GetBasePath, which is not run on Android because it hard-crashes the app. Memory is freed after the call.
+/** @brief Get base path (where Cytopia is being run)
+ * @details A wrapper for SDL_GetBasePath, which is not run on Android because it hard-crashes the app. Memory is freed after the call.
  * @returns the Base path
  */
 std::string getBasePath();

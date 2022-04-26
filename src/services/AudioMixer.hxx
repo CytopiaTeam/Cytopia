@@ -83,6 +83,7 @@ public:
 
   /**
    * @brief sets the music volume
+   * @param volume
    * @pre   volume must be a float within [0, 1]
    * @post  Settings::MusicVolume is changed
    */
@@ -90,6 +91,7 @@ public:
 
   /**
    * @brief sets the sound effects volume
+   * @param volume
    * @pre   volume must be a float within [0, 1]
    * @post  Settings::SoundEffectsVolume is changed
    */
@@ -97,7 +99,7 @@ public:
 
   /**
    * @brief Plays a Soundtrack given its ID
-   * @param ID the SoundtrackID
+   * @param id the SoundtrackID
    */
   void play(const SoundtrackID &id);
 
@@ -109,14 +111,14 @@ public:
 
   /**
    * @brief Plays a 3D Soundtrack given its ID
-   * @param ID the SoundtrackID
+   * @param id the SoundtrackID
    * @param position the Coordinate3D position of the sound
    */
   void play(const SoundtrackID &id, const Coordinate3D &position);
 
   /**
    * @brief Plays a Soundtrack given its ID and applies effect to it
-   * @param ID the SoundtrackID
+   * @param id the SoundtrackID
    * @param reverb_properties properties of standard reverb
    */
   void play(const SoundtrackID &id, const StandardReverbProperties &reverb_properties);
@@ -209,7 +211,7 @@ public:
   AudioMixer &operator=(const AudioMixer &) = delete;
   AudioMixer &operator=(AudioMixer &&) = delete;
 
-  //for orientation of listener
+  /// orientation of listener
   enum class ORIENTATION_INDEX : int
   {
     FORWARD_X = 0,
@@ -220,7 +222,7 @@ public:
     UP_Z = 5
   };
 
-  //for position of listener
+  /// position of listener
   enum class POSITION_INDEX : int
   {
     X = 0,
@@ -265,14 +267,14 @@ private:
   /**
    * @brief Plays the Soundtrack with reverb
    * @param soundtrack the Soundtrack
-   * @param properties of reverb effect
+   * @param reverb_properties of reverb effect
    */
   void playSoundtrackWithReverb(SoundtrackUPtr &soundtrack, const StandardReverbProperties &reverb_properties);
 
   /**
    * @brief Plays the Soundtrack with echo
    * @param soundtrack the Soundtrack
-   * @param properties of echo effect
+   * @param echo_properties of echo effect
    */
   void playSoundtrackWithEcho(SoundtrackUPtr &soundtrack, const EchoProperties &echo_properties);
 
