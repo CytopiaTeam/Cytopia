@@ -134,7 +134,6 @@ bool Map::updateHeight(Point coordinate, const bool elevate)
 void Map::changeHeight(const Point &isoCoordinates, const bool elevate)
 {
   std::vector<Point> nodesToUpdate{isoCoordinates};
-  auto neighbors = getNeighborNodes(isoCoordinates, true);
   std::vector<Point> neighorCoordinates = PointFunctions::getNeighbors(isoCoordinates, true);
 
   if (updateHeight(isoCoordinates, elevate))
