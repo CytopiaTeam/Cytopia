@@ -12,8 +12,10 @@
 
 struct NeighborNode
 {
+  /// pointer to the mapNode
   MapNode *pNode;
-  NeighbourNodesPosition position;
+  /// Enum of the position of this node the origin node
+  NeighborNodesPosition position;
 };
 
 class Map
@@ -144,7 +146,7 @@ public:
   /** \brief Get pointer to a single mapNode at specific iso coordinates.
   * @param isoCoords The node to retrieve.
   */
-  MapNode &getMapNode(Point isoCoords) { return mapNodes[nodeIdx(isoCoords.x, isoCoords.y)]; };
+  MapNode &getMapNode(Point isoCoords) { return mapNodes[isoCoords.toIndex()]; };
 
   /** \brief Get all mapnodes as a vector
    */
@@ -161,11 +163,10 @@ private:
   * @details Checks all neighboring tiles and returns the elevated neighbors in a bitmask:
   * [ BR BL TR TL  R  L  B  T ]
   * [ 0  0  0  0   0  0  0  0 ]
-  * @param pMapNode Pointer to the map node to calculate mask for.
-  * @param neighborNodes Neighbor nodes.
-  * @return Uint that stores the neighbor tiles
+  * @param coordinate Point on the map to calculate bitmask for.
+  * @return Uint that represents a bitmask of the neighbor tiles and their elevation to the center coordinate
   */
-  std::vector<uint8_t> calculateAutotileBitmask(const MapNode *const pMapNode, const std::vector<NeighborNode> &neighborNodes);
+  std::vector<uint8_t> calculateAutotileBitmask(Point coordinate);
 
   SDL_Color getColorOfPixelInSurface(SDL_Surface *surface, int x, int y) const;
 
@@ -178,13 +179,6 @@ private:
   */
   bool isAllowSetTileId(const Layer layer, const MapNode *const pMapNode);
 
-  /** \brief Calculate map index from coordinates.
-  * @param x x coordinate.
-  * @param y y coordinate.
-  * @return Index of map node.
-  */
-  inline int nodeIdx(const int x, const int y) const { return x * m_columns + y; }
-
   /** \brief Get all neighbor nodes from provided map node.
   * @param isoCoordinates iso coordinates.
   * @param includeCentralNode if set to true include the central node in the result.
@@ -193,29 +187,28 @@ private:
   std::vector<NeighborNode> getNeighborNodes(const Point &isoCoordinates, const bool includeCentralNode);
 
   /** \brief Change map node height.
-  * @param isoCoordinates iso coordinates.
-  * @param higher if set to true make node higher, otherwise lower.
+  * @param isoCoordinates the Point on the map node to change height.
+  * @param elevate if set to true make node higher, otherwise lower.
   */
-  void changeHeight(const Point &isoCoordinates, const bool higher);
+  void changeHeight(const Point &isoCoordinates, const bool elevate);
 
   /** \brief Update the nodes and all affected node with the change.
-  * @param nodes Nodes which have to be updated.
+  * @param nodes vector of coordinates to be updated.
   */
-  void updateNodeNeighbors(std::vector<MapNode *> &nodes);
+  void updateNodeNeighbors(std::vector<Point> nodes);
 
   /** \brief Get elevated bit mask of the map node.
-  * @param centerCoordinates Pointer to the map node to calculate elevated bit mask.
+  * @param centerCoordinates Point on the map node to calculate elevated bit mask.
   * @return Map node elevated bit mask.
   */
   unsigned char getElevatedNeighborBitmask(Point centerCoordinates);
 
   /** \brief Change map node height.
-  * @param mapNode Map node to change height.
-  * @param higher if set to true make node higher, otherwise lower.
-  * @param neighbors All neighbor map nodes.
+  * @param coordinate the Point on the map node to change height
+  * @param elevate if set to true make node higher, otherwise lower.
   * @return true in case that height has been changed, otherwise false.
   */
-  bool updateHeight(MapNode &mapNode, const bool higher, std::vector<NeighborNode> &neighbors);
+  bool updateHeight(Point coordinate, const bool elevate);
 
   /** \brief For implementing frustum culling, find all map nodes which are visible on the screen. Only visible nodes will be rendered.
   */

@@ -74,6 +74,19 @@ public:
    * @return number of nodes between this point and the target
    */
   int distanceTo(Point target) const { return sqrt((x - target.x) * (x - target.x) + (y - target.y) * (y - target.y)); }
+
+  /**
+  * @brief calculates the index (stride) that can be used to access in Map to access mapNodes vector. 
+  */
+  int toIndex() const { return x * Settings::instance().mapSize + y; };
 };
+
+namespace std
+{
+template <> struct hash<Point>
+{
+  const size_t operator()(const Point &p) const { return std::hash<int>()(p.x) ^ std::hash<int>()(p.y); }
+};
+} // namespace std
 
 #endif
