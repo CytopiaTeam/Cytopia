@@ -39,14 +39,13 @@ public:
   void setFontSize(int fontSize);
 
   /** @brief gets the Font size of this element
-   * gets the font size of the element
    * @returns the element's font size
    */
   int getFontSize() const { return m_fontSize; }
 
 private:
   /** \brief Draws a text string to the screen
-  * Draws a text string to the screen. This could either be a standalone text, a text on another texture
+  * @details Draws a text string to the screen. This could either be a standalone text, a text on another texture
   * or a text on a GUI Element drawn with shape functions.
   * @param text Text to draw
   * @param textColor Color that should be used for the text in SDL_Color format

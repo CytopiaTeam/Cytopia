@@ -23,6 +23,8 @@
 using Thread = std::thread;
 using RuntimeError = std::runtime_error;
 
+namespace Cytopia
+{
 class Game
 {
 public:
@@ -62,5 +64,5 @@ public:
 private:
   void quit();
 };
-
+} // namespace Cytopia
 #endif

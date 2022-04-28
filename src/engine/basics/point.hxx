@@ -38,7 +38,7 @@ public:
   /**
    * @brief Checks if a given points is a neighbor of this point
    *
-   * @param coordinateOne Point to check if it's adjacent
+   * @param coordinate Point to check if it's adjacent
    * @return if the two points are neighbors
    */
   bool isNeighborOf(Point coordinate) const
@@ -49,7 +49,7 @@ public:
   /**
    * @brief Check if a given point is a direct neighbor (cardinal direction) of this point
    *
-   * @param coordinate - Point to check if it is a direct neighbor
+   * @param coordinate Point to check if it is a direct neighbor
    * @return if point is a direct neighbor in a cardinal direction (top, bottom, left, right)
    */
   bool isDirectNeighborOf(Point coordinate) const
@@ -74,6 +74,19 @@ public:
    * @return number of nodes between this point and the target
    */
   int distanceTo(Point target) const { return sqrt((x - target.x) * (x - target.x) + (y - target.y) * (y - target.y)); }
+
+  /**
+  * @brief calculates the index (stride) that can be used to access in Map to access mapNodes vector. 
+  */
+  int toIndex() const { return x * Settings::instance().mapSize + y; };
 };
+
+namespace std
+{
+template <> struct hash<Point>
+{
+  const size_t operator()(const Point &p) const { return std::hash<int>()(p.x) ^ std::hash<int>()(p.y); }
+};
+} // namespace std
 
 #endif

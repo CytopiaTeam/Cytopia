@@ -30,7 +30,7 @@ int protected_main(int argc, char **argv)
 
   LOG(LOG_DEBUG) << "Launching Cytopia";
 
-  Game game;
+  Cytopia::Game game;
 
   LOG(LOG_DEBUG) << "Initializing Cytopia";
 

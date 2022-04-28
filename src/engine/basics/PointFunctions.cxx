@@ -201,7 +201,7 @@ std::vector<Point> PointFunctions::getNeighbors(const Point &isoCoordinates, con
   return neighbors;
 }
 
-NeighbourNodesPosition PointFunctions::getNeighborPositionToOrigin(const Point &neighboringPoint, const Point &originPoint)
+NeighborNodesPosition PointFunctions::getNeighborPositionToOrigin(const Point &neighboringPoint, const Point &originPoint)
 {
   int neighborOffsetX = neighboringPoint.x - originPoint.x;
   int neighborOffsetY = neighboringPoint.y - originPoint.y;
@@ -212,33 +212,33 @@ NeighbourNodesPosition PointFunctions::getNeighborPositionToOrigin(const Point &
     switch (neighborOffsetY)
     {
     case 0:
-      return NeighbourNodesPosition::CENTER;
+      return NeighborNodesPosition::CENTER;
     case 1:
-      return NeighbourNodesPosition::TOP;
+      return NeighborNodesPosition::TOP;
     case -1:
-      return NeighbourNodesPosition::BOTTOM;
+      return NeighborNodesPosition::BOTTOM;
     }
     break;
   case 1:
     switch (neighborOffsetY)
     {
     case 0:
-      return NeighbourNodesPosition::RIGHT;
+      return NeighborNodesPosition::RIGHT;
     case 1:
-      return NeighbourNodesPosition::TOP_RIGHT;
+      return NeighborNodesPosition::TOP_RIGHT;
     case -1:
-      return NeighbourNodesPosition::BOTTOM_RIGHT;
+      return NeighborNodesPosition::BOTTOM_RIGHT;
     }
     break;
   case -1:
     switch (neighborOffsetY)
     {
     case 0:
-      return NeighbourNodesPosition::LEFT;
+      return NeighborNodesPosition::LEFT;
     case 1:
-      return NeighbourNodesPosition::TOP_LEFT;
+      return NeighborNodesPosition::TOP_LEFT;
     case -1:
-      return NeighbourNodesPosition::BOTTOM_LEFT;
+      return NeighborNodesPosition::BOTTOM_LEFT;
     }
     break;
   }
