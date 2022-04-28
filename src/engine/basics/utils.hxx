@@ -26,13 +26,24 @@ template <class T> auto ReverseIterator(T const &elem) { return Lib::Reverse<T>(
 namespace strings
 {
 
-/// Erase First Occurrence of given  substring from main string.
+/** @brief Erase first occurrence of given substring from main string.
+* @param string main string to modify
+* @param stringToRemove substring to remove
+*/
 void removeSubString(std::string &string, const std::string &stringToRemove);
 
-/// checks if a string ends with a certain substring
+/** @brief checks if a string ends with a certain substring
+* @param mainStr string to scan through
+* @param toMatch substring to search for
+* @returns if substring is at the end of the main string
+*/
 bool endsWith(const std::string &mainStr, const std::string &toMatch);
 
-/// checks if a string starts with a certain substring
+/** @brief checks if a string starts with a certain substring
+* @param mainStr string to scan through
+* @param toMatch substring to search for
+* @returns if substring is at the start of the main string
+*/
 bool startsWith(const std::string &mainStr, const std::string &toMatch);
 
 } // namespace strings

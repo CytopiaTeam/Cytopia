@@ -46,8 +46,7 @@ private:
   */
   void loadUITexture();
 
-  /** Delete everything. should be called from the destuctor only
-  */
+  /// Delete everything. should be called from the destuctor only
   void flush();
 
   SDL_Surface *createSurfaceFromFile(const std::string &fileName);

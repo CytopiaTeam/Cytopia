@@ -25,7 +25,7 @@ public:
   void draw() override;
 
   /** @brief Sets the button's text
-   * sets the button's text to the string passed as an argument
+   * @details sets the button's text to the string passed as an argument
    * @param text the text to be displayed on the button
    */
   void setText(const std::string &text);

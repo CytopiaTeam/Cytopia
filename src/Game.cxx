@@ -25,6 +25,8 @@
 #include "microprofile/microprofile.h"
 #endif
 
+namespace Cytopia
+{
 Game::Game() { LOG(LOG_DEBUG) << "Created Game Object"; }
 
 void Game::quit()
@@ -370,3 +372,4 @@ void Game::shutdown()
   TTF_Quit();
   SDL_Quit();
 }
+} // namespace Cytopia

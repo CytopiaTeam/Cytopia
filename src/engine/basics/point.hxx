@@ -37,49 +37,31 @@ public:
 
   /**
    * @brief Checks if a given points is a neighbor of this point
-   * 
-   * @param coordinateOne Point to check if it's adjacent
+   *
+   * @param coordinate Point to check if it's adjacent
    * @return if the two points are neighbors
    */
-  bool isNeighborOf(Point cooridnate) const
+  bool isNeighborOf(Point coordinate) const
   {
-    for (int xOffset = -1; xOffset <= 1; ++xOffset)
-    {
-      for (int yOffset = -1; yOffset <= 1; ++yOffset)
-      {
-        Point neighbor;
-        Point thisPoint = {x, y};
-        neighbor.x = cooridnate.x + xOffset;
-        neighbor.y = cooridnate.y + yOffset;
-        if (neighbor.isWithinMapBoundaries() && neighbor == thisPoint)
-        {
-          return true;
-        }
-      }
-    }
-    return false;
+    return isWithinMapBoundaries() && std::max(std::abs(coordinate.x - x), std::abs(coordinate.y - y)) <= 1;
   }
 
   /**
    * @brief Check if a given point is a direct neighbor (cardinal direction) of this point
-   * 
-   * @param coordinate - Point to check if it is a direct neighbor
+   *
+   * @param coordinate Point to check if it is a direct neighbor
    * @return if point is a direct neighbor in a cardinal direction (top, bottom, left, right)
    */
   bool isDirectNeighborOf(Point coordinate) const
   {
-    Point thisPoint = {x, y};
-
-    if ((thisPoint.x == coordinate.x) && (std::abs(thisPoint.y - coordinate.y) <= 1) ||
-        (thisPoint.y == coordinate.y) && (std::abs(thisPoint.x - coordinate.x) <= 1))
-    {
-      return true;
-    }
+    return
+      ((x == coordinate.x) && (std::abs(y - coordinate.y) <= 1)) ||
+      ((y == coordinate.y) && (std::abs(x - coordinate.x) <= 1));
   }
 
   /**
    * @brief Calculate the manhattan distance between this point and a given point
-   * 
+   *
    * @param target the point to calculate the manhattan distance to
    * @return number of nodes between this point and the target
    */
@@ -87,7 +69,7 @@ public:
 
   /**
    * @brief Calculate the direct distance between this point and a given point
-   * 
+   *
    * @param target the point to calculate the direct distance to
    * @return number of nodes between this point and the target
    */
