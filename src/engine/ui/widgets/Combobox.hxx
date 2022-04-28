@@ -50,8 +50,6 @@ public:
 
   /// the text displayed in the Combobox
   std::string activeText;
-  // this could probably be private tbh
-  bool centerText = true;
 
   int hoveredID = -1;
 

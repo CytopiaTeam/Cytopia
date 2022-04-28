@@ -5,12 +5,11 @@
 
 ComboBox::ComboBox(const SDL_Rect &uiElementRect)
     : UIElement(uiElementRect), m_dropdownRect(uiElementRect), m_wholeElementRect(uiElementRect),
-      m_selectedItem(std::make_unique<Text>())
+      m_selectedItem(std::make_unique<Text>()), m_highlightingRect(m_dropdownRect)
 {
   // initialize height with an offset of 4 so the frame doesn't overlap with the last text element
   // this elements height will be adjusted accordingly when the textField is filled.
   m_dropdownRect.h = 4;
-  m_highlightingRect = m_dropdownRect;
   m_highlightingRect.x += 4;
   m_highlightingRect.w -= 8;
   // the Dropdown frame starts directly beneath the button element of the combobox
@@ -91,8 +90,9 @@ void ComboBox::setPosition(int x, int y)
     case TextFieldAlignment::CENTERED:
       x = m_dropdownRect.x + (m_dropdownRect.w / 2 - text->getUiElementRect().w / 2);
       break;
-    default: //AKA TextFieldAlignment::LEFT
+    case TextFieldAlignment::LEFT:
       // for LEFT alignment, we use the same values as the dropdownRect
+      x = m_dropdownRect.x + m_dropdownRect.w;
       break;
     }
     y = m_dropdownRect.y + (m_itemHeight * currentElement++);
@@ -135,7 +135,7 @@ void ComboBox::addElement(const std::string &text)
   textRect.y = static_cast<int>(m_dropdownRect.y + count() * textRect.h);
 
   // center text
-  if (centerText)
+  if (textAlignment == TextFieldAlignment::CENTERED)
   {
     textRect.x = m_dropdownRect.x + (m_dropdownRect.w / 2 - label->getUiElementRect().w / 2);
   }
