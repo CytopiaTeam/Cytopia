@@ -12,7 +12,9 @@
 
 struct NeighborNode
 {
+  /// pointer to the mapNode
   MapNode *pNode;
+  /// Enum of the position of this node the origin node
   NeighborNodesPosition position;
 };
 
@@ -158,7 +160,7 @@ private:
   * Checks all neighboring tiles and returns the elevated neighbors in a bitmask:
   * [ BR BL TR TL  R  L  B  T ]
   * [ 0  0  0  0   0  0  0  0 ]
-  * @param coordinate of the map node to calculate mask for.
+  * @param coordinate Point on the map to calculate bitmask for.
   * @return Uint that represents a bitmask of the neighbor tiles and their elevation to the center coordinate
   */
   std::vector<uint8_t> calculateAutotileBitmask(Point coordinate);
@@ -182,8 +184,8 @@ private:
   std::vector<NeighborNode> getNeighborNodes(const Point &isoCoordinates, const bool includeCentralNode);
 
   /** \brief Change map node height.
-  * @param isoCoordinates iso coordinates.
-  * @param higher if set to true make node higher, otherwise lower.
+  * @param isoCoordinates the Point on the map node to change height.
+  * @param elevate if set to true make node higher, otherwise lower.
   */
   void changeHeight(const Point &isoCoordinates, const bool elevate);
 
@@ -193,16 +195,14 @@ private:
   void updateNodeNeighbors(std::vector<Point> nodes);
 
   /** \brief Get elevated bit mask of the map node.
-  * @param pMapNode Pointer to the map node to calculate elevated bit mask.
-  * @param neighbors All neighbor map nodes.
+  * @param centerCoordinates Point on the map node to calculate elevated bit mask.
   * @return Map node elevated bit mask.
   */
   unsigned char getElevatedNeighborBitmask(Point centerCoordinates);
 
   /** \brief Change map node height.
-  * @param coordinate of the map node to change height.
+  * @param coordinate the Point on the map node to change height
   * @param elevate if set to true make node higher, otherwise lower.
-  * @param neighbors All neighbor map nodes.
   * @return true in case that height has been changed, otherwise false.
   */
   bool updateHeight(Point coordinate, const bool elevate);
