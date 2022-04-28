@@ -7,7 +7,7 @@
 #include "../common/enums.hxx"
 
 /**
- * Data struct for GameStates class
+ * @brief Data struct for GameStates class
  **/
 struct GameStatesData
 {

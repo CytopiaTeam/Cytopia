@@ -44,11 +44,13 @@ public:
 
   /**
     * @brief Add new element to the queue.
+    * @param element item to add to the queue
     */
   void push(value_type &&element);
 
   /**
     * @brief Add new element to the queue.
+    * @param element item to add to the queue
     */
   void push(const value_type &element);
 

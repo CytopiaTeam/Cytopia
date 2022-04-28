@@ -26,15 +26,15 @@ private:
   /**
    * @brief Removes a zonenode
    * 
-   * @param coordinate - coordinate of the zone to remove
+   * @param coordinate coordinate of the zone to remove
    */
   void removeZoneNode(Point coordinate);
 
   /**
    * @brief get a list of neighboring zoneareas for a zoneNode
    * 
-   * @param zoneNode - the zoneNode we need neighboring areas for
-   * @param zoneAreas - a vector of areas that apply
+   * @param zoneNode the zoneNode we need neighboring areas for
+   * @param zoneAreas a vector of areas that apply
    * @return a list of neighboring zoneareas for a zoneNode
    */
   std::vector<int> getAdjacentZoneAreas(const ZoneNode &zoneNode, std::vector<ZoneArea> &zoneAreas);
@@ -42,15 +42,15 @@ private:
   /**
    * @brief Adds a zoneNode to a given area
    * 
-   * @param zoneNode - node to add
-   * @param zoneAreas - all zoneAreas
+   * @param zoneNode node to add
+   * @param zoneAreas all zoneAreas
    */
   void addZoneNodeToArea(ZoneNode &zoneNode, std::vector<ZoneArea> &zoneAreas);
 
   /**
    * @brief rebuild a certain zone area
    * 
-   * @param zoneArea - the area to rebuild
+   * @param zoneArea the area to rebuild
    * @return rebuilt zone area
    */
   std::vector<ZoneArea> rebuildZoneArea(ZoneArea &zoneArea);

@@ -25,21 +25,21 @@ public:
   /**
    * @brief Add a zoneNode to this zoneArea
    * 
-   * @param zoneNode to add
+   * @param zoneNode ZoneNode to add
    */
   void addZoneNode(ZoneNode zoneNode);
 
   /**
    * @brief Remove a zoneNode on a given coordinate from this zoneArea
    * 
-   * @param Coordinates of the mapNode with a zone tile
+   * @param oordinate Coordinates of the mapNode with a zone tile
    */
   void removeZoneNode(Point coordinate);
 
   /**
    * @brief Set the power supply for this Area
    * 
-   * @param whether the area has power supply or not
+   * @param hasPower whether the area has power supply or not
    */
   void setPowerSupply(bool hasPower) { m_hasPower = hasPower; };
 
@@ -53,7 +53,7 @@ public:
   /**
    * @brief Set the water supply for this Area
    * 
-   * @param whether the area has water supply or not
+   * @param hasWater whether the area has water supply or not
    */
   void setWaterSupply(bool hasWater) { m_hasWater = hasWater; };
 
@@ -103,7 +103,6 @@ public:
 
   /**
    * @brief Spawn buildings on nodes in this area if all demands are fulfilled
-   * 
    */
   void spawnBuildings();
 
@@ -147,7 +146,7 @@ private:
   /**
    * @brief Returns the possible size of buildings that can be placed on this coordinate in a zone
    * 
-   * @param originPoint - coordinate where we want to know how many free zone tiles there are next to it
+   * @param originPoint coordinate where we want to know how many free zone tiles there are next to it
    * @return struct with height and with for the possible tilesize that can be placed on this coordinate
    */
   TileSize getMaximumTileSize(Point originPoint);
