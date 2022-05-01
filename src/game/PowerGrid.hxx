@@ -49,9 +49,14 @@ public:
    */
   bool isMemberOf(Point coordinate) const;
 
+  /**
+   * @brief Get the Power Level of this grid
+   * 
+   * @return int power level in MW
+   */
   int getPowerLevel() const { return m_powerLevel; };
-  void setPowerLevel(int powerLevel) { m_powerLevel = powerLevel; };
 
+  /// iterators
   auto begin() { return m_powerNodes.begin(); }
   auto end() { return m_powerNodes.end(); }
 
