@@ -7,7 +7,7 @@ PowerGrid::PowerGrid(PowerNode powerNode) : m_powerNodes{powerNode} {}
 void mergePowerGrids(PowerGrid &mainGrid, PowerGrid &toBeMerged)
 {
   mainGrid.m_powerNodes.insert(mainGrid.m_powerNodes.end(), toBeMerged.m_powerNodes.begin(), toBeMerged.m_powerNodes.end());
-};
+}
 
 void PowerGrid::addPowerNode(PowerNode powerNode)
 {
