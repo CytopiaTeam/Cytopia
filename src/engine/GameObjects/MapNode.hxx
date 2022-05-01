@@ -7,7 +7,6 @@
 #include <string>
 #include <algorithm>
 #include <vector>
-#include "../util/LOG.hxx"
 
 #include "../Sprite.hxx"
 #include "../common/enums.hxx"
