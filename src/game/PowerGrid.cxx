@@ -7,7 +7,6 @@ PowerGrid::PowerGrid(PowerNode powerNode) : m_powerNodes{powerNode} {}
 void mergePowerGrids(PowerGrid &mainGrid, PowerGrid &toBeMerged)
 {
   mainGrid.m_powerNodes.insert(mainGrid.m_powerNodes.end(), toBeMerged.m_powerNodes.begin(), toBeMerged.m_powerNodes.end());
-  mainGrid.m_powerLevel += toBeMerged.m_powerLevel;
 };
 
 void PowerGrid::addPowerNode(PowerNode powerNode)
@@ -35,6 +34,7 @@ void PowerGrid::removePowerNode(Point coordinate)
   m_powerNodes.erase(std::remove_if(m_powerNodes.begin(), m_powerNodes.end(),
                                     [coordinate](const PowerNode &powerNode) { return powerNode.coordinate == coordinate; }),
                      m_powerNodes.end());
+  updatePowerLevel();
 }
 
 bool PowerGrid::isMemberOf(Point coordinate) const

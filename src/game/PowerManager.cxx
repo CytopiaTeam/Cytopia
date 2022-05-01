@@ -44,6 +44,12 @@ void PowerManager::update()
     {
       removePowerNode(m_nodeToRemove);
     }
+
+    int i = 0;
+    for (auto grid : m_powerGrids)
+    { // TODO: Remove this later, this is for debugging
+      LOG(LOG_DEBUG) << "Grid #" << ++i << "/" << m_powerGrids.size() << " - Power Production: " << grid.getPowerLevel();
+    }
     m_nodesToRemove.clear();
   }
 
@@ -57,11 +63,10 @@ void PowerManager::update()
     LOG(LOG_DEBUG) << "Number of power areas: " << m_powerGrids.size();
     int i = 0;
     for (auto grid : m_powerGrids)
-    {
+    { // TODO: Remove this later, this is for debugging
       LOG(LOG_DEBUG) << "Grid #" << ++i << "/" << m_powerGrids.size() << " - Power Production: " << grid.getPowerLevel();
     }
   }
-  // do stuff like update power production, update powerlines, ...
 }
 
 std::vector<int> PowerManager::getAdjacentPowerGrids(const PowerNode &powerNode, std::vector<PowerGrid> &powerGrids)
