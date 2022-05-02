@@ -764,11 +764,11 @@ void Map::setTileID(const std::string &tileID, Point coordinate)
 
     if (coord != coordinate && targetCoordinates.size() > 1)
     { // for buildings >1x1 set every node on the layer that will be occupied to invisible exepct of the origin node
-      currentMapNode.setRenderFlag(layer, false);
+      currentMapNode.getSprite()->setRenderFlag(layer, false);
     }
     else
     { // 1x1 buildings should be set to visible
-      currentMapNode.setRenderFlag(layer, true);
+      currentMapNode.getSprite()->setRenderFlag(layer, true);
     }
 
     if (!targetCoordinates.size() == 1)

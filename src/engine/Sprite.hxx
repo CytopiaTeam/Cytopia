@@ -44,8 +44,10 @@ public:
 
   void clearSprite(Layer layer);
 
-  /** @brief Render this sprite
-  * @param render If this sprite should be rendered
+  /**
+  * @brief enable/disable rendering for this sprite on a specific layer
+  * @param layer which layer to set the flag for
+  * @param render if this sprite should render this layer
   */
   void setRenderFlag(const Layer &layer, bool render) { m_renderLayer[layer] = render; };
 

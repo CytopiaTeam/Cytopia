@@ -9,7 +9,7 @@
 MapNode::MapNode(Point isoCoordinates, const std::string &terrainID, const std::string &tileID)
     : m_isoCoordinates(std::move(isoCoordinates)), m_sprite{std::make_unique<Sprite>(m_isoCoordinates)},
       m_autotileOrientation(LAYERS_COUNT, TileOrientation::TILE_DEFAULT_ORIENTATION),
-      m_mapNodeData{std::vector(LAYERS_COUNT, MapNodeData{"", nullptr, 0, m_isoCoordinates, true, TileMap::DEFAULT})},
+      m_mapNodeData{std::vector(LAYERS_COUNT, MapNodeData{"", nullptr, 0, m_isoCoordinates, TileMap::DEFAULT})},
       m_autotileBitmask(LAYERS_COUNT)
 {
   setTileID(terrainID, isoCoordinates);
@@ -72,7 +72,7 @@ void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
       {
         this->setNodeTransparency(0.6, Layer::BLUEPRINT);
       }
-      setRenderFlag(Layer::ZONE, false);
+      m_sprite->setRenderFlag(Layer::ZONE, false);
       break;
     default:
       break;
@@ -447,7 +447,7 @@ void MapNode::demolishLayer(const Layer &layer)
   m_autotileOrientation[layer] =
       TileOrientation::TILE_DEFAULT_ORIENTATION; // We need to reset TileOrientation, in case it's set (demolishing autotiles)
   m_mapNodeData[layer].origCornerPoint = this->getCoordinates();
-  setRenderFlag(Layer::ZONE, true);
+  m_sprite->setRenderFlag(Layer::ZONE, true);
   m_sprite->clearSprite(layer);
 }
 
@@ -486,10 +486,4 @@ void MapNode::demolishNode(const Layer &demolishLayer)
       updateTexture(demolishLayer);
     }
   }
-}
-
-void MapNode::setRenderFlag(Layer layer, bool render)
-{
-  m_mapNodeData[layer].shouldRender = render;
-  m_sprite->setRenderFlag(layer, render);
 }
