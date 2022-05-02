@@ -162,7 +162,8 @@ void ComboBox::addElement(const std::string &text)
 void ComboBox::setActiveID(int ID)
 {
   m_activeID = ID;
-  m_selectedItem->setText(getTextFromID(m_activeID));
+  m_selectedItem->setText(getTextFromID(ID));
+  activeText = getTextFromID(ID);
   clickSignalSender.emit(this);
 }
 
@@ -195,19 +196,16 @@ bool ComboBox::onMouseButtonUp(const SDL_Event &event)
     // if the click event is outside the button, handle a click on the dropdown menu
     if (!m_items.empty())
     {
-      m_activeID = ((m_itemHeight + event.button.y - m_dropdownRect.y) / m_itemHeight) - 1;
+      setActiveID(((m_itemHeight + event.button.y - m_dropdownRect.y) / m_itemHeight) - 1);
       // because of the -4 pixel offset that's been added in the constructor, the id would exceed the size of the vector, if the bottom of the dropdown is clicked
 
       if (m_activeID >= static_cast<int>(count()))
       {
-        m_activeID = static_cast<int>(count() - 1);
+        setActiveID(static_cast<int>(count() - 1));
       }
     }
-    activeText = getTextFromID(m_activeID);
-    m_selectedItem->setText(activeText);
     m_isMenuOpened = false;
     centerTextLabel();
-    clickSignalSender.emit(this);
     return true;
   }
   return false;
