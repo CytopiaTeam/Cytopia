@@ -197,7 +197,7 @@ bool MapNode::isPlacementAllowed(const std::string &newTileID) const
       { // flora with overplacable flag
         return true;
       }
-      if (isLayerOccupied(Layer::ROAD) || isLayerOccupied(Layer::BUILDINGS))
+      if (isLayerOccupied(Layer::ROAD) || isLayerOccupied(Layer::BUILDINGS) || isLayerOccupied(Layer::POWERLINES))
       { // don't allow placement of flora on buildings or roads
         return false;
       }
