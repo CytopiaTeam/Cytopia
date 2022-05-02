@@ -22,14 +22,14 @@ public:
   /**
    * @brief Add a powernode to this powergrid
    * 
-   * @param zoneNode to add
+   * @param powerNode node to add
    */
   void addPowerNode(PowerNode powerNode);
 
   /**
    * @brief Remove a powernode on a given coordinate from this powerGrid
    * 
-   * @param Coordinates of the mapNode with a power tile
+   * @param coordinate Coordinates of the mapNode with a power tile
    */
   void removePowerNode(Point coordinate);
 
@@ -37,15 +37,15 @@ public:
    * @brief If this coordinate is a neighbor of one of the tiles in this power grid.
    * 
    * @param coordinate The point to check
-   * @return neighbor of this power grid
+   * @return if the given coordinate is a neighbor of this power grid
    */
   bool isNeighbor(Point coordinate) const;
 
   /**
-   * @brief If this coordinate part of this power grid.
+   * @brief If this coordinate is part of this power grid.
    * 
    * @param coordinate The point to check
-   * @return neighbor of this power grid
+   * @return if the given coordinate is a member of this power grid.
    */
   bool isMemberOf(Point coordinate) const;
 
