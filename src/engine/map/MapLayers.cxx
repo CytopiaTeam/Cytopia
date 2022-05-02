@@ -19,7 +19,7 @@ void MapLayers::setLayerEditMode(LayerEditMode layerEditMode)
       break;
     case LayerEditMode::TERRAIN:
       deactivateAllLayers();
-      enableLayers({TERRAIN, WATER, ROAD, ZONE, BUILDINGS});
+      enableLayers({TERRAIN, WATER, ROAD, ZONE, BUILDINGS, POWERLINES, FLORA});
       break;
     }
   };
