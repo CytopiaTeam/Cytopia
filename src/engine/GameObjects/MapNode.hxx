@@ -150,7 +150,7 @@ public:
   /**
    * @brief Sets a node to be Transparent
    * @param transparencyFactor (0-1.0) - The percentage of node transparency. 1 -> invisible, 0 -> opaque.
-   * @param layer what layer in Sprite should it's transperancy altered.
+   * @param layer what layer in Sprite should it's transparency altered.
    */
   void setNodeTransparency(const float transparencyFactor, const Layer &layer) const;
 
