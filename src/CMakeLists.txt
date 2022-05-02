@@ -56,6 +56,8 @@ set(SOURCE_FILES
         engine/WindowManager.{hxx,cxx}
         game/ZoneArea.{hxx,cxx}
         game/ZoneManager.{hxx,cxx}
+        game/PowerManager.{hxx,cxx}
+        game/PowerGrid.{hxx,cxx}
         game/GamePlay.{hxx,cxx}
         )
 

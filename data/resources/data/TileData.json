@@ -13859,7 +13859,7 @@
         "placeOnGround": true,
         "placeOnWater": false,
         "pollutionLevel": 80,
-        "power": 0,
+        "power": 150,
         "price": 0,
         "subCategory": "",
         "tags": [
@@ -13897,7 +13897,7 @@
         "placeOnGround": true,
         "placeOnWater": false,
         "pollutionLevel": 80,
-        "power": 0,
+        "power": 1000,
         "price": 0,
         "subCategory": "",
         "tags": [
