@@ -44,6 +44,11 @@ public:
 
   void clearSprite(Layer layer);
 
+  /** @brief Render this sprite
+  * @param render If this sprite should be rendered
+  */
+  void setRenderFlag(const Layer &layer, bool render) { m_renderLayer[layer] = render; };
+
   size_t spriteCount = 1;
   bool highlightSprite = false;
   SpriteRGBColor highlightColor = SpriteHighlightColor::GRAY;
@@ -64,6 +69,7 @@ private:
   double m_currentZoomLevel = 0;
 
   std::vector<SpriteData> m_SpriteData;
+  std::vector<bool> m_renderLayer;
 };
 
 #endif

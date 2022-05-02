@@ -133,8 +133,6 @@ public:
 
   bool isLayerOccupied(const Layer &layer) const { return m_mapNodeData[layer].tileData != nullptr; }
 
-  void setRenderFlag(Layer layer, bool shouldRender) { m_mapNodeData[layer].shouldRender = shouldRender; }
-
   /** @brief Set elevation bit mask.
   * @param bitMask
     */
@@ -165,6 +163,8 @@ public:
 
   /// Maximum height of the node.
   static const int maxHeight = 32;
+
+  void setRenderFlag(Layer layer, bool render);
 
 private:
   Point m_isoCoordinates;

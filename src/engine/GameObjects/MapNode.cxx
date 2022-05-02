@@ -72,7 +72,7 @@ void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
       {
         this->setNodeTransparency(0.6, Layer::BLUEPRINT);
       }
-      m_mapNodeData[Layer::ZONE].shouldRender = false;
+      setRenderFlag(Layer::ZONE, false);
       break;
     default:
       break;
@@ -190,6 +190,16 @@ bool MapNode::isPlacementAllowed(const std::string &newTileID) const
       if (m_mapNodeData[Layer::GROUND_DECORATION].tileData || m_mapNodeData[Layer::BUILDINGS].tileData)
       { // allow placement of ground decoration on existing ground decoration and on buildings.
         return true;
+      }
+      break;
+    case Layer::FLORA:
+      if (m_mapNodeData[Layer::FLORA].tileData && m_mapNodeData[Layer::FLORA].tileData->isOverPlacable)
+      { // flora with overplacable flag
+        return true;
+      }
+      if (isLayerOccupied(Layer::ROAD) || isLayerOccupied(Layer::BUILDINGS))
+      { // don't allow placement of flora on buildings or roads
+        return false;
       }
       break;
     case Layer::BUILDINGS:
@@ -342,11 +352,8 @@ void MapNode::updateTexture(const Layer &layer)
           m_sprite->setClipRect({clipRect.x + m_clippingWidth * m_mapNodeData[currentLayer].tileData->tiles.offset, 0,
                                  m_clippingWidth, m_mapNodeData[currentLayer].tileData->tiles.clippingHeight},
                                 static_cast<Layer>(currentLayer));
-          if (m_mapNodeData[currentLayer].shouldRender)
-          {
-            m_sprite->setTexture(TileManager::instance().getTexture(m_mapNodeData[currentLayer].tileID),
-                                 static_cast<Layer>(currentLayer));
-          }
+          m_sprite->setTexture(TileManager::instance().getTexture(m_mapNodeData[currentLayer].tileID),
+                               static_cast<Layer>(currentLayer));
         }
 
         spriteCount = m_mapNodeData[currentLayer].tileData->tiles.count;
@@ -367,11 +374,8 @@ void MapNode::updateTexture(const Layer &layer)
           m_sprite->setClipRect({clipRect.x + m_clippingWidth * m_mapNodeData[currentLayer].tileData->shoreTiles.offset, 0,
                                  m_clippingWidth, m_mapNodeData[currentLayer].tileData->shoreTiles.clippingHeight},
                                 static_cast<Layer>(currentLayer));
-          if (m_mapNodeData[currentLayer].shouldRender)
-          {
-            m_sprite->setTexture(TileManager::instance().getTexture(m_mapNodeData[currentLayer].tileID + "_shore"),
-                                 static_cast<Layer>(currentLayer));
-          }
+          m_sprite->setTexture(TileManager::instance().getTexture(m_mapNodeData[currentLayer].tileID + "_shore"),
+                               static_cast<Layer>(currentLayer));
         }
 
         spriteCount = m_mapNodeData[currentLayer].tileData->shoreTiles.count;
@@ -433,10 +437,6 @@ void MapNode::setMapNodeData(std::vector<MapNodeData> &&mapNodeData, const Point
     delete it.tileData;
 
     it.tileData = TileManager::instance().getTileData(it.tileID);
-    if (it.origCornerPoint != currNodeIsoCoordinates)
-    {
-      it.shouldRender = false;
-    }
   }
 }
 
@@ -447,7 +447,7 @@ void MapNode::demolishLayer(const Layer &layer)
   m_autotileOrientation[layer] =
       TileOrientation::TILE_DEFAULT_ORIENTATION; // We need to reset TileOrientation, in case it's set (demolishing autotiles)
   m_mapNodeData[layer].origCornerPoint = this->getCoordinates();
-  m_mapNodeData[Layer::ZONE].shouldRender = true;
+  setRenderFlag(Layer::ZONE, true);
   m_sprite->clearSprite(layer);
 }
 
@@ -486,4 +486,10 @@ void MapNode::demolishNode(const Layer &demolishLayer)
       updateTexture(demolishLayer);
     }
   }
+}
+
+void MapNode::setRenderFlag(Layer layer, bool render)
+{
+  m_mapNodeData[layer].shouldRender = render;
+  m_sprite->setRenderFlag(layer, render);
 }
