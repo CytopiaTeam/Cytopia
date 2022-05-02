@@ -132,6 +132,12 @@ Layer TileManager::getTileLayer(const std::string &tileID) const
     case TileType::ROAD:
       layer = Layer::ROAD;
       break;
+    case TileType::POWERLINE:
+      layer = Layer::POWERLINES;
+      break;
+    case TileType::FLORA:
+      layer = Layer::FLORA;
+      break;
     default:
       layer = Layer::BUILDINGS;
       break;

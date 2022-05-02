@@ -20,7 +20,6 @@ struct MapNodeData
   TileData *tileData = nullptr;
   int32_t tileIndex = 0;
   Point origCornerPoint = Point::INVALID();
-  bool shouldRender = true;
   TileMap tileMap = TileMap::DEFAULT; // store information wheter we use normal, slope or shore tiles
 };
 
@@ -132,8 +131,6 @@ public:
   Layer getTopMostActiveLayer() const;
 
   bool isLayerOccupied(const Layer &layer) const { return m_mapNodeData[layer].tileData != nullptr; }
-
-  void setRenderFlag(Layer layer, bool shouldRender) { m_mapNodeData[layer].shouldRender = shouldRender; }
 
   /** @brief Set elevation bit mask.
   * @param bitMask
