@@ -161,10 +161,16 @@ public:
   */
   void setZIndex(int zIndex) { m_isoCoordinates.z = zIndex; };
 
+  /**
+  * @brief enable/disable rendering in Sprite class for a specific layer
+  * @param layer which layer to set the flag for
+  * @param render if this sprite should render this layer
+  * @see Sprite#setRenderFlag
+  */
+  void setRenderFlag(Layer layer, bool render);
+
   /// Maximum height of the node.
   static const int maxHeight = 32;
-
-  void setRenderFlag(Layer layer, bool render);
 
 private:
   Point m_isoCoordinates;
