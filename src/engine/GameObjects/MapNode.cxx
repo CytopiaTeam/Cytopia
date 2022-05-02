@@ -63,11 +63,12 @@ void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
       //TODO: we need to modify neighbors TileTypes to Shore.
       // no break on purpose.
     case Layer::ROAD:
+    case Layer::POWERLINES:
       // in case it's allowed then maybe a Tree Tile already exist, so we remove it.
-      demolishLayer(Layer::BUILDINGS);
+      demolishLayer(Layer::FLORA);
       break;
     case Layer::BUILDINGS:
-      if (tileData->category != "Flora")
+      if (tileData->tileType != +TileType::FLORA)
       {
         this->setNodeTransparency(0.6, Layer::BLUEPRINT);
       }
@@ -170,6 +171,11 @@ bool MapNode::isPlacementAllowed(const std::string &newTileID) const
     case Layer::ZONE:
       // zones can overplace themselves and everything else
       return true;
+    case Layer::POWERLINES:
+      if (isLayerOccupied(Layer::ROAD) || isLayerOccupied(Layer::POWERLINES))
+      { // powerlines can be placed over each other and over roads
+        return true;
+      }
     case Layer::ROAD:
       if ((isLayerOccupied(Layer::BUILDINGS) && (m_mapNodeData[Layer::BUILDINGS].tileData->category != "Flora")) ||
           isLayerOccupied(Layer::WATER) || !isPlacableOnSlope(newTileID))
@@ -451,7 +457,8 @@ void MapNode::demolishNode(const Layer &demolishLayer)
   std::vector<Layer> layersToDemolish;
   if (demolishLayer == Layer::NONE)
   {
-    layersToDemolish = {Layer::BUILDINGS, Layer::UNDERGROUND, Layer::GROUND_DECORATION, Layer::ZONE, Layer::ROAD};
+    layersToDemolish = {Layer::BUILDINGS,  Layer::UNDERGROUND, Layer::GROUND_DECORATION, Layer::ZONE, Layer::ROAD,
+                        Layer::POWERLINES, Layer::FLORA};
   }
   else
   {

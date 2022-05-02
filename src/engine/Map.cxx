@@ -89,7 +89,7 @@ Map::Map(int columns, int rows, const bool generateTerrain)
 {
   // TODO move Random Engine out of map
   randomEngine.seed();
-  MapLayers::enableLayers({TERRAIN, BUILDINGS, WATER, GROUND_DECORATION, ZONE, ROAD});
+  MapLayers::enableLayers({TERRAIN, BUILDINGS, WATER, GROUND_DECORATION, ZONE, ROAD, POWERLINES, FLORA});
 
   if (generateTerrain)
   {
@@ -715,7 +715,7 @@ void Map::calculateVisibleMap(void)
 
       if ((xVal >= left) && (xVal <= right) && (yVal <= top) && (yVal >= bottom))
       {
-        pMapNodesVisible[m_visibleNodesCount++] = getMapNode({x,y}).getSprite();
+        pMapNodesVisible[m_visibleNodesCount++] = getMapNode({x, y}).getSprite();
       }
     }
   }
