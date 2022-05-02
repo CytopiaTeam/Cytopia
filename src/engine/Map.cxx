@@ -89,7 +89,7 @@ Map::Map(int columns, int rows, const bool generateTerrain)
 {
   // TODO move Random Engine out of map
   randomEngine.seed();
-  MapLayers::enableLayers({TERRAIN, BUILDINGS, WATER, GROUND_DECORATION, ZONE, ROAD});
+  MapLayers::enableLayers({TERRAIN, BUILDINGS, WATER, GROUND_DECORATION, ZONE, ROAD, POWERLINES, FLORA});
 
   if (generateTerrain)
   {
@@ -715,7 +715,7 @@ void Map::calculateVisibleMap(void)
 
       if ((xVal >= left) && (xVal <= right) && (yVal <= top) && (yVal >= bottom))
       {
-        pMapNodesVisible[m_visibleNodesCount++] = getMapNode({x,y}).getSprite();
+        pMapNodesVisible[m_visibleNodesCount++] = getMapNode({x, y}).getSprite();
       }
     }
   }
@@ -751,9 +751,10 @@ void Map::setTileID(const std::string &tileID, Point coordinate)
   }
 
   // for >1x1 buildings, clear all the nodes that are going to be occupied before placing anything.
-  if (targetCoordinates.size() > 1)
+  if (targetCoordinates.size() >= 1 && layer == +Layer::BUILDINGS)
   {
-    demolishNode(targetCoordinates, 0, Layer::BUILDINGS);
+    demolishNode(targetCoordinates, 0, Layer::FLORA);      // remove trees under the buildings
+    demolishNode(targetCoordinates, 0, Layer::POWERLINES); // remove power lines under buildings
   }
 
   for (auto coord : targetCoordinates)
@@ -763,11 +764,11 @@ void Map::setTileID(const std::string &tileID, Point coordinate)
 
     if (coord != coordinate && targetCoordinates.size() > 1)
     { // for buildings >1x1 set every node on the layer that will be occupied to invisible exepct of the origin node
-      currentMapNode.setRenderFlag(layer, false);
+      currentMapNode.getSprite()->setRenderFlag(layer, false);
     }
     else
     { // 1x1 buildings should be set to visible
-      currentMapNode.setRenderFlag(layer, true);
+      currentMapNode.getSprite()->setRenderFlag(layer, true);
     }
 
     if (!targetCoordinates.size() == 1)
