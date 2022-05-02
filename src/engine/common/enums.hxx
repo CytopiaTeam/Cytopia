@@ -16,15 +16,18 @@ enum Layer : unsigned int
   WATER,             ///< 6-  Water tiles
   MOVABLE_OBJECTS,   ///< 7-  Cars, Pedestrians
   BUILDINGS,         ///< 8-  Buildings, Streets and everything that goes on the terrain
-  ANIMATIONS,        ///< 9-  Animations like smoke
-  SYMBOLS,           ///< 10- Symbols to display over buildings like no power / water and so on
-  GROUND_DECORATION, ///< 11- Decoration to place beneath buildings. Like concrete or grass
+  POWERLINES,        ///< 9-  Powerlines
+  FLORA,             ///< 10- Trees and other flora/Fauna tiles
+  ANIMATIONS,        ///< 11- Animations like smoke
+  SYMBOLS,           ///< 12- Symbols to display over buildings like no power / water and so on
+  GROUND_DECORATION, ///< 13- Decoration to place beneath buildings. Like concrete or grass
   LAYERS_COUNT       ///< this must be LAST !!!
 };
 
 /// This is a ordered list of all relevant layers we need to interact with
-static Layer allLayersOrdered[] = {Layer::BLUEPRINT, Layer::UNDERGROUND, Layer::TERRAIN, Layer::WATER,
-                                    Layer::GROUND_DECORATION, Layer::ZONE, Layer::ROAD,    Layer::BUILDINGS};
+static Layer allLayersOrdered[] = {
+    Layer::BLUEPRINT, Layer::UNDERGROUND, Layer::TERRAIN,    Layer::WATER, Layer::GROUND_DECORATION,
+    Layer::ZONE,      Layer::ROAD,        Layer::POWERLINES, Layer::FLORA, Layer::BUILDINGS};
 
 /**
  * @brief LayerEditMode.
