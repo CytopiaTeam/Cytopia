@@ -751,9 +751,10 @@ void Map::setTileID(const std::string &tileID, Point coordinate)
   }
 
   // for >1x1 buildings, clear all the nodes that are going to be occupied before placing anything.
-  if (targetCoordinates.size() > 1)
+  if (targetCoordinates.size() >= 1 && layer == +Layer::BUILDINGS)
   {
-    demolishNode(targetCoordinates, 0, Layer::BUILDINGS);
+    demolishNode(targetCoordinates, 0, Layer::FLORA);      // remove trees under the buildings
+    demolishNode(targetCoordinates, 0, Layer::POWERLINES); // remove power lines under buildings
   }
 
   for (auto coord : targetCoordinates)
