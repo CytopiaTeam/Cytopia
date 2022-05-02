@@ -32,15 +32,20 @@ void Engine::loadGame(const std::string &fileName)
     delete map;
     map = newMap;
     m_running = true;
+    map->refresh();
   }
 }
 
 void Engine::newGame()
 {
-  delete map;
-  m_running = true;
-
   const int mapSize = Settings::instance().mapSize;
+  Map *newMap = new Map(mapSize, mapSize);
 
-  map = new Map(mapSize, mapSize);
+  if (newMap)
+  {
+    delete map;
+    map = newMap;
+    m_running = true;
+    map->refresh();
+  }
 }
