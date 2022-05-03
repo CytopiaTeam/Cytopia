@@ -538,7 +538,7 @@ void UIManager::setCallbackFunctions()
         {
           Settings::instance().writeFile();
           toggleGroupVisibility("SettingsMenu");
-            toggleGroupVisibility("PauseMenu");
+          toggleGroupVisibility("PauseMenu");
         });
     }
     else if (uiElement->getUiElementData().actionID == "CancelSettings")
@@ -1039,6 +1039,7 @@ void UIManager::initializeDollarVariables()
             {
               const float musicVolume = static_cast<float>(sliderValue / 100.0f);
               AudioMixer::instance().setMusicVolume(musicVolume);
+              Settings::instance().musicVolume = musicVolume;
             });
 #endif
       }
