@@ -3,7 +3,9 @@
 
 // PATHS
 #ifdef __linux__
-const std::string CYTOPIA_DATA_DIR_BASE = getenv("XDG_DATA_HOME");
+const std::string CYTOPIA_DATA_DIR_BASE = (getenv("XDG_DATA_HOME") == NULL)
+                                              ? (std::string)getenv("HOME") + (std::string) "/.local/share"
+                                              : (std::string)getenv("XDG_DATA_HOME");
 #elif _WIN32
 const std::string CYTOPIA_DATA_DIR_BASE = getenv("APPDATA");
 #elif __APPLE__
