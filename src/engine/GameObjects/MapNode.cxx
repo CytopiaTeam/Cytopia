@@ -322,6 +322,18 @@ void MapNode::updateTexture(const Layer &layer)
         }
         else
         {
+          if (m_mapNodeData[currentLayer].tileData->tileType == +TileType::POWERLINE && m_mapNodeData[ROAD].tileData)
+          { // if we place a power line on roads
+            switch (m_autotileOrientation[currentLayer])
+            {
+            case TileOrientation::TILE_N_AND_S:
+              m_autotileOrientation[currentLayer] = TileOrientation::TILE_N_AND_S_ROAD;
+              break;
+            case TileOrientation::TILE_E_AND_W:
+              m_autotileOrientation[currentLayer] = TileOrientation::TILE_E_AND_W_ROAD;
+              break;
+            }
+          }
           // only check for rectangular roads when there are frames for it. Spritesheets with rect-roads have 20 items
           if (GameStates::instance().rectangularRoads && m_mapNodeData[currentLayer].tileData->tiles.count == 20)
           {
