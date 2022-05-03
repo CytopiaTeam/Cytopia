@@ -1,4 +1,5 @@
 #include "LOG.hxx"
+#include "Constants.hxx"
 #include "Filesystem.hxx"
 #include "Settings.hxx"
 
@@ -33,7 +34,7 @@ LOG::~LOG()
       std::cout << getTimeStamp() << LOG_PREFIX_COLORED[m_LogType] << m_Logger.str() << std::endl;
   }
 #ifndef __ANDROID__
-  //writeErrorLog(message);
+  writeErrorLog(message);
 #endif
 }
 
@@ -47,7 +48,8 @@ std::string LOG::getTimeStamp()
 
 void LOG::writeErrorLog(const std::string &errorMessage)
 {
-  string errfname = fs::getBasePath() + string{"error.log"};
+  fs::createDirectory(CYTOPIA_DATA_DIR);
+  string errfname = CYTOPIA_DATA_DIR + string{"error.log"};
 
   /* First we create the file if it doesn't exist */
   std::fstream fs(errfname, std::fstream::out | std::fstream::app);

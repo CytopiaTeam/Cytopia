@@ -3,17 +3,18 @@
 
 // PATHS
 #ifdef __linux__
-const std::string CYTOPIA_DATA_DIR_BASE = getenv("XDG_DATA_HOME") + (std::string) "/Cytopia/";
+const std::string CYTOPIA_DATA_DIR_BASE = getenv("XDG_DATA_HOME");
 #elif _WIN32
-const std::string CYTOPIA_DATA_DIR_BASE = getenv("APPDATA") + (std::string) "/Cytopia/";
+const std::string CYTOPIA_DATA_DIR_BASE = getenv("APPDATA");
 #elif __APPLE__
-const std::string CYTOPIA_DATA_DIR_BASE = getenv("HOME") + (std::string) "/Cytopia/";
+const std::string CYTOPIA_DATA_DIR_BASE = getenv("HOME");
 #else
 // TODO: Define mobile platform dirs
 const std::string CYTOPIA_DATA_DIR_BASE = "";
 #endif
 
 const std::string CYTOPIA_DATA_DIR = CYTOPIA_DATA_DIR_BASE + (std::string) "/Cytopia/";
+const std::string CYTOPIA_SAVEGAME_DIR = CYTOPIA_DATA_DIR + (std::string) "saves/";
 
 const std::string SETTINGS_FILENAME = "settings.json";
 const std::string CYTOPIA_RESOURCES_DIR = "resources/";

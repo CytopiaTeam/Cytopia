@@ -2,6 +2,7 @@
 #include <Settings.hxx>
 #include <LOG.hxx>
 #include <fstream>
+#include "compression.hxx"
 
 #include <SDL.h>
 
@@ -33,6 +34,11 @@ template <typename Callback> void forEachFileType(fs::path &&path, std::string &
   }
 }
 
+std::string fs::readCompressedFileAsString(const std::string &fileName)
+{
+  return decompressString(fs::readFileAsString(fileName, true));
+}
+
 std::string fs::readFileAsString(const std::string &fileName, bool binaryMode)
 {
   std::ios::openmode mode;
@@ -59,6 +65,11 @@ std::string fs::readFileAsString(const std::string &fileName, bool binaryMode)
   stream.close();
 
   return buffer.str();
+}
+
+void fs::writeStringToFileCompressed(const std::string &fileName, const std::string &stringToWrite)
+{
+  writeStringToFile(fileName, compressString(stringToWrite), true);
 }
 
 void fs::writeStringToFile(const std::string &fileName, const std::string &stringToWrite, bool binaryMode)

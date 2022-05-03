@@ -51,7 +51,7 @@ void Settings::writeFile()
   }
   else
   {
-    pathToDataDir = CYTOPIA_DATA_DIR_BASE;
+    pathToDataDir = CYTOPIA_DATA_DIR;
   }
   std::string pathToSettingsFile = pathToDataDir + (std::string)SETTINGS_FILENAME;
   fs::createDirectory(pathToDataDir);

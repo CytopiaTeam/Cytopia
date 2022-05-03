@@ -5,7 +5,6 @@
 #include "basics/mapEdit.hxx"
 #include "basics/Settings.hxx"
 #include "LOG.hxx"
-#include "basics/compression.hxx"
 #include "common/Constants.hxx"
 #include "ResourcesManager.hxx"
 #include "map/MapLayers.hxx"
@@ -587,6 +586,9 @@ void Map::unHighlightNode(const Point &isoCoordinates)
 
 void Map::saveMapToFile(const std::string &fileName)
 {
+  // make sure savegame dir exists
+  fs::createDirectory(CYTOPIA_SAVEGAME_DIR);
+
   //create savegame json string
   const json j =
       json{{"Savegame version", SAVEGAME_VERSION}, {"columns", this->m_columns}, {"rows", this->m_rows}, {"mapNode", mapNodes}};
@@ -596,17 +598,12 @@ void Map::saveMapToFile(const std::string &fileName)
   fs::writeStringToFile(fileName + ".txt", j.dump());
 #endif
 
-  const std::string compressedSaveGame = compressString(j.dump());
-
-  if (!compressedSaveGame.empty())
-  {
-    fs::writeStringToFile(fileName, compressedSaveGame, true);
-  }
+  fs::writeStringToFileCompressed(fileName, j.dump());
 }
 
 Map *Map::loadMapFromFile(const std::string &fileName)
 {
-  std::string jsonAsString = decompressString(fs::readFileAsString(fileName, true));
+  std::string jsonAsString = fs::readCompressedFileAsString(fileName);
 
   if (jsonAsString.empty())
     return nullptr;

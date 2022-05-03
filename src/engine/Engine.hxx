@@ -56,7 +56,7 @@ public:
   /** @brief Saves the game to a file
   * @param fileName name of the file to save the data to
   */
-  void saveGame(const std::string &fileName) const { map->saveMapToFile(fileName); };
+  void saveGame(const std::string &fileName) const;
 
   /// Creates a new game
   void newGame();
