@@ -537,12 +537,12 @@ void UIManager::setCallbackFunctions()
     else if (uiElement->getUiElementData().actionID == "SaveSettings")
     {
       uiElement->registerCallbackFunction(
-          [this]()
-          {
-            Settings::instance().writeFile();
-            toggleGroupVisibility("SettingsMenu");
-            toggleGroupVisibility("PauseMenu");
-          });
+        [this]() 
+        {
+          Settings::instance().writeFile();
+          toggleGroupVisibility("SettingsMenu");
+          toggleGroupVisibility("PauseMenu");
+        });
     }
     else if (uiElement->getUiElementData().actionID == "CancelSettings")
     {
@@ -1042,6 +1042,7 @@ void UIManager::initializeDollarVariables()
             {
               const float musicVolume = static_cast<float>(sliderValue / 100.0f);
               AudioMixer::instance().setMusicVolume(musicVolume);
+              Settings::instance().musicVolume = musicVolume;
             });
 #endif
       }
