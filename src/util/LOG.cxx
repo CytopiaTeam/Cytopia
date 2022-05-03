@@ -33,10 +33,7 @@ LOG::~LOG()
       std::cout << getTimeStamp() << LOG_PREFIX_COLORED[m_LogType] << m_Logger.str() << std::endl;
   }
 #ifndef __ANDROID__
-  if (Settings::instance().writeErrorLogFile)
-  {
-    writeErrorLog(message);
-  }
+  //writeErrorLog(message);
 #endif
 }
 

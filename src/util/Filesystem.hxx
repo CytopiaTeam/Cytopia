@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 
+
 namespace fs
 {
 
@@ -45,6 +46,8 @@ bool fileExists(const std::string &filePath);
  * @returns the Base path
  */
 std::string getBasePath();
+
+void createDirectory(const std::string &dir);
 
 } // namespace fs
 #endif

@@ -43,10 +43,10 @@ std::string fs::readFileAsString(const std::string &fileName, bool binaryMode)
     mode = std::ios_base::in;
   }
 
-  if (!fs::fileExists(getBasePath() + fileName))
-    throw ConfigurationError(TRACE_INFO "File " + getBasePath() + fileName + " doesn't exist");
+  if (!fs::fileExists(fileName))
+    throw ConfigurationError(TRACE_INFO "File " + fileName + " doesn't exist");
 
-  std::ifstream stream(getBasePath() + fileName, mode);
+  std::ifstream stream(fileName, mode);
 
   if (!stream)
   {
@@ -73,11 +73,11 @@ void fs::writeStringToFile(const std::string &fileName, const std::string &strin
     mode = std::ios_base::out;
   }
 
-  std::ofstream stream(getBasePath() + fileName, mode);
+  std::ofstream stream(fileName, mode);
 
   if (!stream)
   {
-    throw ConfigurationError(TRACE_INFO "Could not write to file " + getBasePath() + fileName);
+    throw ConfigurationError(TRACE_INFO "Could not write to file " + fileName);
   }
 
   stream << stringToWrite << std::endl;
@@ -122,4 +122,15 @@ std::string fs::getBasePath()
   SDL_free(path);
 
   return sPath;
+}
+
+void fs::createDirectory(const std::string &dir)
+{
+  if (!fs::is_directory(dir))
+  {
+    if (fs::create_directories(dir.c_str()))
+    {
+      LOG(LOG_INFO) << "Created directory" << dir;
+    }
+  }
 }
