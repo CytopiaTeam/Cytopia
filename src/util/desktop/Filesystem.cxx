@@ -49,14 +49,23 @@ std::string fs::readFileAsString(const std::string &fileName, bool binaryMode)
     mode = std::ios_base::in;
   }
 
-  if (!fs::fileExists(fileName))
-    throw ConfigurationError(TRACE_INFO "File " + fileName + " doesn't exist");
+  std::ifstream stream; //(fileName, mode);
 
-  std::ifstream stream(fileName, mode);
+  if (fs::fileExists(fileName))
+  { // first try given path
+    stream.open(fileName, mode);
+  }
+  else if (fs::fileExists(getBasePath() + fileName))
+  { // if this doesn't work, add the basepath
+    stream.open(getBasePath() + fileName, mode);
+  }
+  else
+  {
+    throw ConfigurationError(TRACE_INFO "File " + fileName + " doesn't exist");
+  }
 
   if (!stream)
   {
-    LOG(LOG_INFO) << "Open file " << fileName;
     throw ConfigurationError(TRACE_INFO "Can't open file " + fileName);
   }
 
