@@ -63,8 +63,6 @@ set(SOURCE_FILES
 
 if (ANDROID)
     list(APPEND SOURCE_FILES util/android/Filesystem.cxx)
-elseif (APPLE)
-    list(APPEND SOURCE_FILES util/macOS/Filesystem.cxx)
 else ()
     list(APPEND SOURCE_FILES util/desktop/Filesystem.cxx)
 endif ()
