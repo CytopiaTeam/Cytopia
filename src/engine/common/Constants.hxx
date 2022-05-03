@@ -9,7 +9,7 @@ const std::string CYTOPIA_DATA_DIR_BASE = (getenv("XDG_DATA_HOME") == NULL)
 #elif _WIN32
 const std::string CYTOPIA_DATA_DIR_BASE = getenv("APPDATA");
 #elif __APPLE__
-const std::string CYTOPIA_DATA_DIR_BASE = getenv("HOME");
+const std::string CYTOPIA_DATA_DIR_BASE = getenv("HOME")+(std::string)"/Library/Application Support";
 #else
 // TODO: Define mobile platform dirs
 const std::string CYTOPIA_DATA_DIR_BASE = "";
