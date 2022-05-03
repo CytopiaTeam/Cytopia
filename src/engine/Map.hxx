@@ -78,6 +78,7 @@ public:
  * @param coordinate Point where the tileID which should be set
  */
   void setTileID(const std::string &tileID, Point coordinate);
+  
   /**
  * @brief Set the Tile ID Of multiple Node objects
  * @details Also invokes all necessary texture updates (auto-tiling, slopes, ...)
@@ -226,12 +227,14 @@ private:
   static const size_t m_saveGameVersion;
 
   // Signals
+  Signal::Signal<void(const MapNode &)> signalPlacePowerBuilding;
   Signal::Signal<void(const MapNode &)> signalPlaceBuilding;
   Signal::Signal<void(const MapNode &)> signalPlaceZone;
   Signal::Signal<void(MapNode *)> signalDemolish;
 
 public:
   // Callback functions
+  void registerCbPlacePowerBuilding(std::function<void(const MapNode &)> const &cb) { signalPlacePowerBuilding.connect(cb); }
   void registerCbPlaceBuilding(std::function<void(const MapNode &)> const &cb) { signalPlaceBuilding.connect(cb); }
   void registerCbPlaceZone(std::function<void(const MapNode &)> const &cb) { signalPlaceZone.connect(cb); }
   void registerCbDemolish(std::function<void(MapNode *)> const &cb) { signalDemolish.connect(cb); }

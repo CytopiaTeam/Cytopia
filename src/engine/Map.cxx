@@ -799,6 +799,10 @@ void Map::setTileID(const std::string &tileID, Point coordinate)
     {
       signalPlaceBuilding.emit(currentMapNode);
     }
+    else if (currentMapNode.getTileData(Layer::BUILDINGS) && currentMapNode.getTileData(Layer::BUILDINGS)->category == "Power")
+    {
+      signalPlacePowerBuilding.emit(currentMapNode);
+    }
     else if (currentMapNode.getTileData(Layer::ZONE))
     {
       signalPlaceZone.emit(currentMapNode);
