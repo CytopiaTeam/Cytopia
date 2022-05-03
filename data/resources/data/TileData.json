@@ -13944,7 +13944,7 @@
             "clip_width": 32,
             "count": 4,
             "fileName": "resources/images/buildings/power plants/pow_1x1_RuralPowerlines.png",
-            "offset": 20,
+            "offset": 22,
             "pickRandomTile": false
         },
         "subCategory": "",
@@ -13957,7 +13957,7 @@
         "tiles": {
             "clip_height": 37,
             "clip_width": 32,
-            "count": 24,
+            "count": 26,
             "fileName": "resources/images/buildings/power plants/pow_1x1_RuralPowerlines.png",
             "offset": 0,
             "pickRandomTile": false
