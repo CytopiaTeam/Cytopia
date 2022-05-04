@@ -526,23 +526,21 @@ void UIManager::setCallbackFunctions()
     }
     else if (uiElement->getUiElementData().actionID == "SaveGame")
     {
-      uiElement->registerCallbackFunction(
-          []() { Engine::instance().saveGame("save.cts"); });
+      uiElement->registerCallbackFunction([]() { Engine::instance().saveGame("save.cts"); });
     }
     else if (uiElement->getUiElementData().actionID == "LoadGame")
     {
-      uiElement->registerCallbackFunction(
-          []() { Engine::instance().loadGame("save.cts"); });
+      uiElement->registerCallbackFunction([]() { Engine::instance().loadGame("save.cts"); });
     }
     else if (uiElement->getUiElementData().actionID == "SaveSettings")
     {
       uiElement->registerCallbackFunction(
-        [this]() 
-        {
-          Settings::instance().writeFile();
-          toggleGroupVisibility("SettingsMenu");
-          toggleGroupVisibility("PauseMenu");
-        });
+          [this]()
+          {
+            Settings::instance().writeFile();
+            toggleGroupVisibility("SettingsMenu");
+            toggleGroupVisibility("PauseMenu");
+          });
     }
     else if (uiElement->getUiElementData().actionID == "CancelSettings")
     {
@@ -998,12 +996,10 @@ void UIManager::initializeDollarVariables()
 
               if (checkbox)
               {
-                LOG(LOG_ERROR) << "can parse";
                 Settings::instance().vSync = checkbox->getCheckState();
+
                 return;
               }
-              else
-                LOG(LOG_ERROR) << "cant parse";
             });
       }
       else if (it->getUiElementData().elementID == "$FullScreenSelector")
