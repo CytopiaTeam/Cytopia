@@ -14,11 +14,11 @@ Settings::Settings() { readFile(); }
 void Settings::readFile()
 {
   std::string pathToDataDir;
-  std::string pathToSettingsFile = CYTOPIA_DATA_DIR_BASE + (std::string)SETTINGS_FILENAME;
+  std::string pathToSettingsFile = CYTOPIA_DATA_DIR + (std::string)SETTINGS_FILENAME;
 
   if (!fs::fileExists(pathToSettingsFile))
   { // if there's no custom settings file in data dir, use the provided one
-    pathToSettingsFile = (std::string)CYTOPIA_RESOURCES_DIR + (std::string)SETTINGS_FILENAME;
+    pathToSettingsFile = fs::getBasePath() + (std::string)CYTOPIA_RESOURCES_DIR + (std::string)SETTINGS_FILENAME;
   }
 
   std::string jsonFile = fs::readFileAsString(pathToSettingsFile);
