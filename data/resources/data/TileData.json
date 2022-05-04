@@ -13859,7 +13859,7 @@
         "placeOnGround": true,
         "placeOnWater": false,
         "pollutionLevel": 80,
-        "power": 0,
+        "power": 150,
         "price": 0,
         "subCategory": "",
         "tags": [
@@ -13897,7 +13897,7 @@
         "placeOnGround": true,
         "placeOnWater": false,
         "pollutionLevel": 80,
-        "power": 0,
+        "power": 1000,
         "price": 0,
         "subCategory": "",
         "tags": [
@@ -13944,7 +13944,7 @@
             "clip_width": 32,
             "count": 4,
             "fileName": "resources/images/buildings/power plants/pow_1x1_RuralPowerlines.png",
-            "offset": 20,
+            "offset": 22,
             "pickRandomTile": false
         },
         "subCategory": "",
@@ -13957,7 +13957,7 @@
         "tiles": {
             "clip_height": 37,
             "clip_width": 32,
-            "count": 24,
+            "count": 26,
             "fileName": "resources/images/buildings/power plants/pow_1x1_RuralPowerlines.png",
             "offset": 0,
             "pickRandomTile": false
@@ -40867,7 +40867,13 @@
         },
         "title": "Commercial Zone (dense)",
         "upkeep cost": 2,
-        "water": 0
+        "water": 0,
+        "zoneDensity": [
+            "HIGH"
+        ],
+        "zoneType": [
+            "COMMERCIAL"
+        ]
     },
     {
         "RequiredTiles": {

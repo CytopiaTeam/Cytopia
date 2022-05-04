@@ -40,6 +40,7 @@ inline void from_json(const json &j, SettingsData &s)
   s.fullScreen = j["Graphics"].value("FullScreen", false);
   s.fullScreenMode = j["Graphics"].value("FullScreenMode", 0);
   s.mapSize = j["Game"].value("MapSize", 64);
+  s.gameLanguage = j["Game"].value("Language", "en");
   s.biome = j["Game"].value("Biome", "GrassLands");
   s.maxElevationHeight = j["Game"].value("MaxElevationHeight", 32);
   s.showBuildingsInBlueprint = j["Game"].value("ShowBuildingsInBlueprint", false);
@@ -55,10 +56,10 @@ inline void from_json(const json &j, SettingsData &s)
   s.musicVolume = j["Audio"].value("MusicVolume", 0.5f);
   s.soundEffectsVolume = j["Audio"].value("SoundEffectsVolume", 0.5f);
   s.buildMenuPosition = j["User Interface"].value("BuildMenuPosition", "BOTTOM");
-  s.gameLanguage = j["User Interface"].value("Language", "en");
   s.fontFileName = j["User Interface"].value("FontFilename", "resources/fonts/arcadeclassics.ttf");
   s.subMenuButtonWidth = j["User Interface"].value("SubMenuButtonWidth", 32);
   s.subMenuButtonHeight = j["User Interface"].value("SubMenuButtonHeight", 32);
+  s.writeErrorLogFile = j["Debug"].value("WriteErrorLogToFile", false);
 }
 
 // JSON deserializer for BiomeData struct (Terrain Gen)
@@ -235,8 +236,9 @@ inline void to_json(json &j, const SettingsData &s)
            {std::string("Resolution"),
             {{std::string("Screen_Width"), s.screenWidth}, {std::string("Screen_Height"), s.screenHeight}}},
        }},
-      {std::string("Game"),
+     {std::string("Game"),
        {{std::string("MapSize"), s.mapSize},
+        {std::string("Language"), s.gameLanguage},
         {std::string("Biome"), s.biome},
         {std::string("MaxElevationHeight"), s.maxElevationHeight},
         {std::string("ZoneLayerTransparency"), s.zoneLayerTransparency},
@@ -245,8 +247,7 @@ inline void to_json(json &j, const SettingsData &s)
        {{std::string("BuildMenuPosition"), s.buildMenuPosition},
         {std::string("FontFilename"), s.fontFileName.get()},
         {std::string("SubMenuButtonWidth"), s.subMenuButtonWidth},
-        {std::string("SubMenuButtonHeight"), s.subMenuButtonHeight},
-        {std::string("Language"), s.gameLanguage}}},
+        {std::string("SubMenuButtonHeight"), s.subMenuButtonHeight}}},
       {std::string("ConfigFiles"),
        {{std::string("UIDataJSONFile"), s.uiDataJSONFile.get()},
         {std::string("TileDataJSONFile"), s.tileDataJSONFile.get()},
@@ -261,7 +262,10 @@ inline void to_json(json &j, const SettingsData &s)
            {std::string("MusicVolume"), s.musicVolume},
            {std::string("SoundEffectsVolume"), s.soundEffectsVolume},
        }},
-
+      {std::string("Debug"),
+       {
+           {std::string("WriteErrorLogToFile"), s.writeErrorLogFile},
+       }},
   };
 }
 

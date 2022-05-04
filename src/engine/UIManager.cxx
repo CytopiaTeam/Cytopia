@@ -1,5 +1,6 @@
 #include "UIManager.hxx"
 
+#include "Constants.hxx"
 #include "ResourcesManager.hxx"
 #include "Engine.hxx"
 #include "Map.hxx"
@@ -466,6 +467,7 @@ void UIManager::setCallbackFunctions()
                     break;
                   case +TileType::ROAD:
                   case +TileType::AUTOTILE:
+                  case +TileType::POWERLINE:
                     GameStates::instance().placementMode = PlacementMode::LINE;
                     break;
                   case +TileType::GROUNDDECORATION:
@@ -524,11 +526,13 @@ void UIManager::setCallbackFunctions()
     }
     else if (uiElement->getUiElementData().actionID == "SaveGame")
     {
-      uiElement->registerCallbackFunction([]() { Engine::instance().saveGame("resources/save.cts"); });
+      uiElement->registerCallbackFunction(
+          []() { Engine::instance().saveGame("save.cts"); });
     }
     else if (uiElement->getUiElementData().actionID == "LoadGame")
     {
-      uiElement->registerCallbackFunction([]() { Engine::instance().loadGame("resources/save.cts"); });
+      uiElement->registerCallbackFunction(
+          []() { Engine::instance().loadGame("save.cts"); });
     }
     else if (uiElement->getUiElementData().actionID == "SaveSettings")
     {
@@ -537,65 +541,65 @@ void UIManager::setCallbackFunctions()
         {
           Settings::instance().writeFile();
           toggleGroupVisibility("SettingsMenu");
-            toggleGroupVisibility("PauseMenu");
+          toggleGroupVisibility("PauseMenu");
         });
     }
     else if (uiElement->getUiElementData().actionID == "CancelSettings")
     {
       uiElement->registerCallbackFunction(
-        [this]()
-        { 
-          Settings::instance().readFile();
-          for (const auto &it : getAllUiElements())
+          [this]()
           {
-            if (utils::strings::startsWith(it->getUiElementData().elementID, "$"))
+            Settings::instance().readFile();
+            for (const auto &it : getAllUiElements())
             {
-              if (it->getUiElementData().elementID == "$BuildMenuLayout")
+              if (utils::strings::startsWith(it->getUiElementData().elementID, "$"))
               {
-                ComboBox *combobox = dynamic_cast<ComboBox *>(it.get());
-                if (Settings::instance().buildMenuPosition == "LEFT")
+                if (it->getUiElementData().elementID == "$BuildMenuLayout")
                 {
-                  combobox->setActiveID(static_cast<int>(BUILDMENU_LAYOUT::LEFT));
-                  m_buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(BUILDMENU_LAYOUT::LEFT));
+                  ComboBox *combobox = dynamic_cast<ComboBox *>(it.get());
+                  if (Settings::instance().buildMenuPosition == "LEFT")
+                  {
+                    combobox->setActiveID(static_cast<int>(BUILDMENU_LAYOUT::LEFT));
+                    m_buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(BUILDMENU_LAYOUT::LEFT));
+                  }
+                  else if (Settings::instance().buildMenuPosition == "RIGHT")
+                  {
+                    combobox->setActiveID(static_cast<int>(BUILDMENU_LAYOUT::RIGHT));
+                    m_buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(BUILDMENU_LAYOUT::RIGHT));
+                  }
+                  else if (Settings::instance().buildMenuPosition == "TOP")
+                  {
+                    combobox->setActiveID(static_cast<int>(BUILDMENU_LAYOUT::TOP));
+                    m_buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(BUILDMENU_LAYOUT::TOP));
+                  }
+                  else if (Settings::instance().buildMenuPosition == "BOTTOM")
+                  {
+                    combobox->setActiveID(static_cast<int>(BUILDMENU_LAYOUT::BOTTOM));
+                    m_buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(BUILDMENU_LAYOUT::BOTTOM));
+                  }
                 }
-                else if (Settings::instance().buildMenuPosition == "RIGHT")
+                else if (it->getUiElementData().elementID == "$ScreenResolutionSelector")
                 {
-                  combobox->setActiveID(static_cast<int>(BUILDMENU_LAYOUT::RIGHT));
-                  m_buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(BUILDMENU_LAYOUT::RIGHT));
+                  // TODO: Come back to this when screen resolution is fixed
                 }
-                else if (Settings::instance().buildMenuPosition == "TOP")
+                else if (it->getUiElementData().elementID == "$FullScreenSelector")
                 {
-                  combobox->setActiveID(static_cast<int>(BUILDMENU_LAYOUT::TOP));
-                  m_buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(BUILDMENU_LAYOUT::TOP));
+                  // This must be a ComboBox
+                  ComboBox *combobox = dynamic_cast<ComboBox *>(it.get());
+                  combobox->setActiveID(Settings::instance().fullScreenMode);
                 }
-                else if (Settings::instance().buildMenuPosition == "BOTTOM")
+                else if (it->getUiElementData().elementID == "$MusicVolumeSlider")
                 {
-                  combobox->setActiveID(static_cast<int>(BUILDMENU_LAYOUT::BOTTOM));
-                  m_buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(BUILDMENU_LAYOUT::BOTTOM));
-                }
-              }
-              else if (it->getUiElementData().elementID == "$ScreenResolutionSelector")
-              {
-                // TODO: Come back to this when screen resolution is fixed
-              }
-              else if (it->getUiElementData().elementID == "$FullScreenSelector")
-              {
-                // This must be a ComboBox
-                ComboBox *combobox = dynamic_cast<ComboBox *>(it.get());
-                combobox->setActiveID(Settings::instance().fullScreenMode);
-              }
-              else if (it->getUiElementData().elementID == "$MusicVolumeSlider")
-              {
 #ifdef USE_AUDIO
-                Slider *slider = dynamic_cast<Slider *>(it.get());
-                slider->setValue(Settings::instance().musicVolume * 100);
+                  Slider *slider = dynamic_cast<Slider *>(it.get());
+                  slider->setValue(Settings::instance().musicVolume * 100);
 #endif
+                }
               }
             }
-          }
-          toggleGroupVisibility("SettingsMenu");
-          toggleGroupVisibility("PauseMenu");
-        });
+            toggleGroupVisibility("SettingsMenu");
+            toggleGroupVisibility("PauseMenu");
+          });
     }
   }
 }
@@ -1038,6 +1042,7 @@ void UIManager::initializeDollarVariables()
             {
               const float musicVolume = static_cast<float>(sliderValue / 100.0f);
               AudioMixer::instance().setMusicVolume(musicVolume);
+              Settings::instance().musicVolume = musicVolume;
             });
 #endif
       }

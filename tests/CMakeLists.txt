@@ -19,14 +19,20 @@ endforeach ()
 LIST(APPEND TEST_SOURCES
         main.cxx
         Example.cxx
+        engine/basics/Point.cxx
         engine/ResourcesManager.cxx
         engine/Engine.cxx
         engine/WindowManager.cxx
         services/GameClock.cxx
         ui/widgets/Text.cxx
+        ui/widgets/Button.cxx
+        ui/widgets/Checkbox.cxx
+        ui/widgets/Combobox.cxx
+        ui/widgets/Slider.cxx
+        ui/widgets/Tooltip.cxx
         util/Meta.cxx
         util/MessageQueue.cxx
-        util/LOG.cxx
+        # util/LOG.cxx // disabled because log files are no longer written per default
         )
 
 # Generate source groups for use in IDEs

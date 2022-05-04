@@ -18,8 +18,8 @@
     "Language": "en",
     "MapSize": 128,
     "MaxElevationHeight": 32,
-    "ShowBuildingsInBluePrint": false,
-    "ZoneLayerTransperancy": 0.6
+    "ShowBuildingsInBlueprint": false,
+    "ZoneLayerTransparency": 0.6
   },
     "Graphics": {
         "FullScreen": false,
@@ -36,5 +36,9 @@
         "Language": "en",
         "SubMenuButtonHeight": 32,
         "SubMenuButtonWidth": 32
+    },
+    "Debug": {
+      "WriteErrorLogToFile": false
+
     }
 }

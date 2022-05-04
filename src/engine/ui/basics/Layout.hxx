@@ -31,25 +31,22 @@ class Layout
 public:
   /**
  * @brief Arrange the layout elements
- *
  */
   static void arrangeElements();
 
 private:
   /**
  * @brief Construct a new Menu Group Build object
- *
  */
   Layout() = default;
   /**
  * @brief Destroy the Layout object
- * 
  */
   ~Layout() = default;
 
   /**
 * @brief Arrange Elements that are aligned to a parent
-* This is a seperate function, so it can recurse if a parent element has a parent, so we can be sure that everything is initialized properly. 
+* @details This is a seperate function, so it can recurse if a parent element has a parent, so we can be sure that everything is initialized properly. 
 * @param groupLayout LayoutData from the group that should be layouted
 * @param groupElements Elements of the group that should be layouted
 */
@@ -57,7 +54,9 @@ private:
 
   /**
 * @brief Calculates height and width of layout groups
-* 
+* @details Calculates layout group dimensions and updates groupHeight and groupWidth in LayoutData struct
+* @see LayoutData#groupHeight
+* @see LayoutData#groupWidth
 */
   static void calculateLayoutGroupDimensions();
 };

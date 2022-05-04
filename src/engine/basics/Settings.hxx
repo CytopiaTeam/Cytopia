@@ -40,14 +40,10 @@ struct SettingsData
    */
   ScreenDimension screenHeight;
 
-  /** 
-   * @brief the actual screen width (can differ from the one that's set in borderless fullscreen)
-   */
+  /// the actual screen width (can differ from the one that's set in borderless fullscreen)
   ScreenDimension currentScreenWidth;
 
-  /**
-   * @brief the actual screen height (can differ from the one that's set in borderless fullscreen)
-   */
+  /// the actual screen height (can differ from the one that's set in borderless fullscreen)
   ScreenDimension currentScreenHeight;
 
   /**
@@ -61,9 +57,9 @@ struct SettingsData
   * where 0 is full opaque and 1 for full transparency.
   */
   float zoneLayerTransparency;
-  
+
   /**
-   * @todo document what this field is
+   * @brief if vSync is enabled or not
    * @todo add a typename
    */
   bool vSync;
@@ -80,24 +76,16 @@ struct SettingsData
    */
   int fullScreenMode;
 
-  /**
-   * @brief The volume of music as flot between [0, 1]
-   */
+  /// the volume of music as float between [0, 1]
   float musicVolume;
 
-  /**
-   * @brief the volume of sound effects as float between [0, 1]
-   */
+  /// the volume of sound effects as float between [0, 1]
   float soundEffectsVolume;
 
-  /**
-   * @brief True if music should be played
-   */
+  /// true if music should be played
   bool playMusic;
 
-  /**
-   * @brief True if sound effects should be played
-   */
+  /// true if sound effects should be played
   bool playSoundEffects;
 
   /**
@@ -106,19 +94,18 @@ struct SettingsData
    */
   int audioChannels;
 
-  /**
-   * @brief Whether to play 3D sound or not
-   */
+  /// whether to play 3D sound or not
   bool audio3DStatus;
 
   /**
-   * @todo document what this field is
+   * @brief location of the build menu
+   * @details Acceptable values are "LEFT", "RIGHT", "TOP", and "BOTTOM"
    * @todo add a typename
    * @todo replace by enum when BetterEnums is implemented
    */
   std::string buildMenuPosition;
 
-    /**
+  /**
    * @brief this is used for biomedata
    * @todo Remove this later when terraingen is using biomes
    * @todo replace by enum when BetterEnums is implemented
@@ -138,29 +125,21 @@ struct SettingsData
   FilePath tileDataJSONFile;
 
   /**
-   * @todo document what this field is
+   * @brief The file path to the UI layout file
    * @todo add a typename
    */
   FilePath uiLayoutJSONFile;
 
-  /**
-   * @brief The file path to Audio Configuration
-   */
+  /// file path to Audio Configuration
   FilePath audioConfigJSONFile;
 
-  /**
-   * @brief The file path to Audio Configuration 3D
-   */
+  /// the file path to Audio Configuration 3D
   FilePath audioConfig3DJSONFile;
 
-  /**
-   * @brief The Game language
-   */
+  /// the code for the current game language
   std::string gameLanguage;
 
-  /**
-   * @brief FilePath of the Font that should be used.
-   */
+  /// FilePath of the Font that should be used
   FilePath fontFileName;
 
   /**
@@ -175,10 +154,11 @@ struct SettingsData
    */
   int subMenuButtonHeight;
 
-  /**
-   * @brief Indicates whether we want to see buildings inside Blueprint layer or not.
-   */
+  /// indicates whether we want to see buildings inside Blueprint layer or not
   bool showBuildingsInBlueprint;
+
+  /// Write errors to a log file
+  bool writeErrorLogFile;
 };
 
 /**
@@ -190,14 +170,10 @@ class Settings : public SettingsData, public Singleton<Settings>
 public:
   friend Singleton<Settings>;
 
-  /**
-   * @brief Load settings from file
-   */
+  /// Load settings from file
   void readFile();
 
-  /**
-   * @brief Save settings to file
-   */
+  /// Save settings to file
   void writeFile();
 
   using SettingsData::operator=;
