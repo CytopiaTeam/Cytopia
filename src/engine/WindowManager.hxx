@@ -26,19 +26,16 @@ public:
   void toggleFullScreen() const;
 
   /** \brief sets title of the window
-  * Sets title of the game window
   * @param title the new title of the window
   */
   void setWindowTitle(const std::string &title);
 
   /** \brief get SDL Renderer
-  * Returns a pointer to the SDL Renderer
   * \return Pointer to the SDL_Renderer
   */
   SDL_Renderer *getRenderer() const { return m_renderer; };
 
   /** \brief get SDL Window
-  * Returns a pointer to the SDL_Window
   * \return Pointer to the SDL_Window
   */
   SDL_Window *getWindow() const { return m_window; };
@@ -49,7 +46,7 @@ public:
   void setLastScreenResolution() { setScreenResolution(m_lastSelectedResolutionIdx); };
 
   /** \brief sets the game's window mode
-  * Changes the game's window mode to fullscreen, borderless, or windowed
+  * @details Changes the game's window mode to fullscreen, borderless, or windowed
   * @param mode the new window mode, WINDOWED, BORDERLESS, or FULLSCREEN
   */
   void setFullScreenMode(FULLSCREEN_MODE mode) const;

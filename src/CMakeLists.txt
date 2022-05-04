@@ -44,7 +44,6 @@ set(SOURCE_FILES
         engine/ui/widgets/Image.{hxx,cxx}
         engine/ui/widgets/Slider.{hxx,cxx}
         engine/ui/widgets/Text.{hxx,cxx}
-        engine/ui/widgets/TextField.{hxx,cxx}
         engine/ui/widgets/Tooltip.{hxx,cxx}
         engine/ui/menuGroups/IMenuGroup.hxx
         engine/Engine.{hxx,cxx}
@@ -57,13 +56,13 @@ set(SOURCE_FILES
         engine/WindowManager.{hxx,cxx}
         game/ZoneArea.{hxx,cxx}
         game/ZoneManager.{hxx,cxx}
+        game/PowerManager.{hxx,cxx}
+        game/PowerGrid.{hxx,cxx}
         game/GamePlay.{hxx,cxx}
         )
 
 if (ANDROID)
     list(APPEND SOURCE_FILES util/android/Filesystem.cxx)
-elseif (APPLE)
-    list(APPEND SOURCE_FILES util/macOS/Filesystem.cxx)
 else ()
     list(APPEND SOURCE_FILES util/desktop/Filesystem.cxx)
 endif ()
@@ -189,6 +188,22 @@ if (USE_ANGELSCRIPT)
     target_link_libraries(${PROJECT_NAME} PRIVATE Angelscript::Angelscript)
     target_compile_definitions(${PROJECT_NAME} PRIVATE USE_ANGELSCRIPT)
 endif ()
+
+if (ENABLE_ASAN)
+	target_compile_options(${PROJECT_NAME} PUBLIC -fsanitize=address -fno-sanitize-recover=all)
+	target_link_options(${PROJECT_NAME} PUBLIC -fsanitize=address)
+endif ()
+
+if (ENABLE_UBSAN)
+	target_compile_options(${PROJECT_NAME} PUBLIC -fsanitize=undefined -fno-sanitize-recover=all)
+	target_link_options(${PROJECT_NAME} PUBLIC -fsanitize=undefined)
+endif ()
+
+if (ENABLE_TSAN)
+	target_compile_options(${PROJECT_NAME} PUBLIC -fsanitize=thread -fno-sanitize-recover=all)
+	target_link_options(${PROJECT_NAME} PUBLIC -fsanitize=thread)
+endif ()
+
 
 # copy the resources to the compiled directory. On Apple those files are used from the resources dir, not from the root dir.
 if (NOT APPLE)

@@ -50,6 +50,9 @@ option(${_PREFIX}FORCE_SYSTEM_DEPENDENCIES "Force the use of system packages")
 
 option(BUILD_TEST "Build Cytopia Tests" ON)
 option(ENABLE_DEBUG "Enable Debug (asserts and logs)" OFF)
+option(ENABLE_ASAN "Enable Address Sanitizer" OFF)
+option(ENABLE_UBSAN "Enable Undefined Behaviour Sanitizer" OFF)
+option(ENABLE_TSAN "Enable Thread Sanitizer" OFF)
 
 # setup paths
 set(RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/")

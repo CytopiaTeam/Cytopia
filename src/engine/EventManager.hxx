@@ -16,8 +16,8 @@ public:
 
   void checkEvents(SDL_Event &event, Engine &engine);
   /**
- * @brief Unhighlight Highlited Nodes.
- * This sets a node to be unhighlited.
+ * @brief Unhighlight highlighted Nodes.
+ * @details This sets a node to be unhighlighted.
  */
   void unHighlightNodes();
 

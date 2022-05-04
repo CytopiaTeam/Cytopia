@@ -12,7 +12,6 @@
 #include "ui/widgets/Combobox.hxx"
 #include "ui/widgets/Frame.hxx"
 #include "ui/widgets/Text.hxx"
-#include "ui/widgets/TextField.hxx"
 #include "ui/widgets/Tooltip.hxx"
 #include "ui/widgets/Slider.hxx"
 #include "../util/Singleton.hxx"
@@ -37,7 +36,7 @@ enum class BUILDMENU_LAYOUT
 
 /**
  * @brief Draws the UI to the screen
- * Parses UiLayout.json file and instantiates UI widgets accordingly. Also takes care of layouting
+ * @details Parses UiLayout.json file and instantiates UI widgets accordingly. Also takes care of layouting
  */
 class UIManager : public Singleton<UIManager>
 {
@@ -64,7 +63,7 @@ public:
 
   /**
  * @brief Callback function for toggling the visibility of an UiGroup 
- * Callback function for Ui Widgets with the ActionID "ToggleVisiblityOfGroup".
+ * @details Callback function for Ui Widgets with the ActionID "ToggleVisiblityOfGroup".
  * The ActionParamter is used for toggling elements from m_uiGroups with the same ID
  * 
  * @param groupID The groupID that should be toggled
@@ -87,7 +86,7 @@ public:
 
   /**
  * @brief CallbackFunction that sets the Build Menu Position 
- * Used as callback function for the ComboBox that holds the Build Menu position
+ * @details Used as callback function for the ComboBox that holds the Build Menu position
  * @param sender ComboBox that called the function
  */
   void setBuildMenuPosition(UIElement *sender);
@@ -102,7 +101,7 @@ public:
 
   /**
  * @brief Get all Ui Elements For Event Handling 
- * Returns Widgets that are not in ButtonGroups and ButtonGroups. 
+ * @details Returns Widgets that are not in ButtonGroups and ButtonGroups. 
  * @note The ButtonGroup container takes care of handling events in it's container, so those widgets are excluded
  * @return const std::vector<UiElement *>& 
  */
@@ -110,7 +109,7 @@ public:
 
   /**
  * @brief Get the UiElements Of aroup 
- * get Elements that are in UiGroup (m_uiGroups)
+ * @details get Elements that are in UiGroup (m_uiGroups)
  * @param groupID ID of the group whose elements should be returned
  * @return const std::vector<UiElement *>* 
  */
@@ -118,22 +117,22 @@ public:
 
   /**
  * @brief Get the m_uiGroups object
- * Returns the container, that holds all UiElements sorted by their UI Group
+ * @details Returns the container that holds all UiElements sorted by their UI Group
  * @return std::unordered_map<std::string, std::vector<UiElement *>>& 
  */
   std::unordered_map<std::string, std::vector<UIElement *>> &getAllUiGroups() { return m_uiGroups; }
 
   /**
-   * @brief Get the Layoutgroup container
-   * Returns the container, that holds LayoutGroups
+   * @brief Get the LayoutGroup container
+   * @details Returns the container that holds LayoutGroups
    * @return std::unordered_map<std::string, LayoutGroup>& 
    */
   std::unordered_map<std::string, LayoutGroup> &getAllLayoutGroups() { return m_layoutGroups; }
 
   /**
  * @brief Get the Ui Element By ID
- * Finds and returns an UiElement by its elementID parameter
- * @param UIElement ID of the element that should be returned.
+ * @details Finds and returns an UiElement by its elementID parameter
+ * @param ID ID of the element that should be returned.
  * @return UIElement* 
  */
   UIElement *getUiElementByID(const std::string &ID) const;

@@ -5,8 +5,8 @@
 #include "Text.hxx"
 #include "../../../services/GameClock.hxx"
 
-/** Tooltip class
-  * Tooltip is derived from Text, and adds some extensions to it. It is set to visible after 
+/** @brief Tooltip class
+  * @details Tooltip is derived from Text, and adds some extensions to it. It is set to visible after 
   * the timer times out.
   * @note There should only be one tooltip object, managed by the UIManager
   * @see UIManager#startTooltip
@@ -20,17 +20,16 @@ public:
   void draw() override;
 
   /** @brief starts the countdown to when the Tooltip appears
-   * starts the timer for the countdown to when the Tooltip becomes visible
+   * @details starts the timer for the countdown to when the Tooltip becomes visible
    */
   void startTimer();
 
   /** @brief makes the Tooltip visible
-   * makes the Tooltip visible
    */
   void showTooltip();
 
   /** @brief resets the Tooltip
-   * Hides and deactivates the Tooltip and stops the timer
+   * @details Hides and deactivates the Tooltip and stops the timer
    */
   void reset();
 

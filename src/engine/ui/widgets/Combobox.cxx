@@ -1,20 +1,19 @@
 #include "Combobox.hxx"
 
 #include "LOG.hxx"
+#include "Text.hxx"
 
 ComboBox::ComboBox(const SDL_Rect &uiElementRect)
-    : UIElement(uiElementRect), m_dropDownRect(uiElementRect), m_wholeElementRect(uiElementRect),
-      m_textField(std::make_unique<TextField>(m_dropDownRect)), m_buttonLabel(std::make_unique<Text>())
+    : UIElement(uiElementRect), m_dropdownRect(uiElementRect), m_wholeElementRect(uiElementRect),
+      m_selectedItem(std::make_unique<Text>()), m_highlightingRect(m_dropdownRect)
 {
+  // initialize height with an offset of 4 so the frame doesn't overlap with the last text element
+  // this elements height will be adjusted accordingly when the textField is filled.
+  m_dropdownRect.h = 4;
+  m_highlightingRect.x += 4;
+  m_highlightingRect.w -= 8;
   // the Dropdown frame starts directly beneath the button element of the combobox
-  m_dropDownRect.y = m_uiElementRect.y + m_uiElementRect.h;
-  m_textField->setPosition(m_dropDownRect.x, m_dropDownRect.y);
-
-  // ComboBox is collapsed when element is instantiated
-  m_textField->setVisibility(false);
-
-  // set TextFields text alignment to center as default
-  m_textField->textAlignment = TextFieldAlignment::CENTERED;
+  m_dropdownRect.y = m_uiElementRect.y + m_uiElementRect.h;
 }
 
 void ComboBox::draw()
@@ -44,13 +43,20 @@ void ComboBox::draw()
   }
   drawSolidRect(arrowRect, color);
 
-  // dropDown menu
+  // dropdown menu
   if (m_isMenuOpened)
   {
-    drawButtonFrame(m_dropDownRect, false);
-    m_textField->draw();
+    drawButtonFrame(m_dropdownRect, false);
+    if (hoveredID != -1)
+    {
+      drawSolidRect(m_highlightingRect, SDL_Color({150, 150, 150}));
+    }
+    for (const auto &text : m_items)
+    {
+      text->draw();
+    }
   }
-  m_buttonLabel->draw();
+  m_selectedItem->draw();
 }
 
 void ComboBox::setPosition(int x, int y)
@@ -60,15 +66,38 @@ void ComboBox::setPosition(int x, int y)
   m_uiElementRect.y = y;
 
   // reposition the dropdown menu frame
-  m_dropDownRect.x = x;
-  m_dropDownRect.y = m_uiElementRect.y + m_uiElementRect.h;
+  m_dropdownRect.x = x;
+  m_dropdownRect.y = m_uiElementRect.y + m_uiElementRect.h;
 
   // adjust the rect that represents the whole element
   m_wholeElementRect.x = x;
   m_wholeElementRect.y = y;
 
   // reposition the text field
-  m_textField->setPosition(m_dropDownRect.x, m_dropDownRect.y);
+  m_dropdownRect.x = x;
+  m_dropdownRect.y = y;
+  m_highlightingRect.x = x + 4;
+
+  int currentElement = 0;
+  for (const auto &text : m_items)
+  {
+    //SDL_Rect textRect;
+    switch (textAlignment)
+    {
+    case TextFieldAlignment::RIGHT:
+      x = m_dropdownRect.x + m_dropdownRect.w - text->getUiElementRect().w;
+      break;
+    case TextFieldAlignment::CENTERED:
+      x = m_dropdownRect.x + (m_dropdownRect.w / 2 - text->getUiElementRect().w / 2);
+      break;
+    case TextFieldAlignment::LEFT:
+      // for LEFT alignment, we use the same values as the dropdownRect
+      x = m_dropdownRect.x + m_dropdownRect.w;
+      break;
+    }
+    y = m_dropdownRect.y + (m_itemHeight * currentElement++);
+    text->setPosition(x, y);
+  }
 
   // center the Label on the button element
   centerTextLabel();
@@ -76,9 +105,9 @@ void ComboBox::setPosition(int x, int y)
 
 void ComboBox::centerTextLabel() const
 {
-  int x = m_uiElementRect.x + m_uiElementRect.w / 2 - m_buttonLabel->getUiElementRect().w / 2;
-  int y = m_uiElementRect.y + m_uiElementRect.h / 2 - m_buttonLabel->getUiElementRect().h / 2;
-  m_buttonLabel->setPosition(x, y);
+  int x = m_uiElementRect.x + m_uiElementRect.w / 2 - m_selectedItem->getUiElementRect().w / 2;
+  int y = m_uiElementRect.y + m_uiElementRect.h / 2 - m_selectedItem->getUiElementRect().h / 2;
+  m_selectedItem->setPosition(x, y);
 }
 
 bool ComboBox::isMouseOverHoverableArea(int x, int y) { return checkBoundaries(x, y); }
@@ -98,27 +127,53 @@ bool ComboBox::checkBoundaries(int x, int y) const
 
 void ComboBox::addElement(const std::string &text)
 {
-  m_textField->addText(text);
+  SDL_Rect textRect = m_dropdownRect;
+
+  Text *label = new Text();
+  label->setText(text);
+  textRect.h = label->getUiElementRect().h; // get height of text after instantiating
+  textRect.y = static_cast<int>(m_dropdownRect.y + count() * textRect.h);
+
+  // center text
+  if (textAlignment == TextFieldAlignment::CENTERED)
+  {
+    textRect.x = m_dropdownRect.x + (m_dropdownRect.w / 2 - label->getUiElementRect().w / 2);
+  }
+
+  m_itemHeight = textRect.h;
+
+  m_dropdownRect.h += m_itemHeight;
+  m_highlightingRect.h = m_itemHeight;
+
+  label->setPosition(textRect.x, textRect.y);
+  m_items.emplace_back(label);
 
   // if the added element is the active one, set the main text to the added elements text.
-  if (m_activeID == static_cast<int>(m_textField->count() - 1))
+  if (m_activeID == static_cast<int>(count() - 1))
   {
-    m_buttonLabel->setText(m_textField->getTextFromID(m_activeID));
+    m_selectedItem->setText(getTextFromID(m_activeID));
     centerTextLabel();
   }
 
-  //set dropdown frame to the same height as textfield
-  m_dropDownRect.h = m_textField->getUiElementRect().h;
-
   // increase the size of the rect that represents the whole element
-  m_wholeElementRect.h = m_uiElementRect.h + m_dropDownRect.h;
+  m_wholeElementRect.h = m_uiElementRect.h + m_dropdownRect.h;
 }
 
 void ComboBox::setActiveID(int ID)
 {
   m_activeID = ID;
-  m_buttonLabel->setText(m_textField->getTextFromID(m_activeID));
+  m_selectedItem->setText(getTextFromID(ID));
+  activeText = getTextFromID(ID);
   clickSignalSender.emit(this);
+}
+
+std::string ComboBox::getTextFromID(int id) const
+{
+  if (id < static_cast<int>(count()) && static_cast<int>(count()) > 0 && id >= 0)
+  {
+    return m_items[id]->getUiElementData().text;
+  }
+  return "";
 }
 
 bool ComboBox::onMouseButtonUp(const SDL_Event &event)
@@ -132,22 +187,25 @@ bool ComboBox::onMouseButtonUp(const SDL_Event &event)
     if (x > m_uiElementRect.x && x < m_uiElementRect.x + m_uiElementRect.w && y > m_uiElementRect.y &&
         y < m_uiElementRect.y + m_uiElementRect.h)
     {
-      // toggle the dropdown menu, it's textfield and set the buttonState to hovering
+      // toggle the dropdown menu and set the buttonState to hovering
       m_isMenuOpened = !m_isMenuOpened;
-      m_textField->setVisibility(m_isMenuOpened);
       changeButtonState(BUTTONSTATE_HOVERING);
       return true;
     }
 
     // if the click event is outside the button, handle a click on the dropdown menu
-    m_textField->onMouseButtonUp(event); //trigger TextField onMouseButtonUp event
-    m_activeID = m_textField->selectedID;
-    activeText = m_textField->getTextFromID(m_activeID);
-    m_buttonLabel->setText(activeText);
+    if (!m_items.empty())
+    {
+      setActiveID(((m_itemHeight + event.button.y - m_dropdownRect.y) / m_itemHeight) - 1);
+      // because of the -4 pixel offset that's been added in the constructor, the id would exceed the size of the vector, if the bottom of the dropdown is clicked
+
+      if (m_activeID >= static_cast<int>(count()))
+      {
+        setActiveID(static_cast<int>(count() - 1));
+      }
+    }
     m_isMenuOpened = false;
-    m_textField->setVisibility(false);
     centerTextLabel();
-    clickSignalSender.emit(this);
     return true;
   }
   return false;
@@ -165,7 +223,7 @@ bool ComboBox::onMouseButtonDown(const SDL_Event &event)
 
 void ComboBox::onMouseLeave(const SDL_Event &event)
 {
-  m_textField->onMouseLeave(event);
+  hoveredID = -1;
   changeButtonState(BUTTONSTATE_DEFAULT);
 }
 
@@ -185,16 +243,19 @@ void ComboBox::onMouseMove(const SDL_Event &event)
       {
         changeButtonState(BUTTONSTATE_HOVERING);
       }
-      if (m_textField->hoveredID != -1)
-      {
-        m_textField->onMouseLeave(event);
-      }
+      hoveredID = -1;
     }
     else
     {
       changeButtonState(BUTTONSTATE_DEFAULT);
       {
-        m_textField->onMouseMove(event);
+        hoveredID = ((m_itemHeight + event.button.y - m_dropdownRect.y) / m_itemHeight) - 1;
+        // because of the -4 pixel offset that's been added in the constructor, the id would exceed the size of the vector, if the bottom of the dropdown is clicked
+        if (hoveredID >= static_cast<int>(count()))
+        {
+          hoveredID = static_cast<int>(count() - 1);
+        }
+        m_highlightingRect.y = ((hoveredID)*m_itemHeight) + m_dropdownRect.y;
       }
     }
   }
