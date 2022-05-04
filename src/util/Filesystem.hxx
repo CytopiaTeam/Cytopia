@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 
+
 namespace fs
 {
 
@@ -15,12 +16,25 @@ namespace fs
    */
 std::string readFileAsString(const std::string &fileName, bool binaryMode = false);
 
+/** @brief Read contents from a file as string.
+   * @param fileName Name of the file to read
+   * @param binaryMode (optional) open the file in binary mode. (default: false)
+   * @returns the content of the file as string
+   */
+std::string readCompressedFileAsString(const std::string &fileName);
+
 /** @brief Write a string to a file.
    * @param fileName Name of the file to write
    * @param stringToWrite string to be written
    * @param binaryMode (optional) open the file in binary mode. (default: false)
    */
 void writeStringToFile(const std::string &fileName, const std::string &stringToWrite, bool binaryMode = false);
+
+/** @brief Write a string to a file and compress it.
+   * @param fileName Name of the file to write
+   * @param stringToWrite string to be written
+   */
+void writeStringToFileCompressed(const std::string &fileName, const std::string &stringToWrite);
 
 /** @brief Get a directory listing of a given directory.
    * @param directory Name of the folder to retrieve the directory listing from
@@ -45,6 +59,8 @@ bool fileExists(const std::string &filePath);
  * @returns the Base path
  */
 std::string getBasePath();
+
+void createDirectory(const std::string &dir);
 
 } // namespace fs
 #endif

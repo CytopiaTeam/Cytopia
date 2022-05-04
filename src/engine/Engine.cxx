@@ -1,5 +1,6 @@
 #include "Engine.hxx"
 
+#include "Constants.hxx"
 #include "basics/Camera.hxx"
 #include "basics/mapEdit.hxx"
 #include "basics/Settings.hxx"
@@ -23,9 +24,10 @@ void Engine::decreaseHeight(const Point &isoCoordinates) const
 
 void Engine::toggleFullScreen() { WindowManager::instance().toggleFullScreen(); };
 
+void Engine::saveGame(const std::string &fileName) const { map->saveMapToFile(CYTOPIA_SAVEGAME_DIR + (std::string)fileName); }
 void Engine::loadGame(const std::string &fileName)
 {
-  Map *newMap = Map::loadMapFromFile(fileName);
+  Map *newMap = Map::loadMapFromFile(CYTOPIA_SAVEGAME_DIR + (std::string)fileName);
 
   if (newMap)
   {

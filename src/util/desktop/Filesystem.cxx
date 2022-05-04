@@ -2,6 +2,7 @@
 #include <Settings.hxx>
 #include <LOG.hxx>
 #include <fstream>
+#include "compression.hxx"
 
 #include <SDL.h>
 
@@ -33,6 +34,11 @@ template <typename Callback> void forEachFileType(fs::path &&path, std::string &
   }
 }
 
+std::string fs::readCompressedFileAsString(const std::string &fileName)
+{
+  return decompressString(fs::readFileAsString(fileName, true));
+}
+
 std::string fs::readFileAsString(const std::string &fileName, bool binaryMode)
 {
   std::ios::openmode mode;
@@ -43,14 +49,23 @@ std::string fs::readFileAsString(const std::string &fileName, bool binaryMode)
     mode = std::ios_base::in;
   }
 
-  if (!fs::fileExists(getBasePath() + fileName))
-    throw ConfigurationError(TRACE_INFO "File " + getBasePath() + fileName + " doesn't exist");
+  std::ifstream stream; //(fileName, mode);
 
-  std::ifstream stream(getBasePath() + fileName, mode);
+  if (fs::fileExists(fileName))
+  { // first try given path
+    stream.open(fileName, mode);
+  }
+  else if (fs::fileExists(getBasePath() + fileName))
+  { // if this doesn't work, add the basepath
+    stream.open(getBasePath() + fileName, mode);
+  }
+  else
+  {
+    throw ConfigurationError(TRACE_INFO "File " + fileName + " doesn't exist");
+  }
 
   if (!stream)
   {
-    LOG(LOG_INFO) << "Open file " << fileName;
     throw ConfigurationError(TRACE_INFO "Can't open file " + fileName);
   }
 
@@ -59,6 +74,11 @@ std::string fs::readFileAsString(const std::string &fileName, bool binaryMode)
   stream.close();
 
   return buffer.str();
+}
+
+void fs::writeStringToFileCompressed(const std::string &fileName, const std::string &stringToWrite)
+{
+  writeStringToFile(fileName, compressString(stringToWrite), true);
 }
 
 void fs::writeStringToFile(const std::string &fileName, const std::string &stringToWrite, bool binaryMode)
@@ -73,11 +93,11 @@ void fs::writeStringToFile(const std::string &fileName, const std::string &strin
     mode = std::ios_base::out;
   }
 
-  std::ofstream stream(getBasePath() + fileName, mode);
+  std::ofstream stream(fileName, mode);
 
   if (!stream)
   {
-    throw ConfigurationError(TRACE_INFO "Could not write to file " + getBasePath() + fileName);
+    throw ConfigurationError(TRACE_INFO "Could not write to file " + fileName);
   }
 
   stream << stringToWrite << std::endl;
@@ -122,4 +142,15 @@ std::string fs::getBasePath()
   SDL_free(path);
 
   return sPath;
+}
+
+void fs::createDirectory(const std::string &dir)
+{
+  if (!fs::is_directory(dir))
+  {
+    if (fs::create_directories(dir.c_str()))
+    {
+      LOG(LOG_INFO) << "Created directory" << dir;
+    }
+  }
 }
