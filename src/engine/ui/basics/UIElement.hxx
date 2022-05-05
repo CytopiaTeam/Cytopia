@@ -6,7 +6,8 @@
 #include "../../basics/mapEdit.hxx"
 #include "../../ResourcesManager.hxx"
 #include "../../WindowManager.hxx"
-#include "../../basics/signal.hxx"
+// #include "../../basics/signal.hxx"
+#include <Signal.hxx>
 
 #include <SDL.h>
 

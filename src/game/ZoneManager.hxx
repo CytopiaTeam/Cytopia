@@ -2,8 +2,6 @@
 #define ZONEMANAGER_HXX_
 
 #include "ZoneArea.hxx"
-#include "../engine/GameObjects/MapNode.hxx"
-
 
 class ZoneManager
 {
