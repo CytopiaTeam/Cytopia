@@ -1,16 +1,17 @@
 #include "PowerManager.hxx"
-#include "../engine/Engine.hxx"
 #include "../services/GameClock.hxx"
 #include "GameStates.hxx"
+#include <MapNode.hxx>
+#include <SignalMediator.hxx>
 
 PowerManager::PowerManager()
 {
-  Engine::instance().map->registerCbPlacePowerBuilding(
+  SignalMediator::instance().registerCbPlacePowerBuilding(
       [this](const MapNode &mapNode) { // If we place a power tile, add it to the cache to update next tick
         PowerNode nodeToAdd = {mapNode.getCoordinates(), mapNode.getTileData(Layer::BUILDINGS)->power};
         m_nodesToAdd.push_back(nodeToAdd);
       });
-  Engine::instance().map->registerCbDemolish(
+  SignalMediator::instance().registerCbDemolish(
       [this](const MapNode *mapNode) { // If we demolish a power tile, add it to the cache to update next tick
         switch (GameStates::instance().demolishMode)
         {

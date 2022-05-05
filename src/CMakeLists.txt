@@ -9,6 +9,7 @@ set(SOURCE_FILES
         util/PriorityQueue.hxx
         util/PriorityQueue.inl.hxx
         util/Signal.hxx
+        util/SignalMediator.hxx
         util/Singleton.hxx
         util/Meta.hxx
         util/Exception.{hxx,cxx}
