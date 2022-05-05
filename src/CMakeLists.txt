@@ -8,6 +8,8 @@ set(SOURCE_FILES
         util/IEquatable.inl.hxx
         util/PriorityQueue.hxx
         util/PriorityQueue.inl.hxx
+        util/Signal.hxx
+        util/SignalMediator.hxx
         util/Singleton.hxx
         util/Meta.hxx
         util/Exception.{hxx,cxx}
@@ -25,7 +27,6 @@ set(SOURCE_FILES
         engine/basics/PointFunctions.{hxx,cxx}
         engine/basics/Settings.{hxx,cxx}
         engine/basics/GameStates.{hxx,cxx}
-        engine/basics/signal.hxx
         engine/basics/utils.{hxx,cxx}
         engine/common/Constants.hxx
         engine/common/enums.hxx
