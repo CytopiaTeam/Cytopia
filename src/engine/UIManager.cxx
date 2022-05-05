@@ -90,9 +90,6 @@ void UIManager::init()
         LOG(LOG_WARNING) << "Cannot add a Layout Group without a name. Check your UiLayout.json file.";
       }
     }
-
-    // set FPS Counter position
-    m_fpsCounter->setPosition(40, 20);
   }
 
   // parse UiElements
@@ -242,6 +239,8 @@ void UIManager::init()
   }
 
   m_tooltip->setVisibility(false);
+  // set FPS Counter position
+  m_fpsCounter->setPosition(40, 20);
 
   initializeDollarVariables();
   createBuildMenu();
