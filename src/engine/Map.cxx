@@ -796,7 +796,9 @@ void Map::setTileID(const std::string &tileID, Point coordinate)
     {
       SignalMediator::instance().signalPlaceBuilding.emit(currentMapNode);
     }
-    else if (currentMapNode.getTileData(Layer::BUILDINGS) && currentMapNode.getTileData(Layer::BUILDINGS)->category == "Power")
+    else if ((currentMapNode.getTileData(Layer::BUILDINGS) && currentMapNode.getTileData(Layer::BUILDINGS)->category == "Power") ||
+        (currentMapNode.getTileData(Layer::POWERLINES) &&
+             currentMapNode.getTileData(Layer::POWERLINES)->tileType == +TileType::POWERLINE))
     {
       SignalMediator::instance().signalPlacePowerBuilding.emit(currentMapNode);
     }

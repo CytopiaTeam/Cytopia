@@ -81,7 +81,7 @@ public:
 
   unsigned char getElevationBitmask() const { return m_elevationBitmask; };
 
-  const TileData *getTileData(Layer layer) const { return m_mapNodeData[layer].tileData; };
+  TileData *getTileData(Layer layer) const { return m_mapNodeData[layer].tileData; };
 
   /** @brief get TileID of specific layer inside NodeData.
     * @param layer what layer should be checked on.

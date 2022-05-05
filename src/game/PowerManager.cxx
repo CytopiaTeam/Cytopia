@@ -8,7 +8,15 @@ PowerManager::PowerManager()
 {
   SignalMediator::instance().registerCbPlacePowerBuilding(
       [this](const MapNode &mapNode) { // If we place a power tile, add it to the cache to update next tick
-        PowerNode nodeToAdd = {mapNode.getCoordinates(), mapNode.getTileData(Layer::BUILDINGS)->power};
+        TileData *tileData; // we need tileData from conductive tiles (buildings or powerlines)
+        if (mapNode.getTileData(Layer::BUILDINGS))
+          tileData = mapNode.getTileData(Layer::BUILDINGS);
+        else if (mapNode.getTileData(Layer::POWERLINES))
+          tileData = mapNode.getTileData(Layer::POWERLINES);
+        else
+          return;
+
+        PowerNode nodeToAdd = {mapNode.getCoordinates(), tileData->power};
         m_nodesToAdd.push_back(nodeToAdd);
       });
   SignalMediator::instance().registerCbDemolish(
@@ -51,6 +59,7 @@ void PowerManager::update()
     { // TODO: Remove this later, this is for debugging
       LOG(LOG_DEBUG) << "Grid #" << ++i << "/" << m_powerGrids.size() << " - Power Production: " << grid.getPowerLevel();
     }
+    SignalMediator::instance().signalUpdatePower.emit(m_powerGrids);
     m_nodesToRemove.clear();
   }
 
@@ -67,6 +76,7 @@ void PowerManager::update()
     { // TODO: Remove this later, this is for debugging
       LOG(LOG_DEBUG) << "Grid #" << ++i << "/" << m_powerGrids.size() << " - Power Production: " << grid.getPowerLevel();
     }
+    SignalMediator::instance().signalUpdatePower.emit(m_powerGrids);
   }
 }
 

@@ -2,6 +2,7 @@
 #define ZONEMANAGER_HXX_
 
 #include "ZoneArea.hxx"
+#include "PowerGrid.hxx"
 
 class ZoneManager
 {
@@ -52,6 +53,8 @@ private:
    * @return rebuilt zone area
    */
   std::vector<ZoneArea> rebuildZoneArea(ZoneArea &zoneArea);
+
+  void updatePower(const std::vector<PowerGrid> &powerGrid);
 
   std::vector<ZoneArea> m_zoneAreas; /// All zoneAreas
   std::vector<ZoneNode> m_nodesToAdd; /// All zoneAreas
