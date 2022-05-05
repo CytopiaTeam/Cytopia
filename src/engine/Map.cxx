@@ -792,6 +792,8 @@ void Map::setTileID(const std::string &tileID, Point coordinate)
     }
     // If we place a zone tile, add it to the ZoneManager
     // emit a signal to notify manager
+    SignalMediator::instance().signalSetTileID.emit(currentMapNode);
+
     if (currentMapNode.getTileData(Layer::BUILDINGS) && currentMapNode.getTileData(Layer::ZONE))
     {
       SignalMediator::instance().signalPlaceBuilding.emit(currentMapNode);

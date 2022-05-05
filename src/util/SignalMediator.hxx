@@ -20,12 +20,14 @@ public:
   Signal::Signal<void(const MapNode &)> signalPlacePowerBuilding;
   Signal::Signal<void(const MapNode &)> signalPlaceBuilding;
   Signal::Signal<void(const MapNode &)> signalPlaceZone;
+  Signal::Signal<void(const MapNode &)> signalSetTileID;
   Signal::Signal<void(MapNode *)> signalDemolish;
 
   // Signals Gameplay Managers
   Signal::Signal<void(const std::vector<PowerGrid> &)> signalUpdatePower;
 
   // Callback functions Map
+  void registerCbSetTileID(std::function<void(const MapNode &)> const &cb) { signalSetTileID.connect(cb); }
   void registerCbPlaceZone(std::function<void(const MapNode &)> const &cb) { signalPlaceZone.connect(cb); }
   void registerCbPlacePowerBuilding(std::function<void(const MapNode &)> const &cb) { signalPlacePowerBuilding.connect(cb); }
   void registerCbPlaceBuilding(std::function<void(const MapNode &)> const &cb) { signalPlaceBuilding.connect(cb); }

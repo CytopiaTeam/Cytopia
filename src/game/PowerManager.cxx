@@ -6,16 +6,18 @@
 
 PowerManager::PowerManager()
 {
-  SignalMediator::instance().registerCbPlacePowerBuilding(
+  SignalMediator::instance().registerCbSetTileID(
       [this](const MapNode &mapNode) { // If we place a power tile, add it to the cache to update next tick
         TileData *tileData; // we need tileData from conductive tiles (buildings or powerlines)
         if (mapNode.getTileData(Layer::BUILDINGS))
           tileData = mapNode.getTileData(Layer::BUILDINGS);
         else if (mapNode.getTileData(Layer::POWERLINES))
           tileData = mapNode.getTileData(Layer::POWERLINES);
+        else if (mapNode.getTileData(Layer::ZONE))
+          tileData = mapNode.getTileData(Layer::ZONE);
         else
           return;
-
+        //TODO rework this, it's safe to assume only buildings have power
         PowerNode nodeToAdd = {mapNode.getCoordinates(), tileData->power};
         m_nodesToAdd.push_back(nodeToAdd);
       });
