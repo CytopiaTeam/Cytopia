@@ -8,7 +8,9 @@
 #include "map/TerrainGenerator.hxx"
 #include "../game/GamePlay.hxx"
 #include "PointFunctions.hxx"
-#include "basics/signal.hxx"
+// #include "basics/signal.hxx"
+#include <Signal.hxx>
+
 
 struct NeighborNode
 {
