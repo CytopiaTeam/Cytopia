@@ -318,9 +318,10 @@
                 "Position_y": 130
             },
             {
+                "ID": "$VSYNCButton",
                 "Type": "Checkbox",
                 "Position_x": 420,
-                "Position_y": 175
+                "Position_y": 167
             },
             {
                 "Type": "TextButton",
