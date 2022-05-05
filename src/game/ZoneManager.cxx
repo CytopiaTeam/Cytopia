@@ -116,8 +116,9 @@ void ZoneManager::spawnBuildings()
   for (auto &zoneArea : m_zoneAreas)
   {
     // check if there are any buildings to spawn, if not, do nothing.
-    if (zoneArea.isVacant())
+    if (zoneArea.isVacant() && zoneArea.hasPowerSupply())
     {
+      LOG(LOG_INFO) << "spawning, all is well";
       int occupied = 0;
       int free = 0;
       for (auto node : zoneArea)
@@ -131,6 +132,8 @@ void ZoneManager::spawnBuildings()
       }
       zoneArea.spawnBuildings();
     }
+    else
+      LOG(LOG_INFO) << "can't spawn, no power";
   }
 }
 
@@ -231,15 +234,28 @@ void ZoneManager::updatePower(const std::vector<PowerGrid> &powerGrid)
   for (auto grid : powerGrid)
   {
     bool isGridConnected = false;
-    for (auto area : m_zoneAreas)
+    for (auto &area : m_zoneAreas)
     {
       isGridConnected = area.end() != std::find_if(area.begin(), area.end(),
                                                    [grid](const ZoneNode &node) { return grid.isNeighbor(node.coordinate); });
-    }
-
-    if (isGridConnected)
-    {
-      LOG(LOG_INFO) << "zone is connect: " << powerGrid.size() << " : " << grid.getPowerLevel();
+      if (isGridConnected)
+      {
+        if (grid.getPowerLevel() > 0)
+        {
+          LOG(LOG_INFO) << "zone is powered: " << powerGrid.size() << " : " << grid.getPowerLevel();
+          area.setPowerSupply(true);
+        }
+        else
+        {
+          area.setPowerSupply(false);
+          LOG(LOG_INFO) << "zone is connected but unpowered" << powerGrid.size() << " : " << grid.getPowerLevel();
+        }
+      }
+      else
+      {
+        area.setPowerSupply(false);
+        LOG(LOG_INFO) << "zone is disconnected from the grid and unpowered" << powerGrid.size() << " : " << grid.getPowerLevel();
+      }
     }
   }
 }
