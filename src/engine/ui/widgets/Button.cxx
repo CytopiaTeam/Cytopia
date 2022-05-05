@@ -38,7 +38,7 @@ bool Button::onMouseButtonUp(const SDL_Event &event)
   if (isMouseOver(event.button.x, event.button.y))
   {
 
-    if (!elementData.isToggleButton)
+    if (!isToggleButton)
     {
       changeButtonState(BUTTONSTATE_DEFAULT);
       clickSignal.emit();
@@ -62,7 +62,7 @@ bool Button::onMouseButtonDown(const SDL_Event &event)
 {
   if (isMouseOver(event.button.x, event.button.y))
   {
-    if (!elementData.isToggleButton)
+    if (!isToggleButton)
     {
       changeButtonState(BUTTONSTATE_CLICKED);
     }
@@ -79,7 +79,7 @@ void Button::onMouseEnter(const SDL_Event &event)
 {
   if (event.button.button == SDL_BUTTON_LEFT && getButtonState() != BUTTONSTATE_CLICKED)
   {
-    if (elementData.isToggleButton)
+    if (isToggleButton)
     {
       m_isMouseButtonDown = true;
     }
@@ -93,7 +93,7 @@ void Button::onMouseEnter(const SDL_Event &event)
 
 void Button::onMouseLeave(const SDL_Event &)
 {
-  if (elementData.isToggleButton)
+  if (isToggleButton)
   {
     changeButtonState(m_checkState ? BUTTONSTATE_CLICKED : BUTTONSTATE_DEFAULT);
     m_isMouseButtonDown = false;
