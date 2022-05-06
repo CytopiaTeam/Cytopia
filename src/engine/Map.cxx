@@ -790,25 +790,15 @@ void Map::setTileID(const std::string &tileID, Point coordinate)
     {
       nodesToBeUpdated.push_back(currentMapNode.getCoordinates());
     }
-    // If we place a zone tile, add it to the ZoneManager
-    // emit a signal to notify manager
+
+    // emit a signal that setTileID has been called
     SignalMediator::instance().signalSetTileID.emit(currentMapNode);
 
-    if (currentMapNode.getTileData(Layer::BUILDINGS) && currentMapNode.getTileData(Layer::ZONE))
-    {
-      SignalMediator::instance().signalPlaceBuilding.emit(currentMapNode);
-    }
-    else if ((currentMapNode.getTileData(Layer::BUILDINGS) && currentMapNode.getTileData(Layer::BUILDINGS)->category == "Power") ||
+    if ((currentMapNode.getTileData(Layer::BUILDINGS) && currentMapNode.getTileData(Layer::BUILDINGS)->category == "Power") ||
         (currentMapNode.getTileData(Layer::POWERLINES) &&
-             currentMapNode.getTileData(Layer::POWERLINES)->tileType == +TileType::POWERLINE))
+         currentMapNode.getTileData(Layer::POWERLINES)->tileType == +TileType::POWERLINE))
     {
       SignalMediator::instance().signalPlacePowerBuilding.emit(currentMapNode);
-    }
-    else if (currentMapNode.getTileData(Layer::ZONE))
-    {
-      //signalPlaceZone.emit(currentMapNode);
-      //SignalMediator::instance().test();
-      SignalMediator::instance().signalPlaceZone.emit(currentMapNode);
     }
   }
 

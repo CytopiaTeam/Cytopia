@@ -3,6 +3,8 @@
 
 #include "ZoneArea.hxx"
 #include "PowerGrid.hxx"
+#include <MapNode.hxx>
+
 
 class ZoneManager
 {
@@ -55,6 +57,10 @@ private:
   std::vector<ZoneArea> rebuildZoneArea(ZoneArea &zoneArea);
 
   void updatePower(const std::vector<PowerGrid> &powerGrid);
+
+  void updateRemovedNodes(const MapNode *mapNode);
+
+  void updatePlacedNodes(const MapNode &mapNode);
 
   std::vector<ZoneArea> m_zoneAreas; /// All zoneAreas
   std::vector<ZoneNode> m_nodesToAdd; /// All zoneAreas
