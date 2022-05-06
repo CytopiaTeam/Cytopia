@@ -1,25 +1,26 @@
 #include "ZoneManager.hxx"
-#include "Engine.hxx"
 #include "LOG.hxx"
 #include "../services/GameClock.hxx"
 #include "../services/Randomizer.hxx"
+#include <MapNode.hxx>
 #include "GameStates.hxx"
+#include <SignalMediator.hxx>
 
 ZoneManager::ZoneManager()
 {
-  Engine::instance().map->registerCbPlaceBuilding(
+  SignalMediator::instance().registerCbPlaceBuilding(
       [this](const MapNode &mapNode) { // If we place a building on zone tile, add it to the cache to update next tick
         m_nodesToOccupy.push_back(mapNode.getCoordinates());
       });
 
-  Engine::instance().map->registerCbPlaceZone(
+  SignalMediator::instance().registerCbPlaceZone(
       [this](const MapNode &mapNode) { // If we place a zone tile, add it to the cache to update next tick
         ZoneNode nodeToAdd = {mapNode.getCoordinates(), mapNode.getTileData(Layer::ZONE)->zoneTypes[0],
                               mapNode.getTileData(Layer::ZONE)->zoneDensity[0]};
         m_nodesToAdd.push_back(nodeToAdd);
       });
 
-  Engine::instance().map->registerCbDemolish(
+  SignalMediator::instance().registerCbDemolish(
       [this](const MapNode *mapNode)
       {
         switch (GameStates::instance().demolishMode)

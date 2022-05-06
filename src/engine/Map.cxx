@@ -483,7 +483,7 @@ void Map::demolishNode(const std::vector<Point> &isoCoordinates, bool updateNeig
   for (auto nodeCoordinate : nodesToDemolish)
   {
     getMapNode(nodeCoordinate).demolishNode(layer);
-    signalDemolish.emit(&getMapNode(nodeCoordinate));
+    SignalMediator::instance().signalDemolish.emit(&getMapNode(nodeCoordinate));
     // TODO: Play sound effect here
     if (updateNeighboringTiles)
     {
@@ -794,15 +794,17 @@ void Map::setTileID(const std::string &tileID, Point coordinate)
     // emit a signal to notify manager
     if (currentMapNode.getTileData(Layer::BUILDINGS) && currentMapNode.getTileData(Layer::ZONE))
     {
-      signalPlaceBuilding.emit(currentMapNode);
+      SignalMediator::instance().signalPlaceBuilding.emit(currentMapNode);
     }
     else if (currentMapNode.getTileData(Layer::BUILDINGS) && currentMapNode.getTileData(Layer::BUILDINGS)->category == "Power")
     {
-      signalPlacePowerBuilding.emit(currentMapNode);
+      SignalMediator::instance().signalPlacePowerBuilding.emit(currentMapNode);
     }
     else if (currentMapNode.getTileData(Layer::ZONE))
     {
-      signalPlaceZone.emit(currentMapNode);
+      //signalPlaceZone.emit(currentMapNode);
+      //SignalMediator::instance().test();
+      SignalMediator::instance().signalPlaceZone.emit(currentMapNode);
     }
   }
 

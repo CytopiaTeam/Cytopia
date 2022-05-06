@@ -6,7 +6,8 @@
 #include "../../basics/mapEdit.hxx"
 #include "../../ResourcesManager.hxx"
 #include "../../WindowManager.hxx"
-#include "../../basics/signal.hxx"
+// #include "../../basics/signal.hxx"
+#include <Signal.hxx>
 
 #include <SDL.h>
 
@@ -27,7 +28,6 @@ protected:
     std::string buildMenuID;
     std::string layoutGroupName;
     UIElement *parent = nullptr; ///< The object that toggles this items visibility
-    bool isToggleButton = false; ///< specifies if this is a toggle button
   };
 
   ElementData elementData;
@@ -123,12 +123,6 @@ public:
   * @see ResourcesManager::ButtonState
   */
   int getButtonState() { return m_buttonState; };
-
-  /** \brief Set the button mode to toggleButton
-  * @details Set the button mode to toggle button, which means it stays pressed when its clicked.
-  * @param toggleable if this is button a togglebutton as bool
-  */
-  void setToggleButton(bool toggleable) { elementData.isToggleButton = toggleable; };
 
   /** \brief Set the uiElements tooltip text
   * @details Set the tooltip text for this ui element. Tooltip is shown when hovering over a ui Element.

@@ -47,6 +47,8 @@ public:
   bool checkState() const { return m_checkState; };
   void setCheckState(bool state);
 
+  bool isToggleButton = false; ///< specifies if this is a toggle button
+
 private:
   SDL_Rect m_frameRect;
 
