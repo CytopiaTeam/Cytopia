@@ -115,14 +115,14 @@ public:
   * @param state enum buttonstate
   * @see ResourcesManager::ButtonState
   */
-  void changeButtonState(int state);
+  void changeButtonState(ButtonState state);
 
   /** \brief Get the button state
   * @details Get the current mouse button pressed state.
   * @return state enum buttonstate
   * @see ResourcesManager::ButtonState
   */
-  int getButtonState() { return m_buttonState; };
+  ButtonState getButtonState() { return m_buttonState; };
 
   /** \brief Set the uiElements tooltip text
   * @details Set the tooltip text for this ui element. Tooltip is shown when hovering over a ui Element.
@@ -164,7 +164,7 @@ private:
   SDL_Renderer *m_renderer = WindowManager::instance().getRenderer();
   SDL_Window *m_window = WindowManager::instance().getWindow();
 
-  int m_buttonState = BUTTONSTATE_DEFAULT;
+  ButtonState m_buttonState = BUTTONSTATE_DEFAULT;
 
   bool m_visible = true;
 

@@ -23,7 +23,7 @@ void UIElement::setTextureID(SDL_Texture *texture, const SDL_Rect &clipRect, con
   m_uiTextureRect = textureRect;
 }
 
-void UIElement::changeButtonState(int state)
+void UIElement::changeButtonState(ButtonState state)
 {
   if (m_buttonState != state && !elementData.textureID.empty() && m_directTexture == false)
   {
