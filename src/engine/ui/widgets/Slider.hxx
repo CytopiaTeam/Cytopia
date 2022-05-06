@@ -18,11 +18,17 @@ public:
 
   void draw() override;
 
-  /** @brief changes the slider position based on the new value given
-   * @details calculates the slider's position corresponding to the given value
+  /** @brief updates the slider's value
+   * @details Sets the value of the slider and updates the
+   * sliderButton position accordingly
    * @param val the new value of the slider
    */
   void setValue(int);
+
+  /** @brief gets the current value of the slider
+   * @returns the slider's current value
+   */
+  int getValue() { return m_curVal; };
 
   /** @brief Checks if the mouse is over the button of the slider
    * @param x,y the current coordinates of the mouse
@@ -39,12 +45,9 @@ public:
   bool onMouseButtonUp(const SDL_Event &) override;
   void onMouseMove(const SDL_Event &) override;
 
-  /** @brief Only overridden to enable dragging functionality
-   * @details this was only redeclared and redefined because the regular implementation 
-   * would not work for the Slider widget due to it being composed of two rectangles, 
-   * whereas other UIElements are composed of one.
+  /** @brief Checks if the mouse is over either part of the slider
    * @param x,y the current coordinates of the mouse
-   * @returns always returns true for the Slider widget only
+   * @returns true if mouse is over the line or button, false otherwise
    */
   bool isMouseOver(int, int) override;
 
@@ -54,10 +57,11 @@ public:
 
 private:
   /** @brief finds the slider's value based on where the button is on the line
-   * uses the button's coordinates to calculate the corresponding value
+   * @details uses the button's coordinates to calculate the corresponding value
    * @param x the x coordinate of the center of the sliderButton
+   * @returns the value of the slider when the center of the button is at given x coordinate
    */
-  void calculateValue(int x);
+  int valueAtPos(int x);
 
   /// Thickness of the slider line
   int m_lineThickness = 6;
@@ -70,9 +74,9 @@ private:
   /// maximum slider value
   int m_maxVal = 100;
   /// current slider value
-  int curVal;
+  int m_curVal = 0;
   /// whether or not the button is to follow the mouse
-  bool dragMode;
+  bool m_dragMode = false;
 
   // Signal
   Signal::Signal<void(int value)> sliderSignal;
