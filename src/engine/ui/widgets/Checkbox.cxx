@@ -49,23 +49,6 @@ bool Checkbox::onMouseButtonDown(const SDL_Event &event)
   return false;
 }
 
-void Checkbox::onMouseEnter(const SDL_Event &event)
-{
-  if (event.button.button == SDL_BUTTON_LEFT)
-  {
-    changeButtonState(getButtonState() == BUTTONSTATE_CLICKED ? BUTTONSTATE_DEFAULT : BUTTONSTATE_CLICKED);
-    m_isMouseButtonDown = true;
-  }
-}
-
-void Checkbox::onMouseLeave(const SDL_Event &event)
-{
-  if (event.button.button == SDL_BUTTON_LEFT)
-  {
-    changeButtonState(getButtonState() == BUTTONSTATE_DEFAULT ? BUTTONSTATE_CLICKED : BUTTONSTATE_DEFAULT);
-  }
-}
-
 void Checkbox::setCheckState(bool checkState)
 {
   //if (checkstat)
