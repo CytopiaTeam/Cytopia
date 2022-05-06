@@ -91,9 +91,6 @@ void UIManager::init()
         LOG(LOG_WARNING) << "Cannot add a Layout Group without a name. Check your UiLayout.json file.";
       }
     }
-
-    // set FPS Counter position
-    m_fpsCounter->setPosition(40, 20);
   }
 
   // parse UiElements
@@ -160,10 +157,12 @@ void UIManager::init()
         case ElementType::ImageButton:
           uiElement = std::make_unique<Button>(elementRect);
           uiElement->setTextureID(textureID);
+          dynamic_cast<Button *> (uiElement.get())->isToggleButton = toggleButton;
           break;
         case ElementType::TextButton:
           uiElement = std::make_unique<Button>(elementRect);
           dynamic_cast<Button *>(uiElement.get())->setText(text);
+          dynamic_cast<Button *>(uiElement.get())->isToggleButton = toggleButton;
           break;
         case ElementType::Text:
           uiElement = std::make_unique<Text>();
@@ -193,7 +192,6 @@ void UIManager::init()
         uiElement->setTooltipText(tooltipText);
         uiElement->setActionID(actionID);
         uiElement->setActionParameter(actionParameter);
-        uiElement->setToggleButton(toggleButton);
         uiElement->setUIElementID(uiElementID);
         uiElement->drawImageButtonFrame(drawFrame);
         uiElement->setMenuGroupID(buildMenuID);
@@ -242,6 +240,8 @@ void UIManager::init()
   }
 
   m_tooltip->setVisibility(false);
+  // set FPS Counter position
+  m_fpsCounter->setPosition(40, 20);
 
   initializeDollarVariables();
   createBuildMenu();
@@ -308,7 +308,7 @@ void UIManager::toggleGroupVisibility(const std::string &groupID, UIElement *sen
       closeOpenMenus();
     }
     // cast the object to a Button to check if it's a toggle button.
-    if (button && button->getUiElementData().isToggleButton)
+    if (button && button->isToggleButton)
     {
       for (const auto &it : m_uiGroups[groupID])
         it->setVisibility(button->checkState());
@@ -361,7 +361,7 @@ void UIManager::setCallbackFunctions()
           {
             Button *button = dynamic_cast<Button *>(sender);
 
-            if (button && button->getUiElementData().isToggleButton)
+            if (button && button->isToggleButton)
             {
               terrainEditMode = button->checkState() ? TerrainEdit::RAISE : TerrainEdit::NONE;
               highlightSelection = button->checkState();
@@ -379,7 +379,7 @@ void UIManager::setCallbackFunctions()
           {
             Button *button = dynamic_cast<Button *>(sender);
 
-            if (button && button->getUiElementData().isToggleButton)
+            if (button && button->isToggleButton)
             {
               button->checkState() ? terrainEditMode = TerrainEdit::LOWER : terrainEditMode = TerrainEdit::NONE;
               button->checkState() ? highlightSelection = true : highlightSelection = false;
@@ -401,7 +401,7 @@ void UIManager::setCallbackFunctions()
           {
             Button *button = dynamic_cast<Button *>(sender);
 
-            if (button && button->getUiElementData().isToggleButton)
+            if (button && button->isToggleButton)
             {
               button->checkState() ? demolishMode = true : demolishMode = false;
               button->checkState() ? highlightSelection = true : highlightSelection = false;
@@ -424,7 +424,7 @@ void UIManager::setCallbackFunctions()
           {
             Button *button = dynamic_cast<Button *>(sender);
 
-            if (button && button->getUiElementData().isToggleButton)
+            if (button && button->isToggleButton)
             {
               button->checkState() ? demolishMode = true : demolishMode = false;
               button->checkState() ? highlightSelection = true : highlightSelection = false;
@@ -447,7 +447,7 @@ void UIManager::setCallbackFunctions()
           {
             Button *button = dynamic_cast<Button *>(sender);
 
-            if (button && button->getUiElementData().isToggleButton)
+            if (button && button->isToggleButton)
             {
               button->checkState() ? tileToPlace = actionParameter : tileToPlace = "";
               button->checkState() ? highlightSelection = true : highlightSelection = false;
@@ -698,7 +698,7 @@ void UIManager::createBuildMenu()
         setupButtonTileImage(button, tile);
         button->drawImageButtonFrame(true);
         button->setVisibility(false);
-        button->setToggleButton(true);
+        button->isToggleButton = true;
         button->setActionID("ToggleVisibilityOfGroup");
         button->setActionParameter(newCategory);
         button->setMenuGroupID(newParentCategory);
@@ -715,7 +715,7 @@ void UIManager::createBuildMenu()
       setupButtonTileImage(button, tile);
       button->drawImageButtonFrame(true);
       button->setVisibility(false);
-      button->setToggleButton(true);
+      button->isToggleButton = true;
       button->setActionID("ChangeTileType");
       button->setActionParameter(tile.first);
       button->setMenuGroupID(newCategory + "_sub");
@@ -730,7 +730,7 @@ void UIManager::createBuildMenu()
       setupButtonTileImage(button, tile);
       button->drawImageButtonFrame(true);
       button->setVisibility(false);
-      button->setToggleButton(true);
+      button->isToggleButton = true;
       button->setActionID("ChangeTileType");
       button->setActionParameter(tile.first);
       button->setMenuGroupID(category + "_sub");
@@ -761,7 +761,7 @@ void UIManager::createBuildMenu()
         setupButtonTileImage(button, tile);
         button->drawImageButtonFrame(true);
         button->setVisibility(false);
-        button->setToggleButton(true);
+        button->isToggleButton = true;
         button->setActionID("ToggleVisibilityOfGroup");
         button->setActionParameter(newCategory);
         button->setMenuGroupID(newParentCategory + "_sub");
@@ -775,7 +775,7 @@ void UIManager::createBuildMenu()
       setupButtonTileImage(button, tile);
       button->drawImageButtonFrame(true);
       button->setVisibility(false);
-      button->setToggleButton(true);
+      button->isToggleButton = true;
       button->setActionID("ChangeTileType");
       button->setActionParameter(tile.first);
       button->setMenuGroupID(newCategory + "_sub");
@@ -790,7 +790,7 @@ void UIManager::createBuildMenu()
       setupButtonTileImage(button, tile);
       button->drawImageButtonFrame(true);
       button->setVisibility(false);
-      button->setToggleButton(true);
+      button->isToggleButton = true;
       button->setActionID("ChangeTileType");
       button->setActionParameter(tile.first);
       button->setMenuGroupID(subCategory + "_sub");

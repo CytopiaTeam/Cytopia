@@ -37,7 +37,6 @@ set(SOURCE_FILES
         engine/ui/basics/UIElement.{hxx,cxx}
         engine/ui/basics/ButtonGroup.{hxx,cxx}
         engine/ui/basics/Layout.{hxx,cxx}
-        engine/ui/widgets/Bar.{hxx,cxx}
         engine/ui/widgets/Button.{hxx,cxx}
         engine/ui/widgets/Combobox.{hxx,cxx}
         engine/ui/widgets/Checkbox.{hxx,cxx}
