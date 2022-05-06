@@ -1,42 +1,13 @@
 #include "PowerManager.hxx"
 #include "../services/GameClock.hxx"
 #include "GameStates.hxx"
-#include <MapNode.hxx>
 #include <SignalMediator.hxx>
 
 PowerManager::PowerManager()
 {
-  SignalMediator::instance().registerCbSetTileID(
-      [this](const MapNode &mapNode) { // If we place a power tile, add it to the cache to update next tick
-        TileData *tileData; // we need tileData from conductive tiles (buildings or powerlines)
-        if (mapNode.getTileData(Layer::BUILDINGS))
-          tileData = mapNode.getTileData(Layer::BUILDINGS);
-        else if (mapNode.getTileData(Layer::POWERLINES))
-          tileData = mapNode.getTileData(Layer::POWERLINES);
-        else if (mapNode.getTileData(Layer::ZONE))
-          tileData = mapNode.getTileData(Layer::ZONE);
-        else
-          return;
-        //TODO rework this, it's safe to assume only buildings have power
-        PowerNode nodeToAdd = {mapNode.getCoordinates(), tileData->power};
-        m_nodesToAdd.push_back(nodeToAdd);
-      });
-  SignalMediator::instance().registerCbDemolish(
-      [this](const MapNode *mapNode) { // If we demolish a power tile, add it to the cache to update next tick
-        switch (GameStates::instance().demolishMode)
-        {
-        case DemolishMode::DEFAULT:
-        {
-          if (!mapNode->getTileData(Layer::BUILDINGS))
-          { // if there's no building it has been succesfully demolished
-            m_nodesToRemove.push_back(mapNode->getCoordinates());
-          }
-          break;
-        }
-        default:
-          break;
-        }
-      });
+  SignalMediator::instance().registerCbSetTileID(Signal::slot(this, &PowerManager::updatePlacedNodes));
+  SignalMediator::instance().registerCbDemolish(Signal::slot(this, &PowerManager::updateRemovedNodes));
+
   GameClock::instance().addRealTimeClockTask(
       [this]()
       {
@@ -168,4 +139,36 @@ std::vector<PowerGrid> PowerManager::rebuildZoneArea(PowerGrid &powerGrid)
   }
 
   return newPowerGrids;
+}
+void PowerManager::updatePlacedNodes(const MapNode &mapNode)
+{
+  TileData *tileData; // we need tileData from conductive tiles (buildings or powerlines)
+  if (mapNode.getTileData(Layer::BUILDINGS))
+    tileData = mapNode.getTileData(Layer::BUILDINGS);
+  else if (mapNode.getTileData(Layer::POWERLINES))
+    tileData = mapNode.getTileData(Layer::POWERLINES);
+  else if (mapNode.getTileData(Layer::ZONE))
+    tileData = mapNode.getTileData(Layer::ZONE);
+  else
+    return;
+
+  PowerNode nodeToAdd = {mapNode.getCoordinates(), tileData->power};
+  m_nodesToAdd.push_back(nodeToAdd);
+}
+
+void PowerManager::updateRemovedNodes(const MapNode *mapNode)
+{
+  switch (GameStates::instance().demolishMode)
+  {
+  case DemolishMode::DEFAULT:
+  {
+    if (!mapNode->getTileData(Layer::BUILDINGS))
+    { // if there's no building it has been succesfully demolished
+      m_nodesToRemove.push_back(mapNode->getCoordinates());
+    }
+    break;
+  }
+  default:
+    break;
+  }
 }

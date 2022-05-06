@@ -17,7 +17,6 @@ public:
   ~SignalMediator(){};
 
   // Signals Map
-  Signal::Signal<void(const MapNode &)> signalPlacePowerBuilding;
   Signal::Signal<void(const MapNode &)> signalSetTileID;
   Signal::Signal<void(MapNode *)> signalDemolish;
 
@@ -26,11 +25,9 @@ public:
 
   // Callback functions Map
   void registerCbSetTileID(std::function<void(const MapNode &)> const &cb) { signalSetTileID.connect(cb); }
-  void registerCbPlacePowerBuilding(std::function<void(const MapNode &)> const &cb) { signalPlacePowerBuilding.connect(cb); }
   void registerCbDemolish(std::function<void(MapNode *)> const &cb) { signalDemolish.connect(cb); }
 
-  // Callback functions Gameplay Managers
-  
+  // Callback functions Gameplay Managers to interact with each other
   void registerCbUpdatePower(std::function<void(const std::vector<PowerGrid> &)> const &cb) { signalUpdatePower.connect(cb); }
 };
 
