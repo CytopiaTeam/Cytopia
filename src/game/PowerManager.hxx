@@ -20,6 +20,7 @@ private:
 
   void updateRemovedNodes(const MapNode *mapNode);
   void updatePlacedNodes(const MapNode &mapNode);
+  void updatePowerLevels();
 
   std::vector<PowerNode> m_nodesToAdd;
   std::vector<Point> m_nodesToRemove;

@@ -22,6 +22,7 @@ public:
 
   // Signals Gameplay Managers
   Signal::Signal<void(const std::vector<PowerGrid> &)> signalUpdatePower;
+  Signal::Signal<void()> signalUpdateZones;
 
   // Callback functions Map
   void registerCbSetTileID(std::function<void(const MapNode &)> const &cb) { signalSetTileID.connect(cb); }
@@ -29,6 +30,7 @@ public:
 
   // Callback functions Gameplay Managers to interact with each other
   void registerCbUpdatePower(std::function<void(const std::vector<PowerGrid> &)> const &cb) { signalUpdatePower.connect(cb); }
+  void registerCbUpdateZones(std::function<void()> const &cb) { signalUpdateZones.connect(cb); }
 };
 
 #endif

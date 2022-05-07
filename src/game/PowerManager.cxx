@@ -7,6 +7,7 @@ PowerManager::PowerManager()
 {
   SignalMediator::instance().registerCbSetTileID(Signal::slot(this, &PowerManager::updatePlacedNodes));
   SignalMediator::instance().registerCbDemolish(Signal::slot(this, &PowerManager::updateRemovedNodes));
+  SignalMediator::instance().registerCbUpdateZones(Signal::slot(this, &PowerManager::updatePowerLevels));
 
   GameClock::instance().addRealTimeClockTask(
       [this]()
@@ -170,5 +171,13 @@ void PowerManager::updateRemovedNodes(const MapNode *mapNode)
   }
   default:
     break;
+  }
+}
+
+void PowerManager::updatePowerLevels()
+{
+  for (auto powerGrid : m_powerGrids)
+  {
+    powerGrid.updatePowerLevel();
   }
 }
