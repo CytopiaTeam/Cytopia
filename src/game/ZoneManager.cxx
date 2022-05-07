@@ -39,7 +39,6 @@ void ZoneManager::update()
         }
       }
     }
-    updated = true;
     m_nodesToVacate.clear();
   }
 
@@ -82,11 +81,6 @@ void ZoneManager::update()
     updated = true;
     m_nodesToRemove.clear();
   }
-
-  if (updated)
-  {
-    SignalMediator::instance().signalUpdateZones.emit();
-  }
 }
 
 void ZoneManager::spawnBuildings()
@@ -110,8 +104,6 @@ void ZoneManager::spawnBuildings()
       }
       zoneArea.spawnBuildings();
     }
-    else
-      LOG(LOG_INFO) << "can't spawn, no power";
   }
 }
 
@@ -209,7 +201,7 @@ void ZoneManager::removeZoneNode(Point coordinate)
 
 void ZoneManager::updatePower(const std::vector<PowerGrid> &powerGrid)
 {
-  for (auto grid : powerGrid)
+  for (const auto &grid : powerGrid)
   {
     bool isGridConnected = false;
     for (auto &area : m_zoneAreas)

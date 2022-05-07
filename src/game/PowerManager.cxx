@@ -7,7 +7,6 @@ PowerManager::PowerManager()
 {
   SignalMediator::instance().registerCbSetTileID(Signal::slot(this, &PowerManager::updatePlacedNodes));
   SignalMediator::instance().registerCbDemolish(Signal::slot(this, &PowerManager::updateRemovedNodes));
-  SignalMediator::instance().registerCbUpdateZones(Signal::slot(this, &PowerManager::updatePowerLevels));
 
   GameClock::instance().addRealTimeClockTask(
       [this]()
@@ -20,6 +19,7 @@ PowerManager::PowerManager()
 
 void PowerManager::update()
 {
+  bool updated = false;
   // Remove nodes (Demolish on power tiles)
   if (!m_nodesToRemove.empty())
   {
@@ -33,8 +33,8 @@ void PowerManager::update()
     { // TODO: Remove this later, this is for debugging
       LOG(LOG_DEBUG) << "Grid #" << ++i << "/" << m_powerGrids.size() << " - Power Production: " << grid.getPowerLevel();
     }
-    SignalMediator::instance().signalUpdatePower.emit(m_powerGrids);
     m_nodesToRemove.clear();
+    updated = true;
   }
 
   if (!m_nodesToAdd.empty())
@@ -50,6 +50,13 @@ void PowerManager::update()
     { // TODO: Remove this later, this is for debugging
       LOG(LOG_DEBUG) << "Grid #" << ++i << "/" << m_powerGrids.size() << " - Power Production: " << grid.getPowerLevel();
     }
+  updated = true;
+  }
+
+  if (updated)
+  {
+    LOG(LOG_INFO) << "Called";
+    updatePowerLevels();
     SignalMediator::instance().signalUpdatePower.emit(m_powerGrids);
   }
 }
@@ -176,7 +183,7 @@ void PowerManager::updateRemovedNodes(const MapNode *mapNode)
 
 void PowerManager::updatePowerLevels()
 {
-  for (auto powerGrid : m_powerGrids)
+  for (auto &powerGrid : m_powerGrids)
   {
     powerGrid.updatePowerLevel();
   }
