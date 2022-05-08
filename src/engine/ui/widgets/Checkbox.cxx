@@ -1,10 +1,7 @@
 #include "Checkbox.hxx"
 
 Checkbox::Checkbox(const SDL_Rect &uiElementRect) : UIElement(SDL_Rect{uiElementRect.x, uiElementRect.y, 20, 20})
-{
-  // checkbox is always a toggleButton
-  setToggleButton(true);
-}
+{}
 
 void Checkbox::draw()
 {

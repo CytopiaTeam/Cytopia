@@ -6,7 +6,6 @@ TEST_CASE("I can create a Checkbox widget", "[ui][widgets][checkbox]")
   std::unique_ptr<Checkbox> cb = std::make_unique<Checkbox>(SDL_Rect{0, 0, 0, 0});
   CHECK(cb != nullptr);
   CHECK(cb->getUiElementData().text.empty());
-  CHECK(cb->getUiElementData().isToggleButton);
 }
 
 TEST_CASE("I can set the check state of a Checkbox widget", "[ui][widgets][checkbox]")

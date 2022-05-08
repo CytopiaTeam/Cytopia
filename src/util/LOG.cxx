@@ -42,7 +42,7 @@ std::string LOG::getTimeStamp()
 {
   std::time_t now = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
   char buf[100] = {0};
-  std::strftime(buf, sizeof(buf), "%b %d %H:%M:%S", std::gmtime(&now)); // lgtm [cpp/potentially-dangerous-function]
+  std::strftime(buf, sizeof(buf), "%b %d %H:%M:%S", std::localtime(&now)); // lgtm [cpp/potentially-dangerous-function]
   return buf;
 }
 

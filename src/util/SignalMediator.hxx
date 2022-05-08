@@ -29,6 +29,7 @@ public:
 
   // Callback functions Gameplay Managers to interact with each other
   void registerCbUpdatePower(std::function<void(const std::vector<PowerGrid> &)> const &cb) { signalUpdatePower.connect(cb); }
+
 };
 
 #endif

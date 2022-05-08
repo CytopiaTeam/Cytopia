@@ -2,6 +2,7 @@
 #include "LOG.hxx"
 #include "../services/GameClock.hxx"
 #include "../services/Randomizer.hxx"
+#include <MapNode.hxx>
 #include "GameStates.hxx"
 #include <SignalMediator.hxx>
 
