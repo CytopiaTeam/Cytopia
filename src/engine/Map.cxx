@@ -100,12 +100,11 @@ Map::Map(int columns, int rows, const bool generateTerrain)
     {
       for (int y = 0; y < Settings::instance().mapSize; y++)
       {
-        mapNodes.push_back(MapNode {Point{x, y, 0, 1},"terrain_grass"});
+        mapNodes.push_back(MapNode{Point{x, y, 0, 1}, "terrain_grass"});
       }
     }
-
-    updateAllNodes();
   }
+  updateAllNodes();
 }
 
 Map::~Map() { delete[] pMapNodesVisible; }
