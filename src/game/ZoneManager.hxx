@@ -5,7 +5,6 @@
 #include "PowerGrid.hxx"
 #include <MapNode.hxx>
 
-
 class ZoneManager
 {
 public:
@@ -18,7 +17,7 @@ private:
    */
   void spawnBuildings();
 
-    /**
+  /**
    * @brief Process previously cached nodes to update
    * 
    */
@@ -62,7 +61,7 @@ private:
 
   void updatePlacedNodes(const MapNode &mapNode);
 
-  std::vector<ZoneArea> m_zoneAreas; /// All zoneAreas
+  std::vector<ZoneArea> m_zoneAreas;  /// All zoneAreas
   std::vector<ZoneNode> m_nodesToAdd; /// All zoneAreas
   std::vector<Point> m_nodesToOccupy; /// All zoneAreas
   std::vector<Point> m_nodesToVacate; /// All zoneAreas

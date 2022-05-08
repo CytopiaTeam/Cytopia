@@ -2,7 +2,5 @@
 
 void GamePlay::update()
 {
-  // Here call all gameplay class updates
-  
-  // m_ZoneManager.update();
-}
+  // This class does nothing than creating instances of gameplay managers
+  }

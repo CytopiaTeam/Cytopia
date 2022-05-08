@@ -34,7 +34,7 @@ LIST(APPEND TEST_SOURCES
         ui/widgets/Tooltip.cxx
         util/Meta.cxx
         util/MessageQueue.cxx
-        # util/LOG.cxx // disabled because log files are no longer written per default
+        util/LOG.cxx 
         )
 
 # Generate source groups for use in IDEs
