@@ -67,7 +67,6 @@ public:
   auto end() { return m_powerNodes.end(); }
 
 private:
-  //TODO: figure out how to handle multi node power plants
   std::vector<PowerNode> m_powerNodes;
   friend void mergePowerGrids(PowerGrid &mainGrid, PowerGrid &toBeMerged);
 
