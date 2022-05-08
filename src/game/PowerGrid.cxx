@@ -9,30 +9,25 @@ void mergePowerGrids(PowerGrid &mainGrid, PowerGrid &toBeMerged)
   mainGrid.m_powerNodes.insert(mainGrid.m_powerNodes.end(), toBeMerged.m_powerNodes.begin(), toBeMerged.m_powerNodes.end());
 }
 
-void PowerGrid::addPowerNode(PowerNode powerNode)
-{
-  m_powerNodes.push_back(powerNode);
-}
+void PowerGrid::addPowerNode(PowerNode powerNode) { m_powerNodes.push_back(powerNode); }
 
 void PowerGrid::updatePowerLevel()
 {
-  m_powerLevel = 0; // reset the powerlevels
+  // reset the power level of this grid before recalculating
+  m_powerLevel=0;
   for (const auto &node : m_powerNodes)
   {
+
+    if (Engine::instance().map->getMapNode(node.coordinate).getTileData(Layer::BUILDINGS) && node.powerProduction == 0)
+    { // each occupied node consumes one power unit
+      m_powerLevel--;
+    }
+
     // For multi-tile buildings, each tile has the same tiledata (including power level).
     // so make sure we only add it once (if it's the origin node)
     if (Engine::instance().map->getMapNode(node.coordinate).isOriginNode())
     {
       m_powerLevel += node.powerProduction;
-        // LOG(LOG_INFO) << "Adding power level: " << node.powerProduction << "/" << m_powerLevel;
-
-      // if (Engine::instance().map->getMapNode(node.coordinate).getTileData(Layer::BUILDINGS) && node.powerProduction == 0)
-      // {
-      //   int powerLevel = -10;
-      //   LOG(LOG_INFO) << "Assumed power level: " << powerLevel << "/" << m_powerLevel;
-
-      //   // m_powerLevel += powerLevel;
-      // }
     }
   }
   LOG(LOG_INFO) << "Done calculating power level: " << m_powerLevel;
