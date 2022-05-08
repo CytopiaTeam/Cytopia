@@ -24,6 +24,7 @@ LIST(APPEND TEST_SOURCES
         engine/ResourcesManager.cxx
         engine/Engine.cxx
         engine/WindowManager.cxx
+        game/PowerManager.cxx
         services/GameClock.cxx
         ui/widgets/Text.cxx
         ui/widgets/Button.cxx
