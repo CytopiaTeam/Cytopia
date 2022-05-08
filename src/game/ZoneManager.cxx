@@ -90,7 +90,6 @@ void ZoneManager::spawnBuildings()
     // check if there are any buildings to spawn, if not, do nothing.
     if (zoneArea.isVacant() && zoneArea.hasPowerSupply())
     {
-      LOG(LOG_INFO) << "spawning, all is well";
       int occupied = 0;
       int free = 0;
       for (auto node : zoneArea)
@@ -212,19 +211,16 @@ void ZoneManager::updatePower(const std::vector<PowerGrid> &powerGrid)
       {
         if (grid.getPowerLevel() > 0)
         {
-          LOG(LOG_INFO) << "zone is powered: " << powerGrid.size() << " : " << grid.getPowerLevel();
           area.setPowerSupply(true);
         }
         else
         {
           area.setPowerSupply(false);
-          LOG(LOG_INFO) << "zone is connected but unpowered" << powerGrid.size() << " : " << grid.getPowerLevel();
         }
       }
       else
       {
         area.setPowerSupply(false);
-        LOG(LOG_INFO) << "zone is disconnected from the grid and unpowered" << powerGrid.size() << " : " << grid.getPowerLevel();
       }
     }
   }

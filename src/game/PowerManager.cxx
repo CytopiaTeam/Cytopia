@@ -28,11 +28,6 @@ void PowerManager::update()
       removePowerNode(m_nodeToRemove);
     }
 
-    int i = 0;
-    for (auto grid : m_powerGrids)
-    { // TODO: Remove this later, this is for debugging
-      LOG(LOG_DEBUG) << "Grid #" << ++i << "/" << m_powerGrids.size() << " - Power Production: " << grid.getPowerLevel();
-    }
     m_nodesToRemove.clear();
     updated = true;
   }
@@ -44,18 +39,12 @@ void PowerManager::update()
       addPowerNodeToGrid(nodeToAdd, m_powerGrids);
     }
     m_nodesToAdd.clear();
-    LOG(LOG_DEBUG) << "Number of power areas: " << m_powerGrids.size();
-    int i = 0;
-    for (auto grid : m_powerGrids)
-    { // TODO: Remove this later, this is for debugging
-      LOG(LOG_DEBUG) << "Grid #" << ++i << "/" << m_powerGrids.size() << " - Power Production: " << grid.getPowerLevel();
-    }
-  updated = true;
+
+    updated = true;
   }
 
   if (updated)
   {
-    LOG(LOG_INFO) << "Called";
     updatePowerLevels();
     SignalMediator::instance().signalUpdatePower.emit(m_powerGrids);
   }

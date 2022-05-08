@@ -30,7 +30,6 @@ void PowerGrid::updatePowerLevel()
       m_powerLevel += node.powerProduction;
     }
   }
-  LOG(LOG_INFO) << "Done calculating power level: " << m_powerLevel;
 }
 
 void PowerGrid::removePowerNode(Point coordinate)
