@@ -45,6 +45,9 @@ void Engine::newGame()
 
   if (newMap)
   {
+    // Clear zone areas
+    SignalMediator::instance().signalClearZone.emit();
+
     delete map;
     map = newMap;
     m_running = true;

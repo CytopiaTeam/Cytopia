@@ -42,6 +42,15 @@ ZoneManager::ZoneManager()
         }
       });
 
+  SignalMediator::instance().registerCbClearZone(
+      [this]() {
+        m_zoneAreas.clear();
+        m_nodesToAdd.clear();
+        m_nodesToOccupy.clear();
+        m_nodesToVacate.clear();
+        m_nodesToRemove.clear();
+      });
+
   GameClock::instance().addRealTimeClockTask(
       [this]()
       {

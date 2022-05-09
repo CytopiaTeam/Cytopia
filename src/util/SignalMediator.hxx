@@ -20,12 +20,14 @@ public:
   Signal::Signal<void(const MapNode &)> signalPlaceBuilding;
   Signal::Signal<void(const MapNode &)> signalPlaceZone;
   Signal::Signal<void(MapNode *)> signalDemolish;
+  Signal::Signal<void()> signalClearZone;
 
   // Callback functions
   void registerCbPlaceZone(std::function<void(const MapNode &)> const &cb) { signalPlaceZone.connect(cb); }
   void registerCbPlacePowerBuilding(std::function<void(const MapNode &)> const &cb) { signalPlacePowerBuilding.connect(cb); }
   void registerCbPlaceBuilding(std::function<void(const MapNode &)> const &cb) { signalPlaceBuilding.connect(cb); }
   void registerCbDemolish(std::function<void(MapNode *)> const &cb) { signalDemolish.connect(cb); }
+  void registerCbClearZone(std::function<void()> const &cb) { signalClearZone.connect(cb); }
 };
 
 #endif
