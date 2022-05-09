@@ -66,23 +66,6 @@ NeighborNodesPosition operator++(NeighborNodesPosition &nn, int)
   return res;
 }
 
-void Map::getNodeInformation(const Point &isoCoordinates) const
-{
-  const MapNode &mapNode = mapNodes[isoCoordinates.toIndex()];
-  const MapNodeData &mapNodeData = mapNode.getActiveMapNodeData();
-  const TileData *tileData = mapNodeData.tileData;
-  LOG(LOG_INFO) << "===== TILE at " << isoCoordinates.x << ", " << isoCoordinates.y << ", " << mapNode.getCoordinates().height
-                << "=====";
-  LOG(LOG_INFO) << "[Layer: TERRAIN] ID: " << mapNode.getMapNodeDataForLayer(Layer::TERRAIN).tileID;
-  LOG(LOG_INFO) << "[Layer: WATER] ID: " << mapNode.getMapNodeDataForLayer(Layer::WATER).tileID;
-  LOG(LOG_INFO) << "[Layer: BUILDINGS] ID: " << mapNode.getMapNodeDataForLayer(Layer::BUILDINGS).tileID;
-  LOG(LOG_INFO) << "Category: " << tileData->category;
-  LOG(LOG_INFO) << "FileName: " << tileData->tiles.fileName;
-  LOG(LOG_INFO) << "PickRandomTile: " << tileData->tiles.pickRandomTile;
-  LOG(LOG_INFO) << "TileMap: " << mapNodeData.tileMap;
-  LOG(LOG_INFO) << "TileIndex: " << mapNodeData.tileIndex;
-}
-
 Map::Map(int columns, int rows)
     : pMapNodesVisible(new Sprite *[columns * rows]), m_columns(columns), m_rows(rows)
 {
@@ -116,6 +99,23 @@ Map::Map(int columns, int rows, const bool generateTerrain)
 }
 
 Map::~Map() { delete[] pMapNodesVisible; }
+
+void Map::getNodeInformation(const Point &isoCoordinates) const
+{
+  const MapNode &mapNode = mapNodes[isoCoordinates.toIndex()];
+  const MapNodeData &mapNodeData = mapNode.getActiveMapNodeData();
+  const TileData *tileData = mapNodeData.tileData;
+  LOG(LOG_INFO) << "===== TILE at " << isoCoordinates.x << ", " << isoCoordinates.y << ", " << mapNode.getCoordinates().height
+                << "=====";
+  LOG(LOG_INFO) << "[Layer: TERRAIN] ID: " << mapNode.getMapNodeDataForLayer(Layer::TERRAIN).tileID;
+  LOG(LOG_INFO) << "[Layer: WATER] ID: " << mapNode.getMapNodeDataForLayer(Layer::WATER).tileID;
+  LOG(LOG_INFO) << "[Layer: BUILDINGS] ID: " << mapNode.getMapNodeDataForLayer(Layer::BUILDINGS).tileID;
+  LOG(LOG_INFO) << "Category: " << tileData->category;
+  LOG(LOG_INFO) << "FileName: " << tileData->tiles.fileName;
+  LOG(LOG_INFO) << "PickRandomTile: " << tileData->tiles.pickRandomTile;
+  LOG(LOG_INFO) << "TileMap: " << mapNodeData.tileMap;
+  LOG(LOG_INFO) << "TileIndex: " << mapNodeData.tileIndex;
+}
 
 std::vector<NeighborNode> Map::getNeighborNodes(const Point &isoCoordinates, const bool includeCentralNode)
 {
