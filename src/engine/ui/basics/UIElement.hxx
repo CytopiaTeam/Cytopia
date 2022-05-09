@@ -156,8 +156,6 @@ public:
 
   const ElementData &getUiElementData() const { return elementData; };
 
-  virtual void drawImageButtonFrame(bool){};
-
   virtual SDL_Point screenPointToLocalPointInRect(SDL_Point screenCoordinates);
 
 private:
