@@ -21,7 +21,7 @@ void Slider::draw()
 
 void Slider::setValue(int val)
 {
-  if (m_minVal <= m_curVal <= m_maxVal)
+  if (m_minVal <= val && val <= m_maxVal)
   {
     int range = m_maxVal - m_minVal;
     // calculate position to set
