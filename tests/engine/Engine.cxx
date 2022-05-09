@@ -19,6 +19,13 @@ TEST_CASE("Engine new game", "[engine][engine]")
   engine.quitGame();
 }
 
+TEST_CASE("Create empty Map without mapnodes", "[engine][engine]")
+{
+  Map *map = new Map(64, 64, true);
+  CHECK(map != nullptr);
+}
+
+
 TEST_CASE("Create Map with procedural terrain", "[engine][engine]")
 {
   Map *map = new Map(64, 64, true);
