@@ -23,7 +23,8 @@ struct NeighborNode
 class Map
 {
 public:
-  Map(int columns, int rows, const bool generateTerrain = true);
+  Map(int columns, int rows, const bool generateTerrain);
+  Map(int columns, int rows);
   ~Map();
   Map(Map &other) = delete;
   Map &operator=(const Map &other) = delete;

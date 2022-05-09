@@ -83,6 +83,14 @@ void Map::getNodeInformation(const Point &isoCoordinates) const
   LOG(LOG_INFO) << "TileIndex: " << mapNodeData.tileIndex;
 }
 
+Map::Map(int columns, int rows)
+    : pMapNodesVisible(new Sprite *[columns * rows]), m_columns(columns), m_rows(rows)
+{
+  // TODO move Random Engine out of map
+  randomEngine.seed();
+  MapLayers::enableLayers({TERRAIN, BUILDINGS, WATER, GROUND_DECORATION, ZONE, ROAD, POWERLINES, FLORA});
+}
+
 Map::Map(int columns, int rows, const bool generateTerrain)
     : pMapNodesVisible(new Sprite *[columns * rows]), m_columns(columns), m_rows(rows)
 {
@@ -637,7 +645,7 @@ Map *Map::loadMapFromFile(const std::string &fileName)
   if (columns == -1 || rows == -1)
     return nullptr;
 
-  Map *map = new Map(columns, rows, false);
+  Map *map = new Map(columns, rows);
   map->mapNodes.reserve(columns * rows);
 
   for (const auto &it : saveGameJSON["mapNode"].items())
