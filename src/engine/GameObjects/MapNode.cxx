@@ -170,6 +170,12 @@ bool MapNode::isPlacementAllowed(const std::string &newTileID) const
     {
     case Layer::ZONE:
       // zones can overplace themselves and everything else
+      if (isLayerOccupied(Layer::WATER))
+      {
+        // zone cannot be placed:
+        // - on water
+        return false;
+      }
       return true;
     case Layer::POWERLINES:
       if (isLayerOccupied(Layer::ROAD) || isLayerOccupied(Layer::POWERLINES))
