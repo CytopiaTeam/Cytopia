@@ -542,6 +542,21 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       // game event handling
       mouseScreenCoords = {event.button.x, event.button.y};
       mouseIsoCoords = convertScreenToIsoCoordinates(mouseScreenCoords);
+
+      // select the tile our cursor is over
+      if (tileToPlace.empty()) {
+        MapNode &node = engine.map->getMapNode(mouseIsoCoords);
+        Layer topMostActiveLayer = node.getTopMostActiveLayer();
+        // all layers are supported except terrain
+        if(topMostActiveLayer == Layer::TERRAIN || topMostActiveLayer == Layer::NONE)
+          break;
+        std::vector<MapNodeData> mapNodeData = node.getMapNodeData();
+        tileToPlace = mapNodeData[topMostActiveLayer].tileID;
+        highlightSelection = true;
+        // pick the tile in mousemove, player will find mousedown
+        break;
+      }
+
       // gather all nodes the objects that'll be placed is going to occupy.
       std::vector targetObjectNodes = TileManager::instance().getTargetCoordsOfTileID(mouseIsoCoords, tileToPlace);
 
