@@ -140,6 +140,12 @@ public:
   */
   bool isPlacementOnNodeAllowed(const Point &isoCoordinates, const std::string &tileID) const;
 
+  /** \brief check if Tile can be placed in an area
+  * @param targetCoordinates Tile array to inspect
+  * @param tileID tileID which should be checked
+  */
+  bool isPlacementOnAreaAllowed(const std::vector<Point> targetCoordinates, const std::string &tileID) const;
+
   /** \brief get Tile ID of specific layer of specific iso coordinates
   * @param isoCoordinates Tile to inspect
   * @param layer layer to check.

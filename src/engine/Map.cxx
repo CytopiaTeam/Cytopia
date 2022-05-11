@@ -283,6 +283,45 @@ bool Map::isPlacementOnNodeAllowed(const Point &isoCoordinates, const std::strin
   return mapNodes[isoCoordinates.toIndex()].isPlacementAllowed(tileID);
 }
 
+bool Map::isPlacementOnAreaAllowed(const std::vector<Point> targetCoordinates, const std::string &tileID) const
+{
+  // This function can be divided into two policies:
+  // Whether we need all nodes in the area to be placed or not
+  bool should_all_nodes_placed = true;
+  bool area_placement_allowed = true;
+  bool tile_placement_allowed = true;
+
+  TileData *tileData = TileManager::instance().getTileData(tileID);
+  const Layer layer = TileManager::instance().getTileLayer(tileID);
+  // Zone layer can be placed on part of tile in the area.
+  // Some other layers can also have this feature, such as water, flora.
+  if (layer == Layer::ZONE)
+  {
+    should_all_nodes_placed = false;
+  } else {
+    should_all_nodes_placed = true;
+  }
+  area_placement_allowed = should_all_nodes_placed;
+
+  for (auto coord : targetCoordinates)
+  {
+    tile_placement_allowed = isPlacementOnNodeAllowed(coord, tileID);
+
+    if (tile_placement_allowed && !should_all_nodes_placed)
+    {
+      area_placement_allowed = true;
+      break;
+    }
+    if (!tile_placement_allowed && should_all_nodes_placed)
+    {
+      area_placement_allowed = false;
+      break;
+    }
+  }
+
+  return area_placement_allowed;
+}
+
 unsigned char Map::getElevatedNeighborBitmask(Point centerCoordinates)
 {
   unsigned char bitmask = 0;
@@ -729,17 +768,7 @@ void Map::setTileID(const std::string &tileID, Point coordinate)
     return;
   }
 
-  for (auto coord : targetCoordinates)
-  { // first check all nodes if it is possible to place the building before doing anything
-    if (isPlacementOnNodeAllowed(coord, tileID))
-    {
-      //if find a target coordinate is valid for placement, placement is allowed
-      allowed = true;
-      break;
-    }
-  }
-
-  if(!allowed)
+  if (!isPlacementOnAreaAllowed(targetCoordinates, tileID))
     return;
 
   Layer layer = TileManager::instance().getTileLayer(tileID);
