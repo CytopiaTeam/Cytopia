@@ -399,29 +399,21 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
             m_nodesToPlace = m_nodesToHighlight;
           }
 
-          // TODO: set highlighted tiles that can be placed and can't be placed different color
+          // Finally highlight all the tiles we've found
+          // Set highlighted tiles that can be placed and can't be placed different color
+          m_placementAllowed = false;
           for (const auto &highlitNode : m_nodesToHighlight)
           {
-            if (engine.map->isPlacementOnNodeAllowed(highlitNode, tileToPlace) || demolishMode)
+            if (!engine.map->isPlacementOnNodeAllowed(highlitNode, tileToPlace) || demolishMode)
             {
-              // place allowed tile, mark gray
-              m_placementAllowed = true;
-              break;
-            }
-
-            // mark red.
-            m_placementAllowed = false;
-          }
-          // finally highlight all the tiles we've found
-          for (const auto &highlitNode : m_nodesToHighlight)
-          {
-            if (m_placementAllowed)
-            {
-              engine.map->highlightNode(highlitNode, SpriteHighlightColor::GRAY);
+              // mark red
+              engine.map->highlightNode(highlitNode, SpriteHighlightColor::RED);
             }
             else
             {
-              engine.map->highlightNode(highlitNode, SpriteHighlightColor::RED);
+              // place allowed tile, mark gray
+              engine.map->highlightNode(highlitNode, SpriteHighlightColor::GRAY);
+              m_placementAllowed = true;
             }
             const Point &buildingCoordinates =
                 engine.map->findNodeInMap(convertIsoToScreenCoordinates(highlitNode), Layer::BUILDINGS);
