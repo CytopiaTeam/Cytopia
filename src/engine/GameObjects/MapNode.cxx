@@ -171,9 +171,7 @@ bool MapNode::isPlacementAllowed(const std::string &newTileID) const
     case Layer::ZONE:
       if (isLayerOccupied(Layer::WATER))
       {
-        // zone cannot be placed:
-        // - on water
-        return false;
+        return tileData->placeOnWater;
       }
       return true;
     case Layer::POWERLINES:
