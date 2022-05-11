@@ -169,7 +169,6 @@ bool MapNode::isPlacementAllowed(const std::string &newTileID) const
     switch (layer)
     {
     case Layer::ZONE:
-      // zones can overplace themselves and everything else
       if (isLayerOccupied(Layer::WATER))
       {
         // zone cannot be placed:

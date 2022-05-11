@@ -722,6 +722,7 @@ void Map::setTileID(const std::string &tileID, Point coordinate)
 {
   TileData *tileData = TileManager::instance().getTileData(tileID);
   std::vector<Point> targetCoordinates = TileManager::instance().getTargetCoordsOfTileID(coordinate, tileID);
+  bool allowed = false;
 
   if (!tileData || targetCoordinates.empty())
   { // if the node would not outside of map boundaries, targetCoordinates would be empty
@@ -730,11 +731,16 @@ void Map::setTileID(const std::string &tileID, Point coordinate)
 
   for (auto coord : targetCoordinates)
   { // first check all nodes if it is possible to place the building before doing anything
-    if (!isPlacementOnNodeAllowed(coord, tileID))
-    { //make sure every target coordinate is valid for placement, not just the origin coordinate.
-      return;
+    if (isPlacementOnNodeAllowed(coord, tileID))
+    {
+      //if find a target coordinate is valid for placement, placement is allowed
+      allowed = true;
+      break;
     }
   }
+
+  if(!allowed)
+    return;
 
   Layer layer = TileManager::instance().getTileLayer(tileID);
   std::string randomGroundDecorationTileID;

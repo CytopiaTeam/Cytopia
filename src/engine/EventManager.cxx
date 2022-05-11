@@ -399,18 +399,18 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
             m_nodesToPlace = m_nodesToHighlight;
           }
 
-          // we need to check if placement is allowed and set a bool to color ALL the highlighted tiles and not just those who can't be placed
+          // TODO: set highlighted tiles that can be placed and can't be placed different color
           for (const auto &highlitNode : m_nodesToHighlight)
           {
-            if (!engine.map->isPlacementOnNodeAllowed(highlitNode, tileToPlace) || demolishMode)
+            if (engine.map->isPlacementOnNodeAllowed(highlitNode, tileToPlace) || demolishMode)
             {
-              // already occupied tile, mark red
-              m_placementAllowed = false;
+              // place allowed tile, mark gray
+              m_placementAllowed = true;
               break;
             }
 
-            // mark gray.
-            m_placementAllowed = true;
+            // mark red.
+            m_placementAllowed = false;
           }
           // finally highlight all the tiles we've found
           for (const auto &highlitNode : m_nodesToHighlight)
