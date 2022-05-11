@@ -761,7 +761,6 @@ void Map::setTileID(const std::string &tileID, Point coordinate)
 {
   TileData *tileData = TileManager::instance().getTileData(tileID);
   std::vector<Point> targetCoordinates = TileManager::instance().getTargetCoordsOfTileID(coordinate, tileID);
-  bool allowed = false;
 
   if (!tileData || targetCoordinates.empty())
   { // if the node would not outside of map boundaries, targetCoordinates would be empty
