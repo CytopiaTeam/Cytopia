@@ -5,7 +5,7 @@ on:
       - master
       - dev
   pull_request:
-    types: [opened, synchronize, reopened]
+    types: [ opened, synchronize, reopened ]
 jobs:
   build:
     name: sonarcloud scan
@@ -37,6 +37,21 @@ jobs:
           curl -sSLo $HOME/.sonar/build-wrapper-linux-x86.zip ${{ env.BUILD_WRAPPER_DOWNLOAD_URL }}
           unzip -o $HOME/.sonar/build-wrapper-linux-x86.zip -d $HOME/.sonar/
           echo "$HOME/.sonar/build-wrapper-linux-x86" >> $GITHUB_PATH
+
+      - name: Prepare cfamily cache timestamp
+        id: cfamily_cache_timestamp
+        shell: cmake -P {0}
+        run: |
+          string(TIMESTAMP current_date "%Y-%m-%d-%H;%M;%S" UTC)
+          message("::set-output name=timestamp::${current_date}")
+
+      - name: cfamily cache files
+        uses: actions/cache@v2.1.7
+        with:
+          path: cfamily-cache
+          key: cfamily-cache-${{ steps.cfamily_cache_timestamp.outputs.timestamp }}
+          restore-keys: |
+            cfamily-cache-
 
       - name: Install dependencies
         run: |
