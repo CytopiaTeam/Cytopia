@@ -287,9 +287,9 @@ bool Map::isPlacementOnAreaAllowed(const std::vector<Point> targetCoordinates, c
 {
   // This function can be divided into two policies:
   // Whether we need all nodes in the area to be placed or not
-  bool should_all_nodes_placed = true;
-  bool area_placement_allowed = true;
-  bool tile_placement_allowed = true;
+  bool shouldAllNodesPlaced = true;
+  bool areaPlacementAllowed = true;
+  bool tilePlacementAllowed = true;
 
   TileData *tileData = TileManager::instance().getTileData(tileID);
   const Layer layer = TileManager::instance().getTileLayer(tileID);
@@ -297,29 +297,29 @@ bool Map::isPlacementOnAreaAllowed(const std::vector<Point> targetCoordinates, c
   // Some other layers can also have this feature, such as water, flora.
   if (layer == Layer::ZONE)
   {
-    should_all_nodes_placed = false;
+    shouldAllNodesPlaced = false;
   } else {
-    should_all_nodes_placed = true;
+    shouldAllNodesPlaced = true;
   }
-  area_placement_allowed = should_all_nodes_placed;
+  areaPlacementAllowed = shouldAllNodesPlaced;
 
   for (auto coord : targetCoordinates)
   {
-    tile_placement_allowed = isPlacementOnNodeAllowed(coord, tileID);
+    tilePlacementAllowed = isPlacementOnNodeAllowed(coord, tileID);
 
-    if (tile_placement_allowed && !should_all_nodes_placed)
+    if (tilePlacementAllowed && !shouldAllNodesPlaced)
     {
-      area_placement_allowed = true;
+      areaPlacementAllowed = true;
       break;
     }
-    if (!tile_placement_allowed && should_all_nodes_placed)
+    if (!tilePlacementAllowed && shouldAllNodesPlaced)
     {
-      area_placement_allowed = false;
+      areaPlacementAllowed = false;
       break;
     }
   }
 
-  return area_placement_allowed;
+  return areaPlacementAllowed;
 }
 
 unsigned char Map::getElevatedNeighborBitmask(Point centerCoordinates)
