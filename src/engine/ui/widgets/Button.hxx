@@ -35,7 +35,7 @@ public:
   void onMouseEnter(const SDL_Event &event) override;
   void onMouseLeave(const SDL_Event &event) override;
 
-  void drawImageButtonFrame(bool drawFrame) override;
+  void drawImageButtonFrame(bool drawFrame);
 
   void registerCallbackFunction(std::function<void()> const &cb) override;
   void registerCallbackFunction(std::function<void(UIElement *sender)> const &cb) override;

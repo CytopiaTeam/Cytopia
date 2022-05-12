@@ -158,6 +158,7 @@ void UIManager::init()
           uiElement = std::make_unique<Button>(elementRect);
           uiElement->setTextureID(textureID);
           dynamic_cast<Button *> (uiElement.get())->isToggleButton = toggleButton;
+          dynamic_cast<Button *> (uiElement.get())->drawImageButtonFrame(drawFrame);
           break;
         case ElementType::TextButton:
           uiElement = std::make_unique<Button>(elementRect);
@@ -193,7 +194,6 @@ void UIManager::init()
         uiElement->setActionID(actionID);
         uiElement->setActionParameter(actionParameter);
         uiElement->setUIElementID(uiElementID);
-        uiElement->drawImageButtonFrame(drawFrame);
         uiElement->setMenuGroupID(buildMenuID);
 
         // only add UiElements to buttonGroups / eventHandling if they have no MenuGroupID property set
