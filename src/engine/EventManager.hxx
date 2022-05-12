@@ -20,6 +20,7 @@ public:
  * @details This sets a node to be unhighlighted.
  */
   void unHighlightNodes();
+  void pickTileUnderCursor(Point mouseIsoCoords);
 
 private:
   UIManager &m_uiManager = UIManager::instance();
