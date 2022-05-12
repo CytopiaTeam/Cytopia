@@ -124,7 +124,7 @@ jobs:
       - name: Test
         uses: GabrielBB/xvfb-action@v1.6
         with:
-          run: ctest -VV
+          run: ctest --output-on-failure --repeat="until-pass:5"
 
       - name: Upload build to itch.io
         env:
