@@ -74,11 +74,19 @@ jobs:
           curl "https://raw.githubusercontent.com/AnotherFoxGuy/ci-scripts/main/install-cmake.sh" | sudo bash
 
       - name: Configure
-        run: cmake -DBUILD_TEST=OFF .
+        run: cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DBUILD_TEST=ON -DENABLE_COVERAGE=ON .
 
       - name: Run build-wrapper
         run: |
           build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} make -j4
+
+      - name: Test
+        uses: GabrielBB/xvfb-action@v1.6
+        with:
+          run: ctest --output-on-failure --repeat="until-pass:5"
+
+      - name: Generate coverage
+        run: make gcov
 
       - name: Run sonar-scanner
         env:
