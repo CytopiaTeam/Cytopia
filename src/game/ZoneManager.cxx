@@ -24,7 +24,6 @@ ZoneManager::ZoneManager()
 
 void ZoneManager::update()
 {
-  bool updated = false;
   // Vacate nodes (Demolish Buildings on zones)
   if (!m_nodesToVacate.empty())
   {
@@ -56,7 +55,6 @@ void ZoneManager::update()
         }
       }
     }
-    updated = true;
     m_nodesToOccupy.clear();
   }
 
@@ -67,7 +65,6 @@ void ZoneManager::update()
     {
       addZoneNodeToArea(nodeToAdd, m_zoneAreas);
     }
-    updated = true;
     m_nodesToAdd.clear();
   }
 
@@ -78,7 +75,6 @@ void ZoneManager::update()
     {
       removeZoneNode(m_nodeToRemove);
     }
-    updated = true;
     m_nodesToRemove.clear();
   }
 }
