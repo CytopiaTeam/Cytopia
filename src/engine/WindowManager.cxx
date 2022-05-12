@@ -6,7 +6,6 @@
 #include "Filesystem.hxx"
 
 #include <SDL_image.h>
-#include <memory>
 
 WindowManager::WindowManager()
 {

@@ -3,6 +3,8 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <memory>
+
 #include <SDL.h>
 
 #include "../util/Singleton.hxx"
