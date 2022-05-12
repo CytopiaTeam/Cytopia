@@ -42,7 +42,7 @@ public:
   */
   SDL_Window *getWindow() const { return m_window; };
 
-  const std::vector<std::unique_ptr<SDL_DisplayMode>> &getSupportedScreenResolutions() { return m_resolutions; };
+  const std::vector<std::unique_ptr<SDL_DisplayMode>> &getSupportedScreenResolutions() const { return m_resolutions; };
 
   void setScreenResolution(int mode);
   // void setLastScreenResolution() { setScreenResolution(m_lastSelectedResolutionIdx); };
