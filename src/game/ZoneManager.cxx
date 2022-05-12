@@ -203,16 +203,9 @@ void ZoneManager::updatePower(const std::vector<PowerGrid> &powerGrid)
     {
       isGridConnected = area.end() != std::find_if(area.begin(), area.end(),
                                                    [grid](const ZoneNode &node) { return grid.isNeighbor(node.coordinate); });
-      if (isGridConnected)
+      if (isGridConnected && grid.getPowerLevel() > 0)
       {
-        if (grid.getPowerLevel() > 0)
-        {
-          area.setPowerSupply(true);
-        }
-        else
-        {
-          area.setPowerSupply(false);
-        }
+        area.setPowerSupply(true);
       }
       else
       {
