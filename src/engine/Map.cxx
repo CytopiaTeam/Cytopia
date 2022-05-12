@@ -735,21 +735,21 @@ void Map::calculateVisibleMap(void)
   }
 }
 
-void Map::setTileID(const std::string &tileID, Point coordinate)
+bool Map::setTileID(const std::string &tileID, Point coordinate)
 {
   TileData *tileData = TileManager::instance().getTileData(tileID);
   std::vector<Point> targetCoordinates = TileManager::instance().getTargetCoordsOfTileID(coordinate, tileID);
 
   if (!tileData || targetCoordinates.empty())
   { // if the node would not outside of map boundaries, targetCoordinates would be empty
-    return;
+    return false;
   }
 
   for (auto coord : targetCoordinates)
   { // first check all nodes if it is possible to place the building before doing anything
     if (!isPlacementOnNodeAllowed(coord, tileID))
     { //make sure every target coordinate is valid for placement, not just the origin coordinate.
-      return;
+      return false;
     }
   }
 
@@ -816,12 +816,15 @@ void Map::setTileID(const std::string &tileID, Point coordinate)
   {
     updateNodeNeighbors(nodesToBeUpdated);
   }
+  return true;
 }
 
-void Map::setTileID(const std::string &tileID, const std::vector<Point> &coordinates)
+bool Map::setTileID(const std::string &tileID, const std::vector<Point> &coordinates)
 {
+  bool setTileResult = true;
   for (auto coord : coordinates)
   {
-    setTileID(tileID, coord);
+    setTileResult &= setTileID(tileID, coord);
   }
+  return setTileResult;
 }

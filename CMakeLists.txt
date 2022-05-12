@@ -4,6 +4,7 @@ include(CMakeDependentOption)
 include(Macros)
 include(FeatureSummary)
 include(SourceFileUtils)
+include(CMakeCM)
 set(_PREFIX "CYTOPIA_")
 
 # Test if conan is installed

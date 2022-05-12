@@ -104,26 +104,12 @@ void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
 
 Layer MapNode::getTopMostActiveLayer() const
 {
-  if (MapLayers::isLayerActive(Layer::BUILDINGS) && m_mapNodeData[Layer::BUILDINGS].tileData)
+  for (auto currentLayer : layersInActiveOrder)
   {
-    return Layer::BUILDINGS;
-  }
-  else if (MapLayers::isLayerActive(Layer::BLUEPRINT) && m_mapNodeData[Layer::UNDERGROUND].tileData)
-  {
-    return Layer::UNDERGROUND;
-  }
-  else if (MapLayers::isLayerActive(Layer::BLUEPRINT) && m_mapNodeData[Layer::BLUEPRINT].tileData)
-  {
-    return Layer::BLUEPRINT;
-  }
-  else if (MapLayers::isLayerActive(Layer::GROUND_DECORATION) && m_mapNodeData[Layer::GROUND_DECORATION].tileData)
-  {
-    return Layer::GROUND_DECORATION;
-  }
-  // terrain is our fallback, since there's always terrain.
-  else if (MapLayers::isLayerActive(Layer::TERRAIN) && m_mapNodeData[Layer::TERRAIN].tileData)
-  {
-    return Layer::TERRAIN;
+    if (MapLayers::isLayerActive(currentLayer) && m_mapNodeData[currentLayer].tileData)
+    {
+      return currentLayer;
+    }
   }
   return Layer::NONE;
 }

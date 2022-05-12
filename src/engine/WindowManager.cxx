@@ -129,11 +129,12 @@ void WindowManager::initializeScreenResolutions()
   // get the number of different screen modes
   for (int modeIndex = 0; modeIndex <= SDL_GetNumDisplayModes(m_activeDisplay); modeIndex++)
   {
-    SDL_DisplayMode *mode = new SDL_DisplayMode{SDL_PIXELFORMAT_UNKNOWN, 0, 0, 0, nullptr};
+    std::unique_ptr<SDL_DisplayMode> mode =
+        std::make_unique<SDL_DisplayMode>((SDL_DisplayMode{SDL_PIXELFORMAT_UNKNOWN, 0, 0, 0, nullptr}));
 
-    if (SDL_GetDisplayMode(m_activeDisplay, modeIndex, mode) == 0)
+    if (SDL_GetDisplayMode(m_activeDisplay, modeIndex, mode.get()) == 0)
     {
-      m_resolutions.push_back(mode);
+      m_resolutions.push_back(std::move(mode));
     }
   }
 }
@@ -154,7 +155,7 @@ void WindowManager::setScreenResolution(int mode)
     switch (static_cast<FULLSCREEN_MODE>(Settings::instance().fullScreenMode))
     {
     case FULLSCREEN_MODE::FULLSCREEN:
-      SDL_SetWindowDisplayMode(m_window, m_resolutions[mode]);
+      SDL_SetWindowDisplayMode(m_window, m_resolutions[mode].get());
       // workaround. After setting Display Resolution in fullscreen, it won't work until disabling / enabling Fullscreen again.
       SDL_SetWindowFullscreen(m_window, 0);
       SDL_SetWindowFullscreen(m_window, SDL_WINDOW_FULLSCREEN);
