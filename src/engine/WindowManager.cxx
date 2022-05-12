@@ -135,6 +135,10 @@ void WindowManager::initializeScreenResolutions()
     {
       m_resolutions.push_back(mode);
     }
+    else
+    {
+      delete(mode);
+    }
   }
 }
 
