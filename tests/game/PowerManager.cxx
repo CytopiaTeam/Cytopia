@@ -40,5 +40,5 @@ TEST_CASE("Zone can be powered", "[powermanager][powermanager]")
       });
 
   GameClock::instance().tick();
-  CHECK(powered == TRUE);
+  CHECK(powered == true);
 }
