@@ -51,7 +51,7 @@ jobs:
           sccache --show-stats
 
       - name: Test
-        run: ctest -VV
+        run: ctest -VV --output-on-failure
 
       - name: Upload build to itch.io
         env:
@@ -124,7 +124,7 @@ jobs:
       - name: Test
         uses: GabrielBB/xvfb-action@v1.6
         with:
-          run: ctest -VV
+          run: ctest -VV --output-on-failure
 
       - name: Upload build to itch.io
         env:
@@ -195,7 +195,7 @@ jobs:
       - name: Test
         uses: GabrielBB/xvfb-action@v1.6
         with:
-          run: ctest -VV
+          run: ctest -VV --output-on-failure
 
   build-clang-tsan:
     name: Build Linux (Clang TSan)
@@ -256,7 +256,7 @@ jobs:
       - name: Test
         uses: GabrielBB/xvfb-action@v1.6
         with:
-          run: ctest -VV
+          run: ctest -VV --output-on-failure
 
 
   build-appleclang:
@@ -307,7 +307,7 @@ jobs:
         shell: bash
 
       - name: Test
-        run: ctest -VV
+        run: ctest -VV --output-on-failure
         shell: bash
 
       - name: Upload build to itch.io
