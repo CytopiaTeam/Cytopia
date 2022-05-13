@@ -557,8 +557,6 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       // game event handling
       mouseScreenCoords = {event.button.x, event.button.y};
       mouseIsoCoords = convertScreenToIsoCoordinates(mouseScreenCoords);
-
-
       // gather all nodes the objects that'll be placed is going to occupy.
       std::vector targetObjectNodes = TileManager::instance().getTargetCoordsOfTileID(mouseIsoCoords, tileToPlace);
 
