@@ -283,6 +283,45 @@ bool Map::isPlacementOnNodeAllowed(const Point &isoCoordinates, const std::strin
   return mapNodes[isoCoordinates.toIndex()].isPlacementAllowed(tileID);
 }
 
+bool Map::isPlacementOnAreaAllowed(const std::vector<Point> targetCoordinates, const std::string &tileID) const
+{
+  // This function can be divided into two policies:
+  // Whether we need all nodes in the area to be placed or not
+  bool shouldAllNodesPlaced = true;
+  bool areaPlacementAllowed = true;
+  bool tilePlacementAllowed = true;
+
+  TileData *tileData = TileManager::instance().getTileData(tileID);
+  const Layer layer = TileManager::instance().getTileLayer(tileID);
+  // Zone layer can be placed on part of tile in the area.
+  // Some other layers can also have this feature, such as water, flora.
+  if (layer == Layer::ZONE)
+  {
+    shouldAllNodesPlaced = false;
+  } else {
+    shouldAllNodesPlaced = true;
+  }
+  areaPlacementAllowed = shouldAllNodesPlaced;
+
+  for (auto coord : targetCoordinates)
+  {
+    tilePlacementAllowed = isPlacementOnNodeAllowed(coord, tileID);
+
+    if (tilePlacementAllowed && !shouldAllNodesPlaced)
+    {
+      areaPlacementAllowed = true;
+      break;
+    }
+    if (!tilePlacementAllowed && shouldAllNodesPlaced)
+    {
+      areaPlacementAllowed = false;
+      break;
+    }
+  }
+
+  return areaPlacementAllowed;
+}
+
 unsigned char Map::getElevatedNeighborBitmask(Point centerCoordinates)
 {
   unsigned char bitmask = 0;
@@ -728,13 +767,8 @@ bool Map::setTileID(const std::string &tileID, Point coordinate)
     return false;
   }
 
-  for (auto coord : targetCoordinates)
-  { // first check all nodes if it is possible to place the building before doing anything
-    if (!isPlacementOnNodeAllowed(coord, tileID))
-    { //make sure every target coordinate is valid for placement, not just the origin coordinate.
-      return false;
-    }
-  }
+  if (!isPlacementOnAreaAllowed(targetCoordinates, tileID))
+    return false;
 
   Layer layer = TileManager::instance().getTileLayer(tileID);
   std::string randomGroundDecorationTileID;
@@ -817,10 +851,10 @@ bool Map::setTileID(const std::string &tileID, Point coordinate)
 
 bool Map::setTileID(const std::string &tileID, const std::vector<Point> &coordinates)
 {
-  bool setTileResult = true;
+  bool setTileResult = false;
   for (auto coord : coordinates)
   {
-    setTileResult &= setTileID(tileID, coord);
+    setTileResult |= setTileID(tileID, coord);
   }
   return setTileResult;
 }
