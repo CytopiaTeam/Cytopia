@@ -559,7 +559,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       mouseIsoCoords = convertScreenToIsoCoordinates(mouseScreenCoords);
 
       // select the tile our cursor is over
-      if (tileToPlace.empty()) {
+      if (!demolishMode && tileToPlace.empty()) {
         pickTileUnderCursor(mouseIsoCoords);
         // pick the tile in mousemove, player will find mousedown
         break;
