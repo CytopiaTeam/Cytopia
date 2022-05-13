@@ -757,18 +757,18 @@ void Map::calculateVisibleMap(void)
   }
 }
 
-void Map::setTileID(const std::string &tileID, Point coordinate)
+bool Map::setTileID(const std::string &tileID, Point coordinate)
 {
   TileData *tileData = TileManager::instance().getTileData(tileID);
   std::vector<Point> targetCoordinates = TileManager::instance().getTargetCoordsOfTileID(coordinate, tileID);
 
   if (!tileData || targetCoordinates.empty())
   { // if the node would not outside of map boundaries, targetCoordinates would be empty
-    return;
+    return false;
   }
 
   if (!isPlacementOnAreaAllowed(targetCoordinates, tileID))
-    return;
+    return false;
 
   Layer layer = TileManager::instance().getTileLayer(tileID);
   std::string randomGroundDecorationTileID;
@@ -846,12 +846,15 @@ void Map::setTileID(const std::string &tileID, Point coordinate)
   {
     updateNodeNeighbors(nodesToBeUpdated);
   }
+  return true;
 }
 
-void Map::setTileID(const std::string &tileID, const std::vector<Point> &coordinates)
+bool Map::setTileID(const std::string &tileID, const std::vector<Point> &coordinates)
 {
+  bool setTileResult = false;
   for (auto coord : coordinates)
   {
-    setTileID(tileID, coord);
+    setTileResult |= setTileID(tileID, coord);
   }
+  return setTileResult;
 }

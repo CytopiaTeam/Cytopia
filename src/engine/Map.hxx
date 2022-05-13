@@ -78,16 +78,18 @@ public:
  * @details Also invokes all necessary texture updates (auto-tiling, slopes, ...)
  * @param tileID the new tileID to set
  * @param coordinate Point where the tileID which should be set
+ * @returns setTileID success or not
  */
-  void setTileID(const std::string &tileID, Point coordinate);
+  bool setTileID(const std::string &tileID, Point coordinate);
 
   /**
  * @brief Set the Tile ID Of multiple Node objects
  * @details Also invokes all necessary texture updates (auto-tiling, slopes, ...)
  * @param tileID the new tileID to set
  * @param coordinates a vector of Points where the tileIDs which should be set
+ * @returns setTileID success or not
  */
-  void setTileID(const std::string &tileID, const std::vector<Point> &coordinates);
+  bool setTileID(const std::string &tileID, const std::vector<Point> &coordinates);
 
   /**
  * @brief Demolish a node

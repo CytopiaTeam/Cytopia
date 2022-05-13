@@ -31,6 +31,21 @@ void EventManager::unHighlightNodes()
   m_nodesToPlace.clear();
 }
 
+void EventManager::pickTileUnderCursor(Point mouseIsoCoords)
+{
+  Layer topMostActiveLayer;
+  std::vector<MapNodeData> mapNodeData;
+  MapNode &node = Engine::instance().map->getMapNode(mouseIsoCoords);
+
+  topMostActiveLayer = node.getTopMostActiveLayer();
+  // all layers are supported except terrain
+  if(topMostActiveLayer == Layer::TERRAIN || topMostActiveLayer == Layer::NONE)
+    return;
+  mapNodeData = node.getMapNodeData();
+  tileToPlace = mapNodeData[topMostActiveLayer].tileID;
+  highlightSelection = true;
+}
+
 void EventManager::checkEvents(SDL_Event &event, Engine &engine)
 {
 #ifdef MICROPROFILE_ENABLED
@@ -534,6 +549,14 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       // game event handling
       mouseScreenCoords = {event.button.x, event.button.y};
       mouseIsoCoords = convertScreenToIsoCoordinates(mouseScreenCoords);
+
+      // select the tile our cursor is over
+      if (tileToPlace.empty()) {
+        pickTileUnderCursor(mouseIsoCoords);
+        // pick the tile in mousemove, player will find mousedown
+        break;
+      }
+
       // gather all nodes the objects that'll be placed is going to occupy.
       std::vector targetObjectNodes = TileManager::instance().getTargetCoordsOfTileID(mouseIsoCoords, tileToPlace);
 
@@ -553,7 +576,14 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         }
         else if (!tileToPlace.empty() && m_placementAllowed)
         {
-          engine.map->setTileID(tileToPlace, m_nodesToPlace);
+          if(!engine.map->setTileID(tileToPlace, m_nodesToPlace))
+          {
+            // If can't put picked tile here,
+            // pick tile under cursor as the new picked tile
+            // Thus the picker would always work without 
+            // having to right click or enter Esc(abort tile placing) first
+            pickTileUnderCursor(mouseIsoCoords);
+          }
         }
         else if (demolishMode)
         {

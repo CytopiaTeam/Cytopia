@@ -1,3 +1,5 @@
+include(codecov)
+
 set(TESTS_PROJECT_NAME Cytopia_Tests)
 
 include(${CMAKE_SOURCE_DIR}/external/catch2/Catch.cmake)
@@ -105,13 +107,5 @@ set_target_properties(
 
 catch_discover_tests(${TESTS_PROJECT_NAME})
 
-# add_coverage(${TESTS_PROJECT_NAME})
-# coverage_evaluate()
-
-if (ENABLE_COVERAGE)
-    file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/gcov_reports)
-    add_custom_target(
-            copy_coverage
-            COMMAND find ${CMAKE_BINARY_DIR}/tests/CMakeFiles/Cytopia_Tests.dir/ -name '*.gcov' -exec cp {} ${CMAKE_BINARY_DIR}/gcov_reports "\;"
-    )
-endif ()
+add_coverage(${TESTS_PROJECT_NAME})
+coverage_evaluate()
