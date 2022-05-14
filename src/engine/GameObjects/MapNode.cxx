@@ -5,6 +5,7 @@
 #include "../map/MapLayers.hxx"
 #include "GameStates.hxx"
 #include "Settings.hxx"
+#include "Engine.hxx"
 
 MapNode::MapNode(Point isoCoordinates, const std::string &terrainID, const std::string &tileID)
     : m_isoCoordinates(std::move(isoCoordinates)), m_sprite{std::make_unique<Sprite>(m_isoCoordinates)},
@@ -52,6 +53,33 @@ void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
   TileData *tileData = TileManager::instance().getTileData(tileID);
   if (tileData && !tileID.empty())
   {
+    std::vector<Point> targetCoordinates = TileManager::instance().getTargetCoordsOfTileID(origCornerPoint, tileID);
+     if (targetCoordinates.size() > 1 && m_isoCoordinates == origCornerPoint)
+     { // multibuilding placed on this node
+
+       for (auto coord : targetCoordinates)
+       {
+
+         if (coord == origCornerPoint)
+         {
+           // LOG(LOG_INFO) << "i'm the origin coordinate";
+         }
+         else
+         {
+           m_multiTileNodes.push_back(&Engine::instance().map->getMapNode(coord));
+           Engine::instance().map->getMapNode(coord).setRenderFlag(Layer::BUILDINGS, false);
+           // Engine::instance().map->getMapNode(coord).setRenderFlag(Layer::TERRAIN, false);
+           Engine::instance().map->getMapNode(coord).updateTexture(Layer::BUILDINGS);
+           // Engine::instance().map->getMapNode(coord).updateTexture(Layer::TERRAIN);
+           Engine::instance().map->getMapNode(coord).setTileID(tileID, origCornerPoint);
+           Engine::instance().map->getMapNode(coord).setTileID("terrain_basalt", origCornerPoint);
+
+           // LOG(LOG_INFO) << "i'm a multinode";
+         }
+       }
+       // m_isoCoordinates.z = m_isoCoordinates.z - Settings::instance().mapSize;
+     }
+
     const Layer layer = TileManager::instance().getTileLayer(tileID);
     switch (layer)
     {

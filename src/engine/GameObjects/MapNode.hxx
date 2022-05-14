@@ -175,12 +175,15 @@ public:
   */
   void setZIndex(int zIndex) { m_isoCoordinates.z = zIndex; };
 
+  void setRenderFlag(Layer layer, bool shouldRender) { m_sprite->setRenderFlag(layer, shouldRender); }
+
   /// Maximum height of the node.
   static const int maxHeight = 32;
 
 private:
   Point m_isoCoordinates;
   std::unique_ptr<Sprite> m_sprite;
+  std::vector<MapNode *> m_multiTileNodes; // keep pointers to other nodes if this is a multile building
   std::string m_previousTileID = "terrain";
   std::vector<TileOrientation> m_autotileOrientation;
   size_t m_elevationOrientation = TileSlopes::DEFAULT_ORIENTATION;

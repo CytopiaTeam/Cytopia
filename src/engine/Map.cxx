@@ -754,10 +754,25 @@ bool Map::setTileID(const std::string &tileID, Point coordinate)
     demolishNode(targetCoordinates, 0, Layer::POWERLINES); // remove power lines under buildings
   }
 
-  for (auto coord : targetCoordinates)
-  { // now we can place our building
+  MapNode &currentNode = getMapNode(coordinate);
+   currentNode.setTileID(tileID, coordinate);
 
+   // for (auto coord : targetCoordinates)
+   // {
+
+   //   MapNode &currentMapNode = mapNodes[nodeIdx(coord.x, coord.y)];
+   //   nodesToBeUpdated.push_back(&currentMapNode);
+   // }
+   for (auto coord : targetCoordinates)
+   {        // now we can place our building
+    // For layers that autotile to each other, we need to update their neighbors too
     MapNode &currentMapNode = getMapNode(coord);
+    if (TileManager::instance().isTileIDAutoTile(tileID))
+    {
+      nodesToBeUpdated.push_back(currentMapNode.getCoordinates());
+    }
+     break; // don't doanything
+
 
     if (coord != coordinate && targetCoordinates.size() > 1)
     { // for buildings >1x1 set every node on the layer that will be occupied to invisible exepct of the origin node
@@ -785,11 +800,7 @@ bool Map::setTileID(const std::string &tileID, Point coordinate)
       currentMapNode.setTileID(randomGroundDecorationTileID, coord);
     }
 
-    // For layers that autotile to each other, we need to update their neighbors too
-    if (TileManager::instance().isTileIDAutoTile(tileID))
-    {
-      nodesToBeUpdated.push_back(currentMapNode.getCoordinates());
-    }
+   
     // If we place a zone tile, add it to the ZoneManager
     // emit a signal to notify manager
     if (currentMapNode.getTileData(Layer::BUILDINGS) && currentMapNode.getTileData(Layer::ZONE))
