@@ -94,9 +94,6 @@ AudioMixer::~AudioMixer()
   {
     return;
   }
-  int num_opened = 0;
-  int _discard;
-  Uint16 _discard2;
 
   alcDestroyContext(alContext); //delete context
   alcCloseDevice(gAudioDevice); //close device

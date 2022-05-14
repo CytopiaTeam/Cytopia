@@ -291,7 +291,6 @@ bool Map::isPlacementOnAreaAllowed(const std::vector<Point> targetCoordinates, c
   bool areaPlacementAllowed = true;
   bool tilePlacementAllowed = true;
 
-  TileData *tileData = TileManager::instance().getTileData(tileID);
   const Layer layer = TileManager::instance().getTileLayer(tileID);
   // Zone layer can be placed on part of tile in the area.
   // Some other layers can also have this feature, such as water, flora.
