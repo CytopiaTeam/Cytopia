@@ -5,7 +5,7 @@
 
 ComboBox::ComboBox(const SDL_Rect &uiElementRect)
     : UIElement(uiElementRect), m_dropdownRect(uiElementRect), m_wholeElementRect(uiElementRect),
-      m_selectedItem(std::make_unique<Text>()), m_highlightingRect(m_dropdownRect)
+      m_highlightingRect(m_dropdownRect), m_selectedItem(std::make_unique<Text>())
 {
   // initialize height with an offset of 4 so the frame doesn't overlap with the last text element
   // this elements height will be adjusted accordingly when the textField is filled.
@@ -255,7 +255,7 @@ void ComboBox::onMouseMove(const SDL_Event &event)
         {
           hoveredID = static_cast<int>(count() - 1);
         }
-        m_highlightingRect.y = ((hoveredID)*m_itemHeight) + m_dropdownRect.y;
+        m_highlightingRect.y = (hoveredID * m_itemHeight) + m_dropdownRect.y;
       }
     }
   }

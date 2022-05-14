@@ -675,7 +675,7 @@ Map *Map::loadMapFromFile(const std::string &fileName)
     // set coordinates (height) of the map
     map->mapNodes.emplace_back(MapNode{Point{coordinates.x, coordinates.y, coordinates.z, coordinates.height}, ""});
     // load back mapNodeData (tileIDs, Buildins, ...)
-    map->mapNodes.back().setMapNodeData(json(it.value())["mapNodeData"], coordinates);
+    map->mapNodes.back().setMapNodeData(json(it.value())["mapNodeData"]);
   }
 
   // Now put those newly created nodes in correct drawing order
