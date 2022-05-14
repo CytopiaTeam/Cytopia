@@ -807,9 +807,7 @@ bool Map::setTileID(const std::string &tileID, Point coordinate)
     }
     else
     { // set the tileID for the mapNode of the origin coordinates only on the origin coordinate
-      {
-        currentMapNode.setTileID(tileID, coordinate);
-      }
+      currentMapNode.setTileID(tileID, coordinate);
     }
 
     // place ground deco if we have one

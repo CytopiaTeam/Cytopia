@@ -248,15 +248,13 @@ void ComboBox::onMouseMove(const SDL_Event &event)
     else
     {
       changeButtonState(BUTTONSTATE_DEFAULT);
+      hoveredID = ((m_itemHeight + event.button.y - m_dropdownRect.y) / m_itemHeight) - 1;
+      // because of the -4 pixel offset that's been added in the constructor, the id would exceed the size of the vector, if the bottom of the dropdown is clicked
+      if (hoveredID >= static_cast<int>(count()))
       {
-        hoveredID = ((m_itemHeight + event.button.y - m_dropdownRect.y) / m_itemHeight) - 1;
-        // because of the -4 pixel offset that's been added in the constructor, the id would exceed the size of the vector, if the bottom of the dropdown is clicked
-        if (hoveredID >= static_cast<int>(count()))
-        {
-          hoveredID = static_cast<int>(count() - 1);
-        }
-        m_highlightingRect.y = (hoveredID * m_itemHeight) + m_dropdownRect.y;
+        hoveredID = static_cast<int>(count() - 1);
       }
+      m_highlightingRect.y = (hoveredID * m_itemHeight) + m_dropdownRect.y;
     }
   }
 }

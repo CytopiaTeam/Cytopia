@@ -26,19 +26,14 @@ ZoneManager::ZoneManager()
         switch (GameStates::instance().demolishMode)
         {
         case DemolishMode::DE_ZONE:
-        {
           m_nodesToRemove.push_back(mapNode->getCoordinates());
           break;
-        }
         case DemolishMode::DEFAULT:
-        {
           if (!mapNode->getTileData(Layer::BUILDINGS))
           {
             m_nodesToVacate.push_back(mapNode->getCoordinates());
           }
-
           break;
-        }
         }
       });
 

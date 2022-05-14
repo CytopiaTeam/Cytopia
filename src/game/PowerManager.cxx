@@ -16,13 +16,11 @@ PowerManager::PowerManager()
         switch (GameStates::instance().demolishMode)
         {
         case DemolishMode::DEFAULT:
-        {
           if (!mapNode->getTileData(Layer::BUILDINGS))
           { // if there's no building it has been succesfully demolished
             m_nodesToRemove.push_back(mapNode->getCoordinates());
           }
           break;
-        }
         default:
           break;
         }
