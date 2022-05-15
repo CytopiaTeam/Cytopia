@@ -9,6 +9,7 @@
 #include "ResourcesManager.hxx"
 #include "map/MapLayers.hxx"
 #include "common/JsonSerialization.hxx"
+#include "common/Constants.hxx"
 #include "Filesystem.hxx"
 #include "../services/Randomizer.hxx"
 
@@ -91,7 +92,7 @@ Map::Map(int columns, int rows, const bool generateTerrain)
     {
       for (int y = 0; y < Settings::instance().mapSize; y++)
       {
-        mapNodes.emplace_back(MapNode{Point{x, y, 0, 1}, "terrain_grass"});
+        mapNodes.emplace_back(MapNode{Point{x, y, 0, 1}, DEFAULT_TERRAIN});
       }
     }
   }
