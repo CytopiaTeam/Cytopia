@@ -139,17 +139,21 @@ std::vector<PowerGrid> PowerManager::rebuildZoneArea(PowerGrid &powerGrid)
 }
 void PowerManager::updatePlacedNodes(const MapNode &mapNode)
 {
-  TileData *tileData; // we need tileData from conductive tiles (buildings or powerlines)
+  int powerLevelOfTile = 0;
   if (mapNode.getTileData(Layer::BUILDINGS))
-    tileData = mapNode.getTileData(Layer::BUILDINGS);
-  else if (mapNode.getTileData(Layer::POWERLINES))
-    tileData = mapNode.getTileData(Layer::POWERLINES);
-  else if (mapNode.getTileData(Layer::ZONE))
-    tileData = mapNode.getTileData(Layer::ZONE);
+  {
+    powerLevelOfTile = mapNode.getTileData(Layer::BUILDINGS)->power;
+  }
+  else if (mapNode.getTileData(Layer::POWERLINES) || mapNode.getTileData(Layer::ZONE))
+  { // it's safe to assume powerlines and zones don't produce any power
+    powerLevelOfTile = 0;
+  }
   else
+  {
     return;
+  }
 
-  PowerNode nodeToAdd = {mapNode.getCoordinates(), tileData->power};
+  PowerNode nodeToAdd = {mapNode.getCoordinates(), powerLevelOfTile};
   m_nodesToAdd.push_back(nodeToAdd);
 }
 
