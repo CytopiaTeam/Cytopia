@@ -309,8 +309,6 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         if (highlightSelection)
         {
           mouseScreenCoords = {event.button.x, event.button.y};
-          const Point terrainCoordinates = engine.map->findNodeInMap(mouseScreenCoords, Layer::TERRAIN);
-          const Point buildingCoordinates = engine.map->findNodeInMap(mouseScreenCoords, Layer::BUILDINGS);
           mouseIsoCoords = convertScreenToIsoCoordinates(mouseScreenCoords);
 
           // if it's a multi-node tile, get the origin corner point
@@ -349,7 +347,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           }
 
           // if mouse is held down, we need to check for plamentmodes LINE and RECTANGLE
-          if ((SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_LEFT)))
+          if (SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_LEFT))
           {
             switch (GameStates::instance().placementMode)
             {

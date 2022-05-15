@@ -309,7 +309,6 @@ bool Map::isPlacementOnAreaAllowed(const std::vector<Point> targetCoordinates, c
   bool areaPlacementAllowed = true;
   bool tilePlacementAllowed = true;
 
-  TileData *tileData = TileManager::instance().getTileData(tileID);
   const Layer layer = TileManager::instance().getTileLayer(tileID);
   // Zone layer can be placed on part of tile in the area.
   // Some other layers can also have this feature, such as water, flora.
@@ -694,7 +693,7 @@ Map *Map::loadMapFromFile(const std::string &fileName)
     // set coordinates (height) of the map
     map->mapNodes.emplace_back(MapNode{Point{coordinates.x, coordinates.y, coordinates.z, coordinates.height}, ""});
     // load back mapNodeData (tileIDs, Buildins, ...)
-    map->mapNodes.back().setMapNodeData(json(it.value())["mapNodeData"], coordinates);
+    map->mapNodes.back().setMapNodeData(json(it.value())["mapNodeData"]);
   }
 
   // Now put those newly created nodes in correct drawing order
@@ -826,9 +825,7 @@ bool Map::setTileID(const std::string &tileID, Point coordinate)
     }
     else
     { // set the tileID for the mapNode of the origin coordinates only on the origin coordinate
-      {
-        currentMapNode.setTileID(tileID, coordinate);
-      }
+      currentMapNode.setTileID(tileID, coordinate);
     }
 
     // place ground deco if we have one

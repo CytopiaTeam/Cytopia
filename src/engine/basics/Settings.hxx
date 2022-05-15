@@ -2,13 +2,12 @@
 #define SETTINGS_HXX_
 
 #include <string>
+#include <cstddef>
 
 #include "../../util/Singleton.hxx"
 #include "../../util/Meta.hxx"
 
 using std::string;
-
-#include <cstddef>
 
 /* Settings Types */
 using ScreenDimension = int;
