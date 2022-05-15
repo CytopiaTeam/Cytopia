@@ -3,6 +3,7 @@
 
 #include <Singleton.hxx>
 #include <Signal.hxx>
+#include "../game/PowerGrid.hxx"
 
 /**
  * @class SignalMediator
@@ -15,17 +16,20 @@ public:
   SignalMediator(){};
   ~SignalMediator(){};
 
-  // Signals
-  Signal::Signal<void(const MapNode &)> signalPlacePowerBuilding;
-  Signal::Signal<void(const MapNode &)> signalPlaceBuilding;
-  Signal::Signal<void(const MapNode &)> signalPlaceZone;
+  // Signals Map
+  Signal::Signal<void(const MapNode &)> signalSetTileID;
   Signal::Signal<void(MapNode *)> signalDemolish;
 
-  // Callback functions
-  void registerCbPlaceZone(std::function<void(const MapNode &)> const &cb) { signalPlaceZone.connect(cb); }
-  void registerCbPlacePowerBuilding(std::function<void(const MapNode &)> const &cb) { signalPlacePowerBuilding.connect(cb); }
-  void registerCbPlaceBuilding(std::function<void(const MapNode &)> const &cb) { signalPlaceBuilding.connect(cb); }
+  // Signals Gameplay Managers
+  Signal::Signal<void(const std::vector<PowerGrid> &)> signalUpdatePower;
+
+  // Callback functions Map
+  void registerCbSetTileID(std::function<void(const MapNode &)> const &cb) { signalSetTileID.connect(cb); }
   void registerCbDemolish(std::function<void(MapNode *)> const &cb) { signalDemolish.connect(cb); }
+
+  // Callback functions Gameplay Managers to interact with each other
+  void registerCbUpdatePower(std::function<void(const std::vector<PowerGrid> &)> const &cb) { signalUpdatePower.connect(cb); }
+
 };
 
 #endif

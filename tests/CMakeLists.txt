@@ -26,6 +26,7 @@ LIST(APPEND TEST_SOURCES
         engine/ResourcesManager.cxx
         engine/Engine.cxx
         engine/WindowManager.cxx
+        game/PowerManager.cxx
         services/GameClock.cxx
         ui/widgets/Text.cxx
         ui/widgets/Button.cxx
@@ -35,7 +36,7 @@ LIST(APPEND TEST_SOURCES
         ui/widgets/Tooltip.cxx
         util/Meta.cxx
         util/MessageQueue.cxx
-        # util/LOG.cxx // disabled because log files are no longer written per default
+        util/LOG.cxx 
         )
 
 # Generate source groups for use in IDEs

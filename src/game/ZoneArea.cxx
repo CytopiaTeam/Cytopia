@@ -72,7 +72,7 @@ bool ZoneArea::isNeighborOfZone(Point coordinate) const
 {
   for (const ZoneNode &node : m_zoneNodes)
   {
-    if(node.coordinate.isDirectNeighborOf(coordinate))
+    if (node.coordinate.isDirectNeighborOf(coordinate))
     {
       return true;
     }
