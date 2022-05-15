@@ -107,6 +107,8 @@ public:
     */
   bool isSlopeNode(void) const;
 
+  const bool isConductive() const;
+
   /**
  * @brief Demolish a node
  * @details Removes all tiles on a node. This effects all layers where something to demolish is placed. (BUILDINGS, GROUND_DECORATION, UNDERGROUND) per default, but can be restricted to a single Layer.
