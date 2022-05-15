@@ -9,6 +9,7 @@
 #include "ResourcesManager.hxx"
 #include "map/MapLayers.hxx"
 #include "common/JsonSerialization.hxx"
+#include "common/Constants.hxx"
 #include "Filesystem.hxx"
 #include "../services/Randomizer.hxx"
 
@@ -66,6 +67,40 @@ NeighborNodesPosition operator++(NeighborNodesPosition &nn, int)
   return res;
 }
 
+Map::Map(int columns, int rows)
+    : pMapNodesVisible(new Sprite *[columns * rows]), m_columns(columns), m_rows(rows)
+{
+  // TODO move Random Engine out of map
+  randomEngine.seed();
+  MapLayers::enableLayers({TERRAIN, BUILDINGS, WATER, GROUND_DECORATION, ZONE, ROAD, POWERLINES, FLORA});
+}
+
+Map::Map(int columns, int rows, const bool generateTerrain)
+    : pMapNodesVisible(new Sprite *[columns * rows]), m_columns(columns), m_rows(rows)
+{
+  // TODO move Random Engine out of map
+  randomEngine.seed();
+  MapLayers::enableLayers({TERRAIN, BUILDINGS, WATER, GROUND_DECORATION, ZONE, ROAD, POWERLINES, FLORA});
+
+  if (generateTerrain)
+  {
+    m_terrainGen.generateTerrain(mapNodes, mapNodesInDrawingOrder);
+  }
+  else
+  {
+    for (int x = 0; x < Settings::instance().mapSize; x++)
+    {
+      for (int y = 0; y < Settings::instance().mapSize; y++)
+      {
+        mapNodes.emplace_back(MapNode{Point{x, y, 0, 1}, DEFAULT_TERRAIN});
+      }
+    }
+  }
+  updateAllNodes();
+}
+
+Map::~Map() { delete[] pMapNodesVisible; }
+
 void Map::getNodeInformation(const Point &isoCoordinates) const
 {
   const MapNode &mapNode = mapNodes[isoCoordinates.toIndex()];
@@ -82,23 +117,6 @@ void Map::getNodeInformation(const Point &isoCoordinates) const
   LOG(LOG_INFO) << "TileMap: " << mapNodeData.tileMap;
   LOG(LOG_INFO) << "TileIndex: " << mapNodeData.tileIndex;
 }
-
-Map::Map(int columns, int rows, const bool generateTerrain)
-    : pMapNodesVisible(new Sprite *[columns * rows]), m_columns(columns), m_rows(rows)
-{
-  // TODO move Random Engine out of map
-  randomEngine.seed();
-  MapLayers::enableLayers({TERRAIN, BUILDINGS, WATER, GROUND_DECORATION, ZONE, ROAD, POWERLINES, FLORA});
-
-  if (generateTerrain)
-  {
-    m_terrainGen.generateTerrain(mapNodes, mapNodesInDrawingOrder);
-  }
-
-  updateAllNodes();
-}
-
-Map::~Map() { delete[] pMapNodesVisible; }
 
 std::vector<NeighborNode> Map::getNeighborNodes(const Point &isoCoordinates, const bool includeCentralNode)
 {
@@ -281,6 +299,44 @@ void Map::updateAllNodes()
 bool Map::isPlacementOnNodeAllowed(const Point &isoCoordinates, const std::string &tileID) const
 {
   return mapNodes[isoCoordinates.toIndex()].isPlacementAllowed(tileID);
+}
+
+bool Map::isPlacementOnAreaAllowed(const std::vector<Point> targetCoordinates, const std::string &tileID) const
+{
+  // This function can be divided into two policies:
+  // Whether we need all nodes in the area to be placed or not
+  bool shouldAllNodesPlaced = true;
+  bool areaPlacementAllowed = true;
+  bool tilePlacementAllowed = true;
+
+  const Layer layer = TileManager::instance().getTileLayer(tileID);
+  // Zone layer can be placed on part of tile in the area.
+  // Some other layers can also have this feature, such as water, flora.
+  if (layer == Layer::ZONE)
+  {
+    shouldAllNodesPlaced = false;
+  } else {
+    shouldAllNodesPlaced = true;
+  }
+  areaPlacementAllowed = shouldAllNodesPlaced;
+
+  for (auto coord : targetCoordinates)
+  {
+    tilePlacementAllowed = isPlacementOnNodeAllowed(coord, tileID);
+
+    if (tilePlacementAllowed && !shouldAllNodesPlaced)
+    {
+      areaPlacementAllowed = true;
+      break;
+    }
+    if (!tilePlacementAllowed && shouldAllNodesPlaced)
+    {
+      areaPlacementAllowed = false;
+      break;
+    }
+  }
+
+  return areaPlacementAllowed;
 }
 
 unsigned char Map::getElevatedNeighborBitmask(Point centerCoordinates)
@@ -628,7 +684,7 @@ Map *Map::loadMapFromFile(const std::string &fileName)
   if (columns == -1 || rows == -1)
     return nullptr;
 
-  Map *map = new Map(columns, rows, false);
+  Map *map = new Map(columns, rows);
   map->mapNodes.reserve(columns * rows);
 
   for (const auto &it : saveGameJSON["mapNode"].items())
@@ -637,7 +693,7 @@ Map *Map::loadMapFromFile(const std::string &fileName)
     // set coordinates (height) of the map
     map->mapNodes.emplace_back(MapNode{Point{coordinates.x, coordinates.y, coordinates.z, coordinates.height}, ""});
     // load back mapNodeData (tileIDs, Buildins, ...)
-    map->mapNodes.back().setMapNodeData(json(it.value())["mapNodeData"], coordinates);
+    map->mapNodes.back().setMapNodeData(json(it.value())["mapNodeData"]);
   }
 
   // Now put those newly created nodes in correct drawing order
@@ -728,13 +784,8 @@ bool Map::setTileID(const std::string &tileID, Point coordinate)
     return false;
   }
 
-  for (auto coord : targetCoordinates)
-  { // first check all nodes if it is possible to place the building before doing anything
-    if (!isPlacementOnNodeAllowed(coord, tileID))
-    { //make sure every target coordinate is valid for placement, not just the origin coordinate.
-      return false;
-    }
-  }
+  if (!isPlacementOnAreaAllowed(targetCoordinates, tileID))
+    return false;
 
   Layer layer = TileManager::instance().getTileLayer(tileID);
   std::string randomGroundDecorationTileID;
@@ -774,9 +825,7 @@ bool Map::setTileID(const std::string &tileID, Point coordinate)
     }
     else
     { // set the tileID for the mapNode of the origin coordinates only on the origin coordinate
-      {
-        currentMapNode.setTileID(tileID, coordinate);
-      }
+      currentMapNode.setTileID(tileID, coordinate);
     }
 
     // place ground deco if we have one
@@ -790,22 +839,9 @@ bool Map::setTileID(const std::string &tileID, Point coordinate)
     {
       nodesToBeUpdated.push_back(currentMapNode.getCoordinates());
     }
-    // If we place a zone tile, add it to the ZoneManager
-    // emit a signal to notify manager
-    if (currentMapNode.getTileData(Layer::BUILDINGS) && currentMapNode.getTileData(Layer::ZONE))
-    {
-      SignalMediator::instance().signalPlaceBuilding.emit(currentMapNode);
-    }
-    else if (currentMapNode.getTileData(Layer::BUILDINGS) && currentMapNode.getTileData(Layer::BUILDINGS)->category == "Power")
-    {
-      SignalMediator::instance().signalPlacePowerBuilding.emit(currentMapNode);
-    }
-    else if (currentMapNode.getTileData(Layer::ZONE))
-    {
-      //signalPlaceZone.emit(currentMapNode);
-      //SignalMediator::instance().test();
-      SignalMediator::instance().signalPlaceZone.emit(currentMapNode);
-    }
+
+    // emit a signal that setTileID has been called
+    SignalMediator::instance().signalSetTileID.emit(currentMapNode);
   }
 
   if (!nodesToBeUpdated.empty())
@@ -817,10 +853,10 @@ bool Map::setTileID(const std::string &tileID, Point coordinate)
 
 bool Map::setTileID(const std::string &tileID, const std::vector<Point> &coordinates)
 {
-  bool setTileResult = true;
+  bool setTileResult = false;
   for (auto coord : coordinates)
   {
-    setTileResult &= setTileID(tileID, coord);
+    setTileResult |= setTileID(tileID, coord);
   }
   return setTileResult;
 }

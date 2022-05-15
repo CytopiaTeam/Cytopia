@@ -16,8 +16,8 @@ void mergeZoneAreas(ZoneArea &mainZone, ZoneArea &toBeMerged)
 };
 
 ZoneArea::ZoneArea(ZoneNode zoneNode)
-    : m_zoneNodes{zoneNode}, xmin(std::max(0, zoneNode.coordinate.x - 1)), m_zoneType(zoneNode.zoneType),
-      m_zoneDensity(zoneNode.zoneDensity), xmax(std::min(Settings::instance().mapSize, zoneNode.coordinate.x + 1)),
+    : m_zoneType(zoneNode.zoneType), m_zoneDensity(zoneNode.zoneDensity), m_zoneNodes{zoneNode},
+      xmin(std::max(0, zoneNode.coordinate.x - 1)), xmax(std::min(Settings::instance().mapSize, zoneNode.coordinate.x + 1)),
       ymin(std::max(0, zoneNode.coordinate.y - 1)), ymax(std::min(Settings::instance().mapSize, zoneNode.coordinate.y + 1))
 {
   //update vacancy in case constructor is called with a zonenode
@@ -72,7 +72,7 @@ bool ZoneArea::isNeighborOfZone(Point coordinate) const
 {
   for (const ZoneNode &node : m_zoneNodes)
   {
-    if(node.coordinate.isDirectNeighborOf(coordinate))
+    if (node.coordinate.isDirectNeighborOf(coordinate))
     {
       return true;
     }

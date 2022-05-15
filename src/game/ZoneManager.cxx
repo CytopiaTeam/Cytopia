@@ -2,45 +2,15 @@
 #include "LOG.hxx"
 #include "../services/GameClock.hxx"
 #include "../services/Randomizer.hxx"
-#include <MapNode.hxx>
 #include "GameStates.hxx"
 #include <SignalMediator.hxx>
 
 ZoneManager::ZoneManager()
 {
-  SignalMediator::instance().registerCbPlaceBuilding(
-      [this](const MapNode &mapNode) { // If we place a building on zone tile, add it to the cache to update next tick
-        m_nodesToOccupy.push_back(mapNode.getCoordinates());
-      });
-
-  SignalMediator::instance().registerCbPlaceZone(
-      [this](const MapNode &mapNode) { // If we place a zone tile, add it to the cache to update next tick
-        ZoneNode nodeToAdd = {mapNode.getCoordinates(), mapNode.getTileData(Layer::ZONE)->zoneTypes[0],
-                              mapNode.getTileData(Layer::ZONE)->zoneDensity[0]};
-        m_nodesToAdd.push_back(nodeToAdd);
-      });
-
-  SignalMediator::instance().registerCbDemolish(
-      [this](const MapNode *mapNode)
-      {
-        switch (GameStates::instance().demolishMode)
-        {
-        case DemolishMode::DE_ZONE:
-        {
-          m_nodesToRemove.push_back(mapNode->getCoordinates());
-          break;
-        }
-        case DemolishMode::DEFAULT:
-        {
-          if (!mapNode->getTileData(Layer::BUILDINGS))
-          {
-            m_nodesToVacate.push_back(mapNode->getCoordinates());
-          }
-
-          break;
-        }
-        }
-      });
+  // Callbacks for setTileID
+  SignalMediator::instance().registerCbSetTileID(Signal::slot(this, &ZoneManager::updatePlacedNodes));
+  SignalMediator::instance().registerCbDemolish(Signal::slot(this, &ZoneManager::updateRemovedNodes));
+  SignalMediator::instance().registerCbUpdatePower(Signal::slot(this, &ZoneManager::updatePower));
 
   GameClock::instance().addRealTimeClockTask(
       [this]()
@@ -114,7 +84,7 @@ void ZoneManager::spawnBuildings()
   for (auto &zoneArea : m_zoneAreas)
   {
     // check if there are any buildings to spawn, if not, do nothing.
-    if (zoneArea.isVacant())
+    if (zoneArea.isVacant() && zoneArea.hasPowerSupply())
     {
       int occupied = 0;
       int free = 0;
@@ -221,5 +191,64 @@ void ZoneManager::removeZoneNode(Point coordinate)
 
       break;
     }
+  }
+}
+
+void ZoneManager::updatePower(const std::vector<PowerGrid> &powerGrid)
+{
+  for (const auto &grid : powerGrid)
+  {
+    bool isGridConnected = false;
+    for (auto &area : m_zoneAreas)
+    {
+      isGridConnected = area.end() != std::find_if(area.begin(), area.end(),
+                                                   [grid](const ZoneNode &node) { return grid.isNeighbor(node.coordinate); });
+      if (isGridConnected && grid.getPowerLevel() > 0)
+      {
+        area.setPowerSupply(true);
+      }
+      else
+      {
+        area.setPowerSupply(false);
+      }
+    }
+  }
+}
+
+void ZoneManager::updateRemovedNodes(const MapNode *mapNode)
+{
+
+  switch (GameStates::instance().demolishMode)
+  {
+  case DemolishMode::DE_ZONE:
+  {
+    m_nodesToRemove.push_back(mapNode->getCoordinates());
+    break;
+  }
+  case DemolishMode::DEFAULT:
+  {
+    if (!mapNode->getTileData(Layer::BUILDINGS))
+    {
+      m_nodesToVacate.push_back(mapNode->getCoordinates());
+    }
+
+    break;
+  }
+  }
+}
+
+void ZoneManager::updatePlacedNodes(const MapNode &mapNode)
+{
+  if (mapNode.getTileData(Layer::BUILDINGS) && mapNode.getTileData(Layer::ZONE))
+  {
+    m_nodesToOccupy.push_back(mapNode.getCoordinates());
+  }
+
+  // zone placed
+  else if (mapNode.getTileData(Layer::ZONE))
+  {
+    ZoneNode nodeToAdd = {mapNode.getCoordinates(), mapNode.getTileData(Layer::ZONE)->zoneTypes[0],
+                          mapNode.getTileData(Layer::ZONE)->zoneDensity[0]};
+    m_nodesToAdd.push_back(nodeToAdd);
   }
 }

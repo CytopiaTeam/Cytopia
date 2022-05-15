@@ -53,8 +53,6 @@ std::vector<Point> TileManager::getTargetCoordsOfTileID(const Point &targetCoord
     return occupiedCoords;
   }
 
-  Point coords = targetCoordinates;
-
   for (int i = 0; i < tileData->RequiredTiles.width; i++)
   {
     for (int j = 0; j < tileData->RequiredTiles.height; j++)

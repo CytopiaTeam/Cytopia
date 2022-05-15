@@ -309,8 +309,6 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         if (highlightSelection)
         {
           mouseScreenCoords = {event.button.x, event.button.y};
-          const Point terrainCoordinates = engine.map->findNodeInMap(mouseScreenCoords, Layer::TERRAIN);
-          const Point buildingCoordinates = engine.map->findNodeInMap(mouseScreenCoords, Layer::BUILDINGS);
           mouseIsoCoords = convertScreenToIsoCoordinates(mouseScreenCoords);
 
           // if it's a multi-node tile, get the origin corner point
@@ -349,7 +347,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           }
 
           // if mouse is held down, we need to check for plamentmodes LINE and RECTANGLE
-          if ((SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_LEFT)))
+          if (SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_LEFT))
           {
             switch (GameStates::instance().placementMode)
             {
@@ -414,29 +412,21 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
             m_nodesToPlace = m_nodesToHighlight;
           }
 
-          // we need to check if placement is allowed and set a bool to color ALL the highlighted tiles and not just those who can't be placed
+          m_placementAllowed = engine.map->isPlacementOnAreaAllowed(m_nodesToHighlight, tileToPlace);
+
+          // Finally highlight all the tiles we've found
+          // Set highlighted tiles that can be placed and can't be placed different color
           for (const auto &highlitNode : m_nodesToHighlight)
           {
             if (!engine.map->isPlacementOnNodeAllowed(highlitNode, tileToPlace) || demolishMode)
             {
-              // already occupied tile, mark red
-              m_placementAllowed = false;
-              break;
-            }
-
-            // mark gray.
-            m_placementAllowed = true;
-          }
-          // finally highlight all the tiles we've found
-          for (const auto &highlitNode : m_nodesToHighlight)
-          {
-            if (m_placementAllowed)
-            {
-              engine.map->highlightNode(highlitNode, SpriteHighlightColor::GRAY);
+              // mark red
+              engine.map->highlightNode(highlitNode, SpriteHighlightColor::RED);
             }
             else
             {
-              engine.map->highlightNode(highlitNode, SpriteHighlightColor::RED);
+              // place allowed tile, mark gray
+              engine.map->highlightNode(highlitNode, SpriteHighlightColor::GRAY);
             }
             const Point &buildingCoordinates =
                 engine.map->findNodeInMap(convertIsoToScreenCoordinates(highlitNode), Layer::BUILDINGS);

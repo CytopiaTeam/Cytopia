@@ -94,9 +94,6 @@ AudioMixer::~AudioMixer()
   {
     return;
   }
-  int num_opened = 0;
-  int _discard;
-  Uint16 _discard2;
 
   alcDestroyContext(alContext); //delete context
   alcCloseDevice(gAudioDevice); //close device
@@ -114,7 +111,7 @@ SoundtrackUPtr &AudioMixer::getTrack(const AudioTrigger &trigger)
   }
 
   auto &possibilities = m_Triggers[trigger];
-  if (possibilities.size() == 0)
+  if (possibilities.empty())
   {
     LOG(LOG_WARNING) << "No Soundtracks are triggered by " << trigger._to_string();
     return noResoruce;

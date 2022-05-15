@@ -23,7 +23,8 @@ struct NeighborNode
 class Map
 {
 public:
-  Map(int columns, int rows, const bool generateTerrain = true);
+  Map(int columns, int rows, const bool generateTerrain);
+  Map(int columns, int rows);
   ~Map();
   Map(Map &other) = delete;
   Map &operator=(const Map &other) = delete;
@@ -141,6 +142,12 @@ public:
   * @param tileID tileID which should be checked
   */
   bool isPlacementOnNodeAllowed(const Point &isoCoordinates, const std::string &tileID) const;
+
+  /** \brief check if Tile can be placed in an area
+  * @param targetCoordinates Tile array to inspect
+  * @param tileID tileID which should be checked
+  */
+  bool isPlacementOnAreaAllowed(const std::vector<Point> targetCoordinates, const std::string &tileID) const;
 
   /** \brief get Tile ID of specific layer of specific iso coordinates
   * @param isoCoordinates Tile to inspect

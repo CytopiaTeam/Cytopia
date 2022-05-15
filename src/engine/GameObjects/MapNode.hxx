@@ -91,7 +91,7 @@ public:
   bool isPlacementAllowed(const std::string &newTileID) const;
 
   /// Overwrite m_mapData with the one loaded from a savegame. This function to be used only by loadGame
-  void setMapNodeData(std::vector<MapNodeData> &&mapNodeData, const Point &isoCoordinates);
+  void setMapNodeData(std::vector<MapNodeData> &&mapNodeData);
 
   const std::vector<MapNodeData> &getMapNodeData() const { return m_mapNodeData; };
   const MapNodeData &getMapNodeDataForLayer(Layer layer) const { return m_mapNodeData[layer]; };

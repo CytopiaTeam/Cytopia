@@ -284,14 +284,14 @@ void Game::run(bool SkipMenu)
   if (!Settings::instance().audio3DStatus)
   {
     gameClock.addRealTimeClockTask(
-        [this]()
+        []()
         {
           AudioMixer::instance().play(AudioTrigger::MainTheme);
           return false;
         },
         0s, 8min);
     gameClock.addRealTimeClockTask(
-        [this]()
+        []()
         {
           AudioMixer::instance().play(AudioTrigger::NatureSounds);
           return false;
@@ -301,14 +301,14 @@ void Game::run(bool SkipMenu)
   else
   {
     gameClock.addRealTimeClockTask(
-        [this]()
+        []()
         {
           AudioMixer::instance().play(AudioTrigger::MainTheme, Coordinate3D{0, 0.5, 0.1});
           return false;
         },
         0s, 8min);
     gameClock.addRealTimeClockTask(
-        [this]()
+        []()
         {
           AudioMixer::instance().play(AudioTrigger::NatureSounds, Coordinate3D{0, 0, -2});
           return false;

@@ -5,8 +5,8 @@
 
 Soundtrack::Soundtrack(SoundtrackID id, ChannelID channelID, DecodedAudioData *dAudioData, RepeatCount repeat, bool isMusic,
                        bool isPlaying, bool isPlayable, bool isTriggerable)
-    : ID(id), Channel(channelID), Loop(repeat), isMusic(isMusic), isPlaying(isPlaying), isPlayable(isPlayable),
-      isTriggerable(isTriggerable), source(0), buffer(0)
+    : ID(id), Channel(channelID), Loop(repeat), isMusic(isMusic), isPlaying(isPlaying), isTriggerable(isTriggerable),
+      isPlayable(isPlayable), source(0), buffer(0)
 {
 
   /* initialize buffer */

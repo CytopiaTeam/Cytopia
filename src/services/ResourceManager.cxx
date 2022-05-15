@@ -155,7 +155,7 @@ void ResourceManager::fetch(SoundtrackID id)
     throw AudioError(TRACE_INFO "Failed to read sound file with libvorbis.\n ");
   }
 
-  if (dataBuffer.char_data_vec.size() == 0)
+  if (dataBuffer.char_data_vec.empty())
     throw AudioError(TRACE_INFO "Could not read sound file: It is empty");
 
   m_CacheSize += sizeof(dataBuffer) + sizeof(Soundtrack) + sizeof(SoundtrackResource) + dataBuffer.nBytes;

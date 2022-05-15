@@ -51,7 +51,7 @@ jobs:
           sccache --show-stats
 
       - name: Test
-        run: ctest -VV
+        run: ctest -VV --output-on-failure
 
       - name: Upload build to itch.io
         env:
@@ -135,7 +135,6 @@ jobs:
           ninja install
           butler push redist cytopia/cytopia:linux-ci --userversion CIBuild-${GITHUB_RUN_NUMBER}-commit-${GITHUB_SHA}
         shell: bash
-
   build-appleclang:
     name: Build Mac
     env:
@@ -184,7 +183,7 @@ jobs:
         shell: bash
 
       - name: Test
-        run: ctest -VV
+        run: ctest -VV --output-on-failure
         shell: bash
 
       - name: Upload build to itch.io

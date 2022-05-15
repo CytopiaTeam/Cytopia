@@ -13,20 +13,14 @@ void SIG_handler(int signal)
   case SIGINT:
     [[fallthrough]];
   case SIGTERM:
-  {
     LOG(LOG_INFO) << "Abort signal received";
     exit(0);
-  }
   case SIGSEGV:
-  {
     LOG(LOG_ERROR) << "Segmentation Fault";
     break;
-  }
   default:
-  {
     LOG(LOG_ERROR) << "Unknown signal received";
     break;
-  }
   }
   /* We print the last 10 calls */
   void *buffer[10];

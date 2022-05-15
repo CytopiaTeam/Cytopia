@@ -155,7 +155,10 @@ bool MapNode::isPlacementAllowed(const std::string &newTileID) const
     switch (layer)
     {
     case Layer::ZONE:
-      // zones can overplace themselves and everything else
+      if (isLayerOccupied(Layer::WATER))
+      {
+        return tileData->placeOnWater;
+      }
       return true;
     case Layer::POWERLINES:
       if (isLayerOccupied(Layer::ROAD) || isLayerOccupied(Layer::POWERLINES))
@@ -424,7 +427,7 @@ void MapNode::setCoordinates(const Point &newIsoCoordinates)
 
 const MapNodeData &MapNode::getActiveMapNodeData() const { return m_mapNodeData[getTopMostActiveLayer()]; }
 
-void MapNode::setMapNodeData(std::vector<MapNodeData> &&mapNodeData, const Point &currNodeIsoCoordinates)
+void MapNode::setMapNodeData(std::vector<MapNodeData> &&mapNodeData)
 {
   m_mapNodeData.swap(mapNodeData);
   this->setNodeTransparency(Settings::instance().zoneLayerTransparency, Layer::ZONE);
