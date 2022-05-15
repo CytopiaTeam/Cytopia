@@ -159,8 +159,8 @@ void PowerManager::updateRemovedNodes(const MapNode *mapNode)
   {
   case DemolishMode::DEFAULT:
   {
-    if (!mapNode->getTileData(Layer::BUILDINGS))
-    { // if there's no building it has been succesfully demolished
+    if (!mapNode->getTileData(Layer::BUILDINGS) && !mapNode->getTileData(Layer::ZONE) && !mapNode->getTileData(Layer::POWERLINES))
+    { // if there's no power conductor on this node, remove it from the grid
       m_nodesToRemove.push_back(mapNode->getCoordinates());
     }
     break;
