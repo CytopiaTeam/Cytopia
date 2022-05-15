@@ -488,3 +488,15 @@ void MapNode::demolishNode(const Layer &demolishLayer)
     }
   }
 }
+
+const bool MapNode::isConductive() const
+{
+  if (getTileData(Layer::BUILDINGS) || getTileData(Layer::POWERLINES) || getTileData(Layer::ZONE))
+  {
+    return true;
+  }
+  else
+  {
+    return false;
+  }
+}

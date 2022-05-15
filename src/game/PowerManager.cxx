@@ -1,5 +1,6 @@
 #include "PowerManager.hxx"
 #include "../services/GameClock.hxx"
+#include "../engine/Engine.hxx"
 #include "GameStates.hxx"
 #include <SignalMediator.hxx>
 
@@ -139,18 +140,15 @@ std::vector<PowerGrid> PowerManager::rebuildZoneArea(PowerGrid &powerGrid)
 }
 void PowerManager::updatePlacedNodes(const MapNode &mapNode)
 {
-  int powerLevelOfTile = 0;
-  if (mapNode.getTileData(Layer::BUILDINGS))
-  {
-    powerLevelOfTile = mapNode.getTileData(Layer::BUILDINGS)->power;
-  }
-  else if (mapNode.getTileData(Layer::POWERLINES) || mapNode.getTileData(Layer::ZONE))
-  { // it's safe to assume powerlines and zones don't produce any power
-    powerLevelOfTile = 0;
-  }
-  else
+  if (!mapNode.isConductive())
   {
     return;
+  }
+  
+  int powerLevelOfTile = 0;
+  if (mapNode.getTileData(Layer::BUILDINGS))
+  { // it's safe to assume only nodes on BUILDINGS layer produce power
+    powerLevelOfTile = mapNode.getTileData(Layer::BUILDINGS)->power;
   }
 
   PowerNode nodeToAdd = {mapNode.getCoordinates(), powerLevelOfTile};
@@ -163,7 +161,7 @@ void PowerManager::updateRemovedNodes(const MapNode *mapNode)
   {
   case DemolishMode::DEFAULT:
   {
-    if (!mapNode->getTileData(Layer::BUILDINGS) && !mapNode->getTileData(Layer::ZONE) && !mapNode->getTileData(Layer::POWERLINES))
+    if (!mapNode->isConductive())
     { // if there's no power conductor on this node, remove it from the grid
       m_nodesToRemove.push_back(mapNode->getCoordinates());
     }
@@ -179,5 +177,18 @@ void PowerManager::updatePowerLevels()
   for (auto &powerGrid : m_powerGrids)
   {
     powerGrid.updatePowerLevel();
+  }
+}
+
+void PowerManager::parseNodes()
+{
+  m_powerGrids.clear();
+  for (const auto &node: Engine::instance().map->getMapNodes())
+  {
+    if (node.isConductive())
+    {
+      PowerNode powerNode = {node.getCoordinates(), node.getTileData(Layer::BUILDINGS)->power};
+      m_powerGrids.push_back(powerNode);
+    }
   }
 }
