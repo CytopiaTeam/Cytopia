@@ -547,14 +547,6 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       // game event handling
       mouseScreenCoords = {event.button.x, event.button.y};
       mouseIsoCoords = convertScreenToIsoCoordinates(mouseScreenCoords);
-
-      // select the tile our cursor is over
-      if (tileToPlace.empty()) {
-        pickTileUnderCursor(mouseIsoCoords);
-        // pick the tile in mousemove, player will find mousedown
-        break;
-      }
-
       // gather all nodes the objects that'll be placed is going to occupy.
       std::vector targetObjectNodes = TileManager::instance().getTargetCoordsOfTileID(mouseIsoCoords, tileToPlace);
 
@@ -572,6 +564,16 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         {
           engine.decreaseHeight(mouseIsoCoords);
         }
+        else if (demolishMode)
+        {
+          engine.map->demolishNode(m_nodesToHighlight, true);
+        }
+        // select the tile our cursor is over
+        else if (!demolishMode && tileToPlace.empty()) {
+          pickTileUnderCursor(mouseIsoCoords);
+          // pick the tile in mousemove, player will find mousedown
+          break;
+        }
         else if (!tileToPlace.empty() && m_placementAllowed)
         {
           if(!engine.map->setTileID(tileToPlace, m_nodesToPlace))
@@ -582,10 +584,6 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
             // having to right click or enter Esc(abort tile placing) first
             pickTileUnderCursor(mouseIsoCoords);
           }
-        }
-        else if (demolishMode)
-        {
-          engine.map->demolishNode(m_nodesToHighlight, true);
         }
       }
       // when we're done, reset highlighting
