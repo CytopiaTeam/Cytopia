@@ -182,10 +182,13 @@ void PowerManager::updatePowerLevels()
 
 void PowerManager::parseNodes()
 {
-  // recreate grids here
-  // m_powerGrids.clear();
-  // for (auto node: Engine::instance().map->getMapNodes())
-  // {
-  //   // if (n)
-  // }
+  m_powerGrids.clear();
+  for (const auto &node: Engine::instance().map->getMapNodes())
+  {
+    if (node.isConductive())
+    {
+      PowerNode powerNode = {node.getCoordinates(), node.getTileData(Layer::BUILDINGS)->power};
+      m_powerGrids.push_back(powerNode);
+    }
+  }
 }
