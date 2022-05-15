@@ -28,8 +28,11 @@ LIST(APPEND TEST_SOURCES
         engine/WindowManager.cxx
         game/PowerManager.cxx
         services/GameClock.cxx
+        ui/ButtonGroup.cxx
         ui/widgets/Text.cxx
         ui/widgets/Button.cxx
+        ui/widgets/Frame.cxx
+        ui/widgets/Image.cxx
         ui/widgets/Checkbox.cxx
         ui/widgets/Combobox.cxx
         ui/widgets/Slider.cxx
