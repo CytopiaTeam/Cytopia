@@ -41,7 +41,7 @@ void Engine::loadGame(const std::string &fileName)
 void Engine::newGame()
 {
   const int mapSize = Settings::instance().mapSize;
-  Map *newMap = new Map(mapSize, mapSize);
+  Map *newMap = new Map(mapSize, mapSize, true);
 
   if (newMap)
   {

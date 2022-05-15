@@ -56,16 +56,20 @@ public:
    */
   int getPowerLevel() const { return m_powerLevel; };
 
+  /**
+   * @brief Recalculate the power level of this power grid
+   * 
+   */
+  void updatePowerLevel();
+
   /// iterators
   auto begin() { return m_powerNodes.begin(); }
   auto end() { return m_powerNodes.end(); }
 
 private:
-  //TODO: figure out how to handle multi node power plants
   std::vector<PowerNode> m_powerNodes;
   friend void mergePowerGrids(PowerGrid &mainGrid, PowerGrid &toBeMerged);
 
-  void updatePowerLevel();
   int m_powerLevel = 0;
 };
 
