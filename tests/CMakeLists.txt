@@ -71,7 +71,7 @@ target_include_directories(
         ${CMAKE_SOURCE_DIR}/src/services
 )
 
-target_compile_definitions(${TESTS_PROJECT_NAME} PRIVATE ${_compile_definitions})
+target_compile_definitions(${TESTS_PROJECT_NAME} PRIVATE ${_compile_definitions} TESTING_ENABLED)
 target_link_libraries(
         ${TESTS_PROJECT_NAME} PRIVATE
         LIBPNG::LIBPNG
