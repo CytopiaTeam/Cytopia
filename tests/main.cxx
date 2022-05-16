@@ -1,6 +1,6 @@
 #define CATCH_CONFIG_MAIN
 #include <catch.hpp>
-#include <SDL.h>
+#include <SDL2/SDL.h>
 
 /*
  * This file should remain empty.
