@@ -9,6 +9,20 @@
 
 #include <iomanip>
 
+struct SaxNoException : public nlohmann::detail::json_sax_dom_parser<json>
+{
+    SaxNoException(json& j) : nlohmann::detail::json_sax_dom_parser<json>(j, false)
+    {}
+
+    bool parse_error(std::size_t position, const std::string& last_token, const json::exception& ex)
+    {
+      LOG(LOG_ERROR) << "parse error at input byte " << position;
+      LOG(LOG_ERROR) << ex.what();
+      LOG(LOG_ERROR) << "last read: \"" << last_token << "\"";
+      return false;
+    }
+};
+
 Settings::Settings() { readFile(); }
 
 void Settings::readFile()
@@ -22,13 +36,15 @@ void Settings::readFile()
   }
 
   std::string jsonFile = fs::readFileAsString(pathToSettingsFile);
-  const json _settingsJSONObject = json::parse(jsonFile, nullptr, false);
+  json settingsJSONObject;
+  SaxNoException sax(settingsJSONObject);
 
+  bool parse_result = json::sax_parse(jsonFile, &sax);
   // check if json file can be parsed
-  if (_settingsJSONObject.is_discarded())
+  if (!parse_result)
     throw ConfigurationError(TRACE_INFO "Error parsing JSON File " + string{pathToSettingsFile});
 
-  SettingsData data = _settingsJSONObject;
+  SettingsData data = settingsJSONObject;
   *this = data;
 
   // init the actual resolution with the desired resolution

@@ -160,16 +160,26 @@ void UIManager::init()
           dynamic_cast<Button *> (uiElement.get())->isToggleButton = toggleButton;
           dynamic_cast<Button *> (uiElement.get())->drawImageButtonFrame(drawFrame);
           break;
-        case ElementType::TextButton:
-          uiElement = std::make_unique<Button>(elementRect);
-          dynamic_cast<Button *>(uiElement.get())->setText(text);
-          dynamic_cast<Button *>(uiElement.get())->isToggleButton = toggleButton;
+        case ElementType::TextButton: {
+          int fontSize = element.value("FontSize", 0);
+          auto elmButton = std::make_unique<Button>(elementRect);
+          elmButton->setText(text);
+          elmButton->isToggleButton = toggleButton;
+          if (fontSize > 0)
+            elmButton->setFontSize(fontSize);
+          uiElement = std::move(elmButton);
           break;
-        case ElementType::Text:
-          uiElement = std::make_unique<Text>();
-          dynamic_cast<Text *>(uiElement.get())->setPosition(elementRect.x, elementRect.y);
-          dynamic_cast<Text *>(uiElement.get())->setText(text);
+        }
+        case ElementType::Text: {
+          int fontSize = element.value("FontSize", 0);
+          auto elmText = std::make_unique<Text>();
+          elmText->setPosition(elementRect.x, elementRect.y);
+          elmText->setText(text);
+          if (fontSize > 0)
+            elmText->setFontSize(fontSize);
+          uiElement = std::move(elmText);
           break;
+        }
         case ElementType::Frame:
           uiElement = std::make_unique<Frame>(elementRect);
           break;

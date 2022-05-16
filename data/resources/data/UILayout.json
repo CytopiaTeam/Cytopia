@@ -257,7 +257,8 @@
                 "Action": "ToggleVisibilityOfGroup",
                 "ActionParameter": "SettingsMenu",
                 "GroupID": 2,
-                "LayoutGroup": "PauseMenuButtons"
+                "LayoutGroup": "PauseMenuButtons",
+                "FontSize": 20
             },
             {
                 "Type": "TextButton",

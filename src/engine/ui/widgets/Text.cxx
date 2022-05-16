@@ -10,17 +10,18 @@
 
 #include <SDL_ttf.h>
 
+Text::~Text() {
+  if (m_texture)
+    SDL_DestroyTexture(m_texture);
+}
+
+
 void Text::draw()
 {
   if (m_texture && isVisible())
   {
     renderTexture();
   }
-}
-
-Text::~Text() {
-  if (m_texture)
-    SDL_DestroyTexture(m_texture);
 }
 
 void Text::setText(const std::string &text)
@@ -30,7 +31,8 @@ void Text::setText(const std::string &text)
 #else
   elementData.text = text;
 #endif
-  createTextTexture(elementData.text, SDL_Color{255, 255, 255});
+  if (!text.empty())
+    createTextTexture(elementData.text, SDL_Color{255, 255, 255});
 }
 
 void Text::setFontSize(int fontSize)
