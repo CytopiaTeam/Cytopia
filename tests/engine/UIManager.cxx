@@ -13,6 +13,7 @@ TEST_CASE("UIManager will close all open menus except the build menu", "[engine]
 {
   UIManager &uiManager = UIManager::instance();
   // TODO: need to do smth to set it up. like run init or draw or manually set menu visibilities
+  uiManager.closeOpenMenus();
   for (const auto &[key, value] : uiManager.getAllUiGroups())
   {
     for (auto element : value)
