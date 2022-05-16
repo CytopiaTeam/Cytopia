@@ -121,7 +121,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         GameStates::instance().drawUI = !GameStates::instance().drawUI;
         break;
       case SDLK_f:
-        engine.toggleFullScreen();
+        WindowManager::instance().toggleFullScreen();
         break;
       case SDLK_UP:
       case SDLK_w:

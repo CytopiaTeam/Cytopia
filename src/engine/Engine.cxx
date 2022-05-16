@@ -10,8 +10,6 @@ Engine::Engine() {}
 
 Engine::~Engine() { delete map; }
 
-void Engine::toggleFullScreen() { WindowManager::instance().toggleFullScreen(); };
-
 void Engine::saveGame(const std::string &fileName) const { map->saveMapToFile(CYTOPIA_SAVEGAME_DIR + (std::string)fileName); }
 void Engine::loadGame(const std::string &fileName)
 {
