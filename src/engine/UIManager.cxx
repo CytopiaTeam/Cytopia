@@ -1052,7 +1052,7 @@ void UIManager::setBuildMenuPosition(UIElement *sender)
 
   if (comboBox)
   {
-    Settings::instance().buildMenuPosition = comboBox->activeText;
+    Settings::instance().buildMenuPosition = comboBox->getActiveText();
     m_buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(comboBox->getActiveID());
     setBuildMenuLayout();
     Layout::arrangeElements();
