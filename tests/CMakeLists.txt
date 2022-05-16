@@ -71,17 +71,6 @@ target_include_directories(
         ${CMAKE_SOURCE_DIR}/src/services
 )
 
-if (MSVC)
-    # set startup project for Visual Studio Builds
-    target_include_directories(
-            ${PROJECT_NAME}
-            PRIVATE
-            ${CONAN_INCLUDE_DIRS_RELWITHDEBINFO}
-            ${CONAN_INCLUDE_DIRS_DEBUG}
-            ${CONAN_INCLUDE_DIRS_RELEASE}
-    )
-endif ()
-
 target_compile_definitions(${TESTS_PROJECT_NAME} PRIVATE ${_compile_definitions})
 target_link_libraries(
         ${TESTS_PROJECT_NAME} PRIVATE
