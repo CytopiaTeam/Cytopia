@@ -224,6 +224,12 @@ if (MSVC)
             PROPERTIES
             VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
     )
+    target_include_directories(
+            ${PROJECT_NAME}
+            PRIVATE
+            ${CONAN_INCLUDE_DIRS_RELWITHDEBINFO}
+            ${CONAN_INCLUDE_DIRS_DEBUG}
+            ${CONAN_INCLUDE_DIRS_RELEASE})
 endif ()
 
 install(TARGETS ${PROJECT_NAME} DESTINATION .)
