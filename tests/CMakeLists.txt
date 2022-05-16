@@ -25,6 +25,7 @@ LIST(APPEND TEST_SOURCES
         engine/basics/Settings.cxx
         engine/ResourcesManager.cxx
         engine/Engine.cxx
+        engine/UIManager.cxx
         engine/WindowManager.cxx
         game/PowerManager.cxx
         services/GameClock.cxx

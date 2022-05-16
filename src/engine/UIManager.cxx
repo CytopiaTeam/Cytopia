@@ -273,8 +273,6 @@ void UIManager::closeOpenMenus()
       element->setVisibility(false);
     }
   }
-
-  return;
 }
 
 void UIManager::drawUI() const
