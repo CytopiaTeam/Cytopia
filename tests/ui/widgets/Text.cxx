@@ -46,12 +46,13 @@ TEST_CASE("I can draw a Text widget", "[ui][widgets][text]")
   CHECK(text != nullptr);
 }
 
-TEST_CASE("I can't load the font", "[ui][widgets]")
+TEST_CASE("Using a nonexistent font for a Text widget throws a ConfigurationError", "[ui][widgets][text]")
 {
+  TTF_Init();
   std::unique_ptr<Text> text = std::make_unique<Text>();
   Settings::instance().fontFileName = "I DO NOT EXIST";
+  CHECK_THROWS_AS(text->setText("Test"), ConfigurationError);
   text->draw();
-  //@todo This should throw an exception, and you should catch it here.
   CHECK(text != nullptr);
 }
 

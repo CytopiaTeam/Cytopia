@@ -16,6 +16,7 @@ TEST_CASE("Engine new game", "[engine][engine]")
   Engine &engine = Engine::instance();
   engine.newGame();
   CHECK(engine.isGameRunning() == true);
+  CHECK(engine.map != nullptr);
   engine.quitGame();
 }
 
