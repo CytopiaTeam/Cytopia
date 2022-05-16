@@ -31,20 +31,6 @@ public:
   Map(Map &&fp) = delete;
   Map const &operator=(Map &&fp) = delete;
 
-  /** \brief Increase Height
-    * @details Increases the height of the node and checks the surrounding tiles. Either draw a slope sprite or elevate the tile if
-    * necessary.
-    * @param isoCoordinates the isometric coordinates of the tile that should be elevated
-    */
-  void increaseHeight(const Point &isoCoordinates);
-
-  /** \brief Decrease Height
-    * @details Decreases the height of the node and checks the surrounding tiles. Either draw a slope sprite or lower the tile if
-    * necessary.
-    * @param isoCoordinates the isometric coordinates of the tile that should be lowered
-    */
-  void decreaseHeight(const Point &isoCoordinates);
-
   /** \brief Render the elements contained in the Map
     * @details call the render() function of the sprite in the all contained MapNode elements
     * @see Sprite#render
@@ -164,7 +150,7 @@ public:
    */
   const std::vector<MapNode> &getMapNodes() { return mapNodes; };
 
-private:
+// private:
   /** \brief Update all mapNodes
   * @details Updates all mapNode and its adjacent tiles regarding height information, draws slopes for adjacent tiles and
   * sets tiling for mapNode sprite if applicable
@@ -198,12 +184,6 @@ private:
   */
   std::vector<NeighborNode> getNeighborNodes(const Point &isoCoordinates, const bool includeCentralNode);
 
-  /** \brief Change map node height.
-  * @param isoCoordinates the Point on the map node to change height.
-  * @param elevate if set to true make node higher, otherwise lower.
-  */
-  void changeHeight(const Point &isoCoordinates, const bool elevate);
-
   /** \brief Update the nodes and all affected node with the change.
   * @param nodes vector of coordinates to be updated.
   */
@@ -214,13 +194,6 @@ private:
   * @return Map node elevated bit mask.
   */
   unsigned char getElevatedNeighborBitmask(Point centerCoordinates);
-
-  /** \brief Change map node height.
-  * @param coordinate the Point on the map node to change height
-  * @param elevate if set to true make node higher, otherwise lower.
-  * @return true in case that height has been changed, otherwise false.
-  */
-  bool updateHeight(Point coordinate, const bool elevate);
 
   /** \brief For implementing frustum culling, find all map nodes which are visible on the screen. Only visible nodes will be rendered.
   */

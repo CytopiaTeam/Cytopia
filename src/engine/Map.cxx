@@ -130,55 +130,6 @@ std::vector<NeighborNode> Map::getNeighborNodes(const Point &isoCoordinates, con
   return neighbors;
 }
 
-bool Map::updateHeight(Point coordinate, const bool elevate)
-{
-  if (getMapNode(coordinate).changeHeight(elevate))
-  {
-    for (const auto neighbor : PointFunctions::getNeighbors(coordinate, false))
-    {
-      if (getMapNode(neighbor).isLayerOccupied(Layer::ZONE))
-      {
-        getMapNode(neighbor).demolishLayer(Layer::ZONE);
-      }
-    }
-
-    return true;
-  }
-
-  return false;
-}
-
-void Map::changeHeight(const Point &isoCoordinates, const bool elevate)
-{
-  std::vector<Point> nodesToUpdate{isoCoordinates};
-  std::vector<Point> neighorCoordinates = PointFunctions::getNeighbors(isoCoordinates, true);
-
-  if (updateHeight(isoCoordinates, elevate))
-  {
-    // If lowering node height, than all nodes around should be lowered to be on same height with the central one.
-    if (!elevate)
-    {
-      const int centerHeight = getMapNode(isoCoordinates).getCoordinates().height;
-
-      for (Point &neighborCoord : neighorCoordinates)
-      {
-        MapNode &neighborNode = getMapNode(neighborCoord);
-        if (centerHeight < neighborNode.getCoordinates().height)
-        {
-          neighborNode.changeHeight(false);
-          nodesToUpdate.push_back(neighborNode.getCoordinates());
-        }
-      }
-    }
-    demolishNode(neighorCoordinates);
-    updateNodeNeighbors(nodesToUpdate);
-  }
-}
-
-void Map::increaseHeight(const Point &isoCoordinates) { changeHeight(isoCoordinates, true); }
-
-void Map::decreaseHeight(const Point &isoCoordinates) { changeHeight(isoCoordinates, false); }
-
 void Map::updateNodeNeighbors(std::vector<Point> nodes)
 {
   // those bitmask combinations require the tile to be elevated.
@@ -237,7 +188,7 @@ void Map::updateNodeNeighbors(std::vector<Point> nodes)
           if (std::abs(heightDiff) > 1)
           {
             updatedNodes.push(getMapNode(neighborCoords).getCoordinates());
-            updateHeight(neighborCoords, (heightDiff > 1) ? true : false);
+            // updateHeight(neighborCoords, (heightDiff > 1) ? true : false);
           }
         }
       }
@@ -264,7 +215,7 @@ void Map::updateNodeNeighbors(std::vector<Point> nodes)
         {
           if ((elevationBitmask & elBitMask) == elBitMask)
           {
-            updateHeight(nodeToElevate, true);
+            // updateHeight(nodeToElevate, true);
             updatedNodes.push(getMapNode(nodeToElevate).getCoordinates());
             break;
           }

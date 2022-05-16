@@ -9,6 +9,8 @@
 #include "engine/basics/Settings.hxx"
 #include "engine/basics/GameStates.hxx"
 #include "Filesystem.hxx"
+#include <Map.hxx>
+#include <MapFunctions.hxx>
 
 #include <SDL.h>
 #include <SDL_ttf.h>
@@ -264,6 +266,9 @@ void Game::run(bool SkipMenu)
   }
 
   Engine &engine = Engine::instance();
+  // we need to register the map at mapFunctions now
+  MapFunctions::instance().registerMap(engine.map);
+
   Camera::instance().centerScreenOnMapCenter();
 
   SDL_Event event;

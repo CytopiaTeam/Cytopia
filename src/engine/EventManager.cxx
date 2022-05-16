@@ -10,6 +10,7 @@
 #include "map/MapLayers.hxx"
 #include "Map.hxx"
 #include "Sprite.hxx"
+#include <MapFunctions.hxx>
 
 #include "LOG.hxx"
 
@@ -558,11 +559,11 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         }
         else if (terrainEditMode == TerrainEdit::RAISE)
         {
-          engine.map->increaseHeight(mouseIsoCoords);
+          MapFunctions::instance().changeHeight(mouseIsoCoords, true);
         }
         else if (terrainEditMode == TerrainEdit::LOWER)
         {
-          engine.map->decreaseHeight(mouseIsoCoords);
+          MapFunctions::instance().changeHeight(mouseIsoCoords, false);
         }
         else if (demolishMode)
         {
