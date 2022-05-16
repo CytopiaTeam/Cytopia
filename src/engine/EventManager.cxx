@@ -558,11 +558,11 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         }
         else if (terrainEditMode == TerrainEdit::RAISE)
         {
-          engine.increaseHeight(mouseIsoCoords);
+          engine.map->increaseHeight(mouseIsoCoords);
         }
         else if (terrainEditMode == TerrainEdit::LOWER)
         {
-          engine.decreaseHeight(mouseIsoCoords);
+          engine.map->decreaseHeight(mouseIsoCoords);
         }
         else if (demolishMode)
         {

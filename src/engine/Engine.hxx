@@ -17,22 +17,6 @@ public:
   Engine(Engine const &) = delete;
   Engine &operator=(Engine const &) = delete;
 
-  /** @brief Increase Height
-    * @details Increases the height of the given map node
-    * Calls the according function of the Map object that holds the terrain node and draws the slopes
-    * @param isoCoordinates the isometric coordinates of the map node that should be raised
-    * @see Map#increaseHeight
-    */
-  void increaseHeight(const Point &isoCoordinates) const;
-
-  /** @brief Decrease Height
-    * @details Decreases the height of the given map node
-    * Calls the according function of the Map object that holds the terrain node and draws the slopes.
-    * @param isoCoordinates the isometric coordinates of the map node that should be lowered
-    * @see Map#decreaseHeight
-    */
-  void decreaseHeight(const Point &isoCoordinates) const;
-
   /** @brief Toggle Fullscreen Mode
     */
   void toggleFullScreen();

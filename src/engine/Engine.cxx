@@ -10,18 +10,6 @@ Engine::Engine() {}
 
 Engine::~Engine() { delete map; }
 
-void Engine::increaseHeight(const Point &isoCoordinates) const
-{
-  terrainEditMode = TerrainEdit::RAISE;
-  map->increaseHeight(isoCoordinates);
-}
-
-void Engine::decreaseHeight(const Point &isoCoordinates) const
-{
-  terrainEditMode = TerrainEdit::LOWER;
-  map->decreaseHeight(isoCoordinates);
-}
-
 void Engine::toggleFullScreen() { WindowManager::instance().toggleFullScreen(); };
 
 void Engine::saveGame(const std::string &fileName) const { map->saveMapToFile(CYTOPIA_SAVEGAME_DIR + (std::string)fileName); }
