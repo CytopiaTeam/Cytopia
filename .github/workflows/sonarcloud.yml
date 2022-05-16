@@ -82,9 +82,11 @@ jobs:
         run: build-wrapper-linux-x86-64 --out-dir bw-output make -j4
 
       - name: Test
-        uses: GabrielBB/xvfb-action@v1.6
-        with:
-          run: ctest --output-on-failure || true
+        env:
+          SDL_VIDEODRIVER: dummy
+          SDL_AUDIODRIVER: dummy
+        continue-on-error: true
+        run: ctest -j2 --output-on-failure
 
       - name: Generate coverage
         run: make gcov
