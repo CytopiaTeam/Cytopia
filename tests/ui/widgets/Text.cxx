@@ -40,7 +40,6 @@ TEST_CASE("I can draw a Text widget", "[ui][widgets][text]")
   std::unique_ptr<Text> text = std::make_unique<Text>();
   text->draw();
   text->setText("This is a test");
-  text->draw();
   //@todo actually verify it draws the text by creating reference screenshots and comparing it.
   CHECK_NOTHROW(text->draw());
   CHECK(text != nullptr);
