@@ -1,10 +1,7 @@
 #include "Engine.hxx"
 
 #include "Constants.hxx"
-#include "basics/Camera.hxx"
-#include "basics/mapEdit.hxx"
 #include "basics/Settings.hxx"
-#include "ResourcesManager.hxx"
 
 Engine::Engine() {}
 
