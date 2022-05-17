@@ -163,7 +163,7 @@ void ComboBox::setActiveID(int ID)
 {
   m_activeID = ID;
   m_selectedItem->setText(getTextFromID(ID));
-  m_activeText = getTextFromID(ID);
+  activeText = getTextFromID(ID);
   clickSignalSender.emit(this);
 }
 
