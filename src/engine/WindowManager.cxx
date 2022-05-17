@@ -21,8 +21,14 @@ WindowManager::WindowManager()
   Settings::instance().screenHeight = mode.h;
 #endif
 
+#ifdef TESTING_ENABLED
+  windowFlags = SDL_WINDOW_HIDDEN;
+  m_window = SDL_CreateWindow(m_title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, windowFlags);
+#else
   m_window = SDL_CreateWindow(m_title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, Settings::instance().screenWidth,
                               Settings::instance().screenHeight, windowFlags);
+#endif
+
   if (!m_window)
     throw UIError(TRACE_INFO "Failed to create window: " + string{SDL_GetError()});
 
@@ -34,7 +40,12 @@ WindowManager::WindowManager()
   {
     rendererFlags = SDL_RENDERER_ACCELERATED;
   }
+#if defined(TESTING_ENABLED) && defined(__linux)
+  // Set the index to 2 for running tests
+  m_renderer = SDL_CreateRenderer(m_window, 2, rendererFlags);
+#else
   m_renderer = SDL_CreateRenderer(m_window, -1, rendererFlags);
+#endif
 
   if (!m_renderer)
     throw UIError(TRACE_INFO "Failed to create Renderer: " + string{SDL_GetError()});

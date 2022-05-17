@@ -20,16 +20,19 @@
 
 void EventManager::unHighlightNodes()
 {
-  for (auto node : m_nodesToPlace)
+  if(!m_isPuttingTile)
   {
-    Engine::instance().map->unHighlightNode(node);
+    for (auto node : m_nodesToPlace)
+    {
+      Engine::instance().map->unHighlightNode(node);
+    }
+    m_nodesToPlace.clear();
   }
   for (auto node : m_nodesToHighlight)
   {
     Engine::instance().map->unHighlightNode(node);
   }
   m_nodesToHighlight.clear();
-  m_nodesToPlace.clear();
 }
 
 void EventManager::pickTileUnderCursor(Point mouseIsoCoords)
@@ -498,6 +501,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           {
             m_nodesToPlace.push_back(mouseIsoCoords);
           }
+          m_isPuttingTile = true;
         }
       }
       break;
@@ -542,6 +546,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       // If we're over a ui element, don't handle game events
       if (m_skipLeftClick)
       {
+        m_isPuttingTile = false;
         break;
       }
 
@@ -588,6 +593,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         }
       }
       // when we're done, reset highlighting
+      m_isPuttingTile = false;
       unHighlightNodes();
 
       if (highlightSelection)

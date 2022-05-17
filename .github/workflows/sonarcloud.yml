@@ -12,8 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       SONAR_SCANNER_VERSION: 4.7.0.2747
-      SONAR_SERVER_URL: "https://sonarcloud.io"
-      BUILD_WRAPPER_OUT_DIR: bw-output
     steps:
       - uses: actions/checkout@v2
         with:
@@ -30,11 +28,13 @@ jobs:
           mkdir -p $HOME/.sonar
           curl -sSLo $HOME/.sonar/sonar-scanner.zip ${{ env.SONAR_SCANNER_DOWNLOAD_URL }} 
           unzip -o $HOME/.sonar/sonar-scanner.zip -d $HOME/.sonar/
+          wget -nv https://cdn.anotherfoxguy.com/sonar-scanner/cytopia -O run-sonar-scanner
+          sudo chmod 777 run-sonar-scanner
           echo "$HOME/.sonar/sonar-scanner-${{ env.SONAR_SCANNER_VERSION }}-linux/bin" >> $GITHUB_PATH
 
       - name: Download and set up build-wrapper
         env:
-          BUILD_WRAPPER_DOWNLOAD_URL: ${{ env.SONAR_SERVER_URL }}/static/cpp/build-wrapper-linux-x86.zip
+          BUILD_WRAPPER_DOWNLOAD_URL: https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip
         run: |
           curl -sSLo $HOME/.sonar/build-wrapper-linux-x86.zip ${{ env.BUILD_WRAPPER_DOWNLOAD_URL }}
           unzip -o $HOME/.sonar/build-wrapper-linux-x86.zip -d $HOME/.sonar/
@@ -79,13 +79,14 @@ jobs:
         run: cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DBUILD_TEST=ON -DENABLE_COVERAGE=ON .
 
       - name: Run build-wrapper
-        run: |
-          build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} make -j4
+        run: build-wrapper-linux-x86-64 --out-dir bw-output make -j4
 
       - name: Test
-        uses: GabrielBB/xvfb-action@v1.6
-        with:
-          run: ctest --output-on-failure && exit 0
+        env:
+          SDL_VIDEODRIVER: dummy
+          SDL_AUDIODRIVER: dummy
+        continue-on-error: true
+        run: ctest -j2 --output-on-failure
 
       - name: Generate coverage
         run: make gcov
@@ -93,8 +94,5 @@ jobs:
       - name: Run sonar-scanner
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: |
-          sonar-scanner \
-            --define sonar.host.url="${{ env.SONAR_SERVER_URL }}" \
-            --define sonar.cfamily.build-wrapper-output="${{ env.BUILD_WRAPPER_OUT_DIR }}"
+          SONAR_SCANNER_EXE: /home/runner/.sonar/sonar-scanner-${{ env.SONAR_SCANNER_VERSION }}-linux/bin/sonar-scanner
+        run: ./run-sonar-scanner

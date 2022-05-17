@@ -51,7 +51,7 @@ jobs:
           sccache --show-stats
 
       - name: Test
-        run: ctest -VV --output-on-failure
+        run: ctest -j2 --output-on-failure
 
       - name: Upload build to itch.io
         env:
@@ -122,10 +122,11 @@ jobs:
         shell: bash
 
       - name: Test
-        uses: GabrielBB/xvfb-action@v1.6
-        with:
-          run: ctest --output-on-failure --repeat="until-pass:5"
-
+        env:
+          SDL_VIDEODRIVER: dummy
+          SDL_AUDIODRIVER: dummy
+        run: ctest -j2 --output-on-failure
+        
       - name: Upload build to itch.io
         env:
           BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
@@ -183,7 +184,7 @@ jobs:
         shell: bash
 
       - name: Test
-        run: ctest -VV --output-on-failure
+        run: ctest -j2 --output-on-failure
         shell: bash
 
       - name: Upload build to itch.io
