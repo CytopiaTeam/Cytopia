@@ -32,6 +32,8 @@ set(SOURCE_FILES
         engine/common/enums.hxx
         engine/common/JsonSerialization.hxx
         engine/GameObjects/MapNode.{hxx,cxx}
+        engine/GameObjects/MapGrid.hxx
+        engine/GameObjects/MapGrid.inl.hxx
         engine/map/MapLayers.{hxx,cxx}
         engine/map/TerrainGenerator.{hxx,cxx}
         engine/ui/basics/UIElement.{hxx,cxx}
