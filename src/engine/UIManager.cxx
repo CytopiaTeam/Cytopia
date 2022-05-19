@@ -480,6 +480,8 @@ void UIManager::setCallbackFunctions()
                     GameStates::instance().layerEditMode = LayerEditMode::BLUEPRINT;
                     MapLayers::setLayerEditMode(GameStates::instance().layerEditMode);
                     break;
+                  default:
+                    break;
                   }
               }
               return;

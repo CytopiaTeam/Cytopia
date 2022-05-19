@@ -819,7 +819,7 @@ bool Map::setTileID(const std::string &tileID, Point coordinate)
       currentMapNode.getSprite()->setRenderFlag(layer, true);
     }
 
-    if (!targetCoordinates.size() == 1)
+    if (!(targetCoordinates.size() == 1))
     { // if it's not a >1x1 building, place tileID on the current coordinate (e.g. ground decoration beneath a > 1x1 building)
       currentMapNode.setTileID(tileID, coord);
     }
