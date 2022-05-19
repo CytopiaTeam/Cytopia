@@ -13,6 +13,7 @@ set(SOURCE_FILES
         util/SignalMediator.hxx
         util/Singleton.hxx
         util/Meta.hxx
+        util/ParseCli.{hxx,cxx}
         util/Exception.{hxx,cxx}
         util/OSystem.{hxx,cxx}
         services/Randomizer.{hxx,cxx}
