@@ -73,17 +73,20 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         if (!tileToPlace.empty())
         {
           m_uiManager.closeOpenMenus();
+          Camera::instance().freezeCamera(false);
           tileToPlace.clear();
           highlightSelection = false;
         }
         else
         {
           m_uiManager.toggleGroupVisibility("PauseMenu");
+          Camera::instance().freezeCamera(m_uiManager.isGroupVisible("PauseMenu"));
         }
         break;
 
       case SDLK_0:
         break;
+
       case SDLK_LCTRL:
         GameStates::instance().demolishMode = DemolishMode::GROUND_DECORATION;
         GameStates::instance().rectangularRoads = true;

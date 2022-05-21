@@ -80,12 +80,16 @@ void Camera::setCenterIsoCoordinates(Point && p) {
   std::swap(m_CenterIsoCoordinates, p);
 }
 
+void Camera::freezeCamera(bool freeze) {
+  m_Freezed = freeze;
+}
+
 void Camera::moveCameraY(float yOffset) {
-  m_CameraOffset.y -= yOffset;
+  m_CameraOffset.y -= static_cast<int>(yOffset * (m_Freezed ? 0 : 1));
 }
 
 void Camera::moveCameraX(float xOffset) {
-  m_CameraOffset.x -= xOffset;
+  m_CameraOffset.x -= static_cast<int>(xOffset * (m_Freezed ? 0 : 1));
 }
 
 const SDL_Point & Camera::cameraOffset() const noexcept

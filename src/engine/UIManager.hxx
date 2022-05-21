@@ -71,6 +71,8 @@ public:
  */
   void toggleGroupVisibility(const std::string &groupID, UIElement *sender = nullptr);
 
+  bool isGroupVisible(const std::string& groupID);
+
   /**
  * @brief Toggle Visibility of Debug Menu
  * 

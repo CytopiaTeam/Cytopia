@@ -320,6 +320,15 @@ void UIManager::toggleGroupVisibility(const std::string &groupID, UIElement *sen
     it->setVisibility(!it->isVisible());
 }
 
+bool UIManager::isGroupVisible(const std::string &groupID) {
+  const bool groupExist = !!m_uiGroups.count(groupID);
+
+  if (!groupExist || m_uiGroups[groupID].empty())
+    return false;
+
+  return m_uiGroups[groupID].front()->isVisible();
+}
+
 void UIManager::startTooltip(SDL_Event &event, const std::string &tooltipText) const
 {
   m_tooltip->setText(tooltipText);
