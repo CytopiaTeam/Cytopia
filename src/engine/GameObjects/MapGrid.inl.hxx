@@ -1,3 +1,5 @@
+#include<algorithm>
+
 template<class T>
 MapGrid<T>::MapGrid(T node) : m_gridNodes{node} {}
 
