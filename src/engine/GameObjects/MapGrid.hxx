@@ -8,7 +8,7 @@ template <class T> class MapGrid
 {
 public:
   MapGrid(T node);
-  ~MapGrid();
+  virtual ~MapGrid() = 0;
 
   size_t size() { return m_gridNodes.size(); };
 
