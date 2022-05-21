@@ -97,6 +97,10 @@ static void lwSystemError(const char *title, const char *text)
   MessageBox(NULL, text, title, MB_OK | MB_ICONERROR);
 }
 
+// !!! NOTE !!! 
+// Please change this code with accuracy, it used native microsoft sample from 
+// https://social.msdn.microsoft.com/Forums/vstudio/en-US/f93a211a-9c95-42f0-8581-50314457b729/generating-the-stack-traces-in-the-c-code?forum=vsdebug
+
 static void lwPrintStacktrace(LPEXCEPTION_POINTERS e)
 {
   PIMAGEHLP_SYMBOL64 pSym;
