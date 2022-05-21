@@ -16,16 +16,23 @@ int protected_main(int argc, char **argv)
   (void)argc;
   (void)argv;
 
-  bool skipMenu = false;
   bool quitGame = false;
 
   // add commandline parameter to skipMenu
-  for (int i = 1; i < argc; ++i)
-  {
-    if (std::string(argv[i]) == "--skipMenu")
-    {
-      skipMenu = true;
-    }
+  auto has_args = [argv, argc] (const std::string &param) {
+    for (int i = 1; i < argc; ++i)
+      if (param == argv[i])
+        return i;
+
+    LOG(LOG_DEBUG) << "Unknown game option " << param;
+    return 0;
+  };
+
+  bool skipMenu = has_args("--skipMenu");
+  uint32_t videoOpt = has_args("--video");
+  const char *videoDriver = nullptr;
+  if (videoOpt) {
+    videoDriver = argv[videoOpt + 1];
   }
 
   LOG(LOG_DEBUG) << "Launching Cytopia";
@@ -34,7 +41,7 @@ int protected_main(int argc, char **argv)
 
   LOG(LOG_DEBUG) << "Initializing Cytopia";
 
-  if (!game.initialize())
+  if (!game.initialize(videoDriver))
     return EXIT_FAILURE;
 
   if (!skipMenu)
