@@ -13,16 +13,16 @@ public:
   size_t size() { return m_gridNodes.size(); };
 
   /**
-   * @bried Add a T node to this gridnode
+   * @brief Add a T node to this gridnode
    *
-   * @node node to add
+   * @param node to add
    */
   virtual void addNode(T node);
 
   /**
-   * @bried Remove a node on a given coordinate from this gridnode
+   * @brief Remove a node on a given coordinate from this gridnode
    *
-   * @node coordinate of the node
+   * @param coordinate of the node
    */
   virtual void removeNode(Point coordinate);
 
