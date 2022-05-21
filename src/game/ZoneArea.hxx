@@ -26,7 +26,7 @@ public:
    * 
    * @param zoneNode ZoneNode to add
    */
-  void addNode(ZoneNode zoneNode);
+  void addNode(ZoneNode zoneNode) override;
 
   /**
    * @brief Remove a zoneNode on a given coordinate from this zoneArea

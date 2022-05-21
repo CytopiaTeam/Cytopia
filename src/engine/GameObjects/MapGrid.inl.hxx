@@ -28,14 +28,9 @@ void MapGrid<T>::removeNode(Point coordinate)
 template<class T>
 bool MapGrid<T>::isNeighbor(Point coordinate) const
 {
-  for (const T &node : m_gridNodes)
-  {
-    if (node.coordinate.isDirectNeighborOf(coordinate))
-    {
-      return true;
-    }
-  }
-  return false;
+  return std::any_of(m_gridNodes.begin(), m_gridNodes.end(), [coordinate](const T &node) {
+      return node.coordinate.isDirectNeighborOf(coordinate);
+      });
 }
 
 template<class T>

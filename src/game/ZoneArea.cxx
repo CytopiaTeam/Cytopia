@@ -16,7 +16,7 @@ void mergeZoneAreas(ZoneArea &mainZone, ZoneArea &toBeMerged)
 };
 
 ZoneArea::ZoneArea(ZoneNode zoneNode)
-    : m_zoneType(zoneNode.zoneType), m_zoneDensity(zoneNode.zoneDensity), MapGrid{zoneNode},
+    : MapGrid{zoneNode}, m_zoneType(zoneNode.zoneType), m_zoneDensity(zoneNode.zoneDensity),
       xmin(std::max(0, zoneNode.coordinate.x - 1)), xmax(std::min(Settings::instance().mapSize, zoneNode.coordinate.x + 1)),
       ymin(std::max(0, zoneNode.coordinate.y - 1)), ymax(std::min(Settings::instance().mapSize, zoneNode.coordinate.y + 1))
 {
@@ -142,7 +142,7 @@ void ZoneArea::removeZoneNode(Point coordinate)
 void ZoneArea::setVacancy(Point coordinate, bool vacancy)
 {
   auto node = std::find_if(
-      begin(), end(), [coordinate](const ZoneNode &node) { return node.coordinate == coordinate; });
+      begin(), end(), [coordinate](const ZoneNode &zNode) { return zNode.coordinate == coordinate; });
   if (node != end())
   {
     if (vacancy)
