@@ -55,13 +55,6 @@ public:
 
   // private:
 
-  /** \brief Filter out tiles which should not be set over existing one.
-  * @param layer Layer in which tileId should be set.
-  * @param pMapNode pointer to the MapNode which ID should be set.
-  * @return true in case that tileId is allowed to be set, otherwise false (filter it out).
-  */
-  bool isAllowSetTileId(const Layer layer, const MapNode *const pMapNode);
-
   /** \brief For implementing frustum culling, find all map nodes which are visible on the screen. Only visible nodes will be rendered.
   */
   void calculateVisibleMap(void);
