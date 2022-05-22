@@ -1,7 +1,7 @@
 #ifndef ZONE_AREA_HXX_
 #define ZONE_AREA_HXX_
 
-#include "../engine/basics/point.hxx"
+#include "../engine/basics/Point.hxx"
 #include "../engine/basics/tileData.hxx"
 #include "../engine/GameObjects/MapGrid.hxx"
 

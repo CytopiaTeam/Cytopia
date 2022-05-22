@@ -1,7 +1,7 @@
 #ifndef CAMERA_HXX_
 #define CAMERA_HXX_
 
-#include "point.hxx"
+#include "Point.hxx"
 #include "../../util/Singleton.hxx"
 
 #include <SDL.h>

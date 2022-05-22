@@ -94,8 +94,6 @@ bool Game::initialize(const char *videoDriver)
 #endif
 
   // Register Callbacks
-
-  // Register Callbacks
   SignalMediator::instance().registerCbQuitGame([this]() { m_shutDown = true; });
 
   LOG(LOG_DEBUG) << "Initialized Game Object";
@@ -352,8 +350,6 @@ void Game::run(bool SkipMenu)
 
     evManager.checkEvents(event);
     gameClock.tick();
-
-    m_GamePlay.update();
 
     // render the tileMap
     if (MapFunctions::instance().getMap())

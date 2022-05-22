@@ -10,7 +10,7 @@
 
 #include "../Sprite.hxx"
 #include "../common/enums.hxx"
-#include "../basics/point.hxx"
+#include "../basics/Point.hxx"
 
 #include "../TileManager.hxx"
 

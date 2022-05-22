@@ -2,7 +2,7 @@
 #define MAPFUNCTIONS_HXX_
 
 // #include "WindowManager.hxx"
-// #include "basics/point.hxx"
+// #include "basics/Point.hxx"
 #include "../Map.hxx"
 // #include "../../util/Singleton.hxx"
 #include <Singleton.hxx>

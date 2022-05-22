@@ -1,5 +1,5 @@
 #include <catch.hpp>
-#include "../../../src/engine/basics/point.hxx"
+#include "../../../src/engine/basics/Point.hxx"
 
 
 TEST_CASE("I can construct points", "[point]")

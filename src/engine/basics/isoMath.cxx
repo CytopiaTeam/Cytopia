@@ -2,7 +2,7 @@
 
 #include "Camera.hxx"
 #include "Settings.hxx"
-#include "point.hxx"
+#include "Point.hxx"
 #include "LOG.hxx"
 #include <MapFunctions.hxx>
 
