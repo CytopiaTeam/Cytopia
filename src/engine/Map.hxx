@@ -31,12 +31,16 @@ public:
   Map(Map &&fp) = delete;
   Map const &operator=(Map &&fp) = delete;
 
+  // MapFunction needs to access private functions
+  friend class MapFunctions;
+
   /** \brief Render the elements contained in the Map
     * @details call the render() function of the sprite in the all contained MapNode elements
     * @see Sprite#render
     */
   void renderMap() const;
 
+private:
   /**
    * @brief Refresh all the map tile textures
    *

@@ -356,12 +356,10 @@ void Game::run(bool SkipMenu)
     m_GamePlay.update();
 
     // render the tileMap
-    // if (engine.map != nullptr)
-    // {
-
-    //   engine.map->renderMap();
-    // }
-    MapFunctions::instance().getMap()->renderMap();
+    if (MapFunctions::instance().getMap())
+    {
+      MapFunctions::instance().getMap()->renderMap();
+    }
 
     // render the ui
     // TODO: This is only temporary until the new UI is ready. Remove this afterwards
