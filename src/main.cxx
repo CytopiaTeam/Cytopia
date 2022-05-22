@@ -4,28 +4,28 @@
 #include "Exception.hxx"
 #include "LOG.hxx"
 
-#include <csignal>
-#ifndef __ANDROID__
-void SIG_handler(int signal);
-#endif
-
-SDL_AssertState AssertionHandler(const SDL_AssertData *, void *);
-
 int protected_main(int argc, char **argv)
 {
   (void)argc;
   (void)argv;
 
-  bool skipMenu = false;
   bool quitGame = false;
 
   // add commandline parameter to skipMenu
-  for (int i = 1; i < argc; ++i)
-  {
-    if (std::string(argv[i]) == "--skipMenu")
-    {
-      skipMenu = true;
-    }
+  auto has_args = [argv, argc] (const std::string &param) {
+    for (int i = 1; i < argc; ++i)
+      if (param == argv[i])
+        return i;
+
+    LOG(LOG_DEBUG) << "Unknown game option " << param;
+    return 0;
+  };
+
+  bool skipMenu = has_args("--skipMenu");
+  uint32_t videoOpt = has_args("--video");
+  const char *videoDriver = nullptr;
+  if (videoOpt) {
+    videoDriver = argv[videoOpt + 1];
   }
 
   LOG(LOG_DEBUG) << "Launching Cytopia";
@@ -34,7 +34,7 @@ int protected_main(int argc, char **argv)
 
   LOG(LOG_DEBUG) << "Initializing Cytopia";
 
-  if (!game.initialize())
+  if (!game.initialize(videoDriver))
     return EXIT_FAILURE;
 
   if (!skipMenu)
@@ -56,15 +56,7 @@ int protected_main(int argc, char **argv)
 
 int main(int argc, char **argv)
 {
-#ifndef __ANDROID__
-  /* Register handler for Segmentation Fault, Interrupt, Terminate */
-  signal(SIGSEGV, SIG_handler);
-  signal(SIGINT, SIG_handler);
-  signal(SIGTERM, SIG_handler);
-  /* All SDL2 Assertion failures must be handled
-   * by our handler */
-  SDL_SetAssertionHandler(AssertionHandler, 0);
-#endif
+  systemSetupCrashHandler();
 
   try
   {

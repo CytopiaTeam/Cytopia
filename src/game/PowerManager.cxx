@@ -78,12 +78,12 @@ void PowerManager::addPowerNodeToGrid(PowerNode &powerNode, std::vector<PowerGri
   }
   else if (gridNeighbour.size() == 1)
   { // add to this grid
-    powerGrids[gridNeighbour[0]].addPowerNode(powerNode);
+    powerGrids[gridNeighbour[0]].addNode(powerNode);
   }
   else
   { // merge zone areas
     PowerGrid &mergedGrid = powerGrids[gridNeighbour[0]];
-    mergedGrid.addPowerNode(powerNode);
+    mergedGrid.addNode(powerNode);
 
     for (int idx = 1; idx < gridNeighbour.size(); ++idx)
     {
@@ -103,7 +103,7 @@ void PowerManager::removePowerNode(Point coordinate)
   {
     if (gridIt->isMemberOf(coordinate))
     {
-      gridIt->removePowerNode(coordinate);
+      gridIt->removeNode(coordinate);
 
       if (gridIt->size() == 0)
       {
