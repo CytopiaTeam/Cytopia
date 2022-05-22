@@ -17,13 +17,6 @@ public:
   MapFunctions();
   Map *getMap() { return m_map; };
 
-  //TODO: maybe we don't need this unittests
-  void registerMap(Map *map)
-  {
-    m_map = map;
-    updateAllNodes();
-  };
-
   /** \brief Change map node height.
   * @param isoCoordinates the Point on the map node to change height.
   * @param elevate if set to true make node higher, otherwise lower.
@@ -154,8 +147,9 @@ private:
 
   /**
    * @brief Creates a new map object with terrain gen
+   * @param generateTerrain flat map or procedural
    */
-  void newMap();
+  void newMap(bool generateTerrain = true);
 
   /** \brief Update the nodes and all affected node with the change.
   * @param nodes vector of coordinates to be updated.

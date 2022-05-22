@@ -282,7 +282,7 @@ void Game::run(bool SkipMenu)
 
   // we need to instantiate the MapFunctions object
   MapFunctions &mapFunctions = MapFunctions::instance();
-  SignalMediator::instance().signalNewGame.emit();
+  SignalMediator::instance().signalNewGame.emit(true);
 
   Camera::instance().centerScreenOnMapCenter();
 

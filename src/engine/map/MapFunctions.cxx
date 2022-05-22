@@ -605,10 +605,10 @@ bool MapFunctions::isClickWithinTile(const SDL_Point &screenCoordinates, Point i
   // Nothing found
   return false;
 }
-void MapFunctions::newMap()
+void MapFunctions::newMap(bool generateTerrain)
 {
   const int mapSize = Settings::instance().mapSize;
-  Map *newMap = new Map(mapSize, mapSize, true);
+  Map *newMap = new Map(mapSize, mapSize, generateTerrain);
 
   if (newMap)
   {

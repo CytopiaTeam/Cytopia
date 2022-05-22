@@ -17,7 +17,7 @@ public:
   ~SignalMediator(){};
 
   // GameSignals
-  Signal::Signal<void()> signalNewGame;
+  Signal::Signal<void(bool)> signalNewGame;
   Signal::Signal<void()> signalQuitGame;
   Signal::Signal<void(const std::string &)> signalLoadGame;
   Signal::Signal<void(const std::string &)> signalSaveGame;
@@ -30,7 +30,7 @@ public:
   Signal::Signal<void(const std::vector<PowerGrid> &)> signalUpdatePower;
 
   // Callback functions Game
-  void registerCbNewGame(std::function<void()> const &cb) { signalNewGame.connect(cb); }
+  void registerCbNewGame(std::function<void(bool)> const &cb) { signalNewGame.connect(cb); }
   void registerCbQuitGame(std::function<void()> const &cb) { signalQuitGame.connect(cb); }
   void registerCbLoadGame(std::function<void(const std::string &)> const &cb) { signalLoadGame.connect(cb); }
   void registerCbSaveGame(std::function<void(const std::string &)> const &cb) { signalSaveGame.connect(cb); }
