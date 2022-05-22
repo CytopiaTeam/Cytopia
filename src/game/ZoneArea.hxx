@@ -3,6 +3,7 @@
 
 #include "../engine/basics/point.hxx"
 #include "../engine/basics/tileData.hxx"
+#include "../engine/GameObjects/MapGrid.hxx"
 
 struct ZoneNode
 {
@@ -15,19 +16,17 @@ struct ZoneNode
 class ZoneArea;
 void mergeZoneAreas(ZoneArea &mainZone, ZoneArea &toBeMerged);
 
-class ZoneArea
+class ZoneArea: public MapGrid<ZoneNode>
 {
 public:
   ZoneArea(ZoneNode zoneNode);
-
-  size_t size() { return m_zoneNodes.size(); };
 
   /**
    * @brief Add a zoneNode to this zoneArea
    * 
    * @param zoneNode ZoneNode to add
    */
-  void addZoneNode(ZoneNode zoneNode);
+  void addNode(ZoneNode zoneNode) override;
 
   /**
    * @brief Remove a zoneNode on a given coordinate from this zoneArea
@@ -79,22 +78,6 @@ public:
   ZoneDensity getZoneDensity() { return m_zoneDensity; };
 
   /**
-   * @brief If this coordinate is a neighbor of one of the tiles in this zone area.
-   * 
-   * @param coordinate The point to check
-   * @return neighbor of this zoneArea
-   */
-  bool isNeighborOfZone(Point coordinate) const;
-
-  /**
-   * @brief If this coordinate part of this zone area.
-   * 
-   * @param coordinate The point to check
-   * @return neighbor of this zoneArea
-   */
-  bool isWithinZone(Point coordinate) const;
-
-  /**
    * @brief If this area has unoccupied nodes left
    * 
    * @return if this zoneArea is vacant or not
@@ -125,13 +108,9 @@ public:
    */
   void setVacancy(Point coordinate, bool vacancy);
 
-  auto begin() { return m_zoneNodes.begin(); }
-  auto end() { return m_zoneNodes.end(); }
-
 private:
   ZoneType m_zoneType;
   ZoneDensity m_zoneDensity;
-  std::vector<ZoneNode> m_zoneNodes;
 
   bool m_hasPower = false;
   bool m_hasWater = false;
