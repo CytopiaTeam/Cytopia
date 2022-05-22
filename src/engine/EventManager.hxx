@@ -4,7 +4,6 @@
 #include <SDL.h>
 #include <set>
 
-#include "Engine.hxx"
 #include "UIManager.hxx"
 #include "../util/Singleton.hxx"
 
@@ -14,7 +13,7 @@ public:
   EventManager() = default;
   ~EventManager() = default;
 
-  void checkEvents(SDL_Event &event, Engine &engine);
+  void checkEvents(SDL_Event &event);
   /**
  * @brief Unhighlight highlighted Nodes.
  * @details This sets a node to be unhighlighted.

@@ -1,6 +1,5 @@
 #include "isoMath.hxx"
 
-#include "../Engine.hxx"
 #include "Camera.hxx"
 #include "Settings.hxx"
 #include "point.hxx"

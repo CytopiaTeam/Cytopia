@@ -50,7 +50,7 @@ void EventManager::pickTileUnderCursor(Point mouseIsoCoords)
   highlightSelection = true;
 }
 
-void EventManager::checkEvents(SDL_Event &event, Engine &engine)
+void EventManager::checkEvents(SDL_Event &event)
 {
 #ifdef MICROPROFILE_ENABLED
   MICROPROFILE_SCOPEI("EventManager", "checkEvents", MP_BEIGE);

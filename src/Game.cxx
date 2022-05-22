@@ -1,5 +1,4 @@
 #include "Game.hxx"
-#include "engine/Engine.hxx"
 #include "engine/EventManager.hxx"
 #include "engine/UIManager.hxx"
 #include "engine/WindowManager.hxx"
@@ -281,8 +280,6 @@ void Game::run(bool SkipMenu)
 {
   LOG(LOG_INFO) << VERSION;
 
-  Engine &engine = Engine::instance();
-
   // we need to instantiate the MapFunctions object
   MapFunctions &mapFunctions = MapFunctions::instance();
   SignalMediator::instance().signalNewGame.emit();
@@ -354,7 +351,7 @@ void Game::run(bool SkipMenu)
     SDL_RenderClear(WindowManager::instance().getRenderer());
 
     // TODO: Remove engine completly
-    evManager.checkEvents(event, engine);
+    evManager.checkEvents(event);
     gameClock.tick();
 
     m_GamePlay.update();

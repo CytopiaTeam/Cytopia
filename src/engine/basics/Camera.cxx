@@ -1,7 +1,6 @@
 #include "Camera.hxx"
 #include "isoMath.hxx"
 #include "Settings.hxx"
-// #include "../Engine.hxx"
 #include <MapFunctions.hxx>
 
 void Camera::increaseZoomLevel()

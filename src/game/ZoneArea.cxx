@@ -3,8 +3,6 @@
 #include "../services/Randomizer.hxx"
 #include "../engine/TileManager.hxx"
 #include <MapFunctions.hxx>
-// TODO: Remove
-#include "../engine/Engine.hxx"
 
 void mergeZoneAreas(ZoneArea &mainZone, ZoneArea &toBeMerged)
 {

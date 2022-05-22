@@ -2,7 +2,6 @@
 
 #include "Constants.hxx"
 #include "ResourcesManager.hxx"
-// #include "Engine.hxx"
 #include <MapFunctions.hxx>
 #include "Map.hxx"
 #include "basics/mapEdit.hxx"

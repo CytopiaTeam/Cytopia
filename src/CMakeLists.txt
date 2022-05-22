@@ -49,7 +49,6 @@ set(SOURCE_FILES
         engine/ui/widgets/Text.{hxx,cxx}
         engine/ui/widgets/Tooltip.{hxx,cxx}
         engine/ui/menuGroups/IMenuGroup.hxx
-        engine/Engine.{hxx,cxx}
         engine/EventManager.{hxx,cxx}
         engine/Map.{hxx,cxx}
         engine/Sprite.{hxx,cxx}
