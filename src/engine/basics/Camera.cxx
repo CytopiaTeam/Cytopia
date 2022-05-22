@@ -72,22 +72,15 @@ void Camera::centerScreenOnMapCenter()
   centerScreenOnPoint(m_CenterIsoCoordinates);
   MapFunctions::instance().refreshVisibleMap();
 }
-void Camera::setCenterIsoCoordinates(Point &&p)
-{
-  std::swap(m_CenterIsoCoordinates, p);
-  MapFunctions::instance().refreshVisibleMap();
-}
 
-void Camera::moveCameraY(float yOffset)
-{
-  m_CameraOffset.y -= yOffset;
-  MapFunctions::instance().refreshVisibleMap();
-}
-
-void Camera::moveCameraX(float xOffset)
+void Camera::moveCamera(float xOffset, float yOffset)
 {
   m_CameraOffset.x -= xOffset;
+  m_CameraOffset.y -= yOffset;
   MapFunctions::instance().refreshVisibleMap();
+  // update center coordinates
+  m_CenterIsoCoordinates =
+      convertScreenToIsoCoordinates({Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2});
 }
 
 const SDL_Point &Camera::cameraOffset() const noexcept { return m_CameraOffset; }

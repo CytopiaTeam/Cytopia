@@ -45,19 +45,9 @@ public:
   void setWindow(class Window *);
 
   /**
-   * @brief Sets the center ISO coordinates of the Camera
+   * @brief Move the camera in the given direction
    */
-  void setCenterIsoCoordinates(Point &&);
-
-  /**
-   * @brief Move the camera in the Y direction
-   */
-  void moveCameraY(float yOffset);
-
-  /**
-   * @brief Move the camera in the X direction
-   */
-  void moveCameraX(float xOffset);
+  void moveCamera(float xOffset, float yOffset);
 
   const SDL_Point &cameraOffset() const noexcept;
   const double &zoomLevel() const noexcept;

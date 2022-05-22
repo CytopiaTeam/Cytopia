@@ -134,10 +134,7 @@ void EventManager::checkEvents(SDL_Event &event)
           // check if map exists to see, if we're ingame already.
           if (MapFunctions::instance().getMap())
           {
-            Camera::instance().moveCameraY(Settings::instance().screenHeight / 16);
-            // set the center coordinates for scrolling
-            Camera::instance().setCenterIsoCoordinates(
-                convertScreenToIsoCoordinates({Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2}));
+            Camera::instance().moveCamera(0, Settings::instance().screenHeight / 16);
           }
         }
         break;
@@ -148,10 +145,7 @@ void EventManager::checkEvents(SDL_Event &event)
           // check if map exists to see, if we're ingame already.
           if (MapFunctions::instance().getMap())
           {
-            Camera::instance().moveCameraX(Settings::instance().screenWidth / 16);
-            // set the center coordinates for scrolling
-            Camera::instance().setCenterIsoCoordinates(
-                convertScreenToIsoCoordinates({Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2}));
+            Camera::instance().moveCamera(Settings::instance().screenWidth / 16, 0);
           }
         }
         break;
@@ -162,10 +156,7 @@ void EventManager::checkEvents(SDL_Event &event)
           // check if map exists to see, if we're ingame already.
           if (MapFunctions::instance().getMap())
           {
-            Camera::instance().moveCameraY(-Settings::instance().screenHeight / 16);
-            // set the center coordinates for scrolling
-            Camera::instance().setCenterIsoCoordinates(
-                convertScreenToIsoCoordinates({Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2}));
+            Camera::instance().moveCamera(0, -Settings::instance().screenHeight / 16);
           }
         }
         break;
@@ -176,10 +167,7 @@ void EventManager::checkEvents(SDL_Event &event)
           // check if map exists to see, if we're ingame already.
           if (MapFunctions::instance().getMap())
           {
-            Camera::instance().moveCameraX(-Settings::instance().screenWidth / 16);
-            // set the center coordinates for scrolling
-            Camera::instance().setCenterIsoCoordinates(
-                convertScreenToIsoCoordinates({Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2}));
+            Camera::instance().moveCamera(-Settings::instance().screenWidth / 16, 0);
           }
         }
         break;
@@ -227,10 +215,8 @@ void EventManager::checkEvents(SDL_Event &event)
 
         if (m_panning)
         {
-          Camera::instance().moveCameraX(static_cast<int>(Settings::instance().screenWidth * event.tfinger.dx));
-          Camera::instance().moveCameraY(static_cast<int>(Settings::instance().screenHeight * event.tfinger.dy));
-          Camera::instance().setCenterIsoCoordinates(
-              convertScreenToIsoCoordinates({Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2}));
+          Camera::instance().moveCamera(static_cast<int>(Settings::instance().screenWidth * event.tfinger.dx),
+                                        static_cast<int>(Settings::instance().screenHeight * event.tfinger.dy));
           m_skipLeftClick = true;
           break;
         }
@@ -299,8 +285,7 @@ void EventManager::checkEvents(SDL_Event &event)
           {
             return;
           }
-          Camera::instance().moveCameraX(event.motion.xrel);
-          Camera::instance().moveCameraY(event.motion.yrel);
+          Camera::instance().moveCamera(event.motion.xrel, event.motion.yrel);
         }
         // check if we should highlight tiles and if we're in placement mode
         if (highlightSelection)
@@ -509,8 +494,6 @@ void EventManager::checkEvents(SDL_Event &event)
       }
       if (m_panning)
       {
-        Camera::instance().setCenterIsoCoordinates(
-            convertScreenToIsoCoordinates({Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2}));
         m_panning = false;
       }
 
