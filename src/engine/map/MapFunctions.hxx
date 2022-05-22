@@ -16,6 +16,8 @@ class MapFunctions : public Singleton<MapFunctions>
 public:
   MapFunctions();
   Map *getMap() { return m_map; };
+
+  //TODO: maybe we don't need this unittests
   void registerMap(Map *map)
   {
     m_map = map;

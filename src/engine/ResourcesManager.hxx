@@ -34,6 +34,15 @@ public:
   SDL_Surface *getTileSurface(const std::string &id);
 
   void loadTexture(const std::string &id, const std::string &fileName);
+  /**
+   * @brief Get the Color Of Pixel In Surface object at a given coordinate
+   * 
+   * @param surface 
+   * @param x 
+   * @param y 
+   * @return SDL_Color 
+   */
+  SDL_Color getColorOfPixelInSurface(const std::string &tileID, int x, int y);
 
 private:
   ResourcesManager();

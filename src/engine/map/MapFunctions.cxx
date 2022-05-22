@@ -595,8 +595,7 @@ bool MapFunctions::isClickWithinTile(const SDL_Point &screenCoordinates, Point i
       }
 
       // Check if the clicked Sprite is not transparent (we hit a point within the pixel)
-      if (m_map->getColorOfPixelInSurface(ResourcesManager::instance().getTileSurface(tileID), pixelX, pixelY).a !=
-          SDL_ALPHA_TRANSPARENT)
+      if (ResourcesManager::instance().getColorOfPixelInSurface(tileID, pixelX, pixelY).a != SDL_ALPHA_TRANSPARENT)
       {
         return true;
       }

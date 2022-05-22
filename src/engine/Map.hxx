@@ -55,8 +55,6 @@ public:
 
   // private:
 
-  SDL_Color getColorOfPixelInSurface(SDL_Surface *surface, int x, int y) const;
-
   /** \brief Filter out tiles which should not be set over existing one.
   * @param layer Layer in which tileId should be set.
   * @param pMapNode pointer to the MapNode which ID should be set.

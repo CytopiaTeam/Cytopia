@@ -6,7 +6,6 @@
 #include "basics/Settings.hxx"
 #include "LOG.hxx"
 #include "common/Constants.hxx"
-#include "ResourcesManager.hxx"
 #include "map/MapLayers.hxx"
 #include "common/JsonSerialization.hxx"
 #include "common/Constants.hxx"
@@ -124,23 +123,6 @@ void Map::refresh()
   {
     pMapNodesVisible[i]->refresh();
   }
-}
-
-//TODO: move it out from the map
-SDL_Color Map::getColorOfPixelInSurface(SDL_Surface *surface, int x, int y) const
-{
-  SDL_Color Color{0, 0, 0, SDL_ALPHA_TRANSPARENT};
-
-  if (surface)
-  {
-    const int bpp = surface->format->BytesPerPixel;
-    Uint8 *p = &static_cast<Uint8 *>(surface->pixels)[y * surface->pitch + x * bpp];
-    const Uint32 pixel = *reinterpret_cast<Uint32 *>(p);
-
-    SDL_GetRGBA(pixel, surface->format, &Color.r, &Color.g, &Color.b, &Color.a);
-  }
-
-  return Color;
 }
 
 bool Map::isAllowSetTileId(const Layer layer, const MapNode *const pMapNode)
