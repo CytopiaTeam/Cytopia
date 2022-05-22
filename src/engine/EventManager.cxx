@@ -138,7 +138,6 @@ void EventManager::checkEvents(SDL_Event &event)
             // set the center coordinates for scrolling
             Camera::instance().setCenterIsoCoordinates(
                 convertScreenToIsoCoordinates({Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2}));
-            MapFunctions::instance().getMap()->refresh();
           }
         }
         break;
@@ -149,12 +148,10 @@ void EventManager::checkEvents(SDL_Event &event)
           // check if map exists to see, if we're ingame already.
           if (MapFunctions::instance().getMap())
           {
-            //  TODO: Refresh should happen in camera
             Camera::instance().moveCameraX(Settings::instance().screenWidth / 16);
             // set the center coordinates for scrolling
             Camera::instance().setCenterIsoCoordinates(
                 convertScreenToIsoCoordinates({Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2}));
-            MapFunctions::instance().getMap()->refresh();
           }
         }
         break;
@@ -169,7 +166,6 @@ void EventManager::checkEvents(SDL_Event &event)
             // set the center coordinates for scrolling
             Camera::instance().setCenterIsoCoordinates(
                 convertScreenToIsoCoordinates({Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2}));
-            MapFunctions::instance().getMap()->refresh();
           }
         }
         break;
@@ -184,7 +180,6 @@ void EventManager::checkEvents(SDL_Event &event)
             // set the center coordinates for scrolling
             Camera::instance().setCenterIsoCoordinates(
                 convertScreenToIsoCoordinates({Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2}));
-            MapFunctions::instance().getMap()->refresh();
           }
         }
         break;
@@ -236,7 +231,6 @@ void EventManager::checkEvents(SDL_Event &event)
           Camera::instance().moveCameraY(static_cast<int>(Settings::instance().screenHeight * event.tfinger.dy));
           Camera::instance().setCenterIsoCoordinates(
               convertScreenToIsoCoordinates({Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2}));
-          MapFunctions::instance().getMap()->refresh();
           m_skipLeftClick = true;
           break;
         }
@@ -307,8 +301,6 @@ void EventManager::checkEvents(SDL_Event &event)
           }
           Camera::instance().moveCameraX(event.motion.xrel);
           Camera::instance().moveCameraY(event.motion.yrel);
-
-          MapFunctions::instance().getMap()->refresh();
         }
         // check if we should highlight tiles and if we're in placement mode
         if (highlightSelection)

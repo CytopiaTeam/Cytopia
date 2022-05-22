@@ -1079,12 +1079,7 @@ void UIManager::changeResolution(UIElement *sender)
   WindowManager::instance().setScreenResolution(combobox->getActiveID());
   Layout::arrangeElements();
 
-  MapFunctions::instance().getMap()->refresh();
-
-  // if (Engine::instance().map != nullptr)
-  // {
-  //   Engine::instance().map->refresh();
-  // }
+  MapFunctions::instance().refreshVisibleMap();
 }
 
 void UIManager::changeFullScreenMode(UIElement *sender)
@@ -1094,9 +1089,5 @@ void UIManager::changeFullScreenMode(UIElement *sender)
   // WindowManager::instance().setLastScreenResolution();
   Layout::arrangeElements();
 
-  MapFunctions::instance().getMap()->refresh();
-  // if (Engine::instance().map != nullptr)
-  // {
-  //   Engine::instance().map->refresh();
-  // }
+  MapFunctions::instance().refreshVisibleMap();
 }

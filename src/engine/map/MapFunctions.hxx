@@ -171,7 +171,7 @@ public:
  */
   Point findNodeInMap(const SDL_Point &screenCoordinates, const Layer &layer = Layer::NONE);
 
-  /** \brief get Tile ID of specific layer of specific iso coordinates
+  /** @brief get Tile ID of specific layer of specific iso coordinates
   * @param isoCoordinates Tile to inspect
   * @param layer layer to check.
   */
@@ -179,6 +179,12 @@ public:
 
   /// Creates a new game
   void newMap();
+
+  /** @brief Refresh the visible part of the map
+   *
+   * @see Sprite#refresh
+   */
+  void refreshVisibleMap();
 
 private:
   Map *m_map;

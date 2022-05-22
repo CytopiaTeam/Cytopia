@@ -9,10 +9,7 @@ void Camera::increaseZoomLevel()
   {
     m_ZoomLevel += 0.5;
     centerScreenOnPoint(m_CenterIsoCoordinates);
-    MapFunctions::instance().getMap()->refresh();
-    // if (Engine::instance().map != nullptr) {
-    //   Engine::instance().map->refresh();
-    // }
+    MapFunctions::instance().refreshVisibleMap();
   }
 }
 
@@ -22,10 +19,7 @@ void Camera::decreaseZoomLevel()
   {
     m_ZoomLevel -= 0.5;
     centerScreenOnPoint(m_CenterIsoCoordinates);
-    MapFunctions::instance().getMap()->refresh();
-    // if (Engine::instance().map != nullptr) {
-    //   Engine::instance().map->refresh();
-    // }
+    MapFunctions::instance().refreshVisibleMap();
   }
 }
 
@@ -68,10 +62,7 @@ void Camera::centerScreenOnPoint(const Point &isoCoordinates)
     y -= static_cast<int>(m_TileSize.y * m_ZoomLevel);
 
     m_CameraOffset = {x, y};
-    MapFunctions::instance().getMap()->refresh();
-    // if (Engine::instance().map != nullptr) {
-    //   Engine::instance().map->refresh();
-    // }
+    MapFunctions::instance().refreshVisibleMap();
   }
 }
 
@@ -79,12 +70,25 @@ void Camera::centerScreenOnMapCenter()
 {
   m_CenterIsoCoordinates = {Settings::instance().mapSize / 2, Settings::instance().mapSize / 2, 0, 0};
   centerScreenOnPoint(m_CenterIsoCoordinates);
+  MapFunctions::instance().refreshVisibleMap();
 }
-void Camera::setCenterIsoCoordinates(Point &&p) { std::swap(m_CenterIsoCoordinates, p); }
+void Camera::setCenterIsoCoordinates(Point &&p)
+{
+  std::swap(m_CenterIsoCoordinates, p);
+  MapFunctions::instance().refreshVisibleMap();
+}
 
-void Camera::moveCameraY(float yOffset) { m_CameraOffset.y -= yOffset; }
+void Camera::moveCameraY(float yOffset)
+{
+  m_CameraOffset.y -= yOffset;
+  MapFunctions::instance().refreshVisibleMap();
+}
 
-void Camera::moveCameraX(float xOffset) { m_CameraOffset.x -= xOffset; }
+void Camera::moveCameraX(float xOffset)
+{
+  m_CameraOffset.x -= xOffset;
+  MapFunctions::instance().refreshVisibleMap();
+}
 
 const SDL_Point &Camera::cameraOffset() const noexcept { return m_CameraOffset; }
 

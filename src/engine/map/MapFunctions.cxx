@@ -187,6 +187,7 @@ void MapFunctions::updateAllNodes()
   std::transform(m_map->mapNodes.begin(), m_map->mapNodes.end(), allCoords.begin(),
                  [](MapNode &mn) { return mn.getCoordinates(); });
   updateNodeNeighbors(allCoords);
+  refreshVisibleMap();
 }
 
 std::vector<NeighborNode> MapFunctions::getNeighborNodes(const Point &isoCoordinates, const bool includeCentralNode)
@@ -618,7 +619,6 @@ void MapFunctions::newMap()
   {
     delete m_map;
     m_map = newMap;
-    m_map->refresh();
     updateAllNodes();
   }
 }
@@ -679,9 +679,7 @@ void MapFunctions::loadMapFromFile(const std::string &fileName)
   {
     delete m_map;
     m_map = map;
-    m_map->refresh();
   }
-  // TODO: do this after loading
   updateAllNodes();
 }
 
@@ -702,4 +700,12 @@ void MapFunctions::saveMapToFile(const std::string &fileName)
 #endif
   fs::writeStringToFileCompressed(CYTOPIA_SAVEGAME_DIR + fileName, j.dump());
   LOG(LOG_INFO) << "Saved succesfully: " << CYTOPIA_SAVEGAME_DIR + fileName;
+}
+
+void MapFunctions::refreshVisibleMap()
+{
+  if (m_map)
+  {
+    m_map->refresh();
+  }
 }
