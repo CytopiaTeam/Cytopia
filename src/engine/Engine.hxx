@@ -43,9 +43,9 @@ public:
   // void saveGame(const std::string &fileName) const;
 
   /// Creates a new game
-  void newGame();
+  // void newGame();
 
-  Map *map;
+  // Map *map;
 
 private:
   Engine();

@@ -2,7 +2,8 @@
 
 #include "Constants.hxx"
 #include "ResourcesManager.hxx"
-#include "Engine.hxx"
+// #include "Engine.hxx"
+#include <MapFunctions.hxx>
 #include "Map.hxx"
 #include "basics/mapEdit.hxx"
 #include "basics/Settings.hxx"
@@ -392,7 +393,8 @@ void UIManager::setCallbackFunctions()
     }
     else if (uiElement->getUiElementData().actionID == "QuitGame")
     {
-      uiElement->registerCallbackFunction(Signal::slot(Engine::instance(), &Engine::quitGame));
+      // TODO: Quit game as signal
+      // uiElement->registerCallbackFunction(Signal::slot(Engine::instance(), &Engine::quitGame));
     }
     else if (uiElement->getUiElementData().actionID == "Demolish")
     {
@@ -524,7 +526,7 @@ void UIManager::setCallbackFunctions()
     }
     else if (uiElement->getUiElementData().actionID == "NewGame")
     {
-      uiElement->registerCallbackFunction([]() { Engine::instance().newGame(); });
+      uiElement->registerCallbackFunction([]() { MapFunctions::instance().newMap(); });
     }
     else if (uiElement->getUiElementData().actionID == "SaveGame")
     {
@@ -1078,10 +1080,12 @@ void UIManager::changeResolution(UIElement *sender)
   WindowManager::instance().setScreenResolution(combobox->getActiveID());
   Layout::arrangeElements();
 
-  if (Engine::instance().map != nullptr)
-  {
-    Engine::instance().map->refresh();
-  }
+    MapFunctions::instance().getMap()->refresh();
+
+  // if (Engine::instance().map != nullptr)
+  // {
+  //   Engine::instance().map->refresh();
+  // }
 }
 
 void UIManager::changeFullScreenMode(UIElement *sender)
@@ -1091,8 +1095,9 @@ void UIManager::changeFullScreenMode(UIElement *sender)
   // WindowManager::instance().setLastScreenResolution();
   Layout::arrangeElements();
 
-  if (Engine::instance().map != nullptr)
-  {
-    Engine::instance().map->refresh();
-  }
+MapFunctions::instance().getMap()->refresh();
+  // if (Engine::instance().map != nullptr)
+  // {
+  //   Engine::instance().map->refresh();
+  // }
 }

@@ -1,7 +1,8 @@
 #include "Camera.hxx"
 #include "isoMath.hxx"
 #include "Settings.hxx"
-#include "../Engine.hxx"
+// #include "../Engine.hxx"
+#include <MapFunctions.hxx>
 
 void Camera::increaseZoomLevel()
 {
@@ -9,9 +10,10 @@ void Camera::increaseZoomLevel()
   {
     m_ZoomLevel += 0.5;
     centerScreenOnPoint(m_CenterIsoCoordinates);
-    if (Engine::instance().map != nullptr) {
-      Engine::instance().map->refresh();
-    }
+    MapFunctions::instance().getMap()->refresh();
+    // if (Engine::instance().map != nullptr) {
+    //   Engine::instance().map->refresh();
+    // }
   }
 }
 
@@ -21,9 +23,10 @@ void Camera::decreaseZoomLevel()
   {
     m_ZoomLevel -= 0.5;
     centerScreenOnPoint(m_CenterIsoCoordinates);
-    if (Engine::instance().map != nullptr) {
-      Engine::instance().map->refresh();
-    }
+    MapFunctions::instance().getMap()->refresh();
+    // if (Engine::instance().map != nullptr) {
+    //   Engine::instance().map->refresh();
+    // }
   }
 }
 
@@ -65,9 +68,10 @@ void Camera::centerScreenOnPoint(const Point &isoCoordinates)
     y -= static_cast<int>(m_TileSize.y * m_ZoomLevel);
 
     m_CameraOffset = {x, y};
-    if (Engine::instance().map != nullptr) {
-      Engine::instance().map->refresh();
-    }
+    MapFunctions::instance().getMap()->refresh();
+    // if (Engine::instance().map != nullptr) {
+    //   Engine::instance().map->refresh();
+    // }
   }
 }
 

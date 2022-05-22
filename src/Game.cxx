@@ -60,12 +60,13 @@ bool Game::initialize(const char *videoDriver)
   if (SDL_VideoInit(videoDriver) != 0)
   {
     LOG(LOG_ERROR) << "Unknown video driver " << videoDriver;
-    int nbDriver=SDL_GetNumRenderDrivers();
-    for(int i = 0; i < nbDriver; i++)
+    int nbDriver = SDL_GetNumRenderDrivers();
+    for (int i = 0; i < nbDriver; i++)
     {
-        SDL_RendererInfo info;
-        SDL_GetRenderDriverInfo(i, &info);
-        LOG(LOG_ERROR) << "Found driver " << i << ": " << (info.name ? info.name : "Invalid driver") << " with flags=" << info.flags;
+      SDL_RendererInfo info;
+      SDL_GetRenderDriverInfo(i, &info);
+      LOG(LOG_ERROR) << "Found driver " << i << ": " << (info.name ? info.name : "Invalid driver")
+                     << " with flags=" << info.flags;
     }
     return false;
   }
@@ -149,7 +150,8 @@ bool Game::mainMenu()
         playAudioMajorSelection();
 #endif //  USE_AUDIO
 
-        Engine::instance().newGame();
+        // Engine::instance().newGame();
+        // TODO: Game.run??
       });
 
   Button loadGameButton({screenWidth / 2 - 100, screenHeight / 2 - 20 + newGameButton.getUiElementRect().h * 2, 200, 40});
@@ -159,8 +161,8 @@ bool Game::mainMenu()
       {
 #ifdef USE_AUDIO
         playAudioMajorSelection();
-#endif // USE_AUDIO
-        // Engine::instance().loadGame("save.cts");
+#endif // USE_AUDIO                                                                                                              \
+    // Engine::instance().loadGame("save.cts");
       });
 
   Button quitGameButton({screenWidth / 2 - 100, screenHeight / 2 - 20 + loadGameButton.getUiElementRect().h * 4, 200, 40});
@@ -273,14 +275,16 @@ void Game::run(bool SkipMenu)
 {
   LOG(LOG_INFO) << VERSION;
 
-  if (SkipMenu)
-  {
-    Engine::instance().newGame();
-  }
+  // if (SkipMenu)
+  // {
+  //   Engine::instance().newGame();
+  // }
 
   Engine &engine = Engine::instance();
   // we need to register the map at mapFunctions now
-  MapFunctions::instance().registerMap(engine.map);
+  // MapFunctions::instance().registerMap(engine.map);
+  MapFunctions::instance().newMap();
+  // MapFunctions::instance().updateAllNodes();
 
   Camera::instance().centerScreenOnMapCenter();
 
@@ -341,23 +345,26 @@ void Game::run(bool SkipMenu)
   Uint32 fpsFrames = 0;
 
   // GameLoop
-  while (engine.isGameRunning())
+  while (!m_shutDown)
   {
 #ifdef MICROPROFILE_ENABLED
     MICROPROFILE_SCOPEI("Map", "Gameloop", MP_GREEN);
 #endif
     SDL_RenderClear(WindowManager::instance().getRenderer());
 
+  // TODO: Remove engine completly
     evManager.checkEvents(event, engine);
     gameClock.tick();
 
     m_GamePlay.update();
 
     // render the tileMap
-    if (engine.map != nullptr)
-    {
-      engine.map->renderMap();
-    }
+    // if (engine.map != nullptr)
+    // {
+
+    //   engine.map->renderMap();
+    // }
+    MapFunctions::instance().getMap()->renderMap();
 
     // render the ui
     // TODO: This is only temporary until the new UI is ready. Remove this afterwards

@@ -8,6 +8,9 @@
 #include <Singleton.hxx>
 #include <Point.hxx>
 
+// TODO: Safety checks for refresh
+// Map reference instead of pointer?
+
 class MapFunctions : public Singleton<MapFunctions>
 {
 public:
@@ -175,6 +178,9 @@ public:
   * @param layer layer to check.
   */
   std::string getTileID(const Point &isoCoordinates, Layer layer);
+
+    /// Creates a new game
+  void newMap();
 private:
   Map *m_map;
 

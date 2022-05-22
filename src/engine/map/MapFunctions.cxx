@@ -678,3 +678,18 @@ bool MapFunctions::isClickWithinTile(const SDL_Point &screenCoordinates, Point i
   // Nothing found
   return false;
 }
+
+void MapFunctions::newMap()
+{
+  const int mapSize = Settings::instance().mapSize;
+  Map *newMap = new Map(mapSize, mapSize, true);
+
+  if (newMap)
+  {
+    delete m_map;
+    m_map = newMap;
+    m_map->refresh();
+    updateAllNodes();
+
+  }
+}

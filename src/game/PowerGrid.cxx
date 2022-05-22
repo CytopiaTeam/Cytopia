@@ -1,5 +1,5 @@
 #include "PowerGrid.hxx"
-#include "Engine.hxx"
+#include <MapFunctions.hxx>
 #include "LOG.hxx"
 
 PowerGrid::PowerGrid(PowerNode powerNode) : MapGrid(powerNode) {}
@@ -15,14 +15,14 @@ void PowerGrid::updatePowerLevel()
   m_powerLevel=0;
   for (const auto &node : m_gridNodes)
   {
-    if (Engine::instance().map->getMapNode(node.coordinate).getTileData(Layer::BUILDINGS) && node.powerProduction == 0)
+    if (MapFunctions::instance().getMapNode(node.coordinate).getTileData(Layer::BUILDINGS) && node.powerProduction == 0)
     { // each occupied node consumes one power unit
       m_powerLevel--;
     }
 
     // For multi-tile buildings, each tile has the same tiledata (including power level).
     // so make sure we only add it once (if it's the origin node)
-    if (Engine::instance().map->getMapNode(node.coordinate).isOriginNode())
+    if (MapFunctions::instance().getMapNode(node.coordinate).isOriginNode())
     {
       m_powerLevel += node.powerProduction;
     }

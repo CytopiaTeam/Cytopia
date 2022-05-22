@@ -1,6 +1,6 @@
 #include "PowerManager.hxx"
 #include "../services/GameClock.hxx"
-#include "../engine/Engine.hxx"
+#include <MapFunctions.hxx>
 #include "GameStates.hxx"
 #include <SignalMediator.hxx>
 
@@ -183,7 +183,7 @@ void PowerManager::updatePowerLevels()
 void PowerManager::parseNodes()
 {
   m_powerGrids.clear();
-  for (const auto &node: Engine::instance().map->getMapNodes())
+  for (const auto &node: MapFunctions::instance().getMapNodes())
   {
     if (node.isConductive())
     {
