@@ -41,15 +41,24 @@ public:
   */
   bool updateHeight(Point coordinate, const bool elevate);
 
+  /** \brief Get pointer to a single mapNode at specific iso coordinates.
+  * @param isoCoords The node to retrieve.
+  */
+  MapNode &getMapNode(Point isoCoords) { return m_map->mapNodes[isoCoords.toIndex()]; };
+
+  /** \brief Get all mapnodes as a vector
+   */
+  const std::vector<MapNode> &getMapNodes() { return m_map->mapNodes; };
+
 private:
   Map *m_map;
 
-    /** \brief Update the nodes and all affected node with the change.
+  /** \brief Update the nodes and all affected node with the change.
   * @param nodes vector of coordinates to be updated.
   */
   void updateNodeNeighbors(std::vector<Point> nodes);
 
-    /** \brief Update all mapNodes
+  /** \brief Update all mapNodes
   * @details Updates all mapNode and its adjacent tiles regarding height information, draws slopes for adjacent tiles and
   * sets tiling for mapNode sprite if applicable
   */

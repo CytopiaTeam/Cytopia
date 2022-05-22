@@ -8,17 +8,15 @@ void MapFunctions::increaseHeight(const Point &isoCoordinates) { changeHeight(is
 
 void MapFunctions::decreaseHeight(const Point &isoCoordinates) { changeHeight(isoCoordinates, false); }
 
-
-
 bool MapFunctions::updateHeight(Point coordinate, const bool elevate)
 {
-  if (m_map->getMapNode(coordinate).changeHeight(elevate))
+  if (getMapNode(coordinate).changeHeight(elevate))
   {
     for (const auto neighbor : PointFunctions::getNeighbors(coordinate, false))
     {
-      if (m_map->getMapNode(neighbor).isLayerOccupied(Layer::ZONE))
+      if (getMapNode(neighbor).isLayerOccupied(Layer::ZONE))
       {
-        m_map->getMapNode(neighbor).demolishLayer(Layer::ZONE);
+        getMapNode(neighbor).demolishLayer(Layer::ZONE);
       }
     }
 
@@ -38,11 +36,11 @@ void MapFunctions::changeHeight(const Point &isoCoordinates, const bool elevate)
     // If lowering node height, than all nodes around should be lowered to be on same height with the central one.
     if (!elevate)
     {
-      const int centerHeight = m_map->getMapNode(isoCoordinates).getCoordinates().height;
+      const int centerHeight = getMapNode(isoCoordinates).getCoordinates().height;
 
       for (Point &neighborCoord : neighorCoordinates)
       {
-        MapNode &neighborNode = m_map->getMapNode(neighborCoord);
+        MapNode &neighborNode = getMapNode(neighborCoord);
         if (centerHeight < neighborNode.getCoordinates().height)
         {
           neighborNode.changeHeight(false);
@@ -54,7 +52,6 @@ void MapFunctions::changeHeight(const Point &isoCoordinates, const bool elevate)
     m_map->updateNodeNeighbors(nodesToUpdate);
   }
 }
-
 
 void MapFunctions::updateNodeNeighbors(std::vector<Point> nodes)
 {
@@ -81,7 +78,7 @@ void MapFunctions::updateNodeNeighbors(std::vector<Point> nodes)
     {
       while (!updatedNodes.empty())
       {
-        const Point pHeighChangedNode = m_map->getMapNode(updatedNodes.front()).getCoordinates();
+        const Point pHeighChangedNode = getMapNode(updatedNodes.front()).getCoordinates();
         updatedNodes.pop();
         const int tileHeight = pHeighChangedNode.height;
 
@@ -98,7 +95,7 @@ void MapFunctions::updateNodeNeighbors(std::vector<Point> nodes)
         for (auto neighbor : nodeCache[pHeighChangedNode.toIndex()])
         {
           // get real coords that include height
-          const Point neighborCoords = m_map->getMapNode(neighbor).getCoordinates();
+          const Point neighborCoords = getMapNode(neighbor).getCoordinates();
           const int heightDiff = tileHeight - neighborCoords.height;
 
           if (nodeCache.count(neighborCoords.toIndex()) == 0)
@@ -113,7 +110,7 @@ void MapFunctions::updateNodeNeighbors(std::vector<Point> nodes)
 
           if (std::abs(heightDiff) > 1)
           {
-            updatedNodes.push(m_map->getMapNode(neighborCoords).getCoordinates());
+            updatedNodes.push(getMapNode(neighborCoords).getCoordinates());
             updateHeight(neighborCoords, (heightDiff > 1) ? true : false);
           }
         }
@@ -131,10 +128,10 @@ void MapFunctions::updateNodeNeighbors(std::vector<Point> nodes)
         }
         const unsigned char elevationBitmask = m_map->getElevatedNeighborBitmask(nodeToElevate);
 
-        if (elevationBitmask != m_map->getMapNode(nodeToElevate).getElevationBitmask())
+        if (elevationBitmask != getMapNode(nodeToElevate).getElevationBitmask())
         {
           nodesToDemolish.push_back(nodeToElevate);
-          m_map->getMapNode(nodeToElevate).setElevationBitMask(elevationBitmask);
+          getMapNode(nodeToElevate).setElevationBitMask(elevationBitmask);
         }
 
         for (const auto &elBitMask : elevateTileComb)
@@ -142,7 +139,7 @@ void MapFunctions::updateNodeNeighbors(std::vector<Point> nodes)
           if ((elevationBitmask & elBitMask) == elBitMask)
           {
             updateHeight(nodeToElevate, true);
-            updatedNodes.push(m_map->getMapNode(nodeToElevate).getCoordinates());
+            updatedNodes.push(getMapNode(nodeToElevate).getCoordinates());
             break;
           }
         }
@@ -157,18 +154,19 @@ void MapFunctions::updateNodeNeighbors(std::vector<Point> nodes)
 
   for (Point node : nodesToBeUpdated)
   {
-    m_map->getMapNode(node).setAutotileBitMask(m_map->calculateAutotileBitmask(node));
+    getMapNode(node).setAutotileBitMask(m_map->calculateAutotileBitmask(node));
   }
 
   for (Point node : nodesToBeUpdated)
   {
-    m_map->getMapNode(node).updateTexture();
+    getMapNode(node).updateTexture();
   }
 }
 
 void MapFunctions::updateAllNodes()
 {
   std::vector<Point> allCoords(m_map->mapNodes.size());
-  std::transform(m_map->mapNodes.begin(), m_map->mapNodes.end(), allCoords.begin(), [](MapNode &mn) { return mn.getCoordinates(); });
+  std::transform(m_map->mapNodes.begin(), m_map->mapNodes.end(), allCoords.begin(),
+                 [](MapNode &mn) { return mn.getCoordinates(); });
   updateNodeNeighbors(allCoords);
 }
