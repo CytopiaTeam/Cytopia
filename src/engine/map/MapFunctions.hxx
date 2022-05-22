@@ -14,6 +14,7 @@
 class MapFunctions : public Singleton<MapFunctions>
 {
 public:
+  MapFunctions();
   Map *getMap() { return m_map; };
   void registerMap(Map *map)
   {

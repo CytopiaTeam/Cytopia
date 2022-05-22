@@ -526,7 +526,7 @@ void UIManager::setCallbackFunctions()
     }
     else if (uiElement->getUiElementData().actionID == "NewGame")
     {
-      uiElement->registerCallbackFunction([]() { MapFunctions::instance().newMap(); });
+      uiElement->registerCallbackFunction([]() { SignalMediator::instance().signalNewGame.emit(); });
     }
     else if (uiElement->getUiElementData().actionID == "SaveGame")
     {

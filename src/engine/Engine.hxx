@@ -26,7 +26,6 @@ public:
     */
   bool isGameRunning() const { return m_running; };
 
-
   // /** @brief Loads a saved game
   //   * @param fileName FileName of the saved game
   //   * @see Map#loadMapFromFile

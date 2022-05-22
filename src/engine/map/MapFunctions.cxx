@@ -10,9 +10,12 @@
 #include <ResourcesManager.hxx>
 #include <MapLayers.hxx>
 #include <isoMath.hxx>
+#include <SignalMediator.hxx>
 
 #include <set>
 #include <queue>
+
+MapFunctions::MapFunctions() { SignalMediator::instance().registerCbNewGame(Signal::slot(this, &MapFunctions::newMap)); }
 
 void MapFunctions::increaseHeight(const Point &isoCoordinates) { changeHeight(isoCoordinates, true); }
 

@@ -95,13 +95,9 @@ bool Game::initialize(const char *videoDriver)
 #endif
 
   // Register Callbacks
-  
+
   // Register Callbacks
-   SignalMediator::instance().registerCbQuitGame(
-      [this]()
-      {
-        m_shutDown = true;
-      });
+  SignalMediator::instance().registerCbQuitGame([this]() { m_shutDown = true; });
 
   LOG(LOG_DEBUG) << "Initialized Game Object";
   return true;
@@ -158,7 +154,7 @@ bool Game::mainMenu()
         playAudioMajorSelection();
 #endif //  USE_AUDIO
 
-        // Engine::instance().newGame();
+        // Engine::instance().();
         // TODO: Game.run??
       });
 
@@ -291,7 +287,9 @@ void Game::run(bool SkipMenu)
   Engine &engine = Engine::instance();
   // we need to register the map at mapFunctions now
   // MapFunctions::instance().registerMap(engine.map);
-  MapFunctions::instance().newMap();
+  // we need to instantiate the MapFunctions object
+  MapFunctions &mapFunctions = MapFunctions::instance();
+  SignalMediator::instance().signalNewGame.emit();
   // MapFunctions::instance().updateAllNodes();
 
   Camera::instance().centerScreenOnMapCenter();
