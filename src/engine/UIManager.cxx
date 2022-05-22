@@ -530,11 +530,11 @@ void UIManager::setCallbackFunctions()
     }
     else if (uiElement->getUiElementData().actionID == "SaveGame")
     {
-      // uiElement->registerCallbackFunction([]() { Engine::instance().saveGame("save.cts"); });
+      uiElement->registerCallbackFunction([]() { SignalMediator::instance().signalSaveGame.emit("save.cts"); });
     }
     else if (uiElement->getUiElementData().actionID == "LoadGame")
     {
-      // uiElement->registerCallbackFunction([]() { Engine::instance().loadGame("save.cts"); });
+      uiElement->registerCallbackFunction([]() { SignalMediator::instance().signalLoadGame.emit("save.cts"); });
     }
     else if (uiElement->getUiElementData().actionID == "SaveSettings")
     {

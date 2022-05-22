@@ -122,7 +122,7 @@ public:
   * @param fileName The file the map should be written to
   * @returns Map* Pointer to the newly created Map.
   */
-  static Map *loadMapFromFile(const std::string &fileName);
+  void loadMapFromFile(const std::string &fileName);
 
   /**
    * @brief Get original corner point of given point within building borders.

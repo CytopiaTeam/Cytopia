@@ -15,7 +15,12 @@
 #include <set>
 #include <queue>
 
-MapFunctions::MapFunctions() { SignalMediator::instance().registerCbNewGame(Signal::slot(this, &MapFunctions::newMap)); }
+MapFunctions::MapFunctions()
+{
+  SignalMediator::instance().registerCbNewGame(Signal::slot(this, &MapFunctions::newMap));
+  SignalMediator::instance().registerCbSaveGame(Signal::slot(this, &MapFunctions::saveMapToFile));
+  SignalMediator::instance().registerCbLoadGame(Signal::slot(this, &MapFunctions::loadMapFromFile));
+}
 
 void MapFunctions::increaseHeight(const Point &isoCoordinates) { changeHeight(isoCoordinates, true); }
 
@@ -396,79 +401,6 @@ bool MapFunctions::setTileID(const std::string &tileID, const std::vector<Point>
   return setTileResult;
 }
 
-Map *MapFunctions::loadMapFromFile(const std::string &fileName)
-{
-  std::string jsonAsString = fs::readCompressedFileAsString(fileName);
-
-  if (jsonAsString.empty())
-    return nullptr;
-
-  json saveGameJSON = json::parse(jsonAsString, nullptr, false);
-
-  if (saveGameJSON.is_discarded())
-    throw ConfigurationError(TRACE_INFO "Could not parse savegame file " + fileName);
-
-  size_t saveGameVersion = saveGameJSON.value("Savegame version", 0);
-
-  if (saveGameVersion != SAVEGAME_VERSION)
-  {
-    /* @todo Check savegame version for compatibility and add upgrade functions here later if needed */
-    throw CytopiaError(TRACE_INFO "Trying to load a Savegame with version " + std::to_string(saveGameVersion) +
-                       " but only save-games with version " + std::to_string(SAVEGAME_VERSION) + " are supported");
-  }
-
-  int columns = saveGameJSON.value("columns", -1);
-  int rows = saveGameJSON.value("rows", -1);
-
-  if (columns == -1 || rows == -1)
-    return nullptr;
-
-  Map *map = new Map(columns, rows);
-  map->mapNodes.reserve(columns * rows);
-
-  for (const auto &it : saveGameJSON["mapNode"].items())
-  {
-    Point coordinates = json(it.value())["coordinates"].get<Point>();
-    // set coordinates (height) of the map
-    map->mapNodes.emplace_back(MapNode{Point{coordinates.x, coordinates.y, coordinates.z, coordinates.height}, ""});
-    // load back mapNodeData (tileIDs, Buildins, ...)
-    map->mapNodes.back().setMapNodeData(json(it.value())["mapNodeData"]);
-  }
-
-  // Now put those newly created nodes in correct drawing order
-  for (int x = 0; x < columns; x++)
-  {
-    for (int y = columns - 1; y >= 0; y--)
-    {
-      map->mapNodesInDrawingOrder.emplace_back(&map->mapNodes[x * columns + y]);
-    }
-  }
-
-  // TODO: do this after loading
-  //updateAllNodes();
-
-  return map;
-}
-
-void MapFunctions::saveMapToFile(const std::string &fileName)
-{
-  // make sure savegame dir exists
-  fs::createDirectory(CYTOPIA_SAVEGAME_DIR);
-
-  //create savegame json string
-  const json j = json{{"Savegame version", SAVEGAME_VERSION},
-                      {"columns", m_map->m_columns},
-                      {"rows", m_map->m_rows},
-                      {"mapNode", m_map->mapNodes}};
-
-#ifdef DEBUG
-  // Write uncompressed savegame for easier debugging
-  fs::writeStringToFile(fileName + ".txt", j.dump());
-#endif
-
-  fs::writeStringToFileCompressed(fileName, j.dump());
-}
-
 void MapFunctions::demolishNode(const std::vector<Point> &isoCoordinates, bool updateNeighboringTiles, Layer layer)
 {
   std::vector<Point> nodesToDemolish;
@@ -677,7 +609,6 @@ bool MapFunctions::isClickWithinTile(const SDL_Point &screenCoordinates, Point i
   // Nothing found
   return false;
 }
-
 void MapFunctions::newMap()
 {
   const int mapSize = Settings::instance().mapSize;
@@ -690,4 +621,85 @@ void MapFunctions::newMap()
     m_map->refresh();
     updateAllNodes();
   }
+}
+
+void MapFunctions::loadMapFromFile(const std::string &fileName)
+{
+  std::string jsonAsString = fs::readCompressedFileAsString(CYTOPIA_SAVEGAME_DIR + fileName);
+
+  if (jsonAsString.empty())
+  {
+    throw ConfigurationError(TRACE_INFO "Failed to load savegame file " + fileName);
+  }
+
+  json saveGameJSON = json::parse(jsonAsString, nullptr, false);
+
+  if (saveGameJSON.is_discarded())
+    throw ConfigurationError(TRACE_INFO "Could not parse savegame file " + fileName);
+
+  size_t saveGameVersion = saveGameJSON.value("Savegame version", 0);
+
+  if (saveGameVersion != SAVEGAME_VERSION)
+  {
+    /* @todo Check savegame version for compatibility and add upgrade functions here later if needed */
+    throw CytopiaError(TRACE_INFO "Trying to load a Savegame with version " + std::to_string(saveGameVersion) +
+                       " but only save-games with version " + std::to_string(SAVEGAME_VERSION) + " are supported");
+  }
+
+  int columns = saveGameJSON.value("columns", -1);
+  int rows = saveGameJSON.value("rows", -1);
+
+  if (columns == -1 || rows == -1)
+  {
+    throw ConfigurationError(TRACE_INFO "Savegame file " + fileName + "is invalid!");
+  }
+
+  Map *map = new Map(columns, rows);
+  map->mapNodes.reserve(columns * rows);
+
+  for (const auto &it : saveGameJSON["mapNode"].items())
+  {
+    Point coordinates = json(it.value())["coordinates"].get<Point>();
+    // set coordinates (height) of the map
+    map->mapNodes.emplace_back(MapNode{Point{coordinates.x, coordinates.y, coordinates.z, coordinates.height}, ""});
+    // load back mapNodeData (tileIDs, Buildins, ...)
+    map->mapNodes.back().setMapNodeData(json(it.value())["mapNodeData"]);
+  }
+
+  // Now put those newly created nodes in correct drawing order
+  for (int x = 0; x < columns; x++)
+  {
+    for (int y = columns - 1; y >= 0; y--)
+    {
+      map->mapNodesInDrawingOrder.emplace_back(&map->mapNodes[x * columns + y]);
+    }
+  }
+
+  if (map)
+  {
+    delete m_map;
+    m_map = map;
+    m_map->refresh();
+  }
+  // TODO: do this after loading
+  updateAllNodes();
+}
+
+void MapFunctions::saveMapToFile(const std::string &fileName)
+{
+  // make sure savegame dir exists
+  fs::createDirectory(CYTOPIA_SAVEGAME_DIR);
+
+  //create savegame json string
+  const json j = json{{"Savegame version", SAVEGAME_VERSION},
+                      {"columns", m_map->m_columns},
+                      {"rows", m_map->m_rows},
+                      {"mapNode", m_map->mapNodes}};
+
+#ifdef DEBUG
+  // Write uncompressed savegame for easier debugging
+  fs::writeStringToFile(fileName + ".txt", j.dump());
+#endif
+  fs::writeStringToFileCompressed(CYTOPIA_SAVEGAME_DIR + fileName, j.dump());
+  LOG(LOG_INFO) << "Saved succesfully: " << CYTOPIA_SAVEGAME_DIR + fileName;
 }
