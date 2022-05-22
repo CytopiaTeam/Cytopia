@@ -22,20 +22,6 @@ public:
     updateAllNodes();
   };
 
-  /** \brief Increase Height
-    * @details Increases the height of the node and checks the surrounding tiles. Either draw a slope sprite or elevate the tile if
-    * necessary.
-    * @param isoCoordinates the isometric coordinates of the tile that should be elevated
-    */
-  void increaseHeight(const Point &isoCoordinates);
-
-  /** \brief Decrease Height
-    * @details Decreases the height of the node and checks the surrounding tiles. Either draw a slope sprite or lower the tile if
-    * necessary.
-    * @param isoCoordinates the isometric coordinates of the tile that should be lowered
-    */
-  void decreaseHeight(const Point &isoCoordinates);
-
   /** \brief Change map node height.
   * @param isoCoordinates the Point on the map node to change height.
   * @param elevate if set to true make node higher, otherwise lower.

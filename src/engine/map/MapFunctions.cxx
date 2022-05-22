@@ -22,10 +22,6 @@ MapFunctions::MapFunctions()
   SignalMediator::instance().registerCbLoadGame(Signal::slot(this, &MapFunctions::loadMapFromFile));
 }
 
-void MapFunctions::increaseHeight(const Point &isoCoordinates) { changeHeight(isoCoordinates, true); }
-
-void MapFunctions::decreaseHeight(const Point &isoCoordinates) { changeHeight(isoCoordinates, false); }
-
 bool MapFunctions::updateHeight(Point coordinate, const bool elevate)
 {
   if (getMapNode(coordinate).changeHeight(elevate))
