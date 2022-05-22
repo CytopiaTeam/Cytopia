@@ -234,6 +234,8 @@ void ZoneManager::updateRemovedNodes(const MapNode *mapNode)
 
     break;
   }
+  default:
+    break;
   }
 }
 
