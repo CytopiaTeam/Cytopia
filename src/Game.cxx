@@ -45,7 +45,6 @@ void Game::quit()
     m_AudioMixer.play(SoundtrackID{"NegativeSelect"}, Coordinate3D{0, 0, -4});
   }
 #endif // USE_AUDIO
-  Engine::instance().quitGame();
 }
 
 bool Game::initialize(const char *videoDriver)
@@ -94,6 +93,15 @@ bool Game::initialize(const char *videoDriver)
     LOG(LOG_ERROR) << "Failed to load MO file " << moFilePath;
   }
 #endif
+
+  // Register Callbacks
+  
+  // Register Callbacks
+   SignalMediator::instance().registerCbQuitGame(
+      [this]()
+      {
+        m_shutDown = true;
+      });
 
   LOG(LOG_DEBUG) << "Initialized Game Object";
   return true;

@@ -26,10 +26,6 @@ public:
     */
   bool isGameRunning() const { return m_running; };
 
-  /** @brief Quits the game
-    * @details Sets m_running to false and quits the game.
-    */
-  void quitGame() { m_running = false; };
 
   // /** @brief Loads a saved game
   //   * @param fileName FileName of the saved game

@@ -394,7 +394,7 @@ void UIManager::setCallbackFunctions()
     else if (uiElement->getUiElementData().actionID == "QuitGame")
     {
       // TODO: Quit game as signal
-      // uiElement->registerCallbackFunction(Signal::slot(Engine::instance(), &Engine::quitGame));
+      uiElement->registerCallbackFunction([]() { SignalMediator::instance().signalQuitGame.emit(); });
     }
     else if (uiElement->getUiElementData().actionID == "Demolish")
     {

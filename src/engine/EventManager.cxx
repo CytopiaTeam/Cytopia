@@ -64,7 +64,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
     switch (event.type)
     {
     case SDL_QUIT:
-      engine.quitGame();
+    SignalMediator::instance().signalQuitGame.emit();
       break;
 
     case SDL_KEYDOWN:
