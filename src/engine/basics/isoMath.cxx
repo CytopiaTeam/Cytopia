@@ -5,6 +5,7 @@
 #include "Settings.hxx"
 #include "point.hxx"
 #include "LOG.hxx"
+#include <MapFunctions.hxx>
 
 bool reverseDirection = false;
 
@@ -50,7 +51,7 @@ Point convertScreenToIsoCoordinates(const SDL_Point &screenCoordinates)
 {
   Point foundCoordinates = Point();
   if (Engine::instance().map != nullptr)
-    foundCoordinates = Engine::instance().map->findNodeInMap(screenCoordinates);
+    foundCoordinates = MapFunctions::instance().findNodeInMap(screenCoordinates);
 
   // if negative coordinates are returned, this means that the point is outside of the grid
   // calculate the coordinates instead and make sure it's within grid boundaries

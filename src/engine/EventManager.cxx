@@ -24,13 +24,13 @@ void EventManager::unHighlightNodes()
   {
     for (auto node : m_nodesToPlace)
     {
-      Engine::instance().map->unHighlightNode(node);
+      MapFunctions::instance().unHighlightNode(node);
     }
     m_nodesToPlace.clear();
   }
   for (auto node : m_nodesToHighlight)
   {
-    Engine::instance().map->unHighlightNode(node);
+    MapFunctions::instance().unHighlightNode(node);
   }
   m_nodesToHighlight.clear();
 }
@@ -317,7 +317,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
 
           // if it's a multi-node tile, get the origin corner point
           Point origCornerPoint =
-              engine.map->getNodeOrigCornerPoint(mouseIsoCoords, TileManager::instance().getTileLayer(tileToPlace));
+              MapFunctions::instance().getNodeOrigCornerPoint(mouseIsoCoords, TileManager::instance().getTileLayer(tileToPlace));
 
           if (origCornerPoint == Point::INVALID())
           {
@@ -395,9 +395,9 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
             {
               layer = TileManager::instance().getTileLayer(tileToPlace);
             }
-            Point currentOriginPoint = engine.map->getNodeOrigCornerPoint(coords, layer);
+            Point currentOriginPoint = MapFunctions::instance().getNodeOrigCornerPoint(coords, layer);
 
-            std::string currentTileID = engine.map->getTileID(currentOriginPoint, layer);
+            std::string currentTileID = MapFunctions::instance().getTileID(currentOriginPoint, layer);
             for (auto &foundNode : TileManager::instance().getTargetCoordsOfTileID(currentOriginPoint, currentTileID))
             {
               // only add the node if it's unique
@@ -416,24 +416,24 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
             m_nodesToPlace = m_nodesToHighlight;
           }
 
-          m_placementAllowed = engine.map->isPlacementOnAreaAllowed(m_nodesToHighlight, tileToPlace);
+          m_placementAllowed = MapFunctions::instance().isPlacementOnAreaAllowed(m_nodesToHighlight, tileToPlace);
 
           // Finally highlight all the tiles we've found
           // Set highlighted tiles that can be placed and can't be placed different color
           for (const auto &highlitNode : m_nodesToHighlight)
           {
-            if (!engine.map->isPlacementOnNodeAllowed(highlitNode, tileToPlace) || demolishMode)
+            if (!MapFunctions::instance().isPlacementOnNodeAllowed(highlitNode, tileToPlace) || demolishMode)
             {
               // mark red
-              engine.map->highlightNode(highlitNode, SpriteHighlightColor::RED);
+              MapFunctions::instance().highlightNode(highlitNode, SpriteHighlightColor::RED);
             }
             else
             {
               // place allowed tile, mark gray
-              engine.map->highlightNode(highlitNode, SpriteHighlightColor::GRAY);
+              MapFunctions::instance().highlightNode(highlitNode, SpriteHighlightColor::GRAY);
             }
             const Point &buildingCoordinates =
-                engine.map->findNodeInMap(convertIsoToScreenCoordinates(highlitNode), Layer::BUILDINGS);
+                MapFunctions::instance().findNodeInMap(convertIsoToScreenCoordinates(highlitNode), Layer::BUILDINGS);
 
             auto transparentBuildingIt =
                 std::find(m_transparentBuildings.begin(), m_transparentBuildings.end(), buildingCoordinates);
@@ -560,7 +560,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       {
         if (m_tileInfoMode)
         {
-          engine.map->getNodeInformation({mouseIsoCoords.x, mouseIsoCoords.y, 0, 0});
+          MapFunctions::instance().getNodeInformation({mouseIsoCoords.x, mouseIsoCoords.y, 0, 0});
         }
         else if (terrainEditMode == TerrainEdit::RAISE)
         {
@@ -572,7 +572,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         }
         else if (demolishMode)
         {
-          engine.map->demolishNode(m_nodesToHighlight, true);
+          MapFunctions::instance().demolishNode(m_nodesToHighlight, true);
         }
         // select the tile our cursor is over
         else if (!demolishMode && tileToPlace.empty()) {
@@ -582,7 +582,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         }
         else if (!tileToPlace.empty() && m_placementAllowed)
         {
-          if(!engine.map->setTileID(tileToPlace, m_nodesToPlace))
+          if(!MapFunctions::instance().setTileID(tileToPlace, m_nodesToPlace))
           {
             // If can't put picked tile here,
             // pick tile under cursor as the new picked tile
@@ -599,13 +599,13 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       if (highlightSelection)
       {
         m_nodesToHighlight.push_back(mouseIsoCoords);
-        if (!tileToPlace.empty() && !engine.map->isPlacementOnNodeAllowed(mouseIsoCoords, tileToPlace))
+        if (!tileToPlace.empty() && !MapFunctions::instance().setTileID(tileToPlace, mouseIsoCoords))
         {
-          engine.map->highlightNode(mouseIsoCoords, SpriteHighlightColor::RED);
+          MapFunctions::instance().highlightNode(mouseIsoCoords, SpriteHighlightColor::RED);
         }
         else
         {
-          engine.map->highlightNode(mouseIsoCoords, SpriteHighlightColor::GRAY);
+          MapFunctions::instance().highlightNode(mouseIsoCoords, SpriteHighlightColor::GRAY);
         }
       }
 

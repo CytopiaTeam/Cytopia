@@ -160,7 +160,7 @@ bool Game::mainMenu()
 #ifdef USE_AUDIO
         playAudioMajorSelection();
 #endif // USE_AUDIO
-        Engine::instance().loadGame("save.cts");
+        // Engine::instance().loadGame("save.cts");
       });
 
   Button quitGameButton({screenWidth / 2 - 100, screenHeight / 2 - 20 + loadGameButton.getUiElementRect().h * 4, 200, 40});

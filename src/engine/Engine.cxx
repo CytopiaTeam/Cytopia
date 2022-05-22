@@ -7,19 +7,19 @@ Engine::Engine() {}
 
 Engine::~Engine() { delete map; }
 
-void Engine::saveGame(const std::string &fileName) const { map->saveMapToFile(CYTOPIA_SAVEGAME_DIR + (std::string)fileName); }
-void Engine::loadGame(const std::string &fileName)
-{
-  Map *newMap = Map::loadMapFromFile(CYTOPIA_SAVEGAME_DIR + (std::string)fileName);
+// void Engine::saveGame(const std::string &fileName) const { map->saveMapToFile(CYTOPIA_SAVEGAME_DIR + (std::string)fileName); }
+// void Engine::loadGame(const std::string &fileName)
+// {
+//   Map *newMap = Map::loadMapFromFile(CYTOPIA_SAVEGAME_DIR + (std::string)fileName);
 
-  if (newMap)
-  {
-    delete map;
-    map = newMap;
-    m_running = true;
-    map->refresh();
-  }
-}
+//   if (newMap)
+//   {
+//     delete map;
+//     map = newMap;
+//     m_running = true;
+//     map->refresh();
+//   }
+// }
 
 void Engine::newGame()
 {

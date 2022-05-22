@@ -2,6 +2,8 @@
 #include "../engine/basics/PointFunctions.hxx"
 #include "../services/Randomizer.hxx"
 #include "../engine/TileManager.hxx"
+#include <MapFunctions.hxx>
+// TODO: Remove
 #include "../engine/Engine.hxx"
 
 void mergeZoneAreas(ZoneArea &mainZone, ZoneArea &toBeMerged)
@@ -51,7 +53,7 @@ void ZoneArea::spawnBuildings()
         TileManager::instance().getRandomTileIDForZoneWithRandomSize(m_zoneType, m_zoneDensity, maxTileSize).value_or("");
 
     // place the building
-    Engine::instance().map->setTileID(buildingTileID, node.coordinate);
+    MapFunctions::instance().setTileID(buildingTileID, node.coordinate);
     buildingsSpawned++;
   }
 }

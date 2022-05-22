@@ -31,16 +31,16 @@ public:
     */
   void quitGame() { m_running = false; };
 
-  /** @brief Loads a saved game
-    * @param fileName FileName of the saved game
-    * @see Map#loadMapFromFile
-    */
-  void loadGame(const std::string &fileName);
+  // /** @brief Loads a saved game
+  //   * @param fileName FileName of the saved game
+  //   * @see Map#loadMapFromFile
+  //   */
+  // void loadGame(const std::string &fileName);
 
-  /** @brief Saves the game to a file
-  * @param fileName name of the file to save the data to
-  */
-  void saveGame(const std::string &fileName) const;
+  // /** @brief Saves the game to a file
+  // * @param fileName name of the file to save the data to
+  // */
+  // void saveGame(const std::string &fileName) const;
 
   /// Creates a new game
   void newGame();
