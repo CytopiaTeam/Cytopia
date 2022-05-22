@@ -181,7 +181,6 @@ void MapFunctions::updateAllNodes()
   updateNodeNeighbors(allCoords);
 }
 
-
 std::vector<NeighborNode> MapFunctions::getNeighborNodes(const Point &isoCoordinates, const bool includeCentralNode)
 {
   std::vector<NeighborNode> neighbors;
@@ -213,7 +212,9 @@ bool MapFunctions::isPlacementOnAreaAllowed(const std::vector<Point> targetCoord
   if (layer == Layer::ZONE)
   {
     shouldAllNodesPlaced = false;
-  } else {
+  }
+  else
+  {
     shouldAllNodesPlaced = true;
   }
   areaPlacementAllowed = shouldAllNodesPlaced;
@@ -305,7 +306,6 @@ std::vector<uint8_t> MapFunctions::calculateAutotileBitmask(Point coordinate)
   return tileOrientationBitmask;
 }
 
-
 bool MapFunctions::setTileID(const std::string &tileID, Point coordinate)
 {
   TileData *tileData = TileManager::instance().getTileData(tileID);
@@ -393,7 +393,6 @@ bool MapFunctions::setTileID(const std::string &tileID, const std::vector<Point>
   return setTileResult;
 }
 
-
 Map *MapFunctions::loadMapFromFile(const std::string &fileName)
 {
   std::string jsonAsString = fs::readCompressedFileAsString(fileName);
@@ -448,15 +447,16 @@ Map *MapFunctions::loadMapFromFile(const std::string &fileName)
   return map;
 }
 
-
 void MapFunctions::saveMapToFile(const std::string &fileName)
 {
   // make sure savegame dir exists
   fs::createDirectory(CYTOPIA_SAVEGAME_DIR);
 
   //create savegame json string
-  const json j =
-      json{{"Savegame version", SAVEGAME_VERSION}, {"columns", m_map->m_columns}, {"rows", m_map->m_rows}, {"mapNode", m_map->mapNodes}};
+  const json j = json{{"Savegame version", SAVEGAME_VERSION},
+                      {"columns", m_map->m_columns},
+                      {"rows", m_map->m_rows},
+                      {"mapNode", m_map->mapNodes}};
 
 #ifdef DEBUG
   // Write uncompressed savegame for easier debugging
@@ -465,7 +465,6 @@ void MapFunctions::saveMapToFile(const std::string &fileName)
 
   fs::writeStringToFileCompressed(fileName, j.dump());
 }
-
 
 void MapFunctions::demolishNode(const std::vector<Point> &isoCoordinates, bool updateNeighboringTiles, Layer layer)
 {
@@ -520,7 +519,6 @@ void MapFunctions::demolishNode(const std::vector<Point> &isoCoordinates, bool u
   }
 }
 
-
 void MapFunctions::getNodeInformation(const Point &isoCoordinates) const
 {
   const MapNode &mapNode = m_map->mapNodes[isoCoordinates.toIndex()];
@@ -538,7 +536,6 @@ void MapFunctions::getNodeInformation(const Point &isoCoordinates) const
   LOG(LOG_INFO) << "TileMap: " << mapNodeData.tileMap;
   LOG(LOG_INFO) << "TileIndex: " << mapNodeData.tileIndex;
 }
-
 
 void MapFunctions::highlightNode(const Point &isoCoordinates, const SpriteRGBColor &rgbColor)
 {
@@ -562,7 +559,6 @@ void MapFunctions::unHighlightNode(const Point &isoCoordinates)
     getMapNode(isoCoordinates).getSprite()->highlightSprite = false;
   }
 }
-
 
 Point MapFunctions::findNodeInMap(const SDL_Point &screenCoordinates, const Layer &layer)
 {
@@ -614,8 +610,8 @@ Point MapFunctions::findNodeInMap(const SDL_Point &screenCoordinates, const Laye
   return Point{-1, -1, 0, 0};
 }
 
-
-bool MapFunctions::isClickWithinTile(const SDL_Point &screenCoordinates, Point isoCoordinate, const Layer &layer = Layer::NONE) const
+bool MapFunctions::isClickWithinTile(const SDL_Point &screenCoordinates, Point isoCoordinate,
+                                     const Layer &layer = Layer::NONE) const
 {
   if (!isoCoordinate.isWithinMapBoundaries())
   {
@@ -690,6 +686,5 @@ void MapFunctions::newMap()
     m_map = newMap;
     m_map->refresh();
     updateAllNodes();
-
   }
 }

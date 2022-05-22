@@ -144,7 +144,7 @@ void PowerManager::updatePlacedNodes(const MapNode &mapNode)
   {
     return;
   }
-  
+
   int powerLevelOfTile = 0;
   if (mapNode.getTileData(Layer::BUILDINGS))
   { // it's safe to assume only nodes on BUILDINGS layer produce power
@@ -183,7 +183,7 @@ void PowerManager::updatePowerLevels()
 void PowerManager::parseNodes()
 {
   m_powerGrids.clear();
-  for (const auto &node: MapFunctions::instance().getMapNodes())
+  for (const auto &node : MapFunctions::instance().getMapNodes())
   {
     if (node.isConductive())
     {

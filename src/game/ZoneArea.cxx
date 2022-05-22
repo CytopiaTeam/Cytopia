@@ -132,19 +132,15 @@ void ZoneArea::addNode(ZoneNode zoneNode)
 
 void ZoneArea::removeZoneNode(Point coordinate)
 {
-  m_gridNodes.erase(std::remove_if(begin(), end(),
-        [coordinate](const ZoneNode &node) {
-        return node.coordinate == coordinate;
-        }),
-      end());
+  m_gridNodes.erase(std::remove_if(begin(), end(), [coordinate](const ZoneNode &node) { return node.coordinate == coordinate; }),
+                    end());
   //update vacancy
   m_isVacant = checkVacancy();
 }
 
 void ZoneArea::setVacancy(Point coordinate, bool vacancy)
 {
-  auto node = std::find_if(
-      begin(), end(), [coordinate](const ZoneNode &zNode) { return zNode.coordinate == coordinate; });
+  auto node = std::find_if(begin(), end(), [coordinate](const ZoneNode &zNode) { return zNode.coordinate == coordinate; });
   if (node != end())
   {
     if (vacancy)

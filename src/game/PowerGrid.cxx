@@ -12,7 +12,7 @@ void mergePowerGrids(PowerGrid &mainGrid, PowerGrid &toBeMerged)
 void PowerGrid::updatePowerLevel()
 {
   // reset the power level of this grid before recalculating
-  m_powerLevel=0;
+  m_powerLevel = 0;
   for (const auto &node : m_gridNodes)
   {
     if (MapFunctions::instance().getMapNode(node.coordinate).getTileData(Layer::BUILDINGS) && node.powerProduction == 0)
@@ -28,4 +28,3 @@ void PowerGrid::updatePowerLevel()
     }
   }
 }
-

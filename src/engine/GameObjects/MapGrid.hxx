@@ -53,4 +53,3 @@ protected:
 #include "MapGrid.inl.hxx"
 
 #endif
-

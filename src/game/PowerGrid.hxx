@@ -14,7 +14,7 @@ struct PowerNode
 class PowerGrid;
 void mergePowerGrids(PowerGrid &mainGrid, PowerGrid &toBeMerged);
 
-class PowerGrid: public MapGrid<PowerNode>
+class PowerGrid : public MapGrid<PowerNode>
 {
 public:
   PowerGrid(PowerNode powerNode);

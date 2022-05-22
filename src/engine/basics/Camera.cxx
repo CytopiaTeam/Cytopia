@@ -62,7 +62,8 @@ void Camera::centerScreenOnPoint(const Point &isoCoordinates)
     const SDL_Point screenCoordinates = convertIsoToScreenCoordinates(isoCoordinates, true);
 
     int x = static_cast<int>((screenCoordinates.x + (m_TileSize.x * m_ZoomLevel) * 0.5) - Settings::instance().screenWidth * 0.5);
-    int y = static_cast<int>((screenCoordinates.y + (m_TileSize.y * m_ZoomLevel) * 0.25) - Settings::instance().screenHeight * 0.5);
+    int y =
+        static_cast<int>((screenCoordinates.y + (m_TileSize.y * m_ZoomLevel) * 0.25) - Settings::instance().screenHeight * 0.5);
 
     x -= static_cast<int>((m_TileSize.x * m_ZoomLevel) * 0.75);
     y -= static_cast<int>(m_TileSize.y * m_ZoomLevel);
@@ -80,29 +81,14 @@ void Camera::centerScreenOnMapCenter()
   m_CenterIsoCoordinates = {Settings::instance().mapSize / 2, Settings::instance().mapSize / 2, 0, 0};
   centerScreenOnPoint(m_CenterIsoCoordinates);
 }
-void Camera::setCenterIsoCoordinates(Point && p) {
-  std::swap(m_CenterIsoCoordinates, p);
-}
+void Camera::setCenterIsoCoordinates(Point &&p) { std::swap(m_CenterIsoCoordinates, p); }
 
-void Camera::moveCameraY(float yOffset) {
-  m_CameraOffset.y -= yOffset;
-}
+void Camera::moveCameraY(float yOffset) { m_CameraOffset.y -= yOffset; }
 
-void Camera::moveCameraX(float xOffset) {
-  m_CameraOffset.x -= xOffset;
-}
+void Camera::moveCameraX(float xOffset) { m_CameraOffset.x -= xOffset; }
 
-const SDL_Point & Camera::cameraOffset() const noexcept
-{
-  return m_CameraOffset;
-}
+const SDL_Point &Camera::cameraOffset() const noexcept { return m_CameraOffset; }
 
-const double & Camera::zoomLevel() const noexcept
-{
-  return m_ZoomLevel;
-}
+const double &Camera::zoomLevel() const noexcept { return m_ZoomLevel; }
 
-const SDL_Point & Camera::tileSize() const noexcept
-{
-  return m_TileSize;
-}
+const SDL_Point &Camera::tileSize() const noexcept { return m_TileSize; }

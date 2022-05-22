@@ -5,7 +5,7 @@
 
 Engine::Engine() {}
 
-Engine::~Engine() {} 
+Engine::~Engine() {}
 
 // void Engine::saveGame(const std::string &fileName) const { map->saveMapToFile(CYTOPIA_SAVEGAME_DIR + (std::string)fileName); }
 // void Engine::loadGame(const std::string &fileName)

@@ -37,17 +37,12 @@ public:
     */
   void renderMap() const;
 
-
-
   /**
    * @brief Refresh all the map tile textures
    *
    * @see Sprite#refresh
    */
   void refresh();
-
-
-
 
   /** \brief Get pointer to a single mapNode at specific iso coordinates.
   * @param isoCoords The node to retrieve.
@@ -58,10 +53,9 @@ public:
    */
   const std::vector<MapNode> &getMapNodes() { return mapNodes; };
 
-// private:
+  // private:
 
   SDL_Color getColorOfPixelInSurface(SDL_Surface *surface, int x, int y) const;
-
 
   /** \brief Filter out tiles which should not be set over existing one.
   * @param layer Layer in which tileId should be set.

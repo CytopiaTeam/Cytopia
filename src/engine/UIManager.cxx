@@ -158,8 +158,8 @@ void UIManager::init()
         case ElementType::ImageButton:
           uiElement = std::make_unique<Button>(elementRect);
           uiElement->setTextureID(textureID);
-          dynamic_cast<Button *> (uiElement.get())->isToggleButton = toggleButton;
-          dynamic_cast<Button *> (uiElement.get())->drawImageButtonFrame(drawFrame);
+          dynamic_cast<Button *>(uiElement.get())->isToggleButton = toggleButton;
+          dynamic_cast<Button *>(uiElement.get())->drawImageButtonFrame(drawFrame);
           break;
         case ElementType::TextButton:
           uiElement = std::make_unique<Button>(elementRect);
@@ -1080,7 +1080,7 @@ void UIManager::changeResolution(UIElement *sender)
   WindowManager::instance().setScreenResolution(combobox->getActiveID());
   Layout::arrangeElements();
 
-    MapFunctions::instance().getMap()->refresh();
+  MapFunctions::instance().getMap()->refresh();
 
   // if (Engine::instance().map != nullptr)
   // {
@@ -1095,7 +1095,7 @@ void UIManager::changeFullScreenMode(UIElement *sender)
   // WindowManager::instance().setLastScreenResolution();
   Layout::arrangeElements();
 
-MapFunctions::instance().getMap()->refresh();
+  MapFunctions::instance().getMap()->refresh();
   // if (Engine::instance().map != nullptr)
   // {
   //   Engine::instance().map->refresh();

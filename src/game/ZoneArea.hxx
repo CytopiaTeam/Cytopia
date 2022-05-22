@@ -16,7 +16,7 @@ struct ZoneNode
 class ZoneArea;
 void mergeZoneAreas(ZoneArea &mainZone, ZoneArea &toBeMerged);
 
-class ZoneArea: public MapGrid<ZoneNode>
+class ZoneArea : public MapGrid<ZoneNode>
 {
 public:
   ZoneArea(ZoneNode zoneNode);

@@ -123,7 +123,6 @@ public:
   */
   static Map *loadMapFromFile(const std::string &fileName);
 
-
   /**
    * @brief Get original corner point of given point within building borders.
    * @param isoCoordinates Point to get corner point of
@@ -139,7 +138,7 @@ public:
  */
   void getNodeInformation(const Point &isoCoordinates) const;
 
-    /** \brief Get a bitmask that represents same-tile neighbors
+  /** \brief Get a bitmask that represents same-tile neighbors
   * @details Checks all neighboring tiles and returns the elevated neighbors in a bitmask:
   * [ BR BL TR TL  R  L  B  T ]
   * [ 0  0  0  0   0  0  0  0 ]
@@ -147,7 +146,6 @@ public:
   * @return Uint that represents a bitmask of the neighbor tiles and their elevation to the center coordinate
   */
   std::vector<uint8_t> calculateAutotileBitmask(Point coordinate);
-
 
   /**
  * @brief Sets a node to be highlit
@@ -172,15 +170,15 @@ public:
  */
   Point findNodeInMap(const SDL_Point &screenCoordinates, const Layer &layer = Layer::NONE);
 
-
   /** \brief get Tile ID of specific layer of specific iso coordinates
   * @param isoCoordinates Tile to inspect
   * @param layer layer to check.
   */
   std::string getTileID(const Point &isoCoordinates, Layer layer);
 
-    /// Creates a new game
+  /// Creates a new game
   void newMap();
+
 private:
   Map *m_map;
 
@@ -196,7 +194,6 @@ private:
   void updateAllNodes();
 
   bool isClickWithinTile(const SDL_Point &screenCoordinates, Point isoCoordinate, const Layer &layer) const;
-
 };
 
 #endif

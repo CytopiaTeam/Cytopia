@@ -352,7 +352,7 @@ void Game::run(bool SkipMenu)
 #endif
     SDL_RenderClear(WindowManager::instance().getRenderer());
 
-  // TODO: Remove engine completly
+    // TODO: Remove engine completly
     evManager.checkEvents(event, engine);
     gameClock.tick();
 

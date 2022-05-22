@@ -87,7 +87,7 @@ void Slider::onMouseMove(const SDL_Event &event)
 
 bool Slider::isMouseOver(int x, int y) { return overSliderButton(x, y) || overSliderLine(x, y); }
 
-void Slider::setPosition(int x, int y) 
+void Slider::setPosition(int x, int y)
 {
   sliderLine.x = x;
   sliderLine.y = y + (sliderButton.h / 2) - (m_lineThickness / 2);

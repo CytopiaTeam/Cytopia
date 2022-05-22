@@ -67,8 +67,7 @@ NeighborNodesPosition operator++(NeighborNodesPosition &nn, int)
   return res;
 }
 
-Map::Map(int columns, int rows)
-    : pMapNodesVisible(new Sprite *[columns * rows]), m_columns(columns), m_rows(rows)
+Map::Map(int columns, int rows) : pMapNodesVisible(new Sprite *[columns * rows]), m_columns(columns), m_rows(rows)
 {
   // TODO move Random Engine out of map
   randomEngine.seed();
@@ -100,7 +99,6 @@ Map::Map(int columns, int rows, const bool generateTerrain)
 }
 
 Map::~Map() { delete[] pMapNodesVisible; }
-
 
 void Map::renderMap() const
 {
@@ -144,7 +142,6 @@ SDL_Color Map::getColorOfPixelInSurface(SDL_Surface *surface, int x, int y) cons
 
   return Color;
 }
-
 
 bool Map::isAllowSetTileId(const Layer layer, const MapNode *const pMapNode)
 {

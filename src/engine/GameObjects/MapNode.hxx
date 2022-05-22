@@ -131,15 +131,17 @@ public:
    * @return const Point& 
    */
   const Point &getOrigCornerPoint(Layer layer) const { return getMapNodeDataForLayer(layer).origCornerPoint; }
-  
+
   /**
    * @brief If this is the origin node of a multitile building. 
    * 
    * @param layer the layer that should be checked, defaults to the BUILDINGS layer
    * @return wheter or not this is the origin node of a multitile building
    */
-  bool isOriginNode(Layer layer = Layer::BUILDINGS) const { 
-    return (m_isoCoordinates == getMapNodeDataForLayer(layer).origCornerPoint); }
+  bool isOriginNode(Layer layer = Layer::BUILDINGS) const
+  {
+    return (m_isoCoordinates == getMapNodeDataForLayer(layer).origCornerPoint);
+  }
 
   /** @brief return topmost active layer.
     * @details check layers in order of significance for the topmost active layer that has an active tile on that layer

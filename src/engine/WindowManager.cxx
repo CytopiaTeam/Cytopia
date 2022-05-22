@@ -143,15 +143,17 @@ void WindowManager::initializeScreenResolutions()
     std::unique_ptr<SDL_DisplayMode> mode =
         std::make_unique<SDL_DisplayMode>((SDL_DisplayMode{SDL_PIXELFORMAT_UNKNOWN, 0, 0, 0, nullptr}));
 
-    auto isResolitionExist = [&](int w, int h) {
-        auto it = std::find_if(m_resolutions.begin(), m_resolutions.end(), [w, h] (auto &mode) { return (mode->w == w) && (mode->h == h); });
-        return it != m_resolutions.end();
+    auto isResolitionExist = [&](int w, int h)
+    {
+      auto it = std::find_if(m_resolutions.begin(), m_resolutions.end(),
+                             [w, h](auto &mode) { return (mode->w == w) && (mode->h == h); });
+      return it != m_resolutions.end();
     };
 
     if (SDL_GetDisplayMode(m_activeDisplay, modeIndex, mode.get()) == 0)
     {
       if (isResolitionExist(mode->w, mode->h))
-          continue;
+        continue;
 
       m_resolutions.push_back(std::move(mode));
     }

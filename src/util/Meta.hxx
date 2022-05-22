@@ -119,7 +119,7 @@ template <typename WeakType, typename> struct StrongType
   }
 
   template <typename... Args, typename = std::enable_if_t<std::is_constructible_v<WeakType, Args...>>>
-  explicit inline StrongType(Args &&... args) : m_Data(std::forward<Args>(args)...)
+  explicit inline StrongType(Args &&...args) : m_Data(std::forward<Args>(args)...)
   {
   }
 
