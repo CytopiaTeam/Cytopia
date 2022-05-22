@@ -165,7 +165,9 @@ bool Game::mainMenu()
       {
 #ifdef USE_AUDIO
         playAudioMajorSelection();
-#endif // USE_AUDIO                                                                                                              \
+#endif // USE_AUDIO
+
+        //TODO: This will need more refactoring to work. Split main menu into a seperate class. ##945                                                                                       \
     // Engine::instance().loadGame("save.cts");
       });
 
@@ -279,18 +281,11 @@ void Game::run(bool SkipMenu)
 {
   LOG(LOG_INFO) << VERSION;
 
-  // if (SkipMenu)
-  // {
-  //   Engine::instance().newGame();
-  // }
-
   Engine &engine = Engine::instance();
-  // we need to register the map at mapFunctions now
-  // MapFunctions::instance().registerMap(engine.map);
+
   // we need to instantiate the MapFunctions object
   MapFunctions &mapFunctions = MapFunctions::instance();
   SignalMediator::instance().signalNewGame.emit();
-  // MapFunctions::instance().updateAllNodes();
 
   Camera::instance().centerScreenOnMapCenter();
 
