@@ -37,10 +37,10 @@ public:
   /**
    * @brief Get the Color Of Pixel In Surface object at a given coordinate
    * 
-   * @param surface 
-   * @param x 
-   * @param y 
-   * @return SDL_Color 
+   * @param tileID The tileID of object to check 
+   * @param x x ccoordinate within the surface
+   * @param y y ccoordinate within the surface
+   * @return SDL_Color at the given coordinate
    */
   SDL_Color getColorOfPixelInSurface(const std::string &tileID, int x, int y);
 
