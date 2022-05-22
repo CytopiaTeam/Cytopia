@@ -99,19 +99,6 @@ public:
  */
   void demolishNode(const std::vector<Point> &isoCoordinates, bool updateNeighboringTiles = false, Layer layer = Layer::NONE);
 
-  /** \brief Save Map to file
-  * @details Serializes the Map class to json and writes the data to a file.
-  * @param fileName The file the map should be written to
-  */
-  void saveMapToFile(const std::string &fileName);
-
-  /** \brief Load Map from file
-  * @details Deserializes the Map class from a json file, creates a new Map and returns it.
-  * @param fileName The file the map should be written to
-  * @returns Map* Pointer to the newly created Map.
-  */
-  void loadMapFromFile(const std::string &fileName);
-
   /**
    * @brief Get original corner point of given point within building borders.
    * @param isoCoordinates Point to get corner point of
@@ -126,15 +113,6 @@ public:
  * @param isoCoordinates Tile to inspect
  */
   void getNodeInformation(const Point &isoCoordinates) const;
-
-  /** \brief Get a bitmask that represents same-tile neighbors
-  * @details Checks all neighboring tiles and returns the elevated neighbors in a bitmask:
-  * [ BR BL TR TL  R  L  B  T ]
-  * [ 0  0  0  0   0  0  0  0 ]
-  * @param coordinate Point on the map to calculate bitmask for.
-  * @return Uint that represents a bitmask of the neighbor tiles and their elevation to the center coordinate
-  */
-  std::vector<uint8_t> calculateAutotileBitmask(Point coordinate);
 
   /**
  * @brief Sets a node to be highlit
@@ -165,9 +143,6 @@ public:
   */
   std::string getTileID(const Point &isoCoordinates, Layer layer);
 
-  /// Creates a new game
-  void newMap();
-
   /** @brief Refresh the visible part of the map
    *
    * @see Sprite#refresh
@@ -176,6 +151,11 @@ public:
 
 private:
   Map *m_map;
+
+  /**
+   * @brief Creates a new map object with terrain gen
+   */
+  void newMap();
 
   /** \brief Update the nodes and all affected node with the change.
   * @param nodes vector of coordinates to be updated.
@@ -188,7 +168,37 @@ private:
   */
   void updateAllNodes();
 
+  /**
+   * @brief Check if a click is within a non transparent part of a sprite
+   * 
+   * @param screenCoordinates click coordinates on the scrren
+   * @param isoCoordinate isocoordinates of the mapnode to check
+   * @param layer layer to check
+   * @return if a click is within this node
+   */
   bool isClickWithinTile(const SDL_Point &screenCoordinates, Point isoCoordinate, const Layer &layer) const;
+
+  /** \brief Save Map to file
+  * @details Serializes the Map class to json and writes the data to a file.
+  * @param fileName The file the map should be written to
+  */
+  void saveMapToFile(const std::string &fileName);
+
+  /** \brief Load Map from file
+  * @details Deserializes the Map class from a json file, creates a new Map and returns it.
+  * @param fileName The file the map should be written to
+  * @returns Map* Pointer to the newly created Map.
+  */
+  void loadMapFromFile(const std::string &fileName);
+
+  /** \brief Get a bitmask that represents same-tile neighbors
+  * @details Checks all neighboring tiles and returns the elevated neighbors in a bitmask:
+  * [ BR BL TR TL  R  L  B  T ]
+  * [ 0  0  0  0   0  0  0  0 ]
+  * @param coordinate Point on the map to calculate bitmask for.
+  * @return Uint that represents a bitmask of the neighbor tiles and their elevation to the center coordinate
+  */
+  std::vector<uint8_t> calculateAutotileBitmask(Point coordinate);
 };
 
 #endif
