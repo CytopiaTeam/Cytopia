@@ -145,7 +145,7 @@ set_target_properties(
         CXX_EXTENSIONS NO
 )
 
-list(APPEND _compile_definitions VERSION="${PROJECT_NAME} ${PROJECT_VERSION} - Urban Update")
+list(APPEND _compile_definitions VERSION="${PROJECT_NAME} ${PROJECT_VERSION} - Utilities Update")
 
 target_include_directories(
         ${PROJECT_NAME} PRIVATE
