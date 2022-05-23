@@ -1,8 +1,6 @@
 #include "MapFunctions.hxx"
 #include <PointFunctions.hxx>
 #include "../../services/Randomizer.hxx"
-
-// TODO: Needed only for save / load
 #include "common/JsonSerialization.hxx"
 #include <Constants.hxx>
 #include <Filesystem.hxx>
@@ -52,7 +50,7 @@ void MapFunctions::changeHeight(const Point &isoCoordinates, const bool elevate)
     {
       const int centerHeight = getMapNode(isoCoordinates).getCoordinates().height;
 
-      for (Point &neighborCoord : neighorCoordinates)
+      for (const Point &neighborCoord : neighorCoordinates)
       {
         MapNode &neighborNode = getMapNode(neighborCoord);
         if (centerHeight < neighborNode.getCoordinates().height)
@@ -67,7 +65,7 @@ void MapFunctions::changeHeight(const Point &isoCoordinates, const bool elevate)
   }
 }
 
-void MapFunctions::updateNodeNeighbors(std::vector<Point> nodes)
+void MapFunctions::updateNodeNeighbors(const std::vector<Point> &nodes)
 {
   // those bitmask combinations require the tile to be elevated.
   constexpr unsigned char elevateTileComb[] = {
@@ -203,7 +201,7 @@ bool MapFunctions::isPlacementOnNodeAllowed(const Point &isoCoordinates, const s
   return m_map->mapNodes[isoCoordinates.toIndex()].isPlacementAllowed(tileID);
 }
 
-bool MapFunctions::isPlacementOnAreaAllowed(const std::vector<Point> targetCoordinates, const std::string &tileID) const
+bool MapFunctions::isPlacementOnAreaAllowed(const std::vector<Point> &targetCoordinates, const std::string &tileID) const
 {
   // This function can be divided into two policies:
   // Whether we need all nodes in the area to be placed or not
@@ -338,8 +336,8 @@ bool MapFunctions::setTileID(const std::string &tileID, Point coordinate)
   // for >1x1 buildings, clear all the nodes that are going to be occupied before placing anything.
   if (targetCoordinates.size() >= 1 && layer == +Layer::BUILDINGS)
   {
-    demolishNode(targetCoordinates, 0, Layer::FLORA);      // remove trees under the buildings
-    demolishNode(targetCoordinates, 0, Layer::POWERLINES); // remove power lines under buildings
+    demolishNode(targetCoordinates, false, Layer::FLORA);      // remove trees under the buildings
+    demolishNode(targetCoordinates, false, Layer::POWERLINES); // remove power lines under buildings
   }
 
   for (auto coord : targetCoordinates)
@@ -406,7 +404,7 @@ void MapFunctions::demolishNode(const std::vector<Point> &isoCoordinates, bool u
   {
     if (currentCoordinate.isWithinMapBoundaries())
     {
-      MapNode &node = getMapNode(currentCoordinate);
+      const MapNode &node = getMapNode(currentCoordinate);
 
       // Check for multi-node buildings first. Those are on the buildings layer, even if we want to demolish another layer than Buildings.
       // In case we add more Layers that support Multi-node, add a for loop here
@@ -454,7 +452,6 @@ void MapFunctions::demolishNode(const std::vector<Point> &isoCoordinates, bool u
 void MapFunctions::getNodeInformation(const Point &isoCoordinates) const
 {
   const MapNode &mapNode = m_map->mapNodes[isoCoordinates.toIndex()];
-  // const MapNode &mapNode = getMapNode(isoCoordinates);
   const MapNodeData &mapNodeData = mapNode.getActiveMapNodeData();
   const TileData *tileData = mapNodeData.tileData;
   LOG(LOG_INFO) << "===== TILE at " << isoCoordinates.x << ", " << isoCoordinates.y << ", " << mapNode.getCoordinates().height

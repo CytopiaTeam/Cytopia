@@ -62,7 +62,7 @@ public:
   * @param targetCoordinates Tile array to inspect
   * @param tileID tileID which should be checked
   */
-  bool isPlacementOnAreaAllowed(const std::vector<Point> targetCoordinates, const std::string &tileID) const;
+  bool isPlacementOnAreaAllowed(const std::vector<Point> &targetCoordinates, const std::string &tileID) const;
 
   /**
  * @brief Set the Tile ID Of Node object
@@ -154,7 +154,7 @@ private:
   /** \brief Update the nodes and all affected node with the change.
   * @param nodes vector of coordinates to be updated.
   */
-  void updateNodeNeighbors(std::vector<Point> nodes);
+  void updateNodeNeighbors(const std::vector<Point> &nodes);
 
   /** \brief Update all mapNodes
   * @details Updates all mapNode and its adjacent tiles regarding height information, draws slopes for adjacent tiles and
