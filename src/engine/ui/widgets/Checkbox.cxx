@@ -1,7 +1,6 @@
 #include "Checkbox.hxx"
 
-Checkbox::Checkbox(const SDL_Rect &uiElementRect) : UIElement(SDL_Rect{uiElementRect.x, uiElementRect.y, 20, 20})
-{}
+Checkbox::Checkbox(const SDL_Rect &uiElementRect) : UIElement(SDL_Rect{uiElementRect.x, uiElementRect.y, 20, 20}) {}
 
 void Checkbox::draw()
 {
@@ -27,7 +26,6 @@ bool Checkbox::onMouseButtonUp(const SDL_Event &event)
     if (!m_isMouseButtonDown)
     {
       changeButtonState(getButtonState() == BUTTONSTATE_CLICKED ? BUTTONSTATE_DEFAULT : BUTTONSTATE_CLICKED);
-
     }
     m_isMouseButtonDown = false;
     m_checkState = (getButtonState() == BUTTONSTATE_CLICKED ? true : false);

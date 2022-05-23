@@ -17,7 +17,7 @@ project(
         # this will be the ${PROJECT_NAME}
         Cytopia
         # this will provide ${PROJECT_VERSION}
-        VERSION 0.2.1
+        VERSION 0.4
         # Description
         DESCRIPTION "A city-building game"
         # we are using C++

@@ -1,7 +1,7 @@
 #ifndef CAMERA_HXX_
 #define CAMERA_HXX_
 
-#include "point.hxx"
+#include "Point.hxx"
 #include "../../util/Singleton.hxx"
 
 #include <SDL.h>
@@ -9,7 +9,6 @@
 class Camera : public Singleton<Camera>
 {
 public:
-
   /**
    * @brief Centers camera on given isometric coordinates
    * @param isoCoordinates coordinates to center the camera on
@@ -46,32 +45,22 @@ public:
   void setWindow(class Window *);
 
   /**
-   * @brief Sets the center ISO coordinates of the Camera
+   * @brief Move the camera in the given direction
    */
-  void setCenterIsoCoordinates(Point &&);
-  
-  /**
-   * @brief Move the camera in the Y direction
-   */
-  void moveCameraY(float yOffset);
-  
-  /**
-   * @brief Move the camera in the X direction
-   */
-  void moveCameraX(float xOffset);
+  void moveCamera(int xOffset, int yOffset);
 
-  const SDL_Point & cameraOffset() const noexcept;
-  const double & zoomLevel() const noexcept;
-  const SDL_Point & tileSize() const noexcept;
+  const SDL_Point &cameraOffset() const noexcept;
+  const double &zoomLevel() const noexcept;
+  const SDL_Point &tileSize() const noexcept;
 
 private:
   Camera() = default;
   ~Camera() = default;
   friend Singleton;
-  
+
   float m_PinchDistance = 0.f;
-  SDL_Point m_TileSize {32, 16};
-  SDL_Point m_CameraOffset {0, 0};
+  SDL_Point m_TileSize{32, 16};
+  SDL_Point m_CameraOffset{0, 0};
   double m_ZoomLevel = 1.0; ///< the current zoom level of the camera
   Point m_CenterIsoCoordinates;
 };

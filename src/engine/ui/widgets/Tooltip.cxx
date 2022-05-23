@@ -1,9 +1,6 @@
 #include "Tooltip.hxx"
 
-Tooltip::Tooltip()
-{
-  setVisibility(false);
-}
+Tooltip::Tooltip() { setVisibility(false); }
 
 void Tooltip::draw()
 {
