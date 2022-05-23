@@ -20,7 +20,6 @@ void Settings::readFile()
   { // if there's no custom settings file in data dir, use the provided one
     pathToSettingsFile = fs::getBasePath() + (std::string)CYTOPIA_RESOURCES_DIR + (std::string)SETTINGS_FILENAME;
   }
-
   std::string jsonFile = fs::readFileAsString(pathToSettingsFile);
   const json _settingsJSONObject = json::parse(jsonFile, nullptr, false);
 
@@ -34,6 +33,8 @@ void Settings::readFile()
   // init the actual resolution with the desired resolution
   currentScreenWidth = screenWidth;
   currentScreenHeight = screenHeight;
+ LOG(LOG_DEBUG) << "Using settings file from: " << pathToSettingsFile << " with version " << data.settingsVersion;
+
 #ifdef __ANDROID__
   subMenuButtonHeight *= 2;
   subMenuButtonWidth *= 2;

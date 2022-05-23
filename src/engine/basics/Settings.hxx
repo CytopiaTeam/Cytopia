@@ -20,6 +20,10 @@ using FilePath = StrongType<string, struct FilePathTag>;
  */
 struct SettingsData
 {
+  /**
+   * @brief the version of the Settings file. Overwrite cache settings if a newer version exists
+   */
+  int settingsVersion;
 
   /**
    * @brief the size of the map
