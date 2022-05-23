@@ -90,11 +90,7 @@ struct TileSize
 
   TileSize() : width(1), height(1){};
   TileSize(unsigned int width, unsigned int height) : width(width), height(height){};
-  TileSize(const TileSize &other)
-  {
-    width = other.width;
-    height = other.height;
-  };
+  TileSize(const TileSize &other) : width(other.width), height(other.height){};
 
   TileSize &operator=(const TileSize &other)
   {
@@ -110,7 +106,7 @@ struct TileSize
     return false;
   };
 
-  bool operator<(const TileSize &other)
+  const bool operator<(const TileSize &other)
   {
     if (width < other.width)
       return true;
