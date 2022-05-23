@@ -14,7 +14,8 @@
 #include "microprofile/microprofile.h"
 #endif
 
-Sprite::Sprite(Point _isoCoordinates) : isoCoordinates(_isoCoordinates), m_SpriteData(LAYERS_COUNT), m_renderLayer(LAYERS_COUNT, true)
+Sprite::Sprite(Point _isoCoordinates)
+    : isoCoordinates(_isoCoordinates), m_SpriteData(LAYERS_COUNT), m_renderLayer(LAYERS_COUNT, true)
 {
   m_screenCoordinates = convertIsoToScreenCoordinates(_isoCoordinates);
 }
@@ -29,7 +30,7 @@ void Sprite::render() const
     if (MapLayers::isLayerActive(currentLayer) && m_SpriteData[currentLayer].texture && m_renderLayer[currentLayer])
     {
       // Don't draw zones when there is a building on this sprite
-      if (currentLayer == Layer::ZONE && m_SpriteData[Layer::BUILDINGS].texture )
+      if (currentLayer == Layer::ZONE && m_SpriteData[Layer::BUILDINGS].texture)
       {
         continue;
       }

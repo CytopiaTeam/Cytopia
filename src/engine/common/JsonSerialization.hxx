@@ -2,7 +2,7 @@
 #define JSON_SERIALIZATION_HXX_
 
 #include "json.hxx"
-#include "point.hxx"
+#include "Point.hxx"
 #include "GameObjects/MapNode.hxx"
 #include "TerrainGenerator.hxx"
 #include "Settings.hxx"

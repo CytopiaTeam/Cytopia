@@ -1,7 +1,7 @@
 #ifndef MAPGRID_HXX_
 #define MAPGRID_HXX_
 
-#include "../basics/point.hxx"
+#include "../basics/Point.hxx"
 #include <vector>
 
 template <class T> class MapGrid
@@ -53,4 +53,3 @@ protected:
 #include "MapGrid.inl.hxx"
 
 #endif
-

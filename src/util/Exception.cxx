@@ -3,36 +3,33 @@
 
 #include "SDL.h"
 
-#if defined(__GNUC__) && !defined(__MINGW32__) && !defined(__OpenBSD__) && \
-    !defined(__vita__) && !defined(__SWITCH__) && !defined(__ANDROID__) && \
-    !defined(__HAIKU__) && !defined(__EMSCRIPTEN__)
+#if defined(__GNUC__) && !defined(__MINGW32__) && !defined(__OpenBSD__) && !defined(__vita__) && !defined(__SWITCH__) &&         \
+    !defined(__ANDROID__) && !defined(__HAIKU__) && !defined(__EMSCRIPTEN__)
 
 #include <execinfo.h>
 #include <signal.h>
 
 static void lwBacktracePrint(void)
 {
-    void *earray[100];
-    int size = backtrace(earray, 100);
+  void *earray[100];
+  int size = backtrace(earray, 100);
 
-    char **stack = backtrace_symbols(earray, size);
+  char **stack = backtrace_symbols(earray, size);
 
-    for (int i = 0; i < size; i++) {
-        LOG(LOG_ERROR) << stack[i];
-    }
+  for (int i = 0; i < size; i++)
+  {
+    LOG(LOG_ERROR) << stack[i];
+  }
 }
 
 static void lwCrashHandler(int sig)
 {
-    SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Oops, crashed with signal %d :(", sig);
-    lwBacktracePrint();
-    exit (1);
+  SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Oops, crashed with signal %d :(", sig);
+  lwBacktracePrint();
+  exit(1);
 }
 
-void systemSetupCrashHandler(void)
-{
-    signal(SIGSEGV, lwCrashHandler);
-}
+void systemSetupCrashHandler(void) { signal(SIGSEGV, lwCrashHandler); }
 
 #elif defined(_WIN32) && defined(_M_X64)
 
@@ -92,13 +89,10 @@ static const char *lwPrintExceptionName(DWORD exception_code)
   return "Unknown exception";
 }
 
-static void lwSystemError(const char *title, const char *text)
-{
-  MessageBox(NULL, text, title, MB_OK | MB_ICONERROR);
-}
+static void lwSystemError(const char *title, const char *text) { MessageBox(NULL, text, title, MB_OK | MB_ICONERROR); }
 
-// !!! NOTE !!! 
-// Please change this code with accuracy, it used native microsoft sample from 
+// !!! NOTE !!!
+// Please change this code with accuracy, it used native microsoft sample from
 // https://social.msdn.microsoft.com/Forums/vstudio/en-US/f93a211a-9c95-42f0-8581-50314457b729/generating-the-stack-traces-in-the-c-code?forum=vsdebug
 
 static void lwPrintStacktrace(LPEXCEPTION_POINTERS e)
@@ -119,7 +113,7 @@ static void lwPrintStacktrace(LPEXCEPTION_POINTERS e)
   sf.AddrPC.Mode = AddrModeFlat;
   sf.AddrStack.Mode = AddrModeFlat;
   sf.AddrFrame.Mode = AddrModeFlat;
-  sf.AddrReturn.Mode  = AddrModeFlat;
+  sf.AddrReturn.Mode = AddrModeFlat;
 
   PCONTEXT context = e->ContextRecord;
   DWORD machine_type = 0;
@@ -129,7 +123,8 @@ static void lwPrintStacktrace(LPEXCEPTION_POINTERS e)
   machine_type = IMAGE_FILE_MACHINE_AMD64;
 
   // Record exception info
-  LOG(LOG_ERROR) << "Exception [" << lwPrintExceptionName(e->ExceptionRecord->ExceptionCode) << "] 0x" << std::hex << (unsigned int) e->ExceptionRecord->ExceptionCode;
+  LOG(LOG_ERROR) << "Exception [" << lwPrintExceptionName(e->ExceptionRecord->ExceptionCode) << "] 0x" << std::hex
+                 << (unsigned int)e->ExceptionRecord->ExceptionCode;
   LOG(LOG_ERROR) << "Exception Address: 0x" << std::hex << e->ExceptionRecord->ExceptionAddress;
 
   // Record stacktrace
@@ -137,7 +132,8 @@ static void lwPrintStacktrace(LPEXCEPTION_POINTERS e)
 
   while (1)
   {
-    more = StackWalk(machine_type, GetCurrentProcess(), GetCurrentThread(), &sf, context, NULL, SymFunctionTableAccess64, SymGetModuleBase64, NULL);
+    more = StackWalk(machine_type, GetCurrentProcess(), GetCurrentThread(), &sf, context, NULL, SymFunctionTableAccess64,
+                     SymGetModuleBase64, NULL);
     if (!more || sf.AddrFrame.Offset == 0)
     {
       break;
@@ -145,7 +141,7 @@ static void lwPrintStacktrace(LPEXCEPTION_POINTERS e)
     dwModBase = SymGetModuleBase64(GetCurrentProcess(), sf.AddrPC.Offset);
     if (dwModBase)
     {
-      GetModuleFileName((HINSTANCE) dwModBase, modname, MAX_PATH);
+      GetModuleFileName((HINSTANCE)dwModBase, modname, MAX_PATH);
     }
     else
     {
@@ -163,7 +159,8 @@ static void lwPrintStacktrace(LPEXCEPTION_POINTERS e)
       linenum = !!filelineinfo_ok ? line.LineNumber : 0;
 
       // This is the code path taken on VC if debugging syms are found
-      LOG(LOG_ERROR) << count << " " << filename << ":" << linenum << " |" << pSym->Name << "+0x" << Disp << std::hex << (unsigned int)sf.AddrPC.Offset;
+      LOG(LOG_ERROR) << count << " " << filename << ":" << linenum << " |" << pSym->Name << "+0x" << Disp << std::hex
+                     << (unsigned int)sf.AddrPC.Offset;
     }
     else
     {
@@ -190,27 +187,22 @@ static LONG CALLBACK lwExceptionHandler(LPEXCEPTION_POINTERS e)
   SymCleanup(GetCurrentProcess());
 
   // Inform user
-  lwSystemError("Cytopia has crashed :(",
-    "There was an unrecoverable error in Cytopia, which will now close.\n\n"
-    "The piece of code that caused the crash has been saved to log.\n\n"
-    "If you can, please create an issue by going to:\n\n"
-    "https://github.com/CytopiaTeam/Cytopia/issues/new \n\n"
-    "Please attatch log and your map to the issue report.\n\n"
-    "With your help, we can avoid this crash in the future.\n\n"
-    "Thanks!\n\n");
+  lwSystemError("Cytopia has crashed :(", "There was an unrecoverable error in Cytopia, which will now close.\n\n"
+                                          "The piece of code that caused the crash has been saved to log.\n\n"
+                                          "If you can, please create an issue by going to:\n\n"
+                                          "https://github.com/CytopiaTeam/Cytopia/issues/new \n\n"
+                                          "Please attatch log and your map to the issue report.\n\n"
+                                          "With your help, we can avoid this crash in the future.\n\n"
+                                          "Thanks!\n\n");
 
   // this seems to silently close the application
   return EXCEPTION_EXECUTE_HANDLER;
 }
 
-void systemSetupCrashHandler()
-{
-  SetUnhandledExceptionFilter(lwExceptionHandler);
-}
+void systemSetupCrashHandler() { SetUnhandledExceptionFilter(lwExceptionHandler); }
 
 #else // fallback
 
-void systemSetupCrashHandler(void)
-{}
+void systemSetupCrashHandler(void) {}
 
 #endif

@@ -18,7 +18,8 @@ void Text::draw()
   }
 }
 
-Text::~Text() {
+Text::~Text()
+{
   if (m_texture)
     SDL_DestroyTexture(m_texture);
 }

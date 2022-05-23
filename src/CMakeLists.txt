@@ -23,7 +23,7 @@ set(SOURCE_FILES
         engine/basics/Camera.{hxx,cxx}
         engine/basics/isoMath.{hxx,cxx}
         engine/basics/mapEdit.{hxx,cxx}
-        engine/basics/point.hxx
+        engine/basics/Point.hxx
         engine/basics/PointFunctions.{hxx,cxx}
         engine/basics/Settings.{hxx,cxx}
         engine/basics/GameStates.{hxx,cxx}
@@ -32,6 +32,7 @@ set(SOURCE_FILES
         engine/common/enums.hxx
         engine/common/JsonSerialization.hxx
         engine/GameObjects/MapNode.{hxx,cxx}
+        engine/map/MapFunctions.{hxx,cxx}
         engine/GameObjects/MapGrid.hxx
         engine/GameObjects/MapGrid.inl.hxx
         engine/map/MapLayers.{hxx,cxx}
@@ -48,7 +49,6 @@ set(SOURCE_FILES
         engine/ui/widgets/Text.{hxx,cxx}
         engine/ui/widgets/Tooltip.{hxx,cxx}
         engine/ui/menuGroups/IMenuGroup.hxx
-        engine/Engine.{hxx,cxx}
         engine/EventManager.{hxx,cxx}
         engine/Map.{hxx,cxx}
         engine/Sprite.{hxx,cxx}
@@ -86,14 +86,6 @@ if (USE_ANGELSCRIPT)
             Scripting/ScriptEngine.{hxx,cxx}
             )
 endif ()
-
-if (ENABLE_MICROPROFILE)
-    list(APPEND SOURCE_FILES
-            ${microprofile_SOURCE_DIR}/microprofile.h
-            ${microprofile_SOURCE_DIR}/microprofile_html.h
-            ${microprofile_SOURCE_DIR}/microprofile.cpp
-            )
-endif (ENABLE_MICROPROFILE)
 
 # Expand file extensions (i.e. path/to/file.{h,cpp} becomes path/to/file.h;path/to/file.cpp)
 expand_file_extensions(SOURCE_FILES ${SOURCE_FILES})
@@ -145,7 +137,7 @@ set_target_properties(
         CXX_EXTENSIONS NO
 )
 
-list(APPEND _compile_definitions VERSION="${PROJECT_NAME} ${PROJECT_VERSION} - Urban Update")
+list(APPEND _compile_definitions VERSION="${PROJECT_NAME} ${PROJECT_VERSION} - Utilities Update")
 
 target_include_directories(
         ${PROJECT_NAME} PRIVATE

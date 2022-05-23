@@ -5,7 +5,7 @@
 #include <algorithm>
 #include <SDL.h>
 
-#include "point.hxx"
+#include "Point.hxx"
 
 // calculate clicked column (x coordinate) without heigh taken into account.
 /** \brief Calculates screen space coordinates to isometric space coordinates.

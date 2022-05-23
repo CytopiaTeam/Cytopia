@@ -24,7 +24,7 @@ LIST(APPEND TEST_SOURCES
         engine/basics/Point.cxx
         engine/basics/Settings.cxx
         engine/ResourcesManager.cxx
-        engine/Engine.cxx
+        engine/MapFunctions.cxx
         engine/WindowManager.cxx
         game/PowerManager.cxx
         services/GameClock.cxx
