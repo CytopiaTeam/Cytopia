@@ -87,14 +87,6 @@ if (USE_ANGELSCRIPT)
             )
 endif ()
 
-if (ENABLE_MICROPROFILE)
-    list(APPEND SOURCE_FILES
-            ${microprofile_SOURCE_DIR}/microprofile.h
-            ${microprofile_SOURCE_DIR}/microprofile_html.h
-            ${microprofile_SOURCE_DIR}/microprofile.cpp
-            )
-endif (ENABLE_MICROPROFILE)
-
 # Expand file extensions (i.e. path/to/file.{h,cpp} becomes path/to/file.h;path/to/file.cpp)
 expand_file_extensions(SOURCE_FILES ${SOURCE_FILES})
 
