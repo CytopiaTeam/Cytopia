@@ -547,22 +547,22 @@ bool MapFunctions::isClickWithinTile(const SDL_Point &screenCoordinates, Point i
     return false;
   }
 
-  auto &node = m_map->mapNodes[isoCoordinate.toIndex()];
+  const auto &node = m_map->mapNodes[isoCoordinate.toIndex()];
   auto pSprite = node.getSprite();
   std::vector<Layer> layersToGoOver;
 
   // Layers ordered for hitcheck
   if (layer == Layer::NONE)
   {
-    Layer layers[] = {Layer::TERRAIN, Layer::WATER, Layer::UNDERGROUND, Layer::BLUEPRINT};
-    layersToGoOver.insert(layersToGoOver.begin(), std::begin(layers), std::end(layers));
+    std::vector<Layer> layersOrdered = {Layer::TERRAIN, Layer::WATER, Layer::UNDERGROUND, Layer::BLUEPRINT};
+    layersToGoOver.insert(layersToGoOver.begin(), layersOrdered.begin(), layersOrdered.end());
   }
   else
   {
     layersToGoOver.push_back(layer);
   }
 
-  for (auto &curLayer : layersToGoOver)
+  for (const auto &curLayer : layersToGoOver)
   {
     if (!MapLayers::isLayerActive(curLayer))
     {
@@ -653,7 +653,7 @@ void MapFunctions::loadMapFromFile(const std::string &fileName)
   {
     Point coordinates = json(it.value())["coordinates"].get<Point>();
     // set coordinates (height) of the map
-    map->mapNodes.emplace_back(MapNode{Point{coordinates.x, coordinates.y, coordinates.z, coordinates.height}, ""});
+    map->mapNodes.emplace_back(Point{coordinates.x, coordinates.y, coordinates.z, coordinates.height}, "");
     // load back mapNodeData (tileIDs, Buildins, ...)
     map->mapNodes.back().setMapNodeData(json(it.value())["mapNodeData"]);
   }

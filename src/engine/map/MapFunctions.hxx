@@ -8,9 +8,6 @@
 #include <Singleton.hxx>
 #include <Point.hxx>
 
-// TODO: Safety checks for refresh
-// Map reference instead of pointer?
-
 class MapFunctions : public Singleton<MapFunctions>
 {
 public:
