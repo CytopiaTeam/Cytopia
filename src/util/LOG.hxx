@@ -78,7 +78,7 @@ private:
    *  @details If the log file exceeds MAX_LOG_SIZE_BYTES, logs will be cut in half
    *  @param errorMessage to write to error logfile
    */
-  void writeErrorLog(const std::string &errorMessage);
+  void writeErrorLog(const std::string &errorMessage) const;
 };
 
 #include "LOG.inl.hxx"
