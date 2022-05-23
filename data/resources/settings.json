@@ -32,7 +32,7 @@
   },
   "User Interface": {
     "BuildMenuPosition": "BOTTOM",
-    "FontFilename": "resources/fonts/advanced_pixel-7.ttf",
+    "FontFilename": "resources/fonts/pixellocale-v-1-4.ttf",
     "Language": "en",
     "SubMenuButtonHeight": 32,
     "SubMenuButtonWidth": 32

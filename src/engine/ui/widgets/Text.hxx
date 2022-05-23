@@ -53,7 +53,7 @@ private:
   void createTextTexture(const std::string &text, const SDL_Color &textColor);
 
   /// the font size of the text
-  int m_fontSize = 30;
+  int m_fontSize = 20;
 };
 
 #endif
