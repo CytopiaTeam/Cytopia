@@ -149,8 +149,8 @@ bool Game::mainMenu()
       {
 #ifdef USE_AUDIO
         playAudioMajorSelection();
-#endif //  USE_AUDIO
-        // TODO: Game.run??
+#endif //  USE_AUDIO                                                                                                             \
+    // TODO: Game.run??
       });
 
   Button loadGameButton({screenWidth / 2 - 100, screenHeight / 2 - 20 + newGameButton.getUiElementRect().h * 2, 200, 40});

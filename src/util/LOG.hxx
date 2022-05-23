@@ -72,7 +72,7 @@ private:
   /** @brief Gets formatted TimeStamp
    *  @return std::string containing current TimeStamp
    */
-  std::string getTimeStamp();
+  const std::string getTimeStamp();
 
   /** @brief Write log message to error.log file
    *  @details If the log file exceeds MAX_LOG_SIZE_BYTES, logs will be cut in half
