@@ -47,7 +47,7 @@ public:
   /**
    * @brief Move the camera in the given direction
    */
-  void moveCamera(float xOffset, float yOffset);
+  void moveCamera(int xOffset, int yOffset);
 
   const SDL_Point &cameraOffset() const noexcept;
   const double &zoomLevel() const noexcept;

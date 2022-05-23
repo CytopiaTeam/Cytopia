@@ -73,9 +73,8 @@ void Camera::centerScreenOnMapCenter()
   MapFunctions::instance().refreshVisibleMap();
 }
 
-void Camera::moveCamera(float xOffset, float yOffset)
+void Camera::moveCamera(int xOffset, int yOffset)
 {
-  LOG(LOG_INFO) << "xOffset " << xOffset;
   m_CameraOffset.x -= xOffset;
   m_CameraOffset.y -= yOffset;
   MapFunctions::instance().refreshVisibleMap();
