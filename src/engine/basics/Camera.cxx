@@ -75,6 +75,7 @@ void Camera::centerScreenOnMapCenter()
 
 void Camera::moveCamera(float xOffset, float yOffset)
 {
+  LOG(LOG_INFO) << "xOffset " << xOffset;
   m_CameraOffset.x -= xOffset;
   m_CameraOffset.y -= yOffset;
   MapFunctions::instance().refreshVisibleMap();

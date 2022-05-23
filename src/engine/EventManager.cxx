@@ -39,7 +39,7 @@ void EventManager::pickTileUnderCursor(Point mouseIsoCoords)
 {
   Layer topMostActiveLayer;
   std::vector<MapNodeData> mapNodeData;
-  MapNode &node = MapFunctions::instance().getMapNode(mouseIsoCoords);
+  const MapNode &node = MapFunctions::instance().getMapNode(mouseIsoCoords);
 
   topMostActiveLayer = node.getTopMostActiveLayer();
   // all layers are supported except terrain
@@ -129,40 +129,32 @@ void EventManager::checkEvents(SDL_Event &event)
         break;
       case SDLK_UP:
       case SDLK_w:
-        if (Camera::instance().cameraOffset().y > -2 * Settings::instance().screenHeight * Camera::instance().zoomLevel())
+        if (MapFunctions::instance().getMap() &&
+            Camera::instance().cameraOffset().y > -2 * Settings::instance().screenHeight * Camera::instance().zoomLevel())
         {
-          // check if map exists to see, if we're ingame already.
-          if (MapFunctions::instance().getMap())
-          {
-            Camera::instance().moveCamera(0, Settings::instance().screenHeight / 16);
-          }
+          Camera::instance().moveCamera(0, Settings::instance().screenHeight / 16);
         }
         break;
       case SDLK_LEFT:
       case SDLK_a:
-        if (Camera::instance().cameraOffset().x > -0.25 * Settings::instance().screenWidth * Camera::instance().zoomLevel())
+        if (MapFunctions::instance().getMap() &&
+            Camera::instance().cameraOffset().x > -0.25 * Settings::instance().screenWidth * Camera::instance().zoomLevel())
         {
-          // check if map exists to see, if we're ingame already.
-          if (MapFunctions::instance().getMap())
-          {
-            Camera::instance().moveCamera(Settings::instance().screenWidth / 16, 0);
-          }
+          Camera::instance().moveCamera(Settings::instance().screenWidth / 16, 0);
         }
         break;
       case SDLK_DOWN:
       case SDLK_s:
-        if (Camera::instance().cameraOffset().y < 1.25 * Settings::instance().screenHeight * Camera::instance().zoomLevel())
+        if (MapFunctions::instance().getMap() &&
+            Camera::instance().cameraOffset().y < 1.25 * Settings::instance().screenHeight * Camera::instance().zoomLevel())
         {
-          // check if map exists to see, if we're ingame already.
-          if (MapFunctions::instance().getMap())
-          {
-            Camera::instance().moveCamera(0, -Settings::instance().screenHeight / 16);
-          }
+          Camera::instance().moveCamera(0, -Settings::instance().screenHeight / 16);
         }
         break;
       case SDLK_RIGHT:
       case SDLK_d:
-        if (Camera::instance().cameraOffset().x < 5 * Settings::instance().screenWidth * Camera::instance().zoomLevel())
+        if (MapFunctions::instance().getMap() &&
+            Camera::instance().cameraOffset().x < 5 * Settings::instance().screenWidth * Camera::instance().zoomLevel())
         {
           // check if map exists to see, if we're ingame already.
           if (MapFunctions::instance().getMap())

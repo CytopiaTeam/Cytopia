@@ -137,8 +137,8 @@ void ResourcesManager::flush()
 SDL_Color ResourcesManager::getColorOfPixelInSurface(const std::string &tileID, int x, int y)
 {
   SDL_Color Color{0, 0, 0, SDL_ALPHA_TRANSPARENT};
-  SDL_Surface *surface = getTileSurface(tileID);
-  if (surface)
+  // create and initialize a variable within the condition
+  if (SDL_Surface *surface = getTileSurface(tileID); surface)
   {
     const int bpp = surface->format->BytesPerPixel;
     Uint8 *p = &static_cast<Uint8 *>(surface->pixels)[y * surface->pitch + x * bpp];

@@ -150,8 +150,6 @@ bool Game::mainMenu()
 #ifdef USE_AUDIO
         playAudioMajorSelection();
 #endif //  USE_AUDIO
-
-        // Engine::instance().();
         // TODO: Game.run??
       });
 
@@ -164,8 +162,7 @@ bool Game::mainMenu()
         playAudioMajorSelection();
 #endif // USE_AUDIO
 
-        //TODO: This will need more refactoring to work. Split main menu into a seperate class. ##945                                                                                       \
-    // Engine::instance().loadGame("save.cts");
+        //TODO: This will need more refactoring to work. Split main menu into a seperate class. ##945
       });
 
   Button quitGameButton({screenWidth / 2 - 100, screenHeight / 2 - 20 + loadGameButton.getUiElementRect().h * 4, 200, 40});
@@ -278,8 +275,8 @@ void Game::run(bool SkipMenu)
 {
   LOG(LOG_INFO) << VERSION;
 
-  // we need to instantiate the MapFunctions object
-  MapFunctions &mapFunctions = MapFunctions::instance();
+  // we need to instantiate the MapFunctions object so it's ready for new game
+  MapFunctions::instance();
   SignalMediator::instance().signalNewGame.emit(true);
 
   Camera::instance().centerScreenOnMapCenter();
