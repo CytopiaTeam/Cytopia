@@ -536,7 +536,7 @@ void UIManager::setCallbackFunctions()
     }
     else if (uiElement->getUiElementData().actionID == "ResetSettings")
     {
-      uiElement->registerCallbackFunction([this]() { Settings::instance().resetSettingsToDefaults(); });
+      uiElement->registerCallbackFunction([]() { Settings::instance().resetSettingsToDefaults(); });
     }
 
     else if (uiElement->getUiElementData().actionID == "SaveSettings")
