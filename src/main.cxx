@@ -84,7 +84,8 @@ int protected_main(int argc, char **argv)
 
   if (!skipMenu)
   {
-    quitGame = game.mainMenu();
+    mainMenu();
+    // quitGame = game.mainMenu();
   }
 
   if (!quitGame)
