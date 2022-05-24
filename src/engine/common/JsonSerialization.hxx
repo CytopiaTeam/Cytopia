@@ -229,8 +229,7 @@ inline void to_json(json &j, const MapNode &m)
 inline void to_json(json &j, const SettingsData &s)
 {
   j = {
-      {std::string("SettingsVersion"),
-      s.settingsVersion},
+      {std::string("SettingsVersion"), s.settingsVersion},
       {std::string("Graphics"),
        {
            {std::string("VSYNC"), s.vSync},

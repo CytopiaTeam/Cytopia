@@ -3,9 +3,9 @@
 // #include "LOG.hxx"
 #include "Exception.hxx"
 #include "Constants.hxx"
-#include "JsonSerialization.hxx"
 #include "Filesystem.hxx"
 #include "LOG.hxx"
+#include <JsonSerialization.hxx>
 
 #include <iomanip>
 
@@ -13,27 +13,41 @@ Settings::Settings() { readFile(); }
 
 void Settings::readFile()
 {
-  std::string pathToDataDir;
-  std::string pathToSettingsFile = CYTOPIA_DATA_DIR + (std::string)SETTINGS_FILENAME;
+  const std::string pathToCachedSettingsFile = CYTOPIA_DATA_DIR + (std::string)SETTINGS_FILENAME;
+  const std::string pathToLocalSettingsFile =
+      fs::getBasePath() + (std::string)CYTOPIA_RESOURCES_DIR + (std::string)SETTINGS_FILENAME;
 
-  if (!fs::fileExists(pathToSettingsFile))
-  { // if there's no custom settings file in data dir, use the provided one
-    pathToSettingsFile = fs::getBasePath() + (std::string)CYTOPIA_RESOURCES_DIR + (std::string)SETTINGS_FILENAME;
+  const json localJsonObject = parseSettingsFile(pathToLocalSettingsFile);
+  const json cachedJsonObject = parseSettingsFile(pathToCachedSettingsFile);
+
+  if (localJsonObject.empty() || localJsonObject.is_discarded())
+    throw ConfigurationError(TRACE_INFO "Error parsing local JSON File " + string{pathToLocalSettingsFile});
+
+  SettingsData settingsData;
+
+  if (cachedJsonObject.empty() || cachedJsonObject.is_discarded())
+  {
+    settingsData = localJsonObject;
   }
-  std::string jsonFile = fs::readFileAsString(pathToSettingsFile);
-  const json _settingsJSONObject = json::parse(jsonFile, nullptr, false);
+  else
+  {
+    int cacheVersion = cachedJsonObject.value("SettingsVersion", -1);
+    int localVersion = localJsonObject.value("SettingsVersion", -1);
+    if (localVersion <= cacheVersion)
+    {
+      settingsData = cachedJsonObject;
+    }
+    else
+    {
+      LOG(LOG_INFO) << "The settings file version has changed. Overwriting local cached settings file with default settings.";
+    }
+  }
 
-  // check if json file can be parsed
-  if (_settingsJSONObject.is_discarded())
-    throw ConfigurationError(TRACE_INFO "Error parsing JSON File " + string{pathToSettingsFile});
-
-  SettingsData data = _settingsJSONObject;
-  *this = data;
+  *this = settingsData;
 
   // init the actual resolution with the desired resolution
   currentScreenWidth = screenWidth;
   currentScreenHeight = screenHeight;
- LOG(LOG_DEBUG) << "Using settings file from: " << pathToSettingsFile << " with version " << data.settingsVersion;
 
 #ifdef __ANDROID__
   subMenuButtonHeight *= 2;
@@ -57,4 +71,17 @@ void Settings::writeFile()
   std::string pathToSettingsFile = pathToDataDir + (std::string)SETTINGS_FILENAME;
   fs::createDirectory(pathToDataDir);
   fs::writeStringToFile(pathToSettingsFile, settingsJsonObject.dump());
+}
+
+const json Settings::parseSettingsFile(const std::string &fileName) const
+{
+  json settingsJSONObject;
+
+  if (fs::fileExists(fileName))
+  {
+    std::string jsonFile = fs::readFileAsString(fileName);
+    settingsJSONObject = json::parse(jsonFile, nullptr, false);
+  }
+
+  return settingsJSONObject;
 }

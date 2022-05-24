@@ -6,8 +6,10 @@
 
 #include "../../util/Singleton.hxx"
 #include "../../util/Meta.hxx"
+#include <json.hxx>
 
 using std::string;
+using json = nlohmann::json;
 
 /* Settings Types */
 using ScreenDimension = int;
@@ -184,6 +186,8 @@ public:
 private:
   Settings();
   ~Settings() = default;
+
+  const json parseSettingsFile(const std::string &fileName) const;
 };
 
 #endif
