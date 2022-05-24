@@ -210,15 +210,15 @@ bool MapFunctions::isPlacementOnAreaAllowed(const std::vector<Point> &targetCoor
   bool tilePlacementAllowed = true;
 
   const Layer layer = TileManager::instance().getTileLayer(tileID);
-  // Zone layer can be placed on part of tile in the area.
-  // Some other layers can also have this feature, such as water, flora.
-  if (layer == Layer::ZONE)
+  // Only buildings and roads has to be placed on all of the tile selected.
+  // Other layers can be placed on part of tile in the area, such as zone, water, flora.
+  if (layer == BUILDINGS)
   {
-    shouldAllNodesPlaced = false;
+    shouldAllNodesPlaced = true;
   }
   else
   {
-    shouldAllNodesPlaced = true;
+    shouldAllNodesPlaced = false;
   }
   areaPlacementAllowed = shouldAllNodesPlaced;
 
