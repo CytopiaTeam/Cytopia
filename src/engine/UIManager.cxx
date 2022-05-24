@@ -79,7 +79,7 @@ void UIManager::init()
           continue;
         }
 
-        layoutGroup.layout.fontSize = uiLayout["LayoutGroups"][it.key()][id].value("FontSize", 20);
+        layoutGroup.layout.fontSize = uiLayout["LayoutGroups"][it.key()][id].value("FontSize", Settings::instance().defaultFontSize);
         layoutGroup.layout.padding = uiLayout["LayoutGroups"][it.key()][id].value("Padding", 0);
         layoutGroup.layout.paddingToParent = uiLayout["LayoutGroups"][it.key()][id].value("PaddingToParent", 0);
         layoutGroup.layout.alignmentOffset = uiLayout["LayoutGroups"][it.key()][id].value("AlignmentOffset", 0.0F);
