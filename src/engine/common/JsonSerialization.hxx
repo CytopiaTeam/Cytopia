@@ -34,6 +34,7 @@ inline void from_json(const json &j, MapNodeData &mapNodeData)
 // JSON deserializer for Settings struct
 inline void from_json(const json &j, SettingsData &s)
 {
+  s.settingsVersion = j.value("SettingsVersion", 0);
   s.screenWidth = j["Graphics"]["Resolution"].value("Screen_Width", 800);
   s.screenHeight = j["Graphics"]["Resolution"].value("Screen_Height", 600);
   s.vSync = j["Graphics"].value("VSYNC", false);
@@ -228,6 +229,7 @@ inline void to_json(json &j, const MapNode &m)
 inline void to_json(json &j, const SettingsData &s)
 {
   j = {
+      {std::string("SettingsVersion"), s.settingsVersion},
       {std::string("Graphics"),
        {
            {std::string("VSYNC"), s.vSync},

@@ -326,8 +326,8 @@
             {
                 "Type": "TextButton",
                 "Text": "OK",
-                "Position_x": 270,
-                "Position_y": 500,
+                "Position_x": 220,
+                "Position_y": 550,
                 "Width": 100,
                 "Height": 30,
                 "Action": "SaveSettings",
@@ -336,11 +336,21 @@
             {
                 "Type": "TextButton",
                 "Text": "Cancel",
-                "Position_x": 430,
-                "Position_y": 500,
+                "Position_x": 350,
+                "Position_y": 550,
                 "Width": 100,
                 "Height": 30,
                 "Action": "CancelSettings",
+                "ActionParameter": "SettingsMenu"
+            },
+            {
+                "Type": "TextButton",
+                "Text": "Reset",
+                "Position_x": 500,
+                "Position_y": 550,
+                "Width": 100,
+                "Height": 30,
+                "Action": "ResetSettings",
                 "ActionParameter": "SettingsMenu"
             },
             {
