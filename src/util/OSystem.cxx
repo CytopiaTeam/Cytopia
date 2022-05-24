@@ -15,7 +15,7 @@
 #include <string.h>
 const char* getDialogCommand()
 {
-  if (::system(NULL))
+  if (::system(nullptr))
   {
     if(::system("which gdialog") == 0)
       return "gdialog";
@@ -23,7 +23,7 @@ const char* getDialogCommand()
     else if (::system("which kdialog") == 0)
       return "kdialog";
   }
-  return NULL;
+  return nullptr;
 }
 #elif defined(CYTOPIA_PLATFORM_MACOSX)
   #include <cstdlib>
@@ -48,7 +48,7 @@ void OSystem::error(const std::string& title, const std::string& text)
 
   // fail-safe method here, using stdio perhaps, depends on your application
 #elif defined(CYTOPIA_PLATFORM_WIN)
-  MessageBox(NULL, text.c_str(), title.c_str(), MB_OK | MB_ICONERROR);
+  MessageBox(nullptr, text.c_str(), title.c_str(), MB_OK | MB_ICONERROR);
 #endif
 }
 
@@ -58,8 +58,10 @@ void OSystem::openUrl(const std::string& url, const std::string& prefix)
   std::string command = prefix + "xdg-open '" + url + "'";
   LOG(LOG_DEBUG) << command;
   ::system( command.c_str() );
+
 #elif defined(CYTOPIA_PLATFORM_WIN)
   ShellExecuteA(0, "Open", url.c_str(), 0, 0 , SW_SHOW);
+
 #elif defined(CYTOPIA_PLATFORM_MACOSX)
   std::string command = "open \"" + url + "\" &";
   ::system(command.c_str());
@@ -69,58 +71,61 @@ void OSystem::openUrl(const std::string& url, const std::string& prefix)
 void OSystem::openDir(const std::string& path, const std::string& prefix)
 {
   std::string command;
+
 #ifdef CYTOPIA_PLATFORM_LINUX
   command = prefix + "nautilus '" + path + "' &";
   ::system(command.c_str() );
 #elif defined(CYTOPIA_PLATFORM_WIN)
-  ShellExecute(GetDesktopWindow(), "open", path.c_str(), NULL, NULL, SW_SHOWNORMAL);
+  ShellExecute(GetDesktopWindow(), "open", path.c_str(), nullptr, nullptr, SW_SHOWNORMAL);
+
 #elif defined(CYTOPIA_PLATFORM_MACOSX)
   command = "open \"" + path + "\" &";
   ::system(command.c_str());
+
 #endif
 }
 
 bool OSystem::is(OSystem::Type type)
 {
-#define RETURN_TRUE(t) if (t) return true;
+#define RETURN_TRUE(t) if (type == t) return true;
 
 #ifdef CYTOPIA_PLATFORM_WIN
-  RETURN_TRUE(windows)
+  RETURN_TRUE(Type::windows)
 #endif
 
 #ifdef CYTOPIA_PLATFORM_LINUX
-  RETURN_TRUE(linux)
+  RETURN_TRUE(Type::linux)
 #endif
 
 #ifdef CYTOPIA_PLATFORM_UNIX
-  RETURN_TRUE(unix)
+  RETURN_TRUE(Type::unix)
 #endif
 
 #ifdef CYTOPIA_PLATFORM_ANDROID
-  RETURN_TRUE(android)
+  RETURN_TRUE(Type::android)
 #endif
 
 #ifdef CYTOPIA_PLATFORM_MACOSX
-  RETURN_TRUE(macos)
+  RETURN_TRUE(Type::macos)
 #endif
 
 #ifdef CYTOPIA_PLATFORM_XBSD
-  RETURN_TRUE(bsd)
+  RETURN_TRUE(Type::bsd)
 #endif
 
 #ifdef CYTOPIA_PLATFORM_HAIKU
-  RETURN_TRUE(haiku)
+  RETURN_TRUE(Type::haiku)
 #endif
 
 #ifdef CYTOPIA_PLATFORM_BEOS
-  RETURN_TRUE(beos)
+  RETURN_TRUE(Type::beos)
 #endif
 
   return false;
 }
 
-bool OSystem::isAndroid() { return is( android ); }
-bool OSystem::isLinux() { return is( linux ); }
-bool OSystem::isUnix() { return is( unix ); }
-bool OSystem::isMac() { return is( macos ); }
-bool OSystem::isWindows() { return is( windows ); }
+bool OSystem::isAndroid() { return is( Type::android ); }
+bool OSystem::isLinux() { return is( Type::linux ); }
+bool OSystem::isUnix() { return is( Type::unix ); }
+bool OSystem::isMac() { return is( Type::macos ); }
+bool OSystem::isWindows() { return is( Type::windows ); }

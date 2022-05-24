@@ -4,27 +4,27 @@
 #if defined(__WIN32__) || defined(_WIN32) || defined(_WIN64)
   #define CYTOPIA_PLATFORM_WIN
   #define CYTOPIA_PLATFORM_WINPC
-  #define CYTOPIA_PLATFORM_NAME "win"
+  constexpr const char* CYTOPIA_PLATFORM_NAME = "win";
 #elif defined(__APPLE_CC__) || defined(__APPLE__) || defined(__APPLE_CPP__) || defined(__MACOS_CLASSIC__)
   #define CYTOPIA_PLATFORM_UNIX
   #define CYTOPIA_PLATFORM_MACOSX
-  #define CYTOPIA_PLATFORM_NAME "macosx"
+  constexpr const char *CYTOPIA_PLATFORM_NAME = "macosx";
 #elif defined(__FreeBSD__) || defined(__OpenBSD__)
   #define CYTOPIA_PLATFORM_UNIX
   #define CYTOPIA_PLATFORM_XBSD
-  #define CYTOPIA_PLATFORM_NAME "freebsd"
+  constexpr const char *CYTOPIA_PLATFORM_NAME = "freebsd";
 #elif defined(__HAIKU__) || defined(HAIKU)
   #define CYTOPIA_PLATFORM_BEOS
   #define CYTOPIA_PLATFORM_HAIKU
-  #define CYTOPIA_PLATFORM_NAME "haiku"
+  constexpr const char *CYTOPIA_PLATFORM_NAME = "haiku";
 #elif defined(ANDROID)
   #define CYTOPIA_PLATFORM_UNIX
   #define CYTOPIA_PLATFORM_ANDROID
-  #define CYTOPIA_PLATFORM_NAME "android"
+  constexpr const char *CYTOPIA_PLATFORM_NAME = "android";
 #else
   #define CYTOPIA_PLATFORM_UNIX
   #define CYTOPIA_PLATFORM_LINUX
-  #define CYTOPIA_PLATFORM_NAME "linux"
+  constexpr const char *CYTOPIA_PLATFORM_NAME = "linux";
 #endif
 
 #endif // PLATFORM_H_
