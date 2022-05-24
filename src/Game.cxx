@@ -28,7 +28,11 @@
 
 namespace Cytopia
 {
-Game::Game() { LOG(LOG_DEBUG) << "Created Game Object"; }
+Game::Game()
+{
+  LOG(LOG_DEBUG) << "Created Game Object";
+  initialize();
+}
 
 void Game::quit()
 {
@@ -46,39 +50,8 @@ void Game::quit()
 #endif // USE_AUDIO
 }
 
-bool Game::initialize(const char *videoDriver)
+void Game::initialize()
 {
-  if (SDL_Init(0) != 0)
-  {
-    LOG(LOG_ERROR) << "Failed to Init SDL";
-    LOG(LOG_ERROR) << "SDL Error: " << SDL_GetError();
-    return false;
-  }
-
-  if (SDL_VideoInit(videoDriver) != 0)
-  {
-    LOG(LOG_ERROR) << "Unknown video driver " << videoDriver;
-    int nbDriver = SDL_GetNumRenderDrivers();
-    for (int i = 0; i < nbDriver; i++)
-    {
-      SDL_RendererInfo info;
-      SDL_GetRenderDriverInfo(i, &info);
-      LOG(LOG_ERROR) << "Found driver " << i << ": " << (info.name ? info.name : "Invalid driver")
-                     << " with flags=" << info.flags;
-    }
-    return false;
-  }
-
-  if (TTF_Init() == -1)
-  {
-    LOG(LOG_ERROR) << "Failed to Init SDL_TTF";
-    LOG(LOG_ERROR) << "SDL Error: " << TTF_GetError();
-    return false;
-  }
-
-  // initialize window manager
-  WindowManager::instance().setWindowTitle(VERSION);
-
 #ifdef USE_MOFILEREADER
   std::string moFilePath = fs::getBasePath();
   moFilePath = moFilePath + "languages/" + Settings::instance().gameLanguage + "/Cytopia.mo";

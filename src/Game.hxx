@@ -42,7 +42,7 @@ public:
   /** @brief starts setting up the game
     * starts game initialization.
     */
-  virtual bool initialize(const char *videoDriver);
+  virtual void initialize();
 
   /** @brief begins the game
     * starts running the game

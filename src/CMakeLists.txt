@@ -1,6 +1,7 @@
 set(SOURCE_FILES
         main.cxx
         Game.{hxx,cxx}
+        MainMenu.{hxx,cxx}
         util/LOG.{hxx,cxx}
         util/LOG.inl.hxx
         util/Filesystem.{hxx,cxx}
