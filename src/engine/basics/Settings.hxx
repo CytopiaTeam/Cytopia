@@ -190,7 +190,7 @@ private:
   Settings();
   ~Settings() = default;
 
-  const json parseSettingsFile(const std::string &fileName) const;
+  json parseSettingsFile(const std::string &fileName) const;
 };
 
 #endif

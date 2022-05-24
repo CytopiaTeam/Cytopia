@@ -72,7 +72,7 @@ void Settings::writeFile()
   fs::writeStringToFile(pathToSettingsFile, settingsJsonObject.dump());
 }
 
-const json Settings::parseSettingsFile(const std::string &fileName) const
+json Settings::parseSettingsFile(const std::string &fileName) const
 {
   json settingsJSONObject;
 
