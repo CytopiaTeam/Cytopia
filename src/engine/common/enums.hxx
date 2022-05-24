@@ -35,7 +35,7 @@ static Layer layersInActiveOrder[] = {
   Layer::BUILDINGS, Layer::UNDERGROUND, Layer::BLUEPRINT, Layer::GROUND_DECORATION,
   Layer::ROAD, Layer::POWERLINES, Layer::FLORA, Layer::ZONE, Layer::WATER, Layer::TERRAIN};
 
-static std::vector<Layer> layersToBeCross = {Layer::ROAD, Layer::WATER, Layer::FLORA};
+const static std::vector<Layer> layersToBeCross = {Layer::ROAD, Layer::WATER, Layer::FLORA};
 
 /**
  * @brief LayerEditMode.
