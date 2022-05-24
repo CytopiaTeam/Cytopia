@@ -1,7 +1,7 @@
 #ifndef POWERGRID_HXX_
 #define POWERGRID_HXX_
 
-#include "point.hxx"
+#include "Point.hxx"
 #include "../engine/GameObjects/MapGrid.hxx"
 #include <vector>
 
@@ -14,7 +14,7 @@ struct PowerNode
 class PowerGrid;
 void mergePowerGrids(PowerGrid &mainGrid, PowerGrid &toBeMerged);
 
-class PowerGrid: public MapGrid<PowerNode>
+class PowerGrid : public MapGrid<PowerNode>
 {
 public:
   PowerGrid(PowerNode powerNode);

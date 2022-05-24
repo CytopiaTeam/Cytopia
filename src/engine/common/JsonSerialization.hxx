@@ -2,7 +2,7 @@
 #define JSON_SERIALIZATION_HXX_
 
 #include "json.hxx"
-#include "point.hxx"
+#include "Point.hxx"
 #include "GameObjects/MapNode.hxx"
 #include "TerrainGenerator.hxx"
 #include "Settings.hxx"
@@ -236,7 +236,7 @@ inline void to_json(json &j, const SettingsData &s)
            {std::string("Resolution"),
             {{std::string("Screen_Width"), s.screenWidth}, {std::string("Screen_Height"), s.screenHeight}}},
        }},
-     {std::string("Game"),
+      {std::string("Game"),
        {{std::string("MapSize"), s.mapSize},
         {std::string("Language"), s.gameLanguage},
         {std::string("Biome"), s.biome},

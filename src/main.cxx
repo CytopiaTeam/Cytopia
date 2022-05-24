@@ -12,7 +12,8 @@ int protected_main(int argc, char **argv)
   bool quitGame = false;
 
   // add commandline parameter to skipMenu
-  auto has_args = [argv, argc] (const std::string &param) {
+  auto has_args = [argv, argc](const std::string &param)
+  {
     for (int i = 1; i < argc; ++i)
       if (param == argv[i])
         return i;
@@ -24,7 +25,8 @@ int protected_main(int argc, char **argv)
   bool skipMenu = has_args("--skipMenu");
   uint32_t videoOpt = has_args("--video");
   const char *videoDriver = nullptr;
-  if (videoOpt) {
+  if (videoOpt)
+  {
     videoDriver = argv[videoOpt + 1];
   }
 
