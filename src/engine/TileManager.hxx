@@ -60,8 +60,8 @@ enum TileOrientation : size_t
   TILE_S_AND_W_RECT,
   TILE_S_AND_E_RECT,
   TILE_N_AND_W_RECT,
-  TILE_E_AND_W_ROAD, // special handling for powerlines placed on roads
-  TILE_N_AND_S_ROAD  // special handling for powerlines placed on roads
+  TILE_E_AND_W_CROSS, // support powerlines cross low terrain (eg, roads and water)
+  TILE_N_AND_S_CROSS  // support powerlines cross low terrain (eg, roads and water)
 };
 
 /**
