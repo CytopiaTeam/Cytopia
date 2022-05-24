@@ -2,6 +2,7 @@
 #define ENUMS_HXX_
 
 #include <stddef.h>
+#include <vector>
 #include "betterEnums.hxx"
 
 /// All Layers we have
@@ -33,6 +34,8 @@ static Layer allLayersOrdered[] = {
 static Layer layersInActiveOrder[] = {Layer::BUILDINGS, Layer::UNDERGROUND, Layer::BLUEPRINT, Layer::GROUND_DECORATION,
                                       Layer::ROAD,      Layer::POWERLINES,  Layer::FLORA,     Layer::ZONE,
                                       Layer::WATER,     Layer::TERRAIN};
+
+const static std::vector<Layer> layersPowerlinesCanCross = {Layer::ROAD, Layer::WATER, Layer::FLORA};
 
 /**
  * @brief LayerEditMode.
