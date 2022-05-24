@@ -35,7 +35,7 @@ static Layer layersInActiveOrder[] = {Layer::BUILDINGS, Layer::UNDERGROUND, Laye
                                       Layer::ROAD,      Layer::POWERLINES,  Layer::FLORA,     Layer::ZONE,
                                       Layer::WATER,     Layer::TERRAIN};
 
-const static std::vector<Layer> layersToBeCross = {Layer::ROAD, Layer::WATER, Layer::FLORA};
+const static std::vector<Layer> layersPowerlinesCanCross = {Layer::ROAD, Layer::WATER, Layer::FLORA};
 
 /**
  * @brief LayerEditMode.

@@ -162,7 +162,7 @@ bool MapNode::isPlacementAllowed(const std::string &newTileID) const
       return true;
     case Layer::POWERLINES:
       if (isLayerOccupied(Layer::POWERLINES) ||
-          std::any_of(layersToBeCross.begin(), layersToBeCross.end(),
+          std::any_of(layersPowerlinesCanCross.begin(), layersPowerlinesCanCross.end(),
             [this](const Layer &_layer) { return this->isLayerOccupied(_layer); }))
       { // powerlines can be placed over each other and over other low terrains
         return true;
@@ -318,7 +318,7 @@ void MapNode::updateTexture(const Layer &layer)
         else
         {
           if (m_mapNodeData[currentLayer].tileData->tileType == +TileType::POWERLINE &&
-              std::any_of(layersToBeCross.begin(), layersToBeCross.end(),
+              std::any_of(layersPowerlinesCanCross.begin(), layersPowerlinesCanCross.end(),
                 [this](const Layer &_layer){ return this->m_mapNodeData[_layer].tileData; }))
           { // if we place a power line cross low terrain (eg, roads, water, flora)
             switch (m_autotileOrientation[currentLayer])
