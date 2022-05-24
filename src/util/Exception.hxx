@@ -86,4 +86,9 @@ class CompressionError : public CytopiaError
   using CytopiaError::CytopiaError;
 };
 
+/**
+ * @brief install OS crash handler
+ */
+void systemSetupCrashHandler();
+
 #endif
