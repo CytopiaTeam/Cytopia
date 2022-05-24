@@ -72,13 +72,13 @@ private:
   /** @brief Gets formatted TimeStamp
    *  @return std::string containing current TimeStamp
    */
-  std::string getTimeStamp();
+  const std::string getTimeStamp();
 
   /** @brief Write log message to error.log file
    *  @details If the log file exceeds MAX_LOG_SIZE_BYTES, logs will be cut in half
    *  @param errorMessage to write to error logfile
    */
-  void writeErrorLog(const std::string &errorMessage);
+  void writeErrorLog(const std::string &errorMessage) const;
 };
 
 #include "LOG.inl.hxx"

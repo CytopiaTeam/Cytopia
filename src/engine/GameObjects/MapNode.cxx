@@ -192,6 +192,7 @@ bool MapNode::isPlacementAllowed(const std::string &newTileID) const
       }
       break;
     case Layer::BUILDINGS:
+    {
       TileData *tileDataBuildings = m_mapNodeData[Layer::BUILDINGS].tileData;
       if (tileDataBuildings && tileDataBuildings->isOverPlacable)
       { // buildings with overplacable flag
@@ -201,6 +202,9 @@ bool MapNode::isPlacementAllowed(const std::string &newTileID) const
       { // buildings cannot be placed on roads
         return false;
       }
+      break;
+    }
+    default:
       break;
     }
 
@@ -320,6 +324,8 @@ void MapNode::updateTexture(const Layer &layer)
               break;
             case TileOrientation::TILE_E_AND_W:
               m_autotileOrientation[currentLayer] = TileOrientation::TILE_E_AND_W_ROAD;
+              break;
+            default:
               break;
             }
           }

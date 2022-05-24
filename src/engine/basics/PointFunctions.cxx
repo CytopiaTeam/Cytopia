@@ -241,4 +241,5 @@ NeighborNodesPosition PointFunctions::getNeighborPositionToOrigin(const Point &n
     break;
   }
   assert(false); // this should never happen!
+  return NeighborNodesPosition::CENTER;
 }

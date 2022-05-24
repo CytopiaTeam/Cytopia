@@ -30,9 +30,9 @@ static Layer allLayersOrdered[] = {
     Layer::ZONE,      Layer::ROAD,        Layer::POWERLINES, Layer::FLORA, Layer::BUILDINGS};
 
 /// This is a ordered list of all relevant layers from the most active to the least active
-static Layer layersInActiveOrder[] = {
-  Layer::BUILDINGS, Layer::UNDERGROUND, Layer::BLUEPRINT, Layer::GROUND_DECORATION,
-  Layer::ROAD, Layer::POWERLINES, Layer::FLORA, Layer::ZONE, Layer::WATER, Layer::TERRAIN};
+static Layer layersInActiveOrder[] = {Layer::BUILDINGS, Layer::UNDERGROUND, Layer::BLUEPRINT, Layer::GROUND_DECORATION,
+                                      Layer::ROAD,      Layer::POWERLINES,  Layer::FLORA,     Layer::ZONE,
+                                      Layer::WATER,     Layer::TERRAIN};
 
 /**
  * @brief LayerEditMode.

@@ -10,7 +10,7 @@ class GamePlay
 public:
   GamePlay() = default;
 
-  void update();
+  void resetManagers();
   ZoneManager &getZoneManager() { return m_ZoneManager; };
 
 private:

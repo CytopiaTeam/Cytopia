@@ -1,10 +1,10 @@
 #include "isoMath.hxx"
 
-#include "../Engine.hxx"
 #include "Camera.hxx"
 #include "Settings.hxx"
-#include "point.hxx"
+#include "Point.hxx"
 #include "LOG.hxx"
+#include <MapFunctions.hxx>
 
 bool reverseDirection = false;
 
@@ -49,8 +49,7 @@ SDL_Point convertIsoToScreenCoordinates(const Point &isoCoordinates, bool calcWi
 Point convertScreenToIsoCoordinates(const SDL_Point &screenCoordinates)
 {
   Point foundCoordinates = Point();
-  if (Engine::instance().map != nullptr)
-    foundCoordinates = Engine::instance().map->findNodeInMap(screenCoordinates);
+  foundCoordinates = MapFunctions::instance().findNodeInMap(screenCoordinates);
 
   // if negative coordinates are returned, this means that the point is outside of the grid
   // calculate the coordinates instead and make sure it's within grid boundaries

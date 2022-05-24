@@ -63,6 +63,7 @@ public:
 
 private:
   void quit();
+  bool m_shutDown = false;
 };
 } // namespace Cytopia
 #endif

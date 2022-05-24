@@ -43,17 +43,21 @@ struct Coordinate3D
 
 struct StandardReverbProperties
 {
-  double flDensity = 1.0; ///< coloration of the late reverb, range: 0.0 to 1.0.
-  double flDiffusion = 1.0; ///< echo density in the reverberation decay, range: 0.0 to 1.0
-  double flGain = 0.32; ///< master volume control for the reflected sound, range: 0.0 to 1.0
-  double flGainHF = 0.89; ///< attenuation it at high frequencies, range: 0.0 to 1.0
-  double flDecayTime = 1.49; ///< reverberation decay time, range: 0.1 to 20.0
+  double flDensity = 1.0;       ///< coloration of the late reverb, range: 0.0 to 1.0.
+  double flDiffusion = 1.0;     ///< echo density in the reverberation decay, range: 0.0 to 1.0
+  double flGain = 0.32;         ///< master volume control for the reflected sound, range: 0.0 to 1.0
+  double flGainHF = 0.89;       ///< attenuation it at high frequencies, range: 0.0 to 1.0
+  double flDecayTime = 1.49;    ///< reverberation decay time, range: 0.1 to 20.0
   double flDecayHFRatio = 0.83; ///< ratio of high-frequency decay time relative to the time set by Decay Time, range: 0.1 to 2.0
-  double flReflectionsGain = 0.05; ///< controls the overall amount of initial reflections relative to the Gain property, range: 0.0 to 3.16
-  double flReflectionsDelay = 0.007; ///< amount of delay between the arrival time of the direct path from the source to the first reflection from the source, range: 0.0 to 0.3
+  double flReflectionsGain =
+      0.05; ///< controls the overall amount of initial reflections relative to the Gain property, range: 0.0 to 3.16
+  double flReflectionsDelay =
+      0.007; ///< amount of delay between the arrival time of the direct path from the source to the first reflection from the source, range: 0.0 to 0.3
   double flLateReverbGain = 1.26; ///< overall amount of later reverberation relative to the Gain property, range: 0.0 to 10.0
-  double flLateReverbDelay = 0.011; ///< begin time of the late reverberation relative to the time of the initial reflection, range: 0.0 to 0.1
-  double flAirAbsorptionGainHF = 0.994; ///< the distance-dependent attenuation at high frequencies caused by the propagation medium, range: 0.892 to 1.0
+  double flLateReverbDelay =
+      0.011; ///< begin time of the late reverberation relative to the time of the initial reflection, range: 0.0 to 0.1
+  double flAirAbsorptionGainHF =
+      0.994; ///< the distance-dependent attenuation at high frequencies caused by the propagation medium, range: 0.892 to 1.0
   double flRoomRolloffFactor = 0.0; ///< attenuate the reflected sound, range: 0.0 to 10.0
 };
 
