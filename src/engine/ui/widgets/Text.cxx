@@ -24,12 +24,6 @@ void Text::draw()
   }
 }
 
-Text::~Text()
-{
-  if (m_texture)
-    SDL_DestroyTexture(m_texture);
-}
-
 void Text::setText(const std::string &text)
 {
 #ifdef USE_MOFILEREADER
@@ -43,6 +37,9 @@ void Text::setText(const std::string &text)
 
 void Text::setFontSize(int fontSize)
 {
+  if (fontSize == m_fontSize)
+    return;
+
   m_fontSize = fontSize;
   // call the setText function again with the current text
   setText(elementData.text);

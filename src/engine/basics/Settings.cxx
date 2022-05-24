@@ -11,10 +11,10 @@
 
 struct SaxNoException : public nlohmann::detail::json_sax_dom_parser<json>
 {
-    SaxNoException(json& j) : nlohmann::detail::json_sax_dom_parser<json>(j, false)
+    explicit SaxNoException(json& j) : nlohmann::detail::json_sax_dom_parser<json>(j, false)
     {}
 
-    bool parse_error(std::size_t position, const std::string& last_token, const json::exception& ex)
+    bool parse_error(std::size_t position, const std::string& last_token, const json::exception& ex) const
     {
       LOG(LOG_ERROR) << "parse error at input byte " << position;
       LOG(LOG_ERROR) << ex.what();
