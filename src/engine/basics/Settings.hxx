@@ -181,6 +181,9 @@ public:
   /// Save settings to file
   void writeFile();
 
+  /// Reset settings to defaults from local settings file
+  void resetSettingsToDefaults();
+
   using SettingsData::operator=;
 
 private:

@@ -13,9 +13,8 @@ Settings::Settings() { readFile(); }
 
 void Settings::readFile()
 {
-  const std::string pathToCachedSettingsFile = CYTOPIA_DATA_DIR + (std::string)SETTINGS_FILENAME;
-  const std::string pathToLocalSettingsFile =
-      fs::getBasePath() + (std::string)CYTOPIA_RESOURCES_DIR + (std::string)SETTINGS_FILENAME;
+  const std::string pathToCachedSettingsFile = CYTOPIA_DATA_DIR + SETTINGS_FILENAME;
+  const std::string pathToLocalSettingsFile = fs::getBasePath() + CYTOPIA_RESOURCES_DIR + SETTINGS_FILENAME;
 
   const json localJsonObject = parseSettingsFile(pathToLocalSettingsFile);
   const json cachedJsonObject = parseSettingsFile(pathToCachedSettingsFile);
@@ -62,13 +61,13 @@ void Settings::writeFile()
   if (CYTOPIA_DATA_DIR_BASE.empty())
   {
     LOG(LOG_ERROR) << "CYTOPIA_DATA_DIR_BASE is not set! Please report this issue on github. Falling back to cytopia base dir.";
-    pathToDataDir = fs::getBasePath() + (std::string)CYTOPIA_RESOURCES_DIR;
+    pathToDataDir = fs::getBasePath() + CYTOPIA_RESOURCES_DIR;
   }
   else
   {
     pathToDataDir = CYTOPIA_DATA_DIR;
   }
-  std::string pathToSettingsFile = pathToDataDir + (std::string)SETTINGS_FILENAME;
+  std::string pathToSettingsFile = pathToDataDir + SETTINGS_FILENAME;
   fs::createDirectory(pathToDataDir);
   fs::writeStringToFile(pathToSettingsFile, settingsJsonObject.dump());
 }
@@ -84,4 +83,17 @@ const json Settings::parseSettingsFile(const std::string &fileName) const
   }
 
   return settingsJSONObject;
+}
+
+void Settings::resetSettingsToDefaults()
+{
+  const std::string pathToLocalSettingsFile = fs::getBasePath() + CYTOPIA_RESOURCES_DIR + SETTINGS_FILENAME;
+  const json localJsonObject = parseSettingsFile(pathToLocalSettingsFile);
+
+  if (localJsonObject.empty() || localJsonObject.is_discarded())
+    throw ConfigurationError(TRACE_INFO "Error parsing local JSON File " + string{pathToLocalSettingsFile});
+
+  SettingsData settingsData;
+  settingsData = localJsonObject;
+  *this = settingsData;
 }
