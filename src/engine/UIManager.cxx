@@ -544,6 +544,11 @@ void UIManager::setCallbackFunctions()
     {
       uiElement->registerCallbackFunction([]() { SignalMediator::instance().signalLoadGame.emit("save.cts"); });
     }
+    else if (uiElement->getUiElementData().actionID == "ResetSettings")
+    {
+      uiElement->registerCallbackFunction([]() { Settings::instance().resetSettingsToDefaults(); });
+    }
+
     else if (uiElement->getUiElementData().actionID == "SaveSettings")
     {
       uiElement->registerCallbackFunction(

@@ -3,53 +3,51 @@
 // #include "LOG.hxx"
 #include "Exception.hxx"
 #include "Constants.hxx"
-#include "JsonSerialization.hxx"
 #include "Filesystem.hxx"
 #include "LOG.hxx"
+#include <JsonSerialization.hxx>
 
 #include <iomanip>
-
-struct SaxNoException : public nlohmann::detail::json_sax_dom_parser<json>
-{
-    explicit SaxNoException(json& j) : nlohmann::detail::json_sax_dom_parser<json>(j, false)
-    {}
-
-    bool parse_error(std::size_t position, const std::string& last_token, const json::exception& ex) const
-    {
-      LOG(LOG_ERROR) << "parse error at input byte " << position;
-      LOG(LOG_ERROR) << ex.what();
-      LOG(LOG_ERROR) << "last read: \"" << last_token << "\"";
-      return false;
-    }
-};
 
 Settings::Settings() { readFile(); }
 
 void Settings::readFile()
 {
-  std::string pathToDataDir;
-  std::string pathToSettingsFile = CYTOPIA_DATA_DIR + (std::string)SETTINGS_FILENAME;
+  const std::string pathToCachedSettingsFile = CYTOPIA_DATA_DIR + SETTINGS_FILENAME;
+  const std::string pathToLocalSettingsFile = fs::getBasePath() + CYTOPIA_RESOURCES_DIR + SETTINGS_FILENAME;
 
-  if (!fs::fileExists(pathToSettingsFile))
-  { // if there's no custom settings file in data dir, use the provided one
-    pathToSettingsFile = fs::getBasePath() + (std::string)CYTOPIA_RESOURCES_DIR + (std::string)SETTINGS_FILENAME;
+  const json localJsonObject = parseSettingsFile(pathToLocalSettingsFile);
+  const json cachedJsonObject = parseSettingsFile(pathToCachedSettingsFile);
+
+  if (localJsonObject.empty() || localJsonObject.is_discarded())
+    throw ConfigurationError(TRACE_INFO "Error parsing local JSON File " + string{pathToLocalSettingsFile});
+
+  SettingsData settingsData;
+
+  if (cachedJsonObject.empty() || cachedJsonObject.is_discarded())
+  {
+    settingsData = localJsonObject;
+  }
+  else
+  {
+    int cacheVersion = cachedJsonObject.value("SettingsVersion", -1);
+    int localVersion = localJsonObject.value("SettingsVersion", -1);
+    if (localVersion <= cacheVersion)
+    {
+      settingsData = cachedJsonObject;
+    }
+    else
+    {
+      LOG(LOG_INFO) << "The settings file version has changed. Overwriting local cached settings file with default settings.";
+    }
   }
 
-  std::string jsonFile = fs::readFileAsString(pathToSettingsFile);
-  json settingsJSONObject;
-  SaxNoException sax(settingsJSONObject);
-
-  bool parse_result = json::sax_parse(jsonFile, &sax);
-  // check if json file can be parsed
-  if (!parse_result)
-    throw ConfigurationError(TRACE_INFO "Error parsing JSON File " + string{pathToSettingsFile});
-
-  SettingsData data = settingsJSONObject;
-  *this = data;
+  *this = settingsData;
 
   // init the actual resolution with the desired resolution
   currentScreenWidth = screenWidth;
   currentScreenHeight = screenHeight;
+
 #ifdef __ANDROID__
   subMenuButtonHeight *= 2;
   subMenuButtonWidth *= 2;
@@ -63,13 +61,39 @@ void Settings::writeFile()
   if (CYTOPIA_DATA_DIR_BASE.empty())
   {
     LOG(LOG_ERROR) << "CYTOPIA_DATA_DIR_BASE is not set! Please report this issue on github. Falling back to cytopia base dir.";
-    pathToDataDir = fs::getBasePath() + (std::string)CYTOPIA_RESOURCES_DIR;
+    pathToDataDir = fs::getBasePath() + CYTOPIA_RESOURCES_DIR;
   }
   else
   {
     pathToDataDir = CYTOPIA_DATA_DIR;
   }
-  std::string pathToSettingsFile = pathToDataDir + (std::string)SETTINGS_FILENAME;
+  std::string pathToSettingsFile = pathToDataDir + SETTINGS_FILENAME;
   fs::createDirectory(pathToDataDir);
   fs::writeStringToFile(pathToSettingsFile, settingsJsonObject.dump());
+}
+
+json Settings::parseSettingsFile(const std::string &fileName) const
+{
+  json settingsJSONObject;
+
+  if (fs::fileExists(fileName))
+  {
+    std::string jsonFile = fs::readFileAsString(fileName);
+    settingsJSONObject = json::parse(jsonFile, nullptr, false);
+  }
+
+  return settingsJSONObject;
+}
+
+void Settings::resetSettingsToDefaults()
+{
+  const std::string pathToLocalSettingsFile = fs::getBasePath() + CYTOPIA_RESOURCES_DIR + SETTINGS_FILENAME;
+  const json localJsonObject = parseSettingsFile(pathToLocalSettingsFile);
+
+  if (localJsonObject.empty() || localJsonObject.is_discarded())
+    throw ConfigurationError(TRACE_INFO "Error parsing local JSON File " + string{pathToLocalSettingsFile});
+
+  SettingsData settingsData;
+  settingsData = localJsonObject;
+  *this = settingsData;
 }
