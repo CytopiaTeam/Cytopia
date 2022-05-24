@@ -42,7 +42,7 @@ public:
   /** @brief starts setting up the game
     * starts game initialization.
     */
-  virtual bool initialize();
+  virtual bool initialize(const char *videoDriver);
 
   /** @brief begins the game
     * starts running the game
@@ -63,6 +63,7 @@ public:
 
 private:
   void quit();
+  bool m_shutDown = false;
 };
 } // namespace Cytopia
 #endif

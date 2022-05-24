@@ -11,7 +11,7 @@
 #include "json.hxx"
 #include "Singleton.hxx"
 #include "../common/enums.hxx"
-#include "basics/point.hxx"
+#include "basics/Point.hxx"
 
 enum TileMap : size_t
 {

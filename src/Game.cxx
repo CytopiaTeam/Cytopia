@@ -1,5 +1,4 @@
 #include "Game.hxx"
-#include "engine/Engine.hxx"
 #include "engine/EventManager.hxx"
 #include "engine/UIManager.hxx"
 #include "engine/WindowManager.hxx"
@@ -9,6 +8,8 @@
 #include "engine/basics/Settings.hxx"
 #include "engine/basics/GameStates.hxx"
 #include "Filesystem.hxx"
+#include <Map.hxx>
+#include <MapFunctions.hxx>
 
 #include <SDL.h>
 #include <SDL_ttf.h>
@@ -43,15 +44,28 @@ void Game::quit()
     m_AudioMixer.play(SoundtrackID{"NegativeSelect"}, Coordinate3D{0, 0, -4});
   }
 #endif // USE_AUDIO
-  Engine::instance().quitGame();
 }
 
-bool Game::initialize()
+bool Game::initialize(const char *videoDriver)
 {
-  if (SDL_Init(SDL_INIT_VIDEO) != 0)
+  if (SDL_Init(0) != 0)
   {
     LOG(LOG_ERROR) << "Failed to Init SDL";
     LOG(LOG_ERROR) << "SDL Error: " << SDL_GetError();
+    return false;
+  }
+
+  if (SDL_VideoInit(videoDriver) != 0)
+  {
+    LOG(LOG_ERROR) << "Unknown video driver " << videoDriver;
+    int nbDriver = SDL_GetNumRenderDrivers();
+    for (int i = 0; i < nbDriver; i++)
+    {
+      SDL_RendererInfo info;
+      SDL_GetRenderDriverInfo(i, &info);
+      LOG(LOG_ERROR) << "Found driver " << i << ": " << (info.name ? info.name : "Invalid driver")
+                     << " with flags=" << info.flags;
+    }
     return false;
   }
 
@@ -78,6 +92,9 @@ bool Game::initialize()
     LOG(LOG_ERROR) << "Failed to load MO file " << moFilePath;
   }
 #endif
+
+  // Register Callbacks
+  SignalMediator::instance().registerCbQuitGame([this]() { m_shutDown = true; });
 
   LOG(LOG_DEBUG) << "Initialized Game Object";
   return true;
@@ -132,9 +149,8 @@ bool Game::mainMenu()
       {
 #ifdef USE_AUDIO
         playAudioMajorSelection();
-#endif //  USE_AUDIO
-
-        Engine::instance().newGame();
+#endif //  USE_AUDIO                                                                                                             \
+    // TODO: Game.run??
       });
 
   Button loadGameButton({screenWidth / 2 - 100, screenHeight / 2 - 20 + newGameButton.getUiElementRect().h * 2, 200, 40});
@@ -145,7 +161,8 @@ bool Game::mainMenu()
 #ifdef USE_AUDIO
         playAudioMajorSelection();
 #endif // USE_AUDIO
-        Engine::instance().loadGame("save.cts");
+
+        //TODO: This will need more refactoring to work. Split main menu into a seperate class. ##945
       });
 
   Button quitGameButton({screenWidth / 2 - 100, screenHeight / 2 - 20 + loadGameButton.getUiElementRect().h * 4, 200, 40});
@@ -258,12 +275,10 @@ void Game::run(bool SkipMenu)
 {
   LOG(LOG_INFO) << VERSION;
 
-  if (SkipMenu)
-  {
-    Engine::instance().newGame();
-  }
+  // we need to instantiate the MapFunctions object so it's ready for new game
+  MapFunctions::instance();
+  SignalMediator::instance().signalNewGame.emit(true);
 
-  Engine &engine = Engine::instance();
   Camera::instance().centerScreenOnMapCenter();
 
   SDL_Event event;
@@ -323,22 +338,20 @@ void Game::run(bool SkipMenu)
   Uint32 fpsFrames = 0;
 
   // GameLoop
-  while (engine.isGameRunning())
+  while (!m_shutDown)
   {
 #ifdef MICROPROFILE_ENABLED
     MICROPROFILE_SCOPEI("Map", "Gameloop", MP_GREEN);
 #endif
     SDL_RenderClear(WindowManager::instance().getRenderer());
 
-    evManager.checkEvents(event, engine);
+    evManager.checkEvents(event);
     gameClock.tick();
 
-    m_GamePlay.update();
-
     // render the tileMap
-    if (engine.map != nullptr)
+    if (MapFunctions::instance().getMap())
     {
-      engine.map->renderMap();
+      MapFunctions::instance().getMap()->renderMap();
     }
 
     // render the ui

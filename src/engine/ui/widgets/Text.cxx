@@ -24,6 +24,12 @@ void Text::draw()
   }
 }
 
+Text::~Text()
+{
+  if (m_texture)
+    SDL_DestroyTexture(m_texture);
+}
+
 void Text::setText(const std::string &text)
 {
 #ifdef USE_MOFILEREADER

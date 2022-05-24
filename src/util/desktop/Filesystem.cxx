@@ -133,7 +133,7 @@ std::string fs::getBasePath()
   char *path = SDL_GetBasePath();
   if (path)
   {
-    sPath = {path};
+    sPath = path;
   }
   else
   {
