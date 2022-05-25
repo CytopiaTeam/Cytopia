@@ -159,6 +159,8 @@ struct SettingsData
    */
   int subMenuButtonHeight;
 
+  uint32_t defaultFontSize;
+
   /// indicates whether we want to see buildings inside Blueprint layer or not
   bool showBuildingsInBlueprint;
 
