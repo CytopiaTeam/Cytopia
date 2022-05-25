@@ -8,6 +8,7 @@
 #include "engine/basics/Settings.hxx"
 #include "engine/basics/GameStates.hxx"
 #include "Filesystem.hxx"
+#include "OSystem.hxx"
 #include <Map.hxx>
 #include <MapFunctions.hxx>
 
@@ -174,6 +175,14 @@ bool Game::mainMenu()
         quitGame = true;
       });
 
+  Button discordButton({ 5, screenHeight - 37, 32, 32 });
+  discordButton.setTextureID("Discord_icon");
+  discordButton.registerCallbackFunction( []() { OSystem::openDir("https://discord.gg/MG3tgYV6ce"); });
+
+  Button githubButton({ 42, screenHeight - 37, 32, 32 });
+  githubButton.setTextureID("Github_icon");
+  githubButton.registerCallbackFunction( []() { OSystem::openDir("https://github.com/CytopiaTeam/Cytopia/issues/new"); });
+
   // store elements in vector
   std::vector<UIElement *> uiElements;
   uiElements.push_back(&newGameButton);
@@ -181,6 +190,8 @@ bool Game::mainMenu()
   uiElements.push_back(&quitGameButton);
   uiElements.push_back(&logo);
   uiElements.push_back(&versionText);
+  uiElements.push_back(&discordButton);
+  uiElements.push_back(&githubButton);
 
   UIElement *m_lastHoveredElement = nullptr;
 
