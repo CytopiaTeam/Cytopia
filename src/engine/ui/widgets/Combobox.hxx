@@ -35,37 +35,39 @@ public:
   void addElement(const std::string &text);
 
   /** \brief Get ID of selected element
-  * returns the ID of the selected element in the comboBox
+  * @details returns the ID of the selected element in the comboBox
   * @return selected ID
   */
   int getActiveID() const { return m_activeID; };
 
   /** @brief Set ID of selected element
-  * sets the ID of the selected element in the comboBox
+  * @details sets the selected element and active ID. Also emits signals linked to this element.
   * @param ID the value to set the ID to
   */
   void setActiveID(int ID);
 
   size_t count() const { return m_items.size(); };
 
-  /// the text displayed in the Combobox
-  std::string activeText;
-
-  int hoveredID = -1;
+  /** @brief Gets the text displayed in the Combobox
+  * @returns the text of the selected item. If there's no selection this returns an empty string.
+  */
+  std::string getActiveText() const;
 
   TextFieldAlignment textAlignment = TextFieldAlignment::CENTERED;
   void registerCallbackFunction(std::function<void(UIElement *sender)> const &cb) override;
 
   /** @brief Clears the element's items
-  * clears the items in the dropdown menu of the comboBox
+  * @details clears the items in the dropdown menu of the comboBox
   */
-  void clear() { m_items.clear(); }
+  void clear();
 
   std::string getTextFromID(int id) const;
 
 private:
   /// the active element's ID
-  int m_activeID = 0;
+  int m_activeID = 0; // TODO I want to change it so that -1 means no item is active.
+  /// the ID of the element being hovered over. -1 means no item is highlighted.
+  int m_hoveredID = -1;
   /// represents the dropdownMenu
   SDL_Rect m_dropdownRect;
   /// represents the whole UIElement including the opened menu
