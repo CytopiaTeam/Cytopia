@@ -3,11 +3,11 @@
 #include "services/AudioMixer.hxx"
 #endif
 #include <Settings.hxx>
+#include <SignalMediator.hxx>
 #include <SDL.h>
 #include "engine/UIManager.hxx"
 #include "engine/ui/widgets/Image.hxx"
 #include "engine/basics/Settings.hxx"
-
 
 #ifdef USE_AUDIO
 static void playAudioMajorSelection()
@@ -21,8 +21,6 @@ static void playAudioMajorSelection()
 }
 #endif // USE_AUDIO
 
-
-
 bool mainMenu()
 {
   SDL_Event event;
@@ -30,7 +28,7 @@ bool mainMenu()
   int screenWidth = Settings::instance().screenWidth;
   int screenHeight = Settings::instance().screenHeight;
   bool mainMenuLoop = true;
-  bool quitGame = false;
+  bool startGame = true;
 
 #ifdef USE_AUDIO
   auto &m_AudioMixer = AudioMixer::instance();
@@ -60,6 +58,8 @@ bool mainMenu()
       {
 #ifdef USE_AUDIO
         playAudioMajorSelection();
+        SignalMediator::instance().signalNewGame.emit(true);
+
 #endif //  USE_AUDIO                                                                                                             \
     // TODO: Game.run??
       });
@@ -71,6 +71,7 @@ bool mainMenu()
       {
 #ifdef USE_AUDIO
         playAudioMajorSelection();
+        SignalMediator::instance().signalLoadGame.emit("save.cts");
 #endif // USE_AUDIO
 
         //TODO: This will need more refactoring to work. Split main menu into a seperate class. ##945
@@ -78,11 +79,7 @@ bool mainMenu()
 
   Button quitGameButton({screenWidth / 2 - 100, screenHeight / 2 - 20 + loadGameButton.getUiElementRect().h * 4, 200, 40});
   quitGameButton.setText("Quit Game");
-  quitGameButton.registerCallbackFunction(
-      [&mainMenuLoop]()
-      {
-        mainMenuLoop = true;
-      });
+  quitGameButton.registerCallbackFunction([&startGame]() { startGame = false; });
 
   // store elements in vector
   std::vector<UIElement *> uiElements;
@@ -128,7 +125,7 @@ bool mainMenu()
         switch (event.type)
         {
         case SDL_QUIT:
-        //   quit();
+          //   quit();
           return true;
         case SDL_MOUSEBUTTONDOWN:
           it->onMouseButtonDown(event);
@@ -178,5 +175,5 @@ bool mainMenu()
     SDL_RenderPresent(WindowManager::instance().getRenderer());
   }
 
-  return quitGame;
+  return startGame;
 }

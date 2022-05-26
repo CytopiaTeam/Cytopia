@@ -68,20 +68,15 @@ void Game::initialize()
 
   // Register Callbacks
   SignalMediator::instance().registerCbQuitGame([this]() { m_shutDown = true; });
+  // we need to instantiate the Map object to be able to send signals for new / load game
+  MapFunctions::instance();
 
   LOG(LOG_DEBUG) << "Initialized Game Object";
 }
 
-
-
 void Game::run(bool SkipMenu)
 {
   LOG(LOG_INFO) << VERSION;
-
-  // we need to instantiate the MapFunctions object so it's ready for new game
-  MapFunctions::instance();
-  SignalMediator::instance().signalNewGame.emit(true);
-
   Camera::instance().centerScreenOnMapCenter();
 
   SDL_Event event;
@@ -164,7 +159,7 @@ void Game::run(bool SkipMenu)
       uiManager.drawUI();
     }
 
-    // preset the game screen
+    // we need to instantiate the MapFunctions object so it's ready for new game
     WindowManager::instance().renderScreen();
 
     fpsFrames++;

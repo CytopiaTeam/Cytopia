@@ -79,16 +79,16 @@ int protected_main(int argc, char **argv)
   if (!initialize(videoDriver))
     return EXIT_FAILURE;
   else
-  LOG(LOG_DEBUG) << "DONE Cytopia";
-  
+    LOG(LOG_DEBUG) << "DONE Cytopia";
 
+  bool startGame = true;
   if (!skipMenu)
   {
-    mainMenu();
+    startGame = mainMenu();
     // quitGame = game.mainMenu();
   }
 
-  if (!quitGame)
+  if (startGame)
   {
     LOG(LOG_DEBUG) << "Running the Game";
     game.run(skipMenu);
