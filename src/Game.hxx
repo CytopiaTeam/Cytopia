@@ -1,10 +1,6 @@
 #ifndef GAME_HXX_
 #define GAME_HXX_
 
-#ifndef VERSION
-#define VERSION 0
-#endif
-
 #include "Scripting/ScriptEngine.hxx"
 #include "engine/MessageQueue.hxx"
 #include "util/Meta.hxx"
@@ -42,7 +38,7 @@ public:
   /** @brief starts setting up the game
     * starts game initialization.
     */
-  virtual bool initialize(const char *videoDriver);
+  virtual void initialize();
 
   /** @brief begins the game
     * starts running the game
@@ -54,12 +50,6 @@ public:
     * shuts down the game
     */
   virtual void shutdown();
-
-  /** @brief initializes and displays the main menu
-    * initializes and displays the main menu
-    * @return true in case game has been quit, otherwise false.
-    */
-  virtual bool mainMenu();
 
 private:
   void quit();
