@@ -77,15 +77,5 @@
 
     "Cytopia_Logo": {
         "Texture_Default": "resources/images/app_icons/logo_big_textured.png"
-    },
-    "Discord_icon": {
-        "Texture_Default": "resources/images/ui/buttons/discord_icon.png",
-        "Texture_Clicked": "resources/images/ui/buttons/discord_icon_hover.png",
-        "Texture_Hovering": "resources/images/ui/buttons/discord_icon_hover.png"
-    },
-    "Github_icon": {
-        "Texture_Default": "resources/images/ui/buttons/github_icon.png",
-        "Texture_Clicked": "resources/images/ui/buttons/github_icon_hover.png",
-        "Texture_Hovering": "resources/images/ui/buttons/github_icon_hover.png"
     }
 }

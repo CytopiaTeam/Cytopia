@@ -13,7 +13,6 @@ set(SOURCE_FILES
         util/Singleton.hxx
         util/Meta.hxx
         util/Exception.{hxx,cxx}
-        util/OSystem.{hxx,cxx}
         services/Randomizer.{hxx,cxx}
         services/GameClock.{hxx,cxx}
         services/GameClock.inl.hxx
@@ -31,7 +30,6 @@ set(SOURCE_FILES
         engine/basics/utils.{hxx,cxx}
         engine/common/Constants.hxx
         engine/common/enums.hxx
-        engine/common/platform.hxx
         engine/common/JsonSerialization.hxx
         engine/GameObjects/MapNode.{hxx,cxx}
         engine/map/MapFunctions.{hxx,cxx}
