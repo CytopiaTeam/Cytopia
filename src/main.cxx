@@ -9,10 +9,6 @@
 #include <SDL.h>
 #include <SDL_ttf.h>
 
-#ifndef VERSION
-#define VERSION 0
-#endif
-
 bool initialize(const char *videoDriver)
 {
   if (SDL_Init(0) != 0)
