@@ -79,6 +79,7 @@ void UIManager::init()
           continue;
         }
 
+        layoutGroup.layout.fontSize = uiLayout["LayoutGroups"][it.key()][id].value("FontSize", Settings::instance().defaultFontSize);
         layoutGroup.layout.padding = uiLayout["LayoutGroups"][it.key()][id].value("Padding", 0);
         layoutGroup.layout.paddingToParent = uiLayout["LayoutGroups"][it.key()][id].value("PaddingToParent", 0);
         layoutGroup.layout.alignmentOffset = uiLayout["LayoutGroups"][it.key()][id].value("AlignmentOffset", 0.0F);
@@ -101,7 +102,6 @@ void UIManager::init()
     std::string layoutGroupName;
 
     bool visible = true;
-
     auto &elements = uiLayout["UiElements"][it.key()];
 
     // parse UiElements
@@ -148,6 +148,10 @@ void UIManager::init()
         elementRect.w = element.value("Width", 0);
         elementRect.h = element.value("Height", 0);
 
+        const auto& fontSizeVal = element["FontSize"];
+        uint32_t defaultFontSize = m_layoutGroups[layoutGroupName].layout.fontSize;
+        uint32_t fontSize = fontSizeVal.is_null() ? defaultFontSize : fontSizeVal.get<uint32_t>();
+
         std::unique_ptr<UIElement> uiElement;
 
         // Create the ui elements
@@ -160,16 +164,22 @@ void UIManager::init()
           dynamic_cast<Button *>(uiElement.get())->isToggleButton = toggleButton;
           dynamic_cast<Button *>(uiElement.get())->drawImageButtonFrame(drawFrame);
           break;
-        case ElementType::TextButton:
-          uiElement = std::make_unique<Button>(elementRect);
-          dynamic_cast<Button *>(uiElement.get())->setText(text);
-          dynamic_cast<Button *>(uiElement.get())->isToggleButton = toggleButton;
+        case ElementType::TextButton: {
+          auto elmButton = std::make_unique<Button>(elementRect);
+          elmButton->setText(text);
+          elmButton->isToggleButton = toggleButton;
+          elmButton->setFontSize(fontSize);
+          uiElement = std::move(elmButton);
           break;
-        case ElementType::Text:
-          uiElement = std::make_unique<Text>();
-          dynamic_cast<Text *>(uiElement.get())->setPosition(elementRect.x, elementRect.y);
-          dynamic_cast<Text *>(uiElement.get())->setText(text);
+        }
+        case ElementType::Text: {
+          auto elmText = std::make_unique<Text>();
+          elmText->setPosition(elementRect.x, elementRect.y);
+          elmText->setText(text);
+          elmText->setFontSize(fontSize);
+          uiElement = std::move(elmText);
           break;
+        }
         case ElementType::Frame:
           uiElement = std::make_unique<Frame>(elementRect);
           break;

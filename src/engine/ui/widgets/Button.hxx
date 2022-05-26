@@ -29,6 +29,7 @@ public:
    * @param text the text to be displayed on the button
    */
   void setText(const std::string &text);
+  void setFontSize(uint32_t size);
 
   bool onMouseButtonUp(const SDL_Event &event) override;
   bool onMouseButtonDown(const SDL_Event &event) override;

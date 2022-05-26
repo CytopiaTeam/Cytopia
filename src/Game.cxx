@@ -8,6 +8,7 @@
 #include "engine/basics/Settings.hxx"
 #include "engine/basics/GameStates.hxx"
 #include "Filesystem.hxx"
+#include "OSystem.hxx"
 #include <Map.hxx>
 #include <MapFunctions.hxx>
 
