@@ -3,6 +3,7 @@
 
 #include <Singleton.hxx>
 #include <Signal.hxx>
+#include <MapNode.hxx>
 #include "../game/PowerGrid.hxx"
 
 /**
