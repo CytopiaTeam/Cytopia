@@ -52,3 +52,4 @@ src/Makefile
 tools/l10n/TMP.pot
 
 _build/
+/build*/

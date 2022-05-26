@@ -55,6 +55,10 @@ generate_source_groups(${TEST_SOURCES})
 
 add_executable(${TESTS_PROJECT_NAME} ${TEST_SOURCES})
 
+if (ENABLE_PHC)
+    target_precompile_headers(${TESTS_PROJECT_NAME} PRIVATE phc.hxx)
+endif ()
+
 target_include_directories(
         ${TESTS_PROJECT_NAME} PRIVATE
         ${CMAKE_SOURCE_DIR}/external/header_only

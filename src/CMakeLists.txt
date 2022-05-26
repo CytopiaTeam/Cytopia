@@ -144,6 +144,10 @@ set_target_properties(
 
 list(APPEND _compile_definitions VERSION="${PROJECT_NAME} ${PROJECT_VERSION} - Utilities Update")
 
+if (ENABLE_PHC)
+    target_precompile_headers(${PROJECT_NAME} PRIVATE phc.hxx)
+endif ()
+
 target_include_directories(
         ${PROJECT_NAME} PRIVATE
         ${CMAKE_SOURCE_DIR}/external/header_only
