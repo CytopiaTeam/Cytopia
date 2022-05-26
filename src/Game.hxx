@@ -1,10 +1,6 @@
 #ifndef GAME_HXX_
 #define GAME_HXX_
 
-#ifndef VERSION
-#define VERSION 0
-#endif
-
 #include "Scripting/ScriptEngine.hxx"
 #include "engine/MessageQueue.hxx"
 #include "util/Meta.hxx"
