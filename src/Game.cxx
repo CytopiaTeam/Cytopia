@@ -77,7 +77,6 @@ void Game::initialize()
 
 void Game::run(bool SkipMenu)
 {
-  LOG(LOG_INFO) << VERSION;
   Camera::instance().centerScreenOnMapCenter();
 
   SDL_Event event;

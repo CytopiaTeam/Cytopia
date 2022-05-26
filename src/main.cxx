@@ -53,7 +53,7 @@ int protected_main(int argc, char **argv)
   (void)argc;
   (void)argv;
 
-  bool quitGame = false;
+  LOG(LOG_INFO) << VERSION;
 
   // add commandline parameter to skipMenu
   auto has_args = [argv, argc](const std::string &param)
@@ -89,7 +89,6 @@ int protected_main(int argc, char **argv)
   if (!skipMenu)
   {
     startGame = mainMenu();
-    // quitGame = game.mainMenu();
   }
 
   if (startGame)
