@@ -8,6 +8,7 @@
 #include "engine/UIManager.hxx"
 #include "engine/ui/widgets/Image.hxx"
 #include "engine/basics/Settings.hxx"
+#include <OSystem.hxx>
 
 #ifdef USE_AUDIO
 static void playAudioMajorSelection()
@@ -81,6 +82,14 @@ bool mainMenu()
   quitGameButton.setText("Quit Game");
   quitGameButton.registerCallbackFunction([&startGame]() { startGame = false; });
 
+  Button discordButton({ 5, screenHeight - 37, 32, 32 });
+   discordButton.setTextureID("Discord_icon");
+   discordButton.registerCallbackFunction( []() { OSystem::openDir("https://discord.gg/MG3tgYV6ce"); });
+
+   Button githubButton({ 42, screenHeight - 37, 32, 32 });
+   githubButton.setTextureID("Github_icon");
+   githubButton.registerCallbackFunction( []() { OSystem::openDir("https://github.com/CytopiaTeam/Cytopia/issues/new"); });
+
   // store elements in vector
   std::vector<UIElement *> uiElements;
   uiElements.push_back(&newGameButton);
@@ -88,6 +97,8 @@ bool mainMenu()
   uiElements.push_back(&quitGameButton);
   uiElements.push_back(&logo);
   uiElements.push_back(&versionText);
+    uiElements.push_back(&discordButton);
+   uiElements.push_back(&githubButton);
 
   UIElement *m_lastHoveredElement = nullptr;
 
