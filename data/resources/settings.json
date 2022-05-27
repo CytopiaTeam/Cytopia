@@ -1,4 +1,5 @@
 {
+  "SettingsVersion": 1,
   "Audio": {
     "Audio3DStatus": false,
     "AudioChannels": 2,
@@ -35,7 +36,8 @@
     "FontFilename": "resources/fonts/pixellocale-v-1-4.ttf",
     "Language": "en",
     "SubMenuButtonHeight": 32,
-    "SubMenuButtonWidth": 32
+    "SubMenuButtonWidth": 32,
+    "DefaultFontSize": 20
   },
   "Debug": {
     "WriteErrorLogToFile": false
