@@ -2,7 +2,7 @@
 
 #include "Constants.hxx"
 #include "ResourcesManager.hxx"
-#include "Engine.hxx"
+#include <MapFunctions.hxx>
 #include "Map.hxx"
 #include "basics/mapEdit.hxx"
 #include "basics/Settings.hxx"
@@ -79,6 +79,7 @@ void UIManager::init()
           continue;
         }
 
+        layoutGroup.layout.fontSize = uiLayout["LayoutGroups"][it.key()][id].value("FontSize", Settings::instance().defaultFontSize);
         layoutGroup.layout.padding = uiLayout["LayoutGroups"][it.key()][id].value("Padding", 0);
         layoutGroup.layout.paddingToParent = uiLayout["LayoutGroups"][it.key()][id].value("PaddingToParent", 0);
         layoutGroup.layout.alignmentOffset = uiLayout["LayoutGroups"][it.key()][id].value("AlignmentOffset", 0.0F);
@@ -101,7 +102,6 @@ void UIManager::init()
     std::string layoutGroupName;
 
     bool visible = true;
-
     auto &elements = uiLayout["UiElements"][it.key()];
 
     // parse UiElements
@@ -148,6 +148,10 @@ void UIManager::init()
         elementRect.w = element.value("Width", 0);
         elementRect.h = element.value("Height", 0);
 
+        const auto& fontSizeVal = element["FontSize"];
+        uint32_t defaultFontSize = m_layoutGroups[layoutGroupName].layout.fontSize;
+        uint32_t fontSize = fontSizeVal.is_null() ? defaultFontSize : fontSizeVal.get<uint32_t>();
+
         std::unique_ptr<UIElement> uiElement;
 
         // Create the ui elements
@@ -157,19 +161,25 @@ void UIManager::init()
         case ElementType::ImageButton:
           uiElement = std::make_unique<Button>(elementRect);
           uiElement->setTextureID(textureID);
-          dynamic_cast<Button *> (uiElement.get())->isToggleButton = toggleButton;
-          dynamic_cast<Button *> (uiElement.get())->drawImageButtonFrame(drawFrame);
-          break;
-        case ElementType::TextButton:
-          uiElement = std::make_unique<Button>(elementRect);
-          dynamic_cast<Button *>(uiElement.get())->setText(text);
           dynamic_cast<Button *>(uiElement.get())->isToggleButton = toggleButton;
+          dynamic_cast<Button *>(uiElement.get())->drawImageButtonFrame(drawFrame);
           break;
-        case ElementType::Text:
-          uiElement = std::make_unique<Text>();
-          dynamic_cast<Text *>(uiElement.get())->setPosition(elementRect.x, elementRect.y);
-          dynamic_cast<Text *>(uiElement.get())->setText(text);
+        case ElementType::TextButton: {
+          auto elmButton = std::make_unique<Button>(elementRect);
+          elmButton->setText(text);
+          elmButton->isToggleButton = toggleButton;
+          elmButton->setFontSize(fontSize);
+          uiElement = std::move(elmButton);
           break;
+        }
+        case ElementType::Text: {
+          auto elmText = std::make_unique<Text>();
+          elmText->setPosition(elementRect.x, elementRect.y);
+          elmText->setText(text);
+          elmText->setFontSize(fontSize);
+          uiElement = std::move(elmText);
+          break;
+        }
         case ElementType::Frame:
           uiElement = std::make_unique<Frame>(elementRect);
           break;
@@ -390,7 +400,7 @@ void UIManager::setCallbackFunctions()
     }
     else if (uiElement->getUiElementData().actionID == "QuitGame")
     {
-      uiElement->registerCallbackFunction(Signal::slot(Engine::instance(), &Engine::quitGame));
+      uiElement->registerCallbackFunction([]() { SignalMediator::instance().signalQuitGame.emit(); });
     }
     else if (uiElement->getUiElementData().actionID == "Demolish")
     {
@@ -478,6 +488,8 @@ void UIManager::setCallbackFunctions()
                     GameStates::instance().layerEditMode = LayerEditMode::BLUEPRINT;
                     MapLayers::setLayerEditMode(GameStates::instance().layerEditMode);
                     break;
+                  default:
+                    break;
                   }
               }
               return;
@@ -520,16 +532,21 @@ void UIManager::setCallbackFunctions()
     }
     else if (uiElement->getUiElementData().actionID == "NewGame")
     {
-      uiElement->registerCallbackFunction([]() { Engine::instance().newGame(); });
+      uiElement->registerCallbackFunction([]() { SignalMediator::instance().signalNewGame.emit(true); });
     }
     else if (uiElement->getUiElementData().actionID == "SaveGame")
     {
-      uiElement->registerCallbackFunction([]() { Engine::instance().saveGame("save.cts"); });
+      uiElement->registerCallbackFunction([]() { SignalMediator::instance().signalSaveGame.emit("save.cts"); });
     }
     else if (uiElement->getUiElementData().actionID == "LoadGame")
     {
-      uiElement->registerCallbackFunction([]() { Engine::instance().loadGame("save.cts"); });
+      uiElement->registerCallbackFunction([]() { SignalMediator::instance().signalLoadGame.emit("save.cts"); });
     }
+    else if (uiElement->getUiElementData().actionID == "ResetSettings")
+    {
+      uiElement->registerCallbackFunction([]() { Settings::instance().resetSettingsToDefaults(); });
+    }
+
     else if (uiElement->getUiElementData().actionID == "SaveSettings")
     {
       uiElement->registerCallbackFunction(
@@ -1074,10 +1091,7 @@ void UIManager::changeResolution(UIElement *sender)
   WindowManager::instance().setScreenResolution(combobox->getActiveID());
   Layout::arrangeElements();
 
-  if (Engine::instance().map != nullptr)
-  {
-    Engine::instance().map->refresh();
-  }
+  MapFunctions::instance().refreshVisibleMap();
 }
 
 void UIManager::changeFullScreenMode(UIElement *sender)
@@ -1087,8 +1101,5 @@ void UIManager::changeFullScreenMode(UIElement *sender)
   // WindowManager::instance().setLastScreenResolution();
   Layout::arrangeElements();
 
-  if (Engine::instance().map != nullptr)
-  {
-    Engine::instance().map->refresh();
-  }
+  MapFunctions::instance().refreshVisibleMap();
 }

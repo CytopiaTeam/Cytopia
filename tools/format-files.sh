@@ -7,4 +7,5 @@ fi
 
 BASE_DIRECTORY=$(dirname "$0")
 
-find "$BASE_DIRECTORY/../src" -regex '.*\.\(hxx\|cxx\)' -not -path '*/external/*' -exec clang-format -style=file -i {} \;
+# find "$BASE_DIRECTORY/../src" -regex '.*\.\(hxx\|cxx\)' -not -path '*/external/*' -exec clang-format -style=file -i {} \;
+find ./../src | grep .*xx | xargs clang-format -style=file -i

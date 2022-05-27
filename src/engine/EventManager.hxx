@@ -4,7 +4,6 @@
 #include <SDL.h>
 #include <set>
 
-#include "Engine.hxx"
 #include "UIManager.hxx"
 #include "../util/Singleton.hxx"
 
@@ -14,7 +13,7 @@ public:
   EventManager() = default;
   ~EventManager() = default;
 
-  void checkEvents(SDL_Event &event, Engine &engine);
+  void checkEvents(SDL_Event &event);
   /**
  * @brief Unhighlight highlighted Nodes.
  * @details This sets a node to be unhighlighted.
@@ -32,6 +31,7 @@ private:
   bool m_panning = false;
   bool m_skipLeftClick = false;
   bool m_tileInfoMode = false;
+  bool m_isPuttingTile = false;       ///< determines if putting tile action is being performed
   bool m_cancelTileSelection = false; ///< determines if a right click should cancel tile selection
   Point m_pinchCenterCoords = {0, 0, 0, 0};
   Point m_clickDownCoords = {0, 0, 0, 0};

@@ -21,8 +21,14 @@ WindowManager::WindowManager()
   Settings::instance().screenHeight = mode.h;
 #endif
 
+#ifdef TESTING_ENABLED
+  windowFlags = SDL_WINDOW_HIDDEN;
+  m_window = SDL_CreateWindow(m_title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, windowFlags);
+#else
   m_window = SDL_CreateWindow(m_title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, Settings::instance().screenWidth,
                               Settings::instance().screenHeight, windowFlags);
+#endif
+
   if (!m_window)
     throw UIError(TRACE_INFO "Failed to create window: " + string{SDL_GetError()});
 
@@ -34,7 +40,12 @@ WindowManager::WindowManager()
   {
     rendererFlags = SDL_RENDERER_ACCELERATED;
   }
+#if defined(TESTING_ENABLED) && defined(__linux)
+  // Set the index to 2 for running tests
+  m_renderer = SDL_CreateRenderer(m_window, 2, rendererFlags);
+#else
   m_renderer = SDL_CreateRenderer(m_window, -1, rendererFlags);
+#endif
 
   if (!m_renderer)
     throw UIError(TRACE_INFO "Failed to create Renderer: " + string{SDL_GetError()});
@@ -129,20 +140,22 @@ void WindowManager::initializeScreenResolutions()
   // get the number of different screen modes
   for (int modeIndex = 0; modeIndex <= SDL_GetNumDisplayModes(m_activeDisplay); modeIndex++)
   {
-    std::unique_ptr<SDL_DisplayMode> mode =
+    std::unique_ptr<SDL_DisplayMode> displayMode =
         std::make_unique<SDL_DisplayMode>((SDL_DisplayMode{SDL_PIXELFORMAT_UNKNOWN, 0, 0, 0, nullptr}));
 
-    auto isResolitionExist = [&](int w, int h) {
-        auto it = std::find_if(m_resolutions.begin(), m_resolutions.end(), [w, h] (auto &mode) { return (mode->w == w) && (mode->h == h); });
-        return it != m_resolutions.end();
+    auto isResolitionExist = [&](int w, int h)
+    {
+      auto it = std::find_if(m_resolutions.begin(), m_resolutions.end(),
+                             [w, h](auto &mode) { return (mode->w == w) && (mode->h == h); });
+      return it != m_resolutions.end();
     };
 
-    if (SDL_GetDisplayMode(m_activeDisplay, modeIndex, mode.get()) == 0)
+    if (SDL_GetDisplayMode(m_activeDisplay, modeIndex, displayMode.get()) == 0)
     {
-      if (isResolitionExist(mode->w, mode->h))
-          continue;
+      if (isResolitionExist(displayMode->w, displayMode->h))
+        continue;
 
-      m_resolutions.push_back(std::move(mode));
+      m_resolutions.push_back(std::move(displayMode));
     }
   }
 }

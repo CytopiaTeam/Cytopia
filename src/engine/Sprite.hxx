@@ -4,7 +4,7 @@
 #include <SDL.h>
 #include <vector>
 
-#include "basics/point.hxx"
+#include "basics/Point.hxx"
 #include "common/enums.hxx"
 
 struct SpriteData

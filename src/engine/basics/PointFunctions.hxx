@@ -1,7 +1,7 @@
 #ifndef POINTFUNCTIONS_HXX_
 #define POINTFUNCTIONS_HXX_
 
-#include "point.hxx"
+#include "Point.hxx"
 #include "../../util/LOG.hxx"
 #include "betterEnums.hxx"
 #include <vector>

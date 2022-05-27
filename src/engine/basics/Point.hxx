@@ -54,9 +54,8 @@ public:
    */
   bool isDirectNeighborOf(Point coordinate) const
   {
-    return
-      ((x == coordinate.x) && (std::abs(y - coordinate.y) <= 1)) ||
-      ((y == coordinate.y) && (std::abs(x - coordinate.x) <= 1));
+    return ((x == coordinate.x) && (std::abs(y - coordinate.y) <= 1)) ||
+           ((y == coordinate.y) && (std::abs(x - coordinate.x) <= 1));
   }
 
   /**

@@ -24,7 +24,7 @@ LIST(APPEND TEST_SOURCES
         engine/basics/Point.cxx
         engine/basics/Settings.cxx
         engine/ResourcesManager.cxx
-        engine/Engine.cxx
+        engine/MapFunctions.cxx
         engine/UIManager.cxx
         engine/WindowManager.cxx
         game/PowerManager.cxx
@@ -75,7 +75,7 @@ target_include_directories(
         ${CMAKE_SOURCE_DIR}/src/services
 )
 
-target_compile_definitions(${TESTS_PROJECT_NAME} PRIVATE ${_compile_definitions})
+target_compile_definitions(${TESTS_PROJECT_NAME} PRIVATE ${_compile_definitions} TESTING_ENABLED)
 target_link_libraries(
         ${TESTS_PROJECT_NAME} PRIVATE
         LIBPNG::LIBPNG

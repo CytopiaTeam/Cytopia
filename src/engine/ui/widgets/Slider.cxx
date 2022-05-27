@@ -87,7 +87,7 @@ void Slider::onMouseMove(const SDL_Event &event)
 
 bool Slider::isMouseOver(int x, int y) { return overSliderButton(x, y) || overSliderLine(x, y); }
 
-void Slider::setPosition(int x, int y) 
+void Slider::setPosition(int x, int y)
 {
   m_uiElementRect.x = x;
   m_uiElementRect.y = y;

@@ -31,7 +31,7 @@ void ZoneManager::update()
     {
       for (auto &zoneArea : m_zoneAreas)
       {
-        if (zoneArea.isWithinZone(nodeToVacate))
+        if (zoneArea.isMemberOf(nodeToVacate))
         {
           zoneArea.setVacancy(nodeToVacate, true);
           break;
@@ -48,7 +48,7 @@ void ZoneManager::update()
     {
       for (auto &zoneArea : m_zoneAreas)
       {
-        if (zoneArea.isWithinZone(nodeToOccupy))
+        if (zoneArea.isMemberOf(nodeToOccupy))
         {
           zoneArea.setVacancy(nodeToOccupy, false);
           break;
@@ -110,7 +110,7 @@ std::vector<int> ZoneManager::getAdjacentZoneAreas(const ZoneNode &zoneNode, std
   for (auto &zoneArea : zoneAreas)
   {
     if (zoneArea.getZone() == zoneNode.zoneType && (zoneArea.getZoneDensity() == zoneNode.zoneDensity) &&
-        zoneArea.isWithinBoundaries(zoneNode.coordinate) && zoneArea.isNeighborOfZone(zoneNode.coordinate))
+        zoneArea.isWithinBoundaries(zoneNode.coordinate) && zoneArea.isNeighbor(zoneNode.coordinate))
     {
       neighborZones.push_back(i);
     }
@@ -132,13 +132,13 @@ void ZoneManager::addZoneNodeToArea(ZoneNode &zoneNode, std::vector<ZoneArea> &z
   else if (zoneNeighbour.size() == 1)
   {
     // add to this zone
-    zoneAreas[zoneNeighbour[0]].addZoneNode(zoneNode);
+    zoneAreas[zoneNeighbour[0]].addNode(zoneNode);
   }
   else
   {
     // merge zone areas
     ZoneArea &mergedZone = zoneAreas[zoneNeighbour[0]];
-    mergedZone.addZoneNode(zoneNode);
+    mergedZone.addNode(zoneNode);
 
     for (int idx = 1; idx < zoneNeighbour.size(); ++idx)
     {
@@ -168,7 +168,7 @@ void ZoneManager::removeZoneNode(Point coordinate)
 {
   for (auto zoneIt = m_zoneAreas.begin(); zoneIt != m_zoneAreas.end(); zoneIt++)
   {
-    if (zoneIt->isWithinZone(coordinate))
+    if (zoneIt->isMemberOf(coordinate))
     {
       zoneIt->removeZoneNode(coordinate);
 
@@ -198,12 +198,14 @@ void ZoneManager::updatePower(const std::vector<PowerGrid> &powerGrid)
 {
   for (const auto &grid : powerGrid)
   {
-    bool isGridConnected = false;
     for (auto &area : m_zoneAreas)
     {
-      isGridConnected = area.end() != std::find_if(area.begin(), area.end(),
-                                                   [grid](const ZoneNode &node) { return grid.isNeighbor(node.coordinate); });
-      if (isGridConnected && grid.getPowerLevel() > 0)
+      if (bool isGridConnected =
+              area.end() !=
+              std::find_if(area.begin(), area.end(), [grid](const ZoneNode &node) { return grid.isNeighbor(node.coordinate); });
+          !isGridConnected)
+        continue;
+      if (grid.getPowerLevel() > 0)
       {
         area.setPowerSupply(true);
       }
@@ -234,6 +236,8 @@ void ZoneManager::updateRemovedNodes(const MapNode *mapNode)
 
     break;
   }
+  default:
+    break;
   }
 }
 

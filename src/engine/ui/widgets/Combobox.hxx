@@ -6,7 +6,6 @@
 #include "../basics/UIElement.hxx"
 #include "Text.hxx"
 
-
 enum class TextFieldAlignment
 {
   LEFT,
