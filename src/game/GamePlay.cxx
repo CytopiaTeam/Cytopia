@@ -2,6 +2,6 @@
 
 void GamePlay::resetManagers()
 {
-  m_PowerManager.reset();
   m_ZoneManager.reset();
+  m_PowerManager.reset();
 }

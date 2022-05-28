@@ -194,7 +194,7 @@ void PowerManager::reset()
         power = mapNode.getTileData(Layer::BUILDINGS)->power;
       }
       PowerNode powerNode = {mapNode.getCoordinates(), power};
-      m_powerGrids.push_back(powerNode);
+      m_nodesToAdd.push_back(powerNode);
     }
   }
 }
