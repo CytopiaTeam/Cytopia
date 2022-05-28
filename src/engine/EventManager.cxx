@@ -45,6 +45,25 @@ void EventManager::pickTileUnderCursor(Point mouseIsoCoords)
   // all layers are supported except terrain
   if (topMostActiveLayer == Layer::TERRAIN || topMostActiveLayer == Layer::NONE)
     return;
+  // update placement mode
+  switch (topMostActiveLayer)
+  {
+    case Layer::BUILDINGS:
+      GameStates::instance().placementMode = PlacementMode::SINGLE;
+      break;
+    case Layer::ROAD:
+    case Layer::POWERLINES:
+    case Layer::UNDERGROUND:
+      GameStates::instance().placementMode = PlacementMode::LINE;
+      break;
+    case Layer::GROUND_DECORATION:
+    case Layer::WATER:
+    case Layer::ZONE:
+      GameStates::instance().placementMode = PlacementMode::RECTANGLE;
+      break;
+    default:
+      break;
+  }
   mapNodeData = node.getMapNodeData();
   tileToPlace = mapNodeData[topMostActiveLayer].tileID;
   highlightSelection = true;
