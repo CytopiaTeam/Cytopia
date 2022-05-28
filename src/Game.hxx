@@ -57,6 +57,8 @@ public:
 private:
   void quit();
   bool m_shutDown = false;
+
+  GamePlay m_GamePlay;
 };
 } // namespace Cytopia
 #endif

@@ -89,7 +89,7 @@ void Game::run(bool SkipMenu)
   uiManager.init();
 
   GameClock &gameClock = GameClock::instance();
-  GamePlay m_GamePlay;
+  //  m_GamePlay;
 
 #ifdef USE_ANGELSCRIPT
   ScriptEngine &scriptEngine = ScriptEngine::instance();
