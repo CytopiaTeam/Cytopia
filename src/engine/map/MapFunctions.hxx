@@ -139,14 +139,21 @@ public:
    */
   void refreshVisibleMap();
 
-private:
-  Map *m_map;
-
   /**
    * @brief Creates a new map object with terrain gen
    * @param generateTerrain flat map or procedural
    */
   void newMap(bool generateTerrain = true);
+
+  /** \brief Load Map from file
+  * @details Deserializes the Map class from a json file, creates a new Map and returns it.
+  * @param fileName The file the map should be written to
+  * @returns Map* Pointer to the newly created Map.
+  */
+  void loadMapFromFile(const std::string &fileName);
+
+private:
+  Map *m_map;
 
   /** \brief Update the nodes and all affected node with the change.
   * @param nodes vector of coordinates to be updated.
@@ -174,13 +181,6 @@ private:
   * @param fileName The file the map should be written to
   */
   void saveMapToFile(const std::string &fileName);
-
-  /** \brief Load Map from file
-  * @details Deserializes the Map class from a json file, creates a new Map and returns it.
-  * @param fileName The file the map should be written to
-  * @returns Map* Pointer to the newly created Map.
-  */
-  void loadMapFromFile(const std::string &fileName);
 
   /** \brief Get a bitmask that represents same-tile neighbors
   * @details Checks all neighboring tiles and returns the elevated neighbors in a bitmask:

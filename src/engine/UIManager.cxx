@@ -79,7 +79,8 @@ void UIManager::init()
           continue;
         }
 
-        layoutGroup.layout.fontSize = uiLayout["LayoutGroups"][it.key()][id].value("FontSize", Settings::instance().defaultFontSize);
+        layoutGroup.layout.fontSize =
+            uiLayout["LayoutGroups"][it.key()][id].value("FontSize", Settings::instance().defaultFontSize);
         layoutGroup.layout.padding = uiLayout["LayoutGroups"][it.key()][id].value("Padding", 0);
         layoutGroup.layout.paddingToParent = uiLayout["LayoutGroups"][it.key()][id].value("PaddingToParent", 0);
         layoutGroup.layout.alignmentOffset = uiLayout["LayoutGroups"][it.key()][id].value("AlignmentOffset", 0.0F);
@@ -148,7 +149,7 @@ void UIManager::init()
         elementRect.w = element.value("Width", 0);
         elementRect.h = element.value("Height", 0);
 
-        const auto& fontSizeVal = element["FontSize"];
+        const auto &fontSizeVal = element["FontSize"];
         uint32_t defaultFontSize = m_layoutGroups[layoutGroupName].layout.fontSize;
         uint32_t fontSize = fontSizeVal.is_null() ? defaultFontSize : fontSizeVal.get<uint32_t>();
 
@@ -164,7 +165,8 @@ void UIManager::init()
           dynamic_cast<Button *>(uiElement.get())->isToggleButton = toggleButton;
           dynamic_cast<Button *>(uiElement.get())->drawImageButtonFrame(drawFrame);
           break;
-        case ElementType::TextButton: {
+        case ElementType::TextButton:
+        {
           auto elmButton = std::make_unique<Button>(elementRect);
           elmButton->setText(text);
           elmButton->isToggleButton = toggleButton;
@@ -172,7 +174,8 @@ void UIManager::init()
           uiElement = std::move(elmButton);
           break;
         }
-        case ElementType::Text: {
+        case ElementType::Text:
+        {
           auto elmText = std::make_unique<Text>();
           elmText->setPosition(elementRect.x, elementRect.y);
           elmText->setText(text);

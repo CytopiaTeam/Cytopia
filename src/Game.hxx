@@ -51,9 +51,14 @@ public:
     */
   virtual void shutdown();
 
+  virtual void newGame(bool generateTerrain);
+  virtual void loadGame(const std::string &fileName);
+
 private:
   void quit();
   bool m_shutDown = false;
+
+  GamePlay m_GamePlay;
 };
 } // namespace Cytopia
 #endif

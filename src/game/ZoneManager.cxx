@@ -4,6 +4,7 @@
 #include "../services/Randomizer.hxx"
 #include "GameStates.hxx"
 #include <SignalMediator.hxx>
+#include <MapFunctions.hxx>
 
 ZoneManager::ZoneManager()
 {
@@ -254,5 +255,19 @@ void ZoneManager::updatePlacedNodes(const MapNode &mapNode)
     ZoneNode nodeToAdd = {mapNode.getCoordinates(), mapNode.getTileData(Layer::ZONE)->zoneTypes[0],
                           mapNode.getTileData(Layer::ZONE)->zoneDensity[0]};
     m_nodesToAdd.push_back(nodeToAdd);
+  }
+}
+
+void ZoneManager::reset()
+{
+  m_zoneAreas.clear();
+  for (const auto &mapNode : MapFunctions::instance().getMapNodes())
+  {
+    if (mapNode.getTileData(Layer::ZONE))
+    {
+      ZoneNode nodeToAdd = {mapNode.getCoordinates(), mapNode.getTileData(Layer::ZONE)->zoneTypes[0],
+                            mapNode.getTileData(Layer::ZONE)->zoneDensity[0]};
+      m_nodesToAdd.push_back(nodeToAdd);
+    }
   }
 }
