@@ -69,6 +69,9 @@ void Game::initialize()
 
   // Register Callbacks
   SignalMediator::instance().registerCbQuitGame([this]() { m_shutDown = true; });
+  SignalMediator::instance().registerCbNewGame(Signal::slot(this, &Game::newGame));
+  SignalMediator::instance().registerCbLoadGame(Signal::slot(this, &Game::loadGame));
+
   // we need to instantiate the Map object to be able to send signals for new / load game
   MapFunctions::instance();
 
@@ -183,4 +186,9 @@ void Game::shutdown()
   TTF_Quit();
   SDL_Quit();
 }
+
+void Game::newGame(bool generateTerrain) { MapFunctions::instance().newMap(generateTerrain); }
+
+void Game::loadGame(const std::string &fileName) { MapFunctions::instance().loadMapFromFile(fileName); }
+
 } // namespace Cytopia

@@ -15,7 +15,7 @@
 
 MapFunctions::MapFunctions()
 {
-  SignalMediator::instance().registerCbNewGame(Signal::slot(this, &MapFunctions::newMap));
+  // SignalMediator::instance().registerCbNewGame(Signal::slot(this, &MapFunctions::newMap));
   SignalMediator::instance().registerCbSaveGame(Signal::slot(this, &MapFunctions::saveMapToFile));
   SignalMediator::instance().registerCbLoadGame(Signal::slot(this, &MapFunctions::loadMapFromFile));
 }
