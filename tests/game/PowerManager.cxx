@@ -1,4 +1,5 @@
 #include <catch.hpp>
+#include "../../src/Game.hxx"
 #include "../../src/engine/Map.hxx"
 #include "../../src/game/PowerManager.hxx"
 #include "../../src/game/ZoneManager.hxx"
@@ -12,6 +13,7 @@
 TEST_CASE("Zone can be powered", "[powermanager][powermanager]")
 {
   MapFunctions::instance();
+  MapFunctions::instance().newMap();
   SignalMediator::instance().signalNewGame.emit(false);
   PowerManager powerManager;
   ZoneManager zoneManager;
