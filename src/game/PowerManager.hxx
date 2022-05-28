@@ -9,7 +9,7 @@ class PowerManager
 public:
   PowerManager();
 
-  void rebuildGrids();
+  void reset();
 
 private:
   int m_powerProduced = 0;

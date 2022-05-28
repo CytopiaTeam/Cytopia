@@ -180,14 +180,15 @@ void PowerManager::updatePowerLevels()
   }
 }
 
-void PowerManager::rebuildGrids()
+void PowerManager::reset()
 {
   m_powerGrids.clear();
-  for (const auto &node : MapFunctions::instance().getMapNodes())
+  for (const auto &mapNode : MapFunctions::instance().getMapNodes())
   {
-    if (node.isConductive())
+    // TODO: will fail on other power buildings
+    if (mapNode.isConductive() && mapNode.getTileData(Layer::BUILDINGS))
     {
-      PowerNode powerNode = {node.getCoordinates(), node.getTileData(Layer::BUILDINGS)->power};
+      PowerNode powerNode = {mapNode.getCoordinates(), mapNode.getTileData(Layer::BUILDINGS)->power};
       m_powerGrids.push_back(powerNode);
     }
   }
