@@ -15,9 +15,7 @@
 
 MapFunctions::MapFunctions()
 {
-  // SignalMediator::instance().registerCbNewGame(Signal::slot(this, &MapFunctions::newMap));
   SignalMediator::instance().registerCbSaveGame(Signal::slot(this, &MapFunctions::saveMapToFile));
-  // SignalMediator::instance().registerCbLoadGame(Signal::slot(this, &MapFunctions::loadMapFromFile));
 }
 
 bool MapFunctions::updateHeight(Point coordinate, const bool elevate)
