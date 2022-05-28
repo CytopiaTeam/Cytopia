@@ -185,7 +185,6 @@ void PowerManager::reset()
   m_powerGrids.clear();
   for (const auto &mapNode : MapFunctions::instance().getMapNodes())
   {
-    // TODO: will fail on other power buildings
     if (mapNode.isConductive())
     {
       int power = 0;
