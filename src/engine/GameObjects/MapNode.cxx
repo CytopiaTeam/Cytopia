@@ -50,6 +50,12 @@ void MapNode::setBitmask(unsigned char elevationBitmask, std::vector<uint8_t> au
 
 void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
 {
+  //TODO: don't set tile id if not origin, extra function
+  // set other nodes to invis.
+  // if other node is not origin, return tileID of origin
+  // TODO: Reset everything on demolish
+  // TODO: Find out what's missing for other things to work
+  // TODO: remove origincornerpoint stuff
   TileData *tileData = TileManager::instance().getTileData(tileID);
   if (tileData && !tileID.empty())
   {
@@ -59,6 +65,8 @@ void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
       // int minZ = m_isoCoordinates.z;
       // LOG(LOG_INFO) << "old z " << minZ;
       int minY = 0;
+      // set origin corner node
+      m_isOriginNode = true;
       // for (auto coord : targetCoordinates)
       // {
       //   if (coord.x == origCornerPoint.x)
@@ -76,13 +84,16 @@ void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
         }
         else
         {
+          // LOG(LOG_ERROR)<<"it's mjultile";
+          m_isOriginNode = false;
           m_multiTileNodes.push_back(&MapFunctions::instance().getMapNode(coord));
           MapFunctions::instance().getMapNode(coord).getSprite()->setRenderFlag(Layer::BUILDINGS, false);
           // MapFunctions::instance().getMapNode(coord).setRenderFlag(Layer::TERRAIN, false);
           MapFunctions::instance().getMapNode(coord).updateTexture(Layer::BUILDINGS);
           // MapFunctions::instance().getMapNode(coord).updateTexture(Layer::TERRAIN);
-          MapFunctions::instance().getMapNode(coord).setTileID(tileID, origCornerPoint);
-          MapFunctions::instance().getMapNode(coord).setTileID("terrain_basalt", origCornerPoint);
+          // MapFunctions::instance().getMapNode(coord).setTileID(tileID, origCornerPoint);
+          MapFunctions::instance().getMapNode(coord).setOriginCoordinate(origCornerPoint);
+          // MapFunctions::instance().getMapNode(coord).setTileID("terrain_basalt", origCornerPoint);
           // MapFunctions::instance().getMapNode(coord).setZIndex(minZ);
 
           // LOG(LOG_INFO) << "i'm a multinode";
@@ -556,3 +567,27 @@ const bool MapNode::isConductive() const
     return false;
   }
 }
+
+const TileData *MapNode::getTileData(Layer layer) const
+{
+  if (!isOriginNode() && m_originCoordinates != Point::INVALID())
+  {
+    return MapFunctions::instance().getMapNode(m_originCoordinates).getMapNodeDataForLayer(layer).tileData;
+  }
+  else
+  {
+    return m_mapNodeData[layer].tileData;
+  }
+}
+
+const std::string &MapNode::getTileID(Layer layer) const
+{
+  if (!isOriginNode() && m_originCoordinates != Point::INVALID())
+  {
+    return MapFunctions::instance().getMapNode(m_originCoordinates).getMapNodeDataForLayer(layer).tileID;
+  }
+  else
+  {
+    return m_mapNodeData[layer].tileID;
+  }
+};

@@ -81,12 +81,12 @@ public:
 
   unsigned char getElevationBitmask() const { return m_elevationBitmask; };
 
-  const TileData *getTileData(Layer layer) const { return m_mapNodeData[layer].tileData; };
+  const TileData *getTileData(Layer layer) const;
 
   /** @brief get TileID of specific layer inside NodeData.
     * @param layer what layer should be checked on.
     */
-  const std::string &getTileID(Layer layer) const { return m_mapNodeData[layer].tileID; };
+  const std::string &getTileID(Layer layer) const;
 
   bool isPlacementAllowed(const std::string &newTileID) const;
 
@@ -140,7 +140,8 @@ public:
    */
   bool isOriginNode(Layer layer = Layer::BUILDINGS) const
   {
-    return (m_isoCoordinates == getMapNodeDataForLayer(layer).origCornerPoint);
+    // TODO: Might remove this and compare coords instead
+    return m_isOriginNode;
   }
 
   /** @brief return topmost active layer.
@@ -182,7 +183,11 @@ public:
   /// Maximum height of the node.
   static const int maxHeight = 32;
 
+  void setOriginCoordinate(Point coordinate) { m_originCoordinates = coordinate;};
+
 private:
+  bool m_isOriginNode = true;
+  Point m_originCoordinates = Point::INVALID();
   Point m_isoCoordinates;
   std::unique_ptr<Sprite> m_sprite;
   std::string m_previousTileID = "terrain";
