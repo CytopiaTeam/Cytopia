@@ -186,8 +186,16 @@ void Game::shutdown()
   SDL_Quit();
 }
 
-void Game::newGame(bool generateTerrain) { MapFunctions::instance().newMap(generateTerrain); }
+void Game::newGame(bool generateTerrain)
+{
+  MapFunctions::instance().newMap(generateTerrain);
+  m_GamePlay.resetManagers();
+}
 
-void Game::loadGame(const std::string &fileName) { MapFunctions::instance().loadMapFromFile(fileName); }
+void Game::loadGame(const std::string &fileName)
+{
+  MapFunctions::instance().loadMapFromFile(fileName);
+  m_GamePlay.resetManagers();
+}
 
 } // namespace Cytopia
