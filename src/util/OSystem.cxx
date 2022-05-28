@@ -5,19 +5,19 @@
 #include <ctime>
 
 #if defined(CYTOPIA_PLATFORM_LINUX) || defined(CYTOPIA_PLATFORM_HAIKU)
-  #include <limits.h>
-  #include <unistd.h>
-  #include <sys/stat.h>
+#include <limits.h>
+#include <unistd.h>
+#include <sys/stat.h>
 #endif
 
 #ifdef CYTOPIA_PLATFORM_LINUX
 #include <cstdlib>
 #include <string.h>
-const char* getDialogCommand()
+const char *getDialogCommand()
 {
   if (::system(nullptr))
   {
-    if(::system("which gdialog") == 0)
+    if (::system("which gdialog") == 0)
       return "gdialog";
 
     else if (::system("which kdialog") == 0)
@@ -26,21 +26,21 @@ const char* getDialogCommand()
   return nullptr;
 }
 #elif defined(CYTOPIA_PLATFORM_MACOSX)
-  #include <cstdlib>
+#include <cstdlib>
 #elif defined(CYTOPIA_PLATFORM_WIN)
-  #include <windows.h>
+#include <windows.h>
 #endif
 
-void OSystem::error(const std::string& title, const std::string& text)
+void OSystem::error(const std::string &title, const std::string &text)
 {
 #if defined(CYTOPIA_PLATFORM_LINUX)
-  const char * dialogCommand = getDialogCommand();
+  const char *dialogCommand = getDialogCommand();
   if (dialogCommand)
   {
     std::string command = dialogCommand;
     command += " --title \"" + title + "\" --msgbox \"" + text + "\"";
     int syserror = ::system(command.c_str());
-    if( syserror )
+    if (syserror)
     {
       LOG(LOG_DEBUG) << "WARNING: Cant execute command " << command;
     }
@@ -52,15 +52,15 @@ void OSystem::error(const std::string& title, const std::string& text)
 #endif
 }
 
-void OSystem::openUrl(const std::string& url, const std::string& prefix)
+void OSystem::openUrl(const std::string &url, const std::string &prefix)
 {
 #ifdef CYTOPIA_PLATFORM_LINUX
   std::string command = prefix + "xdg-open '" + url + "'";
   LOG(LOG_DEBUG) << command;
-  ::system( command.c_str() );
+  ::system(command.c_str());
 
 #elif defined(CYTOPIA_PLATFORM_WIN)
-  ShellExecuteA(0, "Open", url.c_str(), 0, 0 , SW_SHOW);
+  ShellExecuteA(0, "Open", url.c_str(), 0, 0, SW_SHOW);
 
 #elif defined(CYTOPIA_PLATFORM_MACOSX)
   std::string command = "open \"" + url + "\" &";
@@ -68,13 +68,13 @@ void OSystem::openUrl(const std::string& url, const std::string& prefix)
 #endif
 }
 
-void OSystem::openDir(const std::string& path, const std::string& prefix)
+void OSystem::openDir(const std::string &path, const std::string &prefix)
 {
   std::string command;
 
 #ifdef CYTOPIA_PLATFORM_LINUX
   command = prefix + "nautilus '" + path + "' &";
-  ::system(command.c_str() );
+  ::system(command.c_str());
 #elif defined(CYTOPIA_PLATFORM_WIN)
   ShellExecute(GetDesktopWindow(), "open", path.c_str(), nullptr, nullptr, SW_SHOWNORMAL);
 
@@ -87,7 +87,9 @@ void OSystem::openDir(const std::string& path, const std::string& prefix)
 
 bool OSystem::is(OSystem::Type type)
 {
-#define RETURN_TRUE(t) if (type == t) return true;
+#define RETURN_TRUE(t)                                                                                                           \
+  if (type == t)                                                                                                                 \
+    return true;
 
 #ifdef CYTOPIA_PLATFORM_WIN
   RETURN_TRUE(Type::windows)
@@ -124,8 +126,8 @@ bool OSystem::is(OSystem::Type type)
   return false;
 }
 
-bool OSystem::isAndroid() { return is( Type::android ); }
-bool OSystem::isLinux() { return is( Type::linux ); }
-bool OSystem::isUnix() { return is( Type::unix ); }
-bool OSystem::isMac() { return is( Type::macos ); }
-bool OSystem::isWindows() { return is( Type::windows ); }
+bool OSystem::isAndroid() { return is(Type::android); }
+bool OSystem::isLinux() { return is(Type::linux); }
+bool OSystem::isUnix() { return is(Type::unix); }
+bool OSystem::isMac() { return is(Type::macos); }
+bool OSystem::isWindows() { return is(Type::windows); }

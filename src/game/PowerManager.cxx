@@ -180,7 +180,7 @@ void PowerManager::updatePowerLevels()
   }
 }
 
-void PowerManager::parseNodes()
+void PowerManager::rebuildGrids()
 {
   m_powerGrids.clear();
   for (const auto &node : MapFunctions::instance().getMapNodes())

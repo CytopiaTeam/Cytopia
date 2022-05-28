@@ -182,7 +182,6 @@ private:
   */
   void saveMapToFile(const std::string &fileName);
 
-
   /** \brief Get a bitmask that represents same-tile neighbors
   * @details Checks all neighboring tiles and returns the elevated neighbors in a bitmask:
   * [ BR BL TR TL  R  L  B  T ]

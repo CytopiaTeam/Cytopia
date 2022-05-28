@@ -33,10 +33,7 @@ void Button::setText(const std::string &text)
   centerTextLabel();
 }
 
-void Button::setFontSize(uint32_t size)
-{
-  m_buttonLabel->setFontSize(size);
-}
+void Button::setFontSize(uint32_t size) { m_buttonLabel->setFontSize(size); }
 
 bool Button::onMouseButtonUp(const SDL_Event &event)
 {
