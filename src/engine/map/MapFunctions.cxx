@@ -13,10 +13,7 @@
 #include <set>
 #include <queue>
 
-MapFunctions::MapFunctions()
-{
-  SignalMediator::instance().registerCbSaveGame(Signal::slot(this, &MapFunctions::saveMapToFile));
-}
+MapFunctions::MapFunctions() { SignalMediator::instance().registerCbSaveGame(Signal::slot(this, &MapFunctions::saveMapToFile)); }
 
 bool MapFunctions::updateHeight(Point coordinate, const bool elevate)
 {
@@ -338,10 +335,22 @@ bool MapFunctions::setTileID(const std::string &tileID, Point coordinate)
     demolishNode(targetCoordinates, false, Layer::POWERLINES); // remove power lines under buildings
   }
 
-  for (auto coord : targetCoordinates)
-  { // now we can place our building
+  MapNode &currentNode = getMapNode(coordinate);
+  currentNode.setTileID(tileID, coordinate);
 
+  // for (auto coord : targetCoordinates)
+  // {
+
+  //   MapNode &currentMapNode = mapNodes[nodeIdx(coord.x, coord.y)];
+  //   nodesToBeUpdated.push_back(&currentMapNode);
+  // }
+  for (auto coord : targetCoordinates)
+  {        // now we can place our building
     MapNode &currentMapNode = getMapNode(coord);
+    SignalMediator::instance().signalSetTileID.emit(currentMapNode);
+
+    break; // don't doanything
+
 
     if (coord != coordinate && targetCoordinates.size() > 1)
     { // for buildings >1x1 set every node on the layer that will be occupied to invisible exepct of the origin node
@@ -374,7 +383,7 @@ bool MapFunctions::setTileID(const std::string &tileID, Point coordinate)
     }
 
     // emit a signal that setTileID has been called
-    SignalMediator::instance().signalSetTileID.emit(currentMapNode);
+    // SignalMediator::instance().signalSetTileID.emit(currentMapNode);
   }
 
   if (!nodesToBeUpdated.empty())
