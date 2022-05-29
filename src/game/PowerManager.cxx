@@ -37,11 +37,11 @@ void PowerManager::update()
   {
     for (auto &nodeToAdd : m_nodesToAdd)
     {
-      LOG(LOG_INFO) << "ADDING node " << nodeToAdd.powerProduction;
+      // LOG(LOG_INFO) << "ADDING node " << nodeToAdd.powerProduction;
       addPowerNodeToGrid(nodeToAdd, m_powerGrids);
       for (auto &grid : m_powerGrids)
       {
-        LOG(LOG_DEBUG) << "Grid first: " << grid.getPowerLevel();
+        // LOG(LOG_DEBUG) << "Grid first: " << grid.getPowerLevel();
       }
     }
     m_nodesToAdd.clear();
@@ -85,7 +85,7 @@ void PowerManager::addPowerNodeToGrid(PowerNode &powerNode, std::vector<PowerGri
   { // new powergrid
     LOG(LOG_INFO) << "ADDING node to grid" << powerNode.powerProduction;
     powerGrids.emplace_back(powerNode);
-    updatePowerLevels();
+    // updatePowerLevels();
   }
   else if (gridNeighbour.size() == 1)
   { // add to this grid

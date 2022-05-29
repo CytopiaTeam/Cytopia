@@ -556,14 +556,19 @@ void MapNode::demolishNode(const Layer &demolishLayer)
 
 const bool MapNode::isConductive() const
 {
-  if (getTileData(Layer::BUILDINGS) || getTileData(Layer::POWERLINES) || getTileData(Layer::ZONE))
+  std::vector<Layer> conductiveLayers = {Layer::BUILDINGS, Layer::POWERLINES, Layer::ZONE};
+
+  for (auto layer : conductiveLayers)
   {
-    return true;
+    if ((!isOriginNode() && m_originCoordinates != Point::INVALID() &&
+         MapFunctions::instance().getMapNode(m_originCoordinates).getTileData(layer)) ||
+        (isOriginNode() && getTileData(layer)))
+    { // if it's part of a multitilenode (not an originnode, has coordinates of the originnode and there's something placed on a conductive layer)
+      // or if it an origin node and a conductive layer
+      return true;
+    }
   }
-  else
-  {
-    return false;
-  }
+  return false;
 }
 
 const TileData *MapNode::getTileData(Layer layer) const

@@ -13,6 +13,7 @@ void PowerGrid::updatePowerLevel()
 {
   // reset the power level of this grid before recalculating
   m_powerLevel = 0;
+  LOG(LOG_INFO) << "calling updatePowerLevel" << m_gridNodes.size();
   for (const auto &node : m_gridNodes)
   {
     if (MapFunctions::instance().getMapNode(node.coordinate).getTileData(Layer::BUILDINGS) && node.powerProduction == 0)
