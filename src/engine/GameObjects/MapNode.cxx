@@ -560,10 +560,6 @@ const bool MapNode::isConductive() const
 
   for (auto layer : conductiveLayers)
   {
-    if (isOriginNode()) //&& getTileData(layer))
-    {
-      LOG(LOG_ERROR) << "true";
-    }
     if ((!isOriginNode() && m_originCoordinates != Point::INVALID() &&
          MapFunctions::instance().getMapNode(m_originCoordinates).getTileData(layer)) ||
         (isOriginNode() && getTileData(layer)))
@@ -581,10 +577,7 @@ const TileData *MapNode::getTileData(Layer layer) const
   {
     return MapFunctions::instance().getMapNode(m_originCoordinates).getMapNodeDataForLayer(layer).tileData;
   }
-  else
-  {
-    return m_mapNodeData[layer].tileData;
-  }
+  return m_mapNodeData[layer].tileData;
 }
 
 const std::string &MapNode::getTileID(Layer layer) const
@@ -593,8 +586,15 @@ const std::string &MapNode::getTileID(Layer layer) const
   {
     return MapFunctions::instance().getMapNode(m_originCoordinates).getMapNodeDataForLayer(layer).tileID;
   }
-  else
+  return m_mapNodeData[layer].tileID;
+}
+
+const MapNodeData &MapNode::getMapNodeDataForLayer(Layer layer) const
+{
+
+  if (!isOriginNode() && m_originCoordinates != Point::INVALID())
   {
-    return m_mapNodeData[layer].tileID;
+    return MapFunctions::instance().getMapNode(m_originCoordinates).getMapNodeDataForLayer(layer);
   }
+  return m_mapNodeData[layer];
 };

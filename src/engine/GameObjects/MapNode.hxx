@@ -94,7 +94,7 @@ public:
   void setMapNodeData(std::vector<MapNodeData> &&mapNodeData);
 
   const std::vector<MapNodeData> &getMapNodeData() const { return m_mapNodeData; };
-  const MapNodeData &getMapNodeDataForLayer(Layer layer) const { return m_mapNodeData[layer]; };
+  const MapNodeData &getMapNodeDataForLayer(Layer layer) const;
 
   const MapNodeData &getActiveMapNodeData() const;
 
