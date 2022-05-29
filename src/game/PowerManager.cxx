@@ -151,7 +151,6 @@ std::vector<PowerGrid> PowerManager::rebuildZoneArea(PowerGrid &powerGrid)
 }
 void PowerManager::updatePlacedNodes(const MapNode &mapNode)
 {
-  LOG(LOG_INFO) << "updating placed nodes";
   if (!mapNode.isConductive())
   {
     return;
@@ -165,6 +164,7 @@ void PowerManager::updatePlacedNodes(const MapNode &mapNode)
 
   PowerNode nodeToAdd = {mapNode.getCoordinates(), powerLevelOfTile};
   m_nodesToAdd.push_back(nodeToAdd);
+
   if (!mapNode.getMultiTileCoords().empty())
   {
     for (auto multiNode : mapNode.getMultiTileCoords())
@@ -172,7 +172,6 @@ void PowerManager::updatePlacedNodes(const MapNode &mapNode)
       PowerNode nodeToAdd = {multiNode, 0};
       m_nodesToAdd.push_back(nodeToAdd);
     }
-    m_nodesToAdd.push_back(nodeToAdd);
   }
 }
 
