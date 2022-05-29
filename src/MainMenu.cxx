@@ -9,6 +9,7 @@
 #include "engine/ui/widgets/Image.hxx"
 #include "engine/basics/Settings.hxx"
 #include <OSystem.hxx>
+#include "services/DiscordRpc.hxx"
 
 #ifdef USE_AUDIO
 static void playAudioMajorSelection()
@@ -41,6 +42,8 @@ bool mainMenu()
   else
     m_AudioMixer.play(AudioTrigger::MainMenu, Coordinate3D{0, 3, 0.5});
 #endif // USE_AUDIO
+
+  DiscordRpc::updatePresence("Main menu");
 
   Image logo;
   logo.setTextureID("Cytopia_Logo");
@@ -180,6 +183,8 @@ bool mainMenu()
     {
       element->draw();
     }
+
+    DiscordRpc::processCallback();
 
     // reset renderer color back to black
     SDL_SetRenderDrawColor(WindowManager::instance().getRenderer(), 0, 0, 0, SDL_ALPHA_OPAQUE);

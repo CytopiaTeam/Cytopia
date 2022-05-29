@@ -36,7 +36,7 @@ LIST(APPEND TEST_SOURCES
         ui/widgets/Tooltip.cxx
         util/Meta.cxx
         util/MessageQueue.cxx
-        util/LOG.cxx 
+        util/LOG.cxx
         )
 
 # Generate source groups for use in IDEs
@@ -54,6 +54,7 @@ add_executable(${TESTS_PROJECT_NAME} ${TEST_SOURCES})
 target_include_directories(
         ${TESTS_PROJECT_NAME} PRIVATE
         ${CMAKE_SOURCE_DIR}/external/header_only
+        ${CMAKE_SOURCE_DIR}/external/discord/include
         src
         ${CMAKE_SOURCE_DIR}/external/catch2
         ${CMAKE_SOURCE_DIR}/src/engine
@@ -71,7 +72,14 @@ target_include_directories(
         ${CMAKE_SOURCE_DIR}/src/services
 )
 
-target_compile_definitions(${TESTS_PROJECT_NAME} PRIVATE ${_compile_definitions} TESTING_ENABLED)
+target_compile_definitions(${TESTS_PROJECT_NAME} INTERFACE ${_compile_definitions} TESTING_ENABLED)
+
+find_library(DISCORD_SDK_LIB
+    "discord_game_sdk"
+    PATHS "${CMAKE_SOURCE_DIR}/external/discord/lib/x86_64/"
+    NO_DEFAULT_PATH
+)
+
 target_link_libraries(
         ${TESTS_PROJECT_NAME} PRIVATE
         LIBPNG::LIBPNG
@@ -80,6 +88,7 @@ target_link_libraries(
         SDL::TTF
         LibNoise::LibNoise
         ZLIB::ZLIB
+        ${DISCORD_SDK_LIB}
 )
 
 if (ENABLE_AUDIO)
