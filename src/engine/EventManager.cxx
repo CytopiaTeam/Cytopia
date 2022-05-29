@@ -304,15 +304,6 @@ void EventManager::checkEvents(SDL_Event &event)
           mouseScreenCoords = {event.button.x, event.button.y};
           mouseIsoCoords = convertScreenToIsoCoordinates(mouseScreenCoords);
 
-          // if it's a multi-node tile, get the origin corner point
-          Point origCornerPoint =
-              MapFunctions::instance().getNodeOrigCornerPoint(mouseIsoCoords, TileManager::instance().getTileLayer(tileToPlace));
-
-          if (origCornerPoint == Point::INVALID())
-          {
-            origCornerPoint = mouseIsoCoords;
-          }
-
           // canceling transparent buildings
           for (const auto &it : m_transparentBuildings)
           {
