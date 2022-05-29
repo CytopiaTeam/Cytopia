@@ -79,8 +79,8 @@ void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
 
         if (coord == origCornerPoint)
         {
-      m_isOriginNode = true;
-      m_originCoordinates = origCornerPoint;
+          m_isOriginNode = true;
+          m_originCoordinates = origCornerPoint;
           // LOG(LOG_INFO) << "i'm the origin coordinate";
         }
         else
@@ -101,10 +101,6 @@ void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
           // LOG(LOG_INFO) << "i'm a multinode";
         }
       }
-      // m_isoCoordinates.z = minZ;
-      // LOG(LOG_INFO) << "new z " << minZ;
-
-      // m_isoCoordinates.z = m_isoCoordinates.z - Settings::instance().mapSize;
     }
     const Layer layer = TileManager::instance().getTileLayer(tileID);
     switch (layer)

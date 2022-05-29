@@ -337,7 +337,9 @@ bool MapFunctions::setTileID(const std::string &tileID, Point coordinate)
 
   MapNode &currentNode = getMapNode(coordinate);
   currentNode.setTileID(tileID, coordinate);
-
+  // emit a signal that setTileID has been called
+  SignalMediator::instance().signalSetTileID.emit(currentNode);
+  return true;
   // for (auto coord : targetCoordinates)
   // {
 
@@ -345,12 +347,10 @@ bool MapFunctions::setTileID(const std::string &tileID, Point coordinate)
   //   nodesToBeUpdated.push_back(&currentMapNode);
   // }
   for (auto coord : targetCoordinates)
-  {        // now we can place our building
+  { // now we can place our building
     MapNode &currentMapNode = getMapNode(coord);
-    SignalMediator::instance().signalSetTileID.emit(currentMapNode);
 
     break; // don't doanything
-
 
     if (coord != coordinate && targetCoordinates.size() > 1)
     { // for buildings >1x1 set every node on the layer that will be occupied to invisible exepct of the origin node
@@ -381,16 +381,12 @@ bool MapFunctions::setTileID(const std::string &tileID, Point coordinate)
     {
       nodesToBeUpdated.push_back(currentMapNode.getCoordinates());
     }
-
-    // emit a signal that setTileID has been called
-    // SignalMediator::instance().signalSetTileID.emit(currentMapNode);
   }
 
   if (!nodesToBeUpdated.empty())
   {
     updateNodeNeighbors(nodesToBeUpdated);
   }
-  return true;
 }
 
 bool MapFunctions::setTileID(const std::string &tileID, const std::vector<Point> &coordinates)
