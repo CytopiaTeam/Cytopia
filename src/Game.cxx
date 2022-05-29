@@ -183,8 +183,8 @@ void Game::run(bool SkipMenu)
 
 void Game::shutdown()
 {
-  DiscordRpc::shutdown();
   LOG(LOG_DEBUG) << "In shutdown";
+  DiscordRpc::shutdown();
   TTF_Quit();
   SDL_Quit();
 }

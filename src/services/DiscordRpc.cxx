@@ -1,25 +1,30 @@
 #include "DiscordRpc.hxx"
 #include "LOG.hxx"
 
-#define USE_DISCORD_RPC
 #ifdef USE_DISCORD_RPC
-#include "discord_game_sdk.h"
+#include "discord.h"
+#include <memory>
 
-static IDiscordCore *core = nullptr;
-static IDiscordCoreEvents events = nullptr;
-static IDiscordActivityManager *activityManager = nullptr;
+static std::unique_ptr<discord::Core> core;
+constexpr DiscordClientId appId = 982331112061808731;
+
 #endif // USE_DISCORD_RPC
 
 void DiscordRpc::init()
 {
 #ifdef USE_DISCORD_RPC
-  DiscordCreateParams discord_params;
-  discord_params.client_id = 980219396125523978;
-  discord_params.flags = DiscordCreateFlags_Default;
-  discord_params.events = &events;
-  discord_params.event_data = &core;
+  discord::Core *newcore{};
+  auto result = discord::Core::Create(appId, DiscordCreateFlags_Default, &newcore);
+  core.reset(newcore);
+  if (!core)
+  {
+    LOG(LOG_ERROR) << "Failed to instantiate discord core! (err " << static_cast<int>(result) << ")";
+    return;
+  }
 
-  DiscordCreate(DISCORD_VERSION, &discord_params, &core);
+  core->SetLogHook(discord::LogLevel::Debug, [](discord::LogLevel level, const char *message) { 
+    LOG(LOG_INFO) << "Discord: " << static_cast<uint32_t>(level) << " " << message << "\n"; 
+  });
 #endif // USE_DISCORD_RPC
 }
 
@@ -29,12 +34,15 @@ void DiscordRpc::updatePresence(const char *map)
   if (!core)
     return;
 
-  DiscordActivity activity{};
-  snprintf(activity.state, 127, "Playing map: %s", map);
-  snprintf(activity.details, 127, "Where am I?");
-  activityManager  = core->get_activity_manager(core);
-  activityManager->update_activity(activityManager, &activity, nullptr, [] (void *callback_data, EDiscordResult result) {
-    LOG(LOG_DEBUG) << "discord result:" << result;
+  std::string statestr = "Playing map: ";
+  statestr.append(map);
+
+  discord::Activity activity{};
+  activity.SetDetails("Where am I?");
+  activity.SetState(statestr.c_str());
+  activity.SetType(discord::ActivityType::Playing);
+  core->ActivityManager().UpdateActivity(activity, [](discord::Result result) { 
+    LOG(LOG_INFO) << ((result == discord::Result::Ok) ? "Succeeded" : "Failed") << " updating activity!";
   });
 #endif // USE_DISCORD_RPC
 }
@@ -42,19 +50,14 @@ void DiscordRpc::updatePresence(const char *map)
 void DiscordRpc::processCallback()
 {
 #ifdef USE_DISCORD_RPC
-  if (!core)
-    return;
-
-  core->run_callbacks(core);
+  if (core)
+    core->RunCallbacks();
 #endif 
 }
 
 void DiscordRpc::shutdown()
 {
 #ifdef USE_DISCORD_RPC
-  if (core)
-    core->destroy(core);
-
-  core = nullptr;
+  core.reset();
 #endif // USE_DISCORD_RPC
 }

@@ -57,6 +57,13 @@ add_external_lib(
 )
 
 add_external_lib(
+        DiscordGameSDK
+        discord-game-sdk/2.5.6@anotherfoxguy/stable
+        CONAN_PKG_NAME DiscordGameSDK
+        INTERFACE_NAME Discord::SDK
+)
+
+add_external_lib(
         Angelscript
         angelscript/2.35.1
         FIND_PACKAGE
