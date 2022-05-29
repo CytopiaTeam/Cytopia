@@ -157,7 +157,7 @@ Layer MapNode::getTopMostActiveLayer() const
 {
   for (auto currentLayer : layersInActiveOrder)
   {
-    if (MapLayers::isLayerActive(currentLayer) && m_mapNodeData[currentLayer].tileData)
+    if (MapLayers::isLayerActive(currentLayer) && isLayerOccupied(currentLayer))
     {
       return currentLayer;
     }
@@ -315,18 +315,17 @@ void MapNode::updateTexture(const Layer &layer)
   {
     layersToGoOver.insert(layersToGoOver.begin(), std::begin(allLayersOrdered), std::end(allLayersOrdered));
   }
-
   for (auto currentLayer : layersToGoOver)
   {
-    if (m_mapNodeData[currentLayer].tileData)
+    const TileData *tileData = getTileData(currentLayer);
+    if (tileData)
     {
       size_t spriteCount = 1;
       m_mapNodeData[currentLayer].tileMap = TileMap::DEFAULT;
       if (m_elevationOrientation == TileSlopes::DEFAULT_ORIENTATION)
       {
-        if (m_mapNodeData[currentLayer].tileData->tileType == +TileType::WATER ||
-            m_mapNodeData[currentLayer].tileData->tileType == +TileType::TERRAIN ||
-            m_mapNodeData[currentLayer].tileData->tileType == +TileType::BLUEPRINT)
+        if (tileData->tileType == +TileType::WATER || tileData->tileType == +TileType::TERRAIN ||
+            tileData->tileType == +TileType::BLUEPRINT)
         {
           m_autotileOrientation[currentLayer] = TileManager::instance().calculateTileOrientation(m_autotileBitmask[currentLayer]);
           m_mapNodeData[currentLayer].tileMap = TileMap::DEFAULT;
@@ -345,7 +344,7 @@ void MapNode::updateTexture(const Layer &layer)
       }
       else if (m_elevationOrientation >= TileSlopes::N && m_elevationOrientation <= TileSlopes::BETWEEN)
       {
-        if (m_mapNodeData[currentLayer].tileData->slopeTiles.fileName.empty())
+        if (tileData->slopeTiles.fileName.empty())
         {
           m_mapNodeData[currentLayer].tileMap = TileMap::DEFAULT;
           m_autotileOrientation[currentLayer] = TileOrientation::TILE_DEFAULT_ORIENTATION;
@@ -356,18 +355,19 @@ void MapNode::updateTexture(const Layer &layer)
           m_autotileOrientation[currentLayer] = static_cast<TileOrientation>(m_elevationOrientation);
         }
       }
+      const TileData *tileData = getTileData(currentLayer);
 
       switch (m_mapNodeData[currentLayer].tileMap)
       {
       case TileMap::DEFAULT:
-        m_clippingWidth = m_mapNodeData[currentLayer].tileData->tiles.clippingWidth;
+        m_clippingWidth = tileData->tiles.clippingWidth;
         if (m_mapNodeData[currentLayer].tileIndex != 0)
         {
           clipRect.x = m_clippingWidth * m_mapNodeData[currentLayer].tileIndex;
         }
         else
         {
-          if (m_mapNodeData[currentLayer].tileData->tileType == +TileType::POWERLINE &&
+          if (tileData->tileType == +TileType::POWERLINE &&
               std::any_of(layersPowerlinesCanCross.begin(), layersPowerlinesCanCross.end(),
                           [this](const Layer &_layer) { return this->m_mapNodeData[_layer].tileData; }))
           { // if we place a power line cross low terrain (eg, roads, water, flora)
@@ -384,7 +384,7 @@ void MapNode::updateTexture(const Layer &layer)
             }
           }
           // only check for rectangular roads when there are frames for it. Spritesheets with rect-roads have 20 items
-          if (GameStates::instance().rectangularRoads && m_mapNodeData[currentLayer].tileData->tiles.count == 20)
+          if (GameStates::instance().rectangularRoads && tileData->tiles.count == 20)
           {
             switch (m_autotileOrientation[currentLayer])
             {
@@ -410,17 +410,17 @@ void MapNode::updateTexture(const Layer &layer)
 
         if (!m_mapNodeData[currentLayer].tileID.empty())
         {
-          m_sprite->setClipRect({clipRect.x + m_clippingWidth * m_mapNodeData[currentLayer].tileData->tiles.offset, 0,
-                                 m_clippingWidth, m_mapNodeData[currentLayer].tileData->tiles.clippingHeight},
-                                static_cast<Layer>(currentLayer));
+          m_sprite->setClipRect(
+              {clipRect.x + m_clippingWidth * tileData->tiles.offset, 0, m_clippingWidth, tileData->tiles.clippingHeight},
+              static_cast<Layer>(currentLayer));
           m_sprite->setTexture(TileManager::instance().getTexture(m_mapNodeData[currentLayer].tileID),
                                static_cast<Layer>(currentLayer));
         }
 
-        spriteCount = m_mapNodeData[currentLayer].tileData->tiles.count;
+        spriteCount = tileData->tiles.count;
         break;
       case TileMap::SHORE:
-        m_clippingWidth = m_mapNodeData[currentLayer].tileData->shoreTiles.clippingWidth;
+        m_clippingWidth = tileData->shoreTiles.clippingWidth;
         if (m_mapNodeData[currentLayer].tileIndex != 0)
         {
           clipRect.x = m_clippingWidth * m_mapNodeData[currentLayer].tileIndex;
@@ -432,31 +432,29 @@ void MapNode::updateTexture(const Layer &layer)
 
         if (!m_mapNodeData[currentLayer].tileID.empty())
         {
-          m_sprite->setClipRect({clipRect.x + m_clippingWidth * m_mapNodeData[currentLayer].tileData->shoreTiles.offset, 0,
-                                 m_clippingWidth, m_mapNodeData[currentLayer].tileData->shoreTiles.clippingHeight},
+          m_sprite->setClipRect({clipRect.x + m_clippingWidth * tileData->shoreTiles.offset, 0, m_clippingWidth,
+                                 tileData->shoreTiles.clippingHeight},
                                 static_cast<Layer>(currentLayer));
           m_sprite->setTexture(TileManager::instance().getTexture(m_mapNodeData[currentLayer].tileID + "_shore"),
                                static_cast<Layer>(currentLayer));
         }
 
-        spriteCount = m_mapNodeData[currentLayer].tileData->shoreTiles.count;
+        spriteCount = tileData->shoreTiles.count;
         break;
       case TileMap::SLOPES:
-        if (m_mapNodeData[currentLayer].tileData->slopeTiles.fileName.empty())
+        if (tileData->slopeTiles.fileName.empty())
         {
           break;
         }
-        m_clippingWidth = m_mapNodeData[currentLayer].tileData->slopeTiles.clippingWidth;
-        clipRect.x = m_mapNodeData[currentLayer].tileData->slopeTiles.clippingWidth *
-                     static_cast<int>(m_autotileOrientation[currentLayer]);
-        spriteCount = m_mapNodeData[currentLayer].tileData->slopeTiles.count;
+        m_clippingWidth = tileData->slopeTiles.clippingWidth;
+        clipRect.x = tileData->slopeTiles.clippingWidth * static_cast<int>(m_autotileOrientation[currentLayer]);
+        spriteCount = tileData->slopeTiles.count;
         if (clipRect.x <= static_cast<int>(spriteCount) * m_clippingWidth)
         {
-          m_sprite->setClipRect({clipRect.x + m_mapNodeData[currentLayer].tileData->slopeTiles.offset * m_clippingWidth, 0,
-                                 m_clippingWidth, m_mapNodeData[currentLayer].tileData->slopeTiles.clippingHeight},
+          m_sprite->setClipRect({clipRect.x + tileData->slopeTiles.offset * m_clippingWidth, 0, m_clippingWidth,
+                                 tileData->slopeTiles.clippingHeight},
                                 static_cast<Layer>(currentLayer));
-          m_sprite->setTexture(TileManager::instance().getTexture(m_mapNodeData[currentLayer].tileID),
-                               static_cast<Layer>(currentLayer));
+          m_sprite->setTexture(TileManager::instance().getTexture(getTileID(currentLayer)), static_cast<Layer>(currentLayer));
         }
         break;
       default:
@@ -468,7 +466,7 @@ void MapNode::updateTexture(const Layer &layer)
         m_mapNodeData[currentLayer].tileID = m_previousTileID;
         if (m_previousTileID.empty())
         {
-          m_mapNodeData[currentLayer].tileData = nullptr;
+          tileData = nullptr;
         }
         updateTexture(currentLayer);
       }
@@ -528,14 +526,12 @@ void MapNode::demolishNode(const Layer &demolishLayer)
 
   for (auto &layer : layersToDemolish)
   {
-    if (MapLayers::isLayerActive(layer) && m_mapNodeData[layer].tileData)
+    if (MapLayers::isLayerActive(layer) && isLayerOccupied(layer))
     {
-      if ((GameStates::instance().demolishMode == DemolishMode::DEFAULT &&
-           m_mapNodeData[layer].tileData->tileType == +TileType::ZONE) ||
-          (GameStates::instance().demolishMode == DemolishMode::DE_ZONE &&
-           m_mapNodeData[layer].tileData->tileType != +TileType::ZONE) ||
+      if ((GameStates::instance().demolishMode == DemolishMode::DEFAULT && getTileData(layer)->tileType == +TileType::ZONE) ||
+          (GameStates::instance().demolishMode == DemolishMode::DE_ZONE && getTileData(layer)->tileType != +TileType::ZONE) ||
           (GameStates::instance().demolishMode == DemolishMode::GROUND_DECORATION &&
-           m_mapNodeData[layer].tileData->tileType != +TileType::GROUNDDECORATION))
+           getTileData(layer)->tileType != +TileType::GROUNDDECORATION))
       {
         continue;
       }
