@@ -24,6 +24,7 @@ void PowerGrid::updatePowerLevel()
     // so make sure we only add it once (if it's the origin node)
     if (MapFunctions::instance().getMapNode(node.coordinate).isOriginNode())
     {
+      LOG(LOG_DEBUG) << "origin node power " << node.powerProduction;
       m_powerLevel += node.powerProduction;
     }
   }

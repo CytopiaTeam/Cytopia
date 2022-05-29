@@ -130,7 +130,7 @@ public:
    * @param layer the layer that should be checked
    * @return const Point& 
    */
-  const Point &getOrigCornerPoint(Layer layer) const { return getMapNodeDataForLayer(layer).origCornerPoint; }
+  const Point &getOrigCornerPoint(Layer layer) const { return m_originCoordinates; }
 
   /**
    * @brief If this is the origin node of a multitile building. 
@@ -141,7 +141,7 @@ public:
   bool isOriginNode(Layer layer = Layer::BUILDINGS) const
   {
     // TODO: Might remove this and compare coords instead
-    return m_isOriginNode;
+    return (m_isoCoordinates == m_originCoordinates);
   }
 
   /** @brief return topmost active layer.
@@ -183,7 +183,13 @@ public:
   /// Maximum height of the node.
   static const int maxHeight = 32;
 
-  void setOriginCoordinate(Point coordinate) { m_originCoordinates = coordinate;};
+  void setOriginCoordinate(Point coordinate)
+  {
+    m_originCoordinates = coordinate;
+    //  if(m_isoCoordinates)!= coordinate){m_originCoordinates}
+  };
+
+  const std::vector<Point> &getMultiTileCoords() const { return m_multiTileCoords; };
 
 private:
   bool m_isOriginNode = true;
@@ -198,5 +204,6 @@ private:
   std::vector<unsigned char> m_autotileBitmask;
   unsigned char m_elevationBitmask = 0;
   std::vector<MapNode *> m_multiTileNodes; // keep pointers to other nodes if this is a multile building
+  std::vector<Point> m_multiTileCoords;    // keep pointers to other nodes if this is a multile building
 };
 #endif

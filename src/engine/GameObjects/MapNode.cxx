@@ -8,7 +8,7 @@
 #include "MapFunctions.hxx"
 
 MapNode::MapNode(Point isoCoordinates, const std::string &terrainID, const std::string &tileID)
-    : m_isoCoordinates(std::move(isoCoordinates)), m_sprite{std::make_unique<Sprite>(m_isoCoordinates)},
+    : m_isoCoordinates(isoCoordinates), m_originCoordinates(isoCoordinates), m_sprite{std::make_unique<Sprite>(m_isoCoordinates)},
       m_autotileOrientation(LAYERS_COUNT, TileOrientation::TILE_DEFAULT_ORIENTATION),
       m_mapNodeData{std::vector(LAYERS_COUNT, MapNodeData{"", nullptr, 0, m_isoCoordinates, TileMap::DEFAULT})},
       m_autotileBitmask(LAYERS_COUNT)
@@ -66,7 +66,6 @@ void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
       // LOG(LOG_INFO) << "old z " << minZ;
       int minY = 0;
       // set origin corner node
-      m_isOriginNode = true;
       // for (auto coord : targetCoordinates)
       // {
       //   if (coord.x == origCornerPoint.x)
@@ -80,13 +79,16 @@ void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
 
         if (coord == origCornerPoint)
         {
+      m_isOriginNode = true;
+      m_originCoordinates = origCornerPoint;
           // LOG(LOG_INFO) << "i'm the origin coordinate";
         }
         else
         {
           // LOG(LOG_ERROR)<<"it's mjultile";
-          m_isOriginNode = false;
-          m_multiTileNodes.push_back(&MapFunctions::instance().getMapNode(coord));
+          // m_isOriginNode = false;
+          m_multiTileCoords.push_back(coord);
+          // m_multiTileNodes.push_back(&MapFunctions::instance().getMapNode(coord));
           MapFunctions::instance().getMapNode(coord).getSprite()->setRenderFlag(Layer::BUILDINGS, false);
           // MapFunctions::instance().getMapNode(coord).setRenderFlag(Layer::TERRAIN, false);
           MapFunctions::instance().getMapNode(coord).updateTexture(Layer::BUILDINGS);

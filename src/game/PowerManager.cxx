@@ -35,17 +35,26 @@ void PowerManager::update()
 
   if (!m_nodesToAdd.empty())
   {
-    for (auto nodeToAdd : m_nodesToAdd)
+    for (auto &nodeToAdd : m_nodesToAdd)
     {
+      // LOG(LOG_INFO) << "ADDING node " << nodeToAdd.powerProduction;
       addPowerNodeToGrid(nodeToAdd, m_powerGrids);
+          for(auto &grid : m_powerGrids)
+    {
+      // LOG(LOG_DEBUG) << "Grid first: " << grid.getPowerLevel();
+    }
     }
     m_nodesToAdd.clear();
-
+    for(auto &grid : m_powerGrids)
+    {
+      LOG(LOG_DEBUG) << "Grid: " << grid.getPowerLevel();
+    }
+// LOG(LOG_INFO) << "We have " << m_powerGrids.size() << " grids with power: " << 
     updated = true;
   }
 
   if (updated)
-  {
+  {   
     updatePowerLevels();
     SignalMediator::instance().signalUpdatePower.emit(m_powerGrids);
   }
@@ -74,7 +83,10 @@ void PowerManager::addPowerNodeToGrid(PowerNode &powerNode, std::vector<PowerGri
 
   if (gridNeighbour.empty())
   { // new powergrid
+      LOG(LOG_INFO) << "ADDING node to grid" << powerNode.powerProduction;
     powerGrids.emplace_back(powerNode);
+    updatePowerLevels();
+    
   }
   else if (gridNeighbour.size() == 1)
   { // add to this grid
@@ -95,6 +107,8 @@ void PowerManager::addPowerNodeToGrid(PowerNode &powerNode, std::vector<PowerGri
       powerGrids.erase(powerGrids.begin() + gridNeighbour[idx]);
     }
   }
+  
+
 }
 
 void PowerManager::removePowerNode(Point coordinate)
@@ -153,6 +167,15 @@ void PowerManager::updatePlacedNodes(const MapNode &mapNode)
 
   PowerNode nodeToAdd = {mapNode.getCoordinates(), powerLevelOfTile};
   m_nodesToAdd.push_back(nodeToAdd);
+  if (!mapNode.getMultiTileCoords().empty())
+  {
+    for (auto multiNode : mapNode.getMultiTileCoords())
+    {
+      PowerNode nodeToAdd = {multiNode, 0};
+      m_nodesToAdd.push_back(nodeToAdd);
+    }
+    m_nodesToAdd.push_back(nodeToAdd);
+  }
 }
 
 void PowerManager::updateRemovedNodes(const MapNode *mapNode)
@@ -176,7 +199,9 @@ void PowerManager::updatePowerLevels()
 {
   for (auto &powerGrid : m_powerGrids)
   {
+    LOG(LOG_INFO) << "power level before update" <<powerGrid.getPowerLevel();
     powerGrid.updatePowerLevel();
+    LOG(LOG_INFO) << "power level after update " <<powerGrid.getPowerLevel();
   }
 }
 
