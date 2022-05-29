@@ -219,7 +219,7 @@ bool MapNode::isPlacementAllowed(const std::string &newTileID) const
         return true;
       }
     case Layer::ROAD:
-      if ((isLayerOccupied(Layer::BUILDINGS) && (m_mapNodeData[Layer::BUILDINGS].tileData->category != "Flora")) ||
+      if ((isLayerOccupied(Layer::BUILDINGS) && getTileData(Layer::BUILDINGS)->category != "Flora") ||
           isLayerOccupied(Layer::WATER) || !isPlacableOnSlope(newTileID))
       { // roads cannot be placed:
         // - on buildings that are not category flora.
@@ -229,13 +229,13 @@ bool MapNode::isPlacementAllowed(const std::string &newTileID) const
       }
       return true;
     case Layer::GROUND_DECORATION:
-      if (m_mapNodeData[Layer::GROUND_DECORATION].tileData || m_mapNodeData[Layer::BUILDINGS].tileData)
+      if (isLayerOccupied(Layer::GROUND_DECORATION) || isLayerOccupied(Layer::BUILDINGS))
       { // allow placement of ground decoration on existing ground decoration and on buildings.
         return true;
       }
       break;
     case Layer::FLORA:
-      if (m_mapNodeData[Layer::FLORA].tileData && m_mapNodeData[Layer::FLORA].tileData->isOverPlacable)
+      if (isLayerOccupied(Layer::FLORA) && getTileData(Layer::FLORA)->isOverPlacable)
       { // flora with overplacable flag
         return true;
       }
@@ -246,8 +246,7 @@ bool MapNode::isPlacementAllowed(const std::string &newTileID) const
       break;
     case Layer::BUILDINGS:
     {
-      TileData *tileDataBuildings = m_mapNodeData[Layer::BUILDINGS].tileData;
-      if (tileDataBuildings && tileDataBuildings->isOverPlacable)
+      if (isLayerOccupied(Layer::BUILDINGS) && getTileData(Layer::BUILDINGS)->isOverPlacable)
       { // buildings with overplacable flag
         return true;
       }

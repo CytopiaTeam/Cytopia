@@ -149,7 +149,7 @@ public:
     */
   Layer getTopMostActiveLayer() const;
 
-  bool isLayerOccupied(const Layer &layer) const { return m_mapNodeData[layer].tileData != nullptr; }
+  bool isLayerOccupied(const Layer &layer) const { return getTileData(layer)!= nullptr; }
 
   /** @brief Set elevation bit mask.
   * @param bitMask
