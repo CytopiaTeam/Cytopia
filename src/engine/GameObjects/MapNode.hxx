@@ -202,7 +202,6 @@ private:
   std::vector<MapNodeData> m_mapNodeData;
   std::vector<unsigned char> m_autotileBitmask;
   unsigned char m_elevationBitmask = 0;
-  std::vector<MapNode *> m_multiTileNodes; // keep pointers to other nodes if this is a multile building
-  std::vector<Point> m_multiTileCoords;    // keep pointers to other nodes if this is a multile building
+  std::vector<Point> m_multiTileCoords;    // keep coords to other nodes if this is a multile building
 };
 #endif

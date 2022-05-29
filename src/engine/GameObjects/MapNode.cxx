@@ -543,10 +543,10 @@ void MapNode::demolishNode(const Layer &demolishLayer)
       this->demolishLayer(layer);
       if (layer == Layer::BUILDINGS)
       {
-        for (auto *node : m_multiTileNodes)
+        for (auto coord : m_multiTileCoords)
         {
-          node->demolishNode(layer);
-          node->getSprite()->setRenderFlag(layer, true);
+          MapFunctions::instance().getMapNode(coord).demolishNode(layer);
+          MapFunctions::instance().getMapNode(coord).getSprite()->setRenderFlag(layer, true);
         }
         this->setNodeTransparency(0, Layer::BLUEPRINT);
       }
