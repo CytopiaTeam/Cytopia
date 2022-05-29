@@ -571,7 +571,7 @@ const TileData *MapNode::getTileData(Layer layer) const
 {
   if (!isOriginNode() && m_originCoordinates != Point::INVALID())
   {
-    return MapFunctions::instance().getMapNode(m_originCoordinates).getMapNodeDataForLayer(layer).tileData;
+    return MapFunctions::instance().getMapNode(m_originCoordinates).getTileData(layer);
   }
   return m_mapNodeData[layer].tileData;
 }

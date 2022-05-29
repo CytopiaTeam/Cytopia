@@ -268,7 +268,7 @@ std::vector<uint8_t> MapFunctions::calculateAutotileBitmask(Point coordinate)
 
   for (auto currentLayer : allLayersOrdered)
   {
-    auto pCurrentTileData = getMapNode(coordinate).getMapNodeDataForLayer(currentLayer).tileData;
+    auto pCurrentTileData = getMapNode(coordinate).getTileData(currentLayer);
 
     if (pCurrentTileData)
     {
@@ -276,7 +276,7 @@ std::vector<uint8_t> MapFunctions::calculateAutotileBitmask(Point coordinate)
       {
         for (const auto &neighbor : getNeighborNodes(coordinate, false))
         {
-          const auto pTileData = neighbor.pNode->getMapNodeDataForLayer(Layer::WATER).tileData;
+          const auto pTileData = neighbor.pNode->getTileData(Layer::WATER);
 
           if (pTileData && pTileData->tileType == +TileType::WATER)
           {
@@ -286,14 +286,14 @@ std::vector<uint8_t> MapFunctions::calculateAutotileBitmask(Point coordinate)
       }
 
       // only auto-tile categories that can be tiled.
-      const std::string &nodeTileId = getMapNode(coordinate).getMapNodeDataForLayer(currentLayer).tileID;
+      const std::string &nodeTileId = getMapNode(coordinate).getTileID(currentLayer);
       if (TileManager::instance().isTileIDAutoTile(nodeTileId))
       {
         for (const auto &neighbor : getNeighborNodes(coordinate, false))
         {
-          const MapNodeData &nodeData = neighbor.pNode->getMapNodeDataForLayer(currentLayer);
-
-          if (nodeData.tileData && ((nodeData.tileID == nodeTileId) || (pCurrentTileData->tileType == +TileType::ROAD)))
+          const auto tileData = neighbor.pNode->getTileData(currentLayer);
+          if (tileData &&
+              ((neighbor.pNode->getTileID(currentLayer) == nodeTileId) || (pCurrentTileData->tileType == +TileType::ROAD)))
           {
             tileOrientationBitmask[currentLayer] |= neighbor.position;
           }
@@ -455,18 +455,15 @@ void MapFunctions::demolishNode(const std::vector<Point> &isoCoordinates, bool u
 void MapFunctions::getNodeInformation(const Point &isoCoordinates) const
 {
   const MapNode &mapNode = m_map->mapNodes[isoCoordinates.toIndex()];
-  const MapNodeData &mapNodeData = mapNode.getActiveMapNodeData();
-  const TileData *tileData = mapNodeData.tileData;
+  const TileData *tileData = mapNode.getTileData(mapNode.getTopMostActiveLayer());
   LOG(LOG_INFO) << "===== TILE at " << isoCoordinates.x << ", " << isoCoordinates.y << ", " << mapNode.getCoordinates().height
                 << "=====";
-  LOG(LOG_INFO) << "[Layer: TERRAIN] ID: " << mapNode.getMapNodeDataForLayer(Layer::TERRAIN).tileID;
-  LOG(LOG_INFO) << "[Layer: WATER] ID: " << mapNode.getMapNodeDataForLayer(Layer::WATER).tileID;
-  LOG(LOG_INFO) << "[Layer: BUILDINGS] ID: " << mapNode.getMapNodeDataForLayer(Layer::BUILDINGS).tileID;
+  LOG(LOG_INFO) << "[Layer: TERRAIN] ID: " << mapNode.getTileID(Layer::BUILDINGS);
+  LOG(LOG_INFO) << "[Layer: WATER] ID: " << mapNode.getTileID(Layer::BUILDINGS);
+  LOG(LOG_INFO) << "[Layer: BUILDINGS] ID: " << mapNode.getTileID(Layer::BUILDINGS);
   LOG(LOG_INFO) << "Category: " << tileData->category;
   LOG(LOG_INFO) << "FileName: " << tileData->tiles.fileName;
   LOG(LOG_INFO) << "PickRandomTile: " << tileData->tiles.pickRandomTile;
-  LOG(LOG_INFO) << "TileMap: " << mapNodeData.tileMap;
-  LOG(LOG_INFO) << "TileIndex: " << mapNodeData.tileIndex;
 }
 
 void MapFunctions::highlightNode(const Point &isoCoordinates, const SpriteRGBColor &rgbColor)
