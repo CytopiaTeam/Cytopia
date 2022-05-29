@@ -140,8 +140,7 @@ public:
    */
   bool isOriginNode(Layer layer = Layer::BUILDINGS) const
   {
-    // TODO: Might remove this and compare coords instead
-    return (m_isoCoordinates == m_originCoordinates);
+    return (m_originCoordinates != Point::INVALID() && m_isoCoordinates == m_originCoordinates);
   }
 
   /** @brief return topmost active layer.
@@ -193,7 +192,7 @@ public:
 
 private:
   bool m_isOriginNode = true;
-  Point m_originCoordinates = Point::INVALID();
+  Point m_originCoordinates;
   Point m_isoCoordinates;
   std::unique_ptr<Sprite> m_sprite;
   std::string m_previousTileID = "terrain";

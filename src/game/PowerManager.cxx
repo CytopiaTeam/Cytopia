@@ -37,7 +37,7 @@ void PowerManager::update()
   {
     for (auto &nodeToAdd : m_nodesToAdd)
     {
-      // LOG(LOG_INFO) << "ADDING node " << nodeToAdd.powerProduction;
+      LOG(LOG_INFO) << "ADDING node " << nodeToAdd.powerProduction;
       addPowerNodeToGrid(nodeToAdd, m_powerGrids);
       for (auto &grid : m_powerGrids)
       {
@@ -45,11 +45,11 @@ void PowerManager::update()
       }
     }
     m_nodesToAdd.clear();
-    for (auto &grid : m_powerGrids)
-    {
-      LOG(LOG_DEBUG) << "Grid: " << grid.getPowerLevel();
-    }
-    // LOG(LOG_INFO) << "We have " << m_powerGrids.size() << " grids with power: " <<
+    // for (auto &grid : m_powerGrids)
+    // {
+    //   LOG(LOG_DEBUG) << "Grid: " << grid.getPowerLevel();
+    // }
+    LOG(LOG_INFO) << "We have " << m_powerGrids.size() << " grids";
     updated = true;
   }
 
@@ -155,6 +155,7 @@ void PowerManager::updatePlacedNodes(const MapNode &mapNode)
   {
     return;
   }
+  LOG(LOG_ERROR) << "conductive";
 
   int powerLevelOfTile = 0;
   if (mapNode.getTileData(Layer::BUILDINGS))

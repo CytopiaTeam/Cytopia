@@ -59,6 +59,8 @@ void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
   TileData *tileData = TileManager::instance().getTileData(tileID);
   if (tileData && !tileID.empty())
   {
+    m_originCoordinates = origCornerPoint;
+
     std::vector<Point> targetCoordinates = TileManager::instance().getTargetCoordsOfTileID(origCornerPoint, tileID);
     if (targetCoordinates.size() > 1 && m_isoCoordinates == origCornerPoint)
     { // multibuilding placed on this node
@@ -79,13 +81,12 @@ void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
 
         if (coord == origCornerPoint)
         {
-          m_isOriginNode = true;
-          m_originCoordinates = origCornerPoint;
+          // m_originCoordinates = origCornerPoint;
           // LOG(LOG_INFO) << "i'm the origin coordinate";
         }
         else
         {
-          // LOG(LOG_ERROR)<<"it's mjultile";
+          LOG(LOG_ERROR) << "it's mjultile";
           // m_isOriginNode = false;
           m_multiTileCoords.push_back(coord);
           // m_multiTileNodes.push_back(&MapFunctions::instance().getMapNode(coord));
@@ -560,6 +561,10 @@ const bool MapNode::isConductive() const
 
   for (auto layer : conductiveLayers)
   {
+    if (isOriginNode()) //&& getTileData(layer))
+    {
+      LOG(LOG_ERROR) << "true";
+    }
     if ((!isOriginNode() && m_originCoordinates != Point::INVALID() &&
          MapFunctions::instance().getMapNode(m_originCoordinates).getTileData(layer)) ||
         (isOriginNode() && getTileData(layer)))

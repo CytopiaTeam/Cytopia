@@ -13,7 +13,7 @@ void PowerGrid::updatePowerLevel()
 {
   // reset the power level of this grid before recalculating
   m_powerLevel = 0;
-  LOG(LOG_INFO) << "calling updatePowerLevel" << m_gridNodes.size();
+  // LOG(LOG_INFO) << "calling updatePowerLevel" << m_gridNodes.size();
   for (const auto &node : m_gridNodes)
   {
     MapNode &mapNode = MapFunctions::instance().getMapNode(node.coordinate);
@@ -24,10 +24,12 @@ void PowerGrid::updatePowerLevel()
     }
     if (mapNode.getTileData(Layer::BUILDINGS) && node.powerProduction == 0)
     { // each occupied node consumes one power unit
+      // LOG(LOG_ERROR) << "i make --";
       m_powerLevel--;
     }
     else
     {
+      LOG(LOG_ERROR) << "i add " << node.powerProduction;
       m_powerLevel += node.powerProduction;
     }
   }
