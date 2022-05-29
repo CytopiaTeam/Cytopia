@@ -16,16 +16,18 @@ void PowerGrid::updatePowerLevel()
   LOG(LOG_INFO) << "calling updatePowerLevel" << m_gridNodes.size();
   for (const auto &node : m_gridNodes)
   {
-    if (MapFunctions::instance().getMapNode(node.coordinate).getTileData(Layer::BUILDINGS) && node.powerProduction == 0)
+    MapNode &mapNode = MapFunctions::instance().getMapNode(node.coordinate);
+    if (!mapNode.isOriginNode())
+    { // For multi-tile buildings, each tile has the same tiledata (including power level).
+      // so make sure we only add it once (if it's the origin node)
+      continue;
+    }
+    if (mapNode.getTileData(Layer::BUILDINGS) && node.powerProduction == 0)
     { // each occupied node consumes one power unit
       m_powerLevel--;
     }
-
-    // For multi-tile buildings, each tile has the same tiledata (including power level).
-    // so make sure we only add it once (if it's the origin node)
-    if (MapFunctions::instance().getMapNode(node.coordinate).isOriginNode())
+    else
     {
-      LOG(LOG_DEBUG) << "origin node power " << node.powerProduction;
       m_powerLevel += node.powerProduction;
     }
   }
