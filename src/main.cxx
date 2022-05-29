@@ -4,6 +4,7 @@
 #include "MainMenu.hxx"
 #include "Exception.hxx"
 #include "LOG.hxx"
+#include "AppOptions.hxx"
 #include "engine/WindowManager.hxx"
 
 #include <SDL.h>
@@ -51,32 +52,15 @@ int protected_main(int argc, char **argv)
 
   LOG(LOG_INFO) << VERSION;
 
-  // add commandline parameter to skipMenu
-  auto has_args = [argv, argc](const std::string &param)
-  {
-    for (int i = 1; i < argc; ++i)
-      if (param == argv[i])
-        return i;
-
-    LOG(LOG_DEBUG) << "Unknown game option " << param;
-    return 0;
-  };
-
-  bool skipMenu = has_args("--skipMenu");
-  uint32_t videoOpt = has_args("--video");
-  const char *videoDriver = nullptr;
-  if (videoOpt)
-  {
-    videoDriver = argv[videoOpt + 1];
-  }
+  bool skipMenu = AppOptions::parseOption<bool>("skipMenu", "");
+  std::string videoDriver = AppOptions::parseOption<std::string>("video", "");
 
   LOG(LOG_DEBUG) << "Launching Cytopia";
-
   Cytopia::Game game;
 
   LOG(LOG_DEBUG) << "Initializing Cytopia";
 
-  if (!initialize(videoDriver))
+  if (!initialize(videoDriver.c_str()))
     return EXIT_FAILURE;
   else
     LOG(LOG_DEBUG) << "DONE Cytopia";
@@ -101,6 +85,11 @@ int protected_main(int argc, char **argv)
 
 int main(int argc, char **argv)
 {
+  AppOptions::setArgvOptions(argc, argv);
+  std::string errorInfo;
+  if (!AppOptions::parseOptions(errorInfo))
+    LOG(LOG_DEBUG) << "Options error: " << errorInfo;
+
   systemSetupCrashHandler();
 
   try

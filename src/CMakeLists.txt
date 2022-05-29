@@ -15,6 +15,7 @@ set(SOURCE_FILES
         util/Meta.hxx
         util/Exception.{hxx,cxx}
         util/OSystem.{hxx,cxx}
+        util/AppOptions.{hxx,cxx}
         services/Randomizer.{hxx,cxx}
         services/GameClock.{hxx,cxx}
         services/GameClock.inl.hxx
