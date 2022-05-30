@@ -169,7 +169,6 @@ void ComboBox::setActiveID(int ID)
 void ComboBox::clear() 
 { 
   m_items.clear();
-  // m_selectedItem = nullptr;
 }
 
 std::string ComboBox::getTextFromID(int id) const
