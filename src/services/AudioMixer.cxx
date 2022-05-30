@@ -143,12 +143,17 @@ void AudioMixer::setMusicVolume(float volume)
 
   // for now set the volume for everything.
   alListenerf(AL_GAIN, volume);
+  // update the settings accordingly
+  Settings::instance().musicVolume = volume;
 }
 
 void AudioMixer::setSoundEffectVolume(float volume)
 {
   // find out how to set those volumes seperately
   //alListenerf(AL_GAIN, volume);
+  
+  // for now, just set the settings value, even if it doesnt do anything
+  Settings::instance().soundEffectsVolume = volume;
 }
 
 void AudioMixer::play(const SoundtrackID &id)
