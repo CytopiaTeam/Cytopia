@@ -1058,7 +1058,6 @@ void UIManager::initializeDollarVariables()
             {
               const float musicVolume = static_cast<float>(sliderValue / 100.0f);
               AudioMixer::instance().setMusicVolume(musicVolume);
-              Settings::instance().musicVolume = musicVolume;
             });
 #endif
       }
