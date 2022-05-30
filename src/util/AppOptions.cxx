@@ -1,5 +1,7 @@
 #include "AppOptions.hxx"
 
+#include <cstring>
+
 // build a vector of argv options
 // the program path argv[0] is excluded
 static std::vector<std::string > argvOptions;

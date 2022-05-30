@@ -50,14 +50,12 @@ struct AppOptions {
     return false;
   }
 
-  template<class T>
-  static T parseOption(const char *a, const char *b);
-
-  template<>
-  static bool parseOption<bool>(const char *a, const char *b) { return parseOption(a, b, [] (auto &) { return true; }); }
-
-  template<>
-  static std::string parseOption<std::string>(const char *a, const char *b) { std::string param; parseOption(a, b, [&param] (auto &p) { param = p; return true; }); return param; }
+  static bool parseOption(const char *a, const char *b) { return parseOption(a, b, [] (auto &) { return true; }); }
+  static std::string parseOption(const char *a, const char *b, const char *def) { 
+    std::string param;
+    bool found = parseOption(a, b, [&param] (auto &p) { param = p; return true; });
+    return found ? param : def;
+  }
 
   static void setArgvOptions(int argc, char **argv);
   static bool parseOptions(const std::string &errorInfo);

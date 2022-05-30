@@ -52,8 +52,8 @@ int protected_main(int argc, char **argv)
 
   LOG(LOG_INFO) << VERSION;
 
-  bool skipMenu = AppOptions::parseOption<bool>("skipMenu", "");
-  std::string videoDriver = AppOptions::parseOption<std::string>("video", "");
+  bool skipMenu = AppOptions::parseOption("skipMenu", "");
+  std::string videoDriver = AppOptions::parseOption("video", "", "");
 
   LOG(LOG_DEBUG) << "Launching Cytopia";
   Cytopia::Game game;
