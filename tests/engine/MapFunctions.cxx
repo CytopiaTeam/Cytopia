@@ -8,6 +8,7 @@ using string = std::string;
 TEST_CASE("Create new Map", "[mapfunctions][mapfunctions]")
 {
   MapFunctions::instance(); //init
+  MapFunctions::instance().newMap();
   SignalMediator::instance().signalNewGame.emit(true);
   CHECK(MapFunctions::instance().getMap() != nullptr);
 }
@@ -33,6 +34,7 @@ TEST_CASE("Create Map without procedural terrain", "[engine][engine]")
 TEST_CASE("Save and load Map", "[engine][engine]")
 {
   MapFunctions::instance(); //init
+  MapFunctions::instance().newMap();
   SignalMediator::instance().signalNewGame.emit(true);
   SignalMediator::instance().signalSaveGame.emit("saveTest");
   SignalMediator::instance().signalLoadGame.emit("saveTest");

@@ -10,6 +10,8 @@ class ZoneManager
 public:
   ZoneManager();
 
+  void reset();
+
 private:
   /**
    * @brief Spawn Buildings on the gathered tileMap

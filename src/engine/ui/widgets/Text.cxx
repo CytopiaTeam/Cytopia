@@ -10,11 +10,11 @@
 
 #include <SDL_ttf.h>
 
-Text::~Text() {
+Text::~Text()
+{
   if (m_texture)
     SDL_DestroyTexture(m_texture);
 }
-
 
 void Text::draw()
 {

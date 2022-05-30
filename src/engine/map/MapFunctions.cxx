@@ -15,9 +15,7 @@
 
 MapFunctions::MapFunctions()
 {
-  SignalMediator::instance().registerCbNewGame(Signal::slot(this, &MapFunctions::newMap));
   SignalMediator::instance().registerCbSaveGame(Signal::slot(this, &MapFunctions::saveMapToFile));
-  SignalMediator::instance().registerCbLoadGame(Signal::slot(this, &MapFunctions::loadMapFromFile));
 }
 
 bool MapFunctions::updateHeight(Point coordinate, const bool elevate)
@@ -673,6 +671,7 @@ void MapFunctions::loadMapFromFile(const std::string &fileName)
     m_map = map;
   }
   updateAllNodes();
+  LOG(LOG_DEBUG) << "Load succesfully: " << CYTOPIA_SAVEGAME_DIR + fileName;
 }
 
 void MapFunctions::saveMapToFile(const std::string &fileName)
@@ -688,10 +687,10 @@ void MapFunctions::saveMapToFile(const std::string &fileName)
 
 #ifdef DEBUG
   // Write uncompressed savegame for easier debugging
-  fs::writeStringToFile(fileName + ".txt", j.dump());
+  fs::writeStringToFile(CYTOPIA_SAVEGAME_DIR + fileName + ".txt", j.dump());
 #endif
   fs::writeStringToFileCompressed(CYTOPIA_SAVEGAME_DIR + fileName, j.dump());
-  LOG(LOG_INFO) << "Saved succesfully: " << CYTOPIA_SAVEGAME_DIR + fileName;
+  LOG(LOG_DEBUG) << "Saved succesfully: " << CYTOPIA_SAVEGAME_DIR + fileName;
 }
 
 void MapFunctions::refreshVisibleMap()

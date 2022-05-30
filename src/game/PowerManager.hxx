@@ -9,6 +9,8 @@ class PowerManager
 public:
   PowerManager();
 
+  void reset();
+
 private:
   int m_powerProduced = 0;
 
@@ -21,7 +23,6 @@ private:
   void updateRemovedNodes(const MapNode *mapNode);
   void updatePlacedNodes(const MapNode &mapNode);
   void updatePowerLevels();
-  void parseNodes();
 
   std::vector<PowerNode> m_nodesToAdd;
   std::vector<Point> m_nodesToRemove;
