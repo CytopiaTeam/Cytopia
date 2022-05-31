@@ -3,6 +3,14 @@
 
 #include "../../src/services/AudioMixer.hxx"
 #include "../../src/engine/basics/Settings.hxx"
+#include "Exception.hxx"
+
+TEST_CASE("Get AudioMixer instance", "[engine][audio]")
+{
+  void *singleton1 = static_cast<void *>(&AudioMixer::instance());
+  void *singleton2 = static_cast<void *>(&AudioMixer::instance());
+  CHECK(singleton1 == singleton2);
+}
 
 SCENARIO("I can change the music volume", "[engine][audio]")
 {
@@ -62,4 +70,10 @@ SCENARIO("I can change the sound effects volume", "[engine][audio]")
       }
     }
   }
+}
+
+TEST_CASE("AudioMixer throws UnimplementedError when setMuted is called", "[engine][audio]") 
+{
+  REQUIRE_THROWS_AS(AudioMixer::instance().setMuted(true), UnimplementedError);
+  REQUIRE_THROWS_AS(AudioMixer::instance().setMuted(false), UnimplementedError);
 }
