@@ -121,30 +121,30 @@ public:
   void play(const SoundtrackID &id, const Coordinate3D &position);
 
   /**
-   * @brief Plays a Soundtrack given its ID and applies effect to it
+   * @brief Plays a Soundtrack given its ID and applies reverb to it
    * @param id the SoundtrackID
    * @param reverb_properties properties of standard reverb
    */
   void play(const SoundtrackID &id, const StandardReverbProperties &reverb_properties);
 
   /**
-   * @brief Plays a Soundtrack given its ID and applies effect to it
+   * @brief Plays a Soundtrack given its ID and applies echo to it
    * @param id the SoundtrackID
    * @param echo_properties properties of echo
    */
   void play(const SoundtrackID &id, const EchoProperties &echo_properties);
 
   /**
-   * @brief Plays a Soundtrack from a trigger and applies effect to it
+   * @brief Plays a Soundtrack from a trigger and applies reverb to it
    * @param trigger the AudioTrigger
    * @param reverb_properties properties of standard reverb
    */
   void play(const AudioTrigger &trigger, const StandardReverbProperties &reverb_properties);
 
   /**
-   * @brief Plays a Soundtrack from a trigger and applies effect to it
+   * @brief Plays a Soundtrack from a trigger and applies echo to it
    * @param trigger the AudioTrigger
-   * @param echo_properties properties of standard reverb
+   * @param echo_properties properties of echo
    */
   void play(const AudioTrigger &trigger, const EchoProperties &echo_properties);
 
@@ -157,7 +157,7 @@ public:
   void play(const AudioTrigger &trigger, const Coordinate3D &position);
 
   /**
-   * @brief Plays a 3D Soundtrack given its ID and applies effect to it
+   * @brief Plays a 3D Soundtrack given its ID and applies reverb to it
    * @param id the SoundtrackID
    * @param position the Coordinate3D position of the sound
    * @param reverb_properties properties of standard reverb
@@ -165,7 +165,7 @@ public:
   void play(const SoundtrackID &id, const Coordinate3D &position, const StandardReverbProperties &reverb_properties);
 
   /**
-   * @brief Plays a 3D Soundtrack given its ID and applies effect to it
+   * @brief Plays a 3D Soundtrack given its ID and applies echo to it
    * @param id the SoundtrackID
    * @param position the Coordinate3D position of the sound
    * @param echo_properties properties of echo
@@ -174,7 +174,7 @@ public:
   void play(const SoundtrackID &id, const Coordinate3D &position, const EchoProperties &echo_properties);
 
   /**
-   * @brief Plays a 3D Soundtrack from a trigger and applies effect to it
+   * @brief Plays a 3D Soundtrack from a trigger and applies reverb to it
    * @param trigger the AudioTrigger
    * @param position the Coordinate3D position of the sound
    * @param reverb_properties properties of standard reverb
@@ -182,7 +182,7 @@ public:
   void play(const AudioTrigger &trigger, const Coordinate3D &position, const StandardReverbProperties &reverb_properties);
 
   /**
-   * @brief Plays a 3D Soundtrack from a trigger and applies effect to it
+   * @brief Plays a 3D Soundtrack from a trigger and applies echo to it
    * @param trigger the AudioTrigger
    * @param position the Coordinate3D position of the sound
    * @param echo_properties properties of echo
@@ -190,8 +190,9 @@ public:
   void play(const AudioTrigger &trigger, const Coordinate3D &position, const EchoProperties &echo_properties);
 
   /**
-   * @brief stops all sounds
-   * @param isMuted is muted
+   * @brief toggles the mute option for sounds
+   * @param isMuted true to mute all sounds, false to unmute
+   * @throws UnimplementedError Currently throws UnimplementedError on function call
    */
   void setMuted(bool isMuted);
 
@@ -207,6 +208,8 @@ public:
 
   /**
    * @pre GameClock must be initialized
+   * @throws ConfigurationError if there is a problem opening the audio config file
+   * @throws AudioError if OpenAL context cannot be initialized or an OpenAL error occurs
    */
   AudioMixer();
   ~AudioMixer();
@@ -265,6 +268,7 @@ private:
   /**
    * @brief Plays the Soundtrack
    * @param soundtrack the Soundtrack
+   * @throws AudioError if track is invalid or its source is uninitialized
    */
   void playSoundtrack(SoundtrackUPtr &soundtrack);
 
@@ -272,6 +276,7 @@ private:
    * @brief Plays the Soundtrack with reverb
    * @param soundtrack the Soundtrack
    * @param reverb_properties of reverb effect
+   * @throws AudioError if track is invalid, its source is uninitialized, or reverb effect could not be applied
    */
   void playSoundtrackWithReverb(SoundtrackUPtr &soundtrack, const StandardReverbProperties &reverb_properties);
 
@@ -279,6 +284,7 @@ private:
    * @brief Plays the Soundtrack with echo
    * @param soundtrack the Soundtrack
    * @param echo_properties of echo effect
+   * @throws AudioError if track is invalid, its source is uninitialized, or echo effect could not be applied
    */
   void playSoundtrackWithEcho(SoundtrackUPtr &soundtrack, const EchoProperties &echo_properties);
 
