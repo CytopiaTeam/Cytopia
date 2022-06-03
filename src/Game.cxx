@@ -11,6 +11,7 @@
 #include "OSystem.hxx"
 #include <Map.hxx>
 #include <MapFunctions.hxx>
+#include "util/ThreadPool.hxx"
 
 #include <SDL.h>
 #include <SDL_ttf.h>
@@ -53,6 +54,8 @@ void Game::quit()
 
 void Game::initialize()
 {
+  ThreadPool::instance().initialize();
+
 #ifdef USE_MOFILEREADER
   std::string moFilePath = fs::getBasePath();
   moFilePath = moFilePath + "languages/" + Settings::instance().gameLanguage + "/Cytopia.mo";
@@ -182,6 +185,9 @@ void Game::run(bool SkipMenu)
 
 void Game::shutdown()
 {
+  // wait all threads ends
+  ThreadPool::instance().shutdown();
+
   LOG(LOG_DEBUG) << "In shutdown";
   TTF_Quit();
   SDL_Quit();

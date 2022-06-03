@@ -14,6 +14,8 @@
 #include "imgui_impl_sdl.h"
 #include "imgui_impl_sdlrenderer.h"
 
+#include "util/ThreadPool.hxx"
+
 namespace ui = ImGui;
 
 #ifdef USE_AUDIO
@@ -76,26 +78,16 @@ bool mainMenu()
     SDL_Delay(5);
   };
 
-  // fade in Logo
+  // fadein logo in thread
   const ImVec2 logoImgPos(screenWidth / 2 - logoTexW / 2, screenHeight / 4);
-  for (Uint8 opacity = 0; opacity < 255; opacity++)
-  {
-    beginFrame();
-
-    // break the loop if an event occurs  
-    const bool has_event = SDL_PollEvent(&event) != 0;
-    if (has_event && event.type == SDL_MOUSEBUTTONDOWN || event.type == SDL_KEYDOWN)
-      opacity = 254;
-
-    ui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
-    ui::SetCursorPos(logoImgPos);
-    float op = opacity / 255.f;
-    ui::Image(logoTex, ImVec2(logoTexW, logoTexH), ImVec2(0, 0), ImVec2(1, 1), ImVec4{op, op, op, op});
-    ui::PopStyleVar(1);
-
-
-    renderFrame();
-  }
+  Uint8 logo_fade_opacity = 0;
+  ThreadPool::instance().enqueue([&logo_fade_opacity] {
+    while (logo_fade_opacity < 255) 
+    {
+      logo_fade_opacity++;
+      std::this_thread::sleep_for(5ms);
+    }
+  });
 
   const auto &buttonFont = UIManager::instance().getAllLayoutGroups()["MainMenuButtons"].layout.font;
   while (mainMenuLoop)
@@ -109,6 +101,11 @@ bool mainMenu()
         startGame = false;
         mainMenuLoop = false;
       }
+
+      const bool has_event = SDL_PollEvent(&event) != 0;
+      if (has_event && event.type == SDL_MOUSEBUTTONDOWN || event.type == SDL_KEYDOWN) {
+        logo_fade_opacity = 254;
+      }
     }
 
     // main logic render widgets in main menu
@@ -117,13 +114,15 @@ bool mainMenu()
       ui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
 
       ui::SetCursorPos(logoImgPos);
-      ui::Image(logoTex, ImVec2(logoTexW, logoTexH));
+      float op = logo_fade_opacity / 255.f;
+      ui::Image(logoTex, ImVec2(logoTexW, logoTexH), ImVec2(0, 0), ImVec2(1, 1), ImVec4{op, op, op, op});
 
+      const bool can_draw_buttons = (logo_fade_opacity > 250);
       constexpr ImVec2 buttonSize(200, 40);
       constexpr int buttonInterval = 20;
       ImVec2 buttonPos(screenWidth / 2 - buttonSize.x / 2, screenHeight / 2 - buttonSize.y);
       ui::SetCursorPos(buttonPos);
-      if (ui::ButtonCt("New Game", { 200, 40 })) {
+      if (can_draw_buttons && ui::ButtonCt("New Game", { 200, 40 })) {
   #ifdef USE_AUDIO
         playAudioMajorSelection();
   #endif //  USE_AUDIO 
@@ -133,7 +132,7 @@ bool mainMenu()
 
       buttonPos.y += buttonSize.y + buttonInterval;
       ui::SetCursorPos(buttonPos);
-      if (ui::ButtonCt("Load Game", { 200, 40 })) {
+      if (can_draw_buttons && ui::ButtonCt("Load Game", { 200, 40 })) {
   #ifdef USE_AUDIO
         playAudioMajorSelection();
   #endif //  USE_AUDIO 
@@ -143,7 +142,7 @@ bool mainMenu()
 
       buttonPos.y += buttonSize.y + buttonInterval;
       ui::SetCursorPos(buttonPos);
-      if (ui::ButtonCt("Quit Game", { 200, 40 })) {
+      if (can_draw_buttons && ui::ButtonCt("Quit Game", { 200, 40 })) {
         startGame = false;
         mainMenuLoop = false;
       }
@@ -151,13 +150,13 @@ bool mainMenu()
       constexpr int xOffset = 5, btnSize = 32;
       ImVec2 leftBottom(xOffset, screenHeight - btnSize - xOffset * 2);
       ui::SetCursorPos(leftBottom);
-      if (ui::ImageButton(discordTex, ImVec2(btnSize, btnSize))) {
+      if (can_draw_buttons && ui::ImageButton(discordTex, ImVec2(btnSize, btnSize))) {
         OSystem::openDir("https://discord.gg/MG3tgYV6ce");
       }
 
       leftBottom.x += xOffset * 2 + btnSize; // xOffset * 2 because, need interval between buttons
       ui::SetCursorPos(leftBottom);
-      if (ui::ImageButton(githubTex, ImVec2(btnSize, btnSize))) {
+      if (can_draw_buttons && ui::ImageButton(githubTex, ImVec2(btnSize, btnSize))) {
         OSystem::openDir("https://github.com/CytopiaTeam/Cytopia/issues/new");
       }
 
