@@ -1,5 +1,6 @@
 #include <catch.hpp>
 #include "../../src/engine/WindowManager.hxx"
+#include "../../src/engine/basics/Settings.hxx"
 
 #include "SDL.h"
 #include <string>
@@ -24,9 +25,14 @@ TEST_CASE("Create SDL_Renderer and SDL_Window", "[engine][WindowManager][!mayfai
 ///@todo deactivate mayfail after the unittest can be run on travis with xvfb
 TEST_CASE("Toggle Fullscreen", "[engine][WindowManager][!mayfail]")
 {
+  bool oldFullScreen = Settings::instance().fullScreen;
   WindowManager &windowManager = WindowManager::instance();
   windowManager.toggleFullScreen();
+  CHECK(Settings::instance().fullScreen != oldFullScreen);
   ///@todo: check for fullscreenmode here!
+  oldFullScreen = Settings::instance().fullScreen;
+  windowManager.toggleFullScreen();
+  CHECK(Settings::instance().fullScreen != oldFullScreen);
   CHECK(windowManager.getRenderer() != nullptr);
   CHECK(windowManager.getWindow() != nullptr);
 }

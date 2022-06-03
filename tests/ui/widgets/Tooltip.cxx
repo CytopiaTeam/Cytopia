@@ -10,6 +10,14 @@ TEST_CASE("I can create a Tooltip widget", "[ui][widgets][tooltip]")
   CHECK(!tip->isVisible());
 }
 
+TEST_CASE("I can draw a Tooltip widget", "[ui][widgets][tooltip]")
+{
+  std::unique_ptr<Tooltip> tip = std::make_unique<Tooltip>();
+  CHECK_NOTHROW(tip->draw());
+  tip->showTooltip();
+  CHECK_NOTHROW(tip->draw());
+}
+
 TEST_CASE("I can set text on a Tooltip widget", "[ui][widgets][tooltip]")
 {
   TTF_Init();
