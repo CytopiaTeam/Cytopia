@@ -40,11 +40,20 @@ LIST(APPEND TEST_SOURCES
         ui/widgets/Tooltip.cxx
         util/Meta.cxx
         util/MessageQueue.cxx
-        util/LOG.cxx 
+        util/LOG.cxx
         )
 
 # Generate source groups for use in IDEs
 generate_source_groups(${TEST_SOURCES})
+
+# Gerenate source for imgui
+file(GLOB IMGUI_SOURCES
+            ${CMAKE_SOURCE_DIR}/external/imgui/imgui*.cpp
+            ${CMAKE_SOURCE_DIR}/external/imgui/backends/*.cpp
+        )
+
+list(APPEND TEST_SOURCES ${IMGUI_SOURCES})
+source_group("external\\imgui" FILES ${IMGUI_SOURCES})
 
 if (ENABLE_AUDIO)
     LIST(APPEND TEST_SOURCES ${CMAKE_CURRENT_LIST_DIR}/services/AudioMixer.cxx)
@@ -73,6 +82,8 @@ target_include_directories(
         ${CMAKE_SOURCE_DIR}/src/layout
         ${CMAKE_SOURCE_DIR}/src/model
         ${CMAKE_SOURCE_DIR}/src/services
+        ${CMAKE_SOURCE_DIR}/external/imgui
+        ${CMAKE_SOURCE_DIR}/external/imgui/backends
 )
 
 target_compile_definitions(${TESTS_PROJECT_NAME} PRIVATE ${_compile_definitions} TESTING_ENABLED)

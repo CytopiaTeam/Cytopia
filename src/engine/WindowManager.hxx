@@ -53,6 +53,7 @@ public:
   */
   void setFullScreenMode(FULLSCREEN_MODE mode) const;
 
+  void newImGuiFrame();
   void renderScreen();
 
 private:
@@ -78,4 +79,7 @@ private:
   // int m_lastSelectedResolutionIdx = 0;
 
   void initializeScreenResolutions();
+
+  void initializeImguiRenderer();
+  void destroyImGuiRenderer();
 };

@@ -98,6 +98,15 @@ generate_source_groups(${SOURCE_FILES})
 
 set(MAIN_EXE_SOURCE_FILES "${SOURCE_FILES}" PARENT_SCOPE)
 
+# Gerenate source for imgui
+file(GLOB IMGUI_SOURCES
+            ${CMAKE_SOURCE_DIR}/external/imgui/imgui*.cpp
+            ${CMAKE_SOURCE_DIR}/external/imgui/backends/*.cpp
+            )
+
+list(APPEND SOURCE_FILES ${IMGUI_SOURCES})
+source_group("external\\imgui" FILES ${IMGUI_SOURCES})
+
 if (MSVC)
     set(SOURCE_FILES ${SOURCE_FILES} ${CMAKE_SOURCE_DIR}/src/Windows/icon_cytopia.rc)
 endif ()
@@ -154,6 +163,8 @@ target_include_directories(
         engine/ui/widgets
         engine/ui/menuGroups
         util
+        ${CMAKE_SOURCE_DIR}/external/imgui
+        ${CMAKE_SOURCE_DIR}/external/imgui/backends
 )
 target_compile_definitions(${PROJECT_NAME} PRIVATE ${_compile_definitions})
 target_link_libraries(

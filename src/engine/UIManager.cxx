@@ -20,6 +20,10 @@
 
 #include <cmath>
 
+#include "imgui.h"
+#include "imgui_impl_sdl.h"
+#include "imgui_impl_sdlrenderer.h"
+
 #ifdef MICROPROFILE_ENABLED
 #include "microprofile/microprofile.h"
 #endif
@@ -32,13 +36,42 @@ BETTER_ENUM(Action, int, RaiseTerrain, LowerTerrain, QuitGame, Demolish, ChangeT
 
 void UIManager::init()
 {
+  json uiLayout;
+
+  loadSettings(uiLayout);
+  parseLayouts(uiLayout);
+  parseElements(uiLayout);
+}
+
+void UIManager::initImGui()
+{
+  json uiLayout;
+
+  loadSettings(uiLayout);
+  parseLayouts(uiLayout);
+
+  auto &layout = m_layoutGroups["MainMenuButtons"].layout;
+
+  std::string fontPath = fs::getBasePath() + Settings::instance().fontFileName.get(); // fix for macos, need to use abs path
+
+  // save pointer to default font, because it not available later from imgui after add new
+  fontDefault = ImGui::GetIO().Fonts->AddFontDefault();
+  layout.font = ImGui::GetIO().Fonts->AddFontFromFileTTF(fontPath.c_str(), layout.fontSize);
+
+  ImGui::GetIO().Fonts->Build();
+}
+
+void UIManager::loadSettings(json& uiLayout) {
   std::string jsonFileContent = fs::readFileAsString(Settings::instance().uiLayoutJSONFile.get());
-  json uiLayout = json::parse(jsonFileContent, nullptr, false);
+  uiLayout = json::parse(jsonFileContent, nullptr, false);
 
   // check if json file can be parsed
   if (uiLayout.is_discarded())
     throw ConfigurationError(TRACE_INFO "Error parsing JSON File " + Settings::instance().uiLayoutJSONFile.get());
+}
 
+void UIManager::parseLayouts(const json& uiLayout)
+{
   // parse Layout
   for (const auto &it : uiLayout["LayoutGroups"].items())
   {
@@ -79,8 +112,7 @@ void UIManager::init()
           continue;
         }
 
-        layoutGroup.layout.fontSize =
-            uiLayout["LayoutGroups"][it.key()][id].value("FontSize", Settings::instance().defaultFontSize);
+        layoutGroup.layout.fontSize = uiLayout["LayoutGroups"][it.key()][id].value("FontSize", Settings::instance().defaultFontSize);
         layoutGroup.layout.padding = uiLayout["LayoutGroups"][it.key()][id].value("Padding", 0);
         layoutGroup.layout.paddingToParent = uiLayout["LayoutGroups"][it.key()][id].value("PaddingToParent", 0);
         layoutGroup.layout.alignmentOffset = uiLayout["LayoutGroups"][it.key()][id].value("AlignmentOffset", 0.0F);
@@ -94,7 +126,9 @@ void UIManager::init()
       }
     }
   }
+}
 
+void UIManager::parseElements(const json &uiLayout) {
   // parse UiElements
   for (const auto &it : uiLayout["UiElements"].items())
   {
@@ -111,24 +145,24 @@ void UIManager::init()
       // we need to reference the item or else the .is_null() check will fail
       auto &element = elements[id];
 
-      if (!element["GroupVisibility"].is_null())
+      if (element.count("GroupVisibility"))
       {
         visible = element["GroupVisibility"].get<bool>();
       }
 
       // check if there is a global layoutGroup parameter set
-      if (!element["GroupSettings"].is_null())
+      if (element.count("GroupSettings"))
       {
         layoutGroupName = element["GroupSettings"].value("LayoutGroup", "");
       }
 
       // check if a single item is associated with a layout group and override group settings, if applicable
-      if (!element["LayoutGroup"].is_null())
+      if (element.count("LayoutGroup"))
       {
         layoutGroupName = element.value("LayoutGroup", "");
       }
 
-      if (!element["Type"].is_null())
+      if (element.count("Type"))
       {
         bool toggleButton = element.value("ToggleButton", false);
         bool drawFrame = element.value("DrawFrame", false);
@@ -143,15 +177,18 @@ void UIManager::init()
         auto buttonGroupID = element.value("ButtonGroup", "");
         auto buildMenuID = element.value("BuildMenuID", "");
 
-        SDL_Rect elementRect{0, 0, 0, 0};
+        SDL_Rect elementRect{ 0, 0, 0, 0 };
         elementRect.x = element.value("Position_x", 0);
         elementRect.y = element.value("Position_y", 0);
         elementRect.w = element.value("Width", 0);
         elementRect.h = element.value("Height", 0);
 
-        const auto &fontSizeVal = element["FontSize"];
         uint32_t defaultFontSize = m_layoutGroups[layoutGroupName].layout.fontSize;
-        uint32_t fontSize = fontSizeVal.is_null() ? defaultFontSize : fontSizeVal.get<uint32_t>();
+        uint32_t fontSize = defaultFontSize;
+
+        if (element.count("FontSize")) {
+          fontSize = element["FontSize"].get<uint32_t>();
+        }
 
         std::unique_ptr<UIElement> uiElement;
 
@@ -1057,7 +1094,7 @@ void UIManager::initializeDollarVariables()
               const float musicVolume = static_cast<float>(sliderValue / 100.0f);
               AudioMixer::instance().setMusicVolume(musicVolume);
             });
-#endif
+#endif // USE_AUDIO
       }
     }
   }
