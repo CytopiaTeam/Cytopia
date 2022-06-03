@@ -16,6 +16,7 @@ struct LayoutData
   int groupHeight = 0;               ///< <internal> height of all elements in group
   int groupWidth = 0;                ///< <internal> Width of all elements in group
   uint32_t fontSize = 20;            ///< <internal> default font size of all elements in group
+  struct ImFont *font = nullptr;            ///< <internal> font pointer for elements
 };
 
 /**
