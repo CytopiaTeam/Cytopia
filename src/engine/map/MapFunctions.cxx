@@ -191,12 +191,13 @@ std::vector<NeighborNode> MapFunctions::getNeighborNodes(const Point &isoCoordin
   return neighbors;
 }
 
-bool MapFunctions::isPlacementOnNodeAllowed(const Point &isoCoordinates, const std::string &tileID) const
+bool MapFunctions::isPlacementOnNodeAllowed(const Point &isoCoordinates, const std::string &tileID)
 {
-  return m_map->mapNodes[isoCoordinates.toIndex()].isPlacementAllowed(tileID);
+  return getMapNode(isoCoordinates).isPlacementAllowed(tileID);
+  // return m_map->mapNodes[isoCoordinates.toIndex()].isPlacementAllowed(tileID);
 }
 
-bool MapFunctions::isPlacementOnAreaAllowed(const std::vector<Point> &targetCoordinates, const std::string &tileID) const
+bool MapFunctions::isPlacementOnAreaAllowed(const std::vector<Point> &targetCoordinates, const std::string &tileID)
 {
   // This function can be divided into two policies:
   // Whether we need all nodes in the area to be placed or not

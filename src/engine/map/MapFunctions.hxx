@@ -53,13 +53,13 @@ public:
   * @param isoCoordinates Tile to inspect
   * @param tileID tileID which should be checked
   */
-  bool isPlacementOnNodeAllowed(const Point &isoCoordinates, const std::string &tileID) const;
+  bool isPlacementOnNodeAllowed(const Point &isoCoordinates, const std::string &tileID);
 
   /** \brief check if Tile can be placed in an area
   * @param targetCoordinates Tile array to inspect
   * @param tileID tileID which should be checked
   */
-  bool isPlacementOnAreaAllowed(const std::vector<Point> &targetCoordinates, const std::string &tileID) const;
+  bool isPlacementOnAreaAllowed(const std::vector<Point> &targetCoordinates, const std::string &tileID);
 
   /**
  * @brief Set the Tile ID Of Node object
