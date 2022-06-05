@@ -556,8 +556,7 @@ const bool MapNode::isConductive() const
 
   for (auto layer : conductiveLayers)
   {
-    if ((!isOriginNode() && m_originCoordinates != Point::INVALID() &&
-         MapFunctions::instance().getMapNode(m_originCoordinates).getTileData(layer)) ||
+    if ((!isOriginNode() && MapFunctions::instance().getMapNode(m_originCoordinates).getTileData(layer)) ||
         (isOriginNode() && getTileData(layer)))
     { // if it's part of a multitilenode (not an originnode, has coordinates of the originnode and there's something placed on a conductive layer)
       // or if it an origin node and a conductive layer
@@ -569,7 +568,7 @@ const bool MapNode::isConductive() const
 
 const TileData *MapNode::getTileData(Layer layer) const
 {
-  if (!isOriginNode() && m_originCoordinates != Point::INVALID())
+  if (!isOriginNode() )
   {
     return MapFunctions::instance().getMapNode(m_originCoordinates).getTileData(layer);
   }
@@ -578,7 +577,7 @@ const TileData *MapNode::getTileData(Layer layer) const
 
 const std::string &MapNode::getTileID(Layer layer) const
 {
-  if (!isOriginNode() && m_originCoordinates != Point::INVALID())
+  if (!isOriginNode())
   {
     return MapFunctions::instance().getMapNode(m_originCoordinates).getMapNodeDataForLayer(layer).tileID;
   }
@@ -588,7 +587,7 @@ const std::string &MapNode::getTileID(Layer layer) const
 const MapNodeData &MapNode::getMapNodeDataForLayer(Layer layer) const
 {
 
-  if (!isOriginNode() && m_originCoordinates != Point::INVALID())
+  if (!isOriginNode())
   {
     return MapFunctions::instance().getMapNode(m_originCoordinates).getMapNodeDataForLayer(layer);
   }
