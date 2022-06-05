@@ -194,7 +194,6 @@ std::vector<NeighborNode> MapFunctions::getNeighborNodes(const Point &isoCoordin
 bool MapFunctions::isPlacementOnNodeAllowed(const Point &isoCoordinates, const std::string &tileID)
 {
   return getMapNode(isoCoordinates).isPlacementAllowed(tileID);
-  // return m_map->mapNodes[isoCoordinates.toIndex()].isPlacementAllowed(tileID);
 }
 
 bool MapFunctions::isPlacementOnAreaAllowed(const std::vector<Point> &targetCoordinates, const std::string &tileID)
@@ -455,7 +454,7 @@ void MapFunctions::demolishNode(const std::vector<Point> &isoCoordinates, bool u
 
 void MapFunctions::getNodeInformation(const Point &isoCoordinates) const
 {
-  const MapNode &mapNode = m_map->mapNodes[isoCoordinates.toIndex()];
+  const MapNode &mapNode = getMapNode(isoCoordinates);
   const TileData *tileData = mapNode.getTileData(mapNode.getTopMostActiveLayer());
   LOG(LOG_INFO) << "===== TILE at " << isoCoordinates.x << ", " << isoCoordinates.y << ", " << mapNode.getCoordinates().height
                 << "=====";
@@ -548,7 +547,7 @@ bool MapFunctions::isClickWithinTile(const SDL_Point &screenCoordinates, Point i
     return false;
   }
 
-  const auto &node = m_map->mapNodes[isoCoordinate.toIndex()];
+  const auto &node = getMapNode(isoCoordinate);
   auto pSprite = node.getSprite();
   std::vector<Layer> layersToGoOver;
 
