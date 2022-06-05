@@ -49,6 +49,11 @@ public:
    */
 
   void init();
+  void initImGui();
+
+  void loadSettings(json& uiLayout);
+  void parseLayouts(const json &uiLayout);
+  void parseElements(const json &uiLayout);
   /**
  * @brief Fill UI Widgets whose ID start with a $ with data
  * Used for filling widgets with data, like BuildMenu Position combobox, Screen Resolution ComboBox and so on
@@ -200,6 +205,7 @@ private:
   void addToLayoutGroup(const std::string &groupName, UIElement *widget);
 
   bool m_showDebugMenu = false;
+  struct ImFont *fontDefault = nullptr;
 };
 
 #endif

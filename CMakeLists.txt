@@ -126,6 +126,9 @@ if (UNIX)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread -fdiagnostics-color=always")
 endif ()
 
+# Include imgui project
+add_subdirectory(external/imgui)
+
 add_subdirectory(src)
 
 if (BUILD_TEST)

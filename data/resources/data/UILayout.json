@@ -22,6 +22,15 @@
                 "LayoutType": "VERTICAL",
                 "Padding": 30
             }
+        ],
+        "MainMenuButtons": [
+            {
+                "GroupName": "MainMenuButtons",
+                "Alignment": "CENTER",
+                "LayoutType": "VERTICAL",
+                "Padding": 40,
+                "FontSize": 42
+            }
         ]
     },
     "UiElements": {

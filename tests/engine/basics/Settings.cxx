@@ -15,6 +15,7 @@ TEST_CASE("Read settings from file", "[settings][settings]")
   Settings::instance().readFile();
 
   CHECK(mapSize == Settings::instance().mapSize);
+  //TODO Repeat for more properties
 }
 
 TEST_CASE("Write settings to file", "[settings][settings]")
