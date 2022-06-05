@@ -539,8 +539,7 @@ Point MapFunctions::findNodeInMap(const SDL_Point &screenCoordinates, const Laye
   return Point{-1, -1, 0, 0};
 }
 
-bool MapFunctions::isClickWithinTile(const SDL_Point &screenCoordinates, Point isoCoordinate,
-                                     const Layer &layer = Layer::NONE)
+bool MapFunctions::isClickWithinTile(const SDL_Point &screenCoordinates, Point isoCoordinate, const Layer &layer = Layer::NONE)
 {
   if (!isoCoordinate.isWithinMapBoundaries())
   {
@@ -580,6 +579,7 @@ bool MapFunctions::isClickWithinTile(const SDL_Point &screenCoordinates, Point i
     if (SDL_PointInRect(&screenCoordinates, &spriteRect))
     {
       std::string tileID = node.getMapNodeDataForLayer(curLayer).tileID;
+      LOG(LOG_ERROR) << "Tile ID at this stage " << tileID;
       assert(!tileID.empty());
 
       // Calculate the position of the clicked pixel within the surface and "un-zoom" the position to match the un-adjusted surface

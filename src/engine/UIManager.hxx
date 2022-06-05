@@ -51,7 +51,7 @@ public:
   void init();
   void initImGui();
 
-  void loadSettings(json& uiLayout);
+  void loadSettings(json &uiLayout);
   void parseLayouts(const json &uiLayout);
   void parseElements(const json &uiLayout);
   /**
