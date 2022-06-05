@@ -117,7 +117,7 @@ void MapFunctions::updateNodeNeighbors(const std::vector<Point> &nodes)
 
           if (std::abs(heightDiff) > 1)
           {
-            updatedNodes.push(getMapNode(neighborCoords).getCoordinates());
+            updatedNodes.push(neighborCoords);
             updateHeight(neighborCoords, (heightDiff > 1) ? true : false);
           }
         }
@@ -452,7 +452,7 @@ void MapFunctions::demolishNode(const std::vector<Point> &isoCoordinates, bool u
   }
 }
 
-void MapFunctions::getNodeInformation(const Point &isoCoordinates) const
+void MapFunctions::getNodeInformation(const Point &isoCoordinates)
 {
   const MapNode &mapNode = getMapNode(isoCoordinates);
   const TileData *tileData = mapNode.getTileData(mapNode.getTopMostActiveLayer());
@@ -527,7 +527,7 @@ Point MapFunctions::findNodeInMap(const SDL_Point &screenCoordinates, const Laye
     for (int y = std::max(yMiddlePoint - neighborReach, 0); (y <= yMiddlePoint + neighborReach) && (y < mapSize); ++y)
     {
       //get all coordinates for node at x,y
-      Point coordinate = getMapNode(Point(x, y)).getCoordinates();
+      const Point coordinate = getMapNode(Point(x, y)).getCoordinates();
 
       if (isClickWithinTile(screenCoordinates, coordinate, layer))
       {
@@ -540,7 +540,7 @@ Point MapFunctions::findNodeInMap(const SDL_Point &screenCoordinates, const Laye
 }
 
 bool MapFunctions::isClickWithinTile(const SDL_Point &screenCoordinates, Point isoCoordinate,
-                                     const Layer &layer = Layer::NONE) const
+                                     const Layer &layer = Layer::NONE)
 {
   if (!isoCoordinate.isWithinMapBoundaries())
   {

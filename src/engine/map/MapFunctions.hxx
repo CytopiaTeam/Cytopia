@@ -102,7 +102,7 @@ public:
  * Used as Tile-Inspector until we implement a GUI variant
  * @param isoCoordinates Tile to inspect
  */
-  void getNodeInformation(const Point &isoCoordinates) const;
+  void getNodeInformation(const Point &isoCoordinates);
 
   /**
  * @brief Sets a node to be highlit
@@ -174,7 +174,7 @@ private:
    * @param layer layer to check
    * @return if a click is within this node
    */
-  bool isClickWithinTile(const SDL_Point &screenCoordinates, Point isoCoordinate, const Layer &layer) const;
+  bool isClickWithinTile(const SDL_Point &screenCoordinates, Point isoCoordinate, const Layer &layer);
 
   /** \brief Save Map to file
   * @details Serializes the Map class to json and writes the data to a file.
