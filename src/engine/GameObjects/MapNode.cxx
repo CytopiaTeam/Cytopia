@@ -8,7 +8,8 @@
 #include "MapFunctions.hxx"
 
 MapNode::MapNode(Point isoCoordinates, const std::string &terrainID, const std::string &tileID)
-    : m_isoCoordinates(isoCoordinates), m_originCoordinates(isoCoordinates), m_sprite{std::make_unique<Sprite>(m_isoCoordinates)},
+    : m_isoCoordinates(isoCoordinates), m_TESTPOINT(isoCoordinates),
+      m_originCoordinates(isoCoordinates), m_sprite{std::make_unique<Sprite>(m_isoCoordinates)},
       m_autotileOrientation(LAYERS_COUNT, TileOrientation::TILE_DEFAULT_ORIENTATION),
       m_mapNodeData{std::vector(LAYERS_COUNT, MapNodeData{"", nullptr, 0, m_isoCoordinates, TileMap::DEFAULT})},
       m_autotileBitmask(LAYERS_COUNT)
@@ -19,6 +20,11 @@ MapNode::MapNode(Point isoCoordinates, const std::string &terrainID, const std::
     setTileID(tileID, isoCoordinates);
   }
   // always add blueprint tiles too when creating the node
+  if (m_isoCoordinates.x == 30 && m_isoCoordinates.y == 30) // only output one node
+  {
+    LOG(LOG_INFO) << "isoCords (correct): " << m_isoCoordinates.x << ", " << m_isoCoordinates.y;
+    LOG(LOG_INFO) << "test Cords (correct at constructor): " << m_TESTPOINT.x << ", " << m_TESTPOINT.y;
+  }
   setTileID("terrain_blueprint", isoCoordinates);
   const Layer layer = TileManager::instance().getTileLayer(tileID);
   updateTexture(layer);
@@ -28,6 +34,9 @@ bool MapNode::changeHeight(const bool higher)
 {
   constexpr int minHeight = 0;
   auto &height = m_isoCoordinates.height;
+
+  LOG(LOG_INFO) << "isoCords (correct): " << m_isoCoordinates.x << ", " << m_isoCoordinates.y;
+  LOG(LOG_INFO) << "test Cords (broken at this time): " << m_TESTPOINT.x << ", " << m_TESTPOINT.y;
 
   if ((higher && (height < maxHeight)) || (!higher && (height > minHeight)))
   {
@@ -568,7 +577,7 @@ const bool MapNode::isConductive() const
 
 const TileData *MapNode::getTileData(Layer layer) const
 {
-  if (!isOriginNode() )
+  if (!isOriginNode())
   {
     return MapFunctions::instance().getMapNode(m_originCoordinates).getTileData(layer);
   }
@@ -586,6 +595,11 @@ const std::string &MapNode::getTileID(Layer layer) const
 
 const MapNodeData &MapNode::getMapNodeDataForLayer(Layer layer) const
 {
+  if (m_isoCoordinates.x == 30 && m_isoCoordinates.y == 30) // only output one node
+  {
+    LOG(LOG_INFO) << "isoCords (correct): " << m_isoCoordinates.x << ", " << m_isoCoordinates.y;
+    LOG(LOG_INFO) << "test Cords (broken at this time): " << m_TESTPOINT.x << ", " << m_TESTPOINT.y;
+  }
 
   if (!isOriginNode())
   {

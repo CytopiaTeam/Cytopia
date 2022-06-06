@@ -194,6 +194,7 @@ private:
   bool m_isOriginNode = true;
   Point m_originCoordinates;
   Point m_isoCoordinates;
+  Point m_TESTPOINT;
   std::unique_ptr<Sprite> m_sprite;
   std::string m_previousTileID = "terrain";
   std::vector<TileOrientation> m_autotileOrientation;
