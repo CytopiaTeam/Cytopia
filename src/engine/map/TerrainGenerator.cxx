@@ -143,7 +143,6 @@ void TerrainGenerator::generateTerrain(std::vector<MapNode> &mapNodes, std::vect
         if (placed == false)
         {
           mapNodes.emplace_back(Point{x, y, z, height}, m_biomeInformation[currentBiome].terrain[0]);
-          // mapNodes.emplace_back(MapNode{Point{x, y, z, height}, m_biomeInformation[currentBiome].terrain[0]});
         }
       }
     }
