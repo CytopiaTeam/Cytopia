@@ -35,11 +35,11 @@ public:
   /** @brief Move constructor.
     */
   MapNode(MapNode &&mn) noexcept
-      : m_isoCoordinates(std::move(mn.m_isoCoordinates)), m_sprite(std::move(mn.m_sprite)),
-        m_previousTileID(std::move(mn.m_previousTileID)), m_autotileOrientation(std::move(mn.m_autotileOrientation)),
-        m_elevationOrientation(mn.m_elevationOrientation), m_clippingWidth(mn.m_clippingWidth),
-        m_mapNodeData(std::move(mn.m_mapNodeData)), m_autotileBitmask(std::move(mn.m_autotileBitmask)),
-        m_elevationBitmask(mn.m_elevationBitmask){};
+      : m_isoCoordinates(std::move(mn.m_isoCoordinates)), m_originCoordinates(std::move(mn.m_originCoordinates)),
+        m_sprite(std::move(mn.m_sprite)), m_previousTileID(std::move(mn.m_previousTileID)),
+        m_autotileOrientation(std::move(mn.m_autotileOrientation)), m_elevationOrientation(mn.m_elevationOrientation),
+        m_clippingWidth(mn.m_clippingWidth), m_mapNodeData(std::move(mn.m_mapNodeData)),
+        m_autotileBitmask(std::move(mn.m_autotileBitmask)), m_elevationBitmask(mn.m_elevationBitmask){};
 
   /**
     * @brief Destroys the MapNode object
