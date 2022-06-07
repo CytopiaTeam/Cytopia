@@ -100,7 +100,7 @@ void TerrainGenerator::generateTerrain(std::vector<MapNode> &mapNodes, std::vect
       if (height < m_terrainSettings.seaLevel)
       {
         height = m_terrainSettings.seaLevel;
-        mapNodes.emplace_back(MapNode{Point{x, y, z, height}, m_biomeInformation[currentBiome].water[0]});
+        mapNodes.emplace_back(Point{x, y, z, height}, m_biomeInformation[currentBiome].water[0]);
       }
       else
       {
@@ -116,8 +116,8 @@ void TerrainGenerator::generateTerrain(std::vector<MapNode> &mapNodes, std::vect
             if (tileIndex < 20)
             {
               tileIndex = tileIndex % static_cast<int>(m_biomeInformation[currentBiome].treesLight.size());
-              mapNodes.emplace_back(MapNode{Point{x, y, z, height}, m_biomeInformation[currentBiome].terrain[0],
-                                            m_biomeInformation[currentBiome].treesLight[tileIndex]});
+              mapNodes.emplace_back(Point{x, y, z, height}, m_biomeInformation[currentBiome].terrain[0],
+                                     m_biomeInformation[currentBiome].treesLight[tileIndex]);
               placed = true;
             }
           }
@@ -126,8 +126,8 @@ void TerrainGenerator::generateTerrain(std::vector<MapNode> &mapNodes, std::vect
             if (tileIndex < 50)
             {
               tileIndex = tileIndex % static_cast<int>(m_biomeInformation[currentBiome].treesMedium.size());
-              mapNodes.emplace_back(MapNode{Point{x, y, z, height}, m_biomeInformation[currentBiome].terrain[0],
-                                            m_biomeInformation[currentBiome].treesMedium[tileIndex]});
+              mapNodes.emplace_back(Point{x, y, z, height}, m_biomeInformation[currentBiome].terrain[0],
+                                     m_biomeInformation[currentBiome].treesMedium[tileIndex]);
               placed = true;
             }
           }
@@ -135,14 +135,15 @@ void TerrainGenerator::generateTerrain(std::vector<MapNode> &mapNodes, std::vect
           {
             tileIndex = tileIndex % static_cast<int>(m_biomeInformation[currentBiome].treesDense.size());
 
-            mapNodes.emplace_back(MapNode{Point{x, y, z, height}, m_biomeInformation[currentBiome].terrain[0],
-                                          m_biomeInformation[currentBiome].treesDense[tileIndex]});
+            mapNodes.emplace_back(Point{x, y, z, height}, m_biomeInformation[currentBiome].terrain[0],
+                                   m_biomeInformation[currentBiome].treesDense[tileIndex]);
             placed = true;
           }
         }
         if (placed == false)
         {
-          mapNodes.emplace_back(MapNode{Point{x, y, z, height}, m_biomeInformation[currentBiome].terrain[0]});
+          mapNodes.emplace_back(Point{x, y, z, height}, m_biomeInformation[currentBiome].terrain[0]);
+          // mapNodes.emplace_back(MapNode{Point{x, y, z, height}, m_biomeInformation[currentBiome].terrain[0]});
         }
       }
     }
