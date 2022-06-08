@@ -1,6 +1,6 @@
 name: Build game
 
-on: [push, pull_request]
+on: [ push, pull_request ]
 
 jobs:
   build-msvc:
@@ -35,7 +35,7 @@ jobs:
       - name: Cache conan
         uses: actions/cache@v2.1.7
         with:
-          key: conan-${{ hashFiles('cmake/DependenciesConfig.cmake') }}
+          key: conan-win-${{ hashFiles('cmake/DependenciesConfig.cmake') }}
           path: ~/.conan/
 
       - name: Install dependencies
@@ -70,6 +70,7 @@ jobs:
     name: Build Linux
     env:
       sccache_CACHE_SIZE: 500M
+      CONAN_SYSREQUIRES_MODE: "enabled"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -91,42 +92,38 @@ jobs:
           restore-keys: |
             ubuntu-sccache-
 
+      - name: Cache conan
+        uses: actions/cache@v2.1.7
+        with:
+          key: conan-linux-${{ hashFiles('cmake/DependenciesConfig.cmake') }}
+          path: ~/.conan/
+
       - name: Install dependencies
+        env:
+          CONAN_USER_HOME: "/tmp/"
         run: |
           echo -e 'pcm.!default {\n type plug\n slave.pcm "null"\n}' > ~/.asoundrc
-          sudo apt-get update
-          sudo apt-get -y install \
-                  ninja-build \
-                  doxygen \
-                  graphviz \
-                  fakeroot \
-                  libarchive-tools \
-                  zstd \
-                  gettext \
-                  libsdl2-dev \
-                  libsdl2-image-dev \
-                  libsdl2-ttf-dev \
-                  libopenal-dev \
-                  libvorbis-dev \
-                  libpng-dev \
-                  libnoise-dev
           curl "https://raw.githubusercontent.com/AnotherFoxGuy/ci-scripts/main/install-cmake.sh" | sudo bash
+          curl "https://raw.githubusercontent.com/AnotherFoxGuy/ci-scripts/main/install-conan.sh" | sudo bash
           curl "https://raw.githubusercontent.com/AnotherFoxGuy/ci-scripts/main/install-sccache.sh" | sudo bash
-        shell: bash
+          conan install "xorg/system@"
+          sudo apt-get -y install ninja-build libgl-dev libegl-dev
+
+      - name: Configure
+        run: |
+          cmake . -GNinja -DCMAKE_BUILD_TYPE=Release -DCYTOPIA_LIB_PREFERENCE=CONAN -DBUILD_TEST=ON
 
       - name: Build
         run: |
-          cmake -GNinja -DCMAKE_BUILD_TYPE=Release .
           ninja
           sccache --show-stats
-        shell: bash
 
       - name: Test
         env:
           SDL_VIDEODRIVER: dummy
           SDL_AUDIODRIVER: dummy
         run: ctest -j2 --output-on-failure
-        
+
       - name: Upload build to itch.io
         env:
           BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
@@ -135,7 +132,10 @@ jobs:
           curl "https://raw.githubusercontent.com/AnotherFoxGuy/ci-scripts/main/install-butler.sh" | sudo bash
           ninja install
           butler push redist cytopia/cytopia:linux-ci --userversion CIBuild-${GITHUB_RUN_NUMBER}-commit-${GITHUB_SHA}
-        shell: bash
+
+      - name: Clean Conan pkgs
+        run: conan remove "*" -fsb
+
   build-appleclang:
     name: Build Mac
     env:
@@ -164,7 +164,7 @@ jobs:
       - name: Cache conan
         uses: actions/cache@v2.1.7
         with:
-          key: conan-${{ hashFiles('cmake/DependenciesConfig.cmake') }}
+          key: conan-mac-${{ hashFiles('cmake/DependenciesConfig.cmake') }}
           path: ~/.conan/
 
       - name: Install dependencies
