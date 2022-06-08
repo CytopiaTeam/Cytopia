@@ -15,6 +15,10 @@
 #include <SDL.h>
 #include <SDL_ttf.h>
 
+#include "imgui.h"
+#include "imgui_impl_sdl.h"
+#include "imgui_impl_sdlrenderer.h"
+
 #ifdef USE_ANGELSCRIPT
 #include "Scripting/ScriptEngine.hxx"
 #endif
@@ -26,6 +30,8 @@
 #ifdef MICROPROFILE_ENABLED
 #include "microprofile/microprofile.h"
 #endif
+
+namespace ui = ImGui;
 
 namespace Cytopia
 {
@@ -144,6 +150,7 @@ void Game::run(bool SkipMenu)
     MICROPROFILE_SCOPEI("Map", "Gameloop", MP_GREEN);
 #endif
     SDL_RenderClear(WindowManager::instance().getRenderer());
+
 
     evManager.checkEvents(event);
     gameClock.tick();

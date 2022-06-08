@@ -26,6 +26,13 @@ struct LayoutGroup
   LayoutData layout;                   ///< layout information @see LayoutData
 };
 
+// BaseClass for game menu, only one menu can show on frame
+struct GameMenu
+{
+  virtual ~GameMenu() = default;
+  virtual void draw() const = 0;
+};
+
 enum class BUILDMENU_LAYOUT
 {
   LEFT = 0,
@@ -51,6 +58,9 @@ public:
   void init();
   void initImGui();
 
+  struct ImFont *loadFont(const std::string &name, uint32_t size);
+  void initializeImGuiFonts();
+
   void loadSettings(json& uiLayout);
   void parseLayouts(const json &uiLayout);
   void parseElements(const json &uiLayout);
@@ -66,6 +76,7 @@ public:
   */
   void drawUI() const;
 
+  void setGroupVisibility(const std::string &groupID, bool visible);
   /**
  * @brief Callback function for toggling the visibility of an UiGroup 
  * @details Callback function for Ui Widgets with the ActionID "ToggleVisiblityOfGroup".
@@ -153,6 +164,14 @@ public:
  */
   void closeOpenMenus();
 
+  void openMenu(std::shared_ptr<GameMenu> menuOption);
+
+  template<class Menu>
+  void openMenu() { openMenu(std::make_shared<Menu>()); }
+
+  void closeMenu();
+  inline bool isAnyMenuOpen() const { return !m_menuStack.empty(); }
+
 private:
   BUILDMENU_LAYOUT m_buildMenuLayout = BUILDMENU_LAYOUT::BOTTOM;
 
@@ -178,6 +197,9 @@ private:
 
   /// Text element for the FPS Counter (debug menu)
   std::unique_ptr<Text> m_fpsCounter = std::make_unique<Text>();
+
+  std::unordered_map<std::string, ImFont *> m_loadedFonts;
+  std::vector<std::shared_ptr<GameMenu>> m_menuStack;
 
   void setCallbackFunctions();
 

@@ -19,6 +19,7 @@
 #endif
 
 #include <cmath>
+#include <array>
 
 #include "imgui.h"
 #include "imgui_impl_sdl.h"
@@ -41,6 +42,8 @@ void UIManager::init()
   loadSettings(uiLayout);
   parseLayouts(uiLayout);
   parseElements(uiLayout);
+
+  initializeImGuiFonts();
 }
 
 void UIManager::initImGui()
@@ -50,15 +53,41 @@ void UIManager::initImGui()
   loadSettings(uiLayout);
   parseLayouts(uiLayout);
 
-  auto &layout = m_layoutGroups["MainMenuButtons"].layout;
+  initializeImGuiFonts();
+}
 
+ImFont *UIManager::loadFont(const std::string &fontPath, uint32_t size)
+{
+  auto *uiFonts = ImGui::GetIO().Fonts;
+  if (!fontDefault)
+    fontDefault = uiFonts->AddFontDefault();
+
+  std::string hashName = fontPath;
+  hashName.append(std::to_string(size));
+  auto it = m_loadedFonts.find(hashName);
+  if (it != m_loadedFonts.end())
+    return it->second;
+
+  ImFont *newFont = uiFonts->AddFontFromFileTTF(fontPath.c_str(), (float)size);
+  m_loadedFonts[hashName] = newFont;
+  uiFonts->Build();
+
+  return newFont;
+}
+
+void UIManager::initializeImGuiFonts() {
   std::string fontPath = fs::getBasePath() + Settings::instance().fontFileName.get(); // fix for macos, need to use abs path
 
-  // save pointer to default font, because it not available later from imgui after add new
-  fontDefault = ImGui::GetIO().Fonts->AddFontDefault();
-  layout.font = ImGui::GetIO().Fonts->AddFontFromFileTTF(fontPath.c_str(), layout.fontSize);
+  std::array<const char *, 2> names = {"MainMenuButtons", "PauseMenuButtons"};
+  for (const auto &name : names)
+  {
+    auto it = m_layoutGroups.find(name);
+    if (it == m_layoutGroups.end())
+      continue;
 
-  ImGui::GetIO().Fonts->Build();
+    auto &layout = it->second.layout;
+    layout.font = loadFont(fontPath, layout.fontSize);
+  }
 }
 
 void UIManager::loadSettings(json& uiLayout) {
@@ -325,6 +354,22 @@ void UIManager::closeOpenMenus()
   }
 }
 
+void UIManager::openMenu(std::shared_ptr<GameMenu> menu) {
+  auto it = std::find(m_menuStack.begin(), m_menuStack.end(), menu);
+
+  if (it != m_menuStack.end())
+    return;
+
+  m_menuStack.push_back(menu);
+}
+
+void UIManager::closeMenu() {
+  if (m_menuStack.empty())
+    return;
+
+  m_menuStack.pop_back();
+}
+
 void UIManager::drawUI() const
 {
 #ifdef MICROPROFILE_ENABLED
@@ -343,7 +388,16 @@ void UIManager::drawUI() const
     m_fpsCounter->draw();
   }
 
+  if (!m_menuStack.empty())
+    m_menuStack.back()->draw();
+
   m_tooltip->draw();
+}
+
+void UIManager::setGroupVisibility(const std::string &groupID, bool visible)
+{
+  for (const auto &it : m_uiGroups[groupID])
+    it->setVisibility(visible);
 }
 
 void UIManager::toggleGroupVisibility(const std::string &groupID, UIElement *sender)
@@ -437,10 +491,6 @@ void UIManager::setCallbackFunctions()
             terrainEditMode == TerrainEdit::LOWER ? terrainEditMode = TerrainEdit::NONE : terrainEditMode = TerrainEdit::LOWER;
             terrainEditMode == TerrainEdit::NONE ? highlightSelection = true : highlightSelection = false;
           });
-    }
-    else if (uiElement->getUiElementData().actionID == "QuitGame")
-    {
-      uiElement->registerCallbackFunction([]() { SignalMediator::instance().signalQuitGame.emit(); });
     }
     else if (uiElement->getUiElementData().actionID == "Demolish")
     {
@@ -570,38 +620,16 @@ void UIManager::setCallbackFunctions()
         }
       }
     }
-    else if (uiElement->getUiElementData().actionID == "NewGame")
-    {
-      uiElement->registerCallbackFunction([]() { SignalMediator::instance().signalNewGame.emit(true); });
-    }
-    else if (uiElement->getUiElementData().actionID == "SaveGame")
-    {
-      uiElement->registerCallbackFunction([]() { SignalMediator::instance().signalSaveGame.emit("save.cts"); });
-    }
-    else if (uiElement->getUiElementData().actionID == "LoadGame")
-    {
-      uiElement->registerCallbackFunction([]() { SignalMediator::instance().signalLoadGame.emit("save.cts"); });
-    }
     else if (uiElement->getUiElementData().actionID == "ResetSettings")
     {
       uiElement->registerCallbackFunction([]() { Settings::instance().resetSettingsToDefaults(); });
-    }
-
-    else if (uiElement->getUiElementData().actionID == "SaveSettings")
-    {
-      uiElement->registerCallbackFunction(
-          [this]()
-          {
-            Settings::instance().writeFile();
-            toggleGroupVisibility("SettingsMenu");
-            toggleGroupVisibility("PauseMenu");
-          });
     }
     else if (uiElement->getUiElementData().actionID == "CancelSettings")
     {
       uiElement->registerCallbackFunction(
           [this]()
           {
+            UIManager::instance().closeMenu();
             Settings::instance().readFile();
             for (const auto &it : getAllUiElements())
             {
@@ -650,8 +678,6 @@ void UIManager::setCallbackFunctions()
                 }
               }
             }
-            toggleGroupVisibility("SettingsMenu");
-            toggleGroupVisibility("PauseMenu");
           });
     }
   }
