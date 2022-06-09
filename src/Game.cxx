@@ -160,6 +160,7 @@ void Game::run(bool SkipMenu)
     // TODO: This is only temporary until the new UI is ready. Remove this afterwards
     if (GameStates::instance().drawUI)
     {
+      WindowManager::instance().newImGuiFrame();
       uiManager.drawUI();
     }
 

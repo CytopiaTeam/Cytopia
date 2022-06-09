@@ -12,6 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       SONAR_SCANNER_VERSION: 4.7.0.2747
+      CONAN_SYSREQUIRES_MODE: "enabled"
     steps:
       - uses: actions/checkout@v2
         with:
@@ -55,28 +56,24 @@ jobs:
           restore-keys: |
             cfamily-cache-
 
+      - name: Cache conan
+        uses: actions/cache@v2.1.7
+        with:
+          key: conan-linux-${{ hashFiles('cmake/DependenciesConfig.cmake') }}
+          path: ~/.conan/
+
       - name: Install dependencies
+        env:
+          CONAN_USER_HOME: "/tmp/"
         run: |
-          sudo apt-get update
-          sudo apt-get -y install \
-                  ninja-build \
-                  doxygen \
-                  graphviz \
-                  fakeroot \
-                  libarchive-tools \
-                  zstd \
-                  gettext \
-                  libsdl2-dev \
-                  libsdl2-image-dev \
-                  libsdl2-ttf-dev \
-                  libopenal-dev \
-                  libvorbis-dev \
-                  libpng-dev \
-                  libnoise-dev
           curl "https://raw.githubusercontent.com/AnotherFoxGuy/ci-scripts/main/install-cmake.sh" | sudo bash
+          curl "https://raw.githubusercontent.com/AnotherFoxGuy/ci-scripts/main/install-conan.sh" | sudo bash
+          conan install "xorg/system@"
+          sudo apt-get -y install ninja-build libgl-dev libegl-dev
 
       - name: Configure
-        run: cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DBUILD_TEST=ON -DENABLE_COVERAGE=ON .
+        run: |
+          cmake . -DCMAKE_BUILD_TYPE=Release -DCYTOPIA_LIB_PREFERENCE=CONAN -DCYTOPIA_USE_MICROPROFILE=CONAN -DCYTOPIA_USE_ANGELSCRIPT=CONAN -DBUILD_TEST=ON -DENABLE_COVERAGE=ON
 
       - name: Run build-wrapper
         run: build-wrapper-linux-x86-64 --out-dir bw-output make -j4
@@ -96,3 +93,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_SCANNER_EXE: /home/runner/.sonar/sonar-scanner-${{ env.SONAR_SCANNER_VERSION }}-linux/bin/sonar-scanner
         run: ./run-sonar-scanner
+
+      - name: Clean Conan pkgs
+        run: conan remove "*" -fsb

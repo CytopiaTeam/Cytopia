@@ -47,7 +47,7 @@ void ComboBox::draw()
   if (m_isMenuOpened)
   {
     drawButtonFrame(m_dropdownRect, false);
-    if (hoveredID != -1)
+    if (m_hoveredID != -1)
     {
       drawSolidRect(m_highlightingRect, SDL_Color({150, 150, 150}));
     }
@@ -163,8 +163,12 @@ void ComboBox::setActiveID(int ID)
 {
   m_activeID = ID;
   m_selectedItem->setText(getTextFromID(ID));
-  activeText = getTextFromID(ID);
   clickSignalSender.emit(this);
+}
+
+void ComboBox::clear() 
+{ 
+  m_items.clear();
 }
 
 std::string ComboBox::getTextFromID(int id) const
@@ -223,7 +227,7 @@ bool ComboBox::onMouseButtonDown(const SDL_Event &event)
 
 void ComboBox::onMouseLeave(const SDL_Event &event)
 {
-  hoveredID = -1;
+  m_hoveredID = -1;
   changeButtonState(BUTTONSTATE_DEFAULT);
 }
 
@@ -243,20 +247,27 @@ void ComboBox::onMouseMove(const SDL_Event &event)
       {
         changeButtonState(BUTTONSTATE_HOVERING);
       }
-      hoveredID = -1;
+      m_hoveredID = -1;
     }
     else
     {
       changeButtonState(BUTTONSTATE_DEFAULT);
-      hoveredID = ((m_itemHeight + event.button.y - m_dropdownRect.y) / m_itemHeight) - 1;
+      m_hoveredID = ((m_itemHeight + event.button.y - m_dropdownRect.y) / m_itemHeight) - 1;
       // because of the -4 pixel offset that's been added in the constructor, the id would exceed the size of the vector, if the bottom of the dropdown is clicked
-      if (hoveredID >= static_cast<int>(count()))
+      if (m_hoveredID >= static_cast<int>(count()))
       {
-        hoveredID = static_cast<int>(count() - 1);
+        m_hoveredID = static_cast<int>(count() - 1);
       }
-      m_highlightingRect.y = (hoveredID * m_itemHeight) + m_dropdownRect.y;
+      m_highlightingRect.y = (m_hoveredID * m_itemHeight) + m_dropdownRect.y;
     }
   }
+}
+
+std::string ComboBox::getActiveText() const
+{
+  if (m_selectedItem && count() > 0) // the count check is a temporary solution
+    return m_selectedItem->getUiElementData().text;
+  return "";
 }
 
 void ComboBox::registerCallbackFunction(std::function<void(UIElement *sender)> const &cb) { clickSignalSender.connect(cb); }

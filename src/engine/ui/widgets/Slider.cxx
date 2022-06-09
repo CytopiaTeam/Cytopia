@@ -89,6 +89,8 @@ bool Slider::isMouseOver(int x, int y) { return overSliderButton(x, y) || overSl
 
 void Slider::setPosition(int x, int y)
 {
+  m_uiElementRect.x = x;
+  m_uiElementRect.y = y;
   sliderLine.x = x;
   sliderLine.y = y + (sliderButton.h / 2) - (m_lineThickness / 2);
   sliderButton.y = y;

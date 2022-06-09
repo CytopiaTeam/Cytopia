@@ -8,8 +8,14 @@
 #include "engine/UIManager.hxx"
 #include "engine/ui/widgets/Image.hxx"
 #include "engine/basics/Settings.hxx"
-#include <OSystem.hxx>
+
+#include "OSystem.hxx"
 #include "services/DiscordRpc.hxx"
+#include "imgui.h"
+#include "imgui_impl_sdl.h"
+#include "imgui_impl_sdlrenderer.h"
+
+namespace ui = ImGui;
 
 #ifdef USE_AUDIO
 static void playAudioMajorSelection()
@@ -32,6 +38,8 @@ bool mainMenu()
   bool mainMenuLoop = true;
   bool startGame = true;
 
+  UIManager::instance().initImGui();
+
 #ifdef USE_AUDIO
   auto &m_AudioMixer = AudioMixer::instance();
   /* Trigger MainMenu music */
@@ -44,151 +52,134 @@ bool mainMenu()
 #endif // USE_AUDIO
 
   DiscordRpc::updatePresence("Main menu");
+  auto logoTex = ResourcesManager::instance().getUITexture("Cytopia_Logo");
+  auto discordTex = ResourcesManager::instance().getUITexture("Discord_icon");
+  auto githubTex = ResourcesManager::instance().getUITexture("Github_icon");
+  int logoTexW, logoTexH;
+  SDL_QueryTexture(logoTex, nullptr, nullptr, &logoTexW, &logoTexH);
 
-  Image logo;
-  logo.setTextureID("Cytopia_Logo");
-  logo.setVisibility(true);
-  logo.setPosition(screenWidth / 2 - logo.getUiElementRect().w / 2, screenHeight / 4 - logo.getUiElementRect().h / 2);
+  auto beginFrame = [] {
+    SDL_RenderClear(WindowManager::instance().getRenderer());
 
-  Text versionText;
-  versionText.setText(VERSION);
-  versionText.setPosition(screenWidth - versionText.getUiElementRect().w, screenHeight - versionText.getUiElementRect().h);
+    WindowManager::instance().newImGuiFrame();
 
-  Button newGameButton({screenWidth / 2 - 100, screenHeight / 2 - 20, 200, 40});
-  newGameButton.setText("New Game");
-  newGameButton.setUIElementID("newgame");
-  newGameButton.registerCallbackFunction(
-      []()
-      {
-#ifdef USE_AUDIO
-        playAudioMajorSelection();
-        SignalMediator::instance().signalNewGame.emit(true);
+    ui::SetNextWindowBgAlpha(0);
+    ui::SetNextWindowPos(ImVec2(0.0f, 0.0f));
+    ui::SetNextWindowSize(ui::GetIO().DisplaySize);
 
-#endif //  USE_AUDIO                                                                                                             \
-    // TODO: Game.run??
-      });
+    bool open = true;
+    ui::Begin("MainWnd", &open, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
+  };
 
-  Button loadGameButton({screenWidth / 2 - 100, screenHeight / 2 - 20 + newGameButton.getUiElementRect().h * 2, 200, 40});
-  loadGameButton.setText("Load Game");
-  loadGameButton.registerCallbackFunction(
-      []()
-      {
-#ifdef USE_AUDIO
-        playAudioMajorSelection();
-        SignalMediator::instance().signalLoadGame.emit("save.cts");
-#endif // USE_AUDIO
+  auto renderFrame = [] {
+    ui::End();
 
-        //TODO: This will need more refactoring to work. Split main menu into a seperate class. ##945
-      });
-
-  Button quitGameButton({screenWidth / 2 - 100, screenHeight / 2 - 20 + loadGameButton.getUiElementRect().h * 4, 200, 40});
-  quitGameButton.setText("Quit Game");
-  quitGameButton.registerCallbackFunction([&startGame]() { startGame = false; });
-
-  Button discordButton({5, screenHeight - 37, 32, 32});
-  discordButton.setTextureID("Discord_icon");
-  discordButton.registerCallbackFunction([]() { OSystem::openDir("https://discord.gg/MG3tgYV6ce"); });
-
-  Button githubButton({42, screenHeight - 37, 32, 32});
-  githubButton.setTextureID("Github_icon");
-  githubButton.registerCallbackFunction([]() { OSystem::openDir("https://github.com/CytopiaTeam/Cytopia/issues/new"); });
-
-  // store elements in vector
-  std::vector<UIElement *> uiElements;
-  uiElements.push_back(&newGameButton);
-  uiElements.push_back(&loadGameButton);
-  uiElements.push_back(&quitGameButton);
-  uiElements.push_back(&logo);
-  uiElements.push_back(&versionText);
-  uiElements.push_back(&discordButton);
-  uiElements.push_back(&githubButton);
-
-  UIElement *m_lastHoveredElement = nullptr;
+    WindowManager::instance().renderScreen();
+    SDL_Delay(5);
+  };
 
   // fade in Logo
+  const ImVec2 logoImgPos(screenWidth / 2 - logoTexW / 2, screenHeight / 4);
   for (Uint8 opacity = 0; opacity < 255; opacity++)
   {
-    // break the loop if an event occurs
-    if (SDL_PollEvent(&event) && (event.type == SDL_MOUSEBUTTONDOWN || event.type == SDL_KEYDOWN))
-    {
-      logo.setOpacity(SDL_ALPHA_OPAQUE);
-      break;
-    }
-    SDL_RenderClear(WindowManager::instance().getRenderer());
-    logo.setOpacity(opacity);
+    beginFrame();
 
-    for (const auto &element : uiElements)
-    {
-      element->draw();
-    }
+    // break the loop if an event occurs  
+    const bool has_event = SDL_PollEvent(&event) != 0;
+    if (has_event && event.type == SDL_MOUSEBUTTONDOWN || event.type == SDL_KEYDOWN)
+      opacity = 254;
 
-    // reset renderer color back to black
-    SDL_SetRenderDrawColor(WindowManager::instance().getRenderer(), 0, 0, 0, SDL_ALPHA_OPAQUE);
-    SDL_RenderPresent(WindowManager::instance().getRenderer());
-    SDL_Delay(5);
+    ui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
+    ui::SetCursorPos(logoImgPos);
+    float op = opacity / 255.f;
+    ui::Image(logoTex, ImVec2(logoTexW, logoTexH), ImVec2(0, 0), ImVec2(1, 1), ImVec4{op, op, op, op});
+    ui::PopStyleVar(1);
+
+
+    renderFrame();
   }
 
+  const auto &buttonFont = UIManager::instance().getAllLayoutGroups()["MainMenuButtons"].layout.font;
   while (mainMenuLoop)
   {
-    SDL_RenderClear(WindowManager::instance().getRenderer());
+    beginFrame();
 
-    while (SDL_PollEvent(&event) != 0)
-    {
-      for (const auto &it : uiElements)
-      {
-        switch (event.type)
-        {
-        case SDL_QUIT:
-          //   quit();
-          return true;
-        case SDL_MOUSEBUTTONDOWN:
-          it->onMouseButtonDown(event);
-          break;
-        case SDL_MOUSEBUTTONUP:
+    while (SDL_PollEvent(&event) != 0) {
+      ImGui_ImplSDL2_ProcessEvent(&event);
 
-          if (it->onMouseButtonUp(event))
-          {
-            mainMenuLoop = false;
-          }
-          break;
-        case SDL_MOUSEMOTION:
-          it->onMouseMove(event);
-
-          // if the mouse cursor left an element, we're not hovering any more and we need to reset the pointer to the last hovered
-          if (m_lastHoveredElement && !m_lastHoveredElement->isMouseOverHoverableArea(event.button.x, event.button.y))
-          {
-            m_lastHoveredElement->onMouseLeave(event);
-            m_lastHoveredElement = nullptr;
-          }
-
-          // if the element we're hovering over is not the same as the stored "lastHoveredElement", update it
-          if (it->isMouseOverHoverableArea(event.button.x, event.button.y) && it != m_lastHoveredElement)
-          {
-            it->onMouseMove(event);
-
-            if (m_lastHoveredElement != nullptr)
-            {
-              m_lastHoveredElement->onMouseLeave(event);
-            }
-            m_lastHoveredElement = it;
-            it->onMouseEnter(event);
-          }
-          break;
-        default:;
-        }
+      if (event.type == SDL_QUIT) {
+        startGame = false;
+        mainMenuLoop = false;
       }
     }
 
-    for (const auto &element : uiElements)
+    // main logic render widgets in main menu
     {
-      element->draw();
+      ui::PushFont(buttonFont);
+      ui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
+
+      ui::SetCursorPos(logoImgPos);
+      ui::Image(logoTex, ImVec2(logoTexW, logoTexH));
+
+      constexpr ImVec2 buttonSize(200, 40);
+      constexpr int buttonInterval = 20;
+      ImVec2 buttonPos(screenWidth / 2 - buttonSize.x / 2, screenHeight / 2 - buttonSize.y);
+      ui::SetCursorPos(buttonPos);
+      if (ui::ButtonCt("New Game", { 200, 40 })) {
+  #ifdef USE_AUDIO
+        playAudioMajorSelection();
+  #endif //  USE_AUDIO 
+        mainMenuLoop = false;
+        SignalMediator::instance().signalNewGame.emit(true);
+      }
+
+      buttonPos.y += buttonSize.y + buttonInterval;
+      ui::SetCursorPos(buttonPos);
+      if (ui::ButtonCt("Load Game", { 200, 40 })) {
+  #ifdef USE_AUDIO
+        playAudioMajorSelection();
+  #endif //  USE_AUDIO 
+        SignalMediator::instance().signalLoadGame.emit("save.cts");
+        mainMenuLoop = false;
+      }
+
+      buttonPos.y += buttonSize.y + buttonInterval;
+      ui::SetCursorPos(buttonPos);
+      if (ui::ButtonCt("Quit Game", { 200, 40 })) {
+        startGame = false;
+        mainMenuLoop = false;
+      }
+
+      constexpr int xOffset = 5, btnSize = 32;
+      ImVec2 leftBottom(xOffset, screenHeight - btnSize - xOffset * 2);
+      ui::SetCursorPos(leftBottom);
+      if (ui::ImageButton(discordTex, ImVec2(btnSize, btnSize))) {
+        OSystem::openDir("https://discord.gg/MG3tgYV6ce");
+      }
+
+      leftBottom.x += xOffset * 2 + btnSize; // xOffset * 2 because, need interval between buttons
+      ui::SetCursorPos(leftBottom);
+      if (ui::ImageButton(githubTex, ImVec2(btnSize, btnSize))) {
+        OSystem::openDir("https://github.com/CytopiaTeam/Cytopia/issues/new");
+      }
+
+      ui::PopFont();
+      ui::PopStyleVar(1);
+    }
+
+    {
+      constexpr ImVec2 fpsTextPos(5, 5);
+      ui::SetCursorPos(fpsTextPos);
+      ui::Text("[%.1f FPS]", ui::GetIO().Framerate);
+
+      ImVec2 textSize = ImGui::CalcTextSize(VERSION);
+      const ImVec2 versionPos(screenWidth - textSize.x - 10, screenHeight - textSize.y - 10);
+      ui::SetCursorPos(versionPos);
+      ui::Text(VERSION);
     }
 
     DiscordRpc::processCallback();
-
-    // reset renderer color back to black
-    SDL_SetRenderDrawColor(WindowManager::instance().getRenderer(), 0, 0, 0, SDL_ALPHA_OPAQUE);
-    SDL_RenderPresent(WindowManager::instance().getRenderer());
+    renderFrame();
   }
 
   return startGame;

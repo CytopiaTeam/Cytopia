@@ -160,6 +160,7 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE ${_compile_definitions})
 
 target_link_libraries(
         ${PROJECT_NAME} PRIVATE
+        IMGUI
         LIBPNG::LIBPNG
         SDL::SDL
         SDL::TTF

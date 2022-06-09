@@ -5,6 +5,10 @@
 #include "basics/Settings.hxx"
 #include "Filesystem.hxx"
 
+#include "imgui.h"
+#include "imgui_impl_sdl.h"
+#include "imgui_impl_sdlrenderer.h"
+
 #include <SDL_image.h>
 
 WindowManager::WindowManager()
@@ -32,20 +36,19 @@ WindowManager::WindowManager()
   if (!m_window)
     throw UIError(TRACE_INFO "Failed to create window: " + string{SDL_GetError()});
 
-  if (Settings::instance().vSync)
-  {
-    rendererFlags = SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC;
-  }
-  else
-  {
-    rendererFlags = SDL_RENDERER_ACCELERATED;
-  }
+  rendererFlags = SDL_RENDERER_ACCELERATED
+                      | (Settings::instance().vSync ? SDL_RENDERER_PRESENTVSYNC : 0);
+
 #if defined(TESTING_ENABLED) && defined(__linux)
   // Set the index to 2 for running tests
   m_renderer = SDL_CreateRenderer(m_window, 2, rendererFlags);
 #else
   m_renderer = SDL_CreateRenderer(m_window, -1, rendererFlags);
 #endif
+
+  SDL_RendererInfo info;
+  SDL_GetRendererInfo(m_renderer, &info);
+  LOG(LOG_DEBUG) << "Current SDL_Renderer: " << info.name;
 
   if (!m_renderer)
     throw UIError(TRACE_INFO "Failed to create Renderer: " + string{SDL_GetError()});
@@ -65,10 +68,14 @@ WindowManager::WindowManager()
   m_numOfDisplays = SDL_GetNumVideoDisplays();
   initializeScreenResolutions();
   setFullScreenMode(static_cast<FULLSCREEN_MODE>(Settings::instance().fullScreenMode));
+
+  initializeImguiRenderer();
 }
 
 WindowManager::~WindowManager()
 {
+  destroyImGuiRenderer();
+
   SDL_DestroyRenderer(m_renderer);
   SDL_DestroyWindow(m_window);
 }
@@ -160,6 +167,25 @@ void WindowManager::initializeScreenResolutions()
   }
 }
 
+void WindowManager::initializeImguiRenderer()
+{
+  // create context and default theme
+  IMGUI_CHECKVERSION();
+  ImGui::CreateContext();
+  ImGui::StyleColorsDark();
+
+  // Setup Platform/Renderer backends
+  ImGui_ImplSDL2_InitForSDLRenderer(m_window, m_renderer);
+  ImGui_ImplSDLRenderer_Init(m_renderer);
+}
+
+void WindowManager::destroyImGuiRenderer() 
+{
+  ImGui_ImplSDLRenderer_Shutdown();
+  ImGui_ImplSDL2_Shutdown();
+  ImGui::DestroyContext();
+}
+
 void WindowManager::setScreenResolution(int mode)
 {
   // check if the desired mode exists first
@@ -196,11 +222,21 @@ void WindowManager::setScreenResolution(int mode)
   }
 }
 
+void WindowManager::newImGuiFrame()
+{
+  ImGui_ImplSDLRenderer_NewFrame();
+  ImGui_ImplSDL2_NewFrame();
+  ImGui::NewFrame(); 
+}
+
 void WindowManager::renderScreen()
 {
   // reset renderer color back to black
-  SDL_SetRenderDrawColor(WindowManager::instance().getRenderer(), 0, 0, 0, SDL_ALPHA_OPAQUE);
+  SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
+
+  ImGui::Render();
+  ImGui_ImplSDLRenderer_RenderDrawData(ImGui::GetDrawData());
 
   // Render the Frame
-  SDL_RenderPresent(WindowManager::instance().getRenderer());
+  SDL_RenderPresent(m_renderer);
 }
