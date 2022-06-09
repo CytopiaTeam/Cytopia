@@ -1,10 +1,10 @@
-name: Build game
+name: Build
 
 on: [ push, pull_request ]
 
 jobs:
   build-msvc:
-    name: Build Windows
+    name: Windows
     env:
       SCCACHE_DIR: C:\sccache
       SCCACHE_CACHE_SIZE: 500M
@@ -67,7 +67,7 @@ jobs:
         run: conan remove "*" -fsb
 
   build-gcc:
-    name: Build Linux
+    name: Linux
     env:
       sccache_CACHE_SIZE: 500M
       CONAN_SYSREQUIRES_MODE: "enabled"
@@ -137,7 +137,7 @@ jobs:
         run: conan remove "*" -fsb
 
   build-appleclang:
-    name: Build Mac
+    name: MacOS
     env:
       SCCACHE_CACHE_SIZE: 500M
     runs-on: macos-latest
