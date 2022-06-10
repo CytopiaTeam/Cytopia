@@ -5767,7 +5767,28 @@ void ImGui::RenderWindowDecorations(ImGuiWindow* window, const ImRect& title_bar
             }
             if (override_alpha)
                 bg_col = (bg_col & ~IM_COL32_A_MASK) | (IM_F32_TO_INT8_SAT(alpha) << IM_COL32_A_SHIFT);
-            window->DrawList->AddRectFilled(window->Pos + ImVec2(0, window->TitleBarHeight()), window->Pos + window->Size, bg_col, window_rounding, (flags & ImGuiWindowFlags_NoTitleBar) ? 0 : ImDrawFlags_RoundCornersBottom);
+            if (flags & ImGuiWindowFlags_CtBackground)
+            {
+              const uint8_t bgColor = 128;
+              const uint8_t bgColorFrame = 150;
+              const uint8_t bgColorFrameShade = 172;
+
+              window->DrawList->AddRectFilled(window->Pos, window->Pos + window->Size, ImColor(bgColorFrame, bgColorFrame, bgColorFrame), 0.f, 0);
+              window->DrawList->AddRectFilled(window->Pos + ImVec2(2, 2), window->Pos + window->Size - ImVec2(2, 2), ImColor(bgColorFrameShade, bgColorFrameShade, bgColorFrameShade), 0.f, 0);
+
+              if (window->Size.y >= 8 && window->Size.x >= 4)
+              {
+                window->DrawList->AddRectFilled(window->Pos + ImVec2(4, 4), window->Pos + window->Size - ImVec2(4, 4), ImColor(bgColorFrame, bgColorFrame, bgColorFrame), 0.f, 0);
+              }
+              if (window->Size.y >= 12 && window->Size.x >= 6)
+              {
+                window->DrawList->AddRectFilled(window->Pos + ImVec2(6, 6), window->Pos + window->Size - ImVec2(6, 6), ImColor(bgColor, bgColor, bgColor), 0.f, 0);
+              }
+            }
+            else
+            {
+              window->DrawList->AddRectFilled(window->Pos + ImVec2(0, window->TitleBarHeight()), window->Pos + window->Size, bg_col, window_rounding, (flags & ImGuiWindowFlags_NoTitleBar) ? 0 : ImDrawFlags_RoundCornersBottom);
+            }
         }
 
         // Title bar
@@ -5948,6 +5969,10 @@ static ImGuiWindow* ImGui::FindBlockingModal(ImGuiWindow* window)
                 return popup_window;                                // Place window above its begin stack parent.
     }
     return NULL;
+}
+
+bool ImGui::BeginCt(const char* name, bool* p_open, ImGuiWindowFlags flags) {
+  return ImGui::Begin(name, p_open, flags | ImGuiWindowFlags_CtBackground);
 }
 
 // Push a new Dear ImGui window to add widgets to.
