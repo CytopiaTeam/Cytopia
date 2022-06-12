@@ -66,13 +66,12 @@ public:
   void parseElements(const json &uiLayout);
   /**
  * @brief Fill UI Widgets whose ID start with a $ with data
- * Used for filling widgets with data, like BuildMenu Position combobox, Screen Resolution ComboBox and so on
+ * @details Used for filling widgets with data, like BuildMenu Position combobox, Screen Resolution ComboBox and so on
  */
   void initializeDollarVariables();
 
   /**
   * @brief Renders all UI Widgets
-  * 
   */
   void drawUI() const;
 
@@ -89,7 +88,6 @@ public:
 
   /**
  * @brief Toggle Visibility of Debug Menu
- * 
  */
   void toggleDebugMenu() { m_showDebugMenu = !m_showDebugMenu; };
 
@@ -227,6 +225,8 @@ private:
   void addToLayoutGroup(const std::string &groupName, UIElement *widget);
 
   bool m_showDebugMenu = false;
+
+  /// pointer to the default font used for in-game text
   struct ImFont *fontDefault = nullptr;
 };
 

@@ -93,7 +93,6 @@ bool mainMenu()
     ui::Image(logoTex, ImVec2(logoTexW, logoTexH), ImVec2(0, 0), ImVec2(1, 1), ImVec4{op, op, op, op});
     ui::PopStyleVar(1);
 
-
     renderFrame();
   }
 
@@ -102,7 +101,7 @@ bool mainMenu()
   {
     beginFrame();
 
-    while (SDL_PollEvent(&event) != 0) {
+    while (SDL_PollEvent(&event) != 0) { // while there is a pending event
       ImGui_ImplSDL2_ProcessEvent(&event);
 
       if (event.type == SDL_QUIT) {
@@ -165,19 +164,18 @@ bool mainMenu()
       ui::PopStyleVar(1);
     }
 
-    {
-      constexpr ImVec2 fpsTextPos(5, 5);
-      ui::SetCursorPos(fpsTextPos);
-      ui::Text("[%.1f FPS]", ui::GetIO().Framerate);
+    /* FPS counter.*/
+    /** @TODO remove or alter to use existing fps counter from debug menu */
+    constexpr ImVec2 fpsTextPos(5, 5);
+    ui::SetCursorPos(fpsTextPos);
+    ui::Text("[%.1f FPS]", ui::GetIO().Framerate);
 
-      ImVec2 textSize = ImGui::CalcTextSize(VERSION);
-      const ImVec2 versionPos(screenWidth - textSize.x - 10, screenHeight - textSize.y - 10);
-      ui::SetCursorPos(versionPos);
-      ui::Text(VERSION);
-    }
+    ImVec2 textSize = ImGui::CalcTextSize(VERSION);
+    const ImVec2 versionPos(screenWidth - textSize.x - 10, screenHeight - textSize.y - 10);
+    ui::SetCursorPos(versionPos);
+    ui::Text(VERSION);
 
     renderFrame();
   }
-
   return startGame;
 }
