@@ -6,7 +6,6 @@
 #include <SignalMediator.hxx>
 #include <SDL.h>
 #include "engine/UIManager.hxx"
-#include "engine/ui/widgets/Image.hxx"
 #include "engine/basics/Settings.hxx"
 #include "OSystem.hxx"
 
