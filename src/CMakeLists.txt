@@ -87,7 +87,16 @@ if (USE_ANGELSCRIPT)
             ${CMAKE_SOURCE_DIR}/external/as_add_on/scriptbuilder/scriptbuilder.h
             ${CMAKE_SOURCE_DIR}/external/as_add_on/scriptstdstring/scriptstdstring.h
             ${CMAKE_SOURCE_DIR}/external/as_add_on/scriptstdstring/scriptstdstring.cpp
+            ${CMAKE_SOURCE_DIR}/external/as_add_on/scriptarray/scriptarray.h
+            ${CMAKE_SOURCE_DIR}/external/as_add_on/scriptarray/scriptarray.cpp
+            ${CMAKE_SOURCE_DIR}/external/as_add_on/scriptdictionary/scriptdictionary.h
+            ${CMAKE_SOURCE_DIR}/external/as_add_on/scriptdictionary/scriptdictionary.cpp
+            ${CMAKE_SOURCE_DIR}/external/as_add_on/scriptmath/scriptmath.h
+            ${CMAKE_SOURCE_DIR}/external/as_add_on/scriptmath/scriptmath.cpp
+            ${CMAKE_SOURCE_DIR}/external/as_add_on/scriptmath/scriptmathcomplex.h
+            ${CMAKE_SOURCE_DIR}/external/as_add_on/scriptmath/scriptmathcomplex.cpp
             Scripting/ScriptEngine.{hxx,cxx}
+            Scripting/ImGuiAngelscript.cxx
             )
 endif ()
 

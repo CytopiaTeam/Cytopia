@@ -164,6 +164,9 @@ void Game::run(bool SkipMenu)
       WindowManager::instance().newImGuiFrame();
       uiManager.drawUI();
     }
+#ifdef USE_ANGELSCRIPT
+    ScriptEngine::instance().framestep(1);
+#endif
 
     // we need to instantiate the MapFunctions object so it's ready for new game
     WindowManager::instance().renderScreen();
