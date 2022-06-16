@@ -95,8 +95,8 @@ if (USE_ANGELSCRIPT)
             ${CMAKE_SOURCE_DIR}/external/as_add_on/scriptmath/scriptmath.cpp
             ${CMAKE_SOURCE_DIR}/external/as_add_on/scriptmath/scriptmathcomplex.h
             ${CMAKE_SOURCE_DIR}/external/as_add_on/scriptmath/scriptmathcomplex.cpp
-            Scripting/ScriptEngine.{hxx,cxx}
-            Scripting/ImGuiAngelscript.cxx
+            scripting/ScriptEngine.{hxx,cxx}
+            scripting/ImGuiAngelscript.cxx
             )
 endif ()
 
