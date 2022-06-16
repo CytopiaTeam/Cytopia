@@ -40,6 +40,13 @@ LIST(APPEND TEST_SOURCES
         util/LOG.cxx
         )
 
+if (USE_ANGELSCRIPT)
+    list(APPEND TEST_SOURCES
+            scripting/ScriptEngine.cxx
+            )
+endif ()
+
+
 # Generate source groups for use in IDEs
 generate_source_groups(${TEST_SOURCES})
 
@@ -62,18 +69,19 @@ target_include_directories(
         src
         ${CMAKE_SOURCE_DIR}/external/catch2
         ${CMAKE_SOURCE_DIR}/src/engine
+        ${CMAKE_SOURCE_DIR}/src/engine/GameObjects
         ${CMAKE_SOURCE_DIR}/src/engine/basics
         ${CMAKE_SOURCE_DIR}/src/engine/common
-        ${CMAKE_SOURCE_DIR}/src/engine/GameObjects
         ${CMAKE_SOURCE_DIR}/src/engine/map
-        ${CMAKE_SOURCE_DIR}/src/engine/ui/basics/
-        ${CMAKE_SOURCE_DIR}/src/engine/ui/widgets
+        ${CMAKE_SOURCE_DIR}/src/engine/ui/basics
         ${CMAKE_SOURCE_DIR}/src/engine/ui/menuGroups
-        ${CMAKE_SOURCE_DIR}/src/util
+        ${CMAKE_SOURCE_DIR}/src/engine/ui/widgets
         ${CMAKE_SOURCE_DIR}/src/events
         ${CMAKE_SOURCE_DIR}/src/layout
         ${CMAKE_SOURCE_DIR}/src/model
+        ${CMAKE_SOURCE_DIR}/src/scripting
         ${CMAKE_SOURCE_DIR}/src/services
+        ${CMAKE_SOURCE_DIR}/src/util
 )
 
 target_compile_definitions(${TESTS_PROJECT_NAME} PRIVATE ${_compile_definitions} TESTING_ENABLED)

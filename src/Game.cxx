@@ -94,6 +94,7 @@ void Game::run(bool SkipMenu)
 #ifdef USE_ANGELSCRIPT
   ScriptEngine &scriptEngine = ScriptEngine::instance();
   scriptEngine.init();
+  scriptEngine.loadScript(fs::getBasePath() + "/resources/test.as", ScriptCategory::BUILD_IN);
 #endif
 
 #ifdef USE_AUDIO

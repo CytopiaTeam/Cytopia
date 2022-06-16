@@ -62,8 +62,6 @@ void ScriptEngine::init()
   assert(r >= 0);
 
   context = engine->CreateContext();
-
-  r = loadScript(fs::getBasePath() + "/resources/test.as", ScriptCategory::BUILD_IN);
 }
 
 int ScriptEngine::framestep(float dt)

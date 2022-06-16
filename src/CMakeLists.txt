@@ -202,18 +202,18 @@ if (USE_ANGELSCRIPT)
 endif ()
 
 if (ENABLE_ASAN)
-	target_compile_options(${PROJECT_NAME} PUBLIC -fsanitize=address -fno-sanitize-recover=all)
-	target_link_options(${PROJECT_NAME} PUBLIC -fsanitize=address)
+    target_compile_options(${PROJECT_NAME} PUBLIC -fsanitize=address -fno-sanitize-recover=all)
+    target_link_options(${PROJECT_NAME} PUBLIC -fsanitize=address)
 endif ()
 
 if (ENABLE_UBSAN)
-	target_compile_options(${PROJECT_NAME} PUBLIC -fsanitize=undefined -fno-sanitize-recover=all)
-	target_link_options(${PROJECT_NAME} PUBLIC -fsanitize=undefined)
+    target_compile_options(${PROJECT_NAME} PUBLIC -fsanitize=undefined -fno-sanitize-recover=all)
+    target_link_options(${PROJECT_NAME} PUBLIC -fsanitize=undefined)
 endif ()
 
 if (ENABLE_TSAN)
-	target_compile_options(${PROJECT_NAME} PUBLIC -fsanitize=thread -fno-sanitize-recover=all)
-	target_link_options(${PROJECT_NAME} PUBLIC -fsanitize=thread)
+    target_compile_options(${PROJECT_NAME} PUBLIC -fsanitize=thread -fno-sanitize-recover=all)
+    target_link_options(${PROJECT_NAME} PUBLIC -fsanitize=thread)
 endif ()
 
 
