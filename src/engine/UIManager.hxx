@@ -64,11 +64,6 @@ public:
   void loadSettings(json& uiLayout);
   void parseLayouts(const json &uiLayout);
   void parseElements(const json &uiLayout);
-  /**
- * @brief Fill UI Widgets whose ID start with a $ with data
- * Used for filling widgets with data, like BuildMenu Position combobox, Screen Resolution ComboBox and so on
- */
-  void initializeDollarVariables();
 
   /**
   * @brief Renders all UI Widgets
@@ -99,13 +94,6 @@ public:
  * @param fps 
  */
   void setFPSCounterText(const std::string &fps) const;
-
-  /**
- * @brief CallbackFunction that sets the Build Menu Position 
- * @details Used as callback function for the ComboBox that holds the Build Menu position
- * @param sender ComboBox that called the function
- */
-  void setBuildMenuPosition(UIElement *sender);
 
   /**
  * @brief Get all Ui Element objects
@@ -156,9 +144,6 @@ public:
   void startTooltip(SDL_Event &event, const std::string &tooltipText) const;
   void stopTooltip() const;
 
-  void changeResolution(UIElement *sender);
-  void changeFullScreenMode(UIElement *sender);
-
   /**
  * @brief Close all open menus but the build menu
  */
@@ -171,6 +156,9 @@ public:
 
   void closeMenu();
   inline bool isAnyMenuOpen() const { return !m_menuStack.empty(); }
+
+  BUILDMENU_LAYOUT buildMenuLayout() const { return m_buildMenuLayout; }
+  void setBuildMenuLayout(BUILDMENU_LAYOUT layout);
 
 private:
   BUILDMENU_LAYOUT m_buildMenuLayout = BUILDMENU_LAYOUT::BOTTOM;
@@ -215,7 +203,6 @@ private:
    */
   void scaleCenterButtonImage(SDL_Rect &ret, int btnW, int btnH, int imgW, int imgH);
   void createBuildMenu();
-  void setBuildMenuLayout();
 
   /**
    * @brief Draws the tile (defined by the string, tiledata pair) onto the button
