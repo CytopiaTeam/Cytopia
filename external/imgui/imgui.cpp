@@ -1052,6 +1052,7 @@ ImGuiStyle::ImGuiStyle()
     FramePadding            = ImVec2(4,3);      // Padding within a framed rectangle (used by most widgets)
     FrameRounding           = 0.0f;             // Radius of frame corners rounding. Set to 0.0f to have rectangular frames (used by most widgets).
     FrameBorderSize         = 0.0f;             // Thickness of border around frames. Generally set to 0.0f or 1.0f. Other values not well tested.
+    FrameCtBorderSize       = 4.0f;             // Thickness of border around frames. Generally set to 0.0f or 1.0f. Other values not well tested.
     ItemSpacing             = ImVec2(8,4);      // Horizontal and vertical spacing between widgets/lines
     ItemInnerSpacing        = ImVec2(4,4);      // Horizontal and vertical spacing between within elements of a composed widget (e.g. a slider and its label)
     CellPadding             = ImVec2(4,2);      // Padding within a table cell
@@ -2839,6 +2840,7 @@ static const ImGuiStyleVarInfo GStyleVarInfo[] =
     { ImGuiDataType_Float, 1, (ImU32)IM_OFFSETOF(ImGuiStyle, TabRounding) },         // ImGuiStyleVar_TabRounding
     { ImGuiDataType_Float, 2, (ImU32)IM_OFFSETOF(ImGuiStyle, ButtonTextAlign) },     // ImGuiStyleVar_ButtonTextAlign
     { ImGuiDataType_Float, 2, (ImU32)IM_OFFSETOF(ImGuiStyle, SelectableTextAlign) }, // ImGuiStyleVar_SelectableTextAlign
+    { ImGuiDataType_Float, 1, (ImU32)IM_OFFSETOF(ImGuiStyle, FrameCtBorderSize) }    // ImGuiStyleVar_FrameCtBorderSize
 };
 
 static const ImGuiStyleVarInfo* GetStyleVarInfo(ImGuiStyleVar idx)
@@ -2917,7 +2919,9 @@ const char* ImGui::GetStyleColorName(ImGuiCol idx)
     case ImGuiCol_ScrollbarGrabActive: return "ScrollbarGrabActive";
     case ImGuiCol_CheckMark: return "CheckMark";
     case ImGuiCol_SliderGrab: return "SliderGrab";
+    case ImGuiCol_SliderCtGrab: return "SliderCtGrab";
     case ImGuiCol_SliderGrabActive: return "SliderGrabActive";
+    case ImGuiCol_SliderCtGrabActive: return "SliderCtGrabActive";
     case ImGuiCol_Button: return "Button";
     case ImGuiCol_ButtonHovered: return "ButtonHovered";
     case ImGuiCol_ButtonActive: return "ButtonActive";
@@ -5767,7 +5771,28 @@ void ImGui::RenderWindowDecorations(ImGuiWindow* window, const ImRect& title_bar
             }
             if (override_alpha)
                 bg_col = (bg_col & ~IM_COL32_A_MASK) | (IM_F32_TO_INT8_SAT(alpha) << IM_COL32_A_SHIFT);
-            window->DrawList->AddRectFilled(window->Pos + ImVec2(0, window->TitleBarHeight()), window->Pos + window->Size, bg_col, window_rounding, (flags & ImGuiWindowFlags_NoTitleBar) ? 0 : ImDrawFlags_RoundCornersBottom);
+            if (flags & ImGuiWindowFlags_CtBackground)
+            {
+              const uint8_t bgColor = 128;
+              const uint8_t bgColorFrame = 150;
+              const uint8_t bgColorFrameShade = 172;
+
+              window->DrawList->AddRectFilled(window->Pos, window->Pos + window->Size, ImColor(bgColorFrame, bgColorFrame, bgColorFrame), 0.f, 0);
+              window->DrawList->AddRectFilled(window->Pos + ImVec2(2, 2), window->Pos + window->Size - ImVec2(2, 2), ImColor(bgColorFrameShade, bgColorFrameShade, bgColorFrameShade), 0.f, 0);
+
+              if (window->Size.y >= 8 && window->Size.x >= 4)
+              {
+                window->DrawList->AddRectFilled(window->Pos + ImVec2(4, 4), window->Pos + window->Size - ImVec2(4, 4), ImColor(bgColorFrame, bgColorFrame, bgColorFrame), 0.f, 0);
+              }
+              if (window->Size.y >= 12 && window->Size.x >= 6)
+              {
+                window->DrawList->AddRectFilled(window->Pos + ImVec2(6, 6), window->Pos + window->Size - ImVec2(6, 6), ImColor(bgColor, bgColor, bgColor), 0.f, 0);
+              }
+            }
+            else
+            {
+              window->DrawList->AddRectFilled(window->Pos + ImVec2(0, window->TitleBarHeight()), window->Pos + window->Size, bg_col, window_rounding, (flags & ImGuiWindowFlags_NoTitleBar) ? 0 : ImDrawFlags_RoundCornersBottom);
+            }
         }
 
         // Title bar
@@ -5948,6 +5973,10 @@ static ImGuiWindow* ImGui::FindBlockingModal(ImGuiWindow* window)
                 return popup_window;                                // Place window above its begin stack parent.
     }
     return NULL;
+}
+
+bool ImGui::BeginCt(const char* name, bool* p_open, ImGuiWindowFlags flags) {
+  return ImGui::Begin(name, p_open, flags | ImGuiWindowFlags_CtBackground);
 }
 
 // Push a new Dear ImGui window to add widgets to.

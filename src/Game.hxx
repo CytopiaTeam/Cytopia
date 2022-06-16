@@ -45,6 +45,7 @@ public:
     * @param SkipMenu if the main menu should be skipped or not
     */
   virtual void run(bool SkipMenu = false);
+  void drawPauseMenu() const;
 
   /** @brief ends the game
     * shuts down the game

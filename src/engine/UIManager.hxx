@@ -26,6 +26,13 @@ struct LayoutGroup
   LayoutData layout;                   ///< layout information @see LayoutData
 };
 
+// BaseClass for game menu, only one menu can show on frame
+struct GameMenu
+{
+  virtual ~GameMenu() = default;
+  virtual void draw() const = 0;
+};
+
 enum class BUILDMENU_LAYOUT
 {
   LEFT = 0,
@@ -51,14 +58,12 @@ public:
   void init();
   void initImGui();
 
-  void loadSettings(json &uiLayout);
+  struct ImFont *loadFont(const std::string &name, uint32_t size);
+  void initializeImGuiFonts();
+
+  void loadSettings(json& uiLayout);
   void parseLayouts(const json &uiLayout);
   void parseElements(const json &uiLayout);
-  /**
- * @brief Fill UI Widgets whose ID start with a $ with data
- * Used for filling widgets with data, like BuildMenu Position combobox, Screen Resolution ComboBox and so on
- */
-  void initializeDollarVariables();
 
   /**
   * @brief Renders all UI Widgets
@@ -66,6 +71,7 @@ public:
   */
   void drawUI() const;
 
+  void setGroupVisibility(const std::string &groupID, bool visible);
   /**
  * @brief Callback function for toggling the visibility of an UiGroup 
  * @details Callback function for Ui Widgets with the ActionID "ToggleVisiblityOfGroup".
@@ -88,13 +94,6 @@ public:
  * @param fps 
  */
   void setFPSCounterText(const std::string &fps) const;
-
-  /**
- * @brief CallbackFunction that sets the Build Menu Position 
- * @details Used as callback function for the ComboBox that holds the Build Menu position
- * @param sender ComboBox that called the function
- */
-  void setBuildMenuPosition(UIElement *sender);
 
   /**
  * @brief Get all Ui Element objects
@@ -145,13 +144,21 @@ public:
   void startTooltip(SDL_Event &event, const std::string &tooltipText) const;
   void stopTooltip() const;
 
-  void changeResolution(UIElement *sender);
-  void changeFullScreenMode(UIElement *sender);
-
   /**
  * @brief Close all open menus but the build menu
  */
   void closeOpenMenus();
+
+  void openMenu(std::shared_ptr<GameMenu> menuOption);
+
+  template<class Menu>
+  void openMenu() { openMenu(std::make_shared<Menu>()); }
+
+  void closeMenu();
+  inline bool isAnyMenuOpen() const { return !m_menuStack.empty(); }
+
+  BUILDMENU_LAYOUT buildMenuLayout() const { return m_buildMenuLayout; }
+  void setBuildMenuLayout(BUILDMENU_LAYOUT layout);
 
 private:
   BUILDMENU_LAYOUT m_buildMenuLayout = BUILDMENU_LAYOUT::BOTTOM;
@@ -179,6 +186,9 @@ private:
   /// Text element for the FPS Counter (debug menu)
   std::unique_ptr<Text> m_fpsCounter = std::make_unique<Text>();
 
+  std::unordered_map<std::string, ImFont *> m_loadedFonts;
+  std::vector<std::shared_ptr<GameMenu>> m_menuStack;
+
   void setCallbackFunctions();
 
   /**
@@ -193,7 +203,6 @@ private:
    */
   void scaleCenterButtonImage(SDL_Rect &ret, int btnW, int btnH, int imgW, int imgH);
   void createBuildMenu();
-  void setBuildMenuLayout();
 
   /**
    * @brief Draws the tile (defined by the string, tiledata pair) onto the button
