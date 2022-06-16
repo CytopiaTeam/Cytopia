@@ -322,7 +322,6 @@ void UIManager::parseElements(const json &uiLayout) {
   // set FPS Counter position
   m_fpsCounter->setPosition(40, 20);
 
-  initializeDollarVariables();
   createBuildMenu();
   setCallbackFunctions();
 
@@ -332,7 +331,7 @@ void UIManager::parseElements(const json &uiLayout) {
     m_uiElementsForEventHandling.push_back(it.second);
   }
 
-  setBuildMenuLayout();
+  setBuildMenuLayout(m_buildMenuLayout);
 
   Layout::arrangeElements();
 }
@@ -620,66 +619,6 @@ void UIManager::setCallbackFunctions()
         }
       }
     }
-    else if (uiElement->getUiElementData().actionID == "ResetSettings")
-    {
-      uiElement->registerCallbackFunction([]() { Settings::instance().resetSettingsToDefaults(); });
-    }
-    else if (uiElement->getUiElementData().actionID == "CancelSettings")
-    {
-      uiElement->registerCallbackFunction(
-          [this]()
-          {
-            UIManager::instance().closeMenu();
-            Settings::instance().readFile();
-            for (const auto &it : getAllUiElements())
-            {
-              if (utils::strings::startsWith(it->getUiElementData().elementID, "$"))
-              {
-                if (it->getUiElementData().elementID == "$BuildMenuLayout")
-                {
-                  ComboBox *combobox = dynamic_cast<ComboBox *>(it.get());
-                  if (Settings::instance().buildMenuPosition == "LEFT")
-                  {
-                    combobox->setActiveID(static_cast<int>(BUILDMENU_LAYOUT::LEFT));
-                    m_buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(BUILDMENU_LAYOUT::LEFT));
-                  }
-                  else if (Settings::instance().buildMenuPosition == "RIGHT")
-                  {
-                    combobox->setActiveID(static_cast<int>(BUILDMENU_LAYOUT::RIGHT));
-                    m_buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(BUILDMENU_LAYOUT::RIGHT));
-                  }
-                  else if (Settings::instance().buildMenuPosition == "TOP")
-                  {
-                    combobox->setActiveID(static_cast<int>(BUILDMENU_LAYOUT::TOP));
-                    m_buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(BUILDMENU_LAYOUT::TOP));
-                  }
-                  else if (Settings::instance().buildMenuPosition == "BOTTOM")
-                  {
-                    combobox->setActiveID(static_cast<int>(BUILDMENU_LAYOUT::BOTTOM));
-                    m_buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(BUILDMENU_LAYOUT::BOTTOM));
-                  }
-                }
-                else if (it->getUiElementData().elementID == "$ScreenResolutionSelector")
-                {
-                  // TODO: Come back to this when screen resolution is fixed
-                }
-                else if (it->getUiElementData().elementID == "$FullScreenSelector")
-                {
-                  // This must be a ComboBox
-                  ComboBox *combobox = dynamic_cast<ComboBox *>(it.get());
-                  combobox->setActiveID(Settings::instance().fullScreenMode);
-                }
-                else if (it->getUiElementData().elementID == "$MusicVolumeSlider")
-                {
-#ifdef USE_AUDIO
-                  Slider *slider = dynamic_cast<Slider *>(it.get());
-                  slider->setValue(Settings::instance().musicVolume * 100);
-#endif
-                }
-              }
-            }
-          });
-    }
   }
 }
 
@@ -926,11 +865,13 @@ void UIManager::createBuildMenu()
     }
   }
 
-  setBuildMenuLayout();
+  setBuildMenuLayout(m_buildMenuLayout);
 }
 
-void UIManager::setBuildMenuLayout()
+void UIManager::setBuildMenuLayout(BUILDMENU_LAYOUT layoutIdx)
 {
+  m_buildMenuLayout = layoutIdx;
+
   std::string subMenuSuffix = "_sub";
   std::string alignment = "BOTTOM_CENTER";
   std::string layoutType = "HORIZONTAL";
@@ -985,162 +926,6 @@ void UIManager::setBuildMenuLayout()
   layout.padding = 16;
 }
 
-void UIManager::initializeDollarVariables()
-{
-  // get all elements that start with a dollar.
-  for (const auto &it : getAllUiElements())
-  {
-    if (utils::strings::startsWith(it->getUiElementData().elementID, "$"))
-    {
-      if (it->getUiElementData().elementID == "$BuildMenuLayout")
-      {
-        // This must be a ComboBox
-        ComboBox *combobox = dynamic_cast<ComboBox *>(it.get());
-
-        if (!combobox)
-        {
-          LOG(LOG_WARNING) << "Can not use element ID $BuildMenuLayout for an element other than a combobox!";
-          continue;
-        }
-
-        combobox->clear();
-        combobox->addElement("LEFT");
-        combobox->addElement("RIGHT");
-        combobox->addElement("TOP");
-        combobox->addElement("BOTTOM");
-
-        // Load the option from existing settings
-        // TODO: #97 Ugly workaround until we have BetterEnums
-        if (Settings::instance().buildMenuPosition == "LEFT")
-        {
-          combobox->setActiveID(static_cast<int>(BUILDMENU_LAYOUT::LEFT));
-          m_buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(BUILDMENU_LAYOUT::LEFT));
-        }
-        else if (Settings::instance().buildMenuPosition == "RIGHT")
-        {
-          combobox->setActiveID(static_cast<int>(BUILDMENU_LAYOUT::RIGHT));
-          m_buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(BUILDMENU_LAYOUT::RIGHT));
-        }
-        else if (Settings::instance().buildMenuPosition == "TOP")
-        {
-          combobox->setActiveID(static_cast<int>(BUILDMENU_LAYOUT::TOP));
-          m_buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(BUILDMENU_LAYOUT::TOP));
-        }
-        else if (Settings::instance().buildMenuPosition == "BOTTOM")
-        {
-          combobox->setActiveID(static_cast<int>(BUILDMENU_LAYOUT::BOTTOM));
-          m_buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(static_cast<int>(BUILDMENU_LAYOUT::BOTTOM));
-        }
-
-        combobox->registerCallbackFunction(Signal::slot(this, &UIManager::setBuildMenuPosition));
-      }
-      else if (it->getUiElementData().elementID == "$ScreenResolutionSelector")
-      {
-        // This must be a ComboBox
-        ComboBox *combobox = dynamic_cast<ComboBox *>(it.get());
-
-        if (!combobox)
-        {
-          LOG(LOG_WARNING) << "Can not use element ID $BuildMenuLayout for an element other than a combobox!";
-          continue;
-        }
-
-        combobox->clear();
-        for (const auto &mode : WindowManager::instance().getSupportedScreenResolutions())
-        {
-          std::string resolution = std::to_string(mode->w) + " x " + std::to_string(mode->h);
-          combobox->addElement(resolution);
-          // check if the added element is the active screen resolution
-          if (Settings::instance().screenHeight == mode->h && Settings::instance().screenWidth == mode->w)
-          {
-            combobox->setActiveID(static_cast<int>(combobox->count() - 1));
-          }
-        }
-
-        combobox->registerCallbackFunction(Signal::slot(this, &UIManager::changeResolution));
-      }
-      else if (it->getUiElementData().elementID == "$VSYNCButton")
-      {
-        Checkbox *checkbox = dynamic_cast<Checkbox *>(it.get());
-
-        if (!checkbox)
-        {
-          LOG(LOG_WARNING) << "Can't use element ID VSYNC for an element other than a checkbox!";
-          continue;
-        }
-        checkbox->setCheckState(Settings::instance().vSync);
-
-        checkbox->registerCallbackFunction(
-            [](UIElement *sender)
-            {
-              Checkbox *checkbox = dynamic_cast<Checkbox *>(sender);
-
-              if (checkbox)
-              {
-                Settings::instance().vSync = checkbox->getCheckState();
-
-                return;
-              }
-            });
-      }
-      else if (it->getUiElementData().elementID == "$FullScreenSelector")
-      {
-        // This must be a ComboBox
-        ComboBox *combobox = dynamic_cast<ComboBox *>(it.get());
-
-        if (!combobox)
-        {
-          LOG(LOG_WARNING) << "Can't use element ID FullScreenSelector for an element other than a combobox!";
-          continue;
-        }
-
-        combobox->clear();
-        combobox->addElement("WINDOWED");
-        combobox->addElement("BORDERLESS");
-        combobox->addElement("FULLSCREEN");
-
-        combobox->setActiveID(Settings::instance().fullScreenMode);
-        combobox->registerCallbackFunction(Signal::slot(this, &UIManager::changeFullScreenMode));
-      }
-      else if (it->getUiElementData().elementID == "$MusicVolumeSlider")
-      {
-#ifdef USE_AUDIO
-        Slider *slider = dynamic_cast<Slider *>(it.get());
-
-        if (!slider)
-        {
-          LOG(LOG_WARNING) << "Can't use element ID MusicVolumeSlider for an element other than a slider!";
-          continue;
-        }
-
-        slider->setValue(Settings::instance().musicVolume * 100);
-        slider->registerOnValueChanged(
-            [](int sliderValue)
-            {
-              const float musicVolume = static_cast<float>(sliderValue / 100.0f);
-              AudioMixer::instance().setMusicVolume(musicVolume);
-            });
-#endif // USE_AUDIO
-      }
-    }
-  }
-}
-
-void UIManager::setBuildMenuPosition(UIElement *sender)
-{
-  ComboBox *comboBox = dynamic_cast<ComboBox *>(sender);
-
-  if (comboBox)
-  {
-    Settings::instance().buildMenuPosition = comboBox->getActiveText();
-    m_buildMenuLayout = static_cast<BUILDMENU_LAYOUT>(comboBox->getActiveID());
-    setBuildMenuLayout();
-    Layout::arrangeElements();
-  }
-  else
-    throw UIError(TRACE_INFO "Only a combobox can have setBuildMenuPosition() as callback function");
-}
-
 void UIManager::addToLayoutGroup(const std::string &groupName, UIElement *widget)
 {
   if (widget)
@@ -1148,23 +933,4 @@ void UIManager::addToLayoutGroup(const std::string &groupName, UIElement *widget
     widget->setLayoutGroupName(groupName);
     m_layoutGroups[groupName].uiElements.push_back(widget);
   }
-}
-
-void UIManager::changeResolution(UIElement *sender)
-{
-  ComboBox *combobox = dynamic_cast<ComboBox *>(sender);
-  WindowManager::instance().setScreenResolution(combobox->getActiveID());
-  Layout::arrangeElements();
-
-  MapFunctions::instance().refreshVisibleMap();
-}
-
-void UIManager::changeFullScreenMode(UIElement *sender)
-{
-  ComboBox *combobox = dynamic_cast<ComboBox *>(sender);
-  WindowManager::instance().setFullScreenMode(static_cast<FULLSCREEN_MODE>(combobox->getActiveID()));
-  // WindowManager::instance().setLastScreenResolution();
-  Layout::arrangeElements();
-
-  MapFunctions::instance().refreshVisibleMap();
 }
