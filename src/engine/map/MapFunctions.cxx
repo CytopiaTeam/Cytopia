@@ -13,10 +13,7 @@
 #include <set>
 #include <queue>
 
-MapFunctions::MapFunctions()
-{
-  SignalMediator::instance().registerCbSaveGame(Signal::slot(this, &MapFunctions::saveMapToFile));
-}
+MapFunctions::MapFunctions() { SignalMediator::instance().registerCbSaveGame(Signal::slot(this, &MapFunctions::saveMapToFile)); }
 
 bool MapFunctions::updateHeight(Point coordinate, const bool elevate)
 {
@@ -120,7 +117,7 @@ void MapFunctions::updateNodeNeighbors(const std::vector<Point> &nodes)
 
           if (std::abs(heightDiff) > 1)
           {
-            updatedNodes.push(getMapNode(neighborCoords).getCoordinates());
+            updatedNodes.push(neighborCoords);
             updateHeight(neighborCoords, (heightDiff > 1) ? true : false);
           }
         }
@@ -194,19 +191,19 @@ std::vector<NeighborNode> MapFunctions::getNeighborNodes(const Point &isoCoordin
   return neighbors;
 }
 
-bool MapFunctions::isPlacementOnNodeAllowed(const Point &isoCoordinates, const std::string &tileID) const
+bool MapFunctions::isPlacementOnNodeAllowed(const Point &isoCoordinates, const std::string &tileID)
 {
-  return m_map->mapNodes[isoCoordinates.toIndex()].isPlacementAllowed(tileID);
+  // LOG(LOG_DEBUG) << "isPlacementOnAreaAllowed called for " << isoCoordinates.x << ", " << isoCoordinates.y;
+  return getOriginMapNode(isoCoordinates).isPlacementAllowed(tileID);
 }
 
-bool MapFunctions::isPlacementOnAreaAllowed(const std::vector<Point> &targetCoordinates, const std::string &tileID) const
+bool MapFunctions::isPlacementOnAreaAllowed(const std::vector<Point> &targetCoordinates, const std::string &tileID)
 {
+  // LOG(LOG_FATAL) << "isPlacementOnAreaAllowed() called";
   // This function can be divided into two policies:
   // Whether we need all nodes in the area to be placed or not
   bool shouldAllNodesPlaced = true;
-  bool areaPlacementAllowed = true;
   bool tilePlacementAllowed = true;
-
   const Layer layer = TileManager::instance().getTileLayer(tileID);
   // Only buildings and roads has to be placed on all of the tile selected.
   // Other layers can be placed on part of tile in the area, such as zone, water, flora.
@@ -218,25 +215,33 @@ bool MapFunctions::isPlacementOnAreaAllowed(const std::vector<Point> &targetCoor
   {
     shouldAllNodesPlaced = false;
   }
-  areaPlacementAllowed = shouldAllNodesPlaced;
 
   for (auto coord : targetCoordinates)
   {
-    tilePlacementAllowed = isPlacementOnNodeAllowed(coord, tileID);
+    // tilePlacementAllowed = isPlacementOnNodeAllowed(coord, tileID);
 
-    if (tilePlacementAllowed && !shouldAllNodesPlaced)
+    if (!isPlacementOnNodeAllowed(coord, tileID))
     {
-      areaPlacementAllowed = true;
-      break;
+      // LOG(LOG_DEBUG) << "----- DISALLOWED";
+      tilePlacementAllowed = false;
     }
-    if (!tilePlacementAllowed && shouldAllNodesPlaced)
-    {
-      areaPlacementAllowed = false;
-      break;
-    }
+    //   if (tilePlacementAllowed && !shouldAllNodesPlaced)
+    //   {
+    //     continue;
+    //   }
+    //   if (!tilePlacementAllowed && shouldAllNodesPlaced)
+    //   {
+    // LOG(LOG_DEBUG) << "isPlacementOnNodeAllowed return false can't place";
+
+    //     return false;
+    //     break;
+    //   }
   }
-
-  return areaPlacementAllowed;
+  // if (!tilePlacementAllowed && !shouldAllNodesPlaced)
+  //   tilePlacementAllowed = true;
+  // if(tilePlacementAllowed)
+  //     LOG(LOG_DEBUG) << "----- ALLOWED";
+  return tilePlacementAllowed;
 }
 
 unsigned char MapFunctions::getElevatedNeighborBitmask(Point centerCoordinates)
@@ -271,7 +276,7 @@ std::vector<uint8_t> MapFunctions::calculateAutotileBitmask(Point coordinate)
 
   for (auto currentLayer : allLayersOrdered)
   {
-    auto pCurrentTileData = getMapNode(coordinate).getMapNodeDataForLayer(currentLayer).tileData;
+    auto pCurrentTileData = getMapNode(coordinate).getTileData(currentLayer);
 
     if (pCurrentTileData)
     {
@@ -279,7 +284,7 @@ std::vector<uint8_t> MapFunctions::calculateAutotileBitmask(Point coordinate)
       {
         for (const auto &neighbor : getNeighborNodes(coordinate, false))
         {
-          const auto pTileData = neighbor.pNode->getMapNodeDataForLayer(Layer::WATER).tileData;
+          const auto pTileData = neighbor.pNode->getTileData(Layer::WATER);
 
           if (pTileData && pTileData->tileType == +TileType::WATER)
           {
@@ -289,14 +294,14 @@ std::vector<uint8_t> MapFunctions::calculateAutotileBitmask(Point coordinate)
       }
 
       // only auto-tile categories that can be tiled.
-      const std::string &nodeTileId = getMapNode(coordinate).getMapNodeDataForLayer(currentLayer).tileID;
+      const std::string &nodeTileId = getMapNode(coordinate).getTileID(currentLayer);
       if (TileManager::instance().isTileIDAutoTile(nodeTileId))
       {
         for (const auto &neighbor : getNeighborNodes(coordinate, false))
         {
-          const MapNodeData &nodeData = neighbor.pNode->getMapNodeDataForLayer(currentLayer);
-
-          if (nodeData.tileData && ((nodeData.tileID == nodeTileId) || (pCurrentTileData->tileType == +TileType::ROAD)))
+          const auto tileData = neighbor.pNode->getTileData(currentLayer);
+          if (tileData &&
+              ((neighbor.pNode->getTileID(currentLayer) == nodeTileId) || (pCurrentTileData->tileType == +TileType::ROAD)))
           {
             tileOrientationBitmask[currentLayer] |= neighbor.position;
           }
@@ -311,6 +316,7 @@ bool MapFunctions::setTileID(const std::string &tileID, Point coordinate)
 {
   TileData *tileData = TileManager::instance().getTileData(tileID);
   std::vector<Point> targetCoordinates = TileManager::instance().getTargetCoordsOfTileID(coordinate, tileID);
+  LOG(LOG_FATAL) << "I GET CALLED!! " << targetCoordinates.size();
 
   if (!tileData || targetCoordinates.empty())
   { // if the node would not outside of map boundaries, targetCoordinates would be empty
@@ -318,7 +324,12 @@ bool MapFunctions::setTileID(const std::string &tileID, Point coordinate)
   }
 
   if (!isPlacementOnAreaAllowed(targetCoordinates, tileID))
+  {
+    LOG(LOG_DEBUG) << "playment NOT allowed in setTileID";
     return false;
+  }
+  else
+    LOG(LOG_DEBUG) << "placement IS allowed in setTileID";
 
   Layer layer = TileManager::instance().getTileLayer(tileID);
   std::string randomGroundDecorationTileID;
@@ -338,10 +349,23 @@ bool MapFunctions::setTileID(const std::string &tileID, Point coordinate)
     demolishNode(targetCoordinates, false, Layer::POWERLINES); // remove power lines under buildings
   }
 
+  MapNode &currentNode = getMapNode(coordinate);
+  currentNode.setTileID(tileID, coordinate);
+  // emit a signal that setTileID has been called
+  SignalMediator::instance().signalSetTileID.emit(currentNode);
+  LOG(LOG_INFO) << "i return true!";
+  return true;
+  // for (auto coord : targetCoordinates)
+  // {
+
+  //   MapNode &currentMapNode = mapNodes[nodeIdx(coord.x, coord.y)];
+  //   nodesToBeUpdated.push_back(&currentMapNode);
+  // }
   for (auto coord : targetCoordinates)
   { // now we can place our building
-
     MapNode &currentMapNode = getMapNode(coord);
+
+    break; // don't doanything
 
     if (coord != coordinate && targetCoordinates.size() > 1)
     { // for buildings >1x1 set every node on the layer that will be occupied to invisible exepct of the origin node
@@ -372,16 +396,12 @@ bool MapFunctions::setTileID(const std::string &tileID, Point coordinate)
     {
       nodesToBeUpdated.push_back(currentMapNode.getCoordinates());
     }
-
-    // emit a signal that setTileID has been called
-    SignalMediator::instance().signalSetTileID.emit(currentMapNode);
   }
 
   if (!nodesToBeUpdated.empty())
   {
     updateNodeNeighbors(nodesToBeUpdated);
   }
-  return true;
 }
 
 bool MapFunctions::setTileID(const std::string &tileID, const std::vector<Point> &coordinates)
@@ -447,21 +467,18 @@ void MapFunctions::demolishNode(const std::vector<Point> &isoCoordinates, bool u
   }
 }
 
-void MapFunctions::getNodeInformation(const Point &isoCoordinates) const
+void MapFunctions::getNodeInformation(const Point &isoCoordinates)
 {
-  const MapNode &mapNode = m_map->mapNodes[isoCoordinates.toIndex()];
-  const MapNodeData &mapNodeData = mapNode.getActiveMapNodeData();
-  const TileData *tileData = mapNodeData.tileData;
+  const MapNode &mapNode = getMapNode(isoCoordinates);
+  const TileData *tileData = mapNode.getTileData(mapNode.getTopMostActiveLayer());
   LOG(LOG_INFO) << "===== TILE at " << isoCoordinates.x << ", " << isoCoordinates.y << ", " << mapNode.getCoordinates().height
                 << "=====";
-  LOG(LOG_INFO) << "[Layer: TERRAIN] ID: " << mapNode.getMapNodeDataForLayer(Layer::TERRAIN).tileID;
-  LOG(LOG_INFO) << "[Layer: WATER] ID: " << mapNode.getMapNodeDataForLayer(Layer::WATER).tileID;
-  LOG(LOG_INFO) << "[Layer: BUILDINGS] ID: " << mapNode.getMapNodeDataForLayer(Layer::BUILDINGS).tileID;
+  LOG(LOG_INFO) << "[Layer: TERRAIN] ID: " << mapNode.getTileID(Layer::BUILDINGS);
+  LOG(LOG_INFO) << "[Layer: WATER] ID: " << mapNode.getTileID(Layer::BUILDINGS);
+  LOG(LOG_INFO) << "[Layer: BUILDINGS] ID: " << mapNode.getTileID(Layer::BUILDINGS);
   LOG(LOG_INFO) << "Category: " << tileData->category;
   LOG(LOG_INFO) << "FileName: " << tileData->tiles.fileName;
   LOG(LOG_INFO) << "PickRandomTile: " << tileData->tiles.pickRandomTile;
-  LOG(LOG_INFO) << "TileMap: " << mapNodeData.tileMap;
-  LOG(LOG_INFO) << "TileIndex: " << mapNodeData.tileIndex;
 }
 
 void MapFunctions::highlightNode(const Point &isoCoordinates, const SpriteRGBColor &rgbColor)
@@ -525,7 +542,7 @@ Point MapFunctions::findNodeInMap(const SDL_Point &screenCoordinates, const Laye
     for (int y = std::max(yMiddlePoint - neighborReach, 0); (y <= yMiddlePoint + neighborReach) && (y < mapSize); ++y)
     {
       //get all coordinates for node at x,y
-      Point coordinate = getMapNode(Point(x, y)).getCoordinates();
+      const Point coordinate = getMapNode(Point(x, y)).getCoordinates();
 
       if (isClickWithinTile(screenCoordinates, coordinate, layer))
       {
@@ -537,15 +554,14 @@ Point MapFunctions::findNodeInMap(const SDL_Point &screenCoordinates, const Laye
   return Point{-1, -1, 0, 0};
 }
 
-bool MapFunctions::isClickWithinTile(const SDL_Point &screenCoordinates, Point isoCoordinate,
-                                     const Layer &layer = Layer::NONE) const
+bool MapFunctions::isClickWithinTile(const SDL_Point &screenCoordinates, Point isoCoordinate, const Layer &layer = Layer::NONE)
 {
   if (!isoCoordinate.isWithinMapBoundaries())
   {
     return false;
   }
 
-  const auto &node = m_map->mapNodes[isoCoordinate.toIndex()];
+  const auto &node = getOriginMapNode(isoCoordinate);
   auto pSprite = node.getSprite();
   std::vector<Layer> layersToGoOver;
 

@@ -87,7 +87,7 @@ public:
   * @param id TileID
   * @return A pointer to the TileData Struct
   */
-  TileData *getTileData(const std::string &id) noexcept;
+  TileData *getTileData(const std::string &tileID) noexcept;
 
   /** @brief Get the Layer that is associated with a tileID. The Tile will be placed on this layer
   * @param tileID the tileID to get the Layer for

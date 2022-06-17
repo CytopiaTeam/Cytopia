@@ -34,6 +34,7 @@ set(SOURCE_FILES
         engine/common/enums.hxx
         engine/common/platform.hxx
         engine/common/JsonSerialization.hxx
+        engine/events/GameEvents.{hxx,cxx}
         engine/GameObjects/MapNode.{hxx,cxx}
         engine/map/MapFunctions.{hxx,cxx}
         engine/GameObjects/MapGrid.hxx

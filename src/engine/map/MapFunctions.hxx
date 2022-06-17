@@ -27,7 +27,12 @@ public:
   */
   bool updateHeight(Point coordinate, const bool elevate);
 
-  /** \brief Get pointer to a single mapNode at specific iso coordinates.
+  /** \brief Get reference to a single mapNode at specific iso coordinates.
+  * @param isoCoords The node to retrieve the originNode.
+  */
+  MapNode &getOriginMapNode(Point isoCoords) { return m_map->mapNodes[isoCoords.toIndex()]; };
+
+  /** \brief Get reference to a single mapNode at specific iso coordinates.
   * @param isoCoords The node to retrieve.
   */
   MapNode &getMapNode(Point isoCoords) { return m_map->mapNodes[isoCoords.toIndex()]; };
@@ -53,13 +58,13 @@ public:
   * @param isoCoordinates Tile to inspect
   * @param tileID tileID which should be checked
   */
-  bool isPlacementOnNodeAllowed(const Point &isoCoordinates, const std::string &tileID) const;
+  bool isPlacementOnNodeAllowed(const Point &isoCoordinates, const std::string &tileID);
 
   /** \brief check if Tile can be placed in an area
   * @param targetCoordinates Tile array to inspect
   * @param tileID tileID which should be checked
   */
-  bool isPlacementOnAreaAllowed(const std::vector<Point> &targetCoordinates, const std::string &tileID) const;
+  bool isPlacementOnAreaAllowed(const std::vector<Point> &targetCoordinates, const std::string &tileID);
 
   /**
  * @brief Set the Tile ID Of Node object
@@ -102,7 +107,7 @@ public:
  * Used as Tile-Inspector until we implement a GUI variant
  * @param isoCoordinates Tile to inspect
  */
-  void getNodeInformation(const Point &isoCoordinates) const;
+  void getNodeInformation(const Point &isoCoordinates);
 
   /**
  * @brief Sets a node to be highlit
@@ -174,7 +179,7 @@ private:
    * @param layer layer to check
    * @return if a click is within this node
    */
-  bool isClickWithinTile(const SDL_Point &screenCoordinates, Point isoCoordinate, const Layer &layer) const;
+  bool isClickWithinTile(const SDL_Point &screenCoordinates, Point isoCoordinate, const Layer &layer);
 
   /** \brief Save Map to file
   * @details Serializes the Map class to json and writes the data to a file.

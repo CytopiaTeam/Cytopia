@@ -90,7 +90,8 @@ void UIManager::initializeImGuiFonts() {
   }
 }
 
-void UIManager::loadSettings(json& uiLayout) {
+void UIManager::loadSettings(json &uiLayout)
+{
   std::string jsonFileContent = fs::readFileAsString(Settings::instance().uiLayoutJSONFile.get());
   uiLayout = json::parse(jsonFileContent, nullptr, false);
 
@@ -99,7 +100,7 @@ void UIManager::loadSettings(json& uiLayout) {
     throw ConfigurationError(TRACE_INFO "Error parsing JSON File " + Settings::instance().uiLayoutJSONFile.get());
 }
 
-void UIManager::parseLayouts(const json& uiLayout)
+void UIManager::parseLayouts(const json &uiLayout)
 {
   // parse Layout
   for (const auto &it : uiLayout["LayoutGroups"].items())
@@ -141,7 +142,8 @@ void UIManager::parseLayouts(const json& uiLayout)
           continue;
         }
 
-        layoutGroup.layout.fontSize = uiLayout["LayoutGroups"][it.key()][id].value("FontSize", Settings::instance().defaultFontSize);
+        layoutGroup.layout.fontSize =
+            uiLayout["LayoutGroups"][it.key()][id].value("FontSize", Settings::instance().defaultFontSize);
         layoutGroup.layout.padding = uiLayout["LayoutGroups"][it.key()][id].value("Padding", 0);
         layoutGroup.layout.paddingToParent = uiLayout["LayoutGroups"][it.key()][id].value("PaddingToParent", 0);
         layoutGroup.layout.alignmentOffset = uiLayout["LayoutGroups"][it.key()][id].value("AlignmentOffset", 0.0F);
@@ -157,7 +159,8 @@ void UIManager::parseLayouts(const json& uiLayout)
   }
 }
 
-void UIManager::parseElements(const json &uiLayout) {
+void UIManager::parseElements(const json &uiLayout)
+{
   // parse UiElements
   for (const auto &it : uiLayout["UiElements"].items())
   {
@@ -206,7 +209,7 @@ void UIManager::parseElements(const json &uiLayout) {
         auto buttonGroupID = element.value("ButtonGroup", "");
         auto buildMenuID = element.value("BuildMenuID", "");
 
-        SDL_Rect elementRect{ 0, 0, 0, 0 };
+        SDL_Rect elementRect{0, 0, 0, 0};
         elementRect.x = element.value("Position_x", 0);
         elementRect.y = element.value("Position_y", 0);
         elementRect.w = element.value("Width", 0);
@@ -215,7 +218,8 @@ void UIManager::parseElements(const json &uiLayout) {
         uint32_t defaultFontSize = m_layoutGroups[layoutGroupName].layout.fontSize;
         uint32_t fontSize = defaultFontSize;
 
-        if (element.count("FontSize")) {
+        if (element.count("FontSize"))
+        {
           fontSize = element["FontSize"].get<uint32_t>();
         }
 

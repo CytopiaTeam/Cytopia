@@ -166,10 +166,7 @@ void ComboBox::setActiveID(int ID)
   clickSignalSender.emit(this);
 }
 
-void ComboBox::clear() 
-{ 
-  m_items.clear();
-}
+void ComboBox::clear() { m_items.clear(); }
 
 std::string ComboBox::getTextFromID(int id) const
 {

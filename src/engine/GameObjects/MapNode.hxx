@@ -35,11 +35,11 @@ public:
   /** @brief Move constructor.
     */
   MapNode(MapNode &&mn) noexcept
-      : m_isoCoordinates(std::move(mn.m_isoCoordinates)), m_sprite(std::move(mn.m_sprite)),
-        m_previousTileID(std::move(mn.m_previousTileID)), m_autotileOrientation(std::move(mn.m_autotileOrientation)),
-        m_elevationOrientation(mn.m_elevationOrientation), m_clippingWidth(mn.m_clippingWidth),
-        m_mapNodeData(std::move(mn.m_mapNodeData)), m_autotileBitmask(std::move(mn.m_autotileBitmask)),
-        m_elevationBitmask(mn.m_elevationBitmask){};
+      : m_isoCoordinates(std::move(mn.m_isoCoordinates)), m_originCoordinates(std::move(mn.m_originCoordinates)),
+        m_sprite(std::move(mn.m_sprite)), m_previousTileID(std::move(mn.m_previousTileID)),
+        m_autotileOrientation(std::move(mn.m_autotileOrientation)), m_elevationOrientation(mn.m_elevationOrientation),
+        m_clippingWidth(mn.m_clippingWidth), m_mapNodeData(std::move(mn.m_mapNodeData)),
+        m_autotileBitmask(std::move(mn.m_autotileBitmask)), m_elevationBitmask(mn.m_elevationBitmask){};
 
   /**
     * @brief Destroys the MapNode object
@@ -81,12 +81,12 @@ public:
 
   unsigned char getElevationBitmask() const { return m_elevationBitmask; };
 
-  const TileData *getTileData(Layer layer) const { return m_mapNodeData[layer].tileData; };
+  const TileData *getTileData(Layer layer) const;
 
   /** @brief get TileID of specific layer inside NodeData.
     * @param layer what layer should be checked on.
     */
-  const std::string &getTileID(Layer layer) const { return m_mapNodeData[layer].tileID; };
+  const std::string &getTileID(Layer layer) const;
 
   bool isPlacementAllowed(const std::string &newTileID) const;
 
@@ -94,7 +94,7 @@ public:
   void setMapNodeData(std::vector<MapNodeData> &&mapNodeData);
 
   const std::vector<MapNodeData> &getMapNodeData() const { return m_mapNodeData; };
-  const MapNodeData &getMapNodeDataForLayer(Layer layer) const { return m_mapNodeData[layer]; };
+  const MapNodeData &getMapNodeDataForLayer(Layer layer) const;
 
   const MapNodeData &getActiveMapNodeData() const;
 
@@ -122,6 +122,12 @@ public:
     */
   void demolishLayer(const Layer &layer);
 
+  /**
+   * @brief Set the Tile I D object on this node
+   *  This function does not check if a tile can be placed, just bluntly places it. The checks need to happen in MapFunctions
+   * @param tileType 
+   * @param origPoint 
+   */
   void setTileID(const std::string &tileType, const Point &origPoint);
 
   /**
@@ -130,7 +136,7 @@ public:
    * @param layer the layer that should be checked
    * @return const Point& 
    */
-  const Point &getOrigCornerPoint(Layer layer) const { return getMapNodeDataForLayer(layer).origCornerPoint; }
+  const Point &getOrigCornerPoint(Layer layer) const { return m_originCoordinates; }
 
   /**
    * @brief If this is the origin node of a multitile building. 
@@ -140,7 +146,7 @@ public:
    */
   bool isOriginNode(Layer layer = Layer::BUILDINGS) const
   {
-    return (m_isoCoordinates == getMapNodeDataForLayer(layer).origCornerPoint);
+    return (m_originCoordinates != Point::INVALID() && m_isoCoordinates == m_originCoordinates);
   }
 
   /** @brief return topmost active layer.
@@ -149,7 +155,7 @@ public:
     */
   Layer getTopMostActiveLayer() const;
 
-  bool isLayerOccupied(const Layer &layer) const { return m_mapNodeData[layer].tileData != nullptr; }
+  bool isLayerOccupied(const Layer &layer) const { return getTileData(layer) != nullptr; }
 
   /** @brief Set elevation bit mask.
   * @param bitMask
@@ -182,7 +188,17 @@ public:
   /// Maximum height of the node.
   static const int maxHeight = 32;
 
+  void setOriginCoordinate(Point coordinate)
+  {
+    m_originCoordinates = coordinate;
+    //  if(m_isoCoordinates)!= coordinate){m_originCoordinates}
+  };
+
+  const std::vector<Point> &getMultiTileCoords() const { return m_multiTileCoords; };
+
 private:
+  bool m_isOriginNode = true;
+  Point m_originCoordinates;
   Point m_isoCoordinates;
   std::unique_ptr<Sprite> m_sprite;
   std::string m_previousTileID = "terrain";
@@ -192,5 +208,6 @@ private:
   std::vector<MapNodeData> m_mapNodeData;
   std::vector<unsigned char> m_autotileBitmask;
   unsigned char m_elevationBitmask = 0;
+  std::vector<Point> m_multiTileCoords; // keep coords to other nodes if this is a multile building
 };
 #endif
