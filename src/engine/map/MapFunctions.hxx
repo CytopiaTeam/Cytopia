@@ -27,7 +27,12 @@ public:
   */
   bool updateHeight(Point coordinate, const bool elevate);
 
-  /** \brief Get pointer to a single mapNode at specific iso coordinates.
+  /** \brief Get reference to a single mapNode at specific iso coordinates.
+  * @param isoCoords The node to retrieve the originNode.
+  */
+  MapNode &getOriginMapNode(Point isoCoords) { return m_map->mapNodes[isoCoords.toIndex()]; };
+
+  /** \brief Get reference to a single mapNode at specific iso coordinates.
   * @param isoCoords The node to retrieve.
   */
   MapNode &getMapNode(Point isoCoords) { return m_map->mapNodes[isoCoords.toIndex()]; };

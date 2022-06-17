@@ -12,6 +12,8 @@
 #include "Sprite.hxx"
 #include "UIManager.hxx"
 #include <MapFunctions.hxx>
+// #include <GameEvents.hxx>
+#include "events/GameEvents.hxx"
 
 #include "LOG.hxx"
 
@@ -88,6 +90,9 @@ void EventManager::checkEvents(SDL_Event &event)
   while (SDL_PollEvent(&event))
   {
     ImGui_ImplSDL2_ProcessEvent(&event);
+    //TODO: Handle UI Events before game
+
+    GameEvents::instance().processEvents(event);
 
     switch (event.type)
     {
@@ -302,16 +307,8 @@ void EventManager::checkEvents(SDL_Event &event)
       {
         // clear highlighting
         unHighlightNodes();
+        // GameEvents::instance().unHighlightNodes;
 
-        // if we're panning, move the camera and break
-        if (m_panning)
-        {
-          if ((event.motion.xrel == 0) && (event.motion.yrel == 0))
-          {
-            return;
-          }
-          Camera::instance().moveCamera(event.motion.xrel, event.motion.yrel);
-        }
         // check if we should highlight tiles and if we're in placement mode
         if (highlightSelection)
         {
@@ -411,12 +408,13 @@ void EventManager::checkEvents(SDL_Event &event)
           }
 
           m_placementAllowed = MapFunctions::instance().isPlacementOnAreaAllowed(m_nodesToHighlight, tileToPlace);
-
+          
           // Finally highlight all the tiles we've found
           // Set highlighted tiles that can be placed and can't be placed different color
           for (const auto &highlitNode : m_nodesToHighlight)
           {
-            if (!MapFunctions::instance().isPlacementOnNodeAllowed(highlitNode, tileToPlace) || demolishMode)
+            if (!m_placementAllowed || demolishMode)
+            // if (!MapFunctions::instance().isPlacementOnNodeAllowed(highlitNode, tileToPlace) || demolishMode)
             {
               // mark red
               MapFunctions::instance().highlightNode(highlitNode, SpriteHighlightColor::RED);
@@ -445,7 +443,7 @@ void EventManager::checkEvents(SDL_Event &event)
       }
       break;
     case SDL_MOUSEBUTTONDOWN:
-      m_placementAllowed = false;
+      // m_placementAllowed = false;
       m_skipLeftClick = false;
       // check for UI events first
       for (const auto &it : uiManager.getAllUiElementsForEventHandling())
@@ -456,14 +454,13 @@ void EventManager::checkEvents(SDL_Event &event)
           break;
         }
       }
-
-      if (event.button.button == SDL_BUTTON_RIGHT)
+      switch (event.button.button)
       {
+      case SDL_BUTTON_RIGHT:
         m_panning = true;
         m_cancelTileSelection = true;
-      }
-      else if (event.button.button == SDL_BUTTON_LEFT)
-      {
+        break;
+      case SDL_BUTTON_LEFT:
         // game event handling
         mouseScreenCoords = {event.button.x, event.button.y};
         mouseIsoCoords = convertScreenToIsoCoordinates(mouseScreenCoords);
@@ -478,6 +475,7 @@ void EventManager::checkEvents(SDL_Event &event)
           {
             if (!coordinate.isWithinMapBoundaries())
             {
+              LOG(LOG_ERROR) << "not canPlac e";
               canPlaceTileID = false;
               break;
             }
@@ -487,7 +485,6 @@ void EventManager::checkEvents(SDL_Event &event)
         if (canPlaceTileID)
         {
           m_clickDownCoords = mouseIsoCoords;
-          m_placementAllowed = true;
 
           // Nodes to place are collected during the mouse move.
           // In case of multiple left clicks without moving the mouse, node to place will be the node of the mouse click.
@@ -496,6 +493,11 @@ void EventManager::checkEvents(SDL_Event &event)
             m_nodesToPlace.push_back(mouseIsoCoords);
           }
           m_isPuttingTile = true;
+        }
+        else
+        {
+          LOG(LOG_ERROR) << "boeser else";
+          m_placementAllowed = false;
         }
       }
       break;
@@ -592,7 +594,8 @@ void EventManager::checkEvents(SDL_Event &event)
       if (highlightSelection)
       {
         m_nodesToHighlight.push_back(mouseIsoCoords);
-        if (!tileToPlace.empty() && !MapFunctions::instance().setTileID(tileToPlace, mouseIsoCoords))
+        if (!tileToPlace.empty() && !MapFunctions::instance().isPlacementOnAreaAllowed(m_nodesToHighlight, tileToPlace))
+        // if (!tileToPlace.empty() && !MapFunctions::instance().setTileID(tileToPlace, mouseIsoCoords))
         {
           MapFunctions::instance().highlightNode(mouseIsoCoords, SpriteHighlightColor::RED);
         }
@@ -604,16 +607,7 @@ void EventManager::checkEvents(SDL_Event &event)
 
       break;
     }
-    case SDL_MOUSEWHEEL:
-      if (event.wheel.y > 0)
-      {
-        Camera::instance().increaseZoomLevel();
-      }
-      else if (event.wheel.y < 0)
-      {
-        Camera::instance().decreaseZoomLevel();
-      }
-      break;
+
 
     default:
       break;

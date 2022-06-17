@@ -122,6 +122,12 @@ public:
     */
   void demolishLayer(const Layer &layer);
 
+  /**
+   * @brief Set the Tile I D object on this node
+   *  This function does not check if a tile can be placed, just bluntly places it. The checks need to happen in MapFunctions
+   * @param tileType 
+   * @param origPoint 
+   */
   void setTileID(const std::string &tileType, const Point &origPoint);
 
   /**

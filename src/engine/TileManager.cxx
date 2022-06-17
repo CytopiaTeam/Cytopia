@@ -19,10 +19,10 @@ SDL_Texture *TileManager::getTexture(const std::string &tileID) const
   return ResourcesManager::instance().getTileTexture(tileID);
 }
 
-TileData *TileManager::getTileData(const std::string &id) noexcept
+TileData *TileManager::getTileData(const std::string &tileID) noexcept
 {
-  if (m_tileData.count(id))
-    return &m_tileData[id];
+  if (m_tileData.count(tileID))
+    return &m_tileData[tileID];
   return nullptr;
 }
 

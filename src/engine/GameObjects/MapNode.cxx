@@ -50,7 +50,7 @@ void MapNode::setBitmask(unsigned char elevationBitmask, std::vector<uint8_t> au
 
 void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
 {
-  //TODO: don't set tile id if not origin, extra function
+  //TODO: don't set ^if not origin, extra function
   // set other nodes to invis.
   // if other node is not origin, return tileID of origin
   // TODO: Reset everything on demolish
@@ -81,12 +81,12 @@ void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
 
         if (coord == origCornerPoint)
         {
-          // m_originCoordinates = origCornerPoint;
+          m_originCoordinates = origCornerPoint;
           // LOG(LOG_INFO) << "i'm the origin coordinate";
         }
         else
         {
-          LOG(LOG_ERROR) << "it's mjultile";
+          // LOG(LOG_ERROR) << "it's mjultile";
           // m_isOriginNode = false;
           m_multiTileCoords.push_back(coord);
           // m_multiTileNodes.push_back(&MapFunctions::instance().getMapNode(coord));

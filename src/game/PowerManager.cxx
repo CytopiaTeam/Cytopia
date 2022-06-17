@@ -37,7 +37,7 @@ void PowerManager::update()
   {
     for (auto &nodeToAdd : m_nodesToAdd)
     {
-      LOG(LOG_INFO) << "ADDING node " << nodeToAdd.powerProduction;
+      // LOG(LOG_INFO) << "ADDING node " << nodeToAdd.powerProduction;
       addPowerNodeToGrid(nodeToAdd, m_powerGrids);
       for (auto &grid : m_powerGrids)
       {
@@ -49,7 +49,7 @@ void PowerManager::update()
     // {
     //   LOG(LOG_DEBUG) << "Grid: " << grid.getPowerLevel();
     // }
-    LOG(LOG_INFO) << "We have " << m_powerGrids.size() << " grids";
+    // LOG(LOG_INFO) << "We have " << m_powerGrids.size() << " grids";
     updated = true;
   }
 
@@ -83,7 +83,7 @@ void PowerManager::addPowerNodeToGrid(PowerNode &powerNode, std::vector<PowerGri
 
   if (gridNeighbour.empty())
   { // new powergrid
-    LOG(LOG_INFO) << "ADDING node to grid" << powerNode.powerProduction;
+    // LOG(LOG_INFO) << "ADDING node to grid" << powerNode.powerProduction;
     powerGrids.emplace_back(powerNode);
     // updatePowerLevels();
   }
@@ -197,9 +197,9 @@ void PowerManager::updatePowerLevels()
 {
   for (auto &powerGrid : m_powerGrids)
   {
-    LOG(LOG_INFO) << "power level before update" << powerGrid.getPowerLevel();
+    // LOG(LOG_INFO) << "power level before update" << powerGrid.getPowerLevel();
     powerGrid.updatePowerLevel();
-    LOG(LOG_INFO) << "power level after update " << powerGrid.getPowerLevel();
+    // LOG(LOG_INFO) << "power level after update " << powerGrid.getPowerLevel();
   }
 }
 

@@ -193,17 +193,17 @@ std::vector<NeighborNode> MapFunctions::getNeighborNodes(const Point &isoCoordin
 
 bool MapFunctions::isPlacementOnNodeAllowed(const Point &isoCoordinates, const std::string &tileID)
 {
-  return getMapNode(isoCoordinates).isPlacementAllowed(tileID);
+  // LOG(LOG_DEBUG) << "isPlacementOnAreaAllowed called for " << isoCoordinates.x << ", " << isoCoordinates.y;
+  return getOriginMapNode(isoCoordinates).isPlacementAllowed(tileID);
 }
 
 bool MapFunctions::isPlacementOnAreaAllowed(const std::vector<Point> &targetCoordinates, const std::string &tileID)
 {
+  // LOG(LOG_FATAL) << "isPlacementOnAreaAllowed() called";
   // This function can be divided into two policies:
   // Whether we need all nodes in the area to be placed or not
   bool shouldAllNodesPlaced = true;
-  bool areaPlacementAllowed = true;
   bool tilePlacementAllowed = true;
-
   const Layer layer = TileManager::instance().getTileLayer(tileID);
   // Only buildings and roads has to be placed on all of the tile selected.
   // Other layers can be placed on part of tile in the area, such as zone, water, flora.
@@ -215,25 +215,33 @@ bool MapFunctions::isPlacementOnAreaAllowed(const std::vector<Point> &targetCoor
   {
     shouldAllNodesPlaced = false;
   }
-  areaPlacementAllowed = shouldAllNodesPlaced;
 
   for (auto coord : targetCoordinates)
   {
-    tilePlacementAllowed = isPlacementOnNodeAllowed(coord, tileID);
+    // tilePlacementAllowed = isPlacementOnNodeAllowed(coord, tileID);
 
-    if (tilePlacementAllowed && !shouldAllNodesPlaced)
+    if (!isPlacementOnNodeAllowed(coord, tileID))
     {
-      areaPlacementAllowed = true;
-      break;
+      // LOG(LOG_DEBUG) << "----- DISALLOWED";
+      tilePlacementAllowed = false;
     }
-    if (!tilePlacementAllowed && shouldAllNodesPlaced)
-    {
-      areaPlacementAllowed = false;
-      break;
-    }
+    //   if (tilePlacementAllowed && !shouldAllNodesPlaced)
+    //   {
+    //     continue;
+    //   }
+    //   if (!tilePlacementAllowed && shouldAllNodesPlaced)
+    //   {
+    // LOG(LOG_DEBUG) << "isPlacementOnNodeAllowed return false can't place";
+
+    //     return false;
+    //     break;
+    //   }
   }
-
-  return areaPlacementAllowed;
+  // if (!tilePlacementAllowed && !shouldAllNodesPlaced)
+  //   tilePlacementAllowed = true;
+  // if(tilePlacementAllowed)
+  //     LOG(LOG_DEBUG) << "----- ALLOWED";
+  return tilePlacementAllowed;
 }
 
 unsigned char MapFunctions::getElevatedNeighborBitmask(Point centerCoordinates)
@@ -308,6 +316,7 @@ bool MapFunctions::setTileID(const std::string &tileID, Point coordinate)
 {
   TileData *tileData = TileManager::instance().getTileData(tileID);
   std::vector<Point> targetCoordinates = TileManager::instance().getTargetCoordsOfTileID(coordinate, tileID);
+  LOG(LOG_FATAL) << "I GET CALLED!! " << targetCoordinates.size();
 
   if (!tileData || targetCoordinates.empty())
   { // if the node would not outside of map boundaries, targetCoordinates would be empty
@@ -315,7 +324,12 @@ bool MapFunctions::setTileID(const std::string &tileID, Point coordinate)
   }
 
   if (!isPlacementOnAreaAllowed(targetCoordinates, tileID))
+  {
+    LOG(LOG_DEBUG) << "playment NOT allowed in setTileID";
     return false;
+  }
+  else
+    LOG(LOG_DEBUG) << "placement IS allowed in setTileID";
 
   Layer layer = TileManager::instance().getTileLayer(tileID);
   std::string randomGroundDecorationTileID;
@@ -339,6 +353,7 @@ bool MapFunctions::setTileID(const std::string &tileID, Point coordinate)
   currentNode.setTileID(tileID, coordinate);
   // emit a signal that setTileID has been called
   SignalMediator::instance().signalSetTileID.emit(currentNode);
+  LOG(LOG_INFO) << "i return true!";
   return true;
   // for (auto coord : targetCoordinates)
   // {
@@ -546,7 +561,7 @@ bool MapFunctions::isClickWithinTile(const SDL_Point &screenCoordinates, Point i
     return false;
   }
 
-  const auto &node = getMapNode(isoCoordinate);
+  const auto &node = getOriginMapNode(isoCoordinate);
   auto pSprite = node.getSprite();
   std::vector<Layer> layersToGoOver;
 
@@ -579,7 +594,6 @@ bool MapFunctions::isClickWithinTile(const SDL_Point &screenCoordinates, Point i
     if (SDL_PointInRect(&screenCoordinates, &spriteRect))
     {
       std::string tileID = node.getMapNodeDataForLayer(curLayer).tileID;
-      LOG(LOG_ERROR) << "Tile ID at this stage " << tileID;
       assert(!tileID.empty());
 
       // Calculate the position of the clicked pixel within the surface and "un-zoom" the position to match the un-adjusted surface
