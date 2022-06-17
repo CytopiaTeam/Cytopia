@@ -45,7 +45,7 @@ void SettingsMenu::draw() const {
   ui::BeginCt("PauseMenu", &open, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
 
   // empty header 
-  ui::Dummy({0, buttonSize.y});
+  ui::Dummy({0.f, buttonSize.y});
   ui::PushItemWidth(widgetSize.x);
 
   // header label
@@ -148,7 +148,7 @@ void SettingsMenu::draw() const {
   ImVec2 btnSize(windowSize.x / 4, 40);
 
   ui::SetCursorPosY(windowSize.y - btnSize.y * 2);
-  ui::Dummy({btnSize.x / 2, 0}); ui::SameLine();
+  ui::Dummy({btnSize.x / 2, 0.f}); ui::SameLine();
   if (ui::ButtonCt("OK", btnSize))
   {
     uiManager.closeMenu();

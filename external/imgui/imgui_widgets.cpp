@@ -1109,7 +1109,7 @@ void ImGui::Image(ImTextureID user_texture_id, const ImVec2& size, const ImVec2&
 
 // ImageButton() is flawed as 'id' is always derived from 'texture_id' (see #2464 #1390)
 // We provide this internal helper to write your own variant while we figure out how to redesign the public ImageButton() API.
-bool ImGui::ImageButtonEx(ImGuiID id, ImTextureID texture_id, const ImVec2& size, const ImVec2& uv0, const ImVec2& uv1, const ImVec2& padding, const ImVec4& bg_col, const ImVec4& tint_col)
+bool ImGui::ImageButtonEx(ImGuiID id, ImTextureID texture_id, const ImVec2& size,  const ImVec2& uv0, const ImVec2& uv1, const ImVec2& padding, const ImVec4& bg_col, const ImVec4& tint_col)
 {
     ImGuiContext& g = *GImGui;
     ImGuiWindow* window = GetCurrentWindow();
@@ -1135,6 +1135,67 @@ bool ImGui::ImageButtonEx(ImGuiID id, ImTextureID texture_id, const ImVec2& size
     return pressed;
 }
 
+bool ImGui::ImageButtonExCt(ImGuiID id, ImTextureID texture_id, ImGuiButtonFlags flags, const ImVec2& size, const ImVec2 &imgp, const ImVec2 &imgs, const ImVec2& uv0, const ImVec2& uv1, const ImVec2& padding, const ImVec4& bg_col, const ImVec4& tint_col)
+{
+  ImGuiContext& g = *GImGui;
+  ImGuiWindow* window = GetCurrentWindow();
+  if (window->SkipItems)
+  {
+    return false;
+  }
+
+  const ImRect bb(window->DC.CursorPos, window->DC.CursorPos + size + padding * 2);
+  ItemSize(bb);
+  if (!ItemAdd(bb, id))
+  {
+    return false;
+  }
+
+  bool hovered, held;
+  bool pressed = ButtonBehavior(bb, id, &hovered, &held);
+  bool mouseDown = hovered && ImGui::IsMouseDown(ImGuiMouseButton_Left);
+
+  // Render
+  const ImU32 col = GetColorU32((held && hovered) ? ImGuiCol_ButtonActive : hovered ? ImGuiCol_ButtonHovered : ImGuiCol_Button);
+  RenderNavHighlight(bb, id);
+
+  if (!(flags & ImGuiButtonFlags_NoBackground))
+  {
+    struct { uint8_t clr, frame, frameShade, bottomFrame, bottomFrameShade; } bg;
+
+    if (pressed || mouseDown || (flags & ImGuiButtonFlags_ForcePressed))
+    {
+      bg = {128, 106, 84, 150, 172};
+    }
+    else if (hovered)
+    {
+      bg = {228, 250, 255, 206, 184};
+    }
+    else
+    {
+      bg = {128, 150, 172, 106, 84};
+    }
+
+    window->DrawList->AddRectFilled(bb.Min, bb.Max, ImColor(bg.frameShade, bg.frameShade, bg.frameShade), 0);
+    window->DrawList->AddRectFilled(bb.Min + ImVec2{2, 2}, bb.Max - ImVec2{2, 2}, ImColor{bg.frame, bg.frame, bg.frame}, 0);
+
+    // background
+    window->DrawList->AddRectFilled(bb.Min + ImVec2{4, 4}, bb.Max - ImVec2{4, 4}, ImColor{bg.clr, bg.clr, bg.clr}, 0);
+
+    // bottom frame
+    window->DrawList->AddRectFilled(bb.Min + ImVec2{4, size.y - 4}, bb.Min + ImVec2{4, size.y - 4} + ImVec2{size.x - 4, 4}, ImColor{bg.bottomFrame, bg.bottomFrame, bg.bottomFrame}, 0);
+    window->DrawList->AddRectFilled(bb.Min + ImVec2{size.x - 4, 4}, bb.Min + ImVec2{size.x - 4, 4} + ImVec2{4, size.y - 4}, ImColor{bg.bottomFrame, bg.bottomFrame, bg.bottomFrame}, 0);
+
+    // bottom frame shade
+    window->DrawList->AddRectFilled(bb.Min + ImVec2{2, size.y - 2}, bb.Min + ImVec2{2, size.y - 2} + ImVec2{size.x - 2, 2}, ImColor{bg.bottomFrameShade, bg.bottomFrameShade, bg.bottomFrameShade}, 0);
+    window->DrawList->AddRectFilled(bb.Min + ImVec2{size.x - 2, 2}, bb.Min + ImVec2{size.x - 2, 2} + ImVec2{2, size.y - 2}, ImColor{bg.bottomFrameShade, bg.bottomFrameShade, bg.bottomFrameShade}, 0);
+  }
+  
+  window->DrawList->AddImage(texture_id, bb.Min + padding + imgp, bb.Min + padding + imgp + imgs, uv0, uv1, GetColorU32(tint_col));
+
+  return pressed;
+}
+
 // frame_padding < 0: uses FramePadding from style (default)
 // frame_padding = 0: no framing
 // frame_padding > 0: set framing size
@@ -1153,6 +1214,25 @@ bool ImGui::ImageButton(ImTextureID user_texture_id, const ImVec2& size, const I
     const ImVec2 padding = (frame_padding >= 0) ? ImVec2((float)frame_padding, (float)frame_padding) : g.Style.FramePadding;
     return ImageButtonEx(id, user_texture_id, size, uv0, uv1, padding, bg_col, tint_col);
 }
+
+bool ImGui::ImageButtonCt(ImTextureID user_texture_id, ImGuiButtonFlags flags, const ImVec2& size, const ImVec2 &imgp, const ImVec2 &imgs, const ImVec2& uv0, const ImVec2& uv1, int frame_padding, const ImVec4& bg_col, const ImVec4& tint_col)
+{
+  ImGuiContext& g = *GImGui;
+  ImGuiWindow* window = g.CurrentWindow;
+  if (window->SkipItems)
+  {
+    return false;
+  }
+
+  // Default to using texture ID as ID. User can still push string/integer prefixes.
+  PushID((void*)(intptr_t)user_texture_id);
+    const ImGuiID id = window->GetID("#image");
+  PopID();
+
+  const ImVec2 padding = (frame_padding >= 0) ? ImVec2((float)frame_padding, (float)frame_padding) : g.Style.FramePadding;
+  return ImageButtonExCt(id, user_texture_id, flags, size, imgp, imgs, uv0, uv1, padding, bg_col, tint_col);
+}
+
 
 bool ImGui::Checkbox(const char* label, bool* v)
 {

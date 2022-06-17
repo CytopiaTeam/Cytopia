@@ -11,6 +11,7 @@
 #include "OSystem.hxx"
 #include <Map.hxx>
 #include <MapFunctions.hxx>
+#include "../game/ui/BuildMenu.hxx"
 
 #include <SDL.h>
 #include <SDL_ttf.h>
@@ -137,6 +138,8 @@ void Game::run(bool SkipMenu)
   Uint32 fpsLastTime = SDL_GetTicks();
   Uint32 fpsFrames = 0;
 
+  uiManager.addPersistentMenu<BuildMenu>();
+
   // GameLoop
   while (!m_shutDown)
   {
@@ -144,7 +147,6 @@ void Game::run(bool SkipMenu)
     MICROPROFILE_SCOPEI("Map", "Gameloop", MP_GREEN);
 #endif
     SDL_RenderClear(WindowManager::instance().getRenderer());
-
 
     evManager.checkEvents(event);
     gameClock.tick();

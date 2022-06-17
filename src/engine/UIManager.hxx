@@ -26,9 +26,14 @@ struct LayoutGroup
 // BaseClass for game menu, only one menu can show on frame
 struct GameMenu
 {
+  using Ptr = std::shared_ptr<GameMenu>;
   virtual ~GameMenu() = default;
-  virtual void draw() const = 0;
+  virtual void draw() const { /* default implementation do nothing */ }
+  virtual bool isMouseHovered() const { return false; }
+  virtual void closeSubmenus() { /* default implementation do nothing */ }
 };
+
+struct BuildMenu;
 
 enum class BUILDMENU_LAYOUT
 {
@@ -53,14 +58,12 @@ public:
    */
 
   void init();
-  void initImGui();
 
   struct ImFont *loadFont(const std::string &name, uint32_t size);
   void initializeImGuiFonts();
 
   void loadSettings(json& uiLayout);
   void parseLayouts(const json &uiLayout);
-  void parseElements(const json &uiLayout);
 
   /**
   * @brief Renders all UI Widgets
@@ -136,15 +139,15 @@ public:
  */
   UIElement *getUiElementByID(const std::string &ID) const;
 
-  void startTooltip(SDL_Event &event, const std::string &tooltipText) const;
-  void stopTooltip() const;
+  void setTooltip(const std::string &tooltipText);
+  void clearTooltip();
 
   /**
  * @brief Close all open menus but the build menu
  */
   void closeOpenMenus();
 
-  void openMenu(std::shared_ptr<GameMenu> menuOption);
+  void openMenu(GameMenu::Ptr menuOption);
 
   template<class Menu>
   void openMenu() { openMenu(std::make_shared<Menu>()); }
@@ -152,11 +155,38 @@ public:
   void closeMenu();
   inline bool isAnyMenuOpen() const { return !m_menuStack.empty(); }
 
+  void addPersistentMenu(GameMenu::Ptr menu);
+
+  bool isMouseHovered() const;
+
+  template<class Menu>
+  inline GameMenu::Ptr findMenu() const {
+    for (const auto &m : m_menuStack)
+    {
+      if (dynamic_cast<Menu *>(m.get()))
+      {
+        return m;
+      }
+    }
+
+    for (const auto &m : m_persistentMenu)
+    {
+      if (dynamic_cast<Menu *>(m.get()))
+      {
+        return m;
+      }
+    }
+
+    return nullptr;
+  }
+  
+  template<class Menu>
+  void addPersistentMenu() { addPersistentMenu(std::make_shared<Menu>()); }
+
   BUILDMENU_LAYOUT buildMenuLayout() const { return m_buildMenuLayout; }
-  void setBuildMenuLayout(BUILDMENU_LAYOUT layout);
+  void setBuildMenuLayout(BUILDMENU_LAYOUT l) { m_buildMenuLayout = l; }
 
 private:
-  BUILDMENU_LAYOUT m_buildMenuLayout = BUILDMENU_LAYOUT::BOTTOM;
 
   UIManager() = default;
   ~UIManager() = default;
@@ -173,38 +203,14 @@ private:
   /// map holding layput groups, accessible via the layoutgroup ID
   std::unordered_map<std::string, LayoutGroup> m_layoutGroups;
 
-  /// Holding all buttongroups
-  std::unordered_map<std::string, ButtonGroup *> m_buttonGroups;
-
-  std::unique_ptr<Tooltip> m_tooltip = std::make_unique<Tooltip>();
+  std::string m_tooltip;
 
   /// Text element for the FPS Counter (debug menu)
   std::unique_ptr<Text> m_fpsCounter = std::make_unique<Text>();
 
   std::unordered_map<std::string, ImFont *> m_loadedFonts;
-  std::vector<std::shared_ptr<GameMenu>> m_menuStack;
-
-  void setCallbackFunctions();
-
-  /**
-   * @brief takes an SDL_Rect, default button width and height, and image width and height
-   *        and scales the image to fit on a button of the default button size (maintaining the 
-   *        aspect ration of the original image).
-   * @param ret the address of a rect that will contain the size of the scaled image
-   * @param btnW the default button width
-   * @param btnH the default button height
-   * @param imgW the width of the image to scale
-   * @param imgH the height of the image to scale
-   */
-  void scaleCenterButtonImage(SDL_Rect &ret, int btnW, int btnH, int imgW, int imgH);
-  void createBuildMenu();
-
-  /**
-   * @brief Draws the tile (defined by the string, tiledata pair) onto the button
-   * @param button the button to draw this image on
-   * @param tile The id string, tileData pair of the tile that defines the image to be drawn
-   */
-  void setupButtonTileImage(Button *button, const std::pair<std::string, TileData> &tile);
+  std::vector<GameMenu::Ptr> m_menuStack;
+  std::vector<GameMenu::Ptr> m_persistentMenu;
 
   void addToLayoutGroup(const std::string &groupName, UIElement *widget);
 
@@ -212,6 +218,7 @@ private:
 
   /// pointer to the default font used for in-game text
   struct ImFont *fontDefault = nullptr;
+  BUILDMENU_LAYOUT m_buildMenuLayout = BUILDMENU_LAYOUT::BOTTOM;
 };
 
 #endif
