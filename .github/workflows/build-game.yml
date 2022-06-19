@@ -6,8 +6,6 @@ jobs:
   build-msvc:
     name: Windows
     env:
-      SCCACHE_DIR: C:\sccache
-      SCCACHE_CACHE_SIZE: 500M
       BUILD_TOOLS_PATH: C:\Program Files\Conan\conan
     runs-on: windows-latest
     steps:
@@ -17,21 +15,6 @@ jobs:
         with:
           submodules: true
 
-      - name: Prepare sccache timestamp
-        id: sccache_cache_timestamp
-        shell: cmake -P {0}
-        run: |
-          string(TIMESTAMP current_date "%Y-%m-%d-%H;%M;%S" UTC)
-          message("::set-output name=timestamp::${current_date}")
-
-      - name: sccache cache files
-        uses: actions/cache@v2.1.7
-        with:
-          path: C:\sccache
-          key: windows-sccache-${{ steps.sccache_cache_timestamp.outputs.timestamp }}
-          restore-keys: |
-            windows-sccache-
-
       - name: Cache conan
         uses: actions/cache@v2.1.7
         with:
@@ -39,7 +22,7 @@ jobs:
           path: ~/.conan/
 
       - name: Install dependencies
-        run: choco install conan ninja sccache -y
+        run: choco install conan ninja -y
 
       - name: Enable Developer Command Prompt
         uses: ilammy/msvc-dev-cmd@v1.10.0
@@ -48,7 +31,6 @@ jobs:
         run: |
           cmake -GNinja -DCMAKE_BUILD_TYPE=Release .
           ninja
-          sccache --show-stats
 
       - name: Test
         run: ctest -j2 --output-on-failure
@@ -69,28 +51,12 @@ jobs:
   build-gcc:
     name: Linux
     env:
-      sccache_CACHE_SIZE: 500M
       CONAN_SYSREQUIRES_MODE: "enabled"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
         with:
           submodules: true
-
-      - name: Prepare sccache timestamp
-        id: sccache_cache_timestamp
-        shell: cmake -P {0}
-        run: |
-          string(TIMESTAMP current_date "%Y-%m-%d-%H;%M;%S" UTC)
-          message("::set-output name=timestamp::${current_date}")
-
-      - name: sccache cache files
-        uses: actions/cache@v2.1.7
-        with:
-          path: ~/.cache/sccache
-          key: ubuntu-sccache-${{ steps.sccache_cache_timestamp.outputs.timestamp }}
-          restore-keys: |
-            ubuntu-sccache-
 
       - name: Cache conan
         uses: actions/cache@v2.1.7
@@ -105,7 +71,6 @@ jobs:
           echo -e 'pcm.!default {\n type plug\n slave.pcm "null"\n}' > ~/.asoundrc
           curl "https://raw.githubusercontent.com/AnotherFoxGuy/ci-scripts/main/install-cmake.sh" | sudo bash
           curl "https://raw.githubusercontent.com/AnotherFoxGuy/ci-scripts/main/install-conan.sh" | sudo bash
-          curl "https://raw.githubusercontent.com/AnotherFoxGuy/ci-scripts/main/install-sccache.sh" | sudo bash
           conan install "xorg/system@"
           sudo apt-get -y install ninja-build libgl-dev libegl-dev
 
@@ -116,7 +81,6 @@ jobs:
       - name: Build
         run: |
           ninja
-          sccache --show-stats
 
       - name: Test
         env:
@@ -138,28 +102,11 @@ jobs:
 
   build-appleclang:
     name: MacOS
-    env:
-      SCCACHE_CACHE_SIZE: 500M
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
         with:
           submodules: true
-
-      - name: Prepare sccache timestamp
-        id: sccache_cache_timestamp
-        shell: cmake -P {0}
-        run: |
-          string(TIMESTAMP current_date "%Y-%m-%d-%H;%M;%S" UTC)
-          message("::set-output name=timestamp::${current_date}")
-
-      - name: sccache cache files
-        uses: actions/cache@v2.1.7
-        with:
-          path: ~/Library/Caches/Mozilla.sccache
-          key: macos-sccache-${{ steps.sccache_cache_timestamp.outputs.timestamp }}
-          restore-keys: |
-            macos-sccache-
 
       - name: Cache conan
         uses: actions/cache@v2.1.7
@@ -168,7 +115,7 @@ jobs:
           path: ~/.conan/
 
       - name: Install dependencies
-        run: brew install conan sccache ninja
+        run: brew install conan ninja
 
       - name: Build
         run: |
@@ -180,7 +127,6 @@ jobs:
           ninja package
           rm -rf bin/Cytopia.App/Contents/MacOS/resources
           rm -rf bin/Cytopia.App/Resources
-          sccache --show-stats
         shell: bash
 
       - name: Test
