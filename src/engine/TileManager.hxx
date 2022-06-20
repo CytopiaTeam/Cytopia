@@ -83,7 +83,7 @@ public:
    */
   SDL_Texture *getTexture(const std::string &tileID) const;
 
-  /** @brief Get the TileData struct for this tileID with all informations associated with it
+  /** @brief Get the TileData struct for this tileID and all information associated with it
   * @param id TileID
   * @return A pointer to the TileData Struct
   */
@@ -95,13 +95,13 @@ public:
   */
   Layer getTileLayer(const std::string &tileID) const;
 
-  /** @brief Calculates the TileOrintation for elevated tiles to pick the correct slope Sprite
+  /** @brief Calculates the slope orientation for elevated tiles to pick the correct slope Sprite
   * @param bitMaskElevation a bitmask of neighboring tiles and their elevation
   * @return Elevation bitmask
   */
   size_t calculateSlopeOrientation(unsigned char bitMaskElevation);
 
-  /** @brief Calculates the TileOrintation for elevated tiles to pick the correct Sprite
+  /** @brief Calculates the TileOrientation for elevated tiles to pick the correct Sprite
   * @param bitMaskElevation a bitmask of neighboring tiles and their elevation
   * @return The orientation the tile should have to it's elevated neighbors.
   */

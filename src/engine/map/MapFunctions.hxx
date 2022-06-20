@@ -81,7 +81,7 @@ public:
 
   /**
  * @brief Demolish a node
- * @details This function gathers all tiles that should be demolished and invokes the nodes demolish function. When a building bigger than 1x1 is selected, all it's coordinates are added to the demolishing points.
+ * @details This function gathers all tiles that should be demolished and invokes the node's demolish function. When a building bigger than 1x1 is selected, all its coordinates are added to the demolishing points.
  * @param isoCoordinates all coordinates that should be demolished
  * @param updateNeighboringTiles whether the adjacent tiles should be updated. (only relevant for autotiling)
  * @param layer restrict demolish to a single layer
@@ -99,22 +99,22 @@ public:
 
   /**
  * @brief Debug MapNodeData to Console
- * Used as Tile-Inspector until we implement a GUI variant
+ * @details Used as Tile-Inspector until we implement a GUI variant
  * @param isoCoordinates Tile to inspect
  */
   void getNodeInformation(const Point &isoCoordinates) const;
 
   /**
- * @brief Sets a node to be highlit
- * @details This sets a node to be highlit, the highlighting is done during rendering
+ * @brief Sets a node to be highlighted
+ * @details This sets a node to be highlighted. The highlighting is done during rendering
  * @param isoCoordinates which node should be highlit.
  * @param rgbColor The SpriteRGBColor that should be used for highlighting
  */
   void highlightNode(const Point &isoCoordinates, const SpriteRGBColor &rgbColor);
 
   /**
- * @brief Sets a node to be unhighlit
- * @details This sets a node to be unhighlit, the highlighting is done during rendering
+ * @brief Sets a node to be unhighlighred
+ * @details This sets a node to be unhighlighted, which is done during rendering
  * @param isoCoordinates which node should be unhighlit.
  */
   void unHighlightNode(const Point &isoCoordinates);
@@ -146,9 +146,8 @@ public:
   void newMap(bool generateTerrain = true);
 
   /** \brief Load Map from file
-  * @details Deserializes the Map class from a json file, creates a new Map and returns it.
-  * @param fileName The file the map should be written to
-  * @returns Map* Pointer to the newly created Map.
+  * @details Deserializes the Map class from a json file, creates a new Map and updates m_map.
+  * @param fileName The file the map is stored in
   */
   void loadMapFromFile(const std::string &fileName);
 
