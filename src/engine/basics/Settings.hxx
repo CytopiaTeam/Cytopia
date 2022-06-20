@@ -177,13 +177,19 @@ class Settings : public SettingsData, public Singleton<Settings>
 public:
   friend Singleton<Settings>;
 
-  /// Load settings from file
+  /**
+   * @brief Load settings from file
+   * @throws ConfigurationError when loading configuration results in an error 
+   */
   void readFile();
 
   /// Save settings to file
   void writeFile();
 
-  /// Reset settings to defaults from local settings file
+  /**
+   * @brief Reset settings to defaults from local settings file
+   * @throws ConfigurationError when loading configuration results in an error 
+   */
   void resetSettingsToDefaults();
 
   using SettingsData::operator=;

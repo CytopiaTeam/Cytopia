@@ -52,6 +52,7 @@ private:
    * @brief Load Texture in to Texture Map, if an entry for this tile ID does not yet exist.
    * @details Keep in Mind that the texture id is unique and there can't be two textures with the same id.
    * If colorkey is set - Use Magic Pink (255,255,0) for transparency
+   * @throws ConfigurationError when loading configuration results in an error
   */
   void loadUITexture();
 

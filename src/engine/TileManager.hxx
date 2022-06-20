@@ -142,7 +142,7 @@ public:
   bool isTileIDAutoTile(const std::string &tileID);
 
   /** @brief Parse the tileData JSON and set up the tileManager
-  * 
+  * @throws ConfigurationError when loading tile data file results in an error 
   */
   void init();
 

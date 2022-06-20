@@ -148,6 +148,8 @@ public:
   /** \brief Load Map from file
   * @details Deserializes the Map class from a json file, creates a new Map and updates m_map.
   * @param fileName The file the map is stored in
+  * @throws ConfigurationError when loading savegame file results in an error
+  * @throws CytopiaError when savegame version is not compatible with current version of Cytopia
   */
   void loadMapFromFile(const std::string &fileName);
 
