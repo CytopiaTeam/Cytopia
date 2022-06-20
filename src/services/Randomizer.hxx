@@ -18,7 +18,7 @@ public:
   template <typename Iterator> void shuffle(Iterator begin, Iterator end) { std::shuffle(begin, end, generator); }
 
   /**
-   * Pick random item from container.
+   * @brief Pick random item from container.
    * 
    * @threadsafe
    * 
