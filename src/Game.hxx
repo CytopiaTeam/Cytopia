@@ -36,20 +36,16 @@ public:
   virtual ~Game() = default;
 
   /** @brief starts setting up the game
-    * starts game initialization.
+    * @details starts game initialization.
     */
   virtual void initialize();
 
   /** @brief begins the game
-    * starts running the game
     * @param SkipMenu if the main menu should be skipped or not
     */
   virtual void run(bool SkipMenu = false);
-  void drawPauseMenu() const;
 
-  /** @brief ends the game
-    * shuts down the game
-    */
+  /// ends the game
   virtual void shutdown();
 
   virtual void newGame(bool generateTerrain);
