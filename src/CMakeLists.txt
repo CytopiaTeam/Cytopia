@@ -44,11 +44,8 @@ set(SOURCE_FILES
         engine/ui/basics/ButtonGroup.{hxx,cxx}
         engine/ui/basics/Layout.{hxx,cxx}
         engine/ui/widgets/Button.{hxx,cxx}
-        engine/ui/widgets/Combobox.{hxx,cxx}
-        engine/ui/widgets/Checkbox.{hxx,cxx}
         engine/ui/widgets/Frame.{hxx,cxx}
         engine/ui/widgets/Image.{hxx,cxx}
-        engine/ui/widgets/Slider.{hxx,cxx}
         engine/ui/widgets/Text.{hxx,cxx}
         engine/ui/widgets/Tooltip.{hxx,cxx}
         engine/ui/menuGroups/IMenuGroup.hxx
