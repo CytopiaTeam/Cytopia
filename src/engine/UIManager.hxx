@@ -64,7 +64,6 @@ public:
 
   /**
   * @brief Renders all UI Widgets
-  * 
   */
   void drawUI() const;
 
@@ -81,7 +80,6 @@ public:
 
   /**
  * @brief Toggle Visibility of Debug Menu
- * 
  */
   void toggleDebugMenu() { m_showDebugMenu = !m_showDebugMenu; };
 
@@ -211,6 +209,8 @@ private:
   void addToLayoutGroup(const std::string &groupName, UIElement *widget);
 
   bool m_showDebugMenu = false;
+
+  /// pointer to the default font used for in-game text
   struct ImFont *fontDefault = nullptr;
 };
 
