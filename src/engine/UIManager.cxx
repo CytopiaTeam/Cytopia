@@ -31,7 +31,7 @@
 
 using json = nlohmann::json;
 
-BETTER_ENUM(ElementType, int, ImageButton, TextButton, Text, Frame, Checkbox, ComboBox, Slider)
+BETTER_ENUM(ElementType, int, ImageButton, TextButton, Text, Frame)
 BETTER_ENUM(Action, int, RaiseTerrain, LowerTerrain, QuitGame, Demolish, ChangeTileType, ToggleVisibilityOfGroup, NewGame,
             SaveGame, LoadGame, SaveSettings, ChangeResolution)
 
@@ -251,16 +251,6 @@ void UIManager::parseElements(const json &uiLayout) {
         }
         case ElementType::Frame:
           uiElement = std::make_unique<Frame>(elementRect);
-          break;
-        case ElementType::Checkbox:
-          uiElement = std::make_unique<Checkbox>(elementRect);
-          break;
-        case ElementType::ComboBox:
-          uiElement = std::make_unique<ComboBox>(elementRect);
-          break;
-        case ElementType::Slider:
-          uiElement = std::make_unique<Slider>(elementRect);
-          dynamic_cast<Slider *>(uiElement.get())->setPosition(elementRect.x, elementRect.y);
           break;
         default:
           LOG(LOG_WARNING) << "An element without a type can not be created, check your UiLayout JSON File "

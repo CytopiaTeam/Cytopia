@@ -53,7 +53,9 @@ public:
   */
   void setFullScreenMode(FULLSCREEN_MODE mode) const;
 
+  /// creates and renders a new ImGui frame
   void newImGuiFrame();
+
   void renderScreen();
 
 private:
@@ -82,6 +84,9 @@ private:
 
   void initializeScreenResolutions();
 
+  /// Sets up platform/renderer backends and theme
   void initializeImguiRenderer();
+
+  /// shuts down the renderer for ImGui and the ImGui context.
   void destroyImGuiRenderer();
 };

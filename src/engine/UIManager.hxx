@@ -8,12 +8,9 @@
 #include "ui/basics/Layout.hxx"
 #include "ui/basics/ButtonGroup.hxx"
 #include "ui/widgets/Button.hxx"
-#include "ui/widgets/Checkbox.hxx"
-#include "ui/widgets/Combobox.hxx"
 #include "ui/widgets/Frame.hxx"
 #include "ui/widgets/Text.hxx"
 #include "ui/widgets/Tooltip.hxx"
-#include "ui/widgets/Slider.hxx"
 #include "../util/Singleton.hxx"
 
 /**
@@ -67,7 +64,6 @@ public:
 
   /**
   * @brief Renders all UI Widgets
-  * 
   */
   void drawUI() const;
 
@@ -84,7 +80,6 @@ public:
 
   /**
  * @brief Toggle Visibility of Debug Menu
- * 
  */
   void toggleDebugMenu() { m_showDebugMenu = !m_showDebugMenu; };
 
@@ -220,6 +215,8 @@ private:
 
   /// visibility of the debug menu
   bool m_showDebugMenu = false;
+
+  /// pointer to the default font used for in-game text
   struct ImFont *fontDefault = nullptr;
 };
 

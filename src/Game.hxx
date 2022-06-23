@@ -45,11 +45,8 @@ public:
     * @param SkipMenu if the main menu should be skipped or not
     */
   virtual void run(bool SkipMenu = false);
-  void drawPauseMenu() const;
 
-  /** @brief ends the game
-    * @details shuts down the game
-    */
+  /// ends the game
   virtual void shutdown();
 
   virtual void newGame(bool generateTerrain);
