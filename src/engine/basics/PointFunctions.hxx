@@ -12,7 +12,7 @@ BETTER_ENUM(NeighborNodesPosition, unsigned char, BOTTOM_LEFT = 1U << 6, LEFT = 
 class PointFunctions
 {
 public:
-  /**
+  /** \brief Creates a line between two points using the Bresenham Line algorithm
 * @param isoCoordinatesStart start coordinates
 * @param isoCoordinatesEnd end coordinates
 * @return std::vector<Point>() containing coordinates for each tile between start and end coordinates, including start and end
