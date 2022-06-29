@@ -15,35 +15,35 @@ public:
   /** \brief Creates a line between two points using the Bresenham Line algorithm
 * @param isoCoordinatesStart start coordinates
 * @param isoCoordinatesEnd end coordinates
-* @return std::vector<Point>() contains coordinates for each tile between start and end coordinates, including start and end
+* @return std::vector<Point>() containing coordinates for each tile between start and end coordinates, including start and end
 */
   static std::vector<Point> getLine(Point isoCoordinatesStart, Point isoCoordinatesEnd);
 
   /** \brief Gets all nodes in a straight line from start and end point
 * @param isoCoordinatesStart start coordinates
 * @param isoCoordinatesEnd end coordinates
-* @return std::vector<Point>() contains coordinates for each tile between start and end coordinates, including start and end
+* @return std::vector<Point>() containing coordinates for each tile between start and end coordinates, including start and end
 */
   static std::vector<Point> getStraightLine(const Point &isoCoordinatesStart, const Point &isoCoordinatesEnd);
 
   /** \brief Gets all nodes in a rectangular area between start and end point
 * @param isoCoordinatesStart start coordinates
 * @param isoCoordinatesEnd end coordinates
-* @return std::vector<Point>() contains coordinates for each tile between start and end coordinates, including start and end
+* @return std::vector<Point>() containing coordinates for each tile between start and end coordinates, including start and end
 */
   static std::vector<Point> getArea(const Point &isoCoordinatesStart, const Point &isoCoordinatesEnd);
 
-  /** \brief Get all neighboring coordinate from provided map node isocoordinate.
+  /** \brief Get all neighboring coordinates from provided map node isocoordinate.
   * @param isoCoordinates point to get neighbors of
   * @param includeCentralNode if set to true include the central node in the result.
-  * @return std::vector<Point>() All neighboring node coordinates.
+  * @return std::vector<Point>() of all neighboring node coordinates.
   */
   static std::vector<Point> getNeighbors(const Point &isoCoordinates, const bool includeCentralNode, int distance = 1);
 
   /** \brief Get the position of the neighboring node to the originpoint (center of the neighborgroup).
   * @param neighboringPoint the neighboring point
   * @param originPoint the center of the neighbor group we want to get the direction to
-  * @return NeighborNodesPosition An enum representing the Direction from the neighboring point to the origin point
+  * @return An enum representing the Direction from the neighboring point to the origin point
 
   */
   static NeighborNodesPosition getNeighborPositionToOrigin(const Point &neighboringPoint, const Point &originPoint);

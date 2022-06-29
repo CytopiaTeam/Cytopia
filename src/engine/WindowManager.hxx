@@ -61,6 +61,8 @@ public:
 private:
   /**
   * \brief Construct a new WindowManager object.
+  * @throws UIError if window or renderer creation fails, or if the window icon cannot be loaded
+  * @throws ConfigurationError if the path to the window icon doesn't exist
   */
   WindowManager();
   /**
