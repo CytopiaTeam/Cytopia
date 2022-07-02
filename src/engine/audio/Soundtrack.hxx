@@ -67,7 +67,7 @@ struct Soundtrack
 
   /**
    * @brief The OpenAL source of the sound track
-   * @details An object that tells the OpenAL system where the sound making object is located in 3d space
+   * @details An object that tells the OpenAL system where the sound making object is located in 3D space
    * and what buffer(sound) it makes.
    */
   ALuint source;
@@ -85,10 +85,6 @@ struct Soundtrack
    * to tell the system where the sound is made.
    */
   ALuint effect_slot;
-
-  /**
-   * @brief The WAVE data of the Soundtrack
-   */
 
   /**
    * @brief The audio data of the Soundtrack

@@ -22,6 +22,12 @@ private:
 
   void updateRemovedNodes(const MapNode *mapNode);
   void updatePlacedNodes(const MapNode &mapNode);
+
+  /**
+   * @brief Updates all PowerGrid's power levels
+   * @details Iterates through m_powerGrids and calls updatePowerLevel on each grid.
+   * @see PowerGrid#updatePowerLevel
+   */
   void updatePowerLevels();
 
   std::vector<PowerNode> m_nodesToAdd;

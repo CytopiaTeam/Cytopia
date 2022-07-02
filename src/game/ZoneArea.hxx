@@ -31,7 +31,7 @@ public:
   /**
    * @brief Remove a zoneNode on a given coordinate from this zoneArea
    * 
-   * @param oordinate Coordinates of the mapNode with a zone tile
+   * @param coordinate Coordinates of the mapNode with a zone tile
    */
   void removeZoneNode(Point coordinate);
 
@@ -90,7 +90,7 @@ public:
   void spawnBuildings();
 
   /**
-   * @brief Check if a given point is with the boundaries of this zone area
+   * @brief Check if a given point is within the boundaries of this zone area
    * 
    * @param coordinate point to check
    * @return if a given point is with the boundaries of this zone area

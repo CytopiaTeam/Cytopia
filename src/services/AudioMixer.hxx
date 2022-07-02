@@ -28,9 +28,9 @@ template <typename Type> using List = std::list<Type>;
 
 /**
  * @brief a 3-dimensional coordinate
- * @param x, x coordinate, horizontal position
- * @param y, y coordinate, height
- * @param z, z coordinate, vertical position
+ * @param x x coordinate, horizontal position
+ * @param y y coordinate, height
+ * @param z z coordinate, vertical position
  */
 struct Coordinate3D
 {
@@ -40,7 +40,6 @@ struct Coordinate3D
 /**
  * @brief a standard reverb effect
  */
-
 struct StandardReverbProperties
 {
   double flDensity = 1.0;       ///< coloration of the late reverb, range: 0.0 to 1.0.

@@ -143,11 +143,11 @@ struct TileData
   std::vector<std::string> tags;         ///< Tags to filter buildings in the gui
 
   TileSetData tiles;                     ///< Tile Spritesheet information
-  TileType tileType = TileType::DEFAULT; ///< todo: String for now, should be an enum
+  TileType tileType = TileType::DEFAULT; ///< @todo: String for now, should be an enum
   TileSetData shoreTiles;                ///< Shore Tile Spritesheet information
   TileSetData slopeTiles;                ///< Slope Tile Spritesheet information
-  std::string title;                     ///< The items title. It's shown ingame and in the editors tree-view
-  std::string description;               ///< Description of the item that is shown in it's details
+  std::string title;                     ///< The item's title. It's shown ingame and in the editor's tree-view
+  std::string description;               ///< Description of the item that is shown in its details
   int price = 0;                         ///< building cost
   int upkeepCost = 0;                    ///< monthly cost
   int power = 0;                         ///< power production / consumption if negative

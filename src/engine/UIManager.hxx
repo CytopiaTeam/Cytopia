@@ -139,7 +139,13 @@ public:
  */
   UIElement *getUiElementByID(const std::string &ID) const;
 
+
   void setTooltip(const std::string &tooltipText);
+  
+  /**
+   * @brief Hides and resets the active tooltip.
+   * @see Tooltip#reset
+   */
   void clearTooltip();
 
   /**
@@ -214,6 +220,7 @@ private:
 
   void addToLayoutGroup(const std::string &groupName, UIElement *widget);
 
+  /// visibility of the debug menu
   bool m_showDebugMenu = false;
 
   /// pointer to the default font used for in-game text

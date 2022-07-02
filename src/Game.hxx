@@ -41,6 +41,7 @@ public:
   virtual void initialize();
 
   /** @brief begins the game
+    * @details starts running the game
     * @param SkipMenu if the main menu should be skipped or not
     */
   virtual void run(bool SkipMenu = false);

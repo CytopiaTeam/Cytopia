@@ -31,18 +31,12 @@ public:
   void decreaseZoomLevel();
 
   /**
-   * @brief Sets the pinch distance for Android
+   * @brief Sets the pinch distance for touch screens
    * @param pinchDistance the pinch distance
    * @param isoX the x-center of the pinch
    * @param isoY the y-center of the pinch
    */
   void setPinchDistance(float pinchDistance, int isoX, int isoY);
-
-  /**
-   * @brief Sets the window
-   * @todo  Remove this when NewUI is complete
-   */
-  void setWindow(class Window *);
 
   /**
    * @brief Move the camera in the given direction
