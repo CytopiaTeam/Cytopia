@@ -5,6 +5,7 @@
 #include "Exception.hxx"
 #include "LOG.hxx"
 #include "engine/WindowManager.hxx"
+#include <UIManager.hxx>
 
 #include <SDL.h>
 #include <SDL_ttf.h>

@@ -53,7 +53,9 @@ generate_source_groups(${TEST_SOURCES})
 add_executable(${TESTS_PROJECT_NAME} ${TEST_SOURCES})
 
 if (ENABLE_PHC)
-    target_precompile_headers(${TESTS_PROJECT_NAME} PRIVATE phc.hxx)
+    if (NOT MSVC) # incorrect genereate config for msvc
+        target_precompile_headers(${TESTS_PROJECT_NAME} PRIVATE phc.hxx)
+    endif ()
 endif ()
 
 target_include_directories(
