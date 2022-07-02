@@ -30,7 +30,6 @@ void Layout::arrangeElements()
     // Set layout for all non-child elements
     for (const auto &element : group.second.uiElements)
     {
-
       if (groupLayout.alignment == "TOP_LEFT")
       {
         if (groupLayout.layoutType == "HORIZONTAL")

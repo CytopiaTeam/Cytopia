@@ -64,6 +64,7 @@ set(SOURCE_FILES
         game/ui/SettingsMenu.{hxx,cxx}
         game/ui/PauseMenu.{hxx,cxx}
         game/ui/LoadMenu.{hxx,cxx}
+        game/ui/BuildMenu.{hxx,cxx}
         )
 
 if (ANDROID)
@@ -143,7 +144,9 @@ set_target_properties(
 list(APPEND _compile_definitions VERSION="${PROJECT_NAME} ${PROJECT_VERSION} - Utilities Update")
 
 if (ENABLE_PHC)
-    target_precompile_headers(${PROJECT_NAME} PRIVATE phc.hxx)
+    if (NOT MSVC) # incorrect generates pch for msvc
+        target_precompile_headers(${PROJECT_NAME} PRIVATE phc.hxx)
+    endif ()
 endif ()
 
 target_include_directories(

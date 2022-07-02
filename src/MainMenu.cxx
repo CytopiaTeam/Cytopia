@@ -39,7 +39,7 @@ bool mainMenu()
   bool startGame = true;
   bool showLoadDialog = false;
 
-  UIManager::instance().initImGui();
+  UIManager::instance().init();
 
 #ifdef USE_AUDIO
   auto &m_AudioMixer = AudioMixer::instance();
@@ -145,7 +145,7 @@ bool mainMenu()
       constexpr int buttonInterval = 20;
       ImVec2 buttonPos(screenWidth / 2 - buttonSize.x / 2, screenHeight / 2 - buttonSize.y);
       ui::SetCursorPos(buttonPos);
-      if (ui::ButtonCt("New Game", { 200, 40 })) {
+      if (ui::ButtonCt("New Game", buttonSize)) {
   #ifdef USE_AUDIO
         playAudioMajorSelection();
   #endif //  USE_AUDIO 
@@ -155,13 +155,13 @@ bool mainMenu()
 
       buttonPos.y += buttonSize.y + buttonInterval;
       ui::SetCursorPos(buttonPos);
-      if (ui::ButtonCt("Load Game", { 200, 40 })) {
+      if (ui::ButtonCt("Load Game", buttonSize)) {
         showLoadDialog = true;
       }
 
       buttonPos.y += buttonSize.y + buttonInterval;
       ui::SetCursorPos(buttonPos);
-      if (ui::ButtonCt("Quit Game", { 200, 40 })) {
+      if (ui::ButtonCt("Quit Game", buttonSize)) {
         startGame = false;
         mainMenuLoop = false;
       }

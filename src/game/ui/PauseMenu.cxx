@@ -36,7 +36,7 @@ void PauseMenu::draw() const {
   bool open = true;
   ui::BeginCt("PauseMenu", &open, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
 
-  ui::Dummy({0, (windowSize.y - (buttonSize.y + buttonOffset.y) * 5) / 2});
+  ui::Dummy({0.f, (windowSize.y - (buttonSize.y + buttonOffset.y) * 5) / 2});
   if (ui::ButtonCt("Settings", buttonSize))
   {
     Settings::instance().writeFile();

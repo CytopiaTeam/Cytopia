@@ -30,7 +30,11 @@ public:
   /** \brief Get pointer to a single mapNode at specific iso coordinates.
   * @param isoCoords The node to retrieve.
   */
-  MapNode &getMapNode(Point isoCoords) { return m_map->mapNodes[isoCoords.toIndex()]; };
+  inline MapNode &getMapNode(Point isoCoords)
+  {
+    uint32_t index = isoCoords.toIndex();
+    return m_map->mapNodes[index < m_map->mapNodes.size() ? index : 0];
+  };
 
   /** \brief Get all mapnodes as a vector
    */

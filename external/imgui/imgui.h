@@ -251,11 +251,32 @@ struct ImVec2
     float                                   x, y;
     constexpr ImVec2()                      : x(0.0f), y(0.0f) { }
     constexpr ImVec2(float _x, float _y)    : x(_x), y(_y) { }
+    explicit constexpr ImVec2(int _x, int _y) : x(_x), y(_y) { }
+    explicit constexpr ImVec2(int _x, float _y) : x(_x), y(_y) { }
+    explicit constexpr ImVec2(float _x, int _y) : x(_x), y(_y) { }
     float  operator[] (size_t idx) const    { IM_ASSERT(idx <= 1); return (&x)[idx]; }    // We very rarely use this [] operator, the assert overhead is fine.
     float& operator[] (size_t idx)          { IM_ASSERT(idx <= 1); return (&x)[idx]; }    // We very rarely use this [] operator, the assert overhead is fine.
 #ifdef IM_VEC2_CLASS_EXTRA
     IM_VEC2_CLASS_EXTRA     // Define additional constructors and implicit cast operators in imconfig.h to convert back and forth between your math types and ImVec2.
 #endif
+};
+
+struct ImSpan2
+{
+  float                                   w, h;
+  constexpr ImSpan2()                     : w(0.0f), h(0.0f) { }
+  constexpr ImSpan2(float _w, float _h)   : w(_w), h(_h) { }
+  float  operator[] (size_t idx) const    { IM_ASSERT(idx <= 1); return (&w)[idx]; }    // We very rarely use this [] operator, the assert overhead is fine.
+  float& operator[] (size_t idx)          { IM_ASSERT(idx <= 1); return (&w)[idx]; }    // We very rarely use this [] operator, the assert overhead is fine.
+};
+
+struct ImSpan2i
+{
+  int                                     w, h;
+  constexpr ImSpan2i()                    : w(0.0f), h(0.0f) { }
+  constexpr ImSpan2i(int _w, int _h)      : w(_w), h(_h) { }
+  int  operator[] (size_t idx) const      { IM_ASSERT(idx <= 1); return (&w)[idx]; }    // We very rarely use this [] operator, the assert overhead is fine.
+  int& operator[] (size_t idx)            { IM_ASSERT(idx <= 1); return (&w)[idx]; }    // We very rarely use this [] operator, the assert overhead is fine.
 };
 
 // ImVec4: 4D vector used to store clipping rectangles, colors etc. [Compile-time configurable type]
@@ -349,6 +370,7 @@ namespace ImGui
     IMGUI_API ImVec2        GetWindowSize();                            // get current window size
     IMGUI_API float         GetWindowWidth();                           // get current window width (shortcut for GetWindowSize().x)
     IMGUI_API float         GetWindowHeight();                          // get current window height (shortcut for GetWindowSize().y)
+    IMGUI_API double         GetHoveredTimer();                          // get current window height (shortcut for GetWindowSize().y)
 
     // Window manipulation
     // - Prefer using SetNextXXX functions (before Begin) rather that SetXXX functions (after Begin).
@@ -497,13 +519,14 @@ namespace ImGui
     IMGUI_API bool          ArrowButton(const char* str_id, ImGuiDir dir);                  // square button with an arrow shape
     IMGUI_API void          Image(ImTextureID user_texture_id, const ImVec2& size, const ImVec2& uv0 = ImVec2(0, 0), const ImVec2& uv1 = ImVec2(1,1), const ImVec4& tint_col = ImVec4(1,1,1,1), const ImVec4& border_col = ImVec4(0,0,0,0));
     IMGUI_API bool          ImageButton(ImTextureID user_texture_id, const ImVec2& size, const ImVec2& uv0 = ImVec2(0, 0),  const ImVec2& uv1 = ImVec2(1,1), int frame_padding = -1, const ImVec4& bg_col = ImVec4(0,0,0,0), const ImVec4& tint_col = ImVec4(1,1,1,1));    // <0 frame_padding uses default frame padding settings. 0 for no padding
+    IMGUI_API bool          ImageButtonCt(ImTextureID user_texture_id, ImGuiButtonFlags flags, const ImVec2& size, const ImVec2 &imgp, const ImVec2 &imgs, const ImVec2& uv0 = ImVec2(0, 0),  const ImVec2& uv1 = ImVec2(1,1), int frame_padding = -1, const ImVec4& bg_col = ImVec4(0,0,0,0), const ImVec4& tint_col = ImVec4(1,1,1,1));    // <0 frame_padding uses default frame padding settings. 0 for no padding
     IMGUI_API bool          Checkbox(const char* label, bool* v);
     IMGUI_API bool          CheckboxCt(const char *label, bool *v);
     IMGUI_API bool          CheckboxFlags(const char* label, int* flags, int flags_value);
     IMGUI_API bool          CheckboxFlags(const char* label, unsigned int* flags, unsigned int flags_value);
     IMGUI_API bool          RadioButton(const char* label, bool active);                    // use with e.g. if (RadioButton("one", my_value==1)) { my_value = 1; }
     IMGUI_API bool          RadioButton(const char* label, int* v, int v_button);           // shortcut to handle the above pattern when value is an integer
-    IMGUI_API void          ProgressBar(float fraction, const ImVec2& size_arg = ImVec2(-FLT_MIN, 0), const char* overlay = NULL);
+    IMGUI_API void          ProgressBar(float fraction, const ImVec2& size_arg = ImVec2(-FLT_MIN, 0.f), const char* overlay = NULL);
     IMGUI_API void          Bullet();                                                       // draw a small circle + keep the cursor on the same line. advance cursor x position by GetTreeNodeToLabelSpacing(), same distance that TreeNode() uses
 
     // Widgets: Combo Box
@@ -1634,6 +1657,9 @@ enum ImGuiButtonFlags_
     ImGuiButtonFlags_MouseButtonLeft        = 1 << 0,   // React on left mouse button (default)
     ImGuiButtonFlags_MouseButtonRight       = 1 << 1,   // React on right mouse button
     ImGuiButtonFlags_MouseButtonMiddle      = 1 << 2,   // React on center mouse button
+
+    ImGuiButtonFlags_ForcePressed           = 1 << 10,
+    ImGuiButtonFlags_NoBackground           = 1 << 11,
 
     // [Internal]
     ImGuiButtonFlags_MouseButtonMask_       = ImGuiButtonFlags_MouseButtonLeft | ImGuiButtonFlags_MouseButtonRight | ImGuiButtonFlags_MouseButtonMiddle,
