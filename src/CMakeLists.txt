@@ -63,6 +63,7 @@ set(SOURCE_FILES
         game/GamePlay.{hxx,cxx}
         game/ui/SettingsMenu.{hxx,cxx}
         game/ui/PauseMenu.{hxx,cxx}
+        game/ui/LoadMenu.{hxx,cxx}
         game/ui/BuildMenu.{hxx,cxx}
         )
 

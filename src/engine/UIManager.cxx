@@ -68,7 +68,7 @@ ImFont *UIManager::loadFont(const std::string &fontPath, uint32_t size)
 void UIManager::initializeImGuiFonts() {
   std::string fontPath = fs::getBasePath() + Settings::instance().fontFileName.get(); // fix for macos, need to use abs path
 
-  std::array<const char *, 3> names = {"MainMenuButtons", "PauseMenuButtons", "BuildMenuButtons" };
+  std::array<const char *, 4> names = {"MainMenuButtons", "PauseMenuButtons", "LoadDialogButtons", "BuildMenuButtons"};
   for (const auto &name : names)
   {
     auto it = m_layoutGroups.find(name);

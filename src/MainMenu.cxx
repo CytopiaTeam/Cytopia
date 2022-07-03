@@ -13,6 +13,8 @@
 #include "imgui_impl_sdl.h"
 #include "imgui_impl_sdlrenderer.h"
 
+#include "game/ui/LoadMenu.hxx"
+
 namespace ui = ImGui;
 
 #ifdef USE_AUDIO
@@ -35,6 +37,7 @@ bool mainMenu()
   int screenHeight = Settings::instance().screenHeight;
   bool mainMenuLoop = true;
   bool startGame = true;
+  bool showLoadDialog = false;
 
   UIManager::instance().init();
 
@@ -95,6 +98,8 @@ bool mainMenu()
     renderFrame();
   }
 
+  LoadMenu loadMenu;
+
   const auto &buttonFont = UIManager::instance().getAllLayoutGroups()["MainMenuButtons"].layout.font;
   while (mainMenuLoop)
   {
@@ -109,7 +114,26 @@ bool mainMenu()
       }
     }
 
-    // main logic render widgets in main menu
+    if (showLoadDialog)
+    {
+      loadMenu.draw();
+      switch (loadMenu.result()) {
+        case LoadMenu::e_close:
+          showLoadDialog = false;
+          break;
+      
+        case LoadMenu::e_load_file:
+  #ifdef USE_AUDIO
+          playAudioMajorSelection();
+  #endif //  USE_AUDIO 
+          SignalMediator::instance().signalLoadGame.emit(loadMenu.filename());
+          mainMenuLoop = false;
+          break;
+        default:
+          break;
+      }
+    }
+    else 
     {
       ui::PushFont(buttonFont);
       ui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
@@ -132,11 +156,7 @@ bool mainMenu()
       buttonPos.y += buttonSize.y + buttonInterval;
       ui::SetCursorPos(buttonPos);
       if (ui::ButtonCt("Load Game", buttonSize)) {
-  #ifdef USE_AUDIO
-        playAudioMajorSelection();
-  #endif //  USE_AUDIO 
-        SignalMediator::instance().signalLoadGame.emit("save.cts");
-        mainMenuLoop = false;
+        showLoadDialog = true;
       }
 
       buttonPos.y += buttonSize.y + buttonInterval;
