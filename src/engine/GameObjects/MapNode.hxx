@@ -20,7 +20,7 @@ struct MapNodeData
   TileData *tileData = nullptr;
   int32_t tileIndex = 0;
   Point origCornerPoint = Point::INVALID();
-  TileMap tileMap = TileMap::DEFAULT; // store information wheter we use normal, slope or shore tiles
+  TileMap tileMap = TileMap::DEFAULT; // store information whether we use normal, slope or shore tiles
 };
 
 /** @brief Class that holds map nodes
@@ -47,7 +47,7 @@ public:
   ~MapNode() = default;
 
   /** @brief get Sprite
-    * get the Sprite* object for this nodes
+    * @details get the Sprite* object for this nodes
     * @returns the Sprite of this node.
     * @see Sprite
     */
@@ -64,8 +64,8 @@ public:
   void setCoordinates(const Point &newIsoCoordinates);
 
   /** @brief Change Height
-    * @details Increases or decrease the height of the node and its sprite
-    * This function should not be called directly, but only from where the neighboring nodes slopes are determined
+    * @details Increases or decrease the height of the node and its sprite.
+    * This function should not be called directly, but only from where the neighboring nodes slopes are determined.
     *
     * @param higher pass true in case that height should be increased or false in case that height should be decreased.
     * @return true in case that height is changed, otherwise false.
@@ -107,11 +107,14 @@ public:
     */
   bool isSlopeNode(void) const;
 
+  /** @brief check the conductivity of the node
+    * @returns true if the node conducts electricity/power, false if not
+    */
   const bool isConductive() const;
 
   /**
  * @brief Demolish a node
- * @details Removes all tiles on a node. This effects all layers where something to demolish is placed. (BUILDINGS, GROUND_DECORATION, UNDERGROUND) per default, but can be restricted to a single Layer.
+ * @details Removes all tiles on a node. This effects all layers where something to demolish is placed (BUILDINGS, GROUND_DECORATION, UNDERGROUND) per default, but can be restricted to a single Layer.
  * @param layer restrict demolish to a single layer
  * @see MapNode#demolishNode
  */

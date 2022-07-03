@@ -53,12 +53,16 @@ public:
   */
   void setFullScreenMode(FULLSCREEN_MODE mode) const;
 
+  /// creates and renders a new ImGui frame
   void newImGuiFrame();
+
   void renderScreen();
 
 private:
   /**
   * \brief Construct a new WindowManager object.
+  * @throws UIError if window or renderer creation fails, or if the window icon cannot be loaded
+  * @throws ConfigurationError if the path to the window icon doesn't exist
   */
   WindowManager();
   /**
@@ -80,6 +84,9 @@ private:
 
   void initializeScreenResolutions();
 
+  /// Sets up platform/renderer backends and theme
   void initializeImguiRenderer();
+
+  /// shuts down the renderer for ImGui and the ImGui context.
   void destroyImGuiRenderer();
 };

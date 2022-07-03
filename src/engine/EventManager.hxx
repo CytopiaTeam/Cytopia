@@ -4,8 +4,10 @@
 #include <SDL.h>
 #include <set>
 
-#include "UIManager.hxx"
+#include <Point.hxx>
 #include "../util/Singleton.hxx"
+
+class UIElement;
 
 class EventManager : public Singleton<EventManager>
 {
@@ -22,8 +24,6 @@ public:
   void pickTileUnderCursor(Point mouseIsoCoords);
 
 private:
-  UIManager &m_uiManager = UIManager::instance();
-
   UIElement *m_lastHoveredElement = nullptr;
 
   /// remember if placement is allowed from mousemove to mousedown

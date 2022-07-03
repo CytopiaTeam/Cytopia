@@ -8,12 +8,9 @@
 #include "ui/basics/Layout.hxx"
 #include "ui/basics/ButtonGroup.hxx"
 #include "ui/widgets/Button.hxx"
-#include "ui/widgets/Checkbox.hxx"
-#include "ui/widgets/Combobox.hxx"
 #include "ui/widgets/Frame.hxx"
 #include "ui/widgets/Text.hxx"
 #include "ui/widgets/Tooltip.hxx"
-#include "ui/widgets/Slider.hxx"
 #include "../util/Singleton.hxx"
 
 /**
@@ -25,6 +22,18 @@ struct LayoutGroup
   std::vector<UIElement *> uiElements; ///< contains pointer to all uiElements belonging to this group
   LayoutData layout;                   ///< layout information @see LayoutData
 };
+
+// BaseClass for game menu, only one menu can show on frame
+struct GameMenu
+{
+  using Ptr = std::shared_ptr<GameMenu>;
+  virtual ~GameMenu() = default;
+  virtual void draw() const { /* default implementation do nothing */ }
+  virtual bool isMouseHovered() const { return false; }
+  virtual void closeSubmenus() { /* default implementation do nothing */ }
+};
+
+struct BuildMenu;
 
 enum class BUILDMENU_LAYOUT
 {
@@ -49,23 +58,19 @@ public:
    */
 
   void init();
-  void initImGui();
+
+  struct ImFont *loadFont(const std::string &name, uint32_t size);
+  void initializeImGuiFonts();
 
   void loadSettings(json& uiLayout);
   void parseLayouts(const json &uiLayout);
-  void parseElements(const json &uiLayout);
-  /**
- * @brief Fill UI Widgets whose ID start with a $ with data
- * Used for filling widgets with data, like BuildMenu Position combobox, Screen Resolution ComboBox and so on
- */
-  void initializeDollarVariables();
 
   /**
   * @brief Renders all UI Widgets
-  * 
   */
   void drawUI() const;
 
+  void setGroupVisibility(const std::string &groupID, bool visible);
   /**
  * @brief Callback function for toggling the visibility of an UiGroup 
  * @details Callback function for Ui Widgets with the ActionID "ToggleVisiblityOfGroup".
@@ -78,7 +83,6 @@ public:
 
   /**
  * @brief Toggle Visibility of Debug Menu
- * 
  */
   void toggleDebugMenu() { m_showDebugMenu = !m_showDebugMenu; };
 
@@ -88,13 +92,6 @@ public:
  * @param fps 
  */
   void setFPSCounterText(const std::string &fps) const;
-
-  /**
- * @brief CallbackFunction that sets the Build Menu Position 
- * @details Used as callback function for the ComboBox that holds the Build Menu position
- * @param sender ComboBox that called the function
- */
-  void setBuildMenuPosition(UIElement *sender);
 
   /**
  * @brief Get all Ui Element objects
@@ -142,19 +139,60 @@ public:
  */
   UIElement *getUiElementByID(const std::string &ID) const;
 
-  void startTooltip(SDL_Event &event, const std::string &tooltipText) const;
-  void stopTooltip() const;
 
-  void changeResolution(UIElement *sender);
-  void changeFullScreenMode(UIElement *sender);
+  void setTooltip(const std::string &tooltipText);
+  
+  /**
+   * @brief Hides and resets the active tooltip.
+   * @see Tooltip#reset
+   */
+  void clearTooltip();
 
   /**
  * @brief Close all open menus but the build menu
  */
   void closeOpenMenus();
 
+  void openMenu(GameMenu::Ptr menuOption);
+
+  template<class Menu>
+  void openMenu() { openMenu(std::make_shared<Menu>()); }
+
+  void closeMenu();
+  inline bool isAnyMenuOpen() const { return !m_menuStack.empty(); }
+
+  void addPersistentMenu(GameMenu::Ptr menu);
+
+  bool isMouseHovered() const;
+
+  template<class Menu>
+  inline GameMenu::Ptr findMenu() const {
+    for (const auto &m : m_menuStack)
+    {
+      if (dynamic_cast<Menu *>(m.get()))
+      {
+        return m;
+      }
+    }
+
+    for (const auto &m : m_persistentMenu)
+    {
+      if (dynamic_cast<Menu *>(m.get()))
+      {
+        return m;
+      }
+    }
+
+    return nullptr;
+  }
+  
+  template<class Menu>
+  void addPersistentMenu() { addPersistentMenu(std::make_shared<Menu>()); }
+
+  BUILDMENU_LAYOUT buildMenuLayout() const { return m_buildMenuLayout; }
+  void setBuildMenuLayout(BUILDMENU_LAYOUT l) { m_buildMenuLayout = l; }
+
 private:
-  BUILDMENU_LAYOUT m_buildMenuLayout = BUILDMENU_LAYOUT::BOTTOM;
 
   UIManager() = default;
   ~UIManager() = default;
@@ -171,41 +209,23 @@ private:
   /// map holding layput groups, accessible via the layoutgroup ID
   std::unordered_map<std::string, LayoutGroup> m_layoutGroups;
 
-  /// Holding all buttongroups
-  std::unordered_map<std::string, ButtonGroup *> m_buttonGroups;
-
-  std::unique_ptr<Tooltip> m_tooltip = std::make_unique<Tooltip>();
+  std::string m_tooltip;
 
   /// Text element for the FPS Counter (debug menu)
   std::unique_ptr<Text> m_fpsCounter = std::make_unique<Text>();
 
-  void setCallbackFunctions();
-
-  /**
-   * @brief takes an SDL_Rect, default button width and height, and image width and height
-   *        and scales the image to fit on a button of the default button size (maintaining the 
-   *        aspect ration of the original image).
-   * @param ret the address of a rect that will contain the size of the scaled image
-   * @param btnW the default button width
-   * @param btnH the default button height
-   * @param imgW the width of the image to scale
-   * @param imgH the height of the image to scale
-   */
-  void scaleCenterButtonImage(SDL_Rect &ret, int btnW, int btnH, int imgW, int imgH);
-  void createBuildMenu();
-  void setBuildMenuLayout();
-
-  /**
-   * @brief Draws the tile (defined by the string, tiledata pair) onto the button
-   * @param button the button to draw this image on
-   * @param tile The id string, tileData pair of the tile that defines the image to be drawn
-   */
-  void setupButtonTileImage(Button *button, const std::pair<std::string, TileData> &tile);
+  std::unordered_map<std::string, ImFont *> m_loadedFonts;
+  std::vector<GameMenu::Ptr> m_menuStack;
+  std::vector<GameMenu::Ptr> m_persistentMenu;
 
   void addToLayoutGroup(const std::string &groupName, UIElement *widget);
 
+  /// visibility of the debug menu
   bool m_showDebugMenu = false;
+
+  /// pointer to the default font used for in-game text
   struct ImFont *fontDefault = nullptr;
+  BUILDMENU_LAYOUT m_buildMenuLayout = BUILDMENU_LAYOUT::BOTTOM;
 };
 
 #endif

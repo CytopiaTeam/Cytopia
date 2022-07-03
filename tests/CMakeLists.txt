@@ -34,9 +34,6 @@ LIST(APPEND TEST_SOURCES
         ui/widgets/Button.cxx
         ui/widgets/Frame.cxx
         ui/widgets/Image.cxx
-        ui/widgets/Checkbox.cxx
-        ui/widgets/Combobox.cxx
-        ui/widgets/Slider.cxx
         ui/widgets/Tooltip.cxx
         util/Meta.cxx
         util/MessageQueue.cxx
@@ -54,6 +51,10 @@ endif (ENABLE_AUDIO)
 generate_source_groups(${TEST_SOURCES})
 
 add_executable(${TESTS_PROJECT_NAME} ${TEST_SOURCES})
+
+if (ENABLE_PHC)
+    target_precompile_headers(${TESTS_PROJECT_NAME} PRIVATE phc.hxx)
+endif ()
 
 target_include_directories(
         ${TESTS_PROJECT_NAME} PRIVATE

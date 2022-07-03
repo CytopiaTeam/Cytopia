@@ -12,6 +12,7 @@
 #include "services/DiscordRpc.hxx"
 #include <Map.hxx>
 #include <MapFunctions.hxx>
+#include "../game/ui/BuildMenu.hxx"
 
 #include <SDL.h>
 #include <SDL_ttf.h>
@@ -138,6 +139,8 @@ void Game::run(bool SkipMenu)
   const float fpsIntervall = 1.0; // interval the fps counter is refreshed in seconds.
   Uint32 fpsLastTime = SDL_GetTicks();
   Uint32 fpsFrames = 0;
+
+  uiManager.addPersistentMenu<BuildMenu>();
 
   // GameLoop
   while (!m_shutDown)

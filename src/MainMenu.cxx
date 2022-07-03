@@ -6,7 +6,6 @@
 #include <SignalMediator.hxx>
 #include <SDL.h>
 #include "engine/UIManager.hxx"
-#include "engine/ui/widgets/Image.hxx"
 #include "engine/basics/Settings.hxx"
 
 #include "OSystem.hxx"
@@ -38,7 +37,7 @@ bool mainMenu()
   bool mainMenuLoop = true;
   bool startGame = true;
 
-  UIManager::instance().initImGui();
+  UIManager::instance().init();
 
 #ifdef USE_AUDIO
   auto &m_AudioMixer = AudioMixer::instance();
@@ -95,7 +94,6 @@ bool mainMenu()
     ui::Image(logoTex, ImVec2(logoTexW, logoTexH), ImVec2(0, 0), ImVec2(1, 1), ImVec4{op, op, op, op});
     ui::PopStyleVar(1);
 
-
     renderFrame();
   }
 
@@ -104,7 +102,7 @@ bool mainMenu()
   {
     beginFrame();
 
-    while (SDL_PollEvent(&event) != 0) {
+    while (SDL_PollEvent(&event) != 0) { // while there is a pending event
       ImGui_ImplSDL2_ProcessEvent(&event);
 
       if (event.type == SDL_QUIT) {
@@ -125,7 +123,7 @@ bool mainMenu()
       constexpr int buttonInterval = 20;
       ImVec2 buttonPos(screenWidth / 2 - buttonSize.x / 2, screenHeight / 2 - buttonSize.y);
       ui::SetCursorPos(buttonPos);
-      if (ui::ButtonCt("New Game", { 200, 40 })) {
+      if (ui::ButtonCt("New Game", buttonSize)) {
   #ifdef USE_AUDIO
         playAudioMajorSelection();
   #endif //  USE_AUDIO 
@@ -135,7 +133,7 @@ bool mainMenu()
 
       buttonPos.y += buttonSize.y + buttonInterval;
       ui::SetCursorPos(buttonPos);
-      if (ui::ButtonCt("Load Game", { 200, 40 })) {
+      if (ui::ButtonCt("Load Game", buttonSize)) {
   #ifdef USE_AUDIO
         playAudioMajorSelection();
   #endif //  USE_AUDIO 
@@ -145,7 +143,7 @@ bool mainMenu()
 
       buttonPos.y += buttonSize.y + buttonInterval;
       ui::SetCursorPos(buttonPos);
-      if (ui::ButtonCt("Quit Game", { 200, 40 })) {
+      if (ui::ButtonCt("Quit Game", buttonSize)) {
         startGame = false;
         mainMenuLoop = false;
       }
@@ -167,20 +165,19 @@ bool mainMenu()
       ui::PopStyleVar(1);
     }
 
-    {
-      constexpr ImVec2 fpsTextPos(5, 5);
-      ui::SetCursorPos(fpsTextPos);
-      ui::Text("[%.1f FPS]", ui::GetIO().Framerate);
+    /* FPS counter.*/
+    /** @TODO remove or alter to use existing fps counter from debug menu */
+    constexpr ImVec2 fpsTextPos(5, 5);
+    ui::SetCursorPos(fpsTextPos);
+    ui::Text("[%.1f FPS]", ui::GetIO().Framerate);
 
-      ImVec2 textSize = ImGui::CalcTextSize(VERSION);
-      const ImVec2 versionPos(screenWidth - textSize.x - 10, screenHeight - textSize.y - 10);
-      ui::SetCursorPos(versionPos);
-      ui::Text(VERSION);
-    }
+    ImVec2 textSize = ImGui::CalcTextSize(VERSION);
+    const ImVec2 versionPos(screenWidth - textSize.x - 10, screenHeight - textSize.y - 10);
+    ui::SetCursorPos(versionPos);
+    ui::Text(VERSION);
 
     DiscordRpc::processCallback();
     renderFrame();
   }
-
   return startGame;
 }

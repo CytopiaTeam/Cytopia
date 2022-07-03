@@ -29,9 +29,9 @@ protected:
     */
   void MessageCallback(const asSMessageInfo *msg);
 
-  asIScriptEngine *engine{};   //!< instance of the scripting engine
-  asIScriptContext *context{}; //!< context in which all scripting happens
+  asIScriptEngine *engine{};   ///< instance of the scripting engine
+  asIScriptContext *context{}; ///< context in which all scripting happens
 };
-#endif
+#endif // USE_ANGELSCRIPT
 
 #endif

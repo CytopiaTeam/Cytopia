@@ -45,11 +45,8 @@ set(SOURCE_FILES
         engine/ui/basics/ButtonGroup.{hxx,cxx}
         engine/ui/basics/Layout.{hxx,cxx}
         engine/ui/widgets/Button.{hxx,cxx}
-        engine/ui/widgets/Combobox.{hxx,cxx}
-        engine/ui/widgets/Checkbox.{hxx,cxx}
         engine/ui/widgets/Frame.{hxx,cxx}
         engine/ui/widgets/Image.{hxx,cxx}
-        engine/ui/widgets/Slider.{hxx,cxx}
         engine/ui/widgets/Text.{hxx,cxx}
         engine/ui/widgets/Tooltip.{hxx,cxx}
         engine/ui/menuGroups/IMenuGroup.hxx
@@ -65,6 +62,9 @@ set(SOURCE_FILES
         game/PowerManager.{hxx,cxx}
         game/PowerGrid.{hxx,cxx}
         game/GamePlay.{hxx,cxx}
+        game/ui/SettingsMenu.{hxx,cxx}
+        game/ui/PauseMenu.{hxx,cxx}
+        game/ui/BuildMenu.{hxx,cxx}
         )
 
 if (ANDROID)
@@ -142,6 +142,10 @@ set_target_properties(
 )
 
 list(APPEND _compile_definitions VERSION="${PROJECT_NAME} ${PROJECT_VERSION} - Utilities Update")
+
+if (ENABLE_PHC)
+    target_precompile_headers(${PROJECT_NAME} PRIVATE phc.hxx)
+endif ()
 
 target_include_directories(
         ${PROJECT_NAME} PRIVATE

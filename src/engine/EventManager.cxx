@@ -10,9 +10,15 @@
 #include "map/MapLayers.hxx"
 #include "Map.hxx"
 #include "Sprite.hxx"
+#include "UIManager.hxx"
 #include <MapFunctions.hxx>
 
 #include "LOG.hxx"
+
+#include "imgui.h"
+#include "imgui_impl_sdl.h"
+
+#include "../game/ui/PauseMenu.hxx"
 
 #ifdef MICROPROFILE_ENABLED
 #include "microprofile/microprofile.h"
@@ -77,9 +83,12 @@ void EventManager::checkEvents(SDL_Event &event)
   // check for UI events first
   SDL_Point mouseScreenCoords;
   Point mouseIsoCoords{};
+  auto &uiManager = UIManager::instance();
 
   while (SDL_PollEvent(&event))
   {
+    ImGui_ImplSDL2_ProcessEvent(&event);
+
     switch (event.type)
     {
     case SDL_QUIT:
@@ -92,13 +101,18 @@ void EventManager::checkEvents(SDL_Event &event)
       case SDLK_ESCAPE:
         if (!tileToPlace.empty())
         {
-          m_uiManager.closeOpenMenus();
+          uiManager.closeOpenMenus();
           tileToPlace.clear();
           highlightSelection = false;
         }
         else
         {
-          m_uiManager.toggleGroupVisibility("PauseMenu");
+          uiManager.closeOpenMenus();
+
+          if (uiManager.isAnyMenuOpen())
+            uiManager.closeMenu();
+          else
+            uiManager.openMenu<PauseMenu>();
         }
         break;
 
@@ -116,7 +130,7 @@ void EventManager::checkEvents(SDL_Event &event)
         }
         break;
       case SDLK_F11:
-        m_uiManager.toggleDebugMenu();
+        uiManager.toggleDebugMenu();
         break;
       case SDLK_1:
         MapLayers::toggleLayer(Layer::TERRAIN);
@@ -237,51 +251,6 @@ void EventManager::checkEvents(SDL_Event &event)
     case SDL_MOUSEMOTION:
       m_placementAllowed = false;
       m_cancelTileSelection = false;
-      // check for UI events first
-      for (const auto &it : m_uiManager.getAllUiElements())
-      {
-        // if element isn't visible then don't event check it
-        if (it->isVisible())
-        {
-          // spawn tooltip timer, if we're over an UI Element
-          if (it->isMouseOver(event.button.x, event.button.y) && !it->getUiElementData().tooltipText.empty())
-          {
-            m_uiManager.startTooltip(event, it->getUiElementData().tooltipText);
-          }
-          // if the mouse cursor left an element, we're not hovering any more and we need to reset the pointer to null
-          if (m_lastHoveredElement && !m_lastHoveredElement->isMouseOverHoverableArea(event.button.x, event.button.y))
-          {
-            // we're not hovering, so stop the tooltips
-            m_uiManager.stopTooltip();
-            // tell the previously hovered element we left it before resetting it
-            m_lastHoveredElement->onMouseLeave(event);
-            m_lastHoveredElement = nullptr;
-            break;
-          }
-          // If we're over a UI element that has no click functionality, abort the event loop, so no clicks go through the UiElement.
-          //Note: This is handled here because UIGroups have no dimensions, but are UiElements
-          if (it->isMouseOverHoverableArea(event.button.x, event.button.y))
-          {
-            it->onMouseMove(event);
-            // if the element we're hovering over is not the same as the stored "lastHoveredElement", update it
-            if (it.get() != m_lastHoveredElement)
-            {
-              if (m_lastHoveredElement)
-              {
-                m_lastHoveredElement->onMouseLeave(event);
-              }
-              it->onMouseEnter(event);
-              m_lastHoveredElement = it.get();
-            }
-            break;
-          }
-          // definitely figure out a better way to do this, this was done for the Slider
-          if (it->isMouseOver(event.button.x, event.button.y))
-          {
-            it->onMouseMove(event);
-          }
-        }
-      }
 
       //  Game Event Handling
       if (MapFunctions::instance().getMap())
@@ -443,7 +412,7 @@ void EventManager::checkEvents(SDL_Event &event)
       m_placementAllowed = false;
       m_skipLeftClick = false;
       // check for UI events first
-      for (const auto &it : m_uiManager.getAllUiElementsForEventHandling())
+      for (const auto &it : uiManager.getAllUiElementsForEventHandling())
       {
         // only check visible elements
         if (it->isVisible() && it->onMouseButtonDown(event))
@@ -499,7 +468,7 @@ void EventManager::checkEvents(SDL_Event &event)
     {
       if (m_cancelTileSelection)
       {
-        m_uiManager.closeOpenMenus();
+        uiManager.closeOpenMenus();
         tileToPlace.clear();
         highlightSelection = false;
       }
@@ -511,7 +480,7 @@ void EventManager::checkEvents(SDL_Event &event)
       // reset pinchCenterCoords when fingers are released
       m_pinchCenterCoords = {0, 0, 0, 0};
       // check for UI events first
-      for (const auto &it : m_uiManager.getAllUiElementsForEventHandling())
+      for (const auto &it : uiManager.getAllUiElementsForEventHandling())
       {
         // only check visible elements
         if (it->isVisible() && event.button.button == SDL_BUTTON_LEFT)
@@ -570,7 +539,7 @@ void EventManager::checkEvents(SDL_Event &event)
         }
         else if (!tileToPlace.empty() && m_placementAllowed)
         {
-          if (!MapFunctions::instance().setTileID(tileToPlace, m_nodesToPlace))
+          if (!uiManager.isMouseHovered() && !MapFunctions::instance().setTileID(tileToPlace, m_nodesToPlace))
           {
             // If can't put picked tile here,
             // pick tile under cursor as the new picked tile
@@ -587,7 +556,7 @@ void EventManager::checkEvents(SDL_Event &event)
       if (highlightSelection)
       {
         m_nodesToHighlight.push_back(mouseIsoCoords);
-        if (!tileToPlace.empty() && !MapFunctions::instance().setTileID(tileToPlace, mouseIsoCoords))
+        if (!uiManager.isMouseHovered() && !tileToPlace.empty() && !MapFunctions::instance().setTileID(tileToPlace, mouseIsoCoords))
         {
           MapFunctions::instance().highlightNode(mouseIsoCoords, SpriteHighlightColor::RED);
         }

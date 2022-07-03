@@ -25,7 +25,7 @@ public:
   ResourcesManager(ResourcesManager const &) = delete;
   ResourcesManager &operator=(ResourcesManager const &) = delete;
 
-  /** retrieves texture for a tileID */
+  /// retrieves texture for a tileID
   SDL_Texture *getUITexture(const std::string &uiElement, int buttonState = BUTTONSTATE_DEFAULT);
 
   /** Retrieves Color of a specific tileID at coordinates with the texture */
@@ -48,14 +48,15 @@ private:
   ResourcesManager();
   ~ResourcesManager();
 
-  /** Load Texture in to Texture Map, if an entry for this tile ID does not yet exist.
-  Keep in Mind that the texture id is unique and there can't be two textures with the same id.
-
-  If colorkey is set - Use Magic Pink (255,255,0) for transparency
+  /** 
+   * @brief Load Texture in to Texture Map, if an entry for this tile ID does not yet exist.
+   * @details Keep in Mind that the texture id is unique and there can't be two textures with the same id.
+   * If colorkey is set - Use Magic Pink (255,255,0) for transparency
+   * @throws ConfigurationError when loading configuration results in an error
   */
   void loadUITexture();
 
-  /// Delete everything. should be called from the destuctor only
+  /// Delete everything. Should be called from the destuctor only
   void flush();
 
   SDL_Surface *createSurfaceFromFile(const std::string &fileName);

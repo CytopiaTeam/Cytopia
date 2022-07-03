@@ -134,30 +134,26 @@ template <> struct hash<TileSize>
 /// Holds all releavted information to this specific tile
 struct TileData
 {
-  std::string id;     ///< The ID of this item. Must be unique and can be referenced in the code.
-  std::string author; ///< The author of this item
-  std::string
-      category; ///< The category this item resides in. Categories are used for the building menu in-game and for sorting the items in the editors tree view
-  std::string
-      subCategory; ///< subcategories are used for the building menu in-game and for sorting the items in the editors tree view
-  uint8_t buildingsize; ///< the size that the building occupies in tiles.
-  std::vector<std::string>
-      biomes; ///< Restrict this building to spawn only in the given biomes. Must correspond to a biome defined in resources/data/TerrainGen.json
-  std::vector<std::string> tags; ///< Tags to filter buildings in the gui
+  std::string id;                        ///< The ID of this item. Must be unique and can be referenced in the code.
+  std::string author;                    ///< The author of this item
+  std::string category;                  ///< The category this item resides in. Categories are used for the building menu in-game and for sorting the items in the editors tree view
+  std::string subCategory;               ///< subcategories are used for the building menu in-game and for sorting the items in the editors tree view
+  uint8_t buildingsize;                  ///< the size that the building occupies in tiles.
+  std::vector<std::string> biomes;       ///< Restrict this building to spawn only in the given biomes. Must correspond to a biome defined in resources/data/TerrainGen.json
+  std::vector<std::string> tags;         ///< Tags to filter buildings in the gui
 
   TileSetData tiles;                     ///< Tile Spritesheet information
-  TileType tileType = TileType::DEFAULT; ///< todo: String for now, should be an enum
+  TileType tileType = TileType::DEFAULT; ///< @todo: String for now, should be an enum
   TileSetData shoreTiles;                ///< Shore Tile Spritesheet information
   TileSetData slopeTiles;                ///< Slope Tile Spritesheet information
-  std::string title;                     ///< The items title. It's shown ingame and in the editors tree-view
-  std::string description;               ///< Description of the item that is shown in it's details
+  std::string title;                     ///< The item's title. It's shown ingame and in the editor's tree-view
+  std::string description;               ///< Description of the item that is shown in its details
   int price = 0;                         ///< building cost
   int upkeepCost = 0;                    ///< monthly cost
   int power = 0;                         ///< power production / consumption if negative
   int water = 0;                         ///< water production / consumption if negative
 
-  std::vector<std::string>
-      groundDecoration; ///< tileID of the item that should be drawn on ground below sprite instead of terrain(grass, concrete, ...). Must be a tileID with tileType GroundDecoration
+  std::vector<std::string> groundDecoration; ///< tileID of the item that should be drawn on ground below sprite instead of terrain(grass, concrete, ...). Must be a tileID with tileType GroundDecoration
   bool placeOnGround = true;            ///< whether or not this building is placeable on ground
   bool placeOnWater = false;            ///< whether or not this building is placeable on water
   bool isOverPlacable;                  ///< Determines if other tiles can be placed over this one tile.

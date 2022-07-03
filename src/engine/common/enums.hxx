@@ -38,9 +38,8 @@ static Layer layersInActiveOrder[] = {Layer::BUILDINGS, Layer::UNDERGROUND, Laye
 const static std::vector<Layer> layersPowerlinesCanCross = {Layer::ROAD, Layer::WATER, Layer::FLORA};
 
 /**
- * @brief LayerEditMode.
- * This enum is for switching between layers.
- * TERRAIN activates Terrain and buildings
+ * @brief This enum is for switching between layers.
+ * @details TERRAIN activates Terrain and buildings
  * BLUEPRINT activates blueprint + underground
  */
 enum class LayerEditMode
