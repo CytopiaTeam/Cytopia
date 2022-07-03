@@ -55,7 +55,7 @@ void LoadMenu::draw() const {
   ImGui::SetCursorPosX((windowSize.x - textWidth) * 0.5f);
   ui::LabelText("##loadcitylbl", "Load city");
 
-  ImGui::BeginChild("##loadbuttons", {0, windowSize.y * 0.6f}, false, ImGuiWindowFlags_NoTitleBar);
+  ImGui::BeginChild("##loadbuttons", {0.f, windowSize.y * 0.6f}, false, ImGuiWindowFlags_NoTitleBar);
 
   std::string path = CYTOPIA_DATA_DIR + "/saves";
   for (const auto &entry : fs::directory_iterator(path))
@@ -63,14 +63,14 @@ void LoadMenu::draw() const {
     if (!fs::is_regular_file(entry) || entry.path().extension() != ".cts")
       continue;
 
-    ui::Dummy({btnSide / 2, 0}); ui::SameLine();
+    ui::Dummy({btnSide / 2.f, 0.f}); ui::SameLine();
     if (ui::ButtonCt(entry.path().filename().string().c_str(), buttonSize))
     {
       m_filename = entry.path().filename().string();
       m_result = e_load_file;
     }
 
-    ui::SameLine(); ui::Dummy({btnSide / 2, 0}); ui::SameLine();
+    ui::SameLine(); ui::Dummy({btnSide / 2.f, 0.f}); ui::SameLine();
     if (ui::ButtonCt("X", {btnSide, btnSide}))
     {
       m_filename = entry.path().filename().string();
@@ -84,7 +84,7 @@ void LoadMenu::draw() const {
   ImVec2 btnSize(windowSize.x / 4, btnSide);
 
   ui::SetCursorPosY(windowSize.y - btnSize.y * 2);
-  ui::Dummy({(windowSize.x - btnSize.x) / 2, 0}); ui::SameLine();
+  ui::Dummy({(windowSize.x - btnSize.x) / 2.f, 0.f}); ui::SameLine();
   if (ui::ButtonCt("OK", btnSize))
   {
     m_result = e_close;
