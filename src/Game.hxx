@@ -1,7 +1,7 @@
 #ifndef GAME_HXX_
 #define GAME_HXX_
 
-#include "Scripting/ScriptEngine.hxx"
+#include "scripting/ScriptEngine.hxx"
 #include "engine/MessageQueue.hxx"
 #include "util/Meta.hxx"
 #ifdef USE_AUDIO

@@ -17,7 +17,7 @@
 #include <SDL_ttf.h>
 
 #ifdef USE_ANGELSCRIPT
-#include "Scripting/ScriptEngine.hxx"
+#include "scripting/ScriptEngine.hxx"
 #endif
 
 #ifdef USE_MOFILEREADER
@@ -94,6 +94,7 @@ void Game::run(bool SkipMenu)
 #ifdef USE_ANGELSCRIPT
   ScriptEngine &scriptEngine = ScriptEngine::instance();
   scriptEngine.init();
+  scriptEngine.loadScript(fs::getBasePath() + "/resources/test.as", ScriptCategory::BUILD_IN);
 #endif
 
 #ifdef USE_AUDIO
@@ -164,6 +165,9 @@ void Game::run(bool SkipMenu)
       WindowManager::instance().newImGuiFrame();
       uiManager.drawUI();
     }
+#ifdef USE_ANGELSCRIPT
+    ScriptEngine::instance().framestep(1);
+#endif
 
     // we need to instantiate the MapFunctions object so it's ready for new game
     WindowManager::instance().renderScreen();
