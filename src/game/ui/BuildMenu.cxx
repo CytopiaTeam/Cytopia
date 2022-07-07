@@ -117,6 +117,7 @@ void drawSubmenu(ImVec2 pos, float categoryOffset, const Holder &holder, BuildMe
     ImGuiButtonFlags flags = btn->m_open ? ImGuiButtonFlags_ForcePressed : 0;
     flags |= btn->m_background ? 0 : ImGuiButtonFlags_NoBackground;
     
+    btn->updateTexture();
     if (ui::ImageButtonCt(btn->m_tex, flags, frameSize, imgPos, imgSize, btn->m_uv0, btn->m_uv1, -1, ImVec4(0, 0, 0, 0)))
     {
       btn->m_open = !btn->m_open;
@@ -448,12 +449,22 @@ BuildMenuButton::BuildMenuButton(const std::string &tx, const std::string &id, c
   SDL_Rect destRect;
   scaleCenterImage(destRect, bWid, bHei, tile.tiles.clippingWidth, tile.tiles.clippingHeight);
 
-  m_tex = TileManager::instance().getTexture(tx);
-  SDL_QueryTexture(m_tex, nullptr, nullptr, &m_texSize.w, &m_texSize.h);
-  m_uv0 = ImVec2((float)(tile.tiles.clippingWidth * tile.tiles.offset) / (float)m_texSize.w, 0.f);
-  m_uv1 = ImVec2(m_uv0.x + (float)(tile.tiles.clippingWidth) / (float)m_texSize.w, m_uv0.y + ((float)tile.tiles.clippingHeight) / (float)m_texSize.h);
+  m_clippingSize = ImVec2(tile.tiles.clippingWidth, tile.tiles.clippingHeight);
+  m_tileOffset = tile.tiles.offset;
+  updateTexture();
+ 
   m_btnSize = ImVec2(bWid, bHei);
   m_destRect = ImVec4((float)destRect.x, (float)destRect.y, (float)destRect.w, (float)destRect.h);
+}
+
+void BuildMenuButton::updateTexture() {
+  if (m_tex)
+    return;
+
+  m_tex = ResourcesManager::instance().getTileTexture(m_texstr);
+  SDL_QueryTexture(m_tex, nullptr, nullptr, &m_texSize.w, &m_texSize.h);
+  m_uv0 = ImVec2((m_clippingSize.x * m_tileOffset) / (float)m_texSize.w, 0.f);
+  m_uv1 = ImVec2(m_uv0.x + m_clippingSize.x / (float)m_texSize.w, m_uv0.y + (m_clippingSize.y / (float)m_texSize.h));
 }
 
 BuildMenuButton::Ptr BuildMenuButton::addActionButton(const std::string &tx, const std::string &action, const std::string &tooltip)

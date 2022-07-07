@@ -16,9 +16,11 @@ struct BuildMenuButton {
   std::string m_action;       // additional action
   std::string m_tiletype;     // which tiletype place on map
 
-  SDL_Texture *m_tex;         // sdl texture
+  SDL_Texture *m_tex = nullptr;   // sdl texture
   ImVec2 m_uv0 = ImVec2{0, 0};
   ImVec2 m_uv1 = ImVec2{1, 1};    // texture sub coords
+  ImVec2 m_clippingSize;
+  int m_tileOffset;
   ImSpan2i m_texSize; // texutre size
   BuildMenuButton *m_parent = nullptr; // parent button, need for recursive logic
 
@@ -56,6 +58,8 @@ struct BuildMenuButton {
   * @param imgH the height of the image to scale
   */
   void scaleCenterImage(SDL_Rect &ret, int btnW, int btnH, int imgW, int imgH) const;
+
+  void updateTexture();
 
   const ImVec2 &getBtnSize() const { return m_btnSize; }
   const std::string &getId() const { return m_id; }

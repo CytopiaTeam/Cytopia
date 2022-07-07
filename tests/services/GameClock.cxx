@@ -6,6 +6,7 @@
 
 #include "../../src/util/LOG.hxx"
 #include "../../src/services/GameClock.hxx"
+#include "../Common.hxx"
 
 void tick_clock(std::chrono::microseconds duration, GameClock &clock)
 {
@@ -22,6 +23,8 @@ void tick_clock(std::chrono::microseconds duration, GameClock &clock)
 
 TEST_CASE("I can schedule a real time task", "[engine][clock]")
 {
+  START_TEST
+
   GIVEN("I have a Game Clock running")
   {
     GameClock clock;
@@ -49,10 +52,14 @@ TEST_CASE("I can schedule a real time task", "[engine][clock]")
       }
     }
   }
+
+  FINISH_TEST
 }
 
 TEST_CASE("I can schedule multiple real time tasks", "[engine][clock]")
 {
+  START_TEST
+
   GIVEN("I have a Game Clock running")
   {
     GameClock clock;
@@ -86,10 +93,14 @@ TEST_CASE("I can schedule multiple real time tasks", "[engine][clock]")
       THEN("The deferred tasks execute according to their delays") { CHECK(order == std::array{1, 2, 3}); }
     }
   }
+
+  FINISH_TEST
 }
 
 TEST_CASE("I can schedule real time repeating task", "[engine][clock]")
 {
+  START_TEST
+
   GIVEN("I have a Game Clock running")
   {
     GameClock clock;
@@ -110,10 +121,14 @@ TEST_CASE("I can schedule real time repeating task", "[engine][clock]")
       THEN("The repeating task executes exact number of times") { CHECK(counter == 7); }
     }
   }
+
+  FINISH_TEST
 }
 
 TEST_CASE("I can schedule real time repeating task to trigger immediately", "[engine][clock]")
 {
+  START_TEST
+
   GIVEN("I have a Game Clock running")
   {
     GameClock clock;
@@ -134,10 +149,14 @@ TEST_CASE("I can schedule real time repeating task to trigger immediately", "[en
       THEN("The repeating task executes exact number of times") { CHECK(counter == 3); }
     }
   }
+
+  FINISH_TEST
 }
 
 TEST_CASE("I can schedule real time task to trigger immediately", "[engine][clock]")
 {
+  START_TEST
+
   GIVEN("I have a Game Clock running")
   {
     GameClock clock;
@@ -158,10 +177,14 @@ TEST_CASE("I can schedule real time task to trigger immediately", "[engine][cloc
       THEN("The repeating task executes exact number of times") { CHECK(counter == 1); }
     }
   }
+
+  FINISH_TEST
 }
 
 TEST_CASE("I can schedule game time repeating task to trigger immediately", "[engine][clock]")
 {
+  START_TEST
+
   GIVEN("I have a Game Clock running")
   {
     GameClock clock;
@@ -182,10 +205,14 @@ TEST_CASE("I can schedule game time repeating task to trigger immediately", "[en
       THEN("The repeating task executes exact number of times") { CHECK(counter == 3); }
     }
   }
+
+  FINISH_TEST
 }
 
 TEST_CASE("I can schedule game time task to trigger immediately", "[engine][clock]")
 {
+  START_TEST
+
   GIVEN("I have a Game Clock running")
   {
     GameClock clock;
@@ -206,10 +233,14 @@ TEST_CASE("I can schedule game time task to trigger immediately", "[engine][cloc
       THEN("The repeating task executes exact number of times") { CHECK(counter == 1); }
     }
   }
+
+  FINISH_TEST
 }
 
 TEST_CASE("I can schedule multiple real time tasks and remove some", "[engine][clock]")
 {
+  START_TEST
+
   GIVEN("I have a Game Clock running")
   {
     GameClock clock;
@@ -257,10 +288,14 @@ TEST_CASE("I can schedule multiple real time tasks and remove some", "[engine][c
       }
     }
   }
+
+  FINISH_TEST
 }
 
 TEST_CASE("I can schedule a game time task", "[engine][clock]")
 {
+  START_TEST
+
   GIVEN("I have a Game Clock running")
   {
     GameClock clock;
@@ -288,10 +323,14 @@ TEST_CASE("I can schedule a game time task", "[engine][clock]")
       }
     }
   }
+
+  FINISH_TEST
 }
 
 TEST_CASE("I can schedule multiple game time tasks", "[engine][clock]")
 {
+  START_TEST
+
   GIVEN("I have a Game Clock running")
   {
     GameClock clock;
@@ -325,10 +364,14 @@ TEST_CASE("I can schedule multiple game time tasks", "[engine][clock]")
       THEN("The deferred tasks execute according to their delays") { CHECK(order == std::array{1, 2, 3}); }
     }
   }
+
+  FINISH_TEST
 }
 
 TEST_CASE("I can schedule game time repeating task", "[engine][clock]")
 {
+  START_TEST
+
   GIVEN("I have a Game Clock running")
   {
     GameClock clock;
@@ -349,10 +392,14 @@ TEST_CASE("I can schedule game time repeating task", "[engine][clock]")
       THEN("The repeating task executes exact number of times") { CHECK(counter == 4); }
     }
   }
+
+  FINISH_TEST
 }
 
 TEST_CASE("I can schedule multiple game time tasks and remove some", "[engine][clock]")
 {
+  START_TEST
+
   GIVEN("I have a Game Clock running")
   {
     GameClock clock;
@@ -400,10 +447,14 @@ TEST_CASE("I can schedule multiple game time tasks and remove some", "[engine][c
       }
     }
   }
+
+  FINISH_TEST
 }
 
 TEST_CASE("I can speed up game time", "[engine][clock]")
 {
+  START_TEST
+
   GIVEN("I have a Game Clock running")
   {
     GameClock clock;
@@ -426,10 +477,14 @@ TEST_CASE("I can speed up game time", "[engine][clock]")
       THEN("The repeating task executes exact number of times. The removed tasks stop executing") { CHECK(counter == 4); }
     }
   }
+
+  FINISH_TEST
 }
 
 TEST_CASE("I can slow down game time", "[engine][clock]")
 {
+  START_TEST
+
   GIVEN("I have a Game Clock running")
   {
     GameClock clock;
@@ -452,10 +507,14 @@ TEST_CASE("I can slow down game time", "[engine][clock]")
       THEN("The repeating task executes exact number of times. The removed tasks stop executing") { CHECK(counter == 2); }
     }
   }
+
+  FINISH_TEST
 }
 
 TEST_CASE("I can schedule multiple real/game time tasks and clear them all", "[engine][clock]")
 {
+  START_TEST
+
   GIVEN("I have a Game Clock running")
   {
     GameClock clock;
@@ -490,10 +549,14 @@ TEST_CASE("I can schedule multiple real/game time tasks and clear them all", "[e
       THEN("The deferred tasks execute according to their delays") { CHECK(order == std::array{1, 0, 5}); }
     }
   }
+
+  FINISH_TEST
 }
 
 TEST_CASE("I try to remove non existing task", "[engine][clock]")
 {
+  START_TEST
+
   GIVEN("I have a Game Clock running")
   {
     GameClock clock;
@@ -505,10 +568,14 @@ TEST_CASE("I try to remove non existing task", "[engine][clock]")
       THEN("The task cannot be removed and false is returned") { CHECK(res == false); }
     }
   }
+
+  FINISH_TEST
 }
 
 TEST_CASE("I can remove myself in callback", "[engine][clock]")
 {
+  START_TEST
+
   GIVEN("I have a Game Clock running")
   {
     GameClock clock;
@@ -537,4 +604,6 @@ TEST_CASE("I can remove myself in callback", "[engine][clock]")
       THEN("The repeating must be executed only 2 times than it removes itself.") { CHECK(counter == 2); }
     }
   }
+
+  FINISH_TEST
 }

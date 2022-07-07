@@ -4,6 +4,7 @@
 #include <thread>
 #include <future>
 #include <catch.hpp>
+#include "../Common.hxx"
 
 /* Message Queues are useful to synchronize events
  * across threads. It's one of the easiest and most
@@ -78,6 +79,8 @@ using FutureStatus = std::future_status;
 using Launch = std::launch;
 SCENARIO("Message Queues are reliable", "[util][thread]")
 {
+  START_TEST
+
   GIVEN("I have two producer threads and a consumer thread")
   {
     Context context;
@@ -149,4 +152,6 @@ SCENARIO("Message Queues are reliable", "[util][thread]")
       }
     }
   }
+
+  FINISH_TEST
 }

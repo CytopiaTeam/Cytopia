@@ -1,5 +1,5 @@
-#ifndef RESOURCE_MANAGER_HXX_
-#define RESOURCE_MANAGER_HXX_
+#ifndef RESOURCE_MANAGER_SERVICES_HXX_
+#define RESOURCE_MANAGER_SERVICES_HXX_
 
 #include <unordered_map>
 #include <string>
@@ -98,4 +98,4 @@ public:
 
 #include "ResourceManager.inl.hxx"
 
-#endif
+#endif // RESOURCE_MANAGER_SERVICES_HXX_

@@ -89,6 +89,8 @@ void TerrainGenerator::generateTerrain(std::vector<MapNode> &mapNodes, std::vect
   std::string currentBiome = Settings::instance().biome;
 
   // nodes need to be created at the correct vector "coordinates", or else the Z-Order will be broken
+  uint32_t ticksStart = SDL_GetTicks();
+
   for (int x = 0; x < mapSize; x++)
   {
     for (int y = 0; y < mapSize; y++)
@@ -117,7 +119,7 @@ void TerrainGenerator::generateTerrain(std::vector<MapNode> &mapNodes, std::vect
             {
               tileIndex = tileIndex % static_cast<int>(m_biomeInformation[currentBiome].treesLight.size());
               mapNodes.emplace_back(MapNode{Point{x, y, z, height}, m_biomeInformation[currentBiome].terrain[0],
-                                            m_biomeInformation[currentBiome].treesLight[tileIndex]});
+                                    m_biomeInformation[currentBiome].treesLight[tileIndex]});
               placed = true;
             }
           }
@@ -127,7 +129,7 @@ void TerrainGenerator::generateTerrain(std::vector<MapNode> &mapNodes, std::vect
             {
               tileIndex = tileIndex % static_cast<int>(m_biomeInformation[currentBiome].treesMedium.size());
               mapNodes.emplace_back(MapNode{Point{x, y, z, height}, m_biomeInformation[currentBiome].terrain[0],
-                                            m_biomeInformation[currentBiome].treesMedium[tileIndex]});
+                                    m_biomeInformation[currentBiome].treesMedium[tileIndex]});
               placed = true;
             }
           }
@@ -136,7 +138,7 @@ void TerrainGenerator::generateTerrain(std::vector<MapNode> &mapNodes, std::vect
             tileIndex = tileIndex % static_cast<int>(m_biomeInformation[currentBiome].treesDense.size());
 
             mapNodes.emplace_back(MapNode{Point{x, y, z, height}, m_biomeInformation[currentBiome].terrain[0],
-                                          m_biomeInformation[currentBiome].treesDense[tileIndex]});
+                                  m_biomeInformation[currentBiome].treesDense[tileIndex]});
             placed = true;
           }
         }
@@ -147,6 +149,7 @@ void TerrainGenerator::generateTerrain(std::vector<MapNode> &mapNodes, std::vect
       }
     }
   }
+  LOG(LOG_INFO) << "Terrain Generator update nodes at " << ((float)(SDL_GetTicks() - ticksStart) / 1000.f) << " seconds";
 
   int z = 0;
   // set the z-Index for the mapNodes. It is not used, but it's better to have the correct z-index set

@@ -59,7 +59,7 @@ void Text::createTextTexture(const std::string &text, const SDL_Color &textColor
 
   // destroy texture first to prevent memleaks
   if (m_texture)
-    SDL_DestroyTexture(m_texture);
+    ResourcesManager::instance().destroyTexture(m_texture);
 
   SDL_Surface *textSurface = TTF_RenderText_Solid(font, text.c_str(), textColor);
   TTF_CloseFont(font);
@@ -67,20 +67,11 @@ void Text::createTextTexture(const std::string &text, const SDL_Color &textColor
   if (!textSurface)
     throw UIError(TRACE_INFO "Failed to create text surface: " + string{TTF_GetError()});
 
-  SDL_Rect _textRect{0, 0, 0, 0};
+  m_uiElementRect.w = textSurface->w;
+  m_uiElementRect.h = textSurface->h;
 
-  m_texture = SDL_CreateTextureFromSurface(WindowManager::instance().getRenderer(), textSurface);
-
-  // no surface exists but some shape has been drawn for that ui element
-  SDL_QueryTexture(m_texture, nullptr, nullptr, &_textRect.w, &_textRect.h);
-
-  _textRect.x = m_uiElementRect.x + (m_uiElementRect.w / 2) - (_textRect.w / 2);
-  _textRect.y = m_uiElementRect.y + (m_uiElementRect.h / 2) - (_textRect.h / 2);
-  m_uiElementRect = _textRect;
-
-  /* Delete no longer needed surface */
-  SDL_FreeSurface(textSurface);
-
-  if (!m_texture)
-    throw UIError(TRACE_INFO "Failed to create texture from text surface: " + string{SDL_GetError()});
+  ResourcesManager::instance().createTextureAsync({textSurface, /*destroySurface*/true, "Text::createTextTexture", [this] (auto *texture) {
+    this->m_texture = texture;
+  }});
 }
+

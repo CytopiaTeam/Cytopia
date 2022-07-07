@@ -11,19 +11,49 @@
 
 #include "json.hxx"
 
+#include <thread>
+#include <chrono>
+
 using json = nlohmann::json;
 
-ResourcesManager::ResourcesManager() { loadUITexture(); }
-
+ResourcesManager::ResourcesManager() { loadUITextures(); }
 ResourcesManager::~ResourcesManager() { flush(); }
 
-void ResourcesManager::loadTexture(const std::string &id, const std::string &fileName)
+void ResourcesManager::loadTileTextureSync(const std::string &id, const std::string &fileName)
 {
+  if (m_tileTextureMap.count(id))
+    return;
+
   m_surfaceMap[id] = createSurfaceFromFile(fileName);
-  m_tileTextureMap[id] = createTextureFromSurface(m_surfaceMap[id]);
+  createTextureAsync({m_surfaceMap[id], /*destroySurface*/false, std::string("load texture ").append(fileName), [this, id] (auto *texture) {
+    this->setupTileTexture(id, texture);
+  }});
+
+  performDelayedActions();
 }
 
-void ResourcesManager::loadUITexture()
+void ResourcesManager::loadTileTextureAsync(const std::string &id, const std::string &fileName)
+{
+  if (m_tileTextureMap.count(id))
+    return;
+
+  m_surfaceMap[id] = createSurfaceFromFile(fileName);
+  createTextureAsync({m_surfaceMap[id], /*destroySurface*/false, std::string("load texture ").append(fileName), [this, id] (auto *texture) {
+    this->setupTileTexture(id, texture);
+  }});
+}
+
+void ResourcesManager::setupTileTexture(const std::string &id, SDL_Texture *texture) {
+  std::lock_guard _(this->m_textureAccess);
+  m_tileTextureMap[id] = texture;
+}
+
+void ResourcesManager::setupUiTexture(const std::string &tileId, const std::string &id, SDL_Texture *texture) {
+  std::lock_guard _(this->m_textureAccess);
+  m_uiTextureMap[tileId][id] = texture;
+}
+
+void ResourcesManager::loadUITextures()
 {
   std::string jsonFileContent = fs::readFileAsString(Settings::instance().uiDataJSONFile.get());
   const json uiDataJSON = json::parse(jsonFileContent, nullptr, false);
@@ -36,8 +66,12 @@ void ResourcesManager::loadUITexture()
   {
     for (auto it = uiDataJSON[tileID.key()].begin(); it != uiDataJSON[tileID.key()].end(); ++it)
     {
-      m_uiTextureMap[tileID.key()][it.key()] = createTextureFromSurface(createSurfaceFromFile(it.value()));
+      auto *surface = createSurfaceFromFile(it.value());
+      createTextureAsync({surface, /*destroySurface*/true, std::string("load ui texture").append(it.value()), [this, tileKey = tileID.key(), itKey = it.key()] (auto *texture) {
+        this->setupUiTexture(tileKey, itKey, texture);
+      }});
     }
+    performDelayedActions();
   }
 }
 
@@ -47,13 +81,13 @@ SDL_Texture *ResourcesManager::getUITexture(const std::string &uiElement, int bu
   switch (buttonState)
   {
   case BUTTONSTATE_CLICKED:
-    texture = "Texture_Clicked";
-    break;
+  texture = "Texture_Clicked";
+  break;
   case BUTTONSTATE_HOVERING:
-    texture = "Texture_Hovering";
-    break;
+  texture = "Texture_Hovering";
+  break;
   default:
-    texture = "Texture_Default";
+  texture = "Texture_Default";
   }
   if (m_uiTextureMap[uiElement].find(texture) != m_uiTextureMap[uiElement].end())
   {
@@ -64,16 +98,14 @@ SDL_Texture *ResourcesManager::getUITexture(const std::string &uiElement, int bu
     // If no texture is found, check if there's a default texture
     return m_uiTextureMap[uiElement].at("Texture_Default");
   }
-  throw UIError(TRACE_INFO "No texture found for " + uiElement);
+  LOG(LOG_DEBUG) << "No texture loaded for " << uiElement;
+  return nullptr;
 }
 
 SDL_Texture *ResourcesManager::getTileTexture(const std::string &id)
 {
-  if (m_tileTextureMap.find(id) != m_tileTextureMap.end())
-  {
-    return m_tileTextureMap.at(id);
-  }
-  throw UIError(TRACE_INFO "No texture found for " + id);
+  auto it = m_tileTextureMap.find(id);
+  return ((it != m_tileTextureMap.end()) ? it->second : nullptr);
 }
 
 SDL_Surface *ResourcesManager::getTileSurface(const std::string &id)
@@ -87,6 +119,7 @@ SDL_Surface *ResourcesManager::getTileSurface(const std::string &id)
 
 SDL_Surface *ResourcesManager::createSurfaceFromFile(const std::string &fileName)
 {
+  std::unique_lock lock(m_actionAccess);
   string fName = fs::getBasePath() + fileName;
 
   if (!fs::fileExists(fName))
@@ -100,14 +133,63 @@ SDL_Surface *ResourcesManager::createSurfaceFromFile(const std::string &fileName
   throw ConfigurationError(TRACE_INFO "Could not load Texture from file " + fName + ": " + IMG_GetError());
 }
 
-SDL_Texture *ResourcesManager::createTextureFromSurface(SDL_Surface *surface)
+void ResourcesManager::destroyTexture(SDL_Texture *texture)
 {
-  SDL_Texture *texture = SDL_CreateTextureFromSurface(WindowManager::instance().getRenderer(), surface);
+  addDelayedAction(new DelayedActionT([texture] {
+    SDL_DestroyTexture(texture);
+  }, std::string("destroy texture")));
+}
 
-  if (texture)
-    return texture;
+void ResourcesManager::waitAsyncTexture(SDL_Texture **texture) {
+  if (!texture)
+    return;
 
-  throw UIError(TRACE_INFO "Texture could not be created! SDL Error: " + string{SDL_GetError()});
+  while (!*texture) {
+    std::this_thread::sleep_for(std::chrono::milliseconds(10));
+  }
+}
+
+//bool is_main_thread() { return get_current_thread_id() == get_main_thread_id(); }
+void ResourcesManager::performDelayedActions () {
+  std::unique_lock lock(m_actionAccess);
+
+  while (!m_delayedActions.empty()) {
+    DelayedAction *action = m_delayedActions.top();
+    m_delayedActions.pop();
+
+    if (!action)
+      continue;
+
+    action->perform();
+    delete action;
+  }
+}
+
+void ResourcesManager::addDelayedAction(DelayedAction *action) {
+  std::unique_lock lock(m_actionAccess);
+
+  m_delayedActions.push(action);
+}
+
+void ResourcesManager::createTextureAsync(CreateTextureAsyncParams params)
+{
+  addDelayedAction(new DelayedActionT([params] {
+    if (!params.callback) {
+      if (params.deleteSurface)
+        SDL_FreeSurface(params.surface);
+      return;
+    }
+
+    SDL_Texture *texture = SDL_CreateTextureFromSurface(WindowManager::instance().getRenderer(), params.surface);
+    if (params.deleteSurface)
+    {
+      SDL_FreeSurface(params.surface);
+    }
+
+    if (params.callback) {
+      params.callback(texture);
+    }
+  }, params.dbg_info));
 }
 
 void ResourcesManager::flush()

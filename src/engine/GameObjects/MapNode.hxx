@@ -76,6 +76,7 @@ public:
   * @details Renders the sprite object(s) of the node
   */
   void render() const;
+  void update();
 
   void setBitmask(unsigned char elevationBitmask, std::vector<uint8_t> tileTypeBitmask);
 

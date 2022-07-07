@@ -15,7 +15,7 @@
 #endif
 
 Sprite::Sprite(Point _isoCoordinates)
-    : isoCoordinates(_isoCoordinates), m_SpriteData(LAYERS_COUNT), m_renderLayer(LAYERS_COUNT, true)
+  : isoCoordinates(_isoCoordinates), m_SpriteData(LAYERS_COUNT), m_renderLayer(LAYERS_COUNT, true)
 {
   m_screenCoordinates = convertIsoToScreenCoordinates(_isoCoordinates);
 }
@@ -25,7 +25,7 @@ void Sprite::render() const
 #ifdef MICROPROFILE_ENABLED
   MICROPROFILE_SCOPEI("Map", "Sprite render", MP_RED);
 #endif
-  for (auto currentLayer : allLayersOrdered)
+  for (const auto currentLayer : allLayersOrdered)
   {
     if (MapLayers::isLayerActive(currentLayer) && m_SpriteData[currentLayer].texture && m_renderLayer[currentLayer])
     {
@@ -70,6 +70,34 @@ void Sprite::render() const
   }
 }
 
+void Sprite::update()
+{
+  if (m_hasPendingTextures)
+  {
+    m_hasPendingTextures = false;
+    for (const auto layer : allLayersOrdered)
+    {
+      auto &spriteData = m_SpriteData[layer];
+      if (!spriteData.texture && !spriteData.texid.empty())
+      {
+        spriteData.texture = ResourcesManager::instance().getTileTexture(spriteData.texid);
+        if (spriteData.texture)
+        {
+          //LOG(LOG_INFO) << "Sprite: texture loaded " << spriteData.texid;
+          spriteData.texid.clear();
+          m_needsRefresh = true;
+          refresh(layer);
+        }
+        else
+        {
+          //LOG(LOG_INFO) << "Sprite: texture not ready " << spriteData.texid;
+          m_hasPendingTextures = true;
+        }
+      }
+    }
+  }
+}
+
 void Sprite::refresh(const Layer &layer)
 {
   if (m_currentZoomLevel != Camera::instance().zoomLevel() || m_needsRefresh)
@@ -92,9 +120,9 @@ void Sprite::refresh(const Layer &layer)
         if (m_SpriteData[currentLayer].clipRect.w != 0)
         {
           m_SpriteData[currentLayer].destRect.w =
-              static_cast<int>(std::round(static_cast<double>(m_SpriteData[currentLayer].clipRect.w) * m_currentZoomLevel));
+            static_cast<int>(std::round(static_cast<double>(m_SpriteData[currentLayer].clipRect.w) * m_currentZoomLevel));
           m_SpriteData[currentLayer].destRect.h =
-              static_cast<int>(std::round(static_cast<double>(m_SpriteData[currentLayer].clipRect.h) * m_currentZoomLevel));
+            static_cast<int>(std::round(static_cast<double>(m_SpriteData[currentLayer].clipRect.h) * m_currentZoomLevel));
         }
         else
         {
@@ -102,9 +130,9 @@ void Sprite::refresh(const Layer &layer)
                            &m_SpriteData[currentLayer].destRect.h);
 
           m_SpriteData[currentLayer].destRect.w =
-              static_cast<int>(std::round(static_cast<double>(m_SpriteData[currentLayer].clipRect.w) * m_currentZoomLevel));
+            static_cast<int>(std::round(static_cast<double>(m_SpriteData[currentLayer].clipRect.w) * m_currentZoomLevel));
           m_SpriteData[currentLayer].destRect.h =
-              static_cast<int>(std::round(static_cast<double>(m_SpriteData[currentLayer].clipRect.h) * m_currentZoomLevel));
+            static_cast<int>(std::round(static_cast<double>(m_SpriteData[currentLayer].clipRect.h) * m_currentZoomLevel));
         }
       }
     }
@@ -127,13 +155,14 @@ void Sprite::refresh(const Layer &layer)
   m_needsRefresh = false;
 }
 
-void Sprite::setTexture(SDL_Texture *texture, Layer layer)
+void Sprite::setTexture(const std::string &texId, Layer layer)
 {
-  if (!texture)
+  if (texId.empty())
     throw UIError(TRACE_INFO "Called Sprite::setTexture() with a non valid texture");
-  m_SpriteData[layer].texture = texture;
-  m_needsRefresh = true;
-  refresh(layer);
+
+  m_SpriteData[layer].texid = texId;
+  m_SpriteData[layer].texture = nullptr;
+  m_hasPendingTextures = true;
 }
 
 void Sprite::setClipRect(SDL_Rect clipRect, const Layer layer) { m_SpriteData[layer].clipRect = clipRect; }

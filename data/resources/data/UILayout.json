@@ -41,13 +41,6 @@
                 "Padding": 40,
                 "FontSize": 42
             }
-        ]
-    },
-    "UiElements": {
-        "Test": [
-            {
-                "GroupVisibility": true
-            }
         ],
         "MainMenuButtons": [
             {

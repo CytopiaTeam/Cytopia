@@ -3,6 +3,7 @@
 
 #include "LOG.hxx"
 #include "../map/MapLayers.hxx"
+#include "../engine/ResourcesManager.hxx"
 #include "GameStates.hxx"
 #include "Settings.hxx"
 
@@ -39,6 +40,7 @@ bool MapNode::changeHeight(const bool higher)
 }
 
 void MapNode::render() const { m_sprite->render(); }
+void MapNode::update() { m_sprite->update(); }
 
 void MapNode::setBitmask(unsigned char elevationBitmask, std::vector<uint8_t> autotileBitmask)
 {
@@ -363,8 +365,7 @@ void MapNode::updateTexture(const Layer &layer)
           m_sprite->setClipRect({clipRect.x + m_clippingWidth * m_mapNodeData[currentLayer].tileData->tiles.offset, 0,
                                  m_clippingWidth, m_mapNodeData[currentLayer].tileData->tiles.clippingHeight},
                                 static_cast<Layer>(currentLayer));
-          m_sprite->setTexture(TileManager::instance().getTexture(m_mapNodeData[currentLayer].tileID),
-                               static_cast<Layer>(currentLayer));
+          m_sprite->setTexture(m_mapNodeData[currentLayer].tileID, static_cast<Layer>(currentLayer));
         }
 
         spriteCount = m_mapNodeData[currentLayer].tileData->tiles.count;
@@ -385,8 +386,7 @@ void MapNode::updateTexture(const Layer &layer)
           m_sprite->setClipRect({clipRect.x + m_clippingWidth * m_mapNodeData[currentLayer].tileData->shoreTiles.offset, 0,
                                  m_clippingWidth, m_mapNodeData[currentLayer].tileData->shoreTiles.clippingHeight},
                                 static_cast<Layer>(currentLayer));
-          m_sprite->setTexture(TileManager::instance().getTexture(m_mapNodeData[currentLayer].tileID + "_shore"),
-                               static_cast<Layer>(currentLayer));
+          m_sprite->setTexture(m_mapNodeData[currentLayer].tileID + "_shore", static_cast<Layer>(currentLayer));
         }
 
         spriteCount = m_mapNodeData[currentLayer].tileData->shoreTiles.count;
@@ -405,8 +405,7 @@ void MapNode::updateTexture(const Layer &layer)
           m_sprite->setClipRect({clipRect.x + m_mapNodeData[currentLayer].tileData->slopeTiles.offset * m_clippingWidth, 0,
                                  m_clippingWidth, m_mapNodeData[currentLayer].tileData->slopeTiles.clippingHeight},
                                 static_cast<Layer>(currentLayer));
-          m_sprite->setTexture(TileManager::instance().getTexture(m_mapNodeData[currentLayer].tileID),
-                               static_cast<Layer>(currentLayer));
+          m_sprite->setTexture(m_mapNodeData[currentLayer].tileID, static_cast<Layer>(currentLayer));
         }
         break;
       default:

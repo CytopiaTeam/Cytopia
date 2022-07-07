@@ -110,6 +110,18 @@ void Map::renderMap() const
   }
 }
 
+void Map::updateMap()
+{
+#ifdef MICROPROFILE_ENABLED
+  MICROPROFILE_SCOPEI("Map", "Update Map", MP_YELLOW);
+#endif
+
+  for (auto &node : mapNodes)
+  {
+    node.update();
+  }
+}
+
 void Map::refresh()
 {
 #ifdef MICROPROFILE_ENABLED

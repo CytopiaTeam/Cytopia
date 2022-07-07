@@ -2,6 +2,7 @@
 #include "../../src/util/LOG.hxx"
 #include "../../src/engine/common/Constants.hxx"
 #include "../../src/util/Filesystem.hxx"
+#include "../Common.hxx"
 #include <fstream>
 #include <string>
 
@@ -9,6 +10,8 @@ using std::string;
 
 SCENARIO("Log file never exceed the size limit", "[!mayfail][util]")
 {
+  START_TEST
+
   GIVEN("Log file's size is greater than the size limit")
   {
     string errfname = CYTOPIA_DATA_DIR + string{"error.log"};
@@ -30,4 +33,6 @@ SCENARIO("Log file never exceed the size limit", "[!mayfail][util]")
       }
     }
   }
+
+  FINISH_TEST
 }
