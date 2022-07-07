@@ -15,9 +15,12 @@
 #include "../game/GamePlay.hxx"
 
 #include <thread>
+#include <mutex>
+#include <queue>
 
 using Thread = std::thread;
 using RuntimeError = std::runtime_error;
+struct BaseScene;
 
 namespace Cytopia
 {
@@ -44,7 +47,18 @@ public:
     * @details starts running the game
     * @param SkipMenu if the main menu should be skipped or not
     */
-  virtual void run(bool SkipMenu = false);
+  virtual void run();
+
+  inline void nextScene(BaseScene *scene)
+  {
+    std::unique_lock lock(m_scenes_access);
+
+    // don't allow enqueueing after stopping the pool
+    if (m_shutDown)
+      return;
+
+    m_scenes.emplace(scene);
+  }
 
   /// ends the game
   virtual void shutdown();
@@ -55,8 +69,11 @@ public:
 private:
   void quit();
   bool m_shutDown = false;
+  Uint32 m_fpsFrames = 0;
 
   GamePlay m_GamePlay;
+  std::queue<BaseScene *> m_scenes;
+  std::mutex m_scenes_access;
 };
 } // namespace Cytopia
 #endif

@@ -130,7 +130,7 @@ jobs:
         shell: bash
 
       - name: Test
-        run: ctest -j2 --output-on-failure
+        run: ctest --output-on-failure
         shell: bash
 
       - name: Upload build to itch.io

@@ -6,18 +6,15 @@
 #include "ResourcesManager.hxx"
 #include "Filesystem.hxx"
 #include "tileData.hxx"
+#include "ThreadWorkers.hxx"
 #include "../services/Randomizer.hxx"
 
 #include <bitset>
+#include <atomic>
 
 using json = nlohmann::json;
 
 TileManager::TileManager() { init(); }
-
-SDL_Texture *TileManager::getTexture(const std::string &tileID) const
-{
-  return ResourcesManager::instance().getTileTexture(tileID);
-}
 
 TileData *TileManager::getTileData(const std::string &id) noexcept
 {
@@ -33,7 +30,7 @@ std::vector<std::string> TileManager::getAllTileIDsForZone(ZoneType zone, ZoneDe
   {
     if (std::find(tileData.second.zoneTypes.begin(), tileData.second.zoneTypes.end(), +zone) != tileData.second.zoneTypes.end() &&
         (zone == +ZoneType::AGRICULTURAL || std::find(tileData.second.zoneDensity.begin(), tileData.second.zoneDensity.end(),
-                                                      +zoneDensity) != tileData.second.zoneDensity.end()) &&
+        +zoneDensity) != tileData.second.zoneDensity.end()) &&
         tileData.second.RequiredTiles.height == tileSize.height && tileData.second.RequiredTiles.width == tileSize.width &&
         tileData.second.tileType != +TileType::ZONE)
     {
@@ -110,35 +107,35 @@ Layer TileManager::getTileLayer(const std::string &tileID) const
     switch (tileData->tileType)
     {
     case TileType::TERRAIN:
-      layer = Layer::TERRAIN;
-      break;
+    layer = Layer::TERRAIN;
+    break;
     case TileType::BLUEPRINT:
-      layer = Layer::BLUEPRINT;
-      break;
+    layer = Layer::BLUEPRINT;
+    break;
     case TileType::WATER:
-      layer = Layer::WATER;
-      break;
+    layer = Layer::WATER;
+    break;
     case TileType::UNDERGROUND:
-      layer = Layer::UNDERGROUND;
-      break;
+    layer = Layer::UNDERGROUND;
+    break;
     case TileType::GROUNDDECORATION:
-      layer = Layer::GROUND_DECORATION;
-      break;
+    layer = Layer::GROUND_DECORATION;
+    break;
     case TileType::ZONE:
-      layer = Layer::ZONE;
-      break;
+    layer = Layer::ZONE;
+    break;
     case TileType::ROAD:
-      layer = Layer::ROAD;
-      break;
+    layer = Layer::ROAD;
+    break;
     case TileType::POWERLINE:
-      layer = Layer::POWERLINES;
-      break;
+    layer = Layer::POWERLINES;
+    break;
     case TileType::FLORA:
-      layer = Layer::FLORA;
-      break;
+    layer = Layer::FLORA;
+    break;
     default:
-      layer = Layer::BUILDINGS;
-      break;
+    layer = Layer::BUILDINGS;
+    break;
     }
   }
   return layer;
@@ -360,40 +357,60 @@ void TileManager::init()
 
   size_t idx = 0;
 
-  for (const auto &element : tileDataJSON.items())
+  auto &threadWorkers = ThreadWorkers::instance();
+  auto jsonItems = tileDataJSON.items();
+  std::atomic_int tilesInProgress{0};
+  uint32_t ticksStart = SDL_GetTicks();
+
+  for (const auto &element : jsonItems)
   {
     std::string id;
     id = element.value().value("id", "");
-    addJSONObjectToTileData(tileDataJSON, idx, id);
+    auto tileJson = std::make_shared<nlohmann::json>(tileDataJSON.at(idx));
+    auto &tiled = m_tileData[id];
+    tilesInProgress.fetch_add(1);
+
+    threadWorkers.execute([this, tileJson = std::move(tileJson), id, &tiled, &tilesInProgress] {
+      addJSONObjectToTileData(tiled, *tileJson, id);
+      tilesInProgress.fetch_sub(1);
+    });
+
     idx++;
   }
+
+  // wait thread works
+  while (tilesInProgress.load() != 0) {
+    std::this_thread::sleep_for(std::chrono::milliseconds(10));
+  }
+
+  LOG(LOG_DEBUG) << "Map Generated for " << ((float)(SDL_GetTicks() - ticksStart) / 1000.f) << " seconds";
 }
 
-void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, size_t idx, const std::string &id)
+void TileManager::addJSONObjectToTileData(TileData &tile, const nlohmann::json &tileJson, const std::string &id)
 {
-  m_tileData[id].author = tileDataJSON[idx].value("author", "");
-  m_tileData[id].title = tileDataJSON[idx].value("title", "");
-  m_tileData[id].description = tileDataJSON[idx].value("description", "");
-  m_tileData[id].category = tileDataJSON[idx].value("category", "");
-  m_tileData[id].subCategory = tileDataJSON[idx].value("subCategory", "");
-  m_tileData[id].price = tileDataJSON[idx].value("price", 0);
-  m_tileData[id].power = tileDataJSON[idx].value("power", 0);
-  m_tileData[id].water = tileDataJSON[idx].value("water", 0);
-  m_tileData[id].upkeepCost = tileDataJSON[idx].value("upkeepCost", 0);
-  m_tileData[id].isOverPlacable = tileDataJSON[idx].value("isOverPlacable", false);
-  m_tileData[id].placeOnWater = tileDataJSON[idx].value("placeOnWater", false);
-  m_tileData[id].inhabitants = tileDataJSON[idx].value("inhabitants", 0);
-  m_tileData[id].happiness = tileDataJSON[idx].value("happiness", 0);
-  m_tileData[id].fireHazardLevel = tileDataJSON[idx].value("fireHazardLevel", 0);
-  m_tileData[id].educationLevel = tileDataJSON[idx].value("educationLevel", 0);
-  m_tileData[id].crimeLevel = tileDataJSON[idx].value("crimeLevel", 0);
-  m_tileData[id].pollutionLevel = tileDataJSON[idx].value("pollutionLevel", 0);
+  tile.author = tileJson.value("author", "");
+  tile.title = tileJson.value("title", "");
+  tile.description = tileJson.value("description", "");
+  tile.category = tileJson.value("category", "");
+  tile.subCategory = tileJson.value("subCategory", "");
+  tile.price = tileJson.value("price", 0);
+  tile.power = tileJson.value("power", 0);
+  tile.water = tileJson.value("water", 0);
+  tile.upkeepCost = tileJson.value("upkeepCost", 0);
+  tile.isOverPlacable = tileJson.value("isOverPlacable", false);
+  tile.placeOnWater = tileJson.value("placeOnWater", false);
+  tile.inhabitants = tileJson.value("inhabitants", 0);
+  tile.happiness = tileJson.value("happiness", 0);
+  tile.fireHazardLevel = tileJson.value("fireHazardLevel", 0);
+  tile.educationLevel = tileJson.value("educationLevel", 0);
+  tile.crimeLevel = tileJson.value("crimeLevel", 0);
+  tile.pollutionLevel = tileJson.value("pollutionLevel", 0);
 
-  std::string tileTypeStr = tileDataJSON[idx].value("tileType", "default");
+  std::string tileTypeStr = tileJson.value("tileType", "default");
 
   if (TileType::_is_valid_nocase(tileTypeStr.c_str()))
   {
-    m_tileData[id].tileType = TileType::_from_string_nocase(tileTypeStr.c_str());
+    tile.tileType = TileType::_from_string_nocase(tileTypeStr.c_str());
   }
   else
   {
@@ -401,13 +418,13 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
                              " the field tileType uses the unsupported value " + tileTypeStr);
   }
 
-  if (tileDataJSON[idx].find("zoneDensity") != tileDataJSON[idx].end())
+  if (tileJson.find("zoneDensity") != tileJson.end())
   {
-    for (auto zoneDensity : tileDataJSON[idx].at("zoneDensity").items())
+    for (const auto &zoneDensity : tileJson.at("zoneDensity").items())
     {
       if (ZoneDensity::_is_valid_nocase(zoneDensity.value().get<std::string>().c_str()))
       {
-        m_tileData[id].zoneDensity.push_back(ZoneDensity::_from_string_nocase(zoneDensity.value().get<std::string>().c_str()));
+        tile.zoneDensity.push_back(ZoneDensity::_from_string_nocase(zoneDensity.value().get<std::string>().c_str()));
       }
       else
       {
@@ -417,13 +434,13 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
     }
   }
 
-  if (tileDataJSON[idx].find("zoneType") != tileDataJSON[idx].end())
+  if (tileJson.find("zoneType") != tileJson.end())
   {
-    for (auto zoneType : tileDataJSON[idx].at("zoneType").items())
+    for (const auto &zoneType : tileJson.at("zoneType").items())
     {
       if (ZoneType::_is_valid_nocase(zoneType.value().get<std::string>().c_str()))
       {
-        m_tileData[id].zoneTypes.push_back(ZoneType::_from_string_nocase(zoneType.value().get<std::string>().c_str()));
+        tile.zoneTypes.push_back(ZoneType::_from_string_nocase(zoneType.value().get<std::string>().c_str()));
       }
       else
       {
@@ -433,13 +450,13 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
     }
   }
 
-  if (tileDataJSON[idx].find("style") != tileDataJSON[idx].end())
+  if (tileJson.find("style") != tileJson.end())
   {
-    for (auto style : tileDataJSON[idx].at("style").items())
+    for (const auto &style : tileJson.at("style").items())
     {
       if (Style::_is_valid_nocase(style.value().get<std::string>().c_str()))
       {
-        m_tileData[id].style.push_back(Style::_from_string_nocase(style.value().get<std::string>().c_str()));
+        tile.style.push_back(Style::_from_string_nocase(style.value().get<std::string>().c_str()));
       }
       else
       {
@@ -449,94 +466,82 @@ void TileManager::addJSONObjectToTileData(const nlohmann::json &tileDataJSON, si
     }
   }
 
-  if (tileDataJSON[idx].find("biomes") != tileDataJSON[idx].end())
+  if (tileJson.find("biomes") != tileJson.end())
   {
-    for (auto biome : tileDataJSON[idx].at("biomes").items())
+    for (const auto &biome : tileJson.at("biomes").items())
     {
-      m_tileData[id].biomes.push_back(biome.value().get<std::string>());
+      tile.biomes.push_back(biome.value().get<std::string>());
     }
   }
 
-  if (tileDataJSON[idx].find("groundDecoration") != tileDataJSON[idx].end())
+  if (tileJson.find("groundDecoration") != tileJson.end())
   {
-    for (auto groundDecoration : tileDataJSON[idx].at("groundDecoration").items())
+    for (const auto &groundDecoration : tileJson.at("groundDecoration").items())
     {
-      m_tileData[id].groundDecoration.push_back(groundDecoration.value().get<std::string>());
+      tile.groundDecoration.push_back(groundDecoration.value().get<std::string>());
     }
   }
 
-  if (tileDataJSON[idx].find("RequiredTiles") != tileDataJSON[idx].end())
+  if (tileJson.find("RequiredTiles") != tileJson.end())
   {
-    m_tileData[id].RequiredTiles.width = tileDataJSON[idx]["RequiredTiles"].value("width", 1);
-    m_tileData[id].RequiredTiles.height = tileDataJSON[idx]["RequiredTiles"].value("height", 1);
+    tile.RequiredTiles.width = tileJson["RequiredTiles"].value("width", 1);
+    tile.RequiredTiles.height = tileJson["RequiredTiles"].value("height", 1);
   }
   else
   {
-    m_tileData[id].RequiredTiles.width = 1;
-    m_tileData[id].RequiredTiles.height = 1;
+    tile.RequiredTiles.width = 1;
+    tile.RequiredTiles.height = 1;
   }
 
-  m_tileSizeCombinations.insert(m_tileData[id].RequiredTiles);
+  m_tileSizeCombinations.insert(tile.RequiredTiles);
 
-  m_tileData[id].tiles.fileName = tileDataJSON[idx]["tiles"].value("fileName", "");
-  m_tileData[id].tiles.clippingHeight = tileDataJSON[idx]["tiles"].value("clip_height", 0);
-  m_tileData[id].tiles.clippingWidth = tileDataJSON[idx]["tiles"].value("clip_width", 0);
+  tile.tiles.fileName = tileJson["tiles"].value("fileName", "");
+  tile.tiles.clippingHeight = tileJson["tiles"].value("clip_height", 0);
+  tile.tiles.clippingWidth = tileJson["tiles"].value("clip_width", 0);
 
   // offset value can be negative in the json, for the tiledata editor, but never in Cytopia
-  int offset = tileDataJSON[idx]["tiles"].value("offset", 0);
-  if (offset < 0)
-  {
-    offset = 0;
-  }
-  m_tileData[id].tiles.offset = offset;
-  m_tileData[id].tiles.count = tileDataJSON[idx]["tiles"].value("count", 1);
-  m_tileData[id].tiles.pickRandomTile = tileDataJSON[idx]["tiles"].value("pickRandomTile", true);
+  int offset = std::max(0, tileJson["tiles"].value("offset", 0));
+  tile.tiles.offset = offset;
+  tile.tiles.count = tileJson["tiles"].value("count", 1);
+  tile.tiles.pickRandomTile = tileJson["tiles"].value("pickRandomTile", true);
 
   if (!m_tileData[id].tiles.fileName.empty())
   {
-    ResourcesManager::instance().loadTexture(id, m_tileData[id].tiles.fileName);
+    ResourcesManager::instance().loadTileTextureAsync(id, tile.tiles.fileName);
   }
 
-  if (tileDataJSON[idx].find("shoreLine") != tileDataJSON[idx].end())
+  if (tileJson.find("shoreLine") != tileJson.end())
   {
-    m_tileData[id].shoreTiles.fileName = tileDataJSON[idx]["shoreLine"].value("fileName", "");
-    m_tileData[id].shoreTiles.count = tileDataJSON[idx]["shoreLine"].value("count", 1);
-    m_tileData[id].shoreTiles.clippingWidth = tileDataJSON[idx]["shoreLine"].value("clip_width", 0);
-    m_tileData[id].shoreTiles.clippingHeight = tileDataJSON[idx]["shoreLine"].value("clip_height", 0);
+    tile.shoreTiles.fileName = tileJson["shoreLine"].value("fileName", "");
+    tile.shoreTiles.count = tileJson["shoreLine"].value("count", 1);
+    tile.shoreTiles.clippingWidth = tileJson["shoreLine"].value("clip_width", 0);
+    tile.shoreTiles.clippingHeight = tileJson["shoreLine"].value("clip_height", 0);
 
     // offset value can be negative in the json, for the tiledata editor, but never in Cytopia
-    int offset = tileDataJSON[idx]["shoreLine"].value("offset", 0);
-    if (offset < 0)
-    {
-      offset = 0;
-    }
-    m_tileData[id].shoreTiles.offset = offset;
+    offset = std::max(0, tileJson["shoreLine"].value("offset", 0));
+    tile.shoreTiles.offset = offset;
 
-    if (!m_tileData[id].shoreTiles.fileName.empty())
+    if (!tile.shoreTiles.fileName.empty())
     {
-      ResourcesManager::instance().loadTexture(id + "_shore", m_tileData[id].shoreTiles.fileName);
+      ResourcesManager::instance().loadTileTextureAsync(id + "_shore", m_tileData[id].shoreTiles.fileName);
     }
   }
 
-  if (tileDataJSON[idx].find("slopeTiles") != tileDataJSON[idx].end())
+  if (tileJson.find("slopeTiles") != tileJson.end())
   {
 
-    m_tileData[id].slopeTiles.fileName = tileDataJSON[idx]["slopeTiles"].value("fileName", "");
-    m_tileData[id].slopeTiles.count = tileDataJSON[idx]["slopeTiles"].value("count", 1);
-    m_tileData[id].slopeTiles.clippingWidth = tileDataJSON[idx]["slopeTiles"].value("clip_width", 0);
-    m_tileData[id].slopeTiles.clippingHeight = tileDataJSON[idx]["slopeTiles"].value("clip_height", 0);
+    tile.slopeTiles.fileName = tileJson["slopeTiles"].value("fileName", "");
+    tile.slopeTiles.count = tileJson["slopeTiles"].value("count", 1);
+    tile.slopeTiles.clippingWidth = tileJson["slopeTiles"].value("clip_width", 0);
+    tile.slopeTiles.clippingHeight = tileJson["slopeTiles"].value("clip_height", 0);
 
     // offset value can be negative in the json, for the tiledata editor, but never in Cytopia
-    int offset = tileDataJSON[idx]["slopeTiles"].value("offset", 0);
-    if (offset < 0)
-    {
-      offset = 0;
-    }
-    m_tileData[id].slopeTiles.offset = offset;
+    offset = std::max(0, tileJson["slopeTiles"].value("offset", 0));
+    tile.slopeTiles.offset = offset;
 
-    if (!m_tileData[id].slopeTiles.fileName.empty())
+    if (!tile.slopeTiles.fileName.empty())
     {
-      ResourcesManager::instance().loadTexture(id, m_tileData[id].slopeTiles.fileName);
+      ResourcesManager::instance().loadTileTextureAsync(id, tile.slopeTiles.fileName);
     }
   }
 }
@@ -551,9 +556,9 @@ bool TileManager::isTileIDAutoTile(const std::string &tileID)
     case +TileType::AUTOTILE:
     case +TileType::UNDERGROUND:
     case +TileType::POWERLINE:
-      return true;
+    return true;
     default:
-      return false;
+    return false;
     }
 
   return false;

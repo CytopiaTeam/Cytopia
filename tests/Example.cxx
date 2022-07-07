@@ -1,5 +1,6 @@
 #include <catch.hpp>
 #include <ciso646>
+#include "Common.hxx"
 
 using Catch::Contains;
 
@@ -14,6 +15,7 @@ template <int a> struct StaticEquals<a, a> : std::true_type
 /* This is a test! */
 TEST_CASE("Example Test", "[!hide]")
 {
+  START_TEST
 
   SECTION("true/false")
   {
@@ -49,6 +51,8 @@ TEST_CASE("Example Test", "[!hide]")
   using OneEqualsOne = StaticEquals<1, 1>;
   /* Now this works! */
   REQUIRE(OneEqualsOne::value);
+
+  FINISH_TEST
 }
 
 /* You can also do it BDD-style! */
@@ -57,6 +61,8 @@ TEST_CASE("Example Test", "[!hide]")
 
 SCENARIO("C++ is cool", "[!hide]")
 {
+  START_TEST
+
   GIVEN("a smart pointer")
   {
     std::unique_ptr<int> myInt = std::make_unique<int>(5);
@@ -86,6 +92,8 @@ SCENARIO("C++ is cool", "[!hide]")
       }
     }
   }
+
+  FINISH_TEST
 }
 
 /* Note that all inner scopes in a scope must be uniquely schedulable.

@@ -39,6 +39,7 @@ public:
     * @see Sprite#render
     */
   void renderMap() const;
+  void updateMap();
 
 private:
   /**

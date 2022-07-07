@@ -11,6 +11,9 @@
 #include "OSystem.hxx"
 #include <Map.hxx>
 #include <MapFunctions.hxx>
+#include "util/ThreadWorkers.hxx"
+#include "scenes/Scenes.hxx"
+#include "game/ThreadSceneUpdate.hxx"
 #include "../game/ui/BuildMenu.hxx"
 
 #include <SDL.h>
@@ -27,6 +30,8 @@
 #ifdef MICROPROFILE_ENABLED
 #include "microprofile/microprofile.h"
 #endif
+
+BaseSceneSelector *BaseScene::m_sceneSelector = nullptr;
 
 namespace Cytopia
 {
@@ -54,6 +59,9 @@ void Game::quit()
 
 void Game::initialize()
 {
+  ThreadWorkers::instance().initialize(/*num_workers=*/4);
+  ThreadSceneUpdate::instance().initialize();
+
 #ifdef USE_MOFILEREADER
   std::string moFilePath = fs::getBasePath();
   moFilePath = moFilePath + "languages/" + Settings::instance().gameLanguage + "/Cytopia.mo";
@@ -79,17 +87,25 @@ void Game::initialize()
   LOG(LOG_DEBUG) << "Initialized Game Object";
 }
 
-void Game::run(bool SkipMenu)
+void Game::run()
 {
   Camera::instance().centerScreenOnMapCenter();
 
-  SDL_Event event;
-  EventManager &evManager = EventManager::instance();
+  struct GameSceneSelector : public BaseSceneSelector
+  {
+    Game &game;
+    explicit GameSceneSelector(Game &g) : game(g) { BaseScene::m_sceneSelector = this; }
+    void nextScene(BaseScene *scene) override { game.nextScene(scene); }
+  } gameSceneSelector(*this);
+
+  Uint32 tickLastTime = SDL_GetTicks();
 
   UIManager &uiManager = UIManager::instance();
   uiManager.init();
 
   GameClock &gameClock = GameClock::instance();
+  ResourcesManager &textures = ResourcesManager::instance();
+  ThreadSceneUpdate &threadScene = ThreadSceneUpdate::instance();
 
 #ifdef USE_ANGELSCRIPT
   ScriptEngine &scriptEngine = ScriptEngine::instance();
@@ -97,98 +113,74 @@ void Game::run(bool SkipMenu)
   scriptEngine.loadScript(fs::getBasePath() + "/resources/test.as", ScriptCategory::BUILD_IN);
 #endif
 
-#ifdef USE_AUDIO
-  if (!Settings::instance().audio3DStatus)
-  {
-    gameClock.addRealTimeClockTask(
-        []()
-        {
-          AudioMixer::instance().play(AudioTrigger::MainTheme);
-          return false;
-        },
-        0s, 8min);
-    gameClock.addRealTimeClockTask(
-        []()
-        {
-          AudioMixer::instance().play(AudioTrigger::NatureSounds);
-          return false;
-        },
-        0s, 3min);
-  }
-  else
-  {
-    gameClock.addRealTimeClockTask(
-        []()
-        {
-          AudioMixer::instance().play(AudioTrigger::MainTheme, Coordinate3D{0, 0.5, 0.1});
-          return false;
-        },
-        0s, 8min);
-    gameClock.addRealTimeClockTask(
-        []()
-        {
-          AudioMixer::instance().play(AudioTrigger::NatureSounds, Coordinate3D{0, 0, -2});
-          return false;
-        },
-        0s, 3min);
-  }
-#endif // USE_AUDIO
-
-  // FPS Counter variables
-  const float fpsIntervall = 1.0; // interval the fps counter is refreshed in seconds.
-  Uint32 fpsLastTime = SDL_GetTicks();
-  Uint32 fpsFrames = 0;
-
   uiManager.addPersistentMenu<BuildMenu>();
 
   // GameLoop
   while (!m_shutDown)
   {
-#ifdef MICROPROFILE_ENABLED
-    MICROPROFILE_SCOPEI("Map", "Gameloop", MP_GREEN);
-#endif
-    SDL_RenderClear(WindowManager::instance().getRenderer());
-
-    evManager.checkEvents(event);
-    gameClock.tick();
-
-    // render the tileMap
-    if (MapFunctions::instance().getMap())
+    BaseScene *scene = nullptr;
     {
-      MapFunctions::instance().getMap()->renderMap();
+      std::unique_lock lock(this->m_scenes_access);
+
+      if (this->m_shutDown || this->m_scenes.empty())
+        break;
+
+      scene = this->m_scenes.front();
+      this->m_scenes.pop();
     }
 
-    // render the ui
-    // TODO: This is only temporary until the new UI is ready. Remove this afterwards
-    if (GameStates::instance().drawUI)
+    scene->onBeforeStart();
+    threadScene.setupScene(scene);
+    while (scene->isActive())
     {
+      if (m_shutDown)
+        break;
+
+      threadScene.nextFrame();
+
+      SDL_Event event;
+      while (SDL_PollEvent(&event) != 0) {
+        scene->onEvent(event);
+      }
+      SDL_RenderClear(WindowManager::instance().getRenderer());
+
       WindowManager::instance().newImGuiFrame();
-      uiManager.drawUI();
-    }
-#ifdef USE_ANGELSCRIPT
-    ScriptEngine::instance().framestep(1);
-#endif
 
-    // we need to instantiate the MapFunctions object so it's ready for new game
-    WindowManager::instance().renderScreen();
-
-    fpsFrames++;
-
-    if (fpsLastTime < SDL_GetTicks() - fpsIntervall * 1000)
-    {
-      fpsLastTime = SDL_GetTicks();
-      uiManager.setFPSCounterText(std::to_string(fpsFrames) + " FPS");
-      fpsFrames = 0;
-    }
+      Uint32 tickCurrentTime = SDL_GetTicks();
+      scene->onRender((float)(tickCurrentTime - tickLastTime)/1000.f);
 
 #ifdef MICROPROFILE_ENABLED
-    MicroProfileFlip(nullptr);
+      MICROPROFILE_SCOPEI("Map", "Gameloop", MP_GREEN);
 #endif
+      gameClock.tick();
+
+      // we need to instantiate the MapFunctions object so it's ready for new game
+      WindowManager::instance().renderScreen();
+
+      m_fpsFrames++;
+      tickLastTime = tickCurrentTime;
+
+      // need here, because SDL resolve textures in main thread only
+      textures.performDelayedActions();
+      if (!threadScene.isReady()) {
+        LOG(LOG_INFO) << "Scene thread not ready yet";
+        std::this_thread::sleep_for(std::chrono::milliseconds(2));
+      }
+#ifdef MICROPROFILE_ENABLED
+      MicroProfileFlip(nullptr);
+#endif
+    }
+    threadScene.setupScene(nullptr);
+    scene->onBeforeStop();
+    scene->onDestroy();
   }
 }
 
 void Game::shutdown()
 {
+  ThreadSceneUpdate::instance().shutdown();
+  ThreadWorkers::instance().shutdown();
+
   LOG(LOG_DEBUG) << "In shutdown";
   TTF_Quit();
   SDL_Quit();

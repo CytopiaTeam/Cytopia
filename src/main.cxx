@@ -6,6 +6,8 @@
 #include "LOG.hxx"
 #include "engine/WindowManager.hxx"
 #include <UIManager.hxx>
+#include "scenes/MainMenuScene.hxx"
+#include "scenes/MapScene.hxx"
 
 #include <SDL.h>
 #include <SDL_ttf.h>
@@ -82,17 +84,11 @@ int protected_main(int argc, char **argv)
   else
     LOG(LOG_DEBUG) << "DONE Cytopia";
 
-  bool startGame = true;
-  if (!skipMenu)
-  {
-    startGame = mainMenu();
-  }
-
-  if (startGame)
-  {
-    LOG(LOG_DEBUG) << "Running the Game";
-    game.run(skipMenu);
-  }
+  BaseScene* scene = skipMenu
+                      ? (BaseScene*)new SceneMap
+                      : (BaseScene*)new SceneMainMenu;
+  game.nextScene(scene);
+  game.run();
 
   LOG(LOG_DEBUG) << "Closing the Game";
   game.shutdown();

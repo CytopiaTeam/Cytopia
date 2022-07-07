@@ -9,6 +9,7 @@
 
 struct SpriteData
 {
+  std::string texid;
   SDL_Texture *texture = nullptr;
   SDL_Rect clipRect{0, 0, 0, 0};
   SDL_Rect destRect{0, 0, 0, 0};
@@ -36,9 +37,10 @@ public:
   virtual ~Sprite() = default;
 
   void render() const;
+  void update();
   void refresh(const Layer &layer = Layer::NONE);
 
-  void setTexture(SDL_Texture *m_texture, Layer layer = Layer::TERRAIN);
+  void setTexture(const std::string &texId, Layer layer = Layer::TERRAIN);
   void setClipRect(SDL_Rect clipRect, Layer layer = Layer::TERRAIN);
   void setDestRect(SDL_Rect clipRect, Layer layer = Layer::TERRAIN);
 
@@ -67,6 +69,7 @@ public:
 private:
   SDL_Point m_screenCoordinates{0, 0};
 
+  bool m_hasPendingTextures = false;
   bool m_needsRefresh = false;
   double m_currentZoomLevel = 0;
 

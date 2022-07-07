@@ -77,12 +77,6 @@ public:
   TileManager(TileManager const &) = delete;
   TileManager &operator=(TileManager const &) = delete;
 
-  /** @brief Get the Texture for the tileID
-   * @param tileID TileID
-   * @return An SDL Texture we can render
-   */
-  SDL_Texture *getTexture(const std::string &tileID) const;
-
   /** @brief Get the TileData struct for this tileID and all information associated with it
   * @param id TileID
   * @return A pointer to the TileData Struct
@@ -152,7 +146,7 @@ private:
 
   std::unordered_map<std::string, TileData> m_tileData;
   std::unordered_set<TileSize> m_tileSizeCombinations;
-  void addJSONObjectToTileData(const nlohmann::json &tileDataJSON, size_t idx, const std::string &id);
+  void addJSONObjectToTileData(TileData &tile, const nlohmann::json &tileJson, const std::string &id);
 };
 
 #endif

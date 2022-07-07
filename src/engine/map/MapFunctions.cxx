@@ -67,12 +67,12 @@ void MapFunctions::updateNodeNeighbors(const std::vector<Point> &nodes)
 {
   // those bitmask combinations require the tile to be elevated.
   constexpr unsigned char elevateTileComb[] = {
-      NeighborNodesPosition::TOP | NeighborNodesPosition::BOTTOM,
-      NeighborNodesPosition::LEFT | NeighborNodesPosition::RIGHT,
-      NeighborNodesPosition::TOP_LEFT | NeighborNodesPosition::RIGHT | NeighborNodesPosition::BOTTOM,
-      NeighborNodesPosition::TOP_RIGHT | NeighborNodesPosition::LEFT | NeighborNodesPosition::BOTTOM,
-      NeighborNodesPosition::BOTTOM_LEFT | NeighborNodesPosition::RIGHT | NeighborNodesPosition::TOP,
-      NeighborNodesPosition::BOTTOM_RIGHT | NeighborNodesPosition::LEFT | NeighborNodesPosition::TOP};
+    NeighborNodesPosition::TOP | NeighborNodesPosition::BOTTOM,
+    NeighborNodesPosition::LEFT | NeighborNodesPosition::RIGHT,
+    NeighborNodesPosition::TOP_LEFT | NeighborNodesPosition::RIGHT | NeighborNodesPosition::BOTTOM,
+    NeighborNodesPosition::TOP_RIGHT | NeighborNodesPosition::LEFT | NeighborNodesPosition::BOTTOM,
+    NeighborNodesPosition::BOTTOM_LEFT | NeighborNodesPosition::RIGHT | NeighborNodesPosition::TOP,
+    NeighborNodesPosition::BOTTOM_RIGHT | NeighborNodesPosition::LEFT | NeighborNodesPosition::TOP};
 
   std::vector<Point> nodesToBeUpdated;
   std::map<int, std::vector<Point>> nodeCache;
@@ -80,6 +80,7 @@ void MapFunctions::updateNodeNeighbors(const std::vector<Point> &nodes)
   std::vector<Point> nodesToElevate;
   std::vector<Point> nodesToDemolish;
 
+  uint32_t startTicks = SDL_GetTicks();
   for (auto currentNode : nodes)
   {
     updatedNodes.push(currentNode);
@@ -156,21 +157,28 @@ void MapFunctions::updateNodeNeighbors(const std::vector<Point> &nodes)
       }
     }
   }
+  LOG(LOG_INFO) << "MapFunctions updateHeight at " << ((float)(SDL_GetTicks() - startTicks) / 1000.f) << " seconds";
 
+  startTicks = SDL_GetTicks();
   if (!nodesToDemolish.empty())
   {
     demolishNode(nodesToDemolish);
   }
+  LOG(LOG_INFO) << "MapFunctions demolishNode at " << ((float)(SDL_GetTicks() - startTicks) / 1000.f) << " seconds";
 
+  startTicks = SDL_GetTicks();
   for (Point node : nodesToBeUpdated)
   {
     getMapNode(node).setAutotileBitMask(calculateAutotileBitmask(node));
   }
+  LOG(LOG_INFO) << "MapFunctions nodesToBeUpdated at " << ((float)(SDL_GetTicks() - startTicks) / 1000.f) << " seconds";
 
+  startTicks = SDL_GetTicks();
   for (Point node : nodesToBeUpdated)
   {
     getMapNode(node).updateTexture();
   }
+  LOG(LOG_INFO) << "MapFunctions updateTexture at " << ((float)(SDL_GetTicks() - startTicks) / 1000.f) << " seconds";
 }
 
 void MapFunctions::updateAllNodes()
@@ -268,6 +276,7 @@ Point MapFunctions::getNodeOrigCornerPoint(const Point &isoCoordinates, Layer la
 std::vector<uint8_t> MapFunctions::calculateAutotileBitmask(Point coordinate)
 {
   std::vector<uint8_t> tileOrientationBitmask(LAYERS_COUNT, 0);
+  auto &tileManager = TileManager::instance();
 
   for (auto currentLayer : allLayersOrdered)
   {
@@ -290,7 +299,7 @@ std::vector<uint8_t> MapFunctions::calculateAutotileBitmask(Point coordinate)
 
       // only auto-tile categories that can be tiled.
       const std::string &nodeTileId = getMapNode(coordinate).getMapNodeDataForLayer(currentLayer).tileID;
-      if (TileManager::instance().isTileIDAutoTile(nodeTileId))
+      if (tileManager.isTileIDAutoTile(nodeTileId))
       {
         for (const auto &neighbor : getNeighborNodes(coordinate, false))
         {
@@ -328,7 +337,7 @@ bool MapFunctions::setTileID(const std::string &tileID, Point coordinate)
   if (!tileData->groundDecoration.empty())
   {
     randomGroundDecorationTileID =
-        *Randomizer::instance().choose(tileData->groundDecoration.begin(), tileData->groundDecoration.end());
+      *Randomizer::instance().choose(tileData->groundDecoration.begin(), tileData->groundDecoration.end());
   }
 
   // for >1x1 buildings, clear all the nodes that are going to be occupied before placing anything.
@@ -453,7 +462,7 @@ void MapFunctions::getNodeInformation(const Point &isoCoordinates) const
   const MapNodeData &mapNodeData = mapNode.getActiveMapNodeData();
   const TileData *tileData = mapNodeData.tileData;
   LOG(LOG_INFO) << "===== TILE at " << isoCoordinates.x << ", " << isoCoordinates.y << ", " << mapNode.getCoordinates().height
-                << "=====";
+    << "=====";
   LOG(LOG_INFO) << "[Layer: TERRAIN] ID: " << mapNode.getMapNodeDataForLayer(Layer::TERRAIN).tileID;
   LOG(LOG_INFO) << "[Layer: WATER] ID: " << mapNode.getMapNodeDataForLayer(Layer::WATER).tileID;
   LOG(LOG_INFO) << "[Layer: BUILDINGS] ID: " << mapNode.getMapNodeDataForLayer(Layer::BUILDINGS).tileID;
@@ -499,7 +508,7 @@ Point MapFunctions::findNodeInMap(const SDL_Point &screenCoordinates, const Laye
   if (isoY >= Settings::instance().mapSize)
   {
     int diff = isoY - Settings::instance().mapSize; // the diff to reset the value to the edge of the map
-    // travel the column downwards.
+                                                    // travel the column downwards.
     isoX += diff;
     isoY -= diff;
   }

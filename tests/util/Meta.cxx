@@ -1,19 +1,26 @@
 #include <catch.hpp>
 #include "../../util/Meta.hxx"
+#include "../Common.hxx"
 #include <ratio>
 
 TEST_CASE("You can use a TypeList like a safe linked list", "[util]")
 {
+  START_TEST
+
   using MyConstants = TypeList<Constant<1, int>, Constant<true>, Constant<'x'>>;
   REQUIRE(MyConstants::current::value == 1);
   REQUIRE(std::is_same_v<MyConstants::current::value_type, int>);
   REQUIRE(MyConstants::next::current::value == true);
   REQUIRE(std::is_same_v<MyConstants::next::current::value_type, bool>);
   REQUIRE(std::is_same_v<MyConstants::next::next::next, nullptr_t>);
+
+  FINISH_TEST
 }
 
 TEST_CASE("TypeLists support random access", "[util]")
 {
+  START_TEST
+
   enum ConstantTypes
   {
     MajorVersion,
@@ -43,6 +50,8 @@ TEST_CASE("TypeLists support random access", "[util]")
   /*   7/20 - 15/100 = 1/5  */
   REQUIRE(FoliageRatioRange::num == 1);
   REQUIRE(FoliageRatioRange::den == 5);
+
+  FINISH_TEST
 }
 
 /* We can do really useful things with TypeLists in terms of Metaprogramming.
@@ -177,6 +186,8 @@ class ChaoticCar : public AbstractCar<ChaoticCarSpecification>
 
 TEST_CASE("Metaprogramming can be used to create strong abstractions", "[util]")
 {
+  START_TEST
+
   NormalCar normalCar;
   REQUIRE(normalCar.currentBehaviour == DriveAround);
   normalCar.onEvent(Traffic);
@@ -187,4 +198,6 @@ TEST_CASE("Metaprogramming can be used to create strong abstractions", "[util]")
   REQUIRE(chaosCar.currentBehaviour == DriveSlow);
   chaosCar.onEvent(SomeoneIsDrivingSlow);
   REQUIRE(chaosCar.currentBehaviour == CreateAccidents);
+
+  FINISH_TEST
 }

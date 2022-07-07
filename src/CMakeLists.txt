@@ -1,7 +1,8 @@
 set(SOURCE_FILES
         main.cxx
         Game.{hxx,cxx}
-        MainMenu.{hxx,cxx}
+        scenes/MainMenuScene.{hxx,cxx}
+        scenes/MapScene.{hxx,cxx}
         util/LOG.{hxx,cxx}
         util/LOG.inl.hxx
         util/Filesystem.{hxx,cxx}
@@ -15,6 +16,7 @@ set(SOURCE_FILES
         util/Meta.hxx
         util/Exception.{hxx,cxx}
         util/OSystem.{hxx,cxx}
+        util/ThreadWorkers.hxx
         services/Randomizer.{hxx,cxx}
         services/GameClock.{hxx,cxx}
         services/GameClock.inl.hxx
@@ -61,6 +63,7 @@ set(SOURCE_FILES
         game/PowerManager.{hxx,cxx}
         game/PowerGrid.{hxx,cxx}
         game/GamePlay.{hxx,cxx}
+        game/ThreadSceneUpdate.{hxx,cxx}
         game/ui/SettingsMenu.{hxx,cxx}
         game/ui/PauseMenu.{hxx,cxx}
         game/ui/LoadMenu.{hxx,cxx}

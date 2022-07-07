@@ -1,13 +1,13 @@
 #ifndef EVENTMANAGER_HXX_
 #define EVENTMANAGER_HXX_
 
-#include <SDL.h>
 #include <set>
 
 #include <Point.hxx>
 #include "../util/Singleton.hxx"
 
 class UIElement;
+union SDL_Event;
 
 class EventManager : public Singleton<EventManager>
 {
@@ -15,7 +15,7 @@ public:
   EventManager() = default;
   ~EventManager() = default;
 
-  void checkEvents(SDL_Event &event);
+  void handleEvent(const SDL_Event &event);
   /**
  * @brief Unhighlight highlighted Nodes.
  * @details This sets a node to be unhighlighted.
