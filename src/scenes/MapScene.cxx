@@ -136,7 +136,7 @@ void SceneLoading::onBeforeStop() {
 void SceneLoadingNew::onBeforeStart()
 {
   waiting4load = true;;
-  ThreadWorkers::instance().execute([this] {
+  g_game->mt().execute([this] {
     SignalMediator::instance().signalNewGame.emit(true);
     waiting4load = false;
   });
@@ -147,7 +147,7 @@ void SceneLoadingNew::onBeforeStart()
 void SceneLoadingExist::onBeforeStart()
 {
   waiting4load = true;;
-  ThreadWorkers::instance().execute([this] {
+  g_game->mt().execute([this] {
     SignalMediator::instance().signalLoadGame.emit("save.cts");
     waiting4load = false;
   });

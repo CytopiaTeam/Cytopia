@@ -13,10 +13,8 @@
 
 #include "Singleton.hxx"
 
-class ThreadWorkers : public Singleton<ThreadWorkers> {
+class ThreadWorkers {
 public:
-  friend class Singleton<ThreadWorkers>;
-
   inline void initialize(size_t threads)
   {
     threads = std::max(initial_threads_num, threads);
@@ -80,11 +78,8 @@ public:
   }
 
 private:
-  ThreadWorkers() = default;
-  ~ThreadWorkers() = default;
-
   // need to keep track of threads so we can join them
-  size_t initial_threads_num;
+  static constexpr size_t initial_threads_num = 4;
   std::vector< std::thread > workers;
 
   // the task queue

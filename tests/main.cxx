@@ -24,10 +24,11 @@ struct test_init
 } test_init_instance;
 
 bool testFinished = false;
+ThreadWorkers test_mt;
 void start_test()
 {
-  ThreadWorkers::instance().initialize(4);
-  ThreadWorkers::instance().execute([] {
+  test_mt.initialize(4);
+  test_mt.execute([] {
     while (!testFinished) {
       ResourcesManager::instance().performDelayedActions();
       std::this_thread::sleep_for(std::chrono::milliseconds(1));
@@ -38,5 +39,5 @@ void start_test()
 void finish_test()
 {
   testFinished = true;
-  ThreadWorkers::instance().shutdown();
+  test_mt.shutdown();
 }

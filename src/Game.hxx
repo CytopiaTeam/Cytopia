@@ -13,6 +13,7 @@
 #include "LOG.hxx"
 #include "Exception.hxx"
 #include "../game/GamePlay.hxx"
+#include "ThreadWorkers.hxx"
 
 #include <thread>
 #include <mutex>
@@ -24,6 +25,7 @@ struct BaseScene;
 
 namespace Cytopia
 {
+
 class Game
 {
 public:
@@ -36,18 +38,18 @@ public:
   /**
    * @brief Destroy a game
    */
-  virtual ~Game() = default;
+  ~Game();
 
   /** @brief starts setting up the game
     * @details starts game initialization.
     */
-  virtual void initialize();
+  void initialize();
 
   /** @brief begins the game
     * @details starts running the game
     * @param SkipMenu if the main menu should be skipped or not
     */
-  virtual void run();
+  void run();
 
   inline void nextScene(BaseScene *scene)
   {
@@ -60,11 +62,13 @@ public:
     m_scenes.emplace(scene);
   }
 
+  inline ThreadWorkers &mt() { return m_mt; }
+
   /// ends the game
   virtual void shutdown();
 
-  virtual void newGame(bool generateTerrain);
-  virtual void loadGame(const std::string &fileName);
+  void newGame(bool generateTerrain);
+  void loadGame(const std::string &fileName);
 
 private:
   void quit();
@@ -74,6 +78,11 @@ private:
   GamePlay m_GamePlay;
   std::queue<BaseScene *> m_scenes;
   std::mutex m_scenes_access;
+
+  ThreadWorkers m_mt;
 };
+
 } // namespace Cytopia
+
+extern Cytopia::Game *g_game;
 #endif

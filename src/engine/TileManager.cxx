@@ -8,6 +8,7 @@
 #include "tileData.hxx"
 #include "ThreadWorkers.hxx"
 #include "../services/Randomizer.hxx"
+#include "../Game.hxx"
 
 #include <bitset>
 #include <atomic>
@@ -357,7 +358,6 @@ void TileManager::init()
 
   size_t idx = 0;
 
-  auto &threadWorkers = ThreadWorkers::instance();
   auto jsonItems = tileDataJSON.items();
   std::atomic_int tilesInProgress{0};
   uint32_t ticksStart = SDL_GetTicks();
@@ -370,7 +370,7 @@ void TileManager::init()
     auto &tiled = m_tileData[id];
     tilesInProgress.fetch_add(1);
 
-    threadWorkers.execute([this, tileJson = std::move(tileJson), id, &tiled, &tilesInProgress] {
+    g_game->mt().execute([this, tileJson = std::move(tileJson), id, &tiled, &tilesInProgress] {
       addJSONObjectToTileData(tiled, *tileJson, id);
       tilesInProgress.fetch_sub(1);
     });

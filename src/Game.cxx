@@ -32,13 +32,21 @@
 #endif
 
 BaseSceneSelector *BaseScene::m_sceneSelector = nullptr;
+Cytopia::Game *g_game = nullptr;
 
 namespace Cytopia
 {
+
 Game::Game()
 {
+  g_game = this;
   LOG(LOG_DEBUG) << "Created Game Object";
   initialize();
+}
+
+Game::~Game()
+{
+  /* do nothing yet */
 }
 
 void Game::quit()
@@ -55,11 +63,13 @@ void Game::quit()
     m_AudioMixer.play(SoundtrackID{"NegativeSelect"}, Coordinate3D{0, 0, -4});
   }
 #endif // USE_AUDIO
+
+  g_game = nullptr;
 }
 
 void Game::initialize()
 {
-  ThreadWorkers::instance().initialize(/*num_workers=*/4);
+  m_mt.initialize(/*num_workers=*/4);
   ThreadSceneUpdate::instance().initialize();
 
 #ifdef USE_MOFILEREADER
@@ -179,7 +189,7 @@ void Game::run()
 void Game::shutdown()
 {
   ThreadSceneUpdate::instance().shutdown();
-  ThreadWorkers::instance().shutdown();
+  m_mt.shutdown();
 
   LOG(LOG_DEBUG) << "In shutdown";
   TTF_Quit();
