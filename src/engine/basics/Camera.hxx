@@ -30,6 +30,8 @@ public:
    */
   void decreaseZoomLevel();
 
+  inline void changeZoomLevel(bool inc) { inc ? increaseZoomLevel() : decreaseZoomLevel(); }
+
   /**
    * @brief Sets the pinch distance for touch screens
    * @param pinchDistance the pinch distance
@@ -47,6 +49,8 @@ public:
   const double &zoomLevel() const noexcept;
   const SDL_Point &tileSize() const noexcept;
 
+  void canScale(bool value) { m_canScale = value; }
+
 private:
   Camera() = default;
   ~Camera() = default;
@@ -56,6 +60,7 @@ private:
   SDL_Point m_TileSize{32, 16};
   SDL_Point m_CameraOffset{0, 0};
   double m_ZoomLevel = 1.0; ///< the current zoom level of the camera
+  bool m_canScale = true;
   Point m_CenterIsoCoordinates;
 };
 

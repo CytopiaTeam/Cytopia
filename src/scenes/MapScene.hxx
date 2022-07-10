@@ -44,7 +44,6 @@ public:
   void onBeforeStart() override;
 };
 
-
 class SceneLoadingExist : public SceneLoading {
 public:
   void onBeforeStart() override;

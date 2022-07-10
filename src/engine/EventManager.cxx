@@ -116,10 +116,12 @@ void EventManager::handleEvent(const SDL_Event &event)
 
     case SDLK_0:
       break;
+
     case SDLK_LCTRL:
       GameStates::instance().demolishMode = DemolishMode::GROUND_DECORATION;
       GameStates::instance().rectangularRoads = true;
       break;
+
     case SDLK_LSHIFT:
       GameStates::instance().demolishMode = DemolishMode::DE_ZONE;
       if (GameStates::instance().placementMode == PlacementMode::LINE)
@@ -127,37 +129,48 @@ void EventManager::handleEvent(const SDL_Event &event)
         GameStates::instance().placementMode = PlacementMode::STRAIGHT_LINE;
       }
       break;
+
     case SDLK_F11:
       uiManager.toggleDebugMenu();
       break;
+
     case SDLK_1:
       MapLayers::toggleLayer(Layer::TERRAIN);
       break;
+
     case SDLK_2:
       MapLayers::toggleLayer(Layer::BUILDINGS);
       break;
+
     case SDLK_3:
       MapLayers::toggleLayer(Layer::BLUEPRINT);
       break;
+
     case SDLK_4:
       MapLayers::toggleLayer(Layer::UNDERGROUND);
       break;
+
     case SDLK_5:
       MapLayers::toggleLayer(Layer::ZONE);
       break;
+
     case SDLK_6:
       MapLayers::toggleLayer(Layer::GROUND_DECORATION);
       break;
+
     case SDLK_i:
       m_tileInfoMode = !m_tileInfoMode;
       break;
+
     case SDLK_h:
       // TODO: This is only temporary until the new UI is ready. Remove this afterwards
       GameStates::instance().drawUI = !GameStates::instance().drawUI;
       break;
+
     case SDLK_f:
       WindowManager::instance().toggleFullScreen();
       break;
+
     case SDLK_UP:
     case SDLK_w:
       if (MapFunctions::instance().getMap() &&
@@ -166,6 +179,7 @@ void EventManager::handleEvent(const SDL_Event &event)
         Camera::instance().moveCamera(0, Settings::instance().screenHeight / 16);
       }
       break;
+
     case SDLK_LEFT:
     case SDLK_a:
       if (MapFunctions::instance().getMap() &&
@@ -174,6 +188,7 @@ void EventManager::handleEvent(const SDL_Event &event)
         Camera::instance().moveCamera(Settings::instance().screenWidth / 16, 0);
       }
       break;
+
     case SDLK_DOWN:
     case SDLK_s:
       if (MapFunctions::instance().getMap() &&
@@ -182,6 +197,7 @@ void EventManager::handleEvent(const SDL_Event &event)
         Camera::instance().moveCamera(0, -Settings::instance().screenHeight / 16);
       }
       break;
+
     case SDLK_RIGHT:
     case SDLK_d:
       if (MapFunctions::instance().getMap() &&
@@ -199,6 +215,7 @@ void EventManager::handleEvent(const SDL_Event &event)
       break;
     }
     break;
+
   case SDL_KEYUP:
     switch (event.key.keysym.sym)
     {
@@ -206,6 +223,7 @@ void EventManager::handleEvent(const SDL_Event &event)
       GameStates::instance().demolishMode = DemolishMode::DEFAULT;
       GameStates::instance().rectangularRoads = false;
       break;
+
     case SDLK_LSHIFT:
       GameStates::instance().demolishMode = DemolishMode::DEFAULT;
       if (GameStates::instance().placementMode == PlacementMode::STRAIGHT_LINE)
@@ -246,6 +264,7 @@ void EventManager::handleEvent(const SDL_Event &event)
       m_skipLeftClick = true;
     }
     break;
+
   case SDL_MOUSEMOTION:
     m_placementAllowed = false;
     m_cancelTileSelection = false;
@@ -314,14 +333,17 @@ void EventManager::handleEvent(const SDL_Event &event)
           case PlacementMode::SINGLE:
             m_nodesToPlace.push_back(mouseIsoCoords);
             break;
+
           case PlacementMode::LINE:
             m_nodesToPlace = PointFunctions::getLine(m_clickDownCoords, mouseIsoCoords);
             m_nodesToHighlight = m_nodesToPlace;
             break;
+
           case PlacementMode::STRAIGHT_LINE:
             m_nodesToPlace = PointFunctions::getStraightLine(m_clickDownCoords, mouseIsoCoords);
             m_nodesToHighlight = m_nodesToPlace;
             break;
+
           case PlacementMode::RECTANGLE:
             m_nodesToPlace = PointFunctions::getArea(m_clickDownCoords, mouseIsoCoords);
             m_nodesToHighlight = m_nodesToPlace;
@@ -406,6 +428,7 @@ void EventManager::handleEvent(const SDL_Event &event)
       }
     }
     break;
+
   case SDL_MOUSEBUTTONDOWN:
     m_placementAllowed = false;
     m_skipLeftClick = false;
@@ -566,15 +589,9 @@ void EventManager::handleEvent(const SDL_Event &event)
 
     break;
   }
+
   case SDL_MOUSEWHEEL:
-    if (event.wheel.y > 0)
-    {
-      Camera::instance().increaseZoomLevel();
-    }
-    else if (event.wheel.y < 0)
-    {
-      Camera::instance().decreaseZoomLevel();
-    }
+    Camera::instance().changeZoomLevel(event.wheel.y > 0);
     break;
 
   default:

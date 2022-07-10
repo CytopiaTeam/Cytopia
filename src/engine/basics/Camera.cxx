@@ -5,6 +5,9 @@
 
 void Camera::increaseZoomLevel()
 {
+  if (!m_canScale)
+    return;
+
   if (m_ZoomLevel < 4.0)
   {
     m_ZoomLevel += 0.5;
@@ -15,6 +18,9 @@ void Camera::increaseZoomLevel()
 
 void Camera::decreaseZoomLevel()
 {
+  if (!m_canScale)
+    return;
+
   if (m_ZoomLevel > 0.5)
   {
     m_ZoomLevel -= 0.5;

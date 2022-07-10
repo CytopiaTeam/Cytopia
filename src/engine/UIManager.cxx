@@ -14,6 +14,8 @@
 #include "Filesystem.hxx"
 #include "json.hxx"
 #include "betterEnums.hxx"
+#include "Camera.hxx"
+
 #ifdef USE_AUDIO
 #include "../services/AudioMixer.hxx"
 #endif
@@ -164,6 +166,8 @@ void UIManager::openMenu(GameMenu::Ptr menu) {
     return;
 
   m_menuStack.push_back(menu);
+
+  Camera::instance().canScale(false);
 }
 
 void UIManager::closeMenu() {
@@ -171,6 +175,8 @@ void UIManager::closeMenu() {
     return;
 
   m_menuStack.pop_back();
+
+  Camera::instance().canScale(m_menuStack.empty());
 }
 
 void UIManager::addPersistentMenu(GameMenu::Ptr menu)
