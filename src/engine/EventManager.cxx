@@ -569,14 +569,7 @@ void EventManager::checkEvents(SDL_Event &event)
       break;
     }
     case SDL_MOUSEWHEEL:
-      if (event.wheel.y > 0)
-      {
-        Camera::instance().increaseZoomLevel();
-      }
-      else if (event.wheel.y < 0)
-      {
-        Camera::instance().decreaseZoomLevel();
-      }
+      Camera::instance().changeZoomLevel(event.wheel.y > 0);
       break;
 
     default:

@@ -10,42 +10,46 @@ class Camera : public Singleton<Camera>
 {
 public:
   /**
-   * @brief Centers camera on given isometric coordinates
-   * @param isoCoordinates coordinates to center the camera on
-   */
+  * @brief Centers camera on given isometric coordinates
+  * @param isoCoordinates coordinates to center the camera on
+  */
   void centerScreenOnPoint(const Point &isoCoordinates);
 
   /**
-   * @brief Centers camera on the middle of the map
-   */
+  * @brief Centers camera on the middle of the map
+  */
   void centerScreenOnMapCenter();
 
   /**
-   * @brief Increases the zoom level of the camera
-   */
+  * @brief Increases the zoom level of the camera
+  */
   void increaseZoomLevel();
 
   /** 
-   * @brief Decreases the zoom level of the camera
-   */
+  * @brief Decreases the zoom level of the camera
+  */
   void decreaseZoomLevel();
 
+  inline void changeZoomLevel(bool inc) { inc ? increaseZoomLevel() : decreaseZoomLevel(); }
+
   /**
-   * @brief Sets the pinch distance for touch screens
-   * @param pinchDistance the pinch distance
-   * @param isoX the x-center of the pinch
-   * @param isoY the y-center of the pinch
-   */
+  * @brief Sets the pinch distance for touch screens
+  * @param pinchDistance the pinch distance
+  * @param isoX the x-center of the pinch
+  * @param isoY the y-center of the pinch
+  */
   void setPinchDistance(float pinchDistance, int isoX, int isoY);
 
   /**
-   * @brief Move the camera in the given direction
-   */
+  * @brief Move the camera in the given direction
+  */
   void moveCamera(int xOffset, int yOffset);
 
   const SDL_Point &cameraOffset() const noexcept;
   const double &zoomLevel() const noexcept;
   const SDL_Point &tileSize() const noexcept;
+
+  void canScale(bool value) { m_canScale = value; }
 
 private:
   Camera() = default;
@@ -56,6 +60,7 @@ private:
   SDL_Point m_TileSize{32, 16};
   SDL_Point m_CameraOffset{0, 0};
   double m_ZoomLevel = 1.0; ///< the current zoom level of the camera
+  bool m_canScale = true;
   Point m_CenterIsoCoordinates;
 };
 
