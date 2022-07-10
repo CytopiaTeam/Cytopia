@@ -14,6 +14,8 @@
 #include "Filesystem.hxx"
 #include "json.hxx"
 #include "betterEnums.hxx"
+#include "Camera.hxx"
+
 #ifdef USE_AUDIO
 #include "../services/AudioMixer.hxx"
 #endif
@@ -157,20 +159,26 @@ void UIManager::closeOpenMenus()
   }
 }
 
-void UIManager::openMenu(GameMenu::Ptr menu) {
+void UIManager::openMenu(GameMenu::Ptr menu)
+{
   auto it = std::find(m_menuStack.begin(), m_menuStack.end(), menu);
 
   if (it != m_menuStack.end())
     return;
 
   m_menuStack.push_back(menu);
+  
+  Camera::instance().canMove(false);
 }
 
-void UIManager::closeMenu() {
+void UIManager::closeMenu()
+{
   if (m_menuStack.empty())
     return;
 
   m_menuStack.pop_back();
+
+  Camera::instance().canMove(m_menuStack.empty());
 }
 
 void UIManager::addPersistentMenu(GameMenu::Ptr menu)
