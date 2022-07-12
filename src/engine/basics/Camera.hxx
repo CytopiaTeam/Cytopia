@@ -8,6 +8,8 @@
 
 class Camera : public Singleton<Camera>
 {
+  friend Singleton;
+
 public:
   /**
    * @brief Centers camera on given isometric coordinates
@@ -42,6 +44,7 @@ public:
    * @brief Move the camera in the given direction
    */
   void moveCamera(int xOffset, int yOffset);
+  void canMove(bool move) { m_canMove = move; }
 
   const SDL_Point &cameraOffset() const noexcept;
   const double &zoomLevel() const noexcept;
@@ -50,12 +53,12 @@ public:
 private:
   Camera() = default;
   ~Camera() = default;
-  friend Singleton;
 
   float m_PinchDistance = 0.f;
   SDL_Point m_TileSize{32, 16};
   SDL_Point m_CameraOffset{0, 0};
   double m_ZoomLevel = 1.0; ///< the current zoom level of the camera
+  bool m_canMove = true;
   Point m_CenterIsoCoordinates;
 };
 
