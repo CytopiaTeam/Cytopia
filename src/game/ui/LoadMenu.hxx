@@ -25,4 +25,9 @@ private:
   mutable Result m_result;
 };
 
+class LoadMenuInGame : public LoadMenu
+{
+  void draw() const override;
+};
+
 #endif // LOADMENU_HXX_

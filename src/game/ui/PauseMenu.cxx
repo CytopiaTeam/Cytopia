@@ -7,6 +7,7 @@
 #include "imgui_impl_sdlrenderer.h"
 
 #include "SignalMediator.hxx"
+#include "LoadMenu.hxx"
 
 namespace ui = ImGui;
 
@@ -55,7 +56,7 @@ void PauseMenu::draw() const {
 
   if (ui::ButtonCt("Load Game", buttonSize))
   {
-    SignalMediator::instance().signalLoadGame.emit("save.cts");
+    uiManager.openMenu<LoadMenuInGame>();
   }
 
   if (ui::ButtonCt("Quit Game", buttonSize))

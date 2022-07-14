@@ -9,6 +9,7 @@
 #include "Constants.hxx"
 
 #include <filesystem>
+#include "SignalMediator.hxx"
 
 #ifdef USE_AUDIO
 #include "../services/AudioMixer.hxx"
@@ -58,23 +59,30 @@ void LoadMenu::draw() const {
   ImGui::BeginChild("##loadbuttons", {0.f, windowSize.y * 0.6f}, false, ImGuiWindowFlags_NoTitleBar);
 
   std::string path = CYTOPIA_DATA_DIR + "/saves";
-  for (const auto &entry : fs::directory_iterator(path))
+  if (!fs::exists(path))
   {
-    if (!fs::is_regular_file(entry) || entry.path().extension() != ".cts")
-      continue;
-
-    ui::Dummy({btnSide / 2.f, 0.f}); ui::SameLine();
-    if (ui::ButtonCt(entry.path().filename().string().c_str(), buttonSize))
+    ui::LabelText("##nofolder", "No folder");
+  }
+  else
+  {
+    for (const auto &entry : fs::directory_iterator(path))
     {
-      m_filename = entry.path().filename().string();
-      m_result = e_load_file;
-    }
+      if (!fs::is_regular_file(entry) || entry.path().extension() != ".cts")
+        continue;
 
-    ui::SameLine(); ui::Dummy({btnSide / 2.f, 0.f}); ui::SameLine();
-    if (ui::ButtonCt("X", {btnSide, btnSide}))
-    {
-      m_filename = entry.path().filename().string();
-      m_result = e_delete_file;
+      ui::Dummy({btnSide / 2.f, 0.f}); ui::SameLine();
+      if (ui::ButtonCt(entry.path().filename().string().c_str(), buttonSize))
+      {
+        m_filename = entry.path().filename().string();
+        m_result = e_load_file;
+      }
+
+      ui::SameLine(); ui::Dummy({btnSide / 2.f, 0.f}); ui::SameLine();
+      if (ui::ButtonCt("X", {btnSide, btnSide}))
+      {
+        m_filename = entry.path().filename().string();
+        m_result = e_delete_file;
+      }
     }
   }
 
@@ -98,4 +106,28 @@ void LoadMenu::draw() const {
 
 LoadMenu::~LoadMenu() {
   // still do nothing
+}
+
+void LoadMenuInGame::draw() const {
+  LoadMenu::draw();
+
+  switch (result()) {
+    case LoadMenu::e_close:
+      UIManager::instance().closeMenu();
+      break;
+
+    case LoadMenu::e_load_file:
+#ifdef USE_AUDIO
+      {
+        auto &m_AudioMixer = AudioMixer::instance();
+        m_AudioMixer.stopAll();
+        m_AudioMixer.play(SoundtrackID{"MajorSelection"});
+      }
+#endif // USE_AUDIO
+      SignalMediator::instance().signalLoadGame.emit(filename());
+      break;
+  
+    default:
+      break;
+  }
 }
