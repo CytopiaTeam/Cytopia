@@ -138,21 +138,20 @@ SoundtrackUPtr &AudioMixer::getTrack(const SoundtrackID &id)
 
 void AudioMixer::setMusicVolume(float volume)
 {
-  // alSourcef(currentSourceID, AL_GAIN, newVolume);
-  // this would set the volume, but idk how to get the "currentSourceID"
-
-  // for now set the volume for everything.
-  alListenerf(AL_GAIN, volume);
+  for (auto it : m_Playing)
+  {
+    alSourcef((**it).source[1], AL_GAIN, volume);
+  }
   // update the settings accordingly
   Settings::instance().musicVolume = volume;
 }
 
 void AudioMixer::setSoundEffectVolume(float volume)
 {
-  // find out how to set those volumes seperately
-  //alListenerf(AL_GAIN, volume);
-  
-  // for now, just set the settings value, even if it doesnt do anything
+  for (auto it : m_Playing)
+  {
+    alSourcef((**it).source[0], AL_GAIN, volume);
+  }
   Settings::instance().soundEffectsVolume = volume;
 }
 
@@ -179,8 +178,10 @@ void AudioMixer::play(const SoundtrackID &id, const Coordinate3D &position)
   auto &track = getTrack(id);
   if (track)
   {
-    /* set position of source in track */
-    alSource3f(track->source, AL_POSITION, static_cast<ALfloat>(position.x), static_cast<ALfloat>(position.y),
+    /* set position of sources in track */
+    alSource3f(track->source[0], AL_POSITION, static_cast<ALfloat>(position.x), static_cast<ALfloat>(position.y),
+               static_cast<ALfloat>(position.z));
+    alSource3f(track->source[1], AL_POSITION, static_cast<ALfloat>(position.x), static_cast<ALfloat>(position.y),
                static_cast<ALfloat>(position.z));
     playSoundtrack(track);
   }
@@ -191,9 +192,11 @@ void AudioMixer::play(const AudioTrigger &trigger, const Coordinate3D &position)
   auto &track = getTrack(trigger);
   if (track)
   {
-    /* set position of source in track
+    /* set position of sources in track
    * converted to regular Cartesian coordinate system */
-    alSource3f(track->source, AL_POSITION, static_cast<ALfloat>(position.x), static_cast<ALfloat>(position.y),
+    alSource3f(track->source[0], AL_POSITION, static_cast<ALfloat>(position.x), static_cast<ALfloat>(position.y),
+               static_cast<ALfloat>(position.z));
+    alSource3f(track->source[1], AL_POSITION, static_cast<ALfloat>(position.x), static_cast<ALfloat>(position.y),
                static_cast<ALfloat>(position.z));
     playSoundtrack(track);
   }
@@ -240,8 +243,10 @@ void AudioMixer::play(const SoundtrackID &id, const Coordinate3D &position, cons
   auto &track = getTrack(id);
   if (track)
   {
-    /* set position of source in track */
-    alSource3f(track->source, AL_POSITION, static_cast<ALfloat>(position.x), static_cast<ALfloat>(position.y),
+    /* set position of sources in track */
+    alSource3f(track->source[0], AL_POSITION, static_cast<ALfloat>(position.x), static_cast<ALfloat>(position.y),
+               static_cast<ALfloat>(position.z));
+    alSource3f(track->source[1], AL_POSITION, static_cast<ALfloat>(position.x), static_cast<ALfloat>(position.y),
                static_cast<ALfloat>(position.z));
     playSoundtrackWithReverb(track, reverb_properties);
   }
@@ -252,8 +257,10 @@ void AudioMixer::play(const SoundtrackID &id, const Coordinate3D &position, cons
   auto &track = getTrack(id);
   if (track)
   {
-    /* set position of source in track */
-    alSource3f(track->source, AL_POSITION, static_cast<ALfloat>(position.x), static_cast<ALfloat>(position.y),
+    /* set position of sources in track */
+    alSource3f(track->source[0], AL_POSITION, static_cast<ALfloat>(position.x), static_cast<ALfloat>(position.y),
+               static_cast<ALfloat>(position.z));
+    alSource3f(track->source[1], AL_POSITION, static_cast<ALfloat>(position.x), static_cast<ALfloat>(position.y),
                static_cast<ALfloat>(position.z));
     playSoundtrackWithEcho(track, echo_properties);
   }
@@ -265,8 +272,10 @@ void AudioMixer::play(const AudioTrigger &trigger, const Coordinate3D &position,
   auto &track = getTrack(trigger);
   if (track)
   {
-    /* set position of source in track converted to regular Cartesian coordinate system */
-    alSource3f(track->source, AL_POSITION, static_cast<ALfloat>(position.x), static_cast<ALfloat>(position.y),
+    /* set position of sources in track converted to regular Cartesian coordinate system */
+    alSource3f(track->source[0], AL_POSITION, static_cast<ALfloat>(position.x), static_cast<ALfloat>(position.y),
+               static_cast<ALfloat>(position.z));
+    alSource3f(track->source[1], AL_POSITION, static_cast<ALfloat>(position.x), static_cast<ALfloat>(position.y),
                static_cast<ALfloat>(position.z));
     playSoundtrackWithReverb(track, reverb_properties);
   }
@@ -277,9 +286,11 @@ void AudioMixer::play(const AudioTrigger &trigger, const Coordinate3D &position,
   auto &track = getTrack(trigger);
   if (track)
   {
-    /* set position of source in track
+    /* set position of sources in track
    * converted to regular Cartesian coordinate system */
-    alSource3f(track->source, AL_POSITION, static_cast<ALfloat>(position.x), static_cast<ALfloat>(position.y),
+    alSource3f(track->source[0], AL_POSITION, static_cast<ALfloat>(position.x), static_cast<ALfloat>(position.y),
+               static_cast<ALfloat>(position.z));
+    alSource3f(track->source[1], AL_POSITION, static_cast<ALfloat>(position.x), static_cast<ALfloat>(position.y),
                static_cast<ALfloat>(position.z));
     playSoundtrackWithEcho(track, echo_properties);
   }
@@ -297,7 +308,8 @@ void AudioMixer::stopAll()
   while (!m_Playing.empty())
   {
     auto it = m_Playing.begin();
-    alSourceStop((**it)->source);
+    alSourceStop((**it)->source[0]);
+    alSourceStop((**it)->source[1]);
     (**it)->isPlaying = false;
     m_Playing.erase(it);
   }
@@ -313,7 +325,7 @@ void AudioMixer::prune()
   for (auto it = m_Playing.begin(); it != m_Playing.end();)
   {
     int state = 0;
-    alGetSourcei((**it)->source, AL_SOURCE_STATE, &state);
+    alGetSourcei((**it)->source[(**it)->isMusic], AL_SOURCE_STATE, &state);
     if (state != AL_PLAYING)
     {
       (**it)->isPlaying = false;
@@ -339,7 +351,8 @@ void AudioMixer::playSoundtrack(SoundtrackUPtr &track)
 
   if (!track->source)
     throw AudioError{TRACE_INFO "Unable to play track because its source is uninitialized"};
-  alSourcePlay(track->source);
+
+  alSourcePlay(track->source[track->isMusic]);
 
   m_Playing.push_front(&track);
   track->isPlaying = true;
@@ -471,12 +484,12 @@ void AudioMixer::playSoundtrackWithReverb(SoundtrackUPtr &track, const StandardR
   alDeleteEffects(1, &effect);
 
   //apply effect to source
-  alSource3i(track->source, AL_AUXILIARY_SEND_FILTER, (ALint)(track->effect_slot), 0, AL_FILTER_NULL);
+  alSource3i(track->source[track->isMusic], AL_AUXILIARY_SEND_FILTER, (ALint)(track->effect_slot), 0, AL_FILTER_NULL);
   assert(alGetError() == AL_NO_ERROR && "Failed to setup reverb for sound source send 0.");
 
   //play sound
 
-  alSourcePlay(track->source);
+  alSourcePlay(track->source[track->isMusic]);
 
   m_Playing.push_front(&track);
   track->isPlaying = true;
@@ -557,12 +570,12 @@ void AudioMixer::playSoundtrackWithEcho(SoundtrackUPtr &track, const EchoPropert
   alDeleteEffects(1, &effect);
 
   //apply effect to source
-  alSource3i(track->source, AL_AUXILIARY_SEND_FILTER, (ALint)(track->effect_slot), 0, AL_FILTER_NULL);
+  alSource3i(track->source[track->isMusic], AL_AUXILIARY_SEND_FILTER, (ALint)(track->effect_slot), 0, AL_FILTER_NULL);
   assert(alGetError() == AL_NO_ERROR && "Failed to setup reverb for sound source send 0.");
 
   //play sound
 
-  alSourcePlay(track->source);
+  alSourcePlay(track->source[track->isMusic]);
 
   m_Playing.push_front(&track);
   track->isPlaying = true;

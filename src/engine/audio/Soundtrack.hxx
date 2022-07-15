@@ -66,11 +66,11 @@ struct Soundtrack
   bool isPlayable : 1;
 
   /**
-   * @brief The OpenAL source of the sound track
+   * @brief The OpenAL sources of the sound track
    * @details An object that tells the OpenAL system where the sound making object is located in 3D space
-   * and what buffer(sound) it makes.
+   * and what buffer(sound) it makes. source[0] is for sound effects and source[1] is for music.
    */
-  ALuint source;
+  ALuint source[2];
 
   /**
    * @brief The OpenAL buffer of the sound track
