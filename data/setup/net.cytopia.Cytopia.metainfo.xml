@@ -24,9 +24,11 @@
             <li>Pixel-art graphics made by graphics team lead by Kingtut 101</li>
             <li>An original soundtrack, ambient noises, and sound effects made mostly by MB22</li>
             <li>A Qt based tile editor for editing TileData JSON files</li>
+        </ul>
         <p>
             Planned features:
         </p>
+        <ul>
             <li>Biomes</li>
             <li>OpenGL Renderer</li>
             <li>Gameplay mechanics</li>
