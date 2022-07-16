@@ -5,7 +5,6 @@ include(Macros)
 include(FeatureSummary)
 include(SourceFileUtils)
 include(CMakeCM)
-include(GNUInstallDirs)
 set(_PREFIX "CYTOPIA_")
 
 set(CMAKE_CONFIGURATION_TYPES "Debug" "Release" CACHE STRING "Configuration types")
