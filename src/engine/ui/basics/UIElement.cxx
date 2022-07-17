@@ -23,15 +23,6 @@ void UIElement::setTextureID(SDL_Texture *texture, const SDL_Rect &clipRect, con
   m_uiTextureRect = textureRect;
 }
 
-void UIElement::changeButtonState(ButtonState state)
-{
-  if (m_buttonState != state && !elementData.textureID.empty() && m_directTexture == false)
-  {
-    changeTexture(ResourcesManager::instance().getUITexture(elementData.textureID, state));
-  }
-  m_buttonState = state;
-}
-
 void UIElement::renderTexture() const
 {
   if (m_texture)
@@ -95,30 +86,11 @@ void UIElement::drawButtonFrame(SDL_Rect rect, bool isHighlightable)
 {
   Uint8 bgColor, bgColorFrame, bgColorFrameShade, bgColorBottomFrame, bgColorBottomFrameShade;
 
-  if (getButtonState() == BUTTONSTATE_CLICKED && isHighlightable)
-  {
-    bgColor = 128;
-    bgColorFrame = 106;
-    bgColorFrameShade = 84;
-    bgColorBottomFrame = 150;
-    bgColorBottomFrameShade = 172;
-  }
-  else if ((getButtonState() == BUTTONSTATE_HOVERING) && isHighlightable)
-  {
-    bgColor = 228;
-    bgColorFrame = 250;
-    bgColorFrameShade = 255;
-    bgColorBottomFrame = 206;
-    bgColorBottomFrameShade = 184;
-  }
-  else
-  {
-    bgColor = 128;
-    bgColorFrame = 150;
-    bgColorFrameShade = 172;
-    bgColorBottomFrame = 106;
-    bgColorBottomFrameShade = 84;
-  }
+  bgColor = 128;
+  bgColorFrame = 150;
+  bgColorFrameShade = 172;
+  bgColorBottomFrame = 106;
+  bgColorBottomFrameShade = 84;
 
   drawSolidRect(rect, SDL_Color{bgColorFrameShade, bgColorFrameShade, bgColorFrameShade});
   drawSolidRect(SDL_Rect{rect.x + 2, rect.y + 2, rect.w - 4, rect.h - 4}, SDL_Color{bgColorFrame, bgColorFrame, bgColorFrame});
