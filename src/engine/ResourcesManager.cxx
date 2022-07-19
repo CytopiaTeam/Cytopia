@@ -41,20 +41,9 @@ void ResourcesManager::loadUITexture()
   }
 }
 
-SDL_Texture *ResourcesManager::getUITexture(const std::string &uiElement, int buttonState)
+SDL_Texture *ResourcesManager::getUITexture(const std::string &uiElement)
 {
-  std::string texture;
-  switch (buttonState)
-  {
-  case BUTTONSTATE_CLICKED:
-    texture = "Texture_Clicked";
-    break;
-  case BUTTONSTATE_HOVERING:
-    texture = "Texture_Hovering";
-    break;
-  default:
-    texture = "Texture_Default";
-  }
+  std::string texture = "Texture_Default";
   if (m_uiTextureMap[uiElement].find(texture) != m_uiTextureMap[uiElement].end())
   {
     return m_uiTextureMap[uiElement].at(texture);

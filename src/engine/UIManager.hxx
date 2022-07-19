@@ -6,11 +6,7 @@
 
 #include "ui/basics/UIElement.hxx"
 #include "ui/basics/Layout.hxx"
-#include "ui/basics/ButtonGroup.hxx"
-#include "ui/widgets/Button.hxx"
-#include "ui/widgets/Frame.hxx"
 #include "ui/widgets/Text.hxx"
-#include "ui/widgets/Tooltip.hxx"
 #include "../util/Singleton.hxx"
 
 /**
@@ -95,16 +91,14 @@ public:
 
   /**
  * @brief Get all Ui Element objects
- * Returns a container that holds ALL UiElements, even those in buttongroups. 
- * @note Does not return ButtonGroups, only basic widgets
+ * Returns a container that holds ALL UiElements.
  * @return const std::vector<std::unique_ptr<UiElement>>& 
  */
   const std::vector<std::unique_ptr<UIElement>> &getAllUiElements() const { return m_uiElements; };
 
   /**
  * @brief Get all Ui Elements For Event Handling 
- * @details Returns Widgets that are not in ButtonGroups and ButtonGroups. 
- * @note The ButtonGroup container takes care of handling events in it's container, so those widgets are excluded
+ * @details Returns Widgets that are not in ButtonGroups and ButtonGroups.
  * @return const std::vector<UiElement *>& 
  */
   const std::vector<UIElement *> &getAllUiElementsForEventHandling() const { return m_uiElementsForEventHandling; };
@@ -200,7 +194,7 @@ private:
   /// this container holds all UiElements and is the owner.
   std::vector<std::unique_ptr<UIElement>> m_uiElements;
 
-  /// stores Buttongroups and UiElements that are not in a group
+  /// stores  UiElements that are not in a group
   std::vector<UIElement *> m_uiElementsForEventHandling;
 
   /// map holding all ui elements, accessible via the group ID
