@@ -17,7 +17,7 @@ void GameTimeMenu::draw() const {
 
   auto &uiManager = UIManager::instance();
 
-  const auto &layout = uiManager.getAllLayoutGroups()["BuildMenuButtons"].layout;
+  const auto &layout = uiManager.getLayouts()["BuildMenuButtons"];
   const ImVec2 buttonSize(32, 32);
   const int spacing = 8;
   ImVec2 windowSize((buttonSize.x + spacing) * 4 + spacing, buttonSize.y + spacing * 2);

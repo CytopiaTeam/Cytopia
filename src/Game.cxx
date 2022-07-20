@@ -178,7 +178,7 @@ void Game::run(bool SkipMenu)
     if (fpsLastTime < SDL_GetTicks() - fpsIntervall * 1000)
     {
       fpsLastTime = SDL_GetTicks();
-      uiManager.setFPSCounterText(std::to_string(fpsFrames) + " FPS");
+      uiManager.setFPSCounterText("FPS: " + std::to_string(fpsFrames));
       fpsFrames = 0;
     }
 
