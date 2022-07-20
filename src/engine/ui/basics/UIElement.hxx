@@ -110,20 +110,6 @@ public:
   */
   void setActionParameter(const std::string &actionParameter) { elementData.actionParameter = actionParameter; };
 
-  /** \brief Set the button state
-  * @details Sets the mouse button pressed state. 
-  * @param state enum buttonstate
-  * @see ResourcesManager::ButtonState
-  */
-  void changeButtonState(ButtonState state);
-
-  /** \brief Get the button state
-  * @details Get the current mouse button pressed state.
-  * @return state enum buttonstate
-  * @see ResourcesManager::ButtonState
-  */
-  ButtonState getButtonState() { return m_buttonState; };
-
   /** \brief Set the uiElements tooltip text
   * @details Set the tooltip text for this ui element. Tooltip is shown when hovering over a ui Element.
   * @param text string to use as the tooltip text
@@ -161,8 +147,6 @@ public:
 private:
   SDL_Renderer *m_renderer = WindowManager::instance().getRenderer();
   SDL_Window *m_window = WindowManager::instance().getWindow();
-
-  ButtonState m_buttonState = BUTTONSTATE_DEFAULT;
 
   bool m_visible = true;
 

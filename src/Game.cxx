@@ -4,7 +4,6 @@
 #include "engine/WindowManager.hxx"
 #include "engine/basics/Camera.hxx"
 #include "LOG.hxx"
-#include "engine/ui/widgets/Image.hxx"
 #include "engine/basics/Settings.hxx"
 #include "engine/basics/GameStates.hxx"
 #include "Filesystem.hxx"

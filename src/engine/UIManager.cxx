@@ -34,7 +34,6 @@
 using json = nlohmann::json;
 namespace ui = ImGui;
 
-BETTER_ENUM(ElementType, int, ImageButton, TextButton, Text, Frame)
 BETTER_ENUM(Action, int, RaiseTerrain, LowerTerrain, QuitGame, Demolish, ChangeTileType, ToggleVisibilityOfGroup, NewGame,
             SaveGame, LoadGame, SaveSettings, ChangeResolution)
 
