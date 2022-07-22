@@ -156,25 +156,31 @@ void AudioMixer::setSoundEffectVolume(float volume)
   Settings::instance().soundEffectsVolume = volume;
 }
 
-void AudioMixer::play(const SoundtrackID &id)
+void AudioMixer::play(const SoundtrackID &id, int effect)
 {
   auto &track = getTrack(id);
   if (track)
   {
-    playSoundtrack(track);
+    if (effect == AL_EFFECT_NULL)
+      playSoundtrack(track);
+    else
+      playSoundtrackWithEffect(track, effect);
   }
 }
 
-void AudioMixer::play(const AudioTrigger &trigger)
+void AudioMixer::play(const AudioTrigger &trigger, int effect)
 {
   auto &track = getTrack(trigger);
   if (track)
   {
-    playSoundtrack(track);
+    if (effect == AL_EFFECT_NULL)
+      playSoundtrack(track);
+    else
+      playSoundtrackWithEffect(track, effect);
   }
 }
 
-void AudioMixer::play(const SoundtrackID &id, const Coordinate3D &position)
+void AudioMixer::play(const SoundtrackID &id, const Coordinate3D &position, int effect)
 {
   auto &track = getTrack(id);
   if (track)
@@ -182,11 +188,14 @@ void AudioMixer::play(const SoundtrackID &id, const Coordinate3D &position)
     /* set position of source in track */
     alSource3f(track->source, AL_POSITION, static_cast<ALfloat>(position.x), static_cast<ALfloat>(position.y),
                static_cast<ALfloat>(position.z));
-    playSoundtrack(track);
+    if (effect == AL_EFFECT_NULL)
+      playSoundtrack(track);
+    else
+      playSoundtrackWithEffect(track, effect);
   }
 }
 
-void AudioMixer::play(const AudioTrigger &trigger, const Coordinate3D &position)
+void AudioMixer::play(const AudioTrigger &trigger, const Coordinate3D &position, int effect)
 {
   auto &track = getTrack(trigger);
   if (track)
@@ -195,93 +204,10 @@ void AudioMixer::play(const AudioTrigger &trigger, const Coordinate3D &position)
    * converted to regular Cartesian coordinate system */
     alSource3f(track->source, AL_POSITION, static_cast<ALfloat>(position.x), static_cast<ALfloat>(position.y),
                static_cast<ALfloat>(position.z));
-    playSoundtrack(track);
-  }
-}
-
-void AudioMixer::play(const SoundtrackID &id, const StandardReverbProperties &reverb_properties)
-{
-  auto &track = getTrack(id);
-  if (track)
-  {
-    playSoundtrackWithEffect(track, AL_EFFECT_REVERB);
-  }
-}
-
-void AudioMixer::play(const SoundtrackID &id, const EchoProperties &echo_properties)
-{
-  auto &track = getTrack(id);
-  if (track)
-  {
-    playSoundtrackWithEffect(track, AL_EFFECT_ECHO);
-  }
-}
-
-void AudioMixer::play(const AudioTrigger &trigger, const StandardReverbProperties &reverb_properties)
-{
-  auto &track = getTrack(trigger);
-  if (track)
-  {
-    playSoundtrackWithEffect(track, AL_EFFECT_REVERB);
-  }
-}
-
-void AudioMixer::play(const AudioTrigger &trigger, const EchoProperties &echo_properties)
-{
-  auto &track = getTrack(trigger);
-  if (track)
-  {
-    playSoundtrackWithEffect(track, AL_EFFECT_ECHO);
-  }
-}
-
-void AudioMixer::play(const SoundtrackID &id, const Coordinate3D &position, const StandardReverbProperties &reverb_properties)
-{
-  auto &track = getTrack(id);
-  if (track)
-  {
-    /* set position of source in track */
-    alSource3f(track->source, AL_POSITION, static_cast<ALfloat>(position.x), static_cast<ALfloat>(position.y),
-               static_cast<ALfloat>(position.z));
-    playSoundtrackWithEffect(track, AL_EFFECT_REVERB);
-  }
-}
-
-void AudioMixer::play(const SoundtrackID &id, const Coordinate3D &position, const EchoProperties &echo_properties)
-{
-  auto &track = getTrack(id);
-  if (track)
-  {
-    /* set position of source in track */
-    alSource3f(track->source, AL_POSITION, static_cast<ALfloat>(position.x), static_cast<ALfloat>(position.y),
-               static_cast<ALfloat>(position.z));
-    playSoundtrackWithEffect(track, AL_EFFECT_ECHO);
-  }
-}
-
-void AudioMixer::play(const AudioTrigger &trigger, const Coordinate3D &position,
-                      const StandardReverbProperties &reverb_properties)
-{
-  auto &track = getTrack(trigger);
-  if (track)
-  {
-    /* set position of source in track converted to regular Cartesian coordinate system */
-    alSource3f(track->source, AL_POSITION, static_cast<ALfloat>(position.x), static_cast<ALfloat>(position.y),
-               static_cast<ALfloat>(position.z));
-    playSoundtrackWithEffect(track, AL_EFFECT_REVERB);
-  }
-}
-
-void AudioMixer::play(const AudioTrigger &trigger, const Coordinate3D &position, const EchoProperties &echo_properties)
-{
-  auto &track = getTrack(trigger);
-  if (track)
-  {
-    /* set position of source in track
-   * converted to regular Cartesian coordinate system */
-    alSource3f(track->source, AL_POSITION, static_cast<ALfloat>(position.x), static_cast<ALfloat>(position.y),
-               static_cast<ALfloat>(position.z));
-    playSoundtrackWithEffect(track, AL_EFFECT_ECHO);
+    if (effect == AL_EFFECT_NULL)
+      playSoundtrack(track);
+    else
+      playSoundtrackWithEffect(track, effect);
   }
 }
 
@@ -413,37 +339,8 @@ void AudioMixer::playSoundtrackWithEffect(SoundtrackUPtr& track, int ALEffect)
   alGenEffects(1, &effect);
   
   alEffecti(effect, AL_EFFECT_TYPE, ALEffect);
-  switch (ALEffect)
-  {
-  case (AL_EFFECT_REVERB):
-    //initialize reverb property
-    EFXEAXREVERBPROPERTIES reverb = EFX_REVERB_PRESET_GENERIC;
-
-    // honestly might not even need this chunk of code because the generic preset's values match reverb's default values.
-    alEffectf(effect, AL_REVERB_DENSITY, reverb.flDensity);
-    alEffectf(effect, AL_REVERB_DIFFUSION, reverb.flDiffusion);
-    alEffectf(effect, AL_REVERB_GAIN, reverb.flGain);
-    alEffectf(effect, AL_REVERB_GAINHF, reverb.flGainHF);
-    alEffectf(effect, AL_REVERB_DECAY_TIME, reverb.flDecayTime);
-    alEffectf(effect, AL_REVERB_DECAY_HFRATIO, reverb.flDecayHFRatio);
-    alEffectf(effect, AL_REVERB_REFLECTIONS_GAIN, reverb.flReflectionsGain);
-    alEffectf(effect, AL_REVERB_REFLECTIONS_DELAY, reverb.flReflectionsDelay);
-    alEffectf(effect, AL_REVERB_LATE_REVERB_GAIN, reverb.flLateReverbGain);
-    alEffectf(effect, AL_REVERB_LATE_REVERB_DELAY, reverb.flLateReverbDelay);
-    alEffectf(effect, AL_REVERB_AIR_ABSORPTION_GAINHF, reverb.flAirAbsorptionGainHF);
-    alEffectf(effect, AL_REVERB_ROOM_ROLLOFF_FACTOR, reverb.flRoomRolloffFactor);
-    alEffecti(effect, AL_REVERB_DECAY_HFLIMIT, reverb.iDecayHFLimit);
-
-  /* case (AL_EFFECT_ECHO) :
-    alEffectf(effect, AL_ECHO_DELAY, .flEchoDelay);
-    alEffectf(effect, AL_ECHO_LRDELAY, echo_properties.flEchoLRDelay);
-    alEffectf(effect, AL_ECHO_DAMPING, echo_properties.flEchoDamping);
-    alEffectf(effect, AL_ECHO_FEEDBACK, echo_properties.flEchoFeedback);
-    alEffectf(effect, AL_ECHO_SPREAD, echo_properties.flEchoSpread);
-    */
-  default:
-    break;
-  }
+  
+  // this is where we would put code to customize the properties of the effect
 
   // Check if an error occured, and clean up if so.
   ALenum err = alGetError();
