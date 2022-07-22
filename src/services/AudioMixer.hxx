@@ -152,7 +152,6 @@ public:
    * @param trigger the AudioTrigger
    * @param position the Coordinate3D position of the sound
    */
-
   void play(const AudioTrigger &trigger, const Coordinate3D &position);
 
   /**
@@ -169,7 +168,6 @@ public:
    * @param position the Coordinate3D position of the sound
    * @param echo_properties properties of echo
    */
-
   void play(const SoundtrackID &id, const Coordinate3D &position, const EchoProperties &echo_properties);
 
   /**
@@ -272,21 +270,13 @@ private:
   void playSoundtrack(SoundtrackUPtr &soundtrack);
 
   /**
-   * @brief Plays the Soundtrack with reverb
+   * @brief Plays the Soundtrack with a certain effect applied.
+   * @details Given the soundtrack, this function will apply the given AL effect to the audio with the default settings.
    * @param soundtrack the Soundtrack
-   * @param reverb_properties of reverb effect
+   * @param ALEffect the effect to apply. Should be in the form of an AL_EFFECT macro such as AL_EFFECT_REVERB or AL_EFFECT_ECHO.
    * @throws AudioError if track is invalid, its source is uninitialized, or reverb effect could not be applied
    */
-  void playSoundtrackWithReverb(SoundtrackUPtr &soundtrack, const StandardReverbProperties &reverb_properties);
-
-  /**
-   * @brief Plays the Soundtrack with echo
-   * @param soundtrack the Soundtrack
-   * @param echo_properties of echo effect
-   * @throws AudioError if track is invalid, its source is uninitialized, or echo effect could not be applied
-   */
-  void playSoundtrackWithEcho(SoundtrackUPtr &soundtrack, const EchoProperties &echo_properties);
-
+  void playSoundtrackWithEffect(SoundtrackUPtr &soundtrack, int ALEffect);
   /**
    * @brief Called whenever a Channel has finished playing
    * @param channelID the channel that has finished playing
