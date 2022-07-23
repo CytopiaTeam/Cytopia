@@ -45,7 +45,7 @@ BuildMenu::BuildMenu()
 
 namespace detail
 {
-  float getItemSpan(int deep) { return deep == 0 ? 16.f : 6.f; }
+  float getItemSpan(int deep) { return (deep == 0 ? 16.f : 6.f) * ImGui::GetIO().FontGlobalScale; }
 }
 
 // recusively draw categories
@@ -55,7 +55,7 @@ void drawSubmenu(ImVec2 pos, float categoryOffset, const Holder &holder, BuildMe
   if (holder.getButtons().empty())
     return;
 
-  const ImVec2 &frameSize = holder.getButtons().front()->getBtnSize();
+  const ImVec2 frameSize = ui::ImVec2Scaled(holder.getButtons().front()->getBtnSize());
   const float frameFullWidth = frameSize.x + detail::getItemSpan(deep);
   ImVec2 screenSize = ui::GetIO().DisplaySize;
 
@@ -67,8 +67,9 @@ void drawSubmenu(ImVec2 pos, float categoryOffset, const Holder &holder, BuildMe
   ImVec2 nextOffset{0, 0};
   bool verticalMenu = (uiManager.buildMenuLayout() == BUILDMENU_LAYOUT::LEFT || uiManager.buildMenuLayout() == BUILDMENU_LAYOUT::RIGHT);
   itemSpacing = verticalMenu
-                    ? itemSpacing = ImVec2(0, detail::getItemSpan(deep))
+                    ? ImVec2(0, detail::getItemSpan(deep))
                     : ImVec2(detail::getItemSpan(deep), 0);
+
   windowSize = verticalMenu
                     ? ImVec2(frameSize.x, frameFullWidth * (float)holder.getButtons().size())
                     : ImVec2(frameFullWidth * (float)holder.getButtons().size(), frameSize.y);
@@ -111,7 +112,7 @@ void drawSubmenu(ImVec2 pos, float categoryOffset, const Holder &holder, BuildMe
     snprintf(id_str.data(), 128, "%s_%d", holder.getId().c_str(), ++idx);
 
     ImVec2 imgPos{btn->m_destRect.x, btn->m_destRect.y};
-    ImVec2 imgSize{btn->m_destRect.z, btn->m_destRect.w};
+    ImVec2 imgSize = ui::ImVec2Scaled(btn->m_destRect.z, btn->m_destRect.w);
     
     // draw bg | pressed state
     ImGuiButtonFlags flags = btn->m_open ? ImGuiButtonFlags_ForcePressed : 0;
@@ -183,11 +184,11 @@ void BuildMenu::draw() const {
 
   ImVec2 pos{0, 0};
   const auto &uiManager = UIManager::instance();
-  const float frameSize = m_btnSize.x + detail::getItemSpan(0);
+  const float frameSize = ui::ImVec2Scaled(m_btnSize).x + detail::getItemSpan(0);
   const float buttonsSize = (float)m_buttons.size();
 
   switch (uiManager.buildMenuLayout()) {
-    case BUILDMENU_LAYOUT::BOTTOM: pos = { (screenSize.x -  buttonsSize * frameSize) / 2, screenSize.y - m_btnSize.y}; break;
+    case BUILDMENU_LAYOUT::BOTTOM: pos = { (screenSize.x -  buttonsSize * frameSize) / 2, screenSize.y - ui::ImVec2Scaled(m_btnSize).y}; break;
     case BUILDMENU_LAYOUT::TOP: pos = ImVec2{(screenSize.x - buttonsSize * frameSize) / 2, 0}; break;
     case BUILDMENU_LAYOUT::LEFT: pos = ImVec2{0, (screenSize.y - buttonsSize * frameSize) / 2}; break;
     default: pos = {screenSize.x - m_btnSize.x, (screenSize.y - buttonsSize * frameSize) / 2};

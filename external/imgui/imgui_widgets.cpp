@@ -3939,6 +3939,87 @@ bool ImGui::InputScalar(const char* label, ImGuiDataType data_type, void* p_data
     return value_changed;
 }
 
+bool ImGui::InputScalarCt(const char* label, ImGuiDataType data_type, void* p_data, const void* p_step, const void* p_step_fast, const char* format, ImGuiInputTextFlags flags)
+{
+  ImGuiWindow* window = GetCurrentWindow();
+  if (window->SkipItems)
+    return false;
+
+  ImGuiContext& g = *GImGui;
+  ImGuiStyle& style = g.Style;
+
+  if (format == NULL)
+    format = DataTypeGetInfo(data_type)->PrintFmt;
+
+  char buf[64];
+  DataTypeFormatString(buf, IM_ARRAYSIZE(buf), data_type, p_data, format);
+
+  // Testing ActiveId as a minor optimization as filtering is not needed until active
+  if (g.ActiveId == 0 && (flags & (ImGuiInputTextFlags_CharsDecimal | ImGuiInputTextFlags_CharsHexadecimal | ImGuiInputTextFlags_CharsScientific)) == 0)
+    flags |= InputScalar_DefaultCharsFilter(data_type, format);
+  flags |= ImGuiInputTextFlags_AutoSelectAll | ImGuiInputTextFlags_NoMarkEdited; // We call MarkItemEdited() ourselves by comparing the actual data rather than the string.
+
+  bool value_changed = false;
+  if (p_step != NULL)
+  {
+    const float button_size = GetFrameHeight();
+
+    BeginGroup(); // The only purpose of the group here is to allow the caller to query item data e.g. IsItemActive()
+    PushID(label);
+    if (flags & ImGuiInputTextFlags_ButtonsOnly)
+      BeginDisabled();
+
+    SetNextItemWidth(ImMax(1.0f, CalcItemWidth() - (button_size + style.ItemInnerSpacing.x) * 2));
+    if (InputText("", buf, IM_ARRAYSIZE(buf), flags | ImGuiInputTextFlags_CtBackground)) // PushId(label) + "" gives us the expected ID from outside point of view
+      value_changed = DataTypeApplyFromText(buf, data_type, p_data, format);
+
+    if (flags & ImGuiInputTextFlags_ButtonsOnly)
+      EndDisabled();
+
+    // Step buttons
+    const ImVec2 backup_frame_padding = style.FramePadding;
+    style.FramePadding.x = style.FramePadding.y;
+    ImGuiButtonFlags button_flags = ImGuiButtonFlags_Repeat | ImGuiButtonFlags_DontClosePopups;
+    if (flags & ImGuiInputTextFlags_ReadOnly)
+      BeginDisabled();
+
+    SameLine(0, style.ItemInnerSpacing.x);
+    if (ButtonCtEx("-", ImVec2(button_size, button_size), button_flags))
+    {
+      DataTypeApplyOp(data_type, '-', p_data, p_data, g.IO.KeyCtrl && p_step_fast ? p_step_fast : p_step);
+      value_changed = true;
+    }
+    SameLine(0, style.ItemInnerSpacing.x);
+    if (ButtonCtEx("+", ImVec2(button_size, button_size), button_flags))
+    {
+      DataTypeApplyOp(data_type, '+', p_data, p_data, g.IO.KeyCtrl && p_step_fast ? p_step_fast : p_step);
+      value_changed = true;
+    }
+    if (flags & ImGuiInputTextFlags_ReadOnly)
+      EndDisabled();
+
+    const char* label_end = FindRenderedTextEnd(label);
+    if (label != label_end)
+    {
+      SameLine(0, style.ItemInnerSpacing.x);
+      TextEx(label, label_end);
+    }
+    style.FramePadding = backup_frame_padding;
+
+    PopID();
+    EndGroup();
+  }
+  else
+  {
+    if (InputText(label, buf, IM_ARRAYSIZE(buf), flags))
+      value_changed = DataTypeApplyFromText(buf, data_type, p_data, format);
+  }
+  if (value_changed)
+    MarkItemEdited(g.LastItemData.ID);
+
+  return value_changed;
+}
+
 bool ImGui::InputScalarN(const char* label, ImGuiDataType data_type, void* p_data, int components, const void* p_step, const void* p_step_fast, const char* format, ImGuiInputTextFlags flags)
 {
     ImGuiWindow* window = GetCurrentWindow();
@@ -4040,6 +4121,13 @@ bool ImGui::InputText(const char* label, char* buf, size_t buf_size, ImGuiInputT
     IM_ASSERT(!(flags & ImGuiInputTextFlags_Multiline)); // call InputTextMultiline()
     return InputTextEx(label, NULL, buf, (int)buf_size, ImVec2(0, 0), flags, callback, user_data);
 }
+
+bool ImGui::InputTextCt(const char* label, char* buf, size_t buf_size, ImGuiInputTextFlags flags, ImGuiInputTextCallback callback, void* user_data)
+{
+  IM_ASSERT(!(flags & ImGuiInputTextFlags_Multiline)); // call InputTextMultiline()
+  return InputTextEx(label, NULL, buf, (int)buf_size, ImVec2(0, 0), flags | ImGuiInputTextFlags_CtBackground, callback, user_data);
+}
+
 
 bool ImGui::InputTextMultiline(const char* label, char* buf, size_t buf_size, const ImVec2& size, ImGuiInputTextFlags flags, ImGuiInputTextCallback callback, void* user_data)
 {
@@ -5030,7 +5118,30 @@ bool ImGui::InputTextEx(const char* label, const char* hint, char* buf, int buf_
     if (!is_multiline)
     {
         RenderNavHighlight(frame_bb, id);
-        RenderFrame(frame_bb.Min, frame_bb.Max, GetColorU32(ImGuiCol_FrameBg), true, style.FrameRounding);
+        if (flags & ImGuiInputTextFlags_CtBackground)
+        {
+          struct { uint8_t clr, frame, frameShade, bottomFrame, bottomFrameShade; } bg;
+
+          bg = { 128, 106, 84, 150, 172 };
+
+          const float ctBorder = style.FrameCtBorderSize;
+          const float ctBorderHalf = ctBorder / 2.f;
+          ImVec2 sizel = frame_bb.Max - frame_bb.Min;
+          window->DrawList->AddRectFilled(frame_bb.Min, frame_bb.Max, ImColor(bg.frameShade, bg.frameShade, bg.frameShade), 0);
+          window->DrawList->AddRectFilled(frame_bb.Min + ImVec2{ ctBorderHalf, ctBorderHalf }, frame_bb.Max - ImVec2{ 2, 2 }, ImColor{ bg.frame, bg.frame, bg.frame }, 0);
+          // background
+          window->DrawList->AddRectFilled(frame_bb.Min + ImVec2{ ctBorder, ctBorder }, frame_bb.Max - ImVec2{ ctBorder, ctBorder }, ImColor{ bg.clr, bg.clr, bg.clr }, 0);
+          // bottom frame
+          window->DrawList->AddRectFilled(frame_bb.Min + ImVec2{ ctBorder, sizel.y - ctBorder }, frame_bb.Min + ImVec2{ 4, sizel.y - ctBorder } + ImVec2{ sizel.x - ctBorder, ctBorder }, ImColor{bg.bottomFrame, bg.bottomFrame, bg.bottomFrame}, 0);
+          window->DrawList->AddRectFilled(frame_bb.Min + ImVec2{ sizel.x - ctBorder, ctBorder }, frame_bb.Min + ImVec2{ sizel.x - ctBorder, ctBorder } + ImVec2{ ctBorder, sizel.y - ctBorder }, ImColor{bg.bottomFrame, bg.bottomFrame, bg.bottomFrame}, 0);
+          // bottom frame shade
+          window->DrawList->AddRectFilled(frame_bb.Min + ImVec2{ ctBorderHalf, sizel.y - ctBorderHalf }, frame_bb.Min + ImVec2{ ctBorderHalf, sizel.y - ctBorderHalf } + ImVec2{ sizel.x - ctBorderHalf, ctBorderHalf }, ImColor{bg.bottomFrameShade, bg.bottomFrameShade, bg.bottomFrameShade}, 0);
+          window->DrawList->AddRectFilled(frame_bb.Min + ImVec2{ sizel.x - ctBorderHalf, ctBorderHalf }, frame_bb.Min + ImVec2{ sizel.x - ctBorderHalf, ctBorderHalf } + ImVec2{ ctBorderHalf, sizel.y - ctBorderHalf }, ImColor{bg.bottomFrameShade, bg.bottomFrameShade, bg.bottomFrameShade}, 0);
+        }
+        else
+        {
+          RenderFrame(frame_bb.Min, frame_bb.Max, GetColorU32(ImGuiCol_FrameBg), true, style.FrameRounding);
+        }
     }
 
     const ImVec4 clip_rect(frame_bb.Min.x, frame_bb.Min.y, frame_bb.Min.x + inner_size.x, frame_bb.Min.y + inner_size.y); // Not using frame_bb.Max because we have adjusted size
@@ -5228,6 +5339,8 @@ bool ImGui::InputTextEx(const char* label, const char* hint, char* buf, int buf_
         if (is_multiline || (buf_display_end - buf_display) < buf_display_max_length)
         {
             ImU32 col = GetColorU32(is_displaying_hint ? ImGuiCol_TextDisabled : ImGuiCol_Text);
+            float border_delta = (flags & ImGuiInputTextFlags_CtBackground) ? 8 : 0;
+            draw_pos.x += border_delta;
             draw_window->DrawList->AddText(g.Font, g.FontSize, draw_pos, col, buf_display, buf_display_end, 0.0f, is_multiline ? NULL : &clip_rect);
         }
     }

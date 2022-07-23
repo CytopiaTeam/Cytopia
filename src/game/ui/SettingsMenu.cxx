@@ -1,8 +1,10 @@
 #include "SettingsMenu.hxx"
 
+#define IMGUI_DEFINE_MATH_OPERATORS
 #include "imgui.h"
 #include "imgui_impl_sdl.h"
 #include "imgui_impl_sdlrenderer.h"
+#include "imgui_internal.h"
 
 #include "Settings.hxx"
 #include "MapFunctions.hxx"
@@ -17,8 +19,9 @@ SettingsMenu::SettingsMenu() {
 }
 
 void SettingsMenu::draw() const {
-  ImVec2 windowSize(600, 600);
-  ImVec2 screenSize = ui::GetIO().DisplaySize;
+  const ImVec2 windowSize = ui::ImVec2Scaled(600, 600);
+  auto &io = ui::GetIO();
+  ImVec2 screenSize = io.DisplaySize;
 
   // dont remove yet, need for tuning
   //bool show = true;
@@ -31,9 +34,10 @@ void SettingsMenu::draw() const {
   ui::SetNextWindowPos(ImVec2((screenSize.x - windowSize.x)/2, (screenSize.y - windowSize.y)/2));
   ui::SetNextWindowSize(windowSize);
 
-  const ImVec2 buttonSize(200, 40);
-  const ImVec2 buttonOffset((windowSize.x - buttonSize.x) / 2, buttonSize.y / 2);
-  const ImVec2 widgetSize((windowSize.x / 2) - 8, 20);
+  const float btnh = 20.f * io.FontGlobalScale;
+  const ImVec2 buttonSize = ui::ImVec2Scaled(200, 40);
+  const ImVec2 buttonOffset = ui::ImVec2Scaled((windowSize.x - buttonSize.x) / 2, buttonSize.y / 2);
+  const ImVec2 widgetSize((windowSize.x / 2) - 8, btnh);
 
   ui::PushFont(layout.font);
   ui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
@@ -143,16 +147,23 @@ void SettingsMenu::draw() const {
     }
   }
 
-
-  // music volume label + slider
+  // ui scale settings
   {
     ui::LabelText("##uiscale", "UI Scale"); ui::SameLine();
-    ui::SliderFloatCt("##uiscalesl", &ui::GetIO().FontGlobalScale, 0.5f, 2.f, "", ImGuiSliderFlags_NoText); // Scale everything
+    static float saveScale = io.FontGlobalScale;
+    float deltaScale = 0.25;
+    ui::BeginChild("##uiscaleitems");
+    //ui::SliderFloatCt("##uiscalesl", &saveScale, 0.5f, 2.f, "", ImGuiSliderFlags_NoText); // Scale everything
+    if (ui::InputScalarCt("##uiscalesl", ImGuiDataType_Float, &saveScale, &deltaScale, nullptr, "%0.2f", ImGuiInputTextFlags_ButtonsOnly)) {
+      saveScale = ImClamp(saveScale, 0.5f, 2.f);
+      io.FontGlobalScale = saveScale;
+    }
+    ui::EndChild();
   }
   
   ui::PopItemWidth();
 
-  ImVec2 btnSize(windowSize.x / 4, 40);
+  ImVec2 btnSize(windowSize.x / 4, btnh * 2.f);
 
   ui::SetCursorPosY(windowSize.y - btnSize.y * 2);
   ui::Dummy({btnSize.x / 2, 0.f}); ui::SameLine();

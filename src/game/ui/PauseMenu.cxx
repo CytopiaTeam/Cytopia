@@ -11,8 +11,8 @@
 namespace ui = ImGui;
 
 void PauseMenu::draw() const {
-  ImVec2 windowSize(300, 400);
-  ImVec2 screenSize = ui::GetIO().DisplaySize;
+  const ImVec2 windowSize = ui::ImVec2Scaled(300, 400);
+  const ImVec2 screenSize = ui::GetIO().DisplaySize;
 
   // dont remove yet, need for tuning
   //bool show = true;
@@ -24,7 +24,7 @@ void PauseMenu::draw() const {
   ui::SetNextWindowPos(ImVec2((screenSize.x - windowSize.x)/2, (screenSize.y - windowSize.y)/2));
   ui::SetNextWindowSize(windowSize);
 
-  const ImVec2 buttonSize(200, 40);
+  const ImVec2 buttonSize = ui::ImVec2Scaled(200, 40);
   const ImVec2 buttonOffset((windowSize.x - buttonSize.x) / 2, buttonSize.y / 2);
 
   ui::PushFont(layout.font);
