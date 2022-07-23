@@ -133,7 +133,7 @@ void SettingsMenu::draw() const {
   {
     ui::LabelText("##musicvol", "Music Volume"); ui::SameLine();
     float saveVolume = settings.musicVolume;
-    ui::SliderFloatCt(" ", &settings.musicVolume, 0, 1, "", ImGuiSliderFlags_NoText);
+    ui::SliderFloatCt("##musicvolsl", &settings.musicVolume, 0.f, 1.f, "", ImGuiSliderFlags_NoText);
 
     if (saveVolume != settings.musicVolume)
     {
@@ -143,6 +143,13 @@ void SettingsMenu::draw() const {
     }
   }
 
+
+  // music volume label + slider
+  {
+    ui::LabelText("##uiscale", "UI Scale"); ui::SameLine();
+    ui::SliderFloatCt("##uiscalesl", &ui::GetIO().FontGlobalScale, 0.5f, 2.f, "", ImGuiSliderFlags_NoText); // Scale everything
+  }
+  
   ui::PopItemWidth();
 
   ImVec2 btnSize(windowSize.x / 4, 40);
