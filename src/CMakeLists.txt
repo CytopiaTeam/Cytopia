@@ -59,6 +59,7 @@ set(SOURCE_FILES
         game/ui/PauseMenu.{hxx,cxx}
         game/ui/LoadMenu.{hxx,cxx}
         game/ui/BuildMenu.{hxx,cxx}
+        game/ui/GameTimeMenu.{hxx,cxx}
         )
 
 if (ANDROID)
