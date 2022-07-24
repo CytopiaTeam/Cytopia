@@ -5731,6 +5731,25 @@ static void ImGui::RenderWindowOuterBorders(ImGuiWindow* window)
     }
 }
 
+void ImGui::RenderWindowCtBackground(ImDrawList *drawList, const ImVec2 &pos, const ImVec2 &size)
+{
+  const uint8_t bgColor = 128;
+  const uint8_t bgColorFrame = 150;
+  const uint8_t bgColorFrameShade = 172;
+
+  drawList->AddRectFilled(pos, pos + size, ImColor(bgColorFrame, bgColorFrame, bgColorFrame), 0.f, 0);
+  drawList->AddRectFilled(pos + ImVec2(2, 2), pos + size - ImVec2(2, 2), ImColor(bgColorFrameShade, bgColorFrameShade, bgColorFrameShade), 0.f, 0);
+
+  if (size.y >= 8 && size.x >= 4)
+  {
+    drawList->AddRectFilled(pos + ImVec2(4, 4), pos + size - ImVec2(4, 4), ImColor(bgColorFrame, bgColorFrame, bgColorFrame), 0.f, 0);
+  }
+  if (size.y >= 12 && size.x >= 6)
+  {
+    drawList->AddRectFilled(pos + ImVec2(6, 6), pos + size - ImVec2(6, 6), ImColor(bgColor, bgColor, bgColor), 0.f, 0);
+  }
+}
+
 // Draw background and borders
 // Draw and handle scrollbars
 void ImGui::RenderWindowDecorations(ImGuiWindow* window, const ImRect& title_bar_rect, bool title_bar_is_highlight, int resize_grip_count, const ImU32 resize_grip_col[4], float resize_grip_draw_size)
@@ -5773,21 +5792,7 @@ void ImGui::RenderWindowDecorations(ImGuiWindow* window, const ImRect& title_bar
                 bg_col = (bg_col & ~IM_COL32_A_MASK) | (IM_F32_TO_INT8_SAT(alpha) << IM_COL32_A_SHIFT);
             if (flags & ImGuiWindowFlags_CtBackground)
             {
-              const uint8_t bgColor = 128;
-              const uint8_t bgColorFrame = 150;
-              const uint8_t bgColorFrameShade = 172;
-
-              window->DrawList->AddRectFilled(window->Pos, window->Pos + window->Size, ImColor(bgColorFrame, bgColorFrame, bgColorFrame), 0.f, 0);
-              window->DrawList->AddRectFilled(window->Pos + ImVec2(2, 2), window->Pos + window->Size - ImVec2(2, 2), ImColor(bgColorFrameShade, bgColorFrameShade, bgColorFrameShade), 0.f, 0);
-
-              if (window->Size.y >= 8 && window->Size.x >= 4)
-              {
-                window->DrawList->AddRectFilled(window->Pos + ImVec2(4, 4), window->Pos + window->Size - ImVec2(4, 4), ImColor(bgColorFrame, bgColorFrame, bgColorFrame), 0.f, 0);
-              }
-              if (window->Size.y >= 12 && window->Size.x >= 6)
-              {
-                window->DrawList->AddRectFilled(window->Pos + ImVec2(6, 6), window->Pos + window->Size - ImVec2(6, 6), ImColor(bgColor, bgColor, bgColor), 0.f, 0);
-              }
+              RenderWindowCtBackground(window->DrawList, window->Pos, window->Size);
             }
             else
             {

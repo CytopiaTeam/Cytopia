@@ -149,6 +149,9 @@ public:
 
   void openMenu(GameMenu::Ptr menuOption);
 
+  template<class Menu, class ... Args>
+  void openMenuA(Args&&...args) { openMenu(std::make_shared<Menu>(args...)); }
+
   template<class Menu>
   void openMenu() { openMenu(std::make_shared<Menu>()); }
 

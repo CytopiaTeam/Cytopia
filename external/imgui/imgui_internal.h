@@ -2537,6 +2537,7 @@ namespace ImGui
     IMGUI_API ImGuiID       AddContextHook(ImGuiContext* context, const ImGuiContextHook* hook);
     IMGUI_API void          RemoveContextHook(ImGuiContext* context, ImGuiID hook_to_remove);
     IMGUI_API void          CallContextHooks(ImGuiContext* context, ImGuiContextHookType type);
+    IMGUI_API void          RenderWindowCtBackground(ImDrawList *drawList, const ImVec2 &pos, const ImVec2 &size);
 
     // Viewports
     IMGUI_API void          SetWindowViewport(ImGuiWindow* window, ImGuiViewportP* viewport);

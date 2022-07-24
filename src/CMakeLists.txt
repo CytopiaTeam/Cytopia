@@ -60,6 +60,7 @@ set(SOURCE_FILES
         game/ui/LoadMenu.{hxx,cxx}
         game/ui/BuildMenu.{hxx,cxx}
         game/ui/GameTimeMenu.{hxx,cxx}
+        game/ui/PopupWindow.{hxx,cxx}
         )
 
 if (ANDROID)

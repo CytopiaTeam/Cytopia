@@ -7,6 +7,7 @@
 #include "imgui_impl_sdlrenderer.h"
 
 #include "SignalMediator.hxx"
+#include "PopupWindow.hxx"
 
 namespace ui = ImGui;
 
@@ -45,7 +46,9 @@ void PauseMenu::draw() const {
 
   if (ui::ButtonCt("New Game", buttonSize))
   {
-    SignalMediator::instance().signalNewGame.emit(true);
+    uiManager.openMenuA<PopupWindowYesNo>("Start new game?",
+                                          "Yes", [] {SignalMediator::instance().signalNewGame.emit(true);},
+                                          "No", [] {});
   }
 
   if (ui::ButtonCt("Save Game", buttonSize))
