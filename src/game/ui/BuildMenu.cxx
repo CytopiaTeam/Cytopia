@@ -8,6 +8,9 @@
 #include <Settings.hxx>
 #include <GameStates.hxx>
 #include <MapLayers.hxx>
+#include <mapEdit.hxx>
+#include <tileData.hxx>
+#include "../engine/ResourcesManager.hxx"
 
 namespace ui = ImGui;
 
@@ -81,7 +84,7 @@ void drawSubmenu(ImVec2 pos, float categoryOffset, const Holder &holder, BuildMe
     default: nextOffset.x = -categoryOffset;
   }
 
-  const auto &layout = uiManager.getAllLayoutGroups()["BuildMenuButtons"].layout;
+  const auto &layout = uiManager.getLayouts()["BuildMenuButtons"];
 
   ui::SetNextWindowPos(pos);
   ui::SetNextWindowSize(windowSize);
