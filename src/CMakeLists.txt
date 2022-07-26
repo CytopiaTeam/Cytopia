@@ -40,9 +40,6 @@ set(SOURCE_FILES
         engine/GameObjects/MapGrid.inl.hxx
         engine/map/MapLayers.{hxx,cxx}
         engine/map/TerrainGenerator.{hxx,cxx}
-        engine/ui/basics/UIElement.{hxx,cxx}
-        engine/ui/basics/Layout.{hxx,cxx}
-        engine/ui/widgets/Text.{hxx,cxx}
         engine/EventManager.{hxx,cxx}
         engine/Map.{hxx,cxx}
         engine/Sprite.{hxx,cxx}

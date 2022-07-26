@@ -4,6 +4,8 @@
 #include "imgui.h"
 #include "UIManager.hxx"
 
+struct TileData;
+
 struct BuildMenuButton {
   using Ptr = std::shared_ptr<BuildMenuButton>;
   using Items = std::vector<Ptr>;

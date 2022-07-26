@@ -7,6 +7,8 @@
 #include <SDL.h>
 #include "engine/UIManager.hxx"
 #include "engine/basics/Settings.hxx"
+#include "../engine/ResourcesManager.hxx"
+#include "WindowManager.hxx"
 #include "OSystem.hxx"
 
 #include "imgui.h"
@@ -100,7 +102,7 @@ bool mainMenu()
 
   LoadMenu loadMenu;
 
-  const auto &buttonFont = UIManager::instance().getAllLayoutGroups()["MainMenuButtons"].layout.font;
+  const auto &buttonFont = UIManager::instance().getLayouts()["MainMenuButtons"].font;
   while (mainMenuLoop)
   {
     beginFrame();

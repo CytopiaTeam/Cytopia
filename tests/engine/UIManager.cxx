@@ -1,6 +1,5 @@
 #include <catch.hpp>
 #include "../../src/engine/UIManager.hxx"
-#include "../../src/engine/ui/basics/UIElement.hxx"
 #include "../../src/game/ui/BuildMenu.hxx"
 #include "../../src/game/ui/PauseMenu.hxx"
 
