@@ -15,6 +15,8 @@
 #include "json.hxx"
 #include "betterEnums.hxx"
 #include <Camera.hxx>
+#include <EventManager.hxx>
+#include "../game/ui/PropertyWindow.hxx"
 
 #ifdef USE_AUDIO
 #include "../services/AudioMixer.hxx"
@@ -187,7 +189,22 @@ void UIManager::addPersistentMenu(GameMenu::Ptr menu)
 
 bool UIManager::isMouseHovered() const
 {
-  return ImGui::IsAnyItemHovered();
+  return ui::IsAnyItemHovered();
+}
+
+void UIManager::showDebugMenuBar()
+{
+  if (ui::BeginMainMenuBar())
+  {
+    if (ui::BeginMenu("Panels"))
+    {
+      ui::MenuItem("TileInfo", NULL, &PropertyWindow::m_show);
+      ui::MenuItem("Log", NULL, &m_showLog);
+
+      ui::EndMenu();
+    }
+    ui::EndMainMenuBar();
+  }
 }
 
 void UIManager::drawUI()
@@ -198,6 +215,18 @@ void UIManager::drawUI()
   if (!m_menuStack.empty())
   {
     m_menuStack.back()->draw();
+  }
+
+  if (m_showDebugMenu)
+  {
+    showDebugMenuBar();
+  }
+
+  if (PropertyWindow::m_show)
+  {
+    PropertyWindow props;
+    const Point &isoCoord = EventManager::instance().selectedIsoCoord();
+    props.showInfo(isoCoord);
   }
 
   for (const auto &m : m_persistentMenu)
@@ -213,7 +242,7 @@ void UIManager::drawUI()
 
   if (m_showFpsCounter)
   {
-    ui::SetNextWindowPos(ImVec2(0, 0));
+    ui::SetNextWindowPos(m_showDebugMenu ? ImVec2(0, 20) : ImVec2(0, 0));
     ui::SetNextWindowSize(ImVec2(140, 20));
 
     bool open = true;

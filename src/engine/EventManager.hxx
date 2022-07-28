@@ -23,6 +23,8 @@ public:
   void unHighlightNodes();
   void pickTileUnderCursor(Point mouseIsoCoords);
 
+  const Point &selectedIsoCoord() const { return m_selectedIsoCoord; }
+
 private:
   UIElement *m_lastHoveredElement = nullptr;
 
@@ -37,6 +39,7 @@ private:
   std::vector<Point> m_nodesToPlace = {};
   std::vector<Point> m_nodesToHighlight = {};
   std::vector<Point> m_transparentBuildings;
+  Point m_selectedIsoCoord = {-1, -1, -1};
 };
 
 #endif

@@ -19,6 +19,7 @@ struct GameMenu
 
 struct BuildMenu;
 using json = nlohmann::json;
+struct Point;
 
 enum class BUILDMENU_LAYOUT
 {
@@ -126,6 +127,8 @@ public:
   BUILDMENU_LAYOUT buildMenuLayout() const { return m_buildMenuLayout; }
   void setBuildMenuLayout(BUILDMENU_LAYOUT l) { m_buildMenuLayout = l; }
 
+  void showDebugMenuBar();
+
 private:
 
   UIManager() = default;
@@ -145,6 +148,7 @@ private:
 
   std::string m_fpsCounter;
   bool m_showFpsCounter = true;
+  bool m_showLog = false;
 
   /// pointer to the default font used for in-game text
   struct ImFont *fontDefault = nullptr;

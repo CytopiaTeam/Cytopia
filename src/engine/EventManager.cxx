@@ -45,10 +45,10 @@ void EventManager::unHighlightNodes()
 void EventManager::pickTileUnderCursor(Point mouseIsoCoords)
 {
   Layer topMostActiveLayer;
-  std::vector<MapNodeData> mapNodeData;
   const MapNode &node = MapFunctions::instance().getMapNode(mouseIsoCoords);
 
   topMostActiveLayer = node.getTopMostActiveLayer();
+  m_selectedIsoCoord = mouseIsoCoords;
   // all layers are supported except terrain
   if (topMostActiveLayer == Layer::TERRAIN || topMostActiveLayer == Layer::NONE)
     return;
@@ -71,7 +71,8 @@ void EventManager::pickTileUnderCursor(Point mouseIsoCoords)
     default:
       break;
   }
-  mapNodeData = node.getMapNodeData();
+
+  std::vector<MapNodeData> mapNodeData = node.getMapNodeData();
   tileToPlace = mapNodeData[topMostActiveLayer].tileID;
   highlightSelection = true;
 }
