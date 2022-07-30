@@ -5,14 +5,14 @@
 #include <algorithm>
 #include <SDL.h>
 
-#include "point.hxx"
+#include "Point.hxx"
 
 // calculate clicked column (x coordinate) without heigh taken into account.
 /** \brief Calculates screen space coordinates to isometric space coordinates.
 * @details A formula is used to calculate the iso coordinates from given screen coordinates. No tile height is taken into account.
 * @note This function will not work for elevated tiles
 * @param screenCoordinates object containing screen space coordinates
-* \returns object containing the calculated isometric coordinates of the tile that matches the screen coordinates
+* \returns Point containing the calculated isometric coordinates of the tile that matches the screen coordinates
 */
 Point calculateIsoCoordinates(const SDL_Point &screenCoordinates);
 
@@ -22,7 +22,7 @@ Point calculateIsoCoordinates(const SDL_Point &screenCoordinates);
 * Camera Offset and current zoomLevel is taken into account
 * @param isoCoordinates object containing isometric coordinates
 * @param calcWithoutOffset optional parameter to calculate screenspace coordinates without zoomLevel and cameraOffset taken into account
-* \returns object containing screen space coordinates
+* \returns SDL_Point containing screen space coordinates
 */
 SDL_Point convertIsoToScreenCoordinates(const Point &isoCoordinates, bool calcWithoutOffset = false);
 
@@ -37,30 +37,29 @@ SDL_Point convertIsoToScreenCoordinates(const Point &isoCoordinates, bool calcWi
 Point convertScreenToIsoCoordinates(const SDL_Point &screenCoordinates);
 
 /** \brief Creates a line between two points using the Bresenham Line algorithm
-* Creates a line between two points using the Bresenham Line algorithm
 * @param isoCoordinatesStart start coordinates
 * @param isoCoordinatesEnd end coordinates
-* @return std::vector<Point>() - contains coordinates for each tile between start and end coordinates, including start and end
+* @return std::vector<Point>() containing coordinates for each tile between start and end coordinates, including start and end
 */
 std::vector<Point> createBresenhamLine(const Point &isoCoordinatesStart, const Point &isoCoordinatesEnd);
 
 /** \brief Gets all nodes in a rectangle between start and end point
 * @param isoCoordinatesStart start coordinates
 * @param isoCoordinatesEnd end coordinates
-* @return std::vector<Point>() - contains coordinates for each tile between start and end coordinates, including start and end
+* @return std::vector<Point>() containing coordinates for each tile between start and end coordinates, including start and end
 */
 std::vector<Point> getRectangleSelectionNodes(const Point &isoCoordinatesStart, const Point &isoCoordinatesEnd);
 
 /** \brief Check if given coordinates are within map boundaries
  * @param isoCoordinates coordinates to check
- * @return bool - true if coordinates are inside the map bounds.
+ * @return true if coordinates are inside the map bounds.
  */
 // bool isPointWithinMapBoundaries(int x, int y);
 // bool isPointWithinMapBoundaries(const Point &isoCoordinates);
 bool isPointWithinMapBoundaries(const std::vector<Point> &isoCoordinates);
 
-/// Clamp value
 //TODO: Remove this when switching to C++17 and use std::clamp instead
+/// Clamp value
 template <typename T> T clamp(const T &n, const T &lower, const T &upper) { return std::max(lower, std::min(n, upper)); }
 
 #endif

@@ -61,6 +61,19 @@ std::vector<std::string> getSaveGamePaths() { LOG(LOG_ERROR) << "fs::getSaveGame
 
 bool fileExists(const std::string &filePath) { return true; }
 
+void writeStringToFileCompressed(const std::string &fileName, const std::string &stringToWrite)
+{
+  LOG(LOG_ERROR) << "fs::writeStringToFileCompressed() not implemented!";
+}
+
+void createDirectory(const std::string &dir) { LOG(LOG_ERROR) << "fs::createDirectory() not implemented!"; }
+
+std::string fs::readCompressedFileAsString(const std::string &fileName)
+{
+  LOG(LOG_ERROR) << "fs::createDreadCompressedFileAsStringirectory() not implemented!";
+  return "";
+}
+
 std::string getBasePath() { return ""; }
 
 } // namespace fs

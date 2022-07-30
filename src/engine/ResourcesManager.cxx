@@ -41,20 +41,9 @@ void ResourcesManager::loadUITexture()
   }
 }
 
-SDL_Texture *ResourcesManager::getUITexture(const std::string &uiElement, int buttonState)
+SDL_Texture *ResourcesManager::getUITexture(const std::string &uiElement)
 {
-  std::string texture;
-  switch (buttonState)
-  {
-  case BUTTONSTATE_CLICKED:
-    texture = "Texture_Clicked";
-    break;
-  case BUTTONSTATE_HOVERING:
-    texture = "Texture_Hovering";
-    break;
-  default:
-    texture = "Texture_Default";
-  }
+  std::string texture = "Texture_Default";
   if (m_uiTextureMap[uiElement].find(texture) != m_uiTextureMap[uiElement].end())
   {
     return m_uiTextureMap[uiElement].at(texture);
@@ -132,4 +121,20 @@ void ResourcesManager::flush()
     }
   }
   m_uiTextureMap.clear();
+}
+
+SDL_Color ResourcesManager::getColorOfPixelInSurface(const std::string &tileID, int x, int y)
+{
+  SDL_Color Color{0, 0, 0, SDL_ALPHA_TRANSPARENT};
+  // create and initialize a variable within the condition
+  if (SDL_Surface *surface = getTileSurface(tileID); surface)
+  {
+    const int bpp = surface->format->BytesPerPixel;
+    Uint8 *p = &static_cast<Uint8 *>(surface->pixels)[y * surface->pitch + x * bpp];
+    const Uint32 pixel = *reinterpret_cast<Uint32 *>(p);
+
+    SDL_GetRGBA(pixel, surface->format, &Color.r, &Color.g, &Color.b, &Color.a);
+  }
+
+  return Color;
 }

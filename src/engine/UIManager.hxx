@@ -4,27 +4,21 @@
 #include <SDL.h>
 #include <vector>
 
-#include "ui/basics/UIElement.hxx"
-#include "ui/basics/Layout.hxx"
-#include "ui/basics/ButtonGroup.hxx"
-#include "ui/widgets/Button.hxx"
-#include "ui/widgets/Checkbox.hxx"
-#include "ui/widgets/Combobox.hxx"
-#include "ui/widgets/Frame.hxx"
-#include "ui/widgets/Text.hxx"
-#include "ui/widgets/Tooltip.hxx"
-#include "ui/widgets/Slider.hxx"
 #include "../util/Singleton.hxx"
+#include <Layout.hxx>
 
-/**
- * @brief Struct that hold UiElements belonging to a layoutgroup and its corresponding LayoutData
- * 
- */
-struct LayoutGroup
+// BaseClass for game menu, only one menu can show on frame
+struct GameMenu
 {
-  std::vector<UIElement *> uiElements; ///< contains pointer to all uiElements belonging to this group
-  LayoutData layout;                   ///< layout information @see LayoutData
+  using Ptr = std::shared_ptr<GameMenu>;
+  virtual ~GameMenu() = default;
+  virtual void draw() const { /* default implementation do nothing */ }
+  virtual bool isMouseHovered() const { return false; }
+  virtual void closeSubmenus() { /* default implementation do nothing */ }
 };
+
+struct BuildMenu;
+using json = nlohmann::json;
 
 enum class BUILDMENU_LAYOUT
 {
@@ -49,31 +43,20 @@ public:
    */
 
   void init();
-  /**
- * @brief Fill UI Widgets whose ID start with a $ with data
- * Used for filling widgets with data, like BuildMenu Position combobox, Screen Resolution ComboBox and so on
- */
-  void initializeDollarVariables();
+
+  struct ImFont *loadFont(const std::string &name, uint32_t size);
+  void initializeImGuiFonts();
+
+  void loadSettings(json& uiLayout);
+  void parseLayouts(const json &uiLayout);
 
   /**
   * @brief Renders all UI Widgets
-  * 
   */
-  void drawUI() const;
-
-  /**
- * @brief Callback function for toggling the visibility of an UiGroup 
- * @details Callback function for Ui Widgets with the ActionID "ToggleVisiblityOfGroup".
- * The ActionParamter is used for toggling elements from m_uiGroups with the same ID
- * 
- * @param groupID The groupID that should be toggled
- * @param sender The element who called the function
- */
-  void toggleGroupVisibility(const std::string &groupID, UIElement *sender = nullptr);
+  void drawUI();
 
   /**
  * @brief Toggle Visibility of Debug Menu
- * 
  */
   void toggleDebugMenu() { m_showDebugMenu = !m_showDebugMenu; };
 
@@ -82,124 +65,90 @@ public:
  * 
  * @param fps 
  */
-  void setFPSCounterText(const std::string &fps) const;
-
-  /**
- * @brief CallbackFunction that sets the Build Menu Position 
- * @details Used as callback function for the ComboBox that holds the Build Menu position
- * @param sender ComboBox that called the function
- */
-  void setBuildMenuPosition(UIElement *sender);
-
-  /**
- * @brief Get all Ui Element objects
- * Returns a container that holds ALL UiElements, even those in buttongroups. 
- * @note Does not return ButtonGroups, only basic widgets
- * @return const std::vector<std::unique_ptr<UiElement>>& 
- */
-  const std::vector<std::unique_ptr<UIElement>> &getAllUiElements() const { return m_uiElements; };
-
-  /**
- * @brief Get all Ui Elements For Event Handling 
- * @details Returns Widgets that are not in ButtonGroups and ButtonGroups. 
- * @note The ButtonGroup container takes care of handling events in it's container, so those widgets are excluded
- * @return const std::vector<UiElement *>& 
- */
-  const std::vector<UIElement *> &getAllUiElementsForEventHandling() const { return m_uiElementsForEventHandling; };
-
-  /**
- * @brief Get the UiElements Of aroup 
- * @details get Elements that are in UiGroup (m_uiGroups)
- * @param groupID ID of the group whose elements should be returned
- * @return const std::vector<UiElement *>* 
- */
-  const std::vector<UIElement *> *getUiElementsOfGroup(const std::string &groupID) const;
-
-  /**
- * @brief Get the m_uiGroups object
- * @details Returns the container that holds all UiElements sorted by their UI Group
- * @return std::unordered_map<std::string, std::vector<UiElement *>>& 
- */
-  std::unordered_map<std::string, std::vector<UIElement *>> &getAllUiGroups() { return m_uiGroups; }
+  void setFPSCounterText(const std::string &fps);
 
   /**
    * @brief Get the LayoutGroup container
    * @details Returns the container that holds LayoutGroups
    * @return std::unordered_map<std::string, LayoutGroup>& 
    */
-  std::unordered_map<std::string, LayoutGroup> &getAllLayoutGroups() { return m_layoutGroups; }
+  std::unordered_map<std::string, LayoutData> &getLayouts() { return m_layouts; }
 
+  void setTooltip(const std::string &tooltipText);
+  
   /**
- * @brief Get the Ui Element By ID
- * @details Finds and returns an UiElement by its elementID parameter
- * @param ID ID of the element that should be returned.
- * @return UIElement* 
- */
-  UIElement *getUiElementByID(const std::string &ID) const;
-
-  void startTooltip(SDL_Event &event, const std::string &tooltipText) const;
-  void stopTooltip() const;
-
-  void changeResolution(UIElement *sender);
-  void changeFullScreenMode(UIElement *sender);
+   * @brief Hides and resets the active tooltip.
+   * @see Tooltip#reset
+   */
+  void clearTooltip();
 
   /**
  * @brief Close all open menus but the build menu
  */
   void closeOpenMenus();
 
+  void openMenu(GameMenu::Ptr menuOption);
+
+  template<class Menu>
+  void openMenu() { openMenu(std::make_shared<Menu>()); }
+
+  void closeMenu();
+  inline bool isAnyMenuOpen() const { return !m_menuStack.empty(); }
+
+  void addPersistentMenu(GameMenu::Ptr menu);
+
+  bool isMouseHovered() const;
+
+  template<class Menu>
+  inline GameMenu::Ptr findMenu() const {
+    for (const auto &m : m_menuStack)
+    {
+      if (dynamic_cast<Menu *>(m.get()))
+      {
+        return m;
+      }
+    }
+
+    for (const auto &m : m_persistentMenu)
+    {
+      if (dynamic_cast<Menu *>(m.get()))
+      {
+        return m;
+      }
+    }
+
+    return nullptr;
+  }
+  
+  template<class Menu>
+  void addPersistentMenu() { addPersistentMenu(std::make_shared<Menu>()); }
+
+  BUILDMENU_LAYOUT buildMenuLayout() const { return m_buildMenuLayout; }
+  void setBuildMenuLayout(BUILDMENU_LAYOUT l) { m_buildMenuLayout = l; }
+
 private:
-  BUILDMENU_LAYOUT m_buildMenuLayout = BUILDMENU_LAYOUT::BOTTOM;
 
   UIManager() = default;
   ~UIManager() = default;
 
-  /// this container holds all UiElements and is the owner.
-  std::vector<std::unique_ptr<UIElement>> m_uiElements;
-
-  /// stores Buttongroups and UiElements that are not in a group
-  std::vector<UIElement *> m_uiElementsForEventHandling;
-
-  /// map holding all ui elements, accessible via the group ID
-  std::unordered_map<std::string, std::vector<UIElement *>> m_uiGroups;
-
   /// map holding layput groups, accessible via the layoutgroup ID
-  std::unordered_map<std::string, LayoutGroup> m_layoutGroups;
+  std::unordered_map<std::string, LayoutData> m_layouts;
 
-  /// Holding all buttongroups
-  std::unordered_map<std::string, ButtonGroup *> m_buttonGroups;
+  std::string m_tooltip;
 
-  std::unique_ptr<Tooltip> m_tooltip = std::make_unique<Tooltip>();
+  std::unordered_map<std::string, ImFont *> m_loadedFonts;
+  std::vector<GameMenu::Ptr> m_menuStack;
+  std::vector<GameMenu::Ptr> m_persistentMenu;
 
-  /// Text element for the FPS Counter (debug menu)
-  std::unique_ptr<Text> m_fpsCounter = std::make_unique<Text>();
-
-  void setCallbackFunctions();
-
-  /**
-   * @brief takes an SDL_Rect, default button width and height, and image width and height
-   *        and scales the image to fit on a button of the default button size (maintaining the 
-   *        aspect ration of the original image).
-   * @param ret the address of a rect that will contain the size of the scaled image
-   * @param btnW the default button width
-   * @param btnH the default button height
-   * @param imgW the width of the image to scale
-   * @param imgH the height of the image to scale
-   */
-  void scaleCenterButtonImage(SDL_Rect &ret, int btnW, int btnH, int imgW, int imgH);
-  void createBuildMenu();
-  void setBuildMenuLayout();
-
-  /**
-   * @brief Draws the tile (defined by the string, tiledata pair) onto the button
-   * @param button the button to draw this image on
-   * @param tile The id string, tileData pair of the tile that defines the image to be drawn
-   */
-  void setupButtonTileImage(Button *button, const std::pair<std::string, TileData> &tile);
-
-  void addToLayoutGroup(const std::string &groupName, UIElement *widget);
-
+  /// visibility of the debug menu
   bool m_showDebugMenu = false;
+
+  std::string m_fpsCounter;
+  bool m_showFpsCounter = true;
+
+  /// pointer to the default font used for in-game text
+  struct ImFont *fontDefault = nullptr;
+  BUILDMENU_LAYOUT m_buildMenuLayout = BUILDMENU_LAYOUT::BOTTOM;
 };
 
 #endif

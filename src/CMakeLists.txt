@@ -1,6 +1,7 @@
 set(SOURCE_FILES
         main.cxx
         Game.{hxx,cxx}
+        MainMenu.{hxx,cxx}
         util/LOG.{hxx,cxx}
         util/LOG.inl.hxx
         util/Filesystem.{hxx,cxx}
@@ -8,9 +9,12 @@ set(SOURCE_FILES
         util/IEquatable.inl.hxx
         util/PriorityQueue.hxx
         util/PriorityQueue.inl.hxx
+        util/Signal.hxx
+        util/SignalMediator.hxx
         util/Singleton.hxx
         util/Meta.hxx
         util/Exception.{hxx,cxx}
+        util/OSystem.{hxx,cxx}
         services/Randomizer.{hxx,cxx}
         services/GameClock.{hxx,cxx}
         services/GameClock.inl.hxx
@@ -21,32 +25,21 @@ set(SOURCE_FILES
         engine/basics/Camera.{hxx,cxx}
         engine/basics/isoMath.{hxx,cxx}
         engine/basics/mapEdit.{hxx,cxx}
-        engine/basics/point.hxx
+        engine/basics/Point.hxx
         engine/basics/PointFunctions.{hxx,cxx}
         engine/basics/Settings.{hxx,cxx}
         engine/basics/GameStates.{hxx,cxx}
-        engine/basics/signal.hxx
         engine/basics/utils.{hxx,cxx}
         engine/common/Constants.hxx
         engine/common/enums.hxx
+        engine/common/platform.hxx
         engine/common/JsonSerialization.hxx
         engine/GameObjects/MapNode.{hxx,cxx}
+        engine/map/MapFunctions.{hxx,cxx}
+        engine/GameObjects/MapGrid.hxx
+        engine/GameObjects/MapGrid.inl.hxx
         engine/map/MapLayers.{hxx,cxx}
         engine/map/TerrainGenerator.{hxx,cxx}
-        engine/ui/basics/UIElement.{hxx,cxx}
-        engine/ui/basics/ButtonGroup.{hxx,cxx}
-        engine/ui/basics/Layout.{hxx,cxx}
-        engine/ui/widgets/Bar.{hxx,cxx}
-        engine/ui/widgets/Button.{hxx,cxx}
-        engine/ui/widgets/Combobox.{hxx,cxx}
-        engine/ui/widgets/Checkbox.{hxx,cxx}
-        engine/ui/widgets/Frame.{hxx,cxx}
-        engine/ui/widgets/Image.{hxx,cxx}
-        engine/ui/widgets/Slider.{hxx,cxx}
-        engine/ui/widgets/Text.{hxx,cxx}
-        engine/ui/widgets/Tooltip.{hxx,cxx}
-        engine/ui/menuGroups/IMenuGroup.hxx
-        engine/Engine.{hxx,cxx}
         engine/EventManager.{hxx,cxx}
         engine/Map.{hxx,cxx}
         engine/Sprite.{hxx,cxx}
@@ -59,6 +52,11 @@ set(SOURCE_FILES
         game/PowerManager.{hxx,cxx}
         game/PowerGrid.{hxx,cxx}
         game/GamePlay.{hxx,cxx}
+        game/ui/SettingsMenu.{hxx,cxx}
+        game/ui/PauseMenu.{hxx,cxx}
+        game/ui/LoadMenu.{hxx,cxx}
+        game/ui/BuildMenu.{hxx,cxx}
+        game/ui/GameTimeMenu.{hxx,cxx}
         )
 
 if (ANDROID)
@@ -81,17 +79,18 @@ if (USE_ANGELSCRIPT)
             ${CMAKE_SOURCE_DIR}/external/as_add_on/scriptbuilder/scriptbuilder.h
             ${CMAKE_SOURCE_DIR}/external/as_add_on/scriptstdstring/scriptstdstring.h
             ${CMAKE_SOURCE_DIR}/external/as_add_on/scriptstdstring/scriptstdstring.cpp
-            Scripting/ScriptEngine.{hxx,cxx}
+            ${CMAKE_SOURCE_DIR}/external/as_add_on/scriptarray/scriptarray.h
+            ${CMAKE_SOURCE_DIR}/external/as_add_on/scriptarray/scriptarray.cpp
+            ${CMAKE_SOURCE_DIR}/external/as_add_on/scriptdictionary/scriptdictionary.h
+            ${CMAKE_SOURCE_DIR}/external/as_add_on/scriptdictionary/scriptdictionary.cpp
+            ${CMAKE_SOURCE_DIR}/external/as_add_on/scriptmath/scriptmath.h
+            ${CMAKE_SOURCE_DIR}/external/as_add_on/scriptmath/scriptmath.cpp
+            ${CMAKE_SOURCE_DIR}/external/as_add_on/scriptmath/scriptmathcomplex.h
+            ${CMAKE_SOURCE_DIR}/external/as_add_on/scriptmath/scriptmathcomplex.cpp
+            scripting/ScriptEngine.{hxx,cxx}
+            scripting/ImGuiAngelscript.cxx
             )
 endif ()
-
-if (ENABLE_MICROPROFILE)
-    list(APPEND SOURCE_FILES
-            ${microprofile_SOURCE_DIR}/microprofile.h
-            ${microprofile_SOURCE_DIR}/microprofile_html.h
-            ${microprofile_SOURCE_DIR}/microprofile.cpp
-            )
-endif (ENABLE_MICROPROFILE)
 
 # Expand file extensions (i.e. path/to/file.{h,cpp} becomes path/to/file.h;path/to/file.cpp)
 expand_file_extensions(SOURCE_FILES ${SOURCE_FILES})
@@ -143,7 +142,11 @@ set_target_properties(
         CXX_EXTENSIONS NO
 )
 
-list(APPEND _compile_definitions VERSION="${PROJECT_NAME} ${PROJECT_VERSION} - Urban Update")
+list(APPEND _compile_definitions VERSION="${PROJECT_NAME} ${PROJECT_VERSION} - Utilities Update")
+
+if (ENABLE_PHC)
+    target_precompile_headers(${PROJECT_NAME} PRIVATE phc.hxx)
+endif ()
 
 target_include_directories(
         ${PROJECT_NAME} PRIVATE
@@ -161,6 +164,7 @@ target_include_directories(
 target_compile_definitions(${PROJECT_NAME} PRIVATE ${_compile_definitions})
 target_link_libraries(
         ${PROJECT_NAME} PRIVATE
+        IMGUI
         LIBPNG::LIBPNG
         SDL::SDL
         SDL::TTF
@@ -190,18 +194,18 @@ if (USE_ANGELSCRIPT)
 endif ()
 
 if (ENABLE_ASAN)
-	target_compile_options(${PROJECT_NAME} PUBLIC -fsanitize=address -fno-sanitize-recover=all)
-	target_link_options(${PROJECT_NAME} PUBLIC -fsanitize=address)
+    target_compile_options(${PROJECT_NAME} PUBLIC -fsanitize=address -fno-sanitize-recover=all)
+    target_link_options(${PROJECT_NAME} PUBLIC -fsanitize=address)
 endif ()
 
 if (ENABLE_UBSAN)
-	target_compile_options(${PROJECT_NAME} PUBLIC -fsanitize=undefined -fno-sanitize-recover=all)
-	target_link_options(${PROJECT_NAME} PUBLIC -fsanitize=undefined)
+    target_compile_options(${PROJECT_NAME} PUBLIC -fsanitize=undefined -fno-sanitize-recover=all)
+    target_link_options(${PROJECT_NAME} PUBLIC -fsanitize=undefined)
 endif ()
 
 if (ENABLE_TSAN)
-	target_compile_options(${PROJECT_NAME} PUBLIC -fsanitize=thread -fno-sanitize-recover=all)
-	target_link_options(${PROJECT_NAME} PUBLIC -fsanitize=thread)
+    target_compile_options(${PROJECT_NAME} PUBLIC -fsanitize=thread -fno-sanitize-recover=all)
+    target_link_options(${PROJECT_NAME} PUBLIC -fsanitize=thread)
 endif ()
 
 

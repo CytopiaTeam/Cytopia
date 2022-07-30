@@ -1,45 +1,17 @@
 #include "ZoneManager.hxx"
-#include "Engine.hxx"
 #include "LOG.hxx"
 #include "../services/GameClock.hxx"
 #include "../services/Randomizer.hxx"
 #include "GameStates.hxx"
+#include <SignalMediator.hxx>
+#include <MapFunctions.hxx>
 
 ZoneManager::ZoneManager()
 {
-  Engine::instance().map->registerCbPlaceBuilding(
-      [this](const MapNode &mapNode) { // If we place a building on zone tile, add it to the cache to update next tick
-        m_nodesToOccupy.push_back(mapNode.getCoordinates());
-      });
-
-  Engine::instance().map->registerCbPlaceZone(
-      [this](const MapNode &mapNode) { // If we place a zone tile, add it to the cache to update next tick
-        ZoneNode nodeToAdd = {mapNode.getCoordinates(), mapNode.getTileData(Layer::ZONE)->zoneTypes[0],
-                              mapNode.getTileData(Layer::ZONE)->zoneDensity[0]};
-        m_nodesToAdd.push_back(nodeToAdd);
-      });
-
-  Engine::instance().map->registerCbDemolish(
-      [this](const MapNode *mapNode)
-      {
-        switch (GameStates::instance().demolishMode)
-        {
-        case DemolishMode::DE_ZONE:
-        {
-          m_nodesToRemove.push_back(mapNode->getCoordinates());
-          break;
-        }
-        case DemolishMode::DEFAULT:
-        {
-          if (!mapNode->getTileData(Layer::BUILDINGS))
-          {
-            m_nodesToVacate.push_back(mapNode->getCoordinates());
-          }
-
-          break;
-        }
-        }
-      });
+  // Callbacks for setTileID
+  SignalMediator::instance().registerCbSetTileID(Signal::slot(this, &ZoneManager::updatePlacedNodes));
+  SignalMediator::instance().registerCbDemolish(Signal::slot(this, &ZoneManager::updateRemovedNodes));
+  SignalMediator::instance().registerCbUpdatePower(Signal::slot(this, &ZoneManager::updatePower));
 
   GameClock::instance().addRealTimeClockTask(
       [this]()
@@ -60,7 +32,7 @@ void ZoneManager::update()
     {
       for (auto &zoneArea : m_zoneAreas)
       {
-        if (zoneArea.isWithinZone(nodeToVacate))
+        if (zoneArea.isMemberOf(nodeToVacate))
         {
           zoneArea.setVacancy(nodeToVacate, true);
           break;
@@ -77,7 +49,7 @@ void ZoneManager::update()
     {
       for (auto &zoneArea : m_zoneAreas)
       {
-        if (zoneArea.isWithinZone(nodeToOccupy))
+        if (zoneArea.isMemberOf(nodeToOccupy))
         {
           zoneArea.setVacancy(nodeToOccupy, false);
           break;
@@ -113,7 +85,7 @@ void ZoneManager::spawnBuildings()
   for (auto &zoneArea : m_zoneAreas)
   {
     // check if there are any buildings to spawn, if not, do nothing.
-    if (zoneArea.isVacant())
+    if (zoneArea.isVacant() && zoneArea.hasPowerSupply())
     {
       int occupied = 0;
       int free = 0;
@@ -139,7 +111,7 @@ std::vector<int> ZoneManager::getAdjacentZoneAreas(const ZoneNode &zoneNode, std
   for (auto &zoneArea : zoneAreas)
   {
     if (zoneArea.getZone() == zoneNode.zoneType && (zoneArea.getZoneDensity() == zoneNode.zoneDensity) &&
-        zoneArea.isWithinBoundaries(zoneNode.coordinate) && zoneArea.isNeighborOfZone(zoneNode.coordinate))
+        zoneArea.isWithinBoundaries(zoneNode.coordinate) && zoneArea.isNeighbor(zoneNode.coordinate))
     {
       neighborZones.push_back(i);
     }
@@ -161,13 +133,13 @@ void ZoneManager::addZoneNodeToArea(ZoneNode &zoneNode, std::vector<ZoneArea> &z
   else if (zoneNeighbour.size() == 1)
   {
     // add to this zone
-    zoneAreas[zoneNeighbour[0]].addZoneNode(zoneNode);
+    zoneAreas[zoneNeighbour[0]].addNode(zoneNode);
   }
   else
   {
     // merge zone areas
     ZoneArea &mergedZone = zoneAreas[zoneNeighbour[0]];
-    mergedZone.addZoneNode(zoneNode);
+    mergedZone.addNode(zoneNode);
 
     for (int idx = 1; idx < zoneNeighbour.size(); ++idx)
     {
@@ -197,7 +169,7 @@ void ZoneManager::removeZoneNode(Point coordinate)
 {
   for (auto zoneIt = m_zoneAreas.begin(); zoneIt != m_zoneAreas.end(); zoneIt++)
   {
-    if (zoneIt->isWithinZone(coordinate))
+    if (zoneIt->isMemberOf(coordinate))
     {
       zoneIt->removeZoneNode(coordinate);
 
@@ -219,6 +191,83 @@ void ZoneManager::removeZoneNode(Point coordinate)
       }
 
       break;
+    }
+  }
+}
+
+void ZoneManager::updatePower(const std::vector<PowerGrid> &powerGrid)
+{
+  for (const auto &grid : powerGrid)
+  {
+    for (auto &area : m_zoneAreas)
+    {
+      if (bool isGridConnected =
+              area.end() !=
+              std::find_if(area.begin(), area.end(), [grid](const ZoneNode &node) { return grid.isNeighbor(node.coordinate); });
+          !isGridConnected)
+        continue;
+      if (grid.getPowerLevel() > 0)
+      {
+        area.setPowerSupply(true);
+      }
+      else
+      {
+        area.setPowerSupply(false);
+      }
+    }
+  }
+}
+
+void ZoneManager::updateRemovedNodes(const MapNode *mapNode)
+{
+
+  switch (GameStates::instance().demolishMode)
+  {
+  case DemolishMode::DE_ZONE:
+  {
+    m_nodesToRemove.push_back(mapNode->getCoordinates());
+    break;
+  }
+  case DemolishMode::DEFAULT:
+  {
+    if (!mapNode->getTileData(Layer::BUILDINGS))
+    {
+      m_nodesToVacate.push_back(mapNode->getCoordinates());
+    }
+
+    break;
+  }
+  default:
+    break;
+  }
+}
+
+void ZoneManager::updatePlacedNodes(const MapNode &mapNode)
+{
+  if (mapNode.getTileData(Layer::BUILDINGS) && mapNode.getTileData(Layer::ZONE))
+  {
+    m_nodesToOccupy.push_back(mapNode.getCoordinates());
+  }
+
+  // zone placed
+  else if (mapNode.getTileData(Layer::ZONE))
+  {
+    ZoneNode nodeToAdd = {mapNode.getCoordinates(), mapNode.getTileData(Layer::ZONE)->zoneTypes[0],
+                          mapNode.getTileData(Layer::ZONE)->zoneDensity[0]};
+    m_nodesToAdd.push_back(nodeToAdd);
+  }
+}
+
+void ZoneManager::reset()
+{
+  m_zoneAreas.clear();
+  for (const auto &mapNode : MapFunctions::instance().getMapNodes())
+  {
+    if (mapNode.getTileData(Layer::ZONE))
+    {
+      ZoneNode nodeToAdd = {mapNode.getCoordinates(), mapNode.getTileData(Layer::ZONE)->zoneTypes[0],
+                            mapNode.getTileData(Layer::ZONE)->zoneDensity[0]};
+      m_nodesToAdd.push_back(nodeToAdd);
     }
   }
 }

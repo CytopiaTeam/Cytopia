@@ -11,7 +11,7 @@
 #include "json.hxx"
 #include "Singleton.hxx"
 #include "../common/enums.hxx"
-#include "basics/point.hxx"
+#include "basics/Point.hxx"
 
 enum TileMap : size_t
 {
@@ -60,8 +60,8 @@ enum TileOrientation : size_t
   TILE_S_AND_W_RECT,
   TILE_S_AND_E_RECT,
   TILE_N_AND_W_RECT,
-  TILE_E_AND_W_ROAD, // special handling for powerlines placed on roads
-  TILE_N_AND_S_ROAD  // special handling for powerlines placed on roads
+  TILE_E_AND_W_CROSS, // special handling for tiles that can be placed on each other and then autotile differently (e.g. Power Lines on Roads or Water)
+  TILE_N_AND_S_CROSS // support powerlines cross low terrain (eg, roads and water)
 };
 
 /**
@@ -83,7 +83,7 @@ public:
    */
   SDL_Texture *getTexture(const std::string &tileID) const;
 
-  /** @brief Get the TileData struct for this tileID with all informations associated with it
+  /** @brief Get the TileData struct for this tileID and all information associated with it
   * @param id TileID
   * @return A pointer to the TileData Struct
   */
@@ -95,13 +95,13 @@ public:
   */
   Layer getTileLayer(const std::string &tileID) const;
 
-  /** @brief Calculates the TileOrintation for elevated tiles to pick the correct slope Sprite
+  /** @brief Calculates the slope orientation for elevated tiles to pick the correct slope Sprite
   * @param bitMaskElevation a bitmask of neighboring tiles and their elevation
   * @return Elevation bitmask
   */
   size_t calculateSlopeOrientation(unsigned char bitMaskElevation);
 
-  /** @brief Calculates the TileOrintation for elevated tiles to pick the correct Sprite
+  /** @brief Calculates the TileOrientation for elevated tiles to pick the correct Sprite
   * @param bitMaskElevation a bitmask of neighboring tiles and their elevation
   * @return The orientation the tile should have to it's elevated neighbors.
   */
@@ -142,7 +142,7 @@ public:
   bool isTileIDAutoTile(const std::string &tileID);
 
   /** @brief Parse the tileData JSON and set up the tileManager
-  * 
+  * @throws ConfigurationError when loading tile data file results in an error 
   */
   void init();
 

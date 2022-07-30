@@ -3,6 +3,8 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <memory>
+
 #include <SDL.h>
 
 #include "../util/Singleton.hxx"
@@ -40,9 +42,10 @@ public:
   */
   SDL_Window *getWindow() const { return m_window; };
 
-  std::vector<SDL_DisplayMode *> getSupportedScreenResolutions() { return m_resolutions; };
+  const std::vector<std::unique_ptr<SDL_DisplayMode>> &getSupportedScreenResolutions() const { return m_resolutions; };
 
   void setScreenResolution(int mode);
+  // void setLastScreenResolution() { setScreenResolution(m_lastSelectedResolutionIdx); };
 
   /** \brief sets the game's window mode
   * @details Changes the game's window mode to fullscreen, borderless, or windowed
@@ -50,11 +53,16 @@ public:
   */
   void setFullScreenMode(FULLSCREEN_MODE mode) const;
 
+  /// creates and renders a new ImGui frame
+  void newImGuiFrame();
+
   void renderScreen();
 
 private:
-  /** 
+  /**
   * \brief Construct a new WindowManager object.
+  * @throws UIError if window or renderer creation fails, or if the window icon cannot be loaded
+  * @throws ConfigurationError if the path to the window icon doesn't exist
   */
   WindowManager();
   /**
@@ -68,10 +76,17 @@ private:
   SDL_Window *m_window = nullptr;     ///< pointer to the SDL_Window
   SDL_Renderer *m_renderer = nullptr; ///< pointer to the SDL_Renderer
 
-  std::vector<SDL_DisplayMode *> m_resolutions;
+  std::vector<std::unique_ptr<SDL_DisplayMode>> m_resolutions;
 
   int m_numOfDisplays = 0;
   int m_activeDisplay = 0;
+  // int m_lastSelectedResolutionIdx = 0;
 
   void initializeScreenResolutions();
+
+  /// Sets up platform/renderer backends and theme
+  void initializeImguiRenderer();
+
+  /// shuts down the renderer for ImGui and the ImGui context.
+  void destroyImGuiRenderer();
 };

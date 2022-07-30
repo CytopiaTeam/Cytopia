@@ -1,3 +1,5 @@
+include(codecov)
+
 set(TESTS_PROJECT_NAME Cytopia_Tests)
 
 include(${CMAKE_SOURCE_DIR}/external/catch2/Catch.cmake)
@@ -20,20 +22,24 @@ LIST(APPEND TEST_SOURCES
         main.cxx
         Example.cxx
         engine/basics/Point.cxx
+        engine/basics/Settings.cxx
         engine/ResourcesManager.cxx
-        engine/Engine.cxx
+        engine/MapFunctions.cxx
+        engine/UIManager.cxx
         engine/WindowManager.cxx
+        game/PowerManager.cxx
         services/GameClock.cxx
-        ui/widgets/Text.cxx
-        ui/widgets/Button.cxx
-        ui/widgets/Checkbox.cxx
-        ui/widgets/Combobox.cxx
-        ui/widgets/Slider.cxx
-        ui/widgets/Tooltip.cxx
         util/Meta.cxx
         util/MessageQueue.cxx
-        # util/LOG.cxx // disabled because log files are no longer written per default
+        util/LOG.cxx
         )
+
+if (USE_ANGELSCRIPT)
+    list(APPEND TEST_SOURCES
+            scripting/ScriptEngine.cxx
+            )
+endif ()
+
 
 # Generate source groups for use in IDEs
 generate_source_groups(${TEST_SOURCES})
@@ -47,29 +53,32 @@ generate_source_groups(${TEST_SOURCES})
 
 add_executable(${TESTS_PROJECT_NAME} ${TEST_SOURCES})
 
+if (ENABLE_PHC)
+    target_precompile_headers(${TESTS_PROJECT_NAME} PRIVATE phc.hxx)
+endif ()
+
 target_include_directories(
         ${TESTS_PROJECT_NAME} PRIVATE
         ${CMAKE_SOURCE_DIR}/external/header_only
         src
         ${CMAKE_SOURCE_DIR}/external/catch2
         ${CMAKE_SOURCE_DIR}/src/engine
+        ${CMAKE_SOURCE_DIR}/src/engine/GameObjects
         ${CMAKE_SOURCE_DIR}/src/engine/basics
         ${CMAKE_SOURCE_DIR}/src/engine/common
-        ${CMAKE_SOURCE_DIR}/src/engine/GameObjects
         ${CMAKE_SOURCE_DIR}/src/engine/map
-        ${CMAKE_SOURCE_DIR}/src/engine/ui/basics/
-        ${CMAKE_SOURCE_DIR}/src/engine/ui/widgets
-        ${CMAKE_SOURCE_DIR}/src/engine/ui/menuGroups
-        ${CMAKE_SOURCE_DIR}/src/util
         ${CMAKE_SOURCE_DIR}/src/events
         ${CMAKE_SOURCE_DIR}/src/layout
         ${CMAKE_SOURCE_DIR}/src/model
+        ${CMAKE_SOURCE_DIR}/src/scripting
         ${CMAKE_SOURCE_DIR}/src/services
+        ${CMAKE_SOURCE_DIR}/src/util
 )
 
-target_compile_definitions(${TESTS_PROJECT_NAME} PRIVATE ${_compile_definitions})
+target_compile_definitions(${TESTS_PROJECT_NAME} PRIVATE ${_compile_definitions} TESTING_ENABLED)
 target_link_libraries(
         ${TESTS_PROJECT_NAME} PRIVATE
+        IMGUI
         LIBPNG::LIBPNG
         SDL::SDL
         SDL::SDL_image
@@ -104,13 +113,5 @@ set_target_properties(
 
 catch_discover_tests(${TESTS_PROJECT_NAME})
 
-# add_coverage(${TESTS_PROJECT_NAME})
-# coverage_evaluate()
-
-if (ENABLE_COVERAGE)
-    file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/gcov_reports)
-    add_custom_target(
-            copy_coverage
-            COMMAND find ${CMAKE_BINARY_DIR}/tests/CMakeFiles/Cytopia_Tests.dir/ -name '*.gcov' -exec cp {} ${CMAKE_BINARY_DIR}/gcov_reports "\;"
-    )
-endif ()
+add_coverage(${TESTS_PROJECT_NAME})
+coverage_evaluate()

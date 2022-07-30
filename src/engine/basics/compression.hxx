@@ -9,9 +9,10 @@ constexpr int CHUNK_SIZE = 65536;
 
 /**
   * @brief Compress a given string with zlib
-  * Compress the given string. Returns an empty string if something went wrong
+  * @details Compress the given string. Returns an empty string if something went wrong
   * @param stringToCompress String that should be compressed
   * @return std::string compressed data
+  * @throws CompressionError if Zlib stream initialization fails or there was an error during the compression process
   */
 std::string compressString(const std::string &stringToCompress)
 {
@@ -63,9 +64,9 @@ std::string compressString(const std::string &stringToCompress)
 
 /**
  * @brief decompresses given string
- * Decompresses a given string.
  * @param compressedString The String that should be decompressed
  * @return std::string Uncompressed string
+ * @throws CompressionError if Zlib stream initialization fails or there was an error during the decompression process
  */
 std::string decompressString(const std::string &compressedString)
 {

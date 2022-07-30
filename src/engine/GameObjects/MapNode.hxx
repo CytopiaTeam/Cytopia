@@ -10,7 +10,7 @@
 
 #include "../Sprite.hxx"
 #include "../common/enums.hxx"
-#include "../basics/point.hxx"
+#include "../basics/Point.hxx"
 
 #include "../TileManager.hxx"
 
@@ -20,7 +20,7 @@ struct MapNodeData
   TileData *tileData = nullptr;
   int32_t tileIndex = 0;
   Point origCornerPoint = Point::INVALID();
-  TileMap tileMap = TileMap::DEFAULT; // store information wheter we use normal, slope or shore tiles
+  TileMap tileMap = TileMap::DEFAULT; // store information whether we use normal, slope or shore tiles
 };
 
 /** @brief Class that holds map nodes
@@ -47,7 +47,7 @@ public:
   ~MapNode() = default;
 
   /** @brief get Sprite
-    * get the Sprite* object for this nodes
+    * @details get the Sprite* object for this nodes
     * @returns the Sprite of this node.
     * @see Sprite
     */
@@ -64,8 +64,8 @@ public:
   void setCoordinates(const Point &newIsoCoordinates);
 
   /** @brief Change Height
-    * @details Increases or decrease the height of the node and its sprite
-    * This function should not be called directly, but only from where the neighboring nodes slopes are determined
+    * @details Increases or decrease the height of the node and its sprite.
+    * This function should not be called directly, but only from where the neighboring nodes slopes are determined.
     *
     * @param higher pass true in case that height should be increased or false in case that height should be decreased.
     * @return true in case that height is changed, otherwise false.
@@ -91,7 +91,7 @@ public:
   bool isPlacementAllowed(const std::string &newTileID) const;
 
   /// Overwrite m_mapData with the one loaded from a savegame. This function to be used only by loadGame
-  void setMapNodeData(std::vector<MapNodeData> &&mapNodeData, const Point &isoCoordinates);
+  void setMapNodeData(std::vector<MapNodeData> &&mapNodeData);
 
   const std::vector<MapNodeData> &getMapNodeData() const { return m_mapNodeData; };
   const MapNodeData &getMapNodeDataForLayer(Layer layer) const { return m_mapNodeData[layer]; };
@@ -107,9 +107,14 @@ public:
     */
   bool isSlopeNode(void) const;
 
+  /** @brief check the conductivity of the node
+    * @returns true if the node conducts electricity/power, false if not
+    */
+  const bool isConductive() const;
+
   /**
  * @brief Demolish a node
- * @details Removes all tiles on a node. This effects all layers where something to demolish is placed. (BUILDINGS, GROUND_DECORATION, UNDERGROUND) per default, but can be restricted to a single Layer.
+ * @details Removes all tiles on a node. This effects all layers where something to demolish is placed (BUILDINGS, GROUND_DECORATION, UNDERGROUND) per default, but can be restricted to a single Layer.
  * @param layer restrict demolish to a single layer
  * @see MapNode#demolishNode
  */
@@ -129,15 +134,17 @@ public:
    * @return const Point& 
    */
   const Point &getOrigCornerPoint(Layer layer) const { return getMapNodeDataForLayer(layer).origCornerPoint; }
-  
+
   /**
    * @brief If this is the origin node of a multitile building. 
    * 
    * @param layer the layer that should be checked, defaults to the BUILDINGS layer
    * @return wheter or not this is the origin node of a multitile building
    */
-  bool isOriginNode(Layer layer = Layer::BUILDINGS) const { 
-    return (m_isoCoordinates == getMapNodeDataForLayer(layer).origCornerPoint); }
+  bool isOriginNode(Layer layer = Layer::BUILDINGS) const
+  {
+    return (m_isoCoordinates == getMapNodeDataForLayer(layer).origCornerPoint);
+  }
 
   /** @brief return topmost active layer.
     * @details check layers in order of significance for the topmost active layer that has an active tile on that layer

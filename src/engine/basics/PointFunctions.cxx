@@ -111,8 +111,6 @@ std::vector<Point> PointFunctions::getStraightLine(const Point &isoCoordinatesSt
   int directionX = isoCoordinatesStart.x < isoCoordinatesEnd.x ? 1 : -1;
   int directionY = isoCoordinatesStart.y < isoCoordinatesEnd.y ? 1 : -1;
   int staticX, staticY;
-  SDL_Point startRect;
-  SDL_Point endRect;
   bool reverseDirection = false;
 
   uint32_t xDist = std::abs(isoCoordinatesStart.x - isoCoordinatesEnd.x);
@@ -243,4 +241,5 @@ NeighborNodesPosition PointFunctions::getNeighborPositionToOrigin(const Point &n
     break;
   }
   assert(false); // this should never happen!
+  return NeighborNodesPosition::CENTER;
 }

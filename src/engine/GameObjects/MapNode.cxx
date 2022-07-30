@@ -63,9 +63,9 @@ void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
       //TODO: we need to modify neighbors TileTypes to Shore.
       // no break on purpose.
     case Layer::ROAD:
-    case Layer::POWERLINES:
       // in case it's allowed then maybe a Tree Tile already exist, so we remove it.
       demolishLayer(Layer::FLORA);
+    case Layer::POWERLINES:
       break;
     case Layer::BUILDINGS:
       if (tileData->tileType != +TileType::FLORA)
@@ -104,26 +104,12 @@ void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
 
 Layer MapNode::getTopMostActiveLayer() const
 {
-  if (MapLayers::isLayerActive(Layer::BUILDINGS) && m_mapNodeData[Layer::BUILDINGS].tileData)
+  for (auto currentLayer : layersInActiveOrder)
   {
-    return Layer::BUILDINGS;
-  }
-  else if (MapLayers::isLayerActive(Layer::BLUEPRINT) && m_mapNodeData[Layer::UNDERGROUND].tileData)
-  {
-    return Layer::UNDERGROUND;
-  }
-  else if (MapLayers::isLayerActive(Layer::BLUEPRINT) && m_mapNodeData[Layer::BLUEPRINT].tileData)
-  {
-    return Layer::BLUEPRINT;
-  }
-  else if (MapLayers::isLayerActive(Layer::GROUND_DECORATION) && m_mapNodeData[Layer::GROUND_DECORATION].tileData)
-  {
-    return Layer::GROUND_DECORATION;
-  }
-  // terrain is our fallback, since there's always terrain.
-  else if (MapLayers::isLayerActive(Layer::TERRAIN) && m_mapNodeData[Layer::TERRAIN].tileData)
-  {
-    return Layer::TERRAIN;
+    if (MapLayers::isLayerActive(currentLayer) && m_mapNodeData[currentLayer].tileData)
+    {
+      return currentLayer;
+    }
   }
   return Layer::NONE;
 }
@@ -169,11 +155,16 @@ bool MapNode::isPlacementAllowed(const std::string &newTileID) const
     switch (layer)
     {
     case Layer::ZONE:
-      // zones can overplace themselves and everything else
+      if (isLayerOccupied(Layer::WATER))
+      {
+        return tileData->placeOnWater;
+      }
       return true;
     case Layer::POWERLINES:
-      if (isLayerOccupied(Layer::ROAD) || isLayerOccupied(Layer::POWERLINES))
-      { // powerlines can be placed over each other and over roads
+      if (isLayerOccupied(Layer::POWERLINES) ||
+          std::any_of(layersPowerlinesCanCross.begin(), layersPowerlinesCanCross.end(),
+                      [this](const Layer &_layer) { return this->isLayerOccupied(_layer); }))
+      { // powerlines can be placed over each other and over other low terrains
         return true;
       }
     case Layer::ROAD:
@@ -203,6 +194,7 @@ bool MapNode::isPlacementAllowed(const std::string &newTileID) const
       }
       break;
     case Layer::BUILDINGS:
+    {
       TileData *tileDataBuildings = m_mapNodeData[Layer::BUILDINGS].tileData;
       if (tileDataBuildings && tileDataBuildings->isOverPlacable)
       { // buildings with overplacable flag
@@ -212,6 +204,9 @@ bool MapNode::isPlacementAllowed(const std::string &newTileID) const
       { // buildings cannot be placed on roads
         return false;
       }
+      break;
+    }
+    default:
       break;
     }
 
@@ -322,15 +317,19 @@ void MapNode::updateTexture(const Layer &layer)
         }
         else
         {
-          if (m_mapNodeData[currentLayer].tileData->tileType == +TileType::POWERLINE && m_mapNodeData[ROAD].tileData)
-          { // if we place a power line on roads
+          if (m_mapNodeData[currentLayer].tileData->tileType == +TileType::POWERLINE &&
+              std::any_of(layersPowerlinesCanCross.begin(), layersPowerlinesCanCross.end(),
+                          [this](const Layer &_layer) { return this->m_mapNodeData[_layer].tileData; }))
+          { // if we place a power line cross low terrain (eg, roads, water, flora)
             switch (m_autotileOrientation[currentLayer])
             {
             case TileOrientation::TILE_N_AND_S:
-              m_autotileOrientation[currentLayer] = TileOrientation::TILE_N_AND_S_ROAD;
+              m_autotileOrientation[currentLayer] = TileOrientation::TILE_N_AND_S_CROSS;
               break;
             case TileOrientation::TILE_E_AND_W:
-              m_autotileOrientation[currentLayer] = TileOrientation::TILE_E_AND_W_ROAD;
+              m_autotileOrientation[currentLayer] = TileOrientation::TILE_E_AND_W_CROSS;
+              break;
+            default:
               break;
             }
           }
@@ -438,7 +437,7 @@ void MapNode::setCoordinates(const Point &newIsoCoordinates)
 
 const MapNodeData &MapNode::getActiveMapNodeData() const { return m_mapNodeData[getTopMostActiveLayer()]; }
 
-void MapNode::setMapNodeData(std::vector<MapNodeData> &&mapNodeData, const Point &currNodeIsoCoordinates)
+void MapNode::setMapNodeData(std::vector<MapNodeData> &&mapNodeData)
 {
   m_mapNodeData.swap(mapNodeData);
   this->setNodeTransparency(Settings::instance().zoneLayerTransparency, Layer::ZONE);
@@ -497,5 +496,17 @@ void MapNode::demolishNode(const Layer &demolishLayer)
       }
       updateTexture(demolishLayer);
     }
+  }
+}
+
+const bool MapNode::isConductive() const
+{
+  if (getTileData(Layer::BUILDINGS) || getTileData(Layer::POWERLINES) || getTileData(Layer::ZONE))
+  {
+    return true;
+  }
+  else
+  {
+    return false;
   }
 }

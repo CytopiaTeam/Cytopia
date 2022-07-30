@@ -1,8 +1,7 @@
 #include "GamePlay.hxx"
 
-void GamePlay::update()
+void GamePlay::resetManagers()
 {
-  // Here call all gameplay class updates
-  
-  // m_ZoneManager.update();
+  m_ZoneManager.reset();
+  m_PowerManager.reset();
 }

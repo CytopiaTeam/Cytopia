@@ -5,7 +5,6 @@
 #include <string>
 #include <vector>
 
-
 namespace fs
 {
 
@@ -49,7 +48,7 @@ std::vector<std::string> getSaveGamePaths();
 
 /** @brief Check if a file (or folder) exists
  * @param filePath Path to file or folder to check
- * @returns a true if the path exists
+ * @returns true if the path exists
  */
 
 bool fileExists(const std::string &filePath);

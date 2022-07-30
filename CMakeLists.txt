@@ -1,10 +1,13 @@
-cmake_minimum_required(VERSION 3.10 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.16 FATAL_ERROR)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake" "${CMAKE_SOURCE_DIR}/cmake/find-modules")
 include(CMakeDependentOption)
 include(Macros)
 include(FeatureSummary)
 include(SourceFileUtils)
+include(CMakeCM)
 set(_PREFIX "CYTOPIA_")
+
+set(CMAKE_CONFIGURATION_TYPES "Debug" "Release" CACHE STRING "Configuration types")
 
 # Test if conan is installed
 find_program(CONAN_CMD_TEST conan NO_CACHE)
@@ -16,7 +19,7 @@ project(
         # this will be the ${PROJECT_NAME}
         Cytopia
         # this will provide ${PROJECT_VERSION}
-        VERSION 0.2.1
+        VERSION 0.4
         # Description
         DESCRIPTION "A city-building game"
         # we are using C++
@@ -25,17 +28,6 @@ project(
 
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
-
-find_program(SCCACHE_PROGRAM sccache)
-find_program(CCACHE_PROGRAM ccache)
-if (SCCACHE_PROGRAM)
-    set(CMAKE_CXX_COMPILER_LAUNCHER "${SCCACHE_PROGRAM}")
-    message("Using ${SCCACHE_PROGRAM} for speeding up build")
-elseif (CCACHE_PROGRAM)
-    set(CMAKE_CXX_COMPILER_LAUNCHER "${CCACHE_PROGRAM}")
-    message("Using ${CCACHE_PROGRAM} for speeding up build")
-endif ()
-
 
 # Allow user to globally set the library preference for external libraries
 cmd_option(
@@ -49,6 +41,7 @@ cmd_option(
 option(${_PREFIX}FORCE_SYSTEM_DEPENDENCIES "Force the use of system packages")
 
 option(BUILD_TEST "Build Cytopia Tests" ON)
+option(ENABLE_PHC "Use a Precompiled header for speeding up the build" ON)
 option(ENABLE_DEBUG "Enable Debug (asserts and logs)" OFF)
 option(ENABLE_ASAN "Enable Address Sanitizer" OFF)
 option(ENABLE_UBSAN "Enable Undefined Behaviour Sanitizer" OFF)
@@ -62,7 +55,6 @@ set(EXECUTABLE_OUTPUT_PATH ${RUNTIME_OUTPUT_DIRECTORY})
 set(LIBRARY_OUTPUT_PATH ${RUNTIME_OUTPUT_DIRECTORY})
 
 if (WIN32)
-    set(CMAKE_CONFIGURATION_TYPES "Debug" "Release" CACHE STRING "Configuration types")
     # fix executable paths for windows
     set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${RUNTIME_OUTPUT_DIRECTORY})
     set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${RUNTIME_OUTPUT_DIRECTORY})
@@ -122,12 +114,14 @@ if (UNIX)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread -fdiagnostics-color=always")
 endif ()
 
+# Include imgui project
+add_subdirectory(external/imgui)
+
 add_subdirectory(src)
 
 if (BUILD_TEST)
     include(CTest)
     enable_testing()
-
     add_subdirectory(tests)
 endif (BUILD_TEST)
 

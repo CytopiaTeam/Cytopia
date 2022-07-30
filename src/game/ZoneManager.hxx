@@ -2,13 +2,15 @@
 #define ZONEMANAGER_HXX_
 
 #include "ZoneArea.hxx"
-#include "../engine/GameObjects/MapNode.hxx"
-
+#include "PowerGrid.hxx"
+#include <MapNode.hxx>
 
 class ZoneManager
 {
 public:
   ZoneManager();
+
+  void reset();
 
 private:
   /**
@@ -17,7 +19,7 @@ private:
    */
   void spawnBuildings();
 
-    /**
+  /**
    * @brief Process previously cached nodes to update
    * 
    */
@@ -55,7 +57,13 @@ private:
    */
   std::vector<ZoneArea> rebuildZoneArea(ZoneArea &zoneArea);
 
-  std::vector<ZoneArea> m_zoneAreas; /// All zoneAreas
+  void updatePower(const std::vector<PowerGrid> &powerGrid);
+
+  void updateRemovedNodes(const MapNode *mapNode);
+
+  void updatePlacedNodes(const MapNode &mapNode);
+
+  std::vector<ZoneArea> m_zoneAreas;  /// All zoneAreas
   std::vector<ZoneNode> m_nodesToAdd; /// All zoneAreas
   std::vector<Point> m_nodesToOccupy; /// All zoneAreas
   std::vector<Point> m_nodesToVacate; /// All zoneAreas

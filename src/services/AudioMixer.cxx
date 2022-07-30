@@ -94,9 +94,6 @@ AudioMixer::~AudioMixer()
   {
     return;
   }
-  int num_opened = 0;
-  int _discard;
-  Uint16 _discard2;
 
   alcDestroyContext(alContext); //delete context
   alcCloseDevice(gAudioDevice); //close device
@@ -114,7 +111,7 @@ SoundtrackUPtr &AudioMixer::getTrack(const AudioTrigger &trigger)
   }
 
   auto &possibilities = m_Triggers[trigger];
-  if (possibilities.size() == 0)
+  if (possibilities.empty())
   {
     LOG(LOG_WARNING) << "No Soundtracks are triggered by " << trigger._to_string();
     return noResoruce;
@@ -146,12 +143,17 @@ void AudioMixer::setMusicVolume(float volume)
 
   // for now set the volume for everything.
   alListenerf(AL_GAIN, volume);
+  // update the settings accordingly
+  Settings::instance().musicVolume = volume;
 }
 
 void AudioMixer::setSoundEffectVolume(float volume)
 {
   // find out how to set those volumes seperately
   //alListenerf(AL_GAIN, volume);
+  
+  // for now, just set the settings value, even if it doesnt do anything
+  Settings::instance().soundEffectsVolume = volume;
 }
 
 void AudioMixer::play(const SoundtrackID &id)

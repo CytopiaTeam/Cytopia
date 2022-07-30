@@ -10,8 +10,16 @@
 #include "map/MapLayers.hxx"
 #include "Map.hxx"
 #include "Sprite.hxx"
+#include "UIManager.hxx"
+#include "WindowManager.hxx"
+#include <MapFunctions.hxx>
 
 #include "LOG.hxx"
+
+#include "imgui.h"
+#include "imgui_impl_sdl.h"
+
+#include "../game/ui/PauseMenu.hxx"
 
 #ifdef MICROPROFILE_ENABLED
 #include "microprofile/microprofile.h"
@@ -19,19 +27,56 @@
 
 void EventManager::unHighlightNodes()
 {
-  for (auto node : m_nodesToPlace)
+  if (!m_isPuttingTile)
   {
-    Engine::instance().map->unHighlightNode(node);
+    for (auto node : m_nodesToPlace)
+    {
+      MapFunctions::instance().unHighlightNode(node);
+    }
+    m_nodesToPlace.clear();
   }
   for (auto node : m_nodesToHighlight)
   {
-    Engine::instance().map->unHighlightNode(node);
+    MapFunctions::instance().unHighlightNode(node);
   }
   m_nodesToHighlight.clear();
-  m_nodesToPlace.clear();
 }
 
-void EventManager::checkEvents(SDL_Event &event, Engine &engine)
+void EventManager::pickTileUnderCursor(Point mouseIsoCoords)
+{
+  Layer topMostActiveLayer;
+  std::vector<MapNodeData> mapNodeData;
+  const MapNode &node = MapFunctions::instance().getMapNode(mouseIsoCoords);
+
+  topMostActiveLayer = node.getTopMostActiveLayer();
+  // all layers are supported except terrain
+  if (topMostActiveLayer == Layer::TERRAIN || topMostActiveLayer == Layer::NONE)
+    return;
+  // update placement mode
+  switch (topMostActiveLayer)
+  {
+    case Layer::BUILDINGS:
+      GameStates::instance().placementMode = PlacementMode::SINGLE;
+      break;
+    case Layer::ROAD:
+    case Layer::POWERLINES:
+    case Layer::UNDERGROUND:
+      GameStates::instance().placementMode = PlacementMode::LINE;
+      break;
+    case Layer::GROUND_DECORATION:
+    case Layer::WATER:
+    case Layer::ZONE:
+      GameStates::instance().placementMode = PlacementMode::RECTANGLE;
+      break;
+    default:
+      break;
+  }
+  mapNodeData = node.getMapNodeData();
+  tileToPlace = mapNodeData[topMostActiveLayer].tileID;
+  highlightSelection = true;
+}
+
+void EventManager::checkEvents(SDL_Event &event)
 {
 #ifdef MICROPROFILE_ENABLED
   MICROPROFILE_SCOPEI("EventManager", "checkEvents", MP_BEIGE);
@@ -39,13 +84,16 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
   // check for UI events first
   SDL_Point mouseScreenCoords;
   Point mouseIsoCoords{};
+  auto &uiManager = UIManager::instance();
 
   while (SDL_PollEvent(&event))
   {
+    ImGui_ImplSDL2_ProcessEvent(&event);
+
     switch (event.type)
     {
     case SDL_QUIT:
-      engine.quitGame();
+      SignalMediator::instance().signalQuitGame.emit();
       break;
 
     case SDL_KEYDOWN:
@@ -54,13 +102,18 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       case SDLK_ESCAPE:
         if (!tileToPlace.empty())
         {
-          m_uiManager.closeOpenMenus();
+          uiManager.closeOpenMenus();
           tileToPlace.clear();
           highlightSelection = false;
         }
         else
         {
-          m_uiManager.toggleGroupVisibility("PauseMenu");
+          uiManager.closeOpenMenus();
+
+          if (uiManager.isAnyMenuOpen())
+            uiManager.closeMenu();
+          else
+            uiManager.openMenu<PauseMenu>();
         }
         break;
 
@@ -78,7 +131,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         }
         break;
       case SDLK_F11:
-        m_uiManager.toggleDebugMenu();
+        uiManager.toggleDebugMenu();
         break;
       case SDLK_1:
         MapLayers::toggleLayer(Layer::TERRAIN);
@@ -106,65 +159,41 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
         GameStates::instance().drawUI = !GameStates::instance().drawUI;
         break;
       case SDLK_f:
-        engine.toggleFullScreen();
+        WindowManager::instance().toggleFullScreen();
         break;
       case SDLK_UP:
       case SDLK_w:
-        if (Camera::instance().cameraOffset().y > -2 * Settings::instance().screenHeight * Camera::instance().zoomLevel())
+        if (MapFunctions::instance().getMap() &&
+            Camera::instance().cameraOffset().y > -2 * Settings::instance().screenHeight * Camera::instance().zoomLevel())
         {
-          // check if map exists to see, if we're ingame already.
-          if (Engine::instance().map)
-          {
-            Camera::instance().moveCameraY(Settings::instance().screenHeight / 16);
-            // set the center coordinates for scrolling
-            Camera::instance().setCenterIsoCoordinates(
-                convertScreenToIsoCoordinates({Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2}));
-            Engine::instance().map->refresh();
-          }
+          Camera::instance().moveCamera(0, Settings::instance().screenHeight / 16);
         }
         break;
       case SDLK_LEFT:
       case SDLK_a:
-        if (Camera::instance().cameraOffset().x > -0.25 * Settings::instance().screenWidth * Camera::instance().zoomLevel())
+        if (MapFunctions::instance().getMap() &&
+            Camera::instance().cameraOffset().x > -0.25 * Settings::instance().screenWidth * Camera::instance().zoomLevel())
         {
-          // check if map exists to see, if we're ingame already.
-          if (Engine::instance().map)
-          {
-            Camera::instance().moveCameraX(Settings::instance().screenWidth / 16);
-            // set the center coordinates for scrolling
-            Camera::instance().setCenterIsoCoordinates(
-                convertScreenToIsoCoordinates({Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2}));
-            Engine::instance().map->refresh();
-          }
+          Camera::instance().moveCamera(Settings::instance().screenWidth / 16, 0);
         }
         break;
       case SDLK_DOWN:
       case SDLK_s:
-        if (Camera::instance().cameraOffset().y < 1.25 * Settings::instance().screenHeight * Camera::instance().zoomLevel())
+        if (MapFunctions::instance().getMap() &&
+            Camera::instance().cameraOffset().y < 1.25 * Settings::instance().screenHeight * Camera::instance().zoomLevel())
         {
-          // check if map exists to see, if we're ingame already.
-          if (Engine::instance().map)
-          {
-            Camera::instance().moveCameraY(-Settings::instance().screenHeight / 16);
-            // set the center coordinates for scrolling
-            Camera::instance().setCenterIsoCoordinates(
-                convertScreenToIsoCoordinates({Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2}));
-            Engine::instance().map->refresh();
-          }
+          Camera::instance().moveCamera(0, -Settings::instance().screenHeight / 16);
         }
         break;
       case SDLK_RIGHT:
       case SDLK_d:
-        if (Camera::instance().cameraOffset().x < 5 * Settings::instance().screenWidth * Camera::instance().zoomLevel())
+        if (MapFunctions::instance().getMap() &&
+            Camera::instance().cameraOffset().x < 5 * Settings::instance().screenWidth * Camera::instance().zoomLevel())
         {
           // check if map exists to see, if we're ingame already.
-          if (Engine::instance().map)
+          if (MapFunctions::instance().getMap())
           {
-            Camera::instance().moveCameraX(-Settings::instance().screenWidth / 16);
-            // set the center coordinates for scrolling
-            Camera::instance().setCenterIsoCoordinates(
-                convertScreenToIsoCoordinates({Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2}));
-            Engine::instance().map->refresh();
+            Camera::instance().moveCamera(-Settings::instance().screenWidth / 16, 0);
           }
         }
         break;
@@ -206,74 +235,23 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
                                                static_cast<int>(event.mgesture.y * Settings::instance().screenHeight)});
           }
           Camera::instance().setPinchDistance(event.mgesture.dDist * 15.0F, m_pinchCenterCoords.x, m_pinchCenterCoords.y);
-          m_skipLeftClick = true;
           break;
         }
 
         if (m_panning)
         {
-          Camera::instance().moveCameraX(static_cast<int>(Settings::instance().screenWidth * event.tfinger.dx));
-          Camera::instance().moveCameraY(static_cast<int>(Settings::instance().screenHeight * event.tfinger.dy));
-          Camera::instance().setCenterIsoCoordinates(
-              convertScreenToIsoCoordinates({Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2}));
-          Engine::instance().map->refresh();
-          m_skipLeftClick = true;
+          Camera::instance().moveCamera(static_cast<int>(Settings::instance().screenWidth * event.tfinger.dx),
+                                        static_cast<int>(Settings::instance().screenHeight * event.tfinger.dy));
           break;
         }
-        m_skipLeftClick = true;
       }
       break;
     case SDL_MOUSEMOTION:
       m_placementAllowed = false;
       m_cancelTileSelection = false;
-      // check for UI events first
-      for (const auto &it : m_uiManager.getAllUiElements())
-      {
-        // if element isn't visible then don't event check it
-        if (it->isVisible())
-        {
-          // spawn tooltip timer, if we're over an UI Element
-          if (it->isMouseOver(event.button.x, event.button.y) && !it->getUiElementData().tooltipText.empty())
-          {
-            m_uiManager.startTooltip(event, it->getUiElementData().tooltipText);
-          }
-          // if the mouse cursor left an element, we're not hovering any more and we need to reset the pointer to null
-          if (m_lastHoveredElement && !m_lastHoveredElement->isMouseOverHoverableArea(event.button.x, event.button.y))
-          {
-            // we're not hovering, so stop the tooltips
-            m_uiManager.stopTooltip();
-            // tell the previously hovered element we left it before resetting it
-            m_lastHoveredElement->onMouseLeave(event);
-            m_lastHoveredElement = nullptr;
-            break;
-          }
-          // If we're over a UI element that has no click functionality, abort the event loop, so no clicks go through the UiElement.
-          //Note: This is handled here because UIGroups have no dimensions, but are UiElements
-          if (it->isMouseOverHoverableArea(event.button.x, event.button.y))
-          {
-            it->onMouseMove(event);
-            // if the element we're hovering over is not the same as the stored "lastHoveredElement", update it
-            if (it.get() != m_lastHoveredElement)
-            {
-              if (m_lastHoveredElement)
-              {
-                m_lastHoveredElement->onMouseLeave(event);
-              }
-              it->onMouseEnter(event);
-              m_lastHoveredElement = it.get();
-            }
-            break;
-          }
-          // definitely figure out a better way to do this, this was done for the Slider
-          if (it->isMouseOver(event.button.x, event.button.y))
-          {
-            it->onMouseMove(event);
-          }
-        }
-      }
 
       //  Game Event Handling
-      if (engine.map)
+      if (MapFunctions::instance().getMap())
       {
         // clear highlighting
         unHighlightNodes();
@@ -285,22 +263,17 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           {
             return;
           }
-          Camera::instance().moveCameraX(event.motion.xrel);
-          Camera::instance().moveCameraY(event.motion.yrel);
-
-          Engine::instance().map->refresh();
+          Camera::instance().moveCamera(event.motion.xrel, event.motion.yrel);
         }
         // check if we should highlight tiles and if we're in placement mode
         if (highlightSelection)
         {
           mouseScreenCoords = {event.button.x, event.button.y};
-          const Point terrainCoordinates = engine.map->findNodeInMap(mouseScreenCoords, Layer::TERRAIN);
-          const Point buildingCoordinates = engine.map->findNodeInMap(mouseScreenCoords, Layer::BUILDINGS);
           mouseIsoCoords = convertScreenToIsoCoordinates(mouseScreenCoords);
 
           // if it's a multi-node tile, get the origin corner point
           Point origCornerPoint =
-              engine.map->getNodeOrigCornerPoint(mouseIsoCoords, TileManager::instance().getTileLayer(tileToPlace));
+              MapFunctions::instance().getNodeOrigCornerPoint(mouseIsoCoords, TileManager::instance().getTileLayer(tileToPlace));
 
           if (origCornerPoint == Point::INVALID())
           {
@@ -312,7 +285,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           {
             if (it != Point::INVALID())
             {
-              (engine.map->getMapNode(it)).setNodeTransparency(0, Layer::BUILDINGS);
+              (MapFunctions::instance().getMapNode(it)).setNodeTransparency(0, Layer::BUILDINGS);
             }
           }
           m_transparentBuildings.clear();
@@ -334,7 +307,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           }
 
           // if mouse is held down, we need to check for plamentmodes LINE and RECTANGLE
-          if ((SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_LEFT)))
+          if (SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_LEFT))
           {
             switch (GameStates::instance().placementMode)
             {
@@ -378,9 +351,9 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
             {
               layer = TileManager::instance().getTileLayer(tileToPlace);
             }
-            Point currentOriginPoint = engine.map->getNodeOrigCornerPoint(coords, layer);
+            Point currentOriginPoint = MapFunctions::instance().getNodeOrigCornerPoint(coords, layer);
 
-            std::string currentTileID = engine.map->getTileID(currentOriginPoint, layer);
+            std::string currentTileID = MapFunctions::instance().getTileID(currentOriginPoint, layer);
             for (auto &foundNode : TileManager::instance().getTargetCoordsOfTileID(currentOriginPoint, currentTileID))
             {
               // only add the node if it's unique
@@ -399,41 +372,33 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
             m_nodesToPlace = m_nodesToHighlight;
           }
 
-          // we need to check if placement is allowed and set a bool to color ALL the highlighted tiles and not just those who can't be placed
-          for (const auto &highlitNode : m_nodesToHighlight)
-          {
-            if (!engine.map->isPlacementOnNodeAllowed(highlitNode, tileToPlace) || demolishMode)
-            {
-              // already occupied tile, mark red
-              m_placementAllowed = false;
-              break;
-            }
+          m_placementAllowed = MapFunctions::instance().isPlacementOnAreaAllowed(m_nodesToHighlight, tileToPlace);
 
-            // mark gray.
-            m_placementAllowed = true;
-          }
-          // finally highlight all the tiles we've found
+          // Finally highlight all the tiles we've found
+          // Set highlighted tiles that can be placed and can't be placed different color
           for (const auto &highlitNode : m_nodesToHighlight)
           {
-            if (m_placementAllowed)
+            if (!MapFunctions::instance().isPlacementOnNodeAllowed(highlitNode, tileToPlace) || demolishMode)
             {
-              engine.map->highlightNode(highlitNode, SpriteHighlightColor::GRAY);
+              // mark red
+              MapFunctions::instance().highlightNode(highlitNode, SpriteHighlightColor::RED);
             }
             else
             {
-              engine.map->highlightNode(highlitNode, SpriteHighlightColor::RED);
+              // place allowed tile, mark gray
+              MapFunctions::instance().highlightNode(highlitNode, SpriteHighlightColor::GRAY);
             }
             const Point &buildingCoordinates =
-                engine.map->findNodeInMap(convertIsoToScreenCoordinates(highlitNode), Layer::BUILDINGS);
+                MapFunctions::instance().findNodeInMap(convertIsoToScreenCoordinates(highlitNode), Layer::BUILDINGS);
 
             auto transparentBuildingIt =
                 std::find(m_transparentBuildings.begin(), m_transparentBuildings.end(), buildingCoordinates);
             if ((transparentBuildingIt == m_transparentBuildings.end()) && (buildingCoordinates != Point::INVALID()))
             {
-              const TileData *tileData = engine.map->getMapNode(buildingCoordinates).getTileData(Layer::BUILDINGS);
+              const TileData *tileData = MapFunctions::instance().getMapNode(buildingCoordinates).getTileData(Layer::BUILDINGS);
               if (tileData && tileData->category != "Flora")
               {
-                engine.map->getMapNode(buildingCoordinates).setNodeTransparency(0.6f, Layer::BUILDINGS);
+                MapFunctions::instance().getMapNode(buildingCoordinates).setNodeTransparency(0.6f, Layer::BUILDINGS);
                 m_transparentBuildings.push_back(buildingCoordinates);
               }
             }
@@ -443,17 +408,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       break;
     case SDL_MOUSEBUTTONDOWN:
       m_placementAllowed = false;
-      m_skipLeftClick = false;
-      // check for UI events first
-      for (const auto &it : m_uiManager.getAllUiElementsForEventHandling())
-      {
-        // only check visible elements
-        if (it->isVisible() && it->onMouseButtonDown(event))
-        {
-          break;
-        }
-      }
-
+      
       if (event.button.button == SDL_BUTTON_RIGHT)
       {
         m_panning = true;
@@ -492,6 +447,7 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
           {
             m_nodesToPlace.push_back(mouseIsoCoords);
           }
+          m_isPuttingTile = true;
         }
       }
       break;
@@ -500,44 +456,17 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
     {
       if (m_cancelTileSelection)
       {
-        m_uiManager.closeOpenMenus();
+        uiManager.closeOpenMenus();
         tileToPlace.clear();
         highlightSelection = false;
       }
       if (m_panning)
       {
-        Camera::instance().setCenterIsoCoordinates(
-            convertScreenToIsoCoordinates({Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2}));
         m_panning = false;
       }
 
       // reset pinchCenterCoords when fingers are released
       m_pinchCenterCoords = {0, 0, 0, 0};
-      // check for UI events first
-      for (const auto &it : m_uiManager.getAllUiElementsForEventHandling())
-      {
-        // only check visible elements
-        if (it->isVisible() && event.button.button == SDL_BUTTON_LEFT)
-        {
-          // first, check if the element is a group and send the event
-          if (it->onMouseButtonUp(event))
-          {
-            m_skipLeftClick = true;
-            break;
-          }
-          // If we're over a UI element that has no click functionality, abort the event loop, so no clicks go through the UiElement.
-          //Note: This is handled here because UIGroups have no dimensions, but are UiElements
-          if (it->isMouseOver(event.button.x, event.button.y))
-          {
-            m_skipLeftClick = true;
-          }
-        }
-      }
-      // If we're over a ui element, don't handle game events
-      if (m_skipLeftClick)
-      {
-        break;
-      }
 
       // game event handling
       mouseScreenCoords = {event.button.x, event.button.y};
@@ -549,52 +478,60 @@ void EventManager::checkEvents(SDL_Event &event, Engine &engine)
       {
         if (m_tileInfoMode)
         {
-          engine.map->getNodeInformation({mouseIsoCoords.x, mouseIsoCoords.y, 0, 0});
+          MapFunctions::instance().getNodeInformation({mouseIsoCoords.x, mouseIsoCoords.y, 0, 0});
         }
         else if (terrainEditMode == TerrainEdit::RAISE)
         {
-          engine.increaseHeight(mouseIsoCoords);
+          MapFunctions::instance().changeHeight(mouseIsoCoords, true);
         }
         else if (terrainEditMode == TerrainEdit::LOWER)
         {
-          engine.decreaseHeight(mouseIsoCoords);
-        }
-        else if (!tileToPlace.empty() && m_placementAllowed)
-        {
-          engine.map->setTileID(tileToPlace, m_nodesToPlace);
+          MapFunctions::instance().changeHeight(mouseIsoCoords, false);
         }
         else if (demolishMode)
         {
-          engine.map->demolishNode(m_nodesToHighlight, true);
+          MapFunctions::instance().demolishNode(m_nodesToHighlight, true);
+        }
+        // select the tile our cursor is over
+        else if (!demolishMode && tileToPlace.empty())
+        {
+          pickTileUnderCursor(mouseIsoCoords);
+          // pick the tile in mousemove, player will find mousedown
+          break;
+        }
+        else if (!tileToPlace.empty() && m_placementAllowed)
+        {
+          if (!uiManager.isMouseHovered() && !MapFunctions::instance().setTileID(tileToPlace, m_nodesToPlace))
+          {
+            // If can't put picked tile here,
+            // pick tile under cursor as the new picked tile
+            // Thus the picker would always work without
+            // having to right click or enter Esc(abort tile placing) first
+            pickTileUnderCursor(mouseIsoCoords);
+          }
         }
       }
       // when we're done, reset highlighting
+      m_isPuttingTile = false;
       unHighlightNodes();
 
       if (highlightSelection)
       {
         m_nodesToHighlight.push_back(mouseIsoCoords);
-        if (!tileToPlace.empty() && !engine.map->isPlacementOnNodeAllowed(mouseIsoCoords, tileToPlace))
+        if (!uiManager.isMouseHovered() && !tileToPlace.empty() && !MapFunctions::instance().setTileID(tileToPlace, mouseIsoCoords))
         {
-          engine.map->highlightNode(mouseIsoCoords, SpriteHighlightColor::RED);
+          MapFunctions::instance().highlightNode(mouseIsoCoords, SpriteHighlightColor::RED);
         }
         else
         {
-          engine.map->highlightNode(mouseIsoCoords, SpriteHighlightColor::GRAY);
+          MapFunctions::instance().highlightNode(mouseIsoCoords, SpriteHighlightColor::GRAY);
         }
       }
 
       break;
     }
     case SDL_MOUSEWHEEL:
-      if (event.wheel.y > 0)
-      {
-        Camera::instance().increaseZoomLevel();
-      }
-      else if (event.wheel.y < 0)
-      {
-        Camera::instance().decreaseZoomLevel();
-      }
+      Camera::instance().changeZoomLevel(event.wheel.y > 0);
       break;
 
     default:

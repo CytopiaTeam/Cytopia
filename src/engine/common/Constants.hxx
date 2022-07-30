@@ -3,13 +3,12 @@
 
 // PATHS
 #ifdef __linux__
-const std::string CYTOPIA_DATA_DIR_BASE = (getenv("XDG_DATA_HOME") == NULL)
-                                              ? (std::string)getenv("HOME") + (std::string) "/.local/share"
-                                              : (std::string)getenv("XDG_DATA_HOME");
+const std::string CYTOPIA_DATA_DIR_BASE(getenv("XDG_DATA_HOME") == nullptr ? getenv("HOME") + std::string("/.local/share")
+                                                                           : getenv("XDG_DATA_HOME"));
 #elif _WIN32
 const std::string CYTOPIA_DATA_DIR_BASE = getenv("APPDATA");
 #elif __APPLE__
-const std::string CYTOPIA_DATA_DIR_BASE = getenv("HOME")+(std::string)"/Library/Application Support";
+const std::string CYTOPIA_DATA_DIR_BASE = getenv("HOME") + (std::string) "/Library/Application Support";
 #else
 // TODO: Define mobile platform dirs
 const std::string CYTOPIA_DATA_DIR_BASE = "";
@@ -25,4 +24,5 @@ constexpr const char SETTINGS_FILE_NAME[] = "resources/settings.json";
 constexpr const unsigned int SAVEGAME_VERSION = 4;
 constexpr const char TERRAINGEN_DATA_FILE_NAME[] = "resources/data/TerrainGen.json";
 
+const std::string DEFAULT_TERRAIN = "terrain_grass";
 #endif

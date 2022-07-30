@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop">
+    <id>net.cytopia.Cytopia</id>
+    <launchable type="desktop-id">Cytopia.desktop</launchable>
+    <name>Cytopia</name>
+    <summary>A city building simulation game</summary>
+    <metadata_license>CC0-1.0</metadata_license>
+    <project_license>GPL-3.0-only</project_license>
+    <description>
+        <p>
+            Cytopia is a free, open source retro pixel-art city building
+            game with a big focus on mods. It utilizes a custom isometric
+            rendering engine based on SDL2.
+        </p>
+        <p>
+            Current Key Features:
+        </p>
+        <ul>
+            <li>Custom UI System, based on JSON. Highly moddable</li>
+            <li>SDL2 based rendering engine written in C++</li>
+            <li>Camera panning, zooming, relocating</li>
+            <li>Terrain manipulation</li>
+            <li>Procedural Terrain Generation</li>
+            <li>Pixel-art graphics made by graphics team lead by Kingtut 101</li>
+            <li>An original soundtrack, ambient noises, and sound effects made mostly by MB22</li>
+            <li>A Qt based tile editor for editing TileData JSON files</li>
+        </ul>
+        <p>
+            Planned features:
+        </p>
+        <ul>
+            <li>Biomes</li>
+            <li>OpenGL Renderer</li>
+            <li>Gameplay mechanics</li>
+            <li>In-Game Mod downloading mechanism</li>
+            <li>Android / iOS</li>
+            <li>Scripting language for mods (like LUA)</li>
+            <li>Flexible supporting a range of chemical data formats and packages</li>
+        </ul>
+    </description>
+    <url type="homepage">https://www.cytopia.net/</url>
+    <url type="help">https://community.cytopia.net/forum/forumview.htm</url>
+    <url type="bugtracker">https://github.com/CytopiaTeam/Cytopia/issues</url>
+    <url type="donation">https://www.patreon.com/cytopia</url>
+    <developer_name>Cytopia team</developer_name>
+    <screenshots>
+        <screenshot type="default">
+            <image>https://camo.githubusercontent.com/bc5894f89d64f4cb8f01e4c02233d6934519e26d34a13fa006cd9bce301554c0/68747470733a2f2f6379746f7069612e6e65742f6769746875622f53637265656e73686f74312e706e67</image>
+        </screenshot>
+        <screenshot>
+            <image>https://camo.githubusercontent.com/7959cc902e29e1b1fa072c5c8e6f5437b5ff61ca320e64c01eb9d472a26440bb/68747470733a2f2f6379746f7069612e6e65742f6769746875622f53637265656e73686f74322e6a7067</image>
+        </screenshot>
+    </screenshots>
+    <content_rating type="oars-1.1"/>
+    <releases>
+        <release version="0.2.1" date="2020-04-14">
+        </release>    
+    </releases>
+</component>

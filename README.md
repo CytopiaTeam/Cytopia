@@ -66,6 +66,8 @@ Mac
 - [libnoise](http://libnoise.sourceforge.net/)
 - [libogg](https://www.xiph.org/ogg/)
 - [libvorbis](https://www.xiph.org/vorbis/)
+- [libpng](http://www.libpng.org/pub/png/libpng.html)
+- [imgui](https://github.com/ocornut/imgui)
 
 #### Build instructions
 

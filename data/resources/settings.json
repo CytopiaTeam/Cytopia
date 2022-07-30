@@ -1,4 +1,5 @@
 {
+  "SettingsVersion": 1,
   "Audio": {
     "Audio3DStatus": false,
     "AudioChannels": 2,
@@ -21,24 +22,24 @@
     "ShowBuildingsInBlueprint": false,
     "ZoneLayerTransparency": 0.6
   },
-    "Graphics": {
-        "FullScreen": false,
-        "FullScreenMode": 0,
-        "Resolution": {
-            "Screen_Height": 600,
-            "Screen_Width": 800
-        },
-        "VSYNC": true
+  "Graphics": {
+    "FullScreen": false,
+    "FullScreenMode": 0,
+    "Resolution": {
+      "Screen_Height": 600,
+      "Screen_Width": 800
     },
-    "User Interface": {
+    "VSYNC": true
+  },
+  "User Interface": {
     "BuildMenuPosition": "BOTTOM",
-    "FontFilename": "resources/fonts/arcadeclassics.ttf",
-        "Language": "en",
-        "SubMenuButtonHeight": 32,
-        "SubMenuButtonWidth": 32
-    },
-    "Debug": {
-      "WriteErrorLogToFile": false
-
-    }
+    "FontFilename": "resources/fonts/pixellocale-v-1-4.ttf",
+    "Language": "en",
+    "SubMenuButtonHeight": 32,
+    "SubMenuButtonWidth": 32,
+    "DefaultFontSize": 20
+  },
+  "Debug": {
+    "WriteErrorLogToFile": false
+  }
 }

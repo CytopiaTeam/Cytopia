@@ -1,8 +1,6 @@
 #include "utils.hxx"
 
-namespace utils
-{
-namespace strings
+namespace utils::strings
 {
 void removeSubString(std::string &string, const std::string &stringToRemove)
 {
@@ -23,5 +21,4 @@ bool startsWith(const std::string &mainStr, const std::string &toMatch)
 {
   return mainStr.size() >= toMatch.size() && mainStr.compare(0, toMatch.size(), toMatch) == 0;
 }
-} // namespace strings
-} // namespace utils
+} // namespace utils::strings

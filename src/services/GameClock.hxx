@@ -80,6 +80,8 @@ public:
   */
   void setGameClockSpeed(float speedFactor);
 
+  float getGameClockSpeed() const { return m_speedFactor; }
+
   /**
   * @brief Remove all real time and game time clocks.
   */
@@ -87,7 +89,7 @@ public:
 
   /**
   * @brief Remove real/game time clock.
-  *        After it is removed successfully it is guarantied it will not trigger callback
+  *        After it is removed successfully it is guaranteed it will not trigger callback
   * @param hndl Handle of clock which should be removed.
   * @return true in case clock is successfully removed, otherwise false.
   */
@@ -136,6 +138,8 @@ private:
   /// Last time of the game tick.
   TimePoint m_lastGameTickTime = Clock::now();
   /// The current game tick duration on milliseconds.
+
+  float m_speedFactor = 1.f;
   Clock::duration m_gameTickDuration = std::chrono::milliseconds(DefaultGameTickDuration);
 
   /**

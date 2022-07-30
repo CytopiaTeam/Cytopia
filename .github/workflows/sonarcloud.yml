@@ -1,0 +1,98 @@
+name: sonarcloud scan
+on:
+  push:
+    branches:
+      - master
+      - dev
+  pull_request:
+    types: [ opened, synchronize, reopened ]
+jobs:
+  build:
+    name: sonarcloud scan
+    runs-on: ubuntu-latest
+    env:
+      SONAR_SCANNER_VERSION: 4.7.0.2747
+      CONAN_SYSREQUIRES_MODE: "enabled"
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Set up JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
+      - name: Download and set up sonar-scanner
+        env:
+          SONAR_SCANNER_DOWNLOAD_URL: https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-${{ env.SONAR_SCANNER_VERSION }}-linux.zip
+        run: |
+          mkdir -p $HOME/.sonar
+          curl -sSLo $HOME/.sonar/sonar-scanner.zip ${{ env.SONAR_SCANNER_DOWNLOAD_URL }} 
+          unzip -o $HOME/.sonar/sonar-scanner.zip -d $HOME/.sonar/
+          wget -nv https://cdn.anotherfoxguy.com/sonar-scanner/cytopia -O run-sonar-scanner
+          sudo chmod 777 run-sonar-scanner
+          echo "$HOME/.sonar/sonar-scanner-${{ env.SONAR_SCANNER_VERSION }}-linux/bin" >> $GITHUB_PATH
+
+      - name: Download and set up build-wrapper
+        env:
+          BUILD_WRAPPER_DOWNLOAD_URL: https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip
+        run: |
+          curl -sSLo $HOME/.sonar/build-wrapper-linux-x86.zip ${{ env.BUILD_WRAPPER_DOWNLOAD_URL }}
+          unzip -o $HOME/.sonar/build-wrapper-linux-x86.zip -d $HOME/.sonar/
+          echo "$HOME/.sonar/build-wrapper-linux-x86" >> $GITHUB_PATH
+
+      - name: Prepare cfamily cache timestamp
+        id: cfamily_cache_timestamp
+        shell: cmake -P {0}
+        run: |
+          string(TIMESTAMP current_date "%Y-%m-%d-%H;%M;%S" UTC)
+          message("::set-output name=timestamp::${current_date}")
+
+      - name: cfamily cache files
+        uses: actions/cache@v2.1.7
+        with:
+          path: cfamily-cache
+          key: cfamily-cache-${{ steps.cfamily_cache_timestamp.outputs.timestamp }}
+          restore-keys: |
+            cfamily-cache-
+
+      - name: Cache conan
+        uses: actions/cache@v2.1.7
+        with:
+          key: conan-linux-${{ hashFiles('cmake/DependenciesConfig.cmake') }}
+          path: ~/.conan/
+
+      - name: Install dependencies
+        env:
+          CONAN_USER_HOME: "/tmp/"
+        run: |
+          curl "https://raw.githubusercontent.com/AnotherFoxGuy/ci-scripts/main/install-cmake.sh" | sudo bash
+          curl "https://raw.githubusercontent.com/AnotherFoxGuy/ci-scripts/main/install-conan.sh" | sudo bash
+          conan install "xorg/system@"
+          sudo apt-get -y install ninja-build libgl-dev libegl-dev
+
+      - name: Configure
+        run: |
+          cmake . -DCMAKE_BUILD_TYPE=Release -DCYTOPIA_LIB_PREFERENCE=CONAN -DCYTOPIA_USE_MICROPROFILE=CONAN -DCYTOPIA_USE_ANGELSCRIPT=CONAN -DBUILD_TEST=ON -DENABLE_COVERAGE=ON
+
+      - name: Run build-wrapper
+        run: build-wrapper-linux-x86-64 --out-dir bw-output make -j4
+
+      - name: Test
+        env:
+          SDL_VIDEODRIVER: dummy
+          SDL_AUDIODRIVER: dummy
+        continue-on-error: true
+        run: ctest -j2 --output-on-failure
+
+      - name: Generate coverage
+        run: make gcov
+
+      - name: Run sonar-scanner
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_SCANNER_EXE: /home/runner/.sonar/sonar-scanner-${{ env.SONAR_SCANNER_VERSION }}-linux/bin/sonar-scanner
+        run: ./run-sonar-scanner
+
+      - name: Clean Conan pkgs
+        run: conan remove "*" -fsb

@@ -1,31 +1,14 @@
 #include "PowerManager.hxx"
-#include "../engine/Engine.hxx"
 #include "../services/GameClock.hxx"
+#include <MapFunctions.hxx>
 #include "GameStates.hxx"
+#include <SignalMediator.hxx>
 
 PowerManager::PowerManager()
 {
-  Engine::instance().map->registerCbPlacePowerBuilding(
-      [this](const MapNode &mapNode) { // If we place a power tile, add it to the cache to update next tick
-        PowerNode nodeToAdd = {mapNode.getCoordinates(), mapNode.getTileData(Layer::BUILDINGS)->power};
-        m_nodesToAdd.push_back(nodeToAdd);
-      });
-  Engine::instance().map->registerCbDemolish(
-      [this](const MapNode *mapNode) { // If we demolish a power tile, add it to the cache to update next tick
-        switch (GameStates::instance().demolishMode)
-        {
-        case DemolishMode::DEFAULT:
-        {
-          if (!mapNode->getTileData(Layer::BUILDINGS))
-          { // if there's no building it has been succesfully demolished
-            m_nodesToRemove.push_back(mapNode->getCoordinates());
-          }
-          break;
-        }
-        default:
-          break;
-        }
-      });
+  SignalMediator::instance().registerCbSetTileID(Signal::slot(this, &PowerManager::updatePlacedNodes));
+  SignalMediator::instance().registerCbDemolish(Signal::slot(this, &PowerManager::updateRemovedNodes));
+
   GameClock::instance().addRealTimeClockTask(
       [this]()
       {
@@ -37,6 +20,7 @@ PowerManager::PowerManager()
 
 void PowerManager::update()
 {
+  bool updated = false;
   // Remove nodes (Demolish on power tiles)
   if (!m_nodesToRemove.empty())
   {
@@ -45,12 +29,8 @@ void PowerManager::update()
       removePowerNode(m_nodeToRemove);
     }
 
-    int i = 0;
-    for (auto grid : m_powerGrids)
-    { // TODO: Remove this later, this is for debugging
-      LOG(LOG_DEBUG) << "Grid #" << ++i << "/" << m_powerGrids.size() << " - Power Production: " << grid.getPowerLevel();
-    }
     m_nodesToRemove.clear();
+    updated = true;
   }
 
   if (!m_nodesToAdd.empty())
@@ -60,12 +40,14 @@ void PowerManager::update()
       addPowerNodeToGrid(nodeToAdd, m_powerGrids);
     }
     m_nodesToAdd.clear();
-    LOG(LOG_DEBUG) << "Number of power areas: " << m_powerGrids.size();
-    int i = 0;
-    for (auto grid : m_powerGrids)
-    { // TODO: Remove this later, this is for debugging
-      LOG(LOG_DEBUG) << "Grid #" << ++i << "/" << m_powerGrids.size() << " - Power Production: " << grid.getPowerLevel();
-    }
+
+    updated = true;
+  }
+
+  if (updated)
+  {
+    updatePowerLevels();
+    SignalMediator::instance().signalUpdatePower.emit(m_powerGrids);
   }
 }
 
@@ -96,12 +78,12 @@ void PowerManager::addPowerNodeToGrid(PowerNode &powerNode, std::vector<PowerGri
   }
   else if (gridNeighbour.size() == 1)
   { // add to this grid
-    powerGrids[gridNeighbour[0]].addPowerNode(powerNode);
+    powerGrids[gridNeighbour[0]].addNode(powerNode);
   }
   else
   { // merge zone areas
     PowerGrid &mergedGrid = powerGrids[gridNeighbour[0]];
-    mergedGrid.addPowerNode(powerNode);
+    mergedGrid.addNode(powerNode);
 
     for (int idx = 1; idx < gridNeighbour.size(); ++idx)
     {
@@ -121,7 +103,7 @@ void PowerManager::removePowerNode(Point coordinate)
   {
     if (gridIt->isMemberOf(coordinate))
     {
-      gridIt->removePowerNode(coordinate);
+      gridIt->removeNode(coordinate);
 
       if (gridIt->size() == 0)
       {
@@ -155,4 +137,63 @@ std::vector<PowerGrid> PowerManager::rebuildZoneArea(PowerGrid &powerGrid)
   }
 
   return newPowerGrids;
+}
+void PowerManager::updatePlacedNodes(const MapNode &mapNode)
+{
+  if (!mapNode.isConductive())
+  {
+    return;
+  }
+
+  int powerLevelOfTile = 0;
+  if (mapNode.getTileData(Layer::BUILDINGS))
+  { // it's safe to assume only nodes on BUILDINGS layer produce power
+    powerLevelOfTile = mapNode.getTileData(Layer::BUILDINGS)->power;
+  }
+
+  PowerNode nodeToAdd = {mapNode.getCoordinates(), powerLevelOfTile};
+  m_nodesToAdd.push_back(nodeToAdd);
+}
+
+void PowerManager::updateRemovedNodes(const MapNode *mapNode)
+{
+  switch (GameStates::instance().demolishMode)
+  {
+  case DemolishMode::DEFAULT:
+  {
+    if (!mapNode->isConductive())
+    { // if there's no power conductor on this node, remove it from the grid
+      m_nodesToRemove.push_back(mapNode->getCoordinates());
+    }
+    break;
+  }
+  default:
+    break;
+  }
+}
+
+void PowerManager::updatePowerLevels()
+{
+  for (auto &powerGrid : m_powerGrids)
+  {
+    powerGrid.updatePowerLevel();
+  }
+}
+
+void PowerManager::reset()
+{
+  m_powerGrids.clear();
+  for (const auto &mapNode : MapFunctions::instance().getMapNodes())
+  {
+    if (mapNode.isConductive())
+    {
+      int power = 0;
+      if (mapNode.getTileData(Layer::BUILDINGS))
+      {
+        power = mapNode.getTileData(Layer::BUILDINGS)->power;
+      }
+      PowerNode powerNode = {mapNode.getCoordinates(), power};
+      m_nodesToAdd.push_back(powerNode);
+    }
+  }
 }

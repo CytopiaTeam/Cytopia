@@ -2,13 +2,14 @@
 #define SETTINGS_HXX_
 
 #include <string>
+#include <cstddef>
 
 #include "../../util/Singleton.hxx"
 #include "../../util/Meta.hxx"
+#include <json.hxx>
 
 using std::string;
-
-#include <cstddef>
+using json = nlohmann::json;
 
 /* Settings Types */
 using ScreenDimension = int;
@@ -21,6 +22,10 @@ using FilePath = StrongType<string, struct FilePathTag>;
  */
 struct SettingsData
 {
+  /**
+   * @brief the version of the Settings file. Overwrite cache settings if a newer version exists
+   */
+  int settingsVersion;
 
   /**
    * @brief the size of the map
@@ -154,6 +159,8 @@ struct SettingsData
    */
   int subMenuButtonHeight;
 
+  uint32_t defaultFontSize;
+
   /// indicates whether we want to see buildings inside Blueprint layer or not
   bool showBuildingsInBlueprint;
 
@@ -170,17 +177,28 @@ class Settings : public SettingsData, public Singleton<Settings>
 public:
   friend Singleton<Settings>;
 
-  /// Load settings from file
+  /**
+   * @brief Load settings from file
+   * @throws ConfigurationError when loading configuration results in an error 
+   */
   void readFile();
 
   /// Save settings to file
   void writeFile();
+
+  /**
+   * @brief Reset settings to defaults from local settings file
+   * @throws ConfigurationError when loading configuration results in an error 
+   */
+  void resetSettingsToDefaults();
 
   using SettingsData::operator=;
 
 private:
   Settings();
   ~Settings() = default;
+
+  json parseSettingsFile(const std::string &fileName) const;
 };
 
 #endif

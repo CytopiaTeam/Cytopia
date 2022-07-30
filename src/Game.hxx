@@ -1,11 +1,7 @@
 #ifndef GAME_HXX_
 #define GAME_HXX_
 
-#ifndef VERSION
-#define VERSION 0
-#endif
-
-#include "Scripting/ScriptEngine.hxx"
+#include "scripting/ScriptEngine.hxx"
 #include "engine/MessageQueue.hxx"
 #include "util/Meta.hxx"
 #ifdef USE_AUDIO
@@ -40,29 +36,27 @@ public:
   virtual ~Game() = default;
 
   /** @brief starts setting up the game
-    * starts game initialization.
+    * @details starts game initialization.
     */
-  virtual bool initialize();
+  virtual void initialize();
 
   /** @brief begins the game
-    * starts running the game
+    * @details starts running the game
     * @param SkipMenu if the main menu should be skipped or not
     */
   virtual void run(bool SkipMenu = false);
 
-  /** @brief ends the game
-    * shuts down the game
-    */
+  /// ends the game
   virtual void shutdown();
 
-  /** @brief initializes and displays the main menu
-    * initializes and displays the main menu
-    * @return true in case game has been quit, otherwise false.
-    */
-  virtual bool mainMenu();
+  virtual void newGame(bool generateTerrain);
+  virtual void loadGame(const std::string &fileName);
 
 private:
   void quit();
+  bool m_shutDown = false;
+
+  GamePlay m_GamePlay;
 };
 } // namespace Cytopia
 #endif

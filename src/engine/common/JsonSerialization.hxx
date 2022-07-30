@@ -2,7 +2,7 @@
 #define JSON_SERIALIZATION_HXX_
 
 #include "json.hxx"
-#include "point.hxx"
+#include "Point.hxx"
 #include "GameObjects/MapNode.hxx"
 #include "TerrainGenerator.hxx"
 #include "Settings.hxx"
@@ -14,7 +14,7 @@ using json = nlohmann::json;
 
 // ************** DE-SERIALIZER **************
 
-// JSON deserializer for Point class
+/// JSON deserializer for Point class
 inline void from_json(const json &j, Point &point)
 {
   point.x = j.at("x").get<int>();
@@ -23,7 +23,7 @@ inline void from_json(const json &j, Point &point)
   point.height = j.at("height").get<int>();
 }
 
-// JSON deserializer for Point class
+/// JSON deserializer for Point class
 inline void from_json(const json &j, MapNodeData &mapNodeData)
 {
   mapNodeData.tileID = j.at("tileID").get<std::string>();
@@ -31,9 +31,10 @@ inline void from_json(const json &j, MapNodeData &mapNodeData)
   mapNodeData.origCornerPoint = j.at("origCornerPoint").get<Point>();
 }
 
-// JSON deserializer for Settings struct
+/// JSON deserializer for Settings struct
 inline void from_json(const json &j, SettingsData &s)
 {
+  s.settingsVersion = j.value("SettingsVersion", 0);
   s.screenWidth = j["Graphics"]["Resolution"].value("Screen_Width", 800);
   s.screenHeight = j["Graphics"]["Resolution"].value("Screen_Height", 600);
   s.vSync = j["Graphics"].value("VSYNC", false);
@@ -59,10 +60,11 @@ inline void from_json(const json &j, SettingsData &s)
   s.fontFileName = j["User Interface"].value("FontFilename", "resources/fonts/arcadeclassics.ttf");
   s.subMenuButtonWidth = j["User Interface"].value("SubMenuButtonWidth", 32);
   s.subMenuButtonHeight = j["User Interface"].value("SubMenuButtonHeight", 32);
+  s.defaultFontSize = j["User Interface"].value("defaultFontSize", 20);
   s.writeErrorLogFile = j["Debug"].value("WriteErrorLogToFile", false);
 }
 
-// JSON deserializer for BiomeData struct (Terrain Gen)
+/// JSON deserializer for BiomeData struct (Terrain Gen)
 inline void from_json(const json &j, BiomeData &b)
 {
   if (j.find("trees") != j.end())
@@ -181,10 +183,10 @@ inline void from_json(const json &j, BiomeData &b)
 }
 
 #ifdef USE_AUDIO
-// JSON deserializer for AudioTrigger
+/// JSON deserializer for AudioTrigger
 inline void from_json(const json &j, AudioTrigger &trigger) { trigger = AudioTrigger::_from_string(j.get<string>().c_str()); }
 
-// JSON deserializer for SoundtrackConfiguration
+/// JSON deserializer for SoundtrackConfiguration
 inline void from_json(const json &j, AudioConfig::SoundtrackConfiguration &config)
 {
   j["path"].get_to(config.stereoFilePath);
@@ -195,7 +197,7 @@ inline void from_json(const json &j, AudioConfig::SoundtrackConfiguration &confi
                  [](const string &trigger) { return AudioTrigger::_from_string(trigger.c_str()); });
 }
 
-// JSON deserializer for AudioConfig
+/// JSON deserializer for AudioConfig
 inline void from_json(const json &j, AudioConfig &config)
 {
   j["Music"].get_to(config.Music);
@@ -205,29 +207,30 @@ inline void from_json(const json &j, AudioConfig &config)
 
 // ************** SERIALIZER **************
 
-// JSON serializer for Point class
+/// JSON serializer for Point class
 inline void to_json(json &j, const Point &point)
 {
   j = json{{"x", point.x}, {"y", point.y}, {"z", point.z}, {"height", point.height}};
 }
 
-// JSON serializer for MapNodeData struct
+/// JSON serializer for MapNodeData struct
 inline void to_json(json &j, const MapNodeData &mapNodeData)
 {
   j = json{
       {"tileID", mapNodeData.tileID}, {"tileIndex", mapNodeData.tileIndex}, {"origCornerPoint", mapNodeData.origCornerPoint}};
 }
 
-// JSON serializer for MapNode class
+/// JSON serializer for MapNode class
 inline void to_json(json &j, const MapNode &m)
 {
   j = json{{"coordinates", m.getCoordinates()}, {"mapNodeData", m.getMapNodeData()}};
 }
 
-// JSON serializer for Settings struct
+/// JSON serializer for Settings struct
 inline void to_json(json &j, const SettingsData &s)
 {
   j = {
+      {std::string("SettingsVersion"), s.settingsVersion},
       {std::string("Graphics"),
        {
            {std::string("VSYNC"), s.vSync},
@@ -236,7 +239,7 @@ inline void to_json(json &j, const SettingsData &s)
            {std::string("Resolution"),
             {{std::string("Screen_Width"), s.screenWidth}, {std::string("Screen_Height"), s.screenHeight}}},
        }},
-     {std::string("Game"),
+      {std::string("Game"),
        {{std::string("MapSize"), s.mapSize},
         {std::string("Language"), s.gameLanguage},
         {std::string("Biome"), s.biome},
@@ -247,7 +250,8 @@ inline void to_json(json &j, const SettingsData &s)
        {{std::string("BuildMenuPosition"), s.buildMenuPosition},
         {std::string("FontFilename"), s.fontFileName.get()},
         {std::string("SubMenuButtonWidth"), s.subMenuButtonWidth},
-        {std::string("SubMenuButtonHeight"), s.subMenuButtonHeight}}},
+        {std::string("SubMenuButtonHeight"), s.subMenuButtonHeight},
+        {std::string("DefaultFontSize"), s.defaultFontSize}}},
       {std::string("ConfigFiles"),
        {{std::string("UIDataJSONFile"), s.uiDataJSONFile.get()},
         {std::string("TileDataJSONFile"), s.tileDataJSONFile.get()},
