@@ -40,9 +40,6 @@ set(SOURCE_FILES
         engine/GameObjects/MapGrid.inl.hxx
         engine/map/MapLayers.{hxx,cxx}
         engine/map/TerrainGenerator.{hxx,cxx}
-        engine/ui/basics/UIElement.{hxx,cxx}
-        engine/ui/basics/Layout.{hxx,cxx}
-        engine/ui/widgets/Text.{hxx,cxx}
         engine/EventManager.{hxx,cxx}
         engine/Map.{hxx,cxx}
         engine/Sprite.{hxx,cxx}
@@ -59,6 +56,7 @@ set(SOURCE_FILES
         game/ui/PauseMenu.{hxx,cxx}
         game/ui/LoadMenu.{hxx,cxx}
         game/ui/BuildMenu.{hxx,cxx}
+        game/ui/GameTimeMenu.{hxx,cxx}
         )
 
 if (ANDROID)

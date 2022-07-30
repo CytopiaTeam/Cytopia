@@ -20,7 +20,7 @@ void PauseMenu::draw() const {
 
   auto &uiManager = UIManager::instance();
 
-  const auto &layout = uiManager.getAllLayoutGroups()["PauseMenuButtons"].layout;
+  const auto &layout = uiManager.getLayouts()["PauseMenuButtons"];
   ui::SetNextWindowPos(ImVec2((screenSize.x - windowSize.x)/2, (screenSize.y - windowSize.y)/2));
   ui::SetNextWindowSize(windowSize);
 

@@ -29,7 +29,6 @@ private:
   /// remember if placement is allowed from mousemove to mousedown
   bool m_placementAllowed = false;
   bool m_panning = false;
-  bool m_skipLeftClick = false;
   bool m_tileInfoMode = false;
   bool m_isPuttingTile = false;       ///< determines if putting tile action is being performed
   bool m_cancelTileSelection = false; ///< determines if a right click should cancel tile selection

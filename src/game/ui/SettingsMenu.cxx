@@ -8,6 +8,7 @@
 
 #include "Settings.hxx"
 #include "MapFunctions.hxx"
+#include "WindowManager.hxx"
 
 #ifdef USE_AUDIO
 #include "../services/AudioMixer.hxx"
@@ -30,7 +31,7 @@ void SettingsMenu::draw() const {
   auto &uiManager = UIManager::instance();
   auto &settings = Settings::instance();
 
-  const auto &layout = uiManager.getAllLayoutGroups()["PauseMenuButtons"].layout;
+  const auto &layout = uiManager.getLayouts()["PauseMenuButtons"];
   ui::SetNextWindowPos(ImVec2((screenSize.x - windowSize.x)/2, (screenSize.y - windowSize.y)/2));
   ui::SetNextWindowSize(windowSize);
 
@@ -122,7 +123,6 @@ void SettingsMenu::draw() const {
         {
           settings.buildMenuPosition = layouts[n];
           uiManager.setBuildMenuLayout(static_cast<BUILDMENU_LAYOUT>(n));
-          Layout::arrangeElements();
         }
 
         // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)

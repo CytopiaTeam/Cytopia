@@ -11,6 +11,7 @@
 #include <Map.hxx>
 #include <MapFunctions.hxx>
 #include "../game/ui/BuildMenu.hxx"
+#include "../game/ui/GameTimeMenu.hxx"
 
 #include <SDL.h>
 #include <SDL_ttf.h>
@@ -138,6 +139,7 @@ void Game::run(bool SkipMenu)
   Uint32 fpsLastTime = SDL_GetTicks();
   Uint32 fpsFrames = 0;
 
+  uiManager.addPersistentMenu<GameTimeMenu>();
   uiManager.addPersistentMenu<BuildMenu>();
 
   // GameLoop
@@ -176,7 +178,7 @@ void Game::run(bool SkipMenu)
     if (fpsLastTime < SDL_GetTicks() - fpsIntervall * 1000)
     {
       fpsLastTime = SDL_GetTicks();
-      uiManager.setFPSCounterText(std::to_string(fpsFrames) + " FPS");
+      uiManager.setFPSCounterText("FPS: " + std::to_string(fpsFrames));
       fpsFrames = 0;
     }
 
