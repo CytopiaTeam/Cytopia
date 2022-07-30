@@ -14,6 +14,8 @@
 #include "Filesystem.hxx"
 #include "json.hxx"
 #include "betterEnums.hxx"
+#include <Camera.hxx>
+
 #ifdef USE_AUDIO
 #include "../services/AudioMixer.hxx"
 #endif
@@ -25,14 +27,14 @@
 #include "imgui_impl_sdl.h"
 #include "imgui_impl_sdlrenderer.h"
 
+#include <Settings.hxx>
+
 #ifdef MICROPROFILE_ENABLED
 #include "microprofile/microprofile.h"
 #endif
 
-using json = nlohmann::json;
 namespace ui = ImGui;
 
-BETTER_ENUM(ElementType, int, ImageButton, TextButton, Text, Frame)
 BETTER_ENUM(Action, int, RaiseTerrain, LowerTerrain, QuitGame, Demolish, ChangeTileType, ToggleVisibilityOfGroup, NewGame,
             SaveGame, LoadGame, SaveSettings, ChangeResolution)
 
@@ -68,14 +70,14 @@ ImFont *UIManager::loadFont(const std::string &fontPath, uint32_t size)
 void UIManager::initializeImGuiFonts() {
   std::string fontPath = fs::getBasePath() + Settings::instance().fontFileName.get(); // fix for macos, need to use abs path
 
-  std::array<const char *, 3> names = {"MainMenuButtons", "PauseMenuButtons", "BuildMenuButtons" };
+  std::array<const char *, 4> names = {"MainMenuButtons", "PauseMenuButtons", "LoadDialogButtons", "BuildMenuButtons"};
   for (const auto &name : names)
   {
-    auto it = m_layoutGroups.find(name);
-    if (it == m_layoutGroups.end())
+    auto it = m_layouts.find(name);
+    if (it == m_layouts.end())
       continue;
 
-    auto &layout = it->second.layout;
+    auto &layout = it->second;
     layout.font = loadFont(fontPath, layout.fontSize);
   }
 }
@@ -103,41 +105,31 @@ void UIManager::parseLayouts(const json& uiLayout)
 
       if (!layoutGroupName.empty())
       {
-        LayoutGroup layoutGroup;
-        layoutGroup.layout.layoutType = uiLayout["LayoutGroups"][it.key()][id].value("LayoutType", "");
-        layoutGroup.layout.alignment = uiLayout["LayoutGroups"][it.key()][id].value("Alignment", "");
+        LayoutData layout;
+        layout.layoutType = uiLayout["LayoutGroups"][it.key()][id].value("LayoutType", "");
+        layout.alignment = uiLayout["LayoutGroups"][it.key()][id].value("Alignment", "");
 
-        if (layoutGroup.layout.layoutType.empty())
+        if (layout.layoutType.empty())
         {
           LOG(LOG_WARNING) << "Skipping LayoutGroup " << layoutGroupName
                            << " because it has no parameter \"LayoutType\" set. Check your UiLayout.json file.";
           continue;
         }
 
-        if (layoutGroup.layout.alignment.empty())
+        if (layout.alignment.empty())
         {
           LOG(LOG_WARNING) << "Skipping LayoutGroup " << layoutGroupName
                            << " because it has no parameter \"Alignment\" set. Check your UiLayout.json file.";
           continue;
         }
 
-        // set parent and check if the element exists
-        layoutGroup.layout.layoutParentElementID = uiLayout["LayoutGroups"][it.key()][id].value("LayoutParentElementID", "");
-
-        if (!layoutGroup.layout.layoutParentElementID.empty() && !getUiElementByID(layoutGroup.layout.layoutParentElementID))
-        {
-          LOG(LOG_WARNING) << "Skipping a non-existant UIElement with ID " << layoutGroup.layout.layoutParentElementID
-                           << "that was set for LayoutGroup " << layoutGroupName;
-          continue;
-        }
-
-        layoutGroup.layout.fontSize = uiLayout["LayoutGroups"][it.key()][id].value("FontSize", Settings::instance().defaultFontSize);
-        layoutGroup.layout.padding = uiLayout["LayoutGroups"][it.key()][id].value("Padding", 0);
-        layoutGroup.layout.paddingToParent = uiLayout["LayoutGroups"][it.key()][id].value("PaddingToParent", 0);
-        layoutGroup.layout.alignmentOffset = uiLayout["LayoutGroups"][it.key()][id].value("AlignmentOffset", 0.0F);
+        layout.fontSize = uiLayout["LayoutGroups"][it.key()][id].value("FontSize", Settings::instance().defaultFontSize);
+        layout.padding = uiLayout["LayoutGroups"][it.key()][id].value("Padding", 0);
+        layout.paddingToParent = uiLayout["LayoutGroups"][it.key()][id].value("PaddingToParent", 0);
+        layout.alignmentOffset = uiLayout["LayoutGroups"][it.key()][id].value("AlignmentOffset", 0.0F);
 
         // add layout group information to container
-        m_layoutGroups[layoutGroupName] = layoutGroup;
+        m_layouts[layoutGroupName] = layout;
       }
       else
       {
@@ -147,7 +139,9 @@ void UIManager::parseLayouts(const json& uiLayout)
   }
 }
 
-void UIManager::setFPSCounterText(const std::string &fps) const { m_fpsCounter->setText(fps); }
+void UIManager::setFPSCounterText(const std::string &fps) { 
+  m_fpsCounter = fps;
+}
 
 void UIManager::closeOpenMenus()
 {
@@ -157,20 +151,28 @@ void UIManager::closeOpenMenus()
   }
 }
 
-void UIManager::openMenu(GameMenu::Ptr menu) {
+void UIManager::openMenu(GameMenu::Ptr menu)
+{
   auto it = std::find(m_menuStack.begin(), m_menuStack.end(), menu);
 
   if (it != m_menuStack.end())
     return;
 
   m_menuStack.push_back(menu);
+
+  Camera::instance().canScale(false);
+  Camera::instance().canMove(false);
 }
 
-void UIManager::closeMenu() {
+void UIManager::closeMenu()
+{
   if (m_menuStack.empty())
     return;
 
   m_menuStack.pop_back();
+
+  Camera::instance().canScale(m_menuStack.empty());
+  Camera::instance().canMove(m_menuStack.empty());
 }
 
 void UIManager::addPersistentMenu(GameMenu::Ptr menu)
@@ -188,26 +190,15 @@ bool UIManager::isMouseHovered() const
   return ImGui::IsAnyItemHovered();
 }
 
-void UIManager::drawUI() const
+void UIManager::drawUI()
 {
 #ifdef MICROPROFILE_ENABLED
   MICROPROFILE_SCOPEI("UI", "draw UI", MP_BLUE);
 #endif
-  for (const auto &it : m_uiElements)
-  {
-    if (it->isVisible())
-    {
-      it->draw();
-    }
-  }
-
-  if (m_showDebugMenu)
-  {
-    m_fpsCounter->draw();
-  }
-
   if (!m_menuStack.empty())
+  {
     m_menuStack.back()->draw();
+  }
 
   for (const auto &m : m_persistentMenu)
   {
@@ -219,12 +210,19 @@ void UIManager::drawUI() const
     ui::SetCursorScreenPos(pos);
     ui::Text(m_tooltip.c_str());
   }
-}
 
-void UIManager::setGroupVisibility(const std::string &groupID, bool visible)
-{
-  for (const auto &it : m_uiGroups[groupID])
-    it->setVisibility(visible);
+  if (m_showFpsCounter)
+  {
+    ui::SetNextWindowPos(ImVec2(0, 0));
+    ui::SetNextWindowSize(ImVec2(140, 20));
+
+    bool open = true;
+    ui::Begin("##fpswindow", &open, ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
+    ui::Text(m_fpsCounter.c_str());
+    ui::SameLine();
+    ui::Checkbox("debug", &m_showDebugMenu);
+    ui::End();
+  }
 }
 
 void UIManager::setTooltip(const std::string &tooltipText)
@@ -232,28 +230,7 @@ void UIManager::setTooltip(const std::string &tooltipText)
   m_tooltip = tooltipText;
 }
 
-void UIManager::clearTooltip() { m_tooltip.clear(); }
-
-UIElement *UIManager::getUiElementByID(const std::string &UiElementID) const
+void UIManager::clearTooltip()
 {
-  for (auto &it : m_uiElements)
-    if (it->getUiElementData().elementID == UiElementID)
-      return it.get();
-  return nullptr;
-}
-
-const std::vector<UIElement *> *UIManager::getUiElementsOfGroup(const std::string &groupID) const
-{
-  if (m_uiGroups.find(groupID) != m_uiGroups.end())
-    return &m_uiGroups.find(groupID)->second;
-  return nullptr;
-}
-
-void UIManager::addToLayoutGroup(const std::string &groupName, UIElement *widget)
-{
-  if (widget)
-  {
-    widget->setLayoutGroupName(groupName);
-    m_layoutGroups[groupName].uiElements.push_back(widget);
-  }
+  m_tooltip.clear();
 }

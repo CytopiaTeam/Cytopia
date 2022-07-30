@@ -5,6 +5,9 @@
 
 void Camera::increaseZoomLevel()
 {
+  if (!m_canScale)
+    return;
+
   if (m_ZoomLevel < 4.0)
   {
     m_ZoomLevel += 0.5;
@@ -15,6 +18,9 @@ void Camera::increaseZoomLevel()
 
 void Camera::decreaseZoomLevel()
 {
+  if (!m_canScale)
+    return;
+
   if (m_ZoomLevel > 0.5)
   {
     m_ZoomLevel -= 0.5;
@@ -75,12 +81,14 @@ void Camera::centerScreenOnMapCenter()
 
 void Camera::moveCamera(int xOffset, int yOffset)
 {
+  if (!m_canMove)
+    return;
+
   m_CameraOffset.x -= xOffset;
   m_CameraOffset.y -= yOffset;
   MapFunctions::instance().refreshVisibleMap();
   // update center coordinates
-  m_CenterIsoCoordinates =
-      convertScreenToIsoCoordinates({Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2});
+  m_CenterIsoCoordinates = convertScreenToIsoCoordinates({Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2});
 }
 
 const SDL_Point &Camera::cameraOffset() const noexcept { return m_CameraOffset; }

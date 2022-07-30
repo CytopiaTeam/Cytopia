@@ -41,15 +41,6 @@ set(SOURCE_FILES
         engine/GameObjects/MapGrid.inl.hxx
         engine/map/MapLayers.{hxx,cxx}
         engine/map/TerrainGenerator.{hxx,cxx}
-        engine/ui/basics/UIElement.{hxx,cxx}
-        engine/ui/basics/ButtonGroup.{hxx,cxx}
-        engine/ui/basics/Layout.{hxx,cxx}
-        engine/ui/widgets/Button.{hxx,cxx}
-        engine/ui/widgets/Frame.{hxx,cxx}
-        engine/ui/widgets/Image.{hxx,cxx}
-        engine/ui/widgets/Text.{hxx,cxx}
-        engine/ui/widgets/Tooltip.{hxx,cxx}
-        engine/ui/menuGroups/IMenuGroup.hxx
         engine/EventManager.{hxx,cxx}
         engine/Map.{hxx,cxx}
         engine/Sprite.{hxx,cxx}
@@ -64,7 +55,9 @@ set(SOURCE_FILES
         game/GamePlay.{hxx,cxx}
         game/ui/SettingsMenu.{hxx,cxx}
         game/ui/PauseMenu.{hxx,cxx}
+        game/ui/LoadMenu.{hxx,cxx}
         game/ui/BuildMenu.{hxx,cxx}
+        game/ui/GameTimeMenu.{hxx,cxx}
         )
 
 if (ANDROID)
@@ -87,7 +80,16 @@ if (USE_ANGELSCRIPT)
             ${CMAKE_SOURCE_DIR}/external/as_add_on/scriptbuilder/scriptbuilder.h
             ${CMAKE_SOURCE_DIR}/external/as_add_on/scriptstdstring/scriptstdstring.h
             ${CMAKE_SOURCE_DIR}/external/as_add_on/scriptstdstring/scriptstdstring.cpp
-            Scripting/ScriptEngine.{hxx,cxx}
+            ${CMAKE_SOURCE_DIR}/external/as_add_on/scriptarray/scriptarray.h
+            ${CMAKE_SOURCE_DIR}/external/as_add_on/scriptarray/scriptarray.cpp
+            ${CMAKE_SOURCE_DIR}/external/as_add_on/scriptdictionary/scriptdictionary.h
+            ${CMAKE_SOURCE_DIR}/external/as_add_on/scriptdictionary/scriptdictionary.cpp
+            ${CMAKE_SOURCE_DIR}/external/as_add_on/scriptmath/scriptmath.h
+            ${CMAKE_SOURCE_DIR}/external/as_add_on/scriptmath/scriptmath.cpp
+            ${CMAKE_SOURCE_DIR}/external/as_add_on/scriptmath/scriptmathcomplex.h
+            ${CMAKE_SOURCE_DIR}/external/as_add_on/scriptmath/scriptmathcomplex.cpp
+            scripting/ScriptEngine.{hxx,cxx}
+            scripting/ImGuiAngelscript.cxx
             )
 endif ()
 
@@ -199,18 +201,18 @@ if (USE_ANGELSCRIPT)
 endif ()
 
 if (ENABLE_ASAN)
-	target_compile_options(${PROJECT_NAME} PUBLIC -fsanitize=address -fno-sanitize-recover=all)
-	target_link_options(${PROJECT_NAME} PUBLIC -fsanitize=address)
+    target_compile_options(${PROJECT_NAME} PUBLIC -fsanitize=address -fno-sanitize-recover=all)
+    target_link_options(${PROJECT_NAME} PUBLIC -fsanitize=address)
 endif ()
 
 if (ENABLE_UBSAN)
-	target_compile_options(${PROJECT_NAME} PUBLIC -fsanitize=undefined -fno-sanitize-recover=all)
-	target_link_options(${PROJECT_NAME} PUBLIC -fsanitize=undefined)
+    target_compile_options(${PROJECT_NAME} PUBLIC -fsanitize=undefined -fno-sanitize-recover=all)
+    target_link_options(${PROJECT_NAME} PUBLIC -fsanitize=undefined)
 endif ()
 
 if (ENABLE_TSAN)
-	target_compile_options(${PROJECT_NAME} PUBLIC -fsanitize=thread -fno-sanitize-recover=all)
-	target_link_options(${PROJECT_NAME} PUBLIC -fsanitize=thread)
+    target_compile_options(${PROJECT_NAME} PUBLIC -fsanitize=thread -fno-sanitize-recover=all)
+    target_link_options(${PROJECT_NAME} PUBLIC -fsanitize=thread)
 endif ()
 
 

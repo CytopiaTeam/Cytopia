@@ -80,6 +80,8 @@ public:
   */
   void setGameClockSpeed(float speedFactor);
 
+  float getGameClockSpeed() const { return m_speedFactor; }
+
   /**
   * @brief Remove all real time and game time clocks.
   */
@@ -136,6 +138,8 @@ private:
   /// Last time of the game tick.
   TimePoint m_lastGameTickTime = Clock::now();
   /// The current game tick duration on milliseconds.
+
+  float m_speedFactor = 1.f;
   Clock::duration m_gameTickDuration = std::chrono::milliseconds(DefaultGameTickDuration);
 
   /**

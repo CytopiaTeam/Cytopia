@@ -33,6 +33,15 @@
                 "FontSize": 42
             }
         ],
+        "LoadDialogButtons": [
+            {
+                "GroupName": "LoadDialogButtons",
+                "Alignment": "CENTER",
+                "LayoutType": "VERTICAL",
+                "Padding": 40,
+                "FontSize": 42
+            }
+        ],
         "MainMenuButtons": [
             {
                 "GroupName": "MainMenuButtons",
