@@ -29,12 +29,6 @@ LIST(APPEND TEST_SOURCES
         engine/WindowManager.cxx
         game/PowerManager.cxx
         services/GameClock.cxx
-        ui/ButtonGroup.cxx
-        ui/widgets/Text.cxx
-        ui/widgets/Button.cxx
-        ui/widgets/Frame.cxx
-        ui/widgets/Image.cxx
-        ui/widgets/Tooltip.cxx
         util/Meta.cxx
         util/MessageQueue.cxx
         util/LOG.cxx
@@ -73,9 +67,6 @@ target_include_directories(
         ${CMAKE_SOURCE_DIR}/src/engine/basics
         ${CMAKE_SOURCE_DIR}/src/engine/common
         ${CMAKE_SOURCE_DIR}/src/engine/map
-        ${CMAKE_SOURCE_DIR}/src/engine/ui/basics
-        ${CMAKE_SOURCE_DIR}/src/engine/ui/menuGroups
-        ${CMAKE_SOURCE_DIR}/src/engine/ui/widgets
         ${CMAKE_SOURCE_DIR}/src/events
         ${CMAKE_SOURCE_DIR}/src/layout
         ${CMAKE_SOURCE_DIR}/src/model

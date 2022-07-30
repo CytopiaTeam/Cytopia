@@ -11,6 +11,7 @@
 #include "Map.hxx"
 #include "Sprite.hxx"
 #include "UIManager.hxx"
+#include "WindowManager.hxx"
 #include <MapFunctions.hxx>
 
 #include "LOG.hxx"
@@ -234,7 +235,6 @@ void EventManager::checkEvents(SDL_Event &event)
                                                static_cast<int>(event.mgesture.y * Settings::instance().screenHeight)});
           }
           Camera::instance().setPinchDistance(event.mgesture.dDist * 15.0F, m_pinchCenterCoords.x, m_pinchCenterCoords.y);
-          m_skipLeftClick = true;
           break;
         }
 
@@ -242,10 +242,8 @@ void EventManager::checkEvents(SDL_Event &event)
         {
           Camera::instance().moveCamera(static_cast<int>(Settings::instance().screenWidth * event.tfinger.dx),
                                         static_cast<int>(Settings::instance().screenHeight * event.tfinger.dy));
-          m_skipLeftClick = true;
           break;
         }
-        m_skipLeftClick = true;
       }
       break;
     case SDL_MOUSEMOTION:
@@ -410,17 +408,7 @@ void EventManager::checkEvents(SDL_Event &event)
       break;
     case SDL_MOUSEBUTTONDOWN:
       m_placementAllowed = false;
-      m_skipLeftClick = false;
-      // check for UI events first
-      for (const auto &it : uiManager.getAllUiElementsForEventHandling())
-      {
-        // only check visible elements
-        if (it->isVisible() && it->onMouseButtonDown(event))
-        {
-          break;
-        }
-      }
-
+      
       if (event.button.button == SDL_BUTTON_RIGHT)
       {
         m_panning = true;
@@ -479,32 +467,6 @@ void EventManager::checkEvents(SDL_Event &event)
 
       // reset pinchCenterCoords when fingers are released
       m_pinchCenterCoords = {0, 0, 0, 0};
-      // check for UI events first
-      for (const auto &it : uiManager.getAllUiElementsForEventHandling())
-      {
-        // only check visible elements
-        if (it->isVisible() && event.button.button == SDL_BUTTON_LEFT)
-        {
-          // first, check if the element is a group and send the event
-          if (it->onMouseButtonUp(event))
-          {
-            m_skipLeftClick = true;
-            break;
-          }
-          // If we're over a UI element that has no click functionality, abort the event loop, so no clicks go through the UiElement.
-          //Note: This is handled here because UIGroups have no dimensions, but are UiElements
-          if (it->isMouseOver(event.button.x, event.button.y))
-          {
-            m_skipLeftClick = true;
-          }
-        }
-      }
-      // If we're over a ui element, don't handle game events
-      if (m_skipLeftClick)
-      {
-        m_isPuttingTile = false;
-        break;
-      }
 
       // game event handling
       mouseScreenCoords = {event.button.x, event.button.y};

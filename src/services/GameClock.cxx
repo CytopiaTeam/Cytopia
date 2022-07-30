@@ -77,6 +77,7 @@ GameClock::ClockTaskHndl GameClock::addGameTimeClockTask(ClockCbk cbk, GameClock
 void GameClock::setGameClockSpeed(float speedFactor)
 {
   std::lock_guard<std::mutex> lock(m_lock);
+  m_speedFactor = speedFactor;
   m_gameTickDuration = std::chrono::milliseconds((unsigned int)(GameClock::DefaultGameTickDuration / speedFactor));
 }
 
