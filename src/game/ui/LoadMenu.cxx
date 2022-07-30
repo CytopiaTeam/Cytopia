@@ -30,7 +30,7 @@ void LoadMenu::draw() const {
 
   auto &uiManager = UIManager::instance();
 
-  const auto &layout = uiManager.getAllLayoutGroups()["LoadDialogButtons"].layout;
+  const auto &layout = uiManager.getLayouts()["LoadDialogButtons"];
   ui::SetNextWindowPos(ImVec2((screenSize.x - windowSize.x)/2, (screenSize.y - windowSize.y)/2));
   ui::SetNextWindowSize(windowSize);
 
