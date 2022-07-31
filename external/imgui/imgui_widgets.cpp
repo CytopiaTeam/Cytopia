@@ -741,7 +741,7 @@ bool ImGui::ButtonCtEx(const char* label, const ImVec2& size_arg, ImGuiButtonFla
 
     bool hovered, held;
     bool pressed = ButtonBehavior(bb, id, &hovered, &held, flags);
-    bool mouseDown = hovered && ImGui::IsMouseDown(ImGuiMouseButton_Left);
+    bool mouseDown = (hovered && ImGui::IsMouseDown(ImGuiMouseButton_Left)) || (flags & ImGuiButtonFlags_ForcePressed);
 
     // Render
     //const ImU32 col = GetColorU32((held && hovered) ? ImGuiCol_ButtonActive : hovered ? ImGuiCol_ButtonHovered : ImGuiCol_Button);

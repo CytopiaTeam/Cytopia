@@ -38,45 +38,6 @@ struct Coordinate3D
 };
 
 /**
- * @brief a standard reverb effect
- */
-struct StandardReverbProperties
-{
-  double flDensity = 1.0;       ///< coloration of the late reverb, range: 0.0 to 1.0.
-  double flDiffusion = 1.0;     ///< echo density in the reverberation decay, range: 0.0 to 1.0
-  double flGain = 0.32;         ///< master volume control for the reflected sound, range: 0.0 to 1.0
-  double flGainHF = 0.89;       ///< attenuation it at high frequencies, range: 0.0 to 1.0
-  double flDecayTime = 1.49;    ///< reverberation decay time, range: 0.1 to 20.0
-  double flDecayHFRatio = 0.83; ///< ratio of high-frequency decay time relative to the time set by Decay Time, range: 0.1 to 2.0
-  double flReflectionsGain =
-      0.05; ///< controls the overall amount of initial reflections relative to the Gain property, range: 0.0 to 3.16
-  double flReflectionsDelay =
-      0.007; ///< amount of delay between the arrival time of the direct path from the source to the first reflection from the source, range: 0.0 to 0.3
-  double flLateReverbGain = 1.26; ///< overall amount of later reverberation relative to the Gain property, range: 0.0 to 10.0
-  double flLateReverbDelay =
-      0.011; ///< begin time of the late reverberation relative to the time of the initial reflection, range: 0.0 to 0.1
-  double flAirAbsorptionGainHF =
-      0.994; ///< the distance-dependent attenuation at high frequencies caused by the propagation medium, range: 0.892 to 1.0
-  double flRoomRolloffFactor = 0.0; ///< attenuate the reflected sound, range: 0.0 to 10.0
-};
-
-/**
-  @brief an echo effect 
-*/
-struct EchoProperties
-{
-  double flEchoDelay = 0.1; ///< delay between the original sound and the first 'tap', or echo instance,range: 0.0 to 0.207
-
-  double flEchoLRDelay = 0.1; ///< delay between the first 'tap' and the second 'tap'.,range: 0.0 to 0.404
-
-  double flEchoDamping = 0.5; ///< amount of high frequency damping applied to each echo, range: 0.0 to 0.99
-
-  double flEchoFeedback = 0.5; ///< amount of feedback the output signal fed back into the input, range: 0.0 to 1.0
-
-  double flEchoSpread = -1.0; ///< how hard panned the individual echoes are, range: -1.0 to 1.0
-};
-
-/**
  * @class AudioMixer
  */
 class AudioMixer : public Singleton<AudioMixer>
@@ -101,92 +62,34 @@ public:
   void setSoundEffectVolume(float volume);
 
   /**
-   * @brief Plays a Soundtrack given its ID
+   * @brief Plays a Soundtrack given its ID and optionally applies an effect
    * @param id the SoundtrackID
+   * @param effect the effect to apply. Should be in the form of an AL_EFFECT macro such as AL_EFFECT_REVERB or AL_EFFECT_ECHO.
    */
-  void play(const SoundtrackID &id);
+  void play(const SoundtrackID &id, int effect = AL_EFFECT_NULL);
 
   /**
-   * @brief Plays a random Soundtrack from a trigger
+   * @brief Plays a random Soundtrack from a trigger and optionally applies an effect
    * @param trigger the AudioTrigger
+   * @param effect the effect to apply. Should be in the form of an AL_EFFECT macro such as AL_EFFECT_REVERB or AL_EFFECT_ECHO.
    */
-  void play(const AudioTrigger &trigger);
+  void play(const AudioTrigger &trigger, int effect = AL_EFFECT_NULL);
 
   /**
-   * @brief Plays a 3D Soundtrack given its ID
-   * @param id the SoundtrackID
-   * @param position the Coordinate3D position of the sound
-   */
-  void play(const SoundtrackID &id, const Coordinate3D &position);
-
-  /**
-   * @brief Plays a Soundtrack given its ID and applies reverb to it
-   * @param id the SoundtrackID
-   * @param reverb_properties properties of standard reverb
-   */
-  void play(const SoundtrackID &id, const StandardReverbProperties &reverb_properties);
-
-  /**
-   * @brief Plays a Soundtrack given its ID and applies echo to it
-   * @param id the SoundtrackID
-   * @param echo_properties properties of echo
-   */
-  void play(const SoundtrackID &id, const EchoProperties &echo_properties);
-
-  /**
-   * @brief Plays a Soundtrack from a trigger and applies reverb to it
-   * @param trigger the AudioTrigger
-   * @param reverb_properties properties of standard reverb
-   */
-  void play(const AudioTrigger &trigger, const StandardReverbProperties &reverb_properties);
-
-  /**
-   * @brief Plays a Soundtrack from a trigger and applies echo to it
-   * @param trigger the AudioTrigger
-   * @param echo_properties properties of echo
-   */
-  void play(const AudioTrigger &trigger, const EchoProperties &echo_properties);
-
-  /**
-   * @brief Plays a 3D Soundtrack from a trigger
-   * @param trigger the AudioTrigger
-   * @param position the Coordinate3D position of the sound
-   */
-
-  void play(const AudioTrigger &trigger, const Coordinate3D &position);
-
-  /**
-   * @brief Plays a 3D Soundtrack given its ID and applies reverb to it
+   * @brief Plays a 3D Soundtrack given its ID and optionally applies an effect
    * @param id the SoundtrackID
    * @param position the Coordinate3D position of the sound
-   * @param reverb_properties properties of standard reverb
+   * @param effect the effect to apply. Should be in the form of an AL_EFFECT macro such as AL_EFFECT_REVERB or AL_EFFECT_ECHO.
    */
-  void play(const SoundtrackID &id, const Coordinate3D &position, const StandardReverbProperties &reverb_properties);
+  void play(const SoundtrackID &id, const Coordinate3D &position, int effect = AL_EFFECT_NULL);
 
   /**
-   * @brief Plays a 3D Soundtrack given its ID and applies echo to it
-   * @param id the SoundtrackID
-   * @param position the Coordinate3D position of the sound
-   * @param echo_properties properties of echo
-   */
-
-  void play(const SoundtrackID &id, const Coordinate3D &position, const EchoProperties &echo_properties);
-
-  /**
-   * @brief Plays a 3D Soundtrack from a trigger and applies reverb to it
+   * @brief Plays a 3D Soundtrack from a trigger and optionally applies an effect
    * @param trigger the AudioTrigger
    * @param position the Coordinate3D position of the sound
-   * @param reverb_properties properties of standard reverb
+   * @param effect the effect to apply. Should be in the form of an AL_EFFECT macro such as AL_EFFECT_REVERB or AL_EFFECT_ECHO.
    */
-  void play(const AudioTrigger &trigger, const Coordinate3D &position, const StandardReverbProperties &reverb_properties);
-
-  /**
-   * @brief Plays a 3D Soundtrack from a trigger and applies echo to it
-   * @param trigger the AudioTrigger
-   * @param position the Coordinate3D position of the sound
-   * @param echo_properties properties of echo
-   */
-  void play(const AudioTrigger &trigger, const Coordinate3D &position, const EchoProperties &echo_properties);
+  void play(const AudioTrigger &trigger, const Coordinate3D &position, int effect = AL_EFFECT_NULL);
 
   /**
    * @brief toggles the mute option for sounds
@@ -272,21 +175,13 @@ private:
   void playSoundtrack(SoundtrackUPtr &soundtrack);
 
   /**
-   * @brief Plays the Soundtrack with reverb
+   * @brief Plays the Soundtrack with a certain effect applied.
+   * @details Given the soundtrack, this function will apply the given AL effect to the audio with the default settings.
    * @param soundtrack the Soundtrack
-   * @param reverb_properties of reverb effect
+   * @param ALEffect the effect to apply. Should be in the form of an AL_EFFECT macro such as AL_EFFECT_REVERB or AL_EFFECT_ECHO.
    * @throws AudioError if track is invalid, its source is uninitialized, or reverb effect could not be applied
    */
-  void playSoundtrackWithReverb(SoundtrackUPtr &soundtrack, const StandardReverbProperties &reverb_properties);
-
-  /**
-   * @brief Plays the Soundtrack with echo
-   * @param soundtrack the Soundtrack
-   * @param echo_properties of echo effect
-   * @throws AudioError if track is invalid, its source is uninitialized, or echo effect could not be applied
-   */
-  void playSoundtrackWithEcho(SoundtrackUPtr &soundtrack, const EchoProperties &echo_properties);
-
+  void playSoundtrackWithEffect(SoundtrackUPtr &soundtrack, int ALEffect);
   /**
    * @brief Called whenever a Channel has finished playing
    * @param channelID the channel that has finished playing

@@ -8,14 +8,6 @@
 
 #include "TileManager.hxx"
 
-enum ButtonState
-{
-  BUTTONSTATE_DEFAULT,
-  BUTTONSTATE_HOVERING,
-  BUTTONSTATE_CLICKED,
-  BUTTONSTATE_DISABLED
-};
-
 class ResourcesManager : public Singleton<ResourcesManager>
 {
 public:
@@ -26,7 +18,7 @@ public:
   ResourcesManager &operator=(ResourcesManager const &) = delete;
 
   /// retrieves texture for a tileID
-  SDL_Texture *getUITexture(const std::string &uiElement, int buttonState = BUTTONSTATE_DEFAULT);
+  SDL_Texture *getUITexture(const std::string &uiElement);
 
   /** Retrieves Color of a specific tileID at coordinates with the texture */
 
