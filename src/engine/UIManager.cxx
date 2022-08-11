@@ -56,8 +56,7 @@ ImFont *UIManager::loadFont(const std::string &fontPath, uint32_t size)
 
   std::string hashName = fontPath;
   hashName.append(std::to_string(size));
-  auto it = m_loadedFonts.find(hashName);
-  if (it != m_loadedFonts.end())
+  if (const auto it = m_loadedFonts.find(hashName); it != m_loadedFonts.end())
     return it->second;
 
   ImFont *newFont = uiFonts->AddFontFromFileTTF(fontPath.c_str(), (float)size);
