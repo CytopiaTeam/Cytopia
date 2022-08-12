@@ -151,15 +151,13 @@ void UIManager::closeOpenMenus()
 
 void UIManager::openMenu(GameMenu::Ptr menu)
 {
-  auto it = std::find(m_menuStack.begin(), m_menuStack.end(), menu);
+  if (std::none_of(std::begin(m_menuStack), std::end(m_menuStack), [&](const auto &m) { return m == menu; }))
+  {
+    m_menuStack.push_back(menu);
 
-  if (it != m_menuStack.end())
-    return;
-
-  m_menuStack.push_back(menu);
-
-  Camera::instance().canScale(false);
-  Camera::instance().canMove(false);
+    Camera::instance().canScale(false);
+    Camera::instance().canMove(false);
+  }
 }
 
 void UIManager::closeMenu()
@@ -175,9 +173,7 @@ void UIManager::closeMenu()
 
 void UIManager::addPersistentMenu(GameMenu::Ptr menu)
 {
-  auto it = std::find(m_persistentMenu.begin(), m_persistentMenu.end(), menu);
-
-  if (it == m_persistentMenu.end())
+  if (std::none_of(std::begin(m_persistentMenu), std::end(m_persistentMenu), [&](const auto &m) { return m == menu; }))
   {
     m_persistentMenu.push_back(menu);
   }
