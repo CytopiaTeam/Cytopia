@@ -56,8 +56,7 @@ ImFont *UIManager::loadFont(const std::string &fontPath, uint32_t size)
 
   std::string hashName = fontPath;
   hashName.append(std::to_string(size));
-  auto it = m_loadedFonts.find(hashName);
-  if (it != m_loadedFonts.end())
+  if (const auto it = m_loadedFonts.find(hashName); it != m_loadedFonts.end())
     return it->second;
 
   ImFont *newFont = uiFonts->AddFontFromFileTTF(fontPath.c_str(), (float)size);
@@ -70,15 +69,14 @@ ImFont *UIManager::loadFont(const std::string &fontPath, uint32_t size)
 void UIManager::initializeImGuiFonts() {
   std::string fontPath = fs::getBasePath() + Settings::instance().fontFileName.get(); // fix for macos, need to use abs path
 
-  std::array<const char *, 4> names = {"MainMenuButtons", "PauseMenuButtons", "LoadDialogButtons", "BuildMenuButtons"};
+  const auto names = {"MainMenuButtons", "PauseMenuButtons", "LoadDialogButtons", "BuildMenuButtons"};
   for (const auto &name : names)
   {
-    auto it = m_layouts.find(name);
-    if (it == m_layouts.end())
-      continue;
-
-    auto &layout = it->second;
-    layout.font = loadFont(fontPath, layout.fontSize);
+    if (const auto it = m_layouts.find(name); it != m_layouts.end())
+    {
+        auto &layout = it->second;
+        layout.font = loadFont(fontPath, layout.fontSize);
+    }
   }
 }
 

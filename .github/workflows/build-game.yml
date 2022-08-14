@@ -29,6 +29,7 @@ jobs:
 
       - name: Build
         run: |
+          conan config set storage.download_cache="$env:TMP"
           cmake . -GNinja -DCMAKE_BUILD_TYPE=Release -DCYTOPIA_USE_ANGELSCRIPT=CONAN
           ninja
 
@@ -65,14 +66,44 @@ jobs:
           path: ~/.conan/
 
       - name: Install dependencies
-        env:
-          CONAN_USER_HOME: "/tmp/"
         run: |
           echo -e 'pcm.!default {\n type plug\n slave.pcm "null"\n}' > ~/.asoundrc
           curl "https://raw.githubusercontent.com/AnotherFoxGuy/ci-scripts/main/install-cmake.sh" | sudo bash
           curl "https://raw.githubusercontent.com/AnotherFoxGuy/ci-scripts/main/install-conan.sh" | sudo bash
-          conan install "xorg/system@"
-          sudo apt-get -y install ninja-build libgl-dev libegl-dev
+          sudo apt-get -y install \
+            ninja-build libgl-dev libegl-dev \
+            libx11-xcb-dev \
+            libfontenc-dev \
+            libxaw7-dev \
+            libxcomposite-dev \
+            libxcursor-dev \
+            libxdamage-dev \
+            libxfixes-dev \
+            libxi-dev \
+            libxinerama-dev \
+            libxmu-dev \
+            libxmuu-dev \
+            libxpm-dev \
+            libxrandr-dev \
+            libxres-dev \
+            libxss-dev \
+            libxtst-dev \
+            libxv-dev \
+            libxvmc-dev \
+            libxxf86vm-dev \
+            libxcb-render-util0-dev \
+            libxcb-xkb-dev \
+            libxcb-icccm4-dev \
+            libxcb-image0-dev \
+            libxcb-keysyms1-dev \
+            libxcb-randr0-dev \
+            libxcb-shape0-dev \
+            libxcb-sync-dev \
+            libxcb-xfixes0-dev \
+            libxcb-xinerama0-dev \
+            libxcb-util-dev \
+            libxcb-util0-dev \
+            libxcb-dri3-dev  
 
       - name: Configure
         run: |

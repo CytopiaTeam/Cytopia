@@ -24,7 +24,7 @@
 Cytopia is a free, open source retro pixel-art city building game with a big focus on mods. It utilizes a custom isometric rendering engine based on SDL2.
 
 #### Current Key Features:
-- Custom UI System, based on JSON. Highly moddable
+- Custom UI System
 - SDL2 based rendering engine written in C++
 - Camera panning, zooming, relocating
 - Terrain manipulation
@@ -41,12 +41,12 @@ Cytopia is a free, open source retro pixel-art city building game with a big foc
 - Android / iOS
 - Scripting language for mods (like LUA)
 
-For code documentation see the projects [Doxygen Documentation](https://cytopia-docs.netlify.app/).
+For code documentation, see the project's [Doxygen Documentation](https://cytopia-docs.netlify.app/).
 
-If you have questions or if you want to join the project, visit the [Projects Discord Server](https://discord.gg/qwa2H3G)
-If discord is not for you, visit our IRC channel on freenode at #Cytopia
+If you have questions or if you want to join the project, visit the [Project's Discord Server](https://discord.gg/qwa2H3G).
+If Discord is not for you, visit our IRC channel on freenode at #Cytopia
 
-In case you want to support our project on patreon, visit our [Patreon Page](https://patreon.com/cytopia)
+In case you want to support our project on patreon, visit our [Patreon Page](https://patreon.com/cytopia).
 
 
 #### Supported Platforms
@@ -56,7 +56,7 @@ Mac
 
 #### Prerequisites
 
-- [CMake 3.11 or later](https://cmake.org/)
+- [CMake 3.16 or later](https://cmake.org/)
 - [Conan](https://conan.io)
 - [SDL2](https://www.libsdl.org/)
 - [SDL2_tff](https://www.libsdl.org/)
