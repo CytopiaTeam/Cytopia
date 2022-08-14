@@ -181,36 +181,30 @@ void AudioMixer::play(const AudioTrigger &trigger, int effect)
 
 void AudioMixer::play(const SoundtrackID &id, const Coordinate3D &position, int effect)
 {
-  auto &track = getTrack(id);
-  if (track)
+  if (getTrack(id))
   {
+    auto &track = getTrack(id);
     /* set position of sources in track */
     alSource3f(track->source[0], AL_POSITION, static_cast<ALfloat>(position.x), static_cast<ALfloat>(position.y),
                static_cast<ALfloat>(position.z));
     alSource3f(track->source[1], AL_POSITION, static_cast<ALfloat>(position.x), static_cast<ALfloat>(position.y),
                static_cast<ALfloat>(position.z));
-    if (effect == AL_EFFECT_NULL)
-      playSoundtrack(track);
-    else
-      playSoundtrackWithEffect(track, effect);
+    play(id, effect);
   }
 }
 
 void AudioMixer::play(const AudioTrigger &trigger, const Coordinate3D &position, int effect)
 {
-  auto &track = getTrack(trigger);
-  if (track)
+  if (getTrack(trigger))
   {
+    auto &track = getTrack(trigger);
     /* set position of sources in track
    * converted to regular Cartesian coordinate system */
     alSource3f(track->source[0], AL_POSITION, static_cast<ALfloat>(position.x), static_cast<ALfloat>(position.y),
                static_cast<ALfloat>(position.z));
     alSource3f(track->source[1], AL_POSITION, static_cast<ALfloat>(position.x), static_cast<ALfloat>(position.y),
                static_cast<ALfloat>(position.z));
-    if (effect == AL_EFFECT_NULL)
-      playSoundtrack(track);
-    else
-      playSoundtrackWithEffect(track, effect);
+    play(trigger, effect);
   }
 }
 
