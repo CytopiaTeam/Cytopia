@@ -68,3 +68,10 @@ add_external_lib(
         FIND_PACKAGE
         BY_DEFAULT_DISABLED
 )
+
+if (UNIX AND NOT APPLE)
+        add_external_lib(
+                libalsa
+                libalsa/1.2.7.2
+        )
+endif ()
