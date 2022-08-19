@@ -4,6 +4,7 @@
 // #include "WindowManager.hxx"
 // #include "basics/Point.hxx"
 #include "../Map.hxx"
+#include "audio/AudioConfig.hxx"
 // #include "../../util/Singleton.hxx"
 #include <Singleton.hxx>
 #include <Point.hxx>
@@ -26,6 +27,12 @@ public:
   * @return true in case that height has been changed, otherwise false.
   */
   bool updateHeight(Point coordinate, const bool elevate);
+
+  /** \brief level area of map nodes.
+	* @param startcoordinate the starting point whose height is used for levelling
+	* @param levelArea the area that is to be leveled.
+	*/
+  void levelHeight(const Point &startCoordinate, const Vector<Point> levelArea);
 
   /** \brief Get pointer to a single mapNode at specific iso coordinates.
   * @param isoCoords The node to retrieve.
