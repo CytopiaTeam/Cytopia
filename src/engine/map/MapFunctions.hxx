@@ -3,6 +3,7 @@
 
 // #include "WindowManager.hxx"
 // #include "basics/Point.hxx"
+#include <vector>
 #include "../Map.hxx"
 // #include "../../util/Singleton.hxx"
 #include <Singleton.hxx>
@@ -31,7 +32,7 @@ public:
 	* @param startcoordinate the starting point whose height is used for levelling
 	* @param levelArea the area that is to be leveled.
 	*/
-  void levelHeight(const Point &startCoordinate, const Vector<Point> levelArea);
+  void levelHeight(const Point &startCoordinate, const std::vector<Point> levelArea);
 
   /** \brief Get pointer to a single mapNode at specific iso coordinates.
   * @param isoCoords The node to retrieve.

@@ -60,7 +60,7 @@ void MapFunctions::changeHeight(const Point &isoCoordinates, const bool elevate)
   }
 }
 
-void MapFunctions::levelHeight(const Point &startCoordinate, const Vector<Point> levelArea)
+void MapFunctions::levelHeight(const Point &startCoordinate, const std::vector<Point> levelArea)
 {
   const MapNode &startNode = getMapNode(startCoordinate);
   int initialHeight = startCoordinate.height;
