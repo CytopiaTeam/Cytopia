@@ -55,21 +55,21 @@ void EventManager::pickTileUnderCursor(Point mouseIsoCoords)
   // update placement mode
   switch (topMostActiveLayer)
   {
-    case Layer::BUILDINGS:
-      GameStates::instance().placementMode = PlacementMode::SINGLE;
-      break;
-    case Layer::ROAD:
-    case Layer::POWERLINES:
-    case Layer::UNDERGROUND:
-      GameStates::instance().placementMode = PlacementMode::LINE;
-      break;
-    case Layer::GROUND_DECORATION:
-    case Layer::WATER:
-    case Layer::ZONE:
-      GameStates::instance().placementMode = PlacementMode::RECTANGLE;
-      break;
-    default:
-      break;
+  case Layer::BUILDINGS:
+    GameStates::instance().placementMode = PlacementMode::SINGLE;
+    break;
+  case Layer::ROAD:
+  case Layer::POWERLINES:
+  case Layer::UNDERGROUND:
+    GameStates::instance().placementMode = PlacementMode::LINE;
+    break;
+  case Layer::GROUND_DECORATION:
+  case Layer::WATER:
+  case Layer::ZONE:
+    GameStates::instance().placementMode = PlacementMode::RECTANGLE;
+    break;
+  default:
+    break;
   }
   mapNodeData = node.getMapNodeData();
   tileToPlace = mapNodeData[topMostActiveLayer].tileID;
@@ -408,7 +408,7 @@ void EventManager::checkEvents(SDL_Event &event)
       break;
     case SDL_MOUSEBUTTONDOWN:
       m_placementAllowed = false;
-      
+
       if (event.button.button == SDL_BUTTON_RIGHT)
       {
         m_panning = true;
@@ -488,6 +488,10 @@ void EventManager::checkEvents(SDL_Event &event)
         {
           MapFunctions::instance().changeHeight(mouseIsoCoords, false);
         }
+        else if (terrainEditMode == TerrainEdit::LEVEL)
+        {
+          MapFunctions::instance().levelHeight(m_clickDownCoords, m_nodesToPlace);
+        }
         else if (demolishMode)
         {
           MapFunctions::instance().demolishNode(m_nodesToHighlight, true);
@@ -518,7 +522,8 @@ void EventManager::checkEvents(SDL_Event &event)
       if (highlightSelection)
       {
         m_nodesToHighlight.push_back(mouseIsoCoords);
-        if (!uiManager.isMouseHovered() && !tileToPlace.empty() && !MapFunctions::instance().setTileID(tileToPlace, mouseIsoCoords))
+        if (!uiManager.isMouseHovered() && !tileToPlace.empty() &&
+            !MapFunctions::instance().setTileID(tileToPlace, mouseIsoCoords))
         {
           MapFunctions::instance().highlightNode(mouseIsoCoords, SpriteHighlightColor::RED);
         }

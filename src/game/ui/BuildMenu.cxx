@@ -17,7 +17,11 @@ namespace ui = ImGui;
 BuildMenu::BuildMenu()
 {
   // function create new big category button
-  auto main_button = [this] (const char *tx, const char *id) { m_buttons.emplace_back(std::make_shared<BuildMenuButton>(tx, id)); return m_buttons.back(); };
+  auto main_button = [this](const char *tx, const char *id)
+  {
+    m_buttons.emplace_back(std::make_shared<BuildMenuButton>(tx, id));
+    return m_buttons.back();
+  };
 
   // special case for construction button
   auto constrution = main_button("Button_ConstructionMenu", "Construction");
@@ -37,7 +41,7 @@ BuildMenu::BuildMenu()
   main_button("Button_WaterMenu", "Waterworks");
   main_button("Button_EmergencyMenu", "Emergency");
   main_button("Button_DebugMenu", "Debug");
-  
+
   // save texture size
   ImSpan2i size;
   SDL_QueryTexture(m_buttons.front()->m_tex, nullptr, nullptr, &size.w, &size.h);
@@ -48,12 +52,11 @@ BuildMenu::BuildMenu()
 
 namespace detail
 {
-  float getItemSpan(int deep) { return deep == 0 ? 16.f : 6.f; }
-}
+float getItemSpan(int deep) { return deep == 0 ? 16.f : 6.f; }
+} // namespace detail
 
 // recusively draw categories
-template<class Holder>
-void drawSubmenu(ImVec2 pos, float categoryOffset, const Holder &holder, BuildMenu *menu, int deep)
+template <class Holder> void drawSubmenu(ImVec2 pos, float categoryOffset, const Holder &holder, BuildMenu *menu, int deep)
 {
   if (holder.getButtons().empty())
     return;
@@ -68,20 +71,25 @@ void drawSubmenu(ImVec2 pos, float categoryOffset, const Holder &holder, BuildMe
   ImVec2 itemSpacing;
   ImVec2 nextPos;
   ImVec2 nextOffset{0, 0};
-  bool verticalMenu = (uiManager.buildMenuLayout() == BUILDMENU_LAYOUT::LEFT || uiManager.buildMenuLayout() == BUILDMENU_LAYOUT::RIGHT);
-  itemSpacing = verticalMenu
-                    ? itemSpacing = ImVec2(0, detail::getItemSpan(deep))
-                    : ImVec2(detail::getItemSpan(deep), 0);
-  windowSize = verticalMenu
-                    ? ImVec2(frameSize.x, frameFullWidth * (float)holder.getButtons().size())
-                    : ImVec2(frameFullWidth * (float)holder.getButtons().size(), frameSize.y);
-  
+  bool verticalMenu =
+      (uiManager.buildMenuLayout() == BUILDMENU_LAYOUT::LEFT || uiManager.buildMenuLayout() == BUILDMENU_LAYOUT::RIGHT);
+  itemSpacing = verticalMenu ? itemSpacing = ImVec2(0, detail::getItemSpan(deep)) : ImVec2(detail::getItemSpan(deep), 0);
+  windowSize = verticalMenu ? ImVec2(frameSize.x, frameFullWidth * (float)holder.getButtons().size())
+                            : ImVec2(frameFullWidth * (float)holder.getButtons().size(), frameSize.y);
+
   switch (uiManager.buildMenuLayout())
   {
-    case BUILDMENU_LAYOUT::BOTTOM: nextOffset.y = -categoryOffset; break;
-    case BUILDMENU_LAYOUT::TOP: nextOffset.y = +categoryOffset; break;
-    case BUILDMENU_LAYOUT::LEFT: nextOffset.x = categoryOffset; break;
-    default: nextOffset.x = -categoryOffset;
+  case BUILDMENU_LAYOUT::BOTTOM:
+    nextOffset.y = -categoryOffset;
+    break;
+  case BUILDMENU_LAYOUT::TOP:
+    nextOffset.y = +categoryOffset;
+    break;
+  case BUILDMENU_LAYOUT::LEFT:
+    nextOffset.x = categoryOffset;
+    break;
+  default:
+    nextOffset.x = -categoryOffset;
   }
 
   const auto &layout = uiManager.getLayouts()["BuildMenuButtons"];
@@ -100,13 +108,15 @@ void drawSubmenu(ImVec2 pos, float categoryOffset, const Holder &holder, BuildMe
   bool open = true;
   std::string wId = std::string("##BuildMenu_") + holder.getId() + std::to_string(deep);
   // begin buttons
-  ui::Begin(wId.c_str(), &open, ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
+  ui::Begin(wId.c_str(), &open,
+            ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoScrollbar |
+                ImGuiWindowFlags_NoScrollWithMouse);
 
   // setup screen size cliip rect that handle mouse event outside
   ui::PushClipRect(ImVec2{0, 0}, screenSize, false);
   BuildMenuButton::Ptr nextMenuLevel = nullptr;
   int idx = 0;
-  
+
   // draw buttons, each button need unique id
   std::array<char, 128> id_str = {0};
   for (auto btn : holder.getButtons())
@@ -115,11 +125,11 @@ void drawSubmenu(ImVec2 pos, float categoryOffset, const Holder &holder, BuildMe
 
     ImVec2 imgPos{btn->m_destRect.x, btn->m_destRect.y};
     ImVec2 imgSize{btn->m_destRect.z, btn->m_destRect.w};
-    
+
     // draw bg | pressed state
     ImGuiButtonFlags flags = btn->m_open ? ImGuiButtonFlags_ForcePressed : 0;
     flags |= btn->m_background ? 0 : ImGuiButtonFlags_NoBackground;
-    
+
     if (ui::ImageButtonCt(btn->m_tex, flags, frameSize, imgPos, imgSize, btn->m_uv0, btn->m_uv1, -1, ImVec4(0, 0, 0, 0)))
     {
       btn->m_open = !btn->m_open;
@@ -130,7 +140,7 @@ void drawSubmenu(ImVec2 pos, float categoryOffset, const Holder &holder, BuildMe
     if (ui::IsItemHovered(ImGuiHoveredFlags_AllowWhenDisabled) && ui::GetHoveredTimer() > menu->getTooltipDelay())
     {
       ui::SetTooltip(btn->getId().c_str());
-    } 
+    }
 
     // calc next subcategory position center
     if (btn->m_open && !btn->getButtons().empty())
@@ -142,21 +152,21 @@ void drawSubmenu(ImVec2 pos, float categoryOffset, const Holder &holder, BuildMe
 
       switch (uiManager.buildMenuLayout())
       {
-        case BUILDMENU_LAYOUT::BOTTOM:
-          nextPos.x = ui::GetCursorScreenPos().x + ((float)(idx - 1) * frameFullWidth) - nextCategoryOffset + frameFullWidth / 2;
-          nextPos.y = pos.y - nextFrameFullWidth;
+      case BUILDMENU_LAYOUT::BOTTOM:
+        nextPos.x = ui::GetCursorScreenPos().x + ((float)(idx - 1) * frameFullWidth) - nextCategoryOffset + frameFullWidth / 2;
+        nextPos.y = pos.y - nextFrameFullWidth;
         break;
-        case BUILDMENU_LAYOUT::TOP:
-          nextPos.x = ui::GetCursorScreenPos().x + ((float)(idx - 1) * frameFullWidth) - nextCategoryOffset + frameFullWidth / 2;
-          nextPos.y = pos.y + frameFullWidth + detail::getItemSpan(1);
+      case BUILDMENU_LAYOUT::TOP:
+        nextPos.x = ui::GetCursorScreenPos().x + ((float)(idx - 1) * frameFullWidth) - nextCategoryOffset + frameFullWidth / 2;
+        nextPos.y = pos.y + frameFullWidth + detail::getItemSpan(1);
         break;
-        case BUILDMENU_LAYOUT::LEFT:
-          nextPos.x = pos.x + frameFullWidth + detail::getItemSpan(1);
-          nextPos.y = ui::GetCursorScreenPos().y - nextCategoryOffset - frameFullWidth / 2;
+      case BUILDMENU_LAYOUT::LEFT:
+        nextPos.x = pos.x + frameFullWidth + detail::getItemSpan(1);
+        nextPos.y = ui::GetCursorScreenPos().y - nextCategoryOffset - frameFullWidth / 2;
         break;
-        default:
-          nextPos.x = pos.x - nextFrameFullWidth;
-          nextPos.y = ui::GetCursorScreenPos().y - nextCategoryOffset - frameFullWidth / 2;
+      default:
+        nextPos.x = pos.x - nextFrameFullWidth;
+        nextPos.y = ui::GetCursorScreenPos().y - nextCategoryOffset - frameFullWidth / 2;
         break;
       }
     }
@@ -168,7 +178,7 @@ void drawSubmenu(ImVec2 pos, float categoryOffset, const Holder &holder, BuildMe
   }
 
   ui::PopClipRect(); // back common clip rect
-  
+
   ui::End(); // end buttons
 
   ui::PopStyleVar(4);
@@ -180,20 +190,29 @@ void drawSubmenu(ImVec2 pos, float categoryOffset, const Holder &holder, BuildMe
   }
 }
 
-void BuildMenu::draw() const {
+void BuildMenu::draw() const
+{
   ImVec2 screenSize = ui::GetIO().DisplaySize;
-  auto _self = const_cast<BuildMenu *>(this);  // const_cast here because button open state can be changed
+  auto _self = const_cast<BuildMenu *>(this); // const_cast here because button open state can be changed
 
   ImVec2 pos{0, 0};
   const auto &uiManager = UIManager::instance();
   const float frameSize = m_btnSize.x + detail::getItemSpan(0);
   const float buttonsSize = (float)m_buttons.size();
 
-  switch (uiManager.buildMenuLayout()) {
-    case BUILDMENU_LAYOUT::BOTTOM: pos = { (screenSize.x -  buttonsSize * frameSize) / 2, screenSize.y - m_btnSize.y}; break;
-    case BUILDMENU_LAYOUT::TOP: pos = ImVec2{(screenSize.x - buttonsSize * frameSize) / 2, 0}; break;
-    case BUILDMENU_LAYOUT::LEFT: pos = ImVec2{0, (screenSize.y - buttonsSize * frameSize) / 2}; break;
-    default: pos = {screenSize.x - m_btnSize.x, (screenSize.y - buttonsSize * frameSize) / 2};
+  switch (uiManager.buildMenuLayout())
+  {
+  case BUILDMENU_LAYOUT::BOTTOM:
+    pos = {(screenSize.x - buttonsSize * frameSize) / 2, screenSize.y - m_btnSize.y};
+    break;
+  case BUILDMENU_LAYOUT::TOP:
+    pos = ImVec2{(screenSize.x - buttonsSize * frameSize) / 2, 0};
+    break;
+  case BUILDMENU_LAYOUT::LEFT:
+    pos = ImVec2{0, (screenSize.y - buttonsSize * frameSize) / 2};
+    break;
+  default:
+    pos = {screenSize.x - m_btnSize.x, (screenSize.y - buttonsSize * frameSize) / 2};
   }
 
   drawSubmenu(pos, frameSize, *this, _self, 0);
@@ -201,14 +220,14 @@ void BuildMenu::draw() const {
 
 void BuildMenu::createSubMenus()
 {
-  auto debugBtnIt = std::find_if(m_buttons.begin(), m_buttons.end(), [] (auto &btn) { return btn->getId() == "Debug"; });
+  auto debugBtnIt = std::find_if(m_buttons.begin(), m_buttons.end(), [](auto &btn) { return btn->getId() == "Debug"; });
   if (debugBtnIt == m_buttons.end())
   {
     return;
   }
 
   std::map<std::string, BuildMenuButton::Ptr> categories;
-  for (auto btn: m_buttons)
+  for (auto btn : m_buttons)
   {
     categories[btn->getId()] = btn;
   }
@@ -216,13 +235,10 @@ void BuildMenu::createSubMenus()
   for (const auto &[tx, tileData] : TileManager::instance().getAllTileData())
   {
     const std::string &category = tileData.category;
-    const std::string subCategory = (tileData.subCategory == tileData.category) ? (tileData.category + "_" + tileData.subCategory) : tileData.subCategory;
+    const std::string subCategory =
+        (tileData.subCategory == tileData.category) ? (tileData.category + "_" + tileData.subCategory) : tileData.subCategory;
     const std::string &title = tileData.title;
-    const std::string &tooltip = !title.empty()
-                                    ? title
-                                    : subCategory.empty()
-                                        ? category
-                                        : subCategory;
+    const std::string &tooltip = !title.empty() ? title : subCategory.empty() ? category : subCategory;
 
     // Skip all items that have no button group
     if (category == "Water" || category == "Terrain")
@@ -252,7 +268,7 @@ void BuildMenu::createSubMenus()
 
         subBtn->addTileButton(tx, tooltip, tileData);
       }
-      else 
+      else
       {
         it->second->addTileButton(tx, tooltip, tileData);
       }
@@ -328,7 +344,7 @@ void BuildMenu::onAction(const std::string &action, bool checked)
       GameStates::instance().demolishMode = DemolishMode::DEFAULT;
     }
   }
-  else if (action == "LowerTerrain") 
+  else if (action == "LowerTerrain")
   {
     terrainEditMode = checked ? TerrainEdit::LOWER : TerrainEdit::NONE;
     highlightSelection = checked;
@@ -336,6 +352,11 @@ void BuildMenu::onAction(const std::string &action, bool checked)
   else if (action == "RaiseTerrain")
   {
     terrainEditMode = checked ? TerrainEdit::RAISE : TerrainEdit::NONE;
+    highlightSelection = checked;
+  }
+  else if (action == "LevelTerrain")
+  {
+    terrainEditMode = checked ? TerrainEdit::LEVEL : TerrainEdit::NONE;
     highlightSelection = checked;
   }
   else if (action == "DeZone")
@@ -372,7 +393,7 @@ void BuildMenu::onChangeTileType(const std::string &actionParameter, bool checke
     tileToPlace = "";
     highlightSelection = false;
   }
-  
+
   tileToPlace = checked ? actionParameter : "";
   highlightSelection = checked;
   if (GameStates::instance().layerEditMode == LayerEditMode::BLUEPRINT)
@@ -390,13 +411,13 @@ void BuildMenu::onChangeTileType(const std::string &actionParameter, bool checke
       case +TileType::DEFAULT:
         GameStates::instance().placementMode = PlacementMode::SINGLE;
         break;
-      
+
       case +TileType::ROAD:
       case +TileType::AUTOTILE:
       case +TileType::POWERLINE:
         GameStates::instance().placementMode = PlacementMode::LINE;
         break;
-      
+
       case +TileType::GROUNDDECORATION:
       case +TileType::WATER:
       case +TileType::ZONE:
@@ -408,7 +429,7 @@ void BuildMenu::onChangeTileType(const std::string &actionParameter, bool checke
         GameStates::instance().layerEditMode = LayerEditMode::BLUEPRINT;
         MapLayers::setLayerEditMode(GameStates::instance().layerEditMode);
         break;
-      
+
       default:
         break;
       }
@@ -420,7 +441,7 @@ void BuildMenu::closeSubmenus()
 {
   clearState();
 
-  for (auto &btn: m_buttons)
+  for (auto &btn : m_buttons)
   {
     btn->hideItems();
   }
@@ -433,8 +454,7 @@ void BuildMenu::clearState()
   terrainEditMode = TerrainEdit::NONE;
 }
 
-BuildMenuButton::BuildMenuButton(const std::string &tx, const std::string &id) 
-                  : m_texstr(tx), m_id(id)
+BuildMenuButton::BuildMenuButton(const std::string &tx, const std::string &id) : m_texstr(tx), m_id(id)
 {
   m_tex = ResourcesManager::instance().getUITexture(tx);
   SDL_QueryTexture(m_tex, nullptr, nullptr, &m_texSize.w, &m_texSize.h);
@@ -443,7 +463,7 @@ BuildMenuButton::BuildMenuButton(const std::string &tx, const std::string &id)
 }
 
 BuildMenuButton::BuildMenuButton(const std::string &tx, const std::string &id, const TileData &tile)
-                   : m_background(true), m_texstr(tx), m_id(id), m_tiletype(tx)
+    : m_background(true), m_texstr(tx), m_id(id), m_tiletype(tx)
 {
   int bWid = Settings::instance().subMenuButtonWidth;  //UI button width for sub menues
   int bHei = Settings::instance().subMenuButtonHeight; //UI button height for sub menues
@@ -454,12 +474,14 @@ BuildMenuButton::BuildMenuButton(const std::string &tx, const std::string &id, c
   m_tex = TileManager::instance().getTexture(tx);
   SDL_QueryTexture(m_tex, nullptr, nullptr, &m_texSize.w, &m_texSize.h);
   m_uv0 = ImVec2((float)(tile.tiles.clippingWidth * tile.tiles.offset) / (float)m_texSize.w, 0.f);
-  m_uv1 = ImVec2(m_uv0.x + (float)(tile.tiles.clippingWidth) / (float)m_texSize.w, m_uv0.y + ((float)tile.tiles.clippingHeight) / (float)m_texSize.h);
+  m_uv1 = ImVec2(m_uv0.x + (float)(tile.tiles.clippingWidth) / (float)m_texSize.w,
+                 m_uv0.y + ((float)tile.tiles.clippingHeight) / (float)m_texSize.h);
   m_btnSize = ImVec2(bWid, bHei);
   m_destRect = ImVec4((float)destRect.x, (float)destRect.y, (float)destRect.w, (float)destRect.h);
 }
 
-BuildMenuButton::Ptr BuildMenuButton::addActionButton(const std::string &tx, const std::string &action, const std::string &tooltip)
+BuildMenuButton::Ptr BuildMenuButton::addActionButton(const std::string &tx, const std::string &action,
+                                                      const std::string &tooltip)
 {
   auto btn = std::make_shared<BuildMenuButton>(tx, action);
   btn->m_id = tooltip;

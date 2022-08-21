@@ -13,10 +13,7 @@
 #include <set>
 #include <queue>
 
-MapFunctions::MapFunctions()
-{
-  SignalMediator::instance().registerCbSaveGame(Signal::slot(this, &MapFunctions::saveMapToFile));
-}
+MapFunctions::MapFunctions() { SignalMediator::instance().registerCbSaveGame(Signal::slot(this, &MapFunctions::saveMapToFile)); }
 
 bool MapFunctions::updateHeight(Point coordinate, const bool elevate)
 {
@@ -61,6 +58,77 @@ void MapFunctions::changeHeight(const Point &isoCoordinates, const bool elevate)
     demolishNode(neighorCoordinates);
     updateNodeNeighbors(nodesToUpdate);
   }
+}
+
+void MapFunctions::levelHeight(const Point &startCoordinate, const std::vector<Point> levelArea)
+{
+  const MapNode &startNode = getMapNode(startCoordinate);
+  int initialHeight = startCoordinate.height;
+
+  /* If the initial node is sloped, check if a majority of it's neighbors,
+	* not counting other sloped nodes are elevated.
+	* If so, the initial node should be regarded as elevated too,
+	* i.e. the height should be incremented.
+	* This seems to yield the most intuitive behavior on slopes.
+	*/
+  if (startNode.isSlopeNode())
+  {
+    char directNeighbors =
+        NeighborNodesPosition::LEFT | NeighborNodesPosition::TOP | NeighborNodesPosition::RIGHT | NeighborNodesPosition::BOTTOM;
+    char elBitmask = startNode.getElevationBitmask();
+
+    int nonSelectedNeighborsCount = 0;
+    int elevatedNonSelectedNeighborsCount = 0;
+
+    for (Point neighbor : PointFunctions::getNeighbors(startCoordinate, false))
+    {
+      const NeighborNodesPosition neighborPosToOrigin = PointFunctions::getNeighborPositionToOrigin(neighbor, startCoordinate);
+      const bool isSloped = getMapNode(neighbor).isSlopeNode();
+
+      // Only look at non-sloped direct neighbors not in the selection.
+      if (!isSloped && (neighborPosToOrigin & directNeighbors) > 0 &&
+          std::find(levelArea.begin(), levelArea.end(), neighbor) == levelArea.end())
+      {
+        nonSelectedNeighborsCount++;
+
+        if ((neighborPosToOrigin & elBitmask) > 0)
+          elevatedNonSelectedNeighborsCount++;
+      }
+    }
+
+    if (elevatedNonSelectedNeighborsCount * 2 > nonSelectedNeighborsCount)
+      // No need to check max height since there are elevated neighbors.
+      initialHeight++;
+  }
+
+  Vector<Point> neighborsToLower;
+
+  for (const Point &levelPoint : levelArea)
+  {
+    // If a node gets lowered, save all it's neighbors to be lowered aswell.
+    // We have to get the node first, since the coordinates in the area are generated with height=0
+    if (getMapNode(levelPoint).getCoordinates().height > initialHeight)
+    {
+      // This possibly stores nodes that have already been processed for another round.
+      // It's faster than checking if each node is in levelArea first though.
+      Vector<Point> neighbors = PointFunctions::getNeighbors(levelPoint, false);
+      neighborsToLower.insert(neighborsToLower.end(), neighbors.begin(), neighbors.end());
+    }
+
+    Point newCoordinates = Point(levelPoint.x, levelPoint.y, levelPoint.z, initialHeight);
+    MapNode &levelNode = getMapNode(levelPoint);
+    levelNode.setCoordinates(newCoordinates);
+  }
+
+  for (const Point &levelPoint : neighborsToLower)
+  {
+    Point newCoordinates = Point(levelPoint.x, levelPoint.y, levelPoint.z, initialHeight);
+    MapNode &levelNode = getMapNode(levelPoint);
+    levelNode.setCoordinates(newCoordinates);
+  }
+
+  updateNodeNeighbors(levelArea);
+  updateNodeNeighbors(neighborsToLower);
 }
 
 void MapFunctions::updateNodeNeighbors(const std::vector<Point> &nodes)
