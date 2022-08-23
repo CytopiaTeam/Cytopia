@@ -6,7 +6,7 @@
 Soundtrack::Soundtrack(SoundtrackID id, ChannelID channelID, DecodedAudioData *dAudioData, RepeatCount repeat, bool isMusic,
                        bool isPlaying, bool isPlayable, bool isTriggerable)
     : ID(id), Channel(channelID), Loop(repeat), isMusic(isMusic), isPlaying(isPlaying), isTriggerable(isTriggerable),
-      isPlayable(isPlayable), source(0), buffer(0)
+      isPlayable(isPlayable), source(), buffer(0)
 {
 
   /* initialize buffer */
@@ -25,21 +25,22 @@ Soundtrack::Soundtrack(SoundtrackID id, ChannelID channelID, DecodedAudioData *d
   if (errorCode != AL_NO_ERROR)
     throw AudioError(TRACE_INFO "Failed to load audio data into buffer: Error " + std::to_string(errorCode));
 
-  /* initialize source */
-  alGenSources(1, &source);
-  alSourcei(source, AL_SOURCE_RELATIVE, AL_FALSE);
+  /* initialize sources */
+  alGenSources(2, source);
+  alSourcei(source[0], AL_SOURCE_RELATIVE, AL_FALSE); // sfx channel/source
+  alSourcei(source[1], AL_SOURCE_RELATIVE, AL_FALSE); // music channel/source
   errorCode = alGetError();
   if (errorCode != AL_NO_ERROR)
     throw AudioError(TRACE_INFO "Failed to setup sound source: Error " + std::to_string(errorCode));
 
   /* attach buffer to source */
-  alSourcei(source, AL_BUFFER, buffer);
+  alSourcei(source[isMusic], AL_BUFFER, buffer);
 }
 
 Soundtrack::~Soundtrack()
 {
-  if (alIsSource(source))
-    alDeleteSources(1, &source);
+  if (alIsSource(source[0]))
+    alDeleteSources(2, source);
   if (alIsBuffer(buffer))
     alDeleteBuffers(1, &buffer);
 }

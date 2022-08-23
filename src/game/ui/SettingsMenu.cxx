@@ -143,6 +143,19 @@ void SettingsMenu::draw() const {
     }
   }
 
+//sfx volume label + slider
+  ui::LabelText("##sfxvol", "Sound FX Volume");
+  ui::SameLine();
+  float saveSFXVolume = settings.soundEffectsVolume;
+  ui::SliderFloatCt("sfx", &settings.soundEffectsVolume, 0, 1, "", ImGuiSliderFlags_NoText);
+
+  if (saveSFXVolume != settings.soundEffectsVolume)
+  {
+#ifdef USE_AUDIO
+    AudioMixer::instance().setSoundEffectVolume(settings.soundEffectsVolume);
+#endif
+  }
+
   ui::PopItemWidth();
 
   ImVec2 btnSize(windowSize.x / 4, 40);
