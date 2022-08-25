@@ -296,7 +296,7 @@ static LPALGETAUXILIARYEFFECTSLOTIV alGetAuxiliaryEffectSlotiv;
 static LPALGETAUXILIARYEFFECTSLOTF alGetAuxiliaryEffectSlotf;
 static LPALGETAUXILIARYEFFECTSLOTFV alGetAuxiliaryEffectSlotfv;
 
-void AudioMixer::playSoundtrackWithEffect(SoundtrackUPtr& track, int ALEffect) 
+void AudioMixer::playSoundtrackWithEffect(SoundtrackUPtr &track, int ALEffect)
 {
   if (!track)
     throw AudioError(TRACE_INFO "Received an invalid soundtrack");
@@ -304,7 +304,7 @@ void AudioMixer::playSoundtrackWithEffect(SoundtrackUPtr& track, int ALEffect)
   if (!track->source)
     throw AudioError{TRACE_INFO "Unable to play track because its source is uninitialized"};
 
-  //set up effect
+    //set up effect
 #define LOAD_PROC(T, x) ((x) = (T)alGetProcAddress(#x))
   LOAD_PROC(LPALGENEFFECTS, alGenEffects);
   LOAD_PROC(LPALDELETEEFFECTS, alDeleteEffects);
@@ -336,9 +336,9 @@ void AudioMixer::playSoundtrackWithEffect(SoundtrackUPtr& track, int ALEffect)
 
   // Create the effect object
   alGenEffects(1, &effect);
-  
+
   alEffecti(effect, AL_EFFECT_TYPE, ALEffect);
-  
+
   // this is where we would put code to customize the properties of the effect
 
   // Check if an error occured, and clean up if so.

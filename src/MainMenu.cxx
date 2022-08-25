@@ -60,7 +60,8 @@ bool mainMenu()
   int logoTexW, logoTexH;
   SDL_QueryTexture(logoTex, nullptr, nullptr, &logoTexW, &logoTexH);
 
-  auto beginFrame = [] {
+  auto beginFrame = []
+  {
     SDL_RenderClear(WindowManager::instance().getRenderer());
 
     WindowManager::instance().newImGuiFrame();
@@ -70,10 +71,13 @@ bool mainMenu()
     ui::SetNextWindowSize(ui::GetIO().DisplaySize);
 
     bool open = true;
-    ui::Begin("MainWnd", &open, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
+    ui::Begin("MainWnd", &open,
+              ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar |
+                  ImGuiWindowFlags_NoScrollWithMouse);
   };
 
-  auto renderFrame = [] {
+  auto renderFrame = []
+  {
     ui::End();
 
     WindowManager::instance().renderScreen();
@@ -86,7 +90,7 @@ bool mainMenu()
   {
     beginFrame();
 
-    // break the loop if an event occurs  
+    // break the loop if an event occurs
     const bool has_event = SDL_PollEvent(&event) != 0;
     if (has_event && event.type == SDL_MOUSEBUTTONDOWN || event.type == SDL_KEYDOWN)
       opacity = 254;
@@ -107,10 +111,12 @@ bool mainMenu()
   {
     beginFrame();
 
-    while (SDL_PollEvent(&event) != 0) { // while there is a pending event
+    while (SDL_PollEvent(&event) != 0)
+    { // while there is a pending event
       ImGui_ImplSDL2_ProcessEvent(&event);
 
-      if (event.type == SDL_QUIT) {
+      if (event.type == SDL_QUIT)
+      {
         startGame = false;
         mainMenuLoop = false;
       }
@@ -119,23 +125,24 @@ bool mainMenu()
     if (showLoadDialog)
     {
       loadMenu.draw();
-      switch (loadMenu.result()) {
-        case LoadMenu::e_close:
-          showLoadDialog = false;
-          break;
-      
-        case LoadMenu::e_load_file:
-  #ifdef USE_AUDIO
-          playAudioMajorSelection();
-  #endif //  USE_AUDIO 
-          SignalMediator::instance().signalLoadGame.emit(loadMenu.filename());
-          mainMenuLoop = false;
-          break;
-        default:
-          break;
+      switch (loadMenu.result())
+      {
+      case LoadMenu::e_close:
+        showLoadDialog = false;
+        break;
+
+      case LoadMenu::e_load_file:
+#ifdef USE_AUDIO
+        playAudioMajorSelection();
+#endif //  USE_AUDIO
+        SignalMediator::instance().signalLoadGame.emit(loadMenu.filename());
+        mainMenuLoop = false;
+        break;
+      default:
+        break;
       }
     }
-    else 
+    else
     {
       ui::PushFont(buttonFont);
       ui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
@@ -147,23 +154,26 @@ bool mainMenu()
       constexpr int buttonInterval = 20;
       ImVec2 buttonPos(screenWidth / 2 - buttonSize.x / 2, screenHeight / 2 - buttonSize.y);
       ui::SetCursorPos(buttonPos);
-      if (ui::ButtonCt("New Game", buttonSize)) {
-  #ifdef USE_AUDIO
+      if (ui::ButtonCt("New Game", buttonSize))
+      {
+#ifdef USE_AUDIO
         playAudioMajorSelection();
-  #endif //  USE_AUDIO 
+#endif //  USE_AUDIO
         mainMenuLoop = false;
         SignalMediator::instance().signalNewGame.emit(true);
       }
 
       buttonPos.y += buttonSize.y + buttonInterval;
       ui::SetCursorPos(buttonPos);
-      if (ui::ButtonCt("Load Game", buttonSize)) {
+      if (ui::ButtonCt("Load Game", buttonSize))
+      {
         showLoadDialog = true;
       }
 
       buttonPos.y += buttonSize.y + buttonInterval;
       ui::SetCursorPos(buttonPos);
-      if (ui::ButtonCt("Quit Game", buttonSize)) {
+      if (ui::ButtonCt("Quit Game", buttonSize))
+      {
         startGame = false;
         mainMenuLoop = false;
       }
@@ -171,13 +181,15 @@ bool mainMenu()
       constexpr int xOffset = 5, btnSize = 32;
       ImVec2 leftBottom(xOffset, screenHeight - btnSize - xOffset * 2);
       ui::SetCursorPos(leftBottom);
-      if (ui::ImageButton(discordTex, ImVec2(btnSize, btnSize))) {
+      if (ui::ImageButton(discordTex, ImVec2(btnSize, btnSize)))
+      {
         OSystem::openDir("https://discord.gg/MG3tgYV6ce");
       }
 
       leftBottom.x += xOffset * 2 + btnSize; // xOffset * 2 because, need interval between buttons
       ui::SetCursorPos(leftBottom);
-      if (ui::ImageButton(githubTex, ImVec2(btnSize, btnSize))) {
+      if (ui::ImageButton(githubTex, ImVec2(btnSize, btnSize)))
+      {
         OSystem::openDir("https://github.com/CytopiaTeam/Cytopia/issues/new");
       }
 

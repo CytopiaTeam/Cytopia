@@ -88,7 +88,8 @@ void Camera::moveCamera(int xOffset, int yOffset)
   m_CameraOffset.y -= yOffset;
   MapFunctions::instance().refreshVisibleMap();
   // update center coordinates
-  m_CenterIsoCoordinates = convertScreenToIsoCoordinates({Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2});
+  m_CenterIsoCoordinates =
+      convertScreenToIsoCoordinates({Settings::instance().screenWidth / 2, Settings::instance().screenHeight / 2});
 }
 
 const SDL_Point &Camera::cameraOffset() const noexcept { return m_CameraOffset; }

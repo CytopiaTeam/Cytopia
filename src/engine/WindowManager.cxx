@@ -36,8 +36,7 @@ WindowManager::WindowManager()
   if (!m_window)
     throw UIError(TRACE_INFO "Failed to create window: " + string{SDL_GetError()});
 
-  rendererFlags = SDL_RENDERER_ACCELERATED
-                      | (Settings::instance().vSync ? SDL_RENDERER_PRESENTVSYNC : 0);
+  rendererFlags = SDL_RENDERER_ACCELERATED | (Settings::instance().vSync ? SDL_RENDERER_PRESENTVSYNC : 0);
 
 #if defined(TESTING_ENABLED) && defined(__linux)
   // Set the index to 2 for running tests
@@ -179,7 +178,7 @@ void WindowManager::initializeImguiRenderer()
   ImGui_ImplSDLRenderer_Init(m_renderer);
 }
 
-void WindowManager::destroyImGuiRenderer() 
+void WindowManager::destroyImGuiRenderer()
 {
   ImGui_ImplSDLRenderer_Shutdown();
   ImGui_ImplSDL2_Shutdown();
@@ -226,7 +225,7 @@ void WindowManager::newImGuiFrame()
 {
   ImGui_ImplSDLRenderer_NewFrame();
   ImGui_ImplSDL2_NewFrame();
-  ImGui::NewFrame(); 
+  ImGui::NewFrame();
 }
 
 void WindowManager::renderScreen()

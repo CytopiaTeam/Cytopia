@@ -6,28 +6,29 @@
 
 struct TileData;
 
-struct BuildMenuButton {
+struct BuildMenuButton
+{
   using Ptr = std::shared_ptr<BuildMenuButton>;
   using Items = std::vector<Ptr>;
 
-  bool m_open = false;        // draw subbuttons
-  bool m_background = false;  // draw background
+  bool m_open = false;       // draw subbuttons
+  bool m_background = false; // draw background
 
-  std::string m_texstr;       // texture name
-  std::string m_id;           // unique id
-  std::string m_action;       // additional action
-  std::string m_tiletype;     // which tiletype place on map
+  std::string m_texstr;   // texture name
+  std::string m_id;       // unique id
+  std::string m_action;   // additional action
+  std::string m_tiletype; // which tiletype place on map
 
-  SDL_Texture *m_tex;         // sdl texture
+  SDL_Texture *m_tex; // sdl texture
   ImVec2 m_uv0 = ImVec2{0, 0};
-  ImVec2 m_uv1 = ImVec2{1, 1};    // texture sub coords
-  ImSpan2i m_texSize; // texutre size
+  ImVec2 m_uv1 = ImVec2{1, 1};         // texture sub coords
+  ImSpan2i m_texSize;                  // texutre size
   BuildMenuButton *m_parent = nullptr; // parent button, need for recursive logic
 
-  ImVec4 m_destRect;          // texture additional offsets
-  ImVec2 m_btnSize;           // button frame rect
+  ImVec4 m_destRect; // texture additional offsets
+  ImVec2 m_btnSize;  // button frame rect
 
-  Items m_buttons;            // sub items
+  Items m_buttons; // sub items
 
   // ctor simple button with sub items
   BuildMenuButton(const std::string &tx, const std::string &category);
@@ -36,7 +37,10 @@ struct BuildMenuButton {
   BuildMenuButton(const std::string &tx, const std::string &category, const TileData &tile);
 
   // add new subbutton
-  Ptr addCategoryButton(const std::string &tx, const std::string &id, const TileData &tile) { return addButtonImpl(tx, id, tile); }
+  Ptr addCategoryButton(const std::string &tx, const std::string &id, const TileData &tile)
+  {
+    return addButtonImpl(tx, id, tile);
+  }
 
   // add button which change tile type
   Ptr addTileButton(const std::string &tx, const std::string &id, const TileData &tile) { return addButtonImpl(tx, id, tile); }
