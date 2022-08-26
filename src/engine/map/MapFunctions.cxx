@@ -101,7 +101,7 @@ void MapFunctions::levelHeight(const Point &startCoordinate, const std::vector<P
       initialHeight++;
   }
 
-  Vector<Point> neighborsToLower;
+  std::vector<Point> neighborsToLower;
 
   for (const Point &levelPoint : levelArea)
   {
@@ -111,7 +111,7 @@ void MapFunctions::levelHeight(const Point &startCoordinate, const std::vector<P
     {
       // This possibly stores nodes that have already been processed for another round.
       // It's faster than checking if each node is in levelArea first though.
-      Vector<Point> neighbors = PointFunctions::getNeighbors(levelPoint, false);
+      std::vector<Point> neighbors = PointFunctions::getNeighbors(levelPoint, false);
       neighborsToLower.insert(neighborsToLower.end(), neighbors.begin(), neighbors.end());
     }
 
