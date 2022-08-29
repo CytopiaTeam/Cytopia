@@ -12,7 +12,8 @@
 
 namespace ui = ImGui;
 
-void GameTimeMenu::draw() const {
+void GameTimeMenu::draw() const
+{
   ImVec2 screenSize = ui::GetIO().DisplaySize;
 
   auto &uiManager = UIManager::instance();
@@ -24,8 +25,11 @@ void GameTimeMenu::draw() const {
   ImVec2 pos(screenSize.x - windowSize.x, 0);
   const ImRect bb(ImVec2{0, 0}, ImVec2{0, 0} + windowSize);
 
-  struct { uint8_t clr, frame, frameShade, bottomFrame, bottomFrameShade; } bg;
-  bg = { 128, 150, 200, 106, 84 };
+  struct
+  {
+    uint8_t clr, frame, frameShade, bottomFrame, bottomFrameShade;
+  } bg;
+  bg = {128, 150, 200, 106, 84};
 
   const ImVec2 timeFramePos = bb.Min + ImVec2(spacing, spacing);
 
@@ -38,9 +42,11 @@ void GameTimeMenu::draw() const {
   ui::SetNextWindowSize(windowSize);
 
   bool open = true;
-  ui::Begin("##gametimemenu", &open, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoDecoration);
+  ui::Begin("##gametimemenu", &open,
+            ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar |
+                ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoDecoration);
 
-  ImGuiWindow* window = ImGui::GetCurrentWindow();
+  ImGuiWindow *window = ImGui::GetCurrentWindow();
 
   /*window->DrawList->PathLineTo(window->Pos);
   window->DrawList->PathLineTo(window->Pos + ImVec2(64, 0));
@@ -72,7 +78,7 @@ void GameTimeMenu::draw() const {
 
   ui::SetCursorPos(timeFramePos);
   const float speedFactor = GameClock::instance().getGameClockSpeed();
-  auto is_interval = [&] (float val) { return fabs(speedFactor - val) < 0.1f ? ImGuiButtonFlags_ForcePressed : 0; };
+  auto is_interval = [&](float val) { return fabs(speedFactor - val) < 0.1f ? ImGuiButtonFlags_ForcePressed : 0; };
   if (ui::ButtonCtEx("||", buttonSize, is_interval(0.f)))
   {
     GameClock::instance().setGameClockSpeed(0.0f);

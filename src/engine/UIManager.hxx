@@ -12,9 +12,13 @@ struct GameMenu
 {
   using Ptr = std::shared_ptr<GameMenu>;
   virtual ~GameMenu() = default;
-  virtual void draw() const { /* default implementation do nothing */ }
+  virtual void draw() const
+  { /* default implementation do nothing */
+  }
   virtual bool isMouseHovered() const { return false; }
-  virtual void closeSubmenus() { /* default implementation do nothing */ }
+  virtual void closeSubmenus()
+  { /* default implementation do nothing */
+  }
 };
 
 struct BuildMenu;
@@ -47,7 +51,7 @@ public:
   struct ImFont *loadFont(const std::string &name, uint32_t size);
   void initializeImGuiFonts();
 
-  void loadSettings(json& uiLayout);
+  void loadSettings(json &uiLayout);
   void parseLayouts(const json &uiLayout);
 
   /**
@@ -75,7 +79,7 @@ public:
   std::unordered_map<std::string, LayoutData> &getLayouts() { return m_layouts; }
 
   void setTooltip(const std::string &tooltipText);
-  
+
   /**
    * @brief Hides and resets the active tooltip.
    * @see Tooltip#reset
@@ -89,8 +93,7 @@ public:
 
   void openMenu(GameMenu::Ptr menuOption);
 
-  template<class Menu>
-  void openMenu() { openMenu(std::make_shared<Menu>()); }
+  template <class Menu> void openMenu() { openMenu(std::make_shared<Menu>()); }
 
   void closeMenu();
   inline bool isAnyMenuOpen() const { return !m_menuStack.empty(); }
@@ -99,8 +102,8 @@ public:
 
   bool isMouseHovered() const;
 
-  template<class Menu>
-  inline GameMenu::Ptr findMenu() const {
+  template <class Menu> inline GameMenu::Ptr findMenu() const
+  {
     for (const auto &m : m_menuStack)
     {
       if (dynamic_cast<Menu *>(m.get()))
@@ -119,15 +122,13 @@ public:
 
     return nullptr;
   }
-  
-  template<class Menu>
-  void addPersistentMenu() { addPersistentMenu(std::make_shared<Menu>()); }
+
+  template <class Menu> void addPersistentMenu() { addPersistentMenu(std::make_shared<Menu>()); }
 
   BUILDMENU_LAYOUT buildMenuLayout() const { return m_buildMenuLayout; }
   void setBuildMenuLayout(BUILDMENU_LAYOUT l) { m_buildMenuLayout = l; }
 
 private:
-
   UIManager() = default;
   ~UIManager() = default;
 

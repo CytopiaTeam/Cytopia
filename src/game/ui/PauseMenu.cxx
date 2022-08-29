@@ -10,18 +10,19 @@
 
 namespace ui = ImGui;
 
-void PauseMenu::draw() const {
+void PauseMenu::draw() const
+{
   ImVec2 windowSize(300, 400);
   ImVec2 screenSize = ui::GetIO().DisplaySize;
 
   // dont remove yet, need for tuning
   //bool show = true;
-  //ui::ShowDemoWindow(&show); 
+  //ui::ShowDemoWindow(&show);
 
   auto &uiManager = UIManager::instance();
 
   const auto &layout = uiManager.getLayouts()["PauseMenuButtons"];
-  ui::SetNextWindowPos(ImVec2((screenSize.x - windowSize.x)/2, (screenSize.y - windowSize.y)/2));
+  ui::SetNextWindowPos(ImVec2((screenSize.x - windowSize.x) / 2, (screenSize.y - windowSize.y) / 2));
   ui::SetNextWindowSize(windowSize);
 
   const ImVec2 buttonSize(200, 40);
@@ -34,7 +35,9 @@ void PauseMenu::draw() const {
   ui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(0, buttonOffset.y));
 
   bool open = true;
-  ui::BeginCt("PauseMenu", &open, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
+  ui::BeginCt("PauseMenu", &open,
+              ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar |
+                  ImGuiWindowFlags_NoScrollWithMouse);
 
   ui::Dummy({0.f, (windowSize.y - (buttonSize.y + buttonOffset.y) * 5) / 2});
   if (ui::ButtonCt("Settings", buttonSize))

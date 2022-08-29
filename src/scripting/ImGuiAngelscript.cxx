@@ -25,7 +25,8 @@ void registerImVec2(asIScriptEngine *engine)
 {
   int r;
 
-  r = engine->RegisterObjectType("ImVec2", sizeof(ImVec2), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_CA | asOBJ_APP_CLASS_ALLFLOATS);
+  r = engine->RegisterObjectType("ImVec2", sizeof(ImVec2),
+                                 asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_CA | asOBJ_APP_CLASS_ALLFLOATS);
   assert(r >= 0);
 
   // Register the object properties

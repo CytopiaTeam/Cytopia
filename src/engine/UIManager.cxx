@@ -66,7 +66,8 @@ ImFont *UIManager::loadFont(const std::string &fontPath, uint32_t size)
   return newFont;
 }
 
-void UIManager::initializeImGuiFonts() {
+void UIManager::initializeImGuiFonts()
+{
   std::string fontPath = fs::getBasePath() + Settings::instance().fontFileName.get(); // fix for macos, need to use abs path
 
   const auto names = {"MainMenuButtons", "PauseMenuButtons", "LoadDialogButtons", "BuildMenuButtons"};
@@ -74,13 +75,14 @@ void UIManager::initializeImGuiFonts() {
   {
     if (const auto it = m_layouts.find(name); it != m_layouts.end())
     {
-        auto &layout = it->second;
-        layout.font = loadFont(fontPath, layout.fontSize);
+      auto &layout = it->second;
+      layout.font = loadFont(fontPath, layout.fontSize);
     }
   }
 }
 
-void UIManager::loadSettings(json& uiLayout) {
+void UIManager::loadSettings(json &uiLayout)
+{
   std::string jsonFileContent = fs::readFileAsString(Settings::instance().uiLayoutJSONFile.get());
   uiLayout = json::parse(jsonFileContent, nullptr, false);
 
@@ -89,7 +91,7 @@ void UIManager::loadSettings(json& uiLayout) {
     throw ConfigurationError(TRACE_INFO "Error parsing JSON File " + Settings::instance().uiLayoutJSONFile.get());
 }
 
-void UIManager::parseLayouts(const json& uiLayout)
+void UIManager::parseLayouts(const json &uiLayout)
 {
   // parse Layout
   for (const auto &it : uiLayout["LayoutGroups"].items())
@@ -137,9 +139,7 @@ void UIManager::parseLayouts(const json& uiLayout)
   }
 }
 
-void UIManager::setFPSCounterText(const std::string &fps) { 
-  m_fpsCounter = fps;
-}
+void UIManager::setFPSCounterText(const std::string &fps) { m_fpsCounter = fps; }
 
 void UIManager::closeOpenMenus()
 {
@@ -179,10 +179,7 @@ void UIManager::addPersistentMenu(GameMenu::Ptr menu)
   }
 }
 
-bool UIManager::isMouseHovered() const
-{
-  return ImGui::IsAnyItemHovered();
-}
+bool UIManager::isMouseHovered() const { return ImGui::IsAnyItemHovered(); }
 
 void UIManager::drawUI()
 {
@@ -199,7 +196,8 @@ void UIManager::drawUI()
     m->draw();
   }
 
-  if (!m_tooltip.empty()) {
+  if (!m_tooltip.empty())
+  {
     ImVec2 pos = ui::GetMousePos();
     ui::SetCursorScreenPos(pos);
     ui::Text(m_tooltip.c_str());
@@ -211,7 +209,9 @@ void UIManager::drawUI()
     ui::SetNextWindowSize(ImVec2(140, 20));
 
     bool open = true;
-    ui::Begin("##fpswindow", &open, ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
+    ui::Begin("##fpswindow", &open,
+              ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoScrollbar |
+                  ImGuiWindowFlags_NoScrollWithMouse);
     ui::Text(m_fpsCounter.c_str());
     ui::SameLine();
     ui::Checkbox("debug", &m_showDebugMenu);
@@ -219,12 +219,6 @@ void UIManager::drawUI()
   }
 }
 
-void UIManager::setTooltip(const std::string &tooltipText)
-{
-  m_tooltip = tooltipText;
-}
+void UIManager::setTooltip(const std::string &tooltipText) { m_tooltip = tooltipText; }
 
-void UIManager::clearTooltip()
-{
-  m_tooltip.clear();
-}
+void UIManager::clearTooltip() { m_tooltip.clear(); }

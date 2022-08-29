@@ -17,11 +17,13 @@
 namespace fs = std::filesystem;
 namespace ui = ImGui;
 
-LoadMenu::LoadMenu() {
+LoadMenu::LoadMenu()
+{
   // still do nothing
 }
 
-void LoadMenu::draw() const {
+void LoadMenu::draw() const
+{
   m_result = e_none;
   m_filename.clear();
 
@@ -31,7 +33,7 @@ void LoadMenu::draw() const {
   auto &uiManager = UIManager::instance();
 
   const auto &layout = uiManager.getLayouts()["LoadDialogButtons"];
-  ui::SetNextWindowPos(ImVec2((screenSize.x - windowSize.x)/2, (screenSize.y - windowSize.y)/2));
+  ui::SetNextWindowPos(ImVec2((screenSize.x - windowSize.x) / 2, (screenSize.y - windowSize.y) / 2));
   ui::SetNextWindowSize(windowSize);
 
   constexpr float btnSide = 40;
@@ -45,9 +47,11 @@ void LoadMenu::draw() const {
   ui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(0, buttonOffset.y));
 
   bool open = true;
-  ui::BeginCt("LoadDialog", &open, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
+  ui::BeginCt("LoadDialog", &open,
+              ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar |
+                  ImGuiWindowFlags_NoScrollWithMouse);
 
-  // empty header 
+  // empty header
   ui::PushItemWidth(widgetSize.x);
 
   // header label
@@ -63,14 +67,17 @@ void LoadMenu::draw() const {
     if (!fs::is_regular_file(entry) || entry.path().extension() != ".cts")
       continue;
 
-    ui::Dummy({btnSide / 2.f, 0.f}); ui::SameLine();
+    ui::Dummy({btnSide / 2.f, 0.f});
+    ui::SameLine();
     if (ui::ButtonCt(entry.path().filename().string().c_str(), buttonSize))
     {
       m_filename = entry.path().filename().string();
       m_result = e_load_file;
     }
 
-    ui::SameLine(); ui::Dummy({btnSide / 2.f, 0.f}); ui::SameLine();
+    ui::SameLine();
+    ui::Dummy({btnSide / 2.f, 0.f});
+    ui::SameLine();
     if (ui::ButtonCt("X", {btnSide, btnSide}))
     {
       m_filename = entry.path().filename().string();
@@ -84,7 +91,8 @@ void LoadMenu::draw() const {
   ImVec2 btnSize(windowSize.x / 4, btnSide);
 
   ui::SetCursorPosY(windowSize.y - btnSize.y * 2);
-  ui::Dummy({(windowSize.x - btnSize.x) / 2.f, 0.f}); ui::SameLine();
+  ui::Dummy({(windowSize.x - btnSize.x) / 2.f, 0.f});
+  ui::SameLine();
   if (ui::ButtonCt("OK", btnSize))
   {
     m_result = e_close;
@@ -96,6 +104,7 @@ void LoadMenu::draw() const {
   ui::End();
 }
 
-LoadMenu::~LoadMenu() {
+LoadMenu::~LoadMenu()
+{
   // still do nothing
 }

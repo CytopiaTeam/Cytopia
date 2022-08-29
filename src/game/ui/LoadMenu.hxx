@@ -6,7 +6,8 @@
 class LoadMenu : public GameMenu
 {
 public:
-  enum Result {
+  enum Result
+  {
     e_none,
     e_close,
     e_load_file,
