@@ -3,9 +3,16 @@
 
 #include <SDL.h>
 #include <set>
+#include <optional>
 
 #include <Point.hxx>
 #include "../util/Singleton.hxx"
+#include "common/enums.hxx"
+
+namespace detail
+{
+std::optional<PlacementMode> updatePlacementMode(Layer topMostActiveLayer);
+}
 
 class UIElement;
 
