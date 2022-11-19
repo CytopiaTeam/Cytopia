@@ -148,8 +148,8 @@ void TerrainGenerator::generateTerrain(std::vector<MapNode> &mapNodes, std::vect
 
         if (height >= m_terrainSettings.riverSourceLevel)
         {
-          const int riverSourcePossibility = rand() % 32;
-          if ((riverSourcePossibility > 35 - height) && (rand() % 20 == 0))
+          const int riverSourcePossibility = rand() % m_terrainSettings.maxHeight;
+          if ((riverSourcePossibility > (m_terrainSettings.maxHeight + m_terrainSettings.seaLevel - height)) && (rand() % 20 == 0))
           {
             m_riverSourceNodes.emplace_back(Point{x, y, z, height, rawHeight});
           }
