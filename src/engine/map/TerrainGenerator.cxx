@@ -14,6 +14,7 @@
 #else
 #include <noise.h>
 #endif
+#include <random>
 
 using json = nlohmann::json;
 
@@ -86,6 +87,10 @@ void TerrainGenerator::generateTerrain(std::vector<MapNode> &mapNodes, std::vect
   const size_t vectorSize = static_cast<size_t>(mapSize * mapSize);
   mapNodes.reserve(vectorSize);
 
+  // River random source
+  std:: minstd_rand riverRand;
+  riverRand.seed(m_terrainSettings.seed);
+
   // For now, the biome string is read from settings.json for debugging
   std::string currentBiome = Settings::instance().biome;
 
@@ -146,10 +151,10 @@ void TerrainGenerator::generateTerrain(std::vector<MapNode> &mapNodes, std::vect
           mapNodes.emplace_back(MapNode{Point{x, y, z, height, rawHeight}, m_biomeInformation[currentBiome].terrain[0]});
         }
 
-        if (height >= m_terrainSettings.riverSourceLevel)
+        if (height > m_terrainSettings.seaLevel)
         {
-          const int riverSourcePossibility = rand() % m_terrainSettings.maxHeight;
-          if ((riverSourcePossibility > (m_terrainSettings.maxHeight + m_terrainSettings.seaLevel - height)) && (rand() % 20 == 0))
+          const int riverSourcePossibility = riverRand() % m_terrainSettings.maxHeight;
+          if ((riverSourcePossibility >= (m_terrainSettings.maxHeight + m_terrainSettings.seaLevel - height)) && (riverRand() % 20 == 0))
           {
             m_riverSourceNodes.emplace_back(Point{x, y, z, height, rawHeight});
           }
@@ -175,71 +180,71 @@ void TerrainGenerator::generateRiver(std::vector<MapNode> &mapNodes)
 {
   std::unordered_set<Point> riverNodes;
   std::vector<Point> neighbors;
-  Point point, next_point;
-  double height, next_height, neighbor_height;
-  int river_number = 0;
+  Point curPoint, nextPoint;
+  double curHeight, nextHeight, neighborHeight;
+  int riverNumber = 0;
 
   for (int i = 0; i < m_riverSourceNodes.size(); i++)
   {
-    point = m_riverSourceNodes[i];
-    height = mapNodes[point.toIndex()].getCoordinates().rawHeight;
+    curPoint = m_riverSourceNodes[i];
+    curHeight = mapNodes[curPoint.toIndex()].getCoordinates().rawHeight;
 
     while (true)
     {
-      if (riverNodes.find(point) != riverNodes.end())
-        riverNodes.insert(point);
+      if (riverNodes.find(curPoint) != riverNodes.end())
+        riverNodes.insert(curPoint);
 
       // Find the lowest node
-      next_height = 32;
-      neighbors = PointFunctions::getNeighbors(point, false);
+      nextHeight = 32;
+      neighbors = PointFunctions::getNeighbors(curPoint, false);
       for (int j = 0; j < neighbors.size(); ++j)
       {
         if (riverNodes.find(neighbors[j]) != riverNodes.end())
           continue;
-        neighbor_height = mapNodes[neighbors[j].toIndex()].getCoordinates().rawHeight;
-        if (neighbor_height < next_height)
+        neighborHeight = mapNodes[neighbors[j].toIndex()].getCoordinates().rawHeight;
+        if (neighborHeight < nextHeight)
         {
-          next_height = neighbor_height;
-          next_point = neighbors[j];
+          nextHeight = neighborHeight;
+          nextPoint = neighbors[j];
         }
       }
 
       // Add lowest nodes in the area to riverNodes
       for (int j = 0; j < neighbors.size(); ++j)
       {
-        neighbor_height = mapNodes[neighbors[j].toIndex()].getCoordinates().rawHeight;
-        if (neighbor_height <= next_height + 0.005 && (riverNodes.find(neighbors[j]) == riverNodes.end()))
+        neighborHeight = mapNodes[neighbors[j].toIndex()].getCoordinates().rawHeight;
+        if (neighborHeight <= nextHeight + 0.005 && (riverNodes.find(neighbors[j]) == riverNodes.end()))
         {
           riverNodes.insert(neighbors[j]);
         }
       }
 
       // These nodes can reach the sea, so set nodes to river
-      if (height < m_terrainSettings.seaLevel)
+      if (curHeight < m_terrainSettings.seaLevel)
       {
         for (Point point: riverNodes)
         {
           MapNode *node = &(mapNodes[point.toIndex()]);
           node->setTileID("water", point);
         }
-        river_number++;
+        riverNumber++;
         riverNodes.clear();
         break;
       }
 
       // Terrain slight rise is not able to stop the river
-      if (next_height > height + 0.03)
+      if (nextHeight > curHeight + 0.03)
       {
         riverNodes.clear();
         break;
       }
 
-      point = next_point;
-      height = next_height;
+      curPoint = nextPoint;
+      curHeight = nextHeight;
     }
   }
 
-  LOG(LOG_INFO) << __func__ << __LINE__ << "Number of rivers: " << river_number;
+  LOG(LOG_INFO) << __func__ << __LINE__ << "Number of rivers: " << riverNumber;
 }
 
 void TerrainGenerator::loadTerrainDataFromJSON()
