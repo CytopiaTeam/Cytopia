@@ -5,6 +5,7 @@
 #include "Exception.hxx"
 #include "JsonSerialization.hxx"
 #include "Filesystem.hxx"
+#include <PointFunctions.hxx>
 
 #include "json.hxx"
 
@@ -100,7 +101,7 @@ void TerrainGenerator::generateTerrain(std::vector<MapNode> &mapNodes, std::vect
       if (height < m_terrainSettings.seaLevel)
       {
         height = m_terrainSettings.seaLevel;
-        mapNodes.emplace_back(MapNode{Point{x, y, z, height}, m_biomeInformation[currentBiome].water[0]});
+        mapNodes.emplace_back(MapNode{Point{x, y, z, height, rawHeight}, m_biomeInformation[currentBiome].water[0]});
       }
       else
       {
@@ -116,7 +117,7 @@ void TerrainGenerator::generateTerrain(std::vector<MapNode> &mapNodes, std::vect
             if (tileIndex < 20)
             {
               tileIndex = tileIndex % static_cast<int>(m_biomeInformation[currentBiome].treesLight.size());
-              mapNodes.emplace_back(MapNode{Point{x, y, z, height}, m_biomeInformation[currentBiome].terrain[0],
+              mapNodes.emplace_back(MapNode{Point{x, y, z, height, rawHeight}, m_biomeInformation[currentBiome].terrain[0],
                                             m_biomeInformation[currentBiome].treesLight[tileIndex]});
               placed = true;
             }
@@ -126,7 +127,7 @@ void TerrainGenerator::generateTerrain(std::vector<MapNode> &mapNodes, std::vect
             if (tileIndex < 50)
             {
               tileIndex = tileIndex % static_cast<int>(m_biomeInformation[currentBiome].treesMedium.size());
-              mapNodes.emplace_back(MapNode{Point{x, y, z, height}, m_biomeInformation[currentBiome].terrain[0],
+              mapNodes.emplace_back(MapNode{Point{x, y, z, height, rawHeight}, m_biomeInformation[currentBiome].terrain[0],
                                             m_biomeInformation[currentBiome].treesMedium[tileIndex]});
               placed = true;
             }
@@ -135,14 +136,23 @@ void TerrainGenerator::generateTerrain(std::vector<MapNode> &mapNodes, std::vect
           {
             tileIndex = tileIndex % static_cast<int>(m_biomeInformation[currentBiome].treesDense.size());
 
-            mapNodes.emplace_back(MapNode{Point{x, y, z, height}, m_biomeInformation[currentBiome].terrain[0],
+            mapNodes.emplace_back(MapNode{Point{x, y, z, height, rawHeight}, m_biomeInformation[currentBiome].terrain[0],
                                           m_biomeInformation[currentBiome].treesDense[tileIndex]});
             placed = true;
           }
         }
         if (placed == false)
         {
-          mapNodes.emplace_back(MapNode{Point{x, y, z, height}, m_biomeInformation[currentBiome].terrain[0]});
+          mapNodes.emplace_back(MapNode{Point{x, y, z, height, rawHeight}, m_biomeInformation[currentBiome].terrain[0]});
+        }
+
+        if (height >= m_terrainSettings.riverSourceLevel)
+        {
+          const int riverSourcePossibility = rand() % 32;
+          if ((riverSourcePossibility > 35 - height) && (rand() % 20 == 0))
+          {
+            m_riverSourceNodes.emplace_back(Point{x, y, z, height, rawHeight});
+          }
         }
       }
     }
@@ -159,6 +169,77 @@ void TerrainGenerator::generateTerrain(std::vector<MapNode> &mapNodes, std::vect
       mapNodesInDrawingOrder.push_back(&mapNodes[x * mapSize + y]);
     }
   }
+}
+
+void TerrainGenerator::generateRiver(std::vector<MapNode> &mapNodes)
+{
+  std::unordered_set<Point> riverNodes;
+  std::vector<Point> neighbors;
+  Point point, next_point;
+  double height, next_height, neighbor_height;
+  int river_number = 0;
+
+  for (int i = 0; i < m_riverSourceNodes.size(); i++)
+  {
+    point = m_riverSourceNodes[i];
+    height = mapNodes[point.toIndex()].getCoordinates().rawHeight;
+
+    while (true)
+    {
+      if (riverNodes.find(point) != riverNodes.end())
+        riverNodes.insert(point);
+
+      // Find the lowest node
+      next_height = 32;
+      neighbors = PointFunctions::getNeighbors(point, false);
+      for (int j = 0; j < neighbors.size(); ++j)
+      {
+        if (riverNodes.find(neighbors[j]) != riverNodes.end())
+          continue;
+        neighbor_height = mapNodes[neighbors[j].toIndex()].getCoordinates().rawHeight;
+        if (neighbor_height < next_height)
+        {
+          next_height = neighbor_height;
+          next_point = neighbors[j];
+        }
+      }
+
+      // Add lowest nodes in the area to river
+      for (int j = 0; j < neighbors.size(); ++j)
+      {
+        neighbor_height = mapNodes[neighbors[j].toIndex()].getCoordinates().rawHeight;
+        if (neighbor_height <= next_height + 0.005 && (riverNodes.find(neighbors[j]) == riverNodes.end()))
+        {
+          riverNodes.insert(neighbors[j]);
+        }
+      }
+
+      // These nodes can reach the sea, so set nodes to river
+      if (height < m_terrainSettings.seaLevel)
+      {
+        for (Point point: riverNodes)
+        {
+          MapNode *node = &(mapNodes[point.toIndex()]);
+          node->setTileID("water", point);
+        }
+        river_number++;
+        riverNodes.clear();
+        break;
+      }
+
+      // Terrain slight rise is not able to stop the river
+      if (next_height > height + 0.03)
+      {
+        riverNodes.clear();
+        break;
+      }
+
+      point = next_point;
+      height = next_height;
+    }
+  }
+
+  LOG(LOG_INFO) << __func__ << __LINE__ << "Number of rivers: " << river_number;
 }
 
 void TerrainGenerator::loadTerrainDataFromJSON()

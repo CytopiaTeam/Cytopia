@@ -83,6 +83,7 @@ Map::Map(int columns, int rows, const bool generateTerrain)
   if (generateTerrain)
   {
     m_terrainGen.generateTerrain(mapNodes, mapNodesInDrawingOrder);
+    m_terrainGen.generateRiver(mapNodes);
   }
   else
   {
