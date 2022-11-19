@@ -204,7 +204,7 @@ void TerrainGenerator::generateRiver(std::vector<MapNode> &mapNodes)
         }
       }
 
-      // Add lowest nodes in the area to river
+      // Add lowest nodes in the area to riverNodes
       for (int j = 0; j < neighbors.size(); ++j)
       {
         neighbor_height = mapNodes[neighbors[j].toIndex()].getCoordinates().rawHeight;
