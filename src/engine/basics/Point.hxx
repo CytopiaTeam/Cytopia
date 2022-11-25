@@ -7,10 +7,11 @@
 class Point
 {
 public:
-  constexpr Point() : x(0), y(0), z(0), height(0){};
-  constexpr Point(int x, int y) : x(x), y(y), z(0), height(0){};
-  constexpr Point(int x, int y, int z) : x(x), y(y), z(z), height(0){};
-  constexpr Point(int x, int y, int z, int height) : x(x), y(y), z(z), height(height){};
+  constexpr Point() : x(0), y(0), z(0), height(0), rawHeight(0){};
+  constexpr Point(int x, int y) : x(x), y(y), z(0), height(0), rawHeight(0){};
+  constexpr Point(int x, int y, int z) : x(x), y(y), z(z), height(0), rawHeight(0){};
+  constexpr Point(int x, int y, int z, int height) : x(x), y(y), z(z), height(height), rawHeight(0){};
+  constexpr Point(int x, int y, int z, int height, double rawHeight) : x(x), y(y), z(z), height(height), rawHeight(rawHeight){};
 
   /// The x coordinate.
   int x;
@@ -23,6 +24,9 @@ public:
 
   /// The height level.
   int height;
+
+  /// The raw height.
+  double rawHeight;
 
   //TODO: need to add z axis in the future, currently it is not supported.
   bool operator==(const Point &p) const { return x == p.x && y == p.y /*&& z == p.z*/; }

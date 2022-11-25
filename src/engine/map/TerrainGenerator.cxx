@@ -5,6 +5,7 @@
 #include "Exception.hxx"
 #include "JsonSerialization.hxx"
 #include "Filesystem.hxx"
+#include <PointFunctions.hxx>
 
 #include "json.hxx"
 
@@ -13,6 +14,7 @@
 #else
 #include <noise.h>
 #endif
+#include <random>
 
 using json = nlohmann::json;
 
@@ -85,6 +87,10 @@ void TerrainGenerator::generateTerrain(std::vector<MapNode> &mapNodes, std::vect
   const size_t vectorSize = static_cast<size_t>(mapSize * mapSize);
   mapNodes.reserve(vectorSize);
 
+  // River random source
+  std:: minstd_rand riverRand;
+  riverRand.seed(m_terrainSettings.seed);
+
   // For now, the biome string is read from settings.json for debugging
   std::string currentBiome = Settings::instance().biome;
 
@@ -100,7 +106,7 @@ void TerrainGenerator::generateTerrain(std::vector<MapNode> &mapNodes, std::vect
       if (height < m_terrainSettings.seaLevel)
       {
         height = m_terrainSettings.seaLevel;
-        mapNodes.emplace_back(MapNode{Point{x, y, z, height}, m_biomeInformation[currentBiome].water[0]});
+        mapNodes.emplace_back(MapNode{Point{x, y, z, height, rawHeight}, m_biomeInformation[currentBiome].water[0]});
       }
       else
       {
@@ -116,7 +122,7 @@ void TerrainGenerator::generateTerrain(std::vector<MapNode> &mapNodes, std::vect
             if (tileIndex < 20)
             {
               tileIndex = tileIndex % static_cast<int>(m_biomeInformation[currentBiome].treesLight.size());
-              mapNodes.emplace_back(MapNode{Point{x, y, z, height}, m_biomeInformation[currentBiome].terrain[0],
+              mapNodes.emplace_back(MapNode{Point{x, y, z, height, rawHeight}, m_biomeInformation[currentBiome].terrain[0],
                                             m_biomeInformation[currentBiome].treesLight[tileIndex]});
               placed = true;
             }
@@ -126,7 +132,7 @@ void TerrainGenerator::generateTerrain(std::vector<MapNode> &mapNodes, std::vect
             if (tileIndex < 50)
             {
               tileIndex = tileIndex % static_cast<int>(m_biomeInformation[currentBiome].treesMedium.size());
-              mapNodes.emplace_back(MapNode{Point{x, y, z, height}, m_biomeInformation[currentBiome].terrain[0],
+              mapNodes.emplace_back(MapNode{Point{x, y, z, height, rawHeight}, m_biomeInformation[currentBiome].terrain[0],
                                             m_biomeInformation[currentBiome].treesMedium[tileIndex]});
               placed = true;
             }
@@ -135,14 +141,23 @@ void TerrainGenerator::generateTerrain(std::vector<MapNode> &mapNodes, std::vect
           {
             tileIndex = tileIndex % static_cast<int>(m_biomeInformation[currentBiome].treesDense.size());
 
-            mapNodes.emplace_back(MapNode{Point{x, y, z, height}, m_biomeInformation[currentBiome].terrain[0],
+            mapNodes.emplace_back(MapNode{Point{x, y, z, height, rawHeight}, m_biomeInformation[currentBiome].terrain[0],
                                           m_biomeInformation[currentBiome].treesDense[tileIndex]});
             placed = true;
           }
         }
         if (placed == false)
         {
-          mapNodes.emplace_back(MapNode{Point{x, y, z, height}, m_biomeInformation[currentBiome].terrain[0]});
+          mapNodes.emplace_back(MapNode{Point{x, y, z, height, rawHeight}, m_biomeInformation[currentBiome].terrain[0]});
+        }
+
+        if (height > m_terrainSettings.seaLevel)
+        {
+          const int riverSourcePossibility = riverRand() % m_terrainSettings.maxHeight;
+          if ((riverSourcePossibility >= (m_terrainSettings.maxHeight + m_terrainSettings.seaLevel - height)) && (riverRand() % 50 == 0))
+          {
+            m_riverSourceNodes.emplace_back(Point{x, y, z, height, rawHeight});
+          }
         }
       }
     }
@@ -159,6 +174,77 @@ void TerrainGenerator::generateTerrain(std::vector<MapNode> &mapNodes, std::vect
       mapNodesInDrawingOrder.push_back(&mapNodes[x * mapSize + y]);
     }
   }
+}
+
+void TerrainGenerator::generateRiver(std::vector<MapNode> &mapNodes)
+{
+  std::unordered_set<Point> riverNodes;
+  std::vector<Point> neighbors;
+  Point curPoint, nextPoint;
+  double curHeight, nextHeight, neighborHeight;
+  int riverNumber = 0;
+
+  for (int i = 0; i < m_riverSourceNodes.size(); i++)
+  {
+    curPoint = m_riverSourceNodes[i];
+    curHeight = mapNodes[curPoint.toIndex()].getCoordinates().rawHeight;
+
+    while (true)
+    {
+      if (riverNodes.find(curPoint) != riverNodes.end())
+        riverNodes.insert(curPoint);
+
+      // Find the lowest node
+      nextHeight = 32;
+      neighbors = PointFunctions::getNeighbors(curPoint, false);
+      for (int j = 0; j < neighbors.size(); ++j)
+      {
+        if (riverNodes.find(neighbors[j]) != riverNodes.end())
+          continue;
+        neighborHeight = mapNodes[neighbors[j].toIndex()].getCoordinates().rawHeight;
+        if (neighborHeight < nextHeight)
+        {
+          nextHeight = neighborHeight;
+          nextPoint = neighbors[j];
+        }
+      }
+
+      // Add lowest nodes in the area to riverNodes
+      for (int j = 0; j < neighbors.size(); ++j)
+      {
+        neighborHeight = mapNodes[neighbors[j].toIndex()].getCoordinates().rawHeight;
+        if (neighborHeight <= nextHeight + 0.005 && (riverNodes.find(neighbors[j]) == riverNodes.end()))
+        {
+          riverNodes.insert(neighbors[j]);
+        }
+      }
+
+      // These nodes can reach the sea, so set nodes to river
+      if (curHeight < m_terrainSettings.seaLevel)
+      {
+        for (Point point: riverNodes)
+        {
+          MapNode *node = &(mapNodes[point.toIndex()]);
+          node->setTileID("water", point);
+        }
+        riverNumber++;
+        riverNodes.clear();
+        break;
+      }
+
+      // Terrain slight rise is not able to stop the river
+      if (nextHeight > curHeight + 0.03)
+      {
+        riverNodes.clear();
+        break;
+      }
+
+      curPoint = nextPoint;
+      curHeight = nextHeight;
+    }
+  }
+
+  LOG(LOG_INFO) << __func__ << __LINE__ << "Number of rivers: " << riverNumber;
 }
 
 void TerrainGenerator::loadTerrainDataFromJSON()
