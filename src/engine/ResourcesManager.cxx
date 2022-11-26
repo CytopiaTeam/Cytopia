@@ -41,19 +41,20 @@ void ResourcesManager::loadUITexture()
   }
 }
 
+SDL_Texture *ResourcesManager::getUITexture(const std::string &uiElement, const std::string& uiTextureType)
+{
+  if (m_uiTextureMap[uiElement].find(uiTextureType) != m_uiTextureMap[uiElement].end())
+  {
+    return m_uiTextureMap[uiElement].at(uiTextureType);
+  }
+
+  throw UIError(TRACE_INFO "No texture found for " + uiElement);
+}
+
 SDL_Texture *ResourcesManager::getUITexture(const std::string &uiElement)
 {
-  std::string texture = "Texture_Default";
-  if (m_uiTextureMap[uiElement].find(texture) != m_uiTextureMap[uiElement].end())
-  {
-    return m_uiTextureMap[uiElement].at(texture);
-  }
-  if (m_uiTextureMap[uiElement].find("Texture_Default") != m_uiTextureMap[uiElement].end())
-  {
-    // If no texture is found, check if there's a default texture
-    return m_uiTextureMap[uiElement].at("Texture_Default");
-  }
-  throw UIError(TRACE_INFO "No texture found for " + uiElement);
+  static const std::string defaultTextureType = "Texture_Default";
+  return getUITexture(uiElement, defaultTextureType);
 }
 
 SDL_Texture *ResourcesManager::getTileTexture(const std::string &id)
