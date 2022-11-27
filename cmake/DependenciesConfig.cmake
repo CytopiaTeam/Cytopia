@@ -3,7 +3,7 @@ find_package(Threads REQUIRED)
 
 add_external_lib(
         SDL2
-        sdl/2.0.20
+        sdl/2.26.0
         REQUIRED
         INTERFACE_NAME SDL::SDL
         PKG_CONFIG "sdl2 >= 2.0"
@@ -25,7 +25,7 @@ add_external_lib(
 
 add_external_lib(
         ZLIB
-        zlib/1.2.11
+        zlib/1.2.13
         REQUIRED
         PKG_CONFIG "zlib"
 )
@@ -37,14 +37,14 @@ add_external_lib(
 )
 add_external_lib(
         LIBPNG
-        libpng/1.6.37
+        libpng/1.6.39
         REQUIRED
         PKG_CONFIG "libpng"
 )
 
 add_external_lib(
         OpenAL
-        openal/1.19.1
+        openal/1.22.2
         PKG_CONFIG "openal >= 1.18"
         FIND_PACKAGE_OPTIONS CONFIG
 )
