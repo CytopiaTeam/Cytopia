@@ -5,41 +5,26 @@ on:
       - master
       - dev
   pull_request:
-    types: [ opened, synchronize, reopened ]
+    types: [opened, synchronize, reopened]
 jobs:
   build:
     name: sonarcloud scan
     runs-on: ubuntu-latest
     env:
-      SONAR_SCANNER_VERSION: 4.7.0.2747
       CONAN_SYSREQUIRES_MODE: "enabled"
     steps:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: Set up JDK 11
-        uses: actions/setup-java@v1
-        with:
-          java-version: 11
+
+      - name: Install sonar-scanner and build-wrapper
+        uses: sonarsource/sonarcloud-github-c-cpp@v1
+        id: sonarscan
 
       - name: Download and set up sonar-scanner
-        env:
-          SONAR_SCANNER_DOWNLOAD_URL: https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-${{ env.SONAR_SCANNER_VERSION }}-linux.zip
         run: |
-          mkdir -p $HOME/.sonar
-          curl -sSLo $HOME/.sonar/sonar-scanner.zip ${{ env.SONAR_SCANNER_DOWNLOAD_URL }} 
-          unzip -o $HOME/.sonar/sonar-scanner.zip -d $HOME/.sonar/
           wget -nv https://cdn.anotherfoxguy.com/sonar-scanner/cytopia -O run-sonar-scanner
           sudo chmod 777 run-sonar-scanner
-          echo "$HOME/.sonar/sonar-scanner-${{ env.SONAR_SCANNER_VERSION }}-linux/bin" >> $GITHUB_PATH
-
-      - name: Download and set up build-wrapper
-        env:
-          BUILD_WRAPPER_DOWNLOAD_URL: https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip
-        run: |
-          curl -sSLo $HOME/.sonar/build-wrapper-linux-x86.zip ${{ env.BUILD_WRAPPER_DOWNLOAD_URL }}
-          unzip -o $HOME/.sonar/build-wrapper-linux-x86.zip -d $HOME/.sonar/
-          echo "$HOME/.sonar/build-wrapper-linux-x86" >> $GITHUB_PATH
 
       - name: Prepare cfamily cache timestamp
         id: cfamily_cache_timestamp
@@ -100,7 +85,7 @@ jobs:
             libxcb-xinerama0-dev \
             libxcb-util-dev \
             libxcb-util0-dev \
-            libxcb-dri3-dev  
+            libxcb-dri3-dev
 
       - name: Configure
         run: |
@@ -122,7 +107,7 @@ jobs:
       - name: Run sonar-scanner
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_SCANNER_EXE: /home/runner/.sonar/sonar-scanner-${{ env.SONAR_SCANNER_VERSION }}-linux/bin/sonar-scanner
+          SONAR_SCANNER_EXE: ${{ steps.sonarscan.outputs.sonar-scanner-binary }}
         run: ./run-sonar-scanner
 
       - name: Clean Conan pkgs

@@ -1,6 +1,6 @@
 name: Build
 
-on: [ push, pull_request ]
+on: [push, pull_request]
 
 jobs:
   build-msvc:
@@ -103,7 +103,7 @@ jobs:
             libxcb-xinerama0-dev \
             libxcb-util-dev \
             libxcb-util0-dev \
-            libxcb-dri3-dev  
+            libxcb-dri3-dev
 
       - name: Configure
         run: |
