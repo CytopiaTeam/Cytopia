@@ -59,7 +59,6 @@ void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
       this->setNodeTransparency(Settings::instance().zoneLayerTransparency, Layer::ZONE);
       break;
     case Layer::WATER:
-      demolishLayer(Layer::ROAD);
       //TODO: we need to modify neighbors TileTypes to Shore.
       // no break on purpose.
     case Layer::ROAD:
@@ -169,10 +168,9 @@ bool MapNode::isPlacementAllowed(const std::string &newTileID) const
       }
     case Layer::ROAD:
       if ((isLayerOccupied(Layer::BUILDINGS) && (m_mapNodeData[Layer::BUILDINGS].tileData->category != "Flora")) ||
-          isLayerOccupied(Layer::WATER) || !isPlacableOnSlope(newTileID))
+          !isPlacableOnSlope(newTileID))
       { // roads cannot be placed:
         // - on buildings that are not category flora.
-        // - on water
         // - on slopetiles that don't have a tileID
         return false;
       }
