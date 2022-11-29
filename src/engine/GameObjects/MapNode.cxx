@@ -52,6 +52,10 @@ void MapNode::setTileID(const std::string &tileID, const Point &origCornerPoint)
   TileData *tileData = TileManager::instance().getTileData(tileID);
   if (tileData && !tileID.empty())
   {
+    if (m_isoCoordinates != origCornerPoint)
+    {
+      getSprite()->setRenderFlag(Layer::BUILDINGS, false);
+    }
     const Layer layer = TileManager::instance().getTileLayer(tileID);
     switch (layer)
     {

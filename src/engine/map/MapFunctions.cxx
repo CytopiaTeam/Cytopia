@@ -188,7 +188,7 @@ void MapFunctions::updateNodeNeighbors(const std::vector<Point> &nodes)
 
           if (std::abs(heightDiff) > 1)
           {
-            updatedNodes.push(getMapNode(neighborCoords).getCoordinates());
+            updatedNodes.push(neighborCoords);
             updateHeight(neighborCoords, (heightDiff > 1) ? true : false);
           }
         }
@@ -412,7 +412,7 @@ bool MapFunctions::setTileID(const std::string &tileID, Point coordinate)
     MapNode &currentMapNode = getMapNode(coord);
 
     if (coord != coordinate && targetCoordinates.size() > 1)
-    { // for buildings >1x1 set every node on the layer that will be occupied to invisible exepct of the origin node
+    { // for buildings >1x1 set every node on the layer that will be occupied to invisible except of the origin node
       currentMapNode.getSprite()->setRenderFlag(layer, false);
     }
     else
@@ -722,6 +722,14 @@ void MapFunctions::loadMapFromFile(const std::string &fileName)
     map->mapNodes.emplace_back(Point{coordinates.x, coordinates.y, coordinates.z, coordinates.height}, "");
     // load back mapNodeData (tileIDs, Buildins, ...)
     map->mapNodes.back().setMapNodeData(json(it.value())["mapNodeData"]);
+  }
+
+  for (auto &node: map->mapNodes)
+  {
+    for (const auto &tile: node.getMapNodeData())
+    {
+      node.setTileID(tile.tileID, tile.origCornerPoint);
+    }
   }
 
   // Now put those newly created nodes in correct drawing order
