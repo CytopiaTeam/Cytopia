@@ -50,6 +50,7 @@ jobs:
       - name: Install dependencies
         run: |
           echo -e 'pcm.!default {\n type plug\n slave.pcm "null"\n}' > ~/.asoundrc
+          sudo apt-get update
           curl "https://raw.githubusercontent.com/AnotherFoxGuy/ci-scripts/main/install-cmake.sh" | sudo bash
           curl "https://raw.githubusercontent.com/AnotherFoxGuy/ci-scripts/main/install-conan.sh" | sudo bash
           sudo apt-get -y install \

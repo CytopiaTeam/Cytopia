@@ -7,6 +7,7 @@ jobs:
     name: Windows
     env:
       BUILD_TOOLS_PATH: C:\Program Files\Conan\conan
+      CONAN_USER_HOME_SHORT: None
     runs-on: windows-latest
     steps:
       - run: echo $env:BUILD_TOOLS_PATH | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
@@ -30,7 +31,7 @@ jobs:
       - name: Build
         run: |
           conan config set storage.download_cache="$env:TMP"
-          cmake . -GNinja -DCMAKE_BUILD_TYPE=Release -DCYTOPIA_USE_ANGELSCRIPT=CONAN
+          cmake . -GNinja -DCMAKE_BUILD_TYPE=Release
           ninja
 
       - name: Test
@@ -68,6 +69,7 @@ jobs:
       - name: Install dependencies
         run: |
           echo -e 'pcm.!default {\n type plug\n slave.pcm "null"\n}' > ~/.asoundrc
+          sudo apt-get update
           curl "https://raw.githubusercontent.com/AnotherFoxGuy/ci-scripts/main/install-cmake.sh" | sudo bash
           curl "https://raw.githubusercontent.com/AnotherFoxGuy/ci-scripts/main/install-conan.sh" | sudo bash
           sudo apt-get -y install \
