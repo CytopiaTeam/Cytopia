@@ -17,7 +17,7 @@ jobs:
           submodules: true
 
       - name: Cache conan
-        uses: actions/cache@v3.2.3
+        uses: actions/cache@v3.2.4
         with:
           key: conan-win-${{ hashFiles('cmake/DependenciesConfig.cmake') }}
           path: ~/.conan/
@@ -61,7 +61,7 @@ jobs:
           submodules: true
 
       - name: Cache conan
-        uses: actions/cache@v3.2.3
+        uses: actions/cache@v3.2.4
         with:
           key: conan-linux-${{ hashFiles('cmake/DependenciesConfig.cmake') }}
           path: ~/.conan/
@@ -142,7 +142,7 @@ jobs:
           submodules: true
 
       - name: Cache conan
-        uses: actions/cache@v3.2.3
+        uses: actions/cache@v3.2.4
         with:
           key: conan-mac-${{ hashFiles('cmake/DependenciesConfig.cmake') }}
           path: ~/.conan/
