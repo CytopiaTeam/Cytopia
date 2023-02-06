@@ -34,7 +34,7 @@ jobs:
           message("::set-output name=timestamp::${current_date}")
 
       - name: cfamily cache files
-        uses: actions/cache@v3.2.3
+        uses: actions/cache@v3.2.4
         with:
           path: cfamily-cache
           key: cfamily-cache-${{ steps.cfamily_cache_timestamp.outputs.timestamp }}
@@ -42,7 +42,7 @@ jobs:
             cfamily-cache-
 
       - name: Cache conan
-        uses: actions/cache@v3.2.3
+        uses: actions/cache@v3.2.4
         with:
           key: conan-linux-${{ hashFiles('cmake/DependenciesConfig.cmake') }}
           path: ~/.conan/
