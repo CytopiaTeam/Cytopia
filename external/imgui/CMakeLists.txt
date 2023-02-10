@@ -17,5 +17,5 @@ set(IMGUI_SOURCES
 
 add_library(IMGUI STATIC ${IMGUI_SOURCES})
 
-target_link_libraries(IMGUI ${TESTS_PROJECT_NAME} PUBLIC SDL::SDL)
+target_link_libraries(IMGUI ${TESTS_PROJECT_NAME} PUBLIC SDL2::SDL2)
 target_include_directories(IMGUI PUBLIC . backends)

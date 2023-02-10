@@ -19,7 +19,7 @@ jobs:
       - name: Cache conan
         uses: actions/cache@v3.2.4
         with:
-          key: conan-win-${{ hashFiles('cmake/DependenciesConfig.cmake') }}
+          key: conan-win-${{ hashFiles('conanfile.txt') }}
           path: ~/.conan/
 
       - name: Install dependencies
@@ -30,8 +30,10 @@ jobs:
 
       - name: Build
         run: |
+          conan config set general.revisions_enabled=1
           conan config set storage.download_cache="$env:TMP"
-          cmake . -GNinja -DCMAKE_BUILD_TYPE=Release
+          conan install . -b missing -pr:b=tools/conan-profiles/vs-22-release-ninja -pr=tools/conan-profiles/vs-22-release-ninja
+          cmake . -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE="conan_toolchain.cmake"
           ninja
 
       - name: Test
@@ -63,7 +65,7 @@ jobs:
       - name: Cache conan
         uses: actions/cache@v3.2.4
         with:
-          key: conan-linux-${{ hashFiles('cmake/DependenciesConfig.cmake') }}
+          key: conan-linux-${{ hashFiles('conanfile.txt') }}
           path: ~/.conan/
 
       - name: Install dependencies
@@ -109,7 +111,14 @@ jobs:
 
       - name: Configure
         run: |
-          cmake . -GNinja -DCMAKE_BUILD_TYPE=Release -DCYTOPIA_USE_ANGELSCRIPT=CONAN
+          conan config set general.revisions_enabled=1
+          echo "tools.system.package_manager:mode = install" > ~/.conan/global.conf
+          echo "tools.system.package_manager:sudo = True" >> ~/.conan/global.conf
+          conan profile new --detect --force default
+          conan profile update conf.tools.cmake.cmaketoolchain:generator="Ninja" default
+          conan profile update settings.compiler.libcxx=libstdc++11 default
+          conan install . -s build_type=Release -b missing -pr:b=default
+          cmake . -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE="conan_toolchain.cmake"
 
       - name: Build
         run: |
@@ -144,7 +153,7 @@ jobs:
       - name: Cache conan
         uses: actions/cache@v3.2.4
         with:
-          key: conan-mac-${{ hashFiles('cmake/DependenciesConfig.cmake') }}
+          key: conan-mac-${{ hashFiles('conanfile.txt') }}
           path: ~/.conan/
 
       - name: Install dependencies
@@ -152,7 +161,11 @@ jobs:
 
       - name: Build
         run: |
-          cmake . -GNinja -DCMAKE_BUILD_TYPE=Release -DCYTOPIA_USE_ANGELSCRIPT=CONAN
+          conan config set general.revisions_enabled=1
+          conan profile new --detect --force default
+          conan profile update conf.tools.cmake.cmaketoolchain:generator="Ninja" default
+          conan install . -s build_type=Release -b missing -pr:b=default
+          cmake . -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE="conan_toolchain.cmake"
           ninja
           mkdir -p bin/Cytopia.App/Resources/resources
           cp -pR data/resources bin/Cytopia.App/Contents/Resources/

@@ -44,7 +44,7 @@ jobs:
       - name: Cache conan
         uses: actions/cache@v3.2.4
         with:
-          key: conan-linux-${{ hashFiles('cmake/DependenciesConfig.cmake') }}
+          key: conan-linux-${{ hashFiles('conanfile.txt') }}
           path: ~/.conan/
 
       - name: Install dependencies
@@ -90,7 +90,14 @@ jobs:
 
       - name: Configure
         run: |
-          cmake . -DCMAKE_BUILD_TYPE=Release -DCYTOPIA_LIB_PREFERENCE=CONAN -DCYTOPIA_USE_MICROPROFILE=CONAN -DCYTOPIA_USE_ANGELSCRIPT=CONAN -DBUILD_TEST=ON -DENABLE_COVERAGE=ON
+          conan config set general.revisions_enabled=1
+          echo "tools.system.package_manager:mode = install" > ~/.conan/global.conf
+          echo "tools.system.package_manager:sudo = True" >> ~/.conan/global.conf
+          conan profile new --detect --force default
+          conan profile update conf.tools.cmake.cmaketoolchain:generator="Ninja" default
+          conan profile update settings.compiler.libcxx=libstdc++11 default
+          conan install . -s build_type=Release -b missing -pr:b=default
+          cmake . -DCMAKE_BUILD_TYPE=Release -DBUILD_TEST=ON -DENABLE_COVERAGE=ON -DCMAKE_TOOLCHAIN_FILE="conan_toolchain.cmake"
 
       - name: Run build-wrapper
         run: build-wrapper-linux-x86-64 --out-dir bw-output make -j4

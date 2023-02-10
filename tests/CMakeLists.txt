@@ -79,11 +79,11 @@ target_compile_definitions(${TESTS_PROJECT_NAME} PRIVATE ${_compile_definitions}
 target_link_libraries(
         ${TESTS_PROJECT_NAME} PRIVATE
         IMGUI
-        LIBPNG::LIBPNG
-        SDL::SDL
-        SDL::SDL_image
-        SDL::TTF
-        LibNoise::LibNoise
+        PNG::PNG
+        SDL2::SDL2
+        SDL2_ttf::SDL2_ttf
+        SDL2_image::SDL2_image
+        libnoise::libnoise
         ZLIB::ZLIB
 )
 
@@ -99,7 +99,7 @@ endif ()
 
 if (USE_ANGELSCRIPT)
     target_include_directories(${TESTS_PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/external/as_add_on)
-    target_link_libraries(${TESTS_PROJECT_NAME} PRIVATE Angelscript::Angelscript)
+    target_link_libraries(${TESTS_PROJECT_NAME} PRIVATE Angelscript::angelscript)
     target_compile_definitions(${TESTS_PROJECT_NAME} PRIVATE USE_ANGELSCRIPT)
 endif ()
 

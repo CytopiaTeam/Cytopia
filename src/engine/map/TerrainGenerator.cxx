@@ -9,11 +9,8 @@
 
 #include "json.hxx"
 
-#ifdef NOISE_IN_SUBDIR
 #include <noise/noise.h>
-#else
-#include <noise.h>
-#endif
+
 #include <random>
 
 using json = nlohmann::json;
