@@ -22,13 +22,9 @@ TileDataEditor
 
 # ignore macOS stuff.
 .DS_Store
-
 _pmm
-conanfile\.txt
 Doxygen_Docs/*
-
 *.mo
-
 tools/l10n/TMP
 
 #ignore redist directory
@@ -50,6 +46,5 @@ src/cmake_install.cmake
 src/Makefile
 
 tools/l10n/TMP.pot
-
 _build/
 /build*/

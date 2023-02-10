@@ -1,18 +1,13 @@
 cmake_minimum_required(VERSION 3.16 FATAL_ERROR)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake" "${CMAKE_SOURCE_DIR}/cmake/find-modules")
+
+cmake_policy(SET CMP0127 OLD)
+
 include(CMakeDependentOption)
 include(Macros)
 include(FeatureSummary)
 include(SourceFileUtils)
 include(CMakeCM)
-set(_PREFIX "CYTOPIA_")
-
-set(CMAKE_CONFIGURATION_TYPES "Debug" "Release" CACHE STRING "Configuration types")
-
-# Test if conan is installed
-find_program(CONAN_CMD_TEST conan NO_CACHE)
-cmake_dependent_option(USE_PACKAGE_MANAGER "Use conan" ON "NOT CONAN_CMD_TEST STREQUAL CONAN_CMD_TEST-NOTFOUND" OFF)
-message(STATUS "Using conan: ${USE_PACKAGE_MANAGER}")
 
 # create the cmake project
 project(
@@ -28,17 +23,6 @@ project(
 
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
-
-# Allow user to globally set the library preference for external libraries
-cmd_option(
-        ${_PREFIX}LIB_PREFERENCE
-        "Library preference [SYSTEM (if available), CONAN]"
-        "CONAN"
-        STRINGS "SYSTEM" "CONAN"
-)
-
-# Special mode, that will force dependencies to the packages provided by system unless they were set to conan explicitly.
-option(${_PREFIX}FORCE_SYSTEM_DEPENDENCIES "Force the use of system packages")
 
 option(BUILD_TEST "Build Cytopia Tests" ON)
 option(ENABLE_PHC "Use a Precompiled header for speeding up the build" ON)
@@ -73,14 +57,7 @@ endif ()
 ################################################################################
 # Check for dependencies
 ################################################################################
-
-if (ANDROID)
-    message(STATUS "Crossbuilding to Android")
-else ()
-    include(DependenciesConfig)
-    resolve_conan_dependencies()
-endif ()
-
+include(DependenciesConfig)
 
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
     link_libraries(dbghelp.lib)
@@ -156,3 +133,6 @@ if (WIN32)
                 )
     endif ()
 endif ()
+
+
+feature_summary(WHAT ALL)

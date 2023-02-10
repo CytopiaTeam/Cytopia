@@ -4,6 +4,7 @@
 #include "Exception.hxx"
 #include "basics/Settings.hxx"
 #include "ResourcesManager.hxx"
+#include "betterEnums.hxx"
 #include "Filesystem.hxx"
 #include "tileData.hxx"
 #include "../services/Randomizer.hxx"
