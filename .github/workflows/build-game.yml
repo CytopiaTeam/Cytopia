@@ -17,7 +17,7 @@ jobs:
           submodules: true
 
       - name: Cache conan
-        uses: actions/cache@v3.2.4
+        uses: actions/cache@v3.2.5
         with:
           key: conan-win-${{ hashFiles('conanfile.txt') }}
           path: ~/.conan/
@@ -63,7 +63,7 @@ jobs:
           submodules: true
 
       - name: Cache conan
-        uses: actions/cache@v3.2.4
+        uses: actions/cache@v3.2.5
         with:
           key: conan-linux-${{ hashFiles('conanfile.txt') }}
           path: ~/.conan/
@@ -151,7 +151,7 @@ jobs:
           submodules: true
 
       - name: Cache conan
-        uses: actions/cache@v3.2.4
+        uses: actions/cache@v3.2.5
         with:
           key: conan-mac-${{ hashFiles('conanfile.txt') }}
           path: ~/.conan/
