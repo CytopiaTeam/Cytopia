@@ -1,5 +1,5 @@
 [requires]
-angelscript/2.35.1
+angelscript/2.36.0
 libnoise/1.0.0
 libpng/1.6.39
 microprofile/3.1
