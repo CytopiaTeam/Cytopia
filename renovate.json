@@ -3,4 +3,7 @@
   "extends": [
     "config:base"
   ]
+  "conan": {
+    "enabled": true
+  }
 }
