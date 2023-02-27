@@ -137,9 +137,25 @@ template <class Holder> void drawSubmenu(ImVec2 pos, float categoryOffset, const
       menu->onClick(btn);
     }
 
-    if (ui::IsItemHovered(ImGuiHoveredFlags_AllowWhenDisabled) && ui::GetHoveredTimer() > menu->getTooltipDelay())
+    if (ui::IsItemHovered(ImGuiHoveredFlags_AllowWhenDisabled))
     {
-      ui::SetTooltip(btn->getId().c_str());
+      if (ui::GetHoveredTimer() > menu->getTooltipDelay())
+      {
+        ui::SetTooltip("%s", btn->getId().c_str());
+      }
+
+      if (deep == 0)
+      {
+        static const std::string textureHoveringTypeStr = "Texture_Hovering";
+        btn->m_tex = ResourcesManager::instance().getUITexture(btn->m_texstr, textureHoveringTypeStr);
+      }
+    }
+    else
+    {
+      if (deep == 0)
+      {
+        btn->m_tex = ResourcesManager::instance().getUITexture(btn->m_texstr);
+      }
     }
 
     // calc next subcategory position center

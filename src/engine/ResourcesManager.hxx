@@ -17,7 +17,10 @@ public:
   ResourcesManager(ResourcesManager const &) = delete;
   ResourcesManager &operator=(ResourcesManager const &) = delete;
 
-  /// retrieves texture for a tileID
+  /** Retrieves default texture for a tileID and type */
+  SDL_Texture *getUITexture(const std::string &uiElement, const std::string &uiTextureType);
+
+  /** Retrieves default texture for a tileID */
   SDL_Texture *getUITexture(const std::string &uiElement);
 
   /** Retrieves Color of a specific tileID at coordinates with the texture */
