@@ -24,6 +24,7 @@ LIST(APPEND TEST_SOURCES
         engine/basics/Point.cxx
         engine/basics/Settings.cxx
         engine/ResourcesManager.cxx
+        engine/EventManager.cxx
         engine/MapFunctions.cxx
         engine/UIManager.cxx
         engine/WindowManager.cxx

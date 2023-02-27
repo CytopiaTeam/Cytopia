@@ -25,6 +25,30 @@
 #include "microprofile/microprofile.h"
 #endif
 
+namespace detail
+{
+std::optional<PlacementMode> updatePlacementMode(Layer topMostActiveLayer)
+{
+  switch (topMostActiveLayer)
+  {
+  case Layer::BUILDINGS:
+    return PlacementMode::SINGLE;
+  case Layer::ROAD:
+  case Layer::POWERLINES:
+  case Layer::UNDERGROUND:
+    return PlacementMode::LINE;
+  case Layer::GROUND_DECORATION:
+  case Layer::WATER:
+  case Layer::ZONE:
+    return PlacementMode::RECTANGLE;
+  default:
+    return {};
+  }
+}
+} // namespace detail
+
+using namespace detail;
+
 void EventManager::unHighlightNodes()
 {
   if (!m_isPuttingTile)
@@ -53,24 +77,8 @@ void EventManager::pickTileUnderCursor(Point mouseIsoCoords)
   if (topMostActiveLayer == Layer::TERRAIN || topMostActiveLayer == Layer::NONE)
     return;
   // update placement mode
-  switch (topMostActiveLayer)
-  {
-  case Layer::BUILDINGS:
-    GameStates::instance().placementMode = PlacementMode::SINGLE;
-    break;
-  case Layer::ROAD:
-  case Layer::POWERLINES:
-  case Layer::UNDERGROUND:
-    GameStates::instance().placementMode = PlacementMode::LINE;
-    break;
-  case Layer::GROUND_DECORATION:
-  case Layer::WATER:
-  case Layer::ZONE:
-    GameStates::instance().placementMode = PlacementMode::RECTANGLE;
-    break;
-  default:
-    break;
-  }
+  if (const auto newPlacementMode = updatePlacementMode(topMostActiveLayer))
+    GameStates::instance().placementMode = *newPlacementMode;
   mapNodeData = node.getMapNodeData();
   tileToPlace = mapNodeData[topMostActiveLayer].tileID;
   highlightSelection = true;
