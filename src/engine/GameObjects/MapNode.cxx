@@ -5,6 +5,8 @@
 #include "../map/MapLayers.hxx"
 #include "GameStates.hxx"
 #include "Settings.hxx"
+#include "TileManager.hxx"
+#include "enums.hxx"
 
 MapNode::MapNode(Point isoCoordinates, const std::string &terrainID, const std::string &tileID)
     : m_isoCoordinates(std::move(isoCoordinates)), m_sprite{std::make_unique<Sprite>(m_isoCoordinates)},
@@ -369,6 +371,8 @@ void MapNode::updateTexture(const Layer &layer)
                                 static_cast<Layer>(currentLayer));
           m_sprite->setTexture(TileManager::instance().getTexture(m_mapNodeData[currentLayer].tileID),
                                static_cast<Layer>(currentLayer));
+          m_sprite->setRequiredTiles(TileManager::instance().getTileData(m_mapNodeData[currentLayer].tileID)->RequiredTiles,
+                                     static_cast<Layer>(currentLayer));
         }
 
         spriteCount = m_mapNodeData[currentLayer].tileData->tiles.count;
@@ -391,6 +395,8 @@ void MapNode::updateTexture(const Layer &layer)
                                 static_cast<Layer>(currentLayer));
           m_sprite->setTexture(TileManager::instance().getTexture(m_mapNodeData[currentLayer].tileID + "_shore"),
                                static_cast<Layer>(currentLayer));
+          m_sprite->setRequiredTiles(TileManager::instance().getTileData(m_mapNodeData[currentLayer].tileID)->RequiredTiles,
+                                     static_cast<Layer>(currentLayer));
         }
 
         spriteCount = m_mapNodeData[currentLayer].tileData->shoreTiles.count;
@@ -411,6 +417,8 @@ void MapNode::updateTexture(const Layer &layer)
                                 static_cast<Layer>(currentLayer));
           m_sprite->setTexture(TileManager::instance().getTexture(m_mapNodeData[currentLayer].tileID),
                                static_cast<Layer>(currentLayer));
+          m_sprite->setRequiredTiles(TileManager::instance().getTileData(m_mapNodeData[currentLayer].tileID)->RequiredTiles,
+                                     static_cast<Layer>(currentLayer));
         }
         break;
       default:

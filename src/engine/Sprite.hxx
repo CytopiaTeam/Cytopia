@@ -6,6 +6,7 @@
 
 #include "basics/Point.hxx"
 #include "common/enums.hxx"
+#include "tileData.hxx"
 
 struct SpriteData
 {
@@ -13,6 +14,7 @@ struct SpriteData
   SDL_Rect clipRect{0, 0, 0, 0};
   SDL_Rect destRect{0, 0, 0, 0};
   unsigned char alpha = 255;
+  TileSize RequiredTiles;
 };
 
 struct SpriteRGBColor
@@ -41,6 +43,7 @@ public:
   void setTexture(SDL_Texture *m_texture, Layer layer = Layer::TERRAIN);
   void setClipRect(SDL_Rect clipRect, Layer layer = Layer::TERRAIN);
   void setDestRect(SDL_Rect clipRect, Layer layer = Layer::TERRAIN);
+  void setRequiredTiles(TileSize requiredTiles, Layer layer = Layer::TERRAIN);
 
   void clearSprite(Layer layer);
 
