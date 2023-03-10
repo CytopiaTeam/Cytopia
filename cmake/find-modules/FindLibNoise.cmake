@@ -1,3 +1,11 @@
+
+find_package(libnoise QUIET CONFIG)
+
+if (TARGET libnoise::libnoise)
+    set(LibNoise_FOUND TRUE)
+    return()
+endif ()
+
 include(FindPackageHandleStandardArgs)
 
 find_path(LibNoise_INCLUDE_DIR noise.h
@@ -13,8 +21,8 @@ find_library(LibNoise_LIBRARY
 find_package_handle_standard_args(LibNoise DEFAULT_MSG LibNoise_INCLUDE_DIR LibNoise_LIBRARY)
 
 if (LibNoise_FOUND)
-    add_library(LibNoise::LibNoise INTERFACE IMPORTED)
-    set_target_properties(LibNoise::LibNoise PROPERTIES
+    add_library(libnoise::libnoise INTERFACE IMPORTED)
+    set_target_properties(libnoise::libnoise PROPERTIES
             INTERFACE_INCLUDE_DIRECTORIES "${LibNoise_INCLUDE_DIR}"
             INTERFACE_LINK_LIBRARIES "${LibNoise_LIBRARY}"
             )
