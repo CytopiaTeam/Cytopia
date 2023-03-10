@@ -37,7 +37,7 @@ function(recursive_zip_folder in_dir out_dir)
         add_custom_command(
                 OUTPUT ${ZIP_NAME}
                 DEPENDS ${ZIP_FILES_DEP}
-                COMMAND ${CMAKE_COMMAND} -E tar c ${ZIP_NAME} --format=zip --files-from="${TMP_FILE_DIR}/${ZIP_DIR}-filelist.txt"
+                COMMAND ${CMAKE_COMMAND} -E tar c ${ZIP_NAME} --format=zip --files-from= "${TMP_FILE_DIR}/${ZIP_DIR}-filelist.txt"
                 WORKING_DIRECTORY "${in_dir}/${ZIP_DIR}"
         )
         list(APPEND ALL_ZIPS ${ZIP_NAME})
@@ -200,3 +200,11 @@ function(cmd_option name desc)
 
     set(${name} "${${name}}" PARENT_SCOPE)
 endfunction()
+
+macro(try_find_pkg name required)
+    find_package(${name} CONFIG)
+
+    if (NOT ${name}_FOUND)
+        find_package(${name} ${required})
+    endif ()
+endmacro()

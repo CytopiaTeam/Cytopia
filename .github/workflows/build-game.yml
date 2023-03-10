@@ -19,8 +19,8 @@ jobs:
       - name: Cache conan
         uses: actions/cache@v3.2.5
         with:
-          key: conan-win-${{ hashFiles('conanfile.txt') }}
-          path: ~/.conan/
+          key: conan-win-${{ hashFiles('conanfile.py') }}
+          path: ~/.conan2/
 
       - name: Install dependencies
         run: choco install conan ninja -y
@@ -30,10 +30,8 @@ jobs:
 
       - name: Build
         run: |
-          conan config set general.revisions_enabled=1
-          conan config set storage.download_cache="$env:TMP"
           conan install . -b missing -pr:b=tools/conan-profiles/vs-22-release-ninja -pr=tools/conan-profiles/vs-22-release-ninja
-          cmake . -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE="conan_toolchain.cmake"
+          cmake --preset conan-release -DBUILD_TEST=ON
           ninja
 
       - name: Test
@@ -50,7 +48,7 @@ jobs:
         shell: cmd
 
       - name: Clean Conan pkgs
-        run: conan remove "*" -fsb
+        run: conan cache clean "*" -sbd
 
   build-gcc:
     name: Linux
@@ -65,15 +63,15 @@ jobs:
       - name: Cache conan
         uses: actions/cache@v3.2.5
         with:
-          key: conan-linux-${{ hashFiles('conanfile.txt') }}
-          path: ~/.conan/
+          key: conan-linux-${{ hashFiles('conanfile.py') }}
+          path: ~/.conan2/
 
       - name: Install dependencies
         run: |
           echo -e 'pcm.!default {\n type plug\n slave.pcm "null"\n}' > ~/.asoundrc
           sudo apt-get update
           curl "https://raw.githubusercontent.com/AnotherFoxGuy/ci-scripts/main/install-cmake.sh" | sudo bash
-          curl "https://raw.githubusercontent.com/AnotherFoxGuy/ci-scripts/main/install-conan.sh" | sudo bash
+          curl "https://raw.githubusercontent.com/AnotherFoxGuy/ci-scripts/main/install-conan2.0.sh" | sudo bash
           sudo apt-get -y install \
             ninja-build libgl-dev libegl-dev \
             libx11-xcb-dev \
@@ -111,14 +109,11 @@ jobs:
 
       - name: Configure
         run: |
-          conan config set general.revisions_enabled=1
-          echo "tools.system.package_manager:mode = install" > ~/.conan/global.conf
-          echo "tools.system.package_manager:sudo = True" >> ~/.conan/global.conf
-          conan profile new --detect --force default
-          conan profile update conf.tools.cmake.cmaketoolchain:generator="Ninja" default
-          conan profile update settings.compiler.libcxx=libstdc++11 default
-          conan install . -s build_type=Release -b missing -pr:b=default
-          cmake . -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE="conan_toolchain.cmake"
+          conan profile detect --force
+          echo "tools.system.package_manager:mode = install" > ~/.conan2/global.conf
+          echo "tools.system.package_manager:sudo = True" >> ~/.conan2/global.conf
+          conan install . -s build_type=Release -b missing -pr:b=default -c tools.cmake.cmaketoolchain:generator="Ninja"
+          cmake --preset conan-release
 
       - name: Build
         run: |
@@ -140,7 +135,7 @@ jobs:
           butler push redist cytopia/cytopia:linux-ci --userversion CIBuild-${GITHUB_RUN_NUMBER}-commit-${GITHUB_SHA}
 
       - name: Clean Conan pkgs
-        run: conan remove "*" -fsb
+        run: conan cache clean "*" -sbd
 
   build-appleclang:
     name: MacOS
@@ -153,19 +148,17 @@ jobs:
       - name: Cache conan
         uses: actions/cache@v3.2.5
         with:
-          key: conan-mac-${{ hashFiles('conanfile.txt') }}
-          path: ~/.conan/
+          key: conan-mac-${{ hashFiles('conanfile.py') }}
+          path: ~/.conan2/
 
       - name: Install dependencies
         run: brew install conan ninja
 
       - name: Build
         run: |
-          conan config set general.revisions_enabled=1
-          conan profile new --detect --force default
-          conan profile update conf.tools.cmake.cmaketoolchain:generator="Ninja" default
-          conan install . -s build_type=Release -b missing -pr:b=default
-          cmake . -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE="conan_toolchain.cmake"
+          conan profile detect --force
+          conan install . -s build_type=Release -b missing -pr:b=default -c tools.cmake.cmaketoolchain:generator="Ninja"
+          cmake --preset conan-release
           ninja
           mkdir -p bin/Cytopia.App/Resources/resources
           cp -pR data/resources bin/Cytopia.App/Contents/Resources/
@@ -192,4 +185,4 @@ jobs:
         shell: bash
 
       - name: Clean Conan pkgs
-        run: conan remove "*" -fsb
+        run: conan cache clean "*" -sbd

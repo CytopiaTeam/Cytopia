@@ -6,6 +6,3 @@ arch_build=x86_64
 compiler=Visual Studio
 compiler.version=16
 build_type=RelWithDebInfo
-[options]
-[build_requires]
-[env]

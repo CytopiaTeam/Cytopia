@@ -1,11 +1,8 @@
 [settings]
 os=Windows
-os_build=Windows
 arch=x86_64
-arch_build=x86_64
-compiler=Visual Studio
-compiler.version=17
+compiler=msvc
+compiler.version=193
+compiler.runtime=dynamic
+compiler.runtime_type=Debug
 build_type=Debug
-[options]
-[build_requires]
-[env]
