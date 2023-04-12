@@ -29,7 +29,7 @@ jobs:
       - name: Cache conan
         uses: actions/cache@v3.2.5
         with:
-          key: conan-linux-${{ hashFiles('conanfile.txt') }}
+          key: conan-linux-${{ hashFiles('conanfile.py') }}
           path: ~/.conan2/
 
       - name: Install dependencies
