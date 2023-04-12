@@ -26,21 +26,6 @@ jobs:
           wget -nv https://cdn.anotherfoxguy.com/sonar-scanner/cytopia -O run-sonar-scanner
           sudo chmod 777 run-sonar-scanner
 
-      - name: Prepare cfamily cache timestamp
-        id: cfamily_cache_timestamp
-        shell: cmake -P {0}
-        run: |
-          string(TIMESTAMP current_date "%Y-%m-%d-%H;%M;%S" UTC)
-          message("::set-output name=timestamp::${current_date}")
-
-      - name: cfamily cache files
-        uses: actions/cache@v3.2.5
-        with:
-          path: cfamily-cache
-          key: cfamily-cache-${{ steps.cfamily_cache_timestamp.outputs.timestamp }}
-          restore-keys: |
-            cfamily-cache-
-
       - name: Cache conan
         uses: actions/cache@v3.2.5
         with:
