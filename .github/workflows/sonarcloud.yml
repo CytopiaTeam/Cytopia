@@ -27,7 +27,7 @@ jobs:
           sudo chmod 777 run-sonar-scanner
 
       - name: Cache conan
-        uses: actions/cache@v3.2.5
+        uses: actions/cache@v3.3.1
         with:
           key: conan-linux-${{ hashFiles('conanfile.py') }}
           path: ~/.conan2/
