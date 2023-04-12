@@ -25,8 +25,10 @@ class Cytopia(ConanFile):
 
     def generate(self):
         for dep in self.dependencies.values():
-            self.cp_data(dep.cpp_info.bindirs[0])
-            self.cp_data(dep.cpp_info.libdirs[0])
+            if len(dep.cpp_info.bindirs) > 0:
+                self.cp_data(dep.cpp_info.bindirs[0])
+            if len(dep.cpp_info.libdirs) > 0:
+                self.cp_data(dep.cpp_info.libdirs[0])
 
     def cp_data(self, src):
         # bin, *.dll -> bin @ keep_path=False
