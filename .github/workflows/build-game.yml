@@ -6,7 +6,7 @@ jobs:
   build-msvc:
     name: Windows
     env:
-      BUILD_TOOLS_PATH: C:\Program Files\Conan\conan
+      BUILD_TOOLS_PATH: C:\apps\build-tools\
       CONAN_USER_HOME_SHORT: None
     runs-on: windows-latest
     steps:
@@ -22,8 +22,9 @@ jobs:
           key: conan-win-${{ hashFiles('conanfile.py') }}
           path: ~/.conan2/
 
-      - name: Install dependencies
-        run: choco install conan ninja -y
+      - name: Install Build tools
+        run: git clone https://git.anotherfoxguy.com/AnotherFoxGuy/build-tools.git %BUILD_TOOLS_PATH%
+        shell: cmd
 
       - name: Enable Developer Command Prompt
         uses: ilammy/msvc-dev-cmd@v1.12.1
