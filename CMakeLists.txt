@@ -1,8 +1,10 @@
 cmake_minimum_required(VERSION 3.16 FATAL_ERROR)
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake" "${CMAKE_SOURCE_DIR}/cmake/find-modules")
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake" "${CMAKE_SOURCE_DIR}/cmake/find-modules" "${CMAKE_SOURCE_DIR}/cmake/dependencies-helpers")
 
 cmake_policy(SET CMP0127 OLD)
 
+include(FindPkgConfig)
+set(PKG_CONFIG_USE_CMAKE_PREFIX_PATH TRUE)
 include(CMakeDependentOption)
 include(Macros)
 include(FeatureSummary)

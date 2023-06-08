@@ -37,7 +37,7 @@ function(recursive_zip_folder in_dir out_dir)
         add_custom_command(
                 OUTPUT ${ZIP_NAME}
                 DEPENDS ${ZIP_FILES_DEP}
-                COMMAND ${CMAKE_COMMAND} -E tar c ${ZIP_NAME} --format=zip --files-from= "${TMP_FILE_DIR}/${ZIP_DIR}-filelist.txt"
+                COMMAND ${CMAKE_COMMAND} -E tar c ${ZIP_NAME} --format=zip --files-from="${TMP_FILE_DIR}/${ZIP_DIR}-filelist.txt"
                 WORKING_DIRECTORY "${in_dir}/${ZIP_DIR}"
         )
         list(APPEND ALL_ZIPS ${ZIP_NAME})
@@ -62,7 +62,7 @@ function(fast_copy FROM_DIR TO_DIR)
                 COMMENT "Copying ${output_file}"
                 OUTPUT ${dest}
                 DEPENDS ${file}
-                COMMAND ${CMAKE_COMMAND} -E copy "${file}" "${dest}"
+                COMMAND ${CMAKE_COMMAND} -E copy ${file} ${dest}
         )
         list(APPEND ALL_FILES ${dest})
     endforeach ()
@@ -201,10 +201,36 @@ function(cmd_option name desc)
     set(${name} "${${name}}" PARENT_SCOPE)
 endfunction()
 
-macro(try_find_pkg name required)
-    find_package(${name} CONFIG)
+# Helper to retrieve the settings returned from pkg_check_modules()
+macro(get_package_interface package)
+    set(INCLUDES ${${package}_INCLUDE_DIRS})
 
-    if (NOT ${name}_FOUND)
-        find_package(${name} ${required})
+    set(LINKDIRS ${${package}_LIBDIR})
+
+    # We resolve the full path of each library to ensure the
+    # correct one is referenced while linking
+    foreach (lib ${${package}_LIBRARIES})
+        find_library(LIB_${lib} ${lib} HINTS ${LINKDIRS})
+        list(APPEND LIBRARIES ${LIB_${lib}})
+    endforeach ()
+endmacro()
+
+macro(find_with_pkg package interface_name PKG_CONFIG)
+    pkg_check_modules(${package} ${PKG_CONFIG})
+
+    if (${package}_FOUND)
+        message(STATUS "Using '${package}' system library (Found by pkg_config)")
+
+        # Create the target interface library
+        add_library(${interface_name} INTERFACE IMPORTED GLOBAL)
+
+        # Retrieve the package information
+        get_package_interface(${package})
+
+        # And add it to our target
+        target_include_directories(${interface_name} INTERFACE ${INCLUDES})
+        target_link_libraries(${interface_name} INTERFACE ${LIBRARIES})
+
+        message(STATUS "Added inteface ${interface_name} ${INCLUDES} ${LIBRARIES}")
     endif ()
 endmacro()

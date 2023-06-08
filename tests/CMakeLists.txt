@@ -82,7 +82,7 @@ target_link_libraries(
         IMGUI
         PNG::PNG
         SDL2::SDL2
-        sdl_ttf::sdl_ttf
+        SDL2_ttf::SDL2_ttf
         SDL2_image::SDL2_image
         libnoise::libnoise
         ZLIB::ZLIB

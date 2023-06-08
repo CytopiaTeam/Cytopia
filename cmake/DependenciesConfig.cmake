@@ -19,3 +19,5 @@ cmake_dependent_option(USE_ANGELSCRIPT "use Angelscript" ON "TARGET Angelscript:
 
 find_package(microprofile CONFIG)
 option(USE_MICROPROFILE "use Microprofile" OFF)
+
+include(FixSDLTargets)
