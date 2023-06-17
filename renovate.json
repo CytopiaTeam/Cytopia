@@ -5,8 +5,5 @@
     ],
     "conan": {
         "enabled": true
-    },
-    "schedule": [
-        "every weekend"
-    ]
+    }
 }
