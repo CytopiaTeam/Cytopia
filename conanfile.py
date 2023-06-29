@@ -12,7 +12,7 @@ class Cytopia(ConanFile):
         # self.requires("microprofile/3.1")
         self.requires("angelscript/2.36.0")
         self.requires("libnoise/1.0.0")
-        self.requires("libpng/1.6.39", force=True)
+        self.requires("libpng/1.6.40", force=True)
         self.requires("openal/1.22.2")
         self.requires("sdl/2.26.5", force=True)
         self.requires("sdl_image/2.0.5")
