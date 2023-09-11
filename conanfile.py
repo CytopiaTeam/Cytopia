@@ -21,7 +21,7 @@ class Cytopia(ConanFile):
         self.requires("zlib/1.3", force=True)
         self.requires("libwebp/1.3.2", override=True)
         if self.settings.os == "Linux":
-            self.requires("xz_utils/5.4.2", override=True)
+            self.requires("xz_utils/5.4.4", override=True)
 
     def generate(self):
         for dep in self.dependencies.values():
