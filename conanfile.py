@@ -19,7 +19,7 @@ class Cytopia(ConanFile):
         self.requires("sdl_ttf/2.20.2")
         self.requires("vorbis/1.3.7")
         self.requires("zlib/1.3", force=True)
-        self.requires("libwebp/1.3.1", override=True)
+        self.requires("libwebp/1.3.2", override=True)
         if self.settings.os == "Linux":
             self.requires("xz_utils/5.4.2", override=True)
 
