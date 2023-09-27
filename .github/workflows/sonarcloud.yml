@@ -27,7 +27,8 @@ jobs:
           sudo chmod 777 run-sonar-scanner
 
       - name: Cache conan
-        uses: actions/cache@v3.3.2
+        id: cache-conan
+        uses: actions/cache@v3
         with:
           key: conan-linux-${{ hashFiles('conanfile.py') }}
           path: ~/.conan2/
@@ -73,11 +74,18 @@ jobs:
             libxcb-util0-dev \
             libxcb-dri3-dev
 
-      - name: Configure
-        run: |
+
+      - name: Fix broken mpg123 lib
+        if: steps.cache-conan.outputs.cache-hit != 'true'
+        run: | 
           conan profile detect --force
           echo "tools.system.package_manager:mode = install" > ~/.conan2/global.conf
           echo "tools.system.package_manager:sudo = True" >> ~/.conan2/global.conf
+          conan remote add overte https://git.anotherfoxguy.com/api/packages/overte/conan -f
+          conan install --requires mpg123/1.31.2 -b mpg123/1.31.2 -b missing
+        
+      - name: Configure
+        run: |
           conan install . -s build_type=Release -b missing -pr:b=default
           cmake --preset conan-release -DBUILD_TEST=ON -DENABLE_COVERAGE=ON
 
