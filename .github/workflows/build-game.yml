@@ -117,7 +117,7 @@ jobs:
           echo "tools.system.package_manager:sudo = True" >> ~/.conan2/global.conf
           conan remote add overte https://git.anotherfoxguy.com/api/packages/overte/conan -f
           conan install --requires mpg123/1.31.2 -b mpg123/1.31.2 -b missing
-    
+
       - name: Configure
         run: |
           conan install . -s build_type=Release -b missing -pr:b=default -c tools.cmake.cmaketoolchain:generator="Ninja"
@@ -154,7 +154,7 @@ jobs:
           submodules: true
 
       - name: Cache conan
-        uses: actions/cache@v4.0.0
+        uses: actions/cache@v4
         with:
           key: conan-mac-${{ hashFiles('conanfile.py') }}
           path: ~/.conan2/
