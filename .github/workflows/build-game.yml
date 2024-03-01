@@ -154,7 +154,7 @@ jobs:
           submodules: true
 
       - name: Cache conan
-        uses: actions/cache@v4.0.0
+        uses: actions/cache@v4.0.1
         with:
           key: conan-mac-${{ hashFiles('conanfile.py') }}
           path: ~/.conan2/
