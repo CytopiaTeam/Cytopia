@@ -200,7 +200,7 @@ void UIManager::drawUI()
   {
     ImVec2 pos = ui::GetMousePos();
     ui::SetCursorScreenPos(pos);
-    ui::Text(m_tooltip.c_str());
+    ui::Text("%s", m_tooltip.c_str());
   }
 
   if (m_showFpsCounter)
@@ -212,7 +212,7 @@ void UIManager::drawUI()
     ui::Begin("##fpswindow", &open,
               ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoScrollbar |
                   ImGuiWindowFlags_NoScrollWithMouse);
-    ui::Text(m_fpsCounter.c_str());
+    ui::Text("%s", m_fpsCounter.c_str());
     ui::SameLine();
     ui::Checkbox("debug", &m_showDebugMenu);
     ui::End();
