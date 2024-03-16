@@ -86,9 +86,6 @@ include(CpackConfiguration)
 # Compile options
 include(CompileOptions)
 
-# set install dir here for convenience
-set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/redist")
-
 message(STATUS "Building Project:  ${PROJECT_NAME}")
 message(STATUS "Build configuration: " ${CMAKE_BUILD_TYPE})
 

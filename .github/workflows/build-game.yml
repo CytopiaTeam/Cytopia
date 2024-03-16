@@ -32,7 +32,7 @@ jobs:
       - name: Build
         run: |
           conan install . -b missing -pr:b=tools/conan-profiles/vs-22-release-ninja -pr=tools/conan-profiles/vs-22-release-ninja
-          cmake --preset conan-release -DBUILD_TEST=ON
+          cmake --preset conan-release -DBUILD_TEST=ON -DCMAKE_INSTALL_PREFIX=redist
           ninja
 
       - name: Test
@@ -121,7 +121,7 @@ jobs:
       - name: Configure
         run: |
           conan install . -s build_type=Release -b missing -pr:b=default -c tools.cmake.cmaketoolchain:generator="Ninja"
-          cmake --preset conan-release
+          cmake --preset conan-release -DCMAKE_INSTALL_PREFIX=redist
 
       - name: Build
         run: |
@@ -166,7 +166,7 @@ jobs:
         run: |
           conan profile detect --force
           conan install . -s build_type=Release -b missing -pr:b=default -c tools.cmake.cmaketoolchain:generator="Ninja"
-          cmake --preset conan-release
+          cmake --preset conan-release -DCMAKE_INSTALL_PREFIX=redist
           ninja
           mkdir -p bin/Cytopia.App/Resources/resources
           cp -pR data/resources bin/Cytopia.App/Contents/Resources/
