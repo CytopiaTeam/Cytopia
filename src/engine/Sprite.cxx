@@ -9,6 +9,7 @@
 #include "LOG.hxx"
 #include "Exception.hxx"
 #include "GameStates.hxx"
+#include "tileData.hxx"
 
 #ifdef MICROPROFILE_ENABLED
 #include "microprofile/microprofile.h"
@@ -29,6 +30,7 @@ void Sprite::render() const
   {
     if (MapLayers::isLayerActive(currentLayer) && m_SpriteData[currentLayer].texture && m_renderLayer[currentLayer])
     {
+
       // Don't draw zones when there is a building on this sprite
       if (currentLayer == Layer::ZONE && m_SpriteData[Layer::BUILDINGS].texture)
       {
@@ -118,7 +120,16 @@ void Sprite::refresh(const Layer &layer)
     if (it.texture != nullptr)
     {
       // render the sprite in the middle of its bounding box so bigger than 1x1 sprites will render correctly
-      it.destRect.x = m_screenCoordinates.x - (it.destRect.w / 2);
+      if (it.RequiredTiles.width == it.RequiredTiles.height)
+      { // handle the special case of square sprites first
+        it.destRect.x = m_screenCoordinates.x - (it.destRect.w / 2);
+      }
+      else
+      { // and if need be, do the more expensive calculation for the otheor sprites.*/
+        it.destRect.x =
+            m_screenCoordinates.x - (it.destRect.w * it.RequiredTiles.width) / (it.RequiredTiles.width + it.RequiredTiles.height);
+      }
+
       // change y coordinates with sprites height taken into account to render the sprite at its base and not at its top.
       it.destRect.y = m_screenCoordinates.y - it.destRect.h;
     }
@@ -138,6 +149,7 @@ void Sprite::setTexture(SDL_Texture *texture, Layer layer)
 
 void Sprite::setClipRect(SDL_Rect clipRect, const Layer layer) { m_SpriteData[layer].clipRect = clipRect; }
 void Sprite::setDestRect(SDL_Rect destRect, Layer layer) { m_SpriteData[layer].destRect = destRect; }
+void Sprite::setRequiredTiles(TileSize requiredTiles, Layer layer) { m_SpriteData[layer].RequiredTiles = requiredTiles; }
 
 SDL_Rect Sprite::getActiveClipRect()
 {
@@ -176,4 +188,5 @@ void Sprite::clearSprite(Layer layer)
   m_SpriteData[layer].clipRect = {0, 0, 0, 0};
   m_SpriteData[layer].destRect = {0, 0, 0, 0};
   m_SpriteData[layer].texture = nullptr;
+  m_SpriteData[layer].RequiredTiles = {0, 0};
 }
