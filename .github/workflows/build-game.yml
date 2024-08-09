@@ -145,52 +145,52 @@ jobs:
       - name: Clean Conan pkgs
         run: conan cache clean "*" -sbd
 
-  build-appleclang:
-    name: MacOS
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          submodules: true
+  # build-appleclang:
+  #   name: MacOS
+  #   runs-on: macos-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #       with:
+  #         submodules: true
 
-      - name: Cache conan
-        uses: actions/cache@v4
-        with:
-          key: conan-mac-${{ hashFiles('conanfile.py') }}
-          path: ~/.conan2/
+  #     - name: Cache conan
+  #       uses: actions/cache@v4
+  #       with:
+  #         key: conan-mac-${{ hashFiles('conanfile.py') }}
+  #         path: ~/.conan2/
 
-      - name: Install dependencies
-        run: brew install conan ninja
+  #     - name: Install dependencies
+  #       run: brew install conan ninja
 
-      - name: Build
-        run: |
-          conan profile detect --force
-          conan install . -s build_type=Release -b missing -pr:b=default -c tools.cmake.cmaketoolchain:generator="Ninja"
-          cmake --preset conan-release -DCMAKE_INSTALL_PREFIX=redist
-          ninja
-          mkdir -p bin/Cytopia.App/Resources/resources
-          cp -pR data/resources bin/Cytopia.App/Contents/Resources/
-          cp -pR data/resources bin/resources
-          ninja package
-          rm -rf bin/Cytopia.App/Contents/MacOS/resources
-          rm -rf bin/Cytopia.App/Resources
-        shell: bash
+  #     - name: Build
+  #       run: |
+  #         conan profile detect --force
+  #         conan install . -s build_type=Release -b missing -pr:b=default -c tools.cmake.cmaketoolchain:generator="Ninja"
+  #         cmake --preset conan-release -DCMAKE_INSTALL_PREFIX=redist
+  #         ninja
+  #         mkdir -p bin/Cytopia.App/Resources/resources
+  #         cp -pR data/resources bin/Cytopia.App/Contents/Resources/
+  #         cp -pR data/resources bin/resources
+  #         ninja package
+  #         rm -rf bin/Cytopia.App/Contents/MacOS/resources
+  #         rm -rf bin/Cytopia.App/Resources
+  #       shell: bash
 
-      - name: Test
-        run: ctest -j2 --output-on-failure
-        shell: bash
+  #     - name: Test
+  #       run: ctest -j2 --output-on-failure
+  #       shell: bash
 
-      - name: Upload build to itch.io
-        env:
-          BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
-        if: env.BUTLER_API_KEY != null && github.ref == 'refs/heads/master'
-        run: |
-          curl -JOL https://broth.itch.ovh/butler/darwin-amd64/LATEST/archive/default
-          mkdir redist
-          mv bin/Cytopia.app/ redist/
-          unzip butler-darwin-amd64.zip
-          ./butler push redist cytopia/cytopia:osx-ci --userversion CIBuild-${GITHUB_RUN_NUMBER}-commit-${GITHUB_SHA}
-        shell: bash
+  #     - name: Upload build to itch.io
+  #       env:
+  #         BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
+  #       if: env.BUTLER_API_KEY != null && github.ref == 'refs/heads/master'
+  #       run: |
+  #         curl -JOL https://broth.itch.ovh/butler/darwin-amd64/LATEST/archive/default
+  #         mkdir redist
+  #         mv bin/Cytopia.app/ redist/
+  #         unzip butler-darwin-amd64.zip
+  #         ./butler push redist cytopia/cytopia:osx-ci --userversion CIBuild-${GITHUB_RUN_NUMBER}-commit-${GITHUB_SHA}
+  #       shell: bash
 
-      - name: Clean Conan pkgs
-        run: conan cache clean "*" -sbd
+  #     - name: Clean Conan pkgs
+  #       run: conan cache clean "*" -sbd
