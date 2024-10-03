@@ -14,7 +14,7 @@ class Cytopia(ConanFile):
         self.requires("libnoise/1.0.0")
         self.requires("libpng/1.6.44", force=True)
         self.requires("openal/1.22.2")
-        self.requires("sdl/2.30.7", force=True)
+        self.requires("sdl/2.30.8", force=True)
         self.requires("sdl_image/2.6.3")
         self.requires("sdl_ttf/2.22.0")
         self.requires("vorbis/1.3.7")
