@@ -173,6 +173,10 @@ void WindowManager::initializeImguiRenderer()
   ImGui::CreateContext();
   ImGui::StyleColorsDark();
 
+  // Disable creating imgui.ini files
+  ImGuiIO& io = ImGui::GetIO();
+  io.IniFilename = nullptr;
+
   // Setup Platform/Renderer backends
   ImGui_ImplSDL2_InitForSDLRenderer(m_window, m_renderer);
   ImGui_ImplSDLRenderer_Init(m_renderer);
