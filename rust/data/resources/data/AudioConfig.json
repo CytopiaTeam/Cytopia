@@ -1,0 +1,164 @@
+{
+    "Music": {
+        "EasyListening": {
+            "path": "resources/audio/music/Easy_Listening.ogg",
+            "monopath": "resources/audio/music/Easy_Listening_mono.ogg",
+            "triggers": [
+                "MainTheme"
+            ]
+        },
+        "OST1": {
+            "path": "resources/audio/music/OST1.ogg",
+            "monopath": "resources/audio/music/OST1_mono.ogg",
+            "triggers": [
+                "MainTheme"
+            ]
+        },
+        "OST2": {
+            "path": "resources/audio/music/OST2.ogg",
+            "monopath": "resources/audio/music/OST2_mono.ogg",
+            "triggers": [
+                "MainTheme"
+            ]
+        },
+        "Helsinki": {
+            "path": "resources/audio/music/Helsinki.ogg",
+            "monopath": "resources/audio/music/Helsinki.ogg",
+            "triggers": [
+                "MainTheme"
+            ]
+        },
+        "January_Theme": {
+            "path": "resources/audio/music/January_Theme.ogg",
+            "monopath": "resources/audio/music/January_Theme.ogg",
+            "triggers": [
+                "MainTheme"
+            ]
+        },
+        "SarahTheme": {
+            "path": "resources/audio/music/Sarah_Theme.ogg",
+            "monopath": "resources/audio/music/Sarah_Theme_mono.ogg",
+            "triggers": [
+                "MainTheme"
+            ]
+        },
+
+        "Above_the_Clouds": {
+            "path": "resources/audio/music/Above_the_Clouds.ogg",
+            "monopath": "resources/audio/music/Above_the_Clouds.ogg",
+            "triggers": [
+                "MainMenu"
+            ]
+        },
+		"Reflections": {
+            "path": "resources/audio/music/Reflections.ogg",
+            "monopath": "resources/audio/music/Reflections.ogg",
+            "triggers": [
+                "MainTheme"
+            ]
+        },
+		"Tranquil Abduction": {
+            "path": "resources/audio/music/Tranquil_Abduction.ogg",
+            "monopath": "resources/audio/music/Tranquil_Abduction.ogg",
+            "triggers": [
+                "MainTheme"
+            ]
+        }
+    },
+    "Sound": {
+        "BadSelect": {
+            "path": "resources/audio/sound effects/menu/Bad Select.ogg",
+            "monopath": "resources/audio/sound effects/menu/Bad Select_mono.ogg",
+            "triggers": []
+        },
+        "DownSelect": {
+            "path": "resources/audio/sound effects/menu/Down Select.ogg",
+            "monopath": "resources/audio/sound effects/menu/Down Select_mono.ogg",
+            "triggers": []
+        },
+        "MajorSelection": {
+            "path": "resources/audio/sound effects/menu/Major Selection.ogg",
+            "monopath": "resources/audio/sound effects/menu/Major Selection_mono.ogg",
+            "triggers": []
+        },
+        "Nature": {
+            "path": "resources/audio/sound effects/menu/Nature Still Air and Birds.ogg",
+            "monopath": "resources/audio/sound effects/menu/Nature Still Air and Birds_mono.ogg",
+            "triggers": [
+                "NatureSounds"
+            ]
+        },
+        "NegativeSelect": {
+            "path": "resources/audio/sound effects/menu/Negative Select.ogg",
+            "monopath": "resources/audio/sound effects/menu/Negative Select_mono.ogg",
+            "triggers": []
+        },
+        "NegativeSelect2": {
+            "path": "resources/audio/sound effects/menu/Negative Select 2.ogg",
+            "monopath": "resources/audio/sound effects/menu/Negative Select 2_mono.ogg",
+            "triggers": []
+        },
+        "PositiveJingle": {
+            "path": "resources/audio/sound effects/menu/Positive Jingle.ogg",
+            "monopath": "resources/audio/sound effects/menu/Positive Jingle_mono.ogg",
+            "triggers": []
+        },
+        "PositiveSelect": {
+            "path": "resources/audio/sound effects/menu/Positive Select.ogg",
+            "monopath": "resources/audio/sound effects/menu/Positive Select_mono.ogg",
+            "triggers": []
+        },
+        "StrongWinds": {
+            "path": "resources/audio/sound effects/menu/Strong Winds.ogg",
+            "monopath": "resources/audio/sound effects/menu/Strong Winds_mono.ogg",
+            "triggers": [
+                "NatureSounds"
+            ]
+        },
+        "UpSelect": {
+            "path": "resources/audio/sound effects/menu/Up Select.ogg",
+            "monopath": "resources/audio/sound effects/menu/Up Select_mono.ogg",
+            "triggers": []
+        },
+        "Terrain1": {
+            "path": "resources/audio/sound effects/terrain/Terrain 1.ogg",
+            "monopath": "resources/audio/sound effects/terrain/Terrain 1_mono.ogg",
+            "triggers": []
+        },
+        "Terrain2": {
+            "path": "resources/audio/sound effects/terrain/Terrain 2.ogg",
+            "monopath": "resources/audio/sound effects/terrain/Terrain 2_mono.ogg",
+            "triggers": []
+        },
+        "Terrain3": {
+            "path": "resources/audio/sound effects/terrain/Terrain 3.ogg",
+            "monopath": "resources/audio/sound effects/terrain/Terrain 3_mono.ogg",
+            "triggers": []
+        },
+        "Terrain4": {
+            "path": "resources/audio/sound effects/terrain/Terrain 4.ogg",
+            "monopath": "resources/audio/sound effects/terrain/Terrain 4_mono.ogg",
+            "triggers": []
+        },
+        "Terrain5": {
+            "path": "resources/audio/sound effects/terrain/Terrain 5.ogg",
+            "monopath": "resources/audio/sound effects/terrain/Terrain 5_mono.ogg",
+            "triggers": []
+        },
+        "Terrain6": {
+            "path": "resources/audio/sound effects/terrain/Terrain 6.ogg",
+            "monopath": "resources/audio/sound effects/terrain/Terrain 6_mono.ogg",
+            "triggers": []
+        },
+        "Terrain7": {
+            "path": "resources/audio/sound effects/terrain/Terrain 7.ogg",
+            "monopath": "resources/audio/sound effects/terrain/Terrain 7_mono.ogg",
+            "triggers": []
+        },
+        "PlacementFail": {
+            "path": "resources/audio/sound effects/game/fail_placement.ogg",
+            "monopath": "resources/audio/sound effects/game/fail_placement.ogg",
+            "triggers": []
+        }
+    }
+}
