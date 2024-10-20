@@ -1,8 +1,9 @@
 use sdl2::Sdl;
-mod settings; // Declare the module
 use std::env;
 use sdl2::pixels::Color;
 use sdl2::event::Event;
+
+mod settings;
 
 fn main() -> Result<(), String> {
     let context: Sdl = sdl2::init().unwrap();
@@ -20,7 +21,7 @@ fn main() -> Result<(), String> {
 
     let window = video_subsystem
         .window(
-            "SDL2",
+            "Cytopia",
             screen_width,
             screen_height,
         )
@@ -50,6 +51,12 @@ fn main() -> Result<(), String> {
                 Event::MouseMotion { timestamp, window_id, which, mousestate, x, y, xrel, yrel } => {
                     println!("Mouse moved: x={}, y={}", x, y);
                 },
+                Event::MouseButtonDown { timestamp, window_id, which, mouse_btn, clicks, x, y } => {
+                    println!("Mouse button pressed: x={}, y={}", x, y);
+                },
+                Event::MouseButtonUp { timestamp, window_id, which, mouse_btn, clicks, x, y } => {
+                    println!("Mouse button released: x={}, y={}", x, y);
+                }
                 Event::Quit { .. } => {
                     running = false;
                 }
