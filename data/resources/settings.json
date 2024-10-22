@@ -1,45 +1,45 @@
 {
-  "SettingsVersion": 1,
-  "Audio": {
-    "Audio3DStatus": false,
-    "AudioChannels": 2,
-    "MusicVolume": 0.5,
-    "PlayMusic": true,
-    "PlaySoundEffects": true,
-    "SoundEffectsVolume": 1
+  "settings_version": 1,
+  "audio": {
+    "audio_3d_status": false,
+    "audio_channels": 2,
+    "music_volume": 0.5,
+    "play_music": true,
+    "play_sound_effects": true,
+    "sound_effects_volume": 1
   },
-  "ConfigFiles": {
-    "AudioConfigJSONFile": "resources/data/AudioConfig.json",
-    "TileDataJSONFile": "resources/data/TileData.json",
-    "UIDataJSONFile": "resources/data/UIData.json",
-    "UILayoutJSONFile": "resources/data/UILayout.json"
+  "config_files": {
+    "audio_config_json_file": "resources/data/AudioConfig.json",
+    "tile_data_json_file": "resources/data/TileData.json",
+    "ui_data_json_file": "resources/data/UIData.json",
+    "ui_layout_json_file": "resources/data/UILayout.json"
   },
-  "Game": {
-    "Biome": "Showcase",
-    "Language": "en",
-    "MapSize": 128,
-    "MaxElevationHeight": 32,
-    "ShowBuildingsInBlueprint": false,
-    "ZoneLayerTransparency": 0.6
+  "game": {
+    "biome": "Showcase",
+    "language": "en",
+    "map_size": 128,
+    "max_elevation_height": 32,
+    "show_buildings_in_blueprint": false,
+    "zone_layer_transparency": 0.6
   },
-  "Graphics": {
-    "FullScreen": false,
-    "FullScreenMode": 0,
-    "Resolution": {
-      "Screen_Height": 600,
-      "Screen_Width": 800
+  "graphics": {
+    "full_screen": false,
+    "full_screen_mode": 0,
+    "resolution": {
+      "screen_height": 600,
+      "screen_width": 800
     },
-    "VSYNC": true
+    "vsync": true
   },
-  "User Interface": {
-    "BuildMenuPosition": "BOTTOM",
-    "FontFilename": "resources/fonts/pixellocale-v-1-4.ttf",
-    "Language": "en",
-    "SubMenuButtonHeight": 32,
-    "SubMenuButtonWidth": 32,
-    "DefaultFontSize": 20
+  "user_interface": { 
+    "build_menu_position": "BOTTOM",
+    "font_filename": "resources/fonts/pixellocale-v-1-4.ttf",
+    "language": "en",
+    "sub_menu_button_height": 32,
+    "sub_menu_button_width": 32,
+    "default_font_size": 20
   },
-  "Debug": {
-    "WriteErrorLogToFile": false
+  "debug": {
+    "write_error_log_to_file": false
   }
 }

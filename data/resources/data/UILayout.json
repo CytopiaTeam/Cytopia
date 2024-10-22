@@ -1,55 +1,55 @@
 {
-    "LayoutGroups": {
-        "TestLayout": [
-            {
-                "GroupName": "TestLayout",
-                "Alignment": "LEFT_CENTER",
-                "LayoutType": "HORIZONTAL"
-            }
-        ],
-        "TestLayout2": [
-            {
-                "GroupName": "TestLayout2",
-                "Alignment": "BOTTOM_CENTER",
-                "LayoutType": "VERTICAL",
-                "Padding": 12
-            }
-        ],
-        "PauseMenuButtons": [
-            {
-                "GroupName": "PauseMenuButtons",
-                "Alignment": "CENTER",
-                "LayoutType": "VERTICAL",
-                "Padding": 30,
-                "FontSize": 42
-            }
-        ],
-        "BuildMenuButtons": [
-            {
-                "GroupName": "BuildMenuButtons",
-                "Alignment": "CENTER",
-                "LayoutType": "VERTICAL",
-                "Padding": 30,
-                "FontSize": 42
-            }
-        ],
-        "LoadDialogButtons": [
-            {
-                "GroupName": "LoadDialogButtons",
-                "Alignment": "CENTER",
-                "LayoutType": "VERTICAL",
-                "Padding": 40,
-                "FontSize": 42
-            }
-        ],
-        "MainMenuButtons": [
-            {
-                "GroupName": "MainMenuButtons",
-                "Alignment": "CENTER",
-                "LayoutType": "VERTICAL",
-                "Padding": 40,
-                "FontSize": 42
-            }
-        ]
-    }
+  "layout_groups": {
+    "test_layout": [
+      {
+        "group_name": "TestLayout",
+        "alignment": "LEFT_CENTER",
+        "layout_type": "HORIZONTAL"
+      }
+    ],
+    "test_layout_2": [
+      {
+        "group_name": "TestLayout2",
+        "alignment": "BOTTOM_CENTER",
+        "layout_type": "VERTICAL",
+        "padding": 12
+      }
+    ],
+    "pause_menu_buttons": [
+      {
+        "group_name": "PauseMenuButtons",
+        "alignment": "CENTER",
+        "layout_type": "VERTICAL",
+        "padding": 30,
+        "font_size": 42
+      }
+    ],
+    "build_menu_buttons": [
+      {
+        "group_name": "BuildMenuButtons",
+        "alignment": "CENTER",
+        "layout_type": "VERTICAL",
+        "padding": 30,
+        "font_size": 42
+      }
+    ],
+    "load_dialog_buttons": [
+      {
+        "group_name": "LoadDialogButtons",
+        "alignment": "CENTER",
+        "layout_type": "VERTICAL",
+        "padding": 40,
+        "font_size": 42
+      }
+    ],
+    "main_menu_buttons": [
+      {
+        "group_name": "MainMenuButtons",
+        "alignment": "CENTER",
+        "layout_type": "VERTICAL",
+        "padding": 40,
+        "font_size": 42
+      }
+    ]
+  }
 }

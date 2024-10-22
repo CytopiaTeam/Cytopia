@@ -1,0 +1,3 @@
+SDL2-devel-2.30.8-VC
+SDL2_image-devel-2.8.2-VC
+SDL2_ttf-devel-2.22.0-VC
