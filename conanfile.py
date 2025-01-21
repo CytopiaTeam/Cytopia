@@ -16,7 +16,7 @@ class Cytopia(ConanFile):
         self.requires("openal/1.22.2")
         self.requires("sdl/2.30.9", force=True)
         self.requires("sdl_image/2.8.2")
-        self.requires("sdl_ttf/2.22.0")
+        self.requires("sdl_ttf/2.24.0")
         self.requires("vorbis/1.3.7")
         self.requires("zlib/1.3.1", force=True)
         self.requires("libwebp/1.5.0", override=True)
