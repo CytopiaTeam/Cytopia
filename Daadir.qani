@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daadir Qani Store</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Welcome to Daadir Qani Store</h1>
+
+        <!-- TikTok Creativity Program -->
+        <div class="section">
+            <h2>TikTok Creativity Program</h2>
+            <label>Select Country:</label>
+            <select id="country">
+                <option value="usa">$4 - USA</option>
+                <option value="germany">$3 - Germany</option>
+                <option value="paris">$2.5 - Paris</option>
+            </select>
+            <button onclick="buyTikTok()">Buy Now</button>
+        </div>
+
+        <!-- Crypto Exchange -->
+        <div class="section">
+            <h2>Crypto Exchange</h2>
+            <label>Select Currency:</label>
+            <select id="crypto">
+                <option value="usdt">USDT</option>
+                <option value="opbnb">opBNB</option>
+                <option value="bnb">BNB Smart</option>
+                <option value="tron">TRON</option>
+            </select>
+            <label>Amount:</label>
+            <input type="number" id="amount" placeholder="Enter Amount">
+            <button onclick="exchangeCrypto()">Exchange</button>
+        </div>
+
+        <!-- AI Section (Placeholder) -->
+        <div class="section">
+            <h2>AI Assistant</h2>
+            <p>AI Feature Coming Soon...</p>
+        </div>
+
+        <!-- Login & Signup -->
+        <div class="section">
+            <h2>Login / Signup</h2>
+            <div id="g_id_onload"
+                data-client_id="YOUR_GOOGLE_CLIENT_ID"
+                data-callback="handleGoogleLogin">
+            </div>
+            <div class="g_id_signin" data-type="standard"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
