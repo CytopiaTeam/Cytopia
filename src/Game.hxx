@@ -44,7 +44,7 @@ public:
     * @details starts running the game
     * @param SkipMenu if the main menu should be skipped or not
     */
-  virtual void run(bool SkipMenu = false);
+  virtual void run();
 
   /// ends the game
   virtual void shutdown();
