@@ -79,7 +79,7 @@ void Game::initialize()
   LOG(LOG_DEBUG) << "Initialized Game Object";
 }
 
-void Game::run(bool SkipMenu)
+void Game::run()
 {
   Camera::instance().centerScreenOnMapCenter();
 
