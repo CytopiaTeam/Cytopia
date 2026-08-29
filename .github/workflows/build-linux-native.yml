@@ -1,0 +1,50 @@
+name: Build Linux (distro packages)
+
+# Self-contained CI job: builds against the SDL2/OpenAL/libnoise packages
+# shipped by the distro instead of Conan profiles. It needs no external
+# services, so it keeps working even if third-party infrastructure
+# (personal git servers, CDN downloads) goes away.
+
+on: [push, pull_request]
+
+jobs:
+  linux-gcc:
+    name: Linux (GCC, distro packages)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          echo -e 'pcm.!default {\n type plug\n slave.pcm "null"\n}' > ~/.asoundrc
+          sudo apt-get update
+          sudo apt-get -y install \
+            ninja-build \
+            libsdl2-dev \
+            libsdl2-image-dev \
+            libsdl2-ttf-dev \
+            libnoise-dev \
+            libpng-dev \
+            zlib1g-dev \
+            libopenal-dev \
+            libvorbis-dev
+
+      - name: Configure
+        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_TEST=ON -G Ninja
+
+      - name: Build
+        run: cmake --build build -j"$(nproc)"
+
+      - name: Test
+        env:
+          SDL_VIDEODRIVER: dummy
+          SDL_AUDIODRIVER: dummy
+        run: ctest --test-dir build --output-on-failure -j2
+
+      - name: Upload binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: Cytopia-linux-${{ github.sha }}
+          path: |
+            build/bin/Cytopia
+            data/resources

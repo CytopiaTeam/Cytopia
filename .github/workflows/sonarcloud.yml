@@ -9,6 +9,9 @@ on:
 jobs:
   build:
     name: sonarcloud scan
+    # Only run on the upstream repo: forks lack the SONAR_TOKEN secret and the
+    # scan step downloads a runner script from an external CDN.
+    if: github.repository == 'CytopiaTeam/Cytopia'
     runs-on: ubuntu-latest
     env:
       CONAN_SYSREQUIRES_MODE: "enabled"
