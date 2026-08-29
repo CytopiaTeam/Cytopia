@@ -14,6 +14,24 @@ find_path(LibNoise_INCLUDE_DIR noise/noise.h
         PATH_SUFFIXES include
         HINTS ${LIBNOISE_DIR} $ENV{LIBNOISE_DIR}
         )
+
+# Debian/Ubuntu install the headers in <prefix>/include/libnoise/ instead of
+# <prefix>/include/noise/. Provide a compatibility symlink so that
+# <noise/noise.h> keeps working with distro packages.
+if (NOT LibNoise_INCLUDE_DIR)
+    find_path(LibNoise_INCLUDE_DIR libnoise/noise.h
+            PATH_SUFFIXES include
+            HINTS ${LIBNOISE_DIR} $ENV{LIBNOISE_DIR}
+            )
+    if (LibNoise_INCLUDE_DIR)
+        set(_noise_compat_dir "${CMAKE_BINARY_DIR}/noise-compat")
+        file(MAKE_DIRECTORY "${_noise_compat_dir}")
+        if (NOT EXISTS "${_noise_compat_dir}/noise")
+            file(CREATE_LINK "${LibNoise_INCLUDE_DIR}/libnoise" "${_noise_compat_dir}/noise" SYMBOLIC)
+        endif ()
+        set(LibNoise_INCLUDE_DIR "${_noise_compat_dir}")
+    endif ()
+endif ()
 find_library(LibNoise_LIBRARY
         NAMES noise noiseutils noise-static noiseutils-static
         PATH_SUFFIXES lib/x64 lib/x86
