@@ -8,8 +8,10 @@ endif ()
 
 include(FindPackageHandleStandardArgs)
 
-find_path(LibNoise_INCLUDE_DIR noise.h
-        PATH_SUFFIXES include include/noise include/libnoise
+# Cytopia includes libnoise as <noise/noise.h>, so the include directory must
+# be the parent of the noise/ folder (e.g. <prefix>/include), not the folder itself.
+find_path(LibNoise_INCLUDE_DIR noise/noise.h
+        PATH_SUFFIXES include
         HINTS ${LIBNOISE_DIR} $ENV{LIBNOISE_DIR}
         )
 find_library(LibNoise_LIBRARY
