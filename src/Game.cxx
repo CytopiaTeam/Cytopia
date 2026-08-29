@@ -81,6 +81,12 @@ void Game::initialize()
 
 void Game::run(bool SkipMenu)
 {
+  if (SkipMenu)
+  {
+    // --skipMenu jumps straight into the game, so it needs to start one
+    newGame(true);
+  }
+
   Camera::instance().centerScreenOnMapCenter();
 
   SDL_Event event;
