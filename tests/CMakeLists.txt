@@ -1,4 +1,10 @@
-include(codecov)
+# Coverage tooling is opt-in: the codecov/FindGcov/FindLcov modules are fetched
+# from a third-party server by CMakeCM, which breaks offline builds and adds a
+# supply-chain dependency nobody needs for a regular test run.
+option(ENABLE_COVERAGE "Enable code coverage instrumentation (downloads codecov cmake modules)" OFF)
+if (ENABLE_COVERAGE)
+    include(codecov)
+endif ()
 
 set(TESTS_PROJECT_NAME Cytopia_Tests)
 
@@ -114,5 +120,7 @@ set_target_properties(
 
 catch_discover_tests(${TESTS_PROJECT_NAME})
 
-add_coverage(${TESTS_PROJECT_NAME})
-coverage_evaluate()
+if (ENABLE_COVERAGE)
+    add_coverage(${TESTS_PROJECT_NAME})
+    coverage_evaluate()
+endif ()
