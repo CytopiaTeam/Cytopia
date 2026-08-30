@@ -21,3 +21,4 @@ find_package(microprofile CONFIG)
 option(USE_MICROPROFILE "use Microprofile" OFF)
 
 include(FixSDLTargets)
+include(FixLibNoise)
