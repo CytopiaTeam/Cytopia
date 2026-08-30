@@ -2,14 +2,6 @@
 
 [![Discord](https://img.shields.io/discord/448344322887254018.svg?logo=discord)](https://discord.gg/qwa2H3G)
 
-[![Total alerts](https://img.shields.io/lgtm/alerts/g/JimmySnails/Cytopia.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/JimmySnails/Cytopia/alerts/)
-[![Language grade: C/C++](https://img.shields.io/lgtm/grade/cpp/g/JimmySnails/Cytopia.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/JimmySnails/Cytopia/context:cpp)
-
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=cytopia&metric=alert_status)](https://sonarcloud.io/dashboard?id=cytopia)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=cytopia&metric=coverage)](https://sonarcloud.io/dashboard?id=cytopia)
-
-[![Translations](https://hosted.weblate.org/widgets/cytopia/-/game/svg-badge.svg)](https://hosted.weblate.org/projects/cytopia/)
-
 
 <b>Website/Forums</b> - Cytopia.net - <https://www.cytopia.net/><br>
 <b>YouTube</b> - Cytopia - <https://www.youtube.com/channel/UCJIzKBD3wl6KRohiX6i53GA><br>
@@ -79,8 +71,5 @@ See: <https://github.com/CytopiaTeam/Cytopia/wiki/Coding-guidelines>
 
 #### Work-in-Progress Screenshot
 
-![alt text](https://cytopia.net/github/Screenshot1.png)
-![alt text](https://cytopia.net/github/Screenshot2.jpg)
-
-We're proud to be part of Jetbrains opensource program!  
-[<img src="https://cytopia.net/github/jetbrains.png" alt="Jetbrains logo" width="200" height="200"> ](https://www.jetbrains.com/?from=Cytopia)
+![alt text](./data/images/Screenshot1.png)
+![alt text](./data/images/Screenshot2.png)
