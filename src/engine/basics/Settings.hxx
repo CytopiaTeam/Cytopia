@@ -166,6 +166,15 @@ struct SettingsData
 
   /// Write errors to a log file
   bool writeErrorLogFile;
+
+  // ==================================
+  // Command line options
+  // ==================================
+
+  /// Sets a different video driver
+  std::string videoDriver = "Default";
+
+  bool skipMenu = false;
 };
 
 /**

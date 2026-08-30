@@ -6,11 +6,13 @@
 #include "LOG.hxx"
 #include "engine/WindowManager.hxx"
 #include <UIManager.hxx>
+#include "SimpleOpt.h"
+#include "ParseCli.hxx"
 
 #include <SDL.h>
 #include <SDL_ttf.h>
 
-bool initialize(const char *videoDriver)
+bool initialize()
 {
   if (SDL_Init(0) != 0)
   {
@@ -18,6 +20,10 @@ bool initialize(const char *videoDriver)
     LOG(LOG_ERROR) << "SDL Error: " << SDL_GetError();
     return false;
   }
+
+  const char *videoDriver = nullptr;
+  if (Settings::instance().videoDriver != "Default")
+    videoDriver = Settings::instance().videoDriver.c_str();
 
   if (SDL_VideoInit(videoDriver) != 0)
   {
@@ -47,29 +53,9 @@ bool initialize(const char *videoDriver)
 
 int protected_main(int argc, char **argv)
 {
-  (void)argc;
-  (void)argv;
-
-  LOG(LOG_INFO) << VERSION;
-
-  // add commandline parameter to skipMenu
-  auto has_args = [argv, argc](const std::string &param)
-  {
-    for (int i = 1; i < argc; ++i)
-      if (param == argv[i])
-        return i;
-
-    LOG(LOG_DEBUG) << "Unknown game option " << param;
-    return 0;
-  };
-
-  bool skipMenu = has_args("--skipMenu");
-  uint32_t videoOpt = has_args("--video");
-  const char *videoDriver = nullptr;
-  if (videoOpt)
-  {
-    videoDriver = argv[videoOpt + 1];
-  }
+  ParseCli cli;
+  if (!cli.ProcessCommandLine(argc, argv))
+    return EXIT_FAILURE;
 
   LOG(LOG_DEBUG) << "Launching Cytopia";
 
@@ -77,13 +63,13 @@ int protected_main(int argc, char **argv)
 
   LOG(LOG_DEBUG) << "Initializing Cytopia";
 
-  if (!initialize(videoDriver))
+  if (!initialize())
     return EXIT_FAILURE;
   else
     LOG(LOG_DEBUG) << "DONE Cytopia";
 
   bool startGame = true;
-  if (!skipMenu)
+  if (!Settings::instance().skipMenu)
   {
     startGame = mainMenu();
   }
@@ -91,7 +77,7 @@ int protected_main(int argc, char **argv)
   if (startGame)
   {
     LOG(LOG_DEBUG) << "Running the Game";
-    game.run(skipMenu);
+    game.run();
   }
 
   LOG(LOG_DEBUG) << "Closing the Game";
