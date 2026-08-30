@@ -37,13 +37,7 @@ WindowManager::WindowManager()
     throw UIError(TRACE_INFO "Failed to create window: " + string{SDL_GetError()});
 
   rendererFlags = SDL_RENDERER_ACCELERATED | (Settings::instance().vSync ? SDL_RENDERER_PRESENTVSYNC : 0);
-
-#if defined(TESTING_ENABLED) && defined(__linux)
-  // Set the index to 2 for running tests
-  m_renderer = SDL_CreateRenderer(m_window, 2, rendererFlags);
-#else
   m_renderer = SDL_CreateRenderer(m_window, -1, rendererFlags);
-#endif
 
   SDL_RendererInfo info;
   SDL_GetRendererInfo(m_renderer, &info);

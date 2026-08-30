@@ -17,6 +17,7 @@ class Cytopia(ConanFile):
         self.requires("sdl_image/2.8.12")
         self.requires("sdl_ttf/2.24.0")
         self.requires("vorbis/1.3.7")
+        self.requires("zlib/1.3.1", force=True)
 
     def generate(self):
         tc = CMakeToolchain(self)

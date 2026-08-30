@@ -127,12 +127,9 @@ jobs:
           ninja
 
       - name: Test
-        env:
-          SDL_VIDEODRIVER: dummy
-          SDL_AUDIODRIVER: dummy
         run: |
           cd build
-          ctest -j2 --output-on-failure
+          xvfb-run -a ctest -j2 --output-on-failure
 
       - name: Upload build to itch.io
         env:

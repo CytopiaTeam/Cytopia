@@ -26,7 +26,6 @@ endforeach ()
 
 LIST(APPEND TEST_SOURCES
         main.cxx
-        Example.cxx
         engine/basics/Point.cxx
         engine/basics/Settings.cxx
         engine/ResourcesManager.cxx
