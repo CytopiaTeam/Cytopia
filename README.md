@@ -2,16 +2,9 @@
 
 [![Discord](https://img.shields.io/discord/448344322887254018.svg?logo=discord)](https://discord.gg/qwa2H3G)
 
-
-<b>Website/Forums</b> - Cytopia.net - <https://www.cytopia.net/><br>
-<b>YouTube</b> - Cytopia - <https://www.youtube.com/channel/UCJIzKBD3wl6KRohiX6i53GA><br>
-<b>Twitter</b> - @CytopiaGame - <https://twitter.com/CytopiaGame><br>
-<b>Reddit</b> - r/Cytopia - <https://www.reddit.com/r/Cytopia/><br>
 <b>Discord</b> - Cytopia - <https://discord.gg/MG3tgYV6ce><br>
-<b>Patreon</b> - Cytopia by Jimmy Snails - <https://www.patreon.com/cytopia><br>
 <b>Itch io</b> - Cytopia - <https://cytopia.itch.io/cytopia><br>
 <b>GitHub</b> - Cytopia by CytopiaTeam - <https://github.com/CytopiaTeam/Cytopia><br>
-<b>Translation project on Weblate</b> - Cytopia - <https://hosted.weblate.org/projects/cytopia/><br>
 
 Cytopia is a free, open source retro pixel-art city building game with a big focus on mods. It utilizes a custom isometric rendering engine based on SDL2.
 
@@ -38,9 +31,6 @@ For code documentation, see the project's [Doxygen Documentation](https://cytopi
 If you have questions or if you want to join the project, visit the [Project's Discord Server](https://discord.gg/qwa2H3G).
 If Discord is not for you, visit our IRC channel on freenode at #Cytopia
 
-In case you want to support our project on patreon, visit our [Patreon Page](https://patreon.com/cytopia).
-
-
 #### Supported Platforms
 Linux (clang / g++-5 or higher)
 Windows
@@ -48,7 +38,7 @@ Mac
 
 #### Prerequisites
 
-- [CMake 3.16 or later](https://cmake.org/)
+- [CMake](https://cmake.org/)
 - [Conan](https://conan.io)
 - [SDL2](https://www.libsdl.org/)
 - [SDL2_tff](https://www.libsdl.org/)
