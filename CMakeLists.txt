@@ -20,7 +20,7 @@ project(
         # Description
         DESCRIPTION "A city-building game"
         # we are using C++
-        LANGUAGES CXX
+        LANGUAGES C CXX
 )
 
 
