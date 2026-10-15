@@ -80,7 +80,7 @@ void TerrainGenerator::generateTerrain(std::vector<MapNode> &mapNodes, std::vect
   highFrequencyNoise.SetSeed(m_terrainSettings.seed + 42);
   highFrequencyNoise.SetFrequency(1);
 
-  const int mapSize = m_terrainSettings.mapSize;
+  const int mapSize = Settings::instance().mapSize;
   const size_t vectorSize = static_cast<size_t>(mapSize * mapSize);
   mapNodes.reserve(vectorSize);
 
