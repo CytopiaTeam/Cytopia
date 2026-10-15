@@ -60,7 +60,7 @@ inline void from_json(const json &j, SettingsData &s)
   s.fontFileName = j["User Interface"].value("FontFilename", "resources/fonts/arcadeclassics.ttf");
   s.subMenuButtonWidth = j["User Interface"].value("SubMenuButtonWidth", 32);
   s.subMenuButtonHeight = j["User Interface"].value("SubMenuButtonHeight", 32);
-  s.defaultFontSize = j["User Interface"].value("defaultFontSize", 20);
+  s.defaultFontSize = j["User Interface"].value("DefaultFontSize", 20);
   s.writeErrorLogFile = j["Debug"].value("WriteErrorLogToFile", false);
 }
 
