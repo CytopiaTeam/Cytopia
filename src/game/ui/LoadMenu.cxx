@@ -62,7 +62,8 @@ void LoadMenu::draw() const
   ImGui::BeginChild("##loadbuttons", {0.f, windowSize.y * 0.6f}, false, ImGuiWindowFlags_NoTitleBar);
 
   std::string path = CYTOPIA_DATA_DIR + "/saves";
-  for (const auto &entry : fs::directory_iterator(path))
+  const auto saves = fs::exists(path) ? fs::directory_iterator(path) : fs::directory_iterator();
+  for (const auto &entry : saves)
   {
     if (!fs::is_regular_file(entry) || entry.path().extension() != ".cts")
       continue;
