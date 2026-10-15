@@ -31,6 +31,23 @@ TEST_CASE("Create Map without procedural terrain", "[engine][engine]")
   CHECK(map != nullptr);
 }
 
+TEST_CASE("Procedural terrain uses the configured map size", "[mapfunctions]")
+{
+  auto &settings = Settings::instance();
+  const int originalMapSize = settings.mapSize;
+  settings.mapSize = 32;
+
+  auto &maps = MapFunctions::instance();
+  maps.newMap(true);
+  const size_t nodeCount = maps.getMapNodes().size();
+  const Point lastCoordinate = maps.getMapNodes().back().getCoordinates();
+
+  settings.mapSize = originalMapSize;
+
+  CHECK(nodeCount == 32 * 32);
+  CHECK(lastCoordinate == Point{31, 31});
+}
+
 TEST_CASE("Save and load Map", "[engine][engine]")
 {
   MapFunctions::instance(); //init
