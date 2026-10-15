@@ -2,6 +2,7 @@
 #include "../../src/engine/common/Constants.hxx"
 #include "../../src/util/Filesystem.hxx"
 #include "../../src/engine/basics/Settings.hxx"
+#include <UIManager.hxx>
 
 using string = std::string;
 
@@ -34,6 +35,27 @@ TEST_CASE("Write settings to file", "[settings][settings]")
   Settings::instance().readFile();
   
   CHECK(Settings::instance().mapSize == mapSize);
+}
+
+TEST_CASE("Default font size survives saving and loading settings", "[settings]")
+{
+  auto &settings = Settings::instance();
+  const uint32_t originalFontSize = settings.defaultFontSize;
+  settings.defaultFontSize = 28;
+  settings.writeFile();
+  settings.readFile();
+
+  auto &uiManager = UIManager::instance();
+  json uiLayout;
+  uiManager.loadSettings(uiLayout);
+  uiManager.parseLayouts(uiLayout);
+  const auto loadedFontSize = uiManager.getLayouts().at("TestLayout").fontSize;
+
+  settings.defaultFontSize = originalFontSize;
+  settings.writeFile();
+  uiManager.parseLayouts(uiLayout);
+
+  CHECK(loadedFontSize == 28);
 }
 
 TEST_CASE("Write settings to data dir", "[settings][settings]")
